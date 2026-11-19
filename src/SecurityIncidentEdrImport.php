@@ -107,6 +107,8 @@ class SecurityIncidentEdrImport extends SecurityIncidentEdrImportBase
     /**
      * @param array{headers: list<string>, rows: list<list<string>>} $parsed
      * @param array<string, int> $mapping
+     * @param int|null $entityId entité des incidents créés (null : entité active ; issue #707,
+     *     propositions SentinelOne créées dans l'entité de leur ordinateur)
      * @return array{created: list<int>, updated: list<int>, skipped: int}
      */
     public static function import(
@@ -116,7 +118,8 @@ class SecurityIncidentEdrImport extends SecurityIncidentEdrImportBase
         string $timezone,
         int $targetIncidentId,
         string $fileName,
-        string $fileHash
+        string $fileHash,
+        ?int $entityId = null
     ): array {
         global $DB;
 
@@ -151,7 +154,7 @@ class SecurityIncidentEdrImport extends SecurityIncidentEdrImportBase
                     'category'    => self::guessCategory($group),
                     'source'      => 'edr',
                     'external_id' => mb_substr(implode(', ', $group['external_ids']), 0, 255),
-                    'entities_id' => (int) ($_SESSION['glpiactive_entity'] ?? 0),
+                    'entities_id' => $entityId ?? (int) ($_SESSION['glpiactive_entity'] ?? 0),
                 ]);
                 if ($incidentId <= 0) {
                     continue;

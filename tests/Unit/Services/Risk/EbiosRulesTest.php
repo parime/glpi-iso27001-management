@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Services\Risk;
 
 use GlpiPlugin\Grcmanager\Services\Risk\EbiosRules;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskScale;
 use PHPUnit\Framework\TestCase;
 
 final class EbiosRulesTest extends TestCase
@@ -101,5 +103,29 @@ final class EbiosRulesTest extends TestCase
             EbiosRules::progress([1 => 4, 2 => 1, 3 => 0, 4 => 2])
         );
         self::assertNull(EbiosRules::progress([1 => 1, 2 => 1, 3 => 1, 4 => 1, 5 => 1])['next']);
+    }
+
+    /**
+     * Issue #706 : avec une matrice du registre en 5x5, les scénarios gardent le niveau qu'ils
+     * auraient en 4x4 (grilles par défaut), sauf au plus une case.
+     */
+    public function testFiveByFiveRegisterKeepsTheScenarioLevels(): void
+    {
+        $five = RiskMatrixDefaults::MATRIX_5;
+        $changed = 0;
+        foreach (EbiosRules::LEVELS as $severity) {
+            foreach (EbiosRules::LEVELS as $likelihood) {
+                $changed += (int) (EbiosRules::riskLevel($severity, $likelihood)
+                    !== EbiosRules::riskLevel($severity, $likelihood, $five, 5));
+                self::assertContains(
+                    EbiosRules::likelihoodToProbability($likelihood, 5),
+                    RiskScale::probabilityKeys(5)
+                );
+            }
+        }
+        self::assertLessThanOrEqual(1, $changed);
+        self::assertSame('very_rare', EbiosRules::likelihoodToProbability(1, 5));
+        self::assertSame('rare', EbiosRules::likelihoodToProbability(1));
+        self::assertSame('critical', EbiosRules::riskMatrix([], $five, 5)[4][4]['level']);
     }
 }

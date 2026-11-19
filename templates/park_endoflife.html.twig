@@ -1,0 +1,113 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #704 : fin de support des logiciels, systèmes d'exploitation et firmwares du parc
+   (endoflife.date), dans les entités de la personne. Un groupe par nom et version installée. #}
+{% set eol = endoflife %}
+<div class="card mt-3" id="grc-endoflife">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-calendar-x me-2"></i>{{ __('End of support (endoflife.date)', 'grcmanager') }}</h3>
+      <div class="card-actions d-flex gap-2">
+         {% if eol.enabled %}<a class="btn btn-sm btn-outline-secondary" href="{{ eol.export_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export (CSV)', 'grcmanager') }}</a>{% endif %}
+         {% if can_config %}<a class="btn btn-sm btn-ghost-secondary" href="{{ eol.config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Settings and links', 'grcmanager') }}</a>{% endif %}
+      </div>
+   </div>
+   {% if not eol.enabled %}
+      <div class="card-body text-muted">
+         <i class="ti ti-plug-off me-1"></i>{{ __('Not enabled: the plugin can show which software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date.', 'grcmanager') }}
+         {% if can_config %}<a href="{{ eol.config_url }}">{{ __('Enable it in the configuration', 'grcmanager') }}</a>{% endif %}
+      </div>
+   {% else %}
+      <div class="card-body pb-0">
+         <div class="row row-cards mb-3">
+            {% for code in ['eol', 'soon', 'supported', 'unknown'] %}
+               {% set info = eol.statuses[code] %}
+               <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body" title="{{ info.help }}">
+                  <div class="d-flex align-items-center">
+                     <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-2"><i class="{{ info.icon }}"></i></span>
+                     <div>
+                        <div class="fw-bold">{{ eol.counts[code] }} <span class="fw-normal">{{ info.label }}</span></div>
+                        <div class="text-muted small">{{ _n('%d asset', '%d assets', eol.asset_counts[code], 'grcmanager')|format(eol.asset_counts[code]) }}</div>
+                     </div>
+                  </div>
+               </div></div></div>
+            {% endfor %}
+         </div>
+         <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <div class="btn-group" role="group">
+               <a class="btn btn-sm {{ eol.all ? 'btn-outline-primary' : 'btn-primary' }}" href="{{ action }}#grc-endoflife">{{ __('Ended or ending soon', 'grcmanager') }}</a>
+               <a class="btn btn-sm {{ eol.all ? 'btn-primary' : 'btn-outline-primary' }}" href="{{ action }}?eol=all#grc-endoflife">{{ __('All followed items', 'grcmanager') }}</a>
+            </div>
+            <span class="text-muted small">{{ __('"End of support soon": within %d days.', 'grcmanager')|format(eol.warning_days) }}</span>
+         </div>
+         {% if eol.never_read %}
+            <div class="alert alert-info py-2"><i class="ti ti-info-circle me-1"></i>{{ __('The end of support dates have not been read yet: they arrive with the next daily task, or with the button "Update now" of the configuration.', 'grcmanager') }}</div>
+         {% elseif eol.errors is not empty %}
+            <div class="alert alert-warning py-2"><i class="ti ti-alert-triangle me-1"></i>{{ __('Some products could not be read during the last update: their previous data is still used.', 'grcmanager') }}
+               {% for error in eol.errors %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1">{{ error.product }} : {{ error.label }}</span>{% endfor %}
+            </div>
+         {% endif %}
+         {% if eol.unlinked > 0 %}
+            <p class="small text-muted mb-2"><i class="ti ti-link-off me-1"></i>{{ _n('%d name of the inventory is not linked to an endoflife.date product and is not followed.', '%d names of the inventory are not linked to an endoflife.date product and are not followed.', eol.unlinked, 'grcmanager')|format(eol.unlinked) }}
+               {% if can_config %}<a href="{{ eol.config_url }}">{{ __('Add a link', 'grcmanager') }}</a>{% endif %}</p>
+         {% endif %}
+         {% if eol.total_groups > eol.groups|length %}
+            <p class="small">{{ __('%1$d items: the %2$d most urgent ones are shown, all of them are in the export.', 'grcmanager')|format(eol.total_groups, eol.groups|length) }}</p>
+         {% endif %}
+      </div>
+      {% if eol.groups is empty %}
+         <div class="card-body text-muted pt-0">
+            <i class="ti ti-circle-check me-1 text-success"></i>{{ eol.all ? __('No followed item in your entities.', 'grcmanager') : __('No followed item has reached or is close to its end of support.', 'grcmanager') }}
+         </div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Status', 'grcmanager') }}</th>
+                  <th>{{ __('Item', 'grcmanager') }}</th>
+                  <th>{{ __('Release cycle', 'grcmanager') }}</th>
+                  <th>{{ __('End of support', 'grcmanager') }}</th>
+                  <th>{{ __('Assets', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for group in eol.groups %}
+                  <tr>
+                     <td><span class="badge bg-{{ group.status.color }}-subtle text-{{ group.status.color }}-emphasis" title="{{ group.status.help }}"><i class="{{ group.status.icon }} me-1"></i>{{ group.status.label }}</span></td>
+                     <td>
+                        <span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ group.kind_label }}</span>{{ group.name }}
+                        {% if group.version %}<span class="text-muted">{{ group.version }}</span>{% endif %}
+                        <div class="small text-muted">
+                           {% if group.product_url %}<a href="{{ group.product_url }}" target="_blank" rel="noopener noreferrer">{{ group.product }}</a>{% else %}{{ group.product }}{% endif %}
+                           · {{ group.origin_label }}
+                        </div>
+                     </td>
+                     <td>{{ group.cycle ?: '-' }}{% if group.latest %}<div class="small text-muted">{{ __('latest: %s', 'grcmanager')|format(group.latest) }}</div>{% endif %}</td>
+                     <td class="small">{{ group.detail }}</td>
+                     <td>
+                        <span class="fw-bold">{{ group.count }}</span>
+                        <div class="small">
+                        {% for asset in group.assets %}
+                           {% if asset.url %}<a href="{{ asset.url }}" title="{{ asset.type }}">{{ asset.name }}</a>{% else %}{{ asset.name }}{% endif %}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                        {% if group.count > group.assets|length %}<span class="text-muted">…</span>{% endif %}
+                        </div>
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   {% endif %}
+</div>

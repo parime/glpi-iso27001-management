@@ -1,0 +1,226 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #703 : registre NIS2 Italia - ACN d'une entité, tableau de bord et liste des exigences. #}
+{% set status_classes = {
+   'not_started': ['bg-secondary-subtle text-secondary-emphasis', 'ti-player-stop'],
+   'in_progress': ['bg-blue-subtle text-blue-emphasis', 'ti-tool'],
+   'implemented': ['bg-green-subtle text-green-emphasis', 'ti-circle-check'],
+   'verified':    ['bg-teal-subtle text-teal-emphasis', 'ti-rosette-discount-check'],
+} %}
+
+<div class="container-fluid" style="max-width: 1400px;">
+   <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+      <div>
+         <h2 class="mb-1"><i class="ti ti-flag me-2"></i>NIS2 Italia – ACN</h2>
+         <div class="text-muted">{{ __('Basic security measures of the ACN determination %s (D.Lgs. 138/2024): one record per requirement.', 'grcmanager')|format(determination) }}</div>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+         <a class="btn btn-outline-secondary" href="{{ referentials_url }}"><i class="ti ti-books me-1"></i>{{ __('Reference frameworks', 'grcmanager') }}</a>
+         {% if can_configure %}
+            <a class="btn btn-outline-secondary" href="{{ config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Important or essential entities', 'grcmanager') }}</a>
+         {% endif %}
+      </div>
+   </div>
+
+   {% if dashboard is null %}
+      <div class="alert alert-info d-flex align-items-start">
+         <i class="ti ti-info-circle me-2 mt-1"></i>
+         <div>
+            {{ __('No entity is classified yet. In the configuration of the plugin, say for each GLPI entity whether it is an important entity (annex 1) or an essential entity (annex 2): its register is then created with all the requirements of its annex.', 'grcmanager') }}
+            {% if can_configure %}
+               <div class="mt-2"><a class="btn btn-primary" href="{{ config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Classify the entities', 'grcmanager') }}</a></div>
+            {% else %}
+               <div class="mt-2">{{ __('Ask an administrator of the plugin to do it.', 'grcmanager') }}</div>
+            {% endif %}
+         </div>
+      </div>
+   {% else %}
+      {% set s = dashboard.summary %}
+      <div class="card mb-3">
+         <div class="card-body d-flex flex-wrap align-items-center gap-3">
+            <div>
+               <div class="text-muted small">{{ __('Entity', 'grcmanager') }}</div>
+               <div class="fw-bold">{{ dashboard.entity }}</div>
+            </div>
+            {% if dashboard.category == 'essential' %}
+               <span class="badge bg-red-subtle text-red-emphasis fs-5"><i class="ti ti-shield-star me-1"></i>{{ categories[dashboard.category] }}</span>
+            {% else %}
+               <span class="badge bg-blue-subtle text-blue-emphasis fs-5"><i class="ti ti-shield me-1"></i>{{ categories[dashboard.category] }}</span>
+            {% endif %}
+            <span class="text-muted">{{ __('%1$d measures, %2$d requirements', 'grcmanager')|format(dashboard.measures, s.total) }}</span>
+            {% if registers|length > 1 %}
+               <form method="get" action="{{ register_url }}" class="ms-auto d-flex align-items-center gap-2">
+                  <label class="form-label mb-0" for="grcmanager-acn-register">{{ __('Register', 'grcmanager') }}</label>
+                  <select class="form-select form-select-sm w-auto" id="grcmanager-acn-register" name="entities_id" onchange="this.form.submit()">
+                     {% for id, register in registers %}
+                        <option value="{{ id }}" {{ id == entity_id ? 'selected' : '' }}>{{ register.name }} - {{ categories[register.category] }}</option>
+                     {% endfor %}
+                  </select>
+               </form>
+            {% endif %}
+            <div class="{{ registers|length > 1 ? '' : 'ms-auto' }} d-flex gap-2">
+               <a class="btn btn-outline-primary btn-sm" href="{{ export_url }}?format=csv&amp;entities_id={{ entity_id }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export CSV', 'grcmanager') }}</a>
+               <a class="btn btn-outline-primary btn-sm" href="{{ export_url }}?format=pdf&amp;entities_id={{ entity_id }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export PDF', 'grcmanager') }}</a>
+            </div>
+         </div>
+      </div>
+
+      <div class="row row-cards mb-3">
+         {% set tiles = [
+            [__('Implementation rate', 'grcmanager'), s.rate is null ? '-' : (s.rate ~ ' %'), 'ti-chart-pie', 'blue'],
+            [__('Implemented requirements', 'grcmanager'), s.done ~ ' / ' ~ s.applicable, 'ti-circle-check', 'green'],
+            [__('Overdue', 'grcmanager'), s.overdue, 'ti-alarm', s.overdue > 0 ? 'red' : 'secondary'],
+            [__('Approvals to record', 'grcmanager'), s.approvals_missing ~ ' / ' ~ s.approvals_required, 'ti-signature', s.approvals_missing > 0 ? 'orange' : 'secondary'],
+            [__('Without owner', 'grcmanager'), s.unassigned, 'ti-user-question', s.unassigned > 0 ? 'yellow' : 'secondary'],
+            [__('Not applicable', 'grcmanager'), s.not_applicable, 'ti-circle-minus', 'secondary'],
+         ] %}
+         {% for tile in tiles %}
+            <div class="col-6 col-md-4 col-xl-2">
+               <div class="card card-sm h-100">
+                  <div class="card-body d-flex align-items-center">
+                     <span class="avatar bg-{{ tile[3] }}-subtle text-{{ tile[3] }}-emphasis me-3"><i class="ti {{ tile[2] }}"></i></span>
+                     <div>
+                        <div class="fw-bold fs-3">{{ tile[1] }}</div>
+                        <div class="text-muted small">{{ tile[0] }}</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         {% endfor %}
+      </div>
+
+      <div class="card mb-3">
+         <div class="card-header"><h3 class="card-title mb-0">{{ __('By function of the national framework', 'grcmanager') }}</h3></div>
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead>
+                  <tr>
+                     <th>{{ __('Function', 'grcmanager') }}</th>
+                     <th>{{ __('Requirements', 'grcmanager') }}</th>
+                     <th>{{ __('Implementation rate', 'grcmanager') }}</th>
+                     <th>{{ __('Overdue', 'grcmanager') }}</th>
+                     <th>{{ __('Approvals to record', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for function in dashboard.functions %}
+                     {% set fs = function.summary %}
+                     <tr>
+                        <td><a href="#grcmanager-acn-{{ function.code }}"><span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ function.code }}</span>{{ function.name }}</a></td>
+                        <td>{{ fs.total }}</td>
+                        <td style="min-width: 160px;">
+                           {% if fs.rate is null %}-{% else %}
+                              <div class="d-flex align-items-center gap-2">
+                                 <div class="progress progress-sm flex-fill"><div class="progress-bar bg-green" style="width: {{ fs.rate }}%" role="progressbar" aria-valuenow="{{ fs.rate }}" aria-valuemin="0" aria-valuemax="100"></div></div>
+                                 <span>{{ fs.rate }} %</span>
+                              </div>
+                           {% endif %}
+                        </td>
+                        <td>{% if fs.overdue > 0 %}<span class="badge bg-red-subtle text-red-emphasis">{{ fs.overdue }}</span>{% else %}0{% endif %}</td>
+                        <td>{% if fs.approvals_missing > 0 %}<span class="badge bg-orange-subtle text-orange-emphasis">{{ fs.approvals_missing }}</span>{% else %}0{% endif %}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+
+      <div class="card mb-3">
+         <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title mb-0">{{ __('Requirements', 'grcmanager') }}</h3>
+            <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter" data-target="grcmanager-acn-body" placeholder="{{ __('Filter…', 'grcmanager') }}">
+         </div>
+         <div class="card-body" id="grcmanager-acn-body">
+            {% for function in dashboard.functions %}
+               <h4 class="mt-2" id="grcmanager-acn-{{ function.code }}">{{ function.name }}</h4>
+               <div class="table-responsive">
+                  <table class="table table-sm table-vcenter">
+                     <thead>
+                        <tr>
+                           <th>{{ __('Requirement', 'grcmanager') }}</th>
+                           <th>{{ __('Summary', 'grcmanager') }}</th>
+                           <th>{{ __('Applicability', 'grcmanager') }}</th>
+                           <th>{{ __('Implementation status', 'grcmanager') }}</th>
+                           <th>{{ __('Owner', 'grcmanager') }}</th>
+                           <th>{{ __('Due date', 'grcmanager') }}</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for line in function.lines %}
+                           <tr>
+                              <td class="text-nowrap">
+                                 <a href="{{ line.url }}" class="fw-bold">{{ line.reference }}</a>
+                                 <div class="text-muted small">{{ line.measure }}</div>
+                              </td>
+                              <td>
+                                 {{ line.summary }}
+                                 {% if line.approval_required %}
+                                    {% if line.approval_missing %}
+                                       <span class="badge bg-orange-subtle text-orange-emphasis ms-1"><i class="ti ti-signature me-1"></i>{{ __('Approval to record', 'grcmanager') }}</span>
+                                    {% elseif line.applicable %}
+                                       <span class="badge bg-green-subtle text-green-emphasis ms-1"><i class="ti ti-signature me-1"></i>{{ __('Approved on %s', 'grcmanager')|format(line.approval_date) }}</span>
+                                    {% endif %}
+                                 {% endif %}
+                              </td>
+                              <td>
+                                 {% if line.applicability == 'no' %}
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-circle-minus me-1"></i>{{ line.applicability_label }}</span>
+                                 {% elseif line.applicability == 'partial' %}
+                                    <span class="badge bg-yellow-subtle text-yellow-emphasis"><i class="ti ti-circle-half-2 me-1"></i>{{ line.applicability_label }}</span>
+                                 {% else %}
+                                    <span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-check me-1"></i>{{ line.applicability_label }}</span>
+                                 {% endif %}
+                              </td>
+                              <td>
+                                 {% set sc = status_classes[line.status] ?? status_classes['not_started'] %}
+                                 <span class="badge {{ sc[0] }}"><i class="ti {{ sc[1] }} me-1"></i>{{ line.status_label }}</span>
+                              </td>
+                              <td>{{ line.owner ?: '-' }}</td>
+                              <td class="text-nowrap">
+                                 {% if line.overdue %}
+                                    <span class="badge bg-red-subtle text-red-emphasis"><i class="ti ti-alarm me-1"></i>{{ line.due_date }}</span>
+                                 {% else %}
+                                    {{ line.due_date ?: '-' }}
+                                 {% endif %}
+                              </td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+            {% endfor %}
+         </div>
+      </div>
+
+      <div class="text-muted small mb-3">
+         {{ __('Codes and point numbers come from the annexes published by the ACN; titles and summaries are written by this project and do not replace the official text:', 'grcmanager') }}
+         <a href="{{ source_annex_1 }}" target="_blank" rel="noopener noreferrer">{{ __('Annex %d', 'grcmanager')|format(1) }}</a>,
+         <a href="{{ source_annex_2 }}" target="_blank" rel="noopener noreferrer">{{ __('Annex %d', 'grcmanager')|format(2) }}</a>.
+      </div>
+   {% endif %}
+</div>
+
+<script>
+(function () {
+   var input = document.querySelector('.grcmanager-ref-filter[data-target="grcmanager-acn-body"]');
+   if (!input) { return; }
+   input.addEventListener('input', function () {
+      var needle = input.value.toLowerCase();
+      document.querySelectorAll('#grcmanager-acn-body tbody tr').forEach(function (row) {
+         row.style.display = row.textContent.toLowerCase().indexOf(needle) === -1 ? 'none' : '';
+      });
+   });
+})();
+</script>

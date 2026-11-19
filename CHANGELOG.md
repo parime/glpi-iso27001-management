@@ -7,6 +7,88 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.56.0] - 2026-11-19
+
+### Added
+
+- **Référentiel facultatif « NIS2 Italia – ACN »** (issue #703, demandé par un utilisateur italien).
+  Mesures de sécurité de base de la déterminazione ACN n. 379907/2025 (D.Lgs. 138/2024) :
+  allegato 1 pour les entités importantes (37 mesures, 87 points), allegato 2 pour les entités
+  essentielles (43 mesures, 116 points), codes du Framework nazionale aligné sur le NIST CSF 2.0
+  (par exemple « DE.CM-01, punto 2 »). Désactivé par défaut (configuration, Référentiels).
+  - Catégorie importante ou essentielle réglée par entité GLPI dans la configuration du plugin ; une
+    sous-entité sans catégorie suit sa parente. Changer ou retirer la catégorie ne supprime rien.
+  - Une fiche par point : applicabilité (justification si non applicable), état de mise en œuvre,
+    responsable, échéance, notes, approbation des organes de direction quand le point l'exige,
+    politiques liées avec leur état d'approbation, documents et preuves (onglet Documents).
+  - Renvois vers NIS2 (UE, indicatif), le NIST CSF 2.0 et l'Annexe A ISO 27001 (correspondance du
+    NIST), facultatifs : la SoA n'est pas nécessaire pour suivre le registre.
+  - Registre avec tableau de bord (taux, échéances dépassées, approbations à enregistrer, par
+    fonction), exports CSV et PDF ; carte sur la page Référentiels. Aucune nouvelle entrée de menu.
+  - Intitulés et résumés en italien, anglais et français rédigés par le projet, avec la référence
+    exacte vers les allegati publiés par l'ACN. Droits d'entité standards (#536) ; désinstallation
+    complète.
+- **Connecteur SentinelOne en lecture seule** (issue #707, demande d'un utilisateur).
+  - Carte « Connecteur SentinelOne » dans la configuration du plugin : adresse de la console
+    (HTTPS), jeton d'API chiffré avec la clé de GLPI (jamais réaffiché ni journalisé), entité des
+    alertes sans ordinateur reconnu, bouton « Tester la connexion » (avertissement si le jeton ne
+    voit rien), bouton « Lire maintenant », bilan de la dernière lecture et agents non rapprochés.
+  - Tâche automatique « sentinelone » (chaque heure), désactivée par défaut et activée avec le
+    connecteur : agents, nouvelles menaces et alertes depuis la dernière lecture (pagination par
+    curseur), vulnérabilités applicatives si la licence les fournit. Les erreurs 401, 403, 404 et
+    429 ne bloquent rien ; la lecture reprend au passage suivant.
+  - Les menaces et alertes sont proposées dans l'écran d'import EDR : un incident n'est créé que
+    pour les alertes cochées, avec le même traitement qu'une ligne de fichier CSV (indicateurs,
+    techniques MITRE ATT&CK, ordinateur rattaché par numéro de série ou nom exact). Aucun doublon,
+    y compris avec un import CSV ; cloisonnement par entité.
+  - Vulnérabilités applicatives sur la page des vulnérabilités du parc (source indiquée), couverture
+    des agents sur les mesures A.8.16 et A.8.7.
+  - Lecture seule stricte : seules des requêtes GET sur une liste fermée de chemins ; aucune action
+    n'est envoyée à SentinelOne. Droits minimaux du jeton (rôle Viewer) dans le README.
+- **Fin de support des logiciels, systèmes et firmwares** (issue #704 ; ISO 27001 A.8.8 et A.8.9),
+  d'après l'API publique d'endoflife.date.
+  - Source désactivée par défaut, activée dans la configuration du plugin (section « Fin de support
+    (endoflife.date) »), avec un seuil de « fin proche » réglable (90 jours par défaut). Lecture
+    seule, par le client sortant durci du plugin (`Compat\Http::send()`) ; seul l'identifiant public
+    du produit est envoyé. Réponses validées (structure et dates) avant d'être gardées en cache.
+  - Cache en base, rafraîchi une fois par jour par la tâche automatique `endoflifesync` et par le
+    bouton « Mettre à jour maintenant » ; jamais à l'affichage d'une page, hors ligne avec le dernier
+    cache. Une limite de requêtes (429) ou une panne arrête seulement les appels de la mise à jour en
+    cours : les données déjà connues restent utilisées et la tâche ne passe pas en erreur.
+  - Logiciels installés (tous les types de `software_types`), systèmes d'exploitation et firmwares
+    des matériels (`Item_DeviceFirmware`, #705) rapprochés d'un produit : automatiquement quand le
+    nom entier correspond à une forme connue (« Debian GNU/Linux », « Mozilla Firefox (x64 fr) »,
+    « Microsoft Windows 11 Professionnel »...), sinon par une correspondance manuelle saisie dans
+    la configuration, qui peut aussi écarter un nom. Les noms non rapprochés sont listés, jamais
+    devinés. Le cycle est retrouvé depuis la version installée (« 12.5 », « 22H2 », nom de code).
+  - Page « Vulnérabilités du parc » : carte « Fin de support » avec les états plus supporté, fin
+    proche, supporté et support inconnu, par nom et version, avec les actifs concernés, dans les
+    entités de la personne (#536), et export CSV d'un élément par ligne.
+  - Preuves des mesures A.8.8 et A.8.9 (fiche de la mesure) et nouvelle règle du contrôle de
+    cohérence « Actifs avec un logiciel, un système ou un firmware qui n'est plus supporté ».
+  - Aucun ticket ni statut n'est créé ou modifié automatiquement, aucune entrée de menu n'est
+    ajoutée.
+- **Matrice des risques : libellés des niveaux personnalisables, EBIOS RM, AIPD et rapport PDF en
+  5 x 5** (issue #706, second lot).
+  - Dans la configuration, « Libellés des niveaux » renomme chaque niveau de probabilité et d'impact
+    de la taille actuelle (par exemple selon la politique de gestion des risques). Un champ vide
+    garde le libellé par défaut, traduit ; un libellé saisi s'affiche tel quel dans toutes les
+    langues. Saisie, listes, filtres, carte de chaleur, grille de la configuration, écran de
+    correspondance, import et exports CSV et PDF reprennent ces libellés.
+  - Seules les clés connues sont enregistrées (60 caractères au plus) ; renommer un niveau ne
+    modifie aucun risque. Le libellé d'une valeur hors de la taille actuelle (« très rare » en
+    4 x 4) est conservé pour un passage ultérieur en 5 x 5. Le journal d'audit du plugin garde
+    l'ancien et le nouveau libellé. Réservé au droit de modifier la configuration du plugin.
+  - Import CSV : avec des libellés personnalisés, le libellé par défaut reste reconnu. Export CSV :
+    les colonnes de niveau de risque affichent les libellés des niveaux, plus ceux de l'impact.
+  - EBIOS RM et AIPD gardent leurs échelles à quatre niveaux. En 5 x 5, un scénario opérationnel
+    ou une AIPD versés au registre prennent les valeurs 5 x 5 de la correspondance proposée par
+    défaut (V1 devient « très rare », G1 « négligeable ») : avec les grilles par défaut, le niveau
+    de risque reste celui de la 4 x 4, sauf sur une case. La grille de l'atelier 4 et l'écart
+    signalé à l'atelier 5 suivent la même correspondance.
+  - Rapport PDF du registre : colonnes probabilité et impact, et taille de la matrice dans le
+    résumé.
+
 ## [2.55.0] - 2026-11-18
 
 ### Added

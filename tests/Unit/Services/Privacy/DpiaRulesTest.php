@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Unit\Services\Privacy;
 
 use GlpiPlugin\Grcmanager\Services\Privacy\DpiaRules;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskScale;
 use PHPUnit\Framework\TestCase;
 
 final class DpiaRulesTest extends TestCase
@@ -123,5 +124,21 @@ final class DpiaRulesTest extends TestCase
         self::assertSame('not_required', DpiaRules::suggestedRecordStatus('not_assessed', ['large_scale'], 'draft'));
         // Rien de coché : rien à proposer.
         self::assertNull(DpiaRules::suggestedRecordStatus('not_assessed', [], 'draft'));
+    }
+
+    /**
+     * Issue #706 : en matrice 5x5, le risque versé au registre prend des valeurs de l'échelle 5x5.
+     */
+    public function testWorstResidualRiskFollowsTheRegisterSize(): void
+    {
+        $risks = $this->rated(1, 1);
+        $risks['disappearance']['residual_severity'] = 1;
+        $risks['disappearance']['residual_likelihood'] = 4;
+
+        $worst = DpiaRules::worstResidualRisk($risks, 5);
+        self::assertNotNull($worst);
+        self::assertSame(RiskScale::fromFourLevels('impact', 'low', 5), $worst['impact']);
+        self::assertSame('certain', $worst['probability']);
+        self::assertContains($worst['impact'], RiskScale::impactKeys(5));
     }
 }

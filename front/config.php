@@ -21,10 +21,13 @@ use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig;
 use GlpiPlugin\Grcmanager\Services\Breach\HibpClient;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
+use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeStore;
 use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
 use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
 use GlpiPlugin\Grcmanager\Services\Incident\CraReportingConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
+use GlpiPlugin\Grcmanager\Services\Incident\SentinelOneConfig;
+use GlpiPlugin\Grcmanager\SentinelOneAlert;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
@@ -50,6 +53,42 @@ if (isset($_POST['update_risk_matrix'])) {
     }
 
     RiskMatrixConfig::save($matrix);
+
+    Html::back();
+}
+
+if (isset($_POST['update_risk_scale_labels'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    // Issue #706, lot 2 : libellés des niveaux de probabilité et d'impact. Seules les clés connues
+    // sont gardées (RiskScale::sanitizeLabels) ; un champ vide remet le libellé par défaut, traduit.
+    // Les libellés des valeurs hors de la taille actuelle sont conservés tels quels.
+    $before = RiskMatrixConfig::labels();
+    $posted = is_array($_POST['scale_labels'] ?? null) ? $_POST['scale_labels'] : [];
+    $after = $before;
+    $size = RiskMatrixConfig::size();
+    foreach (
+        [
+            'probability' => \GlpiPlugin\Grcmanager\Services\Risk\RiskScale::probabilityKeys($size),
+            'impact'      => \GlpiPlugin\Grcmanager\Services\Risk\RiskScale::impactKeys($size),
+        ] as $axis => $keys
+    ) {
+        foreach ($keys as $key) {
+            unset($after[$axis][$key]);
+            $value = $posted[$axis][$key] ?? null;
+            if (is_string($value)) {
+                $after[$axis][$key] = $value;
+            }
+        }
+    }
+    RiskMatrixConfig::saveLabels($after);
+    $saved = RiskMatrixConfig::labels();
+    if ($saved !== $before) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'risk_scale_labels' => ['from' => $before, 'to' => $saved],
+        ]);
+    }
+    Session::addMessageAfterRedirect(__('The level labels have been saved.', 'grcmanager'));
 
     Html::back();
 }
@@ -143,6 +182,99 @@ if (isset($_POST['update_breach_config']) || isset($_POST['test_breach_config'])
     Html::back();
 }
 
+// Issue #707 : connecteur SentinelOne en lecture seule. Réglage réservé au droit de modifier la
+// configuration du plugin ; le jeton n'est jamais renvoyé au navigateur ni écrit dans un journal.
+if (
+    isset($_POST['update_sentinelone_config'])
+    || isset($_POST['test_sentinelone_config'])
+    || isset($_POST['fetch_sentinelone_now'])
+) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    if (isset($_POST['update_sentinelone_config'])) {
+        $wasEnabled = SentinelOneConfig::isEnabled();
+        $hadToken = SentinelOneConfig::hasToken();
+        $previousUrl = SentinelOneConfig::rawUrl();
+        $accepted = SentinelOneConfig::save(
+            !empty($_POST['sentinelone_enabled']),
+            (string) ($_POST['sentinelone_url'] ?? ''),
+            (string) ($_POST['sentinelone_api_token'] ?? ''),
+            !empty($_POST['sentinelone_clear_token']),
+            (int) ($_POST['sentinelone_entities_id'] ?? 0)
+        );
+        if (!$accepted) {
+            Session::addMessageAfterRedirect(htmlescape(__(
+                'The console address was not saved: it must start with https:// and contain no user name or password.',
+                'grcmanager'
+            )), false, ERROR);
+        }
+        // La tâche automatique suit l'interrupteur : désactivée tant que le connecteur l'est.
+        SentinelOneAlert::syncCronState(SentinelOneConfig::isEnabled());
+        $changes = array_filter([
+            'sentinelone_enabled' => $wasEnabled !== SentinelOneConfig::isEnabled()
+                ? (int) SentinelOneConfig::isEnabled()
+                : null,
+            'sentinelone_url'     => $previousUrl !== SentinelOneConfig::rawUrl() ? SentinelOneConfig::rawUrl() : null,
+            // Jeton : seulement le fait qu'il ait changé, jamais sa valeur.
+            'sentinelone_token'   => trim((string) ($_POST['sentinelone_api_token'] ?? '')) !== ''
+                || ($hadToken && !SentinelOneConfig::hasToken()) ? 'changed' : null,
+        ], static fn ($value): bool => $value !== null);
+        if ($changes !== []) {
+            \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+                'changes' => $changes,
+            ]);
+        }
+    } elseif (!SentinelOneConfig::isConfigured()) {
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Enter the console address and the API token first.',
+            'grcmanager'
+        )), false, ERROR);
+    } elseif (isset($_POST['test_sentinelone_config'])) {
+        $test = SentinelOneConfig::client()->testConnection();
+        if (!$test['ok']) {
+            Session::addMessageAfterRedirect(htmlescape(SentinelOneAlert::errorLabel($test['error'])), false, ERROR);
+        } elseif ($test['empty']) {
+            Session::addMessageAfterRedirect(htmlescape(__(
+                'Connection accepted, but the token sees no agent and no threat: check '
+                    . 'that its user has the Viewer role on the right accounts or sites.',
+                'grcmanager'
+            )), false, WARNING);
+        } else {
+            $message = sprintf(
+                __('Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) visible.', 'grcmanager'),
+                (int) $test['agents'],
+                $test['threats'] === null ? '?' : (string) $test['threats']
+            );
+            if ($test['error'] !== '') {
+                $message .= ' ' . SentinelOneAlert::errorLabel($test['error']);
+            }
+            Session::addMessageAfterRedirect(htmlescape($message));
+        }
+    } else {
+        // Lecture demandée par un administrateur : même passage que la tâche automatique.
+        $steps = SentinelOneAlert::synchronize(SentinelOneConfig::client());
+        $errors = array_filter(
+            array_column($steps, 'error'),
+            static fn (string $error): bool => $error !== '' && $error !== SentinelOneAlert::SKIPPED
+        );
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            __(
+                'SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d '
+                    . 'application vulnerabilities.',
+                'grcmanager'
+            ),
+            $steps['threats']['new'] + $steps['alerts']['new'],
+            $steps['agents']['items'],
+            $steps['vulnerabilities']['items']
+        )), false, $errors === [] ? INFO : WARNING);
+        foreach (array_unique($errors) as $error) {
+            Session::addMessageAfterRedirect(htmlescape(SentinelOneAlert::errorLabel($error)), false, WARNING);
+        }
+    }
+
+    Html::back();
+}
+
 // Issue #403 : référentiels de conformité actifs. Rien n'est supprimé : un référentiel désactivé
 // est seulement masqué et ignoré des calculs, ses données reviennent à la réactivation.
 if (isset($_POST['update_frameworks'])) {
@@ -156,6 +288,36 @@ if (isset($_POST['update_frameworks'])) {
             'frameworks_enabled'  => array_values(array_diff($after, $before)),
             'frameworks_disabled' => array_values(array_diff($before, $after)),
         ]]);
+    }
+
+    Html::back();
+}
+
+// Issue #703 : catégorie NIS2 italienne (importante ou essentielle) de chaque entité, qui crée son
+// registre ACN. Seules les entités de la session sont modifiables ; rien n'est supprimé.
+if (isset($_POST['update_acn_entities'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    $changes = [];
+    $created = 0;
+    foreach ((array) ($_POST['acn_category'] ?? []) as $entityId => $category) {
+        $entityId = (int) $entityId;
+        if (!Session::haveAccessToEntity($entityId)) {
+            continue;
+        }
+        $category = \GlpiPlugin\Grcmanager\Services\Acn\AcnRules::normalizeCategory($category);
+        if ($category === \GlpiPlugin\Grcmanager\AcnRequirement::categoryOf($entityId)) {
+            continue;
+        }
+        $created += \GlpiPlugin\Grcmanager\AcnRequirement::setCategory($entityId, $category);
+        $changes['acn_category_' . $entityId] = $category;
+    }
+    if ($changes !== []) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $changes]);
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            __('Classification saved; %d requirement record(s) created.', 'grcmanager'),
+            $created
+        )));
     }
 
     Html::back();
@@ -286,6 +448,61 @@ if (isset($_POST['update_risk_appetite_config'])) {
     Html::back();
 }
 
+// Issue #704 : fin de vie des logiciels, systèmes et firmwares (endoflife.date). Source désactivée
+// par défaut ; les correspondances manuelles servent à rapprocher un nom de GLPI d'un produit.
+if (
+    isset($_POST['update_endoflife_config']) || isset($_POST['refresh_endoflife'])
+    || isset($_POST['add_endoflife_mapping']) || isset($_POST['delete_endoflife_mapping'])
+) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    if (isset($_POST['update_endoflife_config'])) {
+        $before = EndOfLifeStore::settings();
+        EndOfLifeStore::save(
+            !empty($_POST['endoflife_enabled']),
+            is_numeric($_POST['endoflife_warning_days'] ?? null)
+                ? (int) $_POST['endoflife_warning_days']
+                : EndOfLifeStore::DEFAULT_WARNING_DAYS
+        );
+        $changes = array_diff_assoc(array_map('intval', EndOfLifeStore::settings()), array_map('intval', $before));
+        if ($changes !== []) {
+            \GlpiPlugin\Grcmanager\AuditLog::record(
+                'config_change',
+                'Config',
+                0,
+                0,
+                'success',
+                ['changes' => $changes]
+            );
+        }
+    } elseif (isset($_POST['refresh_endoflife'])) {
+        // Quelques produits seulement : le reste suit avec la tâche automatique quotidienne.
+        $report = \GlpiPlugin\Grcmanager\EndOfLife::refresh(30);
+        Session::addMessageAfterRedirect(
+            htmlescape(\GlpiPlugin\Grcmanager\EndOfLife::refreshMessage($report)),
+            false,
+            $report['status'] === 'partial' ? WARNING : INFO
+        );
+    } elseif (isset($_POST['add_endoflife_mapping'])) {
+        $saved = EndOfLifeStore::saveMapping(
+            (string) ($_POST['endoflife_kind'] ?? ''),
+            (string) ($_POST['endoflife_name'] ?? ''),
+            (string) ($_POST['endoflife_product'] ?? '')
+        );
+        if (!$saved) {
+            Session::addMessageAfterRedirect(htmlescape(__(
+                'Link not saved: give the exact name shown in GLPI and an endoflife.date product identifier '
+                    . '(lower case letters, digits and dashes, for instance "debian").',
+                'grcmanager'
+            )), false, ERROR);
+        }
+    } else {
+        EndOfLifeStore::deleteMapping((int) $_POST['delete_endoflife_mapping']);
+    }
+
+    Html::redirect(\GlpiPlugin\Grcmanager\EndOfLife::getConfigURL());
+}
+
 if (isset($_POST['update_nvd_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -343,6 +560,12 @@ Html::header(
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/config_form.html.twig', [
     'risk_matrix'        => RiskMatrixConfig::load(),
+    // Issue #703 : catégorie NIS2 italienne des entités (registre ACN).
+    'acn_enabled'        => \GlpiPlugin\Grcmanager\AcnRequirement::isFrameworkEnabled(),
+    'acn_entities'       => \GlpiPlugin\Grcmanager\AcnRequirement::isFrameworkEnabled()
+        ? \GlpiPlugin\Grcmanager\AcnRequirement::configRows() : [],
+    'acn_categories'     => \GlpiPlugin\Grcmanager\AcnRequirement::getCategories(),
+    'acn_register_url'   => \GlpiPlugin\Grcmanager\AcnRequirement::getSearchURL(),
     'risk_probabilities' => \GlpiPlugin\Grcmanager\Risk::getProbabilities(),
     'risk_impacts'       => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
     'risk_levels'        => \GlpiPlugin\Grcmanager\Risk::getRiskLevels(),
@@ -350,6 +573,11 @@ Html::header(
     'risk_scale_size'    => RiskMatrixConfig::size(),
     'risk_scale_sizes'   => \GlpiPlugin\Grcmanager\RiskScaleChange::sizeLabels(),
     'risk_scale_url'     => \GlpiPlugin\Grcmanager\RiskScaleChange::getPageURL(),
+    // Issue #706, lot 2 : libellés personnalisés (vides : libellé par défaut, traduit).
+    'risk_scale_labels'           => RiskMatrixConfig::labels(),
+    'risk_default_probabilities'  => \GlpiPlugin\Grcmanager\Risk::getDefaultProbabilityLabels(),
+    'risk_default_impacts'        => \GlpiPlugin\Grcmanager\Risk::getDefaultImpactLabels(),
+    'risk_label_max_length'       => \GlpiPlugin\Grcmanager\Services\Risk\RiskScale::LABEL_MAX_LENGTH,
     'csrf_token'         => Session::getNewCSRFToken(),
     'installed_version'     => PLUGIN_GRCMANAGER_VERSION,
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),
@@ -370,6 +598,8 @@ Html::header(
     'http_can_edit_private'     => Session::haveRight('config', UPDATE),
     'http_glpi12_context_hint'  => Http::glpi12ContextHint(),
     'nvd_config'                => NvdConfig::load(),
+    // Issue #704 : fin de vie (endoflife.date).
+    'endoflife'                 => \GlpiPlugin\Grcmanager\EndOfLife::configData(),
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
     'digest'                    => \GlpiPlugin\Grcmanager\VulnerabilityDigest::configData(),
     'remediation_settings'      => \GlpiPlugin\Grcmanager\ParkRemediation::getSettings(),
@@ -400,6 +630,8 @@ Html::header(
     'breach_enabled'            => BreachMonitorConfig::isEnabled(),
     'breach_has_key'            => BreachMonitorConfig::hasApiKey(),
     'breach_domains'            => implode(', ', BreachMonitorConfig::domains()),
+    // Issue #707 : connecteur SentinelOne (le jeton n'est jamais transmis, seulement sa présence).
+    'sentinelone'               => SentinelOneAlert::configData(),
     'frameworks'                => FrameworkConfig::frameworks(),
     'custom_frameworks_url'     => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),
     'frameworks_help'           => FrameworkConfig::helpTexts(),

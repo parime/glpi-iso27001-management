@@ -205,6 +205,12 @@ final class FrameworkConfig
                     . 'contract and data sovereignty, references on the controls. Disabled by default.',
                 'grcmanager'
             ),
+            // Issue #703 : registre propre, par entité GLPI, sans passer par l'Annexe A.
+            FrameworkSelection::ACN_IT       => __(
+                'Italian NIS2 basic security measures (ACN determination 379907/2025): a register with one record per '
+                    . 'requirement, per GLPI entity set as important or essential below. Disabled by default.',
+                'grcmanager'
+            ),
         ] + array_map(
             static fn (string $label): string => __(
                 'Custom framework imported from a file: its requirements, their references on the controls and its '

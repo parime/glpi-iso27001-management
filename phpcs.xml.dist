@@ -61,4 +61,9 @@
     <rule ref="Squiz.Classes.ValidClassName">
         <exclude-pattern>inc/*</exclude-pattern>
     </rule>
+    <!-- Issue #707 : jeu de données fictif de la fausse console SentinelOne (une menace, une alerte
+         ou une vulnérabilité par ligne, lisible comme un tableau) ; le reste des tests suit la règle. -->
+    <rule ref="Generic.Files.LineLength">
+        <exclude-pattern>tests/Unit/Mock/MockSentinelOne.php</exclude-pattern>
+    </rule>
 </ruleset>

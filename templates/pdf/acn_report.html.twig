@@ -1,0 +1,83 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #703 : rapport de conformité du registre NIS2 Italia - ACN d'une entité. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Entity', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ entity }}</td></tr>
+  <tr><td>{{ __('Classification', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ category_label }}</td></tr>
+  <tr><td>{{ __('Reference', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ law }}, {{ __('ACN determination %s', 'grcmanager')|format(determination) }}, {{ __('Annex %d', 'grcmanager')|format(annex) }}</td></tr>
+  <tr><td>{{ __('Requirements', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.total }} ({{ __('%d not applicable', 'grcmanager')|format(summary.not_applicable) }})</td></tr>
+  <tr><td>{{ __('Implementation rate', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.rate is null ? '-' : summary.rate ~ ' %' }}</td></tr>
+  <tr><td>{{ __('Implemented requirements', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.done }} / {{ summary.applicable }}</td></tr>
+  <tr><td>{{ __('Overdue', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.overdue }}</td></tr>
+  <tr><td>{{ __('Approvals to record', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.approvals_missing }} / {{ summary.approvals_required }}</td></tr>
+</table>
+
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Function', 'grcmanager') }}</th>
+      <th>{{ __('Requirements', 'grcmanager') }}</th>
+      <th>{{ __('Implementation rate', 'grcmanager') }}</th>
+      <th>{{ __('Overdue', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for function in functions %}
+      <tr>
+        <td>{{ function.name }}</td>
+        <td>{{ function.summary.total }}</td>
+        <td>{{ function.summary.rate is null ? '-' : function.summary.rate ~ ' %' }}</td>
+        <td>{{ function.summary.overdue }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% for function in functions %}
+  <h2>{{ function.name }}</h2>
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th style="width: 14%;">{{ __('Requirement', 'grcmanager') }}</th>
+        <th>{{ __('Summary', 'grcmanager') }}</th>
+        <th style="width: 11%;">{{ __('Applicability', 'grcmanager') }}</th>
+        <th style="width: 11%;">{{ __('Implementation status', 'grcmanager') }}</th>
+        <th style="width: 13%;">{{ __('Owner', 'grcmanager') }}</th>
+        <th style="width: 10%;">{{ __('Due date', 'grcmanager') }}</th>
+        <th style="width: 11%;">{{ __('Management approval', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in function.lines %}
+        <tr>
+          <td><strong>{{ line.reference }}</strong><br>{{ line.measure }}</td>
+          <td>{{ line.summary }}</td>
+          <td>{{ line.applicability_label }}</td>
+          <td>{{ line.status_label }}</td>
+          <td>{{ line.owner }}</td>
+          <td>{{ line.due_date }}{% if line.overdue %} ({{ __('overdue', 'grcmanager') }}){% endif %}</td>
+          <td>{% if line.approval_required %}{{ line.approval_date ?: __('Required, not recorded', 'grcmanager') }}{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endfor %}
+
+<p style="font-size: 8px; color: #6c757d;">
+  {{ __('Codes and point numbers come from the annexes published by the ACN; titles and summaries are written by this project and do not replace the official text.', 'grcmanager') }}
+</p>

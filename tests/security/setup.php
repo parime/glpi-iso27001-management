@@ -858,4 +858,13 @@ $DB->insert(\GlpiPlugin\Grcmanager\AuditorAccess::TABLE, [
 
 // Issue #540 : référentiel DORA activé, pour que le registre et ses onglets soient testés.
 \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('dora', true);
+// Issue #703 : registre NIS2 Italia - ACN, entité A importante et entité B essentielle.
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('acn_it', true);
+foreach (['A' => [$a, 'important'], 'B' => [$b, 'essential']] as $suffix => [$entity, $category]) {
+    \GlpiPlugin\Grcmanager\AcnRequirement::setCategory($entity, $category);
+    $acn = new \GlpiPlugin\Grcmanager\AcnRequirement();
+    $acn->getFromDBByCrit(['entities_id' => $entity, 'code' => 'DE.CM-01', 'point' => 2]);
+    $ids['acn_' . $suffix] = (int) $acn->getID();
+    $ids['acn_entity_' . $suffix] = $entity;
+}
 echo json_encode($ids), "\n";

@@ -18186,3 +18186,755 @@ msgid "Firmware of network equipment, printers, phones or computers"
 msgstr ""
 "Oprogramowanie układowe urządzeń sieciowych, drukarek, telefonów lub "
 "komputerów"
+
+msgid "Level labels"
+msgstr "Etykiety poziomów"
+
+#, php-format
+msgid "Default label: %s"
+msgstr "Etykieta domyślna: %s"
+
+msgid "The level labels have been saved."
+msgstr "Etykiety poziomów zostały zapisane."
+
+msgid "Levels are listed from the lowest (1) to the highest."
+msgstr "Poziomy są wymienione od najniższego (1) do najwyższego."
+
+msgid "Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks."
+msgstr "Zmień nazwy poziomów prawdopodobieństwa i wpływu zgodnie ze swoją metodą, na przykład według terminologii polityki zarządzania ryzykiem. Pozostaw pole puste, aby zachować etykietę domyślną, tłumaczoną na język każdego użytkownika; wpisana etykieta jest wyświetlana bez zmian we wszystkich językach. Zmiana nazwy poziomu nie zmienia istniejących ryzyk."
+
+msgid "End of support (endoflife.date)"
+msgstr "Koniec wsparcia (endoflife.date)"
+
+msgid "Settings and links"
+msgstr "Ustawienia i powiązania"
+
+msgid "Not enabled: the plugin can show which software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date."
+msgstr "Nie włączono: wtyczka może pokazać, które oprogramowanie, systemy operacyjne i firmware nie otrzymują już poprawek bezpieczeństwa, według publicznej strony endoflife.date."
+
+msgid "Enable it in the configuration"
+msgstr "Włącz w konfiguracji"
+
+msgid "%d asset"
+msgid_plural "%d assets"
+msgstr[0] "%d zasób"
+msgstr[1] "%d zasoby"
+msgstr[2] "%d zasobów"
+
+msgid "Ended or ending soon"
+msgstr "Zakończone lub wkrótce"
+
+msgid "All followed items"
+msgstr "Wszystkie śledzone elementy"
+
+msgid "\"End of support soon\": within %d days."
+msgstr "„Wkrótce koniec wsparcia\": w ciągu %d dni."
+
+msgid "The end of support dates have not been read yet: they arrive with the next daily task, or with the button \"Update now\" of the configuration."
+msgstr "Daty końca wsparcia nie zostały jeszcze odczytane: pojawią się po następnym codziennym zadaniu lub po użyciu przycisku „Aktualizuj teraz\" w konfiguracji."
+
+msgid "Some products could not be read during the last update: their previous data is still used."
+msgstr "Niektórych produktów nie udało się odczytać podczas ostatniej aktualizacji: nadal używane są ich wcześniejsze dane."
+
+msgid "%d name of the inventory is not linked to an endoflife.date product and is not followed."
+msgid_plural "%d names of the inventory are not linked to an endoflife.date product and are not followed."
+msgstr[0] "%d nazwa z inwentarza nie jest powiązana z produktem endoflife.date i nie jest śledzona."
+msgstr[1] "%d nazwy z inwentarza nie są powiązane z produktem endoflife.date i nie są śledzone."
+msgstr[2] "%d nazw z inwentarza nie jest powiązanych z produktem endoflife.date i nie jest śledzonych."
+
+msgid "Add a link"
+msgstr "Dodaj powiązanie"
+
+msgid "%1$d items: the %2$d most urgent ones are shown, all of them are in the export."
+msgstr "%1$d elementów: wyświetlono %2$d najpilniejszych, wszystkie są w eksporcie."
+
+msgid "No followed item in your entities."
+msgstr "Brak śledzonych elementów w Twoich jednostkach."
+
+msgid "No followed item has reached or is close to its end of support."
+msgstr "Żaden śledzony element nie osiągnął końca wsparcia ani się do niego nie zbliża."
+
+msgid "Release cycle"
+msgstr "Cykl wydania"
+
+msgid "End of support"
+msgstr "Koniec wsparcia"
+
+msgid "Assets"
+msgstr "Zasoby"
+
+msgid "latest: %s"
+msgstr "najnowsza: %s"
+
+msgid "%1$d item(s) no longer supported on %2$d asset(s)"
+msgstr "%1$d element(ów) bez wsparcia na %2$d zasobach"
+
+msgid "%1$d ending within %2$d days"
+msgstr "%1$d kończy się w ciągu %2$d dni"
+
+msgid "%d supported"
+msgstr "%d wspieranych"
+
+msgid "View the details"
+msgstr "Zobacz szczegóły"
+
+msgid "Shows which installed software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date (ISO 27001 A.8.8 and A.8.9). Once a day, the plugin reads the end of support dates of the products found in the inventory; only the product name is sent (for instance \"debian\"), never the name of a computer or of an entity. Nothing is changed in the inventory, and no ticket is created."
+msgstr "Pokazuje, które zainstalowane oprogramowanie, systemy operacyjne i firmware nie otrzymują już poprawek bezpieczeństwa, według publicznej strony endoflife.date (ISO 27001 A.8.8 i A.8.9). Raz dziennie wtyczka odczytuje daty końca wsparcia produktów znalezionych w inwentarzu; wysyłana jest tylko nazwa produktu (na przykład „debian\"), nigdy nazwa komputera ani jednostki. Nic nie jest zmieniane w inwentarzu i nie jest tworzone żadne zgłoszenie."
+
+msgid "Read the end of support dates on endoflife.date"
+msgstr "Odczytuj daty końca wsparcia z endoflife.date"
+
+msgid "Warn this many days before the end of support"
+msgstr "Ostrzegaj tyle dni przed końcem wsparcia"
+
+msgid "Below this number of days, a version is shown as \"End of support soon\"."
+msgstr "Poniżej tej liczby dni wersja jest oznaczana jako „Wkrótce koniec wsparcia\"."
+
+msgid "Last successful reading"
+msgstr "Ostatni udany odczyt"
+
+msgid "%d product(s) in cache"
+msgstr "%d produkt(ów) w pamięci podręcznej"
+
+msgid "Reads now the products whose data is more than one day old (the daily task does the rest)."
+msgstr "Odczytuje teraz produkty, których dane są starsze niż jeden dzień (resztą zajmie się codzienne zadanie)."
+
+msgid "Update now"
+msgstr "Aktualizuj teraz"
+
+msgid "Links between GLPI names and endoflife.date products"
+msgstr "Powiązania nazw GLPI z produktami endoflife.date"
+
+msgid "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" or \"Mozilla Firefox\"). For any other name, add a link: type the name exactly as GLPI shows it, and the product identifier found in the address of its page on endoflife.date (for instance \"fortios\" for https://endoflife.date/fortios). Leave the product empty to stop following a name."
+msgstr "Znane nazwy są wiązane automatycznie (na przykład „Debian GNU/Linux\" lub „Mozilla Firefox\"). Dla każdej innej nazwy dodaj powiązanie: wpisz nazwę dokładnie tak, jak pokazuje ją GLPI, oraz identyfikator produktu z adresu jego strony w endoflife.date (na przykład „fortios\" dla https://endoflife.date/fortios). Pozostaw produkt pusty, aby przestać śledzić nazwę."
+
+msgid "Kind of item"
+msgstr "Rodzaj elementu"
+
+msgid "Name in GLPI"
+msgstr "Nazwa w GLPI"
+
+msgid "endoflife.date product"
+msgstr "Produkt endoflife.date"
+
+msgid "Not followed"
+msgstr "Nieśledzone"
+
+msgid "Product unknown to the source"
+msgstr "Produkt nieznany źródłu"
+
+msgid "Delete this link"
+msgstr "Usuń to powiązanie"
+
+msgid "%d name(s) linked automatically"
+msgstr "%d nazw(y) powiązanych automatycznie"
+
+msgid "%d name(s) of the inventory not linked to a product"
+msgstr "%d nazw(y) z inwentarza bez powiązanego produktu"
+
+msgid "These names are not followed: add a link above for those that matter (choose them from the list of the \"Name in GLPI\" field)."
+msgstr "Te nazwy nie są śledzone: dodaj powyżej powiązanie dla istotnych (wybierz je z listy pola „Nazwa w GLPI\")."
+
+msgid "%d more not shown."
+msgstr "Kolejne %d nie są wyświetlane."
+
+msgid "Link not saved: give the exact name shown in GLPI and an endoflife.date product identifier (lower case letters, digits and dashes, for instance \"debian\")."
+msgstr "Powiązanie nie zostało zapisane: podaj dokładną nazwę wyświetlaną w GLPI i identyfikator produktu endoflife.date (małe litery, cyfry i myślniki, na przykład „debian\")."
+
+msgid "Assets running software, a system or a firmware that is no longer supported"
+msgstr "Zasoby z oprogramowaniem, systemem lub firmware bez wsparcia"
+
+msgid "Upgrade to a supported version, or record a waiver with compensating measures until the upgrade."
+msgstr "Przejdź na wspieraną wersję lub zarejestruj odstępstwo ze środkami kompensującymi do czasu aktualizacji."
+
+msgid "No longer supported: %s"
+msgstr "Bez wsparcia: %s"
+
+msgid "No longer supported"
+msgstr "Bez wsparcia"
+
+msgid "This version no longer receives security fixes."
+msgstr "Ta wersja nie otrzymuje już poprawek bezpieczeństwa."
+
+msgid "End of support soon"
+msgstr "Wkrótce koniec wsparcia"
+
+msgid "Plan the move to a version that is still supported."
+msgstr "Zaplanuj przejście na wciąż wspieraną wersję."
+
+msgid "Supported"
+msgstr "Wspierane"
+
+msgid "This version still receives security fixes."
+msgstr "Ta wersja nadal otrzymuje poprawki bezpieczeństwa."
+
+msgid "Support unknown"
+msgstr "Wsparcie nieznane"
+
+msgid "End of support not determined: never counted as supported."
+msgstr "Koniec wsparcia nieustalony: nigdy nie liczony jako wspierany."
+
+msgid "Not linked to an endoflife.date product."
+msgstr "Niepowiązane z produktem endoflife.date."
+
+msgid "Not read yet: the daily task has not run since this product was linked, or the source could not be reached."
+msgstr "Jeszcze nie odczytano: codzienne zadanie nie zostało uruchomione od powiązania lub źródło było niedostępne."
+
+msgid "Product unknown to endoflife.date: check the link in the configuration."
+msgstr "Produkt nieznany w endoflife.date: sprawdź powiązanie w konfiguracji."
+
+msgid "No release cycle of this product matches the installed version."
+msgstr "Żaden cykl wydania tego produktu nie pasuje do zainstalowanej wersji."
+
+msgid "Too many requests: the source asked to wait"
+msgstr "Zbyt wiele żądań: źródło prosi o odczekanie"
+
+msgid "Error on the source server"
+msgstr "Błąd serwera źródła"
+
+msgid "Unexpected answer from the source"
+msgstr "Nieoczekiwana odpowiedź źródła"
+
+msgid "Source unreachable"
+msgstr "Źródło niedostępne"
+
+msgid "Not queried (earlier error or limit reached)"
+msgstr "Nie odpytano (wcześniejszy błąd lub osiągnięty limit)"
+
+msgid "Operating system"
+msgstr "System operacyjny"
+
+msgid "Manual link"
+msgstr "Powiązanie ręczne"
+
+msgid "Automatic link"
+msgstr "Powiązanie automatyczne"
+
+msgid "Not linked"
+msgstr "Niepowiązane"
+
+msgid "Support ended (date not published)."
+msgstr "Wsparcie zakończone (data nieopublikowana)."
+
+msgid "No end of support announced."
+msgstr "Nie ogłoszono końca wsparcia."
+
+msgid "Support ended on %s."
+msgstr "Wsparcie zakończyło się %s."
+
+msgid "Support ends on %1$s (in %2$d day)."
+msgid_plural "Support ends on %1$s (in %2$d days)."
+msgstr[0] "Wsparcie kończy się %1$s (za %2$d dzień)."
+msgstr[1] "Wsparcie kończy się %1$s (za %2$d dni)."
+msgstr[2] "Wsparcie kończy się %1$s (za %2$d dni)."
+
+msgid "The end of support source is disabled: nothing was read."
+msgstr "Źródło końca wsparcia jest wyłączone: nic nie odczytano."
+
+msgid "End of support: %1$d products, %2$d read, %3$d already up to date, %4$d unknown to the source."
+msgstr "Koniec wsparcia: %1$d produktów, %2$d odczytanych, %3$d już aktualnych, %4$d nieznanych źródłu."
+
+msgid "%d product(s) not read: the data already in cache is still used."
+msgstr "%d produkt(ów) nieodczytanych: nadal używane są dane z pamięci podręcznej."
+
+msgid "End of support of software, systems and firmwares (endoflife.date)"
+msgstr "Koniec wsparcia oprogramowania, systemów i firmware (endoflife.date)"
+
+msgid "Asset"
+msgstr "Zasób"
+
+msgid "Latest version of the cycle"
+msgstr "Najnowsza wersja cyklu"
+
+msgid "How it was linked"
+msgstr "Sposób powiązania"
+
+msgid "Also detected by SentinelOne"
+msgstr "Wykryta także przez SentinelOne"
+
+#, php-format
+msgid "SentinelOne: %d computer(s)"
+msgstr "SentinelOne: %d komputer(y)"
+
+msgid "Detected by SentinelOne only"
+msgstr "Wykryte tylko przez SentinelOne"
+
+#, php-format
+msgid "Last read: %s"
+msgstr "Ostatni odczyt: %s"
+
+msgid "SentinelOne reports no vulnerability beyond those listed above."
+msgstr "SentinelOne nie zgłasza podatności poza wymienionymi powyżej."
+
+msgid "Application vulnerabilities seen by SentinelOne on your computers and not found by the software watch. Source: SentinelOne API, read only."
+msgstr "Podatności aplikacji widziane przez SentinelOne na Twoich komputerach i nieznalezione przez monitoring oprogramowania. Źródło: API SentinelOne, tylko odczyt."
+
+msgid "Applications"
+msgstr "Aplikacje"
+
+msgid "From the last reading of SentinelOne: a computer is covered when an active agent is matched with it (serial number or exact name)."
+msgstr "Według ostatniego odczytu SentinelOne: komputer jest objęty ochroną, gdy przypisano do niego aktywnego agenta (numer seryjny lub dokładna nazwa)."
+
+msgid "SentinelOne coverage"
+msgstr "Pokrycie SentinelOne"
+
+msgid "SentinelOne alerts to review"
+msgstr "Alerty SentinelOne do sprawdzenia"
+
+msgid "Settings"
+msgstr "Ustawienia"
+
+msgid "No SentinelOne alert waiting for review."
+msgstr "Brak alertów SentinelOne oczekujących na sprawdzenie."
+
+msgid "The automatic reading is disabled: enable it in the plugin configuration, or use the button \"Fetch now\" there."
+msgstr "Automatyczny odczyt jest wyłączony: włącz go w konfiguracji wtyczki lub użyj tam przycisku „Pobierz teraz”."
+
+msgid "Tick the alerts that deserve a security incident: each one becomes an incident with its indicators, MITRE ATT&CK techniques and computer. The others can be set aside. Nothing is changed in SentinelOne."
+msgstr "Zaznacz alerty, które zasługują na incydent bezpieczeństwa: każdy staje się incydentem ze swoimi wskaźnikami, technikami MITRE ATT&CK i komputerem. Pozostałe można odłożyć. W SentinelOne nic nie jest zmieniane."
+
+#, php-format
+msgid "%1$d alerts: the %2$d most recent are shown."
+msgstr "%1$d alertów: wyświetlono %2$d najnowszych."
+
+msgid "Select all"
+msgstr "Zaznacz wszystko"
+
+msgid "Computer"
+msgstr "Komputer"
+
+msgid "Not found in GLPI"
+msgstr "Nie znaleziono w GLPI"
+
+msgid "Create the incidents of the selected alerts"
+msgstr "Utwórz incydenty z zaznaczonych alertów"
+
+msgid "Set the selected alerts aside"
+msgstr "Odłóż zaznaczone alerty"
+
+msgid "SentinelOne connector"
+msgstr "Konektor SentinelOne"
+
+msgid "Read only"
+msgstr "Tylko odczyt"
+
+msgid "Every hour, the threats and alerts detected by SentinelOne are fetched and proposed as security incidents on the EDR import screen: nothing is created without your validation. The agents are matched with the GLPI computers (serial number, then exact name) and the application vulnerabilities join the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no isolation, no resolution)."
+msgstr "Co godzinę zagrożenia i alerty wykryte przez SentinelOne są pobierane i proponowane jako incydenty bezpieczeństwa na ekranie importu EDR: nic nie jest tworzone bez Twojej akceptacji. Agenci są dopasowywani do komputerów GLPI (numer seryjny, potem dokładna nazwa), a podatności aplikacji dołączają do podatności parku. Nic nigdy nie jest wysyłane do SentinelOne (ani izolacja, ani rozwiązanie)."
+
+msgid "Fetch automatically from SentinelOne"
+msgstr "Pobieraj automatycznie z SentinelOne"
+
+msgid "Turns on the automatic action that reads SentinelOne every hour. Off by default."
+msgstr "Włącza akcję automatyczną, która co godzinę odczytuje SentinelOne. Domyślnie wyłączona."
+
+msgid "Console address"
+msgstr "Adres konsoli"
+
+msgid "The address you use to open the SentinelOne console, in HTTPS."
+msgstr "Adres, pod którym otwierasz konsolę SentinelOne, w HTTPS."
+
+msgid "API token"
+msgstr "Token API"
+
+msgid "Token saved (leave empty to keep it)"
+msgstr "Token zapisany (pozostaw puste, aby go zachować)"
+
+msgid "Token saved"
+msgstr "Token zapisany"
+
+msgid "Token of a service user with the Viewer role only. Encrypted with the GLPI key, never displayed again nor logged."
+msgstr "Token użytkownika serwisowego wyłącznie z rolą Viewer. Szyfrowany kluczem GLPI, nigdy ponownie nie wyświetlany ani nie zapisywany w dziennikach."
+
+msgid "Delete the saved token"
+msgstr "Usuń zapisany token"
+
+msgid "Entity of the alerts whose computer is not found in GLPI"
+msgstr "Jednostka alertów, których komputera nie znaleziono w GLPI"
+
+msgid "Test the connection"
+msgstr "Testuj połączenie"
+
+msgid "Fetch now"
+msgstr "Pobierz teraz"
+
+msgid "Automatic action"
+msgstr "Akcja automatyczna"
+
+msgid "active"
+msgstr "aktywna"
+
+msgid "disabled"
+msgstr "wyłączona"
+
+msgid "Open the automatic action"
+msgstr "Otwórz akcję automatyczną"
+
+#, php-format
+msgid "%d read"
+msgstr "odczytano: %d"
+
+#, php-format
+msgid "%d new"
+msgstr "nowe: %d"
+
+msgid "continued at the next run"
+msgstr "kontynuacja przy następnym uruchomieniu"
+
+msgid "Review the proposed alerts"
+msgstr "Sprawdź zaproponowane alerty"
+
+msgid "Agents"
+msgstr "Agenci"
+
+#, php-format
+msgid "%d agent(s) in the console"
+msgstr "agenci w konsoli: %d"
+
+#, php-format
+msgid "%d without a matching GLPI computer"
+msgstr "bez pasującego komputera GLPI: %d"
+
+msgid "all matched with a GLPI computer"
+msgstr "wszystkie dopasowane do komputera GLPI"
+
+msgid "These agents are never matched by a similar name: create or rename the computer in the inventory, or fill in its serial number."
+msgstr "Ci agenci nigdy nie są dopasowywani po podobnej nazwie: utwórz lub zmień nazwę komputera w inwentarzu albo uzupełnij jego numer seryjny."
+
+msgid "Computer name in SentinelOne"
+msgstr "Nazwa komputera w SentinelOne"
+
+msgid "The console address was not saved: it must start with https:// and contain no user name or password."
+msgstr "Adres konsoli nie został zapisany: musi zaczynać się od https:// i nie może zawierać nazwy użytkownika ani hasła."
+
+msgid "Enter the console address and the API token first."
+msgstr "Najpierw wprowadź adres konsoli i token API."
+
+msgid "Connection accepted, but the token sees no agent and no threat: check that its user has the Viewer role on the right accounts or sites."
+msgstr "Połączenie zaakceptowane, ale token nie widzi żadnego agenta ani zagrożenia: sprawdź, czy jego użytkownik ma rolę Viewer na właściwych kontach lub stronach."
+
+#, php-format
+msgid "Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) visible."
+msgstr "Połączenie z SentinelOne udane: widoczni agenci: %1$d, zagrożenia: %2$s."
+
+#, php-format
+msgid "SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d application vulnerabilities."
+msgstr "Odczyt SentinelOne: nowe alerty do sprawdzenia: %1$d, agenci: %2$d, podatności aplikacji: %3$d."
+
+msgid "Select at least one alert."
+msgstr "Zaznacz co najmniej jeden alert."
+
+#, php-format
+msgid "%1$d incident(s) created, %2$d alert(s) ignored (already imported or not allowed)."
+msgstr "Utworzone incydenty: %1$d, pominięte alerty: %2$d (już zaimportowane lub niedozwolone)."
+
+#, php-format
+msgid "%d alert(s) set aside."
+msgstr "Odłożone alerty: %d."
+
+msgid "SentinelOne alerts"
+msgstr "Alerty SentinelOne"
+
+msgid "SentinelOne: reads new threats, alerts and application vulnerabilities (read only)"
+msgstr "SentinelOne: odczytuje nowe zagrożenia, alerty i podatności aplikacji (tylko odczyt)"
+
+msgid "SentinelOne refused the API token (401): check that it is valid and has not expired."
+msgstr "SentinelOne odrzucił token API (401): sprawdź, czy jest ważny i nie wygasł."
+
+msgid "The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence."
+msgstr "Token API nie ma prawa odczytu tych informacji (403): nadaj mu rolę Viewer na kontach lub stronach do odczytu albo sprawdź licencję."
+
+msgid "This information is not available on this console (404): it may not be included in the licence."
+msgstr "Te informacje nie są dostępne w tej konsoli (404): mogą nie być objęte licencją."
+
+msgid "SentinelOne limits the number of requests (429): the next run resumes where this one stopped."
+msgstr "SentinelOne ogranicza liczbę żądań (429): następne uruchomienie wznowi od miejsca zatrzymania."
+
+msgid "The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them."
+msgstr "Nie udało się połączyć z konsolą SentinelOne: sprawdź jej adres, proxy GLPI oraz, dla adresu wewnętrznego, ustawienie, które na nie zezwala."
+
+msgid "The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page."
+msgstr "Adres konsoli jest adresem wewnętrznym, domyślnie odrzucanym: administrator może zezwolić na adresy wewnętrzne na tej stronie konfiguracji."
+
+msgid "The SentinelOne console sent an unexpected answer: check the console address."
+msgstr "Konsola SentinelOne wysłała nieoczekiwaną odpowiedź: sprawdź adres konsoli."
+
+msgid "Not read during this run: an earlier step stopped it."
+msgstr "Nie odczytano w tym uruchomieniu: wcześniejszy krok je zatrzymał."
+
+msgid "The SentinelOne console returned an error."
+msgstr "Konsola SentinelOne zwróciła błąd."
+
+msgid "Threats"
+msgstr "Zagrożenia"
+
+msgid "Alerts"
+msgstr "Alerty"
+
+msgid "Application vulnerabilities"
+msgstr "Podatności aplikacji"
+
+msgid "Classification"
+msgstr "Klasyfikacja"
+
+msgid "ACN determination %s"
+msgstr "decyzja ACN %s"
+
+msgid "Annex %d"
+msgstr "Załącznik %d"
+
+msgid "%d not applicable"
+msgstr "%d nie dotyczy"
+
+msgid "Implemented requirements"
+msgstr "Wdrożone wymagania"
+
+msgid "Approvals to record"
+msgstr "Zatwierdzenia do zarejestrowania"
+
+msgid "Function"
+msgstr "Funkcja"
+
+msgid "Required, not recorded"
+msgstr "Wymagane, nie zarejestrowane"
+
+msgid ""
+"Codes and point numbers come from the annexes published by the ACN; titles "
+"and summaries are written by this project and do not replace the official "
+"text."
+msgstr ""
+"Kody i numery punktów pochodzą z załączników opublikowanych przez ACN; "
+"tytuły i streszczenia przygotował ten projekt i nie zastępują one tekstu "
+"urzędowego."
+
+msgid ""
+"Codes and point numbers come from the annexes published by the ACN; titles "
+"and summaries are written by this project and do not replace the official "
+"text:"
+msgstr ""
+"Kody i numery punktów pochodzą z załączników opublikowanych przez ACN; "
+"tytuły i streszczenia przygotował ten projekt i nie zastępują one tekstu "
+"urzędowego:"
+
+msgid "NIS2 Italy: ACN basic security measures (determination %s)"
+msgstr "NIS2 Włochy: podstawowe środki bezpieczeństwa ACN (decyzja %s)"
+
+msgid "Open the NIS2 Italy register"
+msgstr "Otwórz rejestr NIS2 Włochy"
+
+msgid "Classify the entities"
+msgstr "Sklasyfikuj podmioty"
+
+msgid ""
+"Measures of the Italian NIS2 law (D.Lgs. 138/2024). Codes follow the "
+"national framework, aligned with NIST CSF 2.0. Each requirement has its own "
+"record in the register of the entity, without going through ISO 27001 Annex "
+"A."
+msgstr ""
+"Środki włoskiej ustawy NIS2 (D.Lgs. 138/2024). Kody odpowiadają krajowym "
+"ramom, zgodnym z NIST CSF 2.0. Każde wymaganie ma własną kartę w rejestrze "
+"podmiotu, bez przechodzenia przez załącznik A normy ISO 27001."
+
+msgid "Annex 1, important entities: %1$d measures, %2$d requirements"
+msgstr "Załącznik 1, podmioty ważne: %1$d środków, %2$d wymagań"
+
+msgid "Annex 2, essential entities: %1$d measures, %2$d requirements"
+msgstr "Załącznik 2, podmioty kluczowe: %1$d środków, %2$d wymagań"
+
+msgid "Your entity: %s"
+msgstr "Twój podmiot: %s"
+
+msgid "Measure"
+msgstr "Środek"
+
+msgid ""
+"Source: ACN determination %s, annexes 1 and 2 (public documents). Codes and "
+"point numbers are the official ones; titles, summaries and the mapping to "
+"NIS2 are made by this project. Only the text published by the ACN is "
+"authentic."
+msgstr ""
+"Źródło: decyzja ACN %s, załączniki 1 i 2 (dokumenty publiczne). Kody i "
+"numery punktów są urzędowe; tytuły, streszczenia i powiązania z NIS2 "
+"przygotował ten projekt. Wiążący jest wyłącznie tekst opublikowany przez ACN."
+
+msgid "ACN requirement"
+msgstr "Wymaganie ACN"
+
+msgid "Management approval required"
+msgstr "Wymagane zatwierdzenie kierownictwa"
+
+msgid ""
+"Summary written by this project to help you find the requirement. Only the "
+"text published by the ACN is authentic: open the source below."
+msgstr ""
+"Streszczenie przygotowane przez ten projekt, aby ułatwić odnalezienie "
+"wymagania. Wiążący jest wyłącznie tekst opublikowany przez ACN: otwórz "
+"źródło poniżej."
+
+msgid "Official reference"
+msgstr "Odniesienie urzędowe"
+
+msgid ""
+"This requirement only applies to essential entities: it is not part of the "
+"catalogue of this entity (%s). It is kept in case the classification changes."
+msgstr ""
+"To wymaganie dotyczy tylko podmiotów kluczowych: nie należy do katalogu tego "
+"podmiotu (%s). Jest zachowane na wypadek zmiany klasyfikacji."
+
+msgid ""
+"Required when the requirement is not fully applicable: the ACN accepts "
+"exceptions only for reasons that are justified and documented."
+msgstr ""
+"Obowiązkowe, gdy wymaganie nie ma pełnego zastosowania: ACN dopuszcza "
+"wyjątki tylko z uzasadnionych i udokumentowanych powodów."
+
+msgid "Notes"
+msgstr "Uwagi"
+
+msgid "Approval by the management bodies"
+msgstr "Zatwierdzenie przez organy zarządzające"
+
+msgid ""
+"This point requires the approval of the administrative and management "
+"bodies. Record the date and attach the minutes in the Documents tab."
+msgstr ""
+"Ten punkt wymaga zatwierdzenia przez organy administracyjne i zarządzające. "
+"Wpisz datę i dołącz protokół w zakładce Dokumenty."
+
+msgid "Approval reference"
+msgstr "Odniesienie do zatwierdzenia"
+
+msgid "For example \"Board resolution no. 12 of 3 March\"."
+msgstr "Na przykład „Uchwała zarządu nr 12 z 3 marca”."
+
+msgid "Policies and documents"
+msgstr "Polityki i dokumenty"
+
+msgid "Related policies"
+msgstr "Powiązane polityki"
+
+msgid ""
+"Policies of this plugin that answer the requirement. Procedures, plans and "
+"evidence go in the Documents tab."
+msgstr ""
+"Polityki tej wtyczki, które odpowiadają na wymaganie. Procedury, plany i "
+"dowody dodaj w zakładce Dokumenty."
+
+msgid "Approval of the linked policies"
+msgstr "Zatwierdzenie powiązanych polityk"
+
+msgid "Related references"
+msgstr "Powiązane odniesienia"
+
+msgid "NIS2 directive (EU)"
+msgstr "Dyrektywa NIS2 (UE)"
+
+msgid "Indicative mapping made by this project."
+msgstr "Orientacyjne powiązanie przygotowane przez ten projekt."
+
+msgid "ISO 27001 Annex A (optional)"
+msgstr "Załącznik A ISO 27001 (opcjonalnie)"
+
+msgid ""
+"Controls that NIST links to this subcategory. You do not need the Statement "
+"of Applicability to follow this requirement."
+msgstr ""
+"Zabezpieczenia, które NIST wiąże z tą podkategorią. Do realizacji tego "
+"wymagania deklaracja stosowania nie jest potrzebna."
+
+msgid "Back to the NIS2 Italy register"
+msgstr "Powrót do rejestru NIS2 Włochy"
+
+msgid ""
+"Basic security measures of the ACN determination %s (D.Lgs. 138/2024): one "
+"record per requirement."
+msgstr ""
+"Podstawowe środki bezpieczeństwa decyzji ACN %s (D.Lgs. 138/2024): jedna "
+"karta na wymaganie."
+
+msgid "Important or essential entities"
+msgstr "Podmioty ważne lub kluczowe"
+
+msgid ""
+"No entity is classified yet. In the configuration of the plugin, say for "
+"each GLPI entity whether it is an important entity (annex 1) or an essential "
+"entity (annex 2): its register is then created with all the requirements of "
+"its annex."
+msgstr ""
+"Żaden podmiot nie został jeszcze sklasyfikowany. W konfiguracji wtyczki "
+"wskaż dla każdego podmiotu GLPI, czy jest podmiotem ważnym (załącznik 1), "
+"czy kluczowym (załącznik 2): jego rejestr zostanie utworzony ze wszystkimi "
+"wymaganiami załącznika."
+
+msgid "Ask an administrator of the plugin to do it."
+msgstr "Poproś o to administratora wtyczki."
+
+msgid "%1$d measures, %2$d requirements"
+msgstr "%1$d środków, %2$d wymagań"
+
+msgid "Register"
+msgstr "Rejestr"
+
+msgid "Without owner"
+msgstr "Bez osoby odpowiedzialnej"
+
+msgid "By function of the national framework"
+msgstr "Według funkcji ram krajowych"
+
+msgid "Approval to record"
+msgstr "Zatwierdzenie do zarejestrowania"
+
+msgid "Approved on %s"
+msgstr "Zatwierdzono %s"
+
+msgid ""
+"For each GLPI entity subject to the Italian NIS2 law, choose whether it is "
+"an important entity (annex 1 of the ACN determination) or an essential "
+"entity (annex 2). Its register is created with one record per requirement; "
+"sub-entities without a choice follow their parent. Changing or removing the "
+"choice never deletes what was entered."
+msgstr ""
+"Dla każdego podmiotu GLPI objętego włoską ustawą NIS2 wybierz, czy jest "
+"podmiotem ważnym (załącznik 1 decyzji ACN), czy kluczowym (załącznik 2). "
+"Jego rejestr powstaje z jedną kartą na wymaganie; podmioty podrzędne bez "
+"wyboru korzystają z rejestru nadrzędnego. Zmiana lub usunięcie wyboru nigdy "
+"nie kasuje wprowadzonych danych."
+
+msgid "Not subject (or follows its parent)"
+msgstr "Nie podlega (lub korzysta z nadrzędnego)"
+
+msgid "Classification saved; %d requirement record(s) created."
+msgstr "Klasyfikacja zapisana; utworzono kart wymagań: %d."
+
+msgid "Important entity (annex 1)"
+msgstr "Podmiot ważny (załącznik 1)"
+
+msgid "Essential entity (annex 2)"
+msgstr "Podmiot kluczowy (załącznik 2)"
+
+msgid ""
+"A justification is required whenever a requirement is not fully applicable."
+msgstr "Uzasadnienie jest wymagane, gdy wymaganie nie ma pełnego zastosowania."
+
+msgid "Annex"
+msgstr "Załącznik"
+
+msgid "NIS2 Italy compliance (ACN determination %s)"
+msgstr "Zgodność z NIS2 Włochy (decyzja ACN %s)"
+
+msgid "Point"
+msgstr "Punkt"
+
+msgid ""
+"Italian NIS2 basic security measures (ACN determination 379907/2025): a "
+"register with one record per requirement, per GLPI entity set as important "
+"or essential below. Disabled by default."
+msgstr ""
+"Podstawowe środki bezpieczeństwa włoskiej NIS2 (decyzja ACN 379907/2025): "
+"rejestr z jedną kartą na wymaganie dla każdego podmiotu GLPI "
+"sklasyfikowanego niżej jako ważny lub kluczowy. Domyślnie wyłączone."
+
+msgid "NIS2 Italy requirement (ACN)"
+msgid_plural "NIS2 Italy requirements (ACN)"
+msgstr[0] "Wymaganie NIS2 Włochy (ACN)"
+msgstr[1] "Wymagania NIS2 Włochy (ACN)"
+msgstr[2] "Wymagań NIS2 Włochy (ACN)"

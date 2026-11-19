@@ -16,6 +16,83 @@
    résultat), voir front/securityincidentedrimport.php. #}
 {% import 'components/form/fields_macros.html.twig' as fields %}
 
+{# Issue #707 : alertes SentinelOne proposées par la tâche automatique, à vérifier avant de créer
+   les incidents (aucune création automatique, rien n'est envoyé à SentinelOne). #}
+{% if sentinelone %}
+<div class="card mb-3" id="grc-sentinelone-review">
+  <div class="card-header">
+    <h3 class="card-title"><i class="ti ti-shield-search me-2"></i>{{ __('SentinelOne alerts to review', 'grcmanager') }}</h3>
+    <div class="card-actions d-flex align-items-center gap-2">
+      <span class="badge bg-blue-subtle text-blue-emphasis">{{ __('%d pending', 'grcmanager')|format(sentinelone.total) }}</span>
+      {% if sentinelone.last_run %}<span class="text-muted small">{{ __('Last read: %s', 'grcmanager')|format(sentinelone.last_run) }}</span>{% endif %}
+      {% if sentinelone.config_url %}<a href="{{ sentinelone.config_url }}" class="small"><i class="ti ti-settings me-1"></i>{{ __('Settings', 'grcmanager') }}</a>{% endif %}
+    </div>
+  </div>
+  {% if sentinelone.rows is empty %}
+    <div class="card-body text-muted">
+      <i class="ti ti-circle-check me-1 text-green"></i>{{ __('No SentinelOne alert waiting for review.', 'grcmanager') }}
+      {% if not sentinelone.enabled %}<div class="small mt-1">{{ __('The automatic reading is disabled: enable it in the plugin configuration, or use the button "Fetch now" there.', 'grcmanager') }}</div>{% endif %}
+    </div>
+  {% else %}
+    <form method="post" action="{{ action }}">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <div class="card-body pb-0">
+        <p class="text-muted small mb-2">{{ __('Tick the alerts that deserve a security incident: each one becomes an incident with its indicators, MITRE ATT&CK techniques and computer. The others can be set aside. Nothing is changed in SentinelOne.', 'grcmanager') }}</p>
+        {% if sentinelone.total > sentinelone.rows|length %}<p class="small">{{ __('%1$d alerts: the %2$d most recent are shown.', 'grcmanager')|format(sentinelone.total, sentinelone.rows|length) }}</p>{% endif %}
+      </div>
+      <div class="table-responsive">
+        <table class="table table-vcenter card-table">
+          <thead>
+            <tr>
+              <th class="w-1"><input type="checkbox" class="form-check-input" aria-label="{{ __('Select all', 'grcmanager') }}" onclick="this.closest('table').querySelectorAll('input[name=&quot;s1_ids[]&quot;]').forEach(function (box) { box.checked = this.checked; }, this);"></th>
+              <th>{{ __('Detection date', 'grcmanager') }}</th>
+              <th>{{ __('Alert name', 'grcmanager') }}</th>
+              <th>{{ __('Severity', 'grcmanager') }}</th>
+              <th>{{ __('Computer', 'grcmanager') }}</th>
+              <th>{{ __('Account', 'grcmanager') }}</th>
+              <th>{{ __('Entity') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for row in sentinelone.rows %}
+            {% set sev_class = row.severity == 'critical' ? 'bg-red-subtle text-red-emphasis' : (row.severity == 'major' ? 'bg-orange-subtle text-orange-emphasis' : 'bg-yellow-subtle text-yellow-emphasis') %}
+            <tr>
+              <td><input type="checkbox" class="form-check-input" name="s1_ids[]" value="{{ row.id }}" id="grc-s1-{{ row.id }}" aria-label="{{ row.name }}"></td>
+              <td class="text-nowrap">{{ row.detected_at }}</td>
+              <td>
+                <label for="grc-s1-{{ row.id }}" class="mb-0">{{ row.name }}</label>
+                <div>
+                  <span class="badge {{ row.kind == 'alert' ? 'bg-purple-subtle text-purple-emphasis' : 'bg-azure-subtle text-azure-emphasis' }}">{{ sentinelone.kinds[row.kind] ?? row.kind }}</span>
+                  {% if row.console_url %}<a href="{{ row.console_url }}" target="_blank" rel="noopener noreferrer" class="small ms-1"><i class="ti ti-external-link me-1"></i>{{ __('Console link', 'grcmanager') }}</a>{% endif %}
+                </div>
+              </td>
+              <td><span class="badge {{ sev_class }}">{{ sentinelone.severities[row.severity] ?? row.severity }}</span></td>
+              <td>
+                {% if row.computer_url %}
+                  <a href="{{ row.computer_url }}"><i class="ti ti-device-desktop me-1"></i>{{ row.computer }}</a>
+                {% else %}
+                  {{ row.hostname ?: '-' }}
+                  <div><span class="badge bg-warning-subtle text-warning-emphasis">{{ __('Not found in GLPI', 'grcmanager') }}</span></div>
+                {% endif %}
+              </td>
+              <td>{{ row.username ?: '-' }}</td>
+              <td>{{ row.entity }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% if sentinelone.can_import %}
+        <div class="card-footer d-flex flex-wrap gap-2">
+          <button type="submit" name="s1_import" class="btn btn-primary"><i class="ti ti-shield-plus me-1"></i>{{ __('Create the incidents of the selected alerts', 'grcmanager') }}</button>
+          <button type="submit" name="s1_ignore" class="btn btn-outline-secondary"><i class="ti ti-eye-off me-1"></i>{{ __('Set the selected alerts aside', 'grcmanager') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  {% endif %}
+</div>
+{% endif %}
+
 <div class="card">
   <div class="card-header">
     <h3 class="card-title"><i class="ti ti-file-import me-2"></i>{{ __('Import an EDR / XDR export', 'grcmanager') }}</h3>

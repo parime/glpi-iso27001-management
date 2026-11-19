@@ -442,6 +442,9 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
         'smsi'
     ) : [],
     'hds_source'      => HdsCatalogDefaults::SOURCE_URL,
+    // Issue #703 : NIS2 Italia - ACN, catalogue des mesures et lien vers le registre de l'entité.
+    'acn'             => $isEnabled(FrameworkSelection::ACN_IT)
+        ? \GlpiPlugin\Grcmanager\AcnRequirement::referentialCard() : null,
     'custom_frameworks'    => $customFrameworks,
     'custom_frameworks_url' => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),
     'can_import_framework' => Session::haveRight(\GlpiPlugin\Grcmanager\CustomFramework::RIGHTNAME, CREATE),
