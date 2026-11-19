@@ -30,7 +30,10 @@
       'full_width': true,
       'add_field_html': hints.hint(__('Topics actually covered (status of previous actions, changes in context, feedback from interested parties, audit results, nonconformities, opportunities for improvement...).', 'grcmanager')),
    }) }}
-   {{ fields.textareaField('decisions', item.fields['decisions'], __('Decisions and actions', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.textareaField('decisions', item.fields['decisions'], __('Decisions and actions', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('One decision per line: each line can then become a tracked action, with an owner and a due date, from the "Preparatory file" tab.', 'grcmanager')),
+   }) }}
    {{ fields.dropdownArrayField('linked_objectives', null, objectives, __('ISMS objectives discussed', 'grcmanager'), {
       'multiple': true,
       'values': linked_objectives,
