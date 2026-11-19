@@ -440,6 +440,8 @@ class Audit extends AuditBase
         // Issue #538 : demandes de preuves, pièces et accès des auditeurs.
         AuditEvidenceRequest::purgeAudit($this->getID());
         AuditorAccess::purgeAudit($this->getID());
+        // Issue #606 : grille d'audit (les constats créés depuis la grille restent au registre).
+        AuditChecklist::purgeAudit($this->getID());
     }
 
     public function post_addItem()
@@ -490,6 +492,8 @@ class Audit extends AuditBase
         $this->addDefaultFormTab($tabs)
             // Issue #538 : liste des pièces demandées par l'auditeur et accès de l'auditeur.
             ->addStandardTab(AuditEvidenceRequest::class, $tabs, $options)
+            // Issue #606 : grille d'audit par exigence (question, audité, preuves, résultat).
+            ->addStandardTab(AuditChecklist::class, $tabs, $options)
             ->addStandardTab(Nonconformity::class, $tabs, $options)
             ->addStandardTab(AuditTeam::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
@@ -572,6 +576,9 @@ class Audit extends AuditBase
                 ],
                 AuditEvidenceRequest::getForAudit($audit->getID())
             ),
+            // Issue #606 : grille d'audit (exigence, question, audité, preuves, résultat, constat).
+            'checklist'          => AuditChecklist::reportData($audit->getID()),
+            'checklist_results'  => AuditChecklist::getResultLabels(),
         ]);
     }
 

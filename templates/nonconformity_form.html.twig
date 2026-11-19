@@ -31,6 +31,24 @@
       {% endif %}
    {% endif %}
 
+   {# Issue #606 : constat proposé depuis une ligne de la grille d'audit, et lien retour vers la grille. #}
+   {% if checklist_draft %}
+      <input type="hidden" name="_grcmanager_checklistitem" value="{{ checklist_draft.line_id }}">
+      <div class="col-12 mb-2">
+         <div class="alert alert-info mb-0" id="grc-checklist-draft"><i class="ti ti-list-details me-1"></i>{{ __('Finding proposed from the audit checklist (%s): review and adapt each field, then click "Add". Nothing is created before, and the checklist line is linked to this finding once it is saved.', 'grcmanager')|format(checklist_draft.line_title) }}</div>
+      </div>
+   {% endif %}
+   {% if checklist_lines is not empty %}
+      {% set checklist_html %}
+         {% for line in checklist_lines %}
+            <div class="mb-1 grc-checklist-backlink"><a href="{{ line.url }}"><i class="ti ti-list-details me-1"></i>{{ line.title }}</a>
+               <span class="badge {{ line.result_class }} ms-1"><i class="ti {{ line.result_icon }} me-1"></i>{{ line.result }}</span>
+               <span class="text-muted small ms-1">{{ line.audit }}</span></div>
+         {% endfor %}
+      {% endset %}
+      {{ fields.htmlField('', checklist_html, __('Audit checklist line', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true}) }}
    {{ fields.dropdownArrayField('finding_type', item.fields['finding_type'] ?: 'nonconformity', finding_types, __('Finding type', 'grcmanager')) }}
    {{ fields.dropdownArrayField('plugin_grcmanager_audits_id', item.fields['plugin_grcmanager_audits_id'], audits, audit_label) }}
