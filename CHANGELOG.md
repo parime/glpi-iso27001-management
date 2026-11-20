@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.65.0] - 2026-11-20
+
 ### Added
 
 - **Registre des contacts officiels** (issue #771, lot 1, A.5.5 et A.5.6). Une partie intéressée du
