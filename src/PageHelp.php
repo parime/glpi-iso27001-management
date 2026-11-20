@@ -82,7 +82,8 @@ class PageHelp
                 'expected' => __(
                     'Follow the steps in order, starting with the one marked as the next step. Click its button to '
                         . 'open the screen concerned, complete it, then come back: the page is computed again each '
-                        . 'time. Nothing is changed automatically. Export the PDF readiness report to share where you stand.',
+                        . 'time. Nothing is changed automatically. Export the PDF readiness report to share where '
+                        . 'you stand.',
                     'grcmanager'
                 ),
             ],
