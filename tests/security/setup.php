@@ -330,6 +330,11 @@ if ($mode === 'xss') {
     ]);
     $DB->update('glpi_plugin_grcmanager_ismsrequirements', ['comment' => $canary], ['id' => ['>', 0]]);
     $DB->update('glpi_computers', ['name' => $canary], ['id' => (int) $ids['computer_A']]);
+    // Issue #847 : outil et algorithme de chiffrement piégés (page du chiffrement des disques).
+    $DB->update('glpi_items_disks', [
+        'encryption_status' => 2, 'encryption_tool' => mb_substr($canary, 0, 255),
+        'encryption_algorithm' => mb_substr($canary, 0, 255),
+    ], ['itemtype' => Computer::class, 'items_id' => (int) $ids['computer_A']]);
     // Issue #779 : logiciel commercial sans licence piégé (page des licences logicielles, export).
     $DB->update('glpi_softwares', ['name' => $canary], ['name' => 'Logiciel licence securite A']);
     // Issue #779, lot 2 : licence piégée qui arrive à échéance (lien vers la licence sur la page).
@@ -699,6 +704,14 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
+    // Issue #847 : volume système non chiffré (page du chiffrement des disques, entité seulement).
+    $diskCriteria = ['itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix]];
+    if (countElementsInTable('glpi_items_disks', $diskCriteria) === 0) {
+        $DB->insert('glpi_items_disks', [
+            'itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix], 'name' => 'Disque securite',
+            'mountpoint' => 'C:', 'encryption_status' => 0, 'is_deleted' => 0,
+        ]);
+    }
     // Issue #779 : logiciel commercial fictif installé sans licence sur l'ordinateur de l'entité.
     $licenseSoftware = $add(new Software(), [
         'name' => 'Logiciel licence securite ' . $suffix, 'entities_id' => $entity,
