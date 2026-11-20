@@ -74,7 +74,8 @@ final class PersonnelComplianceRulesTest extends TestCase
         $facts = ['screening' => ['status' => Rules::SCREENING_NOT_APPLICABLE]] + self::compliant();
         $result = Rules::evaluate($facts, self::TODAY, 30, []);
 
-        self::assertSame(Rules::NOT_APPLICABLE, array_column($result['components'], null, 'key')[Rules::SCREENING]['status']);
+        $components = array_column($result['components'], null, 'key');
+        self::assertSame(Rules::NOT_APPLICABLE, $components[Rules::SCREENING]['status']);
         self::assertSame(6, $result['counted']);
         self::assertSame(100, $result['score']);
     }
@@ -124,7 +125,8 @@ final class PersonnelComplianceRulesTest extends TestCase
         $facts = ['charter' => null] + self::compliant();
         $result = Rules::evaluate($facts, self::TODAY, 30, []);
 
-        self::assertSame(Rules::NOT_TRACKED, array_column($result['components'], null, 'key')[Rules::CHARTER]['status']);
+        $components = array_column($result['components'], null, 'key');
+        self::assertSame(Rules::NOT_TRACKED, $components[Rules::CHARTER]['status']);
         self::assertSame(6, $result['counted'], 'Une source absente ne pèse pas sur le score.');
         self::assertSame(100, $result['score']);
     }
@@ -141,17 +143,22 @@ final class PersonnelComplianceRulesTest extends TestCase
 
     public function testPolicyDeadlineIsNeverBeforeTheCampaignDueDate(): void
     {
-        $facts = ['policies' => [['title' => 'PSSI', 'version' => '4', 'due_date' => '2026-12-31', 'acknowledged' => null]]]
+        $facts = ['policies' => [
+            ['title' => 'PSSI', 'version' => '4', 'due_date' => '2026-12-31', 'acknowledged' => null],
+        ]]
             + self::compliant();
         $policies = self::byKey($facts)[Rules::POLICIES];
         self::assertSame(Rules::PENDING, $policies['status']);
         self::assertSame('2026-12-31', $policies['deadline']);
 
-        $past = ['policies' => [['title' => 'PSSI', 'version' => '4', 'due_date' => '2026-10-01', 'acknowledged' => null]]]
+        $past = ['policies' => [
+            ['title' => 'PSSI', 'version' => '4', 'due_date' => '2026-10-01', 'acknowledged' => null],
+        ]]
             + self::compliant();
         self::assertSame(Rules::LATE, self::byKey($past)[Rules::POLICIES]['status']);
 
-        self::assertSame(Rules::NOT_APPLICABLE, self::byKey(['policies' => []] + self::compliant())[Rules::POLICIES]['status']);
+        $none = self::byKey(['policies' => []] + self::compliant());
+        self::assertSame(Rules::NOT_APPLICABLE, $none[Rules::POLICIES]['status']);
     }
 
     public function testAccessReview(): void
@@ -160,7 +167,8 @@ final class PersonnelComplianceRulesTest extends TestCase
         self::assertSame('outdated', self::byKey($outdated)[Rules::ACCESS_REVIEW]['code']);
         self::assertSame(Rules::LATE, self::byKey($outdated)[Rules::ACCESS_REVIEW]['status']);
 
-        $campaignLate = ['access_review' => ['last_decision' => null, 'pending_due' => '2026-11-01']] + self::compliant();
+        $campaignLate = ['access_review' => ['last_decision' => null, 'pending_due' => '2026-11-01']]
+            + self::compliant();
         self::assertSame('campaign_late', self::byKey($campaignLate)[Rules::ACCESS_REVIEW]['code']);
 
         $campaignOpen = ['access_review' => ['last_decision' => '2025-06-01', 'pending_due' => '2026-12-15']]
