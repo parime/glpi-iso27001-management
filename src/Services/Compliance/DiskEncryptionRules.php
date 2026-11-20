@@ -206,23 +206,17 @@ final class DiskEncryptionRules
      */
     public static function breakdown(array $rows, string $key): array
     {
-        $groups = [];
+        $byLabel = [];
         foreach ($rows as $row) {
-            $label = (string) ($row[$key] ?? '');
-            $groups[$label] ??= [
-                'label' => $label, self::STATUS_ENCRYPTED => 0, self::STATUS_PARTIAL => 0,
-                self::STATUS_CLEAR => 0, self::STATUS_UNKNOWN => 0, 'total' => 0, 'rate' => null,
-            ];
-            $groups[$label][(string) $row['status']]++;
-            $groups[$label]['total']++;
+            $byLabel[(string) ($row[$key] ?? '')][] = $row;
         }
-        foreach ($groups as &$group) {
-            $group['rate'] = self::rate($group);
+        ksort($byLabel, SORT_NATURAL | SORT_FLAG_CASE);
+        $groups = [];
+        foreach ($byLabel as $label => $groupRows) {
+            $groups[] = ['label' => (string) $label] + self::summary($groupRows);
         }
-        unset($group);
-        ksort($groups, SORT_NATURAL | SORT_FLAG_CASE);
 
-        return array_values($groups);
+        return $groups;
     }
 
     /**
