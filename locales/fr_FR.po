@@ -24023,7 +24023,7 @@ msgstr[0] "%d scénario actif"
 msgstr[1] "%d scénarios actifs"
 
 msgid "%1$d of %2$d critical processes without scenario"
-msgstr "%1$d processus critiques sur %2$d sans scénario"
+msgstr "Processus critiques sans scénario : %1$d sur %2$d"
 
 msgid "%d scenario never exercised"
 msgid_plural "%d scenarios never exercised"
