@@ -26,6 +26,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Le rapport PDF reprend objectifs, constats, actions d'amélioration et validation ; la liste
     des exercices signale les bilans validés.
 
+## [2.60.0] - 2026-11-19
+
 ## [2.59.0] - 2026-11-19
 
 ## [2.58.0] - 2026-11-19
