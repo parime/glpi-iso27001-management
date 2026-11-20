@@ -110,6 +110,14 @@ class RestrictedDocument
                 self::registerIfAbsent((int) $link->fields['documents_id'], $breach);
             }
         }
+        // Issue #778 : photos d'un local technique, plan d'un site : lus avec l'évaluation de la sécurité
+        // physique (droit du plugin, entité de l'évaluation), pas avec le seul droit Documents de GLPI.
+        if (($link->fields['itemtype'] ?? '') === PhysicalSecurityAssessment::class) {
+            $assessment = new PhysicalSecurityAssessment();
+            if ($assessment->getFromDB((int) ($link->fields['items_id'] ?? 0))) {
+                self::registerIfAbsent((int) $link->fields['documents_id'], $assessment);
+            }
+        }
         // Issue #774 : la preuve d'une compétence déclarée (certificat, diplôme) se lit comme la
         // déclaration : droit du plugin, lecture des utilisateurs, personne des entités de la session.
         if (($link->fields['itemtype'] ?? '') === CompetenceDeclaration::class) {

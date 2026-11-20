@@ -617,7 +617,37 @@ type de matériel.
    montre les compteurs ; les contrôles de cohérence du SMSI listent chaque matériel dont la
    garantie est expirée (règle « Matériels dont la garantie est expirée »).
 
-### Étape 27 : Préparer la communication de crise (mesure A.5.26, article 7.4)
+### Étape 27 : Évaluer la sécurité physique des sites (mesures A.7.1 à A.7.14)
+
+1. Les sites sont les **lieux de GLPI** (Configuration > Intitulés > Lieux) : créez par exemple
+   « Siège fictif, 12 rue des Essais, Villefictive » et « Entrepôt fictif, 4 allée des Tests ». Aucun
+   second référentiel des sites.
+2. Ouvrez Conformité > **Sécurité physique**, puis **Évaluer un site**. Choisissez le site, la date
+   et l'évaluateur (il recevra le rappel), liez la **politique de sécurité physique et
+   environnementale** : elle reste un document de la bibliothèque des politiques.
+3. Une fois l'évaluation enregistrée, l'onglet **Grille de sécurité physique** compte une ligne par
+   mesure A.7.1 à A.7.14 (« Non applicable » d'office pour une mesure exclue de la SoA). Pour chaque
+   ligne, cliquez sur **Renseigner** : état (conforme, partiellement conforme, non conforme, non
+   applicable), constat, preuves examinées. Ajoutez les photos et procès-verbaux dans l'onglet
+   « Documents » de l'évaluation, puis citez-les sur la ligne : ils ne se lisent qu'avec le droit de
+   lire l'évaluation.
+4. Pour une ligne partielle ou non conforme (« Porte de la baie serveur non verrouillée », par
+   exemple), cliquez sur **Créer l'action** : une non-conformité pré-remplie s'ouvre (site, mesure,
+   constat). Indiquez le responsable et l'échéance, puis **Ajouter** : le workflow CAPA habituel
+   prend le relais et la ligne affiche l'action et son statut.
+5. L'onglet **Zones du site** liste les zones (publique, contrôlée, sensible, local technique), leurs
+   contrôles d'accès (badge, clé, digicode, vidéosurveillance...), les personnes autorisées et si les
+   consignes d'accès sont affichées. Une zone sensible ou un local technique sans contrôle d'accès ou
+   sans consignes est signalé.
+6. Passez l'évaluation à **Terminée** : la prochaine évaluation est fixée 12 mois plus tard. La tâche
+   automatique « reassessmentreminder » prévient l'évaluateur 30 jours avant, puis une fois par mois
+   tant que le site n'est pas réévalué ; l'échéance figure aussi dans le calendrier de conformité. La
+   réévaluation reprend les zones et montre, ligne par ligne, l'état de l'évaluation précédente.
+7. La page **Sécurité physique** compare la dernière évaluation de chaque site, mesure par mesure,
+   avec le score et l'échéance. Sur la fiche d'une mesure A.7.x de la SoA, le cadre « Sécurité
+   physique des sites » donne l'état de la mesure sur chaque site. Le lieu de GLPI a aussi un onglet
+   « Sécurité physique » avec l'historique de ses évaluations.
+### Étape 28 : Préparer la communication de crise (mesure A.5.26, article 7.4)
 
 1. Dans l'en-tête de la liste des incidents de sécurité, cliquez sur **Modèles de messages de
    crise**. Cinq modèles sont fournis : incident majeur (premier message interne et fin de crise),
@@ -1225,7 +1255,36 @@ hardware.
    ISMS consistency checks list each piece of hardware whose warranty has expired (rule "Hardware
    whose warranty has expired").
 
-### Step 27: Prepare crisis communication (control A.5.26, clause 7.4)
+### Step 27: Assess the physical security of the sites (controls A.7.1 to A.7.14)
+
+1. The sites are the **locations of GLPI** (Setup > Dropdowns > Locations): create for instance
+   "Fictitious head office, 12 Test Street, Sampletown" and "Fictitious warehouse, 4 Demo Lane".
+   There is no second list of sites.
+2. Open Compliance > **Physical security**, then **Assess a site**. Choose the site, the date and
+   the assessor (who receives the reminder), and link the **physical and environmental security
+   policy**: it stays a document of the policy library.
+3. Once the assessment is saved, the **Physical security checklist** tab has one line per control
+   A.7.1 to A.7.14 ("Not applicable" from the start for a control excluded from the SoA). For each
+   line, click **Fill in**: state (compliant, partially compliant, non-compliant, not applicable),
+   finding, evidence examined. Add the photos and reports to the "Documents" tab of the assessment,
+   then cite them on the line: they can only be read with the right to read the assessment.
+4. For a partial or non-compliant line ("Server rack door not locked", for instance), click **Create
+   the action**: a pre-filled non-conformity opens (site, control, finding). Set the owner and the
+   due date, then **Add**: the usual CAPA workflow takes over and the line shows the action and its
+   status.
+5. The **Zones of the site** tab lists the zones (public, controlled, sensitive, technical room),
+   their access controls (badge, key, door code, video surveillance...), the authorized people and
+   whether the access instructions are posted. A sensitive area or a technical room without access
+   control or without instructions is flagged.
+6. Set the assessment to **Completed**: the next assessment is set 12 months later. The automatic
+   task "reassessmentreminder" warns the assessor 30 days before, then once a month until the site
+   is assessed again; the date is also in the compliance calendar. The reassessment takes over the
+   zones and shows, line by line, the state of the previous assessment.
+7. The **Physical security** page compares the last assessment of each site, control by control,
+   with the score and the due date. On an A.7.x control of the SoA, the "Physical security of the
+   sites" box gives the state of the control on each site. The GLPI location also has a "Physical
+   security" tab with the history of its assessments.
+### Step 28: Prepare crisis communication (control A.5.26, clause 7.4)
 
 1. In the header of the security incident list, click **Crisis message templates**. Five templates
    are provided: major incident (first internal message and end of crisis), data breach

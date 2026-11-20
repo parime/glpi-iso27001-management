@@ -1,0 +1,57 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #778 : onglet « Sécurité physique » d'un lieu de GLPI : évaluations du site, la plus récente
+   en tête. #}
+<div class="card" id="grc-physical-site">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-building-fortress me-2"></i>{{ __('Physical security assessments of this site', 'grcmanager') }}</h3>
+      <div class="card-actions d-flex gap-2">
+         <a href="{{ compare_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-columns me-1"></i>{{ __('Compare the sites', 'grcmanager') }}</a>
+         {% if can_create %}
+            <a href="{{ add_url }}" class="btn btn-sm btn-primary"><i class="ti ti-plus me-1"></i>{{ __('Assess this site', 'grcmanager') }}</a>
+         {% endif %}
+      </div>
+   </div>
+   {% if rows is empty %}
+      <div class="card-body">
+         <div class="alert alert-info mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('This site has not been assessed yet.', 'grcmanager') }}</div>
+      </div>
+   {% else %}
+      <div class="table-responsive">
+         <table class="table table-sm table-vcenter card-table">
+            <thead>
+               <tr>
+                  <th>{{ __('Assessment date', 'grcmanager') }}</th>
+                  <th>{{ __('Status', 'grcmanager') }}</th>
+                  <th>{{ __('Assessor', 'grcmanager') }}</th>
+                  <th>{{ __('Score', 'grcmanager') }}</th>
+                  <th>{{ __('Next assessment', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+            {% for row in rows %}
+               <tr>
+                  <td><a href="{{ row.url }}">{{ row.date ?: '-' }}</a>{% if row.name %} <span class="text-muted small">{{ row.name }}</span>{% endif %}</td>
+                  <td>{{ row.status }}</td>
+                  <td>{{ row.assessor ?: '-' }}</td>
+                  <td>{% if row.summary.score is not null %}<span class="badge bg-blue-subtle text-blue-emphasis">{{ row.summary.score }}%</span>{% else %}-{% endif %}</td>
+                  <td>{{ row.next ?: '-' }}</td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   {% endif %}
+</div>
