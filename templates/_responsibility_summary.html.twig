@@ -1,0 +1,35 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #612 : état de la matrice des responsabilités, sur l'exigence 5.3 du SMSI. #}
+<div class="col-12 mt-2">
+   <div class="card card-sm">
+      <div class="card-body">
+         <div class="fw-bold mb-2"><i class="ti ti-users-group me-1"></i>{{ __('Responsibility matrix', 'grcmanager') }}</div>
+         <div class="d-flex flex-wrap gap-2 mb-2">
+            <span class="badge bg-primary-subtle text-primary-emphasis">{{ _n('%d activity', '%d activities', summary.activities, 'grcmanager')|format(summary.activities) }}</span>
+            {% if summary.high > 0 %}
+               <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-alert-octagon me-1"></i>{{ _n('%d alert to fix', '%d alerts to fix', summary.high, 'grcmanager')|format(summary.high) }}</span>
+            {% endif %}
+            {% if summary.medium > 0 %}
+               <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d point to check', '%d points to check', summary.medium, 'grcmanager')|format(summary.medium) }}</span>
+            {% endif %}
+            {% if summary.high == 0 and summary.medium == 0 and summary.activities > 0 %}
+               <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('No alert', 'grcmanager') }}</span>
+            {% endif %}
+         </div>
+         <a href="{{ summary.url }}"><i class="ti ti-link me-1"></i>{{ __('Open the responsibility matrix', 'grcmanager') }}</a>
+      </div>
+   </div>
+</div>

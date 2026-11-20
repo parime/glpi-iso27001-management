@@ -52,7 +52,8 @@ final class IsmsClauseCatalog
         '4.4'   => ['clause' => '4', 'module' => null],
         '5.1'   => ['clause' => '5', 'module' => 'GlpiPlugin\\Grcmanager\\ManagementReview'],
         '5.2'   => ['clause' => '5', 'module' => 'GlpiPlugin\\Grcmanager\\Policy'],
-        '5.3'   => ['clause' => '5', 'module' => null],
+        // Issue #612 : matrice des responsabilités du SMSI.
+        '5.3'   => ['clause' => '5', 'module' => 'GlpiPlugin\\Grcmanager\\ResponsibilityActivity'],
         '6.1.1' => ['clause' => '6', 'module' => 'GlpiPlugin\\Grcmanager\\Risk'],
         '6.1.2' => ['clause' => '6', 'module' => 'GlpiPlugin\\Grcmanager\\Risk'],
         '6.1.3' => ['clause' => '6', 'module' => 'GlpiPlugin\\Grcmanager\\Control'],

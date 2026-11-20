@@ -528,6 +528,10 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     $ids['context_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\ContextItem(), [
         'kind' => 'party', 'name' => 'Partie securite ' . $suffix, 'entities_id' => $entity,
     ]);
+    // Issue #612 : activite de la matrice des responsabilites de l'entite.
+    $ids['responsibility_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\ResponsibilityActivity(), [
+        'name' => 'Activite securite ' . $suffix, 'entities_id' => $entity,
+    ]);
     // Issue #145 : politique (globale) avec un document de preuve daté de l'entité.
     $ids['policy_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Policy(), [
         'title' => 'Politique securite ' . $suffix, 'entities_id' => $entity,
