@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 17:57+0000\n"
+"POT-Creation-Date: 2026-11-20 20:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgstr ""
 #: front/audit.php:47 front/databreach.php:44 front/processingactivity.php:44
 #: templates/acn_register.html.twig templates/control_list_header.html.twig
 #: templates/isms_requirement_list_header.html.twig
-#: templates/risk_list_actions.html.twig
+#: templates/recyf_register.html.twig templates/risk_list_actions.html.twig
 msgid "Export PDF"
 msgstr ""
 
@@ -79,7 +79,8 @@ msgstr ""
 #: src/ManagementReviewDossier.php:625 src/OfficialContact.php:224
 #: src/OperatingProcedure.php:332 src/PersonnelCompliance.php:727
 #: src/PolicyAcknowledgement.php:703 src/PolicyVersion.php:765
-#: src/ResponsibilityActivity.php:806 src/SecurityIncidentPostMortem.php:252
+#: src/RecyfRequirement.php:594 src/ResponsibilityActivity.php:806
+#: src/SecurityIncidentPostMortem.php:252
 #: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:725
 #: templates/management_review_dossier_tab.html.twig
 #, php-format
@@ -296,31 +297,36 @@ msgstr ""
 msgid "Classification saved; %d requirement record(s) created."
 msgstr ""
 
-#: front/config.php:545
+#: front/config.php:348
+#, php-format
+msgid "Classification saved; %d measure record(s) created."
+msgstr ""
+
+#: front/config.php:575
 msgid ""
 "Link not saved: give the exact name shown in GLPI and an endoflife.date "
 "product identifier (lower case letters, digits and dashes, for instance "
 "\"debian\")."
 msgstr ""
 
-#: front/config.php:586
+#: front/config.php:616
 msgid ""
 "Enable the NVD enrichment first: without it, the report would wrongly say "
 "that nothing is exposed."
 msgstr ""
 
-#: front/config.php:591
+#: front/config.php:621
 msgid "The report has been queued for sending to its recipients."
 msgstr ""
 
-#: front/config.php:596
+#: front/config.php:626
 msgid ""
 "The report could not be sent: check that notifications are enabled in GLPI "
 "and that the notification \"GRC Manager - Fleet vulnerability report\" is "
 "active."
 msgstr ""
 
-#: front/config.php:606 templates/supplier_security_watch.html.twig
+#: front/config.php:636 templates/supplier_security_watch.html.twig
 msgid "Configuration"
 msgstr ""
 
@@ -588,7 +594,7 @@ msgid "Register of personal data breaches"
 msgstr ""
 
 #: front/databreach.php:50 front/processingactivity.php:50
-#: templates/acn_register.html.twig
+#: templates/acn_register.html.twig templates/recyf_register.html.twig
 msgid "Export CSV"
 msgstr ""
 
@@ -864,9 +870,11 @@ msgstr ""
 #: templates/pdf/network_flow_report.html.twig
 #: templates/pdf/policy_acknowledgement_report.html.twig
 #: templates/pdf/processing_register_report.html.twig
+#: templates/pdf/recyf_report.html.twig
 #: templates/personnel_compliance_list.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/policy_charter_signatures.html.twig
+#: templates/recyf_register.html.twig
 msgid "Entity"
 msgstr ""
 
@@ -984,7 +992,7 @@ msgid "Record of processing activities"
 msgstr ""
 
 #: front/referentiels.php:72 src/Referentials.php:34
-#: templates/acn_register.html.twig
+#: templates/acn_register.html.twig templates/recyf_register.html.twig
 msgid "Reference frameworks"
 msgstr ""
 
@@ -1880,6 +1888,7 @@ msgstr ""
 #: templates/official_contact_tab.html.twig templates/pdf/acn_report.html.twig
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
+#: templates/pdf/recyf_report.html.twig
 #: templates/processing_activity_form.html.twig templates/risk_import.html.twig
 #: templates/supplier_security_watch.html.twig
 #: templates/tabs/item_security_incidents.html.twig
@@ -2145,7 +2154,8 @@ msgstr ""
 #: src/NotificationTargetBusinessProcess.php:161
 #: src/NotificationTargetNonconformity.php:93
 #: src/NotificationTargetRiskTreatmentAction.php:100 src/Objective.php:166
-#: src/PersonnelCompliance.php:750 templates/_crisis_review.html.twig
+#: src/PersonnelCompliance.php:750 src/RecyfRequirement.php:559
+#: src/RecyfRequirement.php:621 templates/_crisis_review.html.twig
 #: templates/_personnel_compliance.html.twig
 #: templates/access_review_form.html.twig templates/acn_register.html.twig
 #: templates/acn_requirement_form.html.twig
@@ -2162,6 +2172,8 @@ msgstr ""
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/pdf/postmortem_report.html.twig
+#: templates/pdf/recyf_report.html.twig templates/recyf_register.html.twig
+#: templates/recyf_requirement_form.html.twig
 #: templates/risk_treatment_plan.html.twig
 msgid "Due date"
 msgstr ""
@@ -2310,13 +2322,17 @@ msgid "Requirement"
 msgstr ""
 
 #: src/AcnRequirement.php:750 src/AcnRequirement.php:824
+#: src/RecyfRequirement.php:552 src/RecyfRequirement.php:612
 #: templates/framework_assessment.html.twig
+#: templates/pdf/recyf_report.html.twig templates/recyf_register.html.twig
+#: templates/recyf_requirement_form.html.twig
 #: templates/referentiels_acn_card.html.twig
 msgid "Measure"
 msgstr ""
 
 #: src/AcnRequirement.php:751 src/NotificationTargetVulnerabilityDigest.php:233
-#: templates/acn_register.html.twig templates/acn_requirement_form.html.twig
+#: src/RecyfRequirement.php:554 templates/acn_register.html.twig
+#: templates/acn_requirement_form.html.twig
 #: templates/pdf/access_review_report.html.twig
 #: templates/pdf/acn_report.html.twig templates/pdf/action_log.html.twig
 #: templates/pdf/audit_report.html.twig
@@ -2335,11 +2351,14 @@ msgstr ""
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/pdf/policy_acknowledgement_report.html.twig
 #: templates/pdf/postmortem_report.html.twig
+#: templates/pdf/recyf_report.html.twig
 #: templates/pdf/remediation_plan.html.twig
 #: templates/pdf/responsibility_matrix.html.twig
 #: templates/pdf/risk_register_report.html.twig
 #: templates/pdf/soa_report.html.twig
 #: templates/pdf/training_session_report.html.twig
+#: templates/recyf_register.html.twig
+#: templates/recyf_requirement_form.html.twig
 msgid "Summary"
 msgstr ""
 
@@ -2347,31 +2366,37 @@ msgstr ""
 msgid "Annex"
 msgstr ""
 
-#: src/AcnRequirement.php:753 src/Control.php:1033
+#: src/AcnRequirement.php:753 src/Control.php:1033 src/RecyfRequirement.php:555
 #: templates/acn_register.html.twig templates/acn_requirement_form.html.twig
 #: templates/control_form.html.twig templates/pdf/acn_report.html.twig
-#: templates/pdf/soa_report.html.twig
+#: templates/pdf/recyf_report.html.twig templates/pdf/soa_report.html.twig
+#: templates/recyf_register.html.twig
+#: templates/recyf_requirement_form.html.twig
 msgid "Applicability"
 msgstr ""
 
 #: src/AcnRequirement.php:754 src/ContextItem.php:837 src/ContextItem.php:927
-#: src/Control.php:1049 src/NetworkFlow.php:265 src/RiskRegisterImport.php:610
-#: templates/acn_requirement_form.html.twig
+#: src/Control.php:1049 src/NetworkFlow.php:265 src/RecyfRequirement.php:556
+#: src/RiskRegisterImport.php:610 templates/acn_requirement_form.html.twig
 #: templates/application_security_tab.html.twig
 #: templates/audit_programme_tab.html.twig
 #: templates/context_item_form.html.twig templates/control_form.html.twig
 #: templates/network_flow_form.html.twig
 #: templates/pdf/network_flow_report.html.twig
-#: templates/pdf/soa_report.html.twig templates/risk_form.html.twig
+#: templates/pdf/soa_report.html.twig
+#: templates/recyf_requirement_form.html.twig templates/risk_form.html.twig
 #: templates/supplier_risk_form.html.twig templates/waiver_form.html.twig
 #: templates/waiver_ticket.html.twig
 msgid "Justification"
 msgstr ""
 
 #: src/AcnRequirement.php:755 src/Control.php:1041
-#: src/NotificationTargetControl.php:150 templates/acn_register.html.twig
-#: templates/acn_requirement_form.html.twig templates/control_form.html.twig
-#: templates/pdf/acn_report.html.twig templates/pdf/soa_report.html.twig
+#: src/NotificationTargetControl.php:150 src/RecyfRequirement.php:557
+#: templates/acn_register.html.twig templates/acn_requirement_form.html.twig
+#: templates/control_form.html.twig templates/pdf/acn_report.html.twig
+#: templates/pdf/recyf_report.html.twig templates/pdf/soa_report.html.twig
+#: templates/recyf_register.html.twig
+#: templates/recyf_requirement_form.html.twig
 msgid "Implementation status"
 msgstr ""
 
@@ -2379,6 +2404,7 @@ msgstr ""
 #: src/BusinessProcess.php:546 src/BusinessProcess.php:618
 #: src/ComplianceEvent.php:231 src/EbiosStudy.php:598
 #: src/IsmsRequirement.php:300 src/Nonconformity.php:376
+#: src/RecyfRequirement.php:558 src/RecyfRequirement.php:618
 #: templates/_crisis_review.html.twig templates/acn_register.html.twig
 #: templates/acn_requirement_form.html.twig
 #: templates/audit_findings_tab.html.twig
@@ -2396,7 +2422,9 @@ msgstr ""
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
-#: templates/pdf/soa_report.html.twig templates/periodic_reviews.html.twig
+#: templates/pdf/recyf_report.html.twig templates/pdf/soa_report.html.twig
+#: templates/periodic_reviews.html.twig templates/recyf_register.html.twig
+#: templates/recyf_requirement_form.html.twig
 #: templates/risk_treatment_plan.html.twig
 #: templates/secure_development_page.html.twig
 #: templates/tabs/_access_review_rows.html.twig
@@ -2409,7 +2437,9 @@ msgid "Management approval"
 msgstr ""
 
 #: src/AcnRequirement.php:759 src/AcnRequirement.php:841
+#: src/RecyfRequirement.php:560 src/RecyfRequirement.php:625
 #: templates/acn_requirement_form.html.twig
+#: templates/recyf_requirement_form.html.twig
 msgid "Notes"
 msgstr ""
 
@@ -2427,7 +2457,7 @@ msgid "Point"
 msgstr ""
 
 #: src/AcnRequirement.php:845 src/ContextItem.php:942 src/Control.php:1065
-#: src/IsmsRequirement.php:317
+#: src/IsmsRequirement.php:317 src/RecyfRequirement.php:629
 msgid "Last update"
 msgstr ""
 
@@ -3607,9 +3637,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -4197,8 +4227,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 
 #: src/Competence.php:52 src/IsmsRequirement.php:119
@@ -5430,6 +5460,7 @@ msgid "%d context item(s) awaiting review, %d notification(s) raised."
 msgstr ""
 
 #: src/Control.php:116 templates/acn_requirement_form.html.twig
+#: templates/recyf_requirement_form.html.twig
 msgid "Compliance"
 msgstr ""
 
@@ -5456,6 +5487,7 @@ msgstr ""
 #: src/SecurityIncidentPlaybookTask.php:70 templates/acn_register.html.twig
 #: templates/itil_regulatory_section.html.twig
 #: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/recyf_register.html.twig
 msgid "Not applicable"
 msgstr ""
 
@@ -7336,7 +7368,8 @@ msgstr ""
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/postmortem_report.html.twig
-#: templates/periodic_reviews.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/recyf_report.html.twig templates/periodic_reviews.html.twig
+#: templates/postmortem_tab.html.twig templates/recyf_register.html.twig
 #: templates/risk_treatment_plan.html.twig
 msgid "Overdue"
 msgstr ""
@@ -8534,12 +8567,12 @@ msgstr ""
 msgid "Renew the evidence \"%s\""
 msgstr ""
 
-#: src/FrameworkAssessment.php:67 templates/custom_framework_form.html.twig
-#: templates/framework_assessment.html.twig
+#: src/FrameworkAssessment.php:72 templates/custom_framework_form.html.twig
+#: templates/framework_assessment.html.twig templates/recyf_register.html.twig
 msgid "Assessment by framework"
 msgstr ""
 
-#: src/FrameworkAssessment.php:252
+#: src/FrameworkAssessment.php:269
 msgid "No mapped control"
 msgstr ""
 
@@ -13026,6 +13059,36 @@ msgstr ""
 msgid "%d certification readiness step(s) reported."
 msgstr ""
 
+#: src/RecyfRequirement.php:69 templates/recyf_requirement_form.html.twig
+msgid "ReCyF measure"
+msgid_plural "ReCyF measures"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/RecyfRequirement.php:137
+msgid "Important entity"
+msgstr ""
+
+#: src/RecyfRequirement.php:138
+msgid "Essential entity"
+msgstr ""
+
+#: src/RecyfRequirement.php:391
+msgid "A justification is required whenever a measure is not fully applicable."
+msgstr ""
+
+#: src/RecyfRequirement.php:553 templates/_crisis_review.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/pdf/recyf_report.html.twig templates/recyf_register.html.twig
+msgid "Objective"
+msgstr ""
+
+#: src/RecyfRequirement.php:592
+#, php-format
+msgid "NIS2 compliance: ReCyF %s"
+msgstr ""
+
 #: src/ReleaseValidation.php:67
 msgid "Security release validation"
 msgstr ""
@@ -16028,12 +16091,6 @@ msgstr ""
 
 #: templates/_crisis_review.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
-#: templates/pdf/management_review_dossier.html.twig
-msgid "Objective"
-msgstr ""
-
-#: templates/_crisis_review.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
 msgid "Objectives of the exercise"
 msgstr ""
 
@@ -16481,7 +16538,7 @@ msgstr ""
 msgid "Approved on %s"
 msgstr ""
 
-#: templates/acn_register.html.twig
+#: templates/acn_register.html.twig templates/recyf_register.html.twig
 msgid "Ask an administrator of the plugin to do it."
 msgstr ""
 
@@ -16496,7 +16553,9 @@ msgstr ""
 msgid "By function of the national framework"
 msgstr ""
 
-#: templates/acn_register.html.twig templates/referentiels_acn_card.html.twig
+#: templates/acn_register.html.twig templates/framework_assessment.html.twig
+#: templates/recyf_register.html.twig templates/referentiels_acn_card.html.twig
+#: templates/referentiels_recyf_card.html.twig
 msgid "Classify the entities"
 msgstr ""
 
@@ -16508,7 +16567,8 @@ msgid ""
 msgstr ""
 
 #: templates/acn_register.html.twig templates/custom_framework_form.html.twig
-#: templates/referentiels.html.twig templates/referentiels_iso_card.html.twig
+#: templates/recyf_register.html.twig templates/referentiels.html.twig
+#: templates/referentiels_iso_card.html.twig
 msgid "Filter…"
 msgstr ""
 
@@ -16519,7 +16579,8 @@ msgstr ""
 
 #: templates/acn_register.html.twig templates/control_list_header.html.twig
 #: templates/dashboard_perimeters.html.twig templates/pdf/acn_report.html.twig
-#: templates/pdf/soa_report.html.twig
+#: templates/pdf/recyf_report.html.twig templates/pdf/soa_report.html.twig
+#: templates/recyf_register.html.twig
 msgid "Implementation rate"
 msgstr ""
 
@@ -16527,7 +16588,7 @@ msgstr ""
 msgid "Implemented requirements"
 msgstr ""
 
-#: templates/acn_register.html.twig
+#: templates/acn_register.html.twig templates/recyf_register.html.twig
 msgid "Important or essential entities"
 msgstr ""
 
@@ -16539,7 +16600,7 @@ msgid ""
 "its annex."
 msgstr ""
 
-#: templates/acn_register.html.twig
+#: templates/acn_register.html.twig templates/recyf_register.html.twig
 msgid "Register"
 msgstr ""
 
@@ -16548,7 +16609,7 @@ msgstr ""
 msgid "Requirements"
 msgstr ""
 
-#: templates/acn_register.html.twig
+#: templates/acn_register.html.twig templates/recyf_register.html.twig
 msgid "Without owner"
 msgstr ""
 
@@ -16600,6 +16661,7 @@ msgid "ISO 27001 Annex A (optional)"
 msgstr ""
 
 #: templates/acn_requirement_form.html.twig
+#: templates/recyf_requirement_form.html.twig
 msgid "Indicative mapping made by this project."
 msgstr ""
 
@@ -16608,10 +16670,12 @@ msgid "Management approval required"
 msgstr ""
 
 #: templates/acn_requirement_form.html.twig
+#: templates/recyf_requirement_form.html.twig
 msgid "NIS2 directive (EU)"
 msgstr ""
 
 #: templates/acn_requirement_form.html.twig
+#: templates/recyf_requirement_form.html.twig
 msgid "Official reference"
 msgstr ""
 
@@ -16630,6 +16694,7 @@ msgid "Related policies"
 msgstr ""
 
 #: templates/acn_requirement_form.html.twig
+#: templates/recyf_requirement_form.html.twig
 msgid "Related references"
 msgstr ""
 
@@ -18910,6 +18975,7 @@ msgid ""
 msgstr ""
 
 #: templates/config_form.html.twig templates/pdf/acn_report.html.twig
+#: templates/pdf/recyf_report.html.twig
 msgid "Classification"
 msgstr ""
 
@@ -19043,6 +19109,15 @@ msgstr ""
 
 #: templates/config_form.html.twig
 msgid ""
+"For each GLPI entity subject to NIS2 in France, choose whether it is an "
+"important or an essential entity. Its ReCyF register is created with one "
+"record per measure, and NIS2 is then assessed on these measures; sub-"
+"entities without a choice follow their parent. Changing or removing the "
+"choice never deletes what was entered."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
 "For each GLPI entity subject to the Italian NIS2 law, choose whether it is "
 "an important entity (annex 1 of the ACN determination) or an essential "
 "entity (annex 2). Its register is created with one record per requirement; "
@@ -19135,6 +19210,10 @@ msgstr ""
 msgid "Matrix size"
 msgstr ""
 
+#: templates/config_form.html.twig templates/recyf_register.html.twig
+msgid "NIS2 France: ReCyF register"
+msgstr ""
+
 #: templates/config_form.html.twig
 msgid ""
 "Name and contact details of the data protection officer, shown on the record "
@@ -19184,6 +19263,11 @@ msgstr ""
 
 #: templates/config_form.html.twig templates/referentiels_acn_card.html.twig
 msgid "Open the NIS2 Italy register"
+msgstr ""
+
+#: templates/config_form.html.twig templates/framework_assessment.html.twig
+#: templates/referentiels_recyf_card.html.twig
+msgid "Open the ReCyF register"
 msgstr ""
 
 #: templates/config_form.html.twig
@@ -20617,9 +20701,9 @@ msgstr ""
 #: templates/control_test_sample.html.twig
 #: templates/pdf/control_test_record.html.twig
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
 
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
@@ -22778,8 +22862,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 
 #: templates/dora/register.html.twig
@@ -23088,8 +23172,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/evidence_tab.html.twig
@@ -23181,7 +23265,22 @@ msgid "Implementation"
 msgstr ""
 
 #: templates/framework_assessment.html.twig
+msgid ""
+"In France, NIS2 can be assessed on the measures of ReCyF, the framework of "
+"ANSSI: classify your entity as important or essential, and NIS2 is then "
+"assessed on its ReCyF register instead of the ISO 27001 Annex A."
+msgstr ""
+
+#: templates/framework_assessment.html.twig
 msgid "Mapped Annex A controls"
+msgstr ""
+
+#: templates/framework_assessment.html.twig
+#, php-format
+msgid ""
+"NIS2 is assessed on the measures of the ReCyF register of your entity "
+"(ANSSI): %1$d of %2$d applicable measures are implemented and proven. Open a "
+"measure to update its status or attach evidence in its Documents tab."
 msgstr ""
 
 #: templates/framework_assessment.html.twig
@@ -23217,6 +23316,10 @@ msgid "Proven"
 msgstr ""
 
 #: templates/framework_assessment.html.twig
+msgid "ReCyF measures (ANSSI)"
+msgstr ""
+
+#: templates/framework_assessment.html.twig
 msgid "See its measures"
 msgstr ""
 
@@ -23233,13 +23336,6 @@ msgid ""
 "assessed. Enable ISO 27001 in the configuration to use the mapping, or "
 "import the framework as a custom framework to assess its requirements "
 "directly."
-msgstr ""
-
-#: templates/framework_assessment.html.twig
-msgid ""
-"To assess NIS2 on the measures of a national framework (for example ReCyF in "
-"France), import it as a custom framework and enable it: it is then assessed "
-"on its own requirements."
 msgstr ""
 
 #: templates/impact_spof.html.twig
@@ -24429,7 +24525,7 @@ msgstr ""
 
 #: templates/park_cve_ticket.html.twig
 #: templates/pdf/_context_review_cell.html.twig
-#: templates/pdf/acn_report.html.twig
+#: templates/pdf/acn_report.html.twig templates/pdf/recyf_report.html.twig
 msgid "overdue"
 msgstr ""
 
@@ -24499,8 +24595,8 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -24974,7 +25070,7 @@ msgstr ""
 msgid "Start / due date"
 msgstr ""
 
-#: templates/pdf/acn_report.html.twig
+#: templates/pdf/acn_report.html.twig templates/pdf/recyf_report.html.twig
 #, php-format
 msgid "%d not applicable"
 msgstr ""
@@ -25985,6 +26081,26 @@ msgstr ""
 
 #: templates/pdf/processing_register_report.html.twig
 msgid "The register contains no processing activity."
+msgstr ""
+
+#: templates/pdf/recyf_report.html.twig
+#: templates/recyf_requirement_form.html.twig
+#, php-format
+msgid "ANSSI, Cyber France framework (ReCyF), working version %s"
+msgstr ""
+
+#: templates/pdf/recyf_report.html.twig templates/recyf_register.html.twig
+msgid "Implemented measures"
+msgstr ""
+
+#: templates/pdf/recyf_report.html.twig
+msgid ""
+"Measure numbers come from the ReCyF published by ANSSI; summaries are "
+"written by this project and do not replace the official text."
+msgstr ""
+
+#: templates/pdf/recyf_report.html.twig templates/recyf_register.html.twig
+msgid "Measures"
 msgstr ""
 
 #: templates/pdf/remediation_plan.html.twig
@@ -27289,6 +27405,78 @@ msgstr ""
 msgid "Unlink"
 msgstr ""
 
+#: templates/recyf_register.html.twig
+#, php-format
+msgid "%1$d objectives, %2$d measures"
+msgstr ""
+
+#: templates/recyf_register.html.twig
+msgid "By security objective"
+msgstr ""
+
+#: templates/recyf_register.html.twig
+#: templates/referentiels_recyf_card.html.twig
+msgid "Essential entities"
+msgstr ""
+
+#: templates/recyf_register.html.twig
+#, php-format
+msgid ""
+"Measure numbers come from the ReCyF published by ANSSI (working version %s); "
+"summaries are written by this project and do not replace the official text:"
+msgstr ""
+
+#: templates/recyf_register.html.twig
+#, php-format
+msgid ""
+"Measures of the ANSSI Cyber France framework (ReCyF %s), the French way to "
+"meet NIS2: one record per measure."
+msgstr ""
+
+#: templates/recyf_register.html.twig
+msgid ""
+"No entity is classified yet. In the configuration of the plugin, say for "
+"each GLPI entity whether it is an important or an essential entity under "
+"NIS2: its ReCyF register is then created with one record per measure."
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid "Back to the ReCyF register"
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid "Essential entities only"
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid "Important and essential entities"
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid ""
+"Procedures, plans and evidence go in the Documents tab: they are counted as "
+"evidence in the assessment by framework."
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid ""
+"Required when the measure is not fully applicable, or when you apply an "
+"alternative measure: ANSSI may assess its relevance during an inspection."
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid ""
+"Summary written by this project to help you find the measure. Only the text "
+"published by ANSSI is authentic: open the source below."
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+#, php-format
+msgid ""
+"This measure only applies to essential entities: it is not part of the "
+"catalogue of this entity (%s). It is kept in case the classification changes."
+msgstr ""
+
 #: templates/referentiels.html.twig
 msgid "AI Act: Regulation (EU) 2024/1689 on artificial intelligence"
 msgstr ""
@@ -27583,8 +27771,44 @@ msgid ""
 msgstr ""
 
 #: templates/referentiels_acn_card.html.twig
+#: templates/referentiels_recyf_card.html.twig
 #, php-format
 msgid "Your entity: %s"
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+msgid ""
+"Acceptable means of compliance published by ANSSI for the French "
+"transposition of NIS2. Each measure has its own record in the register of "
+"the entity, without going through ISO 27001 Annex A, and the assessment of "
+"NIS2 uses these records."
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+#, php-format
+msgid "Essential entities: %d measures"
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+#, php-format
+msgid "Important entities: %d measures"
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+#, php-format
+msgid "NIS2 France: Cyber France framework of ANSSI (ReCyF %s)"
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+#, php-format
+msgid ""
+"Source: ANSSI, Cyber France framework (ReCyF), working version %s. Measure "
+"numbers are the official ones; titles, summaries and the mapping to NIS2 are "
+"made by this project. Only the text published by ANSSI is authentic."
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+msgid "Working version, may still change"
 msgstr ""
 
 #: templates/release_validation_tab.html.twig
@@ -29489,8 +29713,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
@@ -30066,196 +30290,4 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
-msgstr ""
-
-#: front/config.php:348
-#, php-format
-msgid "Classification saved; %d measure record(s) created."
-msgstr ""
-
-#: src/RecyfRequirement.php:69 templates/recyf_requirement_form.html.twig
-msgid "ReCyF measure"
-msgid_plural "ReCyF measures"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/RecyfRequirement.php:137
-msgid "Important entity"
-msgstr ""
-
-#: src/RecyfRequirement.php:138
-msgid "Essential entity"
-msgstr ""
-
-#: src/RecyfRequirement.php:391
-msgid "A justification is required whenever a measure is not fully applicable."
-msgstr ""
-
-#: src/RecyfRequirement.php:592
-#, php-format
-msgid "NIS2 compliance: ReCyF %s"
-msgstr ""
-
-#: templates/config_form.html.twig
-msgid ""
-"For each GLPI entity subject to NIS2 in France, choose whether it is an "
-"important or an essential entity. Its ReCyF register is created with one "
-"record per measure, and NIS2 is then assessed on these measures; sub-"
-"entities without a choice follow their parent. Changing or removing the "
-"choice never deletes what was entered."
-msgstr ""
-
-#: templates/config_form.html.twig templates/recyf_register.html.twig
-msgid "NIS2 France: ReCyF register"
-msgstr ""
-
-#: templates/config_form.html.twig templates/framework_assessment.html.twig
-#: templates/referentiels_recyf_card.html.twig
-msgid "Open the ReCyF register"
-msgstr ""
-
-#: templates/framework_assessment.html.twig
-msgid ""
-"In France, NIS2 can be assessed on the measures of ReCyF, the framework of "
-"ANSSI: classify your entity as important or essential, and NIS2 is then "
-"assessed on its ReCyF register instead of the ISO 27001 Annex A."
-msgstr ""
-
-#: templates/framework_assessment.html.twig
-#, php-format
-msgid ""
-"NIS2 is assessed on the measures of the ReCyF register of your entity "
-"(ANSSI): %1$d of %2$d applicable measures are implemented and proven. Open a "
-"measure to update its status or attach evidence in its Documents tab."
-msgstr ""
-
-#: templates/framework_assessment.html.twig
-msgid "ReCyF measures (ANSSI)"
-msgstr ""
-
-#: templates/pdf/recyf_report.html.twig
-#: templates/recyf_requirement_form.html.twig
-#, php-format
-msgid "ANSSI, Cyber France framework (ReCyF), working version %s"
-msgstr ""
-
-#: templates/pdf/recyf_report.html.twig templates/recyf_register.html.twig
-msgid "Implemented measures"
-msgstr ""
-
-#: templates/pdf/recyf_report.html.twig
-msgid ""
-"Measure numbers come from the ReCyF published by ANSSI; summaries are "
-"written by this project and do not replace the official text."
-msgstr ""
-
-#: templates/pdf/recyf_report.html.twig templates/recyf_register.html.twig
-msgid "Measures"
-msgstr ""
-
-#: templates/recyf_register.html.twig
-#, php-format
-msgid "%1$d objectives, %2$d measures"
-msgstr ""
-
-#: templates/recyf_register.html.twig
-msgid "By security objective"
-msgstr ""
-
-#: templates/recyf_register.html.twig
-#: templates/referentiels_recyf_card.html.twig
-msgid "Essential entities"
-msgstr ""
-
-#: templates/recyf_register.html.twig
-#, php-format
-msgid ""
-"Measure numbers come from the ReCyF published by ANSSI (working version %s); "
-"summaries are written by this project and do not replace the official text:"
-msgstr ""
-
-#: templates/recyf_register.html.twig
-#, php-format
-msgid ""
-"Measures of the ANSSI Cyber France framework (ReCyF %s), the French way to "
-"meet NIS2: one record per measure."
-msgstr ""
-
-#: templates/recyf_register.html.twig
-msgid ""
-"No entity is classified yet. In the configuration of the plugin, say for "
-"each GLPI entity whether it is an important or an essential entity under "
-"NIS2: its ReCyF register is then created with one record per measure."
-msgstr ""
-
-#: templates/recyf_requirement_form.html.twig
-msgid "Back to the ReCyF register"
-msgstr ""
-
-#: templates/recyf_requirement_form.html.twig
-msgid "Essential entities only"
-msgstr ""
-
-#: templates/recyf_requirement_form.html.twig
-msgid "Important and essential entities"
-msgstr ""
-
-#: templates/recyf_requirement_form.html.twig
-msgid ""
-"Procedures, plans and evidence go in the Documents tab: they are counted as "
-"evidence in the assessment by framework."
-msgstr ""
-
-#: templates/recyf_requirement_form.html.twig
-msgid ""
-"Required when the measure is not fully applicable, or when you apply an "
-"alternative measure: ANSSI may assess its relevance during an inspection."
-msgstr ""
-
-#: templates/recyf_requirement_form.html.twig
-msgid ""
-"Summary written by this project to help you find the measure. Only the text "
-"published by ANSSI is authentic: open the source below."
-msgstr ""
-
-#: templates/recyf_requirement_form.html.twig
-#, php-format
-msgid ""
-"This measure only applies to essential entities: it is not part of the "
-"catalogue of this entity (%s). It is kept in case the classification changes."
-msgstr ""
-
-#: templates/referentiels_recyf_card.html.twig
-msgid ""
-"Acceptable means of compliance published by ANSSI for the French "
-"transposition of NIS2. Each measure has its own record in the register of "
-"the entity, without going through ISO 27001 Annex A, and the assessment of "
-"NIS2 uses these records."
-msgstr ""
-
-#: templates/referentiels_recyf_card.html.twig
-#, php-format
-msgid "Essential entities: %d measures"
-msgstr ""
-
-#: templates/referentiels_recyf_card.html.twig
-#, php-format
-msgid "Important entities: %d measures"
-msgstr ""
-
-#: templates/referentiels_recyf_card.html.twig
-#, php-format
-msgid "NIS2 France: Cyber France framework of ANSSI (ReCyF %s)"
-msgstr ""
-
-#: templates/referentiels_recyf_card.html.twig
-#, php-format
-msgid ""
-"Source: ANSSI, Cyber France framework (ReCyF), working version %s. Measure "
-"numbers are the official ones; titles, summaries and the mapping to NIS2 are "
-"made by this project. Only the text published by ANSSI is authentic."
-msgstr ""
-
-#: templates/referentiels_recyf_card.html.twig
-msgid "Working version, may still change"
 msgstr ""
