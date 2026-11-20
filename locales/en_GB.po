@@ -29399,3 +29399,339 @@ msgstr "Decision recorded."
 
 msgid "Decision reopened."
 msgstr "Decision reopened."
+
+msgid ""
+"Proposed remedial training: the people who clicked the link or entered data "
+"in the phishing simulation are preselected. Check the date and the list, "
+"then click \"Add\". Nothing is saved or sent before that."
+msgstr ""
+"Proposed remedial training: the people who clicked the link or entered data "
+"in the phishing simulation are preselected. Check the date and the list, "
+"then click \"Add\". Nothing is saved or sent before that."
+
+msgid "Phishing simulations"
+msgstr "Phishing simulations"
+
+msgid "%d campaign within 12 months"
+msgid_plural "%d campaigns within 12 months"
+msgstr[0] "%d campaign within 12 months"
+msgstr[1] "%d campaigns within 12 months"
+
+msgid "Last campaign: %s"
+msgstr "Last campaign: %s"
+
+msgid "Last campaign: %1$s, %2$s %% clicked, %3$s %% reported"
+msgstr "Last campaign: %1$s, %2$s %% clicked, %3$s %% reported"
+
+msgid "Clicks: %s points since the previous campaign"
+msgstr "Clicks: %s points since the previous campaign"
+
+msgid "Open the phishing simulations"
+msgstr "Open the phishing simulations"
+
+msgid "Import the results of \"%s\""
+msgstr "Import the results of \"%s\""
+
+msgid ""
+"The usual columns are recognised automatically. Only the email address (or "
+"login) is required: without a \"received\" or status column, each line is a "
+"person who received the email."
+msgstr ""
+"The usual columns are recognised automatically. Only the email address (or "
+"login) is required: without a \"received\" or status column, each line is a "
+"person who received the email."
+
+msgid "First lines of the file"
+msgstr "First lines of the file"
+
+msgid ""
+"The results replace those of the campaign. People are matched with the "
+"active GLPI users of the entity of the campaign; the address is kept only "
+"for the lines not matched. Nothing is sent to anyone."
+msgstr ""
+"The results replace those of the campaign. People are matched with the "
+"active GLPI users of the entity of the campaign; the address is kept only "
+"for the lines not matched. Nothing is sent to anyone."
+
+msgid "Rates of the campaign"
+msgstr "Rates of the campaign"
+
+msgid "Last import: %1$s (%2$s)"
+msgstr "Last import: %1$s (%2$s)"
+
+msgid ""
+"The results per person are personal data: they are shown only with the right "
+"on sensitive registers. Each person sees their own results in their "
+"preferences."
+msgstr ""
+"The results per person are personal data: they are shown only with the right "
+"on sensitive registers. Each person sees their own results in their "
+"preferences."
+
+msgid "%d person clicked the link or entered data."
+msgid_plural "%d people clicked the link or entered data."
+msgstr[0] "%d person clicked the link or entered data."
+msgstr[1] "%d people clicked the link or entered data."
+
+msgid ""
+"You can offer them a remedial training: nothing is sent, the training form "
+"is only filled in for you."
+msgstr ""
+"You can offer them a remedial training: nothing is sent, the training form "
+"is only filled in for you."
+
+msgid "Offer a remedial training"
+msgstr "Offer a remedial training"
+
+msgid "Results per person"
+msgstr "Results per person"
+
+msgid "The individual results have been deleted."
+msgstr "The individual results have been deleted."
+
+msgid "No person matched yet."
+msgstr "No person matched yet."
+
+msgid "Email received"
+msgstr "Email received"
+
+msgid "Opened"
+msgstr "Opened"
+
+msgid "Link clicked"
+msgstr "Link clicked"
+
+msgid "Data entered"
+msgstr "Data entered"
+
+msgid "Reported"
+msgstr "Reported"
+
+msgid "%d line not matched"
+msgid_plural "%d lines not matched"
+msgstr[0] "%d line not matched"
+msgstr[1] "%d lines not matched"
+
+msgid ""
+"No single active GLPI user of the entity of the campaign has this email "
+"address or login. Correct the address in GLPI (or in the file), then import "
+"the file again. These lines still count in the rates."
+msgstr ""
+"No single active GLPI user of the entity of the campaign has this email "
+"address or login. Correct the address in GLPI (or in the file), then import "
+"the file again. These lines still count in the rates."
+
+msgid "Email address or login"
+msgstr "Email address or login"
+
+msgid "Import the results"
+msgstr "Import the results"
+
+msgid ""
+"CSV export of the results from the simulation tool, one line per person: "
+"email address or login, then email received, opened, link clicked, data "
+"entered and reported (yes / no columns, or the status column of a GoPhish "
+"export). You check the columns at the next step. A new import replaces the "
+"results of the campaign."
+msgstr ""
+"CSV export of the results from the simulation tool, one line per person: "
+"email address or login, then email received, opened, link clicked, data "
+"entered and reported (yes / no columns, or the status column of a GoPhish "
+"export). You check the columns at the next step. A new import replaces the "
+"results of the campaign."
+
+msgid ""
+"At most %d MB. The values of the file are read as text: no formula is "
+"evaluated."
+msgstr ""
+"At most %d MB. The values of the file are read as text: no formula is "
+"evaluated."
+
+msgid "Delete the results per person? The rates of the campaign are kept."
+msgstr "Delete the results per person? The rates of the campaign are kept."
+
+msgid ""
+"Once the follow-up is done (remedial training, statistics), delete the "
+"results per person: only the rates of the campaign remain."
+msgstr ""
+"Once the follow-up is done (remedial training, statistics), delete the "
+"results per person: only the rates of the campaign remain."
+
+msgid "Delete the results per person"
+msgstr "Delete the results per person"
+
+msgid "For example \"Fake parcel delivery, spring 2026\"."
+msgstr "For example \"Fake parcel delivery, spring 2026\"."
+
+msgid "Campaign date"
+msgstr "Campaign date"
+
+msgid "Day the simulated emails were sent."
+msgstr "Day the simulated emails were sent."
+
+msgid "Simulation tool"
+msgstr "Simulation tool"
+
+msgid ""
+"The tool or the provider that sent the emails, for example GoPhish. GLPI "
+"sends nothing."
+msgstr ""
+"The tool or the provider that sent the emails, for example GoPhish. GLPI "
+"sends nothing."
+
+msgid "Targeted population"
+msgstr "Targeted population"
+
+msgid "Who received the email: all staff, a department, a site..."
+msgstr "Who received the email: all staff, a department, a site..."
+
+msgid "What the trap looked like: sender, subject, lure, fake page."
+msgstr "What the trap looked like: sender, subject, lure, fake page."
+
+msgid ""
+"Your results in the phishing simulations of your organization. They help you "
+"spot the traps; they are seen only by you and by the people in charge of "
+"information security."
+msgstr ""
+"Your results in the phishing simulations of your organization. They help you "
+"spot the traps; they are seen only by you and by the people in charge of "
+"information security."
+
+msgid "You have no result in a phishing simulation."
+msgstr "You have no result in a phishing simulation."
+
+msgid ""
+"No results yet. Import the results file of the simulation tool in the "
+"Results tab."
+msgstr ""
+"No results yet. Import the results file of the simulation tool in the "
+"Results tab."
+
+msgid ""
+"Fewer than %d people received the email: the rates are not shown, they could "
+"identify someone."
+msgstr ""
+"Fewer than %d people received the email: the rates are not shown, they could "
+"identify someone."
+
+msgid "Emails received"
+msgstr "Emails received"
+
+msgid ""
+"Rates out of the emails received. A good campaign has few clicks and many "
+"reports."
+msgstr ""
+"Rates out of the emails received. A good campaign has few clicks and many "
+"reports."
+
+msgid "Individual results deleted on %s: only the rates are kept."
+msgstr "Individual results deleted on %s: only the rates are kept."
+
+msgid "Trend from one campaign to the next"
+msgstr "Trend from one campaign to the next"
+
+msgid "Change in clicks"
+msgstr "Change in clicks"
+
+msgid "Too few people to show anonymous rates"
+msgstr "Too few people to show anonymous rates"
+
+msgid ""
+"Rates out of the emails received. To follow the click rate with thresholds "
+"and an alert, create a risk indicator (KRI) with the source \"Click rate of "
+"the last phishing simulation\"."
+msgstr ""
+"Rates out of the emails received. To follow the click rate with thresholds "
+"and an alert, create a risk indicator (KRI) with the source \"Click rate of "
+"the last phishing simulation\"."
+
+msgid "Phishing awareness - %s"
+msgstr "Phishing awareness - %s"
+
+msgid "People caught by the phishing simulation"
+msgstr "People caught by the phishing simulation"
+
+msgid "Phishing simulation result"
+msgid_plural "Phishing simulation results"
+msgstr[0] "Phishing simulation result"
+msgstr[1] "Phishing simulation results"
+
+msgid "My phishing simulations"
+msgstr "My phishing simulations"
+
+msgid "Results imported: %1$d people matched, %2$d lines not matched"
+msgstr "Results imported: %1$d people matched, %2$d lines not matched"
+
+msgid "Individual results deleted, rates kept"
+msgstr "Individual results deleted, rates kept"
+
+msgid "Click rate of the last phishing simulation (%)"
+msgstr "Click rate of the last phishing simulation (%)"
+
+msgid "Phishing simulation"
+msgid_plural "Phishing simulations"
+msgstr[0] "Phishing simulation"
+msgstr[1] "Phishing simulations"
+
+msgid "Give the campaign a name."
+msgstr "Give the campaign a name."
+
+msgid ""
+"Phishing simulations: the fake phishing campaigns sent with an external tool "
+"(GoPhish, a provider...), their results and the trend from one campaign to "
+"the next. The plugin never sends any email."
+msgstr ""
+"Phishing simulations: the fake phishing campaigns sent with an external tool "
+"(GoPhish, a provider...), their results and the trend from one campaign to "
+"the next. The plugin never sends any email."
+
+msgid ""
+"Record each campaign (date, tool, scenario, targeted population), then "
+"import the results file of the tool in the Results tab. Offer a remedial "
+"training to the people who clicked. Inform the staff beforehand that "
+"simulations take place, and delete the results per person once the follow-up "
+"is done."
+msgstr ""
+"Record each campaign (date, tool, scenario, targeted population), then "
+"import the results file of the tool in the Results tab. Offer a remedial "
+"training to the people who clicked. Inform the staff beforehand that "
+"simulations take place, and delete the results per person once the follow-up "
+"is done."
+
+msgid "ISO/IEC 27001, clause 7.3 and control A.6.3"
+msgstr "ISO/IEC 27001, clause 7.3 and control A.6.3"
+
+msgid ""
+"Import of the results of a phishing simulation: each line of the file is "
+"matched with a GLPI user by email address or login."
+msgstr ""
+"Import of the results of a phishing simulation: each line of the file is "
+"matched with a GLPI user by email address or login."
+
+msgid ""
+"Check the column of each field, then import. The lines not matched are "
+"listed on the campaign so that you can correct them."
+msgstr ""
+"Check the column of each field, then import. The lines not matched are "
+"listed on the campaign so that you can correct them."
+
+msgid "Choose a CSV file (text separated by commas or semicolons)."
+msgstr "Choose a CSV file (text separated by commas or semicolons)."
+
+msgid "Choose the column that holds the email address or the login."
+msgstr "Choose the column that holds the email address or the login."
+
+msgid ""
+"%1$d line(s) read: %2$d person(s) matched, %3$d line(s) not matched, %4$d "
+"empty line(s) ignored."
+msgstr ""
+"%1$d line(s) read: %2$d person(s) matched, %3$d line(s) not matched, %4$d "
+"empty line(s) ignored."
+
+msgid "Status (GoPhish export)"
+msgstr "Status (GoPhish export)"
+
+msgid ""
+"The individual results have been deleted. The rates of the campaign are kept."
+msgstr ""
+"The individual results have been deleted. The rates of the campaign are kept."

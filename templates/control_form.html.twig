@@ -610,4 +610,12 @@
       {% endset %}
       {{ fields.htmlField('', software_licenses_html, __('Software license compliance', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+
+   {# Issue #604 : simulations d'hameçonnage (A.6.3), taux agrégés et tendance. #}
+   {% if phishing is defined and phishing is not null %}
+      {% set phishing_html %}
+         {% include '@grcmanager/_phishing_summary.html.twig' with {'summary': phishing} only %}
+      {% endset %}
+      {{ fields.htmlField('', phishing_html, __('Phishing simulations', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
 {% endblock %}

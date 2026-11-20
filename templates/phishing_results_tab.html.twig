@@ -1,0 +1,122 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #604 : onglet « Résultats » d'une campagne de simulation d'hameçonnage. Taux pour qui lit la
+   campagne ; détail par personne et lignes non rapprochées avec le droit des registres sensibles. #}
+{% macro step(value, class) %}{% if value %}<span class="badge {{ class }}">{{ __('Yes') }}</span>{% else %}<span class="text-secondary">{{ __('No') }}</span>{% endif %}{% endmacro %}
+<div class="card mb-3">
+   <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-bar me-2"></i>{{ __('Rates of the campaign', 'grcmanager') }}</h3></div>
+   <div class="card-body">
+      {% include '@grcmanager/_phishing_rates.html.twig' with {'summary': summary} only %}
+      {% if summary.imported %}
+         <div class="mt-2 small text-secondary"><i class="ti ti-file-import me-1"></i>{{ __('Last import: %1$s (%2$s)', 'grcmanager')|format(summary.date_import, summary.import_file) }}</div>
+      {% endif %}
+   </div>
+</div>
+
+{% if not summary.can_detail %}
+   <div class="alert alert-info"><i class="ti ti-lock me-1"></i>{{ __('The results per person are personal data: they are shown only with the right on sensitive registers. Each person sees their own results in their preferences.', 'grcmanager') }}</div>
+{% else %}
+   {% if remedial > 0 %}
+      <div class="alert alert-warning d-flex flex-wrap align-items-center gap-2">
+         <div><i class="ti ti-school me-1"></i>{{ _n('%d person clicked the link or entered data.', '%d people clicked the link or entered data.', remedial, 'grcmanager')|format(remedial) }}
+         {{ __('You can offer them a remedial training: nothing is sent, the training form is only filled in for you.', 'grcmanager') }}</div>
+         {% if remedial_url %}
+            <a href="{{ remedial_url }}" class="btn btn-sm btn-warning ms-auto"><i class="ti ti-school me-1"></i>{{ __('Offer a remedial training', 'grcmanager') }}</a>
+         {% endif %}
+      </div>
+   {% endif %}
+
+   <div class="card mb-3">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-users me-2"></i>{{ __('Results per person', 'grcmanager') }}</h3></div>
+      {% if rows is empty %}
+         <div class="card-body text-secondary">{{ summary.anonymized ? __('The individual results have been deleted.', 'grcmanager') : __('No person matched yet.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-hover card-table">
+               <thead>
+                  <tr>
+                     <th>{{ __('User') }}</th>
+                     <th>{{ __('Email received', 'grcmanager') }}</th>
+                     <th>{{ __('Opened', 'grcmanager') }}</th>
+                     <th>{{ __('Link clicked', 'grcmanager') }}</th>
+                     <th>{{ __('Data entered', 'grcmanager') }}</th>
+                     <th>{{ __('Reported', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row in rows %}
+                     <tr>
+                        <td>{{ row.name }}</td>
+                        <td>{{ _self.step(row.sent, 'bg-secondary-subtle text-secondary-emphasis') }}</td>
+                        <td>{{ _self.step(row.opened, 'bg-secondary-subtle text-secondary-emphasis') }}</td>
+                        <td>{{ _self.step(row.clicked, 'bg-warning-subtle text-warning-emphasis') }}</td>
+                        <td>{{ _self.step(row.submitted, 'bg-danger-subtle text-danger-emphasis') }}</td>
+                        <td>{{ _self.step(row.reported, 'bg-success-subtle text-success-emphasis') }}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   {% if unmatched is not empty %}
+      <div class="card mb-3 border-warning">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-user-question me-2"></i>{{ _n('%d line not matched', '%d lines not matched', unmatched|length, 'grcmanager')|format(unmatched|length) }}</h3></div>
+         <div class="card-body">
+            <p class="text-secondary small">{{ __('No single active GLPI user of the entity of the campaign has this email address or login. Correct the address in GLPI (or in the file), then import the file again. These lines still count in the rates.', 'grcmanager') }}</p>
+            <table class="table table-sm mb-0">
+               <thead><tr><th>{{ __('Line', 'grcmanager') }}</th><th>{{ __('Email address or login', 'grcmanager') }}</th></tr></thead>
+               <tbody>
+                  {% for row in unmatched %}
+                     <tr><td>{{ row.line }}</td><td>{{ row.identifier }}</td></tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+{% endif %}
+
+{% if can_import %}
+   <div class="card mb-3">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-file-import me-2"></i>{{ __('Import the results', 'grcmanager') }}</h3></div>
+      <div class="card-body">
+         <form method="post" action="{{ import_url }}" enctype="multipart/form-data">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="id" value="{{ campaign.id }}">
+            <p class="text-secondary">{{ __('CSV export of the results from the simulation tool, one line per person: email address or login, then email received, opened, link clicked, data entered and reported (yes / no columns, or the status column of a GoPhish export). You check the columns at the next step. A new import replaces the results of the campaign.', 'grcmanager') }}</p>
+            <div class="mb-3">
+               <label class="form-label" for="grc-phishing-file">{{ __('CSV file', 'grcmanager') }}</label>
+               <input type="file" id="grc-phishing-file" name="phishing_file" class="form-control" accept=".csv,.txt,text/csv" required>
+               <div class="form-hint">{{ __('At most %d MB. The values of the file are read as text: no formula is evaluated.', 'grcmanager')|format(max_mb) }}</div>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+               <button type="submit" name="upload" class="btn btn-primary"><i class="ti ti-arrow-right me-1"></i>{{ __('Next', 'grcmanager') }}</button>
+               <a href="{{ example_url }}" class="btn btn-ghost-secondary"><i class="ti ti-download me-1"></i>{{ __('Example file', 'grcmanager') }}</a>
+            </div>
+         </form>
+         {% if summary.imported and not summary.anonymized %}
+            <hr>
+            <form method="post" action="{{ anonymize_url }}" onsubmit="return window.confirm(this.dataset.confirm);" data-confirm="{{ __('Delete the results per person? The rates of the campaign are kept.', 'grcmanager') }}">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="id" value="{{ campaign.id }}">
+               <p class="text-secondary small mb-2">{{ __('Once the follow-up is done (remedial training, statistics), delete the results per person: only the rates of the campaign remain.', 'grcmanager') }}</p>
+               <button type="submit" name="anonymize" class="btn btn-outline-danger btn-sm"><i class="ti ti-user-off me-1"></i>{{ __('Delete the results per person', 'grcmanager') }}</button>
+            </form>
+         {% endif %}
+      </div>
+   </div>
+{% endif %}

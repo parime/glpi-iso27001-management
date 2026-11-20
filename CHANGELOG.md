@@ -33,6 +33,32 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     l'indisponibilité d'un prestataire, scénarios repris dans le PCA en PDF de chaque processus,
     archivage daté du PDF sur la mesure, lien avec les exercices de reprise (#733).
 
+- **Simulations d'hameçonnage, preuve de sensibilisation** (issue #604, lot 1, clause 7.3 et mesure
+  A.6.3). Sous-page « Simulations d'hameçonnage » de la rubrique des formations (pas d'entrée de
+  menu en plus). Le plugin n'envoie rien : la campagne est faite avec un outil externe.
+  - Campagne : nom, date, outil (texte libre : GoPhish, outil d'un prestataire...), scénario,
+    population ciblée, entité.
+  - Import CSV des résultats par personne (reçu, ouvert, lien cliqué, données saisies, signalé),
+    colonnes oui / non ou colonne « statut » d'un export GoPhish, avec correspondance des colonnes.
+    Lecture de l'import EDR réutilisée (encodage UTF-8 ou Windows-1252, séparateur). Fichier CSV
+    texte de 5 Mo au plus, aucune valeur évaluée, identifiant commençant comme une formule
+    neutralisé. Un nouvel import remplace les résultats.
+  - Rapprochement par adresse électronique (ou identifiant de connexion) avec les utilisateurs
+    actifs qui ont un profil dans l'entité de la campagne ; lignes non rapprochées listées (adresse
+    inconnue, ambiguë ou hors de l'entité), seule l'adresse de ces lignes est gardée.
+  - Taux par campagne (ouverture, clic, saisie, signalement, rapportés aux messages reçus) et
+    tendance d'une campagne à l'autre (écart du taux de clic) ; nouvelle source d'indicateur de
+    risque « Taux de clic de la dernière simulation d'hameçonnage » pour suivre la tendance avec
+    des seuils.
+  - Formation de rattrapage proposée aux personnes qui ont cliqué ou saisi des données : formulaire
+    de formation pré-rempli, rien n'est enregistré ni envoyé avant « Ajouter ».
+  - Encadré « Simulations d'hameçonnage » sur la mesure A.6.3 et l'exigence 7.3.
+  - Données personnelles : le détail par personne et les lignes non rapprochées exigent le droit
+    des registres sensibles (lecture ; modification pour importer ou supprimer) ; sans lui, taux
+    agrégés seulement, masqués sous 5 personnes. Chacun voit ses propres résultats dans ses
+    préférences (« Mes simulations d'hameçonnage »). « Supprimer les résultats par personne »
+    garde les taux. Entités respectées ; pas d'onglet Documents (un export nominatif y échapperait
+    au droit des registres sensibles).
 - **Développement sécurisé et validation des mises en production** (issue #777, lot 1, mesures
   A.8.25 à A.8.31). Aucun objet en double : le registre est celui des applications de GLPI
   (`Appliance`), la mise en production est un changement de GLPI (`Change`).

@@ -1710,6 +1710,8 @@ class Control extends ControlBase
             'secure_development'      => SecureDevelopment::evidence($code),
             // Issue #779 : conformité des licences logicielles, preuve de la mesure A.5.32.
             'software_licenses'       => SoftwareLicenseCompliance::evidence($code),
+            // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation (mesure A.6.3).
+            'phishing'                => PhishingCampaign::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
         ]);
 

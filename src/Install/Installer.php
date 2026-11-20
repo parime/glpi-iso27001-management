@@ -384,6 +384,8 @@ final class Installer
         ...CrisisCommunicationTables::CLASSES,
         // Issue #776 : scénarios de crise sécurité de l'information du PCA (A.5.29).
         ...CrisisScenarioTables::CLASSES,
+        // Issue #604 : simulations d'hameçonnage (campagnes, résultats par personne).
+        ...PhishingTables::CLASSES,
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         ...SecureDevelopmentTables::CLASSES,
         // Issue #808 : classes historisées oubliées, dont les journaux restaient après la
@@ -1521,6 +1523,8 @@ final class Installer
         // Issue #616 : communication de crise, et modèles fournis (une seule fois, bibliothèque vide).
         CrisisCommunicationTables::install($keySign, $charset, $collation);
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
+        // Issue #604 : campagnes de simulation d'hameçonnage et résultats importés (7.3, A.6.3).
+        PhishingTables::install($keySign, $charset, $collation);
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         SecureDevelopmentTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
@@ -6263,6 +6267,7 @@ final class Installer
         CompetenceTables::uninstall($migration);
         CrisisCommunicationTables::uninstall($migration);
         CrisisScenarioTables::uninstall($migration);
+        PhishingTables::uninstall($migration);
         SecureDevelopmentTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
