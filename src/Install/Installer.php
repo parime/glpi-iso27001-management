@@ -388,6 +388,8 @@ final class Installer
         ...PhishingTables::CLASSES,
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         ...SecureDevelopmentTables::CLASSES,
+        // Issue #599 : registre ReCyF (NIS2 France).
+        ...RecyfTables::CLASSES,
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         ...OfficialContactTables::CLASSES,
         // Issue #808 : classes historisées oubliées, dont les journaux restaient après la
@@ -1532,6 +1534,7 @@ final class Installer
         PhishingTables::install($keySign, $charset, $collation);
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         SecureDevelopmentTables::install($keySign, $charset, $collation);
+        RecyfTables::install($keySign, $charset, $collation);
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         OfficialContactTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
@@ -6332,6 +6335,7 @@ final class Installer
         CrisisScenarioTables::uninstall($migration);
         PhishingTables::uninstall($migration);
         SecureDevelopmentTables::uninstall($migration);
+        RecyfTables::uninstall($migration);
         OfficialContactTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);

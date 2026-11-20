@@ -54,6 +54,12 @@ TemplateRenderer::getInstance()->display('@grcmanager/framework_assessment.html.
         'none'   => FrameworkAssessment::BASIS_NONE,
     ],
     'nis2_key'       => FrameworkSelection::NIS2,
+    // Issue #599 : NIS2 sans registre ReCyF, accès à la classification des entités.
+    'recyf'          => [
+        'config_url'    => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grcmanager-recyf',
+        'register_url'  => \GlpiPlugin\Grcmanager\RecyfRequirement::getSearchURL(),
+        'can_configure' => (bool) Session::haveRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE),
+    ],
     'iso_key'        => FrameworkSelection::ISO27001,
 ]);
 Html::footer();

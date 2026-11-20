@@ -25393,6 +25393,200 @@ msgstr "Decisão registrada."
 msgid "Decision reopened."
 msgstr "Decisão reaberta."
 
+#, php-format
+msgid "ANSSI, Cyber France framework (ReCyF), working version %s"
+msgstr "ANSSI, referencial Cyber France (ReCyF), versão de trabalho %s"
+
+msgid "Measures"
+msgstr "Medidas"
+
+msgid "Implemented measures"
+msgstr "Medidas implementadas"
+
+msgid ""
+"Measure numbers come from the ReCyF published by ANSSI; summaries are "
+"written by this project and do not replace the official text."
+msgstr ""
+"Os números das medidas vêm do ReCyF publicado pela ANSSI; os resumos são "
+"escritos por este projeto e não substituem o texto oficial."
+
+msgid "Essential entities only"
+msgstr "Somente entidades essenciais"
+
+msgid "Important and essential entities"
+msgstr "Entidades importantes e essenciais"
+
+msgid ""
+"Summary written by this project to help you find the measure. Only the text "
+"published by ANSSI is authentic: open the source below."
+msgstr ""
+"Resumo escrito por este projeto para ajudar a localizar a medida. Somente o "
+"texto publicado pela ANSSI é autêntico: abra a fonte abaixo."
+
+#, php-format
+msgid ""
+"This measure only applies to essential entities: it is not part of the "
+"catalogue of this entity (%s). It is kept in case the classification changes."
+msgstr ""
+"Esta medida só se aplica às entidades essenciais: ela não faz parte do "
+"catálogo desta entidade (%s). Ela é mantida caso a classificação mude."
+
+msgid ""
+"Required when the measure is not fully applicable, or when you apply an "
+"alternative measure: ANSSI may assess its relevance during an inspection."
+msgstr ""
+"Obrigatória quando a medida não é totalmente aplicável, ou quando você "
+"aplica uma medida alternativa: a ANSSI pode avaliar sua pertinência durante "
+"uma inspeção."
+
+msgid ""
+"Procedures, plans and evidence go in the Documents tab: they are counted as "
+"evidence in the assessment by framework."
+msgstr ""
+"Procedimentos, planos e evidências vão na aba Documentos: eles contam como "
+"evidências na avaliação por referencial."
+
+msgid "Back to the ReCyF register"
+msgstr "Voltar ao registro ReCyF"
+
+msgid "NIS2 France: ReCyF register"
+msgstr "NIS2 França: registro ReCyF"
+
+#, php-format
+msgid ""
+"Measures of the ANSSI Cyber France framework (ReCyF %s), the French way to "
+"meet NIS2: one record per measure."
+msgstr ""
+"Medidas do referencial Cyber France da ANSSI (ReCyF %s), a forma francesa de "
+"atender à NIS2: uma ficha por medida."
+
+msgid ""
+"No entity is classified yet. In the configuration of the plugin, say for "
+"each GLPI entity whether it is an important or an essential entity under "
+"NIS2: its ReCyF register is then created with one record per measure."
+msgstr ""
+"Nenhuma entidade foi classificada ainda. Na configuração do plugin, indique "
+"para cada entidade do GLPI se ela é uma entidade importante ou essencial "
+"segundo a NIS2: seu registro ReCyF é então criado com uma ficha por medida."
+
+#, php-format
+msgid "%1$d objectives, %2$d measures"
+msgstr "%1$d objetivos, %2$d medidas"
+
+msgid "By security objective"
+msgstr "Por objetivo de segurança"
+
+msgid "Essential entities"
+msgstr "Entidades essenciais"
+
+#, php-format
+msgid ""
+"Measure numbers come from the ReCyF published by ANSSI (working version %s); "
+"summaries are written by this project and do not replace the official text:"
+msgstr ""
+"Os números das medidas vêm do ReCyF publicado pela ANSSI (versão de trabalho "
+"%s); os resumos são escritos por este projeto e não substituem o texto "
+"oficial:"
+
+#, php-format
+msgid "NIS2 France: Cyber France framework of ANSSI (ReCyF %s)"
+msgstr "NIS2 França: referencial Cyber France da ANSSI (ReCyF %s)"
+
+msgid "Open the ReCyF register"
+msgstr "Abrir o registro ReCyF"
+
+msgid ""
+"Acceptable means of compliance published by ANSSI for the French "
+"transposition of NIS2. Each measure has its own record in the register of "
+"the entity, without going through ISO 27001 Annex A, and the assessment of "
+"NIS2 uses these records."
+msgstr ""
+"Meios aceitáveis de conformidade publicados pela ANSSI para a transposição "
+"francesa da NIS2. Cada medida tem sua própria ficha no registro da entidade, "
+"sem passar pelo anexo A da ISO 27001, e a avaliação da NIS2 se baseia nessas "
+"fichas."
+
+#, php-format
+msgid "Important entities: %d measures"
+msgstr "Entidades importantes: %d medidas"
+
+#, php-format
+msgid "Essential entities: %d measures"
+msgstr "Entidades essenciais: %d medidas"
+
+msgid "Working version, may still change"
+msgstr "Versão de trabalho, ainda pode mudar"
+
+#, php-format
+msgid ""
+"Source: ANSSI, Cyber France framework (ReCyF), working version %s. Measure "
+"numbers are the official ones; titles, summaries and the mapping to NIS2 are "
+"made by this project. Only the text published by ANSSI is authentic."
+msgstr ""
+"Fonte: ANSSI, referencial Cyber France (ReCyF), versão de trabalho %s. Os "
+"números das medidas são os oficiais; títulos, resumos e a correspondência "
+"com a NIS2 são feitos por este projeto. Somente o texto publicado pela ANSSI "
+"é autêntico."
+
+msgid ""
+"For each GLPI entity subject to NIS2 in France, choose whether it is an "
+"important or an essential entity. Its ReCyF register is created with one "
+"record per measure, and NIS2 is then assessed on these measures; sub-"
+"entities without a choice follow their parent. Changing or removing the "
+"choice never deletes what was entered."
+msgstr ""
+"Para cada entidade do GLPI sujeita à NIS2 na França, escolha se ela é uma "
+"entidade importante ou essencial. Seu registro ReCyF é criado com uma ficha "
+"por medida, e a NIS2 passa a ser avaliada com essas medidas; as subentidades "
+"sem escolha seguem sua entidade pai. Alterar ou remover a escolha nunca "
+"apaga o que foi preenchido."
+
+#, php-format
+msgid ""
+"NIS2 is assessed on the measures of the ReCyF register of your entity "
+"(ANSSI): %1$d of %2$d applicable measures are implemented and proven. Open a "
+"measure to update its status or attach evidence in its Documents tab."
+msgstr ""
+"A NIS2 é avaliada com as medidas do registro ReCyF da sua entidade (ANSSI): "
+"%1$d de %2$d medidas aplicáveis estão implementadas e comprovadas. Abra uma "
+"medida para atualizar seu status ou anexar uma evidência na aba Documentos."
+
+msgid "ReCyF measures (ANSSI)"
+msgstr "Medidas do ReCyF (ANSSI)"
+
+msgid ""
+"In France, NIS2 can be assessed on the measures of ReCyF, the framework of "
+"ANSSI: classify your entity as important or essential, and NIS2 is then "
+"assessed on its ReCyF register instead of the ISO 27001 Annex A."
+msgstr ""
+"Na França, a NIS2 pode ser avaliada com as medidas do ReCyF, o referencial "
+"da ANSSI: classifique sua entidade como importante ou essencial, e a NIS2 "
+"passa a ser avaliada com o registro ReCyF em vez do anexo A da ISO 27001."
+
+#, php-format
+msgid "Classification saved; %d measure record(s) created."
+msgstr "Classificação salva; %d ficha(s) de medida criada(s)."
+
+msgid "Important entity"
+msgstr "Entidade importante"
+
+msgid "Essential entity"
+msgstr "Entidade essencial"
+
+msgid "A justification is required whenever a measure is not fully applicable."
+msgstr ""
+"Uma justificativa é obrigatória sempre que uma medida não for totalmente "
+"aplicável."
+
+#, php-format
+msgid "NIS2 compliance: ReCyF %s"
+msgstr "Conformidade com a NIS2: ReCyF %s"
+
+msgid "ReCyF measure"
+msgid_plural "ReCyF measures"
+msgstr[0] "Medida ReCyF"
+msgstr[1] "Medidas ReCyF"
+
 msgid ""
 "Proposed remedial training: the people who clicked the link or entered data "
 "in the phishing simulation are preselected. Check the date and the list, "

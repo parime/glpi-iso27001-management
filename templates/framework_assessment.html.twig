@@ -31,14 +31,28 @@
       </div>
    {% endif %}
 {% endmacro %}
-{% macro basis_badge(basis, bases) %}
-   {% if basis == bases.own %}
+{% macro basis_badge(basis, bases, catalog) %}
+   {% if basis == bases.own and catalog == 'recyf' %}
+      <span class="badge bg-teal-lt"><i class="ti ti-shield-check me-1"></i>{{ __('ReCyF measures (ANSSI)', 'grcmanager') }}</span>
+   {% elseif basis == bases.own %}
       <span class="badge bg-teal-lt"><i class="ti ti-list-details me-1"></i>{{ __('Own measures', 'grcmanager') }}</span>
    {% elseif basis == bases.mapped %}
       <span class="badge bg-azure-lt"><i class="ti ti-arrows-exchange me-1"></i>{{ __('Own measures, status from the Annex A mapping', 'grcmanager') }}</span>
    {% else %}
       <span class="badge bg-secondary-lt"><i class="ti ti-circle-off me-1"></i>{{ __('No status of its own', 'grcmanager') }}</span>
    {% endif %}
+{% endmacro %}
+{# Issue #599 : NIS2 sans registre ReCyF, comment l'évaluer sur les mesures de l'ANSSI. #}
+{% macro recyf_hint(recyf) %}
+   <div class="alert alert-info small mt-3" role="note">
+      <i class="ti ti-bulb me-1"></i>{{ __('In France, NIS2 can be assessed on the measures of ReCyF, the framework of ANSSI: classify your entity as important or essential, and NIS2 is then assessed on its ReCyF register instead of the ISO 27001 Annex A.', 'grcmanager') }}
+      <div class="mt-2 d-flex flex-wrap gap-2">
+         {% if recyf.can_configure %}
+            <a class="btn btn-sm btn-primary" href="{{ recyf.config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Classify the entities', 'grcmanager') }}</a>
+         {% endif %}
+         <a class="btn btn-sm btn-outline-secondary" href="{{ recyf.register_url }}"><i class="ti ti-shield-check me-1"></i>{{ __('Open the ReCyF register', 'grcmanager') }}</a>
+      </div>
+   </div>
 {% endmacro %}
 {% set evidence_badges = {
    'proven':  ['bg-green-lt', 'ti-file-check', __('Proven', 'grcmanager')],
@@ -87,7 +101,7 @@
                {% set score_color = a.score is null ? 'secondary' : (a.score >= 80 ? 'green' : (a.score >= 50 ? 'yellow' : 'red')) %}
                <tr{% if detail and detail.key == a.key %} class="table-active"{% endif %}>
                   <td class="fw-bold">{{ label }}</td>
-                  <td>{{ _self.basis_badge(a.basis, bases) }}</td>
+                  <td>{{ _self.basis_badge(a.basis, bases, a.catalog ?? '') }}</td>
                   {% if a.basis == bases.none %}
                      <td colspan="5" class="text-muted small">
                         <a href="{{ page_url }}?framework={{ a.key|url_encode }}#grc-assessment-gaps">{{ __('Not assessed: ISO 27001 is disabled', 'grcmanager') }}</a>
@@ -120,7 +134,7 @@
    <div class="card" id="grc-assessment-gaps">
       <div class="card-header">
          <h3 class="card-title"><i class="ti ti-list-search me-2"></i>{{ __('Gaps for %s', 'grcmanager')|format(detail.label) }}</h3>
-         <div class="card-actions">{{ _self.basis_badge(detail.basis, bases) }}</div>
+         <div class="card-actions">{{ _self.basis_badge(detail.basis, bases, detail.catalog ?? '') }}</div>
       </div>
       <div class="card-body">
          {% if detail.basis == bases.none %}
@@ -132,20 +146,18 @@
                <a class="btn btn-sm btn-outline-secondary" href="{{ custom_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ _n('Custom framework', 'Custom frameworks', 2, 'grcmanager') }}</a>
                {% if detail.manage_url %}<a class="btn btn-sm btn-outline-secondary" href="{{ detail.manage_url }}"><i class="ti ti-books me-1"></i>{{ __('See its measures', 'grcmanager') }}</a>{% endif %}
             </div>
+            {% if detail.key == nis2_key %}{{ _self.recyf_hint(recyf) }}{% endif %}
          {% else %}
             {% if detail.basis == bases.mapped %}
                <p class="text-muted small">{{ __('%1$d of %2$d applicable measures of this framework are implemented and proven. The plugin does not track their status directly: each one takes the status of the Annex A controls it is mapped to (indicative mapping). Open a mapped control to update it.', 'grcmanager')|format(detail.compliant, detail.applicable) }}</p>
+            {% elseif (detail.catalog ?? '') == 'recyf' %}
+               <p class="text-muted small">{{ __('NIS2 is assessed on the measures of the ReCyF register of your entity (ANSSI): %1$d of %2$d applicable measures are implemented and proven. Open a measure to update its status or attach evidence in its Documents tab.', 'grcmanager')|format(detail.compliant, detail.applicable) }}</p>
             {% elseif detail.key == iso_key %}
                <p class="text-muted small">{{ __('%1$d of %2$d applicable controls are implemented and proven. Open a control to update its status or attach the missing evidence.', 'grcmanager')|format(detail.compliant, detail.applicable) }}</p>
             {% else %}
                <p class="text-muted small">{{ __('%1$d of %2$d applicable measures of this framework are compliant. Open a measure to update its status.', 'grcmanager')|format(detail.compliant, detail.applicable) }}</p>
             {% endif %}
-            {% if detail.key == nis2_key %}
-               <div class="alert alert-info small" role="note">
-                  <i class="ti ti-bulb me-1"></i>{{ __('To assess NIS2 on the measures of a national framework (for example ReCyF in France), import it as a custom framework and enable it: it is then assessed on its own requirements.', 'grcmanager') }}
-                  <a href="{{ custom_url }}">{{ _n('Custom framework', 'Custom frameworks', 2, 'grcmanager') }}</a>
-               </div>
-            {% endif %}
+            {% if detail.key == nis2_key and (detail.catalog ?? '') != 'recyf' %}{{ _self.recyf_hint(recyf) }}{% endif %}
             {% if detail.manage_url %}
                <p><a class="btn btn-sm btn-outline-secondary" href="{{ detail.manage_url }}"><i class="ti ti-books me-1"></i>{{ __('See its measures', 'grcmanager') }}</a></p>
             {% endif %}
