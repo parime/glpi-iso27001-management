@@ -7,8 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.66.0] - 2026-11-20
-
 ### Added
 
 - **Fin de garantie du matériel** (issue #782, lot 1, A.7.13 et A.8.9), en complément de la fin de
@@ -30,6 +28,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits : droit des registres sensibles du plugin, lecture native des informations financières
     et de chaque type de matériel ; entités actives respectées (#536).
   - Reste à faire (lot 2) : date de fin de vie déclarée par le constructeur, par modèle.
+
+## [2.66.0] - 2026-11-20
+
+### Added
+
 - **Procédures d'exploitation documentées** (issue #775, lot 1, A.5.37). Pas d'objet à part : une
   procédure est un document de la bibliothèque des politiques de catégorie « Procédure
   d'exploitation », avec son domaine. Elle garde la version, le responsable, la date d'approbation,
