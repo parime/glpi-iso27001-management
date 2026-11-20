@@ -182,7 +182,7 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
                 $hidden++;
                 continue;
             }
-            $recipients[] = $recipient + ['id' => (int) $row['id']];
+            $recipients[] = $recipient + ['id' => (int) $row['id'], 'items_id' => (int) $row['items_id']];
         }
 
         return ['recipients' => $recipients, 'hidden' => $hidden];

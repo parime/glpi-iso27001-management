@@ -509,9 +509,10 @@ class PageHelp
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Record each official contact, tick the events for which it must be informed, verify the '
-                        . 'details at least once a year, and keep a printed copy of the register (PDF) for use '
-                        . 'during a crisis.',
+                    'Record each official contact, tick the events (and, if needed, the types of incident) for '
+                        . 'which it must be informed, verify the details at least once a year, keep a printed copy '
+                        . 'of the register (PDF) for use during a crisis, and archive it on controls A.5.5 and '
+                        . 'A.5.6 after each review.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.5.5 and A.5.6', 'grcmanager'),

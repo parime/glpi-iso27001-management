@@ -1547,6 +1547,7 @@ final class Installer
         RecyfTables::install($keySign, $charset, $collation);
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         OfficialContactTables::install($keySign, $charset, $collation);
+        OfficialContactTables::migrate($migration);
         // Issue #847 : sauvegarde déclarée des clés de récupération (aucune clé stockée).
         DiskEncryptionTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
@@ -4890,6 +4891,14 @@ final class Installer
         if (!$DB->fieldExists(self::CONTEXT_ITEMS_TABLE, 'contact_delay_hours')) {
             $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_delay_hours', 'integer', [
                 'after' => 'contact_delay', 'value' => 0,
+            ]);
+            $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
+        }
+        // Issue #771, lot 3 : catégories d'incident pour lesquelles prévenir le contact (JSON, vide :
+        // tous les incidents), pour proposer les contacts selon le type de l'incident.
+        if (!$DB->fieldExists(self::CONTEXT_ITEMS_TABLE, 'contact_incident_categories')) {
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_incident_categories', 'text', [
+                'after' => 'on_data_breach',
             ]);
             $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
         }

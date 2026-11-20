@@ -34,6 +34,19 @@ if (is_string($result)) {
     Session::addMessageAfterRedirect(htmlescape($result), false, ERROR);
 } else {
     Session::addMessageAfterRedirect(__('Communication recorded.', 'grcmanager'), false, INFO);
+    // Issue #771, lot 3 : prises de contact tracées en même temps avec les contacts officiels.
+    $contacts = \GlpiPlugin\Grcmanager\OfficialContactNotification::countForCommunication($result);
+    if ($contacts > 0) {
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            _n(
+                '%d official contact recorded as contacted.',
+                '%d official contacts recorded as contacted.',
+                $contacts,
+                'grcmanager'
+            ),
+            $contacts
+        )), false, INFO);
+    }
 }
 
 Html::back();
