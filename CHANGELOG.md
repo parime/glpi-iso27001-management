@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.63.0] - 2026-11-20
+
 ### Added
 
 - **Préparation à la certification ISO 27001** (issue #619) : nouvel onglet « Préparation à la
