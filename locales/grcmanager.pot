@@ -3611,9 +3611,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -4201,8 +4201,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 msgstr ""
 
 #: src/Competence.php:52 src/IsmsRequirement.php:119
@@ -20617,9 +20617,9 @@ msgstr ""
 #: templates/control_test_sample.html.twig
 #: templates/pdf/control_test_record.html.twig
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of "
-"\"seed:identifier\"; the first items of this ranking form the sample. The "
-"same population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
+"identifier\"; the first items of this ranking form the sample. The same "
+"population and the same seed always give the same sample."
 msgstr ""
 
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
@@ -22778,8 +22778,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 
 #: templates/dora/register.html.twig
@@ -23088,8 +23088,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/evidence_tab.html.twig
@@ -24551,8 +24551,8 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -29535,8 +29535,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
@@ -30112,4 +30112,196 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr ""
+
+#: front/config.php:348
+#, php-format
+msgid "Classification saved; %d measure record(s) created."
+msgstr ""
+
+#: src/RecyfRequirement.php:69 templates/recyf_requirement_form.html.twig
+msgid "ReCyF measure"
+msgid_plural "ReCyF measures"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/RecyfRequirement.php:137
+msgid "Important entity"
+msgstr ""
+
+#: src/RecyfRequirement.php:138
+msgid "Essential entity"
+msgstr ""
+
+#: src/RecyfRequirement.php:391
+msgid "A justification is required whenever a measure is not fully applicable."
+msgstr ""
+
+#: src/RecyfRequirement.php:592
+#, php-format
+msgid "NIS2 compliance: ReCyF %s"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"For each GLPI entity subject to NIS2 in France, choose whether it is an "
+"important or an essential entity. Its ReCyF register is created with one "
+"record per measure, and NIS2 is then assessed on these measures; sub-"
+"entities without a choice follow their parent. Changing or removing the "
+"choice never deletes what was entered."
+msgstr ""
+
+#: templates/config_form.html.twig templates/recyf_register.html.twig
+msgid "NIS2 France: ReCyF register"
+msgstr ""
+
+#: templates/config_form.html.twig templates/framework_assessment.html.twig
+#: templates/referentiels_recyf_card.html.twig
+msgid "Open the ReCyF register"
+msgstr ""
+
+#: templates/framework_assessment.html.twig
+msgid ""
+"In France, NIS2 can be assessed on the measures of ReCyF, the framework of "
+"ANSSI: classify your entity as important or essential, and NIS2 is then "
+"assessed on its ReCyF register instead of the ISO 27001 Annex A."
+msgstr ""
+
+#: templates/framework_assessment.html.twig
+#, php-format
+msgid ""
+"NIS2 is assessed on the measures of the ReCyF register of your entity "
+"(ANSSI): %1$d of %2$d applicable measures are implemented and proven. Open a "
+"measure to update its status or attach evidence in its Documents tab."
+msgstr ""
+
+#: templates/framework_assessment.html.twig
+msgid "ReCyF measures (ANSSI)"
+msgstr ""
+
+#: templates/pdf/recyf_report.html.twig
+#: templates/recyf_requirement_form.html.twig
+#, php-format
+msgid "ANSSI, Cyber France framework (ReCyF), working version %s"
+msgstr ""
+
+#: templates/pdf/recyf_report.html.twig templates/recyf_register.html.twig
+msgid "Implemented measures"
+msgstr ""
+
+#: templates/pdf/recyf_report.html.twig
+msgid ""
+"Measure numbers come from the ReCyF published by ANSSI; summaries are "
+"written by this project and do not replace the official text."
+msgstr ""
+
+#: templates/pdf/recyf_report.html.twig templates/recyf_register.html.twig
+msgid "Measures"
+msgstr ""
+
+#: templates/recyf_register.html.twig
+#, php-format
+msgid "%1$d objectives, %2$d measures"
+msgstr ""
+
+#: templates/recyf_register.html.twig
+msgid "By security objective"
+msgstr ""
+
+#: templates/recyf_register.html.twig
+#: templates/referentiels_recyf_card.html.twig
+msgid "Essential entities"
+msgstr ""
+
+#: templates/recyf_register.html.twig
+#, php-format
+msgid ""
+"Measure numbers come from the ReCyF published by ANSSI (working version %s); "
+"summaries are written by this project and do not replace the official text:"
+msgstr ""
+
+#: templates/recyf_register.html.twig
+#, php-format
+msgid ""
+"Measures of the ANSSI Cyber France framework (ReCyF %s), the French way to "
+"meet NIS2: one record per measure."
+msgstr ""
+
+#: templates/recyf_register.html.twig
+msgid ""
+"No entity is classified yet. In the configuration of the plugin, say for "
+"each GLPI entity whether it is an important or an essential entity under "
+"NIS2: its ReCyF register is then created with one record per measure."
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid "Back to the ReCyF register"
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid "Essential entities only"
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid "Important and essential entities"
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid ""
+"Procedures, plans and evidence go in the Documents tab: they are counted as "
+"evidence in the assessment by framework."
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid ""
+"Required when the measure is not fully applicable, or when you apply an "
+"alternative measure: ANSSI may assess its relevance during an inspection."
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+msgid ""
+"Summary written by this project to help you find the measure. Only the text "
+"published by ANSSI is authentic: open the source below."
+msgstr ""
+
+#: templates/recyf_requirement_form.html.twig
+#, php-format
+msgid ""
+"This measure only applies to essential entities: it is not part of the "
+"catalogue of this entity (%s). It is kept in case the classification changes."
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+msgid ""
+"Acceptable means of compliance published by ANSSI for the French "
+"transposition of NIS2. Each measure has its own record in the register of "
+"the entity, without going through ISO 27001 Annex A, and the assessment of "
+"NIS2 uses these records."
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+#, php-format
+msgid "Essential entities: %d measures"
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+#, php-format
+msgid "Important entities: %d measures"
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+#, php-format
+msgid "NIS2 France: Cyber France framework of ANSSI (ReCyF %s)"
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+#, php-format
+msgid ""
+"Source: ANSSI, Cyber France framework (ReCyF), working version %s. Measure "
+"numbers are the official ones; titles, summaries and the mapping to NIS2 are "
+"made by this project. Only the text published by ANSSI is authentic."
+msgstr ""
+
+#: templates/referentiels_recyf_card.html.twig
+msgid "Working version, may still change"
 msgstr ""

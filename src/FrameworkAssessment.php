@@ -29,6 +29,7 @@ use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Dashboard\PilotageCards;
+use GlpiPlugin\Grcmanager\Services\Recyf\RecyfCatalogDefaults;
 use Session;
 
 /**
@@ -39,7 +40,8 @@ use Session;
  *
  * Issue #789 : chaque référentiel est évalué sur ses propres mesures.
  * - état suivi dans le plugin (BASIS_OWN) : ISO 27001 (Annexe A de la SoA), exigences d'un
- *   référentiel personnalisé, points du registre NIS2 Italia accessible ;
+ *   référentiel personnalisé, points du registre NIS2 Italia accessible, mesures du registre ReCyF
+ *   accessible pour NIS2 (#599) ;
  * - catalogue intégré sans état propre (BASIS_MAPPED : exigences NIS2, mesures ANSSI, NIST CSF, CIS,
  *   AI Act...) : l'état de chaque mesure est déduit, à titre de correspondance, des mesures de
  *   l'Annexe A reliées, seulement si ISO 27001 est activé ;
@@ -58,6 +60,9 @@ class FrameworkAssessment extends CommonGLPI
 
     /** Aucun état propre et ISO 27001 désactivé : pas d'évaluation. */
     public const BASIS_NONE = 'none';
+
+    /** Issue #599 : NIS2 évalué sur les mesures du registre ReCyF (clé `catalog` de l'évaluation). */
+    public const CATALOG_RECYF = 'recyf';
 
     /** Issue #789 : référentiel détaillé, retenu pour la session de l'utilisateur. */
     public const SESSION_KEY = 'plugin_grcmanager_assessment_framework';
@@ -196,6 +201,18 @@ class FrameworkAssessment extends CommonGLPI
                     + FrameworkAssessmentRules::assess($controls, $covers);
                 continue;
             }
+            if ($key === FrameworkSelection::NIS2) {
+                // Issue #599 : mesures du ReCyF, suivies dans le registre de l'entité, dès qu'il existe.
+                $recyf = self::recyfMeasures($today);
+                if ($recyf !== null) {
+                    $builtin[$label] = [
+                        'key'     => $key,
+                        'basis'   => self::BASIS_OWN,
+                        'catalog' => self::CATALOG_RECYF,
+                    ] + FrameworkAssessmentRules::assessMeasures($recyf);
+                    continue;
+                }
+            }
             $catalog = FrameworkCatalogMeasures::measures($key);
             if (!$isoEnabled) {
                 // ISO 27001 désactivé : l'Annexe A ne sert pas de base, le référentiel n'a pas d'état.
@@ -329,6 +346,44 @@ class FrameworkAssessment extends CommonGLPI
     }
 
     /**
+     * Issue #599 : mesures du registre ReCyF que la personne peut ouvrir (celui de l'entité active
+     * d'abord), avec leur état de preuve (documents liés à la mesure). Null quand NIS2 est
+     * désactivé, que le droit manque ou qu'aucun registre n'est accessible.
+     *
+     * @return list<array<string, mixed>>|null
+     */
+    private static function recyfMeasures(string $today): ?array
+    {
+        if (!RecyfRequirement::canView()) {
+            return null;
+        }
+        $entityId = RecyfRequirement::selectedRegister(RecyfRequirement::availableRegisters(), null);
+        if ($entityId === null) {
+            return null;
+        }
+        $documents = self::documentValidities(RecyfRequirement::class);
+        $statuses = Control::getImplementationStatuses();
+        $measures = [];
+        foreach (RecyfRequirement::registerRows($entityId) as $row) {
+            $id = (int) $row['id'];
+            $code = (string) $row['code'];
+            $status = AcnRules::normalizeStatus($row['implementation_status'] ?? '');
+            $measures[] = [
+                'code'                  => RecyfCatalogDefaults::reference($code),
+                'id'                    => $id,
+                'title'                 => RecyfCatalogDefaults::summary($code),
+                'url'                   => RecyfRequirement::getFormURLWithID($id),
+                'status_label'          => $statuses[$status] ?? $status,
+                'applicable'            => AcnRules::isApplicable($row),
+                'implementation_status' => $status,
+                'evidence'              => FrameworkAssessmentRules::evidenceStatus($documents[$id] ?? [], $today),
+            ];
+        }
+
+        return $measures;
+    }
+
+    /**
      * Issue #789 : référentiel à détailler. Celui demandé s'il est évalué (il est alors retenu pour
      * la session) ; une demande vide oublie le choix ; sans demande, le choix retenu s'il est
      * toujours évalué. Une clé inconnue n'est jamais retenue.
@@ -390,7 +445,7 @@ class FrameworkAssessment extends CommonGLPI
             return [
                 'label'       => (string) $label,
                 'gaps'        => $gaps,
-                'manage_url'  => self::manageUrl($key),
+                'manage_url'  => self::manageUrl($key, (string) ($assessment['catalog'] ?? '')),
             ] + $assessment;
         }
 
@@ -398,8 +453,11 @@ class FrameworkAssessment extends CommonGLPI
     }
 
     /** Écran des mesures propres du référentiel (vide pour ISO 27001 : les fiches sont liées). */
-    private static function manageUrl(string $key): string
+    private static function manageUrl(string $key, string $catalog = ''): string
     {
+        if ($catalog === self::CATALOG_RECYF) {
+            return RecyfRequirement::getSearchURL();
+        }
         $customId = CustomFrameworkCatalog::idFromKey($key);
         if ($customId !== null) {
             return CustomFramework::getFormURLWithID($customId);
