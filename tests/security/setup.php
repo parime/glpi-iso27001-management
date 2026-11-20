@@ -1076,9 +1076,14 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     $ids['competence_' . $suffix] = $competenceId;
     // Issue #778 : un site fictif (lieu de GLPI) et son évaluation de la sécurité physique, avec une
     // zone, dans chaque entité.
-    $ids['location_' . $suffix] = $add(new \Location(), [
-        'name' => 'Site securite ' . $suffix, 'entities_id' => $entity, 'address' => '1 rue Fictive',
-    ]);
+    // Le nom d'un lieu est unique dans son entité : un second passage (test XSS) reprend le même lieu.
+    $location = new \Location();
+    $siteCriteria = ['name' => 'Site securite ' . $suffix, 'entities_id' => $entity];
+    $ids['location_' . $suffix] = $location->getFromDBByCrit($siteCriteria)
+        ? $location->getID()
+        : $add(new \Location(), [
+            'name' => 'Site securite ' . $suffix, 'entities_id' => $entity, 'address' => '1 rue Fictive',
+        ]);
     $ids['physical_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\PhysicalSecurityAssessment(), [
         'name' => 'Evaluation securite ' . $suffix, 'entities_id' => $entity,
         'locations_id' => $ids['location_' . $suffix], 'assessment_date' => '2026-01-15',
