@@ -29688,3 +29688,231 @@ msgstr ""
 #: front/certificationsampling.php:42
 msgid "Audit plan of the certification body saved."
 msgstr ""
+
+#: templates/pdf/official_contacts_report.html.twig
+#, php-format
+msgid "Obligation: %s"
+msgstr ""
+
+#: templates/pdf/official_contacts_report.html.twig
+#: templates/_official_contact_rows.html.twig
+#, php-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/official_contact_history_tab.html.twig
+msgid ""
+"Every contact with this party recorded from a security incident or a "
+"personal data breach: date, decision, file number and author. To record a "
+"new one, open the incident or the breach, tab \"Official contacts\"."
+msgstr ""
+
+#: templates/official_contact_history_tab.html.twig
+msgid "No contact recorded with this party yet."
+msgstr ""
+
+#: templates/official_contact_history_tab.html.twig
+#: templates/official_contact_tab.html.twig
+msgid "Date and time"
+msgstr ""
+
+#: templates/official_contact_history_tab.html.twig
+#, php-format
+msgid "%d other contact recorded on an event you cannot see."
+msgid_plural "%d other contacts recorded on events you cannot see."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/context_item_form.html.twig
+msgid "Time limit in hours"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"Optional: 72 for a personal data breach, 24 for an early warning. The "
+"deadline is then computed from the detection of the incident or the "
+"awareness of the breach. Leave 0 when there is no set time limit."
+msgstr ""
+
+#: templates/_official_contact_rows.html.twig
+msgid "Deadline and contact"
+msgstr ""
+
+#: templates/_official_contact_rows.html.twig
+msgid "Linked compliance obligation"
+msgstr ""
+
+#: templates/_official_contact_rows.html.twig
+#, php-format
+msgid "Deadline: %s"
+msgstr ""
+
+#: templates/_official_contact_rows.html.twig
+#: templates/official_contact_tab.html.twig
+msgid "Record a contact"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Contacts recorded from security incidents and personal data breaches"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d contact recorded within 12 months"
+msgid_plural "%d contacts recorded within 12 months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/official_contact_tab.html.twig
+msgid "Keep a trace of every official contact"
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+msgid ""
+"When you call or write to an authority, a CSIRT or the police, record it "
+"here with the file number they gave you. If you decide that a contact did "
+"not need to be informed, record that decision and its reason: auditors ask "
+"for both. Nothing is sent from this page."
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+#, php-format
+msgid ""
+"%1$s: %2$s. The deadline of each contact is computed from this date and its "
+"time limit in hours."
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+msgid "File number, acknowledgement of receipt"
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+msgid ""
+"Channel used, person reached; required reason when the contact was not needed"
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+msgid "Record the contact"
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+#: src/OfficialContactNotification.php:67
+msgid "Recorded contact"
+msgid_plural "Recorded contacts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/official_contact_tab.html.twig
+msgid "No contact recorded for this event yet."
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+msgid ""
+"Remove this recorded contact (entered by mistake). The removal stays in the "
+"history."
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+msgid "Remove this recorded contact?"
+msgstr ""
+
+#: front/officialcontactnotification.form.php:47
+msgid "Contact recorded."
+msgstr ""
+
+#: front/officialcontactnotification.form.php:50
+msgid "Recorded contact removed."
+msgstr ""
+
+#: src/OfficialContact.php:341
+msgid "Awareness of the breach"
+msgstr ""
+
+#: src/OfficialContact.php:342
+msgid "Detection of the incident"
+msgstr ""
+
+#: src/OfficialContactNotification.php:88
+msgid "Contacted or notified"
+msgstr ""
+
+#: src/OfficialContactNotification.php:89
+msgid "Not required (decision)"
+msgstr ""
+
+#: src/OfficialContactNotification.php:102
+msgid "Contacted on time"
+msgstr ""
+
+#: src/OfficialContactNotification.php:107
+msgid "Contacted late"
+msgstr ""
+
+#: src/OfficialContactNotification.php:112
+msgid "Not required (decision recorded)"
+msgstr ""
+
+#: src/OfficialContactNotification.php:117
+msgid "To contact"
+msgstr ""
+
+#: src/OfficialContactNotification.php:122
+msgid "Deadline passed, nothing recorded"
+msgstr ""
+
+#: src/OfficialContactNotification.php:208
+msgid "Contact not visible to you"
+msgstr ""
+
+#: src/OfficialContactNotification.php:268
+#: src/OfficialContactNotification.php:321
+msgid "You are not allowed to record a contact on this item."
+msgstr ""
+
+#: src/OfficialContactNotification.php:273
+msgid "Choose an official contact from the register."
+msgstr ""
+
+#: src/OfficialContactNotification.php:295
+msgid "The contact could not be recorded."
+msgstr ""
+
+#: src/OfficialContactNotification.php:298
+#, php-format
+msgid "Official contact %1$s: %2$s on %3$s"
+msgstr ""
+
+#: src/OfficialContactNotification.php:317
+msgid "This recorded contact no longer exists."
+msgstr ""
+
+#: src/OfficialContactNotification.php:324
+msgid "The recorded contact could not be removed."
+msgstr ""
+
+#: src/OfficialContactNotification.php:327
+#, php-format
+msgid "Recorded contact of %s removed"
+msgstr ""
+
+#: src/OfficialContactNotification.php:345
+msgid "Give the reason why this contact did not need to be informed."
+msgstr ""
+
+#: src/OfficialContactNotification.php:348
+msgid "Enter the date and time of the contact."
+msgstr ""
+
+#: src/OfficialContactNotification.php:349
+msgid "The date of the contact cannot be in the future."
+msgstr ""
+
+#: src/OfficialContactNotification.php:351
+msgid "The contact cannot be dated before the start of the event."
+msgstr ""
+
+#: src/OfficialContactNotification.php:354
+msgid "Say whether the contact was informed or not required."
+msgstr ""

@@ -265,6 +265,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\OfficialContact::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class, \GlpiPlugin\Grcmanager\DataBreach::class],
     ]);
+    // Issue #771, lot 2 : onglet « Prises de contact tracées » de la fiche d'un contact officiel.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\OfficialContactNotification::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\ContextItem::class],
+    ]);
     // Issue #616 : onglet « Communication de crise » des incidents et des violations de données.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisCommunication::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class, \GlpiPlugin\Grcmanager\DataBreach::class],

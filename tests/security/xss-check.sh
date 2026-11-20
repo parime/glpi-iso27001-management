@@ -113,6 +113,8 @@ check "front/officialcontact.php"             "$P/officialcontact.php"
 check "fiche d'un contact officiel"           "$P/contextitem.form.php?id=$(xid official_contact)"
 check "onglet contacts officiels d'un incident" "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(id incident_A)")"
 check "onglet contacts officiels d'une violation" "$(tab GlpiPlugin%5CGrcmanager%5CDataBreach 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(xid breach)")"
+# Issue #771, lot 2 : prise de contact piegee (onglet de l'incident ci-dessus, fiche du contact).
+check "onglet prises de contact d'un contact officiel" "$(tab GlpiPlugin%5CGrcmanager%5CContextItem 'GlpiPlugin%5CGrcmanager%5COfficialContactNotification$1' "$(xid official_contact)")"
 # Issue #616 : modele de message de crise piege (liste, fiche, liste de diffusion), et onglet
 # Communication de crise de l'incident de A (variables piegees, communication tracee piegee).
 check "front/crisismessagetemplate.php"       "$P/crisismessagetemplate.php"

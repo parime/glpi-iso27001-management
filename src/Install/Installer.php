@@ -388,6 +388,8 @@ final class Installer
         ...PhishingTables::CLASSES,
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         ...SecureDevelopmentTables::CLASSES,
+        // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
+        ...OfficialContactTables::CLASSES,
         // Issue #808 : classes historisées oubliées, dont les journaux restaient après la
         // désinstallation (fiche de conformité des collaborateurs #546, fiches réflexes, actions
         // de la revue de direction), et deux cibles de notification absentes de la liste.
@@ -1527,6 +1529,8 @@ final class Installer
         PhishingTables::install($keySign, $charset, $collation);
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         SecureDevelopmentTables::install($keySign, $charset, $collation);
+        // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
+        OfficialContactTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -4834,6 +4838,14 @@ final class Installer
             }
             $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
         }
+        // Issue #771, lot 2 : délai chiffré en heures (72 pour une violation de données), qui donne
+        // l'échéance de prévenance depuis un incident ou une violation. 0 : pas de délai chiffré.
+        if (!$DB->fieldExists(self::CONTEXT_ITEMS_TABLE, 'contact_delay_hours')) {
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_delay_hours', 'integer', [
+                'after' => 'contact_delay', 'value' => 0,
+            ]);
+            $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
+        }
         if (!$DB->tableExists(self::CONTEXT_ITEMS_LINKS_TABLE)) {
             $DB->doQuery("CREATE TABLE `" . self::CONTEXT_ITEMS_LINKS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -6297,6 +6309,7 @@ final class Installer
         CrisisScenarioTables::uninstall($migration);
         PhishingTables::uninstall($migration);
         SecureDevelopmentTables::uninstall($migration);
+        OfficialContactTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

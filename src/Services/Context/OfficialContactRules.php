@@ -62,6 +62,34 @@ final class OfficialContactRules
         'A.5.6' => self::INTEREST_GROUP_CATEGORIES,
     ];
 
+    // ------------------------------------------------------------------
+    // Lot 2 : prises de contact tracées depuis un incident ou une violation de données
+    // ------------------------------------------------------------------
+
+    /** Délai maximal saisi en heures (un an). */
+    public const MAX_DELAY_HOURS = 8760;
+
+    /** Le contact a été prévenu (date, référence du dossier). */
+    public const DECISION_NOTIFIED = 'notified';
+
+    /** Décision motivée de ne pas le prévenir pour cet événement. */
+    public const DECISION_NOT_REQUIRED = 'not_required';
+
+    /** @var list<string> */
+    public const DECISIONS = [self::DECISION_NOTIFIED, self::DECISION_NOT_REQUIRED];
+
+    public const NOTICE_ON_TIME = 'on_time';
+    public const NOTICE_LATE = 'late';
+    public const NOTICE_NOT_REQUIRED = 'not_required';
+    public const NOTICE_PENDING = 'pending';
+    public const NOTICE_OVERDUE = 'overdue';
+
+    public const REFUSED_DECISION = 'decision';
+    public const REFUSED_DATE = 'date';
+    public const REFUSED_FUTURE = 'future';
+    public const REFUSED_BEFORE_START = 'before_start';
+    public const REFUSED_REASON = 'reason';
+
     public static function normalizeCategory(mixed $value): string
     {
         $value = is_scalar($value) ? (string) $value : '';
@@ -160,6 +188,135 @@ final class OfficialContactRules
         }
 
         return $summary;
+    }
+
+    /**
+     * Délai de prévenance en heures (0 : aucun délai chiffré), borné à un an.
+     */
+    public static function normalizeDelayHours(mixed $value): int
+    {
+        if (!is_scalar($value) || !is_numeric((string) $value)) {
+            return 0;
+        }
+
+        return max(0, min(self::MAX_DELAY_HOURS, (int) $value));
+    }
+
+    public static function normalizeDecision(mixed $value): string
+    {
+        $value = is_scalar($value) ? (string) $value : '';
+
+        return in_array($value, self::DECISIONS, true) ? $value : '';
+    }
+
+    /**
+     * Date et heure saisies (« 2026-03-10 09:30 », « 2026-03-10T09:30 », secondes facultatives),
+     * au format de la base, ou null si elles sont mal formées.
+     */
+    public static function normalizeDateTime(mixed $value): ?string
+    {
+        $value = is_scalar($value) ? trim(str_replace('T', ' ', (string) $value)) : '';
+        if (preg_match('/^(\d{4}-\d{2}-\d{2}) (\d{2}):(\d{2})(?::(\d{2}))?$/', $value, $m) !== 1) {
+            return null;
+        }
+        $date = \DateTimeImmutable::createFromFormat(
+            '!Y-m-d H:i:s',
+            sprintf('%s %s:%s:%s', $m[1], $m[2], $m[3], $m[4] ?? '00')
+        );
+        if ($date === false || $date->format('Y-m-d') !== $m[1]) {
+            return null;
+        }
+
+        return $date->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * Échéance de prévenance : début de l'événement (détection de l'incident, prise de connaissance
+     * de la violation) plus le délai du contact. Null sans délai chiffré ou sans date de début.
+     */
+    public static function deadline(?string $start, int $hours): ?string
+    {
+        $start = self::normalizeDateTime(substr((string) $start, 0, 19));
+        if ($start === null || $hours <= 0) {
+            return null;
+        }
+
+        return (new \DateTimeImmutable($start))->modify('+' . $hours . ' hours')->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * Motif du refus d'une prise de contact, ou null si elle peut être tracée. $date est déjà
+     * normalisée (null : mal formée).
+     */
+    public static function traceRefusal(
+        string $decision,
+        ?string $date,
+        string $reason,
+        ?string $start,
+        string $now
+    ): ?string {
+        if (!in_array($decision, self::DECISIONS, true)) {
+            return self::REFUSED_DECISION;
+        }
+        if ($decision === self::DECISION_NOT_REQUIRED && trim($reason) === '') {
+            return self::REFUSED_REASON;
+        }
+        if ($date === null) {
+            return self::REFUSED_DATE;
+        }
+        if ($date > $now) {
+            return self::REFUSED_FUTURE;
+        }
+        $start = self::normalizeDateTime(substr((string) $start, 0, 19));
+        if ($decision === self::DECISION_NOTIFIED && $start !== null && $date < $start) {
+            return self::REFUSED_BEFORE_START;
+        }
+
+        return null;
+    }
+
+    /**
+     * Situation d'un contact pour un événement, d'après ses prises de contact tracées :
+     * - prévenu dans le délai ou en retard (première prévenance tracée) ;
+     * - non nécessaire (décision motivée, sans prévenance) ;
+     * - à prévenir, ou échéance dépassée sans rien de tracé.
+     *
+     * @param list<array<string, mixed>> $traces lignes (decision, date_notified)
+     * @return array{state: string, deadline: ?string, date: ?string}
+     */
+    public static function noticeState(array $traces, ?string $start, int $hours, string $now): array
+    {
+        $deadline = self::deadline($start, $hours);
+        $first = null;
+        $notRequired = false;
+        foreach ($traces as $trace) {
+            $decision = (string) ($trace['decision'] ?? '');
+            $date = self::normalizeDateTime(substr((string) ($trace['date_notified'] ?? ''), 0, 19));
+            if ($decision === self::DECISION_NOT_REQUIRED) {
+                $notRequired = true;
+            } elseif ($decision === self::DECISION_NOTIFIED && $date !== null && ($first === null || $date < $first)) {
+                $first = $date;
+            }
+        }
+        if ($first !== null) {
+            $late = $deadline !== null && $first > $deadline;
+
+            return [
+                'state'    => $late ? self::NOTICE_LATE : self::NOTICE_ON_TIME,
+                'deadline' => $deadline,
+                'date'     => $first,
+            ];
+        }
+        if ($notRequired) {
+            return ['state' => self::NOTICE_NOT_REQUIRED, 'deadline' => $deadline, 'date' => null];
+        }
+        $overdue = $deadline !== null && $now > $deadline;
+
+        return [
+            'state'    => $overdue ? self::NOTICE_OVERDUE : self::NOTICE_PENDING,
+            'deadline' => $deadline,
+            'date'     => null,
+        ];
     }
 
     private static function limitDate(string $today): string

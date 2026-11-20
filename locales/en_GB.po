@@ -29808,6 +29808,196 @@ msgstr ""
 msgid "Audit plan of the certification body saved."
 msgstr "Audit plan of the certification body saved."
 
+#, php-format
+msgid "Obligation: %s"
+msgstr "Obligation: %s"
+
+msgid ""
+"Every contact with this party recorded from a security incident or a "
+"personal data breach: date, decision, file number and author. To record a "
+"new one, open the incident or the breach, tab \"Official contacts\"."
+msgstr ""
+"Every contact with this party recorded from a security incident or a "
+"personal data breach: date, decision, file number and author. To record a "
+"new one, open the incident or the breach, tab \"Official contacts\"."
+
+msgid "No contact recorded with this party yet."
+msgstr "No contact recorded with this party yet."
+
+msgid "Date and time"
+msgstr "Date and time"
+
+msgid "Time limit in hours"
+msgstr "Time limit in hours"
+
+msgid ""
+"Optional: 72 for a personal data breach, 24 for an early warning. The "
+"deadline is then computed from the detection of the incident or the "
+"awareness of the breach. Leave 0 when there is no set time limit."
+msgstr ""
+"Optional: 72 for a personal data breach, 24 for an early warning. The "
+"deadline is then computed from the detection of the incident or the "
+"awareness of the breach. Leave 0 when there is no set time limit."
+
+msgid "Deadline and contact"
+msgstr "Deadline and contact"
+
+msgid "Linked compliance obligation"
+msgstr "Linked compliance obligation"
+
+#, php-format
+msgid "Deadline: %s"
+msgstr "Deadline: %s"
+
+msgid "Record a contact"
+msgstr "Record a contact"
+
+msgid "Contacts recorded from security incidents and personal data breaches"
+msgstr "Contacts recorded from security incidents and personal data breaches"
+
+msgid "Keep a trace of every official contact"
+msgstr "Keep a trace of every official contact"
+
+msgid ""
+"When you call or write to an authority, a CSIRT or the police, record it "
+"here with the file number they gave you. If you decide that a contact did "
+"not need to be informed, record that decision and its reason: auditors ask "
+"for both. Nothing is sent from this page."
+msgstr ""
+"When you call or write to an authority, a CSIRT or the police, record it "
+"here with the file number they gave you. If you decide that a contact did "
+"not need to be informed, record that decision and its reason: auditors ask "
+"for both. Nothing is sent from this page."
+
+#, php-format
+msgid ""
+"%1$s: %2$s. The deadline of each contact is computed from this date and its "
+"time limit in hours."
+msgstr ""
+"%1$s: %2$s. The deadline of each contact is computed from this date and its "
+"time limit in hours."
+
+msgid "File number, acknowledgement of receipt"
+msgstr "File number, acknowledgement of receipt"
+
+msgid ""
+"Channel used, person reached; required reason when the contact was not needed"
+msgstr ""
+"Channel used, person reached; required reason when the contact was not needed"
+
+msgid "Record the contact"
+msgstr "Record the contact"
+
+msgid "No contact recorded for this event yet."
+msgstr "No contact recorded for this event yet."
+
+msgid ""
+"Remove this recorded contact (entered by mistake). The removal stays in the "
+"history."
+msgstr ""
+"Remove this recorded contact (entered by mistake). The removal stays in the "
+"history."
+
+msgid "Remove this recorded contact?"
+msgstr "Remove this recorded contact?"
+
+msgid "Contact recorded."
+msgstr "Contact recorded."
+
+msgid "Recorded contact removed."
+msgstr "Recorded contact removed."
+
+msgid "Awareness of the breach"
+msgstr "Awareness of the breach"
+
+msgid "Detection of the incident"
+msgstr "Detection of the incident"
+
+msgid "Contacted or notified"
+msgstr "Contacted or notified"
+
+msgid "Not required (decision)"
+msgstr "Not required (decision)"
+
+msgid "Contacted on time"
+msgstr "Contacted on time"
+
+msgid "Contacted late"
+msgstr "Contacted late"
+
+msgid "Not required (decision recorded)"
+msgstr "Not required (decision recorded)"
+
+msgid "To contact"
+msgstr "To contact"
+
+msgid "Deadline passed, nothing recorded"
+msgstr "Deadline passed, nothing recorded"
+
+msgid "Contact not visible to you"
+msgstr "Contact not visible to you"
+
+msgid "You are not allowed to record a contact on this item."
+msgstr "You are not allowed to record a contact on this item."
+
+msgid "Choose an official contact from the register."
+msgstr "Choose an official contact from the register."
+
+msgid "The contact could not be recorded."
+msgstr "The contact could not be recorded."
+
+#, php-format
+msgid "Official contact %1$s: %2$s on %3$s"
+msgstr "Official contact %1$s: %2$s on %3$s"
+
+msgid "This recorded contact no longer exists."
+msgstr "This recorded contact no longer exists."
+
+msgid "The recorded contact could not be removed."
+msgstr "The recorded contact could not be removed."
+
+#, php-format
+msgid "Recorded contact of %s removed"
+msgstr "Recorded contact of %s removed"
+
+msgid "Give the reason why this contact did not need to be informed."
+msgstr "Give the reason why this contact did not need to be informed."
+
+msgid "Enter the date and time of the contact."
+msgstr "Enter the date and time of the contact."
+
+msgid "The date of the contact cannot be in the future."
+msgstr "The date of the contact cannot be in the future."
+
+msgid "The contact cannot be dated before the start of the event."
+msgstr "The contact cannot be dated before the start of the event."
+
+msgid "Say whether the contact was informed or not required."
+msgstr "Say whether the contact was informed or not required."
+
+#, php-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d hour"
+msgstr[1] "%d hours"
+
+#, php-format
+msgid "%d other contact recorded on an event you cannot see."
+msgid_plural "%d other contacts recorded on events you cannot see."
+msgstr[0] "%d other contact recorded on an event you cannot see."
+msgstr[1] "%d other contacts recorded on events you cannot see."
+
+#, php-format
+msgid "%d contact recorded within 12 months"
+msgid_plural "%d contacts recorded within 12 months"
+msgstr[0] "%d contact recorded within 12 months"
+msgstr[1] "%d contacts recorded within 12 months"
+
+msgid "Recorded contact"
+msgid_plural "Recorded contacts"
+msgstr[0] "Recorded contact"
+msgstr[1] "Recorded contacts"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

@@ -501,7 +501,19 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    les contacts à prévenir, avec le délai et la personne habilitée. Seuls les contacts de l'entité de
    l'incident ou d'une entité parente (fiche visible des sous-entités) sont proposés.
 8. Sur la fiche des mesures A.5.5 et A.5.6 de la SoA, le cadre « Registre des contacts officiels »
-   montre le nombre de contacts, vérifiés ou à vérifier, avec le lien vers le registre et son PDF.
+   montre le nombre de contacts, vérifiés ou à vérifier, les prises de contact tracées depuis
+   12 mois, avec le lien vers le registre et son PDF.
+9. Renseignez aussi le **délai en heures** du contact (72 pour l'autorité de protection des données,
+   24 pour l'alerte précoce du CSIRT) : l'onglet **Contacts officiels** d'un incident ou d'une
+   violation affiche alors l'échéance de chaque contact, comptée depuis la détection de l'incident
+   ou la prise de connaissance de la violation.
+10. Quand vous avez appelé ou écrit au contact, cliquez sur **Tracer une prise de contact** sur sa
+    ligne : date et heure, référence du dossier (par exemple « DOSSIER-FICTIF-001 »), commentaire.
+    Si vous décidez qu'il n'avait pas à être prévenu, choisissez « Non nécessaire (décision) » et
+    donnez le motif. Le badge passe à « Prévenu dans le délai », « Prévenu en retard » ou « Non
+    nécessaire (décision tracée) ». Rien n'est envoyé depuis le plugin.
+11. La fiche du contact a un onglet **Prises de contact tracées** : l'historique de vos relations
+    avec cette autorité ou ce groupe d'intérêt, à montrer à l'auditeur.
 
 ### Étape 23 : Vérifier les licences logicielles (mesure A.5.32)
 
@@ -1278,6 +1290,16 @@ To give a subsidiary its own Statement of Applicability:
    the incident or of a parent entity (record visible in sub-entities) are listed.
 8. On controls A.5.5 and A.5.6 of the SoA, the "Register of official contacts" box shows the number
    of contacts, verified or to verify, with links to the register and its PDF.
+9. Also fill in the contact's **time limit in hours** (72 for the data protection authority, 24 for
+   the early warning to the CSIRT): the **Official contacts** tab of an incident or a breach then
+   shows each contact's deadline, counted from the detection of the incident or the awareness of
+   the breach.
+10. Once you have called or written to the contact, click **Record a contact** on its line: date and
+    time, file number (for example "DOSSIER-FICTIF-001"), comment. If you decide it did not need to
+    be informed, choose "Not required (decision)" and give the reason. The badge becomes "Contacted
+    on time", "Contacted late" or "Not required (decision recorded)". Nothing is sent by the plugin.
+11. The contact's record has a **Recorded contacts** tab: the history of your relations with this
+    authority or special interest group, to show to the auditor.
 
 ### Step 23: Check software licenses (control A.5.32)
 

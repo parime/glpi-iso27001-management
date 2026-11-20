@@ -26164,3 +26164,198 @@ msgstr ""
 
 msgid "Audit plan of the certification body saved."
 msgstr "Plan de auditoría del organismo de certificación guardado."
+
+#, php-format
+msgid "Obligation: %s"
+msgstr "Obligación: %s"
+
+msgid ""
+"Every contact with this party recorded from a security incident or a "
+"personal data breach: date, decision, file number and author. To record a "
+"new one, open the incident or the breach, tab \"Official contacts\"."
+msgstr ""
+"Cada contacto con esta parte registrado desde un incidente de seguridad o "
+"una violación de datos personales: fecha, decisión, número de expediente y "
+"autor. Para registrar uno nuevo, abra el incidente o la violación, pestaña "
+"«Contactos oficiales»."
+
+msgid "No contact recorded with this party yet."
+msgstr "Todavía no hay ningún contacto registrado con esta parte."
+
+msgid "Date and time"
+msgstr "Fecha y hora"
+
+msgid "Time limit in hours"
+msgstr "Plazo en horas"
+
+msgid ""
+"Optional: 72 for a personal data breach, 24 for an early warning. The "
+"deadline is then computed from the detection of the incident or the "
+"awareness of the breach. Leave 0 when there is no set time limit."
+msgstr ""
+"Opcional: 72 para una violación de datos personales, 24 para una alerta "
+"temprana. El vencimiento se calcula entonces desde la detección del "
+"incidente o el conocimiento de la violación. Deje 0 si no hay un plazo "
+"fijado."
+
+msgid "Deadline and contact"
+msgstr "Vencimiento y contacto"
+
+msgid "Linked compliance obligation"
+msgstr "Obligación de cumplimiento vinculada"
+
+#, php-format
+msgid "Deadline: %s"
+msgstr "Vencimiento: %s"
+
+msgid "Record a contact"
+msgstr "Registrar un contacto"
+
+msgid "Contacts recorded from security incidents and personal data breaches"
+msgstr ""
+"Contactos registrados desde los incidentes de seguridad y las violaciones de "
+"datos personales"
+
+msgid "Keep a trace of every official contact"
+msgstr "Conserve un registro de cada contacto oficial"
+
+msgid ""
+"When you call or write to an authority, a CSIRT or the police, record it "
+"here with the file number they gave you. If you decide that a contact did "
+"not need to be informed, record that decision and its reason: auditors ask "
+"for both. Nothing is sent from this page."
+msgstr ""
+"Cuando llame o escriba a una autoridad, a un CSIRT o a la policía, "
+"regístrelo aquí con el número de expediente que le hayan dado. Si decide que "
+"no era necesario informar a un contacto, registre esa decisión y su motivo: "
+"los auditores piden ambas cosas. Desde esta página no se envía nada."
+
+#, php-format
+msgid ""
+"%1$s: %2$s. The deadline of each contact is computed from this date and its "
+"time limit in hours."
+msgstr ""
+"%1$s: %2$s. El vencimiento de cada contacto se calcula desde esta fecha y su "
+"plazo en horas."
+
+msgid "File number, acknowledgement of receipt"
+msgstr "Número de expediente, acuse de recibo"
+
+msgid ""
+"Channel used, person reached; required reason when the contact was not needed"
+msgstr ""
+"Canal utilizado, persona contactada; motivo obligatorio si el contacto no "
+"era necesario"
+
+msgid "Record the contact"
+msgstr "Registrar el contacto"
+
+msgid "No contact recorded for this event yet."
+msgstr "Todavía no hay ningún contacto registrado para este evento."
+
+msgid ""
+"Remove this recorded contact (entered by mistake). The removal stays in the "
+"history."
+msgstr ""
+"Quitar este contacto registrado (introducido por error). La eliminación "
+"queda en el historial."
+
+msgid "Remove this recorded contact?"
+msgstr "¿Quitar este contacto registrado?"
+
+msgid "Contact recorded."
+msgstr "Contacto registrado."
+
+msgid "Recorded contact removed."
+msgstr "Contacto registrado eliminado."
+
+msgid "Awareness of the breach"
+msgstr "Conocimiento de la violación"
+
+msgid "Detection of the incident"
+msgstr "Detección del incidente"
+
+msgid "Contacted or notified"
+msgstr "Contactado o notificado"
+
+msgid "Not required (decision)"
+msgstr "No necesario (decisión)"
+
+msgid "Contacted on time"
+msgstr "Contactado a tiempo"
+
+msgid "Contacted late"
+msgstr "Contactado con retraso"
+
+msgid "Not required (decision recorded)"
+msgstr "No necesario (decisión registrada)"
+
+msgid "To contact"
+msgstr "Por contactar"
+
+msgid "Deadline passed, nothing recorded"
+msgstr "Vencimiento superado, nada registrado"
+
+msgid "Contact not visible to you"
+msgstr "Contacto no visible para usted"
+
+msgid "You are not allowed to record a contact on this item."
+msgstr "No tiene permiso para registrar un contacto en este elemento."
+
+msgid "Choose an official contact from the register."
+msgstr "Elija un contacto oficial del registro."
+
+msgid "The contact could not be recorded."
+msgstr "No se pudo registrar el contacto."
+
+#, php-format
+msgid "Official contact %1$s: %2$s on %3$s"
+msgstr "Contacto oficial %1$s: %2$s el %3$s"
+
+msgid "This recorded contact no longer exists."
+msgstr "Este contacto registrado ya no existe."
+
+msgid "The recorded contact could not be removed."
+msgstr "No se pudo eliminar el contacto registrado."
+
+#, php-format
+msgid "Recorded contact of %s removed"
+msgstr "Contacto registrado del %s eliminado"
+
+msgid "Give the reason why this contact did not need to be informed."
+msgstr "Indique por qué no era necesario informar a este contacto."
+
+msgid "Enter the date and time of the contact."
+msgstr "Introduzca la fecha y la hora del contacto."
+
+msgid "The date of the contact cannot be in the future."
+msgstr "La fecha del contacto no puede ser futura."
+
+msgid "The contact cannot be dated before the start of the event."
+msgstr "El contacto no puede tener una fecha anterior al inicio del evento."
+
+msgid "Say whether the contact was informed or not required."
+msgstr "Indique si se informó al contacto o si no era necesario."
+
+#, php-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d hora"
+msgstr[1] "%d horas"
+
+#, php-format
+msgid "%d other contact recorded on an event you cannot see."
+msgid_plural "%d other contacts recorded on events you cannot see."
+msgstr[0] "%d contacto más registrado en un evento que no puede ver."
+msgstr[1] "%d contactos más registrados en eventos que no puede ver."
+
+#, php-format
+msgid "%d contact recorded within 12 months"
+msgid_plural "%d contacts recorded within 12 months"
+msgstr[0] "%d contacto registrado en los últimos 12 meses"
+msgstr[1] "%d contactos registrados en los últimos 12 meses"
+
+msgid "Recorded contact"
+msgid_plural "Recorded contacts"
+msgstr[0] "Contacto registrado"
+msgstr[1] "Contactos registrados"
