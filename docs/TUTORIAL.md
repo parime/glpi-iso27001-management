@@ -793,6 +793,19 @@ travailler sans baisser la sécurité quand la crise est elle-même une attaque.
    métier montre les scénarios qui le touchent.
 8. **Imprimer les scénarios (PDF)** donne le document à présenter à l'auditeur. Sur la fiche de la
    mesure **A.5.29**, le cadre « Scénarios de crise sécurité » reprend la couverture.
+9. L'onglet **Préparation** d'un scénario rassemble les preuves qu'il est prêt, sans rien recopier :
+   - **exercices de crise et bilan** : les exercices terminés du scénario d'exercice choisi, le bilan
+     du dernier (objectifs atteints, constats, actions d'amélioration, validation) et ce qui a été
+     tracé pendant l'exercice (communications, prises de contact officielles, temps de reprise
+     mesurés). Le bouton **Lancer cet exercice** ouvre la salle de crise. Un bilan non validé
+     apparaît dans ce qui reste à compléter ;
+   - **tests de reprise des processus impactés** : le dernier test de chaque processus, comparé à son
+     RTO. Un processus critique jamais testé apparaît dans ce qui reste à compléter ;
+   - **communication de crise** : les modèles de messages de la situation choisie et le nombre de
+     destinataires de leur liste de diffusion ;
+   - **contacts officiels** à prévenir : ceux marqués « incident de sécurité », plus ceux marqués
+     « violation de données » pour une situation de fuite de données, visibles depuis l'entité du
+     scénario, avec leur délai et leur dernière vérification. Ils figurent aussi dans le PDF.
 
 ### Étape 30 bis : Programmer et mesurer les tests de reprise (mesure A.5.30)
 
@@ -1677,6 +1690,20 @@ when the crisis is itself an attack.
    process shows the scenarios that impact it.
 8. **Print the scenarios (PDF)** gives the document to show the auditor. On control **A.5.29**, the
    "Security crisis scenarios" box shows the coverage.
+9. The **Preparedness** tab of a scenario gathers the evidence that it is ready, without copying
+   anything:
+   - **crisis exercises and review**: the finished exercises of the chosen exercise scenario, the
+     review of the last one (objectives achieved, findings, improvement actions, validation) and what
+     was recorded during the exercise (communications, official contacts, measured recovery times).
+     The **Launch this exercise** button opens the crisis room. A review that is not validated
+     appears in what remains to complete;
+   - **recovery tests of the impacted processes**: the last test of each process, compared with its
+     RTO. A critical process never tested appears in what remains to complete;
+   - **crisis communication**: the message templates of the chosen situation and the number of
+     recipients of their distribution list;
+   - **official contacts** to inform: those marked "security incident", plus those marked "data
+     breach" for a data leak situation, visible from the entity of the scenario, with their time
+     limit and their last verification. They are also in the PDF.
 
 ### Step 30a: Schedule and measure recovery tests (control A.5.30)
 

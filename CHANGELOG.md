@@ -9,19 +9,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
-- **Ce qui bloque chaque mesure de la SoA** (issue #867, article 9.1 et mesure A.5.36). Une seule
-  liste de tout ce qui empêche une mesure d'être conforme, chaque ligne avec un lien vers l'écran à
-  corriger et la marche à suivre :
-  - nouvel onglet **Ce qui bloque cette mesure** sur la fiche de chaque mesure ;
-  - nouvelle vue **Mesures bloquées** (rubrique Conformité) : mesures bloquées de la SoA de
-    l'entité active, triables par gravité, nombre de blocages ou code de mesure ;
-  - sources reprises sans rien recalculer : contrôles de cohérence (preuve manquante ou expirée,
-    justification d'exclusion faible, mesure sans risque, dérogation expirée, politique non revue
-    ou sans propriétaire, non-conformité close sans action), dernier test d'efficacité inefficace
-    ou partiel et test en retard sur le plan, non-conformités ouvertes qui citent la mesure (par
-    leur référence ou par le test qui les a ouvertes), politiques en brouillon (mesure A.5.1),
-    contrôles techniques automatiques et couverture Wazuh et SentinelOne (A.8.7, A.8.16) ;
-  - lecture seule, uniquement ce que la personne a le droit de lire (droits et entités).
+- **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
+  contacts officiels** (issue #776, lot 2, mesure A.5.29) :
+  - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les
+    dupliquer : les exercices de crise terminés du scénario et le bilan du dernier (objectifs,
+    constats, plan d'amélioration, validation : #732) avec leur type d'exercice (#733), les communications, prises de contact
+    officielles et temps de reprise tracés pendant cet exercice, le dernier test de reprise de
+    chaque processus impacté comparé à son RTO (#733), les modèles de messages de la situation et
+    leur liste de diffusion (#616, #800), les contacts officiels à prévenir visibles depuis
+    l'entité du scénario (#771). Bouton « Lancer cet exercice » vers la salle de crise ;
+  - deux nouveaux manques : **bilan du dernier exercice non validé** et **processus critique
+    jamais testé en reprise**, comptés dans la couverture, sur la mesure A.5.29 (avec le nombre de
+    scénarios exercés au bilan validé) et dans le PDF ;
+  - registre : état du bilan du dernier exercice et processus sans test de reprise signalés ;
+  - PDF : dernier test de reprise de chaque processus, état du bilan, modèles de messages et
+    contacts officiels à prévenir de chaque scénario ;
+  - chaque objet garde ses droits (exercices avec la lecture des incidents, modèles et contacts
+    avec le leur) ; aucune nouvelle table ni colonne ; rien n'est modifié automatiquement. Ce lot
+    termine l'issue #776.
 
 - **Audits de certification : réponse aux constats de l'organisme dans les délais** (issue #772,
   lot 3). Après l'audit, l'organisme attend un plan d'actions puis les preuves de levée, chacun
@@ -45,6 +50,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - colonnes `body_report_date`, `body_response_due_date`, `body_evidence_due_date` des audits et
     `correction`, `body_response_date`, `body_decision`, `body_feedback`, `body_evidence_date` des
     non-conformités (migration rejouable, supprimées avec les tables à la désinstallation).
+- **Ce qui bloque chaque mesure de la SoA** (issue #867, article 9.1 et mesure A.5.36). Une seule
+  liste de tout ce qui empêche une mesure d'être conforme, chaque ligne avec un lien vers l'écran à
+  corriger et la marche à suivre :
+  - nouvel onglet **Ce qui bloque cette mesure** sur la fiche de chaque mesure ;
+  - nouvelle vue **Mesures bloquées** (rubrique Conformité) : mesures bloquées de la SoA de
+    l'entité active, triables par gravité, nombre de blocages ou code de mesure ;
+  - sources reprises sans rien recalculer : contrôles de cohérence (preuve manquante ou expirée,
+    justification d'exclusion faible, mesure sans risque, dérogation expirée, politique non revue
+    ou sans propriétaire, non-conformité close sans action), dernier test d'efficacité inefficace
+    ou partiel et test en retard sur le plan, non-conformités ouvertes qui citent la mesure (par
+    leur référence ou par le test qui les a ouvertes), politiques en brouillon (mesure A.5.1),
+    contrôles techniques automatiques et couverture Wazuh et SentinelOne (A.8.7, A.8.16) ;
+  - lecture seule, uniquement ce que la personne a le droit de lire (droits et entités).
 
 ## [2.71.0] - 2026-11-20
 
