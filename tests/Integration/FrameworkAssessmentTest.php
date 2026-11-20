@@ -21,6 +21,24 @@ use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
  */
 final class FrameworkAssessmentTest extends GrcmanagerIntegrationTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Issue #599 : aucun registre ReCyF (annulé avec la transaction), NIS2 suit alors la
+        // correspondance avec l'Annexe A ; le registre est testé dans RecyfRequirementTest.
+        global $DB;
+        $DB->delete(\GlpiPlugin\Grcmanager\RecyfRequirement::ENTITIES_TABLE, ['id' => ['>', 0]]);
+        \GlpiPlugin\Grcmanager\RecyfRequirement::resetCategories();
+    }
+
+    protected function tearDown(): void
+    {
+        \GlpiPlugin\Grcmanager\RecyfRequirement::resetCategories();
+
+        parent::tearDown();
+    }
+
     /**
      * Deux mesures sans aucun document, pour ne dépendre d'aucune donnée de l'instance.
      *

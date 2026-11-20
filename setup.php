@@ -150,6 +150,8 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ContextItem::class;
     // Issue #703 : documents et preuves d'une exigence NIS2 Italia - ACN (verbale, piano, registro).
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\AcnRequirement::class;
+    // Issue #599 : documents et preuves d'une mesure du ReCyF (procédures, plans, comptes rendus).
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\RecyfRequirement::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Waiver::class;
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.

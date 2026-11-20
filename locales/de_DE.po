@@ -24856,3 +24856,122 @@ msgstr "Entscheidung gespeichert."
 
 msgid "Decision reopened."
 msgstr "Entscheidung wieder geöffnet."
+
+#, php-format
+msgid "ANSSI, Cyber France framework (ReCyF), working version %s"
+msgstr "ANSSI, Referenzrahmen Cyber France (ReCyF), Arbeitsversion %s"
+
+msgid "Measures"
+msgstr "Maßnahmen"
+
+msgid "Implemented measures"
+msgstr "Umgesetzte Maßnahmen"
+
+msgid "Measure numbers come from the ReCyF published by ANSSI; summaries are written by this project and do not replace the official text."
+msgstr "Die Nummern der Maßnahmen stammen aus dem von der ANSSI veröffentlichten ReCyF; die Zusammenfassungen wurden von diesem Projekt verfasst und ersetzen nicht den offiziellen Text."
+
+msgid "Essential entities only"
+msgstr "Nur wesentliche Einrichtungen"
+
+msgid "Important and essential entities"
+msgstr "Wichtige und wesentliche Einrichtungen"
+
+msgid "Summary written by this project to help you find the measure. Only the text published by ANSSI is authentic: open the source below."
+msgstr "Von diesem Projekt verfasste Zusammenfassung, um die Maßnahme leichter zu finden. Nur der von der ANSSI veröffentlichte Text ist maßgeblich: Öffnen Sie die Quelle unten."
+
+#, php-format
+msgid "This measure only applies to essential entities: it is not part of the catalogue of this entity (%s). It is kept in case the classification changes."
+msgstr "Diese Maßnahme gilt nur für wesentliche Einrichtungen: Sie gehört nicht zum Katalog dieser Einrichtung (%s). Sie wird aufbewahrt, falls sich die Einstufung ändert."
+
+msgid "Required when the measure is not fully applicable, or when you apply an alternative measure: ANSSI may assess its relevance during an inspection."
+msgstr "Pflichtfeld, wenn die Maßnahme nicht vollständig anwendbar ist oder wenn Sie eine alternative Maßnahme anwenden: Die ANSSI kann deren Eignung bei einer Prüfung bewerten."
+
+msgid "Procedures, plans and evidence go in the Documents tab: they are counted as evidence in the assessment by framework."
+msgstr "Verfahren, Pläne und Nachweise gehören in die Registerkarte Dokumente: Sie zählen als Nachweise in der Bewertung nach Rahmenwerk."
+
+msgid "Back to the ReCyF register"
+msgstr "Zurück zum ReCyF-Register"
+
+msgid "NIS2 France: ReCyF register"
+msgstr "NIS2 Frankreich: ReCyF-Register"
+
+#, php-format
+msgid "Measures of the ANSSI Cyber France framework (ReCyF %s), the French way to meet NIS2: one record per measure."
+msgstr "Maßnahmen des Referenzrahmens Cyber France der ANSSI (ReCyF %s), der französische Weg zur Erfüllung von NIS2: ein Datensatz pro Maßnahme."
+
+msgid "No entity is classified yet. In the configuration of the plugin, say for each GLPI entity whether it is an important or an essential entity under NIS2: its ReCyF register is then created with one record per measure."
+msgstr "Es ist noch keine Einheit eingestuft. Geben Sie in der Konfiguration des Plugins für jede GLPI-Einheit an, ob sie nach NIS2 eine wichtige oder eine wesentliche Einrichtung ist: Ihr ReCyF-Register wird dann mit einem Datensatz pro Maßnahme angelegt."
+
+#, php-format
+msgid "%1$d objectives, %2$d measures"
+msgstr "%1$d Ziele, %2$d Maßnahmen"
+
+msgid "By security objective"
+msgstr "Nach Sicherheitsziel"
+
+msgid "Essential entities"
+msgstr "Wesentliche Einrichtungen"
+
+#, php-format
+msgid "Measure numbers come from the ReCyF published by ANSSI (working version %s); summaries are written by this project and do not replace the official text:"
+msgstr "Die Nummern der Maßnahmen stammen aus dem von der ANSSI veröffentlichten ReCyF (Arbeitsversion %s); die Zusammenfassungen wurden von diesem Projekt verfasst und ersetzen nicht den offiziellen Text:"
+
+#, php-format
+msgid "NIS2 France: Cyber France framework of ANSSI (ReCyF %s)"
+msgstr "NIS2 Frankreich: Referenzrahmen Cyber France der ANSSI (ReCyF %s)"
+
+msgid "Open the ReCyF register"
+msgstr "ReCyF-Register öffnen"
+
+msgid "Acceptable means of compliance published by ANSSI for the French transposition of NIS2. Each measure has its own record in the register of the entity, without going through ISO 27001 Annex A, and the assessment of NIS2 uses these records."
+msgstr "Von der ANSSI veröffentlichte akzeptable Mittel zur Erfüllung der französischen Umsetzung von NIS2. Jede Maßnahme hat einen eigenen Datensatz im Register der Einheit, ohne Umweg über Anhang A der ISO 27001, und die Bewertung von NIS2 stützt sich auf diese Datensätze."
+
+#, php-format
+msgid "Important entities: %d measures"
+msgstr "Wichtige Einrichtungen: %d Maßnahmen"
+
+#, php-format
+msgid "Essential entities: %d measures"
+msgstr "Wesentliche Einrichtungen: %d Maßnahmen"
+
+msgid "Working version, may still change"
+msgstr "Arbeitsversion, kann sich noch ändern"
+
+#, php-format
+msgid "Source: ANSSI, Cyber France framework (ReCyF), working version %s. Measure numbers are the official ones; titles, summaries and the mapping to NIS2 are made by this project. Only the text published by ANSSI is authentic."
+msgstr "Quelle: ANSSI, Referenzrahmen Cyber France (ReCyF), Arbeitsversion %s. Die Nummern der Maßnahmen sind die offiziellen; Titel, Zusammenfassungen und die Zuordnung zu NIS2 stammen von diesem Projekt. Nur der von der ANSSI veröffentlichte Text ist maßgeblich."
+
+msgid "For each GLPI entity subject to NIS2 in France, choose whether it is an important or an essential entity. Its ReCyF register is created with one record per measure, and NIS2 is then assessed on these measures; sub-entities without a choice follow their parent. Changing or removing the choice never deletes what was entered."
+msgstr "Wählen Sie für jede GLPI-Einheit, die in Frankreich NIS2 unterliegt, ob sie eine wichtige oder eine wesentliche Einrichtung ist. Ihr ReCyF-Register wird mit einem Datensatz pro Maßnahme angelegt, und NIS2 wird dann anhand dieser Maßnahmen bewertet; Untereinheiten ohne Auswahl folgen ihrer übergeordneten Einheit. Eine Änderung oder Entfernung der Auswahl löscht nie die Eingaben."
+
+#, php-format
+msgid "NIS2 is assessed on the measures of the ReCyF register of your entity (ANSSI): %1$d of %2$d applicable measures are implemented and proven. Open a measure to update its status or attach evidence in its Documents tab."
+msgstr "NIS2 wird anhand der Maßnahmen des ReCyF-Registers Ihrer Einheit (ANSSI) bewertet: %1$d von %2$d anwendbaren Maßnahmen sind umgesetzt und nachgewiesen. Öffnen Sie eine Maßnahme, um ihren Status zu aktualisieren oder einen Nachweis in ihrer Registerkarte Dokumente anzuhängen."
+
+msgid "ReCyF measures (ANSSI)"
+msgstr "ReCyF-Maßnahmen (ANSSI)"
+
+msgid "In France, NIS2 can be assessed on the measures of ReCyF, the framework of ANSSI: classify your entity as important or essential, and NIS2 is then assessed on its ReCyF register instead of the ISO 27001 Annex A."
+msgstr "In Frankreich kann NIS2 anhand der Maßnahmen des ReCyF, des Referenzrahmens der ANSSI, bewertet werden: Stufen Sie Ihre Einheit als wichtig oder wesentlich ein, dann wird NIS2 anhand ihres ReCyF-Registers statt anhand von Anhang A der ISO 27001 bewertet."
+
+#, php-format
+msgid "Classification saved; %d measure record(s) created."
+msgstr "Einstufung gespeichert; %d Maßnahmen-Datensatz/-sätze angelegt."
+
+msgid "Important entity"
+msgstr "Wichtige Einrichtung"
+
+msgid "Essential entity"
+msgstr "Wesentliche Einrichtung"
+
+msgid "A justification is required whenever a measure is not fully applicable."
+msgstr "Eine Begründung ist erforderlich, sobald eine Maßnahme nicht vollständig anwendbar ist."
+
+#, php-format
+msgid "NIS2 compliance: ReCyF %s"
+msgstr "NIS2-Konformität: ReCyF %s"
+
+msgid "ReCyF measure"
+msgid_plural "ReCyF measures"
+msgstr[0] "ReCyF-Maßnahme"
+msgstr[1] "ReCyF-Maßnahmen"

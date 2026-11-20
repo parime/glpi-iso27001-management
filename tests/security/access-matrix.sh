@@ -101,6 +101,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/crisismessagetemplate.php front/crisismessagetemplate.form.php
   front/securedevelopment.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
+  front/recyfrequirement.php front/recyfrequirement.export.php?format=csv front/recyfrequirement.export.php?format=pdf
   front/personnelcompliance.php front/personnelcompliance.export.php?format=csv
   front/personnelcompliance.export.php?format=pdf
   front/ismsfunction.php front/ismsfunction.form.php front/ismsfunction.pdf.php front/competence.php
@@ -693,6 +694,14 @@ expect "exigence ACN, entite B"         $DENY  "$(code "$P/acnrequirement.form.p
 expect "modifier une exigence ACN de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"   "$(code -d "update=1&id=$(id acn_B)&comment=securite&_glpi_csrf_token=$(csrf)" "$P/acnrequirement.form.php")"
 acn_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/acnrequirement.export.php?format=csv&entities_id=$(id acn_entity_B)")
 contains "export ACN : registre de B" "DE.CM-01, punto 7" $SEE_B "$acn_csv"
+# Issue #599 : une mesure ReCyF (NIS2 France) appartient au registre de son entite
+# (front/recyfrequirement.form.php : lecture et modification, par entite). Le registre de B est
+# celui d'une entite essentielle : seul lui contient les mesures des objectifs 16 a 20.
+expect "mesure ReCyF, entite A"         200    "$(code "$P/recyfrequirement.form.php?id=$(id recyf_A)")"
+expect "mesure ReCyF, entite B"         $DENY  "$(code "$P/recyfrequirement.form.php?id=$(id recyf_B)")"
+expect "modifier une mesure ReCyF de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"   "$(code -d "update=1&id=$(id recyf_B)&comment=securite&_glpi_csrf_token=$(csrf)" "$P/recyfrequirement.form.php")"
+recyf_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/recyfrequirement.export.php?format=csv&entities_id=$(id recyf_entity_B)")
+contains "export ReCyF : registre de B" "20.6-EE" $SEE_B "$recyf_csv"
 
 # Issue #608 : une fiche du contexte de l'organisation appartient a son entite.
 expect "contexte, entite A"             200    "$(code "$P/contextitem.form.php?id=$(id context_A)")"

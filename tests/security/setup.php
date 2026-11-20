@@ -1115,6 +1115,15 @@ foreach (['A' => [$a, 'important'], 'B' => [$b, 'essential']] as $suffix => [$en
     $ids['acn_' . $suffix] = (int) $acn->getID();
     $ids['acn_entity_' . $suffix] = $entity;
 }
+// Issue #599 : registre ReCyF (NIS2 France), entité A importante et entité B essentielle.
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('nis2', true);
+foreach (['A' => [$a, 'important'], 'B' => [$b, 'essential']] as $suffix => [$entity, $category]) {
+    \GlpiPlugin\Grcmanager\RecyfRequirement::setCategory($entity, $category);
+    $recyf = new \GlpiPlugin\Grcmanager\RecyfRequirement();
+    $recyf->getFromDBByCrit(['entities_id' => $entity, 'code' => '10.A.1']);
+    $ids['recyf_' . $suffix] = (int) $recyf->getID();
+    $ids['recyf_entity_' . $suffix] = $entity;
+}
 // Issue #732 : exercice de crise terminé dans chaque entité, avec un objectif évalué (bilan à valider).
 foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     $drill = $add(new PluginGrcmanagerSecurityIncident(), [

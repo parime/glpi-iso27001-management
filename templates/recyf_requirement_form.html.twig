@@ -1,0 +1,80 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #599 : fiche d'une mesure du ReCyF (« 10.B.3-EI/EE ») dans le registre d'une entité. #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.smallTitle(__('ReCyF measure', 'grcmanager'), 'ti ti-shield-check') }}
+   {% set header_html %}
+      <div class="d-flex flex-wrap align-items-center gap-2">
+         <span class="badge bg-blue-subtle text-blue-emphasis fs-5"><i class="ti ti-hash me-1"></i>{{ reference }}</span>
+         <strong>{{ objective }}</strong>
+         {% if section %}<span class="badge bg-secondary-subtle text-secondary-emphasis">{{ section }}</span>{% endif %}
+         {% if essential_only %}
+            <span class="badge bg-red-subtle text-red-emphasis"><i class="ti ti-shield-star me-1"></i>{{ __('Essential entities only', 'grcmanager') }}</span>
+         {% else %}
+            <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-shield me-1"></i>{{ __('Important and essential entities', 'grcmanager') }}</span>
+         {% endif %}
+      </div>
+   {% endset %}
+   {{ fields.htmlField('', header_html, __('Measure', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.htmlField('', summary, __('Summary', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('Summary written by this project to help you find the measure. Only the text published by ANSSI is authentic: open the source below.', 'grcmanager')),
+   }) }}
+   {% set source_html %}
+      <i class="ti ti-file-text me-1"></i>{{ __('ANSSI, Cyber France framework (ReCyF), working version %s', 'grcmanager')|format(version) }}, {{ reference }}
+      - <a href="{{ source_document }}" target="_blank" rel="noopener noreferrer">cyber.gouv.fr<i class="ti ti-external-link ms-1"></i></a>
+   {% endset %}
+   {{ fields.htmlField('', source_html, __('Official reference', 'grcmanager'), {'full_width': true}) }}
+   {% if not in_scope %}
+      <div class="col-12">
+         <div class="alert alert-warning d-flex align-items-start">
+            <i class="ti ti-alert-triangle me-2 mt-1"></i>
+            <div>{{ __('This measure only applies to essential entities: it is not part of the catalogue of this entity (%s). It is kept in case the classification changes.', 'grcmanager')|format(category_label ?: '-') }}</div>
+         </div>
+      </div>
+   {% endif %}
+
+   {{ fields.smallTitle(__('Compliance', 'grcmanager'), 'ti ti-list-check') }}
+   {{ fields.dropdownArrayField('applicability', item.fields['applicability'] ?: 'yes', applicabilities, __('Applicability', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('implementation_status', item.fields['implementation_status'] ?: 'not_started', statuses, __('Implementation status', 'grcmanager')) }}
+   {{ fields.textareaField('justification', item.fields['justification'], __('Justification', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('Required when the measure is not fully applicable, or when you apply an alternative measure: ANSSI may assess its relevance during an inspection.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Owner', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dateField('due_date', item.fields['due_date'], __('Due date', 'grcmanager')) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Notes', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('Procedures, plans and evidence go in the Documents tab: they are counted as evidence in the assessment by framework.', 'grcmanager')),
+   }) }}
+
+   {% if nis2 is not empty %}
+      {{ fields.smallTitle(__('Related references', 'grcmanager'), 'ti ti-arrows-exchange') }}
+      {% set nis2_html %}
+         {% for key, text in nis2 %}<div class="mb-1"><span class="badge bg-indigo-subtle text-indigo-emphasis me-1">NIS2 {{ key }}</span>{{ text }}</div>{% endfor %}
+      {% endset %}
+      {{ fields.htmlField('', nis2_html, __('NIS2 directive (EU)', 'grcmanager'), {
+         'full_width': true,
+         'add_field_html': hints.hint(__('Indicative mapping made by this project.', 'grcmanager')),
+      }) }}
+   {% endif %}
+
+   {% set back_html %}<a href="{{ register_url }}"><i class="ti ti-arrow-left me-1"></i>{{ __('Back to the ReCyF register', 'grcmanager') }}</a>{% endset %}
+   {{ fields.htmlField('', back_html, '', {'full_width': true}) }}
+{% endblock %}
