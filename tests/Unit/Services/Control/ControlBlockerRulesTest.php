@@ -60,6 +60,7 @@ final class ControlBlockerRulesTest extends TestCase
         self::assertNull(R::technicalSeverity(ControlTestRules::RESULT_EFFECTIVE));
         self::assertNull(R::technicalSeverity(null));
         self::assertSame('high', R::nonconformitySeverity('major', false));
+        self::assertSame('high', R::nonconformitySeverity('critical', false));
         self::assertSame('high', R::nonconformitySeverity('minor', true));
         self::assertSame('medium', R::nonconformitySeverity('minor', false));
     }

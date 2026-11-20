@@ -123,11 +123,13 @@ final class ControlBlockerRules
     }
 
     /**
-     * Gravité d'une non-conformité ouverte : élevée si majeure ou en retard, moyenne sinon.
+     * Gravité d'une non-conformité ouverte : élevée si majeure, critique ou en retard, moyenne sinon.
      */
     public static function nonconformitySeverity(string $severity, bool $overdue): string
     {
-        return $overdue || $severity === 'major' ? ConsistencyRules::SEVERITY_HIGH : ConsistencyRules::SEVERITY_MEDIUM;
+        return $overdue || in_array($severity, ['major', 'critical'], true)
+            ? ConsistencyRules::SEVERITY_HIGH
+            : ConsistencyRules::SEVERITY_MEDIUM;
     }
 
     /**
