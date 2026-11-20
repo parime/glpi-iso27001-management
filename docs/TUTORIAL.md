@@ -501,6 +501,34 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
 8. Sur la fiche des mesures A.5.5 et A.5.6 de la SoA, le cadre « Registre des contacts officiels »
    montre le nombre de contacts, vérifiés ou à vérifier, avec le lien vers le registre et son PDF.
 
+### Étape 23 : Tenir le registre des procédures d'exploitation (mesure A.5.37)
+
+1. Ouvrez Conformité > **Procédures d'exploitation** (onglet à côté de « Politiques de sécurité »).
+   La page montre la couverture des domaines attendus : sauvegarde, restauration, supervision,
+   journaux, mises à jour, déploiement, gestion des accès, gestion des incidents, changements,
+   maintenance. Chaque domaine est « À jour », « Revue à faire », « Non approuvée » ou « Aucune
+   procédure ».
+2. Sur la ligne d'un domaine sans procédure, cliquez sur **Ajouter la procédure**. La fiche est un
+   document de la bibliothèque des politiques, déjà en catégorie « Procédure d'exploitation » et
+   dans le bon domaine : pas d'objet à part. Un document existant devient une procédure en
+   choisissant cette catégorie sur sa fiche.
+3. Renseignez par exemple « Procédure de sauvegarde des serveurs (fictive) », version 1.0, son
+   responsable, et joignez le document dans l'onglet « Documents ». Faites-la approuver (statut
+   « Approuvée » avec sa date, ou onglet « Approbation » si le circuit est activé), puis fixez la
+   **prochaine revue** : sans date de revue, ou une fois la date passée, le domaine passe en « Revue
+   à faire ».
+4. Dans l'onglet **Prise de connaissance**, ajoutez au public les groupes ou profils qui exécutent la
+   procédure (l'équipe d'exploitation, par exemple), puis lancez la campagne : le registre affiche
+   ensuite le taux de lecture de la version en vigueur.
+5. La liste des domaines se règle dans la configuration du plugin (cadre « Domaines attendus des
+   procédures d'exploitation ») : décochez un domaine qui ne vous concerne pas, ajoutez les vôtres,
+   un par ligne.
+6. Avant l'audit, cliquez sur **Archiver sur la mesure A.5.37** : le registre est enregistré en PDF
+   daté sur la mesure. **Imprimer le registre (PDF)** le télécharge sans l'enregistrer. Sur la fiche
+   de la mesure A.5.37, le cadre « Registre des procédures d'exploitation » rappelle la couverture ;
+   les procès-verbaux d'approbation et les rapports de prise de connaissance d'une procédure y sont
+   archivés (ceux d'une politique restent sur A.5.1).
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -964,3 +992,27 @@ To give a subsidiary its own Statement of Applicability:
    the incident or of a parent entity (record visible in sub-entities) are listed.
 8. On controls A.5.5 and A.5.6 of the SoA, the "Register of official contacts" box shows the number
    of contacts, verified or to verify, with links to the register and its PDF.
+
+### Step 23: Keep the register of operating procedures (control A.5.37)
+
+1. Open Compliance > **Operating procedures** (tab next to "Security policies"). The page shows the
+   coverage of the expected domains: backup, restore, monitoring, logs, updates, deployment, access
+   management, incident management, changes, maintenance. Each domain is "Up to date", "Review due",
+   "Not approved" or "No procedure".
+2. On the row of a domain without a procedure, click **Add the procedure**. The record is a document
+   of the policy library, already in the "Operating procedure" category and in the right domain:
+   there is no separate object. An existing document becomes a procedure by choosing this category
+   on its record.
+3. Fill in for instance "Server backup procedure (fictitious)", version 1.0, its owner, and attach
+   the document in the "Documents" tab. Have it approved ("Approved" status with its date, or the
+   "Approval" tab when the workflow is enabled), then set the **next review**: without a review
+   date, or once the date has passed, the domain shows "Review due".
+4. In the **Reading acknowledgement** tab, add the groups or profiles that carry out the procedure
+   (the operations team, for instance) to the audience, then launch the campaign: the register then
+   shows the reading rate of the current version.
+5. The list of domains is set in the plugin configuration ("Expected domains of operating
+   procedures" box): untick a domain that does not apply to you, add your own, one per line.
+6. Before the audit, click **Archive on control A.5.37**: the register is saved as a dated PDF on the
+   control. **Print the register (PDF)** downloads it without saving it. On control A.5.37, the
+   "Register of operating procedures" box shows the coverage; the approval records and the
+   acknowledgement reports of a procedure are archived there (those of a policy stay on A.5.1).

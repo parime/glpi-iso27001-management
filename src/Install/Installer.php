@@ -359,6 +359,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\NotificationTargetContextItem::class,
         // Issue #771 : registre des contacts officiels (onglet des incidents et des violations).
         \GlpiPlugin\Grcmanager\OfficialContact::class,
+        // Issue #775 : registre des procédures d'exploitation (A.5.37).
+        \GlpiPlugin\Grcmanager\OperatingProcedure::class,
         // Issue #703 : registre NIS2 Italia - ACN.
         \GlpiPlugin\Grcmanager\AcnRequirement::class,
         // Issue #612 : matrice des responsabilités du SMSI et ses exports archivés.
@@ -1446,6 +1448,19 @@ final class Installer
                 'integer',
                 ['value' => 30, 'after' => 'is_it_charter']
             );
+        }
+        // Issue #775 : procédures d'exploitation documentées (A.5.37). Une procédure est un document
+        // de la bibliothèque de catégorie « operating_procedure », avec son domaine (sauvegarde,
+        // restauration...) ; les documents existants restent des politiques.
+        if (!$DB->fieldExists(self::POLICIES_TABLE, 'category')) {
+            $migration->addField(self::POLICIES_TABLE, 'category', 'string', [
+                'value' => 'policy', 'after' => 'title',
+            ]);
+            $migration->addField(self::POLICIES_TABLE, 'procedure_domain', "varchar(64) NOT NULL DEFAULT ''", [
+                'after' => 'category',
+            ]);
+            $migration->addKey(self::POLICIES_TABLE, 'category');
+            $migration->migrationOneTable(self::POLICIES_TABLE);
         }
         $this->installPolicyAcknowledgementTables($keySign, $charset, $collation);
         $this->installPolicyApprovalTables($migration, $keySign, $charset, $collation);

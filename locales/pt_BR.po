@@ -22389,3 +22389,133 @@ msgstr "Ligue ou escreva para o contato para confirmar que os telefones, os ende
 msgid "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
 msgstr "Enviada pela tarefa automática do GRC Manager quando os dados de um contato oficial não são verificados há 12 meses (no máximo uma vez por mês)."
 
+msgid "%1$d of %2$d domains covered by an up-to-date procedure"
+msgstr "%1$d de %2$d domínios cobertos por um procedimento atualizado"
+
+msgid "%d awaiting approval"
+msgstr "%d aguardando aprovação"
+
+msgid "%d without procedure"
+msgstr "%d sem procedimento"
+
+msgid "Register of operating procedures"
+msgstr "Registro de procedimentos operacionais"
+
+msgid "Expected domains of operating procedures"
+msgstr "Domínios esperados dos procedimentos operacionais"
+
+msgid "The register of operating procedures shows, for each domain ticked here, whether an approved and up-to-date procedure exists. Untick a domain that does not apply to you, and add your own domains, one per line."
+msgstr "O registro de procedimentos operacionais mostra, para cada domínio marcado aqui, se existe um procedimento aprovado e atualizado. Desmarque um domínio que não se aplica a você e adicione seus próprios domínios, um por linha."
+
+msgid "Other domains (one per line)"
+msgstr "Outros domínios (um por linha)"
+
+msgid "Choose \"Operating procedure\" for a documented procedure (backup, restore, updates...): it then appears in the register of operating procedures, with its domain."
+msgstr "Escolha \"Procedimento operacional\" para um procedimento documentado (backup, restauração, atualizações...): ele aparecerá então no registro de procedimentos operacionais, com seu domínio."
+
+msgid "Procedure domain"
+msgstr "Domínio do procedimento"
+
+msgid "Operating procedures only. The list of expected domains is set in the configuration of the plugin."
+msgstr "Somente procedimentos operacionais. A lista de domínios esperados é definida na configuração do plugin."
+
+msgid "Up to date"
+msgstr "Atualizado"
+
+msgid "Review due"
+msgstr "Revisão pendente"
+
+msgid "Not approved"
+msgstr "Não aprovado"
+
+msgid "No procedure"
+msgstr "Nenhum procedimento"
+
+msgid "Expected domains"
+msgstr "Domínios esperados"
+
+msgid "Coverage of the expected domains"
+msgstr "Cobertura dos domínios esperados"
+
+msgid "Coverage"
+msgstr "Cobertura"
+
+msgid "Procedures"
+msgstr "Procedimentos"
+
+msgid "Operating procedures"
+msgstr "Procedimentos operacionais"
+
+msgid "%1$d of %2$d people (%3$d%%)"
+msgstr "%1$d de %2$d pessoas (%3$d%%)"
+
+msgid "Saves the register as a dated PDF document on the control %s of the Statement of Applicability."
+msgstr "Salva o registro como documento PDF datado no controle %s da Declaração de Aplicabilidade."
+
+msgid "Archive on control A.5.37"
+msgstr "Arquivar no controle A.5.37"
+
+msgid "Add an operating procedure"
+msgstr "Adicionar um procedimento operacional"
+
+msgid "Change the list of domains"
+msgstr "Alterar a lista de domínios"
+
+msgid "No expected domain is set. Choose them in the configuration of the plugin."
+msgstr "Nenhum domínio esperado está definido. Escolha-os na configuração do plugin."
+
+msgid "Add the procedure"
+msgstr "Adicionar o procedimento"
+
+msgid "No operating procedure recorded yet. Add one per domain, or open an existing document of the policy library and choose the category \"Operating procedure\"."
+msgstr "Nenhum procedimento operacional registrado ainda. Adicione um por domínio, ou abra um documento existente da biblioteca de políticas e escolha a categoria \"Procedimento operacional\"."
+
+msgid "Not launched"
+msgstr "Não iniciada"
+
+msgid "Restore"
+msgstr "Restauração"
+
+msgid "Monitoring"
+msgstr "Monitoramento"
+
+msgid "Logs"
+msgstr "Logs"
+
+msgid "Updates"
+msgstr "Atualizações"
+
+msgid "Deployment"
+msgstr "Implantação"
+
+msgid "Access management"
+msgstr "Gestão de acessos"
+
+msgid "Incident management"
+msgstr "Gestão de incidentes"
+
+msgid "Maintenance"
+msgstr "Manutenção"
+
+msgid "Register of operating procedures - %s"
+msgstr "Registro de procedimentos operacionais - %s"
+
+msgid "Shows whether each main IT operations activity (backup, restore, monitoring, updates...) has a documented procedure that is approved and reviewed on time, with its version, its owner and who has acknowledged it."
+msgstr "Mostra se cada atividade principal de operação de TI (backup, restauração, monitoramento, atualizações...) tem um procedimento documentado, aprovado e revisado a tempo, com sua versão, seu responsável e quem deu ciência dele."
+
+msgid "For each domain without an up-to-date procedure, add one or update it: attach the document, have it approved, set its next review date, then launch the reading acknowledgement for the groups or profiles that carry it out. Archive the register on control A.5.37 before an audit."
+msgstr "Para cada domínio sem procedimento atualizado, adicione um ou atualize-o: anexe o documento, faça-o aprovar, defina a próxima revisão e então lance a ciência para os grupos ou perfis que o executam. Arquive o registro no controle A.5.37 antes de uma auditoria."
+
+msgid "ISO/IEC 27001, control A.5.37"
+msgstr "ISO/IEC 27001, controle A.5.37"
+
+msgid "The register has been archived as evidence on control A.5.37."
+msgstr "O registro foi arquivado como evidência no controle A.5.37."
+
+msgid "The register could not be archived."
+msgstr "Não foi possível arquivar o registro."
+
+msgid "Operating procedure"
+msgid_plural "Operating procedures"
+msgstr[0] "Procedimento operacional"
+msgstr[1] "Procedimentos operacionais"

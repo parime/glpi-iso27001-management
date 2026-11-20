@@ -7,6 +7,28 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Procédures d'exploitation documentées** (issue #775, lot 1, A.5.37). Pas d'objet à part : une
+  procédure est un document de la bibliothèque des politiques de catégorie « Procédure
+  d'exploitation », avec son domaine. Elle garde la version, le responsable, la date d'approbation,
+  le circuit d'approbation, la prochaine revue et son rappel, les documents joints et la prise de
+  connaissance par les groupes ou profils qui l'exécutent.
+  - Nouveaux champs « Catégorie » et « Domaine de la procédure » sur la fiche et dans la liste des
+    politiques ; les documents existants restent des politiques.
+  - Page « Procédures d'exploitation », sous-page de la rubrique Conformité (aucune entrée de menu en
+    plus) : couverture de chaque domaine attendu (à jour, revue à faire, non approuvée, aucune
+    procédure), lien d'ajout d'une procédure déjà classée, liste avec version, statut, dates,
+    responsable et taux de prise de connaissance.
+  - Domaines attendus réglables dans la configuration (sauvegarde, restauration, supervision,
+    journaux, mises à jour, déploiement, gestion des accès, gestion des incidents, changements,
+    maintenance par défaut, plus des domaines libres).
+  - Preuve sur la mesure A.5.37 : couverture affichée sur sa fiche, registre en PDF à la demande ou
+    archivé sur la mesure, et procès-verbaux d'approbation et rapports de prise de connaissance d'une
+    procédure archivés sur A.5.37 (ceux d'une politique restent sur A.5.1).
+  - Droits : ceux de la bibliothèque des politiques (droit général du plugin) ; archiver exige le
+    droit de modifier.
+
 ## [2.65.0] - 2026-11-20
 
 ### Added

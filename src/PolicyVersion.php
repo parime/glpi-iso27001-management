@@ -810,7 +810,8 @@ class PolicyVersion extends PolicyVersionBase
             'approvers'          => array_column(self::getApprovers($version->getID()), 'name'),
             'rule'               => self::ruleLabel((int) $version->fields['quorum']),
             'fingerprint'        => (string) $version->fields['fingerprint'],
-            'control'            => self::CONTROL_CODE . ' ' . Control::getControlTitle(self::CONTROL_CODE),
+            // Issue #775 : A.5.37 pour une procédure d'exploitation.
+            'control'            => OperatingProcedure::controlLabelFor($policy),
         ]);
     }
 
@@ -874,7 +875,8 @@ class PolicyVersion extends PolicyVersionBase
             'report_title'       => sprintf(__('Approval record: %s', 'grcmanager'), (string) $policy->fields['title']),
             'generated_at_label' => self::generatedAt(),
             'policy_title'       => (string) $policy->fields['title'],
-            'control'            => self::CONTROL_CODE . ' ' . Control::getControlTitle(self::CONTROL_CODE),
+            // Issue #775 : A.5.37 pour une procédure d'exploitation.
+            'control'            => OperatingProcedure::controlLabelFor($policy),
             'history'            => self::present($rows),
         ]);
     }
@@ -893,7 +895,7 @@ class PolicyVersion extends PolicyVersionBase
                 'SELECT' => ['id'],
                 'FROM'   => Control::getTable(),
                 // Issue #536 : mesure de la SoA suivie par l'entité active.
-                'WHERE'  => ['code' => self::CONTROL_CODE] + EntityPerimeter::controlCriteria(),
+                'WHERE'  => ['code' => OperatingProcedure::controlCodeFor($policy)] + EntityPerimeter::controlCriteria(),
             ]) as $control
         ) {
             $targets[] = [Control::class, (int) $control['id']];

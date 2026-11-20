@@ -391,6 +391,22 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, clauses 4.1 and 4.2', 'grcmanager'),
             ],
+            // Issue #775 : registre des procédures d'exploitation.
+            'operatingprocedure' => [
+                'purpose'   => __(
+                    'Shows whether each main IT operations activity (backup, restore, monitoring, updates...) has a '
+                        . 'documented procedure that is approved and reviewed on time, with its version, its owner and '
+                        . 'who has acknowledged it.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'For each domain without an up-to-date procedure, add one or update it: attach the document, have '
+                        . 'it approved, set its next review date, then launch the reading acknowledgement for the '
+                        . 'groups or profiles that carry it out. Archive the register on control A.5.37 before an audit.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.5.37', 'grcmanager'),
+            ],
             // Issue #771 : registre des contacts officiels.
             'officialcontact' => [
                 'purpose'   => __(

@@ -26049,3 +26049,217 @@ msgstr ""
 #: src/PageHelp.php:408
 msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
 msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/operating_procedure_register.html.twig
+#, php-format
+msgid "%1$d of %2$d domains covered by an up-to-date procedure"
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/operating_procedure_register.html.twig
+#, php-format
+msgid "%d awaiting approval"
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/operating_procedure_register.html.twig
+#, php-format
+msgid "%d without procedure"
+msgstr ""
+
+#: templates/control_form.html.twig src/OperatingProcedure.php:329
+msgid "Register of operating procedures"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Expected domains of operating procedures"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"The register of operating procedures shows, for each domain ticked here, "
+"whether an approved and up-to-date procedure exists. Untick a domain that "
+"does not apply to you, and add your own domains, one per line."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Other domains (one per line)"
+msgstr ""
+
+#: templates/policy_form.html.twig
+msgid ""
+"Choose \"Operating procedure\" for a documented procedure (backup, restore, "
+"updates...): it then appears in the register of operating procedures, with "
+"its domain."
+msgstr ""
+
+#: templates/policy_form.html.twig src/Policy.php:228
+msgid "Procedure domain"
+msgstr ""
+
+#: templates/policy_form.html.twig
+msgid ""
+"Operating procedures only. The list of expected domains is set in the "
+"configuration of the plugin."
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/operating_procedure_register.html.twig
+msgid "Up to date"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/operating_procedure_register.html.twig
+msgid "Review due"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/operating_procedure_register.html.twig
+msgid "Not approved"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/operating_procedure_register.html.twig
+msgid "No procedure"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+msgid "Expected domains"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/operating_procedure_register.html.twig
+msgid "Coverage of the expected domains"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/operating_procedure_register.html.twig
+msgid "Coverage"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/operating_procedure_register.html.twig
+msgid "Procedures"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/operating_procedure_register.html.twig
+msgid "Operating procedures"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/operating_procedure_register.html.twig
+#, php-format
+msgid "%1$d of %2$d people (%3$d%%)"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+#, php-format
+msgid ""
+"Saves the register as a dated PDF document on the control %s of the "
+"Statement of Applicability."
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid "Archive on control A.5.37"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid "Add an operating procedure"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid "Change the list of domains"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid ""
+"No expected domain is set. Choose them in the configuration of the plugin."
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid "Add the procedure"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid ""
+"No operating procedure recorded yet. Add one per domain, or open an existing "
+"document of the policy library and choose the category \"Operating "
+"procedure\"."
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid "Not launched"
+msgstr ""
+
+#: src/OperatingProcedure.php:54
+msgid "Operating procedure"
+msgid_plural "Operating procedures"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/OperatingProcedure.php:112
+msgid "Restore"
+msgstr ""
+
+#: src/OperatingProcedure.php:113
+msgid "Monitoring"
+msgstr ""
+
+#: src/OperatingProcedure.php:114
+msgid "Logs"
+msgstr ""
+
+#: src/OperatingProcedure.php:115
+msgid "Updates"
+msgstr ""
+
+#: src/OperatingProcedure.php:116
+msgid "Deployment"
+msgstr ""
+
+#: src/OperatingProcedure.php:117
+msgid "Access management"
+msgstr ""
+
+#: src/OperatingProcedure.php:118
+msgid "Incident management"
+msgstr ""
+
+#: src/OperatingProcedure.php:120
+msgid "Maintenance"
+msgstr ""
+
+#: src/OperatingProcedure.php:355
+#, php-format
+msgid "Register of operating procedures - %s"
+msgstr ""
+
+#: src/PageHelp.php:397
+msgid ""
+"Shows whether each main IT operations activity (backup, restore, monitoring, "
+"updates...) has a documented procedure that is approved and reviewed on "
+"time, with its version, its owner and who has acknowledged it."
+msgstr ""
+
+#: src/PageHelp.php:403
+msgid ""
+"For each domain without an up-to-date procedure, add one or update it: "
+"attach the document, have it approved, set its next review date, then launch "
+"the reading acknowledgement for the groups or profiles that carry it out. "
+"Archive the register on control A.5.37 before an audit."
+msgstr ""
+
+#: src/PageHelp.php:408
+msgid "ISO/IEC 27001, control A.5.37"
+msgstr ""
+
+#: front/operatingprocedure.php:31
+msgid "The register has been archived as evidence on control A.5.37."
+msgstr ""
+
+#: front/operatingprocedure.php:32
+msgid "The register could not be archived."
+msgstr ""
+

@@ -94,6 +94,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
   front/officialcontact.php front/officialcontact.export.php
+  front/operatingprocedure.php front/operatingprocedure.export.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
   front/personnelcompliance.php front/personnelcompliance.export.php?format=csv
   front/personnelcompliance.export.php?format=pdf
@@ -121,6 +122,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/ismsfunction.form.php front/competence.form.php front/competencedeclaration.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
+  # Issue #775 : archiver le registre des procedures d'exploitation sur A.5.37 cree un document : il
+  # faut pouvoir modifier les politiques.
+  expect "front/operatingprocedure.php : archiver sur A.5.37" "$1" \
+    "$(code -d "archive=1&_glpi_csrf_token=$(csrf)" "$P/operatingprocedure.php")"
   # Issue #542 : generer le dossier preparatoire d'une revue de direction (document joint) et creer
   # les actions a partir de ses decisions exigent de pouvoir modifier la revue.
   expect "front/managementreview.dossier.php : generer le dossier" "$1" \

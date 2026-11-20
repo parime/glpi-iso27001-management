@@ -1696,6 +1696,8 @@ class Control extends ControlBase
             'endoflife'               => EndOfLife::evidence($code),
             // Issue #771 : registre des contacts officiels, preuve des mesures A.5.5 et A.5.6.
             'official_contacts'       => OfficialContact::evidence($code),
+            // Issue #775 : registre des procédures d'exploitation, preuve de la mesure A.5.37.
+            'operating_procedures'    => OperatingProcedure::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
         ]);
 
