@@ -466,6 +466,22 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, control A.5.37', 'grcmanager'),
             ],
+            // Issue #777 : développement sécurisé.
+            'securedevelopment' => [
+                'purpose'   => __(
+                    'The applications developed or maintained in-house, with their secure development practices '
+                        . '(framework, code review, SAST, DAST and dependency analyses, separated environments), and '
+                        . 'the releases of the last 12 months with their security validation.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Fill in the "Secure development" tab of each application, link the changes to their '
+                        . 'application, then have each release approved by the CIO or the CISO in the "Security '
+                        . 'release validation" tab of the change, before it goes into production.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.25 to A.8.31', 'grcmanager'),
+            ],
             // Issue #771 : registre des contacts officiels.
             'officialcontact' => [
                 'purpose'   => __(
@@ -599,6 +615,36 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, 7.2 and 7.3', 'grcmanager'),
+            ],
+            // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation.
+            'phishingcampaign' => [
+                'purpose'   => __(
+                    'Phishing simulations: the fake phishing campaigns sent with an external tool (GoPhish, a '
+                        . 'provider...), their results and the trend from one campaign to the next. The plugin '
+                        . 'never sends any email.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Record each campaign (date, tool, scenario, targeted population), then import the results '
+                        . 'file of the tool in the Results tab. Offer a remedial training to the people who '
+                        . 'clicked. Inform the staff beforehand that simulations take place, and delete the '
+                        . 'results per person once the follow-up is done.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 7.3 and control A.6.3', 'grcmanager'),
+            ],
+            'phishingimport' => [
+                'purpose'   => __(
+                    'Import of the results of a phishing simulation: each line of the file is matched with a '
+                        . 'GLPI user by email address or login.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Check the column of each field, then import. The lines not matched are listed on the '
+                        . 'campaign so that you can correct them.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 7.3 and control A.6.3', 'grcmanager'),
             ],
             'managementreview' => [
                 'purpose'   => __(

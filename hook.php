@@ -886,6 +886,16 @@ function plugin_grcmanager_forget_business_process_item(CommonDBTM $item): void
     \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
     // Issue #540 : et les champs DORA d'un fournisseur.
     \GlpiPlugin\Grcmanager\DoraRegister::forgetItem($item);
+    // Issue #777 : et la fiche « développement sécurisé » d'une application.
+    \GlpiPlugin\Grcmanager\ApplicationSecurity::forgetItem($item);
+}
+
+/**
+ * Issue #777 : Hooks::ITEM_PURGE sur les changements (setup.php).
+ */
+function plugin_grcmanager_forget_release_validation(CommonDBTM $item): void
+{
+    \GlpiPlugin\Grcmanager\ReleaseValidation::forgetItem($item);
 }
 
 /**

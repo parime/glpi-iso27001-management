@@ -1,0 +1,35 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #604 : taux d'une campagne de simulation d'hameçonnage (agrégés, jamais nominatifs). Masqués
+   sur trop peu de personnes à qui ne voit pas le détail. #}
+<div id="grc-phishing-rates">
+   {% if summary.counts.sent == 0 %}
+      <div class="text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('No results yet. Import the results file of the simulation tool in the Results tab.', 'grcmanager') }}</div>
+   {% elseif summary.hidden %}
+      <div class="text-secondary"><i class="ti ti-eye-off me-1"></i>{{ __('Fewer than %d people received the email: the rates are not shown, they could identify someone.', 'grcmanager')|format(summary.min) }}</div>
+   {% else %}
+      <div class="d-flex flex-wrap gap-3">
+         <div><div class="text-secondary small">{{ __('Emails received', 'grcmanager') }}</div><div class="h3 mb-0">{{ summary.counts.sent }}</div></div>
+         <div><div class="text-secondary small">{{ __('Opened', 'grcmanager') }}</div><div class="h3 mb-0">{{ summary.rates.opened }} %</div></div>
+         <div><div class="text-secondary small">{{ __('Link clicked', 'grcmanager') }}</div><div class="h3 mb-0 {{ summary.rates.clicked > 20 ? 'text-danger' : '' }}">{{ summary.rates.clicked }} %</div></div>
+         <div><div class="text-secondary small">{{ __('Data entered', 'grcmanager') }}</div><div class="h3 mb-0 {{ summary.rates.submitted > 5 ? 'text-danger' : '' }}">{{ summary.rates.submitted }} %</div></div>
+         <div><div class="text-secondary small">{{ __('Reported', 'grcmanager') }}</div><div class="h3 mb-0 {{ summary.rates.reported >= 50 ? 'text-success' : '' }}">{{ summary.rates.reported }} %</div></div>
+      </div>
+      <div class="form-hint">{{ __('Rates out of the emails received. A good campaign has few clicks and many reports.', 'grcmanager') }}</div>
+   {% endif %}
+   {% if summary.anonymized %}
+      <div class="mt-1 small text-secondary"><i class="ti ti-user-off me-1"></i>{{ __('Individual results deleted on %s: only the rates are kept.', 'grcmanager')|format(summary.anonymized) }}</div>
+   {% endif %}
+</div>

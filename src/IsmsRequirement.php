@@ -411,6 +411,8 @@ class IsmsRequirement extends IsmsRequirementBase
             'competence'     => CompetenceMatrix::clauseReadiness($code),
             // Issue #616 : communication de crise (modèles, destinataires, traces) pour 7.4.
             'crisis_communication' => CrisisCommunication::clauseReadiness($code),
+            // Issue #604 : simulations d'hameçonnage (taux, tendance) pour 7.3.
+            'phishing'       => PhishingCampaign::clauseReadiness($code),
         ]);
 
         return true;

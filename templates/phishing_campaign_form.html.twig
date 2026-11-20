@@ -1,0 +1,48 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #604 : campagne de simulation d'hameçonnage faite avec un outil externe (rien n'est envoyé
+   depuis GLPI). Les résultats sont dans l'onglet « Résultats ». #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.smallTitle(__('Campaign', 'grcmanager'), 'ti ti-fish-hook') }}
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'required': true,
+      'add_field_html': hints.hint(__('For example "Fake parcel delivery, spring 2026".', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('campaign_date', item.fields['campaign_date'], __('Campaign date', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Day the simulated emails were sent.', 'grcmanager')),
+   }) }}
+   {{ fields.textField('tool', item.fields['tool'], __('Simulation tool', 'grcmanager'), {
+      'add_field_html': hints.hint(__('The tool or the provider that sent the emails, for example GoPhish. GLPI sends nothing.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('target_population', item.fields['target_population'], __('Targeted population', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Who received the email: all staff, a department, a site...', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('scenario', item.fields['scenario'], __('Scenario', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('What the trap looked like: sender, subject, lure, fake page.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+
+   {% if summary %}
+      {% set summary_html %}
+         {% include '@grcmanager/_phishing_rates.html.twig' with {'summary': summary} only %}
+      {% endset %}
+      {{ fields.htmlField('', summary_html, __('Results', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+{% endblock %}

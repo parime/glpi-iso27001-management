@@ -98,6 +98,11 @@ class RiskIndicator extends RiskIndicatorBase
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => [PeriodicReview::RIGHTNAME => READ], 'global' => false,
         ],
+        // Issue #604 : taux de clic de la dernière simulation d'hameçonnage (taux agrégé).
+        'phishing_click_rate' => [
+            'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => [PhishingCampaign::RIGHTNAME => READ], 'global' => false,
+        ],
     ];
 
     /** Score CVSS à partir duquel une vulnérabilité est critique. */
@@ -137,6 +142,7 @@ class RiskIndicator extends RiskIndicatorBase
             'overdue_corrective_actions' => __('Overdue corrective actions (non-conformities)', 'grcmanager'),
             'overdue_control_tests'     => __('Overdue control effectiveness tests', 'grcmanager'),
             'overdue_periodic_reviews'  => __('Overdue periodic reviews', 'grcmanager'),
+            'phishing_click_rate'       => __('Click rate of the last phishing simulation (%)', 'grcmanager'),
         ];
     }
 
@@ -529,6 +535,7 @@ class RiskIndicator extends RiskIndicatorBase
             'overdue_corrective_actions' => (float) DashboardCardService::overdueCapaCount()['number'],
             'overdue_control_tests'     => (float) PilotageCards::overdueControlTests()['number'],
             'overdue_periodic_reviews'  => (float) self::overduePeriodicReviews($perimeter),
+            'phishing_click_rate'       => PhishingCampaign::lastClickRate($perimeter),
             default                     => null,
         };
     }

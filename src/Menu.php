@@ -100,6 +100,8 @@ class Menu extends CommonGLPI
                 OperatingProcedure::class,
                 // Issue #778 : sécurité physique des sites (A.7.1 à A.7.14), comparaison entre sites.
                 PhysicalSecurity::class,
+                // Issue #777 : développement sécurisé (registre des applications, mises en production).
+                SecureDevelopment::class,
                 Evidence::class, CoverageRule::class, ControlTest::class,
                 // Issue #540 : registre d'informations DORA (référentiel DORA activé).
                 DoraRegister::class,
@@ -123,6 +125,8 @@ class Menu extends CommonGLPI
                 PersonnelCompliance::class,
                 PeriodicReview::class,
                 Training::class,
+                // Issue #604 : simulations d'hameçonnage (preuve de sensibilisation, 7.3 et A.6.3).
+                PhishingCampaign::class,
                 // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
                 IsmsFunction::class,
                 CrisisExercise::class,

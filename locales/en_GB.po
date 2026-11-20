@@ -29032,6 +29032,710 @@ msgid_plural "%d default scenarios added."
 msgstr[0] "%d default scenario added."
 msgstr[1] "%d default scenarios added."
 
+msgid "Before this change goes into production, check the security points below, then the CIO or the CISO approves or rejects the release. The decision is recorded with its author and date, and in the history of the change."
+msgstr "Before this change goes into production, check the security points below, then the CIO or the CISO approves or rejects the release. The decision is recorded with its author and date, and in the history of the change."
+
+msgid "Applications concerned"
+msgstr "Applications concerned"
+
+msgid "Fill in the secure development tab of the application."
+msgstr "Fill in the secure development tab of the application."
+
+msgid "No secure development sheet"
+msgstr "No secure development sheet"
+
+#, php-format
+msgid "GLPI approval of the change: %s"
+msgstr "GLPI approval of the change: %s"
+
+msgid "This change is in production."
+msgstr "This change is in production."
+
+msgid "Security checklist before release"
+msgstr "Security checklist before release"
+
+msgid "Evidence (reports, links, ticket numbers)"
+msgstr "Evidence (reports, links, ticket numbers)"
+
+msgid "Save the checklist"
+msgstr "Save the checklist"
+
+msgid "Decision of the CIO or the CISO"
+msgstr "Decision of the CIO or the CISO"
+
+msgid "Release approved"
+msgstr "Release approved"
+
+msgid "Release rejected"
+msgstr "Release rejected"
+
+#, php-format
+msgid "By %1$s (%2$s) on %3$s"
+msgstr "By %1$s (%2$s) on %3$s"
+
+msgid "Reason or comment"
+msgstr "Reason or comment"
+
+msgid "Reopen the decision"
+msgstr "Reopen the decision"
+
+msgid "The checklist is not complete: the release can only be rejected."
+msgstr "The checklist is not complete: the release can only be rejected."
+
+msgid "I decide as"
+msgstr "I decide as"
+
+msgid "Reason or comment (mandatory for a rejection)"
+msgstr "Reason or comment (mandatory for a rejection)"
+
+msgid "Approve the release"
+msgstr "Approve the release"
+
+msgid "Reject the release"
+msgstr "Reject the release"
+
+msgid "Awaiting the decision of the CIO or the CISO."
+msgstr "Awaiting the decision of the CIO or the CISO."
+
+msgid "Fill in this sheet for each application developed or maintained in-house: it then appears in the register of applications (secure development page) and as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
+msgstr "Fill in this sheet for each application developed or maintained in-house: it then appears in the register of applications (secure development page) and as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
+
+msgid "All secure development practices are in place"
+msgstr "All secure development practices are in place"
+
+#, php-format
+msgid "Missing: %s"
+msgstr "Missing: %s"
+
+msgid "Environments not separated"
+msgstr "Environments not separated"
+
+msgid "Secure development owner"
+msgstr "Secure development owner"
+
+#, php-format
+msgid "%s (technical owner of the application)"
+msgstr "%s (technical owner of the application)"
+
+msgid "Code repository"
+msgstr "Code repository"
+
+msgid "Secure development framework"
+msgstr "Secure development framework"
+
+msgid "Tools and frequency of the analyses"
+msgstr "Tools and frequency of the analyses"
+
+msgid "Separated environments (development, test, production)"
+msgstr "Separated environments (development, test, production)"
+
+msgid "This application has no secure development sheet yet."
+msgstr "This application has no secure development sheet yet."
+
+#, php-format
+msgid "Empty: the technical owner of the application (%s)."
+msgstr "Empty: the technical owner of the application (%s)."
+
+msgid "Person accountable for the security of the development of this application."
+msgstr "Person accountable for the security of the development of this application."
+
+msgid "Address starting with https://, ssh:// or git@."
+msgstr "Address starting with https://, ssh:// or git@."
+
+msgid "Level or version of the framework"
+msgstr "Level or version of the framework"
+
+msgid "For example: ASVS 4.0.3 level 2"
+msgstr "For example: ASVS 4.0.3 level 2"
+
+msgid "For example: merge request reviewed by a second developer, SAST on each commit, dependency analysis every week, DAST before each release."
+msgstr "For example: merge request reviewed by a second developer, SAST on each commit, dependency analysis every week, DAST before each release."
+
+msgid "How access, data and configuration are separated, or why they are not (mandatory when the answer is no)."
+msgstr "How access, data and configuration are separated, or why they are not (mandatory when the answer is no)."
+
+#, php-format
+msgid "Last update: %s"
+msgstr "Last update: %s"
+
+msgid "Applications in the register"
+msgstr "Applications in the register"
+
+msgid "Applications without separation of environments"
+msgstr "Applications without separation of environments"
+
+#, php-format
+msgid "%d without justification"
+msgstr "%d without justification"
+
+msgid "Releases without security validation (12 months)"
+msgstr "Releases without security validation (12 months)"
+
+#, php-format
+msgid "out of %d release(s)"
+msgstr "out of %d release(s)"
+
+msgid "Requires the right to see all changes."
+msgstr "Requires the right to see all changes."
+
+msgid "Practices missing"
+msgstr "Practices missing"
+
+#, php-format
+msgid "Framework: %d"
+msgstr "Framework: %d"
+
+#, php-format
+msgid "Code review: %d"
+msgstr "Code review: %d"
+
+#, php-format
+msgid "Dependencies: %d"
+msgstr "Dependencies: %d"
+
+msgid "Register of applications developed or maintained in-house"
+msgstr "Register of applications developed or maintained in-house"
+
+msgid "Add an application"
+msgstr "Add an application"
+
+msgid "Requires the right to read the applications of GLPI."
+msgstr "Requires the right to read the applications of GLPI."
+
+msgid "No application in the register yet. Open an appliance of GLPI (Assets > Appliances) and fill in its \"Secure development\" tab."
+msgstr "No application in the register yet. Open an appliance of GLPI (Assets > Appliances) and fill in its \"Secure development\" tab."
+
+msgid "Application"
+msgstr "Application"
+
+msgid "Separated environments"
+msgstr "Separated environments"
+
+msgid "Not specified"
+msgstr "Not specified"
+
+#, php-format
+msgid "Releases of the last %d days"
+msgstr "Releases of the last %d days"
+
+msgid "No solved or closed change linked to an application of the register over this period."
+msgstr "No solved or closed change linked to an application of the register over this period."
+
+msgid "Release date"
+msgstr "Release date"
+
+msgid "Security validation"
+msgstr "Security validation"
+
+msgid "Decision by"
+msgstr "Decision by"
+
+#, php-format
+msgid "%d application in the register"
+msgid_plural "%d applications in the register"
+msgstr[0] "%d application in the register"
+msgstr[1] "%d applications in the register"
+
+#, php-format
+msgid "%1$d release(s) without security validation out of %2$d over 12 months"
+msgstr "%1$d release(s) without security validation out of %2$d over 12 months"
+
+#, php-format
+msgid "%d without secure development framework"
+msgstr "%d without secure development framework"
+
+#, php-format
+msgid "%d without mandatory code review"
+msgstr "%d without mandatory code review"
+
+#, php-format
+msgid "%d without SAST"
+msgstr "%d without SAST"
+
+#, php-format
+msgid "%d without DAST"
+msgstr "%d without DAST"
+
+#, php-format
+msgid "%d without dependency analysis"
+msgstr "%d without dependency analysis"
+
+#, php-format
+msgid "%d without separation of environments"
+msgstr "%d without separation of environments"
+
+#, php-format
+msgid "%d not separated without justification"
+msgstr "%d not separated without justification"
+
+msgid "Security release validation"
+msgstr "Security release validation"
+
+msgid "Tests passed (including security tests)"
+msgstr "Tests passed (including security tests)"
+
+msgid "Code review done"
+msgstr "Code review done"
+
+msgid "Vulnerabilities found treated (SAST, DAST, dependencies)"
+msgstr "Vulnerabilities found treated (SAST, DAST, dependencies)"
+
+msgid "CIO (IT department)"
+msgstr "CIO (IT department)"
+
+msgid "Validated before release"
+msgstr "Validated before release"
+
+msgid "Validated after release"
+msgstr "Validated after release"
+
+msgid "Released although rejected"
+msgstr "Released although rejected"
+
+msgid "Released without decision"
+msgstr "Released without decision"
+
+msgid "Released without security checklist"
+msgstr "Released without security checklist"
+
+msgid "The decision has been taken: reopen it before changing the checklist."
+msgstr "The decision has been taken: reopen it before changing the checklist."
+
+msgid "The checklist could not be saved."
+msgstr "The checklist could not be saved."
+
+msgid "Every item of the checklist must be ticked before approving the release."
+msgstr "Every item of the checklist must be ticked before approving the release."
+
+msgid "The decision could not be saved."
+msgstr "The decision could not be saved."
+
+#, php-format
+msgid "Security release validation: approved by %1$s (%2$s)"
+msgstr "Security release validation: approved by %1$s (%2$s)"
+
+#, php-format
+msgid "Security release validation: rejected by %1$s (%2$s)"
+msgstr "Security release validation: rejected by %1$s (%2$s)"
+
+msgid "There is no decision to reopen."
+msgstr "There is no decision to reopen."
+
+msgid "The decision could not be reopened."
+msgstr "The decision could not be reopened."
+
+#, php-format
+msgid "Security release validation: decision reopened by %s"
+msgstr "Security release validation: decision reopened by %s"
+
+msgid "Say whether you decide as CIO or as CISO."
+msgstr "Say whether you decide as CIO or as CISO."
+
+msgid "Give the reason for the rejection."
+msgstr "Give the reason for the rejection."
+
+msgid "The decision has already been taken: reopen it first."
+msgstr "The decision has already been taken: reopen it first."
+
+msgid "Application not visible to you"
+msgstr "Application not visible to you"
+
+msgid "Decide on releases"
+msgstr "Decide on releases"
+
+msgid "Approve or reject the release of a change (security validation)"
+msgstr "Approve or reject the release of a change (security validation)"
+
+msgid "The applications developed or maintained in-house, with their secure development practices (framework, code review, SAST, DAST and dependency analyses, separated environments), and the releases of the last 12 months with their security validation."
+msgstr "The applications developed or maintained in-house, with their secure development practices (framework, code review, SAST, DAST and dependency analyses, separated environments), and the releases of the last 12 months with their security validation."
+
+msgid "Fill in the \"Secure development\" tab of each application, link the changes to their application, then have each release approved by the CIO or the CISO in the \"Security release validation\" tab of the change, before it goes into production."
+msgstr "Fill in the \"Secure development\" tab of each application, link the changes to their application, then have each release approved by the CIO or the CISO in the \"Security release validation\" tab of the change, before it goes into production."
+
+msgid "ISO/IEC 27001, controls A.8.25 to A.8.31"
+msgstr "ISO/IEC 27001, controls A.8.25 to A.8.31"
+
+msgid "OWASP ASVS (Application Security Verification Standard)"
+msgstr "OWASP ASVS (Application Security Verification Standard)"
+
+msgid "OWASP Top 10"
+msgstr "OWASP Top 10"
+
+msgid "OWASP SAMM (Software Assurance Maturity Model)"
+msgstr "OWASP SAMM (Software Assurance Maturity Model)"
+
+msgid "ANSSI recommendations"
+msgstr "ANSSI recommendations"
+
+msgid "Other (specify)"
+msgstr "Other (specify)"
+
+msgid "Mandatory code review"
+msgstr "Mandatory code review"
+
+msgid "Static analysis (SAST)"
+msgstr "Static analysis (SAST)"
+
+msgid "Dynamic analysis (DAST)"
+msgstr "Dynamic analysis (DAST)"
+
+msgid "Dependency analysis"
+msgstr "Dependency analysis"
+
+msgid "Explain why the environments are not separated (accepted risk, compensating measure)."
+msgstr "Explain why the environments are not separated (accepted risk, compensating measure)."
+
+msgid "The secure development sheet could not be saved."
+msgstr "The secure development sheet could not be saved."
+
+msgid "Secure development sheet saved."
+msgstr "Secure development sheet saved."
+
+msgid "Checklist saved."
+msgstr "Checklist saved."
+
+msgid "Decision recorded."
+msgstr "Decision recorded."
+
+msgid "Decision reopened."
+msgstr "Decision reopened."
+
+msgid ""
+"Proposed remedial training: the people who clicked the link or entered data "
+"in the phishing simulation are preselected. Check the date and the list, "
+"then click \"Add\". Nothing is saved or sent before that."
+msgstr ""
+"Proposed remedial training: the people who clicked the link or entered data "
+"in the phishing simulation are preselected. Check the date and the list, "
+"then click \"Add\". Nothing is saved or sent before that."
+
+msgid "Phishing simulations"
+msgstr "Phishing simulations"
+
+msgid "%d campaign within 12 months"
+msgid_plural "%d campaigns within 12 months"
+msgstr[0] "%d campaign within 12 months"
+msgstr[1] "%d campaigns within 12 months"
+
+msgid "Last campaign: %s"
+msgstr "Last campaign: %s"
+
+msgid "Last campaign: %1$s, %2$s %% clicked, %3$s %% reported"
+msgstr "Last campaign: %1$s, %2$s %% clicked, %3$s %% reported"
+
+msgid "Clicks: %s points since the previous campaign"
+msgstr "Clicks: %s points since the previous campaign"
+
+msgid "Open the phishing simulations"
+msgstr "Open the phishing simulations"
+
+msgid "Import the results of \"%s\""
+msgstr "Import the results of \"%s\""
+
+msgid ""
+"The usual columns are recognised automatically. Only the email address (or "
+"login) is required: without a \"received\" or status column, each line is a "
+"person who received the email."
+msgstr ""
+"The usual columns are recognised automatically. Only the email address (or "
+"login) is required: without a \"received\" or status column, each line is a "
+"person who received the email."
+
+msgid "First lines of the file"
+msgstr "First lines of the file"
+
+msgid ""
+"The results replace those of the campaign. People are matched with the "
+"active GLPI users of the entity of the campaign; the address is kept only "
+"for the lines not matched. Nothing is sent to anyone."
+msgstr ""
+"The results replace those of the campaign. People are matched with the "
+"active GLPI users of the entity of the campaign; the address is kept only "
+"for the lines not matched. Nothing is sent to anyone."
+
+msgid "Rates of the campaign"
+msgstr "Rates of the campaign"
+
+msgid "Last import: %1$s (%2$s)"
+msgstr "Last import: %1$s (%2$s)"
+
+msgid ""
+"The results per person are personal data: they are shown only with the right "
+"on sensitive registers. Each person sees their own results in their "
+"preferences."
+msgstr ""
+"The results per person are personal data: they are shown only with the right "
+"on sensitive registers. Each person sees their own results in their "
+"preferences."
+
+msgid "%d person clicked the link or entered data."
+msgid_plural "%d people clicked the link or entered data."
+msgstr[0] "%d person clicked the link or entered data."
+msgstr[1] "%d people clicked the link or entered data."
+
+msgid ""
+"You can offer them a remedial training: nothing is sent, the training form "
+"is only filled in for you."
+msgstr ""
+"You can offer them a remedial training: nothing is sent, the training form "
+"is only filled in for you."
+
+msgid "Offer a remedial training"
+msgstr "Offer a remedial training"
+
+msgid "Results per person"
+msgstr "Results per person"
+
+msgid "The individual results have been deleted."
+msgstr "The individual results have been deleted."
+
+msgid "No person matched yet."
+msgstr "No person matched yet."
+
+msgid "Email received"
+msgstr "Email received"
+
+msgid "Opened"
+msgstr "Opened"
+
+msgid "Link clicked"
+msgstr "Link clicked"
+
+msgid "Data entered"
+msgstr "Data entered"
+
+msgid "Reported"
+msgstr "Reported"
+
+msgid "%d line not matched"
+msgid_plural "%d lines not matched"
+msgstr[0] "%d line not matched"
+msgstr[1] "%d lines not matched"
+
+msgid ""
+"No single active GLPI user of the entity of the campaign has this email "
+"address or login. Correct the address in GLPI (or in the file), then import "
+"the file again. These lines still count in the rates."
+msgstr ""
+"No single active GLPI user of the entity of the campaign has this email "
+"address or login. Correct the address in GLPI (or in the file), then import "
+"the file again. These lines still count in the rates."
+
+msgid "Email address or login"
+msgstr "Email address or login"
+
+msgid "Import the results"
+msgstr "Import the results"
+
+msgid ""
+"CSV export of the results from the simulation tool, one line per person: "
+"email address or login, then email received, opened, link clicked, data "
+"entered and reported (yes / no columns, or the status column of a GoPhish "
+"export). You check the columns at the next step. A new import replaces the "
+"results of the campaign."
+msgstr ""
+"CSV export of the results from the simulation tool, one line per person: "
+"email address or login, then email received, opened, link clicked, data "
+"entered and reported (yes / no columns, or the status column of a GoPhish "
+"export). You check the columns at the next step. A new import replaces the "
+"results of the campaign."
+
+msgid ""
+"At most %d MB. The values of the file are read as text: no formula is "
+"evaluated."
+msgstr ""
+"At most %d MB. The values of the file are read as text: no formula is "
+"evaluated."
+
+msgid "Delete the results per person? The rates of the campaign are kept."
+msgstr "Delete the results per person? The rates of the campaign are kept."
+
+msgid ""
+"Once the follow-up is done (remedial training, statistics), delete the "
+"results per person: only the rates of the campaign remain."
+msgstr ""
+"Once the follow-up is done (remedial training, statistics), delete the "
+"results per person: only the rates of the campaign remain."
+
+msgid "Delete the results per person"
+msgstr "Delete the results per person"
+
+msgid "For example \"Fake parcel delivery, spring 2026\"."
+msgstr "For example \"Fake parcel delivery, spring 2026\"."
+
+msgid "Campaign date"
+msgstr "Campaign date"
+
+msgid "Day the simulated emails were sent."
+msgstr "Day the simulated emails were sent."
+
+msgid "Simulation tool"
+msgstr "Simulation tool"
+
+msgid ""
+"The tool or the provider that sent the emails, for example GoPhish. GLPI "
+"sends nothing."
+msgstr ""
+"The tool or the provider that sent the emails, for example GoPhish. GLPI "
+"sends nothing."
+
+msgid "Targeted population"
+msgstr "Targeted population"
+
+msgid "Who received the email: all staff, a department, a site..."
+msgstr "Who received the email: all staff, a department, a site..."
+
+msgid "What the trap looked like: sender, subject, lure, fake page."
+msgstr "What the trap looked like: sender, subject, lure, fake page."
+
+msgid ""
+"Your results in the phishing simulations of your organization. They help you "
+"spot the traps; they are seen only by you and by the people in charge of "
+"information security."
+msgstr ""
+"Your results in the phishing simulations of your organization. They help you "
+"spot the traps; they are seen only by you and by the people in charge of "
+"information security."
+
+msgid "You have no result in a phishing simulation."
+msgstr "You have no result in a phishing simulation."
+
+msgid ""
+"No results yet. Import the results file of the simulation tool in the "
+"Results tab."
+msgstr ""
+"No results yet. Import the results file of the simulation tool in the "
+"Results tab."
+
+msgid ""
+"Fewer than %d people received the email: the rates are not shown, they could "
+"identify someone."
+msgstr ""
+"Fewer than %d people received the email: the rates are not shown, they could "
+"identify someone."
+
+msgid "Emails received"
+msgstr "Emails received"
+
+msgid ""
+"Rates out of the emails received. A good campaign has few clicks and many "
+"reports."
+msgstr ""
+"Rates out of the emails received. A good campaign has few clicks and many "
+"reports."
+
+msgid "Individual results deleted on %s: only the rates are kept."
+msgstr "Individual results deleted on %s: only the rates are kept."
+
+msgid "Trend from one campaign to the next"
+msgstr "Trend from one campaign to the next"
+
+msgid "Change in clicks"
+msgstr "Change in clicks"
+
+msgid "Too few people to show anonymous rates"
+msgstr "Too few people to show anonymous rates"
+
+msgid ""
+"Rates out of the emails received. To follow the click rate with thresholds "
+"and an alert, create a risk indicator (KRI) with the source \"Click rate of "
+"the last phishing simulation\"."
+msgstr ""
+"Rates out of the emails received. To follow the click rate with thresholds "
+"and an alert, create a risk indicator (KRI) with the source \"Click rate of "
+"the last phishing simulation\"."
+
+msgid "Phishing awareness - %s"
+msgstr "Phishing awareness - %s"
+
+msgid "People caught by the phishing simulation"
+msgstr "People caught by the phishing simulation"
+
+msgid "Phishing simulation result"
+msgid_plural "Phishing simulation results"
+msgstr[0] "Phishing simulation result"
+msgstr[1] "Phishing simulation results"
+
+msgid "My phishing simulations"
+msgstr "My phishing simulations"
+
+msgid "Results imported: %1$d people matched, %2$d lines not matched"
+msgstr "Results imported: %1$d people matched, %2$d lines not matched"
+
+msgid "Individual results deleted, rates kept"
+msgstr "Individual results deleted, rates kept"
+
+msgid "Click rate of the last phishing simulation (%)"
+msgstr "Click rate of the last phishing simulation (%)"
+
+msgid "Phishing simulation"
+msgid_plural "Phishing simulations"
+msgstr[0] "Phishing simulation"
+msgstr[1] "Phishing simulations"
+
+msgid "Give the campaign a name."
+msgstr "Give the campaign a name."
+
+msgid ""
+"Phishing simulations: the fake phishing campaigns sent with an external tool "
+"(GoPhish, a provider...), their results and the trend from one campaign to "
+"the next. The plugin never sends any email."
+msgstr ""
+"Phishing simulations: the fake phishing campaigns sent with an external tool "
+"(GoPhish, a provider...), their results and the trend from one campaign to "
+"the next. The plugin never sends any email."
+
+msgid ""
+"Record each campaign (date, tool, scenario, targeted population), then "
+"import the results file of the tool in the Results tab. Offer a remedial "
+"training to the people who clicked. Inform the staff beforehand that "
+"simulations take place, and delete the results per person once the follow-up "
+"is done."
+msgstr ""
+"Record each campaign (date, tool, scenario, targeted population), then "
+"import the results file of the tool in the Results tab. Offer a remedial "
+"training to the people who clicked. Inform the staff beforehand that "
+"simulations take place, and delete the results per person once the follow-up "
+"is done."
+
+msgid "ISO/IEC 27001, clause 7.3 and control A.6.3"
+msgstr "ISO/IEC 27001, clause 7.3 and control A.6.3"
+
+msgid ""
+"Import of the results of a phishing simulation: each line of the file is "
+"matched with a GLPI user by email address or login."
+msgstr ""
+"Import of the results of a phishing simulation: each line of the file is "
+"matched with a GLPI user by email address or login."
+
+msgid ""
+"Check the column of each field, then import. The lines not matched are "
+"listed on the campaign so that you can correct them."
+msgstr ""
+"Check the column of each field, then import. The lines not matched are "
+"listed on the campaign so that you can correct them."
+
+msgid "Choose a CSV file (text separated by commas or semicolons)."
+msgstr "Choose a CSV file (text separated by commas or semicolons)."
+
+msgid "Choose the column that holds the email address or the login."
+msgstr "Choose the column that holds the email address or the login."
+
+msgid ""
+"%1$d line(s) read: %2$d person(s) matched, %3$d line(s) not matched, %4$d "
+"empty line(s) ignored."
+msgstr ""
+"%1$d line(s) read: %2$d person(s) matched, %3$d line(s) not matched, %4$d "
+"empty line(s) ignored."
+
+msgid "Status (GoPhish export)"
+msgstr "Status (GoPhish export)"
+
+msgid ""
+"The individual results have been deleted. The rates of the campaign are kept."
+msgstr ""
+"The individual results have been deleted. The rates of the campaign are kept."
+
 msgid "No process sampled for this audit yet: tick the processes announced by the certification body in its audit plan."
 msgstr "No process sampled for this audit yet: tick the processes announced by the certification body in its audit plan."
 

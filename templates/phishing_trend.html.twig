@@ -1,0 +1,66 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #604 : tendance des campagnes de simulation d'hameçonnage (taux agrégés, jamais nominatifs). #}
+{% set measured = rows|filter(row => row.counts.sent > 0) %}
+{% if measured is not empty %}
+<div class="container-fluid mb-3">
+   <div class="card" id="grc-phishing-trend">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-trending-down me-2"></i>{{ __('Trend from one campaign to the next', 'grcmanager') }}</h3></div>
+      <div class="table-responsive">
+         <table class="table table-sm table-vcenter card-table">
+            <thead>
+               <tr>
+                  <th>{{ __('Campaign', 'grcmanager') }}</th>
+                  <th>{{ __('Campaign date', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Emails received', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Link clicked', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Data entered', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Reported', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Change in clicks', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for row in measured %}
+                  <tr>
+                     <td><a href="{{ row.url }}">{{ row.name }}</a></td>
+                     <td>{{ row.date_label }}</td>
+                     {% if row.hidden %}
+                        <td colspan="5" class="text-secondary small"><i class="ti ti-eye-off me-1"></i>{{ __('Too few people to show anonymous rates', 'grcmanager') }}</td>
+                     {% else %}
+                        <td class="text-end">{{ row.counts.sent }}</td>
+                        <td class="text-end">{{ row.rates.clicked }} %</td>
+                        <td class="text-end">{{ row.rates.submitted }} %</td>
+                        <td class="text-end">{{ row.rates.reported }} %</td>
+                        <td class="text-end">
+                           {% if row.click_delta is null %}
+                              <span class="text-secondary">-</span>
+                           {% elseif row.click_delta < 0 %}
+                              <span class="text-success"><i class="ti ti-arrow-down-right me-1"></i>{{ row.click_delta }} pt</span>
+                           {% elseif row.click_delta > 0 %}
+                              <span class="text-danger"><i class="ti ti-arrow-up-right me-1"></i>+{{ row.click_delta }} pt</span>
+                           {% else %}
+                              <span class="text-secondary">0 pt</span>
+                           {% endif %}
+                        </td>
+                     {% endif %}
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+      <div class="card-footer small text-secondary">{{ __('Rates out of the emails received. To follow the click rate with thresholds and an alert, create a risk indicator (KRI) with the source "Click rate of the last phishing simulation".', 'grcmanager') }}</div>
+   </div>
+</div>
+{% endif %}
