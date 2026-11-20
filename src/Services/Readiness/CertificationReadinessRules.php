@@ -75,6 +75,24 @@ final class CertificationReadinessRules
     /** Une étape non faite dont l'échéance conseillée tombe dans ce délai (jours) est « à risque ». */
     public const ALERT_DAYS = 14;
 
+    /** Bornes des délais réglables (#761, lot 2) : délai d'alerte et délai conseillé par étape. */
+    public const ALERT_DAYS_MIN = 1;
+    public const ALERT_DAYS_MAX = 90;
+    public const LEAD_DAYS_MAX = 365;
+
+    /**
+     * Ordre logique entre étapes : la première doit être finie au plus tard le même jour que la
+     * seconde (délai au moins aussi long). Un délai réglé à l'envers est signalé, jamais corrigé.
+     *
+     * @var list<array{0: string, 1: string}>
+     */
+    public const LEAD_ORDER = [
+        ['risk_assessment', 'risk_treatment'],
+        ['risk_treatment', 'soa'],
+        ['internal_audit', 'management_review'],
+        ['management_review', 'nonconformities'],
+    ];
+
     /** Étapes à refaire chaque année une fois certifié (cycle de maintien), dans l'ordre du parcours. */
     public const ANNUAL_STEPS = ['risk_assessment', 'soa', 'internal_audit', 'management_review'];
 
@@ -117,6 +135,55 @@ final class CertificationReadinessRules
         return max(1, min(100, (int) $value));
     }
 
+    /** Nombre de jours entre deux bornes ; valeur par défaut si la saisie n'est pas un nombre. */
+    public static function normalizeDays(mixed $value, int $default, int $min, int $max): int
+    {
+        if (!is_numeric($value)) {
+            return $default;
+        }
+
+        return max($min, min($max, (int) $value));
+    }
+
+    /**
+     * Délais conseillés par étape (jours avant la date cible), entre 0 et LEAD_DAYS_MAX : la saisie
+     * (tableau, ou JSON enregistré) complétée par les valeurs par défaut, dans l'ordre du parcours.
+     *
+     * @return array<string, int>
+     */
+    public static function normalizeLeadDays(mixed $input): array
+    {
+        if (is_string($input) && $input !== '') {
+            $input = json_decode($input, true);
+        }
+        $input = is_array($input) ? $input : [];
+        $lead = [];
+        foreach (self::LEAD_DAYS as $step => $default) {
+            $lead[$step] = self::normalizeDays($input[$step] ?? null, $default, 0, self::LEAD_DAYS_MAX);
+        }
+
+        return $lead;
+    }
+
+    /**
+     * Paires d'étapes dont les délais contredisent l'ordre logique (ex. revue de direction conseillée
+     * avant l'audit interne dont elle exploite les résultats).
+     *
+     * @param array<string, int> $leadDays
+     * @return list<array{0: string, 1: string}>
+     */
+    public static function leadOrderWarnings(array $leadDays): array
+    {
+        $warnings = [];
+        foreach (self::LEAD_ORDER as [$before, $after]) {
+            if (($leadDays[$before] ?? 0) < ($leadDays[$after] ?? 0)) {
+                $warnings[] = [$before, $after];
+            }
+        }
+
+        return $warnings;
+    }
+
     private static function shift(string $date, string $modifier): string
     {
         $base = \DateTimeImmutable::createFromFormat('!Y-m-d', $date) ?: new \DateTimeImmutable('today');
@@ -124,18 +191,27 @@ final class CertificationReadinessRules
         return $base->modify($modifier)->format('Y-m-d');
     }
 
-    /** Échéance conseillée d'une étape : la date cible moins le délai de l'étape. */
-    public static function advisedDeadline(string $target, string $step): string
+    /**
+     * Échéance conseillée d'une étape : la date cible moins le délai de l'étape.
+     *
+     * @param array<string, int> $leadDays délais réglés (par défaut LEAD_DAYS)
+     */
+    public static function advisedDeadline(string $target, string $step, array $leadDays = self::LEAD_DAYS): string
     {
-        return self::shift($target, '-' . (self::LEAD_DAYS[$step] ?? 0) . ' days');
+        return self::shift($target, '-' . ($leadDays[$step] ?? self::LEAD_DAYS[$step] ?? 0) . ' days');
     }
 
     /**
      * État d'une échéance : aucune (étape faite, hors des droits ou sans date cible), en retard
-     * (échéance passée), à risque (échéance dans les ALERT_DAYS jours) ou dans les temps.
+     * (échéance passée), à risque (échéance dans le délai d'alerte, ALERT_DAYS par défaut) ou dans
+     * les temps.
      */
-    public static function deadlineState(?string $deadline, string $status, string $today): string
-    {
+    public static function deadlineState(
+        ?string $deadline,
+        string $status,
+        string $today,
+        int $alertDays = self::ALERT_DAYS
+    ): string {
         if ($deadline === null || !in_array($status, [self::STATUS_TODO, self::STATUS_PARTIAL], true)) {
             return self::DEADLINE_NONE;
         }
@@ -143,7 +219,7 @@ final class CertificationReadinessRules
             return self::DEADLINE_LATE;
         }
 
-        return $deadline <= self::shift($today, '+' . self::ALERT_DAYS . ' days')
+        return $deadline <= self::shift($today, '+' . max(0, $alertDays) . ' days')
             ? self::DEADLINE_AT_RISK
             : self::DEADLINE_ON_TRACK;
     }

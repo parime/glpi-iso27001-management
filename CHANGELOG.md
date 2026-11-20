@@ -7,7 +7,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.71.0] - 2026-11-20
+### Added
+
+- **Préparation à la certification : délais réglables** (issue #761, lot 2). Les réglages de l'écran
+  « Préparation à la certification » gagnent :
+  - le **délai d'alerte** (« Alerte (jours) », 14 par défaut, de 1 à 90) : une étape non faite dont
+    l'échéance conseillée tombe dans ce délai est « à risque », sur l'écran, dans le PDF, dans le
+    calendrier de conformité et dans la notification au responsable ;
+  - les **délais conseillés par étape** (bouton « Délais conseillés par étape ») : nombre de jours
+    avant la date cible pour chacune des 14 étapes (de 0 à 365, valeurs par défaut rappelées, badge
+    « Ajusté » sur celles modifiées), par exemple pour caler l'audit interne et la revue de
+    direction avant un audit de certification proche ;
+  - un avertissement quand un délai contredit l'ordre logique (revue de direction conseillée avant
+    l'audit interne dont elle exploite les résultats, traitement du risque avant son appréciation...).
+    Rien n'est corrigé automatiquement.
+  - Droits inchangés (réglages : droit de modifier le plugin, jeton CSRF) ; valeurs nettoyées et
+    bornées à l'enregistrement ; réglages stockés dans le contexte `plugin:grcmanager`, retiré à la
+    désinstallation. Traductions (7 langues et variantes), tests unitaires et d'intégration.
 
 ## [2.70.0] - 2026-11-20
 
