@@ -32,6 +32,9 @@ use GlpiPlugin\Grcmanager\Services\Responsibility\ResponsibilityRules;
  * - Compétence : formations qualifiantes suivies par l'auditeur, à jour de leur renouvellement.
  * - Points de contrôle d'un audit (lot 2) : objectifs, périmètre et critères définis, processus
  *   choisis, auditeurs désignés, qualifiés et indépendants, rapport remis à la direction.
+ * - Lot 3 : l'indépendance porte aussi sur les processus qui mettent en oeuvre une mesure de
+ *   l'Annexe A auditée (grille de l'audit ou mesures liées), d'après les codes de mesures de la
+ *   matrice des responsabilités ; planification d'un audit depuis une case du programme.
  */
 final class ProgrammeRules
 {
@@ -57,6 +60,9 @@ final class ProgrammeRules
     public const COMPETENCE_NOT_CONFIGURED = 'not_configured';
 
     public const MIN_JUSTIFICATION_LENGTH = 10;
+
+    /** Délai par défaut d'un audit planifié depuis le programme pour l'année en cours (jours). */
+    public const PLAN_LEAD_DAYS = 30;
 
     /** État d'un point de contrôle de l'audit. */
     public const CHECK_OK = 'ok';
@@ -380,5 +386,65 @@ final class ProgrammeRules
         ));
 
         return ['checks' => $checks, 'gaps' => $gaps];
+    }
+
+    /**
+     * Processus visés par l'audit pour l'indépendance : ceux choisis (sans mesure), puis ceux qui
+     * mettent en oeuvre une mesure auditée, avec les mesures concernées.
+     *
+     * @param list<int> $selected processus choisis dans l'onglet
+     * @param array<int, list<string>> $processCodes processus visables => codes de mesures
+     * @param list<string> $auditedCodes mesures de l'Annexe A auditées
+     * @return array<int, list<string>> processus => mesures auditées par lesquelles il est visé
+     */
+    public static function scopeProcesses(array $selected, array $processCodes, array $auditedCodes): array
+    {
+        $scope = [];
+        foreach ($selected as $processId) {
+            $scope[$processId] = [];
+        }
+        foreach ($processCodes as $processId => $codes) {
+            if (isset($scope[$processId])) {
+                continue;
+            }
+            $shared = array_values(array_intersect($codes, $auditedCodes));
+            if ($shared !== []) {
+                usort($shared, static fn (string $a, string $b): int => strnatcmp($a, $b));
+                $scope[$processId] = array_values(array_unique($shared));
+            }
+        }
+
+        return $scope;
+    }
+
+    /**
+     * Date prévue d'un audit planifié depuis une case du programme : null pour une année passée ;
+     * dans PLAN_LEAD_DAYS jours (au plus le 31 décembre) pour l'année en cours ; le 30 juin pour
+     * une année à venir. L'utilisateur la corrige ensuite sur la fiche.
+     */
+    public static function plannedDate(int $year, string $today): ?string
+    {
+        $current = (int) substr($today, 0, 4);
+        if ($year < $current) {
+            return null;
+        }
+        if ($year > $current) {
+            return sprintf('%04d-06-30', $year);
+        }
+        $date = \DateTimeImmutable::createFromFormat('!Y-m-d', $today);
+        if ($date === false) {
+            return null;
+        }
+
+        $planned = $date->modify('+' . self::PLAN_LEAD_DAYS . ' days')->format('Y-m-d');
+
+        return min($planned, sprintf('%04d-12-31', $year));
+    }
+
+    /** Une case du programme propose-t-elle de planifier un audit ? Sans audit à venir, année non passée. */
+    public static function canPlanCell(string $state, int $year, string $today): bool
+    {
+        return in_array($state, [self::STATE_NONE, self::STATE_LATE], true)
+            && self::plannedDate($year, $today) !== null;
     }
 }

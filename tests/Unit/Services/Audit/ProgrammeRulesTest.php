@@ -231,4 +231,33 @@ final class ProgrammeRulesTest extends TestCase
         self::assertSame(Rules::CHECK_OK, $conflict['checks']['delivery']);
         self::assertSame(1, $conflict['gaps']);
     }
+
+    /** Lot 3 : processus visés par une mesure de l'Annexe A auditée. */
+    public function testScopeProcessesIncludeAuditedControls(): void
+    {
+        $processCodes = [
+            10 => ['A.5.15', 'A.8.2'],
+            11 => ['A.8.13'],
+            12 => [],
+            13 => ['A.8.2', 'A.5.15', 'A.5.18'],
+        ];
+        $scope = Rules::scopeProcesses([11], $processCodes, ['A.8.2', 'A.5.15', 'A.8.13']);
+        self::assertSame([11 => [], 10 => ['A.5.15', 'A.8.2'], 13 => ['A.5.15', 'A.8.2']], $scope);
+        self::assertSame([11 => []], Rules::scopeProcesses([11], $processCodes, []), 'aucune mesure auditée');
+        self::assertSame([], Rules::scopeProcesses([], $processCodes, ['A.7.1']));
+    }
+
+    /** Lot 3 : date proposée pour un audit planifié depuis le programme. */
+    public function testPlannedDateFromTheProgramme(): void
+    {
+        self::assertNull(Rules::plannedDate(2025, '2026-11-20'), 'année passée');
+        self::assertSame('2026-12-20', Rules::plannedDate(2026, '2026-11-20'));
+        self::assertSame('2026-12-31', Rules::plannedDate(2026, '2026-12-15'), 'au plus le 31 décembre');
+        self::assertSame('2027-06-30', Rules::plannedDate(2027, '2026-11-20'));
+        self::assertTrue(Rules::canPlanCell(Rules::STATE_NONE, 2027, '2026-11-20'));
+        self::assertTrue(Rules::canPlanCell(Rules::STATE_LATE, 2026, '2026-11-20'));
+        self::assertFalse(Rules::canPlanCell(Rules::STATE_PLANNED, 2027, '2026-11-20'));
+        self::assertFalse(Rules::canPlanCell(Rules::STATE_DONE, 2026, '2026-11-20'));
+        self::assertFalse(Rules::canPlanCell(Rules::STATE_NONE, 2025, '2026-11-20'));
+    }
 }
