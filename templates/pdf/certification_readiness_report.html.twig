@@ -1,0 +1,65 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #619 : rapport « état de préparation » à la certification, calculé à la demande avec les
+   droits et les entités de la personne qui l'exporte. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .grc-st { padding: 1px 5px; border-radius: 3px; font-size: 8px; font-weight: bold; }
+  .grc-st-done { background: #d3f2dc; color: #1b5e2f; }
+  .grc-st-partial { background: #fdebc8; color: #7a4a00; }
+  .grc-st-todo { background: #fbe0e0; color: #a61e1e; }
+  .grc-st-locked { background: #e9ecef; color: #495057; }
+  .grc-expected { color: #495057; font-style: italic; }
+</style>
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Readiness score', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.score is null ? '-' : summary.score ~ ' / 100' }}</td></tr>
+  {% for key, style in styles %}
+    <tr><td>{{ style.label }}</td><td class="grcmanager-pdf-summary-number">{{ summary.counts[key] }}</td></tr>
+  {% endfor %}
+  {% if summary.next %}
+    <tr><td>{{ __('Next step', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.next.number }}. {{ summary.next.title }}</td></tr>
+  {% endif %}
+  <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ generated_by }}</td></tr>
+</table>
+<p>{{ __('Each state is computed from the data that the person who exported this report can read. Nothing has been modified.', 'grcmanager') }}</p>
+
+{% for phase in phases %}
+  <h2>{{ phase.label }} : {{ phase.summary }}</h2>
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th style="width: 4%;">#</th>
+        <th style="width: 30%;">{{ __('Step', 'grcmanager') }}</th>
+        <th style="width: 12%;">{{ __('State', 'grcmanager') }}</th>
+        <th>{{ __('Detail', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for step in phase.steps %}
+        <tr>
+          <td>{{ step.number }}</td>
+          <td><strong>{{ step.title }}</strong><br>{{ __('ISO 27001 %s', 'grcmanager')|format(step.clauses) }}<br><span class="grc-expected">{{ step.expected }}</span></td>
+          <td><span class="grc-st grc-st-{{ step.status }}">{{ step.style.label }}</span></td>
+          <td>
+            {% for fact in step.facts %}{{ fact }}<br>{% endfor %}
+            {% if step.requirements %}{{ step.requirements }}{% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endfor %}

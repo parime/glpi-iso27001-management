@@ -69,6 +69,25 @@ final class DashboardCardService
     }
 
     /**
+     * Issue #619 : score de préparation à la certification (sur 100), calculé à la demande avec les
+     * droits et les entités de la personne qui regarde le tableau de bord.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function certificationReadinessScore(array $params = []): array
+    {
+        $summary = \GlpiPlugin\Grcmanager\CertificationReadiness::report()['summary'];
+
+        return [
+            'number' => $summary['score'] ?? 0,
+            'label'  => $params['label'] ?? __('Progress towards certification (out of 100)', 'grcmanager'),
+            'icon'   => 'ti ti-certificate',
+            'url'    => \GlpiPlugin\Grcmanager\CertificationReadiness::getSearchURL(),
+        ];
+    }
+
+    /**
      * Issue #536 : mesures de la SoA suivie par l'entité active, ou par l'entité donnée par le
      * rapport PDF de la SoA (clé grcmanager_soa_entity).
      *
