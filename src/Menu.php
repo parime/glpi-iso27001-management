@@ -86,6 +86,8 @@ class Menu extends CommonGLPI
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             Control::class => [
+                // Issue #867 : mesures bloquées (ce qui empêche chaque mesure d'être conforme).
+                ControlBlocker::class,
                 Referentials::class, CustomFramework::class, IsmsRequirement::class,
                 // Issue #608 : contexte de l'organisation (enjeux, parties intéressées).
                 ContextItem::class,

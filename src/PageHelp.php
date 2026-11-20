@@ -56,6 +56,22 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #867 : mesures bloquées de la SoA.
+            'controlblocker'   => [
+                'purpose'  => __(
+                    'For each control of the Statement of Applicability, this page lists what prevents it from '
+                        . 'being compliant: failing automated check, missing or expired evidence, policy not approved, '
+                        . 'effectiveness test overdue or ineffective, open nonconformity, expired waiver.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Sort by severity and start with the most blocked controls. Click a control to see its blockers, '
+                        . 'then click a blocker to open the screen where it is fixed. The page is computed again each '
+                        . 'time and only shows what you are allowed to read. Nothing is changed automatically.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001:2022 clause 9.1 and control A.5.36.', 'grcmanager'),
+            ],
             // Issue #614 : contrôles de cohérence du SMSI avant un audit.
             'consistencycheck' => [
                 'purpose'  => __(
