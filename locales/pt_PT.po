@@ -23830,3 +23830,18 @@ msgstr "Este destinatário não pode ser adicionado."
 
 msgid "Communication recorded."
 msgstr "Comunicação registrada."
+
+msgid "Operating system of computers, servers or network equipment"
+msgstr "Sistema operacional de computadores, servidores ou equipamentos de rede"
+
+msgid "Proposed match:"
+msgstr "Correspondência proposta:"
+
+msgid "Watch this operating system with the proposed CPE"
+msgstr "Monitorar este sistema operacional com a CPE proposta"
+
+msgid "Accept the proposal"
+msgstr "Aceitar a proposta"
+
+msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
+msgstr "Os sistemas operacionais também são listados. Para Windows 10 e 11, Windows Server, Debian, Ubuntu e Red Hat Enterprise Linux, uma CPE é proposta: verifique-a e depois aceite-a."

@@ -28735,3 +28735,18 @@ msgstr "This recipient cannot be added."
 
 msgid "Communication recorded."
 msgstr "Communication recorded."
+
+msgid "Operating system of computers, servers or network equipment"
+msgstr "Operating system of computers, servers or network equipment"
+
+msgid "Proposed match:"
+msgstr "Proposed match:"
+
+msgid "Watch this operating system with the proposed CPE"
+msgstr "Watch this operating system with the proposed CPE"
+
+msgid "Accept the proposal"
+msgstr "Accept the proposal"
+
+msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
+msgstr "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."

@@ -24193,3 +24193,18 @@ msgstr "Dieser Empfänger kann nicht hinzugefügt werden."
 
 msgid "Communication recorded."
 msgstr "Kommunikation erfasst."
+
+msgid "Operating system of computers, servers or network equipment"
+msgstr "Betriebssystem von Computern, Servern oder Netzwerkgeräten"
+
+msgid "Proposed match:"
+msgstr "Vorgeschlagene Zuordnung:"
+
+msgid "Watch this operating system with the proposed CPE"
+msgstr "Dieses Betriebssystem mit der vorgeschlagenen CPE überwachen"
+
+msgid "Accept the proposal"
+msgstr "Vorschlag übernehmen"
+
+msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
+msgstr "Auch Betriebssysteme werden aufgeführt. Für Windows 10 und 11, Windows Server, Debian, Ubuntu und Red Hat Enterprise Linux wird eine CPE vorgeschlagen: Prüfen Sie sie und übernehmen Sie sie dann."

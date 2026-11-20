@@ -684,6 +684,31 @@ type de matériel.
    modèle et les communications tracées depuis 12 mois. Pendant un exercice de crise, utilisez les
    mêmes modèles depuis l'incident d'exercice.
 
+### Étape 29 : Rapprocher les systèmes d'exploitation des CVE (mesure A.8.8)
+
+Les vulnérabilités du parc suivent les logiciels installés, les firmwares et les **systèmes
+d'exploitation** (onglet « Systèmes d'exploitation » d'un ordinateur dans GLPI : nom, version,
+version du noyau). Un système n'est rapproché d'une CVE qu'après votre validation. Il faut le droit
+« Registres sensibles » du plugin en modification et le droit de lecture des logiciels.
+
+1. Ouvrez Sécurité technique > **Logiciels à surveiller**. Les systèmes d'exploitation du parc y
+   apparaissent avec un badge **Système d'exploitation**, par exemple « Microsoft Windows 11
+   Professionnel 23H2 » ou « Debian GNU/Linux 12 (bookworm) ». Pour Windows 10 et 11, la version
+   de fonctionnalités (23H2) fait partie du nom, comme dans la base NVD.
+2. Pour Windows 10 et 11, Windows Server 2016 à 2025, Debian, Ubuntu et Red Hat Enterprise Linux,
+   la colonne « Produit surveillé » affiche une **Correspondance proposée**, par exemple
+   `cpe:2.3:o:microsoft:windows_11_23h2`. Vérifiez-la, puis cliquez sur **Accepter la
+   proposition**. Pour un autre système, cliquez sur **Chercher le CPE** comme pour un logiciel.
+3. Ouvrez **Vulnérabilités du parc** : les CVE du système portent le badge « Système
+   d'exploitation ». Le tableau, l'onglet « Vulnérabilités » de l'ordinateur et l'onglet CVE d'un
+   incident de sécurité nomment seulement les actifs de vos entités.
+4. Les versions sont comparées comme dans NVD : numéro de build pour Windows (version du noyau),
+   version majeure pour Debian et RHEL, « 22.04 » pour Ubuntu. Si l'inventaire ne donne pas la
+   révision du build Windows (« 10.0.22631 » au lieu de « 10.0.22631.4317 »), l'ordinateur reste
+   « version non vérifiable » : il n'est ni déclaré vulnérable ni déclaré corrigé.
+5. Les tickets de mise à jour lient les ordinateurs concernés de l'entité du ticket, y compris
+   ceux qui le deviennent après l'ouverture du ticket.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -1319,3 +1344,28 @@ hardware.
    number of active templates, the templates without recipients, the situations without a template
    and the communications recorded within 12 months. During a crisis exercise, use the same
    templates from the exercise incident.
+
+### Step 29: Match operating systems with CVEs (control A.8.8)
+
+Fleet vulnerabilities follow installed software, firmware and **operating systems** ("Operating
+systems" tab of a computer in GLPI: name, version, kernel version). An operating system is matched
+with a CVE only after you have validated it. You need the "Sensitive registers" right of the
+plugin with update, and the right to read software.
+
+1. Open Technical security > **Software to watch**. The operating systems of the fleet are listed
+   with an **Operating system** badge, for instance "Microsoft Windows 11 Pro 23H2" or "Debian
+   GNU/Linux 12 (bookworm)". For Windows 10 and 11, the feature release (23H2) is part of the
+   name, as in the NVD database.
+2. For Windows 10 and 11, Windows Server 2016 to 2025, Debian, Ubuntu and Red Hat Enterprise
+   Linux, the "Watched product" column shows a **Proposed match**, for instance
+   `cpe:2.3:o:microsoft:windows_11_23h2`. Check it, then click **Accept the proposal**. For any
+   other operating system, click **Look up the CPE** as for software.
+3. Open **Fleet vulnerabilities**: the CVEs of the operating system carry the "Operating system"
+   badge. The table, the "Vulnerabilities" tab of the computer and the CVE tab of a security
+   incident only name the assets of your entities.
+4. Versions are compared as in NVD: build number for Windows (kernel version), major version for
+   Debian and RHEL, "22.04" for Ubuntu. When the inventory does not give the revision of the
+   Windows build ("10.0.22631" instead of "10.0.22631.4317"), the computer stays "version not
+   verifiable": it is neither reported vulnerable nor reported patched.
+5. Update tickets link the affected computers of the ticket's entity, including those that become
+   affected after the ticket was opened.
