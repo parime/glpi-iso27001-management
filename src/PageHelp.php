@@ -71,6 +71,22 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #619 : préparation à la certification ISO 27001.
+            'certificationreadiness' => [
+                'purpose'  => __(
+                    'This page guides you, step by step, from setting up your security management system to '
+                        . 'the certification audit: for each step, it shows what is expected, where you stand '
+                        . 'according to the data already entered, and the screen to open to complete it.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Follow the steps in order, starting with the one marked as the next step. Click its button to '
+                        . 'open the screen concerned, complete it, then come back: the page is computed again each '
+                        . 'time. Nothing is changed automatically. Export the PDF readiness report to share where '
+                        . 'you stand.',
+                    'grcmanager'
+                ),
+            ],
             'myspace' => [
                 'purpose'  => __(
                     'Everything waiting for you in the security management system, on one page and sorted by due date.',

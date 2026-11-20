@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
-"Language: pt_PT\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19081,6 +19081,280 @@ msgid_plural "NIS2 Italy requirements (ACN)"
 msgstr[0] "Requisito NIS2 Itália (ACN)"
 msgstr[1] "Requisitos NIS2 Itália (ACN)"
 
+msgid "Last reviewed by"
+msgstr "Última revisão por"
+
+msgid "%1$s by %2$s"
+msgstr "%1$s por %2$s"
+
+msgid "Never reviewed"
+msgstr "Nunca revisado"
+
+msgid ""
+"Records today as the review date, with your name, and sets the next review "
+"one year later. Your other changes on this form are saved too."
+msgstr ""
+"Registra a data de hoje como data de revisão, com o seu nome, e define a "
+"próxima revisão um ano depois. Suas outras alterações neste formulário "
+"também são salvas."
+
+msgid "Record the review"
+msgstr "Registrar a revisão"
+
+msgid "Register for the auditor (PDF)"
+msgstr "Registro para o auditor (PDF)"
+
+msgid "Register (CSV)"
+msgstr "Registro (CSV)"
+
+msgid ""
+"Issues and interested parties of the context of the organization (ISO 27001, "
+"4.1 and 4.2) that refer to this item."
+msgstr ""
+"Questões e partes interessadas do contexto da organização (ISO 27001, 4.1 e "
+"4.2) que se referem a este item."
+
+msgid "No issue or interested party refers to this item yet."
+msgstr "Nenhuma questão ou parte interessada se refere a este item ainda."
+
+msgid "Internal and external issues"
+msgstr "Questões internas e externas"
+
+msgid "Items past their review date"
+msgstr "Itens com data de revisão vencida"
+
+msgid "Not answered yet"
+msgstr "Ainda sem resposta"
+
+msgid "No item recorded."
+msgstr "Nenhum item registrado."
+
+msgid "Partially achieved"
+msgstr "Parcialmente atingido"
+
+msgid "Not achieved"
+msgstr "Não atingido"
+
+msgid "To evaluate"
+msgstr "A avaliar"
+
+msgid "Not visible to you"
+msgstr "Não visível para você"
+
+msgid "Deleted"
+msgstr "Excluída"
+
+msgid "Objectives of the exercise"
+msgstr "Objetivos do exercício"
+
+msgid "No objective defined."
+msgstr "Nenhum objetivo definido."
+
+msgid "Objective"
+msgstr "Objetivo"
+
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr ""
+"%1$d atingido(s), %2$d parcialmente, %3$d não atingido(s), %4$d a avaliar"
+
+msgid "Findings and improvement plan"
+msgstr "Constatações e plano de melhoria"
+
+msgid "No finding recorded."
+msgstr "Nenhuma constatação registrada."
+
+msgid "Improvement action"
+msgstr "Ação de melhoria"
+
+msgid "No action decided"
+msgstr "Nenhuma ação decidida"
+
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr "%1$d constatação(ões), %2$d ação(ões) decidida(s), %3$d concluída(s)"
+
+msgid "Review validation"
+msgstr "Validação do balanço"
+
+msgid "Validated"
+msgstr "Validado"
+
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr "em %1$s por %2$s"
+
+msgid "this review has not been validated yet."
+msgstr "este balanço ainda não foi validado."
+
+msgid "Returned to draft"
+msgstr "Devolvido a rascunho"
+
+msgid "Exercise review"
+msgstr "Balanço do exercício"
+
+#, php-format
+msgid ""
+"Review validated on %1$s by %2$s: it can no longer be changed unless it is "
+"returned to draft."
+msgstr ""
+"Balanço validado em %1$s por %2$s: não pode mais ser alterado, salvo se "
+"voltar a rascunho."
+
+msgid ""
+"No objective defined. Objectives say what the exercise must demonstrate (for "
+"example: \"the crisis team is convened within 45 minutes\"); they are "
+"evaluated when the exercise is finished."
+msgstr ""
+"Nenhum objetivo definido. Os objetivos dizem o que o exercício deve "
+"demonstrar (por exemplo: \"a célula de crise é reunida em até 45 minutos\"); "
+"são avaliados ao final do exercício."
+
+msgid "What was observed"
+msgstr "O que foi observado"
+
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr ""
+"Novo objetivo, por exemplo: restaurar o servidor de arquivos em até 4 horas"
+
+msgid "New objective"
+msgstr "Novo objetivo"
+
+msgid ""
+"Evaluate each objective: the review can be validated once they are all "
+"evaluated."
+msgstr ""
+"Avalie cada objetivo: o balanço poderá ser validado quando todos estiverem "
+"avaliados."
+
+msgid ""
+"No finding yet. Record each gap observed during or after the exercise "
+"(delay, missing contact, unusable procedure…)."
+msgstr ""
+"Nenhuma constatação ainda. Registre cada desvio observado durante ou após o "
+"exercício (atraso, contato ausente, procedimento inutilizável…)."
+
+msgid "Create an improvement action"
+msgstr "Criar uma ação de melhoria"
+
+msgid "Risk (treatment action only)"
+msgstr "Risco (somente ação de tratamento)"
+
+msgid "Create the action"
+msgstr "Criar a ação"
+
+msgid ""
+"An improvement action is only created when you click it: a non-conformity "
+"linked to the exercise incident, or a treatment action of an existing risk. "
+"Its progress is shown here."
+msgstr ""
+"Uma ação de melhoria só é criada quando você clica: uma não conformidade "
+"ligada ao incidente do exercício, ou uma ação de tratamento de um risco "
+"existente. Seu andamento é exibido aqui."
+
+msgid "New finding"
+msgstr "Nova constatação"
+
+msgid ""
+"Validate the review? It will no longer be editable and the validated report "
+"will be archived."
+msgstr ""
+"Validar o balanço? Ele não poderá mais ser alterado e o relatório validado "
+"será arquivado."
+
+msgid "Comment (optional)"
+msgstr "Comentário (opcional)"
+
+msgid "Validate the review"
+msgstr "Validar o balanço"
+
+msgid ""
+"The review is validated by a person holding the \"Validate exercise "
+"reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr ""
+"O balanço é validado por uma pessoa com o direito \"Validar balanços de "
+"exercício\" (Continuidade de negócios, aba GRC Manager dos perfis)."
+
+msgid ""
+"Return the review to draft? The reason is recorded in the validation history."
+msgstr ""
+"Devolver o balanço a rascunho? O motivo é registrado no histórico de "
+"validações."
+
+msgid "Reason for returning to draft (required)"
+msgstr "Motivo da volta a rascunho (obrigatório)"
+
+msgid "Return to draft"
+msgstr "Voltar a rascunho"
+
+msgid "Objectives of the exercise (one per line)"
+msgstr "Objetivos do exercício (um por linha)"
+
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr "Por exemplo: reunir a célula de crise em até 45 minutos"
+
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr "Avaliados ao final do exercício; aparecem no relatório."
+
+msgid "Review validated"
+msgstr "Balanço validado"
+
+msgid "Objectives achieved"
+msgstr "Objetivos atingidos"
+
+msgid "Improvement actions overdue"
+msgstr "Ações de melhoria atrasadas"
+
+msgid "Improvement action created."
+msgstr "Ação de melhoria criada."
+
+msgid "The review could not be changed."
+msgstr "Não foi possível alterar o balanço."
+
+msgid ""
+"Review validated: the validated report is archived in the incident documents."
+msgstr ""
+"Balanço validado: o relatório validado está arquivado nos documentos do "
+"incidente."
+
+msgid "The review is back to draft."
+msgstr "O balanço voltou a rascunho."
+
+msgid "Give the reason for returning the review to draft."
+msgstr "Informe o motivo da volta do balanço a rascunho."
+
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr "Constatação do exercício de crise nº %1$d (%2$s)."
+
+msgid "The review is already validated."
+msgstr "O balanço já está validado."
+
+msgid "Define at least one objective before validating the review."
+msgstr "Defina pelo menos um objetivo antes de validar o balanço."
+
+msgid ""
+"Evaluate every objective (achieved, partially achieved or not achieved) "
+"before validating the review."
+msgstr ""
+"Avalie cada objetivo (atingido, parcialmente atingido ou não atingido) antes "
+"de validar o balanço."
+
+msgid "Finish the exercise before validating its review."
+msgstr "Conclua o exercício antes de validar seu balanço."
+
+msgid "Validate exercise reviews"
+msgstr "Validar balanços de exercício"
+
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr "Validar balanços de exercícios de crise e devolvê-los a rascunho"
+
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] "%d ação atrasada"
+msgstr[1] "%d ações atrasadas"
+
 msgid "Preparatory file for the management review"
 msgstr "Dossiê preparatório da análise crítica pela direção"
 
@@ -19205,45 +19479,6 @@ msgid ""
 msgstr ""
 "Nenhuma ação de uma análise anterior está aberta ou foi concluída no período."
 
-msgid "Last reviewed by"
-msgstr "Última revisão por"
-
-msgid "%1$s by %2$s"
-msgstr "%1$s por %2$s"
-
-msgid "Never reviewed"
-msgstr "Nunca revisado"
-
-msgid ""
-"Records today as the review date, with your name, and sets the next review "
-"one year later. Your other changes on this form are saved too."
-msgstr ""
-"Registra a data de hoje como data de revisão, com o seu nome, e define a "
-"próxima revisão um ano depois. Suas outras alterações neste formulário "
-"também são salvas."
-
-msgid "Record the review"
-msgstr "Registrar a revisão"
-
-msgid "Register for the auditor (PDF)"
-msgstr "Registro para o auditor (PDF)"
-
-msgid "Register (CSV)"
-msgstr "Registro (CSV)"
-
-msgid ""
-"Issues and interested parties of the context of the organization (ISO 27001, "
-"4.1 and 4.2) that refer to this item."
-msgstr ""
-"Questões e partes interessadas do contexto da organização (ISO 27001, 4.1 e "
-"4.2) que se referem a este item."
-
-msgid "No issue or interested party refers to this item yet."
-msgstr "Nenhuma questão ou parte interessada se refere a este item ainda."
-
-msgid "Internal and external issues"
-msgstr "Questões internas e externas"
-
 msgid "Updated during the period"
 msgstr "Atualizados no período"
 
@@ -19277,9 +19512,6 @@ msgstr "Nenhuma auditoria interna foi concluída no período."
 
 msgid "No information security objective recorded."
 msgstr "Nenhum objetivo de segurança da informação registrado."
-
-msgid "Objective"
-msgstr "Objetivo"
 
 msgid "Target set"
 msgstr "Meta definida"
@@ -19449,15 +19681,6 @@ msgid "Preparatory file"
 msgid_plural "Preparatory files"
 msgstr[0] "Dossiê preparatório"
 msgstr[1] "Dossiês preparatórios"
-
-msgid "Items past their review date"
-msgstr "Itens com data de revisão vencida"
-
-msgid "Not answered yet"
-msgstr "Ainda sem resposta"
-
-msgid "No item recorded."
-msgstr "Nenhum item registrado."
 
 msgid "Audit checklist"
 msgstr "Lista de verificação de auditoria"
@@ -19756,6 +19979,725 @@ msgid "%1$s (%2$d line)"
 msgid_plural "%1$s (%2$d lines)"
 msgstr[0] "%1$s (%2$d linha)"
 msgstr[1] "%1$s (%2$d linhas)"
+
+msgid "Activities"
+msgstr "Atividades"
+
+msgid "Alerts to fix"
+msgstr "Alertas a corrigir"
+
+msgid "Responsibility matrix"
+msgstr "Matriz de responsabilidades"
+
+msgid "Sensitive"
+msgstr "Sensível"
+
+msgid "No activity yet."
+msgstr "Ainda não há atividades."
+
+msgid ""
+"No alert: every activity has someone who performs it and a single approver, "
+"without conflict of duties."
+msgstr ""
+"Nenhum alerta: cada atividade tem quem a execute e um único aprovador, sem "
+"conflito de funções."
+
+msgid "To fix"
+msgstr "A corrigir"
+
+msgid "To check"
+msgstr "A verificar"
+
+msgid ""
+"Only the activities of the entities of the person who exported this matrix "
+"are listed. Nothing has been modified by this export."
+msgstr ""
+"Apenas são listadas as atividades das entidades da pessoa que exportou esta "
+"matriz. Esta exportação não alterou nada."
+
+msgid "%d activity"
+msgid_plural "%d activities"
+msgstr[0] "%d atividade"
+msgstr[1] "%d atividades"
+
+msgid "%d alert to fix"
+msgid_plural "%d alerts to fix"
+msgstr[0] "%d alerta a corrigir"
+msgstr[1] "%d alertas a corrigir"
+
+msgid "%d point to check"
+msgid_plural "%d points to check"
+msgstr[0] "%d ponto a verificar"
+msgstr[1] "%d pontos a verificar"
+
+msgid "No alert"
+msgstr "Nenhum alerta"
+
+msgid "Open the responsibility matrix"
+msgstr "Abrir a matriz de responsabilidades"
+
+msgid "To fix before the audit"
+msgstr "A corrigir antes da auditoria"
+
+msgid ""
+"Nothing is changed automatically: adjust the assignments below if needed."
+msgstr ""
+"Nada é alterado automaticamente: ajuste as atribuições abaixo se necessário."
+
+msgid ""
+"Leave empty to keep the default name, shown in the language of each user."
+msgstr ""
+"Deixe em branco para manter o nome padrão, exibido no idioma de cada usuário."
+
+msgid "For example \"Review of firewall rules\"."
+msgstr "Por exemplo, \"Revisão das regras do firewall\"."
+
+msgid "Sensitive activity"
+msgstr "Atividade sensível"
+
+msgid ""
+"The same person must not both perform and approve a sensitive activity "
+"(segregation of duties)."
+msgstr ""
+"A mesma pessoa não deve executar e aprovar uma atividade sensível "
+"(segregação de funções)."
+
+msgid "Related Annex A controls"
+msgstr "Controles do Anexo A relacionados"
+
+msgid ""
+"Optional: the controls of your Statement of Applicability that this activity "
+"implements."
+msgstr ""
+"Opcional: os controles da sua declaração de aplicabilidade que esta "
+"atividade implementa."
+
+msgid "Who does what"
+msgstr "Quem faz o quê"
+
+msgid ""
+"Nobody is assigned yet. Add below who performs and who approves this "
+"activity."
+msgstr ""
+"Ainda ninguém foi atribuído. Adicione abaixo quem executa e quem aprova esta "
+"atividade."
+
+msgid "User or group"
+msgstr "Usuário ou grupo"
+
+msgid "Add a role"
+msgstr "Adicionar um papel"
+
+msgid ""
+"Choose the role, then a user or a group, and save. Only one person or group "
+"approves."
+msgstr ""
+"Escolha o papel, depois um usuário ou um grupo, e salve. Apenas uma pessoa "
+"ou um grupo aprova."
+
+msgid "Add an activity"
+msgstr "Adicionar uma atividade"
+
+msgid ""
+"Adds the proposed activities that are missing, without changing the existing "
+"ones."
+msgstr ""
+"Adiciona as atividades propostas que faltam, sem alterar as existentes."
+
+msgid "Add the missing default activities"
+msgstr "Adicionar as atividades padrão em falta"
+
+msgid "Download as PDF"
+msgstr "Baixar em PDF"
+
+msgid ""
+"Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your "
+"Statement of Applicability."
+msgstr ""
+"Anexa um PDF datado ao requisito 5.3 e ao controle A.5.3 da sua declaração "
+"de aplicabilidade."
+
+msgid "Archive as evidence"
+msgstr "Arquivar como evidência"
+
+msgid ""
+"Alerts only report: nothing is changed automatically in the assignments, "
+"rights or statuses."
+msgstr ""
+"Os alertas apenas sinalizam: nada é alterado automaticamente nas "
+"atribuições, direitos ou status."
+
+msgid ""
+"No activity yet. Add the default activities, then say for each one who "
+"performs it and who approves it."
+msgstr ""
+"Ainda não há atividades. Adicione as atividades padrão e indique para cada "
+"uma quem a executa e quem a aprova."
+
+msgid "No active member"
+msgstr "Nenhum membro ativo"
+
+msgid "Segregation of duties is checked on this activity."
+msgstr "A segregação de funções é verificada nesta atividade."
+
+msgid "Archived matrices"
+msgstr "Matrizes arquivadas"
+
+msgid ""
+"No archived matrix yet. Archive it before the audit: the dated PDF is "
+"attached to requirement 5.3 and to control A.5.3."
+msgstr ""
+"Ainda não há matriz arquivada. Arquive-a antes da auditoria: o PDF datado é "
+"anexado ao requisito 5.3 e ao controle A.5.3."
+
+msgid "%d default activity added."
+msgid_plural "%d default activities added."
+msgstr[0] "%d atividade padrão adicionada."
+msgstr[1] "%d atividades padrão adicionadas."
+
+msgid ""
+"The responsibility matrix has been archived as evidence of requirement 5.3 "
+"and control A.5.3."
+msgstr ""
+"A matriz de responsabilidades foi arquivada como evidência do requisito 5.3 "
+"e do controle A.5.3."
+
+msgid "The matrix could not be archived."
+msgstr "Não foi possível arquivar a matriz."
+
+msgid ""
+"Who performs, approves, is consulted on or is informed of each activity of "
+"the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
+"approvers are reported here."
+msgstr ""
+"Quem executa, aprova, é consultado ou informado em cada atividade do SGSI, "
+"com os usuários e grupos do GLPI. Os conflitos de funções e os aprovadores "
+"em falta são sinalizados aqui."
+
+msgid ""
+"For each activity, add who performs it and a single approver, mark the "
+"sensitive activities, fix the alerts, then archive the matrix as evidence "
+"before the audit."
+msgstr ""
+"Para cada atividade, adicione quem a executa e um único aprovador, marque as "
+"atividades sensíveis, corrija os alertas e arquive a matriz como evidência "
+"antes da auditoria."
+
+msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
+msgstr "ISO/IEC 27001, cláusula 5.3 e controle A.5.3"
+
+msgid "ISMS activity"
+msgid_plural "ISMS activities"
+msgstr[0] "Atividade do SGSI"
+msgstr[1] "Atividades do SGSI"
+
+msgid "Performs"
+msgstr "Executa"
+
+msgid "Approves"
+msgstr "Aprova"
+
+msgid "Consulted"
+msgstr "Consultado"
+
+msgid "Informed"
+msgstr "Informado"
+
+msgctxt "responsibility"
+msgid "P"
+msgstr "E"
+
+msgctxt "responsibility"
+msgid "A"
+msgstr "A"
+
+msgctxt "responsibility"
+msgid "C"
+msgstr "C"
+
+msgctxt "responsibility"
+msgid "I"
+msgstr "I"
+
+msgid "Information security risk assessment"
+msgstr "Avaliação dos riscos de segurança da informação"
+
+msgid "Acceptance of residual risks"
+msgstr "Aceitação dos riscos residuais"
+
+msgid "Approval of security policies"
+msgstr "Aprovação das políticas de segurança"
+
+msgid "Inventory of information assets"
+msgstr "Inventário dos ativos de informação"
+
+msgid "Granting and removing access rights"
+msgstr "Concessão e remoção de direitos de acesso"
+
+msgid "Periodic review of access rights"
+msgstr "Revisão periódica dos direitos de acesso"
+
+msgid "Management of privileged accounts"
+msgstr "Gestão das contas privilegiadas"
+
+msgid "Approval of changes in production"
+msgstr "Aprovação das mudanças em produção"
+
+msgid "Backups and restore tests"
+msgstr "Backups e testes de restauração"
+
+msgid "Review of logs and security events"
+msgstr "Revisão dos registos e eventos de segurança"
+
+msgid "Handling of security incidents"
+msgstr "Tratamento dos incidentes de segurança"
+
+msgid "Security of suppliers"
+msgstr "Segurança dos fornecedores"
+
+msgid "Security awareness and training"
+msgstr "Sensibilização e formação em segurança"
+
+msgid "Business continuity and recovery plans"
+msgstr "Planos de continuidade e de recuperação do negócio"
+
+msgid "Internal audit of the ISMS"
+msgstr "Auditoria interna do SGSI"
+
+msgid "Give the activity a name."
+msgstr "Dê um nome à atividade."
+
+msgid "This user or group does not belong to the entity of the activity."
+msgstr "Este usuário ou grupo não pertence à entidade da atividade."
+
+msgid "Only one person or group approves \"%s\": remove the current one first."
+msgstr "Apenas uma pessoa ou um grupo aprova \"%s\": remova primeiro o atual."
+
+msgid "Deleted item #%d"
+msgstr "Item excluído n.º %d"
+
+msgid "Nobody approves this activity."
+msgstr "Ninguém aprova esta atividade."
+
+msgid "Several people or groups approve this activity: keep only one."
+msgstr "Várias pessoas ou grupos aprovam esta atividade: mantenha apenas um."
+
+msgid "Nobody performs this activity."
+msgstr "Ninguém executa esta atividade."
+
+msgid ""
+"Segregation of duties: %s both performs and approves this sensitive activity."
+msgstr ""
+"Segregação de funções: %s executa e aprova ao mesmo tempo esta atividade "
+"sensível."
+
+msgid "The group %s has no active member."
+msgstr "O grupo %s não tem nenhum membro ativo."
+
+msgid "%s is disabled or no longer exists in GLPI."
+msgstr "%s está desativado ou já não existe no GLPI."
+
+msgid "ISMS responsibility matrix"
+msgstr "Matriz de responsabilidades do SGSI"
+
+msgid "Archived responsibility matrix"
+msgid_plural "Archived responsibility matrices"
+msgstr[0] "Matriz de responsabilidades arquivada"
+msgstr[1] "Matrizes de responsabilidades arquivadas"
+
+msgid "ISMS responsibility matrix - %s"
+msgstr "Matriz de responsabilidades do SGSI - %s"
+
+msgid "Readiness score"
+msgstr "Pontuação de preparação"
+
+msgid ""
+"Each state is computed from the data that the person who exported this "
+"report can read. Nothing has been modified."
+msgstr ""
+"Cada estado é calculado a partir dos dados que a pessoa que exportou este "
+"relatório pode ler. Nada foi modificado."
+
+msgid ""
+"A step done counts fully, a step partly done counts half. Steps outside your "
+"rights are not counted."
+msgstr ""
+"Uma etapa concluída conta inteira, uma etapa parcial conta metade. Etapas "
+"fora dos seus direitos não contam."
+
+msgid "Steps"
+msgstr "Etapas"
+
+msgid ""
+"Each state is computed from the data already entered in the plugin, each "
+"time you open this page. Nothing is changed automatically."
+msgstr ""
+"Cada estado é calculado a partir dos dados já registrados no plugin, sempre "
+"que você abre esta página. Nada é alterado automaticamente."
+
+msgid "Readiness report (PDF)"
+msgstr "Relatório de preparação (PDF)"
+
+msgid "Every step is done: you are ready for the certification audit."
+msgstr ""
+"Todas as etapas estão concluídas: você está pronto para a auditoria de "
+"certificação."
+
+msgid "No step can be evaluated with your rights."
+msgstr "Nenhuma etapa pode ser avaliada com seus direitos."
+
+msgid ""
+"Your profile cannot read the data of this step: ask an administrator of the "
+"management system."
+msgstr ""
+"Seu perfil não pode ler os dados desta etapa: fale com um administrador do "
+"sistema de gestão."
+
+msgid "Progress towards certification"
+msgstr "Progresso rumo à certificação"
+
+msgid "Certification readiness"
+msgstr "Preparação para a certificação"
+
+msgid "Plan"
+msgstr "Planejar"
+
+msgid "Set up the management system: scope, context, policy, roles, risks."
+msgstr ""
+"Implantar o sistema de gestão: escopo, contexto, política, papéis, riscos."
+
+msgid "Do"
+msgstr "Executar"
+
+msgid "Run it day to day: people trained, exercises carried out."
+msgstr "Operá-lo no dia a dia: pessoas treinadas, exercícios realizados."
+
+msgid "Check"
+msgstr "Verificar"
+
+msgid "Evaluate it: internal audit and management review."
+msgstr "Avaliá-lo: auditoria interna e análise crítica pela direção."
+
+msgid "Act"
+msgstr "Agir"
+
+msgid "Improve it: treat what the checks have found."
+msgstr "Melhorá-lo: tratar o que as verificações encontraram."
+
+msgid "Partly done"
+msgstr "Parcial"
+
+msgid "Outside your rights"
+msgstr "Fora dos seus direitos"
+
+msgid "Define the scope of the ISMS"
+msgstr "Definir o escopo do SGSI"
+
+msgid ""
+"Write down which sites, activities, systems and teams the management system "
+"covers, and what is left out, then attach this document to requirement 4.3."
+msgstr ""
+"Registre quais locais, atividades, sistemas e equipes o sistema de gestão "
+"abrange, e o que fica de fora, e anexe este documento ao requisito 4.3."
+
+msgid "Describe the context and the interested parties"
+msgstr "Descrever o contexto e as partes interessadas"
+
+msgid ""
+"List the internal and external issues and the interested parties with their "
+"expectations, and decide whether climate change matters for you."
+msgstr ""
+"Liste as questões internas e externas e as partes interessadas com suas "
+"expectativas, e decida se a mudança climática é relevante para você."
+
+msgid "Approve the information security policy"
+msgstr "Aprovar a política de segurança da informação"
+
+msgid ""
+"Have management approve the security policy and set the date of its next "
+"review."
+msgstr ""
+"Obtenha a aprovação da política de segurança pela direção e defina a data da "
+"sua próxima revisão."
+
+msgid "Assign the roles and responsibilities"
+msgstr "Atribuir os papéis e responsabilidades"
+
+msgid ""
+"For each activity of the management system, name who carries it out, who is "
+"accountable, and who is consulted or informed."
+msgstr ""
+"Para cada atividade do sistema de gestão, indique quem a executa, quem "
+"responde por ela e quem é consultado ou informado."
+
+msgid "Assess the risks"
+msgstr "Avaliar os riscos"
+
+msgid ""
+"Identify the risks, give each one an owner, rate them with your method and "
+"keep their review dates up to date."
+msgstr ""
+"Identifique os riscos, atribua um proprietário a cada um, avalie-os com seu "
+"método e mantenha suas datas de revisão em dia."
+
+msgid "Decide how to treat the risks"
+msgstr "Decidir o tratamento dos riscos"
+
+msgid ""
+"Choose a treatment for each significant risk, have accepted risks approved, "
+"and follow up the treatment actions until they are done."
+msgstr ""
+"Escolha um tratamento para cada risco significativo, obtenha a aprovação dos "
+"riscos aceitos e acompanhe as ações de tratamento até sua conclusão."
+
+msgid "Approve the Statement of Applicability"
+msgstr "Aprovar a declaração de aplicabilidade"
+
+msgid ""
+"Justify whether each control applies, then have the Statement of "
+"Applicability approved; approve it again after any change."
+msgstr ""
+"Justifique se cada controle se aplica e obtenha a aprovação da declaração de "
+"aplicabilidade; aprove-a novamente após qualquer mudança."
+
+msgid "Set measurable security objectives"
+msgstr "Definir objetivos de segurança mensuráveis"
+
+msgid ""
+"Define security objectives with an owner and a target, and record "
+"measurements to show their progress."
+msgstr ""
+"Defina objetivos de segurança com um responsável e uma meta, e registre "
+"medições para mostrar seu progresso."
+
+msgid "Train and raise awareness"
+msgstr "Treinar e conscientizar"
+
+msgid ""
+"Deliver security training and awareness sessions, and make sure the people "
+"concerned have completed them."
+msgstr ""
+"Realize treinamentos e sessões de conscientização em segurança, e certifique-"
+"se de que as pessoas envolvidas os concluíram."
+
+msgid "Run a continuity or crisis exercise"
+msgstr "Realizar um exercício de continuidade ou de crise"
+
+msgid ""
+"Run at least one exercise, assess whether its objectives were met and have "
+"its review validated."
+msgstr ""
+"Realize pelo menos um exercício, avalie se seus objetivos foram atingidos e "
+"obtenha a validação do seu balanço."
+
+msgid "Carry out the internal audit"
+msgstr "Realizar a auditoria interna"
+
+msgid ""
+"Complete an internal audit and make sure the audit programme covers every "
+"requirement and every applicable control."
+msgstr ""
+"Conclua uma auditoria interna e certifique-se de que o programa de auditoria "
+"cobre cada requisito e cada controle aplicável."
+
+msgid "Hold the management review"
+msgstr "Realizar a análise crítica pela direção"
+
+msgid ""
+"Hold a management review prepared with its input file, and record the "
+"decisions taken."
+msgstr ""
+"Realize uma análise crítica pela direção preparada com seu dossiê, e "
+"registre as decisões tomadas."
+
+msgid "Treat the nonconformities"
+msgstr "Tratar as não conformidades"
+
+msgid ""
+"Analyse each nonconformity, carry out its corrective action on time, and "
+"close it only once the action is done."
+msgstr ""
+"Analise cada não conformidade, execute sua ação corretiva no prazo e encerre-"
+"a somente quando a ação estiver concluída."
+
+#, php-format
+msgid "Declared requirements: %1$d of %2$d compliant"
+msgstr "Requisitos declarados: %1$d de %2$d conformes"
+
+msgid "See the items to fix"
+msgstr "Ver os itens a corrigir"
+
+#, php-format
+msgid "Declared status of requirement 4.3: %s"
+msgstr "Status declarado do requisito 4.3: %s"
+
+#, php-format
+msgid "Documents attached: %d"
+msgstr "Documentos anexados: %d"
+
+msgid "Open requirement 4.3 (scope)"
+msgstr "Abrir o requisito 4.3 (escopo)"
+
+#, php-format
+msgid "Issues: %1$d, interested parties: %2$d"
+msgstr "Questões: %1$d, partes interessadas: %2$d"
+
+#, php-format
+msgid "Reviews overdue: %d"
+msgstr "Revisões atrasadas: %d"
+
+#, php-format
+msgid "Approved policies: %d"
+msgstr "Políticas aprovadas: %d"
+
+#, php-format
+msgid "Drafts: %d"
+msgstr "Rascunhos: %d"
+
+#, php-format
+msgid "Approved policies whose review is overdue: %d"
+msgstr "Políticas aprovadas com revisão atrasada: %d"
+
+#, php-format
+msgid "Activities in the matrix: %d"
+msgstr "Atividades na matriz: %d"
+
+#, php-format
+msgid ""
+"Activities with a serious alert (no one accountable, several accountable, "
+"roles that should be separated): %d"
+msgstr ""
+"Atividades com um alerta grave (ninguém responde, vários respondem, papéis "
+"que deveriam ser separados): %d"
+
+#, php-format
+msgid "Open risks: %d"
+msgstr "Riscos abertos: %d"
+
+#, php-format
+msgid "Without an owner: %d"
+msgstr "Sem proprietário: %d"
+
+#, php-format
+msgid "Review overdue: %d"
+msgstr "Revisão atrasada: %d"
+
+#, php-format
+msgid "High risks without a treatment decision: %d"
+msgstr "Riscos altos sem decisão de tratamento: %d"
+
+#, php-format
+msgid "Accepted risks without approval: %d"
+msgstr "Riscos aceitos sem aprovação: %d"
+
+#, php-format
+msgid "Treatment actions overdue: %d"
+msgstr "Ações de tratamento atrasadas: %d"
+
+#, php-format
+msgid "Version %s approved, still up to date"
+msgstr "Versão %s aprovada, ainda atualizada"
+
+msgid "An approval request is pending"
+msgstr "Há uma solicitação de aprovação pendente"
+
+#, php-format
+msgid "Objectives: %d"
+msgstr "Objetivos: %d"
+
+#, php-format
+msgid "With at least one measurement: %d"
+msgstr "Com pelo menos uma medição: %d"
+
+#, php-format
+msgid "Trainings and sessions: %d"
+msgstr "Treinamentos e sessões: %d"
+
+#, php-format
+msgid "Delivered in the last %1$d months: %2$d"
+msgstr "Realizados nos últimos %1$d meses: %2$d"
+
+#, php-format
+msgid "Participants who completed their training: %d %%"
+msgstr "Participantes que concluíram o treinamento: %d %%"
+
+#, php-format
+msgid "Exercises in the last %1$d months: %2$d"
+msgstr "Exercícios nos últimos %1$d meses: %2$d"
+
+#, php-format
+msgid "With a validated review: %d"
+msgstr "Com balanço validado: %d"
+
+#, php-format
+msgid "Last internal audit completed on %s"
+msgstr "Última auditoria interna concluída em %s"
+
+msgid "No internal audit completed yet"
+msgstr "Nenhuma auditoria interna concluída ainda"
+
+#, php-format
+msgid ""
+"Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
+msgstr ""
+"Cobertura do programa de auditoria: %1$d %% (%2$d de %3$d requisitos e "
+"controles)"
+
+msgid "Open the last management review"
+msgstr "Abrir a última análise crítica pela direção"
+
+#, php-format
+msgid "Last management review completed on %s"
+msgstr "Última análise crítica pela direção concluída em %s"
+
+msgid "No management review completed yet"
+msgstr "Nenhuma análise crítica pela direção concluída ainda"
+
+msgid "Input file prepared for the last review"
+msgstr "Dossiê preparado para a última análise"
+
+msgid "No input file prepared for the last review"
+msgstr "Nenhum dossiê preparado para a última análise"
+
+#, php-format
+msgid "Open nonconformities: %d"
+msgstr "Não conformidades abertas: %d"
+
+#, php-format
+msgid "Overdue: %d"
+msgstr "Atrasadas: %d"
+
+#, php-format
+msgid "Closed without a corrective action: %d"
+msgstr "Encerradas sem ação corretiva: %d"
+
+msgid "Certification readiness report"
+msgstr "Relatório de preparação para a certificação"
+
+msgid ""
+"This page guides you, step by step, from setting up your security management "
+"system to the certification audit: for each step, it shows what is expected, "
+"where you stand according to the data already entered, and the screen to "
+"open to complete it."
+msgstr ""
+"Esta página guia você, etapa por etapa, da implantação do seu sistema de "
+"gestão de segurança até a auditoria de certificação: para cada etapa, mostra "
+"o que é esperado, em que ponto você está segundo os dados já registrados e a "
+"tela a abrir para completá-la."
+
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. "
+"Export the PDF readiness report to share where you stand."
+msgstr ""
+"Siga as etapas em ordem, começando pela marcada como próxima etapa. Clique "
+"no botão dela para abrir a tela correspondente, complete-a e volte: a página "
+"é recalculada a cada vez. Nada é alterado automaticamente. Exporte o "
+"relatório de preparação em PDF para compartilhar em que ponto você está."
+
+msgid "Progress towards certification (out of 100)"
+msgstr "Progresso rumo à certificação (de 100)"
 
 msgid "Test"
 msgstr "Teste"
@@ -20120,557 +21062,6 @@ msgstr "Somente fechados"
 
 msgid "Active accounts only"
 msgstr "Somente contas ativas"
-
-msgid "Partially achieved"
-msgstr "Parcialmente atingido"
-
-msgid "Not achieved"
-msgstr "Não atingido"
-
-msgid "To evaluate"
-msgstr "A avaliar"
-
-msgid "Not visible to you"
-msgstr "Não visível para você"
-
-msgid "Deleted"
-msgstr "Excluída"
-
-msgid "Objectives of the exercise"
-msgstr "Objetivos do exercício"
-
-msgid "No objective defined."
-msgstr "Nenhum objetivo definido."
-
-#, php-format
-msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
-msgstr ""
-"%1$d atingido(s), %2$d parcialmente, %3$d não atingido(s), %4$d a avaliar"
-
-msgid "Findings and improvement plan"
-msgstr "Constatações e plano de melhoria"
-
-msgid "No finding recorded."
-msgstr "Nenhuma constatação registrada."
-
-msgid "Improvement action"
-msgstr "Ação de melhoria"
-
-msgid "No action decided"
-msgstr "Nenhuma ação decidida"
-
-#, php-format
-msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
-msgstr "%1$d constatação(ões), %2$d ação(ões) decidida(s), %3$d concluída(s)"
-
-msgid "Review validation"
-msgstr "Validação do balanço"
-
-msgid "Validated"
-msgstr "Validado"
-
-#, php-format
-msgid "on %1$s by %2$s"
-msgstr "em %1$s por %2$s"
-
-msgid "this review has not been validated yet."
-msgstr "este balanço ainda não foi validado."
-
-msgid "Returned to draft"
-msgstr "Devolvido a rascunho"
-
-msgid "Exercise review"
-msgstr "Balanço do exercício"
-
-#, php-format
-msgid ""
-"Review validated on %1$s by %2$s: it can no longer be changed unless it is "
-"returned to draft."
-msgstr ""
-"Balanço validado em %1$s por %2$s: não pode mais ser alterado, salvo se "
-"voltar a rascunho."
-
-msgid ""
-"No objective defined. Objectives say what the exercise must demonstrate (for "
-"example: \"the crisis team is convened within 45 minutes\"); they are "
-"evaluated when the exercise is finished."
-msgstr ""
-"Nenhum objetivo definido. Os objetivos dizem o que o exercício deve "
-"demonstrar (por exemplo: \"a célula de crise é reunida em até 45 minutos\"); "
-"são avaliados ao final do exercício."
-
-msgid "What was observed"
-msgstr "O que foi observado"
-
-msgid "New objective, for example: restore the file server within 4 hours"
-msgstr ""
-"Novo objetivo, por exemplo: restaurar o servidor de arquivos em até 4 horas"
-
-msgid "New objective"
-msgstr "Novo objetivo"
-
-msgid ""
-"Evaluate each objective: the review can be validated once they are all "
-"evaluated."
-msgstr ""
-"Avalie cada objetivo: o balanço poderá ser validado quando todos estiverem "
-"avaliados."
-
-msgid ""
-"No finding yet. Record each gap observed during or after the exercise "
-"(delay, missing contact, unusable procedure…)."
-msgstr ""
-"Nenhuma constatação ainda. Registre cada desvio observado durante ou após o "
-"exercício (atraso, contato ausente, procedimento inutilizável…)."
-
-msgid "Create an improvement action"
-msgstr "Criar uma ação de melhoria"
-
-msgid "Risk (treatment action only)"
-msgstr "Risco (somente ação de tratamento)"
-
-msgid "Create the action"
-msgstr "Criar a ação"
-
-msgid ""
-"An improvement action is only created when you click it: a non-conformity "
-"linked to the exercise incident, or a treatment action of an existing risk. "
-"Its progress is shown here."
-msgstr ""
-"Uma ação de melhoria só é criada quando você clica: uma não conformidade "
-"ligada ao incidente do exercício, ou uma ação de tratamento de um risco "
-"existente. Seu andamento é exibido aqui."
-
-msgid "New finding"
-msgstr "Nova constatação"
-
-msgid ""
-"Validate the review? It will no longer be editable and the validated report "
-"will be archived."
-msgstr ""
-"Validar o balanço? Ele não poderá mais ser alterado e o relatório validado "
-"será arquivado."
-
-msgid "Comment (optional)"
-msgstr "Comentário (opcional)"
-
-msgid "Validate the review"
-msgstr "Validar o balanço"
-
-msgid ""
-"The review is validated by a person holding the \"Validate exercise "
-"reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
-msgstr ""
-"O balanço é validado por uma pessoa com o direito \"Validar balanços de "
-"exercício\" (Continuidade de negócios, aba GRC Manager dos perfis)."
-
-msgid ""
-"Return the review to draft? The reason is recorded in the validation history."
-msgstr ""
-"Devolver o balanço a rascunho? O motivo é registrado no histórico de "
-"validações."
-
-msgid "Reason for returning to draft (required)"
-msgstr "Motivo da volta a rascunho (obrigatório)"
-
-msgid "Return to draft"
-msgstr "Voltar a rascunho"
-
-msgid "Objectives of the exercise (one per line)"
-msgstr "Objetivos do exercício (um por linha)"
-
-msgid "For example: convene the crisis team within 45 minutes"
-msgstr "Por exemplo: reunir a célula de crise em até 45 minutos"
-
-msgid "Evaluated when the exercise is finished; they appear in the report."
-msgstr "Avaliados ao final do exercício; aparecem no relatório."
-
-msgid "Review validated"
-msgstr "Balanço validado"
-
-msgid "Objectives achieved"
-msgstr "Objetivos atingidos"
-
-msgid "Improvement actions overdue"
-msgstr "Ações de melhoria atrasadas"
-
-msgid "Improvement action created."
-msgstr "Ação de melhoria criada."
-
-msgid "The review could not be changed."
-msgstr "Não foi possível alterar o balanço."
-
-msgid ""
-"Review validated: the validated report is archived in the incident documents."
-msgstr ""
-"Balanço validado: o relatório validado está arquivado nos documentos do "
-"incidente."
-
-msgid "The review is back to draft."
-msgstr "O balanço voltou a rascunho."
-
-msgid "Give the reason for returning the review to draft."
-msgstr "Informe o motivo da volta do balanço a rascunho."
-
-#, php-format
-msgid "Finding of the crisis exercise #%1$d (%2$s)."
-msgstr "Constatação do exercício de crise nº %1$d (%2$s)."
-
-msgid "The review is already validated."
-msgstr "O balanço já está validado."
-
-msgid "Define at least one objective before validating the review."
-msgstr "Defina pelo menos um objetivo antes de validar o balanço."
-
-msgid ""
-"Evaluate every objective (achieved, partially achieved or not achieved) "
-"before validating the review."
-msgstr ""
-"Avalie cada objetivo (atingido, parcialmente atingido ou não atingido) antes "
-"de validar o balanço."
-
-msgid "Finish the exercise before validating its review."
-msgstr "Conclua o exercício antes de validar seu balanço."
-
-msgid "Validate exercise reviews"
-msgstr "Validar balanços de exercício"
-
-msgid "Validate crisis exercise reviews and return them to draft"
-msgstr "Validar balanços de exercícios de crise e devolvê-los a rascunho"
-
-#, php-format
-msgid "%d action overdue"
-msgid_plural "%d actions overdue"
-msgstr[0] "%d ação atrasada"
-msgstr[1] "%d ações atrasadas"
-
-msgid "Activities"
-msgstr "Atividades"
-
-msgid "Alerts to fix"
-msgstr "Alertas a corrigir"
-
-msgid "Responsibility matrix"
-msgstr "Matriz de responsabilidades"
-
-msgid "Sensitive"
-msgstr "Sensível"
-
-msgid "No activity yet."
-msgstr "Ainda não há atividades."
-
-msgid ""
-"No alert: every activity has someone who performs it and a single approver, "
-"without conflict of duties."
-msgstr ""
-"Nenhum alerta: cada atividade tem quem a execute e um único aprovador, sem "
-"conflito de funções."
-
-msgid "To fix"
-msgstr "A corrigir"
-
-msgid "To check"
-msgstr "A verificar"
-
-msgid ""
-"Only the activities of the entities of the person who exported this matrix "
-"are listed. Nothing has been modified by this export."
-msgstr ""
-"Apenas são listadas as atividades das entidades da pessoa que exportou esta "
-"matriz. Esta exportação não alterou nada."
-
-msgid "%d activity"
-msgid_plural "%d activities"
-msgstr[0] "%d atividade"
-msgstr[1] "%d atividades"
-
-msgid "%d alert to fix"
-msgid_plural "%d alerts to fix"
-msgstr[0] "%d alerta a corrigir"
-msgstr[1] "%d alertas a corrigir"
-
-msgid "%d point to check"
-msgid_plural "%d points to check"
-msgstr[0] "%d ponto a verificar"
-msgstr[1] "%d pontos a verificar"
-
-msgid "No alert"
-msgstr "Nenhum alerta"
-
-msgid "Open the responsibility matrix"
-msgstr "Abrir a matriz de responsabilidades"
-
-msgid "To fix before the audit"
-msgstr "A corrigir antes da auditoria"
-
-msgid ""
-"Nothing is changed automatically: adjust the assignments below if needed."
-msgstr ""
-"Nada é alterado automaticamente: ajuste as atribuições abaixo se necessário."
-
-msgid ""
-"Leave empty to keep the default name, shown in the language of each user."
-msgstr ""
-"Deixe em branco para manter o nome padrão, exibido no idioma de cada usuário."
-
-msgid "For example \"Review of firewall rules\"."
-msgstr "Por exemplo, \"Revisão das regras do firewall\"."
-
-msgid "Sensitive activity"
-msgstr "Atividade sensível"
-
-msgid ""
-"The same person must not both perform and approve a sensitive activity "
-"(segregation of duties)."
-msgstr ""
-"A mesma pessoa não deve executar e aprovar uma atividade sensível "
-"(segregação de funções)."
-
-msgid "Related Annex A controls"
-msgstr "Controles do Anexo A relacionados"
-
-msgid ""
-"Optional: the controls of your Statement of Applicability that this activity "
-"implements."
-msgstr ""
-"Opcional: os controles da sua declaração de aplicabilidade que esta "
-"atividade implementa."
-
-msgid "Who does what"
-msgstr "Quem faz o quê"
-
-msgid ""
-"Nobody is assigned yet. Add below who performs and who approves this "
-"activity."
-msgstr ""
-"Ainda ninguém foi atribuído. Adicione abaixo quem executa e quem aprova esta "
-"atividade."
-
-msgid "User or group"
-msgstr "Usuário ou grupo"
-
-msgid "Add a role"
-msgstr "Adicionar um papel"
-
-msgid ""
-"Choose the role, then a user or a group, and save. Only one person or group "
-"approves."
-msgstr ""
-"Escolha o papel, depois um usuário ou um grupo, e salve. Apenas uma pessoa "
-"ou um grupo aprova."
-
-msgid "Add an activity"
-msgstr "Adicionar uma atividade"
-
-msgid ""
-"Adds the proposed activities that are missing, without changing the existing "
-"ones."
-msgstr ""
-"Adiciona as atividades propostas que faltam, sem alterar as existentes."
-
-msgid "Add the missing default activities"
-msgstr "Adicionar as atividades padrão em falta"
-
-msgid "Download as PDF"
-msgstr "Baixar em PDF"
-
-msgid ""
-"Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your "
-"Statement of Applicability."
-msgstr ""
-"Anexa um PDF datado ao requisito 5.3 e ao controle A.5.3 da sua declaração "
-"de aplicabilidade."
-
-msgid "Archive as evidence"
-msgstr "Arquivar como evidência"
-
-msgid ""
-"Alerts only report: nothing is changed automatically in the assignments, "
-"rights or statuses."
-msgstr ""
-"Os alertas apenas sinalizam: nada é alterado automaticamente nas "
-"atribuições, direitos ou status."
-
-msgid ""
-"No activity yet. Add the default activities, then say for each one who "
-"performs it and who approves it."
-msgstr ""
-"Ainda não há atividades. Adicione as atividades padrão e indique para cada "
-"uma quem a executa e quem a aprova."
-
-msgid "No active member"
-msgstr "Nenhum membro ativo"
-
-msgid "Segregation of duties is checked on this activity."
-msgstr "A segregação de funções é verificada nesta atividade."
-
-msgid "Archived matrices"
-msgstr "Matrizes arquivadas"
-
-msgid ""
-"No archived matrix yet. Archive it before the audit: the dated PDF is "
-"attached to requirement 5.3 and to control A.5.3."
-msgstr ""
-"Ainda não há matriz arquivada. Arquive-a antes da auditoria: o PDF datado é "
-"anexado ao requisito 5.3 e ao controle A.5.3."
-
-msgid "%d default activity added."
-msgid_plural "%d default activities added."
-msgstr[0] "%d atividade padrão adicionada."
-msgstr[1] "%d atividades padrão adicionadas."
-
-msgid ""
-"The responsibility matrix has been archived as evidence of requirement 5.3 "
-"and control A.5.3."
-msgstr ""
-"A matriz de responsabilidades foi arquivada como evidência do requisito 5.3 "
-"e do controle A.5.3."
-
-msgid "The matrix could not be archived."
-msgstr "Não foi possível arquivar a matriz."
-
-msgid ""
-"Who performs, approves, is consulted on or is informed of each activity of "
-"the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
-"approvers are reported here."
-msgstr ""
-"Quem executa, aprova, é consultado ou informado em cada atividade do SGSI, "
-"com os usuários e grupos do GLPI. Os conflitos de funções e os aprovadores "
-"em falta são sinalizados aqui."
-
-msgid ""
-"For each activity, add who performs it and a single approver, mark the "
-"sensitive activities, fix the alerts, then archive the matrix as evidence "
-"before the audit."
-msgstr ""
-"Para cada atividade, adicione quem a executa e um único aprovador, marque as "
-"atividades sensíveis, corrija os alertas e arquive a matriz como evidência "
-"antes da auditoria."
-
-msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
-msgstr "ISO/IEC 27001, cláusula 5.3 e controle A.5.3"
-
-msgid "ISMS activity"
-msgid_plural "ISMS activities"
-msgstr[0] "Atividade do SGSI"
-msgstr[1] "Atividades do SGSI"
-
-msgid "Performs"
-msgstr "Executa"
-
-msgid "Approves"
-msgstr "Aprova"
-
-msgid "Consulted"
-msgstr "Consultado"
-
-msgid "Informed"
-msgstr "Informado"
-
-msgctxt "responsibility"
-msgid "P"
-msgstr "E"
-
-msgctxt "responsibility"
-msgid "A"
-msgstr "A"
-
-msgctxt "responsibility"
-msgid "C"
-msgstr "C"
-
-msgctxt "responsibility"
-msgid "I"
-msgstr "I"
-
-msgid "Information security risk assessment"
-msgstr "Avaliação dos riscos de segurança da informação"
-
-msgid "Acceptance of residual risks"
-msgstr "Aceitação dos riscos residuais"
-
-msgid "Approval of security policies"
-msgstr "Aprovação das políticas de segurança"
-
-msgid "Inventory of information assets"
-msgstr "Inventário dos ativos de informação"
-
-msgid "Granting and removing access rights"
-msgstr "Concessão e remoção de direitos de acesso"
-
-msgid "Periodic review of access rights"
-msgstr "Revisão periódica dos direitos de acesso"
-
-msgid "Management of privileged accounts"
-msgstr "Gestão das contas privilegiadas"
-
-msgid "Approval of changes in production"
-msgstr "Aprovação das mudanças em produção"
-
-msgid "Backups and restore tests"
-msgstr "Backups e testes de restauração"
-
-msgid "Review of logs and security events"
-msgstr "Revisão dos registos e eventos de segurança"
-
-msgid "Handling of security incidents"
-msgstr "Tratamento dos incidentes de segurança"
-
-msgid "Security of suppliers"
-msgstr "Segurança dos fornecedores"
-
-msgid "Security awareness and training"
-msgstr "Sensibilização e formação em segurança"
-
-msgid "Business continuity and recovery plans"
-msgstr "Planos de continuidade e de recuperação do negócio"
-
-msgid "Internal audit of the ISMS"
-msgstr "Auditoria interna do SGSI"
-
-msgid "Give the activity a name."
-msgstr "Dê um nome à atividade."
-
-msgid "This user or group does not belong to the entity of the activity."
-msgstr "Este usuário ou grupo não pertence à entidade da atividade."
-
-msgid "Only one person or group approves \"%s\": remove the current one first."
-msgstr "Apenas uma pessoa ou um grupo aprova \"%s\": remova primeiro o atual."
-
-msgid "Deleted item #%d"
-msgstr "Item excluído n.º %d"
-
-msgid "Nobody approves this activity."
-msgstr "Ninguém aprova esta atividade."
-
-msgid "Several people or groups approve this activity: keep only one."
-msgstr "Várias pessoas ou grupos aprovam esta atividade: mantenha apenas um."
-
-msgid "Nobody performs this activity."
-msgstr "Ninguém executa esta atividade."
-
-msgid ""
-"Segregation of duties: %s both performs and approves this sensitive activity."
-msgstr ""
-"Segregação de funções: %s executa e aprova ao mesmo tempo esta atividade "
-"sensível."
-
-msgid "The group %s has no active member."
-msgstr "O grupo %s não tem nenhum membro ativo."
-
-msgid "%s is disabled or no longer exists in GLPI."
-msgstr "%s está desativado ou já não existe no GLPI."
-
-msgid "ISMS responsibility matrix"
-msgstr "Matriz de responsabilidades do SGSI"
-
-msgid "Archived responsibility matrix"
-msgid_plural "Archived responsibility matrices"
-msgstr[0] "Matriz de responsabilidades arquivada"
-msgstr[1] "Matrizes de responsabilidades arquivadas"
-
-msgid "ISMS responsibility matrix - %s"
-msgstr "Matriz de responsabilidades do SGSI - %s"
 
 #, php-format
 msgid "and %d other entity"

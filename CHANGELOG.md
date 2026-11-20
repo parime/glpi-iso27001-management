@@ -29,6 +29,29 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     plugin et des utilisateurs, dans les entités de la session (le responsable hiérarchique voit
     aussi la fiche de ses collaborateurs) ; la saisie exige de modifier le plugin.
 
+## [2.63.0] - 2026-11-20
+
+### Added
+
+- **Préparation à la certification ISO 27001** (issue #619) : nouvel onglet « Préparation à la
+  certification » de la rubrique « Tableau de bord » (pas de nouvelle entrée de menu).
+  - Treize étapes ordonnées selon le cycle planifier, faire, vérifier, agir : périmètre (4.3),
+    contexte et parties intéressées (4.1, 4.2), politique (5.2), rôles (5.3), appréciation et
+    traitement des risques, déclaration d'applicabilité approuvée, objectifs (6.2), formations et
+    sensibilisation (7.2, 7.3), exercices de continuité ou de crise, audit interne et couverture du
+    programme d'audit (9.2), revue de direction et son dossier (9.3), non-conformités (10.2).
+  - Pour chaque étape : ce qui est attendu (avec nos mots), un état « fait », « partiel » ou « à
+    faire » calculé à partir des données du plugin (par exemple « Risques ouverts : 12, sans
+    propriétaire : 3 »), le statut déclaré des exigences du SMSI concernées et le lien direct vers
+    l'écran à compléter, ou vers les contrôles de cohérence à corriger.
+  - Score global sur 100, barre de progression, « prochaine étape » mise en avant, export PDF
+    « état de préparation » et carte de tableau de bord « Avancement vers la certification ».
+  - Les calculs reprennent ceux des modules existants (contrôles de cohérence, synthèse du
+    contexte, matrice des responsabilités, couverture d'audit, dossier de revue de direction,
+    approbation de la SoA, taux de réalisation des formations). Lecture seule : rien n'est modifié.
+  - Droits : une étape n'est évaluée que si le profil peut lire le module concerné, dans les entités
+    de la session ; sinon elle apparaît « hors de vos droits » et ne compte pas dans le score.
+
 ## [2.62.0] - 2026-11-20
 
 ## [2.61.0] - 2026-11-20

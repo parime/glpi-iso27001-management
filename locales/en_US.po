@@ -970,14 +970,14 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 
 #: templates/dora/register.html.twig
 msgid "Template"
@@ -7315,11 +7315,11 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 
 #: templates/tabs/_access_review_rows.html.twig
 msgid "Profiles and groups"
@@ -13955,13 +13955,13 @@ msgstr "CPE identifiers"
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 
 #: src/CanonicalProduct.php:196
 msgid "No CPE identifier yet."
@@ -14003,12 +14003,12 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 
 #: src/ComplianceAudit.php:100
 msgid "Technical security"
@@ -22094,12 +22094,12 @@ msgstr "Settings and links"
 
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 
 msgid "Enable it in the configuration"
 msgstr "Enable it in the configuration"
@@ -22234,14 +22234,14 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 
 msgid "Kind of item"
 msgstr "Kind of item"
@@ -23698,13 +23698,13 @@ msgid "Justification of a different result"
 msgstr "Justification of a different result"
 
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 
 #, php-format
 msgid "Back to the tests of %s"
@@ -24574,6 +24574,788 @@ msgstr[1] "Archived responsibility matrices"
 
 msgid "ISMS responsibility matrix - %s"
 msgstr "ISMS responsibility matrix - %s"
+
+#, php-format
+msgid "and %d other entity"
+msgid_plural "and %d other entities"
+msgstr[0] "and %d other entity"
+msgstr[1] "and %d other entities"
+
+# Issue #546 : fiche de conformité sécurité d'un collaborateur.
+msgid "Personnel compliance rate (no gap)"
+msgstr "Personnel compliance rate (no gap)"
+
+msgid "People with a gap"
+msgstr "People with a gap"
+
+msgid "People with points to do within the deadline"
+msgstr "People with points to do within the deadline"
+
+msgid "Deadline after the arrival or the request"
+msgstr "Deadline after the arrival or the request"
+
+msgid ""
+"Only the people the person who exported this report can read are listed. "
+"Nothing has been modified: the screening and confidentiality agreement are "
+"recorded as a status and a date, the supporting documents stay with HR."
+msgstr ""
+"Only the people the person who exported this report can read are listed. "
+"Nothing has been modified: the screening and confidentiality agreement are "
+"recorded as a status and a date, the supporting documents stay with HR."
+
+msgid ""
+"The IT charter line is \"not tracked\": the assetsign plugin is not active "
+"on this instance."
+msgstr ""
+"The IT charter line is \"not tracked\": the assetsign plugin is not active "
+"on this instance."
+
+msgid "Arrival"
+msgstr "Arrival"
+
+msgid "Nobody matches these filters."
+msgstr "Nobody matches these filters."
+
+msgid "Personnel security compliance"
+msgstr "Personnel security compliance"
+
+msgid ""
+"Each point of the security compliance record of a person (training, charter, "
+"policies, screening, confidentiality agreement) must be done within this "
+"number of days after their arrival, or after the request when it comes "
+"later. The weight sets the share of each component in the score of the "
+"person; weight 0 removes the component from the record."
+msgstr ""
+"Each point of the security compliance record of a person (training, charter, "
+"policies, screening, confidentiality agreement) must be done within this "
+"number of days after their arrival, or after the request when it comes "
+"later. The weight sets the share of each component in the score of the "
+"person; weight 0 removes the component from the record."
+
+msgid "See the personnel list"
+msgstr "See the personnel list"
+
+msgid "Deadline for newcomers (days)"
+msgstr "Deadline for newcomers (days)"
+
+#, php-format
+msgid "Between %1$d and %2$d days. Default: 30 days."
+msgstr "Between %1$d and %2$d days. Default: 30 days."
+
+msgid "0 (not tracked)"
+msgstr "0 (not tracked)"
+
+#, php-format
+msgid ""
+"Deadline: %d days after the arrival (start date of the account) or after the "
+"request. Change it, and the weight of each component, in the plugin "
+"configuration."
+msgstr ""
+"Deadline: %d days after the arrival (start date of the account) or after the "
+"request. Change it, and the weight of each component, in the plugin "
+"configuration."
+
+msgid "All my entities"
+msgstr "All my entities"
+
+msgid "All groups"
+msgstr "All groups"
+
+msgid "Overall status"
+msgstr "Overall status"
+
+msgid "Gap on"
+msgstr "Gap on"
+
+msgid "Any component"
+msgstr "Any component"
+
+msgid "Reset the filters"
+msgstr "Reset the filters"
+
+msgid "Export as CSV"
+msgstr "Export as CSV"
+
+msgid "Export as PDF"
+msgstr "Export as PDF"
+
+#, php-format
+msgid "Page %1$d of %2$d"
+msgstr "Page %1$d of %2$d"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "By group"
+msgstr "By group"
+
+msgid ""
+"No group: add the people to GLPI groups to see the compliance of each "
+"department."
+msgstr ""
+"No group: add the people to GLPI groups to see the compliance of each "
+"department."
+
+msgid "Soon"
+msgstr "Soon"
+
+msgid "This account is not active: no security compliance record."
+msgstr "This account is not active: no security compliance record."
+
+#, php-format
+msgid ""
+"Here is what the security team expects from you: trainings, charter, "
+"policies to read. Each point must be done within %d days of your arrival or "
+"of the request. Nothing is changed automatically."
+msgstr ""
+"Here is what the security team expects from you: trainings, charter, "
+"policies to read. Each point must be done within %d days of your arrival or "
+"of the request. Nothing is changed automatically."
+
+#, php-format
+msgid ""
+"Everything the plugin already tracks for this person, in one place. Each "
+"point must be done within %d days of the arrival or of the request (setting "
+"of the plugin configuration). A gap can be notified to the manager; nothing "
+"is changed automatically."
+msgstr ""
+"Everything the plugin already tracks for this person, in one place. Each "
+"point must be done within %d days of the arrival or of the request (setting "
+"of the plugin configuration). A gap can be notified to the manager; nothing "
+"is changed automatically."
+
+#, php-format
+msgid "%1$d of %2$d counted components compliant"
+msgstr "%1$d of %2$d counted components compliant"
+
+msgid "Start date of the account, or its creation date"
+msgstr "Start date of the account, or its creation date"
+
+msgid "Manager"
+msgstr "Manager"
+
+msgid "Set the supervisor on the user form to allow notifications."
+msgstr "Set the supervisor on the user form to allow notifications."
+
+msgid ""
+"Score: weight of the compliant components divided by the weight of the "
+"counted components. Not tracked and not applicable components are not "
+"counted."
+msgstr ""
+"Score: weight of the compliant components divided by the weight of the "
+"counted components. Not tracked and not applicable components are not "
+"counted."
+
+msgid "All personnel"
+msgstr "All personnel"
+
+msgid "Screening and confidentiality agreement"
+msgstr "Screening and confidentiality agreement"
+
+msgid ""
+"Only the status and the dates are recorded here. The supporting documents "
+"stay with HR: do not attach them."
+msgstr ""
+"Only the status and the dates are recorded here. The supporting documents "
+"stay with HR: do not attach them."
+
+msgid "Pre-employment screening"
+msgstr "Pre-employment screening"
+
+msgid "Screening date"
+msgstr "Screening date"
+
+msgid "Confidentiality agreement signed on"
+msgstr "Confidentiality agreement signed on"
+
+msgid "Template version"
+msgstr "Template version"
+
+msgid "e.g. v2"
+msgstr "e.g. v2"
+
+msgid "Notify the manager of the gaps"
+msgstr "Notify the manager of the gaps"
+
+#, php-format
+msgid "Last notification: %s"
+msgstr "Last notification: %s"
+
+msgid "Security compliance record saved."
+msgstr "Security compliance record saved."
+
+msgid "The manager has been notified of the gaps."
+msgstr "The manager has been notified of the gaps."
+
+msgid ""
+"No notification sent: check that the person has a manager with an email "
+"address and that the notification is active."
+msgstr ""
+"No notification sent: check that the person has a manager with an email "
+"address and that the notification is active."
+
+msgid "Personnel security compliance (%)"
+msgstr "Personnel security compliance (%)"
+
+msgid "Personnel security compliance gap"
+msgstr "Personnel security compliance gap"
+
+msgid "Manager of the person"
+msgstr "Manager of the person"
+
+msgid ""
+"Security compliance of each person: screening, confidentiality agreement, "
+"mandatory trainings, IT charter, security policies read, access review and "
+"account hygiene."
+msgstr ""
+"Security compliance of each person: screening, confidentiality agreement, "
+"mandatory trainings, IT charter, security policies read, access review and "
+"account hygiene."
+
+msgid ""
+"Follow up the gaps with the person and their manager; nothing is changed "
+"automatically. The deadline for newcomers and the weight of each component "
+"are set in the plugin configuration."
+msgstr ""
+"Follow up the gaps with the person and their manager; nothing is changed "
+"automatically. The deadline for newcomers and the weight of each component "
+"are set in the plugin configuration."
+
+msgid "ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18"
+msgstr "ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18"
+
+msgid "Confidentiality agreement"
+msgstr "Confidentiality agreement"
+
+msgid "Mandatory trainings"
+msgstr "Mandatory trainings"
+
+msgid "IT charter signed"
+msgstr "IT charter signed"
+
+msgid "Security policies read"
+msgstr "Security policies read"
+
+msgid "To do, within the deadline"
+msgstr "To do, within the deadline"
+
+msgid "Not tracked"
+msgstr "Not tracked"
+
+msgid "Not recorded"
+msgstr "Not recorded"
+
+msgid "Not counted (weight 0 in the configuration)"
+msgstr "Not counted (weight 0 in the configuration)"
+
+#, php-format
+msgid "Done on %s"
+msgstr "Done on %s"
+
+msgid "Not applicable for this person"
+msgstr "Not applicable for this person"
+
+#, php-format
+msgid "Signed on %1$s (template %2$s)"
+msgstr "Signed on %1$s (template %2$s)"
+
+#, php-format
+msgid "Signed on %s"
+msgstr "Signed on %s"
+
+msgid "No signed agreement recorded"
+msgstr "No signed agreement recorded"
+
+msgid "No mandatory training assigned"
+msgstr "No mandatory training assigned"
+
+#, php-format
+msgid "To attend: %s"
+msgstr "To attend: %s"
+
+#, php-format
+msgid "Renewal overdue: %s"
+msgstr "Renewal overdue: %s"
+
+msgid "Not tracked: the assetsign plugin is not active"
+msgstr "Not tracked: the assetsign plugin is not active"
+
+#, php-format
+msgid "Signed on %1$s (%2$s)"
+msgstr "Signed on %1$s (%2$s)"
+
+#, php-format
+msgid "Sent for signature, not signed yet (%s)"
+msgstr "Sent for signature, not signed yet (%s)"
+
+msgid "No charter campaign has reached this person"
+msgstr "No charter campaign has reached this person"
+
+msgid "No policy campaign concerns this person"
+msgstr "No policy campaign concerns this person"
+
+#, php-format
+msgid "To read: %s"
+msgstr "To read: %s"
+
+#, php-format
+msgid "Last reviewed on %s"
+msgstr "Last reviewed on %s"
+
+msgid "In an open access review campaign"
+msgstr "In an open access review campaign"
+
+msgid "The access review campaign deadline has passed without a decision"
+msgstr "The access review campaign deadline has passed without a decision"
+
+#, php-format
+msgid "Last reviewed on %s, more than 12 months ago"
+msgstr "Last reviewed on %s, more than 12 months ago"
+
+msgid "No account issue"
+msgstr "No account issue"
+
+msgid "My security compliance"
+msgstr "My security compliance"
+
+msgid "Security compliance"
+msgstr "Security compliance"
+
+msgid "Personnel security compliance: notify managers of gaps"
+msgstr "Personnel security compliance: notify managers of gaps"
+
+#, php-format
+msgid "%d manager notification(s) raised for personnel compliance gaps."
+msgstr "%d manager notification(s) raised for personnel compliance gaps."
+
+msgid ""
+"Sent to the manager of a person when points of their security compliance "
+"record are past their deadline (automatic task, at most once a week, or "
+"button of the record)."
+msgstr ""
+"Sent to the manager of a person when points of their security compliance "
+"record are past their deadline (automatic task, at most once a week, or "
+"button of the record)."
+
+msgid ""
+"These points of the security compliance record of a member of your team are "
+"past their deadline. Nothing has been changed automatically: check them with "
+"the person and the CISO."
+msgstr ""
+"These points of the security compliance record of a member of your team are "
+"past their deadline. Nothing has been changed automatically: check them with "
+"the person and the CISO."
+
+msgid "View the security compliance record"
+msgstr "View the security compliance record"
+
+#, php-format
+msgid "%d person"
+msgid_plural "%d people"
+msgstr[0] "%d person"
+msgstr[1] "%d people"
+
+#, php-format
+msgid "%d mandatory training completed"
+msgid_plural "%d mandatory trainings completed"
+msgstr[0] "%d mandatory training completed"
+msgstr[1] "%d mandatory trainings completed"
+
+#, php-format
+msgid "%d policy acknowledged"
+msgid_plural "%d policies acknowledged"
+msgstr[0] "%d policy acknowledged"
+msgstr[1] "%d policies acknowledged"
+
+msgid "People tracked"
+msgstr "People tracked"
+
+msgid "Readiness score"
+msgstr "Readiness score"
+
+msgid ""
+"Each state is computed from the data that the person who exported this "
+"report can read. Nothing has been modified."
+msgstr ""
+"Each state is computed from the data that the person who exported this "
+"report can read. Nothing has been modified."
+
+msgid ""
+"A step done counts fully, a step partly done counts half. Steps outside your "
+"rights are not counted."
+msgstr ""
+"A step done counts fully, a step partly done counts half. Steps outside your "
+"rights are not counted."
+
+msgid "Steps"
+msgstr "Steps"
+
+msgid ""
+"Each state is computed from the data already entered in the plugin, each "
+"time you open this page. Nothing is changed automatically."
+msgstr ""
+"Each state is computed from the data already entered in the plugin, each "
+"time you open this page. Nothing is changed automatically."
+
+msgid "Readiness report (PDF)"
+msgstr "Readiness report (PDF)"
+
+msgid "Every step is done: you are ready for the certification audit."
+msgstr "Every step is done: you are ready for the certification audit."
+
+msgid "No step can be evaluated with your rights."
+msgstr "No step can be evaluated with your rights."
+
+msgid ""
+"Your profile cannot read the data of this step: ask an administrator of the "
+"management system."
+msgstr ""
+"Your profile cannot read the data of this step: ask an administrator of the "
+"management system."
+
+msgid "Progress towards certification"
+msgstr "Progress towards certification"
+
+msgid "Certification readiness"
+msgstr "Certification readiness"
+
+msgid "Plan"
+msgstr "Plan"
+
+msgid "Set up the management system: scope, context, policy, roles, risks."
+msgstr "Set up the management system: scope, context, policy, roles, risks."
+
+msgid "Do"
+msgstr "Do"
+
+msgid "Run it day to day: people trained, exercises carried out."
+msgstr "Run it day to day: people trained, exercises carried out."
+
+msgid "Check"
+msgstr "Check"
+
+msgid "Evaluate it: internal audit and management review."
+msgstr "Evaluate it: internal audit and management review."
+
+msgid "Act"
+msgstr "Act"
+
+msgid "Improve it: treat what the checks have found."
+msgstr "Improve it: treat what the checks have found."
+
+msgid "Partly done"
+msgstr "Partly done"
+
+msgid "Outside your rights"
+msgstr "Outside your rights"
+
+msgid "Define the scope of the ISMS"
+msgstr "Define the scope of the ISMS"
+
+msgid ""
+"Write down which sites, activities, systems and teams the management system "
+"covers, and what is left out, then attach this document to requirement 4.3."
+msgstr ""
+"Write down which sites, activities, systems and teams the management system "
+"covers, and what is left out, then attach this document to requirement 4.3."
+
+msgid "Describe the context and the interested parties"
+msgstr "Describe the context and the interested parties"
+
+msgid ""
+"List the internal and external issues and the interested parties with their "
+"expectations, and decide whether climate change matters for you."
+msgstr ""
+"List the internal and external issues and the interested parties with their "
+"expectations, and decide whether climate change matters for you."
+
+msgid "Approve the information security policy"
+msgstr "Approve the information security policy"
+
+msgid ""
+"Have management approve the security policy and set the date of its next "
+"review."
+msgstr ""
+"Have management approve the security policy and set the date of its next "
+"review."
+
+msgid "Assign the roles and responsibilities"
+msgstr "Assign the roles and responsibilities"
+
+msgid ""
+"For each activity of the management system, name who carries it out, who is "
+"accountable, and who is consulted or informed."
+msgstr ""
+"For each activity of the management system, name who carries it out, who is "
+"accountable, and who is consulted or informed."
+
+msgid "Assess the risks"
+msgstr "Assess the risks"
+
+msgid ""
+"Identify the risks, give each one an owner, rate them with your method and "
+"keep their review dates up to date."
+msgstr ""
+"Identify the risks, give each one an owner, rate them with your method and "
+"keep their review dates up to date."
+
+msgid "Decide how to treat the risks"
+msgstr "Decide how to treat the risks"
+
+msgid ""
+"Choose a treatment for each significant risk, have accepted risks approved, "
+"and follow up the treatment actions until they are done."
+msgstr ""
+"Choose a treatment for each significant risk, have accepted risks approved, "
+"and follow up the treatment actions until they are done."
+
+msgid "Approve the Statement of Applicability"
+msgstr "Approve the Statement of Applicability"
+
+msgid ""
+"Justify whether each control applies, then have the Statement of "
+"Applicability approved; approve it again after any change."
+msgstr ""
+"Justify whether each control applies, then have the Statement of "
+"Applicability approved; approve it again after any change."
+
+msgid "Set measurable security objectives"
+msgstr "Set measurable security objectives"
+
+msgid ""
+"Define security objectives with an owner and a target, and record "
+"measurements to show their progress."
+msgstr ""
+"Define security objectives with an owner and a target, and record "
+"measurements to show their progress."
+
+msgid "Train and raise awareness"
+msgstr "Train and raise awareness"
+
+msgid ""
+"Deliver security training and awareness sessions, and make sure the people "
+"concerned have completed them."
+msgstr ""
+"Deliver security training and awareness sessions, and make sure the people "
+"concerned have completed them."
+
+msgid "Run a continuity or crisis exercise"
+msgstr "Run a continuity or crisis exercise"
+
+msgid ""
+"Run at least one exercise, assess whether its objectives were met and have "
+"its review validated."
+msgstr ""
+"Run at least one exercise, assess whether its objectives were met and have "
+"its review validated."
+
+msgid "Carry out the internal audit"
+msgstr "Carry out the internal audit"
+
+msgid ""
+"Complete an internal audit and make sure the audit programme covers every "
+"requirement and every applicable control."
+msgstr ""
+"Complete an internal audit and make sure the audit programme covers every "
+"requirement and every applicable control."
+
+msgid "Hold the management review"
+msgstr "Hold the management review"
+
+msgid ""
+"Hold a management review prepared with its input file, and record the "
+"decisions taken."
+msgstr ""
+"Hold a management review prepared with its input file, and record the "
+"decisions taken."
+
+msgid "Treat the nonconformities"
+msgstr "Treat the nonconformities"
+
+msgid ""
+"Analyse each nonconformity, carry out its corrective action on time, and "
+"close it only once the action is done."
+msgstr ""
+"Analyse each nonconformity, carry out its corrective action on time, and "
+"close it only once the action is done."
+
+#, php-format
+msgid "Declared requirements: %1$d of %2$d compliant"
+msgstr "Declared requirements: %1$d of %2$d compliant"
+
+msgid "See the items to fix"
+msgstr "See the items to fix"
+
+#, php-format
+msgid "Declared status of requirement 4.3: %s"
+msgstr "Declared status of requirement 4.3: %s"
+
+#, php-format
+msgid "Documents attached: %d"
+msgstr "Documents attached: %d"
+
+msgid "Open requirement 4.3 (scope)"
+msgstr "Open requirement 4.3 (scope)"
+
+#, php-format
+msgid "Issues: %1$d, interested parties: %2$d"
+msgstr "Issues: %1$d, interested parties: %2$d"
+
+#, php-format
+msgid "Reviews overdue: %d"
+msgstr "Reviews overdue: %d"
+
+#, php-format
+msgid "Approved policies: %d"
+msgstr "Approved policies: %d"
+
+#, php-format
+msgid "Drafts: %d"
+msgstr "Drafts: %d"
+
+#, php-format
+msgid "Approved policies whose review is overdue: %d"
+msgstr "Approved policies whose review is overdue: %d"
+
+#, php-format
+msgid "Activities in the matrix: %d"
+msgstr "Activities in the matrix: %d"
+
+#, php-format
+msgid ""
+"Activities with a serious alert (no one accountable, several accountable, "
+"roles that should be separated): %d"
+msgstr ""
+"Activities with a serious alert (no one accountable, several accountable, "
+"roles that should be separated): %d"
+
+#, php-format
+msgid "Open risks: %d"
+msgstr "Open risks: %d"
+
+#, php-format
+msgid "Without an owner: %d"
+msgstr "Without an owner: %d"
+
+#, php-format
+msgid "Review overdue: %d"
+msgstr "Review overdue: %d"
+
+#, php-format
+msgid "High risks without a treatment decision: %d"
+msgstr "High risks without a treatment decision: %d"
+
+#, php-format
+msgid "Accepted risks without approval: %d"
+msgstr "Accepted risks without approval: %d"
+
+#, php-format
+msgid "Treatment actions overdue: %d"
+msgstr "Treatment actions overdue: %d"
+
+#, php-format
+msgid "Version %s approved, still up to date"
+msgstr "Version %s approved, still up to date"
+
+msgid "An approval request is pending"
+msgstr "An approval request is pending"
+
+#, php-format
+msgid "Objectives: %d"
+msgstr "Objectives: %d"
+
+#, php-format
+msgid "With at least one measurement: %d"
+msgstr "With at least one measurement: %d"
+
+#, php-format
+msgid "Trainings and sessions: %d"
+msgstr "Trainings and sessions: %d"
+
+#, php-format
+msgid "Delivered in the last %1$d months: %2$d"
+msgstr "Delivered in the last %1$d months: %2$d"
+
+#, php-format
+msgid "Participants who completed their training: %d %%"
+msgstr "Participants who completed their training: %d %%"
+
+#, php-format
+msgid "Exercises in the last %1$d months: %2$d"
+msgstr "Exercises in the last %1$d months: %2$d"
+
+#, php-format
+msgid "With a validated review: %d"
+msgstr "With a validated review: %d"
+
+#, php-format
+msgid "Last internal audit completed on %s"
+msgstr "Last internal audit completed on %s"
+
+msgid "No internal audit completed yet"
+msgstr "No internal audit completed yet"
+
+#, php-format
+msgid ""
+"Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
+msgstr ""
+"Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
+
+msgid "Open the last management review"
+msgstr "Open the last management review"
+
+#, php-format
+msgid "Last management review completed on %s"
+msgstr "Last management review completed on %s"
+
+msgid "No management review completed yet"
+msgstr "No management review completed yet"
+
+msgid "Input file prepared for the last review"
+msgstr "Input file prepared for the last review"
+
+msgid "No input file prepared for the last review"
+msgstr "No input file prepared for the last review"
+
+#, php-format
+msgid "Open nonconformities: %d"
+msgstr "Open nonconformities: %d"
+
+#, php-format
+msgid "Overdue: %d"
+msgstr "Overdue: %d"
+
+#, php-format
+msgid "Closed without a corrective action: %d"
+msgstr "Closed without a corrective action: %d"
+
+msgid "Certification readiness report"
+msgstr "Certification readiness report"
+
+msgid ""
+"This page guides you, step by step, from setting up your security management "
+"system to the certification audit: for each step, it shows what is expected, "
+"where you stand according to the data already entered, and the screen to "
+"open to complete it."
+msgstr ""
+"This page guides you, step by step, from setting up your security management "
+"system to the certification audit: for each step, it shows what is expected, "
+"where you stand according to the data already entered, and the screen to "
+"open to complete it."
+
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. "
+"Export the PDF readiness report to share where you stand."
+msgstr ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. "
+"Export the PDF readiness report to share where you stand."
+
+msgid "Progress towards certification (out of 100)"
+msgstr "Progress towards certification (out of 100)"
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
@@ -25585,316 +26367,3 @@ msgstr "ISMS responsibility matrix - %s"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-#, php-format
-msgid "and %d other entity"
-msgid_plural "and %d other entities"
-msgstr[0] "and %d other entity"
-msgstr[1] "and %d other entities"
-
-# Issue #546 : fiche de conformité sécurité d'un collaborateur.
-msgid "Personnel compliance rate (no gap)"
-msgstr "Personnel compliance rate (no gap)"
-
-msgid "People with a gap"
-msgstr "People with a gap"
-
-msgid "People with points to do within the deadline"
-msgstr "People with points to do within the deadline"
-
-msgid "Deadline after the arrival or the request"
-msgstr "Deadline after the arrival or the request"
-
-msgid "Only the people the person who exported this report can read are listed. Nothing has been modified: the screening and confidentiality agreement are recorded as a status and a date, the supporting documents stay with HR."
-msgstr "Only the people the person who exported this report can read are listed. Nothing has been modified: the screening and confidentiality agreement are recorded as a status and a date, the supporting documents stay with HR."
-
-msgid "The IT charter line is \"not tracked\": the assetsign plugin is not active on this instance."
-msgstr "The IT charter line is \"not tracked\": the assetsign plugin is not active on this instance."
-
-msgid "Arrival"
-msgstr "Arrival"
-
-msgid "Nobody matches these filters."
-msgstr "Nobody matches these filters."
-
-msgid "Personnel security compliance"
-msgstr "Personnel security compliance"
-
-msgid "Each point of the security compliance record of a person (training, charter, policies, screening, confidentiality agreement) must be done within this number of days after their arrival, or after the request when it comes later. The weight sets the share of each component in the score of the person; weight 0 removes the component from the record."
-msgstr "Each point of the security compliance record of a person (training, charter, policies, screening, confidentiality agreement) must be done within this number of days after their arrival, or after the request when it comes later. The weight sets the share of each component in the score of the person; weight 0 removes the component from the record."
-
-msgid "See the personnel list"
-msgstr "See the personnel list"
-
-msgid "Deadline for newcomers (days)"
-msgstr "Deadline for newcomers (days)"
-
-#, php-format
-msgid "Between %1$d and %2$d days. Default: 30 days."
-msgstr "Between %1$d and %2$d days. Default: 30 days."
-
-msgid "0 (not tracked)"
-msgstr "0 (not tracked)"
-
-#, php-format
-msgid "Deadline: %d days after the arrival (start date of the account) or after the request. Change it, and the weight of each component, in the plugin configuration."
-msgstr "Deadline: %d days after the arrival (start date of the account) or after the request. Change it, and the weight of each component, in the plugin configuration."
-
-msgid "All my entities"
-msgstr "All my entities"
-
-msgid "All groups"
-msgstr "All groups"
-
-msgid "Overall status"
-msgstr "Overall status"
-
-msgid "Gap on"
-msgstr "Gap on"
-
-msgid "Any component"
-msgstr "Any component"
-
-msgid "Reset the filters"
-msgstr "Reset the filters"
-
-msgid "Export as CSV"
-msgstr "Export as CSV"
-
-msgid "Export as PDF"
-msgstr "Export as PDF"
-
-#, php-format
-msgid "Page %1$d of %2$d"
-msgstr "Page %1$d of %2$d"
-
-msgid "Previous"
-msgstr "Previous"
-
-msgid "By group"
-msgstr "By group"
-
-msgid "No group: add the people to GLPI groups to see the compliance of each department."
-msgstr "No group: add the people to GLPI groups to see the compliance of each department."
-
-msgid "Soon"
-msgstr "Soon"
-
-msgid "This account is not active: no security compliance record."
-msgstr "This account is not active: no security compliance record."
-
-#, php-format
-msgid "Here is what the security team expects from you: trainings, charter, policies to read. Each point must be done within %d days of your arrival or of the request. Nothing is changed automatically."
-msgstr "Here is what the security team expects from you: trainings, charter, policies to read. Each point must be done within %d days of your arrival or of the request. Nothing is changed automatically."
-
-#, php-format
-msgid "Everything the plugin already tracks for this person, in one place. Each point must be done within %d days of the arrival or of the request (setting of the plugin configuration). A gap can be notified to the manager; nothing is changed automatically."
-msgstr "Everything the plugin already tracks for this person, in one place. Each point must be done within %d days of the arrival or of the request (setting of the plugin configuration). A gap can be notified to the manager; nothing is changed automatically."
-
-#, php-format
-msgid "%1$d of %2$d counted components compliant"
-msgstr "%1$d of %2$d counted components compliant"
-
-msgid "Start date of the account, or its creation date"
-msgstr "Start date of the account, or its creation date"
-
-msgid "Manager"
-msgstr "Manager"
-
-msgid "Set the supervisor on the user form to allow notifications."
-msgstr "Set the supervisor on the user form to allow notifications."
-
-msgid "Score: weight of the compliant components divided by the weight of the counted components. Not tracked and not applicable components are not counted."
-msgstr "Score: weight of the compliant components divided by the weight of the counted components. Not tracked and not applicable components are not counted."
-
-msgid "All personnel"
-msgstr "All personnel"
-
-msgid "Screening and confidentiality agreement"
-msgstr "Screening and confidentiality agreement"
-
-msgid "Only the status and the dates are recorded here. The supporting documents stay with HR: do not attach them."
-msgstr "Only the status and the dates are recorded here. The supporting documents stay with HR: do not attach them."
-
-msgid "Pre-employment screening"
-msgstr "Pre-employment screening"
-
-msgid "Screening date"
-msgstr "Screening date"
-
-msgid "Confidentiality agreement signed on"
-msgstr "Confidentiality agreement signed on"
-
-msgid "Template version"
-msgstr "Template version"
-
-msgid "e.g. v2"
-msgstr "e.g. v2"
-
-msgid "Notify the manager of the gaps"
-msgstr "Notify the manager of the gaps"
-
-#, php-format
-msgid "Last notification: %s"
-msgstr "Last notification: %s"
-
-msgid "Security compliance record saved."
-msgstr "Security compliance record saved."
-
-msgid "The manager has been notified of the gaps."
-msgstr "The manager has been notified of the gaps."
-
-msgid "No notification sent: check that the person has a manager with an email address and that the notification is active."
-msgstr "No notification sent: check that the person has a manager with an email address and that the notification is active."
-
-msgid "Personnel security compliance (%)"
-msgstr "Personnel security compliance (%)"
-
-msgid "Personnel security compliance gap"
-msgstr "Personnel security compliance gap"
-
-msgid "Manager of the person"
-msgstr "Manager of the person"
-
-msgid "Security compliance of each person: screening, confidentiality agreement, mandatory trainings, IT charter, security policies read, access review and account hygiene."
-msgstr "Security compliance of each person: screening, confidentiality agreement, mandatory trainings, IT charter, security policies read, access review and account hygiene."
-
-msgid "Follow up the gaps with the person and their manager; nothing is changed automatically. The deadline for newcomers and the weight of each component are set in the plugin configuration."
-msgstr "Follow up the gaps with the person and their manager; nothing is changed automatically. The deadline for newcomers and the weight of each component are set in the plugin configuration."
-
-msgid "ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18"
-msgstr "ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18"
-
-msgid "Confidentiality agreement"
-msgstr "Confidentiality agreement"
-
-msgid "Mandatory trainings"
-msgstr "Mandatory trainings"
-
-msgid "IT charter signed"
-msgstr "IT charter signed"
-
-msgid "Security policies read"
-msgstr "Security policies read"
-
-msgid "To do, within the deadline"
-msgstr "To do, within the deadline"
-
-msgid "Not tracked"
-msgstr "Not tracked"
-
-msgid "Not recorded"
-msgstr "Not recorded"
-
-msgid "Not counted (weight 0 in the configuration)"
-msgstr "Not counted (weight 0 in the configuration)"
-
-#, php-format
-msgid "Done on %s"
-msgstr "Done on %s"
-
-msgid "Not applicable for this person"
-msgstr "Not applicable for this person"
-
-#, php-format
-msgid "Signed on %1$s (template %2$s)"
-msgstr "Signed on %1$s (template %2$s)"
-
-#, php-format
-msgid "Signed on %s"
-msgstr "Signed on %s"
-
-msgid "No signed agreement recorded"
-msgstr "No signed agreement recorded"
-
-msgid "No mandatory training assigned"
-msgstr "No mandatory training assigned"
-
-#, php-format
-msgid "To attend: %s"
-msgstr "To attend: %s"
-
-#, php-format
-msgid "Renewal overdue: %s"
-msgstr "Renewal overdue: %s"
-
-msgid "Not tracked: the assetsign plugin is not active"
-msgstr "Not tracked: the assetsign plugin is not active"
-
-#, php-format
-msgid "Signed on %1$s (%2$s)"
-msgstr "Signed on %1$s (%2$s)"
-
-#, php-format
-msgid "Sent for signature, not signed yet (%s)"
-msgstr "Sent for signature, not signed yet (%s)"
-
-msgid "No charter campaign has reached this person"
-msgstr "No charter campaign has reached this person"
-
-msgid "No policy campaign concerns this person"
-msgstr "No policy campaign concerns this person"
-
-#, php-format
-msgid "To read: %s"
-msgstr "To read: %s"
-
-#, php-format
-msgid "Last reviewed on %s"
-msgstr "Last reviewed on %s"
-
-msgid "In an open access review campaign"
-msgstr "In an open access review campaign"
-
-msgid "The access review campaign deadline has passed without a decision"
-msgstr "The access review campaign deadline has passed without a decision"
-
-#, php-format
-msgid "Last reviewed on %s, more than 12 months ago"
-msgstr "Last reviewed on %s, more than 12 months ago"
-
-msgid "No account issue"
-msgstr "No account issue"
-
-msgid "My security compliance"
-msgstr "My security compliance"
-
-msgid "Security compliance"
-msgstr "Security compliance"
-
-msgid "Personnel security compliance: notify managers of gaps"
-msgstr "Personnel security compliance: notify managers of gaps"
-
-#, php-format
-msgid "%d manager notification(s) raised for personnel compliance gaps."
-msgstr "%d manager notification(s) raised for personnel compliance gaps."
-
-msgid "Sent to the manager of a person when points of their security compliance record are past their deadline (automatic task, at most once a week, or button of the record)."
-msgstr "Sent to the manager of a person when points of their security compliance record are past their deadline (automatic task, at most once a week, or button of the record)."
-
-msgid "These points of the security compliance record of a member of your team are past their deadline. Nothing has been changed automatically: check them with the person and the CISO."
-msgstr "These points of the security compliance record of a member of your team are past their deadline. Nothing has been changed automatically: check them with the person and the CISO."
-
-msgid "View the security compliance record"
-msgstr "View the security compliance record"
-
-#, php-format
-msgid "%d person"
-msgid_plural "%d people"
-msgstr[0] "%d person"
-msgstr[1] "%d people"
-
-#, php-format
-msgid "%d mandatory training completed"
-msgid_plural "%d mandatory trainings completed"
-msgstr[0] "%d mandatory training completed"
-msgstr[1] "%d mandatory trainings completed"
-
-#, php-format
-msgid "%d policy acknowledged"
-msgid_plural "%d policies acknowledged"
-msgstr[0] "%d policy acknowledged"
-msgstr[1] "%d policies acknowledged"
-
-msgid "People tracked"
-msgstr "People tracked"

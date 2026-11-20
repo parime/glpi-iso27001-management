@@ -73,6 +73,8 @@ class Menu extends CommonGLPI
                 Maturity::class, FrameworkAssessment::class, ComplianceEvent::class,
                 // Issue #614 : contrôles de cohérence du SMSI avant un audit.
                 ConsistencyCheck::class,
+                // Issue #619 : préparation à la certification ISO 27001.
+                CertificationReadiness::class,
             ],
             // Appréciation et traitement des risques.
             Risk::class => [
