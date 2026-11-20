@@ -107,6 +107,10 @@ TemplateRenderer::getInstance()->display('@grcmanager/compliance_audit.html.twig
         $excludedStates
     ),
     'hygiene_url'  => \GlpiPlugin\Grcmanager\AccountHygiene::getSearchURL(),
+    // Issue #847 : page détaillée du chiffrement des disques.
+    'encryption_url' => \GlpiPlugin\Grcmanager\DiskEncryption::canView()
+        ? \GlpiPlugin\Grcmanager\DiskEncryption::getSearchURL()
+        : '',
     'maturity_url' => \GlpiPlugin\Grcmanager\Maturity::getSearchURL(),
     'soa_url'      => \GlpiPlugin\Grcmanager\Control::getSearchURL(),
 ]);

@@ -50,6 +50,26 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - colonnes `body_report_date`, `body_response_due_date`, `body_evidence_due_date` des audits et
     `correction`, `body_response_date`, `body_decision`, `body_feedback`, `body_evidence_date` des
     non-conformités (migration rejouable, supprimées avec les tables à la désinstallation).
+- **Chiffrement des disques du parc** (issue #847, mesures A.8.24 et A.8.1). Nouvelle page Sécurité
+  technique > « Chiffrement des disques », d'après les volumes remontés par l'agent d'inventaire de
+  GLPI (état, outil BitLocker, FileVault, LUKS, VeraCrypt..., algorithme) :
+  - taux d'ordinateurs entièrement chiffrés, partiellement chiffrés, non chiffrés ou d'état inconnu,
+    par entité, type d'ordinateur et lieu, et taux des portables et tablettes ;
+  - **règle réglable** « doit être chiffré » : tous les ordinateurs (par défaut, comme avant), les
+    portables et tablettes, ou les types choisis, plus un seuil de confidentialité de la
+    classification C/I/D ; droit de modifier le plugin, jeton CSRF, journal d'audit ;
+  - liste des écarts avec le dernier inventaire, l'outil et l'algorithme ; algorithme faible (DES,
+    RC4...) compté comme écart, algorithme ou mode ancien (diffuseur BitLocker, CBC) signalé ;
+  - **clé de récupération** : le plugin ne lit ni ne stocke jamais de clé, l'administrateur déclare
+    seulement qu'elle est sauvegardée (case et date) ;
+  - le contrôle technique « Postes avec un disque non chiffré » est étendu (règle, algorithme)
+    et un contrôle « Portables avec un disque non chiffré » (A.8.1) s'y ajoute, enregistrable comme
+    test d'efficacité ; preuve sur les fiches des mesures A.8.24 et A.8.1 ; carte du tableau de bord
+    « Ordinateurs à chiffrer qui le sont (%) » ; source de KRI « Portables avec un disque non chiffré
+    (%) » ; constat dans l'étape SoA de la préparation à la certification.
+  - Lecture seule des données de GLPI, entités de la session ; nouvelle table des déclarations,
+    supprimée à la désinstallation. Traductions (7 langues et variantes), tests unitaires et
+    d'intégration, matrice d'accès et contrôle XSS.
 - **Dossier de preuves exportable pour l'auditeur** (issue #868, clauses 7.5.3 et 9.2). Nouvelle
   page **Conformité > Dossier de preuves** : choix du périmètre (entité), aperçu du contenu, puis
   génération d'une archive ZIP qui contient :
