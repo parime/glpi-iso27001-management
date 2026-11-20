@@ -408,6 +408,29 @@ if (isset($_POST['update_calendar_token'])) {
     Html::back();
 }
 
+// Issue #546 : délai des nouveaux arrivants et poids de chaque composante de la fiche de
+// conformité sécurité d'un collaborateur.
+if (isset($_POST['update_personnel_compliance'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    $weights = $_POST['personnel_compliance_weights'] ?? [];
+    if (
+        \GlpiPlugin\Grcmanager\PersonnelCompliance::saveSettings(
+            $_POST['personnel_compliance_days'] ?? null,
+            is_array($weights) ? $weights : []
+        )
+    ) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => [
+                'personnel_compliance_days'    => \GlpiPlugin\Grcmanager\PersonnelCompliance::days(),
+                'personnel_compliance_weights' => \GlpiPlugin\Grcmanager\PersonnelCompliance::weights(),
+            ],
+        ]);
+    }
+
+    Html::back();
+}
+
 // Issue #611 : circuit d'approbation des politiques de sécurité par la direction.
 if (isset($_POST['update_policy_approval'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
@@ -635,6 +658,8 @@ Html::header(
     'kri_alert_levels'          => \GlpiPlugin\Grcmanager\KriAlert::getLevels(),
     // Issue #664 : durée de vie des liens d'abonnement au calendrier.
     'calendar_token_lifetime'   => \GlpiPlugin\Grcmanager\CalendarToken::lifetimeDays(),
+    // Issue #546 : fiche de conformité sécurité d'un collaborateur.
+    'personnel_compliance'      => \GlpiPlugin\Grcmanager\PersonnelCompliance::configData(),
     'calendar_token_bounds'     => [
         \GlpiPlugin\Grcmanager\CalendarToken::MIN_LIFETIME_DAYS,
         \GlpiPlugin\Grcmanager\CalendarToken::MAX_LIFETIME_DAYS,

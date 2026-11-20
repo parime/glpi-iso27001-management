@@ -381,6 +381,8 @@ final class Installer
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
     // Issue #664 : jetons dédiés au lien d'abonnement du calendrier, voir \GlpiPlugin\Grcmanager\CalendarToken.
     private const CALENDAR_TOKENS_TABLE = 'glpi_plugin_grcmanager_calendartokens';
+    // Issue #546 : fiche de conformité sécurité d'un collaborateur, voir \GlpiPlugin\Grcmanager\PersonnelCompliance.
+    private const PERSONNEL_COMPLIANCES_TABLE = 'glpi_plugin_grcmanager_personnelcompliances';
     // Issue #160 : vulnérabilités du parc, voir GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync.
     private const IGNORED_SOFTWARES_TABLE = 'glpi_plugin_grcmanager_ignoredsoftwares';
     private const PARK_VERSION_CHECKS_TABLE = 'glpi_plugin_grcmanager_parkversionchecks';
@@ -1628,6 +1630,24 @@ final class Installer
                 `date_expiration` timestamp NULL DEFAULT NULL,
                 `date_last_use` timestamp NULL DEFAULT NULL,
                 `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        // Issue #546 : éléments propres à la fiche de conformité d'un collaborateur (vérification
+        // préalable à l'embauche, engagement de confidentialité), statut et dates seulement ; la
+        // pièce justificative reste chez les RH. Une ligne par personne, créée à la première saisie.
+        if (!$DB->tableExists(self::PERSONNEL_COMPLIANCES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::PERSONNEL_COMPLIANCES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `screening_status` varchar(16) NOT NULL DEFAULT '' COMMENT 'vide, done, not_applicable',
+                `screening_date` date DEFAULT NULL,
+                `nda_date` date DEFAULT NULL COMMENT 'Engagement de confidentialite signe le',
+                `nda_version` varchar(64) NOT NULL DEFAULT '' COMMENT 'Version du modele signe',
+                `date_notified` timestamp NULL DEFAULT NULL COMMENT 'Derniere notification au responsable',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
@@ -3386,6 +3406,20 @@ final class Installer
             [
                 'comment' => 'Relance les personnes qui n\'ont pas pris connaissance d\'une politique a l\'echeance',
                 'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #546 : prévient chaque responsable des écarts de conformité de ses collaborateurs.
+        // Désactivée à l'installation : l'administrateur l'active une fois les fiches renseignées,
+        // pour ne pas envoyer d'un coup une notification par personne encore sans fiche.
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\PersonnelCompliance',
+            'personnelcompliancereminder',
+            7 * DAY_TIMESTAMP,
+            [
+                'comment' => 'Previent les responsables des ecarts de conformite securite de leurs collaborateurs',
+                'mode'    => CronTask::MODE_EXTERNAL,
+                'state'   => CronTask::STATE_DISABLE,
             ]
         );
 
@@ -5812,6 +5846,7 @@ final class Installer
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\ComplianceEvent');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\AccessReview');
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\PersonnelCompliance::class);
         $this->unseedNotification(\GlpiPlugin\Grcmanager\BreachExposure::class);
         $this->unseedNotification(\GlpiPlugin\Grcmanager\VulnerabilityDigest::class);
         $this->unseedNotification(\GlpiPlugin\Grcmanager\IncidentAccessWatch::class);
@@ -5909,6 +5944,7 @@ final class Installer
         $migration->dropTable(self::PROCESSING_ACTIVITIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
         $migration->dropTable(self::CALENDAR_TOKENS_TABLE);
+        $migration->dropTable(self::PERSONNEL_COMPLIANCES_TABLE);
         $migration->dropTable(self::IGNORED_SOFTWARES_TABLE);
         $migration->dropTable(self::PARK_VERSION_CHECKS_TABLE);
         $migration->dropTable(self::PARK_CVES_TABLE);

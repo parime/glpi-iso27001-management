@@ -467,6 +467,20 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'personnelcompliance' => [
+                'purpose'   => __(
+                    'Security compliance of each person: screening, confidentiality agreement, mandatory trainings, '
+                        . 'IT charter, security policies read, access review and account hygiene.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Follow up the gaps with the person and their manager; nothing is changed automatically. '
+                        . 'The deadline for newcomers and the weight of each component are set in the plugin '
+                        . 'configuration.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18', 'grcmanager'),
+            ],
             'periodicreview' => [
                 'purpose'  => __(
                     'Periodic reviews (backups, logs, rights, continuity plan...) scheduled as recurring tickets.',

@@ -1,0 +1,118 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #546 : onglet « Conformité sécurité » d'un utilisateur (et « Ma conformité sécurité » de ses préférences). #}
+{% import '@grcmanager/_personnel_compliance.html.twig' as pc %}
+{% if row is null %}
+   <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('This account is not active: no security compliance record.', 'grcmanager') }}</div>
+{% else %}
+   <div class="alert alert-info d-flex">
+      <i class="ti ti-help-circle me-2 mt-1"></i>
+      <div>
+         {% if own %}
+            {{ __('Here is what the security team expects from you: trainings, charter, policies to read. Each point must be done within %d days of your arrival or of the request. Nothing is changed automatically.', 'grcmanager')|format(days) }}
+         {% else %}
+            {{ __('Everything the plugin already tracks for this person, in one place. Each point must be done within %d days of the arrival or of the request (setting of the plugin configuration). A gap can be notified to the manager; nothing is changed automatically.', 'grcmanager')|format(days) }}
+         {% endif %}
+      </div>
+   </div>
+
+   <div class="row g-3 mb-3">
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted small">{{ __('Overall status', 'grcmanager') }}</div>
+            <div class="mt-1">{{ pc.state_badge(row.state) }}</div>
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted small">{{ __('Score', 'grcmanager') }}</div>
+            <div class="h2 mb-0">{{ row.score is null ? '-' : row.score ~ ' %' }}</div>
+            <div class="small text-muted">{{ __('%1$d of %2$d counted components compliant', 'grcmanager')|format(row.compliant, row.counted) }}</div>
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted small">{{ __('Arrival', 'grcmanager') }}</div>
+            <div class="h3 mb-0">{{ row.arrival_text ?: '-' }}</div>
+            <div class="small text-muted">{{ __('Start date of the account, or its creation date', 'grcmanager') }}</div>
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted small">{{ __('Manager', 'grcmanager') }}</div>
+            <div class="h3 mb-0">{{ supervisor ?: '-' }}</div>
+            {% if not supervisor and not own %}<div class="small text-muted">{{ __('Set the supervisor on the user form to allow notifications.', 'grcmanager') }}</div>{% endif %}
+         </div></div>
+      </div>
+   </div>
+
+   <div class="card mb-3">
+      <div class="card-body p-0">{{ pc.components_table(row) }}</div>
+      <div class="card-footer small text-muted">
+         <i class="ti ti-calculator me-1"></i>{{ __('Score: weight of the compliant components divided by the weight of the counted components. Not tracked and not applicable components are not counted.', 'grcmanager') }}
+      </div>
+   </div>
+
+   <div class="d-flex flex-wrap gap-2 mb-3">
+      <a class="btn btn-outline-secondary btn-sm" href="{{ export_url }}?users_id={{ row.id }}&amp;format=pdf"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export as PDF', 'grcmanager') }}</a>
+      <a class="btn btn-outline-secondary btn-sm" href="{{ export_url }}?users_id={{ row.id }}&amp;format=csv"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export as CSV', 'grcmanager') }}</a>
+      {% if list_url %}<a class="btn btn-outline-secondary btn-sm" href="{{ list_url }}"><i class="ti ti-list-check me-1"></i>{{ __('All personnel', 'grcmanager') }}</a>{% endif %}
+   </div>
+
+   {% if can_edit %}
+      <div class="card mb-3">
+         <div class="card-header"><h4 class="card-title mb-0"><i class="ti ti-pencil me-1"></i>{{ __('Screening and confidentiality agreement', 'grcmanager') }}</h4></div>
+         <div class="card-body">
+            <p class="text-muted small"><i class="ti ti-lock me-1"></i>{{ __('Only the status and the dates are recorded here. The supporting documents stay with HR: do not attach them.', 'grcmanager') }}</p>
+            <form method="post" action="{{ form_url }}">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="users_id" value="{{ row.id }}">
+               <div class="row g-3">
+                  <div class="col-md-3">
+                     <label class="form-label" for="grc-pc-screening">{{ __('Pre-employment screening', 'grcmanager') }} <span class="badge bg-blue-subtle text-blue-emphasis">A.6.1</span></label>
+                     <select class="form-select" id="grc-pc-screening" name="screening_status">
+                        {% for value, label in screening_statuses %}
+                           <option value="{{ value }}" {{ value == record.screening_status ? 'selected' }}>{{ label }}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+                  <div class="col-md-3">
+                     <label class="form-label" for="grc-pc-screening-date">{{ __('Screening date', 'grcmanager') }}</label>
+                     <input type="date" class="form-control" id="grc-pc-screening-date" name="screening_date" value="{{ record.screening_date }}">
+                  </div>
+                  <div class="col-md-3">
+                     <label class="form-label" for="grc-pc-nda-date">{{ __('Confidentiality agreement signed on', 'grcmanager') }} <span class="badge bg-blue-subtle text-blue-emphasis">A.6.6</span></label>
+                     <input type="date" class="form-control" id="grc-pc-nda-date" name="nda_date" value="{{ record.nda_date }}">
+                  </div>
+                  <div class="col-md-3">
+                     <label class="form-label" for="grc-pc-nda-version">{{ __('Template version', 'grcmanager') }}</label>
+                     <input type="text" class="form-control" id="grc-pc-nda-version" name="nda_version" maxlength="64" value="{{ record.nda_version }}" placeholder="{{ __('e.g. v2', 'grcmanager') }}">
+                  </div>
+               </div>
+               <button type="submit" name="save" value="1" class="btn btn-primary mt-3"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
+            </form>
+         </div>
+      </div>
+   {% endif %}
+
+   {% if can_notify %}
+      <form method="post" action="{{ form_url }}" class="d-flex align-items-center gap-2">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="users_id" value="{{ row.id }}">
+         <button type="submit" name="notify" value="1" class="btn btn-outline-warning"><i class="ti ti-bell-ringing me-1"></i>{{ __('Notify the manager of the gaps', 'grcmanager') }}</button>
+         {% if record.date_notified %}<span class="small text-muted">{{ __('Last notification: %s', 'grcmanager')|format(record.date_notified|formatted_datetime) }}</span>{% endif %}
+      </form>
+   {% endif %}
+{% endif %}

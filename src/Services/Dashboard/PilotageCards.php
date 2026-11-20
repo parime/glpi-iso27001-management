@@ -280,6 +280,17 @@ final class PilotageCards
         ];
     }
 
+    /**
+     * Issue #546 : part des collaborateurs sans écart de conformité sécurité (fiche de conformité).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function personnelComplianceRate(array $params = []): array
+    {
+        return \GlpiPlugin\Grcmanager\PersonnelCompliance::dashboardCard($params);
+    }
+
     public static function accessReviewProgress(array $params = []): array
     {
         global $DB;
