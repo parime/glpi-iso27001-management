@@ -7,6 +7,33 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Exercices de reprise : type d'exercice, RPO mesuré, programme de tests et historique par
+  élément** (issue #733, ISO 27001 A.5.30, ISO 22301 8.5). Ce que l'auditeur regarde pour la
+  préparation des TIC à la continuité :
+  - **type d'exercice** (sur table, fonctionnel, test technique de restauration, grandeur nature),
+    choisi au lancement d'un exercice de crise, modifiable dans la salle de crise jusqu'à la
+    validation du bilan, repris par les tests de reprise saisis pendant l'exercice ; liste réglable
+    dans la configuration du plugin (types par défaut cochés, types propres un par ligne) ;
+  - **perte de données mesurée** (RPO mesuré) à côté du temps de reprise, comparée au RPO du
+    processus et, si un **élément testé** est désigné parmi ses dépendances, aux objectifs de cet
+    élément ; un dernier test au-delà du RPO est signalé dans la BIA et la stratégie de reprise ;
+  - **programme de tests** : fréquence propre à chaque processus (sinon celle de la revue
+    périodique), prochaine échéance et **couverture sur quatre ans** (badge selon le résultat du
+    dernier test de l'année) dans l'onglet « Stratégie de reprise », et vue **Programme des tests de
+    reprise** depuis la liste des processus métier (en retard, non testés cette année, hors
+    objectifs) ;
+  - la tâche `businessprocessreminder` signale aussi les processus jamais testés, une période après
+    leur création (notification uniquement, aucune modification ; à la mise à jour, l'état actuel
+    est tenu pour rappelé) ;
+  - **historique sur l'élément** : l'onglet « Processus métier » d'un serveur, d'une application...
+    liste les tests de reprise qui l'ont couvert et leur résultat ;
+  - colonnes `exercise_type`, `measured_rpo_minutes`, `itemtype`, `items_id` des tests de reprise,
+    `recovery_test_months` des processus et `exercise_type` des exercices (supprimées avec leurs
+    tables à la désinstallation), réglage `recovery_exercise_types`. Un élément ou un exercice
+    illisible n'est jamais nommé ; traductions dans les 7 langues ; tutoriel, étape 30 bis.
+
 ## [2.70.0] - 2026-11-20
 
 ## [2.69.0] - 2026-11-20

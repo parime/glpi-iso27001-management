@@ -26827,3 +26827,147 @@ msgstr "Avisar antes de que caduque una licencia (días, 0 para desactivar)"
 #, php-format
 msgid "Warning %d days before a license expires."
 msgstr "Aviso %d días antes de que caduque una licencia."
+
+msgid "The exercise type could not be changed."
+msgstr "No se ha podido cambiar el tipo de ejercicio."
+
+msgid "The data loss measured at the last test exceeds the RPO."
+msgstr "La pérdida de datos medida en la última prueba supera el RPO."
+
+msgid "Tabletop exercise"
+msgstr "Ejercicio de mesa"
+
+msgid "Functional exercise"
+msgstr "Ejercicio funcional"
+
+msgid "Technical restore test"
+msgstr "Prueba técnica de restauración"
+
+msgid "Full-scale exercise"
+msgstr "Simulacro a escala real"
+
+msgid "Not scheduled"
+msgstr "No planificado"
+
+msgid "Objectives met"
+msgstr "Objetivos cumplidos"
+
+msgid "Objectives missed"
+msgstr "Objetivos no cumplidos"
+
+msgid "Not tested"
+msgstr "No probado"
+
+msgid "Recovery test programme: when each business process was last tested, whether the test met its RTO and RPO, and which processes are not tested in time."
+msgstr "Programa de pruebas de recuperación: cuándo se probó por última vez cada proceso de negocio, si la prueba cumplió su RTO y su RPO, y qué procesos no se prueban a tiempo."
+
+msgid "Plan a test for each process reported as overdue or not tested this year, then record the measured recovery time and data loss in its \"Recovery strategy\" tab. Show this view to the auditor as evidence that ICT continuity is tested regularly."
+msgstr "Planifique una prueba para cada proceso señalado como atrasado o no probado este año y registre el tiempo de recuperación y la pérdida de datos medidos en su pestaña «Estrategia de recuperación». Muestre esta vista al auditor como prueba de que la continuidad de las TIC se prueba con regularidad."
+
+msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
+msgstr "ISO 22301, 8.5; ISO 27001, anexo A 5.30"
+
+msgid "Recovery test programme"
+msgstr "Programa de pruebas de recuperación"
+
+msgid "All business processes"
+msgstr "Todos los procesos de negocio"
+
+msgid "Each year shows the result of the last test of that year."
+msgstr "Cada año muestra el resultado de la última prueba de ese año."
+
+msgid "Last test missed the objectives"
+msgstr "La última prueba no cumplió los objetivos"
+
+msgid "Next test due"
+msgstr "Próxima prueba prevista"
+
+msgid "No business process you can see. Create your business processes first, then record their recovery tests."
+msgstr "No hay ningún proceso de negocio visible. Cree primero sus procesos de negocio y luego registre sus pruebas de recuperación."
+
+msgid "Not tested this year"
+msgstr "No probados este año"
+
+msgid "Test overdue"
+msgstr "Prueba atrasada"
+
+msgid "Other types (one per line)"
+msgstr "Otros tipos (uno por línea)"
+
+msgid "Types of recovery exercise"
+msgstr "Tipos de ejercicio de recuperación"
+
+msgid "Types offered when starting a crisis exercise or recording a recovery test. Untick a type you do not use, and add your own types, one per line."
+msgstr "Tipos propuestos al iniciar un ejercicio de crisis o al registrar una prueba de recuperación. Desmarque un tipo que no utilice y añada sus propios tipos, uno por línea."
+
+msgid "Type of exercise"
+msgstr "Tipo de ejercicio"
+
+msgid "Above the RPO"
+msgstr "Por encima del RPO"
+
+msgid "Data loss (minutes)"
+msgstr "Pérdida de datos (minutos)"
+
+msgid "Measured data loss"
+msgstr "Pérdida de datos medida"
+
+msgid "The data loss (time between the last usable backup and the incident) is compared with its RPO; leave it empty if it was not measured, enter 0 if no data was lost."
+msgstr "La pérdida de datos (tiempo entre la última copia de seguridad utilizable y el incidente) se compara con su RPO; déjela vacía si no se midió e indique 0 si no se perdió ningún dato."
+
+msgid "0: use the frequency of the periodic review."
+msgstr "0: usar la frecuencia de la revisión periódica."
+
+msgid "A process that is not tested in time is reported to its owner and to the CISO group by an automatic action; nothing is changed automatically."
+msgstr "Un proceso que no se prueba a tiempo se notifica a su responsable y al grupo CISO mediante una acción automática; no se modifica nada automáticamente."
+
+msgid "Above the objectives of the item tested"
+msgstr "Por encima de los objetivos del elemento probado"
+
+msgid "Coverage by year"
+msgstr "Cobertura por año"
+
+#, php-format
+msgid "Every %d months (frequency of the periodic review of continuity tests)."
+msgstr "Cada %d meses (frecuencia de la revisión periódica de las pruebas de continuidad)."
+
+#, php-format
+msgid "Every %d months (frequency set on this process)."
+msgstr "Cada %d meses (frecuencia definida en este proceso)."
+
+msgid "Item tested"
+msgstr "Elemento probado"
+
+msgid "Test frequency (months)"
+msgstr "Frecuencia de prueba (meses)"
+
+msgid "Test programme"
+msgstr "Programa de pruebas"
+
+msgid "The whole process"
+msgstr "El proceso completo"
+
+msgid "Within the RPO"
+msgstr "Dentro del RPO"
+
+msgid "No recovery test has covered this item yet."
+msgstr "Ninguna prueba de recuperación ha cubierto todavía este elemento."
+
+#, php-format
+msgid "Only the %d most recent tests are listed."
+msgstr "Solo se muestran las %d pruebas más recientes."
+
+msgid "Recovery tests that covered this item"
+msgstr "Pruebas de recuperación que han cubierto este elemento"
+
+msgid "Tests that named this item, and tests of the business processes that depend on it. Record a test from the \"Recovery strategy\" tab of the process."
+msgstr "Pruebas que designaron este elemento y pruebas de los procesos de negocio que dependen de él. Registre una prueba desde la pestaña «Estrategia de recuperación» del proceso."
+
+msgid "This item was tested"
+msgstr "Este elemento fue probado"
+
+#, php-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] "%d mes"
+msgstr[1] "%d meses"

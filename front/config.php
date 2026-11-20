@@ -492,6 +492,21 @@ if (isset($_POST['update_operating_procedures'])) {
     Html::back();
 }
 
+// Issue #733 : types des exercices de reprise : types par défaut cochés, puis types propres à
+// l'organisation, un par ligne (RecoveryExerciseRules::fromForm()).
+if (isset($_POST['update_recovery_exercise_types'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    \GlpiPlugin\Grcmanager\BusinessProcessRecovery::saveExerciseTypes(
+        \GlpiPlugin\Grcmanager\Services\Continuity\RecoveryExerciseRules::fromForm(
+            (array) ($_POST['recovery_exercise_types'] ?? []),
+            is_string($_POST['recovery_exercise_others'] ?? null) ? $_POST['recovery_exercise_others'] : ''
+        )
+    );
+
+    Html::back();
+}
+
 // Issue #658 : adresses internes pour les appels sortants. Réglage global (toutes les entités),
 // réservé au droit de modifier la configuration générale de GLPI.
 if (isset($_POST['update_http_config'])) {
@@ -736,6 +751,8 @@ Html::header(
     ],
     // Issue #775 : domaines attendus des procédures d'exploitation (A.5.37).
     'operating_procedures'      => \GlpiPlugin\Grcmanager\OperatingProcedure::configForm(),
+    // Issue #733 : types des exercices de reprise.
+    'recovery_exercise_types'   => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::typesConfigForm(),
     'policy_approval_user_dropdown' => User::dropdown([
         'name'     => 'policy_approval_users[]',
         'value'    => array_column(array_filter(

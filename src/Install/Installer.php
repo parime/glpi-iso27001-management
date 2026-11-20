@@ -3077,6 +3077,33 @@ final class Installer
             $migration->migrationOneTable(self::BUSINESS_PROCESSES_TABLE);
             \GlpiPlugin\Grcmanager\BusinessProcessReminder::run(date('Y-m-d'), false);
         }
+        // Issue #733 : exercices de reprise. Type d'exercice, perte de données mesurée (RPO mesuré, NULL :
+        // non mesurée) et élément concerné de chaque test ; fréquence de test propre au processus
+        // (0 : fréquence de la revue périodique). Un processus jamais testé est désormais rappelé : à la
+        // mise à jour, l'état actuel est tenu pour rappelé (pas de rafale de rappels).
+        foreach (
+            [
+                'exercise_type'        => "varchar(64) NOT NULL DEFAULT '' COMMENT 'Type d exercice'",
+                'measured_rpo_minutes' => "int DEFAULT NULL COMMENT 'Perte de donnees en minutes, NULL = non mesuree'",
+                'itemtype'             => "varchar(100) NOT NULL DEFAULT '' COMMENT 'Element teste, facultatif'",
+                'items_id'             => "int {$keySign} NOT NULL DEFAULT 0",
+            ] as $field => $definition
+        ) {
+            if (!$DB->fieldExists(self::BUSINESS_PROCESS_RECOVERIES_TABLE, $field, false)) {
+                $DB->doQuery(
+                    'ALTER TABLE `' . self::BUSINESS_PROCESS_RECOVERIES_TABLE . '` ADD `' . $field . '` ' . $definition
+                );
+            }
+        }
+        $migration->addKey(self::BUSINESS_PROCESS_RECOVERIES_TABLE, ['itemtype', 'items_id'], 'item');
+        $migration->migrationOneTable(self::BUSINESS_PROCESS_RECOVERIES_TABLE);
+        if (!$DB->fieldExists(self::BUSINESS_PROCESSES_TABLE, 'recovery_test_months', false)) {
+            $DB->doQuery(
+                'ALTER TABLE `' . self::BUSINESS_PROCESSES_TABLE . '` ADD `recovery_test_months` int NOT NULL DEFAULT 0'
+                    . " COMMENT 'Frequence de test de reprise en mois, 0 = revue periodique'"
+            );
+            \GlpiPlugin\Grcmanager\BusinessProcessReminder::run(date('Y-m-d'), false);
+        }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENT_COSTS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_COSTS_TABLE . "` (
@@ -3377,6 +3404,8 @@ final class Installer
             [
                 'validated_at'       => 'timestamp NULL DEFAULT NULL',
                 'users_id_validator' => "int {$keySign} NOT NULL DEFAULT 0",
+                // Issue #733 : type d'exercice (sur table, fonctionnel, restauration, grandeur nature...).
+                'exercise_type'      => "varchar(64) NOT NULL DEFAULT ''",
             ] as $field => $definition
         ) {
             if (!$DB->fieldExists(self::CRISIS_EXERCISES_TABLE, $field, false)) {
