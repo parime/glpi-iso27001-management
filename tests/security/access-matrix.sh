@@ -306,10 +306,18 @@ contains "liste de diffusion du modele : contact de B" "Partie securite B" $SEE_
   "$(tab 'GlpiPlugin%5CGrcmanager%5CCrisisMessageTemplate' 'GlpiPlugin%5CGrcmanager%5CCrisisMessageRecipient$1' "$(id crisis_template)")"
 # Tracer une communication exige de pouvoir modifier l'incident (rien n'est envoye).
 RECORD_A=403; case $ROLE in limited|admin) RECORD_A=302 ;; esac
-expect "communication de crise tracee sur l'incident de A" $RECORD_A \
-  "$(code -d "record=1&itemtype=PluginGrcmanagerSecurityIncident&items_id=$(id incident_A)&plugin_grcmanager_crisismessagetemplates_id=$(id crisis_template)&subject=x&body=y&other_recipients=Direction&_glpi_csrf_token=$(csrf)" "$P/crisiscommunication.form.php")"
-expect "communication de crise tracee sur l'incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
-  "$(code -d "record=1&itemtype=PluginGrcmanagerSecurityIncident&items_id=$(id incident_B)&plugin_grcmanager_crisismessagetemplates_id=$(id crisis_template)&subject=x&body=y&other_recipients=Direction&_glpi_csrf_token=$(csrf)" "$P/crisiscommunication.form.php")"
+crisis_record() { # incident, [jeton CSRF : oui|non]
+  local token="&_glpi_csrf_token=$(csrf)"
+  [ "${2:-oui}" = non ] && token=
+  code -d "record=1&itemtype=PluginGrcmanagerSecurityIncident&items_id=$1&plugin_grcmanager_crisismessagetemplates_id=$(id crisis_template)&subject=x&body=y&other_recipients=Direction$token" \
+    "$BASE/plugins/grcmanager/front/crisiscommunication.form.php"
+}
+expect "front/crisiscommunication.form.php : trace sur l'incident de A" $RECORD_A "$(crisis_record "$(id incident_A)")"
+expect "front/crisiscommunication.form.php : trace sur l'incident de B (autre entite)" \
+  "$([ "$ROLE" = admin ] && echo 302 || echo 403)" "$(crisis_record "$(id incident_B)")"
+expect "front/crisiscommunication.form.php : trace sans jeton CSRF" 403 "$(crisis_record "$(id incident_A)" non)"
+expect "front/crisiscommunication.form.php : sans action (GET)" 400 \
+  "$(code "$BASE/plugins/grcmanager/front/crisiscommunication.form.php")"
 official=$(curl -s -c "$JAR" -b "$JAR" "$P/officialcontact.php")
 contains "registre des contacts officiels : contact de B" "Partie securite B" $SEE_B "$official"
 contains "page du tableau de bord, vue incidents : grille" "\"current\":\"grcmanager-security-incidents\"" $SEE_INCIDENTS \
