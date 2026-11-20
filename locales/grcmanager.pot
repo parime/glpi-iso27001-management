@@ -27128,3 +27128,484 @@ msgstr ""
 #: front/businessprocessrisk.form.php:67
 msgid "Risk linked to the process, to be assessed in the register."
 msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/_crisis_communication_summary.html.twig
+#: src/CrisisCommunication.php:62 src/SecurityIncidentPostMortem.php:143
+msgid "Crisis communication"
+msgid_plural "Crisis communications"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid ""
+"Prepare the message from a template, then copy it or export it and send it "
+"yourself from your usual mail client. The plugin never sends anything. Once "
+"sent, record the communication: date, author and recipients are kept as "
+"evidence."
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid ""
+"Exercise incident: use the templates to train, and say clearly in the "
+"message that it is an exercise."
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Prepare a message"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "No active message template."
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+#: templates/_crisis_communication_summary.html.twig
+msgid "Open the message templates"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Message template"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "suggested for this situation"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+#: templates/crisis_message_template_form.html.twig
+msgid "Message"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid ""
+"Check and complete the message before sending it: replace each \"[to be "
+"completed]\"."
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "This template has no distribution list yet."
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "No address recorded"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+#: templates/tabs/crisis_message_recipients.html.twig
+#, php-format
+msgid "%d recipient not shown (outside your entities or rights)."
+msgid_plural "%d recipients not shown (outside your entities or rights)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Other recipients (one per line)"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Copy the message"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Copy the email addresses"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Export (.eml file)"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Copied"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Sent on"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Record as sent"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Record the communication only after you have sent it yourself."
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "Communications made"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid "No communication recorded yet."
+msgstr ""
+
+#: templates/crisis_message_template_list_header.html.twig
+msgid "New message template"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid ""
+"People and organizations to inform with this message. Internal recipients "
+"are GLPI users and groups; external recipients are the official contacts of "
+"the organization context. The plugin never sends the message: it only "
+"prepares it."
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Add a user"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid ""
+"An external recipient missing from the list? Record it first in the register "
+"of official contacts."
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "No recipient yet."
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Address or contact details"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Remove this recipient?"
+msgstr ""
+
+#: templates/_crisis_communication_summary.html.twig
+#, php-format
+msgid "%d active message template"
+msgid_plural "%d active message templates"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_crisis_communication_summary.html.twig
+#, php-format
+msgid "%d template without recipients"
+msgid_plural "%d templates without recipients"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_crisis_communication_summary.html.twig
+#, php-format
+msgid "No template for: %s"
+msgstr ""
+
+#: templates/_crisis_communication_summary.html.twig
+#, php-format
+msgid "%d communication recorded within 12 months"
+msgid_plural "%d communications recorded within 12 months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_message_template_form.html.twig
+msgid "Example: \"Ransomware: instructions to staff\"."
+msgstr ""
+
+#: templates/crisis_message_template_form.html.twig
+msgid "The template is suggested first on incidents of this situation."
+msgstr ""
+
+#: templates/crisis_message_template_form.html.twig
+#: src/CrisisMessageTemplate.php:245
+msgid "Stage"
+msgstr ""
+
+#: templates/crisis_message_template_form.html.twig
+#: src/CrisisMessageTemplate.php:246
+msgid "Audience"
+msgstr ""
+
+#: templates/crisis_message_template_form.html.twig
+msgid ""
+"Write the variables between braces: they are replaced with the values of the "
+"incident when the message is prepared. A variable without a value becomes "
+"\"[to be completed]\"."
+msgstr ""
+
+#: templates/crisis_message_template_form.html.twig
+#, php-format
+msgid "Unknown variables, left as they are: %s"
+msgstr ""
+
+#: templates/crisis_message_template_form.html.twig
+msgid "Variables"
+msgstr ""
+
+#: src/CrisisMessageRecipient.php:55
+msgid "Distribution list"
+msgid_plural "Distribution lists"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/CrisisMessageRecipient.php:132
+#, php-format
+msgid "%d member"
+msgid_plural "%d members"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/CrisisCommunication.php:208
+msgid "[to be completed]"
+msgstr ""
+
+#: src/CrisisCommunication.php:296
+msgid "You are not allowed to record a communication on this item."
+msgstr ""
+
+#: src/CrisisCommunication.php:301
+msgid "Choose an active message template."
+msgstr ""
+
+#: src/CrisisCommunication.php:306
+msgid "The subject and the message are required."
+msgstr ""
+
+#: src/CrisisCommunication.php:320
+msgid "Tick or type at least one recipient."
+msgstr ""
+
+#: src/CrisisCommunication.php:325
+msgid "The date of the communication is invalid or in the future."
+msgstr ""
+
+#: src/CrisisCommunication.php:340
+msgid "The communication could not be recorded."
+msgstr ""
+
+#: src/CrisisCommunication.php:362
+#, php-format
+msgid "Crisis communication made on %1$s: \"%2$s\"."
+msgstr ""
+
+#: src/CrisisCommunication.php:366 src/SecurityIncidentPostMortem.php:145
+#, php-format
+msgid "Recipients: %s"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:46
+msgid "Crisis message template"
+msgid_plural "Crisis message templates"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/CrisisMessageTemplate.php:60
+msgid "Major incident"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:62
+msgid "Service unavailability"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:74
+msgid "First message"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:75
+msgid "Situation update"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:76
+msgid "End of crisis"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:99
+msgid "Reference of the incident (SEC-YYYY-NNNN)"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:100
+msgid "Title of the incident or of the breach"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:101
+msgid "Type of incident"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:103
+msgid "Date and time of detection"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:104
+msgid "Affected systems (items linked to the incident)"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:106
+msgid "Person preparing the message"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:107
+msgid "Current date and time"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:108
+msgid "Time of the next communication (to be completed)"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:156
+msgid "The template name is required."
+msgstr ""
+
+#: src/PageHelp.php:768
+msgid ""
+"Crisis message templates: the messages prepared in advance for each kind of "
+"crisis (major incident, personal data breach, unavailability, ransomware), "
+"with the people and organizations to inform for each one."
+msgstr ""
+
+#: src/PageHelp.php:774
+msgid ""
+"Adapt the templates provided and fill in the distribution list of each one "
+"(users, groups and official contacts). During a crisis, open the Crisis "
+"communication tab of the incident: the message is filled in from the "
+"incident, you send it yourself, then record it. The plugin never sends any "
+"email."
+msgstr ""
+
+#: src/PageHelp.php:780
+msgid "ISO/IEC 27001, control A.5.26 and clause 7.4"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:39
+msgid "Major incident: first internal message"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:40
+msgid "[{reference}] Security incident in progress: {title}"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:42
+msgid ""
+"Hello,\n"
+"\n"
+"A security incident is in progress: {title} (reference {reference}), "
+"detected on {detection_date}.\n"
+"Affected systems: {affected_systems}.\n"
+"\n"
+"The crisis team is handling it. Until further notice:\n"
+"- do not switch off or restart the affected equipment;\n"
+"- report anything unusual to the IT department;\n"
+"- do not talk about the incident outside the organization.\n"
+"\n"
+"Next update: {next_update}.\n"
+"\n"
+"{author}"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:54
+msgid "Data breach: information of the people concerned"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:55
+msgid "Information about an incident affecting your personal data"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:57
+msgid ""
+"Hello,\n"
+"\n"
+"On {detection_date}, we became aware of an incident affecting personal data "
+"that concern you (reference {reference}).\n"
+"\n"
+"What happened: {title}.\n"
+"Measures taken: [to be completed].\n"
+"What we recommend: [to be completed, for example change your password and be "
+"wary of unexpected messages].\n"
+"\n"
+"For any question, you can contact our data protection officer: [contact "
+"details].\n"
+"\n"
+"We apologize for this inconvenience.\n"
+"\n"
+"{author}"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:70
+msgid "Unavailability: message to users and customers"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:71
+msgid "[{reference}] Service disruption: {affected_systems}"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:73
+msgid ""
+"Hello,\n"
+"\n"
+"Since {detection_date}, the following services are unavailable or disrupted: "
+"{affected_systems}.\n"
+"\n"
+"Our teams are working to restore them and we will keep you informed of the "
+"progress.\n"
+"\n"
+"Next update: {next_update}.\n"
+"\n"
+"{author}"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:83
+msgid "Ransomware: instructions to staff"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:85
+msgid "[{reference}] URGENT: cyber attack in progress, instructions to follow"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:89
+msgid ""
+"Hello,\n"
+"\n"
+"A ransomware attack was detected on {detection_date}. Affected systems: "
+"{affected_systems}.\n"
+"\n"
+"Instructions, effective immediately:\n"
+"- do not switch off your computer, but unplug its network cable or turn off "
+"its Wi-Fi;\n"
+"- do not open attachments or links, even from a known sender;\n"
+"- do not use removable media (USB keys, external drives);\n"
+"- call the IT department at once if a message asks for a ransom or if your "
+"files no longer open.\n"
+"\n"
+"Do not talk about the incident outside the organization: the crisis team is "
+"the only point of contact.\n"
+"\n"
+"Next update: {next_update}.\n"
+"\n"
+"{author}"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:104
+msgid "Major incident: end of crisis"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:105
+msgid "[{reference}] End of the incident: {title}"
+msgstr ""
+
+#: src/Services/Crisis/CrisisMessageDefaults.php:107
+msgid ""
+"Hello,\n"
+"\n"
+"The security incident {reference} ({title}) is now under control and the "
+"services have been restored.\n"
+"\n"
+"Thank you for your patience and cooperation. A review will be carried out to "
+"learn lessons from it.\n"
+"\n"
+"Remain vigilant and report anything unusual to the IT department.\n"
+"\n"
+"{author}"
+msgstr ""
+
+#: inc/securityincident.class.php:121
+msgid "Crisis message templates"
+msgstr ""
+
+#: front/crisismessagerecipient.form.php:35
+msgid "This recipient cannot be added."
+msgstr ""
+
+#: front/crisiscommunication.form.php:36
+msgid "Communication recorded."
+msgstr ""

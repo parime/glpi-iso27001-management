@@ -526,6 +526,14 @@
       {{ fields.htmlField('', official_contacts_html, __('Register of official contacts', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #616 : communication de crise (A.5.26), modèles, listes de diffusion et traces. #}
+   {% if crisis_communication is defined and crisis_communication is not null %}
+      {% set crisis_communication_html %}
+         {% include '@grcmanager/_crisis_communication_summary.html.twig' with {'summary': crisis_communication} only %}
+      {% endset %}
+      {{ fields.htmlField('', crisis_communication_html, __('Crisis communication', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #775 : procédures d'exploitation (A.5.37), couverture des domaines attendus. #}
    {% if operating_procedures is defined and operating_procedures is not null %}
       {% set operating_procedures_html %}

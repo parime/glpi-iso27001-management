@@ -23176,3 +23176,409 @@ msgstr "Wtyczka nie śledzi własnego statusu %1$d środków ramy %2$s. Ich stat
 
 msgid "To assess NIS2 on the measures of a national framework (for example ReCyF in France), import it as a custom framework and enable it: it is then assessed on its own requirements."
 msgstr "Aby ocenić NIS2 na podstawie środków ramy krajowej (na przykład ReCyF we Francji), zaimportuj ją jako własną ramę odniesienia i włącz ją: będzie wtedy oceniana na podstawie własnych wymagań."
+
+msgid "Crisis communication"
+msgid_plural "Crisis communications"
+msgstr[0] "Komunikacja kryzysowa"
+msgstr[1] "Komunikacje kryzysowe"
+msgstr[2] "Komunikacji kryzysowych"
+
+msgid "Prepare the message from a template, then copy it or export it and send it yourself from your usual mail client. The plugin never sends anything. Once sent, record the communication: date, author and recipients are kept as evidence."
+msgstr "Przygotuj wiadomość na podstawie szablonu, a następnie skopiuj ją lub wyeksportuj i wyślij samodzielnie ze swojego programu pocztowego. Wtyczka nigdy niczego nie wysyła. Po wysłaniu zarejestruj komunikację: data, autor i odbiorcy są zachowywani jako dowód."
+
+msgid "Exercise incident: use the templates to train, and say clearly in the message that it is an exercise."
+msgstr "Incydent ćwiczeniowy: ćwicz z użyciem szablonów i wyraźnie zaznacz w wiadomości, że jest to ćwiczenie."
+
+msgid "Prepare a message"
+msgstr "Przygotuj wiadomość"
+
+msgid "No active message template."
+msgstr "Brak aktywnego szablonu wiadomości."
+
+msgid "Open the message templates"
+msgstr "Otwórz szablony wiadomości"
+
+msgid "Message template"
+msgstr "Szablon wiadomości"
+
+msgid "suggested for this situation"
+msgstr "zalecany w tej sytuacji"
+
+msgid "Message"
+msgstr "Wiadomość"
+
+msgid "Check and complete the message before sending it: replace each \"[to be completed]\"."
+msgstr "Sprawdź i uzupełnij wiadomość przed wysłaniem: zastąp każde „[do uzupełnienia]”."
+
+msgid "This template has no distribution list yet."
+msgstr "Ten szablon nie ma jeszcze listy dystrybucyjnej."
+
+msgid "No address recorded"
+msgstr "Brak zapisanego adresu"
+
+msgid "%d recipient not shown (outside your entities or rights)."
+msgid_plural "%d recipients not shown (outside your entities or rights)."
+msgstr[0] "%d odbiorca niewyświetlony (poza Twoimi jednostkami lub uprawnieniami)."
+msgstr[1] "%d odbiorców niewyświetlonych (poza Twoimi jednostkami lub uprawnieniami)."
+msgstr[2] "%d odbiorców niewyświetlonych (poza Twoimi jednostkami lub uprawnieniami)."
+
+msgid "Other recipients (one per line)"
+msgstr "Inni odbiorcy (jeden w wierszu)"
+
+msgid "Copy the message"
+msgstr "Kopiuj wiadomość"
+
+msgid "Copy the email addresses"
+msgstr "Kopiuj adresy e-mail"
+
+msgid "Export (.eml file)"
+msgstr "Eksportuj (plik .eml)"
+
+msgid "Copied"
+msgstr "Skopiowano"
+
+msgid "Sent on"
+msgstr "Wysłano"
+
+msgid "Record as sent"
+msgstr "Zarejestruj jako wysłane"
+
+msgid "Record the communication only after you have sent it yourself."
+msgstr "Rejestruj komunikację dopiero po jej samodzielnym wysłaniu."
+
+msgid "Communications made"
+msgstr "Przeprowadzone komunikacje"
+
+msgid "No communication recorded yet."
+msgstr "Nie zarejestrowano jeszcze żadnej komunikacji."
+
+msgid "New message template"
+msgstr "Nowy szablon wiadomości"
+
+msgid "People and organizations to inform with this message. Internal recipients are GLPI users and groups; external recipients are the official contacts of the organization context. The plugin never sends the message: it only prepares it."
+msgstr "Osoby i organizacje, które należy poinformować tą wiadomością. Odbiorcy wewnętrzni to użytkownicy i grupy GLPI; odbiorcy zewnętrzni to oficjalne kontakty z kontekstu organizacji. Wtyczka nigdy nie wysyła wiadomości: jedynie ją przygotowuje."
+
+msgid "Add a user"
+msgstr "Dodaj użytkownika"
+
+msgid "An external recipient missing from the list? Record it first in the register of official contacts."
+msgstr "Brakuje odbiorcy zewnętrznego na liście? Najpierw zarejestruj go w rejestrze oficjalnych kontaktów."
+
+msgid "No recipient yet."
+msgstr "Brak odbiorców."
+
+msgid "Address or contact details"
+msgstr "Adres lub dane kontaktowe"
+
+msgid "Remove this recipient?"
+msgstr "Usunąć tego odbiorcę?"
+
+msgid "%d active message template"
+msgid_plural "%d active message templates"
+msgstr[0] "%d aktywny szablon wiadomości"
+msgstr[1] "%d aktywne szablony wiadomości"
+msgstr[2] "%d aktywnych szablonów wiadomości"
+
+msgid "%d template without recipients"
+msgid_plural "%d templates without recipients"
+msgstr[0] "%d szablon bez odbiorców"
+msgstr[1] "%d szablony bez odbiorców"
+msgstr[2] "%d szablonów bez odbiorców"
+
+msgid "No template for: %s"
+msgstr "Brak szablonu dla: %s"
+
+msgid "%d communication recorded within 12 months"
+msgid_plural "%d communications recorded within 12 months"
+msgstr[0] "%d komunikacja zarejestrowana w ciągu 12 miesięcy"
+msgstr[1] "%d komunikacje zarejestrowane w ciągu 12 miesięcy"
+msgstr[2] "%d komunikacji zarejestrowanych w ciągu 12 miesięcy"
+
+msgid "Example: \"Ransomware: instructions to staff\"."
+msgstr "Przykład: „Ransomware: instrukcje dla personelu”."
+
+msgid "The template is suggested first on incidents of this situation."
+msgstr "Szablon jest proponowany jako pierwszy przy incydentach tego rodzaju."
+
+msgid "Stage"
+msgstr "Etap"
+
+msgid "Audience"
+msgstr "Odbiorcy"
+
+msgid "Write the variables between braces: they are replaced with the values of the incident when the message is prepared. A variable without a value becomes \"[to be completed]\"."
+msgstr "Zmienne zapisuj w nawiasach klamrowych: podczas przygotowania wiadomości są zastępowane wartościami incydentu. Zmienna bez wartości staje się „[do uzupełnienia]”."
+
+msgid "Unknown variables, left as they are: %s"
+msgstr "Nieznane zmienne, pozostawione bez zmian: %s"
+
+msgid "Variables"
+msgstr "Zmienne"
+
+msgid "Distribution list"
+msgid_plural "Distribution lists"
+msgstr[0] "Lista dystrybucyjna"
+msgstr[1] "Listy dystrybucyjne"
+msgstr[2] "List dystrybucyjnych"
+
+msgid "%d member"
+msgid_plural "%d members"
+msgstr[0] "%d członek"
+msgstr[1] "%d członków"
+msgstr[2] "%d członków"
+
+msgid "[to be completed]"
+msgstr "[do uzupełnienia]"
+
+msgid "You are not allowed to record a communication on this item."
+msgstr "Nie masz uprawnień do rejestrowania komunikacji dla tego elementu."
+
+msgid "Choose an active message template."
+msgstr "Wybierz aktywny szablon wiadomości."
+
+msgid "The subject and the message are required."
+msgstr "Temat i treść wiadomości są wymagane."
+
+msgid "Tick or type at least one recipient."
+msgstr "Zaznacz lub wpisz co najmniej jednego odbiorcę."
+
+msgid "The date of the communication is invalid or in the future."
+msgstr "Data komunikacji jest nieprawidłowa lub przyszła."
+
+msgid "The communication could not be recorded."
+msgstr "Nie udało się zarejestrować komunikacji."
+
+msgid "Crisis communication made on %1$s: \"%2$s\"."
+msgstr "Komunikacja kryzysowa przeprowadzona %1$s: „%2$s”."
+
+msgid "Recipients: %s"
+msgstr "Odbiorcy: %s"
+
+msgid "Crisis message template"
+msgid_plural "Crisis message templates"
+msgstr[0] "Szablon wiadomości kryzysowej"
+msgstr[1] "Szablony wiadomości kryzysowych"
+msgstr[2] "Szablonów wiadomości kryzysowych"
+
+msgid "Major incident"
+msgstr "Poważny incydent"
+
+msgid "Service unavailability"
+msgstr "Niedostępność usługi"
+
+msgid "First message"
+msgstr "Pierwsza wiadomość"
+
+msgid "Situation update"
+msgstr "Aktualizacja sytuacji"
+
+msgid "End of crisis"
+msgstr "Koniec kryzysu"
+
+msgid "Reference of the incident (SEC-YYYY-NNNN)"
+msgstr "Numer referencyjny incydentu (SEC-RRRR-NNNN)"
+
+msgid "Title of the incident or of the breach"
+msgstr "Tytuł incydentu lub naruszenia"
+
+msgid "Type of incident"
+msgstr "Rodzaj incydentu"
+
+msgid "Date and time of detection"
+msgstr "Data i godzina wykrycia"
+
+msgid "Affected systems (items linked to the incident)"
+msgstr "Systemy, których dotyczy incydent (powiązane elementy)"
+
+msgid "Person preparing the message"
+msgstr "Osoba przygotowująca wiadomość"
+
+msgid "Current date and time"
+msgstr "Bieżąca data i godzina"
+
+msgid "Time of the next communication (to be completed)"
+msgstr "Godzina następnej komunikacji (do uzupełnienia)"
+
+msgid "The template name is required."
+msgstr "Nazwa szablonu jest wymagana."
+
+msgid "Crisis message templates: the messages prepared in advance for each kind of crisis (major incident, personal data breach, unavailability, ransomware), with the people and organizations to inform for each one."
+msgstr "Szablony wiadomości kryzysowych: wiadomości przygotowane z wyprzedzeniem dla każdego rodzaju kryzysu (poważny incydent, naruszenie danych osobowych, niedostępność, ransomware), wraz z osobami i organizacjami, które należy poinformować."
+
+msgid "Adapt the templates provided and fill in the distribution list of each one (users, groups and official contacts). During a crisis, open the Crisis communication tab of the incident: the message is filled in from the incident, you send it yourself, then record it. The plugin never sends any email."
+msgstr "Dostosuj dostarczone szablony i uzupełnij listę dystrybucyjną każdego z nich (użytkownicy, grupy i oficjalne kontakty). W czasie kryzysu otwórz kartę Komunikacja kryzysowa incydentu: wiadomość jest wypełniana na podstawie incydentu, wysyłasz ją samodzielnie, a następnie rejestrujesz. Wtyczka nigdy nie wysyła wiadomości e-mail."
+
+msgid "ISO/IEC 27001, control A.5.26 and clause 7.4"
+msgstr "ISO/IEC 27001, zabezpieczenie A.5.26 i punkt 7.4"
+
+msgid "Major incident: first internal message"
+msgstr "Poważny incydent: pierwsza wiadomość wewnętrzna"
+
+msgid "[{reference}] Security incident in progress: {title}"
+msgstr "[{reference}] Trwa incydent bezpieczeństwa: {title}"
+
+msgid ""
+"Hello,\n"
+"\n"
+"A security incident is in progress: {title} (reference {reference}), detected on {detection_date}.\n"
+"Affected systems: {affected_systems}.\n"
+"\n"
+"The crisis team is handling it. Until further notice:\n"
+"- do not switch off or restart the affected equipment;\n"
+"- report anything unusual to the IT department;\n"
+"- do not talk about the incident outside the organization.\n"
+"\n"
+"Next update: {next_update}.\n"
+"\n"
+"{author}"
+msgstr ""
+"Dzień dobry,\n"
+"\n"
+"trwa incydent bezpieczeństwa: {title} (numer {reference}), wykryty {detection_date}.\n"
+"Systemy, których dotyczy: {affected_systems}.\n"
+"\n"
+"Zespół kryzysowy zajmuje się sprawą. Do odwołania:\n"
+"- nie wyłączaj ani nie uruchamiaj ponownie urządzeń, których dotyczy incydent;\n"
+"- zgłaszaj wszelkie nieprawidłowości działowi IT;\n"
+"- nie rozmawiaj o incydencie poza organizacją.\n"
+"\n"
+"Następna informacja: {next_update}.\n"
+"\n"
+"{author}"
+
+msgid "Data breach: information of the people concerned"
+msgstr "Naruszenie danych: informacja dla osób, których dane dotyczą"
+
+msgid "Information about an incident affecting your personal data"
+msgstr "Informacja o incydencie dotyczącym Twoich danych osobowych"
+
+msgid ""
+"Hello,\n"
+"\n"
+"On {detection_date}, we became aware of an incident affecting personal data that concern you (reference {reference}).\n"
+"\n"
+"What happened: {title}.\n"
+"Measures taken: [to be completed].\n"
+"What we recommend: [to be completed, for example change your password and be wary of unexpected messages].\n"
+"\n"
+"For any question, you can contact our data protection officer: [contact details].\n"
+"\n"
+"We apologize for this inconvenience.\n"
+"\n"
+"{author}"
+msgstr ""
+"Dzień dobry,\n"
+"\n"
+"{detection_date} dowiedzieliśmy się o incydencie dotyczącym Twoich danych osobowych (numer {reference}).\n"
+"\n"
+"Co się stało: {title}.\n"
+"Podjęte działania: [do uzupełnienia].\n"
+"Nasze zalecenia: [do uzupełnienia, na przykład zmień hasło i uważaj na nieoczekiwane wiadomości].\n"
+"\n"
+"W razie pytań możesz skontaktować się z naszym inspektorem ochrony danych: [dane kontaktowe].\n"
+"\n"
+"Przepraszamy za niedogodności.\n"
+"\n"
+"{author}"
+
+msgid "Unavailability: message to users and customers"
+msgstr "Niedostępność: wiadomość do użytkowników i klientów"
+
+msgid "[{reference}] Service disruption: {affected_systems}"
+msgstr "[{reference}] Zakłócenie usługi: {affected_systems}"
+
+msgid ""
+"Hello,\n"
+"\n"
+"Since {detection_date}, the following services are unavailable or disrupted: {affected_systems}.\n"
+"\n"
+"Our teams are working to restore them and we will keep you informed of the progress.\n"
+"\n"
+"Next update: {next_update}.\n"
+"\n"
+"{author}"
+msgstr ""
+"Dzień dobry,\n"
+"\n"
+"od {detection_date} następujące usługi są niedostępne lub działają z zakłóceniami: {affected_systems}.\n"
+"\n"
+"Nasze zespoły pracują nad ich przywróceniem, a o postępach będziemy Cię informować.\n"
+"\n"
+"Następna informacja: {next_update}.\n"
+"\n"
+"{author}"
+
+msgid "Ransomware: instructions to staff"
+msgstr "Ransomware: instrukcje dla personelu"
+
+msgid "[{reference}] URGENT: cyber attack in progress, instructions to follow"
+msgstr "[{reference}] PILNE: trwa cyberatak, instrukcje do wykonania"
+
+msgid ""
+"Hello,\n"
+"\n"
+"A ransomware attack was detected on {detection_date}. Affected systems: {affected_systems}.\n"
+"\n"
+"Instructions, effective immediately:\n"
+"- do not switch off your computer, but unplug its network cable or turn off its Wi-Fi;\n"
+"- do not open attachments or links, even from a known sender;\n"
+"- do not use removable media (USB keys, external drives);\n"
+"- call the IT department at once if a message asks for a ransom or if your files no longer open.\n"
+"\n"
+"Do not talk about the incident outside the organization: the crisis team is the only point of contact.\n"
+"\n"
+"Next update: {next_update}.\n"
+"\n"
+"{author}"
+msgstr ""
+"Dzień dobry,\n"
+"\n"
+"{detection_date} wykryto atak ransomware. Systemy, których dotyczy: {affected_systems}.\n"
+"\n"
+"Instrukcje obowiązujące od zaraz:\n"
+"- nie wyłączaj komputera, ale odłącz kabel sieciowy lub wyłącz Wi-Fi;\n"
+"- nie otwieraj załączników ani linków, nawet od znanego nadawcy;\n"
+"- nie używaj nośników wymiennych (pamięci USB, dysków zewnętrznych);\n"
+"- natychmiast zadzwoń do działu IT, jeśli wiadomość żąda okupu lub Twoje pliki przestały się otwierać.\n"
+"\n"
+"Nie rozmawiaj o incydencie poza organizacją: zespół kryzysowy jest jedynym punktem kontaktowym.\n"
+"\n"
+"Następna informacja: {next_update}.\n"
+"\n"
+"{author}"
+
+msgid "Major incident: end of crisis"
+msgstr "Poważny incydent: koniec kryzysu"
+
+msgid "[{reference}] End of the incident: {title}"
+msgstr "[{reference}] Koniec incydentu: {title}"
+
+msgid ""
+"Hello,\n"
+"\n"
+"The security incident {reference} ({title}) is now under control and the services have been restored.\n"
+"\n"
+"Thank you for your patience and cooperation. A review will be carried out to learn lessons from it.\n"
+"\n"
+"Remain vigilant and report anything unusual to the IT department.\n"
+"\n"
+"{author}"
+msgstr ""
+"Dzień dobry,\n"
+"\n"
+"incydent bezpieczeństwa {reference} ({title}) jest już opanowany, a usługi zostały przywrócone.\n"
+"\n"
+"Dziękujemy za cierpliwość i współpracę. Przeprowadzimy analizę, aby wyciągnąć wnioski.\n"
+"\n"
+"Zachowaj czujność i zgłaszaj wszelkie nieprawidłowości działowi IT.\n"
+"\n"
+"{author}"
+
+msgid "Crisis message templates"
+msgstr "Szablony wiadomości kryzysowych"
+
+msgid "This recipient cannot be added."
+msgstr "Nie można dodać tego odbiorcy."
+
+msgid "Communication recorded."
+msgstr "Komunikacja zarejestrowana."

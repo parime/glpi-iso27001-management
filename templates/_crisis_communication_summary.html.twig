@@ -1,0 +1,36 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #616 : préparation de la communication de crise (modèles, listes de diffusion, communications
+   tracées depuis 12 mois), sur la mesure A.5.26 et l'exigence 7.4. #}
+<div class="col-12 mt-2" id="grc-crisis-communication-evidence">
+   <div class="card card-sm">
+      <div class="card-body">
+         <div class="fw-bold mb-2"><i class="ti ti-speakerphone me-1"></i>{{ __('Crisis communication', 'grcmanager') }}</div>
+         <div class="d-flex flex-wrap gap-2 mb-2">
+            <span class="badge {{ summary.templates > 0 ? 'bg-success-subtle text-success-emphasis' : 'bg-danger-subtle text-danger-emphasis' }}">{{ _n('%d active message template', '%d active message templates', summary.templates, 'grcmanager')|format(summary.templates) }}</span>
+            {% if summary.without_recipients > 0 %}
+               <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d template without recipients', '%d templates without recipients', summary.without_recipients, 'grcmanager')|format(summary.without_recipients) }}</span>
+            {% endif %}
+            {% if summary.missing_situations is not empty %}
+               <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('No template for: %s', 'grcmanager')|format(summary.missing_situations|join(', ')) }}</span>
+            {% endif %}
+            {% if summary.communications is not null %}
+               <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-history me-1"></i>{{ _n('%d communication recorded within 12 months', '%d communications recorded within 12 months', summary.communications, 'grcmanager')|format(summary.communications) }}</span>
+            {% endif %}
+         </div>
+         <a href="{{ summary.url }}"><i class="ti ti-link me-1"></i>{{ __('Open the message templates', 'grcmanager') }}</a>
+      </div>
+   </div>
+</div>

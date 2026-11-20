@@ -1,0 +1,88 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #616 : liste de diffusion d'un modèle de message de crise, voir
+   GlpiPlugin\\Grcmanager\\CrisisMessageRecipient::displayTabContentForItem(). #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+<p class="text-muted">{{ __('People and organizations to inform with this message. Internal recipients are GLPI users and groups; external recipients are the official contacts of the organization context. The plugin never sends the message: it only prepares it.', 'grcmanager') }}</p>
+
+{% if can_edit %}
+<div class="row g-2 mb-3">
+  {% set forms = [
+     {'itemtype': 'User', 'name': 'users_id', 'label': __('Add a user', 'grcmanager'), 'options': {'right': 'all', 'rand': 'grccrisisuser'}},
+     {'itemtype': 'Group', 'name': 'groups_id', 'label': __('Add a group', 'grcmanager'), 'options': {'rand': 'grccrisisgroup'}},
+  ] %}
+  {% if can_contacts %}
+     {% set forms = forms|merge([{'itemtype': 'GlpiPlugin\\Grcmanager\\ContextItem', 'name': 'contextitems_id', 'label': __('Add an official contact', 'grcmanager'), 'options': {'condition': contact_condition, 'rand': 'grccrisiscontact'}}]) %}
+  {% endif %}
+  {% for f in forms %}
+    <div class="col-md-4">
+      <form method="post" action="{{ form_url }}" class="card card-body h-100">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="plugin_grcmanager_crisismessagetemplates_id" value="{{ template_id }}">
+        <input type="hidden" name="itemtype" value="{{ f.itemtype }}">
+        <input type="hidden" name="items_field" value="{{ f.name }}">
+        {{ fields.dropdownField(f.itemtype, f.name, 0, f.label, f.options|merge({'full_width': true, 'is_horizontal': false})) }}
+        <button type="submit" name="add" value="1" class="btn btn-primary mt-2"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+      </form>
+    </div>
+  {% endfor %}
+</div>
+{% if can_contacts %}
+  <div class="form-hint mb-3">{{ __('An external recipient missing from the list? Record it first in the register of official contacts.', 'grcmanager') }} <a href="{{ contacts_url }}">{{ __('Open the register', 'grcmanager') }}</a></div>
+{% endif %}
+{% endif %}
+
+{% if recipients is empty %}
+  <p class="text-muted">{{ __('No recipient yet.', 'grcmanager') }}</p>
+{% else %}
+<table class="table table-sm table-hover align-middle">
+  <thead>
+    <tr>
+      <th>{{ __('Type') }}</th>
+      <th>{{ __('Name') }}</th>
+      <th>{{ __('Address or contact details', 'grcmanager') }}</th>
+      {% if can_edit %}<th></th>{% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in recipients %}
+      <tr>
+        <td><span class="badge {{ r.internal ? 'bg-blue-lt' : 'bg-purple-lt' }}">{{ r.type_label }}</span></td>
+        <td>{{ r.name }}</td>
+        <td>
+          {% if r.missing_address %}
+            <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('No address recorded', 'grcmanager') }}</span>
+          {% endif %}
+          <span class="text-muted" style="white-space: pre-line">{{ r.address }}</span>
+        </td>
+        {% if can_edit %}
+          <td class="text-end">
+            <form method="post" action="{{ form_url }}" class="d-inline">
+              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="id" value="{{ r.id }}">
+              <button type="submit" name="purge" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"
+                      onclick="return confirm('{{ __('Remove this recipient?', 'grcmanager')|e('js') }}');"><i class="ti ti-trash"></i></button>
+            </form>
+          </td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% if hidden > 0 %}
+  <p class="text-muted small"><i class="ti ti-eye-off me-1"></i>{{ _n('%d recipient not shown (outside your entities or rights).', '%d recipients not shown (outside your entities or rights).', hidden, 'grcmanager')|format(hidden) }}</p>
+{% endif %}

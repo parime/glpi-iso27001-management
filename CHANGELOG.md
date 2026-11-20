@@ -50,6 +50,29 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits : droit des registres sensibles du plugin, lecture native des informations financières
     et de chaque type de matériel ; entités actives respectées (#536).
   - Reste à faire (lot 2) : date de fin de vie déclarée par le constructeur, par modèle.
+- **Communication de crise : modèles de messages et listes de diffusion** (issue #616, lot 1, mesure
+  A.5.26, article 7.4). **Le plugin n'envoie aucun courriel** : il prépare le message, la personne
+  l'envoie elle-même puis trace la communication.
+  - Bibliothèque « Modèles de messages de crise » (lien dans l'en-tête des incidents, à côté des
+    procédures de remédiation) : situation (incident majeur, violation de données, indisponibilité,
+    rançongiciel, autre), étape, public, objet et texte avec variables entre accolades (`{reference}`,
+    `{title}`, `{detection_date}`, `{affected_systems}`, `{next_update}`...). Cinq modèles fournis,
+    traduits, modifiables.
+  - Liste de diffusion de chaque modèle : utilisateurs et groupes GLPI, et contacts officiels du
+    contexte de l'organisation (#771), sans second annuaire. Destinataire sans adresse signalé.
+  - Onglet « Communication de crise » des incidents de sécurité et des violations de données : le
+    modèle de la situation est proposé en premier, rempli depuis l'incident (variables échappées à
+    l'affichage) ; boutons copier le message, copier les adresses, exporter en brouillon `.eml` ;
+    « Tracer comme envoyé » conserve la date, l'auteur, les destinataires, l'objet et le texte, écrit
+    une ligne dans le journal de crise (suivi privé, sans notification) et la chronologie du rapport
+    post-incident la reprend.
+  - Preuve sur la mesure A.5.26 et sur l'exigence 7.4 : modèles actifs, modèles sans destinataire,
+    situations sans modèle, communications tracées depuis 12 mois.
+  - Droits : bibliothèque et listes avec le droit général du plugin ; onglet avec ceux de l'incident
+    ou de la violation (lire pour voir, modifier pour tracer) ; contacts officiels seulement avec le
+    droit du contexte et dans l'entité de l'incident ou une entité parente.
+  - Reste à faire (lot 2) : suppléant de chaque contact principal, revue annuelle de l'annuaire,
+    adresses des membres d'un groupe, communications dans le rapport d'exercice de crise.
 
 ## [2.66.0] - 2026-11-20
 
