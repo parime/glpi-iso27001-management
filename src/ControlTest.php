@@ -897,6 +897,7 @@ class ControlTest extends ControlTestBase
                 $samplesByTest[(int) $sample['plugin_grcmanager_controltests_id']] = $sample;
             }
         }
+        $sampleForm = $canEdit ? ControlTestSample::drawFormData() : [];
         $rows = [];
         foreach ($tests as $test) {
             $documentsId = (int) $test['documents_id'];
@@ -947,7 +948,8 @@ class ControlTest extends ControlTestBase
             'all_entities'    => Session::canViewAllEntities(),
             'open_samples'    => $openSamples,
             'populations'     => ControlTestSample::getPopulations(),
-            'sample_form'     => $canEdit ? ControlTestSample::drawFormData() : [],
+            'sample_form'     => $sampleForm,
+            'sample_category_dropdown' => $sampleForm['category_dropdown'] ?? '',
             'sample_url'      => ControlTestSample::getFormURL(),
             'review_enabled'  => self::isReviewEnabled(),
             'technical_threshold' => ControlTestRules::TECHNICAL_PARTIAL_THRESHOLD,
