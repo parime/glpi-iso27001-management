@@ -582,6 +582,9 @@
             {% if operating_procedures.missing > 0 %}
                <span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d without procedure', 'grcmanager')|format(operating_procedures.missing) }}</span>
             {% endif %}
+            {% if operating_procedures.without_content > 0 %}
+               <span class="badge bg-orange-subtle text-orange-emphasis me-1"><i class="ti ti-file-off me-1"></i>{{ __('%d without content', 'grcmanager')|format(operating_procedures.without_content) }}</span>
+            {% endif %}
             <a href="{{ operating_procedures.url }}" class="me-2">{{ __('Open the register', 'grcmanager') }}</a>
             <a href="{{ operating_procedures.export_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Register (PDF)', 'grcmanager') }}</a>
          </div>

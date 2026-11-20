@@ -33,7 +33,8 @@ if (isset($_POST['add'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Policy::$rightname, PURGE);
     $item->delete($_POST, true);
     Html::redirect(\GlpiPlugin\Grcmanager\Policy::getSearchURL());
-} elseif (isset($_POST['update'])) {
+} elseif (isset($_POST['update']) || isset($_POST[\GlpiPlugin\Grcmanager\Policy::REVIEW_MARKER])) {
+    // Issue #775, lot 2 : « Enregistrer la revue » d'une procédure (Policy::recordReview()).
     Session::checkRight(\GlpiPlugin\Grcmanager\Policy::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();

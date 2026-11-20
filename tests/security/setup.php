@@ -125,6 +125,17 @@ if ($mode === 'xss') {
     $out['procedure'] = $insert('policies', [
         'title' => $canary, 'category' => 'operating_procedure', 'procedure_domain' => $canary,
         'version' => '1.0', 'status' => 'draft',
+        // Issue #775, lot 2 : dernière revue tracée (nom de la personne affiché).
+        'last_review_date' => date('Y-m-d'), 'users_id_lastreviewer' => 2,
+    ]);
+    // Issue #775, lot 2 : article piégé de la base de connaissances, texte de la procédure (registre,
+    // onglet natif « Base de connaissances » de la procédure).
+    $DB->insert('glpi_knowbaseitems', [
+        'name' => $canary, 'answer' => $canary, 'users_id' => 2, 'date_creation' => date('Y-m-d H:i:s'),
+    ]);
+    $DB->insert('glpi_knowbaseitems_items', [
+        'knowbaseitems_id' => (int) $DB->insertId(), 'itemtype' => 'GlpiPlugin\\Grcmanager\\Policy',
+        'items_id' => $out['procedure'],
     ]);
     // Issue #535 : campagne de prise de connaissance de la politique piégée, à lire par glpi, et
     // groupe piégé dans son public (onglet de la politique, onglet « Politiques à lire »).

@@ -1510,6 +1510,16 @@ final class Installer
             $migration->addKey(self::POLICIES_TABLE, 'category');
             $migration->migrationOneTable(self::POLICIES_TABLE);
         }
+        // Issue #775, lot 2 : revue périodique tracée d'une procédure (date, personne), même quand
+        // elle ne change pas de version.
+        if (!$DB->fieldExists(self::POLICIES_TABLE, 'last_review_date')) {
+            $migration->addField(self::POLICIES_TABLE, 'last_review_date', 'date', ['after' => 'next_review_date']);
+            $migration->addField(self::POLICIES_TABLE, 'users_id_lastreviewer', 'fkey', [
+                'after' => 'last_review_date',
+            ]);
+            $migration->addKey(self::POLICIES_TABLE, 'users_id_lastreviewer');
+            $migration->migrationOneTable(self::POLICIES_TABLE);
+        }
         $this->installPolicyAcknowledgementTables($keySign, $charset, $collation);
         $this->installPolicyApprovalTables($migration, $keySign, $charset, $collation);
         $this->installAuditEvidenceRequestTables($keySign, $charset, $collation);

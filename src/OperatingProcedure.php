@@ -27,6 +27,8 @@ use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Policy\OperatingProcedureRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
 use Html;
+use KnowbaseItem;
+use KnowbaseItem_Item;
 use Session;
 
 /**
@@ -255,7 +257,72 @@ class OperatingProcedure extends CommonGLPI
             'ack_rate'      => $progress === null ? null : $progress['rate'],
             'ack_done'      => $progress === null ? 0 : $progress['done'],
             'ack_total'     => $progress === null ? 0 : $progress['total'],
+            // Issue #775, lot 2 : dernière revue tracée et contenu de la procédure.
+            'last_review'   => (string) ($row['last_review_date'] ?? ''),
+            'last_reviewer' => (int) ($row['users_id_lastreviewer'] ?? 0) > 0
+                ? (string) getUserName((int) $row['users_id_lastreviewer']) : '',
+        ] + self::content($policyId);
+    }
+
+    /**
+     * Issue #775, lot 2 : contenu d'une procédure. Son texte peut être un article de la base de
+     * connaissances de GLPI (onglet natif « Base de connaissances ») ou un document joint (hors
+     * procès-verbaux et rapports archivés par le plugin). Seuls les articles que la personne peut lire
+     * sont nommés ; les autres sont seulement comptés.
+     *
+     * @return array{
+     *     articles: list<array{name: string, url: string}>,
+     *     hidden_articles: int,
+     *     documents: int,
+     *     has_content: bool
+     * }
+     */
+    public static function content(int $policyId): array
+    {
+        global $DB;
+
+        $articles = [];
+        $hidden = 0;
+        foreach (
+            $DB->request([
+                'SELECT' => ['knowbaseitems_id'],
+                'FROM'   => KnowbaseItem_Item::getTable(),
+                'WHERE'  => ['itemtype' => Policy::class, 'items_id' => $policyId],
+                'ORDER'  => ['knowbaseitems_id'],
+            ]) as $link
+        ) {
+            $article = new KnowbaseItem();
+            if (!$article->getFromDB((int) $link['knowbaseitems_id'])) {
+                continue;
+            }
+            if (!$article->canViewItem()) {
+                $hidden++;
+                continue;
+            }
+            $articles[] = ['name' => (string) $article->getName(), 'url' => (string) $article->getLinkURL()];
+        }
+        $documents = count(PolicyVersion::policyDocuments($policyId));
+
+        return [
+            'articles'        => $articles,
+            'hidden_articles' => $hidden,
+            'documents'       => $documents,
+            'has_content'     => $articles !== [] || $hidden > 0 || $documents > 0,
         ];
+    }
+
+    /**
+     * Procédures en vigueur (non archivées) sans article ni document : elles existent dans le
+     * registre, mais l'auditeur ne peut pas les lire.
+     *
+     * @param list<array<string, mixed>> $presented lignes de present()
+     */
+    public static function countWithoutContent(array $presented): int
+    {
+        return count(array_filter(
+            $presented,
+            static fn (array $row): bool => $row['status'] !== null && !$row['has_content']
+        ));
     }
 
     /**
@@ -305,9 +372,11 @@ class OperatingProcedure extends CommonGLPI
 
         $today = date('Y-m-d');
         $rows = self::procedures();
+        $procedures = self::presentAll($rows, $today);
         TemplateRenderer::getInstance()->display('@grcmanager/operating_procedure_register.html.twig', [
             'coverage'    => self::coverage($rows, $today),
-            'procedures'  => self::presentAll($rows, $today),
+            'procedures'  => $procedures,
+            'without_content' => self::countWithoutContent($procedures),
             'can_create'  => Policy::canCreate(),
             'can_archive' => Policy::canUpdate(),
             'add_url'     => self::addURL(),
@@ -325,6 +394,7 @@ class OperatingProcedure extends CommonGLPI
     {
         $today = date('Y-m-d');
         $rows = self::procedures();
+        $procedures = self::presentAll($rows, $today);
 
         return TemplateRenderer::getInstance()->render('@grcmanager/pdf/operating_procedures_report.html.twig', [
             'report_title'       => __('Register of operating procedures', 'grcmanager'),
@@ -334,7 +404,8 @@ class OperatingProcedure extends CommonGLPI
             ),
             'control'            => self::CONTROL_CODE . ' ' . Control::getControlTitle(self::CONTROL_CODE),
             'coverage'           => self::coverage($rows, $today),
-            'procedures'         => self::presentAll($rows, $today),
+            'procedures'         => $procedures,
+            'without_content'    => self::countWithoutContent($procedures),
         ]);
     }
 
@@ -413,12 +484,44 @@ class OperatingProcedure extends CommonGLPI
         if ($code !== self::CONTROL_CODE || !self::canView()) {
             return null;
         }
-        $coverage = self::coverage(self::procedures(), date('Y-m-d'));
+        $today = date('Y-m-d');
+        $rows = self::procedures();
+        $coverage = self::coverage($rows, $today);
 
         return $coverage['summary'] + [
+            'without_content' => self::countWithoutContent(self::presentAll($rows, $today)),
             'url'        => self::getRegisterURL(),
             'export_url' => self::getExportURL(),
         ];
+    }
+
+    /**
+     * Issue #775, lot 2 : écarts du contrôle de cohérence (règle operating_procedure_uncovered) :
+     * domaines attendus sans procédure approuvée. Null sans droit de lire les politiques.
+     *
+     * @return array{total: int, gaps: list<array<string, mixed>>}|null
+     */
+    public static function consistencyGaps(string $today): ?array
+    {
+        if (!self::canView()) {
+            return null;
+        }
+        $coverage = self::coverage(self::procedures(), $today);
+        $gaps = [];
+        foreach (Rules::uncoveredDomains($coverage) as $domain) {
+            $gaps[] = [
+                'itemtype'   => '',
+                'type_label' => self::getTypeName(1),
+                'id'         => 0,
+                'name'       => self::domainLabel($domain['domain']),
+                'url'        => self::getRegisterURL(),
+                'detail'     => $domain['status'] === Rules::STATUS_MISSING
+                    ? __('No operating procedure for this domain', 'grcmanager')
+                    : __('Procedure not approved yet', 'grcmanager'),
+            ];
+        }
+
+        return ['total' => count($coverage['domains']), 'gaps' => $gaps];
     }
 
     /** Code de la mesure qui reçoit les preuves (approbation, prise de connaissance) d'une politique. */

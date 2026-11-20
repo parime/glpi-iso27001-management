@@ -30,6 +30,8 @@ use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalRules;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use Html;
+use KnowbaseItem_Item;
 use Session;
 
 /**
@@ -51,6 +53,12 @@ use Session;
 class Policy extends PolicyBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
+
+    /** Issue #775, lot 2 : bouton « Enregistrer la revue » d'une procédure d'exploitation. */
+    public const REVIEW_MARKER = '_record_procedure_review';
+
+    /** Revue tracée pendant cette mise à jour (journal d'audit dans post_updateItem()). */
+    private bool $reviewRecorded = false;
 
     /**
      * GLPI notification event name (see inc/notificationtargetpolicy.class.php and
@@ -129,7 +137,10 @@ class Policy extends PolicyBase
         $this->addDefaultFormTab($tabs)
             ->addStandardTab(PolicyVersion::class, $tabs, $options)
             ->addStandardTab(PolicyAcknowledgement::class, $tabs, $options)
-            ->addStandardTab(Document_Item::class, $tabs, $options);
+            ->addStandardTab(Document_Item::class, $tabs, $options)
+            // Issue #775, lot 2 : le texte d'une procédure peut être un article de la base de
+            // connaissances de GLPI, lié par l'onglet natif.
+            ->addStandardTab(KnowbaseItem_Item::class, $tabs, $options);
 
         return $tabs;
     }
@@ -318,6 +329,9 @@ class Policy extends PolicyBase
      */
     public function prepareInputForAdd($input)
     {
+        // Issue #775, lot 2 : la revue tracée ne se saisit jamais à la main.
+        unset($input['last_review_date'], $input['users_id_lastreviewer'], $input[self::REVIEW_MARKER]);
+
         return $this->validateStatus($input);
     }
 
@@ -327,7 +341,49 @@ class Policy extends PolicyBase
      */
     public function prepareInputForUpdate($input)
     {
-        return $this->validateStatus($input);
+        $this->reviewRecorded = false;
+        $recordReview = !empty($input[self::REVIEW_MARKER]);
+        unset($input['last_review_date'], $input['users_id_lastreviewer'], $input[self::REVIEW_MARKER]);
+        $input = $this->validateStatus($input);
+        if ($input === false || !$recordReview) {
+            return $input;
+        }
+
+        return $this->recordReview($input);
+    }
+
+    /**
+     * Issue #775, lot 2 : revue périodique tracée d'une procédure d'exploitation approuvée (date du
+     * jour, personne connectée), même sans nouvelle version. La prochaine revue est celle saisie sur
+     * la fiche si elle a été avancée au-delà d'aujourd'hui, un an plus tard sinon. Le journal d'audit
+     * garde chaque revue.
+     *
+     * @param array<string, mixed> $input
+     * @return array<string, mixed>|false
+     */
+    private function recordReview(array $input)
+    {
+        $category = (string) ($input['category'] ?? ($this->fields['category'] ?? ''));
+        $status = (string) ($input['status'] ?? ($this->fields['status'] ?? ''));
+        if (!OperatingProcedureRules::canRecordReview($category, $status)) {
+            Session::addMessageAfterRedirect(htmlescape(__(
+                'A review can only be recorded on an approved operating procedure.',
+                'grcmanager'
+            )), false, ERROR);
+
+            return false;
+        }
+        $today = date('Y-m-d');
+        $input['last_review_date'] = $today;
+        $input['users_id_lastreviewer'] = (int) Session::getLoginUserID();
+        $input['next_review_date'] = OperatingProcedureRules::nextReviewAfterReview(
+            $today,
+            $input['next_review_date'] ?? null,
+            $this->fields['next_review_date'] ?? null
+        );
+        $this->reviewRecorded = true;
+
+        return $input;
     }
 
     /**
@@ -445,6 +501,17 @@ class Policy extends PolicyBase
     public function post_updateItem($history = true)
     {
         parent::post_updateItem($history);
+        if ($this->reviewRecorded) {
+            $this->reviewRecorded = false;
+            AuditLog::record('review', self::class, $this->getID(), 0, 'success', [
+                'last_review_date' => (string) $this->fields['last_review_date'],
+                'next_review_date' => (string) $this->fields['next_review_date'],
+            ]);
+            Session::addMessageAfterRedirect(htmlescape(sprintf(
+                __('Review recorded. Next review: %s.', 'grcmanager'),
+                Html::convDate((string) $this->fields['next_review_date'])
+            )));
+        }
         if (array_intersect(['version', 'status'], $this->updates) === []) {
             return;
         }
@@ -493,6 +560,12 @@ class Policy extends PolicyBase
             'category'       => $category,
             'domains'        => OperatingProcedure::domainChoices($domain),
             'domain'         => $domain,
+            // Issue #775, lot 2 : revue tracée d'une procédure d'exploitation.
+            'review_marker'  => self::REVIEW_MARKER,
+            'can_review'     => !$this->isNewItem() && $this->can($this->getID(), UPDATE)
+                && OperatingProcedureRules::canRecordReview($category, (string) ($this->fields['status'] ?? '')),
+            'last_reviewer'  => (int) ($this->fields['users_id_lastreviewer'] ?? 0) > 0
+                ? (string) getUserName((int) $this->fields['users_id_lastreviewer']) : '',
             // Issue #611 : circuit d'approbation activé, « Approuvée » ne se choisit plus ici.
             'approval_workflow' => PolicyApprovalConfig::isEnabled(),
             'content_locked'    => PolicyApprovalConfig::isEnabled() && !$this->isNewItem()

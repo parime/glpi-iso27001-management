@@ -31,6 +31,7 @@
   <tr><td>{{ __('Review due', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.review_due }}</td></tr>
   <tr><td>{{ __('Not approved', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.not_approved }}</td></tr>
   <tr><td>{{ __('No procedure', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.missing }}</td></tr>
+  <tr><td>{{ __('Procedures without content', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ without_content }}</td></tr>
 </table>
 
 <h2>{{ __('Coverage of the expected domains', 'grcmanager') }}</h2>
@@ -68,7 +69,7 @@
         <th style="width: 14%;">{{ __('Domain', 'grcmanager') }}</th>
         <th style="width: 8%;">{{ __('Version', 'grcmanager') }}</th>
         <th style="width: 14%;">{{ __('Status', 'grcmanager') }}</th>
-        <th style="width: 11%;">{{ __('Approval date', 'grcmanager') }}</th>
+        <th style="width: 11%;">{{ __('Approval and review', 'grcmanager') }}</th>
         <th style="width: 11%;">{{ __('Next review', 'grcmanager') }}</th>
         <th style="width: 18%;">{{ _x('owner', 'Owner', 'grcmanager') }}</th>
       </tr>
@@ -79,11 +80,17 @@
           <td>
             {{ procedure.title }}
             {% if procedure.ack_rate is not null %}<br>{{ __('Reading acknowledgement', 'grcmanager') }}: {{ __('%1$d of %2$d people (%3$d%%)', 'grcmanager')|format(procedure.ack_done, procedure.ack_total, procedure.ack_rate) }}{% endif %}
+            {% for article in procedure.articles %}<br>{{ __('Knowledge base article: %s', 'grcmanager')|format(article.name) }}{% endfor %}
+            {% if procedure.documents > 0 %}<br>{{ _n('%d document', '%d documents', procedure.documents, 'grcmanager')|format(procedure.documents) }}{% endif %}
+            {% if not procedure.has_content and procedure.status is not null %}<br>{{ __('No content', 'grcmanager') }}{% endif %}
           </td>
           <td>{{ procedure.domain ?: '-' }}</td>
           <td>{{ procedure.version }}</td>
           <td>{{ procedure.status is not null ? labels[procedure.status] : __('Archived', 'grcmanager') }}<br>({{ procedure.policy_status }})</td>
-          <td>{{ procedure.approval_date ? procedure.approval_date|formatted_date : '-' }}</td>
+          <td>
+            {{ procedure.approval_date ? procedure.approval_date|formatted_date : '-' }}
+            {% if procedure.last_review %}<br>{{ __('Reviewed on %1$s by %2$s', 'grcmanager')|format(procedure.last_review|formatted_date, procedure.last_reviewer ?: '-') }}{% endif %}
+          </td>
           <td>{{ procedure.next_review ? procedure.next_review|formatted_date : '-' }}</td>
           <td>{{ procedure.owner ?: '-' }}</td>
         </tr>
