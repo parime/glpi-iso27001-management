@@ -32617,3 +32617,7 @@ msgstr "This exercise has never been run to the end in the crisis room."
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+#, php-format
+msgid "%s MB"
+msgstr "%s MB"

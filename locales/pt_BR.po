@@ -27792,3 +27792,7 @@ msgstr ""
 
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "Este exercício nunca foi conduzido até o fim na sala de crise."
+
+#, php-format
+msgid "%s MB"
+msgstr "%s MB"
