@@ -118,7 +118,13 @@ final class BodyResponseRules
     }
 
     /** À envoyer, bientôt dû ou en retard, selon le délai (aucun délai : à envoyer). */
-    private static function pendingState(?string $dueDate, string $today, string $toSend, string $soon, string $late): string
+    private static function pendingState(
+        ?string $dueDate,
+        string $today,
+        string $toSend,
+        string $soon,
+        string $late
+    ): string
     {
         $days = self::daysLeft($dueDate, $today);
         if ($days === null) {

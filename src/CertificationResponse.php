@@ -90,11 +90,13 @@ class CertificationResponse extends CommonGLPI
         $decision = Rules::normalizeDecision($decision);
         $label = self::getDecisions()[$decision];
 
-        return match ($decision) {
-            Rules::DECISION_ACCEPTED    => Badge::html('bg-success-subtle text-success-emphasis', 'ti-circle-check', $label),
-            Rules::DECISION_TO_COMPLETE => Badge::html('bg-warning-subtle text-warning-emphasis', 'ti-pencil-exclamation', $label),
-            default                     => Badge::html('bg-secondary-subtle text-secondary-emphasis', 'ti-hourglass', $label),
+        [$class, $icon] = match ($decision) {
+            Rules::DECISION_ACCEPTED    => ['bg-success-subtle text-success-emphasis', 'ti-circle-check'],
+            Rules::DECISION_TO_COMPLETE => ['bg-warning-subtle text-warning-emphasis', 'ti-pencil-exclamation'],
+            default                     => ['bg-secondary-subtle text-secondary-emphasis', 'ti-hourglass'],
         };
+
+        return Badge::html($class, $icon, $label);
     }
 
     /**
@@ -286,7 +288,10 @@ class CertificationResponse extends CommonGLPI
         }
         $findings = self::annotate(CertificationFinding::findings([$auditId]), $audit, $today);
         $summary = Rules::summary(array_map(
-            static fn (array $f): array => ['response_state' => $f['response_state'], 'evidence_state' => $f['evidence_state']],
+            static fn (array $f): array => [
+                'response_state' => $f['response_state'],
+                'evidence_state' => $f['evidence_state'],
+            ],
             $findings
         ));
         $deadlines = [];
