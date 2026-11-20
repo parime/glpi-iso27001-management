@@ -145,12 +145,16 @@ class PersonnelCompliance extends PersonnelComplianceBase
         return $me > 0 && $user->getFromDB($usersId) && (int) $user->fields['users_id_supervisor'] === $me;
     }
 
-    public static function canViewFor(int $usersId): bool
+    /**
+     * @param bool $allowOwn sa propre fiche sans droit (onglet des préférences) ; sur la fiche
+     *                       utilisateur, l'onglet exige toujours un droit
+     */
+    public static function canViewFor(int $usersId, bool $allowOwn = true): bool
     {
         if ($usersId <= 0) {
             return false;
         }
-        if ($usersId === (int) Session::getLoginUserID()) {
+        if ($allowOwn && $usersId === (int) Session::getLoginUserID()) {
             return true;
         }
         if (self::canViewList() && self::isVisible($usersId)) {
@@ -522,7 +526,7 @@ class PersonnelCompliance extends PersonnelComplianceBase
         if ($item instanceof Preference) {
             return self::createTabEntry(__('My security compliance', 'grcmanager'), 0, null, self::getIcon());
         }
-        if (!$item instanceof User || $item->isNewItem() || !self::canViewFor($item->getID())) {
+        if (!$item instanceof User || $item->isNewItem() || !self::canViewFor($item->getID(), false)) {
             return '';
         }
 
@@ -537,7 +541,7 @@ class PersonnelCompliance extends PersonnelComplianceBase
 
             return true;
         }
-        if (!$item instanceof User || $item->isNewItem() || !self::canViewFor($item->getID())) {
+        if (!$item instanceof User || $item->isNewItem() || !self::canViewFor($item->getID(), false)) {
             return false;
         }
         self::showFiche($item->getID(), $item->getID() === (int) Session::getLoginUserID());
