@@ -154,14 +154,17 @@ class CompetenceMatrix extends CommonGLPI
 
     /**
      * Personnes actives qui tiennent chaque fonction : utilisateurs cités, membres des groupes cités,
-     * utilisateurs portant les titres cités.
+     * utilisateurs portant les titres cités et, lot 3, utilisateurs et membres des groupes qui
+     * tiennent le rôle cité dans une activité de la matrice des responsabilités.
      *
-     * @param array<int, list<array{itemtype: string, items_id: int}>> $holders
+     * @param array<int, list<array{itemtype: string, items_id: int, role?: string}>> $holders
      * @return array<int, list<int>>
      */
     public static function members(array $holders): array
     {
         global $DB;
+
+        $holders = self::expandActivities($holders);
 
         $ids = ['User' => [], 'Group' => [], 'UserTitle' => []];
         foreach ($holders as $rows) {
@@ -226,6 +229,44 @@ class CompetenceMatrix extends CommonGLPI
         }
 
         return $members;
+    }
+
+    /**
+     * Lot 3 : remplace chaque rôle d'une activité de la matrice des responsabilités par les
+     * utilisateurs et groupes qui le tiennent aujourd'hui (lecture seule, rien n'est copié).
+     *
+     * @param array<int, list<array{itemtype: string, items_id: int, role?: string}>> $holders
+     * @return array<int, list<array{itemtype: string, items_id: int}>>
+     */
+    public static function expandActivities(array $holders): array
+    {
+        $activityIds = [];
+        foreach ($holders as $rows) {
+            foreach ($rows as $row) {
+                if ($row['itemtype'] === ResponsibilityActivity::class) {
+                    $activityIds[$row['items_id']] = $row['items_id'];
+                }
+            }
+        }
+        $assignments = ResponsibilityActivity::assignmentsFor(array_values($activityIds));
+        $expanded = [];
+        foreach ($holders as $functionId => $rows) {
+            $list = [];
+            foreach ($rows as $row) {
+                if ($row['itemtype'] !== ResponsibilityActivity::class) {
+                    $list[] = ['itemtype' => $row['itemtype'], 'items_id' => $row['items_id']];
+                    continue;
+                }
+                foreach ($assignments[$row['items_id']] ?? [] as $assignment) {
+                    if ($assignment['role'] === ($row['role'] ?? '')) {
+                        $list[] = ['itemtype' => $assignment['itemtype'], 'items_id' => $assignment['items_id']];
+                    }
+                }
+            }
+            $expanded[$functionId] = $list;
+        }
+
+        return $expanded;
     }
 
     /**
@@ -480,9 +521,10 @@ class CompetenceMatrix extends CommonGLPI
         if ($userId !== null) {
             $functionsByPerson = [$userId => $functionsByPerson[$userId] ?? []];
         } elseif ($functionsByPerson !== []) {
+            // Hors restriction (tâche planifiée) : comptes actifs de toutes les entités.
             $functionsByPerson = array_intersect_key(
                 $functionsByPerson,
-                Provider::users(['users_id' => array_keys($functionsByPerson)])
+                Provider::users(['users_id' => array_keys($functionsByPerson)], $restrictFunctions)
             );
         }
         $requirements = IsmsFunction::requirementsFor(array_keys($functions));
@@ -563,6 +605,8 @@ class CompetenceMatrix extends CommonGLPI
                 $gaps[] = [
                     'person'      => $person,
                     'name'        => $name,
+                    'competence_id' => $competenceId,
+                    'level'       => $info['level'],
                     'competence'  => $labels[$competenceId] ?? '',
                     'competence_url' => Competence::getFormURLWithID($competenceId),
                     'status'      => $status,
@@ -727,7 +771,10 @@ class CompetenceMatrix extends CommonGLPI
 
         // Activités de la matrice des responsabilités tenues par les titulaires (article 5.3).
         $groupIds = array_column(
-            array_filter($holders, static fn (array $h): bool => $h['itemtype'] === 'Group'),
+            array_filter(
+                self::expandActivities([$id => $holders])[$id] ?? [],
+                static fn (array $h): bool => $h['itemtype'] === 'Group'
+            ),
             'items_id'
         );
         $activities = [];
