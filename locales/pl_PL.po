@@ -26778,3 +26778,153 @@ msgstr "Zaplanuj audyt wewnętrzny procesu %1$s w roku %2$d"
 
 msgid "Through the audited controls %s"
 msgstr "Poprzez audytowane zabezpieczenia %s"
+
+msgid "Review of the last exercise not validated"
+msgstr "Podsumowanie ostatniego ćwiczenia niezatwierdzone"
+
+msgid "Critical process never tested in recovery"
+msgstr "Proces krytyczny nigdy nie testowany pod kątem odtwarzania"
+
+msgid "Preparedness"
+msgstr "Przygotowanie"
+
+msgid "%d exercise review to validate"
+msgid_plural "%d exercise reviews to validate"
+msgstr[0] "%d podsumowanie ćwiczenia do zatwierdzenia"
+msgstr[1] "%d podsumowania ćwiczeń do zatwierdzenia"
+msgstr[2] "%d podsumowań ćwiczeń do zatwierdzenia"
+
+msgid "%d scenario exercised with a validated review"
+msgid_plural "%d scenarios exercised with a validated review"
+msgstr[0] "%d scenariusz przećwiczony z zatwierdzonym podsumowaniem"
+msgstr[1] "%d scenariusze przećwiczone z zatwierdzonym podsumowaniem"
+msgstr[2] "%d scenariuszy przećwiczonych z zatwierdzonym podsumowaniem"
+
+msgid "%d scenario with a critical process never tested in recovery"
+msgid_plural "%d scenarios with a critical process never tested in recovery"
+msgstr[0] "%d scenariusz z procesem krytycznym nigdy nietestowanym pod kątem odtwarzania"
+msgstr[1] "%d scenariusze z procesem krytycznym nigdy nietestowanym pod kątem odtwarzania"
+msgstr[2] "%d scenariuszy z procesem krytycznym nigdy nietestowanym pod kątem odtwarzania"
+
+msgid "No recovery test recorded for this process"
+msgstr "Brak zarejestrowanego testu odtwarzania dla tego procesu"
+
+msgid "Review to validate"
+msgstr "Podsumowanie do zatwierdzenia"
+
+msgid "No official contact to inform for this scenario."
+msgstr "Brak oficjalnego kontaktu do powiadomienia dla tego scenariusza."
+
+msgid "%d crisis communication recorded during the exercise"
+msgid_plural "%d crisis communications recorded during the exercise"
+msgstr[0] "%d komunikat kryzysowy zarejestrowany podczas ćwiczenia"
+msgstr[1] "%d komunikaty kryzysowe zarejestrowane podczas ćwiczenia"
+msgstr[2] "%d komunikatów kryzysowych zarejestrowanych podczas ćwiczenia"
+
+msgid "%d official contact recorded during the exercise"
+msgid_plural "%d official contacts recorded during the exercise"
+msgstr[0] "%d oficjalny kontakt zarejestrowany podczas ćwiczenia"
+msgstr[1] "%d oficjalne kontakty zarejestrowane podczas ćwiczenia"
+msgstr[2] "%d oficjalnych kontaktów zarejestrowanych podczas ćwiczenia"
+
+msgid "%d recipient"
+msgid_plural "%d recipients"
+msgstr[0] "%d odbiorca"
+msgstr[1] "%d odbiorców"
+msgstr[2] "%d odbiorców"
+
+msgid "%d recipient not visible to you"
+msgid_plural "%d recipients not visible to you"
+msgstr[0] "%d odbiorca niewidoczny dla Ciebie"
+msgstr[1] "%d odbiorców niewidocznych dla Ciebie"
+msgstr[2] "%d odbiorców niewidocznych dla Ciebie"
+
+msgid "%d recovery time measured during the exercise"
+msgid_plural "%d recovery times measured during the exercise"
+msgstr[0] "%d czas odtwarzania zmierzony podczas ćwiczenia"
+msgstr[1] "%d czasy odtwarzania zmierzone podczas ćwiczenia"
+msgstr[2] "%d czasów odtwarzania zmierzonych podczas ćwiczenia"
+
+msgid "Contacts marked for a security incident or a personal data breach, visible from the entity of the scenario."
+msgstr "Kontakty oznaczone dla incydentu bezpieczeństwa lub naruszenia ochrony danych osobowych, widoczne z jednostki scenariusza."
+
+msgid "Contacts marked for a security incident, visible from the entity of the scenario."
+msgstr "Kontakty oznaczone dla incydentu bezpieczeństwa, widoczne z jednostki scenariusza."
+
+msgid "Crisis exercises and review"
+msgstr "Ćwiczenia kryzysowe i podsumowanie"
+
+msgid "Evaluate the objectives and validate the review in the crisis room, tab \"Review\"."
+msgstr "Oceń cele i zatwierdź podsumowanie w sali kryzysowej, karta „Podsumowanie”."
+
+msgid "Exercise of the plugin: %s"
+msgstr "Ćwiczenie wtyczki: %s"
+
+msgid "Exercise outside the plugin on %s (report in the Documents tab)."
+msgstr "Ćwiczenie poza wtyczką w dniu %s (sprawozdanie w karcie Dokumenty)."
+
+msgid "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
+msgstr "Ustalenia: %1$d, działania doskonalące: %2$d (%3$d zakończone, %4$d opóźnione)"
+
+msgid "It gathers what shows that this scenario is ready: the crisis exercises that tested it and the review of the last one, the recovery tests of the impacted processes, the crisis messages to send and the authorities to inform. Nothing is copied: each line opens the original record."
+msgstr "Zbiera to, co pokazuje, że scenariusz jest gotowy: ćwiczenia kryzysowe, które go sprawdziły, i podsumowanie ostatniego, testy odtwarzania procesów, których dotyczy, komunikaty kryzysowe do wysłania i organy do powiadomienia. Nic nie jest kopiowane: każdy wiersz otwiera oryginalny rekord."
+
+msgid "Last exercise ended on %s"
+msgstr "Ostatnie ćwiczenie zakończone %s"
+
+msgid "Launch this exercise"
+msgstr "Uruchom to ćwiczenie"
+
+msgid "No active message template for the situation \"%s\"."
+msgstr "Brak aktywnego szablonu wiadomości dla sytuacji „%s”."
+
+msgid "No communication situation is chosen for this scenario: choose one in the main tab, field \"Crisis communication\"."
+msgstr "Dla tego scenariusza nie wybrano sytuacji komunikacyjnej: wybierz ją w karcie głównej, pole „Komunikacja kryzysowa”."
+
+msgid "No crisis exercise is chosen for this scenario: choose one in the main tab, field \"Crisis exercise\"."
+msgstr "Dla tego scenariusza nie wybrano ćwiczenia kryzysowego: wybierz je w karcie głównej, pole „Ćwiczenie kryzysowe”."
+
+msgid "No distribution list"
+msgstr "Brak listy dystrybucyjnej"
+
+msgid "No impacted process yet: choose them in the main tab."
+msgstr "Brak jeszcze procesów, których dotyczy: wybierz je w karcie głównej."
+
+msgid "Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not evaluated"
+msgstr "Cele: %1$d osiągnięte, %2$d częściowo, %3$d nieosiągnięte, %4$d nieocenione"
+
+msgid "Opens the crisis room with a fictitious incident of this exercise."
+msgstr "Otwiera salę kryzysową z fikcyjnym incydentem tego ćwiczenia."
+
+msgid "Previous exercises"
+msgstr "Poprzednie ćwiczenia"
+
+msgid "Recovery tests are recorded in the tab \"Recovery strategy\" of each process, or in the crisis room during an exercise."
+msgstr "Testy odtwarzania rejestruje się w karcie „Strategia odtwarzania” każdego procesu lub w sali kryzysowej podczas ćwiczenia."
+
+msgid "Recovery tests of the impacted processes"
+msgstr "Testy odtwarzania procesów, których dotyczy"
+
+msgid "Review validated on %1$s by %2$s"
+msgstr "Podsumowanie zatwierdzone %1$s przez %2$s"
+
+msgid "Situation: %s"
+msgstr "Sytuacja: %s"
+
+msgid "Situation: %s. The message templates are visible only with their right."
+msgstr "Sytuacja: %s. Szablony wiadomości są widoczne tylko z odpowiednim uprawnieniem."
+
+msgid "The business processes are visible only with the right of the business continuity."
+msgstr "Procesy biznesowe są widoczne tylko z uprawnieniem ciągłości działania."
+
+msgid "The crisis exercises are visible only with the right to read the security incidents."
+msgstr "Ćwiczenia kryzysowe są widoczne tylko z uprawnieniem do odczytu incydentów bezpieczeństwa."
+
+msgid "The official contacts are visible only with the right of the context of the organisation."
+msgstr "Oficjalne kontakty są widoczne tylko z uprawnieniem kontekstu organizacji."
+
+msgid "This exercise has never been run to the end in the crisis room."
+msgstr "To ćwiczenie nigdy nie zostało przeprowadzone do końca w sali kryzysowej."
+
+msgid "What is this tab for?"
+msgstr "Do czego służy ta karta?"

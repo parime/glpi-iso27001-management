@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 21:42+0000\n"
+"POT-Creation-Date: 2026-11-20 22:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 #: src/CertificationReadiness.php:1456 src/CompetenceMatrix.php:852
 #: src/ConsistencyCheck.php:1453 src/ContextItem.php:879
 #: src/ControlTest.php:994 src/CrisisExercise.php:627
-#: src/CrisisScenario.php:872 src/Dpia.php:443 src/EbiosStudy.php:313
+#: src/CrisisScenario.php:940 src/Dpia.php:443 src/EbiosStudy.php:313
 #: src/ManagementReviewDossier.php:625 src/OfficialContact.php:224
 #: src/OperatingProcedure.php:402 src/PersonnelCompliance.php:727
 #: src/PolicyAcknowledgement.php:703 src/PolicyVersion.php:765
@@ -1780,6 +1780,7 @@ msgstr ""
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/crisis_scenarios_report.html.twig
 #: templates/risk_heatmap.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Critical"
 msgstr ""
 
@@ -3476,6 +3477,7 @@ msgstr ""
 #: templates/crisis_room.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/tabs/business_process_links.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
 #: templates/tabs/ebios_workshop1.html.twig
 #: templates/tabs/item_business_processes.html.twig
 #: templates/tabs/risk_business_processes.html.twig
@@ -5568,6 +5570,8 @@ msgstr ""
 #: src/ContextItem.php:956 src/OfficialContact.php:51
 #: templates/context_item_form.html.twig
 #: templates/official_contact_tab.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Official contact"
 msgid_plural "Official contacts"
 msgstr[0] ""
@@ -6732,6 +6736,7 @@ msgstr ""
 #: templates/_crisis_communication_summary.html.twig
 #: templates/control_form.html.twig templates/crisis_scenario_form.html.twig
 #: templates/pdf/crisis_scenarios_report.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Crisis communication"
 msgid_plural "Crisis communications"
 msgstr[0] ""
@@ -7050,7 +7055,7 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: src/CrisisScenario.php:69 templates/_crisis_scenario_summary.html.twig
+#: src/CrisisScenario.php:70 templates/_crisis_scenario_summary.html.twig
 #: templates/control_form.html.twig
 #: templates/crisis_scenario_register.html.twig
 #: templates/pdf/crisis_scenarios_report.html.twig
@@ -7059,64 +7064,76 @@ msgid_plural "Security crisis scenarios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/CrisisScenario.php:134
+#: src/CrisisScenario.php:136
 msgid "No impacted process"
 msgstr ""
 
-#: src/CrisisScenario.php:135
+#: src/CrisisScenario.php:137
 msgid "No secure degraded mode"
 msgstr ""
 
-#: src/CrisisScenario.php:136
+#: src/CrisisScenario.php:138
 msgid "Roles to complete"
 msgstr ""
 
-#: src/CrisisScenario.php:137
+#: src/CrisisScenario.php:139
 msgid "No response playbook"
 msgstr ""
 
-#: src/CrisisScenario.php:138 templates/crisis_scenario_register.html.twig
+#: src/CrisisScenario.php:140 templates/crisis_scenario_register.html.twig
 #: templates/pdf/crisis_scenarios_report.html.twig
 msgid "Never exercised"
 msgstr ""
 
-#: src/CrisisScenario.php:139 templates/pdf/crisis_scenarios_report.html.twig
+#: src/CrisisScenario.php:141 templates/pdf/crisis_scenarios_report.html.twig
 msgid "Not exercised for more than a year"
 msgstr ""
 
-#: src/CrisisScenario.php:149 templates/risk_appetite.html.twig
+#: src/CrisisScenario.php:142 templates/pdf/crisis_scenarios_report.html.twig
+msgid "Review of the last exercise not validated"
+msgstr ""
+
+#: src/CrisisScenario.php:143 templates/pdf/crisis_scenarios_report.html.twig
+msgid "Critical process never tested in recovery"
+msgstr ""
+
+#: src/CrisisScenario.php:153 templates/risk_appetite.html.twig
 #: templates/risk_form.html.twig
 msgid "Management"
 msgstr ""
 
-#: src/CrisisScenario.php:150 src/ReleaseValidation.php:106
+#: src/CrisisScenario.php:154 src/ReleaseValidation.php:106
 msgid "CISO"
 msgstr ""
 
-#: src/CrisisScenario.php:151
+#: src/CrisisScenario.php:155
 msgid "IT department"
 msgstr ""
 
-#: src/CrisisScenario.php:212
+#: src/CrisisScenario.php:216
 msgid "The scenario name is required."
 msgstr ""
 
-#: src/CrisisScenario.php:316
+#: src/CrisisScenario.php:320
 msgid "A process outside the entity of the scenario was not linked."
 msgstr ""
 
-#: src/CrisisScenario.php:870
+#: src/CrisisScenario.php:938
 msgid "Information security crisis scenarios"
 msgstr ""
 
-#: src/CrisisScenario.php:918 templates/crisis_scenario_form.html.twig
+#: src/CrisisScenario.php:990 templates/crisis_scenario_form.html.twig
 #: templates/pdf/crisis_scenarios_report.html.twig
 #: templates/tabs/business_process_crisis_scenarios.html.twig
 msgid "Secure degraded mode"
 msgstr ""
 
-#: src/CrisisScenario.php:922 templates/crisis_scenario_form.html.twig
+#: src/CrisisScenario.php:994 templates/crisis_scenario_form.html.twig
 msgid "Last exercise outside the plugin"
+msgstr ""
+
+#: src/CrisisScenarioReadiness.php:48
+msgid "Preparedness"
 msgstr ""
 
 #: src/CustomFramework.php:49 templates/framework_assessment.html.twig
@@ -9874,6 +9891,8 @@ msgstr ""
 
 #: src/NotificationTargetBusinessProcess.php:163
 #: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Last recovery test"
 msgstr ""
 
@@ -16129,6 +16148,7 @@ msgstr ""
 
 #: templates/_crisis_communication_summary.html.twig
 #: templates/crisis_communication_tab.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Open the message templates"
 msgstr ""
 
@@ -16361,6 +16381,21 @@ msgstr[1] ""
 #: templates/_crisis_scenario_summary.html.twig
 #: templates/crisis_scenario_register.html.twig
 #, php-format
+msgid "%d exercise review to validate"
+msgid_plural "%d exercise reviews to validate"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_crisis_scenario_summary.html.twig
+#, php-format
+msgid "%d scenario exercised with a validated review"
+msgid_plural "%d scenarios exercised with a validated review"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_crisis_scenario_summary.html.twig
+#: templates/crisis_scenario_register.html.twig
+#, php-format
 msgid "%d scenario never exercised"
 msgid_plural "%d scenarios never exercised"
 msgstr[0] ""
@@ -16371,6 +16406,14 @@ msgstr[1] ""
 #, php-format
 msgid "%d scenario to exercise again"
 msgid_plural "%d scenarios to exercise again"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_crisis_scenario_summary.html.twig
+#: templates/crisis_scenario_register.html.twig
+#, php-format
+msgid "%d scenario with a critical process never tested in recovery"
+msgid_plural "%d scenarios with a critical process never tested in recovery"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -16964,6 +17007,7 @@ msgstr ""
 #: templates/official_contact_history_tab.html.twig
 #: templates/official_contact_tab.html.twig
 #: templates/tabs/crisis_message_recipients.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Open the register"
 msgstr ""
 
@@ -21149,7 +21193,9 @@ msgstr ""
 
 #: templates/control_test_tab.html.twig
 #: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
 #: templates/tabs/business_process_recovery.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Never tested"
 msgstr ""
 
@@ -21471,6 +21517,9 @@ msgid "Open"
 msgstr ""
 
 #: templates/crisis_exercises.html.twig
+#: templates/crisis_scenario_register.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Review validated"
 msgstr ""
 
@@ -21532,7 +21581,9 @@ msgstr[1] ""
 
 #: templates/crisis_room.html.twig
 #: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
 #: templates/tabs/business_process_recovery.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Above the RTO"
 msgstr ""
 
@@ -21931,7 +21982,17 @@ msgid ""
 msgstr ""
 
 #: templates/crisis_scenario_register.html.twig
+msgid "No recovery test recorded for this process"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
 msgid "No scenario yet."
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "Review to validate"
 msgstr ""
 
 #: templates/crisis_scenario_register.html.twig
@@ -25704,6 +25765,11 @@ msgstr ""
 
 #: templates/pdf/crisis_scenarios_report.html.twig
 msgid "Critical processes without scenario"
+msgstr ""
+
+#: templates/pdf/crisis_scenarios_report.html.twig
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "No official contact to inform for this scenario."
 msgstr ""
 
 #: templates/pdf/data_breach_register.html.twig
@@ -29587,6 +29653,186 @@ msgstr ""
 
 #: templates/tabs/crisis_message_recipients.html.twig
 msgid "Remove this recipient?"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "%d crisis communication recorded during the exercise"
+msgid_plural "%d crisis communications recorded during the exercise"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "%d official contact recorded during the exercise"
+msgid_plural "%d official contacts recorded during the exercise"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "%d recipient"
+msgid_plural "%d recipients"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "%d recipient not visible to you"
+msgid_plural "%d recipients not visible to you"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "%d recovery time measured during the exercise"
+msgid_plural "%d recovery times measured during the exercise"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid ""
+"Contacts marked for a security incident or a personal data breach, visible "
+"from the entity of the scenario."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid ""
+"Contacts marked for a security incident, visible from the entity of the "
+"scenario."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "Crisis exercises and review"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid ""
+"Evaluate the objectives and validate the review in the crisis room, tab "
+"\"Review\"."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "Exercise of the plugin: %s"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "Exercise outside the plugin on %s (report in the Documents tab)."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid ""
+"It gathers what shows that this scenario is ready: the crisis exercises that "
+"tested it and the review of the last one, the recovery tests of the impacted "
+"processes, the crisis messages to send and the authorities to inform. "
+"Nothing is copied: each line opens the original record."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "Last exercise ended on %s"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "Launch this exercise"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "No active message template for the situation \"%s\"."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid ""
+"No communication situation is chosen for this scenario: choose one in the "
+"main tab, field \"Crisis communication\"."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid ""
+"No crisis exercise is chosen for this scenario: choose one in the main tab, "
+"field \"Crisis exercise\"."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "No distribution list"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "No impacted process yet: choose them in the main tab."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid ""
+"Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not "
+"evaluated"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "Opens the crisis room with a fictitious incident of this exercise."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "Previous exercises"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid ""
+"Recovery tests are recorded in the tab \"Recovery strategy\" of each "
+"process, or in the crisis room during an exercise."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "Recovery tests of the impacted processes"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "Review validated on %1$s by %2$s"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "Situation: %s"
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+#, php-format
+msgid "Situation: %s. The message templates are visible only with their right."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid ""
+"The business processes are visible only with the right of the business "
+"continuity."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid ""
+"The crisis exercises are visible only with the right to read the security "
+"incidents."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid ""
+"The official contacts are visible only with the right of the context of the "
+"organisation."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "This exercise has never been run to the end in the crisis room."
+msgstr ""
+
+#: templates/tabs/crisis_scenario_readiness.html.twig
+msgid "What is this tab for?"
 msgstr ""
 
 #: templates/tabs/cve.html.twig

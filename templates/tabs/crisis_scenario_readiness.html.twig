@@ -1,0 +1,188 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #776, lot 2 : onglet « Préparation » d'un scénario de crise sécurité (A.5.29) : exercices et
+   bilan (#732), tests de reprise des processus (#733), communication de crise (#616, #800) et
+   contacts officiels (#771). Voir GlpiPlugin\Grcmanager\CrisisScenarioReadiness. #}
+<div class="alert alert-info d-flex align-items-start" id="grc-crisis-readiness-help">
+   <i class="ti ti-help-circle me-2 mt-1"></i>
+   <div>
+      <strong>{{ __('What is this tab for?', 'grcmanager') }}</strong>
+      <div>{{ __('It gathers what shows that this scenario is ready: the crisis exercises that tested it and the review of the last one, the recovery tests of the impacted processes, the crisis messages to send and the authorities to inform. Nothing is copied: each line opens the original record.', 'grcmanager') }}</div>
+   </div>
+</div>
+
+{# ----- Exercices de crise et bilan (#732) ----- #}
+<div class="card mb-3" id="grc-crisis-readiness-exercises">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-alarm me-2"></i>{{ __('Crisis exercises and review', 'grcmanager') }}</h3>
+      {% if can_launch %}
+         <form method="post" action="{{ exercises_url }}" class="ms-auto">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" name="launch" value="{{ exercise_key }}" class="btn btn-sm btn-primary" title="{{ __('Opens the crisis room with a fictitious incident of this exercise.', 'grcmanager') }}"><i class="ti ti-player-play me-1"></i>{{ __('Launch this exercise', 'grcmanager') }}</button>
+         </form>
+      {% endif %}
+   </div>
+   <div class="card-body">
+      {% if exercise_key == '' %}
+         <div class="text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('No crisis exercise is chosen for this scenario: choose one in the main tab, field "Crisis exercise".', 'grcmanager') }}</div>
+      {% elseif not can_incidents %}
+         <div class="text-secondary"><i class="ti ti-lock me-1"></i>{{ __('The crisis exercises are visible only with the right to read the security incidents.', 'grcmanager') }}</div>
+      {% else %}
+         <p class="text-secondary mb-2">{{ __('Exercise of the plugin: %s', 'grcmanager')|format(exercise_label) }}</p>
+         {% if last_review is null %}
+            <div class="alert alert-warning mb-2"><i class="ti ti-alert-triangle me-1"></i>{{ __('This exercise has never been run to the end in the crisis room.', 'grcmanager') }}</div>
+         {% else %}
+            <div class="d-flex flex-wrap gap-2 mb-2">
+               <a href="{{ last_review.url }}" class="badge bg-blue-subtle text-blue-emphasis text-decoration-none"><i class="ti ti-alarm me-1"></i>{{ __('Last exercise ended on %s', 'grcmanager')|format(last_review.ended_at|formatted_datetime) }}</a>
+               {% if last_review.validated %}
+                  <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-rosette-discount-check me-1"></i>{{ __('Review validated on %1$s by %2$s', 'grcmanager')|format(last_review.validated_at|formatted_datetime, last_review.validator) }}</span>
+               {% else %}
+                  <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Review to validate', 'grcmanager') }}</span>
+               {% endif %}
+            </div>
+            <ul class="mb-2">
+               <li>{{ __('Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not evaluated', 'grcmanager')|format(last_review.objectives_summary.met, last_review.objectives_summary.partial, last_review.objectives_summary.not_met, last_review.objectives_summary.pending) }}</li>
+               <li>{{ __('Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)', 'grcmanager')|format(last_review.plan_summary.findings, last_review.plan_summary.actions, last_review.plan_summary.done, last_review.plan_summary.overdue) }}</li>
+               {% if last_review.communications is not null %}
+                  <li>{{ _n('%d crisis communication recorded during the exercise', '%d crisis communications recorded during the exercise', last_review.communications, 'grcmanager')|format(last_review.communications) }}</li>
+               {% endif %}
+               {% if last_review.contact_traces is not null %}
+                  <li>{{ _n('%d official contact recorded during the exercise', '%d official contacts recorded during the exercise', last_review.contact_traces, 'grcmanager')|format(last_review.contact_traces) }}</li>
+               {% endif %}
+               {% if last_review.recovery_tests is not null %}
+                  <li>{{ _n('%d recovery time measured during the exercise', '%d recovery times measured during the exercise', last_review.recovery_tests, 'grcmanager')|format(last_review.recovery_tests) }}</li>
+               {% endif %}
+            </ul>
+            {% if not last_review.validated %}
+               <div class="small text-secondary mb-2"><i class="ti ti-info-circle me-1"></i>{{ __('Evaluate the objectives and validate the review in the crisis room, tab "Review".', 'grcmanager') }}</div>
+            {% endif %}
+            {% if drills|length > 1 %}
+               <div class="fw-bold small mt-2">{{ __('Previous exercises', 'grcmanager') }}</div>
+               <ul class="list-unstyled mb-0">
+                  {% for drill in drills|slice(1) %}
+                     <li class="small"><a href="{{ drill.url }}">{{ drill.ended_at|formatted_datetime }}</a>
+                        {% if drill.validated %}<span class="badge bg-success-subtle text-success-emphasis ms-1">{{ __('Review validated', 'grcmanager') }}</span>{% else %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1">{{ __('Review to validate', 'grcmanager') }}</span>{% endif %}
+                     </li>
+                  {% endfor %}
+               </ul>
+            {% endif %}
+         {% endif %}
+      {% endif %}
+      {% if outside_date %}
+         <div class="small mt-2"><i class="ti ti-calendar-event me-1"></i>{{ __('Exercise outside the plugin on %s (report in the Documents tab).', 'grcmanager')|format(outside_date|formatted_date) }}</div>
+      {% endif %}
+   </div>
+</div>
+
+{# ----- Tests de reprise des processus impactés (#733) ----- #}
+<div class="card mb-3" id="grc-crisis-readiness-recovery">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-refresh-alert me-2"></i>{{ __('Recovery tests of the impacted processes', 'grcmanager') }}</h3>
+   </div>
+   {% if not can_processes %}
+      <div class="card-body text-secondary"><i class="ti ti-lock me-1"></i>{{ __('The business processes are visible only with the right of the business continuity.', 'grcmanager') }}</div>
+   {% elseif processes is empty %}
+      <div class="card-body text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('No impacted process yet: choose them in the main tab.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="table-responsive">
+         <table class="table table-hover card-table align-middle">
+            <thead>
+               <tr>
+                  <th>{{ __('Business process', 'grcmanager') }}</th>
+                  <th>RTO</th>
+                  <th>{{ __('Last recovery test', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for process in processes %}
+                  <tr>
+                     <td><a href="{{ process.url }}">{{ process.name }}</a>{% if process.critical %} <span class="badge bg-orange-subtle text-orange-emphasis">{{ __('Critical', 'grcmanager') }}</span>{% endif %}</td>
+                     <td>{{ process.rto ?: '-' }}</td>
+                     <td>
+                        {% if process.last_test %}
+                           <span class="badge {{ process.test_exceeds ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }}"><i class="ti {{ process.test_exceeds ? 'ti-alert-triangle' : 'ti-circle-check' }} me-1"></i>{{ process.last_test|formatted_date }} : {{ process.test_duration }}</span>
+                           {% if process.test_exceeds %}<div class="small text-danger">{{ __('Above the RTO', 'grcmanager') }}</div>{% endif %}
+                        {% else %}
+                           <span class="badge {{ process.critical ? 'bg-danger-subtle text-danger-emphasis' : 'bg-warning-subtle text-warning-emphasis' }}"><i class="ti ti-alert-triangle me-1"></i>{{ __('Never tested', 'grcmanager') }}</span>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+      <div class="card-footer small text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('Recovery tests are recorded in the tab "Recovery strategy" of each process, or in the crisis room during an exercise.', 'grcmanager') }}</div>
+   {% endif %}
+</div>
+
+{# ----- Communication de crise (#616, #800) ----- #}
+<div class="card mb-3" id="grc-crisis-readiness-communication">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-speakerphone me-2"></i>{{ __('Crisis communication', 'grcmanager') }}</h3>
+      {% if templates_url %}<a href="{{ templates_url }}" class="ms-auto small"><i class="ti ti-link me-1"></i>{{ __('Open the message templates', 'grcmanager') }}</a>{% endif %}
+   </div>
+   <div class="card-body">
+      {% if situation == '' %}
+         <div class="text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('No communication situation is chosen for this scenario: choose one in the main tab, field "Crisis communication".', 'grcmanager') }}</div>
+      {% elseif not can_templates %}
+         <div class="text-secondary"><i class="ti ti-lock me-1"></i>{{ __('Situation: %s. The message templates are visible only with their right.', 'grcmanager')|format(situation) }}</div>
+      {% elseif templates is empty %}
+         <div class="alert alert-warning mb-0"><i class="ti ti-alert-triangle me-1"></i>{{ __('No active message template for the situation "%s".', 'grcmanager')|format(situation) }}</div>
+      {% else %}
+         <p class="text-secondary mb-2">{{ __('Situation: %s', 'grcmanager')|format(situation) }}</p>
+         <ul class="list-unstyled mb-0">
+            {% for template in templates %}
+               <li class="mb-1">
+                  <a href="{{ template.url }}"><i class="ti ti-mail me-1"></i>{{ template.name }}</a>
+                  {% if template.recipients > 0 %}
+                     <span class="badge bg-success-subtle text-success-emphasis ms-1">{{ _n('%d recipient', '%d recipients', template.recipients, 'grcmanager')|format(template.recipients) }}</span>
+                  {% elseif template.hidden == 0 %}
+                     <span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('No distribution list', 'grcmanager') }}</span>
+                  {% endif %}
+                  {% if template.hidden > 0 %}
+                     <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1">{{ _n('%d recipient not visible to you', '%d recipients not visible to you', template.hidden, 'grcmanager')|format(template.hidden) }}</span>
+                  {% endif %}
+               </li>
+            {% endfor %}
+         </ul>
+      {% endif %}
+   </div>
+</div>
+
+{# ----- Contacts officiels (#771) ----- #}
+<div class="card mb-3" id="grc-crisis-readiness-contacts">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-address-book me-2"></i>{{ _n('Official contact', 'Official contacts', 2, 'grcmanager') }}</h3>
+      {% if contacts_url %}<a href="{{ contacts_url }}" class="ms-auto small"><i class="ti ti-link me-1"></i>{{ __('Open the register', 'grcmanager') }}</a>{% endif %}
+   </div>
+   {% if not can_contacts %}
+      <div class="card-body text-secondary"><i class="ti ti-lock me-1"></i>{{ __('The official contacts are visible only with the right of the context of the organisation.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="card-body pb-0">
+         <p class="text-secondary">
+            {% if with_breach %}
+               {{ __('Contacts marked for a security incident or a personal data breach, visible from the entity of the scenario.', 'grcmanager') }}
+            {% else %}
+               {{ __('Contacts marked for a security incident, visible from the entity of the scenario.', 'grcmanager') }}
+            {% endif %}
+         </p>
+      </div>
+      {% if contacts is empty %}
+         <div class="card-body pt-0"><div class="alert alert-warning mb-0"><i class="ti ti-alert-triangle me-1"></i>{{ __('No official contact to inform for this scenario.', 'grcmanager') }}</div></div>
+      {% else %}
+         {% include '@grcmanager/_official_contact_rows.html.twig' with {'contacts': contacts, 'multi': false} only %}
+      {% endif %}
+   {% endif %}
+</div>
