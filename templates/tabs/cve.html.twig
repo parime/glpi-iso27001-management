@@ -135,6 +135,9 @@
                       {# Issue #705 : logiciel installé ou firmware de l'actif. #}
                       {% if asset.source|default('software') == 'firmware' %}
                         <span class="badge bg-secondary-lt"><i class="ti ti-cpu me-1"></i>{{ __('Firmware', 'grcmanager') }}</span>
+                      {% elseif asset.source|default('software') == 'os' %}
+                        {# Issue #780 : système d'exploitation de l'actif. #}
+                        <span class="badge bg-secondary-lt"><i class="ti ti-device-desktop me-1"></i>{{ __('Operating system', 'grcmanager') }}</span>
                       {% else %}
                         <span class="badge bg-secondary-lt"><i class="ti ti-apps me-1"></i>{{ __('Software', 'grcmanager') }}</span>
                       {% endif %}

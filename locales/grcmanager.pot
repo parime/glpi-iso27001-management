@@ -27045,3 +27045,23 @@ msgstr ""
 #: front/businessprocessrisk.form.php:67
 msgid "Risk linked to the process, to be assessed in the register."
 msgstr ""
+
+#: templates/software_watch.html.twig
+msgid "Operating system of computers, servers or network equipment"
+msgstr ""
+
+#: templates/software_watch.html.twig
+msgid "Proposed match:"
+msgstr ""
+
+#: templates/software_watch.html.twig
+msgid "Watch this operating system with the proposed CPE"
+msgstr ""
+
+#: templates/software_watch.html.twig
+msgid "Accept the proposal"
+msgstr ""
+
+#: templates/software_watch.html.twig
+msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
+msgstr ""

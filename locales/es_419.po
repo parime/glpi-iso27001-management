@@ -23194,3 +23194,18 @@ msgid "Warranty ends on %1$s (in %2$d day)."
 msgid_plural "Warranty ends on %1$s (in %2$d days)."
 msgstr[0] "La garantía termina el %1$s (en %2$d día)."
 msgstr[1] "La garantía termina el %1$s (en %2$d días)."
+
+msgid "Operating system of computers, servers or network equipment"
+msgstr "Sistema operativo de ordenadores, servidores o equipos de red"
+
+msgid "Proposed match:"
+msgstr "Correspondencia propuesta:"
+
+msgid "Watch this operating system with the proposed CPE"
+msgstr "Vigilar este sistema operativo con la CPE propuesta"
+
+msgid "Accept the proposal"
+msgstr "Aceptar la propuesta"
+
+msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
+msgstr "También se listan los sistemas operativos. Para Windows 10 y 11, Windows Server, Debian, Ubuntu y Red Hat Enterprise Linux se propone una CPE: compruébela y luego acéptela."

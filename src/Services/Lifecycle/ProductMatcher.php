@@ -80,9 +80,11 @@ final class ProductMatcher
         self::KIND_OS => [
             '/^microsoft windows (10|11)( .*)?$/'                   => 'windows',
             '/^microsoft windows server \d{4}( .*)?$/'              => 'windows-server',
-            '/^debian( gnu\/linux)?$/'                              => 'debian',
-            '/^ubuntu( server)?$/'                                  => 'ubuntu',
-            '/^(red hat enterprise linux|rhel)( server| workstation)?$/' => 'rhel',
+            // Issue #780 : GLPI nomme le système d'après son nom complet (« Debian GNU/Linux 12
+            // (bookworm) », « Ubuntu 22.04.4 LTS ») : numéro de version majeure et « LTS » admis.
+            '/^debian( gnu\/linux)?( \d{1,2})?$/'                   => 'debian',
+            '/^ubuntu( server)?( \d{2}\.\d{2}(\.\d+)?)?( lts)?$/'   => 'ubuntu',
+            '/^(red hat enterprise linux|rhel)( server| workstation)?( \d{1,2})?$/' => 'rhel',
             '/^centos( linux)?$/'                                   => 'centos',
             '/^centos stream$/'                                     => 'centos-stream',
             '/^rocky linux$/'                                       => 'rocky-linux',
