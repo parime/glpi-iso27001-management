@@ -1547,6 +1547,8 @@ final class Installer
         RecyfTables::install($keySign, $charset, $collation);
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         OfficialContactTables::install($keySign, $charset, $collation);
+        // Issue #847 : sauvegarde déclarée des clés de récupération (aucune clé stockée).
+        DiskEncryptionTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -6395,6 +6397,7 @@ final class Installer
         SecureDevelopmentTables::uninstall($migration);
         RecyfTables::uninstall($migration);
         OfficialContactTables::uninstall($migration);
+        DiskEncryptionTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

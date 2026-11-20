@@ -143,6 +143,8 @@ class Menu extends CommonGLPI
                 ParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
                 // Issue #779 : conformité des licences logicielles (A.5.32).
                 SoftwareLicenseCompliance::class,
+                // Issue #847 : chiffrement des disques du parc (A.8.24, A.8.1).
+                DiskEncryption::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];

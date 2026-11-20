@@ -434,6 +434,24 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, control A.5.32', 'grcmanager'),
             ],
+            // Issue #847 : chiffrement des disques du parc.
+            'diskencryption' => [
+                'purpose'   => __(
+                    'Shows, from the volumes reported by the GLPI inventory agent (BitLocker, FileVault, LUKS, '
+                        . 'VeraCrypt...), which computers are fully encrypted, partially encrypted, not encrypted or '
+                        . 'of unknown state, by entity, computer type and location. Computers that must be encrypted '
+                        . 'and are not, or use a weak algorithm, are gaps.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Choose which computers must be encrypted, encrypt the computers listed as gaps, install the '
+                        . 'inventory agent on those of unknown state, and declare where the recovery key is backed '
+                        . 'up. The plugin never reads nor stores any recovery key. Record the result as an '
+                        . 'effectiveness test of the control to keep the evidence.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.24 and A.8.1', 'grcmanager'),
+            ],
             'contextitem' => [
                 'purpose'   => __(
                     'The context of the organization: the internal and external issues that affect information '
