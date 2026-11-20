@@ -22,8 +22,10 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use Group;
 use Group_User;
 use GlpiPlugin\Grcmanager\Audit;
+use GlpiPlugin\Grcmanager\AuditChecklist;
 use GlpiPlugin\Grcmanager\AuditProgramme;
 use GlpiPlugin\Grcmanager\AuditTeam;
+use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\EntityPerimeter;
 use GlpiPlugin\Grcmanager\ManagementReview;
 use GlpiPlugin\Grcmanager\ManagementReviewDossier;
@@ -433,5 +435,130 @@ final class AuditProgrammeTest extends GrcmanagerIntegrationTestCase
         $this->assertFalse(AuditProgramme::displayTabContentForItem($audit));
         $this->assertFalse(AuditProgramme::canView());
         $this->assertFalse(AuditProgramme::getMenuContent());
+    }
+
+    /**
+     * Lot 3 : un auditeur qui réalise ou approuve un processus dont une mesure de l'Annexe A est
+     * auditée (grille de l'audit ou mesure liée) est en conflit, même si le processus n'est pas
+     * choisi dans l'onglet.
+     */
+    public function testIndependenceCoversProcessesOfAuditedControls(): void
+    {
+        global $DB;
+
+        $lead = $this->member('Hugo');
+        $second = $this->member('Inès');
+        $backups = (int) (new ResponsibilityActivity())->add([
+            'name'          => 'Sauvegardes par mesure Exemple',
+            'entities_id'   => 0,
+            'control_codes' => 'A.8.13',
+        ]);
+        $access = (int) (new ResponsibilityActivity())->add([
+            'name'          => 'Accès par mesure Exemple',
+            'entities_id'   => 0,
+            'control_codes' => 'A.5.15,A.5.18',
+        ]);
+        $unrelated = (int) (new ResponsibilityActivity())->add([
+            'name'          => 'Activité sans mesure auditée Exemple',
+            'entities_id'   => 0,
+            'control_codes' => 'A.7.1',
+        ]);
+        $this->assign($backups, 'User', $lead, 'responsible');
+        $this->assign($access, 'User', $second, 'accountable');
+        $this->assign($unrelated, 'User', $lead, 'accountable');
+
+        $audit = $this->audit('Audit des mesures Exemple', ['users_id' => $lead]);
+        $this->assertTrue(AuditTeam::addMember($audit->getID(), $second, AuditTeam::ROLE_AUDITOR));
+        $this->assertSame([], AuditProgramme::conflicts($audit), 'aucune mesure auditée');
+
+        // Mesure A.8.13 dans la grille de l'audit.
+        $now = date('Y-m-d H:i:s');
+        $DB->insert(AuditChecklist::TABLE, [
+            'plugin_grcmanager_audits_id' => $audit->getID(),
+            'ref_type'                    => 'control',
+            'items_id'                    => 0,
+            'code'                        => 'A.8.13',
+            'label'                       => '',
+            'question'                    => '',
+            'result'                      => 'not_audited',
+            'rank'                        => 1,
+            'date_creation'               => $now,
+            'date_mod'                    => $now,
+        ]);
+        // Mesure A.5.15 liée à la fiche de l'audit.
+        $control = $DB->request([
+            'SELECT' => ['id'],
+            'FROM'   => Control::getTable(),
+            'WHERE'  => ['code' => 'A.5.15'],
+        ])->current();
+        $this->assertNotNull($control, 'mesure A.5.15 installée');
+        $this->assertTrue($audit->update(['id' => $audit->getID(), 'linked_controls' => [(int) $control['id']]]));
+        $audit->getFromDB($audit->getID());
+
+        $this->assertSame(['A.5.15', 'A.8.13'], AuditProgramme::auditedControlCodes($audit));
+        $conflicts = array_column(AuditProgramme::conflicts($audit), null, 'key');
+        $keys = array_keys($conflicts);
+        sort($keys);
+        $expected = [Rules::conflictKey($lead, $backups), Rules::conflictKey($second, $access)];
+        sort($expected);
+        $this->assertSame($expected, $keys);
+        $this->assertSame(['A.8.13'], $conflicts[Rules::conflictKey($lead, $backups)]['measures']);
+        $this->assertSame(['A.5.15'], $conflicts[Rules::conflictKey($second, $access)]['measures']);
+        $this->assertSame(Rules::CHECK_MISSING, AuditProgramme::auditChecks($audit)['checks']['independence']);
+
+        // Démarrage refusé, puis accepté une fois chaque conflit justifié.
+        $this->assertFalse($audit->update(['id' => $audit->getID(), 'status' => 'in_progress']));
+        ob_start();
+        AuditProgramme::displayTabContentForItem($audit);
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('grc-conflict-measures', $html);
+        $this->assertStringContainsString('A.8.13', $html);
+
+        $this->assertTrue(AuditProgramme::justify($audit, $lead, $backups, 'Sauvegardes revues par un tiers Exemple'));
+        $this->assertTrue(AuditProgramme::justify($audit, $second, $access, 'Accès revus par la direction Exemple'));
+        $this->assertTrue($audit->update(['id' => $audit->getID(), 'status' => 'in_progress']));
+        $audit->getFromDB($audit->getID());
+        $this->assertSame(Rules::CHECK_OK, AuditProgramme::auditChecks($audit)['checks']['independence']);
+        $this->assertStringContainsString('Sauvegardes par mesure Exemple', Audit::renderReport($audit));
+    }
+
+    /** Lot 3 : planifier un audit interne depuis une case du programme. */
+    public function testPlanAnAuditFromTheProgramme(): void
+    {
+        $process = $this->activity('Gestion des incidents à planifier Exemple');
+        $year = (int) date('Y') + 1;
+        $programme = AuditProgramme::programme((int) date('Y'));
+        $this->assertTrue($this->row($programme, $process)['cells'][$year]['can_plan']);
+
+        $row = AuditProgramme::plannableProcess($process);
+        $this->assertNotNull($row);
+        $this->assertNull(AuditProgramme::plannableProcess(999999));
+        $this->assertNull(AuditProgramme::planInput($row, (int) date('Y') - 1), 'année passée');
+        $input = AuditProgramme::planInput($row, $year);
+        $this->assertNotNull($input);
+        $this->assertSame($year . '-06-30', $input['planned_date']);
+        $this->assertSame('planned', $input['status']);
+        $this->assertSame(0, $input['entities_id']);
+
+        $auditId = AuditProgramme::planAudit($process, $input);
+        $this->assertGreaterThan(0, $auditId);
+        $audit = new Audit();
+        $this->assertTrue($audit->getFromDB($auditId));
+        $this->assertTrue(AuditProgramme::isInternal($audit));
+        $this->assertStringContainsString('Gestion des incidents à planifier Exemple', (string) $audit->fields['title']);
+        $this->assertSame([$process], AuditProgramme::processIds($auditId));
+
+        $programme = AuditProgramme::programme((int) date('Y'));
+        $cell = $this->row($programme, $process)['cells'][$year];
+        $this->assertSame(Rules::STATE_PLANNED, $cell['state']);
+        $this->assertFalse($cell['can_plan']);
+
+        // Processus d'une entité hors de la session : rien à planifier.
+        $child = $this->createTestEntity(0, 'Filiale à planifier Exemple');
+        EntityPerimeter::reset();
+        $other = $this->activity('Activité de filiale à planifier Exemple', $child);
+        $_SESSION['glpiactiveentities'] = [0];
+        $_SESSION['glpiactiveentities_string'] = '0';
+        $this->assertNull(AuditProgramme::plannableProcess($other));
     }
 }
