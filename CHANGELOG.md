@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.61.0] - 2026-11-20
+
 ### Added
 
 - **Exercices de crise : bilan après exercice, plan d'amélioration et validation du rapport**
