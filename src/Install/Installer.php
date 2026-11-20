@@ -30,6 +30,7 @@ use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
 use GlpiPlugin\Grcmanager\NotificationTargetEvidence;
 use GlpiPlugin\Grcmanager\NotificationTargetTraining;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
+use GlpiPlugin\Grcmanager\ReleaseValidation;
 use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog;
@@ -377,6 +378,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\ResponsibilityExport::class,
         // Issue #774 : compétences (fonctions du SMSI, compétences, déclarations, exports archivés).
         ...CompetenceTables::CLASSES,
+        // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
+        ...SecureDevelopmentTables::CLASSES,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
@@ -1498,6 +1501,8 @@ final class Installer
         $this->installResponsibilityTables($keySign, $charset, $collation);
         // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
         CompetenceTables::install($keySign, $charset, $collation);
+        // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
+        SecureDevelopmentTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -3865,7 +3870,8 @@ final class Installer
             ProfileRight::updateProfileRights(
                 (int) $profileRow['id'],
                 [
-                    self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE,
+                    // Issue #777 : décision de mise en production (DSI ou RSSI), droit dédié.
+                    self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE | ReleaseValidation::DECIDE,
                     self::SENSITIVE_RIGHT => ALLSTANDARDRIGHT,
                     // Issue #732 : validation des bilans d'exercice de crise, droit dédié.
                     self::CONTINUITY_RIGHT => ALLSTANDARDRIGHT | CrisisExerciseReview::VALIDATE,
@@ -6230,6 +6236,7 @@ final class Installer
         $migration->dropTable(self::RESPONSIBILITY_ACTIVITIES_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_EXPORTS_TABLE);
         CompetenceTables::uninstall($migration);
+        SecureDevelopmentTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

@@ -98,6 +98,8 @@ class Menu extends CommonGLPI
                 DataBreach::class, Policy::class,
                 // Issue #775 : registre des procédures d'exploitation et couverture (A.5.37).
                 OperatingProcedure::class,
+                // Issue #777 : développement sécurisé (registre des applications, mises en production).
+                SecureDevelopment::class,
                 Evidence::class, CoverageRule::class, ControlTest::class,
                 // Issue #540 : registre d'informations DORA (référentiel DORA activé).
                 DoraRegister::class,
