@@ -105,6 +105,11 @@ final class SecuredDashboardCards
             // et des utilisateurs).
             return \GlpiPlugin\Grcmanager\PersonnelCompliance::canViewList();
         }
+        if ($name === 'competenceCoverageRate') {
+            // Issue #774 (lot 2) : compétences des personnes, sous les droits de la matrice (lecture
+            // du plugin et des utilisateurs).
+            return \GlpiPlugin\Grcmanager\CompetenceMatrix::canView();
+        }
         if (str_starts_with($name, 'vulnerabilityRemediation')) {
             // Issue #601 : délais de correction des vulnérabilités du parc, sous les droits de leur
             // page (registre sensible et lecture des logiciels).

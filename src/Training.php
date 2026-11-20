@@ -781,6 +781,27 @@ class Training extends TrainingBase
             $this->fields['target_audience'] = __('People caught by the phishing simulation', 'grcmanager');
             $participantIds = PhishingResult::remedialUserIds($phishingOf);
         }
+        // Issue #774 (lot 2) : session proposée aux personnes en écart de compétence sans inscription
+        // en attente. Il faut voir la matrice des compétences (droit du plugin et lecture des
+        // utilisateurs, entités de la session) ; rien n'est enregistré avant « Ajouter ».
+        $gapsOf = $this->isNewItem() ? (int) ($options['competence_gaps_of'] ?? 0) : 0;
+        $isCompetenceGap = false;
+        if ($gapsOf > 0 && CompetenceMatrix::canView() && ($main = new self())->getFromDB($gapsOf)) {
+            $mainOf = self::mainTrainingId($gapsOf) ?: $gapsOf;
+            if ($mainOf !== $gapsOf) {
+                $main->getFromDB($mainOf);
+            }
+            $copied = [
+                'title', 'format', 'target_audience', 'is_mandatory', 'renewal_period_months',
+                'max_score', 'pass_threshold', 'description',
+            ];
+            foreach ($copied as $field) {
+                $this->fields[$field] = $main->fields[$field];
+            }
+            $this->fields['plugin_grcmanager_trainings_id'] = $mainOf;
+            $participantIds = CompetenceMatrix::gapPeopleForTraining($mainOf);
+            $isCompetenceGap = true;
+        }
         $mainId = (int) ($this->fields['plugin_grcmanager_trainings_id'] ?? 0);
         $maxScore = (int) ($this->fields['max_score'] ?? 0);
         foreach ($participants as &$participant) {
@@ -811,6 +832,7 @@ class Training extends TrainingBase
             'retake_url'          => self::getFormURL() . '?retake_of=' . (int) $ID,
             'is_retake'           => $retakeOf > 0,
             'is_phishing_remedial' => $isPhishingRemedial,
+            'is_competence_gap'   => $isCompetenceGap,
             'is_new_session'      => $sessionOf > 0,
             'main_trainings'      => self::getMainTrainings((int) $ID),
             'main_url'            => $mainId > 0 ? self::getFormURLWithID($mainId) : '',

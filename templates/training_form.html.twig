@@ -35,6 +35,15 @@
          </div>
       </div>
    {% endif %}
+   {# Issue #774 (lot 2) : session proposée aux personnes en écart de compétence. #}
+   {% if is_competence_gap is defined and is_competence_gap %}
+      <div class="col-12 mb-3">
+         <div class="alert alert-info mb-0">
+            <i class="ti ti-certificate me-1"></i>
+            {{ __('Proposed session to close competence gaps: the people who lack a competence given by this training, and are not yet enrolled, are preselected. Fill in the date, check the list, then click "Add". Nothing is saved before that.', 'grcmanager') }}
+         </div>
+      </div>
+   {% endif %}
    {% if is_new_session %}
       <div class="col-12 mb-3">
          <div class="alert alert-info mb-0">

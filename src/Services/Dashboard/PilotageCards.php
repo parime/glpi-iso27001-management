@@ -291,6 +291,17 @@ final class PilotageCards
         return \GlpiPlugin\Grcmanager\PersonnelCompliance::dashboardCard($params);
     }
 
+    /**
+     * Issue #774 (lot 2) : compétences exigées acquises au niveau attendu (%), page « Compétences ».
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function competenceCoverageRate(array $params = []): array
+    {
+        return \GlpiPlugin\Grcmanager\CompetenceMatrix::dashboardCard($params);
+    }
+
     public static function accessReviewProgress(array $params = []): array
     {
         global $DB;

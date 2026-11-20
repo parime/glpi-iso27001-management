@@ -58,6 +58,8 @@ if (isset($_POST['add'])) {
             'session_of' => (int) ($_GET['session_of'] ?? 0),
             // Issue #604 : rattrapage proposé après une simulation d'hameçonnage.
             'phishing_of' => (int) ($_GET['phishing_of'] ?? 0),
+            // Issue #774 (lot 2) : session proposée aux personnes en écart de compétence.
+            'competence_gaps_of' => (int) ($_GET['competence_gaps_of'] ?? 0),
         ]
     );
 }

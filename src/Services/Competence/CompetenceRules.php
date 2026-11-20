@@ -199,6 +199,23 @@ final class CompetenceRules
     }
 
     /**
+     * Lot 2 : inscriptions encore en attente (formation ou session pas encore suivie) qui comblent
+     * l'écart, c'est-à-dire qui donnent la compétence au moins au niveau exigé. Un écart qui en a
+     * au moins une a une action planifiée.
+     *
+     * @template T of array{level: int}
+     * @param list<T> $planned
+     * @return list<T>
+     */
+    public static function plannedFor(int $required, array $planned): array
+    {
+        return array_values(array_filter(
+            $planned,
+            static fn (array $entry): bool => self::normalizeLevel($entry['level']) >= $required
+        ));
+    }
+
+    /**
      * Synthèse : personnes suivies, personnes avec au moins un écart, écarts et taux de couverture
      * (compétences exigées acquises au niveau attendu), null sans aucune exigence.
      *

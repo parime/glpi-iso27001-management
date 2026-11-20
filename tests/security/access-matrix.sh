@@ -1070,6 +1070,10 @@ ARCHIVE=403; case $ROLE in limited|admin) ARCHIVE=302 ;; general) ARCHIVE= ;; es
 [ "$ROLE" = reader ] || [ "$ROLE" = none ] && expect "front/ismsfunction.php : fonctions par defaut" 403 \
   "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.php")"
 expect "front/ismsfunction.php : archiver sans jeton CSRF" 403 "$(code -d "archive=1" "$P/ismsfunction.php")"
+# Lot 2 : session proposée pour les écarts (formulaire de formation servi par ajax/common.tabs.php) ;
+# seules les personnes visibles en écart sont présélectionnées, rien n'est enregistré.
+contains "session proposee pour les ecarts de A : collaborateur de A" "Collaborateur securite A" $SEE_STAFF   "$(tab 'GlpiPlugin%5CGrcmanager%5CTraining' 'GlpiPlugin%5CGrcmanager%5CTraining$main' "0&competence_gaps_of=$(id competence_training_A)")"
+contains "session proposee pour les ecarts de B : collaborateur de B" "Collaborateur securite B" $SEE_B   "$(tab 'GlpiPlugin%5CGrcmanager%5CTraining' 'GlpiPlugin%5CGrcmanager%5CTraining$main' "0&competence_gaps_of=$(id competence_training_B)")"
 
 # Issue #778 : securite physique des sites. Page de comparaison, liste, fiche et onglets suivent le
 # droit du plugin et l'entite de l'evaluation ; lignes et zones exigent de modifier l'evaluation.
