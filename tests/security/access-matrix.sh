@@ -89,6 +89,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
   front/contextitem.php front/contextitem.form.php
+  front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
@@ -109,7 +110,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
     front/processingactivity.form.php front/datasubjectrequest.form.php front/databreach.form.php \
     front/businessprocess.form.php front/riskindicator.form.php front/contextitem.form.php \
-    front/managementreviewaction.form.php; do
+    front/managementreviewaction.form.php front/responsibilityactivity.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   # Issue #542 : generer le dossier preparatoire d'une revue de direction (document joint) et creer
@@ -607,6 +608,19 @@ contains "liste du contexte : partie de B" "Partie securite B" $SEE_B "$contexts
 # Le nom est conserve : la fiche reste reconnaissable pour les profils suivants.
 expect "modifier le contexte de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "update=1&id=$(id context_B)&name=Partie%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/contextitem.form.php")"
+# Issue #612 : une activite de la matrice des responsabilites appartient a son entite. Ajouter les
+# activites par defaut ou archiver la matrice est refuse sans droit comme en lecture seule.
+expect "matrice, activite de A"          200    "$(code "$P/responsibilityactivity.form.php?id=$(id responsibility_A)")"
+expect "matrice, activite de B"          $DENY  "$(code "$P/responsibilityactivity.form.php?id=$(id responsibility_B)")"
+matrix=$(curl -s -c "$JAR" -b "$JAR" "$P/responsibilityactivity.php")
+contains "matrice : activite de A" "Activite securite A" oui    "$matrix"
+contains "matrice : activite de B" "Activite securite B" $SEE_B "$matrix"
+expect "modifier l'activite de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"   "$(code -d "update=1&id=$(id responsibility_B)&name=Activite%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/responsibilityactivity.form.php")"
+if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
+  for action in add_defaults=1 archive=1; do
+    expect "front/responsibilityactivity.php : ${action%%=*}" 403       "$(code -d "$action&_glpi_csrf_token=$(csrf)" "$P/responsibilityactivity.php")"
+  done
+fi
 # Issue #608, lot 2 : export du registre et onglet du risque de A, limites aux entites de la session.
 context_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/contextitem.export.php?format=csv")
 contains "export du contexte : partie de A" "Partie securite A" oui    "$context_csv"
@@ -1015,6 +1029,25 @@ if [ "$ROLE" != admin ]; then
 fi
 contains "tableau de bord consolide : non-conformites ouvertes par entite" "grcmanager-perimeters-findings" \
   $IS_ADMIN "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"
+
+# Issue #732 : bilan apres exercice. Lire et modifier le bilan suivent l'incident d'exercice (lecture,
+# modification) ; le valider exige le droit dedie (continuite d'activite), que seul le super-admin a.
+case $ROLE in
+  none|general) ROOM_A=403; ROOM_B=403; EDIT_A=403; EDIT_B=403; VALIDATE_A=403 ;;
+  reader)       ROOM_A=200; ROOM_B=404; EDIT_A=403; EDIT_B=404; VALIDATE_A=403 ;;
+  limited)      ROOM_A=200; ROOM_B=404; EDIT_A=302; EDIT_B=404; VALIDATE_A=403 ;;
+  *)            ROOM_A=200; ROOM_B=200; EDIT_A=302; EDIT_B=302; VALIDATE_A=302 ;;
+esac
+expect "salle de crise d'un exercice de A" $ROOM_A "$(code "$P/crisisexercise.form.php?id=$(id exercise_A)")"
+expect "salle de crise d'un exercice de B" $ROOM_B "$(code "$P/crisisexercise.form.php?id=$(id exercise_B)")"
+contains "bilan d'un exercice de A : objectif" "Objectif securite A" "$([ "$ROOM_A" = 200 ] && echo oui || echo non)"   "$(curl -s -c "$JAR" -b "$JAR" "$P/crisisexercise.form.php?id=$(id exercise_A)")"
+expect "constat sur un exercice de A" $EDIT_A   "$(code -d "add_finding=1&id=$(id exercise_A)&name=Constat%20securite&severity=minor&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+expect "constat sur un exercice de B" $EDIT_B   "$(code -d "add_finding=1&id=$(id exercise_B)&name=Constat%20securite&severity=minor&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+expect "constat sans jeton CSRF" 403   "$(code -d "add_finding=1&id=$(id exercise_A)&name=Constat%20securite&severity=minor" "$P/crisisexercise.form.php")"
+expect "valider le bilan d'un exercice de A (droit dedie)" $VALIDATE_A   "$(code -d "validate_review=1&id=$(id exercise_A)&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+if [ "$ROLE" != admin ]; then
+  expect "repasser en brouillon le bilan d'un exercice de A" 403     "$(code -d "reopen_review=1&id=$(id exercise_A)&reason=securite&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+fi
 
 rm -f "$JAR"
 exit $FAIL

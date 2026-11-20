@@ -23,6 +23,7 @@ use CronTask;
 use DBConnection;
 use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\ComplianceEvent;
+use GlpiPlugin\Grcmanager\CrisisExerciseReview;
 use GlpiPlugin\Grcmanager\Evidence;
 use GlpiPlugin\Grcmanager\Nonconformity;
 use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
@@ -357,6 +358,9 @@ final class Installer
         \GlpiPlugin\Grcmanager\NotificationTargetContextItem::class,
         // Issue #703 : registre NIS2 Italia - ACN.
         \GlpiPlugin\Grcmanager\AcnRequirement::class,
+        // Issue #612 : matrice des responsabilités du SMSI et ses exports archivés.
+        \GlpiPlugin\Grcmanager\ResponsibilityActivity::class,
+        \GlpiPlugin\Grcmanager\ResponsibilityExport::class,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
@@ -365,6 +369,10 @@ final class Installer
     // Issue #608 : contexte de l'organisation, voir \GlpiPlugin\Grcmanager\ContextItem.
     private const CONTEXT_ITEMS_TABLE = 'glpi_plugin_grcmanager_contextitems';
     private const CONTEXT_ITEMS_LINKS_TABLE = 'glpi_plugin_grcmanager_contextitems_items';
+    // Issue #612 : matrice des responsabilités, voir \GlpiPlugin\Grcmanager\ResponsibilityActivity.
+    private const RESPONSIBILITY_ACTIVITIES_TABLE = 'glpi_plugin_grcmanager_responsibilityactivities';
+    private const RESPONSIBILITY_ASSIGNMENTS_TABLE = 'glpi_plugin_grcmanager_responsibilityassignments';
+    private const RESPONSIBILITY_EXPORTS_TABLE = 'glpi_plugin_grcmanager_responsibilityexports';
     // Issue #375 : registre des activités de traitement (RGPD, article 30) et éléments GLPI cités,
     // voir \GlpiPlugin\Grcmanager\ProcessingActivity.
     private const PROCESSING_ACTIVITIES_TABLE = 'glpi_plugin_grcmanager_processingactivities';
@@ -422,6 +430,10 @@ final class Installer
     private const CRISIS_EXERCISE_STEPS_TABLE = 'glpi_plugin_grcmanager_crisisexercisesteps';
     // Issue #185 : éléments rétablis pendant une crise (temps de reprise mesuré face au RTO).
     private const CRISIS_RECOVERIES_TABLE = 'glpi_plugin_grcmanager_crisisrecoveries';
+    // Issue #732 : bilan d'un exercice de crise (objectifs évalués, constats, validation tracée).
+    private const CRISIS_EXERCISE_OBJECTIVES_TABLE = 'glpi_plugin_grcmanager_crisisexerciseobjectives';
+    private const CRISIS_EXERCISE_FINDINGS_TABLE = 'glpi_plugin_grcmanager_crisisexercisefindings';
+    private const CRISIS_EXERCISE_REVIEWS_TABLE = 'glpi_plugin_grcmanager_crisisexercisereviews';
     // Issue #162 : ticket de mise en conformité ouvert par contrôle technique et par entité.
     private const COMPLIANCE_AUDIT_TICKETS_TABLE = 'glpi_plugin_grcmanager_complianceaudittickets';
     // Issue #378 : appétence et tolérance au risque, indicateurs de risque (KRI) et leurs relevés.
@@ -1427,6 +1439,7 @@ final class Installer
         $this->installDoraRegisterTables($keySign, $charset, $collation);
         $this->installDataBreachTables($keySign, $charset, $collation);
         $this->installContextTables($migration, $keySign, $charset, $collation);
+        $this->installResponsibilityTables($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -3185,6 +3198,63 @@ final class Installer
 
             $DB->doQuery($query);
         }
+        // Issue #732 : bilan après exercice. Objectifs définis au lancement et évalués à la clôture,
+        // constats (écarts) avec leur gravité et l'action d'amélioration créée à la demande, journal
+        // des validations et retours en brouillon ; l'état courant est porté par l'exercice.
+        if (!$DB->tableExists(self::CRISIS_EXERCISE_OBJECTIVES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CRISIS_EXERCISE_OBJECTIVES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_crisisexercises_id` int {$keySign} NOT NULL DEFAULT 0,
+                `rank` int NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `outcome` varchar(16) NOT NULL DEFAULT '' COMMENT 'met, partial, not_met ; vide : non evalue',
+                `comment` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_crisisexercises_id` (`plugin_grcmanager_crisisexercises_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::CRISIS_EXERCISE_FINDINGS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CRISIS_EXERCISE_FINDINGS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_crisisexercises_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `description` text,
+                `severity` varchar(16) NOT NULL DEFAULT 'minor' COMMENT 'minor, major, critical',
+                `itemtype` varchar(100) NOT NULL DEFAULT '' COMMENT 'action d amelioration creee a la demande',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_crisisexercises_id` (`plugin_grcmanager_crisisexercises_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::CRISIS_EXERCISE_REVIEWS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CRISIS_EXERCISE_REVIEWS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_crisisexercises_id` int {$keySign} NOT NULL DEFAULT 0,
+                `action` varchar(16) NOT NULL DEFAULT '' COMMENT 'validated, reopened',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date` timestamp NULL DEFAULT NULL,
+                `comment` text,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_crisisexercises_id` (`plugin_grcmanager_crisisexercises_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        foreach (
+            [
+                'validated_at'       => 'timestamp NULL DEFAULT NULL',
+                'users_id_validator' => "int {$keySign} NOT NULL DEFAULT 0",
+            ] as $field => $definition
+        ) {
+            if (!$DB->fieldExists(self::CRISIS_EXERCISES_TABLE, $field, false)) {
+                $DB->doQuery('ALTER TABLE `' . self::CRISIS_EXERCISES_TABLE . '` ADD `' . $field . '` ' . $definition);
+            }
+        }
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_TICKETS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_TICKETS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -3682,7 +3752,8 @@ final class Installer
                 [
                     self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE,
                     self::SENSITIVE_RIGHT => ALLSTANDARDRIGHT,
-                    self::CONTINUITY_RIGHT => ALLSTANDARDRIGHT,
+                    // Issue #732 : validation des bilans d'exercice de crise, droit dédié.
+                    self::CONTINUITY_RIGHT => ALLSTANDARDRIGHT | CrisisExerciseReview::VALIDATE,
                 ]
             );
         }
@@ -4438,6 +4509,67 @@ final class Installer
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `unicity` (`plugin_grcmanager_databreaches_id`, `plugin_grcmanager_processingactivities_id`),
                 KEY `plugin_grcmanager_processingactivities_id` (`plugin_grcmanager_processingactivities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
+     * Issue #612 : matrice des responsabilités du SMSI (article 5.3, mesure A.5.3). Les activités
+     * par défaut ne sont proposées qu'à la création de la table : une mise à jour ne touche jamais
+     * aux activités existantes ni ne fait revenir une activité supprimée.
+     */
+    private function installResponsibilityTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::RESPONSIBILITY_ACTIVITIES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RESPONSIBILITY_ACTIVITIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `default_key` varchar(64) NOT NULL DEFAULT '' COMMENT 'Activite proposee par defaut, vide sinon',
+                `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Vide : libelle traduit de l''activite par defaut',
+                `is_sensitive` tinyint NOT NULL DEFAULT 0 COMMENT 'Separation des taches verifiee',
+                `control_codes` varchar(255) NOT NULL DEFAULT '' COMMENT 'Mesures de l''Annexe A (A.5.3,...)',
+                `ranking` int NOT NULL DEFAULT 0,
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `is_recursive` (`is_recursive`),
+                KEY `default_key` (`default_key`),
+                KEY `ranking` (`ranking`),
+                KEY `date_mod` (`date_mod`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+            \GlpiPlugin\Grcmanager\ResponsibilityActivity::addDefaults(0, []);
+        }
+        if (!$DB->tableExists(self::RESPONSIBILITY_ASSIGNMENTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RESPONSIBILITY_ASSIGNMENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_responsibilityactivities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '' COMMENT 'User ou Group',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `role` varchar(16) NOT NULL DEFAULT 'responsible' COMMENT 'responsible, accountable, consulted...',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_responsibilityactivities_id`, `itemtype`, `items_id`, `role`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::RESPONSIBILITY_EXPORTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RESPONSIBILITY_EXPORTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'PDF archive',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `documents_id` (`documents_id`),
+                KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
         }
     }
@@ -5796,6 +5928,9 @@ final class Installer
         $migration->dropTable(self::ENDOFLIFE_MAPPINGS_TABLE);
         $migration->dropTable(self::COVERAGE_RULES_TABLE);
         $migration->dropTable(self::CRISIS_RECOVERIES_TABLE);
+        $migration->dropTable(self::CRISIS_EXERCISE_OBJECTIVES_TABLE);
+        $migration->dropTable(self::CRISIS_EXERCISE_FINDINGS_TABLE);
+        $migration->dropTable(self::CRISIS_EXERCISE_REVIEWS_TABLE);
         $migration->dropTable(self::COMPLIANCE_AUDIT_TICKETS_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISE_STEPS_TABLE);
         $migration->dropTable(self::BUSINESS_IMPACTS_TABLE);
@@ -5810,6 +5945,9 @@ final class Installer
         $migration->dropTable(self::DATA_BREACHES_TABLE);
         $migration->dropTable(self::CONTEXT_ITEMS_LINKS_TABLE);
         $migration->dropTable(self::CONTEXT_ITEMS_TABLE);
+        $migration->dropTable(self::RESPONSIBILITY_ASSIGNMENTS_TABLE);
+        $migration->dropTable(self::RESPONSIBILITY_ACTIVITIES_TABLE);
+        $migration->dropTable(self::RESPONSIBILITY_EXPORTS_TABLE);
         $migration->dropTable(self::ACN_REQUIREMENTS_LINKS_TABLE);
         $migration->dropTable(self::ACN_REQUIREMENTS_TABLE);
         $migration->dropTable(self::ACN_ENTITIES_TABLE);
