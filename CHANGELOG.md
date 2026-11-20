@@ -7,6 +7,28 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Fiche de conformité sécurité de chaque collaborateur** (issue #546, A.6.1, A.6.2, A.6.3, A.6.5,
+  A.6.6, A.5.18). Onglet « Conformité sécurité » sur l'utilisateur GLPI (et « Ma conformité
+  sécurité » dans les préférences de chacun) qui rassemble ce que le plugin suit déjà : formations
+  obligatoires (renouvellement compris), charte signée dans assetsign (ligne « non suivie » sans ce
+  plugin), politiques de sécurité lues, revue des accès (12 mois) et hygiène du compte, plus la
+  vérification préalable à l'embauche et l'engagement de confidentialité (statut et dates
+  seulement, la pièce reste chez les RH).
+  - Règle « dans les N jours suivant l'arrivée » (date de début du compte, à défaut sa création) ou
+    la demande, N réglable dans la configuration du plugin (30 jours par défaut) ; poids de chaque
+    composante réglable (0 retire la composante), score et détail du calcul affichés.
+  - Liste globale, sous-page de la rubrique « Revue des accès » (aucune entrée de menu en plus),
+    filtrable par entité, groupe, état et composante en écart, avec agrégation par groupe ; export
+    CSV et PDF pour l'auditeur, de la liste ou d'une seule fiche.
+  - Carte « Conformité sécurité du personnel (%) » pour le tableau de bord.
+  - Un écart peut être notifié au responsable hiérarchique (bouton de la fiche, ou tâche planifiée
+    hebdomadaire, désactivée à l'installation) ; rien n'est jamais modifié automatiquement.
+  - Droits : chacun voit sa propre fiche ; la liste et la fiche d'un autre exigent la lecture du
+    plugin et des utilisateurs, dans les entités de la session (le responsable hiérarchique voit
+    aussi la fiche de ses collaborateurs) ; la saisie exige de modifier le plugin.
+
 ## [2.63.0] - 2026-11-20
 
 ### Added

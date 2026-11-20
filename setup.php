@@ -314,6 +314,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\TrainingQuiz::class, ['addtabon' => [Preference::class]]);
     // Issue #535 : « Politiques à lire », dans les préférences de chaque utilisateur.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PolicyAcknowledgement::class, ['addtabon' => [Preference::class]]);
+    // Issue #546 : fiche de conformité sécurité, sur chaque utilisateur et dans ses préférences.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PersonnelCompliance::class, [
+        'addtabon' => [User::class, Preference::class],
+    ]);
     // Issue #538 : dans l'interface simplifiée, une entrée « GRC Manager » mène l'auditeur à son
     // espace (accès en vigueur à un audit), ou la personne à ses demandes de preuves en attente.
     if (Session::getCurrentInterface() === 'helpdesk') {

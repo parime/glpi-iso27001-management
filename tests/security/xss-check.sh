@@ -52,10 +52,12 @@ for url in \
   risk.php control.php supplierrisk.php securityincident.php accessreview.php audit.php complianceobligation.php \
   managementreview.php nonconformity.php objective.php policy.php training.php canonicalproduct.php \
   ismsrequirement.php referentiels.php riskheatmap.php soaapproval.php policyapproval.php config.php evidence.php controltest.php \
-  myspace.php customframework.php riskimport.php "customframework.form.php?id=$(xid customframework)" \
+  myspace.php personnelcompliance.php customframework.php riskimport.php "customframework.form.php?id=$(xid customframework)" \
   frameworkassessment.php "frameworkassessment.php?framework=custom_$(xid customframework)"; do
   check "front/$url" "$P/$url"
 done
+# Issue #546 : fiche de conformité de glpi, dans le public de la politique piégée.
+check "onglet Ma conformite securite"          "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPersonnelCompliance$1' 2)"
 check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
 check "onglet classification d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' "$(id computer_A)")"
 check "onglet questionnaire fournisseur"      "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$1' "$(id supplierrisk)")"

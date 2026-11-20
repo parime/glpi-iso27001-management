@@ -105,7 +105,10 @@ class Menu extends CommonGLPI
             ],
             // Opérations récurrentes : accès, revues, personnes, continuité.
             AccessReview::class => [
-                AccountHygiene::class, PeriodicReview::class,
+                AccountHygiene::class,
+                // Issue #546 : fiche de conformité sécurité de chaque collaborateur.
+                PersonnelCompliance::class,
+                PeriodicReview::class,
                 Training::class, CrisisExercise::class,
                 // Issue #377 : processus métier et analyses d'impact sur l'activité (BIA).
                 BusinessProcess::class,

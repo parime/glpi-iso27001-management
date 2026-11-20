@@ -100,6 +100,11 @@ final class SecuredDashboardCards
         if (self::isIncidentCard($name)) {
             return self::incidentCardsAllowed();
         }
+        if ($name === 'personnelComplianceRate') {
+            // Issue #546 : données des collaborateurs, sous les droits de la liste (lecture du plugin
+            // et des utilisateurs).
+            return \GlpiPlugin\Grcmanager\PersonnelCompliance::canViewList();
+        }
         if (str_starts_with($name, 'vulnerabilityRemediation')) {
             // Issue #601 : délais de correction des vulnérabilités du parc, sous les droits de leur
             // page (registre sensible et lecture des logiciels).
