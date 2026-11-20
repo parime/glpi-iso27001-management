@@ -97,6 +97,9 @@ check "onglet prise de connaissance"          "$(tab 'GlpiPlugin%5CGrcmanager%5C
 check "front/consistencycheck.php"            "$P/consistencycheck.php"
 # Issue #619 : preparation a la certification (titres des fiches pieges jamais repris tels quels).
 check "front/certificationreadiness.php"     "$P/certificationreadiness.php"
+# Issue #772 : audit de certification et constat pieges (vue des constats et onglet de l'audit).
+check "front/certificationfinding.php"       "$P/certificationfinding.php"
+check "onglet constats d'un audit de certification" "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CNonconformity$1' "$(xid audit)")"
 check "export CSV de prise de connaissance"   "$P/policyacknowledgement.export.php?id=$(xid ack_campaign)&format=csv"
 # Issue #540 : registre DORA piege (page, onglets du contrat, du fournisseur et du processus, export).
 check "registre DORA"                         "$P/doraregister.php"

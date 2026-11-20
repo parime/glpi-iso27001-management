@@ -920,14 +920,35 @@ class CertificationReadiness extends CommonGLPI
         if ($overdue + $closedWithoutAction > 0) {
             $links[] = $fix('improvement');
         }
+        $facts = [
+            sprintf(__('Open nonconformities: %d', 'grcmanager'), $open),
+            sprintf(__('Overdue: %d', 'grcmanager'), $overdue),
+            sprintf(__('Closed without a corrective action: %d', 'grcmanager'), $closedWithoutAction),
+        ];
+        // Issue #772 : constats des audits de certification précédents encore non levés, que
+        // l'organisme vérifie à l'audit suivant (déjà comptés plus haut pour les non-conformités).
+        if (CertificationFinding::canView()) {
+            $certification = CertificationFinding::openCounts();
+            if ($certification['audits'] > 0) {
+                $facts[] = sprintf(
+                    __(
+                        'Findings of previous certification audits not lifted: %1$d (including %2$d nonconformities)',
+                        'grcmanager'
+                    ),
+                    $certification['open'],
+                    $certification['open_nc']
+                );
+                $links[] = self::link(
+                    CertificationFinding::getTypeName(),
+                    CertificationFinding::getSearchURL() . ($certification['open'] > 0 ? '?open=1' : ''),
+                    'ti-certificate-2'
+                );
+            }
+        }
 
         return [
             'status' => Rules::nonconformities($open, $overdue, $closedWithoutAction),
-            'facts'  => [
-                sprintf(__('Open nonconformities: %d', 'grcmanager'), $open),
-                sprintf(__('Overdue: %d', 'grcmanager'), $overdue),
-                sprintf(__('Closed without a corrective action: %d', 'grcmanager'), $closedWithoutAction),
-            ],
+            'facts'  => $facts,
             'links'  => $links,
         ];
     }
