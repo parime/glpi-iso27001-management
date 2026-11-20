@@ -379,6 +379,12 @@ if ($mode === 'xss') {
     $insert('ismsfunctions_holders', [
         'plugin_grcmanager_ismsfunctions_id' => (int) $ids['ismsfunction_A'], 'itemtype' => 'User', 'items_id' => 2,
     ]);
+    // Lot 3 : la fonction piégée est aussi tenue par le rôle « réalise » de l'activité piégée.
+    $insert('ismsfunctions_holders', [
+        'plugin_grcmanager_ismsfunctions_id' => (int) $ids['ismsfunction_A'],
+        'itemtype' => \GlpiPlugin\Grcmanager\ResponsibilityActivity::class, 'items_id' => $xssProcess,
+        'role' => 'responsible',
+    ]);
     $out['competencedeclaration'] = $insert('competencedeclarations', [
         'entities_id' => 0, 'users_id' => 2, 'plugin_grcmanager_competences_id' => (int) $ids['competence_A'],
         'level' => 1, 'evidence_type' => 'certificate', 'evidence_reference' => $canary, 'comment' => $canary,
