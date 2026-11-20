@@ -381,6 +381,8 @@ final class Installer
         ...CompetenceTables::CLASSES,
         // Issue #616 : communication de crise (modèles, listes de diffusion, communications faites).
         ...CrisisCommunicationTables::CLASSES,
+        // Issue #776 : scénarios de crise sécurité de l'information du PCA (A.5.29).
+        ...CrisisScenarioTables::CLASSES,
         // Issue #604 : simulations d'hameçonnage (campagnes, résultats par personne).
         ...PhishingTables::CLASSES,
     ];
@@ -1516,6 +1518,8 @@ final class Installer
         $this->installSentinelOneTables($keySign, $charset, $collation);
         $this->installEndOfLifeTables($keySign, $charset, $collation);
         $this->installManagementReviewDossierTables($keySign, $charset, $collation);
+        // Issue #776 : scénarios de crise sécurité de l'information (ajoutés à la demande, par entité).
+        CrisisScenarioTables::install($keySign, $charset, $collation);
         $this->installAuditProgrammeTables($keySign, $charset, $collation);
         $this->installControlTestSampleTables($migration, $keySign, $charset, $collation);
 
@@ -6247,6 +6251,7 @@ final class Installer
         PhysicalSecurityTables::uninstall($migration);
         CompetenceTables::uninstall($migration);
         CrisisCommunicationTables::uninstall($migration);
+        CrisisScenarioTables::uninstall($migration);
         PhishingTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);

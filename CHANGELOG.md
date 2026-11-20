@@ -9,6 +9,30 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Scénarios de crise sécurité de l'information du PCA** (issue #776, lot 1, mesure A.5.29). Constat
+  d'audit : le PCA et le PRA décrivaient la restauration technique, sans scénario de crise intégrant
+  la sécurité. Nouvel écran « Scénarios de crise sécurité » dans la rubrique Opérations, à côté des
+  processus métier :
+  - catalogue par défaut ajouté à la demande dans l'entité active, modifiable : attaque par
+    rançongiciel, fuite de données, compromission de comptes à privilèges, indisponibilité d'un
+    prestataire critique, attaque par déni de service ;
+  - pour chaque scénario : processus métier impactés (ceux de l'entité du scénario), mode dégradé
+    sécurisé (accès limités, validation des actions, communication contrôlée), rôles de la
+    direction, du RSSI et de la DSI, guide de réponse (procédure de remédiation existante : les
+    scénarios par défaut reprennent celles du rançongiciel, de la fuite de données et du compte
+    compromis), scénario d'exercice de crise et situation des modèles de messages de crise (#616) ;
+    rien n'est dupliqué ;
+  - couverture : processus critiques (RTO de 24 heures ou moins) sans scénario actif, scénarios
+    jamais exercés ou pas exercés depuis plus d'un an (exercice de crise terminé du plugin, ou
+    exercice sur table daté sur le scénario), manques de chaque scénario ;
+  - onglet « Scénarios de crise sécurité » sur chaque processus métier, scénarios en PDF, preuve sur
+    la mesure A.5.29 de la SoA ;
+  - droits : droit « Continuité d'activité » et entité du scénario ; procédures, exercices et modèles
+    ne sont nommés qu'avec leurs propres droits.
+  - Reste à faire (lot 2) : procédures de remédiation fournies pour le déni de service et
+    l'indisponibilité d'un prestataire, scénarios repris dans le PCA en PDF de chaque processus,
+    archivage daté du PDF sur la mesure, lien avec les exercices de reprise (#733).
+
 - **Simulations d'hameçonnage, preuve de sensibilisation** (issue #604, lot 1, clause 7.3 et mesure
   A.6.3). Sous-page « Simulations d'hameçonnage » de la rubrique des formations (pas d'entrée de
   menu en plus). Le plugin n'envoie rien : la campagne est faite avec un outil externe.

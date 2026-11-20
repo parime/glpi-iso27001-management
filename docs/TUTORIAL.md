@@ -709,6 +709,39 @@ version du noyau). Un système n'est rapproché d'une CVE qu'après votre valida
 5. Les tickets de mise à jour lient les ordinateurs concernés de l'entité du ticket, y compris
    ceux qui le deviennent après l'ouverture du ticket.
 
+### Étape 30 : Décrire les scénarios de crise sécurité du PCA (mesure A.5.29)
+
+Le plan de continuité décrit la restauration technique de chaque processus (stratégie de reprise,
+RTO). Cette étape y ajoute la sécurité de l'information pendant la crise : comment continuer à
+travailler sans baisser la sécurité quand la crise est elle-même une attaque.
+
+1. Menu **GRC & Conformité > Opérations**, onglet **Scénarios de crise sécurité** (à côté des
+   processus métier). Il faut le droit **Continuité d'activité** du profil.
+2. Cliquez sur **Ajouter les scénarios par défaut** : cinq scénarios sont ajoutés dans l'entité
+   active, prêts à adapter : attaque par rançongiciel, fuite de données, compromission de comptes à
+   privilèges, indisponibilité d'un prestataire critique, attaque par déni de service. Rien
+   d'existant n'est modifié ; un scénario par défaut supprimé revient au prochain clic.
+3. Ouvrez un scénario, par exemple « Attaque par rançongiciel ». Dans **Processus impactés**,
+   choisissez les processus métier que cette crise arrêterait (par exemple « Facturation (fictif) ») :
+   seuls les processus de l'entité du scénario sont proposés.
+4. Relisez le **mode dégradé sécurisé** (accès limités, actions validées par une seconde personne,
+   communication contrôlée) et les **rôles** de la direction, du RSSI et de la DSI, puis adaptez-les
+   à votre organisation.
+5. Le **guide de réponse** est une procédure de remédiation de la bibliothèque des incidents : les
+   scénarios par défaut reprennent celles fournies (rançongiciel, fuite de données, compte
+   compromis). Pour le déni de service et l'indisponibilité d'un prestataire, créez la procédure
+   dans la bibliothèque, puis choisissez-la ici. La **communication de crise** renvoie aux modèles de
+   messages de l'étape 28.
+6. **Exercice** : un exercice de crise terminé (page **Exercices de crise** de la même rubrique) du
+   scénario d'exercice choisi compte comme exercice du scénario. Un exercice sur table tenu sans le plugin se note dans
+   **Dernier exercice hors du plugin**, son compte rendu en document joint.
+7. En haut de la page, la couverture : **processus critiques sans scénario** (RTO de 24 heures ou
+   moins), **scénarios jamais exercés** ou pas exercés depuis plus d'un an. Chaque scénario liste ce
+   qui reste à compléter avant l'audit. L'onglet **Scénarios de crise sécurité** d'un processus
+   métier montre les scénarios qui le touchent.
+8. **Imprimer les scénarios (PDF)** donne le document à présenter à l'auditeur. Sur la fiche de la
+   mesure **A.5.29**, le cadre « Scénarios de crise sécurité » reprend la couverture.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -1370,7 +1403,38 @@ plugin with update, and the right to read software.
 5. Update tickets link the affected computers of the ticket's entity, including those that become
    affected after the ticket was opened.
 
-### Step 30: Use phishing simulations as evidence of awareness (clause 7.3, control A.6.3)
+### Step 30: Describe the security crisis scenarios of the continuity plan (control A.5.29)
+
+The continuity plan describes the technical recovery of each process (recovery strategy, RTO). This
+step adds information security during the crisis: how to keep working without lowering security
+when the crisis is itself an attack.
+
+1. Menu **GRC & Compliance > Operations**, **Security crisis scenarios** tab (next to the
+   business processes). The **Business continuity** right of the profile is required.
+2. Click **Add the default scenarios**: five scenarios are added to the active entity, ready to
+   adapt: ransomware attack, data leak, compromise of privileged accounts, unavailability of a
+   critical supplier, denial of service attack. Nothing existing is changed; a default scenario
+   that was deleted comes back on the next click.
+3. Open a scenario, for instance "Ransomware attack". In **Impacted processes**, choose the
+   business processes this crisis would stop (for instance "Billing (fictitious)"): only the
+   processes of the entity of the scenario are offered.
+4. Read the **secure degraded mode** (limited access, actions validated by a second person,
+   controlled communication) and the **roles** of management, the CISO and the IT department, then
+   adapt them to your organization.
+5. The **response playbook** is a remediation playbook of the incident library: the default
+   scenarios use the ones provided (ransomware, data leak, compromised account). For denial of
+   service and supplier unavailability, create the playbook in the library, then choose it here.
+   **Crisis communication** points to the message templates of step 28.
+6. **Exercise**: a finished crisis exercise (**Crisis exercises** page of the same section) of the
+   chosen exercise scenario counts as an exercise of the scenario. A tabletop exercise held without
+   the plugin is recorded in **Last exercise outside the plugin**, with its report attached.
+7. At the top of the page, the coverage: **critical processes without scenario** (RTO of 24 hours or
+   less), **scenarios never exercised** or not exercised for more than a year. Each scenario lists
+   what remains to complete before the audit. The **Security crisis scenarios** tab of a business
+   process shows the scenarios that impact it.
+8. **Print the scenarios (PDF)** gives the document to show the auditor. On control **A.5.29**, the
+   "Security crisis scenarios" box shows the coverage.
+### Step 31: Use phishing simulations as evidence of awareness (clause 7.3, control A.6.3)
 
 1. Before the first simulation, inform the staff that phishing simulations take place (purpose:
    awareness, not sanction), and record this processing in the GDPR register: the results per

@@ -1,0 +1,35 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #776 : scénarios de crise sécurité de l'information sur la mesure A.5.29 : couverture des
+   processus critiques et scénarios jamais exercés. #}
+<div class="col-12 mt-2" id="grc-crisis-scenario-evidence">
+   <div class="card card-sm">
+      <div class="card-body">
+         <div class="fw-bold mb-2"><i class="ti ti-urgent me-1"></i>{{ _n('Security crisis scenario', 'Security crisis scenarios', 2, 'grcmanager') }}</div>
+         <div class="d-flex flex-wrap gap-2 mb-2">
+            <span class="badge {{ summary.scenarios > 0 ? 'bg-success-subtle text-success-emphasis' : 'bg-danger-subtle text-danger-emphasis' }}">{{ _n('%d active scenario', '%d active scenarios', summary.scenarios, 'grcmanager')|format(summary.scenarios) }}</span>
+            <span class="badge {{ summary.critical_uncovered > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }}">{{ __('%1$d of %2$d critical processes without scenario', 'grcmanager')|format(summary.critical_uncovered, summary.critical) }}</span>
+            {% if summary.never_exercised > 0 %}
+               <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d scenario never exercised', '%d scenarios never exercised', summary.never_exercised, 'grcmanager')|format(summary.never_exercised) }}</span>
+            {% endif %}
+            {% if summary.overdue > 0 %}
+               <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-calendar-due me-1"></i>{{ _n('%d scenario to exercise again', '%d scenarios to exercise again', summary.overdue, 'grcmanager')|format(summary.overdue) }}</span>
+            {% endif %}
+         </div>
+         <a href="{{ summary.url }}" class="me-3"><i class="ti ti-link me-1"></i>{{ __('Open the scenarios', 'grcmanager') }}</a>
+         <a href="{{ summary.export_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Print the scenarios (PDF)', 'grcmanager') }}</a>
+      </div>
+   </div>
+</div>

@@ -28071,6 +28071,506 @@ msgstr ""
 msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
 msgstr ""
 
+#: templates/control_form.html.twig
+#: templates/crisis_scenario_register.html.twig
+#: templates/_crisis_scenario_summary.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig src/CrisisScenario.php:69
+msgid "Security crisis scenario"
+msgid_plural "Security crisis scenarios"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/_crisis_scenario_summary.html.twig
+#, php-format
+msgid "%d active scenario"
+msgid_plural "%d active scenarios"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/_crisis_scenario_summary.html.twig
+#, php-format
+msgid "%1$d of %2$d critical processes without scenario"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/_crisis_scenario_summary.html.twig
+#, php-format
+msgid "%d scenario never exercised"
+msgid_plural "%d scenarios never exercised"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/_crisis_scenario_summary.html.twig
+#, php-format
+msgid "%d scenario to exercise again"
+msgid_plural "%d scenarios to exercise again"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/_crisis_scenario_summary.html.twig
+msgid "Print the scenarios (PDF)"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+msgid ""
+"Adds to the active entity the scenarios of the catalogue that are not there "
+"yet. Nothing existing is changed."
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+msgid "Add the default scenarios"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+msgid "Add a scenario"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+msgid "Critical processes without security crisis scenario"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+#, php-format
+msgid ""
+"A process is critical when its recovery time objective (RTO) is %d hours or "
+"less. Each one should be impacted by at least one active scenario."
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+msgid ""
+"No critical process: fill in the RTO of the business processes in the "
+"business impact analysis."
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+msgid "Every critical process is impacted by at least one active scenario."
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+msgid "Launch a crisis exercise"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+msgid "No scenario yet."
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+msgid ""
+"Start from the catalogue: the button \"Add the default scenarios\" adds, "
+"ready to adapt:"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/crisis_scenario_form.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+msgid "Impacted processes"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/crisis_scenario_form.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+msgid "Response playbook"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+msgid "Exercise"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+msgid "Linked"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+#, php-format
+msgid "Exercised on %s"
+msgstr ""
+
+#: templates/crisis_scenario_register.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig src/CrisisScenario.php:138
+msgid "Never exercised"
+msgstr ""
+
+#: templates/tabs/business_process_crisis_scenarios.html.twig
+msgid ""
+"Information security crisis scenarios of the continuity plan that would stop "
+"or degrade this process. The processes are chosen on the scenario."
+msgstr ""
+
+#: templates/tabs/business_process_crisis_scenarios.html.twig
+msgid "This critical process is not impacted by any security crisis scenario."
+msgstr ""
+
+#: templates/tabs/business_process_crisis_scenarios.html.twig
+msgid "No security crisis scenario impacts this process."
+msgstr ""
+
+#: templates/tabs/business_process_crisis_scenarios.html.twig
+#: templates/_crisis_scenario_summary.html.twig
+msgid "Open the scenarios"
+msgstr ""
+
+#: templates/tabs/business_process_crisis_scenarios.html.twig
+#: templates/crisis_scenario_form.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig src/CrisisScenario.php:916
+msgid "Secure degraded mode"
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid "This scenario is inactive: it is not counted in the coverage."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid "This scenario is complete and has been exercised within the year."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid "To complete before the audit"
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid "Crisis situation"
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid ""
+"For example \"Ransomware attack\" or \"Unavailability of the hosting "
+"provider\"."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid "An inactive scenario is kept but no longer counted in the coverage."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid "What happens: the event, what it reaches, how it is detected."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid ""
+"Business processes of the continuity plan that this crisis would stop or "
+"degrade. Only the processes of the entity of the scenario are offered."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid ""
+"How the activity continues without lowering security: limited access, "
+"actions validated by a second person, controlled communication. The "
+"technical restoration stays in the recovery strategy of each process."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid "Roles in the crisis"
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid "Response and exercise"
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid ""
+"Remediation playbook followed by the team; its steps become tasks of the "
+"incident."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid ""
+"Crisis exercise of the plugin that tests this scenario. Each finished "
+"exercise counts as an exercise of the scenario."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig src/CrisisScenario.php:920
+msgid "Last exercise outside the plugin"
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid ""
+"Date of a tabletop exercise held without the crisis room of the plugin. "
+"Attach its report in the Documents tab."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid "Situation of the crisis message templates to use for this scenario."
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+#, php-format
+msgid "Last exercise: %s"
+msgstr ""
+
+#: templates/crisis_scenario_form.html.twig
+msgid "Linked elements"
+msgstr ""
+
+#: templates/pdf/crisis_scenarios_report.html.twig
+msgid "Active scenarios"
+msgstr ""
+
+#: templates/pdf/crisis_scenarios_report.html.twig
+msgid "Critical processes"
+msgstr ""
+
+#: templates/pdf/crisis_scenarios_report.html.twig
+msgid "Critical processes without scenario"
+msgstr ""
+
+#: templates/pdf/crisis_scenarios_report.html.twig src/CrisisScenario.php:139
+msgid "Not exercised for more than a year"
+msgstr ""
+
+#: src/PageHelp.php:768
+msgid ""
+"Information security crisis scenarios of the continuity plan: ransomware, "
+"data leak, compromise of privileged accounts, unavailability of a critical "
+"supplier, denial of service. For each one: the processes it stops, how to "
+"keep working without lowering security, who does what, and which playbook to "
+"follow."
+msgstr ""
+
+#: src/PageHelp.php:775
+msgid ""
+"Add the default scenarios, then adapt each one: choose the impacted "
+"processes, check the secure degraded mode and the roles, link the response "
+"playbook. Every critical process should have a scenario, and every scenario "
+"should be exercised at least once a year."
+msgstr ""
+
+#: src/PageHelp.php:780
+msgid "ISO/IEC 27001, control A.5.29"
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:78
+msgid ""
+"Data and systems are encrypted by malicious software and a ransom is "
+"demanded. Backups and systems connected to the affected network may also be "
+"reached."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:83
+msgid ""
+"Isolate the affected network segments and suspend remote access (VPN, remote "
+"desktop). Work only from clean, identified workstations; every administrator "
+"action is validated by a second person. Restore from offline backups checked "
+"as clean before reconnecting them. Communicate only through channels kept "
+"outside the affected information system. No ransom is paid without a "
+"decision of management."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:91
+msgid ""
+"Chairs the crisis team, decides on the ransom, the complaint and external "
+"communication, approves the return to normal."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:96
+msgid ""
+"Qualifies the attack, coordinates containment and the investigation, decides "
+"which backups can be trusted, prepares the notifications (authority, CERT, "
+"insurer)."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:101
+msgid ""
+"Isolates the systems, preserves the evidence, restores from clean backups in "
+"the order of the recovery objectives, reinforces monitoring after the "
+"restart."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:107
+msgid "Data leak"
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:109
+msgid ""
+"Personal or confidential data (customers, staff, partners) is disclosed, "
+"stolen or published."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:114
+msgid ""
+"Close the leak path (account, share, application) and reset the credentials "
+"involved. Restrict access to the affected data to the people handling the "
+"incident. Any external statement is validated by management and the data "
+"protection officer. The facts are recorded as they happen, for the 72-hour "
+"notification deadline."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:121
+msgid ""
+"Decides on notifying the authority and the people concerned, validates "
+"external communication."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:126
+msgid ""
+"Contains the leak, establishes the data and the people concerned, keeps the "
+"evidence, works with the data protection officer."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:131
+msgid ""
+"Closes the access, analyzes the logs, has the published copies removed where "
+"possible."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:136
+msgid "Compromise of privileged accounts"
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:138
+msgid ""
+"An administrator account, a service account or the directory itself is "
+"controlled by an attacker."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:143
+msgid ""
+"Disable or reset the compromised accounts and those that could be reached "
+"from them; use the sealed emergency administrator accounts. Administration "
+"is done only from dedicated workstations, and every privileged action is "
+"validated by a second person until the directory is declared clean. New "
+"connections and changes of rights are monitored."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:150
+msgid ""
+"Approves the temporary access restrictions and their impact on the activity."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:154
+msgid ""
+"Coordinates the investigation (how the account was taken, what it did), "
+"decides when the directory can be trusted again."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:159
+msgid ""
+"Renews the secrets (passwords, keys, tickets), removes the persistence, "
+"checks the rights granted during the compromise."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:165
+msgid "Unavailability of a critical supplier"
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:167
+msgid ""
+"A hosting provider, cloud service, software publisher or outsourcer on which "
+"a critical process depends is unavailable, or is itself compromised."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:172
+msgid ""
+"Switch the processes concerned to their backup solution or manual procedure. "
+"Cut or restrict the connections and accounts of the supplier until it "
+"confirms it is not compromised. Data exchanged through workarounds stays "
+"limited to what is necessary and is recorded. Contact the supplier only "
+"through the contacts and channels provided in the contract."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:179
+msgid ""
+"Activates the continuity plan, handles the relationship with the supplier "
+"and with the customers affected."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:184
+msgid ""
+"Assesses whether the incident of the supplier is a security incident for the "
+"organization, supervises the workarounds."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:189
+msgid ""
+"Implements the backup solution, monitors the flows and accounts of the "
+"supplier, prepares the return to the normal service."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:195
+msgid "Denial of service attack"
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:197
+msgid ""
+"Internet-facing services (website, customer portal, messaging, remote "
+"access) are saturated by a flood of traffic."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:202
+msgid ""
+"Activate the anti-DDoS protection of the operator or host and filter traffic "
+"by origin. Keep the essential services open to identified users only (VPN, "
+"list of allowed addresses). Look for another attack hidden behind the denial "
+"of service. Inform customers through a channel independent of the attacked "
+"services."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:209
+msgid "Decides which services to keep or cut, and what to tell the customers."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:213
+msgid ""
+"Coordinates with the operator and the CERT, looks for a concurrent "
+"intrusion, keeps the evidence for a complaint."
+msgstr ""
+
+#: src/Services/Continuity/CrisisScenarioDefaults.php:218
+msgid ""
+"Applies the filtering and the alternative routing, monitors the load, "
+"restores the services in order of priority."
+msgstr ""
+
+#: src/CrisisScenario.php:134
+msgid "No impacted process"
+msgstr ""
+
+#: src/CrisisScenario.php:135
+msgid "No secure degraded mode"
+msgstr ""
+
+#: src/CrisisScenario.php:136
+msgid "Roles to complete"
+msgstr ""
+
+#: src/CrisisScenario.php:137
+msgid "No response playbook"
+msgstr ""
+
+#: src/CrisisScenario.php:150
+msgid "CISO"
+msgstr ""
+
+#: src/CrisisScenario.php:151
+msgid "IT department"
+msgstr ""
+
+#: src/CrisisScenario.php:212
+msgid "The scenario name is required."
+msgstr ""
+
+#: src/CrisisScenario.php:315
+msgid "A process outside the entity of the scenario was not linked."
+msgstr ""
+
+#: src/CrisisScenario.php:868
+msgid "Information security crisis scenarios"
+msgstr ""
+
+#: front/crisisscenario.php:29
+#, php-format
+msgid "%d default scenario added."
+msgid_plural "%d default scenarios added."
+msgstr[0] ""
+msgstr[1] ""
+
 #: templates/training_form.html.twig
 msgid ""
 "Proposed remedial training: the people who clicked the link or entered data "
@@ -28177,31 +28677,29 @@ msgid "No person matched yet."
 msgstr ""
 
 #: templates/phishing_results_tab.html.twig front/phishingimport.php:130
-#: front/phishingcampaign.import.php:130
 msgid "Email received"
 msgstr ""
 
 #: templates/phishing_results_tab.html.twig templates/my_phishing_tab.html.twig
 #: templates/_phishing_rates.html.twig front/phishingimport.php:131
-#: front/phishingcampaign.import.php:131
 msgid "Opened"
 msgstr ""
 
 #: templates/phishing_results_tab.html.twig templates/my_phishing_tab.html.twig
 #: templates/_phishing_rates.html.twig templates/phishing_trend.html.twig
-#: front/phishingimport.php:132 front/phishingcampaign.import.php:132
+#: front/phishingimport.php:132
 msgid "Link clicked"
 msgstr ""
 
 #: templates/phishing_results_tab.html.twig templates/my_phishing_tab.html.twig
 #: templates/_phishing_rates.html.twig templates/phishing_trend.html.twig
-#: front/phishingimport.php:133 front/phishingcampaign.import.php:133
+#: front/phishingimport.php:133
 msgid "Data entered"
 msgstr ""
 
 #: templates/phishing_results_tab.html.twig templates/my_phishing_tab.html.twig
 #: templates/_phishing_rates.html.twig templates/phishing_trend.html.twig
-#: front/phishingimport.php:134 front/phishingcampaign.import.php:134
+#: front/phishingimport.php:134
 msgid "Reported"
 msgstr ""
 
@@ -28220,7 +28718,6 @@ msgid ""
 msgstr ""
 
 #: templates/phishing_results_tab.html.twig front/phishingimport.php:128
-#: front/phishingcampaign.import.php:128
 msgid "Email address or login"
 msgstr ""
 
@@ -28427,22 +28924,22 @@ msgid ""
 "listed on the campaign so that you can correct them."
 msgstr ""
 
-#: front/phishingimport.php:82 front/phishingcampaign.import.php:82
+#: front/phishingimport.php:82
 msgid "Choose a CSV file (text separated by commas or semicolons)."
 msgstr ""
 
-#: front/phishingimport.php:107 front/phishingcampaign.import.php:107
+#: front/phishingimport.php:107
 msgid "Choose the column that holds the email address or the login."
 msgstr ""
 
-#: front/phishingimport.php:115 front/phishingcampaign.import.php:115
+#: front/phishingimport.php:115
 #, php-format
 msgid ""
 "%1$d line(s) read: %2$d person(s) matched, %3$d line(s) not matched, %4$d "
 "empty line(s) ignored."
 msgstr ""
 
-#: front/phishingimport.php:129 front/phishingcampaign.import.php:129
+#: front/phishingimport.php:129
 msgid "Status (GoPhish export)"
 msgstr ""
 
