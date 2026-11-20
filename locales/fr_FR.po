@@ -26559,3 +26559,32 @@ msgid "Recorded contact"
 msgid_plural "Recorded contacts"
 msgstr[0] "Prise de contact tracée"
 msgstr[1] "Prises de contact tracées"
+
+#, php-format
+msgid "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
+msgstr "« %1$s » est conseillée après « %2$s », qui s'appuie dessus : vérifiez les délais conseillés."
+
+#, php-format
+msgid "A step not done is at risk of being late when its advised deadline is within %d days."
+msgstr "Une étape non faite risque d'être en retard quand son échéance conseillée tombe dans les %d jours."
+
+msgid "Alert (days)"
+msgstr "Alerte (jours)"
+
+msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
+msgstr "Couverture visée : part des exigences et des mesures que le programme d'audit doit avoir couvertes sur les trois dernières années pour que l'étape de l'audit interne soit faite. Formation visée : part des participants qui doivent avoir suivi leur formation. Alerte : nombre de jours avant une échéance conseillée à partir duquel l'étape est à risque et le responsable est prévenu."
+
+msgid "Advised deadlines per step"
+msgstr "Délais conseillés par étape"
+
+msgid "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
+msgstr "Nombre de jours avant la date cible auquel chaque étape devrait être faite. Gardez l'ordre logique : l'audit interne avant la revue de direction qui exploite ses résultats, puis le traitement des non-conformités. Un changement déplace seulement les échéances conseillées : rien d'autre n'est modifié."
+
+msgid "Default"
+msgstr "Par défaut"
+
+msgid "Days before the target date"
+msgstr "Jours avant la date cible"
+
+msgid "Adjusted"
+msgstr "Ajusté"

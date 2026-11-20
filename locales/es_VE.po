@@ -26554,3 +26554,32 @@ msgid "Recorded contact"
 msgid_plural "Recorded contacts"
 msgstr[0] "Contacto registrado"
 msgstr[1] "Contactos registrados"
+
+#, php-format
+msgid "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
+msgstr "Se aconseja «%1$s» después de «%2$s», que se apoya en ella: revise los plazos aconsejados."
+
+#, php-format
+msgid "A step not done is at risk of being late when its advised deadline is within %d days."
+msgstr "Una etapa no realizada corre el riesgo de retrasarse cuando su plazo aconsejado vence en los próximos %d días."
+
+msgid "Alert (days)"
+msgstr "Alerta (días)"
+
+msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
+msgstr "Cobertura objetivo: parte de los requisitos y controles que el programa de auditoría debe haber cubierto en los últimos tres años para que la etapa de la auditoría interna esté realizada. Formación objetivo: parte de los participantes que deben haber completado su formación. Alerta: número de días antes de un plazo aconsejado a partir del cual la etapa está en riesgo y se avisa al responsable."
+
+msgid "Advised deadlines per step"
+msgstr "Plazos aconsejados por etapa"
+
+msgid "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
+msgstr "Número de días antes de la fecha objetivo en que cada etapa debería estar realizada. Mantenga el orden lógico: la auditoría interna antes de la revisión por la dirección que usa sus resultados, y después el tratamiento de las no conformidades. Un cambio solo desplaza los plazos aconsejados: no se modifica nada más."
+
+msgid "Default"
+msgstr "Por defecto"
+
+msgid "Days before the target date"
+msgstr "Días antes de la fecha objetivo"
+
+msgid "Adjusted"
+msgstr "Ajustado"

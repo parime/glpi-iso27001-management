@@ -31192,3 +31192,32 @@ msgstr[1] "Recorded contacts"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+#, php-format
+msgid "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
+msgstr "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
+
+#, php-format
+msgid "A step not done is at risk of being late when its advised deadline is within %d days."
+msgstr "A step not done is at risk of being late when its advised deadline is within %d days."
+
+msgid "Alert (days)"
+msgstr "Alert (days)"
+
+msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
+msgstr "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
+
+msgid "Advised deadlines per step"
+msgstr "Advised deadlines per step"
+
+msgid "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
+msgstr "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Days before the target date"
+msgstr "Days before the target date"
+
+msgid "Adjusted"
+msgstr "Adjusted"

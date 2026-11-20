@@ -26443,3 +26443,32 @@ msgid_plural "Recorded contacts"
 msgstr[0] "Odnotowany kontakt"
 msgstr[1] "Odnotowane kontakty"
 msgstr[2] "Odnotowanych kontaktów"
+
+#, php-format
+msgid "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
+msgstr "„%1$s” zalecono po „%2$s”, który na nim się opiera: sprawdź zalecane terminy."
+
+#, php-format
+msgid "A step not done is at risk of being late when its advised deadline is within %d days."
+msgstr "Niewykonany etap jest zagrożony opóźnieniem, gdy jego zalecany termin przypada w ciągu %d dni."
+
+msgid "Alert (days)"
+msgstr "Alert (dni)"
+
+msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
+msgstr "Docelowe pokrycie: odsetek wymagań i zabezpieczeń, które program audytów musi objąć w ciągu ostatnich trzech lat, aby etap audytu wewnętrznego był wykonany. Docelowy poziom szkoleń: odsetek uczestników, którzy muszą ukończyć szkolenie. Alert: liczba dni przed zalecanym terminem, od której etap jest zagrożony, a odpowiedzialny otrzymuje powiadomienie."
+
+msgid "Advised deadlines per step"
+msgstr "Zalecane terminy dla etapów"
+
+msgid "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
+msgstr "Liczba dni przed datą docelową, do której każdy etap powinien być wykonany. Zachowaj logiczną kolejność: audyt wewnętrzny przed przeglądem zarządzania, który wykorzystuje jego wyniki, a następnie postępowanie z niezgodnościami. Zmiana przesuwa tylko zalecane terminy: nic innego nie jest modyfikowane."
+
+msgid "Default"
+msgstr "Domyślnie"
+
+msgid "Days before the target date"
+msgstr "Dni przed datą docelową"
+
+msgid "Adjusted"
+msgstr "Dostosowano"

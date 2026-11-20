@@ -129,6 +129,44 @@ final class CertificationScheduleRulesTest extends TestCase
         self::assertSame(80, R::normalizePercent(null, 80));
     }
 
+    public function testLeadAndAlertDaysAreSettable(): void
+    {
+        self::assertSame(R::LEAD_DAYS, R::normalizeLeadDays(null), 'valeurs par défaut');
+        self::assertSame(R::LEAD_DAYS, R::normalizeLeadDays('pas du json'));
+        $lead = R::normalizeLeadDays([
+            'internal_audit' => '60', 'management_review' => '-3', 'soa' => '9999', 'x' => 5,
+        ]);
+        self::assertSame(array_keys(R::LEAD_DAYS), array_keys($lead), 'étapes connues seulement, même ordre');
+        self::assertSame(60, $lead['internal_audit']);
+        self::assertSame(0, $lead['management_review'], 'borné à 0');
+        self::assertSame(R::LEAD_DAYS_MAX, $lead['soa'], 'borné à un an');
+        self::assertSame(R::LEAD_DAYS['scope'], $lead['scope'], 'étape non saisie : valeur par défaut');
+        self::assertSame($lead, R::normalizeLeadDays((string) json_encode($lead)), 'relecture du JSON enregistré');
+
+        self::assertSame('2027-01-02', R::advisedDeadline('2027-03-03', 'internal_audit', $lead));
+        self::assertSame('2027-03-03', R::advisedDeadline('2027-03-03', 'management_review', $lead));
+
+        self::assertSame(30, R::normalizeDays('30', 14, R::ALERT_DAYS_MIN, R::ALERT_DAYS_MAX));
+        self::assertSame(R::ALERT_DAYS_MAX, R::normalizeDays('400', 14, R::ALERT_DAYS_MIN, R::ALERT_DAYS_MAX));
+        self::assertSame(R::ALERT_DAYS_MIN, R::normalizeDays('0', 14, R::ALERT_DAYS_MIN, R::ALERT_DAYS_MAX));
+        self::assertSame(14, R::normalizeDays('', 14, R::ALERT_DAYS_MIN, R::ALERT_DAYS_MAX));
+
+        $today = '2026-11-20';
+        self::assertSame(R::DEADLINE_ON_TRACK, R::deadlineState('2026-12-10', R::STATUS_TODO, $today), '14 jours');
+        self::assertSame(R::DEADLINE_AT_RISK, R::deadlineState('2026-12-10', R::STATUS_TODO, $today, 30), '30 jours');
+        self::assertSame(R::DEADLINE_ON_TRACK, R::deadlineState('2026-11-22', R::STATUS_TODO, $today, 1), '1 jour');
+    }
+
+    public function testLeadDaysInTheWrongOrderAreReported(): void
+    {
+        self::assertSame([], R::leadOrderWarnings(R::LEAD_DAYS), 'valeurs par défaut cohérentes');
+        $lead = R::LEAD_DAYS;
+        $lead['management_review'] = 50;
+        self::assertSame([['internal_audit', 'management_review']], R::leadOrderWarnings($lead), 'revue trop tôt');
+        $lead['internal_audit'] = 50;
+        self::assertSame([], R::leadOrderWarnings($lead), 'même jour accepté');
+    }
+
     public function testThresholdsReplaceTheFixedValues(): void
     {
         self::assertSame(R::STATUS_PARTIAL, R::awareness(3, 1, 70), 'cible par défaut : 80 %');

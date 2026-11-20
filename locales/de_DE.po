@@ -26774,3 +26774,32 @@ msgid "Recorded contact"
 msgid_plural "Recorded contacts"
 msgstr[0] "Erfasster Kontakt"
 msgstr[1] "Erfasste Kontakte"
+
+#, php-format
+msgid "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
+msgstr "„%1$s“ wird nach „%2$s“ empfohlen, obwohl dieser Schritt darauf aufbaut: Prüfen Sie die empfohlenen Fristen."
+
+#, php-format
+msgid "A step not done is at risk of being late when its advised deadline is within %d days."
+msgstr "Ein nicht erledigter Schritt droht sich zu verspäten, wenn seine empfohlene Frist in weniger als %d Tagen liegt."
+
+msgid "Alert (days)"
+msgstr "Warnung (Tage)"
+
+msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
+msgstr "Abdeckungsziel: Anteil der Anforderungen und Maßnahmen, die das Auditprogramm in den letzten drei Jahren abgedeckt haben muss, damit der Schritt des internen Audits erledigt ist. Schulungsziel: Anteil der Teilnehmenden, die ihre Schulung abgeschlossen haben müssen. Warnung: Anzahl der Tage vor einer empfohlenen Frist, ab der der Schritt gefährdet ist und der Verantwortliche benachrichtigt wird."
+
+msgid "Advised deadlines per step"
+msgstr "Empfohlene Fristen je Schritt"
+
+msgid "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
+msgstr "Anzahl der Tage vor dem Zieldatum, bis zu denen jeder Schritt erledigt sein sollte. Halten Sie die logische Reihenfolge ein: das interne Audit vor der Managementbewertung, die seine Ergebnisse nutzt, dann die Behandlung der Nichtkonformitäten. Eine Änderung verschiebt nur die empfohlenen Fristen: Sonst wird nichts geändert."
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "Days before the target date"
+msgstr "Tage vor dem Zieldatum"
+
+msgid "Adjusted"
+msgstr "Angepasst"

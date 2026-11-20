@@ -26343,3 +26343,32 @@ msgid "Recorded contact"
 msgid_plural "Recorded contacts"
 msgstr[0] "Contato registrado"
 msgstr[1] "Contatos registrados"
+
+#, php-format
+msgid "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
+msgstr "“%1$s” está aconselhada depois de “%2$s”, que se apoia nela: verifique os prazos aconselhados."
+
+#, php-format
+msgid "A step not done is at risk of being late when its advised deadline is within %d days."
+msgstr "Uma etapa não concluída corre o risco de atrasar quando seu prazo aconselhado cai nos próximos %d dias."
+
+msgid "Alert (days)"
+msgstr "Alerta (dias)"
+
+msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
+msgstr "Meta de cobertura: parcela dos requisitos e controles que o programa de auditoria deve ter coberto nos últimos três anos para que a etapa da auditoria interna esteja concluída. Meta de treinamento: parcela dos participantes que devem ter concluído seu treinamento. Alerta: número de dias antes de um prazo aconselhado a partir do qual a etapa está em risco e o responsável é avisado."
+
+msgid "Advised deadlines per step"
+msgstr "Prazos aconselhados por etapa"
+
+msgid "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
+msgstr "Número de dias antes da data-alvo em que cada etapa deveria estar concluída. Mantenha a ordem lógica: a auditoria interna antes da análise crítica pela direção que usa seus resultados, depois o tratamento das não conformidades. Uma alteração apenas desloca os prazos aconselhados: nada mais é modificado."
+
+msgid "Default"
+msgstr "Padrão"
+
+msgid "Days before the target date"
+msgstr "Dias antes da data-alvo"
+
+msgid "Adjusted"
+msgstr "Ajustado"
