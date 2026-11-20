@@ -26574,3 +26574,47 @@ msgid "Recorded contact"
 msgid_plural "Recorded contacts"
 msgstr[0] "Erfasster Kontakt"
 msgstr[1] "Erfasste Kontakte"
+
+#, php-format
+msgid "%1$d of %2$d watched commercial software installed (per entity) have a valid license."
+msgstr "%1$d von %2$d installierten überwachten kommerziellen Programmen (je Einheit) haben eine gültige Lizenz."
+
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr "%d bald ablaufende Lizenz(en)"
+
+msgid "A license in use expires within the alert horizon and no renewal is recorded in GLPI yet. This is a reminder, not a gap."
+msgstr "Eine genutzte Lizenz läuft innerhalb des Warnzeitraums ab und in GLPI ist noch keine Verlängerung erfasst. Dies ist eine Erinnerung, keine Abweichung."
+
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr "Läuft ab am %1$s: %2$d Gerät(e) zugeordnet, %3$d Installation(en) %4$s."
+
+msgid "License coverage"
+msgstr "Lizenzabdeckung"
+
+#, php-format
+msgid "License coverage: %d%%"
+msgstr "Lizenzabdeckung: %d %%"
+
+msgid "License expiring soon"
+msgstr "Bald ablaufende Lizenz"
+
+msgid "No warning before a license expires."
+msgstr "Keine Warnung vor dem Ablauf einer Lizenz."
+
+msgid "Over-quota allowed"
+msgstr "Überschreitung erlaubt"
+
+msgid "Over-quota allowed by the license"
+msgstr "Überschreitung durch die Lizenz erlaubt"
+
+msgid "The license allows going over the number of seats: settle it with the publisher."
+msgstr "Die Lizenz erlaubt eine Überschreitung der Anzahl der Plätze: mit dem Hersteller klären."
+
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr "Vor dem Ablauf einer Lizenz warnen (Tage, 0 zum Deaktivieren)"
+
+#, php-format
+msgid "Warning %d days before a license expires."
+msgstr "Warnung %d Tage vor dem Ablauf einer Lizenz."
