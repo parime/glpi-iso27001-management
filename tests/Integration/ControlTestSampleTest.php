@@ -38,6 +38,10 @@ final class ControlTestSampleTest extends GrcmanagerIntegrationTestCase
     /** @var array<string, mixed> */
     private array $session = [];
 
+    private int $entity = 0;
+
+    private int $other = 0;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -68,8 +72,8 @@ final class ControlTestSampleTest extends GrcmanagerIntegrationTestCase
     }
 
     /**
-     * Entité fictive active seule, avec ses ordinateurs ; un ordinateur d'une autre entité, hors
-     * des entités actives.
+     * Entité fictive active (avec l'entité racine, celle de la SoA), avec ses ordinateurs ; un
+     * ordinateur d'une autre entité, hors des entités actives. Le tirage vise l'entité fictive.
      *
      * @return array{entity: int, computers: list<int>, outside: int}
      */
@@ -84,9 +88,10 @@ final class ControlTestSampleTest extends GrcmanagerIntegrationTestCase
             ]);
         }
         $outside = (int) (new Computer())->add(['name' => 'PC Filiale Exemple', 'entities_id' => $other]);
-        $_SESSION['glpiactiveentities'] = [$entity];
-        $_SESSION['glpiactiveentities_string'] = (string) $entity;
-        $_SESSION['glpiactive_entity'] = $entity;
+        $_SESSION['glpiactiveentities'] = [0, $entity];
+        $_SESSION['glpiactiveentities_string'] = "0','" . $entity;
+        $this->entity = $entity;
+        $this->other = $other;
 
         return ['entity' => $entity, 'computers' => $computers, 'outside' => $outside];
     }
@@ -101,6 +106,7 @@ final class ControlTestSampleTest extends GrcmanagerIntegrationTestCase
             'itemtype'            => 'Computer',
             'operating_frequency' => 'weekly',
             'seed'                => 'audit-exemple-2026',
+            'entities_id'         => $this->entity,
         ]);
     }
 
@@ -150,6 +156,7 @@ final class ControlTestSampleTest extends GrcmanagerIntegrationTestCase
         // Entité hors des entités actives, période incohérente, graine invalide : rien n'est tiré.
         $before = count(ControlTestSample::getForControl((int) $control->getID()));
         $this->assertSame(0, $this->draw($control, ['entities_id' => 999999]));
+        $this->assertSame(0, $this->draw($control, ['entities_id' => $this->other]));
         $this->assertSame(0, $this->draw($control, ['period_start' => '2026-04-01', 'period_end' => '2026-03-01']));
         $this->assertSame(0, $this->draw($control, ['seed' => 'a b']));
         $this->assertSame(0, $this->draw($control, ['itemtype' => 'Profile']));
