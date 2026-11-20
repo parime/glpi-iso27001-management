@@ -41,6 +41,9 @@
       {% if coverage.summary.missing > 0 %}
          <span class="badge bg-danger-subtle text-danger-emphasis fs-5"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d without procedure', 'grcmanager')|format(coverage.summary.missing) }}</span>
       {% endif %}
+      {% if without_content > 0 %}
+         <span class="badge bg-orange-subtle text-orange-emphasis fs-5" title="{{ __('Procedures with neither a knowledge base article nor an attached document: the auditor cannot read them.', 'grcmanager') }}"><i class="ti ti-file-off me-1"></i>{{ __('%d without content', 'grcmanager')|format(without_content) }}</span>
+      {% endif %}
    </div>
    <a href="{{ export_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Print the register (PDF)', 'grcmanager') }}</a>
    {% if can_archive %}
@@ -113,7 +116,7 @@
                   <th>{{ __('Domain', 'grcmanager') }}</th>
                   <th>{{ __('Version', 'grcmanager') }}</th>
                   <th>{{ __('Status', 'grcmanager') }}</th>
-                  <th>{{ __('Approval date', 'grcmanager') }}</th>
+                  <th>{{ __('Approval and review', 'grcmanager') }}</th>
                   <th>{{ __('Next review', 'grcmanager') }}</th>
                   <th>{{ _x('owner', 'Owner', 'grcmanager') }}</th>
                   <th>{{ __('Reading acknowledgement', 'grcmanager') }}</th>
@@ -122,14 +125,38 @@
             <tbody>
                {% for procedure in procedures %}
                   <tr>
-                     <td><a href="{{ procedure.url }}"><strong>{{ procedure.title }}</strong></a></td>
+                     <td>
+                        <a href="{{ procedure.url }}"><strong>{{ procedure.title }}</strong></a>
+                        {# Issue #775, lot 2 : où lire la procédure (article de la base de connaissances, document joint). #}
+                        <div class="d-flex flex-wrap gap-1 mt-1">
+                           {% for article in procedure.articles %}
+                              <a href="{{ article.url }}" class="badge bg-blue-subtle text-blue-emphasis text-decoration-none"><i class="ti ti-book me-1"></i>{{ article.name }}</a>
+                           {% endfor %}
+                           {% if procedure.hidden_articles > 0 %}
+                              <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-lock me-1"></i>{{ _n('%d article you cannot read', '%d articles you cannot read', procedure.hidden_articles, 'grcmanager')|format(procedure.hidden_articles) }}</span>
+                           {% endif %}
+                           {% if procedure.documents > 0 %}
+                              <span class="badge bg-blue-subtle text-blue-emphasis"><i class="ti ti-paperclip me-1"></i>{{ _n('%d document', '%d documents', procedure.documents, 'grcmanager')|format(procedure.documents) }}</span>
+                           {% endif %}
+                           {% if not procedure.has_content and procedure.status is not null %}
+                              <span class="badge bg-orange-subtle text-orange-emphasis" title="{{ __('Link a knowledge base article from the Knowledge base tab of the procedure, or attach the document from its Documents tab.', 'grcmanager') }}"><i class="ti ti-file-off me-1"></i>{{ __('No content', 'grcmanager') }}</span>
+                           {% endif %}
+                        </div>
+                     </td>
                      <td>{{ procedure.domain ?: '-' }}</td>
                      <td>{{ procedure.version }}</td>
                      <td>
                         {{ op.status_badge(procedure.status) }}
                         <div class="small text-secondary mt-1">{{ procedure.policy_status }}</div>
                      </td>
-                     <td>{{ procedure.approval_date ? procedure.approval_date|formatted_date : '-' }}</td>
+                     <td>
+                        <div>{{ __('Approved: %s', 'grcmanager')|format(procedure.approval_date ? procedure.approval_date|formatted_date : '-') }}</div>
+                        {% if procedure.last_review %}
+                           <div class="small text-success-emphasis mt-1"><i class="ti ti-calendar-check me-1"></i>{{ __('Reviewed on %1$s by %2$s', 'grcmanager')|format(procedure.last_review|formatted_date, procedure.last_reviewer ?: '-') }}</div>
+                        {% else %}
+                           <div class="small text-secondary mt-1">{{ __('No review recorded', 'grcmanager') }}</div>
+                        {% endif %}
+                     </td>
                      <td>{{ procedure.next_review ? procedure.next_review|formatted_date : '-' }}</td>
                      <td>{{ procedure.owner ?: '-' }}</td>
                      <td>

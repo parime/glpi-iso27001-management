@@ -3754,13 +3754,6 @@ msgstr ""
 msgid "CPE identifiers"
 msgstr ""
 
-#: src/CanonicalProduct.php:187
-msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
-msgstr ""
-
 #: src/CanonicalProduct.php:196
 msgid "No CPE identifier yet."
 msgstr ""
@@ -4340,14 +4333,6 @@ msgstr ""
 #: src/CertificationSampling.php:52 templates/certification_findings.html.twig
 #: templates/certification_sampling_tab.html.twig
 msgid "Audit plan of the certification body"
-msgstr ""
-
-#: src/Compat/Http.php:298
-#, php-format
-msgid ""
-"GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
 msgstr ""
 
 #: src/Competence.php:66
@@ -20814,14 +20799,6 @@ msgstr ""
 msgid "Drawn by"
 msgstr ""
 
-#: templates/control_test_sample.html.twig
-#: templates/pdf/control_test_record.html.twig
-msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of "
-"\"seed:identifier\"; the first items of this ranking form the sample. The "
-"same population and the same seed always give the same sample."
-msgstr ""
-
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
 msgid "Empty: computed from the test plan."
 msgstr ""
@@ -22967,15 +22944,6 @@ msgid ""
 msgstr ""
 
 #: templates/dora/register.html.twig
-msgid ""
-"One CSV file per template of the implementing regulation, with the official "
-"column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
-"written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
-msgstr ""
-
-#: templates/dora/register.html.twig
 msgid "Partly: complete by hand"
 msgstr ""
 
@@ -23274,15 +23242,6 @@ msgstr ""
 
 #: templates/endoflife_config.html.twig
 msgid "Warn this many days before the end of support"
-msgstr ""
-
-#: templates/endoflife_config.html.twig
-msgid ""
-"Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
-"or \"Mozilla Firefox\"). For any other name, add a link: type the name "
-"exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/evidence_tab.html.twig
@@ -24699,13 +24658,6 @@ msgstr ""
 
 #: templates/park_endoflife.html.twig
 msgid "No followed item in your entities."
-msgstr ""
-
-#: templates/park_endoflife.html.twig
-msgid ""
-"Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -29793,12 +29745,6 @@ msgid "Size"
 msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
-msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
-msgstr ""
-
-#: templates/tabs/incident_evidence.html.twig
 msgid "evidence(s)"
 msgstr ""
 
@@ -30437,3 +30383,172 @@ msgstr ""
 #, php-format
 msgid "Warning %d days before a license expires."
 msgstr ""
+
+
+
+#: src/AuditLog.php:91
+msgid "Periodic review recorded"
+msgstr ""
+
+#: src/CanonicalProduct.php:187
+msgid ""
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
+msgstr ""
+
+#: src/Compat/Http.php:298
+#, php-format
+msgid ""
+"GLPI also refuses internal addresses for this plugin: add %s to the constant "
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
+msgstr ""
+
+#: src/ConsistencyCheck.php:405
+msgid "Expected operating domains without an approved procedure"
+msgstr ""
+
+#: src/ConsistencyCheck.php:407
+msgid ""
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
+msgstr ""
+
+#: src/OperatingProcedure.php:519
+msgid "No operating procedure for this domain"
+msgstr ""
+
+#: src/OperatingProcedure.php:520
+msgid "Procedure not approved yet"
+msgstr ""
+
+#: src/Policy.php:370
+msgid "A review can only be recorded on an approved operating procedure."
+msgstr ""
+
+#: src/Policy.php:511
+#, php-format
+msgid "Review recorded. Next review: %s."
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/operating_procedure_register.html.twig
+#, php-format
+msgid "%d without content"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+#: templates/pdf/control_test_record.html.twig
+msgid ""
+"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
+"identifier\"; the first items of this ranking form the sample. The same "
+"population and the same seed always give the same sample."
+msgstr ""
+
+#: templates/dora/register.html.twig
+msgid ""
+"One CSV file per template of the implementing regulation, with the official "
+"column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
+"written with their official English wording: your reporting tool converts "
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
+msgstr ""
+
+#: templates/endoflife_config.html.twig
+msgid ""
+"Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
+"or \"Mozilla Firefox\"). For any other name, add a link: type the name "
+"exactly as GLPI shows it, and the product identifier found in the address of "
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+#, php-format
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/operating_procedure_register.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/operating_procedure_register.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+msgid "Approval and review"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+#, php-format
+msgid "Approved: %s"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid ""
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+msgid "No content"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid "No review recorded"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+#, php-format
+msgid "Reviewed on %1$s by %2$s"
+msgstr ""
+
+#: templates/park_endoflife.html.twig
+msgid ""
+"Not enabled: the plugin can show which software, operating systems and "
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#, php-format
+msgid "Knowledge base article: %s"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+msgid "Procedures without content"
+msgstr ""
+
+#: templates/policy_form.html.twig
+msgid ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+msgstr ""
+
+#: templates/policy_form.html.twig
+msgid ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+msgstr ""
+
+#: templates/tabs/incident_evidence.html.twig
+msgid ""
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
+msgstr ""
+
