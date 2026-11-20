@@ -519,6 +519,9 @@
             <span class="badge {{ official_contacts.total > 0 ? 'bg-success-subtle text-success-emphasis' : 'bg-danger-subtle text-danger-emphasis' }} me-1"><i class="ti ti-address-book me-1"></i>{{ _n('%d official contact recorded', '%d official contacts recorded', official_contacts.total, 'grcmanager')|format(official_contacts.total) }}</span>
             <span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-circle-check me-1"></i>{{ __('%d verified within 12 months', 'grcmanager')|format(official_contacts.verified) }}</span>
             <span class="badge {{ official_contacts.to_verify > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d to verify', 'grcmanager')|format(official_contacts.to_verify) }}</span>
+            {% if official_contacts.notified is defined %}
+               <span class="badge bg-blue-subtle text-blue-emphasis me-1" title="{{ __('Contacts recorded from security incidents and personal data breaches', 'grcmanager') }}"><i class="ti ti-phone-check me-1"></i>{{ _n('%d contact recorded within 12 months', '%d contacts recorded within 12 months', official_contacts.notified, 'grcmanager')|format(official_contacts.notified) }}</span>
+            {% endif %}
             <a href="{{ official_contacts.url }}" class="me-2">{{ __('Open the register', 'grcmanager') }}</a>
             <a href="{{ official_contacts.export_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Register (PDF)', 'grcmanager') }}</a>
          </div>
@@ -557,6 +560,14 @@
       {{ fields.htmlField('', physical_security_html, __('Physical security of the sites', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #776 : scénarios de crise sécurité de l'information du PCA (A.5.29), couverture. #}
+   {% if crisis_scenarios is defined and crisis_scenarios is not null %}
+      {% set crisis_scenarios_html %}
+         {% include '@grcmanager/_crisis_scenario_summary.html.twig' with {'summary': crisis_scenarios} only %}
+      {% endset %}
+      {{ fields.htmlField('', crisis_scenarios_html, _n('Security crisis scenario', 'Security crisis scenarios', 2, 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #775 : procédures d'exploitation (A.5.37), couverture des domaines attendus. #}
    {% if operating_procedures is defined and operating_procedures is not null %}
       {% set operating_procedures_html %}
@@ -577,6 +588,18 @@
       {% endset %}
       {{ fields.htmlField('', operating_procedures_html, __('Register of operating procedures', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #777 : développement sécurisé (A.8.25, A.8.28, A.8.29, A.8.31), dans les entités de la personne. #}
+   {% if secure_development is defined and secure_development is not null %}
+      {% set secure_development_html %}
+         <div id="grc-secure-development-evidence">
+            {% for badge in secure_development.badges %}
+               <span class="badge bg-{{ badge.color }}-subtle text-{{ badge.color }}-emphasis me-1"><i class="{{ badge.icon }} me-1"></i>{{ badge.label }}</span>
+            {% endfor %}
+            <a href="{{ secure_development.url }}">{{ __('Open the register', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', secure_development_html, __('Secure development', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
    {# Issue #779 : licences logicielles (A.5.32), dans les entités de la personne. #}
    {% if software_licenses is defined and software_licenses is not null %}
       {% set software_licenses_html %}
@@ -589,5 +612,13 @@
          </div>
       {% endset %}
       {{ fields.htmlField('', software_licenses_html, __('Software license compliance', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
+   {# Issue #604 : simulations d'hameçonnage (A.6.3), taux agrégés et tendance. #}
+   {% if phishing is defined and phishing is not null %}
+      {% set phishing_html %}
+         {% include '@grcmanager/_phishing_summary.html.twig' with {'summary': phishing} only %}
+      {% endset %}
+      {{ fields.htmlField('', phishing_html, __('Phishing simulations', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 {% endblock %}

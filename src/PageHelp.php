@@ -88,6 +88,28 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #772, lot 2 : plan d'audit de l'organisme de certification.
+            'certificationsampling' => [
+                'purpose'  => __(
+                    'The certification body samples the processes of your security management system over its '
+                        . 'three-year cycle: it does not audit them all every year. This page copies its sampling '
+                        . 'programme (processes in rows, years in columns) and, for the audit of the year, lists '
+                        . 'the sampled processes with their previous findings and the screens to prepare.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Record each certification audit of the cycle with its planned date. Then tick, in the column '
+                        . 'of each audit, the processes announced by the audit plan of the body, and save. Before '
+                        . 'the audit, go through each sampled process: lift its previous findings and check the '
+                        . 'controls and registers it relies on. The processes are those of the internal audit '
+                        . 'programme (ISMS activities of the responsibility matrix).',
+                    'grcmanager'
+                ),
+                'reference' => __(
+                    'ISO/IEC 27006-1 (certification audit programme), ISO/IEC 27001 clause 9.2',
+                    'grcmanager'
+                ),
+            ],
             // Issue #619 : préparation à la certification ISO 27001.
             'certificationreadiness' => [
                 'purpose'  => __(
@@ -444,6 +466,22 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, control A.5.37', 'grcmanager'),
             ],
+            // Issue #777 : développement sécurisé.
+            'securedevelopment' => [
+                'purpose'   => __(
+                    'The applications developed or maintained in-house, with their secure development practices '
+                        . '(framework, code review, SAST, DAST and dependency analyses, separated environments), and '
+                        . 'the releases of the last 12 months with their security validation.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Fill in the "Secure development" tab of each application, link the changes to their '
+                        . 'application, then have each release approved by the CIO or the CISO in the "Security '
+                        . 'release validation" tab of the change, before it goes into production.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.25 to A.8.31', 'grcmanager'),
+            ],
             // Issue #771 : registre des contacts officiels.
             'officialcontact' => [
                 'purpose'   => __(
@@ -577,6 +615,36 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, 7.2 and 7.3', 'grcmanager'),
+            ],
+            // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation.
+            'phishingcampaign' => [
+                'purpose'   => __(
+                    'Phishing simulations: the fake phishing campaigns sent with an external tool (GoPhish, a '
+                        . 'provider...), their results and the trend from one campaign to the next. The plugin '
+                        . 'never sends any email.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Record each campaign (date, tool, scenario, targeted population), then import the results '
+                        . 'file of the tool in the Results tab. Offer a remedial training to the people who '
+                        . 'clicked. Inform the staff beforehand that simulations take place, and delete the '
+                        . 'results per person once the follow-up is done.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 7.3 and control A.6.3', 'grcmanager'),
+            ],
+            'phishingimport' => [
+                'purpose'   => __(
+                    'Import of the results of a phishing simulation: each line of the file is matched with a '
+                        . 'GLPI user by email address or login.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Check the column of each field, then import. The lines not matched are listed on the '
+                        . 'campaign so that you can correct them.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 7.3 and control A.6.3', 'grcmanager'),
             ],
             'managementreview' => [
                 'purpose'   => __(
@@ -778,6 +846,23 @@ class PageHelp
                         . 'tasks. Mandatory steps must be done or marked not applicable before closing.',
                     'grcmanager'
                 ),
+            ],
+            // Issue #776 : scénarios de crise sécurité de l'information du PCA et leur couverture.
+            'crisisscenario' => [
+                'purpose'   => __(
+                    'Information security crisis scenarios of the continuity plan: ransomware, data leak, '
+                        . 'compromise of privileged accounts, unavailability of a critical supplier, denial of '
+                        . 'service. For each one: the processes it stops, how to keep working without lowering '
+                        . 'security, who does what, and which playbook to follow.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Add the default scenarios, then adapt each one: choose the impacted processes, check the '
+                        . 'secure degraded mode and the roles, link the response playbook. Every critical process '
+                        . 'should have a scenario, and every scenario should be exercised at least once a year.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.5.29', 'grcmanager'),
             ],
             // Issue #616 : modèles de messages de crise et leurs listes de diffusion.
             'crisismessagetemplate' => [

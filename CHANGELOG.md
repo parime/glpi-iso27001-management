@@ -7,6 +7,149 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Contacts officiels : prises de contact tracées depuis les incidents et les violations** (issue
+  #771, lot 2, mesures A.5.5 et A.5.6). L'auditeur demande la preuve qu'une autorité a été prévenue
+  dans le délai, ou pourquoi elle ne l'a pas été :
+  - fiche d'un contact officiel : nouveau « Délai en heures » (72 pour une violation de données, 24
+    pour une alerte précoce), facultatif, à côté du délai en texte libre ;
+  - onglet « Contacts officiels » d'un incident ou d'une violation : échéance de chaque contact
+    (détection de l'incident ou prise de connaissance de la violation, plus le délai), situation en
+    badge (prévenu dans le délai, prévenu en retard, non nécessaire avec décision tracée, à prévenir,
+    échéance dépassée sans rien de tracé) et formulaire « Tracer une prise de contact » : contact,
+    décision (contacté ou non nécessaire, motif obligatoire), date et heure, référence du dossier
+    (numéro, accusé de réception), commentaire. Rien n'est envoyé : la personne trace ce qu'elle a
+    fait. La trace s'inscrit dans l'historique de l'incident et du contact ;
+  - fiche du contact : onglet « Prises de contact tracées », historique des relations avec
+    l'autorité ou le groupe d'intérêt (seuls les incidents et violations lisibles sont détaillés) ;
+  - obligations de conformité liées au contact (liens de la partie intéressée) affichées dans le
+    registre, l'onglet et le PDF ;
+  - preuve des mesures A.5.5 et A.5.6 : nombre de prises de contact tracées depuis 12 mois ;
+  - relance de vérification d'un contact : nouvelles cibles « Interlocuteur interne habilité » et
+    « Groupe interne habilité » (ajoutées d'office aux nouvelles installations ; sur une instance
+    existante, les ajouter dans la notification « Contact officiel à vérifier »). Un destinataire
+    sans droit de lire le contexte de l'organisation dans l'entité du contact ne reçoit rien ;
+  - droits : tracer ou retirer une prise de contact exige de pouvoir modifier l'incident ou la
+    violation, et seuls les contacts de son entité ou d'une entité parente (fiche récursive) sont
+    proposés ;
+  - nouvelle table `glpi_plugin_grcmanager_officialcontactnotifications` et colonne
+    `contact_delay_hours`, supprimées à la désinstallation ; traces oubliées à la purge de
+    l'incident, de la violation ou du contact.
+  - Reste à faire (lot 3) : archivage daté du registre en PDF sur les mesures A.5.5 et A.5.6,
+    contacts affichés depuis le plan de continuité et les exercices de crise, contacts proposés selon
+    le type d'incident, reprise d'une communication de crise (#616) comme prise de contact.
+
+## [2.68.0] - 2026-11-20
+
+### Added
+
+- **Plan d'audit de l'organisme de certification** (issue #772, lot 2). Nouvel écran « Plan d'audit
+  de l'organisme » dans la rubrique Audits et amélioration :
+  - programme d'échantillonnage de l'organisme sur le cycle de certification de trois ans : matrice
+    processus x années, une colonne par audit de certification de l'année ; les cases se cochent à
+    la main et sont rattachées à cet audit ;
+  - les processus sont ceux du programme d'audit interne (#773, activités de la matrice des
+    responsabilités) : aucune nouvelle liste ni table, un processus échantillonné est un processus
+    visé par l'audit ; le programme interne ne compte toujours que les audits internes ;
+  - pour l'audit de l'année, et dans le nouvel onglet « Plan d'audit de l'organisme » de chaque audit
+    de certification : processus échantillonnés, constats des audits de certification précédents
+    sur chacun (même libellé de processus, ou clause ou mesure parmi celles du processus) avec leur
+    état de levée, mesures de l'Annexe A et registres du plugin qui y répondent ;
+  - « Constats des audits précédents » se filtre sur un processus (écran et export PDF) ; le champ
+    « Processus audité » d'un constat propose les processus du programme ;
+  - droits : lire les audits pour voir, modifier l'audit concerné pour cocher (entité de l'audit,
+    processus de son entité), jeton CSRF sur chaque enregistrement.
+
+- **Scénarios de crise sécurité de l'information du PCA** (issue #776, lot 1, mesure A.5.29). Constat
+  d'audit : le PCA et le PRA décrivaient la restauration technique, sans scénario de crise intégrant
+  la sécurité. Nouvel écran « Scénarios de crise sécurité » dans la rubrique Opérations, à côté des
+  processus métier :
+  - catalogue par défaut ajouté à la demande dans l'entité active, modifiable : attaque par
+    rançongiciel, fuite de données, compromission de comptes à privilèges, indisponibilité d'un
+    prestataire critique, attaque par déni de service ;
+  - pour chaque scénario : processus métier impactés (ceux de l'entité du scénario), mode dégradé
+    sécurisé (accès limités, validation des actions, communication contrôlée), rôles de la
+    direction, du RSSI et de la DSI, guide de réponse (procédure de remédiation existante : les
+    scénarios par défaut reprennent celles du rançongiciel, de la fuite de données et du compte
+    compromis), scénario d'exercice de crise et situation des modèles de messages de crise (#616) ;
+    rien n'est dupliqué ;
+  - couverture : processus critiques (RTO de 24 heures ou moins) sans scénario actif, scénarios
+    jamais exercés ou pas exercés depuis plus d'un an (exercice de crise terminé du plugin, ou
+    exercice sur table daté sur le scénario), manques de chaque scénario ;
+  - onglet « Scénarios de crise sécurité » sur chaque processus métier, scénarios en PDF, preuve sur
+    la mesure A.5.29 de la SoA ;
+  - droits : droit « Continuité d'activité » et entité du scénario ; procédures, exercices et modèles
+    ne sont nommés qu'avec leurs propres droits.
+  - Reste à faire (lot 2) : procédures de remédiation fournies pour le déni de service et
+    l'indisponibilité d'un prestataire, scénarios repris dans le PCA en PDF de chaque processus,
+    archivage daté du PDF sur la mesure, lien avec les exercices de reprise (#733).
+
+- **Simulations d'hameçonnage, preuve de sensibilisation** (issue #604, lot 1, clause 7.3 et mesure
+  A.6.3). Sous-page « Simulations d'hameçonnage » de la rubrique des formations (pas d'entrée de
+  menu en plus). Le plugin n'envoie rien : la campagne est faite avec un outil externe.
+  - Campagne : nom, date, outil (texte libre : GoPhish, outil d'un prestataire...), scénario,
+    population ciblée, entité.
+  - Import CSV des résultats par personne (reçu, ouvert, lien cliqué, données saisies, signalé),
+    colonnes oui / non ou colonne « statut » d'un export GoPhish, avec correspondance des colonnes.
+    Lecture de l'import EDR réutilisée (encodage UTF-8 ou Windows-1252, séparateur). Fichier CSV
+    texte de 5 Mo au plus, aucune valeur évaluée, identifiant commençant comme une formule
+    neutralisé. Un nouvel import remplace les résultats.
+  - Rapprochement par adresse électronique (ou identifiant de connexion) avec les utilisateurs
+    actifs qui ont un profil dans l'entité de la campagne ; lignes non rapprochées listées (adresse
+    inconnue, ambiguë ou hors de l'entité), seule l'adresse de ces lignes est gardée.
+  - Taux par campagne (ouverture, clic, saisie, signalement, rapportés aux messages reçus) et
+    tendance d'une campagne à l'autre (écart du taux de clic) ; nouvelle source d'indicateur de
+    risque « Taux de clic de la dernière simulation d'hameçonnage » pour suivre la tendance avec
+    des seuils.
+  - Formation de rattrapage proposée aux personnes qui ont cliqué ou saisi des données : formulaire
+    de formation pré-rempli, rien n'est enregistré ni envoyé avant « Ajouter ».
+  - Encadré « Simulations d'hameçonnage » sur la mesure A.6.3 et l'exigence 7.3.
+  - Données personnelles : le détail par personne et les lignes non rapprochées exigent le droit
+    des registres sensibles (lecture ; modification pour importer ou supprimer) ; sans lui, taux
+    agrégés seulement, masqués sous 5 personnes. Chacun voit ses propres résultats dans ses
+    préférences (« Mes simulations d'hameçonnage »). « Supprimer les résultats par personne »
+    garde les taux. Entités respectées ; pas d'onglet Documents (un export nominatif y échapperait
+    au droit des registres sensibles).
+- **Développement sécurisé et validation des mises en production** (issue #777, lot 1, mesures
+  A.8.25 à A.8.31). Aucun objet en double : le registre est celui des applications de GLPI
+  (`Appliance`), la mise en production est un changement de GLPI (`Change`).
+  - Onglet « Développement sécurisé » d'une application : responsable (par défaut le responsable
+    technique de l'application), dépôt de code (adresse http, https, ssh ou git@ seulement),
+    référentiel suivi (OWASP ASVS, OWASP Top 10, OWASP SAMM, recommandations de l'ANSSI, autre) et
+    son niveau, revue de code obligatoire, analyses SAST, DAST et des dépendances, outils et
+    fréquence, environnements séparés (oui ou non) avec une justification, obligatoire si non.
+  - Onglet « Validation sécurité de mise en production » d'un changement lié à une application :
+    liste de contrôle (tests passés, revue faite, vulnérabilités traitées, preuves), puis décision
+    de la DSI ou du RSSI. La validation exige une liste complète, le refus un motif. L'auteur et la
+    date viennent de la session, la décision est inscrite dans l'historique du changement et fige
+    la liste ; elle peut être rouverte. La validation native du changement (GLPI) est rappelée.
+  - Page « Développement sécurisé », sous-page de la rubrique Conformité (aucune entrée de menu en
+    plus), avec l'encadré d'aide : registre des applications et de leurs pratiques, indicateurs
+    « applications sans séparation des environnements » et « mises en production sans validation
+    sécurité » (changements résolus ou clos des 12 derniers mois : sans liste, sans décision,
+    refusés ou validés après coup).
+  - Preuves sur les fiches des mesures A.8.25, A.8.28, A.8.29 et A.8.31 de la SoA.
+  - Droits : droit général du plugin (lecture pour les onglets et la page, création ou
+    modification pour la fiche et la liste), élément visible par la personne (droit natif et
+    entité) ; nouveau droit **Décider des mises en production**, attribuable dans l'onglet
+    GRC Manager des profils (Super-Admin à l'installation). Les mises en production demandent le
+    droit de voir tous les changements. Les onglets vérifient eux-mêmes leurs droits.
+  - Tables créées par l'installateur (rejouable) et supprimées à la désinstallation ; la fiche et
+    la liste disparaissent avec l'application ou le changement supprimé définitivement.
+### Fixed
+
+- **Désinstallation : journaux de la fiche de conformité des collaborateurs** (issue #808). L'historique
+  des fiches de conformité sécurité (#546) restait dans `glpi_logs` après la désinstallation, comme
+  celui des fiches réflexes et des actions de la revue de direction : ces classes (et deux cibles de
+  notification) manquaient à la liste des types nettoyés. Le jeu de données de la CI crée désormais une fiche de conformité, et un test
+  d'intégration vérifie que toute classe historisée du plugin figure dans cette liste.
+
+- **Audits de certification** (issue #772, lot 1) : la colonne « Type d'audit » est affichée par
+  défaut dans la liste des audits, juste après le titre (y compris sur une instance existante dont
+  les colonnes par défaut n'ont pas été modifiées) ; le constat « Opportunity for improvement »
+  s'appelle « Piste de progrès » en français, comme dans les rapports des organismes.
+
 ## [2.67.0] - 2026-11-20
 
 ### Fixed

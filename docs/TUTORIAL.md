@@ -203,7 +203,7 @@ ISO/IEC 27001:2022). Les audits existants restent des audits internes.
 
 Dans l'onglet **Constats** d'un audit de certification, chaque constat se saisit avec le
 vocabulaire de l'organisme : **non-conformité majeure**, **non-conformité mineure**, **point
-sensible** ou **piste d'amélioration**, avec la référence de l'organisme (par exemple GVE-36), le
+sensible** ou **piste de progrès**, avec la référence de l'organisme (par exemple GVE-36), le
 processus audité, la clause ou la mesure et le site (un lieu GLPI). Le traitement est le même que
 pour une non-conformité interne (cause, action corrective, responsable, échéance, preuves dans
 l'onglet **Documents**, vérification) ; l'action corrective n'est obligatoire que pour une
@@ -215,6 +215,8 @@ vérifier, levé) et leurs preuves. Il se filtre par audit ou sur les seuls cons
 s'exporte en PDF : c'est le document à remettre à l'auditeur à la réunion d'ouverture de l'audit
 suivant. La **Préparation à la certification** rappelle, dans l'étape « Traiter les
 non-conformités », le nombre de constats précédents non levés.
+
+La liste des audits affiche la colonne **Type d'audit** juste après le titre.
 
 ### Étape 6 : Ajouter les indicateurs à un tableau de bord
 
@@ -499,7 +501,19 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    les contacts à prévenir, avec le délai et la personne habilitée. Seuls les contacts de l'entité de
    l'incident ou d'une entité parente (fiche visible des sous-entités) sont proposés.
 8. Sur la fiche des mesures A.5.5 et A.5.6 de la SoA, le cadre « Registre des contacts officiels »
-   montre le nombre de contacts, vérifiés ou à vérifier, avec le lien vers le registre et son PDF.
+   montre le nombre de contacts, vérifiés ou à vérifier, les prises de contact tracées depuis
+   12 mois, avec le lien vers le registre et son PDF.
+9. Renseignez aussi le **délai en heures** du contact (72 pour l'autorité de protection des données,
+   24 pour l'alerte précoce du CSIRT) : l'onglet **Contacts officiels** d'un incident ou d'une
+   violation affiche alors l'échéance de chaque contact, comptée depuis la détection de l'incident
+   ou la prise de connaissance de la violation.
+10. Quand vous avez appelé ou écrit au contact, cliquez sur **Tracer une prise de contact** sur sa
+    ligne : date et heure, référence du dossier (par exemple « DOSSIER-FICTIF-001 »), commentaire.
+    Si vous décidez qu'il n'avait pas à être prévenu, choisissez « Non nécessaire (décision) » et
+    donnez le motif. Le badge passe à « Prévenu dans le délai », « Prévenu en retard » ou « Non
+    nécessaire (décision tracée) ». Rien n'est envoyé depuis le plugin.
+11. La fiche du contact a un onglet **Prises de contact tracées** : l'historique de vos relations
+    avec cette autorité ou ce groupe d'intérêt, à montrer à l'auditeur.
 
 ### Étape 23 : Vérifier les licences logicielles (mesure A.5.32)
 
@@ -708,6 +722,100 @@ version du noyau). Un système n'est rapproché d'une CVE qu'après votre valida
    « version non vérifiable » : il n'est ni déclaré vulnérable ni déclaré corrigé.
 5. Les tickets de mise à jour lient les ordinateurs concernés de l'entité du ticket, y compris
    ceux qui le deviennent après l'ouverture du ticket.
+
+### Étape 30 : Décrire les scénarios de crise sécurité du PCA (mesure A.5.29)
+
+Le plan de continuité décrit la restauration technique de chaque processus (stratégie de reprise,
+RTO). Cette étape y ajoute la sécurité de l'information pendant la crise : comment continuer à
+travailler sans baisser la sécurité quand la crise est elle-même une attaque.
+
+1. Menu **GRC & Conformité > Opérations**, onglet **Scénarios de crise sécurité** (à côté des
+   processus métier). Il faut le droit **Continuité d'activité** du profil.
+2. Cliquez sur **Ajouter les scénarios par défaut** : cinq scénarios sont ajoutés dans l'entité
+   active, prêts à adapter : attaque par rançongiciel, fuite de données, compromission de comptes à
+   privilèges, indisponibilité d'un prestataire critique, attaque par déni de service. Rien
+   d'existant n'est modifié ; un scénario par défaut supprimé revient au prochain clic.
+3. Ouvrez un scénario, par exemple « Attaque par rançongiciel ». Dans **Processus impactés**,
+   choisissez les processus métier que cette crise arrêterait (par exemple « Facturation (fictif) ») :
+   seuls les processus de l'entité du scénario sont proposés.
+4. Relisez le **mode dégradé sécurisé** (accès limités, actions validées par une seconde personne,
+   communication contrôlée) et les **rôles** de la direction, du RSSI et de la DSI, puis adaptez-les
+   à votre organisation.
+5. Le **guide de réponse** est une procédure de remédiation de la bibliothèque des incidents : les
+   scénarios par défaut reprennent celles fournies (rançongiciel, fuite de données, compte
+   compromis). Pour le déni de service et l'indisponibilité d'un prestataire, créez la procédure
+   dans la bibliothèque, puis choisissez-la ici. La **communication de crise** renvoie aux modèles de
+   messages de l'étape 28.
+6. **Exercice** : un exercice de crise terminé (page **Exercices de crise** de la même rubrique) du
+   scénario d'exercice choisi compte comme exercice du scénario. Un exercice sur table tenu sans le plugin se note dans
+   **Dernier exercice hors du plugin**, son compte rendu en document joint.
+7. En haut de la page, la couverture : **processus critiques sans scénario** (RTO de 24 heures ou
+   moins), **scénarios jamais exercés** ou pas exercés depuis plus d'un an. Chaque scénario liste ce
+   qui reste à compléter avant l'audit. L'onglet **Scénarios de crise sécurité** d'un processus
+   métier montre les scénarios qui le touchent.
+8. **Imprimer les scénarios (PDF)** donne le document à présenter à l'auditeur. Sur la fiche de la
+   mesure **A.5.29**, le cadre « Scénarios de crise sécurité » reprend la couverture.
+
+### Étape 31 : Encadrer le développement sécurisé et les mises en production (mesures A.8.25 à A.8.31)
+
+Le plugin s'appuie sur les **applications** de GLPI (Parc > Applications) et sur les
+**changements** (Assistance > Changements) : il n'en crée pas d'autres. Il faut le droit général du
+plugin ; pour valider une mise en production, le droit **Décider des mises en production** (onglet
+GRC Manager du profil, attribué au Super-Admin à l'installation).
+
+1. Ouvrez une application fictive développée en interne, par exemple « Portail RH », puis l'onglet
+   **Développement sécurisé**. Renseignez le responsable (vide : le responsable technique de
+   l'application), le dépôt de code (adresse en https://, ssh:// ou git@), le **référentiel suivi**
+   (OWASP ASVS, OWASP Top 10, OWASP SAMM, recommandations de l'ANSSI ou autre) et son niveau, puis
+   cochez **Revue de code obligatoire**, **Analyse statique (SAST)**, **Analyse dynamique (DAST)**
+   et **Analyse des dépendances**. Indiquez les outils et leur fréquence.
+2. Répondez à **Environnements séparés** (oui ou non). Décrivez comment les accès, les données et
+   la configuration sont séparés ; si la réponse est non, la justification est obligatoire (risque
+   accepté, mesure compensatoire). Enregistrez : l'application entre dans le registre.
+3. Créez le changement de la nouvelle version et liez-y l'application (onglet **Éléments** du
+   changement). Un onglet **Validation sécurité de mise en production** apparaît.
+4. Avant la mise en production, cochez la **liste de contrôle** : tests passés (dont tests de
+   sécurité), revue de code faite, vulnérabilités trouvées traitées, et notez les preuves (rapport
+   SAST, lien de la revue). Enregistrez.
+5. La DSI ou le RSSI choisit son rôle et clique sur **Valider la mise en production** (possible
+   seulement quand toute la liste est cochée) ou **Refuser la mise en production** (motif
+   obligatoire). La décision est enregistrée avec son auteur et sa date, et inscrite dans
+   l'historique du changement ; la liste est alors figée. **Rouvrir la décision** la rend de nouveau
+   modifiable, et l'historique garde la décision précédente.
+6. Ouvrez Conformité > **Développement sécurisé**. La page donne le registre des applications, leurs
+   pratiques, les **applications sans séparation des environnements** et les **mises en production
+   sans validation sécurité** des 12 derniers mois (changement résolu ou clos lié à une application
+   du registre, sans validation, refusé, ou validé après la mise en production). Seules vos entités
+   apparaissent ; les mises en production demandent le droit de voir tous les changements.
+7. Sur la fiche des mesures A.8.25, A.8.28, A.8.29 et A.8.31 de la SoA, le cadre **Développement
+   sécurisé** montre les indicateurs utiles à chaque mesure. Ces preuves servent à lever les
+   constats d'audit sur le cycle de développement, le codage sécurisé, les tests de sécurité et la
+   séparation des environnements.
+
+### Étape 32 : Préparer l'audit avec le plan d'audit de l'organisme
+
+
+L'organisme de certification n'audite pas tous les processus chaque année : il les échantillonne
+sur son cycle de trois ans et l'annonce dans son plan d'audit. L'écran **Audits et amélioration >
+Plan d'audit de l'organisme** reprend ce programme : les processus en lignes, une colonne par audit
+de certification de chaque année du cycle (le cycle par défaut se règle dans le programme d'audit
+pluriannuel).
+
+1. Enregistrer chaque audit de certification du cycle avec sa date prévue (audit initial ou de
+   renouvellement, surveillance 1, surveillance 2) : sa colonne apparaît dans la matrice.
+2. Cocher, dans la colonne de chaque audit, les processus annoncés par l'organisme, puis
+   **Enregistrer**. On peut aussi les choisir dans l'onglet **Plan d'audit de l'organisme** de
+   l'audit.
+3. Avant l'audit, le bloc **Audit de l'année** (et le même onglet) liste chaque processus
+   échantillonné avec les constats des audits de certification précédents qui le concernent et
+   leur état de levée, ses mesures de l'Annexe A et les registres du plugin qui y répondent. Le
+   lien « Voir ces constats et leurs preuves » ouvre la vue des constats filtrée sur ce processus.
+
+Les processus sont ceux du programme d'audit interne : les activités du SMSI de la **matrice des
+responsabilités** (par exemple contexte et domaine d'application, planification du SMSI, accès
+logiques et physiques, fournisseurs). Un constat est rattaché à un processus quand son champ
+**Processus audité** reprend le nom du processus (le champ le propose), ou quand sa clause ou
+mesure fait partie des mesures du processus. Cocher demande le droit de modifier l'audit concerné.
 
 ## 🇬🇧 English
 
@@ -1172,6 +1280,16 @@ To give a subsidiary its own Statement of Applicability:
    the incident or of a parent entity (record visible in sub-entities) are listed.
 8. On controls A.5.5 and A.5.6 of the SoA, the "Register of official contacts" box shows the number
    of contacts, verified or to verify, with links to the register and its PDF.
+9. Also fill in the contact's **time limit in hours** (72 for the data protection authority, 24 for
+   the early warning to the CSIRT): the **Official contacts** tab of an incident or a breach then
+   shows each contact's deadline, counted from the detection of the incident or the awareness of
+   the breach.
+10. Once you have called or written to the contact, click **Record a contact** on its line: date and
+    time, file number (for example "DOSSIER-FICTIF-001"), comment. If you decide it did not need to
+    be informed, choose "Not required (decision)" and give the reason. The badge becomes "Contacted
+    on time", "Contacted late" or "Not required (decision recorded)". Nothing is sent by the plugin.
+11. The contact's record has a **Recorded contacts** tab: the history of your relations with this
+    authority or special interest group, to show to the auditor.
 
 ### Step 23: Check software licenses (control A.5.32)
 
@@ -1369,3 +1487,125 @@ plugin with update, and the right to read software.
    verifiable": it is neither reported vulnerable nor reported patched.
 5. Update tickets link the affected computers of the ticket's entity, including those that become
    affected after the ticket was opened.
+
+### Step 30: Describe the security crisis scenarios of the continuity plan (control A.5.29)
+
+The continuity plan describes the technical recovery of each process (recovery strategy, RTO). This
+step adds information security during the crisis: how to keep working without lowering security
+when the crisis is itself an attack.
+
+1. Menu **GRC & Compliance > Operations**, **Security crisis scenarios** tab (next to the
+   business processes). The **Business continuity** right of the profile is required.
+2. Click **Add the default scenarios**: five scenarios are added to the active entity, ready to
+   adapt: ransomware attack, data leak, compromise of privileged accounts, unavailability of a
+   critical supplier, denial of service attack. Nothing existing is changed; a default scenario
+   that was deleted comes back on the next click.
+3. Open a scenario, for instance "Ransomware attack". In **Impacted processes**, choose the
+   business processes this crisis would stop (for instance "Billing (fictitious)"): only the
+   processes of the entity of the scenario are offered.
+4. Read the **secure degraded mode** (limited access, actions validated by a second person,
+   controlled communication) and the **roles** of management, the CISO and the IT department, then
+   adapt them to your organization.
+5. The **response playbook** is a remediation playbook of the incident library: the default
+   scenarios use the ones provided (ransomware, data leak, compromised account). For denial of
+   service and supplier unavailability, create the playbook in the library, then choose it here.
+   **Crisis communication** points to the message templates of step 28.
+6. **Exercise**: a finished crisis exercise (**Crisis exercises** page of the same section) of the
+   chosen exercise scenario counts as an exercise of the scenario. A tabletop exercise held without
+   the plugin is recorded in **Last exercise outside the plugin**, with its report attached.
+7. At the top of the page, the coverage: **critical processes without scenario** (RTO of 24 hours or
+   less), **scenarios never exercised** or not exercised for more than a year. Each scenario lists
+   what remains to complete before the audit. The **Security crisis scenarios** tab of a business
+   process shows the scenarios that impact it.
+8. **Print the scenarios (PDF)** gives the document to show the auditor. On control **A.5.29**, the
+   "Security crisis scenarios" box shows the coverage.
+
+### Step 31: Frame secure development and releases (controls A.8.25 to A.8.31)
+
+The plugin relies on the **appliances** of GLPI (Assets > Appliances) and on the **changes**
+(Assistance > Changes): it creates no other object. You need the general right of the plugin; to
+approve a release, the **Decide on releases** right (GRC Manager tab of the profile, given to
+Super-Admin at installation).
+
+1. Open a fictitious in-house application, for instance "HR portal", then the **Secure
+   development** tab. Fill in the owner (empty: the technical owner of the application), the code
+   repository (https://, ssh:// or git@ address), the **framework followed** (OWASP ASVS, OWASP Top
+   10, OWASP SAMM, ANSSI recommendations or other) and its level, then tick **Mandatory code
+   review**, **Static analysis (SAST)**, **Dynamic analysis (DAST)** and **Dependency analysis**.
+   Give the tools and their frequency.
+2. Answer **Separated environments** (yes or no). Describe how access, data and configuration are
+   separated; when the answer is no, the justification is mandatory (accepted risk, compensating
+   measure). Save: the application enters the register.
+3. Create the change of the new version and link the application to it (**Items** tab of the
+   change). A **Security release validation** tab appears.
+4. Before the release, tick the **checklist**: tests passed (including security tests), code review
+   done, vulnerabilities found treated, and write down the evidence (SAST report, review link). Save.
+5. The CIO or the CISO chooses their role and clicks **Approve the release** (only possible when
+   the whole checklist is ticked) or **Reject the release** (reason mandatory). The decision is
+   recorded with its author and date, and written in the history of the change; the checklist is
+   then frozen. **Reopen the decision** makes it editable again, and the history keeps the previous
+   decision.
+6. Open Compliance > **Secure development**. The page gives the register of applications, their
+   practices, the **applications without separation of environments** and the **releases without
+   security validation** of the last 12 months (solved or closed change linked to an application of
+   the register, without validation, rejected, or approved after the release). Only your entities
+   are shown; the releases require the right to see all changes.
+7. On controls A.8.25, A.8.28, A.8.29 and A.8.31 of the SoA, the **Secure development** box shows
+   the indicators useful to each control. This evidence helps lift the audit findings on the
+   development life cycle, secure coding, security testing and separation of environments.
+### Step 32: Use phishing simulations as evidence of awareness (clause 7.3, control A.6.3)
+
+1. Before the first simulation, inform the staff that phishing simulations take place (purpose:
+   awareness, not sanction), and record this processing in the GDPR register: the results per
+   person are personal data. Decide how long you keep them (for instance until the remedial
+   training is done).
+2. Run the campaign with your simulation tool (GoPhish, the tool of a provider...). **The plugin
+   never sends any email.**
+3. In the plugin menu, open **Operations > Phishing simulations** (next to the trainings), click
+   **Add** and fill in the name (for instance "Fake parcel delivery (fictitious)"), the date, the
+   tool, the scenario and the targeted population. Choose the entity of the people concerned.
+4. In the **Results** tab, choose the CSV export of the results (one line per person) and click
+   **Next**. The usual columns are recognised: email address or login, email received, opened,
+   link clicked, data entered, reported, or the "status" column of a GoPhish export. Check them,
+   then click **Import**. A new import replaces the results of the campaign; the **Example file**
+   shows the expected format with fictitious addresses.
+5. Each line is matched with an active GLPI user of the entity of the campaign by email address (or
+   login). The lines not matched (unknown or ambiguous address, person of another entity) are listed
+   with their line number: correct the address in GLPI or in the file, then import again.
+6. The tab shows the rates out of the emails received (opened, link clicked, data entered,
+   reported). The list of campaigns shows the trend from one campaign to the next. To follow the
+   click rate with thresholds, create a risk indicator (KRI) with the source "Click rate of the last
+   phishing simulation (%)".
+7. Click **Offer a remedial training**: a training form opens with the people who clicked or
+   entered data. Check it and click **Add**; nothing is saved or sent before that.
+8. **Who sees what**: the results per person and the lines not matched require the right on
+   sensitive registers (read; update to import or delete). Without it, only the rates are shown, and
+   not at all below 5 people. Each person sees their own results in **Preferences > My phishing
+   simulations**. Once the follow-up is done, click **Delete the results per person**: the rates of
+   the campaign are kept.
+9. On control **A.6.3** and on ISMS requirement **7.3**, the "Phishing simulations" box shows the
+   number of campaigns within 12 months, the rates of the last campaign and the change in clicks
+   since the previous one.
+
+### Step 33: Prepare the audit with the audit plan of the certification body
+
+The certification body does not audit every process each year: it samples them over its three-year
+cycle and announces them in its audit plan. The screen **Audits and improvement > Audit plan of the
+certification body** copies this programme: processes in rows, one column per certification audit
+of each year of the cycle (the default cycle is set in the multi-year audit programme).
+
+1. Record each certification audit of the cycle with its planned date (initial or recertification
+   audit, surveillance 1, surveillance 2): its column appears in the matrix.
+2. Tick, in the column of each audit, the processes announced by the body, then click **Save**.
+   They can also be chosen in the **Audit plan of the certification body** tab of the audit.
+3. Before the audit, the **Audit of the year** block (and the same tab) lists each sampled process
+   with the findings of previous certification audits that concern it and whether they are lifted,
+   its Annex A controls and the plugin registers that answer it. The link "See these findings and
+   their evidence" opens the findings view filtered on this process.
+
+The processes are those of the internal audit programme: the ISMS activities of the
+**responsibility matrix** (for example context and scope, ISMS planning, access control,
+suppliers). A finding is linked to a process when its **Audited process** field repeats the name of
+the process (the field suggests it), or when its clause or control is one of the controls of the
+process. Ticking requires the right to update the audit concerned. The audit list shows the
+**Audit type** column right after the title.

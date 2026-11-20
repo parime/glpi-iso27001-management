@@ -30,6 +30,7 @@ use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
 use GlpiPlugin\Grcmanager\NotificationTargetEvidence;
 use GlpiPlugin\Grcmanager\NotificationTargetTraining;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
+use GlpiPlugin\Grcmanager\ReleaseValidation;
 use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog;
@@ -381,6 +382,23 @@ final class Installer
         ...CompetenceTables::CLASSES,
         // Issue #616 : communication de crise (modèles, listes de diffusion, communications faites).
         ...CrisisCommunicationTables::CLASSES,
+        // Issue #776 : scénarios de crise sécurité de l'information du PCA (A.5.29).
+        ...CrisisScenarioTables::CLASSES,
+        // Issue #604 : simulations d'hameçonnage (campagnes, résultats par personne).
+        ...PhishingTables::CLASSES,
+        // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
+        ...SecureDevelopmentTables::CLASSES,
+        // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
+        ...OfficialContactTables::CLASSES,
+        // Issue #808 : classes historisées oubliées, dont les journaux restaient après la
+        // désinstallation (fiche de conformité des collaborateurs #546, fiches réflexes, actions
+        // de la revue de direction), et deux cibles de notification absentes de la liste.
+        \GlpiPlugin\Grcmanager\PersonnelCompliance::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetPersonnelCompliance::class,
+        \GlpiPlugin\Grcmanager\Playbook::class,
+        \GlpiPlugin\Grcmanager\ManagementReviewAction::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetAuditEvidenceRequest::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetPolicyVersion::class,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
@@ -1507,11 +1525,19 @@ final class Installer
         // Issue #616 : communication de crise, et modèles fournis (une seule fois, bibliothèque vide).
         CrisisCommunicationTables::install($keySign, $charset, $collation);
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
+        // Issue #604 : campagnes de simulation d'hameçonnage et résultats importés (7.3, A.6.3).
+        PhishingTables::install($keySign, $charset, $collation);
+        // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
+        SecureDevelopmentTables::install($keySign, $charset, $collation);
+        // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
+        OfficialContactTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
         $this->installEndOfLifeTables($keySign, $charset, $collation);
         $this->installManagementReviewDossierTables($keySign, $charset, $collation);
+        // Issue #776 : scénarios de crise sécurité de l'information (ajoutés à la demande, par entité).
+        CrisisScenarioTables::install($keySign, $charset, $collation);
         $this->installAuditProgrammeTables($keySign, $charset, $collation);
         $this->installControlTestSampleTables($migration, $keySign, $charset, $collation);
 
@@ -3874,7 +3900,8 @@ final class Installer
             ProfileRight::updateProfileRights(
                 (int) $profileRow['id'],
                 [
-                    self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE,
+                    // Issue #777 : décision de mise en production (DSI ou RSSI), droit dédié.
+                    self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE | ReleaseValidation::DECIDE,
                     self::SENSITIVE_RIGHT => ALLSTANDARDRIGHT,
                     // Issue #732 : validation des bilans d'exercice de crise, droit dédié.
                     self::CONTINUITY_RIGHT => ALLSTANDARDRIGHT | CrisisExerciseReview::VALIDATE,
@@ -3918,6 +3945,9 @@ final class Installer
         }
 
         $this->seedDisplayPreferences();
+        // Issue #772, lot 2 : colonne « Type d'audit » dans la liste des audits des instances
+        // existantes, tant que leurs colonnes par défaut sont celles d'origine.
+        $this->upgradeDisplayPreferences('GlpiPlugin\\Grcmanager\\Audit', [9, 1, 2, 3, 4, 5, 6]);
 
         // Sprint 7 (tableaux de bord, consolidation) : tableau de bord natif GLPI prêt à l'emploi,
         // voir DefaultDashboardService pour le détail (idempotent comme le reste de cette
@@ -4806,6 +4836,14 @@ final class Installer
             ) {
                 $migration->addKey(self::CONTEXT_ITEMS_TABLE, $key);
             }
+            $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
+        }
+        // Issue #771, lot 2 : délai chiffré en heures (72 pour une violation de données), qui donne
+        // l'échéance de prévenance depuis un incident ou une violation. 0 : pas de délai chiffré.
+        if (!$DB->fieldExists(self::CONTEXT_ITEMS_TABLE, 'contact_delay_hours')) {
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_delay_hours', 'integer', [
+                'after' => 'contact_delay', 'value' => 0,
+            ]);
             $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
         }
         if (!$DB->tableExists(self::CONTEXT_ITEMS_LINKS_TABLE)) {
@@ -6066,6 +6104,31 @@ final class Installer
         }
     }
 
+    /**
+     * Remplace les colonnes par défaut (users_id = 0) d'une liste par celles de
+     * DefaultSearchColumns, seulement si elles sont encore exactement $previous : un choix de
+     * l'administrateur n'est jamais écrasé. Rejouable : une fois à jour, plus rien ne change.
+     *
+     * @param list<int> $previous colonnes par défaut de la version précédente, dans l'ordre
+     */
+    private function upgradeDisplayPreferences(string $itemtype, array $previous): void
+    {
+        global $DB;
+
+        $where = ['itemtype' => $itemtype, 'users_id' => 0, 'interface' => 'central'];
+        $current = [];
+        foreach ($DB->request(['FROM' => 'glpi_displaypreferences', 'WHERE' => $where, 'ORDER' => 'rank']) as $row) {
+            $current[] = (int) $row['num'];
+        }
+        if ($current !== $previous) {
+            return;
+        }
+        $DB->delete('glpi_displaypreferences', $where);
+        foreach (DefaultSearchColumns::COLUMNS[$itemtype] as $index => $searchOptionId) {
+            $DB->insert('glpi_displaypreferences', $where + ['num' => $searchOptionId, 'rank' => $index + 1]);
+        }
+    }
+
     public function uninstall(Migration $migration): bool
     {
         global $DB;
@@ -6243,6 +6306,10 @@ final class Installer
         PhysicalSecurityTables::uninstall($migration);
         CompetenceTables::uninstall($migration);
         CrisisCommunicationTables::uninstall($migration);
+        CrisisScenarioTables::uninstall($migration);
+        PhishingTables::uninstall($migration);
+        SecureDevelopmentTables::uninstall($migration);
+        OfficialContactTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

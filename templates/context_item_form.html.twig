@@ -49,6 +49,13 @@
          {{ fields.textField('contact_delay', item.fields['contact_delay'] ?? '', __('Time limit', 'grcmanager'), {
             'add_field_html': hints.hint(__('For example "72 hours after becoming aware of the breach" or "24 hours for the early warning".', 'grcmanager')),
          }) }}
+         {# Issue #771, lot 2 : délai chiffré, qui donne l'échéance dans l'onglet des incidents et des violations. #}
+         {{ fields.numberField('contact_delay_hours', item.fields['contact_delay_hours'] ?? 0, __('Time limit in hours', 'grcmanager'), {
+            'min': 0,
+            'max': 8760,
+            'step': 1,
+            'add_field_html': hints.hint(__('Optional: 72 for a personal data breach, 24 for an early warning. The deadline is then computed from the detection of the incident or the awareness of the breach. Leave 0 when there is no set time limit.', 'grcmanager')),
+         }) }}
          {{ fields.textareaField('contact_details', item.fields['contact_details'] ?? '', __('Contact details', 'grcmanager'), {
             'full_width': true,
             'add_field_html': hints.hint(__('Phone numbers (including outside office hours), e-mail, online form, postal address. This information must stay usable during a crisis: the register can be printed.', 'grcmanager')),

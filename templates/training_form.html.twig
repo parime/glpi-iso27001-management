@@ -26,6 +26,15 @@
          </div>
       </div>
    {% endif %}
+   {# Issue #604 : rattrapage proposé après une simulation d'hameçonnage. #}
+   {% if is_phishing_remedial is defined and is_phishing_remedial %}
+      <div class="col-12 mb-3">
+         <div class="alert alert-info mb-0">
+            <i class="ti ti-fish-hook me-1"></i>
+            {{ __('Proposed remedial training: the people who clicked the link or entered data in the phishing simulation are preselected. Check the date and the list, then click "Add". Nothing is saved or sent before that.', 'grcmanager') }}
+         </div>
+      </div>
+   {% endif %}
    {% if is_new_session %}
       <div class="col-12 mb-3">
          <div class="alert alert-info mb-0">

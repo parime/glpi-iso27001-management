@@ -203,6 +203,22 @@ if ($mode === 'xss') {
         'when_to_contact' => $canary, 'contact_delay' => $canary, 'on_security_incident' => 1,
         'on_data_breach' => 1, 'expectations' => $canary, 'comment' => $canary,
     ]);
+    // Issue #604 : campagne de simulation d'hameçonnage piégée (champs texte, nom du fichier importé),
+    // avec une ligne non rapprochée piégée et un résultat de glpi (onglet de ses préférences).
+    $out['phishing'] = $insert('phishingcampaigns', [
+        'entities_id' => 0, 'is_recursive' => 1, 'name' => $canary, 'campaign_date' => date('Y-m-d'),
+        'tool' => $canary, 'scenario' => $canary, 'target_population' => $canary, 'comment' => $canary,
+        'nb_sent' => 6, 'nb_opened' => 3, 'nb_clicked' => 2, 'nb_unmatched' => 1, 'import_file' => $canary,
+        'date_import' => date('Y-m-d H:i:s'),
+    ]);
+    $insert('phishingresults', [
+        'plugin_grcmanager_phishingcampaigns_id' => $out['phishing'], 'users_id' => 0, 'identifier' => $canary,
+        'line' => 2, 'is_sent' => 1,
+    ]);
+    $insert('phishingresults', [
+        'plugin_grcmanager_phishingcampaigns_id' => $out['phishing'], 'users_id' => 2, 'line' => 3,
+        'is_sent' => 1, 'is_clicked' => 1,
+    ]);
     // Issue #616 : modèle de message de crise piégé (nom, objet, texte, commentaire), contact officiel
     // piégé dans sa liste de diffusion, et communication tracée piégée sur l'incident de A. Les
     // variables de l'incident de A (nom, ordinateur lié) sont piégées aussi.
@@ -221,6 +237,13 @@ if ($mode === 'xss') {
         'plugin_grcmanager_crisismessagetemplates_id' => $out['crisis_template'],
         'template_name' => $canary, 'subject' => $canary, 'body' => $canary, 'recipients' => $canary,
         'users_id' => 2, 'date_communication' => date('Y-m-d H:i:s'),
+    ]);
+    // Issue #771, lot 2 : prise de contact piégée (onglet de l'incident de A, fiche du contact).
+    $insert('officialcontactnotifications', [
+        'entities_id' => (int) $ids['a'], 'itemtype' => 'PluginGrcmanagerSecurityIncident',
+        'items_id' => (int) $ids['incident_A'], 'plugin_grcmanager_contextitems_id' => $out['official_contact'],
+        'decision' => 'notified', 'date_notified' => date('Y-m-d H:i:s'), 'reference' => $canary,
+        'comment' => $canary, 'users_id' => 2,
     ]);
     // Issue #620 : chaque champ texte d'une violation de données.
     $out['breach'] = $insert('databreaches', [
@@ -311,6 +334,16 @@ if ($mode === 'xss') {
         'plugin_grcmanager_businessprocesses_id' => $out['process'], 'test_date' => date('Y-m-d'),
         'measured_minutes' => 90, 'comment' => $canary,
     ]);
+    // Issue #776 : scénario de crise piégé (nom, description, mode dégradé, rôles, commentaire), lié au
+    // processus piégé (registre, fiche, onglet du processus, PDF).
+    $out['crisis_scenario'] = $insert('crisisscenarios', [
+        'name' => $canary, 'description' => $canary, 'degraded_mode' => $canary, 'role_management' => $canary,
+        'role_ciso' => $canary, 'role_it' => $canary, 'comment' => $canary, 'is_active' => 1,
+    ]);
+    $insert('crisisscenarios_businessprocesses', [
+        'plugin_grcmanager_crisisscenarios_id' => $out['crisis_scenario'],
+        'plugin_grcmanager_businessprocesses_id' => $out['process'],
+    ]);
     // Issue #774 : fonction, compétence et déclaration piégées ; glpi tient la fonction (sa fiche).
     $update('ismsfunctions', ['name' => $canary, 'description' => $canary], (int) $ids['ismsfunction_A']);
     $update('competences', ['name' => $canary, 'description' => $canary], (int) $ids['competence_A']);
@@ -385,6 +418,31 @@ if ($mode === 'xss') {
         'date' => date('Y-m-d H:i:s'), 'comment' => $canary,
     ]);
     $out['exercise'] = $exercise;
+    // Issue #777 : application et changement pieges (nom), avec leur fiche et leur liste de controle
+    // piegees : page du developpement securise, onglets de l'application et du changement.
+    $DB->insert('glpi_appliances', ['name' => $canary, 'entities_id' => 0, 'comment' => $canary]);
+    $out['appliance'] = (int) $DB->insertId();
+    $insert('applicationsecurities', [
+        'appliances_id' => $out['appliance'], 'repository_url' => $canary, 'framework' => 'other',
+        'framework_detail' => $canary, 'tools' => $canary, 'environments_separated' => 'no',
+        'separation_justification' => $canary, 'comment' => $canary,
+    ]);
+    $DB->insert('glpi_changes', [
+        'name' => $canary, 'content' => $canary, 'entities_id' => 0, 'status' => Change::SOLVED,
+        'solvedate' => date('Y-m-d H:i:s'), 'date' => date('Y-m-d H:i:s'),
+    ]);
+    $out['change'] = (int) $DB->insertId();
+    $DB->insert('glpi_changes_items', [
+        'changes_id' => $out['change'], 'itemtype' => 'Appliance', 'items_id' => $out['appliance'],
+    ]);
+    $insert('releasevalidations', [
+        'changes_id' => $out['change'], 'tests_passed' => 1, 'checklist_comment' => $canary,
+        'decision' => 'rejected', 'validator_role' => 'ciso', 'decision_comment' => $canary, 'users_id_decision' => 2,
+        'date_decision' => date('Y-m-d H:i:s'),
+    ]);
+    $out['control_a831'] = (int) ($DB->request([
+        'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.31'], 'LIMIT' => 1,
+    ])->current()['id'] ?? 0);
     echo json_encode($out), "\n";
     exit(0);
 }
@@ -492,6 +550,8 @@ $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnai
     'plugin_grcmanager_securityincident' => ALLSTANDARDRIGHT | CommonITILObject::READALL | CommonITILObject::READMY,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'document' => READ,
     'software' => READ, 'dashboard' => READ, 'appliance' => READ,
+    // Issue #777 : voit tous les changements (mises en production), sans le droit de décider.
+    'change' => CommonITILObject::READALL,
 ]));
 $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager'                  => READ,
@@ -500,7 +560,7 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager_continuity'       => READ,
     'plugin_grcmanager_securityincident' => CommonITILObject::READALL,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'software' => READ,
-    'dashboard' => READ, 'appliance' => READ,
+    'dashboard' => READ, 'appliance' => READ, 'change' => CommonITILObject::READALL,
     // Issue #779 : la conformité des licences exige aussi la lecture native des licences (le
     // gestionnaire ne l'a pas : la page lui est refusée).
     'license' => READ,
@@ -524,6 +584,9 @@ $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit',
     // (classification, processus métier) ne lui montrent rien.
     'appliance'                          => READ,
     'supplier'                           => READ,
+    // Issue #777 : lit les changements, dont l'onglet de validation de mise en production ne lui
+    // montre rien.
+    'change'                             => CommonITILObject::READALL,
     // Issue #143 : voit les tableaux de bord, pas les cartes du plugin.
     'dashboard'                          => READ,
     // Issue #380 : lit les documents de son entité, sauf la preuve d'une mesure qu'il ne lit pas.
@@ -799,6 +862,37 @@ foreach (['A', 'B'] as $suffix) {
         'itemtype' => 'Appliance', 'items_id' => $ids['appliance_' . $suffix], 'availability' => 'high',
         'rto_hours' => 24, 'rpo_hours' => 4,
     ]);
+    // Issue #777 : fiche « développement sécurisé » de l'application, et changement de l'entité lié à
+    // l'application, mis en production sans validation sécurité.
+    if (\GlpiPlugin\Grcmanager\ApplicationSecurity::getForAppliance($ids['appliance_' . $suffix]) === null) {
+        \GlpiPlugin\Grcmanager\ApplicationSecurity::saveFor($ids['appliance_' . $suffix], [
+            'repository_url' => 'https://git.example.org/securite-' . strtolower($suffix),
+            'framework' => 'owasp_asvs', 'environments_separated' => 'no',
+            'separation_justification' => 'Justification securite ' . $suffix,
+        ]);
+    }
+    $changeEntity = $suffix === 'A' ? $a : $b;
+    $ids['change_' . $suffix] = $add(new Change(), [
+        'name' => 'Changement securite ' . $suffix, 'content' => 'Mise en production fictive',
+        'entities_id' => $changeEntity,
+    ]);
+    $add(new Change_Item(), [
+        'changes_id' => $ids['change_' . $suffix], 'itemtype' => 'Appliance',
+        'items_id'   => $ids['appliance_' . $suffix],
+    ]);
+    // Mise en production : changement résolu à l'instant, sans passer par le circuit de solution.
+    $DB->update('glpi_changes', [
+        'status' => Change::SOLVED, 'solvedate' => date('Y-m-d H:i:s'),
+    ], ['id' => $ids['change_' . $suffix]]);
+}
+// Issue #776 : un scénario de crise sécurité par entité, chacun lié au processus de son entité. Celui
+// de B n'est jamais nommé pour un profil limité à A (registre, onglet du processus, PDF).
+foreach (['A', 'B'] as $suffix) {
+    $ids['crisis_scenario_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\CrisisScenario(), [
+        'name' => 'Scenario crise securite ' . $suffix, 'entities_id' => $ids[strtolower($suffix)],
+        'degraded_mode' => 'Mode degrade securise ' . $suffix, 'role_ciso' => 'RSSI ' . $suffix,
+        '_processes_sent' => 1, '_processes' => [$ids['process_' . $suffix]],
+    ]);
 }
 // Issue #377, quatrième étape : BIA échue du processus de A, rappelée par la tâche planifiée (message
 // en file d'attente si l'envoi est actif), pour que le contrôle des restes après désinstallation porte
@@ -998,6 +1092,13 @@ $ids['audit_B'] = $add(
     new \GlpiPlugin\Grcmanager\Audit(),
     ['title' => 'Audit securite B', 'users_id' => 2, 'entities_id' => $b]
 );
+// Issue #772, lot 2 : audits de certification de A et de B (plan d'audit de l'organisme).
+foreach (['audit_cert' => $a, 'audit_cert_B' => $b] as $key => $entityId) {
+    $ids[$key] = $add(new \GlpiPlugin\Grcmanager\Audit(), [
+        'title' => 'Audit certification securite ' . ($entityId === $b ? 'B' : 'A'), 'audit_type' => 'surveillance_1',
+        'planned_date' => date('Y-m-d'), 'users_id' => 2, 'entities_id' => $entityId,
+    ]);
+}
 foreach (['A' => $ids['audit'], 'B' => $ids['audit_B']] as $suffix => $auditId) {
     $ids['nc_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Nonconformity(), [
         'title'                       => 'Constat securite ' . $suffix,
@@ -1129,6 +1230,27 @@ $ids['competencedeclaration_B'] = $add(new \GlpiPlugin\Grcmanager\CompetenceDecl
     'users_id' => $ids['collab_B'], 'plugin_grcmanager_competences_id' => $ids['competence_B'],
     'level' => 2, 'evidence_type' => 'certificate', 'evidence_reference' => 'Certificat fictif B',
 ]);
+// Issue #808 : fiche de conformité d'un collaborateur de A, saisie en deux temps comme dans l'écran
+// (vérification préalable, puis engagement de confidentialité). Ses journaux (glpi_logs) doivent
+// disparaître à la désinstallation : le contrôle commun des restes les cherche.
+$screening = ['screening_status' => 'done', 'screening_date' => '2026-01-10'];
+$complianceInputs = [$screening, $screening + ['nda_date' => '2026-01-12', 'nda_version' => 'v1']];
+foreach ($complianceInputs as $complianceInput) {
+    if (!\GlpiPlugin\Grcmanager\PersonnelCompliance::saveRecord($ids['collab_A'], $complianceInput)) {
+        fwrite(STDERR, "Fiche de conformite impossible a enregistrer\n");
+        exit(1);
+    }
+}
+$compliance = new \GlpiPlugin\Grcmanager\PersonnelCompliance();
+$compliance->getFromDBByCrit(['users_id' => $ids['collab_A']]);
+$ids['personnelcompliance_A'] = (int) $compliance->getID();
+$complianceLogs = [
+    'itemtype' => \GlpiPlugin\Grcmanager\PersonnelCompliance::class, 'items_id' => $ids['personnelcompliance_A'],
+];
+if (countElementsInTable('glpi_logs', $complianceLogs) === 0) {
+    fwrite(STDERR, "Fiche de conformite sans historique : le controle des restes ne la verrait pas\n");
+    exit(1);
+}
 // Issue #616 : modèle de message de crise (global) dont la liste de diffusion cite les contacts
 // officiels de A et de B, et une communication tracée sur l'incident de chaque entité. Depuis
 // l'incident de A, ni le contact ni la communication de B ne doivent apparaître.
@@ -1164,6 +1286,64 @@ foreach (['A', 'B'] as $suffix) {
         ]);
     }
 }
+// Issue #771, lot 2 : une prise de contact tracée avec le contact officiel de A, sur l'incident de
+// chaque entité. Celle de l'incident de B ne doit apparaître sur la fiche du contact de A qu'au
+// super-admin (les autres ne la voient que comptée).
+foreach (['A', 'B'] as $suffix) {
+    $traceCriteria = [
+        'itemtype' => PluginGrcmanagerSecurityIncident::class, 'items_id' => $ids['incident_' . $suffix],
+        'plugin_grcmanager_contextitems_id' => $ids['context_A'],
+    ];
+    if (countElementsInTable('glpi_plugin_grcmanager_officialcontactnotifications', $traceCriteria) === 0) {
+        $DB->insert('glpi_plugin_grcmanager_officialcontactnotifications', $traceCriteria + [
+            'entities_id'   => $suffix === 'A' ? $a : $b,
+            'decision'      => 'notified',
+            'date_notified' => date('Y-m-d H:i:s'),
+            'reference'     => 'Dossier securite ' . $suffix,
+            'users_id'      => 2,
+            'date_creation' => date('Y-m-d H:i:s'),
+        ]);
+    }
+}
+// Issue #604 : une campagne de simulation d'hameçonnage dans chaque entité, avec des résultats
+// importés. Dans A : le collaborateur de A et iso-sans-droit ont cliqué (ce dernier voit les siens dans
+// ses préférences), et quatre adresses fictives restent non rapprochées (6 personnes : assez pour des
+// taux anonymes). Dans B : le collaborateur de B a cliqué.
+$phishingMail = static function (int $usersId, string $email) use ($DB): void {
+    if (countElementsInTable('glpi_useremails', ['users_id' => $usersId, 'email' => $email]) === 0) {
+        $DB->insert('glpi_useremails', ['users_id' => $usersId, 'email' => $email, 'is_default' => 1]);
+    }
+};
+$phishingMail($ids['collab_A'], 'collaborateur.a@example.org');
+$phishingMail($ids['collab_B'], 'collaborateur.b@example.org');
+$phishingMail($noRight, 'sans.droit@example.org');
+$phishingLines = [
+    'A' => "email,status,reported\ncollaborateur.a@example.org,Clicked Link,false\n"
+        . "sans.droit@example.org,Clicked Link,false\ninconnu.securite@example.org,Email Opened,true\n"
+        . "autre1.securite@example.org,Email Sent,false\nautre2.securite@example.org,Email Sent,true\n"
+        . "autre3.securite@example.org,Email Sent,false\n",
+    'B' => "email,status,reported\ncollaborateur.b@example.org,Clicked Link,false\n",
+];
+foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
+    $campaign = new \GlpiPlugin\Grcmanager\PhishingCampaign();
+    if (!$campaign->getFromDBByCrit(['name' => 'Campagne hameconnage ' . $suffix])) {
+        $add($campaign, [
+            'name' => 'Campagne hameconnage ' . $suffix, 'entities_id' => $entity, 'campaign_date' => date('Y-m-d'),
+            'tool' => 'GoPhish', 'scenario' => 'Faux avis de livraison', 'target_population' => 'Entite ' . $suffix,
+        ]);
+        $campaign->getFromDB($campaign->getID());
+        $parsed = \GlpiPlugin\Grcmanager\Services\Phishing\PhishingRules::parse($phishingLines[$suffix]);
+        \GlpiPlugin\Grcmanager\PhishingResult::import(
+            $campaign,
+            $parsed['rows'],
+            \GlpiPlugin\Grcmanager\Services\Phishing\PhishingRules::guessMapping($parsed['headers']),
+            'resultats-fictifs.csv'
+        );
+    }
+    $ids['phishing_' . $suffix] = (int) $campaign->getID();
+}
 // Issue #778 : mesure A.7.1 de la SoA du siège (preuve des évaluations de la sécurité physique).
 $ids['control_a71'] = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode(0)['A.7.1'] ?? 0;
+// Issue #604 : mesure A.6.3 de la SoA du siège (preuve des simulations d'hameçonnage).
+$ids['control_a63'] = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode(0)['A.6.3'] ?? 0;
 echo json_encode($ids), "\n";

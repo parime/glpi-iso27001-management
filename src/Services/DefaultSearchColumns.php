@@ -39,7 +39,8 @@ final class DefaultSearchColumns
         // Issue #113 : exigence (lien) puis article, statut, responsable, dernière modification.
         'GlpiPlugin\\Grcmanager\\IsmsRequirement' => [1, 2, 3, 4, 7],
         // Sprint 4 (audits internes et CAPA), same "id first" convention.
-        'GlpiPlugin\\Grcmanager\\Audit'         => [9, 1, 2, 3, 4, 5, 6],
+        // Issue #772 : type d'audit (30, interne ou de certification) juste après le titre.
+        'GlpiPlugin\\Grcmanager\\Audit'         => [9, 1, 30, 2, 3, 4, 5, 6],
         // Issue #27 : id 13 (finding_type) juste apres le titre, avant severite (2), pour que le
         // type de constat (non-conformite/observation) soit visible d'emblee dans la liste.
         'GlpiPlugin\\Grcmanager\\Nonconformity' => [12, 1, 13, 2, 3, 4, 5, 7],
@@ -49,6 +50,8 @@ final class DefaultSearchColumns
         'GlpiPlugin\\Grcmanager\\SupplierRisk'  => [11, 1, 2, 3, 6, 4, 5, 7, 8, 9],
         // Sprint 6 (formations et revues de direction), same "id first" convention.
         'GlpiPlugin\\Grcmanager\\Training'         => [8, 1, 2, 3, 4, 5, 6],
+        // Issue #604 : nom, date, outil, population ciblée, messages reçus, entité.
+        'GlpiPlugin\\Grcmanager\\PhishingCampaign' => [1, 3, 4, 5, 6, 80],
         'GlpiPlugin\\Grcmanager\\ManagementReview' => [6, 1, 2, 3, 4, 5],
         // Issue #126 : campagne (lien), statut, fréquence, dates, pilote, entité.
         'GlpiPlugin\\Grcmanager\\AccessReview'     => [1, 2, 3, 4, 5, 6, 80],

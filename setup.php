@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.67.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.68.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -218,6 +218,11 @@ function plugin_init_grcmanager(): void
         'addtabon' => \GlpiPlugin\Grcmanager\AssetClassification::getItemtypes(),
     ]);
 
+    // Issue #777 : onglet « Développement sécurisé » des applications, et « Validation sécurité de
+    // mise en production » des changements liés à une application.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ApplicationSecurity::class, ['addtabon' => [Appliance::class]]);
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ReleaseValidation::class, ['addtabon' => [Change::class]]);
+
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
     // quelque chose pour une durée limitée (mesures, risques fournisseurs, audits, politiques).
     // Issue #170 : onglet « Dérogations » sur les actifs, les mesures et les politiques.
@@ -260,9 +265,17 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\OfficialContact::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class, \GlpiPlugin\Grcmanager\DataBreach::class],
     ]);
+    // Issue #771, lot 2 : onglet « Prises de contact tracées » de la fiche d'un contact officiel.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\OfficialContactNotification::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\ContextItem::class],
+    ]);
     // Issue #616 : onglet « Communication de crise » des incidents et des violations de données.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisCommunication::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class, \GlpiPlugin\Grcmanager\DataBreach::class],
+    ]);
+    // Issue #776 : onglet « Scénarios de crise » des processus métier.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisScenario::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\BusinessProcess::class],
     ]);
     // Issue #185 : onglet « Cellule de crise » de l'incident.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisExercise::class, [
@@ -337,6 +350,8 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PhysicalSecurityAssessment::class, [
         'addtabon' => [Location::class],
     ]);
+    // Issue #604 : « Mes simulations d'hameçonnage » dans les préférences (ses propres résultats).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PhishingResult::class, ['addtabon' => [Preference::class]]);
     // Issue #774 : compétences d'une personne, sur chaque utilisateur et dans ses préférences.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CompetenceMatrix::class, [
         'addtabon' => [User::class, Preference::class],
@@ -379,6 +394,8 @@ function plugin_init_grcmanager(): void
         // Issue #540 : un contrat supprimé définitivement quitte le registre DORA (les fournisseurs
         // passent par les rappels ci-dessous, qui oublient aussi leurs champs DORA).
         'Contract'                              => 'plugin_grcmanager_forget_dora_item',
+        // Issue #777 : un changement supprimé définitivement emporte sa validation de mise en production.
+        'Change'                                => 'plugin_grcmanager_forget_release_validation',
     ];
     foreach (\GlpiPlugin\Grcmanager\Services\Incident\AuditedItems::ITEMTYPES as $auditedItemtype) {
         $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'][$auditedItemtype] ??= 'plugin_grcmanager_audit_purge';

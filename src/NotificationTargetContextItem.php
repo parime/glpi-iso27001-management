@@ -28,6 +28,11 @@ use Override;
  */
 class NotificationTargetContextItem extends NotificationTarget
 {
+    // Issue #771, lot 2 : interlocuteur interne habilité d'un contact officiel (personne et groupe).
+    // Hors de la plage des cibles du cœur : sinon GLPI n'appelle jamais addSpecificTargets().
+    public const TARGET_INTERNAL_USER = 1771;
+    public const TARGET_INTERNAL_GROUP = 1772;
+
     #[Override]
     public function getEvents()
     {
@@ -42,6 +47,54 @@ class NotificationTargetContextItem extends NotificationTarget
     public function addAdditionalTargets($event = '')
     {
         $this->addTarget(Notification::ITEM_USER, __('Owner of the issue or interested party', 'grcmanager'));
+        if ($event === '' || $event === ContextItem::CONTACT_VERIFICATION_EVENT) {
+            $this->addTarget(self::TARGET_INTERNAL_USER, __('Authorised internal contact', 'grcmanager'));
+            $this->addTarget(self::TARGET_INTERNAL_GROUP, __('Authorised internal group', 'grcmanager'));
+        }
+    }
+
+    #[Override]
+    public function addSpecificTargets($data, $options)
+    {
+        switch ((int) ($data['items_id'] ?? 0)) {
+            case self::TARGET_INTERNAL_USER:
+                $usersId = (int) ($this->obj->fields['users_id_internal'] ?? 0);
+                if ($usersId > 0) {
+                    $this->addToRecipientsList(['users_id' => $usersId] + NotificationSupport::userInfo($usersId));
+                }
+                break;
+
+            case self::TARGET_INTERNAL_GROUP:
+                $groupsId = (int) ($this->obj->fields['groups_id_internal'] ?? 0);
+                if ($groupsId > 0) {
+                    $this->addForGroup(0, $groupsId);
+                }
+                break;
+        }
+    }
+
+    /**
+     * Issue #771, lot 2 : la relance d'un contact officiel n'est envoyée qu'à un utilisateur GLPI qui
+     * peut lire la fiche (droit du contexte dans son entité), quelle que soit la cible.
+     */
+    #[Override]
+    public function validateSendTo($event, array $infos, $notify_me = false, $emitter = null)
+    {
+        if ($event === ContextItem::CONTACT_VERIFICATION_EVENT) {
+            $fields = $this->obj->fields ?? [];
+            if (
+                !NotificationSupport::canReceive(
+                    (int) ($infos['users_id'] ?? 0),
+                    (int) ($fields['entities_id'] ?? 0),
+                    !empty($fields['is_recursive']),
+                    [ContextItem::RIGHTNAME => READ]
+                )
+            ) {
+                return false;
+            }
+        }
+
+        return parent::validateSendTo($event, $infos, $notify_me, $emitter);
     }
 
     #[Override]

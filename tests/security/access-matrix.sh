@@ -64,6 +64,56 @@ scale_denied() {
     "$(code -d "apply=1&size=5&confirm=1&_glpi_csrf_token=$(csrf)" "$P/riskscale.php")"
 }
 
+# Issue #604 : simulations d'hameconnage. Les taux de la campagne de A se lisent avec le droit du SMSI ;
+# les noms et les lignes non rapprochees exigent aussi le droit des registres sensibles ; rien de B hors
+# super-admin ; importer exige de modifier la campagne et les registres sensibles ; chacun ne voit que
+# ses propres resultats (iso-sans-droit, sans aucun droit, a clique dans la campagne de A).
+phishing_matrix() {
+  local see=oui detail=oui import_a=200 import_b=403 mine=non remedial=non csv tab_a
+  case $ROLE in
+    none)    see=non; detail=non; import_a=403; mine=oui ;;
+    general) detail=non; import_a=403 ;;
+    reader)  import_a=403 ;;
+    limited) remedial=oui ;;
+    admin)   import_b=200; remedial=oui ;;
+  esac
+  tab_a=$(tab 'GlpiPlugin%5CGrcmanager%5CPhishingCampaign' 'GlpiPlugin%5CGrcmanager%5CPhishingResult$1' "$(id phishing_A)")
+  contains "onglet Resultats de la campagne de A : taux de clic" "33.3 %" $see "$tab_a"
+  contains "onglet Resultats de la campagne de A : nom d'une personne" "Collaborateur securite A" $detail "$tab_a"
+  contains "onglet Resultats de la campagne de A : ligne non rapprochee" "inconnu.securite@example.org" $detail "$tab_a"
+  contains "onglet Resultats de la campagne de A : rattrapage propose" "phishing_of=" $remedial "$tab_a"
+  contains "onglet Resultats de la campagne de B : nom d'une personne" "Collaborateur securite B" $SEE_B \
+    "$(tab 'GlpiPlugin%5CGrcmanager%5CPhishingCampaign' 'GlpiPlugin%5CGrcmanager%5CPhishingResult$1' "$(id phishing_B)")"
+  contains "liste des simulations : campagne de B" "Campagne hameconnage B" $SEE_B \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/phishingcampaign.php")"
+  expect "fiche de la campagne de B" "$DENY" "$(code "$P/phishingcampaign.form.php?id=$(id phishing_B)")"
+  # Formulaire de formation (onglet principal, servi par ajax/common.tabs.php) pre-rempli depuis B.
+  contains "formation pre-remplie depuis la campagne de B" "Campagne hameconnage B" $SEE_B \
+    "$(tab 'GlpiPlugin%5CGrcmanager%5CTraining' 'GlpiPlugin%5CGrcmanager%5CTraining$main' "0&phishing_of=$(id phishing_B)")"
+  mine_phishing=$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPhishingResult$1' 2)
+  contains "onglet Mes simulations d'hameconnage : ses resultats" "Campagne hameconnage A" $mine "$mine_phishing"
+  contains "onglet Mes simulations d'hameconnage : resultat d'un autre" "Collaborateur securite" non "$mine_phishing"
+  csv=$(mktemp); printf 'email,clicked\nnouveau.securite@example.org,yes\n' > "$csv"
+  phishing_upload() { # campagne, fichier, nom, [jeton CSRF : oui|non]
+    local token=(-F "_glpi_csrf_token=$(csrf)")
+    [ "${4:-oui}" = non ] && token=()
+    code -F upload=1 -F "id=$1" -F "phishing_file=@$2;filename=$3" "${token[@]}" "$P/phishingimport.php"
+  }
+  expect "import des resultats de la campagne de A" $import_a "$(phishing_upload "$(id phishing_A)" "$csv" r.csv)"
+  expect "import des resultats de la campagne de B" $import_b "$(phishing_upload "$(id phishing_B)" "$csv" r.csv)"
+  expect "import des resultats sans jeton CSRF" 403 "$(phishing_upload "$(id phishing_A)" "$csv" r.csv non)"
+  [ "$ROLE" = limited ] && expect "import d'un fichier qui n'est pas un CSV" 302 \
+    "$(phishing_upload "$(id phishing_A)" "$EVIDENCE_PDF" r.pdf)"
+  rm -f "$csv"
+  [ "$ROLE" != admin ] && expect "supprimer les resultats par personne de B" 403 \
+    "$(code -d "anonymize=1&id=$(id phishing_B)&_glpi_csrf_token=$(csrf)" "$P/phishingcampaign.form.php")"
+  case $ROLE in none|reader|general)
+    expect "supprimer les resultats par personne de A" 403 \
+      "$(code -d "anonymize=1&id=$(id phishing_A)&_glpi_csrf_token=$(csrf)" "$P/phishingcampaign.form.php")" ;;
+  esac
+  return 0
+}
+
 # Pages consultables (listes, rapports, fiches existantes) : refusees sans droit, ouvertes en lecture.
 READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php front/complianceobligation.php
   front/control.php front/ismsrequirement.php front/managementreview.php front/nonconformity.php
@@ -85,12 +135,14 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/databreach.php front/databreach.form.php front/databreach.export.php?format=pdf front/databreach.export.php?format=csv
   front/riskappetite.php front/riskindicator.php front/auditcoverage.php front/auditprogramme.php
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
+  front/crisisscenario.php front/crisisscenario.export.php front/crisisscenario.form.php
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
   front/certificationreadiness.php front/certificationreadiness.php?format=pdf
-  front/certificationfinding.php front/certificationfinding.php?format=pdf
+  front/certificationfinding.php front/certificationfinding.php?format=pdf front/certificationsampling.php
+  front/certificationfinding.php?process=1
   front/contextitem.php front/contextitem.form.php
   front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
@@ -98,11 +150,13 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/operatingprocedure.php front/operatingprocedure.export.php
   front/physicalsecurity.php front/physicalsecurityassessment.php
   front/crisismessagetemplate.php front/crisismessagetemplate.form.php
+  front/securedevelopment.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
   front/personnelcompliance.php front/personnelcompliance.export.php?format=csv
   front/personnelcompliance.export.php?format=pdf
   front/ismsfunction.php front/ismsfunction.form.php front/ismsfunction.pdf.php front/competence.php
-  front/competence.form.php front/competencedeclaration.php front/competencedeclaration.form.php"
+  front/competence.form.php front/competencedeclaration.php front/competencedeclaration.form.php
+  front/phishingcampaign.php front/phishingcampaign.form.php front/phishingimport.php?example=1"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -124,9 +178,15 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/managementreviewaction.form.php front/responsibilityactivity.form.php \
     front/ismsfunction.form.php front/competence.form.php front/competencedeclaration.form.php \
     front/crisismessagetemplate.form.php front/crisismessagerecipient.form.php \
-    front/physicalsecurityassessment.form.php; do
+    front/crisisscenario.form.php front/physicalsecurityassessment.form.php front/phishingcampaign.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
+  # Issue #772, lot 2 : cocher le plan d'audit de l'organisme exige de modifier l'audit.
+  expect "front/certificationsampling.php : enregistrer le plan" "$1" \
+    "$(code -d "save_sampling=1&audit_ids[]=$(id audit_cert)&sampled[$(id audit_cert)][]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+  # Issue #776 : ajouter les scenarios de crise par defaut exige de pouvoir creer un scenario.
+  expect "front/crisisscenario.php : ajouter les scenarios par defaut" "$1" \
+    "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/crisisscenario.php")"
   # Issue #775 : archiver le registre des procedures d'exploitation sur A.5.37 cree un document : il
   # faut pouvoir modifier les politiques.
   expect "front/operatingprocedure.php : archiver sur A.5.37" "$1" \
@@ -322,6 +382,24 @@ expect "front/crisiscommunication.form.php : sans action (GET)" 400 \
   "$(code "$BASE/plugins/grcmanager/front/crisiscommunication.form.php")"
 official=$(curl -s -c "$JAR" -b "$JAR" "$P/officialcontact.php")
 contains "registre des contacts officiels : contact de B" "Partie securite B" $SEE_B "$official"
+# Issue #771, lot 2 : prises de contact tracees. Onglet de l'incident de A : sa trace, jamais
+# celle de l'incident de B. Fiche du contact de A : la trace de l'incident de B n'est lue qu'au
+# super-admin. Tracer exige de pouvoir modifier l'incident (rien n'est envoye), avec un jeton.
+contains "onglet Contacts officiels de l'incident : trace de A" "Dossier securite A" $SEE_INCIDENTS "$incident_contacts"
+contains "onglet Contacts officiels de l'incident : trace de B" "Dossier securite B" non "$incident_contacts"
+SEE_CONTACT_A=oui; [ "$ROLE" = none ] && SEE_CONTACT_A=non
+contact_history=$(tab 'GlpiPlugin%5CGrcmanager%5CContextItem' 'GlpiPlugin%5CGrcmanager%5COfficialContactNotification$1' "$(id context_A)")
+contains "fiche du contact de A : trace de l'incident de A" "Dossier securite A"   "$([ "$SEE_CONTACT_A" = oui ] && echo $SEE_INCIDENTS || echo non)" "$contact_history"
+contains "fiche du contact de A : trace de l'incident de B" "Dossier securite B" $SEE_B "$contact_history"
+contact_record() { # incident, [jeton CSRF : oui|non]
+  local token="&_glpi_csrf_token=$(csrf)"
+  [ "${2:-oui}" = non ] && token=
+  code -d "add=1&itemtype=PluginGrcmanagerSecurityIncident&items_id=$1&plugin_grcmanager_contextitems_id=$(id context_A)&decision=notified&date_notified=2030-01-01T10:00&reference=securite$token"     "$BASE/plugins/grcmanager/front/officialcontactnotification.form.php"
+}
+expect "front/officialcontactnotification.form.php : trace sur l'incident de A" $RECORD_A "$(contact_record "$(id incident_A)")"
+expect "front/officialcontactnotification.form.php : trace sur l'incident de B (autre entite)"   "$([ "$ROLE" = admin ] && echo 302 || echo 403)" "$(contact_record "$(id incident_B)")"
+expect "front/officialcontactnotification.form.php : trace sans jeton CSRF" 403 "$(contact_record "$(id incident_A)" non)"
+expect "front/officialcontactnotification.form.php : sans action (GET)" 400   "$(code "$BASE/plugins/grcmanager/front/officialcontactnotification.form.php")"
 contains "page du tableau de bord, vue incidents : grille" "\"current\":\"grcmanager-security-incidents\"" $SEE_INCIDENTS \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=incidents")"
 # Issue #377, quatrieme etape : indicateurs des processus metier (BIA a revoir, reprise au-dela du
@@ -391,6 +469,7 @@ if [ "$ROLE" = none ]; then
   # droit Documents : il ne lit pas les mesures.
   expect "preuve envoyee d'une mesure : droit Documents sans lecture des mesures" 403 \
     "$(code "$BASE/front/document.send.php?docid=$(id evidence_upload)")"
+  phishing_matrix
   scale_denied
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
@@ -405,7 +484,8 @@ if [ "$ROLE" = general ]; then
            front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php \
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
            front/riskappetite.php front/riskindicator.php \
-           front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php; do
+           front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php \
+           front/crisisscenario.php front/crisisscenario.export.php "front/crisisscenario.form.php?id=$(id crisis_scenario_A)"; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
   # Issue #608, lot 2 : l'export du contexte ne nomme pas le risque lie sans le droit dedie.
@@ -419,6 +499,11 @@ if [ "$ROLE" = general ]; then
   # Issue #377, troisieme etape : ni strategie de reprise ni test sans le droit de la continuite.
   contains "onglet Strategie de reprise d'un processus : rien" "Test de reprise A" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRecovery$1' "$(id process_A)")"
+  # Issue #776 : ni scenario de crise sur le processus, ni catalogue sans le droit de la continuite.
+  contains "onglet Scenarios de crise d'un processus : rien" "Scenario crise securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CCrisisScenario$1' "$(id process_A)")"
+  expect "front/crisisscenario.php : scenarios par defaut sans le droit de la continuite" 403 \
+    "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/crisisscenario.php")"
   # Issue #377, quatrieme etape : ni carte des dependances sans le droit de la continuite.
   map=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")
   contains "onglet Carte des dependances d'un processus : rien" "Processus securite" non "$map"
@@ -472,6 +557,7 @@ if [ "$ROLE" = general ]; then
   contains "onglet Incidents de securite d'un ordinateur : rien" "Incident securite" non \
     "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")"
   # Issue #706 : configuration du plugin en modification, mais pas les registres sensibles.
+  phishing_matrix
   scale_denied
   rm -f "$JAR"; exit $FAIL
 fi
@@ -496,7 +582,8 @@ if [ "$ROLE" = reader ]; then
     "$(code -d "save_license_watch=1&license_publishers=securite&_glpi_csrf_token=$(csrf)" "$P/softwarelicensecompliance.php")"
   for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \
            "accessreview.form.php?id=$(id campaign_A)" "supplierrisk.form.php?id=$(id supplierrisk)" \
-           "businessprocess.form.php?id=$(id process_A)" "customframework.form.php?id=$(id custom_framework)"; do
+           "businessprocess.form.php?id=$(id process_A)" "customframework.form.php?id=$(id custom_framework)" \
+           "crisisscenario.form.php?id=$(id crisis_scenario_A)"; do
     expect "front/$p : en lecture" 200 "$(code "$P/$p")"
   done
   expect "front/training.report.php : en lecture" 200 "$(code "$P/training.report.php?id=$(id training)")"
@@ -522,6 +609,7 @@ if [ "$ROLE" = reader ]; then
   # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
   expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
     "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
+  phishing_matrix
   scale_denied
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
@@ -724,6 +812,21 @@ contains "onglet revues d'acces d'un controle : campagne B" "Campagne securite B
 contracts_tab=$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$2' "$(id supplierrisk)")
 contains "onglet contrats du fournisseur : contrat A" "Contrat securite A" oui     "$contracts_tab"
 contains "onglet contrats du fournisseur : contrat B" "Contrat securite B" $SEE_B  "$contracts_tab"
+
+# Issue #776 : scenarios de crise de son entite seulement ; un scenario ou un processus de B n'est
+# jamais nomme, et un scenario de B ne se modifie pas.
+expect "scenario de crise, entite A" 200 "$(code "$P/crisisscenario.form.php?id=$(id crisis_scenario_A)")"
+expect "scenario de crise, entite B" $DENY "$(code "$P/crisisscenario.form.php?id=$(id crisis_scenario_B)")"
+scenarios=$(body "$P/crisisscenario.php")
+contains "registre des scenarios : scenario de A" "Scenario crise securite A" oui "$scenarios"
+contains "registre des scenarios : scenario de B" "Scenario crise securite B" $SEE_B "$scenarios"
+contains "registre des scenarios : processus de B" "Processus securite B" $SEE_B "$scenarios"
+contains "onglet Scenarios de crise du processus A" "Scenario crise securite A" oui \
+  "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CCrisisScenario$1' "$(id process_A)")"
+expect "modifier un scenario de crise de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id crisis_scenario_B)&degraded_mode=securite&_glpi_csrf_token=$(csrf)" "$P/crisisscenario.form.php")"
+expect "modifier un scenario de crise sans jeton CSRF" 403 \
+  "$(code -d "update=1&id=$(id crisis_scenario_A)&degraded_mode=securite" "$P/crisisscenario.form.php")"
 
 # Issue #171 : la fiche du risque s'affiche avec onglets, le formulaire est le premier onglet.
 risk_page=$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CRisk$main' "$(id risk)")
@@ -1209,6 +1312,26 @@ if [ "$ROLE" != admin ]; then
   expect "remise du rapport d'un audit de B" 403 \
     "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit_B)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
 fi
+# Issue #772, lot 2 : plan d'audit de l'organisme. Cocher demande de modifier l'audit de
+# certification concerne (droit et entite) ; un audit interne est refuse ; l'audit de B n'apparait
+# qu'au super-admin ; jeton CSRF exige.
+case $ROLE in none|reader) SAMPLE_A=403 ;; *) SAMPLE_A=302 ;; esac
+expect "front/certificationsampling.php : cocher un audit de certification de A" $SAMPLE_A \
+  "$(code -d "save_sampling=1&audit_ids[]=$(id audit_cert)&sampled[$(id audit_cert)][]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+expect "front/certificationsampling.php : onglet d'un audit de certification de A" $SAMPLE_A \
+  "$(code -d "save_audit_sampling=1&plugin_grcmanager_audits_id=$(id audit_cert)&processes[]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+expect "front/certificationsampling.php : audit de certification de B" "$NOT_ADMIN_403" \
+  "$(code -d "save_sampling=1&audit_ids[]=$(id audit_cert_B)&sampled[$(id audit_cert_B)][]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+expect "front/certificationsampling.php : onglet d'un audit de certification de B" "$NOT_ADMIN_403" \
+  "$(code -d "save_audit_sampling=1&plugin_grcmanager_audits_id=$(id audit_cert_B)&processes[]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+expect "front/certificationsampling.php : audit interne refuse" 403 \
+  "$(code -d "save_audit_sampling=1&plugin_grcmanager_audits_id=$(id audit)&processes[]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+expect "front/certificationsampling.php : sans jeton CSRF" 403 \
+  "$(code -d "save_sampling=1&audit_ids[]=$(id audit_cert)" "$P/certificationsampling.php")"
+if [ "$ROLE" != none ]; then
+  contains "front/certificationsampling.php : audit de certification de B" "Audit certification securite B" $IS_ADMIN \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/certificationsampling.php?start=$(( $(date +%Y) - 1 ))")"
+fi
 contains "tableau de bord consolide : non-conformites ouvertes par entite" "grcmanager-perimeters-findings" \
   $IS_ADMIN "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"
 
@@ -1229,6 +1352,55 @@ expect "constat sans jeton CSRF" 403   "$(code -d "add_finding=1&id=$(id exercis
 expect "valider le bilan d'un exercice de A (droit dedie)" $VALIDATE_A   "$(code -d "validate_review=1&id=$(id exercise_A)&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
 if [ "$ROLE" != admin ]; then
   expect "repasser en brouillon le bilan d'un exercice de A" 403     "$(code -d "reopen_review=1&id=$(id exercise_A)&reason=securite&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+fi
+
+phishing_matrix
+# Issue #777 : developpement securise. Page sous le droit du plugin ; fiche d'une application et
+# liste de controle d'un changement sous le droit du plugin ET l'element visible (entite) ; decision
+# de mise en production sous le droit dedie, que seul le super-admin a. Le profil general ne lit ni
+# les applications ni les changements : rien ne lui est montre ni enregistre. Les onglets verifient
+# eux-memes leurs droits (contenu demande directement a ajax/common.tabs.php).
+# Pages : front/securedevelopment.php, front/applicationsecurity.form.php, front/releasevalidation.form.php.
+case $ROLE in
+  none)    SD_PAGE=403; SD_APP_A=403; SD_APP_B=403; SD_CHK_A=403; SD_DECIDE=403; SD_TAB=non ;;
+  reader)  SD_PAGE=200; SD_APP_A=403; SD_APP_B=404; SD_CHK_A=403; SD_DECIDE=403; SD_TAB=oui ;;
+  general) SD_PAGE=200; SD_APP_A=404; SD_APP_B=404; SD_CHK_A=404; SD_DECIDE=404; SD_TAB=non ;;
+  limited) SD_PAGE=200; SD_APP_A=302; SD_APP_B=404; SD_CHK_A=302; SD_DECIDE=403; SD_TAB=oui ;;
+  *)       SD_PAGE=200; SD_APP_A=302; SD_APP_B=302; SD_CHK_A=302; SD_DECIDE=302; SD_TAB=oui ;;
+esac
+expect "front/securedevelopment.php" $SD_PAGE "$(code "$P/securedevelopment.php")"
+if [ "$SD_PAGE" = 200 ]; then
+  sd_page=$(curl -s -c "$JAR" -b "$JAR" "$P/securedevelopment.php")
+  SEE_SD_A=oui
+  [ "$ROLE" = general ] && SEE_SD_A=non
+  contains "developpement securise : application de A" "Application securite A" $SEE_SD_A "$sd_page"
+  contains "developpement securise : application de B" "Application securite B" $SEE_B "$sd_page"
+  contains "developpement securise : mise en production de A" "Changement securite A" $SEE_SD_A "$sd_page"
+  contains "developpement securise : mise en production de B" "Changement securite B" $SEE_B "$sd_page"
+fi
+contains "onglet Developpement securise d'une application de A" "grc-application-security" $SD_TAB \
+  "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CApplicationSecurity$1' "$(id appliance_A)")"
+contains "onglet Developpement securise d'une application de B" "grc-application-security" $SEE_B \
+  "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CApplicationSecurity$1' "$(id appliance_B)")"
+contains "onglet Validation de mise en production d'un changement de A" "grc-release-validation" $SD_TAB \
+  "$(tab Change 'GlpiPlugin%5CGrcmanager%5CReleaseValidation$1' "$(id change_A)")"
+contains "onglet Validation de mise en production d'un changement de B" "grc-release-validation" $SEE_B \
+  "$(tab Change 'GlpiPlugin%5CGrcmanager%5CReleaseValidation$1' "$(id change_B)")"
+expect "fiche developpement securise d'une application de A" $SD_APP_A \
+  "$(code -d "save=1&appliances_id=$(id appliance_A)&framework=owasp_top10&environments_separated=yes&_glpi_csrf_token=$(csrf)" "$P/applicationsecurity.form.php")"
+expect "fiche developpement securise d'une application de B" $SD_APP_B \
+  "$(code -d "save=1&appliances_id=$(id appliance_B)&framework=owasp_top10&environments_separated=yes&_glpi_csrf_token=$(csrf)" "$P/applicationsecurity.form.php")"
+expect "fiche developpement securise sans jeton CSRF" 403 \
+  "$(code -d "save=1&appliances_id=$(id appliance_A)&framework=owasp_top10" "$P/applicationsecurity.form.php")"
+expect "liste de controle d'un changement de A" $SD_CHK_A \
+  "$(code -d "save_checklist=1&changes_id=$(id change_A)&tests_passed=1&review_done=1&vulnerabilities_treated=1&_glpi_csrf_token=$(csrf)" "$P/releasevalidation.form.php")"
+expect "liste de controle d'un changement de B" "$([ "$ROLE" = admin ] && echo 302 || { [ "$ROLE" = none ] && echo 403 || echo 404; })" \
+  "$(code -d "save_checklist=1&changes_id=$(id change_B)&tests_passed=1&_glpi_csrf_token=$(csrf)" "$P/releasevalidation.form.php")"
+expect "decision de mise en production d'un changement de A (droit dedie)" $SD_DECIDE \
+  "$(code -d "decision=approved&validator_role=ciso&changes_id=$(id change_A)&_glpi_csrf_token=$(csrf)" "$P/releasevalidation.form.php")"
+if [ "$ROLE" != admin ]; then
+  expect "rouvrir la decision d'un changement de A" "$([ "$SD_DECIDE" = 404 ] && echo 404 || echo 403)" \
+    "$(code -d "reopen=1&changes_id=$(id change_A)&_glpi_csrf_token=$(csrf)" "$P/releasevalidation.form.php")"
 fi
 
 rm -f "$JAR"
