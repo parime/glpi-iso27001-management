@@ -843,7 +843,7 @@ expect "export de la fiche d'un collaborateur de A" "$([ "$SEE_STAFF" = oui ] &&
 # Le profil sans registres sensibles (droit de modifier le plugin) n'enregistre rien ici : la CI
 # compare le nombre de lignes avant et apres son passage.
 EDIT_STAFF=403; case $ROLE in limited|admin) EDIT_STAFF=302 ;; general) EDIT_STAFF= ;; esac
-[ -n "$EDIT_STAFF" ] && expect "fiche de conformite de A : saisie" $EDIT_STAFF \
+[ -n "$EDIT_STAFF" ] && expect "front/personnelcompliance.form.php : saisie pour A" $EDIT_STAFF \
   "$(code -d "save=1&users_id=$(id collab_A)&screening_status=done&screening_date=2026-01-05&_glpi_csrf_token=$(csrf)" "$P/personnelcompliance.form.php")"
 expect "fiche de conformite de B : saisie" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "save=1&users_id=$(id collab_B)&screening_status=done&_glpi_csrf_token=$(csrf)" "$P/personnelcompliance.form.php")"
