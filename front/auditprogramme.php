@@ -66,6 +66,8 @@ TemplateRenderer::getInstance()->display('@grcmanager/audit_programme.html.twig'
     'coverage_url'  => AuditChecklist::getCoverageURL(),
     'raci_url'      => ResponsibilityActivity::canView() ? ResponsibilityActivity::getSearchURL() : '',
     'action'        => AuditProgramme::getSearchURL(),
+    'check_labels'  => AuditProgramme::checkLabels(),
+    'check_states'  => AuditProgramme::checkStates(),
 ]);
 
 Html::footer();

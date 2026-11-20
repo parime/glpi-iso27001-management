@@ -26523,3 +26523,86 @@ msgid "Recorded contact"
 msgid_plural "Recorded contacts"
 msgstr[0] "Contatto registrato"
 msgstr[1] "Contatti registrati"
+
+msgid "Audit objectives"
+msgstr "Obiettivi dell'audit"
+
+msgid "Audit criteria"
+msgstr "Criteri dell'audit"
+
+msgid "Audit objectives defined"
+msgstr "Obiettivi dell'audit definiti"
+
+msgid "Objectives"
+msgstr "Obiettivi"
+
+msgid "Audit scope defined"
+msgstr "Ambito dell'audit definito"
+
+msgid "Audit criteria defined"
+msgstr "Criteri dell'audit definiti"
+
+msgid "Criteria"
+msgstr "Criteri"
+
+msgid "Audited processes chosen"
+msgstr "Processi sottoposti ad audit scelti"
+
+msgid "Processes"
+msgstr "Processi"
+
+msgid "Auditors appointed"
+msgstr "Auditor designati"
+
+msgid "Auditors qualified"
+msgstr "Auditor qualificati"
+
+msgid "Independence"
+msgstr "Indipendenza"
+
+msgid "Auditors independent of the audited processes, or conflict justified"
+msgstr "Auditor indipendenti dai processi sottoposti ad audit, o conflitto giustificato"
+
+msgid "To watch"
+msgstr "Da monitorare"
+
+msgid "Later"
+msgstr "Più tardi"
+
+msgid "No qualifying training chosen"
+msgstr "Nessuna formazione qualificante scelta"
+
+msgid "The references against which the evidence is compared: requirements of the standard (clause numbers), ISMS policies, procedures, contracts or laws."
+msgstr "I riferimenti con cui vengono confrontate le evidenze: requisiti della norma (numeri dei punti), politiche del SGSI, procedure, contratti o leggi."
+
+msgid "What the audit must establish, for example: check that access rights are reviewed as planned."
+msgstr "Ciò che l'audit deve accertare, ad esempio: verificare che i diritti di accesso siano riesaminati come previsto."
+
+#, php-format
+msgid "%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, competence or independence of the auditors, report to management): see the table below."
+msgstr "%d audit del ciclo hanno punti di controllo da completare (obiettivi, criteri, competenza o indipendenza degli auditor, rapporto alla direzione): vedere la tabella qui sotto."
+
+msgid "Checkpoints of the audits of the cycle"
+msgstr "Punti di controllo degli audit del ciclo"
+
+msgid "For each internal audit of the cycle: what the certification auditor will look for. Open the audit and its \"Programme and independence\" tab to complete a missing point."
+msgstr "Per ogni audit interno del ciclo: ciò che l'auditor di certificazione esaminerà. Aprire l'audit e la sua scheda «Programma e indipendenza» per completare un punto mancante."
+
+msgid "No internal audit dated in this cycle."
+msgstr "Nessun audit interno datato in questo ciclo."
+
+#, php-format
+msgid "%d point(s) to complete"
+msgstr "%d punto/i da completare"
+
+msgid "Audit checkpoints"
+msgstr "Punti di controllo dell'audit"
+
+msgid "Ready to show the auditor"
+msgstr "Pronto da presentare all'auditor"
+
+msgid "What the certification auditor checks for each internal audit: objectives, scope and criteria defined beforehand, auditors who are competent and do not audit their own work, results reported to management. Objectives, scope and criteria are entered on the audit form; competence comes from the qualifying trainings chosen on the programme page."
+msgstr "Ciò che l'auditor di certificazione verifica per ogni audit interno: obiettivi, ambito e criteri definiti in anticipo, auditor competenti che non sottopongono ad audit il proprio lavoro, risultati comunicati alla direzione. Obiettivi, ambito e criteri si inseriscono nella scheda dell'audit; la competenza deriva dalle formazioni qualificanti scelte nella pagina del programma."
+
+msgid "Qualifying trainings"
+msgstr "Formazioni qualificanti"

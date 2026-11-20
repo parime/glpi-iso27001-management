@@ -115,10 +115,51 @@
          </div>
          {% endif %}
 
+         {% if p.gap_audits > 0 %}
+            <div class="alert alert-warning mt-3" id="grc-programme-alert-checks">
+               <i class="ti ti-alert-triangle me-1"></i>{{ __('%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, competence or independence of the auditors, report to management): see the table below.', 'grcmanager')|format(p.gap_audits) }}
+            </div>
+         {% endif %}
          {% if p.unassigned is not empty %}
             <div class="alert alert-info mt-3 mb-0" id="grc-programme-unassigned">
                <i class="ti ti-info-circle me-1"></i>{{ __('Audits of the cycle with no audited process (choose them in the "Programme and independence" tab of the audit):', 'grcmanager') }}
                {% for a in p.unassigned %}<a href="{{ a.url }}" class="badge bg-secondary-lt ms-1">{{ a.title }} ({{ a.date_text }})</a>{% endfor %}
+            </div>
+         {% endif %}
+      </div>
+   </div>
+
+   {# Lot 2 : points de contrôle de chaque audit du cycle. #}
+   <div class="card mb-3" id="grc-programme-checks">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-list-check me-2"></i>{{ __('Checkpoints of the audits of the cycle', 'grcmanager') }}</h3></div>
+      <div class="card-body">
+         <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('For each internal audit of the cycle: what the certification auditor will look for. Open the audit and its "Programme and independence" tab to complete a missing point.', 'grcmanager') }}</p>
+         {% if p.audit_checks is empty %}
+            <div class="alert alert-info mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('No internal audit dated in this cycle.', 'grcmanager') }}</div>
+         {% else %}
+            <div class="d-flex flex-wrap gap-2 mb-2 small">
+               {% for state, st in check_states %}<span class="badge {{ st.badge }}"><i class="ti {{ st.icon }} me-1"></i>{{ st.label }}</span>{% endfor %}
+            </div>
+            <div class="table-responsive">
+            <table class="table table-sm table-vcenter" id="grc-programme-checks-table">
+               <thead><tr>
+                  <th>{{ __('Audit', 'grcmanager') }}</th>
+                  <th>{{ __('Date', 'grcmanager') }}</th>
+                  {% for key, labels in check_labels %}<th class="text-center" title="{{ labels[1] }}">{{ labels[0] }}</th>{% endfor %}
+               </tr></thead>
+               <tbody>
+               {% for a in p.audit_checks %}
+                  <tr class="grc-programme-check-row{{ a.gaps > 0 ? ' grc-has-gaps' : '' }}">
+                     <td><a href="{{ a.url }}">{{ a.title }}</a> <span class="badge {{ states[a.state][0] }} ms-1">{{ a.status_label }}</span></td>
+                     <td>{{ a.date_text }}</td>
+                     {% for key, labels in check_labels %}
+                        {% set st = check_states[a.checks[key]] %}
+                        <td class="text-center"><span class="badge {{ st.badge }}" title="{{ labels[1] }} : {{ st.label }}" aria-label="{{ labels[1] }} : {{ st.label }}"><i class="ti {{ st.icon }}"></i></span></td>
+                     {% endfor %}
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
             </div>
          {% endif %}
       </div>

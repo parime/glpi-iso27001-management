@@ -29,6 +29,58 @@
   <p>{{ audit.scope|nl2br }}</p>
 {% endif %}
 
+{# Issue #773, lot 2 : objectifs, critères, processus, auditeurs (compétence, indépendance) et
+   remise du rapport à la direction. #}
+{% if audit.objectives is defined and audit.objectives %}
+  <h2>{{ __('Audit objectives', 'grcmanager') }}</h2>
+  <p>{{ audit.objectives|nl2br }}</p>
+{% endif %}
+{% if audit.criteria is defined and audit.criteria %}
+  <h2>{{ __('Audit criteria', 'grcmanager') }}</h2>
+  <p>{{ audit.criteria|nl2br }}</p>
+{% endif %}
+{% if programme %}
+  {% if programme.processes is not empty %}
+    <h2>{{ __('Audited processes', 'grcmanager') }}</h2>
+    <ul>{% for process in programme.processes %}<li>{{ process }}</li>{% endfor %}</ul>
+  {% endif %}
+  <h2>{{ __('Audit checkpoints', 'grcmanager') }}</h2>
+  <table class="grcmanager-pdf-table">
+    <tbody>
+      {% for line in programme.checks %}<tr><td>{{ line.label }}</td><td>{{ line.state }}</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  {% if programme.auditors is not empty %}
+    <h2>{{ __('Auditor competence', 'grcmanager') }}</h2>
+    <table class="grcmanager-pdf-table">
+      <thead><tr><th>{{ __('Auditor', 'grcmanager') }}</th><th>{{ __('Competence', 'grcmanager') }}</th><th>{{ __('Qualifying trainings', 'grcmanager') }}</th></tr></thead>
+      <tbody>
+        {% for a in programme.auditors %}<tr><td>{{ a.name }}</td><td>{{ a.status }}</td><td>{{ a.trainings|join(', ') }}</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  <h2>{{ __('Independence of the auditors', 'grcmanager') }}</h2>
+  {% if programme.conflicts is empty %}
+    <p>{{ __('No independence conflict between the auditors and the audited processes.', 'grcmanager') }}</p>
+  {% else %}
+    <table class="grcmanager-pdf-table">
+      <thead><tr><th>{{ __('Auditor', 'grcmanager') }}</th><th>{{ __('Process', 'grcmanager') }}</th><th>{{ __('Role in the matrix', 'grcmanager') }}</th><th>{{ __('Justification', 'grcmanager') }}</th></tr></thead>
+      <tbody>
+        {% for c in programme.conflicts %}
+          <tr>
+            <td>{{ c.user }}</td>
+            <td>{{ c.process }}</td>
+            <td>{{ c.role_label }}</td>
+            <td>{% if c.waiver %}{{ c.waiver.justification|nl2br }} ({{ __('%1$s, %2$s', 'grcmanager')|format(c.waiver.author, c.waiver.date) }}){% else %}{{ __('To justify', 'grcmanager') }}{% endif %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  <h2>{{ __('Report delivered to management', 'grcmanager') }}</h2>
+  <p>{{ programme.delivery ?: __('Not yet delivered to management', 'grcmanager') }}</p>
+{% endif %}
+
 {% if controls is not empty %}
   <h2>{{ __('Audited controls', 'grcmanager') }}</h2>
   <ul>
