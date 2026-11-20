@@ -256,7 +256,7 @@ final class CertificationReadinessRules
     }
 
     /**
-     * @param array<string, string> $statuses étape => statut
+     * @param array<int|string, string> $statuses statuts (par étape ou en liste)
      * @return array{done: int, partial: int, todo: int, locked: int}
      */
     public static function counts(array $statuses): array
