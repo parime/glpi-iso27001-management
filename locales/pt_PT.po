@@ -22358,8 +22358,18 @@ msgid "Independence of the auditors"
 msgstr "Independência dos auditores"
 
 #, php-format
-msgid "An auditor must not audit their own work (ISO 19011). An auditor who performs or approves an audited process in the responsibility matrix, directly or through a group, is in conflict. A process whose Annex A controls (responsibility matrix) are audited in the checklist or linked to the audit is checked too. The audit cannot be started or closed until each conflict is justified; the justification is kept with its author and date."
-msgstr "Um auditor não deve auditar o próprio trabalho (ISO 19011). Um auditor que executa ou aprova um processo auditado na matriz de responsabilidades, diretamente ou por meio de um grupo, está em conflito. A auditoria não pode ser iniciada nem concluída enquanto cada conflito não for justificado; a justificativa é mantida com seu autor e sua data. Um processo cujos controles do Anexo A (matriz de responsabilidades) são auditados na lista de verificação ou vinculados à auditoria também é verificado."
+msgid ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. The audit cannot be started or "
+"closed until each conflict is justified; the justification is kept with its "
+"author and date."
+msgstr ""
+"Um auditor não deve auditar o próprio trabalho (ISO 19011). Um auditor que "
+"executa ou aprova um processo auditado na matriz de responsabilidades, "
+"diretamente ou por meio de um grupo, está em conflito. A auditoria não pode "
+"ser iniciada nem concluída enquanto cada conflito não for justificado; a "
+"justificativa é mantida com seu autor e sua data."
 
 #, php-format
 msgid "Auditors"
@@ -26334,117 +26344,105 @@ msgid_plural "Recorded contacts"
 msgstr[0] "Contato registrado"
 msgstr[1] "Contatos registrados"
 
-#, php-format
-msgid ""
-"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
-"deadlines."
-msgstr ""
-"“%1$s” está aconselhada depois de “%2$s”, que se apoia nela: verifique os "
-"prazos aconselhados."
+msgid "Periodic review recorded"
+msgstr "Revisão periódica registrada"
 
-#, php-format
-msgid ""
-"A step not done is at risk of being late when its advised deadline is within "
-"%d days."
-msgstr ""
-"Uma etapa não concluída corre o risco de atrasar quando seu prazo "
-"aconselhado cai nos próximos %d dias."
-
-msgid "Alert (days)"
-msgstr "Alerta (dias)"
+msgid "Expected operating domains without an approved procedure"
+msgstr "Domínios operacionais esperados sem procedimento aprovado"
 
 msgid ""
-"Coverage target: share of the requirements and controls the audit programme "
-"must have covered over the last three years for the internal audit step to "
-"be done. Training target: share of the participants who must have completed "
-"their training. Alert: number of days before an advised deadline from which "
-"the step is at risk and the owner is notified."
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
 msgstr ""
-"Meta de cobertura: parcela dos requisitos e controles que o programa de "
-"auditoria deve ter coberto nos últimos três anos para que a etapa da "
-"auditoria interna esteja concluída. Meta de treinamento: parcela dos "
-"participantes que devem ter concluído seu treinamento. Alerta: número de "
-"dias antes de um prazo aconselhado a partir do qual a etapa está em risco e "
-"o responsável é avisado."
+"Abra o registro dos procedimentos operacionais, adicione o procedimento "
+"ausente (ou um artigo da base de conhecimento vinculado a ele) e obtenha sua "
+"aprovação, ou retire o domínio da lista esperada."
 
-msgid "Advised deadlines per step"
-msgstr "Prazos aconselhados por etapa"
+msgid "No operating procedure for this domain"
+msgstr "Nenhum procedimento operacional para este domínio"
+
+msgid "Procedure not approved yet"
+msgstr "Procedimento ainda não aprovado"
+
+msgid "A review can only be recorded on an approved operating procedure."
+msgstr ""
+"Uma revisão só pode ser registrada em um procedimento operacional aprovado."
+
+#, php-format
+msgid "Review recorded. Next review: %s."
+msgstr "Revisão registrada. Próxima revisão: %s."
+
+#, php-format
+msgid "%d without content"
+msgstr "%d sem conteúdo"
+
+msgid "Approval and review"
+msgstr "Aprovação e revisão"
+
+#, php-format
+msgid "Approved: %s"
+msgstr "Aprovado: %s"
 
 msgid ""
-"Number of days before the target date by which each step should be done. "
-"Keep the logical order: the internal audit before the management review that "
-"uses its results, then the treatment of nonconformities. A change only moves "
-"the advised deadlines: nothing else is modified."
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
 msgstr ""
-"Número de dias antes da data-alvo em que cada etapa deveria estar concluída. "
-"Mantenha a ordem lógica: a auditoria interna antes da análise crítica pela "
-"direção que usa seus resultados, depois o tratamento das não conformidades. "
-"Uma alteração apenas desloca os prazos aconselhados: nada mais é modificado."
+"Vincule um artigo da base de conhecimento pela aba Base de conhecimento do "
+"procedimento, ou anexe o documento pela aba Documentos."
 
-msgid "Default"
-msgstr "Padrão"
+msgid "No content"
+msgstr "Sem conteúdo"
 
-msgid "Days before the target date"
-msgstr "Dias antes da data-alvo"
-
-msgid "Adjusted"
-msgstr "Ajustado"
-
-#, php-format
-msgid ""
-"%1$d of %2$d watched commercial software installed (per entity) have a valid "
-"license."
-msgstr ""
-"%1$d de %2$d softwares comerciais monitorados instalados (por entidade) têm "
-"uma licença válida."
-
-#, php-format
-msgid "%d license(s) expiring soon"
-msgstr "%d licença(s) prestes a expirar"
+msgid "No review recorded"
+msgstr "Nenhuma revisão registrada"
 
 msgid ""
-"A license in use expires within the alert horizon and no renewal is recorded "
-"in GLPI yet. This is a reminder, not a gap."
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
 msgstr ""
-"Uma licença em uso expira dentro do prazo de alerta e nenhuma renovação foi "
-"registrada no GLPI ainda. É um lembrete, não um desvio."
+"Procedimentos sem artigo da base de conhecimento nem documento anexado: o "
+"auditor não pode lê-los."
 
 #, php-format
-msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
-msgstr "Expira em %1$s: %2$d ativo(s) atribuído(s), %3$d instalação(ões) %4$s."
-
-msgid "License coverage"
-msgstr "Cobertura de licenças"
+msgid "Reviewed on %1$s by %2$s"
+msgstr "Revisado em %1$s por %2$s"
 
 #, php-format
-msgid "License coverage: %d%%"
-msgstr "Cobertura de licenças: %d%%"
+msgid "Knowledge base article: %s"
+msgstr "Artigo da base de conhecimento: %s"
 
-msgid "License expiring soon"
-msgstr "Licença prestes a expirar"
-
-msgid "No warning before a license expires."
-msgstr "Nenhum alerta antes da expiração de uma licença."
-
-msgid "Over-quota allowed"
-msgstr "Excesso permitido"
-
-msgid "Over-quota allowed by the license"
-msgstr "Excesso permitido pela licença"
+msgid "Procedures without content"
+msgstr "Procedimentos sem conteúdo"
 
 msgid ""
-"The license allows going over the number of seats: settle it with the "
-"publisher."
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
 msgstr ""
-"A licença permite ultrapassar o número de postos: regularize com o "
-"fornecedor."
+"Uma revisão pode ser registrada depois que o procedimento for aprovado. As "
+"alterações do procedimento passam por uma nova versão."
 
-msgid "Warn before a license expires (days, 0 to turn off)"
-msgstr "Alertar antes da expiração de uma licença (dias, 0 para desativar)"
+msgid ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+msgstr ""
+"Registra hoje como data de revisão do procedimento, com seu nome, sem nova "
+"versão. A próxima revisão é a data indicada acima se você a adiou, um ano "
+"depois caso contrário. Suas outras alterações neste formulário também são "
+"salvas."
 
 #, php-format
-msgid "Warning %d days before a license expires."
-msgstr "Alerta %d dias antes da expiração de uma licença."
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] "%d artigo que você não pode ler"
+msgstr[1] "%d artigos que você não pode ler"
+
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] "%d documento"
+msgstr[1] "%d documentos"
 
 msgid "Audit objectives"
 msgstr "Objetivos da auditoria"
@@ -26562,123 +26560,61 @@ msgstr ""
 msgid "Qualifying trainings"
 msgstr "Treinamentos qualificantes"
 
-msgid "Periodic review recorded"
-msgstr "Revisão periódica registrada"
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+"%1$d de %2$d softwares comerciais monitorados instalados (por entidade) têm "
+"uma licença válida."
 
-msgid "Expected operating domains without an approved procedure"
-msgstr "Domínios operacionais esperados sem procedimento aprovado"
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr "%d licença(s) prestes a expirar"
 
 msgid ""
-"Open the register of operating procedures, add the missing procedure (or a "
-"knowledge base article linked to it) and have it approved, or remove the "
-"domain from the expected list."
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
 msgstr ""
-"Abra o registro dos procedimentos operacionais, adicione o procedimento "
-"ausente (ou um artigo da base de conhecimento vinculado a ele) e obtenha sua "
-"aprovação, ou retire o domínio da lista esperada."
-
-msgid "No operating procedure for this domain"
-msgstr "Nenhum procedimento operacional para este domínio"
-
-msgid "Procedure not approved yet"
-msgstr "Procedimento ainda não aprovado"
-
-msgid "A review can only be recorded on an approved operating procedure."
-msgstr ""
-"Uma revisão só pode ser registrada em um procedimento operacional aprovado."
+"Uma licença em uso expira dentro do prazo de alerta e nenhuma renovação foi "
+"registrada no GLPI ainda. É um lembrete, não um desvio."
 
 #, php-format
-msgid "Review recorded. Next review: %s."
-msgstr "Revisão registrada. Próxima revisão: %s."
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr "Expira em %1$s: %2$d ativo(s) atribuído(s), %3$d instalação(ões) %4$s."
+
+msgid "License coverage"
+msgstr "Cobertura de licenças"
 
 #, php-format
-msgid "%d without content"
-msgstr "%d sem conteúdo"
+msgid "License coverage: %d%%"
+msgstr "Cobertura de licenças: %d%%"
 
-msgid "Approval and review"
-msgstr "Aprovação e revisão"
+msgid "License expiring soon"
+msgstr "Licença prestes a expirar"
 
-#, php-format
-msgid "Approved: %s"
-msgstr "Aprovado: %s"
+msgid "No warning before a license expires."
+msgstr "Nenhum alerta antes da expiração de uma licença."
+
+msgid "Over-quota allowed"
+msgstr "Excesso permitido"
+
+msgid "Over-quota allowed by the license"
+msgstr "Excesso permitido pela licença"
 
 msgid ""
-"Link a knowledge base article from the Knowledge base tab of the procedure, "
-"or attach the document from its Documents tab."
+"The license allows going over the number of seats: settle it with the "
+"publisher."
 msgstr ""
-"Vincule um artigo da base de conhecimento pela aba Base de conhecimento do "
-"procedimento, ou anexe o documento pela aba Documentos."
+"A licença permite ultrapassar o número de postos: regularize com o "
+"fornecedor."
 
-msgid "No content"
-msgstr "Sem conteúdo"
-
-msgid "No review recorded"
-msgstr "Nenhuma revisão registrada"
-
-msgid ""
-"Procedures with neither a knowledge base article nor an attached document: "
-"the auditor cannot read them."
-msgstr ""
-"Procedimentos sem artigo da base de conhecimento nem documento anexado: o "
-"auditor não pode lê-los."
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr "Alertar antes da expiração de uma licença (dias, 0 para desativar)"
 
 #, php-format
-msgid "Reviewed on %1$s by %2$s"
-msgstr "Revisado em %1$s por %2$s"
-
-#, php-format
-msgid "Knowledge base article: %s"
-msgstr "Artigo da base de conhecimento: %s"
-
-msgid "Procedures without content"
-msgstr "Procedimentos sem conteúdo"
-
-msgid ""
-"A review can be recorded once the procedure is approved. Changes to the "
-"procedure go through a new version."
-msgstr ""
-"Uma revisão pode ser registrada depois que o procedimento for aprovado. As "
-"alterações do procedimento passam por uma nova versão."
-
-msgid ""
-"Records today as the review date of the procedure, with your name, without a "
-"new version. The next review is the date set above if you moved it later, "
-"one year later otherwise. Your other changes on this form are saved too."
-msgstr ""
-"Registra hoje como data de revisão do procedimento, com seu nome, sem nova "
-"versão. A próxima revisão é a data indicada acima se você a adiou, um ano "
-"depois caso contrário. Suas outras alterações neste formulário também são "
-"salvas."
-
-#, php-format
-msgid "%d article you cannot read"
-msgid_plural "%d articles you cannot read"
-msgstr[0] "%d artigo que você não pode ler"
-msgstr[1] "%d artigos que você não pode ler"
-
-#, php-format
-msgid "%d document"
-msgid_plural "%d documents"
-msgstr[0] "%d documento"
-msgstr[1] "%d documentos"
-
-msgid "An audit can only be planned for the current year or a later one."
-msgstr "Só é possível planejar uma auditoria para o ano atual ou um ano posterior."
-
-msgid "Audit planned: complete its objectives, scope, criteria and auditors."
-msgstr "Auditoria planejada: complete seus objetivos, escopo, critérios e auditores."
-
-msgid "Internal audit - %1$s - %2$d"
-msgstr "Auditoria interna - %1$s - %2$d"
-
-msgid "\"Plan\" creates an internal audit for the process and the year, in the entity of the process. Then complete its objectives, scope, criteria and auditors on the audit."
-msgstr "\"Planejar\" cria uma auditoria interna para o processo e o ano, na entidade do processo. Depois complete seus objetivos, escopo, critérios e auditores na ficha da auditoria."
-
-msgid "Plan an internal audit of %1$s in %2$d"
-msgstr "Planejar uma auditoria interna de %1$s em %2$d"
-
-msgid "Through the audited controls %s"
-msgstr "Pelos controles auditados %s"
+msgid "Warning %d days before a license expires."
+msgstr "Alerta %d dias antes da expiração de uma licença."
 
 msgid "Certification body report received on"
 msgstr "Relatório do organismo recebido em"
@@ -26690,8 +26626,12 @@ msgid "Evidence due to the certification body"
 msgstr "Evidências a enviar ao organismo até"
 
 #, php-format
-msgid "To send to the certification body: %1$d action plans and %2$d evidence (overdue: %3$d)"
-msgstr "A enviar ao organismo: %1$d planos de ações e %2$d evidências (em atraso: %3$d)"
+msgid ""
+"To send to the certification body: %1$d action plans and %2$d evidence "
+"(overdue: %3$d)"
+msgstr ""
+"A enviar ao organismo: %1$d planos de ações e %2$d evidências (em atraso: "
+"%3$d)"
 
 msgid "Response to the certification body"
 msgstr "Resposta ao organismo"
@@ -26762,30 +26702,60 @@ msgstr "Evidências enviadas ao organismo em"
 msgid "Decision of the certification body"
 msgstr "Decisão do organismo"
 
-msgid "Deadline given in the audit report to send the evidence that the nonconformities are lifted."
-msgstr "Prazo fixado no relatório de auditoria para enviar as evidências do encerramento das não conformidades."
+msgid ""
+"Deadline given in the audit report to send the evidence that the "
+"nonconformities are lifted."
+msgstr ""
+"Prazo fixado no relatório de auditoria para enviar as evidências do "
+"encerramento das não conformidades."
 
-msgid "Deadline given in the audit report to send your action plan (correction, root cause and corrective action of each nonconformity)."
-msgstr "Prazo fixado no relatório de auditoria para enviar o seu plano de ações (correção, causa e ação corretiva de cada não conformidade)."
+msgid ""
+"Deadline given in the audit report to send your action plan (correction, "
+"root cause and corrective action of each nonconformity)."
+msgstr ""
+"Prazo fixado no relatório de auditoria para enviar o seu plano de ações "
+"(correção, causa e ação corretiva de cada não conformidade)."
 
 #, php-format
-msgid "A response is expected for each nonconformity. It is optional for an area of concern or an opportunity for improvement. A deadline is shown as close %d days before it."
-msgstr "Espera-se uma resposta para cada não conformidade. É opcional para um ponto sensível ou uma oportunidade de melhoria. Um prazo é indicado como próximo %d dias antes."
+msgid ""
+"A response is expected for each nonconformity. It is optional for an area of "
+"concern or an opportunity for improvement. A deadline is shown as close %d "
+"days before it."
+msgstr ""
+"Espera-se uma resposta para cada não conformidade. É opcional para um ponto "
+"sensível ou uma oportunidade de melhoria. Um prazo é indicado como próximo "
+"%d dias antes."
 
 msgid "Action plan"
 msgstr "Plano de ações"
 
-msgid "After the audit, the certification body asks you to send an action plan for each nonconformity (correction, root cause, corrective action), then the evidence that it is lifted, each within a deadline. This tab shows what is still to send and produces the action plan to send to the body."
-msgstr "Após a auditoria, o organismo pede que envie um plano de ações para cada não conformidade (correção, causa, ação corretiva) e depois as evidências do seu encerramento, cada um dentro de um prazo. Esta aba mostra o que falta enviar e gera o plano de ações a enviar ao organismo."
+msgid ""
+"After the audit, the certification body asks you to send an action plan for "
+"each nonconformity (correction, root cause, corrective action), then the "
+"evidence that it is lifted, each within a deadline. This tab shows what is "
+"still to send and produces the action plan to send to the body."
+msgstr ""
+"Após a auditoria, o organismo pede que envie um plano de ações para cada não "
+"conformidade (correção, causa, ação corretiva) e depois as evidências do seu "
+"encerramento, cada um dentro de um prazo. Esta aba mostra o que falta enviar "
+"e gera o plano de ações a enviar ao organismo."
 
 msgid "Corrective action plan for the certification body (PDF)"
 msgstr "Plano de ações corretivas para o organismo (PDF)"
 
-msgid "Enter the deadlines given in the report of the certification body in the main tab of the audit, so that the remaining days are shown."
-msgstr "Informe os prazos fixados no relatório do organismo na aba principal da auditoria para ver os dias restantes."
+msgid ""
+"Enter the deadlines given in the report of the certification body in the "
+"main tab of the audit, so that the remaining days are shown."
+msgstr ""
+"Informe os prazos fixados no relatório do organismo na aba principal da "
+"auditoria para ver os dias restantes."
 
-msgid "Enter the deadlines in the audit form, and the sending dates and the decision of the body in each finding. Nothing is changed automatically."
-msgstr "Informe os prazos na ficha da auditoria, e as datas de envio e a decisão do organismo em cada constatação. Nada é alterado automaticamente."
+msgid ""
+"Enter the deadlines in the audit form, and the sending dates and the "
+"decision of the body in each finding. Nothing is changed automatically."
+msgstr ""
+"Informe os prazos na ficha da auditoria, e as datas de envio e a decisão do "
+"organismo em cada constatação. Nada é alterado automaticamente."
 
 #, php-format
 msgid "Sent on %s"
@@ -26801,17 +26771,29 @@ msgstr "A preencher"
 msgid "What is this tab for?"
 msgstr "Para que serve esta aba?"
 
-msgid "Date on which the correction, root cause and corrective action were sent to the certification body."
-msgstr "Data em que a correção, a causa e a ação corretiva foram enviadas ao organismo."
+msgid ""
+"Date on which the correction, root cause and corrective action were sent to "
+"the certification body."
+msgstr ""
+"Data em que a correção, a causa e a ação corretiva foram enviadas ao "
+"organismo."
 
-msgid "Date on which the evidence that the finding is lifted was sent. Attach the evidence in the Documents tab."
-msgstr "Data em que as evidências do encerramento foram enviadas. Anexe as evidências na aba Documentos."
+msgid ""
+"Date on which the evidence that the finding is lifted was sent. Attach the "
+"evidence in the Documents tab."
+msgstr ""
+"Data em que as evidências do encerramento foram enviadas. Anexe as "
+"evidências na aba Documentos."
 
 msgid "Feedback of the certification body"
 msgstr "Retorno do organismo"
 
-msgid "What was done at once to deal with the finding itself, before treating its cause."
-msgstr "O que foi feito de imediato para tratar a própria constatação, antes de tratar a sua causa."
+msgid ""
+"What was done at once to deal with the finding itself, before treating its "
+"cause."
+msgstr ""
+"O que foi feito de imediato para tratar a própria constatação, antes de "
+"tratar a sua causa."
 
 msgid "Audit date"
 msgstr "Data da auditoria"
@@ -26826,7 +26808,296 @@ msgstr[0] "Em atraso há %d dia"
 msgstr[1] "Em atraso há %d dias"
 
 #, php-format
-msgid "%d nonconformity still lacks information before the action plan is sent (see the \"To fill in\" column)."
-msgid_plural "%d nonconformities still lack information before the action plan is sent (see the \"To fill in\" column)."
-msgstr[0] "%d não conformidade ainda não tem todas as informações antes do envio do plano de ações (ver a coluna «A preencher»)."
-msgstr[1] "%d não conformidades ainda não têm todas as informações antes do envio do plano de ações (ver a coluna «A preencher»)."
+msgid ""
+"%d nonconformity still lacks information before the action plan is sent (see "
+"the \"To fill in\" column)."
+msgid_plural ""
+"%d nonconformities still lack information before the action plan is sent "
+"(see the \"To fill in\" column)."
+msgstr[0] ""
+"%d não conformidade ainda não tem todas as informações antes do envio do "
+"plano de ações (ver a coluna «A preencher»)."
+msgstr[1] ""
+"%d não conformidades ainda não têm todas as informações antes do envio do "
+"plano de ações (ver a coluna «A preencher»)."
+
+#, php-format
+msgid ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+msgstr ""
+"Um auditor não deve auditar o próprio trabalho (ISO 19011). Um auditor que "
+"executa ou aprova um processo auditado na matriz de responsabilidades, "
+"diretamente ou por meio de um grupo, está em conflito. A auditoria não pode "
+"ser iniciada nem concluída enquanto cada conflito não for justificado; a "
+"justificativa é mantida com seu autor e sua data. Um processo cujos "
+"controles do Anexo A (matriz de responsabilidades) são auditados na lista de "
+"verificação ou vinculados à auditoria também é verificado."
+
+#, php-format
+msgid ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+msgstr ""
+"“%1$s” está aconselhada depois de “%2$s”, que se apoia nela: verifique os "
+"prazos aconselhados."
+
+#, php-format
+msgid ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+msgstr ""
+"Uma etapa não concluída corre o risco de atrasar quando seu prazo "
+"aconselhado cai nos próximos %d dias."
+
+msgid "Alert (days)"
+msgstr "Alerta (dias)"
+
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
+msgstr ""
+"Meta de cobertura: parcela dos requisitos e controles que o programa de "
+"auditoria deve ter coberto nos últimos três anos para que a etapa da "
+"auditoria interna esteja concluída. Meta de treinamento: parcela dos "
+"participantes que devem ter concluído seu treinamento. Alerta: número de "
+"dias antes de um prazo aconselhado a partir do qual a etapa está em risco e "
+"o responsável é avisado."
+
+msgid "Advised deadlines per step"
+msgstr "Prazos aconselhados por etapa"
+
+msgid ""
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
+msgstr ""
+"Número de dias antes da data-alvo em que cada etapa deveria estar concluída. "
+"Mantenha a ordem lógica: a auditoria interna antes da análise crítica pela "
+"direção que usa seus resultados, depois o tratamento das não conformidades. "
+"Uma alteração apenas desloca os prazos aconselhados: nada mais é modificado."
+
+msgid "Default"
+msgstr "Padrão"
+
+msgid "Days before the target date"
+msgstr "Dias antes da data-alvo"
+
+msgid "Adjusted"
+msgstr "Ajustado"
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr ""
+"Só é possível planejar uma auditoria para o ano atual ou um ano posterior."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr ""
+"Auditoria planejada: complete seus objetivos, escopo, critérios e auditores."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Auditoria interna - %1$s - %2$d"
+
+msgid ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+msgstr ""
+"\"Planejar\" cria uma auditoria interna para o processo e o ano, na entidade "
+"do processo. Depois complete seus objetivos, escopo, critérios e auditores "
+"na ficha da auditoria."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Planejar uma auditoria interna de %1$s em %2$d"
+
+msgid "Through the audited controls %s"
+msgstr "Pelos controles auditados %s"
+
+msgid "The exercise type could not be changed."
+msgstr "Não foi possível alterar o tipo de exercício."
+
+msgid "The data loss measured at the last test exceeds the RPO."
+msgstr "A perda de dados medida no último teste excede o RPO."
+
+msgid "Tabletop exercise"
+msgstr "Exercício de mesa"
+
+msgid "Functional exercise"
+msgstr "Exercício funcional"
+
+msgid "Technical restore test"
+msgstr "Teste técnico de restauração"
+
+msgid "Full-scale exercise"
+msgstr "Exercício em escala real"
+
+msgid "Not scheduled"
+msgstr "Não agendado"
+
+msgid "Objectives met"
+msgstr "Objetivos atendidos"
+
+msgid "Objectives missed"
+msgstr "Objetivos não atendidos"
+
+msgid "Not tested"
+msgstr "Não testado"
+
+msgid ""
+"Recovery test programme: when each business process was last tested, whether "
+"the test met its RTO and RPO, and which processes are not tested in time."
+msgstr ""
+"Programa de testes de recuperação: quando cada processo de negócio foi "
+"testado pela última vez, se o teste cumpriu seu RTO e RPO, e quais processos "
+"não são testados a tempo."
+
+msgid ""
+"Plan a test for each process reported as overdue or not tested this year, "
+"then record the measured recovery time and data loss in its \"Recovery "
+"strategy\" tab. Show this view to the auditor as evidence that ICT "
+"continuity is tested regularly."
+msgstr ""
+"Planeje um teste para cada processo indicado como atrasado ou não testado "
+"neste ano e registre o tempo de recuperação e a perda de dados medidos na "
+"sua aba \"Estratégia de recuperação\". Mostre esta visão ao auditor como "
+"evidência de que a continuidade de TIC é testada regularmente."
+
+msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
+msgstr "ISO 22301, 8.5; ISO 27001, anexo A 5.30"
+
+msgid "Recovery test programme"
+msgstr "Programa de testes de recuperação"
+
+msgid "All business processes"
+msgstr "Todos os processos de negócio"
+
+msgid "Each year shows the result of the last test of that year."
+msgstr "Cada ano mostra o resultado do último teste daquele ano."
+
+msgid "Last test missed the objectives"
+msgstr "O último teste não atendeu aos objetivos"
+
+msgid "Next test due"
+msgstr "Próximo teste previsto"
+
+msgid ""
+"No business process you can see. Create your business processes first, then "
+"record their recovery tests."
+msgstr ""
+"Nenhum processo de negócio visível. Crie primeiro seus processos de negócio "
+"e depois registre seus testes de recuperação."
+
+msgid "Not tested this year"
+msgstr "Não testados neste ano"
+
+msgid "Test overdue"
+msgstr "Teste atrasado"
+
+msgid "Other types (one per line)"
+msgstr "Outros tipos (um por linha)"
+
+msgid "Types of recovery exercise"
+msgstr "Tipos de exercício de recuperação"
+
+msgid ""
+"Types offered when starting a crisis exercise or recording a recovery test. "
+"Untick a type you do not use, and add your own types, one per line."
+msgstr ""
+"Tipos oferecidos ao iniciar um exercício de crise ou registrar um teste de "
+"recuperação. Desmarque um tipo que você não usa e adicione seus próprios "
+"tipos, um por linha."
+
+msgid "Type of exercise"
+msgstr "Tipo de exercício"
+
+msgid "Above the RPO"
+msgstr "Acima do RPO"
+
+msgid "Data loss (minutes)"
+msgstr "Perda de dados (minutos)"
+
+msgid "Measured data loss"
+msgstr "Perda de dados medida"
+
+msgid ""
+"The data loss (time between the last usable backup and the incident) is "
+"compared with its RPO; leave it empty if it was not measured, enter 0 if no "
+"data was lost."
+msgstr ""
+"A perda de dados (tempo entre o último backup utilizável e o incidente) é "
+"comparada ao seu RPO; deixe vazio se não foi medida, informe 0 se nenhum "
+"dado foi perdido."
+
+msgid "0: use the frequency of the periodic review."
+msgstr "0: usar a frequência da revisão periódica."
+
+msgid ""
+"A process that is not tested in time is reported to its owner and to the "
+"CISO group by an automatic action; nothing is changed automatically."
+msgstr ""
+"Um processo que não é testado a tempo é informado ao seu responsável e ao "
+"grupo CISO por uma ação automática; nada é alterado automaticamente."
+
+msgid "Above the objectives of the item tested"
+msgstr "Acima dos objetivos do item testado"
+
+msgid "Coverage by year"
+msgstr "Cobertura por ano"
+
+#, php-format
+msgid "Every %d months (frequency of the periodic review of continuity tests)."
+msgstr ""
+"A cada %d meses (frequência da revisão periódica dos testes de continuidade)."
+
+#, php-format
+msgid "Every %d months (frequency set on this process)."
+msgstr "A cada %d meses (frequência definida neste processo)."
+
+msgid "Item tested"
+msgstr "Item testado"
+
+msgid "Test frequency (months)"
+msgstr "Frequência de teste (meses)"
+
+msgid "Test programme"
+msgstr "Programa de testes"
+
+msgid "The whole process"
+msgstr "O processo inteiro"
+
+msgid "Within the RPO"
+msgstr "Dentro do RPO"
+
+msgid "No recovery test has covered this item yet."
+msgstr "Nenhum teste de recuperação cobriu este item ainda."
+
+#, php-format
+msgid "Only the %d most recent tests are listed."
+msgstr "Somente os %d testes mais recentes são listados."
+
+msgid "Recovery tests that covered this item"
+msgstr "Testes de recuperação que cobriram este item"
+
+msgid ""
+"Tests that named this item, and tests of the business processes that depend "
+"on it. Record a test from the \"Recovery strategy\" tab of the process."
+msgstr ""
+"Testes que indicaram este item e testes dos processos de negócio que "
+"dependem dele. Registre um teste na aba \"Estratégia de recuperação\" do "
+"processo."
+
+msgid "This item was tested"
+msgstr "Este item foi testado"
+
+#, php-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] "%d mês"
+msgstr[1] "%d meses"

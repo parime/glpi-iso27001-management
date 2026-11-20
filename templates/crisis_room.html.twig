@@ -45,6 +45,25 @@
       {% if drill %}<a href="{{ list_url }}" class="ms-auto"><i class="ti ti-list me-1"></i>{{ __('All exercises', 'grcmanager') }}</a>{% endif %}
    </div>
    <p class="text-muted">{{ __('Started on %1$s by %2$s.', 'grcmanager')|format(exercise.started_at|formatted_datetime, exercise.organizer) }}{% if not drill %} - {{ incident.name }}{% endif %}</p>
+   {% if drill %}
+      {# Issue #733 : type d'exercice, modifiable tant que le bilan n'est pas validé. #}
+      {% if can_act and not exercise.validated %}
+         <form method="post" action="{{ action }}" class="d-flex flex-wrap align-items-end gap-2 mb-3">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="id" value="{{ exercise.id }}">
+            <div>
+               <label class="form-label" for="grc-exercise-type"><i class="ti ti-category me-1"></i>{{ __('Type of exercise', 'grcmanager') }}</label>
+               <select id="grc-exercise-type" name="exercise_type" class="form-select">
+                  <option value="">{{ __('Not specified', 'grcmanager') }}</option>
+                  {% for key, label in types %}<option value="{{ key }}" {{ key == exercise.type_key ? 'selected' }}>{{ label }}</option>{% endfor %}
+               </select>
+            </div>
+            <button type="submit" name="set_exercise_type" value="1" class="btn btn-outline-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
+         </form>
+      {% elseif exercise.type %}
+         <p><span class="badge bg-info-subtle text-info-emphasis"><i class="ti ti-category me-1"></i>{{ exercise.type }}</span></p>
+      {% endif %}
+   {% endif %}
 
    <div class="row g-3">
       <div class="col-lg-8">
@@ -113,13 +132,16 @@
                <p class="text-muted">{{ __('No recovery time recorded for a business process during this exercise.', 'grcmanager') }}</p>
             {% else %}
                <table class="table table-vcenter card-table">
-                  <thead><tr><th>{{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</th><th>RTO</th><th>{{ __('Measured time', 'grcmanager') }}</th><th>{{ __('Comment', 'grcmanager') }}</th></tr></thead>
+                  <thead><tr><th>{{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</th><th>RTO</th><th>{{ __('Measured time', 'grcmanager') }}</th><th>RPO</th><th>{{ __('Measured data loss', 'grcmanager') }}</th><th>{{ __('Result', 'grcmanager') }}</th><th>{{ __('Comment', 'grcmanager') }}</th></tr></thead>
                   <tbody>
                      {% for p in process_recoveries.rows %}
                         <tr>
                            <td><a href="{{ p.url }}">{{ p.name }}</a></td>
                            <td class="text-nowrap">{{ p.rto ?: '-' }}</td>
                            <td class="text-nowrap">{{ p.duration }}{% if p.exceeds %} <span class="badge bg-red-lt grcmanager-recovery-late">{{ __('Above the RTO', 'grcmanager') }}</span>{% endif %}</td>
+                           <td class="text-nowrap">{{ p.rpo ?: '-' }}</td>
+                           <td class="text-nowrap">{{ p.rpo_duration ?: '-' }}{% if p.rpo_exceeds %} <span class="badge bg-danger-subtle text-danger-emphasis">{{ __('Above the RPO', 'grcmanager') }}</span>{% endif %}</td>
+                           <td><span class="badge {{ result_labels[p.result][0] }}"><i class="ti {{ result_labels[p.result][1] }} me-1"></i>{{ result_labels[p.result][2] }}</span>{% if p.asset %}<div class="small text-muted">{{ p.asset }}</div>{% endif %}</td>
                            <td>{{ p.comment }}</td>
                         </tr>
                      {% endfor %}
@@ -143,7 +165,11 @@
                      <label class="form-label" for="grc-crisis-process-minutes">{{ __('Measured time (minutes)', 'grcmanager') }}</label>
                      <input type="number" id="grc-crisis-process-minutes" name="measured_minutes" class="form-control" min="1" value="{{ recovery_minutes > 0 ? recovery_minutes : '' }}" required>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-2">
+                     <label class="form-label" for="grc-crisis-process-rpo">{{ __('Data loss (minutes)', 'grcmanager') }}</label>
+                     <input type="number" id="grc-crisis-process-rpo" name="measured_rpo_minutes" class="form-control" min="0">
+                  </div>
+                  <div class="col-md-2">
                      <label class="form-label" for="grc-crisis-process-comment">{{ __('Comment', 'grcmanager') }}</label>
                      <input type="text" id="grc-crisis-process-comment" name="comment" class="form-control" maxlength="255">
                   </div>
@@ -151,7 +177,7 @@
                      <button type="submit" name="add" value="1" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Record', 'grcmanager') }}</button>
                   </div>
                </form>
-               <div class="form-hint">{{ __('The measured time is compared with the RTO of the process and becomes its last recovery test.', 'grcmanager') }}</div>
+               <div class="form-hint">{{ __('The measured time is compared with the RTO of the process and becomes its last recovery test.', 'grcmanager') }} {{ __('The data loss (time between the last usable backup and the incident) is compared with its RPO; leave it empty if it was not measured, enter 0 if no data was lost.', 'grcmanager') }}</div>
             {% endif %}
          {% endif %}
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 22:10+0000\n"
+"POT-Creation-Date: 2026-11-20 21:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,10 +71,10 @@ msgstr ""
 #: front/audit.report.php:77 front/databreach.export.php:65
 #: front/networkflow.report.php:31 front/processingactivity.export.php:64
 #: front/risk.report.php:73 src/AccessReview.php:745 src/AcnRequirement.php:805
-#: src/Audit.php:653 src/CertificationFinding.php:423
-#: src/CertificationReadiness.php:1469 src/CertificationResponse.php:433
-#: src/CompetenceMatrix.php:852 src/ConsistencyCheck.php:1453
-#: src/ContextItem.php:879 src/ControlTest.php:994 src/CrisisExercise.php:627
+#: src/Audit.php:628 src/CertificationFinding.php:410
+#: src/CertificationReadiness.php:1456 src/CompetenceMatrix.php:852
+#: src/ConsistencyCheck.php:1453 src/ContextItem.php:879
+#: src/ControlTest.php:994 src/CrisisExercise.php:627
 #: src/CrisisScenario.php:872 src/Dpia.php:443 src/EbiosStudy.php:313
 #: src/ManagementReviewDossier.php:625 src/OfficialContact.php:224
 #: src/OperatingProcedure.php:402 src/PersonnelCompliance.php:727
@@ -354,7 +354,7 @@ msgid "Rule"
 msgstr ""
 
 #: front/consistencycheck.export.php:50 inc/securityincident.class.php:804
-#: src/CrisisMessageTemplate.php:102 src/Nonconformity.php:371
+#: src/CrisisMessageTemplate.php:102 src/Nonconformity.php:360
 #: src/NotificationTargetNonconformity.php:92
 #: src/SecurityIncidentEdrImport.php:75 templates/_crisis_review.html.twig
 #: templates/audit_findings_tab.html.twig templates/auditor_space.html.twig
@@ -1759,20 +1759,20 @@ msgid "Linked tickets"
 msgstr ""
 
 #: inc/securityincident.class.php:270 inc/securityincident.class.php:1201
-#: src/Nonconformity.php:106 src/Nonconformity.php:621
+#: src/Nonconformity.php:105 src/Nonconformity.php:575
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "Minor"
 msgstr ""
 
 #: inc/securityincident.class.php:271 inc/securityincident.class.php:1202
-#: src/Nonconformity.php:107 src/Nonconformity.php:622
+#: src/Nonconformity.php:106 src/Nonconformity.php:576
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "Major"
 msgstr ""
 
 #: inc/securityincident.class.php:272 inc/securityincident.class.php:1203
-#: src/BusinessImpact.php:75 src/Control.php:201 src/Nonconformity.php:108
-#: src/Nonconformity.php:623 src/Traits/RiskAssessmentTrait.php:123
+#: src/BusinessImpact.php:75 src/Control.php:201 src/Nonconformity.php:107
+#: src/Nonconformity.php:577 src/Traits/RiskAssessmentTrait.php:123
 #: src/Traits/RiskAssessmentTrait.php:139
 #: src/Traits/RiskAssessmentTrait.php:310
 #: templates/crisis_scenario_register.html.twig
@@ -1822,11 +1822,10 @@ msgstr ""
 msgid "CIA impact"
 msgstr ""
 
-#: inc/securityincident.class.php:822 src/CertificationResponse.php:246
-#: src/Nonconformity.php:428 templates/itil_classification_section.html.twig
+#: inc/securityincident.class.php:822 src/Nonconformity.php:417
+#: templates/itil_classification_section.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/pdf/certification_findings_report.html.twig
-#: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Root cause"
 msgstr ""
@@ -1896,7 +1895,6 @@ msgstr ""
 #: templates/official_contact_history_tab.html.twig
 #: templates/official_contact_tab.html.twig templates/pdf/acn_report.html.twig
 #: templates/pdf/certification_findings_report.html.twig
-#: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/pdf/recyf_report.html.twig
 #: templates/processing_activity_form.html.twig templates/risk_import.html.twig
@@ -2024,7 +2022,7 @@ msgstr ""
 msgid "In preparation"
 msgstr ""
 
-#: src/AccessReview.php:104 src/Audit.php:98 src/Audit.php:428
+#: src/AccessReview.php:104 src/Audit.php:97 src/Audit.php:405
 #: src/Control.php:154 src/Control.php:1364 src/DataSubjectRequest.php:97
 #: src/EbiosStudy.php:90 src/IsmsRequirement.php:154
 #: src/ManagementReviewAction.php:62 src/PhysicalSecurityAssessment.php:417
@@ -2039,7 +2037,7 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: src/AccessReview.php:105 src/Nonconformity.php:140 src/Nonconformity.php:636
+#: src/AccessReview.php:105 src/Nonconformity.php:139 src/Nonconformity.php:590
 #: templates/policy_acknowledgement_tab.html.twig
 msgid "Closed"
 msgstr ""
@@ -2093,10 +2091,10 @@ msgstr ""
 msgid "The campaign name is required."
 msgstr ""
 
-#: src/AccessReview.php:302 src/Audit.php:226 src/BreachExposure.php:132
+#: src/AccessReview.php:302 src/Audit.php:219 src/BreachExposure.php:132
 #: src/ComplianceEvent.php:229 src/EndOfLife.php:476
 #: src/HardwareWarranty.php:309 src/ManagementReview.php:320
-#: src/Nonconformity.php:379 src/NotificationTargetAuditEvidenceRequest.php:159
+#: src/Nonconformity.php:368 src/NotificationTargetAuditEvidenceRequest.php:159
 #: src/NotificationTargetPolicy.php:132
 #: src/NotificationTargetRiskIndicator.php:148 src/Objective.php:158
 #: src/PersonnelCompliance.php:749 src/PhysicalSecurityAssessment.php:436
@@ -2158,8 +2156,8 @@ msgid "Start date"
 msgstr ""
 
 #: src/AccessReview.php:323 src/AcnRequirement.php:757
-#: src/AcnRequirement.php:837 src/CertificationResponse.php:249
-#: src/Nonconformity.php:396 src/NotificationTargetAccessReview.php:106
+#: src/AcnRequirement.php:837 src/Nonconformity.php:385
+#: src/NotificationTargetAccessReview.php:106
 #: src/NotificationTargetAuditEvidenceRequest.php:158
 #: src/NotificationTargetBusinessProcess.php:161
 #: src/NotificationTargetNonconformity.php:93
@@ -2171,15 +2169,12 @@ msgstr ""
 #: templates/acn_requirement_form.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/audit_findings_tab.html.twig templates/auditor_space.html.twig
-#: templates/certification_findings.html.twig
-#: templates/certification_response_tab.html.twig
-#: templates/crisis_room.html.twig
+#: templates/certification_findings.html.twig templates/crisis_room.html.twig
 #: templates/management_review_dossier_tab.html.twig
 #: templates/my_space.html.twig templates/nonconformity_form.html.twig
 #: templates/objective_form.html.twig templates/pdf/acn_report.html.twig
 #: templates/pdf/audit_report.html.twig
 #: templates/pdf/certification_findings_report.html.twig
-#: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
@@ -2416,15 +2411,14 @@ msgstr ""
 
 #: src/AcnRequirement.php:756 src/AcnRequirement.php:834
 #: src/BusinessProcess.php:546 src/BusinessProcess.php:618
-#: src/CertificationResponse.php:248 src/ComplianceEvent.php:231
-#: src/EbiosStudy.php:598 src/IsmsRequirement.php:300 src/Nonconformity.php:387
+#: src/ComplianceEvent.php:231 src/EbiosStudy.php:598
+#: src/IsmsRequirement.php:300 src/Nonconformity.php:376
 #: src/RecyfRequirement.php:558 src/RecyfRequirement.php:618
 #: templates/_crisis_review.html.twig templates/acn_register.html.twig
 #: templates/acn_requirement_form.html.twig
 #: templates/audit_findings_tab.html.twig
 #: templates/business_process_form.html.twig
 #: templates/certification_findings.html.twig
-#: templates/certification_response_tab.html.twig
 #: templates/compliance_event_form.html.twig
 #: templates/ebios_study_form.html.twig
 #: templates/isms_requirement_form.html.twig
@@ -2434,7 +2428,6 @@ msgstr ""
 #: templates/pdf/acn_report.html.twig templates/pdf/audit_report.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/pdf/certification_findings_report.html.twig
-#: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
@@ -2634,38 +2627,38 @@ msgstr ""
 msgid "1 week"
 msgstr ""
 
-#: src/Audit.php:69 src/ComplianceEvent.php:113 src/ConsistencyCheck.php:118
+#: src/Audit.php:68 src/ComplianceEvent.php:113 src/ConsistencyCheck.php:118
 #: templates/audit_coverage.html.twig
 msgid "Internal audit"
 msgid_plural "Internal audits"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Audit.php:86
+#: src/Audit.php:85
 msgid "Audits and improvement"
 msgstr ""
 
-#: src/Audit.php:97 src/Audit.php:427 src/ComplianceEvent.php:130
+#: src/Audit.php:96 src/Audit.php:404 src/ComplianceEvent.php:130
 #: src/ControlTest.php:200
 msgctxt "masculine"
 msgid "Planned"
 msgstr ""
 
-#: src/Audit.php:99 src/Audit.php:429 templates/crisis_room.html.twig
+#: src/Audit.php:98 src/Audit.php:406 templates/crisis_room.html.twig
 #: templates/crisis_tab.html.twig
 msgid "Completed"
 msgstr ""
 
-#: src/Audit.php:100 src/Audit.php:430 src/ComplianceEvent.php:132
+#: src/Audit.php:99 src/Audit.php:407 src/ComplianceEvent.php:132
 msgid "Cancelled"
 msgstr ""
 
-#: src/Audit.php:132
+#: src/Audit.php:131
 msgid "You cannot create an audit in this entity."
 msgstr ""
 
-#: src/Audit.php:217 src/ComplianceObligation.php:189
-#: src/ManagementReview.php:311 src/Nonconformity.php:352
+#: src/Audit.php:210 src/ComplianceObligation.php:189
+#: src/ManagementReview.php:311 src/Nonconformity.php:341
 #: src/NotificationTargetComplianceObligation.php:91
 #: src/NotificationTargetNonconformity.php:91
 #: src/NotificationTargetPolicy.php:130
@@ -2697,7 +2690,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: src/Audit.php:234 src/AuditTeam.php:54 src/AuditTeam.php:198
+#: src/Audit.php:227 src/AuditTeam.php:54 src/AuditTeam.php:198
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/audit_form.html.twig templates/audit_programme_tab.html.twig
 #: templates/pdf/audit_report.html.twig
@@ -2705,21 +2698,21 @@ msgstr ""
 msgid "Auditor"
 msgstr ""
 
-#: src/Audit.php:243 templates/audit_form.html.twig
+#: src/Audit.php:236 templates/audit_form.html.twig
 #: templates/auditor_space.html.twig templates/pdf/audit_report.html.twig
 msgid "Planned date"
 msgstr ""
 
-#: src/Audit.php:251 templates/audit_form.html.twig
+#: src/Audit.php:244 templates/audit_form.html.twig
 #: templates/auditor_space.html.twig templates/pdf/audit_report.html.twig
 msgid "Actual date"
 msgstr ""
 
-#: src/Audit.php:259 templates/audit_form.html.twig
+#: src/Audit.php:252 templates/audit_form.html.twig
 msgid "Risk categories covered"
 msgstr ""
 
-#: src/Audit.php:267 src/AuditProgramme.php:717 src/ComplianceEvent.php:235
+#: src/Audit.php:260 src/AuditProgramme.php:717 src/ComplianceEvent.php:235
 #: src/EbiosStudy.php:601 src/NotificationTargetComplianceEvent.php:113
 #: src/SoftwareLicenseCompliance.php:412 templates/audit_form.html.twig
 #: templates/auditor_space.html.twig templates/compliance_event_form.html.twig
@@ -2730,73 +2723,51 @@ msgstr ""
 msgid "Scope"
 msgstr ""
 
-#: src/Audit.php:275 templates/audit_form.html.twig
+#: src/Audit.php:268 templates/audit_form.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Conclusion"
 msgstr ""
 
-#: src/Audit.php:295 templates/_audit_certification_fields.html.twig
-#: templates/pdf/certification_response_report.html.twig
+#: src/Audit.php:288 templates/_audit_certification_fields.html.twig
 msgid "Audit type"
 msgstr ""
 
-#: src/Audit.php:302 templates/_audit_certification_fields.html.twig
-#: templates/pdf/certification_response_report.html.twig
+#: src/Audit.php:295 templates/_audit_certification_fields.html.twig
 msgid "Certification body"
 msgstr ""
 
-#: src/Audit.php:309 templates/_audit_certification_fields.html.twig
+#: src/Audit.php:302 templates/_audit_certification_fields.html.twig
 #: templates/auditor_space.html.twig templates/certification_findings.html.twig
 #: templates/pdf/certification_findings_report.html.twig
-#: templates/pdf/certification_response_report.html.twig
 msgid "Lead auditor"
 msgstr ""
 
-#: src/Audit.php:316 templates/_audit_certification_fields.html.twig
-#: templates/pdf/certification_response_report.html.twig
+#: src/Audit.php:309 templates/_audit_certification_fields.html.twig
 msgid "Standard and edition"
 msgstr ""
 
-#: src/Audit.php:324 templates/audit_form.html.twig
+#: src/Audit.php:317 templates/audit_form.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 msgid "Audit objectives"
 msgstr ""
 
-#: src/Audit.php:331 templates/audit_form.html.twig
+#: src/Audit.php:324 templates/audit_form.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 msgid "Audit criteria"
 msgstr ""
 
-#: src/Audit.php:337 templates/_audit_certification_fields.html.twig
-#: templates/certification_response_tab.html.twig
-#: templates/pdf/certification_response_report.html.twig
-msgid "Certification body report received on"
-msgstr ""
-
-#: src/Audit.php:338 templates/_audit_certification_fields.html.twig
-#: templates/certification_response_tab.html.twig
-#: templates/pdf/certification_response_report.html.twig
-msgid "Action plan due to the certification body"
-msgstr ""
-
-#: src/Audit.php:339 templates/_audit_certification_fields.html.twig
-#: templates/certification_response_tab.html.twig
-#: templates/pdf/certification_response_report.html.twig
-msgid "Evidence due to the certification body"
-msgstr ""
-
-#: src/Audit.php:651
+#: src/Audit.php:626
 #, php-format
 msgid "Internal audit report: %s"
 msgstr ""
 
-#: src/Audit.php:706
+#: src/Audit.php:681
 #, php-format
 msgid "Internal audit report - %s"
 msgstr ""
 
-#: src/Audit.php:724
+#: src/Audit.php:699
 msgid "The audit report has been archived in the Documents tab."
 msgstr ""
 
@@ -2828,8 +2799,8 @@ msgstr ""
 msgid "Observation"
 msgstr ""
 
-#: src/AuditChecklist.php:114 src/CertificationFinding.php:111
-#: src/Nonconformity.php:128 src/Nonconformity.php:609
+#: src/AuditChecklist.php:114 src/CertificationFinding.php:110
+#: src/Nonconformity.php:127 src/Nonconformity.php:563
 msgid "Opportunity for improvement"
 msgstr ""
 
@@ -2951,7 +2922,7 @@ msgctxt "feminine"
 msgid "Accepted"
 msgstr ""
 
-#: src/AuditEvidenceRequest.php:213 src/Nonconformity.php:194
+#: src/AuditEvidenceRequest.php:213 src/Nonconformity.php:193
 msgid "Audit not found."
 msgstr ""
 
@@ -3843,61 +3814,61 @@ msgid ""
 "This link would close a loop: the consequence already leads to the cause."
 msgstr ""
 
-#: src/CertificationFinding.php:50 templates/certification_sampling.html.twig
+#: src/CertificationFinding.php:49 templates/certification_sampling.html.twig
 #: templates/certification_sampling_processes.html.twig
 msgid "Findings of previous audits"
 msgstr ""
 
-#: src/CertificationFinding.php:92
+#: src/CertificationFinding.php:91
 msgid "Internal audit (clause 9.2)"
 msgstr ""
 
-#: src/CertificationFinding.php:93
+#: src/CertificationFinding.php:92
 msgid "Initial certification audit"
 msgstr ""
 
-#: src/CertificationFinding.php:94
+#: src/CertificationFinding.php:93
 msgid "Surveillance audit 1"
 msgstr ""
 
-#: src/CertificationFinding.php:95
+#: src/CertificationFinding.php:94
 msgid "Surveillance audit 2"
 msgstr ""
 
-#: src/CertificationFinding.php:96
+#: src/CertificationFinding.php:95
 msgid "Recertification audit"
 msgstr ""
 
-#: src/CertificationFinding.php:108
+#: src/CertificationFinding.php:107
 msgid "Major nonconformity"
 msgstr ""
 
-#: src/CertificationFinding.php:109
+#: src/CertificationFinding.php:108
 msgid "Minor nonconformity"
 msgstr ""
 
-#: src/CertificationFinding.php:110 src/Nonconformity.php:127
-#: src/Nonconformity.php:606
+#: src/CertificationFinding.php:109 src/Nonconformity.php:126
+#: src/Nonconformity.php:560
 msgid "Area of concern"
 msgstr ""
 
-#: src/CertificationFinding.php:122
+#: src/CertificationFinding.php:121
 msgid "Not lifted"
 msgstr ""
 
-#: src/CertificationFinding.php:127
+#: src/CertificationFinding.php:126
 msgid "Action in progress"
 msgstr ""
 
-#: src/CertificationFinding.php:132
+#: src/CertificationFinding.php:131
 msgid "Action done, effectiveness to verify"
 msgstr ""
 
-#: src/CertificationFinding.php:137
+#: src/CertificationFinding.php:136
 msgid "Lifted (verified)"
 msgstr ""
 
-#: src/CertificationFinding.php:339 src/Evidence.php:379
+#: src/CertificationFinding.php:326 src/Evidence.php:379
 #: src/NotificationTargetEvidence.php:112
 #: templates/document_accesses_tab.html.twig templates/evidence_tab.html.twig
 #: templates/pdf/policy_version.html.twig
@@ -4351,156 +4322,43 @@ msgid ""
 "nonconformities)"
 msgstr ""
 
-#: src/CertificationReadiness.php:1059
-#, php-format
-msgid ""
-"To send to the certification body: %1$d action plans and %2$d evidence "
-"(overdue: %3$d)"
-msgstr ""
-
-#: src/CertificationReadiness.php:1189
+#: src/CertificationReadiness.php:1176
 #, php-format
 msgid ""
 "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
 "deadlines."
 msgstr ""
 
-#: src/CertificationReadiness.php:1207 src/Objective.php:82
+#: src/CertificationReadiness.php:1194 src/Objective.php:82
 #: src/Objective.php:257
 msgid "On track"
 msgstr ""
 
-#: src/CertificationReadiness.php:1212
+#: src/CertificationReadiness.php:1199
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "At risk of being late"
 msgstr ""
 
-#: src/CertificationReadiness.php:1217
+#: src/CertificationReadiness.php:1204
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "Advised deadline passed"
 msgstr ""
 
-#: src/CertificationReadiness.php:1402
+#: src/CertificationReadiness.php:1389
 msgid "Advised deadline for the certification"
 msgstr ""
 
-#: src/CertificationReadiness.php:1408
+#: src/CertificationReadiness.php:1395
 #: src/NotificationTargetReadinessAlert.php:92
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "Target date of the certification audit"
 msgstr ""
 
-#: src/CertificationReadiness.php:1467
+#: src/CertificationReadiness.php:1454
 msgid "Certification readiness report"
-msgstr ""
-
-#: src/CertificationResponse.php:51 templates/nonconformity_form.html.twig
-msgid "Response to the certification body"
-msgstr ""
-
-#: src/CertificationResponse.php:82
-msgid "Awaiting the decision of the certification body"
-msgstr ""
-
-#: src/CertificationResponse.php:83
-msgid "Accepted by the certification body"
-msgstr ""
-
-#: src/CertificationResponse.php:84
-msgid "To be completed at the request of the certification body"
-msgstr ""
-
-#: src/CertificationResponse.php:109
-msgid "Action plan overdue"
-msgstr ""
-
-#: src/CertificationResponse.php:114
-msgid "Action plan to complete"
-msgstr ""
-
-#: src/CertificationResponse.php:119
-msgid "Action plan due soon"
-msgstr ""
-
-#: src/CertificationResponse.php:124
-msgid "Action plan to send"
-msgstr ""
-
-#: src/CertificationResponse.php:129
-msgid "Action plan sent, awaiting decision"
-msgstr ""
-
-#: src/CertificationResponse.php:134
-msgid "Action plan accepted"
-msgstr ""
-
-#: src/CertificationResponse.php:139
-msgid "No response required"
-msgstr ""
-
-#: src/CertificationResponse.php:153
-msgid "Evidence overdue"
-msgstr ""
-
-#: src/CertificationResponse.php:158
-msgid "Evidence due soon"
-msgstr ""
-
-#: src/CertificationResponse.php:163
-msgid "Evidence to send"
-msgstr ""
-
-#: src/CertificationResponse.php:168
-msgid "Evidence sent"
-msgstr ""
-
-#: src/CertificationResponse.php:173
-msgid "No evidence required"
-msgstr ""
-
-#: src/CertificationResponse.php:189
-msgid "Everything has been sent"
-msgstr ""
-
-#: src/CertificationResponse.php:195
-#, php-format
-msgid "Overdue by %d day"
-msgid_plural "Overdue by %d days"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/CertificationResponse.php:202
-#: templates/data_subject_request_form.html.twig
-#, php-format
-msgid "%d day left"
-msgid_plural "%d days left"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/CertificationResponse.php:209
-msgid "No deadline entered"
-msgstr ""
-
-#: src/CertificationResponse.php:245 src/Nonconformity.php:514
-#: templates/nonconformity_form.html.twig
-#: templates/pdf/certification_response_report.html.twig
-msgid "Correction"
-msgstr ""
-
-#: src/CertificationResponse.php:247 src/Nonconformity.php:436
-#: templates/certification_findings.html.twig
-#: templates/nonconformity_form.html.twig
-#: templates/pdf/certification_findings_report.html.twig
-#: templates/pdf/certification_response_report.html.twig
-#: templates/pdf/internal_audit_report.html.twig
-msgid "Corrective action"
-msgstr ""
-
-#: src/CertificationResponse.php:431
-msgid "Corrective action plan for the certification body"
 msgstr ""
 
 #: src/CertificationSampling.php:52 templates/certification_findings.html.twig
@@ -4618,12 +4476,10 @@ msgstr ""
 
 #: src/CompetenceDeclaration.php:266 src/Evidence.php:82
 #: templates/certification_findings.html.twig
-#: templates/certification_response_tab.html.twig
 #: templates/competence_sheet.html.twig templates/control_test_sample.html.twig
 #: templates/control_test_tab.html.twig
 #: templates/framework_assessment.html.twig
 #: templates/pdf/certification_findings_report.html.twig
-#: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/control_test_record.html.twig
 #: templates/physical_security_checklist_tab.html.twig
 msgid "Evidence"
@@ -6624,10 +6480,8 @@ msgstr ""
 #: src/SoftwareLicenseCompliance.php:410 templates/_crisis_review.html.twig
 #: templates/audit_checklist_tab.html.twig
 #: templates/certification_findings.html.twig
-#: templates/certification_response_tab.html.twig
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
 #: templates/pdf/certification_findings_report.html.twig
-#: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/control_test_record.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
@@ -9765,51 +9619,51 @@ msgstr ""
 msgid "No filter rule in the pfSense backup."
 msgstr ""
 
-#: src/Nonconformity.php:92
+#: src/Nonconformity.php:91
 msgid "Non-conformity"
 msgid_plural "Non-conformities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Nonconformity.php:125 src/Nonconformity.php:604
+#: src/Nonconformity.php:124 src/Nonconformity.php:558
 msgid "Observation / remark"
 msgstr ""
 
-#: src/Nonconformity.php:138 src/Nonconformity.php:634
+#: src/Nonconformity.php:137 src/Nonconformity.php:588
 msgid "Open"
 msgstr ""
 
-#: src/Nonconformity.php:139 src/Nonconformity.php:635
+#: src/Nonconformity.php:138 src/Nonconformity.php:589
 #: src/Traits/RiskAssessmentTrait.php:164
 #: src/Traits/RiskAssessmentTrait.php:323
 msgid "In treatment"
 msgstr ""
 
-#: src/Nonconformity.php:141 src/Nonconformity.php:637
+#: src/Nonconformity.php:140 src/Nonconformity.php:591
 msgctxt "feminine"
 msgid "Verified"
 msgstr ""
 
-#: src/Nonconformity.php:215
+#: src/Nonconformity.php:214
 msgid "You cannot create a non-conformity in this entity."
 msgstr ""
 
-#: src/Nonconformity.php:309
+#: src/Nonconformity.php:298
 msgid "A corrective action is required to close or verify a non-conformity."
 msgstr ""
 
-#: src/Nonconformity.php:363 templates/audit_findings_tab.html.twig
+#: src/Nonconformity.php:352 templates/audit_findings_tab.html.twig
 #: templates/auditor_space.html.twig templates/nonconformity_form.html.twig
 #: templates/pdf/audit_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 msgid "Finding type"
 msgstr ""
 
-#: src/Nonconformity.php:404 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:393 templates/nonconformity_form.html.twig
 msgid "Closure verification date"
 msgstr ""
 
-#: src/Nonconformity.php:420 src/NotificationTargetAuditEvidenceRequest.php:155
+#: src/Nonconformity.php:409 src/NotificationTargetAuditEvidenceRequest.php:155
 #: src/Objective.php:199 src/Policy.php:211 src/RiskRegisterImport.php:603
 #: src/Training.php:577 templates/_crisis_review.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
@@ -9823,25 +9677,31 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/Nonconformity.php:444 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:425 templates/certification_findings.html.twig
+#: templates/nonconformity_form.html.twig
+#: templates/pdf/certification_findings_report.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Corrective action"
+msgstr ""
+
+#: src/Nonconformity.php:433 templates/nonconformity_form.html.twig
 msgid "Preventive action"
 msgstr ""
 
-#: src/Nonconformity.php:464 templates/audit_findings_tab.html.twig
-#: templates/certification_response_tab.html.twig
+#: src/Nonconformity.php:453 templates/audit_findings_tab.html.twig
 #: templates/nonconformity_form.html.twig
 msgid "Certification body reference"
 msgstr ""
 
-#: src/Nonconformity.php:471 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:460 templates/nonconformity_form.html.twig
 msgid "Audited process"
 msgstr ""
 
-#: src/Nonconformity.php:478 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:467 templates/nonconformity_form.html.twig
 msgid "Clause or control"
 msgstr ""
 
-#: src/Nonconformity.php:485
+#: src/Nonconformity.php:474
 #: src/NotificationTargetPhysicalSecurityAssessment.php:78
 #: src/PhysicalSecurityAssessment.php:432 src/PhysicalSecurityCheck.php:253
 #: templates/nonconformity_form.html.twig
@@ -9850,90 +9710,78 @@ msgstr ""
 msgid "Site"
 msgstr ""
 
-#: src/Nonconformity.php:493 templates/nonconformity_form.html.twig
-msgid "Action plan sent to the certification body on"
-msgstr ""
-
-#: src/Nonconformity.php:500 templates/nonconformity_form.html.twig
-msgid "Evidence sent to the certification body on"
-msgstr ""
-
-#: src/Nonconformity.php:507 templates/nonconformity_form.html.twig
-msgid "Decision of the certification body"
-msgstr ""
-
-#: src/Nonconformity.php:707 templates/auditor_space.html.twig
+#: src/Nonconformity.php:661 templates/auditor_space.html.twig
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Findings"
 msgstr ""
 
-#: src/Nonconformity.php:842
+#: src/Nonconformity.php:794
 msgid "Required to close or verify this non-conformity."
 msgstr ""
 
-#: src/Nonconformity.php:843
+#: src/Nonconformity.php:795
 msgid "Optional for an observation: it may still be filled in if useful."
 msgstr ""
 
-#: src/Nonconformity.php:895
+#: src/Nonconformity.php:847
 #, php-format
 msgid "Apply the vendor patch: %s"
 msgstr ""
 
-#: src/Nonconformity.php:898
+#: src/Nonconformity.php:850
 msgid "Find and apply the vendor patch (no patch link published in NVD yet)."
 msgstr ""
 
-#: src/Nonconformity.php:901
+#: src/Nonconformity.php:853
 #, php-format
 msgid "Follow the vendor security advisory: %s"
 msgstr ""
 
-#: src/Nonconformity.php:907
+#: src/Nonconformity.php:859
 #, php-format
 msgid "Update the affected assets (%1$d): %2$s"
 msgstr ""
 
-#: src/Nonconformity.php:913
+#: src/Nonconformity.php:865
 msgid ""
 "Identify the affected assets (no matching asset found in the inventory)."
 msgstr ""
 
-#: src/Nonconformity.php:919
+#: src/Nonconformity.php:871
 #, php-format
 msgid ""
 "Actively exploited vulnerability: remediation due date set by CISA on %s."
 msgstr ""
 
-#: src/Nonconformity.php:924
+#: src/Nonconformity.php:876
 msgid ""
 "Check effectiveness: verify that the vulnerability no longer appears on the "
 "assets (incident CVE tab or \"Fleet vulnerabilities\")."
 msgstr ""
 
-#: src/Nonconformity.php:930
+#: src/Nonconformity.php:882
 #, php-format
 msgid "Action plan proposed for %1$s, found on the security incident \"%2$s\"."
 msgstr ""
 
-#: src/Nonconformity.php:943
+#: src/Nonconformity.php:895
 #, php-format
 msgid "Fix %1$s (incident \"%2$s\")"
 msgstr ""
 
-#: src/Nonconformity.php:959
+#: src/Nonconformity.php:911
 msgid ""
 "Watch the affected software in \"Software to watch\" to be alerted of future "
 "vulnerabilities."
 msgstr ""
 
-#: src/Nonconformity.php:962
+#: src/Nonconformity.php:914
 msgid "Include this software in the regular patching cycle."
 msgstr ""
 
-#: src/Nonconformity.php:982
+#: src/Nonconformity.php:934
 #, php-format
 msgid "%d overdue corrective/preventive action(s), %d notification(s) raised."
 msgstr ""
@@ -16159,25 +16007,12 @@ msgstr ""
 
 #: templates/_audit_certification_fields.html.twig
 msgid ""
-"Deadline given in the audit report to send the evidence that the "
-"nonconformities are lifted."
-msgstr ""
-
-#: templates/_audit_certification_fields.html.twig
-msgid ""
-"Deadline given in the audit report to send your action plan (correction, "
-"root cause and corrective action of each nonconformity)."
-msgstr ""
-
-#: templates/_audit_certification_fields.html.twig
-msgid ""
 "Internal audit, or audit carried out by your certification body (initial, "
 "surveillance or recertification)."
 msgstr ""
 
 #: templates/_audit_certification_fields.html.twig
 #: templates/audit_findings_tab.html.twig
-#: templates/certification_response_tab.html.twig
 msgid "Lifting status of the findings (PDF export)"
 msgstr ""
 
@@ -16715,7 +16550,6 @@ msgid "Phishing simulations"
 msgstr ""
 
 #: templates/_processing_activity_checks.html.twig
-#: templates/certification_response_tab.html.twig
 #: templates/crisis_scenario_register.html.twig
 #: templates/dora/register.html.twig
 msgid "Complete"
@@ -17685,15 +17519,12 @@ msgstr ""
 
 #: templates/audit_findings_tab.html.twig
 #: templates/certification_findings.html.twig
-#: templates/certification_response_tab.html.twig
 #: templates/pdf/certification_findings_report.html.twig
-#: templates/pdf/certification_response_report.html.twig
 msgid "Lifting status"
 msgstr ""
 
 #: templates/audit_findings_tab.html.twig templates/auditor_space.html.twig
 #: templates/certification_findings.html.twig
-#: templates/certification_response_tab.html.twig
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 msgid "No finding for this audit."
@@ -18604,72 +18435,6 @@ msgstr ""
 
 #: templates/certification_readiness.html.twig
 msgid "today"
-msgstr ""
-
-#: templates/certification_response_tab.html.twig
-#, php-format
-msgid ""
-"%d nonconformity still lacks information before the action plan is sent (see "
-"the \"To fill in\" column)."
-msgid_plural ""
-"%d nonconformities still lack information before the action plan is sent "
-"(see the \"To fill in\" column)."
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/certification_response_tab.html.twig
-#, php-format
-msgid ""
-"A response is expected for each nonconformity. It is optional for an area of "
-"concern or an opportunity for improvement. A deadline is shown as close %d "
-"days before it."
-msgstr ""
-
-#: templates/certification_response_tab.html.twig
-msgid "Action plan"
-msgstr ""
-
-#: templates/certification_response_tab.html.twig
-msgid ""
-"After the audit, the certification body asks you to send an action plan for "
-"each nonconformity (correction, root cause, corrective action), then the "
-"evidence that it is lifted, each within a deadline. This tab shows what is "
-"still to send and produces the action plan to send to the body."
-msgstr ""
-
-#: templates/certification_response_tab.html.twig
-msgid "Corrective action plan for the certification body (PDF)"
-msgstr ""
-
-#: templates/certification_response_tab.html.twig
-msgid ""
-"Enter the deadlines given in the report of the certification body in the "
-"main tab of the audit, so that the remaining days are shown."
-msgstr ""
-
-#: templates/certification_response_tab.html.twig
-msgid ""
-"Enter the deadlines in the audit form, and the sending dates and the "
-"decision of the body in each finding. Nothing is changed automatically."
-msgstr ""
-
-#: templates/certification_response_tab.html.twig
-#: templates/pdf/certification_response_report.html.twig
-#, php-format
-msgid "Sent on %s"
-msgstr ""
-
-#: templates/certification_response_tab.html.twig
-#, php-format
-msgid "Still to send: %d"
-msgstr ""
-
-#: templates/certification_response_tab.html.twig
-msgid "To fill in"
-msgstr ""
-
-#: templates/certification_response_tab.html.twig
-msgid "What is this tab for?"
 msgstr ""
 
 #: templates/certification_sampling.html.twig
@@ -22727,6 +22492,13 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/data_subject_request_form.html.twig
+#, php-format
+msgid "%d day left"
+msgid_plural "%d days left"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/data_subject_request_form.html.twig
 msgid ""
 "Allowed for complex or numerous requests. The person must be told within the "
 "first month."
@@ -24732,22 +24504,6 @@ msgid "Audit checklist line"
 msgstr ""
 
 #: templates/nonconformity_form.html.twig
-msgid ""
-"Date on which the correction, root cause and corrective action were sent to "
-"the certification body."
-msgstr ""
-
-#: templates/nonconformity_form.html.twig
-msgid ""
-"Date on which the evidence that the finding is lifted was sent. Attach the "
-"evidence in the Documents tab."
-msgstr ""
-
-#: templates/nonconformity_form.html.twig
-msgid "Feedback of the certification body"
-msgstr ""
-
-#: templates/nonconformity_form.html.twig
 #, php-format
 msgid ""
 "Finding proposed from the audit checklist (%s): review and adapt each field, "
@@ -24757,12 +24513,6 @@ msgstr ""
 
 #: templates/nonconformity_form.html.twig
 msgid "Reference given to the finding in the certification body report."
-msgstr ""
-
-#: templates/nonconformity_form.html.twig
-msgid ""
-"What was done at once to deal with the finding itself, before treating its "
-"cause."
 msgstr ""
 
 #: templates/objective_form.html.twig
@@ -25766,7 +25516,6 @@ msgid "Only findings not lifted are listed."
 msgstr ""
 
 #: templates/pdf/certification_findings_report.html.twig
-#: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Prepared by"
 msgstr ""
@@ -25783,14 +25532,6 @@ msgstr ""
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/pdf/responsibility_matrix.html.twig
 msgid "Exported by"
-msgstr ""
-
-#: templates/pdf/certification_response_report.html.twig
-msgid "Audit date"
-msgstr ""
-
-#: templates/pdf/certification_response_report.html.twig
-msgid "No nonconformity calls for a response in this audit."
 msgstr ""
 
 #: templates/pdf/competence_report.html.twig
@@ -30880,3 +30621,456 @@ msgstr ""
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
 msgstr ""
+
+
+#: front/crisisexercise.form.php:168
+msgid "The exercise type could not be changed."
+msgstr ""
+
+#: src/BusinessProcess.php:404
+msgid "The data loss measured at the last test exceeds the RPO."
+msgstr ""
+
+#: src/BusinessProcessRecovery.php:102
+msgid "Tabletop exercise"
+msgstr ""
+
+#: src/BusinessProcessRecovery.php:103
+msgid "Functional exercise"
+msgstr ""
+
+#: src/BusinessProcessRecovery.php:104
+msgid "Technical restore test"
+msgstr ""
+
+#: src/BusinessProcessRecovery.php:105
+msgid "Full-scale exercise"
+msgstr ""
+
+#: src/BusinessProcessRecovery.php:704
+msgid "Not scheduled"
+msgstr ""
+
+#: src/BusinessProcessRecovery.php:718
+msgid "Objectives met"
+msgstr ""
+
+#: src/BusinessProcessRecovery.php:721
+msgid "Objectives missed"
+msgstr ""
+
+#: src/BusinessProcessRecovery.php:724
+msgid "Not tested"
+msgstr ""
+
+#: src/PageHelp.php:939
+msgid ""
+"Recovery test programme: when each business process was last tested, whether "
+"the test met its RTO and RPO, and which processes are not tested in time."
+msgstr ""
+
+#: src/PageHelp.php:944
+msgid ""
+"Plan a test for each process reported as overdue or not tested this year, "
+"then record the measured recovery time and data loss in its \"Recovery "
+"strategy\" tab. Show this view to the auditor as evidence that ICT "
+"continuity is tested regularly."
+msgstr ""
+
+#: src/PageHelp.php:949
+msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
+msgstr ""
+
+#: templates/business_process_list_header.html.twig
+#: templates/business_process_programme.html.twig
+msgid "Recovery test programme"
+msgstr ""
+
+#: templates/business_process_programme.html.twig
+#, php-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/business_process_programme.html.twig
+msgid "All business processes"
+msgstr ""
+
+#: templates/business_process_programme.html.twig
+msgid "Each year shows the result of the last test of that year."
+msgstr ""
+
+#: templates/business_process_programme.html.twig
+msgid "Last test missed the objectives"
+msgstr ""
+
+#: templates/business_process_programme.html.twig
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Next test due"
+msgstr ""
+
+#: templates/business_process_programme.html.twig
+msgid ""
+"No business process you can see. Create your business processes first, then "
+"record their recovery tests."
+msgstr ""
+
+#: templates/business_process_programme.html.twig
+msgid "Not tested this year"
+msgstr ""
+
+#: templates/business_process_programme.html.twig
+msgid "Test overdue"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Other types (one per line)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Types of recovery exercise"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Types offered when starting a crisis exercise or recording a recovery test. "
+"Untick a type you do not use, and add your own types, one per line."
+msgstr ""
+
+#: templates/crisis_exercises.html.twig templates/crisis_room.html.twig
+#: templates/tabs/business_process_recovery.html.twig
+#: templates/tabs/item_business_processes.html.twig
+msgid "Type of exercise"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Above the RPO"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Data loss (minutes)"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/tabs/business_process_recovery.html.twig
+#: templates/tabs/item_business_processes.html.twig
+msgid "Measured data loss"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/tabs/business_process_recovery.html.twig
+msgid ""
+"The data loss (time between the last usable backup and the incident) is "
+"compared with its RPO; leave it empty if it was not measured, enter 0 if no "
+"data was lost."
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+msgid "0: use the frequency of the periodic review."
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+msgid ""
+"A process that is not tested in time is reported to its owner and to the "
+"CISO group by an automatic action; nothing is changed automatically."
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Above the objectives of the item tested"
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Coverage by year"
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+#, php-format
+msgid "Every %d months (frequency of the periodic review of continuity tests)."
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+#, php-format
+msgid "Every %d months (frequency set on this process)."
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Item tested"
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Test frequency (months)"
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Test programme"
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+msgid "The whole process"
+msgstr ""
+
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Within the RPO"
+msgstr ""
+
+#: templates/tabs/item_business_processes.html.twig
+msgid "No recovery test has covered this item yet."
+msgstr ""
+
+#: templates/tabs/item_business_processes.html.twig
+#, php-format
+msgid "Only the %d most recent tests are listed."
+msgstr ""
+
+#: templates/tabs/item_business_processes.html.twig
+msgid "Recovery tests that covered this item"
+msgstr ""
+
+#: templates/tabs/item_business_processes.html.twig
+msgid ""
+"Tests that named this item, and tests of the business processes that depend "
+"on it. Record a test from the \"Recovery strategy\" tab of the process."
+msgstr ""
+
+#: templates/tabs/item_business_processes.html.twig
+msgid "This item was tested"
+msgstr ""
+
+
+#: src/Audit.php:337 templates/_audit_certification_fields.html.twig
+#: templates/certification_response_tab.html.twig
+#: templates/pdf/certification_response_report.html.twig
+msgid "Certification body report received on"
+msgstr ""
+
+#: src/Audit.php:338 templates/_audit_certification_fields.html.twig
+#: templates/certification_response_tab.html.twig
+#: templates/pdf/certification_response_report.html.twig
+msgid "Action plan due to the certification body"
+msgstr ""
+
+#: src/Audit.php:339 templates/_audit_certification_fields.html.twig
+#: templates/certification_response_tab.html.twig
+#: templates/pdf/certification_response_report.html.twig
+msgid "Evidence due to the certification body"
+msgstr ""
+
+#: src/CertificationReadiness.php:1054
+#, php-format
+msgid ""
+"To send to the certification body: %1$d action plans and %2$d evidence "
+"(overdue: %3$d)"
+msgstr ""
+
+#: src/CertificationResponse.php:51 templates/nonconformity_form.html.twig
+msgid "Response to the certification body"
+msgstr ""
+
+#: src/CertificationResponse.php:82
+msgid "Awaiting the decision of the certification body"
+msgstr ""
+
+#: src/CertificationResponse.php:83
+msgid "Accepted by the certification body"
+msgstr ""
+
+#: src/CertificationResponse.php:84
+msgid "To be completed at the request of the certification body"
+msgstr ""
+
+#: src/CertificationResponse.php:107
+msgid "Action plan overdue"
+msgstr ""
+
+#: src/CertificationResponse.php:112
+msgid "Action plan to complete"
+msgstr ""
+
+#: src/CertificationResponse.php:117
+msgid "Action plan due soon"
+msgstr ""
+
+#: src/CertificationResponse.php:122
+msgid "Action plan to send"
+msgstr ""
+
+#: src/CertificationResponse.php:127
+msgid "Action plan sent, awaiting decision"
+msgstr ""
+
+#: src/CertificationResponse.php:132
+msgid "Action plan accepted"
+msgstr ""
+
+#: src/CertificationResponse.php:137
+msgid "No response required"
+msgstr ""
+
+#: src/CertificationResponse.php:151
+msgid "Evidence overdue"
+msgstr ""
+
+#: src/CertificationResponse.php:156
+msgid "Evidence due soon"
+msgstr ""
+
+#: src/CertificationResponse.php:161
+msgid "Evidence to send"
+msgstr ""
+
+#: src/CertificationResponse.php:166
+msgid "Evidence sent"
+msgstr ""
+
+#: src/CertificationResponse.php:171
+msgid "No evidence required"
+msgstr ""
+
+#: src/CertificationResponse.php:187
+msgid "Everything has been sent"
+msgstr ""
+
+#: src/CertificationResponse.php:193
+#, php-format
+msgid "Overdue by %d day"
+msgid_plural "Overdue by %d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/CertificationResponse.php:207
+msgid "No deadline entered"
+msgstr ""
+
+#: src/CertificationResponse.php:243 src/Nonconformity.php:514
+#: templates/nonconformity_form.html.twig
+#: templates/pdf/certification_response_report.html.twig
+msgid "Correction"
+msgstr ""
+
+#: src/CertificationResponse.php:426
+msgid "Corrective action plan for the certification body"
+msgstr ""
+
+#: src/Nonconformity.php:493 templates/nonconformity_form.html.twig
+msgid "Action plan sent to the certification body on"
+msgstr ""
+
+#: src/Nonconformity.php:500 templates/nonconformity_form.html.twig
+msgid "Evidence sent to the certification body on"
+msgstr ""
+
+#: src/Nonconformity.php:507 templates/nonconformity_form.html.twig
+msgid "Decision of the certification body"
+msgstr ""
+
+#: templates/_audit_certification_fields.html.twig
+msgid ""
+"Deadline given in the audit report to send the evidence that the "
+"nonconformities are lifted."
+msgstr ""
+
+#: templates/_audit_certification_fields.html.twig
+msgid ""
+"Deadline given in the audit report to send your action plan (correction, "
+"root cause and corrective action of each nonconformity)."
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+#, php-format
+msgid ""
+"%d nonconformity still lacks information before the action plan is sent (see "
+"the \"To fill in\" column)."
+msgid_plural ""
+"%d nonconformities still lack information before the action plan is sent "
+"(see the \"To fill in\" column)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/certification_response_tab.html.twig
+#, php-format
+msgid ""
+"A response is expected for each nonconformity. It is optional for an area of "
+"concern or an opportunity for improvement. A deadline is shown as close %d "
+"days before it."
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid "Action plan"
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid ""
+"After the audit, the certification body asks you to send an action plan for "
+"each nonconformity (correction, root cause, corrective action), then the "
+"evidence that it is lifted, each within a deadline. This tab shows what is "
+"still to send and produces the action plan to send to the body."
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid "Corrective action plan for the certification body (PDF)"
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid ""
+"Enter the deadlines given in the report of the certification body in the "
+"main tab of the audit, so that the remaining days are shown."
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid ""
+"Enter the deadlines in the audit form, and the sending dates and the "
+"decision of the body in each finding. Nothing is changed automatically."
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+#: templates/pdf/certification_response_report.html.twig
+#, php-format
+msgid "Sent on %s"
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+#, php-format
+msgid "Still to send: %d"
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid "To fill in"
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid "What is this tab for?"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid ""
+"Date on which the correction, root cause and corrective action were sent to "
+"the certification body."
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid ""
+"Date on which the evidence that the finding is lifted was sent. Attach the "
+"evidence in the Documents tab."
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid "Feedback of the certification body"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid ""
+"What was done at once to deal with the finding itself, before treating its "
+"cause."
+msgstr ""
+
+#: templates/pdf/certification_response_report.html.twig
+msgid "Audit date"
+msgstr ""
+
+#: templates/pdf/certification_response_report.html.twig
+msgid "No nonconformity calls for a response in this audit."
+msgstr ""
+
