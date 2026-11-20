@@ -152,6 +152,8 @@ check "onglet validites des preuves"          "$(tab 'GlpiPlugin%5CGrcmanager%5C
 # Issue #535 : politique piegee a lire (preferences) et onglet de prise de connaissance (groupe piege).
 check "onglet Politiques a lire"              "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' 2)"
 check "onglet prise de connaissance"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' "$(xid policy)")"
+# Issue #868 : dossier de preuves (nom piege d'une preuve expiree de la mesure de A).
+check "front/evidencepack.php"                "$P/evidencepack.php?entities_id=$(id a)"
 # Issue #614 : controles de coherence (noms pieges des risques, politiques, traitements...).
 check "front/consistencycheck.php"            "$P/consistencycheck.php"
 # Issue #619 : preparation a la certification (titres des fiches pieges jamais repris tels quels).

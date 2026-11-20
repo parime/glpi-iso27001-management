@@ -1,0 +1,73 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #868 : index PDF du dossier de preuves (7.5.3, 9.2) : mesure par mesure et sous-article par
+   sous-article, chaque pièce avec sa date, son état, son nom dans l'archive et son empreinte. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .pill { display: inline-block; padding: 1px 6px; border-radius: 8px; font-size: 8.5px; font-weight: bold; }
+  .pill-clause { background: #e7f0fb; color: #174a85; }
+  .pill-success { background: #e3f4e8; color: #1b5e2f; }
+  .pill-warning { background: #fdf1db; color: #7a4a00; }
+  .pill-danger { background: #fbe4e4; color: #8a1c1c; }
+  .pill-secondary { background: #eef0f3; color: #3d4652; }
+  .muted { color: #6c757d; }
+  .hash { font-family: 'DejaVu Sans Mono', monospace; font-size: 7px; word-break: break-all; color: #3d4652; }
+  h2 { page-break-after: avoid; }
+  tr { page-break-inside: avoid; }
+</style>
+{% macro pill(text, tone) %}<span class="pill pill-{{ tone }}">{{ text }}</span>{% endmacro %}
+{% import _self as m %}
+
+<h2>{{ __('Evidence pack', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Perimeter', 'grcmanager') }}</td><td><strong>{{ perimeter }}</strong></td></tr>
+  <tr><td>{{ __('Prepared by', 'grcmanager') }}</td><td>{{ author }}</td></tr>
+  <tr><td>{{ __('Files included', 'grcmanager') }}</td><td>{{ summary.included }} ({{ size_mb }} MB, {{ __('limit %d MB', 'grcmanager')|format(max_mb) }})</td></tr>
+  <tr><td>{{ __('Not included', 'grcmanager') }}</td><td>
+    {{ m.pill(states.expired.label ~ ' : ' ~ summary.expired, 'danger') }}
+    {{ m.pill(states.no_file.label ~ ' : ' ~ summary.no_file, 'secondary') }}
+    {{ m.pill(states.too_large.label ~ ' : ' ~ summary.too_large, 'warning') }}
+  </td></tr>
+</table>
+<p class="muted">{{ __('This index lists the evidence that the person who generated the pack can read, in the perimeter entity and its sub-entities. Expired evidence is listed but not included. Each included file is stored once in the "evidence" folder of the archive; its SHA-256 fingerprint is given here and in the SHA256SUMS.txt file, to check that nothing was changed.', 'grcmanager') }}</p>
+
+{% for group in groups %}
+  <h2>{{ group.title }}</h2>
+  <table class="grcmanager-pdf-table">
+    <thead><tr><th>{{ __('Reference', 'grcmanager') }}</th><th>{{ __('Evidence', 'grcmanager') }}</th><th>{{ __('State', 'grcmanager') }}</th></tr></thead>
+    <tbody>
+      {% for row in group.rows %}
+        <tr>
+          <td style="width: 28%;">{{ m.pill(row.code, 'clause') }} {{ row.title }}{% if row.status %}<br><span class="muted">{{ row.status }}</span>{% endif %}</td>
+          {% if row.links is empty %}
+            <td colspan="2" class="muted">{{ row.applicable ? __('No evidence attached', 'grcmanager') : '-' }}</td>
+          {% else %}
+            <td>
+              {% for link in row.links %}
+                <div>{{ link.name }}<span class="muted">{% if link.date %} - {{ link.date }}{% endif %}{% if link.valid_until %} - {{ __('valid until %s', 'grcmanager')|format(link.valid_until) }}{% endif %}</span></div>
+                {% if link.sha256 %}<div class="hash">{{ link.entry }}<br>SHA-256 {{ link.sha256 }}</div>{% endif %}
+              {% endfor %}
+            </td>
+            <td style="width: 18%;">
+              {% for link in row.links %}
+                <div>{{ m.pill(states[link.state].label, states[link.state].tone) }}</div>
+              {% endfor %}
+            </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endfor %}

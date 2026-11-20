@@ -1,0 +1,136 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #868 : dossier de preuves exportable pour l'auditeur : choix du périmètre, aperçu du contenu,
+   génération de l'archive ZIP, limite de taille et dossiers déjà archivés. #}
+<div class="row g-3 mt-1">
+   <div class="col-xl-7">
+      <div class="card h-100">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-file-zip me-2"></i>{{ __('Evidence pack for the auditor', 'grcmanager') }}</h3>
+         </div>
+         <div class="card-body">
+            <p class="text-secondary">{{ __('One ZIP archive per perimeter: the evidence attached to each Annex A control and each ISMS requirement, and the reports already archived by the plugin, with a PDF index listing them control by control, with their date, their state and their SHA-256 fingerprint.', 'grcmanager') }}</p>
+            <form method="get" action="{{ action }}" class="mb-3">
+               <div class="row g-2 align-items-end">
+                  <div class="col-sm-8">
+                     <label class="form-label" for="grc-pack-entity">{{ __('Perimeter (entity)', 'grcmanager') }}</label>
+                     <select id="grc-pack-entity" name="entities_id" class="form-select">
+                        {% for id, name in options %}
+                           <option value="{{ id }}" {{ id == entity_id ? 'selected' }}>{{ name }}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+                  <div class="col-sm-4">
+                     <button type="submit" class="btn btn-outline-secondary w-100"><i class="ti ti-eye me-1"></i>{{ __('Show the contents', 'grcmanager') }}</button>
+                  </div>
+               </div>
+            </form>
+
+            <div class="d-flex flex-wrap gap-2 mb-3">
+               {% for key, state in states %}
+                  <span class="badge bg-{{ state.tone }}-subtle text-{{ state.tone }}-emphasis"><i class="ti {{ state.icon }} me-1"></i>{{ state.label }} : {{ summary[key] }}</span>
+               {% endfor %}
+               <span class="badge bg-primary-subtle text-primary-emphasis"><i class="ti ti-database me-1"></i>{{ __('%1$s MB of %2$s MB allowed', 'grcmanager')|format(size_mb, max_mb) }}</span>
+            </div>
+
+            <table class="table table-sm table-borderless mb-3">
+               <tbody>
+                  {% for group in groups %}
+                     <tr>
+                        <td>{{ group.title }}</td>
+                        <td class="text-end"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('%1$d of %2$d with evidence', 'grcmanager')|format(group.with, group.rows) }}</span></td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+            {% if missing > 0 %}
+               <div class="alert alert-warning py-2"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d applicable control(s) have no evidence you can read: the index shows them without evidence.', 'grcmanager')|format(missing) }}</div>
+            {% endif %}
+            {% if expired is not empty %}
+               <div class="alert alert-danger py-2">
+                  <div class="mb-1"><i class="ti ti-clock-x me-1"></i>{{ __('Expired evidence: listed in the index, not included. Renew it from the "Evidence validity" tab of the control before generating the pack.', 'grcmanager') }}</div>
+                  <ul class="mb-0">
+                     {% for e in expired|slice(0, 20) %}
+                        <li><span class="badge bg-danger-subtle text-danger-emphasis">{{ e.code }}</span> {{ e.name }}{% if e.valid_until %} ({{ e.valid_until|formatted_date }}){% endif %}</li>
+                     {% endfor %}
+                  </ul>
+               </div>
+            {% endif %}
+
+            {% if can_generate %}
+               <form method="post" action="{{ action }}">
+                  <input type="hidden" name="entities_id" value="{{ entity_id }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" name="generate" value="1" class="btn btn-primary"><i class="ti ti-file-zip me-1"></i>{{ __('Generate the evidence pack', 'grcmanager') }}</button>
+                  <small class="form-hint d-block mt-1">{{ __('Only the documents you can read are included. The archive is kept as a restricted document: you, and whoever can read every piece it contains, can download it. Generate a new one at any time.', 'grcmanager') }}</small>
+               </form>
+            {% else %}
+               <div class="alert alert-info mb-0">{{ __('You need the right to update the GRC plugin to generate an evidence pack.', 'grcmanager') }}</div>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+   <div class="col-xl-5">
+      {% if can_generate %}
+         <div class="card mb-3">
+            <div class="card-header">
+               <h3 class="card-title"><i class="ti ti-adjustments me-2"></i>{{ __('Settings', 'grcmanager') }}</h3>
+            </div>
+            <div class="card-body">
+               <form method="post" action="{{ action }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <label class="form-label" for="grc-pack-max">{{ __('Maximum size of the archive (MB)', 'grcmanager') }}</label>
+                  <div class="input-group">
+                     <input type="number" id="grc-pack-max" name="max_mb" value="{{ max_mb }}" min="{{ min_mb }}" max="{{ limit_mb }}" class="form-control">
+                     <button type="submit" name="save_settings" value="1" class="btn btn-outline-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+                  </div>
+                  <small class="form-hint d-block mt-1">{{ __('Files that would exceed this size are listed in the index as not included.', 'grcmanager') }}</small>
+               </form>
+            </div>
+         </div>
+      {% endif %}
+      <div class="card">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-archive me-2"></i>{{ __('Archived evidence packs', 'grcmanager') }}</h3>
+         </div>
+         <div class="card-body">
+            {% for pack in packs %}
+               <div class="border rounded p-2 mb-2">
+                  <div class="d-flex justify-content-between align-items-start gap-2">
+                     <div>
+                        <span class="badge bg-primary-subtle text-primary-emphasis"><i class="ti ti-building me-1"></i>{{ pack.perimeter }}</span>
+                        <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-files me-1"></i>{{ __('%d file(s)', 'grcmanager')|format(pack.files) }}</span>
+                        {% if pack.expired > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-clock-x me-1"></i>{{ __('%d expired', 'grcmanager')|format(pack.expired) }}</span>{% endif %}
+                        {% if pack.skipped > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-file-alert me-1"></i>{{ __('%d over the size limit', 'grcmanager')|format(pack.skipped) }}</span>{% endif %}
+                        <div class="small text-secondary mt-1">{{ __('Generated on %s', 'grcmanager')|format(pack.date|formatted_datetime) }}{% if pack.author %} - {{ pack.author }}{% endif %} - {{ pack.size_mb }} MB</div>
+                     </div>
+                     {% if pack.url %}
+                        <a href="{{ pack.url }}" class="btn btn-sm btn-outline-primary text-nowrap"><i class="ti ti-download me-1"></i>{{ __('Download', 'grcmanager') }}</a>
+                     {% elseif not pack.exists %}
+                        <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Document deleted', 'grcmanager') }}</span>
+                     {% else %}
+                        <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-lock me-1"></i>{{ __('Restricted', 'grcmanager') }}</span>
+                     {% endif %}
+                  </div>
+                  <div class="small mt-1"><i class="ti ti-fingerprint me-1"></i>{{ __('SHA-256 fingerprint', 'grcmanager') }}</div>
+                  <code class="small text-break d-block">{{ pack.sha256 }}</code>
+               </div>
+            {% else %}
+               <p class="text-secondary mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('No evidence pack generated yet.', 'grcmanager') }}</p>
+            {% endfor %}
+         </div>
+      </div>
+   </div>
+</div>

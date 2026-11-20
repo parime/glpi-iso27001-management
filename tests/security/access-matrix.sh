@@ -158,7 +158,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/personnelcompliance.export.php?format=pdf
   front/ismsfunction.php front/ismsfunction.form.php front/ismsfunction.pdf.php front/competence.php
   front/competence.form.php front/competencedeclaration.php front/competencedeclaration.form.php
-  front/phishingcampaign.php front/phishingcampaign.form.php front/phishingimport.php?example=1"
+  front/phishingcampaign.php front/phishingcampaign.form.php front/phishingimport.php?example=1
+  front/evidencepack.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -286,6 +287,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # droit de modifier le plugin.
   expect "front/certificationreadiness.php : reglages de la preparation" "$1" \
     "$(code -d "save_readiness_settings=1&target_date=2026-12-03&coverage_target=90&alert_days=30&lead_days%5Binternal_audit%5D=60&_glpi_csrf_token=$(csrf)" "$P/certificationreadiness.php")"
+  # Issue #868 : generer le dossier de preuves (archive enregistree) et regler sa limite de taille
+  # exigent de pouvoir modifier le plugin.
+  expect "front/evidencepack.php : generer le dossier de preuves" "$1"     "$(code -d "generate=1&entities_id=$(id a)&_glpi_csrf_token=$(csrf)" "$P/evidencepack.php")"
+  expect "front/evidencepack.php : limite de taille" "$1"     "$(code -d "save_settings=1&max_mb=50&_glpi_csrf_token=$(csrf)" "$P/evidencepack.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
   # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).
@@ -655,6 +660,9 @@ if [ "$ROLE" = admin ]; then
     "$(code -d "generate=1&id=$(id mreview)&period_start=2026-01-01&period_end=2026-06-30&_glpi_csrf_token=$(csrf)" "$P/managementreview.dossier.php")"
   contains "onglet Dossier preparatoire : empreinte du dossier archive" 'dossier-revue-direction' oui \
     "$(tab GlpiPlugin%5CGrcmanager%5CManagementReview 'GlpiPlugin%5CGrcmanager%5CManagementReviewDossier$1' "$(id mreview)")"
+  # Issue #868 : dossier de preuves refuse sans jeton CSRF, genere avec.
+  expect "front/evidencepack.php : sans jeton CSRF" 403     "$(code -d "generate=1&entities_id=0" "$P/evidencepack.php")"
+  expect "front/evidencepack.php : generer le dossier de preuves" 302     "$(code -d "generate=1&entities_id=0&_glpi_csrf_token=$(csrf)" "$P/evidencepack.php")"
   # Issue #380 : reglage du rappel des tests d'efficacite au groupe RSSI. Sans jeton CSRF, refuse
   # et inchange ; avec, enregistre ; une valeur inconnue revient au reglage par defaut.
   expect "front/config.php : rappel des tests, sans jeton CSRF" 403 \
@@ -875,6 +883,13 @@ contains "onglet Processus metier du PC de A" "Processus securite A" oui \
 procs_b=$(tab Computer 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id computer_B)")
 contains "onglet Processus metier du PC de B : processus de B" "Processus securite B" $SEE_B "$procs_b"
 if [ "$ROLE" = limited ]; then
+  # Issue #868 : dossier de preuves de son entite genere et liste ; celui de B refuse ; la preuve de B
+  # (rattachee a la mesure de A) n'est jamais nommee sur la page.
+  expect "front/evidencepack.php : dossier de preuves de B" 403     "$(code -d "generate=1&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/evidencepack.php")"
+  expect "front/evidencepack.php : dossier de preuves de A" 302     "$(code -d "generate=1&entities_id=$(id a)&_glpi_csrf_token=$(csrf)" "$P/evidencepack.php")"
+  pack_page=$(curl -s -c "$JAR" -b "$JAR" "$P/evidencepack.php?entities_id=$(id a)")
+  contains "dossier de preuves : archive listee" 'ti-fingerprint' oui "$pack_page"
+  contains "dossier de preuves : preuve de B absente" 'Preuve securite B' non "$pack_page"
   # Issue #706 : gestionnaire avec la configuration du plugin et les registres sensibles en
   # modification : l'ecran de changement de taille lui est ouvert, comme la page de configuration.
   expect "front/riskscale.php : ecran de correspondance" 200 "$(code "$P/riskscale.php?size=5")"
