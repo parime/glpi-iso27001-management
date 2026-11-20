@@ -585,6 +585,18 @@
       {% endset %}
       {{ fields.htmlField('', operating_procedures_html, __('Register of operating procedures', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #777 : développement sécurisé (A.8.25, A.8.28, A.8.29, A.8.31), dans les entités de la personne. #}
+   {% if secure_development is defined and secure_development is not null %}
+      {% set secure_development_html %}
+         <div id="grc-secure-development-evidence">
+            {% for badge in secure_development.badges %}
+               <span class="badge bg-{{ badge.color }}-subtle text-{{ badge.color }}-emphasis me-1"><i class="{{ badge.icon }} me-1"></i>{{ badge.label }}</span>
+            {% endfor %}
+            <a href="{{ secure_development.url }}">{{ __('Open the register', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', secure_development_html, __('Secure development', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
    {# Issue #779 : licences logicielles (A.5.32), dans les entités de la personne. #}
    {% if software_licenses is defined and software_licenses is not null %}
       {% set software_licenses_html %}

@@ -59,6 +59,39 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     préférences (« Mes simulations d'hameçonnage »). « Supprimer les résultats par personne »
     garde les taux. Entités respectées ; pas d'onglet Documents (un export nominatif y échapperait
     au droit des registres sensibles).
+- **Développement sécurisé et validation des mises en production** (issue #777, lot 1, mesures
+  A.8.25 à A.8.31). Aucun objet en double : le registre est celui des applications de GLPI
+  (`Appliance`), la mise en production est un changement de GLPI (`Change`).
+  - Onglet « Développement sécurisé » d'une application : responsable (par défaut le responsable
+    technique de l'application), dépôt de code (adresse http, https, ssh ou git@ seulement),
+    référentiel suivi (OWASP ASVS, OWASP Top 10, OWASP SAMM, recommandations de l'ANSSI, autre) et
+    son niveau, revue de code obligatoire, analyses SAST, DAST et des dépendances, outils et
+    fréquence, environnements séparés (oui ou non) avec une justification, obligatoire si non.
+  - Onglet « Validation sécurité de mise en production » d'un changement lié à une application :
+    liste de contrôle (tests passés, revue faite, vulnérabilités traitées, preuves), puis décision
+    de la DSI ou du RSSI. La validation exige une liste complète, le refus un motif. L'auteur et la
+    date viennent de la session, la décision est inscrite dans l'historique du changement et fige
+    la liste ; elle peut être rouverte. La validation native du changement (GLPI) est rappelée.
+  - Page « Développement sécurisé », sous-page de la rubrique Conformité (aucune entrée de menu en
+    plus), avec l'encadré d'aide : registre des applications et de leurs pratiques, indicateurs
+    « applications sans séparation des environnements » et « mises en production sans validation
+    sécurité » (changements résolus ou clos des 12 derniers mois : sans liste, sans décision,
+    refusés ou validés après coup).
+  - Preuves sur les fiches des mesures A.8.25, A.8.28, A.8.29 et A.8.31 de la SoA.
+  - Droits : droit général du plugin (lecture pour les onglets et la page, création ou
+    modification pour la fiche et la liste), élément visible par la personne (droit natif et
+    entité) ; nouveau droit **Décider des mises en production**, attribuable dans l'onglet
+    GRC Manager des profils (Super-Admin à l'installation). Les mises en production demandent le
+    droit de voir tous les changements. Les onglets vérifient eux-mêmes leurs droits.
+  - Tables créées par l'installateur (rejouable) et supprimées à la désinstallation ; la fiche et
+    la liste disparaissent avec l'application ou le changement supprimé définitivement.
+### Fixed
+
+- **Désinstallation : journaux de la fiche de conformité des collaborateurs** (issue #808). L'historique
+  des fiches de conformité sécurité (#546) restait dans `glpi_logs` après la désinstallation, comme
+  celui des fiches réflexes et des actions de la revue de direction : ces classes (et deux cibles de
+  notification) manquaient à la liste des types nettoyés. Le jeu de données de la CI crée désormais une fiche de conformité, et un test
+  d'intégration vérifie que toute classe historisée du plugin figure dans cette liste.
 
 ## [2.67.0] - 2026-11-20
 

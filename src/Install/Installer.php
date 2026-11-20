@@ -30,6 +30,7 @@ use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
 use GlpiPlugin\Grcmanager\NotificationTargetEvidence;
 use GlpiPlugin\Grcmanager\NotificationTargetTraining;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
+use GlpiPlugin\Grcmanager\ReleaseValidation;
 use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog;
@@ -385,6 +386,17 @@ final class Installer
         ...CrisisScenarioTables::CLASSES,
         // Issue #604 : simulations d'hameçonnage (campagnes, résultats par personne).
         ...PhishingTables::CLASSES,
+        // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
+        ...SecureDevelopmentTables::CLASSES,
+        // Issue #808 : classes historisées oubliées, dont les journaux restaient après la
+        // désinstallation (fiche de conformité des collaborateurs #546, fiches réflexes, actions
+        // de la revue de direction), et deux cibles de notification absentes de la liste.
+        \GlpiPlugin\Grcmanager\PersonnelCompliance::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetPersonnelCompliance::class,
+        \GlpiPlugin\Grcmanager\Playbook::class,
+        \GlpiPlugin\Grcmanager\ManagementReviewAction::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetAuditEvidenceRequest::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetPolicyVersion::class,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
@@ -1513,6 +1525,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
         // Issue #604 : campagnes de simulation d'hameçonnage et résultats importés (7.3, A.6.3).
         PhishingTables::install($keySign, $charset, $collation);
+        // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
+        SecureDevelopmentTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -3882,7 +3896,8 @@ final class Installer
             ProfileRight::updateProfileRights(
                 (int) $profileRow['id'],
                 [
-                    self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE,
+                    // Issue #777 : décision de mise en production (DSI ou RSSI), droit dédié.
+                    self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE | ReleaseValidation::DECIDE,
                     self::SENSITIVE_RIGHT => ALLSTANDARDRIGHT,
                     // Issue #732 : validation des bilans d'exercice de crise, droit dédié.
                     self::CONTINUITY_RIGHT => ALLSTANDARDRIGHT | CrisisExerciseReview::VALIDATE,
@@ -6253,6 +6268,7 @@ final class Installer
         CrisisCommunicationTables::uninstall($migration);
         CrisisScenarioTables::uninstall($migration);
         PhishingTables::uninstall($migration);
+        SecureDevelopmentTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

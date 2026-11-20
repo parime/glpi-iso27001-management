@@ -218,6 +218,11 @@ function plugin_init_grcmanager(): void
         'addtabon' => \GlpiPlugin\Grcmanager\AssetClassification::getItemtypes(),
     ]);
 
+    // Issue #777 : onglet « Développement sécurisé » des applications, et « Validation sécurité de
+    // mise en production » des changements liés à une application.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ApplicationSecurity::class, ['addtabon' => [Appliance::class]]);
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ReleaseValidation::class, ['addtabon' => [Change::class]]);
+
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
     // quelque chose pour une durée limitée (mesures, risques fournisseurs, audits, politiques).
     // Issue #170 : onglet « Dérogations » sur les actifs, les mesures et les politiques.
@@ -385,6 +390,8 @@ function plugin_init_grcmanager(): void
         // Issue #540 : un contrat supprimé définitivement quitte le registre DORA (les fournisseurs
         // passent par les rappels ci-dessous, qui oublient aussi leurs champs DORA).
         'Contract'                              => 'plugin_grcmanager_forget_dora_item',
+        // Issue #777 : un changement supprimé définitivement emporte sa validation de mise en production.
+        'Change'                                => 'plugin_grcmanager_forget_release_validation',
     ];
     foreach (\GlpiPlugin\Grcmanager\Services\Incident\AuditedItems::ITEMTYPES as $auditedItemtype) {
         $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'][$auditedItemtype] ??= 'plugin_grcmanager_audit_purge';
