@@ -1,0 +1,81 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #607 : fiche d'un test d'efficacité pour l'auditeur, avec son échantillon élément par élément. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Test', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Control', 'grcmanager') }}</td><td>{{ code }} - {{ control_title }}</td></tr>
+  <tr><td>{{ __('Test date', 'grcmanager') }}</td><td>{{ test.test_date|formatted_date }}</td></tr>
+  <tr><td>{{ __('Method', 'grcmanager') }}</td><td>{{ method }}</td></tr>
+  <tr><td>{{ __('Result', 'grcmanager') }}</td><td><strong>{{ result }}</strong></td></tr>
+  <tr><td>{{ __('Tester', 'grcmanager') }}</td><td>{{ tester }}</td></tr>
+  {% if recorder and recorder != tester %}<tr><td>{{ __('Recorded by', 'grcmanager') }}</td><td>{{ recorder }}</td></tr>{% endif %}
+  {% if document %}<tr><td>{{ __('Evidence', 'grcmanager') }}</td><td>{{ document }}</td></tr>{% endif %}
+  {% if test.next_test_date %}<tr><td>{{ __('Next test', 'grcmanager') }}</td><td>{{ test.next_test_date|formatted_date }}</td></tr>{% endif %}
+</table>
+
+<h2>{{ __('Finding', 'grcmanager') }}</h2>
+<p>{{ test.comment|nl2br }}</p>
+
+{% if review %}
+  <h2>{{ __('Review', 'grcmanager') }}</h2>
+  <table class="grcmanager-pdf-summary">
+    <tr><td>{{ __('Status') }}</td><td>{{ review }}</td></tr>
+    {% if reviewer %}<tr><td>{{ __('Reviewer', 'grcmanager') }}</td><td>{{ reviewer }}{% if test.review_date %}, {{ test.review_date|formatted_datetime }}{% endif %}</td></tr>{% endif %}
+    {% if test.review_comment %}<tr><td>{{ __('Comment', 'grcmanager') }}</td><td>{{ test.review_comment|nl2br }}</td></tr>{% endif %}
+  </table>
+{% endif %}
+
+{% if sample_view %}
+  {% set sample = sample_view.sample %}
+  <h2>{{ __('Sample', 'grcmanager') }}</h2>
+  <table class="grcmanager-pdf-summary">
+    <tr><td>{{ __('Question checked on each item', 'grcmanager') }}</td><td>{{ sample.name }}</td></tr>
+    {% for line in sample_view.criteria %}<tr><td>{{ line[0] }}</td><td>{{ line[1] }}</td></tr>{% endfor %}
+    <tr><td>{{ __('Items in the population', 'grcmanager') }}</td><td>{{ sample.population_count }}</td></tr>
+    <tr><td>{{ __('Sample size', 'grcmanager') }}</td><td>{{ sample.sample_size }}{% if sample_view.frequency %} ({{ sample_view.frequency }}){% endif %}</td></tr>
+    <tr><td>{{ __('Draw date', 'grcmanager') }}</td><td>{{ sample.date_draw|formatted_datetime }}</td></tr>
+    <tr><td>{{ __('Drawn by', 'grcmanager') }}</td><td>{{ sample_view.author }}</td></tr>
+    <tr><td>{{ __('Method', 'grcmanager') }}</td><td>{{ sample.draw_method }}</td></tr>
+    <tr><td>{{ __('Seed', 'grcmanager') }}</td><td style="font-family: monospace;">{{ sample.seed }}</td></tr>
+    {% set proposed = sample.proposed_result %}
+    <tr><td>{{ __('Proposed result', 'grcmanager') }}</td><td>{{ sample_view.results[proposed].label|default(proposed) }}</td></tr>
+    {% if sample.result_justification %}<tr><td>{{ __('Justification of a different result', 'grcmanager') }}</td><td>{{ sample.result_justification|nl2br }}</td></tr>{% endif %}
+  </table>
+  <p style="font-size: 8px; color: #6c757d;">{{ __('Each item of the population is ranked by the SHA-256 fingerprint of "seed:identifier"; the first items of this ranking form the sample. The same population and the same seed always give the same sample.', 'grcmanager') }}</p>
+
+  <table class="grcmanager-pdf-table">
+    <thead><tr>
+      <th>#</th><th>{{ __('Item', 'grcmanager') }}</th><th>{{ _n('Entity', 'Entities', 1) }}</th><th>{{ __('Result', 'grcmanager') }}</th><th>{{ __('Comment', 'grcmanager') }}</th>
+    </tr></thead>
+    <tbody>
+      {% for item in sample_view.items %}
+        <tr>
+          <td>{{ item.rank }}</td>
+          <td>{{ item.label }} (#{{ item.items_id }})</td>
+          <td>{{ item.entity_name }}</td>
+          <td>{{ sample_view.item_results[item.result][0]|default(item.result) }}</td>
+          <td>{{ item.comment|nl2br }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p>
+    {{ sample_view.item_results['compliant'][0] }} : {{ sample_view.tally.compliant }} -
+    {{ sample_view.item_results['noncompliant'][0] }} : {{ sample_view.tally.noncompliant }} -
+    {{ sample_view.item_results['na'][0] }} : {{ sample_view.tally.na }}
+  </p>
+{% endif %}
