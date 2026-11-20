@@ -42,7 +42,7 @@
           <input type="number" class="form-control" id="grc-endoflife-days" name="endoflife_warning_days" min="{{ eol.min_days }}" max="{{ eol.max_days }}" step="1" value="{{ eol.warning_days }}" {{ can_edit_config ? '' : 'disabled' }}>
           <span class="input-group-text">{{ __('days', 'grcmanager') }}</span>
         </div>
-        <div class="form-hint">{{ __('Below this number of days, a version is shown as "End of support soon".', 'grcmanager') }}</div>
+        <div class="form-hint">{{ __('Below this number of days, a version is shown as "End of support soon".', 'grcmanager') }} {{ __('The same threshold shows a hardware warranty as "Warranty ends soon", even when endoflife.date is not enabled.', 'grcmanager') }}</div>
       </div>
       <ul class="list-unstyled small mb-2">
         <li><i class="ti ti-refresh me-1"></i>{{ __('Last successful reading', 'grcmanager') }} : {{ eol.last_success ?: __('none yet', 'grcmanager') }}

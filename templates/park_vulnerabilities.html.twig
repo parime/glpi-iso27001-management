@@ -432,4 +432,8 @@
    {% endif %}
    {# Issue #704 : fin de support (endoflife.date). #}
    {% include '@grcmanager/park_endoflife.html.twig' %}
+   {# Issue #782 : fin de garantie du matériel (informations financières de GLPI). #}
+   {% if hardware_warranty is defined and hardware_warranty is not null %}
+      {% include '@grcmanager/park_hardware_warranty.html.twig' %}
+   {% endif %}
 </div>
