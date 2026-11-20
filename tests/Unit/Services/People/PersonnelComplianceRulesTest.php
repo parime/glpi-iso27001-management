@@ -69,6 +69,15 @@ final class PersonnelComplianceRulesTest extends TestCase
         self::assertSame(Rules::LATE, $late[Rules::NDA]['status']);
     }
 
+    public function testUnknownArrivalMeansTheDelayHasPassed(): void
+    {
+        $components = self::byKey([]);
+
+        self::assertSame(Rules::LATE, $components[Rules::SCREENING]['status']);
+        self::assertNull($components[Rules::SCREENING]['deadline']);
+        self::assertSame(Rules::LATE, $components[Rules::ACCESS_REVIEW]['status']);
+    }
+
     public function testScreeningNotApplicableIsNotCounted(): void
     {
         $facts = ['screening' => ['status' => Rules::SCREENING_NOT_APPLICABLE]] + self::compliant();

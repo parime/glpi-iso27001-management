@@ -248,7 +248,8 @@ final class PersonnelComplianceRules
     }
 
     /**
-     * À faire tant que la date limite n'est pas passée, en retard ensuite.
+     * À faire tant que la date limite n'est pas passée, en retard ensuite. Sans date de départ
+     * connue (compte sans date de début ni de création), le délai est réputé écoulé.
      *
      * @param array<string, mixed> $params
      * @return array{status: string, code: string, params: array<string, mixed>, deadline: ?string}
@@ -256,7 +257,7 @@ final class PersonnelComplianceRules
     private static function due(string $code, ?string $deadline, string $today, array $params = []): array
     {
         return [
-            'status'   => $deadline !== null && $today > $deadline ? self::LATE : self::PENDING,
+            'status'   => $deadline === null || $today > $deadline ? self::LATE : self::PENDING,
             'code'     => $code,
             'params'   => $params,
             'deadline' => $deadline,
