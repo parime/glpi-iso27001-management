@@ -22535,18 +22535,8 @@ msgid "Independence of the auditors"
 msgstr "Indépendance des auditeurs"
 
 #, php-format
-msgid ""
-"An auditor must not audit their own work (ISO 19011). An auditor who "
-"performs or approves an audited process in the responsibility matrix, "
-"directly or through a group, is in conflict. The audit cannot be started or "
-"closed until each conflict is justified; the justification is kept with its "
-"author and date."
-msgstr ""
-"Un auditeur ne doit pas auditer son propre travail (ISO 19011). Un auditeur "
-"qui réalise ou approuve un processus audité dans la matrice des "
-"responsabilités, directement ou par un groupe, est en conflit. L'audit ne "
-"peut être démarré ni terminé tant que chaque conflit n'est pas justifié ; la "
-"justification est conservée avec son auteur et sa date."
+msgid "An auditor must not audit their own work (ISO 19011). An auditor who performs or approves an audited process in the responsibility matrix, directly or through a group, is in conflict. A process whose Annex A controls (responsibility matrix) are audited in the checklist or linked to the audit is checked too. The audit cannot be started or closed until each conflict is justified; the justification is kept with its author and date."
+msgstr "Un auditeur ne doit pas auditer son propre travail (ISO 19011). Un auditeur qui réalise ou approuve un processus audité dans la matrice des responsabilités, directement ou par un groupe, est en conflit. L'audit ne peut être démarré ni terminé tant que chaque conflit n'est pas justifié ; la justification est conservée avec son auteur et sa date. Un processus dont les mesures de l'Annexe A (matrice des responsabilités) sont auditées dans la grille ou liées à l'audit est aussi contrôlé."
 
 #, php-format
 msgid "Auditors"
@@ -26560,106 +26550,118 @@ msgid_plural "Recorded contacts"
 msgstr[0] "Prise de contact tracée"
 msgstr[1] "Prises de contact tracées"
 
-msgid "Periodic review recorded"
-msgstr "Revue périodique enregistrée"
+#, php-format
+msgid ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+msgstr ""
+"« %1$s » est conseillée après « %2$s », qui s'appuie dessus : vérifiez les "
+"délais conseillés."
 
-msgid "Expected operating domains without an approved procedure"
-msgstr "Domaines d'exploitation attendus sans procédure approuvée"
+#, php-format
+msgid ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+msgstr ""
+"Une étape non faite risque d'être en retard quand son échéance conseillée "
+"tombe dans les %d jours."
+
+msgid "Alert (days)"
+msgstr "Alerte (jours)"
 
 msgid ""
-"Open the register of operating procedures, add the missing procedure (or a "
-"knowledge base article linked to it) and have it approved, or remove the "
-"domain from the expected list."
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
 msgstr ""
-"Ouvrez le registre des procédures d'exploitation, ajoutez la procédure "
-"manquante (ou un article de la base de connaissances qui lui est lié) et "
-"faites-la approuver, ou retirez le domaine de la liste attendue."
+"Couverture visée : part des exigences et des mesures que le programme "
+"d'audit doit avoir couvertes sur les trois dernières années pour que l'étape "
+"de l'audit interne soit faite. Formation visée : part des participants qui "
+"doivent avoir suivi leur formation. Alerte : nombre de jours avant une "
+"échéance conseillée à partir duquel l'étape est à risque et le responsable "
+"est prévenu."
 
-msgid "No operating procedure for this domain"
-msgstr "Aucune procédure d'exploitation pour ce domaine"
-
-msgid "Procedure not approved yet"
-msgstr "Procédure pas encore approuvée"
-
-msgid "A review can only be recorded on an approved operating procedure."
-msgstr ""
-"Une revue ne s'enregistre que sur une procédure d'exploitation approuvée."
-
-#, php-format
-msgid "Review recorded. Next review: %s."
-msgstr "Revue enregistrée. Prochaine revue : %s."
-
-#, php-format
-msgid "%d without content"
-msgstr "%d sans contenu"
-
-msgid "Approval and review"
-msgstr "Approbation et revue"
-
-#, php-format
-msgid "Approved: %s"
-msgstr "Approuvée : %s"
+msgid "Advised deadlines per step"
+msgstr "Délais conseillés par étape"
 
 msgid ""
-"Link a knowledge base article from the Knowledge base tab of the procedure, "
-"or attach the document from its Documents tab."
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
 msgstr ""
-"Liez un article de la base de connaissances depuis l'onglet Base de "
-"connaissances de la procédure, ou joignez le document depuis son onglet "
-"Documents."
+"Nombre de jours avant la date cible auquel chaque étape devrait être faite. "
+"Gardez l'ordre logique : l'audit interne avant la revue de direction qui "
+"exploite ses résultats, puis le traitement des non-conformités. Un "
+"changement déplace seulement les échéances conseillées : rien d'autre n'est "
+"modifié."
 
-msgid "No content"
-msgstr "Sans contenu"
+msgid "Default"
+msgstr "Par défaut"
 
-msgid "No review recorded"
-msgstr "Aucune revue enregistrée"
+msgid "Days before the target date"
+msgstr "Jours avant la date cible"
+
+msgid "Adjusted"
+msgstr "Ajusté"
+
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+"%1$d logiciels commerciaux surveillés installés (par entité) sur %2$d ont "
+"une licence valable."
+
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr "%d licence(s) arrivant à échéance"
 
 msgid ""
-"Procedures with neither a knowledge base article nor an attached document: "
-"the auditor cannot read them."
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
 msgstr ""
-"Procédures sans article de la base de connaissances ni document joint : "
-"l'auditeur ne peut pas les lire."
+"Une licence utilisée expire dans l'horizon d'alerte et aucun renouvellement "
+"n'est encore enregistré dans GLPI. C'est un rappel, pas un écart."
 
 #, php-format
-msgid "Reviewed on %1$s by %2$s"
-msgstr "Revue le %1$s par %2$s"
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr "Expire le %1$s : %2$d actif(s) affecté(s), %3$d installation(s) %4$s."
+
+msgid "License coverage"
+msgstr "Couverture des licences"
 
 #, php-format
-msgid "Knowledge base article: %s"
-msgstr "Article de la base de connaissances : %s"
+msgid "License coverage: %d%%"
+msgstr "Couverture des licences : %d %%"
 
-msgid "Procedures without content"
-msgstr "Procédures sans contenu"
+msgid "License expiring soon"
+msgstr "Licence arrivant à échéance"
+
+msgid "No warning before a license expires."
+msgstr "Aucune alerte avant l'échéance d'une licence."
+
+msgid "Over-quota allowed"
+msgstr "Dépassement autorisé"
+
+msgid "Over-quota allowed by the license"
+msgstr "Dépassement autorisé par la licence"
 
 msgid ""
-"A review can be recorded once the procedure is approved. Changes to the "
-"procedure go through a new version."
+"The license allows going over the number of seats: settle it with the "
+"publisher."
 msgstr ""
-"Une revue s'enregistre une fois la procédure approuvée. Les modifications de "
-"la procédure passent par une nouvelle version."
+"La licence autorise le dépassement du nombre de postes : à régulariser "
+"auprès de l'éditeur."
 
-msgid ""
-"Records today as the review date of the procedure, with your name, without a "
-"new version. The next review is the date set above if you moved it later, "
-"one year later otherwise. Your other changes on this form are saved too."
-msgstr ""
-"Enregistre aujourd'hui comme date de revue de la procédure, avec votre nom, "
-"sans nouvelle version. La prochaine revue est la date saisie ci-dessus si "
-"vous l'avez repoussée, un an plus tard sinon. Vos autres modifications de "
-"cette fiche sont aussi enregistrées."
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr "Alerter avant l'échéance d'une licence (jours, 0 pour désactiver)"
 
 #, php-format
-msgid "%d article you cannot read"
-msgid_plural "%d articles you cannot read"
-msgstr[0] "%d article que vous ne pouvez pas lire"
-msgstr[1] "%d articles que vous ne pouvez pas lire"
-
-#, php-format
-msgid "%d document"
-msgid_plural "%d documents"
-msgstr[0] "%d document"
-msgstr[1] "%d documents"
+msgid "Warning %d days before a license expires."
+msgstr "Alerte %d jours avant l'échéance d'une licence."
 
 msgid "Audit objectives"
 msgstr "Objectifs de l'audit"
@@ -26775,61 +26777,124 @@ msgstr ""
 msgid "Qualifying trainings"
 msgstr "Formations qualifiantes"
 
-#, php-format
-msgid ""
-"%1$d of %2$d watched commercial software installed (per entity) have a valid "
-"license."
-msgstr ""
-"%1$d logiciels commerciaux surveillés installés (par entité) sur %2$d ont "
-"une licence valable."
+msgid "Periodic review recorded"
+msgstr "Revue périodique enregistrée"
 
-#, php-format
-msgid "%d license(s) expiring soon"
-msgstr "%d licence(s) arrivant à échéance"
+msgid "Expected operating domains without an approved procedure"
+msgstr "Domaines d'exploitation attendus sans procédure approuvée"
 
 msgid ""
-"A license in use expires within the alert horizon and no renewal is recorded "
-"in GLPI yet. This is a reminder, not a gap."
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
 msgstr ""
-"Une licence utilisée expire dans l'horizon d'alerte et aucun renouvellement "
-"n'est encore enregistré dans GLPI. C'est un rappel, pas un écart."
+"Ouvrez le registre des procédures d'exploitation, ajoutez la procédure "
+"manquante (ou un article de la base de connaissances qui lui est lié) et "
+"faites-la approuver, ou retirez le domaine de la liste attendue."
+
+msgid "No operating procedure for this domain"
+msgstr "Aucune procédure d'exploitation pour ce domaine"
+
+msgid "Procedure not approved yet"
+msgstr "Procédure pas encore approuvée"
+
+msgid "A review can only be recorded on an approved operating procedure."
+msgstr ""
+"Une revue ne s'enregistre que sur une procédure d'exploitation approuvée."
 
 #, php-format
-msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
-msgstr "Expire le %1$s : %2$d actif(s) affecté(s), %3$d installation(s) %4$s."
-
-msgid "License coverage"
-msgstr "Couverture des licences"
+msgid "Review recorded. Next review: %s."
+msgstr "Revue enregistrée. Prochaine revue : %s."
 
 #, php-format
-msgid "License coverage: %d%%"
-msgstr "Couverture des licences : %d %%"
+msgid "%d without content"
+msgstr "%d sans contenu"
 
-msgid "License expiring soon"
-msgstr "Licence arrivant à échéance"
+msgid "Approval and review"
+msgstr "Approbation et revue"
 
-msgid "No warning before a license expires."
-msgstr "Aucune alerte avant l'échéance d'une licence."
-
-msgid "Over-quota allowed"
-msgstr "Dépassement autorisé"
-
-msgid "Over-quota allowed by the license"
-msgstr "Dépassement autorisé par la licence"
+#, php-format
+msgid "Approved: %s"
+msgstr "Approuvée : %s"
 
 msgid ""
-"The license allows going over the number of seats: settle it with the "
-"publisher."
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
 msgstr ""
-"La licence autorise le dépassement du nombre de postes : à régulariser "
-"auprès de l'éditeur."
+"Liez un article de la base de connaissances depuis l'onglet Base de "
+"connaissances de la procédure, ou joignez le document depuis son onglet "
+"Documents."
 
-msgid "Warn before a license expires (days, 0 to turn off)"
-msgstr "Alerter avant l'échéance d'une licence (jours, 0 pour désactiver)"
+msgid "No content"
+msgstr "Sans contenu"
+
+msgid "No review recorded"
+msgstr "Aucune revue enregistrée"
+
+msgid ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
+msgstr ""
+"Procédures sans article de la base de connaissances ni document joint : "
+"l'auditeur ne peut pas les lire."
 
 #, php-format
-msgid "Warning %d days before a license expires."
-msgstr "Alerte %d jours avant l'échéance d'une licence."
+msgid "Reviewed on %1$s by %2$s"
+msgstr "Revue le %1$s par %2$s"
+
+#, php-format
+msgid "Knowledge base article: %s"
+msgstr "Article de la base de connaissances : %s"
+
+msgid "Procedures without content"
+msgstr "Procédures sans contenu"
+
+msgid ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+msgstr ""
+"Une revue s'enregistre une fois la procédure approuvée. Les modifications de "
+"la procédure passent par une nouvelle version."
+
+msgid ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+msgstr ""
+"Enregistre aujourd'hui comme date de revue de la procédure, avec votre nom, "
+"sans nouvelle version. La prochaine revue est la date saisie ci-dessus si "
+"vous l'avez repoussée, un an plus tard sinon. Vos autres modifications de "
+"cette fiche sont aussi enregistrées."
+
+#, php-format
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] "%d article que vous ne pouvez pas lire"
+msgstr[1] "%d articles que vous ne pouvez pas lire"
+
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] "%d document"
+msgstr[1] "%d documents"
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr "Un audit ne peut être planifié que pour l'année en cours ou une année suivante."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr "Audit planifié : complétez ses objectifs, son périmètre, ses critères et ses auditeurs."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Audit interne - %1$s - %2$d"
+
+msgid "\"Plan\" creates an internal audit for the process and the year, in the entity of the process. Then complete its objectives, scope, criteria and auditors on the audit."
+msgstr "« Planifier » crée un audit interne pour le processus et l'année, dans l'entité du processus. Complétez ensuite ses objectifs, son périmètre, ses critères et ses auditeurs sur la fiche de l'audit."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Planifier un audit interne du processus « %1$s » en %2$d"
+
+msgid "Through the audited controls %s"
+msgstr "Par les mesures auditées %s"
 
 msgid "Certification body report received on"
 msgstr "Rapport de l'organisme reçu le"

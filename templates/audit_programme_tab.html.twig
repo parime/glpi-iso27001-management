@@ -109,7 +109,7 @@
       <h3 class="card-title"><i class="ti ti-scale me-2"></i>{{ __('Independence of the auditors', 'grcmanager') }}</h3>
    </div>
    <div class="card-body">
-      <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('An auditor must not audit their own work (ISO 19011). An auditor who performs or approves an audited process in the responsibility matrix, directly or through a group, is in conflict. The audit cannot be started or closed until each conflict is justified; the justification is kept with its author and date.', 'grcmanager') }}</p>
+      <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('An auditor must not audit their own work (ISO 19011). An auditor who performs or approves an audited process in the responsibility matrix, directly or through a group, is in conflict. A process whose Annex A controls (responsibility matrix) are audited in the checklist or linked to the audit is checked too. The audit cannot be started or closed until each conflict is justified; the justification is kept with its author and date.', 'grcmanager') }}</p>
       <p class="small mb-2"><strong>{{ __('Auditors', 'grcmanager') }} :</strong>
          {{ auditors is empty ? __('none: set the auditor on the form or add auditors in the Team tab.', 'grcmanager') : auditors|join(', ') }}</p>
       {% if conflicts is empty %}
@@ -127,7 +127,8 @@
             {% for c in conflicts %}
                <tr class="{{ c.waiver ? 'grc-conflict-justified' : 'grc-conflict-open' }}">
                   <td>{{ c.user }}</td>
-                  <td>{{ c.process }}</td>
+                  <td>{{ c.process }}{% if c.measures is not empty %}
+                     <div class="small"><span class="badge bg-info-subtle text-info-emphasis grc-conflict-measures"><i class="ti ti-shield-check me-1"></i>{{ __('Through the audited controls %s', 'grcmanager')|format(c.measures|join(', ')) }}</span></div>{% endif %}</td>
                   <td>{{ c.role_label }}{% if c.group %} <span class="text-muted small">({{ __('through the group %s', 'grcmanager')|format(c.group) }})</span>{% endif %}</td>
                   <td>
                      {% if c.waiver %}

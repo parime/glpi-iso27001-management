@@ -32,6 +32,39 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     `correction`, `body_response_date`, `body_decision`, `body_feedback`, `body_evidence_date` des
     non-conformités (migration rejouable, supprimées avec les tables à la désinstallation).
 
+## [2.71.0] - 2026-11-20
+
+### Added
+
+- **Audit interne selon l'ISO 19011 : indépendance par les mesures auditées et planification depuis
+  le programme** (issue #773, lot 3, ISO 27001 9.2) :
+  - le contrôle d'indépendance porte aussi sur les processus dont la matrice des responsabilités
+    porte une mesure de l'Annexe A auditée (ligne « mesure » de la grille de l'audit ou mesure liée
+    à la fiche), même s'ils ne sont pas choisis dans l'onglet. Le conflit indique les mesures
+    concernées, dans l'onglet « Programme et indépendance » et dans le rapport PDF, et bloque le
+    démarrage et la clôture jusqu'à sa justification, comme les autres ;
+  - page du programme pluriannuel : bouton **Planifier** dans chaque case sans audit à venir (année
+    en cours ou suivante). Il crée un audit interne « Prévu » pour ce processus et cette année, dans
+    l'entité du processus (droit de créer un audit exigé), et ouvre sa fiche ;
+  - aucune nouvelle table ni colonne ; aucun statut ni droit n'est modifié automatiquement. Ce lot
+    termine l'issue #773.
+
+- **Préparation à la certification : délais réglables** (issue #761, lot 2). Les réglages de l'écran
+  « Préparation à la certification » gagnent :
+  - le **délai d'alerte** (« Alerte (jours) », 14 par défaut, de 1 à 90) : une étape non faite dont
+    l'échéance conseillée tombe dans ce délai est « à risque », sur l'écran, dans le PDF, dans le
+    calendrier de conformité et dans la notification au responsable ;
+  - les **délais conseillés par étape** (bouton « Délais conseillés par étape ») : nombre de jours
+    avant la date cible pour chacune des 14 étapes (de 0 à 365, valeurs par défaut rappelées, badge
+    « Ajusté » sur celles modifiées), par exemple pour caler l'audit interne et la revue de
+    direction avant un audit de certification proche ;
+  - un avertissement quand un délai contredit l'ordre logique (revue de direction conseillée avant
+    l'audit interne dont elle exploite les résultats, traitement du risque avant son appréciation...).
+    Rien n'est corrigé automatiquement.
+  - Droits inchangés (réglages : droit de modifier le plugin, jeton CSRF) ; valeurs nettoyées et
+    bornées à l'enregistrement ; réglages stockés dans le contexte `plugin:grcmanager`, retiré à la
+    désinstallation. Traductions (7 langues et variantes), tests unitaires et d'intégration.
+
 ## [2.70.0] - 2026-11-20
 
 ## [2.69.0] - 2026-11-20
