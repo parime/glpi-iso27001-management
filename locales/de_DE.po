@@ -26774,3 +26774,335 @@ msgid "Recorded contact"
 msgid_plural "Recorded contacts"
 msgstr[0] "Erfasster Kontakt"
 msgstr[1] "Erfasste Kontakte"
+
+#, php-format
+msgid ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+msgstr ""
+"„%1$s“ wird nach „%2$s“ empfohlen, obwohl dieser Schritt darauf aufbaut: "
+"Prüfen Sie die empfohlenen Fristen."
+
+#, php-format
+msgid ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+msgstr ""
+"Ein nicht erledigter Schritt droht sich zu verspäten, wenn seine empfohlene "
+"Frist in weniger als %d Tagen liegt."
+
+msgid "Alert (days)"
+msgstr "Warnung (Tage)"
+
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
+msgstr ""
+"Abdeckungsziel: Anteil der Anforderungen und Maßnahmen, die das "
+"Auditprogramm in den letzten drei Jahren abgedeckt haben muss, damit der "
+"Schritt des internen Audits erledigt ist. Schulungsziel: Anteil der "
+"Teilnehmenden, die ihre Schulung abgeschlossen haben müssen. Warnung: Anzahl "
+"der Tage vor einer empfohlenen Frist, ab der der Schritt gefährdet ist und "
+"der Verantwortliche benachrichtigt wird."
+
+msgid "Advised deadlines per step"
+msgstr "Empfohlene Fristen je Schritt"
+
+msgid ""
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
+msgstr ""
+"Anzahl der Tage vor dem Zieldatum, bis zu denen jeder Schritt erledigt sein "
+"sollte. Halten Sie die logische Reihenfolge ein: das interne Audit vor der "
+"Managementbewertung, die seine Ergebnisse nutzt, dann die Behandlung der "
+"Nichtkonformitäten. Eine Änderung verschiebt nur die empfohlenen Fristen: "
+"Sonst wird nichts geändert."
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "Days before the target date"
+msgstr "Tage vor dem Zieldatum"
+
+msgid "Adjusted"
+msgstr "Angepasst"
+
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+"%1$d von %2$d installierten überwachten kommerziellen Programmen (je "
+"Einheit) haben eine gültige Lizenz."
+
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr "%d bald ablaufende Lizenz(en)"
+
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+"Eine genutzte Lizenz läuft innerhalb des Warnzeitraums ab und in GLPI ist "
+"noch keine Verlängerung erfasst. Dies ist eine Erinnerung, keine Abweichung."
+
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr ""
+"Läuft ab am %1$s: %2$d Gerät(e) zugeordnet, %3$d Installation(en) %4$s."
+
+msgid "License coverage"
+msgstr "Lizenzabdeckung"
+
+#, php-format
+msgid "License coverage: %d%%"
+msgstr "Lizenzabdeckung: %d %%"
+
+msgid "License expiring soon"
+msgstr "Bald ablaufende Lizenz"
+
+msgid "No warning before a license expires."
+msgstr "Keine Warnung vor dem Ablauf einer Lizenz."
+
+msgid "Over-quota allowed"
+msgstr "Überschreitung erlaubt"
+
+msgid "Over-quota allowed by the license"
+msgstr "Überschreitung durch die Lizenz erlaubt"
+
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+"Die Lizenz erlaubt eine Überschreitung der Anzahl der Plätze: mit dem "
+"Hersteller klären."
+
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr "Vor dem Ablauf einer Lizenz warnen (Tage, 0 zum Deaktivieren)"
+
+#, php-format
+msgid "Warning %d days before a license expires."
+msgstr "Warnung %d Tage vor dem Ablauf einer Lizenz."
+
+msgid "Audit objectives"
+msgstr "Auditziele"
+
+msgid "Audit criteria"
+msgstr "Auditkriterien"
+
+msgid "Audit objectives defined"
+msgstr "Auditziele festgelegt"
+
+msgid "Objectives"
+msgstr "Ziele"
+
+msgid "Audit scope defined"
+msgstr "Auditumfang festgelegt"
+
+msgid "Audit criteria defined"
+msgstr "Auditkriterien festgelegt"
+
+msgid "Criteria"
+msgstr "Kriterien"
+
+msgid "Audited processes chosen"
+msgstr "Auditierte Prozesse ausgewählt"
+
+msgid "Processes"
+msgstr "Prozesse"
+
+msgid "Auditors appointed"
+msgstr "Auditoren benannt"
+
+msgid "Auditors qualified"
+msgstr "Auditoren qualifiziert"
+
+msgid "Independence"
+msgstr "Unabhängigkeit"
+
+msgid "Auditors independent of the audited processes, or conflict justified"
+msgstr ""
+"Auditoren unabhängig von den auditierten Prozessen oder Konflikt begründet"
+
+msgid "To watch"
+msgstr "Zu beobachten"
+
+msgid "Later"
+msgstr "Später"
+
+msgid "No qualifying training chosen"
+msgstr "Keine qualifizierende Schulung ausgewählt"
+
+msgid ""
+"The references against which the evidence is compared: requirements of the "
+"standard (clause numbers), ISMS policies, procedures, contracts or laws."
+msgstr ""
+"Die Bezugsgrundlagen, mit denen die Nachweise verglichen werden: "
+"Anforderungen der Norm (Abschnittsnummern), ISMS-Richtlinien, Verfahren, "
+"Verträge oder Gesetze."
+
+msgid ""
+"What the audit must establish, for example: check that access rights are "
+"reviewed as planned."
+msgstr ""
+"Was das Audit feststellen soll, zum Beispiel: prüfen, ob die Zugriffsrechte "
+"wie geplant überprüft werden."
+
+#, php-format
+msgid ""
+"%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, "
+"competence or independence of the auditors, report to management): see the "
+"table below."
+msgstr ""
+"%d Audit(s) des Zyklus haben zu vervollständigende Prüfpunkte (Ziele, "
+"Kriterien, Kompetenz oder Unabhängigkeit der Auditoren, Bericht an die "
+"Leitung): siehe Tabelle unten."
+
+msgid "Checkpoints of the audits of the cycle"
+msgstr "Prüfpunkte der Audits des Zyklus"
+
+msgid ""
+"For each internal audit of the cycle: what the certification auditor will "
+"look for. Open the audit and its \"Programme and independence\" tab to "
+"complete a missing point."
+msgstr ""
+"Für jedes interne Audit des Zyklus: worauf der Zertifizierungsauditor achten "
+"wird. Öffnen Sie das Audit und seinen Reiter „Programm und Unabhängigkeit“, "
+"um einen fehlenden Punkt zu ergänzen."
+
+msgid "No internal audit dated in this cycle."
+msgstr "Kein internes Audit in diesem Zyklus datiert."
+
+#, php-format
+msgid "%d point(s) to complete"
+msgstr "%d Punkt(e) zu vervollständigen"
+
+msgid "Audit checkpoints"
+msgstr "Prüfpunkte des Audits"
+
+msgid "Ready to show the auditor"
+msgstr "Bereit zur Vorlage beim Auditor"
+
+msgid ""
+"What the certification auditor checks for each internal audit: objectives, "
+"scope and criteria defined beforehand, auditors who are competent and do not "
+"audit their own work, results reported to management. Objectives, scope and "
+"criteria are entered on the audit form; competence comes from the qualifying "
+"trainings chosen on the programme page."
+msgstr ""
+"Was der Zertifizierungsauditor bei jedem internen Audit prüft: vorab "
+"festgelegte Ziele, Umfang und Kriterien, kompetente Auditoren, die nicht "
+"ihre eigene Arbeit auditieren, an die Leitung berichtete Ergebnisse. Ziele, "
+"Umfang und Kriterien werden im Auditformular erfasst; die Kompetenz ergibt "
+"sich aus den auf der Programmseite gewählten qualifizierenden Schulungen."
+
+msgid "Qualifying trainings"
+msgstr "Qualifizierende Schulungen"
+
+msgid "Periodic review recorded"
+msgstr "Regelmäßige Überprüfung erfasst"
+
+msgid "Expected operating domains without an approved procedure"
+msgstr "Erwartete Betriebsbereiche ohne genehmigtes Verfahren"
+
+msgid ""
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
+msgstr ""
+"Öffnen Sie das Verzeichnis der Betriebsverfahren, fügen Sie das fehlende "
+"Verfahren (oder einen damit verknüpften Wissensdatenbank-Artikel) hinzu und "
+"lassen Sie es genehmigen, oder entfernen Sie den Bereich aus der erwarteten "
+"Liste."
+
+msgid "No operating procedure for this domain"
+msgstr "Kein Betriebsverfahren für diesen Bereich"
+
+msgid "Procedure not approved yet"
+msgstr "Verfahren noch nicht genehmigt"
+
+msgid "A review can only be recorded on an approved operating procedure."
+msgstr ""
+"Eine Überprüfung kann nur für ein genehmigtes Betriebsverfahren erfasst "
+"werden."
+
+#, php-format
+msgid "Review recorded. Next review: %s."
+msgstr "Überprüfung erfasst. Nächste Überprüfung: %s."
+
+#, php-format
+msgid "%d without content"
+msgstr "%d ohne Inhalt"
+
+msgid "Approval and review"
+msgstr "Genehmigung und Überprüfung"
+
+#, php-format
+msgid "Approved: %s"
+msgstr "Genehmigt: %s"
+
+msgid ""
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
+msgstr ""
+"Verknüpfen Sie einen Wissensdatenbank-Artikel über die Registerkarte "
+"Wissensdatenbank des Verfahrens oder hängen Sie das Dokument über die "
+"Registerkarte Dokumente an."
+
+msgid "No content"
+msgstr "Kein Inhalt"
+
+msgid "No review recorded"
+msgstr "Keine Überprüfung erfasst"
+
+msgid ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
+msgstr ""
+"Verfahren ohne Wissensdatenbank-Artikel und ohne angehängtes Dokument: Der "
+"Auditor kann sie nicht lesen."
+
+#, php-format
+msgid "Reviewed on %1$s by %2$s"
+msgstr "Überprüft am %1$s von %2$s"
+
+#, php-format
+msgid "Knowledge base article: %s"
+msgstr "Wissensdatenbank-Artikel: %s"
+
+msgid "Procedures without content"
+msgstr "Verfahren ohne Inhalt"
+
+msgid ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+msgstr ""
+"Eine Überprüfung kann erfasst werden, sobald das Verfahren genehmigt ist. "
+"Änderungen am Verfahren erfolgen über eine neue Version."
+
+msgid ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+msgstr ""
+"Erfasst heute als Überprüfungsdatum des Verfahrens, mit Ihrem Namen, ohne "
+"neue Version. Die nächste Überprüfung ist das oben eingetragene Datum, wenn "
+"Sie es nach hinten verschoben haben, sonst ein Jahr später. Ihre anderen "
+"Änderungen in diesem Formular werden ebenfalls gespeichert."
+
+#, php-format
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] "%d Artikel, den Sie nicht lesen können"
+msgstr[1] "%d Artikel, die Sie nicht lesen können"
+
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] "%d Dokument"
+msgstr[1] "%d Dokumente"

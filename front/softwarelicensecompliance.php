@@ -24,7 +24,8 @@ Session::checkRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, READ);
 Session::checkRight(Software::$rightname, READ);
 Session::checkRight(SoftwareLicense::$rightname, READ);
 
-// Éditeurs surveillés et logiciels ignorés : réglage du plugin (jeton CSRF vérifié par GLPI).
+// Éditeurs surveillés, logiciels ignorés et horizon d'alerte avant l'échéance des licences : réglage
+// du plugin (jeton CSRF vérifié par GLPI).
 if (isset($_POST['save_license_watch']) || isset($_POST['reset_license_watch'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
     $before = LicenseInventory::settings();
@@ -33,7 +34,10 @@ if (isset($_POST['save_license_watch']) || isset($_POST['reset_license_watch']))
     } else {
         LicenseInventory::save(
             (string) ($_POST['license_publishers'] ?? ''),
-            (string) ($_POST['license_ignored'] ?? '')
+            (string) ($_POST['license_ignored'] ?? ''),
+            isset($_POST['license_expiring_days'])
+                ? (int) $_POST['license_expiring_days']
+                : \GlpiPlugin\Grcmanager\Services\License\LicenseComplianceRules::DEFAULT_EXPIRING_DAYS
         );
     }
     if (LicenseInventory::settings() !== $before) {

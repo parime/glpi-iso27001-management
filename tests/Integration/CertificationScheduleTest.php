@@ -202,6 +202,47 @@ final class CertificationScheduleTest extends GrcmanagerIntegrationTestCase
         $this->assertContains(sprintf(__('Coverage target: %d %%', 'grcmanager'), 75), $facts);
     }
 
+    public function testLeadAndAlertDaysMoveTheDeadlinesAndTheAlert(): void
+    {
+        $owner = $this->createTestUser('Morgane', 'Fictive761');
+        (new Profile_User())->add(['users_id' => $owner, 'profiles_id' => 4, 'entities_id' => 0, 'is_recursive' => 1]);
+        CertificationReadiness::saveSettings([
+            'target_date' => $this->day(100),
+            'owner'       => $owner,
+            'alert_days'  => '500',
+            'lead_days'   => ['internal_audit' => '70', 'management_review' => '80', 'scope' => 'abc'],
+        ]);
+        $settings = CertificationReadiness::getSettings();
+        $this->assertSame(Rules::ALERT_DAYS_MAX, $settings['alert_days'], 'borné');
+        $this->assertSame(70, $settings['lead_days']['internal_audit']);
+        $this->assertSame(Rules::LEAD_DAYS['scope'], $settings['lead_days']['scope'], 'saisie invalide : défaut');
+
+        $report = CertificationReadiness::report();
+        $steps = $this->steps($report);
+        foreach ($steps as $key => $step) {
+            if ($step['deadline'] === null) {
+                continue;
+            }
+            $this->assertSame(Rules::advisedDeadline($this->day(100), $key, $settings['lead_days']), $step['deadline']);
+            // Délai d'alerte de 90 jours : toute échéance d'ici là est à risque.
+            $this->assertContains($step['deadline_state'], [Rules::DEADLINE_AT_RISK, Rules::DEADLINE_LATE], $key);
+        }
+        $this->assertCount(1, $report['plan']['lead_warnings'], 'revue de direction réglée trop tôt');
+        $rows = array_column($report['plan']['lead_rows'], null, 'key');
+        $this->assertTrue($rows['internal_audit']['changed']);
+        $this->assertFalse($rows['scope']['changed']);
+
+        // Les échéances déplacées partent dans le calendrier et dans l'alerte, sans rien modifier.
+        $alerted = ReadinessAlert::runAlerts($this->today);
+        $this->assertSame(count(CertificationReadiness::stepsToAlert($report)), $alerted);
+
+        // Délai d'alerte court : plus aucune étape à risque si les échéances sont lointaines.
+        CertificationReadiness::saveSettings(['target_date' => $this->day(400), 'alert_days' => '1']);
+        foreach (CertificationReadiness::report()['steps'] as $step) {
+            $this->assertNotSame(Rules::DEADLINE_AT_RISK, $step['deadline_state'], $step['key']);
+        }
+    }
+
     public function testSettingsNeedTheRightToModifyThePlugin(): void
     {
         $saved = $_SESSION['glpiactiveprofile'][CertificationReadiness::RIGHTNAME];

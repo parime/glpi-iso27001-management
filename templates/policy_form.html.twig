@@ -50,6 +50,31 @@
       {{ fields.dateField('approval_date', item.fields['approval_date'], __('Approval date', 'grcmanager')) }}
    {% endif %}
    {{ fields.dateField('next_review_date', item.fields['next_review_date'], __('Next review', 'grcmanager')) }}
+   {# Issue #775, lot 2 : revue périodique tracée d'une procédure d'exploitation, même sans nouvelle version. #}
+   {% if category == 'operating_procedure' and not item.isNewItem() %}
+      <div class="form-field row col-12 col-sm-6 mb-2" id="grc-procedure-review">
+         <label class="col-form-label col-xxl-5 text-xxl-end">{{ __('Last review', 'grcmanager') }}</label>
+         <div class="col-xxl-7 field-container d-flex align-items-center flex-wrap gap-2">
+            {% if item.fields['last_review_date'] %}
+               <span class="badge bg-success-subtle text-success-emphasis">
+                  <i class="ti ti-circle-check me-1"></i>{{ __('%1$s by %2$s', 'grcmanager')|format(item.fields['last_review_date']|formatted_date, last_reviewer ?: '-') }}
+               </span>
+            {% else %}
+               <span class="badge bg-warning-subtle text-warning-emphasis">
+                  <i class="ti ti-alert-triangle me-1"></i>{{ __('Never reviewed', 'grcmanager') }}
+               </span>
+            {% endif %}
+            {% if can_review %}
+               <button type="submit" name="{{ review_marker }}" value="1" class="btn btn-sm btn-outline-success"
+                  title="{{ __('Records today as the review date of the procedure, with your name, without a new version. The next review is the date set above if you moved it later, one year later otherwise. Your other changes on this form are saved too.', 'grcmanager') }}">
+                  <i class="ti ti-calendar-check me-1"></i>{{ __('Record the review', 'grcmanager') }}
+               </button>
+            {% elseif item.fields['status'] != 'approved' %}
+               {{ hints.hint(__('A review can be recorded once the procedure is approved. Changes to the procedure go through a new version.', 'grcmanager')) }}
+            {% endif %}
+         </div>
+      </div>
+   {% endif %}
    {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true, 'readonly': content_locked}) }}
    {{ fields.checkboxField('is_it_charter', item.fields['is_it_charter'] ?? 0, __('IT charter', 'grcmanager'), {
       'add_field_html': hints.hint(__('Reference version for assetsign charter campaigns: the most recent approved version is shown in them, and a new approved version calls for a new signature.', 'grcmanager')),

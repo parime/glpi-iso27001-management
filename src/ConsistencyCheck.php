@@ -401,6 +401,14 @@ class ConsistencyCheck extends CommonGLPI
                     'grcmanager'
                 ),
             ],
+            'operating_procedure_uncovered'        => [
+                'label' => __('Expected operating domains without an approved procedure', 'grcmanager'),
+                'fix'   => __(
+                    'Open the register of operating procedures, add the missing procedure (or a knowledge base '
+                        . 'article linked to it) and have it approved, or remove the domain from the expected list.',
+                    'grcmanager'
+                ),
+            ],
         ];
     }
 
@@ -593,6 +601,7 @@ class ConsistencyCheck extends CommonGLPI
             'asset_end_of_life'                    => self::endOfLifeAssets($today),
             'hardware_warranty_expired'            => self::expiredWarranties($today),
             'software_license_gap'                 => self::softwareLicenseGaps($today),
+            'operating_procedure_uncovered'        => OperatingProcedure::consistencyGaps($today),
             default                               => null,
         };
     }

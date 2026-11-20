@@ -91,6 +91,7 @@ check "fiche d'un traitement (onglet principal)" "$(tab GlpiPlugin%5CGrcmanager%
 check "front/operatingprocedure.php"          "$P/operatingprocedure.php"
 check "fiche d'une procedure d'exploitation"  "$P/policy.form.php?id=$(xid procedure)"
 check "onglet principal d'une procedure"      "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CPolicy$main' "$(xid procedure)")"
+check "onglet base de connaissances d'une procedure" "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'KnowbaseItem_Item$1' "$(xid procedure)")"
 # Issue #777 : application, fiche, changement et liste de controle pieges (page, onglets, preuve A.8.31).
 check "front/securedevelopment.php"           "$P/securedevelopment.php"
 check "onglet developpement securise d'une application" "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CApplicationSecurity$1' "$(xid appliance)")"
@@ -175,6 +176,9 @@ check "couverture du programme d'audit"      "$P/auditcoverage.php"
 check "onglet programme et independance"      "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditProgramme$1' "$(xid audit)")"
 check "onglet equipe d'un audit"              "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditTeam$1' "$(xid audit)")"
 check "programme d'audit pluriannuel"         "$P/auditprogramme.php"
+# Issue #773, lot 2 : objectifs et criteres pieges (fiche, onglet et points de controle).
+check "onglet programme d'un audit interne"   "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditProgramme$1' "$(xid audit_internal)")"
+check "fiche d'un audit interne"              "$P/audit.form.php?id=$(xid audit_internal)"
 check "onglet demandes de preuves d'un audit" "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditEvidenceRequest$1' "$(xid audit)")"
 check "mes demandes de preuves"               "$P/auditevidencerequest.mine.php"
 check "espace auditeur d'un audit"            "$P/auditorspace.php?id=$(xid audit)"

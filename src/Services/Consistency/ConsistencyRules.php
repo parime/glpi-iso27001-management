@@ -156,6 +156,10 @@ final class ConsistencyRules
         'software_license_gap'                 => [
             'area' => 'operations', 'clause' => 'A.5.32', 'severity' => self::SEVERITY_MEDIUM, 'threshold' => null,
         ],
+        // Issue #775, lot 2 : domaine d'exploitation attendu sans procédure approuvée.
+        'operating_procedure_uncovered'        => [
+            'area' => 'operations', 'clause' => 'A.5.37', 'severity' => self::SEVERITY_MEDIUM, 'threshold' => null,
+        ],
     ];
 
     /** Statuts de non-conformité close (voir Nonconformity::CLOSED_STATUSES). */

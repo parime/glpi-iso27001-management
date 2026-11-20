@@ -30188,6 +30188,273 @@ msgid_plural "Recorded contacts"
 msgstr[0] "Recorded contact"
 msgstr[1] "Recorded contacts"
 
+msgid "Periodic review recorded"
+msgstr "Periodic review recorded"
+
+msgid "Expected operating domains without an approved procedure"
+msgstr "Expected operating domains without an approved procedure"
+
+msgid ""
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
+msgstr ""
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
+
+msgid "No operating procedure for this domain"
+msgstr "No operating procedure for this domain"
+
+msgid "Procedure not approved yet"
+msgstr "Procedure not approved yet"
+
+msgid "A review can only be recorded on an approved operating procedure."
+msgstr "A review can only be recorded on an approved operating procedure."
+
+#, php-format
+msgid "Review recorded. Next review: %s."
+msgstr "Review recorded. Next review: %s."
+
+#, php-format
+msgid "%d without content"
+msgstr "%d without content"
+
+msgid "Approval and review"
+msgstr "Approval and review"
+
+#, php-format
+msgid "Approved: %s"
+msgstr "Approved: %s"
+
+msgid ""
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
+msgstr ""
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
+
+msgid "No content"
+msgstr "No content"
+
+msgid "No review recorded"
+msgstr "No review recorded"
+
+msgid ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
+msgstr ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
+
+#, php-format
+msgid "Reviewed on %1$s by %2$s"
+msgstr "Reviewed on %1$s by %2$s"
+
+#, php-format
+msgid "Knowledge base article: %s"
+msgstr "Knowledge base article: %s"
+
+msgid "Procedures without content"
+msgstr "Procedures without content"
+
+msgid ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+msgstr ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+
+msgid ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+msgstr ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+
+#, php-format
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] "%d article you cannot read"
+msgstr[1] "%d articles you cannot read"
+
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] "%d document"
+msgstr[1] "%d documents"
+
+msgid "Audit objectives"
+msgstr "Audit objectives"
+
+msgid "Audit criteria"
+msgstr "Audit criteria"
+
+msgid "Audit objectives defined"
+msgstr "Audit objectives defined"
+
+msgid "Objectives"
+msgstr "Objectives"
+
+msgid "Audit scope defined"
+msgstr "Audit scope defined"
+
+msgid "Audit criteria defined"
+msgstr "Audit criteria defined"
+
+msgid "Criteria"
+msgstr "Criteria"
+
+msgid "Audited processes chosen"
+msgstr "Audited processes chosen"
+
+msgid "Processes"
+msgstr "Processes"
+
+msgid "Auditors appointed"
+msgstr "Auditors appointed"
+
+msgid "Auditors qualified"
+msgstr "Auditors qualified"
+
+msgid "Independence"
+msgstr "Independence"
+
+msgid "Auditors independent of the audited processes, or conflict justified"
+msgstr "Auditors independent of the audited processes, or conflict justified"
+
+msgid "To watch"
+msgstr "To watch"
+
+msgid "Later"
+msgstr "Later"
+
+msgid "No qualifying training chosen"
+msgstr "No qualifying training chosen"
+
+msgid ""
+"The references against which the evidence is compared: requirements of the "
+"standard (clause numbers), ISMS policies, procedures, contracts or laws."
+msgstr ""
+"The references against which the evidence is compared: requirements of the "
+"standard (clause numbers), ISMS policies, procedures, contracts or laws."
+
+msgid ""
+"What the audit must establish, for example: check that access rights are "
+"reviewed as planned."
+msgstr ""
+"What the audit must establish, for example: check that access rights are "
+"reviewed as planned."
+
+#, php-format
+msgid ""
+"%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, "
+"competence or independence of the auditors, report to management): see the "
+"table below."
+msgstr ""
+"%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, "
+"competence or independence of the auditors, report to management): see the "
+"table below."
+
+msgid "Checkpoints of the audits of the cycle"
+msgstr "Checkpoints of the audits of the cycle"
+
+msgid ""
+"For each internal audit of the cycle: what the certification auditor will "
+"look for. Open the audit and its \"Programme and independence\" tab to "
+"complete a missing point."
+msgstr ""
+"For each internal audit of the cycle: what the certification auditor will "
+"look for. Open the audit and its \"Programme and independence\" tab to "
+"complete a missing point."
+
+msgid "No internal audit dated in this cycle."
+msgstr "No internal audit dated in this cycle."
+
+#, php-format
+msgid "%d point(s) to complete"
+msgstr "%d point(s) to complete"
+
+msgid "Audit checkpoints"
+msgstr "Audit checkpoints"
+
+msgid "Ready to show the auditor"
+msgstr "Ready to show the auditor"
+
+msgid ""
+"What the certification auditor checks for each internal audit: objectives, "
+"scope and criteria defined beforehand, auditors who are competent and do not "
+"audit their own work, results reported to management. Objectives, scope and "
+"criteria are entered on the audit form; competence comes from the qualifying "
+"trainings chosen on the programme page."
+msgstr ""
+"What the certification auditor checks for each internal audit: objectives, "
+"scope and criteria defined beforehand, auditors who are competent and do not "
+"audit their own work, results reported to management. Objectives, scope and "
+"criteria are entered on the audit form; competence comes from the qualifying "
+"trainings chosen on the programme page."
+
+msgid "Qualifying trainings"
+msgstr "Qualifying trainings"
+
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr "%d license(s) expiring soon"
+
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+
+msgid "License coverage"
+msgstr "License coverage"
+
+#, php-format
+msgid "License coverage: %d%%"
+msgstr "License coverage: %d%%"
+
+msgid "License expiring soon"
+msgstr "License expiring soon"
+
+msgid "No warning before a license expires."
+msgstr "No warning before a license expires."
+
+msgid "Over-quota allowed"
+msgstr "Over-quota allowed"
+
+msgid "Over-quota allowed by the license"
+msgstr "Over-quota allowed by the license"
+
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr "Warn before a license expires (days, 0 to turn off)"
+
+#, php-format
+msgid "Warning %d days before a license expires."
+msgstr "Warning %d days before a license expires."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -31192,3 +31459,32 @@ msgstr[1] "Recorded contacts"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+#, php-format
+msgid "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
+msgstr "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
+
+#, php-format
+msgid "A step not done is at risk of being late when its advised deadline is within %d days."
+msgstr "A step not done is at risk of being late when its advised deadline is within %d days."
+
+msgid "Alert (days)"
+msgstr "Alert (days)"
+
+msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
+msgstr "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
+
+msgid "Advised deadlines per step"
+msgstr "Advised deadlines per step"
+
+msgid "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
+msgstr "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Days before the target date"
+msgstr "Days before the target date"
+
+msgid "Adjusted"
+msgstr "Adjusted"

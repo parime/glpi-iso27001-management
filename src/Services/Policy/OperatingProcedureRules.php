@@ -150,6 +150,51 @@ final class OperatingProcedureRules
     }
 
     /**
+     * Issue #775, lot 2 : prochaine revue après une revue tracée. La date saisie sur la fiche est
+     * gardée si elle est postérieure à aujourd'hui et a été changée ; sinon, un an plus tard.
+     */
+    public static function nextReviewAfterReview(string $today, mixed $posted, mixed $current): string
+    {
+        $today = substr($today, 0, 10);
+        $posted = is_scalar($posted) ? trim((string) $posted) : '';
+        $current = is_scalar($current) ? trim((string) $current) : '';
+        if (
+            preg_match('/^\d{4}-\d{2}-\d{2}$/', $posted) === 1
+            && $posted > $today
+            && $posted !== substr($current, 0, 10)
+        ) {
+            return $posted;
+        }
+
+        return (new \DateTimeImmutable($today))->modify('+1 year')->format('Y-m-d');
+    }
+
+    /** Une revue ne se trace que sur une procédure d'exploitation approuvée. */
+    public static function canRecordReview(string $category, string $status): bool
+    {
+        return $category === self::CATEGORY_PROCEDURE && $status === PolicyLifecycle::STATUS_APPROVED;
+    }
+
+    /**
+     * Domaines attendus sans procédure approuvée (aucune, ou seulement des brouillons), pour le
+     * contrôle de cohérence. Les revues en retard relèvent déjà de la règle des politiques.
+     *
+     * @param array{domains: list<array{domain: string, status: string, count: int}>} $coverage
+     * @return list<array{domain: string, status: string, count: int}>
+     */
+    public static function uncoveredDomains(array $coverage): array
+    {
+        return array_values(array_filter(
+            $coverage['domains'],
+            static fn (array $row): bool => in_array(
+                $row['status'],
+                [self::STATUS_MISSING, self::STATUS_NOT_APPROVED],
+                true
+            )
+        ));
+    }
+
+    /**
      * Couverture des domaines attendus : pour chacun, le meilleur état de ses procédures et leur
      * nombre. Une procédure d'un domaine qui n'est plus attendu n'est pas comptée.
      *

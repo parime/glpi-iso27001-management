@@ -582,6 +582,9 @@
             {% if operating_procedures.missing > 0 %}
                <span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d without procedure', 'grcmanager')|format(operating_procedures.missing) }}</span>
             {% endif %}
+            {% if operating_procedures.without_content > 0 %}
+               <span class="badge bg-orange-subtle text-orange-emphasis me-1"><i class="ti ti-file-off me-1"></i>{{ __('%d without content', 'grcmanager')|format(operating_procedures.without_content) }}</span>
+            {% endif %}
             <a href="{{ operating_procedures.url }}" class="me-2">{{ __('Open the register', 'grcmanager') }}</a>
             <a href="{{ operating_procedures.export_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Register (PDF)', 'grcmanager') }}</a>
          </div>
@@ -607,6 +610,8 @@
             <span class="badge {{ software_licenses.unlicensed > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-license-off me-1"></i>{{ __('%d commercial software without a license', 'grcmanager')|format(software_licenses.unlicensed) }}</span>
             <span class="badge {{ software_licenses.overdeployed > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-users-plus me-1"></i>{{ __('%d over-deployment(s)', 'grcmanager')|format(software_licenses.overdeployed) }}</span>
             <span class="badge {{ software_licenses.expired > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-calendar-x me-1"></i>{{ __('%d expired license(s) still in use', 'grcmanager')|format(software_licenses.expired) }}</span>
+            {% if software_licenses.expiring > 0 %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-calendar-time me-1"></i>{{ __('%d license(s) expiring soon', 'grcmanager')|format(software_licenses.expiring) }}</span>{% endif %}
+            {% if software_licenses.coverage is not null and software_licenses.coverage.watched > 0 %}<span class="badge {{ software_licenses.coverage.percent >= 100 ? 'bg-success-subtle text-success-emphasis' : 'bg-warning-subtle text-warning-emphasis' }} me-1"><i class="ti ti-shield-check me-1"></i>{{ __('License coverage: %d%%', 'grcmanager')|format(software_licenses.coverage.percent) }}</span>{% endif %}
             <a href="{{ software_licenses.url }}" class="me-2">{{ __('View the details', 'grcmanager') }}</a>
             <a href="{{ software_licenses.export_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export (CSV)', 'grcmanager') }}</a>
          </div>

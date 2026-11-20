@@ -1112,6 +1112,9 @@ final class Installer
         // Issue #772 : audits de certification et constats de l'organisme.
         $this->migrateCertificationAudits($migration);
 
+        // Issue #773, lot 2 : objectifs et critères de chaque audit (ISO 27001 9.2.2 b, ISO 19011).
+        $this->migrateAuditObjectivesAndCriteria($migration);
+
         // Issue #761 : un enregistrement par alerte envoyée (étapes signalées, pour ne pas les
         // répéter). Les réglages vivent dans le contexte de configuration du plugin.
         if (!$DB->tableExists(self::READINESS_ALERTS_TABLE)) {
@@ -1510,6 +1513,16 @@ final class Installer
                 'after' => 'category',
             ]);
             $migration->addKey(self::POLICIES_TABLE, 'category');
+            $migration->migrationOneTable(self::POLICIES_TABLE);
+        }
+        // Issue #775, lot 2 : revue périodique tracée d'une procédure (date, personne), même quand
+        // elle ne change pas de version.
+        if (!$DB->fieldExists(self::POLICIES_TABLE, 'last_review_date')) {
+            $migration->addField(self::POLICIES_TABLE, 'last_review_date', 'date', ['after' => 'next_review_date']);
+            $migration->addField(self::POLICIES_TABLE, 'users_id_lastreviewer', 'fkey', [
+                'after' => 'last_review_date',
+            ]);
+            $migration->addKey(self::POLICIES_TABLE, 'users_id_lastreviewer');
             $migration->migrationOneTable(self::POLICIES_TABLE);
         }
         $this->installPolicyAcknowledgementTables($keySign, $charset, $collation);
@@ -5743,6 +5756,26 @@ final class Installer
      * `linked_itemtype`/`linked_items_id` (if set) becomes a row in SECURITY_INCIDENTS_ITEMS_TABLE,
      * the polymorphic link mechanism that supersedes it.
      */
+    /**
+     * Issue #773, lot 2 : objectifs et critères d'audit (référentiel, politiques, procédures) de
+     * chaque audit, à côté du périmètre existant. Rejouable : colonnes ajoutées si absentes.
+     */
+    private function migrateAuditObjectivesAndCriteria(Migration $migration): void
+    {
+        global $DB;
+
+        $changed = false;
+        foreach (['objectives' => 'title', 'criteria' => 'scope'] as $field => $after) {
+            if (!$DB->fieldExists(self::AUDITS_TABLE, $field)) {
+                $migration->addField(self::AUDITS_TABLE, $field, 'text', ['after' => $after]);
+                $changed = true;
+            }
+        }
+        if ($changed) {
+            $migration->migrationOneTable(self::AUDITS_TABLE);
+        }
+    }
+
     /**
      * Issue #772 : type d'audit (interne, ou externe mené par l'organisme de certification) et
      * références des constats de l'organisme. Rejouable, sans perte : la valeur par défaut

@@ -20,7 +20,10 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use Config;
+use Document;
 use Document_Item;
+use GlpiPlugin\Grcmanager\AuditLog;
+use GlpiPlugin\Grcmanager\ConsistencyCheck;
 use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\Menu;
 use GlpiPlugin\Grcmanager\OperatingProcedure;
@@ -29,6 +32,8 @@ use GlpiPlugin\Grcmanager\PolicyVersion;
 use GlpiPlugin\Grcmanager\Services\Policy\OperatingProcedureRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalRules;
+use KnowbaseItem;
+use KnowbaseItem_Item;
 use User;
 
 /**
@@ -270,5 +275,112 @@ final class OperatingProcedureTest extends GrcmanagerIntegrationTestCase
             Policy::getSpecificValueToDisplay('procedure_domain', 'backup')
         );
         $this->assertSame('&lt;b&gt;', Policy::getSpecificValueToDisplay('procedure_domain', '<b>'));
+    }
+
+    /** Issue #775, lot 2 : revue tracée sans nouvelle version, réservée aux procédures approuvées. */
+    public function testReviewIsRecordedOnAnApprovedProcedureOnly(): void
+    {
+        $draft = $this->procedure();
+        $this->assertFalse($draft->update(['id' => $draft->getID(), Policy::REVIEW_MARKER => 1]));
+        $draft->getFromDB($draft->getID());
+        $this->assertNull($draft->fields['last_review_date']);
+
+        $procedure = $this->procedure([
+            'status' => 'approved', 'approval_date' => '2025-11-01', 'next_review_date' => '2026-01-01',
+        ]);
+        // Jamais saisie à la main.
+        $this->assertTrue($procedure->update([
+            'id' => $procedure->getID(), 'last_review_date' => '2020-01-01', 'users_id_lastreviewer' => 99,
+        ]));
+        $procedure->getFromDB($procedure->getID());
+        $this->assertNull($procedure->fields['last_review_date']);
+        $this->assertSame(0, (int) $procedure->fields['users_id_lastreviewer']);
+
+        $this->assertTrue($procedure->update(['id' => $procedure->getID(), Policy::REVIEW_MARKER => 1]));
+        $procedure->getFromDB($procedure->getID());
+        $today = date('Y-m-d');
+        $this->assertSame($today, $procedure->fields['last_review_date']);
+        $this->assertSame((int) \Session::getLoginUserID(), (int) $procedure->fields['users_id_lastreviewer']);
+        $this->assertSame(Rules::nextReviewAfterReview($today, null, null), $procedure->fields['next_review_date']);
+        $this->assertSame('1.0', $procedure->fields['version'], 'pas de nouvelle version');
+        $this->assertSame(1, countElementsInTable(AuditLog::getTable(), [
+            'action' => 'review', 'itemtype' => Policy::class, 'items_id' => $procedure->getID(),
+        ]));
+
+        // Une date avancée sur la fiche dans la même saisie est gardée.
+        $wanted = date('Y-m-d', strtotime('+3 months'));
+        $this->assertTrue($procedure->update([
+            'id' => $procedure->getID(), 'next_review_date' => $wanted, Policy::REVIEW_MARKER => 1,
+        ]));
+        $procedure->getFromDB($procedure->getID());
+        $this->assertSame($wanted, $procedure->fields['next_review_date']);
+
+        $row = OperatingProcedure::present($procedure->fields, $today);
+        $this->assertSame($today, $row['last_review']);
+        $this->assertNotSame('', $row['last_reviewer']);
+        $this->assertSame(Rules::STATUS_UP_TO_DATE, $row['status']);
+    }
+
+    /** Issue #775, lot 2 : contenu lisible (article de la base de connaissances ou document joint). */
+    public function testContentComesFromKnowledgeBaseArticlesAndDocuments(): void
+    {
+        $procedure = $this->procedure(['status' => 'approved', 'approval_date' => '2026-01-10']);
+        $this->assertFalse(OperatingProcedure::content($procedure->getID())['has_content']);
+        $presented = [OperatingProcedure::present($procedure->fields, date('Y-m-d'))];
+        $this->assertSame(1, OperatingProcedure::countWithoutContent($presented));
+
+        $articleId = (int) (new KnowbaseItem())->add([
+            'name'   => 'PHPUnit article de sauvegarde fictif',
+            'answer' => 'Étapes fictives.',
+        ]);
+        $this->assertGreaterThan(0, $articleId);
+        $this->assertGreaterThan(0, (int) (new KnowbaseItem_Item())->add([
+            'knowbaseitems_id' => $articleId, 'itemtype' => Policy::class, 'items_id' => $procedure->getID(),
+        ]));
+        $content = OperatingProcedure::content($procedure->getID());
+        $this->assertTrue($content['has_content']);
+        $this->assertSame(['PHPUnit article de sauvegarde fictif'], array_column($content['articles'], 'name'));
+        $this->assertSame(0, $content['documents']);
+
+        $documentId = (int) (new Document())->add([
+            'name' => 'PHPUnit procédure fictive', 'link' => 'https://example.invalid/procedure',
+        ]);
+        $this->assertGreaterThan(0, (int) (new Document_Item())->add([
+            'documents_id' => $documentId, 'itemtype' => Policy::class, 'items_id' => $procedure->getID(),
+        ]));
+        $this->assertSame(1, OperatingProcedure::content($procedure->getID())['documents']);
+        $presented = [OperatingProcedure::present($procedure->fields, date('Y-m-d'))];
+        $this->assertSame(0, OperatingProcedure::countWithoutContent($presented));
+
+        ob_start();
+        OperatingProcedure::showRegister();
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('PHPUnit article de sauvegarde fictif', $html);
+    }
+
+    /** Issue #775, lot 2 : règle du contrôle de cohérence sur les domaines attendus. */
+    public function testConsistencyCheckListsDomainsWithoutAnApprovedProcedure(): void
+    {
+        $this->useDomains(['PHPUnit E', 'PHPUnit F', 'PHPUnit G']);
+        $this->procedure([
+            'procedure_domain' => 'PHPUnit E', 'status' => 'approved', 'approval_date' => '2026-01-10',
+            'next_review_date' => date('Y-m-d', strtotime('+6 months')),
+        ]);
+        $this->procedure(['procedure_domain' => 'PHPUnit F', 'status' => 'draft']);
+
+        $results = ConsistencyCheck::run(date('Y-m-d'));
+        $result = $results['operating_procedure_uncovered'];
+        $this->assertTrue($result['evaluated']);
+        $this->assertSame(3, $result['total']);
+        $this->assertSame(['PHPUnit F', 'PHPUnit G'], array_column($result['gaps'], 'name'));
+        $this->assertSame(OperatingProcedure::getRegisterURL(), $result['gaps'][0]['url']);
+
+        $rights = $_SESSION['glpiactiveprofile'][Policy::RIGHTNAME] ?? 0;
+        $_SESSION['glpiactiveprofile'][Policy::RIGHTNAME] = 0;
+        try {
+            $this->assertNull(OperatingProcedure::consistencyGaps(date('Y-m-d')));
+        } finally {
+            $_SESSION['glpiactiveprofile'][Policy::RIGHTNAME] = $rights;
+        }
     }
 }

@@ -169,6 +169,15 @@ travail datées, avec leur auteur.
    chaque auditeur s'il est qualifié, si sa qualification est à renouveler ou s'il n'en a aucune.
 5. **Remise du rapport à la direction** : saisissez la date de remise et le destinataire dans le même
    onglet. Ils figurent dans le dossier de revue de direction (9.3.2 d 3).
+6. **Objectifs et critères** : sur la fiche de l'audit, renseignez ses **Objectifs** (ce que l'audit
+   doit établir) et ses **Critères d'audit** (articles de la norme, politiques, procédures auxquels
+   les preuves sont comparées), à côté du périmètre.
+7. **Points de contrôle** : l'encadré **Points de contrôle de l'audit**, en tête de l'onglet
+   **Programme et indépendance**, indique en couleur ce que l'auditeur de certification vérifiera :
+   objectifs, périmètre et critères définis, processus choisis, auditeurs désignés, qualifiés et
+   indépendants, rapport remis à la direction. La page du programme reprend ces points pour chaque
+   audit du cycle et signale les audits incomplets. Le rapport PDF de l'audit les reprend aussi, avec
+   la compétence des auditeurs et la justification de chaque conflit.
 
 Depuis l'onglet **Non-conformités** de la rubrique, une non-conformité peut être liée à cet audit interne, avec
 une sévérité, une échéance, une description et une cause racine.
@@ -527,7 +536,7 @@ natifs de lecture des logiciels et des licences.
    Oracle, Autodesk...) : c'est le champ « Fabricant » du logiciel dans GLPI. La seconde liste
    écarte les outils gratuits de ces éditeurs (« Redistributable », « Acrobat Reader »...). Seule
    une personne qui peut modifier la configuration du plugin change ces listes.
-3. Les trois compteurs donnent le nombre de constats, regroupés ensuite par entité :
+3. Les compteurs donnent le nombre de constats, regroupés ensuite par entité :
    - **Logiciel commercial sans licence** : un logiciel d'un éditeur surveillé est installé, et
      aucune licence ne compte pour cette entité. Une licence compte pour une entité si elle lui
      appartient, ou si elle est récursive et appartient à une entité parente.
@@ -537,13 +546,20 @@ natifs de lecture des logiciels et des licences.
      « Partagée avec les sous-entités » compte leurs installations ensemble.
    - **Licence expirée encore utilisée** : des ordinateurs y sont encore affectés, ou le logiciel
      reste installé sans autre licence valable.
+   - **Licence arrivant à échéance** (rappel, pas un écart) : une licence utilisée expire dans les
+     60 prochains jours et aucun renouvellement n'est saisi. Réglez ce délai en bas de la page
+     (« Alerter avant l'échéance d'une licence », 0 pour désactiver).
+
+   Le badge **Dépassement autorisé** signale un surdéploiement sur une licence qui l'autorise : il
+   reste à régulariser auprès de l'éditeur. Au-dessus des constats, la **couverture des licences**
+   donne la part des logiciels commerciaux surveillés installés qui ont une licence valable.
 4. Pour chaque constat, ouvrez le logiciel ou la licence (liens) et corrigez dans GLPI : saisissez
    la licence achetée, ajoutez des postes, désinstallez le logiciel, ou renouvelez la licence et
    déplacez les ordinateurs affectés.
 5. Cliquez sur **Export (CSV)** pour remettre la liste à l'auditeur.
 6. Sur la fiche de la mesure A.5.32 de la SoA, le cadre « Conformité des licences logicielles »
-   montre les trois compteurs, et les contrôles de cohérence du SMSI (onglet du tableau de bord) listent
-   chaque constat.
+   montre les compteurs, les licences arrivant à échéance et la couverture des licences ; les
+   contrôles de cohérence du SMSI (onglet du tableau de bord) listent chaque écart.
 ### Étape 24 : Préparer l'audit de certification avec une date cible
 
 1. Ouvrez Tableau de bord > **Préparation à la certification**. L'encadré « À quoi sert cette page ? »
@@ -556,7 +572,11 @@ natifs de lecture des logiciels et des licences.
 3. Chaque étape non faite reçoit une **échéance conseillée**, calculée en remontant depuis la date
    cible (le socle d'abord, puis l'audit interne, la revue de direction et le traitement des
    non-conformités). Une étape dont l'échéance tombe dans les 14 jours est marquée « Risque de
-   retard » ; une échéance dépassée est signalée en rouge.
+   retard » ; une échéance dépassée est signalée en rouge. Ce délai d'alerte se règle dans le champ
+   « Alerte (jours) », et le bouton « Délais conseillés par étape » ouvre le tableau du nombre de
+   jours avant la date cible de chaque étape (par exemple audit interne 60 jours, revue de direction
+   30 jours avant un audit le 15 mars). Un délai réglé à l'envers de l'ordre logique (revue de
+   direction conseillée avant l'audit interne) est signalé, jamais corrigé à votre place.
 4. Choisissez le **responsable de la préparation** (à défaut, le responsable de l'audit cible). La
    tâche automatique `certificationreadiness` lui envoie la notification « Étape de la certification
    à risque » quand une étape approche ou dépasse son échéance, une seule fois par étape et par état.
@@ -601,6 +621,16 @@ natifs de lecture des logiciels et des licences.
    de la mesure A.5.37, le cadre « Registre des procédures d'exploitation » rappelle la couverture ;
    les procès-verbaux d'approbation et les rapports de prise de connaissance d'une procédure y sont
    archivés (ceux d'une politique restent sur A.5.1).
+7. Le texte de la procédure peut être un **article de la base de connaissances** de GLPI : sur la
+   fiche de la procédure, onglet « Base de connaissances », liez l'article (par exemple « Sauvegarde
+   des serveurs : pas à pas (fictif) »). Le registre affiche l'article et les documents joints sous
+   le titre ; une procédure sans article ni document porte le badge « Sans contenu ».
+8. Chaque année, relisez la procédure avec son responsable. Si elle reste juste, cliquez sur
+   **Enregistrer la revue** sur sa fiche : la date du jour et votre nom sont tracés, sans nouvelle
+   version, et la prochaine revue passe à un an (ou à la date que vous avez saisie). Le registre
+   affiche « Revue le … par … » et le journal d'audit garde chaque revue. Si elle a changé, préparez
+   une nouvelle version.
+9. Le contrôle de cohérence signale les domaines attendus sans procédure approuvée (règle A.5.37).
 
 ### Étape 26 : Suivre la fin de garantie du matériel (mesures A.7.13 et A.8.9)
 
@@ -980,6 +1010,15 @@ download (date, user, document) and the **Notes** tab keeps dated working notes 
    whether they are qualified, have to renew the qualification, or have none.
 5. **Report to management**: enter the delivery date of the report and its recipient in the same
    tab. Both appear in the management review dossier (9.3.2 d 3).
+6. **Objectives and criteria**: on the audit form, fill in its **Objectives** (what the audit must
+   establish) and its **Audit criteria** (clauses of the standard, policies, procedures the evidence
+   is compared with), next to the scope.
+7. **Checkpoints**: the **Audit checkpoints** box, at the top of the **Programme et indépendance**
+   tab, shows in colour what the certification auditor will check: objectives, scope and criteria
+   defined, processes chosen, auditors appointed, qualified and independent, report delivered to
+   management. The programme page shows these points for each audit of the cycle and flags the
+   incomplete ones. The PDF report of the audit includes them too, with the competence of the
+   auditors and the justification of each conflict.
 
 From the section's **Non-conformités** tab, a non-conformity can be linked to this internal audit, with a
 severity, a due date, a description and a root cause.
@@ -1313,7 +1352,7 @@ rights to read software and licenses.
    Oracle, Autodesk...): it is the "Manufacturer" field of the software in GLPI. The second list
    leaves out the free tools of these publishers ("Redistributable", "Acrobat Reader"...). Only a
    person who can change the plugin configuration can edit these lists.
-3. The three counters give the number of findings, then grouped by entity:
+3. The counters give the number of findings, then grouped by entity:
    - **Commercial software without a license**: software from a watched publisher is installed, and
      no license counts for this entity. A license counts for an entity when it belongs to it, or when
      it is recursive and belongs to a parent entity.
@@ -1323,12 +1362,20 @@ rights to read software and licenses.
      installations together.
    - **Expired license still in use**: computers are still assigned to it, or the software is still
      installed with no other valid license.
+   - **License expiring soon** (a reminder, not a gap): a license in use expires within the next 60
+     days and no renewal is recorded. Change this delay at the bottom of the page ("Warn before a
+     license expires", 0 to turn off).
+
+   The **Over-quota allowed** badge marks an over-deployment on a license that allows it: it still
+   has to be settled with the publisher. Above the findings, the **license coverage** gives the share
+   of installed watched commercial software that has a valid license.
 4. For each finding, open the software or the license (links) and fix it in GLPI: record the
    license you bought, add seats, uninstall the software, or renew the license and move the assigned
    computers.
 5. Click **Export (CSV)** to hand the list to the auditor.
-6. On control A.5.32 of the SoA, the "Software license compliance" box shows the three counters, and
-   the ISMS consistency checks (tab of the dashboard) list each finding.
+6. On control A.5.32 of the SoA, the "Software license compliance" box shows the counters, the
+   licenses expiring soon and the license coverage; the ISMS consistency checks (tab of the
+   dashboard) list each gap.
 ### Step 24: Prepare the certification audit with a target date
 
 1. Open Dashboard > **Certification readiness**. The "What is this page for?" box explains what is
@@ -1340,7 +1387,11 @@ rights to read software and licenses.
 3. Each step not done gets an **advised deadline**, counted back from the target date (the
    foundations first, then the internal audit, the management review and the treatment of
    nonconformities). A step whose deadline falls within 14 days is marked "At risk of being late"; a
-   passed deadline is shown in red.
+   passed deadline is shown in red. This alert period is set in the "Alert (days)" field, and the
+   "Advised deadlines per step" button opens the table of the number of days before the target date
+   for each step (for instance internal audit 60 days, management review 30 days before an audit on
+   15 March). A period set against the logical order (management review advised before the
+   internal audit) is reported, never corrected for you.
 4. Choose the **owner of the preparation** (otherwise, the owner of the target audit). The
    `certificationreadiness` automatic task sends them the "Certification step at risk" notification
    when a step approaches or passes its deadline, once per step and per state. Nothing is changed
@@ -1379,6 +1430,15 @@ rights to read software and licenses.
    control. **Print the register (PDF)** downloads it without saving it. On control A.5.37, the
    "Register of operating procedures" box shows the coverage; the approval records and the
    acknowledgement reports of a procedure are archived there (those of a policy stay on A.5.1).
+7. The text of the procedure can be a GLPI **knowledge base article**: on the procedure, "Knowledge
+   base" tab, link the article (for instance "Server backup: step by step (fictitious)"). The
+   register shows the article and the attached documents under the title; a procedure with neither
+   shows the "No content" badge.
+8. Every year, read the procedure again with its owner. If it is still right, click **Record the
+   review** on its record: today's date and your name are kept, without a new version, and the next
+   review moves one year later (or to the date you set). The register shows "Reviewed on ... by ..."
+   and the audit log keeps every review. If it changed, prepare a new version.
+9. The consistency check lists the expected domains without an approved procedure (rule A.5.37).
 
 ### Step 26: Follow the hardware warranty (controls A.7.13 and A.8.9)
 

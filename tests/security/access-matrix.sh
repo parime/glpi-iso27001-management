@@ -192,6 +192,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # faut pouvoir modifier les politiques.
   expect "front/operatingprocedure.php : archiver sur A.5.37" "$1" \
     "$(code -d "archive=1&_glpi_csrf_token=$(csrf)" "$P/operatingprocedure.php")"
+  # Issue #775, lot 2 : tracer la revue d'une procedure exige de pouvoir modifier les politiques.
+  expect "front/policy.form.php : enregistrer la revue" "$1" \
+    "$(code -d "_record_procedure_review=1&id=$(id policy_A)&_glpi_csrf_token=$(csrf)" "$P/policy.form.php")"
   # Issue #542 : generer le dossier preparatoire d'une revue de direction (document joint) et creer
   # les actions a partir de ses decisions exigent de pouvoir modifier la revue.
   expect "front/managementreview.dossier.php : generer le dossier" "$1" \
@@ -275,10 +278,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
   expect "front/auditprogramme.php : reglages du programme" "$1" \
     "$(code -d "save_settings=1&cycle_start=2025&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
-  # Issue #761 : date cible, responsable et seuils de la preparation a la certification exigent le
+  # Issue #761 : date cible, responsable et seuils (et delais, lot 2) de la preparation a la certification exigent le
   # droit de modifier le plugin.
   expect "front/certificationreadiness.php : reglages de la preparation" "$1" \
-    "$(code -d "save_readiness_settings=1&target_date=2026-12-03&coverage_target=90&_glpi_csrf_token=$(csrf)" "$P/certificationreadiness.php")"
+    "$(code -d "save_readiness_settings=1&target_date=2026-12-03&coverage_target=90&alert_days=30&lead_days%5Binternal_audit%5D=60&_glpi_csrf_token=$(csrf)" "$P/certificationreadiness.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
   # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).
@@ -572,6 +575,15 @@ if [ "$ROLE" = reader ]; then
     "$(body "$P/softwarelicensecompliance.php")"
   contains "export des licences logicielles : rien de B" "Logiciel licence securite B" non \
     "$(body "$P/softwarelicensecompliance.export.php")"
+  # Issue #779, lot 2 : licence de A qui arrive a echeance, rien de B (page et export).
+  contains "licences logicielles : echeance de A" "Licence echeance securite A" oui \
+    "$(body "$P/softwarelicensecompliance.php")"
+  contains "licences logicielles : echeance de B absente" "Licence echeance securite B" non \
+    "$(body "$P/softwarelicensecompliance.php")"
+  contains "export des licences logicielles : echeance de B absente" "Licence echeance securite B" non \
+    "$(body "$P/softwarelicensecompliance.export.php")"
+  expect "front/softwarelicensecompliance.php : modifier l'horizon d'echeance" 403 \
+    "$(code -d "save_license_watch=1&license_expiring_days=1&_glpi_csrf_token=$(csrf)" "$P/softwarelicensecompliance.php")"
   # Issue #782 : fin de garantie du materiel de l'entite A seulement (carte et export).
   contains "fin de garantie : materiel de A" "PC garantie securite A" oui "$(body "$P/parkvulnerability.php?warranty=all")"
   contains "fin de garantie : rien de B" "PC garantie securite B" non "$(body "$P/parkvulnerability.php?warranty=all")"

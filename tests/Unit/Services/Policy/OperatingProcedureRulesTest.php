@@ -113,4 +113,44 @@ final class OperatingProcedureRulesTest extends TestCase
         self::assertSame([], $coverage['domains']);
         self::assertSame(0, $coverage['summary']['rate']);
     }
+
+    /** Issue #775, lot 2 : prochaine revue après une revue tracée. */
+    public function testNextReviewAfterReview(): void
+    {
+        // Rien de saisi, date inchangée, passée ou invalide : un an plus tard.
+        self::assertSame('2027-11-20', Rules::nextReviewAfterReview('2026-11-20', '', '2026-06-01'));
+        self::assertSame('2027-11-20', Rules::nextReviewAfterReview('2026-11-20', '2026-06-01', '2026-06-01'));
+        self::assertSame('2027-11-20', Rules::nextReviewAfterReview('2026-11-20', '2026-10-01', '2026-06-01'));
+        self::assertSame('2027-11-20', Rules::nextReviewAfterReview('2026-11-20', '2026-11-20', null));
+        self::assertSame('2027-11-20', Rules::nextReviewAfterReview('2026-11-20', '<b>2027</b>', null));
+        self::assertSame('2027-11-20', Rules::nextReviewAfterReview('2026-11-20 10:00:00', ['2027-05-01'], null));
+        // Date avancée au-delà d'aujourd'hui sur la fiche : gardée.
+        self::assertSame('2027-05-20', Rules::nextReviewAfterReview('2026-11-20', '2027-05-20', '2026-06-01'));
+        self::assertSame('2027-05-20', Rules::nextReviewAfterReview('2026-11-20', ' 2027-05-20 ', null));
+        // 29 février : DateTimeImmutable reporte au 1er mars.
+        self::assertSame('2029-03-01', Rules::nextReviewAfterReview('2028-02-29', null, null));
+    }
+
+    public function testReviewOnlyOnAnApprovedProcedure(): void
+    {
+        self::assertTrue(Rules::canRecordReview(Rules::CATEGORY_PROCEDURE, 'approved'));
+        self::assertFalse(Rules::canRecordReview(Rules::CATEGORY_PROCEDURE, 'draft'));
+        self::assertFalse(Rules::canRecordReview(Rules::CATEGORY_PROCEDURE, 'archived'));
+        self::assertFalse(Rules::canRecordReview(Rules::CATEGORY_POLICY, 'approved'));
+    }
+
+    public function testUncoveredDomainsForTheConsistencyCheck(): void
+    {
+        $coverage = Rules::coverage(['backup', 'restore', 'logging', 'updates'], [
+            ['procedure_domain' => 'backup', 'status' => 'approved', 'next_review_date' => '2027-01-01'],
+            ['procedure_domain' => 'restore', 'status' => 'approved', 'next_review_date' => '2026-01-01'],
+            ['procedure_domain' => 'logging', 'status' => 'draft', 'next_review_date' => null],
+        ], '2026-11-20');
+
+        // La revue en retard (restauration) relève déjà de la règle des politiques.
+        self::assertSame([
+            ['domain' => 'logging', 'status' => Rules::STATUS_NOT_APPROVED, 'count' => 1],
+            ['domain' => 'updates', 'status' => Rules::STATUS_MISSING, 'count' => 0],
+        ], Rules::uncoveredDomains($coverage));
+    }
 }
