@@ -140,10 +140,10 @@ class ControlTestSample extends CommonGLPI
     public static function canDrawFrom(string $itemtype): bool
     {
         return match ($itemtype) {
-            'User'     => User::canView(),
-            'Computer' => Computer::canView(),
-            'Ticket'   => Session::haveRight(Ticket::$rightname, CommonITILObject::READALL),
-            'Change'   => Session::haveRight(Change::$rightname, CommonITILObject::READALL),
+            'User'     => (bool) User::canView(),
+            'Computer' => (bool) Computer::canView(),
+            'Ticket'   => (bool) Session::haveRight(Ticket::$rightname, CommonITILObject::READALL),
+            'Change'   => (bool) Session::haveRight(Change::$rightname, CommonITILObject::READALL),
             default    => false,
         };
     }
