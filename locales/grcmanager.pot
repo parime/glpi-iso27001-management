@@ -1153,8 +1153,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 
 #: templates/dora/register.html.twig templates/audit_checklist_tab.html.twig
@@ -3779,9 +3779,9 @@ msgstr ""
 #: templates/pdf/control_test_record.html.twig
 #: templates/control_test_sample.html.twig
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of "
-"\"seed:identifier\"; the first items of this ranking form the sample. The "
-"same population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
+"identifier\"; the first items of this ranking form the sample. The same "
+"population and the same seed always give the same sample."
 msgstr ""
 
 #: templates/pdf/network_flow_report.html.twig
@@ -8659,8 +8659,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/_access_review_rows.html.twig
@@ -8899,8 +8899,8 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -13443,8 +13443,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/endoflife_config.html.twig src/EndOfLife.php:479
@@ -16269,9 +16269,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -16310,8 +16310,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 msgstr ""
 
 #: src/ComplianceAudit.php:100
@@ -24169,4 +24169,436 @@ msgstr ""
 #: src/Waiver.php:616
 #, php-format
 msgid "Re-assess the waiver \"%s\""
+msgstr ""
+
+#: templates/pdf/certification_readiness_report.html.twig
+#: templates/certification_readiness.html.twig
+msgid "Readiness score"
+msgstr ""
+
+#: templates/pdf/certification_readiness_report.html.twig
+msgid ""
+"Each state is computed from the data that the person who exported this "
+"report can read. Nothing has been modified."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"A step done counts fully, a step partly done counts half. Steps outside your "
+"rights are not counted."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Steps"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"Each state is computed from the data already entered in the plugin, each "
+"time you open this page. Nothing is changed automatically."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Readiness report (PDF)"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Every step is done: you are ready for the certification audit."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "No step can be evaluated with your rights."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"Your profile cannot read the data of this step: ask an administrator of the "
+"management system."
+msgstr ""
+
+#: hook.php:290
+msgid "Progress towards certification"
+msgstr ""
+
+#: src/CertificationReadiness.php:49
+msgid "Certification readiness"
+msgstr ""
+
+#: src/CertificationReadiness.php:100
+msgid "Plan"
+msgstr ""
+
+#: src/CertificationReadiness.php:101
+msgid "Set up the management system: scope, context, policy, roles, risks."
+msgstr ""
+
+#: src/CertificationReadiness.php:105
+msgid "Do"
+msgstr ""
+
+#: src/CertificationReadiness.php:106
+msgid "Run it day to day: people trained, exercises carried out."
+msgstr ""
+
+#: src/CertificationReadiness.php:110
+msgid "Check"
+msgstr ""
+
+#: src/CertificationReadiness.php:111
+msgid "Evaluate it: internal audit and management review."
+msgstr ""
+
+#: src/CertificationReadiness.php:115
+msgid "Act"
+msgstr ""
+
+#: src/CertificationReadiness.php:116
+msgid "Improve it: treat what the checks have found."
+msgstr ""
+
+#: src/CertificationReadiness.php:136
+msgid "Partly done"
+msgstr ""
+
+#: src/CertificationReadiness.php:146
+msgid "Outside your rights"
+msgstr ""
+
+#: src/CertificationReadiness.php:162
+msgid "Define the scope of the ISMS"
+msgstr ""
+
+#: src/CertificationReadiness.php:164
+msgid ""
+"Write down which sites, activities, systems and teams the management system "
+"covers, and what is left out, then attach this document to requirement 4.3."
+msgstr ""
+
+#: src/CertificationReadiness.php:171
+msgid "Describe the context and the interested parties"
+msgstr ""
+
+#: src/CertificationReadiness.php:173
+msgid ""
+"List the internal and external issues and the interested parties with their "
+"expectations, and decide whether climate change matters for you."
+msgstr ""
+
+#: src/CertificationReadiness.php:180
+msgid "Approve the information security policy"
+msgstr ""
+
+#: src/CertificationReadiness.php:182
+msgid ""
+"Have management approve the security policy and set the date of its next "
+"review."
+msgstr ""
+
+#: src/CertificationReadiness.php:188
+msgid "Assign the roles and responsibilities"
+msgstr ""
+
+#: src/CertificationReadiness.php:190
+msgid ""
+"For each activity of the management system, name who carries it out, who is "
+"accountable, and who is consulted or informed."
+msgstr ""
+
+#: src/CertificationReadiness.php:197
+msgid "Assess the risks"
+msgstr ""
+
+#: src/CertificationReadiness.php:199
+msgid ""
+"Identify the risks, give each one an owner, rate them with your method and "
+"keep their review dates up to date."
+msgstr ""
+
+#: src/CertificationReadiness.php:206
+msgid "Decide how to treat the risks"
+msgstr ""
+
+#: src/CertificationReadiness.php:208
+msgid ""
+"Choose a treatment for each significant risk, have accepted risks approved, "
+"and follow up the treatment actions until they are done."
+msgstr ""
+
+#: src/CertificationReadiness.php:215
+msgid "Approve the Statement of Applicability"
+msgstr ""
+
+#: src/CertificationReadiness.php:217
+msgid ""
+"Justify whether each control applies, then have the Statement of "
+"Applicability approved; approve it again after any change."
+msgstr ""
+
+#: src/CertificationReadiness.php:224
+msgid "Set measurable security objectives"
+msgstr ""
+
+#: src/CertificationReadiness.php:226
+msgid ""
+"Define security objectives with an owner and a target, and record "
+"measurements to show their progress."
+msgstr ""
+
+#: src/CertificationReadiness.php:233
+msgid "Train and raise awareness"
+msgstr ""
+
+#: src/CertificationReadiness.php:235
+msgid ""
+"Deliver security training and awareness sessions, and make sure the people "
+"concerned have completed them."
+msgstr ""
+
+#: src/CertificationReadiness.php:242
+msgid "Run a continuity or crisis exercise"
+msgstr ""
+
+#: src/CertificationReadiness.php:244
+msgid ""
+"Run at least one exercise, assess whether its objectives were met and have "
+"its review validated."
+msgstr ""
+
+#: src/CertificationReadiness.php:251
+msgid "Carry out the internal audit"
+msgstr ""
+
+#: src/CertificationReadiness.php:253
+msgid ""
+"Complete an internal audit and make sure the audit programme covers every "
+"requirement and every applicable control."
+msgstr ""
+
+#: src/CertificationReadiness.php:260
+msgid "Hold the management review"
+msgstr ""
+
+#: src/CertificationReadiness.php:262
+msgid ""
+"Hold a management review prepared with its input file, and record the "
+"decisions taken."
+msgstr ""
+
+#: src/CertificationReadiness.php:268
+msgid "Treat the nonconformities"
+msgstr ""
+
+#: src/CertificationReadiness.php:270
+msgid ""
+"Analyse each nonconformity, carry out its corrective action on time, and "
+"close it only once the action is done."
+msgstr ""
+
+#: src/CertificationReadiness.php:317
+#, php-format
+msgid "Declared requirements: %1$d of %2$d compliant"
+msgstr ""
+
+#: src/CertificationReadiness.php:374
+msgid "See the items to fix"
+msgstr ""
+
+#: src/CertificationReadiness.php:498
+#, php-format
+msgid "Declared status of requirement 4.3: %s"
+msgstr ""
+
+#: src/CertificationReadiness.php:501
+#, php-format
+msgid "Documents attached: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:504
+msgid "Open requirement 4.3 (scope)"
+msgstr ""
+
+#: src/CertificationReadiness.php:521
+#, php-format
+msgid "Issues: %1$d, interested parties: %2$d"
+msgstr ""
+
+#: src/CertificationReadiness.php:530
+#, php-format
+msgid "Reviews overdue: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:566
+#, php-format
+msgid "Approved policies: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:567
+#, php-format
+msgid "Drafts: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:568
+#, php-format
+msgid "Approved policies whose review is overdue: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:587
+#, php-format
+msgid "Activities in the matrix: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:590
+#, php-format
+msgid ""
+"Activities with a serious alert (no one accountable, several accountable, "
+"roles that should be separated): %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:622
+#, php-format
+msgid "Open risks: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:623
+#, php-format
+msgid "Without an owner: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:624
+#, php-format
+msgid "Review overdue: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:652
+#, php-format
+msgid "High risks without a treatment decision: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:653
+#, php-format
+msgid "Accepted risks without approval: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:654
+#, php-format
+msgid "Treatment actions overdue: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:678
+#, php-format
+msgid "Version %s approved, still up to date"
+msgstr ""
+
+#: src/CertificationReadiness.php:688
+msgid "An approval request is pending"
+msgstr ""
+
+#: src/CertificationReadiness.php:726
+#, php-format
+msgid "Objectives: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:727
+#, php-format
+msgid "With at least one measurement: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:748
+#, php-format
+msgid "Trainings and sessions: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:750
+#, php-format
+msgid "Delivered in the last %1$d months: %2$d"
+msgstr ""
+
+#: src/CertificationReadiness.php:756
+#, php-format
+msgid "Participants who completed their training: %d %%"
+msgstr ""
+
+#: src/CertificationReadiness.php:785
+#, php-format
+msgid "Exercises in the last %1$d months: %2$d"
+msgstr ""
+
+#: src/CertificationReadiness.php:789
+#, php-format
+msgid "With a validated review: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:815
+#, php-format
+msgid "Last internal audit completed on %s"
+msgstr ""
+
+#: src/CertificationReadiness.php:816
+msgid "No internal audit completed yet"
+msgstr ""
+
+#: src/CertificationReadiness.php:818
+#, php-format
+msgid ""
+"Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
+msgstr ""
+
+#: src/CertificationReadiness.php:863
+msgid "Open the last management review"
+msgstr ""
+
+#: src/CertificationReadiness.php:873
+#, php-format
+msgid "Last management review completed on %s"
+msgstr ""
+
+#: src/CertificationReadiness.php:874
+msgid "No management review completed yet"
+msgstr ""
+
+#: src/CertificationReadiness.php:876
+msgid "Input file prepared for the last review"
+msgstr ""
+
+#: src/CertificationReadiness.php:877
+msgid "No input file prepared for the last review"
+msgstr ""
+
+#: src/CertificationReadiness.php:910
+#, php-format
+msgid "Open nonconformities: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:911
+#, php-format
+msgid "Overdue: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:912
+#, php-format
+msgid "Closed without a corrective action: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:928
+msgid "Certification readiness report"
+msgstr ""
+
+#: src/PageHelp.php:77
+msgid ""
+"This page guides you, step by step, from setting up your security management "
+"system to the certification audit: for each step, it shows what is expected, "
+"where you stand according to the data already entered, and the screen to "
+"open to complete it."
+msgstr ""
+
+#: src/PageHelp.php:83
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. "
+"Export the PDF readiness report to share where you stand."
+msgstr ""
+
+#: src/Services/Dashboard/DashboardCardService.php:84
+msgid "Progress towards certification (out of 100)"
 msgstr ""
