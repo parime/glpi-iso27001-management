@@ -9,6 +9,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Audit interne selon l'ISO 19011 : objectifs, critères et points de contrôle** (issue #773, lot 2,
+  ISO 27001 9.2.2). Ce que l'auditeur de certification regarde pour chaque audit interne, d'un coup
+  d'oeil :
+  - fiche de l'audit : nouveaux champs **Objectifs de l'audit** et **Critères d'audit** (articles de
+    la norme, politiques, procédures), à côté du périmètre, aussi dans la recherche ;
+  - onglet « Programme et indépendance » : encadré **Points de contrôle de l'audit** (objectifs,
+    périmètre et critères définis, processus choisis, auditeurs désignés, qualifiés, indépendants ou
+    conflit justifié, rapport remis à la direction), en badges colorés, avec la compétence de chaque
+    auditeur, celui de la fiche compris ;
+  - page du programme pluriannuel : tableau des points de contrôle de chaque audit du cycle et
+    alerte sur les audits incomplets ;
+  - rapport PDF de l'audit interne : objectifs, critères, processus audités, points de contrôle,
+    compétence des auditeurs, conflits d'indépendance et leur justification, remise à la direction ;
+  - colonnes `objectives` et `criteria` de `glpi_plugin_grcmanager_audits` (supprimées avec la table
+    à la désinstallation). Aucun statut ni droit n'est modifié automatiquement.
+  - Reste à faire : destinataire de la remise choisi dans un groupe « direction », indépendance
+    étendue aux propriétaires des processus métier et des mesures, planification d'un audit depuis
+    une case de la matrice du programme.
 - **Contacts officiels : prises de contact tracées depuis les incidents et les violations** (issue
   #771, lot 2, mesures A.5.5 et A.5.6). L'auditeur demande la preuve qu'une autorité a été prévenue
   dans le délai, ou pourquoi elle ne l'a pas été :

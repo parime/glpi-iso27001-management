@@ -24,7 +24,7 @@
       <h3 class="card-title"><i class="ti ti-list-check me-2"></i>{{ __('Audit checkpoints', 'grcmanager') }}</h3>
       <div class="card-actions">
          {% if checks.gaps > 0 %}
-            <span class="badge bg-warning-subtle text-warning-emphasis" id="grc-audit-gaps"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d point to complete', '%d points to complete', checks.gaps, 'grcmanager')|format(checks.gaps) }}</span>
+            <span class="badge bg-warning-subtle text-warning-emphasis" id="grc-audit-gaps"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d point(s) to complete', 'grcmanager')|format(checks.gaps) }}</span>
          {% else %}
             <span class="badge bg-success-subtle text-success-emphasis" id="grc-audit-gaps"><i class="ti ti-circle-check me-1"></i>{{ __('Ready to show the auditor', 'grcmanager') }}</span>
          {% endif %}
