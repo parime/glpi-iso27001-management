@@ -9,6 +9,22 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Procédures d'exploitation, lot 2** (issue #775, A.5.37) :
+  - revue périodique tracée : bouton « Enregistrer la revue » sur la fiche d'une procédure
+    approuvée (date du jour, personne connectée, sans nouvelle version) ; la prochaine revue est la
+    date saisie si elle a été repoussée, un an plus tard sinon ; chaque revue est inscrite au journal
+    d'audit (« Revue périodique enregistrée ») ; le registre et le PDF affichent « Revue le … par … » ;
+  - contenu de la procédure : onglet natif « Base de connaissances » sur la bibliothèque des
+    politiques ; le registre, le PDF et la preuve A.5.37 montrent les articles liés (seuls ceux que
+    la personne peut lire sont nommés) et les documents joints (hors procès-verbaux réservés), et
+    signalent les procédures « Sans contenu » ;
+  - contrôle de cohérence : nouvelle règle « Domaines d'exploitation attendus sans procédure
+    approuvée » (A.5.37, gravité moyenne) ;
+  - droits : enregistrer la revue exige de pouvoir modifier les politiques (matrice d'accès) ;
+  - colonnes `last_review_date` et `users_id_lastreviewer` de la table des politiques (migration
+    rejouable, supprimées avec la table à la désinstallation).
+  - Reste à faire : rôles concernés en champ dédié, carte du tableau de bord.
+
 - **Contacts officiels : prises de contact tracées depuis les incidents et les violations** (issue
   #771, lot 2, mesures A.5.5 et A.5.6). L'auditeur demande la preuve qu'une autorité a été prévenue
   dans le délai, ou pourquoi elle ne l'a pas été :
