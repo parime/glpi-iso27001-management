@@ -27198,3 +27198,209 @@ msgid_plural "%d months"
 msgstr[0] "%d miesiąc"
 msgstr[1] "%d miesięcy"
 msgstr[2] "%d miesięcy"
+
+msgid "Evidence pack settings saved."
+msgstr "Zapisano ustawienia pakietu dowodów."
+
+msgid "Evidence pack generated and archived. Download it from the list below."
+msgstr ""
+"Pakiet dowodów został wygenerowany i zarchiwizowany. Pobierz go z listy "
+"poniżej."
+
+msgid "Evidence pack"
+msgid_plural "Evidence packs"
+msgstr[0] "Pakiet dowodów"
+msgstr[1] "Pakiety dowodów"
+msgstr[2] "Pakietów dowodów"
+
+msgid "Annex A controls (Statement of Applicability)"
+msgstr "Zabezpieczenia z załącznika A (Deklaracja stosowania)"
+
+msgid "Approved versions of the Statement of Applicability"
+msgstr "Zatwierdzone wersje Deklaracji stosowania"
+
+msgid "Approved policy versions"
+msgstr "Zatwierdzone wersje polityk"
+
+msgid "Competence records"
+msgstr "Zapisy kompetencji"
+
+msgid "Audit reports and audit evidence"
+msgstr "Raporty i dowody z audytów"
+
+msgid "Management review files"
+msgstr "Materiały przeglądów zarządzania"
+
+msgid "Access review reports"
+msgstr "Raporty z przeglądów dostępu"
+
+msgid "Reports archived by the plugin"
+msgstr "Raporty zarchiwizowane przez wtyczkę"
+
+msgid "Expired, not included"
+msgstr "Wygasły, nie dołączono"
+
+msgid "No file"
+msgstr "Brak pliku"
+
+msgid "Size limit reached, not included"
+msgstr "Osiągnięto limit rozmiaru, nie dołączono"
+
+msgid "This perimeter is not among your active entities."
+msgstr "Ten zakres nie należy do Twoich aktywnych jednostek."
+
+msgid "The PHP zip extension is missing on the server."
+msgstr "Na serwerze brakuje rozszerzenia PHP zip."
+
+msgid "The archive could not be created."
+msgstr "Nie udało się utworzyć archiwum."
+
+#, php-format
+msgid "Evidence pack - %1$s (%2$s)"
+msgstr "Pakiet dowodów - %1$s (%2$s)"
+
+msgid "The archive could not be stored as a document."
+msgstr "Nie udało się zapisać archiwum jako dokumentu."
+
+msgid ""
+"Prepare the evidence pack the auditor asks for: one ZIP archive per "
+"perimeter, with the evidence of each control and each requirement, the "
+"reports already archived and a PDF index that lists them with their date and"
+" SHA-256 fingerprint."
+msgstr ""
+"Przygotuj pakiet dowodów, o który prosi audytor: jedno archiwum ZIP na "
+"zakres, z dowodami każdego zabezpieczenia i każdego wymagania, raportami już"
+" zarchiwizowanymi i indeksem PDF, który wymienia je z datą i odciskiem "
+"SHA-256."
+
+msgid ""
+"Choose the perimeter and check its contents: renew expired evidence and "
+"attach what is missing first. Then generate the pack and download it from "
+"the list. Only what you can read is included; expired evidence is listed in "
+"the index, not included. Nothing is changed in the registers."
+msgstr ""
+"Wybierz zakres i sprawdź jego zawartość: najpierw odnów wygasłe dowody i "
+"dołącz brakujące. Następnie wygeneruj pakiet i pobierz go z listy. Dołączane"
+" jest tylko to, co możesz odczytać; wygasły dowód jest wymieniony w "
+"indeksie, ale nie jest dołączany. W rejestrach nic się nie zmienia."
+
+msgid ""
+"ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
+"(internal audit)"
+msgstr ""
+"ISO/IEC 27001, punkty 7.5.3 (nadzór nad udokumentowanymi informacjami) i 9.2"
+" (audyt wewnętrzny)"
+
+#, php-format
+msgid "%1$d of %2$d with evidence"
+msgstr "%1$d z %2$d z dowodem"
+
+#, php-format
+msgid "%1$s MB of %2$s MB allowed"
+msgstr "%1$s MB z dozwolonych %2$s MB"
+
+#, php-format
+msgid ""
+"%d applicable control(s) have no evidence you can read: the index shows them"
+" without evidence."
+msgstr ""
+"Zabezpieczenia stosowane bez dowodu, który możesz odczytać: %d. Indeks "
+"pokazuje je bez dowodu."
+
+#, php-format
+msgid "%d file(s)"
+msgstr "Pliki: %d"
+
+#, php-format
+msgid "%d over the size limit"
+msgstr "Powyżej limitu rozmiaru: %d"
+
+msgid "Archived evidence packs"
+msgstr "Zarchiwizowane pakiety dowodów"
+
+msgid "Evidence pack for the auditor"
+msgstr "Pakiet dowodów dla audytora"
+
+msgid ""
+"Expired evidence: listed in the index, not included. Renew it from the "
+"\"Evidence validity\" tab of the control before generating the pack."
+msgstr ""
+"Wygasłe dowody: wymienione w indeksie, nie dołączone. Odnów je na karcie "
+"„Ważność dowodów” zabezpieczenia przed wygenerowaniem pakietu."
+
+msgid ""
+"Files that would exceed this size are listed in the index as not included."
+msgstr ""
+"Pliki, które przekroczyłyby ten rozmiar, są wymienione w indeksie jako "
+"niedołączone."
+
+msgid "Generate the evidence pack"
+msgstr "Wygeneruj pakiet dowodów"
+
+msgid "Maximum size of the archive (MB)"
+msgstr "Maksymalny rozmiar archiwum (MB)"
+
+msgid "No evidence pack generated yet."
+msgstr "Nie wygenerowano jeszcze żadnego pakietu dowodów."
+
+msgid ""
+"One ZIP archive per perimeter: the evidence attached to each Annex A control"
+" and each ISMS requirement, and the reports already archived by the plugin, "
+"with a PDF index listing them control by control, with their date, their "
+"state and their SHA-256 fingerprint."
+msgstr ""
+"Jedno archiwum ZIP na zakres: dowody dołączone do każdego zabezpieczenia z "
+"załącznika A i do każdego wymagania SZBI oraz raporty już zarchiwizowane "
+"przez wtyczkę, z indeksem PDF wymieniającym je zabezpieczenie po "
+"zabezpieczeniu, z datą, stanem i odciskiem SHA-256."
+
+msgid ""
+"Only the documents you can read are included. The archive is kept as a "
+"restricted document: you, and whoever can read every piece it contains, can "
+"download it. Generate a new one at any time."
+msgstr ""
+"Dołączane są tylko dokumenty, które możesz odczytać. Archiwum jest "
+"przechowywane jako dokument o ograniczonym dostępie: możesz je pobrać Ty "
+"oraz każdy, kto może odczytać każdy z jego elementów. Nowe możesz "
+"wygenerować w dowolnej chwili."
+
+msgid "Perimeter (entity)"
+msgstr "Zakres (jednostka)"
+
+msgid "Restricted"
+msgstr "Ograniczony"
+
+msgid "Show the contents"
+msgstr "Pokaż zawartość"
+
+msgid ""
+"You need the right to update the GRC plugin to generate an evidence pack."
+msgstr ""
+"Aby wygenerować pakiet dowodów, potrzebujesz prawa do modyfikacji wtyczki "
+"GRC."
+
+msgid "Files included"
+msgstr "Dołączone pliki"
+
+msgid "No evidence attached"
+msgstr "Brak dołączonego dowodu"
+
+msgid "Not included"
+msgstr "Nie dołączono"
+
+msgid ""
+"This index lists the evidence that the person who generated the pack can "
+"read, in the perimeter entity and its sub-entities. Expired evidence is "
+"listed but not included. Each included file is stored once in the "
+"\"evidence\" folder of the archive; its SHA-256 fingerprint is given here "
+"and in the SHA256SUMS.txt file, to check that nothing was changed."
+msgstr ""
+"Ten indeks wymienia dowody, które osoba generująca pakiet może odczytać, w "
+"jednostce zakresu i jej podjednostkach. Wygasły dowód jest wymieniony, ale "
+"nie jest dołączany. Każdy dołączony plik występuje raz w folderze „evidence”"
+" archiwum; jego odcisk SHA-256 podano tutaj i w pliku SHA256SUMS.txt, aby "
+"można było sprawdzić, że nic nie zostało zmienione."
+
+#, php-format
+msgid "limit %d MB"
+msgstr "limit %d MB"

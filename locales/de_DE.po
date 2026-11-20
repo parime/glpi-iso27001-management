@@ -27542,3 +27542,211 @@ msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d Monat"
 msgstr[1] "%d Monate"
+
+msgid "Evidence pack settings saved."
+msgstr "Einstellungen des Nachweispakets gespeichert."
+
+msgid "Evidence pack generated and archived. Download it from the list below."
+msgstr ""
+"Nachweispaket erstellt und archiviert. Laden Sie es aus der Liste unten "
+"herunter."
+
+msgid "Evidence pack"
+msgid_plural "Evidence packs"
+msgstr[0] "Nachweispaket"
+msgstr[1] "Nachweispakete"
+
+msgid "Annex A controls (Statement of Applicability)"
+msgstr "Maßnahmen aus Anhang A (Erklärung zur Anwendbarkeit)"
+
+msgid "Approved versions of the Statement of Applicability"
+msgstr "Genehmigte Versionen der Erklärung zur Anwendbarkeit"
+
+msgid "Approved policy versions"
+msgstr "Genehmigte Richtlinienversionen"
+
+msgid "Competence records"
+msgstr "Kompetenznachweise"
+
+msgid "Audit reports and audit evidence"
+msgstr "Auditberichte und Auditnachweise"
+
+msgid "Management review files"
+msgstr "Unterlagen der Managementbewertungen"
+
+msgid "Access review reports"
+msgstr "Berichte der Zugriffsüberprüfungen"
+
+msgid "Reports archived by the plugin"
+msgstr "Vom Plugin archivierte Berichte"
+
+msgid "Expired, not included"
+msgstr "Abgelaufen, nicht enthalten"
+
+msgid "No file"
+msgstr "Keine Datei"
+
+msgid "Size limit reached, not included"
+msgstr "Größenlimit erreicht, nicht enthalten"
+
+msgid "This perimeter is not among your active entities."
+msgstr "Dieser Geltungsbereich gehört nicht zu Ihren aktiven Einheiten."
+
+msgid "The PHP zip extension is missing on the server."
+msgstr "Die PHP-Erweiterung zip fehlt auf dem Server."
+
+msgid "The archive could not be created."
+msgstr "Das Archiv konnte nicht erstellt werden."
+
+#, php-format
+msgid "Evidence pack - %1$s (%2$s)"
+msgstr "Nachweispaket - %1$s (%2$s)"
+
+msgid "The archive could not be stored as a document."
+msgstr "Das Archiv konnte nicht als Dokument gespeichert werden."
+
+msgid ""
+"Prepare the evidence pack the auditor asks for: one ZIP archive per "
+"perimeter, with the evidence of each control and each requirement, the "
+"reports already archived and a PDF index that lists them with their date and"
+" SHA-256 fingerprint."
+msgstr ""
+"Bereiten Sie das Nachweispaket vor, das der Auditor anfordert: ein ZIP-"
+"Archiv pro Geltungsbereich mit den Nachweisen jeder Maßnahme und jeder "
+"Anforderung, den bereits archivierten Berichten und einem PDF-Index, der sie"
+" mit Datum und SHA-256-Fingerabdruck auflistet."
+
+msgid ""
+"Choose the perimeter and check its contents: renew expired evidence and "
+"attach what is missing first. Then generate the pack and download it from "
+"the list. Only what you can read is included; expired evidence is listed in "
+"the index, not included. Nothing is changed in the registers."
+msgstr ""
+"Wählen Sie den Geltungsbereich und prüfen Sie seinen Inhalt: Erneuern Sie "
+"zuerst abgelaufene Nachweise und fügen Sie Fehlendes hinzu. Erstellen Sie "
+"dann das Paket und laden Sie es aus der Liste herunter. Nur was Sie lesen "
+"dürfen, wird aufgenommen; abgelaufene Nachweise werden im Index aufgeführt, "
+"aber nicht aufgenommen. In den Registern wird nichts geändert."
+
+msgid ""
+"ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
+"(internal audit)"
+msgstr ""
+"ISO/IEC 27001, Abschnitte 7.5.3 (Lenkung dokumentierter Information) und 9.2"
+" (internes Audit)"
+
+#, php-format
+msgid "%1$d of %2$d with evidence"
+msgstr "%1$d von %2$d mit Nachweis"
+
+#, php-format
+msgid "%1$s MB of %2$s MB allowed"
+msgstr "%1$s MB von %2$s MB erlaubt"
+
+#, php-format
+msgid ""
+"%d applicable control(s) have no evidence you can read: the index shows them"
+" without evidence."
+msgstr ""
+"%d anwendbare Maßnahme(n) ohne für Sie lesbaren Nachweis: Der Index zeigt "
+"sie ohne Nachweis."
+
+#, php-format
+msgid "%d file(s)"
+msgstr "%d Datei(en)"
+
+#, php-format
+msgid "%d over the size limit"
+msgstr "%d über dem Größenlimit"
+
+msgid "Archived evidence packs"
+msgstr "Archivierte Nachweispakete"
+
+msgid "Evidence pack for the auditor"
+msgstr "Nachweispaket für den Auditor"
+
+msgid ""
+"Expired evidence: listed in the index, not included. Renew it from the "
+"\"Evidence validity\" tab of the control before generating the pack."
+msgstr ""
+"Abgelaufene Nachweise: im Index aufgeführt, nicht enthalten. Erneuern Sie "
+"sie über die Registerkarte „Gültigkeit der Nachweise“ der Maßnahme, bevor "
+"Sie das Paket erstellen."
+
+msgid ""
+"Files that would exceed this size are listed in the index as not included."
+msgstr ""
+"Dateien, die diese Größe überschreiten würden, werden im Index als nicht "
+"enthalten aufgeführt."
+
+msgid "Generate the evidence pack"
+msgstr "Nachweispaket erstellen"
+
+msgid "Maximum size of the archive (MB)"
+msgstr "Maximale Größe des Archivs (MB)"
+
+msgid "No evidence pack generated yet."
+msgstr "Noch kein Nachweispaket erstellt."
+
+msgid ""
+"One ZIP archive per perimeter: the evidence attached to each Annex A control"
+" and each ISMS requirement, and the reports already archived by the plugin, "
+"with a PDF index listing them control by control, with their date, their "
+"state and their SHA-256 fingerprint."
+msgstr ""
+"Ein ZIP-Archiv pro Geltungsbereich: die Nachweise zu jeder Maßnahme aus "
+"Anhang A und jeder ISMS-Anforderung sowie die bereits vom Plugin "
+"archivierten Berichte, mit einem PDF-Index, der sie Maßnahme für Maßnahme "
+"mit Datum, Status und SHA-256-Fingerabdruck auflistet."
+
+msgid ""
+"Only the documents you can read are included. The archive is kept as a "
+"restricted document: you, and whoever can read every piece it contains, can "
+"download it. Generate a new one at any time."
+msgstr ""
+"Nur Dokumente, die Sie lesen dürfen, werden aufgenommen. Das Archiv wird als"
+" eingeschränktes Dokument aufbewahrt: Sie und alle, die jedes enthaltene "
+"Stück lesen dürfen, können es herunterladen. Erstellen Sie jederzeit ein "
+"neues."
+
+msgid "Perimeter (entity)"
+msgstr "Geltungsbereich (Einheit)"
+
+msgid "Restricted"
+msgstr "Eingeschränkt"
+
+msgid "Show the contents"
+msgstr "Inhalt anzeigen"
+
+msgid ""
+"You need the right to update the GRC plugin to generate an evidence pack."
+msgstr ""
+"Sie benötigen das Recht, das GRC-Plugin zu ändern, um ein Nachweispaket zu "
+"erstellen."
+
+msgid "Files included"
+msgstr "Enthaltene Dateien"
+
+msgid "No evidence attached"
+msgstr "Kein Nachweis angehängt"
+
+msgid "Not included"
+msgstr "Nicht enthalten"
+
+msgid ""
+"This index lists the evidence that the person who generated the pack can "
+"read, in the perimeter entity and its sub-entities. Expired evidence is "
+"listed but not included. Each included file is stored once in the "
+"\"evidence\" folder of the archive; its SHA-256 fingerprint is given here "
+"and in the SHA256SUMS.txt file, to check that nothing was changed."
+msgstr ""
+"Dieser Index listet die Nachweise auf, die die erstellende Person in der "
+"Einheit des Geltungsbereichs und ihren Untereinheiten lesen darf. "
+"Abgelaufene Nachweise werden aufgeführt, aber nicht aufgenommen. Jede "
+"enthaltene Datei liegt einmal im Ordner „evidence“ des Archivs; ihr "
+"SHA-256-Fingerabdruck steht hier und in der Datei SHA256SUMS.txt, um zu "
+"prüfen, dass nichts verändert wurde."
+
+#, php-format
+msgid "limit %d MB"
+msgstr "Limit %d MB"
