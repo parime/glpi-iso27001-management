@@ -405,6 +405,8 @@ class IsmsRequirement extends IsmsRequirementBase
             'module'         => self::getLinkedModule($code),
             // Issue #608 : état du registre du contexte pour 4.1 et 4.2.
             'context'        => ContextItem::clauseReadiness($code),
+            // Issue #612 : état de la matrice des responsabilités pour 5.3.
+            'responsibility' => ResponsibilityActivity::clauseReadiness($code),
         ]);
 
         return true;

@@ -87,6 +87,8 @@ class Menu extends CommonGLPI
                 Referentials::class, CustomFramework::class, IsmsRequirement::class,
                 // Issue #608 : contexte de l'organisation (enjeux, parties intéressées).
                 ContextItem::class,
+                // Issue #612 : matrice des responsabilités du SMSI (article 5.3, mesure A.5.3).
+                ResponsibilityActivity::class,
                 ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class,
                 // Issue #620 : registre des violations de données personnelles.
                 DataBreach::class, Policy::class,

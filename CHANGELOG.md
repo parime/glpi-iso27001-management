@@ -7,12 +7,32 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.60.0] - 2026-11-19
+
 ## [2.59.0] - 2026-11-19
 
 ## [2.58.0] - 2026-11-19
 
 ### Added
 
+- **Matrice des responsabilités du SMSI et séparation des tâches** (issue #612, ISO 27001
+  article 5.3 et mesure A.5.3). Sous-page « Matrice des responsabilités » de la rubrique
+  Conformité, sans nouvelle entrée de menu.
+  - Activités du SMSI en lignes, utilisateurs et groupes GLPI en colonnes : pour chaque activité,
+    qui réalise, approuve, est consulté ou informé ; une seule personne ou un seul groupe approuve.
+    Les utilisateurs et groupes proposés et acceptés sont ceux de l'entité de l'activité.
+  - Dix-sept activités proposées par défaut (appréciation des risques, revue des accès, comptes à
+    privilèges, changements, sauvegardes, journaux, incidents, audit interne...), traduites dans la
+    langue de chaque personne, renommables, avec les mesures de l'Annexe A concernées. Elles ne sont
+    ajoutées qu'à la création de la table : une mise à jour ne modifie ni ne recrée rien ; un bouton
+    ajoute seulement celles qui manquent.
+  - Alertes : activité sans approbateur ou sans personne qui la réalise, même personne (directement
+    ou par un groupe) qui réalise et approuve une activité sensible, groupe sans membre actif,
+    utilisateur désactivé ou supprimé. Les alertes ne modifient jamais les affectations, les droits
+    ni les statuts.
+  - Export PDF daté, et archivage comme preuve : le PDF est joint à l'exigence 5.3 et à la mesure
+    A.5.3 de la SoA de l'entité, lisible seulement avec le droit du plugin dans cette entité.
+  - Synthèse sur l'exigence 5.3 du SMSI ; historique des ajouts et retraits d'affectations.
 - **Dossier préparatoire de la revue de direction** (issue #542, ISO 27001 clause 9.3.2). Nouvel
   onglet « Dossier préparatoire » sur la fiche d'une revue de direction, sans nouvelle entrée de
   menu.
