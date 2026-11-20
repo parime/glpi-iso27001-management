@@ -138,6 +138,8 @@ check "onglet processus metier d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGr
 check "front/crisisscenario.php"               "$P/crisisscenario.php"
 check "fiche d'un scenario de crise"           "$(tab GlpiPlugin%5CGrcmanager%5CCrisisScenario 'GlpiPlugin%5CGrcmanager%5CCrisisScenario$main' "$(xid crisis_scenario)")"
 check "onglet scenarios de crise d'un processus" "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CCrisisScenario$1' "$(xid process)")"
+# Issue #776, lot 2 : onglet Preparation (processus, modele de message et contact officiel pieges).
+check "onglet preparation d'un scenario de crise" "$(tab GlpiPlugin%5CGrcmanager%5CCrisisScenario 'GlpiPlugin%5CGrcmanager%5CCrisisScenarioReadiness$1' "$(xid crisis_scenario)")"
 # Issue #377, deuxieme etape : processus lies, risques d'un processus, processus d'un risque.
 check "onglet processus lies d'un processus"   "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$1' "$(xid process)")"
 check "onglet risques d'un processus"          "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(xid process)")"

@@ -27,6 +27,16 @@
             {% if summary.overdue > 0 %}
                <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-calendar-due me-1"></i>{{ _n('%d scenario to exercise again', '%d scenarios to exercise again', summary.overdue, 'grcmanager')|format(summary.overdue) }}</span>
             {% endif %}
+            {# Issue #776, lot 2 : bilans d'exercice (#732) et tests de reprise (#733). #}
+            {% if summary.reviews_validated|default(0) > 0 %}
+               <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-rosette-discount-check me-1"></i>{{ _n('%d scenario exercised with a validated review', '%d scenarios exercised with a validated review', summary.reviews_validated, 'grcmanager')|format(summary.reviews_validated) }}</span>
+            {% endif %}
+            {% if summary.review_pending|default(0) > 0 %}
+               <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-file-alert me-1"></i>{{ _n('%d exercise review to validate', '%d exercise reviews to validate', summary.review_pending, 'grcmanager')|format(summary.review_pending) }}</span>
+            {% endif %}
+            {% if summary.recovery_untested|default(0) > 0 %}
+               <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-refresh-alert me-1"></i>{{ _n('%d scenario with a critical process never tested in recovery', '%d scenarios with a critical process never tested in recovery', summary.recovery_untested, 'grcmanager')|format(summary.recovery_untested) }}</span>
+            {% endif %}
          </div>
          <a href="{{ summary.url }}" class="me-3"><i class="ti ti-link me-1"></i>{{ __('Open the scenarios', 'grcmanager') }}</a>
          <a href="{{ summary.export_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Print the scenarios (PDF)', 'grcmanager') }}</a>

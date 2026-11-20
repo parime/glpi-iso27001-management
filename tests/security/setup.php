@@ -368,6 +368,8 @@ if ($mode === 'xss') {
     $out['crisis_scenario'] = $insert('crisisscenarios', [
         'name' => $canary, 'description' => $canary, 'degraded_mode' => $canary, 'role_management' => $canary,
         'role_ciso' => $canary, 'role_it' => $canary, 'comment' => $canary, 'is_active' => 1,
+        // Issue #776, lot 2 : situation du modèle piégé, pour l'onglet « Préparation ».
+        'communication_situation' => 'major_incident', 'exercise_scenario' => 'ransomware',
     ]);
     $insert('crisisscenarios_businessprocesses', [
         'plugin_grcmanager_crisisscenarios_id' => $out['crisis_scenario'],
