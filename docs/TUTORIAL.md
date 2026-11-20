@@ -169,6 +169,15 @@ travail datées, avec leur auteur.
    chaque auditeur s'il est qualifié, si sa qualification est à renouveler ou s'il n'en a aucune.
 5. **Remise du rapport à la direction** : saisissez la date de remise et le destinataire dans le même
    onglet. Ils figurent dans le dossier de revue de direction (9.3.2 d 3).
+6. **Objectifs et critères** : sur la fiche de l'audit, renseignez ses **Objectifs** (ce que l'audit
+   doit établir) et ses **Critères d'audit** (articles de la norme, politiques, procédures auxquels
+   les preuves sont comparées), à côté du périmètre.
+7. **Points de contrôle** : l'encadré **Points de contrôle de l'audit**, en tête de l'onglet
+   **Programme et indépendance**, indique en couleur ce que l'auditeur de certification vérifiera :
+   objectifs, périmètre et critères définis, processus choisis, auditeurs désignés, qualifiés et
+   indépendants, rapport remis à la direction. La page du programme reprend ces points pour chaque
+   audit du cycle et signale les audits incomplets. Le rapport PDF de l'audit les reprend aussi, avec
+   la compétence des auditeurs et la justification de chaque conflit.
 
 Depuis l'onglet **Non-conformités** de la rubrique, une non-conformité peut être liée à cet audit interne, avec
 une sévérité, une échéance, une description et une cause racine.
@@ -987,6 +996,15 @@ download (date, user, document) and the **Notes** tab keeps dated working notes 
    whether they are qualified, have to renew the qualification, or have none.
 5. **Report to management**: enter the delivery date of the report and its recipient in the same
    tab. Both appear in the management review dossier (9.3.2 d 3).
+6. **Objectives and criteria**: on the audit form, fill in its **Objectives** (what the audit must
+   establish) and its **Audit criteria** (clauses of the standard, policies, procedures the evidence
+   is compared with), next to the scope.
+7. **Checkpoints**: the **Audit checkpoints** box, at the top of the **Programme et indépendance**
+   tab, shows in colour what the certification auditor will check: objectives, scope and criteria
+   defined, processes chosen, auditors appointed, qualified and independent, report delivered to
+   management. The programme page shows these points for each audit of the cycle and flags the
+   incomplete ones. The PDF report of the audit includes them too, with the competence of the
+   auditors and the justification of each conflict.
 
 From the section's **Non-conformités** tab, a non-conformity can be linked to this internal audit, with a
 severity, a due date, a description and a root cause.

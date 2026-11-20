@@ -634,6 +634,161 @@ class AuditProgramme extends CommonGLPI
     }
 
     // ---------------------------------------------------------------------------------------------
+    // Points de contrôle de l'audit (lot 2)
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Libellés des points de contrôle : [court (en-tête du tableau du programme), complet].
+     *
+     * @return array<string, array{0: string, 1: string}>
+     */
+    public static function checkLabels(): array
+    {
+        return [
+            'objectives'   => [__('Objectives', 'grcmanager'), __('Audit objectives defined', 'grcmanager')],
+            'scope'        => [__('Scope', 'grcmanager'), __('Audit scope defined', 'grcmanager')],
+            'criteria'     => [__('Criteria', 'grcmanager'), __('Audit criteria defined', 'grcmanager')],
+            'processes'    => [__('Processes', 'grcmanager'), __('Audited processes chosen', 'grcmanager')],
+            'auditors'     => [__('Auditors', 'grcmanager'), __('Auditors appointed', 'grcmanager')],
+            'competence'   => [__('Competence', 'grcmanager'), __('Auditors qualified', 'grcmanager')],
+            'independence' => [
+                __('Independence', 'grcmanager'),
+                __('Auditors independent of the audited processes, or conflict justified', 'grcmanager'),
+            ],
+            'delivery'     => [__('Report', 'grcmanager'), __('Report delivered to management', 'grcmanager')],
+        ];
+    }
+
+    /**
+     * Libellé, couleur et icône de chaque état d'un point de contrôle.
+     *
+     * @return array<string, array{label: string, badge: string, icon: string}>
+     */
+    public static function checkStates(): array
+    {
+        return [
+            Rules::CHECK_OK             => [
+                'label' => __('Compliant', 'grcmanager'),
+                'badge' => 'bg-success-subtle text-success-emphasis',
+                'icon'  => 'ti-circle-check',
+            ],
+            Rules::CHECK_WARNING        => [
+                'label' => __('To watch', 'grcmanager'),
+                'badge' => 'bg-warning-subtle text-warning-emphasis',
+                'icon'  => 'ti-clock-exclamation',
+            ],
+            Rules::CHECK_MISSING        => [
+                'label' => __('Missing', 'grcmanager'),
+                'badge' => 'bg-danger-subtle text-danger-emphasis',
+                'icon'  => 'ti-alert-triangle',
+            ],
+            Rules::CHECK_PENDING        => [
+                'label' => __('Later', 'grcmanager'),
+                'badge' => 'bg-info-subtle text-info-emphasis',
+                'icon'  => 'ti-hourglass',
+            ],
+            Rules::CHECK_NOT_APPLICABLE => [
+                'label' => __('No qualifying training chosen', 'grcmanager'),
+                'badge' => 'bg-secondary-subtle text-secondary-emphasis',
+                'icon'  => 'ti-minus',
+            ],
+        ];
+    }
+
+    /**
+     * Points de contrôle de l'audit, compétence de chaque auditeur et conflits d'indépendance.
+     *
+     * @return array{checks: array<string, string>, gaps: int, auditors: list<array<string, mixed>>,
+     *               conflicts: list<array<string, mixed>>, delivery: array<string, mixed>|null}
+     */
+    public static function auditChecks(Audit $audit): array
+    {
+        $auditorIds = self::auditors($audit);
+        $competences = self::competences($auditorIds);
+        $conflicts = self::conflicts($audit);
+        $delivery = self::delivery($audit->getID());
+        $result = Rules::auditChecks([
+            'objectives'     => (string) ($audit->fields['objectives'] ?? ''),
+            'scope'          => (string) ($audit->fields['scope'] ?? ''),
+            'criteria'       => (string) ($audit->fields['criteria'] ?? ''),
+            'processes'      => count(self::processIds($audit->getID())),
+            'competences'    => array_values(array_map(
+                static fn (array $competence): string => $competence['status'],
+                $competences
+            )),
+            'open_conflicts' => count(array_filter($conflicts, static fn (array $c): bool => $c['waiver'] === null)),
+            'status'         => (string) ($audit->fields['status'] ?? ''),
+            'delivered'      => $delivery !== null,
+        ]);
+        $auditors = [];
+        foreach ($auditorIds as $userId) {
+            $auditors[] = [
+                'users_id'   => $userId,
+                'name'       => (string) getUserName($userId),
+                'competence' => $competences[$userId] ?? ['status' => Rules::COMPETENCE_MISSING, 'trainings' => []],
+            ];
+        }
+
+        return $result + ['auditors' => $auditors, 'conflicts' => $conflicts, 'delivery' => $delivery];
+    }
+
+    /**
+     * Données du rapport PDF de l'audit interne : processus audités, points de contrôle,
+     * compétence des auditeurs, conflits d'indépendance et leur justification, remise du rapport.
+     *
+     * @return array<string, mixed>
+     */
+    public static function reportData(Audit $audit): array
+    {
+        $checks = self::auditChecks($audit);
+        $labels = self::checkLabels();
+        $states = self::checkStates();
+        $competenceLabels = self::competenceLabels();
+        $lines = [];
+        foreach ($checks['checks'] as $key => $state) {
+            $lines[] = ['label' => $labels[$key][1], 'state' => $states[$state]['label']];
+        }
+        $auditors = [];
+        foreach ($checks['auditors'] as $auditor) {
+            $auditors[] = [
+                'name'       => $auditor['name'],
+                'status'     => $competenceLabels[$auditor['competence']['status']] ?? '',
+                'trainings'  => array_map(
+                    static fn (array $t): string => (string) ($t['date_text'] ?? '') !== ''
+                        ? sprintf('%s (%s)', $t['title'], $t['date_text'])
+                        : (string) $t['title'],
+                    $auditor['competence']['trainings']
+                ),
+            ];
+        }
+        $delivery = $checks['delivery'];
+
+        return [
+            'processes' => array_values(self::processLabels(self::processIds($audit->getID()))),
+            'checks'    => $lines,
+            'gaps'      => $checks['gaps'],
+            'auditors'  => $auditors,
+            'conflicts' => $checks['conflicts'],
+            'delivery'  => $delivery === null ? '' : sprintf(
+                __('Delivered on %1$s to %2$s', 'grcmanager'),
+                Html::convDate($delivery['delivery_date']),
+                getUserName((int) $delivery['users_id_recipient'])
+            ),
+        ];
+    }
+
+    /** @return array<string, string> */
+    public static function competenceLabels(): array
+    {
+        return [
+            Rules::COMPETENCE_QUALIFIED      => __('Qualified', 'grcmanager'),
+            Rules::COMPETENCE_EXPIRED        => __('Qualification to renew', 'grcmanager'),
+            Rules::COMPETENCE_MISSING        => __('No auditor qualification recorded', 'grcmanager'),
+            Rules::COMPETENCE_NOT_CONFIGURED => __('No qualifying training chosen', 'grcmanager'),
+        ];
+    }
+
+    // ---------------------------------------------------------------------------------------------
     // Programme pluriannuel
     // ---------------------------------------------------------------------------------------------
 
@@ -741,7 +896,24 @@ class AuditProgramme extends CommonGLPI
             static fn (array $row): bool => !$row['audited'] && $row['type'] === ChecklistRules::TYPE_CONTROL
         ));
 
+        // Lot 2 : points de contrôle de chaque audit du cycle (objectifs, critères, compétence,
+        // indépendance, remise du rapport).
+        $auditChecks = [];
+        $gapAudits = 0;
+        $auditItem = new Audit();
+        foreach ($audits as $audit) {
+            if (!$auditItem->getFromDB($audit['id'])) {
+                continue;
+            }
+            $checks = self::auditChecks($auditItem);
+            $gapAudits += $checks['gaps'] > 0 ? 1 : 0;
+            $auditChecks[] = $decorate($audit) + ['checks' => $checks['checks'], 'gaps' => $checks['gaps']];
+        }
+        usort($auditChecks, static fn (array $a, array $b): int => [$a['date'], $a['id']] <=> [$b['date'], $b['id']]);
+
         return $matrix + [
+            'audit_checks'     => $auditChecks,
+            'gap_audits'       => $gapAudits,
             'start'            => $start,
             'from'             => Html::convDate($from),
             'to'               => Html::convDate($to),
@@ -797,6 +969,10 @@ class AuditProgramme extends CommonGLPI
             'recipient'      => $delivery !== null ? (string) getUserName((int) $delivery['users_id_recipient']) : '',
             'programme_url'  => self::getSearchURL(),
             'raci_url'       => ResponsibilityActivity::getSearchURL(),
+            // Lot 2 : points de contrôle ISO 19011 et compétence de chaque auditeur.
+            'checks'         => self::auditChecks($audit),
+            'check_labels'   => self::checkLabels(),
+            'check_states'   => self::checkStates(),
         ]);
     }
 

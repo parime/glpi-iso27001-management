@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 20:50+0000\n"
+"POT-Creation-Date: 2026-11-20 20:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgstr ""
 #: front/audit.report.php:77 front/databreach.export.php:65
 #: front/networkflow.report.php:31 front/processingactivity.export.php:64
 #: front/risk.report.php:73 src/AccessReview.php:745 src/AcnRequirement.php:805
-#: src/Audit.php:613 src/CertificationFinding.php:410
+#: src/Audit.php:628 src/CertificationFinding.php:410
 #: src/CertificationReadiness.php:1386 src/CompetenceMatrix.php:852
 #: src/ConsistencyCheck.php:1444 src/ContextItem.php:879
 #: src/ControlTest.php:994 src/CrisisExercise.php:627
@@ -393,7 +393,7 @@ msgstr ""
 
 #: front/consistencycheck.export.php:53 src/EndOfLife.php:487
 #: src/HardwareWarranty.php:318 src/PersonnelCompliance.php:749
-#: src/SoftwareLicenseCompliance.php:421
+#: src/SoftwareLicenseCompliance.php:349
 #: templates/_personnel_compliance.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 #: templates/pdf/consistency_report.html.twig
@@ -861,7 +861,7 @@ msgid "Person"
 msgstr ""
 
 #: front/policyacknowledgement.export.php:48 src/HardwareWarranty.php:312
-#: src/PolicyAcknowledgement.php:131 src/SoftwareLicenseCompliance.php:411
+#: src/PolicyAcknowledgement.php:131 src/SoftwareLicenseCompliance.php:340
 #: templates/acn_register.html.twig templates/config_form.html.twig
 #: templates/park_hardware_warranty.html.twig
 #: templates/pdf/access_review_report.html.twig
@@ -1228,7 +1228,7 @@ msgstr ""
 msgid "SoA approval"
 msgstr ""
 
-#: front/softwarelicensecompliance.php:53
+#: front/softwarelicensecompliance.php:49
 msgid "Watched publishers saved."
 msgstr ""
 
@@ -2014,7 +2014,7 @@ msgstr ""
 msgid "In preparation"
 msgstr ""
 
-#: src/AccessReview.php:104 src/Audit.php:97 src/Audit.php:390
+#: src/AccessReview.php:104 src/Audit.php:97 src/Audit.php:405
 #: src/Control.php:154 src/Control.php:1364 src/DataSubjectRequest.php:97
 #: src/EbiosStudy.php:90 src/IsmsRequirement.php:154
 #: src/ManagementReviewAction.php:62 src/PhysicalSecurityAssessment.php:417
@@ -2382,6 +2382,7 @@ msgstr ""
 #: templates/audit_programme_tab.html.twig
 #: templates/context_item_form.html.twig templates/control_form.html.twig
 #: templates/network_flow_form.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/network_flow_report.html.twig
 #: templates/pdf/soa_report.html.twig
 #: templates/recyf_requirement_form.html.twig templates/risk_form.html.twig
@@ -2629,18 +2630,18 @@ msgstr[1] ""
 msgid "Audits and improvement"
 msgstr ""
 
-#: src/Audit.php:96 src/Audit.php:389 src/ComplianceEvent.php:130
+#: src/Audit.php:96 src/Audit.php:404 src/ComplianceEvent.php:130
 #: src/ControlTest.php:200
 msgctxt "masculine"
 msgid "Planned"
 msgstr ""
 
-#: src/Audit.php:98 src/Audit.php:391 templates/crisis_room.html.twig
+#: src/Audit.php:98 src/Audit.php:406 templates/crisis_room.html.twig
 #: templates/crisis_tab.html.twig
 msgid "Completed"
 msgstr ""
 
-#: src/Audit.php:99 src/Audit.php:392 src/ComplianceEvent.php:132
+#: src/Audit.php:99 src/Audit.php:407 src/ComplianceEvent.php:132
 msgid "Cancelled"
 msgstr ""
 
@@ -2703,9 +2704,9 @@ msgstr ""
 msgid "Risk categories covered"
 msgstr ""
 
-#: src/Audit.php:260 src/ComplianceEvent.php:235 src/EbiosStudy.php:601
-#: src/NotificationTargetComplianceEvent.php:113
-#: src/SoftwareLicenseCompliance.php:412 templates/audit_form.html.twig
+#: src/Audit.php:260 src/AuditProgramme.php:649 src/ComplianceEvent.php:235
+#: src/EbiosStudy.php:601 src/NotificationTargetComplianceEvent.php:113
+#: src/SoftwareLicenseCompliance.php:341 templates/audit_form.html.twig
 #: templates/auditor_space.html.twig templates/compliance_event_form.html.twig
 #: templates/ebios_study_form.html.twig
 #: templates/pdf/ebios_study_report.html.twig
@@ -2738,17 +2739,27 @@ msgstr ""
 msgid "Standard and edition"
 msgstr ""
 
-#: src/Audit.php:611
+#: src/Audit.php:317 templates/audit_form.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Audit objectives"
+msgstr ""
+
+#: src/Audit.php:324 templates/audit_form.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Audit criteria"
+msgstr ""
+
+#: src/Audit.php:626
 #, php-format
 msgid "Internal audit report: %s"
 msgstr ""
 
-#: src/Audit.php:664
+#: src/Audit.php:681
 #, php-format
 msgid "Internal audit report - %s"
 msgstr ""
 
-#: src/Audit.php:682
+#: src/Audit.php:699
 msgid "The audit report has been archived in the Documents tab."
 msgstr ""
 
@@ -2758,11 +2769,11 @@ msgstr ""
 msgid "Audit checklist"
 msgstr ""
 
-#: src/AuditChecklist.php:102 src/ComplianceObligation.php:108
-#: src/ComplianceObligation.php:329 src/ControlTestSample.php:125
-#: src/CustomRequirement.php:60 src/IsmsRequirement.php:155
-#: src/PersonnelCompliance.php:288 src/PhysicalSecurity.php:97
-#: templates/_network_flow_badges.html.twig
+#: src/AuditChecklist.php:102 src/AuditProgramme.php:671
+#: src/ComplianceObligation.php:108 src/ComplianceObligation.php:329
+#: src/ControlTestSample.php:125 src/CustomRequirement.php:60
+#: src/IsmsRequirement.php:155 src/PersonnelCompliance.php:288
+#: src/PhysicalSecurity.php:97 templates/_network_flow_badges.html.twig
 #: templates/compliance_audit.html.twig
 #: templates/network_flow_summary.html.twig
 msgid "Compliant"
@@ -3087,6 +3098,7 @@ msgid "Approval decision"
 msgstr ""
 
 #: src/AuditLog.php:232 templates/audit_log.html.twig
+#: templates/audit_programme.html.twig
 #: templates/document_accesses_tab.html.twig templates/pdf/action_log.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
@@ -3183,7 +3195,114 @@ msgstr ""
 msgid "Audit report delivered to management on %1$s (%2$s)"
 msgstr ""
 
-#: src/AuditProgramme.php:765
+#: src/AuditProgramme.php:648
+msgid "Audit objectives defined"
+msgstr ""
+
+#: src/AuditProgramme.php:648
+msgid "Objectives"
+msgstr ""
+
+#: src/AuditProgramme.php:649
+msgid "Audit scope defined"
+msgstr ""
+
+#: src/AuditProgramme.php:650
+msgid "Audit criteria defined"
+msgstr ""
+
+#: src/AuditProgramme.php:650
+msgid "Criteria"
+msgstr ""
+
+#: src/AuditProgramme.php:651
+msgid "Audited processes chosen"
+msgstr ""
+
+#: src/AuditProgramme.php:651
+msgid "Processes"
+msgstr ""
+
+#: src/AuditProgramme.php:652 templates/audit_programme_tab.html.twig
+msgid "Auditors"
+msgstr ""
+
+#: src/AuditProgramme.php:652
+msgid "Auditors appointed"
+msgstr ""
+
+#: src/AuditProgramme.php:653
+msgid "Auditors qualified"
+msgstr ""
+
+#: src/AuditProgramme.php:653 src/Competence.php:52 src/IsmsRequirement.php:119
+#: templates/competence_declaration_form.html.twig
+#: templates/competence_form.html.twig templates/competence_page.html.twig
+#: templates/competence_sheet.html.twig
+#: templates/pdf/competence_report.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Competence"
+msgstr ""
+
+#: src/AuditProgramme.php:655
+msgid "Independence"
+msgstr ""
+
+#: src/AuditProgramme.php:656
+msgid "Auditors independent of the audited processes, or conflict justified"
+msgstr ""
+
+#: src/AuditProgramme.php:658 templates/crisis_exercises.html.twig
+#: templates/crisis_tab.html.twig templates/pdf/remediation_plan.html.twig
+#: templates/tabs/control_access_reviews.html.twig
+#: templates/tabs/incident_playbook.html.twig
+msgid "Report"
+msgstr ""
+
+#: src/AuditProgramme.php:658 templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Report delivered to management"
+msgstr ""
+
+#: src/AuditProgramme.php:676
+msgid "To watch"
+msgstr ""
+
+#: src/AuditProgramme.php:681 templates/tabs/incident_evidence.html.twig
+msgid "Missing"
+msgstr ""
+
+#: src/AuditProgramme.php:686
+msgid "Later"
+msgstr ""
+
+#: src/AuditProgramme.php:691 src/AuditProgramme.php:787
+#: templates/audit_programme_tab.html.twig
+msgid "No qualifying training chosen"
+msgstr ""
+
+#: src/AuditProgramme.php:773 templates/audit_programme_tab.html.twig
+#, php-format
+msgid "Delivered on %1$s to %2$s"
+msgstr ""
+
+#: src/AuditProgramme.php:784 templates/audit_programme_tab.html.twig
+#: templates/audit_team_tab.html.twig
+msgid "Qualified"
+msgstr ""
+
+#: src/AuditProgramme.php:785 templates/audit_programme_tab.html.twig
+#: templates/audit_team_tab.html.twig
+msgid "Qualification to renew"
+msgstr ""
+
+#: src/AuditProgramme.php:786 templates/audit_programme_tab.html.twig
+#: templates/audit_team_tab.html.twig
+msgid "No auditor qualification recorded"
+msgstr ""
+
+#: src/AuditProgramme.php:937
 msgid "Programme and independence"
 msgstr ""
 
@@ -4231,14 +4350,6 @@ msgid ""
 "local_define.php)."
 msgstr ""
 
-#: src/Competence.php:52 src/IsmsRequirement.php:119
-#: templates/competence_declaration_form.html.twig
-#: templates/competence_form.html.twig templates/competence_page.html.twig
-#: templates/competence_sheet.html.twig
-#: templates/pdf/competence_report.html.twig
-msgid "Competence"
-msgstr ""
-
 #: src/Competence.php:66
 msgid "Information security awareness"
 msgstr ""
@@ -5091,8 +5202,8 @@ msgid "From risk level"
 msgstr ""
 
 #: src/ConsistencyCheck.php:624 src/EndOfLife.php:452
-#: src/HardwareWarranty.php:249 src/SoftwareLicenseCompliance.php:321
-#: src/SoftwareLicenseCompliance.php:339
+#: src/HardwareWarranty.php:249 src/SoftwareLicenseCompliance.php:254
+#: src/SoftwareLicenseCompliance.php:272
 #, php-format
 msgid "%1$s (ID %2$d)"
 msgstr ""
@@ -6331,7 +6442,7 @@ msgid "Tester"
 msgstr ""
 
 #: src/ControlTest.php:1082 src/PhysicalSecurityCheck.php:254
-#: src/SoftwareLicenseCompliance.php:410 templates/_crisis_review.html.twig
+#: src/SoftwareLicenseCompliance.php:339 templates/_crisis_review.html.twig
 #: templates/audit_checklist_tab.html.twig
 #: templates/certification_findings.html.twig
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
@@ -8417,7 +8528,7 @@ msgid "Not queried (earlier error or limit reached)"
 msgstr ""
 
 #: src/EndOfLife.php:181 src/NotificationTargetVulnerabilityDigest.php:256
-#: src/SoftwareLicenseCompliance.php:413 templates/park_item_tab.html.twig
+#: src/SoftwareLicenseCompliance.php:342 templates/park_item_tab.html.twig
 #: templates/park_vulnerabilities.html.twig
 #: templates/software_license_compliance.html.twig
 #: templates/software_watch.html.twig
@@ -9265,7 +9376,7 @@ msgid "Policy to approve"
 msgstr ""
 
 #: src/MySpace.php:148 src/NotificationTargetAuditEvidenceRequest.php:157
-#: templates/my_evidence_requests.html.twig
+#: templates/audit_programme.html.twig templates/my_evidence_requests.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Audit"
 msgstr ""
@@ -10145,6 +10256,7 @@ msgstr ""
 
 #: src/NotificationTargetVulnerabilityDigest.php:177
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 #, php-format
 msgid "%1$s, %2$s"
 msgstr ""
@@ -15329,130 +15441,105 @@ msgstr ""
 msgid "Statement of Applicability - version %d"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:60 templates/control_form.html.twig
+#: src/SoftwareLicenseCompliance.php:57 templates/control_form.html.twig
 msgid "Software license compliance"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:65
+#: src/SoftwareLicenseCompliance.php:62
 msgid "Software licenses"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:135
+#: src/SoftwareLicenseCompliance.php:132
 msgid "Commercial software without a license"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:139
+#: src/SoftwareLicenseCompliance.php:136
 msgid ""
 "Installed software from a watched publisher, with no license recorded in "
 "GLPI for this entity."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:144
+#: src/SoftwareLicenseCompliance.php:141
 msgid "More installations than licensed seats"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:148
+#: src/SoftwareLicenseCompliance.php:145
 msgid ""
 "More assets have the software than the valid licenses allow. An unlimited "
 "license (number 0 or less) covers everything."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:154
+#: src/SoftwareLicenseCompliance.php:151
 msgid "Expired license still in use"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:158
+#: src/SoftwareLicenseCompliance.php:155
 msgid ""
 "The license has expired but assets are still assigned to it, or the software "
 "is still installed with no other valid license."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:165
-msgid "License expiring soon"
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:169
-msgid ""
-"A license in use expires within the alert horizon and no renewal is recorded "
-"in GLPI yet. This is a reminder, not a gap."
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:185
+#: src/SoftwareLicenseCompliance.php:171
 msgid "in this entity and its sub-entities"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:186
+#: src/SoftwareLicenseCompliance.php:172
 msgid "in this entity"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:191
+#: src/SoftwareLicenseCompliance.php:177
 #, php-format
 msgid "%1$d asset has it %2$s, no license recorded."
 msgid_plural "%1$d assets have it %2$s, no license recorded."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/SoftwareLicenseCompliance.php:201
+#: src/SoftwareLicenseCompliance.php:187
 #, php-format
 msgid "%1$d asset has it %3$s for %2$d licensed seat(s)."
 msgid_plural "%1$d assets have it %3$s for %2$d licensed seat(s)."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/SoftwareLicenseCompliance.php:211
-msgid ""
-"The license allows going over the number of seats: settle it with the "
-"publisher."
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:216
-#, php-format
-msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:223
+#: src/SoftwareLicenseCompliance.php:197
 #, php-format
 msgid ""
 "Expired on %1$s: %2$d asset(s) still assigned, %3$d installation(s) %4$s."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:414
+#: src/SoftwareLicenseCompliance.php:343
 msgid "Publisher"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:415 templates/software_watch.html.twig
+#: src/SoftwareLicenseCompliance.php:344 templates/software_watch.html.twig
 msgid "Installations"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:416
+#: src/SoftwareLicenseCompliance.php:345
 msgid "Licensed seats"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:417
+#: src/SoftwareLicenseCompliance.php:346
 msgid "License"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:418
+#: src/SoftwareLicenseCompliance.php:347
 msgid "Expiration date"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:419
+#: src/SoftwareLicenseCompliance.php:348
 msgid "Assets still assigned"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:420
-msgid "Over-quota allowed by the license"
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:428
+#: src/SoftwareLicenseCompliance.php:356
 msgid "Entity and sub-entities"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:429
+#: src/SoftwareLicenseCompliance.php:357
 msgid "Entity only"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:499
+#: src/SoftwareLicenseCompliance.php:414
 #, php-format
 msgid "%1$s (%2$s): %3$s"
 msgstr ""
@@ -15669,6 +15756,7 @@ msgstr ""
 #: templates/audit_programme_tab.html.twig
 #: templates/certification_sampling.html.twig
 #: templates/certification_sampling_processes.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid "Process"
 msgstr ""
 
@@ -17383,6 +17471,18 @@ msgid ""
 "Free-text description of the audited scope (processes, sites, systems...)."
 msgstr ""
 
+#: templates/audit_form.html.twig
+msgid ""
+"The references against which the evidence is compared: requirements of the "
+"standard (clause numbers), ISMS policies, procedures, contracts or laws."
+msgstr ""
+
+#: templates/audit_form.html.twig
+msgid ""
+"What the audit must establish, for example: check that access rights are "
+"reviewed as planned."
+msgstr ""
+
 #: templates/audit_log.html.twig
 #, php-format
 msgid "%d entries"
@@ -17474,6 +17574,14 @@ msgstr ""
 #: templates/audit_programme.html.twig
 #, php-format
 msgid ""
+"%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, "
+"competence or independence of the auditors, report to management): see the "
+"table below."
+msgstr ""
+
+#: templates/audit_programme.html.twig
+#, php-format
+msgid ""
 "%d process(es) have no completed audit over the cycle and none planned on "
 "time: plan an audit for each one before the end of the cycle."
 msgstr ""
@@ -17494,11 +17602,22 @@ msgid "Certification cycle"
 msgstr ""
 
 #: templates/audit_programme.html.twig
+msgid "Checkpoints of the audits of the cycle"
+msgstr ""
+
+#: templates/audit_programme.html.twig
 msgid "Cycle"
 msgstr ""
 
 #: templates/audit_programme.html.twig
 msgid "Default certification cycle"
+msgstr ""
+
+#: templates/audit_programme.html.twig
+msgid ""
+"For each internal audit of the cycle: what the certification auditor will "
+"look for. Open the audit and its \"Programme and independence\" tab to "
+"complete a missing point."
 msgstr ""
 
 #: templates/audit_programme.html.twig
@@ -17515,6 +17634,10 @@ msgstr ""
 msgid ""
 "No ISMS process yet. The processes of the programme are the ISMS activities "
 "of the responsibility matrix."
+msgstr ""
+
+#: templates/audit_programme.html.twig
+msgid "No internal audit dated in this cycle."
 msgstr ""
 
 #: templates/audit_programme.html.twig
@@ -17543,6 +17666,11 @@ msgid "Trainings that qualify an internal auditor"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#, php-format
+msgid "%d point(s) to complete"
+msgstr ""
+
+#: templates/audit_programme_tab.html.twig
 msgid ""
 "An auditor must not audit their own work (ISO 19011). An auditor who "
 "performs or approves an audited process in the responsibility matrix, "
@@ -17552,16 +17680,18 @@ msgid ""
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Audit checkpoints"
+msgstr ""
+
+#: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid "Audited processes"
 msgstr ""
 
-#: templates/audit_programme_tab.html.twig
-msgid "Auditors"
-msgstr ""
-
-#: templates/audit_programme_tab.html.twig
-#, php-format
-msgid "Delivered on %1$s to %2$s"
+#: templates/audit_programme_tab.html.twig templates/audit_team_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Auditor competence"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
@@ -17569,6 +17699,7 @@ msgid "Delivery date"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid "Independence of the auditors"
 msgstr ""
 
@@ -17584,6 +17715,7 @@ msgid ""
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid ""
 "No independence conflict between the auditors and the audited processes."
 msgstr ""
@@ -17593,8 +17725,13 @@ msgid "No process chosen."
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Not yet delivered to management"
+msgstr ""
+
+#: templates/audit_programme_tab.html.twig
+msgid "Ready to show the auditor"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
@@ -17606,11 +17743,7 @@ msgid "Record the justification"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
-#: templates/pdf/management_review_dossier.html.twig
-msgid "Report delivered to management"
-msgstr ""
-
-#: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid "Role in the matrix"
 msgstr ""
 
@@ -17629,7 +17762,17 @@ msgid ""
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid "To justify"
+msgstr ""
+
+#: templates/audit_programme_tab.html.twig
+msgid ""
+"What the certification auditor checks for each internal audit: objectives, "
+"scope and criteria defined beforehand, auditors who are competent and do not "
+"audit their own work, results reported to management. Objectives, scope and "
+"criteria are entered on the audit form; competence comes from the qualifying "
+"trainings chosen on the programme page."
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
@@ -17655,10 +17798,6 @@ msgid ""
 msgstr ""
 
 #: templates/audit_team_tab.html.twig
-msgid "Auditor competence"
-msgstr ""
-
-#: templates/audit_team_tab.html.twig
 msgid ""
 "Choose the trainings that qualify an internal auditor on the audit programme "
 "page."
@@ -17673,10 +17812,6 @@ msgid "No CISO group is set in the plugin configuration."
 msgstr ""
 
 #: templates/audit_team_tab.html.twig
-msgid "No auditor qualification recorded"
-msgstr ""
-
-#: templates/audit_team_tab.html.twig
 msgid "No member: set the auditor or the owner on the form."
 msgstr ""
 
@@ -17685,14 +17820,6 @@ msgid ""
 "Only team members can read the documents of the audit and its findings, even "
 "with the GLPI Documents right. Auditees can read them but cannot add "
 "anything."
-msgstr ""
-
-#: templates/audit_team_tab.html.twig
-msgid "Qualification to renew"
-msgstr ""
-
-#: templates/audit_team_tab.html.twig
-msgid "Qualified"
 msgstr ""
 
 #: templates/audit_team_tab.html.twig templates/competence_form.html.twig
@@ -20122,11 +20249,6 @@ msgstr ""
 
 #: templates/control_form.html.twig
 #, php-format
-msgid "%d license(s) expiring soon"
-msgstr ""
-
-#: templates/control_form.html.twig
-#, php-format
 msgid "%d node(s)"
 msgstr ""
 
@@ -20307,12 +20429,6 @@ msgstr ""
 
 #: templates/control_form.html.twig
 msgid "Indicative mapping made by this project: see"
-msgstr ""
-
-#: templates/control_form.html.twig
-#: templates/software_license_compliance.html.twig
-#, php-format
-msgid "License coverage: %d%%"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -21198,13 +21314,6 @@ msgstr ""
 #: templates/crisis_exercises.html.twig
 msgctxt "verb"
 msgid "Open"
-msgstr ""
-
-#: templates/crisis_exercises.html.twig templates/crisis_tab.html.twig
-#: templates/pdf/remediation_plan.html.twig
-#: templates/tabs/control_access_reviews.html.twig
-#: templates/tabs/incident_playbook.html.twig
-msgid "Report"
 msgstr ""
 
 #: templates/crisis_exercises.html.twig
@@ -25663,6 +25772,10 @@ msgid "Planned / actual date"
 msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
+msgid "Qualifying trainings"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
 msgid "Risk categories"
 msgstr ""
 
@@ -28709,13 +28822,6 @@ msgid "%1$d findings: the first %2$d are shown, all of them are in the export."
 msgstr ""
 
 #: templates/software_license_compliance.html.twig
-#, php-format
-msgid ""
-"%1$d of %2$d watched commercial software installed (per entity) have a valid "
-"license."
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
 msgid ""
 "A license counts for an entity when it belongs to it, or when it is "
 "recursive and belongs to a parent entity. Nothing is changed in GLPI from "
@@ -28731,10 +28837,6 @@ msgid "Ignored software (part of the name, one per line)"
 msgstr ""
 
 #: templates/software_license_compliance.html.twig
-msgid "License coverage"
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
 msgid "Licenses in GLPI"
 msgstr ""
 
@@ -28742,14 +28844,6 @@ msgstr ""
 msgid ""
 "No finding in your entities: every watched commercial software has a "
 "license, no license is overused, and no expired license is still in use."
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
-msgid "No warning before a license expires."
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
-msgid "Over-quota allowed"
 msgstr ""
 
 #: templates/software_license_compliance.html.twig
@@ -28761,15 +28855,6 @@ msgid ""
 "Software from these publishers (manufacturer in GLPI) must have a license "
 "recorded. Software whose name contains one of the ignored words (free tools "
 "from the same publishers) is never reported as missing a license."
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
-msgid "Warn before a license expires (days, 0 to turn off)"
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
-#, php-format
-msgid "Warning %d days before a license expires."
 msgstr ""
 
 #: templates/software_license_compliance.html.twig
@@ -29680,10 +29765,6 @@ msgid "Last check"
 msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
-msgid "Missing"
-msgstr ""
-
-#: templates/tabs/incident_evidence.html.twig
 msgid "Modified"
 msgstr ""
 
@@ -30290,4 +30371,69 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr ""
+
+
+#: src/SoftwareLicenseCompliance.php:165
+msgid "License expiring soon"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:169
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:211
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:216
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:420
+msgid "Over-quota allowed by the license"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "License coverage: %d%%"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "License coverage"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "No warning before a license expires."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Over-quota allowed"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "Warning %d days before a license expires."
 msgstr ""

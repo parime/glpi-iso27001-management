@@ -26561,15 +26561,23 @@ msgstr[0] "Prise de contact tracée"
 msgstr[1] "Prises de contact tracées"
 
 #, php-format
-msgid "%1$d of %2$d watched commercial software installed (per entity) have a valid license."
-msgstr "%1$d logiciels commerciaux surveillés installés (par entité) sur %2$d ont une licence valable."
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+"%1$d logiciels commerciaux surveillés installés (par entité) sur %2$d ont "
+"une licence valable."
 
 #, php-format
 msgid "%d license(s) expiring soon"
 msgstr "%d licence(s) arrivant à échéance"
 
-msgid "A license in use expires within the alert horizon and no renewal is recorded in GLPI yet. This is a reminder, not a gap."
-msgstr "Une licence utilisée expire dans l'horizon d'alerte et aucun renouvellement n'est encore enregistré dans GLPI. C'est un rappel, pas un écart."
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+"Une licence utilisée expire dans l'horizon d'alerte et aucun renouvellement "
+"n'est encore enregistré dans GLPI. C'est un rappel, pas un écart."
 
 #, php-format
 msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
@@ -26594,8 +26602,12 @@ msgstr "Dépassement autorisé"
 msgid "Over-quota allowed by the license"
 msgstr "Dépassement autorisé par la licence"
 
-msgid "The license allows going over the number of seats: settle it with the publisher."
-msgstr "La licence autorise le dépassement du nombre de postes : à régulariser auprès de l'éditeur."
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+"La licence autorise le dépassement du nombre de postes : à régulariser "
+"auprès de l'éditeur."
 
 msgid "Warn before a license expires (days, 0 to turn off)"
 msgstr "Alerter avant l'échéance d'une licence (jours, 0 pour désactiver)"
@@ -26603,3 +26615,117 @@ msgstr "Alerter avant l'échéance d'une licence (jours, 0 pour désactiver)"
 #, php-format
 msgid "Warning %d days before a license expires."
 msgstr "Alerte %d jours avant l'échéance d'une licence."
+
+msgid "Audit objectives"
+msgstr "Objectifs de l'audit"
+
+msgid "Audit criteria"
+msgstr "Critères d'audit"
+
+msgid "Audit objectives defined"
+msgstr "Objectifs de l'audit définis"
+
+msgid "Objectives"
+msgstr "Objectifs"
+
+msgid "Audit scope defined"
+msgstr "Périmètre de l'audit défini"
+
+msgid "Audit criteria defined"
+msgstr "Critères d'audit définis"
+
+msgid "Criteria"
+msgstr "Critères"
+
+msgid "Audited processes chosen"
+msgstr "Processus audités choisis"
+
+msgid "Processes"
+msgstr "Processus"
+
+msgid "Auditors appointed"
+msgstr "Auditeurs désignés"
+
+msgid "Auditors qualified"
+msgstr "Auditeurs qualifiés"
+
+msgid "Independence"
+msgstr "Indépendance"
+
+msgid "Auditors independent of the audited processes, or conflict justified"
+msgstr "Auditeurs indépendants des processus audités, ou conflit justifié"
+
+msgid "To watch"
+msgstr "À surveiller"
+
+msgid "Later"
+msgstr "Plus tard"
+
+msgid "No qualifying training chosen"
+msgstr "Aucune formation qualifiante choisie"
+
+msgid ""
+"The references against which the evidence is compared: requirements of the "
+"standard (clause numbers), ISMS policies, procedures, contracts or laws."
+msgstr ""
+"Les références auxquelles les preuves sont comparées : exigences de la norme "
+"(numéros d'articles), politiques du SMSI, procédures, contrats ou lois."
+
+msgid ""
+"What the audit must establish, for example: check that access rights are "
+"reviewed as planned."
+msgstr ""
+"Ce que l'audit doit établir, par exemple : vérifier que les droits d'accès "
+"sont revus comme prévu."
+
+#, php-format
+msgid ""
+"%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, "
+"competence or independence of the auditors, report to management): see the "
+"table below."
+msgstr ""
+"%d audit(s) du cycle ont des points de contrôle à compléter (objectifs, "
+"critères, compétence ou indépendance des auditeurs, rapport à la "
+"direction) : voir le tableau ci-dessous."
+
+msgid "Checkpoints of the audits of the cycle"
+msgstr "Points de contrôle des audits du cycle"
+
+msgid ""
+"For each internal audit of the cycle: what the certification auditor will "
+"look for. Open the audit and its \"Programme and independence\" tab to "
+"complete a missing point."
+msgstr ""
+"Pour chaque audit interne du cycle : ce que l'auditeur de certification va "
+"regarder. Ouvrez l'audit et son onglet « Programme et indépendance » pour "
+"compléter un point manquant."
+
+msgid "No internal audit dated in this cycle."
+msgstr "Aucun audit interne daté dans ce cycle."
+
+#, php-format
+msgid "%d point(s) to complete"
+msgstr "%d point(s) à compléter"
+
+msgid "Audit checkpoints"
+msgstr "Points de contrôle de l'audit"
+
+msgid "Ready to show the auditor"
+msgstr "Prêt à présenter à l'auditeur"
+
+msgid ""
+"What the certification auditor checks for each internal audit: objectives, "
+"scope and criteria defined beforehand, auditors who are competent and do not "
+"audit their own work, results reported to management. Objectives, scope and "
+"criteria are entered on the audit form; competence comes from the qualifying "
+"trainings chosen on the programme page."
+msgstr ""
+"Ce que l'auditeur de certification vérifie pour chaque audit interne : "
+"objectifs, périmètre et critères définis à l'avance, auditeurs compétents "
+"qui n'auditent pas leur propre travail, résultats communiqués à la "
+"direction. Objectifs, périmètre et critères se saisissent sur la fiche de "
+"l'audit ; la compétence vient des formations qualifiantes choisies sur la "
+"page du programme."
+
+msgid "Qualifying trainings"
+msgstr "Formations qualifiantes"
