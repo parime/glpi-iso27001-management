@@ -27818,3 +27818,117 @@ msgid "Operating procedure"
 msgid_plural "Operating procedures"
 msgstr[0] "Operating procedure"
 msgstr[1] "Operating procedures"
+
+#, php-format
+msgid "%d piece(s) of hardware with an expired warranty"
+msgstr "%d piece(s) of hardware with an expired warranty"
+
+#, php-format
+msgid "%d under warranty"
+msgstr "%d under warranty"
+
+#, php-format
+msgid "%d without warranty information"
+msgstr "%d without warranty information"
+
+msgid "Hardware warranty"
+msgstr "Hardware warranty"
+
+msgid "The same threshold shows a hardware warranty as \"Warranty ends soon\", even when endoflife.date is not enabled."
+msgstr "The same threshold shows a hardware warranty as \"Warranty ends soon\", even when endoflife.date is not enabled."
+
+msgid "Warranty end of each piece of hardware, from the warranty start date and duration of its financial information in GLPI (ISO 27001 A.7.13 and A.8.9). Nothing is changed in GLPI."
+msgstr "Warranty end of each piece of hardware, from the warranty start date and duration of its financial information in GLPI (ISO 27001 A.7.13 and A.8.9). Nothing is changed in GLPI."
+
+msgid "No hardware in your entities."
+msgstr "No hardware in your entities."
+
+msgid "Hardware type"
+msgstr "Hardware type"
+
+msgid "Expired or ending soon"
+msgstr "Expired or ending soon"
+
+msgid "All hardware"
+msgstr "All hardware"
+
+#, php-format
+msgid "\"Warranty ends soon\": within %d days, the same threshold as the end of support."
+msgstr "\"Warranty ends soon\": within %d days, the same threshold as the end of support."
+
+#, php-format
+msgid "%1$d pieces of hardware: the %2$d most urgent ones are shown, all of them are in the export."
+msgstr "%1$d pieces of hardware: the %2$d most urgent ones are shown, all of them are in the export."
+
+msgid "No hardware has an expired warranty or a warranty ending soon."
+msgstr "No hardware has an expired warranty or a warranty ending soon."
+
+msgid "Warranty end date"
+msgstr "Warranty end date"
+
+msgid "Warranty expired"
+msgstr "Warranty expired"
+
+msgid "The manufacturer warranty has ended: check that a maintenance contract covers this hardware, or plan its replacement."
+msgstr "The manufacturer warranty has ended: check that a maintenance contract covers this hardware, or plan its replacement."
+
+msgid "Warranty ends soon"
+msgstr "Warranty ends soon"
+
+msgid "Renew the warranty or a maintenance contract, or plan the replacement."
+msgstr "Renew the warranty or a maintenance contract, or plan the replacement."
+
+msgid "Under warranty"
+msgstr "Under warranty"
+
+msgid "The warranty recorded in GLPI is still running."
+msgstr "The warranty recorded in GLPI is still running."
+
+msgid "Warranty unknown"
+msgstr "Warranty unknown"
+
+msgid "No warranty start date or duration in the financial information: never counted as under warranty."
+msgstr "No warranty start date or duration in the financial information: never counted as under warranty."
+
+msgid "Lifetime warranty."
+msgstr "Lifetime warranty."
+
+msgid "No financial information recorded in GLPI."
+msgstr "No financial information recorded in GLPI."
+
+msgid "No warranty start date in the financial information."
+msgstr "No warranty start date in the financial information."
+
+msgid "No warranty duration in the financial information."
+msgstr "No warranty duration in the financial information."
+
+#, php-format
+msgid "Warranty ended on %s."
+msgstr "Warranty ended on %s."
+
+msgid "Manufacturer"
+msgstr "Manufacturer"
+
+msgid "Model"
+msgstr "Model"
+
+msgid "Warranty start date"
+msgstr "Warranty start date"
+
+msgid "Warranty duration (months)"
+msgstr "Warranty duration (months)"
+
+msgid "Lifetime"
+msgstr "Lifetime"
+
+msgid "Hardware whose warranty has expired"
+msgstr "Hardware whose warranty has expired"
+
+msgid "Check that a maintenance contract covers the hardware, renew the warranty or plan its replacement."
+msgstr "Check that a maintenance contract covers the hardware, renew the warranty or plan its replacement."
+
+#, php-format
+msgid "Warranty ends on %1$s (in %2$d day)."
+msgid_plural "Warranty ends on %1$s (in %2$d days)."
+msgstr[0] "Warranty ends on %1$s (in %2$d day)."
+msgstr[1] "Warranty ends on %1$s (in %2$d days)."

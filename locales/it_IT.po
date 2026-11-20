@@ -23058,3 +23058,117 @@ msgid "Operating procedure"
 msgid_plural "Operating procedures"
 msgstr[0] "Procedura operativa"
 msgstr[1] "Procedure operative"
+
+#, php-format
+msgid "%d piece(s) of hardware with an expired warranty"
+msgstr "%d apparecchiatura/e con garanzia scaduta"
+
+#, php-format
+msgid "%d under warranty"
+msgstr "%d in garanzia"
+
+#, php-format
+msgid "%d without warranty information"
+msgstr "%d senza informazioni sulla garanzia"
+
+msgid "Hardware warranty"
+msgstr "Fine garanzia dell'hardware"
+
+msgid "The same threshold shows a hardware warranty as \"Warranty ends soon\", even when endoflife.date is not enabled."
+msgstr "La stessa soglia mostra la garanzia di un'apparecchiatura come «Garanzia in scadenza», anche se endoflife.date non è attivato."
+
+msgid "Warranty end of each piece of hardware, from the warranty start date and duration of its financial information in GLPI (ISO 27001 A.7.13 and A.8.9). Nothing is changed in GLPI."
+msgstr "Fine garanzia di ogni apparecchiatura, dalla data di inizio e dalla durata della garanzia delle sue informazioni finanziarie in GLPI (ISO 27001 A.7.13 e A.8.9). Nulla viene modificato in GLPI."
+
+msgid "No hardware in your entities."
+msgstr "Nessuna apparecchiatura nelle sue entità."
+
+msgid "Hardware type"
+msgstr "Tipo di apparecchiatura"
+
+msgid "Expired or ending soon"
+msgstr "Scadute o in scadenza"
+
+msgid "All hardware"
+msgstr "Tutto l'hardware"
+
+#, php-format
+msgid "\"Warranty ends soon\": within %d days, the same threshold as the end of support."
+msgstr "«Garanzia in scadenza»: entro %d giorni, la stessa soglia della fine del supporto."
+
+#, php-format
+msgid "%1$d pieces of hardware: the %2$d most urgent ones are shown, all of them are in the export."
+msgstr "%1$d apparecchiature: sono mostrate le %2$d più urgenti, tutte sono nell'esportazione."
+
+msgid "No hardware has an expired warranty or a warranty ending soon."
+msgstr "Nessuna apparecchiatura ha la garanzia scaduta o in scadenza."
+
+msgid "Warranty end date"
+msgstr "Data di fine garanzia"
+
+msgid "Warranty expired"
+msgstr "Garanzia scaduta"
+
+msgid "The manufacturer warranty has ended: check that a maintenance contract covers this hardware, or plan its replacement."
+msgstr "La garanzia del produttore è terminata: verifichi che un contratto di manutenzione copra questa apparecchiatura, o ne pianifichi la sostituzione."
+
+msgid "Warranty ends soon"
+msgstr "Garanzia in scadenza"
+
+msgid "Renew the warranty or a maintenance contract, or plan the replacement."
+msgstr "Rinnovi la garanzia o un contratto di manutenzione, o pianifichi la sostituzione."
+
+msgid "Under warranty"
+msgstr "In garanzia"
+
+msgid "The warranty recorded in GLPI is still running."
+msgstr "La garanzia registrata in GLPI è ancora valida."
+
+msgid "Warranty unknown"
+msgstr "Garanzia sconosciuta"
+
+msgid "No warranty start date or duration in the financial information: never counted as under warranty."
+msgstr "Nessuna data di inizio o durata della garanzia nelle informazioni finanziarie: mai contata come in garanzia."
+
+msgid "Lifetime warranty."
+msgstr "Garanzia a vita."
+
+msgid "No financial information recorded in GLPI."
+msgstr "Nessuna informazione finanziaria registrata in GLPI."
+
+msgid "No warranty start date in the financial information."
+msgstr "Nessuna data di inizio garanzia nelle informazioni finanziarie."
+
+msgid "No warranty duration in the financial information."
+msgstr "Nessuna durata della garanzia nelle informazioni finanziarie."
+
+#, php-format
+msgid "Warranty ended on %s."
+msgstr "Garanzia terminata il %s."
+
+msgid "Manufacturer"
+msgstr "Produttore"
+
+msgid "Model"
+msgstr "Modello"
+
+msgid "Warranty start date"
+msgstr "Data di inizio garanzia"
+
+msgid "Warranty duration (months)"
+msgstr "Durata della garanzia (mesi)"
+
+msgid "Lifetime"
+msgstr "A vita"
+
+msgid "Hardware whose warranty has expired"
+msgstr "Apparecchiature con garanzia scaduta"
+
+msgid "Check that a maintenance contract covers the hardware, renew the warranty or plan its replacement."
+msgstr "Verifichi che un contratto di manutenzione copra l'apparecchiatura, rinnovi la garanzia o ne pianifichi la sostituzione."
+
+#, php-format
+msgid "Warranty ends on %1$s (in %2$d day)."
+msgid_plural "Warranty ends on %1$s (in %2$d days)."
+msgstr[0] "La garanzia termina il %1$s (tra %2$d giorno)."
+msgstr[1] "La garanzia termina il %1$s (tra %2$d giorni)."
