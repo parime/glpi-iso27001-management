@@ -30188,61 +30188,103 @@ msgid_plural "Recorded contacts"
 msgstr[0] "Recorded contact"
 msgstr[1] "Recorded contacts"
 
-#, php-format
-msgid ""
-"%1$d of %2$d watched commercial software installed (per entity) have a valid "
-"license."
-msgstr ""
-"%1$d of %2$d watched commercial software installed (per entity) have a valid "
-"license."
+msgid "Periodic review recorded"
+msgstr "Periodic review recorded"
 
-#, php-format
-msgid "%d license(s) expiring soon"
-msgstr "%d license(s) expiring soon"
+msgid "Expected operating domains without an approved procedure"
+msgstr "Expected operating domains without an approved procedure"
 
 msgid ""
-"A license in use expires within the alert horizon and no renewal is recorded "
-"in GLPI yet. This is a reminder, not a gap."
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
 msgstr ""
-"A license in use expires within the alert horizon and no renewal is recorded "
-"in GLPI yet. This is a reminder, not a gap."
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
+
+msgid "No operating procedure for this domain"
+msgstr "No operating procedure for this domain"
+
+msgid "Procedure not approved yet"
+msgstr "Procedure not approved yet"
+
+msgid "A review can only be recorded on an approved operating procedure."
+msgstr "A review can only be recorded on an approved operating procedure."
 
 #, php-format
-msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
-msgstr "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
-
-msgid "License coverage"
-msgstr "License coverage"
+msgid "Review recorded. Next review: %s."
+msgstr "Review recorded. Next review: %s."
 
 #, php-format
-msgid "License coverage: %d%%"
-msgstr "License coverage: %d%%"
+msgid "%d without content"
+msgstr "%d without content"
 
-msgid "License expiring soon"
-msgstr "License expiring soon"
+msgid "Approval and review"
+msgstr "Approval and review"
 
-msgid "No warning before a license expires."
-msgstr "No warning before a license expires."
-
-msgid "Over-quota allowed"
-msgstr "Over-quota allowed"
-
-msgid "Over-quota allowed by the license"
-msgstr "Over-quota allowed by the license"
+#, php-format
+msgid "Approved: %s"
+msgstr "Approved: %s"
 
 msgid ""
-"The license allows going over the number of seats: settle it with the "
-"publisher."
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
 msgstr ""
-"The license allows going over the number of seats: settle it with the "
-"publisher."
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
 
-msgid "Warn before a license expires (days, 0 to turn off)"
-msgstr "Warn before a license expires (days, 0 to turn off)"
+msgid "No content"
+msgstr "No content"
+
+msgid "No review recorded"
+msgstr "No review recorded"
+
+msgid ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
+msgstr ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
 
 #, php-format
-msgid "Warning %d days before a license expires."
-msgstr "Warning %d days before a license expires."
+msgid "Reviewed on %1$s by %2$s"
+msgstr "Reviewed on %1$s by %2$s"
+
+#, php-format
+msgid "Knowledge base article: %s"
+msgstr "Knowledge base article: %s"
+
+msgid "Procedures without content"
+msgstr "Procedures without content"
+
+msgid ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+msgstr ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+
+msgid ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+msgstr ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+
+#, php-format
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] "%d article you cannot read"
+msgstr[1] "%d articles you cannot read"
+
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] "%d document"
+msgstr[1] "%d documents"
 
 msgid "Audit objectives"
 msgstr "Audit objectives"
@@ -30356,6 +30398,62 @@ msgstr ""
 
 msgid "Qualifying trainings"
 msgstr "Qualifying trainings"
+
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr "%d license(s) expiring soon"
+
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+
+msgid "License coverage"
+msgstr "License coverage"
+
+#, php-format
+msgid "License coverage: %d%%"
+msgstr "License coverage: %d%%"
+
+msgid "License expiring soon"
+msgstr "License expiring soon"
+
+msgid "No warning before a license expires."
+msgstr "No warning before a license expires."
+
+msgid "Over-quota allowed"
+msgstr "Over-quota allowed"
+
+msgid "Over-quota allowed by the license"
+msgstr "Over-quota allowed by the license"
+
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr "Warn before a license expires (days, 0 to turn off)"
+
+#, php-format
+msgid "Warning %d days before a license expires."
+msgstr "Warning %d days before a license expires."
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"

@@ -26752,3 +26752,105 @@ msgstr ""
 
 msgid "Qualifying trainings"
 msgstr "Formazioni qualificanti"
+
+msgid "Periodic review recorded"
+msgstr "Revisione periodica registrata"
+
+msgid "Expected operating domains without an approved procedure"
+msgstr "Ambiti operativi previsti senza procedura approvata"
+
+msgid ""
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
+msgstr ""
+"Apra il registro delle procedure operative, aggiunga la procedura mancante "
+"(o un articolo della base di conoscenza collegato) e la faccia approvare, "
+"oppure tolga l'ambito dall'elenco previsto."
+
+msgid "No operating procedure for this domain"
+msgstr "Nessuna procedura operativa per questo ambito"
+
+msgid "Procedure not approved yet"
+msgstr "Procedura non ancora approvata"
+
+msgid "A review can only be recorded on an approved operating procedure."
+msgstr ""
+"Una revisione può essere registrata solo su una procedura operativa "
+"approvata."
+
+#, php-format
+msgid "Review recorded. Next review: %s."
+msgstr "Revisione registrata. Prossima revisione: %s."
+
+#, php-format
+msgid "%d without content"
+msgstr "%d senza contenuto"
+
+msgid "Approval and review"
+msgstr "Approvazione e revisione"
+
+#, php-format
+msgid "Approved: %s"
+msgstr "Approvata: %s"
+
+msgid ""
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
+msgstr ""
+"Colleghi un articolo della base di conoscenza dalla scheda Base di "
+"conoscenza della procedura, oppure alleghi il documento dalla scheda "
+"Documenti."
+
+msgid "No content"
+msgstr "Nessun contenuto"
+
+msgid "No review recorded"
+msgstr "Nessuna revisione registrata"
+
+msgid ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
+msgstr ""
+"Procedure senza articolo della base di conoscenza né documento allegato: "
+"l'auditor non può leggerle."
+
+#, php-format
+msgid "Reviewed on %1$s by %2$s"
+msgstr "Revisionata il %1$s da %2$s"
+
+#, php-format
+msgid "Knowledge base article: %s"
+msgstr "Articolo della base di conoscenza: %s"
+
+msgid "Procedures without content"
+msgstr "Procedure senza contenuto"
+
+msgid ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+msgstr ""
+"Una revisione può essere registrata una volta approvata la procedura. Le "
+"modifiche alla procedura passano per una nuova versione."
+
+msgid ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+msgstr ""
+"Registra oggi come data di revisione della procedura, con il suo nome, senza "
+"nuova versione. La prossima revisione è la data indicata sopra se l'ha "
+"posticipata, altrimenti un anno dopo. Vengono salvate anche le altre "
+"modifiche a questo modulo."
+
+#, php-format
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] "%d articolo che non può leggere"
+msgstr[1] "%d articoli che non può leggere"
+
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] "%d documento"
+msgstr[1] "%d documenti"

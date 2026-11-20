@@ -621,6 +621,16 @@ natifs de lecture des logiciels et des licences.
    de la mesure A.5.37, le cadre « Registre des procédures d'exploitation » rappelle la couverture ;
    les procès-verbaux d'approbation et les rapports de prise de connaissance d'une procédure y sont
    archivés (ceux d'une politique restent sur A.5.1).
+7. Le texte de la procédure peut être un **article de la base de connaissances** de GLPI : sur la
+   fiche de la procédure, onglet « Base de connaissances », liez l'article (par exemple « Sauvegarde
+   des serveurs : pas à pas (fictif) »). Le registre affiche l'article et les documents joints sous
+   le titre ; une procédure sans article ni document porte le badge « Sans contenu ».
+8. Chaque année, relisez la procédure avec son responsable. Si elle reste juste, cliquez sur
+   **Enregistrer la revue** sur sa fiche : la date du jour et votre nom sont tracés, sans nouvelle
+   version, et la prochaine revue passe à un an (ou à la date que vous avez saisie). Le registre
+   affiche « Revue le … par … » et le journal d'audit garde chaque revue. Si elle a changé, préparez
+   une nouvelle version.
+9. Le contrôle de cohérence signale les domaines attendus sans procédure approuvée (règle A.5.37).
 
 ### Étape 26 : Suivre la fin de garantie du matériel (mesures A.7.13 et A.8.9)
 
@@ -1420,6 +1430,15 @@ rights to read software and licenses.
    control. **Print the register (PDF)** downloads it without saving it. On control A.5.37, the
    "Register of operating procedures" box shows the coverage; the approval records and the
    acknowledgement reports of a procedure are archived there (those of a policy stay on A.5.1).
+7. The text of the procedure can be a GLPI **knowledge base article**: on the procedure, "Knowledge
+   base" tab, link the article (for instance "Server backup: step by step (fictitious)"). The
+   register shows the article and the attached documents under the title; a procedure with neither
+   shows the "No content" badge.
+8. Every year, read the procedure again with its owner. If it is still right, click **Record the
+   review** on its record: today's date and your name are kept, without a new version, and the next
+   review moves one year later (or to the date you set). The register shows "Reviewed on ... by ..."
+   and the audit log keeps every review. If it changed, prepare a new version.
+9. The consistency check lists the expected domains without an approved procedure (rule A.5.37).
 
 ### Step 26: Follow the hardware warranty (controls A.7.13 and A.8.9)
 

@@ -142,6 +142,10 @@ function plugin_init_grcmanager(): void
     // polymorphe CommonDBTM::cleanDBonPurge()) - ignorerait cette politique.
     global $CFG_GLPI;
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Policy::class;
+    // Issue #775, lot 2 : le texte d'une procédure d'exploitation peut être un article de la base de
+    // connaissances, lié par l'onglet natif « Base de connaissances » (KnowbaseItem_Item), dans les
+    // deux sens (depuis la procédure ou depuis l'article).
+    $CFG_GLPI['kb_types'][] = \GlpiPlugin\Grcmanager\Policy::class;
     // Issue #375 : preuve de la réponse à une demande d'exercice des droits.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\DataSubjectRequest::class;
     // Issue #620 : pièces d'une violation de données (accusé de réception de l'autorité, avis du DPO...).

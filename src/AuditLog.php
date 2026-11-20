@@ -87,6 +87,8 @@ class AuditLog extends CommonGLPI
             // Issue #611 : approbation des politiques de sécurité par la direction.
             'approval_request'  => __('Approval requested', 'grcmanager'),
             'approval_decision' => __('Approval decision', 'grcmanager'),
+            // Issue #775, lot 2 : revue périodique tracée d'une procédure d'exploitation.
+            'review'            => __('Periodic review recorded', 'grcmanager'),
         ];
     }
 
