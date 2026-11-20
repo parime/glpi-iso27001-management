@@ -1,0 +1,48 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #776 : scénarios de crise sécurité de l'information qui touchent ce processus métier, voir
+   GlpiPlugin\\Grcmanager\\CrisisScenario::displayTabContentForItem(). #}
+<p class="text-muted">{{ __('Information security crisis scenarios of the continuity plan that would stop or degrade this process. The processes are chosen on the scenario.', 'grcmanager') }}</p>
+{% if scenarios is empty %}
+   <div class="alert {{ critical ? 'alert-warning' : 'alert-info' }}">
+      <i class="ti {{ critical ? 'ti-alert-triangle' : 'ti-info-circle' }} me-1"></i>
+      {{ critical
+         ? __('This critical process is not impacted by any security crisis scenario.', 'grcmanager')
+         : __('No security crisis scenario impacts this process.', 'grcmanager') }}
+      <a href="{{ register_url }}" class="ms-1">{{ __('Open the scenarios', 'grcmanager') }}</a>
+   </div>
+{% else %}
+   <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle">
+         <thead>
+            <tr>
+               <th scope="col">{{ __('Scenario', 'grcmanager') }}</th>
+               <th scope="col">{{ __('Secure degraded mode', 'grcmanager') }}</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for scenario in scenarios %}
+               <tr>
+                  <td>
+                     <a href="{{ scenario.url }}">{{ scenario.name }}</a>
+                     {% if not scenario.is_active %}<span class="badge bg-secondary-subtle text-secondary-emphasis ms-1">{{ __('Inactive', 'grcmanager') }}</span>{% endif %}
+                  </td>
+                  <td class="small">{{ scenario.degraded_mode|nl2br }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+{% endif %}

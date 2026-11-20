@@ -85,6 +85,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/databreach.php front/databreach.form.php front/databreach.export.php?format=pdf front/databreach.export.php?format=csv
   front/riskappetite.php front/riskindicator.php front/auditcoverage.php front/auditprogramme.php
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
+  front/crisisscenario.php front/crisisscenario.export.php front/crisisscenario.form.php
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
@@ -122,9 +123,13 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/businessprocess.form.php front/riskindicator.form.php front/contextitem.form.php \
     front/managementreviewaction.form.php front/responsibilityactivity.form.php \
     front/ismsfunction.form.php front/competence.form.php front/competencedeclaration.form.php \
-    front/crisismessagetemplate.form.php front/crisismessagerecipient.form.php; do
+    front/crisismessagetemplate.form.php front/crisismessagerecipient.form.php \
+    front/crisisscenario.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
+  # Issue #776 : ajouter les scenarios de crise par defaut exige de pouvoir creer un scenario.
+  expect "front/crisisscenario.php : ajouter les scenarios par defaut" "$1" \
+    "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/crisisscenario.php")"
   # Issue #775 : archiver le registre des procedures d'exploitation sur A.5.37 cree un document : il
   # faut pouvoir modifier les politiques.
   expect "front/operatingprocedure.php : archiver sur A.5.37" "$1" \
@@ -403,7 +408,8 @@ if [ "$ROLE" = general ]; then
            front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php \
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
            front/riskappetite.php front/riskindicator.php \
-           front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php; do
+           front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php \
+           front/crisisscenario.php front/crisisscenario.export.php "front/crisisscenario.form.php?id=$(id crisis_scenario_A)"; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
   # Issue #608, lot 2 : l'export du contexte ne nomme pas le risque lie sans le droit dedie.
@@ -417,6 +423,11 @@ if [ "$ROLE" = general ]; then
   # Issue #377, troisieme etape : ni strategie de reprise ni test sans le droit de la continuite.
   contains "onglet Strategie de reprise d'un processus : rien" "Test de reprise A" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRecovery$1' "$(id process_A)")"
+  # Issue #776 : ni scenario de crise sur le processus, ni catalogue sans le droit de la continuite.
+  contains "onglet Scenarios de crise d'un processus : rien" "Scenario crise securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CCrisisScenario$1' "$(id process_A)")"
+  expect "front/crisisscenario.php : scenarios par defaut sans le droit de la continuite" 403 \
+    "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/crisisscenario.php")"
   # Issue #377, quatrieme etape : ni carte des dependances sans le droit de la continuite.
   map=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")
   contains "onglet Carte des dependances d'un processus : rien" "Processus securite" non "$map"
@@ -494,7 +505,8 @@ if [ "$ROLE" = reader ]; then
     "$(code -d "save_license_watch=1&license_publishers=securite&_glpi_csrf_token=$(csrf)" "$P/softwarelicensecompliance.php")"
   for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \
            "accessreview.form.php?id=$(id campaign_A)" "supplierrisk.form.php?id=$(id supplierrisk)" \
-           "businessprocess.form.php?id=$(id process_A)" "customframework.form.php?id=$(id custom_framework)"; do
+           "businessprocess.form.php?id=$(id process_A)" "customframework.form.php?id=$(id custom_framework)" \
+           "crisisscenario.form.php?id=$(id crisis_scenario_A)"; do
     expect "front/$p : en lecture" 200 "$(code "$P/$p")"
   done
   expect "front/training.report.php : en lecture" 200 "$(code "$P/training.report.php?id=$(id training)")"
@@ -722,6 +734,21 @@ contains "onglet revues d'acces d'un controle : campagne B" "Campagne securite B
 contracts_tab=$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$2' "$(id supplierrisk)")
 contains "onglet contrats du fournisseur : contrat A" "Contrat securite A" oui     "$contracts_tab"
 contains "onglet contrats du fournisseur : contrat B" "Contrat securite B" $SEE_B  "$contracts_tab"
+
+# Issue #776 : scenarios de crise de son entite seulement ; un scenario ou un processus de B n'est
+# jamais nomme, et un scenario de B ne se modifie pas.
+expect "scenario de crise, entite A" 200 "$(code "$P/crisisscenario.form.php?id=$(id crisis_scenario_A)")"
+expect "scenario de crise, entite B" $DENY "$(code "$P/crisisscenario.form.php?id=$(id crisis_scenario_B)")"
+scenarios=$(body "$P/crisisscenario.php")
+contains "registre des scenarios : scenario de A" "Scenario crise securite A" oui "$scenarios"
+contains "registre des scenarios : scenario de B" "Scenario crise securite B" $SEE_B "$scenarios"
+contains "registre des scenarios : processus de B" "Processus securite B" $SEE_B "$scenarios"
+contains "onglet Scenarios de crise du processus A" "Scenario crise securite A" oui \
+  "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CCrisisScenario$1' "$(id process_A)")"
+expect "modifier un scenario de crise de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id crisis_scenario_B)&degraded_mode=securite&_glpi_csrf_token=$(csrf)" "$P/crisisscenario.form.php")"
+expect "modifier un scenario de crise sans jeton CSRF" 403 \
+  "$(code -d "update=1&id=$(id crisis_scenario_A)&degraded_mode=securite" "$P/crisisscenario.form.php")"
 
 # Issue #171 : la fiche du risque s'affiche avec onglets, le formulaire est le premier onglet.
 risk_page=$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CRisk$main' "$(id risk)")

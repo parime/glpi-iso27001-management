@@ -534,6 +534,14 @@
       {{ fields.htmlField('', crisis_communication_html, __('Crisis communication', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #776 : scénarios de crise sécurité de l'information du PCA (A.5.29), couverture. #}
+   {% if crisis_scenarios is defined and crisis_scenarios is not null %}
+      {% set crisis_scenarios_html %}
+         {% include '@grcmanager/_crisis_scenario_summary.html.twig' with {'summary': crisis_scenarios} only %}
+      {% endset %}
+      {{ fields.htmlField('', crisis_scenarios_html, _n('Security crisis scenario', 'Security crisis scenarios', 2, 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #775 : procédures d'exploitation (A.5.37), couverture des domaines attendus. #}
    {% if operating_procedures is defined and operating_procedures is not null %}
       {% set operating_procedures_html %}
