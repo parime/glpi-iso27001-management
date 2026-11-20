@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager;
 
+use GlpiPlugin\Grcmanager\Services\Continuity\RecoveryExerciseRules;
 use GlpiPlugin\Grcmanager\Services\Continuity\RecoveryStrategyRules;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
@@ -32,6 +33,9 @@ use NotificationEvent;
  *   l'analyse d'impact sur l'activité » (catalogue PeriodicReviewCatalog, annuelle par défaut).
  * - Test de reprise à refaire : date du dernier test mesuré plus la fréquence de la revue
  *   périodique « Test du plan de continuité et de reprise ».
+ * - Issue #733 (programme de tests) : la fréquence peut être propre au processus (colonne
+ *   `recovery_test_months`) ; un processus jamais testé est signalé une période après sa création.
+ *   Le rappel ne modifie jamais le processus.
  *
  * Mêmes règles d'échéance que les tests d'efficacité (ControlTestRules : à venir dans les 30 jours,
  * puis en retard) et même mécanisme de notification (NotificationSupport) : un seul rappel par
@@ -85,14 +89,32 @@ final class BusinessProcessReminder
     }
 
     /**
-     * Prochain test de reprise dû le : dernier test plus la fréquence de la revue, ou null sans test.
+     * Prochain test de reprise dû le : dernier test plus la fréquence, ou null sans test.
+     *
+     * Issue #733 : sans test, la date de création du processus (si elle est donnée) sert de départ.
      */
-    public static function recoveryDueDate(?string $lastTestDate, ?int $months = null): ?string
-    {
+    public static function recoveryDueDate(
+        ?string $lastTestDate,
+        ?int $months = null,
+        ?string $creationDate = null
+    ): ?string {
         return ControlTestRules::nextTestDate(
-            (string) $lastTestDate,
+            (string) RecoveryExerciseRules::dueBaseDate($lastTestDate, $creationDate),
             null,
             $months ?? self::frequency(self::RECOVERY_REVIEW)
+        );
+    }
+
+    /**
+     * Issue #733 : fréquence de test applicable à un processus, en mois.
+     *
+     * @param array<string, mixed> $fields champs du processus
+     */
+    public static function recoveryMonths(array $fields, ?int $defaultMonths = null): int
+    {
+        return RecoveryExerciseRules::effectiveMonths(
+            RecoveryExerciseRules::sanitizeFrequencyMonths($fields['recovery_test_months'] ?? 0),
+            $defaultMonths ?? self::frequency(self::RECOVERY_REVIEW)
         );
     }
 
@@ -127,13 +149,19 @@ final class BusinessProcessReminder
      *
      * @param array<string, mixed>                                   $fields champs du processus
      * @param array{test_date: string, measured_minutes: int}|null $last   dernier test de reprise
+     * @param int                                                    $recoveryMonths fréquence par
+     *     défaut des tests de reprise (celle du processus prime)
      * @return array<string, string|null> événement => échéance
      */
     public static function dueDates(array $fields, ?array $last, int $biaMonths, int $recoveryMonths): array
     {
         return [
             self::EVENT_BIA      => self::biaDueDate($fields, $biaMonths),
-            self::EVENT_RECOVERY => self::recoveryDueDate($last['test_date'] ?? null, $recoveryMonths),
+            self::EVENT_RECOVERY => self::recoveryDueDate(
+                $last['test_date'] ?? null,
+                self::recoveryMonths($fields, $recoveryMonths),
+                (string) ($fields['date_creation'] ?? '')
+            ),
         ];
     }
 

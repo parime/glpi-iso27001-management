@@ -933,6 +933,21 @@ class PageHelp
                 ),
                 'reference' => __('ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30', 'grcmanager'),
             ],
+            // Issue #733 : programme de tests de reprise (front/recoveryprogramme.php).
+            'recoveryprogramme' => [
+                'purpose'   => __(
+                    'Recovery test programme: when each business process was last tested, whether the test met '
+                        . 'its RTO and RPO, and which processes are not tested in time.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Plan a test for each process reported as overdue or not tested this year, then record the '
+                        . 'measured recovery time and data loss in its "Recovery strategy" tab. Show this view to '
+                        . 'the auditor as evidence that ICT continuity is tested regularly.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 22301, 8.5; ISO 27001, Annex A 5.30', 'grcmanager'),
+            ],
             'impactanalysis' => [
                 'purpose'   => __(
                     'Single points of failure: critical items that depend on a single source, according to GLPI\'s '

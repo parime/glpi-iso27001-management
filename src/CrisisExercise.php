@@ -24,6 +24,7 @@ use Glpi\Application\View\TemplateRenderer;
 use Glpi\RichText\RichText;
 use GlpiPlugin\Grcmanager\Compat\Base\CrisisExerciseBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
+use GlpiPlugin\Grcmanager\Services\Continuity\RecoveryExerciseRules;
 use GlpiPlugin\Grcmanager\Services\Exercise\CrisisExercise as ExerciseRules;
 use GlpiPlugin\Grcmanager\Services\Exercise\RecoveryTracker;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
@@ -166,11 +167,12 @@ class CrisisExercise extends CrisisExerciseBase
      * Lance l'exercice : incident fictif, une tâche par étape, chronomètre démarré.
      *
      * Issue #732 : les objectifs de l'exercice, un par ligne, sont fixés au lancement.
+     * Issue #733 : le type d'exercice (sur table, fonctionnel...) aussi ; il reste modifiable.
      *
      * @param list<string> $objectives
      * @return int identifiant de l'exercice, 0 en cas d'échec
      */
-    public static function launch(string $scenario, array $objectives = []): int
+    public static function launch(string $scenario, array $objectives = [], string $type = ''): int
     {
         $scenarios = self::getScenarios();
         if (!isset($scenarios[$scenario], ExerciseRules::SCENARIOS[$scenario])) {
@@ -195,7 +197,12 @@ class CrisisExercise extends CrisisExerciseBase
             return 0;
         }
 
-        $exerciseId = self::open($incident, $scenario, $now);
+        $exerciseId = self::open(
+            $incident,
+            $scenario,
+            $now,
+            RecoveryExerciseRules::chooseType($type, BusinessProcessRecovery::exerciseTypes())
+        );
         $exercise = new self();
         if ($exerciseId > 0 && $objectives !== [] && $exercise->getFromDB($exerciseId)) {
             CrisisExerciseReview::addObjectives($exercise, $objectives);
@@ -236,8 +243,12 @@ class CrisisExercise extends CrisisExerciseBase
     /**
      * Ouvre la salle de crise : chronomètre démarré et une tâche de l'incident par étape.
      */
-    private static function open(PluginGrcmanagerSecurityIncident $incident, string $scenario, string $now): int
-    {
+    private static function open(
+        PluginGrcmanagerSecurityIncident $incident,
+        string $scenario,
+        string $now,
+        string $type = ''
+    ): int {
         global $DB;
 
         $drill = !empty($incident->fields['is_exercise']);
@@ -245,6 +256,7 @@ class CrisisExercise extends CrisisExerciseBase
             'entities_id'                            => (int) $incident->fields['entities_id'],
             'plugin_grcmanager_securityincidents_id' => $incident->getID(),
             'scenario'                               => $scenario,
+            'exercise_type'                          => $type,
             'users_id'                               => Session::getLoginUserID(),
             'started_at'                             => $now,
         ]);
@@ -568,6 +580,9 @@ class CrisisExercise extends CrisisExerciseBase
             'exercise'     => [
                 'id'           => $this->getID(),
                 'scenario'     => self::getScenarios()[$this->fields['scenario']]['label'] ?? $this->fields['scenario'],
+                // Issue #733 : type d'exercice.
+                'type_key'     => (string) ($this->fields['exercise_type'] ?? ''),
+                'type'         => BusinessProcessRecovery::typeLabel((string) ($this->fields['exercise_type'] ?? '')),
                 'started_at'   => $started,
                 'started_ts'   => (int) strtotime($started),
                 'ended_at'     => (string) ($this->fields['ended_at'] ?? ''),
@@ -716,6 +731,24 @@ class CrisisExercise extends CrisisExerciseBase
         }
 
         return $list;
+    }
+
+    /**
+     * Issue #733 : change le type d'exercice (pas après validation du bilan). Un type qui ne figure
+     * plus dans la liste réglée n'est gardé que s'il est déjà celui de l'exercice.
+     */
+    public function setExerciseType(mixed $type): bool
+    {
+        if (!$this->isDrill() || CrisisExerciseReview::isValidated($this)) {
+            return false;
+        }
+        $current = (string) ($this->fields['exercise_type'] ?? '');
+        $chosen = RecoveryExerciseRules::chooseType($type, BusinessProcessRecovery::exerciseTypes(), $current);
+        if ($chosen === '' && RecoveryExerciseRules::sanitizeType($type) !== '') {
+            return false;
+        }
+
+        return $this->update(['id' => $this->getID(), 'exercise_type' => $chosen]);
     }
 
     public function cleanDBonPurge()

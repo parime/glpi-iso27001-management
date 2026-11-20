@@ -1,0 +1,96 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #733 : programme de tests de reprise, voir front/recoveryprogramme.php et
+   GlpiPlugin\\Grcmanager\\BusinessProcessRecovery::programme(). Lecture seule. #}
+<div class="container-fluid">
+  <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+    <h2 class="mb-0"><i class="ti ti-calendar-repeat me-1"></i>{{ __('Recovery test programme', 'grcmanager') }}</h2>
+    <a href="{{ list_url }}" class="ms-auto"><i class="ti ti-list me-1"></i>{{ __('All business processes', 'grcmanager') }}</a>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-md-3">
+      <div class="card card-body">
+        <div class="text-muted small">{{ _n('Business process', 'Business processes', 2, 'grcmanager') }}</div>
+        <div class="fs-2">{{ programme.counts.total }}</div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-body">
+        <div class="text-muted small">{{ __('Test overdue', 'grcmanager') }}</div>
+        <div class="fs-2"><span class="badge {{ programme.counts.overdue > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }}">{{ programme.counts.overdue }}</span></div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-body">
+        <div class="text-muted small">{{ __('Not tested this year', 'grcmanager') }}</div>
+        <div class="fs-2"><span class="badge {{ programme.counts.untested_year > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }}">{{ programme.counts.untested_year }}</span></div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-body">
+        <div class="text-muted small">{{ __('Last test missed the objectives', 'grcmanager') }}</div>
+        <div class="fs-2"><span class="badge {{ programme.counts.failed > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }}">{{ programme.counts.failed }}</span></div>
+      </div>
+    </div>
+  </div>
+
+  {% if programme.rows is empty %}
+    <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('No business process you can see. Create your business processes first, then record their recovery tests.', 'grcmanager') }}</div>
+  {% else %}
+    <div class="table-responsive">
+      <table class="table table-hover card-table align-middle">
+        <thead>
+          <tr>
+            <th scope="col">{{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</th>
+            {% for year in programme.years %}<th scope="col" class="text-center">{{ year }}</th>{% endfor %}
+            <th scope="col">{{ __('Last test', 'grcmanager') }}</th>
+            <th scope="col">{{ __('Frequency', 'grcmanager') }}</th>
+            <th scope="col">{{ __('Next test due', 'grcmanager') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in programme.rows %}
+            <tr>
+              <td><a href="{{ row.url }}">{{ row.name }}</a></td>
+              {% for year in programme.years %}
+                {% set r = result_labels[row.coverage[year]] %}
+                <td class="text-center"><span class="badge {{ r[0] }}" title="{{ r[2] }}"><i class="ti {{ r[1] }}"></i><span class="visually-hidden">{{ r[2] }}</span></span></td>
+              {% endfor %}
+              <td>
+                {% if row.last %}
+                  {{ row.last.date }}{% if row.last.type %} <span class="small text-muted">- {{ row.last.type }}</span>{% endif %}
+                {% else %}
+                  <span class="text-muted">{{ __('Never tested', 'grcmanager') }}</span>
+                {% endif %}
+              </td>
+              <td>{{ _n('%d month', '%d months', row.months, 'grcmanager')|format(row.months) }}</td>
+              <td>
+                {{ row.due_label ?: '-' }}
+                <span class="badge {{ due_labels[row.due_status][0] }} ms-1"><i class="ti {{ due_labels[row.due_status][1] }} me-1"></i>{{ due_labels[row.due_status][2] }}</span>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-muted small mt-2">
+      {% for key in ['passed', 'failed', 'untested'] %}
+        <span class="badge {{ result_labels[key][0] }} me-1"><i class="ti {{ result_labels[key][1] }} me-1"></i>{{ result_labels[key][2] }}</span>
+      {% endfor %}
+      {{ __('Each year shows the result of the last test of that year.', 'grcmanager') }}
+    </p>
+  {% endif %}
+</div>
