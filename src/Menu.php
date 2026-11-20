@@ -102,6 +102,8 @@ class Menu extends CommonGLPI
             ],
             // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
             Audit::class => [
+                // Issue #773 : programme d'audit pluriannuel (ISO 19011).
+                AuditProgramme::class,
                 Nonconformity::class,
                 // Issue #772 : constats des audits de certification et état de leur levée.
                 CertificationFinding::class,

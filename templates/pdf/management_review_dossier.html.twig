@@ -150,7 +150,7 @@
       <p class="muted">{{ __('No internal audit was completed during the period.', 'grcmanager') }}</p>
     {% else %}
       <table class="grcmanager-pdf-table">
-        <thead><tr><th>{{ __('Audit', 'grcmanager') }}</th><th>{{ __('Date', 'grcmanager') }}</th><th>{{ __('Findings', 'grcmanager') }}</th><th>{{ __('Conclusion', 'grcmanager') }}</th></tr></thead>
+        <thead><tr><th>{{ __('Audit', 'grcmanager') }}</th><th>{{ __('Date', 'grcmanager') }}</th><th>{{ __('Findings', 'grcmanager') }}</th><th>{{ __('Conclusion', 'grcmanager') }}</th><th>{{ __('Report delivered to management', 'grcmanager') }}</th></tr></thead>
         <tbody>
           {% for a in d.completed %}
             <tr>
@@ -161,6 +161,7 @@
                 {% for type, count in a.by_type %}<br>{{ type }} : {{ count }}{% endfor %}
               </td>
               <td>{{ a.conclusion|striptags }}</td>
+              <td>{% if a.delivery %}{{ a.delivery.date }}{% if a.delivery.recipient %}<br>{{ a.delivery.recipient }}{% endif %}{% else %}<span class="muted">{{ __('Not yet delivered to management', 'grcmanager') }}</span>{% endif %}</td>
             </tr>
           {% endfor %}
         </tbody>

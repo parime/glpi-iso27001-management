@@ -447,6 +447,21 @@ class PageHelp
                 ),
                 'reference' => __('ISO 27001, 9.2', 'grcmanager'),
             ],
+            // Issue #773 : programme d'audit interne pluriannuel.
+            'auditprogramme' => [
+                'purpose'   => __(
+                    'The internal audit programme over the certification cycle: which ISMS process is audited which '
+                        . 'year, and which one is not covered yet.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Make sure every process is audited at least once over the cycle: plan an audit for each '
+                        . 'process in red or orange, and choose its processes in the "Programme and independence" '
+                        . 'tab of the audit.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 9.2.2; ISO 19011, 5', 'grcmanager'),
+            ],
             'nonconformity' => [
                 'purpose'   => __(
                     'Nonconformities and observations, with their corrective and preventive actions (CAPA).',

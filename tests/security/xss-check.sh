@@ -116,6 +116,10 @@ check "onglet fonction DORA d'un processus"   "$(tab 'GlpiPlugin%5CGrcmanager%5C
 # Issue #606 : ligne de grille et modele pieges (onglet de l'audit et page de couverture).
 check "onglet grille d'un audit"              "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditChecklist$1' "$(xid audit)")"
 check "couverture du programme d'audit"      "$P/auditcoverage.php"
+# Issue #773 : processus, justification d'independance et remise du rapport pieges.
+check "onglet programme et independance"      "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditProgramme$1' "$(xid audit)")"
+check "onglet equipe d'un audit"              "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditTeam$1' "$(xid audit)")"
+check "programme d'audit pluriannuel"         "$P/auditprogramme.php"
 check "onglet demandes de preuves d'un audit" "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditEvidenceRequest$1' "$(xid audit)")"
 check "mes demandes de preuves"               "$P/auditevidencerequest.mine.php"
 check "espace auditeur d'un audit"            "$P/auditorspace.php?id=$(xid audit)"
