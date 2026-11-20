@@ -27755,3 +27755,12 @@ msgstr "Les contacts officiels ne sont visibles qu'avec le droit du contexte de 
 
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "Cet exercice n'a jamais été mené jusqu'au bout dans la salle de crise."
+
+msgid "Child licenses counted once"
+msgstr "Licences filles comptées une fois"
+
+msgid "Child licenses share the seats of their parent license: each family is counted once."
+msgstr "Les licences filles partagent les postes de leur licence mère : chaque famille est comptée une fois."
+
+msgid "More assets have the software than the valid licenses allow. An unlimited license (number 0 or less) covers everything. A parent license and its child licenses count for the larger of the parent number and the sum of the children."
+msgstr "Plus d'actifs ont le logiciel que ne le permettent les licences valables. Une licence illimitée (nombre inférieur ou égal à 0) couvre tout. Une licence mère et ses licences filles comptent pour le plus grand du nombre de la mère et de la somme des filles."

@@ -146,7 +146,8 @@ class SoftwareLicenseCompliance extends CommonGLPI
                 'icon'  => 'ti ti-users-plus',
                 'help'  => __(
                     'More assets have the software than the valid licenses allow. An unlimited license '
-                        . '(number 0 or less) covers everything.',
+                        . '(number 0 or less) covers everything. A parent license and its child licenses '
+                        . 'count for the larger of the parent number and the sum of the children.',
                     'grcmanager'
                 ),
             ],
@@ -209,6 +210,11 @@ class SoftwareLicenseCompliance extends CommonGLPI
             ) . ($finding['overquota_allowed']
                 ? ' ' . __(
                     'The license allows going over the number of seats: settle it with the publisher.',
+                    'grcmanager'
+                )
+                : '') . ($finding['nested']
+                ? ' ' . __(
+                    'Child licenses share the seats of their parent license: each family is counted once.',
                     'grcmanager'
                 )
                 : ''),
@@ -347,6 +353,7 @@ class SoftwareLicenseCompliance extends CommonGLPI
             'seats'         => $finding['seats'],
             'subtree'       => $finding['scope'] === Rules::SCOPE_SUBTREE,
             'overquota_allowed' => $finding['overquota_allowed'],
+            'nested'        => $finding['nested'],
             'detail'        => self::detail($finding),
             'assets'        => $assets,
             'more_assets'   => max(0, $finding['installs'] - count($assets)),

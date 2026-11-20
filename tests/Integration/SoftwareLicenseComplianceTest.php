@@ -356,6 +356,52 @@ final class SoftwareLicenseComplianceTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(__('Yes'), $rows[0][10]);
     }
 
+    public function testChildLicencesShareTheSeatsOfTheirParent(): void
+    {
+        $suite = $this->software('Volume', $this->microsoft);
+        for ($i = 0; $i < 4; $i++) {
+            $this->computerWith($suite, $this->branch);
+        }
+        // Contrat de 3 postes réparti en deux licences filles de 2 : 3 postes, pas 7.
+        $parent = $this->licence($suite, $this->branch, 3, false);
+        foreach ([2, 2] as $number) {
+            $child = $this->licence($suite, $this->branch, $number, false);
+            $this->assertTrue((new \SoftwareLicense())->update(['id' => $child, 'softwarelicenses_id' => $parent]));
+        }
+        // Licence fille expirée encore affectée : nommée avec sa mère.
+        $cad = $this->software('Atelier', $this->microsoft);
+        $computer = $this->computerWith($cad, $this->branch);
+        $cadParent = $this->licence($cad, $this->branch, 5, false, '2026-01-31');
+        $expiredChild = $this->licence($cad, $this->branch, 1, false, '2026-01-31');
+        $this->assertTrue(
+            (new \SoftwareLicense())->update(['id' => $expiredChild, 'softwarelicenses_id' => $cadParent])
+        );
+        (new \Item_SoftwareLicense())->add([
+            'softwarelicenses_id' => $expiredChild, 'itemtype' => \Computer::class, 'items_id' => $computer,
+        ]);
+
+        $before = $this->glpiCounts();
+        $this->assertContains(
+            Rules::FINDING_OVERDEPLOYED . ':entity:' . $this->branch . ':' . $suite . ':4/3',
+            $this->mine()
+        );
+        $this->assertSame($before, $this->glpiCounts(), 'Aucune donnée de GLPI créée ni modifiée.');
+
+        $findings = SoftwareLicenseCompliance::findings(self::TODAY);
+        $volume = array_values(array_filter($findings, fn (array $f): bool => $f['software_id'] === $suite));
+        $this->assertTrue($volume[0]['nested']);
+        $this->assertStringContainsString(
+            'Child licenses share the seats of their parent license',
+            SoftwareLicenseCompliance::detail($volume[0])
+        );
+        $expired = array_values(array_filter(
+            $findings,
+            fn (array $f): bool => $f['type'] === Rules::FINDING_EXPIRED && $f['licence_id'] === $expiredChild
+        ));
+        $this->assertCount(1, $expired);
+        $this->assertStringContainsString(' > ', $expired[0]['licence_name']);
+    }
+
     public function testCsvCellsCannotInjectFormulas(): void
     {
         $id = (int) (new \Software())->add([

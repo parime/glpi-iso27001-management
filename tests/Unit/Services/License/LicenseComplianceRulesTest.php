@@ -339,4 +339,77 @@ final class LicenseComplianceRulesTest extends TestCase
         );
         self::assertSame(['watched' => 3, 'licensed' => 1], $coverage);
     }
+
+    /**
+     * Lot 3 : licence fille (softwarelicenses_id), rattachée à sa licence mère.
+     *
+     * @return array<string, mixed>
+     */
+    private static function child(
+        int $id,
+        int $parent,
+        int $software,
+        int $entity,
+        int $number,
+        string $expire = ''
+    ): array {
+        return ['parent_id' => $parent] + self::licence($id, $software, $entity, $number, false, $expire);
+    }
+
+    public function testChildLicencesShareTheSeatsOfTheirParent(): void
+    {
+        $today = self::TODAY;
+        // Mère de 10 postes répartis en deux filles de 4 et 6 : 10 postes, pas 20.
+        $volume = [self::licence(1, 10, 1, 10), self::child(2, 1, 10, 1, 4), self::child(3, 1, 10, 1, 6)];
+        /** @phpstan-ignore argument.type */
+        self::assertSame(['seats' => 10, 'nested' => true], R::seatCount($volume, $today));
+        // Fille « mise à niveau » d'un poste : la mère garde ses 5 postes.
+        /** @phpstan-ignore argument.type */
+        self::assertSame(5, R::seats([self::licence(1, 10, 1, 5), self::child(2, 1, 10, 1, 1)], $today));
+        // Filles au-delà de la mère : leur somme compte.
+        $above = [self::licence(1, 10, 1, 2), self::child(2, 1, 10, 1, 3), self::child(3, 1, 10, 1, 4)];
+        /** @phpstan-ignore argument.type */
+        self::assertSame(7, R::seats($above, $today));
+        // Petite-fille sous une fille expirée : rattachée à la grand-mère valable.
+        $chain = [self::licence(1, 10, 1, 8), self::child(2, 1, 10, 1, 3, '2026-01-31'), self::child(3, 2, 10, 1, 2)];
+        /** @phpstan-ignore argument.type */
+        self::assertSame(['seats' => 8, 'nested' => true], R::seatCount($chain, $today));
+        // Mère expirée : ses filles valables comptent seules.
+        /** @phpstan-ignore argument.type */
+        self::assertSame(['seats' => 4, 'nested' => false], R::seatCount(
+            [self::licence(1, 10, 1, 10, false, '2026-01-31'), self::child(2, 1, 10, 1, 4)],
+            $today
+        ));
+        // Mère hors de la liste (autre entité, non visible), boucle dans les données : chaque licence compte.
+        /** @phpstan-ignore argument.type */
+        self::assertSame(['seats' => 5, 'nested' => false], R::seatCount(
+            [self::child(2, 99, 10, 1, 2), self::child(4, 5, 10, 1, 3)],
+            $today
+        ));
+        $loop = [self::child(1, 2, 10, 1, 3), self::child(2, 1, 10, 1, 4)];
+        /** @phpstan-ignore argument.type */
+        self::assertSame(7, R::seats($loop, $today));
+        // Fille illimitée : tout est couvert.
+        /** @phpstan-ignore argument.type */
+        self::assertNull(R::seats([self::licence(1, 10, 1, 3), self::child(2, 1, 10, 1, -1)], $today));
+    }
+
+    public function testOverDeploymentHiddenByChildLicencesIsReported(): void
+    {
+        $installs = [];
+        for ($i = 0; $i < 12; $i++) {
+            $installs[] = self::install(10, 1, 100 + $i);
+        }
+        $findings = self::evaluate(
+            $installs,
+            [self::licence(1, 10, 1, 10), self::child(2, 1, 10, 1, 4), self::child(3, 1, 10, 1, 6)]
+        );
+        self::assertSame(['overdeployed:entity:1:10:12/10'], self::summary($findings));
+        self::assertTrue($findings[0]['nested']);
+        // Sans hiérarchie, les mêmes licences valent 20 postes : rien à signaler.
+        self::assertSame([], self::evaluate(
+            $installs,
+            [self::licence(1, 10, 1, 10), self::licence(2, 10, 1, 4), self::licence(3, 10, 1, 6)]
+        ));
+    }
 }
