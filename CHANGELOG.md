@@ -7,8 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.68.0] - 2026-11-20
-
 ### Added
 
 - **Référentiel Cyber France (ReCyF) de l'ANSSI pour NIS2** (issue #599, demande liée #789). Catalogue
@@ -31,6 +29,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     personnalisé ;
   - droits : droit général du plugin, référentiel NIS2 activé et entité de la fiche ; le catalogue
     est fixe (ni création ni suppression depuis l'interface).
+
+## [2.68.0] - 2026-11-20
+
+### Added
+
 - **Plan d'audit de l'organisme de certification** (issue #772, lot 2). Nouvel écran « Plan d'audit
   de l'organisme » dans la rubrique Audits et amélioration :
   - programme d'échantillonnage de l'organisme sur le cycle de certification de trois ans : matrice
