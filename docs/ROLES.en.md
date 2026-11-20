@@ -103,6 +103,13 @@ review prepared with figures.
 9. Same section: **Maturity score** and **Assessment by framework** give the figures for the review;
    in a parent entity, the **Perimeters** tab of the dashboard compares subsidiaries (SoA followed,
    implementation rate, latest approved version, open risks).
+   **Assessment by framework** measures each framework on its own measures: the SoA for ISO 27001,
+   the requirements and their self-assessment for a custom framework, the register points for
+   NIS2 Italy. For NIS2 (EU), ANSSI, NIST CSF, CIS Controls, the AI Act and the other built-in
+   catalogs, the plugin tracks no status of their own: each requirement takes the status of the
+   Annex A controls mapped to it (indicative mapping), only while ISO 27001 is enabled; otherwise
+   the screen states that the framework is not assessed. Pick the framework to detail in the list:
+   the choice is kept for the session.
 10. **GRC & Compliance > Audits and improvement**, **Management reviews** tab, **Add** button: date,
     participants, topics covered, ISMS objectives reviewed, decisions and actions. The standard
     requires this review at planned intervals (ISO 27001, 9.3); at least once a year is common

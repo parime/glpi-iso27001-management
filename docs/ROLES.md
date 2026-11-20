@@ -108,6 +108,13 @@ une revue de direction préparée avec des chiffres.
 9. Même rubrique : **Score de maturité** et **Évaluation par référentiel** donnent les chiffres de
    la revue ; dans une entité parente, l'onglet **Périmètres** du tableau de bord compare les
    filiales (SoA suivie, taux de mise en œuvre, dernière version approuvée, risques ouverts).
+   L'**Évaluation par référentiel** mesure chaque référentiel sur ses propres mesures : la SoA pour
+   ISO 27001, les exigences et leur auto-évaluation pour un référentiel personnalisé, les points du
+   registre pour NIS2 Italia. Pour NIS2 (UE), l'ANSSI, le NIST CSF, les CIS Controls, l'AI Act et les
+   autres catalogues intégrés, le plugin ne suit pas de statut propre : chaque exigence prend le
+   statut des mesures de l'Annexe A qui lui sont reliées (correspondance indicative), seulement si
+   ISO 27001 est activé ; sinon l'écran indique que le référentiel n'est pas évalué. Choisissez le
+   référentiel à détailler dans la liste : le choix est retenu pour la session.
 10. **GRC & Conformité > Audits et amélioration**, onglet **Revues de direction**, bouton
     **Ajouter** : date, participants, sujets traités, objectifs du SMSI revus, décisions et actions.
     La norme demande cette revue à intervalles planifiés (ISO 27001, 9.3) ; une fois par an au moins

@@ -21,6 +21,8 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\AcnRequirement;
 use GlpiPlugin\Grcmanager\EntityPerimeter;
+use GlpiPlugin\Grcmanager\FrameworkAssessment;
+use GlpiPlugin\Grcmanager\Services\Acn\AcnCatalogDefaults;
 use GlpiPlugin\Grcmanager\Policy;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
@@ -240,5 +242,39 @@ final class AcnRequirementTest extends GrcmanagerIntegrationTestCase
         FrameworkConfig::save(array_values(array_diff(FrameworkConfig::enabled(), [FrameworkSelection::ACN_IT])));
         $this->assertFalse(AcnRequirement::canView());
         $this->assertFalse(AcnRequirement::canUpdate());
+    }
+
+    /**
+     * Issue #789 : l'évaluation par référentiel mesure NIS2 Italia sur les points du registre
+     * accessible (entité active ou parente récursive), jamais sur celui d'une autre entité, ni
+     * quand le référentiel est désactivé.
+     */
+    public function testFrameworkAssessmentUsesTheAccessibleRegisterPoints(): void
+    {
+        $label = FrameworkSelection::FRAMEWORKS[FrameworkSelection::ACN_IT];
+        AcnRequirement::setCategory($this->italy, 'important');
+        $id = $this->pointId($this->italy, 'GV.PO-01', 1);
+        $this->assertTrue((new AcnRequirement())->update(['id' => $id, 'implementation_status' => 'implemented']));
+
+        $this->limitTo($this->site, [0, $this->italy]);
+        $assessments = FrameworkAssessment::assessAll([]);
+        $this->assertArrayHasKey($label, $assessments);
+        $acn = $assessments[$label];
+        $this->assertSame(FrameworkSelection::ACN_IT, $acn['key']);
+        $this->assertSame(FrameworkAssessment::BASIS_OWN, $acn['basis']);
+        $this->assertSame(87, $acn['applicable']);
+        $this->assertSame(1, $acn['done']);
+        $this->assertSame(0, $acn['compliant'], 'Mise en œuvre sans preuve : écart.');
+        $this->assertContains(AcnCatalogDefaults::reference('GV.PO-01', 1), array_column($acn['gaps'], 'code'));
+        $detail = FrameworkAssessment::detail($assessments, FrameworkSelection::ACN_IT);
+        $this->assertNotNull($detail);
+        $this->assertStringContainsString('acnrequirement.php', (string) $detail['manage_url']);
+
+        $this->limitTo($this->other);
+        $this->assertArrayNotHasKey($label, FrameworkAssessment::assessAll([]), 'Registre d\'une autre entité.');
+
+        $this->limitTo($this->site, [0, $this->italy]);
+        FrameworkConfig::save(array_values(array_diff(FrameworkConfig::enabled(), [FrameworkSelection::ACN_IT])));
+        $this->assertArrayNotHasKey($label, FrameworkAssessment::assessAll([]), 'Référentiel désactivé.');
     }
 }
