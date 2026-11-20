@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.67.0] - 2026-11-20
+
 ### Fixed
 
 - **Gabarits d'incident de sécurité** (issue #796) : l'aperçu d'un gabarit affichait « Une erreur
@@ -98,11 +100,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     droit du contexte et dans l'entité de l'incident ou une entité parente.
   - Reste à faire (lot 2) : suppléant de chaque contact principal, revue annuelle de l'annuaire,
     adresses des membres d'un groupe, communications dans le rapport d'exercice de crise.
-
-## [2.66.0] - 2026-11-20
-
-### Added
-
 - **Sécurité physique des sites : grille d'évaluation, zones et actions** (issue #778, lot 1,
   mesures A.7.1 à A.7.14). Les sites sont les lieux de GLPI ; aucun second référentiel.
   - Évaluation d'un site : date, évaluateur, statut, politique de sécurité physique liée (document
@@ -129,6 +126,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     mesure.
   - Droits : droit général du plugin et entité de l'évaluation ; lignes et zones modifiables avec le
     droit de modifier l'évaluation ; pièces jointes lues avec le droit de lire l'évaluation.
+
+## [2.66.0] - 2026-11-20
+
+### Added
+
 - **Procédures d'exploitation documentées** (issue #775, lot 1, A.5.37). Pas d'objet à part : une
   procédure est un document de la bibliothèque des politiques de catégorie « Procédure
   d'exploitation », avec son domaine. Elle garde la version, le responsable, la date d'approbation,
