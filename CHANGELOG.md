@@ -7,6 +7,32 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Compétences (ISO 27001, article 7.2), lot 1** (issue #774). Nouvelle sous-page « Compétences »
+  de la rubrique « Revue des accès » (pas de nouvelle entrée de menu).
+  - Fonctions du SMSI (RSSI, DPO, direction, administrateur, développeur, technicien, tout le
+    personnel, proposées par défaut sur demande) avec leur mission et leurs compétences requises :
+    niveau attendu (notions, maîtrise, expertise) et façon de l'acquérir (formation, diplôme,
+    certification, expérience). Les titulaires sont des utilisateurs, des groupes ou des titres de
+    GLPI (ceux créés par le plugin Configuration GLPI Auto servent tels quels).
+  - Catalogue des compétences, liées aux formations du plugin : une formation réussie (ou l'une de
+    ses sessions) donne la compétence à un niveau, et sa période de renouvellement en limite la
+    validité. Compétences déclarées avec leur preuve (certificat, attestation, diplôme, entretien
+    annuel, expérience), référence obligatoire, fichier dans l'onglet Documents, lisible seulement
+    avec les droits de la déclaration.
+  - Matrice personnes x compétences (acquis / attendu), écarts (non acquise, niveau insuffisant,
+    expirée) et action proposée (formation à planifier, preuve à déclarer) ; rien n'est modifié
+    automatiquement. La fiche d'une fonction rappelle aussi les activités de la matrice des
+    responsabilités tenues par ses titulaires.
+  - Fiche de poste « sécurité » de chaque fonction en PDF, et dossier complet (fiches et écarts)
+    archivé comme preuve, joint à l'exigence 7.2, dont la fiche résume l'état des compétences.
+  - Onglet « Mes compétences » dans les préférences de chacun, et « Compétences » sur la fiche d'un
+    utilisateur.
+  - Droits : chacun voit sa propre fiche ; les fonctions et le catalogue suivent le droit du plugin
+    et l'entité ; les personnes, les déclarations et le dossier exigent aussi la lecture des
+    utilisateurs, pour les comptes des entités de la session ; archiver exige de modifier le plugin.
+
 ## [2.64.0] - 2026-11-20
 
 ### Added

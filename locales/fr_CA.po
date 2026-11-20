@@ -21539,3 +21539,459 @@ msgstr[1] "%d politiques lues"
 
 msgid "People tracked"
 msgstr "Personnes suivies"
+
+# Issue #774 : compétences (ISO 27001, article 7.2).
+
+msgid "For example \"Secure configuration of firewalls\"."
+msgstr "Par exemple « Configuration sécurisée des pare-feux »."
+
+msgid "What a person with this competence knows how to do."
+msgstr "Ce que sait faire une personne qui a cette compétence."
+
+msgid "Trainings that give this competence"
+msgstr "Formations qui donnent cette compétence"
+
+msgid "No training linked yet. A person who passes a linked training (or one of its sessions) acquires the competence at the level given."
+msgstr "Aucune formation liée pour l'instant. Une personne qui réussit une formation liée (ou l'une de ses sessions) acquiert la compétence au niveau indiqué."
+
+msgid "Level given"
+msgstr "Niveau donné"
+
+msgid "Link a training"
+msgstr "Lier une formation"
+
+msgid "Completed and not failed: the training counts as passed. Its renewal period, if any, limits the validity."
+msgstr "Réalisée et non échouée : la formation compte comme réussie. Sa période de renouvellement, s'il y en a une, limite la validité."
+
+msgid "The competences expected by your ISMS functions, and those you have acquired through the trainings you passed or the evidence you declared. Ask your security officer to record a new certificate or diploma."
+msgstr "Les compétences attendues pour vos fonctions dans le SMSI, et celles que vous avez acquises par les formations réussies ou les preuves déclarées. Demandez à votre responsable de la sécurité d'enregistrer un nouveau certificat ou diplôme."
+
+msgid "The competences expected by the ISMS functions of this person, and those acquired through passed trainings or declared evidence."
+msgstr "Les compétences attendues pour les fonctions de cette personne dans le SMSI, et celles acquises par les formations réussies ou les preuves déclarées."
+
+msgid "You hold no ISMS function yet."
+msgstr "Vous n'exercez encore aucune fonction du SMSI."
+
+msgid "This person holds no ISMS function in your entities."
+msgstr "Cette personne n'exerce aucune fonction du SMSI dans vos entités."
+
+msgid "ISMS functions"
+msgstr "Fonctions du SMSI"
+
+msgid "%d gap"
+msgid_plural "%d gaps"
+msgstr[0] "%d écart"
+msgstr[1] "%d écarts"
+
+msgid "No gap"
+msgstr "Aucun écart"
+
+msgid "These functions require no competence yet."
+msgstr "Ces fonctions n'exigent encore aucune compétence."
+
+msgid "Expected level"
+msgstr "Niveau attendu"
+
+msgid "How to acquire it"
+msgstr "Façon de l'acquérir"
+
+msgid "Acquired through"
+msgstr "Acquise par"
+
+msgid "valid until %s"
+msgstr "valable jusqu'au %s"
+
+msgid "Proposed actions"
+msgstr "Actions proposées"
+
+msgid "Plan the training"
+msgstr "Planifier la formation"
+
+msgid "Declare a competence with its evidence"
+msgstr "Déclarer une compétence avec sa preuve"
+
+msgid "Declared competences"
+msgstr "Compétences déclarées"
+
+msgid "No competence declared yet."
+msgstr "Aucune compétence déclarée pour l'instant."
+
+msgid "Level acquired"
+msgstr "Niveau acquis"
+
+msgid "Acquired on"
+msgstr "Acquise le"
+
+msgid "All competences"
+msgstr "Toutes les compétences"
+
+msgid "Declared competence"
+msgid_plural "Declared competences"
+msgstr[0] "Compétence déclarée"
+msgstr[1] "Compétences déclarées"
+
+msgid "The person who holds the competence."
+msgstr "La personne qui détient la compétence."
+
+msgid "Basic: knows the rules. Proficient: applies them alone. Expert: can design, check and teach."
+msgstr "Notions : connaît les règles. Maîtrise : les applique en autonomie. Expertise : sait concevoir, contrôler et former."
+
+msgid "Kind of evidence"
+msgstr "Nature de la preuve"
+
+msgid "Reference of the evidence"
+msgstr "Référence de la preuve"
+
+msgid "Certificate number, school and year of the diploma, date of the annual review... Attach the file in the Documents tab."
+msgstr "Numéro du certificat, école et année du diplôme, date de l'entretien annuel... Joignez le fichier dans l'onglet Documents."
+
+msgid "Leave empty if the competence does not expire."
+msgstr "Laissez vide si la compétence n'expire pas."
+
+msgid "Competences"
+msgstr "Compétences"
+
+msgid "%d function"
+msgid_plural "%d functions"
+msgstr[0] "%d fonction"
+msgstr[1] "%d fonctions"
+
+msgid "%d competence"
+msgid_plural "%d competences"
+msgstr[0] "%d compétence"
+msgstr[1] "%d compétences"
+
+msgid "%d person with a gap"
+msgid_plural "%d people with a gap"
+msgstr[0] "%d personne avec un écart"
+msgstr[1] "%d personnes avec un écart"
+
+msgid "%d archived file"
+msgid_plural "%d archived files"
+msgstr[0] "%d dossier archivé"
+msgstr[1] "%d dossiers archivés"
+
+msgid "Open the competences"
+msgstr "Ouvrir les compétences"
+
+msgid "Coverage: %d %%"
+msgstr "Couverture : %d %%"
+
+msgid "Adds the proposed functions and competences that are missing, without changing the existing ones."
+msgstr "Ajoute les fonctions et compétences proposées qui manquent, sans modifier celles qui existent."
+
+msgid "Add the missing default functions"
+msgstr "Ajouter les fonctions par défaut manquantes"
+
+msgid "Competence catalogue"
+msgstr "Catalogue des compétences"
+
+msgid "Attaches a dated PDF of the job descriptions and gaps to requirement 7.2 of the ISMS."
+msgstr "Joint un PDF daté des fiches de poste et des écarts à l'exigence 7.2 du SMSI."
+
+msgid "No function yet. Add the default functions (CISO, DPO, administrator...), then say who holds each one."
+msgstr "Aucune fonction pour l'instant. Ajoutez les fonctions par défaut (RSSI, DPO, administrateur...), puis indiquez qui exerce chacune."
+
+msgid "Required competences"
+msgstr "Compétences requises"
+
+msgid "Holders"
+msgstr "Titulaires"
+
+msgid "Holders with a gap"
+msgstr "Titulaires avec un écart"
+
+msgid "Job description"
+msgstr "Fiche de poste"
+
+msgid "Nobody"
+msgstr "Personne"
+
+msgid "Reading the users of GLPI is needed to see the competences of the people."
+msgstr "La lecture des utilisateurs de GLPI est nécessaire pour voir les compétences des personnes."
+
+msgid "People and competences"
+msgstr "Personnes et compétences"
+
+msgid "Nobody holds a function yet: add users, groups or job titles to the functions."
+msgstr "Personne n'exerce encore de fonction : ajoutez des utilisateurs, des groupes ou des titres aux fonctions."
+
+msgid "Each cell shows the level acquired / the level expected. Nothing is changed automatically."
+msgstr "Chaque case indique le niveau acquis / le niveau attendu. Rien n'est modifié automatiquement."
+
+msgid "Gaps and proposed actions"
+msgstr "Écarts et actions proposées"
+
+msgid "No gap: every holder has the competences expected by their functions."
+msgstr "Aucun écart : chaque titulaire a les compétences attendues pour ses fonctions."
+
+msgid "Proposed action"
+msgstr "Action proposée"
+
+msgid "Archived competence files"
+msgstr "Dossiers des compétences archivés"
+
+msgid "No archived file yet. Archive it before the audit: the dated PDF is attached to requirement 7.2."
+msgstr "Aucun dossier archivé pour l'instant. Archivez-le avant l'audit : le PDF daté est joint à l'exigence 7.2."
+
+msgid "For example \"Network administrator\" or \"Data protection officer\"."
+msgstr "Par exemple « Administrateur réseau » ou « Délégué à la protection des données »."
+
+msgid "Mission"
+msgstr "Mission"
+
+msgid "What this function does for information security. It appears on the security job description."
+msgstr "Ce que fait cette fonction pour la sécurité de l'information. Elle figure sur la fiche de poste sécurité."
+
+msgid "Who holds this function"
+msgstr "Qui exerce cette fonction"
+
+msgid "Nobody holds this function yet. Add below users, groups or job titles of GLPI."
+msgstr "Personne n'exerce encore cette fonction. Ajoutez ci-dessous des utilisateurs, des groupes ou des titres de GLPI."
+
+msgid "Holder"
+msgstr "Titulaire"
+
+msgid "Choose a user, a group or a job title, then save."
+msgstr "Choisissez un utilisateur, un groupe ou un titre, puis enregistrez."
+
+msgid "Every active user with this job title holds the function."
+msgstr "Tout utilisateur actif portant ce titre exerce la fonction."
+
+msgid "No competence required yet. Add below the competences this function needs, with the expected level."
+msgstr "Aucune compétence requise pour l'instant. Ajoutez ci-dessous les compétences nécessaires à cette fonction, avec le niveau attendu."
+
+msgid "Add a competence"
+msgstr "Ajouter une compétence"
+
+msgid "Choosing a competence already required updates its level and how to acquire it."
+msgstr "Choisir une compétence déjà requise met à jour son niveau et la façon de l'acquérir."
+
+msgid "Coverage of the holders"
+msgstr "Couverture des titulaires"
+
+msgid "Reading the users of GLPI is needed to see the people."
+msgstr "La lecture des utilisateurs de GLPI est nécessaire pour voir les personnes."
+
+msgid "No active person of your entities holds this function."
+msgstr "Aucune personne active de vos entités n'exerce cette fonction."
+
+msgid "Activities of the responsibility matrix held by the holders:"
+msgstr "Activités de la matrice des responsabilités tenues par les titulaires :"
+
+msgid "Security job description (PDF)"
+msgstr "Fiche de poste sécurité (PDF)"
+
+msgid "People holding a function"
+msgstr "Personnes exerçant une fonction"
+
+msgid "Coverage of the required competences"
+msgstr "Couverture des compétences requises"
+
+msgid "Security job description: %s"
+msgstr "Fiche de poste sécurité : %s"
+
+msgid "No mission described yet."
+msgstr "Aucune mission décrite pour l'instant."
+
+msgid "Nobody holds this function yet."
+msgstr "Personne n'exerce encore cette fonction."
+
+msgid "No competence required yet."
+msgstr "Aucune compétence requise pour l'instant."
+
+msgid "Nothing to assess yet."
+msgstr "Rien à évaluer pour l'instant."
+
+msgid "Activities of the responsibility matrix"
+msgstr "Activités de la matrice des responsabilités"
+
+msgid "No function yet."
+msgstr "Aucune fonction pour l'instant."
+
+msgid "ISO/IEC 27001, clause 7.2. Only the functions and people of the entities of the person who exported this file are listed. Nothing has been modified by this export."
+msgstr "ISO/IEC 27001, article 7.2. Seules les fonctions et les personnes des entités de la personne qui a exporté ce dossier sont listées. Rien n'a été modifié par cet export."
+
+msgid "My competences"
+msgstr "Mes compétences"
+
+msgid "Acquired"
+msgstr "Acquise"
+
+msgid "Level too low"
+msgstr "Niveau insuffisant"
+
+msgid "Not acquired"
+msgstr "Non acquise"
+
+msgid "Declare the diploma or certificate with its evidence."
+msgstr "Déclarer le diplôme ou le certificat avec sa preuve."
+
+msgid "Declare the experience with its evidence (annual review, references)."
+msgstr "Déclarer l'expérience avec sa preuve (entretien annuel, références)."
+
+msgid "Plan a training: no training of the plugin gives this competence yet."
+msgstr "Planifier une formation : aucune formation du plugin ne donne encore cette compétence."
+
+msgid "Declare the competence with its evidence."
+msgstr "Déclarer la compétence avec sa preuve."
+
+msgid "Competences of the ISMS functions (ISO 27001, clause 7.2)"
+msgstr "Compétences des fonctions du SMSI (ISO 27001, article 7.2)"
+
+msgid "Certificate"
+msgstr "Certificat"
+
+msgid "Training certificate"
+msgstr "Attestation de formation"
+
+msgid "Diploma"
+msgstr "Diplôme"
+
+msgid "Annual review"
+msgstr "Entretien annuel"
+
+msgid "Proven experience"
+msgstr "Expérience démontrée"
+
+msgid "Choose a person of your entities."
+msgstr "Choisissez une personne de vos entités."
+
+msgid "Choose a competence."
+msgstr "Choisissez une compétence."
+
+msgid "Choose the kind of evidence."
+msgstr "Choisissez la nature de la preuve."
+
+msgid "Give the reference of the evidence (certificate number, date of the annual review...)."
+msgstr "Indiquez la référence de la preuve (numéro du certificat, date de l'entretien annuel...)."
+
+msgid "The end of validity cannot be before the date the competence was acquired."
+msgstr "La fin de validité ne peut pas précéder la date d'acquisition de la compétence."
+
+msgid "Archived competence file"
+msgid_plural "Archived competence files"
+msgstr[0] "Dossier des compétences archivé"
+msgstr[1] "Dossiers des compétences archivés"
+
+msgid "ISMS competences - %s"
+msgstr "Compétences du SMSI - %s"
+
+msgid "Information security awareness"
+msgstr "Sensibilisation à la sécurité de l'information"
+
+msgid "ISMS governance and ISO 27001 requirements"
+msgstr "Gouvernance du SMSI et exigences de l'ISO 27001"
+
+msgid "Information security risk management"
+msgstr "Gestion des risques de sécurité de l'information"
+
+msgid "Security incident handling"
+msgstr "Traitement des incidents de sécurité"
+
+msgid "Access rights management"
+msgstr "Gestion des droits d'accès"
+
+msgid "Secure administration of systems and networks"
+msgstr "Administration sécurisée des systèmes et réseaux"
+
+msgid "Secure development"
+msgstr "Développement sécurisé"
+
+msgid "Personal data protection (GDPR)"
+msgstr "Protection des données personnelles (RGPD)"
+
+msgid "Business continuity and backups"
+msgstr "Continuité d'activité et sauvegardes"
+
+msgid "ISMS internal audit"
+msgstr "Audit interne du SMSI"
+
+msgid "Give the competence a name."
+msgstr "Donnez un nom à la compétence."
+
+msgid "This competence has been declared for people: it cannot be deleted."
+msgstr "Cette compétence a été déclarée pour des personnes : elle ne peut pas être supprimée."
+
+msgid "ISMS function"
+msgid_plural "ISMS functions"
+msgstr[0] "Fonction du SMSI"
+msgstr[1] "Fonctions du SMSI"
+
+msgid "Chief information security officer (CISO)"
+msgstr "Responsable de la sécurité des systèmes d'information (RSSI)"
+
+msgid "Top management"
+msgstr "Direction"
+
+msgid "System and network administrator"
+msgstr "Administrateur systèmes et réseaux"
+
+msgid "Developer"
+msgstr "Développeur"
+
+msgid "Support technician"
+msgstr "Technicien support"
+
+msgid "All staff"
+msgstr "Tout le personnel"
+
+msgctxt "competence level"
+msgid "Basic"
+msgstr "Notions"
+
+msgctxt "competence level"
+msgid "Proficient"
+msgstr "Maîtrise"
+
+msgctxt "competence level"
+msgid "Expert"
+msgstr "Expertise"
+
+msgid "Professional certification"
+msgstr "Certification professionnelle"
+
+msgid "Experience"
+msgstr "Expérience"
+
+msgid "Give the function a name."
+msgstr "Donnez un nom à la fonction."
+
+msgid "This user or group does not belong to the entity of the function."
+msgstr "Cet utilisateur ou ce groupe n'appartient pas à l'entité de la fonction."
+
+msgid "This competence is not available in the entity of the function."
+msgstr "Cette compétence n'est pas disponible dans l'entité de la fonction."
+
+msgid "Job title: %s"
+msgstr "Titre : %s"
+
+msgid "The competences each ISMS function needs (CISO, DPO, administrator...), who holds each function, what each person has acquired through passed trainings or declared evidence, and the gaps."
+msgstr "Les compétences nécessaires à chaque fonction du SMSI (RSSI, DPO, administrateur...), qui exerce chaque fonction, ce que chaque personne a acquis par les formations réussies ou les preuves déclarées, et les écarts."
+
+msgid "Add the functions and their required competences with the expected level, say who holds them, link the trainings that give each competence, declare the certificates and diplomas, plan the proposed actions, then archive the file as evidence before the audit."
+msgstr "Ajoutez les fonctions et leurs compétences requises avec le niveau attendu, indiquez qui les exerce, liez les formations qui donnent chaque compétence, déclarez les certificats et diplômes, planifiez les actions proposées, puis archivez le dossier comme preuve avant l'audit."
+
+msgid "ISO/IEC 27001, clause 7.2"
+msgstr "ISO/IEC 27001, article 7.2"
+
+msgid "The catalogue of the information security competences of the organization, and the trainings that give each one once passed."
+msgstr "Le catalogue des compétences en sécurité de l'information de l'organisme, et les formations qui donnent chacune une fois réussies."
+
+msgid "Describe each competence and link the trainings that give it, with the level reached."
+msgstr "Décrivez chaque compétence et liez les formations qui la donnent, avec le niveau atteint."
+
+msgid "The competences acquired outside the trainings of the plugin, each one with its evidence: certificate, diploma, annual review or proven experience."
+msgstr "Les compétences acquises en dehors des formations du plugin, chacune avec sa preuve : certificat, diplôme, entretien annuel ou expérience démontrée."
+
+msgid "Record the reference of the evidence, its date and its end of validity, and attach the file in the Documents tab."
+msgstr "Saisissez la référence de la preuve, sa date et sa fin de validité, et joignez le fichier dans l'onglet Documents."
+
+msgid "Default functions added: %1$d, default competences added: %2$d."
+msgstr "Fonctions par défaut ajoutées : %1$d, compétences par défaut ajoutées : %2$d."
+
+msgid "The competence file has been archived as evidence of requirement 7.2."
+msgstr "Le dossier des compétences a été archivé comme preuve de l'exigence 7.2."
+
+msgid "The competence file could not be archived."
+msgstr "Le dossier des compétences n'a pas pu être archivé."
