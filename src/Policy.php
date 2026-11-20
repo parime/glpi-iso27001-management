@@ -368,7 +368,11 @@ class Policy extends PolicyBase
             $input['approval_quorum'] = PolicyApprovalRules::sanitizeQuorum($input['approval_quorum']);
         }
         // Issue #775 : seule une procédure d'exploitation a un domaine.
-        if ($this->isNewItem() || array_key_exists('category', $input) || array_key_exists('procedure_domain', $input)) {
+        if (
+            $this->isNewItem()
+            || array_key_exists('category', $input)
+            || array_key_exists('procedure_domain', $input)
+        ) {
             $category = OperatingProcedureRules::sanitizeCategory(
                 $input['category'] ?? ($this->fields['category'] ?? OperatingProcedureRules::CATEGORY_POLICY)
             );

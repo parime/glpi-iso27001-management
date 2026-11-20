@@ -402,7 +402,8 @@ class PageHelp
                 'expected'  => __(
                     'For each domain without an up-to-date procedure, add one or update it: attach the document, have '
                         . 'it approved, set its next review date, then launch the reading acknowledgement for the '
-                        . 'groups or profiles that carry it out. Archive the register on control A.5.37 before an audit.',
+                        . 'groups or profiles that carry it out. Archive the register on control A.5.37 before an '
+                        . 'audit.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, control A.5.37', 'grcmanager'),

@@ -71,7 +71,11 @@ final class OperatingProcedureRulesTest extends TestCase
         $today = '2026-11-20';
         self::assertSame(Rules::STATUS_UP_TO_DATE, Rules::procedureStatus('approved', '2026-11-20', $today));
         self::assertSame(Rules::STATUS_REVIEW_DUE, Rules::procedureStatus('approved', '2026-11-19', $today));
-        self::assertSame(Rules::STATUS_REVIEW_DUE, Rules::procedureStatus('approved', null, $today), 'revue jamais planifiée');
+        self::assertSame(
+            Rules::STATUS_REVIEW_DUE,
+            Rules::procedureStatus('approved', null, $today),
+            'revue jamais planifiée'
+        );
         self::assertSame(Rules::STATUS_NOT_APPROVED, Rules::procedureStatus('draft', '2027-01-01', $today));
         self::assertNull(Rules::procedureStatus('archived', '2027-01-01', $today));
     }
@@ -87,7 +91,8 @@ final class OperatingProcedureRulesTest extends TestCase
             ['procedure_domain' => 'Téléphonie', 'status' => 'approved', 'next_review_date' => '2027-01-01'],
             ['procedure_domain' => 'not_expected', 'status' => 'approved', 'next_review_date' => '2027-01-01'],
         ];
-        $coverage = Rules::coverage(['backup', 'restore', 'monitoring', 'logging', 'téléphonie'], $procedures, '2026-11-20');
+        $domains = ['backup', 'restore', 'monitoring', 'logging', 'téléphonie'];
+        $coverage = Rules::coverage($domains, $procedures, '2026-11-20');
 
         self::assertSame([
             ['domain' => 'backup', 'status' => Rules::STATUS_UP_TO_DATE, 'count' => 2],

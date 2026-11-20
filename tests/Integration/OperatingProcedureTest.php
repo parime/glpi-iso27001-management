@@ -103,7 +103,8 @@ final class OperatingProcedureTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue($procedure->update(['id' => $procedure->getID(), 'category' => Rules::CATEGORY_POLICY]));
         $procedure->getFromDB($procedure->getID());
         $this->assertSame('', $procedure->fields['procedure_domain']);
-        $this->assertNotContains($procedure->getID(), array_map('intval', array_column(OperatingProcedure::procedures(), 'id')));
+        $ids = array_map('intval', array_column(OperatingProcedure::procedures(), 'id'));
+        $this->assertNotContains($procedure->getID(), $ids);
     }
 
     public function testDomainsAreConfigurable(): void
@@ -151,7 +152,11 @@ final class OperatingProcedureTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(2, $byDomain['PHPUnit A']['count']);
         $this->assertSame(Rules::STATUS_REVIEW_DUE, $byDomain['PHPUnit B']['status']);
         $this->assertSame(Rules::STATUS_NOT_APPROVED, $byDomain['PHPUnit C']['status']);
-        $this->assertSame(Rules::STATUS_MISSING, $byDomain['PHPUnit D']['status'], 'une procédure archivée ne couvre rien');
+        $this->assertSame(
+            Rules::STATUS_MISSING,
+            $byDomain['PHPUnit D']['status'],
+            'une procédure archivée ne couvre rien'
+        );
 
         $evidence = OperatingProcedure::evidence(OperatingProcedure::CONTROL_CODE);
         $this->assertNotNull($evidence);
@@ -224,7 +229,11 @@ final class OperatingProcedureTest extends GrcmanagerIntegrationTestCase
         ]);
         $approver = $this->createTestUser('Alice', 'Direction');
         $procedure = $this->procedure();
-        PolicyVersion::setDesignated($procedure, [['itemtype' => User::class, 'items_id' => $approver]], PolicyApprovalRules::QUORUM_DEFAULT);
+        PolicyVersion::setDesignated(
+            $procedure,
+            [['itemtype' => User::class, 'items_id' => $approver]],
+            PolicyApprovalRules::QUORUM_DEFAULT
+        );
         $procedure->getFromDB($procedure->getID());
         $versionId = PolicyVersion::submit($procedure, 'PHPUnit');
         $this->assertGreaterThan(0, $versionId);

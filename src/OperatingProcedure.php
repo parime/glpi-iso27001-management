@@ -313,7 +313,8 @@ class OperatingProcedure extends CommonGLPI
             'add_url'     => self::addURL(),
             'export_url'  => self::getExportURL(),
             'register_url' => self::getRegisterURL(),
-            'config_url'  => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grc-operating-procedures-config',
+            'config_url'  => $CFG_GLPI['root_doc']
+                . '/plugins/grcmanager/front/config.php#grc-operating-procedures-config',
             'can_config'  => Session::haveRight(Install\Installer::RIGHT_NAME, UPDATE),
             'control'     => self::CONTROL_CODE . ' ' . Control::getControlTitle(self::CONTROL_CODE),
         ]);
@@ -346,7 +347,8 @@ class OperatingProcedure extends CommonGLPI
     public static function archive(): int
     {
         $fileName = sprintf('procedures-exploitation-%s.pdf', date('Ymd-His'));
-        if (file_put_contents(GLPI_TMP_DIR . '/' . $fileName, PdfRenderer::renderHtmlToPdf(self::reportHtml())) === false) {
+        $pdf = PdfRenderer::renderHtmlToPdf(self::reportHtml());
+        if (file_put_contents(GLPI_TMP_DIR . '/' . $fileName, $pdf) === false) {
             return 0;
         }
         // Document::add() empile des messages techniques sans intérêt pour l'utilisateur.
