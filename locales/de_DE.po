@@ -20635,3 +20635,300 @@ msgstr[1] "Archivierte Verantwortlichkeitsmatrizen"
 
 msgid "ISMS responsibility matrix - %s"
 msgstr "Verantwortlichkeitsmatrix des ISMS - %s"
+
+msgid "Readiness score"
+msgstr "Bereitschaftswert"
+
+msgid "Each state is computed from the data that the person who exported this report can read. Nothing has been modified."
+msgstr "Jeder Status wird aus den Daten berechnet, die die Person lesen darf, die diesen Bericht exportiert hat. Es wurde nichts geändert."
+
+msgid "A step done counts fully, a step partly done counts half. Steps outside your rights are not counted."
+msgstr "Ein erledigter Schritt zählt voll, ein teilweise erledigter Schritt zur Hälfte. Schritte außerhalb Ihrer Rechte zählen nicht."
+
+msgid "Steps"
+msgstr "Schritte"
+
+msgid "Each state is computed from the data already entered in the plugin, each time you open this page. Nothing is changed automatically."
+msgstr "Jeder Status wird bei jedem Öffnen dieser Seite aus den bereits im Plugin erfassten Daten berechnet. Nichts wird automatisch geändert."
+
+msgid "Readiness report (PDF)"
+msgstr "Bereitschaftsbericht (PDF)"
+
+msgid "Every step is done: you are ready for the certification audit."
+msgstr "Alle Schritte sind erledigt: Sie sind bereit für das Zertifizierungsaudit."
+
+msgid "No step can be evaluated with your rights."
+msgstr "Mit Ihren Rechten kann kein Schritt bewertet werden."
+
+msgid "Your profile cannot read the data of this step: ask an administrator of the management system."
+msgstr "Ihr Profil kann die Daten dieses Schritts nicht lesen: Wenden Sie sich an einen Administrator des Managementsystems."
+
+msgid "Progress towards certification"
+msgstr "Fortschritt zur Zertifizierung"
+
+msgid "Certification readiness"
+msgstr "Zertifizierungsbereitschaft"
+
+msgid "Plan"
+msgstr "Planen"
+
+msgid "Set up the management system: scope, context, policy, roles, risks."
+msgstr "Das Managementsystem aufbauen: Geltungsbereich, Kontext, Leitlinie, Rollen, Risiken."
+
+msgid "Do"
+msgstr "Umsetzen"
+
+msgid "Run it day to day: people trained, exercises carried out."
+msgstr "Es im Alltag betreiben: geschulte Personen, durchgeführte Übungen."
+
+msgid "Check"
+msgstr "Prüfen"
+
+msgid "Evaluate it: internal audit and management review."
+msgstr "Es bewerten: internes Audit und Managementbewertung."
+
+msgid "Act"
+msgstr "Handeln"
+
+msgid "Improve it: treat what the checks have found."
+msgstr "Es verbessern: behandeln, was die Prüfungen festgestellt haben."
+
+msgid "Partly done"
+msgstr "Teilweise erledigt"
+
+msgid "Outside your rights"
+msgstr "Außerhalb Ihrer Rechte"
+
+msgid "Define the scope of the ISMS"
+msgstr "Den Geltungsbereich des ISMS festlegen"
+
+msgid "Write down which sites, activities, systems and teams the management system covers, and what is left out, then attach this document to requirement 4.3."
+msgstr "Halten Sie fest, welche Standorte, Tätigkeiten, Systeme und Teams das Managementsystem abdeckt und was ausgeschlossen ist, und hängen Sie dieses Dokument an die Anforderung 4.3 an."
+
+msgid "Describe the context and the interested parties"
+msgstr "Kontext und interessierte Parteien beschreiben"
+
+msgid "List the internal and external issues and the interested parties with their expectations, and decide whether climate change matters for you."
+msgstr "Erfassen Sie die internen und externen Themen und die interessierten Parteien mit ihren Erwartungen, und entscheiden Sie, ob der Klimawandel für Sie relevant ist."
+
+msgid "Approve the information security policy"
+msgstr "Die Informationssicherheitsleitlinie genehmigen"
+
+msgid "Have management approve the security policy and set the date of its next review."
+msgstr "Lassen Sie die Sicherheitsleitlinie von der Leitung genehmigen und legen Sie das Datum ihrer nächsten Überprüfung fest."
+
+msgid "Assign the roles and responsibilities"
+msgstr "Rollen und Verantwortlichkeiten zuweisen"
+
+msgid "For each activity of the management system, name who carries it out, who is accountable, and who is consulted or informed."
+msgstr "Benennen Sie für jede Tätigkeit des Managementsystems, wer sie ausführt, wer verantwortlich ist und wer konsultiert oder informiert wird."
+
+msgid "Assess the risks"
+msgstr "Die Risiken beurteilen"
+
+msgid "Identify the risks, give each one an owner, rate them with your method and keep their review dates up to date."
+msgstr "Identifizieren Sie die Risiken, geben Sie jedem einen Eigentümer, bewerten Sie sie mit Ihrer Methode und halten Sie ihre Überprüfungstermine aktuell."
+
+msgid "Decide how to treat the risks"
+msgstr "Über die Risikobehandlung entscheiden"
+
+msgid "Choose a treatment for each significant risk, have accepted risks approved, and follow up the treatment actions until they are done."
+msgstr "Wählen Sie für jedes wesentliche Risiko eine Behandlung, lassen Sie akzeptierte Risiken genehmigen und verfolgen Sie die Behandlungsmaßnahmen bis zu ihrem Abschluss."
+
+msgid "Approve the Statement of Applicability"
+msgstr "Die Erklärung zur Anwendbarkeit genehmigen"
+
+msgid "Justify whether each control applies, then have the Statement of Applicability approved; approve it again after any change."
+msgstr "Begründen Sie für jede Maßnahme, ob sie anwendbar ist, und lassen Sie dann die Erklärung zur Anwendbarkeit genehmigen; nach jeder Änderung erneut genehmigen."
+
+msgid "Set measurable security objectives"
+msgstr "Messbare Sicherheitsziele festlegen"
+
+msgid "Define security objectives with an owner and a target, and record measurements to show their progress."
+msgstr "Legen Sie Sicherheitsziele mit einem Verantwortlichen und einem Zielwert fest und erfassen Sie Messungen, um ihren Fortschritt zu zeigen."
+
+msgid "Train and raise awareness"
+msgstr "Schulen und sensibilisieren"
+
+msgid "Deliver security training and awareness sessions, and make sure the people concerned have completed them."
+msgstr "Führen Sie Sicherheitsschulungen und Sensibilisierungen durch und stellen Sie sicher, dass die betroffenen Personen sie absolviert haben."
+
+msgid "Run a continuity or crisis exercise"
+msgstr "Eine Kontinuitäts- oder Krisenübung durchführen"
+
+msgid "Run at least one exercise, assess whether its objectives were met and have its review validated."
+msgstr "Führen Sie mindestens eine Übung durch, bewerten Sie, ob ihre Ziele erreicht wurden, und lassen Sie ihre Auswertung freigeben."
+
+msgid "Carry out the internal audit"
+msgstr "Das interne Audit durchführen"
+
+msgid "Complete an internal audit and make sure the audit programme covers every requirement and every applicable control."
+msgstr "Schließen Sie ein internes Audit ab und stellen Sie sicher, dass das Auditprogramm jede Anforderung und jede anwendbare Maßnahme abdeckt."
+
+msgid "Hold the management review"
+msgstr "Die Managementbewertung durchführen"
+
+msgid "Hold a management review prepared with its input file, and record the decisions taken."
+msgstr "Führen Sie eine mit ihrer Eingabemappe vorbereitete Managementbewertung durch und erfassen Sie die getroffenen Entscheidungen."
+
+msgid "Treat the nonconformities"
+msgstr "Die Nichtkonformitäten behandeln"
+
+msgid "Analyse each nonconformity, carry out its corrective action on time, and close it only once the action is done."
+msgstr "Analysieren Sie jede Nichtkonformität, führen Sie ihre Korrekturmaßnahme fristgerecht durch und schließen Sie sie erst, wenn die Maßnahme erledigt ist."
+
+#, php-format
+msgid "Declared requirements: %1$d of %2$d compliant"
+msgstr "Erklärte Anforderungen: %1$d von %2$d konform"
+
+msgid "See the items to fix"
+msgstr "Zu korrigierende Elemente anzeigen"
+
+#, php-format
+msgid "Declared status of requirement 4.3: %s"
+msgstr "Erklärter Status der Anforderung 4.3: %s"
+
+#, php-format
+msgid "Documents attached: %d"
+msgstr "Angehängte Dokumente: %d"
+
+msgid "Open requirement 4.3 (scope)"
+msgstr "Anforderung 4.3 öffnen (Geltungsbereich)"
+
+#, php-format
+msgid "Issues: %1$d, interested parties: %2$d"
+msgstr "Themen: %1$d, interessierte Parteien: %2$d"
+
+#, php-format
+msgid "Reviews overdue: %d"
+msgstr "Überfällige Überprüfungen: %d"
+
+#, php-format
+msgid "Approved policies: %d"
+msgstr "Genehmigte Leitlinien: %d"
+
+#, php-format
+msgid "Drafts: %d"
+msgstr "Entwürfe: %d"
+
+#, php-format
+msgid "Approved policies whose review is overdue: %d"
+msgstr "Genehmigte Leitlinien mit überfälliger Überprüfung: %d"
+
+#, php-format
+msgid "Activities in the matrix: %d"
+msgstr "Tätigkeiten in der Matrix: %d"
+
+#, php-format
+msgid "Activities with a serious alert (no one accountable, several accountable, roles that should be separated): %d"
+msgstr "Tätigkeiten mit einer ernsten Warnung (niemand verantwortlich, mehrere verantwortlich, zu trennende Rollen): %d"
+
+#, php-format
+msgid "Open risks: %d"
+msgstr "Offene Risiken: %d"
+
+#, php-format
+msgid "Without an owner: %d"
+msgstr "Ohne Eigentümer: %d"
+
+#, php-format
+msgid "Review overdue: %d"
+msgstr "Überprüfung überfällig: %d"
+
+#, php-format
+msgid "High risks without a treatment decision: %d"
+msgstr "Hohe Risiken ohne Behandlungsentscheidung: %d"
+
+#, php-format
+msgid "Accepted risks without approval: %d"
+msgstr "Akzeptierte Risiken ohne Genehmigung: %d"
+
+#, php-format
+msgid "Treatment actions overdue: %d"
+msgstr "Überfällige Behandlungsmaßnahmen: %d"
+
+#, php-format
+msgid "Version %s approved, still up to date"
+msgstr "Version %s genehmigt, weiterhin aktuell"
+
+msgid "An approval request is pending"
+msgstr "Eine Genehmigungsanfrage steht aus"
+
+#, php-format
+msgid "Objectives: %d"
+msgstr "Ziele: %d"
+
+#, php-format
+msgid "With at least one measurement: %d"
+msgstr "Mit mindestens einer Messung: %d"
+
+#, php-format
+msgid "Trainings and sessions: %d"
+msgstr "Schulungen und Sitzungen: %d"
+
+#, php-format
+msgid "Delivered in the last %1$d months: %2$d"
+msgstr "In den letzten %1$d Monaten durchgeführt: %2$d"
+
+#, php-format
+msgid "Participants who completed their training: %d %%"
+msgstr "Teilnehmende, die ihre Schulung absolviert haben: %d %%"
+
+#, php-format
+msgid "Exercises in the last %1$d months: %2$d"
+msgstr "Übungen in den letzten %1$d Monaten: %2$d"
+
+#, php-format
+msgid "With a validated review: %d"
+msgstr "Mit freigegebener Auswertung: %d"
+
+#, php-format
+msgid "Last internal audit completed on %s"
+msgstr "Letztes internes Audit abgeschlossen am %s"
+
+msgid "No internal audit completed yet"
+msgstr "Noch kein internes Audit abgeschlossen"
+
+#, php-format
+msgid "Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
+msgstr "Abdeckung des Auditprogramms: %1$d %% (%2$d von %3$d Anforderungen und Maßnahmen)"
+
+msgid "Open the last management review"
+msgstr "Letzte Managementbewertung öffnen"
+
+#, php-format
+msgid "Last management review completed on %s"
+msgstr "Letzte Managementbewertung abgeschlossen am %s"
+
+msgid "No management review completed yet"
+msgstr "Noch keine Managementbewertung abgeschlossen"
+
+msgid "Input file prepared for the last review"
+msgstr "Eingabemappe für die letzte Bewertung vorbereitet"
+
+msgid "No input file prepared for the last review"
+msgstr "Keine Eingabemappe für die letzte Bewertung vorbereitet"
+
+#, php-format
+msgid "Open nonconformities: %d"
+msgstr "Offene Nichtkonformitäten: %d"
+
+#, php-format
+msgid "Overdue: %d"
+msgstr "Überfällig: %d"
+
+#, php-format
+msgid "Closed without a corrective action: %d"
+msgstr "Ohne Korrekturmaßnahme geschlossen: %d"
+
+msgid "Certification readiness report"
+msgstr "Bericht zur Zertifizierungsbereitschaft"
+
+msgid "This page guides you, step by step, from setting up your security management system to the certification audit: for each step, it shows what is expected, where you stand according to the data already entered, and the screen to open to complete it."
+msgstr "Diese Seite führt Sie Schritt für Schritt vom Aufbau Ihres Sicherheitsmanagementsystems bis zum Zertifizierungsaudit: Für jeden Schritt zeigt sie, was erwartet wird, wo Sie laut den bereits erfassten Daten stehen und welche Seite Sie zum Vervollständigen öffnen."
+
+msgid "Follow the steps in order, starting with the one marked as the next step. Click its button to open the screen concerned, complete it, then come back: the page is computed again each time. Nothing is changed automatically. Export the PDF readiness report to share where you stand."
+msgstr "Folgen Sie den Schritten der Reihe nach, beginnend mit dem als nächster Schritt markierten. Klicken Sie auf seine Schaltfläche, um die betreffende Seite zu öffnen, vervollständigen Sie sie und kehren Sie zurück: Die Seite wird jedes Mal neu berechnet. Nichts wird automatisch geändert. Exportieren Sie den Bereitschaftsbericht als PDF, um Ihren Stand zu teilen."
+
+msgid "Progress towards certification (out of 100)"
+msgstr "Fortschritt zur Zertifizierung (von 100)"

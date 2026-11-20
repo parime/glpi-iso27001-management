@@ -322,7 +322,8 @@ msgstr "Verified breach"
 #: templates/supplier_risk_form.html.twig templates/evidence_tab.html.twig
 #: templates/objective_form.html.twig templates/my_evidence_requests.html.twig
 #: templates/processing_activity_form.html.twig
-#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
+#: templates/policy_form.html.twig
+#: templates/risk_indicator_form.html.twig
 #: templates/risk_treatment_plan.html.twig
 #: templates/tabs/control_access_reviews.html.twig
 #: templates/tabs/business_process_risks.html.twig
@@ -1569,7 +1570,8 @@ msgid "Overdue"
 msgstr "Overdue"
 
 #: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig src/DataBreach.php:131
+#: templates/postmortem_tab.html.twig
+#: src/DataBreach.php:131
 msgid "Not notified"
 msgstr "Not notified"
 
@@ -1694,7 +1696,8 @@ msgid "Affected items"
 msgstr "Affected items"
 
 #: templates/pdf/postmortem_report.html.twig
-#: inc/securityincident.class.php:234 src/SecurityIncidentTicket.php:117
+#: inc/securityincident.class.php:234
+#: src/SecurityIncidentTicket.php:117
 msgid "Linked tickets"
 msgstr "Linked tickets"
 
@@ -2379,7 +2382,8 @@ msgid "Corrective action"
 msgstr "Corrective action"
 
 #: templates/pdf/internal_audit_report.html.twig
-#: templates/audit_form.html.twig src/Audit.php:250
+#: templates/audit_form.html.twig
+#: src/Audit.php:250
 msgid "Conclusion"
 msgstr "Conclusion"
 
@@ -2461,8 +2465,10 @@ msgid "Theme"
 msgstr "Theme"
 
 #: templates/pdf/soa_report.html.twig
-#: templates/custom_framework_list.html.twig templates/referentiels.html.twig
-#: templates/control_form.html.twig front/customframework.php:157
+#: templates/custom_framework_list.html.twig
+#: templates/referentiels.html.twig
+#: templates/control_form.html.twig
+#: front/customframework.php:157
 msgctxt "label"
 msgid "Title"
 msgstr "Title"
@@ -2819,7 +2825,8 @@ msgstr "No risk linked to this process."
 #: templates/tabs/business_process_risks.html.twig
 #: templates/risk_form.html.twig templates/risk_appetite.html.twig
 #: src/NotificationTargetRisk.php:95
-#: src/NotificationTargetSupplierRisk.php:118 src/Risk.php:378
+#: src/NotificationTargetSupplierRisk.php:118
+#: src/Risk.php:378
 #: src/SupplierRisk.php:208
 msgid "Risk level"
 msgstr "Risk level"
@@ -2912,8 +2919,10 @@ msgstr "Name"
 #: templates/itil_classification_section.html.twig
 #: templates/network_flow_import.html.twig
 #: templates/custom_framework_form.html.twig
-#: inc/securityincident.class.php:940 src/NetworkFlow.php:255
-#: src/NetworkFlow.php:400 src/NotificationTargetRiskIndicator.php:155
+#: inc/securityincident.class.php:940
+#: src/NetworkFlow.php:255
+#: src/NetworkFlow.php:400
+#: src/NotificationTargetRiskIndicator.php:155
 #: src/RiskIndicator.php:733
 msgid "Source"
 msgstr "Source"
@@ -2934,7 +2943,8 @@ msgstr "Protocol and ports"
 #: templates/pdf/risk_register_report.html.twig
 #: templates/supplier_risk_form.html.twig templates/objective_form.html.twig
 #: templates/processing_activity_form.html.twig
-#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
+#: templates/policy_form.html.twig
+#: templates/risk_indicator_form.html.twig
 #: templates/risk_form.html.twig templates/compliance_obligation_form.html.twig
 #: templates/network_flow_form.html.twig src/ComplianceObligation.php:213
 #: src/NetworkFlow.php:266 src/Objective.php:190 src/Policy.php:176
@@ -3019,7 +3029,8 @@ msgstr "Risks in the register"
 
 #: templates/pdf/risk_register_report.html.twig
 #: templates/pdf/dpia_report.html.twig
-#: templates/park_vulnerabilities.html.twig templates/tabs/dpia.html.twig
+#: templates/park_vulnerabilities.html.twig
+#: templates/tabs/dpia.html.twig
 #: templates/risk_form.html.twig
 msgid "Level"
 msgstr "Level"
@@ -3045,7 +3056,8 @@ msgstr "Category"
 #: src/ManagementReview.php:304
 #: src/NotificationTargetComplianceObligation.php:94
 #: src/NotificationTargetRisk.php:96
-#: src/NotificationTargetSupplierRisk.php:119 src/Risk.php:411
+#: src/NotificationTargetSupplierRisk.php:119
+#: src/Risk.php:411
 #: src/RiskRegisterImport.php:599 src/SupplierRisk.php:241
 msgid "Review date"
 msgstr "Review date"
@@ -3060,7 +3072,8 @@ msgstr "Approved"
 #: templates/pdf/dpia_report.html.twig templates/tabs/dpia.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/policy_approval_tab.html.twig src/Policy.php:98
-#: src/Policy.php:245 src/ProcessingActivity.php:130
+#: src/Policy.php:245
+#: src/ProcessingActivity.php:130
 msgid "Draft"
 msgstr "Draft"
 
@@ -3490,8 +3503,10 @@ msgid "How to fix"
 msgstr "How to fix"
 
 #: templates/pdf/consistency_report.html.twig
-#: templates/park_machines.html.twig templates/my_space.html.twig
-#: templates/network_flow_matrix.html.twig templates/tabs/ioc.html.twig
+#: templates/park_machines.html.twig
+#: templates/my_space.html.twig
+#: templates/network_flow_matrix.html.twig
+#: templates/tabs/ioc.html.twig
 #: templates/network_flow_import.html.twig
 #: templates/compliance_event_form.html.twig
 #: templates/compliance_obligation_form.html.twig
@@ -4255,7 +4270,8 @@ msgid "CISA KEV catalog updated"
 msgstr "CISA KEV catalog updated"
 
 #: templates/park_vulnerabilities.html.twig
-#: templates/account_hygiene.html.twig templates/periodic_reviews.html.twig
+#: templates/account_hygiene.html.twig
+#: templates/periodic_reviews.html.twig
 #: src/ControlTestReminder.php:79
 msgid "Never"
 msgstr "Never"
@@ -4423,7 +4439,8 @@ msgid "EPSS"
 msgstr "EPSS"
 
 #: templates/park_vulnerabilities.html.twig
-#: templates/park_cve_ticket.html.twig templates/park_item_tab.html.twig
+#: templates/park_cve_ticket.html.twig
+#: templates/park_item_tab.html.twig
 msgid "Exploited"
 msgstr "Exploited"
 
@@ -6386,7 +6403,8 @@ msgstr "Record this breach in the register"
 
 #: templates/tabs/incident_playbook.html.twig
 #: templates/tabs/incident_data_breach.html.twig
-#: front/databreach.export.php:35 front/databreach.php:27
+#: front/databreach.export.php:35
+#: front/databreach.php:27
 #: src/DataBreach.php:88
 msgid "Breach register"
 msgstr "Breach register"
@@ -8852,7 +8870,8 @@ msgid "Integrity"
 msgstr "Integrity"
 
 #: templates/asset_classification_tab.html.twig
-#: src/AssetClassification.php:189 src/Risk.php:837
+#: src/AssetClassification.php:189
+#: src/Risk.php:837
 msgid "Not classified"
 msgstr "Not classified"
 
@@ -9351,7 +9370,8 @@ msgstr ""
 "below."
 
 #: templates/data_subject_request_form.html.twig
-#: src/DataSubjectRequest.php:385 src/NotificationTargetPolicyVersion.php:139
+#: src/DataSubjectRequest.php:385
+#: src/NotificationTargetPolicyVersion.php:139
 #: src/NotificationTargetSoaVersion.php:104
 msgid "Requester"
 msgstr "Requester"
@@ -25227,3 +25247,300 @@ msgstr "ISMS responsibility matrix - %s"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Readiness score"
+msgstr "Readiness score"
+
+msgid "Each state is computed from the data that the person who exported this report can read. Nothing has been modified."
+msgstr "Each state is computed from the data that the person who exported this report can read. Nothing has been modified."
+
+msgid "A step done counts fully, a step partly done counts half. Steps outside your rights are not counted."
+msgstr "A step done counts fully, a step partly done counts half. Steps outside your rights are not counted."
+
+msgid "Steps"
+msgstr "Steps"
+
+msgid "Each state is computed from the data already entered in the plugin, each time you open this page. Nothing is changed automatically."
+msgstr "Each state is computed from the data already entered in the plugin, each time you open this page. Nothing is changed automatically."
+
+msgid "Readiness report (PDF)"
+msgstr "Readiness report (PDF)"
+
+msgid "Every step is done: you are ready for the certification audit."
+msgstr "Every step is done: you are ready for the certification audit."
+
+msgid "No step can be evaluated with your rights."
+msgstr "No step can be evaluated with your rights."
+
+msgid "Your profile cannot read the data of this step: ask an administrator of the management system."
+msgstr "Your profile cannot read the data of this step: ask an administrator of the management system."
+
+msgid "Progress towards certification"
+msgstr "Progress towards certification"
+
+msgid "Certification readiness"
+msgstr "Certification readiness"
+
+msgid "Plan"
+msgstr "Plan"
+
+msgid "Set up the management system: scope, context, policy, roles, risks."
+msgstr "Set up the management system: scope, context, policy, roles, risks."
+
+msgid "Do"
+msgstr "Do"
+
+msgid "Run it day to day: people trained, exercises carried out."
+msgstr "Run it day to day: people trained, exercises carried out."
+
+msgid "Check"
+msgstr "Check"
+
+msgid "Evaluate it: internal audit and management review."
+msgstr "Evaluate it: internal audit and management review."
+
+msgid "Act"
+msgstr "Act"
+
+msgid "Improve it: treat what the checks have found."
+msgstr "Improve it: treat what the checks have found."
+
+msgid "Partly done"
+msgstr "Partly done"
+
+msgid "Outside your rights"
+msgstr "Outside your rights"
+
+msgid "Define the scope of the ISMS"
+msgstr "Define the scope of the ISMS"
+
+msgid "Write down which sites, activities, systems and teams the management system covers, and what is left out, then attach this document to requirement 4.3."
+msgstr "Write down which sites, activities, systems and teams the management system covers, and what is left out, then attach this document to requirement 4.3."
+
+msgid "Describe the context and the interested parties"
+msgstr "Describe the context and the interested parties"
+
+msgid "List the internal and external issues and the interested parties with their expectations, and decide whether climate change matters for you."
+msgstr "List the internal and external issues and the interested parties with their expectations, and decide whether climate change matters for you."
+
+msgid "Approve the information security policy"
+msgstr "Approve the information security policy"
+
+msgid "Have management approve the security policy and set the date of its next review."
+msgstr "Have management approve the security policy and set the date of its next review."
+
+msgid "Assign the roles and responsibilities"
+msgstr "Assign the roles and responsibilities"
+
+msgid "For each activity of the management system, name who carries it out, who is accountable, and who is consulted or informed."
+msgstr "For each activity of the management system, name who carries it out, who is accountable, and who is consulted or informed."
+
+msgid "Assess the risks"
+msgstr "Assess the risks"
+
+msgid "Identify the risks, give each one an owner, rate them with your method and keep their review dates up to date."
+msgstr "Identify the risks, give each one an owner, rate them with your method and keep their review dates up to date."
+
+msgid "Decide how to treat the risks"
+msgstr "Decide how to treat the risks"
+
+msgid "Choose a treatment for each significant risk, have accepted risks approved, and follow up the treatment actions until they are done."
+msgstr "Choose a treatment for each significant risk, have accepted risks approved, and follow up the treatment actions until they are done."
+
+msgid "Approve the Statement of Applicability"
+msgstr "Approve the Statement of Applicability"
+
+msgid "Justify whether each control applies, then have the Statement of Applicability approved; approve it again after any change."
+msgstr "Justify whether each control applies, then have the Statement of Applicability approved; approve it again after any change."
+
+msgid "Set measurable security objectives"
+msgstr "Set measurable security objectives"
+
+msgid "Define security objectives with an owner and a target, and record measurements to show their progress."
+msgstr "Define security objectives with an owner and a target, and record measurements to show their progress."
+
+msgid "Train and raise awareness"
+msgstr "Train and raise awareness"
+
+msgid "Deliver security training and awareness sessions, and make sure the people concerned have completed them."
+msgstr "Deliver security training and awareness sessions, and make sure the people concerned have completed them."
+
+msgid "Run a continuity or crisis exercise"
+msgstr "Run a continuity or crisis exercise"
+
+msgid "Run at least one exercise, assess whether its objectives were met and have its review validated."
+msgstr "Run at least one exercise, assess whether its objectives were met and have its review validated."
+
+msgid "Carry out the internal audit"
+msgstr "Carry out the internal audit"
+
+msgid "Complete an internal audit and make sure the audit programme covers every requirement and every applicable control."
+msgstr "Complete an internal audit and make sure the audit programme covers every requirement and every applicable control."
+
+msgid "Hold the management review"
+msgstr "Hold the management review"
+
+msgid "Hold a management review prepared with its input file, and record the decisions taken."
+msgstr "Hold a management review prepared with its input file, and record the decisions taken."
+
+msgid "Treat the nonconformities"
+msgstr "Treat the nonconformities"
+
+msgid "Analyse each nonconformity, carry out its corrective action on time, and close it only once the action is done."
+msgstr "Analyse each nonconformity, carry out its corrective action on time, and close it only once the action is done."
+
+#, php-format
+msgid "Declared requirements: %1$d of %2$d compliant"
+msgstr "Declared requirements: %1$d of %2$d compliant"
+
+msgid "See the items to fix"
+msgstr "See the items to fix"
+
+#, php-format
+msgid "Declared status of requirement 4.3: %s"
+msgstr "Declared status of requirement 4.3: %s"
+
+#, php-format
+msgid "Documents attached: %d"
+msgstr "Documents attached: %d"
+
+msgid "Open requirement 4.3 (scope)"
+msgstr "Open requirement 4.3 (scope)"
+
+#, php-format
+msgid "Issues: %1$d, interested parties: %2$d"
+msgstr "Issues: %1$d, interested parties: %2$d"
+
+#, php-format
+msgid "Reviews overdue: %d"
+msgstr "Reviews overdue: %d"
+
+#, php-format
+msgid "Approved policies: %d"
+msgstr "Approved policies: %d"
+
+#, php-format
+msgid "Drafts: %d"
+msgstr "Drafts: %d"
+
+#, php-format
+msgid "Approved policies whose review is overdue: %d"
+msgstr "Approved policies whose review is overdue: %d"
+
+#, php-format
+msgid "Activities in the matrix: %d"
+msgstr "Activities in the matrix: %d"
+
+#, php-format
+msgid "Activities with a serious alert (no one accountable, several accountable, roles that should be separated): %d"
+msgstr "Activities with a serious alert (no one accountable, several accountable, roles that should be separated): %d"
+
+#, php-format
+msgid "Open risks: %d"
+msgstr "Open risks: %d"
+
+#, php-format
+msgid "Without an owner: %d"
+msgstr "Without an owner: %d"
+
+#, php-format
+msgid "Review overdue: %d"
+msgstr "Review overdue: %d"
+
+#, php-format
+msgid "High risks without a treatment decision: %d"
+msgstr "High risks without a treatment decision: %d"
+
+#, php-format
+msgid "Accepted risks without approval: %d"
+msgstr "Accepted risks without approval: %d"
+
+#, php-format
+msgid "Treatment actions overdue: %d"
+msgstr "Treatment actions overdue: %d"
+
+#, php-format
+msgid "Version %s approved, still up to date"
+msgstr "Version %s approved, still up to date"
+
+msgid "An approval request is pending"
+msgstr "An approval request is pending"
+
+#, php-format
+msgid "Objectives: %d"
+msgstr "Objectives: %d"
+
+#, php-format
+msgid "With at least one measurement: %d"
+msgstr "With at least one measurement: %d"
+
+#, php-format
+msgid "Trainings and sessions: %d"
+msgstr "Trainings and sessions: %d"
+
+#, php-format
+msgid "Delivered in the last %1$d months: %2$d"
+msgstr "Delivered in the last %1$d months: %2$d"
+
+#, php-format
+msgid "Participants who completed their training: %d %%"
+msgstr "Participants who completed their training: %d %%"
+
+#, php-format
+msgid "Exercises in the last %1$d months: %2$d"
+msgstr "Exercises in the last %1$d months: %2$d"
+
+#, php-format
+msgid "With a validated review: %d"
+msgstr "With a validated review: %d"
+
+#, php-format
+msgid "Last internal audit completed on %s"
+msgstr "Last internal audit completed on %s"
+
+msgid "No internal audit completed yet"
+msgstr "No internal audit completed yet"
+
+#, php-format
+msgid "Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
+msgstr "Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
+
+msgid "Open the last management review"
+msgstr "Open the last management review"
+
+#, php-format
+msgid "Last management review completed on %s"
+msgstr "Last management review completed on %s"
+
+msgid "No management review completed yet"
+msgstr "No management review completed yet"
+
+msgid "Input file prepared for the last review"
+msgstr "Input file prepared for the last review"
+
+msgid "No input file prepared for the last review"
+msgstr "No input file prepared for the last review"
+
+#, php-format
+msgid "Open nonconformities: %d"
+msgstr "Open nonconformities: %d"
+
+#, php-format
+msgid "Overdue: %d"
+msgstr "Overdue: %d"
+
+#, php-format
+msgid "Closed without a corrective action: %d"
+msgstr "Closed without a corrective action: %d"
+
+msgid "Certification readiness report"
+msgstr "Certification readiness report"
+
+msgid "This page guides you, step by step, from setting up your security management system to the certification audit: for each step, it shows what is expected, where you stand according to the data already entered, and the screen to open to complete it."
+msgstr "This page guides you, step by step, from setting up your security management system to the certification audit: for each step, it shows what is expected, where you stand according to the data already entered, and the screen to open to complete it."
+
+msgid "Follow the steps in order, starting with the one marked as the next step. Click its button to open the screen concerned, complete it, then come back: the page is computed again each time. Nothing is changed automatically. Export the PDF readiness report to share where you stand."
+msgstr "Follow the steps in order, starting with the one marked as the next step. Click its button to open the screen concerned, complete it, then come back: the page is computed again each time. Nothing is changed automatically. Export the PDF readiness report to share where you stand."
+
+msgid "Progress towards certification (out of 100)"
+msgstr "Progress towards certification (out of 100)"
