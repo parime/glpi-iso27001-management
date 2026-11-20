@@ -9,6 +9,25 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
+  contacts officiels** (issue #776, lot 2, mesure A.5.29) :
+  - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les
+    dupliquer : les exercices de crise terminés du scénario et le bilan du dernier (objectifs,
+    constats, plan d'amélioration, validation : #732) avec leur type d'exercice (#733), les communications, prises de contact
+    officielles et temps de reprise tracés pendant cet exercice, le dernier test de reprise de
+    chaque processus impacté comparé à son RTO (#733), les modèles de messages de la situation et
+    leur liste de diffusion (#616, #800), les contacts officiels à prévenir visibles depuis
+    l'entité du scénario (#771). Bouton « Lancer cet exercice » vers la salle de crise ;
+  - deux nouveaux manques : **bilan du dernier exercice non validé** et **processus critique
+    jamais testé en reprise**, comptés dans la couverture, sur la mesure A.5.29 (avec le nombre de
+    scénarios exercés au bilan validé) et dans le PDF ;
+  - registre : état du bilan du dernier exercice et processus sans test de reprise signalés ;
+  - PDF : dernier test de reprise de chaque processus, état du bilan, modèles de messages et
+    contacts officiels à prévenir de chaque scénario ;
+  - chaque objet garde ses droits (exercices avec la lecture des incidents, modèles et contacts
+    avec le leur) ; aucune nouvelle table ni colonne ; rien n'est modifié automatiquement. Ce lot
+    termine l'issue #776.
+
 - **Audits de certification : réponse aux constats de l'organisme dans les délais** (issue #772,
   lot 3). Après l'audit, l'organisme attend un plan d'actions puis les preuves de levée, chacun
   dans un délai fixé par son rapport :

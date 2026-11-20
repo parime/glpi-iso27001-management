@@ -25,6 +25,8 @@
   <tr><td>{{ __('Critical processes without scenario', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.critical_uncovered }}</td></tr>
   <tr><td>{{ __('Never exercised', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.never_exercised }}</td></tr>
   <tr><td>{{ __('Not exercised for more than a year', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.overdue }}</td></tr>
+  <tr><td>{{ __('Review of the last exercise not validated', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.review_pending }}</td></tr>
+  <tr><td>{{ __('Critical process never tested in recovery', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.recovery_untested }}</td></tr>
 </table>
 
 {% if coverage.uncovered is not empty %}
@@ -48,7 +50,9 @@
       <tr>
         <th>{{ __('Impacted processes', 'grcmanager') }}</th>
         <td>
-          {% for process in scenario.processes %}{{ process.name }}{% if process.critical %} ({{ __('Critical', 'grcmanager') }}){% endif %}{% if not loop.last %}, {% endif %}{% else %}-{% endfor %}
+          {% for process in scenario.processes %}
+            <div>{{ process.name }}{% if process.critical %} ({{ __('Critical', 'grcmanager') }}){% endif %} : {% if process.last_test %}{{ __('Last recovery test', 'grcmanager') }} {{ process.last_test|formatted_date }} ({{ process.test_duration }}{% if process.test_exceeds %}, {{ __('Above the RTO', 'grcmanager') }}{% endif %}){% else %}{{ __('Never tested', 'grcmanager') }}{% endif %}</div>
+          {% else %}-{% endfor %}
         </td>
       </tr>
       <tr><th>{{ __('Secure degraded mode', 'grcmanager') }}</th><td>{{ scenario.degraded_mode|nl2br }}</td></tr>
@@ -58,9 +62,15 @@
       <tr><th>{{ __('Response playbook', 'grcmanager') }}</th><td>{{ scenario.playbook is not null ? scenario.playbook.name : (scenario.has_playbook ? __('Linked', 'grcmanager') : '-') }}</td></tr>
       <tr>
         <th>{{ __('Exercise', 'grcmanager') }}</th>
-        <td>{{ scenario.last_exercise ? __('Exercised on %s', 'grcmanager')|format(scenario.last_exercise|formatted_date) : __('Never exercised', 'grcmanager') }}{% if scenario.exercise %} ({{ scenario.exercise }}){% endif %}</td>
+        <td>{{ scenario.last_exercise ? __('Exercised on %s', 'grcmanager')|format(scenario.last_exercise|formatted_date) : __('Never exercised', 'grcmanager') }}{% if scenario.exercise %} ({{ scenario.exercise }}){% endif %}{% if scenario.drill is not null %}. {{ scenario.drill.validated ? __('Review validated', 'grcmanager') : __('Review to validate', 'grcmanager') }}{% endif %}</td>
       </tr>
-      <tr><th>{{ __('Crisis communication', 'grcmanager') }}</th><td>{{ scenario.situation ?: '-' }}</td></tr>
+      <tr><th>{{ __('Crisis communication', 'grcmanager') }}</th><td>{{ scenario.situation ?: '-' }}{% for template in scenario.templates %}{% if loop.first %} : {% endif %}{{ template.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td></tr>
+      {% if scenario.contacts is defined and scenario.contacts is not null %}
+        <tr>
+          <th>{{ _n('Official contact', 'Official contacts', 2, 'grcmanager') }}</th>
+          <td>{% for contact in scenario.contacts %}<div>{{ contact.name }}{% if contact.delay %} ({{ contact.delay }}){% endif %}</div>{% else %}{{ __('No official contact to inform for this scenario.', 'grcmanager') }}{% endfor %}</td>
+        </tr>
+      {% endif %}
       {% if scenario.gap_labels is not empty %}
         <tr><th>{{ __('To complete', 'grcmanager') }}</th><td>{{ scenario.gap_labels|join(', ') }}</td></tr>
       {% endif %}

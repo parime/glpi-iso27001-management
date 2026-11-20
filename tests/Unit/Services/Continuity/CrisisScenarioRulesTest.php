@@ -69,6 +69,19 @@ final class CrisisScenarioRulesTest extends TestCase
             [Rules::GAP_EXERCISE_OVERDUE],
             Rules::gaps($complete, 1, true, Rules::EXERCISE_OVERDUE)
         );
+        // Lot 2 : bilan du dernier exercice non validé (#732), processus critique jamais testé (#733).
+        $this->assertSame(
+            [Rules::GAP_REVIEW_PENDING, Rules::GAP_RECOVERY_UNTESTED],
+            Rules::gaps($complete, 1, true, Rules::EXERCISE_OK, true, 1)
+        );
+        $this->assertSame([], Rules::gaps($complete, 1, true, Rules::EXERCISE_OK, false, 0));
+    }
+
+    public function testOfficialContactsToInformDependOnTheSituation(): void
+    {
+        $this->assertSame(['on_security_incident'], Rules::contactFlags('ransomware'));
+        $this->assertSame(['on_security_incident'], Rules::contactFlags(''));
+        $this->assertSame(['on_security_incident', 'on_data_breach'], Rules::contactFlags('data_breach'));
     }
 
     public function testCoverageSummary(): void
@@ -81,7 +94,15 @@ final class CrisisScenarioRulesTest extends TestCase
         ];
         $counts = [1 => 2, 3 => 1];
         $scenarios = [
-            ['is_active' => true, 'exercise_status' => Rules::EXERCISE_OK, 'gaps' => [], 'default_key' => 'ransomware'],
+            [
+                'is_active' => true, 'exercise_status' => Rules::EXERCISE_OK, 'gaps' => [],
+                'default_key' => 'ransomware', 'drill' => ['validated' => true],
+            ],
+            [
+                'is_active' => true, 'exercise_status' => Rules::EXERCISE_OK,
+                'gaps' => [Rules::GAP_REVIEW_PENDING, Rules::GAP_RECOVERY_UNTESTED], 'default_key' => '',
+                'drill' => ['validated' => false],
+            ],
             [
                 'is_active' => true, 'exercise_status' => Rules::EXERCISE_NEVER,
                 'gaps' => [Rules::GAP_NEVER_EXERCISED], 'default_key' => '',
@@ -99,10 +120,13 @@ final class CrisisScenarioRulesTest extends TestCase
         $this->assertSame([
             'critical'           => 2,
             'critical_uncovered' => 1,
-            'scenarios'          => 3,
+            'scenarios'          => 4,
             'never_exercised'    => 1,
             'overdue'            => 1,
-            'with_gaps'          => 2,
+            'review_pending'     => 1,
+            'recovery_untested'  => 1,
+            'reviews_validated'  => 1,
+            'with_gaps'          => 3,
             'missing_defaults'   => ['privileged_accounts', 'supplier_outage'],
         ], Rules::summary($processes, $counts, $scenarios));
     }
