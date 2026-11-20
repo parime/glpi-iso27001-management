@@ -327,6 +327,22 @@ final class AuditProgrammeTest extends GrcmanagerIntegrationTestCase
         $this->assertNull(AuditProgramme::delivery($audit->getID()));
     }
 
+    public function testCertificationAuditsStayOutOfTheProgramme(): void
+    {
+        $process = $this->activity('Processus audité par l\'organisme Exemple');
+        $external = $this->audit('Audit de surveillance Exemple', [
+            'audit_type'   => 'surveillance_1',
+            'status'       => 'completed',
+            'actual_date'  => '2026-03-10',
+        ]);
+        AuditProgramme::setProcesses($external, [$process]);
+
+        $this->assertFalse(AuditProgramme::isInternal($external));
+        $this->assertSame('', (new AuditProgramme())->getTabNameForItem($external));
+        $programme = AuditProgramme::programme(2025, '2026-11-20');
+        $this->assertSame(Rules::STATE_NONE, $this->row($programme, $process)['state']);
+    }
+
     public function testTabFollowsTheRightsOfTheAudit(): void
     {
         $audit = $this->audit('Audit droits Exemple');

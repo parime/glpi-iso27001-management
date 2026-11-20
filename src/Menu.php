@@ -102,7 +102,10 @@ class Menu extends CommonGLPI
             Audit::class => [
                 // Issue #773 : programme d'audit pluriannuel (ISO 19011).
                 AuditProgramme::class,
-                Nonconformity::class, Objective::class,
+                Nonconformity::class,
+                // Issue #772 : constats des audits de certification et état de leur levée.
+                CertificationFinding::class,
+                Objective::class,
                 ManagementReview::class,
             ],
             // Opérations récurrentes : accès, revues, personnes, continuité.

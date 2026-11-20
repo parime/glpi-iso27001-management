@@ -21540,6 +21540,144 @@ msgstr[1] "%d politiques lues"
 msgid "People tracked"
 msgstr "Personnes suivies"
 
+msgid "Finding of the certification body"
+msgstr "Constat de l'organisme"
+
+msgid "A corrective action is required to close a nonconformity; it is optional for an area of concern or an opportunity for improvement."
+msgstr "Une action corrective est obligatoire pour clore une non-conformité ; elle est facultative pour un point sensible ou une piste de progrès."
+
+msgid "Certification body reference"
+msgstr "Référence de l'organisme"
+
+msgid "Reference given to the finding in the certification body report."
+msgstr "Référence donnée au constat dans le rapport de l'organisme de certification."
+
+msgid "Audited process"
+msgstr "Processus audité"
+
+msgid "Clause or control"
+msgstr "Clause ou mesure"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Lifting status of the findings (PDF export)"
+msgstr "État de levée des constats (export PDF)"
+
+msgid "Lifting status"
+msgstr "État de levée"
+
+msgid "Findings not lifted: %1$d of %2$d"
+msgstr "Constats non levés : %1$d sur %2$d"
+
+msgid "Nonconformities not lifted: %d"
+msgstr "Non-conformités non levées : %d"
+
+msgid "Display"
+msgstr "Affichage"
+
+msgid "All certification audits"
+msgstr "Tous les audits de certification"
+
+msgid "Only findings not lifted"
+msgstr "Seulement les constats non levés"
+
+msgid "Export (PDF)"
+msgstr "Export (PDF)"
+
+msgid "No certification audit recorded yet. Create an audit and choose its type (initial, surveillance or recertification), then record the findings of the certification body in its Findings tab."
+msgstr "Aucun audit de certification enregistré. Créez un audit et choisissez son type (initial, surveillance ou renouvellement), puis saisissez les constats de l'organisme dans son onglet Constats."
+
+msgid "Add an audit"
+msgstr "Ajouter un audit"
+
+msgid "Every finding of this audit is lifted or awaiting verification."
+msgstr "Tous les constats de cet audit sont levés ou en attente de vérification."
+
+msgid "Process, clause or control, site"
+msgstr "Processus, clause ou mesure, site"
+
+msgid "Verified on %s"
+msgstr "Vérifié le %s"
+
+msgid "Findings not lifted"
+msgstr "Constats non levés"
+
+msgid "Nonconformities not lifted"
+msgstr "Non-conformités non levées"
+
+msgid "Only findings not lifted are listed."
+msgstr "Seuls les constats non levés sont listés."
+
+msgid "No certification audit recorded yet."
+msgstr "Aucun audit de certification enregistré."
+
+msgid "Audit type"
+msgstr "Type d'audit"
+
+msgid "Internal audit, or audit carried out by your certification body (initial, surveillance or recertification)."
+msgstr "Audit interne, ou audit mené par votre organisme de certification (initial, surveillance ou renouvellement)."
+
+msgid "Certification body"
+msgstr "Organisme de certification"
+
+msgid "The certification body is a GLPI supplier (Management > Suppliers)."
+msgstr "L'organisme de certification est un fournisseur GLPI (Gestion > Fournisseurs)."
+
+msgid "Name of the lead auditor appointed by the certification body."
+msgstr "Nom de l'auditeur responsable désigné par l'organisme de certification."
+
+msgid "Standard and edition"
+msgstr "Référentiel et édition"
+
+msgid "Findings of previous certification audits not lifted: %1$d (including %2$d nonconformities)"
+msgstr "Constats des audits de certification précédents non levés : %1$d (dont %2$d non-conformités)"
+
+msgid "Findings of previous audits"
+msgstr "Constats des audits précédents"
+
+msgid "Internal audit (clause 9.2)"
+msgstr "Audit interne (article 9.2)"
+
+msgid "Initial certification audit"
+msgstr "Audit de certification initial"
+
+msgid "Surveillance audit 1"
+msgstr "Audit de surveillance 1"
+
+msgid "Surveillance audit 2"
+msgstr "Audit de surveillance 2"
+
+msgid "Recertification audit"
+msgstr "Audit de renouvellement"
+
+msgid "Major nonconformity"
+msgstr "Non-conformité majeure"
+
+msgid "Minor nonconformity"
+msgstr "Non-conformité mineure"
+
+msgid "Area of concern"
+msgstr "Point sensible"
+
+msgid "Not lifted"
+msgstr "Non levé"
+
+msgid "Action in progress"
+msgstr "Action en cours"
+
+msgid "Action done, effectiveness to verify"
+msgstr "Action réalisée, efficacité à vérifier"
+
+msgid "Lifted (verified)"
+msgstr "Levé (vérifié)"
+
+msgid "At each surveillance audit, the certification body checks that the findings of its previous audit have been dealt with. This page lists those findings (nonconformities, areas of concern, opportunities for improvement) with their corrective action, their evidence and whether they are lifted."
+msgstr "À chaque audit de surveillance, l'organisme de certification vérifie que les constats de son audit précédent ont été traités. Cette page liste ces constats (non-conformités, points sensibles, pistes de progrès) avec leur action corrective, leurs preuves et leur état de levée."
+
+msgid "Record each certification audit with its type, then its findings in the Findings tab of the audit, with the reference given by the body. Treat each finding (cause, action, owner, due date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to the auditor at the opening meeting of the next audit."
+msgstr "Enregistrez chaque audit de certification avec son type, puis ses constats dans l'onglet Constats de l'audit, avec la référence donnée par l'organisme. Traitez chaque constat (cause, action, responsable, échéance, preuves dans l'onglet Documents) jusqu'à sa vérification. Exportez le PDF et remettez-le à l'auditeur à la réunion d'ouverture de l'audit suivant."
+
 #, php-format
 msgid "Audited"
 msgstr "Audité"

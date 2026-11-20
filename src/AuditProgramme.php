@@ -45,8 +45,6 @@ use User;
  */
 class AuditProgramme extends CommonGLPI
 {
-    public static $rightname = 'plugin_grcmanager';
-
     public const PROCESSES_TABLE = 'glpi_plugin_grcmanager_audits_processes';
     public const WAIVERS_TABLE = 'glpi_plugin_grcmanager_auditindependencewaivers';
     public const DELIVERIES_TABLE = 'glpi_plugin_grcmanager_auditreportdeliveries';

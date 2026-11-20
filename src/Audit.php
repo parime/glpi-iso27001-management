@@ -23,6 +23,7 @@ use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\AuditBase;
+use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Html;
 use Log;
@@ -166,6 +167,19 @@ class Audit extends AuditBase
      */
     private function normalizeInput(array $input): array
     {
+        // Issue #772 : type d'audit connu, sinon « interne » ; organisme et référentiel nettoyés.
+        if (array_key_exists('audit_type', $input)) {
+            $input['audit_type'] = CertificationAuditRules::normalizeAuditType((string) $input['audit_type']);
+        }
+        if (array_key_exists('suppliers_id', $input)) {
+            $input['suppliers_id'] = max(0, (int) $input['suppliers_id']);
+        }
+        foreach (['lead_auditor', 'certification_standard'] as $field) {
+            if (array_key_exists($field, $input)) {
+                $input[$field] = mb_substr(trim((string) $input[$field]), 0, 255);
+            }
+        }
+
         if (isset($input['risk_categories']) && is_array($input['risk_categories'])) {
             $input['risk_categories'] = implode(',', array_filter(array_map('trim', $input['risk_categories'])));
         }
@@ -266,6 +280,36 @@ class Audit extends AuditBase
             'itemtype' => self::class,
         ];
 
+        // Issue #772 : type d'audit et organisme de certification (identifiants 30 à 33).
+        $tab[] = [
+            'id'       => 30,
+            'table'    => $this->getTable(),
+            'field'    => 'audit_type',
+            'name'     => __('Audit type', 'grcmanager'),
+            'datatype' => 'specific',
+        ];
+        $tab[] = [
+            'id'       => 31,
+            'table'    => 'glpi_suppliers',
+            'field'    => 'name',
+            'name'     => __('Certification body', 'grcmanager'),
+            'datatype' => 'dropdown',
+        ];
+        $tab[] = [
+            'id'       => 32,
+            'table'    => $this->getTable(),
+            'field'    => 'lead_auditor',
+            'name'     => __('Lead auditor', 'grcmanager'),
+            'datatype' => 'string',
+        ];
+        $tab[] = [
+            'id'       => 33,
+            'table'    => $this->getTable(),
+            'field'    => 'certification_standard',
+            'name'     => __('Standard and edition', 'grcmanager'),
+            'datatype' => 'string',
+        ];
+
         // Issue #536 : périmètre de l'audit (entité GLPI) et visibilité dans les sous-entités.
         $tab[] = [
             'id'       => 80,
@@ -299,6 +343,9 @@ class Audit extends AuditBase
 
             case 'risk_categories':
                 return self::riskCategoriesBadges((string) ($values[$field] ?? ''));
+
+            case 'audit_type':
+                return CertificationFinding::auditTypeBadge($values[$field] ?? null);
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
@@ -328,6 +375,9 @@ class Audit extends AuditBase
 
             case 'risk_categories':
                 return Dropdown::showFromArray($name, Risk::getCategories(), $options);
+
+            case 'audit_type':
+                return Dropdown::showFromArray($name, CertificationFinding::getAuditTypes(), $options);
         }
 
         return parent::getSpecificValueToSelect($field, $name, $values, $options);
@@ -661,6 +711,9 @@ class Audit extends AuditBase
                 : self::splitRiskCategories((string) ($this->fields['risk_categories'] ?? '')),
             'controls'        => $controlTitles,
             'linked_controls' => $this->isNewID($ID) ? [] : self::getLinkedControlIds((int) $ID),
+            // Issue #772 : type d'audit et organisme de certification.
+            'audit_types'     => CertificationFinding::getAuditTypes(),
+            'findings_url'    => CertificationFinding::canView() ? CertificationFinding::getSearchURL() : '',
         ]);
 
         return true;

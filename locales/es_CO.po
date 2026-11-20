@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
-"Language: es_ES\n"
+"Language: es_CO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21540,6 +21540,144 @@ msgstr[1] "%d políticas leídas"
 
 msgid "People tracked"
 msgstr "Personas seguidas"
+
+msgid "Finding of the certification body"
+msgstr "Hallazgo del organismo de certificación"
+
+msgid "A corrective action is required to close a nonconformity; it is optional for an area of concern or an opportunity for improvement."
+msgstr "Se requiere una acción correctiva para cerrar una no conformidad; es opcional para un punto sensible o una oportunidad de mejora."
+
+msgid "Certification body reference"
+msgstr "Referencia del organismo"
+
+msgid "Reference given to the finding in the certification body report."
+msgstr "Referencia del hallazgo en el informe del organismo de certificación."
+
+msgid "Audited process"
+msgstr "Proceso auditado"
+
+msgid "Clause or control"
+msgstr "Cláusula o control"
+
+msgid "Site"
+msgstr "Sede"
+
+msgid "Lifting status of the findings (PDF export)"
+msgstr "Estado de cierre de los hallazgos (exportación PDF)"
+
+msgid "Lifting status"
+msgstr "Estado de cierre"
+
+msgid "Findings not lifted: %1$d of %2$d"
+msgstr "Hallazgos no cerrados: %1$d de %2$d"
+
+msgid "Nonconformities not lifted: %d"
+msgstr "No conformidades no cerradas: %d"
+
+msgid "Display"
+msgstr "Visualización"
+
+msgid "All certification audits"
+msgstr "Todas las auditorías de certificación"
+
+msgid "Only findings not lifted"
+msgstr "Solo los hallazgos no cerrados"
+
+msgid "Export (PDF)"
+msgstr "Exportar (PDF)"
+
+msgid "No certification audit recorded yet. Create an audit and choose its type (initial, surveillance or recertification), then record the findings of the certification body in its Findings tab."
+msgstr "Todavía no hay ninguna auditoría de certificación. Cree una auditoría, elija su tipo (inicial, seguimiento o renovación) y registre los hallazgos del organismo en su pestaña Hallazgos."
+
+msgid "Add an audit"
+msgstr "Añadir una auditoría"
+
+msgid "Every finding of this audit is lifted or awaiting verification."
+msgstr "Todos los hallazgos de esta auditoría están cerrados o pendientes de verificación."
+
+msgid "Process, clause or control, site"
+msgstr "Proceso, cláusula o control, sede"
+
+msgid "Verified on %s"
+msgstr "Verificado el %s"
+
+msgid "Findings not lifted"
+msgstr "Hallazgos no cerrados"
+
+msgid "Nonconformities not lifted"
+msgstr "No conformidades no cerradas"
+
+msgid "Only findings not lifted are listed."
+msgstr "Solo se listan los hallazgos no cerrados."
+
+msgid "No certification audit recorded yet."
+msgstr "Todavía no hay ninguna auditoría de certificación."
+
+msgid "Audit type"
+msgstr "Tipo de auditoría"
+
+msgid "Internal audit, or audit carried out by your certification body (initial, surveillance or recertification)."
+msgstr "Auditoría interna, o auditoría realizada por su organismo de certificación (inicial, seguimiento o renovación)."
+
+msgid "Certification body"
+msgstr "Organismo de certificación"
+
+msgid "The certification body is a GLPI supplier (Management > Suppliers)."
+msgstr "El organismo de certificación es un proveedor de GLPI (Gestión > Proveedores)."
+
+msgid "Name of the lead auditor appointed by the certification body."
+msgstr "Nombre del auditor jefe designado por el organismo de certificación."
+
+msgid "Standard and edition"
+msgstr "Norma y edición"
+
+msgid "Findings of previous certification audits not lifted: %1$d (including %2$d nonconformities)"
+msgstr "Hallazgos de auditorías de certificación anteriores no cerrados: %1$d (de ellos %2$d no conformidades)"
+
+msgid "Findings of previous audits"
+msgstr "Hallazgos de auditorías anteriores"
+
+msgid "Internal audit (clause 9.2)"
+msgstr "Auditoría interna (cláusula 9.2)"
+
+msgid "Initial certification audit"
+msgstr "Auditoría de certificación inicial"
+
+msgid "Surveillance audit 1"
+msgstr "Auditoría de seguimiento 1"
+
+msgid "Surveillance audit 2"
+msgstr "Auditoría de seguimiento 2"
+
+msgid "Recertification audit"
+msgstr "Auditoría de renovación"
+
+msgid "Major nonconformity"
+msgstr "No conformidad mayor"
+
+msgid "Minor nonconformity"
+msgstr "No conformidad menor"
+
+msgid "Area of concern"
+msgstr "Punto sensible"
+
+msgid "Not lifted"
+msgstr "No cerrado"
+
+msgid "Action in progress"
+msgstr "Acción en curso"
+
+msgid "Action done, effectiveness to verify"
+msgstr "Acción realizada, eficacia por verificar"
+
+msgid "Lifted (verified)"
+msgstr "Cerrado (verificado)"
+
+msgid "At each surveillance audit, the certification body checks that the findings of its previous audit have been dealt with. This page lists those findings (nonconformities, areas of concern, opportunities for improvement) with their corrective action, their evidence and whether they are lifted."
+msgstr "En cada auditoría de seguimiento, el organismo de certificación comprueba que se han tratado los hallazgos de su auditoría anterior. Esta página lista esos hallazgos (no conformidades, puntos sensibles, oportunidades de mejora) con su acción correctiva, sus evidencias y su estado de cierre."
+
+msgid "Record each certification audit with its type, then its findings in the Findings tab of the audit, with the reference given by the body. Treat each finding (cause, action, owner, due date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to the auditor at the opening meeting of the next audit."
+msgstr "Registre cada auditoría de certificación con su tipo y, después, sus hallazgos en la pestaña Hallazgos de la auditoría, con la referencia dada por el organismo. Trate cada hallazgo (causa, acción, responsable, plazo, evidencias en la pestaña Documentos) hasta su verificación. Exporte el PDF y entréguelo al auditor en la reunión de apertura de la siguiente auditoría."
 
 #, php-format
 msgid "Audited"

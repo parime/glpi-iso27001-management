@@ -21455,6 +21455,144 @@ msgstr[2] "%d polityk przeczytanych"
 msgid "People tracked"
 msgstr "Śledzone osoby"
 
+msgid "Finding of the certification body"
+msgstr "Ustalenie jednostki certyfikującej"
+
+msgid "A corrective action is required to close a nonconformity; it is optional for an area of concern or an opportunity for improvement."
+msgstr "Działanie korygujące jest wymagane do zamknięcia niezgodności; jest opcjonalne dla obszaru wymagającego uwagi lub możliwości doskonalenia."
+
+msgid "Certification body reference"
+msgstr "Odniesienie jednostki certyfikującej"
+
+msgid "Reference given to the finding in the certification body report."
+msgstr "Odniesienie ustalenia w raporcie jednostki certyfikującej."
+
+msgid "Audited process"
+msgstr "Audytowany proces"
+
+msgid "Clause or control"
+msgstr "Punkt lub zabezpieczenie"
+
+msgid "Site"
+msgstr "Lokalizacja"
+
+msgid "Lifting status of the findings (PDF export)"
+msgstr "Status zamknięcia ustaleń (eksport PDF)"
+
+msgid "Lifting status"
+msgstr "Status zamknięcia"
+
+msgid "Findings not lifted: %1$d of %2$d"
+msgstr "Niezamknięte ustalenia: %1$d z %2$d"
+
+msgid "Nonconformities not lifted: %d"
+msgstr "Niezamknięte niezgodności: %d"
+
+msgid "Display"
+msgstr "Wyświetlanie"
+
+msgid "All certification audits"
+msgstr "Wszystkie audyty certyfikujące"
+
+msgid "Only findings not lifted"
+msgstr "Tylko niezamknięte ustalenia"
+
+msgid "Export (PDF)"
+msgstr "Eksport (PDF)"
+
+msgid "No certification audit recorded yet. Create an audit and choose its type (initial, surveillance or recertification), then record the findings of the certification body in its Findings tab."
+msgstr "Nie zarejestrowano jeszcze żadnego audytu certyfikującego. Utwórz audyt, wybierz jego rodzaj (wstępny, nadzoru lub recertyfikacji), a następnie wprowadź ustalenia jednostki w zakładce Ustalenia."
+
+msgid "Add an audit"
+msgstr "Dodaj audyt"
+
+msgid "Every finding of this audit is lifted or awaiting verification."
+msgstr "Wszystkie ustalenia tego audytu są zamknięte lub oczekują na weryfikację."
+
+msgid "Process, clause or control, site"
+msgstr "Proces, punkt lub zabezpieczenie, lokalizacja"
+
+msgid "Verified on %s"
+msgstr "Zweryfikowano %s"
+
+msgid "Findings not lifted"
+msgstr "Niezamknięte ustalenia"
+
+msgid "Nonconformities not lifted"
+msgstr "Niezamknięte niezgodności"
+
+msgid "Only findings not lifted are listed."
+msgstr "Wymieniono tylko niezamknięte ustalenia."
+
+msgid "No certification audit recorded yet."
+msgstr "Nie zarejestrowano jeszcze żadnego audytu certyfikującego."
+
+msgid "Audit type"
+msgstr "Rodzaj audytu"
+
+msgid "Internal audit, or audit carried out by your certification body (initial, surveillance or recertification)."
+msgstr "Audyt wewnętrzny lub audyt prowadzony przez jednostkę certyfikującą (wstępny, nadzoru lub recertyfikacji)."
+
+msgid "Certification body"
+msgstr "Jednostka certyfikująca"
+
+msgid "The certification body is a GLPI supplier (Management > Suppliers)."
+msgstr "Jednostka certyfikująca jest dostawcą GLPI (Zarządzanie > Dostawcy)."
+
+msgid "Name of the lead auditor appointed by the certification body."
+msgstr "Imię i nazwisko audytora wiodącego wyznaczonego przez jednostkę certyfikującą."
+
+msgid "Standard and edition"
+msgstr "Norma i wydanie"
+
+msgid "Findings of previous certification audits not lifted: %1$d (including %2$d nonconformities)"
+msgstr "Niezamknięte ustalenia poprzednich audytów certyfikujących: %1$d (w tym niezgodności: %2$d)"
+
+msgid "Findings of previous audits"
+msgstr "Ustalenia poprzednich audytów"
+
+msgid "Internal audit (clause 9.2)"
+msgstr "Audyt wewnętrzny (punkt 9.2)"
+
+msgid "Initial certification audit"
+msgstr "Audyt certyfikujący wstępny"
+
+msgid "Surveillance audit 1"
+msgstr "Audyt nadzoru 1"
+
+msgid "Surveillance audit 2"
+msgstr "Audyt nadzoru 2"
+
+msgid "Recertification audit"
+msgstr "Audyt recertyfikujący"
+
+msgid "Major nonconformity"
+msgstr "Niezgodność duża"
+
+msgid "Minor nonconformity"
+msgstr "Niezgodność mała"
+
+msgid "Area of concern"
+msgstr "Obszar wymagający uwagi"
+
+msgid "Not lifted"
+msgstr "Niezamknięte"
+
+msgid "Action in progress"
+msgstr "Działanie w toku"
+
+msgid "Action done, effectiveness to verify"
+msgstr "Działanie wykonane, skuteczność do weryfikacji"
+
+msgid "Lifted (verified)"
+msgstr "Zamknięte (zweryfikowane)"
+
+msgid "At each surveillance audit, the certification body checks that the findings of its previous audit have been dealt with. This page lists those findings (nonconformities, areas of concern, opportunities for improvement) with their corrective action, their evidence and whether they are lifted."
+msgstr "Podczas każdego audytu nadzoru jednostka certyfikująca sprawdza, czy ustalenia z poprzedniego audytu zostały obsłużone. Ta strona zawiera te ustalenia (niezgodności, obszary wymagające uwagi, możliwości doskonalenia) wraz z działaniem korygującym, dowodami i statusem zamknięcia."
+
+msgid "Record each certification audit with its type, then its findings in the Findings tab of the audit, with the reference given by the body. Treat each finding (cause, action, owner, due date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to the auditor at the opening meeting of the next audit."
+msgstr "Zarejestruj każdy audyt certyfikujący z jego rodzajem, a następnie jego ustalenia w zakładce Ustalenia audytu, z odniesieniem nadanym przez jednostkę. Obsłuż każde ustalenie (przyczyna, działanie, odpowiedzialny, termin, dowody w zakładce Dokumenty) aż do jego weryfikacji. Wyeksportuj PDF i przekaż go audytorowi na spotkaniu otwierającym następny audyt."
+
 #, php-format
 msgid "Audited"
 msgstr "Audytowany"

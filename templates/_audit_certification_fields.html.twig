@@ -1,0 +1,50 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #772 : type d'audit (interne, ou mené par l'organisme de certification) et organisme.
+   Les champs de l'organisme ne s'affichent que pour un audit de certification. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{{ fields.dropdownArrayField('audit_type', item.fields['audit_type'] ?: 'internal', audit_types, __('Audit type', 'grcmanager'), {
+   'add_field_html': hints.hint(__('Internal audit, or audit carried out by your certification body (initial, surveillance or recertification).', 'grcmanager')),
+}) }}
+{{ fields.dropdownField('Supplier', 'suppliers_id', item.fields['suppliers_id'], __('Certification body', 'grcmanager'), {
+   'entity': item.fields['entities_id'],
+   'add_field_class': 'grcmanager-certification-audit',
+   'add_field_html': hints.hint(__('The certification body is a GLPI supplier (Management > Suppliers).', 'grcmanager')),
+}) }}
+{{ fields.textField('lead_auditor', item.fields['lead_auditor'], __('Lead auditor', 'grcmanager'), {
+   'add_field_class': 'grcmanager-certification-audit',
+   'add_field_html': hints.hint(__('Name of the lead auditor appointed by the certification body.', 'grcmanager')),
+}) }}
+{{ fields.textField('certification_standard', item.fields['certification_standard'], __('Standard and edition', 'grcmanager'), {
+   'add_field_class': 'grcmanager-certification-audit',
+   'placeholder': 'ISO/IEC 27001:2022',
+}) }}
+{% if findings_url and not item.isNewItem() %}
+   {{ fields.htmlField('', '<a href="' ~ (findings_url ~ '?audit=' ~ item.getID())|e ~ '"><i class="ti ti-certificate-2 me-1"></i>' ~ __('Lifting status of the findings (PDF export)', 'grcmanager')|e ~ '</a>', '', {
+      'add_field_class': 'grcmanager-certification-audit',
+   }) }}
+{% endif %}
+<script>
+   $(function () {
+      var auditType = $('select[name="audit_type"]');
+      var toggle = function () {
+         $('.grcmanager-certification-audit').toggleClass('d-none', auditType.val() === 'internal');
+      };
+      auditType.on('change', toggle);
+      toggle();
+   });
+</script>

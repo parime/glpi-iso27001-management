@@ -193,6 +193,29 @@ renseignée à la date du jour si elle est restée vide.
 
 ![Non-conformité clôturée, date de vérification auto-renseignée](screenshots/tutorial/25-nonconformity-closed.png)
 
+#### Audits de certification et constats de l'organisme
+
+Un audit est **interne** (article 9.2) ou mené par l'**organisme de certification** : champ
+**Type d'audit** (audit de certification initial, audit de surveillance 1 ou 2, audit de
+renouvellement). Pour un audit de certification, la fiche demande l'organisme (un fournisseur GLPI,
+**Gestion > Fournisseurs**), l'auditeur responsable et le référentiel avec son édition (par exemple
+ISO/IEC 27001:2022). Les audits existants restent des audits internes.
+
+Dans l'onglet **Constats** d'un audit de certification, chaque constat se saisit avec le
+vocabulaire de l'organisme : **non-conformité majeure**, **non-conformité mineure**, **point
+sensible** ou **piste d'amélioration**, avec la référence de l'organisme (par exemple GVE-36), le
+processus audité, la clause ou la mesure et le site (un lieu GLPI). Le traitement est le même que
+pour une non-conformité interne (cause, action corrective, responsable, échéance, preuves dans
+l'onglet **Documents**, vérification) ; l'action corrective n'est obligatoire que pour une
+non-conformité.
+
+L'écran **Audits et amélioration > Constats des audits précédents** liste les constats de chaque
+audit de certification avec leur état de levée (non levé, action en cours, action réalisée à
+vérifier, levé) et leurs preuves. Il se filtre par audit ou sur les seuls constats non levés, et
+s'exporte en PDF : c'est le document à remettre à l'auditeur à la réunion d'ouverture de l'audit
+suivant. La **Préparation à la certification** rappelle, dans l'étape « Traiter les
+non-conformités », le nombre de constats précédents non levés.
+
 ### Étape 6 : Ajouter les indicateurs à un tableau de bord
 
 Le plugin ajoute ses propres cartes à l'éditeur de tableau de bord natif de GLPI : aucun écran à

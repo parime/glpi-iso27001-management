@@ -26286,6 +26286,144 @@ msgstr[1] "%d policies acknowledged"
 msgid "People tracked"
 msgstr "People tracked"
 
+msgid "Finding of the certification body"
+msgstr "Finding of the certification body"
+
+msgid "A corrective action is required to close a nonconformity; it is optional for an area of concern or an opportunity for improvement."
+msgstr "A corrective action is required to close a nonconformity; it is optional for an area of concern or an opportunity for improvement."
+
+msgid "Certification body reference"
+msgstr "Certification body reference"
+
+msgid "Reference given to the finding in the certification body report."
+msgstr "Reference given to the finding in the certification body report."
+
+msgid "Audited process"
+msgstr "Audited process"
+
+msgid "Clause or control"
+msgstr "Clause or control"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Lifting status of the findings (PDF export)"
+msgstr "Lifting status of the findings (PDF export)"
+
+msgid "Lifting status"
+msgstr "Lifting status"
+
+msgid "Findings not lifted: %1$d of %2$d"
+msgstr "Findings not lifted: %1$d of %2$d"
+
+msgid "Nonconformities not lifted: %d"
+msgstr "Nonconformities not lifted: %d"
+
+msgid "Display"
+msgstr "Display"
+
+msgid "All certification audits"
+msgstr "All certification audits"
+
+msgid "Only findings not lifted"
+msgstr "Only findings not lifted"
+
+msgid "Export (PDF)"
+msgstr "Export (PDF)"
+
+msgid "No certification audit recorded yet. Create an audit and choose its type (initial, surveillance or recertification), then record the findings of the certification body in its Findings tab."
+msgstr "No certification audit recorded yet. Create an audit and choose its type (initial, surveillance or recertification), then record the findings of the certification body in its Findings tab."
+
+msgid "Add an audit"
+msgstr "Add an audit"
+
+msgid "Every finding of this audit is lifted or awaiting verification."
+msgstr "Every finding of this audit is lifted or awaiting verification."
+
+msgid "Process, clause or control, site"
+msgstr "Process, clause or control, site"
+
+msgid "Verified on %s"
+msgstr "Verified on %s"
+
+msgid "Findings not lifted"
+msgstr "Findings not lifted"
+
+msgid "Nonconformities not lifted"
+msgstr "Nonconformities not lifted"
+
+msgid "Only findings not lifted are listed."
+msgstr "Only findings not lifted are listed."
+
+msgid "No certification audit recorded yet."
+msgstr "No certification audit recorded yet."
+
+msgid "Audit type"
+msgstr "Audit type"
+
+msgid "Internal audit, or audit carried out by your certification body (initial, surveillance or recertification)."
+msgstr "Internal audit, or audit carried out by your certification body (initial, surveillance or recertification)."
+
+msgid "Certification body"
+msgstr "Certification body"
+
+msgid "The certification body is a GLPI supplier (Management > Suppliers)."
+msgstr "The certification body is a GLPI supplier (Management > Suppliers)."
+
+msgid "Name of the lead auditor appointed by the certification body."
+msgstr "Name of the lead auditor appointed by the certification body."
+
+msgid "Standard and edition"
+msgstr "Standard and edition"
+
+msgid "Findings of previous certification audits not lifted: %1$d (including %2$d nonconformities)"
+msgstr "Findings of previous certification audits not lifted: %1$d (including %2$d nonconformities)"
+
+msgid "Findings of previous audits"
+msgstr "Findings of previous audits"
+
+msgid "Internal audit (clause 9.2)"
+msgstr "Internal audit (clause 9.2)"
+
+msgid "Initial certification audit"
+msgstr "Initial certification audit"
+
+msgid "Surveillance audit 1"
+msgstr "Surveillance audit 1"
+
+msgid "Surveillance audit 2"
+msgstr "Surveillance audit 2"
+
+msgid "Recertification audit"
+msgstr "Recertification audit"
+
+msgid "Major nonconformity"
+msgstr "Major nonconformity"
+
+msgid "Minor nonconformity"
+msgstr "Minor nonconformity"
+
+msgid "Area of concern"
+msgstr "Area of concern"
+
+msgid "Not lifted"
+msgstr "Not lifted"
+
+msgid "Action in progress"
+msgstr "Action in progress"
+
+msgid "Action done, effectiveness to verify"
+msgstr "Action done, effectiveness to verify"
+
+msgid "Lifted (verified)"
+msgstr "Lifted (verified)"
+
+msgid "At each surveillance audit, the certification body checks that the findings of its previous audit have been dealt with. This page lists those findings (nonconformities, areas of concern, opportunities for improvement) with their corrective action, their evidence and whether they are lifted."
+msgstr "At each surveillance audit, the certification body checks that the findings of its previous audit have been dealt with. This page lists those findings (nonconformities, areas of concern, opportunities for improvement) with their corrective action, their evidence and whether they are lifted."
+
+msgid "Record each certification audit with its type, then its findings in the Findings tab of the audit, with the reference given by the body. Treat each finding (cause, action, owner, due date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to the auditor at the opening meeting of the next audit."
+msgstr "Record each certification audit with its type, then its findings in the Findings tab of the audit, with the reference given by the body. Treat each finding (cause, action, owner, due date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to the auditor at the opening meeting of the next audit."
+
 #, php-format
 msgid "Audited"
 msgstr "Audited"

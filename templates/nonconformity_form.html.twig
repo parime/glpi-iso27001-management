@@ -50,9 +50,30 @@
    {% endif %}
 
    {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true}) }}
-   {{ fields.dropdownArrayField('finding_type', item.fields['finding_type'] ?: 'nonconformity', finding_types, __('Finding type', 'grcmanager')) }}
+   {# Issue #772 : constat d'un audit de certification : vocabulaire et référence de l'organisme. #}
+   {% if certification %}
+      {{ fields.dropdownArrayField('_certification_category', certification_category, certification_categories, __('Finding of the certification body', 'grcmanager'), {
+         'add_field_html': hints.hint(__('A corrective action is required to close a nonconformity; it is optional for an area of concern or an opportunity for improvement.', 'grcmanager')),
+      }) }}
+   {% else %}
+      {{ fields.dropdownArrayField('finding_type', item.fields['finding_type'] ?: 'nonconformity', finding_types, __('Finding type', 'grcmanager')) }}
+   {% endif %}
    {{ fields.dropdownArrayField('plugin_grcmanager_audits_id', item.fields['plugin_grcmanager_audits_id'], audits, audit_label) }}
-   {{ fields.dropdownArrayField('severity', item.fields['severity'] ?: 'minor', severities, __('Severity', 'grcmanager')) }}
+   {% if certification %}
+      {{ fields.textField('body_reference', item.fields['body_reference'], __('Certification body reference', 'grcmanager'), {
+         'placeholder': 'GVE-36',
+         'add_field_html': hints.hint(__('Reference given to the finding in the certification body report.', 'grcmanager')),
+      }) }}
+   {% else %}
+      {{ fields.dropdownArrayField('severity', item.fields['severity'] ?: 'minor', severities, __('Severity', 'grcmanager')) }}
+   {% endif %}
+   {{ fields.textField('audited_process', item.fields['audited_process'], __('Audited process', 'grcmanager')) }}
+   {{ fields.textField('requirement_reference', item.fields['requirement_reference'], __('Clause or control', 'grcmanager'), {
+      'placeholder': 'A.8.8',
+   }) }}
+   {{ fields.dropdownField('Location', 'locations_id', item.fields['locations_id'], __('Site', 'grcmanager'), {
+      'entity': item.fields['entities_id'],
+   }) }}
    {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Owner', 'grcmanager'), {'right': 'all'}) }}
    {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'open', statuses, __('Status', 'grcmanager')) }}
    {{ fields.dateField('due_date', item.fields['due_date'], __('Due date', 'grcmanager')) }}
