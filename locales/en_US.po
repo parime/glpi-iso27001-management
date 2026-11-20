@@ -30399,6 +30399,62 @@ msgstr ""
 msgid "Qualifying trainings"
 msgstr "Qualifying trainings"
 
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr "%d license(s) expiring soon"
+
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+
+msgid "License coverage"
+msgstr "License coverage"
+
+#, php-format
+msgid "License coverage: %d%%"
+msgstr "License coverage: %d%%"
+
+msgid "License expiring soon"
+msgstr "License expiring soon"
+
+msgid "No warning before a license expires."
+msgstr "No warning before a license expires."
+
+msgid "Over-quota allowed"
+msgstr "Over-quota allowed"
+
+msgid "Over-quota allowed by the license"
+msgstr "Over-quota allowed by the license"
+
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr "Warn before a license expires (days, 0 to turn off)"
+
+#, php-format
+msgid "Warning %d days before a license expires."
+msgstr "Warning %d days before a license expires."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

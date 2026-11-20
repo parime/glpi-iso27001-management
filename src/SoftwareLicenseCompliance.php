@@ -49,7 +49,10 @@ class SoftwareLicenseCompliance extends CommonGLPI
     /** Constats affichés au plus sur la page ; le reste est compté et reste dans l'export. */
     public const MAX_ROWS = 300;
 
-    /** @var array<string, list<Finding>> Constats déjà calculés pendant la requête, par date. */
+    /**
+     * @var array<string, array{findings: list<Finding>, coverage: array{watched: int, licensed: int}}>
+     *     Constats et couverture déjà calculés pendant la requête, par date.
+     */
     private static array $memo = [];
 
     public static function getTypeName($nb = 0)
@@ -157,6 +160,17 @@ class SoftwareLicenseCompliance extends CommonGLPI
                     'grcmanager'
                 ),
             ],
+            // Lot 2 : alerte d'anticipation, pas un écart (absente du contrôle de cohérence).
+            Rules::FINDING_EXPIRING     => [
+                'label' => __('License expiring soon', 'grcmanager'),
+                'color' => 'secondary',
+                'icon'  => 'ti ti-calendar-time',
+                'help'  => __(
+                    'A license in use expires within the alert horizon and no renewal is recorded in GLPI yet. '
+                        . 'This is a reminder, not a gap.',
+                    'grcmanager'
+                ),
+            ],
         ];
     }
 
@@ -192,6 +206,18 @@ class SoftwareLicenseCompliance extends CommonGLPI
                 $finding['installs'],
                 $finding['seats'],
                 $where
+            ) . ($finding['overquota_allowed']
+                ? ' ' . __(
+                    'The license allows going over the number of seats: settle it with the publisher.',
+                    'grcmanager'
+                )
+                : ''),
+            Rules::FINDING_EXPIRING     => sprintf(
+                __('Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s.', 'grcmanager'),
+                Html::convDate($finding['expire']),
+                $finding['assigned'],
+                $finding['installs'],
+                $where
             ),
             default                     => sprintf(
                 __('Expired on %1$s: %2$d asset(s) still assigned, %3$d installation(s) %4$s.', 'grcmanager'),
@@ -216,20 +242,61 @@ class SoftwareLicenseCompliance extends CommonGLPI
         if (!self::canView()) {
             return [];
         }
+        return self::compute($today)['findings'];
+    }
+
+    /**
+     * Taux de couverture des logiciels commerciaux surveillés installés (couples logiciel, entité)
+     * dans les entités de la personne ; null sans les droits.
+     *
+     * @return array{watched: int, licensed: int, percent: int|null}|null
+     */
+    public static function coverage(?string $today = null): ?array
+    {
+        if (!self::canView()) {
+            return null;
+        }
+        $coverage = self::compute($today)['coverage'];
+
+        return $coverage + [
+            'percent' => $coverage['watched'] > 0
+                ? (int) floor(100 * $coverage['licensed'] / $coverage['watched']) : null,
+        ];
+    }
+
+    /**
+     * Constats et couverture, calculés une fois par requête et par date.
+     *
+     * @return array{findings: list<Finding>, coverage: array{watched: int, licensed: int}}
+     */
+    private static function compute(?string $today): array
+    {
         $today ??= substr((string) ($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s')), 0, 10);
         if (!isset(self::$memo[$today])) {
             $data = LicenseInventory::visible();
             $settings = LicenseInventory::settings();
-            self::$memo[$today] = Rules::evaluate(
-                $data['software'],
-                $data['installs'],
-                $data['licences'],
-                $data['assignments'],
-                $data['ancestors'],
-                $settings['publishers'],
-                $settings['ignored'],
-                $today
-            );
+            self::$memo[$today] = [
+                'findings' => Rules::evaluate(
+                    $data['software'],
+                    $data['installs'],
+                    $data['licences'],
+                    $data['assignments'],
+                    $data['ancestors'],
+                    $settings['publishers'],
+                    $settings['ignored'],
+                    $today,
+                    $settings['expiring_days']
+                ),
+                'coverage' => Rules::coverage(
+                    $data['software'],
+                    $data['installs'],
+                    $data['licences'],
+                    $data['ancestors'],
+                    $settings['publishers'],
+                    $settings['ignored'],
+                    $today
+                ),
+            ];
         }
 
         return self::$memo[$today];
@@ -279,6 +346,7 @@ class SoftwareLicenseCompliance extends CommonGLPI
             'installs'      => $finding['installs'],
             'seats'         => $finding['seats'],
             'subtree'       => $finding['scope'] === Rules::SCOPE_SUBTREE,
+            'overquota_allowed' => $finding['overquota_allowed'],
             'detail'        => self::detail($finding),
             'assets'        => $assets,
             'more_assets'   => max(0, $finding['installs'] - count($assets)),
@@ -309,6 +377,9 @@ class SoftwareLicenseCompliance extends CommonGLPI
 
         return [
             'counts'        => Rules::counts($findings),
+            'coverage'      => self::coverage($today),
+            'expiring_days' => $settings['expiring_days'],
+            'max_expiring_days' => Rules::MAX_EXPIRING_DAYS,
             'infos'         => self::findingInfos(),
             'groups'        => array_values($groups),
             'total'         => count($findings),
@@ -346,6 +417,7 @@ class SoftwareLicenseCompliance extends CommonGLPI
             __('License', 'grcmanager'),
             __('Expiration date', 'grcmanager'),
             __('Assets still assigned', 'grcmanager'),
+            __('Over-quota allowed by the license', 'grcmanager'),
             __('Detail', 'grcmanager'),
         ]];
         foreach (self::findings($today) as $finding) {
@@ -361,7 +433,10 @@ class SoftwareLicenseCompliance extends CommonGLPI
                 $finding['type'] === Rules::FINDING_UNLICENSED ? '' : (string) $finding['seats'],
                 $finding['licence_name'],
                 $finding['expire'],
-                $finding['type'] === Rules::FINDING_EXPIRED ? (string) $finding['assigned'] : '',
+                in_array($finding['type'], [Rules::FINDING_EXPIRED, Rules::FINDING_EXPIRING], true)
+                    ? (string) $finding['assigned'] : '',
+                $finding['type'] === Rules::FINDING_OVERDEPLOYED
+                    ? ($finding['overquota_allowed'] ? __('Yes') : __('No')) : '',
                 self::detail($finding),
             ];
         }
@@ -375,7 +450,10 @@ class SoftwareLicenseCompliance extends CommonGLPI
      * Preuve de la mesure A.5.32 : nombre de constats de chaque type (entités actives). Null si la
      * mesure n'est pas concernée ou sans les droits.
      *
-     * @return array{unlicensed: int, overdeployed: int, expired: int, total: int, url: string,
+     * Lot 2 : licences qui arrivent à échéance (alerte, hors total des écarts) et taux de couverture.
+     *
+     * @return array{unlicensed: int, overdeployed: int, expired: int, expiring: int, total: int,
+     *     coverage: array{watched: int, licensed: int, percent: int|null}|null, url: string,
      *     export_url: string}|null
      */
     public static function evidence(string $code): ?array
@@ -389,7 +467,10 @@ class SoftwareLicenseCompliance extends CommonGLPI
             'unlicensed'   => $counts[Rules::FINDING_UNLICENSED],
             'overdeployed' => $counts[Rules::FINDING_OVERDEPLOYED],
             'expired'      => $counts[Rules::FINDING_EXPIRED],
-            'total'        => array_sum($counts),
+            'expiring'     => $counts[Rules::FINDING_EXPIRING],
+            'total'        => $counts[Rules::FINDING_UNLICENSED] + $counts[Rules::FINDING_OVERDEPLOYED]
+                + $counts[Rules::FINDING_EXPIRED],
+            'coverage'     => self::coverage(),
             'url'          => self::getSearchURL(),
             'export_url'   => self::getExportURL(),
         ];
@@ -409,6 +490,10 @@ class SoftwareLicenseCompliance extends CommonGLPI
         }
         $gaps = [];
         foreach (self::findings($today) as $finding) {
+            // L'échéance proche est un rappel, pas un écart.
+            if (!in_array($finding['type'], Rules::GAP_FINDINGS, true)) {
+                continue;
+            }
             $label = self::findingInfos()[$finding['type']]['label'];
             $detail = sprintf(
                 __('%1$s (%2$s): %3$s', 'grcmanager'),

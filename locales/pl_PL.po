@@ -26659,3 +26659,60 @@ msgstr ""
 
 msgid "Qualifying trainings"
 msgstr "Szkolenia kwalifikujące"
+
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+"%1$d z %2$d zainstalowanych monitorowanych programów komercyjnych (na "
+"jednostkę) ma ważną licencję."
+
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr "Licencje wkrótce wygasające: %d"
+
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+"Używana licencja wygasa w okresie ostrzegania, a w GLPI nie zarejestrowano "
+"jeszcze odnowienia. To przypomnienie, a nie niezgodność."
+
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr ""
+"Wygasa %1$s: %2$d zasób(-ów) przypisany(-ch), %3$d instalacja(-i) %4$s."
+
+msgid "License coverage"
+msgstr "Pokrycie licencjami"
+
+#, php-format
+msgid "License coverage: %d%%"
+msgstr "Pokrycie licencjami: %d%%"
+
+msgid "License expiring soon"
+msgstr "Licencja wkrótce wygasa"
+
+msgid "No warning before a license expires."
+msgstr "Brak ostrzeżenia przed wygaśnięciem licencji."
+
+msgid "Over-quota allowed"
+msgstr "Przekroczenie dozwolone"
+
+msgid "Over-quota allowed by the license"
+msgstr "Przekroczenie dozwolone przez licencję"
+
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+"Licencja pozwala przekroczyć liczbę stanowisk: należy to uregulować z "
+"wydawcą."
+
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr "Ostrzegaj przed wygaśnięciem licencji (dni, 0 aby wyłączyć)"
+
+#, php-format
+msgid "Warning %d days before a license expires."
+msgstr "Ostrzeżenie na %d dni przed wygaśnięciem licencji."

@@ -391,6 +391,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits : droit des registres sensibles du plugin, plus les droits natifs de lecture des logiciels
     et des licences ; les listes d'éditeurs se modifient avec le droit de configuration du plugin.
   - Aucun ticket ni aucune donnée de GLPI n'est créé ou modifié automatiquement.
+- **Licences logicielles : échéances, dépassement autorisé et taux de couverture** (issue #779,
+  lot 2, mesure A.5.32).
+  - Nouvelle alerte « Licence arrivant à échéance » : une licence utilisée (actifs affectés ou
+    logiciel installé dans son périmètre) expire dans les 60 prochains jours, et aucun renouvellement
+    (autre licence valable au-delà) n'est encore saisi dans GLPI. C'est un rappel : il n'entre ni
+    dans le contrôle de cohérence, ni dans le total des écarts de la preuve. L'horizon se règle avec
+    les listes d'éditeurs (0 pour désactiver, 365 jours au plus).
+  - Un surdéploiement sur une licence qui autorise le dépassement (case native de GLPI) reste
+    signalé, avec la mention « Dépassement autorisé » à régulariser auprès de l'éditeur, et une
+    colonne dédiée dans l'export.
+  - Taux de couverture : part des logiciels commerciaux surveillés installés (par entité) qui ont une
+    licence valable, sur la page et dans la preuve de la mesure A.5.32.
+  - Toujours en lecture seule : rien n'est modifié dans GLPI.
 
 ## [2.65.0] - 2026-11-20
 

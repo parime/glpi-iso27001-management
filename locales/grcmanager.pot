@@ -30320,6 +30320,72 @@ msgid "The waiver \"%1$s\" ended on %2$s."
 msgstr ""
 
 
+#: src/SoftwareLicenseCompliance.php:165
+msgid "License expiring soon"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:169
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:211
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:216
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:420
+msgid "Over-quota allowed by the license"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "License coverage: %d%%"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "License coverage"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "No warning before a license expires."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Over-quota allowed"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "Warning %d days before a license expires."
+msgstr ""
+
+
+
 #: src/AuditLog.php:91
 msgid "Periodic review recorded"
 msgstr ""
@@ -30485,3 +30551,4 @@ msgid ""
 "Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
 "json, .pcap, .eml, .csv, .zip."
 msgstr ""
+
