@@ -284,6 +284,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::ismsConsistencyGaps',
         ],
+        // Issue #619 : avancement vers la certification, détail sur la page « Préparation à la certification ».
+        'grcmanager_certification_readiness' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Progress towards certification', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::certificationReadinessScore',
+        ],
         // Sprint 6 (formations et revues de direction, clauses 7.2/7.3/9.3).
         'grcmanager_training_completion_rate' => [
             'widgettype' => ['bigNumber'],
