@@ -28,6 +28,7 @@ use GlpiPlugin\Grcmanager\Install\CrisisScenarioTables;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Continuity\CrisisScenarioDefaults as Defaults;
 use GlpiPlugin\Grcmanager\Services\Continuity\CrisisScenarioRules as Rules;
+use GlpiPlugin\Grcmanager\Services\Continuity\RecoveryStrategyRules;
 use Html;
 use Log;
 use PluginGrcmanagerSecurityIncident;
@@ -115,6 +116,7 @@ class CrisisScenario extends CrisisScenarioBase
     {
         $tabs = [];
         $this->addDefaultFormTab($tabs)
+            ->addStandardTab(CrisisScenarioReadiness::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
@@ -137,6 +139,8 @@ class CrisisScenario extends CrisisScenarioBase
             Rules::GAP_NO_PLAYBOOK      => __('No response playbook', 'grcmanager'),
             Rules::GAP_NEVER_EXERCISED  => __('Never exercised', 'grcmanager'),
             Rules::GAP_EXERCISE_OVERDUE => __('Not exercised for more than a year', 'grcmanager'),
+            Rules::GAP_REVIEW_PENDING   => __('Review of the last exercise not validated', 'grcmanager'),
+            Rules::GAP_RECOVERY_UNTESTED => __('Critical process never tested in recovery', 'grcmanager'),
         ];
     }
 
@@ -348,7 +352,11 @@ class CrisisScenario extends CrisisScenarioBase
      * Processus liés aux scénarios donnés, limités à ceux que la personne peut lire.
      *
      * @param list<int> $scenarioIds
-     * @return array<int, list<array{id: int, name: string, url: string, rto: string, critical: bool}>>
+     * Issue #776, lot 2 : dernier test de reprise de chaque processus (#733), daté, avec le temps
+     * mesuré et son dépassement du RTO.
+     *
+     * @return array<int, list<array{id: int, name: string, url: string, rto: string, critical: bool,
+     *     last_test: string, test_duration: string, test_exceeds: bool}>>
      */
     public static function processesFor(array $scenarioIds): array
     {
@@ -360,22 +368,32 @@ class CrisisScenario extends CrisisScenarioBase
         }
         $durations = BusinessProcess::getDurationOptions();
         $process = new BusinessProcess();
-        foreach (
-            $DB->request([
-                'FROM'  => CrisisScenarioTables::PROCESSES,
-                'WHERE' => [self::FK => $scenarioIds],
-            ]) as $link
-        ) {
+        $links = [];
+        $request = $DB->request(['FROM' => CrisisScenarioTables::PROCESSES, 'WHERE' => [self::FK => $scenarioIds]]);
+        foreach ($request as $link) {
+            $links[] = $link;
+        }
+        $lastTests = self::lastRecoveryTests(array_map(
+            static fn (array $link): int => (int) $link['plugin_grcmanager_businessprocesses_id'],
+            $links
+        ));
+        foreach ($links as $link) {
             $processId = (int) $link['plugin_grcmanager_businessprocesses_id'];
             if (!$process->getFromDB($processId) || !$process->canViewItem()) {
                 continue;
             }
+            $rto = (int) $process->fields['rto_hours'];
+            $test = $lastTests[$processId] ?? null;
+            $minutes = $test === null ? 0 : (int) $test['measured_minutes'];
             $result[(int) $link[self::FK]][] = [
-                'id'       => (int) $process->getID(),
-                'name'     => (string) $process->fields['name'],
-                'url'      => BusinessProcess::getFormURLWithID((int) $process->getID()),
-                'rto'      => $durations[(int) $process->fields['rto_hours']] ?? '',
-                'critical' => Rules::isCritical($process->fields),
+                'id'            => (int) $process->getID(),
+                'name'          => (string) $process->fields['name'],
+                'url'           => BusinessProcess::getFormURLWithID((int) $process->getID()),
+                'rto'           => $durations[$rto] ?? '',
+                'critical'      => Rules::isCritical($process->fields),
+                'last_test'     => $test === null ? '' : (string) $test['test_date'],
+                'test_duration' => $test === null ? '' : BusinessProcessRecovery::formatMinutes($minutes),
+                'test_exceeds'  => $test !== null && RecoveryStrategyRules::exceedsRto($rto, $minutes),
             ];
         }
         foreach ($result as &$processes) {
@@ -384,6 +402,34 @@ class CrisisScenario extends CrisisScenarioBase
         unset($processes);
 
         return $result;
+    }
+
+    /**
+     * Dernier test de reprise de chaque processus donné (ligne de BusinessProcessRecovery).
+     *
+     * @param list<int> $processIds
+     * @return array<int, array<string, mixed>>
+     */
+    private static function lastRecoveryTests(array $processIds): array
+    {
+        $processIds = array_values(array_unique(array_filter($processIds)));
+        if ($processIds === []) {
+            return [];
+        }
+        $byProcess = [];
+        $tests = (new BusinessProcessRecovery())->find(['plugin_grcmanager_businessprocesses_id' => $processIds]);
+        foreach ($tests as $test) {
+            $byProcess[(int) $test['plugin_grcmanager_businessprocesses_id']][] = $test;
+        }
+        $last = [];
+        foreach ($byProcess as $processId => $processTests) {
+            $test = RecoveryStrategyRules::lastTest($processTests);
+            if ($test !== null) {
+                $last[$processId] = $test;
+            }
+        }
+
+        return $last;
     }
 
     /**
@@ -413,25 +459,27 @@ class CrisisScenario extends CrisisScenarioBase
     }
 
     /**
-     * Date du dernier exercice terminé (incident fictif) par scénario d'exercice, parmi les exercices
-     * des entités de la session. Vide sans le droit de lire les incidents : les exercices ne sont
-     * alors ni nommés ni datés.
+     * Dernier exercice terminé (incident fictif) par scénario d'exercice, parmi les exercices des
+     * entités de la session : identifiant, date et bilan validé (#732). Vide sans le droit de lire
+     * les incidents : les exercices ne sont alors ni nommés ni datés.
      *
-     * @return array<string, string>
+     * @return array<string, array{id: int, date: string, validated: bool}>
      */
-    public static function drillDates(): array
+    public static function lastDrills(): array
     {
         global $DB;
 
-        $dates = [];
+        $drills = [];
         if (!PluginGrcmanagerSecurityIncident::canView()) {
-            return $dates;
+            return $drills;
         }
         $exercises = CrisisExercise::getTable();
         $incidents = PluginGrcmanagerSecurityIncident::getTable();
         foreach (
             $DB->request([
-                'SELECT'     => ["$exercises.scenario", "$exercises.ended_at"],
+                'SELECT'     => [
+                    "$exercises.id", "$exercises.scenario", "$exercises.ended_at", "$exercises.validated_at",
+                ],
                 'FROM'       => $exercises,
                 'INNER JOIN' => [
                     $incidents => ['ON' => [
@@ -444,13 +492,17 @@ class CrisisScenario extends CrisisScenarioBase
                     ['NOT' => ["$exercises.ended_at" => null]],
                 // Les exercices ne sont pas récursifs (pas de colonne is_recursive).
                 ], EntityPerimeter::criteria($exercises, false)),
-                'ORDER'      => "$exercises.ended_at DESC",
+                'ORDER'      => ["$exercises.ended_at DESC", "$exercises.id DESC"],
             ]) as $row
         ) {
-            $dates[(string) $row['scenario']] ??= substr((string) $row['ended_at'], 0, 10);
+            $drills[(string) $row['scenario']] ??= [
+                'id'        => (int) $row['id'],
+                'date'      => substr((string) $row['ended_at'], 0, 10),
+                'validated' => !empty($row['validated_at']),
+            ];
         }
 
-        return $dates;
+        return $drills;
     }
 
     /**
@@ -494,7 +546,7 @@ class CrisisScenario extends CrisisScenarioBase
             $rows[(int) $row['id']] = $row;
         }
         $processes = self::processesFor(array_keys($rows));
-        $drills = self::drillDates();
+        $drills = self::lastDrills();
         $canPlaybooks = Playbook::canView();
         $canTemplates = CrisisMessageTemplate::canView();
         $templates = $canTemplates ? self::templatesBySituation() : [];
@@ -507,13 +559,21 @@ class CrisisScenario extends CrisisScenarioBase
         $presented = [];
         foreach ($rows as $id => $row) {
             $exerciseKey = (string) $row['exercise_scenario'];
-            $drillDate = $drills[$exerciseKey] ?? null;
+            $drill = $exerciseKey === '' ? null : ($drills[$exerciseKey] ?? null);
+            $drillDate = $drill['date'] ?? null;
             $last = Rules::latestDate($row['last_exercise_date'] ?? null, $drillDate);
             $status = Rules::exerciseStatus($last, $today);
             $playbookId = (int) $row['plugin_grcmanager_playbooks_id'];
             $hasPlaybook = $playbookId > 0 && $playbook->getFromDB($playbookId);
             $own = $processes[$id] ?? [];
-            $gaps = !empty($row['is_active']) ? Rules::gaps($row, count($own), $hasPlaybook, $status) : [];
+            $untested = count(array_filter(
+                $own,
+                static fn (array $process): bool => $process['critical'] && $process['last_test'] === ''
+            ));
+            $reviewPending = $drill !== null && !$drill['validated'];
+            $gaps = !empty($row['is_active'])
+                ? Rules::gaps($row, count($own), $hasPlaybook, $status, $reviewPending, $untested)
+                : [];
             $presented[] = [
                 'id'              => $id,
                 'url'             => self::getFormURLWithID($id),
@@ -531,6 +591,12 @@ class CrisisScenario extends CrisisScenarioBase
                 'exercise_key'    => $exerciseKey,
                 'last_exercise'   => $last ?? '',
                 'drill_date'      => $drillDate ?? '',
+                // Issue #776, lot 2 : dernier exercice du plugin et son bilan (#732).
+                'drill'           => $drill === null ? null : $drill + [
+                    'url' => CrisisExercise::getFormURLWithID($drill['id']),
+                ],
+                'communication_key' => (string) $row['communication_situation'],
+                'entities_id'     => (int) $row['entities_id'],
                 'exercise_status' => $status,
                 'situation'       => $situations[(string) $row['communication_situation']] ?? '',
                 'templates'       => $templates[(string) $row['communication_situation']] ?? [],
@@ -539,7 +605,9 @@ class CrisisScenario extends CrisisScenarioBase
                 // Registre : l'exercice a sa propre colonne, seuls les autres manques sont listés.
                 'todo_labels'     => array_values(array_map(
                     static fn (string $gap): string => $gapLabels[$gap] ?? $gap,
-                    array_diff($gaps, [Rules::GAP_NEVER_EXERCISED, Rules::GAP_EXERCISE_OVERDUE])
+                    array_diff($gaps, [
+                        Rules::GAP_NEVER_EXERCISED, Rules::GAP_EXERCISE_OVERDUE, Rules::GAP_REVIEW_PENDING,
+                    ])
                 )),
             ];
         }
@@ -880,7 +948,8 @@ class CrisisScenario extends CrisisScenarioBase
     }
 
     /**
-     * Ajoute à chaque scénario présenté sa description, son mode dégradé et ses rôles (PDF).
+     * Ajoute à chaque scénario présenté sa description, son mode dégradé, ses rôles et (lot 2) les
+     * contacts officiels à prévenir, null sans le droit de les lire (PDF).
      *
      * @param list<array<string, mixed>> $scenarios
      * @return list<array<string, mixed>>
@@ -893,6 +962,9 @@ class CrisisScenario extends CrisisScenarioBase
                 foreach (['description', 'degraded_mode', 'role_management', 'role_ciso', 'role_it'] as $field) {
                     $row[$field] = (string) ($scenario->fields[$field] ?? '');
                 }
+                $row['contacts'] = OfficialContact::canView()
+                    ? CrisisScenarioReadiness::contacts($row['communication_key'], $row['entities_id'])
+                    : null;
             }
         }
         unset($row);

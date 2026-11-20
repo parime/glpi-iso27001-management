@@ -19,6 +19,8 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Continuity;
 
+use GlpiPlugin\Grcmanager\Services\Crisis\CrisisCommunicationRules;
+
 /**
  * Issue #776 : règles des scénarios de crise sécurité de l'information (A.5.29), sans base ni
  * session : processus critique, état d'exercice, manques d'un scénario, couverture.
@@ -41,6 +43,10 @@ final class CrisisScenarioRules
     public const GAP_NO_ROLES = 'no_roles';
     public const GAP_NEVER_EXERCISED = 'never_exercised';
     public const GAP_EXERCISE_OVERDUE = 'exercise_overdue';
+    /** Issue #776, lot 2 : bilan du dernier exercice de crise (#732) pas encore validé. */
+    public const GAP_REVIEW_PENDING = 'review_pending';
+    /** Issue #776, lot 2 : processus critique impacté sans test de reprise (#733). */
+    public const GAP_RECOVERY_UNTESTED = 'recovery_untested';
 
     public const ROLE_FIELDS = ['role_management', 'role_ciso', 'role_it'];
 
@@ -89,13 +95,21 @@ final class CrisisScenarioRules
     }
 
     /**
-     * Manques d'un scénario actif, dans l'ordre d'affichage.
+     * Manques d'un scénario actif, dans l'ordre d'affichage. $reviewPending : le dernier exercice
+     * de crise du plugin a un bilan non validé ; $untestedCritical : nombre de processus critiques
+     * impactés jamais testés en reprise.
      *
      * @param array<string, mixed> $scenario
      * @return list<string>
      */
-    public static function gaps(array $scenario, int $processCount, bool $hasPlaybook, string $exerciseStatus): array
-    {
+    public static function gaps(
+        array $scenario,
+        int $processCount,
+        bool $hasPlaybook,
+        string $exerciseStatus,
+        bool $reviewPending = false,
+        int $untestedCritical = 0
+    ): array {
         $gaps = [];
         if ($processCount === 0) {
             $gaps[] = self::GAP_NO_PROCESS;
@@ -116,6 +130,12 @@ final class CrisisScenarioRules
             $gaps[] = self::GAP_NEVER_EXERCISED;
         } elseif ($exerciseStatus === self::EXERCISE_OVERDUE) {
             $gaps[] = self::GAP_EXERCISE_OVERDUE;
+        }
+        if ($reviewPending) {
+            $gaps[] = self::GAP_REVIEW_PENDING;
+        }
+        if ($untestedCritical > 0) {
+            $gaps[] = self::GAP_RECOVERY_UNTESTED;
         }
 
         return $gaps;
@@ -145,7 +165,8 @@ final class CrisisScenarioRules
      * @param array<int, int> $activeScenarioCount
      * @param list<array{is_active: bool, exercise_status: string, gaps: list<string>, default_key: string}> $scenarios
      * @return array{critical: int, critical_uncovered: int, scenarios: int, never_exercised: int, overdue: int,
-     *     with_gaps: int, missing_defaults: list<string>}
+     *     review_pending: int, recovery_untested: int, reviews_validated: int, with_gaps: int,
+     *     missing_defaults: list<string>}
      */
     public static function summary(array $processes, array $activeScenarioCount, array $scenarios): array
     {
@@ -164,9 +185,38 @@ final class CrisisScenarioRules
                 $active,
                 static fn (array $s): bool => $s['exercise_status'] === self::EXERCISE_OVERDUE
             )),
+            'review_pending'     => count(array_filter(
+                $active,
+                static fn (array $s): bool => in_array(self::GAP_REVIEW_PENDING, $s['gaps'], true)
+            )),
+            'recovery_untested'  => count(array_filter(
+                $active,
+                static fn (array $s): bool => in_array(self::GAP_RECOVERY_UNTESTED, $s['gaps'], true)
+            )),
+            'reviews_validated'  => count(array_filter(
+                $active,
+                static fn (array $s): bool => !empty($s['drill']['validated'])
+            )),
             'with_gaps'          => count(array_filter($active, static fn (array $s): bool => $s['gaps'] !== [])),
             'missing_defaults'   => array_values(array_diff(CrisisScenarioDefaults::KEYS, $keys)),
         ];
+    }
+
+    /**
+     * Issue #776, lot 2 : contacts officiels à prévenir pour un scénario. Ceux marqués « incident de
+     * sécurité » valent pour tous les scénarios ; ceux marqués « violation de données » s'ajoutent
+     * quand la situation de communication du scénario est une fuite de données.
+     *
+     * @return list<string> champs de la fiche du contact (on_security_incident, on_data_breach)
+     */
+    public static function contactFlags(string $communicationSituation): array
+    {
+        $flags = ['on_security_incident'];
+        if ($communicationSituation === CrisisCommunicationRules::SITUATION_DATA_BREACH) {
+            $flags[] = 'on_data_breach';
+        }
+
+        return $flags;
     }
 
     /**
