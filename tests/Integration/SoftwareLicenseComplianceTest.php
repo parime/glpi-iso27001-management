@@ -362,9 +362,9 @@ final class SoftwareLicenseComplianceTest extends GrcmanagerIntegrationTestCase
         for ($i = 0; $i < 4; $i++) {
             $this->computerWith($suite, $this->branch);
         }
-        // Contrat de 3 postes réparti en deux licences filles de 2 : 3 postes, pas 7.
+        // Contrat de 3 postes réparti en deux licences filles de 1 et 2 : 3 postes, pas 6.
         $parent = $this->licence($suite, $this->branch, 3, false);
-        foreach ([2, 2] as $number) {
+        foreach ([1, 2] as $number) {
             $child = $this->licence($suite, $this->branch, $number, false);
             $this->assertTrue((new \SoftwareLicense())->update(['id' => $child, 'softwarelicenses_id' => $parent]));
         }
