@@ -53,4 +53,52 @@ class PluginGrcmanagerSecurityIncidentTemplatePredefinedField extends SecurityIn
            $itil_object->getSearchOptionIDByField('field', 'name', 'glpi_tasktemplates'),
         ];
     }
+
+    /**
+     * Issue #796 : le cœur de GLPI (11 et 12) appelle ici `self::getMultiplePredefinedValues()`,
+     * et non `static::`. La surcharge ci-dessus est donc ignorée, et l'implémentation du cœur,
+     * qui ne connaît que Ticket, Change et Problem, lève « Unknown ITIL type » : aperçu du gabarit
+     * en erreur, champs prédéfinis (statut, priorité, impact...) impossibles à régler. Copie à
+     * l'identique du cœur, sauf l'appel `static::`.
+     *
+     * @param int  $ID
+     * @param bool $withtypeandcategory
+     * @return array<string, mixed>
+     */
+    public function getPredefinedFields($ID, $withtypeandcategory = false)
+    {
+        global $DB;
+
+        $iterator = $DB->request([
+            'FROM'  => $this->getTable(),
+            'WHERE' => [static::$items_id => $ID],
+            'ORDER' => 'id',
+        ]);
+
+        $tt             = getItemForItemtype(static::$itemtype);
+        $allowed_fields = $tt->getAllowedFields($withtypeandcategory, true);
+        $fields         = [];
+        $multiple       = static::getMultiplePredefinedValues();
+        foreach ($iterator as $rule) {
+            if (!isset($allowed_fields[$rule['num']])) {
+                continue;
+            }
+            $field = $allowed_fields[$rule['num']];
+            if (!in_array($rule['num'], $multiple)) {
+                $fields[$field] = $rule['value'];
+                continue;
+            }
+            if ($field == 'items_id') {
+                $item_itemtype = explode('_', $rule['value']);
+                if (count($item_itemtype) != 2) {
+                    // Valeur invalide : ignorée, comme dans le cœur.
+                    continue;
+                }
+                $fields[$field][$item_itemtype[0]][$item_itemtype[1]] = $item_itemtype[1];
+            } else {
+                $fields[$field][] = $rule['value'];
+            }
+        }
+        return $fields;
+    }
 }
