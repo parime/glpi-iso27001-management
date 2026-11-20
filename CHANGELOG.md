@@ -7,16 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.67.0] - 2026-11-20
-
-### Fixed
-
-- **Gabarits d'incident de sécurité** (issue #796) : l'aperçu d'un gabarit affichait « Une erreur
-  inattendue s'est produite », et le statut, la priorité ou l'impact prédéfinis ne pouvaient pas être
-  réglés. Le cœur de GLPI (11 et 12) lit les champs prédéfinis avec une méthode qui ne connaît que
-  les tickets, changements et problèmes, et levait « Unknown ITIL type ». Le plugin fournit
-  désormais sa propre lecture des champs prédéfinis.
-
 ### Added
 
 - **Développement sécurisé et validation des mises en production** (issue #777, lot 1, mesures
@@ -45,6 +35,18 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     droit de voir tous les changements. Les onglets vérifient eux-mêmes leurs droits.
   - Tables créées par l'installateur (rejouable) et supprimées à la désinstallation ; la fiche et
     la liste disparaissent avec l'application ou le changement supprimé définitivement.
+
+## [2.67.0] - 2026-11-20
+
+### Fixed
+
+- **Gabarits d'incident de sécurité** (issue #796) : l'aperçu d'un gabarit affichait « Une erreur
+  inattendue s'est produite », et le statut, la priorité ou l'impact prédéfinis ne pouvaient pas être
+  réglés. Le cœur de GLPI (11 et 12) lit les champs prédéfinis avec une méthode qui ne connaît que
+  les tickets, changements et problèmes, et levait « Unknown ITIL type ». Le plugin fournit
+  désormais sa propre lecture des champs prédéfinis.
+
+### Added
 
 - **Évaluation par référentiel sur les mesures propres de chaque référentiel** (issue #789, lot 1).
   Tableau de bord, onglet « Évaluation par référentiel » :
