@@ -25004,3 +25004,163 @@ msgid ""
 msgstr ""
 "Les résultats individuels ont été supprimés. Les taux de la campagne sont "
 "gardés."
+
+#, php-format
+msgid "Obligation: %s"
+msgstr "Obligation : %s"
+
+msgid "Every contact with this party recorded from a security incident or a personal data breach: date, decision, file number and author. To record a new one, open the incident or the breach, tab \"Official contacts\"."
+msgstr "Chaque prise de contact avec cette partie, tracée depuis un incident de sécurité ou une violation de données personnelles : date, décision, numéro de dossier et auteur. Pour en tracer une nouvelle, ouvrez l'incident ou la violation, onglet « Contacts officiels »."
+
+msgid "No contact recorded with this party yet."
+msgstr "Aucune prise de contact tracée avec cette partie pour l'instant."
+
+msgid "Date and time"
+msgstr "Date et heure"
+
+msgid "Time limit in hours"
+msgstr "Délai en heures"
+
+msgid "Optional: 72 for a personal data breach, 24 for an early warning. The deadline is then computed from the detection of the incident or the awareness of the breach. Leave 0 when there is no set time limit."
+msgstr "Facultatif : 72 pour une violation de données personnelles, 24 pour une alerte précoce. L'échéance est alors calculée depuis la détection de l'incident ou la prise de connaissance de la violation. Laissez 0 s'il n'y a pas de délai fixé."
+
+msgid "Deadline and contact"
+msgstr "Échéance et prise de contact"
+
+msgid "Linked compliance obligation"
+msgstr "Obligation de conformité liée"
+
+#, php-format
+msgid "Deadline: %s"
+msgstr "Échéance : %s"
+
+msgid "Record a contact"
+msgstr "Tracer une prise de contact"
+
+msgid "Contacts recorded from security incidents and personal data breaches"
+msgstr "Prises de contact tracées depuis les incidents de sécurité et les violations de données personnelles"
+
+msgid "Keep a trace of every official contact"
+msgstr "Gardez une trace de chaque prise de contact officielle"
+
+msgid "When you call or write to an authority, a CSIRT or the police, record it here with the file number they gave you. If you decide that a contact did not need to be informed, record that decision and its reason: auditors ask for both. Nothing is sent from this page."
+msgstr "Quand vous appelez ou écrivez à une autorité, à un CSIRT ou à la police, tracez-le ici avec le numéro de dossier qu'ils vous ont donné. Si vous décidez qu'un contact n'avait pas à être prévenu, tracez cette décision et son motif : les auditeurs demandent les deux. Rien n'est envoyé depuis cette page."
+
+#, php-format
+msgid "%1$s: %2$s. The deadline of each contact is computed from this date and its time limit in hours."
+msgstr "%1$s : %2$s. L'échéance de chaque contact est calculée depuis cette date et son délai en heures."
+
+msgid "File number, acknowledgement of receipt"
+msgstr "Numéro de dossier, accusé de réception"
+
+msgid "Channel used, person reached; required reason when the contact was not needed"
+msgstr "Canal utilisé, personne jointe ; motif obligatoire si le contact n'était pas nécessaire"
+
+msgid "Record the contact"
+msgstr "Tracer la prise de contact"
+
+msgid "No contact recorded for this event yet."
+msgstr "Aucune prise de contact tracée pour cet événement pour l'instant."
+
+msgid "Remove this recorded contact (entered by mistake). The removal stays in the history."
+msgstr "Retirer cette prise de contact (saisie par erreur). Le retrait reste dans l'historique."
+
+msgid "Remove this recorded contact?"
+msgstr "Retirer cette prise de contact ?"
+
+msgid "Contact recorded."
+msgstr "Prise de contact tracée."
+
+msgid "Recorded contact removed."
+msgstr "Prise de contact retirée."
+
+msgid "Awareness of the breach"
+msgstr "Prise de connaissance de la violation"
+
+msgid "Detection of the incident"
+msgstr "Détection de l'incident"
+
+msgid "Contacted or notified"
+msgstr "Contacté ou notifié"
+
+msgid "Not required (decision)"
+msgstr "Non nécessaire (décision)"
+
+msgid "Contacted on time"
+msgstr "Prévenu dans le délai"
+
+msgid "Contacted late"
+msgstr "Prévenu en retard"
+
+msgid "Not required (decision recorded)"
+msgstr "Non nécessaire (décision tracée)"
+
+msgid "To contact"
+msgstr "À prévenir"
+
+msgid "Deadline passed, nothing recorded"
+msgstr "Échéance dépassée, rien de tracé"
+
+msgid "Contact not visible to you"
+msgstr "Contact que vous ne pouvez pas voir"
+
+msgid "You are not allowed to record a contact on this item."
+msgstr "Vous n'avez pas le droit de tracer une prise de contact sur cet élément."
+
+msgid "Choose an official contact from the register."
+msgstr "Choisissez un contact officiel du registre."
+
+msgid "The contact could not be recorded."
+msgstr "La prise de contact n'a pas pu être tracée."
+
+#, php-format
+msgid "Official contact %1$s: %2$s on %3$s"
+msgstr "Contact officiel %1$s : %2$s le %3$s"
+
+msgid "This recorded contact no longer exists."
+msgstr "Cette prise de contact n'existe plus."
+
+msgid "The recorded contact could not be removed."
+msgstr "La prise de contact n'a pas pu être retirée."
+
+#, php-format
+msgid "Recorded contact of %s removed"
+msgstr "Prise de contact du %s retirée"
+
+msgid "Give the reason why this contact did not need to be informed."
+msgstr "Indiquez pourquoi ce contact n'avait pas à être prévenu."
+
+msgid "Enter the date and time of the contact."
+msgstr "Saisissez la date et l'heure de la prise de contact."
+
+msgid "The date of the contact cannot be in the future."
+msgstr "La date de la prise de contact ne peut pas être dans le futur."
+
+msgid "The contact cannot be dated before the start of the event."
+msgstr "La prise de contact ne peut pas être datée d'avant le début de l'événement."
+
+msgid "Say whether the contact was informed or not required."
+msgstr "Indiquez si le contact a été prévenu ou si ce n'était pas nécessaire."
+
+#, php-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d heure"
+msgstr[1] "%d heures"
+
+#, php-format
+msgid "%d other contact recorded on an event you cannot see."
+msgid_plural "%d other contacts recorded on events you cannot see."
+msgstr[0] "%d autre prise de contact tracée sur un événement que vous ne pouvez pas voir."
+msgstr[1] "%d autres prises de contact tracées sur des événements que vous ne pouvez pas voir."
+
+#, php-format
+msgid "%d contact recorded within 12 months"
+msgid_plural "%d contacts recorded within 12 months"
+msgstr[0] "%d prise de contact tracée depuis 12 mois"
+msgstr[1] "%d prises de contact tracées depuis 12 mois"
+
+msgid "Recorded contact"
+msgid_plural "Recorded contacts"
+msgstr[0] "Prise de contact tracée"
+msgstr[1] "Prises de contact tracées"
