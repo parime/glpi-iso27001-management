@@ -50,8 +50,12 @@ class ReleaseValidation extends ReleaseValidationBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
-    /** Droit dédié (bit du droit général du plugin) : valider ou refuser une mise en production. */
-    public const DECIDE = 1024;
+    /**
+     * Droit dédié (bit du droit général du plugin) : valider ou refuser une mise en production.
+     * Bit distinct de la validation des bilans d'exercice (1024, droit de la continuité) : la
+     * matrice des profils regroupe les colonnes par bit, une seule colonne par droit dédié.
+     */
+    public const DECIDE = 8192;
 
     public static function getTable($classname = null)
     {

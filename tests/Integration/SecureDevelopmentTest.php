@@ -184,6 +184,27 @@ final class SecureDevelopmentTest extends GrcmanagerIntegrationTestCase
         }
     }
 
+    public function testDecideRightIsGivenToSuperAdminAndShownInTheProfileMatrix(): void
+    {
+        global $DB;
+
+        $row = $DB->request([
+            'FROM'  => 'glpi_profilerights',
+            'WHERE' => ['profiles_id' => 4, 'name' => Installer::RIGHT_NAME],
+        ])->current();
+        $this->assertSame(ReleaseValidation::DECIDE, ((int) ($row['rights'] ?? 0)) & ReleaseValidation::DECIDE);
+
+        $profile = new \Profile();
+        $profile->getFromDB(4);
+        ob_start();
+        \GlpiPlugin\Grcmanager\Profile::displayTabContentForItem($profile);
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString(
+            'name="_' . Installer::RIGHT_NAME . '[' . ReleaseValidation::DECIDE . '_0]"',
+            $html
+        );
+    }
+
     public function testDecisionNeedsTheChecklistIsTracedAndFreezesTheChecklist(): void
     {
         global $DB;
