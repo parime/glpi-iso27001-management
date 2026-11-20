@@ -407,6 +407,8 @@ class IsmsRequirement extends IsmsRequirementBase
             'context'        => ContextItem::clauseReadiness($code),
             // Issue #612 : état de la matrice des responsabilités pour 5.3.
             'responsibility' => ResponsibilityActivity::clauseReadiness($code),
+            // Issue #774 : compétences requises, acquises et écarts pour 7.2.
+            'competence'     => CompetenceMatrix::clauseReadiness($code),
         ]);
 
         return true;

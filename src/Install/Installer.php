@@ -361,6 +361,8 @@ final class Installer
         // Issue #612 : matrice des responsabilités du SMSI et ses exports archivés.
         \GlpiPlugin\Grcmanager\ResponsibilityActivity::class,
         \GlpiPlugin\Grcmanager\ResponsibilityExport::class,
+        // Issue #774 : compétences (fonctions du SMSI, compétences, déclarations, exports archivés).
+        ...CompetenceTables::CLASSES,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
@@ -1442,6 +1444,8 @@ final class Installer
         $this->installDataBreachTables($keySign, $charset, $collation);
         $this->installContextTables($migration, $keySign, $charset, $collation);
         $this->installResponsibilityTables($keySign, $charset, $collation);
+        // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
+        CompetenceTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -5984,6 +5988,7 @@ final class Installer
         $migration->dropTable(self::RESPONSIBILITY_ASSIGNMENTS_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_ACTIVITIES_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_EXPORTS_TABLE);
+        CompetenceTables::uninstall($migration);
         $migration->dropTable(self::ACN_REQUIREMENTS_LINKS_TABLE);
         $migration->dropTable(self::ACN_REQUIREMENTS_TABLE);
         $migration->dropTable(self::ACN_ENTITIES_TABLE);

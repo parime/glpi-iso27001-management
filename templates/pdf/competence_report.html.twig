@@ -1,0 +1,145 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #774 : fiches de poste « sécurité » des fonctions du SMSI (article 7.2) et, pour le dossier
+   complet, les écarts des personnes. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .grc-sheet { page-break-after: always; }
+  .grc-sheet-last { page-break-after: auto; }
+  .grc-status { padding: 1px 4px; border-radius: 3px; font-size: 8px; font-weight: bold; }
+  .grc-status-met { background: #d3f9d8; color: #2b8a3e; }
+  .grc-status-partial { background: #fdebd3; color: #a35200; }
+  .grc-status-missing, .grc-status-expired { background: #fbe0e0; color: #a61e1e; }
+  .grc-muted { color: #6c757d; font-size: 8px; }
+</style>
+
+{% if data %}
+  <h2>{{ __('Summary', 'grcmanager') }}</h2>
+  <table class="grcmanager-pdf-summary">
+    <tr><td>{{ __('ISMS functions', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ data.functions|length }}</td></tr>
+    <tr><td>{{ __('People holding a function', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ data.summary.people }}</td></tr>
+    <tr><td>{{ __('People with a gap', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ data.summary.people_with_gaps }}</td></tr>
+    <tr><td>{{ __('Gaps', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ data.summary.gaps }}</td></tr>
+    <tr><td>{{ __('Coverage of the required competences', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ data.summary.rate is null ? '-' : data.summary.rate ~ ' %' }}</td></tr>
+    <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ generated_by }}</td></tr>
+  </table>
+
+  <h2>{{ __('Gaps and proposed actions', 'grcmanager') }}</h2>
+  {% if data.gaps is empty %}
+    <p>{{ __('No gap: every holder has the competences expected by their functions.', 'grcmanager') }}</p>
+  {% else %}
+    <table class="grcmanager-pdf-table">
+      <thead>
+        <tr>
+          <th>{{ __('Person', 'grcmanager') }}</th>
+          <th>{{ __('Competence', 'grcmanager') }}</th>
+          <th>{{ __('Gap', 'grcmanager') }}</th>
+          <th>{{ __('Proposed action', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for gap in data.gaps %}
+          <tr>
+            <td>{{ gap.name }}</td>
+            <td>{{ gap.competence }}</td>
+            <td><span class="grc-status grc-status-{{ gap.status }}">{{ statuses[gap.status].label }}</span><br><span class="grc-muted">{{ __('Expected level', 'grcmanager') }} : {{ gap.required }}</span></td>
+            <td>
+              {% for training in gap.trainings %}{{ __('Plan the training', 'grcmanager') }} {{ training.title }}<br>{% endfor %}
+              {{ gap.action }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  <div style="page-break-after: always;"></div>
+{% endif %}
+
+{% for sheet in sheets %}
+  <div class="grc-sheet{{ loop.last ? ' grc-sheet-last' }}">
+    <h2>{{ __('Security job description: %s', 'grcmanager')|format(sheet.label) }}</h2>
+    <p class="grc-muted">{{ __('Entity', 'grcmanager') }} : {{ sheet.entity }}</p>
+    <h3>{{ __('Mission', 'grcmanager') }}</h3>
+    <p>{{ sheet.description ?: __('No mission described yet.', 'grcmanager') }}</p>
+
+    <h3>{{ __('Holders', 'grcmanager') }}</h3>
+    <p>{{ sheet.holders is empty ? __('Nobody holds this function yet.', 'grcmanager') : sheet.holders|join(', ') }}</p>
+
+    <h3>{{ __('Required competences', 'grcmanager') }}</h3>
+    <table class="grcmanager-pdf-table">
+      <thead>
+        <tr>
+          <th>{{ __('Competence', 'grcmanager') }}</th>
+          <th>{{ __('Expected level', 'grcmanager') }}</th>
+          <th>{{ __('How to acquire it', 'grcmanager') }}</th>
+          <th>{{ __('Trainings that give this competence', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for requirement in sheet.requirements %}
+          <tr>
+            <td>{{ requirement.competence }}</td>
+            <td>{{ requirement.level_label }}</td>
+            <td>{{ requirement.mode_label }}</td>
+            <td>{{ requirement.trainings|join(', ') }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="4">{{ __('No competence required yet.', 'grcmanager') }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% if sheet.people is not null %}
+      <h3>{{ __('Coverage of the holders', 'grcmanager') }}</h3>
+      {% if sheet.people is empty or sheet.requirements is empty %}
+        <p>{{ __('Nothing to assess yet.', 'grcmanager') }}</p>
+      {% else %}
+        <table class="grcmanager-pdf-table">
+          <thead>
+            <tr>
+              <th>{{ __('Person', 'grcmanager') }}</th>
+              {% for requirement in sheet.requirements %}<th>{{ requirement.competence }}</th>{% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for person in sheet.people %}
+              <tr>
+                <td>{{ person.name }}</td>
+                {% for requirement in sheet.requirements %}
+                  {% set status = person.cells[requirement.competence_id] %}
+                  <td><span class="grc-status grc-status-{{ status }}">{{ statuses[status].label }}</span></td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    {% endif %}
+
+    {% if sheet.activities is not empty %}
+      <h3>{{ __('Activities of the responsibility matrix', 'grcmanager') }}</h3>
+      <table class="grcmanager-pdf-table">
+        <tbody>
+          {% for activity in sheet.activities %}
+            <tr><td>{{ activity.label }}</td><td>{{ activity.roles|join(', ') }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+{% else %}
+  <p>{{ __('No function yet.', 'grcmanager') }}</p>
+{% endfor %}
+<p class="grc-muted">{{ __('ISO/IEC 27001, clause 7.2. Only the functions and people of the entities of the person who exported this file are listed. Nothing has been modified by this export.', 'grcmanager') }}</p>
