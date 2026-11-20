@@ -1148,6 +1148,27 @@ $ids['competencedeclaration_B'] = $add(new \GlpiPlugin\Grcmanager\CompetenceDecl
     'users_id' => $ids['collab_B'], 'plugin_grcmanager_competences_id' => $ids['competence_B'],
     'level' => 2, 'evidence_type' => 'certificate', 'evidence_reference' => 'Certificat fictif B',
 ]);
+// Issue #808 : fiche de conformité d'un collaborateur de A, saisie en deux temps comme dans l'écran
+// (vérification préalable, puis engagement de confidentialité). Ses journaux (glpi_logs) doivent
+// disparaître à la désinstallation : le contrôle commun des restes les cherche.
+$screening = ['screening_status' => 'done', 'screening_date' => '2026-01-10'];
+$complianceInputs = [$screening, $screening + ['nda_date' => '2026-01-12', 'nda_version' => 'v1']];
+foreach ($complianceInputs as $complianceInput) {
+    if (!\GlpiPlugin\Grcmanager\PersonnelCompliance::saveRecord($ids['collab_A'], $complianceInput)) {
+        fwrite(STDERR, "Fiche de conformite impossible a enregistrer\n");
+        exit(1);
+    }
+}
+$compliance = new \GlpiPlugin\Grcmanager\PersonnelCompliance();
+$compliance->getFromDBByCrit(['users_id' => $ids['collab_A']]);
+$ids['personnelcompliance_A'] = (int) $compliance->getID();
+$complianceLogs = [
+    'itemtype' => \GlpiPlugin\Grcmanager\PersonnelCompliance::class, 'items_id' => $ids['personnelcompliance_A'],
+];
+if (countElementsInTable('glpi_logs', $complianceLogs) === 0) {
+    fwrite(STDERR, "Fiche de conformite sans historique : le controle des restes ne la verrait pas\n");
+    exit(1);
+}
 // Issue #616 : modèle de message de crise (global) dont la liste de diffusion cite les contacts
 // officiels de A et de B, et une communication tracée sur l'incident de chaque entité. Depuis
 // l'incident de A, ni le contact ni la communication de B ne doivent apparaître.
