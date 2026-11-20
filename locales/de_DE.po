@@ -22543,3 +22543,196 @@ msgstr "Geben Sie für diesen Konflikt eine Begründung mit mindestens %d Zeiche
 #, php-format
 msgid "Enter the delivery date and a recipient who has a profile in the entity of the audit."
 msgstr "Geben Sie das Übergabedatum und einen Empfänger mit einem Profil in der Einheit des Audits ein."
+
+msgid "%d official contact recorded"
+msgid_plural "%d official contacts recorded"
+msgstr[0] "%d offizieller Kontakt erfasst"
+msgstr[1] "%d offizielle Kontakte erfasst"
+
+msgid "%d verified within 12 months"
+msgstr "%d in den letzten 12 Monaten geprüft"
+
+msgid "%d to verify"
+msgstr "%d zu prüfen"
+
+msgid "Register (PDF)"
+msgstr "Verzeichnis (PDF)"
+
+msgid "Register of official contacts"
+msgstr "Verzeichnis der offiziellen Kontakte"
+
+msgid "Official contact (A.5.5, A.5.6)"
+msgstr "Offizieller Kontakt (A.5.5, A.5.6)"
+
+msgid "Official contact"
+msgid_plural "Official contacts"
+msgstr[0] "Offizieller Kontakt"
+msgstr[1] "Offizielle Kontakte"
+
+msgid "Tick if your organization may have to contact this party officially (authority, CSIRT, police, insurer, special interest group). It then appears in the register of official contacts."
+msgstr "Ankreuzen, wenn Ihre Organisation diese Partei offiziell kontaktieren muss (Behörde, CSIRT, Polizei, Versicherer, Interessengruppe). Sie erscheint dann im Verzeichnis der offiziellen Kontakte."
+
+msgid "Contact category"
+msgstr "Kontaktkategorie"
+
+msgid "Time limit"
+msgstr "Frist"
+
+msgid "For example \"72 hours after becoming aware of the breach\" or \"24 hours for the early warning\"."
+msgstr "Zum Beispiel \"72 Stunden nach Bekanntwerden der Verletzung\" oder \"24 Stunden für die Frühwarnung\"."
+
+msgid "Contact details"
+msgstr "Kontaktdaten"
+
+msgid "Phone numbers (including outside office hours), e-mail, online form, postal address. This information must stay usable during a crisis: the register can be printed."
+msgstr "Telefonnummern (auch außerhalb der Geschäftszeiten), E-Mail, Online-Formular, Postanschrift. Diese Angaben müssen in einer Krise nutzbar bleiben: Das Verzeichnis kann gedruckt werden."
+
+msgid "When to contact"
+msgstr "Wann kontaktieren"
+
+msgid "Type of event and legal obligation, e.g. \"Personal data breach with a risk for the persons (GDPR, article 33)\"."
+msgstr "Art des Ereignisses und gesetzliche Pflicht, z. B. \"Verletzung des Schutzes personenbezogener Daten mit Risiko für die Personen (DSGVO, Artikel 33)\"."
+
+msgid "Authorised internal contact"
+msgstr "Berechtigte interne Ansprechperson"
+
+msgid "The person allowed to contact this party on behalf of the organization (CISO, DPO, management)."
+msgstr "Die Person, die diese Partei im Namen der Organisation kontaktieren darf (CISO, DSB, Geschäftsleitung)."
+
+msgid "Authorised internal group"
+msgstr "Berechtigte interne Gruppe"
+
+msgid "Optional: the team that can replace this person, e.g. the crisis team."
+msgstr "Optional: das Team, das diese Person vertreten kann, z. B. der Krisenstab."
+
+msgid "To contact for a security incident"
+msgstr "Bei einem Sicherheitsvorfall zu kontaktieren"
+
+msgid "Shown in the \"Official contacts\" tab of every security incident."
+msgstr "Wird im Reiter \"Offizielle Kontakte\" jedes Sicherheitsvorfalls angezeigt."
+
+msgid "To contact for a personal data breach"
+msgstr "Bei einer Datenschutzverletzung zu kontaktieren"
+
+msgid "Shown in the \"Official contacts\" tab of every personal data breach."
+msgstr "Wird im Reiter \"Offizielle Kontakte\" jeder Datenschutzverletzung angezeigt."
+
+msgid "Last verification"
+msgstr "Letzte Prüfung"
+
+msgid "Date on which the contact details were last checked. A contact not verified for 12 months is flagged and its owner receives a reminder."
+msgstr "Datum der letzten Prüfung der Kontaktdaten. Ein seit 12 Monaten nicht geprüfter Kontakt wird markiert und sein Verantwortlicher erhält eine Erinnerung."
+
+msgid "Verification"
+msgstr "Prüfung"
+
+msgid "Up to date, next verification by %s"
+msgstr "Aktuell, nächste Prüfung bis %s"
+
+msgid "Not verified for more than 12 months"
+msgstr "Seit mehr als 12 Monaten nicht geprüft"
+
+msgid "Never verified"
+msgstr "Nie geprüft"
+
+msgid "Verified by %s"
+msgstr "Geprüft von %s"
+
+msgid "Records today as the verification date, with your name. Your other changes on this form are saved too."
+msgstr "Speichert das heutige Datum als Prüfdatum mit Ihrem Namen. Ihre anderen Änderungen in diesem Formular werden ebenfalls gespeichert."
+
+msgid "Record the verification"
+msgstr "Prüfung erfassen"
+
+msgid "Open the register of official contacts"
+msgstr "Verzeichnis der offiziellen Kontakte öffnen"
+
+msgid "Print the register (PDF)"
+msgstr "Verzeichnis drucken (PDF)"
+
+msgid "No official contact is marked for this type of event yet."
+msgstr "Für diese Art von Ereignis ist noch kein offizieller Kontakt markiert."
+
+msgid "Add an official contact"
+msgstr "Offiziellen Kontakt hinzufügen"
+
+msgid "Official contacts"
+msgstr "Offizielle Kontakte"
+
+msgid "Verified within 12 months"
+msgstr "In den letzten 12 Monaten geprüft"
+
+msgid "To verify"
+msgstr "Zu prüfen"
+
+msgid "to verify"
+msgstr "zu prüfen"
+
+msgid "%d official contact"
+msgid_plural "%d official contacts"
+msgstr[0] "%d offizieller Kontakt"
+msgstr[1] "%d offizielle Kontakte"
+
+msgid "Some contacts have not been verified for 12 months. Open each one, check its details with the organization concerned, then click \"Record the verification\"."
+msgstr "Einige Kontakte wurden seit 12 Monaten nicht geprüft. Öffnen Sie jeden, prüfen Sie die Angaben bei der betreffenden Stelle und klicken Sie dann auf \"Prüfung erfassen\"."
+
+msgid "No official contact recorded yet. Start with the data protection authority, the national CSIRT and the police, then add your insurer and the special interest groups you follow."
+msgstr "Noch kein offizieller Kontakt erfasst. Beginnen Sie mit der Datenschutzbehörde, dem nationalen CSIRT und der Polizei, fügen Sie dann Ihren Versicherer und die Interessengruppen hinzu, denen Sie folgen."
+
+msgid "An interested party already exists? Open it and tick \"Official contact\"."
+msgstr "Die interessierte Partei existiert bereits? Öffnen Sie sie und kreuzen Sie \"Offizieller Kontakt\" an."
+
+msgid "Official contact to verify"
+msgstr "Zu prüfender offizieller Kontakt"
+
+msgid "Official contacts to inform for a personal data breach, with the time limit and the person allowed to contact them."
+msgstr "Bei einer Datenschutzverletzung zu informierende offizielle Kontakte, mit Frist und der Person, die sie kontaktieren darf."
+
+msgid "Official contacts to inform for a security incident, with the time limit and the person allowed to contact them."
+msgstr "Bei einem Sicherheitsvorfall zu informierende offizielle Kontakte, mit Frist und der Person, die sie kontaktieren darf."
+
+msgid "Reminds the owner of each official contact not verified for 12 months"
+msgstr "Erinnert den Verantwortlichen jedes seit 12 Monaten nicht geprüften offiziellen Kontakts"
+
+msgid "%1$d official contact(s) to verify, %2$d reminder(s) sent."
+msgstr "%1$d offizielle(r) Kontakt(e) zu prüfen, %2$d Erinnerung(en) gesendet."
+
+msgid "Supervisory authority (e.g. data protection)"
+msgstr "Aufsichtsbehörde (z. B. Datenschutz)"
+
+msgid "CSIRT or national cyber security agency"
+msgstr "CSIRT oder nationale Cybersicherheitsbehörde"
+
+msgid "Law enforcement"
+msgstr "Strafverfolgungsbehörden"
+
+msgid "Local or state authority"
+msgstr "Kommunal- oder Landesbehörde"
+
+msgid "Sector regulator"
+msgstr "Branchenaufsicht"
+
+msgid "Special interest group (CERT, association, forum)"
+msgstr "Interessengruppe (CERT, Verband, Forum)"
+
+msgid "Hosting provider"
+msgstr "Hosting-Anbieter"
+
+msgid "Who to contact outside the organization when something happens: authorities (data protection authority, national CSIRT, police), regulators, insurers and special interest groups, with their details, when to contact them, the time limit and who is allowed to call them."
+msgstr "Wen man außerhalb der Organisation kontaktiert, wenn etwas passiert: Behörden (Datenschutzbehörde, nationales CSIRT, Polizei), Aufsichtsbehörden, Versicherer und Interessengruppen, mit Kontaktdaten, Anlass, Frist und der Person, die sie anrufen darf."
+
+msgid "Record each official contact, tick the events for which it must be informed, verify the details at least once a year, and keep a printed copy of the register (PDF) for use during a crisis."
+msgstr "Erfassen Sie jeden offiziellen Kontakt, kreuzen Sie die Ereignisse an, bei denen er zu informieren ist, prüfen Sie die Angaben mindestens einmal im Jahr und bewahren Sie einen Ausdruck des Verzeichnisses (PDF) für die Krise auf."
+
+msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
+msgstr "ISO/IEC 27001, Maßnahmen A.5.5 und A.5.6"
+
+msgid "View the official contact"
+msgstr "Offiziellen Kontakt anzeigen"
+
+msgid "Call or write to the contact to check that the phone numbers, addresses and the person to reach are still correct, then click \"Record the verification\" on the record."
+msgstr "Rufen Sie den Kontakt an oder schreiben Sie ihm, um zu prüfen, ob Telefonnummern, Adressen und Ansprechperson noch stimmen, und klicken Sie dann im Datensatz auf \"Prüfung erfassen\"."
+
+msgid "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
+msgstr "Von der automatischen Aufgabe von GRC Manager gesendet, wenn die Angaben eines offiziellen Kontakts seit 12 Monaten nicht geprüft wurden (höchstens einmal im Monat)."
+

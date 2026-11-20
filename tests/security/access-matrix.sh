@@ -93,6 +93,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/contextitem.php front/contextitem.form.php
   front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
+  front/officialcontact.php front/officialcontact.export.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
   front/personnelcompliance.php front/personnelcompliance.export.php?format=csv
   front/personnelcompliance.export.php?format=pdf
@@ -274,6 +275,14 @@ SEE_CONTROLS=oui
 [ "$ROLE" = none ] && SEE_CONTROLS=non
 contains "carte tests d'efficacite en retard : chiffre" "big-number" $SEE_CONTROLS \
   "$(body "$BASE/ajax/dashboard.php?action=get_card&dashboard=grcmanager-isms-overview&card_id=grcmanager_overdue_control_tests&args%5Bwidgettype%5D=bigNumber&args%5Bgridstack_id%5D=matrice&args%5Bforce%5D=1")"
+# Issue #771 : onglet « Contacts officiels » de l'incident de A. Il faut lire l'incident et le
+# contexte ; seuls les contacts de l'entite de l'incident (ou d'une entite parente) sont montres,
+# jamais ceux de l'entite soeur B, meme au super-admin.
+incident_contacts=$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(id incident_A)")
+contains "onglet Contacts officiels de l'incident : contact de A" "Partie securite A" $SEE_INCIDENTS "$incident_contacts"
+contains "onglet Contacts officiels de l'incident : contact de B" "Partie securite B" non "$incident_contacts"
+official=$(curl -s -c "$JAR" -b "$JAR" "$P/officialcontact.php")
+contains "registre des contacts officiels : contact de B" "Partie securite B" $SEE_B "$official"
 contains "page du tableau de bord, vue incidents : grille" "\"current\":\"grcmanager-security-incidents\"" $SEE_INCIDENTS \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=incidents")"
 # Issue #377, quatrieme etape : indicateurs des processus metier (BIA a revoir, reprise au-dela du

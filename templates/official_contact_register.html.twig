@@ -1,0 +1,47 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #771 : registre des contacts officiels (A.5.5, A.5.6) : synthèse, boutons, liste. #}
+<div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+   <div class="me-auto d-flex flex-wrap gap-2">
+      <span class="badge bg-blue-subtle text-blue-emphasis fs-5"><i class="ti ti-address-book me-1"></i>{{ _n('%d official contact', '%d official contacts', summary.total, 'grcmanager')|format(summary.total) }}</span>
+      <span class="badge bg-success-subtle text-success-emphasis fs-5"><i class="ti ti-circle-check me-1"></i>{{ __('%d verified within 12 months', 'grcmanager')|format(summary.verified) }}</span>
+      <span class="badge {{ summary.to_verify > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} fs-5"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d to verify', 'grcmanager')|format(summary.to_verify) }}</span>
+   </div>
+   <a href="{{ export_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Print the register (PDF)', 'grcmanager') }}</a>
+   {% if can_create %}
+      <a href="{{ add_url }}" class="btn btn-primary btn-sm"><i class="ti ti-plus me-1"></i>{{ __('Add an official contact', 'grcmanager') }}</a>
+   {% endif %}
+</div>
+
+{% if summary.to_verify > 0 %}
+   <div class="alert alert-warning d-flex align-items-center">
+      <i class="ti ti-phone-check me-2"></i>
+      <div>{{ __('Some contacts have not been verified for 12 months. Open each one, check its details with the organization concerned, then click "Record the verification".', 'grcmanager') }}</div>
+   </div>
+{% endif %}
+
+{% if contacts is empty %}
+   <div class="alert alert-info d-flex align-items-center">
+      <i class="ti ti-address-book me-2"></i>
+      <div>
+         {{ __('No official contact recorded yet. Start with the data protection authority, the national CSIRT and the police, then add your insurer and the special interest groups you follow.', 'grcmanager') }}
+         <a href="{{ search_url }}">{{ __('An interested party already exists? Open it and tick "Official contact".', 'grcmanager') }}</a>
+      </div>
+   </div>
+{% else %}
+   <div class="card">
+      {% include '@grcmanager/_official_contact_rows.html.twig' with {'contacts': contacts, 'multi': multi} only %}
+   </div>
+{% endif %}

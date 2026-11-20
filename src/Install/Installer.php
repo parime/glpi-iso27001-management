@@ -357,6 +357,8 @@ final class Installer
         // Issue #608 : contexte de l'organisation (enjeux et parties intéressées).
         \GlpiPlugin\Grcmanager\ContextItem::class,
         \GlpiPlugin\Grcmanager\NotificationTargetContextItem::class,
+        // Issue #771 : registre des contacts officiels (onglet des incidents et des violations).
+        \GlpiPlugin\Grcmanager\OfficialContact::class,
         // Issue #703 : registre NIS2 Italia - ACN.
         \GlpiPlugin\Grcmanager\AcnRequirement::class,
         // Issue #612 : matrice des responsabilités du SMSI et ses exports archivés.
@@ -3560,6 +3562,17 @@ final class Installer
             ]
         );
 
+        // Issue #771 : relance des contacts officiels non vérifiés depuis 12 mois.
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\OfficialContact::class,
+            'contactverification',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Relance le propriétaire de chaque contact officiel non vérifié depuis 12 mois',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
         // Sprint 4 (CAPA en retard) : évalue chaque jour les non-conformités dont l'échéance est
         // dépassée et qui ne sont ni clôturées ni vérifiées, et déclenche la notification GLPI
         // seedée ci-dessus (voir \GlpiPlugin\Grcmanager\Nonconformity::cronOverduecapa(),
@@ -4680,6 +4693,56 @@ final class Installer
                 'after' => 'last_review_date',
             ]);
             $migration->addKey(self::CONTEXT_ITEMS_TABLE, 'users_id_lastreviewer');
+            $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
+        }
+        // Issue #771 : registre des contacts officiels (A.5.5, A.5.6). Une partie intéressée marquée
+        // « contact officiel » porte ses coordonnées, qui la contacte, quand, dans quel délai, et la
+        // date de dernière vérification. Pas de table à part : la partie existe déjà dans le contexte.
+        if (!$DB->fieldExists(self::CONTEXT_ITEMS_TABLE, 'is_official_contact')) {
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'is_official_contact', 'bool', [
+                'after' => 'groups_id',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_category', 'string', [
+                'after' => 'is_official_contact', 'value' => '',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_details', 'text', [
+                'after' => 'contact_category',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'users_id_internal', 'fkey', [
+                'after' => 'contact_details',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'groups_id_internal', 'fkey', [
+                'after' => 'users_id_internal',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'when_to_contact', 'text', [
+                'after' => 'groups_id_internal',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_delay', 'string', [
+                'after' => 'when_to_contact', 'value' => '',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'on_security_incident', 'bool', [
+                'after' => 'contact_delay',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'on_data_breach', 'bool', [
+                'after' => 'on_security_incident',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_verified_date', 'date', [
+                'after' => 'on_data_breach',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'users_id_contactverifier', 'fkey', [
+                'after' => 'contact_verified_date',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_reminder_date', 'timestamp', [
+                'after' => 'users_id_contactverifier',
+            ]);
+            foreach (
+                [
+                    'is_official_contact', 'users_id_internal', 'groups_id_internal', 'contact_verified_date',
+                    'users_id_contactverifier',
+                ] as $key
+            ) {
+                $migration->addKey(self::CONTEXT_ITEMS_TABLE, $key);
+            }
             $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
         }
         if (!$DB->tableExists(self::CONTEXT_ITEMS_LINKS_TABLE)) {

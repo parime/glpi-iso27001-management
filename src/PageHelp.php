@@ -391,6 +391,22 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, clauses 4.1 and 4.2', 'grcmanager'),
             ],
+            // Issue #771 : registre des contacts officiels.
+            'officialcontact' => [
+                'purpose'   => __(
+                    'Who to contact outside the organization when something happens: authorities (data protection '
+                        . 'authority, national CSIRT, police), regulators, insurers and special interest groups, with '
+                        . 'their details, when to contact them, the time limit and who is allowed to call them.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Record each official contact, tick the events for which it must be informed, verify the '
+                        . 'details at least once a year, and keep a printed copy of the register (PDF) for use '
+                        . 'during a crisis.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.5.5 and A.5.6', 'grcmanager'),
+            ],
             'responsibilityactivity' => [
                 'purpose'   => __(
                     'Who performs, approves, is consulted on or is informed of each activity of the ISMS, with the '

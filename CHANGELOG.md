@@ -9,6 +9,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Registre des contacts officiels** (issue #771, lot 1, A.5.5 et A.5.6). Une partie intéressée du
+  contexte de l'organisation peut être cochée « Contact officiel » (pas de second registre) :
+  catégorie (autorité de contrôle, CSIRT, forces de l'ordre, autorité locale, régulateur sectoriel,
+  groupe d'intérêt, assureur, hébergeur), coordonnées, interlocuteur interne habilité (personne et
+  groupe), quand le contacter, délai, date de dernière vérification.
+  - Page « Contacts officiels », sous-page de la rubrique Conformité (aucune entrée de menu en plus),
+    avec export PDF à imprimer pour l'avoir hors ligne pendant une crise.
+  - Bouton « Enregistrer la vérification » (date du jour et auteur, gardés dans l'historique) ; un
+    contact non vérifié depuis 12 mois est signalé, et la tâche automatique `contactverification`
+    relance son propriétaire au plus une fois par mois (nouvelle notification « Contact officiel à
+    vérifier »).
+  - Onglet « Contacts officiels » sur les incidents de sécurité et les violations de données : les
+    contacts à prévenir, de l'entité de l'objet ou d'une entité parente.
+  - Preuve affichée sur les mesures A.5.5 (autorités) et A.5.6 (groupes d'intérêt) de la SoA.
+  - Droits : ceux du contexte de l'organisation (droit général du plugin) et ses entités ; l'onglet
+    exige en plus de pouvoir lire l'incident ou la violation.
+
+
 - **Compétences (ISO 27001, article 7.2), lot 1** (issue #774). Nouvelle sous-page « Compétences »
   de la rubrique « Revue des accès » (pas de nouvelle entrée de menu).
   - Fonctions du SMSI (RSSI, DPO, direction, administrateur, développeur, technicien, tout le

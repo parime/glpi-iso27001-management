@@ -258,6 +258,14 @@ final class NotificationTemplateDefaults
                 'Revue du contexte à échéance',
                 $legacyByTask . 'lorsqu\'un enjeu ou une partie intéressée atteint ou approche sa date de revue.',
             ],
+            // Issue #771 : contact officiel (autorité, groupe d'intérêt) non vérifié depuis 12 mois.
+            'contact_verification' => [
+                ContextItem::class, ContextItem::CONTACT_VERIFICATION_EVENT, 'Official contact to verify',
+                $sentByTask . 'the details of an official contact have not been verified for 12 months (at most '
+                    . 'once a month).',
+                $owner,
+                'Contact officiel à vérifier', '',
+            ],
             'capa_overdue' => [
                 Nonconformity::class, 'capa_overdue', 'Overdue corrective/preventive action',
                 $sentByTask . 'a non-conformity passes its due date without being closed or verified.', $owner,
@@ -554,6 +562,17 @@ final class NotificationTemplateDefaults
                     $t('Check that the issue or the interested party is still accurate (expectations, decision, links '
                         . 'with risks and controls), then set the next review date.'),
                 ], '##contextitem.url##', $t('View the context item'), $head);
+
+            case 'contact_verification':
+                $title = $head('##contextitem.action##', '##contextitem.name##');
+
+                return self::simple($title, $title, [
+                    $line('Category', '##contextitem.contactcategory##'),
+                    $line('Last verification', '##contextitem.contactverified##'),
+                ], [
+                    $t('Call or write to the contact to check that the phone numbers, addresses and the person to '
+                        . 'reach are still correct, then click "Record the verification" on the record.'),
+                ], '##contextitem.url##', $t('View the official contact'), $head);
 
             case 'capa_overdue':
                 $title = $head('##nc.action##', '##nc.title##');

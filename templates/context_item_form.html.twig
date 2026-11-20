@@ -37,6 +37,85 @@
          'full_width': true,
          'add_field_html': hints.hint(__('What this party expects from you about information security, e.g. "incident notification within 24 hours".', 'grcmanager')),
       }) }}
+
+      {# Issue #771 : contact officiel (autorité, CSIRT, forces de l'ordre, groupe d'intérêt), A.5.5 et A.5.6. #}
+      {{ fields.smallTitle(__('Official contact (A.5.5, A.5.6)', 'grcmanager'), 'ti ti-address-book') }}
+      {{ fields.checkboxField('is_official_contact', item.fields['is_official_contact'] ?? 0, _n('Official contact', 'Official contacts', 1, 'grcmanager'), {
+         'id': 'grcmanager-is-official-contact',
+         'add_field_html': hints.hint(__('Tick if your organization may have to contact this party officially (authority, CSIRT, police, insurer, special interest group). It then appears in the register of official contacts.', 'grcmanager')),
+      }) }}
+      <div class="row col-12 grcmanager-official-contact">
+         {{ fields.dropdownArrayField('contact_category', item.fields['contact_category'] ?: 'supervisory_authority', contact_categories, __('Contact category', 'grcmanager')) }}
+         {{ fields.textField('contact_delay', item.fields['contact_delay'] ?? '', __('Time limit', 'grcmanager'), {
+            'add_field_html': hints.hint(__('For example "72 hours after becoming aware of the breach" or "24 hours for the early warning".', 'grcmanager')),
+         }) }}
+         {{ fields.textareaField('contact_details', item.fields['contact_details'] ?? '', __('Contact details', 'grcmanager'), {
+            'full_width': true,
+            'add_field_html': hints.hint(__('Phone numbers (including outside office hours), e-mail, online form, postal address. This information must stay usable during a crisis: the register can be printed.', 'grcmanager')),
+         }) }}
+         {{ fields.textareaField('when_to_contact', item.fields['when_to_contact'] ?? '', __('When to contact', 'grcmanager'), {
+            'full_width': true,
+            'add_field_html': hints.hint(__('Type of event and legal obligation, e.g. "Personal data breach with a risk for the persons (GDPR, article 33)".', 'grcmanager')),
+         }) }}
+         {{ fields.dropdownField('User', 'users_id_internal', item.fields['users_id_internal'] ?? 0, __('Authorised internal contact', 'grcmanager'), {
+            'right': 'all',
+            'add_field_html': hints.hint(__('The person allowed to contact this party on behalf of the organization (CISO, DPO, management).', 'grcmanager')),
+         }) }}
+         {{ fields.dropdownField('Group', 'groups_id_internal', item.fields['groups_id_internal'] ?? 0, __('Authorised internal group', 'grcmanager'), {
+            'add_field_html': hints.hint(__('Optional: the team that can replace this person, e.g. the crisis team.', 'grcmanager')),
+         }) }}
+         {{ fields.checkboxField('on_security_incident', item.fields['on_security_incident'] ?? 0, __('To contact for a security incident', 'grcmanager'), {
+            'add_field_html': hints.hint(__('Shown in the "Official contacts" tab of every security incident.', 'grcmanager')),
+         }) }}
+         {{ fields.checkboxField('on_data_breach', item.fields['on_data_breach'] ?? 0, __('To contact for a personal data breach', 'grcmanager'), {
+            'add_field_html': hints.hint(__('Shown in the "Official contacts" tab of every personal data breach.', 'grcmanager')),
+         }) }}
+         {{ fields.dateField('contact_verified_date', item.fields['contact_verified_date'] ?? '', __('Last verification', 'grcmanager'), {
+            'add_field_html': hints.hint(__('Date on which the contact details were last checked. A contact not verified for 12 months is flagged and its owner receives a reminder.', 'grcmanager')),
+         }) }}
+         {% if not item.isNewItem() %}
+            <div class="form-field row col-12 col-sm-6 mb-2">
+               <label class="col-form-label col-xxl-5 text-xxl-end">{{ __('Verification', 'grcmanager') }}</label>
+               <div class="col-xxl-7 field-container d-flex align-items-center flex-wrap gap-2">
+                  {% if contact_status == 'ok' %}
+                     <span class="badge bg-success-subtle text-success-emphasis">
+                        <i class="ti ti-circle-check me-1"></i>{{ __('Up to date, next verification by %s', 'grcmanager')|format(contact_next|formatted_date) }}
+                     </span>
+                  {% elseif contact_status == 'overdue' %}
+                     <span class="badge bg-danger-subtle text-danger-emphasis">
+                        <i class="ti ti-alert-triangle me-1"></i>{{ __('Not verified for more than 12 months', 'grcmanager') }}
+                     </span>
+                  {% else %}
+                     <span class="badge bg-warning-subtle text-warning-emphasis">
+                        <i class="ti ti-alert-triangle me-1"></i>{{ __('Never verified', 'grcmanager') }}
+                     </span>
+                  {% endif %}
+                  {% if contact_verifier %}
+                     <span class="text-muted small">{{ __('Verified by %s', 'grcmanager')|format(contact_verifier) }}</span>
+                  {% endif %}
+                  {% if can_review %}
+                     <button type="submit" name="{{ contact_verified_marker }}" value="1" class="btn btn-sm btn-outline-success"
+                        title="{{ __('Records today as the verification date, with your name. Your other changes on this form are saved too.', 'grcmanager') }}">
+                        <i class="ti ti-phone-check me-1"></i>{{ __('Record the verification', 'grcmanager') }}
+                     </button>
+                  {% endif %}
+               </div>
+            </div>
+         {% endif %}
+         <div class="col-12 mb-2">
+            <a href="{{ contacts_url }}"><i class="ti ti-address-book me-1"></i>{{ __('Open the register of official contacts', 'grcmanager') }}</a>
+         </div>
+      </div>
+      <script>
+         $(function () {
+            var box = $('#grcmanager-is-official-contact');
+            var toggle = function () {
+               $('.grcmanager-official-contact').toggleClass('d-none', !box.is(':checked'));
+            };
+            box.on('change', toggle);
+            toggle();
+         });
+      </script>
    {% else %}
       {{ fields.smallTitle(__('Internal or external issue', 'grcmanager'), 'ti ti-world') }}
       {% if is_climate %}
