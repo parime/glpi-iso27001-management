@@ -526,6 +526,37 @@
       {{ fields.htmlField('', official_contacts_html, __('Register of official contacts', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #616 : communication de crise (A.5.26), modèles, listes de diffusion et traces. #}
+   {% if crisis_communication is defined and crisis_communication is not null %}
+      {% set crisis_communication_html %}
+         {% include '@grcmanager/_crisis_communication_summary.html.twig' with {'summary': crisis_communication} only %}
+      {% endset %}
+      {{ fields.htmlField('', crisis_communication_html, __('Crisis communication', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+   {# Issue #778 : état de la mesure A.7.x dans la dernière évaluation de chaque site. #}
+   {% if physical_security is defined and physical_security is not null %}
+      {% set physical_security_html %}
+         <div id="grc-physical-security-evidence">
+            {% if physical_security.sites is empty %}
+               <span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-building-fortress me-1"></i>{{ __('No site assessed yet', 'grcmanager') }}</span>
+            {% else %}
+               <ul class="list-unstyled mb-1">
+                  {% for site in physical_security.sites %}
+                     <li class="mb-1">
+                        <a href="{{ site.url }}"><i class="ti ti-building me-1"></i>{{ site.site }}</a>
+                        <span class="badge {{ site.state_class }} ms-1"><i class="ti {{ site.state_icon }} me-1"></i>{{ site.state_label }}</span>
+                        {% if site.date %}<span class="text-muted small ms-1">{{ site.date }}</span>{% endif %}
+                        {% if site.finding %}<div class="text-muted small">{{ site.finding|slice(0, 200) }}{% if site.finding|length > 200 %}...{% endif %}</div>{% endif %}
+                     </li>
+                  {% endfor %}
+               </ul>
+            {% endif %}
+            <a href="{{ physical_security.url }}">{{ __('Compare the sites', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', physical_security_html, __('Physical security of the sites', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #775 : procédures d'exploitation (A.5.37), couverture des domaines attendus. #}
    {% if operating_procedures is defined and operating_procedures is not null %}
       {% set operating_procedures_html %}

@@ -1,0 +1,238 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #616 : onglet « Communication de crise » d'un incident de sécurité ou d'une violation de
+   données, voir GlpiPlugin\\Grcmanager\\CrisisCommunication::displayTabContentForItem().
+   Tout le texte vient de la base ou de l'incident : il est échappé par Twig, jamais marqué sûr. #}
+<div class="container-fluid" id="grc-crisis-communication">
+   <div class="alert alert-info">
+      <i class="ti ti-info-circle me-1"></i>{{ __('Prepare the message from a template, then copy it or export it and send it yourself from your usual mail client. The plugin never sends anything. Once sent, record the communication: date, author and recipients are kept as evidence.', 'grcmanager') }}
+   </div>
+   {% if drill %}
+      <div class="alert alert-warning"><i class="ti ti-alarm me-1"></i>{{ __('Exercise incident: use the templates to train, and say clearly in the message that it is an exercise.', 'grcmanager') }}</div>
+   {% endif %}
+
+   <h4 class="mt-2"><i class="ti ti-pencil me-1"></i>{{ __('Prepare a message', 'grcmanager') }}</h4>
+   {% if messages is empty %}
+      <p class="text-muted">{{ __('No active message template.', 'grcmanager') }}
+         {% if library_url %}<a href="{{ library_url }}">{{ __('Open the message templates', 'grcmanager') }}</a>{% endif %}
+      </p>
+   {% else %}
+      <div class="mb-3" style="max-width: 40rem">
+         <label class="form-label" for="grc-crisis-template">{{ __('Message template', 'grcmanager') }}</label>
+         <select class="form-select" id="grc-crisis-template">
+            {% for m in messages %}
+               <option value="{{ m.id }}">{{ m.name }}{% if m.recommended %} ({{ __('suggested for this situation', 'grcmanager') }}){% endif %}</option>
+            {% endfor %}
+         </select>
+         {% if library_url %}<div class="form-hint"><a href="{{ library_url }}">{{ __('Open the message templates', 'grcmanager') }}</a></div>{% endif %}
+      </div>
+
+      {% for m in messages %}
+         <form method="post" action="{{ form_url }}" class="card card-body mb-3 grc-crisis-message" data-template="{{ m.id }}" {{ loop.first ? '' : 'hidden' }}>
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="itemtype" value="{{ itemtype }}">
+            <input type="hidden" name="items_id" value="{{ items_id }}">
+            <input type="hidden" name="plugin_grcmanager_crisismessagetemplates_id" value="{{ m.id }}">
+            <div class="mb-2">
+               <span class="badge bg-blue-lt me-1">{{ m.situation }}</span>
+               <span class="badge bg-secondary-lt me-1">{{ m.stage }}</span>
+               <span class="badge bg-purple-lt">{{ m.audience }}</span>
+            </div>
+            <div class="row g-3">
+               <div class="col-lg-7">
+                  <label class="form-label" for="grc-crisis-subject-{{ m.id }}">{{ __('Subject', 'grcmanager') }}</label>
+                  <input type="text" class="form-control grc-crisis-subject" id="grc-crisis-subject-{{ m.id }}" name="subject" value="{{ m.subject }}" maxlength="255" required>
+                  <label class="form-label mt-2" for="grc-crisis-body-{{ m.id }}">{{ __('Message', 'grcmanager') }}</label>
+                  <textarea class="form-control grc-crisis-body" id="grc-crisis-body-{{ m.id }}" name="body" rows="14" required>{{ m.body }}</textarea>
+                  <div class="form-hint">{{ __('Check and complete the message before sending it: replace each "[to be completed]".', 'grcmanager') }}</div>
+               </div>
+               <div class="col-lg-5">
+                  <div class="form-label">{{ __('Recipients', 'grcmanager') }}</div>
+                  {% if m.recipients is empty %}
+                     <p class="text-muted small">{{ __('This template has no distribution list yet.', 'grcmanager') }}</p>
+                  {% endif %}
+                  {% for r in m.recipients %}
+                     <label class="form-check">
+                        <input type="checkbox" class="form-check-input grc-crisis-recipient" name="recipients[]" value="{{ r.key }}" data-address="{{ r.address }}" checked>
+                        <span class="form-check-label">
+                           <span class="badge {{ r.internal ? 'bg-blue-lt' : 'bg-purple-lt' }} me-1">{{ r.type_label }}</span>{{ r.name }}
+                           {% if r.missing_address %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('No address recorded', 'grcmanager') }}</span>{% endif %}
+                           {% if r.address %}<span class="d-block text-muted small" style="white-space: pre-line">{{ r.address }}</span>{% endif %}
+                        </span>
+                     </label>
+                  {% endfor %}
+                  {% if m.hidden > 0 %}
+                     <p class="text-muted small"><i class="ti ti-eye-off me-1"></i>{{ _n('%d recipient not shown (outside your entities or rights).', '%d recipients not shown (outside your entities or rights).', m.hidden, 'grcmanager')|format(m.hidden) }}</p>
+                  {% endif %}
+                  <label class="form-label mt-2" for="grc-crisis-other-{{ m.id }}">{{ __('Other recipients (one per line)', 'grcmanager') }}</label>
+                  <textarea class="form-control" id="grc-crisis-other-{{ m.id }}" name="other_recipients" rows="2"></textarea>
+               </div>
+            </div>
+            <div class="d-flex flex-wrap align-items-end gap-2 mt-3">
+               <button type="button" class="btn btn-outline-secondary grc-crisis-copy"><i class="ti ti-copy me-1"></i>{{ __('Copy the message', 'grcmanager') }}</button>
+               <button type="button" class="btn btn-outline-secondary grc-crisis-copy-addresses"><i class="ti ti-at me-1"></i>{{ __('Copy the email addresses', 'grcmanager') }}</button>
+               <button type="button" class="btn btn-outline-secondary grc-crisis-export"><i class="ti ti-mail-down me-1"></i>{{ __('Export (.eml file)', 'grcmanager') }}</button>
+               <span class="text-success small grc-crisis-copied" hidden><i class="ti ti-check me-1"></i>{{ __('Copied', 'grcmanager') }}</span>
+            </div>
+            {% if can_record %}
+               <hr class="my-3">
+               <div class="d-flex flex-wrap align-items-end gap-2">
+                  <div>
+                     <label class="form-label" for="grc-crisis-date-{{ m.id }}">{{ __('Sent on', 'grcmanager') }}</label>
+                     <input type="datetime-local" class="form-control" id="grc-crisis-date-{{ m.id }}" name="date_communication" value="{{ now }}" max="{{ now }}">
+                  </div>
+                  <button type="submit" name="record" value="1" class="btn btn-primary"><i class="ti ti-circle-check me-1"></i>{{ __('Record as sent', 'grcmanager') }}</button>
+               </div>
+               <div class="form-hint">{{ __('Record the communication only after you have sent it yourself.', 'grcmanager') }}</div>
+            {% endif %}
+         </form>
+      {% endfor %}
+   {% endif %}
+
+   <h4 class="mt-4"><i class="ti ti-history me-1"></i>{{ __('Communications made', 'grcmanager') }}</h4>
+   {% if history is empty %}
+      <p class="text-muted">{{ __('No communication recorded yet.', 'grcmanager') }}</p>
+   {% else %}
+      <table class="table table-sm align-middle">
+         <thead>
+            <tr>
+               <th>{{ __('Sent on', 'grcmanager') }}</th>
+               <th>{{ __('Author', 'grcmanager') }}</th>
+               <th>{{ __('Message template', 'grcmanager') }}</th>
+               <th>{{ __('Subject', 'grcmanager') }}</th>
+               <th>{{ __('Recipients', 'grcmanager') }}</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for h in history %}
+               <tr>
+                  <td class="text-nowrap">{{ h.date }}</td>
+                  <td>{{ h.author }}</td>
+                  <td>{{ h.template }}</td>
+                  <td>
+                     <details>
+                        <summary>{{ h.subject }}</summary>
+                        <div class="text-muted small mt-1" style="white-space: pre-line">{{ h.body }}</div>
+                     </details>
+                  </td>
+                  <td><ul class="mb-0 ps-3">{% for r in h.recipients %}<li>{{ r }}</li>{% endfor %}</ul></td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   {% endif %}
+</div>
+{% if messages is not empty %}
+<script>
+   (function () {
+      const root = document.getElementById('grc-crisis-communication');
+      if (!root) {
+         return;
+      }
+      const select = root.querySelector('#grc-crisis-template');
+      const forms = root.querySelectorAll('.grc-crisis-message');
+      select.addEventListener('change', function () {
+         forms.forEach(function (form) {
+            form.hidden = form.dataset.template !== select.value;
+         });
+      });
+      const emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
+      const addresses = function (form) {
+         const found = [];
+         form.querySelectorAll('.grc-crisis-recipient:checked').forEach(function (box) {
+            (box.dataset.address.match(emailPattern) || []).forEach(function (email) {
+               if (found.indexOf(email) === -1) {
+                  found.push(email);
+               }
+            });
+         });
+         const other = form.querySelector('[name="other_recipients"]').value;
+         (other.match(emailPattern) || []).forEach(function (email) {
+            if (found.indexOf(email) === -1) {
+               found.push(email);
+            }
+         });
+         return found;
+      };
+      const oneLine = function (text) {
+         return text.replace(/[\r\n]+/g, ' ').trim();
+      };
+      // Presse-papiers : API moderne en HTTPS, sinon copie d'une zone de texte (GLPI servi en HTTP).
+      const writeClipboard = function (text) {
+         if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+         }
+         const area = document.createElement('textarea');
+         area.value = text;
+         area.setAttribute('readonly', '');
+         area.style.position = 'fixed';
+         area.style.opacity = '0';
+         document.body.appendChild(area);
+         area.select();
+         const done = document.execCommand('copy');
+         area.remove();
+         return done ? Promise.resolve() : Promise.reject(new Error('copy'));
+      };
+      const copied = function (form, text) {
+         writeClipboard(text).then(function () {
+            const mark = form.querySelector('.grc-crisis-copied');
+            mark.hidden = false;
+            window.setTimeout(function () { mark.hidden = true; }, 2000);
+         });
+      };
+      const encodeHeader = function (text) {
+         const bytes = new TextEncoder().encode(text);
+         let binary = '';
+         bytes.forEach(function (b) { binary += String.fromCharCode(b); });
+         return '=?UTF-8?B?' + window.btoa(binary) + '?=';
+      };
+      root.addEventListener('click', function (event) {
+         const button = event.target.closest('button');
+         if (!button) {
+            return;
+         }
+         const form = button.closest('.grc-crisis-message');
+         if (!form) {
+            return;
+         }
+         const subject = oneLine(form.querySelector('.grc-crisis-subject').value);
+         const body = form.querySelector('.grc-crisis-body').value;
+         if (button.classList.contains('grc-crisis-copy')) {
+            copied(form, subject + '\n\n' + body);
+         } else if (button.classList.contains('grc-crisis-copy-addresses')) {
+            copied(form, addresses(form).join('; '));
+         } else if (button.classList.contains('grc-crisis-export')) {
+            // Brouillon de courriel (X-Unsent) : le logiciel de messagerie l'ouvre, la personne l'envoie.
+            const eml = [
+               'To: ' + addresses(form).join(', '),
+               'Subject: ' + encodeHeader(subject),
+               'X-Unsent: 1',
+               'MIME-Version: 1.0',
+               'Content-Type: text/plain; charset=UTF-8',
+               'Content-Transfer-Encoding: 8bit',
+               '',
+               body.replace(/\r?\n/g, '\r\n'),
+            ].join('\r\n');
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(new Blob([eml], {type: 'message/rfc822'}));
+            link.download = 'crisis-message-' + form.dataset.template + '.eml';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+         }
+      });
+   })();
+</script>
+{% endif %}

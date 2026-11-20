@@ -96,6 +96,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
   front/officialcontact.php front/officialcontact.export.php
   front/operatingprocedure.php front/operatingprocedure.export.php
+  front/physicalsecurity.php front/physicalsecurityassessment.php
+  front/crisismessagetemplate.php front/crisismessagetemplate.form.php
   front/securedevelopment.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
   front/personnelcompliance.php front/personnelcompliance.export.php?format=csv
@@ -121,7 +123,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/processingactivity.form.php front/datasubjectrequest.form.php front/databreach.form.php \
     front/businessprocess.form.php front/riskindicator.form.php front/contextitem.form.php \
     front/managementreviewaction.form.php front/responsibilityactivity.form.php \
-    front/ismsfunction.form.php front/competence.form.php front/competencedeclaration.form.php; do
+    front/ismsfunction.form.php front/competence.form.php front/competencedeclaration.form.php \
+    front/crisismessagetemplate.form.php front/crisismessagerecipient.form.php \
+    front/physicalsecurityassessment.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   # Issue #775 : archiver le registre des procedures d'exploitation sur A.5.37 cree un document : il
@@ -292,6 +296,31 @@ contains "carte tests d'efficacite en retard : chiffre" "big-number" $SEE_CONTRO
 incident_contacts=$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(id incident_A)")
 contains "onglet Contacts officiels de l'incident : contact de A" "Partie securite A" $SEE_INCIDENTS "$incident_contacts"
 contains "onglet Contacts officiels de l'incident : contact de B" "Partie securite B" non "$incident_contacts"
+# Issue #616 : onglet « Communication de crise » de l'incident de A. Droits de l'incident ; la liste
+# de diffusion du modele ne montre que les contacts de l'entite de l'incident (jamais celui de B,
+# meme au super-admin) ; les communications de l'incident de B ne sont lues qu'au super-admin.
+crisis_A=$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5CCrisisCommunication$1' "$(id incident_A)")
+contains "onglet Communication de crise de A : communication de A" "Communication securite A" $SEE_INCIDENTS "$crisis_A"
+contains "onglet Communication de crise de A : contact de A" "Partie securite A" $SEE_INCIDENTS "$crisis_A"
+contains "onglet Communication de crise de A : contact de B" "Partie securite B" non "$crisis_A"
+contains "onglet Communication de crise de B : communication de B" "Communication securite B" $SEE_B \
+  "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5CCrisisCommunication$1' "$(id incident_B)")"
+contains "liste de diffusion du modele : contact de B" "Partie securite B" $SEE_B \
+  "$(tab 'GlpiPlugin%5CGrcmanager%5CCrisisMessageTemplate' 'GlpiPlugin%5CGrcmanager%5CCrisisMessageRecipient$1' "$(id crisis_template)")"
+# Tracer une communication exige de pouvoir modifier l'incident (rien n'est envoye).
+RECORD_A=403; case $ROLE in limited|admin) RECORD_A=302 ;; esac
+crisis_record() { # incident, [jeton CSRF : oui|non]
+  local token="&_glpi_csrf_token=$(csrf)"
+  [ "${2:-oui}" = non ] && token=
+  code -d "record=1&itemtype=PluginGrcmanagerSecurityIncident&items_id=$1&plugin_grcmanager_crisismessagetemplates_id=$(id crisis_template)&subject=x&body=y&other_recipients=Direction$token" \
+    "$BASE/plugins/grcmanager/front/crisiscommunication.form.php"
+}
+expect "front/crisiscommunication.form.php : trace sur l'incident de A" $RECORD_A "$(crisis_record "$(id incident_A)")"
+expect "front/crisiscommunication.form.php : trace sur l'incident de B (autre entite)" \
+  "$([ "$ROLE" = admin ] && echo 302 || echo 403)" "$(crisis_record "$(id incident_B)")"
+expect "front/crisiscommunication.form.php : trace sans jeton CSRF" 403 "$(crisis_record "$(id incident_A)" non)"
+expect "front/crisiscommunication.form.php : sans action (GET)" 400 \
+  "$(code "$BASE/plugins/grcmanager/front/crisiscommunication.form.php")"
 official=$(curl -s -c "$JAR" -b "$JAR" "$P/officialcontact.php")
 contains "registre des contacts officiels : contact de B" "Partie securite B" $SEE_B "$official"
 contains "page du tableau de bord, vue incidents : grille" "\"current\":\"grcmanager-security-incidents\"" $SEE_INCIDENTS \
@@ -939,6 +968,35 @@ ARCHIVE=403; case $ROLE in limited|admin) ARCHIVE=302 ;; general) ARCHIVE= ;; es
 [ "$ROLE" = reader ] || [ "$ROLE" = none ] && expect "front/ismsfunction.php : fonctions par defaut" 403 \
   "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.php")"
 expect "front/ismsfunction.php : archiver sans jeton CSRF" 403 "$(code -d "archive=1" "$P/ismsfunction.php")"
+
+# Issue #778 : securite physique des sites. Page de comparaison, liste, fiche et onglets suivent le
+# droit du plugin et l'entite de l'evaluation ; lignes et zones exigent de modifier l'evaluation.
+physical=$(curl -s -c "$JAR" -b "$JAR" "$P/physicalsecurity.php")
+contains "front/physicalsecurity.php : site de A" "Site securite A" oui "$physical"
+contains "front/physicalsecurity.php : site de B" "Site securite B" $SEE_B "$physical"
+expect "fiche de l'evaluation de B" "$DENY" "$(code "$P/physicalsecurityassessment.form.php?id=$(id physical_B)")"
+expect "fiche de l'evaluation de A" 200 "$(code "$P/physicalsecurityassessment.form.php?id=$(id physical_A)")"
+contains "onglet grille de l'evaluation de B" "grc-physical-checklist" $SEE_B \
+  "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id physical_B)")"
+contains "onglet zones de l'evaluation de B" "Salle serveurs securite B" $SEE_B \
+  "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$2' "$(id physical_B)")"
+contains "onglet securite physique du lieu de B" "Evaluation securite B" $SEE_B \
+  "$(tab Location 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id location_B)")"
+if [ "$ROLE" != admin ]; then
+  expect "evaluation de B : modifier une ligne" 403 \
+    "$(code -d "save_check=1&plugin_grcmanager_physicalsecurityassessments_id=$(id physical_B)&id=$(id physical_line_B)&state=compliant&_glpi_csrf_token=$(csrf)" "$P/physicalsecurityassessment.form.php")"
+  expect "evaluation de B : ajouter une zone" 403 \
+    "$(code -d "add_zone=1&plugin_grcmanager_physicalsecurityassessments_id=$(id physical_B)&name=securite&_glpi_csrf_token=$(csrf)" "$P/physicalsecurityassessment.form.php")"
+  expect "evaluation de B : supprimer une zone" 403 \
+    "$(code -d "delete_zone=1&plugin_grcmanager_physicalsecurityassessments_id=$(id physical_B)&id=$(id physical_zone_B)&_glpi_csrf_token=$(csrf)" "$P/physicalsecurityassessment.form.php")"
+fi
+[ "$ROLE" = limited ] && expect "evaluation de A : ligne de B glissee dans le formulaire" 400 \
+  "$(code -d "save_check=1&plugin_grcmanager_physicalsecurityassessments_id=$(id physical_A)&id=$(id physical_line_B)&state=compliant&_glpi_csrf_token=$(csrf)" "$P/physicalsecurityassessment.form.php")"
+EDIT_PHYSICAL=403; case $ROLE in limited|admin) EDIT_PHYSICAL=302 ;; general) EDIT_PHYSICAL= ;; esac
+[ -n "$EDIT_PHYSICAL" ] && expect "evaluation de A : modifier une ligne" $EDIT_PHYSICAL \
+  "$(code -d "save_check=1&plugin_grcmanager_physicalsecurityassessments_id=$(id physical_A)&id=$(id physical_line_A)&state=partial&_glpi_csrf_token=$(csrf)" "$P/physicalsecurityassessment.form.php")"
+expect "evaluation de A : modifier une ligne sans jeton CSRF" 403 \
+  "$(code -d "save_check=1&plugin_grcmanager_physicalsecurityassessments_id=$(id physical_A)&id=$(id physical_line_A)&state=compliant" "$P/physicalsecurityassessment.form.php")"
 
 # Issue #535 : prise de connaissance des politiques. Seul glpi (admin) est dans le public de la
 # politique : les autres ne la voient ni dans leurs preferences ni dans leur espace, ne lisent pas

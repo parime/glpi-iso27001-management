@@ -26,7 +26,7 @@
                <td class="text-nowrap">{% if r.priority %}<i class="ti ti-alert-triangle text-red me-1"></i>{% endif %}<a href="https://nvd.nist.gov/vuln/detail/{{ r.cve_id }}" target="_blank" rel="noopener">{{ r.cve_id }}</a></td>
                <td>{{ r.product }} {{ r.version }}
                   {# Issue #705 : logiciel installé ou firmware de l'élément. #}
-                  {% if r.source == 'firmware' %}<span class="badge bg-secondary-lt ms-1"><i class="ti ti-cpu me-1"></i>{{ __('Firmware', 'grcmanager') }}</span>{% else %}<span class="badge bg-secondary-lt ms-1"><i class="ti ti-apps me-1"></i>{{ __('Software', 'grcmanager') }}</span>{% endif %}
+                  {% if r.source == 'firmware' %}<span class="badge bg-secondary-lt ms-1"><i class="ti ti-cpu me-1"></i>{{ __('Firmware', 'grcmanager') }}</span>{% elseif r.source == 'os' %}<span class="badge bg-secondary-lt ms-1"><i class="ti ti-device-desktop me-1"></i>{{ __('Operating system', 'grcmanager') }}</span>{% else %}<span class="badge bg-secondary-lt ms-1"><i class="ti ti-apps me-1"></i>{{ __('Software', 'grcmanager') }}</span>{% endif %}
                </td>
                <td>{{ r.cvss is null ? '-' : r.cvss|number_format(1, ',') }}</td>
                <td>{{ r.epss is null ? '-' : (r.epss * 100)|number_format(1, ',') ~ ' %' }}</td>

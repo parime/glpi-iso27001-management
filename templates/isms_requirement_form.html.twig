@@ -41,4 +41,7 @@
    {% if competence %}
       {% include '@grcmanager/_competence_summary.html.twig' with {'summary': competence} only %}
    {% endif %}
+   {% if crisis_communication is defined and crisis_communication %}
+      {% include '@grcmanager/_crisis_communication_summary.html.twig' with {'summary': crisis_communication} only %}
+   {% endif %}
 {% endblock %}

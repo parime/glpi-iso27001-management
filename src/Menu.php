@@ -98,6 +98,8 @@ class Menu extends CommonGLPI
                 DataBreach::class, Policy::class,
                 // Issue #775 : registre des procédures d'exploitation et couverture (A.5.37).
                 OperatingProcedure::class,
+                // Issue #778 : sécurité physique des sites (A.7.1 à A.7.14), comparaison entre sites.
+                PhysicalSecurity::class,
                 // Issue #777 : développement sécurisé (registre des applications, mises en production).
                 SecureDevelopment::class,
                 Evidence::class, CoverageRule::class, ControlTest::class,

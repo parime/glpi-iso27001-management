@@ -63,6 +63,16 @@ for url in ismsfunction.php competence.php competencedeclaration.php \
   check "front/$url" "$P/$url"
 done
 check "onglet Mes competences"                 "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CCompetenceMatrix$1' 2)"
+# Issue #778 : evaluation de la securite physique de A piegee (page de comparaison, liste, fiche,
+# grille, zones, onglet du lieu, preuve sur A.7.1, action proposee depuis la ligne non conforme).
+for url in physicalsecurity.php physicalsecurityassessment.php \
+  "physicalsecurityassessment.form.php?id=$(id physical_A)" "control.form.php?id=$(id control_a71)" \
+  "nonconformity.form.php?physicalsecuritycheck=$(id physical_line_A)"; do
+  check "front/$url" "$P/$url"
+done
+check "onglet grille de securite physique"     "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id physical_A)")"
+check "onglet zones du site"                   "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$2' "$(id physical_A)")"
+check "onglet securite physique d'un lieu"     "$(tab Location 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id location_A)")"
 # Issue #546 : fiche de conformité de glpi, dans le public de la politique piégée.
 check "onglet Ma conformite securite"          "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPersonnelCompliance$1' 2)"
 check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
@@ -95,6 +105,13 @@ check "front/officialcontact.php"             "$P/officialcontact.php"
 check "fiche d'un contact officiel"           "$P/contextitem.form.php?id=$(xid official_contact)"
 check "onglet contacts officiels d'un incident" "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(id incident_A)")"
 check "onglet contacts officiels d'une violation" "$(tab GlpiPlugin%5CGrcmanager%5CDataBreach 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(xid breach)")"
+# Issue #616 : modele de message de crise piege (liste, fiche, liste de diffusion), et onglet
+# Communication de crise de l'incident de A (variables piegees, communication tracee piegee).
+check "front/crisismessagetemplate.php"       "$P/crisismessagetemplate.php"
+check "fiche d'un modele de message de crise" "$P/crisismessagetemplate.form.php?id=$(xid crisis_template)"
+check "onglet liste de diffusion d'un modele" "$(tab 'GlpiPlugin%5CGrcmanager%5CCrisisMessageTemplate' 'GlpiPlugin%5CGrcmanager%5CCrisisMessageRecipient$1' "$(xid crisis_template)")"
+check "onglet communication de crise d'un incident" "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5CCrisisCommunication$1' "$(id incident_A)")"
+check "onglet communication de crise d'une violation" "$(tab GlpiPlugin%5CGrcmanager%5CDataBreach 'GlpiPlugin%5CGrcmanager%5CCrisisCommunication$1' "$(xid breach)")"
 # Issue #620 : violation piegee (fiche, liste, onglet de l'incident, export CSV).
 check "front/databreach.form.php"             "$P/databreach.form.php?id=$(xid breach)"
 check "front/databreach.php"                  "$P/databreach.php"

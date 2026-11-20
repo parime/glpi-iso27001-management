@@ -410,6 +410,23 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, clauses 4.1 and 4.2', 'grcmanager'),
             ],
+            // Issue #778 : sécurité physique des sites (comparaison et liste des évaluations).
+            'physicalsecurity' => [
+                'purpose'   => __(
+                    'Shows, for each site (a location of GLPI), the last physical security assessment: the state of '
+                        . 'each control A.7.1 to A.7.14 side by side, the score, and when the site must be assessed '
+                        . 'again (at least once a year).',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Assess each site: walk through it, record the state, the finding and the evidence (photos, '
+                        . 'reports) of each control, and list its zones with their access controls. Create an action '
+                        . 'for each partial or non-compliant control. Link the physical security policy. Assess the '
+                        . 'site again before the date shown.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.7.1 to A.7.14', 'grcmanager'),
+            ],
             // Issue #775 : registre des procédures d'exploitation.
             'operatingprocedure' => [
                 'purpose'   => __(
@@ -777,6 +794,23 @@ class PageHelp
                         . 'tasks. Mandatory steps must be done or marked not applicable before closing.',
                     'grcmanager'
                 ),
+            ],
+            // Issue #616 : modèles de messages de crise et leurs listes de diffusion.
+            'crisismessagetemplate' => [
+                'purpose'   => __(
+                    'Crisis message templates: the messages prepared in advance for each kind of crisis (major '
+                        . 'incident, personal data breach, unavailability, ransomware), with the people and '
+                        . 'organizations to inform for each one.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Adapt the templates provided and fill in the distribution list of each one (users, groups and '
+                        . 'official contacts). During a crisis, open the Crisis communication tab of the incident: '
+                        . 'the message is filled in from the incident, you send it yourself, then record it. The '
+                        . 'plugin never sends any email.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.5.26 and clause 7.4', 'grcmanager'),
             ],
             // Issue #537 : référentiels personnalisés importés depuis un fichier CSV.
             'customframework' => [
