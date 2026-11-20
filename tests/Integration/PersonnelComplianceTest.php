@@ -97,7 +97,9 @@ final class PersonnelComplianceTest extends GrcmanagerIntegrationTestCase
             'entities_id' => $entity,
         ]);
         // Revue des accès décidée il y a deux mois.
-        $DB->insert(AccessReview::getTable(), ['name' => 'PHPUnit revue', 'entities_id' => $entity, 'status' => 'closed']);
+        $DB->insert(AccessReview::getTable(), [
+            'name' => 'PHPUnit revue', 'entities_id' => $entity, 'status' => 'closed',
+        ]);
         $DB->insert(AccessReview::LINES_TABLE, [
             'plugin_grcmanager_accessreviews_id' => (int) $DB->insertId(), 'users_id' => $person,
             'decision' => 'keep', 'date_decision' => date('Y-m-d H:i:s', strtotime('-60 days')),
@@ -154,7 +156,9 @@ final class PersonnelComplianceTest extends GrcmanagerIntegrationTestCase
         $this->assertNull($record['nda_date']);
         $this->assertSame('', $record['nda_version'], 'Pas de version sans date de signature.');
 
-        $this->assertTrue(PersonnelCompliance::saveRecord($person, ['screening_status' => Rules::SCREENING_NOT_APPLICABLE]));
+        $this->assertTrue(
+            PersonnelCompliance::saveRecord($person, ['screening_status' => Rules::SCREENING_NOT_APPLICABLE])
+        );
         $this->assertSame(
             1,
             countElementsInTable(PersonnelComplianceProvider::RECORDS_TABLE, ['users_id' => $person]),
@@ -174,11 +178,15 @@ final class PersonnelComplianceTest extends GrcmanagerIntegrationTestCase
         $ids = array_column(PersonnelCompliance::filteredRows(PersonnelCompliance::filters([])), 'id');
         $this->assertContains($newcomer, $ids);
         $this->assertNotContains($other, $ids);
-        $this->assertSame([], PersonnelCompliance::filteredRows(PersonnelCompliance::filters(['entities_id' => $hidden])));
+        $ids = static fn (array $filters): array => array_column(
+            PersonnelCompliance::filteredRows(PersonnelCompliance::filters($filters)),
+            'id'
+        );
+        $this->assertSame([], $ids(['entities_id' => $hidden]));
 
-        $pending = array_column(PersonnelCompliance::filteredRows(PersonnelCompliance::filters(['status' => 'pending'])), 'id');
+        $pending = $ids(['status' => 'pending']);
         $this->assertContains($newcomer, $pending, 'Nouvel arrivant dans le délai.');
-        $late = array_column(PersonnelCompliance::filteredRows(PersonnelCompliance::filters(['status' => 'late'])), 'id');
+        $late = $ids(['status' => 'late']);
         $this->assertNotContains($newcomer, $late);
 
         $this->assertTrue(PersonnelCompliance::canViewFor($newcomer));
@@ -207,7 +215,9 @@ final class PersonnelComplianceTest extends GrcmanagerIntegrationTestCase
             'id'
         )]);
 
-        $lines = PersonnelCompliance::csvLines(PersonnelCompliance::exportRows(PersonnelCompliance::filters([]), $person));
+        $lines = PersonnelCompliance::csvLines(
+            PersonnelCompliance::exportRows(PersonnelCompliance::filters([]), $person)
+        );
         $this->assertCount(1 + count(Rules::COMPONENTS), $lines, 'Une ligne par composante.');
         $this->assertStringStartsWith("'", $lines[1][0], 'Formule neutralisée pour le tableur.');
     }
