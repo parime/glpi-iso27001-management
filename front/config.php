@@ -323,6 +323,36 @@ if (isset($_POST['update_acn_entities'])) {
     Html::back();
 }
 
+// Issue #599 : catégorie NIS2 (importante ou essentielle) de chaque entité pour le ReCyF, qui crée son
+// registre ReCyF. Seules les entités de la session sont modifiables ; rien n'est supprimé.
+if (isset($_POST['update_recyf_entities'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    $changes = [];
+    $created = 0;
+    foreach ((array) ($_POST['recyf_category'] ?? []) as $entityId => $category) {
+        $entityId = (int) $entityId;
+        if (!Session::haveAccessToEntity($entityId)) {
+            continue;
+        }
+        $category = \GlpiPlugin\Grcmanager\Services\Recyf\RecyfRules::normalizeCategory($category);
+        if ($category === \GlpiPlugin\Grcmanager\RecyfRequirement::categoryOf($entityId)) {
+            continue;
+        }
+        $created += \GlpiPlugin\Grcmanager\RecyfRequirement::setCategory($entityId, $category);
+        $changes['recyf_category_' . $entityId] = $category;
+    }
+    if ($changes !== []) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $changes]);
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            __('Classification saved; %d measure record(s) created.', 'grcmanager'),
+            $created
+        )));
+    }
+
+    Html::back();
+}
+
 // Issue #375 : contact du DPO, repris sur l'export du registre des traitements (article 30).
 if (isset($_POST['update_dpo_contact'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
@@ -617,6 +647,12 @@ Html::header(
         ? \GlpiPlugin\Grcmanager\AcnRequirement::configRows() : [],
     'acn_categories'     => \GlpiPlugin\Grcmanager\AcnRequirement::getCategories(),
     'acn_register_url'   => \GlpiPlugin\Grcmanager\AcnRequirement::getSearchURL(),
+    // Issue #599 : catégorie NIS2 des entités pour le ReCyF (registre ReCyF).
+    'recyf_enabled'      => \GlpiPlugin\Grcmanager\RecyfRequirement::isFrameworkEnabled(),
+    'recyf_entities'     => \GlpiPlugin\Grcmanager\RecyfRequirement::isFrameworkEnabled()
+        ? \GlpiPlugin\Grcmanager\RecyfRequirement::configRows() : [],
+    'recyf_categories'   => \GlpiPlugin\Grcmanager\RecyfRequirement::getCategories(),
+    'recyf_register_url' => \GlpiPlugin\Grcmanager\RecyfRequirement::getSearchURL(),
     'risk_probabilities' => \GlpiPlugin\Grcmanager\Risk::getProbabilities(),
     'risk_impacts'       => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
     'risk_levels'        => \GlpiPlugin\Grcmanager\Risk::getRiskLevels(),

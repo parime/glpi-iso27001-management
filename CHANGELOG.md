@@ -58,6 +58,26 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - droits : ceux de la matrice des compétences (droit du plugin et lecture des utilisateurs, entités
     de la session) ; la session proposée ne présélectionne que les personnes visibles. Aucune
     inscription, aucun statut ni aucun droit n'est modifié automatiquement.
+- **Référentiel Cyber France (ReCyF) de l'ANSSI pour NIS2** (issue #599, demande liée #789). Catalogue
+  des 20 objectifs et 152 mesures de la version de travail 2.5 du 17 mars 2026, numérotés comme le
+  document de l'ANSSI (« 10.B.3-EI/EE », « 2.A.2-EE ») ; chaque mesure est résumée avec les mots du
+  projet (français et anglais), le texte de l'ANSSI n'est pas recopié et reste la seule référence :
+  - classification NIS2 de chaque entité GLPI (importante ou essentielle) dans la configuration du
+    plugin, visible quand le référentiel NIS2 est activé ; les sous-entités suivent leur parente ;
+    changer ou retirer la classification ne supprime rien ;
+  - registre ReCyF par entité, sur le modèle du registre NIS2 Italia (#703) : une fiche par mesure
+    (applicabilité, justification, état, responsable, échéance, notes, documents en preuve,
+    historique), 76 mesures pour une entité importante et 152 pour une entité essentielle, synthèse
+    par objectif, exports CSV et PDF ; ouvert depuis la page Référentiels, la configuration et
+    l'évaluation, sans nouvelle entrée de menu ;
+  - carte « NIS2 France » sur la page Référentiels : objectifs, mesures et résumés, renvois
+    indicatifs vers les articles 20 et 21 de NIS2 ;
+  - **Tableau de bord > Évaluation par référentiel** : NIS2 est évalué sur les mesures du registre
+    ReCyF accessible (badge « Mesures du ReCyF (ANSSI) »), même quand ISO 27001 est désactivé ; sans
+    registre, l'écran explique comment classer l'entité au lieu de proposer l'import d'un référentiel
+    personnalisé ;
+  - droits : droit général du plugin, référentiel NIS2 activé et entité de la fiche ; le catalogue
+    est fixe (ni création ni suppression depuis l'interface).
 
 ## [2.68.0] - 2026-11-20
 
