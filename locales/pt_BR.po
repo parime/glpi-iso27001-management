@@ -19081,97 +19081,6 @@ msgid_plural "NIS2 Italy requirements (ACN)"
 msgstr[0] "Requisito NIS2 Itália (ACN)"
 msgstr[1] "Requisitos NIS2 Itália (ACN)"
 
-msgid "Preparatory file for the management review"
-msgstr "Dossiê preparatório da análise crítica pela direção"
-
-msgid "One PDF that gathers what top management has to review (ISO 27001 clause 9.3.2), straight from the plugin registers: no copy and paste. It is attached to this review as evidence, with its SHA-256 fingerprint."
-msgstr "Um único PDF que reúne o que a alta direção deve analisar (ISO 27001, cláusula 9.3.2), direto dos registros do plugin: sem copiar e colar. Ele é anexado a esta análise como evidência, com sua impressão digital SHA-256."
-
-msgid "Period from"
-msgstr "Período de"
-
-msgid "Period to"
-msgstr "até"
-
-msgid "Generate the PDF"
-msgstr "Gerar o PDF"
-
-msgid "Proposed period: since the previous management review (or the last twelve months) up to the date of this review. Figures follow your rights and active entities."
-msgstr "Período proposto: desde a análise crítica anterior (ou os últimos doze meses) até a data desta análise. Os números seguem seus direitos e entidades ativas."
-
-msgid "You need the right to update this review to generate its preparatory file."
-msgstr "É preciso ter o direito de modificar esta análise para gerar seu dossiê preparatório."
-
-msgid "Contents"
-msgstr "Conteúdo"
-
-msgid "Archived files"
-msgstr "Dossiês arquivados"
-
-msgid "Document deleted"
-msgstr "Documento excluído"
-
-msgid "SHA-256 fingerprint"
-msgstr "Impressão digital SHA-256"
-
-msgid "No preparatory file generated yet for this review."
-msgstr "Nenhum dossiê preparatório gerado ainda para esta análise."
-
-msgid "Actions decided at this review"
-msgstr "Ações decididas nesta análise"
-
-#, php-format
-msgid "%d action(s)"
-msgstr "%d ação(ões)"
-
-#, php-format
-msgid "%d done"
-msgstr "%d realizada(s)"
-
-msgid "Each decision becomes an action with an owner, a due date and a status. The preparatory file of the next review reports where they stand."
-msgstr "Cada decisão torna-se uma ação com um responsável, um prazo e um status. O dossiê preparatório da próxima análise informa o andamento."
-
-msgid "Create the actions from the decisions"
-msgstr "Criar as ações a partir das decisões"
-
-msgid "Write one decision per line in the \"Decisions and actions\" field of the review: each new line is offered here."
-msgstr "Escreva uma decisão por linha no campo \"Decisões e ações\" da análise: cada nova linha é proposta aqui."
-
-msgid "No action recorded for this review yet."
-msgstr "Nenhuma ação registrada ainda para esta análise."
-
-msgid "Period covered"
-msgstr "Período coberto"
-
-msgid "Perimeter"
-msgstr "Perímetro"
-
-msgid "Prepared by"
-msgstr "Preparado por"
-
-msgid "Figures are read from the GRC registers when the file is generated, with the rights and active entities of the person who generated it. A section whose register that person cannot read is marked as not included."
-msgstr "Os números são lidos dos registros GRC no momento da geração, com os direitos e entidades ativas de quem gerou o dossiê. Uma seção cujo registro essa pessoa não pode ler é indicada como não incluída."
-
-msgid "Input to review"
-msgstr "Item a analisar"
-
-msgid "Included"
-msgstr "Incluído"
-
-msgid "Not included (no right)"
-msgstr "Não incluído (sem direito)"
-
-msgid "Not included: the person who generated this file cannot read this register."
-msgstr "Não incluído: quem gerou este dossiê não pode ler este registro."
-
-msgid "Actions decided"
-msgstr "Ações decididas"
-
-msgid "Completion"
-msgstr "Conclusão"
-
-msgid "No action from a previous review is open or was completed during the period."
-msgstr "Nenhuma ação de uma análise anterior está aberta ou foi concluída no período."
 msgid "Last reviewed by"
 msgstr "Última revisão por"
 
@@ -19211,6 +19120,365 @@ msgstr "Nenhuma questão ou parte interessada se refere a este item ainda."
 msgid "Internal and external issues"
 msgstr "Questões internas e externas"
 
+msgid "Items past their review date"
+msgstr "Itens com data de revisão vencida"
+
+msgid "Not answered yet"
+msgstr "Ainda sem resposta"
+
+msgid "No item recorded."
+msgstr "Nenhum item registrado."
+
+msgid "Partially achieved"
+msgstr "Parcialmente atingido"
+
+msgid "Not achieved"
+msgstr "Não atingido"
+
+msgid "To evaluate"
+msgstr "A avaliar"
+
+msgid "Not visible to you"
+msgstr "Não visível para você"
+
+msgid "Deleted"
+msgstr "Excluída"
+
+msgid "Objectives of the exercise"
+msgstr "Objetivos do exercício"
+
+msgid "No objective defined."
+msgstr "Nenhum objetivo definido."
+
+msgid "Objective"
+msgstr "Objetivo"
+
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr ""
+"%1$d atingido(s), %2$d parcialmente, %3$d não atingido(s), %4$d a avaliar"
+
+msgid "Findings and improvement plan"
+msgstr "Constatações e plano de melhoria"
+
+msgid "No finding recorded."
+msgstr "Nenhuma constatação registrada."
+
+msgid "Improvement action"
+msgstr "Ação de melhoria"
+
+msgid "No action decided"
+msgstr "Nenhuma ação decidida"
+
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr "%1$d constatação(ões), %2$d ação(ões) decidida(s), %3$d concluída(s)"
+
+msgid "Review validation"
+msgstr "Validação do balanço"
+
+msgid "Validated"
+msgstr "Validado"
+
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr "em %1$s por %2$s"
+
+msgid "this review has not been validated yet."
+msgstr "este balanço ainda não foi validado."
+
+msgid "Returned to draft"
+msgstr "Devolvido a rascunho"
+
+msgid "Exercise review"
+msgstr "Balanço do exercício"
+
+#, php-format
+msgid ""
+"Review validated on %1$s by %2$s: it can no longer be changed unless it is "
+"returned to draft."
+msgstr ""
+"Balanço validado em %1$s por %2$s: não pode mais ser alterado, salvo se "
+"voltar a rascunho."
+
+msgid ""
+"No objective defined. Objectives say what the exercise must demonstrate (for "
+"example: \"the crisis team is convened within 45 minutes\"); they are "
+"evaluated when the exercise is finished."
+msgstr ""
+"Nenhum objetivo definido. Os objetivos dizem o que o exercício deve "
+"demonstrar (por exemplo: \"a célula de crise é reunida em até 45 minutos\"); "
+"são avaliados ao final do exercício."
+
+msgid "What was observed"
+msgstr "O que foi observado"
+
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr ""
+"Novo objetivo, por exemplo: restaurar o servidor de arquivos em até 4 horas"
+
+msgid "New objective"
+msgstr "Novo objetivo"
+
+msgid ""
+"Evaluate each objective: the review can be validated once they are all "
+"evaluated."
+msgstr ""
+"Avalie cada objetivo: o balanço poderá ser validado quando todos estiverem "
+"avaliados."
+
+msgid ""
+"No finding yet. Record each gap observed during or after the exercise "
+"(delay, missing contact, unusable procedure…)."
+msgstr ""
+"Nenhuma constatação ainda. Registre cada desvio observado durante ou após o "
+"exercício (atraso, contato ausente, procedimento inutilizável…)."
+
+msgid "Create an improvement action"
+msgstr "Criar uma ação de melhoria"
+
+msgid "Risk (treatment action only)"
+msgstr "Risco (somente ação de tratamento)"
+
+msgid "Create the action"
+msgstr "Criar a ação"
+
+msgid ""
+"An improvement action is only created when you click it: a non-conformity "
+"linked to the exercise incident, or a treatment action of an existing risk. "
+"Its progress is shown here."
+msgstr ""
+"Uma ação de melhoria só é criada quando você clica: uma não conformidade "
+"ligada ao incidente do exercício, ou uma ação de tratamento de um risco "
+"existente. Seu andamento é exibido aqui."
+
+msgid "New finding"
+msgstr "Nova constatação"
+
+msgid ""
+"Validate the review? It will no longer be editable and the validated report "
+"will be archived."
+msgstr ""
+"Validar o balanço? Ele não poderá mais ser alterado e o relatório validado "
+"será arquivado."
+
+msgid "Comment (optional)"
+msgstr "Comentário (opcional)"
+
+msgid "Validate the review"
+msgstr "Validar o balanço"
+
+msgid ""
+"The review is validated by a person holding the \"Validate exercise "
+"reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr ""
+"O balanço é validado por uma pessoa com o direito \"Validar balanços de "
+"exercício\" (Continuidade de negócios, aba GRC Manager dos perfis)."
+
+msgid ""
+"Return the review to draft? The reason is recorded in the validation history."
+msgstr ""
+"Devolver o balanço a rascunho? O motivo é registrado no histórico de "
+"validações."
+
+msgid "Reason for returning to draft (required)"
+msgstr "Motivo da volta a rascunho (obrigatório)"
+
+msgid "Return to draft"
+msgstr "Voltar a rascunho"
+
+msgid "Objectives of the exercise (one per line)"
+msgstr "Objetivos do exercício (um por linha)"
+
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr "Por exemplo: reunir a célula de crise em até 45 minutos"
+
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr "Avaliados ao final do exercício; aparecem no relatório."
+
+msgid "Review validated"
+msgstr "Balanço validado"
+
+msgid "Objectives achieved"
+msgstr "Objetivos atingidos"
+
+msgid "Improvement actions overdue"
+msgstr "Ações de melhoria atrasadas"
+
+msgid "Improvement action created."
+msgstr "Ação de melhoria criada."
+
+msgid "The review could not be changed."
+msgstr "Não foi possível alterar o balanço."
+
+msgid ""
+"Review validated: the validated report is archived in the incident documents."
+msgstr ""
+"Balanço validado: o relatório validado está arquivado nos documentos do "
+"incidente."
+
+msgid "The review is back to draft."
+msgstr "O balanço voltou a rascunho."
+
+msgid "Give the reason for returning the review to draft."
+msgstr "Informe o motivo da volta do balanço a rascunho."
+
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr "Constatação do exercício de crise nº %1$d (%2$s)."
+
+msgid "The review is already validated."
+msgstr "O balanço já está validado."
+
+msgid "Define at least one objective before validating the review."
+msgstr "Defina pelo menos um objetivo antes de validar o balanço."
+
+msgid ""
+"Evaluate every objective (achieved, partially achieved or not achieved) "
+"before validating the review."
+msgstr ""
+"Avalie cada objetivo (atingido, parcialmente atingido ou não atingido) antes "
+"de validar o balanço."
+
+msgid "Finish the exercise before validating its review."
+msgstr "Conclua o exercício antes de validar seu balanço."
+
+msgid "Validate exercise reviews"
+msgstr "Validar balanços de exercício"
+
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr "Validar balanços de exercícios de crise e devolvê-los a rascunho"
+
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] "%d ação atrasada"
+msgstr[1] "%d ações atrasadas"
+
+msgid "Preparatory file for the management review"
+msgstr "Dossiê preparatório da análise crítica pela direção"
+
+msgid ""
+"One PDF that gathers what top management has to review (ISO 27001 clause "
+"9.3.2), straight from the plugin registers: no copy and paste. It is "
+"attached to this review as evidence, with its SHA-256 fingerprint."
+msgstr ""
+"Um único PDF que reúne o que a alta direção deve analisar (ISO 27001, "
+"cláusula 9.3.2), direto dos registros do plugin: sem copiar e colar. Ele é "
+"anexado a esta análise como evidência, com sua impressão digital SHA-256."
+
+msgid "Period from"
+msgstr "Período de"
+
+msgid "Period to"
+msgstr "até"
+
+msgid "Generate the PDF"
+msgstr "Gerar o PDF"
+
+msgid ""
+"Proposed period: since the previous management review (or the last twelve "
+"months) up to the date of this review. Figures follow your rights and active "
+"entities."
+msgstr ""
+"Período proposto: desde a análise crítica anterior (ou os últimos doze "
+"meses) até a data desta análise. Os números seguem seus direitos e entidades "
+"ativas."
+
+msgid ""
+"You need the right to update this review to generate its preparatory file."
+msgstr ""
+"É preciso ter o direito de modificar esta análise para gerar seu dossiê "
+"preparatório."
+
+msgid "Contents"
+msgstr "Conteúdo"
+
+msgid "Archived files"
+msgstr "Dossiês arquivados"
+
+msgid "Document deleted"
+msgstr "Documento excluído"
+
+msgid "SHA-256 fingerprint"
+msgstr "Impressão digital SHA-256"
+
+msgid "No preparatory file generated yet for this review."
+msgstr "Nenhum dossiê preparatório gerado ainda para esta análise."
+
+msgid "Actions decided at this review"
+msgstr "Ações decididas nesta análise"
+
+#, php-format
+msgid "%d action(s)"
+msgstr "%d ação(ões)"
+
+#, php-format
+msgid "%d done"
+msgstr "%d realizada(s)"
+
+msgid ""
+"Each decision becomes an action with an owner, a due date and a status. The "
+"preparatory file of the next review reports where they stand."
+msgstr ""
+"Cada decisão torna-se uma ação com um responsável, um prazo e um status. O "
+"dossiê preparatório da próxima análise informa o andamento."
+
+msgid "Create the actions from the decisions"
+msgstr "Criar as ações a partir das decisões"
+
+msgid ""
+"Write one decision per line in the \"Decisions and actions\" field of the "
+"review: each new line is offered here."
+msgstr ""
+"Escreva uma decisão por linha no campo \"Decisões e ações\" da análise: cada "
+"nova linha é proposta aqui."
+
+msgid "No action recorded for this review yet."
+msgstr "Nenhuma ação registrada ainda para esta análise."
+
+msgid "Period covered"
+msgstr "Período coberto"
+
+msgid "Perimeter"
+msgstr "Perímetro"
+
+msgid "Prepared by"
+msgstr "Preparado por"
+
+msgid ""
+"Figures are read from the GRC registers when the file is generated, with the "
+"rights and active entities of the person who generated it. A section whose "
+"register that person cannot read is marked as not included."
+msgstr ""
+"Os números são lidos dos registros GRC no momento da geração, com os "
+"direitos e entidades ativas de quem gerou o dossiê. Uma seção cujo registro "
+"essa pessoa não pode ler é indicada como não incluída."
+
+msgid "Input to review"
+msgstr "Item a analisar"
+
+msgid "Included"
+msgstr "Incluído"
+
+msgid "Not included (no right)"
+msgstr "Não incluído (sem direito)"
+
+msgid ""
+"Not included: the person who generated this file cannot read this register."
+msgstr "Não incluído: quem gerou este dossiê não pode ler este registro."
+
+msgid "Actions decided"
+msgstr "Ações decididas"
+
+msgid "Completion"
+msgstr "Conclusão"
+
+msgid ""
+"No action from a previous review is open or was completed during the period."
+msgstr ""
+"Nenhuma ação de uma análise anterior está aberta ou foi concluída no período."
+
 msgid "Updated during the period"
 msgstr "Atualizados no período"
 
@@ -19233,17 +19501,17 @@ msgstr "Declarados no período"
 msgid "Still open today"
 msgstr "Ainda abertos hoje"
 
-msgid "Security incidents not included: no right to read them, or module disabled."
-msgstr "Incidentes de segurança não incluídos: sem direito de leitura ou módulo desativado."
+msgid ""
+"Security incidents not included: no right to read them, or module disabled."
+msgstr ""
+"Incidentes de segurança não incluídos: sem direito de leitura ou módulo "
+"desativado."
 
 msgid "No internal audit was completed during the period."
 msgstr "Nenhuma auditoria interna foi concluída no período."
 
 msgid "No information security objective recorded."
 msgstr "Nenhum objetivo de segurança da informação registrado."
-
-msgid "Objective"
-msgstr "Objetivo"
 
 msgid "Target set"
 msgstr "Meta definida"
@@ -19290,14 +19558,25 @@ msgstr "Evolução desde o início do período"
 msgid "No monthly maturity score recorded during the period."
 msgstr "Nenhuma pontuação de maturidade mensal registrada no período."
 
-msgid "To be completed during the meeting: decisions on improvement opportunities, changes needed to the ISMS, and resources."
-msgstr "A completar durante a reunião: decisões sobre oportunidades de melhoria, mudanças necessárias no SGSI e recursos."
+msgid ""
+"To be completed during the meeting: decisions on improvement opportunities, "
+"changes needed to the ISMS, and resources."
+msgstr ""
+"A completar durante a reunião: decisões sobre oportunidades de melhoria, "
+"mudanças necessárias no SGSI e recursos."
 
-msgid "One decision per line: each line can then become a tracked action, with an owner and a due date, from the \"Preparatory file\" tab."
-msgstr "Uma decisão por linha: cada linha pode depois se tornar uma ação acompanhada, com um responsável e um prazo, na aba \"Dossiê preparatório\"."
+msgid ""
+"One decision per line: each line can then become a tracked action, with an "
+"owner and a due date, from the \"Preparatory file\" tab."
+msgstr ""
+"Uma decisão por linha: cada linha pode depois se tornar uma ação "
+"acompanhada, com um responsável e um prazo, na aba \"Dossiê preparatório\"."
 
-msgid "Choose a valid period: a start date before the end date, ten years at most."
-msgstr "Escolha um período válido: uma data de início anterior à data de fim, dez anos no máximo."
+msgid ""
+"Choose a valid period: a start date before the end date, ten years at most."
+msgstr ""
+"Escolha um período válido: uma data de início anterior à data de fim, dez "
+"anos no máximo."
 
 msgid "Preparatory file generated and attached to the review."
 msgstr "Dossiê preparatório gerado e anexado à análise."
@@ -19318,22 +19597,33 @@ msgid "Actions from previous reviews"
 msgstr "Ações de análises anteriores"
 
 msgid "Where the actions decided at earlier management reviews stand today."
-msgstr "Em que ponto estão hoje as ações decididas nas análises críticas anteriores."
+msgstr ""
+"Em que ponto estão hoje as ações decididas nas análises críticas anteriores."
 
 msgid "Context and interested parties"
 msgstr "Contexto e partes interessadas"
 
-msgid "Internal and external issues and interested parties: what changed during the period and what is overdue for review."
-msgstr "Questões internas e externas e partes interessadas: o que mudou no período e o que está com a revisão atrasada."
+msgid ""
+"Internal and external issues and interested parties: what changed during the "
+"period and what is overdue for review."
+msgstr ""
+"Questões internas e externas e partes interessadas: o que mudou no período e "
+"o que está com a revisão atrasada."
 
-msgid "Findings raised and closed during the period, and corrective actions still open or late."
-msgstr "Constatações registradas e encerradas no período, e ações corretivas ainda abertas ou atrasadas."
+msgid ""
+"Findings raised and closed during the period, and corrective actions still "
+"open or late."
+msgstr ""
+"Constatações registradas e encerradas no período, e ações corretivas ainda "
+"abertas ou atrasadas."
 
 msgid "Monitoring, measurement and incidents"
 msgstr "Monitoramento, medição e incidentes"
 
 msgid "Key risk indicators and information security incidents over the period."
-msgstr "Indicadores-chave de risco e incidentes de segurança da informação no período."
+msgstr ""
+"Indicadores-chave de risco e incidentes de segurança da informação no "
+"período."
 
 msgid "Audit results"
 msgstr "Resultados de auditoria"
@@ -19347,24 +19637,34 @@ msgstr "Status de cada objetivo e sua última medição do período."
 msgid "Risk assessment and treatment"
 msgstr "Avaliação e tratamento de riscos"
 
-msgid "Open risks by level, risks beyond appetite, and progress of the treatment plan."
-msgstr "Riscos abertos por nível, riscos acima do apetite e andamento do plano de tratamento."
+msgid ""
+"Open risks by level, risks beyond appetite, and progress of the treatment "
+"plan."
+msgstr ""
+"Riscos abertos por nível, riscos acima do apetite e andamento do plano de "
+"tratamento."
 
-msgid "Implementation of the applicable controls and the latest approved version of the SoA."
-msgstr "Implementação dos controles aplicáveis e última versão aprovada da SoA."
+msgid ""
+"Implementation of the applicable controls and the latest approved version of "
+"the SoA."
+msgstr ""
+"Implementação dos controles aplicáveis e última versão aprovada da SoA."
 
 msgid "Opportunities for improvement"
 msgstr "Oportunidades de melhoria"
 
 msgid "Maturity score over the period and consistency gaps still to fix."
-msgstr "Pontuação de maturidade no período e lacunas de consistência ainda a corrigir."
+msgstr ""
+"Pontuação de maturidade no período e lacunas de consistência ainda a "
+"corrigir."
 
 msgid "Management review preparatory file"
 msgstr "Dossiê preparatório da análise crítica pela direção"
 
 #, php-format
 msgid "Management review preparatory file - %1$s (%2$s to %3$s)"
-msgstr "Dossiê preparatório da análise crítica pela direção - %1$s (de %2$s a %3$s)"
+msgstr ""
+"Dossiê preparatório da análise crítica pela direção - %1$s (de %2$s a %3$s)"
 
 #, php-format
 msgid "%d action created from the decisions."
@@ -19381,14 +19681,304 @@ msgid "Preparatory file"
 msgid_plural "Preparatory files"
 msgstr[0] "Dossiê preparatório"
 msgstr[1] "Dossiês preparatórios"
-msgid "Items past their review date"
-msgstr "Itens com data de revisão vencida"
 
-msgid "Not answered yet"
-msgstr "Ainda sem resposta"
+msgid "Audit checklist"
+msgstr "Lista de verificação de auditoria"
 
-msgid "No item recorded."
-msgstr "Nenhum item registrado."
+#, php-format
+msgid "%1$d of %2$d audited"
+msgstr "%1$d de %2$d auditados"
+
+msgid "Question asked"
+msgstr "Pergunta feita"
+
+msgid "Auditee"
+msgstr "Auditado"
+
+msgid "Evidence examined"
+msgstr "Evidências examinadas"
+
+msgid "Audit programme coverage"
+msgstr "Cobertura do programa de auditoria"
+
+msgid ""
+"The audit programme must cover the whole ISMS over the certification cycle. "
+"For each ISMS requirement and each applicable control, this page shows the "
+"last internal audit that gave it a result in its audit checklist, and lists "
+"first those never audited over the period. Cancelled audits and lines left "
+"\"Not audited\" do not count; the date is the actual date of the audit, "
+"otherwise its planned date."
+msgstr ""
+"O programa de auditoria deve cobrir todo o SGSI durante o ciclo de "
+"certificação. Para cada requisito do SGSI e cada controle aplicável, esta "
+"página mostra a última auditoria interna que lhe deu um resultado em sua "
+"lista de verificação, e lista primeiro os nunca auditados no período. "
+"Auditorias canceladas e linhas deixadas como \"Não auditado\" não contam; a "
+"data é a data real da auditoria, senão sua data prevista."
+
+#, php-format
+msgid "Since %s"
+msgstr "Desde %s"
+
+msgid "Requirements and controls"
+msgstr "Requisitos e controles"
+
+#, php-format
+msgid "Audited over the period (%d %%)"
+msgstr "Auditados no período (%d %%)"
+
+msgid "Never audited over the period"
+msgstr "Nunca auditados no período"
+
+msgid "No ISMS requirement nor applicable control to show."
+msgstr "Nenhum requisito do SGSI nem controle aplicável a exibir."
+
+msgid "Last audit"
+msgstr "Última auditoria"
+
+msgid "Never audited"
+msgstr "Nunca auditado"
+
+msgid ""
+"The audit checklist is reserved to the audit team and the CISO group, like "
+"the documents of the audit. Ask the audit owner to add you to the \"Team\" "
+"tab."
+msgstr ""
+"A lista de verificação da auditoria é reservada à equipe de auditoria e ao "
+"grupo do CISO, como os documentos da auditoria. Peça ao responsável pela "
+"auditoria para adicioná-lo na aba \"Equipe\"."
+
+msgid "Lines with a result"
+msgstr "Linhas com um resultado"
+
+msgid "Audit report (PDF)"
+msgstr "Relatório de auditoria (PDF)"
+
+msgid ""
+"One line per audited requirement: write the question you asked, who you "
+"interviewed, the evidence you examined (text, and documents of the "
+"\"Documents\" tab), then the result. For a non-conformity, an observation or "
+"an opportunity for improvement, \"Create the finding\" opens a pre-filled "
+"non-conformity that you review and save yourself. Like the documents of the "
+"audit, only the audit team and the CISO group see this checklist."
+msgstr ""
+"Uma linha por requisito auditado: anote a pergunta feita, a pessoa "
+"entrevistada, as evidências examinadas (texto e documentos da aba "
+"\"Documentos\") e depois o resultado. Para uma não conformidade, uma "
+"observação ou uma oportunidade de melhoria, \"Criar a constatação\" abre uma "
+"não conformidade pré-preenchida que você revisa e salva. Como os documentos "
+"da auditoria, apenas a equipe de auditoria e o grupo do CISO veem esta lista."
+
+msgid ""
+"This audit is completed or cancelled: its checklist is read only. Set the "
+"audit back to \"In progress\" to change it."
+msgstr ""
+"Esta auditoria está concluída ou cancelada: sua lista é somente leitura. "
+"Volte a auditoria para \"Em andamento\" para alterá-la."
+
+msgid ""
+"The checklist is empty. Add the requirements to audit below, or apply a "
+"checklist template."
+msgstr ""
+"A lista está vazia. Adicione abaixo os requisitos a auditar ou aplique um "
+"modelo de lista."
+
+msgid "The checklist is empty."
+msgstr "A lista está vazia."
+
+msgid "No question yet"
+msgstr "Ainda sem pergunta"
+
+msgid "Create the finding"
+msgstr "Criar a constatação"
+
+msgid "No finding yet"
+msgstr "Ainda sem constatação"
+
+msgid "Fill in"
+msgstr "Preencher"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "Documents of the audit"
+msgstr "Documentos da auditoria"
+
+msgid "Add documents to the \"Documents\" tab of the audit to cite them here."
+msgstr ""
+"Adicione documentos na aba \"Documentos\" da auditoria para citá-los aqui."
+
+msgid "Linked finding"
+msgstr "Constatação vinculada"
+
+msgid ""
+"Remove this line from the checklist? A finding created from it stays in the "
+"non-conformity register."
+msgstr ""
+"Remover esta linha da lista? Uma constatação criada a partir dela permanece "
+"no registro de não conformidades."
+
+msgid "Remove the line"
+msgstr "Remover a linha"
+
+#, php-format
+msgid "Last change: %1$s, %2$s"
+msgstr "Última alteração: %1$s, %2$s"
+
+msgid "Add requirements to audit"
+msgstr "Adicionar requisitos a auditar"
+
+msgid "Every proposed requirement is already in the checklist."
+msgstr "Todos os requisitos propostos já estão na lista."
+
+msgid ""
+"ISMS requirements (clauses 4 to 10), applicable Annex A controls of the "
+"statement of applicability, and requirements of the enabled custom "
+"frameworks. Requirements already in the checklist are not offered again."
+msgstr ""
+"Requisitos do SGSI (cláusulas 4 a 10), controles aplicáveis do Anexo A da "
+"declaração de aplicabilidade e requisitos dos frameworks personalizados "
+"ativados. Os requisitos já presentes na lista não são propostos novamente."
+
+msgid "The controls of the audit scope (audit form) are preselected."
+msgstr ""
+"Os controles do escopo da auditoria (ficha da auditoria) estão pré-"
+"selecionados."
+
+msgid "Add to the checklist"
+msgstr "Adicionar à lista"
+
+msgid "Free item"
+msgstr "Item livre"
+
+msgid "An internal rule, a process or a site, for example"
+msgstr "Uma regra interna, um processo ou um local, por exemplo"
+
+msgid "Add this item"
+msgstr "Adicionar este item"
+
+msgid "Checklist templates"
+msgstr "Modelos de lista"
+
+msgid ""
+"A template keeps the requirements and the questions of a checklist, never "
+"the answers. Reuse it from one audit to the next, for example \"Annual "
+"access control audit\"."
+msgstr ""
+"Um modelo mantém os requisitos e as perguntas de uma lista, nunca as "
+"respostas. Reutilize-o de uma auditoria para outra, por exemplo \"Auditoria "
+"anual do controle de acesso\"."
+
+msgid "Add its lines to the checklist"
+msgstr "Adicionar suas linhas à lista"
+
+msgid ""
+"Delete this template? The checklists already built from it do not change."
+msgstr "Excluir este modelo? As listas já criadas a partir dele não mudam."
+
+msgid "Delete the template"
+msgstr "Excluir o modelo"
+
+msgid "No checklist template yet."
+msgstr "Ainda não há modelos de lista."
+
+msgid "Save this checklist as a template"
+msgstr "Salvar esta lista como modelo"
+
+msgid "Name of the template"
+msgstr "Nome do modelo"
+
+msgid "Save as template"
+msgstr "Salvar como modelo"
+
+#, php-format
+msgid ""
+"Finding proposed from the audit checklist (%s): review and adapt each field, "
+"then click \"Add\". Nothing is created before, and the checklist line is "
+"linked to this finding once it is saved."
+msgstr ""
+"Constatação proposta a partir da lista de verificação (%s): revise e adapte "
+"cada campo e clique em \"Adicionar\". Nada é criado antes, e a linha da "
+"lista é vinculada a esta constatação depois de salva."
+
+msgid "Audit checklist line"
+msgstr "Linha da lista de auditoria"
+
+msgid "Checklist template deleted."
+msgstr "Modelo de lista excluído."
+
+msgid "Checklist template saved."
+msgstr "Modelo de lista salvo."
+
+msgid "Checklist line saved."
+msgstr "Linha da lista salva."
+
+msgid "Minor non-conformity"
+msgstr "Não conformidade menor"
+
+msgid "Major non-conformity"
+msgstr "Não conformidade maior"
+
+msgid "Observation"
+msgstr "Observação"
+
+msgid "Opportunity for improvement"
+msgstr "Oportunidade de melhoria"
+
+msgid "Not audited"
+msgstr "Não auditado"
+
+msgid "Framework requirement"
+msgstr "Requisito de framework"
+
+msgid "Applicable Annex A controls"
+msgstr "Controles aplicáveis do Anexo A"
+
+msgid "Give at least a title or a question for the free item."
+msgstr "Informe pelo menos um título ou uma pergunta para o item livre."
+
+msgid "Audited requirement"
+msgstr "Requisito auditado"
+
+msgid "Auditor comment"
+msgstr "Comentário do auditor"
+
+msgid "Give the template a name."
+msgstr "Dê um nome ao modelo."
+
+msgid ""
+"The checklist is empty: add requirements before saving it as a template."
+msgstr "A lista está vazia: adicione requisitos antes de salvá-la como modelo."
+
+msgid "A checklist template with this name already exists."
+msgstr "Já existe um modelo de lista com este nome."
+
+#, php-format
+msgid ""
+"%d line of the template was already in the checklist or is no longer offered."
+msgid_plural ""
+"%d lines of the template were already in the checklist or are no longer "
+"offered."
+msgstr[0] "%d linha do modelo já estava na lista ou não é mais proposta."
+msgstr[1] "%d linhas do modelo já estavam na lista ou não são mais propostas."
+
+#, php-format
+msgid "Last %d year"
+msgid_plural "Last %d years"
+msgstr[0] "Último %d ano"
+msgstr[1] "Últimos %d anos"
+
+#, php-format
+msgid "%d line added to the checklist."
+msgid_plural "%d lines added to the checklist."
+msgstr[0] "%d linha adicionada à lista."
+msgstr[1] "%d linhas adicionadas à lista."
+
+#, php-format
+msgid "%1$s (%2$d line)"
+msgid_plural "%1$s (%2$d lines)"
+msgstr[0] "%1$s (%2$d linha)"
+msgstr[1] "%1$s (%2$d linhas)"
 
 msgid "Activities"
 msgstr "Atividades"
@@ -19717,301 +20307,3 @@ msgstr[1] "Matrizes de responsabilidades arquivadas"
 
 msgid "ISMS responsibility matrix - %s"
 msgstr "Matriz de responsabilidades do SGSI - %s"
-
-msgid "Audit checklist"
-msgstr "Lista de verificação de auditoria"
-
-#, php-format
-msgid "%1$d of %2$d audited"
-msgstr "%1$d de %2$d auditados"
-
-msgid "Question asked"
-msgstr "Pergunta feita"
-
-msgid "Auditee"
-msgstr "Auditado"
-
-msgid "Evidence examined"
-msgstr "Evidências examinadas"
-
-msgid "Audit programme coverage"
-msgstr "Cobertura do programa de auditoria"
-
-msgid ""
-"The audit programme must cover the whole ISMS over the certification cycle. "
-"For each ISMS requirement and each applicable control, this page shows the "
-"last internal audit that gave it a result in its audit checklist, and lists "
-"first those never audited over the period. Cancelled audits and lines left "
-"\"Not audited\" do not count; the date is the actual date of the audit, "
-"otherwise its planned date."
-msgstr ""
-"O programa de auditoria deve cobrir todo o SGSI durante o ciclo de "
-"certificação. Para cada requisito do SGSI e cada controle aplicável, esta "
-"página mostra a última auditoria interna que lhe deu um resultado em sua "
-"lista de verificação, e lista primeiro os nunca auditados no período. "
-"Auditorias canceladas e linhas deixadas como \"Não auditado\" não contam; a "
-"data é a data real da auditoria, senão sua data prevista."
-
-#, php-format
-msgid "Since %s"
-msgstr "Desde %s"
-
-msgid "Requirements and controls"
-msgstr "Requisitos e controles"
-
-#, php-format
-msgid "Audited over the period (%d %%)"
-msgstr "Auditados no período (%d %%)"
-
-msgid "Never audited over the period"
-msgstr "Nunca auditados no período"
-
-msgid "No ISMS requirement nor applicable control to show."
-msgstr "Nenhum requisito do SGSI nem controle aplicável a exibir."
-
-msgid "Last audit"
-msgstr "Última auditoria"
-
-msgid "Never audited"
-msgstr "Nunca auditado"
-
-msgid ""
-"The audit checklist is reserved to the audit team and the CISO group, like "
-"the documents of the audit. Ask the audit owner to add you to the \"Team\" "
-"tab."
-msgstr ""
-"A lista de verificação da auditoria é reservada à equipe de auditoria e ao "
-"grupo do CISO, como os documentos da auditoria. Peça ao responsável pela "
-"auditoria para adicioná-lo na aba \"Equipe\"."
-
-msgid "Lines with a result"
-msgstr "Linhas com um resultado"
-
-msgid "Audit report (PDF)"
-msgstr "Relatório de auditoria (PDF)"
-
-msgid ""
-"One line per audited requirement: write the question you asked, who you "
-"interviewed, the evidence you examined (text, and documents of the "
-"\"Documents\" tab), then the result. For a non-conformity, an observation or "
-"an opportunity for improvement, \"Create the finding\" opens a pre-filled "
-"non-conformity that you review and save yourself. Like the documents of the "
-"audit, only the audit team and the CISO group see this checklist."
-msgstr ""
-"Uma linha por requisito auditado: anote a pergunta feita, a pessoa "
-"entrevistada, as evidências examinadas (texto e documentos da aba "
-"\"Documentos\") e depois o resultado. Para uma não conformidade, uma "
-"observação ou uma oportunidade de melhoria, \"Criar a constatação\" abre uma "
-"não conformidade pré-preenchida que você revisa e salva. Como os documentos "
-"da auditoria, apenas a equipe de auditoria e o grupo do CISO veem esta lista."
-
-msgid ""
-"This audit is completed or cancelled: its checklist is read only. Set the "
-"audit back to \"In progress\" to change it."
-msgstr ""
-"Esta auditoria está concluída ou cancelada: sua lista é somente leitura. "
-"Volte a auditoria para \"Em andamento\" para alterá-la."
-
-msgid ""
-"The checklist is empty. Add the requirements to audit below, or apply a "
-"checklist template."
-msgstr ""
-"A lista está vazia. Adicione abaixo os requisitos a auditar ou aplique um "
-"modelo de lista."
-
-msgid "The checklist is empty."
-msgstr "A lista está vazia."
-
-msgid "No question yet"
-msgstr "Ainda sem pergunta"
-
-msgid "Create the finding"
-msgstr "Criar a constatação"
-
-msgid "No finding yet"
-msgstr "Ainda sem constatação"
-
-msgid "Fill in"
-msgstr "Preencher"
-
-msgid "Number"
-msgstr "Número"
-
-msgid "Documents of the audit"
-msgstr "Documentos da auditoria"
-
-msgid "Add documents to the \"Documents\" tab of the audit to cite them here."
-msgstr ""
-"Adicione documentos na aba \"Documentos\" da auditoria para citá-los aqui."
-
-msgid "Linked finding"
-msgstr "Constatação vinculada"
-
-msgid ""
-"Remove this line from the checklist? A finding created from it stays in the "
-"non-conformity register."
-msgstr ""
-"Remover esta linha da lista? Uma constatação criada a partir dela permanece "
-"no registro de não conformidades."
-
-msgid "Remove the line"
-msgstr "Remover a linha"
-
-#, php-format
-msgid "Last change: %1$s, %2$s"
-msgstr "Última alteração: %1$s, %2$s"
-
-msgid "Add requirements to audit"
-msgstr "Adicionar requisitos a auditar"
-
-msgid "Every proposed requirement is already in the checklist."
-msgstr "Todos os requisitos propostos já estão na lista."
-
-msgid ""
-"ISMS requirements (clauses 4 to 10), applicable Annex A controls of the "
-"statement of applicability, and requirements of the enabled custom "
-"frameworks. Requirements already in the checklist are not offered again."
-msgstr ""
-"Requisitos do SGSI (cláusulas 4 a 10), controles aplicáveis do Anexo A da "
-"declaração de aplicabilidade e requisitos dos frameworks personalizados "
-"ativados. Os requisitos já presentes na lista não são propostos novamente."
-
-msgid "The controls of the audit scope (audit form) are preselected."
-msgstr ""
-"Os controles do escopo da auditoria (ficha da auditoria) estão pré-"
-"selecionados."
-
-msgid "Add to the checklist"
-msgstr "Adicionar à lista"
-
-msgid "Free item"
-msgstr "Item livre"
-
-msgid "An internal rule, a process or a site, for example"
-msgstr "Uma regra interna, um processo ou um local, por exemplo"
-
-msgid "Add this item"
-msgstr "Adicionar este item"
-
-msgid "Checklist templates"
-msgstr "Modelos de lista"
-
-msgid ""
-"A template keeps the requirements and the questions of a checklist, never "
-"the answers. Reuse it from one audit to the next, for example \"Annual "
-"access control audit\"."
-msgstr ""
-"Um modelo mantém os requisitos e as perguntas de uma lista, nunca as "
-"respostas. Reutilize-o de uma auditoria para outra, por exemplo \"Auditoria "
-"anual do controle de acesso\"."
-
-msgid "Add its lines to the checklist"
-msgstr "Adicionar suas linhas à lista"
-
-msgid ""
-"Delete this template? The checklists already built from it do not change."
-msgstr "Excluir este modelo? As listas já criadas a partir dele não mudam."
-
-msgid "Delete the template"
-msgstr "Excluir o modelo"
-
-msgid "No checklist template yet."
-msgstr "Ainda não há modelos de lista."
-
-msgid "Save this checklist as a template"
-msgstr "Salvar esta lista como modelo"
-
-msgid "Name of the template"
-msgstr "Nome do modelo"
-
-msgid "Save as template"
-msgstr "Salvar como modelo"
-
-#, php-format
-msgid ""
-"Finding proposed from the audit checklist (%s): review and adapt each field, "
-"then click \"Add\". Nothing is created before, and the checklist line is "
-"linked to this finding once it is saved."
-msgstr ""
-"Constatação proposta a partir da lista de verificação (%s): revise e adapte "
-"cada campo e clique em \"Adicionar\". Nada é criado antes, e a linha da "
-"lista é vinculada a esta constatação depois de salva."
-
-msgid "Audit checklist line"
-msgstr "Linha da lista de auditoria"
-
-msgid "Checklist template deleted."
-msgstr "Modelo de lista excluído."
-
-msgid "Checklist template saved."
-msgstr "Modelo de lista salvo."
-
-msgid "Checklist line saved."
-msgstr "Linha da lista salva."
-
-msgid "Minor non-conformity"
-msgstr "Não conformidade menor"
-
-msgid "Major non-conformity"
-msgstr "Não conformidade maior"
-
-msgid "Observation"
-msgstr "Observação"
-
-msgid "Opportunity for improvement"
-msgstr "Oportunidade de melhoria"
-
-msgid "Not audited"
-msgstr "Não auditado"
-
-msgid "Framework requirement"
-msgstr "Requisito de framework"
-
-msgid "Applicable Annex A controls"
-msgstr "Controles aplicáveis do Anexo A"
-
-msgid "Give at least a title or a question for the free item."
-msgstr "Informe pelo menos um título ou uma pergunta para o item livre."
-
-msgid "Audited requirement"
-msgstr "Requisito auditado"
-
-msgid "Auditor comment"
-msgstr "Comentário do auditor"
-
-msgid "Give the template a name."
-msgstr "Dê um nome ao modelo."
-
-msgid ""
-"The checklist is empty: add requirements before saving it as a template."
-msgstr "A lista está vazia: adicione requisitos antes de salvá-la como modelo."
-
-msgid "A checklist template with this name already exists."
-msgstr "Já existe um modelo de lista com este nome."
-
-#, php-format
-msgid ""
-"%d line of the template was already in the checklist or is no longer offered."
-msgid_plural ""
-"%d lines of the template were already in the checklist or are no longer "
-"offered."
-msgstr[0] "%d linha do modelo já estava na lista ou não é mais proposta."
-msgstr[1] "%d linhas do modelo já estavam na lista ou não são mais propostas."
-
-#, php-format
-msgid "Last %d year"
-msgid_plural "Last %d years"
-msgstr[0] "Último %d ano"
-msgstr[1] "Últimos %d anos"
-
-#, php-format
-msgid "%d line added to the checklist."
-msgid_plural "%d lines added to the checklist."
-msgstr[0] "%d linha adicionada à lista."
-msgstr[1] "%d linhas adicionadas à lista."
-
-#, php-format
-msgid "%1$s (%2$d line)"
-msgid_plural "%1$s (%2$d lines)"
-msgstr[0] "%1$s (%2$d linha)"
-msgstr[1] "%1$s (%2$d linhas)"

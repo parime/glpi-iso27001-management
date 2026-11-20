@@ -165,9 +165,12 @@ class CrisisExercise extends CrisisExerciseBase
     /**
      * Lance l'exercice : incident fictif, une tâche par étape, chronomètre démarré.
      *
+     * Issue #732 : les objectifs de l'exercice, un par ligne, sont fixés au lancement.
+     *
+     * @param list<string> $objectives
      * @return int identifiant de l'exercice, 0 en cas d'échec
      */
-    public static function launch(string $scenario): int
+    public static function launch(string $scenario, array $objectives = []): int
     {
         $scenarios = self::getScenarios();
         if (!isset($scenarios[$scenario], ExerciseRules::SCENARIOS[$scenario])) {
@@ -192,7 +195,13 @@ class CrisisExercise extends CrisisExerciseBase
             return 0;
         }
 
-        return self::open($incident, $scenario, $now);
+        $exerciseId = self::open($incident, $scenario, $now);
+        $exercise = new self();
+        if ($exerciseId > 0 && $objectives !== [] && $exercise->getFromDB($exerciseId)) {
+            CrisisExerciseReview::addObjectives($exercise, $objectives);
+        }
+
+        return $exerciseId;
     }
 
     /**
@@ -551,8 +560,11 @@ class CrisisExercise extends CrisisExerciseBase
         }
         $incident = $this->getIncident();
         $endTime = $ended ? (string) $this->fields['ended_at'] : Session::getCurrentTime();
+        $drill = $incident === null || !empty($incident->fields['is_exercise']);
 
         return [
+            // Issue #732 : bilan après exercice (objectifs, constats, plan d'amélioration, validation).
+            'review'       => $drill && $incident !== null ? CrisisExerciseReview::collect($this) : null,
             'exercise'     => [
                 'id'           => $this->getID(),
                 'scenario'     => self::getScenarios()[$this->fields['scenario']]['label'] ?? $this->fields['scenario'],
@@ -563,11 +575,13 @@ class CrisisExercise extends CrisisExerciseBase
                 'duration'     => ExerciseRules::minutesSince($started, $endTime),
                 'organizer'    => getUserName((int) $this->fields['users_id']),
                 'documents_id' => (int) $this->fields['documents_id'],
+                // Issue #732 : bilan validé (date et responsable dans « review »).
+                'validated'    => !empty($this->fields['validated_at']),
                 'document_url' => (int) $this->fields['documents_id'] > 0
                     ? Document::getFormURLWithID((int) $this->fields['documents_id'])
                     : '',
             ],
-            'drill'        => $incident === null || !empty($incident->fields['is_exercise']),
+            'drill'        => $drill,
             'recovery'     => $this->recovery(),
             'journal'      => $this->journal(Session::haveRight('followup', ITILFollowup::SEEPRIVATE)),
             'incident'     => [
@@ -702,6 +716,11 @@ class CrisisExercise extends CrisisExerciseBase
         }
 
         return $list;
+    }
+
+    public function cleanDBonPurge()
+    {
+        CrisisExerciseReview::purgeFor($this->getID());
     }
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)

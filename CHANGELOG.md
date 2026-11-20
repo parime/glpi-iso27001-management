@@ -7,6 +7,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.61.0] - 2026-11-20
+
+### Added
+
+- **Exercices de crise : bilan après exercice, plan d'amélioration et validation du rapport**
+  (issue #732 ; ISO 27001 A.5.29 et A.5.30).
+  - Objectifs de l'exercice saisis au lancement (un par ligne) ou pendant l'exercice, évalués à la
+    clôture « atteint », « partiellement atteint » ou « non atteint », avec un commentaire.
+  - Constats (écarts relevés pendant ou après l'exercice) avec leur gravité. Depuis un constat, et
+    seulement sur clic, création d'une non-conformité (rattachée à l'incident de l'exercice) ou
+    d'une action de traitement d'un risque existant, avec responsable et échéance ; le bilan
+    affiche leur avancement et signale celles en retard. Statut, priorité et affectation de ces
+    actions ne sont jamais modifiés par le bilan.
+  - Validation du bilan par un responsable : nouveau droit « Valider les bilans d'exercice » sur
+    la continuité d'activité (onglet GRC Manager des profils, donné au seul Super-Admin). La
+    validation exige un exercice terminé et chaque objectif évalué ; elle retient la date et la
+    personne et archive le rapport validé. Un bilan validé n'est plus modifiable sans repasser en
+    brouillon, avec un motif obligatoire conservé dans l'historique des validations.
+  - Le rapport PDF reprend objectifs, constats, actions d'amélioration et validation ; la liste
+    des exercices signale les bilans validés.
+
 ## [2.60.0] - 2026-11-19
 
 ## [2.59.0] - 2026-11-19

@@ -173,6 +173,7 @@
                {% endfor %}
             </ul>
          {% endif %}
+         {% if review %}{% include '@grcmanager/_crisis_review.html.twig' %}{% endif %}
       </div>
       <div class="col-lg-4">
          <div class="card">
@@ -182,6 +183,10 @@
                   <li>{{ __('Steps done', 'grcmanager') }} : <strong>{{ summary.done }} / {{ summary.total }}</strong></li>
                   <li>{{ __('Steps on time', 'grcmanager') }} : <strong>{{ summary.on_time }}</strong> ({{ summary.rate }} %)</li>
                   <li>{{ __('Average reaction time', 'grcmanager') }} : <strong>{{ summary.average is null ? '-' : summary.average ~ ' min' }}</strong></li>
+                  {% if review %}
+                     <li>{{ __('Objectives achieved', 'grcmanager') }} : <strong>{{ review.objectives_summary.met }} / {{ review.objectives_summary.total }}</strong></li>
+                     <li>{{ __('Improvement actions overdue', 'grcmanager') }} : <strong class="{{ review.plan_summary.overdue > 0 ? 'text-danger' }}">{{ review.plan_summary.overdue }}</strong></li>
+                  {% endif %}
                   {% if recovery is not empty %}
                      <li>{{ __('Items restored', 'grcmanager') }} : <strong>{{ recovery|filter(r => r.restored_at)|length }} / {{ recovery|length }}</strong></li>
                      <li>{{ __('RTOs exceeded', 'grcmanager') }} : <strong>{{ recovery|filter(r => r.state in ['overdue', 'restored_late'])|length }}</strong></li>
@@ -192,7 +197,7 @@
                   {% if exercise.document_url %}
                      <a href="{{ exercise.document_url }}" class="btn btn-primary"><i class="ti ti-file-type-pdf me-1"></i>{{ drill ? __('Open the exercise report', 'grcmanager') : __('Open the crisis report', 'grcmanager') }}</a>
                   {% endif %}
-                  {% if can_act %}
+                  {% if can_act and not exercise.validated %}
                      <form method="post" action="{{ action }}" class="mt-2">
                         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="id" value="{{ exercise.id }}">
