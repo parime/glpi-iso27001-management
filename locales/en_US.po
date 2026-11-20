@@ -29735,3 +29735,65 @@ msgid ""
 "The individual results have been deleted. The rates of the campaign are kept."
 msgstr ""
 "The individual results have been deleted. The rates of the campaign are kept."
+
+msgid "Gaps with a training planned"
+msgstr "Gaps with a training planned"
+
+msgid "Training planned"
+msgstr "Training planned"
+
+msgid "Proposed session to close competence gaps: the people who lack a competence given by this training, and are not yet enrolled, are preselected. Fill in the date, check the list, then click \"Add\". Nothing is saved before that."
+msgstr "Proposed session to close competence gaps: the people who lack a competence given by this training, and are not yet enrolled, are preselected. Fill in the date, check the list, then click \"Add\". Nothing is saved before that."
+
+msgid "Gaps for which the person is already enrolled in a training that gives the competence."
+msgstr "Gaps for which the person is already enrolled in a training that gives the competence."
+
+msgid "Trainings to plan"
+msgstr "Trainings to plan"
+
+msgid "For each training that closes a gap, the people concerned who are not yet enrolled. \"Prepare a session\" opens a new session of the training with these people preselected: you check the date and the list, and nothing is saved before you click \"Add\"."
+msgstr "For each training that closes a gap, the people concerned who are not yet enrolled. \"Prepare a session\" opens a new session of the training with these people preselected: you check the date and the list, and nothing is saved before you click \"Add\"."
+
+msgid "Competences concerned"
+msgstr "Competences concerned"
+
+msgid "People to enrol"
+msgstr "People to enrol"
+
+msgid "Prepare a session"
+msgstr "Prepare a session"
+
+msgid "Coverage of the required competences (%)"
+msgstr "Coverage of the required competences (%)"
+
+msgid "Define and check the competences"
+msgstr "Define and check the competences"
+
+msgid "For each function of the management system, list the competences it requires, say who holds it, record the competences acquired with their evidence, plan a training for each gap and archive the competence file."
+msgstr "For each function of the management system, list the competences it requires, say who holds it, record the competences acquired with their evidence, plan a training for each gap and archive the competence file."
+
+#, php-format
+msgid "ISMS functions: %d"
+msgstr "ISMS functions: %d"
+
+#, php-format
+msgid "Functions without required competences: %d"
+msgstr "Functions without required competences: %d"
+
+#, php-format
+msgid "Functions that nobody holds: %d"
+msgstr "Functions that nobody holds: %d"
+
+#, php-format
+msgid "Competence gaps: %1$d, of which %2$d without a planned training"
+msgstr "Competence gaps: %1$d, of which %2$d without a planned training"
+
+#, php-format
+msgid "Archived competence files: %d"
+msgstr "Archived competence files: %d"
+
+#, php-format
+msgid "%d with a training planned"
+msgid_plural "%d with a training planned"
+msgstr[0] "%d with a training planned"
+msgstr[1] "%d with a training planned"

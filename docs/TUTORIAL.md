@@ -1216,6 +1216,16 @@ To give a subsidiary its own Statement of Applicability:
 7. Everyone finds their own competences in their preferences ("My competences" tab). The manager sees
    the matrix and the "Competences" tab of each user, with the plugin right and the right to read
    users, for the people of their entities.
+8. A gap for which the person is already enrolled in a training (or a session) that gives the
+   competence at the expected level shows **Training planned**. The **Trainings to plan** card lists,
+   for each training that closes a gap, the people not yet enrolled: **Prepare a session** opens a
+   new session of the training with these people preselected. Check the date and the list, then
+   click "Add": nothing is saved before.
+9. On the **Certification readiness** page, the step "Define and check the competences" (7.2) is done
+   when each function has its required competences and its holders, each gap has a planned training
+   and the competence file is archived. The dashboard card "Coverage of the required competences
+   (%)" follows the same figures.
+
 ### Step 22: Keep the register of official contacts (controls A.5.5 and A.5.6)
 
 1. Open Compliance > **Official contacts** (tab next to "Context of the organization"). The "What is

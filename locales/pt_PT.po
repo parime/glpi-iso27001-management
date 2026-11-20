@@ -24832,3 +24832,65 @@ msgid ""
 "The individual results have been deleted. The rates of the campaign are kept."
 msgstr ""
 "Os resultados individuais foram excluídos. As taxas da campanha são mantidas."
+
+msgid "Gaps with a training planned"
+msgstr "Lacunas com uma formação prevista"
+
+msgid "Training planned"
+msgstr "Formação prevista"
+
+msgid "Proposed session to close competence gaps: the people who lack a competence given by this training, and are not yet enrolled, are preselected. Fill in the date, check the list, then click \"Add\". Nothing is saved before that."
+msgstr "Sessão proposta para fechar lacunas de competência: as pessoas a quem falta uma competência dada por esta formação, e que ainda não estão inscritas, estão pré-selecionadas. Preencha a data, verifique a lista e clique em \"Adicionar\". Nada é salvo antes disso."
+
+msgid "Gaps for which the person is already enrolled in a training that gives the competence."
+msgstr "Lacunas para as quais a pessoa já está inscrita em uma formação que dá a competência."
+
+msgid "Trainings to plan"
+msgstr "Formações a planejar"
+
+msgid "For each training that closes a gap, the people concerned who are not yet enrolled. \"Prepare a session\" opens a new session of the training with these people preselected: you check the date and the list, and nothing is saved before you click \"Add\"."
+msgstr "Para cada formação que fecha uma lacuna, as pessoas envolvidas que ainda não estão inscritas. \"Preparar uma sessão\" abre uma nova sessão da formação com essas pessoas pré-selecionadas: você verifica a data e a lista, e nada é salvo antes de clicar em \"Adicionar\"."
+
+msgid "Competences concerned"
+msgstr "Competências envolvidas"
+
+msgid "People to enrol"
+msgstr "Pessoas a inscrever"
+
+msgid "Prepare a session"
+msgstr "Preparar uma sessão"
+
+msgid "Coverage of the required competences (%)"
+msgstr "Cobertura das competências exigidas (%)"
+
+msgid "Define and check the competences"
+msgstr "Definir e verificar as competências"
+
+msgid "For each function of the management system, list the competences it requires, say who holds it, record the competences acquired with their evidence, plan a training for each gap and archive the competence file."
+msgstr "Para cada função do sistema de gestão, liste as competências que ela exige, diga quem a ocupa, registre as competências adquiridas com sua evidência, planeje uma formação para cada lacuna e arquive o dossiê de competências."
+
+#, php-format
+msgid "ISMS functions: %d"
+msgstr "Funções do SGSI: %d"
+
+#, php-format
+msgid "Functions without required competences: %d"
+msgstr "Funções sem competências exigidas: %d"
+
+#, php-format
+msgid "Functions that nobody holds: %d"
+msgstr "Funções que ninguém ocupa: %d"
+
+#, php-format
+msgid "Competence gaps: %1$d, of which %2$d without a planned training"
+msgstr "Lacunas de competência: %1$d, das quais %2$d sem formação planejada"
+
+#, php-format
+msgid "Archived competence files: %d"
+msgstr "Dossiês de competências arquivados: %d"
+
+#, php-format
+msgid "%d with a training planned"
+msgid_plural "%d with a training planned"
+msgstr[0] "%d com uma formação prevista"
+msgstr[1] "%d com uma formação prevista"

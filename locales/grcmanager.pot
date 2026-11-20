@@ -29456,3 +29456,96 @@ msgstr ""
 msgid ""
 "The individual results have been deleted. The rates of the campaign are kept."
 msgstr ""
+
+#: templates/pdf/competence_report.html.twig
+msgid "Gaps with a training planned"
+msgstr ""
+
+#: templates/pdf/competence_report.html.twig
+#: templates/competence_page.html.twig templates/competence_sheet.html.twig
+msgid "Training planned"
+msgstr ""
+
+#: templates/training_form.html.twig
+msgid ""
+"Proposed session to close competence gaps: the people who lack a competence "
+"given by this training, and are not yet enrolled, are preselected. Fill in "
+"the date, check the list, then click \"Add\". Nothing is saved before that."
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid ""
+"Gaps for which the person is already enrolled in a training that gives the "
+"competence."
+msgstr ""
+
+#: templates/competence_page.html.twig
+#, php-format
+msgid "%d with a training planned"
+msgid_plural "%d with a training planned"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/competence_page.html.twig
+msgid "Trainings to plan"
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid ""
+"For each training that closes a gap, the people concerned who are not yet "
+"enrolled. \"Prepare a session\" opens a new session of the training with "
+"these people preselected: you check the date and the list, and nothing is "
+"saved before you click \"Add\"."
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid "Competences concerned"
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid "People to enrol"
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid "Prepare a session"
+msgstr ""
+
+#: hook.php:271 src/CompetenceMatrix.php:893
+msgid "Coverage of the required competences (%)"
+msgstr ""
+
+#: src/CertificationReadiness.php:262
+msgid "Define and check the competences"
+msgstr ""
+
+#: src/CertificationReadiness.php:264
+msgid ""
+"For each function of the management system, list the competences it "
+"requires, say who holds it, record the competences acquired with their "
+"evidence, plan a training for each gap and archive the competence file."
+msgstr ""
+
+#: src/CertificationReadiness.php:820
+#, php-format
+msgid "ISMS functions: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:821
+#, php-format
+msgid "Functions without required competences: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:824
+#, php-format
+msgid "Functions that nobody holds: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:828
+#, php-format
+msgid "Competence gaps: %1$d, of which %2$d without a planned training"
+msgstr ""
+
+#: src/CertificationReadiness.php:833
+#, php-format
+msgid "Archived competence files: %d"
+msgstr ""
