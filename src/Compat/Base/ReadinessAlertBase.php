@@ -28,11 +28,11 @@ use GlpiPlugin\Grcmanager\Compat\GlpiVersion;
 if (GlpiVersion::isAtLeast12()) {
     abstract class ReadinessAlertBase extends CommonDBTM
     {
-        public static string $rightname = \GlpiPlugin\Grcmanager\CertificationReadiness::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\ReadinessAlert::RIGHTNAME;
     }
 } else {
     abstract class ReadinessAlertBase extends CommonDBTM
     {
-        public static $rightname = \GlpiPlugin\Grcmanager\CertificationReadiness::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\ReadinessAlert::RIGHTNAME;
     }
 }

@@ -39,6 +39,9 @@ use Session;
  */
 class ReadinessAlert extends ReadinessAlertBase
 {
+    /** Même droit que l'écran de préparation ; lu par la classe parente et le test de compatibilité. */
+    public const RIGHTNAME = CertificationReadiness::RIGHTNAME;
+
     public const EVENT = 'readiness_step_at_risk';
     public const CRON_NAME = 'certificationreadiness';
 
