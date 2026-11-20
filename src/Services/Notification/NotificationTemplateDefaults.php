@@ -46,6 +46,8 @@ use GlpiPlugin\Grcmanager\NotificationTargetVulnerabilityDigest;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
 use GlpiPlugin\Grcmanager\NotificationTargetPolicy;
 use GlpiPlugin\Grcmanager\NotificationTargetPolicyVersion;
+use GlpiPlugin\Grcmanager\NotificationTargetPersonnelCompliance;
+use GlpiPlugin\Grcmanager\PersonnelCompliance;
 use GlpiPlugin\Grcmanager\AuditEvidenceRequest;
 use GlpiPlugin\Grcmanager\NotificationTargetAuditEvidenceRequest;
 use GlpiPlugin\Grcmanager\Policy;
@@ -431,6 +433,14 @@ final class NotificationTemplateDefaults
                 AccessReview::class, 'access_review_reminder', 'Access review reminder', '',
                 [NotificationTargetAccessReview::REVIEWERS_TARGET],
                 'Relance de la revue des accès', '',
+            ],
+            // Issue #546 : écarts de la fiche de conformité sécurité d'un collaborateur.
+            'personnel_compliance_gap' => [
+                PersonnelCompliance::class, PersonnelCompliance::GAP_EVENT, 'Personnel security compliance gap',
+                'Sent to the manager of a person when points of their security compliance record are past their '
+                    . 'deadline (automatic task, at most once a week, or button of the record).',
+                [NotificationTargetPersonnelCompliance::SUPERVISOR_TARGET],
+                'Écart de conformité sécurité d\'un collaborateur', '',
             ],
             // Issue #535 : prise de connaissance d'une politique par son public, et relance.
             'policy_acknowledgement' => [
@@ -964,6 +974,16 @@ final class NotificationTemplateDefaults
                     $line('Description', '##evidencerequest.description##'),
                     $line('Due date', '##evidencerequest.duedate##'),
                 ], $advice, '##evidencerequest.mineurl##', $t('Open my evidence requests'), $head);
+
+            case 'personnel_compliance_gap':
+                $title = $head('##personnelcompliance.action##', '##personnelcompliance.user##');
+
+                return self::simple($title, $title, [
+                    $line('Gaps', '##personnelcompliance.gaps##'),
+                ], [
+                    $t('These points of the security compliance record of a member of your team are past their '
+                        . 'deadline. Nothing has been changed automatically: check them with the person and the CISO.'),
+                ], '##personnelcompliance.url##', $t('View the security compliance record'), $head);
 
             case 'evidence_request_submitted':
                 $title = $head('##evidencerequest.action##', '##evidencerequest.reference##');

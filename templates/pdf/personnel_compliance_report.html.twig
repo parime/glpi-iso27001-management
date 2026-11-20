@@ -1,0 +1,64 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #546 : fiches de conformité sécurité du personnel pour l'auditeur, calculées à la demande
+   avec les droits de la personne qui exporte. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .grc-state { padding: 1px 4px; border-radius: 3px; font-size: 8px; font-weight: bold; }
+  .grc-state-success { background: #d3f0dc; color: #1b5e2f; }
+  .grc-state-warning { background: #fdebd3; color: #8a4500; }
+  .grc-state-danger { background: #fbe0e0; color: #a61e1e; }
+  .grc-state-secondary { background: #e9ecef; color: #343a40; }
+  .grc-person { margin: 10px 0 2px 0; font-size: 11px; }
+</style>
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('People tracked', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.people }}</td></tr>
+  <tr><td>{{ __('Personnel compliance rate (no gap)', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.rate is null ? '-' : summary.rate ~ ' %' }}</td></tr>
+  <tr><td>{{ __('People with a gap', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.late }}</td></tr>
+  <tr><td>{{ __('People with points to do within the deadline', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.pending }}</td></tr>
+  <tr><td>{{ __('Deadline after the arrival or the request', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ __('%d days', 'grcmanager')|format(days) }}</td></tr>
+  <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ generated_by }}</td></tr>
+</table>
+<p>{{ __('Only the people the person who exported this report can read are listed. Nothing has been modified: the screening and confidentiality agreement are recorded as a status and a date, the supporting documents stay with HR.', 'grcmanager') }}</p>
+{% if not charter_tracked %}
+  <p>{{ __('The IT charter line is "not tracked": the assetsign plugin is not active on this instance.', 'grcmanager') }}</p>
+{% endif %}
+
+{% for r in rows %}
+  <p class="grc-person">
+    <strong>{{ r.fullname }}</strong> ({{ r.name }})
+    - {{ __('Arrival', 'grcmanager') }} : {{ r.arrival_text ?: '-' }}
+    - <span class="grc-state grc-state-{{ r.state.color }}">{{ r.state.label }}</span>
+    - {{ __('Score', 'grcmanager') }} : {{ r.score is null ? '-' : r.score ~ ' %' }}
+  </p>
+  <table class="grcmanager-pdf-table">
+    <thead><tr><th>{{ __('Component', 'grcmanager') }}</th><th>{{ __('Reference', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Detail', 'grcmanager') }}</th><th>{{ __('Due date', 'grcmanager') }}</th></tr></thead>
+    <tbody>
+      {% for c in r.components %}
+        <tr>
+          <td>{{ c.label }}</td>
+          <td>{{ c.reference }}</td>
+          <td><span class="grc-state grc-state-{{ c.state.color }}">{{ c.state.label }}</span></td>
+          <td>{{ c.detail }}</td>
+          <td>{{ c.deadline_text }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>{{ __('Nobody matches these filters.', 'grcmanager') }}</p>
+{% endfor %}

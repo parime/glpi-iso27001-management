@@ -1,0 +1,188 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #546 : liste globale des fiches de conformité sécurité, filtrable, avec agrégation par groupe. #}
+{% import '@grcmanager/_personnel_compliance.html.twig' as pc %}
+<div class="container-fluid">
+   <div class="row g-3 mb-3">
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body d-flex align-items-center">
+            <span class="avatar bg-blue-lt me-3"><i class="ti ti-users"></i></span>
+            <div><div class="h2 mb-0">{{ summary.people }}</div><div class="text-muted small">{{ __('People tracked', 'grcmanager') }}</div></div>
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body d-flex align-items-center">
+            <span class="avatar bg-green-lt me-3"><i class="ti ti-shield-check"></i></span>
+            <div><div class="h2 mb-0">{{ summary.rate is null ? '-' : summary.rate ~ ' %' }}</div><div class="text-muted small">{{ __('Personnel compliance rate (no gap)', 'grcmanager') }}</div></div>
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <a class="card card-sm card-link text-decoration-none" href="{{ action }}?status=late">
+            <div class="card-body d-flex align-items-center">
+               <span class="avatar bg-red-lt me-3"><i class="ti ti-alert-triangle"></i></span>
+               <div><div class="h2 mb-0">{{ summary.late }}</div><div class="text-muted small">{{ __('People with a gap', 'grcmanager') }}</div></div>
+            </div>
+         </a>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <a class="card card-sm card-link text-decoration-none" href="{{ action }}?status=pending">
+            <div class="card-body d-flex align-items-center">
+               <span class="avatar bg-yellow-lt me-3"><i class="ti ti-clock"></i></span>
+               <div><div class="h2 mb-0">{{ summary.pending }}</div><div class="text-muted small">{{ __('People with points to do within the deadline', 'grcmanager') }}</div></div>
+            </div>
+         </a>
+      </div>
+   </div>
+
+   <div class="alert alert-info d-flex">
+      <i class="ti ti-info-circle me-2 mt-1"></i>
+      <div>
+         {{ __('Deadline: %d days after the arrival (start date of the account) or after the request. Change it, and the weight of each component, in the plugin configuration.', 'grcmanager')|format(days) }}
+         {% if not charter_tracked %}<br>{{ __('The IT charter line is "not tracked": the assetsign plugin is not active on this instance.', 'grcmanager') }}{% endif %}
+      </div>
+   </div>
+
+   <div class="card mb-3">
+      <div class="card-body">
+         <form method="get" action="{{ action }}" class="row g-2 align-items-end">
+            <div class="col-md-3">
+               <label class="form-label" for="grc-pc-entity">{{ __('Entity', 'grcmanager') }}</label>
+               <select class="form-select" id="grc-pc-entity" name="entities_id">
+                  <option value="">{{ __('All my entities', 'grcmanager') }}</option>
+                  {% for id, name in entities %}
+                     <option value="{{ id }}" {{ id == filters.entities_id ? 'selected' }}>{{ name }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="col-md-3">
+               <label class="form-label" for="grc-pc-group">{{ __('Group', 'grcmanager') }}</label>
+               <select class="form-select" id="grc-pc-group" name="groups_id">
+                  <option value="0">{{ __('All groups', 'grcmanager') }}</option>
+                  {% for g in groups %}
+                     <option value="{{ g.id }}" {{ g.id == filters.groups_id ? 'selected' }}>{{ g.name }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="col-md-2">
+               <label class="form-label" for="grc-pc-status">{{ __('Overall status', 'grcmanager') }}</label>
+               <select class="form-select" id="grc-pc-status" name="status">
+                  <option value="">{{ __('All', 'grcmanager') }}</option>
+                  {% for key in ['late', 'pending', 'ok'] %}
+                     <option value="{{ key }}" {{ key == filters.status ? 'selected' }}>{{ statuses[key].label }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="col-md-2">
+               <label class="form-label" for="grc-pc-component">{{ __('Gap on', 'grcmanager') }}</label>
+               <select class="form-select" id="grc-pc-component" name="component">
+                  <option value="">{{ __('Any component', 'grcmanager') }}</option>
+                  {% for key, label in components %}
+                     <option value="{{ key }}" {{ key == filters.component ? 'selected' }}>{{ label }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+               <button type="submit" class="btn btn-primary"><i class="ti ti-filter me-1"></i>{{ __('Filter', 'grcmanager') }}</button>
+               <a class="btn btn-outline-secondary" href="{{ action }}" title="{{ __('Reset the filters', 'grcmanager') }}" aria-label="{{ __('Reset the filters', 'grcmanager') }}"><i class="ti ti-x"></i></a>
+            </div>
+         </form>
+         <div class="d-flex flex-wrap gap-2 mt-3">
+            {% for g in gaps %}
+               {% if g.count > 0 %}
+                  <a class="badge bg-danger-subtle text-danger-emphasis text-decoration-none" href="{{ action }}?{{ (query|merge({'component': g.key}))|url_encode }}"><i class="ti ti-alert-triangle me-1"></i>{{ g.label }} : {{ g.count }}</a>
+               {% endif %}
+            {% endfor %}
+         </div>
+      </div>
+   </div>
+
+   <div class="row g-3">
+      <div class="col-lg-9">
+         <div class="card">
+            <div class="card-header d-flex align-items-center">
+               <h4 class="card-title mb-0"><i class="ti ti-user-shield me-1"></i>{{ _n('%d person', '%d people', total, 'grcmanager')|format(total) }}</h4>
+               <div class="ms-auto d-flex gap-2">
+                  <a class="btn btn-outline-secondary btn-sm" href="{{ export_url }}?{{ (query|merge({'format': 'csv'}))|url_encode }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export as CSV', 'grcmanager') }}</a>
+                  <a class="btn btn-outline-secondary btn-sm" href="{{ export_url }}?{{ (query|merge({'format': 'pdf'}))|url_encode }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export as PDF', 'grcmanager') }}</a>
+               </div>
+            </div>
+            {% if rows is empty %}
+               <div class="card-body"><div class="alert alert-success mb-0"><i class="ti ti-circle-check me-1"></i>{{ __('Nobody matches these filters.', 'grcmanager') }}</div></div>
+            {% else %}
+               <div class="table-responsive">
+                  <table class="table table-hover align-middle card-table">
+                     <thead>
+                        <tr>
+                           <th>{{ __('User', 'grcmanager') }}</th>
+                           <th>{{ __('Arrival', 'grcmanager') }}</th>
+                           <th>{{ __('Overall status', 'grcmanager') }}</th>
+                           <th>{{ __('Score', 'grcmanager') }}</th>
+                           <th>{{ __('Points to check', 'grcmanager') }}</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for r in rows %}
+                           <tr>
+                              <td><a href="{{ r.url }}">{{ r.fullname }}</a><div class="small text-muted">{{ r.name }}</div></td>
+                              <td>{{ r.arrival_text }}</td>
+                              <td>{{ pc.state_badge(r.state) }}</td>
+                              <td>{{ r.score is null ? '-' : r.score ~ ' %' }}</td>
+                              <td>
+                                 {% for c in r.components %}
+                                    {% if c.status == 'late' or c.status == 'pending' %}
+                                       <span class="badge bg-{{ c.state.color }}-subtle text-{{ c.state.color }}-emphasis me-1 mb-1" title="{{ c.detail }}"><i class="{{ c.icon }} me-1"></i>{{ c.label }}{% if c.deadline_text %} ({{ c.deadline_text }}){% endif %}</span>
+                                    {% endif %}
+                                 {% endfor %}
+                              </td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+               {% if pages > 1 %}
+                  <div class="card-footer d-flex align-items-center">
+                     <span class="text-muted small">{{ __('Page %1$d of %2$d', 'grcmanager')|format(page + 1, pages) }}</span>
+                     <div class="ms-auto d-flex gap-2">
+                        {% if page > 0 %}<a class="btn btn-outline-secondary btn-sm" href="{{ action }}?{{ (query|merge({'page': page - 1}))|url_encode }}"><i class="ti ti-chevron-left"></i>{{ __('Previous', 'grcmanager') }}</a>{% endif %}
+                        {% if page + 1 < pages %}<a class="btn btn-outline-secondary btn-sm" href="{{ action }}?{{ (query|merge({'page': page + 1}))|url_encode }}">{{ __('Next', 'grcmanager') }}<i class="ti ti-chevron-right"></i></a>{% endif %}
+                     </div>
+                  </div>
+               {% endif %}
+            {% endif %}
+         </div>
+      </div>
+      <div class="col-lg-3">
+         <div class="card">
+            <div class="card-header"><h4 class="card-title mb-0"><i class="ti ti-users-group me-1"></i>{{ __('By group', 'grcmanager') }}</h4></div>
+            {% if groups is empty %}
+               <div class="card-body text-muted small">{{ __('No group: add the people to GLPI groups to see the compliance of each department.', 'grcmanager') }}</div>
+            {% else %}
+               <table class="table table-sm card-table mb-0">
+                  <thead><tr><th>{{ __('Group', 'grcmanager') }}</th><th class="text-end">{{ __('Rate', 'grcmanager') }}</th><th class="text-end">{{ __('Gaps', 'grcmanager') }}</th></tr></thead>
+                  <tbody>
+                     {% for g in groups %}
+                        <tr>
+                           <td><a href="{{ action }}?groups_id={{ g.id }}">{{ g.name }}</a> <span class="text-muted small">({{ g.people }})</span></td>
+                           <td class="text-end">{{ g.rate is null ? '-' : g.rate ~ ' %' }}</td>
+                           <td class="text-end">{% if g.late > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis">{{ g.late }}</span>{% else %}<span class="badge bg-success-subtle text-success-emphasis">0</span>{% endif %}</td>
+                        </tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>

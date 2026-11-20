@@ -21233,3 +21233,310 @@ msgid "and %d other entity"
 msgid_plural "and %d other entities"
 msgstr[0] "y %d entidad más"
 msgstr[1] "y %d entidades más"
+
+# Issue #546 : fiche de conformité sécurité d'un collaborateur.
+msgid "Personnel compliance rate (no gap)"
+msgstr "Tasa de cumplimiento del personal (sin desviación)"
+
+msgid "People with a gap"
+msgstr "Personas con una desviación"
+
+msgid "People with points to do within the deadline"
+msgstr "Personas con puntos pendientes dentro del plazo"
+
+msgid "Deadline after the arrival or the request"
+msgstr "Plazo tras la llegada o la solicitud"
+
+msgid "Only the people the person who exported this report can read are listed. Nothing has been modified: the screening and confidentiality agreement are recorded as a status and a date, the supporting documents stay with HR."
+msgstr "Solo se listan las personas que puede leer quien exportó este informe. No se ha modificado nada: la verificación previa y el compromiso de confidencialidad se registran como un estado y una fecha, los justificantes permanecen en RR. HH."
+
+msgid "The IT charter line is \"not tracked\": the assetsign plugin is not active on this instance."
+msgstr "La línea de la carta informática está «sin seguimiento»: el plugin assetsign no está activo en esta instancia."
+
+msgid "Arrival"
+msgstr "Llegada"
+
+msgid "Nobody matches these filters."
+msgstr "Nadie coincide con estos filtros."
+
+msgid "Personnel security compliance"
+msgstr "Cumplimiento de seguridad del personal"
+
+msgid "Each point of the security compliance record of a person (training, charter, policies, screening, confidentiality agreement) must be done within this number of days after their arrival, or after the request when it comes later. The weight sets the share of each component in the score of the person; weight 0 removes the component from the record."
+msgstr "Cada punto de la ficha de cumplimiento de seguridad de una persona (formación, carta, políticas, verificación previa, compromiso de confidencialidad) debe realizarse en este número de días tras su llegada, o tras la solicitud cuando llega más tarde. El peso fija la parte de cada componente en la puntuación de la persona; el peso 0 retira el componente de la ficha."
+
+msgid "See the personnel list"
+msgstr "Ver la lista del personal"
+
+msgid "Deadline for newcomers (days)"
+msgstr "Plazo para los recién llegados (días)"
+
+#, php-format
+msgid "Between %1$d and %2$d days. Default: 30 days."
+msgstr "Entre %1$d y %2$d días. Por defecto: 30 días."
+
+msgid "0 (not tracked)"
+msgstr "0 (sin seguimiento)"
+
+#, php-format
+msgid "Deadline: %d days after the arrival (start date of the account) or after the request. Change it, and the weight of each component, in the plugin configuration."
+msgstr "Plazo: %d días tras la llegada (fecha de inicio de la cuenta) o tras la solicitud. Modifíquelo, así como el peso de cada componente, en la configuración del plugin."
+
+msgid "All my entities"
+msgstr "Todas mis entidades"
+
+msgid "All groups"
+msgstr "Todos los grupos"
+
+msgid "Overall status"
+msgstr "Estado global"
+
+msgid "Gap on"
+msgstr "Desviación en"
+
+msgid "Any component"
+msgstr "Cualquier componente"
+
+msgid "Reset the filters"
+msgstr "Restablecer los filtros"
+
+msgid "Export as CSV"
+msgstr "Exportar en CSV"
+
+msgid "Export as PDF"
+msgstr "Exportar en PDF"
+
+#, php-format
+msgid "Page %1$d of %2$d"
+msgstr "Página %1$d de %2$d"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "By group"
+msgstr "Por grupo"
+
+msgid "No group: add the people to GLPI groups to see the compliance of each department."
+msgstr "Ningún grupo: añada las personas a grupos GLPI para ver el cumplimiento de cada departamento."
+
+msgid "Soon"
+msgstr "Pronto"
+
+msgid "This account is not active: no security compliance record."
+msgstr "Esta cuenta no está activa: ninguna ficha de cumplimiento de seguridad."
+
+#, php-format
+msgid "Here is what the security team expects from you: trainings, charter, policies to read. Each point must be done within %d days of your arrival or of the request. Nothing is changed automatically."
+msgstr "Esto es lo que el equipo de seguridad espera de usted: formaciones, carta, políticas que leer. Cada punto debe realizarse en los %d días siguientes a su llegada o a la solicitud. No se modifica nada automáticamente."
+
+#, php-format
+msgid "Everything the plugin already tracks for this person, in one place. Each point must be done within %d days of the arrival or of the request (setting of the plugin configuration). A gap can be notified to the manager; nothing is changed automatically."
+msgstr "Todo lo que el plugin ya sigue para esta persona, en un solo lugar. Cada punto debe realizarse en los %d días siguientes a la llegada o a la solicitud (ajuste de la configuración del plugin). Una desviación puede notificarse al responsable; no se modifica nada automáticamente."
+
+#, php-format
+msgid "%1$d of %2$d counted components compliant"
+msgstr "%1$d de %2$d componentes contados conformes"
+
+msgid "Start date of the account, or its creation date"
+msgstr "Fecha de inicio de la cuenta, o su fecha de creación"
+
+msgid "Manager"
+msgstr "Responsable"
+
+msgid "Set the supervisor on the user form to allow notifications."
+msgstr "Indique el responsable en la ficha del usuario para permitir las notificaciones."
+
+msgid "Score: weight of the compliant components divided by the weight of the counted components. Not tracked and not applicable components are not counted."
+msgstr "Puntuación: peso de los componentes conformes dividido por el peso de los componentes contados. Los componentes sin seguimiento y no aplicables no se cuentan."
+
+msgid "All personnel"
+msgstr "Todo el personal"
+
+msgid "Screening and confidentiality agreement"
+msgstr "Verificación previa y compromiso de confidencialidad"
+
+msgid "Only the status and the dates are recorded here. The supporting documents stay with HR: do not attach them."
+msgstr "Aquí solo se registran el estado y las fechas. Los justificantes permanecen en RR. HH.: no los adjunte."
+
+msgid "Pre-employment screening"
+msgstr "Verificación previa a la contratación"
+
+msgid "Screening date"
+msgstr "Fecha de la verificación"
+
+msgid "Confidentiality agreement signed on"
+msgstr "Compromiso de confidencialidad firmado el"
+
+msgid "Template version"
+msgstr "Versión del modelo"
+
+msgid "e.g. v2"
+msgstr "p. ej. v2"
+
+msgid "Notify the manager of the gaps"
+msgstr "Avisar al responsable de las desviaciones"
+
+#, php-format
+msgid "Last notification: %s"
+msgstr "Última notificación: %s"
+
+msgid "Security compliance record saved."
+msgstr "Ficha de cumplimiento de seguridad guardada."
+
+msgid "The manager has been notified of the gaps."
+msgstr "Se ha avisado al responsable de las desviaciones."
+
+msgid "No notification sent: check that the person has a manager with an email address and that the notification is active."
+msgstr "No se ha enviado ninguna notificación: compruebe que la persona tiene un responsable con dirección de correo y que la notificación está activa."
+
+msgid "Personnel security compliance (%)"
+msgstr "Cumplimiento de seguridad del personal (%)"
+
+msgid "Personnel security compliance gap"
+msgstr "Desviación de cumplimiento de seguridad de un colaborador"
+
+msgid "Manager of the person"
+msgstr "Responsable de la persona"
+
+msgid "Security compliance of each person: screening, confidentiality agreement, mandatory trainings, IT charter, security policies read, access review and account hygiene."
+msgstr "Cumplimiento de seguridad de cada persona: verificación previa, compromiso de confidencialidad, formaciones obligatorias, carta informática, políticas de seguridad leídas, revisión de accesos e higiene de la cuenta."
+
+msgid "Follow up the gaps with the person and their manager; nothing is changed automatically. The deadline for newcomers and the weight of each component are set in the plugin configuration."
+msgstr "Haga el seguimiento de las desviaciones con la persona y su responsable; no se modifica nada automáticamente. El plazo para los recién llegados y el peso de cada componente se ajustan en la configuración del plugin."
+
+msgid "ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18"
+msgstr "ISO 27001, anexo A 6.1, 6.2, 6.3, 6.5, 6.6 y 5.18"
+
+msgid "Confidentiality agreement"
+msgstr "Compromiso de confidencialidad"
+
+msgid "Mandatory trainings"
+msgstr "Formaciones obligatorias"
+
+msgid "IT charter signed"
+msgstr "Carta informática firmada"
+
+msgid "Security policies read"
+msgstr "Políticas de seguridad leídas"
+
+msgid "To do, within the deadline"
+msgstr "Pendiente, dentro del plazo"
+
+msgid "Not tracked"
+msgstr "Sin seguimiento"
+
+msgid "Not recorded"
+msgstr "No registrada"
+
+msgid "Not counted (weight 0 in the configuration)"
+msgstr "No contado (peso 0 en la configuración)"
+
+#, php-format
+msgid "Done on %s"
+msgstr "Realizada el %s"
+
+msgid "Not applicable for this person"
+msgstr "No aplicable para esta persona"
+
+#, php-format
+msgid "Signed on %1$s (template %2$s)"
+msgstr "Firmado el %1$s (modelo %2$s)"
+
+#, php-format
+msgid "Signed on %s"
+msgstr "Firmado el %s"
+
+msgid "No signed agreement recorded"
+msgstr "Ningún compromiso firmado registrado"
+
+msgid "No mandatory training assigned"
+msgstr "Ninguna formación obligatoria asignada"
+
+#, php-format
+msgid "To attend: %s"
+msgstr "Por seguir: %s"
+
+#, php-format
+msgid "Renewal overdue: %s"
+msgstr "Renovación atrasada: %s"
+
+msgid "Not tracked: the assetsign plugin is not active"
+msgstr "Sin seguimiento: el plugin assetsign no está activo"
+
+#, php-format
+msgid "Signed on %1$s (%2$s)"
+msgstr "Firmada el %1$s (%2$s)"
+
+#, php-format
+msgid "Sent for signature, not signed yet (%s)"
+msgstr "Enviada para firma, aún no firmada (%s)"
+
+msgid "No charter campaign has reached this person"
+msgstr "Ninguna campaña de carta ha llegado a esta persona"
+
+msgid "No policy campaign concerns this person"
+msgstr "Ninguna campaña de política concierne a esta persona"
+
+#, php-format
+msgid "To read: %s"
+msgstr "Por leer: %s"
+
+#, php-format
+msgid "Last reviewed on %s"
+msgstr "Última revisión el %s"
+
+msgid "In an open access review campaign"
+msgstr "En una campaña de revisión de accesos abierta"
+
+msgid "The access review campaign deadline has passed without a decision"
+msgstr "El plazo de la campaña de revisión de accesos ha pasado sin decisión"
+
+#, php-format
+msgid "Last reviewed on %s, more than 12 months ago"
+msgstr "Última revisión el %s, hace más de 12 meses"
+
+msgid "No account issue"
+msgstr "Ningún problema de cuenta"
+
+msgid "My security compliance"
+msgstr "Mi cumplimiento de seguridad"
+
+msgid "Security compliance"
+msgstr "Cumplimiento de seguridad"
+
+msgid "Personnel security compliance: notify managers of gaps"
+msgstr "Cumplimiento de seguridad del personal: avisar a los responsables de las desviaciones"
+
+#, php-format
+msgid "%d manager notification(s) raised for personnel compliance gaps."
+msgstr "%d notificación(es) a los responsables por desviaciones de cumplimiento del personal."
+
+msgid "Sent to the manager of a person when points of their security compliance record are past their deadline (automatic task, at most once a week, or button of the record)."
+msgstr "Enviada al responsable de una persona cuando puntos de su ficha de cumplimiento de seguridad han superado su plazo (tarea automática, como máximo una vez por semana, o botón de la ficha)."
+
+msgid "These points of the security compliance record of a member of your team are past their deadline. Nothing has been changed automatically: check them with the person and the CISO."
+msgstr "Estos puntos de la ficha de cumplimiento de seguridad de un miembro de su equipo han superado su plazo. No se ha modificado nada automáticamente: revíselos con la persona y el CISO."
+
+msgid "View the security compliance record"
+msgstr "Ver la ficha de cumplimiento de seguridad"
+
+#, php-format
+msgid "%d person"
+msgid_plural "%d people"
+msgstr[0] "%d persona"
+msgstr[1] "%d personas"
+
+#, php-format
+msgid "%d mandatory training completed"
+msgid_plural "%d mandatory trainings completed"
+msgstr[0] "%d formación obligatoria completada"
+msgstr[1] "%d formaciones obligatorias completadas"
+
+#, php-format
+msgid "%d policy acknowledged"
+msgid_plural "%d policies acknowledged"
+msgstr[0] "%d política leída"
+msgstr[1] "%d políticas leídas"
+
+msgid "People tracked"
+msgstr "Personas seguidas"

@@ -258,6 +258,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::accessReviewLateReviewers',
         ],
+        // Issue #546 : taux de conformité sécurité du personnel (personnes sans écart).
+        'grcmanager_personnel_compliance_rate' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Personnel security compliance (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::personnelComplianceRate',
+        ],
         'grcmanager_training_retake_participants' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Participants to retake', 'grcmanager'),
