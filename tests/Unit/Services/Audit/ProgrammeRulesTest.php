@@ -178,4 +178,57 @@ final class ProgrammeRulesTest extends TestCase
         self::assertSame(Rules::COMPETENCE_QUALIFIED, $mixed['status']);
         self::assertSame([false, true], array_column($mixed['trainings'], 'valid'));
     }
+
+    public function testAuditChecks(): void
+    {
+        $facts = static fn (array $extra = []): array => $extra + [
+            'objectives'     => 'Vérifier la revue des accès',
+            'scope'          => 'Siège Exemple',
+            'criteria'       => 'Politique de contrôle d\'accès',
+            'processes'      => 1,
+            'competences'    => [Rules::COMPETENCE_QUALIFIED],
+            'open_conflicts' => 0,
+            'status'         => 'in_progress',
+            'delivered'      => false,
+        ];
+
+        $ready = Rules::auditChecks($facts());
+        self::assertSame(Rules::CHECK_KEYS, array_keys($ready['checks']));
+        self::assertSame(Rules::CHECK_PENDING, $ready['checks']['delivery']);
+        self::assertSame(0, $ready['gaps']);
+
+        $empty = Rules::auditChecks($facts([
+            'objectives'  => '  ',
+            'criteria'    => '',
+            'processes'   => 0,
+            'competences' => [],
+            'status'      => 'completed',
+        ]));
+        self::assertSame(Rules::CHECK_MISSING, $empty['checks']['objectives']);
+        self::assertSame(Rules::CHECK_OK, $empty['checks']['scope']);
+        self::assertSame(Rules::CHECK_MISSING, $empty['checks']['criteria']);
+        self::assertSame(Rules::CHECK_MISSING, $empty['checks']['processes']);
+        self::assertSame(Rules::CHECK_MISSING, $empty['checks']['auditors']);
+        self::assertSame(Rules::CHECK_MISSING, $empty['checks']['competence']);
+        self::assertSame(Rules::CHECK_PENDING, $empty['checks']['independence']);
+        self::assertSame(Rules::CHECK_MISSING, $empty['checks']['delivery']);
+        self::assertSame(6, $empty['gaps']);
+
+        $competence = static fn (array $statuses): string
+            => Rules::auditChecks($facts(['competences' => $statuses]))['checks']['competence'];
+        self::assertSame(Rules::CHECK_NOT_APPLICABLE, $competence([Rules::COMPETENCE_NOT_CONFIGURED]));
+        self::assertSame(
+            Rules::CHECK_MISSING,
+            $competence([Rules::COMPETENCE_QUALIFIED, Rules::COMPETENCE_MISSING])
+        );
+        self::assertSame(
+            Rules::CHECK_WARNING,
+            $competence([Rules::COMPETENCE_QUALIFIED, Rules::COMPETENCE_EXPIRED])
+        );
+
+        $conflict = Rules::auditChecks($facts(['open_conflicts' => 1, 'delivered' => true]));
+        self::assertSame(Rules::CHECK_MISSING, $conflict['checks']['independence']);
+        self::assertSame(Rules::CHECK_OK, $conflict['checks']['delivery']);
+        self::assertSame(1, $conflict['gaps']);
+    }
 }

@@ -30,6 +30,8 @@ use GlpiPlugin\Grcmanager\Services\Responsibility\ResponsibilityRules;
  *   de ses groupes) est en conflit ; l'audit ne démarre ni ne se termine tant qu'un conflit n'a
  *   pas de justification.
  * - Compétence : formations qualifiantes suivies par l'auditeur, à jour de leur renouvellement.
+ * - Points de contrôle d'un audit (lot 2) : objectifs, périmètre et critères définis, processus
+ *   choisis, auditeurs désignés, qualifiés et indépendants, rapport remis à la direction.
  */
 final class ProgrammeRules
 {
@@ -55,6 +57,18 @@ final class ProgrammeRules
     public const COMPETENCE_NOT_CONFIGURED = 'not_configured';
 
     public const MIN_JUSTIFICATION_LENGTH = 10;
+
+    /** État d'un point de contrôle de l'audit. */
+    public const CHECK_OK = 'ok';
+    public const CHECK_WARNING = 'warning';
+    public const CHECK_MISSING = 'missing';
+    public const CHECK_PENDING = 'pending';
+    public const CHECK_NOT_APPLICABLE = 'na';
+
+    /** Points de contrôle d'un audit interne, dans l'ordre d'affichage. */
+    public const CHECK_KEYS = [
+        'objectives', 'scope', 'criteria', 'processes', 'auditors', 'competence', 'independence', 'delivery',
+    ];
 
     /** Première année du cycle : celle choisie, sinon l'année précédente, bornée. */
     public static function cycleStart(mixed $value, int $currentYear): int
@@ -316,5 +330,55 @@ final class ProgrammeRules
         }
 
         return ['status' => $status, 'trainings' => $kept];
+    }
+
+    /**
+     * Points de contrôle d'un audit interne (ISO 27001 9.2.2, ISO 19011) : chacun à « ok »,
+     * « à surveiller » (qualification à renouveler), « manquant », « à venir » (rapport d'un audit
+     * pas encore terminé) ou « sans objet » (aucune formation qualifiante choisie).
+     *
+     * @param array{objectives: string, scope: string, criteria: string, processes: int,
+     *              competences: list<string>, open_conflicts: int, status: string,
+     *              delivered: bool} $facts competences : statut de chaque auditeur (competence())
+     * @return array{checks: array<string, string>, gaps: int}
+     */
+    public static function auditChecks(array $facts): array
+    {
+        $filled = static fn (string $text): string => trim($text) !== '' ? self::CHECK_OK : self::CHECK_MISSING;
+        $competences = $facts['competences'];
+        if ($competences === []) {
+            $competence = self::CHECK_MISSING;
+        } elseif (in_array(self::COMPETENCE_NOT_CONFIGURED, $competences, true)) {
+            $competence = self::CHECK_NOT_APPLICABLE;
+        } elseif (in_array(self::COMPETENCE_MISSING, $competences, true)) {
+            $competence = self::CHECK_MISSING;
+        } elseif (in_array(self::COMPETENCE_EXPIRED, $competences, true)) {
+            $competence = self::CHECK_WARNING;
+        } else {
+            $competence = self::CHECK_OK;
+        }
+        if ($facts['delivered']) {
+            $delivery = self::CHECK_OK;
+        } else {
+            $delivery = $facts['status'] === 'completed' ? self::CHECK_MISSING : self::CHECK_PENDING;
+        }
+        $checks = [
+            'objectives'   => $filled($facts['objectives']),
+            'scope'        => $filled($facts['scope']),
+            'criteria'     => $filled($facts['criteria']),
+            'processes'    => $facts['processes'] > 0 ? self::CHECK_OK : self::CHECK_MISSING,
+            'auditors'     => $competences !== [] ? self::CHECK_OK : self::CHECK_MISSING,
+            'competence'   => $competence,
+            'independence' => $competences === []
+                ? self::CHECK_PENDING
+                : ($facts['open_conflicts'] > 0 ? self::CHECK_MISSING : self::CHECK_OK),
+            'delivery'     => $delivery,
+        ];
+        $gaps = count(array_filter(
+            $checks,
+            static fn (string $state): bool => in_array($state, [self::CHECK_MISSING, self::CHECK_WARNING], true)
+        ));
+
+        return ['checks' => $checks, 'gaps' => $gaps];
     }
 }

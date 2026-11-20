@@ -572,6 +572,15 @@ if [ "$ROLE" = reader ]; then
     "$(body "$P/softwarelicensecompliance.php")"
   contains "export des licences logicielles : rien de B" "Logiciel licence securite B" non \
     "$(body "$P/softwarelicensecompliance.export.php")"
+  # Issue #779, lot 2 : licence de A qui arrive a echeance, rien de B (page et export).
+  contains "licences logicielles : echeance de A" "Licence echeance securite A" oui \
+    "$(body "$P/softwarelicensecompliance.php")"
+  contains "licences logicielles : echeance de B absente" "Licence echeance securite B" non \
+    "$(body "$P/softwarelicensecompliance.php")"
+  contains "export des licences logicielles : echeance de B absente" "Licence echeance securite B" non \
+    "$(body "$P/softwarelicensecompliance.export.php")"
+  expect "front/softwarelicensecompliance.php : modifier l'horizon d'echeance" 403 \
+    "$(code -d "save_license_watch=1&license_expiring_days=1&_glpi_csrf_token=$(csrf)" "$P/softwarelicensecompliance.php")"
   # Issue #782 : fin de garantie du materiel de l'entite A seulement (carte et export).
   contains "fin de garantie : materiel de A" "PC garantie securite A" oui "$(body "$P/parkvulnerability.php?warranty=all")"
   contains "fin de garantie : rien de B" "PC garantie securite B" non "$(body "$P/parkvulnerability.php?warranty=all")"

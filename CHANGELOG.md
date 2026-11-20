@@ -31,6 +31,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Audit interne selon l'ISO 19011 : objectifs, critères et points de contrôle** (issue #773, lot 2,
+  ISO 27001 9.2.2). Ce que l'auditeur de certification regarde pour chaque audit interne, d'un coup
+  d'oeil :
+  - fiche de l'audit : nouveaux champs **Objectifs de l'audit** et **Critères d'audit** (articles de
+    la norme, politiques, procédures), à côté du périmètre, aussi dans la recherche ;
+  - onglet « Programme et indépendance » : encadré **Points de contrôle de l'audit** (objectifs,
+    périmètre et critères définis, processus choisis, auditeurs désignés, qualifiés, indépendants ou
+    conflit justifié, rapport remis à la direction), en badges colorés, avec la compétence de chaque
+    auditeur, celui de la fiche compris ;
+  - page du programme pluriannuel : tableau des points de contrôle de chaque audit du cycle et
+    alerte sur les audits incomplets ;
+  - rapport PDF de l'audit interne : objectifs, critères, processus audités, points de contrôle,
+    compétence des auditeurs, conflits d'indépendance et leur justification, remise à la direction ;
+  - colonnes `objectives` et `criteria` de `glpi_plugin_grcmanager_audits` (supprimées avec la table
+    à la désinstallation). Aucun statut ni droit n'est modifié automatiquement.
+  - Reste à faire : destinataire de la remise choisi dans un groupe « direction », indépendance
+    étendue aux propriétaires des processus métier et des mesures, planification d'un audit depuis
+    une case de la matrice du programme.
 - **Contacts officiels : prises de contact tracées depuis les incidents et les violations** (issue
   #771, lot 2, mesures A.5.5 et A.5.6). L'auditeur demande la preuve qu'une autorité a été prévenue
   dans le délai, ou pourquoi elle ne l'a pas été :
@@ -391,6 +409,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits : droit des registres sensibles du plugin, plus les droits natifs de lecture des logiciels
     et des licences ; les listes d'éditeurs se modifient avec le droit de configuration du plugin.
   - Aucun ticket ni aucune donnée de GLPI n'est créé ou modifié automatiquement.
+- **Licences logicielles : échéances, dépassement autorisé et taux de couverture** (issue #779,
+  lot 2, mesure A.5.32).
+  - Nouvelle alerte « Licence arrivant à échéance » : une licence utilisée (actifs affectés ou
+    logiciel installé dans son périmètre) expire dans les 60 prochains jours, et aucun renouvellement
+    (autre licence valable au-delà) n'est encore saisi dans GLPI. C'est un rappel : il n'entre ni
+    dans le contrôle de cohérence, ni dans le total des écarts de la preuve. L'horizon se règle avec
+    les listes d'éditeurs (0 pour désactiver, 365 jours au plus).
+  - Un surdéploiement sur une licence qui autorise le dépassement (case native de GLPI) reste
+    signalé, avec la mention « Dépassement autorisé » à régulariser auprès de l'éditeur, et une
+    colonne dédiée dans l'export.
+  - Taux de couverture : part des logiciels commerciaux surveillés installés (par entité) qui ont une
+    licence valable, sur la page et dans la preuve de la mesure A.5.32.
+  - Toujours en lecture seule : rien n'est modifié dans GLPI.
 
 ## [2.65.0] - 2026-11-20
 

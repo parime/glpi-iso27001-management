@@ -45,17 +45,22 @@ final class LicenseInventory
     public const CONFIG_CONTEXT = 'plugin:grcmanager';
     public const KEY_PUBLISHERS = 'license_watch_publishers';
     public const KEY_IGNORED = 'license_watch_ignored';
+    public const KEY_EXPIRING = 'license_expiring_days';
 
     // ------------------------------------------------------------------ Réglages.
 
     /**
-     * Éditeurs surveillés et logiciels ignorés ; listes par défaut tant que rien n'est enregistré.
+     * Éditeurs surveillés, logiciels ignorés et horizon d'alerte avant l'échéance des licences ;
+     * valeurs par défaut tant que rien n'est enregistré.
      *
-     * @return array{publishers: list<string>, ignored: list<string>}
+     * @return array{publishers: list<string>, ignored: list<string>, expiring_days: int}
      */
     public static function settings(): array
     {
-        $values = Config::getConfigurationValues(self::CONFIG_CONTEXT, [self::KEY_PUBLISHERS, self::KEY_IGNORED]);
+        $values = Config::getConfigurationValues(
+            self::CONFIG_CONTEXT,
+            [self::KEY_PUBLISHERS, self::KEY_IGNORED, self::KEY_EXPIRING]
+        );
 
         return [
             'publishers' => isset($values[self::KEY_PUBLISHERS])
@@ -64,17 +69,25 @@ final class LicenseInventory
             'ignored'    => isset($values[self::KEY_IGNORED])
                 ? LicenseComplianceRules::parseList((string) $values[self::KEY_IGNORED])
                 : LicenseComplianceRules::DEFAULT_IGNORED,
+            'expiring_days' => isset($values[self::KEY_EXPIRING]) && is_numeric($values[self::KEY_EXPIRING])
+                ? LicenseComplianceRules::boundExpiringDays((int) $values[self::KEY_EXPIRING])
+                : LicenseComplianceRules::DEFAULT_EXPIRING_DAYS,
         ];
     }
 
     /**
-     * Enregistre les deux listes (texte saisi, une entrée par ligne), nettoyées.
+     * Enregistre les deux listes (texte saisi, une entrée par ligne), nettoyées, et l'horizon
+     * d'alerte avant l'échéance (borné entre 0 et 365 jours).
      */
-    public static function save(string $publishers, string $ignored): void
-    {
+    public static function save(
+        string $publishers,
+        string $ignored,
+        int $expiringDays = LicenseComplianceRules::DEFAULT_EXPIRING_DAYS
+    ): void {
         Config::setConfigurationValues(self::CONFIG_CONTEXT, [
             self::KEY_PUBLISHERS => implode("\n", LicenseComplianceRules::parseList($publishers)),
             self::KEY_IGNORED    => implode("\n", LicenseComplianceRules::parseList($ignored)),
+            self::KEY_EXPIRING   => (string) LicenseComplianceRules::boundExpiringDays($expiringDays),
         ]);
     }
 
@@ -83,7 +96,10 @@ final class LicenseInventory
      */
     public static function reset(): void
     {
-        Config::deleteConfigurationValues(self::CONFIG_CONTEXT, [self::KEY_PUBLISHERS, self::KEY_IGNORED]);
+        Config::deleteConfigurationValues(
+            self::CONFIG_CONTEXT,
+            [self::KEY_PUBLISHERS, self::KEY_IGNORED, self::KEY_EXPIRING]
+        );
     }
 
     // ------------------------------------------------------------------ Inventaire visible.
@@ -220,7 +236,9 @@ final class LicenseInventory
         }
         $licences = [];
         $iterator = $DB->request([
-            'SELECT' => ['id', 'name', 'softwares_id', 'entities_id', 'is_recursive', 'number', 'expire'],
+            'SELECT' => [
+                'id', 'name', 'softwares_id', 'entities_id', 'is_recursive', 'number', 'expire', 'allow_overquota',
+            ],
             'FROM'   => 'glpi_softwarelicenses',
             'WHERE'  => [
                 'softwares_id' => $softwareIds,
@@ -238,6 +256,7 @@ final class LicenseInventory
                 'is_recursive' => (int) $row['is_recursive'] === 1,
                 'number'       => (int) $row['number'],
                 'expire'       => (string) ($row['expire'] ?? ''),
+                'allow_overquota' => (int) ($row['allow_overquota'] ?? 0) === 1,
             ];
         }
 

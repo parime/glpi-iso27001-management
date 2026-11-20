@@ -26,9 +26,18 @@
    {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'planned', statuses, __('Status', 'grcmanager')) }}
    {{ fields.dateField('planned_date', item.fields['planned_date'], __('Planned date', 'grcmanager')) }}
    {{ fields.dateField('actual_date', item.fields['actual_date'], __('Actual date', 'grcmanager')) }}
+   {# Issue #773, lot 2 : objectifs et critères de chaque audit (ISO 27001 9.2.2 b, ISO 19011). #}
+   {{ fields.textareaField('objectives', item.fields['objectives'] ?? '', __('Audit objectives', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('What the audit must establish, for example: check that access rights are reviewed as planned.', 'grcmanager')),
+   }) }}
    {{ fields.textareaField('scope', item.fields['scope'], __('Scope', 'grcmanager'), {
       'full_width': true,
       'add_field_html': hints.hint(__('Free-text description of the audited scope (processes, sites, systems...).', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('criteria', item.fields['criteria'] ?? '', __('Audit criteria', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('The references against which the evidence is compared: requirements of the standard (clause numbers), ISMS policies, procedures, contracts or laws.', 'grcmanager')),
    }) }}
    {{ fields.dropdownArrayField('risk_categories', null, categories, __('Risk categories covered', 'grcmanager'), {
       'multiple': true,

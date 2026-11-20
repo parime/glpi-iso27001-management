@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 21:08+0000\n"
+"POT-Creation-Date: 2026-11-20 20:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgid "Export PDF"
 msgstr ""
 
 #: front/audit.php:53 front/auditcoverage.php:34
-#: src/CertificationReadiness.php:952 templates/audit_checklist_tab.html.twig
+#: src/CertificationReadiness.php:947 templates/audit_checklist_tab.html.twig
 #: templates/audit_coverage.html.twig templates/audit_programme.html.twig
 msgid "Audit programme coverage"
 msgstr ""
@@ -71,8 +71,8 @@ msgstr ""
 #: front/audit.report.php:77 front/databreach.export.php:65
 #: front/networkflow.report.php:31 front/processingactivity.export.php:64
 #: front/risk.report.php:73 src/AccessReview.php:745 src/AcnRequirement.php:805
-#: src/Audit.php:613 src/CertificationFinding.php:410
-#: src/CertificationReadiness.php:1456 src/CompetenceMatrix.php:852
+#: src/Audit.php:628 src/CertificationFinding.php:410
+#: src/CertificationReadiness.php:1386 src/CompetenceMatrix.php:852
 #: src/ConsistencyCheck.php:1444 src/ContextItem.php:879
 #: src/ControlTest.php:994 src/CrisisExercise.php:627
 #: src/CrisisScenario.php:872 src/Dpia.php:443 src/EbiosStudy.php:313
@@ -2014,7 +2014,7 @@ msgstr ""
 msgid "In preparation"
 msgstr ""
 
-#: src/AccessReview.php:104 src/Audit.php:97 src/Audit.php:390
+#: src/AccessReview.php:104 src/Audit.php:97 src/Audit.php:405
 #: src/Control.php:154 src/Control.php:1364 src/DataSubjectRequest.php:97
 #: src/EbiosStudy.php:90 src/IsmsRequirement.php:154
 #: src/ManagementReviewAction.php:62 src/PhysicalSecurityAssessment.php:417
@@ -2382,6 +2382,7 @@ msgstr ""
 #: templates/audit_programme_tab.html.twig
 #: templates/context_item_form.html.twig templates/control_form.html.twig
 #: templates/network_flow_form.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/network_flow_report.html.twig
 #: templates/pdf/soa_report.html.twig
 #: templates/recyf_requirement_form.html.twig templates/risk_form.html.twig
@@ -2629,18 +2630,18 @@ msgstr[1] ""
 msgid "Audits and improvement"
 msgstr ""
 
-#: src/Audit.php:96 src/Audit.php:389 src/ComplianceEvent.php:130
+#: src/Audit.php:96 src/Audit.php:404 src/ComplianceEvent.php:130
 #: src/ControlTest.php:200
 msgctxt "masculine"
 msgid "Planned"
 msgstr ""
 
-#: src/Audit.php:98 src/Audit.php:391 templates/crisis_room.html.twig
+#: src/Audit.php:98 src/Audit.php:406 templates/crisis_room.html.twig
 #: templates/crisis_tab.html.twig
 msgid "Completed"
 msgstr ""
 
-#: src/Audit.php:99 src/Audit.php:392 src/ComplianceEvent.php:132
+#: src/Audit.php:99 src/Audit.php:407 src/ComplianceEvent.php:132
 msgid "Cancelled"
 msgstr ""
 
@@ -2703,8 +2704,8 @@ msgstr ""
 msgid "Risk categories covered"
 msgstr ""
 
-#: src/Audit.php:260 src/ComplianceEvent.php:235 src/EbiosStudy.php:601
-#: src/NotificationTargetComplianceEvent.php:113
+#: src/Audit.php:260 src/AuditProgramme.php:649 src/ComplianceEvent.php:235
+#: src/EbiosStudy.php:601 src/NotificationTargetComplianceEvent.php:113
 #: src/SoftwareLicenseCompliance.php:341 templates/audit_form.html.twig
 #: templates/auditor_space.html.twig templates/compliance_event_form.html.twig
 #: templates/ebios_study_form.html.twig
@@ -2738,17 +2739,27 @@ msgstr ""
 msgid "Standard and edition"
 msgstr ""
 
-#: src/Audit.php:611
+#: src/Audit.php:317 templates/audit_form.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Audit objectives"
+msgstr ""
+
+#: src/Audit.php:324 templates/audit_form.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Audit criteria"
+msgstr ""
+
+#: src/Audit.php:626
 #, php-format
 msgid "Internal audit report: %s"
 msgstr ""
 
-#: src/Audit.php:664
+#: src/Audit.php:681
 #, php-format
 msgid "Internal audit report - %s"
 msgstr ""
 
-#: src/Audit.php:682
+#: src/Audit.php:699
 msgid "The audit report has been archived in the Documents tab."
 msgstr ""
 
@@ -2758,11 +2769,11 @@ msgstr ""
 msgid "Audit checklist"
 msgstr ""
 
-#: src/AuditChecklist.php:102 src/ComplianceObligation.php:108
-#: src/ComplianceObligation.php:329 src/ControlTestSample.php:125
-#: src/CustomRequirement.php:60 src/IsmsRequirement.php:155
-#: src/PersonnelCompliance.php:288 src/PhysicalSecurity.php:97
-#: templates/_network_flow_badges.html.twig
+#: src/AuditChecklist.php:102 src/AuditProgramme.php:671
+#: src/ComplianceObligation.php:108 src/ComplianceObligation.php:329
+#: src/ControlTestSample.php:125 src/CustomRequirement.php:60
+#: src/IsmsRequirement.php:155 src/PersonnelCompliance.php:288
+#: src/PhysicalSecurity.php:97 templates/_network_flow_badges.html.twig
 #: templates/compliance_audit.html.twig
 #: templates/network_flow_summary.html.twig
 msgid "Compliant"
@@ -3087,6 +3098,7 @@ msgid "Approval decision"
 msgstr ""
 
 #: src/AuditLog.php:232 templates/audit_log.html.twig
+#: templates/audit_programme.html.twig
 #: templates/document_accesses_tab.html.twig templates/pdf/action_log.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
@@ -3183,7 +3195,114 @@ msgstr ""
 msgid "Audit report delivered to management on %1$s (%2$s)"
 msgstr ""
 
-#: src/AuditProgramme.php:765
+#: src/AuditProgramme.php:648
+msgid "Audit objectives defined"
+msgstr ""
+
+#: src/AuditProgramme.php:648
+msgid "Objectives"
+msgstr ""
+
+#: src/AuditProgramme.php:649
+msgid "Audit scope defined"
+msgstr ""
+
+#: src/AuditProgramme.php:650
+msgid "Audit criteria defined"
+msgstr ""
+
+#: src/AuditProgramme.php:650
+msgid "Criteria"
+msgstr ""
+
+#: src/AuditProgramme.php:651
+msgid "Audited processes chosen"
+msgstr ""
+
+#: src/AuditProgramme.php:651
+msgid "Processes"
+msgstr ""
+
+#: src/AuditProgramme.php:652 templates/audit_programme_tab.html.twig
+msgid "Auditors"
+msgstr ""
+
+#: src/AuditProgramme.php:652
+msgid "Auditors appointed"
+msgstr ""
+
+#: src/AuditProgramme.php:653
+msgid "Auditors qualified"
+msgstr ""
+
+#: src/AuditProgramme.php:653 src/Competence.php:52 src/IsmsRequirement.php:119
+#: templates/competence_declaration_form.html.twig
+#: templates/competence_form.html.twig templates/competence_page.html.twig
+#: templates/competence_sheet.html.twig
+#: templates/pdf/competence_report.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Competence"
+msgstr ""
+
+#: src/AuditProgramme.php:655
+msgid "Independence"
+msgstr ""
+
+#: src/AuditProgramme.php:656
+msgid "Auditors independent of the audited processes, or conflict justified"
+msgstr ""
+
+#: src/AuditProgramme.php:658 templates/crisis_exercises.html.twig
+#: templates/crisis_tab.html.twig templates/pdf/remediation_plan.html.twig
+#: templates/tabs/control_access_reviews.html.twig
+#: templates/tabs/incident_playbook.html.twig
+msgid "Report"
+msgstr ""
+
+#: src/AuditProgramme.php:658 templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Report delivered to management"
+msgstr ""
+
+#: src/AuditProgramme.php:676
+msgid "To watch"
+msgstr ""
+
+#: src/AuditProgramme.php:681 templates/tabs/incident_evidence.html.twig
+msgid "Missing"
+msgstr ""
+
+#: src/AuditProgramme.php:686
+msgid "Later"
+msgstr ""
+
+#: src/AuditProgramme.php:691 src/AuditProgramme.php:787
+#: templates/audit_programme_tab.html.twig
+msgid "No qualifying training chosen"
+msgstr ""
+
+#: src/AuditProgramme.php:773 templates/audit_programme_tab.html.twig
+#, php-format
+msgid "Delivered on %1$s to %2$s"
+msgstr ""
+
+#: src/AuditProgramme.php:784 templates/audit_programme_tab.html.twig
+#: templates/audit_team_tab.html.twig
+msgid "Qualified"
+msgstr ""
+
+#: src/AuditProgramme.php:785 templates/audit_programme_tab.html.twig
+#: templates/audit_team_tab.html.twig
+msgid "Qualification to renew"
+msgstr ""
+
+#: src/AuditProgramme.php:786 templates/audit_programme_tab.html.twig
+#: templates/audit_team_tab.html.twig
+msgid "No auditor qualification recorded"
+msgstr ""
+
+#: src/AuditProgramme.php:937
 msgid "Programme and independence"
 msgstr ""
 
@@ -3739,43 +3858,43 @@ msgstr ""
 msgid "Document"
 msgstr ""
 
-#: src/CertificationReadiness.php:81
+#: src/CertificationReadiness.php:78
 msgid "Certification readiness"
 msgstr ""
 
-#: src/CertificationReadiness.php:132
+#: src/CertificationReadiness.php:129
 msgid "Plan"
 msgstr ""
 
-#: src/CertificationReadiness.php:133
+#: src/CertificationReadiness.php:130
 msgid "Set up the management system: scope, context, policy, roles, risks."
 msgstr ""
 
-#: src/CertificationReadiness.php:137
+#: src/CertificationReadiness.php:134
 msgid "Do"
 msgstr ""
 
-#: src/CertificationReadiness.php:138
+#: src/CertificationReadiness.php:135
 msgid "Run it day to day: people trained, exercises carried out."
 msgstr ""
 
-#: src/CertificationReadiness.php:142
+#: src/CertificationReadiness.php:139
 msgid "Check"
 msgstr ""
 
-#: src/CertificationReadiness.php:143
+#: src/CertificationReadiness.php:140
 msgid "Evaluate it: internal audit and management review."
 msgstr ""
 
-#: src/CertificationReadiness.php:147
+#: src/CertificationReadiness.php:144
 msgid "Act"
 msgstr ""
 
-#: src/CertificationReadiness.php:148
+#: src/CertificationReadiness.php:145
 msgid "Improve it: treat what the checks have found."
 msgstr ""
 
-#: src/CertificationReadiness.php:163 src/ManagementReviewAction.php:63
+#: src/CertificationReadiness.php:160 src/ManagementReviewAction.php:63
 #: src/PersonnelCompliance.php:303 src/PersonnelCompliance.php:336
 #: src/RiskTreatmentAction.php:89 src/RiskTreatmentAction.php:173
 #: src/SecurityIncidentPlaybookTask.php:67 templates/_crisis_review.html.twig
@@ -3784,444 +3903,437 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: src/CertificationReadiness.php:168
+#: src/CertificationReadiness.php:165
 msgid "Partly done"
 msgstr ""
 
-#: src/CertificationReadiness.php:173 src/SecurityIncidentPlaybookTask.php:61
+#: src/CertificationReadiness.php:170 src/SecurityIncidentPlaybookTask.php:61
 #: templates/crisis_room.html.twig templates/itil_regulatory_section.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "To do"
 msgstr ""
 
-#: src/CertificationReadiness.php:178
+#: src/CertificationReadiness.php:175
 msgid "Outside your rights"
 msgstr ""
 
-#: src/CertificationReadiness.php:194
+#: src/CertificationReadiness.php:191
 msgid "Define the scope of the ISMS"
 msgstr ""
 
-#: src/CertificationReadiness.php:196
+#: src/CertificationReadiness.php:193
 msgid ""
 "Write down which sites, activities, systems and teams the management system "
 "covers, and what is left out, then attach this document to requirement 4.3."
 msgstr ""
 
-#: src/CertificationReadiness.php:203
+#: src/CertificationReadiness.php:200
 msgid "Describe the context and the interested parties"
 msgstr ""
 
-#: src/CertificationReadiness.php:205
+#: src/CertificationReadiness.php:202
 msgid ""
 "List the internal and external issues and the interested parties with their "
 "expectations, and decide whether climate change matters for you."
 msgstr ""
 
-#: src/CertificationReadiness.php:212
+#: src/CertificationReadiness.php:209
 msgid "Approve the information security policy"
 msgstr ""
 
-#: src/CertificationReadiness.php:214
+#: src/CertificationReadiness.php:211
 msgid ""
 "Have management approve the security policy and set the date of its next "
 "review."
 msgstr ""
 
-#: src/CertificationReadiness.php:220
+#: src/CertificationReadiness.php:217
 msgid "Assign the roles and responsibilities"
 msgstr ""
 
-#: src/CertificationReadiness.php:222
+#: src/CertificationReadiness.php:219
 msgid ""
 "For each activity of the management system, name who carries it out, who is "
 "accountable, and who is consulted or informed."
 msgstr ""
 
-#: src/CertificationReadiness.php:229
+#: src/CertificationReadiness.php:226
 msgid "Assess the risks"
 msgstr ""
 
-#: src/CertificationReadiness.php:231
+#: src/CertificationReadiness.php:228
 msgid ""
 "Identify the risks, give each one an owner, rate them with your method and "
 "keep their review dates up to date."
 msgstr ""
 
-#: src/CertificationReadiness.php:238
+#: src/CertificationReadiness.php:235
 msgid "Decide how to treat the risks"
 msgstr ""
 
-#: src/CertificationReadiness.php:240
+#: src/CertificationReadiness.php:237
 msgid ""
 "Choose a treatment for each significant risk, have accepted risks approved, "
 "and follow up the treatment actions until they are done."
 msgstr ""
 
-#: src/CertificationReadiness.php:247
+#: src/CertificationReadiness.php:244
 msgid "Approve the Statement of Applicability"
 msgstr ""
 
-#: src/CertificationReadiness.php:249
+#: src/CertificationReadiness.php:246
 msgid ""
 "Justify whether each control applies, then have the Statement of "
 "Applicability approved; approve it again after any change."
 msgstr ""
 
-#: src/CertificationReadiness.php:256
+#: src/CertificationReadiness.php:253
 msgid "Set measurable security objectives"
 msgstr ""
 
-#: src/CertificationReadiness.php:258
+#: src/CertificationReadiness.php:255
 msgid ""
 "Define security objectives with an owner and a target, and record "
 "measurements to show their progress."
 msgstr ""
 
-#: src/CertificationReadiness.php:265
+#: src/CertificationReadiness.php:262
 msgid "Define and check the competences"
 msgstr ""
 
-#: src/CertificationReadiness.php:267
+#: src/CertificationReadiness.php:264
 msgid ""
 "For each function of the management system, list the competences it "
 "requires, say who holds it, record the competences acquired with their "
 "evidence, plan a training for each gap and archive the competence file."
 msgstr ""
 
-#: src/CertificationReadiness.php:275
+#: src/CertificationReadiness.php:272
 msgid "Train and raise awareness"
 msgstr ""
 
-#: src/CertificationReadiness.php:277
+#: src/CertificationReadiness.php:274
 msgid ""
 "Deliver security training and awareness sessions, and make sure the people "
 "concerned have completed them."
 msgstr ""
 
-#: src/CertificationReadiness.php:284
+#: src/CertificationReadiness.php:281
 msgid "Run a continuity or crisis exercise"
 msgstr ""
 
-#: src/CertificationReadiness.php:286
+#: src/CertificationReadiness.php:283
 msgid ""
 "Run at least one exercise, assess whether its objectives were met and have "
 "its review validated."
 msgstr ""
 
-#: src/CertificationReadiness.php:293
+#: src/CertificationReadiness.php:290
 msgid "Carry out the internal audit"
 msgstr ""
 
-#: src/CertificationReadiness.php:295
+#: src/CertificationReadiness.php:292
 msgid ""
 "Complete an internal audit and make sure the audit programme covers every "
 "requirement and every applicable control."
 msgstr ""
 
-#: src/CertificationReadiness.php:302
+#: src/CertificationReadiness.php:299
 msgid "Hold the management review"
 msgstr ""
 
-#: src/CertificationReadiness.php:304
+#: src/CertificationReadiness.php:301
 msgid ""
 "Hold a management review prepared with its input file, and record the "
 "decisions taken."
 msgstr ""
 
-#: src/CertificationReadiness.php:310
+#: src/CertificationReadiness.php:307
 msgid "Treat the nonconformities"
 msgstr ""
 
-#: src/CertificationReadiness.php:312
+#: src/CertificationReadiness.php:309
 msgid ""
 "Analyse each nonconformity, carry out its corrective action on time, and "
 "close it only once the action is done."
 msgstr ""
 
-#: src/CertificationReadiness.php:370
+#: src/CertificationReadiness.php:367
 #, php-format
 msgid "Declared requirements: %1$d of %2$d compliant"
 msgstr ""
 
-#: src/CertificationReadiness.php:436
+#: src/CertificationReadiness.php:431
 msgid "See the items to fix"
 msgstr ""
 
-#: src/CertificationReadiness.php:578
+#: src/CertificationReadiness.php:573
 #, php-format
 msgid "Declared status of requirement 4.3: %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:581
+#: src/CertificationReadiness.php:576
 #, php-format
 msgid "Documents attached: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:584
+#: src/CertificationReadiness.php:579
 msgid "Open requirement 4.3 (scope)"
 msgstr ""
 
-#: src/CertificationReadiness.php:601
+#: src/CertificationReadiness.php:596
 #, php-format
 msgid "Issues: %1$d, interested parties: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:606 templates/_context_summary.html.twig
+#: src/CertificationReadiness.php:601 templates/_context_summary.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Climate change question answered"
 msgstr ""
 
-#: src/CertificationReadiness.php:607 templates/_context_summary.html.twig
+#: src/CertificationReadiness.php:602 templates/_context_summary.html.twig
 msgid "Climate change question not answered yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:610
+#: src/CertificationReadiness.php:605
 #, php-format
 msgid "Reviews overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:646
+#: src/CertificationReadiness.php:641
 #, php-format
 msgid "Approved policies: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:647
+#: src/CertificationReadiness.php:642
 #, php-format
 msgid "Drafts: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:648
+#: src/CertificationReadiness.php:643
 #, php-format
 msgid "Approved policies whose review is overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:667
+#: src/CertificationReadiness.php:662
 #, php-format
 msgid "Activities in the matrix: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:670
+#: src/CertificationReadiness.php:665
 #, php-format
 msgid ""
 "Activities with a serious alert (no one accountable, several accountable, "
 "roles that should be separated): %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:702
+#: src/CertificationReadiness.php:697
 #, php-format
 msgid "Open risks: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:703
+#: src/CertificationReadiness.php:698
 #, php-format
 msgid "Without an owner: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:704
+#: src/CertificationReadiness.php:699
 #, php-format
 msgid "Review overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:732
+#: src/CertificationReadiness.php:727
 #, php-format
 msgid "High risks without a treatment decision: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:733
+#: src/CertificationReadiness.php:728
 #, php-format
 msgid "Accepted risks without approval: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:734
+#: src/CertificationReadiness.php:729
 #, php-format
 msgid "Treatment actions overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:758
+#: src/CertificationReadiness.php:753
 #, php-format
 msgid "Version %s approved, still up to date"
 msgstr ""
 
-#: src/CertificationReadiness.php:762 src/ConsistencyCheck.php:982
+#: src/CertificationReadiness.php:757 src/ConsistencyCheck.php:982
 #, php-format
 msgid "Changed since version %s was approved"
 msgstr ""
 
-#: src/CertificationReadiness.php:765 src/ConsistencyCheck.php:980
+#: src/CertificationReadiness.php:760 src/ConsistencyCheck.php:980
 #: templates/soa_approval.html.twig
 msgid "Never approved"
 msgstr ""
 
-#: src/CertificationReadiness.php:768
+#: src/CertificationReadiness.php:763
 msgid "An approval request is pending"
 msgstr ""
 
-#: src/CertificationReadiness.php:776 src/ConsistencyCheck.php:975
+#: src/CertificationReadiness.php:771 src/ConsistencyCheck.php:975
 #: src/ConsistencyCheck.php:977 src/ManagementReviewDossier.php:125
 #: templates/dashboard_perimeters.html.twig
 msgid "Statement of Applicability"
 msgstr ""
 
-#: src/CertificationReadiness.php:806
+#: src/CertificationReadiness.php:801
 #, php-format
 msgid "Objectives: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:807
+#: src/CertificationReadiness.php:802
 #, php-format
 msgid "With at least one measurement: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:825
+#: src/CertificationReadiness.php:820
 #, php-format
 msgid "ISMS functions: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:826
+#: src/CertificationReadiness.php:821
 #, php-format
 msgid "Functions without required competences: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:829
+#: src/CertificationReadiness.php:824
 #, php-format
 msgid "Functions that nobody holds: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:833
+#: src/CertificationReadiness.php:828
 #, php-format
 msgid "Competence gaps: %1$d, of which %2$d without a planned training"
 msgstr ""
 
-#: src/CertificationReadiness.php:838
+#: src/CertificationReadiness.php:833
 #, php-format
 msgid "Archived competence files: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:868
+#: src/CertificationReadiness.php:863
 #, php-format
 msgid "Trainings and sessions: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:870
+#: src/CertificationReadiness.php:865
 #, php-format
 msgid "Delivered in the last %1$d months: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:877
+#: src/CertificationReadiness.php:872
 #, php-format
 msgid "Participants who completed their training: %1$d %% (target: %2$d %%)"
 msgstr ""
 
-#: src/CertificationReadiness.php:909
+#: src/CertificationReadiness.php:904
 #, php-format
 msgid "Exercises in the last %1$d months: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:913
+#: src/CertificationReadiness.php:908
 #, php-format
 msgid "With a validated review: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:939
+#: src/CertificationReadiness.php:934
 #, php-format
 msgid "Last internal audit completed on %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:940
+#: src/CertificationReadiness.php:935
 msgid "No internal audit completed yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:942
+#: src/CertificationReadiness.php:937
 #, php-format
 msgid ""
 "Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
 msgstr ""
 
-#: src/CertificationReadiness.php:947
+#: src/CertificationReadiness.php:942
 #, php-format
 msgid "Coverage target: %d %%"
 msgstr ""
 
-#: src/CertificationReadiness.php:988
+#: src/CertificationReadiness.php:983
 msgid "Open the last management review"
 msgstr ""
 
-#: src/CertificationReadiness.php:998
+#: src/CertificationReadiness.php:993
 #, php-format
 msgid "Last management review completed on %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:999
+#: src/CertificationReadiness.php:994
 msgid "No management review completed yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:1001
+#: src/CertificationReadiness.php:996
 msgid "Input file prepared for the last review"
 msgstr ""
 
-#: src/CertificationReadiness.php:1002
+#: src/CertificationReadiness.php:997
 msgid "No input file prepared for the last review"
 msgstr ""
 
-#: src/CertificationReadiness.php:1032
+#: src/CertificationReadiness.php:1027
 #, php-format
 msgid "Open nonconformities: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:1033
+#: src/CertificationReadiness.php:1028
 #, php-format
 msgid "Overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:1034
+#: src/CertificationReadiness.php:1029
 #, php-format
 msgid "Closed without a corrective action: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:1043
+#: src/CertificationReadiness.php:1038
 #, php-format
 msgid ""
 "Findings of previous certification audits not lifted: %1$d (including %2$d "
 "nonconformities)"
 msgstr ""
 
-#: src/CertificationReadiness.php:1176
-#, php-format
-msgid ""
-"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
-"deadlines."
-msgstr ""
-
-#: src/CertificationReadiness.php:1194 src/Objective.php:82
+#: src/CertificationReadiness.php:1124 src/Objective.php:82
 #: src/Objective.php:257
 msgid "On track"
 msgstr ""
 
-#: src/CertificationReadiness.php:1199
+#: src/CertificationReadiness.php:1129
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "At risk of being late"
 msgstr ""
 
-#: src/CertificationReadiness.php:1204
+#: src/CertificationReadiness.php:1134
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "Advised deadline passed"
 msgstr ""
 
-#: src/CertificationReadiness.php:1389
+#: src/CertificationReadiness.php:1319
 msgid "Advised deadline for the certification"
 msgstr ""
 
-#: src/CertificationReadiness.php:1395
+#: src/CertificationReadiness.php:1325
 #: src/NotificationTargetReadinessAlert.php:92
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "Target date of the certification audit"
 msgstr ""
 
-#: src/CertificationReadiness.php:1454
+#: src/CertificationReadiness.php:1384
 msgid "Certification readiness report"
 msgstr ""
 
@@ -4236,14 +4348,6 @@ msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
 "GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
 "local_define.php)."
-msgstr ""
-
-#: src/Competence.php:52 src/IsmsRequirement.php:119
-#: templates/competence_declaration_form.html.twig
-#: templates/competence_form.html.twig templates/competence_page.html.twig
-#: templates/competence_sheet.html.twig
-#: templates/pdf/competence_report.html.twig
-msgid "Competence"
 msgstr ""
 
 #: src/Competence.php:66
@@ -9272,7 +9376,7 @@ msgid "Policy to approve"
 msgstr ""
 
 #: src/MySpace.php:148 src/NotificationTargetAuditEvidenceRequest.php:157
-#: templates/my_evidence_requests.html.twig
+#: templates/audit_programme.html.twig templates/my_evidence_requests.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Audit"
 msgstr ""
@@ -10152,6 +10256,7 @@ msgstr ""
 
 #: src/NotificationTargetVulnerabilityDigest.php:177
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 #, php-format
 msgid "%1$s, %2$s"
 msgstr ""
@@ -15651,6 +15756,7 @@ msgstr ""
 #: templates/audit_programme_tab.html.twig
 #: templates/certification_sampling.html.twig
 #: templates/certification_sampling_processes.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid "Process"
 msgstr ""
 
@@ -17365,6 +17471,18 @@ msgid ""
 "Free-text description of the audited scope (processes, sites, systems...)."
 msgstr ""
 
+#: templates/audit_form.html.twig
+msgid ""
+"The references against which the evidence is compared: requirements of the "
+"standard (clause numbers), ISMS policies, procedures, contracts or laws."
+msgstr ""
+
+#: templates/audit_form.html.twig
+msgid ""
+"What the audit must establish, for example: check that access rights are "
+"reviewed as planned."
+msgstr ""
+
 #: templates/audit_log.html.twig
 #, php-format
 msgid "%d entries"
@@ -17456,6 +17574,14 @@ msgstr ""
 #: templates/audit_programme.html.twig
 #, php-format
 msgid ""
+"%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, "
+"competence or independence of the auditors, report to management): see the "
+"table below."
+msgstr ""
+
+#: templates/audit_programme.html.twig
+#, php-format
+msgid ""
 "%d process(es) have no completed audit over the cycle and none planned on "
 "time: plan an audit for each one before the end of the cycle."
 msgstr ""
@@ -17476,11 +17602,22 @@ msgid "Certification cycle"
 msgstr ""
 
 #: templates/audit_programme.html.twig
+msgid "Checkpoints of the audits of the cycle"
+msgstr ""
+
+#: templates/audit_programme.html.twig
 msgid "Cycle"
 msgstr ""
 
 #: templates/audit_programme.html.twig
 msgid "Default certification cycle"
+msgstr ""
+
+#: templates/audit_programme.html.twig
+msgid ""
+"For each internal audit of the cycle: what the certification auditor will "
+"look for. Open the audit and its \"Programme and independence\" tab to "
+"complete a missing point."
 msgstr ""
 
 #: templates/audit_programme.html.twig
@@ -17497,6 +17634,10 @@ msgstr ""
 msgid ""
 "No ISMS process yet. The processes of the programme are the ISMS activities "
 "of the responsibility matrix."
+msgstr ""
+
+#: templates/audit_programme.html.twig
+msgid "No internal audit dated in this cycle."
 msgstr ""
 
 #: templates/audit_programme.html.twig
@@ -17525,6 +17666,11 @@ msgid "Trainings that qualify an internal auditor"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#, php-format
+msgid "%d point(s) to complete"
+msgstr ""
+
+#: templates/audit_programme_tab.html.twig
 msgid ""
 "An auditor must not audit their own work (ISO 19011). An auditor who "
 "performs or approves an audited process in the responsibility matrix, "
@@ -17534,16 +17680,18 @@ msgid ""
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Audit checkpoints"
+msgstr ""
+
+#: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid "Audited processes"
 msgstr ""
 
-#: templates/audit_programme_tab.html.twig
-msgid "Auditors"
-msgstr ""
-
-#: templates/audit_programme_tab.html.twig
-#, php-format
-msgid "Delivered on %1$s to %2$s"
+#: templates/audit_programme_tab.html.twig templates/audit_team_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Auditor competence"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
@@ -17551,6 +17699,7 @@ msgid "Delivery date"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid "Independence of the auditors"
 msgstr ""
 
@@ -17566,6 +17715,7 @@ msgid ""
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid ""
 "No independence conflict between the auditors and the audited processes."
 msgstr ""
@@ -17575,8 +17725,13 @@ msgid "No process chosen."
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Not yet delivered to management"
+msgstr ""
+
+#: templates/audit_programme_tab.html.twig
+msgid "Ready to show the auditor"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
@@ -17588,11 +17743,7 @@ msgid "Record the justification"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
-#: templates/pdf/management_review_dossier.html.twig
-msgid "Report delivered to management"
-msgstr ""
-
-#: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid "Role in the matrix"
 msgstr ""
 
@@ -17611,7 +17762,17 @@ msgid ""
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 msgid "To justify"
+msgstr ""
+
+#: templates/audit_programme_tab.html.twig
+msgid ""
+"What the certification auditor checks for each internal audit: objectives, "
+"scope and criteria defined beforehand, auditors who are competent and do not "
+"audit their own work, results reported to management. Objectives, scope and "
+"criteria are entered on the audit form; competence comes from the qualifying "
+"trainings chosen on the programme page."
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
@@ -17637,10 +17798,6 @@ msgid ""
 msgstr ""
 
 #: templates/audit_team_tab.html.twig
-msgid "Auditor competence"
-msgstr ""
-
-#: templates/audit_team_tab.html.twig
 msgid ""
 "Choose the trainings that qualify an internal auditor on the audit programme "
 "page."
@@ -17655,10 +17812,6 @@ msgid "No CISO group is set in the plugin configuration."
 msgstr ""
 
 #: templates/audit_team_tab.html.twig
-msgid "No auditor qualification recorded"
-msgstr ""
-
-#: templates/audit_team_tab.html.twig
 msgid "No member: set the auditor or the owner on the form."
 msgstr ""
 
@@ -17667,14 +17820,6 @@ msgid ""
 "Only team members can read the documents of the audit and its findings, even "
 "with the GLPI Documents right. Auditees can read them but cannot add "
 "anything."
-msgstr ""
-
-#: templates/audit_team_tab.html.twig
-msgid "Qualification to renew"
-msgstr ""
-
-#: templates/audit_team_tab.html.twig
-msgid "Qualified"
 msgstr ""
 
 #: templates/audit_team_tab.html.twig templates/competence_form.html.twig
@@ -17965,28 +18110,9 @@ msgid ""
 msgstr ""
 
 #: templates/certification_readiness.html.twig
-#, php-format
-msgid ""
-"A step not done is at risk of being late when its advised deadline is within "
-"%d days."
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid "Adjusted"
-msgstr ""
-
-#: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 #, php-format
 msgid "Advised deadline: %s"
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid "Advised deadlines per step"
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid "Alert (days)"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
@@ -18003,24 +18129,7 @@ msgid "Coverage target (%)"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
-msgid ""
-"Coverage target: share of the requirements and controls the audit programme "
-"must have covered over the last three years for the internal audit step to "
-"be done. Training target: share of the participants who must have completed "
-"their training. Alert: number of days before an advised deadline from which "
-"the step is at risk and the owner is notified."
-msgstr ""
-
-#: templates/certification_readiness.html.twig
 msgid "Date entered in the settings of this page."
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid "Days before the target date"
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid "Default"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
@@ -18106,14 +18215,6 @@ msgstr ""
 
 #: templates/certification_readiness.html.twig
 msgid ""
-"Number of days before the target date by which each step should be done. "
-"Keep the logical order: the internal audit before the management review that "
-"uses its results, then the treatment of nonconformities. A change only moves "
-"the advised deadlines: nothing else is modified."
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid ""
 "Once certified, enter the certification date in the settings, or complete "
 "the initial certification audit: the page then follows the three-year cycle "
 "(two annual surveillance audits, then the recertification) and highlights "
@@ -18140,13 +18241,6 @@ msgstr ""
 
 #: templates/certification_readiness.html.twig
 msgid "Settings of the certification readiness"
-msgstr ""
-
-#: templates/certification_readiness.html.twig templates/crisis_room.html.twig
-#: templates/pdf/certification_readiness_report.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
-#: templates/tabs/playbook_steps.html.twig
-msgid "Step"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
@@ -21214,13 +21308,6 @@ msgctxt "verb"
 msgid "Open"
 msgstr ""
 
-#: templates/crisis_exercises.html.twig templates/crisis_tab.html.twig
-#: templates/pdf/remediation_plan.html.twig
-#: templates/tabs/control_access_reviews.html.twig
-#: templates/tabs/incident_playbook.html.twig
-msgid "Report"
-msgstr ""
-
 #: templates/crisis_exercises.html.twig
 msgid "Review validated"
 msgstr ""
@@ -21471,6 +21558,13 @@ msgstr ""
 #: templates/crisis_room.html.twig
 #, php-format
 msgid "Started on %1$s by %2$s."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/certification_readiness_report.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/tabs/playbook_steps.html.twig
+msgid "Step"
 msgstr ""
 
 #: templates/crisis_room.html.twig templates/crisis_tab.html.twig
@@ -25670,6 +25764,10 @@ msgid "Planned / actual date"
 msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
+msgid "Qualifying trainings"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
 msgid "Risk categories"
 msgstr ""
 
@@ -29659,10 +29757,6 @@ msgid "Last check"
 msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
-msgid "Missing"
-msgstr ""
-
-#: templates/tabs/incident_evidence.html.twig
 msgid "Modified"
 msgstr ""
 
@@ -30269,4 +30363,121 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr ""
+
+
+#: src/SoftwareLicenseCompliance.php:165
+msgid "License expiring soon"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:169
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:211
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:216
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:420
+msgid "Over-quota allowed by the license"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "License coverage: %d%%"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "License coverage"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "No warning before a license expires."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Over-quota allowed"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "Warning %d days before a license expires."
+msgstr ""
+
+
+#: src/CertificationReadiness.php:1176
+#, php-format
+msgid ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+#, php-format
+msgid ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Adjusted"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Advised deadlines per step"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Alert (days)"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Days before the target date"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Default"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
 msgstr ""

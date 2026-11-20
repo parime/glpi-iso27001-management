@@ -290,6 +290,72 @@ final class SoftwareLicenseComplianceTest extends GrcmanagerIntegrationTestCase
         }
     }
 
+    public function testExpiringLicenceOverquotaAndCoverage(): void
+    {
+        $suite = $this->software('Suite', $this->microsoft);
+        $cad = $this->software('CAO', $this->microsoft);
+        $other = $this->software('Bureau', $this->microsoft);
+        // Licence de l'agence qui expire dans 25 jours, encore utilisée.
+        $this->computerWith($suite, $this->branch);
+        $soon = $this->licence($suite, $this->branch, 5, false, '2026-12-15');
+        // Surdéploiement sur une licence qui autorise le dépassement.
+        $this->computerWith($cad, $this->branch);
+        $this->computerWith($cad, $this->branch);
+        $overquota = $this->licence($cad, $this->branch, 1, false);
+        (new \SoftwareLicense())->update(['id' => $overquota, 'allow_overquota' => 1]);
+        // Logiciel commercial sans licence : couverture 2 sur 3.
+        $this->computerWith($other, $this->branch);
+
+        $before = $this->glpiCounts();
+        $this->assertSame([
+            Rules::FINDING_EXPIRING . ':entity:' . $this->branch . ':' . $suite . ':1/5',
+            Rules::FINDING_OVERDEPLOYED . ':entity:' . $this->branch . ':' . $cad . ':2/1',
+            Rules::FINDING_UNLICENSED . ':entity:' . $this->branch . ':' . $other . ':1/0',
+        ], $this->mine());
+        $this->assertSame($before, $this->glpiCounts(), 'Aucune donnée de GLPI créée ni modifiée.');
+
+        $mine = array_values(array_filter(
+            SoftwareLicenseCompliance::findings(self::TODAY),
+            fn (array $f): bool => $f['software_id'] === $cad
+        ));
+        $this->assertTrue($mine[0]['overquota_allowed']);
+
+        // L'échéance proche n'est pas un écart du contrôle de cohérence.
+        $gaps = array_map(
+            static fn (array $gap): string => $gap['itemtype'] . ':' . $gap['items_id'],
+            SoftwareLicenseCompliance::consistencyGaps(self::TODAY) ?? []
+        );
+        $this->assertNotContains(\SoftwareLicense::class . ':' . $soon, $gaps);
+        $this->assertContains(\Software::class . ':' . $cad, $gaps);
+
+        // Preuve : échéances comptées à part, couverture.
+        $evidence = SoftwareLicenseCompliance::evidence('A.5.32');
+        $this->assertNotNull($evidence);
+        $this->assertGreaterThanOrEqual(1, $evidence['expiring']);
+        $this->assertNotNull($evidence['coverage']);
+        $this->assertGreaterThanOrEqual(3, $evidence['coverage']['watched']);
+
+        // Horizon réglable : 10 jours, l'échéance du 15/12 n'est plus signalée ; borné à 365.
+        LicenseInventory::save('Microsoft', '', 10);
+        $this->assertSame(10, LicenseInventory::settings()['expiring_days']);
+        $this->assertNotContains(
+            Rules::FINDING_EXPIRING . ':entity:' . $this->branch . ':' . $suite . ':1/5',
+            $this->mine()
+        );
+        LicenseInventory::save('Microsoft', '', 9999);
+        $this->assertSame(Rules::MAX_EXPIRING_DAYS, LicenseInventory::settings()['expiring_days']);
+        LicenseInventory::reset();
+        $this->assertSame(Rules::DEFAULT_EXPIRING_DAYS, LicenseInventory::settings()['expiring_days']);
+
+        // Export : colonne du dépassement autorisé.
+        $rows = array_values(array_filter(
+            SoftwareLicenseCompliance::csvRows(self::TODAY),
+            fn (array $r): bool => $r[3] === 'PhpUnitDemo CAO ' . $this->suffix
+        ));
+        $this->assertCount(1, $rows);
+        $this->assertSame(__('Yes'), $rows[0][10]);
+    }
+
     public function testCsvCellsCannotInjectFormulas(): void
     {
         $id = (int) (new \Software())->add([

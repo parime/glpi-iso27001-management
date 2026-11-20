@@ -309,6 +309,21 @@ class Audit extends AuditBase
             'name'     => __('Standard and edition', 'grcmanager'),
             'datatype' => 'string',
         ];
+        // Issue #773, lot 2 : objectifs et critères de l'audit (identifiants 34 et 35).
+        $tab[] = [
+            'id'       => 34,
+            'table'    => $this->getTable(),
+            'field'    => 'objectives',
+            'name'     => __('Audit objectives', 'grcmanager'),
+            'datatype' => 'text',
+        ];
+        $tab[] = [
+            'id'       => 35,
+            'table'    => $this->getTable(),
+            'field'    => 'criteria',
+            'name'     => __('Audit criteria', 'grcmanager'),
+            'datatype' => 'text',
+        ];
 
         // Issue #536 : périmètre de l'audit (entité GLPI) et visibilité dans les sous-entités.
         $tab[] = [
@@ -614,6 +629,8 @@ class Audit extends AuditBase
                 'grcmanager'
             ), Html::convDateTime(date('Y-m-d H:i:s'))),
             'audit'              => $audit->fields,
+            // Issue #773, lot 2 : programme, indépendance et compétence (audits internes).
+            'programme'          => AuditProgramme::isInternal($audit) ? AuditProgramme::reportData($audit) : null,
             'auditor'            => $audit->fields['users_id'] ? getUserName((int) $audit->fields['users_id']) : '',
             'status'             => self::getStatuses()[$audit->fields['status']] ?? $audit->fields['status'],
             'planned_date'       => Html::convDate($audit->fields['planned_date']),
