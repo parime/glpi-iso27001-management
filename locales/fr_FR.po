@@ -23192,6 +23192,60 @@ msgid_plural "Warranty ends on %1$s (in %2$d days)."
 msgstr[0] "La garantie se termine le %1$s (dans %2$d jour)."
 msgstr[1] "La garantie se termine le %1$s (dans %2$d jours)."
 
+#, php-format
+msgid "%1$d of %2$d applicable measures of this framework are compliant. Open a measure to update its status."
+msgstr "%1$d mesures applicables de ce référentiel sur %2$d sont conformes. Ouvrez une mesure pour mettre à jour son statut."
+
+#, php-format
+msgid "%1$d of %2$d applicable measures of this framework are implemented and proven. The plugin does not track their status directly: each one takes the status of the Annex A controls it is mapped to (indicative mapping). Open a mapped control to update it."
+msgstr "%1$d mesures applicables de ce référentiel sur %2$d sont mises en œuvre et prouvées. Le plugin ne suit pas leur statut directement : chacune prend celui des mesures de l'Annexe A auxquelles elle est reliée (correspondance indicative). Ouvrez une mesure reliée pour la mettre à jour."
+
+msgid "Applicable measures"
+msgstr "Mesures applicables"
+
+msgid "Assessed on"
+msgstr "Évalué sur"
+
+msgid "Each framework is assessed on its own measures. When the plugin does not track their status (NIS2 requirements, ANSSI measures, CIS controls...), the status of each measure comes from the ISO 27001 Annex A controls it is mapped to, and only while ISO 27001 is enabled. The score counts the applicable measures that are implemented (or compliant) and, when evidence is tracked, proven by at least one evidence document that has not expired."
+msgstr "Chaque référentiel est évalué sur ses propres mesures. Quand le plugin ne suit pas leur statut (exigences NIS2, mesures ANSSI, contrôles CIS...), le statut de chaque mesure vient des mesures de l'Annexe A ISO 27001 auxquelles elle est reliée, et seulement tant qu'ISO 27001 est activé. Le score compte les mesures applicables mises en œuvre (ou conformes) et, quand la preuve est suivie, prouvées par au moins un document de preuve non expiré."
+
+msgid "Framework to detail"
+msgstr "Référentiel à détailler"
+
+msgid "Mapped Annex A controls"
+msgstr "Mesures de l'Annexe A reliées"
+
+msgid "No gap: every applicable measure is compliant."
+msgstr "Aucun écart : toutes les mesures applicables sont conformes."
+
+msgid "No mapped control"
+msgstr "Aucune mesure reliée"
+
+msgid "No status of its own"
+msgstr "Pas de statut propre"
+
+msgid "Not assessed: ISO 27001 is disabled"
+msgstr "Non évalué : ISO 27001 est désactivé"
+
+msgid "Own measures"
+msgstr "Mesures propres"
+
+msgid "Own measures, status from the Annex A mapping"
+msgstr "Mesures propres, statut issu de la correspondance avec l'Annexe A"
+
+msgid "See its measures"
+msgstr "Voir ses mesures"
+
+msgid "Summary only"
+msgstr "Synthèse seule"
+
+#, php-format
+msgid "The plugin does not track a status of its own for the %1$d measures of %2$s. Their status can only come from the mapping to the ISO 27001 Annex A controls, and ISO 27001 is disabled: this framework is therefore not assessed. Enable ISO 27001 in the configuration to use the mapping, or import the framework as a custom framework to assess its requirements directly."
+msgstr "Le plugin ne suit pas de statut propre pour les %1$d mesures de %2$s. Leur statut ne peut venir que de la correspondance avec les mesures de l'Annexe A ISO 27001, et ISO 27001 est désactivé : ce référentiel n'est donc pas évalué. Activez ISO 27001 dans la configuration pour utiliser la correspondance, ou importez le référentiel comme référentiel personnalisé pour évaluer directement ses exigences."
+
+msgid "To assess NIS2 on the measures of a national framework (for example ReCyF in France), import it as a custom framework and enable it: it is then assessed on its own requirements."
+msgstr "Pour évaluer NIS2 sur les mesures d'un référentiel national (par exemple le ReCyF en France), importez-le comme référentiel personnalisé et activez-le : il est alors évalué sur ses propres exigences."
+
 msgid "No site assessed yet"
 msgstr "Aucun site évalué pour l'instant"
 

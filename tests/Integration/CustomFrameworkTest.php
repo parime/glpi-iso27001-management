@@ -98,8 +98,9 @@ final class CustomFrameworkTest extends GrcmanagerIntegrationTestCase
         $assessments = FrameworkAssessment::assessAll(FrameworkAssessment::controls(date('Y-m-d')));
         $this->assertArrayHasKey('PHPUnit exigences Démo v1', $assessments);
         $this->assertSame($key, $assessments['PHPUnit exigences Démo v1']['key']);
-        // A.5.1, A.8.5, A.5.17 et A.5.20, moins celles déclarées non applicables sur cette instance.
-        $this->assertLessThanOrEqual(4, $assessments['PHPUnit exigences Démo v1']['applicable']);
+        // Issue #789 : évalué sur ses trois exigences (non évaluées : toutes applicables).
+        $this->assertSame(3, $assessments['PHPUnit exigences Démo v1']['applicable']);
+        $this->assertSame(FrameworkAssessment::BASIS_OWN, $assessments['PHPUnit exigences Démo v1']['basis']);
         $labels = array_column(PilotageCards::complianceByFramework()['data'], 'label');
         $this->assertContains('PHPUnit exigences Démo v1', $labels);
         $this->assertSame(['PHPU-01'], CustomFrameworkCatalog::requirementsForControl($key, 'A.5.1'));
