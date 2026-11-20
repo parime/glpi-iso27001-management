@@ -110,6 +110,11 @@ final class SecuredDashboardCards
             // du plugin et des utilisateurs).
             return \GlpiPlugin\Grcmanager\CompetenceMatrix::canView();
         }
+        if ($name === 'diskEncryptionRate') {
+            // Issue #847 : chiffrement des disques, sous les droits de sa page (droit du plugin et
+            // lecture des ordinateurs).
+            return \GlpiPlugin\Grcmanager\DiskEncryption::canView();
+        }
         if (str_starts_with($name, 'vulnerabilityRemediation')) {
             // Issue #601 : délais de correction des vulnérabilités du parc, sous les droits de leur
             // page (registre sensible et lecture des logiciels).

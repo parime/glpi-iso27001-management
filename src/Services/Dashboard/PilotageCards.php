@@ -302,6 +302,18 @@ final class PilotageCards
         return \GlpiPlugin\Grcmanager\CompetenceMatrix::dashboardCard($params);
     }
 
+    /**
+     * Issue #847 : ordinateurs qui doivent être chiffrés et le sont (%), page « Chiffrement des
+     * disques ».
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function diskEncryptionRate(array $params = []): array
+    {
+        return \GlpiPlugin\Grcmanager\DiskEncryption::dashboardCard($params);
+    }
+
     public static function accessReviewProgress(array $params = []): array
     {
         global $DB;
