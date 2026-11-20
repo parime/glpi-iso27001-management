@@ -530,6 +530,63 @@ natifs de lecture des logiciels et des licences.
 6. Sur la fiche de la mesure A.5.32 de la SoA, le cadre « Conformité des licences logicielles »
    montre les trois compteurs, et les contrôles de cohérence du SMSI (onglet du tableau de bord) listent
    chaque constat.
+### Étape 24 : Préparer l'audit de certification avec une date cible
+
+1. Ouvrez Tableau de bord > **Préparation à la certification**. L'encadré « À quoi sert cette page ? »
+   rappelle ce qui est attendu.
+2. Donnez une **date cible** : soit dans le cadre « Réglages de la préparation à la certification »
+   (par exemple le 3 décembre), soit en planifiant l'audit lui-même. Un audit dont le type est
+   « Audit de certification initial », « Audit de surveillance 1 ou 2 » ou « Audit de renouvellement », ou un
+   événement du calendrier de conformité de même nature, est repris automatiquement : rien à saisir
+   deux fois.
+3. Chaque étape non faite reçoit une **échéance conseillée**, calculée en remontant depuis la date
+   cible (le socle d'abord, puis l'audit interne, la revue de direction et le traitement des
+   non-conformités). Une étape dont l'échéance tombe dans les 14 jours est marquée « Risque de
+   retard » ; une échéance dépassée est signalée en rouge.
+4. Choisissez le **responsable de la préparation** (à défaut, le responsable de l'audit cible). La
+   tâche automatique `certificationreadiness` lui envoie la notification « Étape de la certification
+   à risque » quand une étape approche ou dépasse son échéance, une seule fois par étape et par état.
+   Rien n'est modifié automatiquement. Il doit pouvoir lire le plugin sur toutes les entités, puisque
+   l'état couvre tout le SMSI.
+5. Les échéances conseillées figurent dans le **calendrier de conformité** (et dans le planning du
+   responsable), avec un lien vers l'étape à compléter.
+6. Réglez au besoin les **seuils** : couverture visée du programme d'audit (100 % par défaut, sur les
+   trois dernières années) et part des participants formés (80 % par défaut).
+7. Une fois certifié, saisissez la **date de certification** (ou terminez l'audit initial de
+   certification) : le cadre « Cycle de maintien » affiche les deux audits de surveillance annuels et
+   le renouvellement à trois ans, la date cible suit le prochain d'entre eux, et les étapes à refaire
+   chaque année (appréciation des risques, SoA, audit interne, revue de direction) sont mises en
+   avant. Le découpage des audits internes sur le cycle reste dans le **programme d'audit
+   pluriannuel**.
+8. Les réglages demandent le droit de modifier le plugin ; la page reste lisible avec le droit de
+   lecture.
+### Étape 25 : Tenir le registre des procédures d'exploitation (mesure A.5.37)
+
+1. Ouvrez Conformité > **Procédures d'exploitation** (onglet à côté de « Politiques de sécurité »).
+   La page montre la couverture des domaines attendus : sauvegarde, restauration, supervision,
+   journaux, mises à jour, déploiement, gestion des accès, gestion des incidents, changements,
+   maintenance. Chaque domaine est « À jour », « Revue à faire », « Non approuvée » ou « Aucune
+   procédure ».
+2. Sur la ligne d'un domaine sans procédure, cliquez sur **Ajouter la procédure**. La fiche est un
+   document de la bibliothèque des politiques, déjà en catégorie « Procédure d'exploitation » et
+   dans le bon domaine : pas d'objet à part. Un document existant devient une procédure en
+   choisissant cette catégorie sur sa fiche.
+3. Renseignez par exemple « Procédure de sauvegarde des serveurs (fictive) », version 1.0, son
+   responsable, et joignez le document dans l'onglet « Documents ». Faites-la approuver (statut
+   « Approuvée » avec sa date, ou onglet « Approbation » si le circuit est activé), puis fixez la
+   **prochaine revue** : sans date de revue, ou une fois la date passée, le domaine passe en « Revue
+   à faire ».
+4. Dans l'onglet **Prise de connaissance**, ajoutez au public les groupes ou profils qui exécutent la
+   procédure (l'équipe d'exploitation, par exemple), puis lancez la campagne : le registre affiche
+   ensuite le taux de lecture de la version en vigueur.
+5. La liste des domaines se règle dans la configuration du plugin (cadre « Domaines attendus des
+   procédures d'exploitation ») : décochez un domaine qui ne vous concerne pas, ajoutez les vôtres,
+   un par ligne.
+6. Avant l'audit, cliquez sur **Archiver sur la mesure A.5.37** : le registre est enregistré en PDF
+   daté sur la mesure. **Imprimer le registre (PDF)** le télécharge sans l'enregistrer. Sur la fiche
+   de la mesure A.5.37, le cadre « Registre des procédures d'exploitation » rappelle la couverture ;
+   les procès-verbaux d'approbation et les rapports de prise de connaissance d'une procédure y sont
+   archivés (ceux d'une politique restent sur A.5.1).
 
 ## 🇬🇧 English
 
@@ -1023,3 +1080,53 @@ rights to read software and licenses.
 5. Click **Export (CSV)** to hand the list to the auditor.
 6. On control A.5.32 of the SoA, the "Software license compliance" box shows the three counters, and
    the ISMS consistency checks (tab of the dashboard) list each finding.
+### Step 24: Prepare the certification audit with a target date
+
+1. Open Dashboard > **Certification readiness**. The "What is this page for?" box explains what is
+   expected.
+2. Give a **target date**: either in the "Settings of the certification readiness" box (for
+   instance 3 December), or by planning the audit itself. An audit whose type is "Initial
+   certification audit", "Surveillance audit 1 or 2" or "Recertification audit", or an event of the
+   compliance calendar of the same kind, is used automatically: nothing to enter twice.
+3. Each step not done gets an **advised deadline**, counted back from the target date (the
+   foundations first, then the internal audit, the management review and the treatment of
+   nonconformities). A step whose deadline falls within 14 days is marked "At risk of being late"; a
+   passed deadline is shown in red.
+4. Choose the **owner of the preparation** (otherwise, the owner of the target audit). The
+   `certificationreadiness` automatic task sends them the "Certification step at risk" notification
+   when a step approaches or passes its deadline, once per step and per state. Nothing is changed
+   automatically. They must be able to read the plugin in every entity, since the state covers the
+   whole ISMS.
+5. The advised deadlines appear in the **compliance calendar** (and in the owner's planning), with a
+   link to the step to complete.
+6. Adjust the **thresholds** if needed: coverage target of the audit programme (100% by default, over
+   the last three years) and share of trained participants (80% by default).
+7. Once certified, enter the **certification date** (or complete the initial certification audit):
+   the "Maintenance cycle" box shows the two annual surveillance audits and the recertification after
+   three years, the target date follows the next one, and the steps to redo each year (risk
+   assessment, SoA, internal audit, management review) are highlighted. Spreading the internal audits
+   over the cycle stays in the **multi-year audit programme**.
+8. The settings require the right to modify the plugin; the page stays readable with the read right.
+### Step 25: Keep the register of operating procedures (control A.5.37)
+
+1. Open Compliance > **Operating procedures** (tab next to "Security policies"). The page shows the
+   coverage of the expected domains: backup, restore, monitoring, logs, updates, deployment, access
+   management, incident management, changes, maintenance. Each domain is "Up to date", "Review due",
+   "Not approved" or "No procedure".
+2. On the row of a domain without a procedure, click **Add the procedure**. The record is a document
+   of the policy library, already in the "Operating procedure" category and in the right domain:
+   there is no separate object. An existing document becomes a procedure by choosing this category
+   on its record.
+3. Fill in for instance "Server backup procedure (fictitious)", version 1.0, its owner, and attach
+   the document in the "Documents" tab. Have it approved ("Approved" status with its date, or the
+   "Approval" tab when the workflow is enabled), then set the **next review**: without a review
+   date, or once the date has passed, the domain shows "Review due".
+4. In the **Reading acknowledgement** tab, add the groups or profiles that carry out the procedure
+   (the operations team, for instance) to the audience, then launch the campaign: the register then
+   shows the reading rate of the current version.
+5. The list of domains is set in the plugin configuration ("Expected domains of operating
+   procedures" box): untick a domain that does not apply to you, add your own, one per line.
+6. Before the audit, click **Archive on control A.5.37**: the register is saved as a dated PDF on the
+   control. **Print the register (PDF)** downloads it without saving it. On control A.5.37, the
+   "Register of operating procedures" box shows the coverage; the approval records and the
+   acknowledgement reports of a procedure are archived there (those of a policy stay on A.5.1).

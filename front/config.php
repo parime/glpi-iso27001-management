@@ -447,6 +447,21 @@ if (isset($_POST['update_policy_approval'])) {
     Html::back();
 }
 
+// Issue #775 : domaines attendus des procédures d'exploitation (A.5.37) : domaines par défaut
+// cochés, puis domaines supplémentaires, un par ligne (OperatingProcedureRules::fromForm()).
+if (isset($_POST['update_operating_procedures'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    \GlpiPlugin\Grcmanager\OperatingProcedure::saveDomains(
+        \GlpiPlugin\Grcmanager\Services\Policy\OperatingProcedureRules::fromForm(
+            (array) ($_POST['operating_procedure_domains'] ?? []),
+            is_string($_POST['operating_procedure_others'] ?? null) ? $_POST['operating_procedure_others'] : ''
+        )
+    );
+
+    Html::back();
+}
+
 // Issue #658 : adresses internes pour les appels sortants. Réglage global (toutes les entités),
 // réservé au droit de modifier la configuration générale de GLPI.
 if (isset($_POST['update_http_config'])) {
@@ -683,6 +698,8 @@ Html::header(
         'quorum'         => PolicyApprovalConfig::defaultQuorum(),
         'quorum_choices' => PolicyApprovalConfig::quorumChoices(false),
     ],
+    // Issue #775 : domaines attendus des procédures d'exploitation (A.5.37).
+    'operating_procedures'      => \GlpiPlugin\Grcmanager\OperatingProcedure::configForm(),
     'policy_approval_user_dropdown' => User::dropdown([
         'name'     => 'policy_approval_users[]',
         'value'    => array_column(array_filter(

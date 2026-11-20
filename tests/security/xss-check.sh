@@ -77,6 +77,10 @@ check "onglet references CPE d'un produit"    "$(tab GlpiPlugin%5CGrcmanager%5CC
 check "onglet alias d'un produit"             "$(tab GlpiPlugin%5CGrcmanager%5CCanonicalProduct 'GlpiPlugin%5CGrcmanager%5CProductAlias$1' "$(xid product)")"
 check "onglet registre des traitements d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' "$(id computer_A)")"
 check "fiche d'un traitement (onglet principal)" "$(tab GlpiPlugin%5CGrcmanager%5CProcessingActivity 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$main' "$(xid processing)")"
+# Issue #775 : procedure d'exploitation piegee (registre, fiche, preuve de la mesure A.5.37).
+check "front/operatingprocedure.php"          "$P/operatingprocedure.php"
+check "fiche d'une procedure d'exploitation"  "$P/policy.form.php?id=$(xid procedure)"
+check "onglet principal d'une procedure"      "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CPolicy$main' "$(xid procedure)")"
 # Issue #779 : logiciel et ordinateur pieges (page des licences logicielles).
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #771 : contact officiel piege (registre, fiche, onglets de l'incident et de la violation).

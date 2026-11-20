@@ -151,6 +151,7 @@ class ComplianceEvent extends ComplianceEventBase
             'evidence'          => [__('Evidence expiry', 'grcmanager'), 'ti-file-alert'],
             'control_test'      => [ControlTest::getTypeName(1), 'ti-test-pipe'],
             'data_subject_request' => [DataSubjectRequest::getTypeName(1), 'ti-user-question'],
+            'readiness'         => [CertificationReadiness::getTypeName(), 'ti-certificate'],
         ];
     }
 
@@ -300,7 +301,9 @@ class ComplianceEvent extends ComplianceEventBase
             self::obligationDeadlines(),
             self::evidenceDeadlines(),
             self::controlTestDeadlines(),
-            self::dataSubjectRequestDeadlines()
+            self::dataSubjectRequestDeadlines(),
+            // Issue #761 : échéances conseillées de la préparation à la certification.
+            CertificationReadiness::calendarDeadlines()
         );
 
         $events = [];

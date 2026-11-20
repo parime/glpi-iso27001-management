@@ -54,6 +54,8 @@ if (isset($_POST['add'])) {
         [
             'central'  => ['grcmanager', \GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Policy::class],
             'helpdesk' => [],
-        ]
+        ],
+        // Issue #775 : nouvelle procédure ouverte depuis le registre (valeurs validées par showForm()).
+        array_intersect_key($_GET, ['category' => true, 'procedure_domain' => true])
     );
 }

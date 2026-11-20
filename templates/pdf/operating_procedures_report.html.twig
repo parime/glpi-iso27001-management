@@ -1,0 +1,93 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #775 : registre des procédures d'exploitation en PDF (A.5.37) : couverture par domaine et
+   liste des procédures. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+{% set labels = {
+   'up_to_date': __('Up to date', 'grcmanager'),
+   'review_due': __('Review due', 'grcmanager'),
+   'not_approved': __('Not approved', 'grcmanager'),
+   'missing': __('No procedure', 'grcmanager'),
+} %}
+
+<p>{{ control }}</p>
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Expected domains', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.total }}</td></tr>
+  <tr><td>{{ __('Up to date', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.up_to_date }}</td></tr>
+  <tr><td>{{ __('Review due', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.review_due }}</td></tr>
+  <tr><td>{{ __('Not approved', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.not_approved }}</td></tr>
+  <tr><td>{{ __('No procedure', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.missing }}</td></tr>
+</table>
+
+<h2>{{ __('Coverage of the expected domains', 'grcmanager') }}</h2>
+{% if coverage.domains is empty %}
+  <p>{{ __('No item recorded.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th style="width: 50%;">{{ __('Domain', 'grcmanager') }}</th>
+        <th style="width: 30%;">{{ __('Coverage', 'grcmanager') }}</th>
+        <th style="width: 20%;">{{ __('Procedures', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for domain in coverage.domains %}
+        <tr>
+          <td>{{ domain.label }}</td>
+          <td>{{ labels[domain.status] }}</td>
+          <td>{{ domain.count }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+<h2>{{ __('Operating procedures', 'grcmanager') }}</h2>
+{% if procedures is empty %}
+  <p>{{ __('No item recorded.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th style="width: 24%;">{{ __('Title', 'grcmanager') }}</th>
+        <th style="width: 14%;">{{ __('Domain', 'grcmanager') }}</th>
+        <th style="width: 8%;">{{ __('Version', 'grcmanager') }}</th>
+        <th style="width: 14%;">{{ __('Status', 'grcmanager') }}</th>
+        <th style="width: 11%;">{{ __('Approval date', 'grcmanager') }}</th>
+        <th style="width: 11%;">{{ __('Next review', 'grcmanager') }}</th>
+        <th style="width: 18%;">{{ _x('owner', 'Owner', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for procedure in procedures %}
+        <tr>
+          <td>
+            {{ procedure.title }}
+            {% if procedure.ack_rate is not null %}<br>{{ __('Reading acknowledgement', 'grcmanager') }}: {{ __('%1$d of %2$d people (%3$d%%)', 'grcmanager')|format(procedure.ack_done, procedure.ack_total, procedure.ack_rate) }}{% endif %}
+          </td>
+          <td>{{ procedure.domain ?: '-' }}</td>
+          <td>{{ procedure.version }}</td>
+          <td>{{ procedure.status is not null ? labels[procedure.status] : __('Archived', 'grcmanager') }}<br>({{ procedure.policy_status }})</td>
+          <td>{{ procedure.approval_date ? procedure.approval_date|formatted_date : '-' }}</td>
+          <td>{{ procedure.next_review ? procedure.next_review|formatted_date : '-' }}</td>
+          <td>{{ procedure.owner ?: '-' }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

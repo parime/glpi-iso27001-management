@@ -95,6 +95,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
   front/officialcontact.php front/officialcontact.export.php
+  front/operatingprocedure.php front/operatingprocedure.export.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
   front/personnelcompliance.php front/personnelcompliance.export.php?format=csv
   front/personnelcompliance.export.php?format=pdf
@@ -122,6 +123,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/ismsfunction.form.php front/competence.form.php front/competencedeclaration.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
+  # Issue #775 : archiver le registre des procedures d'exploitation sur A.5.37 cree un document : il
+  # faut pouvoir modifier les politiques.
+  expect "front/operatingprocedure.php : archiver sur A.5.37" "$1" \
+    "$(code -d "archive=1&_glpi_csrf_token=$(csrf)" "$P/operatingprocedure.php")"
   # Issue #542 : generer le dossier preparatoire d'une revue de direction (document joint) et creer
   # les actions a partir de ses decisions exigent de pouvoir modifier la revue.
   expect "front/managementreview.dossier.php : generer le dossier" "$1" \
@@ -205,6 +210,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
   expect "front/auditprogramme.php : reglages du programme" "$1" \
     "$(code -d "save_settings=1&cycle_start=2025&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
+  # Issue #761 : date cible, responsable et seuils de la preparation a la certification exigent le
+  # droit de modifier le plugin.
+  expect "front/certificationreadiness.php : reglages de la preparation" "$1" \
+    "$(code -d "save_readiness_settings=1&target_date=2026-12-03&coverage_target=90&_glpi_csrf_token=$(csrf)" "$P/certificationreadiness.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
   # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).

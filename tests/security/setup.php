@@ -121,6 +121,11 @@ if ($mode === 'xss') {
         'title' => $canary, 'description' => $canary, 'version' => '1.0', 'status' => 'approved',
         'approval_date' => date('Y-m-d'),
     ]);
+    // Issue #775 : procédure d'exploitation piégée (titre, domaine) : registre, fiche, liste.
+    $out['procedure'] = $insert('policies', [
+        'title' => $canary, 'category' => 'operating_procedure', 'procedure_domain' => $canary,
+        'version' => '1.0', 'status' => 'draft',
+    ]);
     // Issue #535 : campagne de prise de connaissance de la politique piégée, à lire par glpi, et
     // groupe piégé dans son public (onglet de la politique, onglet « Politiques à lire »).
     $DB->insert('glpi_groups', ['name' => $canary, 'entities_id' => 0, 'is_recursive' => 1]);

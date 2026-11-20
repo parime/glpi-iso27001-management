@@ -27432,3 +27432,389 @@ msgstr "ISO/IEC 27001, control A.5.32"
 
 msgid "Watched publishers saved."
 msgstr "Watched publishers saved."
+
+msgid "Target date and advised deadlines"
+msgstr "Target date and advised deadlines"
+
+msgid "Target date of the certification audit"
+msgstr "Target date of the certification audit"
+
+msgid "in %d days"
+msgstr "in %d days"
+
+msgid "today"
+msgstr "today"
+
+msgid "Date entered in the settings of this page."
+msgstr "Date entered in the settings of this page."
+
+msgid ""
+"Next audit of the maintenance cycle: %s, on the anniversary of the "
+"certification."
+msgstr ""
+"Next audit of the maintenance cycle: %s, on the anniversary of the "
+"certification."
+
+msgid "Next certification audit planned:"
+msgstr "Next certification audit planned:"
+
+msgid "Advised deadline passed"
+msgstr "Advised deadline passed"
+
+msgid "At risk of being late"
+msgstr "At risk of being late"
+
+msgid ""
+"Each step not done gets an advised deadline, counted back from the target "
+"date: the foundations first, then the internal audit, the management review "
+"that uses its results, and the treatment of nonconformities. These deadlines "
+"also appear in the compliance calendar."
+msgstr ""
+"Each step not done gets an advised deadline, counted back from the target "
+"date: the foundations first, then the internal audit, the management review "
+"that uses its results, and the treatment of nonconformities. These deadlines "
+"also appear in the compliance calendar."
+
+msgid ""
+"No target date yet. Enter one in the settings below, or plan the "
+"certification audit: an audit whose type is a certification, surveillance or "
+"recertification audit, or an event of the compliance calendar of the same "
+"kind, is used automatically."
+msgstr ""
+"No target date yet. Enter one in the settings below, or plan the "
+"certification audit: an audit whose type is a certification, surveillance or "
+"recertification audit, or an event of the compliance calendar of the same "
+"kind, is used automatically."
+
+msgid ""
+"The target date entered has passed: it is no longer used. Enter the date of "
+"the next audit."
+msgstr ""
+"The target date entered has passed: it is no longer used. Enter the date of "
+"the next audit."
+
+msgid "Owner warned when a step risks being late: %s"
+msgstr "Owner warned when a step risks being late: %s"
+
+msgid ""
+"No owner: choose one in the settings so that a notification is sent when a "
+"step risks being late."
+msgstr ""
+"No owner: choose one in the settings so that a notification is sent when a "
+"step risks being late."
+
+msgid "Maintenance cycle"
+msgstr "Maintenance cycle"
+
+msgid "Certified on %s"
+msgstr "Certified on %s"
+
+msgid "date entered in the settings"
+msgstr "date entered in the settings"
+
+msgid "date of the last initial or recertification audit completed"
+msgstr "date of the last initial or recertification audit completed"
+
+msgid "Next audit"
+msgstr "Next audit"
+
+msgid "Steps to redo each year"
+msgstr "Steps to redo each year"
+
+msgid "Advised deadline: %s"
+msgstr "Advised deadline: %s"
+
+msgid ""
+"Once certified, enter the certification date in the settings, or complete "
+"the initial certification audit: the page then follows the three-year cycle "
+"(two annual surveillance audits, then the recertification) and highlights "
+"the steps to redo each year."
+msgstr ""
+"Once certified, enter the certification date in the settings, or complete "
+"the initial certification audit: the page then follows the three-year cycle "
+"(two annual surveillance audits, then the recertification) and highlights "
+"the steps to redo each year."
+
+msgid "Settings of the certification readiness"
+msgstr "Settings of the certification readiness"
+
+msgid "Leave empty to use the next certification audit planned."
+msgstr "Leave empty to use the next certification audit planned."
+
+msgid "Certification date"
+msgstr "Certification date"
+
+msgid "Leave empty to use the last initial or recertification audit completed."
+msgstr ""
+"Leave empty to use the last initial or recertification audit completed."
+
+msgid "Owner of the preparation"
+msgstr "Owner of the preparation"
+
+msgid "Empty: the owner of the target audit."
+msgstr "Empty: the owner of the target audit."
+
+msgid "Coverage target (%)"
+msgstr "Coverage target (%)"
+
+msgid "Training target (%)"
+msgstr "Training target (%)"
+
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training."
+msgstr ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training."
+
+msgid "To redo each year"
+msgstr "To redo each year"
+
+msgid "Participants who completed their training: %1$d %% (target: %2$d %%)"
+msgstr "Participants who completed their training: %1$d %% (target: %2$d %%)"
+
+msgid "Coverage target: %d %%"
+msgstr "Coverage target: %d %%"
+
+msgid "Advised deadline for the certification"
+msgstr "Advised deadline for the certification"
+
+msgid "Certification step at risk"
+msgstr "Certification step at risk"
+
+msgid "Owner of the certification readiness"
+msgstr "Owner of the certification readiness"
+
+msgid "- %1$s: advised deadline %2$s (%3$s)"
+msgstr "- %1$s: advised deadline %2$s (%3$s)"
+
+msgid "Steps at risk"
+msgstr "Steps at risk"
+
+msgid "Number of steps"
+msgstr "Number of steps"
+
+msgid "Certification readiness alert"
+msgid_plural "Certification readiness alerts"
+msgstr[0] "Certification readiness alert"
+msgstr[1] "Certification readiness alerts"
+
+msgid "Warns the owner when a certification readiness step risks being late"
+msgstr "Warns the owner when a certification readiness step risks being late"
+
+msgid "%d certification readiness step(s) reported."
+msgstr "%d certification readiness step(s) reported."
+
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. Give "
+"the target date of the audit (or plan the certification audit): each step "
+"not done gets an advised deadline, shown in the compliance calendar, and the "
+"owner is warned when one risks being late. Export the PDF readiness report "
+"to share where you stand."
+msgstr ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. Give "
+"the target date of the audit (or plan the certification audit): each step "
+"not done gets an advised deadline, shown in the compliance calendar, and the "
+"owner is warned when one risks being late. Export the PDF readiness report "
+"to share where you stand."
+
+msgid "Certification readiness settings saved."
+msgstr "Certification readiness settings saved."
+
+msgid ""
+"Complete these steps, or adjust the target date, on the certification "
+"readiness page. Nothing is changed automatically."
+msgstr ""
+"Complete these steps, or adjust the target date, on the certification "
+"readiness page. Nothing is changed automatically."
+
+msgid "View the certification readiness"
+msgstr "View the certification readiness"
+
+msgid ""
+"Sent by the GRC Manager automatic task when a step of the certification "
+"readiness approaches or passes its advised deadline."
+msgstr ""
+"Sent by the GRC Manager automatic task when a step of the certification "
+"readiness approaches or passes its advised deadline."
+
+msgid "%1$d of %2$d domains covered by an up-to-date procedure"
+msgstr "%1$d of %2$d domains covered by an up-to-date procedure"
+
+msgid "%d awaiting approval"
+msgstr "%d awaiting approval"
+
+msgid "%d without procedure"
+msgstr "%d without procedure"
+
+msgid "Register of operating procedures"
+msgstr "Register of operating procedures"
+
+msgid "Expected domains of operating procedures"
+msgstr "Expected domains of operating procedures"
+
+msgid ""
+"The register of operating procedures shows, for each domain ticked here, "
+"whether an approved and up-to-date procedure exists. Untick a domain that "
+"does not apply to you, and add your own domains, one per line."
+msgstr ""
+"The register of operating procedures shows, for each domain ticked here, "
+"whether an approved and up-to-date procedure exists. Untick a domain that "
+"does not apply to you, and add your own domains, one per line."
+
+msgid "Other domains (one per line)"
+msgstr "Other domains (one per line)"
+
+msgid ""
+"Choose \"Operating procedure\" for a documented procedure (backup, restore, "
+"updates...): it then appears in the register of operating procedures, with "
+"its domain."
+msgstr ""
+"Choose \"Operating procedure\" for a documented procedure (backup, restore, "
+"updates...): it then appears in the register of operating procedures, with "
+"its domain."
+
+msgid "Procedure domain"
+msgstr "Procedure domain"
+
+msgid ""
+"Operating procedures only. The list of expected domains is set in the "
+"configuration of the plugin."
+msgstr ""
+"Operating procedures only. The list of expected domains is set in the "
+"configuration of the plugin."
+
+msgid "Up to date"
+msgstr "Up to date"
+
+msgid "Review due"
+msgstr "Review due"
+
+msgid "Not approved"
+msgstr "Not approved"
+
+msgid "No procedure"
+msgstr "No procedure"
+
+msgid "Expected domains"
+msgstr "Expected domains"
+
+msgid "Coverage of the expected domains"
+msgstr "Coverage of the expected domains"
+
+msgid "Coverage"
+msgstr "Coverage"
+
+msgid "Procedures"
+msgstr "Procedures"
+
+msgid "Operating procedures"
+msgstr "Operating procedures"
+
+msgid "%1$d of %2$d people (%3$d%%)"
+msgstr "%1$d of %2$d people (%3$d%%)"
+
+msgid ""
+"Saves the register as a dated PDF document on the control %s of the "
+"Statement of Applicability."
+msgstr ""
+"Saves the register as a dated PDF document on the control %s of the "
+"Statement of Applicability."
+
+msgid "Archive on control A.5.37"
+msgstr "Archive on control A.5.37"
+
+msgid "Add an operating procedure"
+msgstr "Add an operating procedure"
+
+msgid "Change the list of domains"
+msgstr "Change the list of domains"
+
+msgid ""
+"No expected domain is set. Choose them in the configuration of the plugin."
+msgstr ""
+"No expected domain is set. Choose them in the configuration of the plugin."
+
+msgid "Add the procedure"
+msgstr "Add the procedure"
+
+msgid ""
+"No operating procedure recorded yet. Add one per domain, or open an existing "
+"document of the policy library and choose the category \"Operating "
+"procedure\"."
+msgstr ""
+"No operating procedure recorded yet. Add one per domain, or open an existing "
+"document of the policy library and choose the category \"Operating "
+"procedure\"."
+
+msgid "Not launched"
+msgstr "Not launched"
+
+msgid "Restore"
+msgstr "Restore"
+
+msgid "Monitoring"
+msgstr "Monitoring"
+
+msgid "Logs"
+msgstr "Logs"
+
+msgid "Updates"
+msgstr "Updates"
+
+msgid "Deployment"
+msgstr "Deployment"
+
+msgid "Access management"
+msgstr "Access management"
+
+msgid "Incident management"
+msgstr "Incident management"
+
+msgid "Maintenance"
+msgstr "Maintenance"
+
+msgid "Register of operating procedures - %s"
+msgstr "Register of operating procedures - %s"
+
+msgid ""
+"Shows whether each main IT operations activity (backup, restore, monitoring, "
+"updates...) has a documented procedure that is approved and reviewed on "
+"time, with its version, its owner and who has acknowledged it."
+msgstr ""
+"Shows whether each main IT operations activity (backup, restore, monitoring, "
+"updates...) has a documented procedure that is approved and reviewed on "
+"time, with its version, its owner and who has acknowledged it."
+
+msgid ""
+"For each domain without an up-to-date procedure, add one or update it: "
+"attach the document, have it approved, set its next review date, then launch "
+"the reading acknowledgement for the groups or profiles that carry it out. "
+"Archive the register on control A.5.37 before an audit."
+msgstr ""
+"For each domain without an up-to-date procedure, add one or update it: "
+"attach the document, have it approved, set its next review date, then launch "
+"the reading acknowledgement for the groups or profiles that carry it out. "
+"Archive the register on control A.5.37 before an audit."
+
+msgid "ISO/IEC 27001, control A.5.37"
+msgstr "ISO/IEC 27001, control A.5.37"
+
+msgid "The register has been archived as evidence on control A.5.37."
+msgstr "The register has been archived as evidence on control A.5.37."
+
+msgid "The register could not be archived."
+msgstr "The register could not be archived."
+
+msgid "Operating procedure"
+msgid_plural "Operating procedures"
+msgstr[0] "Operating procedure"
+msgstr[1] "Operating procedures"

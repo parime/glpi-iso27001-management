@@ -24,6 +24,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\PolicyBase;
 use GlpiPlugin\Grcmanager\Services\Policy\AcknowledgementRules;
 use GlpiPlugin\Grcmanager\Services\Policy\CharterSignature;
+use GlpiPlugin\Grcmanager\Services\Policy\OperatingProcedureRules;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalRules;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
@@ -98,6 +99,20 @@ class Policy extends PolicyBase
             PolicyLifecycle::STATUS_DRAFT    => __('Draft', 'grcmanager'),
             PolicyLifecycle::STATUS_APPROVED => __('Approved', 'grcmanager'),
             PolicyLifecycle::STATUS_ARCHIVED => __('Archived', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * Issue #775 : catégorie du document. Une procédure d'exploitation (A.5.37) est un document de
+     * la bibliothèque comme les autres, avec en plus son domaine.
+     *
+     * @return array<string, string>
+     */
+    public static function getCategories(): array
+    {
+        return [
+            OperatingProcedureRules::CATEGORY_POLICY    => self::getTypeName(1),
+            OperatingProcedureRules::CATEGORY_PROCEDURE => OperatingProcedure::getTypeName(1),
         ];
     }
 
@@ -197,6 +212,23 @@ class Policy extends PolicyBase
             'itemtype' => self::class,
         ];
 
+        // Issue #775 : catégorie (politique ou procédure d'exploitation) et domaine d'une procédure.
+        $tab[] = [
+            'id'       => 9,
+            'table'    => $this->getTable(),
+            'field'    => 'category',
+            'name'     => __('Category', 'grcmanager'),
+            'datatype' => 'specific',
+        ];
+
+        $tab[] = [
+            'id'       => 10,
+            'table'    => $this->getTable(),
+            'field'    => 'procedure_domain',
+            'name'     => __('Procedure domain', 'grcmanager'),
+            'datatype' => 'specific',
+        ];
+
         return $tab;
     }
 
@@ -212,6 +244,14 @@ class Policy extends PolicyBase
 
         if ($field === 'status') {
             return self::statusBadge($values[$field] ?? null);
+        }
+        if ($field === 'category') {
+            $category = OperatingProcedureRules::sanitizeCategory($values[$field] ?? null);
+
+            return htmlescape(self::getCategories()[$category]);
+        }
+        if ($field === 'procedure_domain') {
+            return htmlescape(OperatingProcedure::domainLabel((string) ($values[$field] ?? '')));
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
@@ -234,6 +274,16 @@ class Policy extends PolicyBase
 
         if ($field === 'status') {
             return Dropdown::showFromArray($name, self::getStatuses(), $options);
+        }
+        if ($field === 'category') {
+            return Dropdown::showFromArray($name, self::getCategories(), $options);
+        }
+        if ($field === 'procedure_domain') {
+            return Dropdown::showFromArray(
+                $name,
+                OperatingProcedure::domainChoices((string) $options['value']),
+                $options
+            );
         }
 
         return parent::getSpecificValueToSelect($field, $name, $values, $options);
@@ -316,6 +366,21 @@ class Policy extends PolicyBase
         }
         if (array_key_exists('approval_quorum', $input)) {
             $input['approval_quorum'] = PolicyApprovalRules::sanitizeQuorum($input['approval_quorum']);
+        }
+        // Issue #775 : seule une procédure d'exploitation a un domaine.
+        if (
+            $this->isNewItem()
+            || array_key_exists('category', $input)
+            || array_key_exists('procedure_domain', $input)
+        ) {
+            $category = OperatingProcedureRules::sanitizeCategory(
+                $input['category'] ?? ($this->fields['category'] ?? OperatingProcedureRules::CATEGORY_POLICY)
+            );
+            $input['category'] = $category;
+            $input['procedure_domain'] = OperatingProcedureRules::sanitizeDomain(
+                $input['procedure_domain'] ?? ($this->fields['procedure_domain'] ?? ''),
+                $category
+            );
         }
 
         return $input;
@@ -411,11 +476,23 @@ class Policy extends PolicyBase
         ) {
             unset($statuses[PolicyLifecycle::STATUS_APPROVED]);
         }
+        // Issue #775 : nouvelle procédure ouverte depuis le registre, catégorie et domaine choisis.
+        $category = OperatingProcedureRules::sanitizeCategory(
+            $this->isNewItem() ? ($options['category'] ?? null) : ($this->fields['category'] ?? null)
+        );
+        $domain = OperatingProcedureRules::sanitizeDomain(
+            $this->isNewItem() ? ($options['procedure_domain'] ?? '') : ($this->fields['procedure_domain'] ?? ''),
+            OperatingProcedureRules::CATEGORY_PROCEDURE
+        );
         TemplateRenderer::getInstance()->display('@grcmanager/policy_form.html.twig', [
             'item'           => $this,
             'params'         => $options,
             'statuses'       => $statuses,
             'default_status' => PolicyLifecycle::STATUS_DRAFT,
+            'categories'     => self::getCategories(),
+            'category'       => $category,
+            'domains'        => OperatingProcedure::domainChoices($domain),
+            'domain'         => $domain,
             // Issue #611 : circuit d'approbation activé, « Approuvée » ne se choisit plus ici.
             'approval_workflow' => PolicyApprovalConfig::isEnabled(),
             'content_locked'    => PolicyApprovalConfig::isEnabled() && !$this->isNewItem()
