@@ -7,6 +7,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Préparation à la certification : date cible, échéances, cycle de maintien et seuils réglables**
+  (issue #761, lot 1, suite de #619).
+  - Date cible de l'audit saisie sur l'écran, ou reprise du prochain audit de certification planifié :
+    audit dont le type est initial, surveillance ou renouvellement (#772), ou événement du calendrier
+    de conformité de même nature. Aucune double saisie.
+  - Échéance conseillée pour chaque étape non faite, en remontant depuis la date cible (audit interne
+    et revue de direction avant l'audit), avec l'état « dans les temps », « risque de retard » (14
+    jours) ou « échéance dépassée » ; visible sur l'écran, dans le PDF et dans le calendrier de
+    conformité (et le planning du responsable).
+  - Alerte au responsable de la préparation (à défaut, le responsable de l'audit cible) : tâche
+    automatique quotidienne `certificationreadiness` et notification modifiable « Étape de la
+    certification à risque », une seule fois par étape et par état, sans aucune modification
+    automatique. Le responsable doit pouvoir lire le plugin sur toutes les entités.
+  - Cycle de maintien après la certification (date saisie, ou dernier audit initial ou de
+    renouvellement terminé) : deux audits de surveillance annuels et renouvellement à trois ans ; la
+    date cible suit le prochain, et les étapes à refaire chaque année (risques, SoA, audit interne,
+    revue de direction) sont mises en avant. Le découpage des audits internes reste dans le programme
+    d'audit pluriannuel (#773), sans réglage en double.
+  - Seuils réglables à la place des valeurs fixes : couverture du programme d'audit (100 % par
+    défaut) et part des participants formés (80 % par défaut).
+  - Droits : la page reste en lecture avec le droit général du plugin ; les réglages demandent le
+    droit de le modifier. Entités : seuls les audits des entités de la session servent de date cible.
+
 ## [2.65.0] - 2026-11-20
 
 ### Added

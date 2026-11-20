@@ -22533,3 +22533,150 @@ msgstr "Chiama o scrivi al contatto per verificare che numeri di telefono, indir
 msgid "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
 msgstr "Inviata dall'attività automatica di GRC Manager quando i recapiti di un contatto ufficiale non sono stati verificati da 12 mesi (al massimo una volta al mese)."
 
+
+msgid "Target date and advised deadlines"
+msgstr "Data obiettivo e scadenze consigliate"
+
+msgid "Target date of the certification audit"
+msgstr "Data obiettivo dell'audit di certificazione"
+
+msgid "in %d days"
+msgstr "tra %d giorni"
+
+msgid "today"
+msgstr "oggi"
+
+msgid "Date entered in the settings of this page."
+msgstr "Data inserita nelle impostazioni di questa pagina."
+
+msgid "Next audit of the maintenance cycle: %s, on the anniversary of the certification."
+msgstr "Prossimo audit del ciclo di mantenimento: %s, alla data anniversario della certificazione."
+
+msgid "Next certification audit planned:"
+msgstr "Prossimo audit di certificazione pianificato:"
+
+msgid "Advised deadline passed"
+msgstr "Scadenza consigliata superata"
+
+msgid "At risk of being late"
+msgstr "A rischio di ritardo"
+
+msgid "Each step not done gets an advised deadline, counted back from the target date: the foundations first, then the internal audit, the management review that uses its results, and the treatment of nonconformities. These deadlines also appear in the compliance calendar."
+msgstr "Ogni fase non completata riceve una scadenza consigliata, calcolata a ritroso dalla data obiettivo: prima le basi, poi l'audit interno, il riesame della direzione che si basa sui suoi risultati e il trattamento delle non conformità. Queste scadenze compaiono anche nel calendario di conformità."
+
+msgid "No target date yet. Enter one in the settings below, or plan the certification audit: an audit whose type is a certification, surveillance or recertification audit, or an event of the compliance calendar of the same kind, is used automatically."
+msgstr "Nessuna data obiettivo. Inseriscine una nelle impostazioni qui sotto, oppure pianifica l'audit di certificazione: un audit di tipo certificazione, sorveglianza o rinnovo, o un evento dello stesso tipo nel calendario di conformità, viene ripreso automaticamente."
+
+msgid "The target date entered has passed: it is no longer used. Enter the date of the next audit."
+msgstr "La data obiettivo inserita è passata: non viene più considerata. Inserisci la data del prossimo audit."
+
+msgid "Owner warned when a step risks being late: %s"
+msgstr "Responsabile avvisato quando una fase rischia di essere in ritardo: %s"
+
+msgid "No owner: choose one in the settings so that a notification is sent when a step risks being late."
+msgstr "Nessun responsabile: scegline uno nelle impostazioni perché venga inviata una notifica quando una fase rischia di essere in ritardo."
+
+msgid "Maintenance cycle"
+msgstr "Ciclo di mantenimento"
+
+msgid "Certified on %s"
+msgstr "Certificato il %s"
+
+msgid "date entered in the settings"
+msgstr "data inserita nelle impostazioni"
+
+msgid "date of the last initial or recertification audit completed"
+msgstr "data dell'ultimo audit iniziale o di rinnovo completato"
+
+msgid "Next audit"
+msgstr "Prossimo audit"
+
+msgid "Steps to redo each year"
+msgstr "Fasi da ripetere ogni anno"
+
+msgid "Advised deadline: %s"
+msgstr "Scadenza consigliata: %s"
+
+msgid "Once certified, enter the certification date in the settings, or complete the initial certification audit: the page then follows the three-year cycle (two annual surveillance audits, then the recertification) and highlights the steps to redo each year."
+msgstr "Una volta certificati, inserisci la data di certificazione nelle impostazioni, oppure completa l'audit iniziale di certificazione: la pagina segue allora il ciclo di tre anni (due audit di sorveglianza annuali, poi il rinnovo) e mette in evidenza le fasi da ripetere ogni anno."
+
+msgid "Settings of the certification readiness"
+msgstr "Impostazioni della preparazione alla certificazione"
+
+msgid "Leave empty to use the next certification audit planned."
+msgstr "Lascia vuoto per usare il prossimo audit di certificazione pianificato."
+
+msgid "Certification date"
+msgstr "Data di certificazione"
+
+msgid "Leave empty to use the last initial or recertification audit completed."
+msgstr "Lascia vuoto per usare l'ultimo audit iniziale o di rinnovo completato."
+
+msgid "Owner of the preparation"
+msgstr "Responsabile della preparazione"
+
+msgid "Empty: the owner of the target audit."
+msgstr "Vuoto: il responsabile dell'audit obiettivo."
+
+msgid "Coverage target (%)"
+msgstr "Copertura obiettivo (%)"
+
+msgid "Training target (%)"
+msgstr "Formazione obiettivo (%)"
+
+msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training."
+msgstr "Copertura obiettivo: quota dei requisiti e dei controlli che il programma di audit deve aver coperto negli ultimi tre anni perché la fase dell'audit interno sia completata. Formazione obiettivo: quota dei partecipanti che devono aver seguito la loro formazione."
+
+msgid "To redo each year"
+msgstr "Da ripetere ogni anno"
+
+msgid "Participants who completed their training: %1$d %% (target: %2$d %%)"
+msgstr "Partecipanti che hanno seguito la formazione: %1$d %% (obiettivo: %2$d %%)"
+
+msgid "Coverage target: %d %%"
+msgstr "Copertura obiettivo: %d %%"
+
+msgid "Advised deadline for the certification"
+msgstr "Scadenza consigliata per la certificazione"
+
+msgid "Certification step at risk"
+msgstr "Fase della certificazione a rischio"
+
+msgid "Owner of the certification readiness"
+msgstr "Responsabile della preparazione alla certificazione"
+
+msgid "- %1$s: advised deadline %2$s (%3$s)"
+msgstr "- %1$s: scadenza consigliata %2$s (%3$s)"
+
+msgid "Steps at risk"
+msgstr "Fasi a rischio"
+
+msgid "Number of steps"
+msgstr "Numero di fasi"
+
+msgid "Certification readiness alert"
+msgid_plural "Certification readiness alerts"
+msgstr[0] "Avviso della preparazione alla certificazione"
+msgstr[1] "Avvisi della preparazione alla certificazione"
+
+msgid "Warns the owner when a certification readiness step risks being late"
+msgstr "Avvisa il responsabile quando una fase della preparazione alla certificazione rischia di essere in ritardo"
+
+msgid "%d certification readiness step(s) reported."
+msgstr "%d fase/i della preparazione alla certificazione segnalata/e."
+
+msgid "Follow the steps in order, starting with the one marked as the next step. Click its button to open the screen concerned, complete it, then come back: the page is computed again each time. Nothing is changed automatically. Give the target date of the audit (or plan the certification audit): each step not done gets an advised deadline, shown in the compliance calendar, and the owner is warned when one risks being late. Export the PDF readiness report to share where you stand."
+msgstr "Segui le fasi nell'ordine, iniziando da quella indicata come prossima fase. Fai clic sul suo pulsante per aprire la schermata interessata, completala, poi torna qui: la pagina viene ricalcolata ogni volta. Nulla viene modificato automaticamente. Indica la data obiettivo dell'audit (o pianifica l'audit di certificazione): ogni fase non completata riceve una scadenza consigliata, visibile nel calendario di conformità, e il responsabile viene avvisato quando una di esse rischia di essere in ritardo. Esporta il rapporto di preparazione in PDF per condividere a che punto sei."
+
+msgid "Certification readiness settings saved."
+msgstr "Impostazioni della preparazione alla certificazione salvate."
+
+msgid "Complete these steps, or adjust the target date, on the certification readiness page. Nothing is changed automatically."
+msgstr "Completa queste fasi, o modifica la data obiettivo, nella pagina di preparazione alla certificazione. Nulla viene modificato automaticamente."
+
+msgid "View the certification readiness"
+msgstr "Vedi la preparazione alla certificazione"
+
+msgid "Sent by the GRC Manager automatic task when a step of the certification readiness approaches or passes its advised deadline."
+msgstr "Inviata dall'attività automatica GRC Manager quando una fase della preparazione alla certificazione si avvicina o supera la sua scadenza consigliata."
+

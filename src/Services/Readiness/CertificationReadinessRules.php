@@ -45,6 +45,198 @@ final class CertificationReadinessRules
     /** Couverture (%) du programme d'audit attendue avant la certification. */
     public const COVERAGE_TARGET = 100;
 
+    // Issue #761 : date cible, échéances conseillées, cycle de maintien et seuils réglables.
+
+    /**
+     * Délai conseillé (jours avant la date cible de l'audit) pour finir chaque étape : le socle
+     * (périmètre, contexte, politique, rôles, risques) d'abord, puis la SoA et les objectifs, la
+     * formation et l'exercice, l'audit interne, la revue de direction qui s'appuie sur ses
+     * résultats, et enfin le traitement des non-conformités qu'ils ont relevées.
+     *
+     * @var array<string, int>
+     */
+    public const LEAD_DAYS = [
+        'scope'             => 150,
+        'context'           => 150,
+        'policy'            => 120,
+        'roles'             => 120,
+        'risk_assessment'   => 120,
+        'risk_treatment'    => 90,
+        'soa'               => 90,
+        'objectives'        => 90,
+        'awareness'         => 60,
+        'exercises'         => 60,
+        'internal_audit'    => 45,
+        'management_review' => 30,
+        'nonconformities'   => 15,
+    ];
+
+    /** Une étape non faite dont l'échéance conseillée tombe dans ce délai (jours) est « à risque ». */
+    public const ALERT_DAYS = 14;
+
+    /** Étapes à refaire chaque année une fois certifié (cycle de maintien), dans l'ordre du parcours. */
+    public const ANNUAL_STEPS = ['risk_assessment', 'soa', 'internal_audit', 'management_review'];
+
+    /** Durée (années) du cycle de certification : deux audits de surveillance, puis le renouvellement. */
+    public const CYCLE_YEARS = 3;
+
+    public const DEADLINE_NONE = 'none';
+    public const DEADLINE_ON_TRACK = 'on_track';
+    public const DEADLINE_AT_RISK = 'at_risk';
+    public const DEADLINE_LATE = 'late';
+
+    public const MODE_PREPARATION = 'preparation';
+    public const MODE_MAINTENANCE = 'maintenance';
+
+    /** Origine de la date cible : saisie, audit ou événement planifié, ou cycle de maintien. */
+    public const TARGET_MANUAL = 'manual';
+    public const TARGET_AUDIT = 'audit';
+    public const TARGET_EVENT = 'event';
+    public const TARGET_CYCLE = 'cycle';
+
+    /** Date AAAA-MM-JJ valide, sinon null (saisie vide ou incorrecte). */
+    public static function normalizeDate(mixed $value): ?string
+    {
+        if (!is_string($value)) {
+            return null;
+        }
+        $value = substr(trim($value), 0, 10);
+        $date = \DateTimeImmutable::createFromFormat('!Y-m-d', $value);
+
+        return $date !== false && $date->format('Y-m-d') === $value ? $value : null;
+    }
+
+    /** Seuil en pourcentage, entre 1 et 100 ; valeur par défaut si la saisie n'est pas un nombre. */
+    public static function normalizePercent(mixed $value, int $default): int
+    {
+        if (!is_numeric($value)) {
+            return $default;
+        }
+
+        return max(1, min(100, (int) $value));
+    }
+
+    private static function shift(string $date, string $modifier): string
+    {
+        $base = \DateTimeImmutable::createFromFormat('!Y-m-d', $date) ?: new \DateTimeImmutable('today');
+
+        return $base->modify($modifier)->format('Y-m-d');
+    }
+
+    /** Échéance conseillée d'une étape : la date cible moins le délai de l'étape. */
+    public static function advisedDeadline(string $target, string $step): string
+    {
+        return self::shift($target, '-' . (self::LEAD_DAYS[$step] ?? 0) . ' days');
+    }
+
+    /**
+     * État d'une échéance : aucune (étape faite, hors des droits ou sans date cible), en retard
+     * (échéance passée), à risque (échéance dans les ALERT_DAYS jours) ou dans les temps.
+     */
+    public static function deadlineState(?string $deadline, string $status, string $today): string
+    {
+        if ($deadline === null || !in_array($status, [self::STATUS_TODO, self::STATUS_PARTIAL], true)) {
+            return self::DEADLINE_NONE;
+        }
+        if ($deadline < $today) {
+            return self::DEADLINE_LATE;
+        }
+
+        return $deadline <= self::shift($today, '+' . self::ALERT_DAYS . ' days')
+            ? self::DEADLINE_AT_RISK
+            : self::DEADLINE_ON_TRACK;
+    }
+
+    /**
+     * Cycle de maintien après la certification : audits de surveillance annuels, renouvellement à
+     * trois ans (dates anniversaires de la certification).
+     *
+     * @return list<array{type: string, date: string}>
+     */
+    public static function maintenanceCycle(string $certified): array
+    {
+        $cycle = [];
+        for ($year = 1; $year <= self::CYCLE_YEARS; $year++) {
+            $cycle[] = [
+                'type' => $year < self::CYCLE_YEARS ? 'surveillance_' . $year : 'renewal',
+                'date' => self::shift($certified, '+' . $year . ' years'),
+            ];
+        }
+
+        return $cycle;
+    }
+
+    /**
+     * Prochain audit du cycle de maintien à partir d'aujourd'hui ; après le renouvellement, le cycle
+     * suivant recommence à partir de sa date.
+     *
+     * @return array{type: string, date: string}|null
+     */
+    public static function nextCycleAudit(?string $certified, string $today): ?array
+    {
+        if ($certified === null || $certified > $today) {
+            return null;
+        }
+        foreach (self::maintenanceCycle(self::currentCycleStart($certified, $today)) as $audit) {
+            if ($audit['date'] >= $today) {
+                return $audit;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Début du cycle en cours : la date de certification, ou celle du dernier renouvellement passé.
+     */
+    public static function currentCycleStart(string $certified, string $today): string
+    {
+        $start = $certified;
+        // Borné : une date très ancienne ne boucle pas sans fin.
+        for ($guard = 0; $guard < 50; $guard++) {
+            $renewal = self::shift($start, '+' . self::CYCLE_YEARS . ' years');
+            if ($renewal >= $today) {
+                break;
+            }
+            $start = $renewal;
+        }
+
+        return $start;
+    }
+
+    /**
+     * Date cible retenue, dans cet ordre : la date saisie (si elle n'est pas passée), le prochain
+     * audit de certification planifié (audit ou événement du calendrier), sinon le prochain audit
+     * du cycle de maintien.
+     *
+     * @param list<array{date: string, source: string, type: string, name: string, url: string,
+     *     users_id: int}> $planned
+     * @param array{type: string, date: string}|null $cycleNext
+     * @return array{date: string, source: string, type: string, name: string, url: string,
+     *     users_id: int}|null
+     */
+    public static function pickTarget(?string $manual, array $planned, ?array $cycleNext, string $today): ?array
+    {
+        if ($manual !== null && $manual >= $today) {
+            return [
+                'date' => $manual, 'source' => self::TARGET_MANUAL, 'type' => '', 'name' => '', 'url' => '',
+                'users_id' => 0,
+            ];
+        }
+        $upcoming = array_values(array_filter($planned, static fn (array $p): bool => $p['date'] >= $today));
+        usort($upcoming, static fn (array $a, array $b): int => strcmp($a['date'], $b['date']));
+        if ($upcoming !== []) {
+            return $upcoming[0];
+        }
+
+        return $cycleNext !== null
+            ? [
+                'date' => $cycleNext['date'], 'source' => self::TARGET_CYCLE, 'type' => $cycleNext['type'],
+                'name' => '', 'url' => '', 'users_id' => 0,
+            ]
+            : null;
+    }
+
     /**
      * Étapes, dans l'ordre du parcours. `clauses` : numéros affichés ; `requirements` : exigences du
      * SMSI (écran « Exigences du SMSI ») dont le statut déclaré est rappelé.
@@ -166,8 +358,12 @@ final class CertificationReadinessRules
      * Sensibilisation : une formation réalisée dans la période, et assez de participants l'ayant
      * suivie (null : aucun participant inscrit).
      */
-    public static function awareness(int $trainings, int $deliveredRecently, ?int $completionRate): string
-    {
+    public static function awareness(
+        int $trainings,
+        int $deliveredRecently,
+        ?int $completionRate,
+        int $target = self::TRAINING_RATE_TARGET
+    ): string {
         if ($trainings === 0) {
             return self::STATUS_TODO;
         }
@@ -175,7 +371,7 @@ final class CertificationReadinessRules
             return self::STATUS_PARTIAL;
         }
 
-        return $completionRate === null || $completionRate >= self::TRAINING_RATE_TARGET
+        return $completionRate === null || $completionRate >= $target
             ? self::STATUS_DONE
             : self::STATUS_PARTIAL;
     }
@@ -191,9 +387,13 @@ final class CertificationReadinessRules
     }
 
     /** Audit interne : un audit terminé dans la période et un programme qui couvre tout. */
-    public static function internalAudit(bool $recentCompleted, int $audits, int $coveragePercent): string
-    {
-        if ($recentCompleted && $coveragePercent >= self::COVERAGE_TARGET) {
+    public static function internalAudit(
+        bool $recentCompleted,
+        int $audits,
+        int $coveragePercent,
+        int $target = self::COVERAGE_TARGET
+    ): string {
+        if ($recentCompleted && $coveragePercent >= $target) {
             return self::STATUS_DONE;
         }
 

@@ -27300,3 +27300,150 @@ msgstr "Call or write to the contact to check that the phone numbers, addresses 
 
 msgid "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
 msgstr "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
+
+msgid "Target date and advised deadlines"
+msgstr "Target date and advised deadlines"
+
+msgid "Target date of the certification audit"
+msgstr "Target date of the certification audit"
+
+msgid "in %d days"
+msgstr "in %d days"
+
+msgid "today"
+msgstr "today"
+
+msgid "Date entered in the settings of this page."
+msgstr "Date entered in the settings of this page."
+
+msgid "Next audit of the maintenance cycle: %s, on the anniversary of the certification."
+msgstr "Next audit of the maintenance cycle: %s, on the anniversary of the certification."
+
+msgid "Next certification audit planned:"
+msgstr "Next certification audit planned:"
+
+msgid "Advised deadline passed"
+msgstr "Advised deadline passed"
+
+msgid "At risk of being late"
+msgstr "At risk of being late"
+
+msgid "Each step not done gets an advised deadline, counted back from the target date: the foundations first, then the internal audit, the management review that uses its results, and the treatment of nonconformities. These deadlines also appear in the compliance calendar."
+msgstr "Each step not done gets an advised deadline, counted back from the target date: the foundations first, then the internal audit, the management review that uses its results, and the treatment of nonconformities. These deadlines also appear in the compliance calendar."
+
+msgid "No target date yet. Enter one in the settings below, or plan the certification audit: an audit whose type is a certification, surveillance or recertification audit, or an event of the compliance calendar of the same kind, is used automatically."
+msgstr "No target date yet. Enter one in the settings below, or plan the certification audit: an audit whose type is a certification, surveillance or recertification audit, or an event of the compliance calendar of the same kind, is used automatically."
+
+msgid "The target date entered has passed: it is no longer used. Enter the date of the next audit."
+msgstr "The target date entered has passed: it is no longer used. Enter the date of the next audit."
+
+msgid "Owner warned when a step risks being late: %s"
+msgstr "Owner warned when a step risks being late: %s"
+
+msgid "No owner: choose one in the settings so that a notification is sent when a step risks being late."
+msgstr "No owner: choose one in the settings so that a notification is sent when a step risks being late."
+
+msgid "Maintenance cycle"
+msgstr "Maintenance cycle"
+
+msgid "Certified on %s"
+msgstr "Certified on %s"
+
+msgid "date entered in the settings"
+msgstr "date entered in the settings"
+
+msgid "date of the last initial or recertification audit completed"
+msgstr "date of the last initial or recertification audit completed"
+
+msgid "Next audit"
+msgstr "Next audit"
+
+msgid "Steps to redo each year"
+msgstr "Steps to redo each year"
+
+msgid "Advised deadline: %s"
+msgstr "Advised deadline: %s"
+
+msgid "Once certified, enter the certification date in the settings, or complete the initial certification audit: the page then follows the three-year cycle (two annual surveillance audits, then the recertification) and highlights the steps to redo each year."
+msgstr "Once certified, enter the certification date in the settings, or complete the initial certification audit: the page then follows the three-year cycle (two annual surveillance audits, then the recertification) and highlights the steps to redo each year."
+
+msgid "Settings of the certification readiness"
+msgstr "Settings of the certification readiness"
+
+msgid "Leave empty to use the next certification audit planned."
+msgstr "Leave empty to use the next certification audit planned."
+
+msgid "Certification date"
+msgstr "Certification date"
+
+msgid "Leave empty to use the last initial or recertification audit completed."
+msgstr "Leave empty to use the last initial or recertification audit completed."
+
+msgid "Owner of the preparation"
+msgstr "Owner of the preparation"
+
+msgid "Empty: the owner of the target audit."
+msgstr "Empty: the owner of the target audit."
+
+msgid "Coverage target (%)"
+msgstr "Coverage target (%)"
+
+msgid "Training target (%)"
+msgstr "Training target (%)"
+
+msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training."
+msgstr "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training."
+
+msgid "To redo each year"
+msgstr "To redo each year"
+
+msgid "Participants who completed their training: %1$d %% (target: %2$d %%)"
+msgstr "Participants who completed their training: %1$d %% (target: %2$d %%)"
+
+msgid "Coverage target: %d %%"
+msgstr "Coverage target: %d %%"
+
+msgid "Advised deadline for the certification"
+msgstr "Advised deadline for the certification"
+
+msgid "Certification step at risk"
+msgstr "Certification step at risk"
+
+msgid "Owner of the certification readiness"
+msgstr "Owner of the certification readiness"
+
+msgid "- %1$s: advised deadline %2$s (%3$s)"
+msgstr "- %1$s: advised deadline %2$s (%3$s)"
+
+msgid "Steps at risk"
+msgstr "Steps at risk"
+
+msgid "Number of steps"
+msgstr "Number of steps"
+
+msgid "Certification readiness alert"
+msgid_plural "Certification readiness alerts"
+msgstr[0] "Certification readiness alert"
+msgstr[1] "Certification readiness alerts"
+
+msgid "Warns the owner when a certification readiness step risks being late"
+msgstr "Warns the owner when a certification readiness step risks being late"
+
+msgid "%d certification readiness step(s) reported."
+msgstr "%d certification readiness step(s) reported."
+
+msgid "Follow the steps in order, starting with the one marked as the next step. Click its button to open the screen concerned, complete it, then come back: the page is computed again each time. Nothing is changed automatically. Give the target date of the audit (or plan the certification audit): each step not done gets an advised deadline, shown in the compliance calendar, and the owner is warned when one risks being late. Export the PDF readiness report to share where you stand."
+msgstr "Follow the steps in order, starting with the one marked as the next step. Click its button to open the screen concerned, complete it, then come back: the page is computed again each time. Nothing is changed automatically. Give the target date of the audit (or plan the certification audit): each step not done gets an advised deadline, shown in the compliance calendar, and the owner is warned when one risks being late. Export the PDF readiness report to share where you stand."
+
+msgid "Certification readiness settings saved."
+msgstr "Certification readiness settings saved."
+
+msgid "Complete these steps, or adjust the target date, on the certification readiness page. Nothing is changed automatically."
+msgstr "Complete these steps, or adjust the target date, on the certification readiness page. Nothing is changed automatically."
+
+msgid "View the certification readiness"
+msgstr "View the certification readiness"
+
+msgid "Sent by the GRC Manager automatic task when a step of the certification readiness approaches or passes its advised deadline."
+msgstr "Sent by the GRC Manager automatic task when a step of the certification readiness approaches or passes its advised deadline."
+

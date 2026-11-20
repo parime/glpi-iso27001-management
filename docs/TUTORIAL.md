@@ -501,6 +501,37 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
 8. Sur la fiche des mesures A.5.5 et A.5.6 de la SoA, le cadre « Registre des contacts officiels »
    montre le nombre de contacts, vérifiés ou à vérifier, avec le lien vers le registre et son PDF.
 
+### Étape 23 : Préparer l'audit de certification avec une date cible
+
+1. Ouvrez Tableau de bord > **Préparation à la certification**. L'encadré « À quoi sert cette page ? »
+   rappelle ce qui est attendu.
+2. Donnez une **date cible** : soit dans le cadre « Réglages de la préparation à la certification »
+   (par exemple le 3 décembre), soit en planifiant l'audit lui-même. Un audit dont le type est
+   « Audit de certification initial », « Audit de surveillance 1 ou 2 » ou « Audit de renouvellement », ou un
+   événement du calendrier de conformité de même nature, est repris automatiquement : rien à saisir
+   deux fois.
+3. Chaque étape non faite reçoit une **échéance conseillée**, calculée en remontant depuis la date
+   cible (le socle d'abord, puis l'audit interne, la revue de direction et le traitement des
+   non-conformités). Une étape dont l'échéance tombe dans les 14 jours est marquée « Risque de
+   retard » ; une échéance dépassée est signalée en rouge.
+4. Choisissez le **responsable de la préparation** (à défaut, le responsable de l'audit cible). La
+   tâche automatique `certificationreadiness` lui envoie la notification « Étape de la certification
+   à risque » quand une étape approche ou dépasse son échéance, une seule fois par étape et par état.
+   Rien n'est modifié automatiquement. Il doit pouvoir lire le plugin sur toutes les entités, puisque
+   l'état couvre tout le SMSI.
+5. Les échéances conseillées figurent dans le **calendrier de conformité** (et dans le planning du
+   responsable), avec un lien vers l'étape à compléter.
+6. Réglez au besoin les **seuils** : couverture visée du programme d'audit (100 % par défaut, sur les
+   trois dernières années) et part des participants formés (80 % par défaut).
+7. Une fois certifié, saisissez la **date de certification** (ou terminez l'audit initial de
+   certification) : le cadre « Cycle de maintien » affiche les deux audits de surveillance annuels et
+   le renouvellement à trois ans, la date cible suit le prochain d'entre eux, et les étapes à refaire
+   chaque année (appréciation des risques, SoA, audit interne, revue de direction) sont mises en
+   avant. Le découpage des audits internes sur le cycle reste dans le **programme d'audit
+   pluriannuel**.
+8. Les réglages demandent le droit de modifier le plugin ; la page reste lisible avec le droit de
+   lecture.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -964,3 +995,31 @@ To give a subsidiary its own Statement of Applicability:
    the incident or of a parent entity (record visible in sub-entities) are listed.
 8. On controls A.5.5 and A.5.6 of the SoA, the "Register of official contacts" box shows the number
    of contacts, verified or to verify, with links to the register and its PDF.
+
+### Step 23: Prepare the certification audit with a target date
+
+1. Open Dashboard > **Certification readiness**. The "What is this page for?" box explains what is
+   expected.
+2. Give a **target date**: either in the "Settings of the certification readiness" box (for
+   instance 3 December), or by planning the audit itself. An audit whose type is "Initial
+   certification audit", "Surveillance audit 1 or 2" or "Recertification audit", or an event of the
+   compliance calendar of the same kind, is used automatically: nothing to enter twice.
+3. Each step not done gets an **advised deadline**, counted back from the target date (the
+   foundations first, then the internal audit, the management review and the treatment of
+   nonconformities). A step whose deadline falls within 14 days is marked "At risk of being late"; a
+   passed deadline is shown in red.
+4. Choose the **owner of the preparation** (otherwise, the owner of the target audit). The
+   `certificationreadiness` automatic task sends them the "Certification step at risk" notification
+   when a step approaches or passes its deadline, once per step and per state. Nothing is changed
+   automatically. They must be able to read the plugin in every entity, since the state covers the
+   whole ISMS.
+5. The advised deadlines appear in the **compliance calendar** (and in the owner's planning), with a
+   link to the step to complete.
+6. Adjust the **thresholds** if needed: coverage target of the audit programme (100% by default, over
+   the last three years) and share of trained participants (80% by default).
+7. Once certified, enter the **certification date** (or complete the initial certification audit):
+   the "Maintenance cycle" box shows the two annual surveillance audits and the recertification after
+   three years, the target date follows the next one, and the steps to redo each year (risk
+   assessment, SoA, internal audit, management review) are highlighted. Spreading the internal audits
+   over the cycle stays in the **multi-year audit programme**.
+8. The settings require the right to modify the plugin; the page stays readable with the read right.

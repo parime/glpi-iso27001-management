@@ -53,6 +53,7 @@ use GlpiPlugin\Grcmanager\NotificationTargetAuditEvidenceRequest;
 use GlpiPlugin\Grcmanager\Policy;
 use GlpiPlugin\Grcmanager\PolicyAcknowledgement;
 use GlpiPlugin\Grcmanager\PolicyVersion;
+use GlpiPlugin\Grcmanager\ReadinessAlert;
 use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\RiskIndicator;
 use GlpiPlugin\Grcmanager\RiskTreatmentAction;
@@ -487,6 +488,13 @@ final class NotificationTemplateDefaults
                 'Preuve d\'audit soumise',
                 'Envoyée à l\'auditeur et au responsable de l\'audit lorsqu\'une preuve est soumise.',
             ],
+            // Issue #761 : étape de la préparation à la certification à risque ou en retard.
+            'readiness_step_at_risk' => [
+                ReadinessAlert::class, ReadinessAlert::EVENT, 'Certification step at risk',
+                $sentByTask . 'a step of the certification readiness approaches or passes its advised deadline.',
+                $owner,
+                'Étape de la certification à risque', '',
+            ],
             'evidence_request_to_complete' => [
                 AuditEvidenceRequest::class, AuditEvidenceRequest::TO_COMPLETE_EVENT, 'Audit evidence to complete',
                 'Sent to the person who provided audit evidence when the audit asks for it to be completed.',
@@ -550,6 +558,16 @@ final class NotificationTemplateDefaults
                 $lines[] = $line('Review date', "##{$prefix}.reviewdate##");
 
                 return self::simple($title, $title, $lines, [], "##{$prefix}.url##", $t($view), $head);
+
+            case 'readiness_step_at_risk':
+                $title = $head('##readinessalert.action##', '##readinessalert.target##');
+
+                return self::plain($title, $title . "\n\n"
+                    . $line('Target date of the certification audit', '##readinessalert.target##') . "\n\n"
+                    . "##readinessalert.steps##\n\n"
+                    . $t('Complete these steps, or adjust the target date, on the certification readiness page. '
+                        . 'Nothing is changed automatically.') . "\n\n"
+                    . $line('View the certification readiness', '##readinessalert.url##'));
 
             case 'context_review':
                 $title = $head('##contextitem.action##', '##contextitem.name##');
