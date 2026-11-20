@@ -588,7 +588,36 @@ natifs de lecture des logiciels et des licences.
    les procès-verbaux d'approbation et les rapports de prise de connaissance d'une procédure y sont
    archivés (ceux d'une politique restent sur A.5.1).
 
-### Étape 26 : Préparer la communication de crise (mesure A.5.26, article 7.4)
+### Étape 26 : Suivre la fin de garantie du matériel (mesures A.7.13 et A.8.9)
+
+Le plugin lit les informations financières déjà saisies dans GLPI (onglet « Gestion » d'un
+ordinateur, d'un moniteur, d'un matériel réseau...) : la **date de début de garantie** et la
+**durée de garantie** en mois. Il ne modifie rien. Il faut le droit « Registres sensibles » du
+plugin, le droit natif de lecture des informations financières (« Gestion ») et celui de chaque
+type de matériel.
+
+1. Sur la fiche d'un ordinateur fictif, par exemple « PC-COMPTA-01 », ouvrez l'onglet **Gestion**
+   et saisissez une date de début de garantie (01/01/2023) et une durée (36 mois). GLPI affiche
+   la date de fin de garantie (01/01/2026).
+2. Ouvrez Sécurité technique > **Vulnérabilités du parc**, puis descendez jusqu'à la carte **Fin
+   de garantie du matériel**, sous la carte « Fin de support ». Quatre compteurs donnent le nombre
+   de matériels dont la garantie est **expirée**, **proche de sa fin**, **en cours**, ou
+   **inconnue** (pas de date ou pas de durée : jamais compté comme sous garantie). Une durée « À
+   vie » compte comme sous garantie.
+3. Le tableau croise le **type de matériel** et l'**entité** ; seules vos entités apparaissent.
+   La liste dessous donne les matériels à traiter, avec un lien vers chaque fiche ; le bouton
+   **Tout le matériel** les montre tous.
+4. Le seuil de « fin proche » est celui de la fin de support (90 jours par défaut), réglé dans la
+   configuration du plugin, cadre « Fin de support (endoflife.date) ». Il s'applique même si
+   endoflife.date n'est pas activé.
+5. Pour chaque garantie expirée, vérifiez qu'un contrat de maintenance couvre le matériel,
+   renouvelez la garantie ou prévoyez le remplacement. Cliquez sur **Export (CSV)** pour remettre
+   la liste à l'auditeur (un matériel par ligne, avec fabricant, modèle et dates).
+6. Sur la fiche des mesures A.7.13 et A.8.9 de la SoA, le cadre « Fin de garantie du matériel »
+   montre les compteurs ; les contrôles de cohérence du SMSI listent chaque matériel dont la
+   garantie est expirée (règle « Matériels dont la garantie est expirée »).
+
+### Étape 27 : Préparer la communication de crise (mesure A.5.26, article 7.4)
 
 1. Dans l'en-tête de la liste des incidents de sécurité, cliquez sur **Modèles de messages de
    crise**. Cinq modèles sont fournis : incident majeur (premier message interne et fin de crise),
@@ -1168,7 +1197,35 @@ rights to read software and licenses.
    "Register of operating procedures" box shows the coverage; the approval records and the
    acknowledgement reports of a procedure are archived there (those of a policy stay on A.5.1).
 
-### Step 26: Prepare crisis communication (control A.5.26, clause 7.4)
+### Step 26: Follow the hardware warranty (controls A.7.13 and A.8.9)
+
+The plugin reads the financial information already recorded in GLPI ("Management" tab of a
+computer, a monitor, a network device...): the **warranty start date** and the **warranty
+duration** in months. It changes nothing. You need the "Sensitive registers" right of the plugin,
+the native right to read financial information ("Management") and the right to read each type of
+hardware.
+
+1. On a fictitious computer, for instance "PC-ACCOUNTS-01", open the **Management** tab and enter a
+   warranty start date (2023-01-01) and a duration (36 months). GLPI shows the warranty expiration
+   date (2026-01-01).
+2. Open Technical security > **Fleet vulnerabilities**, then scroll down to the **Hardware
+   warranty** card, below the "End of support" card. Four counters give the number of pieces of
+   hardware whose warranty is **expired**, **ending soon**, **running**, or **unknown** (no date or
+   no duration: never counted as under warranty). A "Lifetime" duration counts as under warranty.
+3. The table crosses the **hardware type** and the **entity**; only your entities are shown. The
+   list below gives the hardware to handle, with a link to each record; the **All hardware** button
+   shows all of it.
+4. The "ending soon" threshold is the one of the end of support (90 days by default), set in the
+   plugin configuration, "End of support (endoflife.date)" box. It applies even when endoflife.date
+   is not enabled.
+5. For each expired warranty, check that a maintenance contract covers the hardware, renew the
+   warranty or plan the replacement. Click **Export (CSV)** to hand the list to the auditor (one
+   piece of hardware per line, with manufacturer, model and dates).
+6. On controls A.7.13 and A.8.9 of the SoA, the "Hardware warranty" box shows the counters; the
+   ISMS consistency checks list each piece of hardware whose warranty has expired (rule "Hardware
+   whose warranty has expired").
+
+### Step 27: Prepare crisis communication (control A.5.26, clause 7.4)
 
 1. In the header of the security incident list, click **Crisis message templates**. Five templates
    are provided: major incident (first internal message and end of crisis), data breach

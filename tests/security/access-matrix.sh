@@ -73,7 +73,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/evidence.php front/periodicreview.php front/networkflow.php front/accounthygiene.php
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
-  front/endoflife.export.php
+  front/endoflife.export.php front/hardwarewarranty.export.php
   front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
@@ -391,7 +391,7 @@ fi
 if [ "$ROLE" = general ]; then
   for p in front/risk.php front/supplierrisk.php front/riskheatmap.php front/risk.report.php \
            front/networkflow.php front/networkflow.report.php front/networkflow.matrix.php front/parkvulnerability.php \
-           front/endoflife.export.php \
+           front/endoflife.export.php front/hardwarewarranty.export.php \
            front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php \
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
            front/riskappetite.php front/riskindicator.php \
@@ -475,6 +475,13 @@ if [ "$ROLE" = reader ]; then
     "$(body "$P/softwarelicensecompliance.php")"
   contains "export des licences logicielles : rien de B" "Logiciel licence securite B" non \
     "$(body "$P/softwarelicensecompliance.export.php")"
+  # Issue #782 : fin de garantie du materiel de l'entite A seulement (carte et export).
+  contains "fin de garantie : materiel de A" "PC garantie securite A" oui "$(body "$P/parkvulnerability.php?warranty=all")"
+  contains "fin de garantie : rien de B" "PC garantie securite B" non "$(body "$P/parkvulnerability.php?warranty=all")"
+  contains "export de la fin de garantie : materiel de A" "PC garantie securite A" oui \
+    "$(body "$P/hardwarewarranty.export.php")"
+  contains "export de la fin de garantie : rien de B" "PC garantie securite B" non \
+    "$(body "$P/hardwarewarranty.export.php")"
   expect "front/softwarelicensecompliance.php : modifier les editeurs surveilles" 403 \
     "$(code -d "save_license_watch=1&license_publishers=securite&_glpi_csrf_token=$(csrf)" "$P/softwarelicensecompliance.php")"
   for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \
@@ -737,6 +744,12 @@ if [ "$ROLE" = limited ]; then
     "$(code "$P/softwarelicensecompliance.php")"
   expect "front/softwarelicensecompliance.export.php : sans le droit natif des licences" 403 \
     "$(code "$P/softwarelicensecompliance.export.php")"
+  # Issue #782 : droit du plugin sans la lecture native des informations financieres : export
+  # refuse, carte absente de la page des vulnerabilites du parc.
+  expect "front/hardwarewarranty.export.php : sans le droit natif des informations financieres" 403 \
+    "$(code "$P/hardwarewarranty.export.php")"
+  contains "fin de garantie : carte absente sans les informations financieres" 'id="grc-hardware-warranty"' non \
+    "$(body "$P/parkvulnerability.php")"
   expect "lier le PC de B au processus A" 404 \
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocessitem.form.php")"
 fi
