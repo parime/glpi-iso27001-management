@@ -21,6 +21,36 @@
 </div>
 {% if findings is empty %}
   <div class="alert alert-info">{{ __('No finding for this audit.', 'grcmanager') }}</div>
+{% elseif certification %}
+  {# Issue #772 : constats de l'organisme de certification et état de levée. #}
+  {% if findings_url %}
+    <p><a href="{{ findings_url }}" class="btn btn-outline-secondary btn-sm" id="grc-certification-findings-link"><i class="ti ti-certificate-2 me-1"></i>{{ __('Lifting status of the findings (PDF export)', 'grcmanager') }}</a></p>
+  {% endif %}
+  <table class="table table-hover card-table">
+    <thead>
+      <tr>
+        <th>{{ __('Certification body reference', 'grcmanager') }}</th>
+        <th>{{ __('Title', 'grcmanager') }}</th>
+        <th>{{ __('Finding of the certification body', 'grcmanager') }}</th>
+        <th>{{ __('Owner', 'grcmanager') }}</th>
+        <th>{{ __('Due date', 'grcmanager') }}</th>
+        <th>{{ __('Lifting status', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in findings %}
+        {% set c = f.certification %}
+        <tr>
+          <td>{{ c ? c.reference : '' }}</td>
+          <td><a href="{{ f.url }}">{{ f.title }}</a></td>
+          <td>{% if c and c.category_label %}<span class="badge {{ c.category_style.class }}"><i class="ti {{ c.category_style.icon }} me-1"></i>{{ c.category_label }}</span>{% else %}{{ f.type }}{% endif %}</td>
+          <td>{{ f.owner }}</td>
+          <td>{{ f.due_date }}</td>
+          <td>{% if c %}<span class="badge {{ c.lift.class }}"><i class="ti {{ c.lift.icon }} me-1"></i>{{ c.lift.label }}</span>{% else %}{{ f.status }}{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% else %}
   <table class="table table-hover card-table">
     <thead>

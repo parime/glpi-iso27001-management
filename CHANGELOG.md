@@ -32,6 +32,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits : chacun voit sa propre fiche ; les fonctions et le catalogue suivent le droit du plugin
     et l'entité ; les personnes, les déclarations et le dossier exigent aussi la lecture des
     utilisateurs, pour les comptes des entités de la session ; archiver exige de modifier le plugin.
+- **Audits de certification et constats de l'organisme** (issue #772, lot 1). Un audit a désormais
+  un type : interne (article 9.2, valeur de tous les audits existants, migration sans perte) ou
+  audit de certification initial, de surveillance 1 ou 2, de renouvellement, avec l'organisme (un
+  fournisseur GLPI), l'auditeur responsable et le référentiel avec son édition.
+  - Constats saisis avec le vocabulaire de l'organisme (non-conformité majeure ou mineure, point
+    sensible, piste d'amélioration), sa référence (ex. GVE-36), le processus audité, la clause ou
+    la mesure et le site (lieu GLPI). Même workflow CAPA ; l'action corrective reste facultative
+    pour un point sensible ou une piste d'amélioration, comme pour une observation.
+  - Écran « Constats des audits précédents » (rubrique « Audits et amélioration ») : état de levée
+    de chaque constat, preuves jointes, filtre par audit ou sur les constats non levés, export PDF
+    à remettre à l'auditeur.
+  - « Préparation à la certification » : nombre de constats précédents non levés dans l'étape
+    « Traiter les non-conformités ».
+  - Droit du plugin (celui des audits) et entités de la session ; vue en lecture seule.
 
 ## [2.64.0] - 2026-11-20
 

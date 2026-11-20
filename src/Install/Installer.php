@@ -30,6 +30,7 @@ use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
 use GlpiPlugin\Grcmanager\NotificationTargetEvidence;
 use GlpiPlugin\Grcmanager\NotificationTargetTraining;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
+use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
@@ -1065,6 +1066,9 @@ final class Installer
             );
             $migration->migrationOneTable(self::NONCONFORMITIES_TABLE);
         }
+
+        // Issue #772 : audits de certification et constats de l'organisme.
+        $this->migrateCertificationAudits($migration);
 
         // Sprint 5 (risques fournisseurs/tiers) : même structure que RISKS_TABLE ci-dessus (mêmes
         // colonnes de notation/traitement, voir GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait),
@@ -5515,6 +5519,66 @@ final class Installer
      * `linked_itemtype`/`linked_items_id` (if set) becomes a row in SECURITY_INCIDENTS_ITEMS_TABLE,
      * the polymorphic link mechanism that supersedes it.
      */
+    /**
+     * Issue #772 : type d'audit (interne, ou externe mené par l'organisme de certification) et
+     * références des constats de l'organisme. Rejouable, sans perte : la valeur par défaut
+     * « internal » est appliquée par MariaDB à chaque audit existant lors de l'ajout de la colonne,
+     * et un type vide ou inconnu redevient « internal ». L'organisme est un fournisseur GLPI, le
+     * site un lieu GLPI : aucun objet parallèle.
+     */
+    private function migrateCertificationAudits(Migration $migration): void
+    {
+        global $DB;
+
+        $auditFields = [
+            'audit_type'             => ['string', ['value' => 'internal', 'after' => 'title',
+                'comment' => 'internal, initial, surveillance_1, surveillance_2, renewal (issue #772)']],
+            'suppliers_id'           => ['fkey', ['after' => 'audit_type',
+                'comment' => 'Organisme de certification (glpi_suppliers.id)']],
+            'lead_auditor'           => ['string', ['value' => '', 'after' => 'suppliers_id',
+                'comment' => 'Auditeur responsable de l organisme']],
+            'certification_standard' => ['string', ['value' => '', 'after' => 'lead_auditor',
+                'comment' => 'Referentiel et edition, ex. ISO/IEC 27001:2022']],
+        ];
+        $changed = false;
+        foreach ($auditFields as $field => [$type, $options]) {
+            if (!$DB->fieldExists(self::AUDITS_TABLE, $field)) {
+                $migration->addField(self::AUDITS_TABLE, $field, $type, $options);
+                $changed = true;
+            }
+        }
+        if ($changed) {
+            $migration->addKey(self::AUDITS_TABLE, 'audit_type', 'audit_type');
+            $migration->addKey(self::AUDITS_TABLE, 'suppliers_id', 'suppliers_id');
+            $migration->migrationOneTable(self::AUDITS_TABLE);
+        }
+        $DB->update(
+            self::AUDITS_TABLE,
+            ['audit_type' => CertificationAuditRules::TYPE_INTERNAL],
+            ['NOT' => ['audit_type' => CertificationAuditRules::AUDIT_TYPES]]
+        );
+
+        $findingFields = [
+            'body_reference'        => ['string', ['value' => '', 'after' => 'finding_type',
+                'comment' => 'Reference du constat chez l organisme, ex. GVE-36']],
+            'audited_process'       => ['string', ['value' => '', 'after' => 'body_reference']],
+            'requirement_reference' => ['string', ['value' => '', 'after' => 'audited_process',
+                'comment' => 'Clause ou mesure, ex. 9.2 ou A.8.8']],
+            'locations_id'          => ['fkey', ['after' => 'requirement_reference', 'comment' => 'Site']],
+        ];
+        $changed = false;
+        foreach ($findingFields as $field => [$type, $options]) {
+            if (!$DB->fieldExists(self::NONCONFORMITIES_TABLE, $field)) {
+                $migration->addField(self::NONCONFORMITIES_TABLE, $field, $type, $options);
+                $changed = true;
+            }
+        }
+        if ($changed) {
+            $migration->addKey(self::NONCONFORMITIES_TABLE, 'locations_id', 'locations_id');
+            $migration->migrationOneTable(self::NONCONFORMITIES_TABLE);
+        }
+    }
+
     private function migrateLegacySecurityIncidents(): void
     {
         global $DB;

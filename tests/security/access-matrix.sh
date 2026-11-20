@@ -89,6 +89,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
   front/certificationreadiness.php front/certificationreadiness.php?format=pdf
+  front/certificationfinding.php front/certificationfinding.php?format=pdf
   front/contextitem.php front/contextitem.form.php
   front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf

@@ -25301,3 +25301,217 @@ msgstr ""
 #: front/ismsfunction.php:47
 msgid "The competence file could not be archived."
 msgstr ""
+
+#: templates/nonconformity_form.html.twig
+#: templates/audit_findings_tab.html.twig
+msgid "Finding of the certification body"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid ""
+"A corrective action is required to close a nonconformity; it is optional for "
+"an area of concern or an opportunity for improvement."
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+#: templates/audit_findings_tab.html.twig src/Nonconformity.php:447
+msgid "Certification body reference"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid "Reference given to the finding in the certification body report."
+msgstr ""
+
+#: templates/nonconformity_form.html.twig src/Nonconformity.php:454
+msgid "Audited process"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig src/Nonconformity.php:461
+msgid "Clause or control"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig src/Nonconformity.php:468
+msgid "Site"
+msgstr ""
+
+#: templates/audit_findings_tab.html.twig
+#: templates/_audit_certification_fields.html.twig
+msgid "Lifting status of the findings (PDF export)"
+msgstr ""
+
+#: templates/audit_findings_tab.html.twig
+#: templates/certification_findings.html.twig
+#: templates/pdf/certification_findings_report.html.twig
+msgid "Lifting status"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+#, php-format
+msgid "Findings not lifted: %1$d of %2$d"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+#, php-format
+msgid "Nonconformities not lifted: %d"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+msgid "Display"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+msgid "All certification audits"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+msgid "Only findings not lifted"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+msgid "Export (PDF)"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+msgid ""
+"No certification audit recorded yet. Create an audit and choose its type "
+"(initial, surveillance or recertification), then record the findings of the "
+"certification body in its Findings tab."
+msgstr ""
+
+#: templates/certification_findings.html.twig
+msgid "Add an audit"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+msgid "Every finding of this audit is lifted or awaiting verification."
+msgstr ""
+
+#: templates/certification_findings.html.twig
+#: templates/pdf/certification_findings_report.html.twig
+msgid "Process, clause or control, site"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+#: templates/pdf/certification_findings_report.html.twig
+#, php-format
+msgid "Verified on %s"
+msgstr ""
+
+#: templates/pdf/certification_findings_report.html.twig
+msgid "Findings not lifted"
+msgstr ""
+
+#: templates/pdf/certification_findings_report.html.twig
+msgid "Nonconformities not lifted"
+msgstr ""
+
+#: templates/pdf/certification_findings_report.html.twig
+msgid "Only findings not lifted are listed."
+msgstr ""
+
+#: templates/pdf/certification_findings_report.html.twig
+msgid "No certification audit recorded yet."
+msgstr ""
+
+#: templates/_audit_certification_fields.html.twig src/Audit.php:284
+msgid "Audit type"
+msgstr ""
+
+#: templates/_audit_certification_fields.html.twig
+msgid ""
+"Internal audit, or audit carried out by your certification body (initial, "
+"surveillance or recertification)."
+msgstr ""
+
+#: templates/_audit_certification_fields.html.twig src/Audit.php:291
+msgid "Certification body"
+msgstr ""
+
+#: templates/_audit_certification_fields.html.twig
+msgid "The certification body is a GLPI supplier (Management > Suppliers)."
+msgstr ""
+
+#: templates/_audit_certification_fields.html.twig
+msgid "Name of the lead auditor appointed by the certification body."
+msgstr ""
+
+#: templates/_audit_certification_fields.html.twig src/Audit.php:305
+msgid "Standard and edition"
+msgstr ""
+
+#: src/CertificationReadiness.php:935
+#, php-format
+msgid ""
+"Findings of previous certification audits not lifted: %1$d (including %2$d "
+"nonconformities)"
+msgstr ""
+
+#: src/CertificationFinding.php:49
+msgid "Findings of previous audits"
+msgstr ""
+
+#: src/CertificationFinding.php:91
+msgid "Internal audit (clause 9.2)"
+msgstr ""
+
+#: src/CertificationFinding.php:92
+msgid "Initial certification audit"
+msgstr ""
+
+#: src/CertificationFinding.php:93
+msgid "Surveillance audit 1"
+msgstr ""
+
+#: src/CertificationFinding.php:94
+msgid "Surveillance audit 2"
+msgstr ""
+
+#: src/CertificationFinding.php:95
+msgid "Recertification audit"
+msgstr ""
+
+#: src/CertificationFinding.php:107
+msgid "Major nonconformity"
+msgstr ""
+
+#: src/CertificationFinding.php:108
+msgid "Minor nonconformity"
+msgstr ""
+
+#: src/CertificationFinding.php:109 src/Nonconformity.php:126
+#: src/Nonconformity.php:554
+msgid "Area of concern"
+msgstr ""
+
+#: src/CertificationFinding.php:121
+msgid "Not lifted"
+msgstr ""
+
+#: src/CertificationFinding.php:126
+msgid "Action in progress"
+msgstr ""
+
+#: src/CertificationFinding.php:131
+msgid "Action done, effectiveness to verify"
+msgstr ""
+
+#: src/CertificationFinding.php:136
+msgid "Lifted (verified)"
+msgstr ""
+
+#: src/PageHelp.php:77
+msgid ""
+"At each surveillance audit, the certification body checks that the findings "
+"of its previous audit have been dealt with. This page lists those findings "
+"(nonconformities, areas of concern, opportunities for improvement) with "
+"their corrective action, their evidence and whether they are lifted."
+msgstr ""
+
+#: src/PageHelp.php:84
+msgid ""
+"Record each certification audit with its type, then its findings in the "
+"Findings tab of the audit, with the reference given by the body. Treat each "
+"finding (cause, action, owner, due date, evidence in the Documents tab) "
+"until it is verified. Export the PDF and hand it to the auditor at the "
+"opening meeting of the next audit."
+msgstr ""
