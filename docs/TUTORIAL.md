@@ -583,7 +583,7 @@ natifs de lecture des logiciels et des licences.
    retard » ; une échéance dépassée est signalée en rouge. Ce délai d'alerte se règle dans le champ
    « Alerte (jours) », et le bouton « Délais conseillés par étape » ouvre le tableau du nombre de
    jours avant la date cible de chaque étape (par exemple audit interne 60 jours, revue de direction
-   30 jours avant un audit le 2 décembre). Un délai réglé à l'envers de l'ordre logique (revue de
+   30 jours avant un audit le 15 mars). Un délai réglé à l'envers de l'ordre logique (revue de
    direction conseillée avant l'audit interne) est signalé, jamais corrigé à votre place.
 4. Choisissez le **responsable de la préparation** (à défaut, le responsable de l'audit cible). La
    tâche automatique `certificationreadiness` lui envoie la notification « Étape de la certification
@@ -1406,7 +1406,7 @@ rights to read software and licenses.
    passed deadline is shown in red. This alert period is set in the "Alert (days)" field, and the
    "Advised deadlines per step" button opens the table of the number of days before the target date
    for each step (for instance internal audit 60 days, management review 30 days before an audit on
-   2 December). A period set against the logical order (management review advised before the
+   15 March). A period set against the logical order (management review advised before the
    internal audit) is reported, never corrected for you.
 4. Choose the **owner of the preparation** (otherwise, the owner of the target audit). The
    `certificationreadiness` automatic task sends them the "Certification step at risk" notification

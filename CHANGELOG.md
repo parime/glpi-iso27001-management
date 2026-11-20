@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.71.0] - 2026-11-20
+
 ### Added
 
 - **Audit interne selon l'ISO 19011 : indépendance par les mesures auditées et planification depuis
