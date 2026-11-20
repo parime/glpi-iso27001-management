@@ -35,6 +35,8 @@ parameters:
         - src/Services/Competence
         # Issue #779 : règles des licences logicielles, PHP pur.
         - src/Services/License/LicenseComplianceRules.php
+        # Issue #604 : règles des simulations d'hameçonnage (lecture du fichier, taux), PHP pur.
+        - src/Services/Phishing
     excludePaths:
         # Issue #539 : lit les registres du plugin via le $DB global, Session et les classes
         # CommonDBTM du plugin, même raison que RiskMatrixConfig.php ci-dessous. MySpaceRules.php,

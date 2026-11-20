@@ -100,6 +100,14 @@ check "preuve developpement securise (A.8.31)" "$P/control.form.php?id=$(xid con
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).
 check "front/parkvulnerability.php?warranty=all" "$P/parkvulnerability.php?warranty=all"
+# Issue #604 : campagne de simulation d'hameconnage piegee (liste et tendance, fiche, onglet Resultats,
+# onglet des preferences de glpi, preuve sur A.6.3).
+check "front/phishingcampaign.php"            "$P/phishingcampaign.php"
+check "fiche d'une simulation d'hameconnage"  "$P/phishingcampaign.form.php?id=$(xid phishing)"
+check "onglet Resultats d'une simulation"     "$(tab GlpiPlugin%5CGrcmanager%5CPhishingCampaign 'GlpiPlugin%5CGrcmanager%5CPhishingResult$1' "$(xid phishing)")"
+check "onglet Mes simulations d'hameconnage"  "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPhishingResult$1' 2)"
+check "formation de rattrapage pre-remplie"   "$(tab GlpiPlugin%5CGrcmanager%5CTraining 'GlpiPlugin%5CGrcmanager%5CTraining$main' "0&phishing_of=$(xid phishing)")"
+check "preuve des simulations sur A.6.3"      "$P/control.form.php?id=$(id control_a63)"
 # Issue #771 : contact officiel piege (registre, fiche, onglets de l'incident et de la violation).
 check "front/officialcontact.php"             "$P/officialcontact.php"
 check "fiche d'un contact officiel"           "$P/contextitem.form.php?id=$(xid official_contact)"
@@ -146,6 +154,10 @@ check "front/certificationreadiness.php"     "$P/certificationreadiness.php"
 # Issue #772 : audit de certification et constat pieges (vue des constats et onglet de l'audit).
 check "front/certificationfinding.php"       "$P/certificationfinding.php"
 check "onglet constats d'un audit de certification" "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CNonconformity$1' "$(xid audit)")"
+# Issue #772, lot 2 : plan d'audit de l'organisme (processus et constat pieges, onglet et page).
+check "onglet plan d'audit de l'organisme"   "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CCertificationSampling$1' "$(xid audit)")"
+check "front/certificationsampling.php"      "$P/certificationsampling.php"
+check "constats d'un processus"              "$P/certificationfinding.php?process=1"
 check "export CSV de prise de connaissance"   "$P/policyacknowledgement.export.php?id=$(xid ack_campaign)&format=csv"
 # Issue #540 : registre DORA piege (page, onglets du contrat, du fournisseur et du processus, export).
 check "registre DORA"                         "$P/doraregister.php"

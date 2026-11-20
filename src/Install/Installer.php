@@ -384,6 +384,8 @@ final class Installer
         ...CrisisCommunicationTables::CLASSES,
         // Issue #776 : scénarios de crise sécurité de l'information du PCA (A.5.29).
         ...CrisisScenarioTables::CLASSES,
+        // Issue #604 : simulations d'hameçonnage (campagnes, résultats par personne).
+        ...PhishingTables::CLASSES,
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         ...SecureDevelopmentTables::CLASSES,
         // Issue #599 : registre ReCyF (NIS2 France).
@@ -1523,6 +1525,8 @@ final class Installer
         // Issue #616 : communication de crise, et modèles fournis (une seule fois, bibliothèque vide).
         CrisisCommunicationTables::install($keySign, $charset, $collation);
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
+        // Issue #604 : campagnes de simulation d'hameçonnage et résultats importés (7.3, A.6.3).
+        PhishingTables::install($keySign, $charset, $collation);
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         SecureDevelopmentTables::install($keySign, $charset, $collation);
         RecyfTables::install($keySign, $charset, $collation);
@@ -3940,6 +3944,9 @@ final class Installer
         }
 
         $this->seedDisplayPreferences();
+        // Issue #772, lot 2 : colonne « Type d'audit » dans la liste des audits des instances
+        // existantes, tant que leurs colonnes par défaut sont celles d'origine.
+        $this->upgradeDisplayPreferences('GlpiPlugin\\Grcmanager\\Audit', [9, 1, 2, 3, 4, 5, 6]);
 
         // Sprint 7 (tableaux de bord, consolidation) : tableau de bord natif GLPI prêt à l'emploi,
         // voir DefaultDashboardService pour le détail (idempotent comme le reste de cette
@@ -6088,6 +6095,31 @@ final class Installer
         }
     }
 
+    /**
+     * Remplace les colonnes par défaut (users_id = 0) d'une liste par celles de
+     * DefaultSearchColumns, seulement si elles sont encore exactement $previous : un choix de
+     * l'administrateur n'est jamais écrasé. Rejouable : une fois à jour, plus rien ne change.
+     *
+     * @param list<int> $previous colonnes par défaut de la version précédente, dans l'ordre
+     */
+    private function upgradeDisplayPreferences(string $itemtype, array $previous): void
+    {
+        global $DB;
+
+        $where = ['itemtype' => $itemtype, 'users_id' => 0, 'interface' => 'central'];
+        $current = [];
+        foreach ($DB->request(['FROM' => 'glpi_displaypreferences', 'WHERE' => $where, 'ORDER' => 'rank']) as $row) {
+            $current[] = (int) $row['num'];
+        }
+        if ($current !== $previous) {
+            return;
+        }
+        $DB->delete('glpi_displaypreferences', $where);
+        foreach (DefaultSearchColumns::COLUMNS[$itemtype] as $index => $searchOptionId) {
+            $DB->insert('glpi_displaypreferences', $where + ['num' => $searchOptionId, 'rank' => $index + 1]);
+        }
+    }
+
     public function uninstall(Migration $migration): bool
     {
         global $DB;
@@ -6266,6 +6298,7 @@ final class Installer
         CompetenceTables::uninstall($migration);
         CrisisCommunicationTables::uninstall($migration);
         CrisisScenarioTables::uninstall($migration);
+        PhishingTables::uninstall($migration);
         SecureDevelopmentTables::uninstall($migration);
         RecyfTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);

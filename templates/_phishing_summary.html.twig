@@ -1,0 +1,37 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #604 : simulations d'hameçonnage comme preuve de sensibilisation, sur la mesure A.6.3 et
+   l'exigence 7.3 (taux agrégés seulement). #}
+<div class="col-12 mt-2" id="grc-phishing-evidence">
+   <div class="card card-sm">
+      <div class="card-body">
+         <div class="fw-bold mb-2"><i class="ti ti-fish-hook me-1"></i>{{ __('Phishing simulations', 'grcmanager') }}</div>
+         <div class="d-flex flex-wrap gap-2 mb-2">
+            <span class="badge {{ summary.campaigns > 0 ? 'bg-success-subtle text-success-emphasis' : 'bg-warning-subtle text-warning-emphasis' }}">{{ _n('%d campaign within 12 months', '%d campaigns within 12 months', summary.campaigns, 'grcmanager')|format(summary.campaigns) }}</span>
+            {% if summary.last %}
+               {% if summary.last.hidden %}
+                  <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Last campaign: %s', 'grcmanager')|format(summary.last.name) }}</span>
+               {% else %}
+                  <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Last campaign: %1$s, %2$s %% clicked, %3$s %% reported', 'grcmanager')|format(summary.last.name, summary.last.rates.clicked, summary.last.rates.reported) }}</span>
+                  {% if summary.last.click_delta is not null %}
+                     <span class="badge {{ summary.last.click_delta <= 0 ? 'bg-success-subtle text-success-emphasis' : 'bg-danger-subtle text-danger-emphasis' }}">{{ __('Clicks: %s points since the previous campaign', 'grcmanager')|format((summary.last.click_delta > 0 ? '+' : '') ~ summary.last.click_delta) }}</span>
+                  {% endif %}
+               {% endif %}
+            {% endif %}
+         </div>
+         <a href="{{ summary.url }}"><i class="ti ti-link me-1"></i>{{ __('Open the phishing simulations', 'grcmanager') }}</a>
+      </div>
+   </div>
+</div>

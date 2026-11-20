@@ -769,6 +769,18 @@ class Training extends TrainingBase
             }
             $this->fields['plugin_grcmanager_trainings_id'] = self::mainTrainingId($sessionOf);
         }
+        // Issue #604 : formation de rattrapage proposée aux personnes piégées par une simulation
+        // d'hameçonnage. Il faut voir le détail des résultats de la campagne (droit des registres
+        // sensibles et entité) ; rien n'est enregistré ni envoyé avant « Ajouter ».
+        $phishingOf = $this->isNewItem() ? (int) ($options['phishing_of'] ?? 0) : 0;
+        $campaign = new PhishingCampaign();
+        $isPhishingRemedial = false;
+        if ($phishingOf > 0 && $campaign->getFromDB($phishingOf) && PhishingResult::canSeeDetail($campaign)) {
+            $isPhishingRemedial = true;
+            $this->fields['title'] = sprintf(__('Phishing awareness - %s', 'grcmanager'), $campaign->fields['name']);
+            $this->fields['target_audience'] = __('People caught by the phishing simulation', 'grcmanager');
+            $participantIds = PhishingResult::remedialUserIds($phishingOf);
+        }
         $mainId = (int) ($this->fields['plugin_grcmanager_trainings_id'] ?? 0);
         $maxScore = (int) ($this->fields['max_score'] ?? 0);
         foreach ($participants as &$participant) {
@@ -798,6 +810,7 @@ class Training extends TrainingBase
             'retake_count'        => count(self::getRetakeParticipantIds((int) $ID)),
             'retake_url'          => self::getFormURL() . '?retake_of=' . (int) $ID,
             'is_retake'           => $retakeOf > 0,
+            'is_phishing_remedial' => $isPhishingRemedial,
             'is_new_session'      => $sessionOf > 0,
             'main_trainings'      => self::getMainTrainings((int) $ID),
             'main_url'            => $mainId > 0 ? self::getFormURLWithID($mainId) : '',
