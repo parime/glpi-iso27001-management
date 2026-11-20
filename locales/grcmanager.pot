@@ -1138,8 +1138,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 
 #: templates/dora/register.html.twig templates/audit_checklist_tab.html.twig
@@ -3605,9 +3605,9 @@ msgstr ""
 #: templates/pdf/control_test_record.html.twig
 #: templates/control_test_sample.html.twig
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of "
-"\"seed:identifier\"; the first items of this ranking form the sample. The "
-"same population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
+"identifier\"; the first items of this ranking form the sample. The same "
+"population and the same seed always give the same sample."
 msgstr ""
 
 #: templates/pdf/network_flow_report.html.twig
@@ -8144,8 +8144,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/_access_review_rows.html.twig
@@ -8384,8 +8384,8 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -12682,8 +12682,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/endoflife_config.html.twig src/EndOfLife.php:479
@@ -15466,9 +15466,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -15507,8 +15507,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 msgstr ""
 
 #: src/ComplianceAudit.php:100
@@ -22985,4 +22985,674 @@ msgstr ""
 #: src/Waiver.php:616
 #, php-format
 msgid "Re-assess the waiver \"%s\""
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: src/CrisisExerciseReview.php:82
+msgid "Partially achieved"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: src/CrisisExerciseReview.php:83
+msgid "Not achieved"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "To evaluate"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Not visible to you"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Deleted"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Objectives of the exercise"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "No objective defined."
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Findings and improvement plan"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "No finding recorded."
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Improvement action"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "No action decided"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Review validation"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Validated"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "this review has not been validated yet."
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Returned to draft"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Exercise review"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+#, php-format
+msgid ""
+"Review validated on %1$s by %2$s: it can no longer be changed unless it is "
+"returned to draft."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"No objective defined. Objectives say what the exercise must demonstrate (for "
+"example: \"the crisis team is convened within 45 minutes\"); they are "
+"evaluated when the exercise is finished."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "What was observed"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "New objective"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"Evaluate each objective: the review can be validated once they are all "
+"evaluated."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"No finding yet. Record each gap observed during or after the exercise "
+"(delay, missing contact, unusable procedure…)."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Create an improvement action"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Risk (treatment action only)"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Create the action"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"An improvement action is only created when you click it: a non-conformity "
+"linked to the exercise incident, or a treatment action of an existing risk. "
+"Its progress is shown here."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "New finding"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"Validate the review? It will no longer be editable and the validated report "
+"will be archived."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Comment (optional)"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Validate the review"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"The review is validated by a person holding the \"Validate exercise "
+"reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"Return the review to draft? The reason is recorded in the validation history."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Reason for returning to draft (required)"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Return to draft"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "Objectives of the exercise (one per line)"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "Review validated"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Objectives achieved"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Improvement actions overdue"
+msgstr ""
+
+#: front/crisisexercise.form.php:123
+msgid "Improvement action created."
+msgstr ""
+
+#: front/crisisexercise.form.php:128
+msgid "The review could not be changed."
+msgstr ""
+
+#: front/crisisexercise.form.php:146
+msgid ""
+"Review validated: the validated report is archived in the incident documents."
+msgstr ""
+
+#: front/crisisexercise.form.php:151
+msgid "The review is back to draft."
+msgstr ""
+
+#: front/crisisexercise.form.php:154
+msgid "Give the reason for returning the review to draft."
+msgstr ""
+
+#: src/CrisisExerciseReview.php:273
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr ""
+
+#: src/CrisisExerciseReview.php:407
+msgid "The review is already validated."
+msgstr ""
+
+#: src/CrisisExerciseReview.php:409
+msgid "Define at least one objective before validating the review."
+msgstr ""
+
+#: src/CrisisExerciseReview.php:413
+msgid ""
+"Evaluate every objective (achieved, partially achieved or not achieved) "
+"before validating the review."
+msgstr ""
+
+#: src/CrisisExerciseReview.php:416
+msgid "Finish the exercise before validating its review."
+msgstr ""
+
+#: src/Profile.php:111
+msgid "Validate exercise reviews"
+msgstr ""
+
+#: src/Profile.php:112
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr ""
+
+#: templates/pdf/responsibility_matrix.html.twig
+msgid "Activities"
+msgstr ""
+
+#: templates/pdf/responsibility_matrix.html.twig
+msgid "Alerts to fix"
+msgstr ""
+
+#: templates/pdf/responsibility_matrix.html.twig
+#: templates/_responsibility_summary.html.twig
+#: templates/responsibility_matrix.html.twig
+#: front/responsibilityactivity.php:48 src/ResponsibilityActivity.php:76
+msgid "Responsibility matrix"
+msgstr ""
+
+#: templates/pdf/responsibility_matrix.html.twig
+#: templates/responsibility_matrix.html.twig
+msgid "Sensitive"
+msgstr ""
+
+#: templates/pdf/responsibility_matrix.html.twig
+msgid "No activity yet."
+msgstr ""
+
+#: templates/pdf/responsibility_matrix.html.twig
+msgid ""
+"No alert: every activity has someone who performs it and a single approver, "
+"without conflict of duties."
+msgstr ""
+
+#: templates/pdf/responsibility_matrix.html.twig
+#: templates/responsibility_activity_form.html.twig
+#: templates/responsibility_matrix.html.twig
+msgid "To fix"
+msgstr ""
+
+#: templates/pdf/responsibility_matrix.html.twig
+#: templates/responsibility_activity_form.html.twig
+#: templates/responsibility_matrix.html.twig
+msgid "To check"
+msgstr ""
+
+#: templates/pdf/responsibility_matrix.html.twig
+msgid ""
+"Only the activities of the entities of the person who exported this matrix "
+"are listed. Nothing has been modified by this export."
+msgstr ""
+
+#: templates/_responsibility_summary.html.twig
+#: templates/responsibility_matrix.html.twig
+#, php-format
+msgid "%d activity"
+msgid_plural "%d activities"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_responsibility_summary.html.twig
+#: templates/responsibility_matrix.html.twig
+#, php-format
+msgid "%d alert to fix"
+msgid_plural "%d alerts to fix"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_responsibility_summary.html.twig
+#: templates/responsibility_matrix.html.twig
+#, php-format
+msgid "%d point to check"
+msgid_plural "%d points to check"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_responsibility_summary.html.twig
+#: templates/responsibility_matrix.html.twig
+msgid "No alert"
+msgstr ""
+
+#: templates/_responsibility_summary.html.twig
+msgid "Open the responsibility matrix"
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid "To fix before the audit"
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid ""
+"Nothing is changed automatically: adjust the assignments below if needed."
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid ""
+"Leave empty to keep the default name, shown in the language of each user."
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid "For example \"Review of firewall rules\"."
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+#: src/ResponsibilityActivity.php:721
+msgid "Sensitive activity"
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid ""
+"The same person must not both perform and approve a sensitive activity "
+"(segregation of duties)."
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid "Related Annex A controls"
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid ""
+"Optional: the controls of your Statement of Applicability that this activity "
+"implements."
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid "Who does what"
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid ""
+"Nobody is assigned yet. Add below who performs and who approves this "
+"activity."
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid "User or group"
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid "Add a role"
+msgstr ""
+
+#: templates/responsibility_activity_form.html.twig
+msgid ""
+"Choose the role, then a user or a group, and save. Only one person or group "
+"approves."
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid "Add an activity"
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid ""
+"Adds the proposed activities that are missing, without changing the existing "
+"ones."
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid "Add the missing default activities"
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid "Download as PDF"
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid ""
+"Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your "
+"Statement of Applicability."
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid "Archive as evidence"
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid ""
+"Alerts only report: nothing is changed automatically in the assignments, "
+"rights or statuses."
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid ""
+"No activity yet. Add the default activities, then say for each one who "
+"performs it and who approves it."
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid "No active member"
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid "Segregation of duties is checked on this activity."
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid "Archived matrices"
+msgstr ""
+
+#: templates/responsibility_matrix.html.twig
+msgid ""
+"No archived matrix yet. Archive it before the audit: the dated PDF is "
+"attached to requirement 5.3 and to control A.5.3."
+msgstr ""
+
+#: front/responsibilityactivity.php:29
+#, php-format
+msgid "%d default activity added."
+msgid_plural "%d default activities added."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/responsibilityactivity.php:38
+msgid ""
+"The responsibility matrix has been archived as evidence of requirement 5.3 "
+"and control A.5.3."
+msgstr ""
+
+#: front/responsibilityactivity.php:42
+msgid "The matrix could not be archived."
+msgstr ""
+
+#: src/PageHelp.php:363
+msgid ""
+"Who performs, approves, is consulted on or is informed of each activity of "
+"the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
+"approvers are reported here."
+msgstr ""
+
+#: src/PageHelp.php:368
+msgid ""
+"For each activity, add who performs it and a single approver, mark the "
+"sensitive activities, fix the alerts, then archive the matrix as evidence "
+"before the audit."
+msgstr ""
+
+#: src/PageHelp.php:372
+msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:61
+msgid "ISMS activity"
+msgid_plural "ISMS activities"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ResponsibilityActivity.php:90
+msgid "Performs"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:91
+msgid "Approves"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:92
+msgid "Consulted"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:93
+msgid "Informed"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:106
+msgctxt "responsibility"
+msgid "P"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:110
+msgctxt "responsibility"
+msgid "A"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:114
+msgctxt "responsibility"
+msgid "C"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:118
+msgctxt "responsibility"
+msgid "I"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:132
+msgid "Information security risk assessment"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:133
+msgid "Acceptance of residual risks"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:134
+msgid "Approval of security policies"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:135
+msgid "Inventory of information assets"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:136
+msgid "Granting and removing access rights"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:137
+msgid "Periodic review of access rights"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:138
+msgid "Management of privileged accounts"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:139
+msgid "Approval of changes in production"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:140
+msgid "Backups and restore tests"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:141
+msgid "Review of logs and security events"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:143
+msgid "Handling of security incidents"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:144
+msgid "Security of suppliers"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:145
+msgid "Security awareness and training"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:146
+msgid "Business continuity and recovery plans"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:147
+msgid "Internal audit of the ISMS"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:224
+msgid "Give the activity a name."
+msgstr ""
+
+#: src/ResponsibilityActivity.php:348
+msgid "This user or group does not belong to the entity of the activity."
+msgstr ""
+
+#: src/ResponsibilityActivity.php:359
+#, php-format
+msgid "Only one person or group approves \"%s\": remove the current one first."
+msgstr ""
+
+#: src/ResponsibilityActivity.php:412
+#, php-format
+msgid "Deleted item #%d"
+msgstr ""
+
+#: src/ResponsibilityActivity.php:526
+msgid "Nobody approves this activity."
+msgstr ""
+
+#: src/ResponsibilityActivity.php:528
+msgid "Several people or groups approve this activity: keep only one."
+msgstr ""
+
+#: src/ResponsibilityActivity.php:530
+msgid "Nobody performs this activity."
+msgstr ""
+
+#: src/ResponsibilityActivity.php:541
+#, php-format
+msgid ""
+"Segregation of duties: %s both performs and approves this sensitive activity."
+msgstr ""
+
+#: src/ResponsibilityActivity.php:546
+#, php-format
+msgid "The group %s has no active member."
+msgstr ""
+
+#: src/ResponsibilityActivity.php:551
+#, php-format
+msgid "%s is disabled or no longer exists in GLPI."
+msgstr ""
+
+#: src/ResponsibilityActivity.php:802
+msgid "ISMS responsibility matrix"
+msgstr ""
+
+#: src/ResponsibilityExport.php:46
+msgid "Archived responsibility matrix"
+msgid_plural "Archived responsibility matrices"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ResponsibilityExport.php:85
+#, php-format
+msgid "ISMS responsibility matrix - %s"
 msgstr ""

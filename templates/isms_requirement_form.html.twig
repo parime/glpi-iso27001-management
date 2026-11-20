@@ -35,4 +35,7 @@
    {% if context %}
       {% include '@grcmanager/_context_summary.html.twig' with {'summary': context, 'show_climate': context.code == '4.1'} only %}
    {% endif %}
+   {% if responsibility %}
+      {% include '@grcmanager/_responsibility_summary.html.twig' with {'summary': responsibility} only %}
+   {% endif %}
 {% endblock %}

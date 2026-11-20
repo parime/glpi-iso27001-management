@@ -32,6 +32,9 @@
                   <div class="card-footer">
                      <form method="post" action="{{ action }}" data-grc-confirm="{{ __('Start the exercise now? A fictitious "EXERCISE" incident will be created and the timer will start.', 'grcmanager') }}">
                         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                        <label class="form-label" for="grc-objectives-{{ s.key }}"><i class="ti ti-target-arrow me-1"></i>{{ __('Objectives of the exercise (one per line)', 'grcmanager') }}</label>
+                        <textarea id="grc-objectives-{{ s.key }}" name="objectives" class="form-control mb-1" rows="3" placeholder="{{ __('For example: convene the crisis team within 45 minutes', 'grcmanager') }}"></textarea>
+                        <div class="form-hint mb-2">{{ __('Evaluated when the exercise is finished; they appear in the report.', 'grcmanager') }}</div>
                         <button type="submit" name="launch" value="{{ s.key }}" class="btn btn-danger"><i class="ti ti-player-play me-1"></i>{{ __('Start the exercise', 'grcmanager') }}</button>
                      </form>
                   </div>
@@ -50,7 +53,7 @@
          <tbody>
             {% for e in history %}
                <tr>
-                  <td><a href="{{ e.url }}">{{ e.scenario }}</a>{% if not e.ended %} <span class="badge bg-orange-lt">{{ __('In progress', 'grcmanager') }}</span>{% endif %}</td>
+                  <td><a href="{{ e.url }}">{{ e.scenario }}</a>{% if not e.ended %} <span class="badge bg-orange-lt">{{ __('In progress', 'grcmanager') }}</span>{% endif %}{% if e.validated %} <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-rosette-discount-check me-1"></i>{{ __('Review validated', 'grcmanager') }}</span>{% endif %}</td>
                   <td>{{ e.started_at|formatted_datetime }}</td>
                   <td>{{ e.duration }} min</td>
                   <td><span class="badge {{ e.summary.rate >= 80 ? 'bg-green-lt' : (e.summary.rate >= 50 ? 'bg-orange-lt' : 'bg-red-lt') }}">{{ e.summary.on_time }} / {{ e.summary.total }} ({{ e.summary.rate }} %)</span></td>
