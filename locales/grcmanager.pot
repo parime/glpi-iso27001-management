@@ -30839,3 +30839,238 @@ msgstr ""
 msgid "This item was tested"
 msgstr ""
 
+
+#: src/Audit.php:337 templates/_audit_certification_fields.html.twig
+#: templates/certification_response_tab.html.twig
+#: templates/pdf/certification_response_report.html.twig
+msgid "Certification body report received on"
+msgstr ""
+
+#: src/Audit.php:338 templates/_audit_certification_fields.html.twig
+#: templates/certification_response_tab.html.twig
+#: templates/pdf/certification_response_report.html.twig
+msgid "Action plan due to the certification body"
+msgstr ""
+
+#: src/Audit.php:339 templates/_audit_certification_fields.html.twig
+#: templates/certification_response_tab.html.twig
+#: templates/pdf/certification_response_report.html.twig
+msgid "Evidence due to the certification body"
+msgstr ""
+
+#: src/CertificationReadiness.php:1054
+#, php-format
+msgid ""
+"To send to the certification body: %1$d action plans and %2$d evidence "
+"(overdue: %3$d)"
+msgstr ""
+
+#: src/CertificationResponse.php:51 templates/nonconformity_form.html.twig
+msgid "Response to the certification body"
+msgstr ""
+
+#: src/CertificationResponse.php:82
+msgid "Awaiting the decision of the certification body"
+msgstr ""
+
+#: src/CertificationResponse.php:83
+msgid "Accepted by the certification body"
+msgstr ""
+
+#: src/CertificationResponse.php:84
+msgid "To be completed at the request of the certification body"
+msgstr ""
+
+#: src/CertificationResponse.php:107
+msgid "Action plan overdue"
+msgstr ""
+
+#: src/CertificationResponse.php:112
+msgid "Action plan to complete"
+msgstr ""
+
+#: src/CertificationResponse.php:117
+msgid "Action plan due soon"
+msgstr ""
+
+#: src/CertificationResponse.php:122
+msgid "Action plan to send"
+msgstr ""
+
+#: src/CertificationResponse.php:127
+msgid "Action plan sent, awaiting decision"
+msgstr ""
+
+#: src/CertificationResponse.php:132
+msgid "Action plan accepted"
+msgstr ""
+
+#: src/CertificationResponse.php:137
+msgid "No response required"
+msgstr ""
+
+#: src/CertificationResponse.php:151
+msgid "Evidence overdue"
+msgstr ""
+
+#: src/CertificationResponse.php:156
+msgid "Evidence due soon"
+msgstr ""
+
+#: src/CertificationResponse.php:161
+msgid "Evidence to send"
+msgstr ""
+
+#: src/CertificationResponse.php:166
+msgid "Evidence sent"
+msgstr ""
+
+#: src/CertificationResponse.php:171
+msgid "No evidence required"
+msgstr ""
+
+#: src/CertificationResponse.php:187
+msgid "Everything has been sent"
+msgstr ""
+
+#: src/CertificationResponse.php:193
+#, php-format
+msgid "Overdue by %d day"
+msgid_plural "Overdue by %d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/CertificationResponse.php:207
+msgid "No deadline entered"
+msgstr ""
+
+#: src/CertificationResponse.php:243 src/Nonconformity.php:514
+#: templates/nonconformity_form.html.twig
+#: templates/pdf/certification_response_report.html.twig
+msgid "Correction"
+msgstr ""
+
+#: src/CertificationResponse.php:426
+msgid "Corrective action plan for the certification body"
+msgstr ""
+
+#: src/Nonconformity.php:493 templates/nonconformity_form.html.twig
+msgid "Action plan sent to the certification body on"
+msgstr ""
+
+#: src/Nonconformity.php:500 templates/nonconformity_form.html.twig
+msgid "Evidence sent to the certification body on"
+msgstr ""
+
+#: src/Nonconformity.php:507 templates/nonconformity_form.html.twig
+msgid "Decision of the certification body"
+msgstr ""
+
+#: templates/_audit_certification_fields.html.twig
+msgid ""
+"Deadline given in the audit report to send the evidence that the "
+"nonconformities are lifted."
+msgstr ""
+
+#: templates/_audit_certification_fields.html.twig
+msgid ""
+"Deadline given in the audit report to send your action plan (correction, "
+"root cause and corrective action of each nonconformity)."
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+#, php-format
+msgid ""
+"%d nonconformity still lacks information before the action plan is sent (see "
+"the \"To fill in\" column)."
+msgid_plural ""
+"%d nonconformities still lack information before the action plan is sent "
+"(see the \"To fill in\" column)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/certification_response_tab.html.twig
+#, php-format
+msgid ""
+"A response is expected for each nonconformity. It is optional for an area of "
+"concern or an opportunity for improvement. A deadline is shown as close %d "
+"days before it."
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid "Action plan"
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid ""
+"After the audit, the certification body asks you to send an action plan for "
+"each nonconformity (correction, root cause, corrective action), then the "
+"evidence that it is lifted, each within a deadline. This tab shows what is "
+"still to send and produces the action plan to send to the body."
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid "Corrective action plan for the certification body (PDF)"
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid ""
+"Enter the deadlines given in the report of the certification body in the "
+"main tab of the audit, so that the remaining days are shown."
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid ""
+"Enter the deadlines in the audit form, and the sending dates and the "
+"decision of the body in each finding. Nothing is changed automatically."
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+#: templates/pdf/certification_response_report.html.twig
+#, php-format
+msgid "Sent on %s"
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+#, php-format
+msgid "Still to send: %d"
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid "To fill in"
+msgstr ""
+
+#: templates/certification_response_tab.html.twig
+msgid "What is this tab for?"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid ""
+"Date on which the correction, root cause and corrective action were sent to "
+"the certification body."
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid ""
+"Date on which the evidence that the finding is lifted was sent. Attach the "
+"evidence in the Documents tab."
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid "Feedback of the certification body"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid ""
+"What was done at once to deal with the finding itself, before treating its "
+"cause."
+msgstr ""
+
+#: templates/pdf/certification_response_report.html.twig
+msgid "Audit date"
+msgstr ""
+
+#: templates/pdf/certification_response_report.html.twig
+msgid "No nonconformity calls for a response in this audit."
+msgstr ""
+

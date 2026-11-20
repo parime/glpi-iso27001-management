@@ -7,6 +7,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Audits de certification : réponse aux constats de l'organisme dans les délais** (issue #772,
+  lot 3). Après l'audit, l'organisme attend un plan d'actions puis les preuves de levée, chacun
+  dans un délai fixé par son rapport :
+  - fiche d'un audit de certification : **Rapport de l'organisme reçu le**, **Plan d'actions à
+    envoyer à l'organisme avant le**, **Preuves à envoyer à l'organisme avant le** (aussi dans la
+    recherche) ;
+  - fiche d'un constat d'audit de certification : **Correction** (avant la cause et l'action
+    corrective) et bloc **Réponse à l'organisme** : date d'envoi du plan d'actions, **décision de
+    l'organisme** (en attente, accepté, à compléter) et son retour, date d'envoi des preuves ;
+  - nouvel onglet **Réponse à l'organisme** de l'audit : délais et jours restants en badges, état
+    du plan d'actions et des preuves de chaque constat (à envoyer, bientôt dû, en retard, envoyé,
+    accepté, à compléter), éléments manquants avant l'envoi (correction, cause, action,
+    responsable, échéance) ;
+  - export PDF **Plan d'actions correctives pour l'organisme** (référence, constat, correction,
+    cause, action, responsable, échéance, preuves, état de levée), à envoyer à l'organisme ;
+  - « Préparation à la certification » : plans d'actions et preuves encore à envoyer, dont ceux en
+    retard ;
+  - une réponse est attendue pour une non-conformité, facultative pour un point sensible ou une
+    piste de progrès. Aucun statut, responsable ni échéance n'est modifié automatiquement ;
+  - colonnes `body_report_date`, `body_response_due_date`, `body_evidence_due_date` des audits et
+    `correction`, `body_response_date`, `body_decision`, `body_feedback`, `body_evidence_date` des
+    non-conformités (migration rejouable, supprimées avec les tables à la désinstallation).
+
 ## [2.71.0] - 2026-11-20
 
 ### Added

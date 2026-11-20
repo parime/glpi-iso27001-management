@@ -5825,6 +5825,13 @@ final class Installer
                 'comment' => 'Auditeur responsable de l organisme']],
             'certification_standard' => ['string', ['value' => '', 'after' => 'lead_auditor',
                 'comment' => 'Referentiel et edition, ex. ISO/IEC 27001:2022']],
+            // Lot 3 : réception du rapport de l'organisme et délais qu'il fixe.
+            'body_report_date'       => ['date', ['after' => 'certification_standard',
+                'comment' => 'Reception du rapport de l organisme']],
+            'body_response_due_date' => ['date', ['after' => 'body_report_date',
+                'comment' => 'Delai d envoi du plan d actions a l organisme']],
+            'body_evidence_due_date' => ['date', ['after' => 'body_response_due_date',
+                'comment' => 'Delai d envoi des preuves de levee a l organisme']],
         ];
         $changed = false;
         foreach ($auditFields as $field => [$type, $options]) {
@@ -5851,6 +5858,18 @@ final class Installer
             'requirement_reference' => ['string', ['value' => '', 'after' => 'audited_process',
                 'comment' => 'Clause ou mesure, ex. 9.2 ou A.8.8']],
             'locations_id'          => ['fkey', ['after' => 'requirement_reference', 'comment' => 'Site']],
+            // Lot 3 : réponse à l'organisme (correction, envoi du plan d'actions et des preuves,
+            // décision de l'organisme sur le plan).
+            'correction'            => ['text', ['after' => 'locations_id',
+                'comment' => 'Correction immediate du constat']],
+            'body_response_date'    => ['date', ['after' => 'correction',
+                'comment' => 'Envoi du plan d actions a l organisme']],
+            'body_decision'         => ['string', ['value' => '', 'after' => 'body_response_date',
+                'comment' => 'vide (en attente), accepted, to_complete']],
+            'body_feedback'         => ['text', ['after' => 'body_decision',
+                'comment' => 'Retour de l organisme sur le plan d actions']],
+            'body_evidence_date'    => ['date', ['after' => 'body_feedback',
+                'comment' => 'Envoi des preuves de levee a l organisme']],
         ];
         $changed = false;
         foreach ($findingFields as $field => [$type, $options]) {

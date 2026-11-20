@@ -26616,6 +26616,310 @@ msgstr "Alertar antes da expiração de uma licença (dias, 0 para desativar)"
 msgid "Warning %d days before a license expires."
 msgstr "Alerta %d dias antes da expiração de uma licença."
 
+msgid "Certification body report received on"
+msgstr "Relatório do organismo recebido em"
+
+msgid "Action plan due to the certification body"
+msgstr "Plano de ações a enviar ao organismo até"
+
+msgid "Evidence due to the certification body"
+msgstr "Evidências a enviar ao organismo até"
+
+#, php-format
+msgid ""
+"To send to the certification body: %1$d action plans and %2$d evidence "
+"(overdue: %3$d)"
+msgstr ""
+"A enviar ao organismo: %1$d planos de ações e %2$d evidências (em atraso: "
+"%3$d)"
+
+msgid "Response to the certification body"
+msgstr "Resposta ao organismo"
+
+msgid "Awaiting the decision of the certification body"
+msgstr "Aguardando a decisão do organismo"
+
+msgid "Accepted by the certification body"
+msgstr "Aceito pelo organismo"
+
+msgid "To be completed at the request of the certification body"
+msgstr "A completar a pedido do organismo"
+
+msgid "Action plan overdue"
+msgstr "Plano de ações em atraso"
+
+msgid "Action plan to complete"
+msgstr "Plano de ações a completar"
+
+msgid "Action plan due soon"
+msgstr "Plano de ações a vencer em breve"
+
+msgid "Action plan to send"
+msgstr "Plano de ações a enviar"
+
+msgid "Action plan sent, awaiting decision"
+msgstr "Plano de ações enviado, aguardando decisão"
+
+msgid "Action plan accepted"
+msgstr "Plano de ações aceito"
+
+msgid "No response required"
+msgstr "Nenhuma resposta exigida"
+
+msgid "Evidence overdue"
+msgstr "Evidências em atraso"
+
+msgid "Evidence due soon"
+msgstr "Evidências a vencer em breve"
+
+msgid "Evidence to send"
+msgstr "Evidências a enviar"
+
+msgid "Evidence sent"
+msgstr "Evidências enviadas"
+
+msgid "No evidence required"
+msgstr "Nenhuma evidência exigida"
+
+msgid "Everything has been sent"
+msgstr "Tudo foi enviado"
+
+msgid "No deadline entered"
+msgstr "Nenhum prazo informado"
+
+msgid "Correction"
+msgstr "Correção"
+
+msgid "Corrective action plan for the certification body"
+msgstr "Plano de ações corretivas para o organismo"
+
+msgid "Action plan sent to the certification body on"
+msgstr "Plano de ações enviado ao organismo em"
+
+msgid "Evidence sent to the certification body on"
+msgstr "Evidências enviadas ao organismo em"
+
+msgid "Decision of the certification body"
+msgstr "Decisão do organismo"
+
+msgid ""
+"Deadline given in the audit report to send the evidence that the "
+"nonconformities are lifted."
+msgstr ""
+"Prazo fixado no relatório de auditoria para enviar as evidências do "
+"encerramento das não conformidades."
+
+msgid ""
+"Deadline given in the audit report to send your action plan (correction, "
+"root cause and corrective action of each nonconformity)."
+msgstr ""
+"Prazo fixado no relatório de auditoria para enviar o seu plano de ações "
+"(correção, causa e ação corretiva de cada não conformidade)."
+
+#, php-format
+msgid ""
+"A response is expected for each nonconformity. It is optional for an area of "
+"concern or an opportunity for improvement. A deadline is shown as close %d "
+"days before it."
+msgstr ""
+"Espera-se uma resposta para cada não conformidade. É opcional para um ponto "
+"sensível ou uma oportunidade de melhoria. Um prazo é indicado como próximo "
+"%d dias antes."
+
+msgid "Action plan"
+msgstr "Plano de ações"
+
+msgid ""
+"After the audit, the certification body asks you to send an action plan for "
+"each nonconformity (correction, root cause, corrective action), then the "
+"evidence that it is lifted, each within a deadline. This tab shows what is "
+"still to send and produces the action plan to send to the body."
+msgstr ""
+"Após a auditoria, o organismo pede que envie um plano de ações para cada não "
+"conformidade (correção, causa, ação corretiva) e depois as evidências do seu "
+"encerramento, cada um dentro de um prazo. Esta aba mostra o que falta enviar "
+"e gera o plano de ações a enviar ao organismo."
+
+msgid "Corrective action plan for the certification body (PDF)"
+msgstr "Plano de ações corretivas para o organismo (PDF)"
+
+msgid ""
+"Enter the deadlines given in the report of the certification body in the "
+"main tab of the audit, so that the remaining days are shown."
+msgstr ""
+"Informe os prazos fixados no relatório do organismo na aba principal da "
+"auditoria para ver os dias restantes."
+
+msgid ""
+"Enter the deadlines in the audit form, and the sending dates and the "
+"decision of the body in each finding. Nothing is changed automatically."
+msgstr ""
+"Informe os prazos na ficha da auditoria, e as datas de envio e a decisão do "
+"organismo em cada constatação. Nada é alterado automaticamente."
+
+#, php-format
+msgid "Sent on %s"
+msgstr "Enviado em %s"
+
+#, php-format
+msgid "Still to send: %d"
+msgstr "Falta enviar: %d"
+
+msgid "To fill in"
+msgstr "A preencher"
+
+msgid "What is this tab for?"
+msgstr "Para que serve esta aba?"
+
+msgid ""
+"Date on which the correction, root cause and corrective action were sent to "
+"the certification body."
+msgstr ""
+"Data em que a correção, a causa e a ação corretiva foram enviadas ao "
+"organismo."
+
+msgid ""
+"Date on which the evidence that the finding is lifted was sent. Attach the "
+"evidence in the Documents tab."
+msgstr ""
+"Data em que as evidências do encerramento foram enviadas. Anexe as "
+"evidências na aba Documentos."
+
+msgid "Feedback of the certification body"
+msgstr "Retorno do organismo"
+
+msgid ""
+"What was done at once to deal with the finding itself, before treating its "
+"cause."
+msgstr ""
+"O que foi feito de imediato para tratar a própria constatação, antes de "
+"tratar a sua causa."
+
+msgid "Audit date"
+msgstr "Data da auditoria"
+
+msgid "No nonconformity calls for a response in this audit."
+msgstr "Nenhuma não conformidade desta auditoria exige resposta."
+
+#, php-format
+msgid "Overdue by %d day"
+msgid_plural "Overdue by %d days"
+msgstr[0] "Em atraso há %d dia"
+msgstr[1] "Em atraso há %d dias"
+
+#, php-format
+msgid ""
+"%d nonconformity still lacks information before the action plan is sent (see "
+"the \"To fill in\" column)."
+msgid_plural ""
+"%d nonconformities still lack information before the action plan is sent "
+"(see the \"To fill in\" column)."
+msgstr[0] ""
+"%d não conformidade ainda não tem todas as informações antes do envio do "
+"plano de ações (ver a coluna «A preencher»)."
+msgstr[1] ""
+"%d não conformidades ainda não têm todas as informações antes do envio do "
+"plano de ações (ver a coluna «A preencher»)."
+
+#, php-format
+msgid ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+msgstr ""
+"Um auditor não deve auditar o próprio trabalho (ISO 19011). Um auditor que "
+"executa ou aprova um processo auditado na matriz de responsabilidades, "
+"diretamente ou por meio de um grupo, está em conflito. A auditoria não pode "
+"ser iniciada nem concluída enquanto cada conflito não for justificado; a "
+"justificativa é mantida com seu autor e sua data. Um processo cujos "
+"controles do Anexo A (matriz de responsabilidades) são auditados na lista de "
+"verificação ou vinculados à auditoria também é verificado."
+
+#, php-format
+msgid ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+msgstr ""
+"“%1$s” está aconselhada depois de “%2$s”, que se apoia nela: verifique os "
+"prazos aconselhados."
+
+#, php-format
+msgid ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+msgstr ""
+"Uma etapa não concluída corre o risco de atrasar quando seu prazo "
+"aconselhado cai nos próximos %d dias."
+
+msgid "Alert (days)"
+msgstr "Alerta (dias)"
+
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
+msgstr ""
+"Meta de cobertura: parcela dos requisitos e controles que o programa de "
+"auditoria deve ter coberto nos últimos três anos para que a etapa da "
+"auditoria interna esteja concluída. Meta de treinamento: parcela dos "
+"participantes que devem ter concluído seu treinamento. Alerta: número de "
+"dias antes de um prazo aconselhado a partir do qual a etapa está em risco e "
+"o responsável é avisado."
+
+msgid "Advised deadlines per step"
+msgstr "Prazos aconselhados por etapa"
+
+msgid ""
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
+msgstr ""
+"Número de dias antes da data-alvo em que cada etapa deveria estar concluída. "
+"Mantenha a ordem lógica: a auditoria interna antes da análise crítica pela "
+"direção que usa seus resultados, depois o tratamento das não conformidades. "
+"Uma alteração apenas desloca os prazos aconselhados: nada mais é modificado."
+
+msgid "Default"
+msgstr "Padrão"
+
+msgid "Days before the target date"
+msgstr "Dias antes da data-alvo"
+
+msgid "Adjusted"
+msgstr "Ajustado"
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr ""
+"Só é possível planejar uma auditoria para o ano atual ou um ano posterior."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr ""
+"Auditoria planejada: complete seus objetivos, escopo, critérios e auditores."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Auditoria interna - %1$s - %2$d"
+
+msgid ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+msgstr ""
+"\"Planejar\" cria uma auditoria interna para o processo e o ano, na entidade "
+"do processo. Depois complete seus objetivos, escopo, critérios e auditores "
+"na ficha da auditoria."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Planejar uma auditoria interna de %1$s em %2$d"
+
+msgid "Through the audited controls %s"
+msgstr "Pelos controles auditados %s"
+
 msgid "The exercise type could not be changed."
 msgstr "Não foi possível alterar o tipo de exercício."
 
@@ -26797,102 +27101,3 @@ msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d mês"
 msgstr[1] "%d meses"
-
-#, php-format
-msgid ""
-"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
-"deadlines."
-msgstr ""
-"“%1$s” está aconselhada depois de “%2$s”, que se apoia nela: verifique os "
-"prazos aconselhados."
-
-#, php-format
-msgid ""
-"A step not done is at risk of being late when its advised deadline is within "
-"%d days."
-msgstr ""
-"Uma etapa não concluída corre o risco de atrasar quando seu prazo "
-"aconselhado cai nos próximos %d dias."
-
-msgid "Alert (days)"
-msgstr "Alerta (dias)"
-
-msgid ""
-"Coverage target: share of the requirements and controls the audit programme "
-"must have covered over the last three years for the internal audit step to "
-"be done. Training target: share of the participants who must have completed "
-"their training. Alert: number of days before an advised deadline from which "
-"the step is at risk and the owner is notified."
-msgstr ""
-"Meta de cobertura: parcela dos requisitos e controles que o programa de "
-"auditoria deve ter coberto nos últimos três anos para que a etapa da "
-"auditoria interna esteja concluída. Meta de treinamento: parcela dos "
-"participantes que devem ter concluído seu treinamento. Alerta: número de "
-"dias antes de um prazo aconselhado a partir do qual a etapa está em risco e "
-"o responsável é avisado."
-
-msgid "Advised deadlines per step"
-msgstr "Prazos aconselhados por etapa"
-
-msgid ""
-"Number of days before the target date by which each step should be done. "
-"Keep the logical order: the internal audit before the management review that "
-"uses its results, then the treatment of nonconformities. A change only moves "
-"the advised deadlines: nothing else is modified."
-msgstr ""
-"Número de dias antes da data-alvo em que cada etapa deveria estar concluída. "
-"Mantenha a ordem lógica: a auditoria interna antes da análise crítica pela "
-"direção que usa seus resultados, depois o tratamento das não conformidades. "
-"Uma alteração apenas desloca os prazos aconselhados: nada mais é modificado."
-
-msgid "Default"
-msgstr "Padrão"
-
-msgid "Days before the target date"
-msgstr "Dias antes da data-alvo"
-
-msgid "Adjusted"
-msgstr "Ajustado"
-
-#, php-format
-msgid ""
-"An auditor must not audit their own work (ISO 19011). An auditor who "
-"performs or approves an audited process in the responsibility matrix, "
-"directly or through a group, is in conflict. A process whose Annex A "
-"controls (responsibility matrix) are audited in the checklist or linked to "
-"the audit is checked too. The audit cannot be started or closed until each "
-"conflict is justified; the justification is kept with its author and date."
-msgstr ""
-"Um auditor não deve auditar o próprio trabalho (ISO 19011). Um auditor que "
-"executa ou aprova um processo auditado na matriz de responsabilidades, "
-"diretamente ou por meio de um grupo, está em conflito. A auditoria não pode "
-"ser iniciada nem concluída enquanto cada conflito não for justificado; a "
-"justificativa é mantida com seu autor e sua data. Um processo cujos "
-"controles do Anexo A (matriz de responsabilidades) são auditados na lista de "
-"verificação ou vinculados à auditoria também é verificado."
-
-msgid "An audit can only be planned for the current year or a later one."
-msgstr ""
-"Só é possível planejar uma auditoria para o ano atual ou um ano posterior."
-
-msgid "Audit planned: complete its objectives, scope, criteria and auditors."
-msgstr ""
-"Auditoria planejada: complete seus objetivos, escopo, critérios e auditores."
-
-msgid "Internal audit - %1$s - %2$d"
-msgstr "Auditoria interna - %1$s - %2$d"
-
-msgid ""
-"\"Plan\" creates an internal audit for the process and the year, in the "
-"entity of the process. Then complete its objectives, scope, criteria and "
-"auditors on the audit."
-msgstr ""
-"\"Planejar\" cria uma auditoria interna para o processo e o ano, na entidade "
-"do processo. Depois complete seus objetivos, escopo, critérios e auditores "
-"na ficha da auditoria."
-
-msgid "Plan an internal audit of %1$s in %2$d"
-msgstr "Planejar uma auditoria interna de %1$s em %2$d"
-
-msgid "Through the audited controls %s"
-msgstr "Pelos controles auditados %s"
