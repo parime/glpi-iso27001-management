@@ -26830,3 +26830,154 @@ msgstr "Alerter avant l'échéance d'une licence (jours, 0 pour désactiver)"
 #, php-format
 msgid "Warning %d days before a license expires."
 msgstr "Alerte %d jours avant l'échéance d'une licence."
+
+msgid "Certification body report received on"
+msgstr "Rapport de l'organisme reçu le"
+
+msgid "Action plan due to the certification body"
+msgstr "Plan d'actions à envoyer à l'organisme avant le"
+
+msgid "Evidence due to the certification body"
+msgstr "Preuves à envoyer à l'organisme avant le"
+
+#, php-format
+msgid "To send to the certification body: %1$d action plans and %2$d evidence (overdue: %3$d)"
+msgstr "À envoyer à l'organisme : %1$d plans d'actions et %2$d preuves (en retard : %3$d)"
+
+msgid "Response to the certification body"
+msgstr "Réponse à l'organisme"
+
+msgid "Awaiting the decision of the certification body"
+msgstr "En attente de la décision de l'organisme"
+
+msgid "Accepted by the certification body"
+msgstr "Accepté par l'organisme"
+
+msgid "To be completed at the request of the certification body"
+msgstr "À compléter à la demande de l'organisme"
+
+msgid "Action plan overdue"
+msgstr "Plan d'actions en retard"
+
+msgid "Action plan to complete"
+msgstr "Plan d'actions à compléter"
+
+msgid "Action plan due soon"
+msgstr "Plan d'actions bientôt dû"
+
+msgid "Action plan to send"
+msgstr "Plan d'actions à envoyer"
+
+msgid "Action plan sent, awaiting decision"
+msgstr "Plan d'actions envoyé, décision attendue"
+
+msgid "Action plan accepted"
+msgstr "Plan d'actions accepté"
+
+msgid "No response required"
+msgstr "Aucune réponse attendue"
+
+msgid "Evidence overdue"
+msgstr "Preuves en retard"
+
+msgid "Evidence due soon"
+msgstr "Preuves bientôt dues"
+
+msgid "Evidence to send"
+msgstr "Preuves à envoyer"
+
+msgid "Evidence sent"
+msgstr "Preuves envoyées"
+
+msgid "No evidence required"
+msgstr "Aucune preuve attendue"
+
+msgid "Everything has been sent"
+msgstr "Tout a été envoyé"
+
+msgid "No deadline entered"
+msgstr "Aucun délai saisi"
+
+msgid "Correction"
+msgstr "Correction"
+
+msgid "Corrective action plan for the certification body"
+msgstr "Plan d'actions correctives pour l'organisme"
+
+msgid "Action plan sent to the certification body on"
+msgstr "Plan d'actions envoyé à l'organisme le"
+
+msgid "Evidence sent to the certification body on"
+msgstr "Preuves envoyées à l'organisme le"
+
+msgid "Decision of the certification body"
+msgstr "Décision de l'organisme"
+
+msgid "Deadline given in the audit report to send the evidence that the nonconformities are lifted."
+msgstr "Délai fixé dans le rapport d'audit pour envoyer les preuves de levée des non-conformités."
+
+msgid "Deadline given in the audit report to send your action plan (correction, root cause and corrective action of each nonconformity)."
+msgstr "Délai fixé dans le rapport d'audit pour envoyer votre plan d'actions (correction, cause et action corrective de chaque non-conformité)."
+
+#, php-format
+msgid "A response is expected for each nonconformity. It is optional for an area of concern or an opportunity for improvement. A deadline is shown as close %d days before it."
+msgstr "Une réponse est attendue pour chaque non-conformité. Elle est facultative pour un point sensible ou une piste de progrès. Un délai est signalé comme proche %d jours avant."
+
+msgid "Action plan"
+msgstr "Plan d'actions"
+
+msgid "After the audit, the certification body asks you to send an action plan for each nonconformity (correction, root cause, corrective action), then the evidence that it is lifted, each within a deadline. This tab shows what is still to send and produces the action plan to send to the body."
+msgstr "Après l'audit, l'organisme vous demande d'envoyer un plan d'actions pour chaque non-conformité (correction, cause, action corrective), puis les preuves de sa levée, chacun dans un délai. Cet onglet montre ce qui reste à envoyer et produit le plan d'actions à envoyer à l'organisme."
+
+msgid "Corrective action plan for the certification body (PDF)"
+msgstr "Plan d'actions correctives pour l'organisme (PDF)"
+
+msgid "Enter the deadlines given in the report of the certification body in the main tab of the audit, so that the remaining days are shown."
+msgstr "Saisissez les délais fixés par le rapport de l'organisme dans l'onglet principal de l'audit pour voir les jours restants."
+
+msgid "Enter the deadlines in the audit form, and the sending dates and the decision of the body in each finding. Nothing is changed automatically."
+msgstr "Saisissez les délais sur la fiche de l'audit, puis les dates d'envoi et la décision de l'organisme sur chaque constat. Rien n'est modifié automatiquement."
+
+#, php-format
+msgid "Sent on %s"
+msgstr "Envoyé le %s"
+
+#, php-format
+msgid "Still to send: %d"
+msgstr "Reste à envoyer : %d"
+
+msgid "To fill in"
+msgstr "À compléter"
+
+msgid "What is this tab for?"
+msgstr "À quoi sert cet onglet ?"
+
+msgid "Date on which the correction, root cause and corrective action were sent to the certification body."
+msgstr "Date d'envoi de la correction, de la cause et de l'action corrective à l'organisme."
+
+msgid "Date on which the evidence that the finding is lifted was sent. Attach the evidence in the Documents tab."
+msgstr "Date d'envoi des preuves de levée du constat. Joignez les preuves dans l'onglet Documents."
+
+msgid "Feedback of the certification body"
+msgstr "Retour de l'organisme"
+
+msgid "What was done at once to deal with the finding itself, before treating its cause."
+msgstr "Ce qui a été fait tout de suite pour traiter le constat lui-même, avant d'en traiter la cause."
+
+msgid "Audit date"
+msgstr "Date de l'audit"
+
+msgid "No nonconformity calls for a response in this audit."
+msgstr "Aucune non-conformité de cet audit n'appelle de réponse."
+
+#, php-format
+msgid "Overdue by %d day"
+msgid_plural "Overdue by %d days"
+msgstr[0] "En retard de %d jour"
+msgstr[1] "En retard de %d jours"
+
+#, php-format
+msgid "%d nonconformity still lacks information before the action plan is sent (see the \"To fill in\" column)."
+msgid_plural "%d nonconformities still lack information before the action plan is sent (see the \"To fill in\" column)."
+msgstr[0] "%d non-conformité manque encore d'informations avant l'envoi du plan d'actions (voir la colonne « À compléter »)."
+msgstr[1] "%d non-conformités manquent encore d'informations avant l'envoi du plan d'actions (voir la colonne « À compléter »)."
