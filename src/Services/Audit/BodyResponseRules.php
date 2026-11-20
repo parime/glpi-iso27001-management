@@ -124,8 +124,7 @@ final class BodyResponseRules
         string $toSend,
         string $soon,
         string $late
-    ): string
-    {
+    ): string {
         $days = self::daysLeft($dueDate, $today);
         if ($days === null) {
             return $toSend;
