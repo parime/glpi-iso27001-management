@@ -24,9 +24,11 @@ if (!isset($_POST['record'])) {
     throw new \Glpi\Exception\Http\BadRequestHttpException();
 }
 $item = CrisisCommunication::parentOf((string) ($_POST['itemtype'] ?? ''), (int) ($_POST['items_id'] ?? 0));
-if ($item === null || !$item->can($item->getID(), UPDATE)) {
+if ($item === null) {
     throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
+// Droit de modifier l'incident ou la violation, dans les entités de la personne (403 sinon).
+$item->check($item->getID(), UPDATE);
 $result = CrisisCommunication::record($item, $_POST);
 if (is_string($result)) {
     Session::addMessageAfterRedirect(htmlescape($result), false, ERROR);
