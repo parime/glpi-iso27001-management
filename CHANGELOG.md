@@ -7,26 +7,30 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.70.0] - 2026-11-20
+
 ## [2.69.0] - 2026-11-20
 
 ### Added
 
-- **Procédures d'exploitation, lot 2** (issue #775, A.5.37) :
-  - revue périodique tracée : bouton « Enregistrer la revue » sur la fiche d'une procédure
-    approuvée (date du jour, personne connectée, sans nouvelle version) ; la prochaine revue est la
-    date saisie si elle a été repoussée, un an plus tard sinon ; chaque revue est inscrite au journal
-    d'audit (« Revue périodique enregistrée ») ; le registre et le PDF affichent « Revue le … par … » ;
-  - contenu de la procédure : onglet natif « Base de connaissances » sur la bibliothèque des
-    politiques ; le registre, le PDF et la preuve A.5.37 montrent les articles liés (seuls ceux que
-    la personne peut lire sont nommés) et les documents joints (hors procès-verbaux réservés), et
-    signalent les procédures « Sans contenu » ;
-  - contrôle de cohérence : nouvelle règle « Domaines d'exploitation attendus sans procédure
-    approuvée » (A.5.37, gravité moyenne) ;
-  - droits : enregistrer la revue exige de pouvoir modifier les politiques (matrice d'accès) ;
-  - colonnes `last_review_date` et `users_id_lastreviewer` de la table des politiques (migration
-    rejouable, supprimées avec la table à la désinstallation).
-  - Reste à faire : rôles concernés en champ dédié, carte du tableau de bord.
-
+- **Audit interne selon l'ISO 19011 : objectifs, critères et points de contrôle** (issue #773, lot 2,
+  ISO 27001 9.2.2). Ce que l'auditeur de certification regarde pour chaque audit interne, d'un coup
+  d'oeil :
+  - fiche de l'audit : nouveaux champs **Objectifs de l'audit** et **Critères d'audit** (articles de
+    la norme, politiques, procédures), à côté du périmètre, aussi dans la recherche ;
+  - onglet « Programme et indépendance » : encadré **Points de contrôle de l'audit** (objectifs,
+    périmètre et critères définis, processus choisis, auditeurs désignés, qualifiés, indépendants ou
+    conflit justifié, rapport remis à la direction), en badges colorés, avec la compétence de chaque
+    auditeur, celui de la fiche compris ;
+  - page du programme pluriannuel : tableau des points de contrôle de chaque audit du cycle et
+    alerte sur les audits incomplets ;
+  - rapport PDF de l'audit interne : objectifs, critères, processus audités, points de contrôle,
+    compétence des auditeurs, conflits d'indépendance et leur justification, remise à la direction ;
+  - colonnes `objectives` et `criteria` de `glpi_plugin_grcmanager_audits` (supprimées avec la table
+    à la désinstallation). Aucun statut ni droit n'est modifié automatiquement.
+  - Reste à faire : destinataire de la remise choisi dans un groupe « direction », indépendance
+    étendue aux propriétaires des processus métier et des mesures, planification d'un audit depuis
+    une case de la matrice du programme.
 - **Contacts officiels : prises de contact tracées depuis les incidents et les violations** (issue
   #771, lot 2, mesures A.5.5 et A.5.6). L'auditeur demande la preuve qu'une autorité a été prévenue
   dans le délai, ou pourquoi elle ne l'a pas été :

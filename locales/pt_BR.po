@@ -26350,8 +26350,14 @@ msgstr "Revisão periódica registrada"
 msgid "Expected operating domains without an approved procedure"
 msgstr "Domínios operacionais esperados sem procedimento aprovado"
 
-msgid "Open the register of operating procedures, add the missing procedure (or a knowledge base article linked to it) and have it approved, or remove the domain from the expected list."
-msgstr "Abra o registro dos procedimentos operacionais, adicione o procedimento ausente (ou um artigo da base de conhecimento vinculado a ele) e obtenha sua aprovação, ou retire o domínio da lista esperada."
+msgid ""
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
+msgstr ""
+"Abra o registro dos procedimentos operacionais, adicione o procedimento "
+"ausente (ou um artigo da base de conhecimento vinculado a ele) e obtenha sua "
+"aprovação, ou retire o domínio da lista esperada."
 
 msgid "No operating procedure for this domain"
 msgstr "Nenhum procedimento operacional para este domínio"
@@ -26360,7 +26366,8 @@ msgid "Procedure not approved yet"
 msgstr "Procedimento ainda não aprovado"
 
 msgid "A review can only be recorded on an approved operating procedure."
-msgstr "Uma revisão só pode ser registrada em um procedimento operacional aprovado."
+msgstr ""
+"Uma revisão só pode ser registrada em um procedimento operacional aprovado."
 
 #, php-format
 msgid "Review recorded. Next review: %s."
@@ -26377,8 +26384,12 @@ msgstr "Aprovação e revisão"
 msgid "Approved: %s"
 msgstr "Aprovado: %s"
 
-msgid "Link a knowledge base article from the Knowledge base tab of the procedure, or attach the document from its Documents tab."
-msgstr "Vincule um artigo da base de conhecimento pela aba Base de conhecimento do procedimento, ou anexe o documento pela aba Documentos."
+msgid ""
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
+msgstr ""
+"Vincule um artigo da base de conhecimento pela aba Base de conhecimento do "
+"procedimento, ou anexe o documento pela aba Documentos."
 
 msgid "No content"
 msgstr "Sem conteúdo"
@@ -26386,8 +26397,12 @@ msgstr "Sem conteúdo"
 msgid "No review recorded"
 msgstr "Nenhuma revisão registrada"
 
-msgid "Procedures with neither a knowledge base article nor an attached document: the auditor cannot read them."
-msgstr "Procedimentos sem artigo da base de conhecimento nem documento anexado: o auditor não pode lê-los."
+msgid ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
+msgstr ""
+"Procedimentos sem artigo da base de conhecimento nem documento anexado: o "
+"auditor não pode lê-los."
 
 #, php-format
 msgid "Reviewed on %1$s by %2$s"
@@ -26400,11 +26415,22 @@ msgstr "Artigo da base de conhecimento: %s"
 msgid "Procedures without content"
 msgstr "Procedimentos sem conteúdo"
 
-msgid "A review can be recorded once the procedure is approved. Changes to the procedure go through a new version."
-msgstr "Uma revisão pode ser registrada depois que o procedimento for aprovado. As alterações do procedimento passam por uma nova versão."
+msgid ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+msgstr ""
+"Uma revisão pode ser registrada depois que o procedimento for aprovado. As "
+"alterações do procedimento passam por uma nova versão."
 
-msgid "Records today as the review date of the procedure, with your name, without a new version. The next review is the date set above if you moved it later, one year later otherwise. Your other changes on this form are saved too."
-msgstr "Registra hoje como data de revisão do procedimento, com seu nome, sem nova versão. A próxima revisão é a data indicada acima se você a adiou, um ano depois caso contrário. Suas outras alterações neste formulário também são salvas."
+msgid ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+msgstr ""
+"Registra hoje como data de revisão do procedimento, com seu nome, sem nova "
+"versão. A próxima revisão é a data indicada acima se você a adiou, um ano "
+"depois caso contrário. Suas outras alterações neste formulário também são "
+"salvas."
 
 #, php-format
 msgid "%d article you cannot read"
@@ -26417,3 +26443,119 @@ msgid "%d document"
 msgid_plural "%d documents"
 msgstr[0] "%d documento"
 msgstr[1] "%d documentos"
+
+msgid "Audit objectives"
+msgstr "Objetivos da auditoria"
+
+msgid "Audit criteria"
+msgstr "Critérios de auditoria"
+
+msgid "Audit objectives defined"
+msgstr "Objetivos da auditoria definidos"
+
+msgid "Objectives"
+msgstr "Objetivos"
+
+msgid "Audit scope defined"
+msgstr "Escopo da auditoria definido"
+
+msgid "Audit criteria defined"
+msgstr "Critérios de auditoria definidos"
+
+msgid "Criteria"
+msgstr "Critérios"
+
+msgid "Audited processes chosen"
+msgstr "Processos auditados escolhidos"
+
+msgid "Processes"
+msgstr "Processos"
+
+msgid "Auditors appointed"
+msgstr "Auditores designados"
+
+msgid "Auditors qualified"
+msgstr "Auditores qualificados"
+
+msgid "Independence"
+msgstr "Independência"
+
+msgid "Auditors independent of the audited processes, or conflict justified"
+msgstr ""
+"Auditores independentes dos processos auditados, ou conflito justificado"
+
+msgid "To watch"
+msgstr "A acompanhar"
+
+msgid "Later"
+msgstr "Mais tarde"
+
+msgid "No qualifying training chosen"
+msgstr "Nenhum treinamento qualificante escolhido"
+
+msgid ""
+"The references against which the evidence is compared: requirements of the "
+"standard (clause numbers), ISMS policies, procedures, contracts or laws."
+msgstr ""
+"As referências com as quais as evidências são comparadas: requisitos da "
+"norma (números das cláusulas), políticas do SGSI, procedimentos, contratos "
+"ou leis."
+
+msgid ""
+"What the audit must establish, for example: check that access rights are "
+"reviewed as planned."
+msgstr ""
+"O que a auditoria deve estabelecer, por exemplo: verificar se os direitos de "
+"acesso são revisados conforme planejado."
+
+#, php-format
+msgid ""
+"%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, "
+"competence or independence of the auditors, report to management): see the "
+"table below."
+msgstr ""
+"%d auditoria(s) do ciclo têm pontos de controle a completar (objetivos, "
+"critérios, competência ou independência dos auditores, relatório à direção): "
+"veja a tabela abaixo."
+
+msgid "Checkpoints of the audits of the cycle"
+msgstr "Pontos de controle das auditorias do ciclo"
+
+msgid ""
+"For each internal audit of the cycle: what the certification auditor will "
+"look for. Open the audit and its \"Programme and independence\" tab to "
+"complete a missing point."
+msgstr ""
+"Para cada auditoria interna do ciclo: o que o auditor de certificação vai "
+"verificar. Abra a auditoria e sua aba \"Programa e independência\" para "
+"completar um ponto ausente."
+
+msgid "No internal audit dated in this cycle."
+msgstr "Nenhuma auditoria interna datada neste ciclo."
+
+#, php-format
+msgid "%d point(s) to complete"
+msgstr "%d ponto(s) a completar"
+
+msgid "Audit checkpoints"
+msgstr "Pontos de controle da auditoria"
+
+msgid "Ready to show the auditor"
+msgstr "Pronto para apresentar ao auditor"
+
+msgid ""
+"What the certification auditor checks for each internal audit: objectives, "
+"scope and criteria defined beforehand, auditors who are competent and do not "
+"audit their own work, results reported to management. Objectives, scope and "
+"criteria are entered on the audit form; competence comes from the qualifying "
+"trainings chosen on the programme page."
+msgstr ""
+"O que o auditor de certificação verifica em cada auditoria interna: "
+"objetivos, escopo e critérios definidos previamente, auditores competentes "
+"que não auditam o próprio trabalho, resultados comunicados à direção. "
+"Objetivos, escopo e critérios são informados no formulário da auditoria; a "
+"competência vem dos treinamentos qualificantes escolhidos na página do "
+"programa."
+
+msgid "Qualifying trainings"
+msgstr "Treinamentos qualificantes"

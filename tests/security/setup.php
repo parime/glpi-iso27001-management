@@ -83,6 +83,7 @@ if ($mode === 'xss') {
     // piégé (référence de l'organisme, processus, clause), sur la vue des constats et l'onglet.
     $out['audit'] = $insert('audits', [
         'title' => $canary, 'scope' => $canary, 'conclusion' => $canary,
+        'objectives' => $canary, 'criteria' => $canary,
         'audit_type' => 'surveillance_1', 'lead_auditor' => $canary, 'certification_standard' => $canary,
     ]);
     $insert('nonconformities', [
@@ -195,6 +196,16 @@ if ($mode === 'xss') {
     $insert('auditreportdeliveries', [
         'plugin_grcmanager_audits_id' => $out['audit'], 'delivery_date' => date('Y-m-d'), 'users_id_recipient' => 2,
         'comment' => $canary, 'users_id' => 2,
+    ]);
+    // Issue #773, lot 2 : audit interne piégé de l'année (objectifs, critères), sur le processus
+    // piégé, pour l'onglet « Programme et indépendance » et le tableau des points de contrôle.
+    $out['audit_internal'] = $insert('audits', [
+        'title' => $canary, 'scope' => $canary, 'objectives' => $canary, 'criteria' => $canary,
+        'audit_type' => 'internal', 'users_id' => 2, 'status' => 'planned', 'planned_date' => date('Y-m-d'),
+    ]);
+    $insert('audits_processes', [
+        'plugin_grcmanager_audits_id' => $out['audit_internal'],
+        'plugin_grcmanager_responsibilityactivities_id' => $xssProcess,
     ]);
     $out['training'] = $insert('trainings', [
         'title' => $canary, 'description' => $canary, 'target_audience' => $canary,

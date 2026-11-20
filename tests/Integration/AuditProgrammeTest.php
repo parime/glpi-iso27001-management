@@ -276,6 +276,82 @@ final class AuditProgrammeTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('grc-competence-missing', $html);
     }
 
+    /**
+     * Lot 2 : objectifs et critères de l'audit, points de contrôle dans l'onglet, sur la page du
+     * programme et dans le rapport PDF.
+     */
+    public function testAuditCheckpointsFollowTheAudit(): void
+    {
+        global $DB;
+
+        $auditor = $this->member('Fanny');
+        $training = (int) (new Training())->add(['title' => 'Formation auditeur interne Exemple']);
+        $DB->insert(Training::PARTICIPANTS_TABLE, [
+            'plugin_grcmanager_trainings_id' => $training,
+            'users_id'                       => $auditor,
+            'completion_status'              => 'completed',
+            'completion_date'                => date('Y-m-d', strtotime('-2 months')),
+            'assessment_result'              => 'passed',
+        ]);
+        AuditProgramme::setQualifyingTrainingIds([$training]);
+        $process = $this->activity('Gestion des fournisseurs Exemple');
+        $date = date('Y') . '-06-15';
+
+        $audit = $this->audit('Audit points de contrôle Exemple', ['users_id' => $auditor, 'planned_date' => $date]);
+        $checks = AuditProgramme::auditChecks($audit);
+        $this->assertSame(Rules::CHECK_MISSING, $checks['checks']['objectives']);
+        $this->assertSame(Rules::CHECK_MISSING, $checks['checks']['criteria']);
+        $this->assertSame(Rules::CHECK_MISSING, $checks['checks']['processes']);
+        $this->assertSame(Rules::CHECK_OK, $checks['checks']['competence']);
+        $this->assertSame(Rules::CHECK_PENDING, $checks['checks']['delivery']);
+        $this->assertGreaterThan(0, $checks['gaps']);
+
+        $programme = AuditProgramme::programme((int) date('Y') - 1);
+        $row = array_values(array_filter(
+            $programme['audit_checks'],
+            static fn (array $a): bool => $a['id'] === $audit->getID()
+        ));
+        $this->assertCount(1, $row);
+        $this->assertGreaterThan(0, $row[0]['gaps']);
+        $this->assertGreaterThanOrEqual(1, $programme['gap_audits']);
+
+        $this->assertTrue($audit->update([
+            'id'         => $audit->getID(),
+            'objectives' => 'Vérifier le suivi des fournisseurs Exemple',
+            'scope'      => 'Siège Exemple',
+            'criteria'   => 'Politique fournisseurs Exemple, articles 8.1 et 8.2',
+        ]));
+        AuditProgramme::setProcesses($audit, [$process]);
+        $this->assertTrue($audit->update(['id' => $audit->getID(), 'status' => 'completed', 'actual_date' => $date]));
+        $audit->getFromDB($audit->getID());
+        $checks = AuditProgramme::auditChecks($audit);
+        $this->assertSame(Rules::CHECK_OK, $checks['checks']['objectives']);
+        $this->assertSame(Rules::CHECK_OK, $checks['checks']['criteria']);
+        $this->assertSame(Rules::CHECK_MISSING, $checks['checks']['delivery']);
+        $this->assertSame(1, $checks['gaps']);
+
+        $this->assertTrue(AuditProgramme::saveDelivery($audit, $date, $auditor, 'Remis en comité Exemple'));
+        $this->assertSame(0, AuditProgramme::auditChecks($audit)['gaps']);
+
+        // Onglet : points de contrôle et compétence de l'auditeur.
+        ob_start();
+        AuditProgramme::displayTabContentForItem($audit);
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('id="grc-audit-checks"', $html);
+        $this->assertStringContainsString('data-state="ok"', $html);
+        $this->assertStringNotContainsString('data-state="missing"', $html);
+        $this->assertStringContainsString('Formation auditeur interne Exemple', $html);
+
+        // Rapport PDF : objectifs, critères, processus et compétence.
+        $report = Audit::renderReport($audit);
+        $this->assertStringContainsString('Vérifier le suivi des fournisseurs Exemple', $report);
+        $this->assertStringContainsString('Politique fournisseurs Exemple', $report);
+        $this->assertStringContainsString('Gestion des fournisseurs Exemple', $report);
+        $this->assertStringContainsString('Formation auditeur interne Exemple', $report);
+
+        AuditProgramme::setQualifyingTrainingIds([]);
+    }
+
     public function testReportDeliveryIsTracedAndInTheManagementReviewDossier(): void
     {
         $recipient = $this->member('Fanny');
