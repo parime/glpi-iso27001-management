@@ -280,7 +280,7 @@ items waiting for the user.
 | Compliance | Annex A controls (SoA), Reference frameworks, ISMS requirements, Obligations, Record of processing activities, Policies, Evidence, Evidence coverage |
 | Audits and improvement | Internal audits, Non-conformities, ISMS objectives, Management reviews |
 | Operations | Access reviews, Account hygiene, Periodic reviews, Trainings, Crisis exercises, Business processes |
-| Technical security | Automated technical checks, Fleet vulnerabilities, Most exposed machines, Software to watch, Products, Network flow matrix |
+| Technical security | Automated technical checks, Fleet vulnerabilities, Most exposed machines, Software to watch, Software licenses, Products, Network flow matrix |
 
 Security incidents live in **Assistance**, next to tickets. Plugin rights are granted to any profile
 from the **GRC Manager** tab of Administration > Profiles.

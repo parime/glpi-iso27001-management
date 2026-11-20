@@ -22736,3 +22736,134 @@ msgstr "Rufen Sie den Kontakt an oder schreiben Sie ihm, um zu prüfen, ob Telef
 msgid "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
 msgstr "Von der automatischen Aufgabe von GRC Manager gesendet, wenn die Angaben eines offiziellen Kontakts seit 12 Monaten nicht geprüft wurden (höchstens einmal im Monat)."
 
+msgid "%d commercial software without a license"
+msgstr "%d kommerzielle Software ohne Lizenz"
+
+msgid "%d over-deployment(s)"
+msgstr "%d Überinstallation(en)"
+
+msgid "%d expired license(s) still in use"
+msgstr "%d abgelaufene Lizenz(en) noch in Gebrauch"
+
+msgid "Software license compliance"
+msgstr "Konformität der Softwarelizenzen"
+
+msgid "A license counts for an entity when it belongs to it, or when it is recursive and belongs to a parent entity. Nothing is changed in GLPI from this page."
+msgstr "Eine Lizenz zählt für eine Einheit, wenn sie ihr gehört oder wenn sie rekursiv ist und einer übergeordneten Einheit gehört. Auf dieser Seite wird in GLPI nichts geändert."
+
+msgid "Licenses in GLPI"
+msgstr "Lizenzen in GLPI"
+
+msgid "%1$d findings: the first %2$d are shown, all of them are in the export."
+msgstr "%1$d Feststellungen: die ersten %2$d werden angezeigt, alle sind im Export."
+
+msgid "No finding in your entities: every watched commercial software has a license, no license is overused, and no expired license is still in use."
+msgstr "Keine Feststellung in Ihren Einheiten: jede überwachte kommerzielle Software hat eine Lizenz, keine Lizenz wird überschritten und keine abgelaufene Lizenz wird noch genutzt."
+
+msgid "%d finding"
+msgid_plural "%d findings"
+msgstr[0] "%d Feststellung"
+msgstr[1] "%d Feststellungen"
+
+msgid "Shared with the sub-entities"
+msgstr "Mit den Untereinheiten geteilt"
+
+msgid "and %d more"
+msgstr "und %d weitere"
+
+msgid "Watched commercial publishers"
+msgstr "Überwachte kommerzielle Hersteller"
+
+msgid "Software from these publishers (manufacturer in GLPI) must have a license recorded. Software whose name contains one of the ignored words (free tools from the same publishers) is never reported as missing a license."
+msgstr "Software dieser Hersteller (Hersteller in GLPI) muss eine erfasste Lizenz haben. Software, deren Name eines der ignorierten Wörter enthält (kostenlose Werkzeuge derselben Hersteller), wird nie als ohne Lizenz gemeldet."
+
+msgid "Watched publishers (one per line)"
+msgstr "Überwachte Hersteller (einer pro Zeile)"
+
+msgid "Ignored software (part of the name, one per line)"
+msgstr "Ignorierte Software (Teil des Namens, einer pro Zeile)"
+
+msgid "Back to the default lists"
+msgstr "Zurück zu den Standardlisten"
+
+msgid "Software licenses"
+msgstr "Softwarelizenzen"
+
+msgid "Commercial software without a license"
+msgstr "Kommerzielle Software ohne Lizenz"
+
+msgid "Installed software from a watched publisher, with no license recorded in GLPI for this entity."
+msgstr "Installierte Software eines überwachten Herstellers, ohne in GLPI erfasste Lizenz für diese Einheit."
+
+msgid "More installations than licensed seats"
+msgstr "Mehr Installationen als lizenzierte Plätze"
+
+msgid "More assets have the software than the valid licenses allow. An unlimited license (number 0 or less) covers everything."
+msgstr "Mehr Geräte haben die Software, als die gültigen Lizenzen erlauben. Eine unbegrenzte Lizenz (Anzahl 0 oder weniger) deckt alles ab."
+
+msgid "Expired license still in use"
+msgstr "Abgelaufene Lizenz noch in Gebrauch"
+
+msgid "The license has expired but assets are still assigned to it, or the software is still installed with no other valid license."
+msgstr "Die Lizenz ist abgelaufen, aber ihr sind noch Geräte zugeordnet, oder die Software ist ohne andere gültige Lizenz noch installiert."
+
+msgid "in this entity and its sub-entities"
+msgstr "in dieser Einheit und ihren Untereinheiten"
+
+msgid "in this entity"
+msgstr "in dieser Einheit"
+
+msgid "%1$d asset has it %2$s, no license recorded."
+msgid_plural "%1$d assets have it %2$s, no license recorded."
+msgstr[0] "%1$d Gerät hat sie %2$s, keine Lizenz erfasst."
+msgstr[1] "%1$d Geräte haben sie %2$s, keine Lizenz erfasst."
+
+msgid "%1$d asset has it %3$s for %2$d licensed seat(s)."
+msgid_plural "%1$d assets have it %3$s for %2$d licensed seat(s)."
+msgstr[0] "%1$d Gerät hat sie %3$s für %2$d lizenzierte(n) Platz/Plätze."
+msgstr[1] "%1$d Geräte haben sie %3$s für %2$d lizenzierte(n) Platz/Plätze."
+
+msgid "Expired on %1$s: %2$d asset(s) still assigned, %3$d installation(s) %4$s."
+msgstr "Abgelaufen am %1$s: %2$d Gerät(e) noch zugeordnet, %3$d Installation(en) %4$s."
+
+msgid "Publisher"
+msgstr "Hersteller"
+
+msgid "Licensed seats"
+msgstr "Lizenzierte Plätze"
+
+msgid "License"
+msgstr "Lizenz"
+
+msgid "Expiration date"
+msgstr "Ablaufdatum"
+
+msgid "Assets still assigned"
+msgstr "Noch zugeordnete Geräte"
+
+msgid "Entity and sub-entities"
+msgstr "Einheit und Untereinheiten"
+
+msgid "Entity only"
+msgstr "Nur die Einheit"
+
+msgid "%1$s (%2$s): %3$s"
+msgstr "%1$s (%2$s): %3$s"
+
+msgid "Software without a license, installed beyond the licensed seats, or under an expired license"
+msgstr "Software ohne Lizenz, über die lizenzierten Plätze hinaus installiert oder unter einer abgelaufenen Lizenz"
+
+msgid "Record the missing license in GLPI, buy seats or uninstall the software, and renew or replace the expired license."
+msgstr "Erfassen Sie die fehlende Lizenz in GLPI, kaufen Sie Plätze oder deinstallieren Sie die Software, und erneuern oder ersetzen Sie die abgelaufene Lizenz."
+
+msgid "Checks, from the software and licenses already recorded in GLPI, that the organization respects the licenses it bought: commercial software installed without any license, more installations than licensed seats, and expired licenses still in use. Results are grouped by entity."
+msgstr "Prüft anhand der bereits in GLPI erfassten Software und Lizenzen, dass die Organisation die gekauften Lizenzen einhält: ohne Lizenz installierte kommerzielle Software, mehr Installationen als lizenzierte Plätze und abgelaufene Lizenzen, die noch genutzt werden. Die Ergebnisse sind nach Einheit gruppiert."
+
+msgid "Check the list of watched publishers, then for each finding record the missing license in GLPI, buy seats, uninstall the software or renew the license. Export the list (CSV) for the auditor. Nothing is changed automatically."
+msgstr "Prüfen Sie die Liste der überwachten Hersteller und erfassen Sie dann für jede Feststellung die fehlende Lizenz in GLPI, kaufen Sie Plätze, deinstallieren Sie die Software oder erneuern Sie die Lizenz. Exportieren Sie die Liste (CSV) für den Auditor. Nichts wird automatisch geändert."
+
+msgid "ISO/IEC 27001, control A.5.32"
+msgstr "ISO/IEC 27001, Maßnahme A.5.32"
+
+msgid "Watched publishers saved."
+msgstr "Überwachte Hersteller gespeichert."
