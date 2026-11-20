@@ -940,7 +940,7 @@ Seules les pièces que vous pouvez lire entrent dans l'archive ; une preuve expi
 l'index sans être incluse. La limite de taille se règle sur la page (200 Mo par défaut). L'archive
 est gardée comme document restreint : vous, et toute personne qui peut lire chacune de ses pièces,
 pouvez la télécharger. Rien n'est modifié dans les registres.
-### Étape 34 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
+### Étape 35 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
 
 L'agent d'inventaire de GLPI remonte, pour chaque volume d'un ordinateur, l'état du chiffrement,
 l'outil (BitLocker, FileVault, LUKS, VeraCrypt...) et l'algorithme. Le plugin lit ces données ; il
@@ -1897,7 +1897,7 @@ Only the pieces you can read enter the archive; expired evidence is listed in th
 included. The size limit is set on the page (200 MB by default). The archive is kept as a
 restricted document: you, and anyone who can read every piece it contains, can download it.
 Nothing is changed in the registers.
-### Step 35: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
+### Step 36: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
 
 For each volume of a computer, the GLPI inventory agent reports the encryption state, the tool
 (BitLocker, FileVault, LUKS, VeraCrypt...) and the algorithm. The plugin reads this data; it changes
