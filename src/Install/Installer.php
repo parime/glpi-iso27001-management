@@ -23,6 +23,7 @@ use CronTask;
 use DBConnection;
 use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\ComplianceEvent;
+use GlpiPlugin\Grcmanager\CrisisExerciseReview;
 use GlpiPlugin\Grcmanager\Evidence;
 use GlpiPlugin\Grcmanager\Nonconformity;
 use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
@@ -429,6 +430,10 @@ final class Installer
     private const CRISIS_EXERCISE_STEPS_TABLE = 'glpi_plugin_grcmanager_crisisexercisesteps';
     // Issue #185 : éléments rétablis pendant une crise (temps de reprise mesuré face au RTO).
     private const CRISIS_RECOVERIES_TABLE = 'glpi_plugin_grcmanager_crisisrecoveries';
+    // Issue #732 : bilan d'un exercice de crise (objectifs évalués, constats, validation tracée).
+    private const CRISIS_EXERCISE_OBJECTIVES_TABLE = 'glpi_plugin_grcmanager_crisisexerciseobjectives';
+    private const CRISIS_EXERCISE_FINDINGS_TABLE = 'glpi_plugin_grcmanager_crisisexercisefindings';
+    private const CRISIS_EXERCISE_REVIEWS_TABLE = 'glpi_plugin_grcmanager_crisisexercisereviews';
     // Issue #162 : ticket de mise en conformité ouvert par contrôle technique et par entité.
     private const COMPLIANCE_AUDIT_TICKETS_TABLE = 'glpi_plugin_grcmanager_complianceaudittickets';
     // Issue #378 : appétence et tolérance au risque, indicateurs de risque (KRI) et leurs relevés.
@@ -3189,6 +3194,63 @@ final class Installer
 
             $DB->doQuery($query);
         }
+        // Issue #732 : bilan après exercice. Objectifs définis au lancement et évalués à la clôture,
+        // constats (écarts) avec leur gravité et l'action d'amélioration créée à la demande, journal
+        // des validations et retours en brouillon ; l'état courant est porté par l'exercice.
+        if (!$DB->tableExists(self::CRISIS_EXERCISE_OBJECTIVES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CRISIS_EXERCISE_OBJECTIVES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_crisisexercises_id` int {$keySign} NOT NULL DEFAULT 0,
+                `rank` int NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `outcome` varchar(16) NOT NULL DEFAULT '' COMMENT 'met, partial, not_met ; vide : non evalue',
+                `comment` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_crisisexercises_id` (`plugin_grcmanager_crisisexercises_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::CRISIS_EXERCISE_FINDINGS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CRISIS_EXERCISE_FINDINGS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_crisisexercises_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `description` text,
+                `severity` varchar(16) NOT NULL DEFAULT 'minor' COMMENT 'minor, major, critical',
+                `itemtype` varchar(100) NOT NULL DEFAULT '' COMMENT 'action d amelioration creee a la demande',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_crisisexercises_id` (`plugin_grcmanager_crisisexercises_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::CRISIS_EXERCISE_REVIEWS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CRISIS_EXERCISE_REVIEWS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_crisisexercises_id` int {$keySign} NOT NULL DEFAULT 0,
+                `action` varchar(16) NOT NULL DEFAULT '' COMMENT 'validated, reopened',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date` timestamp NULL DEFAULT NULL,
+                `comment` text,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_crisisexercises_id` (`plugin_grcmanager_crisisexercises_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        foreach (
+            [
+                'validated_at'       => 'timestamp NULL DEFAULT NULL',
+                'users_id_validator' => "int {$keySign} NOT NULL DEFAULT 0",
+            ] as $field => $definition
+        ) {
+            if (!$DB->fieldExists(self::CRISIS_EXERCISES_TABLE, $field, false)) {
+                $DB->doQuery('ALTER TABLE `' . self::CRISIS_EXERCISES_TABLE . '` ADD `' . $field . '` ' . $definition);
+            }
+        }
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_TICKETS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_TICKETS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -3686,7 +3748,8 @@ final class Installer
                 [
                     self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE,
                     self::SENSITIVE_RIGHT => ALLSTANDARDRIGHT,
-                    self::CONTINUITY_RIGHT => ALLSTANDARDRIGHT,
+                    // Issue #732 : validation des bilans d'exercice de crise, droit dédié.
+                    self::CONTINUITY_RIGHT => ALLSTANDARDRIGHT | CrisisExerciseReview::VALIDATE,
                 ]
             );
         }
@@ -5777,6 +5840,9 @@ final class Installer
         $migration->dropTable(self::ENDOFLIFE_MAPPINGS_TABLE);
         $migration->dropTable(self::COVERAGE_RULES_TABLE);
         $migration->dropTable(self::CRISIS_RECOVERIES_TABLE);
+        $migration->dropTable(self::CRISIS_EXERCISE_OBJECTIVES_TABLE);
+        $migration->dropTable(self::CRISIS_EXERCISE_FINDINGS_TABLE);
+        $migration->dropTable(self::CRISIS_EXERCISE_REVIEWS_TABLE);
         $migration->dropTable(self::COMPLIANCE_AUDIT_TICKETS_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISE_STEPS_TABLE);
         $migration->dropTable(self::BUSINESS_IMPACTS_TABLE);

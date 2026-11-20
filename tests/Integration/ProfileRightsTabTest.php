@@ -48,6 +48,12 @@ final class ProfileRightsTabTest extends GrcmanagerIntegrationTestCase
         }
         // Corbeille des dérogations et des incidents : la colonne doit exister pour le droit partagé.
         $this->assertStringContainsString('name="_' . Installer::RIGHT_NAME . '[' . DELETE . '_0]"', $html);
+        // Issue #732 : droit dédié à la validation des bilans d'exercice, sur la continuité d'activité.
+        $this->assertStringContainsString(
+            'name="_' . Installer::CONTINUITY_RIGHT . '['
+                . \GlpiPlugin\Grcmanager\CrisisExerciseReview::VALIDATE . '_0]"',
+            $html
+        );
     }
 
     public function testTabIsHiddenOnASimplifiedInterfaceProfile(): void

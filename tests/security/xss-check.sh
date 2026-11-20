@@ -108,6 +108,8 @@ check "onglet demandes de preuves d'un audit" "$(tab 'GlpiPlugin%5CGrcmanager%5C
 check "mes demandes de preuves"               "$P/auditevidencerequest.mine.php"
 check "espace auditeur d'un audit"            "$P/auditorspace.php?id=$(xid audit)"
 check "liste de l'espace auditeur"            "$P/auditorspace.php"
+# Issue #732 : bilan d'un exercice (objectif, constat, historique de validation).
+check "salle de crise et bilan d'un exercice" "$P/crisisexercise.form.php?id=$(xid exercise)"
 # Issue #380 : constat d'un test d'efficacite (onglet de la mesure).
 check "onglet tests d'efficacite d'un controle" "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"
 
