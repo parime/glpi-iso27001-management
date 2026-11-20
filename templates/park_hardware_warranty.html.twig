@@ -1,0 +1,111 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #782 : fin de garantie du matériel, d'après les informations financières de GLPI, dans les
+   entités de la personne. Tableau par type de matériel et par entité, puis matériels à traiter. #}
+{% set hw = hardware_warranty %}
+<div class="card mt-3" id="grc-hardware-warranty">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-tool me-2"></i>{{ __('Hardware warranty', 'grcmanager') }}</h3>
+      <div class="card-actions d-flex gap-2">
+         <a class="btn btn-sm btn-outline-secondary" href="{{ hw.export_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export (CSV)', 'grcmanager') }}</a>
+      </div>
+   </div>
+   <div class="card-body pb-0">
+      <p class="text-muted small mb-3">{{ __('Warranty end of each piece of hardware, from the warranty start date and duration of its financial information in GLPI (ISO 27001 A.7.13 and A.8.9). Nothing is changed in GLPI.', 'grcmanager') }}</p>
+      <div class="row row-cards mb-3">
+         {% for code in ['expired', 'soon', 'covered', 'unknown'] %}
+            {% set info = hw.statuses[code] %}
+            <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body" title="{{ info.help }}">
+               <div class="d-flex align-items-center">
+                  <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-2"><i class="{{ info.icon }}"></i></span>
+                  <div class="fw-bold">{{ hw.counts[code] }} <span class="fw-normal">{{ info.label }}</span></div>
+               </div>
+            </div></div></div>
+         {% endfor %}
+      </div>
+   </div>
+   {% if hw.total_assets == 0 %}
+      <div class="card-body text-muted pt-0">
+         <i class="ti ti-info-circle me-1"></i>{{ __('No hardware in your entities.', 'grcmanager') }}
+      </div>
+   {% else %}
+      <div class="table-responsive">
+         <table class="table table-vcenter card-table table-sm">
+            <thead><tr>
+               <th>{{ __('Hardware type', 'grcmanager') }}</th>
+               <th>{{ __('Entity', 'grcmanager') }}</th>
+               {% for code in ['expired', 'soon', 'covered', 'unknown'] %}
+                  <th class="text-end">{{ hw.statuses[code].label }}</th>
+               {% endfor %}
+               <th class="text-end">{{ __('Total', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+            {% for group in hw.groups %}
+               <tr>
+                  <td>{{ group.type }}</td>
+                  <td>{{ group.entity }}</td>
+                  {% for code in ['expired', 'soon', 'covered', 'unknown'] %}
+                     {% set info = hw.statuses[code] %}
+                     <td class="text-end">{% if group.counts[code] > 0 and code in ['expired', 'soon'] %}<span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis">{{ group.counts[code] }}</span>{% else %}{{ group.counts[code] }}{% endif %}</td>
+                  {% endfor %}
+                  <td class="text-end fw-bold">{{ group.total }}</td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+      </div>
+      <div class="card-body pb-0">
+         <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <div class="btn-group" role="group">
+               <a class="btn btn-sm {{ hw.all ? 'btn-outline-primary' : 'btn-primary' }}" href="{{ action }}#grc-hardware-warranty">{{ __('Expired or ending soon', 'grcmanager') }}</a>
+               <a class="btn btn-sm {{ hw.all ? 'btn-primary' : 'btn-outline-primary' }}" href="{{ action }}?warranty=all#grc-hardware-warranty">{{ __('All hardware', 'grcmanager') }}</a>
+            </div>
+            <span class="text-muted small">{{ __('"Warranty ends soon": within %d days, the same threshold as the end of support.', 'grcmanager')|format(hw.warning_days) }}</span>
+         </div>
+         {% if hw.total_rows > hw.rows|length %}
+            <p class="small">{{ __('%1$d pieces of hardware: the %2$d most urgent ones are shown, all of them are in the export.', 'grcmanager')|format(hw.total_rows, hw.rows|length) }}</p>
+         {% endif %}
+      </div>
+      {% if hw.rows is empty %}
+         <div class="card-body text-muted pt-0">
+            <i class="ti ti-circle-check me-1 text-success"></i>{{ __('No hardware has an expired warranty or a warranty ending soon.', 'grcmanager') }}
+         </div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Status', 'grcmanager') }}</th>
+                  <th>{{ __('Asset', 'grcmanager') }}</th>
+                  <th>{{ __('Entity', 'grcmanager') }}</th>
+                  <th>{{ __('Warranty end date', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for row in hw.rows %}
+                  <tr>
+                     <td><span class="badge bg-{{ row.status.color }}-subtle text-{{ row.status.color }}-emphasis" title="{{ row.status.help }}"><i class="{{ row.status.icon }} me-1"></i>{{ row.status.label }}</span></td>
+                     <td>
+                        <span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ row.type }}</span>{% if row.url %}<a href="{{ row.url }}">{{ row.name }}</a>{% else %}{{ row.name }}{% endif %}
+                        {% if row.model %}<div class="small text-muted">{{ row.model }}</div>{% endif %}
+                     </td>
+                     <td>{{ row.entity }}</td>
+                     <td class="small">{{ row.detail }}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   {% endif %}
+</div>

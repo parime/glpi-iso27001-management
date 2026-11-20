@@ -133,6 +133,9 @@ parameters:
         # même rationale. Client, rapprochement et mise à jour du cache restent analysés : pur PHP.
         - src/Services/Lifecycle/EndOfLifeStore.php
         - src/Services/Lifecycle/EndOfLifeInventory.php
+        # Issue #782 : matériels et informations financières (base, $CFG_GLPI), même rationale.
+        # WarrantyRules.php reste analysé : pur PHP.
+        - src/Services/Lifecycle/HardwareWarrantyInventory.php
         # GLPI 11/12 compatibility layer: depends on GLPI's runtime GLPI_VERSION constant and on
         # \Toolbox / Glpi\Toolbox\HttpClient (each only present in one GLPI version), same
         # rationale as RiskMatrixConfig.php above. Base/ holds the parents of the inc/ classes,

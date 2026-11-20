@@ -485,6 +485,9 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     // Issue #779 : la conformité des licences exige aussi la lecture native des licences (le
     // gestionnaire ne l'a pas : la page lui est refusée).
     'license' => READ,
+    // Issue #782 : la fin de garantie du matériel exige la lecture native des informations
+    // financières (le gestionnaire ne l'a pas : l'export lui est refusé).
+    'infocom' => READ,
 ]));
 
 // Sans droit : aucun droit sur le plugin, chaque page doit lui être refusée. Il lit les
@@ -600,6 +603,12 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'softwareversions_id' => $add(new SoftwareVersion(), [
             'name' => '1.0', 'softwares_id' => $licenseSoftware, 'entities_id' => $entity,
         ]),
+    ]);
+    // Issue #782 : ordinateur fictif de l'entité dont la garantie est expirée.
+    $add(new Infocom(), [
+        'itemtype' => Computer::class, 'entities_id' => $entity,
+        'warranty_date' => '2020-01-01', 'warranty_duration' => 12,
+        'items_id' => $add(new Computer(), ['name' => 'PC garantie securite ' . $suffix, 'entities_id' => $entity]),
     ]);
     // Issue #377, troisième étape : application classable (RTO) de l'entité.
     $ids['appliance_' . $suffix] = $add(new Appliance(), [

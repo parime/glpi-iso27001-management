@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 11:58+0000\n"
+"POT-Creation-Date: 2026-11-20 12:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -549,6 +549,7 @@ msgstr ""
 #: templates/park_endoflife.html.twig templates/compliance_event_form.html.twig
 #: templates/audit_findings_tab.html.twig templates/policy_form.html.twig
 #: templates/risk_indicator_form.html.twig
+#: templates/park_hardware_warranty.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/pdf/postmortem_report.html.twig
@@ -566,10 +567,10 @@ msgstr ""
 #: src/NotificationTargetRiskIndicator.php:148 src/EndOfLife.php:476
 #: src/ProcessingActivity.php:550 src/ProcessingActivity.php:994
 #: src/BreachExposure.php:132 src/SupplierRisk.php:233 src/Audit.php:219
-#: src/NotificationTargetPolicy.php:132 src/Objective.php:158
-#: src/RiskIndicator.php:713 src/RiskRegisterImport.php:614
-#: src/PhysicalSecurityAssessment.php:436 src/ManagementReview.php:320
-#: src/PersonnelCompliance.php:749
+#: src/NotificationTargetPolicy.php:132 src/HardwareWarranty.php:309
+#: src/Objective.php:158 src/RiskIndicator.php:713
+#: src/RiskRegisterImport.php:614 src/PhysicalSecurityAssessment.php:436
+#: src/ManagementReview.php:320 src/PersonnelCompliance.php:749
 #: src/NotificationTargetAuditEvidenceRequest.php:159 src/Risk.php:402
 #: src/AccessReview.php:302 src/Nonconformity.php:368
 msgid "Status"
@@ -1620,6 +1621,33 @@ msgstr ""
 
 #: templates/control_form.html.twig
 #, php-format
+msgid "%d piece(s) of hardware with an expired warranty"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d under warranty"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d without warranty information"
+msgstr ""
+
+#: templates/control_form.html.twig templates/audit_log.html.twig
+#: templates/park_endoflife.html.twig
+#: templates/park_hardware_warranty.html.twig
+#: templates/software_license_compliance.html.twig
+msgid "Export (CSV)"
+msgstr ""
+
+#: templates/control_form.html.twig templates/park_hardware_warranty.html.twig
+#: src/HardwareWarranty.php:59
+msgid "Hardware warranty"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
 msgid "%d official contact recorded"
 msgid_plural "%d official contacts recorded"
 msgstr[0] ""
@@ -1705,12 +1733,6 @@ msgstr ""
 #: templates/control_form.html.twig
 #, php-format
 msgid "%d expired license(s) still in use"
-msgstr ""
-
-#: templates/control_form.html.twig templates/audit_log.html.twig
-#: templates/park_endoflife.html.twig
-#: templates/software_license_compliance.html.twig
-msgid "Export (CSV)"
 msgstr ""
 
 #: templates/control_form.html.twig src/SoftwareLicenseCompliance.php:57
@@ -1852,8 +1874,8 @@ msgstr ""
 #: templates/pdf/certification_readiness_report.html.twig
 #: templates/pdf/consistency_report.html.twig
 #: templates/software_license_compliance.html.twig src/EndOfLife.php:487
-#: src/SoftwareLicenseCompliance.php:349 src/PersonnelCompliance.php:749
-#: front/consistencycheck.export.php:53
+#: src/SoftwareLicenseCompliance.php:349 src/HardwareWarranty.php:318
+#: src/PersonnelCompliance.php:749 front/consistencycheck.export.php:53
 msgid "Detail"
 msgstr ""
 
@@ -2260,7 +2282,7 @@ msgid "None"
 msgstr ""
 
 #: templates/dashboard_perimeters.html.twig src/CertificationReadiness.php:760
-#: src/ConsistencyCheck.php:966 src/ConsistencyCheck.php:968
+#: src/ConsistencyCheck.php:975 src/ConsistencyCheck.php:977
 #: src/ManagementReviewDossier.php:125
 msgid "Statement of Applicability"
 msgstr ""
@@ -3648,6 +3670,7 @@ msgstr ""
 #: templates/personnel_compliance_list.html.twig
 #: templates/config_form.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
+#: templates/park_hardware_warranty.html.twig
 #: templates/pdf/competence_report.html.twig templates/pdf/acn_report.html.twig
 #: templates/pdf/access_review_report.html.twig
 #: templates/pdf/processing_register_report.html.twig
@@ -3656,7 +3679,8 @@ msgstr ""
 #: templates/pdf/network_flow_report.html.twig
 #: templates/policy_charter_signatures.html.twig
 #: templates/acn_register.html.twig src/SoftwareLicenseCompliance.php:340
-#: src/PolicyAcknowledgement.php:131 front/policyacknowledgement.export.php:48
+#: src/HardwareWarranty.php:312 src/PolicyAcknowledgement.php:131
+#: front/policyacknowledgement.export.php:48
 msgid "Entity"
 msgstr ""
 
@@ -4262,7 +4286,7 @@ msgid ""
 msgstr ""
 
 #: templates/soa_approval.html.twig src/CertificationReadiness.php:749
-#: src/ConsistencyCheck.php:971
+#: src/ConsistencyCheck.php:980
 msgid "Never approved"
 msgstr ""
 
@@ -6499,7 +6523,9 @@ msgstr ""
 msgid "%d partially"
 msgstr ""
 
-#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+#: templates/control_list_header.html.twig
+#: templates/park_hardware_warranty.html.twig
+#: templates/pdf/soa_report.html.twig
 msgid "Total"
 msgstr ""
 
@@ -7539,7 +7565,7 @@ msgid "RTO exceeded"
 msgstr ""
 
 #: templates/crisis_room.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig src/ConsistencyCheck.php:1218
+#: templates/pdf/crisis_exercise_report.html.twig src/ConsistencyCheck.php:1227
 msgid "RTO not set"
 msgstr ""
 
@@ -7937,6 +7963,12 @@ msgid ""
 msgstr ""
 
 #: templates/endoflife_config.html.twig
+msgid ""
+"The same threshold shows a hardware warranty as \"Warranty ends soon\", even "
+"when endoflife.date is not enabled."
+msgstr ""
+
+#: templates/endoflife_config.html.twig
 msgid "Last successful reading"
 msgstr ""
 
@@ -8094,7 +8126,7 @@ msgstr ""
 #: src/AcnRequirement.php:805 src/CertificationFinding.php:396
 #: src/CrisisExercise.php:627 src/PolicyAcknowledgement.php:703
 #: src/OfficialContact.php:197 src/EbiosStudy.php:313
-#: src/PersonnelCompliance.php:727 src/ConsistencyCheck.php:1412
+#: src/PersonnelCompliance.php:727 src/ConsistencyCheck.php:1444
 #: src/ControlTest.php:994 src/ContextItem.php:872 src/AccessReview.php:745
 #: src/ManagementReviewDossier.php:625
 #: src/Services/Control/SoaReportBuilder.php:121 src/PolicyVersion.php:765
@@ -8478,7 +8510,8 @@ msgid "Example: \"Firewall filtering policy\"."
 msgstr ""
 
 #: templates/coverage_rule_form.html.twig src/EndOfLife.php:478
-#: src/AssetClassification.php:111 src/CoverageRule.php:332
+#: src/HardwareWarranty.php:311 src/AssetClassification.php:111
+#: src/CoverageRule.php:332
 msgid "Asset type"
 msgstr ""
 
@@ -10888,7 +10921,7 @@ msgid "No requirement: import a file."
 msgstr ""
 
 #: templates/custom_framework_form.html.twig
-#: templates/custom_framework_list.html.twig src/ConsistencyCheck.php:1376
+#: templates/custom_framework_list.html.twig src/ConsistencyCheck.php:1408
 #: front/customframework.php:159
 msgid "Annex A"
 msgstr ""
@@ -11752,7 +11785,7 @@ msgid "Improvement action"
 msgstr ""
 
 #: templates/_crisis_review.html.twig src/NetworkFlow.php:114
-#: src/ConsistencyCheck.php:710 src/ConsistencyCheck.php:751
+#: src/ConsistencyCheck.php:719 src/ConsistencyCheck.php:760
 msgid "No owner"
 msgstr ""
 
@@ -11975,6 +12008,56 @@ msgstr ""
 
 #: templates/_impact_graph.html.twig
 msgid "Export the map"
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid ""
+"Warranty end of each piece of hardware, from the warranty start date and "
+"duration of its financial information in GLPI (ISO 27001 A.7.13 and A.8.9). "
+"Nothing is changed in GLPI."
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid "No hardware in your entities."
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid "Hardware type"
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid "Expired or ending soon"
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid "All hardware"
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+#, php-format
+msgid ""
+"\"Warranty ends soon\": within %d days, the same threshold as the end of "
+"support."
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+#, php-format
+msgid ""
+"%1$d pieces of hardware: the %2$d most urgent ones are shown, all of them "
+"are in the export."
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid "No hardware has an expired warranty or a warranty ending soon."
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig src/EndOfLife.php:477
+#: src/HardwareWarranty.php:310
+msgid "Asset"
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig src/HardwareWarranty.php:317
+msgid "Warranty end date"
 msgstr ""
 
 #: templates/account_hygiene_ticket.html.twig
@@ -16889,13 +16972,10 @@ msgid "End of support of software, systems and firmwares (endoflife.date)"
 msgstr ""
 
 #: src/EndOfLife.php:452 src/SoftwareLicenseCompliance.php:254
-#: src/SoftwareLicenseCompliance.php:272 src/ConsistencyCheck.php:615
+#: src/SoftwareLicenseCompliance.php:272 src/HardwareWarranty.php:249
+#: src/ConsistencyCheck.php:624
 #, php-format
 msgid "%1$s (ID %2$d)"
-msgstr ""
-
-#: src/EndOfLife.php:477
-msgid "Asset"
 msgstr ""
 
 #: src/EndOfLife.php:485
@@ -19446,7 +19526,7 @@ msgstr ""
 msgid "Version %s approved, still up to date"
 msgstr ""
 
-#: src/CertificationReadiness.php:746 src/ConsistencyCheck.php:973
+#: src/CertificationReadiness.php:746 src/ConsistencyCheck.php:982
 #, php-format
 msgid "Changed since version %s was approved"
 msgstr ""
@@ -20473,6 +20553,90 @@ msgstr ""
 msgid "Perimeters"
 msgstr ""
 
+#: src/HardwareWarranty.php:99
+msgid "Warranty expired"
+msgstr ""
+
+#: src/HardwareWarranty.php:103
+msgid ""
+"The manufacturer warranty has ended: check that a maintenance contract "
+"covers this hardware, or plan its replacement."
+msgstr ""
+
+#: src/HardwareWarranty.php:109
+msgid "Warranty ends soon"
+msgstr ""
+
+#: src/HardwareWarranty.php:112
+msgid "Renew the warranty or a maintenance contract, or plan the replacement."
+msgstr ""
+
+#: src/HardwareWarranty.php:115
+msgid "Under warranty"
+msgstr ""
+
+#: src/HardwareWarranty.php:118
+msgid "The warranty recorded in GLPI is still running."
+msgstr ""
+
+#: src/HardwareWarranty.php:121
+msgid "Warranty unknown"
+msgstr ""
+
+#: src/HardwareWarranty.php:125
+msgid ""
+"No warranty start date or duration in the financial information: never "
+"counted as under warranty."
+msgstr ""
+
+#: src/HardwareWarranty.php:150
+msgid "Lifetime warranty."
+msgstr ""
+
+#: src/HardwareWarranty.php:152
+msgid "No financial information recorded in GLPI."
+msgstr ""
+
+#: src/HardwareWarranty.php:154
+msgid "No warranty start date in the financial information."
+msgstr ""
+
+#: src/HardwareWarranty.php:156
+msgid "No warranty duration in the financial information."
+msgstr ""
+
+#: src/HardwareWarranty.php:158
+#, php-format
+msgid "Warranty ended on %s."
+msgstr ""
+
+#: src/HardwareWarranty.php:163
+#, php-format
+msgid "Warranty ends on %1$s (in %2$d day)."
+msgid_plural "Warranty ends on %1$s (in %2$d days)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/HardwareWarranty.php:313
+msgid "Manufacturer"
+msgstr ""
+
+#: src/HardwareWarranty.php:314
+msgid "Model"
+msgstr ""
+
+#: src/HardwareWarranty.php:315
+msgid "Warranty start date"
+msgstr ""
+
+#: src/HardwareWarranty.php:316
+msgid "Warranty duration (months)"
+msgstr ""
+
+#: src/HardwareWarranty.php:332
+msgid "Lifetime"
+msgstr ""
+
 #: src/TrainingSession.php:41
 msgid "Sessions"
 msgstr ""
@@ -21094,7 +21258,7 @@ msgstr ""
 msgid "Administration access"
 msgstr ""
 
-#: src/NetworkFlow.php:113 src/ConsistencyCheck.php:836
+#: src/NetworkFlow.php:113 src/ConsistencyCheck.php:845
 msgid "No justification"
 msgstr ""
 
@@ -22853,114 +23017,124 @@ msgid ""
 "measures until the upgrade."
 msgstr ""
 
-#: src/ConsistencyCheck.php:387
+#: src/ConsistencyCheck.php:386
+msgid "Hardware whose warranty has expired"
+msgstr ""
+
+#: src/ConsistencyCheck.php:388
+msgid ""
+"Check that a maintenance contract covers the hardware, renew the warranty or "
+"plan its replacement."
+msgstr ""
+
+#: src/ConsistencyCheck.php:395
 msgid ""
 "Software without a license, installed beyond the licensed seats, or under an "
 "expired license"
 msgstr ""
 
-#: src/ConsistencyCheck.php:391
+#: src/ConsistencyCheck.php:399
 msgid ""
 "Record the missing license in GLPI, buy seats or uninstall the software, and "
 "renew or replace the expired license."
 msgstr ""
 
-#: src/ConsistencyCheck.php:407
+#: src/ConsistencyCheck.php:415
 msgid "Tolerance (days)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:408
+#: src/ConsistencyCheck.php:416
 msgid "Period (months)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:409
+#: src/ConsistencyCheck.php:417
 msgid "Minimum length (characters)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:410
+#: src/ConsistencyCheck.php:418
 msgid "From risk level"
 msgstr ""
 
-#: src/ConsistencyCheck.php:657
+#: src/ConsistencyCheck.php:666
 msgid "No review date"
 msgstr ""
 
-#: src/ConsistencyCheck.php:658
+#: src/ConsistencyCheck.php:667
 #, php-format
 msgid "Review was due on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:665
+#: src/ConsistencyCheck.php:674
 #, php-format
 msgid "Due on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:759
+#: src/ConsistencyCheck.php:768
 #, php-format
 msgid "Level: %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:768
+#: src/ConsistencyCheck.php:777
 #, php-format
 msgid "Accepted at level %s, no signed acceptance"
 msgstr ""
 
-#: src/ConsistencyCheck.php:837
+#: src/ConsistencyCheck.php:846
 #, php-format
 msgid "Justification too short: \"%s\""
 msgstr ""
 
-#: src/ConsistencyCheck.php:870
+#: src/ConsistencyCheck.php:879
 msgid "No linked risk"
 msgstr ""
 
-#: src/ConsistencyCheck.php:938
+#: src/ConsistencyCheck.php:947
 msgid "No valid document, never tested"
 msgstr ""
 
-#: src/ConsistencyCheck.php:939
+#: src/ConsistencyCheck.php:948
 #, php-format
 msgid "No valid document, last test on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1011
+#: src/ConsistencyCheck.php:1020
 #, php-format
 msgid "Action \"%1$s\" due on %2$s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1041
+#: src/ConsistencyCheck.php:1050
 #, php-format
 msgid "Ended on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1087
+#: src/ConsistencyCheck.php:1096
 #, php-format
 msgid "Valid until %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1128
+#: src/ConsistencyCheck.php:1137
 msgid "None recorded as completed"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1129
+#: src/ConsistencyCheck.php:1138
 #, php-format
 msgid "Last one on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1147
+#: src/ConsistencyCheck.php:1156
 msgid "Closed without a corrective action"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1246
+#: src/ConsistencyCheck.php:1255
 msgid "DPIA required, not done"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1322
+#: src/ConsistencyCheck.php:1331
 #, php-format
 msgid "No longer supported: %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1410
+#: src/ConsistencyCheck.php:1442
 msgid "ISMS consistency checks: audit readiness"
 msgstr ""
 

@@ -1694,6 +1694,8 @@ class Control extends ControlBase
             'docker'                  => $docker,
             // Issue #704 : fin de support du parc (endoflife.date), preuve des mesures A.8.8 et A.8.9.
             'endoflife'               => EndOfLife::evidence($code),
+            // Issue #782 : fin de garantie du matériel, preuve des mesures A.7.13 et A.8.9.
+            'hardware_warranty'       => HardwareWarranty::evidence($code),
             // Issue #771 : registre des contacts officiels, preuve des mesures A.5.5 et A.5.6.
             'official_contacts'       => OfficialContact::evidence($code),
             // Issue #778 : évaluations de la sécurité physique des sites, preuve des mesures A.7.1 à A.7.14.
