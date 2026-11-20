@@ -335,7 +335,7 @@ final class CompetenceTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('value="' . $alice . '"', $html);
         $this->assertStringContainsString('value="' . $carol . '"', $html);
         $this->assertStringContainsString('PHPUnit formation réseau', $html);
-        $this->assertSame($before, countElementsInTable(Training::getTable()), 'Rien n'est enregistré.');
+        $this->assertSame($before, countElementsInTable(Training::getTable()), 'Rien n\'est enregistré.');
 
         $summary = CompetenceMatrix::clauseReadiness('7.2');
         $this->assertNotNull($summary);
