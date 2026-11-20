@@ -617,6 +617,42 @@ type de matériel.
    montre les compteurs ; les contrôles de cohérence du SMSI listent chaque matériel dont la
    garantie est expirée (règle « Matériels dont la garantie est expirée »).
 
+### Étape 29 : Encadrer le développement sécurisé et les mises en production (mesures A.8.25 à A.8.31)
+
+Le plugin s'appuie sur les **applications** de GLPI (Parc > Applications) et sur les
+**changements** (Assistance > Changements) : il n'en crée pas d'autres. Il faut le droit général du
+plugin ; pour valider une mise en production, le droit **Décider des mises en production** (onglet
+GRC Manager du profil, attribué au Super-Admin à l'installation).
+
+1. Ouvrez une application fictive développée en interne, par exemple « Portail RH », puis l'onglet
+   **Développement sécurisé**. Renseignez le responsable (vide : le responsable technique de
+   l'application), le dépôt de code (adresse en https://, ssh:// ou git@), le **référentiel suivi**
+   (OWASP ASVS, OWASP Top 10, OWASP SAMM, recommandations de l'ANSSI ou autre) et son niveau, puis
+   cochez **Revue de code obligatoire**, **Analyse statique (SAST)**, **Analyse dynamique (DAST)**
+   et **Analyse des dépendances**. Indiquez les outils et leur fréquence.
+2. Répondez à **Environnements séparés** (oui ou non). Décrivez comment les accès, les données et
+   la configuration sont séparés ; si la réponse est non, la justification est obligatoire (risque
+   accepté, mesure compensatoire). Enregistrez : l'application entre dans le registre.
+3. Créez le changement de la nouvelle version et liez-y l'application (onglet **Éléments** du
+   changement). Un onglet **Validation sécurité de mise en production** apparaît.
+4. Avant la mise en production, cochez la **liste de contrôle** : tests passés (dont tests de
+   sécurité), revue de code faite, vulnérabilités trouvées traitées, et notez les preuves (rapport
+   SAST, lien de la revue). Enregistrez.
+5. La DSI ou le RSSI choisit son rôle et clique sur **Valider la mise en production** (possible
+   seulement quand toute la liste est cochée) ou **Refuser la mise en production** (motif
+   obligatoire). La décision est enregistrée avec son auteur et sa date, et inscrite dans
+   l'historique du changement ; la liste est alors figée. **Rouvrir la décision** la rend de nouveau
+   modifiable, et l'historique garde la décision précédente.
+6. Ouvrez Conformité > **Développement sécurisé**. La page donne le registre des applications, leurs
+   pratiques, les **applications sans séparation des environnements** et les **mises en production
+   sans validation sécurité** des 12 derniers mois (changement résolu ou clos lié à une application
+   du registre, sans validation, refusé, ou validé après la mise en production). Seules vos entités
+   apparaissent ; les mises en production demandent le droit de voir tous les changements.
+7. Sur la fiche des mesures A.8.25, A.8.28, A.8.29 et A.8.31 de la SoA, le cadre **Développement
+   sécurisé** montre les indicateurs utiles à chaque mesure. Ces preuves servent à lever les
+   constats d'audit sur le cycle de développement, le codage sécurisé, les tests de sécurité et la
+   séparation des environnements.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -1187,3 +1223,37 @@ hardware.
 6. On controls A.7.13 and A.8.9 of the SoA, the "Hardware warranty" box shows the counters; the
    ISMS consistency checks list each piece of hardware whose warranty has expired (rule "Hardware
    whose warranty has expired").
+
+### Step 29: Frame secure development and releases (controls A.8.25 to A.8.31)
+
+The plugin relies on the **appliances** of GLPI (Assets > Appliances) and on the **changes**
+(Assistance > Changes): it creates no other object. You need the general right of the plugin; to
+approve a release, the **Decide on releases** right (GRC Manager tab of the profile, given to
+Super-Admin at installation).
+
+1. Open a fictitious in-house application, for instance "HR portal", then the **Secure
+   development** tab. Fill in the owner (empty: the technical owner of the application), the code
+   repository (https://, ssh:// or git@ address), the **framework followed** (OWASP ASVS, OWASP Top
+   10, OWASP SAMM, ANSSI recommendations or other) and its level, then tick **Mandatory code
+   review**, **Static analysis (SAST)**, **Dynamic analysis (DAST)** and **Dependency analysis**.
+   Give the tools and their frequency.
+2. Answer **Separated environments** (yes or no). Describe how access, data and configuration are
+   separated; when the answer is no, the justification is mandatory (accepted risk, compensating
+   measure). Save: the application enters the register.
+3. Create the change of the new version and link the application to it (**Items** tab of the
+   change). A **Security release validation** tab appears.
+4. Before the release, tick the **checklist**: tests passed (including security tests), code review
+   done, vulnerabilities found treated, and write down the evidence (SAST report, review link). Save.
+5. The CIO or the CISO chooses their role and clicks **Approve the release** (only possible when
+   the whole checklist is ticked) or **Reject the release** (reason mandatory). The decision is
+   recorded with its author and date, and written in the history of the change; the checklist is
+   then frozen. **Reopen the decision** makes it editable again, and the history keeps the previous
+   decision.
+6. Open Compliance > **Secure development**. The page gives the register of applications, their
+   practices, the **applications without separation of environments** and the **releases without
+   security validation** of the last 12 months (solved or closed change linked to an application of
+   the register, without validation, rejected, or approved after the release). Only your entities
+   are shown; the releases require the right to see all changes.
+7. On controls A.8.25, A.8.28, A.8.29 and A.8.31 of the SoA, the **Secure development** box shows
+   the indicators useful to each control. This evidence helps lift the audit findings on the
+   development life cycle, secure coding, security testing and separation of environments.

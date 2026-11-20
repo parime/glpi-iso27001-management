@@ -31,7 +31,9 @@ organization. Allow half an hour.
    **Install** then **Enable**. The **GRC & Compliance** menu appears.
 2. **Grant rights**: **Administration > Profiles**, open a profile, **GRC Manager** tab. Five
    rights, granted separately:
-   - **Security governance (ISMS)**: the general right (SoA, audits, policies, evidence...);
+   - **Security governance (ISMS)**: the general right (SoA, audits, policies, evidence...); its
+     **Decide on releases** box (security validation of a change) goes to the CIO and the CISO
+     only;
    - **Sensitive registers** (risks, risk indicators, vulnerabilities, network flows): to the CISO
      and risk owners only, since these registers describe the organization's weak points;
    - **Business continuity** (business processes, BIA);
