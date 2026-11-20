@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 17:44+0000\n"
+"POT-Creation-Date: 2026-11-20 17:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgid "Export PDF"
 msgstr ""
 
 #: front/audit.php:53 front/auditcoverage.php:34
-#: src/CertificationReadiness.php:896 templates/audit_checklist_tab.html.twig
+#: src/CertificationReadiness.php:947 templates/audit_checklist_tab.html.twig
 #: templates/audit_coverage.html.twig templates/audit_programme.html.twig
 msgid "Audit programme coverage"
 msgstr ""
@@ -72,7 +72,7 @@ msgstr ""
 #: front/networkflow.report.php:31 front/processingactivity.export.php:64
 #: front/risk.report.php:73 src/AccessReview.php:745 src/AcnRequirement.php:805
 #: src/Audit.php:613 src/CertificationFinding.php:410
-#: src/CertificationReadiness.php:1335 src/CompetenceMatrix.php:712
+#: src/CertificationReadiness.php:1386 src/CompetenceMatrix.php:852
 #: src/ConsistencyCheck.php:1444 src/ContextItem.php:879
 #: src/ControlTest.php:994 src/CrisisExercise.php:627
 #: src/CrisisScenario.php:872 src/Dpia.php:443 src/EbiosStudy.php:313
@@ -1273,7 +1273,7 @@ msgid "GRC Manager"
 msgstr ""
 
 #: hook.php:48 src/Services/Dashboard/DashboardCardService.php:123
-#: src/Services/Dashboard/PilotageCards.php:706
+#: src/Services/Dashboard/PilotageCards.php:717
 #: templates/dashboard_perimeters.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Open risks"
@@ -1318,7 +1318,7 @@ msgid "SoA controls by implementation status"
 msgstr ""
 
 #: hook.php:112 src/Services/Dashboard/DashboardCardService.php:365
-#: src/Services/Dashboard/PilotageCards.php:707
+#: src/Services/Dashboard/PilotageCards.php:718
 #: templates/dashboard_perimeters.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Open non-conformities"
@@ -1361,11 +1361,11 @@ msgstr ""
 msgid "Deadlines within 90 days"
 msgstr ""
 
-#: hook.php:177 src/Services/Dashboard/PilotageCards.php:465
+#: hook.php:177 src/Services/Dashboard/PilotageCards.php:476
 msgid "Computers covered by Wazuh (%)"
 msgstr ""
 
-#: hook.php:183 src/Services/Dashboard/PilotageCards.php:322
+#: hook.php:183 src/Services/Dashboard/PilotageCards.php:333
 msgid "Access review: % reviewed"
 msgstr ""
 
@@ -1373,48 +1373,48 @@ msgstr ""
 msgid "NIS2 / GDPR deadlines at risk"
 msgstr ""
 
-#: hook.php:195 src/Services/Dashboard/PilotageCards.php:646
+#: hook.php:195 src/Services/Dashboard/PilotageCards.php:657
 msgid "Average supplier score"
 msgstr ""
 
 #: hook.php:201 src/RiskIndicator.php:144
-#: src/Services/Dashboard/PilotageCards.php:793
+#: src/Services/Dashboard/PilotageCards.php:804
 msgid "Overdue periodic reviews"
 msgstr ""
 
-#: hook.php:208 src/Services/Dashboard/PilotageCards.php:768
+#: hook.php:208 src/Services/Dashboard/PilotageCards.php:779
 msgid "Overdue effectiveness tests"
 msgstr ""
 
-#: hook.php:214 src/Services/Dashboard/PilotageCards.php:674
+#: hook.php:214 src/Services/Dashboard/PilotageCards.php:685
 msgid "Critical suppliers not assessed"
 msgstr ""
 
-#: hook.php:220 src/Services/Dashboard/PilotageCards.php:744
+#: hook.php:220 src/Services/Dashboard/PilotageCards.php:755
 msgid "Risks and non-conformities by month"
 msgstr ""
 
-#: hook.php:227 src/Services/Dashboard/PilotageCards.php:342
+#: hook.php:227 src/Services/Dashboard/PilotageCards.php:353
 msgid "Vulnerabilities within the remediation deadline (%)"
 msgstr ""
 
-#: hook.php:233 src/Services/Dashboard/PilotageCards.php:363
+#: hook.php:233 src/Services/Dashboard/PilotageCards.php:374
 msgid "Vulnerabilities past their remediation deadline"
 msgstr ""
 
-#: hook.php:239 src/Services/Dashboard/PilotageCards.php:384
+#: hook.php:239 src/Services/Dashboard/PilotageCards.php:395
 msgid "Mean time to remediate a vulnerability (days)"
 msgstr ""
 
-#: hook.php:245 src/Services/Dashboard/PilotageCards.php:408
+#: hook.php:245 src/Services/Dashboard/PilotageCards.php:419
 msgid "Overdue vulnerabilities by level"
 msgstr ""
 
-#: hook.php:251 src/Services/Dashboard/PilotageCards.php:435
+#: hook.php:251 src/Services/Dashboard/PilotageCards.php:446
 msgid "Vulnerabilities fixed on time and late, by month"
 msgstr ""
 
-#: hook.php:257 src/Services/Dashboard/PilotageCards.php:498
+#: hook.php:257 src/Services/Dashboard/PilotageCards.php:509
 msgid "Late reviewers (access)"
 msgstr ""
 
@@ -1422,187 +1422,191 @@ msgstr ""
 msgid "Personnel security compliance (%)"
 msgstr ""
 
-#: hook.php:270 src/Services/Dashboard/PilotageCards.php:567
+#: hook.php:271 src/CompetenceMatrix.php:893
+msgid "Coverage of the required competences (%)"
+msgstr ""
+
+#: hook.php:277 src/Services/Dashboard/PilotageCards.php:578
 msgid "Participants to retake"
 msgstr ""
 
-#: hook.php:276 src/Services/Dashboard/PilotageCards.php:610
+#: hook.php:283 src/Services/Dashboard/PilotageCards.php:621
 msgid "Pass rate by training session (%)"
 msgstr ""
 
-#: hook.php:283 src/Maturity.php:42 templates/compliance_audit.html.twig
+#: hook.php:290 src/Maturity.php:42 templates/compliance_audit.html.twig
 #: templates/maturity.html.twig
 msgid "Maturity score"
 msgstr ""
 
-#: hook.php:290
+#: hook.php:297
 msgid "ISMS consistency gaps"
 msgstr ""
 
-#: hook.php:297
+#: hook.php:304
 msgid "Progress towards certification"
 msgstr ""
 
-#: hook.php:304 src/Services/Dashboard/DashboardCardService.php:520
+#: hook.php:311 src/Services/Dashboard/DashboardCardService.php:520
 msgid "Training completion rate"
 msgstr ""
 
-#: hook.php:310 src/Services/Dashboard/DashboardCardService.php:553
+#: hook.php:317 src/Services/Dashboard/DashboardCardService.php:553
 msgid "Pass rate of assessed training sessions"
 msgstr ""
 
-#: hook.php:316 src/Services/Dashboard/DashboardCardService.php:587
+#: hook.php:323 src/Services/Dashboard/DashboardCardService.php:587
 msgid "Participants overdue for training renewal"
 msgstr ""
 
-#: hook.php:322 src/Services/Dashboard/DashboardCardService.php:621
+#: hook.php:329 src/Services/Dashboard/DashboardCardService.php:621
 msgid "Management reviews by status"
 msgstr ""
 
-#: hook.php:329 src/Services/Dashboard/DashboardCardService.php:650
+#: hook.php:336 src/Services/Dashboard/DashboardCardService.php:650
 msgid "Policies pending review"
 msgstr ""
 
-#: hook.php:335 src/Services/Dashboard/DashboardCardService.php:680
+#: hook.php:342 src/Services/Dashboard/DashboardCardService.php:680
 msgid "Security policies by status"
 msgstr ""
 
-#: hook.php:342 src/Services/Dashboard/DashboardCardService.php:702
+#: hook.php:349 src/Services/Dashboard/DashboardCardService.php:702
 msgid "Non-compliant obligations"
 msgstr ""
 
-#: hook.php:348 src/Services/Dashboard/DashboardCardService.php:731
+#: hook.php:355 src/Services/Dashboard/DashboardCardService.php:731
 msgid "Obligations pending review"
 msgstr ""
 
-#: hook.php:354 src/Services/Dashboard/DashboardCardService.php:761
+#: hook.php:361 src/Services/Dashboard/DashboardCardService.php:761
 msgid "Obligations by type"
 msgstr ""
 
-#: hook.php:360 src/Services/Dashboard/DashboardCardService.php:794
+#: hook.php:367 src/Services/Dashboard/DashboardCardService.php:794
 msgid "Obligations by compliance status"
 msgstr ""
 
-#: hook.php:367 src/Services/Dashboard/DashboardCardService.php:945
+#: hook.php:374 src/Services/Dashboard/DashboardCardService.php:945
 msgid "ISMS objectives by status"
 msgstr ""
 
-#: hook.php:374 src/Services/Dashboard/SecurityIncidentCardProvider.php:281
+#: hook.php:381 src/Services/Dashboard/SecurityIncidentCardProvider.php:281
 msgid "Security incidents by status"
 msgstr ""
 
-#: hook.php:380 src/Services/Dashboard/SecurityIncidentCardProvider.php:298
+#: hook.php:387 src/Services/Dashboard/SecurityIncidentCardProvider.php:298
 msgid "Security incidents by severity"
 msgstr ""
 
-#: hook.php:387 src/ConsistencyCheck.php:259 src/RiskIndicator.php:137
+#: hook.php:394 src/ConsistencyCheck.php:259 src/RiskIndicator.php:137
 #: src/Services/Dashboard/DashboardCardService.php:867
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Overdue risk treatment actions"
 msgstr ""
 
-#: hook.php:393 src/Services/Dashboard/DashboardCardService.php:903
+#: hook.php:400 src/Services/Dashboard/DashboardCardService.php:903
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Risks to mitigate/transfer with no treatment plan"
 msgstr ""
 
-#: hook.php:400 src/Services/Dashboard/DashboardCardService.php:962
+#: hook.php:407 src/Services/Dashboard/DashboardCardService.php:962
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/risk_appetite.html.twig
 msgid "Open risks above appetite"
 msgstr ""
 
-#: hook.php:406 src/RiskIndicator.php:136
+#: hook.php:413 src/RiskIndicator.php:136
 #: src/Services/Dashboard/DashboardCardService.php:978
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Open risks above tolerance"
 msgstr ""
 
-#: hook.php:412 src/Services/Dashboard/DashboardCardService.php:999
+#: hook.php:419 src/Services/Dashboard/DashboardCardService.php:999
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Risk indicators (KRI) by status"
 msgstr ""
 
-#: hook.php:418 src/Services/Dashboard/DashboardCardService.php:1044
+#: hook.php:425 src/Services/Dashboard/DashboardCardService.php:1044
 msgid "Risk indicators (KRI) in the red"
 msgstr ""
 
-#: hook.php:424 src/Services/Dashboard/DashboardCardService.php:1026
+#: hook.php:431 src/Services/Dashboard/DashboardCardService.php:1026
 msgid "Risk indicators (KRI) in the red and orange by month"
 msgstr ""
 
-#: hook.php:431 src/Services/Dashboard/DashboardCardService.php:1064
+#: hook.php:438 src/Services/Dashboard/DashboardCardService.php:1064
 msgid "Business processes without a BIA or with an overdue BIA"
 msgstr ""
 
-#: hook.php:437 src/Services/Dashboard/DashboardCardService.php:1084
+#: hook.php:444 src/Services/Dashboard/DashboardCardService.php:1084
 msgid "Business processes whose last recovery test exceeded the RTO"
 msgstr ""
 
-#: hook.php:460 src/Services/Dashboard/SecurityIncidentCardProvider.php:232
+#: hook.php:467 src/Services/Dashboard/SecurityIncidentCardProvider.php:232
 #: templates/config_form.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Security incidents"
 msgstr ""
 
-#: hook.php:468 src/Services/Dashboard/SecurityIncidentCardProvider.php:245
+#: hook.php:475 src/Services/Dashboard/SecurityIncidentCardProvider.php:245
 msgctxt "security incidents"
 msgid "Open"
 msgstr ""
 
-#: hook.php:476 src/Services/Dashboard/SecurityIncidentCardProvider.php:375
+#: hook.php:483 src/Services/Dashboard/SecurityIncidentCardProvider.php:375
 msgid "Security incidents by entity"
 msgstr ""
 
-#: hook.php:484 src/Services/Dashboard/SecurityIncidentCardProvider.php:387
+#: hook.php:491 src/Services/Dashboard/SecurityIncidentCardProvider.php:387
 msgid "Security incidents by GLPI category"
 msgstr ""
 
-#: hook.php:494 src/Services/Dashboard/SecurityIncidentCardProvider.php:264
+#: hook.php:501 src/Services/Dashboard/SecurityIncidentCardProvider.php:264
 msgid "Open critical security incidents"
 msgstr ""
 
-#: hook.php:502 src/Services/Dashboard/SecurityIncidentCardProvider.php:320
+#: hook.php:509 src/Services/Dashboard/SecurityIncidentCardProvider.php:320
 msgid "Security incidents by incident category"
 msgstr ""
 
-#: hook.php:510 src/Services/Dashboard/SecurityIncidentCardProvider.php:471
+#: hook.php:517 src/Services/Dashboard/SecurityIncidentCardProvider.php:471
 msgid "Security incidents over 12 months"
 msgstr ""
 
-#: hook.php:517 src/Services/Dashboard/SecurityIncidentCardProvider.php:558
+#: hook.php:524 src/Services/Dashboard/SecurityIncidentCardProvider.php:558
 msgid "Regulatory notifications to follow"
 msgstr ""
 
-#: hook.php:524 src/Services/Dashboard/SecurityIncidentCardProvider.php:629
+#: hook.php:531 src/Services/Dashboard/SecurityIncidentCardProvider.php:629
 msgid "Security incidents by MITRE ATT&CK tactic"
 msgstr ""
 
-#: hook.php:530 src/Services/Dashboard/SecurityIncidentCardProvider.php:648
+#: hook.php:537 src/Services/Dashboard/SecurityIncidentCardProvider.php:648
 msgid "Most frequent MITRE ATT&CK techniques"
 msgstr ""
 
-#: hook.php:537 src/Services/Dashboard/SecurityIncidentCardProvider.php:664
+#: hook.php:544 src/Services/Dashboard/SecurityIncidentCardProvider.php:664
 msgid "My open remediation tasks"
 msgstr ""
 
-#: hook.php:543 src/Services/Dashboard/SecurityIncidentCardProvider.php:693
+#: hook.php:550 src/Services/Dashboard/SecurityIncidentCardProvider.php:693
 msgid "My remediation tasks"
 msgstr ""
 
-#: hook.php:550 src/Services/Dashboard/SecurityIncidentCardProvider.php:708
+#: hook.php:557 src/Services/Dashboard/SecurityIncidentCardProvider.php:708
 msgid "Average time to containment (hours)"
 msgstr ""
 
-#: hook.php:556 src/Services/Dashboard/SecurityIncidentCardProvider.php:722
+#: hook.php:563 src/Services/Dashboard/SecurityIncidentCardProvider.php:722
 msgid "Average time to closure (hours)"
 msgstr ""
 
-#: hook.php:562 src/Services/Dashboard/DashboardCardService.php:838
+#: hook.php:569 src/Services/Dashboard/DashboardCardService.php:838
 msgid "Average incident response time (hours)"
 msgstr ""
 
-#: hook.php:957 src/SecurityIncidentTicket.php:195
+#: hook.php:964 src/SecurityIncidentTicket.php:195
 #: templates/tabs/ticket_security_incidents.html.twig
 msgid "Qualify as a security incident"
 msgstr ""
@@ -3633,9 +3637,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -3875,306 +3879,342 @@ msgid ""
 msgstr ""
 
 #: src/CertificationReadiness.php:262
-msgid "Train and raise awareness"
+msgid "Define and check the competences"
 msgstr ""
 
 #: src/CertificationReadiness.php:264
+msgid ""
+"For each function of the management system, list the competences it "
+"requires, say who holds it, record the competences acquired with their "
+"evidence, plan a training for each gap and archive the competence file."
+msgstr ""
+
+#: src/CertificationReadiness.php:272
+msgid "Train and raise awareness"
+msgstr ""
+
+#: src/CertificationReadiness.php:274
 msgid ""
 "Deliver security training and awareness sessions, and make sure the people "
 "concerned have completed them."
 msgstr ""
 
-#: src/CertificationReadiness.php:271
+#: src/CertificationReadiness.php:281
 msgid "Run a continuity or crisis exercise"
 msgstr ""
 
-#: src/CertificationReadiness.php:273
+#: src/CertificationReadiness.php:283
 msgid ""
 "Run at least one exercise, assess whether its objectives were met and have "
 "its review validated."
 msgstr ""
 
-#: src/CertificationReadiness.php:280
+#: src/CertificationReadiness.php:290
 msgid "Carry out the internal audit"
 msgstr ""
 
-#: src/CertificationReadiness.php:282
+#: src/CertificationReadiness.php:292
 msgid ""
 "Complete an internal audit and make sure the audit programme covers every "
 "requirement and every applicable control."
 msgstr ""
 
-#: src/CertificationReadiness.php:289
+#: src/CertificationReadiness.php:299
 msgid "Hold the management review"
 msgstr ""
 
-#: src/CertificationReadiness.php:291
+#: src/CertificationReadiness.php:301
 msgid ""
 "Hold a management review prepared with its input file, and record the "
 "decisions taken."
 msgstr ""
 
-#: src/CertificationReadiness.php:297
+#: src/CertificationReadiness.php:307
 msgid "Treat the nonconformities"
 msgstr ""
 
-#: src/CertificationReadiness.php:299
+#: src/CertificationReadiness.php:309
 msgid ""
 "Analyse each nonconformity, carry out its corrective action on time, and "
 "close it only once the action is done."
 msgstr ""
 
-#: src/CertificationReadiness.php:357
+#: src/CertificationReadiness.php:367
 #, php-format
 msgid "Declared requirements: %1$d of %2$d compliant"
 msgstr ""
 
-#: src/CertificationReadiness.php:421
+#: src/CertificationReadiness.php:431
 msgid "See the items to fix"
 msgstr ""
 
-#: src/CertificationReadiness.php:562
+#: src/CertificationReadiness.php:573
 #, php-format
 msgid "Declared status of requirement 4.3: %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:565
+#: src/CertificationReadiness.php:576
 #, php-format
 msgid "Documents attached: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:568
+#: src/CertificationReadiness.php:579
 msgid "Open requirement 4.3 (scope)"
 msgstr ""
 
-#: src/CertificationReadiness.php:585
+#: src/CertificationReadiness.php:596
 #, php-format
 msgid "Issues: %1$d, interested parties: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:590 templates/_context_summary.html.twig
+#: src/CertificationReadiness.php:601 templates/_context_summary.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Climate change question answered"
 msgstr ""
 
-#: src/CertificationReadiness.php:591 templates/_context_summary.html.twig
+#: src/CertificationReadiness.php:602 templates/_context_summary.html.twig
 msgid "Climate change question not answered yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:594
+#: src/CertificationReadiness.php:605
 #, php-format
 msgid "Reviews overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:630
+#: src/CertificationReadiness.php:641
 #, php-format
 msgid "Approved policies: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:631
+#: src/CertificationReadiness.php:642
 #, php-format
 msgid "Drafts: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:632
+#: src/CertificationReadiness.php:643
 #, php-format
 msgid "Approved policies whose review is overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:651
+#: src/CertificationReadiness.php:662
 #, php-format
 msgid "Activities in the matrix: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:654
+#: src/CertificationReadiness.php:665
 #, php-format
 msgid ""
 "Activities with a serious alert (no one accountable, several accountable, "
 "roles that should be separated): %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:686
+#: src/CertificationReadiness.php:697
 #, php-format
 msgid "Open risks: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:687
+#: src/CertificationReadiness.php:698
 #, php-format
 msgid "Without an owner: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:688
+#: src/CertificationReadiness.php:699
 #, php-format
 msgid "Review overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:716
+#: src/CertificationReadiness.php:727
 #, php-format
 msgid "High risks without a treatment decision: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:717
+#: src/CertificationReadiness.php:728
 #, php-format
 msgid "Accepted risks without approval: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:718
+#: src/CertificationReadiness.php:729
 #, php-format
 msgid "Treatment actions overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:742
+#: src/CertificationReadiness.php:753
 #, php-format
 msgid "Version %s approved, still up to date"
 msgstr ""
 
-#: src/CertificationReadiness.php:746 src/ConsistencyCheck.php:982
+#: src/CertificationReadiness.php:757 src/ConsistencyCheck.php:982
 #, php-format
 msgid "Changed since version %s was approved"
 msgstr ""
 
-#: src/CertificationReadiness.php:749 src/ConsistencyCheck.php:980
+#: src/CertificationReadiness.php:760 src/ConsistencyCheck.php:980
 #: templates/soa_approval.html.twig
 msgid "Never approved"
 msgstr ""
 
-#: src/CertificationReadiness.php:752
+#: src/CertificationReadiness.php:763
 msgid "An approval request is pending"
 msgstr ""
 
-#: src/CertificationReadiness.php:760 src/ConsistencyCheck.php:975
+#: src/CertificationReadiness.php:771 src/ConsistencyCheck.php:975
 #: src/ConsistencyCheck.php:977 src/ManagementReviewDossier.php:125
 #: templates/dashboard_perimeters.html.twig
 msgid "Statement of Applicability"
 msgstr ""
 
-#: src/CertificationReadiness.php:790
+#: src/CertificationReadiness.php:801
 #, php-format
 msgid "Objectives: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:791
+#: src/CertificationReadiness.php:802
 #, php-format
 msgid "With at least one measurement: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:812
+#: src/CertificationReadiness.php:820
 #, php-format
-msgid "Trainings and sessions: %d"
-msgstr ""
-
-#: src/CertificationReadiness.php:814
-#, php-format
-msgid "Delivered in the last %1$d months: %2$d"
+msgid "ISMS functions: %d"
 msgstr ""
 
 #: src/CertificationReadiness.php:821
 #, php-format
+msgid "Functions without required competences: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:824
+#, php-format
+msgid "Functions that nobody holds: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:828
+#, php-format
+msgid "Competence gaps: %1$d, of which %2$d without a planned training"
+msgstr ""
+
+#: src/CertificationReadiness.php:833
+#, php-format
+msgid "Archived competence files: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:863
+#, php-format
+msgid "Trainings and sessions: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:865
+#, php-format
+msgid "Delivered in the last %1$d months: %2$d"
+msgstr ""
+
+#: src/CertificationReadiness.php:872
+#, php-format
 msgid "Participants who completed their training: %1$d %% (target: %2$d %%)"
 msgstr ""
 
-#: src/CertificationReadiness.php:853
+#: src/CertificationReadiness.php:904
 #, php-format
 msgid "Exercises in the last %1$d months: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:857
+#: src/CertificationReadiness.php:908
 #, php-format
 msgid "With a validated review: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:883
+#: src/CertificationReadiness.php:934
 #, php-format
 msgid "Last internal audit completed on %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:884
+#: src/CertificationReadiness.php:935
 msgid "No internal audit completed yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:886
+#: src/CertificationReadiness.php:937
 #, php-format
 msgid ""
 "Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
 msgstr ""
 
-#: src/CertificationReadiness.php:891
+#: src/CertificationReadiness.php:942
 #, php-format
 msgid "Coverage target: %d %%"
 msgstr ""
 
-#: src/CertificationReadiness.php:932
+#: src/CertificationReadiness.php:983
 msgid "Open the last management review"
 msgstr ""
 
-#: src/CertificationReadiness.php:942
+#: src/CertificationReadiness.php:993
 #, php-format
 msgid "Last management review completed on %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:943
+#: src/CertificationReadiness.php:994
 msgid "No management review completed yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:945
+#: src/CertificationReadiness.php:996
 msgid "Input file prepared for the last review"
 msgstr ""
 
-#: src/CertificationReadiness.php:946
+#: src/CertificationReadiness.php:997
 msgid "No input file prepared for the last review"
 msgstr ""
 
-#: src/CertificationReadiness.php:976
+#: src/CertificationReadiness.php:1027
 #, php-format
 msgid "Open nonconformities: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:977
+#: src/CertificationReadiness.php:1028
 #, php-format
 msgid "Overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:978
+#: src/CertificationReadiness.php:1029
 #, php-format
 msgid "Closed without a corrective action: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:987
+#: src/CertificationReadiness.php:1038
 #, php-format
 msgid ""
 "Findings of previous certification audits not lifted: %1$d (including %2$d "
 "nonconformities)"
 msgstr ""
 
-#: src/CertificationReadiness.php:1073 src/Objective.php:82
+#: src/CertificationReadiness.php:1124 src/Objective.php:82
 #: src/Objective.php:257
 msgid "On track"
 msgstr ""
 
-#: src/CertificationReadiness.php:1078
+#: src/CertificationReadiness.php:1129
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "At risk of being late"
 msgstr ""
 
-#: src/CertificationReadiness.php:1083
+#: src/CertificationReadiness.php:1134
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "Advised deadline passed"
 msgstr ""
 
-#: src/CertificationReadiness.php:1268
+#: src/CertificationReadiness.php:1319
 msgid "Advised deadline for the certification"
 msgstr ""
 
-#: src/CertificationReadiness.php:1274
+#: src/CertificationReadiness.php:1325
 #: src/NotificationTargetReadinessAlert.php:92
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "Target date of the certification audit"
 msgstr ""
 
-#: src/CertificationReadiness.php:1333
+#: src/CertificationReadiness.php:1384
 msgid "Certification readiness report"
 msgstr ""
 
@@ -4187,8 +4227,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 
 #: src/Competence.php:52 src/IsmsRequirement.php:119
@@ -4334,49 +4374,49 @@ msgstr[1] ""
 msgid "ISMS competences - %s"
 msgstr ""
 
-#: src/CompetenceMatrix.php:99
+#: src/CompetenceMatrix.php:128
 msgid "My competences"
 msgstr ""
 
-#: src/CompetenceMatrix.php:330
+#: src/CompetenceMatrix.php:431
 msgid "Acquired"
 msgstr ""
 
-#: src/CompetenceMatrix.php:334
+#: src/CompetenceMatrix.php:435
 msgid "Level too low"
 msgstr ""
 
-#: src/CompetenceMatrix.php:338 templates/competence_sheet.html.twig
+#: src/CompetenceMatrix.php:439 templates/competence_sheet.html.twig
 #: templates/pdf/soa_report.html.twig
 msgid "Expired"
 msgstr ""
 
-#: src/CompetenceMatrix.php:342
+#: src/CompetenceMatrix.php:443
 msgid "Not acquired"
 msgstr ""
 
-#: src/CompetenceMatrix.php:352
+#: src/CompetenceMatrix.php:453
 msgid "Declare the diploma or certificate with its evidence."
 msgstr ""
 
-#: src/CompetenceMatrix.php:353
+#: src/CompetenceMatrix.php:454
 msgid "Declare the experience with its evidence (annual review, references)."
 msgstr ""
 
-#: src/CompetenceMatrix.php:354
+#: src/CompetenceMatrix.php:455
 msgid "Plan a training: no training of the plugin gives this competence yet."
 msgstr ""
 
-#: src/CompetenceMatrix.php:355
+#: src/CompetenceMatrix.php:456
 msgid "Declare the competence with its evidence."
 msgstr ""
 
-#: src/CompetenceMatrix.php:709 templates/pdf/competence_report.html.twig
+#: src/CompetenceMatrix.php:849 templates/pdf/competence_report.html.twig
 #, php-format
 msgid "Security job description: %s"
 msgstr ""
 
-#: src/CompetenceMatrix.php:710
+#: src/CompetenceMatrix.php:850
 msgid "Competences of the ISMS functions (ISO 27001, clause 7.2)"
 msgstr ""
 
@@ -8755,7 +8795,7 @@ msgid "Expert"
 msgstr ""
 
 #: src/IsmsFunction.php:135 src/Training.php:69
-#: templates/my_trainings_tab.html.twig
+#: templates/competence_page.html.twig templates/my_trainings_tab.html.twig
 msgid "Training"
 msgid_plural "Trainings"
 msgstr[0] ""
@@ -11646,11 +11686,11 @@ msgstr ""
 msgid "Waiver until %s"
 msgstr ""
 
-#: src/ParkRemediation.php:145 src/Services/Dashboard/PilotageCards.php:431
+#: src/ParkRemediation.php:145 src/Services/Dashboard/PilotageCards.php:442
 msgid "Fixed late"
 msgstr ""
 
-#: src/ParkRemediation.php:145 src/Services/Dashboard/PilotageCards.php:430
+#: src/ParkRemediation.php:145 src/Services/Dashboard/PilotageCards.php:441
 #: templates/park_vulnerabilities.html.twig
 msgid "Fixed on time"
 msgstr ""
@@ -15168,12 +15208,12 @@ msgstr ""
 msgid "GRC Manager - Security incidents"
 msgstr ""
 
-#: src/Services/Dashboard/PilotageCards.php:450
+#: src/Services/Dashboard/PilotageCards.php:461
 #, php-format
 msgid "%s (remediation deadlines not enabled)"
 msgstr ""
 
-#: src/Services/Dashboard/PilotageCards.php:624
+#: src/Services/Dashboard/PilotageCards.php:635
 msgid "Regulatory notification deadlines at risk"
 msgstr ""
 
@@ -15576,7 +15616,7 @@ msgstr ""
 msgid "People caught by the phishing simulation"
 msgstr ""
 
-#: src/Training.php:838
+#: src/Training.php:860
 #, php-format
 msgid ""
 "%d training(s) with at least one participant overdue for renewal, %d "
@@ -18301,6 +18341,13 @@ msgid_plural "%d people"
 msgstr[0] ""
 msgstr[1] ""
 
+#: templates/competence_page.html.twig
+#, php-format
+msgid "%d with a training planned"
+msgid_plural "%d with a training planned"
+msgstr[0] ""
+msgstr[1] ""
+
 #: templates/competence_page.html.twig templates/dora/arrangement_tab.html.twig
 msgid "Add a function"
 msgstr ""
@@ -18335,6 +18382,10 @@ msgid "Competence catalogue"
 msgstr ""
 
 #: templates/competence_page.html.twig
+msgid "Competences concerned"
+msgstr ""
+
+#: templates/competence_page.html.twig
 #, php-format
 msgid "Coverage: %d %%"
 msgstr ""
@@ -18365,8 +18416,22 @@ msgid "Expected level"
 msgstr ""
 
 #: templates/competence_page.html.twig
+msgid ""
+"For each training that closes a gap, the people concerned who are not yet "
+"enrolled. \"Prepare a session\" opens a new session of the training with "
+"these people preselected: you check the date and the list, and nothing is "
+"saved before you click \"Add\"."
+msgstr ""
+
+#: templates/competence_page.html.twig
 #: templates/pdf/competence_report.html.twig
 msgid "Gaps and proposed actions"
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid ""
+"Gaps for which the person is already enrolled in a training that gives the "
+"competence."
 msgstr ""
 
 #: templates/competence_page.html.twig
@@ -18418,9 +18483,17 @@ msgstr ""
 msgid "People and competences"
 msgstr ""
 
+#: templates/competence_page.html.twig
+msgid "People to enrol"
+msgstr ""
+
 #: templates/competence_page.html.twig templates/competence_sheet.html.twig
 #: templates/pdf/competence_report.html.twig
 msgid "Plan the training"
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid "Prepare a session"
 msgstr ""
 
 #: templates/competence_page.html.twig
@@ -18436,6 +18509,15 @@ msgstr ""
 #: templates/competence_page.html.twig templates/isms_function_form.html.twig
 #: templates/pdf/competence_report.html.twig
 msgid "Required competences"
+msgstr ""
+
+#: templates/competence_page.html.twig templates/competence_sheet.html.twig
+#: templates/pdf/competence_report.html.twig
+msgid "Training planned"
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid "Trainings to plan"
 msgstr ""
 
 #: templates/competence_sheet.html.twig
@@ -20583,9 +20665,9 @@ msgstr ""
 #: templates/control_test_sample.html.twig
 #: templates/pdf/control_test_record.html.twig
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
 
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
@@ -22744,8 +22826,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 
 #: templates/dora/register.html.twig
@@ -23054,8 +23136,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/evidence_tab.html.twig
@@ -24477,8 +24559,8 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -25114,6 +25196,10 @@ msgstr ""
 
 #: templates/pdf/competence_report.html.twig
 msgid "Coverage of the required competences"
+msgstr ""
+
+#: templates/pdf/competence_report.html.twig
+msgid "Gaps with a training planned"
 msgstr ""
 
 #: templates/pdf/competence_report.html.twig
@@ -29563,8 +29649,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
@@ -30007,6 +30093,13 @@ msgid ""
 msgstr ""
 
 #: templates/training_form.html.twig
+msgid ""
+"Proposed session to close competence gaps: the people who lack a competence "
+"given by this training, and are not yet enrolled, are preselected. Fill in "
+"the date, check the list, then click \"Add\". Nothing is saved before that."
+msgstr ""
+
+#: templates/training_form.html.twig
 msgid "Room, address or link to the video call / online module."
 msgstr ""
 
@@ -30133,104 +30226,4 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
-msgstr ""
-
-#: templates/framework_assessment.html.twig
-msgid ""
-"To assess NIS2 on the measures of a national framework (for example ReCyF in "
-"France), import it as a custom framework and enable it: it is then assessed "
-"on its own requirements."
-msgstr ""
-
-#: templates/pdf/competence_report.html.twig
-msgid "Gaps with a training planned"
-msgstr ""
-
-#: templates/pdf/competence_report.html.twig
-#: templates/competence_page.html.twig templates/competence_sheet.html.twig
-msgid "Training planned"
-msgstr ""
-
-#: templates/training_form.html.twig
-msgid ""
-"Proposed session to close competence gaps: the people who lack a competence "
-"given by this training, and are not yet enrolled, are preselected. Fill in "
-"the date, check the list, then click \"Add\". Nothing is saved before that."
-msgstr ""
-
-#: templates/competence_page.html.twig
-msgid ""
-"Gaps for which the person is already enrolled in a training that gives the "
-"competence."
-msgstr ""
-
-#: templates/competence_page.html.twig
-#, php-format
-msgid "%d with a training planned"
-msgid_plural "%d with a training planned"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/competence_page.html.twig
-msgid "Trainings to plan"
-msgstr ""
-
-#: templates/competence_page.html.twig
-msgid ""
-"For each training that closes a gap, the people concerned who are not yet "
-"enrolled. \"Prepare a session\" opens a new session of the training with "
-"these people preselected: you check the date and the list, and nothing is "
-"saved before you click \"Add\"."
-msgstr ""
-
-#: templates/competence_page.html.twig
-msgid "Competences concerned"
-msgstr ""
-
-#: templates/competence_page.html.twig
-msgid "People to enrol"
-msgstr ""
-
-#: templates/competence_page.html.twig
-msgid "Prepare a session"
-msgstr ""
-
-#: hook.php:271 src/CompetenceMatrix.php:893
-msgid "Coverage of the required competences (%)"
-msgstr ""
-
-#: src/CertificationReadiness.php:262
-msgid "Define and check the competences"
-msgstr ""
-
-#: src/CertificationReadiness.php:264
-msgid ""
-"For each function of the management system, list the competences it "
-"requires, say who holds it, record the competences acquired with their "
-"evidence, plan a training for each gap and archive the competence file."
-msgstr ""
-
-#: src/CertificationReadiness.php:820
-#, php-format
-msgid "ISMS functions: %d"
-msgstr ""
-
-#: src/CertificationReadiness.php:821
-#, php-format
-msgid "Functions without required competences: %d"
-msgstr ""
-
-#: src/CertificationReadiness.php:824
-#, php-format
-msgid "Functions that nobody holds: %d"
-msgstr ""
-
-#: src/CertificationReadiness.php:828
-#, php-format
-msgid "Competence gaps: %1$d, of which %2$d without a planned training"
-msgstr ""
-
-#: src/CertificationReadiness.php:833
-#, php-format
-msgid "Archived competence files: %d"
 msgstr ""
