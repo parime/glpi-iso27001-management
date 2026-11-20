@@ -22911,3 +22911,937 @@ msgid "Operating procedure"
 msgid_plural "Operating procedures"
 msgstr[0] "Procedimento operacional"
 msgstr[1] "Procedimentos operacionais"
+
+#, php-format
+msgid "%d piece(s) of hardware with an expired warranty"
+msgstr "%d equipamento(s) com a garantia expirada"
+
+#, php-format
+msgid "%d under warranty"
+msgstr "%d na garantia"
+
+#, php-format
+msgid "%d without warranty information"
+msgstr "%d sem informação de garantia"
+
+msgid "Hardware warranty"
+msgstr "Fim da garantia do hardware"
+
+msgid "The same threshold shows a hardware warranty as \"Warranty ends soon\", even when endoflife.date is not enabled."
+msgstr "O mesmo limite mostra a garantia de um equipamento como «A garantia termina em breve», mesmo que endoflife.date não esteja ativado."
+
+msgid "Warranty end of each piece of hardware, from the warranty start date and duration of its financial information in GLPI (ISO 27001 A.7.13 and A.8.9). Nothing is changed in GLPI."
+msgstr "Fim da garantia de cada equipamento, a partir da data de início e da duração da garantia das suas informações financeiras no GLPI (ISO 27001 A.7.13 e A.8.9). Nada é alterado no GLPI."
+
+msgid "No hardware in your entities."
+msgstr "Nenhum equipamento nas suas entidades."
+
+msgid "Hardware type"
+msgstr "Tipo de equipamento"
+
+msgid "Expired or ending soon"
+msgstr "Expiradas ou em breve"
+
+msgid "All hardware"
+msgstr "Todo o hardware"
+
+#, php-format
+msgid "\"Warranty ends soon\": within %d days, the same threshold as the end of support."
+msgstr "«A garantia termina em breve»: dentro de %d dias, o mesmo limite do fim do suporte."
+
+#, php-format
+msgid "%1$d pieces of hardware: the %2$d most urgent ones are shown, all of them are in the export."
+msgstr "%1$d equipamentos: são mostrados os %2$d mais urgentes, todos estão na exportação."
+
+msgid "No hardware has an expired warranty or a warranty ending soon."
+msgstr "Nenhum equipamento tem a garantia expirada ou a terminar em breve."
+
+msgid "Warranty end date"
+msgstr "Data de fim da garantia"
+
+msgid "Warranty expired"
+msgstr "Garantia expirada"
+
+msgid "The manufacturer warranty has ended: check that a maintenance contract covers this hardware, or plan its replacement."
+msgstr "A garantia do fabricante terminou: verifique se um contrato de manutenção cobre este equipamento, ou planeie a sua substituição."
+
+msgid "Warranty ends soon"
+msgstr "A garantia termina em breve"
+
+msgid "Renew the warranty or a maintenance contract, or plan the replacement."
+msgstr "Renove a garantia ou um contrato de manutenção, ou planeie a substituição."
+
+msgid "Under warranty"
+msgstr "Na garantia"
+
+msgid "The warranty recorded in GLPI is still running."
+msgstr "A garantia registada no GLPI continua em vigor."
+
+msgid "Warranty unknown"
+msgstr "Garantia desconhecida"
+
+msgid "No warranty start date or duration in the financial information: never counted as under warranty."
+msgstr "Sem data de início ou duração da garantia nas informações financeiras: nunca contado como na garantia."
+
+msgid "Lifetime warranty."
+msgstr "Garantia vitalícia."
+
+msgid "No financial information recorded in GLPI."
+msgstr "Nenhuma informação financeira registada no GLPI."
+
+msgid "No warranty start date in the financial information."
+msgstr "Sem data de início da garantia nas informações financeiras."
+
+msgid "No warranty duration in the financial information."
+msgstr "Sem duração da garantia nas informações financeiras."
+
+#, php-format
+msgid "Warranty ended on %s."
+msgstr "Garantia terminada em %s."
+
+msgid "Manufacturer"
+msgstr "Fabricante"
+
+msgid "Model"
+msgstr "Modelo"
+
+msgid "Warranty start date"
+msgstr "Data de início da garantia"
+
+msgid "Warranty duration (months)"
+msgstr "Duração da garantia (meses)"
+
+msgid "Lifetime"
+msgstr "Vitalícia"
+
+msgid "Hardware whose warranty has expired"
+msgstr "Equipamentos com a garantia expirada"
+
+msgid "Check that a maintenance contract covers the hardware, renew the warranty or plan its replacement."
+msgstr "Verifique se um contrato de manutenção cobre o equipamento, renove a garantia ou planeie a sua substituição."
+
+#, php-format
+msgid "Warranty ends on %1$s (in %2$d day)."
+msgid_plural "Warranty ends on %1$s (in %2$d days)."
+msgstr[0] "A garantia termina em %1$s (em %2$d dia)."
+msgstr[1] "A garantia termina em %1$s (em %2$d dias)."
+
+#, php-format
+msgid "%1$d of %2$d applicable measures of this framework are compliant. Open a measure to update its status."
+msgstr "%1$d de %2$d medidas aplicáveis deste framework estão conformes. Abra uma medida para atualizar seu status."
+
+#, php-format
+msgid "%1$d of %2$d applicable measures of this framework are implemented and proven. The plugin does not track their status directly: each one takes the status of the Annex A controls it is mapped to (indicative mapping). Open a mapped control to update it."
+msgstr "%1$d de %2$d medidas aplicáveis deste framework estão implementadas e comprovadas. O plugin não acompanha o status delas diretamente: cada uma assume o status dos controles do Anexo A aos quais está relacionada (correspondência indicativa). Abra um controle relacionado para atualizá-lo."
+
+msgid "Applicable measures"
+msgstr "Medidas aplicáveis"
+
+msgid "Assessed on"
+msgstr "Avaliado com base em"
+
+msgid "Each framework is assessed on its own measures. When the plugin does not track their status (NIS2 requirements, ANSSI measures, CIS controls...), the status of each measure comes from the ISO 27001 Annex A controls it is mapped to, and only while ISO 27001 is enabled. The score counts the applicable measures that are implemented (or compliant) and, when evidence is tracked, proven by at least one evidence document that has not expired."
+msgstr "Cada framework é avaliado com base em suas próprias medidas. Quando o plugin não acompanha o status delas (requisitos NIS2, medidas ANSSI, controles CIS...), o status de cada medida vem dos controles do Anexo A da ISO 27001 aos quais está relacionada, e somente enquanto a ISO 27001 estiver ativada. A pontuação conta as medidas aplicáveis implementadas (ou conformes) e, quando a evidência é acompanhada, comprovadas por pelo menos um documento de evidência não expirado."
+
+msgid "Framework to detail"
+msgstr "Framework a detalhar"
+
+msgid "Mapped Annex A controls"
+msgstr "Controles do Anexo A relacionados"
+
+msgid "No gap: every applicable measure is compliant."
+msgstr "Nenhuma lacuna: todas as medidas aplicáveis estão conformes."
+
+msgid "No mapped control"
+msgstr "Nenhum controle relacionado"
+
+msgid "No status of its own"
+msgstr "Sem status próprio"
+
+msgid "Not assessed: ISO 27001 is disabled"
+msgstr "Não avaliado: a ISO 27001 está desativada"
+
+msgid "Own measures"
+msgstr "Medidas próprias"
+
+msgid "Own measures, status from the Annex A mapping"
+msgstr "Medidas próprias, status a partir da correspondência com o Anexo A"
+
+msgid "See its measures"
+msgstr "Ver suas medidas"
+
+msgid "Summary only"
+msgstr "Somente resumo"
+
+#, php-format
+msgid "The plugin does not track a status of its own for the %1$d measures of %2$s. Their status can only come from the mapping to the ISO 27001 Annex A controls, and ISO 27001 is disabled: this framework is therefore not assessed. Enable ISO 27001 in the configuration to use the mapping, or import the framework as a custom framework to assess its requirements directly."
+msgstr "O plugin não acompanha um status próprio para as %1$d medidas de %2$s. O status delas só pode vir da correspondência com os controles do Anexo A da ISO 27001, e a ISO 27001 está desativada: portanto, este framework não é avaliado. Ative a ISO 27001 na configuração para usar a correspondência, ou importe o framework como framework personalizado para avaliar diretamente seus requisitos."
+
+msgid "To assess NIS2 on the measures of a national framework (for example ReCyF in France), import it as a custom framework and enable it: it is then assessed on its own requirements."
+msgstr "Para avaliar a NIS2 com base nas medidas de um framework nacional (por exemplo o ReCyF na França), importe-o como framework personalizado e ative-o: ele passa então a ser avaliado com base em seus próprios requisitos."
+
+msgid "No site assessed yet"
+msgstr "Nenhum local avaliado ainda"
+
+msgid "Compare the sites"
+msgstr "Comparar os locais"
+
+msgid "Physical security of the sites"
+msgstr "Segurança física dos locais"
+
+#, php-format
+msgid "%d site assessed"
+msgid_plural "%d sites assessed"
+msgstr[0] "%d local avaliado"
+msgstr[1] "%d locais avaliados"
+
+#, php-format
+msgid "%d site to reassess (overdue)"
+msgid_plural "%d sites to reassess (overdue)"
+msgstr[0] "%d local a reavaliar (em atraso)"
+msgstr[1] "%d locais a reavaliar (em atraso)"
+
+#, php-format
+msgid "%d site to reassess within 30 days"
+msgid_plural "%d sites to reassess within 30 days"
+msgstr[0] "%d local a reavaliar em 30 dias"
+msgstr[1] "%d locais a reavaliar em 30 dias"
+
+msgid "All assessments"
+msgstr "Todas as avaliações"
+
+msgid "Assess a site"
+msgstr "Avaliar um local"
+
+msgid "Comparison of the sites (last assessment of each site)"
+msgstr "Comparação dos locais (última avaliação de cada local)"
+
+msgid "No site assessed yet. Click \"Assess a site\", choose a location of GLPI and fill in the checklist of controls A.7.1 to A.7.14."
+msgstr "Nenhum local avaliado ainda. Clique em «Avaliar um local», escolha uma localização do GLPI e preencha a lista de controlos A.7.1 a A.7.14."
+
+msgid "Assessment date"
+msgstr "Data da avaliação"
+
+msgid "Next assessment"
+msgstr "Próxima avaliação"
+
+msgid "Hover a cell to see the control. The score counts 1 for a compliant control and 0.5 for a partially compliant one, over the applicable controls."
+msgstr "Passe o rato sobre uma célula para ver o controlo. A pontuação conta 1 para um controlo conforme e 0,5 para um parcialmente conforme, sobre os controlos aplicáveis."
+
+msgid "Compliant controls count 1, partially compliant controls count 0.5, over the applicable controls."
+msgstr "Os controlos conformes contam 1 e os parcialmente conformes 0,5, sobre os controlos aplicáveis."
+
+#, php-format
+msgid "Score: %d%%"
+msgstr "Pontuação: %d%%"
+
+#, php-format
+msgid "%1$d of %2$d controls assessed"
+msgstr "%1$d de %2$d controlos avaliados"
+
+msgid "A location of GLPI (Setup > Dropdowns > Locations). Its zones are taken over from its last assessment."
+msgstr "Uma localização do GLPI (Configuração > Listas > Localizações). As suas zonas são retomadas da última avaliação."
+
+msgid "Optional, for example \"2026 assessment\". The name of the site is used otherwise."
+msgstr "Opcional, por exemplo «Avaliação 2026». Caso contrário, é usado o nome do local."
+
+msgid "Assessor"
+msgstr "Avaliador"
+
+msgid "Receives the reminder of the yearly reassessment."
+msgstr "Recebe o lembrete da reavaliação anual."
+
+msgid "Set \"Completed\" once every control has been assessed."
+msgstr "Indique «Concluída» quando todos os controlos tiverem sido avaliados."
+
+#, php-format
+msgid "Filled in automatically %d months after the assessment date when the assessment is completed."
+msgstr "Preenchida automaticamente %d meses após a data da avaliação quando a avaliação está concluída."
+
+msgid "Physical and environmental security policy"
+msgstr "Política de segurança física e ambiental"
+
+msgid "Open the policy"
+msgstr "Abrir a política"
+
+msgid "The policy stays a document of the policy library: create it there, then link it here."
+msgstr "A política continua a ser um documento da biblioteca de políticas: crie-a lá e associe-a aqui."
+
+msgid "Zones of the site and access controls"
+msgstr "Zonas do local e controlos de acesso"
+
+msgid "List the zones of the site from the most open to the most restricted, with how access is controlled and who may enter. A sensitive area or a technical room needs at least one access control and posted access instructions. The next assessment of the site takes over these zones."
+msgstr "Liste as zonas do local da mais aberta à mais restrita, com a forma como o acesso é controlado e quem pode entrar. Uma área sensível ou uma sala técnica precisa de pelo menos um controlo de acesso e de instruções de acesso afixadas. A próxima avaliação do local retoma estas zonas."
+
+msgid "No zone recorded for this site yet."
+msgstr "Ainda não há nenhuma zona registada para este local."
+
+msgid "Access controls"
+msgstr "Controlos de acesso"
+
+msgid "Authorized people"
+msgstr "Pessoas autorizadas"
+
+msgid "Access instructions"
+msgstr "Instruções de acesso"
+
+msgid "Posted"
+msgstr "Afixadas"
+
+msgid "Not posted"
+msgstr "Não afixadas"
+
+msgid "Remove this zone from the assessment?"
+msgstr "Remover esta zona da avaliação?"
+
+msgid "Remove the zone"
+msgstr "Remover a zona"
+
+msgid "Add a zone"
+msgstr "Adicionar uma zona"
+
+msgid "Add the zone"
+msgstr "Adicionar a zona"
+
+msgid "Type of zone"
+msgstr "Tipo de zona"
+
+msgid "Access instructions posted at the entrance"
+msgstr "Instruções de acesso afixadas à entrada"
+
+#, php-format
+msgid "Action proposed from the physical security assessment (%s): review and adapt each field, set an owner and a due date, then click \"Add\". Nothing is created before, and the assessment line is linked to this action once it is saved."
+msgstr "Ação proposta a partir da avaliação da segurança física (%s): reveja e adapte cada campo, indique um responsável e um prazo e clique em «Adicionar». Nada é criado antes, e a linha da avaliação é associada a esta ação depois de guardada."
+
+msgid "Physical security assessments of this site"
+msgstr "Avaliações da segurança física deste local"
+
+msgid "Assess this site"
+msgstr "Avaliar este local"
+
+msgid "This site has not been assessed yet."
+msgstr "Este local ainda não foi avaliado."
+
+msgid "Physical security checklist"
+msgstr "Lista de segurança física"
+
+msgid "For each control, walk through the site and record what you see: the state, the finding (what is missing or wrong) and the evidence (text, and photos or reports added to the \"Documents\" tab). For a partially compliant or non-compliant control, \"Create the action\" opens a pre-filled non-conformity that you review and save yourself."
+msgstr "Para cada controlo, percorra o local e registe o que observa: o estado, a constatação (o que falta ou está errado) e as evidências (texto, e fotos ou relatórios adicionados ao separador «Documentos»). Para um controlo parcialmente conforme ou não conforme, «Criar a ação» abre uma não conformidade pré-preenchida que revê e guarda."
+
+msgid "State at the previous assessment of the site"
+msgstr "Estado na avaliação anterior do local"
+
+msgid "No action yet"
+msgstr "Ainda sem ação"
+
+msgid "Documents of the assessment"
+msgstr "Documentos da avaliação"
+
+msgid "Add photos or reports to the \"Documents\" tab of the assessment to cite them here."
+msgstr "Adicione fotos ou relatórios ao separador «Documentos» da avaliação para os citar aqui."
+
+msgid "Physical security assessment"
+msgid_plural "Physical security assessments"
+msgstr[0] "Avaliação da segurança física"
+msgstr[1] "Avaliações da segurança física"
+
+msgid "You cannot create an assessment in this entity."
+msgstr "Não pode criar uma avaliação nesta entidade."
+
+msgid "Choose the site (a location of the entity) to assess."
+msgstr "Escolha o local (uma localização da entidade) a avaliar."
+
+msgid "Zones of the site"
+msgstr "Zonas do local"
+
+msgid "Reminds the assessor of the yearly physical security reassessment of each site"
+msgstr "Lembra o avaliador da reavaliação anual da segurança física de cada local"
+
+#, php-format
+msgid "%1$d site(s) to reassess, %2$d reminder(s) sent."
+msgstr "%1$d local(is) a reavaliar, %2$d lembrete(s) enviado(s)."
+
+msgid "Public area"
+msgstr "Área pública"
+
+msgid "Reception, meeting rooms open to visitors."
+msgstr "Receção, salas de reunião abertas aos visitantes."
+
+msgid "Controlled area"
+msgstr "Área controlada"
+
+msgid "Offices: staff only, visitors accompanied."
+msgstr "Escritórios: apenas pessoal, visitantes acompanhados."
+
+msgid "Sensitive area"
+msgstr "Área sensível"
+
+msgid "Archives, management, HR: named people only."
+msgstr "Arquivos, direção, RH: apenas pessoas designadas."
+
+msgid "Technical room"
+msgstr "Sala técnica"
+
+msgid "Server room, network cabinets, electrical room: authorized technicians only."
+msgstr "Sala de servidores, bastidores de rede, sala elétrica: apenas técnicos autorizados."
+
+msgid "Badge"
+msgstr "Cartão de acesso"
+
+msgid "Key"
+msgstr "Chave"
+
+msgid "Door code"
+msgstr "Código de porta"
+
+msgid "Biometrics"
+msgstr "Biometria"
+
+msgid "Reception desk"
+msgstr "Receção"
+
+msgid "Visitor log"
+msgstr "Registo de visitantes"
+
+msgid "Escorted visitors"
+msgstr "Visitantes acompanhados"
+
+msgid "Video surveillance"
+msgstr "Videovigilância"
+
+msgid "Intrusion alarm"
+msgstr "Alarme de intrusão"
+
+msgid "No access control recorded"
+msgstr "Nenhum controlo de acesso registado"
+
+msgid "Access instructions not posted"
+msgstr "Instruções de acesso não afixadas"
+
+msgid "No reassessment date"
+msgstr "Sem data de reavaliação"
+
+msgid "Reassessment due soon"
+msgstr "Reavaliação em breve"
+
+msgid "Reassessment overdue"
+msgstr "Reavaliação em atraso"
+
+msgid "Physical security reassessment"
+msgstr "Reavaliação da segurança física"
+
+msgid "Physical security reassessment due"
+msgstr "Reavaliação da segurança física a prever"
+
+msgid "Shows, for each site (a location of GLPI), the last physical security assessment: the state of each control A.7.1 to A.7.14 side by side, the score, and when the site must be assessed again (at least once a year)."
+msgstr "Mostra, para cada local (uma localização do GLPI), a última avaliação da segurança física: o estado de cada controlo A.7.1 a A.7.14 lado a lado, a pontuação e quando o local deve ser reavaliado (pelo menos uma vez por ano)."
+
+msgid "Assess each site: walk through it, record the state, the finding and the evidence (photos, reports) of each control, and list its zones with their access controls. Create an action for each partial or non-compliant control. Link the physical security policy. Assess the site again before the date shown."
+msgstr "Avalie cada local: percorra-o, registe o estado, a constatação e as evidências (fotos, relatórios) de cada controlo e liste as suas zonas com os controlos de acesso. Crie uma ação para cada controlo parcial ou não conforme. Associe a política de segurança física. Reavalie o local antes da data indicada."
+
+msgid "ISO/IEC 27001, controls A.7.1 to A.7.14"
+msgstr "ISO/IEC 27001, controlos A.7.1 a A.7.14"
+
+msgid "Control saved."
+msgstr "Controlo guardado."
+
+msgid "Give the zone a name."
+msgstr "Dê um nome à zona."
+
+msgid "Sent by the GRC Manager automatic task when the yearly physical security reassessment of a site is due within 30 days or is overdue (at most once a month)."
+msgstr "Enviada pela tarefa automática do GRC Manager quando a reavaliação anual da segurança física de um local vence dentro de 30 dias ou está em atraso (no máximo uma vez por mês)."
+
+msgid "Walk through the site again with the physical security checklist (controls A.7.1 to A.7.14): create a new assessment of the site, which takes over its zones, then record the state of each control."
+msgstr "Percorra novamente o local com a lista de segurança física (controlos A.7.1 a A.7.14): crie uma nova avaliação do local, que retoma as suas zonas, e registe o estado de cada controlo."
+
+msgid "View the last assessment"
+msgstr "Ver a última avaliação"
+
+msgid "Crisis communication"
+msgid_plural "Crisis communications"
+msgstr[0] "Comunicação de crise"
+msgstr[1] "Comunicações de crise"
+
+msgid ""
+"Prepare the message from a template, then copy it or export it and send it "
+"yourself from your usual mail client. The plugin never sends anything. Once "
+"sent, record the communication: date, author and recipients are kept as "
+"evidence."
+msgstr ""
+"Prepare a mensagem a partir de um modelo, depois copie-a ou exporte-a e "
+"envie-a você mesmo pelo seu cliente de e-mail habitual. O plugin nunca envia "
+"nada. Depois de enviada, registre a comunicação: a data, o autor e os "
+"destinatários são guardados como evidência."
+
+msgid ""
+"Exercise incident: use the templates to train, and say clearly in the "
+"message that it is an exercise."
+msgstr ""
+"Incidente de exercício: treine com os modelos e indique claramente na "
+"mensagem que se trata de um exercício."
+
+msgid "Prepare a message"
+msgstr "Preparar uma mensagem"
+
+msgid "No active message template."
+msgstr "Nenhum modelo de mensagem ativo."
+
+msgid "Open the message templates"
+msgstr "Abrir os modelos de mensagem"
+
+msgid "Message template"
+msgstr "Modelo de mensagem"
+
+msgid "suggested for this situation"
+msgstr "recomendado para esta situação"
+
+msgid "Message"
+msgstr "Mensagem"
+
+msgid ""
+"Check and complete the message before sending it: replace each \"[to be "
+"completed]\"."
+msgstr ""
+"Revise e complete a mensagem antes de enviá-la: substitua cada \"[a "
+"completar]\"."
+
+msgid "This template has no distribution list yet."
+msgstr "Este modelo ainda não tem lista de distribuição."
+
+msgid "No address recorded"
+msgstr "Nenhum endereço registrado"
+
+msgid "%d recipient not shown (outside your entities or rights)."
+msgid_plural "%d recipients not shown (outside your entities or rights)."
+msgstr[0] "%d destinatário não exibido (fora das suas entidades ou direitos)."
+msgstr[1] ""
+"%d destinatários não exibidos (fora das suas entidades ou direitos)."
+
+msgid "Other recipients (one per line)"
+msgstr "Outros destinatários (um por linha)"
+
+msgid "Copy the message"
+msgstr "Copiar a mensagem"
+
+msgid "Copy the email addresses"
+msgstr "Copiar os endereços de e-mail"
+
+msgid "Export (.eml file)"
+msgstr "Exportar (arquivo .eml)"
+
+msgid "Copied"
+msgstr "Copiado"
+
+msgid "Sent on"
+msgstr "Enviado em"
+
+msgid "Record as sent"
+msgstr "Registrar como enviado"
+
+msgid "Record the communication only after you have sent it yourself."
+msgstr "Registre a comunicação somente depois de enviá-la você mesmo."
+
+msgid "Communications made"
+msgstr "Comunicações realizadas"
+
+msgid "No communication recorded yet."
+msgstr "Nenhuma comunicação registrada até o momento."
+
+msgid "New message template"
+msgstr "Novo modelo de mensagem"
+
+msgid ""
+"People and organizations to inform with this message. Internal recipients "
+"are GLPI users and groups; external recipients are the official contacts of "
+"the organization context. The plugin never sends the message: it only "
+"prepares it."
+msgstr ""
+"Pessoas e organizações a informar com esta mensagem. Os destinatários "
+"internos são usuários e grupos do GLPI; os externos são os contatos oficiais "
+"do contexto da organização. O plugin nunca envia a mensagem: apenas a "
+"prepara."
+
+msgid "Add a user"
+msgstr "Adicionar um usuário"
+
+msgid ""
+"An external recipient missing from the list? Record it first in the register "
+"of official contacts."
+msgstr ""
+"Falta um destinatário externo na lista? Registre-o primeiro no registro de "
+"contatos oficiais."
+
+msgid "No recipient yet."
+msgstr "Nenhum destinatário até o momento."
+
+msgid "Address or contact details"
+msgstr "Endereço ou dados de contato"
+
+msgid "Remove this recipient?"
+msgstr "Remover este destinatário?"
+
+msgid "%d active message template"
+msgid_plural "%d active message templates"
+msgstr[0] "%d modelo de mensagem ativo"
+msgstr[1] "%d modelos de mensagem ativos"
+
+msgid "%d template without recipients"
+msgid_plural "%d templates without recipients"
+msgstr[0] "%d modelo sem destinatários"
+msgstr[1] "%d modelos sem destinatários"
+
+msgid "No template for: %s"
+msgstr "Nenhum modelo para: %s"
+
+msgid "%d communication recorded within 12 months"
+msgid_plural "%d communications recorded within 12 months"
+msgstr[0] "%d comunicação registrada em 12 meses"
+msgstr[1] "%d comunicações registradas em 12 meses"
+
+msgid "Example: \"Ransomware: instructions to staff\"."
+msgstr "Exemplo: \"Ransomware: instruções ao pessoal\"."
+
+msgid "The template is suggested first on incidents of this situation."
+msgstr "O modelo é sugerido primeiro nos incidentes desta situação."
+
+msgid "Stage"
+msgstr "Etapa"
+
+msgid "Audience"
+msgstr "Público"
+
+msgid ""
+"Write the variables between braces: they are replaced with the values of the "
+"incident when the message is prepared. A variable without a value becomes "
+"\"[to be completed]\"."
+msgstr ""
+"Escreva as variáveis entre chaves: elas são substituídas pelos valores do "
+"incidente quando a mensagem é preparada. Uma variável sem valor torna-se "
+"\"[a completar]\"."
+
+msgid "Unknown variables, left as they are: %s"
+msgstr "Variáveis desconhecidas, mantidas como estão: %s"
+
+msgid "Variables"
+msgstr "Variáveis"
+
+msgid "Distribution list"
+msgid_plural "Distribution lists"
+msgstr[0] "Lista de distribuição"
+msgstr[1] "Listas de distribuição"
+
+msgid "%d member"
+msgid_plural "%d members"
+msgstr[0] "%d membro"
+msgstr[1] "%d membros"
+
+msgid "[to be completed]"
+msgstr "[a completar]"
+
+msgid "You are not allowed to record a communication on this item."
+msgstr "Você não tem permissão para registrar uma comunicação neste item."
+
+msgid "Choose an active message template."
+msgstr "Escolha um modelo de mensagem ativo."
+
+msgid "The subject and the message are required."
+msgstr "O assunto e a mensagem são obrigatórios."
+
+msgid "Tick or type at least one recipient."
+msgstr "Marque ou digite pelo menos um destinatário."
+
+msgid "The date of the communication is invalid or in the future."
+msgstr "A data da comunicação é inválida ou está no futuro."
+
+msgid "The communication could not be recorded."
+msgstr "Não foi possível registrar a comunicação."
+
+msgid "Crisis communication made on %1$s: \"%2$s\"."
+msgstr "Comunicação de crise realizada em %1$s: \"%2$s\"."
+
+msgid "Recipients: %s"
+msgstr "Destinatários: %s"
+
+msgid "Crisis message template"
+msgid_plural "Crisis message templates"
+msgstr[0] "Modelo de mensagem de crise"
+msgstr[1] "Modelos de mensagens de crise"
+
+msgid "Major incident"
+msgstr "Incidente grave"
+
+msgid "Service unavailability"
+msgstr "Indisponibilidade do serviço"
+
+msgid "First message"
+msgstr "Primeira mensagem"
+
+msgid "Situation update"
+msgstr "Atualização da situação"
+
+msgid "End of crisis"
+msgstr "Fim da crise"
+
+msgid "Reference of the incident (SEC-YYYY-NNNN)"
+msgstr "Referência do incidente (SEC-AAAA-NNNN)"
+
+msgid "Title of the incident or of the breach"
+msgstr "Título do incidente ou da violação"
+
+msgid "Type of incident"
+msgstr "Tipo de incidente"
+
+msgid "Date and time of detection"
+msgstr "Data e hora da detecção"
+
+msgid "Affected systems (items linked to the incident)"
+msgstr "Sistemas afetados (itens vinculados ao incidente)"
+
+msgid "Person preparing the message"
+msgstr "Pessoa que prepara a mensagem"
+
+msgid "Current date and time"
+msgstr "Data e hora atuais"
+
+msgid "Time of the next communication (to be completed)"
+msgstr "Hora da próxima comunicação (a completar)"
+
+msgid "The template name is required."
+msgstr "O nome do modelo é obrigatório."
+
+msgid ""
+"Crisis message templates: the messages prepared in advance for each kind of "
+"crisis (major incident, personal data breach, unavailability, ransomware), "
+"with the people and organizations to inform for each one."
+msgstr ""
+"Modelos de mensagens de crise: as mensagens preparadas com antecedência para "
+"cada tipo de crise (incidente grave, violação de dados pessoais, "
+"indisponibilidade, ransomware), com as pessoas e organizações a informar em "
+"cada caso."
+
+msgid ""
+"Adapt the templates provided and fill in the distribution list of each one "
+"(users, groups and official contacts). During a crisis, open the Crisis "
+"communication tab of the incident: the message is filled in from the "
+"incident, you send it yourself, then record it. The plugin never sends any "
+"email."
+msgstr ""
+"Adapte os modelos fornecidos e preencha a lista de distribuição de cada um "
+"(usuários, grupos e contatos oficiais). Durante uma crise, abra a aba "
+"Comunicação de crise do incidente: a mensagem é preenchida a partir do "
+"incidente, você a envia e depois a registra. O plugin nunca envia e-mails."
+
+msgid "ISO/IEC 27001, control A.5.26 and clause 7.4"
+msgstr "ISO/IEC 27001, controle A.5.26 e cláusula 7.4"
+
+msgid "Major incident: first internal message"
+msgstr "Incidente grave: primeira mensagem interna"
+
+msgid "[{reference}] Security incident in progress: {title}"
+msgstr "[{reference}] Incidente de segurança em andamento: {title}"
+
+msgid ""
+"Hello,\n"
+"\n"
+"A security incident is in progress: {title} (reference {reference}), "
+"detected on {detection_date}.\n"
+"Affected systems: {affected_systems}.\n"
+"\n"
+"The crisis team is handling it. Until further notice:\n"
+"- do not switch off or restart the affected equipment;\n"
+"- report anything unusual to the IT department;\n"
+"- do not talk about the incident outside the organization.\n"
+"\n"
+"Next update: {next_update}.\n"
+"\n"
+"{author}"
+msgstr ""
+"Olá,\n"
+"\n"
+"Um incidente de segurança está em andamento: {title} (referência "
+"{reference}), detectado em {detection_date}.\n"
+"Sistemas afetados: {affected_systems}.\n"
+"\n"
+"A equipe de crise está cuidando dele. Até novo aviso:\n"
+"- não desligue nem reinicie os equipamentos afetados;\n"
+"- informe qualquer anomalia ao departamento de TI;\n"
+"- não fale sobre o incidente fora da organização.\n"
+"\n"
+"Próxima atualização: {next_update}.\n"
+"\n"
+"{author}"
+
+msgid "Data breach: information of the people concerned"
+msgstr "Violação de dados: informação aos titulares afetados"
+
+msgid "Information about an incident affecting your personal data"
+msgstr "Informação sobre um incidente que afeta seus dados pessoais"
+
+msgid ""
+"Hello,\n"
+"\n"
+"On {detection_date}, we became aware of an incident affecting personal data "
+"that concern you (reference {reference}).\n"
+"\n"
+"What happened: {title}.\n"
+"Measures taken: [to be completed].\n"
+"What we recommend: [to be completed, for example change your password and be "
+"wary of unexpected messages].\n"
+"\n"
+"For any question, you can contact our data protection officer: [contact "
+"details].\n"
+"\n"
+"We apologize for this inconvenience.\n"
+"\n"
+"{author}"
+msgstr ""
+"Olá,\n"
+"\n"
+"Em {detection_date}, tomamos conhecimento de um incidente que afeta dados "
+"pessoais que lhe dizem respeito (referência {reference}).\n"
+"\n"
+"O que aconteceu: {title}.\n"
+"Medidas tomadas: [a completar].\n"
+"O que recomendamos: [a completar, por exemplo alterar sua senha e desconfiar "
+"de mensagens inesperadas].\n"
+"\n"
+"Para qualquer dúvida, você pode contatar nosso encarregado de proteção de "
+"dados: [dados de contato].\n"
+"\n"
+"Pedimos desculpas pelo transtorno.\n"
+"\n"
+"{author}"
+
+msgid "Unavailability: message to users and customers"
+msgstr "Indisponibilidade: mensagem aos usuários e clientes"
+
+msgid "[{reference}] Service disruption: {affected_systems}"
+msgstr "[{reference}] Interrupção do serviço: {affected_systems}"
+
+msgid ""
+"Hello,\n"
+"\n"
+"Since {detection_date}, the following services are unavailable or disrupted: "
+"{affected_systems}.\n"
+"\n"
+"Our teams are working to restore them and we will keep you informed of the "
+"progress.\n"
+"\n"
+"Next update: {next_update}.\n"
+"\n"
+"{author}"
+msgstr ""
+"Olá,\n"
+"\n"
+"Desde {detection_date}, os seguintes serviços estão indisponíveis ou com "
+"falhas: {affected_systems}.\n"
+"\n"
+"Nossas equipes estão trabalhando para restabelecê-los e manteremos você "
+"informado sobre o andamento.\n"
+"\n"
+"Próxima atualização: {next_update}.\n"
+"\n"
+"{author}"
+
+msgid "Ransomware: instructions to staff"
+msgstr "Ransomware: instruções ao pessoal"
+
+msgid "[{reference}] URGENT: cyber attack in progress, instructions to follow"
+msgstr ""
+"[{reference}] URGENTE: ataque cibernético em andamento, instruções a seguir"
+
+msgid ""
+"Hello,\n"
+"\n"
+"A ransomware attack was detected on {detection_date}. Affected systems: "
+"{affected_systems}.\n"
+"\n"
+"Instructions, effective immediately:\n"
+"- do not switch off your computer, but unplug its network cable or turn off "
+"its Wi-Fi;\n"
+"- do not open attachments or links, even from a known sender;\n"
+"- do not use removable media (USB keys, external drives);\n"
+"- call the IT department at once if a message asks for a ransom or if your "
+"files no longer open.\n"
+"\n"
+"Do not talk about the incident outside the organization: the crisis team is "
+"the only point of contact.\n"
+"\n"
+"Next update: {next_update}.\n"
+"\n"
+"{author}"
+msgstr ""
+"Olá,\n"
+"\n"
+"Um ataque de ransomware foi detectado em {detection_date}. Sistemas "
+"afetados: {affected_systems}.\n"
+"\n"
+"Instruções, válidas imediatamente:\n"
+"- não desligue seu computador, mas desconecte o cabo de rede ou desative o "
+"Wi-Fi;\n"
+"- não abra anexos nem links, mesmo de um remetente conhecido;\n"
+"- não use mídias removíveis (pen drives, discos externos);\n"
+"- ligue imediatamente para o departamento de TI se uma mensagem pedir "
+"resgate ou se seus arquivos não abrirem mais.\n"
+"\n"
+"Não fale sobre o incidente fora da organização: a equipe de crise é o único "
+"ponto de contato.\n"
+"\n"
+"Próxima atualização: {next_update}.\n"
+"\n"
+"{author}"
+
+msgid "Major incident: end of crisis"
+msgstr "Incidente grave: fim da crise"
+
+msgid "[{reference}] End of the incident: {title}"
+msgstr "[{reference}] Fim do incidente: {title}"
+
+msgid ""
+"Hello,\n"
+"\n"
+"The security incident {reference} ({title}) is now under control and the "
+"services have been restored.\n"
+"\n"
+"Thank you for your patience and cooperation. A review will be carried out to "
+"learn lessons from it.\n"
+"\n"
+"Remain vigilant and report anything unusual to the IT department.\n"
+"\n"
+"{author}"
+msgstr ""
+"Olá,\n"
+"\n"
+"O incidente de segurança {reference} ({title}) está agora sob controle e os "
+"serviços foram restabelecidos.\n"
+"\n"
+"Obrigado pela paciência e cooperação. Será feita uma análise para tirar "
+"lições do ocorrido.\n"
+"\n"
+"Mantenha-se atento e informe qualquer anomalia ao departamento de TI.\n"
+"\n"
+"{author}"
+
+msgid "Crisis message templates"
+msgstr "Modelos de mensagens de crise"
+
+msgid "This recipient cannot be added."
+msgstr "Este destinatário não pode ser adicionado."
+
+msgid "Communication recorded."
+msgstr "Comunicação registrada."
+
+msgid "Operating system of computers, servers or network equipment"
+msgstr "Sistema operacional de computadores, servidores ou equipamentos de rede"
+
+msgid "Proposed match:"
+msgstr "Correspondência proposta:"
+
+msgid "Watch this operating system with the proposed CPE"
+msgstr "Monitorar este sistema operacional com a CPE proposta"
+
+msgid "Accept the proposal"
+msgstr "Aceitar a proposta"
+
+msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
+msgstr "Os sistemas operacionais também são listados. Para Windows 10 e 11, Windows Server, Debian, Ubuntu e Red Hat Enterprise Linux, uma CPE é proposta: verifique-a e depois aceite-a."

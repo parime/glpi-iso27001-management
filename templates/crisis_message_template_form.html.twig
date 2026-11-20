@@ -1,0 +1,53 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #616 : modèle de message de crise #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'required': true,
+      'add_field_html': hints.hint(__('Example: "Ransomware: instructions to staff".', 'grcmanager')),
+   }) }}
+   {{ fields.checkboxField('is_active', item.isNewItem() ? 1 : item.fields['is_active'], __('Active')) }}
+   {{ fields.dropdownArrayField('situation', item.fields['situation'], situations, __('Situation', 'grcmanager'), {
+      'add_field_html': hints.hint(__('The template is suggested first on incidents of this situation.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('stage', item.fields['stage'], stages, __('Stage', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('audience', item.fields['audience'], audiences, __('Audience', 'grcmanager')) }}
+   {{ fields.textField('subject', item.fields['subject'], __('Subject', 'grcmanager'), {
+      'full_width': true,
+   }) }}
+   {{ fields.textareaField('body', item.fields['body'], __('Message', 'grcmanager'), {
+      'full_width': true,
+      'rows': 14,
+   }) }}
+   {% set variables_html %}
+      <div id="grc-crisis-variables">
+         <p class="mb-1">{{ __('Write the variables between braces: they are replaced with the values of the incident when the message is prepared. A variable without a value becomes "[to be completed]".', 'grcmanager') }}</p>
+         <ul class="mb-1">
+            {% for name, label in variables %}
+               <li><code>{{ '{' ~ name ~ '}' }}</code> : {{ label }}</li>
+            {% endfor %}
+         </ul>
+         {% if unknown is not empty %}
+            <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Unknown variables, left as they are: %s', 'grcmanager')|format(unknown|map(v => '{' ~ v ~ '}')|join(', ')) }}</span>
+         {% endif %}
+      </div>
+   {% endset %}
+   {{ fields.htmlField('', variables_html, __('Variables', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+{% endblock %}

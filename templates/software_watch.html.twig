@@ -20,6 +20,8 @@
 
    <div class="alert alert-info">
       <i class="ti ti-info-circle me-1"></i>{{ __('Choose the installed software to watch. For each one, look up its CPE identifier (the official name used by the NVD vulnerability database), then confirm. Start with exposed software: browsers, remote access, VPN, office suites, PDF readers.', 'grcmanager') }}
+      {# Issue #780 #}
+      <div class="mt-1">{{ __('Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it.', 'grcmanager') }}</div>
    </div>
 
    {% if not enabled %}
@@ -63,6 +65,8 @@
                         <strong>{{ row.name }}</strong>
                         {# Issue #705 : désignation d'un firmware (matériel réseau, imprimante, BIOS...). #}
                         {% if 'firmware' in row.sources %}<span class="badge bg-secondary-lt ms-1" title="{{ __('Firmware of network equipment, printers, phones or computers', 'grcmanager') }}"><i class="ti ti-cpu me-1"></i>{{ __('Firmware', 'grcmanager') }}</span>{% endif %}
+                        {# Issue #780 : système d'exploitation des actifs (Windows, distribution Linux...). #}
+                        {% if 'os' in row.sources %}<span class="badge bg-secondary-lt ms-1" title="{{ __('Operating system of computers, servers or network equipment', 'grcmanager') }}"><i class="ti ti-device-desktop me-1"></i>{{ __('Operating system', 'grcmanager') }}</span>{% endif %}
                         {% if row.exposed %}<span class="badge bg-orange-lt ms-1" title="{{ __('Often exposed software (content from the Internet or remote access)', 'grcmanager') }}"><i class="ti ti-world me-1"></i>{{ __('Exposed', 'grcmanager') }}</span>{% endif %}
                      </td>
                      <td class="text-end">{{ row.installs }}</td>
@@ -80,10 +84,23 @@
                         {% if row.status == 'watched' %}
                            <a href="{{ catalog_url }}?id={{ row.canonical_id }}">{{ row.product }}</a>
                            <div class="text-muted small"><code>{{ row.prefix }}</code></div>
+                        {% elseif row.proposed %}
+                           {# Issue #780 : correspondance proposée par défaut, à valider par l'administrateur. #}
+                           <div class="small"><i class="ti ti-bulb me-1 text-yellow"></i>{{ __('Proposed match:', 'grcmanager') }} <code>{{ row.proposed }}</code></div>
                         {% endif %}
                      </td>
                      {% if can_update %}
                         <td class="text-end text-nowrap">
+                           {% if row.status == 'todo' and row.proposed %}
+                              <form method="post" action="{{ action }}" class="d-inline">
+                                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                 <input type="hidden" name="software" value="{{ row.name }}">
+                                 <input type="hidden" name="cpe" value="{{ row.proposed }}">
+                                 <input type="hidden" name="filter" value="{{ filter }}">
+                                 <input type="hidden" name="search" value="{{ search }}">
+                                 <button type="submit" name="confirm" value="1" class="btn btn-sm btn-success" title="{{ __('Watch this operating system with the proposed CPE', 'grcmanager') }}"><i class="ti ti-check me-1"></i>{{ __('Accept the proposal', 'grcmanager') }}</button>
+                              </form>
+                           {% endif %}
                            {% if row.status == 'todo' %}
                               <a class="btn btn-sm btn-primary" href="{{ action }}?filter={{ filter }}&search={{ search|url_encode }}&suggest={{ row.name|url_encode }}#sw-{{ loop.index }}"><i class="ti ti-search me-1"></i>{{ __('Look up the CPE', 'grcmanager') }}</a>
                            {% endif %}

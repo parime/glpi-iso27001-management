@@ -148,6 +148,10 @@ final class ConsistencyRules
         'asset_end_of_life'                    => [
             'area' => 'operations', 'clause' => 'A.8.8', 'severity' => self::SEVERITY_HIGH, 'threshold' => null,
         ],
+        // Issue #782 : matériel dont la garantie est expirée (informations financières de GLPI).
+        'hardware_warranty_expired'            => [
+            'area' => 'operations', 'clause' => 'A.7.13', 'severity' => self::SEVERITY_LOW, 'threshold' => null,
+        ],
         // Issue #779 : logiciel sans licence, surdéploiement ou licence expirée encore utilisée.
         'software_license_gap'                 => [
             'area' => 'operations', 'clause' => 'A.5.32', 'severity' => self::SEVERITY_MEDIUM, 'threshold' => null,

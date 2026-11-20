@@ -7,6 +7,126 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.67.0] - 2026-11-20
+
+### Fixed
+
+- **Gabarits d'incident de sécurité** (issue #796) : l'aperçu d'un gabarit affichait « Une erreur
+  inattendue s'est produite », et le statut, la priorité ou l'impact prédéfinis ne pouvaient pas être
+  réglés. Le cœur de GLPI (11 et 12) lit les champs prédéfinis avec une méthode qui ne connaît que
+  les tickets, changements et problèmes, et levait « Unknown ITIL type ». Le plugin fournit
+  désormais sa propre lecture des champs prédéfinis.
+
+### Added
+
+- **Évaluation par référentiel sur les mesures propres de chaque référentiel** (issue #789, lot 1).
+  Tableau de bord, onglet « Évaluation par référentiel » :
+  - un référentiel personnalisé (par exemple un référentiel national importé en CSV) est évalué sur
+    ses exigences et leur auto-évaluation, et non plus sur les mesures de l'Annexe A qu'elles citent
+    (correction : un référentiel importé sans correspondance n'avait aucune mesure applicable) ;
+  - le registre NIS2 Italia - ACN de l'entité active (ou de sa parente) est évalué sur ses points,
+    avec les preuves liées ;
+  - NIS2 (UE), ANSSI, NIST CSF, CIS Controls, AI Act et les autres catalogues intégrés sont évalués
+    sur leurs propres exigences, dont le statut vient, à titre de correspondance, des mesures de
+    l'Annexe A reliées, seulement si ISO 27001 est activé ; ISO 27001 désactivé, l'écran indique que
+    le référentiel n'est pas évalué au lieu d'afficher des mesures ISO ;
+  - liste « Référentiel à détailler », choix retenu pour la session ; colonne « Évalué sur ».
+  Droits et entités inchangés (droit de lecture du plugin, registre NIS2 Italia accessible seul).
+
+- **Vulnérabilités du parc : les systèmes d'exploitation sont rapprochés des CVE** (issue #780,
+  lot 1). Une grande partie des CVE critiques touche Windows, Windows Server et les distributions
+  Linux, qui échappaient au suivi : seuls les logiciels installés et les firmwares (#705) étaient
+  rapprochés.
+  - Troisième source du rapprochement : le système d'exploitation de chaque actif
+    (`Item_OperatingSystem` : nom, version et version du noyau). Il n'est relié à un produit que
+    par un alias déclaré, jamais par ressemblance de nom. Pour Windows 10 et 11, la version de
+    fonctionnalités (« 23H2 ») fait partie du nom rapproché, comme dans NVD.
+  - Correspondances proposées par défaut dans « Logiciels à surveiller » pour Windows 10 et 11,
+    Windows Server 2016 à 2025, Debian, Ubuntu et Red Hat Enterprise Linux (CPE
+    `cpe:2.3:o:...`) : l'administrateur les vérifie, puis clique sur « Accepter la proposition ».
+    La famille du système est reconnue par la règle de la fin de support (#704), qui reconnaît
+    désormais aussi le nom complet inventorié par l'agent GLPI (« Debian GNU/Linux 12
+    (bookworm) », « Ubuntu 22.04.4 LTS »).
+  - Comparaison des versions sous la forme employée par NVD : numéro de build pour Windows,
+    « 12.0 » pour Debian 12, « 9.0 » pour RHEL 9, « 22.04 » pour Ubuntu. Un build Windows sans
+    révision (« 10.0.22631 ») reste « version non vérifiable » et n'est pas interrogé auprès de
+    NVD : il n'est jamais déclaré vulnérable ni corrigé par supposition.
+  - La source « Système d'exploitation » est affichée dans l'onglet CVE d'un incident, dans
+    « Vulnérabilités du parc », dans « Logiciels à surveiller » et dans l'onglet
+    « Vulnérabilités » de l'actif. Les tickets de mise à jour lient les actifs concernés, dans
+    l'entité du ticket (règle de #702).
+  - Entités et droits inchangés : un utilisateur ne voit et ne compte que les actifs de ses
+    entités, d'un type qu'il peut lire dans l'onglet CVE. Aucun droit ajouté ni modifié.
+
+- **Fin de garantie du matériel** (issue #782, lot 1, A.7.13 et A.8.9), en complément de la fin de
+  support des logiciels (#704). Calcul à la demande depuis les informations financières natives de
+  GLPI (`glpi_infocoms` : date de début et durée de garantie en mois, durée « à vie » comprise),
+  comme la date de fin affichée par GLPI. Rien n'est conservé ni modifié dans GLPI.
+  - Carte « Fin de garantie du matériel » sur la page des vulnérabilités du parc, sous la carte
+    « Fin de support » (aucune page ni entrée de menu en plus) : garantie expirée, fin proche
+    (même seuil que la fin de support, réglable dans la configuration, actif même sans
+    endoflife.date), sous garantie ou inconnue (jamais comptée comme sous garantie) ; tableau par
+    type de matériel et par entité, liste des matériels à traiter avec lien vers leur fiche.
+  - Matériels suivis : ordinateurs, moniteurs, matériels réseau, périphériques, téléphones,
+    imprimantes, baies, châssis, PDU, équipements passifs et actifs personnalisés de GLPI 11 qui
+    portent des informations financières ; hors corbeille et gabarits.
+  - Export CSV (un matériel par ligne, fabricant, modèle, dates), protégé contre l'injection de
+    formules.
+  - Preuve sur les mesures A.7.13 et A.8.9, règle « Matériels dont la garantie est expirée » du
+    contrôle de cohérence (A.7.13, gravité faible).
+  - Droits : droit des registres sensibles du plugin, lecture native des informations financières
+    et de chaque type de matériel ; entités actives respectées (#536).
+  - Reste à faire (lot 2) : date de fin de vie déclarée par le constructeur, par modèle.
+- **Communication de crise : modèles de messages et listes de diffusion** (issue #616, lot 1, mesure
+  A.5.26, article 7.4). **Le plugin n'envoie aucun courriel** : il prépare le message, la personne
+  l'envoie elle-même puis trace la communication.
+  - Bibliothèque « Modèles de messages de crise » (lien dans l'en-tête des incidents, à côté des
+    procédures de remédiation) : situation (incident majeur, violation de données, indisponibilité,
+    rançongiciel, autre), étape, public, objet et texte avec variables entre accolades (`{reference}`,
+    `{title}`, `{detection_date}`, `{affected_systems}`, `{next_update}`...). Cinq modèles fournis,
+    traduits, modifiables.
+  - Liste de diffusion de chaque modèle : utilisateurs et groupes GLPI, et contacts officiels du
+    contexte de l'organisation (#771), sans second annuaire. Destinataire sans adresse signalé.
+  - Onglet « Communication de crise » des incidents de sécurité et des violations de données : le
+    modèle de la situation est proposé en premier, rempli depuis l'incident (variables échappées à
+    l'affichage) ; boutons copier le message, copier les adresses, exporter en brouillon `.eml` ;
+    « Tracer comme envoyé » conserve la date, l'auteur, les destinataires, l'objet et le texte, écrit
+    une ligne dans le journal de crise (suivi privé, sans notification) et la chronologie du rapport
+    post-incident la reprend.
+  - Preuve sur la mesure A.5.26 et sur l'exigence 7.4 : modèles actifs, modèles sans destinataire,
+    situations sans modèle, communications tracées depuis 12 mois.
+  - Droits : bibliothèque et listes avec le droit général du plugin ; onglet avec ceux de l'incident
+    ou de la violation (lire pour voir, modifier pour tracer) ; contacts officiels seulement avec le
+    droit du contexte et dans l'entité de l'incident ou une entité parente.
+  - Reste à faire (lot 2) : suppléant de chaque contact principal, revue annuelle de l'annuaire,
+    adresses des membres d'un groupe, communications dans le rapport d'exercice de crise.
+- **Sécurité physique des sites : grille d'évaluation, zones et actions** (issue #778, lot 1,
+  mesures A.7.1 à A.7.14). Les sites sont les lieux de GLPI ; aucun second référentiel.
+  - Évaluation d'un site : date, évaluateur, statut, politique de sécurité physique liée (document
+    de la bibliothèque des politiques), échéance de réévaluation fixée à 12 mois une fois
+    l'évaluation terminée.
+  - Onglet « Grille de sécurité physique » : une ligne par mesure A.7.1 à A.7.14 avec l'état
+    (conforme, partiellement conforme, non conforme, non applicable, non évaluée), le constat, les
+    preuves examinées et les documents de l'évaluation (photos, procès-verbaux) ; une mesure exclue
+    de la SoA est « non applicable » d'office ; l'état de l'évaluation précédente du site est
+    rappelé.
+  - « Créer l'action » sur une ligne partielle ou non conforme : non-conformité pré-remplie (site,
+    mesure, constat), relue et enregistrée par l'utilisateur, puis suivie par le workflow CAPA ; la
+    ligne et la non-conformité se citent mutuellement.
+  - Onglet « Zones du site » : zones publique, contrôlée, sensible et local technique, contrôles
+    d'accès, personnes autorisées, consignes affichées ; une zone sensible ou un local technique sans
+    contrôle d'accès ou sans consignes est signalé. La réévaluation reprend les zones.
+  - Rappel de réévaluation annuelle : tâche automatique `reassessmentreminder` (notification à
+    l'évaluateur 30 jours avant l'échéance puis au plus une fois par mois), échéance dans le
+    calendrier de conformité.
+  - Page « Sécurité physique » (sous-page Conformité, aucune entrée de menu en plus) : dernière
+    évaluation de chaque site côte à côte, mesure par mesure, avec score et échéance ; liste de
+    toutes les évaluations ; onglet « Sécurité physique » des lieux de GLPI.
+  - Preuve sur les mesures A.7.1 à A.7.14 : état de la mesure sur chaque site, sur la fiche de la
+    mesure.
+  - Droits : droit général du plugin et entité de l'évaluation ; lignes et zones modifiables avec le
+    droit de modifier l'évaluation ; pièces jointes lues avec le droit de lire l'évaluation.
+
 ## [2.66.0] - 2026-11-20
 
 ### Added

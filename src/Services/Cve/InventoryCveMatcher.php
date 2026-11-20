@@ -45,6 +45,9 @@ use GlpiPlugin\Grcmanager\ProductAlias;
  * Issue #705 : firmwares (`Item_DeviceFirmware`, see FirmwareInventory) are the second source,
  * resolved through the same declared aliases, their versions compared by FirmwareVersion.
  *
+ * Issue #780 : operating systems (`Item_OperatingSystem`, see OperatingSystemInventory) are the
+ * third source, same declared aliases, versions compared by OperatingSystemVersion.
+ *
  * NOTE: depends on GLPI's runtime global $DB/$CFG_GLPI and the legacy PluginGrcmanager* classes,
  * not unit-tested in isolation, same exclusion rationale as RiskMatrixConfig.php, see
  * phpstan.neon.dist. The pure matching logic (CpeIdentity, CpeVersionMatch) IS unit-tested
@@ -57,6 +60,9 @@ final class InventoryCveMatcher
 
     public const SOURCE_FIRMWARE = 'firmware';
 
+    /** Issue #780 : système d'exploitation de l'actif. */
+    public const SOURCE_OS = 'os';
+
     /**
      * @param list<array{
      *     cpe23_uri: string, version_start_including: ?string, version_start_excluding: ?string,
@@ -66,7 +72,8 @@ final class InventoryCveMatcher
      *     itemtype: string, items_id: int, item_name: string, software_name: string,
      *     version: string, source: string, state: string
      * }> Sorted MATCHED first, then UNKNOWN. EXCLUDED candidates are never returned. `software_name`
-     *    holds the firmware designation when `source` is SOURCE_FIRMWARE (issue #705).
+     *    holds the firmware designation when `source` is SOURCE_FIRMWARE (issue #705), the
+     *    operating system designation when it is SOURCE_OS (issue #780).
      */
     public static function findMatchingAssets(array $affectedCpes): array
     {
@@ -101,7 +108,8 @@ final class InventoryCveMatcher
         $unknown = [];
         $canonicalProductIdByName = [];
 
-        foreach ([...self::installedSoftware(), ...self::installedFirmware()] as $installed) {
+        $sources = [...self::installedSoftware(), ...self::installedFirmware(), ...self::installedOperatingSystems()];
+        foreach ($sources as $installed) {
             // Une même désignation revient sur des dizaines d'actifs : une seule lecture d'alias.
             $name = $installed['software_name'];
             if (!array_key_exists($name, $canonicalProductIdByName)) {
@@ -116,9 +124,12 @@ final class InventoryCveMatcher
             $bestState = null;
             foreach ($affectedCpesByCanonicalProductId[$canonicalProductId] as $affectedCpe) {
                 // Issue #705 : un firmware suit ses propres règles de version (FirmwareVersion).
-                $state = $installed['source'] === self::SOURCE_FIRMWARE
-                    ? FirmwareVersion::evaluate($affectedCpe, $installed['version'])
-                    : CpeVersionMatch::evaluate($affectedCpe, $installed['version']);
+                // Issue #780 : un système suit les siennes (OperatingSystemVersion).
+                $state = match ($installed['source']) {
+                    self::SOURCE_FIRMWARE => FirmwareVersion::evaluate($affectedCpe, $installed['version']),
+                    self::SOURCE_OS       => OperatingSystemVersion::evaluate($affectedCpe, $installed['version']),
+                    default               => CpeVersionMatch::evaluate($affectedCpe, $installed['version']),
+                };
 
                 if ($state === CpeVersionMatch::MATCHED) {
                     $bestState = CpeVersionMatch::MATCHED;
@@ -258,6 +269,32 @@ final class InventoryCveMatcher
                 'software_name' => $firmware['firmware_name'],
                 'version'       => $firmware['version'],
                 'source'        => self::SOURCE_FIRMWARE,
+            ];
+        }
+
+        return $installed;
+    }
+
+    /**
+     * Issue #780 : systèmes d'exploitation des actifs que l'utilisateur courant peut voir, même
+     * règle de droits et d'entités (OperatingSystemInventory::visibleToCurrentUser()).
+     *
+     * @return list<array{
+     *     itemtype: string, items_id: int, item_name: string, software_name: string, version: string,
+     *     source: string
+     * }>
+     */
+    private static function installedOperatingSystems(): array
+    {
+        $installed = [];
+        foreach (OperatingSystemInventory::visibleToCurrentUser() as $system) {
+            $installed[] = [
+                'itemtype'      => $system['itemtype'],
+                'items_id'      => $system['items_id'],
+                'item_name'     => $system['item_name'],
+                'software_name' => $system['os_name'],
+                'version'       => $system['version'],
+                'source'        => self::SOURCE_OS,
             ];
         }
 

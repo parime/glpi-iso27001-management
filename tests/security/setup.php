@@ -203,6 +203,25 @@ if ($mode === 'xss') {
         'when_to_contact' => $canary, 'contact_delay' => $canary, 'on_security_incident' => 1,
         'on_data_breach' => 1, 'expectations' => $canary, 'comment' => $canary,
     ]);
+    // Issue #616 : modèle de message de crise piégé (nom, objet, texte, commentaire), contact officiel
+    // piégé dans sa liste de diffusion, et communication tracée piégée sur l'incident de A. Les
+    // variables de l'incident de A (nom, ordinateur lié) sont piégées aussi.
+    $out['crisis_template'] = $insert('crisismessagetemplates', [
+        'name' => $canary, 'situation' => 'major_incident', 'stage' => 'first', 'audience' => 'internal',
+        'subject' => $canary . ' {title}', 'body' => $canary . ' {title} {affected_systems} {entity}',
+        'comment' => $canary, 'is_active' => 1,
+    ]);
+    $insert('crisismessagerecipients', [
+        'plugin_grcmanager_crisismessagetemplates_id' => $out['crisis_template'],
+        'itemtype' => 'GlpiPlugin\\Grcmanager\\ContextItem', 'items_id' => $out['official_contact'],
+    ]);
+    $insert('crisiscommunications', [
+        'entities_id' => (int) $ids['a'], 'itemtype' => 'PluginGrcmanagerSecurityIncident',
+        'items_id' => (int) $ids['incident_A'],
+        'plugin_grcmanager_crisismessagetemplates_id' => $out['crisis_template'],
+        'template_name' => $canary, 'subject' => $canary, 'body' => $canary, 'recipients' => $canary,
+        'users_id' => 2, 'date_communication' => date('Y-m-d H:i:s'),
+    ]);
     // Issue #620 : chaque champ texte d'une violation de données.
     $out['breach'] = $insert('databreaches', [
         'name' => $canary, 'description' => $canary, 'data_details' => $canary, 'consequences' => $canary,
@@ -302,6 +321,15 @@ if ($mode === 'xss') {
         'entities_id' => 0, 'users_id' => 2, 'plugin_grcmanager_competences_id' => (int) $ids['competence_A'],
         'level' => 1, 'evidence_type' => 'certificate', 'evidence_reference' => $canary, 'comment' => $canary,
     ]);
+    // Issue #778 : évaluation de la sécurité physique de A piégée (fiche, grille, zones, comparaison,
+    // onglet du lieu, preuve sur A.7.1) ; constat en état non conforme pour afficher le bouton d'action.
+    $update('physicalsecurityassessments', ['name' => $canary, 'comment' => $canary], (int) $ids['physical_A']);
+    $update('physicalsecuritychecks', [
+        'state' => 'noncompliant', 'finding' => $canary, 'evidence' => $canary,
+    ], (int) $ids['physical_line_A']);
+    $update('physicalsecurityzones', [
+        'name' => $canary, 'authorized_people' => $canary, 'comment' => $canary,
+    ], (int) $ids['physical_zone_A']);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
     // Issue #380 : nom de la preuve envoyée depuis le formulaire, citée par un test (onglet).
@@ -476,6 +504,9 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     // Issue #779 : la conformité des licences exige aussi la lecture native des licences (le
     // gestionnaire ne l'a pas : la page lui est refusée).
     'license' => READ,
+    // Issue #782 : la fin de garantie du matériel exige la lecture native des informations
+    // financières (le gestionnaire ne l'a pas : l'export lui est refusé).
+    'infocom' => READ,
 ]));
 
 // Sans droit : aucun droit sur le plugin, chaque page doit lui être refusée. Il lit les
@@ -591,6 +622,12 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'softwareversions_id' => $add(new SoftwareVersion(), [
             'name' => '1.0', 'softwares_id' => $licenseSoftware, 'entities_id' => $entity,
         ]),
+    ]);
+    // Issue #782 : ordinateur fictif de l'entité dont la garantie est expirée.
+    $add(new Infocom(), [
+        'itemtype' => Computer::class, 'entities_id' => $entity,
+        'warranty_date' => '2020-01-01', 'warranty_duration' => 12,
+        'items_id' => $add(new Computer(), ['name' => 'PC garantie securite ' . $suffix, 'entities_id' => $entity]),
     ]);
     // Issue #377, troisième étape : application classable (RTO) de l'entité.
     $ids['appliance_' . $suffix] = $add(new Appliance(), [
@@ -1056,9 +1093,77 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         '_add_competences_id' => $competenceId, '_add_level' => 2,
     ]);
     $ids['competence_' . $suffix] = $competenceId;
+    // Issue #778 : un site fictif (lieu de GLPI) et son évaluation de la sécurité physique, avec une
+    // zone, dans chaque entité.
+    // Le nom d'un lieu est unique dans son entité : un second passage (test XSS) reprend le même lieu.
+    $location = new \Location();
+    $siteCriteria = ['name' => 'Site securite ' . $suffix, 'entities_id' => $entity];
+    $ids['location_' . $suffix] = $location->getFromDBByCrit($siteCriteria)
+        ? $location->getID()
+        : $add(new \Location(), [
+            'name' => 'Site securite ' . $suffix, 'entities_id' => $entity, 'address' => '1 rue Fictive',
+        ]);
+    $ids['physical_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\PhysicalSecurityAssessment(), [
+        'name' => 'Evaluation securite ' . $suffix, 'entities_id' => $entity,
+        'locations_id' => $ids['location_' . $suffix], 'assessment_date' => '2026-01-15',
+    ]);
+    $ids['physical_line_' . $suffix] = (int) $DB->request([
+        'SELECT' => ['id'],
+        'FROM'   => 'glpi_plugin_grcmanager_physicalsecuritychecks',
+        'WHERE'  => [
+            'plugin_grcmanager_physicalsecurityassessments_id' => $ids['physical_' . $suffix], 'code' => 'A.7.1',
+        ],
+    ])->current()['id'];
+    $physical = new \GlpiPlugin\Grcmanager\PhysicalSecurityAssessment();
+    $physical->getFromDB($ids['physical_' . $suffix]);
+    \GlpiPlugin\Grcmanager\PhysicalSecurityZone::addZone($physical, [
+        'name' => 'Salle serveurs securite ' . $suffix, 'zone_type' => 'technical', 'access_means' => ['badge'],
+    ]);
+    $ids['physical_zone_' . $suffix] = (int) $DB->request([
+        'SELECT' => ['id'],
+        'FROM'   => 'glpi_plugin_grcmanager_physicalsecurityzones',
+        'WHERE'  => ['plugin_grcmanager_physicalsecurityassessments_id' => $ids['physical_' . $suffix]],
+    ])->current()['id'];
 }
 $ids['competencedeclaration_B'] = $add(new \GlpiPlugin\Grcmanager\CompetenceDeclaration(), [
     'users_id' => $ids['collab_B'], 'plugin_grcmanager_competences_id' => $ids['competence_B'],
     'level' => 2, 'evidence_type' => 'certificate', 'evidence_reference' => 'Certificat fictif B',
 ]);
+// Issue #616 : modèle de message de crise (global) dont la liste de diffusion cite les contacts
+// officiels de A et de B, et une communication tracée sur l'incident de chaque entité. Depuis
+// l'incident de A, ni le contact ni la communication de B ne doivent apparaître.
+$crisisTemplate = new \GlpiPlugin\Grcmanager\CrisisMessageTemplate();
+if (!$crisisTemplate->getFromDBByCrit(['name' => 'Modele crise securite'])) {
+    $add($crisisTemplate, [
+        'name' => 'Modele crise securite', 'situation' => 'major_incident', 'stage' => 'first',
+        'audience' => 'external', 'subject' => 'Objet crise {reference}', 'body' => 'Texte crise {title}',
+        'is_active' => 1,
+    ]);
+}
+$ids['crisis_template'] = (int) $crisisTemplate->getID();
+foreach (['A', 'B'] as $suffix) {
+    \GlpiPlugin\Grcmanager\CrisisMessageRecipient::addTo(
+        $ids['crisis_template'],
+        \GlpiPlugin\Grcmanager\ContextItem::class,
+        $ids['context_' . $suffix]
+    );
+    $crisisCriteria = [
+        'itemtype' => PluginGrcmanagerSecurityIncident::class, 'items_id' => $ids['incident_' . $suffix],
+    ];
+    if (countElementsInTable('glpi_plugin_grcmanager_crisiscommunications', $crisisCriteria) === 0) {
+        $DB->insert('glpi_plugin_grcmanager_crisiscommunications', $crisisCriteria + [
+            'entities_id'                                 => $suffix === 'A' ? $a : $b,
+            'plugin_grcmanager_crisismessagetemplates_id' => $ids['crisis_template'],
+            'template_name'                               => 'Modele crise securite',
+            'subject'                                     => 'Communication securite ' . $suffix,
+            'body'                                        => 'Texte securite ' . $suffix,
+            'recipients'                                  => 'Destinataire securite ' . $suffix,
+            'users_id'                                    => 2,
+            'date_communication'                          => date('Y-m-d H:i:s'),
+            'date_creation'                               => date('Y-m-d H:i:s'),
+        ]);
+    }
+}
+// Issue #778 : mesure A.7.1 de la SoA du siège (preuve des évaluations de la sécurité physique).
+$ids['control_a71'] = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode(0)['A.7.1'] ?? 0;
 echo json_encode($ids), "\n";

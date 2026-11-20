@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.66.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.67.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -168,6 +168,9 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
     // Issue #542 : dossiers préparatoires archivés et compte rendu de la revue de direction.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ManagementReview::class;
+    // Issue #778 : photos et procès-verbaux d'une évaluation de la sécurité physique d'un site,
+    // réservés aux lecteurs de l'évaluation (RestrictedDocument::onDocumentItemAdd()).
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\PhysicalSecurityAssessment::class;
     // Issue #774 : fiche de poste signée d'une fonction, preuve d'une compétence déclarée (certificat,
     // diplôme), réservée aux lecteurs de la déclaration (RestrictedDocument::onDocumentItemAdd()).
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\IsmsFunction::class;
@@ -257,6 +260,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\OfficialContact::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class, \GlpiPlugin\Grcmanager\DataBreach::class],
     ]);
+    // Issue #616 : onglet « Communication de crise » des incidents et des violations de données.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisCommunication::class, [
+        'addtabon' => [PluginGrcmanagerSecurityIncident::class, \GlpiPlugin\Grcmanager\DataBreach::class],
+    ]);
     // Issue #185 : onglet « Cellule de crise » de l'incident.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisExercise::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
@@ -325,6 +332,10 @@ function plugin_init_grcmanager(): void
     // Issue #546 : fiche de conformité sécurité, sur chaque utilisateur et dans ses préférences.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PersonnelCompliance::class, [
         'addtabon' => [User::class, Preference::class],
+    ]);
+    // Issue #778 : onglet « Sécurité physique » des lieux de GLPI (évaluations du site).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PhysicalSecurityAssessment::class, [
+        'addtabon' => [Location::class],
     ]);
     // Issue #774 : compétences d'une personne, sur chaque utilisateur et dans ses préférences.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CompetenceMatrix::class, [

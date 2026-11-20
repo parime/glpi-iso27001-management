@@ -1,0 +1,99 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #778 : sécurité physique des sites : dernière évaluation de chaque site côte à côte, mesure
+   par mesure (A.7.1 à A.7.14), score et échéance de réévaluation. #}
+<div class="container-fluid">
+<div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+   <div class="me-auto d-flex flex-wrap gap-2">
+      <span class="badge bg-blue-subtle text-blue-emphasis fs-5"><i class="ti ti-building me-1"></i>{{ _n('%d site assessed', '%d sites assessed', sites|length, 'grcmanager')|format(sites|length) }}</span>
+      {% if overdue > 0 %}
+         <span class="badge bg-danger-subtle text-danger-emphasis fs-5" id="grc-physical-overdue"><i class="ti ti-calendar-x me-1"></i>{{ _n('%d site to reassess (overdue)', '%d sites to reassess (overdue)', overdue, 'grcmanager')|format(overdue) }}</span>
+      {% endif %}
+      {% if due_soon > 0 %}
+         <span class="badge bg-warning-subtle text-warning-emphasis fs-5"><i class="ti ti-calendar-due me-1"></i>{{ _n('%d site to reassess within 30 days', '%d sites to reassess within 30 days', due_soon, 'grcmanager')|format(due_soon) }}</span>
+      {% endif %}
+   </div>
+   <a href="{{ search_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-list me-1"></i>{{ __('All assessments', 'grcmanager') }}</a>
+   {% if can_create %}
+      <a href="{{ add_url }}" class="btn btn-primary btn-sm"><i class="ti ti-plus me-1"></i>{{ __('Assess a site', 'grcmanager') }}</a>
+   {% endif %}
+</div>
+
+<div class="card">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-columns me-1"></i>{{ __('Comparison of the sites (last assessment of each site)', 'grcmanager') }}</h3>
+   </div>
+   {% if sites is empty %}
+      <div class="card-body">
+         <div class="alert alert-info mb-0" id="grc-physical-empty"><i class="ti ti-info-circle me-1"></i>{{ __('No site assessed yet. Click "Assess a site", choose a location of GLPI and fill in the checklist of controls A.7.1 to A.7.14.', 'grcmanager') }}</div>
+      </div>
+   {% else %}
+   <div class="table-responsive">
+      <table class="table table-sm table-vcenter card-table" id="grc-physical-compare">
+         <thead>
+            <tr>
+               <th>{{ __('Site', 'grcmanager') }}</th>
+               <th>{{ __('Assessment date', 'grcmanager') }}</th>
+               <th>{{ __('Score', 'grcmanager') }}</th>
+               {% for code in codes %}
+                  <th class="text-center text-nowrap" title="{{ code }} {{ titles[code] }}">{{ code|slice(2) }}</th>
+               {% endfor %}
+               <th>{{ __('Next assessment', 'grcmanager') }}</th>
+            </tr>
+         </thead>
+         <tbody>
+         {% for site in sites %}
+            <tr class="grc-physical-site">
+               <td>
+                  <a href="{{ site.url }}" class="fw-bold">{{ site.site }}</a>
+                  {% if site.name %}<div class="small text-muted">{{ site.name }}</div>{% endif %}
+                  {% if multi %}<div class="small text-muted"><i class="ti ti-stack me-1"></i>{{ site.entity }}</div>{% endif %}
+               </td>
+               <td class="text-nowrap">
+                  {{ site.date ?: '-' }}
+                  <div class="small {{ site.completed ? 'text-success' : 'text-muted' }}">{{ site.status }}</div>
+               </td>
+               <td class="text-nowrap">
+                  {% if site.summary.score is not null %}
+                     <span class="badge bg-blue-subtle text-blue-emphasis">{{ site.summary.score }}%</span>
+                  {% else %}-{% endif %}
+                  {% if site.summary.findings > 0 %}
+                     <div class="small text-orange">{{ _n('%d finding', '%d findings', site.summary.findings, 'grcmanager')|format(site.summary.findings) }}</div>
+                  {% endif %}
+               </td>
+               {% for code in codes %}
+                  {% set state = states[site.states[code]|default('not_assessed')] %}
+                  <td class="text-center">
+                     <span class="badge {{ state[1] }}" title="{{ __('%1$s: %2$s', 'grcmanager')|format(code ~ ' ' ~ titles[code], state[0]) }}" aria-label="{{ code }} {{ state[0] }}"><i class="ti {{ state[2] }}"></i></span>
+                  </td>
+               {% endfor %}
+               <td class="text-nowrap">
+                  {{ site.next ?: '-' }}
+                  <div><span class="badge {{ due_labels[site.due][1] }}">{{ due_labels[site.due][0] }}</span></div>
+               </td>
+            </tr>
+         {% endfor %}
+         </tbody>
+      </table>
+   </div>
+   <div class="card-footer d-flex flex-wrap gap-2 small">
+      {% for key, state in states %}
+         <span class="badge {{ state[1] }}"><i class="ti {{ state[2] }} me-1"></i>{{ state[0] }}</span>
+      {% endfor %}
+      <span class="text-muted ms-2">{{ __('Hover a cell to see the control. The score counts 1 for a compliant control and 0.5 for a partially compliant one, over the applicable controls.', 'grcmanager') }}</span>
+   </div>
+   {% endif %}
+</div>
+</div>

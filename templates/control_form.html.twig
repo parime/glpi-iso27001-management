@@ -497,6 +497,21 @@
       {{ fields.htmlField('', endoflife_html, __('End of support (endoflife.date)', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #782 : fin de garantie du matériel (A.7.13 et A.8.9), dans les entités de la personne. #}
+   {% if hardware_warranty is defined and hardware_warranty is not null %}
+      {% set hardware_warranty_html %}
+         <div id="grc-hardware-warranty-evidence">
+            <span class="badge {{ hardware_warranty.expired > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-shield-x me-1"></i>{{ __('%d piece(s) of hardware with an expired warranty', 'grcmanager')|format(hardware_warranty.expired) }}</span>
+            <span class="badge {{ hardware_warranty.soon > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1"><i class="ti ti-hourglass-high me-1"></i>{{ __('%1$d ending within %2$d days', 'grcmanager')|format(hardware_warranty.soon, hardware_warranty.warning_days) }}</span>
+            <span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-shield-check me-1"></i>{{ __('%d under warranty', 'grcmanager')|format(hardware_warranty.covered) }}</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-help-circle me-1"></i>{{ __('%d without warranty information', 'grcmanager')|format(hardware_warranty.unknown) }}</span>
+            <a href="{{ hardware_warranty.url }}" class="me-2">{{ __('View the details', 'grcmanager') }}</a>
+            <a href="{{ hardware_warranty.export_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export (CSV)', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', hardware_warranty_html, __('Hardware warranty', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #771 : contacts officiels (autorités pour A.5.5, groupes d'intérêt pour A.5.6), dans les entités de la personne. #}
    {% if official_contacts is defined and official_contacts is not null %}
       {% set official_contacts_html %}
@@ -509,6 +524,37 @@
          </div>
       {% endset %}
       {{ fields.htmlField('', official_contacts_html, __('Register of official contacts', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
+   {# Issue #616 : communication de crise (A.5.26), modèles, listes de diffusion et traces. #}
+   {% if crisis_communication is defined and crisis_communication is not null %}
+      {% set crisis_communication_html %}
+         {% include '@grcmanager/_crisis_communication_summary.html.twig' with {'summary': crisis_communication} only %}
+      {% endset %}
+      {{ fields.htmlField('', crisis_communication_html, __('Crisis communication', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+   {# Issue #778 : état de la mesure A.7.x dans la dernière évaluation de chaque site. #}
+   {% if physical_security is defined and physical_security is not null %}
+      {% set physical_security_html %}
+         <div id="grc-physical-security-evidence">
+            {% if physical_security.sites is empty %}
+               <span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-building-fortress me-1"></i>{{ __('No site assessed yet', 'grcmanager') }}</span>
+            {% else %}
+               <ul class="list-unstyled mb-1">
+                  {% for site in physical_security.sites %}
+                     <li class="mb-1">
+                        <a href="{{ site.url }}"><i class="ti ti-building me-1"></i>{{ site.site }}</a>
+                        <span class="badge {{ site.state_class }} ms-1"><i class="ti {{ site.state_icon }} me-1"></i>{{ site.state_label }}</span>
+                        {% if site.date %}<span class="text-muted small ms-1">{{ site.date }}</span>{% endif %}
+                        {% if site.finding %}<div class="text-muted small">{{ site.finding|slice(0, 200) }}{% if site.finding|length > 200 %}...{% endif %}</div>{% endif %}
+                     </li>
+                  {% endfor %}
+               </ul>
+            {% endif %}
+            <a href="{{ physical_security.url }}">{{ __('Compare the sites', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', physical_security_html, __('Physical security of the sites', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
    {# Issue #775 : procédures d'exploitation (A.5.37), couverture des domaines attendus. #}

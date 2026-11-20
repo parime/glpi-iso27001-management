@@ -368,13 +368,19 @@ final class Installer
         \GlpiPlugin\Grcmanager\OperatingProcedure::class,
         // Issue #779 : conformité des licences logicielles (page de synthèse, sans table).
         \GlpiPlugin\Grcmanager\SoftwareLicenseCompliance::class,
+        // Issue #782 : fin de garantie du matériel (carte de la page du parc, sans table).
+        \GlpiPlugin\Grcmanager\HardwareWarranty::class,
         // Issue #703 : registre NIS2 Italia - ACN.
         \GlpiPlugin\Grcmanager\AcnRequirement::class,
         // Issue #612 : matrice des responsabilités du SMSI et ses exports archivés.
         \GlpiPlugin\Grcmanager\ResponsibilityActivity::class,
         \GlpiPlugin\Grcmanager\ResponsibilityExport::class,
+        // Issue #778 : évaluations de la sécurité physique des sites, rappel de réévaluation.
+        ...PhysicalSecurityTables::CLASSES,
         // Issue #774 : compétences (fonctions du SMSI, compétences, déclarations, exports archivés).
         ...CompetenceTables::CLASSES,
+        // Issue #616 : communication de crise (modèles, listes de diffusion, communications faites).
+        ...CrisisCommunicationTables::CLASSES,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
@@ -1494,8 +1500,13 @@ final class Installer
         $this->installDataBreachTables($keySign, $charset, $collation);
         $this->installContextTables($migration, $keySign, $charset, $collation);
         $this->installResponsibilityTables($keySign, $charset, $collation);
+        // Issue #778 : sécurité physique des sites (A.7.1 à A.7.14), grille, zones et rappel annuel.
+        PhysicalSecurityTables::install($keySign, $charset, $collation);
         // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
         CompetenceTables::install($keySign, $charset, $collation);
+        // Issue #616 : communication de crise, et modèles fournis (une seule fois, bibliothèque vide).
+        CrisisCommunicationTables::install($keySign, $charset, $collation);
+        \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -6100,6 +6111,8 @@ final class Installer
         $this->unseedNotification(\GlpiPlugin\Grcmanager\BusinessProcess::class);
         // Issue #538 : demandes de preuves d'audit.
         $this->unseedNotification(\GlpiPlugin\Grcmanager\AuditEvidenceRequest::class);
+        // Issue #778 : rappel de réévaluation de la sécurité physique des sites.
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\PhysicalSecurityAssessment::class);
         // Issue #608 : revue des enjeux et des parties intéressées.
         $this->unseedNotification(\GlpiPlugin\Grcmanager\ContextItem::class);
 
@@ -6227,7 +6240,9 @@ final class Installer
         $migration->dropTable(self::RESPONSIBILITY_ASSIGNMENTS_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_ACTIVITIES_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_EXPORTS_TABLE);
+        PhysicalSecurityTables::uninstall($migration);
         CompetenceTables::uninstall($migration);
+        CrisisCommunicationTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

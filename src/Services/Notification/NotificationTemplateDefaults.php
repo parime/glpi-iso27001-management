@@ -48,6 +48,7 @@ use GlpiPlugin\Grcmanager\NotificationTargetPolicy;
 use GlpiPlugin\Grcmanager\NotificationTargetPolicyVersion;
 use GlpiPlugin\Grcmanager\NotificationTargetPersonnelCompliance;
 use GlpiPlugin\Grcmanager\PersonnelCompliance;
+use GlpiPlugin\Grcmanager\PhysicalSecurityAssessment;
 use GlpiPlugin\Grcmanager\AuditEvidenceRequest;
 use GlpiPlugin\Grcmanager\NotificationTargetAuditEvidenceRequest;
 use GlpiPlugin\Grcmanager\Policy;
@@ -266,6 +267,15 @@ final class NotificationTemplateDefaults
                     . 'once a month).',
                 $owner,
                 'Contact officiel à vérifier', '',
+            ],
+            // Issue #778 : réévaluation annuelle de la sécurité physique d'un site.
+            'physicalsecurity_reassessment' => [
+                PhysicalSecurityAssessment::class, PhysicalSecurityAssessment::REMINDER_EVENT,
+                'Physical security reassessment due',
+                $sentByTask . 'the yearly physical security reassessment of a site is due within 30 days or is '
+                    . 'overdue (at most once a month).',
+                $owner,
+                'Réévaluation de la sécurité physique à prévoir', '',
             ],
             'capa_overdue' => [
                 Nonconformity::class, 'capa_overdue', 'Overdue corrective/preventive action',
@@ -591,6 +601,18 @@ final class NotificationTemplateDefaults
                     $t('Call or write to the contact to check that the phone numbers, addresses and the person to '
                         . 'reach are still correct, then click "Record the verification" on the record.'),
                 ], '##contextitem.url##', $t('View the official contact'), $head);
+
+            case 'physicalsecurity_reassessment':
+                $title = $head('##physicalsecurity.action##', '##physicalsecurity.site##');
+
+                return self::simple($title, $title, [
+                    $line('Site', '##physicalsecurity.site##'),
+                    $line('Next assessment', '##physicalsecurity.nextdate##'),
+                ], [
+                    $t('Walk through the site again with the physical security checklist (controls A.7.1 to A.7.14): '
+                        . 'create a new assessment of the site, which takes over its zones, then record the state of '
+                        . 'each control.'),
+                ], '##physicalsecurity.url##', $t('View the last assessment'), $head);
 
             case 'capa_overdue':
                 $title = $head('##nc.action##', '##nc.title##');

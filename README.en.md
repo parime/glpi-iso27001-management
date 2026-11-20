@@ -137,7 +137,8 @@ classification fields merged directly onto it.
 - Each part of the module can be enabled/disabled independently (Configuration > Plugins).
 
 **Vulnerabilities and continuity**
-- **Fleet vulnerabilities**: CVEs of installed software (NVD), real-world exploitation (CISA KEV,
+- **Fleet vulnerabilities**: CVEs of installed software, firmware and operating systems (NVD),
+  real-world exploitation (CISA KEV,
   FIRST EPSS), CERT-FR advisories, one update ticket per software (automatic creation off by
   default), "Vulnerabilities" tab on computers.
 - **Remediation deadlines** by level (exploited, critical, high, medium, low; off by default,

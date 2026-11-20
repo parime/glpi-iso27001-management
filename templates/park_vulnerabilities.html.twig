@@ -199,9 +199,12 @@
                            {% endfor %}
                         {% endif %}
                         {# Issue #705 : source du rapprochement, logiciel installé et/ou firmware des actifs. #}
+                        {# Issue #780 : ou système d'exploitation. #}
                         {% for source in row.sources %}
                            {% if source == 'firmware' %}
                               <span class="badge bg-secondary-lt ms-1"><i class="ti ti-cpu me-1"></i>{{ __('Firmware', 'grcmanager') }}</span>
+                           {% elseif source == 'os' %}
+                              <span class="badge bg-secondary-lt ms-1"><i class="ti ti-device-desktop me-1"></i>{{ __('Operating system', 'grcmanager') }}</span>
                            {% else %}
                               <span class="badge bg-secondary-lt ms-1"><i class="ti ti-apps me-1"></i>{{ __('Software', 'grcmanager') }}</span>
                            {% endif %}
@@ -432,4 +435,8 @@
    {% endif %}
    {# Issue #704 : fin de support (endoflife.date). #}
    {% include '@grcmanager/park_endoflife.html.twig' %}
+   {# Issue #782 : fin de garantie du matériel (informations financières de GLPI). #}
+   {% if hardware_warranty is defined and hardware_warranty is not null %}
+      {% include '@grcmanager/park_hardware_warranty.html.twig' %}
+   {% endif %}
 </div>

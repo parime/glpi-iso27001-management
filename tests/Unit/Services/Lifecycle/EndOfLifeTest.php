@@ -136,6 +136,11 @@ final class EndOfLifeTest extends TestCase
         $this->assertSame('windows', ProductMatcher::automatic('os', 'Microsoft Windows 11 Professionnel'));
         $this->assertSame('windows-server', ProductMatcher::automatic('os', 'Microsoft Windows Server 2019 Standard'));
         $this->assertSame('debian', ProductMatcher::automatic('os', 'Debian GNU/Linux'));
+        // Issue #780 : nom complet inventorié par l'agent GLPI.
+        $this->assertSame('debian', ProductMatcher::automatic('os', 'Debian GNU/Linux 12 (bookworm)'));
+        $this->assertSame('ubuntu', ProductMatcher::automatic('os', 'Ubuntu 22.04.4 LTS'));
+        $this->assertSame('rhel', ProductMatcher::automatic('os', 'Red Hat Enterprise Linux 9.3 (Plow)'));
+        $this->assertSame('', ProductMatcher::automatic('os', 'Ubuntu Demo Edition'));
         $this->assertSame('fortios', ProductMatcher::automatic('firmware', 'FortiOS'));
         // Ressemblance seulement : jamais rapproché.
         $this->assertSame('', ProductMatcher::automatic('software', 'Firefox Helper Toolbar'));
