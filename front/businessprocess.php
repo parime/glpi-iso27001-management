@@ -50,27 +50,14 @@ Html::header(
     \GlpiPlugin\Grcmanager\AccessReview::class,
     \GlpiPlugin\Grcmanager\BusinessProcess::class
 );
-// Issue #733 : programme de tests de reprise, vue en lecture seule de la liste des processus.
-if (($_GET['view'] ?? '') === 'programme') {
-    \GlpiPlugin\Grcmanager\PageHelp::show('recoveryprogramme');
-    $renderer = \Glpi\Application\View\TemplateRenderer::getInstance();
-    $renderer->display('@grcmanager/business_process_programme.html.twig', [
-        'programme'     => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::programme(date('Y-m-d')),
-        'due_labels'    => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::dueLabels(),
-        'result_labels' => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::resultLabels(),
-        'list_url'      => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL(),
-    ]);
-    Html::footer();
-
-    return;
-}
 \GlpiPlugin\Grcmanager\PageHelp::show('businessprocess');
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/business_process_list_header.html.twig', [
     'new_url'    => \GlpiPlugin\Grcmanager\BusinessProcess::canCreate()
         ? \GlpiPlugin\Grcmanager\BusinessProcess::getFormURL() : '',
     'export_url' => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL() . '?export=csv',
     'report_url' => \GlpiPlugin\Grcmanager\BusinessProcess::getContinuityReportURL(),
-    'programme_url' => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL() . '?view=programme',
+    // Issue #733 : programme des tests de reprise.
+    'programme_url' => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::getProgrammeURL(),
 ]);
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\BusinessProcess::class, $_GET);

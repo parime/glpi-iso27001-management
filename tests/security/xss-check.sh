@@ -130,7 +130,7 @@ check "onglet violation de donnees d'un incident" "$(tab PluginGrcmanagerSecurit
 check "front/businessprocess.form.php"         "$P/businessprocess.form.php?id=$(xid process)"
 check "front/businessprocess.php"              "$P/businessprocess.php"
 # Issue #733 : programme des tests de reprise (nom du processus et type d'exercice pieges).
-check "programme des tests de reprise"         "$P/businessprocess.php?view=programme"
+check "programme des tests de reprise"         "$P/recoveryprogramme.php"
 check "onglet BIA d'un processus"              "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessImpact$1' "$(xid process)")"
 check "onglet dependances d'un processus"      "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(xid process)")"
 check "onglet processus metier d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id computer_A)")"

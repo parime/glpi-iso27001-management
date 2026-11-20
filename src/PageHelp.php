@@ -933,7 +933,7 @@ class PageHelp
                 ),
                 'reference' => __('ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30', 'grcmanager'),
             ],
-            // Issue #733 : programme de tests de reprise (vue de la liste des processus métier).
+            // Issue #733 : programme de tests de reprise (front/recoveryprogramme.php).
             'recoveryprogramme' => [
                 'purpose'   => __(
                     'Recovery test programme: when each business process was last tested, whether the test met '

@@ -135,7 +135,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/databreach.php front/databreach.form.php front/databreach.export.php?format=pdf front/databreach.export.php?format=csv
   front/riskappetite.php front/riskindicator.php front/auditcoverage.php front/auditprogramme.php
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
-  front/businessprocess.php?view=programme
+  front/recoveryprogramme.php
   front/crisisscenario.php front/crisisscenario.export.php front/crisisscenario.form.php
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
@@ -490,7 +490,7 @@ if [ "$ROLE" = general ]; then
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
            front/riskappetite.php front/riskindicator.php \
            front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php \
-           front/businessprocess.php?view=programme \
+           front/recoveryprogramme.php \
            front/crisisscenario.php front/crisisscenario.export.php "front/crisisscenario.form.php?id=$(id crisis_scenario_A)"; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
@@ -939,7 +939,7 @@ contains "strategie de reprise du processus A : test" "Test de reprise A" oui "$
 contains "strategie de reprise du processus A : mode degrade" "Mode degrade A" oui "$strategy"
 contains "strategie de reprise du processus A : test de B" "Test de reprise B" non "$strategy"
 # Issue #733 : programme des tests de reprise, limite aux processus lisibles.
-programme=$(curl -s -c "$JAR" -b "$JAR" "$P/businessprocess.php?view=programme")
+programme=$(curl -s -c "$JAR" -b "$JAR" "$P/recoveryprogramme.php")
 contains "programme des tests de reprise : processus de A" "Processus securite A" oui "$programme"
 if [ "$ROLE" = limited ]; then
   contains "programme des tests de reprise : processus de B" "Processus securite B" non "$programme"

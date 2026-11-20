@@ -79,6 +79,16 @@ class BusinessProcessRecovery extends BusinessProcessRecoveryBase
         return 'ti ti-lifebuoy';
     }
 
+    /**
+     * Issue #733 : page du programme des tests de reprise (bouton de la liste des processus métier).
+     */
+    public static function getProgrammeURL(bool $full = true): string
+    {
+        global $CFG_GLPI;
+
+        return ($full ? $CFG_GLPI['root_doc'] : '') . '/plugins/grcmanager/front/recoveryprogramme.php';
+    }
+
     public static function formatMinutes(int $minutes): string
     {
         $parts = RecoveryStrategyRules::split($minutes);
