@@ -32,7 +32,7 @@ if (isset($_POST['save_settings'])) {
 if (isset($_POST['generate'])) {
     Session::checkRight(EvidencePack::RIGHTNAME, UPDATE);
     $entityId = (int) ($_POST['entities_id'] ?? -1);
-    if (!EvidencePack::isPerimeterAllowed($entityId)) {
+    if (!Session::haveAccessToEntity($entityId) || !EvidencePack::isPerimeterAllowed($entityId)) {
         throw new AccessDeniedHttpException();
     }
     $result = EvidencePack::generate($entityId);
@@ -57,5 +57,10 @@ Html::header(
 \GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, EvidencePack::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('evidencepack');
-EvidencePack::showPage((int) ($_GET['entities_id'] ?? Session::getActiveEntity()));
+// Entité demandée : affichée seulement si elle est accessible, sinon l'entité active.
+$entityId = (int) ($_GET['entities_id'] ?? Session::getActiveEntity());
+if (!Session::haveAccessToEntity($entityId)) {
+    $entityId = (int) Session::getActiveEntity();
+}
+EvidencePack::showPage($entityId);
 Html::footer();

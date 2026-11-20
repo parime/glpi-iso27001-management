@@ -591,7 +591,7 @@ class EvidencePack extends CommonGLPI
             'files_count'    => count($included),
             'expired_count'  => (int) $data['summary'][Rules::STATE_EXPIRED],
             'skipped_count'  => (int) $data['summary'][Rules::STATE_TOO_LARGE],
-            'documents'      => (string) json_encode(array_values($included)),
+            'documents'      => (string) json_encode($included),
             'users_id'       => (int) Session::getLoginUserID(),
             'date_creation'  => $now,
         ]);
