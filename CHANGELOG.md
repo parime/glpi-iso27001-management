@@ -9,6 +9,28 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Audits de certification : réponse aux constats de l'organisme dans les délais** (issue #772,
+  lot 3). Après l'audit, l'organisme attend un plan d'actions puis les preuves de levée, chacun
+  dans un délai fixé par son rapport :
+  - fiche d'un audit de certification : **Rapport de l'organisme reçu le**, **Plan d'actions à
+    envoyer à l'organisme avant le**, **Preuves à envoyer à l'organisme avant le** (aussi dans la
+    recherche) ;
+  - fiche d'un constat d'audit de certification : **Correction** (avant la cause et l'action
+    corrective) et bloc **Réponse à l'organisme** : date d'envoi du plan d'actions, **décision de
+    l'organisme** (en attente, accepté, à compléter) et son retour, date d'envoi des preuves ;
+  - nouvel onglet **Réponse à l'organisme** de l'audit : délais et jours restants en badges, état
+    du plan d'actions et des preuves de chaque constat (à envoyer, bientôt dû, en retard, envoyé,
+    accepté, à compléter), éléments manquants avant l'envoi (correction, cause, action,
+    responsable, échéance) ;
+  - export PDF **Plan d'actions correctives pour l'organisme** (référence, constat, correction,
+    cause, action, responsable, échéance, preuves, état de levée), à envoyer à l'organisme ;
+  - « Préparation à la certification » : plans d'actions et preuves encore à envoyer, dont ceux en
+    retard ;
+  - une réponse est attendue pour une non-conformité, facultative pour un point sensible ou une
+    piste de progrès. Aucun statut, responsable ni échéance n'est modifié automatiquement ;
+  - colonnes `body_report_date`, `body_response_due_date`, `body_evidence_due_date` des audits et
+    `correction`, `body_response_date`, `body_decision`, `body_feedback`, `body_evidence_date` des
+    non-conformités (migration rejouable, supprimées avec les tables à la désinstallation).
 - **Chiffrement des disques du parc** (issue #847, mesures A.8.24 et A.8.1). Nouvelle page Sécurité
   technique > « Chiffrement des disques », d'après les volumes remontés par l'agent d'inventaire de
   GLPI (état, outil BitLocker, FileVault, LUKS, VeraCrypt..., algorithme) :
@@ -34,6 +56,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Audit interne selon l'ISO 19011 : indépendance par les mesures auditées et planification depuis
+  le programme** (issue #773, lot 3, ISO 27001 9.2) :
+  - le contrôle d'indépendance porte aussi sur les processus dont la matrice des responsabilités
+    porte une mesure de l'Annexe A auditée (ligne « mesure » de la grille de l'audit ou mesure liée
+    à la fiche), même s'ils ne sont pas choisis dans l'onglet. Le conflit indique les mesures
+    concernées, dans l'onglet « Programme et indépendance » et dans le rapport PDF, et bloque le
+    démarrage et la clôture jusqu'à sa justification, comme les autres ;
+  - page du programme pluriannuel : bouton **Planifier** dans chaque case sans audit à venir (année
+    en cours ou suivante). Il crée un audit interne « Prévu » pour ce processus et cette année, dans
+    l'entité du processus (droit de créer un audit exigé), et ouvre sa fiche ;
+  - aucune nouvelle table ni colonne ; aucun statut ni droit n'est modifié automatiquement. Ce lot
+    termine l'issue #773.
+
 - **Préparation à la certification : délais réglables** (issue #761, lot 2). Les réglages de l'écran
   « Préparation à la certification » gagnent :
   - le **délai d'alerte** (« Alerte (jours) », 14 par défaut, de 1 à 90) : une étape non faite dont
@@ -49,6 +84,30 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits inchangés (réglages : droit de modifier le plugin, jeton CSRF) ; valeurs nettoyées et
     bornées à l'enregistrement ; réglages stockés dans le contexte `plugin:grcmanager`, retiré à la
     désinstallation. Traductions (7 langues et variantes), tests unitaires et d'intégration.
+- **Exercices de reprise : type d'exercice, RPO mesuré, programme de tests et historique par
+  élément** (issue #733, ISO 27001 A.5.30, ISO 22301 8.5). Ce que l'auditeur regarde pour la
+  préparation des TIC à la continuité :
+  - **type d'exercice** (sur table, fonctionnel, test technique de restauration, grandeur nature),
+    choisi au lancement d'un exercice de crise, modifiable dans la salle de crise jusqu'à la
+    validation du bilan, repris par les tests de reprise saisis pendant l'exercice ; liste réglable
+    dans la configuration du plugin (types par défaut cochés, types propres un par ligne) ;
+  - **perte de données mesurée** (RPO mesuré) à côté du temps de reprise, comparée au RPO du
+    processus et, si un **élément testé** est désigné parmi ses dépendances, aux objectifs de cet
+    élément ; un dernier test au-delà du RPO est signalé dans la BIA et la stratégie de reprise ;
+  - **programme de tests** : fréquence propre à chaque processus (sinon celle de la revue
+    périodique), prochaine échéance et **couverture sur quatre ans** (badge selon le résultat du
+    dernier test de l'année) dans l'onglet « Stratégie de reprise », et vue **Programme des tests de
+    reprise** depuis la liste des processus métier (en retard, non testés cette année, hors
+    objectifs) ;
+  - la tâche `businessprocessreminder` signale aussi les processus jamais testés, une période après
+    leur création (notification uniquement, aucune modification ; à la mise à jour, l'état actuel
+    est tenu pour rappelé) ;
+  - **historique sur l'élément** : l'onglet « Processus métier » d'un serveur, d'une application...
+    liste les tests de reprise qui l'ont couvert et leur résultat ;
+  - colonnes `exercise_type`, `measured_rpo_minutes`, `itemtype`, `items_id` des tests de reprise,
+    `recovery_test_months` des processus et `exercise_type` des exercices (supprimées avec leurs
+    tables à la désinstallation), réglage `recovery_exercise_types`. Un élément ou un exercice
+    illisible n'est jamais nommé ; traductions dans les 7 langues ; tutoriel, étape 30 bis.
 
 ## [2.70.0] - 2026-11-20
 

@@ -56,6 +56,8 @@ Html::header(
         ? \GlpiPlugin\Grcmanager\BusinessProcess::getFormURL() : '',
     'export_url' => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL() . '?export=csv',
     'report_url' => \GlpiPlugin\Grcmanager\BusinessProcess::getContinuityReportURL(),
+    // Issue #733 : programme des tests de reprise.
+    'programme_url' => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::getProgrammeURL(),
 ]);
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\BusinessProcess::class, $_GET);

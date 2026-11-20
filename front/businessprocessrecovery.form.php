@@ -29,11 +29,21 @@ if (isset($_POST['add'])) {
     if ($exerciseId > 0 && \GlpiPlugin\Grcmanager\BusinessProcessRecovery::readableExercise($exerciseId) === null) {
         throw new \Glpi\Exception\Http\NotFoundHttpException();
     }
+    // Issue #733 : élément testé, parmi les dépendances lisibles du processus.
+    $asset = is_string($_POST['asset'] ?? null) ? trim($_POST['asset']) : '';
+    $assets = \GlpiPlugin\Grcmanager\BusinessProcessRecovery::assetChoices($process);
+    if ($asset !== '' && !array_key_exists($asset, $assets)) {
+        throw new \Glpi\Exception\Http\NotFoundHttpException();
+    }
     $recovery->add([
         'plugin_grcmanager_businessprocesses_id'                   => (int) $process->getID(),
         \GlpiPlugin\Grcmanager\BusinessProcessRecovery::EXERCISE_FIELD => $exerciseId,
         'test_date'                                                => (string) ($_POST['test_date'] ?? ''),
         'measured_minutes'                                         => $_POST['measured_minutes'] ?? 0,
+        // Issue #733 : perte de données mesurée, type d'exercice et élément testé.
+        'measured_rpo_minutes'                                     => $_POST['measured_rpo_minutes'] ?? null,
+        'exercise_type'                                            => (string) ($_POST['exercise_type'] ?? ''),
+        'asset'                                                    => $asset,
         'comment'                                                  => (string) ($_POST['comment'] ?? ''),
     ]);
 } elseif (isset($_POST['purge'])) {

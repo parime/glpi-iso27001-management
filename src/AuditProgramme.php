@@ -23,6 +23,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Audit\ChecklistRules;
 use GlpiPlugin\Grcmanager\Services\Audit\ProgrammeRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Perimeter\PerimeterRules;
+use GlpiPlugin\Grcmanager\Services\Responsibility\ResponsibilityRules;
 use Html;
 use Log;
 use Session;
@@ -36,7 +37,9 @@ use User;
  * - onglet « Programme et indépendance » de l'audit : processus audités, conflits d'indépendance
  *   des auditeurs (un auditeur qui réalise ou approuve un processus audité), justification tracée
  *   de chaque conflit, remise du rapport à la direction ;
- * - compétence des auditeurs (formations qualifiantes), affichée dans l'équipe d'audit.
+ * - compétence des auditeurs (formations qualifiantes), affichée dans l'équipe d'audit ;
+ * - lot 3 : indépendance vérifiée aussi sur les processus qui mettent en oeuvre une mesure de
+ *   l'Annexe A auditée, et planification d'un audit depuis une case du programme.
  *
  * Droits : ceux de l'audit (lecture pour voir, modification pour enregistrer) ; les réglages du
  * programme demandent le droit de modifier les audits. Entités : audits et processus des entités
@@ -150,6 +153,21 @@ class AuditProgramme extends CommonGLPI
      */
     public static function processChoices(Audit $audit): array
     {
+        $choices = [];
+        foreach (self::fittingActivities($audit) as $id => $row) {
+            $choices[$id] = ResponsibilityActivity::label($row);
+        }
+
+        return $choices;
+    }
+
+    /**
+     * Activités que l'audit peut viser (voir processChoices()), lignes complètes.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private static function fittingActivities(Audit $audit): array
+    {
         global $DB;
 
         $table = ResponsibilityActivity::getTable();
@@ -177,7 +195,7 @@ class AuditProgramme extends CommonGLPI
                 $recursive
             );
             if ($fits) {
-                $choices[(int) $row['id']] = ResponsibilityActivity::label($row);
+                $choices[(int) $row['id']] = $row;
             }
         }
 
@@ -296,7 +314,8 @@ class AuditProgramme extends CommonGLPI
     public static function conflicts(Audit $audit, ?int $leadAuditor = null): array
     {
         $auditors = self::auditors($audit, $leadAuditor);
-        $processIds = self::processIds($audit->getID());
+        $scope = self::scopeProcesses($audit);
+        $processIds = array_keys($scope);
         if ($auditors === [] || $processIds === []) {
             return [];
         }
@@ -315,10 +334,59 @@ class AuditProgramme extends CommonGLPI
                 ? (string) \Dropdown::getDropdownName('glpi_groups', $conflict['groups_id'])
                 : '';
             $conflict['waiver'] = $waivers[$key] ?? null;
+            // Lot 3 : processus visé par une mesure auditée, et non choisi dans l'onglet.
+            $conflict['measures'] = $scope[$conflict['process_id']] ?? [];
         }
         unset($conflict);
 
         return $conflicts;
+    }
+
+    /**
+     * Lot 3 : mesures de l'Annexe A auditées, d'après les lignes « mesure » de la grille d'audit et
+     * les mesures liées à la fiche de l'audit.
+     *
+     * @return list<string>
+     */
+    public static function auditedControlCodes(Audit $audit): array
+    {
+        global $DB;
+
+        $codes = [];
+        foreach (AuditChecklist::getLines($audit->getID()) as $line) {
+            if ((string) ($line['ref_type'] ?? '') === ChecklistRules::TYPE_CONTROL) {
+                $codes[] = (string) $line['code'];
+            }
+        }
+        $linked = array_keys(Audit::getLinkedControls($audit->getID()));
+        if ($linked !== []) {
+            $rows = $DB->request(['SELECT' => ['code'], 'FROM' => Control::getTable(), 'WHERE' => ['id' => $linked]]);
+            foreach ($rows as $row) {
+                $codes[] = (string) $row['code'];
+            }
+        }
+
+        return ResponsibilityRules::splitCodes(implode(',', $codes));
+    }
+
+    /**
+     * Processus visés pour l'indépendance : ceux choisis dans l'onglet, puis (lot 3) ceux dont la
+     * matrice des responsabilités porte une mesure auditée.
+     *
+     * @return array<int, list<string>> processus => mesures auditées par lesquelles il est visé
+     */
+    public static function scopeProcesses(Audit $audit): array
+    {
+        $selected = self::processIds($audit->getID());
+        $audited = self::auditedControlCodes($audit);
+        $processCodes = [];
+        if ($audited !== []) {
+            foreach (self::fittingActivities($audit) as $id => $row) {
+                $processCodes[$id] = ResponsibilityRules::splitCodes((string) ($row['control_codes'] ?? ''));
+            }
+        }
+
+        return Rules::scopeProcesses($selected, $processCodes, $audited);
     }
 
     /**
@@ -877,8 +945,10 @@ class AuditProgramme extends CommonGLPI
             ];
         };
         foreach ($matrix['rows'] as &$row) {
-            foreach ($row['cells'] as &$cell) {
+            foreach ($row['cells'] as $year => &$cell) {
                 $cell['audits'] = array_map($decorate, $cell['audits']);
+                // Lot 3 : planifier un audit depuis une case sans audit à venir.
+                $cell['can_plan'] = Rules::canPlanCell($cell['state'], (int) $year, $today);
             }
             unset($cell);
         }
@@ -921,6 +991,84 @@ class AuditProgramme extends CommonGLPI
             'clauses_never'    => $clauses,
             'controls_never'   => $controlsNever,
         ];
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Planification depuis le programme (lot 3)
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Processus du programme qu'on peut planifier : une activité des entités de la session.
+     *
+     * @return array<string, mixed>|null
+     */
+    public static function plannableProcess(int $processId): ?array
+    {
+        global $DB;
+
+        $table = ResponsibilityActivity::getTable();
+        if ($processId <= 0 || !$DB->tableExists($table)) {
+            return null;
+        }
+        $row = $DB->request([
+            'FROM'  => $table,
+            'WHERE' => ['id' => $processId] + EntityPerimeter::criteria($table),
+            'LIMIT' => 1,
+        ])->current();
+
+        return $row === null ? null : $row;
+    }
+
+    /**
+     * Champs d'un audit interne planifié pour un processus et une année du programme : dans
+     * l'entité du processus, à la date proposée par ProgrammeRules::plannedDate(). Null pour une
+     * année passée.
+     *
+     * @param array<string, mixed> $process ligne de plannableProcess()
+     * @return array<string, mixed>|null
+     */
+    public static function planInput(array $process, int $year, ?string $today = null): ?array
+    {
+        global $DB;
+
+        $date = Rules::plannedDate($year, $today ?? date('Y-m-d'));
+        if ($date === null) {
+            return null;
+        }
+        $input = [
+            'title'        => sprintf(
+                __('Internal audit - %1$s - %2$d', 'grcmanager'),
+                ResponsibilityActivity::label($process),
+                $year
+            ),
+            'status'       => 'planned',
+            'planned_date' => $date,
+            'entities_id'  => (int) $process['entities_id'],
+            'is_recursive' => (int) !empty($process['is_recursive']),
+        ];
+        if ($DB->fieldExists(Audit::getTable(), self::TYPE_FIELD)) {
+            $input[self::TYPE_FIELD] = self::TYPE_INTERNAL;
+        }
+
+        return $input;
+    }
+
+    /**
+     * Crée l'audit planifié (champs de planInput(), droit de création déjà vérifié) et lui
+     * rattache le processus. Renvoie l'identifiant, 0 en cas d'échec.
+     *
+     * @param array<string, mixed> $input
+     */
+    public static function planAudit(int $processId, array $input): int
+    {
+        $audit = new Audit();
+        $id = (int) $audit->add($input);
+        if ($id <= 0 || !$audit->getFromDB($id)) {
+            return 0;
+        }
+        self::setProcesses($audit, [$processId]);
+
+        return $id;
     }
 
     // ---------------------------------------------------------------------------------------------

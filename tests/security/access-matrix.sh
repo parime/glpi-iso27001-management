@@ -136,6 +136,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/databreach.php front/databreach.form.php front/databreach.export.php?format=pdf front/databreach.export.php?format=csv
   front/riskappetite.php front/riskindicator.php front/auditcoverage.php front/auditprogramme.php
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
+  front/recoveryprogramme.php
   front/crisisscenario.php front/crisisscenario.export.php front/crisisscenario.form.php
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
@@ -279,6 +280,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
   expect "front/auditprogramme.php : reglages du programme" "$1" \
     "$(code -d "save_settings=1&cycle_start=2025&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
+  # Issue #773, lot 3 : planifier un audit depuis le programme exige le droit de creer un audit.
+  expect "front/auditprogramme.php : planifier un audit" "$1" \
+    "$(code -d "plan_audit=1&process_id=$(id responsibility_A)&year=$(( $(date +%Y) + 1 ))&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
   # Issue #761 : date cible, responsable et seuils (et delais, lot 2) de la preparation a la certification exigent le
   # droit de modifier le plugin.
   expect "front/certificationreadiness.php : reglages de la preparation" "$1" \
@@ -490,6 +494,7 @@ if [ "$ROLE" = general ]; then
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
            front/riskappetite.php front/riskindicator.php \
            front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php \
+           front/recoveryprogramme.php \
            front/crisisscenario.php front/crisisscenario.export.php "front/crisisscenario.form.php?id=$(id crisis_scenario_A)"; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
@@ -930,6 +935,9 @@ if [ "$ROLE" = limited ]; then
     "$(code -d "create_risk=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
   expect "test de reprise rattache a un exercice inexistant" 404 \
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&plugin_grcmanager_crisisexercises_id=999999&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
+  # Issue #733 : l'element teste doit etre une dependance lisible du processus.
+  expect "test de reprise designant le PC de B (illisible)" 404 \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&asset=Computer:$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
 fi
 # Issue #377, troisieme etape : RTO des applications (classification) et strategie de reprise.
 expect "classification d'une application de A" 302 \
@@ -943,6 +951,12 @@ strategy=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanage
 contains "strategie de reprise du processus A : test" "Test de reprise A" oui "$strategy"
 contains "strategie de reprise du processus A : mode degrade" "Mode degrade A" oui "$strategy"
 contains "strategie de reprise du processus A : test de B" "Test de reprise B" non "$strategy"
+# Issue #733 : programme des tests de reprise, limite aux processus lisibles.
+programme=$(curl -s -c "$JAR" -b "$JAR" "$P/recoveryprogramme.php")
+contains "programme des tests de reprise : processus de A" "Processus securite A" oui "$programme"
+if [ "$ROLE" = limited ]; then
+  contains "programme des tests de reprise : processus de B" "Processus securite B" non "$programme"
+fi
 expect "test de reprise d'un processus de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_B)&measured_minutes=60&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
 expect "strategie de reprise d'un processus de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
@@ -1346,6 +1360,8 @@ if [ "$ROLE" != admin ]; then
     "$(code -d "justify=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&process_id=1&justification=Justification%20securite&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
   expect "remise du rapport d'un audit de B" 403 \
     "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit_B)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+  expect "planifier un audit sur un processus de B" 403 \
+    "$(code -d "plan_audit=1&process_id=$(id responsibility_B)&year=$(( $(date +%Y) + 1 ))&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
 fi
 # Issue #772, lot 2 : plan d'audit de l'organisme. Cocher demande de modifier l'audit de
 # certification concerne (droit et entite) ; un audit interne est refuse ; l'audit de B n'apparait
@@ -1366,6 +1382,19 @@ expect "front/certificationsampling.php : sans jeton CSRF" 403 \
 if [ "$ROLE" != none ]; then
   contains "front/certificationsampling.php : audit de certification de B" "Audit certification securite B" $IS_ADMIN \
     "$(curl -s -c "$JAR" -b "$JAR" "$P/certificationsampling.php?start=$(( $(date +%Y) - 1 ))")"
+fi
+# Issue #772, lot 3 : plan d'actions pour l'organisme (PDF). Lecture de l'audit de certification
+# (droit et entite) ; audit de B refuse hors super-admin ; audit interne : aucun plan (404).
+case $ROLE in none) RESPONSE_A=403; RESPONSE_INTERNAL=403 ;; *) RESPONSE_A=200; RESPONSE_INTERNAL=404 ;; esac
+expect "front/certificationresponse.php : plan d'actions d'un audit de certification de A" $RESPONSE_A \
+  "$(code "$P/certificationresponse.php?audit=$(id audit_cert)")"
+expect "front/certificationresponse.php : plan d'actions d'un audit de certification de B" "$DENY" \
+  "$(code "$P/certificationresponse.php?audit=$(id audit_cert_B)")"
+expect "front/certificationresponse.php : audit interne" $RESPONSE_INTERNAL \
+  "$(code "$P/certificationresponse.php?audit=$(id audit)")"
+if [ "$ROLE" != none ]; then
+  contains "onglet reponse a l'organisme d'un audit de certification de B" "grc-certification-response-tab" $IS_ADMIN \
+    "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CCertificationResponse$1' "$(id audit_cert_B)")"
 fi
 contains "tableau de bord consolide : non-conformites ouvertes par entite" "grcmanager-perimeters-findings" \
   $IS_ADMIN "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"

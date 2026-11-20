@@ -476,6 +476,122 @@ final class BusinessProcessTest extends GrcmanagerIntegrationTestCase
     }
 
     /**
+     * Issue #733 : type d'exercice, perte de données mesurée comparée au RPO, élément testé (parmi
+     * les dépendances lisibles du processus) et historique sur l'élément.
+     */
+    public function testRecoveryExerciseTypeDataLossAndItemHistory(): void
+    {
+        $process = $this->process(['name' => 'Commandes DEMO', 'rto_hours' => 4, 'rpo_hours' => 1]);
+        $server = (int) (new \Computer())->add(['name' => 'SRV-DEMO-COMMANDES', 'entities_id' => 0]);
+        $unrelated = (int) (new \Computer())->add(['name' => 'SRV-DEMO-AUTRE', 'entities_id' => 0]);
+        $this->assertGreaterThan(0, (int) (new BusinessProcessItem())->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+            'itemtype' => 'Computer', 'items_id' => $server,
+        ]));
+        $this->assertSame(
+            ['Computer:' . $server],
+            array_keys(BusinessProcessRecovery::assetChoices($process))
+        );
+
+        // Exercice sur table : le type passe aux tests rattachés sans type.
+        $exerciseId = CrisisExercise::launch('outage', [], 'tabletop');
+        $exercise = new CrisisExercise();
+        $this->assertTrue($exercise->getFromDB($exerciseId));
+        $this->assertSame('tabletop', $exercise->fields['exercise_type']);
+        $this->assertSame(BusinessProcessRecovery::typeLabel('tabletop'), $exercise->collect()['exercise']['type']);
+
+        $recovery = new BusinessProcessRecovery();
+        $this->assertGreaterThan(0, (int) $recovery->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+            BusinessProcessRecovery::EXERCISE_FIELD   => $exerciseId,
+            'test_date' => '2025-05-02', 'measured_minutes' => 120, 'measured_rpo_minutes' => '',
+        ]));
+        $this->assertGreaterThan(0, (int) $recovery->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+            'test_date' => '2026-04-10', 'measured_minutes' => 90, 'measured_rpo_minutes' => 0,
+            'exercise_type' => 'technical_restore', 'asset' => 'Computer:' . $server,
+        ]));
+        // Perte de 3 h pour un RPO de 1 h, type inconnu ignoré.
+        $this->assertGreaterThan(0, (int) $recovery->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+            'test_date' => '2026-06-20', 'measured_minutes' => 60, 'measured_rpo_minutes' => 180,
+            'exercise_type' => 'not a configured type',
+        ]));
+        // Élément qui n'est pas une dépendance du processus : refusé.
+        $this->assertFalse($recovery->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+            'measured_minutes' => 60, 'asset' => 'Computer:' . $unrelated,
+        ]));
+
+        $strategy = BusinessProcessRecovery::strategy($process);
+        $tests = $strategy['tests'];
+        $this->assertCount(3, $tests);
+        $this->assertSame([180, 0, null], array_column($tests, 'rpo_minutes'));
+        $this->assertSame([true, false, false], array_column($tests, 'rpo_exceeds'));
+        $this->assertSame(['failed', 'passed', 'passed'], array_column($tests, 'result'));
+        $this->assertSame(
+            [
+                '',
+                BusinessProcessRecovery::typeLabel('technical_restore'),
+                BusinessProcessRecovery::typeLabel('tabletop'),
+            ],
+            array_column($tests, 'type')
+        );
+        $this->assertSame('SRV-DEMO-COMMANDES', substr($tests[1]['asset'], -strlen('SRV-DEMO-COMMANDES')));
+        $this->assertContains('recovery_above_rpo', $strategy['issues']);
+        $this->assertContains('recovery_above_rpo', BusinessProcess::analyze($process)['issues']);
+        $programme = BusinessProcessRecovery::processProgramme($process, $tests, '2026-11-20');
+        $this->assertSame([2023, 2024, 2025, 2026], $programme['years']);
+        $this->assertSame('failed', $programme['coverage'][2026]);
+        $this->assertSame('passed', $programme['coverage'][2025]);
+        $this->assertSame('untested', $programme['coverage'][2024]);
+
+        // Salle de crise : perte non mesurée.
+        $rows = BusinessProcessRecovery::forExercise($exercise)['rows'];
+        $this->assertNull($rows[0]['rpo_minutes']);
+
+        // Historique sur le serveur : les trois tests du processus, dont un qui le désigne.
+        $history = BusinessProcessRecovery::forItem('Computer', $server);
+        $this->assertCount(3, $history);
+        $this->assertSame([false, true, false], array_column($history, 'direct'));
+        $this->assertSame([], BusinessProcessRecovery::forItem('Computer', $unrelated));
+        $computer = new \Computer();
+        $computer->getFromDB($server);
+        ob_start();
+        (new BusinessProcessItem())->displayTabContentForItem($computer);
+        $this->assertStringContainsString('Commandes DEMO', (string) ob_get_clean());
+
+        // Programme : le processus y figure, en lecture seule.
+        $names = array_column(BusinessProcessRecovery::programme('2026-11-20')['rows'], 'name');
+        $this->assertContains('Commandes DEMO', $names);
+
+        // Type changé dans la salle de crise, refusé après validation du bilan.
+        $this->assertTrue($exercise->setExerciseType('functional'));
+        $exercise->getFromDB($exerciseId);
+        $this->assertSame('functional', $exercise->fields['exercise_type']);
+        $this->assertFalse($exercise->setExerciseType('unknown type'));
+
+        // Liste des types réglable : un type propre à l'organisation devient proposé.
+        $saved = BusinessProcessRecovery::exerciseTypes();
+        try {
+            BusinessProcessRecovery::saveExerciseTypes(['tabletop', 'Supplier failover drill']);
+            $this->assertSame(
+                [
+                    'tabletop'                => BusinessProcessRecovery::typeLabel('tabletop'),
+                    'Supplier failover drill' => 'Supplier failover drill',
+                ],
+                BusinessProcessRecovery::typeChoices()
+            );
+            // Le type actuel reste proposé même s'il n'est plus dans la liste.
+            $this->assertArrayHasKey('functional', BusinessProcessRecovery::typeChoices('functional'));
+        } finally {
+            BusinessProcessRecovery::saveExerciseTypes($saved);
+        }
+
+        $process->delete(['id' => $process->getID()], true);
+    }
+
+    /**
      * Issue #377, troisième étape : stratégie de reprise, temps mesurés et lien avec les exercices.
      */
     public function testRecoveryStrategyAndMeasuredTimes(): void

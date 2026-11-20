@@ -170,7 +170,11 @@ class BusinessProcessItem extends BusinessProcessItemBase
             return false;
         }
         TemplateRenderer::getInstance()->display('@grcmanager/tabs/item_business_processes.html.twig', [
-            'processes' => self::getProcessesForItem($item::class, (int) $item->getID()),
+            'processes'     => self::getProcessesForItem($item::class, (int) $item->getID()),
+            // Issue #733 : historique des tests de reprise qui ont couvert l'élément.
+            'tests'         => BusinessProcessRecovery::forItem($item::class, (int) $item->getID()),
+            'result_labels' => BusinessProcessRecovery::resultLabels(),
+            'max_tests'     => BusinessProcessRecovery::MAX_ITEM_TESTS,
         ]);
 
         return true;

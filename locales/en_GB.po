@@ -30455,6 +30455,776 @@ msgstr "Warn before a license expires (days, 0 to turn off)"
 msgid "Warning %d days before a license expires."
 msgstr "Warning %d days before a license expires."
 
+#, php-format
+msgid ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+msgstr ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+
+#, php-format
+msgid ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+msgstr ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+
+msgid "Alert (days)"
+msgstr "Alert (days)"
+
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
+msgstr ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
+
+msgid "Advised deadlines per step"
+msgstr "Advised deadlines per step"
+
+msgid ""
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
+msgstr ""
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Days before the target date"
+msgstr "Days before the target date"
+
+msgid "Adjusted"
+msgstr "Adjusted"
+
+msgid "Encryption rule saved."
+msgstr "Encryption rule saved."
+
+msgid "Recovery key declaration saved."
+msgstr "Recovery key declaration saved."
+
+#, php-format
+msgid "Computers that must be encrypted and are (%)"
+msgstr "Computers that must be encrypted and are (%)"
+
+msgid ""
+"From the volume inventory: at least one unencrypted or partially encrypted "
+"disk, or a weak encryption algorithm, on a computer that must be encrypted "
+"(\"Disk encryption\" page). Only computers whose volumes are inventoried are "
+"counted. Volumes without a drive letter (EFI, recovery), network shares, "
+"optical media, FAT partitions and, on Linux, /boot and pseudo-filesystems "
+"are ignored."
+msgstr ""
+"From the volume inventory: at least one unencrypted or partially encrypted "
+"disk, or a weak encryption algorithm, on a computer that must be encrypted "
+"(\"Disk encryption\" page). Only computers whose volumes are inventoried are "
+"counted. Volumes without a drive letter (EFI, recovery), network shares, "
+"optical media, FAT partitions and, on Linux, /boot and pseudo-filesystems "
+"are ignored."
+
+msgid "Laptops with an unencrypted disk"
+msgstr "Laptops with an unencrypted disk"
+
+msgid ""
+"Same check, limited to laptops and tablets (computer type reported by the "
+"inventory agent, such as Laptop or Notebook), which are the most exposed "
+"outside the premises."
+msgstr ""
+"Same check, limited to laptops and tablets (computer type reported by the "
+"inventory agent, such as Laptop or Notebook), which are the most exposed "
+"outside the premises."
+
+#, php-format
+msgid "Weak encryption algorithm: %s"
+msgstr "Weak encryption algorithm: %s"
+
+msgid "Disk encryption"
+msgstr "Disk encryption"
+
+msgid "Fully encrypted"
+msgstr "Fully encrypted"
+
+msgid "Every inventoried volume is encrypted."
+msgstr "Every inventoried volume is encrypted."
+
+msgid "Partially encrypted"
+msgstr "Partially encrypted"
+
+msgid "At least one volume is encrypted, but not all of them."
+msgstr "At least one volume is encrypted, but not all of them."
+
+msgid "Not encrypted"
+msgstr "Not encrypted"
+
+msgid "No inventoried volume is encrypted."
+msgstr "No inventoried volume is encrypted."
+
+msgid "Unknown"
+msgstr "Unknown"
+
+msgid ""
+"No volume inventoried: no inventory agent, or an agent too old to report "
+"encryption."
+msgstr ""
+"No volume inventoried: no inventory agent, or an agent too old to report "
+"encryption."
+
+msgid "All computers"
+msgstr "All computers"
+
+msgid "Laptops and tablets only"
+msgstr "Laptops and tablets only"
+
+msgid "Computers of the selected types"
+msgstr "Computers of the selected types"
+
+msgid "Do not use the classification"
+msgstr "Do not use the classification"
+
+msgid "Confidentiality medium or high"
+msgstr "Confidentiality medium or high"
+
+msgid "Confidentiality high"
+msgstr "Confidentiality high"
+
+msgid "Laptops and tablets must be encrypted."
+msgstr "Laptops and tablets must be encrypted."
+
+msgid "No computer type is selected: only the classification below applies."
+msgstr "No computer type is selected: only the classification below applies."
+
+#, php-format
+msgid "Computers of these types must be encrypted: %s."
+msgstr "Computers of these types must be encrypted: %s."
+
+msgid "All computers must be encrypted."
+msgstr "All computers must be encrypted."
+
+msgid "So must any computer classified with a medium or high confidentiality."
+msgstr "So must any computer classified with a medium or high confidentiality."
+
+msgid "So must any computer classified with a high confidentiality."
+msgstr "So must any computer classified with a high confidentiality."
+
+#, php-format
+msgid ""
+"Disk encryption: %1$d%% of the computers that must be encrypted are, %2$d "
+"gap(s)"
+msgstr ""
+"Disk encryption: %1$d%% of the computers that must be encrypted are, %2$d "
+"gap(s)"
+
+msgid ""
+"Shows, from the volumes reported by the GLPI inventory agent (BitLocker, "
+"FileVault, LUKS, VeraCrypt...), which computers are fully encrypted, "
+"partially encrypted, not encrypted or of unknown state, by entity, computer "
+"type and location. Computers that must be encrypted and are not, or use a "
+"weak algorithm, are gaps."
+msgstr ""
+"Shows, from the volumes reported by the GLPI inventory agent (BitLocker, "
+"FileVault, LUKS, VeraCrypt...), which computers are fully encrypted, "
+"partially encrypted, not encrypted or of unknown state, by entity, computer "
+"type and location. Computers that must be encrypted and are not, or use a "
+"weak algorithm, are gaps."
+
+msgid ""
+"Choose which computers must be encrypted, encrypt the computers listed as "
+"gaps, install the inventory agent on those of unknown state, and declare "
+"where the recovery key is backed up. The plugin never reads nor stores any "
+"recovery key. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+msgstr ""
+"Choose which computers must be encrypted, encrypt the computers listed as "
+"gaps, install the inventory agent on those of unknown state, and declare "
+"where the recovery key is backed up. The plugin never reads nor stores any "
+"recovery key. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+
+msgid "ISO/IEC 27001, controls A.8.24 and A.8.1"
+msgstr "ISO/IEC 27001, controls A.8.24 and A.8.1"
+
+#, php-format
+msgid "Laptops with an unencrypted disk (%)"
+msgstr "Laptops with an unencrypted disk (%)"
+
+msgid "Disk encryption: rates, rule and details"
+msgstr "Disk encryption: rates, rule and details"
+
+#, php-format
+msgid "%d of unknown state"
+msgstr "%d of unknown state"
+
+#, php-format
+msgid "%d weak algorithm(s)"
+msgstr "%d weak algorithm(s)"
+
+#, php-format
+msgid "Computed on %s"
+msgstr "Computed on %s"
+
+#, php-format
+msgid "Encryption rate: %d%%"
+msgstr "Encryption rate: %d%%"
+
+msgid "Encryption rate: not measured"
+msgstr "Encryption rate: not measured"
+
+#, php-format
+msgid "Laptops: %d%%"
+msgstr "Laptops: %d%%"
+
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, gaps first."
+msgstr "%1$d computers: the first %2$d are shown, gaps first."
+
+#, php-format
+msgid "not fully encrypted: %d"
+msgstr "not fully encrypted: %d"
+
+#, php-format
+msgid "Older algorithm or mode, to plan to replace: %d"
+msgstr "Older algorithm or mode, to plan to replace: %d"
+
+msgid ""
+"A computer is a laptop or a tablet when its type in GLPI is one of those "
+"reported by the inventory agent (Laptop, Notebook, Portable, Tablet, "
+"Convertible...). The classification threshold uses the C/I/A classification "
+"of the computer (tab of the computer form)."
+msgstr ""
+"A computer is a laptop or a tablet when its type in GLPI is one of those "
+"reported by the inventory agent (Laptop, Notebook, Portable, Tablet, "
+"Convertible...). The classification threshold uses the C/I/A classification "
+"of the computer (tab of the computer form)."
+
+msgid "Also every computer classified with"
+msgstr "Also every computer classified with"
+
+msgid "Backed up"
+msgstr "Backed up"
+
+msgid "Backup date"
+msgstr "Backup date"
+
+msgid "Computer types (when \"Computers of the selected types\" is chosen)"
+msgstr "Computer types (when \"Computers of the selected types\" is chosen)"
+
+msgid "Computers concerned"
+msgstr "Computers concerned"
+
+msgid "Computers in GLPI"
+msgstr "Computers in GLPI"
+
+msgid "Computers that must be encrypted"
+msgstr "Computers that must be encrypted"
+
+msgid "Computers that must be encrypted and are"
+msgstr "Computers that must be encrypted and are"
+
+msgid "Computers with a weak encryption algorithm"
+msgstr "Computers with a weak encryption algorithm"
+
+msgid ""
+"For example the types used for servers and desktops that hold sensitive data."
+msgstr ""
+"For example the types used for servers and desktops that hold sensitive data."
+
+msgid "Laptops and tablets fully encrypted"
+msgstr "Laptops and tablets fully encrypted"
+
+msgid "Last inventory"
+msgstr "Last inventory"
+
+msgid "No computer concerned in your entities."
+msgstr "No computer concerned in your entities."
+
+msgid "No computer concerned."
+msgstr "No computer concerned."
+
+msgid "No location"
+msgstr "No location"
+
+msgid "No type"
+msgstr "No type"
+
+msgid "Not declared"
+msgstr "Not declared"
+
+msgid "Older algorithm or mode"
+msgstr "Older algorithm or mode"
+
+msgid "Recovery key backed up (declared)"
+msgstr "Recovery key backed up (declared)"
+
+msgid ""
+"The plugin never reads nor stores any recovery key: it only keeps whether "
+"the key is declared backed up, and when. Nothing is changed in GLPI from "
+"this page."
+msgstr ""
+"The plugin never reads nor stores any recovery key: it only keeps whether "
+"the key is declared backed up, and when. Nothing is changed in GLPI from "
+"this page."
+
+msgid "Tool and algorithm"
+msgstr "Tool and algorithm"
+
+msgid "Volumes not encrypted"
+msgstr "Volumes not encrypted"
+
+msgid "Weak algorithm"
+msgstr "Weak algorithm"
+
+msgid "Which computers must be encrypted?"
+msgstr "Which computers must be encrypted?"
+
+#, php-format
+msgid "%d computer must be encrypted"
+msgid_plural "%d computers must be encrypted"
+msgstr[0] "%d computer must be encrypted"
+msgstr[1] "%d computers must be encrypted"
+
+#, php-format
+msgid "%d laptop or tablet"
+msgid_plural "%d laptops or tablets"
+msgstr[0] "%d laptop or tablet"
+msgstr[1] "%d laptops or tablets"
+
+msgid "Certification body report received on"
+msgstr "Certification body report received on"
+
+msgid "Action plan due to the certification body"
+msgstr "Action plan due to the certification body"
+
+msgid "Evidence due to the certification body"
+msgstr "Evidence due to the certification body"
+
+#, php-format
+msgid ""
+"To send to the certification body: %1$d action plans and %2$d evidence "
+"(overdue: %3$d)"
+msgstr ""
+"To send to the certification body: %1$d action plans and %2$d evidence "
+"(overdue: %3$d)"
+
+msgid "Response to the certification body"
+msgstr "Response to the certification body"
+
+msgid "Awaiting the decision of the certification body"
+msgstr "Awaiting the decision of the certification body"
+
+msgid "Accepted by the certification body"
+msgstr "Accepted by the certification body"
+
+msgid "To be completed at the request of the certification body"
+msgstr "To be completed at the request of the certification body"
+
+msgid "Action plan overdue"
+msgstr "Action plan overdue"
+
+msgid "Action plan to complete"
+msgstr "Action plan to complete"
+
+msgid "Action plan due soon"
+msgstr "Action plan due soon"
+
+msgid "Action plan to send"
+msgstr "Action plan to send"
+
+msgid "Action plan sent, awaiting decision"
+msgstr "Action plan sent, awaiting decision"
+
+msgid "Action plan accepted"
+msgstr "Action plan accepted"
+
+msgid "No response required"
+msgstr "No response required"
+
+msgid "Evidence overdue"
+msgstr "Evidence overdue"
+
+msgid "Evidence due soon"
+msgstr "Evidence due soon"
+
+msgid "Evidence to send"
+msgstr "Evidence to send"
+
+msgid "Evidence sent"
+msgstr "Evidence sent"
+
+msgid "No evidence required"
+msgstr "No evidence required"
+
+msgid "Everything has been sent"
+msgstr "Everything has been sent"
+
+msgid "No deadline entered"
+msgstr "No deadline entered"
+
+msgid "Correction"
+msgstr "Correction"
+
+msgid "Corrective action plan for the certification body"
+msgstr "Corrective action plan for the certification body"
+
+msgid "Action plan sent to the certification body on"
+msgstr "Action plan sent to the certification body on"
+
+msgid "Evidence sent to the certification body on"
+msgstr "Evidence sent to the certification body on"
+
+msgid "Decision of the certification body"
+msgstr "Decision of the certification body"
+
+msgid ""
+"Deadline given in the audit report to send the evidence that the "
+"nonconformities are lifted."
+msgstr ""
+"Deadline given in the audit report to send the evidence that the "
+"nonconformities are lifted."
+
+msgid ""
+"Deadline given in the audit report to send your action plan (correction, "
+"root cause and corrective action of each nonconformity)."
+msgstr ""
+"Deadline given in the audit report to send your action plan (correction, "
+"root cause and corrective action of each nonconformity)."
+
+#, php-format
+msgid ""
+"A response is expected for each nonconformity. It is optional for an area of "
+"concern or an opportunity for improvement. A deadline is shown as close %d "
+"days before it."
+msgstr ""
+"A response is expected for each nonconformity. It is optional for an area of "
+"concern or an opportunity for improvement. A deadline is shown as close %d "
+"days before it."
+
+msgid "Action plan"
+msgstr "Action plan"
+
+msgid ""
+"After the audit, the certification body asks you to send an action plan for "
+"each nonconformity (correction, root cause, corrective action), then the "
+"evidence that it is lifted, each within a deadline. This tab shows what is "
+"still to send and produces the action plan to send to the body."
+msgstr ""
+"After the audit, the certification body asks you to send an action plan for "
+"each nonconformity (correction, root cause, corrective action), then the "
+"evidence that it is lifted, each within a deadline. This tab shows what is "
+"still to send and produces the action plan to send to the body."
+
+msgid "Corrective action plan for the certification body (PDF)"
+msgstr "Corrective action plan for the certification body (PDF)"
+
+msgid ""
+"Enter the deadlines given in the report of the certification body in the "
+"main tab of the audit, so that the remaining days are shown."
+msgstr ""
+"Enter the deadlines given in the report of the certification body in the "
+"main tab of the audit, so that the remaining days are shown."
+
+msgid ""
+"Enter the deadlines in the audit form, and the sending dates and the "
+"decision of the body in each finding. Nothing is changed automatically."
+msgstr ""
+"Enter the deadlines in the audit form, and the sending dates and the "
+"decision of the body in each finding. Nothing is changed automatically."
+
+#, php-format
+msgid "Sent on %s"
+msgstr "Sent on %s"
+
+#, php-format
+msgid "Still to send: %d"
+msgstr "Still to send: %d"
+
+msgid "To fill in"
+msgstr "To fill in"
+
+msgid "What is this tab for?"
+msgstr "What is this tab for?"
+
+msgid ""
+"Date on which the correction, root cause and corrective action were sent to "
+"the certification body."
+msgstr ""
+"Date on which the correction, root cause and corrective action were sent to "
+"the certification body."
+
+msgid ""
+"Date on which the evidence that the finding is lifted was sent. Attach the "
+"evidence in the Documents tab."
+msgstr ""
+"Date on which the evidence that the finding is lifted was sent. Attach the "
+"evidence in the Documents tab."
+
+msgid "Feedback of the certification body"
+msgstr "Feedback of the certification body"
+
+msgid ""
+"What was done at once to deal with the finding itself, before treating its "
+"cause."
+msgstr ""
+"What was done at once to deal with the finding itself, before treating its "
+"cause."
+
+msgid "Audit date"
+msgstr "Audit date"
+
+msgid "No nonconformity calls for a response in this audit."
+msgstr "No nonconformity calls for a response in this audit."
+
+#, php-format
+msgid "Overdue by %d day"
+msgid_plural "Overdue by %d days"
+msgstr[0] "Overdue by %d day"
+msgstr[1] "Overdue by %d days"
+
+#, php-format
+msgid ""
+"%d nonconformity still lacks information before the action plan is sent (see "
+"the \"To fill in\" column)."
+msgid_plural ""
+"%d nonconformities still lack information before the action plan is sent "
+"(see the \"To fill in\" column)."
+msgstr[0] ""
+"%d nonconformity still lacks information before the action plan is sent (see "
+"the \"To fill in\" column)."
+msgstr[1] ""
+"%d nonconformities still lack information before the action plan is sent "
+"(see the \"To fill in\" column)."
+
+#, php-format
+msgid ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+msgstr ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr "An audit can only be planned for the current year or a later one."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr "Audit planned: complete its objectives, scope, criteria and auditors."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Internal audit - %1$s - %2$d"
+
+msgid ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+msgstr ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Plan an internal audit of %1$s in %2$d"
+
+msgid "Through the audited controls %s"
+msgstr "Through the audited controls %s"
+
+msgid "The exercise type could not be changed."
+msgstr "The exercise type could not be changed."
+
+msgid "The data loss measured at the last test exceeds the RPO."
+msgstr "The data loss measured at the last test exceeds the RPO."
+
+msgid "Tabletop exercise"
+msgstr "Tabletop exercise"
+
+msgid "Functional exercise"
+msgstr "Functional exercise"
+
+msgid "Technical restore test"
+msgstr "Technical restore test"
+
+msgid "Full-scale exercise"
+msgstr "Full-scale exercise"
+
+msgid "Not scheduled"
+msgstr "Not scheduled"
+
+msgid "Objectives met"
+msgstr "Objectives met"
+
+msgid "Objectives missed"
+msgstr "Objectives missed"
+
+msgid "Not tested"
+msgstr "Not tested"
+
+msgid ""
+"Recovery test programme: when each business process was last tested, whether "
+"the test met its RTO and RPO, and which processes are not tested in time."
+msgstr ""
+"Recovery test programme: when each business process was last tested, whether "
+"the test met its RTO and RPO, and which processes are not tested in time."
+
+msgid ""
+"Plan a test for each process reported as overdue or not tested this year, "
+"then record the measured recovery time and data loss in its \"Recovery "
+"strategy\" tab. Show this view to the auditor as evidence that ICT "
+"continuity is tested regularly."
+msgstr ""
+"Plan a test for each process reported as overdue or not tested this year, "
+"then record the measured recovery time and data loss in its \"Recovery "
+"strategy\" tab. Show this view to the auditor as evidence that ICT "
+"continuity is tested regularly."
+
+msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
+msgstr "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
+
+msgid "Recovery test programme"
+msgstr "Recovery test programme"
+
+msgid "All business processes"
+msgstr "All business processes"
+
+msgid "Each year shows the result of the last test of that year."
+msgstr "Each year shows the result of the last test of that year."
+
+msgid "Last test missed the objectives"
+msgstr "Last test missed the objectives"
+
+msgid "Next test due"
+msgstr "Next test due"
+
+msgid ""
+"No business process you can see. Create your business processes first, then "
+"record their recovery tests."
+msgstr ""
+"No business process you can see. Create your business processes first, then "
+"record their recovery tests."
+
+msgid "Not tested this year"
+msgstr "Not tested this year"
+
+msgid "Test overdue"
+msgstr "Test overdue"
+
+msgid "Other types (one per line)"
+msgstr "Other types (one per line)"
+
+msgid "Types of recovery exercise"
+msgstr "Types of recovery exercise"
+
+msgid ""
+"Types offered when starting a crisis exercise or recording a recovery test. "
+"Untick a type you do not use, and add your own types, one per line."
+msgstr ""
+"Types offered when starting a crisis exercise or recording a recovery test. "
+"Untick a type you do not use, and add your own types, one per line."
+
+msgid "Type of exercise"
+msgstr "Type of exercise"
+
+msgid "Above the RPO"
+msgstr "Above the RPO"
+
+msgid "Data loss (minutes)"
+msgstr "Data loss (minutes)"
+
+msgid "Measured data loss"
+msgstr "Measured data loss"
+
+msgid ""
+"The data loss (time between the last usable backup and the incident) is "
+"compared with its RPO; leave it empty if it was not measured, enter 0 if no "
+"data was lost."
+msgstr ""
+"The data loss (time between the last usable backup and the incident) is "
+"compared with its RPO; leave it empty if it was not measured, enter 0 if no "
+"data was lost."
+
+msgid "0: use the frequency of the periodic review."
+msgstr "0: use the frequency of the periodic review."
+
+msgid ""
+"A process that is not tested in time is reported to its owner and to the "
+"CISO group by an automatic action; nothing is changed automatically."
+msgstr ""
+"A process that is not tested in time is reported to its owner and to the "
+"CISO group by an automatic action; nothing is changed automatically."
+
+msgid "Above the objectives of the item tested"
+msgstr "Above the objectives of the item tested"
+
+msgid "Coverage by year"
+msgstr "Coverage by year"
+
+#, php-format
+msgid "Every %d months (frequency of the periodic review of continuity tests)."
+msgstr ""
+"Every %d months (frequency of the periodic review of continuity tests)."
+
+#, php-format
+msgid "Every %d months (frequency set on this process)."
+msgstr "Every %d months (frequency set on this process)."
+
+msgid "Item tested"
+msgstr "Item tested"
+
+msgid "Test frequency (months)"
+msgstr "Test frequency (months)"
+
+msgid "Test programme"
+msgstr "Test programme"
+
+msgid "The whole process"
+msgstr "The whole process"
+
+msgid "Within the RPO"
+msgstr "Within the RPO"
+
+msgid "No recovery test has covered this item yet."
+msgstr "No recovery test has covered this item yet."
+
+#, php-format
+msgid "Only the %d most recent tests are listed."
+msgstr "Only the %d most recent tests are listed."
+
+msgid "Recovery tests that covered this item"
+msgstr "Recovery tests that covered this item"
+
+msgid ""
+"Tests that named this item, and tests of the business processes that depend "
+"on it. Record a test from the \"Recovery strategy\" tab of the process."
+msgstr ""
+"Tests that named this item, and tests of the business processes that depend "
+"on it. Record a test from the \"Recovery strategy\" tab of the process."
+
+msgid "This item was tested"
+msgstr "This item was tested"
+
+#, php-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] "%d month"
+msgstr[1] "%d months"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -31459,261 +32229,3 @@ msgstr "Warning %d days before a license expires."
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-#, php-format
-msgid "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
-msgstr "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised deadlines."
-
-#, php-format
-msgid "A step not done is at risk of being late when its advised deadline is within %d days."
-msgstr "A step not done is at risk of being late when its advised deadline is within %d days."
-
-msgid "Alert (days)"
-msgstr "Alert (days)"
-
-msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
-msgstr "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training. Alert: number of days before an advised deadline from which the step is at risk and the owner is notified."
-
-msgid "Advised deadlines per step"
-msgstr "Advised deadlines per step"
-
-msgid "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
-msgstr "Number of days before the target date by which each step should be done. Keep the logical order: the internal audit before the management review that uses its results, then the treatment of nonconformities. A change only moves the advised deadlines: nothing else is modified."
-
-msgid "Default"
-msgstr "Default"
-
-msgid "Days before the target date"
-msgstr "Days before the target date"
-
-msgid "Adjusted"
-msgstr "Adjusted"
-
-msgid "Encryption rule saved."
-msgstr "Encryption rule saved."
-
-msgid "Recovery key declaration saved."
-msgstr "Recovery key declaration saved."
-
-#, php-format
-msgid "Computers that must be encrypted and are (%)"
-msgstr "Computers that must be encrypted and are (%)"
-
-msgid "From the volume inventory: at least one unencrypted or partially encrypted disk, or a weak encryption algorithm, on a computer that must be encrypted (\"Disk encryption\" page). Only computers whose volumes are inventoried are counted. Volumes without a drive letter (EFI, recovery), network shares, optical media, FAT partitions and, on Linux, /boot and pseudo-filesystems are ignored."
-msgstr "From the volume inventory: at least one unencrypted or partially encrypted disk, or a weak encryption algorithm, on a computer that must be encrypted (\"Disk encryption\" page). Only computers whose volumes are inventoried are counted. Volumes without a drive letter (EFI, recovery), network shares, optical media, FAT partitions and, on Linux, /boot and pseudo-filesystems are ignored."
-
-msgid "Laptops with an unencrypted disk"
-msgstr "Laptops with an unencrypted disk"
-
-msgid "Same check, limited to laptops and tablets (computer type reported by the inventory agent, such as Laptop or Notebook), which are the most exposed outside the premises."
-msgstr "Same check, limited to laptops and tablets (computer type reported by the inventory agent, such as Laptop or Notebook), which are the most exposed outside the premises."
-
-#, php-format
-msgid "Weak encryption algorithm: %s"
-msgstr "Weak encryption algorithm: %s"
-
-msgid "Disk encryption"
-msgstr "Disk encryption"
-
-msgid "Fully encrypted"
-msgstr "Fully encrypted"
-
-msgid "Every inventoried volume is encrypted."
-msgstr "Every inventoried volume is encrypted."
-
-msgid "Partially encrypted"
-msgstr "Partially encrypted"
-
-msgid "At least one volume is encrypted, but not all of them."
-msgstr "At least one volume is encrypted, but not all of them."
-
-msgid "Not encrypted"
-msgstr "Not encrypted"
-
-msgid "No inventoried volume is encrypted."
-msgstr "No inventoried volume is encrypted."
-
-msgid "Unknown"
-msgstr "Unknown"
-
-msgid "No volume inventoried: no inventory agent, or an agent too old to report encryption."
-msgstr "No volume inventoried: no inventory agent, or an agent too old to report encryption."
-
-msgid "All computers"
-msgstr "All computers"
-
-msgid "Laptops and tablets only"
-msgstr "Laptops and tablets only"
-
-msgid "Computers of the selected types"
-msgstr "Computers of the selected types"
-
-msgid "Do not use the classification"
-msgstr "Do not use the classification"
-
-msgid "Confidentiality medium or high"
-msgstr "Confidentiality medium or high"
-
-msgid "Confidentiality high"
-msgstr "Confidentiality high"
-
-msgid "Laptops and tablets must be encrypted."
-msgstr "Laptops and tablets must be encrypted."
-
-msgid "No computer type is selected: only the classification below applies."
-msgstr "No computer type is selected: only the classification below applies."
-
-#, php-format
-msgid "Computers of these types must be encrypted: %s."
-msgstr "Computers of these types must be encrypted: %s."
-
-msgid "All computers must be encrypted."
-msgstr "All computers must be encrypted."
-
-msgid "So must any computer classified with a medium or high confidentiality."
-msgstr "So must any computer classified with a medium or high confidentiality."
-
-msgid "So must any computer classified with a high confidentiality."
-msgstr "So must any computer classified with a high confidentiality."
-
-#, php-format
-msgid "Disk encryption: %1$d%% of the computers that must be encrypted are, %2$d gap(s)"
-msgstr "Disk encryption: %1$d%% of the computers that must be encrypted are, %2$d gap(s)"
-
-msgid "Shows, from the volumes reported by the GLPI inventory agent (BitLocker, FileVault, LUKS, VeraCrypt...), which computers are fully encrypted, partially encrypted, not encrypted or of unknown state, by entity, computer type and location. Computers that must be encrypted and are not, or use a weak algorithm, are gaps."
-msgstr "Shows, from the volumes reported by the GLPI inventory agent (BitLocker, FileVault, LUKS, VeraCrypt...), which computers are fully encrypted, partially encrypted, not encrypted or of unknown state, by entity, computer type and location. Computers that must be encrypted and are not, or use a weak algorithm, are gaps."
-
-msgid "Choose which computers must be encrypted, encrypt the computers listed as gaps, install the inventory agent on those of unknown state, and declare where the recovery key is backed up. The plugin never reads nor stores any recovery key. Record the result as an effectiveness test of the control to keep the evidence."
-msgstr "Choose which computers must be encrypted, encrypt the computers listed as gaps, install the inventory agent on those of unknown state, and declare where the recovery key is backed up. The plugin never reads nor stores any recovery key. Record the result as an effectiveness test of the control to keep the evidence."
-
-msgid "ISO/IEC 27001, controls A.8.24 and A.8.1"
-msgstr "ISO/IEC 27001, controls A.8.24 and A.8.1"
-
-#, php-format
-msgid "Laptops with an unencrypted disk (%)"
-msgstr "Laptops with an unencrypted disk (%)"
-
-msgid "Disk encryption: rates, rule and details"
-msgstr "Disk encryption: rates, rule and details"
-
-#, php-format
-msgid "%d of unknown state"
-msgstr "%d of unknown state"
-
-#, php-format
-msgid "%d weak algorithm(s)"
-msgstr "%d weak algorithm(s)"
-
-#, php-format
-msgid "Computed on %s"
-msgstr "Computed on %s"
-
-#, php-format
-msgid "Encryption rate: %d%%"
-msgstr "Encryption rate: %d%%"
-
-msgid "Encryption rate: not measured"
-msgstr "Encryption rate: not measured"
-
-#, php-format
-msgid "Laptops: %d%%"
-msgstr "Laptops: %d%%"
-
-#, php-format
-msgid "%1$d computers: the first %2$d are shown, gaps first."
-msgstr "%1$d computers: the first %2$d are shown, gaps first."
-
-#, php-format
-msgid "not fully encrypted: %d"
-msgstr "not fully encrypted: %d"
-
-#, php-format
-msgid "Older algorithm or mode, to plan to replace: %d"
-msgstr "Older algorithm or mode, to plan to replace: %d"
-
-msgid "A computer is a laptop or a tablet when its type in GLPI is one of those reported by the inventory agent (Laptop, Notebook, Portable, Tablet, Convertible...). The classification threshold uses the C/I/A classification of the computer (tab of the computer form)."
-msgstr "A computer is a laptop or a tablet when its type in GLPI is one of those reported by the inventory agent (Laptop, Notebook, Portable, Tablet, Convertible...). The classification threshold uses the C/I/A classification of the computer (tab of the computer form)."
-
-msgid "Also every computer classified with"
-msgstr "Also every computer classified with"
-
-msgid "Backed up"
-msgstr "Backed up"
-
-msgid "Backup date"
-msgstr "Backup date"
-
-msgid "Computer types (when \"Computers of the selected types\" is chosen)"
-msgstr "Computer types (when \"Computers of the selected types\" is chosen)"
-
-msgid "Computers concerned"
-msgstr "Computers concerned"
-
-msgid "Computers in GLPI"
-msgstr "Computers in GLPI"
-
-msgid "Computers that must be encrypted"
-msgstr "Computers that must be encrypted"
-
-msgid "Computers that must be encrypted and are"
-msgstr "Computers that must be encrypted and are"
-
-msgid "Computers with a weak encryption algorithm"
-msgstr "Computers with a weak encryption algorithm"
-
-msgid "For example the types used for servers and desktops that hold sensitive data."
-msgstr "For example the types used for servers and desktops that hold sensitive data."
-
-msgid "Laptops and tablets fully encrypted"
-msgstr "Laptops and tablets fully encrypted"
-
-msgid "Last inventory"
-msgstr "Last inventory"
-
-msgid "No computer concerned in your entities."
-msgstr "No computer concerned in your entities."
-
-msgid "No computer concerned."
-msgstr "No computer concerned."
-
-msgid "No location"
-msgstr "No location"
-
-msgid "No type"
-msgstr "No type"
-
-msgid "Not declared"
-msgstr "Not declared"
-
-msgid "Older algorithm or mode"
-msgstr "Older algorithm or mode"
-
-msgid "Recovery key backed up (declared)"
-msgstr "Recovery key backed up (declared)"
-
-msgid "The plugin never reads nor stores any recovery key: it only keeps whether the key is declared backed up, and when. Nothing is changed in GLPI from this page."
-msgstr "The plugin never reads nor stores any recovery key: it only keeps whether the key is declared backed up, and when. Nothing is changed in GLPI from this page."
-
-msgid "Tool and algorithm"
-msgstr "Tool and algorithm"
-
-msgid "Volumes not encrypted"
-msgstr "Volumes not encrypted"
-
-msgid "Weak algorithm"
-msgstr "Weak algorithm"
-
-msgid "Which computers must be encrypted?"
-msgstr "Which computers must be encrypted?"
-
-#, php-format
-msgid "%d computer must be encrypted"
-msgid_plural "%d computers must be encrypted"
-msgstr[0] "%d computer must be encrypted"
-msgstr[1] "%d computers must be encrypted"
-
-#, php-format
-msgid "%d laptop or tablet"
-msgid_plural "%d laptops or tablets"
-msgstr[0] "%d laptop or tablet"
-msgstr[1] "%d laptops or tablets"

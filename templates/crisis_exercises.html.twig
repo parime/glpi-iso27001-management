@@ -35,6 +35,12 @@
                         <label class="form-label" for="grc-objectives-{{ s.key }}"><i class="ti ti-target-arrow me-1"></i>{{ __('Objectives of the exercise (one per line)', 'grcmanager') }}</label>
                         <textarea id="grc-objectives-{{ s.key }}" name="objectives" class="form-control mb-1" rows="3" placeholder="{{ __('For example: convene the crisis team within 45 minutes', 'grcmanager') }}"></textarea>
                         <div class="form-hint mb-2">{{ __('Evaluated when the exercise is finished; they appear in the report.', 'grcmanager') }}</div>
+                        {# Issue #733 : type d'exercice. #}
+                        <label class="form-label" for="grc-type-{{ s.key }}"><i class="ti ti-category me-1"></i>{{ __('Type of exercise', 'grcmanager') }}</label>
+                        <select id="grc-type-{{ s.key }}" name="exercise_type" class="form-select mb-2">
+                           <option value="">{{ __('Not specified', 'grcmanager') }}</option>
+                           {% for key, label in types %}<option value="{{ key }}" {{ key == 'tabletop' ? 'selected' }}>{{ label }}</option>{% endfor %}
+                        </select>
                         <button type="submit" name="launch" value="{{ s.key }}" class="btn btn-danger"><i class="ti ti-player-play me-1"></i>{{ __('Start the exercise', 'grcmanager') }}</button>
                      </form>
                   </div>
@@ -49,11 +55,12 @@
       <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('No exercise yet. The standard requires testing continuity plans at planned intervals: start a first exercise above.', 'grcmanager') }}</div>
    {% else %}
       <table class="table table-hover card-table">
-         <thead><tr><th>{{ __('Scenario', 'grcmanager') }}</th><th>{{ __('Start', 'grcmanager') }}</th><th>{{ __('Duration', 'grcmanager') }}</th><th>{{ __('Steps on time', 'grcmanager') }}</th><th>{{ __('Average reaction time', 'grcmanager') }}</th><th>{{ __('Report', 'grcmanager') }}</th></tr></thead>
+         <thead><tr><th>{{ __('Scenario', 'grcmanager') }}</th><th>{{ __('Type of exercise', 'grcmanager') }}</th><th>{{ __('Start', 'grcmanager') }}</th><th>{{ __('Duration', 'grcmanager') }}</th><th>{{ __('Steps on time', 'grcmanager') }}</th><th>{{ __('Average reaction time', 'grcmanager') }}</th><th>{{ __('Report', 'grcmanager') }}</th></tr></thead>
          <tbody>
             {% for e in history %}
                <tr>
                   <td><a href="{{ e.url }}">{{ e.scenario }}</a>{% if not e.ended %} <span class="badge bg-orange-lt">{{ __('In progress', 'grcmanager') }}</span>{% endif %}{% if e.validated %} <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-rosette-discount-check me-1"></i>{{ __('Review validated', 'grcmanager') }}</span>{% endif %}</td>
+                  <td>{% if e.type %}<span class="badge bg-info-subtle text-info-emphasis"><i class="ti ti-category me-1"></i>{{ e.type }}</span>{% else %}<span class="text-muted">-</span>{% endif %}</td>
                   <td>{{ e.started_at|formatted_datetime }}</td>
                   <td>{{ e.duration }} min</td>
                   <td><span class="badge {{ e.summary.rate >= 80 ? 'bg-green-lt' : (e.summary.rate >= 50 ? 'bg-orange-lt' : 'bg-red-lt') }}">{{ e.summary.on_time }} / {{ e.summary.total }} ({{ e.summary.rate }} %)</span></td>

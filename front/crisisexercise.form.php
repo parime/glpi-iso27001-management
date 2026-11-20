@@ -158,6 +158,20 @@ if (isset($_POST['validate_review']) || isset($_POST['reopen_review'])) {
     }
     Html::redirect(\GlpiPlugin\Grcmanager\CrisisExercise::getFormURLWithID($id) . '#grc-crisis-validation');
 }
+// Issue #733 : type d'exercice, modifiable tant que le bilan n'est pas validé.
+if (isset($_POST['set_exercise_type'])) {
+    if (!$incident->canUpdateItem()) {
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
+    }
+    if (!$exercise->setExerciseType($_POST['exercise_type'] ?? '')) {
+        Session::addMessageAfterRedirect(
+            htmlescape(__('The exercise type could not be changed.', 'grcmanager')),
+            false,
+            ERROR
+        );
+    }
+    Html::redirect(\GlpiPlugin\Grcmanager\CrisisExercise::getFormURLWithID($id));
+}
 if (isset($_POST['journal'])) {
     if (!$incident->canAddFollowups()) {
         throw new \Glpi\Exception\Http\AccessDeniedHttpException();
@@ -184,6 +198,11 @@ TemplateRenderer::getInstance()->display('@grcmanager/crisis_room.html.twig', $d
     'recovery_processes'  => $canRecord ? \GlpiPlugin\Grcmanager\BusinessProcessRecovery::processChoices() : [],
     'recovery_url'        => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::getFormURL(),
     'recovery_minutes'    => (int) $data['exercise']['duration'],
+    // Issue #733 : type d'exercice et perte de données mesurée.
+    'types'               => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::typeChoices(
+        (string) $data['exercise']['type_key']
+    ),
+    'result_labels'       => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::resultLabels(),
     // Issue #732 : bilan après exercice.
     'outcomes'            => $review::getOutcomes(),
     'severities'          => \GlpiPlugin\Grcmanager\Nonconformity::getSeverities(),
