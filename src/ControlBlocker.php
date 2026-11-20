@@ -487,7 +487,7 @@ class ControlBlocker extends CommonGLPI
                     $severity,
                     (string) ($labels[$check]['label'] ?? $check),
                     sprintf(
-                        __('%1$d gaps out of %2$d, %3$d%% compliant', 'grcmanager'),
+                        __('Gaps: %1$d out of %2$d (%3$d%% compliant)', 'grcmanager'),
                         $gaps,
                         (int) $outcome['total'],
                         (int) ComplianceAuditScore::rate($gaps, (int) $outcome['total'])
@@ -534,7 +534,7 @@ class ControlBlocker extends CommonGLPI
                     $severity,
                     sprintf(__('%s coverage', 'grcmanager'), $tool),
                     sprintf(
-                        __('%1$d computers out of %2$d without an active agent', 'grcmanager'),
+                        __('Computers without an active agent: %1$d out of %2$d', 'grcmanager'),
                         $missing,
                         (int) $coverage['computers']
                     ),
