@@ -1156,6 +1156,16 @@ foreach (['A' => $ids['audit'], 'B' => $ids['audit_B']] as $suffix => $auditId) 
         'due_date'                    => $overdue,
     ]);
 }
+// Issue #867 : les constats de A et de B citent la mesure testée (code commun aux SoA de A et de
+// B) ; la vue « Mesures bloquées » ne cite jamais celui de B pour un profil limité à A.
+$testedCode = (string) $DB->request([
+    'SELECT' => ['code'], 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['id' => $ids['control']],
+])->current()['code'];
+$DB->update(
+    'glpi_plugin_grcmanager_nonconformities',
+    ['requirement_reference' => $testedCode],
+    ['id' => [$ids['nc_A'], $ids['nc_B']]]
+);
 $ids['action_B'] = $add(new \GlpiPlugin\Grcmanager\RiskTreatmentAction(), [
     'plugin_grcmanager_risks_id' => $ids['risk_B'],
     'description'                => 'Action securite B',

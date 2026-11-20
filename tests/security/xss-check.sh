@@ -154,6 +154,9 @@ check "onglet Politiques a lire"              "$(tab Preference 'GlpiPlugin%5CGr
 check "onglet prise de connaissance"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' "$(xid policy)")"
 # Issue #614 : controles de coherence (noms pieges des risques, politiques, traitements...).
 check "front/consistencycheck.php"            "$P/consistencycheck.php"
+# Issue #867 : mesures bloquees et onglet de la mesure (constats, politiques et justification pieges).
+check "front/controlblocker.php"             "$P/controlblocker.php"
+check "onglet ce qui bloque la mesure"       "$(tab 'GlpiPlugin%5CGrcmanager%5CControl' 'GlpiPlugin%5CGrcmanager%5CControlBlocker$1' "$(id control)")"
 # Issue #619 : preparation a la certification (titres des fiches pieges jamais repris tels quels).
 check "front/certificationreadiness.php"     "$P/certificationreadiness.php"
 # Issue #772 : audit de certification et constat pieges (vue des constats et onglet de l'audit).
