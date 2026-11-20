@@ -20,8 +20,14 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\BusinessProcess;
+use GlpiPlugin\Grcmanager\BusinessProcessRecovery;
+use GlpiPlugin\Grcmanager\ContextItem;
 use GlpiPlugin\Grcmanager\CrisisExercise;
+use GlpiPlugin\Grcmanager\CrisisMessageRecipient;
+use GlpiPlugin\Grcmanager\CrisisMessageTemplate;
 use GlpiPlugin\Grcmanager\CrisisScenario;
+use GlpiPlugin\Grcmanager\CrisisScenarioReadiness;
+use GlpiPlugin\Grcmanager\Services\Context\ContextItemRules;
 use GlpiPlugin\Grcmanager\Install\CrisisScenarioTables;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Playbook;
@@ -215,7 +221,10 @@ final class CrisisScenarioTest extends GrcmanagerIntegrationTestCase
         $row = self::presented($scenario->getID());
         $this->assertSame(['PHPUnit facturation'], array_column($row['processes'], 'name'));
         $this->assertTrue($row['processes'][0]['critical']);
-        $this->assertSame([Rules::GAP_NO_PLAYBOOK, Rules::GAP_NEVER_EXERCISED], $row['gaps']);
+        $this->assertSame(
+            [Rules::GAP_NO_PLAYBOOK, Rules::GAP_NEVER_EXERCISED, Rules::GAP_RECOVERY_UNTESTED],
+            $row['gaps']
+        );
 
         // Exercice sur table hors plugin, daté de plus d'un an : à exercer de nouveau.
         $scenario->update(['id' => $scenario->getID(), 'last_exercise_date' => date('Y-m-d', strtotime('-400 days'))]);
@@ -257,6 +266,151 @@ final class CrisisScenarioTest extends GrcmanagerIntegrationTestCase
         // Sans le droit des incidents, l'exercice n'est ni daté ni compté.
         $_SESSION['glpiactiveprofile'][PluginGrcmanagerSecurityIncident::RIGHTNAME] = 0;
         $this->assertSame(Rules::EXERCISE_NEVER, self::presented($scenario->getID())['exercise_status']);
+    }
+
+    /**
+     * Exercice de crise fictif terminé (incident d'exercice), renvoie l'identifiant de l'exercice.
+     */
+    private function drill(string $scenario, bool $validated = false): int
+    {
+        global $DB;
+
+        $incidentId = (int) (new PluginGrcmanagerSecurityIncident())->add([
+            'name' => 'PHPUnit [EXERCICE] ' . $scenario, 'content' => 'Exercice fictif', 'entities_id' => 0,
+            'category' => 'malware', 'severity' => 'critical', 'is_exercise' => 1,
+            'date' => date('Y-m-d H:i:s'),
+        ]);
+        $this->assertGreaterThan(0, $incidentId);
+        $DB->insert(CrisisExercise::getTable(), [
+            'entities_id' => 0, 'plugin_grcmanager_securityincidents_id' => $incidentId,
+            'scenario' => $scenario, 'users_id' => 2,
+            'started_at' => date('Y-m-d H:i:s', strtotime('-2 hours')), 'ended_at' => date('Y-m-d H:i:s'),
+            'validated_at' => $validated ? date('Y-m-d H:i:s') : null,
+            'users_id_validator' => $validated ? 2 : 0,
+        ]);
+
+        return (int) $DB->insertId();
+    }
+
+    /**
+     * @param array<string, mixed> $input
+     */
+    private function contact(string $name, array $input = []): int
+    {
+        $id = (int) (new ContextItem())->add($input + [
+            'kind'                => ContextItemRules::KIND_PARTY,
+            'name'                => $name,
+            'party_type'          => 'other',
+            'is_official_contact' => 1,
+            'contact_category'    => 'authority',
+            'contact_details'     => 'contact@autorite.example',
+            'entities_id'         => 0,
+            'is_recursive'        => 1,
+        ]);
+        $this->assertGreaterThan(0, $id);
+
+        return $id;
+    }
+
+    public function testReviewOfTheLastExerciseAndRecoveryTestsAreGaps(): void
+    {
+        global $DB;
+
+        $processId = $this->process('PHPUnit processus critique', 4);
+        $scenario = $this->scenario('PHPUnit bilan et reprise', [
+            'exercise_scenario' => 'outage', '_processes_sent' => 1, '_processes' => [$processId],
+            'plugin_grcmanager_playbooks_id' => (int) (new Playbook())->add([
+                'name' => 'PHPUnit procédure', 'is_active' => 1,
+            ]),
+        ]);
+        $row = self::presented($scenario->getID());
+        $this->assertContains(Rules::GAP_RECOVERY_UNTESTED, $row['gaps']);
+
+        // Exercice terminé, bilan pas encore validé.
+        $exerciseId = $this->drill('outage');
+        $row = self::presented($scenario->getID());
+        $this->assertSame($exerciseId, $row['drill']['id']);
+        $this->assertFalse($row['drill']['validated']);
+        $this->assertContains(Rules::GAP_REVIEW_PENDING, $row['gaps']);
+        $this->assertNotContains(Rules::GAP_REVIEW_PENDING, $row['todo_labels']);
+
+        // Test de reprise du processus, puis bilan validé : plus aucun manque.
+        $this->assertGreaterThan(0, (int) (new BusinessProcessRecovery())->add([
+            'plugin_grcmanager_businessprocesses_id' => $processId,
+            'test_date' => date('Y-m-d'), 'measured_minutes' => 300,
+        ]));
+        $DB->update(CrisisExercise::getTable(), ['validated_at' => date('Y-m-d H:i:s'), 'users_id_validator' => 2], [
+            'id' => $exerciseId,
+        ]);
+        $row = self::presented($scenario->getID());
+        $this->assertSame([], $row['gaps']);
+        $this->assertSame(date('Y-m-d'), $row['processes'][0]['last_test']);
+        $this->assertTrue($row['processes'][0]['test_exceeds'], '5 heures mesurées pour un RTO de 4 heures.');
+        $summary = CrisisScenario::coverage(CrisisScenario::register())['summary'];
+        $this->assertSame(1, $summary['reviews_validated']);
+        $this->assertSame(0, $summary['review_pending']);
+        $this->assertSame(0, $summary['recovery_untested']);
+        $evidence = CrisisScenario::evidence('A.5.29');
+        $this->assertNotNull($evidence);
+        $this->assertSame(1, $evidence['reviews_validated']);
+    }
+
+    public function testPreparednessTabGathersExercisesMessagesAndOfficialContacts(): void
+    {
+        $authority = $this->contact('PHPUnit autorité fictive', ['on_security_incident' => 1]);
+        $privacy = $this->contact('PHPUnit autorité de protection fictive', ['on_data_breach' => 1]);
+        $this->contact('PHPUnit contact non concerné');
+        $template = new CrisisMessageTemplate();
+        $templateId = (int) $template->add([
+            'name' => 'PHPUnit message de fuite', 'situation' => CrisisCommunicationRules::SITUATION_DATA_BREACH,
+            'stage' => 'first', 'audience' => 'internal', 'subject' => 'Objet fictif', 'body' => 'Texte fictif',
+            'is_active' => 1,
+        ]);
+        $this->assertGreaterThan(0, $templateId);
+        $this->assertTrue(
+            CrisisMessageRecipient::addTo($templateId, CrisisCommunicationRules::RECIPIENT_CONTACT, $privacy)
+        );
+
+        $ransomware = $this->scenario('PHPUnit préparation rançongiciel', [
+            'exercise_scenario' => 'ransomware',
+            'communication_situation' => CrisisCommunicationRules::SITUATION_RANSOMWARE,
+        ]);
+        $data = CrisisScenarioReadiness::collect($ransomware);
+        $names = array_column($data['contacts'], 'name');
+        $this->assertContains('PHPUnit autorité fictive', $names);
+        $this->assertNotContains('PHPUnit autorité de protection fictive', $names);
+        $this->assertNotContains('PHPUnit contact non concerné', $names);
+        $this->assertNull($data['last_review']);
+        $this->assertTrue($data['can_launch']);
+
+        $first = $this->drill('ransomware', true);
+        $second = $this->drill('ransomware');
+        $data = CrisisScenarioReadiness::collect($ransomware);
+        $this->assertSame([$second, $first], array_slice(array_column($data['drills'], 'id'), 0, 2));
+        $this->assertFalse($data['last_review']['validated']);
+        $this->assertTrue($data['drills'][1]['validated']);
+        $this->assertNotNull($data['last_review']);
+        $this->assertArrayNotHasKey('exercise', $data['drills'][0], 'Aucun objet transmis au gabarit.');
+
+        $leak = $this->scenario('PHPUnit préparation fuite', [
+            'communication_situation' => CrisisCommunicationRules::SITUATION_DATA_BREACH,
+        ]);
+        $data = CrisisScenarioReadiness::collect($leak);
+        $names = array_column($data['contacts'], 'name');
+        $this->assertContains('PHPUnit autorité fictive', $names);
+        $this->assertContains('PHPUnit autorité de protection fictive', $names);
+        $this->assertFalse($data['can_launch'], 'Aucun exercice choisi.');
+        $templates = array_column($data['templates'], 'recipients', 'name');
+        $this->assertSame(1, $templates['PHPUnit message de fuite'] ?? null);
+        $this->assertContains($authority, array_column($data['contacts'], 'id'));
+
+        // Sans le droit des incidents : aucun exercice ; sans celui du contexte : aucun contact.
+        $_SESSION['glpiactiveprofile'][PluginGrcmanagerSecurityIncident::RIGHTNAME] = 0;
+        $_SESSION['glpiactiveprofile'][ContextItem::RIGHTNAME] = 0;
+        $data = CrisisScenarioReadiness::collect($ransomware);
+        $this->assertSame([], $data['drills']);
+        $this->assertSame([], $data['contacts']);
+        $this->assertFalse($data['can_contacts']);
     }
 
     public function testProcessesAndScenariosRespectEntities(): void

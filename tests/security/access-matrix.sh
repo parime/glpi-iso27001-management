@@ -516,6 +516,8 @@ if [ "$ROLE" = general ]; then
   # Issue #776 : ni scenario de crise sur le processus, ni catalogue sans le droit de la continuite.
   contains "onglet Scenarios de crise d'un processus : rien" "Scenario crise securite" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CCrisisScenario$1' "$(id process_A)")"
+  contains "onglet Preparation d'un scenario : rien" "Processus securite A" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CCrisisScenario 'GlpiPlugin%5CGrcmanager%5CCrisisScenarioReadiness$1' "$(id crisis_scenario_A)")"
   expect "front/crisisscenario.php : scenarios par defaut sans le droit de la continuite" 403 \
     "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/crisisscenario.php")"
   # Issue #377, quatrieme etape : ni carte des dependances sans le droit de la continuite.
@@ -857,6 +859,14 @@ contains "registre des scenarios : scenario de B" "Scenario crise securite B" $S
 contains "registre des scenarios : processus de B" "Processus securite B" $SEE_B "$scenarios"
 contains "onglet Scenarios de crise du processus A" "Scenario crise securite A" oui \
   "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CCrisisScenario$1' "$(id process_A)")"
+# Issue #776, lot 2 : onglet Preparation du scenario de A : ni contact officiel ni processus de B,
+# quel que soit le profil (contacts visibles depuis l'entite du scenario) ; scenario de B refuse.
+readiness_A=$(tab GlpiPlugin%5CGrcmanager%5CCrisisScenario 'GlpiPlugin%5CGrcmanager%5CCrisisScenarioReadiness$1' "$(id crisis_scenario_A)")
+contains "onglet Preparation du scenario A : processus de A" "Processus securite A" oui "$readiness_A"
+contains "onglet Preparation du scenario A : contact officiel de B" "Partie securite B" non "$readiness_A"
+contains "onglet Preparation du scenario A : processus de B" "Processus securite B" non "$readiness_A"
+contains "onglet Preparation du scenario B" "Processus securite B" $SEE_B \
+  "$(tab GlpiPlugin%5CGrcmanager%5CCrisisScenario 'GlpiPlugin%5CGrcmanager%5CCrisisScenarioReadiness$1' "$(id crisis_scenario_B)")"
 expect "modifier un scenario de crise de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "update=1&id=$(id crisis_scenario_B)&degraded_mode=securite&_glpi_csrf_token=$(csrf)" "$P/crisisscenario.form.php")"
 expect "modifier un scenario de crise sans jeton CSRF" 403 \
