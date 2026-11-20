@@ -104,6 +104,21 @@ if (isset($_POST['save_plan'])) {
         // Test refusé (constat manquant...) : le fichier envoyé pour lui ne reste pas.
         (new Document())->delete(['id' => $uploaded], true);
     }
+} elseif (isset($_POST['review'])) {
+    // Issue #607 : relecture par une seconde personne (ni le testeur ni qui l'a enregistré).
+    $test = new ControlTest();
+    if (!$test->getFromDB((int) ($_POST['id'] ?? 0))) {
+        throw new \Glpi\Exception\Http\NotFoundHttpException();
+    }
+    $controlsId = (int) $test->fields['plugin_grcmanager_controls_id'];
+    if (!ControlTest::canReviewTest($test->fields)) {
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
+    }
+    ControlTest::review(
+        (int) $test->getID(),
+        $_POST['review'] === 'approve',
+        (string) ($_POST['review_comment'] ?? '')
+    );
 } elseif (isset($_POST['purge'])) {
     $test = new ControlTest();
     $test->check((int) ($_POST['id'] ?? 0), PURGE);

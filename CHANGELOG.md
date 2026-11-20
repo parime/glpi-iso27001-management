@@ -28,10 +28,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits : une étape n'est évaluée que si le profil peut lire le module concerné, dans les entités
     de la session ; sinon elle apparaît « hors de vos droits » et ne compte pas dans le score.
 
+## [2.62.0] - 2026-11-20
+
 ## [2.61.0] - 2026-11-20
 
 ### Added
 
+- **Échantillon tiré au hasard dans GLPI pour un test d'efficacité** (issue #607). Dans l'onglet
+  « Tests d'efficacité » d'une mesure, sans nouvelle entrée de menu.
+  - Population : utilisateurs, ordinateurs, tickets ou changements des entités actives de la
+    personne (ou d'une seule, avec ses sous-entités), sur une période couverte et quelques critères
+    (catégorie, clos seulement, comptes actifs seulement). Seuls les éléments qu'elle peut lire sont
+    tirés ; les tickets et les changements exigent le droit de tous les voir.
+  - Taille proposée selon la fréquence du contrôle (1 pour un contrôle annuel, 25 pour un contrôle
+    quotidien...) ou saisie. Tirage reproductible : chaque élément est classé par l'empreinte
+    SHA-256 de « graine:identifiant ». Population, critères, période, taille, méthode, graine, date
+    et auteur sont conservés ; la liste des éléments tirés est figée avec leur nom au tirage.
+  - Résultat par élément (conforme, non conforme, non applicable) et commentaire ; résultat du test
+    proposé à partir des écarts, modifiable avec une justification. Le test enregistré fige
+    l'échantillon ; le supprimer le rouvre.
+  - Fiche PDF de chaque test pour l'auditeur, avec l'échantillon élément par élément.
+- **Relecture des tests d'efficacité** (issue #607), activable dans la configuration du plugin : un
+  test efficace n'apporte l'état « Vérifié » de la SoA qu'une fois validé par une autre personne
+  (ni le testeur ni celle qui l'a enregistré) ; renvoyer un test exige un commentaire. Un test
+  partiel ou inefficace retire « Vérifié » sans attendre. Nouvelle colonne « Relecture » dans la
+  liste des tests. Rien n'est jamais modifié dans les éléments tirés.
 - **Exercices de crise : bilan après exercice, plan d'amélioration et validation du rapport**
   (issue #732 ; ISO 27001 A.5.29 et A.5.30).
   - Objectifs de l'exercice saisis au lancement (un par ligne) ou pendant l'exercice, évalués à la

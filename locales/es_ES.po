@@ -20474,29 +20474,46 @@ msgstr "Matriz de responsabilidades del SGSI - %s"
 msgid "Readiness score"
 msgstr "Puntuación de preparación"
 
-msgid "Each state is computed from the data that the person who exported this report can read. Nothing has been modified."
-msgstr "Cada estado se calcula a partir de los datos que puede leer la persona que exportó este informe. No se ha modificado nada."
+msgid ""
+"Each state is computed from the data that the person who exported this "
+"report can read. Nothing has been modified."
+msgstr ""
+"Cada estado se calcula a partir de los datos que puede leer la persona que "
+"exportó este informe. No se ha modificado nada."
 
-msgid "A step done counts fully, a step partly done counts half. Steps outside your rights are not counted."
-msgstr "Un paso hecho cuenta por completo, un paso parcial cuenta la mitad. Los pasos fuera de sus derechos no cuentan."
+msgid ""
+"A step done counts fully, a step partly done counts half. Steps outside your "
+"rights are not counted."
+msgstr ""
+"Un paso hecho cuenta por completo, un paso parcial cuenta la mitad. Los "
+"pasos fuera de sus derechos no cuentan."
 
 msgid "Steps"
 msgstr "Pasos"
 
-msgid "Each state is computed from the data already entered in the plugin, each time you open this page. Nothing is changed automatically."
-msgstr "Cada estado se calcula a partir de los datos ya introducidos en el plugin, cada vez que abre esta página. No se modifica nada automáticamente."
+msgid ""
+"Each state is computed from the data already entered in the plugin, each "
+"time you open this page. Nothing is changed automatically."
+msgstr ""
+"Cada estado se calcula a partir de los datos ya introducidos en el plugin, "
+"cada vez que abre esta página. No se modifica nada automáticamente."
 
 msgid "Readiness report (PDF)"
 msgstr "Informe de preparación (PDF)"
 
 msgid "Every step is done: you are ready for the certification audit."
-msgstr "Todos los pasos están hechos: está listo para la auditoría de certificación."
+msgstr ""
+"Todos los pasos están hechos: está listo para la auditoría de certificación."
 
 msgid "No step can be evaluated with your rights."
 msgstr "Ningún paso puede evaluarse con sus derechos."
 
-msgid "Your profile cannot read the data of this step: ask an administrator of the management system."
-msgstr "Su perfil no puede leer los datos de este paso: consulte a un administrador del sistema de gestión."
+msgid ""
+"Your profile cannot read the data of this step: ask an administrator of the "
+"management system."
+msgstr ""
+"Su perfil no puede leer los datos de este paso: consulte a un administrador "
+"del sistema de gestión."
 
 msgid "Progress towards certification"
 msgstr "Avance hacia la certificación"
@@ -20508,7 +20525,8 @@ msgid "Plan"
 msgstr "Planificar"
 
 msgid "Set up the management system: scope, context, policy, roles, risks."
-msgstr "Implantar el sistema de gestión: alcance, contexto, política, roles, riesgos."
+msgstr ""
+"Implantar el sistema de gestión: alcance, contexto, política, roles, riesgos."
 
 msgid "Do"
 msgstr "Hacer"
@@ -20537,80 +20555,132 @@ msgstr "Fuera de sus derechos"
 msgid "Define the scope of the ISMS"
 msgstr "Definir el alcance del SGSI"
 
-msgid "Write down which sites, activities, systems and teams the management system covers, and what is left out, then attach this document to requirement 4.3."
-msgstr "Indique qué sedes, actividades, sistemas y equipos cubre el sistema de gestión, y qué queda excluido, y adjunte este documento al requisito 4.3."
+msgid ""
+"Write down which sites, activities, systems and teams the management system "
+"covers, and what is left out, then attach this document to requirement 4.3."
+msgstr ""
+"Indique qué sedes, actividades, sistemas y equipos cubre el sistema de "
+"gestión, y qué queda excluido, y adjunte este documento al requisito 4.3."
 
 msgid "Describe the context and the interested parties"
 msgstr "Describir el contexto y las partes interesadas"
 
-msgid "List the internal and external issues and the interested parties with their expectations, and decide whether climate change matters for you."
-msgstr "Enumere las cuestiones internas y externas y las partes interesadas con sus expectativas, y decida si el cambio climático le afecta."
+msgid ""
+"List the internal and external issues and the interested parties with their "
+"expectations, and decide whether climate change matters for you."
+msgstr ""
+"Enumere las cuestiones internas y externas y las partes interesadas con sus "
+"expectativas, y decida si el cambio climático le afecta."
 
 msgid "Approve the information security policy"
 msgstr "Aprobar la política de seguridad de la información"
 
-msgid "Have management approve the security policy and set the date of its next review."
-msgstr "Haga aprobar la política de seguridad por la dirección y fije la fecha de su próxima revisión."
+msgid ""
+"Have management approve the security policy and set the date of its next "
+"review."
+msgstr ""
+"Haga aprobar la política de seguridad por la dirección y fije la fecha de su "
+"próxima revisión."
 
 msgid "Assign the roles and responsibilities"
 msgstr "Asignar los roles y responsabilidades"
 
-msgid "For each activity of the management system, name who carries it out, who is accountable, and who is consulted or informed."
-msgstr "Para cada actividad del sistema de gestión, indique quién la realiza, quién rinde cuentas y quién es consultado o informado."
+msgid ""
+"For each activity of the management system, name who carries it out, who is "
+"accountable, and who is consulted or informed."
+msgstr ""
+"Para cada actividad del sistema de gestión, indique quién la realiza, quién "
+"rinde cuentas y quién es consultado o informado."
 
 msgid "Assess the risks"
 msgstr "Evaluar los riesgos"
 
-msgid "Identify the risks, give each one an owner, rate them with your method and keep their review dates up to date."
-msgstr "Identifique los riesgos, asigne un propietario a cada uno, valórelos con su método y mantenga al día sus fechas de revisión."
+msgid ""
+"Identify the risks, give each one an owner, rate them with your method and "
+"keep their review dates up to date."
+msgstr ""
+"Identifique los riesgos, asigne un propietario a cada uno, valórelos con su "
+"método y mantenga al día sus fechas de revisión."
 
 msgid "Decide how to treat the risks"
 msgstr "Decidir el tratamiento de los riesgos"
 
-msgid "Choose a treatment for each significant risk, have accepted risks approved, and follow up the treatment actions until they are done."
-msgstr "Elija un tratamiento para cada riesgo significativo, haga aprobar los riesgos aceptados y siga las acciones de tratamiento hasta su realización."
+msgid ""
+"Choose a treatment for each significant risk, have accepted risks approved, "
+"and follow up the treatment actions until they are done."
+msgstr ""
+"Elija un tratamiento para cada riesgo significativo, haga aprobar los "
+"riesgos aceptados y siga las acciones de tratamiento hasta su realización."
 
 msgid "Approve the Statement of Applicability"
 msgstr "Aprobar la declaración de aplicabilidad"
 
-msgid "Justify whether each control applies, then have the Statement of Applicability approved; approve it again after any change."
-msgstr "Justifique si cada control se aplica y haga aprobar la declaración de aplicabilidad; apruébela de nuevo tras cualquier cambio."
+msgid ""
+"Justify whether each control applies, then have the Statement of "
+"Applicability approved; approve it again after any change."
+msgstr ""
+"Justifique si cada control se aplica y haga aprobar la declaración de "
+"aplicabilidad; apruébela de nuevo tras cualquier cambio."
 
 msgid "Set measurable security objectives"
 msgstr "Fijar objetivos de seguridad medibles"
 
-msgid "Define security objectives with an owner and a target, and record measurements to show their progress."
-msgstr "Defina objetivos de seguridad con un responsable y una meta, y registre mediciones para mostrar su avance."
+msgid ""
+"Define security objectives with an owner and a target, and record "
+"measurements to show their progress."
+msgstr ""
+"Defina objetivos de seguridad con un responsable y una meta, y registre "
+"mediciones para mostrar su avance."
 
 msgid "Train and raise awareness"
 msgstr "Formar y concienciar"
 
-msgid "Deliver security training and awareness sessions, and make sure the people concerned have completed them."
-msgstr "Imparta formaciones y sesiones de concienciación en seguridad, y asegúrese de que las personas afectadas las han completado."
+msgid ""
+"Deliver security training and awareness sessions, and make sure the people "
+"concerned have completed them."
+msgstr ""
+"Imparta formaciones y sesiones de concienciación en seguridad, y asegúrese "
+"de que las personas afectadas las han completado."
 
 msgid "Run a continuity or crisis exercise"
 msgstr "Realizar un ejercicio de continuidad o de crisis"
 
-msgid "Run at least one exercise, assess whether its objectives were met and have its review validated."
-msgstr "Realice al menos un ejercicio, evalúe si se alcanzaron sus objetivos y haga validar su balance."
+msgid ""
+"Run at least one exercise, assess whether its objectives were met and have "
+"its review validated."
+msgstr ""
+"Realice al menos un ejercicio, evalúe si se alcanzaron sus objetivos y haga "
+"validar su balance."
 
 msgid "Carry out the internal audit"
 msgstr "Realizar la auditoría interna"
 
-msgid "Complete an internal audit and make sure the audit programme covers every requirement and every applicable control."
-msgstr "Complete una auditoría interna y asegúrese de que el programa de auditoría cubre cada requisito y cada control aplicable."
+msgid ""
+"Complete an internal audit and make sure the audit programme covers every "
+"requirement and every applicable control."
+msgstr ""
+"Complete una auditoría interna y asegúrese de que el programa de auditoría "
+"cubre cada requisito y cada control aplicable."
 
 msgid "Hold the management review"
 msgstr "Realizar la revisión por la dirección"
 
-msgid "Hold a management review prepared with its input file, and record the decisions taken."
-msgstr "Realice una revisión por la dirección preparada con su expediente, y registre las decisiones tomadas."
+msgid ""
+"Hold a management review prepared with its input file, and record the "
+"decisions taken."
+msgstr ""
+"Realice una revisión por la dirección preparada con su expediente, y "
+"registre las decisiones tomadas."
 
 msgid "Treat the nonconformities"
 msgstr "Tratar las no conformidades"
 
-msgid "Analyse each nonconformity, carry out its corrective action on time, and close it only once the action is done."
-msgstr "Analice cada no conformidad, realice su acción correctiva a tiempo y ciérrela solo cuando la acción esté hecha."
+msgid ""
+"Analyse each nonconformity, carry out its corrective action on time, and "
+"close it only once the action is done."
+msgstr ""
+"Analice cada no conformidad, realice su acción correctiva a tiempo y "
+"ciérrela solo cuando la acción esté hecha."
 
 #, php-format
 msgid "Declared requirements: %1$d of %2$d compliant"
@@ -20655,8 +20725,12 @@ msgid "Activities in the matrix: %d"
 msgstr "Actividades en la matriz: %d"
 
 #, php-format
-msgid "Activities with a serious alert (no one accountable, several accountable, roles that should be separated): %d"
-msgstr "Actividades con una alerta grave (nadie rinde cuentas, varios rinden cuentas, roles que deberían separarse): %d"
+msgid ""
+"Activities with a serious alert (no one accountable, several accountable, "
+"roles that should be separated): %d"
+msgstr ""
+"Actividades con una alerta grave (nadie rinde cuentas, varios rinden "
+"cuentas, roles que deberían separarse): %d"
 
 #, php-format
 msgid "Open risks: %d"
@@ -20725,8 +20799,11 @@ msgid "No internal audit completed yet"
 msgstr "Ninguna auditoría interna terminada todavía"
 
 #, php-format
-msgid "Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
-msgstr "Cobertura del programa de auditoría: %1$d %% (%2$d de %3$d requisitos y controles)"
+msgid ""
+"Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
+msgstr ""
+"Cobertura del programa de auditoría: %1$d %% (%2$d de %3$d requisitos y "
+"controles)"
 
 msgid "Open the last management review"
 msgstr "Abrir la última revisión por la dirección"
@@ -20759,11 +20836,400 @@ msgstr "Cerradas sin acción correctiva: %d"
 msgid "Certification readiness report"
 msgstr "Informe de preparación para la certificación"
 
-msgid "This page guides you, step by step, from setting up your security management system to the certification audit: for each step, it shows what is expected, where you stand according to the data already entered, and the screen to open to complete it."
-msgstr "Esta página le guía, paso a paso, desde la implantación de su sistema de gestión de la seguridad hasta la auditoría de certificación: para cada paso, indica qué se espera, en qué punto está según los datos ya introducidos y la pantalla que abrir para completarlo."
+msgid ""
+"This page guides you, step by step, from setting up your security management "
+"system to the certification audit: for each step, it shows what is expected, "
+"where you stand according to the data already entered, and the screen to "
+"open to complete it."
+msgstr ""
+"Esta página le guía, paso a paso, desde la implantación de su sistema de "
+"gestión de la seguridad hasta la auditoría de certificación: para cada paso, "
+"indica qué se espera, en qué punto está según los datos ya introducidos y la "
+"pantalla que abrir para completarlo."
 
-msgid "Follow the steps in order, starting with the one marked as the next step. Click its button to open the screen concerned, complete it, then come back: the page is computed again each time. Nothing is changed automatically. Export the PDF readiness report to share where you stand."
-msgstr "Siga los pasos en orden, empezando por el marcado como siguiente paso. Haga clic en su botón para abrir la pantalla correspondiente, complétela y vuelva: la página se recalcula cada vez. No se modifica nada automáticamente. Exporte el informe de preparación en PDF para compartir en qué punto está."
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. "
+"Export the PDF readiness report to share where you stand."
+msgstr ""
+"Siga los pasos en orden, empezando por el marcado como siguiente paso. Haga "
+"clic en su botón para abrir la pantalla correspondiente, complétela y "
+"vuelva: la página se recalcula cada vez. No se modifica nada "
+"automáticamente. Exporte el informe de preparación en PDF para compartir en "
+"qué punto está."
 
 msgid "Progress towards certification (out of 100)"
 msgstr "Avance hacia la certificación (sobre 100)"
+
+msgid "Test"
+msgstr "Prueba"
+
+msgid "Reviewer"
+msgstr "Revisor"
+
+msgid "Sample"
+msgid_plural "Samples"
+msgstr[0] "Muestra"
+msgstr[1] "Muestras"
+
+msgid "Question checked on each item"
+msgstr "Pregunta verificada en cada elemento"
+
+msgid "Items in the population"
+msgstr "Elementos de la población"
+
+msgid "Sample size"
+msgstr "Tamaño de la muestra"
+
+msgid "Draw date"
+msgstr "Fecha del sorteo"
+
+msgid "Drawn by"
+msgstr "Extraída por"
+
+msgid "Seed"
+msgstr "Semilla"
+
+msgid "Proposed result"
+msgstr "Resultado propuesto"
+
+msgid "Justification of a different result"
+msgstr "Justificación de un resultado distinto"
+
+msgid ""
+"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
+"identifier\"; the first items of this ranking form the sample. The same "
+"population and the same seed always give the same sample."
+msgstr ""
+"Cada elemento de la población se ordena según la huella SHA-256 de «semilla:"
+"identificador»; los primeros elementos de esta clasificación forman la "
+"muestra. La misma población y la misma semilla dan siempre la misma muestra."
+
+#, php-format
+msgid "Back to the tests of %s"
+msgstr "Volver a las pruebas de %s"
+
+msgid "Recorded as a test"
+msgstr "Registrada como prueba"
+
+msgid "Test record for the auditor (PDF)"
+msgstr "Ficha de la prueba para el auditor (PDF)"
+
+msgid "Population and criteria"
+msgstr "Población y criterios"
+
+msgid "How the sample was drawn"
+msgstr "Cómo se extrajo la muestra"
+
+msgid "once every item is checked"
+msgstr "una vez verificado cada elemento"
+
+msgid "none: every item is not applicable"
+msgstr "ninguno: todos los elementos son no aplicables"
+
+msgid "Items drawn"
+msgstr "Elementos extraídos"
+
+msgid ""
+"A non-compliant or not applicable item must be explained in its comment."
+msgstr ""
+"Un elemento no conforme o no aplicable debe explicarse en su comentario."
+
+msgid "Save the results"
+msgstr "Guardar los resultados"
+
+msgid "Record the test from this sample"
+msgstr "Registrar la prueba a partir de esta muestra"
+
+#, php-format
+msgid ""
+"Proposed: no deviation gives an effective test, at least %d%% compliant a "
+"partially effective test, below an ineffective test."
+msgstr ""
+"Propuesto: sin desviación, prueba eficaz; al menos un %d%% conforme, prueba "
+"parcialmente eficaz; por debajo, prueba ineficaz."
+
+msgid "Optional: the sample and its results are added to the finding."
+msgstr "Opcional: la muestra y sus resultados se añaden a la constatación."
+
+msgid ""
+"Another person will have to review this test before it counts for the "
+"\"Verified\" status."
+msgstr ""
+"Otra persona deberá revisar esta prueba antes de que cuente para el estado "
+"«Verificado»."
+
+msgid ""
+"Once the test is recorded, the sample is frozen. Deleting the test opens the "
+"sample again."
+msgstr ""
+"Una vez registrada la prueba, la muestra queda fijada. Eliminar la prueba "
+"vuelve a abrir la muestra."
+
+msgid "Delete this sample?"
+msgstr "¿Eliminar esta muestra?"
+
+msgid "Delete this sample"
+msgstr "Eliminar esta muestra"
+
+msgid "Review of effectiveness tests"
+msgstr "Revisión de las pruebas de eficacia"
+
+msgid ""
+"When enabled, an effective test only gives the \"Verified\" status once "
+"another person (neither the tester nor the person who recorded it) has "
+"approved it. A partially effective or ineffective test still withdraws the "
+"\"Verified\" status at once."
+msgstr ""
+"Si se activa, una prueba eficaz solo da el estado «Verificado» cuando otra "
+"persona (ni quien la realizó ni quien la registró) la ha aprobado. Una "
+"prueba parcialmente eficaz o ineficaz sigue retirando el estado «Verificado» "
+"de inmediato."
+
+msgid "Require a review of each new effectiveness test"
+msgstr "Exigir la revisión de cada nueva prueba de eficacia"
+
+msgid "Draw a sample in GLPI"
+msgstr "Extraer una muestra en GLPI"
+
+msgid ""
+"The items are drawn at random from what you can see in GLPI (your active "
+"entities and rights). The population, the criteria, the size, the seed, the "
+"date and the author are kept with the sample: the same draw can be checked "
+"again by the auditor."
+msgstr ""
+"Los elementos se extraen al azar entre lo que usted ve en GLPI (sus "
+"entidades activas y sus derechos). La población, los criterios, el tamaño, "
+"la semilla, la fecha y el autor se conservan con la muestra: el auditor "
+"puede volver a comprobar el mismo sorteo."
+
+msgid "Example: does each closed change have an approved validation?"
+msgstr "Ejemplo: ¿cada cambio cerrado tiene una validación aprobada?"
+
+msgid "Population"
+msgstr "Población"
+
+msgid "not allowed"
+msgstr "no permitido"
+
+msgid "Tickets and changes require the right to see all of them."
+msgstr "Los tickets y los cambios requieren el derecho de verlos todos."
+
+msgid "All my active entities"
+msgstr "Todas mis entidades activas"
+
+msgid "Period covered: from"
+msgstr "Periodo cubierto: del"
+
+msgid "to"
+msgstr "al"
+
+msgid ""
+"Creation date of users and computers; opening date of tickets and changes, "
+"or closing date if closed only."
+msgstr ""
+"Fecha de creación de usuarios y equipos; fecha de apertura de tickets y "
+"cambios, o fecha de cierre si solo cerrados."
+
+msgid "Category (tickets and changes)"
+msgstr "Categoría (tickets y cambios)"
+
+msgid "Closed tickets or changes only"
+msgstr "Solo tickets o cambios cerrados"
+
+msgid "Active user accounts only"
+msgstr "Solo cuentas de usuario activas"
+
+msgid "How often the control operates"
+msgstr "Frecuencia de funcionamiento del control"
+
+msgid "Empty: the size proposed for this frequency."
+msgstr "Vacío: el tamaño propuesto para esta frecuencia."
+
+msgid "Seed (optional)"
+msgstr "Semilla (opcional)"
+
+msgid ""
+"Empty: a random seed is generated. Enter the seed of an earlier draw to "
+"reproduce it."
+msgstr ""
+"Vacío: se genera una semilla aleatoria. Introduzca la semilla de un sorteo "
+"anterior para reproducirlo."
+
+msgid "Draw the sample"
+msgstr "Extraer la muestra"
+
+msgid "Samples in progress"
+msgstr "Muestras en curso"
+
+#, php-format
+msgid "%1$d out of %2$d"
+msgstr "%1$d de %2$d"
+
+msgid "Review comment"
+msgstr "Comentario de revisión"
+
+msgid "Review comment (required to return the test)"
+msgstr "Comentario de revisión (obligatorio para devolver la prueba)"
+
+msgid "Return"
+msgstr "Devolver"
+
+#, php-format
+msgid "Sample: %1$d out of %2$d"
+msgstr "Muestra: %1$d de %2$d"
+
+msgid "This sample is already recorded as a test."
+msgstr "Esta muestra ya está registrada como prueba."
+
+msgid "Awaiting review"
+msgstr "Pendiente de revisión"
+
+msgid "Review approved"
+msgstr "Revisión aprobada"
+
+msgid "Returned by the reviewer"
+msgstr "Devuelta por el revisor"
+
+msgid ""
+"The test awaits review by another person before it counts for the "
+"\"Verified\" status."
+msgstr ""
+"La prueba espera la revisión de otra persona antes de contar para el estado "
+"«Verificado»."
+
+msgid "Explain why the test is returned."
+msgstr "Explique por qué se devuelve la prueba."
+
+msgid "Test approved: it now counts for the \"Verified\" status."
+msgstr "Prueba aprobada: ahora cuenta para el estado «Verificado»."
+
+msgid ""
+"Test returned to its author: it does not count for the \"Verified\" status."
+msgstr "Prueba devuelta a su autor: no cuenta para el estado «Verificado»."
+
+#, php-format
+msgid "Effectiveness test of %s"
+msgstr "Prueba de eficacia de %s"
+
+msgid "Annual control"
+msgstr "Control anual"
+
+msgid "Quarterly control"
+msgstr "Control trimestral"
+
+msgid "Monthly control"
+msgstr "Control mensual"
+
+msgid "Weekly control"
+msgstr "Control semanal"
+
+msgid "Daily control"
+msgstr "Control diario"
+
+msgid "Control run several times a day"
+msgstr "Control ejecutado varias veces al día"
+
+#, php-format
+msgid "%1$s (%2$d item)"
+msgid_plural "%1$s (%2$d items)"
+msgstr[0] "%1$s (%2$d elemento)"
+msgstr[1] "%1$s (%2$d elementos)"
+
+msgid "You are not allowed to test this control."
+msgstr "No tiene permiso para probar esta medida."
+
+msgid "Choose the population to draw from."
+msgstr "Elija la población de la que extraer."
+
+#, php-format
+msgid "You are not allowed to see all the items of this population (%s)."
+msgstr "No tiene permiso para ver todos los elementos de esta población (%s)."
+
+msgid "Enter the question checked on each item."
+msgstr "Introduzca la pregunta verificada en cada elemento."
+
+msgid "The start of the period must be before its end."
+msgstr "El inicio del periodo debe ser anterior a su fin."
+
+msgid "This entity is not among your active entities."
+msgstr "Esta entidad no está entre sus entidades activas."
+
+msgid "The seed may only contain letters, digits, dashes and underscores."
+msgstr ""
+"La semilla solo puede contener letras, cifras, guiones y guiones bajos."
+
+#, php-format
+msgid "The population exceeds %d items: narrow the period or the criteria."
+msgstr "La población supera %d elementos: acote el periodo o los criterios."
+
+msgid "No item matches these criteria: nothing was drawn."
+msgstr "Ningún elemento coincide con estos criterios: no se extrajo nada."
+
+msgid "The sample could not be saved."
+msgstr "No se pudo guardar la muestra."
+
+#, php-format
+msgid "%1$d item drawn at random out of %2$d."
+msgid_plural "%1$d items drawn at random out of %2$d."
+msgstr[0] "%1$d elemento extraído al azar de %2$d."
+msgstr[1] "%1$d elementos extraídos al azar de %2$d."
+
+msgid "Give a result to every item drawn before recording the test."
+msgstr ""
+"Asigne un resultado a cada elemento extraído antes de registrar la prueba."
+
+msgid "Explain each non-compliant or not applicable item in its comment."
+msgstr "Explique cada elemento no conforme o no aplicable en su comentario."
+
+msgid "Every item is not applicable: draw another sample."
+msgstr "Todos los elementos son no aplicables: extraiga otra muestra."
+
+msgid "Justify a result different from the proposed one."
+msgstr "Justifique un resultado distinto del propuesto."
+
+msgid "This sample has no item."
+msgstr "Esta muestra no tiene ningún elemento."
+
+#, php-format
+msgid ""
+"Random sample, %1$d of %2$d (%3$s): %4$d compliant, %5$d non-compliant, %6$d "
+"not applicable."
+msgstr ""
+"Muestra aleatoria, %1$d de %2$d (%3$s): %4$d conformes, %5$d no conformes, "
+"%6$d no aplicables."
+
+#, php-format
+msgid "Question: %s"
+msgstr "Pregunta: %s"
+
+#, php-format
+msgid "Result changed from the proposed one (%1$s): %2$s"
+msgstr "Resultado modificado respecto al propuesto (%1$s): %2$s"
+
+#, php-format
+msgid "%s and its sub-entities"
+msgstr "%s y sus subentidades"
+
+msgid "No period limit"
+msgstr "Sin límite de periodo"
+
+#, php-format
+msgid "From %1$s to %2$s"
+msgstr "Del %1$s al %2$s"
+
+msgid "Date used for the period"
+msgstr "Fecha utilizada para el periodo"
+
+msgid "Closed only"
+msgstr "Solo cerrados"
+
+msgid "Active accounts only"
+msgstr "Solo cuentas activas"
+
+#, php-format
+msgid "and %d other entity"
+msgid_plural "and %d other entities"
+msgstr[0] "y %d entidad más"
+msgstr[1] "y %d entidades más"

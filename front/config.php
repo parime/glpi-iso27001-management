@@ -353,6 +353,19 @@ if (isset($_POST['update_controltest_reminder'])) {
     Html::back();
 }
 
+// Issue #607 : relecture des tests d'efficacité par une seconde personne.
+if (isset($_POST['update_controltest_review'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    if (\GlpiPlugin\Grcmanager\ControlTest::saveReviewEnabled($_POST['controltest_review'] ?? '0')) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['controltest_review' => \GlpiPlugin\Grcmanager\ControlTest::isReviewEnabled()],
+        ]);
+    }
+
+    Html::back();
+}
+
 // Issue #378 : niveau d'alerte des indicateurs de risque (rouge seulement, ou dès l'orange).
 if (isset($_POST['update_kri_alert'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
@@ -611,6 +624,7 @@ Html::header(
     'risk_appetite_title'       => \GlpiPlugin\Grcmanager\RiskAppetite::getTypeName(),
     'risk_appetite_url'         => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
     'controltest_ciso_mode'     => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode(),
+    'controltest_review'        => \GlpiPlugin\Grcmanager\ControlTest::isReviewEnabled(),
     'controltest_ciso_modes'    => \GlpiPlugin\Grcmanager\ControlTestReminder::getCisoModes(),
     'controltest_brand_color'   => \GlpiPlugin\Grcmanager\ControlTestReminder::brandColor(),
     'controltest_cga_branding'  => \GlpiPlugin\Grcmanager\ControlTestReminder::isCgaActive(),

@@ -264,4 +264,53 @@ final class ControlTestRules
 
         return $keys;
     }
+
+    /*
+     * Issue #607 : relecture d'un test par une seconde personne, activable dans la configuration.
+     * Sans relecture : état vide, le test compte dès son enregistrement.
+     */
+    public const REVIEW_NONE = '';
+    public const REVIEW_PENDING = 'pending';
+    public const REVIEW_APPROVED = 'approved';
+    public const REVIEW_RETURNED = 'returned';
+    public const REVIEW_STATUSES = [self::REVIEW_PENDING, self::REVIEW_APPROVED, self::REVIEW_RETURNED];
+
+    public static function normalizeReviewStatus(mixed $value): string
+    {
+        return in_array($value, self::REVIEW_STATUSES, true) ? (string) $value : self::REVIEW_NONE;
+    }
+
+    /**
+     * Un test compte pour l'état « Vérifié » sans relecture demandée, ou une fois validé.
+     */
+    public static function countsForVerified(string $reviewStatus): bool
+    {
+        return in_array($reviewStatus, [self::REVIEW_NONE, self::REVIEW_APPROVED], true);
+    }
+
+    /**
+     * Seul un test en attente se relit, et jamais par son testeur ni par la personne qui l'a
+     * enregistré.
+     */
+    public static function canReview(string $reviewStatus, int $reviewerId, int $testerId, int $recorderId): bool
+    {
+        return $reviewStatus === self::REVIEW_PENDING
+            && $reviewerId > 0
+            && $reviewerId !== $testerId
+            && $reviewerId !== $recorderId;
+    }
+
+    /**
+     * Nouvel état de la mesure à l'enregistrement d'un test : avec une relecture en attente, un test
+     * efficace n'apporte pas encore l'état « vérifié » (il l'apportera à sa validation) ; un test
+     * partiel ou inefficace le retire tout de suite, par prudence.
+     */
+    public static function statusAtRecording(string $currentStatus, string $result, string $reviewStatus): ?string
+    {
+        if (!self::countsForVerified($reviewStatus) && $result === self::RESULT_EFFECTIVE) {
+            return null;
+        }
+
+        return self::statusAfterTest($currentStatus, $result);
+    }
 }
