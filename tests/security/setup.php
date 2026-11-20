@@ -151,6 +151,25 @@ if ($mode === 'xss') {
         'plugin_grcmanager_audits_id' => $out['audit'], 'users_id' => 2, 'date_begin' => date('Y-m-d'),
         'date_end' => date('Y-m-d', strtotime('+5 days')), 'users_id_grantor' => 2, 'date_creation' => $now,
     ]);
+    // Issue #773 : processus piégé de l'audit piégé, où glpi réalise l'activité (conflit
+    // d'indépendance), justification et commentaire de remise du rapport piégés.
+    $xssProcess = $insert('responsibilityactivities', ['entities_id' => 0, 'is_recursive' => 1, 'name' => $canary]);
+    $insert('responsibilityassignments', [
+        'plugin_grcmanager_responsibilityactivities_id' => $xssProcess, 'itemtype' => 'User', 'items_id' => 2,
+        'role' => 'responsible',
+    ]);
+    $insert('audits_processes', [
+        'plugin_grcmanager_audits_id' => $out['audit'], 'plugin_grcmanager_responsibilityactivities_id' => $xssProcess,
+    ]);
+    $insert('auditindependencewaivers', [
+        'plugin_grcmanager_audits_id' => $out['audit'], 'users_id' => 2,
+        'plugin_grcmanager_responsibilityactivities_id' => $xssProcess, 'justification' => $canary,
+        'users_id_author' => 2, 'date_creation' => $now,
+    ]);
+    $insert('auditreportdeliveries', [
+        'plugin_grcmanager_audits_id' => $out['audit'], 'delivery_date' => date('Y-m-d'), 'users_id_recipient' => 2,
+        'comment' => $canary, 'users_id' => 2,
+    ]);
     $out['training'] = $insert('trainings', [
         'title' => $canary, 'description' => $canary, 'target_audience' => $canary,
     ]);

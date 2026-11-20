@@ -22,11 +22,18 @@
     {{ __('No CISO group is set in the plugin configuration.', 'grcmanager') }}
   {% endif %}
 </p>
+{# Issue #773 : indépendance et compétence des auditeurs (ISO 19011). #}
+{% if internal and open_conflicts > 0 %}
+  <div class="alert alert-warning" id="grc-team-independence">
+    <i class="ti ti-alert-triangle me-1"></i>{{ __('%d independence conflict(s) to justify: an auditor performs or approves an audited process. See the "Programme and independence" tab.', 'grcmanager')|format(open_conflicts) }}
+  </div>
+{% endif %}
 <table class="table table-hover card-table mb-3">
   <thead>
     <tr>
       <th>{{ __('Member', 'grcmanager') }}</th>
       <th>{{ __('Role', 'grcmanager') }}</th>
+      {% if internal %}<th>{{ __('Auditor competence', 'grcmanager') }}</th>{% endif %}
       {% if can_edit %}<th></th>{% endif %}
     </tr>
   </thead>
@@ -35,6 +42,28 @@
       <tr>
         <td>{{ row.name }}</td>
         <td>{{ row.role }}{% if row.from_form %} <span class="text-muted">({{ __('audit form', 'grcmanager') }})</span>{% endif %}</td>
+        {% if internal %}
+          <td class="grc-competence">
+            {% set comp = row.competence %}
+            {% if comp is null %}
+              <span class="text-muted small">-</span>
+            {% elseif comp.status == 'not_configured' %}
+              <span class="text-muted small">{{ __('Choose the trainings that qualify an internal auditor on the audit programme page.', 'grcmanager') }}</span>
+              <a href="{{ programme_url }}" class="small">{{ __('Multi-year audit programme', 'grcmanager') }}</a>
+            {% else %}
+              {% if comp.status == 'qualified' %}
+                <span class="badge bg-green-lt grc-competence-qualified"><i class="ti ti-certificate me-1"></i>{{ __('Qualified', 'grcmanager') }}</span>
+              {% elseif comp.status == 'expired' %}
+                <span class="badge bg-orange-lt grc-competence-expired"><i class="ti ti-clock-exclamation me-1"></i>{{ __('Qualification to renew', 'grcmanager') }}</span>
+              {% else %}
+                <span class="badge bg-red-lt grc-competence-missing"><i class="ti ti-alert-triangle me-1"></i>{{ __('No auditor qualification recorded', 'grcmanager') }}</span>
+              {% endif %}
+              {% for t in comp.trainings %}
+                <div class="small{{ t.valid ? '' : ' text-muted' }}">{{ t.title }}{% if t.date_text %} ({{ t.date_text }}){% endif %}</div>
+              {% endfor %}
+            {% endif %}
+          </td>
+        {% endif %}
         {% if can_edit %}
           <td class="text-end">
             {% if not row.from_form %}
@@ -51,7 +80,7 @@
         {% endif %}
       </tr>
     {% else %}
-      <tr><td colspan="3" class="text-muted">{{ __('No member: set the auditor or the owner on the form.', 'grcmanager') }}</td></tr>
+      <tr><td colspan="4" class="text-muted">{{ __('No member: set the auditor or the owner on the form.', 'grcmanager') }}</td></tr>
     {% endfor %}
   </tbody>
 </table>

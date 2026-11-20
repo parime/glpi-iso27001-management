@@ -21722,3 +21722,231 @@ msgstr[1] "%d Richtlinien gelesen"
 
 msgid "People tracked"
 msgstr "Erfasste Personen"
+
+#, php-format
+msgid "Audited"
+msgstr "Auditiert"
+
+#, php-format
+msgid "Not covered"
+msgstr "Nicht abgedeckt"
+
+#, php-format
+msgid "Multi-year audit programme"
+msgstr "Mehrjähriges Auditprogramm"
+
+#, php-format
+msgid "Plan an audit"
+msgstr "Audit planen"
+
+#, php-format
+msgid "Certification cycle"
+msgstr "Zertifizierungszyklus"
+
+#, php-format
+msgid "Processes audited over the cycle: %1$d of %2$d (%3$d %%)"
+msgstr "Im Zyklus auditierte Prozesse: %1$d von %2$d (%3$d %%)"
+
+#, php-format
+msgid "%d process(es) have no completed audit over the cycle and none planned on time: plan an audit for each one before the end of the cycle."
+msgstr "%d Prozess(e) ohne abgeschlossenes Audit im Zyklus und ohne rechtzeitig geplantes Audit: Planen Sie für jeden ein Audit vor Ende des Zyklus."
+
+#, php-format
+msgid "ISMS requirements not covered by any audit checklist of the cycle:"
+msgstr "ISMS-Anforderungen, die von keiner Audit-Checkliste des Zyklus abgedeckt sind:"
+
+#, php-format
+msgid "%d applicable control(s) not audited over the cycle."
+msgstr "%d anwendbare Maßnahme(n) im Zyklus nicht auditiert."
+
+#, php-format
+msgid "No ISMS process yet. The processes of the programme are the ISMS activities of the responsibility matrix."
+msgstr "Noch kein ISMS-Prozess. Die Prozesse des Programms sind die ISMS-Tätigkeiten der Verantwortlichkeitsmatrix."
+
+#, php-format
+msgid "Cycle"
+msgstr "Zyklus"
+
+#, php-format
+msgid "Audits of the cycle with no audited process (choose them in the \"Programme and independence\" tab of the audit):"
+msgstr "Audits des Zyklus ohne auditierten Prozess (wählen Sie diese im Reiter „Programm und Unabhängigkeit“ des Audits):"
+
+#, php-format
+msgid "Programme settings"
+msgstr "Programmeinstellungen"
+
+#, php-format
+msgid "Default certification cycle"
+msgstr "Standard-Zertifizierungszyklus"
+
+#, php-format
+msgid "Trainings that qualify an internal auditor"
+msgstr "Schulungen, die einen internen Auditor qualifizieren"
+
+#, php-format
+msgid "No training recorded yet."
+msgstr "Noch keine Schulung erfasst."
+
+#, php-format
+msgid "For example \"ISO 27001 internal auditor\". The Team tab of each audit shows whether its auditors have followed one of them."
+msgstr "Zum Beispiel „Interner Auditor ISO 27001“. Der Reiter Team jedes Audits zeigt, ob seine Auditoren eine davon besucht haben."
+
+#, php-format
+msgid "%d independence conflict(s) to justify: an auditor performs or approves an audited process. See the \"Programme and independence\" tab."
+msgstr "%d Unabhängigkeitskonflikt(e) zu begründen: Ein Auditor führt einen auditierten Prozess aus oder genehmigt ihn. Siehe Reiter „Programm und Unabhängigkeit“."
+
+#, php-format
+msgid "Auditor competence"
+msgstr "Kompetenz des Auditors"
+
+#, php-format
+msgid "Choose the trainings that qualify an internal auditor on the audit programme page."
+msgstr "Wählen Sie die Schulungen, die einen internen Auditor qualifizieren, auf der Seite des Auditprogramms."
+
+#, php-format
+msgid "Qualified"
+msgstr "Qualifiziert"
+
+#, php-format
+msgid "Qualification to renew"
+msgstr "Qualifikation zu erneuern"
+
+#, php-format
+msgid "No auditor qualification recorded"
+msgstr "Keine Auditorqualifikation erfasst"
+
+#, php-format
+msgid "Audited processes"
+msgstr "Auditierte Prozesse"
+
+#, php-format
+msgid "The processes are the ISMS activities of the responsibility matrix. The processes chosen here fill the multi-year audit programme and are used to check the independence of the auditors."
+msgstr "Die Prozesse sind die ISMS-Tätigkeiten der Verantwortlichkeitsmatrix. Die hier gewählten Prozesse füllen das mehrjährige Auditprogramm und dienen der Prüfung der Unabhängigkeit der Auditoren."
+
+#, php-format
+msgid "No ISMS activity in the entity of the audit: create them in the responsibility matrix first."
+msgstr "Keine ISMS-Tätigkeit in der Einheit des Audits: Legen Sie diese zuerst in der Verantwortlichkeitsmatrix an."
+
+#, php-format
+msgid "No process chosen."
+msgstr "Kein Prozess gewählt."
+
+#, php-format
+msgid "Independence of the auditors"
+msgstr "Unabhängigkeit der Auditoren"
+
+#, php-format
+msgid "An auditor must not audit their own work (ISO 19011). An auditor who performs or approves an audited process in the responsibility matrix, directly or through a group, is in conflict. The audit cannot be started or closed until each conflict is justified; the justification is kept with its author and date."
+msgstr "Ein Auditor darf seine eigene Arbeit nicht auditieren (ISO 19011). Ein Auditor, der einen auditierten Prozess in der Verantwortlichkeitsmatrix direkt oder über eine Gruppe ausführt oder genehmigt, befindet sich in einem Konflikt. Das Audit kann erst gestartet oder abgeschlossen werden, wenn jeder Konflikt begründet ist; die Begründung wird mit Verfasser und Datum aufbewahrt."
+
+#, php-format
+msgid "Auditors"
+msgstr "Auditoren"
+
+#, php-format
+msgid "none: set the auditor on the form or add auditors in the Team tab."
+msgstr "keine: Tragen Sie den Auditor im Formular ein oder fügen Sie Auditoren im Reiter Team hinzu."
+
+#, php-format
+msgid "No independence conflict between the auditors and the audited processes."
+msgstr "Kein Unabhängigkeitskonflikt zwischen den Auditoren und den auditierten Prozessen."
+
+#, php-format
+msgid "Role in the matrix"
+msgstr "Rolle in der Matrix"
+
+#, php-format
+msgid "through the group %s"
+msgstr "über die Gruppe %s"
+
+#, php-format
+msgid "Justified"
+msgstr "Begründet"
+
+#, php-format
+msgid "To justify"
+msgstr "Zu begründen"
+
+#, php-format
+msgid "Why this auditor can still audit this process objectively (e.g. small team, part audited by someone else)"
+msgstr "Warum dieser Auditor diesen Prozess dennoch objektiv auditieren kann (z. B. kleines Team, Teil von jemand anderem auditiert)"
+
+#, php-format
+msgid "Record the justification"
+msgstr "Begründung speichern"
+
+#, php-format
+msgid "Report delivered to management"
+msgstr "Bericht an die Leitung übergeben"
+
+#, php-format
+msgid "The results of the audit must be reported to management (ISO 27001 9.2.2). The delivery date and the recipient appear in the management review dossier (9.3.2 d 3)."
+msgstr "Die Ergebnisse des Audits müssen der Leitung berichtet werden (ISO 27001 9.2.2). Übergabedatum und Empfänger erscheinen in den Unterlagen der Managementbewertung (9.3.2 d 3)."
+
+#, php-format
+msgid "Delivered on %1$s to %2$s"
+msgstr "Übergeben am %1$s an %2$s"
+
+#, php-format
+msgid "Not yet delivered to management"
+msgstr "Noch nicht an die Leitung übergeben"
+
+#, php-format
+msgid "Delivery date"
+msgstr "Übergabedatum"
+
+#, php-format
+msgid "Recipient"
+msgstr "Empfänger"
+
+#, php-format
+msgid "Audited processes: %s"
+msgstr "Auditierte Prozesse: %s"
+
+#, php-format
+msgid "Independence conflict justified: %1$s on %2$s (%3$s)"
+msgstr "Unabhängigkeitskonflikt begründet: %1$s bei %2$s (%3$s)"
+
+#, php-format
+msgid "Independence of the auditors: %s. Justify each conflict in the \"Programme and independence\" tab, or change the auditor, before starting or closing the audit."
+msgstr "Unabhängigkeit der Auditoren: %s. Begründen Sie jeden Konflikt im Reiter „Programm und Unabhängigkeit“ oder wechseln Sie den Auditor, bevor Sie das Audit starten oder abschließen."
+
+#, php-format
+msgid "%1$s on %2$s"
+msgstr "%1$s bei %2$s"
+
+#, php-format
+msgid "Audit report delivered to management on %1$s (%2$s)"
+msgstr "Auditbericht am %1$s an die Leitung übergeben (%2$s)"
+
+#, php-format
+msgid "Programme and independence"
+msgstr "Programm und Unabhängigkeit"
+
+#, php-format
+msgid "The internal audit programme over the certification cycle: which ISMS process is audited which year, and which one is not covered yet."
+msgstr "Das interne Auditprogramm über den Zertifizierungszyklus: welcher ISMS-Prozess in welchem Jahr auditiert wird und welcher noch nicht abgedeckt ist."
+
+#, php-format
+msgid "Make sure every process is audited at least once over the cycle: plan an audit for each process in red or orange, and choose its processes in the \"Programme and independence\" tab of the audit."
+msgstr "Stellen Sie sicher, dass jeder Prozess mindestens einmal im Zyklus auditiert wird: Planen Sie für jeden roten oder orangen Prozess ein Audit und wählen Sie dessen Prozesse im Reiter „Programm und Unabhängigkeit“ des Audits."
+
+#, php-format
+msgid "ISO 27001, 9.2.2; ISO 19011, 5"
+msgstr "ISO 27001, 9.2.2; ISO 19011, 5"
+
+#, php-format
+msgid "Audit programme settings saved."
+msgstr "Einstellungen des Auditprogramms gespeichert."
+
+#, php-format
+msgid "An auditor performs or approves an audited process: justify each conflict below, or change the auditor, before starting or closing the audit."
+msgstr "Ein Auditor führt einen auditierten Prozess aus oder genehmigt ihn: Begründen Sie jeden Konflikt unten oder wechseln Sie den Auditor, bevor Sie das Audit starten oder abschließen."
+
+#, php-format
+msgid "Enter a justification of at least %d characters for this conflict."
+msgstr "Geben Sie für diesen Konflikt eine Begründung mit mindestens %d Zeichen ein."
+
+#, php-format
+msgid "Enter the delivery date and a recipient who has a profile in the entity of the audit."
+msgstr "Geben Sie das Übergabedatum und einen Empfänger mit einem Profil in der Einheit des Audits ein."

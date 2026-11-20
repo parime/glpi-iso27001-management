@@ -140,7 +140,7 @@ class Audit extends AuditBase
 
     /**
      * @param array<string, mixed> $input
-     * @return array<string, mixed>
+     * @return array<string, mixed>|false
      */
     public function prepareInputForUpdate($input)
     {
@@ -151,6 +151,10 @@ class Audit extends AuditBase
             && !Session::haveAccessToEntity((int) $input['entities_id'])
         ) {
             unset($input['entities_id']);
+        }
+        // Issue #773 : pas de démarrage ni de clôture avec un conflit d'indépendance non justifié.
+        if (!AuditProgramme::allowsUpdate($this, $input)) {
+            return false;
         }
 
         return $this->normalizeInput($input);
@@ -442,6 +446,8 @@ class Audit extends AuditBase
         AuditorAccess::purgeAudit($this->getID());
         // Issue #606 : grille d'audit (les constats créés depuis la grille restent au registre).
         AuditChecklist::purgeAudit($this->getID());
+        // Issue #773 : processus audités, justifications d'indépendance, remise du rapport.
+        AuditProgramme::purgeAudit($this->getID());
     }
 
     public function post_addItem()
@@ -494,6 +500,8 @@ class Audit extends AuditBase
             ->addStandardTab(AuditEvidenceRequest::class, $tabs, $options)
             // Issue #606 : grille d'audit par exigence (question, audité, preuves, résultat).
             ->addStandardTab(AuditChecklist::class, $tabs, $options)
+            // Issue #773 : processus audités, indépendance des auditeurs, remise du rapport.
+            ->addStandardTab(AuditProgramme::class, $tabs, $options)
             ->addStandardTab(Nonconformity::class, $tabs, $options)
             ->addStandardTab(AuditTeam::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)

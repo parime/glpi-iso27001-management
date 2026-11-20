@@ -247,6 +247,8 @@ class ResponsibilityActivity extends ResponsibilityActivityBase
 
         parent::post_purgeItem();
         $DB->delete(self::ASSIGNMENTS_TABLE, [self::FK => (int) $this->getID()]);
+        // Issue #773 : le processus quitte les audits qui le visaient.
+        AuditProgramme::purgeProcess((int) $this->getID());
     }
 
     /**
