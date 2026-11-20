@@ -26574,3 +26574,77 @@ msgid "Recorded contact"
 msgid_plural "Recorded contacts"
 msgstr[0] "Erfasster Kontakt"
 msgstr[1] "Erfasste Kontakte"
+
+msgid "Periodic review recorded"
+msgstr "Regelmäßige Überprüfung erfasst"
+
+msgid "Expected operating domains without an approved procedure"
+msgstr "Erwartete Betriebsbereiche ohne genehmigtes Verfahren"
+
+msgid "Open the register of operating procedures, add the missing procedure (or a knowledge base article linked to it) and have it approved, or remove the domain from the expected list."
+msgstr "Öffnen Sie das Verzeichnis der Betriebsverfahren, fügen Sie das fehlende Verfahren (oder einen damit verknüpften Wissensdatenbank-Artikel) hinzu und lassen Sie es genehmigen, oder entfernen Sie den Bereich aus der erwarteten Liste."
+
+msgid "No operating procedure for this domain"
+msgstr "Kein Betriebsverfahren für diesen Bereich"
+
+msgid "Procedure not approved yet"
+msgstr "Verfahren noch nicht genehmigt"
+
+msgid "A review can only be recorded on an approved operating procedure."
+msgstr "Eine Überprüfung kann nur für ein genehmigtes Betriebsverfahren erfasst werden."
+
+#, php-format
+msgid "Review recorded. Next review: %s."
+msgstr "Überprüfung erfasst. Nächste Überprüfung: %s."
+
+#, php-format
+msgid "%d without content"
+msgstr "%d ohne Inhalt"
+
+msgid "Approval and review"
+msgstr "Genehmigung und Überprüfung"
+
+#, php-format
+msgid "Approved: %s"
+msgstr "Genehmigt: %s"
+
+msgid "Link a knowledge base article from the Knowledge base tab of the procedure, or attach the document from its Documents tab."
+msgstr "Verknüpfen Sie einen Wissensdatenbank-Artikel über die Registerkarte Wissensdatenbank des Verfahrens oder hängen Sie das Dokument über die Registerkarte Dokumente an."
+
+msgid "No content"
+msgstr "Kein Inhalt"
+
+msgid "No review recorded"
+msgstr "Keine Überprüfung erfasst"
+
+msgid "Procedures with neither a knowledge base article nor an attached document: the auditor cannot read them."
+msgstr "Verfahren ohne Wissensdatenbank-Artikel und ohne angehängtes Dokument: Der Auditor kann sie nicht lesen."
+
+#, php-format
+msgid "Reviewed on %1$s by %2$s"
+msgstr "Überprüft am %1$s von %2$s"
+
+#, php-format
+msgid "Knowledge base article: %s"
+msgstr "Wissensdatenbank-Artikel: %s"
+
+msgid "Procedures without content"
+msgstr "Verfahren ohne Inhalt"
+
+msgid "A review can be recorded once the procedure is approved. Changes to the procedure go through a new version."
+msgstr "Eine Überprüfung kann erfasst werden, sobald das Verfahren genehmigt ist. Änderungen am Verfahren erfolgen über eine neue Version."
+
+msgid "Records today as the review date of the procedure, with your name, without a new version. The next review is the date set above if you moved it later, one year later otherwise. Your other changes on this form are saved too."
+msgstr "Erfasst heute als Überprüfungsdatum des Verfahrens, mit Ihrem Namen, ohne neue Version. Die nächste Überprüfung ist das oben eingetragene Datum, wenn Sie es nach hinten verschoben haben, sonst ein Jahr später. Ihre anderen Änderungen in diesem Formular werden ebenfalls gespeichert."
+
+#, php-format
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] "%d Artikel, den Sie nicht lesen können"
+msgstr[1] "%d Artikel, die Sie nicht lesen können"
+
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] "%d Dokument"
+msgstr[1] "%d Dokumente"

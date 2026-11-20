@@ -31002,3 +31002,77 @@ msgstr[1] "Recorded contacts"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Periodic review recorded"
+msgstr "Periodic review recorded"
+
+msgid "Expected operating domains without an approved procedure"
+msgstr "Expected operating domains without an approved procedure"
+
+msgid "Open the register of operating procedures, add the missing procedure (or a knowledge base article linked to it) and have it approved, or remove the domain from the expected list."
+msgstr "Open the register of operating procedures, add the missing procedure (or a knowledge base article linked to it) and have it approved, or remove the domain from the expected list."
+
+msgid "No operating procedure for this domain"
+msgstr "No operating procedure for this domain"
+
+msgid "Procedure not approved yet"
+msgstr "Procedure not approved yet"
+
+msgid "A review can only be recorded on an approved operating procedure."
+msgstr "A review can only be recorded on an approved operating procedure."
+
+#, php-format
+msgid "Review recorded. Next review: %s."
+msgstr "Review recorded. Next review: %s."
+
+#, php-format
+msgid "%d without content"
+msgstr "%d without content"
+
+msgid "Approval and review"
+msgstr "Approval and review"
+
+#, php-format
+msgid "Approved: %s"
+msgstr "Approved: %s"
+
+msgid "Link a knowledge base article from the Knowledge base tab of the procedure, or attach the document from its Documents tab."
+msgstr "Link a knowledge base article from the Knowledge base tab of the procedure, or attach the document from its Documents tab."
+
+msgid "No content"
+msgstr "No content"
+
+msgid "No review recorded"
+msgstr "No review recorded"
+
+msgid "Procedures with neither a knowledge base article nor an attached document: the auditor cannot read them."
+msgstr "Procedures with neither a knowledge base article nor an attached document: the auditor cannot read them."
+
+#, php-format
+msgid "Reviewed on %1$s by %2$s"
+msgstr "Reviewed on %1$s by %2$s"
+
+#, php-format
+msgid "Knowledge base article: %s"
+msgstr "Knowledge base article: %s"
+
+msgid "Procedures without content"
+msgstr "Procedures without content"
+
+msgid "A review can be recorded once the procedure is approved. Changes to the procedure go through a new version."
+msgstr "A review can be recorded once the procedure is approved. Changes to the procedure go through a new version."
+
+msgid "Records today as the review date of the procedure, with your name, without a new version. The next review is the date set above if you moved it later, one year later otherwise. Your other changes on this form are saved too."
+msgstr "Records today as the review date of the procedure, with your name, without a new version. The next review is the date set above if you moved it later, one year later otherwise. Your other changes on this form are saved too."
+
+#, php-format
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] "%d article you cannot read"
+msgstr[1] "%d articles you cannot read"
+
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] "%d document"
+msgstr[1] "%d documents"
