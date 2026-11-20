@@ -519,6 +519,9 @@
             <span class="badge {{ official_contacts.total > 0 ? 'bg-success-subtle text-success-emphasis' : 'bg-danger-subtle text-danger-emphasis' }} me-1"><i class="ti ti-address-book me-1"></i>{{ _n('%d official contact recorded', '%d official contacts recorded', official_contacts.total, 'grcmanager')|format(official_contacts.total) }}</span>
             <span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-circle-check me-1"></i>{{ __('%d verified within 12 months', 'grcmanager')|format(official_contacts.verified) }}</span>
             <span class="badge {{ official_contacts.to_verify > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d to verify', 'grcmanager')|format(official_contacts.to_verify) }}</span>
+            {% if official_contacts.notified is defined %}
+               <span class="badge bg-blue-subtle text-blue-emphasis me-1" title="{{ __('Contacts recorded from security incidents and personal data breaches', 'grcmanager') }}"><i class="ti ti-phone-check me-1"></i>{{ _n('%d contact recorded within 12 months', '%d contacts recorded within 12 months', official_contacts.notified, 'grcmanager')|format(official_contacts.notified) }}</span>
+            {% endif %}
             <a href="{{ official_contacts.url }}" class="me-2">{{ __('Open the register', 'grcmanager') }}</a>
             <a href="{{ official_contacts.export_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Register (PDF)', 'grcmanager') }}</a>
          </div>

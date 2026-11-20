@@ -13,7 +13,9 @@
  # -------------------------------------------------------------------------
  #}
 {# Issue #771 : lignes du registre des contacts officiels, partagées par le registre et l'onglet des
-   incidents et des violations de données. Variables : contacts, multi (colonne Entité). #}
+   incidents et des violations de données. Variables : contacts, multi (colonne Entité), notices
+   (lot 2, onglet seulement : échéance et prise de contact de chaque contact, par identifiant),
+   can_record (bouton « Tracer » qui choisit le contact dans le formulaire de l'onglet). #}
 <div class="table-responsive">
    <table class="table table-hover card-table">
       <thead>
@@ -24,6 +26,7 @@
             <th>{{ __('Time limit', 'grcmanager') }}</th>
             <th>{{ __('Authorised internal contact', 'grcmanager') }}</th>
             <th>{{ __('Verification', 'grcmanager') }}</th>
+            {% if notices is defined %}<th>{{ __('Deadline and contact', 'grcmanager') }}</th>{% endif %}
             {% if multi|default(false) %}<th>{{ _n('Entity', 'Entities', 1) }}</th>{% endif %}
          </tr>
       </thead>
@@ -43,8 +46,17 @@
                   </div>
                </td>
                <td>{{ contact.details ? contact.details|nl2br : '-' }}</td>
-               <td>{{ contact.when ? contact.when|nl2br : '-' }}</td>
-               <td>{% if contact.delay %}<span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-clock me-1"></i>{{ contact.delay }}</span>{% else %}-{% endif %}</td>
+               <td>
+                  {{ contact.when ? contact.when|nl2br : '-' }}
+                  {% for obligation in contact.obligations|default([]) %}
+                     <div class="mt-1"><a href="{{ obligation.url }}" class="badge bg-indigo-subtle text-indigo-emphasis text-decoration-none" title="{{ __('Linked compliance obligation', 'grcmanager') }}"><i class="ti ti-gavel me-1"></i>{{ obligation.name }}</a></div>
+                  {% endfor %}
+               </td>
+               <td>
+                  {% if contact.delay %}<span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-clock me-1"></i>{{ contact.delay }}</span>{% endif %}
+                  {% if contact.delay_hours|default(0) > 0 %}<div class="small text-secondary mt-1">{{ _n('%d hour', '%d hours', contact.delay_hours, 'grcmanager')|format(contact.delay_hours) }}</div>{% endif %}
+                  {% if not contact.delay and contact.delay_hours|default(0) == 0 %}-{% endif %}
+               </td>
                <td>
                   {{ contact.internal ?: '-' }}
                   {% if contact.internal_group %}<div class="small text-secondary">{{ contact.internal_group }}</div>{% endif %}
@@ -59,6 +71,25 @@
                      <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Never verified', 'grcmanager') }}</span>
                   {% endif %}
                </td>
+               {% if notices is defined %}
+                  {% set notice = notices[contact.id] ?? null %}
+                  <td>
+                     {% if notice %}
+                        <span class="badge bg-{{ notice.color }}-subtle text-{{ notice.color }}-emphasis"><i class="{{ notice.icon }} me-1"></i>{{ notice.label }}</span>
+                        {% if notice.date %}<div class="small mt-1">{{ notice.date|formatted_datetime }}</div>{% endif %}
+                        {% if notice.deadline %}
+                           <div class="small text-secondary mt-1"><i class="ti ti-hourglass me-1"></i>{{ __('Deadline: %s', 'grcmanager')|format(notice.deadline|formatted_datetime) }}</div>
+                        {% endif %}
+                     {% endif %}
+                     {% if can_record|default(false) %}
+                        <div class="mt-2">
+                           <button type="button" class="btn btn-sm btn-outline-primary grcmanager-trace-contact" data-contact="{{ contact.id }}">
+                              <i class="ti ti-phone-outgoing me-1"></i>{{ __('Record a contact', 'grcmanager') }}
+                           </button>
+                        </div>
+                     {% endif %}
+                  </td>
+               {% endif %}
                {% if multi|default(false) %}<td>{{ contact.entity }}</td>{% endif %}
             </tr>
          {% endfor %}

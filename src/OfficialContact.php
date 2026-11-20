@@ -145,6 +145,8 @@ class OfficialContact extends CommonGLPI
             'details'         => (string) ($row['contact_details'] ?? ''),
             'when'            => (string) ($row['when_to_contact'] ?? ''),
             'delay'           => (string) ($row['contact_delay'] ?? ''),
+            'delay_hours'     => Rules::normalizeDelayHours($row['contact_delay_hours'] ?? 0),
+            'obligations'     => self::linkedObligations((int) $row['id']),
             'internal'        => (int) ($row['users_id_internal'] ?? 0) > 0
                 ? getUserName((int) $row['users_id_internal']) : '',
             'internal_group'  => $groupId > 0 ? Dropdown::getDropdownName('glpi_groups', $groupId) : '',
@@ -155,6 +157,31 @@ class OfficialContact extends CommonGLPI
             'next'            => Rules::nextVerificationDate($verified) ?? '',
             'entity'          => Dropdown::getDropdownName('glpi_entities', (int) $row['entities_id']),
         ];
+    }
+
+    /**
+     * Issue #771, lot 2 : obligations de notification liées au contact (liens de la partie
+     * intéressée), visibles seulement avec le droit des obligations.
+     *
+     * @return list<array{name: string, url: string}>
+     */
+    public static function linkedObligations(int $contactId): array
+    {
+        if (!ComplianceObligation::canView()) {
+            return [];
+        }
+        $obligations = [];
+        foreach (ContextItem::getLinkedIds($contactId, ComplianceObligation::class) as $id) {
+            $obligation = new ComplianceObligation();
+            if ($obligation->getFromDB($id)) {
+                $obligations[] = [
+                    'name' => (string) $obligation->fields['title'],
+                    'url'  => ComplianceObligation::getFormURLWithID($id),
+                ];
+            }
+        }
+
+        return $obligations;
     }
 
     /**
@@ -278,8 +305,41 @@ class OfficialContact extends CommonGLPI
             return false;
         }
         $breach = self::contextFor($item) === Rules::CONTEXT_BREACH;
+        $concerned = self::concernedBy($item);
+        // Issue #771, lot 2 : contacts déjà tracés sans être cochés pour ce type d'événement
+        // (un CSIRT prévenu pour une violation, par exemple) : affichés aussi.
+        $shown = array_column($concerned, 'id');
+        $traced = array_diff(
+            array_map('intval', array_column(OfficialContactNotification::rowsFor($item), OfficialContactNotification::CONTACT_FK)),
+            array_map('intval', $shown)
+        );
+        if ($traced !== []) {
+            $concerned = array_merge(
+                $concerned,
+                OfficialContactNotification::reachableContacts($item, ['id' => array_values(array_unique($traced))])
+            );
+        }
+        $choices = [];
+        foreach (OfficialContactNotification::reachableContacts($item) as $contact) {
+            $choices[(int) $contact['id']] = (string) $contact['name'];
+        }
+        $start = OfficialContactNotification::startOf($item);
         TemplateRenderer::getInstance()->display('@grcmanager/official_contact_tab.html.twig', [
-            'contacts'     => self::presentAll(self::concernedBy($item)),
+            'contacts'     => self::presentAll($concerned),
+            'notices'      => OfficialContactNotification::noticesFor($item, $concerned),
+            'traces'       => OfficialContactNotification::tracesFor($item),
+            'choices'      => $choices,
+            'decisions'    => OfficialContactNotification::decisionLabels(),
+            'can_record'   => $item->canUpdateItem() && $choices !== [],
+            'form_url'     => OfficialContactNotification::getFormURL(),
+            'itemtype'     => $item::class,
+            'items_id'     => (int) $item->getID(),
+            'contact_fk'   => OfficialContactNotification::CONTACT_FK,
+            'start'        => $start ?? '',
+            'start_label'  => $breach
+                ? __('Awareness of the breach', 'grcmanager')
+                : __('Detection of the incident', 'grcmanager'),
+            'now'          => date('Y-m-d\TH:i'),
             'intro'        => $breach
                 ? __(
                     'Official contacts to inform for a personal data breach, with the time limit and the person '
@@ -308,7 +368,7 @@ class OfficialContact extends CommonGLPI
      * Preuve affichée sur la fiche d'une mesure : contacts de la catégorie de la mesure, vérifiés ou
      * à vérifier, dans les entités de la personne. Null pour les autres mesures ou sans droit.
      *
-     * @return array{total: int, verified: int, to_verify: int, url: string, export_url: string}|null
+     * @return array{total: int, verified: int, to_verify: int, notified: int, url: string, export_url: string}|null
      */
     public static function evidence(string $code): ?array
     {
@@ -317,8 +377,11 @@ class OfficialContact extends CommonGLPI
             return null;
         }
         $rows = self::visibleContacts(['contact_category' => $categories]);
+        $since = (new \DateTimeImmutable('today'))->modify('-' . Rules::VERIFICATION_MONTHS . ' months');
 
         return Rules::summary($rows, date('Y-m-d')) + [
+            // Issue #771, lot 2 : prévenances tracées depuis 12 mois (incidents et violations).
+            'notified'   => OfficialContactNotification::countNotifiedSince($categories, $since->format('Y-m-d 00:00:00')),
             'url'        => self::getRegisterURL(),
             'export_url' => self::getExportURL(),
         ];

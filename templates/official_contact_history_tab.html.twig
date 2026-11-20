@@ -1,0 +1,69 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #771, lot 2 : onglet « Prises de contact tracées » de la fiche d'un contact officiel :
+   historique des relations avec l'autorité ou le groupe d'intérêt (A.5.5, A.5.6). #}
+<div class="alert alert-info d-flex align-items-start">
+   <i class="ti ti-help-circle me-2 mt-1"></i>
+   <div>
+      {{ __('Every contact with this party recorded from a security incident or a personal data breach: date, decision, file number and author. To record a new one, open the incident or the breach, tab "Official contacts".', 'grcmanager') }}
+      <a href="{{ register_url }}" class="ms-1"><i class="ti ti-address-book me-1"></i>{{ __('Open the register', 'grcmanager') }}</a>
+   </div>
+</div>
+
+{% if entries is empty %}
+   <p class="text-secondary">{{ __('No contact recorded with this party yet.', 'grcmanager') }}</p>
+{% else %}
+   <div class="card">
+      <div class="table-responsive">
+         <table class="table table-hover card-table">
+            <thead>
+               <tr>
+                  <th>{{ __('Date and time', 'grcmanager') }}</th>
+                  <th>{{ __('Event', 'grcmanager') }}</th>
+                  <th>{{ __('Decision', 'grcmanager') }}</th>
+                  <th>{{ __('Reference', 'grcmanager') }}</th>
+                  <th>{{ __('Comment', 'grcmanager') }}</th>
+                  <th>{{ __('Recorded by', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for entry in entries %}
+                  <tr>
+                     <td>{{ entry.date|formatted_datetime }}</td>
+                     <td>
+                        <i class="{{ entry.item_icon }} me-1 text-secondary" title="{{ entry.item_type }}"></i>
+                        <a href="{{ entry.item_url }}">{{ entry.item_name }}</a>
+                        <div class="small text-secondary">{{ entry.item_type }}</div>
+                     </td>
+                     <td>
+                        {% if entry.decision == 'notified' %}
+                           <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-phone-check me-1"></i>{{ entry.decision_label }}</span>
+                        {% else %}
+                           <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-file-check me-1"></i>{{ entry.decision_label }}</span>
+                        {% endif %}
+                     </td>
+                     <td>{{ entry.reference ?: '-' }}</td>
+                     <td>{{ entry.comment ? entry.comment|nl2br : '-' }}</td>
+                     <td>{{ entry.author }}</td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </div>
+{% endif %}
+{% if hidden > 0 %}
+   <p class="text-secondary small mt-2"><i class="ti ti-eye-off me-1"></i>{{ _n('%d other contact recorded on an event you cannot see.', '%d other contacts recorded on events you cannot see.', hidden, 'grcmanager')|format(hidden) }}</p>
+{% endif %}
