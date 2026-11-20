@@ -411,7 +411,9 @@ final class CompetenceTest extends GrcmanagerIntegrationTestCase
         // Activité d'une autre entité, non récursive : refusée.
         $entityB = $this->createTestEntity(0, 'Entité fictive RACI 774');
         $other = $this->func('PHPUnit fonction de B', [], $entityB);
-        $rootOnly = (int) $activity->add(['name' => 'PHPUnit activité racine', 'entities_id' => 0, 'is_recursive' => 0]);
+        $rootOnly = (int) $activity->add([
+            'name' => 'PHPUnit activité racine', 'entities_id' => 0, 'is_recursive' => 0,
+        ]);
         $this->assertFalse(IsmsFunction::activityAllowed($rootOnly, $entityB, true));
         $other->update([
             'id' => $other->getID(), '_add_responsibilityactivities_id' => $rootOnly, '_add_raci_role' => 'responsible',
