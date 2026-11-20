@@ -119,6 +119,8 @@ class Playbook extends PlaybookBase
     public function cleanDBonPurge()
     {
         (new PlaybookStep())->deleteByCriteria(['plugin_grcmanager_playbooks_id' => $this->getID()]);
+        // Issue #776 : la procédure n'est plus le guide de réponse d'aucun scénario de crise.
+        CrisisScenario::forgetPlaybook((int) $this->getID());
     }
 
     /**

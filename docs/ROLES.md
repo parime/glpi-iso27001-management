@@ -37,7 +37,7 @@ l'organisation. Compter une demi-heure.
    - **Registres sensibles** (risques, indicateurs de risque, vulnérabilités, flux réseau) : au RSSI
      et aux propriétaires de risques seulement, car ces registres décrivent les points faibles de
      l'organisation ;
-   - **Continuité d'activité** (processus métier, BIA) ;
+   - **Continuité d'activité** (processus métier, BIA, scénarios de crise sécurité) ;
    - **Protection des données personnelles** (registre RGPD des traitements, violations) : au DPO ;
    - **Incidents de sécurité** et leurs règles, pour l'équipe de réponse.
 

@@ -1,0 +1,106 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #776 : scénario de crise sécurité de l'information (A.5.29) : processus impactés, mode
+   dégradé sécurisé, rôles, guide de réponse, exercice et communication. Voir
+   GlpiPlugin\Grcmanager\CrisisScenario::showForm(). #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {% if scenario is not null %}
+      <div class="col-12 mb-3" id="grc-crisis-scenario-status">
+         {% if not scenario.is_active %}
+            <div class="alert alert-secondary mb-0"><i class="ti ti-archive me-1"></i>{{ __('This scenario is inactive: it is not counted in the coverage.', 'grcmanager') }}</div>
+         {% elseif scenario.gaps is empty %}
+            <div class="alert alert-success mb-0"><i class="ti ti-circle-check me-1"></i>{{ __('This scenario is complete and has been exercised within the year.', 'grcmanager') }}</div>
+         {% else %}
+            <div class="alert alert-warning mb-0">
+               <div class="fw-bold mb-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('To complete before the audit', 'grcmanager') }}</div>
+               <ul class="mb-0">
+                  {% for label in scenario.gap_labels %}<li>{{ label }}</li>{% endfor %}
+               </ul>
+            </div>
+         {% endif %}
+      </div>
+   {% endif %}
+
+   {{ fields.smallTitle(__('Crisis situation', 'grcmanager'), 'ti ti-urgent') }}
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'required': true,
+      'add_field_html': hints.hint(__('For example "Ransomware attack" or "Unavailability of the hosting provider".', 'grcmanager')),
+   }) }}
+   {{ fields.checkboxField('is_active', item.fields['is_active'], __('Active'), {
+      'add_field_html': hints.hint(__('An inactive scenario is kept but no longer counted in the coverage.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('description', item.fields['description'], __('Description'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('What happens: the event, what it reaches, how it is detected.', 'grcmanager')),
+   }) }}
+
+   {{ fields.smallTitle(__('Impacted processes', 'grcmanager'), 'ti ti-building-factory-2') }}
+   {% if can_processes %}
+      <input type="hidden" name="_processes_sent" value="1">
+      {{ fields.dropdownArrayField('_processes', '', processes, __('Impacted processes', 'grcmanager'), {
+         'multiple': true, 'values': linked, 'full_width': true,
+         'add_field_html': hints.hint(__('Business processes of the continuity plan that this crisis would stop or degrade. Only the processes of the entity of the scenario are offered.', 'grcmanager')),
+      }) }}
+   {% endif %}
+
+   {{ fields.smallTitle(__('Secure degraded mode', 'grcmanager'), 'ti ti-shield-half') }}
+   {{ fields.textareaField('degraded_mode', item.fields['degraded_mode'], __('Secure degraded mode', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('How the activity continues without lowering security: limited access, actions validated by a second person, controlled communication. The technical restoration stays in the recovery strategy of each process.', 'grcmanager')),
+   }) }}
+
+   {{ fields.smallTitle(__('Roles in the crisis', 'grcmanager'), 'ti ti-users-group') }}
+   {% for field, label in roles %}
+      {{ fields.textareaField(field, item.fields[field], label, {'full_width': true, 'rows': 2}) }}
+   {% endfor %}
+
+   {{ fields.smallTitle(__('Response and exercise', 'grcmanager'), 'ti ti-list-check') }}
+   {% if can_playbooks %}
+      {{ fields.dropdownArrayField('plugin_grcmanager_playbooks_id', item.fields['plugin_grcmanager_playbooks_id'], playbooks, __('Response playbook', 'grcmanager'), {
+         'add_field_html': hints.hint(__('Remediation playbook followed by the team; its steps become tasks of the incident.', 'grcmanager')),
+      }) }}
+   {% endif %}
+   {{ fields.dropdownArrayField('exercise_scenario', item.fields['exercise_scenario'], exercises, __('Crisis exercise', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Crisis exercise of the plugin that tests this scenario. Each finished exercise counts as an exercise of the scenario.', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('last_exercise_date', item.fields['last_exercise_date'], __('Last exercise outside the plugin', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Date of a tabletop exercise held without the crisis room of the plugin. Attach its report in the Documents tab.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('communication_situation', item.fields['communication_situation'], situations, __('Crisis communication', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Situation of the crisis message templates to use for this scenario.', 'grcmanager')),
+   }) }}
+   {% if scenario is not null and (scenario.playbook is not null or scenario.templates is not empty or scenario.last_exercise) %}
+      {% set links_html %}
+         <ul class="list-unstyled mb-0">
+            {% if scenario.playbook is not null %}
+               <li class="mb-1"><a href="{{ scenario.playbook.url }}"><i class="ti ti-list-check me-1"></i>{{ scenario.playbook.name }}</a></li>
+            {% endif %}
+            {% for template in scenario.templates %}
+               <li class="mb-1"><a href="{{ template.url }}"><i class="ti ti-speakerphone me-1"></i>{{ template.name }}</a></li>
+            {% endfor %}
+            {% if scenario.last_exercise %}
+               <li class="mb-1"><i class="ti ti-alarm me-1"></i>{{ __('Last exercise: %s', 'grcmanager')|format(scenario.last_exercise|formatted_date) }}</li>
+            {% endif %}
+         </ul>
+      {% endset %}
+      {{ fields.htmlField('', links_html, __('Linked elements', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+{% endblock %}

@@ -24208,3 +24208,283 @@ msgstr "Vorschlag übernehmen"
 
 msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
 msgstr "Auch Betriebssysteme werden aufgeführt. Für Windows 10 und 11, Windows Server, Debian, Ubuntu und Red Hat Enterprise Linux wird eine CPE vorgeschlagen: Prüfen Sie sie und übernehmen Sie sie dann."
+
+msgid "Security crisis scenario"
+msgid_plural "Security crisis scenarios"
+msgstr[0] "Sicherheits-Krisenszenario"
+msgstr[1] "Sicherheits-Krisenszenarien"
+
+msgid "%d active scenario"
+msgid_plural "%d active scenarios"
+msgstr[0] "%d aktives Szenario"
+msgstr[1] "%d aktive Szenarien"
+
+msgid "%1$d of %2$d critical processes without scenario"
+msgstr "%1$d von %2$d kritischen Prozessen ohne Szenario"
+
+msgid "%d scenario never exercised"
+msgid_plural "%d scenarios never exercised"
+msgstr[0] "%d Szenario nie geübt"
+msgstr[1] "%d Szenarien nie geübt"
+
+msgid "%d scenario to exercise again"
+msgid_plural "%d scenarios to exercise again"
+msgstr[0] "%d Szenario erneut zu üben"
+msgstr[1] "%d Szenarien erneut zu üben"
+
+msgid "Print the scenarios (PDF)"
+msgstr "Szenarien drucken (PDF)"
+
+msgid "Adds to the active entity the scenarios of the catalogue that are not there yet. Nothing existing is changed."
+msgstr "Fügt der aktiven Einheit die Szenarien des Katalogs hinzu, die dort noch fehlen. Bestehendes wird nicht geändert."
+
+msgid "Add the default scenarios"
+msgstr "Standardszenarien hinzufügen"
+
+msgid "Add a scenario"
+msgstr "Szenario hinzufügen"
+
+msgid "Critical processes without security crisis scenario"
+msgstr "Kritische Prozesse ohne Sicherheits-Krisenszenario"
+
+msgid "A process is critical when its recovery time objective (RTO) is %d hours or less. Each one should be impacted by at least one active scenario."
+msgstr "Ein Prozess ist kritisch, wenn sein Wiederherstellungszeitziel (RTO) %d Stunden oder weniger beträgt. Jeder sollte von mindestens einem aktiven Szenario betroffen sein."
+
+msgid "No critical process: fill in the RTO of the business processes in the business impact analysis."
+msgstr "Kein kritischer Prozess: Tragen Sie das RTO der Geschäftsprozesse in der Business-Impact-Analyse ein."
+
+msgid "Every critical process is impacted by at least one active scenario."
+msgstr "Jeder kritische Prozess ist von mindestens einem aktiven Szenario betroffen."
+
+msgid "Launch a crisis exercise"
+msgstr "Krisenübung starten"
+
+msgid "No scenario yet."
+msgstr "Noch kein Szenario."
+
+msgid "Start from the catalogue: the button \"Add the default scenarios\" adds, ready to adapt:"
+msgstr "Beginnen Sie mit dem Katalog: Die Schaltfläche „Standardszenarien hinzufügen“ fügt, bereit zur Anpassung, hinzu:"
+
+msgid "Impacted processes"
+msgstr "Betroffene Prozesse"
+
+msgid "Response playbook"
+msgstr "Reaktionsleitfaden"
+
+msgid "Exercise"
+msgstr "Übung"
+
+msgid "Linked"
+msgstr "Verknüpft"
+
+msgid "Exercised on %s"
+msgstr "Geübt am %s"
+
+msgid "Never exercised"
+msgstr "Nie geübt"
+
+msgid "Information security crisis scenarios of the continuity plan that would stop or degrade this process. The processes are chosen on the scenario."
+msgstr "Krisenszenarien der Informationssicherheit des Kontinuitätsplans, die diesen Prozess stoppen oder beeinträchtigen würden. Die Prozesse werden im Szenario ausgewählt."
+
+msgid "This critical process is not impacted by any security crisis scenario."
+msgstr "Dieser kritische Prozess ist von keinem Sicherheits-Krisenszenario betroffen."
+
+msgid "No security crisis scenario impacts this process."
+msgstr "Kein Sicherheits-Krisenszenario betrifft diesen Prozess."
+
+msgid "Open the scenarios"
+msgstr "Szenarien öffnen"
+
+msgid "Secure degraded mode"
+msgstr "Sicherer Notbetrieb"
+
+msgid "This scenario is inactive: it is not counted in the coverage."
+msgstr "Dieses Szenario ist inaktiv: Es wird in der Abdeckung nicht gezählt."
+
+msgid "This scenario is complete and has been exercised within the year."
+msgstr "Dieses Szenario ist vollständig und wurde innerhalb des Jahres geübt."
+
+msgid "To complete before the audit"
+msgstr "Vor dem Audit zu vervollständigen"
+
+msgid "Crisis situation"
+msgstr "Krisensituation"
+
+msgid "For example \"Ransomware attack\" or \"Unavailability of the hosting provider\"."
+msgstr "Zum Beispiel „Ransomware-Angriff“ oder „Ausfall des Hosting-Anbieters“."
+
+msgid "An inactive scenario is kept but no longer counted in the coverage."
+msgstr "Ein inaktives Szenario bleibt erhalten, wird aber in der Abdeckung nicht mehr gezählt."
+
+msgid "What happens: the event, what it reaches, how it is detected."
+msgstr "Was passiert: das Ereignis, was es betrifft, wie es erkannt wird."
+
+msgid "Business processes of the continuity plan that this crisis would stop or degrade. Only the processes of the entity of the scenario are offered."
+msgstr "Geschäftsprozesse des Kontinuitätsplans, die diese Krise stoppen oder beeinträchtigen würde. Nur die Prozesse der Einheit des Szenarios werden angeboten."
+
+msgid "How the activity continues without lowering security: limited access, actions validated by a second person, controlled communication. The technical restoration stays in the recovery strategy of each process."
+msgstr "Wie die Tätigkeit weiterläuft, ohne die Sicherheit zu senken: eingeschränkte Zugriffe, von einer zweiten Person bestätigte Aktionen, kontrollierte Kommunikation. Die technische Wiederherstellung bleibt in der Wiederanlaufstrategie jedes Prozesses."
+
+msgid "Roles in the crisis"
+msgstr "Rollen in der Krise"
+
+msgid "Response and exercise"
+msgstr "Reaktion und Übung"
+
+msgid "Remediation playbook followed by the team; its steps become tasks of the incident."
+msgstr "Vom Team befolgtes Behebungs-Playbook; seine Schritte werden zu Aufgaben des Vorfalls."
+
+msgid "Crisis exercise of the plugin that tests this scenario. Each finished exercise counts as an exercise of the scenario."
+msgstr "Krisenübung des Plugins, die dieses Szenario testet. Jede abgeschlossene Übung zählt als Übung des Szenarios."
+
+msgid "Last exercise outside the plugin"
+msgstr "Letzte Übung außerhalb des Plugins"
+
+msgid "Date of a tabletop exercise held without the crisis room of the plugin. Attach its report in the Documents tab."
+msgstr "Datum einer Planspielübung ohne den Krisenraum des Plugins. Fügen Sie den Bericht im Register Dokumente bei."
+
+msgid "Situation of the crisis message templates to use for this scenario."
+msgstr "Situation der für dieses Szenario zu verwendenden Krisennachrichtenvorlagen."
+
+msgid "Last exercise: %s"
+msgstr "Letzte Übung: %s"
+
+msgid "Linked elements"
+msgstr "Verknüpfte Elemente"
+
+msgid "Active scenarios"
+msgstr "Aktive Szenarien"
+
+msgid "Critical processes"
+msgstr "Kritische Prozesse"
+
+msgid "Critical processes without scenario"
+msgstr "Kritische Prozesse ohne Szenario"
+
+msgid "Not exercised for more than a year"
+msgstr "Seit mehr als einem Jahr nicht geübt"
+
+msgid "Information security crisis scenarios of the continuity plan: ransomware, data leak, compromise of privileged accounts, unavailability of a critical supplier, denial of service. For each one: the processes it stops, how to keep working without lowering security, who does what, and which playbook to follow."
+msgstr "Krisenszenarien der Informationssicherheit des Kontinuitätsplans: Ransomware, Datenleck, Kompromittierung privilegierter Konten, Ausfall eines kritischen Dienstleisters, Denial of Service. Für jedes: die Prozesse, die es stoppt, wie man weiterarbeitet, ohne die Sicherheit zu senken, wer was tut und welcher Leitfaden zu befolgen ist."
+
+msgid "Add the default scenarios, then adapt each one: choose the impacted processes, check the secure degraded mode and the roles, link the response playbook. Every critical process should have a scenario, and every scenario should be exercised at least once a year."
+msgstr "Fügen Sie die Standardszenarien hinzu und passen Sie jedes an: Wählen Sie die betroffenen Prozesse, prüfen Sie den sicheren Notbetrieb und die Rollen, verknüpfen Sie den Reaktionsleitfaden. Jeder kritische Prozess sollte ein Szenario haben, und jedes Szenario sollte mindestens einmal im Jahr geübt werden."
+
+msgid "ISO/IEC 27001, control A.5.29"
+msgstr "ISO/IEC 27001, Maßnahme A.5.29"
+
+msgid "Data and systems are encrypted by malicious software and a ransom is demanded. Backups and systems connected to the affected network may also be reached."
+msgstr "Daten und Systeme werden von Schadsoftware verschlüsselt und ein Lösegeld wird gefordert. Auch Sicherungen und mit dem betroffenen Netz verbundene Systeme können erreicht werden."
+
+msgid "Isolate the affected network segments and suspend remote access (VPN, remote desktop). Work only from clean, identified workstations; every administrator action is validated by a second person. Restore from offline backups checked as clean before reconnecting them. Communicate only through channels kept outside the affected information system. No ransom is paid without a decision of management."
+msgstr "Betroffene Netzsegmente isolieren und Fernzugriffe (VPN, Remotedesktop) aussetzen. Nur von sauberen, identifizierten Arbeitsplätzen aus arbeiten; jede Administratoraktion wird von einer zweiten Person bestätigt. Aus Offline-Sicherungen wiederherstellen, die vor dem Wiederverbinden als sauber geprüft wurden. Nur über Kanäle außerhalb des betroffenen Informationssystems kommunizieren. Kein Lösegeld wird ohne Entscheidung der Leitung gezahlt."
+
+msgid "Chairs the crisis team, decides on the ransom, the complaint and external communication, approves the return to normal."
+msgstr "Leitet den Krisenstab, entscheidet über Lösegeld, Strafanzeige und externe Kommunikation, genehmigt die Rückkehr zum Normalbetrieb."
+
+msgid "Qualifies the attack, coordinates containment and the investigation, decides which backups can be trusted, prepares the notifications (authority, CERT, insurer)."
+msgstr "Bewertet den Angriff, koordiniert Eindämmung und Untersuchung, entscheidet, welchen Sicherungen vertraut werden kann, bereitet die Meldungen vor (Behörde, CERT, Versicherer)."
+
+msgid "Isolates the systems, preserves the evidence, restores from clean backups in the order of the recovery objectives, reinforces monitoring after the restart."
+msgstr "Isoliert die Systeme, sichert die Beweise, stellt aus sauberen Sicherungen in der Reihenfolge der Wiederanlaufziele wieder her, verstärkt die Überwachung nach dem Neustart."
+
+msgid "Personal or confidential data (customers, staff, partners) is disclosed, stolen or published."
+msgstr "Personenbezogene oder vertrauliche Daten (Kunden, Personal, Partner) werden offengelegt, gestohlen oder veröffentlicht."
+
+msgid "Close the leak path (account, share, application) and reset the credentials involved. Restrict access to the affected data to the people handling the incident. Any external statement is validated by management and the data protection officer. The facts are recorded as they happen, for the 72-hour notification deadline."
+msgstr "Den Weg des Lecks schließen (Konto, Freigabe, Anwendung) und die betroffenen Zugangsdaten zurücksetzen. Den Zugriff auf die betroffenen Daten auf die mit dem Vorfall befassten Personen beschränken. Jede externe Erklärung wird von der Leitung und dem Datenschutzbeauftragten freigegeben. Die Fakten werden laufend festgehalten, für die Meldefrist von 72 Stunden."
+
+msgid "Decides on notifying the authority and the people concerned, validates external communication."
+msgstr "Entscheidet über die Meldung an die Behörde und die betroffenen Personen, gibt die externe Kommunikation frei."
+
+msgid "Contains the leak, establishes the data and the people concerned, keeps the evidence, works with the data protection officer."
+msgstr "Dämmt das Leck ein, ermittelt die betroffenen Daten und Personen, sichert die Beweise, arbeitet mit dem Datenschutzbeauftragten."
+
+msgid "Closes the access, analyzes the logs, has the published copies removed where possible."
+msgstr "Schließt die Zugänge, analysiert die Protokolle, lässt veröffentlichte Kopien nach Möglichkeit entfernen."
+
+msgid "Compromise of privileged accounts"
+msgstr "Kompromittierung privilegierter Konten"
+
+msgid "An administrator account, a service account or the directory itself is controlled by an attacker."
+msgstr "Ein Administratorkonto, ein Dienstkonto oder das Verzeichnis selbst wird von einem Angreifer kontrolliert."
+
+msgid "Disable or reset the compromised accounts and those that could be reached from them; use the sealed emergency administrator accounts. Administration is done only from dedicated workstations, and every privileged action is validated by a second person until the directory is declared clean. New connections and changes of rights are monitored."
+msgstr "Kompromittierte Konten und die von ihnen aus erreichbaren Konten deaktivieren oder zurücksetzen; die versiegelten Notfall-Administratorkonten verwenden. Administriert wird nur von dedizierten Arbeitsplätzen aus, und jede privilegierte Aktion wird von einer zweiten Person bestätigt, bis das Verzeichnis für sauber erklärt ist. Neue Anmeldungen und Rechteänderungen werden überwacht."
+
+msgid "Approves the temporary access restrictions and their impact on the activity."
+msgstr "Genehmigt die vorübergehenden Zugriffsbeschränkungen und ihre Auswirkungen auf die Tätigkeit."
+
+msgid "Coordinates the investigation (how the account was taken, what it did), decides when the directory can be trusted again."
+msgstr "Koordiniert die Untersuchung (wie das Konto übernommen wurde, was es getan hat), entscheidet, wann dem Verzeichnis wieder vertraut werden kann."
+
+msgid "Renews the secrets (passwords, keys, tickets), removes the persistence, checks the rights granted during the compromise."
+msgstr "Erneuert die Geheimnisse (Passwörter, Schlüssel, Tickets), entfernt die Persistenz, prüft die während der Kompromittierung vergebenen Rechte."
+
+msgid "Unavailability of a critical supplier"
+msgstr "Ausfall eines kritischen Dienstleisters"
+
+msgid "A hosting provider, cloud service, software publisher or outsourcer on which a critical process depends is unavailable, or is itself compromised."
+msgstr "Ein Hosting-Anbieter, Cloud-Dienst, Softwarehersteller oder Outsourcer, von dem ein kritischer Prozess abhängt, ist nicht verfügbar oder selbst kompromittiert."
+
+msgid "Switch the processes concerned to their backup solution or manual procedure. Cut or restrict the connections and accounts of the supplier until it confirms it is not compromised. Data exchanged through workarounds stays limited to what is necessary and is recorded. Contact the supplier only through the contacts and channels provided in the contract."
+msgstr "Die betroffenen Prozesse auf ihre Ersatzlösung oder manuelle Verfahren umstellen. Verbindungen und Konten des Dienstleisters trennen oder einschränken, bis er bestätigt, nicht kompromittiert zu sein. Über Behelfslösungen ausgetauschte Daten bleiben auf das Notwendige beschränkt und werden festgehalten. Den Dienstleister nur über die im Vertrag vorgesehenen Kontakte und Kanäle ansprechen."
+
+msgid "Activates the continuity plan, handles the relationship with the supplier and with the customers affected."
+msgstr "Aktiviert den Kontinuitätsplan, führt die Beziehung zum Dienstleister und zu den betroffenen Kunden."
+
+msgid "Assesses whether the incident of the supplier is a security incident for the organization, supervises the workarounds."
+msgstr "Bewertet, ob der Vorfall des Dienstleisters ein Sicherheitsvorfall für die Organisation ist, beaufsichtigt die Behelfslösungen."
+
+msgid "Implements the backup solution, monitors the flows and accounts of the supplier, prepares the return to the normal service."
+msgstr "Setzt die Ersatzlösung um, überwacht die Datenflüsse und Konten des Dienstleisters, bereitet die Rückkehr zum Normalbetrieb vor."
+
+msgid "Denial of service attack"
+msgstr "Denial-of-Service-Angriff"
+
+msgid "Internet-facing services (website, customer portal, messaging, remote access) are saturated by a flood of traffic."
+msgstr "Aus dem Internet erreichbare Dienste (Website, Kundenportal, E-Mail, Fernzugriff) werden durch eine Flut von Datenverkehr überlastet."
+
+msgid "Activate the anti-DDoS protection of the operator or host and filter traffic by origin. Keep the essential services open to identified users only (VPN, list of allowed addresses). Look for another attack hidden behind the denial of service. Inform customers through a channel independent of the attacked services."
+msgstr "Den Anti-DDoS-Schutz des Netzbetreibers oder Hosters aktivieren und den Datenverkehr nach Herkunft filtern. Die wesentlichen Dienste nur für identifizierte Nutzer offen halten (VPN, Liste erlaubter Adressen). Nach einem weiteren, hinter dem Denial of Service versteckten Angriff suchen. Kunden über einen von den angegriffenen Diensten unabhängigen Kanal informieren."
+
+msgid "Decides which services to keep or cut, and what to tell the customers."
+msgstr "Entscheidet, welche Dienste aufrechterhalten oder abgeschaltet werden und was den Kunden mitgeteilt wird."
+
+msgid "Coordinates with the operator and the CERT, looks for a concurrent intrusion, keeps the evidence for a complaint."
+msgstr "Stimmt sich mit dem Netzbetreiber und dem CERT ab, sucht nach einem gleichzeitigen Eindringen, sichert die Beweise für eine Strafanzeige."
+
+msgid "Applies the filtering and the alternative routing, monitors the load, restores the services in order of priority."
+msgstr "Wendet die Filterung und das alternative Routing an, überwacht die Last, stellt die Dienste nach Priorität wieder her."
+
+msgid "No impacted process"
+msgstr "Kein betroffener Prozess"
+
+msgid "No secure degraded mode"
+msgstr "Kein sicherer Notbetrieb"
+
+msgid "Roles to complete"
+msgstr "Rollen zu ergänzen"
+
+msgid "No response playbook"
+msgstr "Kein Reaktionsleitfaden"
+
+msgid "CISO"
+msgstr "CISO"
+
+msgid "IT department"
+msgstr "IT-Abteilung"
+
+msgid "The scenario name is required."
+msgstr "Der Name des Szenarios ist erforderlich."
+
+msgid "A process outside the entity of the scenario was not linked."
+msgstr "Ein Prozess außerhalb der Einheit des Szenarios wurde nicht verknüpft."
+
+msgid "Information security crisis scenarios"
+msgstr "Krisenszenarien der Informationssicherheit"
+
+msgid "%d default scenario added."
+msgid_plural "%d default scenarios added."
+msgstr[0] "%d Standardszenario hinzugefügt."
+msgstr[1] "%d Standardszenarien hinzugefügt."

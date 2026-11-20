@@ -181,6 +181,8 @@ class BusinessProcess extends BusinessProcessBase
         );
         // Issue #540 : la fonction quitte le registre d'informations DORA.
         DoraRegister::forgetItem($this);
+        // Issue #776 : le processus quitte les scénarios de crise.
+        CrisisScenario::forgetProcess((int) $this->getID());
     }
 
     /**

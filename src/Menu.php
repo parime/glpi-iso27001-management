@@ -126,6 +126,8 @@ class Menu extends CommonGLPI
                 CrisisExercise::class,
                 // Issue #377 : processus métier et analyses d'impact sur l'activité (BIA).
                 BusinessProcess::class,
+                // Issue #776 : scénarios de crise sécurité de l'information du PCA (A.5.29).
+                CrisisScenario::class,
             ],
             // Sécurité technique. Le parent ne demande que le droit du plugin : les vulnérabilités
             // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.

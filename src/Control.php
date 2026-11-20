@@ -1702,6 +1702,8 @@ class Control extends ControlBase
             'physical_security'       => PhysicalSecurity::evidence($code),
             // Issue #616 : communication de crise (modèles, listes de diffusion, traces), mesure A.5.26.
             'crisis_communication'    => CrisisCommunication::evidence($code),
+            // Issue #776 : scénarios de crise sécurité de l'information du PCA, mesure A.5.29.
+            'crisis_scenarios'        => CrisisScenario::evidence($code),
             // Issue #775 : registre des procédures d'exploitation, preuve de la mesure A.5.37.
             'operating_procedures'    => OperatingProcedure::evidence($code),
             // Issue #779 : conformité des licences logicielles, preuve de la mesure A.5.32.

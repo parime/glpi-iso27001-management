@@ -1,0 +1,142 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #776 : registre des scénarios de crise sécurité de l'information (A.5.29) : couverture des
+   processus critiques, scénarios jamais exercés, manques de chaque scénario. Voir
+   GlpiPlugin\\Grcmanager\\CrisisScenario::showRegister(). #}
+{% macro exercise_badge(status, last) %}
+   {% if status == 'ok' %}
+      <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('Exercised on %s', 'grcmanager')|format(last|formatted_date) }}</span>
+   {% elseif status == 'overdue' %}
+      <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-calendar-due me-1"></i>{{ __('Exercised on %s', 'grcmanager')|format(last|formatted_date) }}</span>
+   {% else %}
+      <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Never exercised', 'grcmanager') }}</span>
+   {% endif %}
+{% endmacro %}
+{% import _self as cs %}
+
+<div class="d-flex align-items-center flex-wrap gap-2 mb-3" id="grc-crisis-scenario-summary">
+   <div class="me-auto d-flex flex-wrap gap-2">
+      <span class="badge bg-blue-subtle text-blue-emphasis fs-5"><i class="ti ti-urgent me-1"></i>{{ _n('%d active scenario', '%d active scenarios', coverage.summary.scenarios, 'grcmanager')|format(coverage.summary.scenarios) }}</span>
+      <span class="badge {{ coverage.summary.critical_uncovered > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} fs-5"><i class="ti ti-building-factory-2 me-1"></i>{{ __('%1$d of %2$d critical processes without scenario', 'grcmanager')|format(coverage.summary.critical_uncovered, coverage.summary.critical) }}</span>
+      {% if coverage.summary.never_exercised > 0 %}
+         <span class="badge bg-danger-subtle text-danger-emphasis fs-5"><i class="ti ti-alarm-off me-1"></i>{{ _n('%d scenario never exercised', '%d scenarios never exercised', coverage.summary.never_exercised, 'grcmanager')|format(coverage.summary.never_exercised) }}</span>
+      {% endif %}
+      {% if coverage.summary.overdue > 0 %}
+         <span class="badge bg-warning-subtle text-warning-emphasis fs-5"><i class="ti ti-calendar-due me-1"></i>{{ _n('%d scenario to exercise again', '%d scenarios to exercise again', coverage.summary.overdue, 'grcmanager')|format(coverage.summary.overdue) }}</span>
+      {% endif %}
+   </div>
+   <a href="{{ export_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Print the scenarios (PDF)', 'grcmanager') }}</a>
+   {% if can_create and coverage.summary.missing_defaults is not empty %}
+      <form method="post" action="{{ register_url }}" class="d-inline">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <button type="submit" name="add_defaults" value="1" class="btn btn-outline-primary btn-sm" title="{{ __('Adds to the active entity the scenarios of the catalogue that are not there yet. Nothing existing is changed.', 'grcmanager') }}"><i class="ti ti-books me-1"></i>{{ __('Add the default scenarios', 'grcmanager') }}</button>
+      </form>
+   {% endif %}
+   {% if can_create %}
+      <a href="{{ add_url }}" class="btn btn-primary btn-sm"><i class="ti ti-plus me-1"></i>{{ __('Add a scenario', 'grcmanager') }}</a>
+   {% endif %}
+</div>
+
+<div class="card mb-3">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-building-factory-2 me-1"></i>{{ __('Critical processes without security crisis scenario', 'grcmanager') }}</h3>
+   </div>
+   <div class="card-body">
+      <p class="text-secondary">{{ __('A process is critical when its recovery time objective (RTO) is %d hours or less. Each one should be impacted by at least one active scenario.', 'grcmanager')|format(critical_rto) }}</p>
+      {% if coverage.summary.critical == 0 %}
+         <div class="text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('No critical process: fill in the RTO of the business processes in the business impact analysis.', 'grcmanager') }}</div>
+      {% elseif coverage.uncovered is empty %}
+         <div class="text-success"><i class="ti ti-circle-check me-1"></i>{{ __('Every critical process is impacted by at least one active scenario.', 'grcmanager') }}</div>
+      {% else %}
+         <ul class="mb-0">
+            {% for process in coverage.uncovered %}
+               <li><a href="{{ process.url }}">{{ process.name }}</a> <span class="text-secondary">(RTO {{ process.rto }})</span></li>
+            {% endfor %}
+         </ul>
+      {% endif %}
+   </div>
+</div>
+
+<div class="card">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-urgent me-1"></i>{{ _n('Security crisis scenario', 'Security crisis scenarios', 2, 'grcmanager') }}</h3>
+      {% if exercise_url %}
+         <a href="{{ exercise_url }}" class="ms-auto small"><i class="ti ti-alarm me-1"></i>{{ __('Launch a crisis exercise', 'grcmanager') }}</a>
+      {% endif %}
+   </div>
+   {% if scenarios is empty %}
+      <div class="card-body">
+         <div class="alert alert-info mb-0">
+            <div class="fw-bold mb-1"><i class="ti ti-books me-1"></i>{{ __('No scenario yet.', 'grcmanager') }}</div>
+            <div>{{ __('Start from the catalogue: the button "Add the default scenarios" adds, ready to adapt:', 'grcmanager') }}</div>
+            <ul class="mb-0 mt-1">
+               {% for text in defaults %}<li>{{ text.name }}</li>{% endfor %}
+            </ul>
+         </div>
+      </div>
+   {% else %}
+      <div class="table-responsive">
+         <table class="table table-hover card-table align-middle">
+            <thead>
+               <tr>
+                  <th>{{ __('Scenario', 'grcmanager') }}</th>
+                  <th>{{ __('Impacted processes', 'grcmanager') }}</th>
+                  <th>{{ __('Response playbook', 'grcmanager') }}</th>
+                  <th>{{ __('Exercise', 'grcmanager') }}</th>
+                  <th>{{ __('To complete', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for scenario in scenarios %}
+                  <tr class="{{ scenario.is_active ? '' : 'text-secondary' }}">
+                     <td>
+                        <a href="{{ scenario.url }}"><strong>{{ scenario.name }}</strong></a>
+                        {% if not scenario.is_active %}<span class="badge bg-secondary-subtle text-secondary-emphasis ms-1">{{ __('Inactive', 'grcmanager') }}</span>{% endif %}
+                        <div class="small text-secondary">{{ scenario.entity }}</div>
+                     </td>
+                     <td>
+                        {% for process in scenario.processes %}
+                           <div><a href="{{ process.url }}">{{ process.name }}</a>{% if process.critical %} <span class="badge bg-orange-subtle text-orange-emphasis">{{ __('Critical', 'grcmanager') }}</span>{% endif %}</div>
+                        {% else %}
+                           <span class="text-secondary">-</span>
+                        {% endfor %}
+                     </td>
+                     <td>
+                        {% if scenario.playbook is not null %}
+                           <a href="{{ scenario.playbook.url }}">{{ scenario.playbook.name }}</a>
+                        {% elseif scenario.has_playbook %}
+                           <span class="text-secondary"><i class="ti ti-check me-1"></i>{{ __('Linked', 'grcmanager') }}</span>
+                        {% else %}
+                           <span class="text-secondary">-</span>
+                        {% endif %}
+                     </td>
+                     <td>
+                        {{ cs.exercise_badge(scenario.exercise_status, scenario.last_exercise) }}
+                        {% if scenario.exercise %}<div class="small text-secondary mt-1">{{ scenario.exercise }}</div>{% endif %}
+                     </td>
+                     <td>
+                        {% for label in scenario.todo_labels %}
+                           <div class="small"><i class="ti ti-point text-warning"></i>{{ label }}</div>
+                        {% else %}
+                           {% if scenario.is_active %}<span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('Complete', 'grcmanager') }}</span>{% endif %}
+                        {% endfor %}
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   {% endif %}
+</div>

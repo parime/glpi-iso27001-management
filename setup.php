@@ -264,6 +264,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisCommunication::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class, \GlpiPlugin\Grcmanager\DataBreach::class],
     ]);
+    // Issue #776 : onglet « Scénarios de crise » des processus métier.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisScenario::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\BusinessProcess::class],
+    ]);
     // Issue #185 : onglet « Cellule de crise » de l'incident.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisExercise::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],

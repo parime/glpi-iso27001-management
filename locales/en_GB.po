@@ -25368,8 +25368,6 @@ msgstr[1] "and %d other entities"
 #~ msgid "Vulnerability to patch, removable media, download."
 #~ msgstr "Vulnerability to patch, removable media, download."
 
-#~ msgid "Data leak"
-#~ msgstr "Data leak"
 
 #~ msgid ""
 #~ "Data has left the organisation: stop the leak, assess the exposure, "
@@ -28750,3 +28748,286 @@ msgstr "Accept the proposal"
 
 msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
 msgstr "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
+
+msgid "Security crisis scenario"
+msgid_plural "Security crisis scenarios"
+msgstr[0] "Security crisis scenario"
+msgstr[1] "Security crisis scenarios"
+
+msgid "%d active scenario"
+msgid_plural "%d active scenarios"
+msgstr[0] "%d active scenario"
+msgstr[1] "%d active scenarios"
+
+msgid "%1$d of %2$d critical processes without scenario"
+msgstr "%1$d of %2$d critical processes without scenario"
+
+msgid "%d scenario never exercised"
+msgid_plural "%d scenarios never exercised"
+msgstr[0] "%d scenario never exercised"
+msgstr[1] "%d scenarios never exercised"
+
+msgid "%d scenario to exercise again"
+msgid_plural "%d scenarios to exercise again"
+msgstr[0] "%d scenario to exercise again"
+msgstr[1] "%d scenarios to exercise again"
+
+msgid "Print the scenarios (PDF)"
+msgstr "Print the scenarios (PDF)"
+
+msgid "Adds to the active entity the scenarios of the catalogue that are not there yet. Nothing existing is changed."
+msgstr "Adds to the active entity the scenarios of the catalogue that are not there yet. Nothing existing is changed."
+
+msgid "Add the default scenarios"
+msgstr "Add the default scenarios"
+
+msgid "Add a scenario"
+msgstr "Add a scenario"
+
+msgid "Critical processes without security crisis scenario"
+msgstr "Critical processes without security crisis scenario"
+
+msgid "A process is critical when its recovery time objective (RTO) is %d hours or less. Each one should be impacted by at least one active scenario."
+msgstr "A process is critical when its recovery time objective (RTO) is %d hours or less. Each one should be impacted by at least one active scenario."
+
+msgid "No critical process: fill in the RTO of the business processes in the business impact analysis."
+msgstr "No critical process: fill in the RTO of the business processes in the business impact analysis."
+
+msgid "Every critical process is impacted by at least one active scenario."
+msgstr "Every critical process is impacted by at least one active scenario."
+
+msgid "Launch a crisis exercise"
+msgstr "Launch a crisis exercise"
+
+msgid "No scenario yet."
+msgstr "No scenario yet."
+
+msgid "Start from the catalogue: the button \"Add the default scenarios\" adds, ready to adapt:"
+msgstr "Start from the catalogue: the button \"Add the default scenarios\" adds, ready to adapt:"
+
+msgid "Impacted processes"
+msgstr "Impacted processes"
+
+msgid "Response playbook"
+msgstr "Response playbook"
+
+msgid "Exercise"
+msgstr "Exercise"
+
+msgid "Linked"
+msgstr "Linked"
+
+msgid "Exercised on %s"
+msgstr "Exercised on %s"
+
+msgid "Never exercised"
+msgstr "Never exercised"
+
+msgid "Information security crisis scenarios of the continuity plan that would stop or degrade this process. The processes are chosen on the scenario."
+msgstr "Information security crisis scenarios of the continuity plan that would stop or degrade this process. The processes are chosen on the scenario."
+
+msgid "This critical process is not impacted by any security crisis scenario."
+msgstr "This critical process is not impacted by any security crisis scenario."
+
+msgid "No security crisis scenario impacts this process."
+msgstr "No security crisis scenario impacts this process."
+
+msgid "Open the scenarios"
+msgstr "Open the scenarios"
+
+msgid "Secure degraded mode"
+msgstr "Secure degraded mode"
+
+msgid "This scenario is inactive: it is not counted in the coverage."
+msgstr "This scenario is inactive: it is not counted in the coverage."
+
+msgid "This scenario is complete and has been exercised within the year."
+msgstr "This scenario is complete and has been exercised within the year."
+
+msgid "To complete before the audit"
+msgstr "To complete before the audit"
+
+msgid "Crisis situation"
+msgstr "Crisis situation"
+
+msgid "For example \"Ransomware attack\" or \"Unavailability of the hosting provider\"."
+msgstr "For example \"Ransomware attack\" or \"Unavailability of the hosting provider\"."
+
+msgid "An inactive scenario is kept but no longer counted in the coverage."
+msgstr "An inactive scenario is kept but no longer counted in the coverage."
+
+msgid "What happens: the event, what it reaches, how it is detected."
+msgstr "What happens: the event, what it reaches, how it is detected."
+
+msgid "Business processes of the continuity plan that this crisis would stop or degrade. Only the processes of the entity of the scenario are offered."
+msgstr "Business processes of the continuity plan that this crisis would stop or degrade. Only the processes of the entity of the scenario are offered."
+
+msgid "How the activity continues without lowering security: limited access, actions validated by a second person, controlled communication. The technical restoration stays in the recovery strategy of each process."
+msgstr "How the activity continues without lowering security: limited access, actions validated by a second person, controlled communication. The technical restoration stays in the recovery strategy of each process."
+
+msgid "Roles in the crisis"
+msgstr "Roles in the crisis"
+
+msgid "Response and exercise"
+msgstr "Response and exercise"
+
+msgid "Remediation playbook followed by the team; its steps become tasks of the incident."
+msgstr "Remediation playbook followed by the team; its steps become tasks of the incident."
+
+msgid "Crisis exercise of the plugin that tests this scenario. Each finished exercise counts as an exercise of the scenario."
+msgstr "Crisis exercise of the plugin that tests this scenario. Each finished exercise counts as an exercise of the scenario."
+
+msgid "Last exercise outside the plugin"
+msgstr "Last exercise outside the plugin"
+
+msgid "Date of a tabletop exercise held without the crisis room of the plugin. Attach its report in the Documents tab."
+msgstr "Date of a tabletop exercise held without the crisis room of the plugin. Attach its report in the Documents tab."
+
+msgid "Situation of the crisis message templates to use for this scenario."
+msgstr "Situation of the crisis message templates to use for this scenario."
+
+msgid "Last exercise: %s"
+msgstr "Last exercise: %s"
+
+msgid "Linked elements"
+msgstr "Linked elements"
+
+msgid "Active scenarios"
+msgstr "Active scenarios"
+
+msgid "Critical processes"
+msgstr "Critical processes"
+
+msgid "Critical processes without scenario"
+msgstr "Critical processes without scenario"
+
+msgid "Not exercised for more than a year"
+msgstr "Not exercised for more than a year"
+
+msgid "Information security crisis scenarios of the continuity plan: ransomware, data leak, compromise of privileged accounts, unavailability of a critical supplier, denial of service. For each one: the processes it stops, how to keep working without lowering security, who does what, and which playbook to follow."
+msgstr "Information security crisis scenarios of the continuity plan: ransomware, data leak, compromise of privileged accounts, unavailability of a critical supplier, denial of service. For each one: the processes it stops, how to keep working without lowering security, who does what, and which playbook to follow."
+
+msgid "Add the default scenarios, then adapt each one: choose the impacted processes, check the secure degraded mode and the roles, link the response playbook. Every critical process should have a scenario, and every scenario should be exercised at least once a year."
+msgstr "Add the default scenarios, then adapt each one: choose the impacted processes, check the secure degraded mode and the roles, link the response playbook. Every critical process should have a scenario, and every scenario should be exercised at least once a year."
+
+msgid "ISO/IEC 27001, control A.5.29"
+msgstr "ISO/IEC 27001, control A.5.29"
+
+msgid "Data and systems are encrypted by malicious software and a ransom is demanded. Backups and systems connected to the affected network may also be reached."
+msgstr "Data and systems are encrypted by malicious software and a ransom is demanded. Backups and systems connected to the affected network may also be reached."
+
+msgid "Isolate the affected network segments and suspend remote access (VPN, remote desktop). Work only from clean, identified workstations; every administrator action is validated by a second person. Restore from offline backups checked as clean before reconnecting them. Communicate only through channels kept outside the affected information system. No ransom is paid without a decision of management."
+msgstr "Isolate the affected network segments and suspend remote access (VPN, remote desktop). Work only from clean, identified workstations; every administrator action is validated by a second person. Restore from offline backups checked as clean before reconnecting them. Communicate only through channels kept outside the affected information system. No ransom is paid without a decision of management."
+
+msgid "Chairs the crisis team, decides on the ransom, the complaint and external communication, approves the return to normal."
+msgstr "Chairs the crisis team, decides on the ransom, the complaint and external communication, approves the return to normal."
+
+msgid "Qualifies the attack, coordinates containment and the investigation, decides which backups can be trusted, prepares the notifications (authority, CERT, insurer)."
+msgstr "Qualifies the attack, coordinates containment and the investigation, decides which backups can be trusted, prepares the notifications (authority, CERT, insurer)."
+
+msgid "Isolates the systems, preserves the evidence, restores from clean backups in the order of the recovery objectives, reinforces monitoring after the restart."
+msgstr "Isolates the systems, preserves the evidence, restores from clean backups in the order of the recovery objectives, reinforces monitoring after the restart."
+
+msgid "Data leak"
+msgstr "Data leak"
+
+msgid "Personal or confidential data (customers, staff, partners) is disclosed, stolen or published."
+msgstr "Personal or confidential data (customers, staff, partners) is disclosed, stolen or published."
+
+msgid "Close the leak path (account, share, application) and reset the credentials involved. Restrict access to the affected data to the people handling the incident. Any external statement is validated by management and the data protection officer. The facts are recorded as they happen, for the 72-hour notification deadline."
+msgstr "Close the leak path (account, share, application) and reset the credentials involved. Restrict access to the affected data to the people handling the incident. Any external statement is validated by management and the data protection officer. The facts are recorded as they happen, for the 72-hour notification deadline."
+
+msgid "Decides on notifying the authority and the people concerned, validates external communication."
+msgstr "Decides on notifying the authority and the people concerned, validates external communication."
+
+msgid "Contains the leak, establishes the data and the people concerned, keeps the evidence, works with the data protection officer."
+msgstr "Contains the leak, establishes the data and the people concerned, keeps the evidence, works with the data protection officer."
+
+msgid "Closes the access, analyzes the logs, has the published copies removed where possible."
+msgstr "Closes the access, analyzes the logs, has the published copies removed where possible."
+
+msgid "Compromise of privileged accounts"
+msgstr "Compromise of privileged accounts"
+
+msgid "An administrator account, a service account or the directory itself is controlled by an attacker."
+msgstr "An administrator account, a service account or the directory itself is controlled by an attacker."
+
+msgid "Disable or reset the compromised accounts and those that could be reached from them; use the sealed emergency administrator accounts. Administration is done only from dedicated workstations, and every privileged action is validated by a second person until the directory is declared clean. New connections and changes of rights are monitored."
+msgstr "Disable or reset the compromised accounts and those that could be reached from them; use the sealed emergency administrator accounts. Administration is done only from dedicated workstations, and every privileged action is validated by a second person until the directory is declared clean. New connections and changes of rights are monitored."
+
+msgid "Approves the temporary access restrictions and their impact on the activity."
+msgstr "Approves the temporary access restrictions and their impact on the activity."
+
+msgid "Coordinates the investigation (how the account was taken, what it did), decides when the directory can be trusted again."
+msgstr "Coordinates the investigation (how the account was taken, what it did), decides when the directory can be trusted again."
+
+msgid "Renews the secrets (passwords, keys, tickets), removes the persistence, checks the rights granted during the compromise."
+msgstr "Renews the secrets (passwords, keys, tickets), removes the persistence, checks the rights granted during the compromise."
+
+msgid "Unavailability of a critical supplier"
+msgstr "Unavailability of a critical supplier"
+
+msgid "A hosting provider, cloud service, software publisher or outsourcer on which a critical process depends is unavailable, or is itself compromised."
+msgstr "A hosting provider, cloud service, software publisher or outsourcer on which a critical process depends is unavailable, or is itself compromised."
+
+msgid "Switch the processes concerned to their backup solution or manual procedure. Cut or restrict the connections and accounts of the supplier until it confirms it is not compromised. Data exchanged through workarounds stays limited to what is necessary and is recorded. Contact the supplier only through the contacts and channels provided in the contract."
+msgstr "Switch the processes concerned to their backup solution or manual procedure. Cut or restrict the connections and accounts of the supplier until it confirms it is not compromised. Data exchanged through workarounds stays limited to what is necessary and is recorded. Contact the supplier only through the contacts and channels provided in the contract."
+
+msgid "Activates the continuity plan, handles the relationship with the supplier and with the customers affected."
+msgstr "Activates the continuity plan, handles the relationship with the supplier and with the customers affected."
+
+msgid "Assesses whether the incident of the supplier is a security incident for the organization, supervises the workarounds."
+msgstr "Assesses whether the incident of the supplier is a security incident for the organization, supervises the workarounds."
+
+msgid "Implements the backup solution, monitors the flows and accounts of the supplier, prepares the return to the normal service."
+msgstr "Implements the backup solution, monitors the flows and accounts of the supplier, prepares the return to the normal service."
+
+msgid "Denial of service attack"
+msgstr "Denial of service attack"
+
+msgid "Internet-facing services (website, customer portal, messaging, remote access) are saturated by a flood of traffic."
+msgstr "Internet-facing services (website, customer portal, messaging, remote access) are saturated by a flood of traffic."
+
+msgid "Activate the anti-DDoS protection of the operator or host and filter traffic by origin. Keep the essential services open to identified users only (VPN, list of allowed addresses). Look for another attack hidden behind the denial of service. Inform customers through a channel independent of the attacked services."
+msgstr "Activate the anti-DDoS protection of the operator or host and filter traffic by origin. Keep the essential services open to identified users only (VPN, list of allowed addresses). Look for another attack hidden behind the denial of service. Inform customers through a channel independent of the attacked services."
+
+msgid "Decides which services to keep or cut, and what to tell the customers."
+msgstr "Decides which services to keep or cut, and what to tell the customers."
+
+msgid "Coordinates with the operator and the CERT, looks for a concurrent intrusion, keeps the evidence for a complaint."
+msgstr "Coordinates with the operator and the CERT, looks for a concurrent intrusion, keeps the evidence for a complaint."
+
+msgid "Applies the filtering and the alternative routing, monitors the load, restores the services in order of priority."
+msgstr "Applies the filtering and the alternative routing, monitors the load, restores the services in order of priority."
+
+msgid "No impacted process"
+msgstr "No impacted process"
+
+msgid "No secure degraded mode"
+msgstr "No secure degraded mode"
+
+msgid "Roles to complete"
+msgstr "Roles to complete"
+
+msgid "No response playbook"
+msgstr "No response playbook"
+
+msgid "CISO"
+msgstr "CISO"
+
+msgid "IT department"
+msgstr "IT department"
+
+msgid "The scenario name is required."
+msgstr "The scenario name is required."
+
+msgid "A process outside the entity of the scenario was not linked."
+msgstr "A process outside the entity of the scenario was not linked."
+
+msgid "Information security crisis scenarios"
+msgstr "Information security crisis scenarios"
+
+msgid "%d default scenario added."
+msgid_plural "%d default scenarios added."
+msgstr[0] "%d default scenario added."
+msgstr[1] "%d default scenarios added."
