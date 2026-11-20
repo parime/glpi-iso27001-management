@@ -703,7 +703,8 @@ class PolicyAcknowledgement extends CommonGLPI
                 __('Generated on %s', 'grcmanager'),
                 Html::convDateTime(date('Y-m-d H:i:s'))
             ),
-            'control'            => self::CONTROL_CODE . ' ' . Control::getControlTitle(self::CONTROL_CODE),
+            // Issue #775 : A.5.37 pour une procédure d'exploitation.
+            'control'            => OperatingProcedure::controlLabelFor($policy),
         ] + self::summarize($campaign));
     }
 
@@ -739,12 +740,15 @@ class PolicyAcknowledgement extends CommonGLPI
             return 0;
         }
         $targets = [[Policy::class, $policyId]];
+        $policy = new Policy();
+        $policy->getFromDB($policyId);
+        $controlCode = OperatingProcedure::controlCodeFor($policy);
         foreach (
             $DB->request([
                 'SELECT' => ['id'],
                 'FROM'   => Control::getTable(),
                 // Issue #536 : mesure de la SoA suivie par l'entité active.
-                'WHERE'  => ['code' => self::CONTROL_CODE] + EntityPerimeter::controlCriteria(),
+                'WHERE'  => ['code' => $controlCode] + EntityPerimeter::controlCriteria(),
             ]) as $control
         ) {
             $targets[] = [Control::class, (int) $control['id']];
@@ -995,7 +999,7 @@ class PolicyAcknowledgement extends CommonGLPI
                 ? $CFG_GLPI['root_doc'] . '/front/document.send.php?docid=' . (int) $current['documents_id']
                 : '',
             'action'          => self::getFormURL(),
-            'control_code'    => self::CONTROL_CODE,
+            'control_code'    => OperatingProcedure::controlCodeFor($policy),
             'good_rate'       => AcknowledgementRules::GOOD_RATE,
             'group_dropdown'  => Group::dropdown([
                 'name' => 'items_id', 'display' => false, 'entity' => $_SESSION['glpiactiveentities'] ?? 0,

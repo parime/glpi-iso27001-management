@@ -96,6 +96,8 @@ class Menu extends CommonGLPI
                 ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class,
                 // Issue #620 : registre des violations de données personnelles.
                 DataBreach::class, Policy::class,
+                // Issue #775 : registre des procédures d'exploitation et couverture (A.5.37).
+                OperatingProcedure::class,
                 Evidence::class, CoverageRule::class, ControlTest::class,
                 // Issue #540 : registre d'informations DORA (référentiel DORA activé).
                 DoraRegister::class,
@@ -127,6 +129,8 @@ class Menu extends CommonGLPI
             // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.
             ComplianceAudit::class => [
                 ParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
+                // Issue #779 : conformité des licences logicielles (A.5.32).
+                SoftwareLicenseCompliance::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];

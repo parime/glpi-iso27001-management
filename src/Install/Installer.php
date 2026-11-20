@@ -303,6 +303,8 @@ final class Installer
     private const BREACH_EXPOSURES_TABLE = 'glpi_plugin_grcmanager_breachexposures';
     // Issue #485 : rapports périodiques des vulnérabilités du parc envoyés par e-mail.
     private const VULNERABILITY_DIGESTS_TABLE = 'glpi_plugin_grcmanager_vulnerabilitydigests';
+    // Issue #761 : alertes envoyées au responsable de la préparation à la certification.
+    private const READINESS_ALERTS_TABLE = 'glpi_plugin_grcmanager_readinessalerts';
     /** Classes créées directement dans src/ (sans ancien nom) : nettoyées à la désinstallation. */
     private const SRC_ONLY_CLASSES = [
         \GlpiPlugin\Grcmanager\BreachExposure::class,
@@ -310,6 +312,9 @@ final class Installer
         // Issue #485 : rapport des vulnérabilités du parc par e-mail.
         \GlpiPlugin\Grcmanager\VulnerabilityDigest::class,
         \GlpiPlugin\Grcmanager\NotificationTargetVulnerabilityDigest::class,
+        // Issue #761 : alertes de la préparation à la certification.
+        \GlpiPlugin\Grcmanager\ReadinessAlert::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetReadinessAlert::class,
         // Issue #371 : alertes d'accès au module des incidents.
         \GlpiPlugin\Grcmanager\IncidentAccessWatch::class,
         \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::class,
@@ -359,6 +364,10 @@ final class Installer
         \GlpiPlugin\Grcmanager\NotificationTargetContextItem::class,
         // Issue #771 : registre des contacts officiels (onglet des incidents et des violations).
         \GlpiPlugin\Grcmanager\OfficialContact::class,
+        // Issue #775 : registre des procédures d'exploitation (A.5.37).
+        \GlpiPlugin\Grcmanager\OperatingProcedure::class,
+        // Issue #779 : conformité des licences logicielles (page de synthèse, sans table).
+        \GlpiPlugin\Grcmanager\SoftwareLicenseCompliance::class,
         // Issue #703 : registre NIS2 Italia - ACN.
         \GlpiPlugin\Grcmanager\AcnRequirement::class,
         // Issue #612 : matrice des responsabilités du SMSI et ses exports archivés.
@@ -1077,6 +1086,23 @@ final class Installer
         // Issue #772 : audits de certification et constats de l'organisme.
         $this->migrateCertificationAudits($migration);
 
+        // Issue #761 : un enregistrement par alerte envoyée (étapes signalées, pour ne pas les
+        // répéter). Les réglages vivent dans le contexte de configuration du plugin.
+        if (!$DB->tableExists(self::READINESS_ALERTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::READINESS_ALERTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable prévenu',
+                `target_date` date DEFAULT NULL,
+                `steps` text COMMENT 'JSON, étapes signalées (clé, échéance, état)',
+                `is_sent` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `target_date` (`target_date`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+
         // Sprint 5 (risques fournisseurs/tiers) : même structure que RISKS_TABLE ci-dessus (mêmes
         // colonnes de notation/traitement, voir GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait),
         // avec en plus `suppliers_id`, une vraie clé étrangère vers le `Supplier` natif de GLPI
@@ -1446,6 +1472,19 @@ final class Installer
                 'integer',
                 ['value' => 30, 'after' => 'is_it_charter']
             );
+        }
+        // Issue #775 : procédures d'exploitation documentées (A.5.37). Une procédure est un document
+        // de la bibliothèque de catégorie « operating_procedure », avec son domaine (sauvegarde,
+        // restauration...) ; les documents existants restent des politiques.
+        if (!$DB->fieldExists(self::POLICIES_TABLE, 'category')) {
+            $migration->addField(self::POLICIES_TABLE, 'category', 'string', [
+                'value' => 'policy', 'after' => 'title',
+            ]);
+            $migration->addField(self::POLICIES_TABLE, 'procedure_domain', "varchar(64) NOT NULL DEFAULT ''", [
+                'after' => 'category',
+            ]);
+            $migration->addKey(self::POLICIES_TABLE, 'category');
+            $migration->migrationOneTable(self::POLICIES_TABLE);
         }
         $this->installPolicyAcknowledgementTables($keySign, $charset, $collation);
         $this->installPolicyApprovalTables($migration, $keySign, $charset, $collation);
@@ -3718,6 +3757,19 @@ final class Installer
             DAY_TIMESTAMP,
             [
                 'comment' => 'Envoie le rapport des vulnérabilités du parc selon la fréquence choisie',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #761 : alerte au responsable quand une étape de la préparation à la certification
+        // approche ou dépasse son échéance conseillée (aucune modification automatique).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\ReadinessAlert::class,
+            \GlpiPlugin\Grcmanager\ReadinessAlert::CRON_NAME,
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Prévient le responsable quand une étape de la préparation à la certification '
+                    . 'risque d\'être en retard',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -6037,6 +6089,8 @@ final class Installer
         $this->unseedNotification(\GlpiPlugin\Grcmanager\PersonnelCompliance::class);
         $this->unseedNotification(\GlpiPlugin\Grcmanager\BreachExposure::class);
         $this->unseedNotification(\GlpiPlugin\Grcmanager\VulnerabilityDigest::class);
+        // Issue #761 : étapes de la préparation à la certification à risque.
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\ReadinessAlert::class);
         $this->unseedNotification(\GlpiPlugin\Grcmanager\IncidentAccessWatch::class);
         // Issue #380 : rappel des tests d'efficacité.
         $this->unseedNotification(\GlpiPlugin\Grcmanager\Control::class);
@@ -6128,6 +6182,7 @@ final class Installer
         $migration->dropTable(self::NETWORK_FLOWS_TABLE);
         $migration->dropTable(self::BREACH_EXPOSURES_TABLE);
         $migration->dropTable(self::VULNERABILITY_DIGESTS_TABLE);
+        $migration->dropTable(self::READINESS_ALERTS_TABLE);
         $migration->dropTable(self::PROCESSING_ACTIVITIES_ITEMS_TABLE);
         $migration->dropTable(self::PROCESSING_ACTIVITIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);

@@ -99,8 +99,10 @@ class PageHelp
                 'expected' => __(
                     'Follow the steps in order, starting with the one marked as the next step. Click its button to '
                         . 'open the screen concerned, complete it, then come back: the page is computed again each '
-                        . 'time. Nothing is changed automatically. Export the PDF readiness report to share where '
-                        . 'you stand.',
+                        . 'time. Nothing is changed automatically. Give the target date of the audit (or plan the '
+                        . 'certification audit): each step not done gets an advised deadline, shown in the '
+                        . 'compliance calendar, and the owner is warned when one risks being late. Export the PDF '
+                        . 'readiness report to share where you stand.',
                     'grcmanager'
                 ),
             ],
@@ -377,6 +379,23 @@ class PageHelp
                 ),
                 'reference' => __('GDPR, articles 12 and 15 to 22', 'grcmanager'),
             ],
+            // Issue #779 : conformité des licences logicielles.
+            'softwarelicensecompliance' => [
+                'purpose'   => __(
+                    'Checks, from the software and licenses already recorded in GLPI, that the organization '
+                        . 'respects the licenses it bought: commercial software installed without any license, '
+                        . 'more installations than licensed seats, and expired licenses still in use. Results '
+                        . 'are grouped by entity.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Check the list of watched publishers, then for each finding record the missing license in '
+                        . 'GLPI, buy seats, uninstall the software or renew the license. Export the list (CSV) for '
+                        . 'the auditor. Nothing is changed automatically.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.5.32', 'grcmanager'),
+            ],
             'contextitem' => [
                 'purpose'   => __(
                     'The context of the organization: the internal and external issues that affect information '
@@ -390,6 +409,23 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, clauses 4.1 and 4.2', 'grcmanager'),
+            ],
+            // Issue #775 : registre des procédures d'exploitation.
+            'operatingprocedure' => [
+                'purpose'   => __(
+                    'Shows whether each main IT operations activity (backup, restore, monitoring, updates...) has a '
+                        . 'documented procedure that is approved and reviewed on time, with its version, its owner and '
+                        . 'who has acknowledged it.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'For each domain without an up-to-date procedure, add one or update it: attach the document, have '
+                        . 'it approved, set its next review date, then launch the reading acknowledgement for the '
+                        . 'groups or profiles that carry it out. Archive the register on control A.5.37 before an '
+                        . 'audit.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.5.37', 'grcmanager'),
             ],
             // Issue #771 : registre des contacts officiels.
             'officialcontact' => [

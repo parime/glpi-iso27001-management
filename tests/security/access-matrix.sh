@@ -74,6 +74,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/endoflife.export.php
+  front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
@@ -94,6 +95,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
   front/officialcontact.php front/officialcontact.export.php
+  front/operatingprocedure.php front/operatingprocedure.export.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
   front/personnelcompliance.php front/personnelcompliance.export.php?format=csv
   front/personnelcompliance.export.php?format=pdf
@@ -121,6 +123,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/ismsfunction.form.php front/competence.form.php front/competencedeclaration.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
+  # Issue #775 : archiver le registre des procedures d'exploitation sur A.5.37 cree un document : il
+  # faut pouvoir modifier les politiques.
+  expect "front/operatingprocedure.php : archiver sur A.5.37" "$1" \
+    "$(code -d "archive=1&_glpi_csrf_token=$(csrf)" "$P/operatingprocedure.php")"
   # Issue #542 : generer le dossier preparatoire d'une revue de direction (document joint) et creer
   # les actions a partir de ses decisions exigent de pouvoir modifier la revue.
   expect "front/managementreview.dossier.php : generer le dossier" "$1" \
@@ -204,6 +210,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
   expect "front/auditprogramme.php : reglages du programme" "$1" \
     "$(code -d "save_settings=1&cycle_start=2025&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
+  # Issue #761 : date cible, responsable et seuils de la preparation a la certification exigent le
+  # droit de modifier le plugin.
+  expect "front/certificationreadiness.php : reglages de la preparation" "$1" \
+    "$(code -d "save_readiness_settings=1&target_date=2026-12-03&coverage_target=90&_glpi_csrf_token=$(csrf)" "$P/certificationreadiness.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
   # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).
@@ -363,6 +373,7 @@ if [ "$ROLE" = general ]; then
   for p in front/risk.php front/supplierrisk.php front/riskheatmap.php front/risk.report.php \
            front/networkflow.php front/networkflow.report.php front/networkflow.matrix.php front/parkvulnerability.php \
            front/endoflife.export.php \
+           front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php \
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
            front/riskappetite.php front/riskindicator.php \
            front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php; do
@@ -438,6 +449,15 @@ fi
 
 if [ "$ROLE" = reader ]; then
   for p in $READABLE; do expect "$p : en lecture" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
+  # Issue #779 : constats des licences de l'entite A seulement ; listes des editeurs en lecture seule.
+  contains "licences logicielles : logiciel de A" "Logiciel licence securite A" oui \
+    "$(body "$P/softwarelicensecompliance.php")"
+  contains "licences logicielles : rien de B" "Logiciel licence securite B" non \
+    "$(body "$P/softwarelicensecompliance.php")"
+  contains "export des licences logicielles : rien de B" "Logiciel licence securite B" non \
+    "$(body "$P/softwarelicensecompliance.export.php")"
+  expect "front/softwarelicensecompliance.php : modifier les editeurs surveilles" 403 \
+    "$(code -d "save_license_watch=1&license_publishers=securite&_glpi_csrf_token=$(csrf)" "$P/softwarelicensecompliance.php")"
   for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \
            "accessreview.form.php?id=$(id campaign_A)" "supplierrisk.form.php?id=$(id supplierrisk)" \
            "businessprocess.form.php?id=$(id process_A)" "customframework.form.php?id=$(id custom_framework)"; do
@@ -482,6 +502,9 @@ if [ "$ROLE" = admin ]; then
   contains "front/config.php : matrice toujours en 4 x 4" 'name="matrix_very_rare_negligible"' non \
     "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
   for p in $READABLE; do expect "$p : super-admin" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
+  # Issue #779 : les editeurs surveilles ne se modifient pas sans jeton CSRF.
+  expect "front/softwarelicensecompliance.php : editeurs sans jeton CSRF" 403 \
+    "$(code -d "save_license_watch=1&license_publishers=securite" "$P/softwarelicensecompliance.php")"
   # Issue #542 : dossier preparatoire de la revue de direction : refuse sans jeton CSRF, genere avec,
   # puis liste sur l'onglet de la revue avec son empreinte.
   expect "front/managementreview.dossier.php : sans jeton CSRF" 403 \
@@ -690,6 +713,11 @@ if [ "$ROLE" = limited ]; then
   # Issue #706 : gestionnaire avec la configuration du plugin et les registres sensibles en
   # modification : l'ecran de changement de taille lui est ouvert, comme la page de configuration.
   expect "front/riskscale.php : ecran de correspondance" 200 "$(code "$P/riskscale.php?size=5")"
+  # Issue #779 : droit du plugin sans la lecture native des licences : page et export refuses.
+  expect "front/softwarelicensecompliance.php : sans le droit natif des licences" 403 \
+    "$(code "$P/softwarelicensecompliance.php")"
+  expect "front/softwarelicensecompliance.export.php : sans le droit natif des licences" 403 \
+    "$(code "$P/softwarelicensecompliance.export.php")"
   expect "lier le PC de B au processus A" 404 \
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocessitem.form.php")"
 fi

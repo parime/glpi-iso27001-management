@@ -7,6 +7,69 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.66.0] - 2026-11-20
+
+### Added
+
+- **Procédures d'exploitation documentées** (issue #775, lot 1, A.5.37). Pas d'objet à part : une
+  procédure est un document de la bibliothèque des politiques de catégorie « Procédure
+  d'exploitation », avec son domaine. Elle garde la version, le responsable, la date d'approbation,
+  le circuit d'approbation, la prochaine revue et son rappel, les documents joints et la prise de
+  connaissance par les groupes ou profils qui l'exécutent.
+  - Nouveaux champs « Catégorie » et « Domaine de la procédure » sur la fiche et dans la liste des
+    politiques ; les documents existants restent des politiques.
+  - Page « Procédures d'exploitation », sous-page de la rubrique Conformité (aucune entrée de menu en
+    plus) : couverture de chaque domaine attendu (à jour, revue à faire, non approuvée, aucune
+    procédure), lien d'ajout d'une procédure déjà classée, liste avec version, statut, dates,
+    responsable et taux de prise de connaissance.
+  - Domaines attendus réglables dans la configuration (sauvegarde, restauration, supervision,
+    journaux, mises à jour, déploiement, gestion des accès, gestion des incidents, changements,
+    maintenance par défaut, plus des domaines libres).
+  - Preuve sur la mesure A.5.37 : couverture affichée sur sa fiche, registre en PDF à la demande ou
+    archivé sur la mesure, et procès-verbaux d'approbation et rapports de prise de connaissance d'une
+    procédure archivés sur A.5.37 (ceux d'une politique restent sur A.5.1).
+  - Droits : ceux de la bibliothèque des politiques (droit général du plugin) ; archiver exige le
+    droit de modifier.
+- **Préparation à la certification : date cible, échéances, cycle de maintien et seuils réglables**
+  (issue #761, lot 1, suite de #619).
+  - Date cible de l'audit saisie sur l'écran, ou reprise du prochain audit de certification planifié :
+    audit dont le type est initial, surveillance ou renouvellement (#772), ou événement du calendrier
+    de conformité de même nature. Aucune double saisie.
+  - Échéance conseillée pour chaque étape non faite, en remontant depuis la date cible (audit interne
+    et revue de direction avant l'audit), avec l'état « dans les temps », « risque de retard » (14
+    jours) ou « échéance dépassée » ; visible sur l'écran, dans le PDF et dans le calendrier de
+    conformité (et le planning du responsable).
+  - Alerte au responsable de la préparation (à défaut, le responsable de l'audit cible) : tâche
+    automatique quotidienne `certificationreadiness` et notification modifiable « Étape de la
+    certification à risque », une seule fois par étape et par état, sans aucune modification
+    automatique. Le responsable doit pouvoir lire le plugin sur toutes les entités.
+  - Cycle de maintien après la certification (date saisie, ou dernier audit initial ou de
+    renouvellement terminé) : deux audits de surveillance annuels et renouvellement à trois ans ; la
+    date cible suit le prochain, et les étapes à refaire chaque année (risques, SoA, audit interne,
+    revue de direction) sont mises en avant. Le découpage des audits internes reste dans le programme
+    d'audit pluriannuel (#773), sans réglage en double.
+  - Seuils réglables à la place des valeurs fixes : couverture du programme d'audit (100 % par
+    défaut) et part des participants formés (80 % par défaut).
+  - Droits : la page reste en lecture avec le droit général du plugin ; les réglages demandent le
+    droit de le modifier. Entités : seuls les audits des entités de la session servent de date cible.
+- **Conformité des licences logicielles** (issue #779, lot 1, mesure A.5.32). Le plugin lit, sans
+  rien modifier, les logiciels, les installations, les licences, leurs affectations et les fabricants
+  natifs de GLPI.
+  - Trois constats : logiciel commercial installé sans aucune licence (éditeurs surveillés, liste par
+    défaut modifiable, avec une liste d'outils gratuits ignorés), plus d'installations que de postes
+    licenciés (une licence illimitée, nombre inférieur ou égal à 0, couvre tout ; une licence expirée
+    ne compte plus), licence expirée encore utilisée (actifs encore affectés, ou logiciel installé sans
+    autre licence valable).
+  - Entités (#536) : une licence compte pour une entité si elle lui appartient, ou si elle est
+    récursive depuis une entité parente ; une licence récursive est aussi contrôlée sur l'ensemble de
+    ses sous-entités. Seuls les actifs et les licences des entités de la personne sont lus.
+  - Page « Licences logicielles », sous-page de la rubrique Sécurité technique (aucune entrée de menu
+    en plus), regroupée par entité, avec export CSV protégé contre l'injection de formules.
+  - Preuve affichée sur la mesure A.5.32 de la SoA ; nouvelle règle du contrôle de cohérence.
+  - Droits : droit des registres sensibles du plugin, plus les droits natifs de lecture des logiciels
+    et des licences ; les listes d'éditeurs se modifient avec le droit de configuration du plugin.
+  - Aucun ticket ni aucune donnée de GLPI n'est créé ou modifié automatiquement.
+
 ## [2.65.0] - 2026-11-20
 
 ### Added

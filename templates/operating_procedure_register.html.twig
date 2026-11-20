@@ -1,0 +1,149 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #775 : registre des procédures d'exploitation (A.5.37) : couverture par domaine, boutons,
+   liste des procédures. Une procédure est un document de la bibliothèque des politiques. #}
+{% macro status_badge(status) %}
+   {% if status == 'up_to_date' %}
+      <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('Up to date', 'grcmanager') }}</span>
+   {% elseif status == 'review_due' %}
+      <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-calendar-due me-1"></i>{{ __('Review due', 'grcmanager') }}</span>
+   {% elseif status == 'not_approved' %}
+      <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-pencil me-1"></i>{{ __('Not approved', 'grcmanager') }}</span>
+   {% elseif status == 'missing' %}
+      <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('No procedure', 'grcmanager') }}</span>
+   {% else %}
+      <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-archive me-1"></i>{{ __('Archived', 'grcmanager') }}</span>
+   {% endif %}
+{% endmacro %}
+{% import _self as op %}
+
+<div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+   <div class="me-auto d-flex flex-wrap gap-2">
+      <span class="badge bg-blue-subtle text-blue-emphasis fs-5"><i class="ti ti-list-check me-1"></i>{{ __('%1$d of %2$d domains covered by an up-to-date procedure', 'grcmanager')|format(coverage.summary.up_to_date, coverage.summary.total) }}</span>
+      {% if coverage.summary.review_due > 0 %}
+         <span class="badge bg-warning-subtle text-warning-emphasis fs-5"><i class="ti ti-calendar-due me-1"></i>{{ __('%d to review', 'grcmanager')|format(coverage.summary.review_due) }}</span>
+      {% endif %}
+      {% if coverage.summary.not_approved > 0 %}
+         <span class="badge bg-secondary-subtle text-secondary-emphasis fs-5"><i class="ti ti-pencil me-1"></i>{{ __('%d awaiting approval', 'grcmanager')|format(coverage.summary.not_approved) }}</span>
+      {% endif %}
+      {% if coverage.summary.missing > 0 %}
+         <span class="badge bg-danger-subtle text-danger-emphasis fs-5"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d without procedure', 'grcmanager')|format(coverage.summary.missing) }}</span>
+      {% endif %}
+   </div>
+   <a href="{{ export_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Print the register (PDF)', 'grcmanager') }}</a>
+   {% if can_archive %}
+      <form method="post" action="{{ register_url }}" class="d-inline">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <button type="submit" name="archive" value="1" class="btn btn-outline-secondary btn-sm" title="{{ __('Saves the register as a dated PDF document on the control %s of the Statement of Applicability.', 'grcmanager')|format(control) }}"><i class="ti ti-archive me-1"></i>{{ __('Archive on control A.5.37', 'grcmanager') }}</button>
+      </form>
+   {% endif %}
+   {% if can_create %}
+      <a href="{{ add_url }}" class="btn btn-primary btn-sm"><i class="ti ti-plus me-1"></i>{{ __('Add an operating procedure', 'grcmanager') }}</a>
+   {% endif %}
+</div>
+
+<div class="card mb-3">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-layout-grid me-1"></i>{{ __('Coverage of the expected domains', 'grcmanager') }}</h3>
+      {% if can_config %}
+         <a href="{{ config_url }}" class="ms-auto small"><i class="ti ti-settings me-1"></i>{{ __('Change the list of domains', 'grcmanager') }}</a>
+      {% endif %}
+   </div>
+   {% if coverage.domains is empty %}
+      <div class="card-body text-secondary">{{ __('No expected domain is set. Choose them in the configuration of the plugin.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="table-responsive">
+         <table class="table table-hover card-table">
+            <thead>
+               <tr>
+                  <th>{{ __('Domain', 'grcmanager') }}</th>
+                  <th>{{ __('Coverage', 'grcmanager') }}</th>
+                  <th>{{ __('Procedures', 'grcmanager') }}</th>
+                  <th></th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for domain in coverage.domains %}
+                  <tr>
+                     <td><strong>{{ domain.label }}</strong></td>
+                     <td>{{ op.status_badge(domain.status) }}</td>
+                     <td>{{ domain.count }}</td>
+                     <td class="text-end">
+                        {% if domain.status == 'missing' and can_create %}
+                           <a href="{{ domain.add_url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-plus me-1"></i>{{ __('Add the procedure', 'grcmanager') }}</a>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   {% endif %}
+</div>
+
+<div class="card">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-file-text me-1"></i>{{ __('Operating procedures', 'grcmanager') }}</h3>
+   </div>
+   {% if procedures is empty %}
+      <div class="card-body">
+         <div class="alert alert-info d-flex align-items-center mb-0">
+            <i class="ti ti-list-check me-2"></i>
+            <div>{{ __('No operating procedure recorded yet. Add one per domain, or open an existing document of the policy library and choose the category "Operating procedure".', 'grcmanager') }}</div>
+         </div>
+      </div>
+   {% else %}
+      <div class="table-responsive">
+         <table class="table table-hover card-table">
+            <thead>
+               <tr>
+                  <th>{{ __('Title', 'grcmanager') }}</th>
+                  <th>{{ __('Domain', 'grcmanager') }}</th>
+                  <th>{{ __('Version', 'grcmanager') }}</th>
+                  <th>{{ __('Status', 'grcmanager') }}</th>
+                  <th>{{ __('Approval date', 'grcmanager') }}</th>
+                  <th>{{ __('Next review', 'grcmanager') }}</th>
+                  <th>{{ _x('owner', 'Owner', 'grcmanager') }}</th>
+                  <th>{{ __('Reading acknowledgement', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for procedure in procedures %}
+                  <tr>
+                     <td><a href="{{ procedure.url }}"><strong>{{ procedure.title }}</strong></a></td>
+                     <td>{{ procedure.domain ?: '-' }}</td>
+                     <td>{{ procedure.version }}</td>
+                     <td>
+                        {{ op.status_badge(procedure.status) }}
+                        <div class="small text-secondary mt-1">{{ procedure.policy_status }}</div>
+                     </td>
+                     <td>{{ procedure.approval_date ? procedure.approval_date|formatted_date : '-' }}</td>
+                     <td>{{ procedure.next_review ? procedure.next_review|formatted_date : '-' }}</td>
+                     <td>{{ procedure.owner ?: '-' }}</td>
+                     <td>
+                        {% if procedure.ack_rate is not null %}
+                           <span class="badge bg-blue-subtle text-blue-emphasis">{{ __('%1$d of %2$d people (%3$d%%)', 'grcmanager')|format(procedure.ack_done, procedure.ack_total, procedure.ack_rate) }}</span>
+                           <div class="small text-secondary mt-1">{{ __('Version %s', 'grcmanager')|format(procedure.ack_version) }}</div>
+                        {% else %}
+                           <span class="text-secondary">{{ __('Not launched', 'grcmanager') }}</span>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   {% endif %}
+</div>

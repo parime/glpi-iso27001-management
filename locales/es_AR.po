@@ -22553,3 +22553,530 @@ msgstr "Llame o escriba al contacto para comprobar que los teléfonos, las direc
 
 msgid "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
 msgstr "Enviada por la tarea automática de GRC Manager cuando los datos de un contacto oficial no se han verificado en 12 meses (como máximo una vez al mes)."
+
+msgid "%d commercial software without a license"
+msgstr "%d software comercial sin licencia"
+
+msgid "%d over-deployment(s)"
+msgstr "%d exceso(s) de instalaciones"
+
+msgid "%d expired license(s) still in use"
+msgstr "%d licencia(s) caducada(s) todavía en uso"
+
+msgid "Software license compliance"
+msgstr "Conformidad de las licencias de software"
+
+msgid "A license counts for an entity when it belongs to it, or when it is recursive and belongs to a parent entity. Nothing is changed in GLPI from this page."
+msgstr "Una licencia cuenta para una entidad cuando le pertenece, o cuando es recursiva y pertenece a una entidad padre. Desde esta página no se modifica nada en GLPI."
+
+msgid "Licenses in GLPI"
+msgstr "Licencias en GLPI"
+
+msgid "%1$d findings: the first %2$d are shown, all of them are in the export."
+msgstr "%1$d constataciones: se muestran las %2$d primeras, todas están en la exportación."
+
+msgid "No finding in your entities: every watched commercial software has a license, no license is overused, and no expired license is still in use."
+msgstr "Ninguna constatación en sus entidades: todo el software comercial vigilado tiene licencia, ninguna licencia se excede y ninguna licencia caducada sigue en uso."
+
+msgid "%d finding"
+msgid_plural "%d findings"
+msgstr[0] "%d constatación"
+msgstr[1] "%d constataciones"
+
+msgid "Shared with the sub-entities"
+msgstr "Compartida con las subentidades"
+
+msgid "and %d more"
+msgstr "y %d más"
+
+msgid "Watched commercial publishers"
+msgstr "Editores comerciales vigilados"
+
+msgid "Software from these publishers (manufacturer in GLPI) must have a license recorded. Software whose name contains one of the ignored words (free tools from the same publishers) is never reported as missing a license."
+msgstr "El software de estos editores (fabricante en GLPI) debe tener una licencia registrada. El software cuyo nombre contiene una de las palabras ignoradas (herramientas gratuitas de los mismos editores) nunca se señala como sin licencia."
+
+msgid "Watched publishers (one per line)"
+msgstr "Editores vigilados (uno por línea)"
+
+msgid "Ignored software (part of the name, one per line)"
+msgstr "Software ignorado (parte del nombre, uno por línea)"
+
+msgid "Back to the default lists"
+msgstr "Volver a las listas predeterminadas"
+
+msgid "Software licenses"
+msgstr "Licencias de software"
+
+msgid "Commercial software without a license"
+msgstr "Software comercial sin licencia"
+
+msgid "Installed software from a watched publisher, with no license recorded in GLPI for this entity."
+msgstr "Software instalado de un editor vigilado, sin ninguna licencia registrada en GLPI para esta entidad."
+
+msgid "More installations than licensed seats"
+msgstr "Más instalaciones que puestos con licencia"
+
+msgid "More assets have the software than the valid licenses allow. An unlimited license (number 0 or less) covers everything."
+msgstr "Más activos tienen el software de lo que permiten las licencias válidas. Una licencia ilimitada (número 0 o menos) lo cubre todo."
+
+msgid "Expired license still in use"
+msgstr "Licencia caducada todavía en uso"
+
+msgid "The license has expired but assets are still assigned to it, or the software is still installed with no other valid license."
+msgstr "La licencia ha caducado pero todavía tiene activos asignados, o el software sigue instalado sin otra licencia válida."
+
+msgid "in this entity and its sub-entities"
+msgstr "en esta entidad y sus subentidades"
+
+msgid "in this entity"
+msgstr "en esta entidad"
+
+msgid "%1$d asset has it %2$s, no license recorded."
+msgid_plural "%1$d assets have it %2$s, no license recorded."
+msgstr[0] "%1$d activo lo tiene %2$s, ninguna licencia registrada."
+msgstr[1] "%1$d activos lo tienen %2$s, ninguna licencia registrada."
+
+msgid "%1$d asset has it %3$s for %2$d licensed seat(s)."
+msgid_plural "%1$d assets have it %3$s for %2$d licensed seat(s)."
+msgstr[0] "%1$d activo lo tiene %3$s para %2$d puesto(s) con licencia."
+msgstr[1] "%1$d activos lo tienen %3$s para %2$d puesto(s) con licencia."
+
+msgid "Expired on %1$s: %2$d asset(s) still assigned, %3$d installation(s) %4$s."
+msgstr "Caducada el %1$s: %2$d activo(s) todavía asignado(s), %3$d instalación(es) %4$s."
+
+msgid "Publisher"
+msgstr "Editor"
+
+msgid "Licensed seats"
+msgstr "Puestos con licencia"
+
+msgid "License"
+msgstr "Licencia"
+
+msgid "Expiration date"
+msgstr "Fecha de caducidad"
+
+msgid "Assets still assigned"
+msgstr "Activos todavía asignados"
+
+msgid "Entity and sub-entities"
+msgstr "Entidad y subentidades"
+
+msgid "Entity only"
+msgstr "Solo la entidad"
+
+msgid "%1$s (%2$s): %3$s"
+msgstr "%1$s (%2$s): %3$s"
+
+msgid "Software without a license, installed beyond the licensed seats, or under an expired license"
+msgstr "Software sin licencia, instalado más allá de los puestos con licencia o con una licencia caducada"
+
+msgid "Record the missing license in GLPI, buy seats or uninstall the software, and renew or replace the expired license."
+msgstr "Registre la licencia que falta en GLPI, compre puestos o desinstale el software, y renueve o sustituya la licencia caducada."
+
+msgid "Checks, from the software and licenses already recorded in GLPI, that the organization respects the licenses it bought: commercial software installed without any license, more installations than licensed seats, and expired licenses still in use. Results are grouped by entity."
+msgstr "Comprueba, a partir del software y las licencias ya registrados en GLPI, que la organización respeta las licencias que compró: software comercial instalado sin licencia, más instalaciones que puestos con licencia y licencias caducadas todavía en uso. Los resultados se agrupan por entidad."
+
+msgid "Check the list of watched publishers, then for each finding record the missing license in GLPI, buy seats, uninstall the software or renew the license. Export the list (CSV) for the auditor. Nothing is changed automatically."
+msgstr "Compruebe la lista de editores vigilados y, para cada constatación, registre la licencia que falta en GLPI, compre puestos, desinstale el software o renueve la licencia. Exporte la lista (CSV) para el auditor. Nada se modifica automáticamente."
+
+msgid "ISO/IEC 27001, control A.5.32"
+msgstr "ISO/IEC 27001, control A.5.32"
+
+msgid "Watched publishers saved."
+msgstr "Editores vigilados guardados."
+
+msgid "Target date and advised deadlines"
+msgstr "Fecha objetivo y plazos recomendados"
+
+msgid "Target date of the certification audit"
+msgstr "Fecha objetivo de la auditoría de certificación"
+
+msgid "in %d days"
+msgstr "dentro de %d días"
+
+msgid "today"
+msgstr "hoy"
+
+msgid "Date entered in the settings of this page."
+msgstr "Fecha introducida en los ajustes de esta página."
+
+msgid ""
+"Next audit of the maintenance cycle: %s, on the anniversary of the "
+"certification."
+msgstr ""
+"Próxima auditoría del ciclo de mantenimiento: %s, en la fecha aniversario de "
+"la certificación."
+
+msgid "Next certification audit planned:"
+msgstr "Próxima auditoría de certificación planificada:"
+
+msgid "Advised deadline passed"
+msgstr "Plazo recomendado superado"
+
+msgid "At risk of being late"
+msgstr "Con riesgo de retraso"
+
+msgid ""
+"Each step not done gets an advised deadline, counted back from the target "
+"date: the foundations first, then the internal audit, the management review "
+"that uses its results, and the treatment of nonconformities. These deadlines "
+"also appear in the compliance calendar."
+msgstr ""
+"Cada etapa no realizada recibe un plazo recomendado, calculado hacia atrás "
+"desde la fecha objetivo: primero la base, después la auditoría interna, la "
+"revisión por la dirección que se apoya en sus resultados y el tratamiento de "
+"las no conformidades. Estos plazos también aparecen en el calendario de "
+"cumplimiento."
+
+msgid ""
+"No target date yet. Enter one in the settings below, or plan the "
+"certification audit: an audit whose type is a certification, surveillance or "
+"recertification audit, or an event of the compliance calendar of the same "
+"kind, is used automatically."
+msgstr ""
+"Todavía no hay fecha objetivo. Introduzca una en los ajustes de abajo, o "
+"planifique la auditoría de certificación: una auditoría de tipo "
+"certificación, seguimiento o renovación, o un evento del mismo tipo del "
+"calendario de cumplimiento, se toma automáticamente."
+
+msgid ""
+"The target date entered has passed: it is no longer used. Enter the date of "
+"the next audit."
+msgstr ""
+"La fecha objetivo introducida ya ha pasado: ya no se tiene en cuenta. "
+"Introduzca la fecha de la próxima auditoría."
+
+msgid "Owner warned when a step risks being late: %s"
+msgstr "Responsable avisado cuando una etapa corre el riesgo de retrasarse: %s"
+
+msgid ""
+"No owner: choose one in the settings so that a notification is sent when a "
+"step risks being late."
+msgstr ""
+"Ningún responsable: elija uno en los ajustes para que se envíe una "
+"notificación cuando una etapa corra el riesgo de retrasarse."
+
+msgid "Maintenance cycle"
+msgstr "Ciclo de mantenimiento"
+
+msgid "Certified on %s"
+msgstr "Certificado el %s"
+
+msgid "date entered in the settings"
+msgstr "fecha introducida en los ajustes"
+
+msgid "date of the last initial or recertification audit completed"
+msgstr "fecha de la última auditoría inicial o de renovación terminada"
+
+msgid "Next audit"
+msgstr "Próxima auditoría"
+
+msgid "Steps to redo each year"
+msgstr "Etapas que hay que repetir cada año"
+
+msgid "Advised deadline: %s"
+msgstr "Plazo recomendado: %s"
+
+msgid ""
+"Once certified, enter the certification date in the settings, or complete "
+"the initial certification audit: the page then follows the three-year cycle "
+"(two annual surveillance audits, then the recertification) and highlights "
+"the steps to redo each year."
+msgstr ""
+"Una vez certificado, introduzca la fecha de certificación en los ajustes, o "
+"termine la auditoría inicial de certificación: la página sigue entonces el "
+"ciclo de tres años (dos auditorías de seguimiento anuales y después la "
+"renovación) y destaca las etapas que hay que repetir cada año."
+
+msgid "Settings of the certification readiness"
+msgstr "Ajustes de la preparación para la certificación"
+
+msgid "Leave empty to use the next certification audit planned."
+msgstr ""
+"Dejar vacío para tomar la próxima auditoría de certificación planificada."
+
+msgid "Certification date"
+msgstr "Fecha de certificación"
+
+msgid "Leave empty to use the last initial or recertification audit completed."
+msgstr ""
+"Dejar vacío para tomar la última auditoría inicial o de renovación terminada."
+
+msgid "Owner of the preparation"
+msgstr "Responsable de la preparación"
+
+msgid "Empty: the owner of the target audit."
+msgstr "Vacío: el responsable de la auditoría objetivo."
+
+msgid "Coverage target (%)"
+msgstr "Cobertura objetivo (%)"
+
+msgid "Training target (%)"
+msgstr "Formación objetivo (%)"
+
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training."
+msgstr ""
+"Cobertura objetivo: parte de los requisitos y controles que el programa de "
+"auditoría debe haber cubierto en los últimos tres años para que la etapa de "
+"la auditoría interna esté realizada. Formación objetivo: parte de los "
+"participantes que deben haber completado su formación."
+
+msgid "To redo each year"
+msgstr "Repetir cada año"
+
+msgid "Participants who completed their training: %1$d %% (target: %2$d %%)"
+msgstr ""
+"Participantes que completaron su formación: %1$d %% (objetivo: %2$d %%)"
+
+msgid "Coverage target: %d %%"
+msgstr "Cobertura objetivo: %d %%"
+
+msgid "Advised deadline for the certification"
+msgstr "Plazo recomendado para la certificación"
+
+msgid "Certification step at risk"
+msgstr "Etapa de la certificación en riesgo"
+
+msgid "Owner of the certification readiness"
+msgstr "Responsable de la preparación para la certificación"
+
+msgid "- %1$s: advised deadline %2$s (%3$s)"
+msgstr "- %1$s: plazo recomendado %2$s (%3$s)"
+
+msgid "Steps at risk"
+msgstr "Etapas en riesgo"
+
+msgid "Number of steps"
+msgstr "Número de etapas"
+
+msgid "Certification readiness alert"
+msgid_plural "Certification readiness alerts"
+msgstr[0] "Alerta de la preparación para la certificación"
+msgstr[1] "Alertas de la preparación para la certificación"
+
+msgid "Warns the owner when a certification readiness step risks being late"
+msgstr ""
+"Avisa al responsable cuando una etapa de la preparación para la "
+"certificación corre el riesgo de retrasarse"
+
+msgid "%d certification readiness step(s) reported."
+msgstr "%d etapa(s) de la preparación para la certificación señalada(s)."
+
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. Give "
+"the target date of the audit (or plan the certification audit): each step "
+"not done gets an advised deadline, shown in the compliance calendar, and the "
+"owner is warned when one risks being late. Export the PDF readiness report "
+"to share where you stand."
+msgstr ""
+"Siga las etapas en orden, empezando por la marcada como siguiente etapa. "
+"Haga clic en su botón para abrir la pantalla correspondiente, complétela y "
+"vuelva: la página se recalcula cada vez. No se modifica nada "
+"automáticamente. Indique la fecha objetivo de la auditoría (o planifique la "
+"auditoría de certificación): cada etapa no realizada recibe un plazo "
+"recomendado, visible en el calendario de cumplimiento, y se avisa al "
+"responsable cuando una de ellas corre el riesgo de retrasarse. Exporte el "
+"informe de preparación en PDF para compartir en qué punto está."
+
+msgid "Certification readiness settings saved."
+msgstr "Ajustes de la preparación para la certificación guardados."
+
+msgid ""
+"Complete these steps, or adjust the target date, on the certification "
+"readiness page. Nothing is changed automatically."
+msgstr ""
+"Complete estas etapas, o ajuste la fecha objetivo, en la página de "
+"preparación para la certificación. No se modifica nada automáticamente."
+
+msgid "View the certification readiness"
+msgstr "Ver la preparación para la certificación"
+
+msgid ""
+"Sent by the GRC Manager automatic task when a step of the certification "
+"readiness approaches or passes its advised deadline."
+msgstr ""
+"Enviada por la tarea automática de GRC Manager cuando una etapa de la "
+"preparación para la certificación se acerca a su plazo recomendado o lo "
+"supera."
+
+msgid "%1$d of %2$d domains covered by an up-to-date procedure"
+msgstr "%1$d de %2$d dominios cubiertos por un procedimiento actualizado"
+
+msgid "%d awaiting approval"
+msgstr "%d pendientes de aprobación"
+
+msgid "%d without procedure"
+msgstr "%d sin procedimiento"
+
+msgid "Register of operating procedures"
+msgstr "Registro de procedimientos operativos"
+
+msgid "Expected domains of operating procedures"
+msgstr "Dominios esperados de los procedimientos operativos"
+
+msgid ""
+"The register of operating procedures shows, for each domain ticked here, "
+"whether an approved and up-to-date procedure exists. Untick a domain that "
+"does not apply to you, and add your own domains, one per line."
+msgstr ""
+"El registro de procedimientos operativos indica, para cada dominio marcado "
+"aquí, si existe un procedimiento aprobado y actualizado. Desmarque un "
+"dominio que no le concierna y añada sus propios dominios, uno por línea."
+
+msgid "Other domains (one per line)"
+msgstr "Otros dominios (uno por línea)"
+
+msgid ""
+"Choose \"Operating procedure\" for a documented procedure (backup, restore, "
+"updates...): it then appears in the register of operating procedures, with "
+"its domain."
+msgstr ""
+"Elija «Procedimiento operativo» para un procedimiento documentado (copia de "
+"seguridad, restauración, actualizaciones...): aparecerá entonces en el "
+"registro de procedimientos operativos, con su dominio."
+
+msgid "Procedure domain"
+msgstr "Dominio del procedimiento"
+
+msgid ""
+"Operating procedures only. The list of expected domains is set in the "
+"configuration of the plugin."
+msgstr ""
+"Solo procedimientos operativos. La lista de dominios esperados se define en "
+"la configuración del plugin."
+
+msgid "Up to date"
+msgstr "Actualizado"
+
+msgid "Review due"
+msgstr "Revisión pendiente"
+
+msgid "Not approved"
+msgstr "No aprobado"
+
+msgid "No procedure"
+msgstr "Ningún procedimiento"
+
+msgid "Expected domains"
+msgstr "Dominios esperados"
+
+msgid "Coverage of the expected domains"
+msgstr "Cobertura de los dominios esperados"
+
+msgid "Coverage"
+msgstr "Cobertura"
+
+msgid "Procedures"
+msgstr "Procedimientos"
+
+msgid "Operating procedures"
+msgstr "Procedimientos operativos"
+
+msgid "%1$d of %2$d people (%3$d%%)"
+msgstr "%1$d de %2$d personas (%3$d %%)"
+
+msgid ""
+"Saves the register as a dated PDF document on the control %s of the "
+"Statement of Applicability."
+msgstr ""
+"Guarda el registro como documento PDF fechado en el control %s de la "
+"Declaración de Aplicabilidad."
+
+msgid "Archive on control A.5.37"
+msgstr "Archivar en el control A.5.37"
+
+msgid "Add an operating procedure"
+msgstr "Añadir un procedimiento operativo"
+
+msgid "Change the list of domains"
+msgstr "Cambiar la lista de dominios"
+
+msgid ""
+"No expected domain is set. Choose them in the configuration of the plugin."
+msgstr ""
+"No hay ningún dominio esperado definido. Elíjalos en la configuración del "
+"plugin."
+
+msgid "Add the procedure"
+msgstr "Añadir el procedimiento"
+
+msgid ""
+"No operating procedure recorded yet. Add one per domain, or open an existing "
+"document of the policy library and choose the category \"Operating "
+"procedure\"."
+msgstr ""
+"Todavía no hay ningún procedimiento operativo registrado. Añada uno por "
+"dominio, o abra un documento existente de la biblioteca de políticas y elija "
+"la categoría «Procedimiento operativo»."
+
+msgid "Not launched"
+msgstr "No iniciada"
+
+msgid "Restore"
+msgstr "Restauración"
+
+msgid "Monitoring"
+msgstr "Supervisión"
+
+msgid "Logs"
+msgstr "Registros de eventos"
+
+msgid "Updates"
+msgstr "Actualizaciones"
+
+msgid "Deployment"
+msgstr "Despliegue"
+
+msgid "Access management"
+msgstr "Gestión de accesos"
+
+msgid "Incident management"
+msgstr "Gestión de incidentes"
+
+msgid "Maintenance"
+msgstr "Mantenimiento"
+
+msgid "Register of operating procedures - %s"
+msgstr "Registro de procedimientos operativos - %s"
+
+msgid ""
+"Shows whether each main IT operations activity (backup, restore, monitoring, "
+"updates...) has a documented procedure that is approved and reviewed on "
+"time, with its version, its owner and who has acknowledged it."
+msgstr ""
+"Muestra si cada actividad principal de operación informática (copia de "
+"seguridad, restauración, supervisión, actualizaciones...) tiene un "
+"procedimiento documentado, aprobado y revisado a tiempo, con su versión, su "
+"responsable y quién ha tomado conocimiento de él."
+
+msgid ""
+"For each domain without an up-to-date procedure, add one or update it: "
+"attach the document, have it approved, set its next review date, then launch "
+"the reading acknowledgement for the groups or profiles that carry it out. "
+"Archive the register on control A.5.37 before an audit."
+msgstr ""
+"Para cada dominio sin procedimiento actualizado, añada uno o actualícelo: "
+"adjunte el documento, hágalo aprobar, fije su próxima revisión y luego lance "
+"la toma de conocimiento para los grupos o perfiles que lo ejecutan. Archive "
+"el registro en el control A.5.37 antes de una auditoría."
+
+msgid "ISO/IEC 27001, control A.5.37"
+msgstr "ISO/IEC 27001, control A.5.37"
+
+msgid "The register has been archived as evidence on control A.5.37."
+msgstr "El registro se ha archivado como evidencia en el control A.5.37."
+
+msgid "The register could not be archived."
+msgstr "No se ha podido archivar el registro."
+
+msgid "Operating procedure"
+msgid_plural "Operating procedures"
+msgstr[0] "Procedimiento operativo"
+msgstr[1] "Procedimientos operativos"

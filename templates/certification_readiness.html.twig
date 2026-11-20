@@ -13,7 +13,9 @@
  # -------------------------------------------------------------------------
  #}
 {# Issue #619 : préparation à la certification ISO 27001. Étapes ordonnées (planifier, faire,
-   vérifier, agir), état calculé, attendu, lien vers l'écran à compléter, score global. Lecture seule. #}
+   vérifier, agir), état calculé, attendu, lien vers l'écran à compléter, score global. Issue #761 :
+   date cible, échéances conseillées, cycle de maintien et réglages (droit de modifier). #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
 {% set evaluated = summary.evaluated %}
 {% set done_width = evaluated > 0 ? (summary.counts.done * 100 / evaluated)|round : 0 %}
 {% set partial_width = evaluated > 0 ? (summary.counts.partial * 100 / evaluated)|round : 0 %}
@@ -72,6 +74,125 @@
       </div>
    </div>
 
+   {# Issue #761 : date cible, échéances conseillées, cycle de maintien, réglages. #}
+   {% set maintenance = plan.mode == 'maintenance' %}
+   <div class="row g-3 mt-0">
+      <div class="col-xl-6">
+         <div class="card h-100" id="grc-readiness-plan" data-mode="{{ plan.mode }}">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-calendar-event me-2"></i>{{ __('Target date and advised deadlines', 'grcmanager') }}</h3></div>
+            <div class="card-body">
+               {% if plan.target %}
+                  <p class="mb-1 fs-4" id="grc-readiness-target" data-source="{{ plan.target.source }}" data-date="{{ plan.target.date }}">
+                     <strong>{{ __('Target date of the certification audit', 'grcmanager') }} :</strong> {{ plan.target.label }}
+                     <span class="text-muted small">({{ plan.target.days > 0 ? __('in %d days', 'grcmanager')|format(plan.target.days) : __('today', 'grcmanager') }})</span>
+                  </p>
+                  <p class="small text-muted mb-2">
+                     {% if plan.target.source == 'manual' %}
+                        {{ __('Date entered in the settings of this page.', 'grcmanager') }}
+                     {% elseif plan.target.source == 'cycle' %}
+                        {{ __('Next audit of the maintenance cycle: %s, on the anniversary of the certification.', 'grcmanager')|format(plan.target.type_label) }}
+                     {% else %}
+                        {{ __('Next certification audit planned:', 'grcmanager') }}
+                        <a href="{{ plan.target.url }}">{{ plan.target.name }}</a>{% if plan.target.type_label %} ({{ plan.target.type_label }}){% endif %}.
+                     {% endif %}
+                  </p>
+                  <div class="d-flex flex-wrap gap-2 mb-2">
+                     <span class="badge bg-danger-subtle text-danger-emphasis fs-5" id="grc-readiness-late"><i class="ti ti-calendar-exclamation me-1"></i>{{ __('Advised deadline passed', 'grcmanager') }} : {{ plan.late }}</span>
+                     <span class="badge bg-warning-subtle text-warning-emphasis fs-5" id="grc-readiness-at-risk"><i class="ti ti-alarm me-1"></i>{{ __('At risk of being late', 'grcmanager') }} : {{ plan.at_risk }}</span>
+                  </div>
+                  <p class="small text-muted mb-2">{{ __('Each step not done gets an advised deadline, counted back from the target date: the foundations first, then the internal audit, the management review that uses its results, and the treatment of nonconformities. These deadlines also appear in the compliance calendar.', 'grcmanager') }}</p>
+               {% else %}
+                  <p class="mb-2" id="grc-readiness-no-target">{{ __('No target date yet. Enter one in the settings below, or plan the certification audit: an audit whose type is a certification, surveillance or recertification audit, or an event of the compliance calendar of the same kind, is used automatically.', 'grcmanager') }}</p>
+               {% endif %}
+               {% if plan.manual_past %}
+                  <p class="small text-warning-emphasis mb-2"><i class="ti ti-alert-triangle me-1"></i>{{ __('The target date entered has passed: it is no longer used. Enter the date of the next audit.', 'grcmanager') }}</p>
+               {% endif %}
+               <p class="small mb-2"><i class="ti ti-user me-1 text-muted"></i>
+                  {% if plan.owner > 0 %}
+                     {{ __('Owner warned when a step risks being late: %s', 'grcmanager')|format(plan.owner_name) }}
+                  {% else %}
+                     {{ __('No owner: choose one in the settings so that a notification is sent when a step risks being late.', 'grcmanager') }}
+                  {% endif %}
+               </p>
+               {% if plan.calendar_url %}
+                  <a class="btn btn-sm btn-outline-secondary" href="{{ plan.calendar_url }}"><i class="ti ti-calendar me-1"></i>{{ __('Compliance calendar', 'grcmanager') }}</a>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-6">
+         <div class="card h-100" id="grc-readiness-cycle">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-repeat me-2"></i>{{ __('Maintenance cycle', 'grcmanager') }}</h3></div>
+            <div class="card-body">
+               {% if maintenance %}
+                  <p class="mb-2"><strong>{{ __('Certified on %s', 'grcmanager')|format(plan.certified) }}</strong>
+                     <span class="text-muted small">({{ plan.certified_source == 'manual' ? __('date entered in the settings', 'grcmanager') : __('date of the last initial or recertification audit completed', 'grcmanager') }})</span></p>
+                  <ul class="list-unstyled mb-3">
+                     {% for audit in plan.cycle %}
+                        <li class="mb-1 grc-readiness-cycle-audit" data-type="{{ audit.type }}">
+                           <i class="ti {{ audit.past ? 'ti-circle-check text-success' : (audit.next ? 'ti-flag text-primary' : 'ti-circle-dashed text-muted') }} me-1"></i>
+                           {{ audit.label }} : {{ audit.date }}
+                           {% if audit.next %}<span class="badge bg-primary-subtle text-primary-emphasis ms-1">{{ __('Next audit', 'grcmanager') }}</span>{% endif %}
+                        </li>
+                     {% endfor %}
+                  </ul>
+                  <p class="small mb-1"><strong>{{ __('Steps to redo each year', 'grcmanager') }}</strong></p>
+                  <ul class="small ps-4 mb-2" id="grc-readiness-annual">
+                     {% for step in plan.annual %}
+                        <li data-step="{{ step.key }}"><a href="#grc-step-{{ step.key }}">{{ step.number }}. {{ step.title }}</a>
+                           <span class="badge {{ step.style.class }} ms-1">{{ step.style.label }}</span>
+                           {% if step.deadline %}<span class="badge {{ step.deadline_style.class }} ms-1">{{ __('Advised deadline: %s', 'grcmanager')|format(step.deadline_label) }}</span>{% endif %}
+                        </li>
+                     {% endfor %}
+                  </ul>
+               {% else %}
+                  <p class="small text-muted mb-2">{{ __('Once certified, enter the certification date in the settings, or complete the initial certification audit: the page then follows the three-year cycle (two annual surveillance audits, then the recertification) and highlights the steps to redo each year.', 'grcmanager') }}</p>
+               {% endif %}
+               {% if plan.programme_url %}
+                  <a class="btn btn-sm btn-outline-secondary" href="{{ plan.programme_url }}"><i class="ti ti-calendar-stats me-1"></i>{{ __('Multi-year audit programme', 'grcmanager') }}</a>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+   </div>
+
+   {% if can_edit %}
+      <div class="card mt-3" id="grc-readiness-settings">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-settings me-2"></i>{{ __('Settings of the certification readiness', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            <form method="post" action="{{ action }}" class="row g-3 align-items-end">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="col-md-6 col-xl-3">
+                  <label class="form-label" for="grc-readiness-target-date">{{ __('Target date of the certification audit', 'grcmanager') }}</label>
+                  <input type="date" class="form-control" id="grc-readiness-target-date" name="target_date" value="{{ plan.settings.target_date }}">
+                  <div class="form-hint">{{ __('Leave empty to use the next certification audit planned.', 'grcmanager') }}</div>
+               </div>
+               <div class="col-md-6 col-xl-3">
+                  <label class="form-label" for="grc-readiness-certified-date">{{ __('Certification date', 'grcmanager') }}</label>
+                  <input type="date" class="form-control" id="grc-readiness-certified-date" name="certified_date" value="{{ plan.settings.certified_date }}">
+                  <div class="form-hint">{{ __('Leave empty to use the last initial or recertification audit completed.', 'grcmanager') }}</div>
+               </div>
+               <div class="col-md-6 col-xl-3">
+                  {{ fields.dropdownField('User', 'owner', plan.settings.owner, __('Owner of the preparation', 'grcmanager'), {'right': 'all', 'full_width': true, 'is_horizontal': false, 'rand': 'grcreadinessowner'}) }}
+                  <div class="form-hint">{{ __('Empty: the owner of the target audit.', 'grcmanager') }}</div>
+               </div>
+               <div class="col-md-3 col-xl-1">
+                  <label class="form-label" for="grc-readiness-coverage">{{ __('Coverage target (%)', 'grcmanager') }}</label>
+                  <input type="number" min="1" max="100" class="form-control" id="grc-readiness-coverage" name="coverage_target" value="{{ plan.settings.coverage_target }}">
+               </div>
+               <div class="col-md-3 col-xl-1">
+                  <label class="form-label" for="grc-readiness-training">{{ __('Training target (%)', 'grcmanager') }}</label>
+                  <input type="number" min="1" max="100" class="form-control" id="grc-readiness-training" name="training_target" value="{{ plan.settings.training_target }}">
+               </div>
+               <div class="col-md-6 col-xl-1">
+                  <button type="submit" name="save_readiness_settings" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
+               </div>
+               <div class="col-12 form-hint mt-1">{{ __('Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training.', 'grcmanager') }}</div>
+            </form>
+         </div>
+      </div>
+   {% endif %}
+
    {% for phase in phases %}
       <div class="card mt-3 grc-readiness-phase" data-phase="{{ phase.key }}">
          <div class="card-header d-flex flex-wrap align-items-center gap-2">
@@ -87,7 +208,7 @@
          </div>
          <div class="list-group list-group-flush">
             {% for step in phase.steps %}
-               <div class="list-group-item grc-readiness-step {{ step.next ? 'border-start border-primary border-3' }}" data-step="{{ step.key }}" data-status="{{ step.status }}">
+               <div class="list-group-item grc-readiness-step {{ step.next ? 'border-start border-primary border-3' }}" id="grc-step-{{ step.key }}" data-step="{{ step.key }}" data-status="{{ step.status }}" data-deadline="{{ step.deadline_state }}">
                   <div class="d-flex flex-wrap align-items-center gap-2">
                      <span class="avatar avatar-sm rounded-circle {{ step.style.class }} fw-bold">{{ step.number }}</span>
                      <i class="ti {{ step.icon }} text-muted"></i>
@@ -95,6 +216,12 @@
                      <span class="text-muted small">{{ __('ISO 27001 %s', 'grcmanager')|format(step.clauses) }}</span>
                      {% if step.next %}
                         <span class="badge bg-primary-subtle text-primary-emphasis"><i class="ti ti-flag me-1"></i>{{ __('Next step', 'grcmanager') }}</span>
+                     {% endif %}
+                     {% if maintenance and step.annual %}
+                        <span class="badge bg-info-subtle text-info-emphasis"><i class="ti ti-repeat me-1"></i>{{ __('To redo each year', 'grcmanager') }}</span>
+                     {% endif %}
+                     {% if step.deadline %}
+                        <span class="badge {{ step.deadline_style.class }} grc-readiness-deadline" title="{{ step.deadline_style.label }}"><i class="ti {{ step.deadline_style.icon }} me-1"></i>{{ __('Advised deadline: %s', 'grcmanager')|format(step.deadline_label) }}{% if step.deadline_state != 'on_track' %} ({{ step.deadline_style.label }}){% endif %}</span>
                      {% endif %}
                      <span class="ms-auto badge {{ step.style.class }} fs-5"><i class="ti {{ step.style.icon }} me-1"></i>{{ step.style.label }}</span>
                   </div>

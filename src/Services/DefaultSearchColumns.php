@@ -53,8 +53,8 @@ final class DefaultSearchColumns
         // Issue #126 : campagne (lien), statut, fréquence, dates, pilote, entité.
         'GlpiPlugin\\Grcmanager\\AccessReview'     => [1, 2, 3, 4, 5, 6, 80],
         // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1), same "id first"
-        // convention.
-        'GlpiPlugin\\Grcmanager\\Policy'           => [8, 1, 2, 3, 4, 5, 6],
+        // convention. Issue #775 : catégorie (politique ou procédure d'exploitation) après le titre.
+        'GlpiPlugin\\Grcmanager\\Policy'           => [8, 1, 9, 2, 3, 4, 5, 6],
         'GlpiPlugin\\Grcmanager\\Evidence'         => [2, 3, 4, 5, 6, 80],
         // Issue #380 : mesure, date, méthode, résultat, testeur, prochain test, non-conformité.
         'GlpiPlugin\\Grcmanager\\ControlTest'      => [1, 2, 3, 4, 5, 6, 8],

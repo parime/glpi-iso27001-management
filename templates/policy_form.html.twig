@@ -26,6 +26,13 @@
       </div>
    {% endif %}
    {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true, 'readonly': content_locked}) }}
+   {# Issue #775 : procédure d'exploitation (A.5.37), classée par domaine. #}
+   {{ fields.dropdownArrayField('category', category, categories, __('Category', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Choose "Operating procedure" for a documented procedure (backup, restore, updates...): it then appears in the register of operating procedures, with its domain.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('procedure_domain', domain, domains, __('Procedure domain', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Operating procedures only. The list of expected domains is set in the configuration of the plugin.', 'grcmanager')),
+   }) }}
    {{ fields.textField('version', item.fields['version'] ?: '1.0', __('Version', 'grcmanager'), {'readonly': content_locked}) }}
    {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], _x('owner', 'Owner', 'grcmanager'), {'right': 'all'}) }}
    {% if approval_workflow %}
