@@ -545,7 +545,10 @@ final class AuditProgrammeTest extends GrcmanagerIntegrationTestCase
         $audit = new Audit();
         $this->assertTrue($audit->getFromDB($auditId));
         $this->assertTrue(AuditProgramme::isInternal($audit));
-        $this->assertStringContainsString('Gestion des incidents à planifier Exemple', (string) $audit->fields['title']);
+        $this->assertStringContainsString(
+            'Gestion des incidents à planifier Exemple',
+            (string) $audit->fields['title']
+        );
         $this->assertSame([$process], AuditProgramme::processIds($auditId));
 
         $programme = AuditProgramme::programme((int) date('Y'));
