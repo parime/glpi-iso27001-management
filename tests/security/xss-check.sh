@@ -129,6 +129,8 @@ check "front/databreach.php"                  "$P/databreach.php"
 check "onglet violation de donnees d'un incident" "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5CDataBreach$1' "$(id incident_A)")"
 check "front/businessprocess.form.php"         "$P/businessprocess.form.php?id=$(xid process)"
 check "front/businessprocess.php"              "$P/businessprocess.php"
+# Issue #733 : programme des tests de reprise (nom du processus et type d'exercice pieges).
+check "programme des tests de reprise"         "$P/recoveryprogramme.php"
 check "onglet BIA d'un processus"              "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessImpact$1' "$(xid process)")"
 check "onglet dependances d'un processus"      "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(xid process)")"
 check "onglet processus metier d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id computer_A)")"
@@ -163,6 +165,8 @@ check "onglet constats d'un audit de certification" "$(tab 'GlpiPlugin%5CGrcmana
 check "onglet plan d'audit de l'organisme"   "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CCertificationSampling$1' "$(xid audit)")"
 check "front/certificationsampling.php"      "$P/certificationsampling.php"
 check "constats d'un processus"              "$P/certificationfinding.php?process=1"
+# Issue #772, lot 3 : reponse a l'organisme (correction et retour de l'organisme pieges).
+check "onglet reponse a l'organisme"         "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CCertificationResponse$1' "$(xid audit)")"
 check "export CSV de prise de connaissance"   "$P/policyacknowledgement.export.php?id=$(xid ack_campaign)&format=csv"
 # Issue #540 : registre DORA piege (page, onglets du contrat, du fournisseur et du processus, export).
 check "registre DORA"                         "$P/doraregister.php"

@@ -22,6 +22,7 @@ use Document;
 use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Services\Audit\BodyResponseRules;
 use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Html;
@@ -222,6 +223,11 @@ class CertificationFinding extends CommonGLPI
                 // Lot 2 : date retenue (réelle, sinon prévue) et statut bruts, pour le plan d'audit.
                 'date_value' => (string) ($row['actual_date'] ?: $row['planned_date']),
                 'status_key' => (string) $row['status'],
+                // Lot 3 : rapport de l'organisme et délais de réponse (dates brutes, null si aucune).
+                'report_date'  => BodyResponseRules::normalizeDate($row['body_report_date'] ?? null),
+                'response_due' => BodyResponseRules::normalizeDate($row['body_response_due_date'] ?? null),
+                'evidence_due' => BodyResponseRules::normalizeDate($row['body_evidence_due_date'] ?? null),
+                'entities_id'  => (int) $row['entities_id'],
             ];
         }
 
@@ -284,6 +290,13 @@ class CertificationFinding extends CommonGLPI
                 'corrective_action' => (string) ($row['corrective_action'] ?? ''),
                 'verification_date' => (string) Html::convDate($row['closure_verification_date']),
                 'documents'         => $documents[$id] ?? [],
+                // Lot 3 : réponse à l'organisme (dates brutes, null si aucune).
+                'description'       => (string) ($row['description'] ?? ''),
+                'correction'        => (string) ($row['correction'] ?? ''),
+                'response_date'     => BodyResponseRules::normalizeDate($row['body_response_date'] ?? null),
+                'evidence_date'     => BodyResponseRules::normalizeDate($row['body_evidence_date'] ?? null),
+                'decision'          => BodyResponseRules::normalizeDecision((string) ($row['body_decision'] ?? '')),
+                'feedback'          => (string) ($row['body_feedback'] ?? ''),
             ];
         }
 

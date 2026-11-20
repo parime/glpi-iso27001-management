@@ -191,6 +191,60 @@ final class BusinessProcessReminderTest extends GrcmanagerIntegrationTestCase
         $this->assertCount(2, $this->mailsFor($process, 'remi@example.org'));
     }
 
+    /**
+     * Issue #733 : programme de tests. Fréquence propre au processus, et processus jamais testé
+     * signalé une période après sa création. Le rappel ne modifie ni le processus ni ses tests.
+     */
+    public function testProgrammeUsesTheProcessFrequencyAndRemindsNeverTestedProcesses(): void
+    {
+        global $DB;
+
+        $owner = $this->user('Prisca', 'Programme', $this->profile(READ), 0);
+        // Testé il y a quatre mois, à tester tous les trois mois : en retard.
+        $quarterly = $this->process('Facturation DEMO trimestrielle', $owner, [
+            'bia_date' => date('Y-m-d'), 'recovery_test_months' => 3,
+        ]);
+        $this->assertSame(3, (int) $quarterly->fields['recovery_test_months']);
+        $DB->insert(BusinessProcessRecovery::getTable(), [
+            'plugin_grcmanager_businessprocesses_id' => $quarterly->getID(),
+            'test_date'        => date('Y-m-d', strtotime('-4 months')),
+            'measured_minutes' => 60,
+        ]);
+        // Jamais testé, créé il y a treize mois (fréquence annuelle) : en retard.
+        $never = $this->process('Expedition DEMO jamais testee', $owner, ['bia_date' => date('Y-m-d')]);
+        $DB->update(
+            BusinessProcess::getTable(),
+            ['date_creation' => date('Y-m-d H:i:s', strtotime('-13 months'))],
+            ['id' => $never->getID()]
+        );
+        // Jamais testé, créé aujourd'hui : rien à signaler.
+        $recent = $this->process('Accueil DEMO recent', $owner, ['bia_date' => date('Y-m-d')]);
+        $modBefore = (string) $quarterly->fields['date_mod'];
+
+        BusinessProcessReminder::run(date('Y-m-d'));
+
+        foreach ([$quarterly, $never] as $process) {
+            $process->getFromDB($process->getID());
+            $this->assertStringEndsWith('|overdue', (string) $process->fields['recovery_reminder_key']);
+            $this->assertCount(1, $this->mailsFor($process, 'prisca@example.org'));
+        }
+        $recent->getFromDB($recent->getID());
+        $this->assertSame('', (string) $recent->fields['recovery_reminder_key']);
+        $this->assertSame([], $this->mailsFor($recent, 'prisca@example.org'));
+        // Aucune modification du processus (ni date de modification, ni fréquence).
+        $this->assertSame($modBefore, (string) $quarterly->fields['date_mod']);
+        $this->assertSame(3, (int) $quarterly->fields['recovery_test_months']);
+
+        // Fréquence hors bornes : ramenée à 0 (fréquence de la revue périodique).
+        $quarterly->update(['id' => $quarterly->getID(), 'recovery_test_months' => 999]);
+        $quarterly->getFromDB($quarterly->getID());
+        $this->assertSame(0, (int) $quarterly->fields['recovery_test_months']);
+        $this->assertSame(
+            BusinessProcessReminder::frequency(BusinessProcessReminder::RECOVERY_REVIEW),
+            BusinessProcessReminder::recoveryMonths($quarterly->fields)
+        );
+    }
+
     public function testNoContentForARecipientWhoCannotReadTheProcess(): void
     {
         global $DB;

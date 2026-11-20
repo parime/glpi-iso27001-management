@@ -1051,6 +1051,19 @@ class CertificationReadiness extends CommonGLPI
                     CertificationFinding::getSearchURL() . ($certification['open'] > 0 ? '?open=1' : ''),
                     'ti-certificate-2'
                 );
+                // Issue #772, lot 3 : plans d'actions et preuves encore à envoyer à l'organisme.
+                $pending = CertificationResponse::pendingCounts();
+                if ($pending['responses'] + $pending['evidence'] > 0) {
+                    $facts[] = sprintf(
+                        __(
+                            'To send to the certification body: %1$d action plans and %2$d evidence (overdue: %3$d)',
+                            'grcmanager'
+                        ),
+                        $pending['responses'],
+                        $pending['evidence'],
+                        $pending['late']
+                    );
+                }
             }
         }
 

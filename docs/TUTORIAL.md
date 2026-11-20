@@ -807,6 +807,35 @@ travailler sans baisser la sécurité quand la crise est elle-même une attaque.
      « violation de données » pour une situation de fuite de données, visibles depuis l'entité du
      scénario, avec leur délai et leur dernière vérification. Ils figurent aussi dans le PDF.
 
+### Étape 30 bis : Programmer et mesurer les tests de reprise (mesure A.5.30)
+
+L'auditeur demande la preuve que la reprise des TIC est testée régulièrement, et que les temps
+mesurés tiennent les objectifs. Il faut le droit **Continuité d'activité** du profil.
+
+1. Ouvrez un processus métier fictif, par exemple « Facturation (fictif) », avec un **RTO** de 4 h
+   et un **RPO** de 1 h, puis l'onglet **Stratégie de reprise**.
+2. Dans **Programme de tests**, réglez la **fréquence de test** (par exemple 6 mois). 0 garde la
+   fréquence de la revue périodique des tests de continuité (annuelle par défaut). La prochaine
+   échéance et la **couverture par année** (badge vert : objectifs tenus, rouge : objectifs non
+   tenus, gris : non testé) s'affichent à côté.
+3. Saisissez un test : temps de reprise mesuré, **perte de données** en minutes (le temps entre la
+   dernière sauvegarde utilisable et l'incident ; laissez vide si elle n'a pas été mesurée, 0 si rien
+   n'a été perdu), **type d'exercice** (sur table, fonctionnel, test technique de restauration,
+   grandeur nature) et, si besoin, l'**élément testé** parmi les dépendances du processus. Le test
+   est comparé au RTO et au RPO du processus, et à ceux de l'élément testé (onglet Classification).
+4. Sur la page **Exercices de crise**, choisissez le type au lancement ; il reste modifiable dans la
+   salle de crise jusqu'à la validation du bilan. Un test saisi depuis la salle de crise reprend le
+   type de l'exercice.
+5. La liste des processus métier a un bouton **Programme des tests de reprise** : tous les
+   processus, leur couverture sur quatre ans, la fréquence et la prochaine échéance, avec le nombre
+   de processus en retard ou non testés cette année. C'est la vue à montrer à l'auditeur.
+6. Un processus non testé à temps (ou jamais testé, une période après sa création) est signalé à
+   son responsable et au groupe RSSI par la tâche automatique **businessprocessreminder**. Rien
+   n'est modifié automatiquement.
+7. Sur la fiche d'un élément (serveur, application...), l'onglet **Processus métier** liste les
+   tests de reprise qui l'ont couvert. La liste des types se règle dans **Configuration > GRC
+   Manager**, encadré **Types d'exercice de reprise**.
+
 ### Étape 31 : Encadrer le développement sécurisé et les mises en production (mesures A.8.25 à A.8.31)
 
 Le plugin s'appuie sur les **applications** de GLPI (Parc > Applications) et sur les
@@ -867,6 +896,30 @@ responsabilités** (par exemple contexte et domaine d'application, planification
 logiques et physiques, fournisseurs). Un constat est rattaché à un processus quand son champ
 **Processus audité** reprend le nom du processus (le champ le propose), ou quand sa clause ou
 mesure fait partie des mesures du processus. Cocher demande le droit de modifier l'audit concerné.
+
+### Étape 33 : Répondre aux constats de l'organisme dans les délais
+
+Après l'audit, l'organisme de certification fixe dans son rapport deux délais : l'envoi du **plan
+d'actions** (pour chaque non-conformité : correction, cause et action corrective), puis l'envoi des
+**preuves de levée**. Il accepte le plan ou demande de le compléter.
+
+1. Sur la fiche de l'audit de certification, renseigner **Rapport de l'organisme reçu le**, **Plan
+   d'actions à envoyer à l'organisme avant le** et **Preuves à envoyer à l'organisme avant le**.
+2. Ouvrir l'onglet **Réponse à l'organisme** de l'audit : les délais et les jours restants, puis
+   l'état de chaque constat (plan d'actions à envoyer, bientôt dû, en retard, envoyé, accepté, à
+   compléter ; preuves à envoyer ou envoyées). La colonne **À compléter** signale ce qui manque
+   avant l'envoi (correction, cause, action corrective, responsable, échéance).
+3. Compléter chaque non-conformité (la **Correction** apparaît sur la fiche d'un constat d'audit de
+   certification), puis cliquer sur **Plan d'actions correctives pour l'organisme (PDF)** et
+   envoyer ce document à l'organisme.
+4. Sur chaque constat, dans le bloc **Réponse à l'organisme**, noter la date d'envoi du plan
+   d'actions, la **décision de l'organisme** et son retour, puis la date d'envoi des preuves (les
+   preuves elles-mêmes sont jointes dans l'onglet Documents).
+
+Une réponse est attendue pour chaque non-conformité ; elle reste facultative pour un point sensible
+ou une piste de progrès. Un délai est signalé comme proche 7 jours avant. La **Préparation à la
+certification** compte les plans d'actions et les preuves encore à envoyer, et ceux en retard.
+Rien n'est modifié automatiquement : statut, responsable et échéance restent ceux que vous saisissez.
 
 ## 🇬🇧 English
 
@@ -1633,6 +1686,35 @@ when the crisis is itself an attack.
      breach" for a data leak situation, visible from the entity of the scenario, with their time
      limit and their last verification. They are also in the PDF.
 
+### Step 30a: Schedule and measure recovery tests (control A.5.30)
+
+The auditor asks for evidence that ICT recovery is tested regularly and that the measured times
+meet the objectives. The profile needs the **Business continuity** right.
+
+1. Open a fictitious business process, for instance "Invoicing (fictitious)", with an **RTO** of
+   4 h and an **RPO** of 1 h, then the **Recovery strategy** tab.
+2. In **Test programme**, set the **test frequency** (for instance 6 months). 0 keeps the frequency
+   of the periodic review of continuity tests (yearly by default). The next due date and the
+   **coverage by year** (green badge: objectives met, red: objectives missed, grey: not tested) are
+   shown next to it.
+3. Record a test: measured recovery time, **data loss** in minutes (the time between the last
+   usable backup and the incident; leave it empty if it was not measured, 0 if nothing was lost),
+   **type of exercise** (tabletop, functional, technical restore test, full-scale) and, if needed,
+   the **item tested** among the dependencies of the process. The test is compared with the RTO and
+   RPO of the process, and with those of the item tested (Classification tab).
+4. On the **Crisis exercises** page, choose the type when starting; it can be changed in the crisis
+   room until the review is validated. A test recorded from the crisis room takes the type of the
+   exercise.
+5. The list of business processes has a **Recovery test programme** button: every process, its
+   coverage over four years, the frequency and the next due date, with the number of processes
+   overdue or not tested this year. This is the view to show the auditor.
+6. A process not tested in time (or never tested, one period after its creation) is reported to its
+   owner and to the CISO group by the automatic action **businessprocessreminder**. Nothing is
+   changed automatically.
+7. On an item (server, application...), the **Business processes** tab lists the recovery tests
+   that covered it. The list of types is set in **Setup > GRC Manager**, **Types of recovery
+   exercise** box.
+
 ### Step 31: Frame secure development and releases (controls A.8.25 to A.8.31)
 
 The plugin relies on the **appliances** of GLPI (Assets > Appliances) and on the **changes**
@@ -1722,3 +1804,27 @@ suppliers). A finding is linked to a process when its **Audited process** field 
 the process (the field suggests it), or when its clause or control is one of the controls of the
 process. Ticking requires the right to update the audit concerned. The audit list shows the
 **Audit type** column right after the title.
+
+### Step 34: Answer the findings of the certification body on time
+
+After the audit, the certification body sets two deadlines in its report: sending the **action
+plan** (for each nonconformity: correction, root cause and corrective action), then sending the
+**evidence that the findings are lifted**. It accepts the plan or asks you to complete it.
+
+1. On the certification audit, fill in **Certification body report received on**, **Action plan due
+   to the certification body** and **Evidence due to the certification body**.
+2. Open the **Response to the certification body** tab of the audit: the deadlines and the days
+   left, then the state of each finding (action plan to send, due soon, overdue, sent, accepted, to
+   complete; evidence to send or sent). The **To fill in** column shows what is missing before
+   sending (correction, root cause, corrective action, owner, due date).
+3. Complete each nonconformity (the **Correction** field appears on a finding of a certification
+   audit), then click **Corrective action plan for the certification body (PDF)** and send this
+   document to the body.
+4. On each finding, in the **Response to the certification body** block, record the date the
+   action plan was sent, the **decision of the certification body** and its feedback, then the date
+   the evidence was sent (the evidence itself is attached in the Documents tab).
+
+A response is expected for each nonconformity; it is optional for an area of concern or an
+opportunity for improvement. A deadline is shown as close 7 days before it. **Certification
+readiness** counts the action plans and evidence still to send, and those overdue. Nothing is
+changed automatically: status, owner and due date stay as you enter them.
