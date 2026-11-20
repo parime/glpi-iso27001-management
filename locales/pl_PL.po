@@ -19789,3 +19789,10 @@ msgstr "Tylko zamknięte"
 
 msgid "Active accounts only"
 msgstr "Tylko aktywne konta"
+
+#, php-format
+msgid "and %d other entity"
+msgid_plural "and %d other entities"
+msgstr[0] "i %d inna jednostka"
+msgstr[1] "i %d inne jednostki"
+msgstr[2] "i %d innych jednostek"

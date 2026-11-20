@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-19 21:54+0000\n"
+"POT-Creation-Date: 2026-11-20 03:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3247,7 +3247,7 @@ msgid "Review date"
 msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
-#: src/ControlTestSample.php:708
+#: src/ControlTestSample.php:713
 msgid "Period covered"
 msgstr ""
 
@@ -17145,29 +17145,36 @@ msgstr ""
 msgid "Result changed from the proposed one (%1$s): %2$s"
 msgstr ""
 
-#: src/ControlTestSample.php:700
+#: src/ControlTestSample.php:699
+#, php-format
+msgid "and %d other entity"
+msgid_plural "and %d other entities"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ControlTestSample.php:705
 #, php-format
 msgid "%s and its sub-entities"
 msgstr ""
 
-#: src/ControlTestSample.php:710
+#: src/ControlTestSample.php:715
 msgid "No period limit"
 msgstr ""
 
-#: src/ControlTestSample.php:712
+#: src/ControlTestSample.php:717
 #, php-format
 msgid "From %1$s to %2$s"
 msgstr ""
 
-#: src/ControlTestSample.php:721
+#: src/ControlTestSample.php:726
 msgid "Date used for the period"
 msgstr ""
 
-#: src/ControlTestSample.php:729
+#: src/ControlTestSample.php:734
 msgid "Closed only"
 msgstr ""
 
-#: src/ControlTestSample.php:732
+#: src/ControlTestSample.php:737
 msgid "Active accounts only"
 msgstr ""
 

@@ -19733,3 +19733,9 @@ msgstr "Somente fechados"
 
 msgid "Active accounts only"
 msgstr "Somente contas ativas"
+
+#, php-format
+msgid "and %d other entity"
+msgid_plural "and %d other entities"
+msgstr[0] "e mais %d entidade"
+msgstr[1] "e mais %d entidades"

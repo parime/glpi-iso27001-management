@@ -690,8 +690,13 @@ class ControlTestSample extends CommonGLPI
 
         $entitiesId = (int) ($criteria['entities_id'] ?? 0);
         $entityNames = [];
-        foreach (array_slice(array_map('intval', (array) ($criteria['entities'] ?? [])), 0, 20) as $id) {
+        $allEntities = array_map('intval', (array) ($criteria['entities'] ?? []));
+        foreach (array_slice($allEntities, 0, 20) as $id) {
             $entityNames[] = (string) Dropdown::getDropdownName('glpi_entities', $id);
+        }
+        $more = count($allEntities) - count($entityNames);
+        if ($more > 0) {
+            $entityNames[] = sprintf(_n('and %d other entity', 'and %d other entities', $more, 'grcmanager'), $more);
         }
         $lines[] = [
             _n('Entity', 'Entities', count($entityNames)),

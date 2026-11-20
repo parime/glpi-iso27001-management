@@ -20029,3 +20029,9 @@ msgstr "Nur abgeschlossene"
 
 msgid "Active accounts only"
 msgstr "Nur aktive Konten"
+
+#, php-format
+msgid "and %d other entity"
+msgid_plural "and %d other entities"
+msgstr[0] "und %d weitere Entität"
+msgstr[1] "und %d weitere Entitäten"
