@@ -96,6 +96,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
   front/officialcontact.php front/officialcontact.export.php
   front/operatingprocedure.php front/operatingprocedure.export.php
+  front/securedevelopment.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
   front/personnelcompliance.php front/personnelcompliance.export.php?format=csv
   front/personnelcompliance.export.php?format=pdf
@@ -1171,6 +1172,54 @@ expect "constat sans jeton CSRF" 403   "$(code -d "add_finding=1&id=$(id exercis
 expect "valider le bilan d'un exercice de A (droit dedie)" $VALIDATE_A   "$(code -d "validate_review=1&id=$(id exercise_A)&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
 if [ "$ROLE" != admin ]; then
   expect "repasser en brouillon le bilan d'un exercice de A" 403     "$(code -d "reopen_review=1&id=$(id exercise_A)&reason=securite&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+fi
+
+# Issue #777 : developpement securise. Page sous le droit du plugin ; fiche d'une application et
+# liste de controle d'un changement sous le droit du plugin ET l'element visible (entite) ; decision
+# de mise en production sous le droit dedie, que seul le super-admin a. Le profil general ne lit ni
+# les applications ni les changements : rien ne lui est montre ni enregistre. Les onglets verifient
+# eux-memes leurs droits (contenu demande directement a ajax/common.tabs.php).
+# Pages : front/securedevelopment.php, front/applicationsecurity.form.php, front/releasevalidation.form.php.
+case $ROLE in
+  none)    SD_PAGE=403; SD_APP_A=403; SD_APP_B=403; SD_CHK_A=403; SD_DECIDE=403; SD_TAB=non ;;
+  reader)  SD_PAGE=200; SD_APP_A=403; SD_APP_B=404; SD_CHK_A=403; SD_DECIDE=403; SD_TAB=oui ;;
+  general) SD_PAGE=200; SD_APP_A=404; SD_APP_B=404; SD_CHK_A=404; SD_DECIDE=404; SD_TAB=non ;;
+  limited) SD_PAGE=200; SD_APP_A=302; SD_APP_B=404; SD_CHK_A=302; SD_DECIDE=403; SD_TAB=oui ;;
+  *)       SD_PAGE=200; SD_APP_A=302; SD_APP_B=302; SD_CHK_A=302; SD_DECIDE=302; SD_TAB=oui ;;
+esac
+expect "front/securedevelopment.php" $SD_PAGE "$(code "$P/securedevelopment.php")"
+if [ "$SD_PAGE" = 200 ]; then
+  sd_page=$(curl -s -c "$JAR" -b "$JAR" "$P/securedevelopment.php")
+  SEE_SD_A=oui
+  [ "$ROLE" = general ] && SEE_SD_A=non
+  contains "developpement securise : application de A" "Application securite A" $SEE_SD_A "$sd_page"
+  contains "developpement securise : application de B" "Application securite B" $SEE_B "$sd_page"
+  contains "developpement securise : mise en production de A" "Changement securite A" $SEE_SD_A "$sd_page"
+  contains "developpement securise : mise en production de B" "Changement securite B" $SEE_B "$sd_page"
+fi
+contains "onglet Developpement securise d'une application de A" "grc-application-security" $SD_TAB \
+  "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CApplicationSecurity$1' "$(id appliance_A)")"
+contains "onglet Developpement securise d'une application de B" "grc-application-security" $SEE_B \
+  "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CApplicationSecurity$1' "$(id appliance_B)")"
+contains "onglet Validation de mise en production d'un changement de A" "grc-release-validation" $SD_TAB \
+  "$(tab Change 'GlpiPlugin%5CGrcmanager%5CReleaseValidation$1' "$(id change_A)")"
+contains "onglet Validation de mise en production d'un changement de B" "grc-release-validation" $SEE_B \
+  "$(tab Change 'GlpiPlugin%5CGrcmanager%5CReleaseValidation$1' "$(id change_B)")"
+expect "fiche developpement securise d'une application de A" $SD_APP_A \
+  "$(code -d "save=1&appliances_id=$(id appliance_A)&framework=owasp_top10&environments_separated=yes&_glpi_csrf_token=$(csrf)" "$P/applicationsecurity.form.php")"
+expect "fiche developpement securise d'une application de B" $SD_APP_B \
+  "$(code -d "save=1&appliances_id=$(id appliance_B)&framework=owasp_top10&environments_separated=yes&_glpi_csrf_token=$(csrf)" "$P/applicationsecurity.form.php")"
+expect "fiche developpement securise sans jeton CSRF" 403 \
+  "$(code -d "save=1&appliances_id=$(id appliance_A)&framework=owasp_top10" "$P/applicationsecurity.form.php")"
+expect "liste de controle d'un changement de A" $SD_CHK_A \
+  "$(code -d "save_checklist=1&changes_id=$(id change_A)&tests_passed=1&review_done=1&vulnerabilities_treated=1&_glpi_csrf_token=$(csrf)" "$P/releasevalidation.form.php")"
+expect "liste de controle d'un changement de B" "$([ "$ROLE" = admin ] && echo 302 || { [ "$ROLE" = none ] && echo 403 || echo 404; })" \
+  "$(code -d "save_checklist=1&changes_id=$(id change_B)&tests_passed=1&_glpi_csrf_token=$(csrf)" "$P/releasevalidation.form.php")"
+expect "decision de mise en production d'un changement de A (droit dedie)" $SD_DECIDE \
+  "$(code -d "decision=approved&validator_role=ciso&changes_id=$(id change_A)&_glpi_csrf_token=$(csrf)" "$P/releasevalidation.form.php")"
+if [ "$ROLE" != admin ]; then
+  expect "rouvrir la decision d'un changement de A" "$([ "$SD_DECIDE" = 404 ] && echo 404 || echo 403)" \
+    "$(code -d "reopen=1&changes_id=$(id change_A)&_glpi_csrf_token=$(csrf)" "$P/releasevalidation.form.php")"
 fi
 
 rm -f "$JAR"
