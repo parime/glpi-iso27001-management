@@ -63,6 +63,16 @@ for url in ismsfunction.php competence.php competencedeclaration.php \
   check "front/$url" "$P/$url"
 done
 check "onglet Mes competences"                 "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CCompetenceMatrix$1' 2)"
+# Issue #778 : evaluation de la securite physique de A piegee (page de comparaison, liste, fiche,
+# grille, zones, onglet du lieu, preuve sur A.7.1, action proposee depuis la ligne non conforme).
+for url in physicalsecurity.php physicalsecurityassessment.php \
+  "physicalsecurityassessment.form.php?id=$(id physical_A)" "control.form.php?id=$(id control_a71)" \
+  "nonconformity.form.php?physicalsecuritycheck=$(id physical_line_A)"; do
+  check "front/$url" "$P/$url"
+done
+check "onglet grille de securite physique"     "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id physical_A)")"
+check "onglet zones du site"                   "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$2' "$(id physical_A)")"
+check "onglet securite physique d'un lieu"     "$(tab Location 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id location_A)")"
 # Issue #546 : fiche de conformité de glpi, dans le public de la politique piégée.
 check "onglet Ma conformite securite"          "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPersonnelCompliance$1' 2)"
 check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"

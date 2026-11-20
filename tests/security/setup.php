@@ -302,6 +302,15 @@ if ($mode === 'xss') {
         'entities_id' => 0, 'users_id' => 2, 'plugin_grcmanager_competences_id' => (int) $ids['competence_A'],
         'level' => 1, 'evidence_type' => 'certificate', 'evidence_reference' => $canary, 'comment' => $canary,
     ]);
+    // Issue #778 : évaluation de la sécurité physique de A piégée (fiche, grille, zones, comparaison,
+    // onglet du lieu, preuve sur A.7.1) ; constat en état non conforme pour afficher le bouton d'action.
+    $update('physicalsecurityassessments', ['name' => $canary, 'comment' => $canary], (int) $ids['physical_A']);
+    $update('physicalsecuritychecks', [
+        'state' => 'noncompliant', 'finding' => $canary, 'evidence' => $canary,
+    ], (int) $ids['physical_line_A']);
+    $update('physicalsecurityzones', [
+        'name' => $canary, 'authorized_people' => $canary, 'comment' => $canary,
+    ], (int) $ids['physical_zone_A']);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
     // Issue #380 : nom de la preuve envoyée depuis le formulaire, citée par un test (onglet).
@@ -1056,9 +1065,37 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         '_add_competences_id' => $competenceId, '_add_level' => 2,
     ]);
     $ids['competence_' . $suffix] = $competenceId;
+    // Issue #778 : un site fictif (lieu de GLPI) et son évaluation de la sécurité physique, avec une
+    // zone, dans chaque entité.
+    $ids['location_' . $suffix] = $add(new \Location(), [
+        'name' => 'Site securite ' . $suffix, 'entities_id' => $entity, 'address' => '1 rue Fictive',
+    ]);
+    $ids['physical_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\PhysicalSecurityAssessment(), [
+        'name' => 'Evaluation securite ' . $suffix, 'entities_id' => $entity,
+        'locations_id' => $ids['location_' . $suffix], 'assessment_date' => '2026-01-15',
+    ]);
+    $ids['physical_line_' . $suffix] = (int) $DB->request([
+        'SELECT' => ['id'],
+        'FROM'   => 'glpi_plugin_grcmanager_physicalsecuritychecks',
+        'WHERE'  => [
+            'plugin_grcmanager_physicalsecurityassessments_id' => $ids['physical_' . $suffix], 'code' => 'A.7.1',
+        ],
+    ])->current()['id'];
+    $physical = new \GlpiPlugin\Grcmanager\PhysicalSecurityAssessment();
+    $physical->getFromDB($ids['physical_' . $suffix]);
+    \GlpiPlugin\Grcmanager\PhysicalSecurityZone::addZone($physical, [
+        'name' => 'Salle serveurs securite ' . $suffix, 'zone_type' => 'technical', 'access_means' => ['badge'],
+    ]);
+    $ids['physical_zone_' . $suffix] = (int) $DB->request([
+        'SELECT' => ['id'],
+        'FROM'   => 'glpi_plugin_grcmanager_physicalsecurityzones',
+        'WHERE'  => ['plugin_grcmanager_physicalsecurityassessments_id' => $ids['physical_' . $suffix]],
+    ])->current()['id'];
 }
 $ids['competencedeclaration_B'] = $add(new \GlpiPlugin\Grcmanager\CompetenceDeclaration(), [
     'users_id' => $ids['collab_B'], 'plugin_grcmanager_competences_id' => $ids['competence_B'],
     'level' => 2, 'evidence_type' => 'certificate', 'evidence_reference' => 'Certificat fictif B',
 ]);
+// Issue #778 : mesure A.7.1 de la SoA du siège (preuve des évaluations de la sécurité physique).
+$ids['control_a71'] = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode(0)['A.7.1'] ?? 0;
 echo json_encode($ids), "\n";
