@@ -136,6 +136,16 @@ class SecurityIncidentPostMortem extends CommonGLPI
                 'icon' => 'ti-checkbox',
             ];
         }
+        // Issue #616 : communications de crise tracées (visibles de qui lit l'incident).
+        foreach ((new CrisisCommunication())->find($own) as $row) {
+            $events[] = [
+                'date' => (string) $row['date_communication'],
+                'kind' => __('Crisis communication', 'grcmanager'),
+                'text' => (string) $row['subject'] . ' - '
+                    . sprintf(__('Recipients: %s', 'grcmanager'), str_replace("\n", ', ', (string) $row['recipients'])),
+                'icon' => 'ti-speakerphone',
+            ];
+        }
         foreach ((new ITILSolution())->find($own) as $row) {
             $events[] = [
                 'date' => (string) $row['date_creation'],

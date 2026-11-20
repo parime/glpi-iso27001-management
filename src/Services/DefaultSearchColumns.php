@@ -75,6 +75,8 @@ final class DefaultSearchColumns
         // Issue #164 : nom, type d'actif, catégorie de document, mesure, exigence, active.
         'GlpiPlugin\\Grcmanager\\CoverageRule'     => [1, 3, 4, 5, 6, 7],
         'GlpiPlugin\\Grcmanager\\Playbook'         => [1, 3, 4, 6],
+        // Issue #616 : nom, situation, étape, public, actif.
+        'GlpiPlugin\\Grcmanager\\CrisisMessageTemplate' => [1, 3, 4, 5, 6],
         // Issue #377 : nom, entité, responsable, criticité, DMIA, RTO, RPO, dernière BIA.
         'GlpiPlugin\\Grcmanager\\EbiosStudy'       => [1, 3, 4, 6],
         'GlpiPlugin\\Grcmanager\\BusinessProcess'  => [1, 80, 3, 5, 6, 7, 8, 9],
