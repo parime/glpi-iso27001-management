@@ -1092,6 +1092,13 @@ $ids['audit_B'] = $add(
     new \GlpiPlugin\Grcmanager\Audit(),
     ['title' => 'Audit securite B', 'users_id' => 2, 'entities_id' => $b]
 );
+// Issue #772, lot 2 : audits de certification de A et de B (plan d'audit de l'organisme).
+foreach (['audit_cert' => $a, 'audit_cert_B' => $b] as $key => $entityId) {
+    $ids[$key] = $add(new \GlpiPlugin\Grcmanager\Audit(), [
+        'title' => 'Audit certification securite ' . ($entityId === $b ? 'B' : 'A'), 'audit_type' => 'surveillance_1',
+        'planned_date' => date('Y-m-d'), 'users_id' => 2, 'entities_id' => $entityId,
+    ]);
+}
 foreach (['A' => $ids['audit'], 'B' => $ids['audit_B']] as $suffix => $auditId) {
     $ids['nc_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Nonconformity(), [
         'title'                       => 'Constat securite ' . $suffix,

@@ -203,7 +203,7 @@ ISO/IEC 27001:2022). Les audits existants restent des audits internes.
 
 Dans l'onglet **Constats** d'un audit de certification, chaque constat se saisit avec le
 vocabulaire de l'organisme : **non-conformité majeure**, **non-conformité mineure**, **point
-sensible** ou **piste d'amélioration**, avec la référence de l'organisme (par exemple GVE-36), le
+sensible** ou **piste de progrès**, avec la référence de l'organisme (par exemple GVE-36), le
 processus audité, la clause ou la mesure et le site (un lieu GLPI). Le traitement est le même que
 pour une non-conformité interne (cause, action corrective, responsable, échéance, preuves dans
 l'onglet **Documents**, vérification) ; l'action corrective n'est obligatoire que pour une
@@ -215,6 +215,8 @@ vérifier, levé) et leurs preuves. Il se filtre par audit ou sur les seuls cons
 s'exporte en PDF : c'est le document à remettre à l'auditeur à la réunion d'ouverture de l'audit
 suivant. La **Préparation à la certification** rappelle, dans l'étape « Traiter les
 non-conformités », le nombre de constats précédents non levés.
+
+La liste des audits affiche la colonne **Type d'audit** juste après le titre.
 
 ### Étape 6 : Ajouter les indicateurs à un tableau de bord
 
@@ -789,6 +791,31 @@ GRC Manager du profil, attribué au Super-Admin à l'installation).
    sécurisé** montre les indicateurs utiles à chaque mesure. Ces preuves servent à lever les
    constats d'audit sur le cycle de développement, le codage sécurisé, les tests de sécurité et la
    séparation des environnements.
+
+### Étape 32 : Préparer l'audit avec le plan d'audit de l'organisme
+
+
+L'organisme de certification n'audite pas tous les processus chaque année : il les échantillonne
+sur son cycle de trois ans et l'annonce dans son plan d'audit. L'écran **Audits et amélioration >
+Plan d'audit de l'organisme** reprend ce programme : les processus en lignes, une colonne par audit
+de certification de chaque année du cycle (le cycle par défaut se règle dans le programme d'audit
+pluriannuel).
+
+1. Enregistrer chaque audit de certification du cycle avec sa date prévue (audit initial ou de
+   renouvellement, surveillance 1, surveillance 2) : sa colonne apparaît dans la matrice.
+2. Cocher, dans la colonne de chaque audit, les processus annoncés par l'organisme, puis
+   **Enregistrer**. On peut aussi les choisir dans l'onglet **Plan d'audit de l'organisme** de
+   l'audit.
+3. Avant l'audit, le bloc **Audit de l'année** (et le même onglet) liste chaque processus
+   échantillonné avec les constats des audits de certification précédents qui le concernent et
+   leur état de levée, ses mesures de l'Annexe A et les registres du plugin qui y répondent. Le
+   lien « Voir ces constats et leurs preuves » ouvre la vue des constats filtrée sur ce processus.
+
+Les processus sont ceux du programme d'audit interne : les activités du SMSI de la **matrice des
+responsabilités** (par exemple contexte et domaine d'application, planification du SMSI, accès
+logiques et physiques, fournisseurs). Un constat est rattaché à un processus quand son champ
+**Processus audité** reprend le nom du processus (le champ le propose), ou quand sa clause ou
+mesure fait partie des mesures du processus. Cocher demande le droit de modifier l'audit concerné.
 
 ## 🇬🇧 English
 
@@ -1559,3 +1586,26 @@ Super-Admin at installation).
 9. On control **A.6.3** and on ISMS requirement **7.3**, the "Phishing simulations" box shows the
    number of campaigns within 12 months, the rates of the last campaign and the change in clicks
    since the previous one.
+
+### Step 33: Prepare the audit with the audit plan of the certification body
+
+The certification body does not audit every process each year: it samples them over its three-year
+cycle and announces them in its audit plan. The screen **Audits and improvement > Audit plan of the
+certification body** copies this programme: processes in rows, one column per certification audit
+of each year of the cycle (the default cycle is set in the multi-year audit programme).
+
+1. Record each certification audit of the cycle with its planned date (initial or recertification
+   audit, surveillance 1, surveillance 2): its column appears in the matrix.
+2. Tick, in the column of each audit, the processes announced by the body, then click **Save**.
+   They can also be chosen in the **Audit plan of the certification body** tab of the audit.
+3. Before the audit, the **Audit of the year** block (and the same tab) lists each sampled process
+   with the findings of previous certification audits that concern it and whether they are lifted,
+   its Annex A controls and the plugin registers that answer it. The link "See these findings and
+   their evidence" opens the findings view filtered on this process.
+
+The processes are those of the internal audit programme: the ISMS activities of the
+**responsibility matrix** (for example context and scope, ISMS planning, access control,
+suppliers). A finding is linked to a process when its **Audited process** field repeats the name of
+the process (the field suggests it), or when its clause or control is one of the controls of the
+process. Ticking requires the right to update the audit concerned. The audit list shows the
+**Audit type** column right after the title.

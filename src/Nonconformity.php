@@ -770,6 +770,10 @@ class Nonconformity extends NonconformityBase
         TemplateRenderer::getInstance()->display('@grcmanager/nonconformity_form.html.twig', [
             'certification'          => $certification,
             'certification_categories' => CertificationFinding::getCategories(),
+            // Issue #772, lot 2 : processus du programme d'audit, proposés pour le processus audité.
+            'process_labels'         => array_values(array_unique(array_filter(
+                array_column(CertificationSampling::processes(), 'label')
+            ))),
             'certification_category' => CertificationAuditRules::categoryOf(
                 $findingType ?: 'nonconformity',
                 (string) ($this->fields['severity'] ?: 'minor')

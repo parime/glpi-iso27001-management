@@ -219,6 +219,9 @@ class CertificationFinding extends CommonGLPI
                 'standard'  => (string) $row['certification_standard'],
                 'date'      => (string) Html::convDate($row['actual_date'] ?: $row['planned_date']),
                 'status'    => Audit::getStatuses()[$row['status']] ?? (string) $row['status'],
+                // Lot 2 : date retenue (réelle, sinon prévue) et statut bruts, pour le plan d'audit.
+                'date_value' => (string) ($row['actual_date'] ?: $row['planned_date']),
+                'status_key' => (string) $row['status'],
             ];
         }
 
@@ -329,16 +332,26 @@ class CertificationFinding extends CommonGLPI
     /**
      * Données de l'écran et de l'export : audits de l'organisme et leurs constats.
      *
+     * Lot 2 : $processId restreint aux constats d'un processus du plan d'audit de l'organisme
+     * (CertificationSampling::concerns()), processus des entités de la session.
+     *
      * @return array{audits: list<array<string, mixed>>, all_audits: list<array<string, mixed>>,
-     *     summary: array<string, mixed>, selected: int, open_only: bool}
+     *     summary: array<string, mixed>, selected: int, open_only: bool, process: array<string, mixed>|null}
      */
-    public static function report(int $auditId = 0, bool $openOnly = false): array
+    public static function report(int $auditId = 0, bool $openOnly = false, int $processId = 0): array
     {
         $all = self::externalAudits();
         $audits = $auditId > 0
             ? array_values(array_filter($all, static fn (array $a): bool => $a['id'] === $auditId))
             : $all;
         $findings = self::findings(array_column($audits, 'id'));
+        $process = CertificationSampling::process($processId);
+        if ($process !== null) {
+            $findings = array_values(array_filter(
+                $findings,
+                static fn (array $f): bool => CertificationSampling::concerns($f, $process)
+            ));
+        }
         $byAudit = [];
         foreach ($findings as $finding) {
             if (!$openOnly || Rules::isOpenState($finding['lift_state'])) {
@@ -359,6 +372,7 @@ class CertificationFinding extends CommonGLPI
             )),
             'selected'   => $auditId > 0 && $audits !== [] ? $auditId : 0,
             'open_only'  => $openOnly,
+            'process'    => $process,
         ];
     }
 
