@@ -501,6 +501,36 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
 8. Sur la fiche des mesures A.5.5 et A.5.6 de la SoA, le cadre « Registre des contacts officiels »
    montre le nombre de contacts, vérifiés ou à vérifier, avec le lien vers le registre et son PDF.
 
+### Étape 23 : Vérifier les licences logicielles (mesure A.5.32)
+
+Le plugin lit les logiciels et les licences déjà enregistrés dans GLPI (Parc > Logiciels, onglet
+Licences) ; il ne modifie rien. Il faut le droit « Registres sensibles » du plugin, et les droits
+natifs de lecture des logiciels et des licences.
+
+1. Ouvrez Sécurité technique > **Licences logicielles**. L'encadré « À quoi sert cette page ? »
+   rappelle ce qui est attendu.
+2. En bas de la page, vérifiez la liste des **éditeurs commerciaux surveillés** (Microsoft, Adobe,
+   Oracle, Autodesk...) : c'est le champ « Fabricant » du logiciel dans GLPI. La seconde liste
+   écarte les outils gratuits de ces éditeurs (« Redistributable », « Acrobat Reader »...). Seule
+   une personne qui peut modifier la configuration du plugin change ces listes.
+3. Les trois compteurs donnent le nombre de constats, regroupés ensuite par entité :
+   - **Logiciel commercial sans licence** : un logiciel d'un éditeur surveillé est installé, et
+     aucune licence ne compte pour cette entité. Une licence compte pour une entité si elle lui
+     appartient, ou si elle est récursive et appartient à une entité parente.
+   - **Plus d'installations que de postes licenciés** : par exemple 12 ordinateurs équipés pour une
+     licence de 10 postes. Une licence illimitée (nombre 0 ou moins) couvre tout ; une licence
+     expirée ne compte plus. Une licence récursive est partagée par les sous-entités : la mention
+     « Partagée avec les sous-entités » compte leurs installations ensemble.
+   - **Licence expirée encore utilisée** : des ordinateurs y sont encore affectés, ou le logiciel
+     reste installé sans autre licence valable.
+4. Pour chaque constat, ouvrez le logiciel ou la licence (liens) et corrigez dans GLPI : saisissez
+   la licence achetée, ajoutez des postes, désinstallez le logiciel, ou renouvelez la licence et
+   déplacez les ordinateurs affectés.
+5. Cliquez sur **Export (CSV)** pour remettre la liste à l'auditeur.
+6. Sur la fiche de la mesure A.5.32 de la SoA, le cadre « Conformité des licences logicielles »
+   montre les trois compteurs, et les contrôles de cohérence du SMSI (onglet du tableau de bord) listent
+   chaque constat.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -964,3 +994,32 @@ To give a subsidiary its own Statement of Applicability:
    the incident or of a parent entity (record visible in sub-entities) are listed.
 8. On controls A.5.5 and A.5.6 of the SoA, the "Register of official contacts" box shows the number
    of contacts, verified or to verify, with links to the register and its PDF.
+
+### Step 23: Check software licenses (control A.5.32)
+
+The plugin reads the software and licenses already recorded in GLPI (Assets > Software, Licenses
+tab); it changes nothing. You need the "Sensitive registers" right of the plugin, and the native
+rights to read software and licenses.
+
+1. Open Technical security > **Software licenses**. The "What is this page for?" box explains what
+   is expected.
+2. At the bottom of the page, check the list of **watched commercial publishers** (Microsoft, Adobe,
+   Oracle, Autodesk...): it is the "Manufacturer" field of the software in GLPI. The second list
+   leaves out the free tools of these publishers ("Redistributable", "Acrobat Reader"...). Only a
+   person who can change the plugin configuration can edit these lists.
+3. The three counters give the number of findings, then grouped by entity:
+   - **Commercial software without a license**: software from a watched publisher is installed, and
+     no license counts for this entity. A license counts for an entity when it belongs to it, or when
+     it is recursive and belongs to a parent entity.
+   - **More installations than licensed seats**: for instance 12 computers for a 10-seat license. An
+     unlimited license (number 0 or less) covers everything; an expired license no longer counts. A
+     recursive license is shared by the sub-entities: "Shared with the sub-entities" counts their
+     installations together.
+   - **Expired license still in use**: computers are still assigned to it, or the software is still
+     installed with no other valid license.
+4. For each finding, open the software or the license (links) and fix it in GLPI: record the
+   license you bought, add seats, uninstall the software, or renew the license and move the assigned
+   computers.
+5. Click **Export (CSV)** to hand the list to the auditor.
+6. On control A.5.32 of the SoA, the "Software license compliance" box shows the three counters, and
+   the ISMS consistency checks (tab of the dashboard) list each finding.

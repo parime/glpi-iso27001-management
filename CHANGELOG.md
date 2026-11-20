@@ -7,6 +7,26 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Conformité des licences logicielles** (issue #779, lot 1, mesure A.5.32). Le plugin lit, sans
+  rien modifier, les logiciels, les installations, les licences, leurs affectations et les fabricants
+  natifs de GLPI.
+  - Trois constats : logiciel commercial installé sans aucune licence (éditeurs surveillés, liste par
+    défaut modifiable, avec une liste d'outils gratuits ignorés), plus d'installations que de postes
+    licenciés (une licence illimitée, nombre inférieur ou égal à 0, couvre tout ; une licence expirée
+    ne compte plus), licence expirée encore utilisée (actifs encore affectés, ou logiciel installé sans
+    autre licence valable).
+  - Entités (#536) : une licence compte pour une entité si elle lui appartient, ou si elle est
+    récursive depuis une entité parente ; une licence récursive est aussi contrôlée sur l'ensemble de
+    ses sous-entités. Seuls les actifs et les licences des entités de la personne sont lus.
+  - Page « Licences logicielles », sous-page de la rubrique Sécurité technique (aucune entrée de menu
+    en plus), regroupée par entité, avec export CSV protégé contre l'injection de formules.
+  - Preuve affichée sur la mesure A.5.32 de la SoA ; nouvelle règle du contrôle de cohérence.
+  - Droits : droit des registres sensibles du plugin, plus les droits natifs de lecture des logiciels
+    et des licences ; les listes d'éditeurs se modifient avec le droit de configuration du plugin.
+  - Aucun ticket ni aucune donnée de GLPI n'est créé ou modifié automatiquement.
+
 ## [2.65.0] - 2026-11-20
 
 ### Added
