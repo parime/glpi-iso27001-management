@@ -22911,3 +22911,280 @@ msgid "Operating procedure"
 msgid_plural "Operating procedures"
 msgstr[0] "Procedimento operacional"
 msgstr[1] "Procedimentos operacionais"
+
+msgid "No site assessed yet"
+msgstr "Nenhum local avaliado ainda"
+
+msgid "Compare the sites"
+msgstr "Comparar os locais"
+
+msgid "Physical security of the sites"
+msgstr "Segurança física dos locais"
+
+#, php-format
+msgid "%d site assessed"
+msgid_plural "%d sites assessed"
+msgstr[0] "%d local avaliado"
+msgstr[1] "%d locais avaliados"
+
+#, php-format
+msgid "%d site to reassess (overdue)"
+msgid_plural "%d sites to reassess (overdue)"
+msgstr[0] "%d local a reavaliar (em atraso)"
+msgstr[1] "%d locais a reavaliar (em atraso)"
+
+#, php-format
+msgid "%d site to reassess within 30 days"
+msgid_plural "%d sites to reassess within 30 days"
+msgstr[0] "%d local a reavaliar em 30 dias"
+msgstr[1] "%d locais a reavaliar em 30 dias"
+
+msgid "All assessments"
+msgstr "Todas as avaliações"
+
+msgid "Assess a site"
+msgstr "Avaliar um local"
+
+msgid "Comparison of the sites (last assessment of each site)"
+msgstr "Comparação dos locais (última avaliação de cada local)"
+
+msgid "No site assessed yet. Click \"Assess a site\", choose a location of GLPI and fill in the checklist of controls A.7.1 to A.7.14."
+msgstr "Nenhum local avaliado ainda. Clique em «Avaliar um local», escolha uma localização do GLPI e preencha a lista de controlos A.7.1 a A.7.14."
+
+msgid "Assessment date"
+msgstr "Data da avaliação"
+
+msgid "Next assessment"
+msgstr "Próxima avaliação"
+
+msgid "Hover a cell to see the control. The score counts 1 for a compliant control and 0.5 for a partially compliant one, over the applicable controls."
+msgstr "Passe o rato sobre uma célula para ver o controlo. A pontuação conta 1 para um controlo conforme e 0,5 para um parcialmente conforme, sobre os controlos aplicáveis."
+
+msgid "Compliant controls count 1, partially compliant controls count 0.5, over the applicable controls."
+msgstr "Os controlos conformes contam 1 e os parcialmente conformes 0,5, sobre os controlos aplicáveis."
+
+#, php-format
+msgid "Score: %d%%"
+msgstr "Pontuação: %d%%"
+
+#, php-format
+msgid "%1$d of %2$d controls assessed"
+msgstr "%1$d de %2$d controlos avaliados"
+
+msgid "A location of GLPI (Setup > Dropdowns > Locations). Its zones are taken over from its last assessment."
+msgstr "Uma localização do GLPI (Configuração > Listas > Localizações). As suas zonas são retomadas da última avaliação."
+
+msgid "Optional, for example \"2026 assessment\". The name of the site is used otherwise."
+msgstr "Opcional, por exemplo «Avaliação 2026». Caso contrário, é usado o nome do local."
+
+msgid "Assessor"
+msgstr "Avaliador"
+
+msgid "Receives the reminder of the yearly reassessment."
+msgstr "Recebe o lembrete da reavaliação anual."
+
+msgid "Set \"Completed\" once every control has been assessed."
+msgstr "Indique «Concluída» quando todos os controlos tiverem sido avaliados."
+
+#, php-format
+msgid "Filled in automatically %d months after the assessment date when the assessment is completed."
+msgstr "Preenchida automaticamente %d meses após a data da avaliação quando a avaliação está concluída."
+
+msgid "Physical and environmental security policy"
+msgstr "Política de segurança física e ambiental"
+
+msgid "Open the policy"
+msgstr "Abrir a política"
+
+msgid "The policy stays a document of the policy library: create it there, then link it here."
+msgstr "A política continua a ser um documento da biblioteca de políticas: crie-a lá e associe-a aqui."
+
+msgid "Zones of the site and access controls"
+msgstr "Zonas do local e controlos de acesso"
+
+msgid "List the zones of the site from the most open to the most restricted, with how access is controlled and who may enter. A sensitive area or a technical room needs at least one access control and posted access instructions. The next assessment of the site takes over these zones."
+msgstr "Liste as zonas do local da mais aberta à mais restrita, com a forma como o acesso é controlado e quem pode entrar. Uma área sensível ou uma sala técnica precisa de pelo menos um controlo de acesso e de instruções de acesso afixadas. A próxima avaliação do local retoma estas zonas."
+
+msgid "No zone recorded for this site yet."
+msgstr "Ainda não há nenhuma zona registada para este local."
+
+msgid "Access controls"
+msgstr "Controlos de acesso"
+
+msgid "Authorized people"
+msgstr "Pessoas autorizadas"
+
+msgid "Access instructions"
+msgstr "Instruções de acesso"
+
+msgid "Posted"
+msgstr "Afixadas"
+
+msgid "Not posted"
+msgstr "Não afixadas"
+
+msgid "Remove this zone from the assessment?"
+msgstr "Remover esta zona da avaliação?"
+
+msgid "Remove the zone"
+msgstr "Remover a zona"
+
+msgid "Add a zone"
+msgstr "Adicionar uma zona"
+
+msgid "Add the zone"
+msgstr "Adicionar a zona"
+
+msgid "Type of zone"
+msgstr "Tipo de zona"
+
+msgid "Access instructions posted at the entrance"
+msgstr "Instruções de acesso afixadas à entrada"
+
+#, php-format
+msgid "Action proposed from the physical security assessment (%s): review and adapt each field, set an owner and a due date, then click \"Add\". Nothing is created before, and the assessment line is linked to this action once it is saved."
+msgstr "Ação proposta a partir da avaliação da segurança física (%s): reveja e adapte cada campo, indique um responsável e um prazo e clique em «Adicionar». Nada é criado antes, e a linha da avaliação é associada a esta ação depois de guardada."
+
+msgid "Physical security assessments of this site"
+msgstr "Avaliações da segurança física deste local"
+
+msgid "Assess this site"
+msgstr "Avaliar este local"
+
+msgid "This site has not been assessed yet."
+msgstr "Este local ainda não foi avaliado."
+
+msgid "Physical security checklist"
+msgstr "Lista de segurança física"
+
+msgid "For each control, walk through the site and record what you see: the state, the finding (what is missing or wrong) and the evidence (text, and photos or reports added to the \"Documents\" tab). For a partially compliant or non-compliant control, \"Create the action\" opens a pre-filled non-conformity that you review and save yourself."
+msgstr "Para cada controlo, percorra o local e registe o que observa: o estado, a constatação (o que falta ou está errado) e as evidências (texto, e fotos ou relatórios adicionados ao separador «Documentos»). Para um controlo parcialmente conforme ou não conforme, «Criar a ação» abre uma não conformidade pré-preenchida que revê e guarda."
+
+msgid "State at the previous assessment of the site"
+msgstr "Estado na avaliação anterior do local"
+
+msgid "No action yet"
+msgstr "Ainda sem ação"
+
+msgid "Documents of the assessment"
+msgstr "Documentos da avaliação"
+
+msgid "Add photos or reports to the \"Documents\" tab of the assessment to cite them here."
+msgstr "Adicione fotos ou relatórios ao separador «Documentos» da avaliação para os citar aqui."
+
+msgid "Physical security assessment"
+msgid_plural "Physical security assessments"
+msgstr[0] "Avaliação da segurança física"
+msgstr[1] "Avaliações da segurança física"
+
+msgid "You cannot create an assessment in this entity."
+msgstr "Não pode criar uma avaliação nesta entidade."
+
+msgid "Choose the site (a location of the entity) to assess."
+msgstr "Escolha o local (uma localização da entidade) a avaliar."
+
+msgid "Zones of the site"
+msgstr "Zonas do local"
+
+msgid "Reminds the assessor of the yearly physical security reassessment of each site"
+msgstr "Lembra o avaliador da reavaliação anual da segurança física de cada local"
+
+#, php-format
+msgid "%1$d site(s) to reassess, %2$d reminder(s) sent."
+msgstr "%1$d local(is) a reavaliar, %2$d lembrete(s) enviado(s)."
+
+msgid "Public area"
+msgstr "Área pública"
+
+msgid "Reception, meeting rooms open to visitors."
+msgstr "Receção, salas de reunião abertas aos visitantes."
+
+msgid "Controlled area"
+msgstr "Área controlada"
+
+msgid "Offices: staff only, visitors accompanied."
+msgstr "Escritórios: apenas pessoal, visitantes acompanhados."
+
+msgid "Sensitive area"
+msgstr "Área sensível"
+
+msgid "Archives, management, HR: named people only."
+msgstr "Arquivos, direção, RH: apenas pessoas designadas."
+
+msgid "Technical room"
+msgstr "Sala técnica"
+
+msgid "Server room, network cabinets, electrical room: authorized technicians only."
+msgstr "Sala de servidores, bastidores de rede, sala elétrica: apenas técnicos autorizados."
+
+msgid "Badge"
+msgstr "Cartão de acesso"
+
+msgid "Key"
+msgstr "Chave"
+
+msgid "Door code"
+msgstr "Código de porta"
+
+msgid "Biometrics"
+msgstr "Biometria"
+
+msgid "Reception desk"
+msgstr "Receção"
+
+msgid "Visitor log"
+msgstr "Registo de visitantes"
+
+msgid "Escorted visitors"
+msgstr "Visitantes acompanhados"
+
+msgid "Video surveillance"
+msgstr "Videovigilância"
+
+msgid "Intrusion alarm"
+msgstr "Alarme de intrusão"
+
+msgid "No access control recorded"
+msgstr "Nenhum controlo de acesso registado"
+
+msgid "Access instructions not posted"
+msgstr "Instruções de acesso não afixadas"
+
+msgid "No reassessment date"
+msgstr "Sem data de reavaliação"
+
+msgid "Reassessment due soon"
+msgstr "Reavaliação em breve"
+
+msgid "Reassessment overdue"
+msgstr "Reavaliação em atraso"
+
+msgid "Physical security reassessment"
+msgstr "Reavaliação da segurança física"
+
+msgid "Physical security reassessment due"
+msgstr "Reavaliação da segurança física a prever"
+
+msgid "Shows, for each site (a location of GLPI), the last physical security assessment: the state of each control A.7.1 to A.7.14 side by side, the score, and when the site must be assessed again (at least once a year)."
+msgstr "Mostra, para cada local (uma localização do GLPI), a última avaliação da segurança física: o estado de cada controlo A.7.1 a A.7.14 lado a lado, a pontuação e quando o local deve ser reavaliado (pelo menos uma vez por ano)."
+
+msgid "Assess each site: walk through it, record the state, the finding and the evidence (photos, reports) of each control, and list its zones with their access controls. Create an action for each partial or non-compliant control. Link the physical security policy. Assess the site again before the date shown."
+msgstr "Avalie cada local: percorra-o, registe o estado, a constatação e as evidências (fotos, relatórios) de cada controlo e liste as suas zonas com os controlos de acesso. Crie uma ação para cada controlo parcial ou não conforme. Associe a política de segurança física. Reavalie o local antes da data indicada."
+
+msgid "ISO/IEC 27001, controls A.7.1 to A.7.14"
+msgstr "ISO/IEC 27001, controlos A.7.1 a A.7.14"
+
+msgid "Control saved."
+msgstr "Controlo guardado."
+
+msgid "Give the zone a name."
+msgstr "Dê um nome à zona."
+
+msgid "Sent by the GRC Manager automatic task when the yearly physical security reassessment of a site is due within 30 days or is overdue (at most once a month)."
+msgstr "Enviada pela tarefa automática do GRC Manager quando a reavaliação anual da segurança física de um local vence dentro de 30 dias ou está em atraso (no máximo uma vez por mês)."
+
+msgid "Walk through the site again with the physical security checklist (controls A.7.1 to A.7.14): create a new assessment of the site, which takes over its zones, then record the state of each control."
+msgstr "Percorra novamente o local com a lista de segurança física (controlos A.7.1 a A.7.14): crie uma nova avaliação do local, que retoma as suas zonas, e registe o estado de cada controlo."
+
+msgid "View the last assessment"
+msgstr "Ver a última avaliação"
