@@ -8,6 +8,7 @@ use GlpiPlugin\Grcmanager\CustomFramework;
 use GlpiPlugin\Grcmanager\CustomRequirement;
 use GlpiPlugin\Grcmanager\Evidence;
 use GlpiPlugin\Grcmanager\FrameworkAssessment;
+use GlpiPlugin\Grcmanager\RecyfRequirement;
 use GlpiPlugin\Grcmanager\Services\Compliance\FrameworkAssessmentRules;
 use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCsv;
@@ -21,24 +22,6 @@ use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
  */
 final class FrameworkAssessmentTest extends GrcmanagerIntegrationTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Issue #599 : aucun registre ReCyF (annulé avec la transaction), NIS2 suit alors la
-        // correspondance avec l'Annexe A ; le registre est testé dans RecyfRequirementTest.
-        global $DB;
-        $DB->delete(\GlpiPlugin\Grcmanager\RecyfRequirement::ENTITIES_TABLE, ['id' => ['>', 0]]);
-        \GlpiPlugin\Grcmanager\RecyfRequirement::resetCategories();
-    }
-
-    protected function tearDown(): void
-    {
-        \GlpiPlugin\Grcmanager\RecyfRequirement::resetCategories();
-
-        parent::tearDown();
-    }
-
     /**
      * Deux mesures sans aucun document, pour ne dépendre d'aucune donnée de l'instance.
      *
@@ -105,6 +88,12 @@ final class FrameworkAssessmentTest extends GrcmanagerIntegrationTestCase
     {
         parent::setUp();
         $this->savedFrameworks = FrameworkConfig::enabled();
+
+        // Issue #599 : aucun registre ReCyF (annulé avec la transaction), NIS2 suit alors la
+        // correspondance avec l'Annexe A ; le registre est testé dans RecyfRequirementTest.
+        global $DB;
+        $DB->delete(RecyfRequirement::ENTITIES_TABLE, ['id' => ['>', 0]]);
+        RecyfRequirement::resetCategories();
     }
 
     protected function tearDown(): void
@@ -112,6 +101,7 @@ final class FrameworkAssessmentTest extends GrcmanagerIntegrationTestCase
         unset($_SESSION[FrameworkAssessment::SESSION_KEY]);
         FrameworkConfig::save($this->savedFrameworks);
         CustomFrameworkCatalog::reset();
+        RecyfRequirement::resetCategories();
 
         parent::tearDown();
         FrameworkConfig::reset();
