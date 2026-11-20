@@ -9,6 +9,25 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Fin de garantie du matériel** (issue #782, lot 1, A.7.13 et A.8.9), en complément de la fin de
+  support des logiciels (#704). Calcul à la demande depuis les informations financières natives de
+  GLPI (`glpi_infocoms` : date de début et durée de garantie en mois, durée « à vie » comprise),
+  comme la date de fin affichée par GLPI. Rien n'est conservé ni modifié dans GLPI.
+  - Carte « Fin de garantie du matériel » sur la page des vulnérabilités du parc, sous la carte
+    « Fin de support » (aucune page ni entrée de menu en plus) : garantie expirée, fin proche
+    (même seuil que la fin de support, réglable dans la configuration, actif même sans
+    endoflife.date), sous garantie ou inconnue (jamais comptée comme sous garantie) ; tableau par
+    type de matériel et par entité, liste des matériels à traiter avec lien vers leur fiche.
+  - Matériels suivis : ordinateurs, moniteurs, matériels réseau, périphériques, téléphones,
+    imprimantes, baies, châssis, PDU, équipements passifs et actifs personnalisés de GLPI 11 qui
+    portent des informations financières ; hors corbeille et gabarits.
+  - Export CSV (un matériel par ligne, fabricant, modèle, dates), protégé contre l'injection de
+    formules.
+  - Preuve sur les mesures A.7.13 et A.8.9, règle « Matériels dont la garantie est expirée » du
+    contrôle de cohérence (A.7.13, gravité faible).
+  - Droits : droit des registres sensibles du plugin, lecture native des informations financières
+    et de chaque type de matériel ; entités actives respectées (#536).
+  - Reste à faire (lot 2) : date de fin de vie déclarée par le constructeur, par modèle.
 - **Procédures d'exploitation documentées** (issue #775, lot 1, A.5.37). Pas d'objet à part : une
   procédure est un document de la bibliothèque des politiques de catégorie « Procédure
   d'exploitation », avec son domaine. Elle garde la version, le responsable, la date d'approbation,
