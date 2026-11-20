@@ -79,6 +79,11 @@ class Profile extends CommonGLPI
                     // Issue #140 : notes de travail des audits.
                     READNOTE   => ['short' => __('Read notes'), 'long' => __('Read the item\'s notes')],
                     UPDATENOTE => ['short' => __('Update notes'), 'long' => __('Update the item\'s notes')],
+                    // Issue #777 : décision de mise en production (DSI ou RSSI).
+                    ReleaseValidation::DECIDE => [
+                        'short' => __('Decide on releases', 'grcmanager'),
+                        'long'  => __('Approve or reject the release of a change (security validation)', 'grcmanager'),
+                    ],
                 ],
                 'label'    => __('Security governance (ISMS)', 'grcmanager'),
                 'field'    => Installer::RIGHT_NAME,

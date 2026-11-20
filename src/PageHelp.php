@@ -444,6 +444,22 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, control A.5.37', 'grcmanager'),
             ],
+            // Issue #777 : développement sécurisé.
+            'securedevelopment' => [
+                'purpose'   => __(
+                    'The applications developed or maintained in-house, with their secure development practices '
+                        . '(framework, code review, SAST, DAST and dependency analyses, separated environments), and '
+                        . 'the releases of the last 12 months with their security validation.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Fill in the "Secure development" tab of each application, link the changes to their '
+                        . 'application, then have each release approved by the CIO or the CISO in the "Security '
+                        . 'release validation" tab of the change, before it goes into production.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.25 to A.8.31', 'grcmanager'),
+            ],
             // Issue #771 : registre des contacts officiels.
             'officialcontact' => [
                 'purpose'   => __(

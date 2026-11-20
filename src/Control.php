@@ -1706,6 +1706,8 @@ class Control extends ControlBase
             'crisis_scenarios'        => CrisisScenario::evidence($code),
             // Issue #775 : registre des procédures d'exploitation, preuve de la mesure A.5.37.
             'operating_procedures'    => OperatingProcedure::evidence($code),
+            // Issue #777 : développement sécurisé, preuve des mesures A.8.25, A.8.28, A.8.29 et A.8.31.
+            'secure_development'      => SecureDevelopment::evidence($code),
             // Issue #779 : conformité des licences logicielles, preuve de la mesure A.5.32.
             'software_licenses'       => SoftwareLicenseCompliance::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',

@@ -91,6 +91,11 @@ check "fiche d'un traitement (onglet principal)" "$(tab GlpiPlugin%5CGrcmanager%
 check "front/operatingprocedure.php"          "$P/operatingprocedure.php"
 check "fiche d'une procedure d'exploitation"  "$P/policy.form.php?id=$(xid procedure)"
 check "onglet principal d'une procedure"      "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CPolicy$main' "$(xid procedure)")"
+# Issue #777 : application, fiche, changement et liste de controle pieges (page, onglets, preuve A.8.31).
+check "front/securedevelopment.php"           "$P/securedevelopment.php"
+check "onglet developpement securise d'une application" "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CApplicationSecurity$1' "$(xid appliance)")"
+check "onglet validation de mise en production" "$(tab Change 'GlpiPlugin%5CGrcmanager%5CReleaseValidation$1' "$(xid change)")"
+check "preuve developpement securise (A.8.31)" "$P/control.form.php?id=$(xid control_a831)"
 # Issue #779 : logiciel et ordinateur pieges (page des licences logicielles).
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).

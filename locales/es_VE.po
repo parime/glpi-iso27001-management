@@ -24294,3 +24294,371 @@ msgid "%d default scenario added."
 msgid_plural "%d default scenarios added."
 msgstr[0] "%d escenario predeterminado añadido."
 msgstr[1] "%d escenarios predeterminados añadidos."
+
+msgid "Before this change goes into production, check the security points below, then the CIO or the CISO approves or rejects the release. The decision is recorded with its author and date, and in the history of the change."
+msgstr "Antes de que este cambio pase a producción, compruebe los puntos de seguridad siguientes; después, la Dirección de TI o el CISO aprueba o rechaza el paso a producción. La decisión se registra con su autor y su fecha, y en el historial del cambio."
+
+msgid "Applications concerned"
+msgstr "Aplicaciones afectadas"
+
+msgid "Fill in the secure development tab of the application."
+msgstr "Complete la pestaña «Desarrollo seguro» de la aplicación."
+
+msgid "No secure development sheet"
+msgstr "Sin ficha de desarrollo seguro"
+
+#, php-format
+msgid "GLPI approval of the change: %s"
+msgstr "Aprobación GLPI del cambio: %s"
+
+msgid "This change is in production."
+msgstr "Este cambio está en producción."
+
+msgid "Security checklist before release"
+msgstr "Lista de control de seguridad antes del paso a producción"
+
+msgid "Evidence (reports, links, ticket numbers)"
+msgstr "Evidencias (informes, enlaces, números de ticket)"
+
+msgid "Save the checklist"
+msgstr "Guardar la lista de control"
+
+msgid "Decision of the CIO or the CISO"
+msgstr "Decisión de la Dirección de TI o del CISO"
+
+msgid "Release approved"
+msgstr "Paso a producción aprobado"
+
+msgid "Release rejected"
+msgstr "Paso a producción rechazado"
+
+#, php-format
+msgid "By %1$s (%2$s) on %3$s"
+msgstr "Por %1$s (%2$s) el %3$s"
+
+msgid "Reason or comment"
+msgstr "Motivo o comentario"
+
+msgid "Reopen the decision"
+msgstr "Reabrir la decisión"
+
+msgid "The checklist is not complete: the release can only be rejected."
+msgstr "La lista de control no está completa: el paso a producción solo puede rechazarse."
+
+msgid "I decide as"
+msgstr "Decido como"
+
+msgid "Reason or comment (mandatory for a rejection)"
+msgstr "Motivo o comentario (obligatorio para un rechazo)"
+
+msgid "Approve the release"
+msgstr "Aprobar el paso a producción"
+
+msgid "Reject the release"
+msgstr "Rechazar el paso a producción"
+
+msgid "Awaiting the decision of the CIO or the CISO."
+msgstr "A la espera de la decisión de la Dirección de TI o del CISO."
+
+msgid "Fill in this sheet for each application developed or maintained in-house: it then appears in the register of applications (secure development page) and as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
+msgstr "Complete esta ficha para cada aplicación desarrollada o mantenida internamente: aparecerá entonces en el registro de aplicaciones (página Desarrollo seguro) y como evidencia de los controles A.8.25, A.8.28, A.8.29 y A.8.31."
+
+msgid "All secure development practices are in place"
+msgstr "Todas las prácticas de desarrollo seguro están implantadas"
+
+#, php-format
+msgid "Missing: %s"
+msgstr "Falta: %s"
+
+msgid "Environments not separated"
+msgstr "Entornos no separados"
+
+msgid "Secure development owner"
+msgstr "Responsable del desarrollo seguro"
+
+#, php-format
+msgid "%s (technical owner of the application)"
+msgstr "%s (responsable técnico de la aplicación)"
+
+msgid "Code repository"
+msgstr "Repositorio de código"
+
+msgid "Secure development framework"
+msgstr "Marco de desarrollo seguro"
+
+msgid "Tools and frequency of the analyses"
+msgstr "Herramientas y frecuencia de los análisis"
+
+msgid "Separated environments (development, test, production)"
+msgstr "Entornos separados (desarrollo, pruebas, producción)"
+
+msgid "This application has no secure development sheet yet."
+msgstr "Esta aplicación todavía no tiene ficha de desarrollo seguro."
+
+#, php-format
+msgid "Empty: the technical owner of the application (%s)."
+msgstr "Vacío: el responsable técnico de la aplicación (%s)."
+
+msgid "Person accountable for the security of the development of this application."
+msgstr "Persona responsable de la seguridad del desarrollo de esta aplicación."
+
+msgid "Address starting with https://, ssh:// or git@."
+msgstr "Dirección que empieza por https://, ssh:// o git@."
+
+msgid "Level or version of the framework"
+msgstr "Nivel o versión del marco"
+
+msgid "For example: ASVS 4.0.3 level 2"
+msgstr "Por ejemplo: ASVS 4.0.3 nivel 2"
+
+msgid "For example: merge request reviewed by a second developer, SAST on each commit, dependency analysis every week, DAST before each release."
+msgstr "Por ejemplo: solicitud de fusión revisada por un segundo desarrollador, SAST en cada commit, análisis de dependencias cada semana, DAST antes de cada paso a producción."
+
+msgid "How access, data and configuration are separated, or why they are not (mandatory when the answer is no)."
+msgstr "Cómo se separan los accesos, los datos y la configuración, o por qué no se separan (obligatorio si la respuesta es no)."
+
+#, php-format
+msgid "Last update: %s"
+msgstr "Última actualización: %s"
+
+msgid "Applications in the register"
+msgstr "Aplicaciones del registro"
+
+msgid "Applications without separation of environments"
+msgstr "Aplicaciones sin separación de entornos"
+
+#, php-format
+msgid "%d without justification"
+msgstr "%d sin justificación"
+
+msgid "Releases without security validation (12 months)"
+msgstr "Pasos a producción sin validación de seguridad (12 meses)"
+
+#, php-format
+msgid "out of %d release(s)"
+msgstr "de %d paso(s) a producción"
+
+msgid "Requires the right to see all changes."
+msgstr "Requiere el derecho de ver todos los cambios."
+
+msgid "Practices missing"
+msgstr "Prácticas que faltan"
+
+#, php-format
+msgid "Framework: %d"
+msgstr "Marco: %d"
+
+#, php-format
+msgid "Code review: %d"
+msgstr "Revisión de código: %d"
+
+#, php-format
+msgid "Dependencies: %d"
+msgstr "Dependencias: %d"
+
+msgid "Register of applications developed or maintained in-house"
+msgstr "Registro de aplicaciones desarrolladas o mantenidas internamente"
+
+msgid "Add an application"
+msgstr "Añadir una aplicación"
+
+msgid "Requires the right to read the applications of GLPI."
+msgstr "Requiere el derecho de leer las aplicaciones de GLPI."
+
+msgid "No application in the register yet. Open an appliance of GLPI (Assets > Appliances) and fill in its \"Secure development\" tab."
+msgstr "Todavía no hay ninguna aplicación en el registro. Abra una aplicación de GLPI (Activos > Aplicaciones) y complete su pestaña «Desarrollo seguro»."
+
+msgid "Application"
+msgstr "Aplicación"
+
+msgid "Separated environments"
+msgstr "Entornos separados"
+
+msgid "Not specified"
+msgstr "No indicado"
+
+#, php-format
+msgid "Releases of the last %d days"
+msgstr "Pasos a producción de los últimos %d días"
+
+msgid "No solved or closed change linked to an application of the register over this period."
+msgstr "Ningún cambio resuelto o cerrado vinculado a una aplicación del registro en este periodo."
+
+msgid "Release date"
+msgstr "Fecha de paso a producción"
+
+msgid "Security validation"
+msgstr "Validación de seguridad"
+
+msgid "Decision by"
+msgstr "Decisión de"
+
+#, php-format
+msgid "%d application in the register"
+msgid_plural "%d applications in the register"
+msgstr[0] "%d aplicación en el registro"
+msgstr[1] "%d aplicaciones en el registro"
+
+#, php-format
+msgid "%1$d release(s) without security validation out of %2$d over 12 months"
+msgstr "%1$d paso(s) a producción sin validación de seguridad de %2$d en 12 meses"
+
+#, php-format
+msgid "%d without secure development framework"
+msgstr "%d sin marco de desarrollo seguro"
+
+#, php-format
+msgid "%d without mandatory code review"
+msgstr "%d sin revisión de código obligatoria"
+
+#, php-format
+msgid "%d without SAST"
+msgstr "%d sin SAST"
+
+#, php-format
+msgid "%d without DAST"
+msgstr "%d sin DAST"
+
+#, php-format
+msgid "%d without dependency analysis"
+msgstr "%d sin análisis de dependencias"
+
+#, php-format
+msgid "%d without separation of environments"
+msgstr "%d sin separación de entornos"
+
+#, php-format
+msgid "%d not separated without justification"
+msgstr "%d no separada(s) sin justificación"
+
+msgid "Security release validation"
+msgstr "Validación de seguridad del paso a producción"
+
+msgid "Tests passed (including security tests)"
+msgstr "Pruebas superadas (incluidas las de seguridad)"
+
+msgid "Code review done"
+msgstr "Revisión de código realizada"
+
+msgid "Vulnerabilities found treated (SAST, DAST, dependencies)"
+msgstr "Vulnerabilidades encontradas tratadas (SAST, DAST, dependencias)"
+
+msgid "CIO (IT department)"
+msgstr "Dirección de TI (CIO)"
+
+msgid "Validated before release"
+msgstr "Validado antes del paso a producción"
+
+msgid "Validated after release"
+msgstr "Validado después del paso a producción"
+
+msgid "Released although rejected"
+msgstr "Pasado a producción pese a un rechazo"
+
+msgid "Released without decision"
+msgstr "Pasado a producción sin decisión"
+
+msgid "Released without security checklist"
+msgstr "Pasado a producción sin lista de control de seguridad"
+
+msgid "The decision has been taken: reopen it before changing the checklist."
+msgstr "La decisión ya se ha tomado: reábrala antes de modificar la lista de control."
+
+msgid "The checklist could not be saved."
+msgstr "No se ha podido guardar la lista de control."
+
+msgid "Every item of the checklist must be ticked before approving the release."
+msgstr "Todos los puntos de la lista de control deben estar marcados antes de aprobar el paso a producción."
+
+msgid "The decision could not be saved."
+msgstr "No se ha podido guardar la decisión."
+
+#, php-format
+msgid "Security release validation: approved by %1$s (%2$s)"
+msgstr "Validación de seguridad del paso a producción: aprobada por %1$s (%2$s)"
+
+#, php-format
+msgid "Security release validation: rejected by %1$s (%2$s)"
+msgstr "Validación de seguridad del paso a producción: rechazada por %1$s (%2$s)"
+
+msgid "There is no decision to reopen."
+msgstr "No hay ninguna decisión que reabrir."
+
+msgid "The decision could not be reopened."
+msgstr "No se ha podido reabrir la decisión."
+
+#, php-format
+msgid "Security release validation: decision reopened by %s"
+msgstr "Validación de seguridad del paso a producción: decisión reabierta por %s"
+
+msgid "Say whether you decide as CIO or as CISO."
+msgstr "Indique si decide como Dirección de TI o como CISO."
+
+msgid "Give the reason for the rejection."
+msgstr "Indique el motivo del rechazo."
+
+msgid "The decision has already been taken: reopen it first."
+msgstr "La decisión ya se ha tomado: reábrala primero."
+
+msgid "Application not visible to you"
+msgstr "Aplicación que usted no puede ver"
+
+msgid "Decide on releases"
+msgstr "Decidir sobre los pasos a producción"
+
+msgid "Approve or reject the release of a change (security validation)"
+msgstr "Aprobar o rechazar el paso a producción de un cambio (validación de seguridad)"
+
+msgid "The applications developed or maintained in-house, with their secure development practices (framework, code review, SAST, DAST and dependency analyses, separated environments), and the releases of the last 12 months with their security validation."
+msgstr "Las aplicaciones desarrolladas o mantenidas internamente, con sus prácticas de desarrollo seguro (marco, revisión de código, análisis SAST, DAST y de dependencias, entornos separados), y los pasos a producción de los últimos 12 meses con su validación de seguridad."
+
+msgid "Fill in the \"Secure development\" tab of each application, link the changes to their application, then have each release approved by the CIO or the CISO in the \"Security release validation\" tab of the change, before it goes into production."
+msgstr "Complete la pestaña «Desarrollo seguro» de cada aplicación, vincule los cambios a su aplicación y haga aprobar cada paso a producción por la Dirección de TI o el CISO en la pestaña «Validación de seguridad del paso a producción» del cambio, antes de pasarlo a producción."
+
+msgid "ISO/IEC 27001, controls A.8.25 to A.8.31"
+msgstr "ISO/IEC 27001, controles A.8.25 a A.8.31"
+
+msgid "OWASP ASVS (Application Security Verification Standard)"
+msgstr "OWASP ASVS (Application Security Verification Standard)"
+
+msgid "OWASP Top 10"
+msgstr "OWASP Top 10"
+
+msgid "OWASP SAMM (Software Assurance Maturity Model)"
+msgstr "OWASP SAMM (Software Assurance Maturity Model)"
+
+msgid "ANSSI recommendations"
+msgstr "Recomendaciones de la ANSSI"
+
+msgid "Other (specify)"
+msgstr "Otro (especificar)"
+
+msgid "Mandatory code review"
+msgstr "Revisión de código obligatoria"
+
+msgid "Static analysis (SAST)"
+msgstr "Análisis estático (SAST)"
+
+msgid "Dynamic analysis (DAST)"
+msgstr "Análisis dinámico (DAST)"
+
+msgid "Dependency analysis"
+msgstr "Análisis de dependencias"
+
+msgid "Explain why the environments are not separated (accepted risk, compensating measure)."
+msgstr "Explique por qué los entornos no están separados (riesgo aceptado, medida compensatoria)."
+
+msgid "The secure development sheet could not be saved."
+msgstr "No se ha podido guardar la ficha de desarrollo seguro."
+
+msgid "Secure development sheet saved."
+msgstr "Ficha de desarrollo seguro guardada."
+
+msgid "Checklist saved."
+msgstr "Lista de control guardada."
+
+msgid "Decision recorded."
+msgstr "Decisión registrada."
+
+msgid "Decision reopened."
+msgstr "Decisión reabierta."

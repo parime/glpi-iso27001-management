@@ -1,0 +1,136 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #777 : registre des applications, mises en production et indicateurs du développement sécurisé. #}
+{% set i = indicators %}
+<div class="container-fluid" id="grc-secure-development">
+   <div class="row row-cards mb-3">
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted">{{ __('Applications in the register', 'grcmanager') }}</div>
+            <div class="h1 mb-0">{{ i.applications }}</div>
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted">{{ __('Applications without separation of environments', 'grcmanager') }}</div>
+            <div class="h1 mb-0 {{ i.without_separation > 0 ? 'text-danger' : 'text-success' }}" id="grc-sd-without-separation">{{ i.without_separation }}</div>
+            {% if i.separation_unjustified > 0 %}<div class="small text-danger">{{ __('%d without justification', 'grcmanager')|format(i.separation_unjustified) }}</div>{% endif %}
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted">{{ __('Releases without security validation (12 months)', 'grcmanager') }}</div>
+            {% if can_see_releases %}
+               <div class="h1 mb-0 {{ i.releases_without_validation > 0 ? 'text-danger' : 'text-success' }}" id="grc-sd-without-validation">{{ i.releases_without_validation }}</div>
+               <div class="small text-muted">{{ __('out of %d release(s)', 'grcmanager')|format(i.releases) }}</div>
+            {% else %}
+               <div class="small text-muted">{{ __('Requires the right to see all changes.', 'grcmanager') }}</div>
+            {% endif %}
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted">{{ __('Practices missing', 'grcmanager') }}</div>
+            <div class="small">
+               {{ __('Framework: %d', 'grcmanager')|format(i.without_framework) }} ·
+               {{ __('Code review: %d', 'grcmanager')|format(i.without_review) }}<br>
+               SAST : {{ i.without_sast }} · DAST : {{ i.without_dast }} ·
+               {{ __('Dependencies: %d', 'grcmanager')|format(i.without_dependency_scan) }}
+            </div>
+         </div></div>
+      </div>
+   </div>
+
+   <div class="card mb-3">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-apps me-1"></i>{{ __('Register of applications developed or maintained in-house', 'grcmanager') }}</h3>
+         <div class="card-actions"><a href="{{ appliances_url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-plus me-1"></i>{{ __('Add an application', 'grcmanager') }}</a></div>
+      </div>
+      {% if not can_see_apps %}
+         <div class="card-body text-muted">{{ __('Requires the right to read the applications of GLPI.', 'grcmanager') }}</div>
+      {% elseif applications is empty %}
+         <div class="card-body text-muted">{{ __('No application in the register yet. Open an appliance of GLPI (Assets > Appliances) and fill in its "Secure development" tab.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table table-striped" id="grc-sd-applications">
+               <thead>
+                  <tr>
+                     <th>{{ __('Application', 'grcmanager') }}</th>
+                     <th>{{ __('Entity') }}</th>
+                     <th>{{ __('Owner', 'grcmanager') }}</th>
+                     <th>{{ __('Code repository', 'grcmanager') }}</th>
+                     <th>{{ __('Framework', 'grcmanager') }}</th>
+                     {% for key in ['code_review_required', 'sast', 'dast', 'dependency_scan'] %}<th class="text-center">{{ practices[key] }}</th>{% endfor %}
+                     <th>{{ __('Separated environments', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for app in applications %}
+                     <tr>
+                        <td><a href="{{ app.url }}">{{ app.name }}</a></td>
+                        <td>{{ app.entity }}</td>
+                        <td>{{ app.owner ?: '-' }}</td>
+                        <td>{% if app.repository_link %}<a href="{{ app.repository }}" target="_blank" rel="noopener noreferrer">{{ app.repository }}</a>{% else %}{{ app.repository ?: '-' }}{% endif %}</td>
+                        <td>{% if app.framework %}{{ app.framework }}{% else %}<span class="badge bg-warning-subtle text-warning-emphasis">{{ __('None', 'grcmanager') }}</span>{% endif %}</td>
+                        {% for key, done in app.practices %}
+                           <td class="text-center">{% if done %}<i class="ti ti-circle-check text-success" title="{{ __('Yes', 'grcmanager') }}"></i>{% else %}<i class="ti ti-circle-x text-warning" title="{{ __('No', 'grcmanager') }}"></i>{% endif %}</td>
+                        {% endfor %}
+                        <td>
+                           {% if app.separation == 'yes' %}<span class="badge bg-success-subtle text-success-emphasis">{{ __('Yes', 'grcmanager') }}</span>
+                           {% elseif app.separation == 'no' %}<span class="badge bg-danger-subtle text-danger-emphasis">{{ __('No', 'grcmanager') }}</span>{% if app.unjustified %} <span class="badge bg-danger-subtle text-danger-emphasis">{{ __('No justification', 'grcmanager') }}</span>{% endif %}
+                           {% else %}<span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Not specified', 'grcmanager') }}</span>{% endif %}
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   <div class="card">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-rocket me-1"></i>{{ __('Releases of the last %d days', 'grcmanager')|format(period_days) }}</h3></div>
+      {% if not can_see_releases %}
+         <div class="card-body text-muted">{{ __('Requires the right to see all changes.', 'grcmanager') }}</div>
+      {% elseif releases is empty %}
+         <div class="card-body text-muted">{{ __('No solved or closed change linked to an application of the register over this period.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table table-striped" id="grc-sd-releases">
+               <thead>
+                  <tr>
+                     <th>{{ __('Change') }}</th>
+                     <th>{{ __('Applications', 'grcmanager') }}</th>
+                     <th>{{ __('Release date', 'grcmanager') }}</th>
+                     <th>{{ __('Security validation', 'grcmanager') }}</th>
+                     <th>{{ __('Decision by', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for release in releases %}
+                     <tr>
+                        <td><a href="{{ release.url }}">{{ release.name }}</a></td>
+                        <td>{{ release.applications }}</td>
+                        <td>{{ release.released_at ? release.released_at|formatted_datetime : '-' }}</td>
+                        <td><span class="badge bg-{{ release.state.color }}-subtle text-{{ release.state.color }}-emphasis"><i class="{{ release.state.icon }} me-1"></i>{{ release.state.label }}</span></td>
+                        <td>{% if release.decider %}{{ release.decider }}, {{ release.decided_at|formatted_datetime }}{% else %}-{% endif %}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+</div>

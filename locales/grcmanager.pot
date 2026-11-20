@@ -28570,3 +28570,512 @@ msgid "%d default scenario added."
 msgid_plural "%d default scenarios added."
 msgstr[0] ""
 msgstr[1] ""
+
+#: templates/release_validation_tab.html.twig
+msgid ""
+"Before this change goes into production, check the security points below, "
+"then the CIO or the CISO approves or rejects the release. The decision is "
+"recorded with its author and date, and in the history of the change."
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Applications concerned"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Fill in the secure development tab of the application."
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "No secure development sheet"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+#, php-format
+msgid "GLPI approval of the change: %s"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "This change is in production."
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Security checklist before release"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Evidence (reports, links, ticket numbers)"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Save the checklist"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Decision of the CIO or the CISO"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Release approved"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Release rejected"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+#, php-format
+msgid "By %1$s (%2$s) on %3$s"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Reason or comment"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Reopen the decision"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "The checklist is not complete: the release can only be rejected."
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "I decide as"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Reason or comment (mandatory for a rejection)"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Approve the release"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Reject the release"
+msgstr ""
+
+#: templates/release_validation_tab.html.twig
+msgid "Awaiting the decision of the CIO or the CISO."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "All secure development practices are in place"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+#, php-format
+msgid "Missing: %s"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Environments not separated"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Secure development owner"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+#, php-format
+msgid "%s (technical owner of the application)"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+#: templates/secure_development_page.html.twig
+msgid "Code repository"
+msgstr ""
+
+#: templates/application_security_tab.html.twig src/ApplicationSecurity.php:90
+msgid "Secure development framework"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Tools and frequency of the analyses"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Separated environments (development, test, production)"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "This application has no secure development sheet yet."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+#, php-format
+msgid "Empty: the technical owner of the application (%s)."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"Person accountable for the security of the development of this application."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Address starting with https://, ssh:// or git@."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Level or version of the framework"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "For example: ASVS 4.0.3 level 2"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"For example: merge request reviewed by a second developer, SAST on each "
+"commit, dependency analysis every week, DAST before each release."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"How access, data and configuration are separated, or why they are not "
+"(mandatory when the answer is no)."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+#, php-format
+msgid "Last update: %s"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Applications in the register"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Applications without separation of environments"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "%d without justification"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Releases without security validation (12 months)"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "out of %d release(s)"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Requires the right to see all changes."
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Practices missing"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "Framework: %d"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "Code review: %d"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "Dependencies: %d"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Register of applications developed or maintained in-house"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Add an application"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Requires the right to read the applications of GLPI."
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid ""
+"No application in the register yet. Open an appliance of GLPI (Assets > "
+"Appliances) and fill in its \"Secure development\" tab."
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Application"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Separated environments"
+msgstr ""
+
+#: templates/secure_development_page.html.twig src/ApplicationSecurity.php:106
+msgid "Not specified"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "Releases of the last %d days"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid ""
+"No solved or closed change linked to an application of the register over "
+"this period."
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Release date"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Security validation"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Decision by"
+msgstr ""
+
+#: src/SecureDevelopment.php:325
+#, php-format
+msgid "%d application in the register"
+msgid_plural "%d applications in the register"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SecureDevelopment.php:335
+#, php-format
+msgid "%1$d release(s) without security validation out of %2$d over 12 months"
+msgstr ""
+
+#: src/SecureDevelopment.php:344 src/SecureDevelopment.php:351
+#, php-format
+msgid "%d without secure development framework"
+msgstr ""
+
+#: src/SecureDevelopment.php:355
+#, php-format
+msgid "%d without mandatory code review"
+msgstr ""
+
+#: src/SecureDevelopment.php:362
+#, php-format
+msgid "%d without SAST"
+msgstr ""
+
+#: src/SecureDevelopment.php:367
+#, php-format
+msgid "%d without DAST"
+msgstr ""
+
+#: src/SecureDevelopment.php:371
+#, php-format
+msgid "%d without dependency analysis"
+msgstr ""
+
+#: src/SecureDevelopment.php:378
+#, php-format
+msgid "%d without separation of environments"
+msgstr ""
+
+#: src/SecureDevelopment.php:382
+#, php-format
+msgid "%d not separated without justification"
+msgstr ""
+
+#: src/ReleaseValidation.php:63
+msgid "Security release validation"
+msgstr ""
+
+#: src/ReleaseValidation.php:89
+msgid "Tests passed (including security tests)"
+msgstr ""
+
+#: src/ReleaseValidation.php:90
+msgid "Code review done"
+msgstr ""
+
+#: src/ReleaseValidation.php:91
+msgid "Vulnerabilities found treated (SAST, DAST, dependencies)"
+msgstr ""
+
+#: src/ReleaseValidation.php:101
+msgid "CIO (IT department)"
+msgstr ""
+
+#: src/ReleaseValidation.php:115
+msgid "Validated before release"
+msgstr ""
+
+#: src/ReleaseValidation.php:120
+msgid "Validated after release"
+msgstr ""
+
+#: src/ReleaseValidation.php:125
+msgid "Released although rejected"
+msgstr ""
+
+#: src/ReleaseValidation.php:130
+msgid "Released without decision"
+msgstr ""
+
+#: src/ReleaseValidation.php:135
+msgid "Released without security checklist"
+msgstr ""
+
+#: src/ReleaseValidation.php:248
+msgid "The decision has been taken: reopen it before changing the checklist."
+msgstr ""
+
+#: src/ReleaseValidation.php:259
+msgid "The checklist could not be saved."
+msgstr ""
+
+#: src/ReleaseValidation.php:292
+msgid "The decision could not be saved."
+msgstr ""
+
+#: src/ReleaseValidation.php:296
+#, php-format
+msgid "Security release validation: approved by %1$s (%2$s)"
+msgstr ""
+
+#: src/ReleaseValidation.php:297
+#, php-format
+msgid "Security release validation: rejected by %1$s (%2$s)"
+msgstr ""
+
+#: src/ReleaseValidation.php:313
+msgid "There is no decision to reopen."
+msgstr ""
+
+#: src/ReleaseValidation.php:324
+msgid "The decision could not be reopened."
+msgstr ""
+
+#: src/ReleaseValidation.php:327
+#, php-format
+msgid "Security release validation: decision reopened by %s"
+msgstr ""
+
+#: src/ReleaseValidation.php:343
+msgid ""
+"Every item of the checklist must be ticked before approving the release."
+msgstr ""
+
+#: src/ReleaseValidation.php:346
+msgid "Say whether you decide as CIO or as CISO."
+msgstr ""
+
+#: src/ReleaseValidation.php:347
+msgid "Give the reason for the rejection."
+msgstr ""
+
+#: src/ReleaseValidation.php:348
+msgid "The decision has already been taken: reopen it first."
+msgstr ""
+
+#: src/ReleaseValidation.php:400
+msgid "Application not visible to you"
+msgstr ""
+
+#: src/Profile.php:84
+msgid "Decide on releases"
+msgstr ""
+
+#: src/Profile.php:85
+msgid "Approve or reject the release of a change (security validation)"
+msgstr ""
+
+#: src/PageHelp.php:450
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+
+#: src/PageHelp.php:456
+msgid ""
+"Fill in the \"Secure development\" tab of each application, link the changes "
+"to their application, then have each release approved by the CIO or the CISO "
+"in the \"Security release validation\" tab of the change, before it goes "
+"into production."
+msgstr ""
+
+#: src/PageHelp.php:461
+msgid "ISO/IEC 27001, controls A.8.25 to A.8.31"
+msgstr ""
+
+#: src/ApplicationSecurity.php:76
+msgid "OWASP ASVS (Application Security Verification Standard)"
+msgstr ""
+
+#: src/ApplicationSecurity.php:77
+msgid "OWASP Top 10"
+msgstr ""
+
+#: src/ApplicationSecurity.php:78
+msgid "OWASP SAMM (Software Assurance Maturity Model)"
+msgstr ""
+
+#: src/ApplicationSecurity.php:79
+msgid "ANSSI recommendations"
+msgstr ""
+
+#: src/ApplicationSecurity.php:80
+msgid "Other (specify)"
+msgstr ""
+
+#: src/ApplicationSecurity.php:91
+msgid "Mandatory code review"
+msgstr ""
+
+#: src/ApplicationSecurity.php:92
+msgid "Static analysis (SAST)"
+msgstr ""
+
+#: src/ApplicationSecurity.php:93
+msgid "Dynamic analysis (DAST)"
+msgstr ""
+
+#: src/ApplicationSecurity.php:94
+msgid "Dependency analysis"
+msgstr ""
+
+#: src/ApplicationSecurity.php:169
+msgid ""
+"Explain why the environments are not separated (accepted risk, compensating "
+"measure)."
+msgstr ""
+
+#: src/ApplicationSecurity.php:179
+msgid "The secure development sheet could not be saved."
+msgstr ""
+
+#: front/applicationsecurity.form.php:42
+msgid "Secure development sheet saved."
+msgstr ""
+
+#: front/releasevalidation.form.php:40
+msgid "Checklist saved."
+msgstr ""
+
+#: front/releasevalidation.form.php:50
+msgid "Decision recorded."
+msgstr ""
+
+#: front/releasevalidation.form.php:54
+msgid "Decision reopened."
+msgstr ""

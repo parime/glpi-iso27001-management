@@ -29031,3 +29031,371 @@ msgid "%d default scenario added."
 msgid_plural "%d default scenarios added."
 msgstr[0] "%d default scenario added."
 msgstr[1] "%d default scenarios added."
+
+msgid "Before this change goes into production, check the security points below, then the CIO or the CISO approves or rejects the release. The decision is recorded with its author and date, and in the history of the change."
+msgstr "Before this change goes into production, check the security points below, then the CIO or the CISO approves or rejects the release. The decision is recorded with its author and date, and in the history of the change."
+
+msgid "Applications concerned"
+msgstr "Applications concerned"
+
+msgid "Fill in the secure development tab of the application."
+msgstr "Fill in the secure development tab of the application."
+
+msgid "No secure development sheet"
+msgstr "No secure development sheet"
+
+#, php-format
+msgid "GLPI approval of the change: %s"
+msgstr "GLPI approval of the change: %s"
+
+msgid "This change is in production."
+msgstr "This change is in production."
+
+msgid "Security checklist before release"
+msgstr "Security checklist before release"
+
+msgid "Evidence (reports, links, ticket numbers)"
+msgstr "Evidence (reports, links, ticket numbers)"
+
+msgid "Save the checklist"
+msgstr "Save the checklist"
+
+msgid "Decision of the CIO or the CISO"
+msgstr "Decision of the CIO or the CISO"
+
+msgid "Release approved"
+msgstr "Release approved"
+
+msgid "Release rejected"
+msgstr "Release rejected"
+
+#, php-format
+msgid "By %1$s (%2$s) on %3$s"
+msgstr "By %1$s (%2$s) on %3$s"
+
+msgid "Reason or comment"
+msgstr "Reason or comment"
+
+msgid "Reopen the decision"
+msgstr "Reopen the decision"
+
+msgid "The checklist is not complete: the release can only be rejected."
+msgstr "The checklist is not complete: the release can only be rejected."
+
+msgid "I decide as"
+msgstr "I decide as"
+
+msgid "Reason or comment (mandatory for a rejection)"
+msgstr "Reason or comment (mandatory for a rejection)"
+
+msgid "Approve the release"
+msgstr "Approve the release"
+
+msgid "Reject the release"
+msgstr "Reject the release"
+
+msgid "Awaiting the decision of the CIO or the CISO."
+msgstr "Awaiting the decision of the CIO or the CISO."
+
+msgid "Fill in this sheet for each application developed or maintained in-house: it then appears in the register of applications (secure development page) and as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
+msgstr "Fill in this sheet for each application developed or maintained in-house: it then appears in the register of applications (secure development page) and as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
+
+msgid "All secure development practices are in place"
+msgstr "All secure development practices are in place"
+
+#, php-format
+msgid "Missing: %s"
+msgstr "Missing: %s"
+
+msgid "Environments not separated"
+msgstr "Environments not separated"
+
+msgid "Secure development owner"
+msgstr "Secure development owner"
+
+#, php-format
+msgid "%s (technical owner of the application)"
+msgstr "%s (technical owner of the application)"
+
+msgid "Code repository"
+msgstr "Code repository"
+
+msgid "Secure development framework"
+msgstr "Secure development framework"
+
+msgid "Tools and frequency of the analyses"
+msgstr "Tools and frequency of the analyses"
+
+msgid "Separated environments (development, test, production)"
+msgstr "Separated environments (development, test, production)"
+
+msgid "This application has no secure development sheet yet."
+msgstr "This application has no secure development sheet yet."
+
+#, php-format
+msgid "Empty: the technical owner of the application (%s)."
+msgstr "Empty: the technical owner of the application (%s)."
+
+msgid "Person accountable for the security of the development of this application."
+msgstr "Person accountable for the security of the development of this application."
+
+msgid "Address starting with https://, ssh:// or git@."
+msgstr "Address starting with https://, ssh:// or git@."
+
+msgid "Level or version of the framework"
+msgstr "Level or version of the framework"
+
+msgid "For example: ASVS 4.0.3 level 2"
+msgstr "For example: ASVS 4.0.3 level 2"
+
+msgid "For example: merge request reviewed by a second developer, SAST on each commit, dependency analysis every week, DAST before each release."
+msgstr "For example: merge request reviewed by a second developer, SAST on each commit, dependency analysis every week, DAST before each release."
+
+msgid "How access, data and configuration are separated, or why they are not (mandatory when the answer is no)."
+msgstr "How access, data and configuration are separated, or why they are not (mandatory when the answer is no)."
+
+#, php-format
+msgid "Last update: %s"
+msgstr "Last update: %s"
+
+msgid "Applications in the register"
+msgstr "Applications in the register"
+
+msgid "Applications without separation of environments"
+msgstr "Applications without separation of environments"
+
+#, php-format
+msgid "%d without justification"
+msgstr "%d without justification"
+
+msgid "Releases without security validation (12 months)"
+msgstr "Releases without security validation (12 months)"
+
+#, php-format
+msgid "out of %d release(s)"
+msgstr "out of %d release(s)"
+
+msgid "Requires the right to see all changes."
+msgstr "Requires the right to see all changes."
+
+msgid "Practices missing"
+msgstr "Practices missing"
+
+#, php-format
+msgid "Framework: %d"
+msgstr "Framework: %d"
+
+#, php-format
+msgid "Code review: %d"
+msgstr "Code review: %d"
+
+#, php-format
+msgid "Dependencies: %d"
+msgstr "Dependencies: %d"
+
+msgid "Register of applications developed or maintained in-house"
+msgstr "Register of applications developed or maintained in-house"
+
+msgid "Add an application"
+msgstr "Add an application"
+
+msgid "Requires the right to read the applications of GLPI."
+msgstr "Requires the right to read the applications of GLPI."
+
+msgid "No application in the register yet. Open an appliance of GLPI (Assets > Appliances) and fill in its \"Secure development\" tab."
+msgstr "No application in the register yet. Open an appliance of GLPI (Assets > Appliances) and fill in its \"Secure development\" tab."
+
+msgid "Application"
+msgstr "Application"
+
+msgid "Separated environments"
+msgstr "Separated environments"
+
+msgid "Not specified"
+msgstr "Not specified"
+
+#, php-format
+msgid "Releases of the last %d days"
+msgstr "Releases of the last %d days"
+
+msgid "No solved or closed change linked to an application of the register over this period."
+msgstr "No solved or closed change linked to an application of the register over this period."
+
+msgid "Release date"
+msgstr "Release date"
+
+msgid "Security validation"
+msgstr "Security validation"
+
+msgid "Decision by"
+msgstr "Decision by"
+
+#, php-format
+msgid "%d application in the register"
+msgid_plural "%d applications in the register"
+msgstr[0] "%d application in the register"
+msgstr[1] "%d applications in the register"
+
+#, php-format
+msgid "%1$d release(s) without security validation out of %2$d over 12 months"
+msgstr "%1$d release(s) without security validation out of %2$d over 12 months"
+
+#, php-format
+msgid "%d without secure development framework"
+msgstr "%d without secure development framework"
+
+#, php-format
+msgid "%d without mandatory code review"
+msgstr "%d without mandatory code review"
+
+#, php-format
+msgid "%d without SAST"
+msgstr "%d without SAST"
+
+#, php-format
+msgid "%d without DAST"
+msgstr "%d without DAST"
+
+#, php-format
+msgid "%d without dependency analysis"
+msgstr "%d without dependency analysis"
+
+#, php-format
+msgid "%d without separation of environments"
+msgstr "%d without separation of environments"
+
+#, php-format
+msgid "%d not separated without justification"
+msgstr "%d not separated without justification"
+
+msgid "Security release validation"
+msgstr "Security release validation"
+
+msgid "Tests passed (including security tests)"
+msgstr "Tests passed (including security tests)"
+
+msgid "Code review done"
+msgstr "Code review done"
+
+msgid "Vulnerabilities found treated (SAST, DAST, dependencies)"
+msgstr "Vulnerabilities found treated (SAST, DAST, dependencies)"
+
+msgid "CIO (IT department)"
+msgstr "CIO (IT department)"
+
+msgid "Validated before release"
+msgstr "Validated before release"
+
+msgid "Validated after release"
+msgstr "Validated after release"
+
+msgid "Released although rejected"
+msgstr "Released although rejected"
+
+msgid "Released without decision"
+msgstr "Released without decision"
+
+msgid "Released without security checklist"
+msgstr "Released without security checklist"
+
+msgid "The decision has been taken: reopen it before changing the checklist."
+msgstr "The decision has been taken: reopen it before changing the checklist."
+
+msgid "The checklist could not be saved."
+msgstr "The checklist could not be saved."
+
+msgid "Every item of the checklist must be ticked before approving the release."
+msgstr "Every item of the checklist must be ticked before approving the release."
+
+msgid "The decision could not be saved."
+msgstr "The decision could not be saved."
+
+#, php-format
+msgid "Security release validation: approved by %1$s (%2$s)"
+msgstr "Security release validation: approved by %1$s (%2$s)"
+
+#, php-format
+msgid "Security release validation: rejected by %1$s (%2$s)"
+msgstr "Security release validation: rejected by %1$s (%2$s)"
+
+msgid "There is no decision to reopen."
+msgstr "There is no decision to reopen."
+
+msgid "The decision could not be reopened."
+msgstr "The decision could not be reopened."
+
+#, php-format
+msgid "Security release validation: decision reopened by %s"
+msgstr "Security release validation: decision reopened by %s"
+
+msgid "Say whether you decide as CIO or as CISO."
+msgstr "Say whether you decide as CIO or as CISO."
+
+msgid "Give the reason for the rejection."
+msgstr "Give the reason for the rejection."
+
+msgid "The decision has already been taken: reopen it first."
+msgstr "The decision has already been taken: reopen it first."
+
+msgid "Application not visible to you"
+msgstr "Application not visible to you"
+
+msgid "Decide on releases"
+msgstr "Decide on releases"
+
+msgid "Approve or reject the release of a change (security validation)"
+msgstr "Approve or reject the release of a change (security validation)"
+
+msgid "The applications developed or maintained in-house, with their secure development practices (framework, code review, SAST, DAST and dependency analyses, separated environments), and the releases of the last 12 months with their security validation."
+msgstr "The applications developed or maintained in-house, with their secure development practices (framework, code review, SAST, DAST and dependency analyses, separated environments), and the releases of the last 12 months with their security validation."
+
+msgid "Fill in the \"Secure development\" tab of each application, link the changes to their application, then have each release approved by the CIO or the CISO in the \"Security release validation\" tab of the change, before it goes into production."
+msgstr "Fill in the \"Secure development\" tab of each application, link the changes to their application, then have each release approved by the CIO or the CISO in the \"Security release validation\" tab of the change, before it goes into production."
+
+msgid "ISO/IEC 27001, controls A.8.25 to A.8.31"
+msgstr "ISO/IEC 27001, controls A.8.25 to A.8.31"
+
+msgid "OWASP ASVS (Application Security Verification Standard)"
+msgstr "OWASP ASVS (Application Security Verification Standard)"
+
+msgid "OWASP Top 10"
+msgstr "OWASP Top 10"
+
+msgid "OWASP SAMM (Software Assurance Maturity Model)"
+msgstr "OWASP SAMM (Software Assurance Maturity Model)"
+
+msgid "ANSSI recommendations"
+msgstr "ANSSI recommendations"
+
+msgid "Other (specify)"
+msgstr "Other (specify)"
+
+msgid "Mandatory code review"
+msgstr "Mandatory code review"
+
+msgid "Static analysis (SAST)"
+msgstr "Static analysis (SAST)"
+
+msgid "Dynamic analysis (DAST)"
+msgstr "Dynamic analysis (DAST)"
+
+msgid "Dependency analysis"
+msgstr "Dependency analysis"
+
+msgid "Explain why the environments are not separated (accepted risk, compensating measure)."
+msgstr "Explain why the environments are not separated (accepted risk, compensating measure)."
+
+msgid "The secure development sheet could not be saved."
+msgstr "The secure development sheet could not be saved."
+
+msgid "Secure development sheet saved."
+msgstr "Secure development sheet saved."
+
+msgid "Checklist saved."
+msgstr "Checklist saved."
+
+msgid "Decision recorded."
+msgstr "Decision recorded."
+
+msgid "Decision reopened."
+msgstr "Decision reopened."

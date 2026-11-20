@@ -34,6 +34,8 @@ l'organisation. Compter une demi-heure.
 2. **Donner les droits** : **Administration > Profils**, ouvrir un profil, onglet **GRC Manager**.
    Cinq droits, à donner séparément :
    - **Gouvernance de la sécurité (SMSI)** : le droit général (SoA, audits, politiques, preuves...) ;
+     sa case **Décider des mises en production** (validation sécurité d'un changement) est à donner
+     à la DSI et au RSSI seulement ;
    - **Registres sensibles** (risques, indicateurs de risque, vulnérabilités, flux réseau) : au RSSI
      et aux propriétaires de risques seulement, car ces registres décrivent les points faibles de
      l'organisation ;
