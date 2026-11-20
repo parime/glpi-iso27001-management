@@ -378,6 +378,24 @@ expect "front/crisiscommunication.form.php : sans action (GET)" 400 \
   "$(code "$BASE/plugins/grcmanager/front/crisiscommunication.form.php")"
 official=$(curl -s -c "$JAR" -b "$JAR" "$P/officialcontact.php")
 contains "registre des contacts officiels : contact de B" "Partie securite B" $SEE_B "$official"
+# Issue #771, lot 2 : prises de contact tracees. Onglet de l'incident de A : sa trace, jamais
+# celle de l'incident de B. Fiche du contact de A : la trace de l'incident de B n'est lue qu'au
+# super-admin. Tracer exige de pouvoir modifier l'incident (rien n'est envoye), avec un jeton.
+contains "onglet Contacts officiels de l'incident : trace de A" "Dossier securite A" $SEE_INCIDENTS "$incident_contacts"
+contains "onglet Contacts officiels de l'incident : trace de B" "Dossier securite B" non "$incident_contacts"
+SEE_CONTACT_A=oui; [ "$ROLE" = none ] && SEE_CONTACT_A=non
+contact_history=$(tab 'GlpiPlugin%5CGrcmanager%5CContextItem' 'GlpiPlugin%5CGrcmanager%5COfficialContactNotification$1' "$(id context_A)")
+contains "fiche du contact de A : trace de l'incident de A" "Dossier securite A"   "$([ "$SEE_CONTACT_A" = oui ] && echo $SEE_INCIDENTS || echo non)" "$contact_history"
+contains "fiche du contact de A : trace de l'incident de B" "Dossier securite B" $SEE_B "$contact_history"
+contact_record() { # incident, [jeton CSRF : oui|non]
+  local token="&_glpi_csrf_token=$(csrf)"
+  [ "${2:-oui}" = non ] && token=
+  code -d "add=1&itemtype=PluginGrcmanagerSecurityIncident&items_id=$1&plugin_grcmanager_contextitems_id=$(id context_A)&decision=notified&date_notified=2030-01-01T10:00&reference=securite$token"     "$BASE/plugins/grcmanager/front/officialcontactnotification.form.php"
+}
+expect "front/officialcontactnotification.form.php : trace sur l'incident de A" $RECORD_A "$(contact_record "$(id incident_A)")"
+expect "front/officialcontactnotification.form.php : trace sur l'incident de B (autre entite)"   "$([ "$ROLE" = admin ] && echo 302 || echo 403)" "$(contact_record "$(id incident_B)")"
+expect "front/officialcontactnotification.form.php : trace sans jeton CSRF" 403 "$(contact_record "$(id incident_A)" non)"
+expect "front/officialcontactnotification.form.php : sans action (GET)" 400   "$(code "$BASE/plugins/grcmanager/front/officialcontactnotification.form.php")"
 contains "page du tableau de bord, vue incidents : grille" "\"current\":\"grcmanager-security-incidents\"" $SEE_INCIDENTS \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=incidents")"
 # Issue #377, quatrieme etape : indicateurs des processus metier (BIA a revoir, reprise au-dela du
