@@ -47,7 +47,7 @@ final class BodyResponseRulesTest extends TestCase
     {
         self::assertNull(Rules::daysLeft(null, self::TODAY));
         self::assertSame(0, Rules::daysLeft(self::TODAY, self::TODAY));
-        self::assertSame(12, Rules::daysLeft('2026-12-02', self::TODAY));
+        self::assertSame(14, Rules::daysLeft('2026-12-04', self::TODAY));
         self::assertSame(-5, Rules::daysLeft('2026-11-15', self::TODAY));
     }
 
