@@ -18,9 +18,9 @@
 use GlpiPlugin\Grcmanager\CompetenceDeclaration;
 
 // Issue #774 : liste de la rubrique des compétences, avec les droits et les entités du cœur.
-if (!CompetenceDeclaration::canView()) {
-    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
-}
+// Données de personnes : droit du plugin et lecture des utilisateurs (CompetenceDeclaration::canView()).
+Session::checkRight(CompetenceDeclaration::$rightname, READ);
+Session::checkRight(User::$rightname, READ);
 
 Html::header(
     CompetenceDeclaration::getTypeName(Session::getPluralNumber()),

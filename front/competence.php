@@ -18,9 +18,7 @@
 use GlpiPlugin\Grcmanager\Competence;
 
 // Issue #774 : liste de la rubrique des compétences, avec les droits et les entités du cœur.
-if (!Competence::canView()) {
-    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
-}
+Session::checkRight(Competence::$rightname, READ);
 
 Html::header(
     Competence::getTypeName(Session::getPluralNumber()),
