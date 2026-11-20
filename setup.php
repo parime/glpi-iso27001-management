@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.67.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.68.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -348,6 +348,8 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PhysicalSecurityAssessment::class, [
         'addtabon' => [Location::class],
     ]);
+    // Issue #604 : « Mes simulations d'hameçonnage » dans les préférences (ses propres résultats).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PhishingResult::class, ['addtabon' => [Preference::class]]);
     // Issue #774 : compétences d'une personne, sur chaque utilisateur et dans ses préférences.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CompetenceMatrix::class, [
         'addtabon' => [User::class, Preference::class],

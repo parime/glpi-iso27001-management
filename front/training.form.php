@@ -56,6 +56,8 @@ if (isset($_POST['add'])) {
         [
             'retake_of'  => (int) ($_GET['retake_of'] ?? 0),
             'session_of' => (int) ($_GET['session_of'] ?? 0),
+            // Issue #604 : rattrapage proposé après une simulation d'hameçonnage.
+            'phishing_of' => (int) ($_GET['phishing_of'] ?? 0),
         ]
     );
 }

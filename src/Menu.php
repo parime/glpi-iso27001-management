@@ -113,6 +113,8 @@ class Menu extends CommonGLPI
                 Nonconformity::class,
                 // Issue #772 : constats des audits de certification et état de leur levée.
                 CertificationFinding::class,
+                // Issue #772, lot 2 : plan d'audit de l'organisme (échantillonnage sur le cycle).
+                CertificationSampling::class,
                 Objective::class,
                 ManagementReview::class,
             ],
@@ -123,6 +125,8 @@ class Menu extends CommonGLPI
                 PersonnelCompliance::class,
                 PeriodicReview::class,
                 Training::class,
+                // Issue #604 : simulations d'hameçonnage (preuve de sensibilisation, 7.3 et A.6.3).
+                PhishingCampaign::class,
                 // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
                 IsmsFunction::class,
                 CrisisExercise::class,

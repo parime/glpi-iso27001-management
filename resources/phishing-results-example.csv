@@ -1,0 +1,6 @@
+email,first_name,last_name,status,reported
+alice.martin@example.org,Alice,Martin,Email Sent,false
+bruno.petit@example.org,Bruno,Petit,Email Opened,false
+chloe.durand@example.org,Chloe,Durand,Clicked Link,false
+david.leroy@example.org,David,Leroy,Submitted Data,false
+emma.moreau@example.org,Emma,Moreau,Email Opened,true
