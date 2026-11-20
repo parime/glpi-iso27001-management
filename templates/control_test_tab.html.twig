@@ -100,6 +100,99 @@
 {% endif %}
 
 {% if can_edit %}
+{# Issue #607 : échantillon tiré au hasard dans GLPI (population des entités actives, graine conservée). #}
+<div class="card mb-3" id="grc-sample-draw">
+  <div class="card-header"><h3 class="card-title"><i class="ti ti-arrows-shuffle me-1"></i>{{ __('Draw a sample in GLPI', 'grcmanager') }}</h3></div>
+  <div class="card-body">
+    <p class="text-muted">{{ __('The items are drawn at random from what you can see in GLPI (your active entities and rights). The population, the criteria, the size, the seed, the date and the author are kept with the sample: the same draw can be checked again by the auditor.', 'grcmanager') }}</p>
+    <form method="post" action="{{ sample_url }}" class="row g-2">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="plugin_grcmanager_controls_id" value="{{ controls_id }}">
+      <div class="col-md-12">
+        <label class="form-label" for="grc-sample-question">{{ __('Question checked on each item', 'grcmanager') }}</label>
+        <input type="text" id="grc-sample-question" name="name" class="form-control" maxlength="255" required
+               placeholder="{{ __('Example: does each closed change have an approved validation?', 'grcmanager') }}">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="grc-sample-population">{{ __('Population', 'grcmanager') }}</label>
+        <select id="grc-sample-population" name="itemtype" class="form-select" required>
+          {% for itemtype, population in sample_form.populations %}
+            <option value="{{ itemtype }}" {{ population.allowed ? '' : 'disabled' }}>{{ population.label }}{{ population.allowed ? '' : ' - ' ~ __('not allowed', 'grcmanager') }}</option>
+          {% endfor %}
+        </select>
+        <small class="form-hint">{{ __('Tickets and changes require the right to see all of them.', 'grcmanager') }}</small>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="grc-sample-entity">{{ _n('Entity', 'Entities', 1) }}</label>
+        <select id="grc-sample-entity" name="entities_id" class="form-select">
+          <option value="0">{{ __('All my active entities', 'grcmanager') }}</option>
+          {% for id, name in sample_form.entities %}<option value="{{ id }}">{{ name }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="grc-sample-start">{{ __('Period covered: from', 'grcmanager') }}</label>
+        <input type="date" id="grc-sample-start" name="period_start" class="form-control">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="grc-sample-end">{{ __('to', 'grcmanager') }}</label>
+        <input type="date" id="grc-sample-end" name="period_end" class="form-control">
+        <small class="form-hint">{{ __('Creation date of users and computers; opening date of tickets and changes, or closing date if closed only.', 'grcmanager') }}</small>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">{{ __('Category (tickets and changes)', 'grcmanager') }}</label>
+        {{ sample_category_dropdown|raw }}
+      </div>
+      <div class="col-md-4 d-flex flex-column justify-content-center">
+        <label class="form-check mb-1">
+          <input class="form-check-input" type="checkbox" name="closed_only" value="1">
+          <span class="form-check-label">{{ __('Closed tickets or changes only', 'grcmanager') }}</span>
+        </label>
+        <label class="form-check mb-0">
+          <input class="form-check-input" type="checkbox" name="active_only" value="1">
+          <span class="form-check-label">{{ __('Active user accounts only', 'grcmanager') }}</span>
+        </label>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="grc-sample-frequency">{{ __('How often the control operates', 'grcmanager') }}</label>
+        <select id="grc-sample-frequency" name="operating_frequency" class="form-select">
+          {% for key, label in sample_form.frequencies %}<option value="{{ key }}" {{ key == sample_form.default_frequency ? 'selected' }}>{{ label }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="grc-sample-size">{{ __('Sample size', 'grcmanager') }}</label>
+        <input type="number" id="grc-sample-size" name="sample_size" class="form-control" min="1" max="{{ sample_form.max_sample }}">
+        <small class="form-hint">{{ __('Empty: the size proposed for this frequency.', 'grcmanager') }}</small>
+      </div>
+      <div class="col-md-5">
+        <label class="form-label" for="grc-sample-seed">{{ __('Seed (optional)', 'grcmanager') }}</label>
+        <input type="text" id="grc-sample-seed" name="seed" class="form-control" maxlength="64" pattern="[A-Za-z0-9_\-]{1,64}">
+        <small class="form-hint">{{ __('Empty: a random seed is generated. Enter the seed of an earlier draw to reproduce it.', 'grcmanager') }}</small>
+      </div>
+      <div class="col-md-4 d-flex align-items-end justify-content-end">
+        <button type="submit" name="draw" value="1" class="btn btn-primary"><i class="ti ti-arrows-shuffle me-1"></i>{{ __('Draw the sample', 'grcmanager') }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endif %}
+
+{% if open_samples is not empty %}
+<div class="card mb-3" id="grc-open-samples">
+  <div class="card-header"><h3 class="card-title"><i class="ti ti-list-check me-1"></i>{{ __('Samples in progress', 'grcmanager') }}</h3></div>
+  <div class="list-group list-group-flush">
+    {% for sample in open_samples %}
+      <a href="{{ sample.url }}" class="list-group-item list-group-item-action d-flex flex-wrap align-items-center gap-2">
+        <span class="badge bg-orange-subtle text-orange-emphasis"><i class="ti ti-progress me-1"></i>{{ __('In progress', 'grcmanager') }}</span>
+        <strong>{{ sample.name }}</strong>
+        <span class="text-muted">{{ populations[sample.itemtype]|default(sample.itemtype) }} - {{ __('%1$d out of %2$d', 'grcmanager')|format(sample.sample_size, sample.population_count) }}</span>
+        <span class="text-muted ms-auto">{{ sample.date_draw|formatted_datetime }}</span>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% if can_edit %}
 <form method="post" action="{{ form_url }}" class="card card-body mb-3" enctype="multipart/form-data">
   <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
   <input type="hidden" name="plugin_grcmanager_controls_id" value="{{ controls_id }}">
@@ -151,7 +244,8 @@
       <input type="date" id="grc-test-next" name="next_test_date" class="form-control" min="{{ today }}">
       <small class="form-hint">{{ __('Empty: computed from the test plan.', 'grcmanager') }}</small>
     </div>
-    <div class="col-12 text-end">
+    <div class="col-12 d-flex flex-wrap align-items-center justify-content-end gap-2">
+      {% if review_enabled %}<small class="text-muted me-auto"><i class="ti ti-user-check me-1"></i>{{ __('Another person will have to review this test before it counts for the "Verified" status.', 'grcmanager') }}</small>{% endif %}
       <button type="submit" name="add" value="1" class="btn btn-primary"><i class="ti ti-plus me-1"></i>{{ __('Record the test', 'grcmanager') }}</button>
     </div>
   </div>
@@ -180,12 +274,32 @@
           <td>
             {% if result %}<span class="badge {{ result.class }}"><i class="ti {{ result.icon }} me-1"></i>{{ result.label }}</span>{% endif %}
             {% if test.nc_url %}<div class="small"><a href="{{ test.nc_url }}"><i class="ti ti-alert-triangle me-1"></i>{{ __('Non-conformity #%d', 'grcmanager')|format(test.plugin_grcmanager_nonconformities_id) }}</a></div>{% endif %}
+            {% if test.review %}
+              <div class="mt-1"><span class="badge {{ test.review.class }} grc-review-{{ test.review_status }}"><i class="ti {{ test.review.icon }} me-1"></i>{{ test.review.label }}</span></div>
+              {% if test.reviewer_name %}<div class="small text-muted">{{ test.reviewer_name }}{% if test.review_date %}, {{ test.review_date|formatted_datetime }}{% endif %}</div>{% endif %}
+              {% if test.review_comment %}<div class="small">{{ test.review_comment|nl2br }}</div>{% endif %}
+            {% endif %}
+            {% if test.can_review %}
+              <form method="post" action="{{ form_url }}" class="mt-2 grc-review-form">
+                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="{{ test.id }}">
+                <textarea name="review_comment" class="form-control form-control-sm mb-1" rows="2" aria-label="{{ __('Review comment', 'grcmanager') }}" placeholder="{{ __('Review comment (required to return the test)', 'grcmanager') }}"></textarea>
+                <div class="d-flex gap-1">
+                  <button type="submit" name="review" value="approve" class="btn btn-sm btn-outline-success"><i class="ti ti-check me-1"></i>{{ __('Approve', 'grcmanager') }}</button>
+                  <button type="submit" name="review" value="return" class="btn btn-sm btn-outline-danger"><i class="ti ti-arrow-back-up me-1"></i>{{ __('Return', 'grcmanager') }}</button>
+                </div>
+              </form>
+            {% endif %}
           </td>
           <td>{{ test.user_name }}</td>
-          <td>{{ test.comment|nl2br }}</td>
+          <td>
+            {{ test.comment|nl2br }}
+            {% if test.sample %}<div class="small mt-1"><a href="{{ test.sample.url }}"><i class="ti ti-arrows-shuffle me-1"></i>{{ __('Sample: %1$d out of %2$d', 'grcmanager')|format(test.sample.sample_size, test.sample.population_count) }}</a></div>{% endif %}
+          </td>
           <td>{% if test.document_url %}<a href="{{ test.document_url }}"><i class="ti ti-file me-1"></i>{{ test.document_name }}</a>{% endif %}</td>
           <td class="text-nowrap">{{ test.next_test_date ? test.next_test_date|formatted_date }}</td>
-          <td class="text-end">
+          <td class="text-end text-nowrap">
+            <a href="{{ test.pdf_url }}" class="btn btn-sm btn-ghost-secondary" title="{{ __('Test record for the auditor (PDF)', 'grcmanager') }}" aria-label="{{ __('Test record for the auditor (PDF)', 'grcmanager') }}"><i class="ti ti-file-type-pdf"></i></a>
             {% if test.can_purge %}
               <form method="post" action="{{ form_url }}" onsubmit="return confirm('{{ __('Delete this test?', 'grcmanager')|e('js') }}');">
                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">

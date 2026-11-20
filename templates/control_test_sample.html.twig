@@ -1,0 +1,173 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #607 : échantillon d'un test d'efficacité, voir GlpiPlugin\\Grcmanager\\ControlTestSample::showPage(). #}
+<div class="container-fluid" id="grc-sample-page">
+  <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+    <a href="{{ control_url }}" class="btn btn-ghost-secondary btn-sm"><i class="ti ti-arrow-left me-1"></i>{{ __('Back to the tests of %s', 'grcmanager')|format(control.fields.code) }}</a>
+    <h2 class="mb-0 ms-2"><i class="ti ti-arrows-shuffle me-1"></i>{{ sample.name }}</h2>
+    {% if is_open %}
+      <span class="badge bg-orange-subtle text-orange-emphasis"><i class="ti ti-progress me-1"></i>{{ __('In progress', 'grcmanager') }}</span>
+    {% else %}
+      <span class="badge bg-green-subtle text-green-emphasis grc-sample-recorded"><i class="ti ti-lock me-1"></i>{{ __('Recorded as a test', 'grcmanager') }}</span>
+      {% if test_pdf_url %}<a href="{{ test_pdf_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Test record for the auditor (PDF)', 'grcmanager') }}</a>{% endif %}
+    {% endif %}
+  </div>
+  <p class="text-muted">{{ control.fields.code }} - {{ control_title }}</p>
+
+  <div class="row g-3 mb-3">
+    <div class="col-lg-6">
+      <div class="card h-100">
+        <div class="card-header"><h3 class="card-title"><i class="ti ti-filter me-1"></i>{{ __('Population and criteria', 'grcmanager') }}</h3></div>
+        <table class="table table-sm card-table mb-0">
+          <tbody>
+            {% for line in criteria %}<tr><th class="text-muted fw-normal w-50">{{ line[0] }}</th><td>{{ line[1] }}</td></tr>{% endfor %}
+            <tr><th class="text-muted fw-normal">{{ __('Items in the population', 'grcmanager') }}</th><td><strong>{{ sample.population_count }}</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card h-100">
+        <div class="card-header"><h3 class="card-title"><i class="ti ti-dice-5 me-1"></i>{{ __('How the sample was drawn', 'grcmanager') }}</h3></div>
+        <table class="table table-sm card-table mb-0">
+          <tbody>
+            <tr><th class="text-muted fw-normal w-50">{{ __('Sample size', 'grcmanager') }}</th><td><strong>{{ sample.sample_size }}</strong>{% if frequency %} <span class="text-muted">({{ frequency }})</span>{% endif %}</td></tr>
+            <tr><th class="text-muted fw-normal">{{ __('Draw date', 'grcmanager') }}</th><td>{{ sample.date_draw|formatted_datetime }}</td></tr>
+            <tr><th class="text-muted fw-normal">{{ __('Drawn by', 'grcmanager') }}</th><td>{{ author }}</td></tr>
+            <tr><th class="text-muted fw-normal">{{ __('Seed', 'grcmanager') }}</th><td><code class="grc-sample-seed">{{ sample.seed }}</code></td></tr>
+            <tr><th class="text-muted fw-normal">{{ __('Method', 'grcmanager') }}</th><td><code>{{ sample.draw_method }}</code></td></tr>
+          </tbody>
+        </table>
+        <div class="card-footer small text-muted">{{ __('Each item of the population is ranked by the SHA-256 fingerprint of "seed:identifier"; the first items of this ranking form the sample. The same population and the same seed always give the same sample.', 'grcmanager') }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-wrap align-items-center gap-2 mb-2" id="grc-sample-tally">
+    <span class="badge {{ item_results['compliant'][1] }}"><i class="ti {{ item_results['compliant'][2] }} me-1"></i>{{ item_results['compliant'][0] }} : {{ tally.compliant }}</span>
+    <span class="badge {{ item_results['noncompliant'][1] }}"><i class="ti {{ item_results['noncompliant'][2] }} me-1"></i>{{ item_results['noncompliant'][0] }} : {{ tally.noncompliant }}</span>
+    <span class="badge {{ item_results['na'][1] }}"><i class="ti {{ item_results['na'][2] }} me-1"></i>{{ item_results['na'][0] }} : {{ tally.na }}</span>
+    <span class="badge {{ item_results[''][1] }}"><i class="ti {{ item_results[''][2] }} me-1"></i>{{ item_results[''][0] }} : {{ tally.pending }}</span>
+    <span class="ms-md-3 text-muted">{{ __('Proposed result', 'grcmanager') }} :</span>
+    {% if proposed and results[proposed] is defined %}
+      <span class="badge {{ results[proposed].class }} grc-sample-proposed-{{ proposed }}"><i class="ti {{ results[proposed].icon }} me-1"></i>{{ results[proposed].label }}</span>
+    {% else %}
+      <span class="text-muted">{{ tally.pending > 0 ? __('once every item is checked', 'grcmanager') : __('none: every item is not applicable', 'grcmanager') }}</span>
+    {% endif %}
+  </div>
+
+  {% if can_edit %}<form method="post" action="{{ form_url }}">
+    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="id" value="{{ sample.id }}">
+  {% endif %}
+  <div class="card mb-3">
+    <div class="card-header"><h3 class="card-title"><i class="ti ti-list-numbers me-1"></i>{{ __('Items drawn', 'grcmanager') }}</h3></div>
+    <div class="table-responsive">
+      <table class="table table-sm card-table align-middle mb-0">
+        <thead><tr>
+          <th>#</th><th>{{ __('Item', 'grcmanager') }}</th><th>{{ _n('Entity', 'Entities', 1) }}</th>
+          <th>{{ __('Result', 'grcmanager') }}</th><th>{{ __('Comment', 'grcmanager') }}</th>
+        </tr></thead>
+        <tbody>
+          {% for item in items %}
+            {% set res = item_results[item.result]|default(item_results['']) %}
+            <tr class="grc-sample-item">
+              <td class="text-muted">{{ item.rank }}</td>
+              <td>
+                {% if item.url %}<a href="{{ item.url }}">{{ item.label }}</a>{% else %}{{ item.label }}{% endif %}
+                <span class="text-muted small">#{{ item.items_id }}</span>
+              </td>
+              <td class="small">{{ item.entity_name }}</td>
+              {% if can_edit %}
+                <td style="min-width: 11rem;">
+                  <select name="results[{{ item.id }}][result]" class="form-select form-select-sm" aria-label="{{ __('Result', 'grcmanager') }} #{{ item.rank }}">
+                    {% for key, r in item_results %}<option value="{{ key }}" {{ key == item.result ? 'selected' }}>{{ r[0] }}</option>{% endfor %}
+                  </select>
+                </td>
+                <td style="min-width: 16rem;">
+                  <textarea name="results[{{ item.id }}][comment]" class="form-control form-control-sm" rows="1" maxlength="2000" aria-label="{{ __('Comment', 'grcmanager') }} #{{ item.rank }}">{{ item.comment }}</textarea>
+                </td>
+              {% else %}
+                <td><span class="badge {{ res[1] }}"><i class="ti {{ res[2] }} me-1"></i>{{ res[0] }}</span></td>
+                <td>{{ item.comment|nl2br }}</td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if can_edit %}
+      <div class="card-footer d-flex flex-wrap align-items-center gap-2">
+        <small class="text-muted me-auto">{{ __('A non-compliant or not applicable item must be explained in its comment.', 'grcmanager') }}</small>
+        <button type="submit" name="save_results" value="1" class="btn btn-outline-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save the results', 'grcmanager') }}</button>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if can_edit %}
+  <div class="card mb-3" id="grc-sample-record">
+    <div class="card-header"><h3 class="card-title"><i class="ti ti-test-pipe me-1"></i>{{ __('Record the test from this sample', 'grcmanager') }}</h3></div>
+    <div class="card-body row g-2">
+      <div class="col-md-3">
+        <label class="form-label" for="grc-sample-test-date">{{ __('Test date', 'grcmanager') }}</label>
+        <input type="date" id="grc-sample-test-date" name="test_date" class="form-control" value="{{ today }}" max="{{ today }}" required>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="grc-sample-result">{{ __('Result', 'grcmanager') }}</label>
+        <select id="grc-sample-result" name="result" class="form-select">
+          <option value="">{{ __('Proposed result', 'grcmanager') }}</option>
+          {% for key, result in results %}<option value="{{ key }}">{{ result.label }}</option>{% endfor %}
+        </select>
+        <small class="form-hint">{{ __('Proposed: no deviation gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test.', 'grcmanager')|format(threshold) }}</small>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="grc-sample-justification">{{ __('Justification of a different result', 'grcmanager') }}</label>
+        <textarea id="grc-sample-justification" name="result_justification" class="form-control" rows="2"></textarea>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="grc-sample-finding">{{ __('Finding', 'grcmanager') }}</label>
+        <textarea id="grc-sample-finding" name="comment" class="form-control" rows="2"
+                  placeholder="{{ __('Optional: the sample and its results are added to the finding.', 'grcmanager') }}"></textarea>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="grc-sample-document">{{ __('Evidence', 'grcmanager') }}</label>
+        <select id="grc-sample-document" name="documents_id" class="form-select">
+          <option value="0">-----</option>
+          {% for doc in documents %}<option value="{{ doc.documents_id }}">{{ doc.name }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="grc-sample-next">{{ __('Next test', 'grcmanager') }}</label>
+        <input type="date" id="grc-sample-next" name="next_test_date" class="form-control" min="{{ today }}">
+        <small class="form-hint">{{ __('Empty: computed from the test plan.', 'grcmanager') }}</small>
+      </div>
+      <div class="col-12 d-flex flex-wrap align-items-center justify-content-end gap-2">
+        {% if review_enabled %}<small class="text-muted me-auto"><i class="ti ti-user-check me-1"></i>{{ __('Another person will have to review this test before it counts for the "Verified" status.', 'grcmanager') }}</small>{% endif %}
+        <button type="submit" name="record" value="1" class="btn btn-primary"><i class="ti ti-lock me-1"></i>{{ __('Record the test', 'grcmanager') }}</button>
+      </div>
+      <small class="form-hint">{{ __('Once the test is recorded, the sample is frozen. Deleting the test opens the sample again.', 'grcmanager') }}</small>
+    </div>
+  </div>
+  </form>
+  {% endif %}
+
+  {% if can_purge %}
+    <form method="post" action="{{ form_url }}" class="text-end" onsubmit="return confirm('{{ __('Delete this sample?', 'grcmanager')|e('js') }}');">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="id" value="{{ sample.id }}">
+      <button type="submit" name="purge" value="1" class="btn btn-ghost-danger"><i class="ti ti-trash me-1"></i>{{ __('Delete this sample', 'grcmanager') }}</button>
+    </form>
+  {% endif %}
+</div>
