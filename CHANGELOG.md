@@ -32,6 +32,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits : chacun voit sa propre fiche ; les fonctions et le catalogue suivent le droit du plugin
     et l'entité ; les personnes, les déclarations et le dossier exigent aussi la lecture des
     utilisateurs, pour les comptes des entités de la session ; archiver exige de modifier le plugin.
+- **Audit interne conforme à l'ISO 19011** (issue #773, ISO 27001 9.2, lot 1).
+  - Programme d'audit pluriannuel : sous-page de la rubrique « Audits et amélioration » (aucune
+    entrée de menu en plus) avec la matrice processus (activités de la matrice des
+    responsabilités) x années du cycle de certification de 3 ans, la couverture calculée depuis les
+    audits internes et les alertes : processus sans audit sur le cycle, audit en retard, exigences du
+    SMSI qu'aucune grille d'audit du cycle ne couvre, audits sans processus.
+  - Onglet « Programme et indépendance » de l'audit interne : processus audités ; contrôle
+    d'indépendance (un auditeur qui réalise ou approuve un processus audité, en son nom ou par un
+    groupe, est en conflit) ; l'audit ne peut être ni démarré ni terminé, ni changer d'auditeur en
+    cours, tant qu'un conflit n'a pas de justification, tracée avec son auteur et sa date et dans
+    l'historique.
+  - Compétence des auditeurs dans l'onglet « Équipe » : formations qualifiantes choisies sur la page
+    du programme, qualification à jour, à renouveler ou absente.
+  - Date de remise du rapport à la direction et destinataire, repris dans le dossier de revue de
+    direction (9.3.2 d 3).
+  - Droits et entités de l'audit (lecture pour voir, modification pour enregistrer) ; processus de
+    l'entité de l'audit ; tables supprimées à la désinstallation.
 - **Audits de certification et constats de l'organisme** (issue #772, lot 1). Un audit a désormais
   un type : interne (article 9.2, valeur de tous les audits existants, migration sans perte) ou
   audit de certification initial, de surveillance 1 ou 2, de renouvellement, avec l'organisme (un

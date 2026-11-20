@@ -82,7 +82,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/processingactivity.php front/datasubjectrequest.php front/processingactivity.export.php?format=pdf
   front/processingactivity.export.php?format=csv
   front/databreach.php front/databreach.form.php front/databreach.export.php?format=pdf front/databreach.export.php?format=csv
-  front/riskappetite.php front/riskindicator.php front/auditcoverage.php
+  front/riskappetite.php front/riskindicator.php front/auditcoverage.php front/auditprogramme.php
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
@@ -195,6 +195,14 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # modifier l'audit.
   expect "front/auditteam.form.php : ajouter un membre" "$1" \
     "$(code -d "add=1&plugin_grcmanager_audits_id=$(id audit)&users_id=2&role=auditee&_glpi_csrf_token=$(csrf)" "$P/auditteam.form.php")"
+  # Issue #773 : processus audites, justification d'independance et remise du rapport exigent de
+  # pouvoir modifier l'audit ; les reglages du programme, de modifier les audits.
+  expect "front/auditprogramme.form.php : processus audites" "$1" \
+    "$(code -d "save_processes=1&plugin_grcmanager_audits_id=$(id audit)&processes[]=1&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+  expect "front/auditprogramme.form.php : remise du rapport" "$1" \
+    "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+  expect "front/auditprogramme.php : reglages du programme" "$1" \
+    "$(code -d "save_settings=1&cycle_start=2025&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
   # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).
@@ -1085,6 +1093,13 @@ if [ "$ROLE" != admin ]; then
     "$(code -d "grant_access=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&date_end=$(date +%Y-%m-%d)&_glpi_csrf_token=$(csrf)" "$P/auditevidencerequest.form.php")"
   expect "ajouter un membre a l'equipe d'un audit de B" 403 \
     "$(code -d "add=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&role=auditee&_glpi_csrf_token=$(csrf)" "$P/auditteam.form.php")"
+  # Issue #773 : rien sur le programme d'un audit de B (processus, justification, remise du rapport).
+  expect "processus audites d'un audit de B" 403 \
+    "$(code -d "save_processes=1&plugin_grcmanager_audits_id=$(id audit_B)&processes[]=1&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+  expect "justifier un conflit d'un audit de B" 403 \
+    "$(code -d "justify=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&process_id=1&justification=Justification%20securite&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+  expect "remise du rapport d'un audit de B" 403 \
+    "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit_B)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
 fi
 contains "tableau de bord consolide : non-conformites ouvertes par entite" "grcmanager-perimeters-findings" \
   $IS_ADMIN "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"

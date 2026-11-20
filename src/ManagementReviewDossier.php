@@ -406,7 +406,7 @@ class ManagementReviewDossier extends CommonGLPI
             ]) as $row
         ) {
             $findings = Audit::getFindings((int) $row['id']);
-            $completed[] = [
+            $completed[(int) $row['id']] = [
                 'title'      => (string) $row['title'],
                 'date'       => Html::convDate($row['actual_date']),
                 'conclusion' => (string) ($row['conclusion'] ?? ''),
@@ -414,10 +414,16 @@ class ManagementReviewDossier extends CommonGLPI
                 'by_type'    => array_count_values(array_column($findings, 'type')),
             ];
         }
+        // Issue #773 : date de remise du rapport à la direction et destinataire.
+        $deliveries = AuditProgramme::deliveriesFor(array_keys($completed));
+        foreach ($completed as $auditId => &$audit) {
+            $audit['delivery'] = $deliveries[$auditId] ?? null;
+        }
+        unset($audit);
         $statuses = Audit::getStatuses();
 
         return [
-            'completed' => $completed,
+            'completed' => array_values($completed),
             'by_status' => array_map(static fn (array $row): array => [
                 'label'  => $statuses[$row['label']] ?? (string) $row['label'],
                 'number' => (int) $row['number'],
