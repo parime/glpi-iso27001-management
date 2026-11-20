@@ -59,6 +59,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     droit de voir tous les changements. Les onglets vérifient eux-mêmes leurs droits.
   - Tables créées par l'installateur (rejouable) et supprimées à la désinstallation ; la fiche et
     la liste disparaissent avec l'application ou le changement supprimé définitivement.
+### Fixed
+
+- **Désinstallation : journaux de la fiche de conformité des collaborateurs** (issue #808). L'historique
+  des fiches de conformité sécurité (#546) restait dans `glpi_logs` après la désinstallation, comme
+  celui des fiches réflexes et des actions de la revue de direction : ces classes (et deux cibles de
+  notification) manquaient à la liste des types nettoyés. Le jeu de données de la CI crée désormais une fiche de conformité, et un test
+  d'intégration vérifie que toute classe historisée du plugin figure dans cette liste.
 
 ## [2.67.0] - 2026-11-20
 

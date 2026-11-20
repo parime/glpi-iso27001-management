@@ -386,6 +386,15 @@ final class Installer
         ...CrisisScenarioTables::CLASSES,
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         ...SecureDevelopmentTables::CLASSES,
+        // Issue #808 : classes historisées oubliées, dont les journaux restaient après la
+        // désinstallation (fiche de conformité des collaborateurs #546, fiches réflexes, actions
+        // de la revue de direction), et deux cibles de notification absentes de la liste.
+        \GlpiPlugin\Grcmanager\PersonnelCompliance::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetPersonnelCompliance::class,
+        \GlpiPlugin\Grcmanager\Playbook::class,
+        \GlpiPlugin\Grcmanager\ManagementReviewAction::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetAuditEvidenceRequest::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetPolicyVersion::class,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
