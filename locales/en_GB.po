@@ -30455,6 +30455,306 @@ msgstr "Warn before a license expires (days, 0 to turn off)"
 msgid "Warning %d days before a license expires."
 msgstr "Warning %d days before a license expires."
 
+msgid "Certification body report received on"
+msgstr "Certification body report received on"
+
+msgid "Action plan due to the certification body"
+msgstr "Action plan due to the certification body"
+
+msgid "Evidence due to the certification body"
+msgstr "Evidence due to the certification body"
+
+#, php-format
+msgid ""
+"To send to the certification body: %1$d action plans and %2$d evidence "
+"(overdue: %3$d)"
+msgstr ""
+"To send to the certification body: %1$d action plans and %2$d evidence "
+"(overdue: %3$d)"
+
+msgid "Response to the certification body"
+msgstr "Response to the certification body"
+
+msgid "Awaiting the decision of the certification body"
+msgstr "Awaiting the decision of the certification body"
+
+msgid "Accepted by the certification body"
+msgstr "Accepted by the certification body"
+
+msgid "To be completed at the request of the certification body"
+msgstr "To be completed at the request of the certification body"
+
+msgid "Action plan overdue"
+msgstr "Action plan overdue"
+
+msgid "Action plan to complete"
+msgstr "Action plan to complete"
+
+msgid "Action plan due soon"
+msgstr "Action plan due soon"
+
+msgid "Action plan to send"
+msgstr "Action plan to send"
+
+msgid "Action plan sent, awaiting decision"
+msgstr "Action plan sent, awaiting decision"
+
+msgid "Action plan accepted"
+msgstr "Action plan accepted"
+
+msgid "No response required"
+msgstr "No response required"
+
+msgid "Evidence overdue"
+msgstr "Evidence overdue"
+
+msgid "Evidence due soon"
+msgstr "Evidence due soon"
+
+msgid "Evidence to send"
+msgstr "Evidence to send"
+
+msgid "Evidence sent"
+msgstr "Evidence sent"
+
+msgid "No evidence required"
+msgstr "No evidence required"
+
+msgid "Everything has been sent"
+msgstr "Everything has been sent"
+
+msgid "No deadline entered"
+msgstr "No deadline entered"
+
+msgid "Correction"
+msgstr "Correction"
+
+msgid "Corrective action plan for the certification body"
+msgstr "Corrective action plan for the certification body"
+
+msgid "Action plan sent to the certification body on"
+msgstr "Action plan sent to the certification body on"
+
+msgid "Evidence sent to the certification body on"
+msgstr "Evidence sent to the certification body on"
+
+msgid "Decision of the certification body"
+msgstr "Decision of the certification body"
+
+msgid ""
+"Deadline given in the audit report to send the evidence that the "
+"nonconformities are lifted."
+msgstr ""
+"Deadline given in the audit report to send the evidence that the "
+"nonconformities are lifted."
+
+msgid ""
+"Deadline given in the audit report to send your action plan (correction, "
+"root cause and corrective action of each nonconformity)."
+msgstr ""
+"Deadline given in the audit report to send your action plan (correction, "
+"root cause and corrective action of each nonconformity)."
+
+#, php-format
+msgid ""
+"A response is expected for each nonconformity. It is optional for an area of "
+"concern or an opportunity for improvement. A deadline is shown as close %d "
+"days before it."
+msgstr ""
+"A response is expected for each nonconformity. It is optional for an area of "
+"concern or an opportunity for improvement. A deadline is shown as close %d "
+"days before it."
+
+msgid "Action plan"
+msgstr "Action plan"
+
+msgid ""
+"After the audit, the certification body asks you to send an action plan for "
+"each nonconformity (correction, root cause, corrective action), then the "
+"evidence that it is lifted, each within a deadline. This tab shows what is "
+"still to send and produces the action plan to send to the body."
+msgstr ""
+"After the audit, the certification body asks you to send an action plan for "
+"each nonconformity (correction, root cause, corrective action), then the "
+"evidence that it is lifted, each within a deadline. This tab shows what is "
+"still to send and produces the action plan to send to the body."
+
+msgid "Corrective action plan for the certification body (PDF)"
+msgstr "Corrective action plan for the certification body (PDF)"
+
+msgid ""
+"Enter the deadlines given in the report of the certification body in the "
+"main tab of the audit, so that the remaining days are shown."
+msgstr ""
+"Enter the deadlines given in the report of the certification body in the "
+"main tab of the audit, so that the remaining days are shown."
+
+msgid ""
+"Enter the deadlines in the audit form, and the sending dates and the "
+"decision of the body in each finding. Nothing is changed automatically."
+msgstr ""
+"Enter the deadlines in the audit form, and the sending dates and the "
+"decision of the body in each finding. Nothing is changed automatically."
+
+#, php-format
+msgid "Sent on %s"
+msgstr "Sent on %s"
+
+#, php-format
+msgid "Still to send: %d"
+msgstr "Still to send: %d"
+
+msgid "To fill in"
+msgstr "To fill in"
+
+msgid "What is this tab for?"
+msgstr "What is this tab for?"
+
+msgid ""
+"Date on which the correction, root cause and corrective action were sent to "
+"the certification body."
+msgstr ""
+"Date on which the correction, root cause and corrective action were sent to "
+"the certification body."
+
+msgid ""
+"Date on which the evidence that the finding is lifted was sent. Attach the "
+"evidence in the Documents tab."
+msgstr ""
+"Date on which the evidence that the finding is lifted was sent. Attach the "
+"evidence in the Documents tab."
+
+msgid "Feedback of the certification body"
+msgstr "Feedback of the certification body"
+
+msgid ""
+"What was done at once to deal with the finding itself, before treating its "
+"cause."
+msgstr ""
+"What was done at once to deal with the finding itself, before treating its "
+"cause."
+
+msgid "Audit date"
+msgstr "Audit date"
+
+msgid "No nonconformity calls for a response in this audit."
+msgstr "No nonconformity calls for a response in this audit."
+
+#, php-format
+msgid "Overdue by %d day"
+msgid_plural "Overdue by %d days"
+msgstr[0] "Overdue by %d day"
+msgstr[1] "Overdue by %d days"
+
+#, php-format
+msgid ""
+"%d nonconformity still lacks information before the action plan is sent (see "
+"the \"To fill in\" column)."
+msgid_plural ""
+"%d nonconformities still lack information before the action plan is sent "
+"(see the \"To fill in\" column)."
+msgstr[0] ""
+"%d nonconformity still lacks information before the action plan is sent (see "
+"the \"To fill in\" column)."
+msgstr[1] ""
+"%d nonconformities still lack information before the action plan is sent "
+"(see the \"To fill in\" column)."
+
+#, php-format
+msgid ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+msgstr ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+
+#, php-format
+msgid ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+msgstr ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+
+#, php-format
+msgid ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+msgstr ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+
+msgid "Alert (days)"
+msgstr "Alert (days)"
+
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
+msgstr ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
+
+msgid "Advised deadlines per step"
+msgstr "Advised deadlines per step"
+
+msgid ""
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
+msgstr ""
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Days before the target date"
+msgstr "Days before the target date"
+
+msgid "Adjusted"
+msgstr "Adjusted"
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr "An audit can only be planned for the current year or a later one."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr "Audit planned: complete its objectives, scope, criteria and auditors."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Internal audit - %1$s - %2$d"
+
+msgid ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+msgstr ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Plan an internal audit of %1$s in %2$d"
+
+msgid "Through the audited controls %s"
+msgstr "Through the audited controls %s"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -31459,154 +31759,3 @@ msgstr "Warning %d days before a license expires."
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-msgid "Certification body report received on"
-msgstr "Certification body report received on"
-
-msgid "Action plan due to the certification body"
-msgstr "Action plan due to the certification body"
-
-msgid "Evidence due to the certification body"
-msgstr "Evidence due to the certification body"
-
-#, php-format
-msgid "To send to the certification body: %1$d action plans and %2$d evidence (overdue: %3$d)"
-msgstr "To send to the certification body: %1$d action plans and %2$d evidence (overdue: %3$d)"
-
-msgid "Response to the certification body"
-msgstr "Response to the certification body"
-
-msgid "Awaiting the decision of the certification body"
-msgstr "Awaiting the decision of the certification body"
-
-msgid "Accepted by the certification body"
-msgstr "Accepted by the certification body"
-
-msgid "To be completed at the request of the certification body"
-msgstr "To be completed at the request of the certification body"
-
-msgid "Action plan overdue"
-msgstr "Action plan overdue"
-
-msgid "Action plan to complete"
-msgstr "Action plan to complete"
-
-msgid "Action plan due soon"
-msgstr "Action plan due soon"
-
-msgid "Action plan to send"
-msgstr "Action plan to send"
-
-msgid "Action plan sent, awaiting decision"
-msgstr "Action plan sent, awaiting decision"
-
-msgid "Action plan accepted"
-msgstr "Action plan accepted"
-
-msgid "No response required"
-msgstr "No response required"
-
-msgid "Evidence overdue"
-msgstr "Evidence overdue"
-
-msgid "Evidence due soon"
-msgstr "Evidence due soon"
-
-msgid "Evidence to send"
-msgstr "Evidence to send"
-
-msgid "Evidence sent"
-msgstr "Evidence sent"
-
-msgid "No evidence required"
-msgstr "No evidence required"
-
-msgid "Everything has been sent"
-msgstr "Everything has been sent"
-
-msgid "No deadline entered"
-msgstr "No deadline entered"
-
-msgid "Correction"
-msgstr "Correction"
-
-msgid "Corrective action plan for the certification body"
-msgstr "Corrective action plan for the certification body"
-
-msgid "Action plan sent to the certification body on"
-msgstr "Action plan sent to the certification body on"
-
-msgid "Evidence sent to the certification body on"
-msgstr "Evidence sent to the certification body on"
-
-msgid "Decision of the certification body"
-msgstr "Decision of the certification body"
-
-msgid "Deadline given in the audit report to send the evidence that the nonconformities are lifted."
-msgstr "Deadline given in the audit report to send the evidence that the nonconformities are lifted."
-
-msgid "Deadline given in the audit report to send your action plan (correction, root cause and corrective action of each nonconformity)."
-msgstr "Deadline given in the audit report to send your action plan (correction, root cause and corrective action of each nonconformity)."
-
-#, php-format
-msgid "A response is expected for each nonconformity. It is optional for an area of concern or an opportunity for improvement. A deadline is shown as close %d days before it."
-msgstr "A response is expected for each nonconformity. It is optional for an area of concern or an opportunity for improvement. A deadline is shown as close %d days before it."
-
-msgid "Action plan"
-msgstr "Action plan"
-
-msgid "After the audit, the certification body asks you to send an action plan for each nonconformity (correction, root cause, corrective action), then the evidence that it is lifted, each within a deadline. This tab shows what is still to send and produces the action plan to send to the body."
-msgstr "After the audit, the certification body asks you to send an action plan for each nonconformity (correction, root cause, corrective action), then the evidence that it is lifted, each within a deadline. This tab shows what is still to send and produces the action plan to send to the body."
-
-msgid "Corrective action plan for the certification body (PDF)"
-msgstr "Corrective action plan for the certification body (PDF)"
-
-msgid "Enter the deadlines given in the report of the certification body in the main tab of the audit, so that the remaining days are shown."
-msgstr "Enter the deadlines given in the report of the certification body in the main tab of the audit, so that the remaining days are shown."
-
-msgid "Enter the deadlines in the audit form, and the sending dates and the decision of the body in each finding. Nothing is changed automatically."
-msgstr "Enter the deadlines in the audit form, and the sending dates and the decision of the body in each finding. Nothing is changed automatically."
-
-#, php-format
-msgid "Sent on %s"
-msgstr "Sent on %s"
-
-#, php-format
-msgid "Still to send: %d"
-msgstr "Still to send: %d"
-
-msgid "To fill in"
-msgstr "To fill in"
-
-msgid "What is this tab for?"
-msgstr "What is this tab for?"
-
-msgid "Date on which the correction, root cause and corrective action were sent to the certification body."
-msgstr "Date on which the correction, root cause and corrective action were sent to the certification body."
-
-msgid "Date on which the evidence that the finding is lifted was sent. Attach the evidence in the Documents tab."
-msgstr "Date on which the evidence that the finding is lifted was sent. Attach the evidence in the Documents tab."
-
-msgid "Feedback of the certification body"
-msgstr "Feedback of the certification body"
-
-msgid "What was done at once to deal with the finding itself, before treating its cause."
-msgstr "What was done at once to deal with the finding itself, before treating its cause."
-
-msgid "Audit date"
-msgstr "Audit date"
-
-msgid "No nonconformity calls for a response in this audit."
-msgstr "No nonconformity calls for a response in this audit."
-
-#, php-format
-msgid "Overdue by %d day"
-msgid_plural "Overdue by %d days"
-msgstr[0] "Overdue by %d day"
-msgstr[1] "Overdue by %d days"
-
-#, php-format
-msgid "%d nonconformity still lacks information before the action plan is sent (see the \"To fill in\" column)."
-msgid_plural "%d nonconformities still lack information before the action plan is sent (see the \"To fill in\" column)."
-msgstr[0] "%d nonconformity still lacks information before the action plan is sent (see the \"To fill in\" column)."
-msgstr[1] "%d nonconformities still lack information before the action plan is sent (see the \"To fill in\" column)."

@@ -80,6 +80,9 @@
             </div>
          {% endif %}
 
+         {% if new_audit_url and p.rows is not empty %}
+            <p class="text-muted small mb-2"><i class="ti ti-info-circle me-1"></i>{{ __('"Plan" creates an internal audit for the process and the year, in the entity of the process. Then complete its objectives, scope, criteria and auditors on the audit.', 'grcmanager') }}</p>
+         {% endif %}
          {% if p.rows is empty %}
             <div class="alert alert-info mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('No ISMS process yet. The processes of the programme are the ISMS activities of the responsibility matrix.', 'grcmanager') }}
                {% if raci_url %}<a href="{{ raci_url }}">{{ __('Responsibility matrix', 'grcmanager') }}</a>{% endif %}</div>
@@ -105,6 +108,19 @@
                         {% else %}
                            <span class="text-muted">-</span>
                         {% endfor %}
+                        {# Lot 3 : planifier un audit pré-rempli pour ce processus et cette année. #}
+                        {% if new_audit_url and cell.can_plan %}
+                           <form method="post" action="{{ action }}" class="mt-1 grc-programme-plan">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="process_id" value="{{ row.id }}">
+                              <input type="hidden" name="year" value="{{ year }}">
+                              <button type="submit" name="plan_audit" value="1" class="btn btn-sm btn-ghost-primary py-0 px-1"
+                                 title="{{ __('Plan an internal audit of %1$s in %2$d', 'grcmanager')|format(row.label, year) }}"
+                                 aria-label="{{ __('Plan an internal audit of %1$s in %2$d', 'grcmanager')|format(row.label, year) }}">
+                                 <i class="ti ti-calendar-plus me-1"></i>{{ __('Plan', 'grcmanager') }}
+                              </button>
+                           </form>
+                        {% endif %}
                      </td>
                   {% endfor %}
                   <td><span class="badge {{ states[row.state][0] }}"><i class="ti {{ states[row.state][1] }} me-1"></i>{{ states[row.state][2] }}</span></td>

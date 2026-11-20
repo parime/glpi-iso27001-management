@@ -178,6 +178,14 @@ travail datées, avec leur auteur.
    indépendants, rapport remis à la direction. La page du programme reprend ces points pour chaque
    audit du cycle et signale les audits incomplets. Le rapport PDF de l'audit les reprend aussi, avec
    la compétence des auditeurs et la justification de chaque conflit.
+8. **Indépendance par les mesures auditées** : un processus dont la matrice des responsabilités porte
+   une mesure de l'Annexe A auditée (ligne « mesure » de la grille de l'audit, ou mesure liée sur la
+   fiche) est contrôlé aussi, même s'il n'est pas choisi dans l'onglet. Le conflit indique les
+   mesures concernées (« Par les mesures auditées A.8.13 ») et se justifie de la même façon.
+9. **Planifier depuis le programme** : sur la page du programme, le bouton **Planifier** d'une case
+   sans audit à venir (cette année ou une année suivante) crée un audit interne pour ce processus et
+   cette année, dans l'entité du processus, et ouvre sa fiche. Complétez ensuite ses objectifs, son
+   périmètre, ses critères et ses auditeurs.
 
 Depuis l'onglet **Non-conformités** de la rubrique, une non-conformité peut être liée à cet audit interne, avec
 une sévérité, une échéance, une description et une cause racine.
@@ -572,7 +580,11 @@ natifs de lecture des logiciels et des licences.
 3. Chaque étape non faite reçoit une **échéance conseillée**, calculée en remontant depuis la date
    cible (le socle d'abord, puis l'audit interne, la revue de direction et le traitement des
    non-conformités). Une étape dont l'échéance tombe dans les 14 jours est marquée « Risque de
-   retard » ; une échéance dépassée est signalée en rouge.
+   retard » ; une échéance dépassée est signalée en rouge. Ce délai d'alerte se règle dans le champ
+   « Alerte (jours) », et le bouton « Délais conseillés par étape » ouvre le tableau du nombre de
+   jours avant la date cible de chaque étape (par exemple audit interne 60 jours, revue de direction
+   30 jours avant un audit le 15 mars). Un délai réglé à l'envers de l'ordre logique (revue de
+   direction conseillée avant l'audit interne) est signalé, jamais corrigé à votre place.
 4. Choisissez le **responsable de la préparation** (à défaut, le responsable de l'audit cible). La
    tâche automatique `certificationreadiness` lui envoie la notification « Étape de la certification
    à risque » quand une étape approche ou dépasse son échéance, une seule fois par étape et par état.
@@ -1039,6 +1051,14 @@ download (date, user, document) and the **Notes** tab keeps dated working notes 
    management. The programme page shows these points for each audit of the cycle and flags the
    incomplete ones. The PDF report of the audit includes them too, with the competence of the
    auditors and the justification of each conflict.
+8. **Independence through the audited controls**: a process whose responsibility matrix lists an
+   Annex A control that the audit covers (a "control" line of the audit checklist, or a control
+   linked on the form) is checked too, even if it is not chosen in the tab. The conflict shows the
+   controls concerned ("Through the audited controls A.8.13") and is justified the same way.
+9. **Plan from the programme**: on the programme page, the **Planifier** button of a cell with no
+   upcoming audit (this year or a later one) creates an internal audit for that process and year,
+   in the entity of the process, and opens its form. Then complete its objectives, scope, criteria
+   and auditors.
 
 From the section's **Non-conformités** tab, a non-conformity can be linked to this internal audit, with a
 severity, a due date, a description and a root cause.
@@ -1407,7 +1427,11 @@ rights to read software and licenses.
 3. Each step not done gets an **advised deadline**, counted back from the target date (the
    foundations first, then the internal audit, the management review and the treatment of
    nonconformities). A step whose deadline falls within 14 days is marked "At risk of being late"; a
-   passed deadline is shown in red.
+   passed deadline is shown in red. This alert period is set in the "Alert (days)" field, and the
+   "Advised deadlines per step" button opens the table of the number of days before the target date
+   for each step (for instance internal audit 60 days, management review 30 days before an audit on
+   15 March). A period set against the logical order (management review advised before the
+   internal audit) is reported, never corrected for you.
 4. Choose the **owner of the preparation** (otherwise, the owner of the target audit). The
    `certificationreadiness` automatic task sends them the "Certification step at risk" notification
    when a step approaches or passes its deadline, once per step and per state. Nothing is changed

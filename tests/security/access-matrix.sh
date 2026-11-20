@@ -278,10 +278,13 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
   expect "front/auditprogramme.php : reglages du programme" "$1" \
     "$(code -d "save_settings=1&cycle_start=2025&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
-  # Issue #761 : date cible, responsable et seuils de la preparation a la certification exigent le
+  # Issue #773, lot 3 : planifier un audit depuis le programme exige le droit de creer un audit.
+  expect "front/auditprogramme.php : planifier un audit" "$1" \
+    "$(code -d "plan_audit=1&process_id=$(id responsibility_A)&year=$(( $(date +%Y) + 1 ))&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
+  # Issue #761 : date cible, responsable et seuils (et delais, lot 2) de la preparation a la certification exigent le
   # droit de modifier le plugin.
   expect "front/certificationreadiness.php : reglages de la preparation" "$1" \
-    "$(code -d "save_readiness_settings=1&target_date=2026-12-03&coverage_target=90&_glpi_csrf_token=$(csrf)" "$P/certificationreadiness.php")"
+    "$(code -d "save_readiness_settings=1&target_date=2026-12-03&coverage_target=90&alert_days=30&lead_days%5Binternal_audit%5D=60&_glpi_csrf_token=$(csrf)" "$P/certificationreadiness.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
   # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).
@@ -1336,6 +1339,8 @@ if [ "$ROLE" != admin ]; then
     "$(code -d "justify=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&process_id=1&justification=Justification%20securite&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
   expect "remise du rapport d'un audit de B" 403 \
     "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit_B)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+  expect "planifier un audit sur un processus de B" 403 \
+    "$(code -d "plan_audit=1&process_id=$(id responsibility_B)&year=$(( $(date +%Y) + 1 ))&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
 fi
 # Issue #772, lot 2 : plan d'audit de l'organisme. Cocher demande de modifier l'audit de
 # certification concerne (droit et entite) ; un audit interne est refuse ; l'audit de B n'apparait
