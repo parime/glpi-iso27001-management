@@ -197,6 +197,8 @@ class ContextItem extends ContextItemBase
     {
         $tabs = [];
         $this->addDefaultFormTab($tabs)
+            // Issue #771, lot 2 : prises de contact tracées avec ce contact officiel.
+            ->addStandardTab(OfficialContactNotification::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
@@ -303,6 +305,9 @@ class ContextItem extends ContextItemBase
         if (($input['kind'] ?? $current['kind'] ?? Rules::KIND_ISSUE) !== Rules::KIND_PARTY) {
             $input['is_official_contact'] = 0;
         }
+        if (array_key_exists('contact_delay_hours', $input)) {
+            $input['contact_delay_hours'] = ContactRules::normalizeDelayHours($input['contact_delay_hours']);
+        }
         if (array_key_exists('users_id_internal', $input)) {
             $input['users_id_internal'] = max(0, (int) $input['users_id_internal']);
         }
@@ -373,6 +378,8 @@ class ContextItem extends ContextItemBase
 
         parent::post_purgeItem();
         $DB->delete(self::LINKS_TABLE, [self::FK => (int) $this->getID()]);
+        // Issue #771, lot 2 : les prises de contact tracées avec ce contact disparaissent avec lui.
+        OfficialContactNotification::forgetItem($this);
     }
 
     /**

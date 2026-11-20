@@ -35,6 +35,7 @@ use GlpiPlugin\Grcmanager\Nonconformity;
 use GlpiPlugin\Grcmanager\NotificationTargetAccessReview;
 use GlpiPlugin\Grcmanager\NotificationTargetBreachExposure;
 use GlpiPlugin\Grcmanager\NotificationTargetBusinessProcess;
+use GlpiPlugin\Grcmanager\NotificationTargetContextItem;
 use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
 use GlpiPlugin\Grcmanager\NotificationTargetControl;
 use GlpiPlugin\Grcmanager\NotificationTargetEvidence;
@@ -265,7 +266,12 @@ final class NotificationTemplateDefaults
                 ContextItem::class, ContextItem::CONTACT_VERIFICATION_EVENT, 'Official contact to verify',
                 $sentByTask . 'the details of an official contact have not been verified for 12 months (at most '
                     . 'once a month).',
-                $owner,
+                // Issue #771, lot 2 : le propriétaire, et l'interlocuteur interne habilité (personne, groupe).
+                [
+                    Notification::ITEM_USER,
+                    NotificationTargetContextItem::TARGET_INTERNAL_USER,
+                    NotificationTargetContextItem::TARGET_INTERNAL_GROUP,
+                ],
                 'Contact officiel à vérifier', '',
             ],
             // Issue #778 : réévaluation annuelle de la sécurité physique d'un site.

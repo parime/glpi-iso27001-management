@@ -48,8 +48,14 @@
             {% if perimeter %}<br>{{ contact.entity }}{% endif %}
           </td>
           <td>{{ contact.details|nl2br }}</td>
-          <td>{{ contact.when|nl2br }}</td>
-          <td>{{ contact.delay }}</td>
+          <td>
+            {{ contact.when|nl2br }}
+            {% for obligation in contact.obligations %}<br>{{ __('Obligation: %s', 'grcmanager')|format(obligation.name) }}{% endfor %}
+          </td>
+          <td>
+            {{ contact.delay }}
+            {% if contact.delay_hours > 0 %}{% if contact.delay %}<br>{% endif %}{{ _n('%d hour', '%d hours', contact.delay_hours, 'grcmanager')|format(contact.delay_hours) }}{% endif %}
+          </td>
           <td>{{ contact.internal }}{% if contact.internal_group %}<br>{{ contact.internal_group }}{% endif %}</td>
           <td>
             {% if contact.verified %}{{ contact.verified|formatted_date }}{% else %}{{ __('Never verified', 'grcmanager') }}{% endif %}

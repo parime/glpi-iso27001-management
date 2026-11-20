@@ -1405,9 +1405,9 @@ msgstr ""
 "para correspondência."
 
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
 "Um identificador CPE conforme informado pelo NVD para este produto (ex.: "
 "\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Vários identificadores podem "
@@ -3455,8 +3455,8 @@ msgstr "Versões verificadas por execução"
 
 msgid "Pick a suggestion or enter a valid CPE 2.3 (cpe:2.3:a:vendor:product)."
 msgstr ""
-"Escolha uma sugestão ou informe um CPE 2.3 válido (cpe:2.3:a:fornecedor:"
-"produto)."
+"Escolha uma sugestão ou informe um CPE 2.3 válido "
+"(cpe:2.3:a:fornecedor:produto)."
 
 #, php-format
 msgid "\"%s\" is now watched."
@@ -8323,11 +8323,11 @@ msgstr ""
 "acima:"
 
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
-"Formatos de prova úteis (a permitir nos tipos de documento do GLPI): .log, ."
-"evtx, .json, .pcap, .eml, .csv, .zip."
+"Formatos de prova úteis (a permitir nos tipos de documento do "
+"GLPI): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 
 #, php-format
 msgid "%d evidence(s) checked: all intact."
@@ -8373,8 +8373,8 @@ msgid ""
 "Add the technicians who work on the incident: with the \"See (author)\" "
 "right, they see only the incidents of their team."
 msgstr ""
-"Adicione os técnicos que trabalham no incidente: com o direito \"Ver "
-"(autor)\", eles veem apenas os incidentes da sua equipe."
+"Adicione os técnicos que trabalham no incidente: com o direito \"Ver (autor)"
+"\", eles veem apenas os incidentes da sua equipe."
 
 #, php-format
 msgid "added by %1$s on %2$s"
@@ -14931,8 +14931,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 "Um arquivo CSV por modelo do regulamento de execução, com os códigos "
 "oficiais de coluna (c0010...), como em um pacote de reporte xBRL-CSV. As "
@@ -17129,8 +17129,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 "O GLPI também recusa endereços internos para este plugin: adicione %s à "
 "constante GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
@@ -18178,8 +18178,8 @@ msgstr "Configurações e correspondências"
 
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 "Não ativado: o plugin pode indicar quais softwares, sistemas operacionais e "
 "firmwares não recebem mais correções de segurança, segundo o site público "
@@ -18318,15 +18318,15 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 "Nomes conhecidos são vinculados automaticamente (por exemplo \"Debian GNU/"
 "Linux\" ou \"Mozilla Firefox\"). Para qualquer outro nome, adicione uma "
 "correspondência: digite o nome exatamente como o GLPI o exibe e o "
-"identificador do produto que aparece no endereço da sua página no endoflife."
-"date (por exemplo \"fortios\" para https://endoflife.date/fortios). Deixe o "
-"produto vazio para deixar de acompanhar um nome."
+"identificador do produto que aparece no endereço da sua página no "
+"endoflife.date (por exemplo \"fortios\" para https://endoflife.date/"
+"fortios). Deixe o produto vazio para deixar de acompanhar um nome."
 
 msgid "Kind of item"
 msgstr "Tipo de item"
@@ -20735,13 +20735,13 @@ msgid "Justification of a different result"
 msgstr "Justificativa de um resultado diferente"
 
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
-"Cada item da população é ordenado pela impressão SHA-256 de \"semente:"
-"identificador\"; os primeiros itens dessa classificação formam a amostra. A "
-"mesma população e a mesma semente dão sempre a mesma amostra."
+"Cada item da população é ordenado pela impressão SHA-256 de "
+"\"semente:identificador\"; os primeiros itens dessa classificação formam a "
+"amostra. A mesma população e a mesma semente dão sempre a mesma amostra."
 
 #, php-format
 msgid "Back to the tests of %s"
@@ -25925,6 +25925,200 @@ msgid ""
 "The individual results have been deleted. The rates of the campaign are kept."
 msgstr ""
 "Os resultados individuais foram excluídos. As taxas da campanha são mantidas."
+
+#, php-format
+msgid "Obligation: %s"
+msgstr "Obrigação: %s"
+
+msgid ""
+"Every contact with this party recorded from a security incident or a "
+"personal data breach: date, decision, file number and author. To record a "
+"new one, open the incident or the breach, tab \"Official contacts\"."
+msgstr ""
+"Cada contato com esta parte registrado a partir de um incidente de segurança "
+"ou de uma violação de dados pessoais: data, decisão, número do processo e "
+"autor. Para registrar um novo, abra o incidente ou a violação, aba "
+"\"Contatos oficiais\"."
+
+msgid "No contact recorded with this party yet."
+msgstr "Nenhum contato registrado com esta parte até agora."
+
+msgid "Date and time"
+msgstr "Data e hora"
+
+msgid "Time limit in hours"
+msgstr "Prazo em horas"
+
+msgid ""
+"Optional: 72 for a personal data breach, 24 for an early warning. The "
+"deadline is then computed from the detection of the incident or the "
+"awareness of the breach. Leave 0 when there is no set time limit."
+msgstr ""
+"Opcional: 72 para uma violação de dados pessoais, 24 para um alerta precoce. "
+"O prazo é então calculado a partir da detecção do incidente ou da ciência da "
+"violação. Deixe 0 quando não houver prazo definido."
+
+msgid "Deadline and contact"
+msgstr "Prazo e contato"
+
+msgid "Linked compliance obligation"
+msgstr "Obrigação de conformidade vinculada"
+
+#, php-format
+msgid "Deadline: %s"
+msgstr "Prazo: %s"
+
+msgid "Record a contact"
+msgstr "Registrar um contato"
+
+msgid "Contacts recorded from security incidents and personal data breaches"
+msgstr ""
+"Contatos registrados a partir dos incidentes de segurança e das violações de "
+"dados pessoais"
+
+msgid "Keep a trace of every official contact"
+msgstr "Mantenha um registro de cada contato oficial"
+
+msgid ""
+"When you call or write to an authority, a CSIRT or the police, record it "
+"here with the file number they gave you. If you decide that a contact did "
+"not need to be informed, record that decision and its reason: auditors ask "
+"for both. Nothing is sent from this page."
+msgstr ""
+"Quando ligar ou escrever para uma autoridade, um CSIRT ou a polícia, "
+"registre aqui com o número do processo que lhe deram. Se decidir que um "
+"contato não precisava ser informado, registre essa decisão e o motivo: os "
+"auditores pedem ambos. Nada é enviado a partir desta página."
+
+#, php-format
+msgid ""
+"%1$s: %2$s. The deadline of each contact is computed from this date and its "
+"time limit in hours."
+msgstr ""
+"%1$s: %2$s. O prazo de cada contato é calculado a partir desta data e do seu "
+"prazo em horas."
+
+msgid "File number, acknowledgement of receipt"
+msgstr "Número do processo, aviso de recebimento"
+
+msgid ""
+"Channel used, person reached; required reason when the contact was not needed"
+msgstr ""
+"Canal utilizado, pessoa contatada; motivo obrigatório quando o contato não "
+"era necessário"
+
+msgid "Record the contact"
+msgstr "Registrar o contato"
+
+msgid "No contact recorded for this event yet."
+msgstr "Nenhum contato registrado para este evento até agora."
+
+msgid ""
+"Remove this recorded contact (entered by mistake). The removal stays in the "
+"history."
+msgstr ""
+"Remover este contato registrado (inserido por engano). A remoção fica no "
+"histórico."
+
+msgid "Remove this recorded contact?"
+msgstr "Remover este contato registrado?"
+
+msgid "Contact recorded."
+msgstr "Contato registrado."
+
+msgid "Recorded contact removed."
+msgstr "Contato registrado removido."
+
+msgid "Awareness of the breach"
+msgstr "Ciência da violação"
+
+msgid "Detection of the incident"
+msgstr "Detecção do incidente"
+
+msgid "Contacted or notified"
+msgstr "Contatado ou notificado"
+
+msgid "Not required (decision)"
+msgstr "Não necessário (decisão)"
+
+msgid "Contacted on time"
+msgstr "Contatado no prazo"
+
+msgid "Contacted late"
+msgstr "Contatado com atraso"
+
+msgid "Not required (decision recorded)"
+msgstr "Não necessário (decisão registrada)"
+
+msgid "To contact"
+msgstr "A contatar"
+
+msgid "Deadline passed, nothing recorded"
+msgstr "Prazo vencido, nada registrado"
+
+msgid "Contact not visible to you"
+msgstr "Contato não visível para você"
+
+msgid "You are not allowed to record a contact on this item."
+msgstr "Você não tem permissão para registrar um contato neste item."
+
+msgid "Choose an official contact from the register."
+msgstr "Escolha um contato oficial do registro."
+
+msgid "The contact could not be recorded."
+msgstr "Não foi possível registrar o contato."
+
+#, php-format
+msgid "Official contact %1$s: %2$s on %3$s"
+msgstr "Contato oficial %1$s: %2$s em %3$s"
+
+msgid "This recorded contact no longer exists."
+msgstr "Este contato registrado não existe mais."
+
+msgid "The recorded contact could not be removed."
+msgstr "Não foi possível remover o contato registrado."
+
+#, php-format
+msgid "Recorded contact of %s removed"
+msgstr "Contato registrado de %s removido"
+
+msgid "Give the reason why this contact did not need to be informed."
+msgstr "Informe por que este contato não precisava ser informado."
+
+msgid "Enter the date and time of the contact."
+msgstr "Informe a data e a hora do contato."
+
+msgid "The date of the contact cannot be in the future."
+msgstr "A data do contato não pode estar no futuro."
+
+msgid "The contact cannot be dated before the start of the event."
+msgstr "O contato não pode ser datado antes do início do evento."
+
+msgid "Say whether the contact was informed or not required."
+msgstr "Informe se o contato foi informado ou se não era necessário."
+
+#, php-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d hora"
+msgstr[1] "%d horas"
+
+#, php-format
+msgid "%d other contact recorded on an event you cannot see."
+msgid_plural "%d other contacts recorded on events you cannot see."
+msgstr[0] "%d outro contato registrado em um evento que você não pode ver."
+msgstr[1] "%d outros contatos registrados em eventos que você não pode ver."
+
+#, php-format
+msgid "%d contact recorded within 12 months"
+msgid_plural "%d contacts recorded within 12 months"
+msgstr[0] "%d contato registrado nos últimos 12 meses"
+msgstr[1] "%d contatos registrados nos últimos 12 meses"
+
+msgid "Recorded contact"
+msgid_plural "Recorded contacts"
+msgstr[0] "Contato registrado"
+msgstr[1] "Contatos registrados"
 
 msgid ""
 "No process sampled for this audit yet: tick the processes announced by the "

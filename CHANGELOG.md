@@ -9,6 +9,36 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Contacts officiels : prises de contact tracées depuis les incidents et les violations** (issue
+  #771, lot 2, mesures A.5.5 et A.5.6). L'auditeur demande la preuve qu'une autorité a été prévenue
+  dans le délai, ou pourquoi elle ne l'a pas été :
+  - fiche d'un contact officiel : nouveau « Délai en heures » (72 pour une violation de données, 24
+    pour une alerte précoce), facultatif, à côté du délai en texte libre ;
+  - onglet « Contacts officiels » d'un incident ou d'une violation : échéance de chaque contact
+    (détection de l'incident ou prise de connaissance de la violation, plus le délai), situation en
+    badge (prévenu dans le délai, prévenu en retard, non nécessaire avec décision tracée, à prévenir,
+    échéance dépassée sans rien de tracé) et formulaire « Tracer une prise de contact » : contact,
+    décision (contacté ou non nécessaire, motif obligatoire), date et heure, référence du dossier
+    (numéro, accusé de réception), commentaire. Rien n'est envoyé : la personne trace ce qu'elle a
+    fait. La trace s'inscrit dans l'historique de l'incident et du contact ;
+  - fiche du contact : onglet « Prises de contact tracées », historique des relations avec
+    l'autorité ou le groupe d'intérêt (seuls les incidents et violations lisibles sont détaillés) ;
+  - obligations de conformité liées au contact (liens de la partie intéressée) affichées dans le
+    registre, l'onglet et le PDF ;
+  - preuve des mesures A.5.5 et A.5.6 : nombre de prises de contact tracées depuis 12 mois ;
+  - relance de vérification d'un contact : nouvelles cibles « Interlocuteur interne habilité » et
+    « Groupe interne habilité » (ajoutées d'office aux nouvelles installations ; sur une instance
+    existante, les ajouter dans la notification « Contact officiel à vérifier »). Un destinataire
+    sans droit de lire le contexte de l'organisation dans l'entité du contact ne reçoit rien ;
+  - droits : tracer ou retirer une prise de contact exige de pouvoir modifier l'incident ou la
+    violation, et seuls les contacts de son entité ou d'une entité parente (fiche récursive) sont
+    proposés ;
+  - nouvelle table `glpi_plugin_grcmanager_officialcontactnotifications` et colonne
+    `contact_delay_hours`, supprimées à la désinstallation ; traces oubliées à la purge de
+    l'incident, de la violation ou du contact.
+  - Reste à faire (lot 3) : archivage daté du registre en PDF sur les mesures A.5.5 et A.5.6,
+    contacts affichés depuis le plan de continuité et les exercices de crise, contacts proposés selon
+    le type d'incident, reprise d'une communication de crise (#616) comme prise de contact.
 - **Référentiel Cyber France (ReCyF) de l'ANSSI pour NIS2** (issue #599, demande liée #789). Catalogue
   des 20 objectifs et 152 mesures de la version de travail 2.5 du 17 mars 2026, numérotés comme le
   document de l'ANSSI (« 10.B.3-EI/EE », « 2.A.2-EE ») ; chaque mesure est résumée avec les mots du
@@ -127,7 +157,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     droit de voir tous les changements. Les onglets vérifient eux-mêmes leurs droits.
   - Tables créées par l'installateur (rejouable) et supprimées à la désinstallation ; la fiche et
     la liste disparaissent avec l'application ou le changement supprimé définitivement.
-
 ### Fixed
 
 - **Désinstallation : journaux de la fiche de conformité des collaborateurs** (issue #808). L'historique

@@ -95,4 +95,84 @@ final class OfficialContactRulesTest extends TestCase
         ], '2026-11-20');
         $this->assertSame(['total' => 3, 'verified' => 1, 'to_verify' => 2], $summary);
     }
+
+    public function testDelayHoursAreBounded(): void
+    {
+        $this->assertSame(72, Rules::normalizeDelayHours('72'));
+        $this->assertSame(0, Rules::normalizeDelayHours('-5'));
+        $this->assertSame(0, Rules::normalizeDelayHours('72 h'));
+        $this->assertSame(0, Rules::normalizeDelayHours(['72']));
+        $this->assertSame(Rules::MAX_DELAY_HOURS, Rules::normalizeDelayHours(999999));
+    }
+
+    public function testDateTimeAndDecisionNormalization(): void
+    {
+        $this->assertSame('2026-03-10 09:30:00', Rules::normalizeDateTime('2026-03-10T09:30'));
+        $this->assertSame('2026-03-10 09:30:15', Rules::normalizeDateTime('2026-03-10 09:30:15'));
+        $this->assertNull(Rules::normalizeDateTime('2026-02-30 09:30'), 'Date impossible.');
+        $this->assertNull(Rules::normalizeDateTime('demain'));
+        $this->assertNull(Rules::normalizeDateTime(null));
+        $this->assertSame(Rules::DECISION_NOTIFIED, Rules::normalizeDecision('notified'));
+        $this->assertSame('', Rules::normalizeDecision('<b>'));
+    }
+
+    public function testDeadlineFromTheStartOfTheEvent(): void
+    {
+        $this->assertSame('2026-03-13 09:30:00', Rules::deadline('2026-03-10 09:30:00', 72));
+        $this->assertNull(Rules::deadline('2026-03-10 09:30:00', 0), 'Pas de délai chiffré.');
+        $this->assertNull(Rules::deadline(null, 72), 'Pas de date de début.');
+    }
+
+    public function testTraceRefusals(): void
+    {
+        $now = '2026-11-20 10:00:00';
+        $start = '2026-11-18 08:00:00';
+        $this->assertNull(Rules::traceRefusal(Rules::DECISION_NOTIFIED, '2026-11-19 10:00:00', '', $start, $now));
+        $this->assertSame(Rules::REFUSED_DECISION, Rules::traceRefusal('', '2026-11-19 10:00:00', '', $start, $now));
+        $this->assertSame(
+            Rules::REFUSED_REASON,
+            Rules::traceRefusal(Rules::DECISION_NOT_REQUIRED, '2026-11-19 10:00:00', '  ', $start, $now),
+            'Une décision de ne pas prévenir doit être motivée.'
+        );
+        $this->assertSame(Rules::REFUSED_DATE, Rules::traceRefusal(Rules::DECISION_NOTIFIED, null, '', $start, $now));
+        $this->assertSame(
+            Rules::REFUSED_FUTURE,
+            Rules::traceRefusal(Rules::DECISION_NOTIFIED, '2026-11-21 10:00:00', '', $start, $now)
+        );
+        $this->assertSame(
+            Rules::REFUSED_BEFORE_START,
+            Rules::traceRefusal(Rules::DECISION_NOTIFIED, '2026-11-17 10:00:00', '', $start, $now)
+        );
+    }
+
+    public function testNoticeStateOnTimeLateDecisionAndOverdue(): void
+    {
+        $start = '2026-11-10 08:00:00';
+        $notified = static fn (string $date): array => [
+            'decision'      => Rules::DECISION_NOTIFIED,
+            'date_notified' => $date,
+        ];
+
+        $onTime = Rules::noticeState([$notified('2026-11-12 08:00:00')], $start, 72, '2026-11-20 10:00:00');
+        $this->assertSame(Rules::NOTICE_ON_TIME, $onTime['state']);
+        $this->assertSame('2026-11-13 08:00:00', $onTime['deadline']);
+
+        // Première prévenance retenue : un complément tardif ne rend pas la notification tardive.
+        $traces = [$notified('2026-11-19 08:00:00'), $notified('2026-11-12 08:00:00')];
+        $this->assertSame(Rules::NOTICE_ON_TIME, Rules::noticeState($traces, $start, 72, '2026-11-20')['state']);
+
+        $late = Rules::noticeState([$notified('2026-11-14 08:00:00')], $start, 72, '2026-11-20 10:00:00');
+        $this->assertSame(Rules::NOTICE_LATE, $late['state']);
+
+        $decision = [['decision' => Rules::DECISION_NOT_REQUIRED, 'date_notified' => '2026-11-11 08:00:00']];
+        $this->assertSame(Rules::NOTICE_NOT_REQUIRED, Rules::noticeState($decision, $start, 72, '2026-11-20')['state']);
+
+        $this->assertSame(Rules::NOTICE_PENDING, Rules::noticeState([], $start, 72, '2026-11-11 08:00:00')['state']);
+        $this->assertSame(Rules::NOTICE_OVERDUE, Rules::noticeState([], $start, 72, '2026-11-20 10:00:00')['state']);
+        $this->assertSame(
+            Rules::NOTICE_PENDING,
+            Rules::noticeState([], $start, 0, '2027-01-01 00:00:00')['state'],
+            'Sans délai chiffré, jamais « échéance dépassée ».'
+        );
+    }
 }

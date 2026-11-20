@@ -372,6 +372,8 @@ class DataBreach extends DataBreachBase
 
         parent::post_purgeItem();
         $DB->delete(self::ACTIVITIES_TABLE, ['plugin_grcmanager_databreaches_id' => (int) $this->getID()]);
+        // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels pour cette violation.
+        OfficialContactNotification::forgetItem($this);
         AuditLog::record('purge', self::class, (int) $this->getID());
     }
 
