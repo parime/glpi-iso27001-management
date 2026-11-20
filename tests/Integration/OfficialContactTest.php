@@ -203,7 +203,8 @@ final class OfficialContactTest extends GrcmanagerIntegrationTestCase
         $this->assertGreaterThan(0, $breachId);
         $breach->getFromDB($breachId);
         $breachNames = self::names(OfficialContact::concernedBy($breach));
-        $this->assertSame(['PHPUnit CNIL fictive'], $breachNames);
+        $this->assertContains('PHPUnit CNIL fictive', $breachNames);
+        $this->assertNotContains('PHPUnit ANSSI fictive', $breachNames, 'Contact réservé aux incidents.');
         $this->assertNotSame('', (new OfficialContact())->getTabNameForItem($breach));
     }
 

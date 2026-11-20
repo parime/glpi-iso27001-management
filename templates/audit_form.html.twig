@@ -19,6 +19,8 @@
 
 {% block form_fields %}
    {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true}) }}
+   {# Issue #772 : type d'audit (interne ou de certification) et organisme. #}
+   {{ include('@grcmanager/_audit_certification_fields.html.twig') }}
    {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Auditor', 'grcmanager'), {'right': 'all'}) }}
    {{ fields.dropdownField('User', 'users_id_responsible', item.fields['users_id_responsible'], __('Audit owner', 'grcmanager'), {'right': 'all'}) }}
    {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'planned', statuses, __('Status', 'grcmanager')) }}

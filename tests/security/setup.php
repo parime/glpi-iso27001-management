@@ -79,7 +79,17 @@ if ($mode === 'xss') {
         $DB->update('glpi_plugin_grcmanager_' . $table, $row, ['id' => $id]);
     };
     $out = [];
-    $out['audit'] = $insert('audits', ['title' => $canary, 'scope' => $canary, 'conclusion' => $canary]);
+    // Issue #772 : audit de certification piégé (auditeur de l'organisme, référentiel) et son constat
+    // piégé (référence de l'organisme, processus, clause), sur la vue des constats et l'onglet.
+    $out['audit'] = $insert('audits', [
+        'title' => $canary, 'scope' => $canary, 'conclusion' => $canary,
+        'audit_type' => 'surveillance_1', 'lead_auditor' => $canary, 'certification_standard' => $canary,
+    ]);
+    $insert('nonconformities', [
+        'title' => $canary, 'plugin_grcmanager_audits_id' => $out['audit'], 'body_reference' => $canary,
+        'audited_process' => $canary, 'requirement_reference' => $canary, 'corrective_action' => $canary,
+        'root_cause' => $canary,
+    ]);
     $out['obligation'] = $insert('complianceobligations', [
         'title' => $canary, 'description' => $canary, 'reference_source' => $canary,
     ]);

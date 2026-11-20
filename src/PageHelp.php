@@ -71,6 +71,23 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #772 : constats des audits de certification précédents.
+            'certificationfinding' => [
+                'purpose'  => __(
+                    'At each surveillance audit, the certification body checks that the findings of its previous '
+                        . 'audit have been dealt with. This page lists those findings (nonconformities, areas of '
+                        . 'concern, opportunities for improvement) with their corrective action, their evidence and '
+                        . 'whether they are lifted.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Record each certification audit with its type, then its findings in the Findings tab of the '
+                        . 'audit, with the reference given by the body. Treat each finding (cause, action, owner, due '
+                        . 'date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to '
+                        . 'the auditor at the opening meeting of the next audit.',
+                    'grcmanager'
+                ),
+            ],
             // Issue #619 : préparation à la certification ISO 27001.
             'certificationreadiness' => [
                 'purpose'  => __(
