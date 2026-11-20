@@ -163,13 +163,19 @@ final class CertificationReadinessTest extends GrcmanagerIntegrationTestCase
         ]);
         $active = $_SESSION['glpiactiveentities'];
         $activeString = $_SESSION['glpiactiveentities_string'];
+        $parents = $_SESSION['glpiparententities'] ?? [];
         $_SESSION['glpiactiveentities'] = [$entityA];
         $_SESSION['glpiactiveentities_string'] = (string) $entityA;
+        // Entité active sous la racine : GLPI ajoute la condition sur les parents (is_recursive).
+        $_SESSION['glpiparententities'] = [0 => 0];
         try {
-            $this->assertSame(Rules::STATUS_TODO, $this->steps()['risk_assessment']['status'], 'risque de B ignoré');
+            $steps = $this->steps();
+            $this->assertSame(Rules::STATUS_TODO, $steps['risk_assessment']['status'], 'risque de B ignoré');
+            $this->assertNotSame(Rules::STATUS_LOCKED, $steps['exercises']['status'], 'exercices sans is_recursive');
         } finally {
             $_SESSION['glpiactiveentities'] = $active;
             $_SESSION['glpiactiveentities_string'] = $activeString;
+            $_SESSION['glpiparententities'] = $parents;
         }
         $this->assertSame(Rules::STATUS_DONE, $this->steps()['risk_assessment']['status']);
     }

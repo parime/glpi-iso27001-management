@@ -411,6 +411,23 @@ class CertificationReadiness extends CommonGLPI
     }
 
     /**
+     * Critère des entités de la session pour un module qui en a une. La récursivité n'est demandée
+     * que si la table a la colonne is_recursive (les exercices de crise n'en ont pas) : GLPI la cite
+     * dès que l'entité active a des entités parentes.
+     *
+     * @param class-string<\CommonDBTM> $itemtype
+     * @return list<array<mixed>>
+     */
+    private static function entityCriteria(string $itemtype): array
+    {
+        $item = new $itemtype();
+
+        return $item->isEntityAssign()
+            ? EntityPerimeter::criteria($itemtype::getTable(), $item->maybeRecursive())
+            : [];
+    }
+
+    /**
      * Nombre de lignes d'un module dans les entités de la session (quand il en a une).
      *
      * @param class-string<\CommonDBTM> $itemtype
@@ -421,7 +438,7 @@ class CertificationReadiness extends CommonGLPI
         global $DB;
 
         $table = $itemtype::getTable();
-        $criteria = (new $itemtype())->isEntityAssign() ? EntityPerimeter::criteria($table) : [];
+        $criteria = self::entityCriteria($itemtype);
 
         return (int) ($DB->request([
             'COUNT' => 'c',
@@ -445,7 +462,7 @@ class CertificationReadiness extends CommonGLPI
             'FROM'   => $table,
             'WHERE'  => array_merge(
                 ['status' => 'completed'],
-                (new $itemtype())->isEntityAssign() ? EntityPerimeter::criteria($table) : []
+                self::entityCriteria($itemtype)
             ),
         ])->current();
         $last = $row['last_date'] ?? null;
