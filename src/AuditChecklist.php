@@ -945,17 +945,18 @@ class AuditChecklist extends CommonGLPI
     /**
      * Couverture sur les $years dernières années, pour les exigences du SMSI et les mesures
      * applicables de la SoA de l'entité active, d'après les grilles des audits des entités de la
-     * session (audits annulés exclus ; date réelle, sinon date prévue).
+     * session (audits annulés exclus ; date réelle, sinon date prévue). Issue #773 : $since impose
+     * le début de la période (premier jour du cycle du programme d'audit).
      *
      * @return array<string, mixed>
      */
-    public static function coverage(int $years, ?string $today = null): array
+    public static function coverage(int $years, ?string $today = null, ?string $since = null): array
     {
         global $DB;
 
         $years = Rules::coverageYears($years);
         $today ??= date('Y-m-d');
-        $since = Rules::coverageStart($today, $years);
+        $since ??= Rules::coverageStart($today, $years);
         $catalog = [];
         foreach (self::catalog(EntityPerimeter::activeEntity()) as $entry) {
             if ($entry['type'] !== Rules::TYPE_CUSTOM) {

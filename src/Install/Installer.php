@@ -451,6 +451,11 @@ final class Installer
     // Issue #537 : référentiels personnalisés importés et leurs exigences.
     private const CUSTOM_FRAMEWORKS_TABLE = 'glpi_plugin_grcmanager_customframeworks';
     private const CUSTOM_REQUIREMENTS_TABLE = 'glpi_plugin_grcmanager_customrequirements';
+    // Issue #773 : programme d'audit interne (ISO 19011) : processus audités, justifications
+    // d'indépendance des auditeurs, remise du rapport à la direction.
+    private const AUDITS_PROCESSES_TABLE = 'glpi_plugin_grcmanager_audits_processes';
+    private const AUDIT_INDEPENDENCE_WAIVERS_TABLE = 'glpi_plugin_grcmanager_auditindependencewaivers';
+    private const AUDIT_REPORT_DELIVERIES_TABLE = 'glpi_plugin_grcmanager_auditreportdeliveries';
 
     /**
      * Création et mise à jour du schéma. Les ordres DDL passent par $DB->doQuery(), qui lève une
@@ -1451,6 +1456,7 @@ final class Installer
         $this->installSentinelOneTables($keySign, $charset, $collation);
         $this->installEndOfLifeTables($keySign, $charset, $collation);
         $this->installManagementReviewDossierTables($keySign, $charset, $collation);
+        $this->installAuditProgrammeTables($keySign, $charset, $collation);
         $this->installControlTestSampleTables($migration, $keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
@@ -5096,6 +5102,57 @@ final class Installer
      * par le dossier de la revue suivante, 9.3.2 a) et dossiers préparatoires générés (PDF archivé
      * sur la revue, période couverte et empreinte SHA-256).
      */
+    /**
+     * Issue #773 : programme d'audit interne selon l'ISO 19011. Processus (activités de la matrice
+     * des responsabilités) visés par un audit, justification de chaque conflit d'indépendance
+     * d'un auditeur, remise du rapport à la direction (date et destinataire, 9.3.2 d 3).
+     */
+    private function installAuditProgrammeTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::AUDITS_PROCESSES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDITS_PROCESSES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_audits_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_responsibilityactivities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_audits_id`, `plugin_grcmanager_responsibilityactivities_id`),
+                KEY `activities_id` (`plugin_grcmanager_responsibilityactivities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDIT_INDEPENDENCE_WAIVERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_audits_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auditeur en conflit',
+                `plugin_grcmanager_responsibilityactivities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `justification` text,
+                `users_id_author` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur de la justification',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_audits_id`, `users_id`,
+                    `plugin_grcmanager_responsibilityactivities_id`),
+                KEY `activities_id` (`plugin_grcmanager_responsibilityactivities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::AUDIT_REPORT_DELIVERIES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDIT_REPORT_DELIVERIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_audits_id` int {$keySign} NOT NULL DEFAULT 0,
+                `delivery_date` date DEFAULT NULL,
+                `users_id_recipient` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Destinataire (direction)',
+                `comment` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur de la saisie',
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_audits_id`),
+                KEY `users_id_recipient` (`users_id_recipient`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
     private function installManagementReviewDossierTables(string $keySign, string $charset, string $collation): void
     {
         global $DB;
@@ -6048,6 +6105,9 @@ final class Installer
         $migration->dropTable(self::RESPONSIBILITY_ASSIGNMENTS_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_ACTIVITIES_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_EXPORTS_TABLE);
+        $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
+        $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
+        $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);
         $migration->dropTable(self::ACN_REQUIREMENTS_LINKS_TABLE);
         $migration->dropTable(self::ACN_REQUIREMENTS_TABLE);
         $migration->dropTable(self::ACN_ENTITIES_TABLE);

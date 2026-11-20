@@ -151,6 +151,25 @@ configuration du plugin. Le droit Documents de GLPI ne suffit pas. L'onglet **Ac
 liste chaque téléchargement (date, utilisateur, document) et l'onglet **Notes** garde les notes de
 travail datées, avec leur auteur.
 
+**Audit interne selon l'ISO 19011** (ISO 27001 9.2) :
+
+1. **Programme pluriannuel** : la page **Programme d'audit pluriannuel** de la rubrique présente les
+   processus du SMSI (les activités de la matrice des responsabilités) par année du cycle de
+   certification (3 ans, année de départ choisie sur la page). Un processus en rouge n'a aucun audit
+   sur le cycle, en orange son audit est en retard. Les exigences du SMSI qu'aucune grille d'audit du
+   cycle ne couvre sont aussi signalées.
+2. **Processus audités** : dans l'onglet **Programme et indépendance** de l'audit, choisissez les
+   processus qu'il audite.
+3. **Indépendance** : un auditeur (celui de la fiche ou un auditeur de l'équipe) qui réalise ou
+   approuve un processus audité dans la matrice des responsabilités, en son nom ou par un groupe, est
+   en conflit. L'audit ne peut être ni démarré ni terminé tant que chaque conflit n'a pas de
+   justification, conservée avec son auteur, sa date et dans l'historique de l'audit.
+4. **Compétence** : choisissez sur la page du programme les formations qui qualifient un auditeur
+   interne (par exemple « Auditeur interne ISO 27001 »). L'onglet **Équipe** indique alors pour
+   chaque auditeur s'il est qualifié, si sa qualification est à renouveler ou s'il n'en a aucune.
+5. **Remise du rapport à la direction** : saisissez la date de remise et le destinataire dans le même
+   onglet. Ils figurent dans le dossier de revue de direction (9.3.2 d 3).
+
 Depuis l'onglet **Non-conformités** de la rubrique, une non-conformité peut être liée à cet audit interne, avec
 une sévérité, une échéance, une description et une cause racine.
 
@@ -575,6 +594,25 @@ only be read by its **team**: the auditor and the owner set on the form, the mem
 **Équipe** tab (auditors, or read-only auditees) and the **CISO group** chosen in the plugin
 configuration. The GLPI Documents right is not enough. The **Accès aux documents** tab lists every
 download (date, user, document) and the **Notes** tab keeps dated working notes with their author.
+
+**Internal audit according to ISO 19011** (ISO 27001 9.2):
+
+1. **Multi-year programme**: the **Programme d'audit pluriannuel** page of the section shows the
+   ISMS processes (the activities of the responsibility matrix) by year of the certification cycle
+   (3 years, start year chosen on the page). A process in red has no audit over the cycle, in
+   orange its audit is overdue. The ISMS requirements that no audit checklist of the cycle covers
+   are listed too.
+2. **Audited processes**: in the **Programme et indépendance** tab of the audit, choose the processes
+   it audits.
+3. **Independence**: an auditor (the auditor of the form or an auditor of the team) who performs or
+   approves an audited process in the responsibility matrix, directly or through a group, is in
+   conflict. The audit cannot be started or closed until each conflict has a justification, kept
+   with its author and date and in the history of the audit.
+4. **Competence**: choose on the programme page the trainings that qualify an internal auditor
+   (for example "ISO 27001 internal auditor"). The **Équipe** tab then shows for each auditor
+   whether they are qualified, have to renew the qualification, or have none.
+5. **Report to management**: enter the delivery date of the report and its recipient in the same
+   tab. Both appear in the management review dossier (9.3.2 d 3).
 
 From the section's **Non-conformités** tab, a non-conformity can be linked to this internal audit, with a
 severity, a due date, a description and a root cause.

@@ -1,0 +1,133 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #773 : processus audités, indépendance des auditeurs (ISO 19011) et remise du rapport à la
+   direction. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+<div id="grc-audit-programme-tab">
+
+<div class="card mb-3">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-hierarchy-3 me-2"></i>{{ __('Audited processes', 'grcmanager') }}</h3>
+      <div class="card-actions">
+         <a href="{{ programme_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-calendar-stats me-1"></i>{{ __('Multi-year audit programme', 'grcmanager') }}</a>
+      </div>
+   </div>
+   <div class="card-body">
+      <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('The processes are the ISMS activities of the responsibility matrix. The processes chosen here fill the multi-year audit programme and are used to check the independence of the auditors.', 'grcmanager') }}</p>
+      {% if choices is empty %}
+         <div class="alert alert-info mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('No ISMS activity in the entity of the audit: create them in the responsibility matrix first.', 'grcmanager') }}
+            <a href="{{ raci_url }}">{{ __('Responsibility matrix', 'grcmanager') }}</a></div>
+      {% elseif can_edit %}
+         <form method="post" action="{{ action }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit.getID() }}">
+            {{ fields.dropdownArrayField('processes', null, choices, __('Audited processes', 'grcmanager'), {
+               'multiple': true,
+               'values': selected,
+               'full_width': true,
+            }) }}
+            <button type="submit" name="save_processes" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+         </form>
+      {% else %}
+         <ul class="mb-0" id="grc-audit-processes">
+            {% for id in selected %}<li>{{ choices[id] ?? '' }}</li>{% else %}<li class="text-muted">{{ __('No process chosen.', 'grcmanager') }}</li>{% endfor %}
+         </ul>
+      {% endif %}
+   </div>
+</div>
+
+<div class="card mb-3">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-scale me-2"></i>{{ __('Independence of the auditors', 'grcmanager') }}</h3>
+   </div>
+   <div class="card-body">
+      <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('An auditor must not audit their own work (ISO 19011). An auditor who performs or approves an audited process in the responsibility matrix, directly or through a group, is in conflict. The audit cannot be started or closed until each conflict is justified; the justification is kept with its author and date.', 'grcmanager') }}</p>
+      <p class="small mb-2"><strong>{{ __('Auditors', 'grcmanager') }} :</strong>
+         {{ auditors is empty ? __('none: set the auditor on the form or add auditors in the Team tab.', 'grcmanager') : auditors|join(', ') }}</p>
+      {% if conflicts is empty %}
+         <div class="alert alert-success mb-0" id="grc-independence-ok"><i class="ti ti-circle-check me-1"></i>{{ __('No independence conflict between the auditors and the audited processes.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+         <table class="table table-sm table-vcenter" id="grc-independence-conflicts">
+            <thead><tr>
+               <th>{{ __('Auditor', 'grcmanager') }}</th>
+               <th>{{ __('Process', 'grcmanager') }}</th>
+               <th>{{ __('Role in the matrix', 'grcmanager') }}</th>
+               <th>{{ __('Justification', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+            {% for c in conflicts %}
+               <tr class="{{ c.waiver ? 'grc-conflict-justified' : 'grc-conflict-open' }}">
+                  <td>{{ c.user }}</td>
+                  <td>{{ c.process }}</td>
+                  <td>{{ c.role_label }}{% if c.group %} <span class="text-muted small">({{ __('through the group %s', 'grcmanager')|format(c.group) }})</span>{% endif %}</td>
+                  <td>
+                     {% if c.waiver %}
+                        <span class="badge bg-green-lt"><i class="ti ti-check me-1"></i>{{ __('Justified', 'grcmanager') }}</span>
+                        <div class="small">{{ c.waiver.justification|nl2br }}</div>
+                        <div class="small text-muted">{{ __('%1$s, %2$s', 'grcmanager')|format(c.waiver.author, c.waiver.date) }}</div>
+                     {% else %}
+                        <span class="badge bg-red-lt mb-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('To justify', 'grcmanager') }}</span>
+                        {% if can_edit %}
+                           <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-2 align-items-start">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit.getID() }}">
+                              <input type="hidden" name="users_id" value="{{ c.users_id }}">
+                              <input type="hidden" name="process_id" value="{{ c.process_id }}">
+                              <textarea name="justification" class="form-control form-control-sm" rows="2" minlength="{{ min_length }}" required
+                                 aria-label="{{ __('Justification', 'grcmanager') }}"
+                                 placeholder="{{ __('Why this auditor can still audit this process objectively (e.g. small team, part audited by someone else)', 'grcmanager') }}"></textarea>
+                              <button type="submit" name="justify" value="1" class="btn btn-sm btn-outline-warning"><i class="ti ti-signature me-1"></i>{{ __('Record the justification', 'grcmanager') }}</button>
+                           </form>
+                        {% endif %}
+                     {% endif %}
+                  </td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+         </div>
+      {% endif %}
+   </div>
+</div>
+
+<div class="card mb-3">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-mail-forward me-2"></i>{{ __('Report delivered to management', 'grcmanager') }}</h3>
+   </div>
+   <div class="card-body">
+      <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('The results of the audit must be reported to management (ISO 27001 9.2.2). The delivery date and the recipient appear in the management review dossier (9.3.2 d 3).', 'grcmanager') }}</p>
+      {% if delivery %}
+         <p id="grc-report-delivery"><span class="badge bg-green-lt"><i class="ti ti-check me-1"></i>{{ __('Delivered on %1$s to %2$s', 'grcmanager')|format(delivery_text, recipient) }}</span>
+            {% if delivery.comment %}<span class="small text-muted ms-2">{{ delivery.comment }}</span>{% endif %}</p>
+      {% else %}
+         <p id="grc-report-delivery"><span class="badge bg-orange-lt"><i class="ti ti-clock me-1"></i>{{ __('Not yet delivered to management', 'grcmanager') }}</span></p>
+      {% endif %}
+      {% if can_edit %}
+         <form method="post" action="{{ action }}" class="row g-2 align-items-end">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit.getID() }}">
+            {{ fields.dateField('delivery_date', delivery_date, __('Delivery date', 'grcmanager'), {'field_class': 'col-md-3'}) }}
+            {{ fields.dropdownField('User', 'users_id_recipient', recipient_id, __('Recipient', 'grcmanager'), {'right': 'all', 'field_class': 'col-md-4', 'entity': audit.fields['entities_id'], 'entity_sons': audit.fields['is_recursive'] ? true : false}) }}
+            {{ fields.textField('delivery_comment', delivery.comment ?? '', __('Comment', 'grcmanager'), {'field_class': 'col-md-3'}) }}
+            <div class="col-md-2">
+               <button type="submit" name="save_delivery" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+            </div>
+         </form>
+      {% endif %}
+   </div>
+</div>
+
+</div>
