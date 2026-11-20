@@ -360,6 +360,8 @@ if ($mode === 'xss') {
     $insert('businessprocessrecoveries', [
         'plugin_grcmanager_businessprocesses_id' => $out['process'], 'test_date' => date('Y-m-d'),
         'measured_minutes' => 90, 'comment' => $canary,
+        // Issue #733 : type d'exercice piégé (onglet du processus, programme, historique de l'élément).
+        'exercise_type' => $canary, 'measured_rpo_minutes' => 30,
     ]);
     // Issue #776 : scénario de crise piégé (nom, description, mode dégradé, rôles, commentaire), lié au
     // processus piégé (registre, fiche, onglet du processus, PDF).
@@ -444,6 +446,8 @@ if ($mode === 'xss') {
         'plugin_grcmanager_crisisexercises_id' => $exercise, 'action' => 'reopened', 'users_id' => 2,
         'date' => date('Y-m-d H:i:s'), 'comment' => $canary,
     ]);
+    // Issue #733 : type d'exercice piégé (salle de crise, liste des exercices).
+    $DB->update('glpi_plugin_grcmanager_crisisexercises', ['exercise_type' => $canary], ['id' => $exercise]);
     $out['exercise'] = $exercise;
     // Issue #777 : application et changement pieges (nom), avec leur fiche et leur liste de controle
     // piegees : page du developpement securise, onglets de l'application et du changement.

@@ -31,7 +31,9 @@ if (isset($_POST['launch'])) {
     $exerciseId = \GlpiPlugin\Grcmanager\CrisisExercise::launch(
         (string) $_POST['launch'],
         // Issue #732 : objectifs de l'exercice, un par ligne.
-        \GlpiPlugin\Grcmanager\Services\Exercise\ExerciseReview::splitObjectives((string) ($_POST['objectives'] ?? ''))
+        \GlpiPlugin\Grcmanager\Services\Exercise\ExerciseReview::splitObjectives((string) ($_POST['objectives'] ?? '')),
+        // Issue #733 : type d'exercice (sur table, fonctionnel, restauration, grandeur nature...).
+        (string) ($_POST['exercise_type'] ?? '')
     );
     if ($exerciseId > 0) {
         Html::redirect(\GlpiPlugin\Grcmanager\CrisisExercise::getFormURLWithID($exerciseId));
@@ -68,6 +70,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/crisis_exercises.html.twig
     'scenarios'  => $scenarios,
     'history'    => \GlpiPlugin\Grcmanager\CrisisExercise::history(),
     'can_launch' => \GlpiPlugin\Grcmanager\CrisisExercise::canCreate(),
+    'types'      => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::typeChoices(),
     'action'     => \GlpiPlugin\Grcmanager\CrisisExercise::getSearchURL(),
 ]);
 Html::footer();

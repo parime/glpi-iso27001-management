@@ -106,7 +106,11 @@ class NotificationTargetBusinessProcess extends NotificationTarget
         $isBia = $event === BusinessProcessReminder::EVENT_BIA;
         $due = (string) ($options['due_date'] ?? ($isBia
             ? BusinessProcessReminder::biaDueDate($fields)
-            : BusinessProcessReminder::recoveryDueDate($last['test_date'] ?? null)));
+            : BusinessProcessReminder::recoveryDueDate(
+                $last['test_date'] ?? null,
+                BusinessProcessReminder::recoveryMonths($fields),
+                (string) ($fields['date_creation'] ?? '')
+            )));
         $status = (string) ($options['due_status'] ?? ControlTestRules::dueStatus($due, date('Y-m-d')));
         $ownerId = (int) ($fields['users_id'] ?? 0);
         $criticity = (int) ($fields['businesscriticities_id'] ?? 0);
