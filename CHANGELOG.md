@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.68.0] - 2026-11-20
+
 ### Added
 
 - **Plan d'audit de l'organisme de certification** (issue #772, lot 2). Nouvel écran « Plan d'audit
