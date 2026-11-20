@@ -18,6 +18,7 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\CertificationFinding;
+use GlpiPlugin\Grcmanager\CertificationSampling;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 
 // Issue #772 : constats des audits de certification précédents et état de leur levée, avec un
@@ -27,7 +28,9 @@ Session::checkRight(CertificationFinding::RIGHTNAME, READ);
 
 $auditId = max(0, (int) ($_GET['audit'] ?? 0));
 $openOnly = !empty($_GET['open']);
-$report = CertificationFinding::report($auditId, $openOnly);
+// Lot 2 : constats d'un processus du plan d'audit de l'organisme (processus des entités de la session).
+$processId = max(0, (int) ($_GET['process'] ?? 0));
+$report = CertificationFinding::report($auditId, $openOnly, $processId);
 
 if (($_GET['format'] ?? '') === 'pdf') {
     $pdf = PdfRenderer::renderHtmlToPdf(CertificationFinding::renderPdf($report));
@@ -49,12 +52,17 @@ Html::header(
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('certificationfinding');
 
-$query = array_filter(['audit' => $report['selected'], 'open' => $openOnly ? 1 : 0]);
+$query = array_filter([
+    'audit'   => $report['selected'],
+    'open'    => $openOnly ? 1 : 0,
+    'process' => $report['process'] !== null ? $report['process']['id'] : 0,
+]);
 TemplateRenderer::getInstance()->display('@grcmanager/certification_findings.html.twig', $report + [
     'page_url'    => CertificationFinding::getSearchURL(),
     'pdf_url'     => CertificationFinding::getSearchURL() . '?' . http_build_query($query + ['format' => 'pdf']),
     'lift_states' => CertificationFinding::getLiftStates(),
     'categories'  => CertificationFinding::getCategories(),
     'add_url'     => Audit::canCreate() ? Audit::getFormURL() : '',
+    'plan_url'    => CertificationSampling::getSearchURL(),
 ]);
 Html::footer();

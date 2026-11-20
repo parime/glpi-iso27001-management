@@ -27,6 +27,7 @@
   {% endfor %}
 </table>
 {% if open_only %}<p>{{ __('Only findings not lifted are listed.', 'grcmanager') }}</p>{% endif %}
+{% if process %}<p>{{ __('Findings of the process: %s', 'grcmanager')|format(process.label) }}</p>{% endif %}
 
 {% if audits is empty %}
   <p>{{ __('No certification audit recorded yet.', 'grcmanager') }}</p>
