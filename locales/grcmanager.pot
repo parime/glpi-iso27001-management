@@ -23235,13 +23235,6 @@ msgid ""
 "directly."
 msgstr ""
 
-#: templates/framework_assessment.html.twig
-msgid ""
-"To assess NIS2 on the measures of a national framework (for example ReCyF in "
-"France), import it as a custom framework and enable it: it is then assessed "
-"on its own requirements."
-msgstr ""
-
 #: templates/impact_spof.html.twig
 msgid ""
 "An item whose availability is classified \"high\" and that depends on a "
