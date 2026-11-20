@@ -584,6 +584,9 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             PluginGrcmanagerSecurityIncidentCost::class,
         ]);
 
+        // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels pour cet incident.
+        \GlpiPlugin\Grcmanager\OfficialContactNotification::forgetItem($this);
+
         // Issue #370 : identifiants d'alerte importés, pour qu'un ré-import recrée l'incident.
         global $DB;
         $DB->delete(

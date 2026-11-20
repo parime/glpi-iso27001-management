@@ -238,6 +238,13 @@ if ($mode === 'xss') {
         'template_name' => $canary, 'subject' => $canary, 'body' => $canary, 'recipients' => $canary,
         'users_id' => 2, 'date_communication' => date('Y-m-d H:i:s'),
     ]);
+    // Issue #771, lot 2 : prise de contact piégée (onglet de l'incident de A, fiche du contact).
+    $insert('officialcontactnotifications', [
+        'entities_id' => (int) $ids['a'], 'itemtype' => 'PluginGrcmanagerSecurityIncident',
+        'items_id' => (int) $ids['incident_A'], 'plugin_grcmanager_contextitems_id' => $out['official_contact'],
+        'decision' => 'notified', 'date_notified' => date('Y-m-d H:i:s'), 'reference' => $canary,
+        'comment' => $canary, 'users_id' => 2,
+    ]);
     // Issue #620 : chaque champ texte d'une violation de données.
     $out['breach'] = $insert('databreaches', [
         'name' => $canary, 'description' => $canary, 'data_details' => $canary, 'consequences' => $canary,
@@ -1276,6 +1283,25 @@ foreach (['A', 'B'] as $suffix) {
             'users_id'                                    => 2,
             'date_communication'                          => date('Y-m-d H:i:s'),
             'date_creation'                               => date('Y-m-d H:i:s'),
+        ]);
+    }
+}
+// Issue #771, lot 2 : une prise de contact tracée avec le contact officiel de A, sur l'incident de
+// chaque entité. Celle de l'incident de B ne doit apparaître sur la fiche du contact de A qu'au
+// super-admin (les autres ne la voient que comptée).
+foreach (['A', 'B'] as $suffix) {
+    $traceCriteria = [
+        'itemtype' => PluginGrcmanagerSecurityIncident::class, 'items_id' => $ids['incident_' . $suffix],
+        'plugin_grcmanager_contextitems_id' => $ids['context_A'],
+    ];
+    if (countElementsInTable('glpi_plugin_grcmanager_officialcontactnotifications', $traceCriteria) === 0) {
+        $DB->insert('glpi_plugin_grcmanager_officialcontactnotifications', $traceCriteria + [
+            'entities_id'   => $suffix === 'A' ? $a : $b,
+            'decision'      => 'notified',
+            'date_notified' => date('Y-m-d H:i:s'),
+            'reference'     => 'Dossier securite ' . $suffix,
+            'users_id'      => 2,
+            'date_creation' => date('Y-m-d H:i:s'),
         ]);
     }
 }
