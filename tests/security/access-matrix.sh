@@ -194,6 +194,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # faut pouvoir modifier les politiques.
   expect "front/operatingprocedure.php : archiver sur A.5.37" "$1" \
     "$(code -d "archive=1&_glpi_csrf_token=$(csrf)" "$P/operatingprocedure.php")"
+  # Issue #771, lot 3 : archiver le registre des contacts officiels sur A.5.5 et A.5.6 cree un
+  # document : il faut pouvoir modifier le contexte de l'organisation.
+  expect "front/officialcontact.php : archiver sur A.5.5 et A.5.6" "$1" \
+    "$(code -d "archive=1&_glpi_csrf_token=$(csrf)" "$P/officialcontact.php")"
   # Issue #775, lot 2 : tracer la revue d'une procedure exige de pouvoir modifier les politiques.
   expect "front/policy.form.php : enregistrer la revue" "$1" \
     "$(code -d "_record_procedure_review=1&id=$(id policy_A)&_glpi_csrf_token=$(csrf)" "$P/policy.form.php")"

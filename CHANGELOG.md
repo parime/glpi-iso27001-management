@@ -9,6 +9,28 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Contacts officiels, dernier lot** (issue #771, lot 3, mesures A.5.5 et A.5.6) :
+  - **contacts proposés selon le type d'incident** : nouvelle liste « Seulement pour ces types
+    d'incident » sur la fiche du contact (vide : tous les incidents) ; un incident de type
+    « Violation de données » propose aussi les contacts à prévenir pour une violation. Types
+    affichés dans le registre et son PDF ;
+  - **communication de crise reprise comme prise de contact** (#616, #800) : en traçant un message
+    envoyé à un contact officiel, la case « Tracer aussi une prise de contact » (cochée par défaut,
+    décochable) crée la prise de contact « prévenu » à la date du message, mêmes contrôles qu'une
+    saisie (droit de modifier l'incident, entité du contact, date) ; badge « Depuis une
+    communication de crise » dans l'onglet ; nouvelle colonne
+    `plugin_grcmanager_crisiscommunications_id` des prises de contact ;
+  - **archivage daté du registre** : bouton « Archiver sur les mesures A.5.5 et A.5.6 » (droit de
+    modifier le contexte), PDF joint aux deux mesures de la SoA de l'entité active, derniers
+    registres archivés listés en tête du registre ;
+  - **plan de continuité** : le PDF du PCA / PRA se termine par les contacts officiels à prévenir
+    (ceux de l'entité du processus pour le plan d'un seul processus) ;
+  - **salle de crise** : cadre « Contacts officiels à prévenir » avec l'échéance et la situation de
+    chacun, lien vers l'onglet pour tracer l'appel, repris dans le rapport PDF de l'exercice ;
+  - nouvelle colonne `contact_incident_categories` des parties intéressées ; tests unitaires et
+    d'intégration, matrice d'accès, traductions, tutoriel (étape 22, FR et EN). Ce lot termine
+    l'issue #771.
+
 - **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
   contacts officiels** (issue #776, lot 2, mesure A.5.29) :
   - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les
