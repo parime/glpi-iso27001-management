@@ -19718,3 +19718,314 @@ msgid "%1$s (%2$d line)"
 msgid_plural "%1$s (%2$d lines)"
 msgstr[0] "%1$s (%2$d Zeile)"
 msgstr[1] "%1$s (%2$d Zeilen)"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Reviewer"
+msgstr "Prüfer"
+
+msgid "Sample"
+msgid_plural "Samples"
+msgstr[0] "Stichprobe"
+msgstr[1] "Stichproben"
+
+msgid "Question checked on each item"
+msgstr "Auf jedem Element geprüfte Frage"
+
+msgid "Items in the population"
+msgstr "Elemente der Grundgesamtheit"
+
+msgid "Sample size"
+msgstr "Stichprobengröße"
+
+msgid "Draw date"
+msgstr "Ziehungsdatum"
+
+msgid "Drawn by"
+msgstr "Gezogen von"
+
+msgid "Seed"
+msgstr "Startwert (Seed)"
+
+msgid "Proposed result"
+msgstr "Vorgeschlagenes Ergebnis"
+
+msgid "Justification of a different result"
+msgstr "Begründung eines abweichenden Ergebnisses"
+
+msgid "Each item of the population is ranked by the SHA-256 fingerprint of \"seed:identifier\"; the first items of this ranking form the sample. The same population and the same seed always give the same sample."
+msgstr "Jedes Element der Grundgesamtheit wird nach dem SHA-256-Fingerabdruck von „Startwert:Kennung“ geordnet; die ersten Elemente dieser Reihenfolge bilden die Stichprobe. Dieselbe Grundgesamtheit und derselbe Startwert ergeben immer dieselbe Stichprobe."
+
+#, php-format
+msgid "Back to the tests of %s"
+msgstr "Zurück zu den Tests von %s"
+
+msgid "Recorded as a test"
+msgstr "Als Test erfasst"
+
+msgid "Test record for the auditor (PDF)"
+msgstr "Testnachweis für den Auditor (PDF)"
+
+msgid "Population and criteria"
+msgstr "Grundgesamtheit und Kriterien"
+
+msgid "How the sample was drawn"
+msgstr "Wie die Stichprobe gezogen wurde"
+
+msgid "once every item is checked"
+msgstr "sobald jedes Element geprüft ist"
+
+msgid "none: every item is not applicable"
+msgstr "keines: alle Elemente sind nicht anwendbar"
+
+msgid "Items drawn"
+msgstr "Gezogene Elemente"
+
+msgid "A non-compliant or not applicable item must be explained in its comment."
+msgstr "Ein nicht konformes oder nicht anwendbares Element muss im Kommentar erläutert werden."
+
+msgid "Save the results"
+msgstr "Ergebnisse speichern"
+
+msgid "Record the test from this sample"
+msgstr "Test aus dieser Stichprobe erfassen"
+
+#, php-format
+msgid "Proposed: no deviation gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test."
+msgstr "Vorschlag: keine Abweichung ergibt einen wirksamen Test, mindestens %d%% konform einen teilweise wirksamen Test, darunter einen unwirksamen Test."
+
+msgid "Optional: the sample and its results are added to the finding."
+msgstr "Optional: Die Stichprobe und ihre Ergebnisse werden der Feststellung hinzugefügt."
+
+msgid "Another person will have to review this test before it counts for the \"Verified\" status."
+msgstr "Eine andere Person muss diesen Test prüfen, bevor er für den Status „Verifiziert“ zählt."
+
+msgid "Once the test is recorded, the sample is frozen. Deleting the test opens the sample again."
+msgstr "Sobald der Test erfasst ist, wird die Stichprobe eingefroren. Das Löschen des Tests öffnet die Stichprobe wieder."
+
+msgid "Delete this sample?"
+msgstr "Diese Stichprobe löschen?"
+
+msgid "Delete this sample"
+msgstr "Diese Stichprobe löschen"
+
+msgid "Review of effectiveness tests"
+msgstr "Prüfung der Wirksamkeitstests"
+
+msgid "When enabled, an effective test only gives the \"Verified\" status once another person (neither the tester nor the person who recorded it) has approved it. A partially effective or ineffective test still withdraws the \"Verified\" status at once."
+msgstr "Wenn aktiviert, ergibt ein wirksamer Test den Status „Verifiziert“ erst, nachdem eine andere Person (weder der Tester noch die erfassende Person) ihn genehmigt hat. Ein teilweise wirksamer oder unwirksamer Test entzieht den Status „Verifiziert“ weiterhin sofort."
+
+msgid "Require a review of each new effectiveness test"
+msgstr "Prüfung jedes neuen Wirksamkeitstests verlangen"
+
+msgid "Draw a sample in GLPI"
+msgstr "Stichprobe in GLPI ziehen"
+
+msgid "The items are drawn at random from what you can see in GLPI (your active entities and rights). The population, the criteria, the size, the seed, the date and the author are kept with the sample: the same draw can be checked again by the auditor."
+msgstr "Die Elemente werden zufällig aus dem gezogen, was Sie in GLPI sehen (Ihre aktiven Entitäten und Rechte). Grundgesamtheit, Kriterien, Größe, Startwert, Datum und Autor werden mit der Stichprobe gespeichert: Der Auditor kann dieselbe Ziehung erneut prüfen."
+
+msgid "Example: does each closed change have an approved validation?"
+msgstr "Beispiel: Hat jede abgeschlossene Änderung eine genehmigte Freigabe?"
+
+msgid "Population"
+msgstr "Grundgesamtheit"
+
+msgid "not allowed"
+msgstr "nicht erlaubt"
+
+msgid "Tickets and changes require the right to see all of them."
+msgstr "Tickets und Änderungen erfordern das Recht, alle zu sehen."
+
+msgid "All my active entities"
+msgstr "Alle meine aktiven Entitäten"
+
+msgid "Period covered: from"
+msgstr "Abgedeckter Zeitraum: vom"
+
+msgid "to"
+msgstr "bis"
+
+msgid "Creation date of users and computers; opening date of tickets and changes, or closing date if closed only."
+msgstr "Erstellungsdatum von Benutzern und Computern; Eröffnungsdatum von Tickets und Änderungen oder Abschlussdatum bei nur abgeschlossenen."
+
+msgid "Category (tickets and changes)"
+msgstr "Kategorie (Tickets und Änderungen)"
+
+msgid "Closed tickets or changes only"
+msgstr "Nur abgeschlossene Tickets oder Änderungen"
+
+msgid "Active user accounts only"
+msgstr "Nur aktive Benutzerkonten"
+
+msgid "How often the control operates"
+msgstr "Wie oft die Kontrolle ausgeführt wird"
+
+msgid "Empty: the size proposed for this frequency."
+msgstr "Leer: die für diese Häufigkeit vorgeschlagene Größe."
+
+msgid "Seed (optional)"
+msgstr "Startwert (optional)"
+
+msgid "Empty: a random seed is generated. Enter the seed of an earlier draw to reproduce it."
+msgstr "Leer: ein zufälliger Startwert wird erzeugt. Geben Sie den Startwert einer früheren Ziehung ein, um sie zu wiederholen."
+
+msgid "Draw the sample"
+msgstr "Stichprobe ziehen"
+
+msgid "Samples in progress"
+msgstr "Laufende Stichproben"
+
+#, php-format
+msgid "%1$d out of %2$d"
+msgstr "%1$d von %2$d"
+
+msgid "Review comment"
+msgstr "Prüfkommentar"
+
+msgid "Review comment (required to return the test)"
+msgstr "Prüfkommentar (erforderlich, um den Test zurückzugeben)"
+
+msgid "Return"
+msgstr "Zurückgeben"
+
+#, php-format
+msgid "Sample: %1$d out of %2$d"
+msgstr "Stichprobe: %1$d von %2$d"
+
+msgid "This sample is already recorded as a test."
+msgstr "Diese Stichprobe ist bereits als Test erfasst."
+
+msgid "Awaiting review"
+msgstr "Prüfung ausstehend"
+
+msgid "Review approved"
+msgstr "Prüfung genehmigt"
+
+msgid "Returned by the reviewer"
+msgstr "Vom Prüfer zurückgegeben"
+
+msgid "The test awaits review by another person before it counts for the \"Verified\" status."
+msgstr "Der Test wartet auf die Prüfung durch eine andere Person, bevor er für den Status „Verifiziert“ zählt."
+
+msgid "Explain why the test is returned."
+msgstr "Erläutern Sie, warum der Test zurückgegeben wird."
+
+msgid "Test approved: it now counts for the \"Verified\" status."
+msgstr "Test genehmigt: Er zählt nun für den Status „Verifiziert“."
+
+msgid "Test returned to its author: it does not count for the \"Verified\" status."
+msgstr "Test an seinen Autor zurückgegeben: Er zählt nicht für den Status „Verifiziert“."
+
+#, php-format
+msgid "Effectiveness test of %s"
+msgstr "Wirksamkeitstest von %s"
+
+msgid "Annual control"
+msgstr "Jährliche Kontrolle"
+
+msgid "Quarterly control"
+msgstr "Vierteljährliche Kontrolle"
+
+msgid "Monthly control"
+msgstr "Monatliche Kontrolle"
+
+msgid "Weekly control"
+msgstr "Wöchentliche Kontrolle"
+
+msgid "Daily control"
+msgstr "Tägliche Kontrolle"
+
+msgid "Control run several times a day"
+msgstr "Mehrmals täglich ausgeführte Kontrolle"
+
+#, php-format
+msgid "%1$s (%2$d item)"
+msgid_plural "%1$s (%2$d items)"
+msgstr[0] "%1$s (%2$d Element)"
+msgstr[1] "%1$s (%2$d Elemente)"
+
+msgid "You are not allowed to test this control."
+msgstr "Sie dürfen diese Maßnahme nicht testen."
+
+msgid "Choose the population to draw from."
+msgstr "Wählen Sie die Grundgesamtheit für die Ziehung."
+
+#, php-format
+msgid "You are not allowed to see all the items of this population (%s)."
+msgstr "Sie dürfen nicht alle Elemente dieser Grundgesamtheit sehen (%s)."
+
+msgid "Enter the question checked on each item."
+msgstr "Geben Sie die auf jedem Element geprüfte Frage ein."
+
+msgid "The start of the period must be before its end."
+msgstr "Der Beginn des Zeitraums muss vor seinem Ende liegen."
+
+msgid "This entity is not among your active entities."
+msgstr "Diese Entität gehört nicht zu Ihren aktiven Entitäten."
+
+msgid "The seed may only contain letters, digits, dashes and underscores."
+msgstr "Der Startwert darf nur Buchstaben, Ziffern, Bindestriche und Unterstriche enthalten."
+
+#, php-format
+msgid "The population exceeds %d items: narrow the period or the criteria."
+msgstr "Die Grundgesamtheit übersteigt %d Elemente: Grenzen Sie Zeitraum oder Kriterien ein."
+
+msgid "No item matches these criteria: nothing was drawn."
+msgstr "Kein Element entspricht diesen Kriterien: Es wurde nichts gezogen."
+
+msgid "The sample could not be saved."
+msgstr "Die Stichprobe konnte nicht gespeichert werden."
+
+#, php-format
+msgid "%1$d item drawn at random out of %2$d."
+msgid_plural "%1$d items drawn at random out of %2$d."
+msgstr[0] "%1$d Element zufällig aus %2$d gezogen."
+msgstr[1] "%1$d Elemente zufällig aus %2$d gezogen."
+
+msgid "Give a result to every item drawn before recording the test."
+msgstr "Geben Sie jedem gezogenen Element ein Ergebnis, bevor Sie den Test erfassen."
+
+msgid "Explain each non-compliant or not applicable item in its comment."
+msgstr "Erläutern Sie jedes nicht konforme oder nicht anwendbare Element in seinem Kommentar."
+
+msgid "Every item is not applicable: draw another sample."
+msgstr "Alle Elemente sind nicht anwendbar: Ziehen Sie eine andere Stichprobe."
+
+msgid "Justify a result different from the proposed one."
+msgstr "Begründen Sie ein vom Vorschlag abweichendes Ergebnis."
+
+msgid "This sample has no item."
+msgstr "Diese Stichprobe enthält kein Element."
+
+#, php-format
+msgid "Random sample, %1$d of %2$d (%3$s): %4$d compliant, %5$d non-compliant, %6$d not applicable."
+msgstr "Zufallsstichprobe, %1$d von %2$d (%3$s): %4$d konform, %5$d nicht konform, %6$d nicht anwendbar."
+
+#, php-format
+msgid "Question: %s"
+msgstr "Frage: %s"
+
+#, php-format
+msgid "Result changed from the proposed one (%1$s): %2$s"
+msgstr "Ergebnis gegenüber dem Vorschlag geändert (%1$s): %2$s"
+
+#, php-format
+msgid "%s and its sub-entities"
+msgstr "%s und ihre Unterentitäten"
+
+msgid "No period limit"
+msgstr "Keine Zeitraumbegrenzung"
+
+#, php-format
+msgid "From %1$s to %2$s"
+msgstr "Vom %1$s bis %2$s"
+
+msgid "Date used for the period"
+msgstr "Für den Zeitraum verwendetes Datum"
+
+msgid "Closed only"
+msgstr "Nur abgeschlossene"
+
+msgid "Active accounts only"
+msgstr "Nur aktive Konten"

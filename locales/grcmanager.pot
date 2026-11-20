@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-19 20:55+0000\n"
+"POT-Creation-Date: 2026-11-19 21:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -245,12 +245,14 @@ msgstr ""
 #: templates/dora/register.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/control_test_record.html.twig
 #: templates/pdf/consistency_report.html.twig templates/my_space.html.twig
 #: templates/crisis_room.html.twig
 #: templates/tabs/business_process_items.html.twig
-#: templates/park_endoflife.html.twig templates/impact_tab.html.twig
-#: front/consistencycheck.export.php:52 src/Evidence.php:387
-#: src/ImpactAnalysis.php:225 src/NotificationTargetEvidence.php:113
+#: templates/park_endoflife.html.twig templates/control_test_sample.html.twig
+#: templates/impact_tab.html.twig front/consistencycheck.export.php:52
+#: src/Evidence.php:387 src/ImpactAnalysis.php:225
+#: src/NotificationTargetEvidence.php:113
 msgid "Item"
 msgstr ""
 
@@ -338,7 +340,7 @@ msgstr ""
 #: templates/management_review_form.html.twig
 #: templates/policy_approval_tab.html.twig src/AccessReview.php:302
 #: src/Audit.php:201 src/BreachExposure.php:132 src/ComplianceEvent.php:226
-#: src/EndOfLife.php:476 src/ManagementReview.php:320 src/Nonconformity.php:324
+#: src/EndOfLife.php:476 src/ManagementReview.php:320 src/Nonconformity.php:342
 #: src/NotificationTargetAuditEvidenceRequest.php:159
 #: src/NotificationTargetPolicy.php:132
 #: src/NotificationTargetRiskIndicator.php:148 src/Objective.php:158
@@ -408,11 +410,12 @@ msgstr ""
 #: templates/management_review_dossier_tab.html.twig front/audit.report.php:77
 #: front/databreach.export.php:65 front/networkflow.report.php:31
 #: front/processingactivity.export.php:64 front/risk.report.php:73
-#: src/AccessReview.php:745 src/AcnRequirement.php:805 src/Audit.php:549
+#: src/AccessReview.php:745 src/AcnRequirement.php:805 src/Audit.php:553
 #: src/ConsistencyCheck.php:1380 src/ContextItem.php:792
-#: src/CrisisExercise.php:613 src/Dpia.php:443 src/EbiosStudy.php:313
-#: src/ManagementReviewDossier.php:607 src/PolicyAcknowledgement.php:703
-#: src/PolicyVersion.php:765 src/SecurityIncidentPostMortem.php:242
+#: src/ControlTest.php:992 src/CrisisExercise.php:613 src/Dpia.php:443
+#: src/EbiosStudy.php:313 src/ManagementReviewDossier.php:619
+#: src/PolicyAcknowledgement.php:703 src/PolicyVersion.php:765
+#: src/SecurityIncidentPostMortem.php:242
 #: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:725
 #, php-format
 msgid "Generated on %s"
@@ -498,7 +501,7 @@ msgstr ""
 #: templates/periodic_reviews.html.twig src/AcnRequirement.php:756
 #: src/AcnRequirement.php:834 src/BusinessProcess.php:544
 #: src/BusinessProcess.php:616 src/ComplianceEvent.php:228
-#: src/EbiosStudy.php:598 src/IsmsRequirement.php:300 src/Nonconformity.php:332
+#: src/EbiosStudy.php:598 src/IsmsRequirement.php:300 src/Nonconformity.php:350
 msgid "Owner"
 msgstr ""
 
@@ -515,7 +518,7 @@ msgstr ""
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/audit_findings_tab.html.twig templates/auditor_space.html.twig
 #: src/AccessReview.php:323 src/AcnRequirement.php:757
-#: src/AcnRequirement.php:837 src/Nonconformity.php:341
+#: src/AcnRequirement.php:837 src/Nonconformity.php:359
 #: src/NotificationTargetAccessReview.php:106
 #: src/NotificationTargetAuditEvidenceRequest.php:158
 #: src/NotificationTargetBusinessProcess.php:161
@@ -1135,11 +1138,11 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 
-#: templates/dora/register.html.twig
+#: templates/dora/register.html.twig templates/audit_checklist_tab.html.twig
 msgid "Template"
 msgstr ""
 
@@ -1517,7 +1520,8 @@ msgstr ""
 
 #: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/crisis_exercises.html.twig src/AccessReview.php:104
+#: templates/crisis_exercises.html.twig templates/control_test_sample.html.twig
+#: templates/control_test_tab.html.twig src/AccessReview.php:104
 #: src/Audit.php:96 src/Audit.php:336 src/Control.php:154 src/Control.php:1364
 #: src/DataSubjectRequest.php:97 src/EbiosStudy.php:90
 #: src/IsmsRequirement.php:154 src/ManagementReviewAction.php:62
@@ -1658,8 +1662,9 @@ msgstr ""
 
 #: templates/compliance_audit.html.twig
 #: templates/_network_flow_badges.html.twig
-#: templates/network_flow_summary.html.twig src/ComplianceObligation.php:108
-#: src/ComplianceObligation.php:329 src/CustomRequirement.php:60
+#: templates/network_flow_summary.html.twig src/AuditChecklist.php:102
+#: src/ComplianceObligation.php:108 src/ComplianceObligation.php:329
+#: src/ControlTestSample.php:125 src/CustomRequirement.php:60
 #: src/IsmsRequirement.php:155
 msgid "Compliant"
 msgstr ""
@@ -1794,10 +1799,12 @@ msgstr ""
 msgid "Function"
 msgstr ""
 
-#: templates/pdf/acn_report.html.twig templates/pdf/soa_report.html.twig
-#: templates/acn_requirement_form.html.twig
+#: templates/pdf/acn_report.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/soa_report.html.twig templates/acn_requirement_form.html.twig
 #: templates/isms_requirement_form.html.twig templates/acn_register.html.twig
-#: templates/custom_framework_form.html.twig src/AcnRequirement.php:749
+#: templates/custom_framework_form.html.twig templates/audit_coverage.html.twig
+#: templates/audit_checklist_tab.html.twig src/AcnRequirement.php:749
 #: src/IsmsRequirement.php:275
 msgid "Requirement"
 msgstr ""
@@ -1859,8 +1866,8 @@ msgstr ""
 
 #: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 #: templates/acn_register.html.twig templates/itil_regulatory_section.html.twig
-#: src/Control.php:142 src/Control.php:1351 src/CustomRequirement.php:66
-#: src/SecurityIncidentPlaybookTask.php:70
+#: src/Control.php:142 src/Control.php:1351 src/ControlTestSample.php:131
+#: src/CustomRequirement.php:66 src/SecurityIncidentPlaybookTask.php:70
 msgid "Not applicable"
 msgstr ""
 
@@ -1903,7 +1910,7 @@ msgstr ""
 #: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
-#: templates/risk_form.html.twig src/Nonconformity.php:365
+#: templates/risk_form.html.twig src/Nonconformity.php:383
 #: src/NotificationTargetAuditEvidenceRequest.php:155 src/Objective.php:199
 #: src/Policy.php:185 src/RiskRegisterImport.php:603 src/Training.php:577
 msgid "Description"
@@ -1984,7 +1991,7 @@ msgstr ""
 #: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/nonconformity_form.html.twig inc/securityincident.class.php:811
-#: src/Nonconformity.php:373
+#: src/Nonconformity.php:391
 msgid "Root cause"
 msgstr ""
 
@@ -2303,7 +2310,7 @@ msgstr ""
 msgid "Number of actions"
 msgstr ""
 
-#: templates/pdf/action_log.html.twig
+#: templates/pdf/action_log.html.twig templates/audit_coverage.html.twig
 msgid "Period"
 msgstr ""
 
@@ -2331,9 +2338,13 @@ msgstr ""
 msgid "Command and finding"
 msgstr ""
 
-#: templates/pdf/action_log.html.twig templates/tabs/action_log.html.twig
+#: templates/pdf/action_log.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/control_test_record.html.twig
+#: templates/tabs/action_log.html.twig templates/control_test_sample.html.twig
+#: templates/audit_coverage.html.twig templates/audit_checklist_tab.html.twig
 #: templates/audit_log.html.twig templates/control_test_tab.html.twig
-#: templates/edr_import.html.twig src/AuditLog.php:234 src/ControlTest.php:840
+#: templates/edr_import.html.twig src/AuditLog.php:234 src/ControlTest.php:1055
 #: src/NotificationTargetControl.php:148
 msgid "Result"
 msgstr ""
@@ -2404,7 +2415,9 @@ msgid "Approval rule"
 msgstr ""
 
 #: templates/pdf/policy_approval_record.html.twig
+#: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/control_test_record.html.twig
 #: templates/pdf/access_review_report.html.twig
 #: templates/my_evidence_requests.html.twig
 #: templates/isms_requirement_form.html.twig
@@ -2412,8 +2425,11 @@ msgstr ""
 #: templates/tabs/risk_business_processes.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/tabs/mitre_attack.html.twig templates/access_review_form.html.twig
+#: templates/tabs/mitre_attack.html.twig
+#: templates/control_test_sample.html.twig
+#: templates/access_review_form.html.twig
 #: templates/custom_framework_form.html.twig
+#: templates/audit_checklist_tab.html.twig
 #: templates/risk_indicator_values.html.twig src/IsmsRequirement.php:309
 #: src/NotificationTargetAccessReview.php:107
 #: src/NotificationTargetAuditEvidenceRequest.php:162
@@ -2459,7 +2475,8 @@ msgstr ""
 #: templates/objective_form.html.twig templates/risk_import.html.twig
 #: templates/policy_form.html.twig templates/risk_asset_tab.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/audit_form.html.twig templates/data_subject_request_form.html.twig
+#: templates/audit_form.html.twig templates/audit_checklist_tab.html.twig
+#: templates/data_subject_request_form.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/audit_findings_tab.html.twig templates/risk_form.html.twig
 #: templates/supplier_security_watch.html.twig
@@ -2468,7 +2485,7 @@ msgstr ""
 #: templates/data_breach_form.html.twig
 #: templates/management_review_form.html.twig src/Audit.php:192
 #: src/ComplianceObligation.php:189 src/ManagementReview.php:311
-#: src/Nonconformity.php:297 src/NotificationTargetComplianceObligation.php:91
+#: src/Nonconformity.php:315 src/NotificationTargetComplianceObligation.php:91
 #: src/NotificationTargetNonconformity.php:91
 #: src/NotificationTargetPolicy.php:130
 #: src/NotificationTargetPolicyVersion.php:137
@@ -2504,7 +2521,7 @@ msgstr ""
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/audit_findings_tab.html.twig templates/auditor_space.html.twig
-#: src/Nonconformity.php:308
+#: src/Nonconformity.php:326
 msgid "Finding type"
 msgstr ""
 
@@ -2519,7 +2536,7 @@ msgstr ""
 #: templates/audit_findings_tab.html.twig templates/edr_import.html.twig
 #: templates/auditor_space.html.twig templates/consistency_check.html.twig
 #: front/consistencycheck.export.php:50 inc/securityincident.class.php:793
-#: src/Nonconformity.php:316 src/NotificationTargetNonconformity.php:92
+#: src/Nonconformity.php:334 src/NotificationTargetNonconformity.php:92
 #: src/SecurityIncidentEdrImport.php:75
 msgid "Severity"
 msgstr ""
@@ -2534,7 +2551,7 @@ msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
-#: templates/auditor_space.html.twig src/Nonconformity.php:581
+#: templates/auditor_space.html.twig src/Nonconformity.php:599
 msgid "Findings"
 msgstr ""
 
@@ -2566,10 +2583,11 @@ msgid "Request"
 msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/control_test_record.html.twig
 #: templates/control_test_due.html.twig
 #: templates/framework_assessment.html.twig templates/control_form.html.twig
 #: templates/audit_evidence_requests_tab.html.twig src/Control.php:1010
-#: src/ControlTest.php:814 src/NotificationTargetAuditEvidenceRequest.php:156
+#: src/ControlTest.php:1029 src/NotificationTargetAuditEvidenceRequest.php:156
 #: src/NotificationTargetControl.php:144
 msgid "Control"
 msgstr ""
@@ -2580,12 +2598,55 @@ msgid "Assignee"
 msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:60
+#: src/AuditChecklist.php:858
+msgid "Audit checklist"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig
+#, php-format
+msgid "%1$d of %2$d audited"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/custom_framework_list.html.twig
+#: templates/custom_framework_form.html.twig
+#: templates/audit_checklist_tab.html.twig
+#, php-format
+msgid "%1$s: %2$d"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:675
+msgid "Question asked"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig
+msgid "Auditee"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:676
+msgid "Evidence examined"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/control_test_record.html.twig
+#: templates/tabs/action_log.html.twig templates/control_test_sample.html.twig
+#: templates/audit_checklist_tab.html.twig templates/control_test_tab.html.twig
+#: src/ControlTest.php:1080
+msgid "Finding"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
 #: templates/audit_findings_tab.html.twig templates/auditor_space.html.twig
 msgid "No finding for this audit."
 msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
-#: templates/nonconformity_form.html.twig src/Nonconformity.php:381
+#: templates/nonconformity_form.html.twig src/Nonconformity.php:399
 msgid "Corrective action"
 msgstr ""
 
@@ -2711,7 +2772,7 @@ msgstr ""
 msgid "Residual risk"
 msgstr ""
 
-#: templates/pdf/soa_report.html.twig
+#: templates/pdf/soa_report.html.twig src/AuditChecklist.php:329
 msgid "ISMS requirements (clauses 4 to 10)"
 msgstr ""
 
@@ -3148,7 +3209,8 @@ msgstr ""
 
 #: templates/pdf/context_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
-#: templates/periodic_reviews.html.twig
+#: templates/pdf/control_test_record.html.twig
+#: templates/periodic_reviews.html.twig src/ControlTest.php:1099
 msgid "Review"
 msgstr ""
 
@@ -3185,6 +3247,7 @@ msgid "Review date"
 msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
+#: src/ControlTestSample.php:708
 msgid "Period covered"
 msgstr ""
 
@@ -3447,6 +3510,104 @@ msgstr ""
 msgid ""
 "To be completed during the meeting: decisions on improvement opportunities, "
 "changes needed to the ISMS, and resources."
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+msgid "Test"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
+#: src/ControlTest.php:1039
+msgid "Test date"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
+#: src/ControlTest.php:1047
+msgid "Method"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_tab.html.twig src/ControlTest.php:1063
+msgid "Tester"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Recorded by"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig
+#: templates/framework_assessment.html.twig
+#: templates/control_test_tab.html.twig src/Evidence.php:82
+msgid "Evidence"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig templates/control_test_due.html.twig
+#: templates/control_test_tab.html.twig src/Control.php:1099
+#: src/ControlTest.php:1072 src/NotificationTargetControl.php:146
+msgid "Next test"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+msgid "Reviewer"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig src/ControlTestSample.php:61
+msgid "Sample"
+msgid_plural "Samples"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_tab.html.twig
+msgid "Question checked on each item"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig
+msgid "Items in the population"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
+msgid "Sample size"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig
+msgid "Draw date"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig
+msgid "Drawn by"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig
+msgid "Seed"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig
+msgid "Proposed result"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig
+msgid "Justification of a different result"
+msgstr ""
+
+#: templates/pdf/control_test_record.html.twig
+#: templates/control_test_sample.html.twig
+msgid ""
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
 
 #: templates/pdf/network_flow_report.html.twig
@@ -4067,7 +4228,7 @@ msgstr ""
 #: templates/pdf/consistency_report.html.twig templates/park_machines.html.twig
 #: templates/my_space.html.twig templates/network_flow_matrix.html.twig
 #: templates/tabs/ioc.html.twig templates/network_flow_import.html.twig
-#: templates/compliance_event_form.html.twig
+#: templates/audit_coverage.html.twig templates/compliance_event_form.html.twig
 #: templates/compliance_obligation_form.html.twig
 #: templates/network_flow_form.html.twig front/consistencycheck.export.php:51
 #: src/ComplianceEvent.php:220 src/ComplianceObligation.php:198
@@ -4615,7 +4776,7 @@ msgid "%d day(s) late"
 msgstr ""
 
 #: templates/my_space.html.twig templates/itil_regulatory_section.html.twig
-#: src/ControlTest.php:144 src/NotificationTargetBusinessProcess.php:127
+#: src/ControlTest.php:199 src/NotificationTargetBusinessProcess.php:127
 #: src/NotificationTargetControl.php:110
 msgid "Due soon"
 msgstr ""
@@ -4683,7 +4844,6 @@ msgid "E.g. 40 for a quiz scored out of 40. 0 = no score."
 msgstr ""
 
 #: templates/training_form.html.twig
-#, php-format
 msgid ""
 "E.g. 80: passed from 80% of the maximum score. With a maximum score and a "
 "threshold, each participant's result is computed from their score."
@@ -4772,7 +4932,7 @@ msgid "Acknowledgement campaign"
 msgstr ""
 
 #: templates/policy_acknowledgement_tab.html.twig src/AccessReview.php:105
-#: src/Nonconformity.php:135 src/Nonconformity.php:510
+#: src/Nonconformity.php:135 src/Nonconformity.php:528
 msgid "Closed"
 msgstr ""
 
@@ -5244,7 +5404,7 @@ msgstr ""
 #: templates/park_vulnerabilities.html.twig templates/risk_heatmap.html.twig
 #: inc/securityincident.class.php:264 inc/securityincident.class.php:1192
 #: src/BusinessImpact.php:75 src/Control.php:201 src/Nonconformity.php:106
-#: src/Nonconformity.php:497 src/Traits/RiskAssessmentTrait.php:123
+#: src/Nonconformity.php:515 src/Traits/RiskAssessmentTrait.php:123
 #: src/Traits/RiskAssessmentTrait.php:139
 #: src/Traits/RiskAssessmentTrait.php:310
 msgid "Critical"
@@ -6302,7 +6462,7 @@ msgstr ""
 msgid "Grouping"
 msgstr ""
 
-#: templates/network_flow_matrix.html.twig
+#: templates/network_flow_matrix.html.twig templates/audit_coverage.html.twig
 msgid "Show"
 msgstr ""
 
@@ -6363,12 +6523,6 @@ msgstr ""
 #: templates/custom_framework_list.html.twig
 #, php-format
 msgid "%d rejected lines"
-msgstr ""
-
-#: templates/custom_framework_list.html.twig
-#: templates/custom_framework_form.html.twig
-#, php-format
-msgid "%1$s: %2$d"
 msgstr ""
 
 #: templates/custom_framework_list.html.twig front/customframework.php:145
@@ -7193,11 +7347,6 @@ msgstr ""
 msgid "Exact command or operation"
 msgstr ""
 
-#: templates/tabs/action_log.html.twig templates/control_test_tab.html.twig
-#: src/ControlTest.php:865
-msgid "Finding"
-msgstr ""
-
 #: templates/tabs/action_log.html.twig
 msgid "What was observed or done"
 msgstr ""
@@ -7400,7 +7549,7 @@ msgstr ""
 msgid "Reopen"
 msgstr ""
 
-#: templates/tabs/dpia.html.twig
+#: templates/tabs/dpia.html.twig templates/control_test_tab.html.twig
 msgid "Approve"
 msgstr ""
 
@@ -7529,10 +7678,6 @@ msgstr ""
 
 #: templates/tabs/business_process_recovery.html.twig
 msgid "No recovery test recorded yet."
-msgstr ""
-
-#: templates/tabs/business_process_recovery.html.twig
-msgid "Recorded by"
 msgstr ""
 
 #: templates/tabs/business_process_recovery.html.twig
@@ -7999,8 +8144,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/_access_review_rows.html.twig
@@ -8239,8 +8384,8 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -8325,6 +8470,91 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 #, php-format
 msgid "latest: %s"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+#, php-format
+msgid "Back to the tests of %s"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "Recorded as a test"
+msgstr ""
+
+#: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
+msgid "Test record for the auditor (PDF)"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "Population and criteria"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "How the sample was drawn"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "once every item is checked"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "none: every item is not applicable"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "Items drawn"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid ""
+"A non-compliant or not applicable item must be explained in its comment."
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "Save the results"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "Record the test from this sample"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+#, php-format
+msgid ""
+"Proposed: no deviation gives an effective test, at least %d%% compliant a "
+"partially effective test, below an ineffective test."
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "Optional: the sample and its results are added to the finding."
+msgstr ""
+
+#: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
+msgid "Empty: computed from the test plan."
+msgstr ""
+
+#: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
+msgid ""
+"Another person will have to review this test before it counts for the "
+"\"Verified\" status."
+msgstr ""
+
+#: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
+msgid "Record the test"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid ""
+"Once the test is recorded, the sample is frozen. Deleting the test opens the "
+"sample again."
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "Delete this sample?"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+msgid "Delete this sample"
 msgstr ""
 
 #: templates/document_accesses_tab.html.twig
@@ -8910,6 +9140,22 @@ msgstr ""
 msgid "E-mail colour:"
 msgstr ""
 
+#: templates/config_form.html.twig
+msgid "Review of effectiveness tests"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"When enabled, an effective test only gives the \"Verified\" status once "
+"another person (neither the tester nor the person who recorded it) has "
+"approved it. A partially effective or ineffective test still withdraws the "
+"\"Verified\" status at once."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Require a review of each new effectiveness test"
+msgstr ""
+
 #: templates/config_form.html.twig src/ConsistencyCheck.php:58
 msgid "ISMS consistency checks"
 msgstr ""
@@ -9324,12 +9570,6 @@ msgid "Tests to carry out"
 msgstr ""
 
 #: templates/control_test_due.html.twig templates/control_test_tab.html.twig
-#: src/Control.php:1099 src/ControlTest.php:857
-#: src/NotificationTargetControl.php:146
-msgid "Next test"
-msgstr ""
-
-#: templates/control_test_due.html.twig templates/control_test_tab.html.twig
 msgid "Test owner"
 msgstr ""
 
@@ -9538,7 +9778,8 @@ msgctxt "measure"
 msgid "Annex A control"
 msgstr ""
 
-#: templates/coverage_rule_form.html.twig src/CoverageRule.php:345
+#: templates/coverage_rule_form.html.twig src/AuditChecklist.php:136
+#: src/CoverageRule.php:345
 msgid "ISMS requirement"
 msgstr ""
 
@@ -9554,6 +9795,58 @@ msgstr ""
 
 #: templates/canonical_product_form.html.twig src/CanonicalProduct.php:144
 msgid "Product"
+msgstr ""
+
+#: templates/audit_coverage.html.twig templates/audit_checklist_tab.html.twig
+#: front/audit.php:53 front/auditcoverage.php:34
+msgid "Audit programme coverage"
+msgstr ""
+
+#: templates/audit_coverage.html.twig src/Audit.php:67
+#: src/ComplianceEvent.php:113 src/ConsistencyCheck.php:118
+msgid "Internal audit"
+msgid_plural "Internal audits"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/audit_coverage.html.twig
+msgid ""
+"The audit programme must cover the whole ISMS over the certification cycle. "
+"For each ISMS requirement and each applicable control, this page shows the "
+"last internal audit that gave it a result in its audit checklist, and lists "
+"first those never audited over the period. Cancelled audits and lines left "
+"\"Not audited\" do not count; the date is the actual date of the audit, "
+"otherwise its planned date."
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+#, php-format
+msgid "Since %s"
+msgstr ""
+
+#: templates/audit_coverage.html.twig templates/audit_checklist_tab.html.twig
+msgid "Requirements and controls"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+#, php-format
+msgid "Audited over the period (%d %%)"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "Never audited over the period"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "No ISMS requirement nor applicable control to show."
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "Last audit"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "Never audited"
 msgstr ""
 
 #: templates/context_linked_tab.html.twig
@@ -9680,11 +9973,6 @@ msgid "Implementation"
 msgstr ""
 
 #: templates/framework_assessment.html.twig
-#: templates/control_test_tab.html.twig src/Evidence.php:82
-msgid "Evidence"
-msgstr ""
-
-#: templates/framework_assessment.html.twig
 #, php-format
 msgid "Gaps for %s"
 msgstr ""
@@ -9720,6 +10008,169 @@ msgstr ""
 #: templates/itil_deadline_banner.html.twig
 #, php-format
 msgid "Due no later than %1$s (%2$d h left)"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"The audit checklist is reserved to the audit team and the CISO group, like "
+"the documents of the audit. Ask the audit owner to add you to the \"Team\" "
+"tab."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Lines with a result"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Audit report (PDF)"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"One line per audited requirement: write the question you asked, who you "
+"interviewed, the evidence you examined (text, and documents of the "
+"\"Documents\" tab), then the result. For a non-conformity, an observation or "
+"an opportunity for improvement, \"Create the finding\" opens a pre-filled "
+"non-conformity that you review and save yourself. Like the documents of the "
+"audit, only the audit team and the CISO group see this checklist."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"This audit is completed or cancelled: its checklist is read only. Set the "
+"audit back to \"In progress\" to change it."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"The checklist is empty. Add the requirements to audit below, or apply a "
+"checklist template."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "The checklist is empty."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "No question yet"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Create the finding"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "No finding yet"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Fill in"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Number"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Documents of the audit"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add documents to the \"Documents\" tab of the audit to cite them here."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Linked finding"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"Remove this line from the checklist? A finding created from it stays in the "
+"non-conformity register."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Remove the line"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+#, php-format
+msgid "Last change: %1$s, %2$s"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add requirements to audit"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Every proposed requirement is already in the checklist."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"ISMS requirements (clauses 4 to 10), applicable Annex A controls of the "
+"statement of applicability, and requirements of the enabled custom "
+"frameworks. Requirements already in the checklist are not offered again."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "The controls of the audit scope (audit form) are preselected."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add to the checklist"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:139
+msgid "Free item"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "An internal rule, a process or a site, for example"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add this item"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Checklist templates"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"A template keeps the requirements and the questions of a checklist, never "
+"the answers. Reuse it from one audit to the next, for example \"Annual "
+"access control audit\"."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add its lines to the checklist"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"Delete this template? The checklists already built from it do not change."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Delete the template"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "No checklist template yet."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Save this checklist as a template"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Name of the template"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Save as template"
 msgstr ""
 
 #: templates/referentiels.html.twig
@@ -10543,11 +10994,23 @@ msgid ""
 "\"Add\". Nothing is created before."
 msgstr ""
 
-#: templates/nonconformity_form.html.twig src/Nonconformity.php:349
+#: templates/nonconformity_form.html.twig
+#, php-format
+msgid ""
+"Finding proposed from the audit checklist (%s): review and adapt each field, "
+"then click \"Add\". Nothing is created before, and the checklist line is "
+"linked to this finding once it is saved."
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid "Audit checklist line"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig src/Nonconformity.php:367
 msgid "Closure verification date"
 msgstr ""
 
-#: templates/nonconformity_form.html.twig src/Nonconformity.php:389
+#: templates/nonconformity_form.html.twig src/Nonconformity.php:407
 msgid "Preventive action"
 msgstr ""
 
@@ -10638,7 +11101,7 @@ msgid_plural "Trainings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/itil_regulatory_section.html.twig src/ControlTest.php:143
+#: templates/itil_regulatory_section.html.twig src/ControlTest.php:198
 #: src/NotificationTargetBusinessProcess.php:126
 #: src/NotificationTargetControl.php:109
 msgctxt "deadline passed"
@@ -11270,10 +11733,6 @@ msgstr ""
 msgid "Test plan"
 msgstr ""
 
-#: templates/control_test_tab.html.twig src/ControlTest.php:832
-msgid "Method"
-msgstr ""
-
 #: templates/control_test_tab.html.twig
 msgid "Save the plan"
 msgstr ""
@@ -11313,15 +11772,96 @@ msgid ""
 msgstr ""
 
 #: templates/control_test_tab.html.twig
+msgid "Draw a sample in GLPI"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid ""
+"The items are drawn at random from what you can see in GLPI (your active "
+"entities and rights). The population, the criteria, the size, the seed, the "
+"date and the author are kept with the sample: the same draw can be checked "
+"again by the auditor."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Example: does each closed change have an approved validation?"
+msgstr ""
+
+#: templates/control_test_tab.html.twig src/ControlTestSample.php:689
+msgid "Population"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "not allowed"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Tickets and changes require the right to see all of them."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "All my active entities"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Period covered: from"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "to"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid ""
+"Creation date of users and computers; opening date of tickets and changes, "
+"or closing date if closed only."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Category (tickets and changes)"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Closed tickets or changes only"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Active user accounts only"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "How often the control operates"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Empty: the size proposed for this frequency."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Seed (optional)"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid ""
+"Empty: a random seed is generated. Enter the seed of an earlier draw to "
+"reproduce it."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Draw the sample"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Samples in progress"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+#, php-format
+msgid "%1$d out of %2$d"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
 msgid "Record a test"
-msgstr ""
-
-#: templates/control_test_tab.html.twig src/ControlTest.php:824
-msgid "Test date"
-msgstr ""
-
-#: templates/control_test_tab.html.twig src/ControlTest.php:848
-msgid "Tester"
 msgstr ""
 
 #: templates/control_test_tab.html.twig
@@ -11353,14 +11893,6 @@ msgid "add it first in the Documents tab"
 msgstr ""
 
 #: templates/control_test_tab.html.twig
-msgid "Empty: computed from the test plan."
-msgstr ""
-
-#: templates/control_test_tab.html.twig
-msgid "Record the test"
-msgstr ""
-
-#: templates/control_test_tab.html.twig
 msgid "No effectiveness test recorded yet"
 msgstr ""
 
@@ -11374,6 +11906,23 @@ msgstr ""
 #: templates/control_test_tab.html.twig
 #, php-format
 msgid "Non-conformity #%d"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Review comment"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Review comment (required to return the test)"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Return"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+#, php-format
+msgid "Sample: %1$d out of %2$d"
 msgstr ""
 
 #: templates/control_test_tab.html.twig
@@ -11394,7 +11943,7 @@ msgid ""
 "checked in the plugin configuration."
 msgstr ""
 
-#: templates/supplier_security_watch.html.twig front/config.php:555
+#: templates/supplier_security_watch.html.twig front/config.php:568
 msgid "Configuration"
 msgstr ""
 
@@ -12133,8 +12682,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/endoflife_config.html.twig src/EndOfLife.php:479
@@ -12887,6 +13436,35 @@ msgstr ""
 msgid "Internal audit program and CAPA"
 msgstr ""
 
+#: front/auditchecklist.form.php:45
+msgid "Checklist template deleted."
+msgstr ""
+
+#: front/auditchecklist.form.php:51
+msgid "Checklist template saved."
+msgstr ""
+
+#: front/auditchecklist.form.php:70
+msgid "Checklist line saved."
+msgstr ""
+
+#: front/auditchecklist.form.php:82
+#, php-format
+msgid ""
+"%d line of the template was already in the checklist or is no longer offered."
+msgid_plural ""
+"%d lines of the template were already in the checklist or are no longer "
+"offered."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/auditcoverage.php:43
+#, php-format
+msgid "Last %d year"
+msgid_plural "Last %d years"
+msgstr[0] ""
+msgstr[1] ""
+
 #: front/auditevidencerequest.form.php:65
 msgid "Evidence request added."
 msgstr ""
@@ -13033,24 +13611,24 @@ msgstr ""
 msgid "Classification saved; %d requirement record(s) created."
 msgstr ""
 
-#: front/config.php:494
+#: front/config.php:507
 msgid ""
 "Link not saved: give the exact name shown in GLPI and an endoflife.date "
 "product identifier (lower case letters, digits and dashes, for instance "
 "\"debian\")."
 msgstr ""
 
-#: front/config.php:535
+#: front/config.php:548
 msgid ""
 "Enable the NVD enrichment first: without it, the report would wrongly say "
 "that nothing is exposed."
 msgstr ""
 
-#: front/config.php:540
+#: front/config.php:553
 msgid "The report has been queued for sending to its recipients."
 msgstr ""
 
-#: front/config.php:545
+#: front/config.php:558
 msgid ""
 "The report could not be sent: check that notifications are enabled in GLPI "
 "and that the notification \"GRC Manager - Fleet vulnerability report\" is "
@@ -13090,6 +13668,10 @@ msgstr ""
 
 #: front/controltest.form.php:72
 msgid "Choose an existing document or send a file, not both."
+msgstr ""
+
+#: front/controltestsample.form.php:65 src/ControlTestSample.php:563
+msgid "This sample is already recorded as a test."
 msgstr ""
 
 #: front/crisisexercise.form.php:40
@@ -13480,7 +14062,7 @@ msgid "%d alert(s) set aside."
 msgstr ""
 
 #: front/securityincidentedrimport.php:66
-#: front/securityincidentedrimport.php:85 src/ControlTest.php:504
+#: front/securityincidentedrimport.php:85 src/ControlTest.php:653
 msgid "The file could not be received."
 msgstr ""
 
@@ -13936,12 +14518,12 @@ msgid "IOC"
 msgstr ""
 
 #: inc/securityincident.class.php:262 inc/securityincident.class.php:1190
-#: src/Nonconformity.php:104 src/Nonconformity.php:495
+#: src/Nonconformity.php:104 src/Nonconformity.php:513
 msgid "Minor"
 msgstr ""
 
 #: inc/securityincident.class.php:263 inc/securityincident.class.php:1191
-#: src/Nonconformity.php:105 src/Nonconformity.php:496
+#: src/Nonconformity.php:105 src/Nonconformity.php:514
 msgid "Major"
 msgstr ""
 
@@ -14284,18 +14866,12 @@ msgstr ""
 msgid "1 week"
 msgstr ""
 
-#: src/Audit.php:67 src/ComplianceEvent.php:113 src/ConsistencyCheck.php:118
-msgid "Internal audit"
-msgid_plural "Internal audits"
-msgstr[0] ""
-msgstr[1] ""
-
 #: src/Audit.php:84
 msgid "Audits and improvement"
 msgstr ""
 
 #: src/Audit.php:95 src/Audit.php:335 src/ComplianceEvent.php:130
-#: src/ControlTest.php:145
+#: src/ControlTest.php:200
 msgctxt "masculine"
 msgid "Planned"
 msgstr ""
@@ -14308,18 +14884,96 @@ msgstr ""
 msgid "You cannot create an audit in this entity."
 msgstr ""
 
-#: src/Audit.php:547
+#: src/Audit.php:551
 #, php-format
 msgid "Internal audit report: %s"
 msgstr ""
 
-#: src/Audit.php:597
+#: src/Audit.php:604
 #, php-format
 msgid "Internal audit report - %s"
 msgstr ""
 
-#: src/Audit.php:615
+#: src/Audit.php:622
 msgid "The audit report has been archived in the Documents tab."
+msgstr ""
+
+#: src/AuditChecklist.php:105
+msgid "Minor non-conformity"
+msgstr ""
+
+#: src/AuditChecklist.php:108
+msgid "Major non-conformity"
+msgstr ""
+
+#: src/AuditChecklist.php:111
+msgid "Observation"
+msgstr ""
+
+#: src/AuditChecklist.php:114
+msgid "Opportunity for improvement"
+msgstr ""
+
+#: src/AuditChecklist.php:117
+msgid "Not audited"
+msgstr ""
+
+#: src/AuditChecklist.php:137 src/Control.php:98
+msgid "Annex A control"
+msgid_plural "Annex A controls"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AuditChecklist.php:138
+msgid "Framework requirement"
+msgstr ""
+
+#: src/AuditChecklist.php:354
+msgid "Applicable Annex A controls"
+msgstr ""
+
+#: src/AuditChecklist.php:534
+msgid "Give at least a title or a question for the free item."
+msgstr ""
+
+#: src/AuditChecklist.php:634
+#, php-format
+msgid "%d line added to the checklist."
+msgid_plural "%d lines added to the checklist."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AuditChecklist.php:674
+msgid "Audited requirement"
+msgstr ""
+
+#: src/AuditChecklist.php:677
+msgid "Auditor comment"
+msgstr ""
+
+#: src/AuditChecklist.php:691 src/ParkRemediation.php:311
+#, php-format
+msgid "%1$s: %2$s"
+msgstr ""
+
+#: src/AuditChecklistTemplate.php:71
+#, php-format
+msgid "%1$s (%2$d line)"
+msgid_plural "%1$s (%2$d lines)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AuditChecklistTemplate.php:124
+msgid "Give the template a name."
+msgstr ""
+
+#: src/AuditChecklistTemplate.php:130
+msgid ""
+"The checklist is empty: add requirements before saving it as a template."
+msgstr ""
+
+#: src/AuditChecklistTemplate.php:140
+msgid "A checklist template with this name already exists."
 msgstr ""
 
 #: src/AuditEvidenceRequest.php:144
@@ -14812,9 +15466,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -14853,8 +15507,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 
 #: src/ComplianceAudit.php:100
@@ -15075,7 +15729,7 @@ msgid "Partially compliant"
 msgstr ""
 
 #: src/ComplianceObligation.php:110 src/ComplianceObligation.php:331
-#: src/CustomRequirement.php:64
+#: src/ControlTestSample.php:128 src/CustomRequirement.php:64
 msgid "Non-compliant"
 msgstr ""
 
@@ -15596,12 +16250,6 @@ msgstr ""
 #, php-format
 msgid "%d context item(s) awaiting review, %d notification(s) raised."
 msgstr ""
-
-#: src/Control.php:98
-msgid "Annex A control"
-msgid_plural "Annex A controls"
-msgstr[0] ""
-msgstr[1] ""
 
 #: src/Control.php:128
 msgid "Organizational"
@@ -16176,143 +16824,174 @@ msgstr ""
 msgid "Handovers"
 msgstr ""
 
-#: src/ControlTest.php:59
+#: src/ControlTest.php:64
 msgid "Effectiveness test"
 msgid_plural "Effectiveness tests"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ControlTest.php:96
+#: src/ControlTest.php:101
 msgid "Documentary inspection"
 msgstr ""
 
-#: src/ControlTest.php:97
+#: src/ControlTest.php:102
 msgid "Sampling"
 msgstr ""
 
-#: src/ControlTest.php:98
+#: src/ControlTest.php:103
 msgid "Technical test"
 msgstr ""
 
-#: src/ControlTest.php:99
+#: src/ControlTest.php:104
 msgid "Interview"
 msgstr ""
 
-#: src/ControlTest.php:110
+#: src/ControlTest.php:115
 msgid "Effective"
 msgstr ""
 
-#: src/ControlTest.php:113
+#: src/ControlTest.php:118
 msgid "Partially effective"
 msgstr ""
 
-#: src/ControlTest.php:117
+#: src/ControlTest.php:122
 msgid "Ineffective"
 msgstr ""
 
-#: src/ControlTest.php:130
+#: src/ControlTest.php:156
+msgid "Awaiting review"
+msgstr ""
+
+#: src/ControlTest.php:160
+msgid "Review approved"
+msgstr ""
+
+#: src/ControlTest.php:164
+msgid "Returned by the reviewer"
+msgstr ""
+
+#: src/ControlTest.php:185
 msgid "No test plan"
 msgstr ""
 
-#: src/ControlTest.php:146
+#: src/ControlTest.php:201
 msgid "No test scheduled"
 msgstr ""
 
-#: src/ControlTest.php:189
+#: src/ControlTest.php:244
 msgid "Control not found."
 msgstr ""
 
-#: src/ControlTest.php:196
+#: src/ControlTest.php:251 src/ControlTestSample.php:582
 msgid "Choose the result of the test."
 msgstr ""
 
-#: src/ControlTest.php:203
+#: src/ControlTest.php:258
 msgid "Describe what was found when the control is not fully effective."
 msgstr ""
 
-#: src/ControlTest.php:213
+#: src/ControlTest.php:268
 msgid "A test cannot be dated in the future."
 msgstr ""
 
-#: src/ControlTest.php:220
+#: src/ControlTest.php:275
 msgid "The next test must be scheduled after the test date."
 msgstr ""
 
-#: src/ControlTest.php:236
+#: src/ControlTest.php:291
 msgid "The evidence must be a document attached to this control."
 msgstr ""
 
-#: src/ControlTest.php:295
+#: src/ControlTest.php:356
+msgid ""
+"The test awaits review by another person before it counts for the "
+"\"Verified\" status."
+msgstr ""
+
+#: src/ControlTest.php:383
 #, php-format
 msgid "Implementation status of the control set to \"%s\"."
 msgstr ""
 
-#: src/ControlTest.php:322
+#: src/ControlTest.php:424
+msgid "Explain why the test is returned."
+msgstr ""
+
+#: src/ControlTest.php:453
+msgid "Test approved: it now counts for the \"Verified\" status."
+msgstr ""
+
+#: src/ControlTest.php:454
+msgid ""
+"Test returned to its author: it does not count for the \"Verified\" status."
+msgstr ""
+
+#: src/ControlTest.php:469
 msgid "No non-conformity was opened: you are not allowed to create one."
 msgstr ""
 
-#: src/ControlTest.php:334
+#: src/ControlTest.php:481
 #, php-format
 msgid "Ineffective control %1$s: %2$s"
 msgstr ""
 
-#: src/ControlTest.php:339
+#: src/ControlTest.php:486
 #, php-format
 msgid "Effectiveness test of %1$s (%2$s) on %3$s: %4$s"
 msgstr ""
 
-#: src/ControlTest.php:356
+#: src/ControlTest.php:503
 #, php-format
 msgid "Non-conformity opened: %s"
 msgstr ""
 
-#: src/ControlTest.php:388
+#: src/ControlTest.php:537
 msgid "You are not allowed to add a document to this control."
 msgstr ""
 
-#: src/ControlTest.php:436
+#: src/ControlTest.php:585
 msgid "The file name is not valid."
 msgstr ""
 
-#: src/ControlTest.php:446
+#: src/ControlTest.php:595
 #, php-format
 msgid ""
 "Files of type .%s are not allowed by GLPI (Setup > Dropdowns > Document "
 "types)."
 msgstr ""
 
-#: src/ControlTest.php:460
+#: src/ControlTest.php:609
 #, php-format
 msgid "The content of the file (%1$s) does not match its extension (.%2$s)."
 msgstr ""
 
-#: src/ControlTest.php:469 src/ControlTest.php:488
+#: src/ControlTest.php:618 src/ControlTest.php:637
 msgid "The file could not be saved."
 msgstr ""
 
-#: src/ControlTest.php:500
+#: src/ControlTest.php:649
 #, php-format
 msgid "The file exceeds the maximum size allowed by GLPI (%d MiB)."
 msgstr ""
 
-#: src/ControlTest.php:503 src/CustomFramework.php:316
+#: src/ControlTest.php:652 src/CustomFramework.php:316
 #: src/RiskRegisterImport.php:497
 msgid "The file is empty."
 msgstr ""
 
-#: src/ControlTest.php:525
+#: src/ControlTest.php:674
 msgid "This automated check is not related to this control."
 msgstr ""
 
-#: src/ControlTest.php:528
+#: src/ControlTest.php:677
 msgid "Select all entities to record the result of an automated check."
 msgstr ""
 
-#: src/ControlTest.php:536
+#: src/ControlTest.php:685
 msgid "The automated check has nothing to evaluate: no test was recorded."
 msgstr ""
 
-#: src/ControlTest.php:555
+#: src/ControlTest.php:704
 #, php-format
 msgid ""
 "Automated technical check \"%1$s\": %2$d gap out of %3$d, %4$d%% compliant."
@@ -16321,15 +17000,20 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ControlTest.php:680
+#: src/ControlTest.php:829
 msgid ""
 "Reminds overdue or upcoming effectiveness tests and withdraws the expired "
 "\"Verified\" status"
 msgstr ""
 
-#: src/ControlTest.php:694
+#: src/ControlTest.php:843
 #, php-format
 msgid "%d reminder(s), %d \"Verified\" state(s) removed."
+msgstr ""
+
+#: src/ControlTest.php:990
+#, php-format
+msgid "Effectiveness test of %s"
 msgstr ""
 
 #: src/ControlTestReminder.php:80
@@ -16338,6 +17022,153 @@ msgstr ""
 
 #: src/ControlTestReminder.php:81
 msgid "Overdue tests and tests due soon"
+msgstr ""
+
+#: src/ControlTestSample.php:100
+msgid "Annual control"
+msgstr ""
+
+#: src/ControlTestSample.php:101
+msgid "Quarterly control"
+msgstr ""
+
+#: src/ControlTestSample.php:102
+msgid "Monthly control"
+msgstr ""
+
+#: src/ControlTestSample.php:103
+msgid "Weekly control"
+msgstr ""
+
+#: src/ControlTestSample.php:104
+msgid "Daily control"
+msgstr ""
+
+#: src/ControlTestSample.php:105
+msgid "Control run several times a day"
+msgstr ""
+
+#: src/ControlTestSample.php:109
+#, php-format
+msgid "%1$s (%2$d item)"
+msgid_plural "%1$s (%2$d items)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ControlTestSample.php:122 src/SecurityIncidentAction.php:82
+msgid "To be checked"
+msgstr ""
+
+#: src/ControlTestSample.php:288
+msgid "You are not allowed to test this control."
+msgstr ""
+
+#: src/ControlTestSample.php:292
+msgid "Choose the population to draw from."
+msgstr ""
+
+#: src/ControlTestSample.php:296
+#, php-format
+msgid "You are not allowed to see all the items of this population (%s)."
+msgstr ""
+
+#: src/ControlTestSample.php:302
+msgid "Enter the question checked on each item."
+msgstr ""
+
+#: src/ControlTestSample.php:306
+msgid "The start of the period must be before its end."
+msgstr ""
+
+#: src/ControlTestSample.php:311
+msgid "This entity is not among your active entities."
+msgstr ""
+
+#: src/ControlTestSample.php:324
+msgid "The seed may only contain letters, digits, dashes and underscores."
+msgstr ""
+
+#: src/ControlTestSample.php:336
+#, php-format
+msgid "The population exceeds %d items: narrow the period or the criteria."
+msgstr ""
+
+#: src/ControlTestSample.php:341
+msgid "No item matches these criteria: nothing was drawn."
+msgstr ""
+
+#: src/ControlTestSample.php:373
+msgid "The sample could not be saved."
+msgstr ""
+
+#: src/ControlTestSample.php:396
+#, php-format
+msgid "%1$d item drawn at random out of %2$d."
+msgid_plural "%1$d items drawn at random out of %2$d."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ControlTestSample.php:575
+msgid "Give a result to every item drawn before recording the test."
+msgstr ""
+
+#: src/ControlTestSample.php:577
+msgid "Explain each non-compliant or not applicable item in its comment."
+msgstr ""
+
+#: src/ControlTestSample.php:580
+msgid "Every item is not applicable: draw another sample."
+msgstr ""
+
+#: src/ControlTestSample.php:581
+msgid "Justify a result different from the proposed one."
+msgstr ""
+
+#: src/ControlTestSample.php:583
+msgid "This sample has no item."
+msgstr ""
+
+#: src/ControlTestSample.php:589
+#, php-format
+msgid ""
+"Random sample, %1$d of %2$d (%3$s): %4$d compliant, %5$d non-compliant, %6$d "
+"not applicable."
+msgstr ""
+
+#: src/ControlTestSample.php:600
+#, php-format
+msgid "Question: %s"
+msgstr ""
+
+#: src/ControlTestSample.php:605
+#, php-format
+msgid "Result changed from the proposed one (%1$s): %2$s"
+msgstr ""
+
+#: src/ControlTestSample.php:700
+#, php-format
+msgid "%s and its sub-entities"
+msgstr ""
+
+#: src/ControlTestSample.php:710
+msgid "No period limit"
+msgstr ""
+
+#: src/ControlTestSample.php:712
+#, php-format
+msgid "From %1$s to %2$s"
+msgstr ""
+
+#: src/ControlTestSample.php:721
+msgid "Date used for the period"
+msgstr ""
+
+#: src/ControlTestSample.php:729
+msgid "Closed only"
+msgstr ""
+
+#: src/ControlTestSample.php:732
+msgid "Active accounts only"
 msgstr ""
 
 #: src/CoverageRule.php:55
@@ -17948,11 +18779,11 @@ msgstr ""
 msgid "Maturity score over the period and consistency gaps still to fix."
 msgstr ""
 
-#: src/ManagementReviewDossier.php:605
+#: src/ManagementReviewDossier.php:617
 msgid "Management review preparatory file"
 msgstr ""
 
-#: src/ManagementReviewDossier.php:635
+#: src/ManagementReviewDossier.php:647
 #, php-format
 msgid "Management review preparatory file - %1$s (%2$s to %3$s)"
 msgstr ""
@@ -18219,21 +19050,21 @@ msgid_plural "Non-conformities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Nonconformity.php:123 src/Nonconformity.php:484
+#: src/Nonconformity.php:123 src/Nonconformity.php:502
 msgid "Observation / remark"
 msgstr ""
 
-#: src/Nonconformity.php:133 src/Nonconformity.php:508
+#: src/Nonconformity.php:133 src/Nonconformity.php:526
 msgid "Open"
 msgstr ""
 
-#: src/Nonconformity.php:134 src/Nonconformity.php:509
+#: src/Nonconformity.php:134 src/Nonconformity.php:527
 #: src/Traits/RiskAssessmentTrait.php:164
 #: src/Traits/RiskAssessmentTrait.php:323
 msgid "In treatment"
 msgstr ""
 
-#: src/Nonconformity.php:136 src/Nonconformity.php:511
+#: src/Nonconformity.php:136 src/Nonconformity.php:529
 msgctxt "feminine"
 msgid "Verified"
 msgstr ""
@@ -18242,75 +19073,75 @@ msgstr ""
 msgid "You cannot create a non-conformity in this entity."
 msgstr ""
 
-#: src/Nonconformity.php:254
+#: src/Nonconformity.php:272
 msgid "A corrective action is required to close or verify a non-conformity."
 msgstr ""
 
-#: src/Nonconformity.php:656
+#: src/Nonconformity.php:688
 msgid "Required to close or verify this non-conformity."
 msgstr ""
 
-#: src/Nonconformity.php:657
+#: src/Nonconformity.php:689
 msgid "Optional for an observation: it may still be filled in if useful."
 msgstr ""
 
-#: src/Nonconformity.php:709
+#: src/Nonconformity.php:741
 #, php-format
 msgid "Apply the vendor patch: %s"
 msgstr ""
 
-#: src/Nonconformity.php:712
+#: src/Nonconformity.php:744
 msgid "Find and apply the vendor patch (no patch link published in NVD yet)."
 msgstr ""
 
-#: src/Nonconformity.php:715
+#: src/Nonconformity.php:747
 #, php-format
 msgid "Follow the vendor security advisory: %s"
 msgstr ""
 
-#: src/Nonconformity.php:721
+#: src/Nonconformity.php:753
 #, php-format
 msgid "Update the affected assets (%1$d): %2$s"
 msgstr ""
 
-#: src/Nonconformity.php:727
+#: src/Nonconformity.php:759
 msgid ""
 "Identify the affected assets (no matching asset found in the inventory)."
 msgstr ""
 
-#: src/Nonconformity.php:733
+#: src/Nonconformity.php:765
 #, php-format
 msgid ""
 "Actively exploited vulnerability: remediation due date set by CISA on %s."
 msgstr ""
 
-#: src/Nonconformity.php:738
+#: src/Nonconformity.php:770
 msgid ""
 "Check effectiveness: verify that the vulnerability no longer appears on the "
 "assets (incident CVE tab or \"Fleet vulnerabilities\")."
 msgstr ""
 
-#: src/Nonconformity.php:744
+#: src/Nonconformity.php:776
 #, php-format
 msgid "Action plan proposed for %1$s, found on the security incident \"%2$s\"."
 msgstr ""
 
-#: src/Nonconformity.php:757
+#: src/Nonconformity.php:789
 #, php-format
 msgid "Fix %1$s (incident \"%2$s\")"
 msgstr ""
 
-#: src/Nonconformity.php:773
+#: src/Nonconformity.php:805
 msgid ""
 "Watch the affected software in \"Software to watch\" to be alerted of future "
 "vulnerabilities."
 msgstr ""
 
-#: src/Nonconformity.php:776
+#: src/Nonconformity.php:808
 msgid "Include this software in the regular patching cycle."
 msgstr ""
 
-#: src/Nonconformity.php:796
+#: src/Nonconformity.php:828
 #, php-format
 msgid "%d overdue corrective/preventive action(s), %d notification(s) raised."
 msgstr ""
@@ -19657,11 +20488,6 @@ msgstr ""
 
 #: src/ParkRemediation.php:145 src/Services/Dashboard/PilotageCards.php:420
 msgid "Fixed late"
-msgstr ""
-
-#: src/ParkRemediation.php:311
-#, php-format
-msgid "%1$s: %2$s"
 msgstr ""
 
 #: src/ParkRemediation.php:316
@@ -21255,10 +22081,6 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-#: src/SecurityIncidentAction.php:82
-msgid "To be checked"
-msgstr ""
-
 #: src/SecurityIncidentAction.php:182
 #, php-format
 msgid "Action and remediation log: %s"
@@ -22163,347 +22985,4 @@ msgstr ""
 #: src/Waiver.php:616
 #, php-format
 msgid "Re-assess the waiver \"%s\""
-msgstr ""
-
-#: templates/pdf/internal_audit_report.html.twig
-#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:60
-#: src/AuditChecklist.php:858
-msgid "Audit checklist"
-msgstr ""
-
-#: templates/pdf/internal_audit_report.html.twig
-#: templates/audit_checklist_tab.html.twig
-#, php-format
-msgid "%1$d of %2$d audited"
-msgstr ""
-
-#: templates/pdf/internal_audit_report.html.twig
-#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:675
-msgid "Question asked"
-msgstr ""
-
-#: templates/pdf/internal_audit_report.html.twig
-#: templates/audit_checklist_tab.html.twig
-msgid "Auditee"
-msgstr ""
-
-#: templates/pdf/internal_audit_report.html.twig
-#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:676
-msgid "Evidence examined"
-msgstr ""
-
-#: templates/audit_coverage.html.twig templates/audit_checklist_tab.html.twig
-#: front/audit.php:53 front/auditcoverage.php:34
-msgid "Audit programme coverage"
-msgstr ""
-
-#: templates/audit_coverage.html.twig
-msgid ""
-"The audit programme must cover the whole ISMS over the certification cycle. "
-"For each ISMS requirement and each applicable control, this page shows the "
-"last internal audit that gave it a result in its audit checklist, and lists "
-"first those never audited over the period. Cancelled audits and lines left "
-"\"Not audited\" do not count; the date is the actual date of the audit, "
-"otherwise its planned date."
-msgstr ""
-
-#: templates/audit_coverage.html.twig
-#, php-format
-msgid "Since %s"
-msgstr ""
-
-#: templates/audit_coverage.html.twig templates/audit_checklist_tab.html.twig
-msgid "Requirements and controls"
-msgstr ""
-
-#: templates/audit_coverage.html.twig
-#, php-format
-msgid "Audited over the period (%d %%)"
-msgstr ""
-
-#: templates/audit_coverage.html.twig
-msgid "Never audited over the period"
-msgstr ""
-
-#: templates/audit_coverage.html.twig
-msgid "No ISMS requirement nor applicable control to show."
-msgstr ""
-
-#: templates/audit_coverage.html.twig
-msgid "Last audit"
-msgstr ""
-
-#: templates/audit_coverage.html.twig
-msgid "Never audited"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid ""
-"The audit checklist is reserved to the audit team and the CISO group, like "
-"the documents of the audit. Ask the audit owner to add you to the \"Team\" "
-"tab."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Lines with a result"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Audit report (PDF)"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid ""
-"One line per audited requirement: write the question you asked, who you "
-"interviewed, the evidence you examined (text, and documents of the "
-"\"Documents\" tab), then the result. For a non-conformity, an observation or "
-"an opportunity for improvement, \"Create the finding\" opens a pre-filled "
-"non-conformity that you review and save yourself. Like the documents of the "
-"audit, only the audit team and the CISO group see this checklist."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid ""
-"This audit is completed or cancelled: its checklist is read only. Set the "
-"audit back to \"In progress\" to change it."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid ""
-"The checklist is empty. Add the requirements to audit below, or apply a "
-"checklist template."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "The checklist is empty."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "No question yet"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Create the finding"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "No finding yet"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Fill in"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Number"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Documents of the audit"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Add documents to the \"Documents\" tab of the audit to cite them here."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Linked finding"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid ""
-"Remove this line from the checklist? A finding created from it stays in the "
-"non-conformity register."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Remove the line"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-#, php-format
-msgid "Last change: %1$s, %2$s"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Add requirements to audit"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Every proposed requirement is already in the checklist."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid ""
-"ISMS requirements (clauses 4 to 10), applicable Annex A controls of the "
-"statement of applicability, and requirements of the enabled custom "
-"frameworks. Requirements already in the checklist are not offered again."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "The controls of the audit scope (audit form) are preselected."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Add to the checklist"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:139
-msgid "Free item"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "An internal rule, a process or a site, for example"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Add this item"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Checklist templates"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid ""
-"A template keeps the requirements and the questions of a checklist, never "
-"the answers. Reuse it from one audit to the next, for example \"Annual "
-"access control audit\"."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Add its lines to the checklist"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid ""
-"Delete this template? The checklists already built from it do not change."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Delete the template"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "No checklist template yet."
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Save this checklist as a template"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Name of the template"
-msgstr ""
-
-#: templates/audit_checklist_tab.html.twig
-msgid "Save as template"
-msgstr ""
-
-#: templates/nonconformity_form.html.twig
-#, php-format
-msgid ""
-"Finding proposed from the audit checklist (%s): review and adapt each field, "
-"then click \"Add\". Nothing is created before, and the checklist line is "
-"linked to this finding once it is saved."
-msgstr ""
-
-#: templates/nonconformity_form.html.twig
-msgid "Audit checklist line"
-msgstr ""
-
-#: front/auditchecklist.form.php:45
-msgid "Checklist template deleted."
-msgstr ""
-
-#: front/auditchecklist.form.php:51
-msgid "Checklist template saved."
-msgstr ""
-
-#: front/auditchecklist.form.php:70
-msgid "Checklist line saved."
-msgstr ""
-
-#: front/auditchecklist.form.php:82
-#, php-format
-msgid ""
-"%d line of the template was already in the checklist or is no longer offered."
-msgid_plural ""
-"%d lines of the template were already in the checklist or are no longer "
-"offered."
-msgstr[0] ""
-msgstr[1] ""
-
-#: front/auditcoverage.php:43
-#, php-format
-msgid "Last %d year"
-msgid_plural "Last %d years"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/AuditChecklist.php:105
-msgid "Minor non-conformity"
-msgstr ""
-
-#: src/AuditChecklist.php:108
-msgid "Major non-conformity"
-msgstr ""
-
-#: src/AuditChecklist.php:111
-msgid "Observation"
-msgstr ""
-
-#: src/AuditChecklist.php:114
-msgid "Opportunity for improvement"
-msgstr ""
-
-#: src/AuditChecklist.php:117
-msgid "Not audited"
-msgstr ""
-
-#: src/AuditChecklist.php:138
-msgid "Framework requirement"
-msgstr ""
-
-#: src/AuditChecklist.php:354
-msgid "Applicable Annex A controls"
-msgstr ""
-
-#: src/AuditChecklist.php:534
-msgid "Give at least a title or a question for the free item."
-msgstr ""
-
-#: src/AuditChecklist.php:634
-#, php-format
-msgid "%d line added to the checklist."
-msgid_plural "%d lines added to the checklist."
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/AuditChecklist.php:674
-msgid "Audited requirement"
-msgstr ""
-
-#: src/AuditChecklist.php:677
-msgid "Auditor comment"
-msgstr ""
-
-#: src/AuditChecklistTemplate.php:71
-#, php-format
-msgid "%1$s (%2$d line)"
-msgid_plural "%1$s (%2$d lines)"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/AuditChecklistTemplate.php:124
-msgid "Give the template a name."
-msgstr ""
-
-#: src/AuditChecklistTemplate.php:130
-msgid ""
-"The checklist is empty: add requirements before saving it as a template."
-msgstr ""
-
-#: src/AuditChecklistTemplate.php:140
-msgid "A checklist template with this name already exists."
 msgstr ""

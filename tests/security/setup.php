@@ -97,6 +97,16 @@ if ($mode === 'xss') {
         'plugin_grcmanager_controls_id' => (int) $ids['control'], 'test_date' => date('Y-m-d'),
         'result' => 'partial', 'comment' => $canary,
     ]);
+    // Issue #607 : échantillon piégé (question, critères, nom figé et commentaire d'un élément).
+    $out['sample'] = $insert('controltestsamples', [
+        'plugin_grcmanager_controls_id' => (int) $ids['control'], 'name' => $canary, 'itemtype' => 'Computer',
+        'criteria' => '{}', 'population_count' => 1, 'sample_size' => 1, 'seed' => 'xss', 'users_id' => 2,
+        'draw_method' => 'sha256-rank-v1', 'date_draw' => date('Y-m-d H:i:s'),
+    ]);
+    $insert('controltestsampleitems', [
+        'plugin_grcmanager_controltestsamples_id' => $out['sample'], 'rank' => 1, 'itemtype' => 'Computer',
+        'items_id' => (int) $ids['computer_A'], 'label' => $canary, 'result' => 'noncompliant', 'comment' => $canary,
+    ]);
     $out['policy'] = $insert('policies', [
         'title' => $canary, 'description' => $canary, 'version' => '1.0', 'status' => 'approved',
         'approval_date' => date('Y-m-d'),
@@ -847,6 +857,14 @@ $DB->insert(\GlpiPlugin\Grcmanager\AuditChecklistTemplate::TABLE, [
     'date_creation' => date('Y-m-d H:i:s'),
 ]);
 $ids['checklist_template'] = (int) $DB->insertId();
+// Issue #607 : test d'efficacité de la mesure de A, en attente de relecture, enregistré par le
+// gestionnaire de A : il ne peut pas le relire lui-même ; le super-admin le peut.
+$DB->insert('glpi_plugin_grcmanager_controltests', [
+    'plugin_grcmanager_controls_id' => $controlId, 'test_date' => date('Y-m-d'), 'method' => 'inspection',
+    'result' => 'effective', 'users_id' => $manager, 'users_id_recorder' => $manager,
+    'review_status' => 'pending', 'comment' => 'Test securite relecture', 'date_creation' => date('Y-m-d H:i:s'),
+]);
+$ids['review_test'] = (int) $DB->insertId();
 
 // Issue #536, lot 2 : audit, constat et action de traitement de l'entité B, jamais montrés aux
 // profils limités à A, même confiés au gestionnaire de A. Une demande de preuve de l'audit de B

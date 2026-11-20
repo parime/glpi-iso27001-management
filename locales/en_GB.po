@@ -24392,3 +24392,314 @@ msgid "%1$s (%2$d line)"
 msgid_plural "%1$s (%2$d lines)"
 msgstr[0] "%1$s (%2$d line)"
 msgstr[1] "%1$s (%2$d lines)"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Reviewer"
+msgstr "Reviewer"
+
+msgid "Sample"
+msgid_plural "Samples"
+msgstr[0] "Sample"
+msgstr[1] "Samples"
+
+msgid "Question checked on each item"
+msgstr "Question checked on each item"
+
+msgid "Items in the population"
+msgstr "Items in the population"
+
+msgid "Sample size"
+msgstr "Sample size"
+
+msgid "Draw date"
+msgstr "Draw date"
+
+msgid "Drawn by"
+msgstr "Drawn by"
+
+msgid "Seed"
+msgstr "Seed"
+
+msgid "Proposed result"
+msgstr "Proposed result"
+
+msgid "Justification of a different result"
+msgstr "Justification of a different result"
+
+msgid "Each item of the population is ranked by the SHA-256 fingerprint of \"seed:identifier\"; the first items of this ranking form the sample. The same population and the same seed always give the same sample."
+msgstr "Each item of the population is ranked by the SHA-256 fingerprint of \"seed:identifier\"; the first items of this ranking form the sample. The same population and the same seed always give the same sample."
+
+#, php-format
+msgid "Back to the tests of %s"
+msgstr "Back to the tests of %s"
+
+msgid "Recorded as a test"
+msgstr "Recorded as a test"
+
+msgid "Test record for the auditor (PDF)"
+msgstr "Test record for the auditor (PDF)"
+
+msgid "Population and criteria"
+msgstr "Population and criteria"
+
+msgid "How the sample was drawn"
+msgstr "How the sample was drawn"
+
+msgid "once every item is checked"
+msgstr "once every item is checked"
+
+msgid "none: every item is not applicable"
+msgstr "none: every item is not applicable"
+
+msgid "Items drawn"
+msgstr "Items drawn"
+
+msgid "A non-compliant or not applicable item must be explained in its comment."
+msgstr "A non-compliant or not applicable item must be explained in its comment."
+
+msgid "Save the results"
+msgstr "Save the results"
+
+msgid "Record the test from this sample"
+msgstr "Record the test from this sample"
+
+#, php-format
+msgid "Proposed: no deviation gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test."
+msgstr "Proposed: no deviation gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test."
+
+msgid "Optional: the sample and its results are added to the finding."
+msgstr "Optional: the sample and its results are added to the finding."
+
+msgid "Another person will have to review this test before it counts for the \"Verified\" status."
+msgstr "Another person will have to review this test before it counts for the \"Verified\" status."
+
+msgid "Once the test is recorded, the sample is frozen. Deleting the test opens the sample again."
+msgstr "Once the test is recorded, the sample is frozen. Deleting the test opens the sample again."
+
+msgid "Delete this sample?"
+msgstr "Delete this sample?"
+
+msgid "Delete this sample"
+msgstr "Delete this sample"
+
+msgid "Review of effectiveness tests"
+msgstr "Review of effectiveness tests"
+
+msgid "When enabled, an effective test only gives the \"Verified\" status once another person (neither the tester nor the person who recorded it) has approved it. A partially effective or ineffective test still withdraws the \"Verified\" status at once."
+msgstr "When enabled, an effective test only gives the \"Verified\" status once another person (neither the tester nor the person who recorded it) has approved it. A partially effective or ineffective test still withdraws the \"Verified\" status at once."
+
+msgid "Require a review of each new effectiveness test"
+msgstr "Require a review of each new effectiveness test"
+
+msgid "Draw a sample in GLPI"
+msgstr "Draw a sample in GLPI"
+
+msgid "The items are drawn at random from what you can see in GLPI (your active entities and rights). The population, the criteria, the size, the seed, the date and the author are kept with the sample: the same draw can be checked again by the auditor."
+msgstr "The items are drawn at random from what you can see in GLPI (your active entities and rights). The population, the criteria, the size, the seed, the date and the author are kept with the sample: the same draw can be checked again by the auditor."
+
+msgid "Example: does each closed change have an approved validation?"
+msgstr "Example: does each closed change have an approved validation?"
+
+msgid "Population"
+msgstr "Population"
+
+msgid "not allowed"
+msgstr "not allowed"
+
+msgid "Tickets and changes require the right to see all of them."
+msgstr "Tickets and changes require the right to see all of them."
+
+msgid "All my active entities"
+msgstr "All my active entities"
+
+msgid "Period covered: from"
+msgstr "Period covered: from"
+
+msgid "to"
+msgstr "to"
+
+msgid "Creation date of users and computers; opening date of tickets and changes, or closing date if closed only."
+msgstr "Creation date of users and computers; opening date of tickets and changes, or closing date if closed only."
+
+msgid "Category (tickets and changes)"
+msgstr "Category (tickets and changes)"
+
+msgid "Closed tickets or changes only"
+msgstr "Closed tickets or changes only"
+
+msgid "Active user accounts only"
+msgstr "Active user accounts only"
+
+msgid "How often the control operates"
+msgstr "How often the control operates"
+
+msgid "Empty: the size proposed for this frequency."
+msgstr "Empty: the size proposed for this frequency."
+
+msgid "Seed (optional)"
+msgstr "Seed (optional)"
+
+msgid "Empty: a random seed is generated. Enter the seed of an earlier draw to reproduce it."
+msgstr "Empty: a random seed is generated. Enter the seed of an earlier draw to reproduce it."
+
+msgid "Draw the sample"
+msgstr "Draw the sample"
+
+msgid "Samples in progress"
+msgstr "Samples in progress"
+
+#, php-format
+msgid "%1$d out of %2$d"
+msgstr "%1$d out of %2$d"
+
+msgid "Review comment"
+msgstr "Review comment"
+
+msgid "Review comment (required to return the test)"
+msgstr "Review comment (required to return the test)"
+
+msgid "Return"
+msgstr "Return"
+
+#, php-format
+msgid "Sample: %1$d out of %2$d"
+msgstr "Sample: %1$d out of %2$d"
+
+msgid "This sample is already recorded as a test."
+msgstr "This sample is already recorded as a test."
+
+msgid "Awaiting review"
+msgstr "Awaiting review"
+
+msgid "Review approved"
+msgstr "Review approved"
+
+msgid "Returned by the reviewer"
+msgstr "Returned by the reviewer"
+
+msgid "The test awaits review by another person before it counts for the \"Verified\" status."
+msgstr "The test awaits review by another person before it counts for the \"Verified\" status."
+
+msgid "Explain why the test is returned."
+msgstr "Explain why the test is returned."
+
+msgid "Test approved: it now counts for the \"Verified\" status."
+msgstr "Test approved: it now counts for the \"Verified\" status."
+
+msgid "Test returned to its author: it does not count for the \"Verified\" status."
+msgstr "Test returned to its author: it does not count for the \"Verified\" status."
+
+#, php-format
+msgid "Effectiveness test of %s"
+msgstr "Effectiveness test of %s"
+
+msgid "Annual control"
+msgstr "Annual control"
+
+msgid "Quarterly control"
+msgstr "Quarterly control"
+
+msgid "Monthly control"
+msgstr "Monthly control"
+
+msgid "Weekly control"
+msgstr "Weekly control"
+
+msgid "Daily control"
+msgstr "Daily control"
+
+msgid "Control run several times a day"
+msgstr "Control run several times a day"
+
+#, php-format
+msgid "%1$s (%2$d item)"
+msgid_plural "%1$s (%2$d items)"
+msgstr[0] "%1$s (%2$d item)"
+msgstr[1] "%1$s (%2$d items)"
+
+msgid "You are not allowed to test this control."
+msgstr "You are not allowed to test this control."
+
+msgid "Choose the population to draw from."
+msgstr "Choose the population to draw from."
+
+#, php-format
+msgid "You are not allowed to see all the items of this population (%s)."
+msgstr "You are not allowed to see all the items of this population (%s)."
+
+msgid "Enter the question checked on each item."
+msgstr "Enter the question checked on each item."
+
+msgid "The start of the period must be before its end."
+msgstr "The start of the period must be before its end."
+
+msgid "This entity is not among your active entities."
+msgstr "This entity is not among your active entities."
+
+msgid "The seed may only contain letters, digits, dashes and underscores."
+msgstr "The seed may only contain letters, digits, dashes and underscores."
+
+#, php-format
+msgid "The population exceeds %d items: narrow the period or the criteria."
+msgstr "The population exceeds %d items: narrow the period or the criteria."
+
+msgid "No item matches these criteria: nothing was drawn."
+msgstr "No item matches these criteria: nothing was drawn."
+
+msgid "The sample could not be saved."
+msgstr "The sample could not be saved."
+
+#, php-format
+msgid "%1$d item drawn at random out of %2$d."
+msgid_plural "%1$d items drawn at random out of %2$d."
+msgstr[0] "%1$d item drawn at random out of %2$d."
+msgstr[1] "%1$d items drawn at random out of %2$d."
+
+msgid "Give a result to every item drawn before recording the test."
+msgstr "Give a result to every item drawn before recording the test."
+
+msgid "Explain each non-compliant or not applicable item in its comment."
+msgstr "Explain each non-compliant or not applicable item in its comment."
+
+msgid "Every item is not applicable: draw another sample."
+msgstr "Every item is not applicable: draw another sample."
+
+msgid "Justify a result different from the proposed one."
+msgstr "Justify a result different from the proposed one."
+
+msgid "This sample has no item."
+msgstr "This sample has no item."
+
+#, php-format
+msgid "Random sample, %1$d of %2$d (%3$s): %4$d compliant, %5$d non-compliant, %6$d not applicable."
+msgstr "Random sample, %1$d of %2$d (%3$s): %4$d compliant, %5$d non-compliant, %6$d not applicable."
+
+#, php-format
+msgid "Question: %s"
+msgstr "Question: %s"
+
+#, php-format
+msgid "Result changed from the proposed one (%1$s): %2$s"
+msgstr "Result changed from the proposed one (%1$s): %2$s"
+
+#, php-format
+msgid "%s and its sub-entities"
+msgstr "%s and its sub-entities"
+
+msgid "No period limit"
+msgstr "No period limit"
+
+#, php-format
+msgid "From %1$s to %2$s"
+msgstr "From %1$s to %2$s"
+
+msgid "Date used for the period"
+msgstr "Date used for the period"
+
+msgid "Closed only"
+msgstr "Closed only"
+
+msgid "Active accounts only"
+msgstr "Active accounts only"

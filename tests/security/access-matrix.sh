@@ -228,6 +228,11 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   expect "front/controltest.form.php : envoyer une preuve" "$1" "$(upload_evidence "$EVIDENCE_PDF" preuve-securite.pdf)"
   expect "front/controltest.form.php : resultat d'un controle technique" "$1" \
     "$(code -d "record_check=antivirus&plugin_grcmanager_controls_id=$(id control)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
+  # Issue #607 : tirer un echantillon ou relire un test exige de pouvoir modifier la mesure.
+  expect "front/controltestsample.form.php : tirer un echantillon" "$1" \
+    "$(code -d "draw=1&plugin_grcmanager_controls_id=$(id control)&itemtype=Computer&name=securite&_glpi_csrf_token=$(csrf)" "$P/controltestsample.form.php")"
+  expect "front/controltest.form.php : relire un test" "$1" \
+    "$(code -d "review=approve&id=$(id review_test)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
   # Issue #139 : joindre ou retirer une copie de quiz exige de pouvoir modifier la session.
   expect "front/trainingquiz.form.php : retirer une copie" "$1" \
     "$(code -d "remove=1&participations_id=$(id quiz)&_glpi_csrf_token=$(csrf)" "$P/trainingquiz.form.php")"
@@ -758,6 +763,27 @@ else
   contains "onglet des tests : pas d'envoi sans droit de creer un document" 'name="evidence_file"' non \
     "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"
 fi
+
+# Issue #607 : echantillon tire dans les ordinateurs visibles seulement (entites actives) ; le
+# gestionnaire de A ne tire jamais l'ordinateur de B, ni dans les tickets sans le droit de tous les
+# voir. Il ne relit pas un test qu'il a enregistre ; le super-admin le peut. Fiche PDF du test.
+sample_loc=$(curl -s -o /dev/null -w '%{redirect_url}' -c "$JAR" -b "$JAR" \
+  -d "draw=1&plugin_grcmanager_controls_id=$(id control)&itemtype=Computer&name=Chiffrement%20securite&sample_size=100&_glpi_csrf_token=$(csrf)" \
+  "$P/controltestsample.form.php")
+contains "tirage d'un echantillon : page de l'echantillon" "controltestsample.form.php?id=" oui "$sample_loc"
+sample_page=$(curl -s -c "$JAR" -b "$JAR" "$sample_loc")
+contains "echantillon : ordinateur de A tire" "PC securite A" oui "$sample_page"
+contains "echantillon : ordinateur de B" "PC securite B" $SEE_B "$sample_page"
+contains "echantillon : graine conservee" "grc-sample-seed" oui "$sample_page"
+if [ "$ROLE" != admin ]; then
+  ticket_loc=$(curl -s -o /dev/null -w '%{redirect_url}' -c "$JAR" -b "$JAR" \
+    -d "draw=1&plugin_grcmanager_controls_id=$(id control)&itemtype=Ticket&name=securite&_glpi_csrf_token=$(csrf)" \
+    "$P/controltestsample.form.php")
+  contains "tirage dans les tickets sans le droit de tous les voir" "controltestsample.form.php?id=" non "$ticket_loc"
+fi
+expect "front/controltest.pdf.php : fiche du test" 200 "$(code "$P/controltest.pdf.php?id=$(id review_test)")"
+expect "relire un test qu'on a enregistre" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "review=approve&id=$(id review_test)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
 
 # Issue #539 : « Mon espace GRC », ouvert a toute session, ne montre que ce qui est confie a
 # l'utilisateur connecte (le risque du jeu de donnees n'a pas de proprietaire ; glpi est inscrit a

@@ -110,6 +110,8 @@ check "espace auditeur d'un audit"            "$P/auditorspace.php?id=$(xid audi
 check "liste de l'espace auditeur"            "$P/auditorspace.php"
 # Issue #380 : constat d'un test d'efficacite (onglet de la mesure).
 check "onglet tests d'efficacite d'un controle" "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"
+# Issue #607 : echantillon piege (question, nom fige et commentaire d'un element).
+check "page d'un echantillon de test"         "$P/controltestsample.form.php?id=$(xid sample)"
 
 rm -f "$JAR"
 if [ "$RENDERED" -lt 10 ]; then
