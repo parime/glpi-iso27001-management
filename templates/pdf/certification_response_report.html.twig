@@ -1,0 +1,65 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #772, lot 3 : plan d'actions correctives d'un audit de certification, envoyé à l'organisme
+   dans le délai fixé par son rapport. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ audit.title }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Audit type', 'grcmanager') }}</td><td>{{ audit.type_label }}</td></tr>
+  {% if audit.body %}<tr><td>{{ __('Certification body', 'grcmanager') }}</td><td>{{ audit.body }}</td></tr>{% endif %}
+  {% if audit.lead_auditor %}<tr><td>{{ __('Lead auditor', 'grcmanager') }}</td><td>{{ audit.lead_auditor }}</td></tr>{% endif %}
+  {% if audit.standard %}<tr><td>{{ __('Standard and edition', 'grcmanager') }}</td><td>{{ audit.standard }}</td></tr>{% endif %}
+  {% if audit.date %}<tr><td>{{ __('Audit date', 'grcmanager') }}</td><td>{{ audit.date }}</td></tr>{% endif %}
+  {% if audit.report_date_label %}<tr><td>{{ __('Certification body report received on', 'grcmanager') }}</td><td>{{ audit.report_date_label }}</td></tr>{% endif %}
+  {% if deadlines.response.date %}<tr><td>{{ __('Action plan due to the certification body', 'grcmanager') }}</td><td>{{ deadlines.response.date }}</td></tr>{% endif %}
+  {% if deadlines.evidence.date %}<tr><td>{{ __('Evidence due to the certification body', 'grcmanager') }}</td><td>{{ deadlines.evidence.date }}</td></tr>{% endif %}
+  <tr><td>{{ __('Prepared by', 'grcmanager') }}</td><td>{{ generated_by }}</td></tr>
+</table>
+
+{% if plan_findings is empty %}
+  <p>{{ __('No nonconformity calls for a response in this audit.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th>{{ __('Reference', 'grcmanager') }}</th>
+        <th>{{ __('Finding', 'grcmanager') }}</th>
+        <th>{{ __('Correction', 'grcmanager') }}</th>
+        <th>{{ __('Root cause', 'grcmanager') }}</th>
+        <th>{{ __('Corrective action', 'grcmanager') }}</th>
+        <th>{{ __('Owner', 'grcmanager') }}</th>
+        <th>{{ __('Due date', 'grcmanager') }}</th>
+        <th>{{ __('Evidence', 'grcmanager') }}</th>
+        <th>{{ __('Lifting status', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in plan_findings %}
+        <tr>
+          <td>{{ f.reference }}</td>
+          <td>{% if f.category_label %}<strong>{{ f.category_label }}</strong><br>{% endif %}{{ f.title }}{% if f.description %}<br>{{ f.description|nl2br }}{% endif %}{% set where = [f.process, f.requirement, f.site]|filter(v => v)|join(' / ') %}{% if where %}<br><em>{{ where }}</em>{% endif %}</td>
+          <td>{{ f.correction|nl2br }}</td>
+          <td>{{ f.root_cause|nl2br }}</td>
+          <td>{{ f.corrective_action|nl2br }}</td>
+          <td>{{ f.owner }}</td>
+          <td>{{ f.due_date }}</td>
+          <td>{{ f.documents|join(', ') }}{% if f.evidence_date_label %}<br>{{ __('Sent on %s', 'grcmanager')|format(f.evidence_date_label) }}{% endif %}</td>
+          <td>{{ f.lift.label }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

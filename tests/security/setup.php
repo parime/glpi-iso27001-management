@@ -90,6 +90,9 @@ if ($mode === 'xss') {
         'title' => $canary, 'plugin_grcmanager_audits_id' => $out['audit'], 'body_reference' => $canary,
         'audited_process' => $canary, 'requirement_reference' => $canary, 'corrective_action' => $canary,
         'root_cause' => $canary,
+        // Lot 3 : réponse à l'organisme piégée (correction, retour de l'organisme), onglet et PDF.
+        'correction' => $canary, 'body_feedback' => $canary, 'description' => $canary,
+        'body_response_date' => date('Y-m-d'), 'body_decision' => 'to_complete',
     ]);
     $out['obligation'] = $insert('complianceobligations', [
         'title' => $canary, 'description' => $canary, 'reference_source' => $canary,

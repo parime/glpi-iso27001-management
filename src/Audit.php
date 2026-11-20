@@ -23,6 +23,7 @@ use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\AuditBase;
+use GlpiPlugin\Grcmanager\Services\Audit\BodyResponseRules;
 use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Html;
@@ -179,6 +180,12 @@ class Audit extends AuditBase
                 $input[$field] = mb_substr(trim((string) $input[$field]), 0, 255);
             }
         }
+        // Issue #772, lot 3 : rapport de l'organisme et délais de réponse ; vide ou invalide : aucun.
+        foreach (['body_report_date', 'body_response_due_date', 'body_evidence_due_date'] as $field) {
+            if (array_key_exists($field, $input)) {
+                $input[$field] = BodyResponseRules::normalizeDate($input[$field]);
+            }
+        }
 
         if (isset($input['risk_categories']) && is_array($input['risk_categories'])) {
             $input['risk_categories'] = implode(',', array_filter(array_map('trim', $input['risk_categories'])));
@@ -324,6 +331,22 @@ class Audit extends AuditBase
             'name'     => __('Audit criteria', 'grcmanager'),
             'datatype' => 'text',
         ];
+        // Issue #772, lot 3 : rapport de l'organisme et délais de réponse (identifiants 36 à 38).
+        foreach (
+            [
+                36 => ['body_report_date', __('Certification body report received on', 'grcmanager')],
+                37 => ['body_response_due_date', __('Action plan due to the certification body', 'grcmanager')],
+                38 => ['body_evidence_due_date', __('Evidence due to the certification body', 'grcmanager')],
+            ] as $id => [$field, $name]
+        ) {
+            $tab[] = [
+                'id'       => $id,
+                'table'    => $this->getTable(),
+                'field'    => $field,
+                'name'     => $name,
+                'datatype' => 'date',
+            ];
+        }
 
         // Issue #536 : périmètre de l'audit (entité GLPI) et visibilité dans les sous-entités.
         $tab[] = [
@@ -570,6 +593,8 @@ class Audit extends AuditBase
             // Issue #772, lot 2 : processus échantillonnés par l'organisme (audit de certification).
             ->addStandardTab(CertificationSampling::class, $tabs, $options)
             ->addStandardTab(Nonconformity::class, $tabs, $options)
+            // Issue #772, lot 3 : réponse aux constats de l'organisme (délais, plan d'actions, preuves).
+            ->addStandardTab(CertificationResponse::class, $tabs, $options)
             ->addStandardTab(AuditTeam::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
             ->addStandardTab(DocumentAccess::class, $tabs, $options)

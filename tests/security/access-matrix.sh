@@ -1357,6 +1357,19 @@ if [ "$ROLE" != none ]; then
   contains "front/certificationsampling.php : audit de certification de B" "Audit certification securite B" $IS_ADMIN \
     "$(curl -s -c "$JAR" -b "$JAR" "$P/certificationsampling.php?start=$(( $(date +%Y) - 1 ))")"
 fi
+# Issue #772, lot 3 : plan d'actions pour l'organisme (PDF). Lecture de l'audit de certification
+# (droit et entite) ; audit de B refuse hors super-admin ; audit interne : aucun plan (404).
+case $ROLE in none) RESPONSE_A=403; RESPONSE_INTERNAL=403 ;; *) RESPONSE_A=200; RESPONSE_INTERNAL=404 ;; esac
+expect "front/certificationresponse.php : plan d'actions d'un audit de certification de A" $RESPONSE_A \
+  "$(code "$P/certificationresponse.php?audit=$(id audit_cert)")"
+expect "front/certificationresponse.php : plan d'actions d'un audit de certification de B" "$DENY" \
+  "$(code "$P/certificationresponse.php?audit=$(id audit_cert_B)")"
+expect "front/certificationresponse.php : audit interne" $RESPONSE_INTERNAL \
+  "$(code "$P/certificationresponse.php?audit=$(id audit)")"
+if [ "$ROLE" != none ]; then
+  contains "onglet reponse a l'organisme d'un audit de certification de B" "grc-certification-response-tab" $IS_ADMIN \
+    "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CCertificationResponse$1' "$(id audit_cert_B)")"
+fi
 contains "tableau de bord consolide : non-conformites ouvertes par entite" "grcmanager-perimeters-findings" \
   $IS_ADMIN "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"
 

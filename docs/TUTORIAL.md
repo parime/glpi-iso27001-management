@@ -843,6 +843,30 @@ logiques et physiques, fournisseurs). Un constat est rattaché à un processus q
 **Processus audité** reprend le nom du processus (le champ le propose), ou quand sa clause ou
 mesure fait partie des mesures du processus. Cocher demande le droit de modifier l'audit concerné.
 
+### Étape 33 : Répondre aux constats de l'organisme dans les délais
+
+Après l'audit, l'organisme de certification fixe dans son rapport deux délais : l'envoi du **plan
+d'actions** (pour chaque non-conformité : correction, cause et action corrective), puis l'envoi des
+**preuves de levée**. Il accepte le plan ou demande de le compléter.
+
+1. Sur la fiche de l'audit de certification, renseigner **Rapport de l'organisme reçu le**, **Plan
+   d'actions à envoyer à l'organisme avant le** et **Preuves à envoyer à l'organisme avant le**.
+2. Ouvrir l'onglet **Réponse à l'organisme** de l'audit : les délais et les jours restants, puis
+   l'état de chaque constat (plan d'actions à envoyer, bientôt dû, en retard, envoyé, accepté, à
+   compléter ; preuves à envoyer ou envoyées). La colonne **À compléter** signale ce qui manque
+   avant l'envoi (correction, cause, action corrective, responsable, échéance).
+3. Compléter chaque non-conformité (la **Correction** apparaît sur la fiche d'un constat d'audit de
+   certification), puis cliquer sur **Plan d'actions correctives pour l'organisme (PDF)** et
+   envoyer ce document à l'organisme.
+4. Sur chaque constat, dans le bloc **Réponse à l'organisme**, noter la date d'envoi du plan
+   d'actions, la **décision de l'organisme** et son retour, puis la date d'envoi des preuves (les
+   preuves elles-mêmes sont jointes dans l'onglet Documents).
+
+Une réponse est attendue pour chaque non-conformité ; elle reste facultative pour un point sensible
+ou une piste de progrès. Un délai est signalé comme proche 7 jours avant. La **Préparation à la
+certification** compte les plans d'actions et les preuves encore à envoyer, et ceux en retard.
+Rien n'est modifié automatiquement : statut, responsable et échéance restent ceux que vous saisissez.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -1671,3 +1695,27 @@ suppliers). A finding is linked to a process when its **Audited process** field 
 the process (the field suggests it), or when its clause or control is one of the controls of the
 process. Ticking requires the right to update the audit concerned. The audit list shows the
 **Audit type** column right after the title.
+
+### Step 34: Answer the findings of the certification body on time
+
+After the audit, the certification body sets two deadlines in its report: sending the **action
+plan** (for each nonconformity: correction, root cause and corrective action), then sending the
+**evidence that the findings are lifted**. It accepts the plan or asks you to complete it.
+
+1. On the certification audit, fill in **Certification body report received on**, **Action plan due
+   to the certification body** and **Evidence due to the certification body**.
+2. Open the **Response to the certification body** tab of the audit: the deadlines and the days
+   left, then the state of each finding (action plan to send, due soon, overdue, sent, accepted, to
+   complete; evidence to send or sent). The **To fill in** column shows what is missing before
+   sending (correction, root cause, corrective action, owner, due date).
+3. Complete each nonconformity (the **Correction** field appears on a finding of a certification
+   audit), then click **Corrective action plan for the certification body (PDF)** and send this
+   document to the body.
+4. On each finding, in the **Response to the certification body** block, record the date the
+   action plan was sent, the **decision of the certification body** and its feedback, then the date
+   the evidence was sent (the evidence itself is attached in the Documents tab).
+
+A response is expected for each nonconformity; it is optional for an area of concern or an
+opportunity for improvement. A deadline is shown as close 7 days before it. **Certification
+readiness** counts the action plans and evidence still to send, and those overdue. Nothing is
+changed automatically: status, owner and due date stay as you enter them.

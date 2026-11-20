@@ -268,7 +268,8 @@ final class CertificationFindingTest extends GrcmanagerIntegrationTestCase
         $this->assertNotNull($step);
         $urls = array_column($step['links'], 'url');
         $this->assertContains(CertificationFinding::getSearchURL() . '?open=1', $urls);
-        $this->assertCount(4, $step['facts']);
+        // Lot 3 : plus le fait des plans d'actions et preuves à envoyer à l'organisme.
+        $this->assertCount(5, $step['facts']);
     }
 
     public function testFindingsTabOfACertificationAudit(): void

@@ -24,6 +24,7 @@ use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\NonconformityBase;
+use GlpiPlugin\Grcmanager\Services\Audit\BodyResponseRules;
 use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Capa\CapaRequirementService;
 use GlpiPlugin\Grcmanager\Services\Capa\CveCapaRules;
@@ -282,6 +283,16 @@ class Nonconformity extends NonconformityBase
         if (array_key_exists('locations_id', $input)) {
             $input['locations_id'] = max(0, (int) $input['locations_id']);
         }
+        // Issue #772, lot 3 : réponse à l'organisme ; date vide ou invalide : aucune, décision
+        // inconnue : en attente. Rien d'autre n'est modifié (statut, responsable, échéance).
+        foreach (['body_response_date', 'body_evidence_date'] as $field) {
+            if (array_key_exists($field, $input)) {
+                $input[$field] = BodyResponseRules::normalizeDate($input[$field]);
+            }
+        }
+        if (array_key_exists('body_decision', $input)) {
+            $input['body_decision'] = BodyResponseRules::normalizeDecision((string) $input['body_decision']);
+        }
 
         $status           = (string) ($input['status'] ?? ($this->fields['status'] ?? 'open'));
         $findingType       = (string) (
@@ -474,6 +485,35 @@ class Nonconformity extends NonconformityBase
             'name'     => __('Site', 'grcmanager'),
             'datatype' => 'dropdown',
         ];
+        // Issue #772, lot 3 : réponse à l'organisme (identifiants 34 à 37).
+        $tab[] = [
+            'id'       => 34,
+            'table'    => $this->getTable(),
+            'field'    => 'body_response_date',
+            'name'     => __('Action plan sent to the certification body on', 'grcmanager'),
+            'datatype' => 'date',
+        ];
+        $tab[] = [
+            'id'       => 35,
+            'table'    => $this->getTable(),
+            'field'    => 'body_evidence_date',
+            'name'     => __('Evidence sent to the certification body on', 'grcmanager'),
+            'datatype' => 'date',
+        ];
+        $tab[] = [
+            'id'       => 36,
+            'table'    => $this->getTable(),
+            'field'    => 'body_decision',
+            'name'     => __('Decision of the certification body', 'grcmanager'),
+            'datatype' => 'specific',
+        ];
+        $tab[] = [
+            'id'       => 37,
+            'table'    => $this->getTable(),
+            'field'    => 'correction',
+            'name'     => __('Correction', 'grcmanager'),
+            'datatype' => 'text',
+        ];
 
         // Issue #536 : périmètre de la non-conformité (entité GLPI) et visibilité dans les
         // sous-entités.
@@ -515,6 +555,9 @@ class Nonconformity extends NonconformityBase
 
             case 'plugin_grcmanager_audits_id':
                 return self::auditLink((int) ($values[$field] ?? 0));
+
+            case 'body_decision':
+                return CertificationResponse::decisionBadge((string) ($values[$field] ?? ''));
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
@@ -546,6 +589,9 @@ class Nonconformity extends NonconformityBase
 
             case 'status':
                 return Dropdown::showFromArray($name, self::getStatuses(), $options);
+
+            case 'body_decision':
+                return Dropdown::showFromArray($name, CertificationResponse::getDecisions(), $options);
         }
 
         return parent::getSpecificValueToSelect($field, $name, $values, $options);
@@ -770,6 +816,8 @@ class Nonconformity extends NonconformityBase
         TemplateRenderer::getInstance()->display('@grcmanager/nonconformity_form.html.twig', [
             'certification'          => $certification,
             'certification_categories' => CertificationFinding::getCategories(),
+            // Issue #772, lot 3 : décision de l'organisme sur la réponse.
+            'body_decisions'         => CertificationResponse::getDecisions(),
             // Issue #772, lot 2 : processus du programme d'audit, proposés pour le processus audité.
             'process_labels'         => array_values(array_unique(array_filter(
                 array_column(CertificationSampling::processes(), 'label')
