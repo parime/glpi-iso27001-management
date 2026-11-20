@@ -795,6 +795,23 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #776 : scénarios de crise sécurité de l'information du PCA et leur couverture.
+            'crisisscenario' => [
+                'purpose'   => __(
+                    'Information security crisis scenarios of the continuity plan: ransomware, data leak, '
+                        . 'compromise of privileged accounts, unavailability of a critical supplier, denial of '
+                        . 'service. For each one: the processes it stops, how to keep working without lowering '
+                        . 'security, who does what, and which playbook to follow.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Add the default scenarios, then adapt each one: choose the impacted processes, check the '
+                        . 'secure degraded mode and the roles, link the response playbook. Every critical process '
+                        . 'should have a scenario, and every scenario should be exercised at least once a year.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.5.29', 'grcmanager'),
+            ],
             // Issue #616 : modèles de messages de crise et leurs listes de diffusion.
             'crisismessagetemplate' => [
                 'purpose'   => __(

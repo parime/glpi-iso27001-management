@@ -36,7 +36,7 @@ organization. Allow half an hour.
      only;
    - **Sensitive registers** (risks, risk indicators, vulnerabilities, network flows): to the CISO
      and risk owners only, since these registers describe the organization's weak points;
-   - **Business continuity** (business processes, BIA);
+   - **Business continuity** (business processes, BIA, security crisis scenarios);
    - **Personal data protection** (GDPR record of processing, breaches): to the DPO;
    - **Security incidents** and their rules, for the response team.
 

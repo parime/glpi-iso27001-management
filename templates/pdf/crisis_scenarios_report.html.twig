@@ -1,0 +1,69 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #776 : scénarios de crise sécurité de l'information du PCA en PDF (A.5.29) : couverture,
+   puis chaque scénario (processus, mode dégradé sécurisé, rôles, guide de réponse, exercice). #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<p>{{ control }}</p>
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Active scenarios', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.scenarios }}</td></tr>
+  <tr><td>{{ __('Critical processes', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.critical }}</td></tr>
+  <tr><td>{{ __('Critical processes without scenario', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.critical_uncovered }}</td></tr>
+  <tr><td>{{ __('Never exercised', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.never_exercised }}</td></tr>
+  <tr><td>{{ __('Not exercised for more than a year', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ coverage.summary.overdue }}</td></tr>
+</table>
+
+{% if coverage.uncovered is not empty %}
+  <h2>{{ __('Critical processes without security crisis scenario', 'grcmanager') }}</h2>
+  <ul>
+    {% for process in coverage.uncovered %}
+      <li>{{ process.name }} (RTO {{ process.rto }})</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<h2>{{ _n('Security crisis scenario', 'Security crisis scenarios', 2, 'grcmanager') }}</h2>
+{% if scenarios is empty %}
+  <p>{{ __('No item recorded.', 'grcmanager') }}</p>
+{% endif %}
+{% for scenario in scenarios %}
+  <h3>{{ scenario.name }}{% if not scenario.is_active %} ({{ __('Inactive', 'grcmanager') }}){% endif %}</h3>
+  <table class="grcmanager-pdf-table">
+    <tbody>
+      <tr><th style="width: 28%;">{{ __('Description') }}</th><td>{{ scenario.description|nl2br }}</td></tr>
+      <tr>
+        <th>{{ __('Impacted processes', 'grcmanager') }}</th>
+        <td>
+          {% for process in scenario.processes %}{{ process.name }}{% if process.critical %} ({{ __('Critical', 'grcmanager') }}){% endif %}{% if not loop.last %}, {% endif %}{% else %}-{% endfor %}
+        </td>
+      </tr>
+      <tr><th>{{ __('Secure degraded mode', 'grcmanager') }}</th><td>{{ scenario.degraded_mode|nl2br }}</td></tr>
+      {% for field, label in roles %}
+        <tr><th>{{ label }}</th><td>{{ attribute(scenario, field)|nl2br }}</td></tr>
+      {% endfor %}
+      <tr><th>{{ __('Response playbook', 'grcmanager') }}</th><td>{{ scenario.playbook is not null ? scenario.playbook.name : (scenario.has_playbook ? __('Linked', 'grcmanager') : '-') }}</td></tr>
+      <tr>
+        <th>{{ __('Exercise', 'grcmanager') }}</th>
+        <td>{{ scenario.last_exercise ? __('Exercised on %s', 'grcmanager')|format(scenario.last_exercise|formatted_date) : __('Never exercised', 'grcmanager') }}{% if scenario.exercise %} ({{ scenario.exercise }}){% endif %}</td>
+      </tr>
+      <tr><th>{{ __('Crisis communication', 'grcmanager') }}</th><td>{{ scenario.situation ?: '-' }}</td></tr>
+      {% if scenario.gap_labels is not empty %}
+        <tr><th>{{ __('To complete', 'grcmanager') }}</th><td>{{ scenario.gap_labels|join(', ') }}</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+{% endfor %}

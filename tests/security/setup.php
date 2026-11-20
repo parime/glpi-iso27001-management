@@ -311,6 +311,16 @@ if ($mode === 'xss') {
         'plugin_grcmanager_businessprocesses_id' => $out['process'], 'test_date' => date('Y-m-d'),
         'measured_minutes' => 90, 'comment' => $canary,
     ]);
+    // Issue #776 : scénario de crise piégé (nom, description, mode dégradé, rôles, commentaire), lié au
+    // processus piégé (registre, fiche, onglet du processus, PDF).
+    $out['crisis_scenario'] = $insert('crisisscenarios', [
+        'name' => $canary, 'description' => $canary, 'degraded_mode' => $canary, 'role_management' => $canary,
+        'role_ciso' => $canary, 'role_it' => $canary, 'comment' => $canary, 'is_active' => 1,
+    ]);
+    $insert('crisisscenarios_businessprocesses', [
+        'plugin_grcmanager_crisisscenarios_id' => $out['crisis_scenario'],
+        'plugin_grcmanager_businessprocesses_id' => $out['process'],
+    ]);
     // Issue #774 : fonction, compétence et déclaration piégées ; glpi tient la fonction (sa fiche).
     $update('ismsfunctions', ['name' => $canary, 'description' => $canary], (int) $ids['ismsfunction_A']);
     $update('competences', ['name' => $canary, 'description' => $canary], (int) $ids['competence_A']);
@@ -851,6 +861,15 @@ foreach (['A', 'B'] as $suffix) {
     $DB->update('glpi_changes', [
         'status' => Change::SOLVED, 'solvedate' => date('Y-m-d H:i:s'),
     ], ['id' => $ids['change_' . $suffix]]);
+}
+// Issue #776 : un scénario de crise sécurité par entité, chacun lié au processus de son entité. Celui
+// de B n'est jamais nommé pour un profil limité à A (registre, onglet du processus, PDF).
+foreach (['A', 'B'] as $suffix) {
+    $ids['crisis_scenario_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\CrisisScenario(), [
+        'name' => 'Scenario crise securite ' . $suffix, 'entities_id' => $ids[strtolower($suffix)],
+        'degraded_mode' => 'Mode degrade securise ' . $suffix, 'role_ciso' => 'RSSI ' . $suffix,
+        '_processes_sent' => 1, '_processes' => [$ids['process_' . $suffix]],
+    ]);
 }
 // Issue #377, quatrième étape : BIA échue du processus de A, rappelée par la tâche planifiée (message
 // en file d'attente si l'envoi est actif), pour que le contrôle des restes après désinstallation porte
