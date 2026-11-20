@@ -38,8 +38,6 @@ use PluginGrcmanagerSecurityIncident;
  */
 class CrisisScenarioReadiness extends CommonGLPI
 {
-    public static $rightname = CrisisScenario::RIGHTNAME;
-
     /** Exercices listés sur l'onglet, les plus récents d'abord. */
     private const DRILL_LIMIT = 10;
 

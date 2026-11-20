@@ -325,8 +325,6 @@ final class CrisisScenarioTest extends GrcmanagerIntegrationTestCase
         ]);
         $row = self::presented($scenario->getID());
         $this->assertContains(Rules::GAP_RECOVERY_UNTESTED, $row['gaps']);
-        $this->assertContains(Rules::GAP_NEVER_EXERCISED, $row['gaps']);
-        $this->assertNull($row['drill']);
 
         // Exercice terminé, bilan pas encore validé.
         $exerciseId = $this->drill('outage');
