@@ -36,6 +36,12 @@
       {% if coverage.summary.overdue > 0 %}
          <span class="badge bg-warning-subtle text-warning-emphasis fs-5"><i class="ti ti-calendar-due me-1"></i>{{ _n('%d scenario to exercise again', '%d scenarios to exercise again', coverage.summary.overdue, 'grcmanager')|format(coverage.summary.overdue) }}</span>
       {% endif %}
+      {% if coverage.summary.review_pending > 0 %}
+         <span class="badge bg-warning-subtle text-warning-emphasis fs-5"><i class="ti ti-file-alert me-1"></i>{{ _n('%d exercise review to validate', '%d exercise reviews to validate', coverage.summary.review_pending, 'grcmanager')|format(coverage.summary.review_pending) }}</span>
+      {% endif %}
+      {% if coverage.summary.recovery_untested > 0 %}
+         <span class="badge bg-warning-subtle text-warning-emphasis fs-5"><i class="ti ti-refresh-alert me-1"></i>{{ _n('%d scenario with a critical process never tested in recovery', '%d scenarios with a critical process never tested in recovery', coverage.summary.recovery_untested, 'grcmanager')|format(coverage.summary.recovery_untested) }}</span>
+      {% endif %}
    </div>
    <a href="{{ export_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Print the scenarios (PDF)', 'grcmanager') }}</a>
    {% if can_create and coverage.summary.missing_defaults is not empty %}
@@ -108,7 +114,7 @@
                      </td>
                      <td>
                         {% for process in scenario.processes %}
-                           <div><a href="{{ process.url }}">{{ process.name }}</a>{% if process.critical %} <span class="badge bg-orange-subtle text-orange-emphasis">{{ __('Critical', 'grcmanager') }}</span>{% endif %}</div>
+                           <div><a href="{{ process.url }}">{{ process.name }}</a>{% if process.critical %} <span class="badge bg-orange-subtle text-orange-emphasis">{{ __('Critical', 'grcmanager') }}</span>{% endif %}{% if process.last_test == '' %} <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('No recovery test recorded for this process', 'grcmanager') }}"><i class="ti ti-refresh-off"></i></span>{% endif %}</div>
                         {% else %}
                            <span class="text-secondary">-</span>
                         {% endfor %}
@@ -125,6 +131,9 @@
                      <td>
                         {{ cs.exercise_badge(scenario.exercise_status, scenario.last_exercise) }}
                         {% if scenario.exercise %}<div class="small text-secondary mt-1">{{ scenario.exercise }}</div>{% endif %}
+                        {% if scenario.drill is not null %}
+                           <div class="mt-1"><a href="{{ scenario.drill.url }}" class="badge text-decoration-none {{ scenario.drill.validated ? 'bg-success-subtle text-success-emphasis' : 'bg-warning-subtle text-warning-emphasis' }}"><i class="ti {{ scenario.drill.validated ? 'ti-rosette-discount-check' : 'ti-alert-triangle' }} me-1"></i>{{ scenario.drill.validated ? __('Review validated', 'grcmanager') : __('Review to validate', 'grcmanager') }}</a></div>
+                        {% endif %}
                      </td>
                      <td>
                         {% for label in scenario.todo_labels %}
