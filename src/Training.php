@@ -50,7 +50,7 @@ class Training extends TrainingBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
-    private const PARTICIPANTS_TABLE = 'glpi_plugin_grcmanager_trainings_users';
+    public const PARTICIPANTS_TABLE = 'glpi_plugin_grcmanager_trainings_users';
 
     /**
      * GLPI notification event name (see inc/notificationtargettraining.class.php and

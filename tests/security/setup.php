@@ -79,7 +79,17 @@ if ($mode === 'xss') {
         $DB->update('glpi_plugin_grcmanager_' . $table, $row, ['id' => $id]);
     };
     $out = [];
-    $out['audit'] = $insert('audits', ['title' => $canary, 'scope' => $canary, 'conclusion' => $canary]);
+    // Issue #772 : audit de certification piégé (auditeur de l'organisme, référentiel) et son constat
+    // piégé (référence de l'organisme, processus, clause), sur la vue des constats et l'onglet.
+    $out['audit'] = $insert('audits', [
+        'title' => $canary, 'scope' => $canary, 'conclusion' => $canary,
+        'audit_type' => 'surveillance_1', 'lead_auditor' => $canary, 'certification_standard' => $canary,
+    ]);
+    $insert('nonconformities', [
+        'title' => $canary, 'plugin_grcmanager_audits_id' => $out['audit'], 'body_reference' => $canary,
+        'audited_process' => $canary, 'requirement_reference' => $canary, 'corrective_action' => $canary,
+        'root_cause' => $canary,
+    ]);
     $out['obligation'] = $insert('complianceobligations', [
         'title' => $canary, 'description' => $canary, 'reference_source' => $canary,
     ]);
@@ -151,6 +161,25 @@ if ($mode === 'xss') {
         'plugin_grcmanager_audits_id' => $out['audit'], 'users_id' => 2, 'date_begin' => date('Y-m-d'),
         'date_end' => date('Y-m-d', strtotime('+5 days')), 'users_id_grantor' => 2, 'date_creation' => $now,
     ]);
+    // Issue #773 : processus piégé de l'audit piégé, où glpi réalise l'activité (conflit
+    // d'indépendance), justification et commentaire de remise du rapport piégés.
+    $xssProcess = $insert('responsibilityactivities', ['entities_id' => 0, 'is_recursive' => 1, 'name' => $canary]);
+    $insert('responsibilityassignments', [
+        'plugin_grcmanager_responsibilityactivities_id' => $xssProcess, 'itemtype' => 'User', 'items_id' => 2,
+        'role' => 'responsible',
+    ]);
+    $insert('audits_processes', [
+        'plugin_grcmanager_audits_id' => $out['audit'], 'plugin_grcmanager_responsibilityactivities_id' => $xssProcess,
+    ]);
+    $insert('auditindependencewaivers', [
+        'plugin_grcmanager_audits_id' => $out['audit'], 'users_id' => 2,
+        'plugin_grcmanager_responsibilityactivities_id' => $xssProcess, 'justification' => $canary,
+        'users_id_author' => 2, 'date_creation' => $now,
+    ]);
+    $insert('auditreportdeliveries', [
+        'plugin_grcmanager_audits_id' => $out['audit'], 'delivery_date' => date('Y-m-d'), 'users_id_recipient' => 2,
+        'comment' => $canary, 'users_id' => 2,
+    ]);
     $out['training'] = $insert('trainings', [
         'title' => $canary, 'description' => $canary, 'target_audience' => $canary,
     ]);
@@ -161,6 +190,13 @@ if ($mode === 'xss') {
         'transfer_countries' => $canary, 'retention_period' => $canary, 'security_measures' => $canary,
         'comment' => $canary, 'data_subjects' => '[]', 'data_categories' => '[]', 'sensitive_data' => '[]',
         'status' => 'active',
+    ]);
+    // Issue #771 : chaque champ texte d'un contact officiel (registre, fiche, onglet de l'incident de A).
+    $out['official_contact'] = $insert('contextitems', [
+        'entities_id' => 0, 'is_recursive' => 1, 'kind' => 'party', 'name' => $canary, 'party_type' => 'authority',
+        'is_official_contact' => 1, 'contact_category' => 'csirt', 'contact_details' => $canary,
+        'when_to_contact' => $canary, 'contact_delay' => $canary, 'on_security_incident' => 1,
+        'on_data_breach' => 1, 'expectations' => $canary, 'comment' => $canary,
     ]);
     // Issue #620 : chaque champ texte d'une violation de données.
     $out['breach'] = $insert('databreaches', [
@@ -248,6 +284,16 @@ if ($mode === 'xss') {
     $insert('businessprocessrecoveries', [
         'plugin_grcmanager_businessprocesses_id' => $out['process'], 'test_date' => date('Y-m-d'),
         'measured_minutes' => 90, 'comment' => $canary,
+    ]);
+    // Issue #774 : fonction, compétence et déclaration piégées ; glpi tient la fonction (sa fiche).
+    $update('ismsfunctions', ['name' => $canary, 'description' => $canary], (int) $ids['ismsfunction_A']);
+    $update('competences', ['name' => $canary, 'description' => $canary], (int) $ids['competence_A']);
+    $insert('ismsfunctions_holders', [
+        'plugin_grcmanager_ismsfunctions_id' => (int) $ids['ismsfunction_A'], 'itemtype' => 'User', 'items_id' => 2,
+    ]);
+    $out['competencedeclaration'] = $insert('competencedeclarations', [
+        'entities_id' => 0, 'users_id' => 2, 'plugin_grcmanager_competences_id' => (int) $ids['competence_A'],
+        'level' => 1, 'evidence_type' => 'certificate', 'evidence_reference' => $canary, 'comment' => $canary,
     ]);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
@@ -537,6 +583,8 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     // Issue #608 : partie intéressée de l'entité (contexte de l'organisation).
     $ids['context_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\ContextItem(), [
         'kind' => 'party', 'name' => 'Partie securite ' . $suffix, 'entities_id' => $entity,
+        // Issue #771 : contact officiel a prevenir pour un incident (onglet de l'incident de A).
+        'is_official_contact' => 1, 'contact_category' => 'csirt', 'on_security_incident' => 1,
     ]);
     // Issue #612 : activite de la matrice des responsabilites de l'entite.
     $ids['responsibility_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\ResponsibilityActivity(), [
@@ -974,5 +1022,22 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'users_id_supervisor' => $suffix === 'A' ? $manager : 0,
     ], ['id' => $collab]);
     $ids['collab_' . $suffix] = $collab;
+    // Issue #774 : une fonction du SMSI dans chaque entité, tenue par le collaborateur, avec une
+    // compétence exigée ; la compétence est déclarée pour le collaborateur de B.
+    $competenceId = $add(new \GlpiPlugin\Grcmanager\Competence(), [
+        'name' => 'Competence securite ' . $suffix, 'entities_id' => $entity,
+    ]);
+    $ids['ismsfunction_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\IsmsFunction(), [
+        'name' => 'Fonction securite ' . $suffix, 'entities_id' => $entity,
+    ]);
+    (new \GlpiPlugin\Grcmanager\IsmsFunction())->update([
+        'id' => $ids['ismsfunction_' . $suffix], '_add_users_id' => $collab,
+        '_add_competences_id' => $competenceId, '_add_level' => 2,
+    ]);
+    $ids['competence_' . $suffix] = $competenceId;
 }
+$ids['competencedeclaration_B'] = $add(new \GlpiPlugin\Grcmanager\CompetenceDeclaration(), [
+    'users_id' => $ids['collab_B'], 'plugin_grcmanager_competences_id' => $ids['competence_B'],
+    'level' => 2, 'evidence_type' => 'certificate', 'evidence_reference' => 'Certificat fictif B',
+]);
 echo json_encode($ids), "\n";

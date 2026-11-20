@@ -24,6 +24,7 @@ use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\NonconformityBase;
+use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Capa\CapaRequirementService;
 use GlpiPlugin\Grcmanager\Services\Capa\CveCapaRules;
 use GlpiPlugin\Grcmanager\Services\Capa\OverdueCapaService;
@@ -121,6 +122,9 @@ class Nonconformity extends NonconformityBase
             // registered as a plural-form msgid via getTypeName()/_n()).
             'nonconformity' => self::getTypeName(1),
             'observation'   => __('Observation / remark', 'grcmanager'),
+            // Issue #772 : vocabulaire de l'organisme de certification, CAPA facultatif.
+            CertificationAuditRules::FINDING_TYPE_SENSITIVE_POINT => __('Area of concern', 'grcmanager'),
+            CertificationAuditRules::FINDING_TYPE_IMPROVEMENT     => __('Opportunity for improvement', 'grcmanager'),
         ];
     }
 
@@ -257,7 +261,23 @@ class Nonconformity extends NonconformityBase
      */
     private function validateAndNormalize(array $input)
     {
-        $status            = (string) ($input['status'] ?? ($this->fields['status'] ?? 'open'));
+        // Issue #772 : constat d'un audit de certification saisi avec le vocabulaire de l'organisme
+        // (NC majeure ou mineure, point sensible, piste de progrès), enregistré sur les deux axes
+        // existants ; valeur inconnue ignorée.
+        $category = CertificationAuditRules::fieldsFor((string) ($input['_certification_category'] ?? ''));
+        if ($category !== null) {
+            $input = array_merge($input, $category);
+        }
+        foreach (['body_reference', 'audited_process', 'requirement_reference'] as $field) {
+            if (array_key_exists($field, $input)) {
+                $input[$field] = mb_substr(trim((string) $input[$field]), 0, 255);
+            }
+        }
+        if (array_key_exists('locations_id', $input)) {
+            $input['locations_id'] = max(0, (int) $input['locations_id']);
+        }
+
+        $status           = (string) ($input['status'] ?? ($this->fields['status'] ?? 'open'));
         $findingType       = (string) (
             $input['finding_type'] ?? ($this->fields['finding_type'] ?? 'nonconformity')
         );
@@ -419,6 +439,36 @@ class Nonconformity extends NonconformityBase
             'itemtype' => self::class,
         ];
 
+        // Issue #772 : références des constats de l'organisme de certification (identifiants 30 à 33).
+        $tab[] = [
+            'id'       => 30,
+            'table'    => $this->getTable(),
+            'field'    => 'body_reference',
+            'name'     => __('Certification body reference', 'grcmanager'),
+            'datatype' => 'string',
+        ];
+        $tab[] = [
+            'id'       => 31,
+            'table'    => $this->getTable(),
+            'field'    => 'audited_process',
+            'name'     => __('Audited process', 'grcmanager'),
+            'datatype' => 'string',
+        ];
+        $tab[] = [
+            'id'       => 32,
+            'table'    => $this->getTable(),
+            'field'    => 'requirement_reference',
+            'name'     => __('Clause or control', 'grcmanager'),
+            'datatype' => 'string',
+        ];
+        $tab[] = [
+            'id'       => 33,
+            'table'    => 'glpi_locations',
+            'field'    => 'completename',
+            'name'     => __('Site', 'grcmanager'),
+            'datatype' => 'dropdown',
+        ];
+
         // Issue #536 : périmètre de la non-conformité (entité GLPI) et visibilité dans les
         // sous-entités.
         $tab[] = [
@@ -500,6 +550,12 @@ class Nonconformity extends NonconformityBase
         $map = [
             'nonconformity' => ['bg-red-lt', 'ti-alert-hexagon', self::getTypeName(1)],
             'observation'   => ['bg-azure-lt', 'ti-notes', __('Observation / remark', 'grcmanager')],
+            CertificationAuditRules::FINDING_TYPE_SENSITIVE_POINT => [
+                'bg-yellow-lt', 'ti-eye-exclamation', __('Area of concern', 'grcmanager'),
+            ],
+            CertificationAuditRules::FINDING_TYPE_IMPROVEMENT     => [
+                'bg-azure-lt', 'ti-bulb', __('Opportunity for improvement', 'grcmanager'),
+            ],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -605,11 +661,24 @@ class Nonconformity extends NonconformityBase
             return false;
         }
         $findings = Audit::getFindings($item->getID());
+        // Issue #772 : audit de certification : référence et vocabulaire de l'organisme, état de levée.
+        $certification = CertificationAuditRules::isExternal((string) ($item->fields['audit_type'] ?? ''));
+        $external = [];
+        if ($certification) {
+            foreach (CertificationFinding::findings([$item->getID()]) as $row) {
+                $external[$row['id']] = $row;
+            }
+        }
         foreach ($findings as &$finding) {
             $finding['url'] = self::getFormURLWithID($finding['id']);
+            $finding['certification'] = $external[$finding['id']] ?? null;
         }
         unset($finding);
         TemplateRenderer::getInstance()->display('@grcmanager/audit_findings_tab.html.twig', [
+            'certification' => $certification,
+            'findings_url'  => $certification && CertificationFinding::canView()
+                ? CertificationFinding::getSearchURL() . '?audit=' . $item->getID()
+                : '',
             'findings' => $findings,
             'add_url'  => self::canCreate() ? self::getFormURL() . '?audit=' . $item->getID() : '',
         ]);
@@ -673,7 +742,17 @@ class Nonconformity extends NonconformityBase
         // Issue #27 : le hint reflete la meme regle que CapaRequirementService::isCapaMandatory()
         // cote serveur, jamais un second endroit ou cette regle pourrait diverger.
         $findingType = (string) ($this->fields['finding_type'] ?? 'nonconformity');
+        // Issue #772 : constat d'un audit de certification, saisi avec le vocabulaire de l'organisme.
+        $certification = CertificationFinding::isExternalAudit(
+            (int) ($this->fields['plugin_grcmanager_audits_id'] ?? 0)
+        );
         TemplateRenderer::getInstance()->display('@grcmanager/nonconformity_form.html.twig', [
+            'certification'          => $certification,
+            'certification_categories' => CertificationFinding::getCategories(),
+            'certification_category' => CertificationAuditRules::categoryOf(
+                $findingType ?: 'nonconformity',
+                (string) ($this->fields['severity'] ?: 'minor')
+            ) ?? CertificationAuditRules::CATEGORY_SENSITIVE_POINT,
             'item'            => $this,
             'params'          => $options,
             'incident'        => $incident,

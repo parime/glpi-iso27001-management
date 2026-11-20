@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.64.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.65.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -168,6 +168,10 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
     // Issue #542 : dossiers préparatoires archivés et compte rendu de la revue de direction.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ManagementReview::class;
+    // Issue #774 : fiche de poste signée d'une fonction, preuve d'une compétence déclarée (certificat,
+    // diplôme), réservée aux lecteurs de la déclaration (RestrictedDocument::onDocumentItemAdd()).
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\IsmsFunction::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\CompetenceDeclaration::class;
     // Echeances de conformite dans le planning GLPI de chaque responsable (lecture seule).
     $CFG_GLPI['planning_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
 
@@ -249,6 +253,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\DataBreach::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
     ]);
+    // Issue #771 : onglet « Contacts officiels » des incidents et des violations de données.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\OfficialContact::class, [
+        'addtabon' => [PluginGrcmanagerSecurityIncident::class, \GlpiPlugin\Grcmanager\DataBreach::class],
+    ]);
     // Issue #185 : onglet « Cellule de crise » de l'incident.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisExercise::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
@@ -316,6 +324,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PolicyAcknowledgement::class, ['addtabon' => [Preference::class]]);
     // Issue #546 : fiche de conformité sécurité, sur chaque utilisateur et dans ses préférences.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PersonnelCompliance::class, [
+        'addtabon' => [User::class, Preference::class],
+    ]);
+    // Issue #774 : compétences d'une personne, sur chaque utilisateur et dans ses préférences.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CompetenceMatrix::class, [
         'addtabon' => [User::class, Preference::class],
     ]);
     // Issue #538 : dans l'interface simplifiée, une entrée « GRC Manager » mène l'auditeur à son

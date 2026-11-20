@@ -38,4 +38,7 @@
    {% if responsibility %}
       {% include '@grcmanager/_responsibility_summary.html.twig' with {'summary': responsibility} only %}
    {% endif %}
+   {% if competence %}
+      {% include '@grcmanager/_competence_summary.html.twig' with {'summary': competence} only %}
+   {% endif %}
 {% endblock %}

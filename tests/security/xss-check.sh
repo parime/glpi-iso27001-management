@@ -56,6 +56,13 @@ for url in \
   frameworkassessment.php "frameworkassessment.php?framework=custom_$(xid customframework)"; do
   check "front/$url" "$P/$url"
 done
+# Issue #774 : compétences piégées (fonction tenue par glpi, compétence, déclaration).
+for url in ismsfunction.php competence.php competencedeclaration.php \
+  "ismsfunction.form.php?id=$(id ismsfunction_A)" "competence.form.php?id=$(id competence_A)" \
+  "competencedeclaration.form.php?id=$(xid competencedeclaration)"; do
+  check "front/$url" "$P/$url"
+done
+check "onglet Mes competences"                 "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CCompetenceMatrix$1' 2)"
 # Issue #546 : fiche de conformité de glpi, dans le public de la politique piégée.
 check "onglet Ma conformite securite"          "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPersonnelCompliance$1' 2)"
 check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
@@ -70,6 +77,11 @@ check "onglet references CPE d'un produit"    "$(tab GlpiPlugin%5CGrcmanager%5CC
 check "onglet alias d'un produit"             "$(tab GlpiPlugin%5CGrcmanager%5CCanonicalProduct 'GlpiPlugin%5CGrcmanager%5CProductAlias$1' "$(xid product)")"
 check "onglet registre des traitements d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' "$(id computer_A)")"
 check "fiche d'un traitement (onglet principal)" "$(tab GlpiPlugin%5CGrcmanager%5CProcessingActivity 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$main' "$(xid processing)")"
+# Issue #771 : contact officiel piege (registre, fiche, onglets de l'incident et de la violation).
+check "front/officialcontact.php"             "$P/officialcontact.php"
+check "fiche d'un contact officiel"           "$P/contextitem.form.php?id=$(xid official_contact)"
+check "onglet contacts officiels d'un incident" "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(id incident_A)")"
+check "onglet contacts officiels d'une violation" "$(tab GlpiPlugin%5CGrcmanager%5CDataBreach 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(xid breach)")"
 # Issue #620 : violation piegee (fiche, liste, onglet de l'incident, export CSV).
 check "front/databreach.form.php"             "$P/databreach.form.php?id=$(xid breach)"
 check "front/databreach.php"                  "$P/databreach.php"
@@ -97,6 +109,9 @@ check "onglet prise de connaissance"          "$(tab 'GlpiPlugin%5CGrcmanager%5C
 check "front/consistencycheck.php"            "$P/consistencycheck.php"
 # Issue #619 : preparation a la certification (titres des fiches pieges jamais repris tels quels).
 check "front/certificationreadiness.php"     "$P/certificationreadiness.php"
+# Issue #772 : audit de certification et constat pieges (vue des constats et onglet de l'audit).
+check "front/certificationfinding.php"       "$P/certificationfinding.php"
+check "onglet constats d'un audit de certification" "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CNonconformity$1' "$(xid audit)")"
 check "export CSV de prise de connaissance"   "$P/policyacknowledgement.export.php?id=$(xid ack_campaign)&format=csv"
 # Issue #540 : registre DORA piege (page, onglets du contrat, du fournisseur et du processus, export).
 check "registre DORA"                         "$P/doraregister.php"
@@ -108,6 +123,10 @@ check "onglet fonction DORA d'un processus"   "$(tab 'GlpiPlugin%5CGrcmanager%5C
 # Issue #606 : ligne de grille et modele pieges (onglet de l'audit et page de couverture).
 check "onglet grille d'un audit"              "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditChecklist$1' "$(xid audit)")"
 check "couverture du programme d'audit"      "$P/auditcoverage.php"
+# Issue #773 : processus, justification d'independance et remise du rapport pieges.
+check "onglet programme et independance"      "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditProgramme$1' "$(xid audit)")"
+check "onglet equipe d'un audit"              "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditTeam$1' "$(xid audit)")"
+check "programme d'audit pluriannuel"         "$P/auditprogramme.php"
 check "onglet demandes de preuves d'un audit" "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditEvidenceRequest$1' "$(xid audit)")"
 check "mes demandes de preuves"               "$P/auditevidencerequest.mine.php"
 check "espace auditeur d'un audit"            "$P/auditorspace.php?id=$(xid audit)"

@@ -82,19 +82,23 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/processingactivity.php front/datasubjectrequest.php front/processingactivity.export.php?format=pdf
   front/processingactivity.export.php?format=csv
   front/databreach.php front/databreach.form.php front/databreach.export.php?format=pdf front/databreach.export.php?format=csv
-  front/riskappetite.php front/riskindicator.php front/auditcoverage.php
+  front/riskappetite.php front/riskindicator.php front/auditcoverage.php front/auditprogramme.php
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
   front/certificationreadiness.php front/certificationreadiness.php?format=pdf
+  front/certificationfinding.php front/certificationfinding.php?format=pdf
   front/contextitem.php front/contextitem.form.php
   front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
+  front/officialcontact.php front/officialcontact.export.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
   front/personnelcompliance.php front/personnelcompliance.export.php?format=csv
-  front/personnelcompliance.export.php?format=pdf"
+  front/personnelcompliance.export.php?format=pdf
+  front/ismsfunction.php front/ismsfunction.form.php front/ismsfunction.pdf.php front/competence.php
+  front/competence.form.php front/competencedeclaration.php front/competencedeclaration.form.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -113,7 +117,8 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
     front/processingactivity.form.php front/datasubjectrequest.form.php front/databreach.form.php \
     front/businessprocess.form.php front/riskindicator.form.php front/contextitem.form.php \
-    front/managementreviewaction.form.php front/responsibilityactivity.form.php; do
+    front/managementreviewaction.form.php front/responsibilityactivity.form.php \
+    front/ismsfunction.form.php front/competence.form.php front/competencedeclaration.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   # Issue #542 : generer le dossier preparatoire d'une revue de direction (document joint) et creer
@@ -191,6 +196,14 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # modifier l'audit.
   expect "front/auditteam.form.php : ajouter un membre" "$1" \
     "$(code -d "add=1&plugin_grcmanager_audits_id=$(id audit)&users_id=2&role=auditee&_glpi_csrf_token=$(csrf)" "$P/auditteam.form.php")"
+  # Issue #773 : processus audites, justification d'independance et remise du rapport exigent de
+  # pouvoir modifier l'audit ; les reglages du programme, de modifier les audits.
+  expect "front/auditprogramme.form.php : processus audites" "$1" \
+    "$(code -d "save_processes=1&plugin_grcmanager_audits_id=$(id audit)&processes[]=1&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+  expect "front/auditprogramme.form.php : remise du rapport" "$1" \
+    "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+  expect "front/auditprogramme.php : reglages du programme" "$1" \
+    "$(code -d "save_settings=1&cycle_start=2025&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
   # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).
@@ -262,6 +275,14 @@ SEE_CONTROLS=oui
 [ "$ROLE" = none ] && SEE_CONTROLS=non
 contains "carte tests d'efficacite en retard : chiffre" "big-number" $SEE_CONTROLS \
   "$(body "$BASE/ajax/dashboard.php?action=get_card&dashboard=grcmanager-isms-overview&card_id=grcmanager_overdue_control_tests&args%5Bwidgettype%5D=bigNumber&args%5Bgridstack_id%5D=matrice&args%5Bforce%5D=1")"
+# Issue #771 : onglet « Contacts officiels » de l'incident de A. Il faut lire l'incident et le
+# contexte ; seuls les contacts de l'entite de l'incident (ou d'une entite parente) sont montres,
+# jamais ceux de l'entite soeur B, meme au super-admin.
+incident_contacts=$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(id incident_A)")
+contains "onglet Contacts officiels de l'incident : contact de A" "Partie securite A" $SEE_INCIDENTS "$incident_contacts"
+contains "onglet Contacts officiels de l'incident : contact de B" "Partie securite B" non "$incident_contacts"
+official=$(curl -s -c "$JAR" -b "$JAR" "$P/officialcontact.php")
+contains "registre des contacts officiels : contact de B" "Partie securite B" $SEE_B "$official"
 contains "page du tableau de bord, vue incidents : grille" "\"current\":\"grcmanager-security-incidents\"" $SEE_INCIDENTS \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=incidents")"
 # Issue #377, quatrieme etape : indicateurs des processus metier (BIA a revoir, reprise au-dela du
@@ -852,6 +873,31 @@ expect "fiche de conformite de B : prevenir le responsable" "$([ "$ROLE" = admin
 expect "fiche de conformite : saisie sans jeton CSRF" 403 \
   "$(code -d "save=1&users_id=$(id collab_A)&screening_status=done" "$P/personnelcompliance.form.php")"
 
+# Issue #774 : compétences. Chacun voit sa propre fiche (préférences) ; la page, les fonctions et les
+# déclarations suivent le droit du plugin et les entités de la session ; les personnes et le dossier
+# PDF exigent aussi la lecture des utilisateurs. Archiver exige de modifier le plugin.
+contains "onglet Mes competences : sa propre fiche" "grc-competence-sheet" oui \
+  "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CCompetenceMatrix$1' 2)"
+contains "onglet Competences d'un collaborateur de B" "grc-competence-sheet" $SEE_B \
+  "$(tab User 'GlpiPlugin%5CGrcmanager%5CCompetenceMatrix$1' "$(id collab_B)")"
+skills=$(curl -s -c "$JAR" -b "$JAR" "$P/ismsfunction.php")
+contains "front/ismsfunction.php : fonction de A" "Fonction securite A" $SEE_STAFF "$skills"
+contains "front/ismsfunction.php : fonction de B" "Fonction securite B" $SEE_B "$skills"
+contains "front/ismsfunction.php : collaborateur de A" "Collaborateur securite A" $SEE_STAFF "$skills"
+contains "front/ismsfunction.php : collaborateur de B" "Collaborateur securite B" $SEE_B "$skills"
+expect "fiche de la fonction de B" "$DENY" "$(code "$P/ismsfunction.form.php?id=$(id ismsfunction_B)")"
+expect "fiche de poste PDF de la fonction de B" "$DENY" "$(code "$P/ismsfunction.pdf.php?id=$(id ismsfunction_B)")"
+expect "competence declaree du collaborateur de B" "$DENY" \
+  "$(code "$P/competencedeclaration.form.php?id=$(id competencedeclaration_B)")"
+expect "fonction de B : ajout d'un titulaire" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id ismsfunction_B)&_add_users_id=$(id collab_A)&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.form.php")"
+ARCHIVE=403; case $ROLE in limited|admin) ARCHIVE=302 ;; general) ARCHIVE= ;; esac
+[ -n "$ARCHIVE" ] && expect "front/ismsfunction.php : archiver le dossier" $ARCHIVE \
+  "$(code -d "archive=1&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.php")"
+[ "$ROLE" = reader ] || [ "$ROLE" = none ] && expect "front/ismsfunction.php : fonctions par defaut" 403 \
+  "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.php")"
+expect "front/ismsfunction.php : archiver sans jeton CSRF" 403 "$(code -d "archive=1" "$P/ismsfunction.php")"
+
 # Issue #535 : prise de connaissance des politiques. Seul glpi (admin) est dans le public de la
 # politique : les autres ne la voient ni dans leurs preferences ni dans leur espace, ne lisent pas
 # ses documents et ne peuvent pas confirmer a sa place (sa ligne reste a confirmer, verifie par
@@ -1056,6 +1102,13 @@ if [ "$ROLE" != admin ]; then
     "$(code -d "grant_access=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&date_end=$(date +%Y-%m-%d)&_glpi_csrf_token=$(csrf)" "$P/auditevidencerequest.form.php")"
   expect "ajouter un membre a l'equipe d'un audit de B" 403 \
     "$(code -d "add=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&role=auditee&_glpi_csrf_token=$(csrf)" "$P/auditteam.form.php")"
+  # Issue #773 : rien sur le programme d'un audit de B (processus, justification, remise du rapport).
+  expect "processus audites d'un audit de B" 403 \
+    "$(code -d "save_processes=1&plugin_grcmanager_audits_id=$(id audit_B)&processes[]=1&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+  expect "justifier un conflit d'un audit de B" 403 \
+    "$(code -d "justify=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&process_id=1&justification=Justification%20securite&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+  expect "remise du rapport d'un audit de B" 403 \
+    "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit_B)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
 fi
 contains "tableau de bord consolide : non-conformites ouvertes par entite" "grcmanager-perimeters-findings" \
   $IS_ADMIN "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"

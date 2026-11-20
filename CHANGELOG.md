@@ -7,6 +7,83 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.65.0] - 2026-11-20
+
+### Added
+
+- **Registre des contacts officiels** (issue #771, lot 1, A.5.5 et A.5.6). Une partie intéressée du
+  contexte de l'organisation peut être cochée « Contact officiel » (pas de second registre) :
+  catégorie (autorité de contrôle, CSIRT, forces de l'ordre, autorité locale, régulateur sectoriel,
+  groupe d'intérêt, assureur, hébergeur), coordonnées, interlocuteur interne habilité (personne et
+  groupe), quand le contacter, délai, date de dernière vérification.
+  - Page « Contacts officiels », sous-page de la rubrique Conformité (aucune entrée de menu en plus),
+    avec export PDF à imprimer pour l'avoir hors ligne pendant une crise.
+  - Bouton « Enregistrer la vérification » (date du jour et auteur, gardés dans l'historique) ; un
+    contact non vérifié depuis 12 mois est signalé, et la tâche automatique `contactverification`
+    relance son propriétaire au plus une fois par mois (nouvelle notification « Contact officiel à
+    vérifier »).
+  - Onglet « Contacts officiels » sur les incidents de sécurité et les violations de données : les
+    contacts à prévenir, de l'entité de l'objet ou d'une entité parente.
+  - Preuve affichée sur les mesures A.5.5 (autorités) et A.5.6 (groupes d'intérêt) de la SoA.
+  - Droits : ceux du contexte de l'organisation (droit général du plugin) et ses entités ; l'onglet
+    exige en plus de pouvoir lire l'incident ou la violation.
+
+
+- **Compétences (ISO 27001, article 7.2), lot 1** (issue #774). Nouvelle sous-page « Compétences »
+  de la rubrique « Revue des accès » (pas de nouvelle entrée de menu).
+  - Fonctions du SMSI (RSSI, DPO, direction, administrateur, développeur, technicien, tout le
+    personnel, proposées par défaut sur demande) avec leur mission et leurs compétences requises :
+    niveau attendu (notions, maîtrise, expertise) et façon de l'acquérir (formation, diplôme,
+    certification, expérience). Les titulaires sont des utilisateurs, des groupes ou des titres de
+    GLPI (ceux créés par le plugin Configuration GLPI Auto servent tels quels).
+  - Catalogue des compétences, liées aux formations du plugin : une formation réussie (ou l'une de
+    ses sessions) donne la compétence à un niveau, et sa période de renouvellement en limite la
+    validité. Compétences déclarées avec leur preuve (certificat, attestation, diplôme, entretien
+    annuel, expérience), référence obligatoire, fichier dans l'onglet Documents, lisible seulement
+    avec les droits de la déclaration.
+  - Matrice personnes x compétences (acquis / attendu), écarts (non acquise, niveau insuffisant,
+    expirée) et action proposée (formation à planifier, preuve à déclarer) ; rien n'est modifié
+    automatiquement. La fiche d'une fonction rappelle aussi les activités de la matrice des
+    responsabilités tenues par ses titulaires.
+  - Fiche de poste « sécurité » de chaque fonction en PDF, et dossier complet (fiches et écarts)
+    archivé comme preuve, joint à l'exigence 7.2, dont la fiche résume l'état des compétences.
+  - Onglet « Mes compétences » dans les préférences de chacun, et « Compétences » sur la fiche d'un
+    utilisateur.
+  - Droits : chacun voit sa propre fiche ; les fonctions et le catalogue suivent le droit du plugin
+    et l'entité ; les personnes, les déclarations et le dossier exigent aussi la lecture des
+    utilisateurs, pour les comptes des entités de la session ; archiver exige de modifier le plugin.
+- **Audit interne conforme à l'ISO 19011** (issue #773, ISO 27001 9.2, lot 1).
+  - Programme d'audit pluriannuel : sous-page de la rubrique « Audits et amélioration » (aucune
+    entrée de menu en plus) avec la matrice processus (activités de la matrice des
+    responsabilités) x années du cycle de certification de 3 ans, la couverture calculée depuis les
+    audits internes et les alertes : processus sans audit sur le cycle, audit en retard, exigences du
+    SMSI qu'aucune grille d'audit du cycle ne couvre, audits sans processus.
+  - Onglet « Programme et indépendance » de l'audit interne : processus audités ; contrôle
+    d'indépendance (un auditeur qui réalise ou approuve un processus audité, en son nom ou par un
+    groupe, est en conflit) ; l'audit ne peut être ni démarré ni terminé, ni changer d'auditeur en
+    cours, tant qu'un conflit n'a pas de justification, tracée avec son auteur et sa date et dans
+    l'historique.
+  - Compétence des auditeurs dans l'onglet « Équipe » : formations qualifiantes choisies sur la page
+    du programme, qualification à jour, à renouveler ou absente.
+  - Date de remise du rapport à la direction et destinataire, repris dans le dossier de revue de
+    direction (9.3.2 d 3).
+  - Droits et entités de l'audit (lecture pour voir, modification pour enregistrer) ; processus de
+    l'entité de l'audit ; tables supprimées à la désinstallation.
+- **Audits de certification et constats de l'organisme** (issue #772, lot 1). Un audit a désormais
+  un type : interne (article 9.2, valeur de tous les audits existants, migration sans perte) ou
+  audit de certification initial, de surveillance 1 ou 2, de renouvellement, avec l'organisme (un
+  fournisseur GLPI), l'auditeur responsable et le référentiel avec son édition.
+  - Constats saisis avec le vocabulaire de l'organisme (non-conformité majeure ou mineure, point
+    sensible, piste d'amélioration), sa référence (ex. GVE-36), le processus audité, la clause ou
+    la mesure et le site (lieu GLPI). Même workflow CAPA ; l'action corrective reste facultative
+    pour un point sensible ou une piste d'amélioration, comme pour une observation.
+  - Écran « Constats des audits précédents » (rubrique « Audits et amélioration ») : état de levée
+    de chaque constat, preuves jointes, filtre par audit ou sur les constats non levés, export PDF
+    à remettre à l'auditeur.
+  - « Préparation à la certification » : nombre de constats précédents non levés dans l'étape
+    « Traiter les non-conformités ».
+  - Droit du plugin (celui des audits) et entités de la session ; vue en lecture seule.
+
 ## [2.64.0] - 2026-11-20
 
 ### Added

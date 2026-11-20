@@ -89,6 +89,8 @@ class Menu extends CommonGLPI
                 Referentials::class, CustomFramework::class, IsmsRequirement::class,
                 // Issue #608 : contexte de l'organisation (enjeux, parties intéressées).
                 ContextItem::class,
+                // Issue #771 : registre des contacts officiels (A.5.5, A.5.6).
+                OfficialContact::class,
                 // Issue #612 : matrice des responsabilités du SMSI (article 5.3, mesure A.5.3).
                 ResponsibilityActivity::class,
                 ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class,
@@ -100,7 +102,12 @@ class Menu extends CommonGLPI
             ],
             // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
             Audit::class => [
-                Nonconformity::class, Objective::class,
+                // Issue #773 : programme d'audit pluriannuel (ISO 19011).
+                AuditProgramme::class,
+                Nonconformity::class,
+                // Issue #772 : constats des audits de certification et état de leur levée.
+                CertificationFinding::class,
+                Objective::class,
                 ManagementReview::class,
             ],
             // Opérations récurrentes : accès, revues, personnes, continuité.
@@ -109,7 +116,10 @@ class Menu extends CommonGLPI
                 // Issue #546 : fiche de conformité sécurité de chaque collaborateur.
                 PersonnelCompliance::class,
                 PeriodicReview::class,
-                Training::class, CrisisExercise::class,
+                Training::class,
+                // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
+                IsmsFunction::class,
+                CrisisExercise::class,
                 // Issue #377 : processus métier et analyses d'impact sur l'activité (BIA).
                 BusinessProcess::class,
             ],

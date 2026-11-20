@@ -197,11 +197,13 @@ class AuditTeam extends CommonGLPI
                     'users_id' => (int) $item->fields['users_id'],
                     'role'     => __('Auditor', 'grcmanager'),
                     'id'       => 0,
+                    'auditor'  => true,
                 ],
                 [
                     'users_id' => (int) ($item->fields['users_id_responsible'] ?? 0),
                     'role'     => __('Audit owner', 'grcmanager'),
                     'id'       => 0,
+                    'auditor'  => false,
                 ],
             ] as $row
         ) {
@@ -216,12 +218,25 @@ class AuditTeam extends CommonGLPI
                 'role'      => $roles[$member['role']] ?? $member['role'],
                 'id'        => $member['id'],
                 'from_form' => false,
+                'auditor'   => $member['role'] === self::ROLE_AUDITOR,
             ];
         }
+        // Issue #773 : compétence des auditeurs (formations qualifiantes) et indépendance, pour les
+        // seuls audits internes.
+        $internal = AuditProgramme::isInternal($item);
+        $competences = $internal ? AuditProgramme::competences(array_values(array_unique(array_column(
+            array_filter($rows, static fn (array $row): bool => $row['auditor']),
+            'users_id'
+        )))) : [];
         foreach ($rows as &$row) {
             $row['name'] = getUserName($row['users_id']);
+            $row['competence'] = $row['auditor'] ? ($competences[$row['users_id']] ?? null) : null;
         }
         unset($row);
+        $openConflicts = $internal ? count(array_filter(
+            AuditProgramme::conflicts($item),
+            static fn (array $conflict): bool => $conflict['waiver'] === null
+        )) : 0;
         $cisoGroupId = self::getCisoGroupId();
 
         TemplateRenderer::getInstance()->display('@grcmanager/audit_team_tab.html.twig', [
@@ -231,6 +246,9 @@ class AuditTeam extends CommonGLPI
             'can_edit'   => $item->can($item->getID(), UPDATE),
             'action'     => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/auditteam.form.php',
             'ciso_group' => $cisoGroupId > 0 ? Dropdown::getDropdownName(Group::getTable(), $cisoGroupId) : '',
+            'internal'       => $internal,
+            'open_conflicts' => $openConflicts,
+            'programme_url'  => AuditProgramme::getSearchURL(),
         ]);
 
         return true;

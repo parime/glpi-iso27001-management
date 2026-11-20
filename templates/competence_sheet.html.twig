@@ -1,0 +1,134 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #774 : compétences d'une personne (ses préférences, ou sa fiche utilisateur pour le
+   responsable) : fonctions tenues, compétences exigées et acquises, écarts, déclarations. #}
+<div class="grc-competence-sheet">
+   <div class="alert alert-info mb-3">
+      <i class="ti ti-info-circle me-1"></i>
+      {% if own %}
+         {{ __('The competences expected by your ISMS functions, and those you have acquired through the trainings you passed or the evidence you declared. Ask your security officer to record a new certificate or diploma.', 'grcmanager') }}
+      {% else %}
+         {{ __('The competences expected by the ISMS functions of this person, and those acquired through passed trainings or declared evidence.', 'grcmanager') }}
+      {% endif %}
+   </div>
+
+   {% if row is null or row.functions is empty %}
+      <p class="text-secondary"><i class="ti ti-id-badge-2 me-1"></i>{{ own ? __('You hold no ISMS function yet.', 'grcmanager') : __('This person holds no ISMS function in your entities.', 'grcmanager') }}</p>
+   {% else %}
+      <p>
+         <strong>{{ __('ISMS functions', 'grcmanager') }} :</strong> {{ row.functions|join(', ') }}
+         {% if row.gaps > 0 %}
+            <span class="badge bg-danger-subtle text-danger-emphasis ms-1">{{ _n('%d gap', '%d gaps', row.gaps, 'grcmanager')|format(row.gaps) }}</span>
+         {% elseif row.cells is not empty %}
+            <span class="badge bg-success-subtle text-success-emphasis ms-1"><i class="ti ti-circle-check me-1"></i>{{ __('No gap', 'grcmanager') }}</span>
+         {% endif %}
+      </p>
+      {% if row.cells is empty %}
+         <p class="text-secondary">{{ __('These functions require no competence yet.', 'grcmanager') }}</p>
+      {% else %}
+         <table class="table table-sm table-hover align-middle">
+            <thead>
+               <tr>
+                  <th>{{ __('Competence', 'grcmanager') }}</th>
+                  <th>{{ __('Expected level', 'grcmanager') }}</th>
+                  <th>{{ __('How to acquire it', 'grcmanager') }}</th>
+                  <th>{{ __('Status', 'grcmanager') }}</th>
+                  <th>{{ __('Acquired through', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for id, label in columns %}
+                  {% set cell = row.cells[id] ?? null %}
+                  {% if cell %}
+                     {% set style = statuses[cell.status] %}
+                     <tr>
+                        <td>{{ label }}</td>
+                        <td>{{ cell.required_label }}</td>
+                        <td>{{ cell.mode_label }}</td>
+                        <td><span class="badge {{ style.class }}"><i class="ti {{ style.icon }} me-1"></i>{{ style.label }}</span></td>
+                        <td>
+                           {% for source in cell.sources %}
+                              <div class="small {{ source.valid ? '' : 'text-decoration-line-through text-secondary' }}">
+                                 <i class="ti {{ source.origin == 'training' ? 'ti-school' : 'ti-file-certificate' }} me-1"></i>
+                                 {% if not own %}<a href="{{ source.url }}">{{ source.label }}</a>{% else %}{{ source.label }}{% endif %}
+                                 ({{ source.level_label }}{{ source.date_text ? ', ' ~ source.date_text : '' }}{{ source.expires_text ? ', ' ~ __('valid until %s', 'grcmanager')|format(source.expires_text) : '' }})
+                              </div>
+                           {% else %}
+                              <span class="text-secondary">-</span>
+                           {% endfor %}
+                        </td>
+                     </tr>
+                  {% endif %}
+               {% endfor %}
+            </tbody>
+         </table>
+      {% endif %}
+
+      {% if gaps is not empty %}
+         <h4 class="mt-3"><i class="ti ti-alert-triangle me-1"></i>{{ __('Proposed actions', 'grcmanager') }}</h4>
+         <ul>
+            {% for gap in gaps %}
+               <li>
+                  <strong>{{ gap.competence }}</strong> :
+                  {% for training in gap.trainings %}
+                     {{ __('Plan the training', 'grcmanager') }} {% if not own %}<a href="{{ training.url }}">{{ training.title }}</a>{% else %}{{ training.title }}{% endif %}{{ not loop.last ? ', ' }}
+                  {% endfor %}
+                  {{ gap.action }}
+                  {% if not own and gap.declare_url %}<a href="{{ gap.declare_url }}" class="ms-1 small"><i class="ti ti-file-plus me-1"></i>{{ __('Declare a competence with its evidence', 'grcmanager') }}</a>{% endif %}
+               </li>
+            {% endfor %}
+         </ul>
+      {% endif %}
+   {% endif %}
+
+   <h4 class="mt-3"><i class="ti ti-file-certificate me-1"></i>{{ __('Declared competences', 'grcmanager') }}</h4>
+   {% if declarations is empty %}
+      <p class="text-secondary">{{ __('No competence declared yet.', 'grcmanager') }}</p>
+   {% else %}
+      <table class="table table-sm table-hover align-middle">
+         <thead>
+            <tr>
+               <th>{{ __('Competence', 'grcmanager') }}</th>
+               <th>{{ __('Level acquired', 'grcmanager') }}</th>
+               <th>{{ __('Evidence', 'grcmanager') }}</th>
+               <th>{{ __('Acquired on', 'grcmanager') }}</th>
+               <th>{{ __('Valid until', 'grcmanager') }}</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for declaration in declarations %}
+               <tr>
+                  <td>{% if declaration.url %}<a href="{{ declaration.url }}">{{ declaration.competence }}</a>{% else %}{{ declaration.competence }}{% endif %}</td>
+                  <td>{{ declaration.level }}</td>
+                  <td>{{ declaration.evidence }} : {{ declaration.reference }}</td>
+                  <td>{{ declaration.acquired }}</td>
+                  <td>
+                     {{ declaration.expiry }}
+                     {% if not declaration.valid %}<span class="badge bg-danger-subtle text-danger-emphasis ms-1">{{ __('Expired', 'grcmanager') }}</span>{% endif %}
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   {% endif %}
+   <div class="d-flex gap-2">
+      {% if declare_url %}
+         <a href="{{ declare_url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-file-plus me-1"></i>{{ __('Declare a competence with its evidence', 'grcmanager') }}</a>
+      {% endif %}
+      {% if page_url %}
+         <a href="{{ page_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-table me-1"></i>{{ __('All competences', 'grcmanager') }}</a>
+      {% endif %}
+   </div>
+</div>

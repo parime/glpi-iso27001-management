@@ -33,13 +33,19 @@ namespace GlpiPlugin\Grcmanager\Services\Capa;
 final class CapaRequirementService
 {
     /**
-     * Anything other than the explicit 'observation' value is treated as CAPA-mandatory (including
-     * an unknown/blank finding type) : the safe default matches this class' own migration default
-     * on existing rows (never silently relax a validation rule for data this rule did not exist
-     * for yet, see src/Install/Installer.php).
+     * Types de constat dont l'action corrective reste facultative. Issue #772 : un point sensible
+     * ou une piste de progrès de l'organisme de certification se traite comme une observation.
+     */
+    public const OPTIONAL_CAPA_TYPES = ['observation', 'sensitive_point', 'improvement'];
+
+    /**
+     * Anything other than the explicitly optional values above is treated as CAPA-mandatory
+     * (including an unknown/blank finding type) : the safe default matches this class' own
+     * migration default on existing rows (never silently relax a validation rule for data this
+     * rule did not exist for yet, see src/Install/Installer.php).
      */
     public static function isCapaMandatory(string $findingType): bool
     {
-        return $findingType !== 'observation';
+        return !in_array($findingType, self::OPTIONAL_CAPA_TYPES, true);
     }
 }

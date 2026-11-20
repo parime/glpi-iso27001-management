@@ -151,6 +151,25 @@ configuration du plugin. Le droit Documents de GLPI ne suffit pas. L'onglet **Ac
 liste chaque téléchargement (date, utilisateur, document) et l'onglet **Notes** garde les notes de
 travail datées, avec leur auteur.
 
+**Audit interne selon l'ISO 19011** (ISO 27001 9.2) :
+
+1. **Programme pluriannuel** : la page **Programme d'audit pluriannuel** de la rubrique présente les
+   processus du SMSI (les activités de la matrice des responsabilités) par année du cycle de
+   certification (3 ans, année de départ choisie sur la page). Un processus en rouge n'a aucun audit
+   sur le cycle, en orange son audit est en retard. Les exigences du SMSI qu'aucune grille d'audit du
+   cycle ne couvre sont aussi signalées.
+2. **Processus audités** : dans l'onglet **Programme et indépendance** de l'audit, choisissez les
+   processus qu'il audite.
+3. **Indépendance** : un auditeur (celui de la fiche ou un auditeur de l'équipe) qui réalise ou
+   approuve un processus audité dans la matrice des responsabilités, en son nom ou par un groupe, est
+   en conflit. L'audit ne peut être ni démarré ni terminé tant que chaque conflit n'a pas de
+   justification, conservée avec son auteur, sa date et dans l'historique de l'audit.
+4. **Compétence** : choisissez sur la page du programme les formations qui qualifient un auditeur
+   interne (par exemple « Auditeur interne ISO 27001 »). L'onglet **Équipe** indique alors pour
+   chaque auditeur s'il est qualifié, si sa qualification est à renouveler ou s'il n'en a aucune.
+5. **Remise du rapport à la direction** : saisissez la date de remise et le destinataire dans le même
+   onglet. Ils figurent dans le dossier de revue de direction (9.3.2 d 3).
+
 Depuis l'onglet **Non-conformités** de la rubrique, une non-conformité peut être liée à cet audit interne, avec
 une sévérité, une échéance, une description et une cause racine.
 
@@ -173,6 +192,29 @@ renseignée à la date du jour si elle est restée vide.
 ![Action corrective et préventive renseignées, statut Vérifiée](screenshots/tutorial/24-nonconformity-capa-filled.png)
 
 ![Non-conformité clôturée, date de vérification auto-renseignée](screenshots/tutorial/25-nonconformity-closed.png)
+
+#### Audits de certification et constats de l'organisme
+
+Un audit est **interne** (article 9.2) ou mené par l'**organisme de certification** : champ
+**Type d'audit** (audit de certification initial, audit de surveillance 1 ou 2, audit de
+renouvellement). Pour un audit de certification, la fiche demande l'organisme (un fournisseur GLPI,
+**Gestion > Fournisseurs**), l'auditeur responsable et le référentiel avec son édition (par exemple
+ISO/IEC 27001:2022). Les audits existants restent des audits internes.
+
+Dans l'onglet **Constats** d'un audit de certification, chaque constat se saisit avec le
+vocabulaire de l'organisme : **non-conformité majeure**, **non-conformité mineure**, **point
+sensible** ou **piste d'amélioration**, avec la référence de l'organisme (par exemple GVE-36), le
+processus audité, la clause ou la mesure et le site (un lieu GLPI). Le traitement est le même que
+pour une non-conformité interne (cause, action corrective, responsable, échéance, preuves dans
+l'onglet **Documents**, vérification) ; l'action corrective n'est obligatoire que pour une
+non-conformité.
+
+L'écran **Audits et amélioration > Constats des audits précédents** liste les constats de chaque
+audit de certification avec leur état de levée (non levé, action en cours, action réalisée à
+vérifier, levé) et leurs preuves. Il se filtre par audit ou sur les seuls constats non levés, et
+s'exporte en PDF : c'est le document à remettre à l'auditeur à la réunion d'ouverture de l'audit
+suivant. La **Préparation à la certification** rappelle, dans l'étape « Traiter les
+non-conformités », le nombre de constats précédents non levés.
 
 ### Étape 6 : Ajouter les indicateurs à un tableau de bord
 
@@ -408,6 +450,57 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    modifiées depuis la revue précédente, revues dépassées. Pour l'auditeur, exportez la liste
    (CSV ou PDF) avec le bouton d'export de GLPI.
 
+### Étape 21 : Décrire les compétences requises et suivre les écarts (article 7.2)
+
+1. Ouvrez la rubrique Revue des accès > **Compétences**. Cliquez sur **Ajouter les fonctions par
+   défaut manquantes** : RSSI, DPO, direction, administrateur, développeur, technicien et tout le
+   personnel arrivent avec leurs compétences requises (niveau attendu et façon de l'acquérir).
+2. Ouvrez une fonction, par exemple « Administrateur systèmes et réseaux ». Décrivez sa mission, puis
+   indiquez qui l'exerce : un utilisateur, un groupe (par exemple « Équipe infrastructure ») ou un
+   titre de GLPI (par exemple « Technicien / Technicienne », tel que créé par le plugin Configuration
+   GLPI Auto). Ajustez les compétences requises si besoin.
+3. Dans le **Catalogue des compétences**, ouvrez une compétence et liez les formations du plugin qui
+   la donnent, avec le niveau atteint. Une personne qui réussit la formation (ou l'une de ses
+   sessions) acquiert la compétence ; si la formation se renouvelle, la compétence expire avec elle.
+4. Pour un certificat, un diplôme ou l'expérience constatée à l'entretien annuel, utilisez
+   **Déclarer une compétence avec sa preuve** : la référence de la preuve est obligatoire, et le
+   fichier se joint dans l'onglet Documents (il ne se lit qu'avec les droits de la déclaration).
+5. La matrice **Personnes et compétences** montre, pour chaque titulaire, le niveau acquis et le
+   niveau attendu. Sous la matrice, chaque écart propose une action : la formation à planifier, ou
+   la preuve à déclarer. Rien n'est modifié automatiquement.
+6. Chaque fonction a sa **fiche de poste sécurité** en PDF. Avant l'audit, cliquez sur **Archiver
+   comme preuve** : le dossier daté (fiches de poste et écarts) est joint à l'exigence 7.2, dont la
+   fiche résume l'état des compétences.
+7. Chacun retrouve ses propres compétences dans ses préférences (onglet « Mes compétences »). Le
+   responsable voit la matrice et l'onglet « Compétences » de chaque utilisateur, avec le droit du
+   plugin et la lecture des utilisateurs, pour les personnes de ses entités.
+### Étape 22 : Tenir le registre des contacts officiels (mesures A.5.5 et A.5.6)
+
+1. Ouvrez Conformité > **Contacts officiels** (onglet à côté de « Contexte de l'organisation »).
+   L'encadré « À quoi sert cette page ? » rappelle ce qui est attendu.
+2. Cliquez sur **Ajouter un contact officiel**. La fiche est une partie intéressée du contexte, déjà
+   cochée « Contact officiel » : il n'y a pas de second registre à tenir. Une partie existante (un
+   assureur, un hébergeur enregistré comme fournisseur) devient un contact officiel en cochant la
+   case sur sa fiche.
+3. Renseignez par exemple « Autorité de protection des données (fictive) » : catégorie « Autorité de
+   contrôle », coordonnées (téléphone, formulaire en ligne), **quand le contacter** (« Violation de
+   données présentant un risque pour les personnes, RGPD article 33 »), **délai** (« 72 heures »),
+   l'interlocuteur interne habilité (le DPO) et, en secours, un groupe (la cellule de crise). Cochez
+   « À contacter pour une violation de données personnelles ».
+4. Ajoutez de même le CSIRT national et la police (cochez « À contacter pour un incident de
+   sécurité »), votre assureur et les groupes d'intérêt que vous suivez (catégorie « Groupe
+   d'intérêt », preuve de la mesure A.5.6).
+5. Après avoir vérifié les coordonnées, cliquez sur **Enregistrer la vérification** : la date et
+   votre nom sont conservés dans l'historique. Un contact non vérifié depuis 12 mois est signalé dans
+   le registre, et son propriétaire reçoit une relance (au plus une fois par mois).
+6. Cliquez sur **Imprimer le registre (PDF)** et gardez la copie avec le plan de gestion de crise :
+   elle reste utilisable si GLPI est indisponible.
+7. Depuis un incident de sécurité ou une violation de données, l'onglet **Contacts officiels** affiche
+   les contacts à prévenir, avec le délai et la personne habilitée. Seuls les contacts de l'entité de
+   l'incident ou d'une entité parente (fiche visible des sous-entités) sont proposés.
+8. Sur la fiche des mesures A.5.5 et A.5.6 de la SoA, le cadre « Registre des contacts officiels »
+   montre le nombre de contacts, vérifiés ou à vérifier, avec le lien vers le registre et son PDF.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -552,6 +645,25 @@ only be read by its **team**: the auditor and the owner set on the form, the mem
 **Équipe** tab (auditors, or read-only auditees) and the **CISO group** chosen in the plugin
 configuration. The GLPI Documents right is not enough. The **Accès aux documents** tab lists every
 download (date, user, document) and the **Notes** tab keeps dated working notes with their author.
+
+**Internal audit according to ISO 19011** (ISO 27001 9.2):
+
+1. **Multi-year programme**: the **Programme d'audit pluriannuel** page of the section shows the
+   ISMS processes (the activities of the responsibility matrix) by year of the certification cycle
+   (3 years, start year chosen on the page). A process in red has no audit over the cycle, in
+   orange its audit is overdue. The ISMS requirements that no audit checklist of the cycle covers
+   are listed too.
+2. **Audited processes**: in the **Programme et indépendance** tab of the audit, choose the processes
+   it audits.
+3. **Independence**: an auditor (the auditor of the form or an auditor of the team) who performs or
+   approves an audited process in the responsibility matrix, directly or through a group, is in
+   conflict. The audit cannot be started or closed until each conflict has a justification, kept
+   with its author and date and in the history of the audit.
+4. **Competence**: choose on the programme page the trainings that qualify an internal auditor
+   (for example "ISO 27001 internal auditor"). The **Équipe** tab then shows for each auditor
+   whether they are qualified, have to renew the qualification, or have none.
+5. **Report to management**: enter the delivery date of the report and its recipient in the same
+   tab. Both appear in the management review dossier (9.3.2 d 3).
 
 From the section's **Non-conformités** tab, a non-conformity can be linked to this internal audit, with a
 severity, a due date, a description and a root cause.
@@ -802,3 +914,53 @@ To give a subsidiary its own Statement of Applicability:
 6. The management review form summarises the context: number of issues and parties, items changed
    since the previous review, overdue reviews. For the auditor, export the list (CSV or PDF) with the
    GLPI export button.
+
+### Step 21: Describe the required competences and follow the gaps (clause 7.2)
+
+1. Open the Access review section > **Competences**. Click **Add the missing default functions**:
+   CISO, DPO, top management, administrator, developer, technician and all staff arrive with their
+   required competences (expected level and how to acquire it).
+2. Open a function, for instance "System and network administrator". Describe its mission, then say
+   who holds it: a user, a group (for instance "Infrastructure team") or a GLPI job title (for
+   instance "Technician", as created by the Configuration GLPI Auto plugin). Adjust the required
+   competences if needed.
+3. In the **Competence catalogue**, open a competence and link the trainings of the plugin that give
+   it, with the level reached. A person who passes the training (or one of its sessions) acquires the
+   competence; if the training must be renewed, the competence expires with it.
+4. For a certificate, a diploma or the experience noted at the annual review, use **Declare a
+   competence with its evidence**: the reference of the evidence is mandatory, and the file is
+   attached in the Documents tab (it can only be read with the rights on the declaration).
+5. The **People and competences** matrix shows, for each holder, the level acquired and the level
+   expected. Below the matrix, each gap comes with a proposed action: the training to plan, or the
+   evidence to declare. Nothing is changed automatically.
+6. Each function has its **security job description** as a PDF. Before the audit, click **Archive as
+   evidence**: the dated file (job descriptions and gaps) is attached to requirement 7.2, whose form
+   summarises the state of the competences.
+7. Everyone finds their own competences in their preferences ("My competences" tab). The manager sees
+   the matrix and the "Competences" tab of each user, with the plugin right and the right to read
+   users, for the people of their entities.
+### Step 22: Keep the register of official contacts (controls A.5.5 and A.5.6)
+
+1. Open Compliance > **Official contacts** (tab next to "Context of the organization"). The "What is
+   this page for?" box explains what is expected.
+2. Click **Add an official contact**. The record is an interested party of the context, already
+   ticked "Official contact": there is no second register to maintain. An existing party (an
+   insurer, a hosting provider recorded as a supplier) becomes an official contact by ticking the box
+   on its record.
+3. Fill in for instance "Data protection authority (fictitious)": category "Supervisory authority",
+   contact details (phone, online form), **when to contact** ("Personal data breach with a risk for
+   the persons, GDPR article 33"), **time limit** ("72 hours"), the authorised internal contact (the
+   DPO) and, as a backup, a group (the crisis team). Tick "To contact for a personal data breach".
+4. Add the national CSIRT and the police the same way (tick "To contact for a security incident"),
+   your insurer and the special interest groups you follow (category "Special interest group",
+   evidence for control A.5.6).
+5. After checking the details, click **Record the verification**: the date and your name are kept in
+   the history. A contact not verified for 12 months is flagged in the register, and its owner gets
+   a reminder (at most once a month).
+6. Click **Print the register (PDF)** and keep the copy with the crisis management plan: it stays
+   usable when GLPI is down.
+7. From a security incident or a personal data breach, the **Official contacts** tab shows the
+   contacts to inform, with the time limit and the authorised person. Only contacts of the entity of
+   the incident or of a parent entity (record visible in sub-entities) are listed.
+8. On controls A.5.5 and A.5.6 of the SoA, the "Register of official contacts" box shows the number
+   of contacts, verified or to verify, with links to the register and its PDF.

@@ -27,6 +27,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\ContextItemBase;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Context\ContextItemRules as Rules;
+use GlpiPlugin\Grcmanager\Services\Context\OfficialContactRules as ContactRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
@@ -63,6 +64,12 @@ class ContextItem extends ContextItemBase
 
     /** Bouton « Enregistrer la revue » de la fiche (lot 2 : revue périodique tracée). */
     public const REVIEW_MARKER = '_mark_reviewed';
+
+    /** Issue #771 : relance d'un contact officiel non vérifié depuis 12 mois. */
+    public const CONTACT_VERIFICATION_EVENT = 'contact_verification_due';
+
+    /** Issue #771 : bouton « Enregistrer la vérification » d'un contact officiel. */
+    public const CONTACT_VERIFIED_MARKER = '_mark_contact_verified';
 
     /** Marqueur du formulaire : une liste vide n'envoie rien, seul lui la remplace. */
     public const LINKS_MARKER = '_context_links_defined';
@@ -156,6 +163,26 @@ class ContextItem extends ContextItemBase
         ];
     }
 
+    /**
+     * Issue #771 : catégories des contacts officiels (A.5.5 : autorités ; A.5.6 : groupes d'intérêt).
+     *
+     * @return array<string, string>
+     */
+    public static function getContactCategories(): array
+    {
+        return [
+            'supervisory_authority' => __('Supervisory authority (e.g. data protection)', 'grcmanager'),
+            'csirt'                 => __('CSIRT or national cyber security agency', 'grcmanager'),
+            'law_enforcement'       => __('Law enforcement', 'grcmanager'),
+            'local_authority'       => __('Local or state authority', 'grcmanager'),
+            'sector_regulator'      => __('Sector regulator', 'grcmanager'),
+            'interest_group'        => __('Special interest group (CERT, association, forum)', 'grcmanager'),
+            'insurer'               => __('Insurer', 'grcmanager'),
+            'hosting_provider'      => __('Hosting provider', 'grcmanager'),
+            'other'                 => __('Other', 'grcmanager'),
+        ];
+    }
+
     /** @return array<string, string> */
     public static function getRelevances(): array
     {
@@ -187,6 +214,7 @@ class ContextItem extends ContextItemBase
         if (!isset($input['entities_id'])) {
             $input['entities_id'] = Session::getActiveEntity();
         }
+        $input = $this->prepareContactVerification($input, []);
 
         return $this->normalizeInput($input, []);
     }
@@ -206,8 +234,44 @@ class ContextItem extends ContextItemBase
             $input['users_id_lastreviewer'] = (int) Session::getLoginUserID();
             $input['review_date'] = Rules::nextReviewDate($today);
         }
+        $input = $this->prepareContactVerification($input, $this->fields);
 
         return $this->normalizeInput($input, $this->fields);
+    }
+
+    /**
+     * Issue #771 : vérification d'un contact officiel. L'auteur et la date de relance ne sont jamais
+     * repris de la saisie : le bouton « Enregistrer la vérification » fixe la date du jour, et toute
+     * date de vérification nouvelle est attribuée à la personne connectée. L'historique de la fiche
+     * garde chaque vérification.
+     *
+     * @param array<string, mixed> $input
+     * @param array<string, mixed> $current
+     * @return array<string, mixed>
+     */
+    private function prepareContactVerification(array $input, array $current): array
+    {
+        unset($input['users_id_contactverifier'], $input['contact_reminder_date']);
+        if (!empty($input[self::CONTACT_VERIFIED_MARKER])) {
+            $input['contact_verified_date'] = date('Y-m-d');
+        }
+        if (!array_key_exists('contact_verified_date', $input)) {
+            return $input;
+        }
+        $date = trim((string) $input['contact_verified_date']);
+        if ($date === '' || preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) !== 1 || $date > date('Y-m-d')) {
+            // Date vide, mal formée ou future : pas de vérification (jamais une vérification à venir).
+            $input['contact_verified_date'] = 'NULL';
+
+            return $input;
+        }
+        $input['contact_verified_date'] = $date;
+        if ($date !== (string) ($current['contact_verified_date'] ?? '')) {
+            $input['users_id_contactverifier'] = (int) Session::getLoginUserID();
+            $input['contact_reminder_date'] = 'NULL';
+        }
+
+        return $input;
     }
 
     /**
@@ -223,14 +287,30 @@ class ContextItem extends ContextItemBase
             'category'   => Rules::normalizeCategory(...),
             'party_type' => Rules::normalizePartyType(...),
             'relevance'  => Rules::normalizeRelevance(...),
+            'contact_category' => ContactRules::normalizeCategory(...),
         ];
         foreach ($enums as $field => $normalize) {
             if (array_key_exists($field, $input)) {
                 $input[$field] = $normalize($input[$field]);
             }
         }
+        foreach (['is_official_contact', 'on_security_incident', 'on_data_breach'] as $field) {
+            if (array_key_exists($field, $input)) {
+                $input[$field] = empty($input[$field]) ? 0 : 1;
+            }
+        }
+        // Issue #771 : seule une partie intéressée peut être un contact officiel.
+        if (($input['kind'] ?? $current['kind'] ?? Rules::KIND_ISSUE) !== Rules::KIND_PARTY) {
+            $input['is_official_contact'] = 0;
+        }
+        if (array_key_exists('users_id_internal', $input)) {
+            $input['users_id_internal'] = max(0, (int) $input['users_id_internal']);
+        }
         // Fournisseur et groupe du cœur : seulement ceux que la personne peut lire.
-        foreach (['suppliers_id' => Supplier::class, 'groups_id' => Group::class] as $field => $class) {
+        $coreLinks = [
+            'suppliers_id' => Supplier::class, 'groups_id' => Group::class, 'groups_id_internal' => Group::class,
+        ];
+        foreach ($coreLinks as $field => $class) {
             if (!array_key_exists($field, $input)) {
                 continue;
             }
@@ -863,6 +943,32 @@ class ContextItem extends ContextItemBase
             'name' => __('Last reviewed by', 'grcmanager'), 'datatype' => 'dropdown', 'right' => 'all',
             'massiveaction' => false,
         ];
+        // Issue #771 : contacts officiels.
+        $tab[] = [
+            'id' => 19, 'table' => $table, 'field' => 'is_official_contact',
+            'name' => _n('Official contact', 'Official contacts', 1, 'grcmanager'), 'datatype' => 'bool',
+        ];
+        $tab[] = [
+            'id' => 20, 'table' => $table, 'field' => 'contact_category',
+            'name' => __('Contact category', 'grcmanager'), 'datatype' => 'specific',
+            'searchtype' => ['equals', 'notequals'],
+        ];
+        $tab[] = [
+            'id' => 21, 'table' => $table, 'field' => 'contact_verified_date',
+            'name' => __('Last verification', 'grcmanager'), 'datatype' => 'date',
+        ];
+        $tab[] = [
+            'id' => 22, 'table' => $table, 'field' => 'contact_delay',
+            'name' => __('Time limit', 'grcmanager'), 'datatype' => 'string',
+        ];
+        $tab[] = [
+            'id' => 23, 'table' => $table, 'field' => 'on_security_incident',
+            'name' => __('To contact for a security incident', 'grcmanager'), 'datatype' => 'bool',
+        ];
+        $tab[] = [
+            'id' => 24, 'table' => $table, 'field' => 'on_data_breach',
+            'name' => __('To contact for a personal data breach', 'grcmanager'), 'datatype' => 'bool',
+        ];
         $tab[] = [
             'id' => 80, 'table' => 'glpi_entities', 'field' => 'completename', 'name' => Entity::getTypeName(1),
             'datatype' => 'dropdown', 'massiveaction' => false,
@@ -882,6 +988,7 @@ class ContextItem extends ContextItemBase
             'category'   => self::getCategories(),
             'party_type' => self::getPartyTypes(),
             'relevance'  => self::getRelevances(),
+            'contact_category' => self::getContactCategories(),
         ];
     }
 
@@ -901,6 +1008,7 @@ class ContextItem extends ContextItemBase
             case 'nature':
             case 'category':
             case 'party_type':
+            case 'contact_category':
                 return htmlescape(self::enumLabels()[$field][$value] ?? '');
         }
 
@@ -947,6 +1055,14 @@ class ContextItem extends ContextItemBase
                 $this->fields['nature'] = 'external';
                 $this->fields['name'] = __('Climate change', 'grcmanager');
             }
+            // Issue #771 : « Ajouter un contact officiel » depuis le registre des contacts.
+            if (!empty($options['official'])) {
+                $this->fields['kind'] = Rules::KIND_PARTY;
+                $this->fields['party_type'] = 'authority';
+                $this->fields['relevance'] = Rules::RELEVANCE_RETAINED;
+                $this->fields['is_official_contact'] = 1;
+                $this->fields['contact_verified_date'] = date('Y-m-d');
+            }
         }
         $entityId = $this->isNewItem() ? Session::getActiveEntity() : (int) $this->fields['entities_id'];
         $links = [];
@@ -982,6 +1098,19 @@ class ContextItem extends ContextItemBase
             'can_review'   => !$this->isNewItem() && $this->can((int) $ID, UPDATE),
             'last_reviewer' => (int) ($this->fields['users_id_lastreviewer'] ?? 0) > 0
                 ? getUserName((int) $this->fields['users_id_lastreviewer']) : '',
+            // Issue #771 : contact officiel.
+            'contact_categories'      => self::getContactCategories(),
+            'contact_verified_marker' => self::CONTACT_VERIFIED_MARKER,
+            'contact_status'          => ContactRules::verificationStatus(
+                isset($this->fields['contact_verified_date']) ? (string) $this->fields['contact_verified_date'] : null,
+                date('Y-m-d')
+            ),
+            'contact_next'            => ContactRules::nextVerificationDate(
+                isset($this->fields['contact_verified_date']) ? (string) $this->fields['contact_verified_date'] : null
+            ),
+            'contact_verifier'        => (int) ($this->fields['users_id_contactverifier'] ?? 0) > 0
+                ? getUserName((int) $this->fields['users_id_contactverifier']) : '',
+            'contacts_url'            => OfficialContact::getRegisterURL(),
         ]);
 
         return true;

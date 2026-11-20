@@ -30,6 +30,7 @@ use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
 use GlpiPlugin\Grcmanager\NotificationTargetEvidence;
 use GlpiPlugin\Grcmanager\NotificationTargetTraining;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
+use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
@@ -356,11 +357,15 @@ final class Installer
         // Issue #608 : contexte de l'organisation (enjeux et parties intéressées).
         \GlpiPlugin\Grcmanager\ContextItem::class,
         \GlpiPlugin\Grcmanager\NotificationTargetContextItem::class,
+        // Issue #771 : registre des contacts officiels (onglet des incidents et des violations).
+        \GlpiPlugin\Grcmanager\OfficialContact::class,
         // Issue #703 : registre NIS2 Italia - ACN.
         \GlpiPlugin\Grcmanager\AcnRequirement::class,
         // Issue #612 : matrice des responsabilités du SMSI et ses exports archivés.
         \GlpiPlugin\Grcmanager\ResponsibilityActivity::class,
         \GlpiPlugin\Grcmanager\ResponsibilityExport::class,
+        // Issue #774 : compétences (fonctions du SMSI, compétences, déclarations, exports archivés).
+        ...CompetenceTables::CLASSES,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
@@ -450,6 +455,11 @@ final class Installer
     // Issue #537 : référentiels personnalisés importés et leurs exigences.
     private const CUSTOM_FRAMEWORKS_TABLE = 'glpi_plugin_grcmanager_customframeworks';
     private const CUSTOM_REQUIREMENTS_TABLE = 'glpi_plugin_grcmanager_customrequirements';
+    // Issue #773 : programme d'audit interne (ISO 19011) : processus audités, justifications
+    // d'indépendance des auditeurs, remise du rapport à la direction.
+    private const AUDITS_PROCESSES_TABLE = 'glpi_plugin_grcmanager_audits_processes';
+    private const AUDIT_INDEPENDENCE_WAIVERS_TABLE = 'glpi_plugin_grcmanager_auditindependencewaivers';
+    private const AUDIT_REPORT_DELIVERIES_TABLE = 'glpi_plugin_grcmanager_auditreportdeliveries';
 
     /**
      * Création et mise à jour du schéma. Les ordres DDL passent par $DB->doQuery(), qui lève une
@@ -1064,6 +1074,9 @@ final class Installer
             $migration->migrationOneTable(self::NONCONFORMITIES_TABLE);
         }
 
+        // Issue #772 : audits de certification et constats de l'organisme.
+        $this->migrateCertificationAudits($migration);
+
         // Sprint 5 (risques fournisseurs/tiers) : même structure que RISKS_TABLE ci-dessus (mêmes
         // colonnes de notation/traitement, voir GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait),
         // avec en plus `suppliers_id`, une vraie clé étrangère vers le `Supplier` natif de GLPI
@@ -1442,11 +1455,14 @@ final class Installer
         $this->installDataBreachTables($keySign, $charset, $collation);
         $this->installContextTables($migration, $keySign, $charset, $collation);
         $this->installResponsibilityTables($keySign, $charset, $collation);
+        // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
+        CompetenceTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
         $this->installEndOfLifeTables($keySign, $charset, $collation);
         $this->installManagementReviewDossierTables($keySign, $charset, $collation);
+        $this->installAuditProgrammeTables($keySign, $charset, $collation);
         $this->installControlTestSampleTables($migration, $keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
@@ -3546,6 +3562,17 @@ final class Installer
             ]
         );
 
+        // Issue #771 : relance des contacts officiels non vérifiés depuis 12 mois.
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\OfficialContact::class,
+            'contactverification',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Relance le propriétaire de chaque contact officiel non vérifié depuis 12 mois',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
         // Sprint 4 (CAPA en retard) : évalue chaque jour les non-conformités dont l'échéance est
         // dépassée et qui ne sont ni clôturées ni vérifiées, et déclenche la notification GLPI
         // seedée ci-dessus (voir \GlpiPlugin\Grcmanager\Nonconformity::cronOverduecapa(),
@@ -4668,6 +4695,56 @@ final class Installer
             $migration->addKey(self::CONTEXT_ITEMS_TABLE, 'users_id_lastreviewer');
             $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
         }
+        // Issue #771 : registre des contacts officiels (A.5.5, A.5.6). Une partie intéressée marquée
+        // « contact officiel » porte ses coordonnées, qui la contacte, quand, dans quel délai, et la
+        // date de dernière vérification. Pas de table à part : la partie existe déjà dans le contexte.
+        if (!$DB->fieldExists(self::CONTEXT_ITEMS_TABLE, 'is_official_contact')) {
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'is_official_contact', 'bool', [
+                'after' => 'groups_id',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_category', 'string', [
+                'after' => 'is_official_contact', 'value' => '',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_details', 'text', [
+                'after' => 'contact_category',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'users_id_internal', 'fkey', [
+                'after' => 'contact_details',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'groups_id_internal', 'fkey', [
+                'after' => 'users_id_internal',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'when_to_contact', 'text', [
+                'after' => 'groups_id_internal',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_delay', 'string', [
+                'after' => 'when_to_contact', 'value' => '',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'on_security_incident', 'bool', [
+                'after' => 'contact_delay',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'on_data_breach', 'bool', [
+                'after' => 'on_security_incident',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_verified_date', 'date', [
+                'after' => 'on_data_breach',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'users_id_contactverifier', 'fkey', [
+                'after' => 'contact_verified_date',
+            ]);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_reminder_date', 'timestamp', [
+                'after' => 'users_id_contactverifier',
+            ]);
+            foreach (
+                [
+                    'is_official_contact', 'users_id_internal', 'groups_id_internal', 'contact_verified_date',
+                    'users_id_contactverifier',
+                ] as $key
+            ) {
+                $migration->addKey(self::CONTEXT_ITEMS_TABLE, $key);
+            }
+            $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
+        }
         if (!$DB->tableExists(self::CONTEXT_ITEMS_LINKS_TABLE)) {
             $DB->doQuery("CREATE TABLE `" . self::CONTEXT_ITEMS_LINKS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -5092,6 +5169,57 @@ final class Installer
      * par le dossier de la revue suivante, 9.3.2 a) et dossiers préparatoires générés (PDF archivé
      * sur la revue, période couverte et empreinte SHA-256).
      */
+    /**
+     * Issue #773 : programme d'audit interne selon l'ISO 19011. Processus (activités de la matrice
+     * des responsabilités) visés par un audit, justification de chaque conflit d'indépendance
+     * d'un auditeur, remise du rapport à la direction (date et destinataire, 9.3.2 d 3).
+     */
+    private function installAuditProgrammeTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::AUDITS_PROCESSES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDITS_PROCESSES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_audits_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_responsibilityactivities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_audits_id`, `plugin_grcmanager_responsibilityactivities_id`),
+                KEY `activities_id` (`plugin_grcmanager_responsibilityactivities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDIT_INDEPENDENCE_WAIVERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_audits_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auditeur en conflit',
+                `plugin_grcmanager_responsibilityactivities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `justification` text,
+                `users_id_author` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur de la justification',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_audits_id`, `users_id`,
+                    `plugin_grcmanager_responsibilityactivities_id`),
+                KEY `activities_id` (`plugin_grcmanager_responsibilityactivities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::AUDIT_REPORT_DELIVERIES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDIT_REPORT_DELIVERIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_audits_id` int {$keySign} NOT NULL DEFAULT 0,
+                `delivery_date` date DEFAULT NULL,
+                `users_id_recipient` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Destinataire (direction)',
+                `comment` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur de la saisie',
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_audits_id`),
+                KEY `users_id_recipient` (`users_id_recipient`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
     private function installManagementReviewDossierTables(string $keySign, string $charset, string $collation): void
     {
         global $DB;
@@ -5511,6 +5639,66 @@ final class Installer
      * `linked_itemtype`/`linked_items_id` (if set) becomes a row in SECURITY_INCIDENTS_ITEMS_TABLE,
      * the polymorphic link mechanism that supersedes it.
      */
+    /**
+     * Issue #772 : type d'audit (interne, ou externe mené par l'organisme de certification) et
+     * références des constats de l'organisme. Rejouable, sans perte : la valeur par défaut
+     * « internal » est appliquée par MariaDB à chaque audit existant lors de l'ajout de la colonne,
+     * et un type vide ou inconnu redevient « internal ». L'organisme est un fournisseur GLPI, le
+     * site un lieu GLPI : aucun objet parallèle.
+     */
+    private function migrateCertificationAudits(Migration $migration): void
+    {
+        global $DB;
+
+        $auditFields = [
+            'audit_type'             => ['string', ['value' => 'internal', 'after' => 'title',
+                'comment' => 'internal, initial, surveillance_1, surveillance_2, renewal (issue #772)']],
+            'suppliers_id'           => ['fkey', ['after' => 'audit_type',
+                'comment' => 'Organisme de certification (glpi_suppliers.id)']],
+            'lead_auditor'           => ['string', ['value' => '', 'after' => 'suppliers_id',
+                'comment' => 'Auditeur responsable de l organisme']],
+            'certification_standard' => ['string', ['value' => '', 'after' => 'lead_auditor',
+                'comment' => 'Referentiel et edition, ex. ISO/IEC 27001:2022']],
+        ];
+        $changed = false;
+        foreach ($auditFields as $field => [$type, $options]) {
+            if (!$DB->fieldExists(self::AUDITS_TABLE, $field)) {
+                $migration->addField(self::AUDITS_TABLE, $field, $type, $options);
+                $changed = true;
+            }
+        }
+        if ($changed) {
+            $migration->addKey(self::AUDITS_TABLE, 'audit_type', 'audit_type');
+            $migration->addKey(self::AUDITS_TABLE, 'suppliers_id', 'suppliers_id');
+            $migration->migrationOneTable(self::AUDITS_TABLE);
+        }
+        $DB->update(
+            self::AUDITS_TABLE,
+            ['audit_type' => CertificationAuditRules::TYPE_INTERNAL],
+            ['NOT' => ['audit_type' => CertificationAuditRules::AUDIT_TYPES]]
+        );
+
+        $findingFields = [
+            'body_reference'        => ['string', ['value' => '', 'after' => 'finding_type',
+                'comment' => 'Reference du constat chez l organisme, ex. GVE-36']],
+            'audited_process'       => ['string', ['value' => '', 'after' => 'body_reference']],
+            'requirement_reference' => ['string', ['value' => '', 'after' => 'audited_process',
+                'comment' => 'Clause ou mesure, ex. 9.2 ou A.8.8']],
+            'locations_id'          => ['fkey', ['after' => 'requirement_reference', 'comment' => 'Site']],
+        ];
+        $changed = false;
+        foreach ($findingFields as $field => [$type, $options]) {
+            if (!$DB->fieldExists(self::NONCONFORMITIES_TABLE, $field)) {
+                $migration->addField(self::NONCONFORMITIES_TABLE, $field, $type, $options);
+                $changed = true;
+            }
+        }
+        if ($changed) {
+            $migration->addKey(self::NONCONFORMITIES_TABLE, 'locations_id', 'locations_id');
+            $migration->migrationOneTable(self::NONCONFORMITIES_TABLE);
+        }
+    }
+
     private function migrateLegacySecurityIncidents(): void
     {
         global $DB;
@@ -5984,6 +6172,10 @@ final class Installer
         $migration->dropTable(self::RESPONSIBILITY_ASSIGNMENTS_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_ACTIVITIES_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_EXPORTS_TABLE);
+        CompetenceTables::uninstall($migration);
+        $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
+        $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
+        $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);
         $migration->dropTable(self::ACN_REQUIREMENTS_LINKS_TABLE);
         $migration->dropTable(self::ACN_REQUIREMENTS_TABLE);
         $migration->dropTable(self::ACN_ENTITIES_TABLE);

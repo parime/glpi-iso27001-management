@@ -21375,3 +21375,1016 @@ msgstr[1] "%d políticas lidas"
 
 msgid "People tracked"
 msgstr "Pessoas acompanhadas"
+
+# Issue #774 : compétences (ISO 27001, article 7.2).
+
+msgid "For example \"Secure configuration of firewalls\"."
+msgstr "Por exemplo \"Configuração segura de firewalls\"."
+
+msgid "What a person with this competence knows how to do."
+msgstr "O que uma pessoa com esta competência sabe fazer."
+
+msgid "Trainings that give this competence"
+msgstr "Formações que conferem esta competência"
+
+msgid "No training linked yet. A person who passes a linked training (or one of its sessions) acquires the competence at the level given."
+msgstr "Nenhuma formação vinculada ainda. Quem for aprovado numa formação vinculada (ou numa das suas sessões) adquire a competência no nível indicado."
+
+msgid "Level given"
+msgstr "Nível conferido"
+
+msgid "Link a training"
+msgstr "Vincular uma formação"
+
+msgid "Completed and not failed: the training counts as passed. Its renewal period, if any, limits the validity."
+msgstr "Concluída e não reprovada: a formação conta como aprovada. O seu período de renovação, se existir, limita a validade."
+
+msgid "The competences expected by your ISMS functions, and those you have acquired through the trainings you passed or the evidence you declared. Ask your security officer to record a new certificate or diploma."
+msgstr "As competências esperadas pelas suas funções no SGSI e as que adquiriu através das formações aprovadas ou das provas declaradas. Peça ao seu responsável de segurança para registar um novo certificado ou diploma."
+
+msgid "The competences expected by the ISMS functions of this person, and those acquired through passed trainings or declared evidence."
+msgstr "As competências esperadas pelas funções desta pessoa no SGSI e as adquiridas através de formações aprovadas ou provas declaradas."
+
+msgid "You hold no ISMS function yet."
+msgstr "Ainda não exerce nenhuma função do SGSI."
+
+msgid "This person holds no ISMS function in your entities."
+msgstr "Esta pessoa não exerce nenhuma função do SGSI nas suas entidades."
+
+msgid "ISMS functions"
+msgstr "Funções do SGSI"
+
+msgid "%d gap"
+msgid_plural "%d gaps"
+msgstr[0] "%d lacuna"
+msgstr[1] "%d lacunas"
+
+msgid "No gap"
+msgstr "Sem lacunas"
+
+msgid "These functions require no competence yet."
+msgstr "Estas funções ainda não exigem nenhuma competência."
+
+msgid "Expected level"
+msgstr "Nível esperado"
+
+msgid "How to acquire it"
+msgstr "Como adquiri-la"
+
+msgid "Acquired through"
+msgstr "Adquirida através de"
+
+msgid "valid until %s"
+msgstr "válida até %s"
+
+msgid "Proposed actions"
+msgstr "Ações propostas"
+
+msgid "Plan the training"
+msgstr "Planear a formação"
+
+msgid "Declare a competence with its evidence"
+msgstr "Declarar uma competência com a sua prova"
+
+msgid "Declared competences"
+msgstr "Competências declaradas"
+
+msgid "No competence declared yet."
+msgstr "Nenhuma competência declarada ainda."
+
+msgid "Level acquired"
+msgstr "Nível adquirido"
+
+msgid "Acquired on"
+msgstr "Adquirida em"
+
+msgid "All competences"
+msgstr "Todas as competências"
+
+msgid "Declared competence"
+msgid_plural "Declared competences"
+msgstr[0] "Competência declarada"
+msgstr[1] "Competências declaradas"
+
+msgid "The person who holds the competence."
+msgstr "A pessoa que detém a competência."
+
+msgid "Basic: knows the rules. Proficient: applies them alone. Expert: can design, check and teach."
+msgstr "Básico: conhece as regras. Domínio: aplica-as com autonomia. Especialista: sabe conceber, verificar e formar."
+
+msgid "Kind of evidence"
+msgstr "Tipo de prova"
+
+msgid "Reference of the evidence"
+msgstr "Referência da prova"
+
+msgid "Certificate number, school and year of the diploma, date of the annual review... Attach the file in the Documents tab."
+msgstr "Número do certificado, escola e ano do diploma, data da avaliação anual... Anexe o ficheiro no separador Documentos."
+
+msgid "Leave empty if the competence does not expire."
+msgstr "Deixe vazio se a competência não expirar."
+
+msgid "Competences"
+msgstr "Competências"
+
+msgid "%d function"
+msgid_plural "%d functions"
+msgstr[0] "%d função"
+msgstr[1] "%d funções"
+
+msgid "%d competence"
+msgid_plural "%d competences"
+msgstr[0] "%d competência"
+msgstr[1] "%d competências"
+
+msgid "%d person with a gap"
+msgid_plural "%d people with a gap"
+msgstr[0] "%d pessoa com lacuna"
+msgstr[1] "%d pessoas com lacuna"
+
+msgid "%d archived file"
+msgid_plural "%d archived files"
+msgstr[0] "%d dossiê arquivado"
+msgstr[1] "%d dossiês arquivados"
+
+msgid "Open the competences"
+msgstr "Abrir as competências"
+
+msgid "Coverage: %d %%"
+msgstr "Cobertura: %d %%"
+
+msgid "Adds the proposed functions and competences that are missing, without changing the existing ones."
+msgstr "Adiciona as funções e competências propostas em falta, sem alterar as existentes."
+
+msgid "Add the missing default functions"
+msgstr "Adicionar as funções predefinidas em falta"
+
+msgid "Competence catalogue"
+msgstr "Catálogo de competências"
+
+msgid "Attaches a dated PDF of the job descriptions and gaps to requirement 7.2 of the ISMS."
+msgstr "Anexa um PDF datado das fichas de função e lacunas ao requisito 7.2 do SGSI."
+
+msgid "No function yet. Add the default functions (CISO, DPO, administrator...), then say who holds each one."
+msgstr "Ainda não há funções. Adicione as funções predefinidas (CISO, EPD, administrador...) e indique quem exerce cada uma."
+
+msgid "Required competences"
+msgstr "Competências exigidas"
+
+msgid "Holders"
+msgstr "Titulares"
+
+msgid "Holders with a gap"
+msgstr "Titulares com lacuna"
+
+msgid "Job description"
+msgstr "Ficha de função"
+
+msgid "Nobody"
+msgstr "Ninguém"
+
+msgid "Reading the users of GLPI is needed to see the competences of the people."
+msgstr "É necessário ler os utilizadores do GLPI para ver as competências das pessoas."
+
+msgid "People and competences"
+msgstr "Pessoas e competências"
+
+msgid "Nobody holds a function yet: add users, groups or job titles to the functions."
+msgstr "Ninguém exerce ainda uma função: adicione utilizadores, grupos ou títulos às funções."
+
+msgid "Each cell shows the level acquired / the level expected. Nothing is changed automatically."
+msgstr "Cada célula mostra o nível adquirido / o nível esperado. Nada é alterado automaticamente."
+
+msgid "Gaps and proposed actions"
+msgstr "Lacunas e ações propostas"
+
+msgid "No gap: every holder has the competences expected by their functions."
+msgstr "Sem lacunas: cada titular tem as competências esperadas pelas suas funções."
+
+msgid "Proposed action"
+msgstr "Ação proposta"
+
+msgid "Archived competence files"
+msgstr "Dossiês de competências arquivados"
+
+msgid "No archived file yet. Archive it before the audit: the dated PDF is attached to requirement 7.2."
+msgstr "Ainda não há dossiês arquivados. Arquive-o antes da auditoria: o PDF datado é anexado ao requisito 7.2."
+
+msgid "For example \"Network administrator\" or \"Data protection officer\"."
+msgstr "Por exemplo \"Administrador de rede\" ou \"Encarregado da proteção de dados\"."
+
+msgid "Mission"
+msgstr "Missão"
+
+msgid "What this function does for information security. It appears on the security job description."
+msgstr "O que esta função faz pela segurança da informação. Aparece na ficha de função de segurança."
+
+msgid "Who holds this function"
+msgstr "Quem exerce esta função"
+
+msgid "Nobody holds this function yet. Add below users, groups or job titles of GLPI."
+msgstr "Ninguém exerce ainda esta função. Adicione abaixo utilizadores, grupos ou títulos do GLPI."
+
+msgid "Holder"
+msgstr "Titular"
+
+msgid "Choose a user, a group or a job title, then save."
+msgstr "Escolha um utilizador, um grupo ou um título e guarde."
+
+msgid "Every active user with this job title holds the function."
+msgstr "Todo o utilizador ativo com este título exerce a função."
+
+msgid "No competence required yet. Add below the competences this function needs, with the expected level."
+msgstr "Ainda não há competências exigidas. Adicione abaixo as competências de que esta função precisa, com o nível esperado."
+
+msgid "Add a competence"
+msgstr "Adicionar uma competência"
+
+msgid "Choosing a competence already required updates its level and how to acquire it."
+msgstr "Escolher uma competência já exigida atualiza o seu nível e a forma de a adquirir."
+
+msgid "Coverage of the holders"
+msgstr "Cobertura dos titulares"
+
+msgid "Reading the users of GLPI is needed to see the people."
+msgstr "É necessário ler os utilizadores do GLPI para ver as pessoas."
+
+msgid "No active person of your entities holds this function."
+msgstr "Nenhuma pessoa ativa das suas entidades exerce esta função."
+
+msgid "Activities of the responsibility matrix held by the holders:"
+msgstr "Atividades da matriz de responsabilidades a cargo dos titulares:"
+
+msgid "Security job description (PDF)"
+msgstr "Ficha de função de segurança (PDF)"
+
+msgid "People holding a function"
+msgstr "Pessoas que exercem uma função"
+
+msgid "Coverage of the required competences"
+msgstr "Cobertura das competências exigidas"
+
+msgid "Security job description: %s"
+msgstr "Ficha de função de segurança: %s"
+
+msgid "No mission described yet."
+msgstr "Ainda não há missão descrita."
+
+msgid "Nobody holds this function yet."
+msgstr "Ninguém exerce ainda esta função."
+
+msgid "No competence required yet."
+msgstr "Ainda não há competências exigidas."
+
+msgid "Nothing to assess yet."
+msgstr "Ainda não há nada a avaliar."
+
+msgid "Activities of the responsibility matrix"
+msgstr "Atividades da matriz de responsabilidades"
+
+msgid "No function yet."
+msgstr "Ainda não há funções."
+
+msgid "ISO/IEC 27001, clause 7.2. Only the functions and people of the entities of the person who exported this file are listed. Nothing has been modified by this export."
+msgstr "ISO/IEC 27001, cláusula 7.2. Apenas são listadas as funções e pessoas das entidades de quem exportou este dossiê. Nada foi alterado por esta exportação."
+
+msgid "My competences"
+msgstr "As minhas competências"
+
+msgid "Acquired"
+msgstr "Adquirida"
+
+msgid "Level too low"
+msgstr "Nível insuficiente"
+
+msgid "Not acquired"
+msgstr "Não adquirida"
+
+msgid "Declare the diploma or certificate with its evidence."
+msgstr "Declarar o diploma ou certificado com a sua prova."
+
+msgid "Declare the experience with its evidence (annual review, references)."
+msgstr "Declarar a experiência com a sua prova (avaliação anual, referências)."
+
+msgid "Plan a training: no training of the plugin gives this competence yet."
+msgstr "Planear uma formação: nenhuma formação do plugin confere ainda esta competência."
+
+msgid "Declare the competence with its evidence."
+msgstr "Declarar a competência com a sua prova."
+
+msgid "Competences of the ISMS functions (ISO 27001, clause 7.2)"
+msgstr "Competências das funções do SGSI (ISO 27001, cláusula 7.2)"
+
+msgid "Certificate"
+msgstr "Certificado"
+
+msgid "Training certificate"
+msgstr "Certificado de formação"
+
+msgid "Diploma"
+msgstr "Diploma"
+
+msgid "Annual review"
+msgstr "Avaliação anual"
+
+msgid "Proven experience"
+msgstr "Experiência comprovada"
+
+msgid "Choose a person of your entities."
+msgstr "Escolha uma pessoa das suas entidades."
+
+msgid "Choose a competence."
+msgstr "Escolha uma competência."
+
+msgid "Choose the kind of evidence."
+msgstr "Escolha o tipo de prova."
+
+msgid "Give the reference of the evidence (certificate number, date of the annual review...)."
+msgstr "Indique a referência da prova (número do certificado, data da avaliação anual...)."
+
+msgid "The end of validity cannot be before the date the competence was acquired."
+msgstr "O fim da validade não pode ser anterior à data de aquisição da competência."
+
+msgid "Archived competence file"
+msgid_plural "Archived competence files"
+msgstr[0] "Dossiê de competências arquivado"
+msgstr[1] "Dossiês de competências arquivados"
+
+msgid "ISMS competences - %s"
+msgstr "Competências do SGSI - %s"
+
+msgid "Information security awareness"
+msgstr "Sensibilização para a segurança da informação"
+
+msgid "ISMS governance and ISO 27001 requirements"
+msgstr "Governação do SGSI e requisitos da ISO 27001"
+
+msgid "Information security risk management"
+msgstr "Gestão de riscos de segurança da informação"
+
+msgid "Security incident handling"
+msgstr "Tratamento de incidentes de segurança"
+
+msgid "Access rights management"
+msgstr "Gestão de direitos de acesso"
+
+msgid "Secure administration of systems and networks"
+msgstr "Administração segura de sistemas e redes"
+
+msgid "Secure development"
+msgstr "Desenvolvimento seguro"
+
+msgid "Personal data protection (GDPR)"
+msgstr "Proteção de dados pessoais (RGPD)"
+
+msgid "Business continuity and backups"
+msgstr "Continuidade do negócio e cópias de segurança"
+
+msgid "ISMS internal audit"
+msgstr "Auditoria interna do SGSI"
+
+msgid "Give the competence a name."
+msgstr "Dê um nome à competência."
+
+msgid "This competence has been declared for people: it cannot be deleted."
+msgstr "Esta competência foi declarada para pessoas: não pode ser eliminada."
+
+msgid "ISMS function"
+msgid_plural "ISMS functions"
+msgstr[0] "Função do SGSI"
+msgstr[1] "Funções do SGSI"
+
+msgid "Chief information security officer (CISO)"
+msgstr "Responsável pela segurança da informação (CISO)"
+
+msgid "Top management"
+msgstr "Gestão de topo"
+
+msgid "System and network administrator"
+msgstr "Administrador de sistemas e redes"
+
+msgid "Developer"
+msgstr "Programador"
+
+msgid "Support technician"
+msgstr "Técnico de suporte"
+
+msgid "All staff"
+msgstr "Todo o pessoal"
+
+msgctxt "competence level"
+msgid "Basic"
+msgstr "Básico"
+
+msgctxt "competence level"
+msgid "Proficient"
+msgstr "Domínio"
+
+msgctxt "competence level"
+msgid "Expert"
+msgstr "Especialista"
+
+msgid "Professional certification"
+msgstr "Certificação profissional"
+
+msgid "Experience"
+msgstr "Experiência"
+
+msgid "Give the function a name."
+msgstr "Dê um nome à função."
+
+msgid "This user or group does not belong to the entity of the function."
+msgstr "Este utilizador ou grupo não pertence à entidade da função."
+
+msgid "This competence is not available in the entity of the function."
+msgstr "Esta competência não está disponível na entidade da função."
+
+msgid "Job title: %s"
+msgstr "Título: %s"
+
+msgid "The competences each ISMS function needs (CISO, DPO, administrator...), who holds each function, what each person has acquired through passed trainings or declared evidence, and the gaps."
+msgstr "As competências de que cada função do SGSI precisa (CISO, EPD, administrador...), quem exerce cada função, o que cada pessoa adquiriu através de formações aprovadas ou provas declaradas, e as lacunas."
+
+msgid "Add the functions and their required competences with the expected level, say who holds them, link the trainings that give each competence, declare the certificates and diplomas, plan the proposed actions, then archive the file as evidence before the audit."
+msgstr "Adicione as funções e as competências exigidas com o nível esperado, indique quem as exerce, vincule as formações que conferem cada competência, declare os certificados e diplomas, planeie as ações propostas e arquive o dossiê como prova antes da auditoria."
+
+msgid "ISO/IEC 27001, clause 7.2"
+msgstr "ISO/IEC 27001, cláusula 7.2"
+
+msgid "The catalogue of the information security competences of the organization, and the trainings that give each one once passed."
+msgstr "O catálogo de competências em segurança da informação da organização e as formações que conferem cada uma após aprovação."
+
+msgid "Describe each competence and link the trainings that give it, with the level reached."
+msgstr "Descreva cada competência e vincule as formações que a conferem, com o nível atingido."
+
+msgid "The competences acquired outside the trainings of the plugin, each one with its evidence: certificate, diploma, annual review or proven experience."
+msgstr "As competências adquiridas fora das formações do plugin, cada uma com a sua prova: certificado, diploma, avaliação anual ou experiência comprovada."
+
+msgid "Record the reference of the evidence, its date and its end of validity, and attach the file in the Documents tab."
+msgstr "Registe a referência da prova, a sua data e o fim da validade, e anexe o ficheiro no separador Documentos."
+
+msgid "Default functions added: %1$d, default competences added: %2$d."
+msgstr "Funções predefinidas adicionadas: %1$d, competências predefinidas adicionadas: %2$d."
+
+msgid "The competence file has been archived as evidence of requirement 7.2."
+msgstr "O dossiê de competências foi arquivado como prova do requisito 7.2."
+
+msgid "The competence file could not be archived."
+msgstr "Não foi possível arquivar o dossiê de competências."
+msgid "Finding of the certification body"
+msgstr "Constatação do organismo de certificação"
+
+msgid "A corrective action is required to close a nonconformity; it is optional for an area of concern or an opportunity for improvement."
+msgstr "Uma ação corretiva é obrigatória para encerrar uma não conformidade; é opcional para um ponto sensível ou uma oportunidade de melhoria."
+
+msgid "Certification body reference"
+msgstr "Referência do organismo"
+
+msgid "Reference given to the finding in the certification body report."
+msgstr "Referência da constatação no relatório do organismo de certificação."
+
+msgid "Audited process"
+msgstr "Processo auditado"
+
+msgid "Clause or control"
+msgstr "Cláusula ou controle"
+
+msgid "Site"
+msgstr "Local"
+
+msgid "Lifting status of the findings (PDF export)"
+msgstr "Situação de encerramento das constatações (exportação PDF)"
+
+msgid "Lifting status"
+msgstr "Situação de encerramento"
+
+msgid "Findings not lifted: %1$d of %2$d"
+msgstr "Constatações não encerradas: %1$d de %2$d"
+
+msgid "Nonconformities not lifted: %d"
+msgstr "Não conformidades não encerradas: %d"
+
+msgid "Display"
+msgstr "Exibição"
+
+msgid "All certification audits"
+msgstr "Todas as auditorias de certificação"
+
+msgid "Only findings not lifted"
+msgstr "Somente as constatações não encerradas"
+
+msgid "Export (PDF)"
+msgstr "Exportar (PDF)"
+
+msgid "No certification audit recorded yet. Create an audit and choose its type (initial, surveillance or recertification), then record the findings of the certification body in its Findings tab."
+msgstr "Nenhuma auditoria de certificação registrada. Crie uma auditoria, escolha o tipo (inicial, supervisão ou recertificação) e registre as constatações do organismo na aba Constatações."
+
+msgid "Add an audit"
+msgstr "Adicionar uma auditoria"
+
+msgid "Every finding of this audit is lifted or awaiting verification."
+msgstr "Todas as constatações desta auditoria estão encerradas ou aguardando verificação."
+
+msgid "Process, clause or control, site"
+msgstr "Processo, cláusula ou controle, local"
+
+msgid "Verified on %s"
+msgstr "Verificado em %s"
+
+msgid "Findings not lifted"
+msgstr "Constatações não encerradas"
+
+msgid "Nonconformities not lifted"
+msgstr "Não conformidades não encerradas"
+
+msgid "Only findings not lifted are listed."
+msgstr "Somente as constatações não encerradas são listadas."
+
+msgid "No certification audit recorded yet."
+msgstr "Nenhuma auditoria de certificação registrada."
+
+msgid "Audit type"
+msgstr "Tipo de auditoria"
+
+msgid "Internal audit, or audit carried out by your certification body (initial, surveillance or recertification)."
+msgstr "Auditoria interna, ou auditoria realizada pelo seu organismo de certificação (inicial, supervisão ou recertificação)."
+
+msgid "Certification body"
+msgstr "Organismo de certificação"
+
+msgid "The certification body is a GLPI supplier (Management > Suppliers)."
+msgstr "O organismo de certificação é um fornecedor do GLPI (Gestão > Fornecedores)."
+
+msgid "Name of the lead auditor appointed by the certification body."
+msgstr "Nome do auditor líder designado pelo organismo de certificação."
+
+msgid "Standard and edition"
+msgstr "Norma e edição"
+
+msgid "Findings of previous certification audits not lifted: %1$d (including %2$d nonconformities)"
+msgstr "Constatações de auditorias de certificação anteriores não encerradas: %1$d (das quais %2$d não conformidades)"
+
+msgid "Findings of previous audits"
+msgstr "Constatações de auditorias anteriores"
+
+msgid "Internal audit (clause 9.2)"
+msgstr "Auditoria interna (cláusula 9.2)"
+
+msgid "Initial certification audit"
+msgstr "Auditoria de certificação inicial"
+
+msgid "Surveillance audit 1"
+msgstr "Auditoria de supervisão 1"
+
+msgid "Surveillance audit 2"
+msgstr "Auditoria de supervisão 2"
+
+msgid "Recertification audit"
+msgstr "Auditoria de recertificação"
+
+msgid "Major nonconformity"
+msgstr "Não conformidade maior"
+
+msgid "Minor nonconformity"
+msgstr "Não conformidade menor"
+
+msgid "Area of concern"
+msgstr "Ponto sensível"
+
+msgid "Not lifted"
+msgstr "Não encerrada"
+
+msgid "Action in progress"
+msgstr "Ação em andamento"
+
+msgid "Action done, effectiveness to verify"
+msgstr "Ação realizada, eficácia a verificar"
+
+msgid "Lifted (verified)"
+msgstr "Encerrada (verificada)"
+
+msgid "At each surveillance audit, the certification body checks that the findings of its previous audit have been dealt with. This page lists those findings (nonconformities, areas of concern, opportunities for improvement) with their corrective action, their evidence and whether they are lifted."
+msgstr "Em cada auditoria de supervisão, o organismo de certificação verifica se as constatações da auditoria anterior foram tratadas. Esta página lista essas constatações (não conformidades, pontos sensíveis, oportunidades de melhoria) com a ação corretiva, as evidências e a situação de encerramento."
+
+msgid "Record each certification audit with its type, then its findings in the Findings tab of the audit, with the reference given by the body. Treat each finding (cause, action, owner, due date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to the auditor at the opening meeting of the next audit."
+msgstr "Registre cada auditoria de certificação com o tipo e, depois, as constatações na aba Constatações da auditoria, com a referência dada pelo organismo. Trate cada constatação (causa, ação, responsável, prazo, evidências na aba Documentos) até sua verificação. Exporte o PDF e entregue-o ao auditor na reunião de abertura da auditoria seguinte."
+
+#, php-format
+msgid "Audited"
+msgstr "Auditado"
+
+#, php-format
+msgid "Not covered"
+msgstr "Não coberto"
+
+#, php-format
+msgid "Multi-year audit programme"
+msgstr "Programa de auditoria plurianual"
+
+#, php-format
+msgid "Plan an audit"
+msgstr "Planejar uma auditoria"
+
+#, php-format
+msgid "Certification cycle"
+msgstr "Ciclo de certificação"
+
+#, php-format
+msgid "Processes audited over the cycle: %1$d of %2$d (%3$d %%)"
+msgstr "Processos auditados no ciclo: %1$d de %2$d (%3$d %%)"
+
+#, php-format
+msgid "%d process(es) have no completed audit over the cycle and none planned on time: plan an audit for each one before the end of the cycle."
+msgstr "%d processo(s) sem auditoria concluída no ciclo nem auditoria prevista a tempo: planeje uma auditoria para cada um antes do fim do ciclo."
+
+#, php-format
+msgid "ISMS requirements not covered by any audit checklist of the cycle:"
+msgstr "Requisitos do SGSI não cobertos por nenhuma lista de verificação de auditoria do ciclo:"
+
+#, php-format
+msgid "%d applicable control(s) not audited over the cycle."
+msgstr "%d controle(s) aplicável(is) não auditado(s) no ciclo."
+
+#, php-format
+msgid "No ISMS process yet. The processes of the programme are the ISMS activities of the responsibility matrix."
+msgstr "Ainda não há nenhum processo do SGSI. Os processos do programa são as atividades do SGSI da matriz de responsabilidades."
+
+#, php-format
+msgid "Cycle"
+msgstr "Ciclo"
+
+#, php-format
+msgid "Audits of the cycle with no audited process (choose them in the \"Programme and independence\" tab of the audit):"
+msgstr "Auditorias do ciclo sem processo auditado (escolha-os na aba «Programa e independência» da auditoria):"
+
+#, php-format
+msgid "Programme settings"
+msgstr "Configurações do programa"
+
+#, php-format
+msgid "Default certification cycle"
+msgstr "Ciclo de certificação padrão"
+
+#, php-format
+msgid "Trainings that qualify an internal auditor"
+msgstr "Treinamentos que qualificam um auditor interno"
+
+#, php-format
+msgid "No training recorded yet."
+msgstr "Ainda não há nenhum treinamento registrado."
+
+#, php-format
+msgid "For example \"ISO 27001 internal auditor\". The Team tab of each audit shows whether its auditors have followed one of them."
+msgstr "Por exemplo «Auditor interno ISO 27001». A aba Equipe de cada auditoria indica se seus auditores fizeram algum deles."
+
+#, php-format
+msgid "%d independence conflict(s) to justify: an auditor performs or approves an audited process. See the \"Programme and independence\" tab."
+msgstr "%d conflito(s) de independência a justificar: um auditor executa ou aprova um processo auditado. Veja a aba «Programa e independência»."
+
+#, php-format
+msgid "Auditor competence"
+msgstr "Competência do auditor"
+
+#, php-format
+msgid "Choose the trainings that qualify an internal auditor on the audit programme page."
+msgstr "Escolha os treinamentos que qualificam um auditor interno na página do programa de auditoria."
+
+#, php-format
+msgid "Qualified"
+msgstr "Qualificado"
+
+#, php-format
+msgid "Qualification to renew"
+msgstr "Qualificação a renovar"
+
+#, php-format
+msgid "No auditor qualification recorded"
+msgstr "Nenhuma qualificação de auditor registrada"
+
+#, php-format
+msgid "Audited processes"
+msgstr "Processos auditados"
+
+#, php-format
+msgid "The processes are the ISMS activities of the responsibility matrix. The processes chosen here fill the multi-year audit programme and are used to check the independence of the auditors."
+msgstr "Os processos são as atividades do SGSI da matriz de responsabilidades. Os processos escolhidos aqui alimentam o programa de auditoria plurianual e servem para verificar a independência dos auditores."
+
+#, php-format
+msgid "No ISMS activity in the entity of the audit: create them in the responsibility matrix first."
+msgstr "Nenhuma atividade do SGSI na entidade da auditoria: crie-as primeiro na matriz de responsabilidades."
+
+#, php-format
+msgid "No process chosen."
+msgstr "Nenhum processo escolhido."
+
+#, php-format
+msgid "Independence of the auditors"
+msgstr "Independência dos auditores"
+
+#, php-format
+msgid "An auditor must not audit their own work (ISO 19011). An auditor who performs or approves an audited process in the responsibility matrix, directly or through a group, is in conflict. The audit cannot be started or closed until each conflict is justified; the justification is kept with its author and date."
+msgstr "Um auditor não deve auditar o próprio trabalho (ISO 19011). Um auditor que executa ou aprova um processo auditado na matriz de responsabilidades, diretamente ou por meio de um grupo, está em conflito. A auditoria não pode ser iniciada nem concluída enquanto cada conflito não for justificado; a justificativa é mantida com seu autor e sua data."
+
+#, php-format
+msgid "Auditors"
+msgstr "Auditores"
+
+#, php-format
+msgid "none: set the auditor on the form or add auditors in the Team tab."
+msgstr "nenhum: informe o auditor na ficha ou adicione auditores na aba Equipe."
+
+#, php-format
+msgid "No independence conflict between the auditors and the audited processes."
+msgstr "Nenhum conflito de independência entre os auditores e os processos auditados."
+
+#, php-format
+msgid "Role in the matrix"
+msgstr "Papel na matriz"
+
+#, php-format
+msgid "through the group %s"
+msgstr "por meio do grupo %s"
+
+#, php-format
+msgid "Justified"
+msgstr "Justificado"
+
+#, php-format
+msgid "To justify"
+msgstr "A justificar"
+
+#, php-format
+msgid "Why this auditor can still audit this process objectively (e.g. small team, part audited by someone else)"
+msgstr "Por que este auditor pode ainda assim auditar este processo com objetividade (ex.: equipe pequena, parte auditada por outra pessoa)"
+
+#, php-format
+msgid "Record the justification"
+msgstr "Registrar a justificativa"
+
+#, php-format
+msgid "Report delivered to management"
+msgstr "Relatório entregue à direção"
+
+#, php-format
+msgid "The results of the audit must be reported to management (ISO 27001 9.2.2). The delivery date and the recipient appear in the management review dossier (9.3.2 d 3)."
+msgstr "Os resultados da auditoria devem ser comunicados à direção (ISO 27001 9.2.2). A data de entrega e o destinatário aparecem no dossiê da análise crítica pela direção (9.3.2 d 3)."
+
+#, php-format
+msgid "Delivered on %1$s to %2$s"
+msgstr "Entregue em %1$s a %2$s"
+
+#, php-format
+msgid "Not yet delivered to management"
+msgstr "Ainda não entregue à direção"
+
+#, php-format
+msgid "Delivery date"
+msgstr "Data de entrega"
+
+#, php-format
+msgid "Recipient"
+msgstr "Destinatário"
+
+#, php-format
+msgid "Audited processes: %s"
+msgstr "Processos auditados: %s"
+
+#, php-format
+msgid "Independence conflict justified: %1$s on %2$s (%3$s)"
+msgstr "Conflito de independência justificado: %1$s em %2$s (%3$s)"
+
+#, php-format
+msgid "Independence of the auditors: %s. Justify each conflict in the \"Programme and independence\" tab, or change the auditor, before starting or closing the audit."
+msgstr "Independência dos auditores: %s. Justifique cada conflito na aba «Programa e independência», ou troque de auditor, antes de iniciar ou concluir a auditoria."
+
+#, php-format
+msgid "%1$s on %2$s"
+msgstr "%1$s em %2$s"
+
+#, php-format
+msgid "Audit report delivered to management on %1$s (%2$s)"
+msgstr "Relatório de auditoria entregue à direção em %1$s (%2$s)"
+
+#, php-format
+msgid "Programme and independence"
+msgstr "Programa e independência"
+
+#, php-format
+msgid "The internal audit programme over the certification cycle: which ISMS process is audited which year, and which one is not covered yet."
+msgstr "O programa de auditoria interna no ciclo de certificação: qual processo do SGSI é auditado em qual ano e qual ainda não está coberto."
+
+#, php-format
+msgid "Make sure every process is audited at least once over the cycle: plan an audit for each process in red or orange, and choose its processes in the \"Programme and independence\" tab of the audit."
+msgstr "Garanta que cada processo seja auditado pelo menos uma vez no ciclo: planeje uma auditoria para cada processo em vermelho ou laranja e escolha seus processos na aba «Programa e independência» da auditoria."
+
+#, php-format
+msgid "ISO 27001, 9.2.2; ISO 19011, 5"
+msgstr "ISO 27001, 9.2.2; ISO 19011, 5"
+
+#, php-format
+msgid "Audit programme settings saved."
+msgstr "Configurações do programa de auditoria salvas."
+
+#, php-format
+msgid "An auditor performs or approves an audited process: justify each conflict below, or change the auditor, before starting or closing the audit."
+msgstr "Um auditor executa ou aprova um processo auditado: justifique cada conflito abaixo, ou troque de auditor, antes de iniciar ou concluir a auditoria."
+
+#, php-format
+msgid "Enter a justification of at least %d characters for this conflict."
+msgstr "Insira uma justificativa de pelo menos %d caracteres para este conflito."
+
+#, php-format
+msgid "Enter the delivery date and a recipient who has a profile in the entity of the audit."
+msgstr "Insira a data de entrega e um destinatário que tenha um perfil na entidade da auditoria."
+
+msgid "%d official contact recorded"
+msgid_plural "%d official contacts recorded"
+msgstr[0] "%d contato oficial registrado"
+msgstr[1] "%d contatos oficiais registrados"
+
+msgid "%d verified within 12 months"
+msgstr "%d verificados nos últimos 12 meses"
+
+msgid "%d to verify"
+msgstr "%d a verificar"
+
+msgid "Register (PDF)"
+msgstr "Registro (PDF)"
+
+msgid "Register of official contacts"
+msgstr "Registro de contatos oficiais"
+
+msgid "Official contact (A.5.5, A.5.6)"
+msgstr "Contato oficial (A.5.5, A.5.6)"
+
+msgid "Official contact"
+msgid_plural "Official contacts"
+msgstr[0] "Contato oficial"
+msgstr[1] "Contatos oficiais"
+
+msgid "Tick if your organization may have to contact this party officially (authority, CSIRT, police, insurer, special interest group). It then appears in the register of official contacts."
+msgstr "Marque se sua organização pode ter de contatar oficialmente esta parte (autoridade, CSIRT, polícia, seguradora, grupo de interesse). Ela aparece então no registro de contatos oficiais."
+
+msgid "Contact category"
+msgstr "Categoria do contato"
+
+msgid "Time limit"
+msgstr "Prazo"
+
+msgid "For example \"72 hours after becoming aware of the breach\" or \"24 hours for the early warning\"."
+msgstr "Por exemplo \"72 horas após tomar conhecimento da violação\" ou \"24 horas para o alerta precoce\"."
+
+msgid "Contact details"
+msgstr "Dados de contato"
+
+msgid "Phone numbers (including outside office hours), e-mail, online form, postal address. This information must stay usable during a crisis: the register can be printed."
+msgstr "Números de telefone (inclusive fora do horário comercial), e-mail, formulário on-line, endereço postal. Essas informações devem continuar utilizáveis durante uma crise: o registro pode ser impresso."
+
+msgid "When to contact"
+msgstr "Quando contatar"
+
+msgid "Type of event and legal obligation, e.g. \"Personal data breach with a risk for the persons (GDPR, article 33)\"."
+msgstr "Tipo de evento e obrigação legal, por exemplo \"Violação de dados pessoais com risco para as pessoas (RGPD, artigo 33)\"."
+
+msgid "Authorised internal contact"
+msgstr "Interlocutor interno autorizado"
+
+msgid "The person allowed to contact this party on behalf of the organization (CISO, DPO, management)."
+msgstr "A pessoa autorizada a contatar esta parte em nome da organização (CISO, DPO, diretoria)."
+
+msgid "Authorised internal group"
+msgstr "Grupo interno autorizado"
+
+msgid "Optional: the team that can replace this person, e.g. the crisis team."
+msgstr "Opcional: a equipe que pode substituir esta pessoa, por exemplo o comitê de crise."
+
+msgid "To contact for a security incident"
+msgstr "A contatar em caso de incidente de segurança"
+
+msgid "Shown in the \"Official contacts\" tab of every security incident."
+msgstr "Exibido na aba \"Contatos oficiais\" de cada incidente de segurança."
+
+msgid "To contact for a personal data breach"
+msgstr "A contatar em caso de violação de dados pessoais"
+
+msgid "Shown in the \"Official contacts\" tab of every personal data breach."
+msgstr "Exibido na aba \"Contatos oficiais\" de cada violação de dados pessoais."
+
+msgid "Last verification"
+msgstr "Última verificação"
+
+msgid "Date on which the contact details were last checked. A contact not verified for 12 months is flagged and its owner receives a reminder."
+msgstr "Data da última verificação dos dados de contato. Um contato não verificado há 12 meses é sinalizado e seu responsável recebe um lembrete."
+
+msgid "Verification"
+msgstr "Verificação"
+
+msgid "Up to date, next verification by %s"
+msgstr "Em dia, próxima verificação até %s"
+
+msgid "Not verified for more than 12 months"
+msgstr "Não verificado há mais de 12 meses"
+
+msgid "Never verified"
+msgstr "Nunca verificado"
+
+msgid "Verified by %s"
+msgstr "Verificado por %s"
+
+msgid "Records today as the verification date, with your name. Your other changes on this form are saved too."
+msgstr "Registra a data de hoje como data de verificação, com seu nome. Suas outras alterações neste formulário também são salvas."
+
+msgid "Record the verification"
+msgstr "Registrar a verificação"
+
+msgid "Open the register of official contacts"
+msgstr "Abrir o registro de contatos oficiais"
+
+msgid "Print the register (PDF)"
+msgstr "Imprimir o registro (PDF)"
+
+msgid "No official contact is marked for this type of event yet."
+msgstr "Nenhum contato oficial está indicado ainda para este tipo de evento."
+
+msgid "Add an official contact"
+msgstr "Adicionar um contato oficial"
+
+msgid "Official contacts"
+msgstr "Contatos oficiais"
+
+msgid "Verified within 12 months"
+msgstr "Verificados nos últimos 12 meses"
+
+msgid "To verify"
+msgstr "A verificar"
+
+msgid "to verify"
+msgstr "a verificar"
+
+msgid "%d official contact"
+msgid_plural "%d official contacts"
+msgstr[0] "%d contato oficial"
+msgstr[1] "%d contatos oficiais"
+
+msgid "Some contacts have not been verified for 12 months. Open each one, check its details with the organization concerned, then click \"Record the verification\"."
+msgstr "Alguns contatos não são verificados há 12 meses. Abra cada um, confira os dados com o órgão em questão e clique em \"Registrar a verificação\"."
+
+msgid "No official contact recorded yet. Start with the data protection authority, the national CSIRT and the police, then add your insurer and the special interest groups you follow."
+msgstr "Nenhum contato oficial registrado ainda. Comece pela autoridade de proteção de dados, o CSIRT nacional e a polícia, depois adicione sua seguradora e os grupos de interesse que você acompanha."
+
+msgid "An interested party already exists? Open it and tick \"Official contact\"."
+msgstr "A parte interessada já existe? Abra-a e marque \"Contato oficial\"."
+
+msgid "Official contact to verify"
+msgstr "Contato oficial a verificar"
+
+msgid "Official contacts to inform for a personal data breach, with the time limit and the person allowed to contact them."
+msgstr "Contatos oficiais a informar em caso de violação de dados pessoais, com o prazo e a pessoa autorizada a contatá-los."
+
+msgid "Official contacts to inform for a security incident, with the time limit and the person allowed to contact them."
+msgstr "Contatos oficiais a informar em caso de incidente de segurança, com o prazo e a pessoa autorizada a contatá-los."
+
+msgid "Reminds the owner of each official contact not verified for 12 months"
+msgstr "Lembra o responsável de cada contato oficial não verificado há 12 meses"
+
+msgid "%1$d official contact(s) to verify, %2$d reminder(s) sent."
+msgstr "%1$d contato(s) oficial(is) a verificar, %2$d lembrete(s) enviado(s)."
+
+msgid "Supervisory authority (e.g. data protection)"
+msgstr "Autoridade de controle (por exemplo proteção de dados)"
+
+msgid "CSIRT or national cyber security agency"
+msgstr "CSIRT ou agência nacional de cibersegurança"
+
+msgid "Law enforcement"
+msgstr "Forças de segurança"
+
+msgid "Local or state authority"
+msgstr "Autoridade local ou estadual"
+
+msgid "Sector regulator"
+msgstr "Regulador setorial"
+
+msgid "Special interest group (CERT, association, forum)"
+msgstr "Grupo de interesse (CERT, associação, fórum)"
+
+msgid "Hosting provider"
+msgstr "Provedor de hospedagem"
+
+msgid "Who to contact outside the organization when something happens: authorities (data protection authority, national CSIRT, police), regulators, insurers and special interest groups, with their details, when to contact them, the time limit and who is allowed to call them."
+msgstr "Quem contatar fora da organização quando algo acontece: autoridades (autoridade de proteção de dados, CSIRT nacional, polícia), reguladores, seguradoras e grupos de interesse, com seus dados, quando contatá-los, o prazo e quem está autorizado a ligar para eles."
+
+msgid "Record each official contact, tick the events for which it must be informed, verify the details at least once a year, and keep a printed copy of the register (PDF) for use during a crisis."
+msgstr "Registre cada contato oficial, marque os eventos para os quais ele deve ser informado, verifique os dados pelo menos uma vez por ano e guarde uma cópia impressa do registro (PDF) para usar durante uma crise."
+
+msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
+msgstr "ISO/IEC 27001, controles A.5.5 e A.5.6"
+
+msgid "View the official contact"
+msgstr "Ver o contato oficial"
+
+msgid "Call or write to the contact to check that the phone numbers, addresses and the person to reach are still correct, then click \"Record the verification\" on the record."
+msgstr "Ligue ou escreva para o contato para confirmar que os telefones, os endereços e a pessoa a contatar continuam corretos e, em seguida, clique em \"Registrar a verificação\" na ficha."
+
+msgid "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
+msgstr "Enviada pela tarefa automática do GRC Manager quando os dados de um contato oficial não são verificados há 12 meses (no máximo uma vez por mês)."

@@ -110,6 +110,14 @@ class RestrictedDocument
                 self::registerIfAbsent((int) $link->fields['documents_id'], $breach);
             }
         }
+        // Issue #774 : la preuve d'une compétence déclarée (certificat, diplôme) se lit comme la
+        // déclaration : droit du plugin, lecture des utilisateurs, personne des entités de la session.
+        if (($link->fields['itemtype'] ?? '') === CompetenceDeclaration::class) {
+            $declaration = new CompetenceDeclaration();
+            if ($declaration->getFromDB((int) ($link->fields['items_id'] ?? 0))) {
+                self::registerIfAbsent((int) $link->fields['documents_id'], $declaration);
+            }
+        }
     }
 
     private static function auditOf(string $itemtype, int $itemsId): ?Audit

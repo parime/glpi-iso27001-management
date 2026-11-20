@@ -25584,8 +25584,6 @@ msgstr[1] "and %d other entities"
 #~ msgid "Details in the register (restricted access)."
 #~ msgstr "Details in the register (restricted access)."
 
-#~ msgid "Open the register"
-#~ msgstr "Open the register"
 
 #~ msgid "Probably exploited (EPSS)"
 #~ msgstr "Probably exploited (EPSS)"
@@ -26285,3 +26283,1020 @@ msgstr[1] "%d policies acknowledged"
 
 msgid "People tracked"
 msgstr "People tracked"
+
+# Issue #774 : compétences (ISO 27001, article 7.2).
+
+msgid "For example \"Secure configuration of firewalls\"."
+msgstr "For example \"Secure configuration of firewalls\"."
+
+msgid "What a person with this competence knows how to do."
+msgstr "What a person with this competence knows how to do."
+
+msgid "Trainings that give this competence"
+msgstr "Trainings that give this competence"
+
+msgid "No training linked yet. A person who passes a linked training (or one of its sessions) acquires the competence at the level given."
+msgstr "No training linked yet. A person who passes a linked training (or one of its sessions) acquires the competence at the level given."
+
+msgid "Level given"
+msgstr "Level given"
+
+msgid "Link a training"
+msgstr "Link a training"
+
+msgid "Completed and not failed: the training counts as passed. Its renewal period, if any, limits the validity."
+msgstr "Completed and not failed: the training counts as passed. Its renewal period, if any, limits the validity."
+
+msgid "The competences expected by your ISMS functions, and those you have acquired through the trainings you passed or the evidence you declared. Ask your security officer to record a new certificate or diploma."
+msgstr "The competences expected by your ISMS functions, and those you have acquired through the trainings you passed or the evidence you declared. Ask your security officer to record a new certificate or diploma."
+
+msgid "The competences expected by the ISMS functions of this person, and those acquired through passed trainings or declared evidence."
+msgstr "The competences expected by the ISMS functions of this person, and those acquired through passed trainings or declared evidence."
+
+msgid "You hold no ISMS function yet."
+msgstr "You hold no ISMS function yet."
+
+msgid "This person holds no ISMS function in your entities."
+msgstr "This person holds no ISMS function in your entities."
+
+msgid "ISMS functions"
+msgstr "ISMS functions"
+
+msgid "%d gap"
+msgid_plural "%d gaps"
+msgstr[0] "%d gap"
+msgstr[1] "%d gaps"
+
+msgid "No gap"
+msgstr "No gap"
+
+msgid "These functions require no competence yet."
+msgstr "These functions require no competence yet."
+
+msgid "Expected level"
+msgstr "Expected level"
+
+msgid "How to acquire it"
+msgstr "How to acquire it"
+
+msgid "Acquired through"
+msgstr "Acquired through"
+
+msgid "valid until %s"
+msgstr "valid until %s"
+
+msgid "Proposed actions"
+msgstr "Proposed actions"
+
+msgid "Plan the training"
+msgstr "Plan the training"
+
+msgid "Declare a competence with its evidence"
+msgstr "Declare a competence with its evidence"
+
+msgid "Declared competences"
+msgstr "Declared competences"
+
+msgid "No competence declared yet."
+msgstr "No competence declared yet."
+
+msgid "Level acquired"
+msgstr "Level acquired"
+
+msgid "Acquired on"
+msgstr "Acquired on"
+
+msgid "All competences"
+msgstr "All competences"
+
+msgid "Declared competence"
+msgid_plural "Declared competences"
+msgstr[0] "Declared competence"
+msgstr[1] "Declared competences"
+
+msgid "The person who holds the competence."
+msgstr "The person who holds the competence."
+
+msgid "Basic: knows the rules. Proficient: applies them alone. Expert: can design, check and teach."
+msgstr "Basic: knows the rules. Proficient: applies them alone. Expert: can design, check and teach."
+
+msgid "Kind of evidence"
+msgstr "Kind of evidence"
+
+msgid "Reference of the evidence"
+msgstr "Reference of the evidence"
+
+msgid "Certificate number, school and year of the diploma, date of the annual review... Attach the file in the Documents tab."
+msgstr "Certificate number, school and year of the diploma, date of the annual review... Attach the file in the Documents tab."
+
+msgid "Leave empty if the competence does not expire."
+msgstr "Leave empty if the competence does not expire."
+
+msgid "Competences"
+msgstr "Competences"
+
+msgid "%d function"
+msgid_plural "%d functions"
+msgstr[0] "%d function"
+msgstr[1] "%d functions"
+
+msgid "%d competence"
+msgid_plural "%d competences"
+msgstr[0] "%d competence"
+msgstr[1] "%d competences"
+
+msgid "%d person with a gap"
+msgid_plural "%d people with a gap"
+msgstr[0] "%d person with a gap"
+msgstr[1] "%d people with a gap"
+
+msgid "%d archived file"
+msgid_plural "%d archived files"
+msgstr[0] "%d archived file"
+msgstr[1] "%d archived files"
+
+msgid "Open the competences"
+msgstr "Open the competences"
+
+msgid "Coverage: %d %%"
+msgstr "Coverage: %d %%"
+
+msgid "Adds the proposed functions and competences that are missing, without changing the existing ones."
+msgstr "Adds the proposed functions and competences that are missing, without changing the existing ones."
+
+msgid "Add the missing default functions"
+msgstr "Add the missing default functions"
+
+msgid "Competence catalogue"
+msgstr "Competence catalogue"
+
+msgid "Attaches a dated PDF of the job descriptions and gaps to requirement 7.2 of the ISMS."
+msgstr "Attaches a dated PDF of the job descriptions and gaps to requirement 7.2 of the ISMS."
+
+msgid "No function yet. Add the default functions (CISO, DPO, administrator...), then say who holds each one."
+msgstr "No function yet. Add the default functions (CISO, DPO, administrator...), then say who holds each one."
+
+msgid "Required competences"
+msgstr "Required competences"
+
+msgid "Holders"
+msgstr "Holders"
+
+msgid "Holders with a gap"
+msgstr "Holders with a gap"
+
+msgid "Job description"
+msgstr "Job description"
+
+msgid "Nobody"
+msgstr "Nobody"
+
+msgid "Reading the users of GLPI is needed to see the competences of the people."
+msgstr "Reading the users of GLPI is needed to see the competences of the people."
+
+msgid "People and competences"
+msgstr "People and competences"
+
+msgid "Nobody holds a function yet: add users, groups or job titles to the functions."
+msgstr "Nobody holds a function yet: add users, groups or job titles to the functions."
+
+msgid "Each cell shows the level acquired / the level expected. Nothing is changed automatically."
+msgstr "Each cell shows the level acquired / the level expected. Nothing is changed automatically."
+
+msgid "Gaps and proposed actions"
+msgstr "Gaps and proposed actions"
+
+msgid "No gap: every holder has the competences expected by their functions."
+msgstr "No gap: every holder has the competences expected by their functions."
+
+msgid "Proposed action"
+msgstr "Proposed action"
+
+msgid "Archived competence files"
+msgstr "Archived competence files"
+
+msgid "No archived file yet. Archive it before the audit: the dated PDF is attached to requirement 7.2."
+msgstr "No archived file yet. Archive it before the audit: the dated PDF is attached to requirement 7.2."
+
+msgid "For example \"Network administrator\" or \"Data protection officer\"."
+msgstr "For example \"Network administrator\" or \"Data protection officer\"."
+
+msgid "Mission"
+msgstr "Mission"
+
+msgid "What this function does for information security. It appears on the security job description."
+msgstr "What this function does for information security. It appears on the security job description."
+
+msgid "Who holds this function"
+msgstr "Who holds this function"
+
+msgid "Nobody holds this function yet. Add below users, groups or job titles of GLPI."
+msgstr "Nobody holds this function yet. Add below users, groups or job titles of GLPI."
+
+msgid "Holder"
+msgstr "Holder"
+
+msgid "Choose a user, a group or a job title, then save."
+msgstr "Choose a user, a group or a job title, then save."
+
+msgid "Every active user with this job title holds the function."
+msgstr "Every active user with this job title holds the function."
+
+msgid "No competence required yet. Add below the competences this function needs, with the expected level."
+msgstr "No competence required yet. Add below the competences this function needs, with the expected level."
+
+msgid "Add a competence"
+msgstr "Add a competence"
+
+msgid "Choosing a competence already required updates its level and how to acquire it."
+msgstr "Choosing a competence already required updates its level and how to acquire it."
+
+msgid "Coverage of the holders"
+msgstr "Coverage of the holders"
+
+msgid "Reading the users of GLPI is needed to see the people."
+msgstr "Reading the users of GLPI is needed to see the people."
+
+msgid "No active person of your entities holds this function."
+msgstr "No active person of your entities holds this function."
+
+msgid "Activities of the responsibility matrix held by the holders:"
+msgstr "Activities of the responsibility matrix held by the holders:"
+
+msgid "Security job description (PDF)"
+msgstr "Security job description (PDF)"
+
+msgid "People holding a function"
+msgstr "People holding a function"
+
+msgid "Coverage of the required competences"
+msgstr "Coverage of the required competences"
+
+msgid "Security job description: %s"
+msgstr "Security job description: %s"
+
+msgid "No mission described yet."
+msgstr "No mission described yet."
+
+msgid "Nobody holds this function yet."
+msgstr "Nobody holds this function yet."
+
+msgid "No competence required yet."
+msgstr "No competence required yet."
+
+msgid "Nothing to assess yet."
+msgstr "Nothing to assess yet."
+
+msgid "Activities of the responsibility matrix"
+msgstr "Activities of the responsibility matrix"
+
+msgid "No function yet."
+msgstr "No function yet."
+
+msgid "ISO/IEC 27001, clause 7.2. Only the functions and people of the entities of the person who exported this file are listed. Nothing has been modified by this export."
+msgstr "ISO/IEC 27001, clause 7.2. Only the functions and people of the entities of the person who exported this file are listed. Nothing has been modified by this export."
+
+msgid "My competences"
+msgstr "My competences"
+
+msgid "Acquired"
+msgstr "Acquired"
+
+msgid "Level too low"
+msgstr "Level too low"
+
+msgid "Not acquired"
+msgstr "Not acquired"
+
+msgid "Declare the diploma or certificate with its evidence."
+msgstr "Declare the diploma or certificate with its evidence."
+
+msgid "Declare the experience with its evidence (annual review, references)."
+msgstr "Declare the experience with its evidence (annual review, references)."
+
+msgid "Plan a training: no training of the plugin gives this competence yet."
+msgstr "Plan a training: no training of the plugin gives this competence yet."
+
+msgid "Declare the competence with its evidence."
+msgstr "Declare the competence with its evidence."
+
+msgid "Competences of the ISMS functions (ISO 27001, clause 7.2)"
+msgstr "Competences of the ISMS functions (ISO 27001, clause 7.2)"
+
+msgid "Certificate"
+msgstr "Certificate"
+
+msgid "Training certificate"
+msgstr "Training certificate"
+
+msgid "Diploma"
+msgstr "Diploma"
+
+msgid "Annual review"
+msgstr "Annual review"
+
+msgid "Proven experience"
+msgstr "Proven experience"
+
+msgid "Choose a person of your entities."
+msgstr "Choose a person of your entities."
+
+msgid "Choose a competence."
+msgstr "Choose a competence."
+
+msgid "Choose the kind of evidence."
+msgstr "Choose the kind of evidence."
+
+msgid "Give the reference of the evidence (certificate number, date of the annual review...)."
+msgstr "Give the reference of the evidence (certificate number, date of the annual review...)."
+
+msgid "The end of validity cannot be before the date the competence was acquired."
+msgstr "The end of validity cannot be before the date the competence was acquired."
+
+msgid "Archived competence file"
+msgid_plural "Archived competence files"
+msgstr[0] "Archived competence file"
+msgstr[1] "Archived competence files"
+
+msgid "ISMS competences - %s"
+msgstr "ISMS competences - %s"
+
+msgid "Information security awareness"
+msgstr "Information security awareness"
+
+msgid "ISMS governance and ISO 27001 requirements"
+msgstr "ISMS governance and ISO 27001 requirements"
+
+msgid "Information security risk management"
+msgstr "Information security risk management"
+
+msgid "Security incident handling"
+msgstr "Security incident handling"
+
+msgid "Access rights management"
+msgstr "Access rights management"
+
+msgid "Secure administration of systems and networks"
+msgstr "Secure administration of systems and networks"
+
+msgid "Secure development"
+msgstr "Secure development"
+
+msgid "Personal data protection (GDPR)"
+msgstr "Personal data protection (GDPR)"
+
+msgid "Business continuity and backups"
+msgstr "Business continuity and backups"
+
+msgid "ISMS internal audit"
+msgstr "ISMS internal audit"
+
+msgid "Give the competence a name."
+msgstr "Give the competence a name."
+
+msgid "This competence has been declared for people: it cannot be deleted."
+msgstr "This competence has been declared for people: it cannot be deleted."
+
+msgid "ISMS function"
+msgid_plural "ISMS functions"
+msgstr[0] "ISMS function"
+msgstr[1] "ISMS functions"
+
+msgid "Chief information security officer (CISO)"
+msgstr "Chief information security officer (CISO)"
+
+msgid "Top management"
+msgstr "Top management"
+
+msgid "System and network administrator"
+msgstr "System and network administrator"
+
+msgid "Developer"
+msgstr "Developer"
+
+msgid "Support technician"
+msgstr "Support technician"
+
+msgid "All staff"
+msgstr "All staff"
+
+msgctxt "competence level"
+msgid "Basic"
+msgstr "Basic"
+
+msgctxt "competence level"
+msgid "Proficient"
+msgstr "Proficient"
+
+msgctxt "competence level"
+msgid "Expert"
+msgstr "Expert"
+
+msgid "Professional certification"
+msgstr "Professional certification"
+
+msgid "Experience"
+msgstr "Experience"
+
+msgid "Give the function a name."
+msgstr "Give the function a name."
+
+msgid "This user or group does not belong to the entity of the function."
+msgstr "This user or group does not belong to the entity of the function."
+
+msgid "This competence is not available in the entity of the function."
+msgstr "This competence is not available in the entity of the function."
+
+msgid "Job title: %s"
+msgstr "Job title: %s"
+
+msgid "The competences each ISMS function needs (CISO, DPO, administrator...), who holds each function, what each person has acquired through passed trainings or declared evidence, and the gaps."
+msgstr "The competences each ISMS function needs (CISO, DPO, administrator...), who holds each function, what each person has acquired through passed trainings or declared evidence, and the gaps."
+
+msgid "Add the functions and their required competences with the expected level, say who holds them, link the trainings that give each competence, declare the certificates and diplomas, plan the proposed actions, then archive the file as evidence before the audit."
+msgstr "Add the functions and their required competences with the expected level, say who holds them, link the trainings that give each competence, declare the certificates and diplomas, plan the proposed actions, then archive the file as evidence before the audit."
+
+msgid "ISO/IEC 27001, clause 7.2"
+msgstr "ISO/IEC 27001, clause 7.2"
+
+msgid "The catalogue of the information security competences of the organization, and the trainings that give each one once passed."
+msgstr "The catalogue of the information security competences of the organization, and the trainings that give each one once passed."
+
+msgid "Describe each competence and link the trainings that give it, with the level reached."
+msgstr "Describe each competence and link the trainings that give it, with the level reached."
+
+msgid "The competences acquired outside the trainings of the plugin, each one with its evidence: certificate, diploma, annual review or proven experience."
+msgstr "The competences acquired outside the trainings of the plugin, each one with its evidence: certificate, diploma, annual review or proven experience."
+
+msgid "Record the reference of the evidence, its date and its end of validity, and attach the file in the Documents tab."
+msgstr "Record the reference of the evidence, its date and its end of validity, and attach the file in the Documents tab."
+
+msgid "Default functions added: %1$d, default competences added: %2$d."
+msgstr "Default functions added: %1$d, default competences added: %2$d."
+
+msgid "The competence file has been archived as evidence of requirement 7.2."
+msgstr "The competence file has been archived as evidence of requirement 7.2."
+
+msgid "The competence file could not be archived."
+msgstr "The competence file could not be archived."
+msgid "Finding of the certification body"
+msgstr "Finding of the certification body"
+
+msgid "A corrective action is required to close a nonconformity; it is optional for an area of concern or an opportunity for improvement."
+msgstr "A corrective action is required to close a nonconformity; it is optional for an area of concern or an opportunity for improvement."
+
+msgid "Certification body reference"
+msgstr "Certification body reference"
+
+msgid "Reference given to the finding in the certification body report."
+msgstr "Reference given to the finding in the certification body report."
+
+msgid "Audited process"
+msgstr "Audited process"
+
+msgid "Clause or control"
+msgstr "Clause or control"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Lifting status of the findings (PDF export)"
+msgstr "Lifting status of the findings (PDF export)"
+
+msgid "Lifting status"
+msgstr "Lifting status"
+
+msgid "Findings not lifted: %1$d of %2$d"
+msgstr "Findings not lifted: %1$d of %2$d"
+
+msgid "Nonconformities not lifted: %d"
+msgstr "Nonconformities not lifted: %d"
+
+msgid "Display"
+msgstr "Display"
+
+msgid "All certification audits"
+msgstr "All certification audits"
+
+msgid "Only findings not lifted"
+msgstr "Only findings not lifted"
+
+msgid "Export (PDF)"
+msgstr "Export (PDF)"
+
+msgid "No certification audit recorded yet. Create an audit and choose its type (initial, surveillance or recertification), then record the findings of the certification body in its Findings tab."
+msgstr "No certification audit recorded yet. Create an audit and choose its type (initial, surveillance or recertification), then record the findings of the certification body in its Findings tab."
+
+msgid "Add an audit"
+msgstr "Add an audit"
+
+msgid "Every finding of this audit is lifted or awaiting verification."
+msgstr "Every finding of this audit is lifted or awaiting verification."
+
+msgid "Process, clause or control, site"
+msgstr "Process, clause or control, site"
+
+msgid "Verified on %s"
+msgstr "Verified on %s"
+
+msgid "Findings not lifted"
+msgstr "Findings not lifted"
+
+msgid "Nonconformities not lifted"
+msgstr "Nonconformities not lifted"
+
+msgid "Only findings not lifted are listed."
+msgstr "Only findings not lifted are listed."
+
+msgid "No certification audit recorded yet."
+msgstr "No certification audit recorded yet."
+
+msgid "Audit type"
+msgstr "Audit type"
+
+msgid "Internal audit, or audit carried out by your certification body (initial, surveillance or recertification)."
+msgstr "Internal audit, or audit carried out by your certification body (initial, surveillance or recertification)."
+
+msgid "Certification body"
+msgstr "Certification body"
+
+msgid "The certification body is a GLPI supplier (Management > Suppliers)."
+msgstr "The certification body is a GLPI supplier (Management > Suppliers)."
+
+msgid "Name of the lead auditor appointed by the certification body."
+msgstr "Name of the lead auditor appointed by the certification body."
+
+msgid "Standard and edition"
+msgstr "Standard and edition"
+
+msgid "Findings of previous certification audits not lifted: %1$d (including %2$d nonconformities)"
+msgstr "Findings of previous certification audits not lifted: %1$d (including %2$d nonconformities)"
+
+msgid "Findings of previous audits"
+msgstr "Findings of previous audits"
+
+msgid "Internal audit (clause 9.2)"
+msgstr "Internal audit (clause 9.2)"
+
+msgid "Initial certification audit"
+msgstr "Initial certification audit"
+
+msgid "Surveillance audit 1"
+msgstr "Surveillance audit 1"
+
+msgid "Surveillance audit 2"
+msgstr "Surveillance audit 2"
+
+msgid "Recertification audit"
+msgstr "Recertification audit"
+
+msgid "Major nonconformity"
+msgstr "Major nonconformity"
+
+msgid "Minor nonconformity"
+msgstr "Minor nonconformity"
+
+msgid "Area of concern"
+msgstr "Area of concern"
+
+msgid "Not lifted"
+msgstr "Not lifted"
+
+msgid "Action in progress"
+msgstr "Action in progress"
+
+msgid "Action done, effectiveness to verify"
+msgstr "Action done, effectiveness to verify"
+
+msgid "Lifted (verified)"
+msgstr "Lifted (verified)"
+
+msgid "At each surveillance audit, the certification body checks that the findings of its previous audit have been dealt with. This page lists those findings (nonconformities, areas of concern, opportunities for improvement) with their corrective action, their evidence and whether they are lifted."
+msgstr "At each surveillance audit, the certification body checks that the findings of its previous audit have been dealt with. This page lists those findings (nonconformities, areas of concern, opportunities for improvement) with their corrective action, their evidence and whether they are lifted."
+
+msgid "Record each certification audit with its type, then its findings in the Findings tab of the audit, with the reference given by the body. Treat each finding (cause, action, owner, due date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to the auditor at the opening meeting of the next audit."
+msgstr "Record each certification audit with its type, then its findings in the Findings tab of the audit, with the reference given by the body. Treat each finding (cause, action, owner, due date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to the auditor at the opening meeting of the next audit."
+
+#, php-format
+msgid "Audited"
+msgstr "Audited"
+
+#, php-format
+msgid "Not covered"
+msgstr "Not covered"
+
+#, php-format
+msgid "Multi-year audit programme"
+msgstr "Multi-year audit programme"
+
+#, php-format
+msgid "Plan an audit"
+msgstr "Plan an audit"
+
+#, php-format
+msgid "Certification cycle"
+msgstr "Certification cycle"
+
+#, php-format
+msgid "Processes audited over the cycle: %1$d of %2$d (%3$d %%)"
+msgstr "Processes audited over the cycle: %1$d of %2$d (%3$d %%)"
+
+#, php-format
+msgid "%d process(es) have no completed audit over the cycle and none planned on time: plan an audit for each one before the end of the cycle."
+msgstr "%d process(es) have no completed audit over the cycle and none planned on time: plan an audit for each one before the end of the cycle."
+
+#, php-format
+msgid "ISMS requirements not covered by any audit checklist of the cycle:"
+msgstr "ISMS requirements not covered by any audit checklist of the cycle:"
+
+#, php-format
+msgid "%d applicable control(s) not audited over the cycle."
+msgstr "%d applicable control(s) not audited over the cycle."
+
+#, php-format
+msgid "No ISMS process yet. The processes of the programme are the ISMS activities of the responsibility matrix."
+msgstr "No ISMS process yet. The processes of the programme are the ISMS activities of the responsibility matrix."
+
+#, php-format
+msgid "Cycle"
+msgstr "Cycle"
+
+#, php-format
+msgid "Audits of the cycle with no audited process (choose them in the \"Programme and independence\" tab of the audit):"
+msgstr "Audits of the cycle with no audited process (choose them in the \"Programme and independence\" tab of the audit):"
+
+#, php-format
+msgid "Programme settings"
+msgstr "Programme settings"
+
+#, php-format
+msgid "Default certification cycle"
+msgstr "Default certification cycle"
+
+#, php-format
+msgid "Trainings that qualify an internal auditor"
+msgstr "Trainings that qualify an internal auditor"
+
+#, php-format
+msgid "No training recorded yet."
+msgstr "No training recorded yet."
+
+#, php-format
+msgid "For example \"ISO 27001 internal auditor\". The Team tab of each audit shows whether its auditors have followed one of them."
+msgstr "For example \"ISO 27001 internal auditor\". The Team tab of each audit shows whether its auditors have followed one of them."
+
+#, php-format
+msgid "%d independence conflict(s) to justify: an auditor performs or approves an audited process. See the \"Programme and independence\" tab."
+msgstr "%d independence conflict(s) to justify: an auditor performs or approves an audited process. See the \"Programme and independence\" tab."
+
+#, php-format
+msgid "Auditor competence"
+msgstr "Auditor competence"
+
+#, php-format
+msgid "Choose the trainings that qualify an internal auditor on the audit programme page."
+msgstr "Choose the trainings that qualify an internal auditor on the audit programme page."
+
+#, php-format
+msgid "Qualified"
+msgstr "Qualified"
+
+#, php-format
+msgid "Qualification to renew"
+msgstr "Qualification to renew"
+
+#, php-format
+msgid "No auditor qualification recorded"
+msgstr "No auditor qualification recorded"
+
+#, php-format
+msgid "Audited processes"
+msgstr "Audited processes"
+
+#, php-format
+msgid "The processes are the ISMS activities of the responsibility matrix. The processes chosen here fill the multi-year audit programme and are used to check the independence of the auditors."
+msgstr "The processes are the ISMS activities of the responsibility matrix. The processes chosen here fill the multi-year audit programme and are used to check the independence of the auditors."
+
+#, php-format
+msgid "No ISMS activity in the entity of the audit: create them in the responsibility matrix first."
+msgstr "No ISMS activity in the entity of the audit: create them in the responsibility matrix first."
+
+#, php-format
+msgid "No process chosen."
+msgstr "No process chosen."
+
+#, php-format
+msgid "Independence of the auditors"
+msgstr "Independence of the auditors"
+
+#, php-format
+msgid "An auditor must not audit their own work (ISO 19011). An auditor who performs or approves an audited process in the responsibility matrix, directly or through a group, is in conflict. The audit cannot be started or closed until each conflict is justified; the justification is kept with its author and date."
+msgstr "An auditor must not audit their own work (ISO 19011). An auditor who performs or approves an audited process in the responsibility matrix, directly or through a group, is in conflict. The audit cannot be started or closed until each conflict is justified; the justification is kept with its author and date."
+
+#, php-format
+msgid "Auditors"
+msgstr "Auditors"
+
+#, php-format
+msgid "none: set the auditor on the form or add auditors in the Team tab."
+msgstr "none: set the auditor on the form or add auditors in the Team tab."
+
+#, php-format
+msgid "No independence conflict between the auditors and the audited processes."
+msgstr "No independence conflict between the auditors and the audited processes."
+
+#, php-format
+msgid "Role in the matrix"
+msgstr "Role in the matrix"
+
+#, php-format
+msgid "through the group %s"
+msgstr "through the group %s"
+
+#, php-format
+msgid "Justified"
+msgstr "Justified"
+
+#, php-format
+msgid "To justify"
+msgstr "To justify"
+
+#, php-format
+msgid "Why this auditor can still audit this process objectively (e.g. small team, part audited by someone else)"
+msgstr "Why this auditor can still audit this process objectively (e.g. small team, part audited by someone else)"
+
+#, php-format
+msgid "Record the justification"
+msgstr "Record the justification"
+
+#, php-format
+msgid "Report delivered to management"
+msgstr "Report delivered to management"
+
+#, php-format
+msgid "The results of the audit must be reported to management (ISO 27001 9.2.2). The delivery date and the recipient appear in the management review dossier (9.3.2 d 3)."
+msgstr "The results of the audit must be reported to management (ISO 27001 9.2.2). The delivery date and the recipient appear in the management review dossier (9.3.2 d 3)."
+
+#, php-format
+msgid "Delivered on %1$s to %2$s"
+msgstr "Delivered on %1$s to %2$s"
+
+#, php-format
+msgid "Not yet delivered to management"
+msgstr "Not yet delivered to management"
+
+#, php-format
+msgid "Delivery date"
+msgstr "Delivery date"
+
+#, php-format
+msgid "Recipient"
+msgstr "Recipient"
+
+#, php-format
+msgid "Audited processes: %s"
+msgstr "Audited processes: %s"
+
+#, php-format
+msgid "Independence conflict justified: %1$s on %2$s (%3$s)"
+msgstr "Independence conflict justified: %1$s on %2$s (%3$s)"
+
+#, php-format
+msgid "Independence of the auditors: %s. Justify each conflict in the \"Programme and independence\" tab, or change the auditor, before starting or closing the audit."
+msgstr "Independence of the auditors: %s. Justify each conflict in the \"Programme and independence\" tab, or change the auditor, before starting or closing the audit."
+
+#, php-format
+msgid "%1$s on %2$s"
+msgstr "%1$s on %2$s"
+
+#, php-format
+msgid "Audit report delivered to management on %1$s (%2$s)"
+msgstr "Audit report delivered to management on %1$s (%2$s)"
+
+#, php-format
+msgid "Programme and independence"
+msgstr "Programme and independence"
+
+#, php-format
+msgid "The internal audit programme over the certification cycle: which ISMS process is audited which year, and which one is not covered yet."
+msgstr "The internal audit programme over the certification cycle: which ISMS process is audited which year, and which one is not covered yet."
+
+#, php-format
+msgid "Make sure every process is audited at least once over the cycle: plan an audit for each process in red or orange, and choose its processes in the \"Programme and independence\" tab of the audit."
+msgstr "Make sure every process is audited at least once over the cycle: plan an audit for each process in red or orange, and choose its processes in the \"Programme and independence\" tab of the audit."
+
+#, php-format
+msgid "ISO 27001, 9.2.2; ISO 19011, 5"
+msgstr "ISO 27001, 9.2.2; ISO 19011, 5"
+
+#, php-format
+msgid "Audit programme settings saved."
+msgstr "Audit programme settings saved."
+
+#, php-format
+msgid "An auditor performs or approves an audited process: justify each conflict below, or change the auditor, before starting or closing the audit."
+msgstr "An auditor performs or approves an audited process: justify each conflict below, or change the auditor, before starting or closing the audit."
+
+#, php-format
+msgid "Enter a justification of at least %d characters for this conflict."
+msgstr "Enter a justification of at least %d characters for this conflict."
+
+#, php-format
+msgid "Enter the delivery date and a recipient who has a profile in the entity of the audit."
+msgstr "Enter the delivery date and a recipient who has a profile in the entity of the audit."
+
+
+msgid "%d official contact recorded"
+msgid_plural "%d official contacts recorded"
+msgstr[0] "%d official contact recorded"
+msgstr[1] "%d official contacts recorded"
+
+msgid "%d verified within 12 months"
+msgstr "%d verified within 12 months"
+
+msgid "%d to verify"
+msgstr "%d to verify"
+
+msgid "Open the register"
+msgstr "Open the register"
+
+msgid "Register (PDF)"
+msgstr "Register (PDF)"
+
+msgid "Register of official contacts"
+msgstr "Register of official contacts"
+
+msgid "Official contact (A.5.5, A.5.6)"
+msgstr "Official contact (A.5.5, A.5.6)"
+
+msgid "Official contact"
+msgid_plural "Official contacts"
+msgstr[0] "Official contact"
+msgstr[1] "Official contacts"
+
+msgid "Tick if your organization may have to contact this party officially (authority, CSIRT, police, insurer, special interest group). It then appears in the register of official contacts."
+msgstr "Tick if your organization may have to contact this party officially (authority, CSIRT, police, insurer, special interest group). It then appears in the register of official contacts."
+
+msgid "Contact category"
+msgstr "Contact category"
+
+msgid "Time limit"
+msgstr "Time limit"
+
+msgid "For example \"72 hours after becoming aware of the breach\" or \"24 hours for the early warning\"."
+msgstr "For example \"72 hours after becoming aware of the breach\" or \"24 hours for the early warning\"."
+
+msgid "Contact details"
+msgstr "Contact details"
+
+msgid "Phone numbers (including outside office hours), e-mail, online form, postal address. This information must stay usable during a crisis: the register can be printed."
+msgstr "Phone numbers (including outside office hours), e-mail, online form, postal address. This information must stay usable during a crisis: the register can be printed."
+
+msgid "When to contact"
+msgstr "When to contact"
+
+msgid "Type of event and legal obligation, e.g. \"Personal data breach with a risk for the persons (GDPR, article 33)\"."
+msgstr "Type of event and legal obligation, e.g. \"Personal data breach with a risk for the persons (GDPR, article 33)\"."
+
+msgid "Authorised internal contact"
+msgstr "Authorised internal contact"
+
+msgid "The person allowed to contact this party on behalf of the organization (CISO, DPO, management)."
+msgstr "The person allowed to contact this party on behalf of the organization (CISO, DPO, management)."
+
+msgid "Authorised internal group"
+msgstr "Authorised internal group"
+
+msgid "Optional: the team that can replace this person, e.g. the crisis team."
+msgstr "Optional: the team that can replace this person, e.g. the crisis team."
+
+msgid "To contact for a security incident"
+msgstr "To contact for a security incident"
+
+msgid "Shown in the \"Official contacts\" tab of every security incident."
+msgstr "Shown in the \"Official contacts\" tab of every security incident."
+
+msgid "To contact for a personal data breach"
+msgstr "To contact for a personal data breach"
+
+msgid "Shown in the \"Official contacts\" tab of every personal data breach."
+msgstr "Shown in the \"Official contacts\" tab of every personal data breach."
+
+msgid "Last verification"
+msgstr "Last verification"
+
+msgid "Date on which the contact details were last checked. A contact not verified for 12 months is flagged and its owner receives a reminder."
+msgstr "Date on which the contact details were last checked. A contact not verified for 12 months is flagged and its owner receives a reminder."
+
+msgid "Verification"
+msgstr "Verification"
+
+msgid "Up to date, next verification by %s"
+msgstr "Up to date, next verification by %s"
+
+msgid "Not verified for more than 12 months"
+msgstr "Not verified for more than 12 months"
+
+msgid "Never verified"
+msgstr "Never verified"
+
+msgid "Verified by %s"
+msgstr "Verified by %s"
+
+msgid "Records today as the verification date, with your name. Your other changes on this form are saved too."
+msgstr "Records today as the verification date, with your name. Your other changes on this form are saved too."
+
+msgid "Record the verification"
+msgstr "Record the verification"
+
+msgid "Open the register of official contacts"
+msgstr "Open the register of official contacts"
+
+msgid "Print the register (PDF)"
+msgstr "Print the register (PDF)"
+
+msgid "No official contact is marked for this type of event yet."
+msgstr "No official contact is marked for this type of event yet."
+
+msgid "Add an official contact"
+msgstr "Add an official contact"
+
+msgid "Official contacts"
+msgstr "Official contacts"
+
+msgid "Verified within 12 months"
+msgstr "Verified within 12 months"
+
+msgid "To verify"
+msgstr "To verify"
+
+msgid "to verify"
+msgstr "to verify"
+
+msgid "%d official contact"
+msgid_plural "%d official contacts"
+msgstr[0] "%d official contact"
+msgstr[1] "%d official contacts"
+
+msgid "Some contacts have not been verified for 12 months. Open each one, check its details with the organization concerned, then click \"Record the verification\"."
+msgstr "Some contacts have not been verified for 12 months. Open each one, check its details with the organization concerned, then click \"Record the verification\"."
+
+msgid "No official contact recorded yet. Start with the data protection authority, the national CSIRT and the police, then add your insurer and the special interest groups you follow."
+msgstr "No official contact recorded yet. Start with the data protection authority, the national CSIRT and the police, then add your insurer and the special interest groups you follow."
+
+msgid "An interested party already exists? Open it and tick \"Official contact\"."
+msgstr "An interested party already exists? Open it and tick \"Official contact\"."
+
+msgid "Official contact to verify"
+msgstr "Official contact to verify"
+
+msgid "Official contacts to inform for a personal data breach, with the time limit and the person allowed to contact them."
+msgstr "Official contacts to inform for a personal data breach, with the time limit and the person allowed to contact them."
+
+msgid "Official contacts to inform for a security incident, with the time limit and the person allowed to contact them."
+msgstr "Official contacts to inform for a security incident, with the time limit and the person allowed to contact them."
+
+msgid "Reminds the owner of each official contact not verified for 12 months"
+msgstr "Reminds the owner of each official contact not verified for 12 months"
+
+msgid "%1$d official contact(s) to verify, %2$d reminder(s) sent."
+msgstr "%1$d official contact(s) to verify, %2$d reminder(s) sent."
+
+msgid "Supervisory authority (e.g. data protection)"
+msgstr "Supervisory authority (e.g. data protection)"
+
+msgid "CSIRT or national cyber security agency"
+msgstr "CSIRT or national cyber security agency"
+
+msgid "Law enforcement"
+msgstr "Law enforcement"
+
+msgid "Local or state authority"
+msgstr "Local or state authority"
+
+msgid "Sector regulator"
+msgstr "Sector regulator"
+
+msgid "Special interest group (CERT, association, forum)"
+msgstr "Special interest group (CERT, association, forum)"
+
+msgid "Hosting provider"
+msgstr "Hosting provider"
+
+msgid "Who to contact outside the organization when something happens: authorities (data protection authority, national CSIRT, police), regulators, insurers and special interest groups, with their details, when to contact them, the time limit and who is allowed to call them."
+msgstr "Who to contact outside the organization when something happens: authorities (data protection authority, national CSIRT, police), regulators, insurers and special interest groups, with their details, when to contact them, the time limit and who is allowed to call them."
+
+msgid "Record each official contact, tick the events for which it must be informed, verify the details at least once a year, and keep a printed copy of the register (PDF) for use during a crisis."
+msgstr "Record each official contact, tick the events for which it must be informed, verify the details at least once a year, and keep a printed copy of the register (PDF) for use during a crisis."
+
+msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
+msgstr "ISO/IEC 27001, controls A.5.5 and A.5.6"
+
+msgid "View the official contact"
+msgstr "View the official contact"
+
+msgid "Call or write to the contact to check that the phone numbers, addresses and the person to reach are still correct, then click \"Record the verification\" on the record."
+msgstr "Call or write to the contact to check that the phone numbers, addresses and the person to reach are still correct, then click \"Record the verification\" on the record."
+
+msgid "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
+msgstr "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."

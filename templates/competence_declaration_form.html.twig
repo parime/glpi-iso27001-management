@@ -1,0 +1,49 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #774 : compétence acquise par une personne, déclarée avec la référence de sa preuve. #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.smallTitle(__('Declared competence', 'grcmanager'), 'ti ti-file-certificate') }}
+   {% if item.isNewItem() %}
+      {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], user_label, {
+         'right': 'all',
+         'add_field_html': hints.hint(__('The person who holds the competence.', 'grcmanager')),
+      }) }}
+   {% else %}
+      {{ fields.htmlField('', person|e, user_label) }}
+   {% endif %}
+   {{ fields.dropdownArrayField('plugin_grcmanager_competences_id', item.fields['plugin_grcmanager_competences_id'], competences, __('Competence', 'grcmanager'), {
+      'display_emptychoice': true,
+   }) }}
+   {{ fields.dropdownArrayField('level', item.fields['level'] ?: 1, levels, __('Level acquired', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Basic: knows the rules. Proficient: applies them alone. Expert: can design, check and teach.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('evidence_type', item.fields['evidence_type'] ?: 'certificate', evidences, __('Kind of evidence', 'grcmanager')) }}
+   {{ fields.textField('evidence_reference', item.fields['evidence_reference'], __('Reference of the evidence', 'grcmanager'), {
+      'required': true,
+      'add_field_html': hints.hint(__('Certificate number, school and year of the diploma, date of the annual review... Attach the file in the Documents tab.', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('date_acquired', item.fields['date_acquired'], __('Acquired on', 'grcmanager')) }}
+   {{ fields.dateField('date_expiry', item.fields['date_expiry'], __('Valid until', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Leave empty if the competence does not expire.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+   {% if recorder %}
+      {{ fields.htmlField('', (recorder ~ ' - ' ~ created)|e, __('Recorded by', 'grcmanager')) }}
+   {% endif %}
+{% endblock %}

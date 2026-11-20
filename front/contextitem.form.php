@@ -40,7 +40,12 @@ if (isset($_POST['add'])) {
     $item->check((int) $_POST['id'], PURGE);
     $item->delete($_POST, true);
     Html::redirect(ContextItem::getSearchURL());
-} elseif (isset($_POST['update']) || isset($_POST[ContextItem::REVIEW_MARKER])) {
+} elseif (
+    isset($_POST['update'])
+    || isset($_POST[ContextItem::REVIEW_MARKER])
+    || isset($_POST[ContextItem::CONTACT_VERIFIED_MARKER])
+) {
+    // Issue #771 : « Enregistrer la vérification » d'un contact officiel, même contrôle.
     // « Enregistrer la revue » : même contrôle qu'une modification ; la date et l'auteur de la revue
     // sont fixés par la fiche (prepareInputForUpdate), jamais repris de la saisie.
     $item->check((int) $_POST['id'], UPDATE);
@@ -71,6 +76,8 @@ if (isset($_POST['add'])) {
         'category'  => (string) ($_GET['category'] ?? ''),
         'link_type' => (string) ($_GET['link_type'] ?? ''),
         'link_id'   => (int) ($_GET['link_id'] ?? 0),
+        // Issue #771 : ajout depuis le registre des contacts officiels.
+        'official'  => (int) ($_GET['official'] ?? 0),
     ]);
 
     Html::footer();

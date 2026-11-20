@@ -71,6 +71,23 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #772 : constats des audits de certification précédents.
+            'certificationfinding' => [
+                'purpose'  => __(
+                    'At each surveillance audit, the certification body checks that the findings of its previous '
+                        . 'audit have been dealt with. This page lists those findings (nonconformities, areas of '
+                        . 'concern, opportunities for improvement) with their corrective action, their evidence and '
+                        . 'whether they are lifted.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Record each certification audit with its type, then its findings in the Findings tab of the '
+                        . 'audit, with the reference given by the body. Treat each finding (cause, action, owner, due '
+                        . 'date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to '
+                        . 'the auditor at the opening meeting of the next audit.',
+                    'grcmanager'
+                ),
+            ],
             // Issue #619 : préparation à la certification ISO 27001.
             'certificationreadiness' => [
                 'purpose'  => __(
@@ -374,6 +391,22 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, clauses 4.1 and 4.2', 'grcmanager'),
             ],
+            // Issue #771 : registre des contacts officiels.
+            'officialcontact' => [
+                'purpose'   => __(
+                    'Who to contact outside the organization when something happens: authorities (data protection '
+                        . 'authority, national CSIRT, police), regulators, insurers and special interest groups, with '
+                        . 'their details, when to contact them, the time limit and who is allowed to call them.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Record each official contact, tick the events for which it must be informed, verify the '
+                        . 'details at least once a year, and keep a printed copy of the register (PDF) for use '
+                        . 'during a crisis.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.5.5 and A.5.6', 'grcmanager'),
+            ],
             'responsibilityactivity' => [
                 'purpose'   => __(
                     'Who performs, approves, is consulted on or is informed of each activity of the ISMS, with the '
@@ -386,6 +419,46 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, clause 5.3 and control A.5.3', 'grcmanager'),
+            ],
+            // Issue #774 : compétences requises par fonction, acquises et écarts.
+            'ismsfunction' => [
+                'purpose'   => __(
+                    'The competences each ISMS function needs (CISO, DPO, administrator...), who holds each function, '
+                        . 'what each person has acquired through passed trainings or declared evidence, and the gaps.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Add the functions and their required competences with the expected level, say who holds them, '
+                        . 'link the trainings that give each competence, declare the certificates and diplomas, plan '
+                        . 'the proposed actions, then archive the file as evidence before the audit.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 7.2', 'grcmanager'),
+            ],
+            'competence' => [
+                'purpose'   => __(
+                    'The catalogue of the information security competences of the organization, and the trainings '
+                        . 'that give each one once passed.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Describe each competence and link the trainings that give it, with the level reached.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 7.2', 'grcmanager'),
+            ],
+            'competencedeclaration' => [
+                'purpose'   => __(
+                    'The competences acquired outside the trainings of the plugin, each one with its evidence: '
+                        . 'certificate, diploma, annual review or proven experience.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Record the reference of the evidence, its date and its end of validity, and attach the file in '
+                        . 'the Documents tab.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 7.2', 'grcmanager'),
             ],
             'databreach' => [
                 'purpose'   => __(
@@ -413,6 +486,21 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, 9.2', 'grcmanager'),
+            ],
+            // Issue #773 : programme d'audit interne pluriannuel.
+            'auditprogramme' => [
+                'purpose'   => __(
+                    'The internal audit programme over the certification cycle: which ISMS process is audited which '
+                        . 'year, and which one is not covered yet.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Make sure every process is audited at least once over the cycle: plan an audit for each '
+                        . 'process in red or orange, and choose its processes in the "Programme and independence" '
+                        . 'tab of the audit.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 9.2.2; ISO 19011, 5', 'grcmanager'),
             ],
             'nonconformity' => [
                 'purpose'   => __(
