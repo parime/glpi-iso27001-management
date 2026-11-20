@@ -56,6 +56,13 @@ for url in \
   frameworkassessment.php "frameworkassessment.php?framework=custom_$(xid customframework)"; do
   check "front/$url" "$P/$url"
 done
+# Issue #774 : compétences piégées (fonction tenue par glpi, compétence, déclaration).
+for url in ismsfunction.php competence.php competencedeclaration.php \
+  "ismsfunction.form.php?id=$(id ismsfunction_A)" "competence.form.php?id=$(id competence_A)" \
+  "competencedeclaration.form.php?id=$(xid competencedeclaration)"; do
+  check "front/$url" "$P/$url"
+done
+check "onglet Mes competences"                 "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CCompetenceMatrix$1' 2)"
 # Issue #546 : fiche de conformité de glpi, dans le public de la politique piégée.
 check "onglet Ma conformite securite"          "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPersonnelCompliance$1' 2)"
 check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
