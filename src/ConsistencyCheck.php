@@ -382,6 +382,17 @@ class ConsistencyCheck extends CommonGLPI
                     'grcmanager'
                 ),
             ],
+            'software_license_gap'                 => [
+                'label' => __(
+                    'Software without a license, installed beyond the licensed seats, or under an expired license',
+                    'grcmanager'
+                ),
+                'fix'   => __(
+                    'Record the missing license in GLPI, buy seats or uninstall the software, and renew or replace '
+                        . 'the expired license.',
+                    'grcmanager'
+                ),
+            ],
         ];
     }
 
@@ -572,7 +583,8 @@ class ConsistencyCheck extends CommonGLPI
             'obligation_review_overdue'            => self::obligations($today, $number),
             'access_review_overdue'                => self::accessReviews($today, $number),
             'asset_end_of_life'                    => self::endOfLifeAssets($today),
-            default                                => null,
+            'software_license_gap'                 => self::softwareLicenseGaps($today),
+            default                               => null,
         };
     }
 
@@ -1312,6 +1324,26 @@ class ConsistencyCheck extends CommonGLPI
         }
 
         return ['total' => count($assets), 'gaps' => $gaps];
+    }
+
+    /**
+     * Issue #779 : licences logicielles (A.5.32), un écart par constat. Non évaluable sans le droit des
+     * registres sensibles et la lecture des logiciels et des licences.
+     *
+     * @return array{total: int, gaps: list<array<string, mixed>>}|null
+     */
+    private static function softwareLicenseGaps(string $today): ?array
+    {
+        $findings = SoftwareLicenseCompliance::consistencyGaps($today);
+        if ($findings === null) {
+            return null;
+        }
+        $gaps = [];
+        foreach ($findings as $finding) {
+            $gaps[] = self::gap($finding['itemtype'], $finding['items_id'], $finding['name'], $finding['detail']);
+        }
+
+        return ['total' => count($findings), 'gaps' => $gaps];
     }
 
     // ------------------------------------------------------------------ Présentation et export.

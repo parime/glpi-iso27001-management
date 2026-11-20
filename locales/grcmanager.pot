@@ -16665,6 +16665,11 @@ msgstr ""
 msgid "Delivered in the last %1$d months: %2$d"
 msgstr ""
 
+#: src/CertificationReadiness.php:773
+#, php-format
+msgid "Participants who completed their training: %d %%"
+msgstr ""
+
 #: src/CertificationReadiness.php:802
 #, php-format
 msgid "Exercises in the last %1$d months: %2$d"
@@ -20912,6 +20917,14 @@ msgid ""
 "system to the certification audit: for each step, it shows what is expected, "
 "where you stand according to the data already entered, and the screen to "
 "open to complete it."
+msgstr ""
+
+#: src/PageHelp.php:83
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. "
+"Export the PDF readiness report to share where you stand."
 msgstr ""
 
 #: src/PageHelp.php:92
@@ -26035,6 +26048,217 @@ msgstr ""
 
 #: src/PageHelp.php:408
 msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d commercial software without a license"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d over-deployment(s)"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d expired license(s) still in use"
+msgstr ""
+
+#: templates/control_form.html.twig src/SoftwareLicenseCompliance.php:57
+msgid "Software license compliance"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid ""
+"A license counts for an entity when it belongs to it, or when it is "
+"recursive and belongs to a parent entity. Nothing is changed in GLPI from "
+"this page."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Licenses in GLPI"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "%1$d findings: the first %2$d are shown, all of them are in the export."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid ""
+"No finding in your entities: every watched commercial software has a "
+"license, no license is overused, and no expired license is still in use."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "%d finding"
+msgid_plural "%d findings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Shared with the sub-entities"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "and %d more"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Watched commercial publishers"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid ""
+"Software from these publishers (manufacturer in GLPI) must have a license "
+"recorded. Software whose name contains one of the ignored words (free tools "
+"from the same publishers) is never reported as missing a license."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Watched publishers (one per line)"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Ignored software (part of the name, one per line)"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Back to the default lists"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:62
+msgid "Software licenses"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:132
+msgid "Commercial software without a license"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:136
+msgid ""
+"Installed software from a watched publisher, with no license recorded in "
+"GLPI for this entity."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:141
+msgid "More installations than licensed seats"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:145
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:151
+msgid "Expired license still in use"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:155
+msgid ""
+"The license has expired but assets are still assigned to it, or the software "
+"is still installed with no other valid license."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:171
+msgid "in this entity and its sub-entities"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:172
+msgid "in this entity"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:177
+#, php-format
+msgid "%1$d asset has it %2$s, no license recorded."
+msgid_plural "%1$d assets have it %2$s, no license recorded."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SoftwareLicenseCompliance.php:187
+#, php-format
+msgid "%1$d asset has it %3$s for %2$d licensed seat(s)."
+msgid_plural "%1$d assets have it %3$s for %2$d licensed seat(s)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SoftwareLicenseCompliance.php:197
+#, php-format
+msgid ""
+"Expired on %1$s: %2$d asset(s) still assigned, %3$d installation(s) %4$s."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:343
+msgid "Publisher"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:345
+msgid "Licensed seats"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:346
+msgid "License"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:347
+msgid "Expiration date"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:348
+msgid "Assets still assigned"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:356
+msgid "Entity and sub-entities"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:357
+msgid "Entity only"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:414
+#, php-format
+msgid "%1$s (%2$s): %3$s"
+msgstr ""
+
+#: src/ConsistencyCheck.php:387
+msgid ""
+"Software without a license, installed beyond the licensed seats, or under an "
+"expired license"
+msgstr ""
+
+#: src/ConsistencyCheck.php:391
+msgid ""
+"Record the missing license in GLPI, buy seats or uninstall the software, and "
+"renew or replace the expired license."
+msgstr ""
+
+#: src/PageHelp.php:383
+msgid ""
+"Checks, from the software and licenses already recorded in GLPI, that the "
+"organization respects the licenses it bought: commercial software installed "
+"without any license, more installations than licensed seats, and expired "
+"licenses still in use. Results are grouped by entity."
+msgstr ""
+
+#: src/PageHelp.php:390
+msgid ""
+"Check the list of watched publishers, then for each finding record the "
+"missing license in GLPI, buy seats, uninstall the software or renew the "
+"license. Export the list (CSV) for the auditor. Nothing is changed "
+"automatically."
+msgstr ""
+
+#: src/PageHelp.php:395
+msgid "ISO/IEC 27001, control A.5.32"
+msgstr ""
+
+#: front/softwarelicensecompliance.php:49
+msgid "Watched publishers saved."
 msgstr ""
 
 #: templates/certification_readiness.html.twig

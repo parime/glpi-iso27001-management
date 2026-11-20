@@ -22553,6 +22553,137 @@ msgstr "Appelez ou écrivez au contact pour vérifier que les numéros de télé
 msgid "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
 msgstr "Envoyée par la tâche automatique GRC Manager lorsque les coordonnées d'un contact officiel n'ont pas été vérifiées depuis 12 mois (au plus une fois par mois)."
 
+msgid "%d commercial software without a license"
+msgstr "%d logiciel(s) commercial(aux) sans licence"
+
+msgid "%d over-deployment(s)"
+msgstr "%d surdéploiement(s)"
+
+msgid "%d expired license(s) still in use"
+msgstr "%d licence(s) expirée(s) encore utilisée(s)"
+
+msgid "Software license compliance"
+msgstr "Conformité des licences logicielles"
+
+msgid "A license counts for an entity when it belongs to it, or when it is recursive and belongs to a parent entity. Nothing is changed in GLPI from this page."
+msgstr "Une licence compte pour une entité si elle lui appartient, ou si elle est récursive et appartient à une entité parente. Rien n'est modifié dans GLPI depuis cette page."
+
+msgid "Licenses in GLPI"
+msgstr "Licences dans GLPI"
+
+msgid "%1$d findings: the first %2$d are shown, all of them are in the export."
+msgstr "%1$d constats : les %2$d premiers sont affichés, tous sont dans l'export."
+
+msgid "No finding in your entities: every watched commercial software has a license, no license is overused, and no expired license is still in use."
+msgstr "Aucun constat dans vos entités : chaque logiciel commercial surveillé a une licence, aucune licence n'est dépassée, et aucune licence expirée n'est encore utilisée."
+
+msgid "%d finding"
+msgid_plural "%d findings"
+msgstr[0] "%d constat"
+msgstr[1] "%d constats"
+
+msgid "Shared with the sub-entities"
+msgstr "Partagée avec les sous-entités"
+
+msgid "and %d more"
+msgstr "et %d de plus"
+
+msgid "Watched commercial publishers"
+msgstr "Éditeurs commerciaux surveillés"
+
+msgid "Software from these publishers (manufacturer in GLPI) must have a license recorded. Software whose name contains one of the ignored words (free tools from the same publishers) is never reported as missing a license."
+msgstr "Les logiciels de ces éditeurs (fabricant dans GLPI) doivent avoir une licence enregistrée. Un logiciel dont le nom contient l'un des mots ignorés (outils gratuits des mêmes éditeurs) n'est jamais signalé comme sans licence."
+
+msgid "Watched publishers (one per line)"
+msgstr "Éditeurs surveillés (un par ligne)"
+
+msgid "Ignored software (part of the name, one per line)"
+msgstr "Logiciels ignorés (partie du nom, un par ligne)"
+
+msgid "Back to the default lists"
+msgstr "Revenir aux listes par défaut"
+
+msgid "Software licenses"
+msgstr "Licences logicielles"
+
+msgid "Commercial software without a license"
+msgstr "Logiciel commercial sans licence"
+
+msgid "Installed software from a watched publisher, with no license recorded in GLPI for this entity."
+msgstr "Logiciel installé d'un éditeur surveillé, sans aucune licence enregistrée dans GLPI pour cette entité."
+
+msgid "More installations than licensed seats"
+msgstr "Plus d'installations que de postes licenciés"
+
+msgid "More assets have the software than the valid licenses allow. An unlimited license (number 0 or less) covers everything."
+msgstr "Plus d'actifs ont le logiciel que les licences valables ne le permettent. Une licence illimitée (nombre 0 ou moins) couvre tout."
+
+msgid "Expired license still in use"
+msgstr "Licence expirée encore utilisée"
+
+msgid "The license has expired but assets are still assigned to it, or the software is still installed with no other valid license."
+msgstr "La licence a expiré mais des actifs lui sont encore affectés, ou le logiciel reste installé sans autre licence valable."
+
+msgid "in this entity and its sub-entities"
+msgstr "dans cette entité et ses sous-entités"
+
+msgid "in this entity"
+msgstr "dans cette entité"
+
+msgid "%1$d asset has it %2$s, no license recorded."
+msgid_plural "%1$d assets have it %2$s, no license recorded."
+msgstr[0] "%1$d actif l'a %2$s, aucune licence enregistrée."
+msgstr[1] "%1$d actifs l'ont %2$s, aucune licence enregistrée."
+
+msgid "%1$d asset has it %3$s for %2$d licensed seat(s)."
+msgid_plural "%1$d assets have it %3$s for %2$d licensed seat(s)."
+msgstr[0] "%1$d actif l'a %3$s pour %2$d poste(s) licencié(s)."
+msgstr[1] "%1$d actifs l'ont %3$s pour %2$d poste(s) licencié(s)."
+
+msgid "Expired on %1$s: %2$d asset(s) still assigned, %3$d installation(s) %4$s."
+msgstr "Expirée le %1$s : %2$d actif(s) encore affecté(s), %3$d installation(s) %4$s."
+
+msgid "Publisher"
+msgstr "Éditeur"
+
+msgid "Licensed seats"
+msgstr "Postes licenciés"
+
+msgid "License"
+msgstr "Licence"
+
+msgid "Expiration date"
+msgstr "Date d'expiration"
+
+msgid "Assets still assigned"
+msgstr "Actifs encore affectés"
+
+msgid "Entity and sub-entities"
+msgstr "Entité et sous-entités"
+
+msgid "Entity only"
+msgstr "Entité seule"
+
+msgid "%1$s (%2$s): %3$s"
+msgstr "%1$s (%2$s) : %3$s"
+
+msgid "Software without a license, installed beyond the licensed seats, or under an expired license"
+msgstr "Logiciel sans licence, installé au-delà des postes licenciés, ou sous une licence expirée"
+
+msgid "Record the missing license in GLPI, buy seats or uninstall the software, and renew or replace the expired license."
+msgstr "Enregistrez la licence manquante dans GLPI, achetez des postes ou désinstallez le logiciel, et renouvelez ou remplacez la licence expirée."
+
+msgid "Checks, from the software and licenses already recorded in GLPI, that the organization respects the licenses it bought: commercial software installed without any license, more installations than licensed seats, and expired licenses still in use. Results are grouped by entity."
+msgstr "Vérifie, à partir des logiciels et des licences déjà enregistrés dans GLPI, que l'organisation respecte les licences achetées : logiciel commercial installé sans aucune licence, plus d'installations que de postes licenciés, et licences expirées encore utilisées. Les résultats sont regroupés par entité."
+
+msgid "Check the list of watched publishers, then for each finding record the missing license in GLPI, buy seats, uninstall the software or renew the license. Export the list (CSV) for the auditor. Nothing is changed automatically."
+msgstr "Vérifiez la liste des éditeurs surveillés, puis pour chaque constat enregistrez la licence manquante dans GLPI, achetez des postes, désinstallez le logiciel ou renouvelez la licence. Exportez la liste (CSV) pour l'auditeur. Rien n'est modifié automatiquement."
+
+msgid "ISO/IEC 27001, control A.5.32"
+msgstr "ISO/IEC 27001, mesure A.5.32"
+
+msgid "Watched publishers saved."
+msgstr "Éditeurs surveillés enregistrés."
 
 msgid "Target date and advised deadlines"
 msgstr "Date cible et échéances conseillées"
@@ -22569,8 +22700,12 @@ msgstr "aujourd'hui"
 msgid "Date entered in the settings of this page."
 msgstr "Date saisie dans les réglages de cette page."
 
-msgid "Next audit of the maintenance cycle: %s, on the anniversary of the certification."
-msgstr "Prochain audit du cycle de maintien : %s, à la date anniversaire de la certification."
+msgid ""
+"Next audit of the maintenance cycle: %s, on the anniversary of the "
+"certification."
+msgstr ""
+"Prochain audit du cycle de maintien : %s, à la date anniversaire de la "
+"certification."
 
 msgid "Next certification audit planned:"
 msgstr "Prochain audit de certification planifié :"
@@ -22581,20 +22716,44 @@ msgstr "Échéance conseillée dépassée"
 msgid "At risk of being late"
 msgstr "Risque de retard"
 
-msgid "Each step not done gets an advised deadline, counted back from the target date: the foundations first, then the internal audit, the management review that uses its results, and the treatment of nonconformities. These deadlines also appear in the compliance calendar."
-msgstr "Chaque étape non faite reçoit une échéance conseillée, calculée en remontant depuis la date cible : le socle d'abord, puis l'audit interne, la revue de direction qui s'appuie sur ses résultats et le traitement des non-conformités. Ces échéances figurent aussi dans le calendrier de conformité."
+msgid ""
+"Each step not done gets an advised deadline, counted back from the target "
+"date: the foundations first, then the internal audit, the management review "
+"that uses its results, and the treatment of nonconformities. These deadlines "
+"also appear in the compliance calendar."
+msgstr ""
+"Chaque étape non faite reçoit une échéance conseillée, calculée en remontant "
+"depuis la date cible : le socle d'abord, puis l'audit interne, la revue de "
+"direction qui s'appuie sur ses résultats et le traitement des non-"
+"conformités. Ces échéances figurent aussi dans le calendrier de conformité."
 
-msgid "No target date yet. Enter one in the settings below, or plan the certification audit: an audit whose type is a certification, surveillance or recertification audit, or an event of the compliance calendar of the same kind, is used automatically."
-msgstr "Pas encore de date cible. Saisissez-en une dans les réglages ci-dessous, ou planifiez l'audit de certification : un audit de type certification, surveillance ou renouvellement, ou un événement du calendrier de conformité de même nature, est repris automatiquement."
+msgid ""
+"No target date yet. Enter one in the settings below, or plan the "
+"certification audit: an audit whose type is a certification, surveillance or "
+"recertification audit, or an event of the compliance calendar of the same "
+"kind, is used automatically."
+msgstr ""
+"Pas encore de date cible. Saisissez-en une dans les réglages ci-dessous, ou "
+"planifiez l'audit de certification : un audit de type certification, "
+"surveillance ou renouvellement, ou un événement du calendrier de conformité "
+"de même nature, est repris automatiquement."
 
-msgid "The target date entered has passed: it is no longer used. Enter the date of the next audit."
-msgstr "La date cible saisie est passée : elle n'est plus prise en compte. Saisissez la date du prochain audit."
+msgid ""
+"The target date entered has passed: it is no longer used. Enter the date of "
+"the next audit."
+msgstr ""
+"La date cible saisie est passée : elle n'est plus prise en compte. Saisissez "
+"la date du prochain audit."
 
 msgid "Owner warned when a step risks being late: %s"
 msgstr "Responsable prévenu quand une étape risque d'être en retard : %s"
 
-msgid "No owner: choose one in the settings so that a notification is sent when a step risks being late."
-msgstr "Aucun responsable : choisissez-en un dans les réglages pour qu'une notification parte quand une étape risque d'être en retard."
+msgid ""
+"No owner: choose one in the settings so that a notification is sent when a "
+"step risks being late."
+msgstr ""
+"Aucun responsable : choisissez-en un dans les réglages pour qu'une "
+"notification parte quand une étape risque d'être en retard."
 
 msgid "Maintenance cycle"
 msgstr "Cycle de maintien"
@@ -22617,20 +22776,31 @@ msgstr "Étapes à refaire chaque année"
 msgid "Advised deadline: %s"
 msgstr "Échéance conseillée : %s"
 
-msgid "Once certified, enter the certification date in the settings, or complete the initial certification audit: the page then follows the three-year cycle (two annual surveillance audits, then the recertification) and highlights the steps to redo each year."
-msgstr "Une fois certifié, saisissez la date de certification dans les réglages, ou terminez l'audit initial de certification : la page suit alors le cycle de trois ans (deux audits de surveillance annuels, puis le renouvellement) et met en avant les étapes à refaire chaque année."
+msgid ""
+"Once certified, enter the certification date in the settings, or complete "
+"the initial certification audit: the page then follows the three-year cycle "
+"(two annual surveillance audits, then the recertification) and highlights "
+"the steps to redo each year."
+msgstr ""
+"Une fois certifié, saisissez la date de certification dans les réglages, ou "
+"terminez l'audit initial de certification : la page suit alors le cycle de "
+"trois ans (deux audits de surveillance annuels, puis le renouvellement) et "
+"met en avant les étapes à refaire chaque année."
 
 msgid "Settings of the certification readiness"
 msgstr "Réglages de la préparation à la certification"
 
 msgid "Leave empty to use the next certification audit planned."
-msgstr "Laisser vide pour reprendre le prochain audit de certification planifié."
+msgstr ""
+"Laisser vide pour reprendre le prochain audit de certification planifié."
 
 msgid "Certification date"
 msgstr "Date de certification"
 
 msgid "Leave empty to use the last initial or recertification audit completed."
-msgstr "Laisser vide pour reprendre le dernier audit initial ou de renouvellement terminé."
+msgstr ""
+"Laisser vide pour reprendre le dernier audit initial ou de renouvellement "
+"terminé."
 
 msgid "Owner of the preparation"
 msgstr "Responsable de la préparation"
@@ -22644,8 +22814,16 @@ msgstr "Couverture visée (%)"
 msgid "Training target (%)"
 msgstr "Formation visée (%)"
 
-msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training."
-msgstr "Couverture visée : part des exigences et des mesures que le programme d'audit doit avoir couvertes sur les trois dernières années pour que l'étape de l'audit interne soit faite. Formation visée : part des participants qui doivent avoir suivi leur formation."
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training."
+msgstr ""
+"Couverture visée : part des exigences et des mesures que le programme "
+"d'audit doit avoir couvertes sur les trois dernières années pour que l'étape "
+"de l'audit interne soit faite. Formation visée : part des participants qui "
+"doivent avoir suivi leur formation."
 
 msgid "To redo each year"
 msgstr "À refaire chaque année"
@@ -22680,22 +22858,47 @@ msgstr[0] "Alerte de la préparation à la certification"
 msgstr[1] "Alertes de la préparation à la certification"
 
 msgid "Warns the owner when a certification readiness step risks being late"
-msgstr "Prévient le responsable quand une étape de la préparation à la certification risque d'être en retard"
+msgstr ""
+"Prévient le responsable quand une étape de la préparation à la certification "
+"risque d'être en retard"
 
 msgid "%d certification readiness step(s) reported."
 msgstr "%d étape(s) de la préparation à la certification signalée(s)."
 
-msgid "Follow the steps in order, starting with the one marked as the next step. Click its button to open the screen concerned, complete it, then come back: the page is computed again each time. Nothing is changed automatically. Give the target date of the audit (or plan the certification audit): each step not done gets an advised deadline, shown in the compliance calendar, and the owner is warned when one risks being late. Export the PDF readiness report to share where you stand."
-msgstr "Suivez les étapes dans l'ordre, en commençant par celle marquée comme prochaine étape. Cliquez sur son bouton pour ouvrir l'écran concerné, complétez-le, puis revenez : la page est recalculée à chaque fois. Rien n'est modifié automatiquement. Indiquez la date cible de l'audit (ou planifiez l'audit de certification) : chaque étape non faite reçoit une échéance conseillée, visible dans le calendrier de conformité, et le responsable est prévenu quand l'une d'elles risque d'être en retard. Exportez le rapport de préparation en PDF pour partager où vous en êtes."
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. Give "
+"the target date of the audit (or plan the certification audit): each step "
+"not done gets an advised deadline, shown in the compliance calendar, and the "
+"owner is warned when one risks being late. Export the PDF readiness report "
+"to share where you stand."
+msgstr ""
+"Suivez les étapes dans l'ordre, en commençant par celle marquée comme "
+"prochaine étape. Cliquez sur son bouton pour ouvrir l'écran concerné, "
+"complétez-le, puis revenez : la page est recalculée à chaque fois. Rien "
+"n'est modifié automatiquement. Indiquez la date cible de l'audit (ou "
+"planifiez l'audit de certification) : chaque étape non faite reçoit une "
+"échéance conseillée, visible dans le calendrier de conformité, et le "
+"responsable est prévenu quand l'une d'elles risque d'être en retard. "
+"Exportez le rapport de préparation en PDF pour partager où vous en êtes."
 
 msgid "Certification readiness settings saved."
 msgstr "Réglages de la préparation à la certification enregistrés."
 
-msgid "Complete these steps, or adjust the target date, on the certification readiness page. Nothing is changed automatically."
-msgstr "Terminez ces étapes, ou ajustez la date cible, sur la page de préparation à la certification. Rien n'est modifié automatiquement."
+msgid ""
+"Complete these steps, or adjust the target date, on the certification "
+"readiness page. Nothing is changed automatically."
+msgstr ""
+"Terminez ces étapes, ou ajustez la date cible, sur la page de préparation à "
+"la certification. Rien n'est modifié automatiquement."
 
 msgid "View the certification readiness"
 msgstr "Voir la préparation à la certification"
 
-msgid "Sent by the GRC Manager automatic task when a step of the certification readiness approaches or passes its advised deadline."
-msgstr "Envoyée par la tâche automatique GRC Manager quand une étape de la préparation à la certification approche ou dépasse son échéance conseillée."
+msgid ""
+"Sent by the GRC Manager automatic task when a step of the certification "
+"readiness approaches or passes its advised deadline."
+msgstr ""
+"Envoyée par la tâche automatique GRC Manager quand une étape de la "
+"préparation à la certification approche ou dépasse son échéance conseillée."

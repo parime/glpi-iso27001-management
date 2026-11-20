@@ -127,6 +127,8 @@ class Menu extends CommonGLPI
             // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.
             ComplianceAudit::class => [
                 ParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
+                // Issue #779 : conformité des licences logicielles (A.5.32).
+                SoftwareLicenseCompliance::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];

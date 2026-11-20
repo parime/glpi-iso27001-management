@@ -364,6 +364,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\NotificationTargetContextItem::class,
         // Issue #771 : registre des contacts officiels (onglet des incidents et des violations).
         \GlpiPlugin\Grcmanager\OfficialContact::class,
+        // Issue #779 : conformité des licences logicielles (page de synthèse, sans table).
+        \GlpiPlugin\Grcmanager\SoftwareLicenseCompliance::class,
         // Issue #703 : registre NIS2 Italia - ACN.
         \GlpiPlugin\Grcmanager\AcnRequirement::class,
         // Issue #612 : matrice des responsabilités du SMSI et ses exports archivés.

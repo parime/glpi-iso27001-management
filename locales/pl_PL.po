@@ -22479,6 +22479,140 @@ msgstr "Zadzwoń lub napisz do kontaktu, aby sprawdzić, czy numery telefonów, 
 msgid "Sent by the GRC Manager automatic task when the details of an official contact have not been verified for 12 months (at most once a month)."
 msgstr "Wysyłane przez zadanie automatyczne GRC Manager, gdy dane kontaktu oficjalnego nie były weryfikowane od 12 miesięcy (najwyżej raz w miesiącu)."
 
+msgid "%d commercial software without a license"
+msgstr "Oprogramowanie komercyjne bez licencji: %d"
+
+msgid "%d over-deployment(s)"
+msgstr "Przekroczenia liczby instalacji: %d"
+
+msgid "%d expired license(s) still in use"
+msgstr "Wygasłe licencje nadal w użyciu: %d"
+
+msgid "Software license compliance"
+msgstr "Zgodność licencji oprogramowania"
+
+msgid "A license counts for an entity when it belongs to it, or when it is recursive and belongs to a parent entity. Nothing is changed in GLPI from this page."
+msgstr "Licencja liczy się dla podmiotu, gdy do niego należy albo gdy jest rekurencyjna i należy do podmiotu nadrzędnego. Na tej stronie nic nie jest zmieniane w GLPI."
+
+msgid "Licenses in GLPI"
+msgstr "Licencje w GLPI"
+
+msgid "%1$d findings: the first %2$d are shown, all of them are in the export."
+msgstr "%1$d ustaleń: wyświetlono pierwsze %2$d, wszystkie są w eksporcie."
+
+msgid "No finding in your entities: every watched commercial software has a license, no license is overused, and no expired license is still in use."
+msgstr "Brak ustaleń w Twoich podmiotach: każde monitorowane oprogramowanie komercyjne ma licencję, żadna licencja nie jest przekroczona i żadna wygasła licencja nie jest w użyciu."
+
+msgid "%d finding"
+msgid_plural "%d findings"
+msgstr[0] "%d ustalenie"
+msgstr[1] "%d ustalenia"
+msgstr[2] "%d ustaleń"
+
+msgid "Shared with the sub-entities"
+msgstr "Współdzielona z podmiotami podrzędnymi"
+
+msgid "and %d more"
+msgstr "i %d więcej"
+
+msgid "Watched commercial publishers"
+msgstr "Monitorowani wydawcy komercyjni"
+
+msgid "Software from these publishers (manufacturer in GLPI) must have a license recorded. Software whose name contains one of the ignored words (free tools from the same publishers) is never reported as missing a license."
+msgstr "Oprogramowanie tych wydawców (producent w GLPI) musi mieć zarejestrowaną licencję. Oprogramowanie, którego nazwa zawiera jedno z ignorowanych słów (bezpłatne narzędzia tych samych wydawców), nigdy nie jest zgłaszane jako bez licencji."
+
+msgid "Watched publishers (one per line)"
+msgstr "Monitorowani wydawcy (jeden w wierszu)"
+
+msgid "Ignored software (part of the name, one per line)"
+msgstr "Ignorowane oprogramowanie (część nazwy, jedno w wierszu)"
+
+msgid "Back to the default lists"
+msgstr "Przywróć listy domyślne"
+
+msgid "Software licenses"
+msgstr "Licencje oprogramowania"
+
+msgid "Commercial software without a license"
+msgstr "Oprogramowanie komercyjne bez licencji"
+
+msgid "Installed software from a watched publisher, with no license recorded in GLPI for this entity."
+msgstr "Zainstalowane oprogramowanie monitorowanego wydawcy, bez licencji zarejestrowanej w GLPI dla tego podmiotu."
+
+msgid "More installations than licensed seats"
+msgstr "Więcej instalacji niż licencjonowanych stanowisk"
+
+msgid "More assets have the software than the valid licenses allow. An unlimited license (number 0 or less) covers everything."
+msgstr "Więcej zasobów ma oprogramowanie, niż pozwalają ważne licencje. Licencja nieograniczona (liczba 0 lub mniej) obejmuje wszystko."
+
+msgid "Expired license still in use"
+msgstr "Wygasła licencja nadal w użyciu"
+
+msgid "The license has expired but assets are still assigned to it, or the software is still installed with no other valid license."
+msgstr "Licencja wygasła, ale nadal są do niej przypisane zasoby albo oprogramowanie pozostaje zainstalowane bez innej ważnej licencji."
+
+msgid "in this entity and its sub-entities"
+msgstr "w tym podmiocie i jego podmiotach podrzędnych"
+
+msgid "in this entity"
+msgstr "w tym podmiocie"
+
+msgid "%1$d asset has it %2$s, no license recorded."
+msgid_plural "%1$d assets have it %2$s, no license recorded."
+msgstr[0] "%1$d zasób ma je %2$s, brak zarejestrowanej licencji."
+msgstr[1] "%1$d zasoby mają je %2$s, brak zarejestrowanej licencji."
+msgstr[2] "%1$d zasobów ma je %2$s, brak zarejestrowanej licencji."
+
+msgid "%1$d asset has it %3$s for %2$d licensed seat(s)."
+msgid_plural "%1$d assets have it %3$s for %2$d licensed seat(s)."
+msgstr[0] "%1$d zasób ma je %3$s przy %2$d licencjonowanych stanowiskach."
+msgstr[1] "%1$d zasoby mają je %3$s przy %2$d licencjonowanych stanowiskach."
+msgstr[2] "%1$d zasobów ma je %3$s przy %2$d licencjonowanych stanowiskach."
+
+msgid "Expired on %1$s: %2$d asset(s) still assigned, %3$d installation(s) %4$s."
+msgstr "Wygasła %1$s: %2$d zasób(-ów) nadal przypisany(-ch), %3$d instalacja(-i) %4$s."
+
+msgid "Publisher"
+msgstr "Wydawca"
+
+msgid "Licensed seats"
+msgstr "Licencjonowane stanowiska"
+
+msgid "License"
+msgstr "Licencja"
+
+msgid "Expiration date"
+msgstr "Data wygaśnięcia"
+
+msgid "Assets still assigned"
+msgstr "Nadal przypisane zasoby"
+
+msgid "Entity and sub-entities"
+msgstr "Podmiot i podmioty podrzędne"
+
+msgid "Entity only"
+msgstr "Tylko podmiot"
+
+msgid "%1$s (%2$s): %3$s"
+msgstr "%1$s (%2$s): %3$s"
+
+msgid "Software without a license, installed beyond the licensed seats, or under an expired license"
+msgstr "Oprogramowanie bez licencji, zainstalowane ponad licencjonowane stanowiska lub na wygasłej licencji"
+
+msgid "Record the missing license in GLPI, buy seats or uninstall the software, and renew or replace the expired license."
+msgstr "Zarejestruj brakującą licencję w GLPI, kup stanowiska lub odinstaluj oprogramowanie oraz odnów lub zastąp wygasłą licencję."
+
+msgid "Checks, from the software and licenses already recorded in GLPI, that the organization respects the licenses it bought: commercial software installed without any license, more installations than licensed seats, and expired licenses still in use. Results are grouped by entity."
+msgstr "Sprawdza, na podstawie oprogramowania i licencji już zarejestrowanych w GLPI, czy organizacja przestrzega zakupionych licencji: oprogramowanie komercyjne zainstalowane bez licencji, więcej instalacji niż licencjonowanych stanowisk oraz wygasłe licencje nadal w użyciu. Wyniki są pogrupowane według podmiotu."
+
+msgid "Check the list of watched publishers, then for each finding record the missing license in GLPI, buy seats, uninstall the software or renew the license. Export the list (CSV) for the auditor. Nothing is changed automatically."
+msgstr "Sprawdź listę monitorowanych wydawców, a następnie dla każdego ustalenia zarejestruj brakującą licencję w GLPI, kup stanowiska, odinstaluj oprogramowanie lub odnów licencję. Wyeksportuj listę (CSV) dla audytora. Nic nie jest zmieniane automatycznie."
+
+msgid "ISO/IEC 27001, control A.5.32"
+msgstr "ISO/IEC 27001, zabezpieczenie A.5.32"
+
+msgid "Watched publishers saved."
+msgstr "Monitorowani wydawcy zapisani."
 
 msgid "Target date and advised deadlines"
 msgstr "Data docelowa i zalecane terminy"
@@ -22495,7 +22629,9 @@ msgstr "dzisiaj"
 msgid "Date entered in the settings of this page."
 msgstr "Data wprowadzona w ustawieniach tej strony."
 
-msgid "Next audit of the maintenance cycle: %s, on the anniversary of the certification."
+msgid ""
+"Next audit of the maintenance cycle: %s, on the anniversary of the "
+"certification."
 msgstr "Następny audyt cyklu utrzymania: %s, w rocznicę certyfikacji."
 
 msgid "Next certification audit planned:"
@@ -22507,20 +22643,44 @@ msgstr "Zalecany termin przekroczony"
 msgid "At risk of being late"
 msgstr "Zagrożone opóźnieniem"
 
-msgid "Each step not done gets an advised deadline, counted back from the target date: the foundations first, then the internal audit, the management review that uses its results, and the treatment of nonconformities. These deadlines also appear in the compliance calendar."
-msgstr "Każdy niewykonany etap otrzymuje zalecany termin, liczony wstecz od daty docelowej: najpierw podstawy, potem audyt wewnętrzny, przegląd zarządzania, który opiera się na jego wynikach, i obsługa niezgodności. Terminy te pojawiają się także w kalendarzu zgodności."
+msgid ""
+"Each step not done gets an advised deadline, counted back from the target "
+"date: the foundations first, then the internal audit, the management review "
+"that uses its results, and the treatment of nonconformities. These deadlines "
+"also appear in the compliance calendar."
+msgstr ""
+"Każdy niewykonany etap otrzymuje zalecany termin, liczony wstecz od daty "
+"docelowej: najpierw podstawy, potem audyt wewnętrzny, przegląd zarządzania, "
+"który opiera się na jego wynikach, i obsługa niezgodności. Terminy te "
+"pojawiają się także w kalendarzu zgodności."
 
-msgid "No target date yet. Enter one in the settings below, or plan the certification audit: an audit whose type is a certification, surveillance or recertification audit, or an event of the compliance calendar of the same kind, is used automatically."
-msgstr "Brak daty docelowej. Wprowadź ją w ustawieniach poniżej lub zaplanuj audyt certyfikacyjny: audyt typu certyfikacja, nadzór lub recertyfikacja albo zdarzenie tego samego rodzaju w kalendarzu zgodności jest uwzględniane automatycznie."
+msgid ""
+"No target date yet. Enter one in the settings below, or plan the "
+"certification audit: an audit whose type is a certification, surveillance or "
+"recertification audit, or an event of the compliance calendar of the same "
+"kind, is used automatically."
+msgstr ""
+"Brak daty docelowej. Wprowadź ją w ustawieniach poniżej lub zaplanuj audyt "
+"certyfikacyjny: audyt typu certyfikacja, nadzór lub recertyfikacja albo "
+"zdarzenie tego samego rodzaju w kalendarzu zgodności jest uwzględniane "
+"automatycznie."
 
-msgid "The target date entered has passed: it is no longer used. Enter the date of the next audit."
-msgstr "Wprowadzona data docelowa minęła: nie jest już brana pod uwagę. Wprowadź datę następnego audytu."
+msgid ""
+"The target date entered has passed: it is no longer used. Enter the date of "
+"the next audit."
+msgstr ""
+"Wprowadzona data docelowa minęła: nie jest już brana pod uwagę. Wprowadź "
+"datę następnego audytu."
 
 msgid "Owner warned when a step risks being late: %s"
 msgstr "Osoba odpowiedzialna ostrzegana, gdy etap grozi opóźnieniem: %s"
 
-msgid "No owner: choose one in the settings so that a notification is sent when a step risks being late."
-msgstr "Brak osoby odpowiedzialnej: wybierz ją w ustawieniach, aby wysyłać powiadomienie, gdy etap grozi opóźnieniem."
+msgid ""
+"No owner: choose one in the settings so that a notification is sent when a "
+"step risks being late."
+msgstr ""
+"Brak osoby odpowiedzialnej: wybierz ją w ustawieniach, aby wysyłać "
+"powiadomienie, gdy etap grozi opóźnieniem."
 
 msgid "Maintenance cycle"
 msgstr "Cykl utrzymania"
@@ -22532,7 +22692,8 @@ msgid "date entered in the settings"
 msgstr "data wprowadzona w ustawieniach"
 
 msgid "date of the last initial or recertification audit completed"
-msgstr "data ostatniego zakończonego audytu certyfikacyjnego lub recertyfikacyjnego"
+msgstr ""
+"data ostatniego zakończonego audytu certyfikacyjnego lub recertyfikacyjnego"
 
 msgid "Next audit"
 msgstr "Następny audyt"
@@ -22543,20 +22704,31 @@ msgstr "Etapy do powtarzania co roku"
 msgid "Advised deadline: %s"
 msgstr "Zalecany termin: %s"
 
-msgid "Once certified, enter the certification date in the settings, or complete the initial certification audit: the page then follows the three-year cycle (two annual surveillance audits, then the recertification) and highlights the steps to redo each year."
-msgstr "Po uzyskaniu certyfikatu wprowadź datę certyfikacji w ustawieniach lub zakończ audyt certyfikacyjny: strona będzie wtedy śledzić trzyletni cykl (dwa coroczne audyty nadzoru, a następnie recertyfikacja) i wyróżniać etapy do powtarzania co roku."
+msgid ""
+"Once certified, enter the certification date in the settings, or complete "
+"the initial certification audit: the page then follows the three-year cycle "
+"(two annual surveillance audits, then the recertification) and highlights "
+"the steps to redo each year."
+msgstr ""
+"Po uzyskaniu certyfikatu wprowadź datę certyfikacji w ustawieniach lub "
+"zakończ audyt certyfikacyjny: strona będzie wtedy śledzić trzyletni cykl "
+"(dwa coroczne audyty nadzoru, a następnie recertyfikacja) i wyróżniać etapy "
+"do powtarzania co roku."
 
 msgid "Settings of the certification readiness"
 msgstr "Ustawienia przygotowania do certyfikacji"
 
 msgid "Leave empty to use the next certification audit planned."
-msgstr "Pozostaw puste, aby użyć następnego zaplanowanego audytu certyfikacyjnego."
+msgstr ""
+"Pozostaw puste, aby użyć następnego zaplanowanego audytu certyfikacyjnego."
 
 msgid "Certification date"
 msgstr "Data certyfikacji"
 
 msgid "Leave empty to use the last initial or recertification audit completed."
-msgstr "Pozostaw puste, aby użyć ostatniego zakończonego audytu certyfikacyjnego lub recertyfikacyjnego."
+msgstr ""
+"Pozostaw puste, aby użyć ostatniego zakończonego audytu certyfikacyjnego lub "
+"recertyfikacyjnego."
 
 msgid "Owner of the preparation"
 msgstr "Osoba odpowiedzialna za przygotowanie"
@@ -22570,8 +22742,16 @@ msgstr "Docelowe pokrycie (%)"
 msgid "Training target (%)"
 msgstr "Docelowy poziom szkoleń (%)"
 
-msgid "Coverage target: share of the requirements and controls the audit programme must have covered over the last three years for the internal audit step to be done. Training target: share of the participants who must have completed their training."
-msgstr "Docelowe pokrycie: odsetek wymagań i zabezpieczeń, które program audytów musi objąć w ciągu ostatnich trzech lat, aby etap audytu wewnętrznego był wykonany. Docelowy poziom szkoleń: odsetek uczestników, którzy muszą ukończyć szkolenie."
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training."
+msgstr ""
+"Docelowe pokrycie: odsetek wymagań i zabezpieczeń, które program audytów "
+"musi objąć w ciągu ostatnich trzech lat, aby etap audytu wewnętrznego był "
+"wykonany. Docelowy poziom szkoleń: odsetek uczestników, którzy muszą "
+"ukończyć szkolenie."
 
 msgid "To redo each year"
 msgstr "Do powtarzania co roku"
@@ -22607,23 +22787,47 @@ msgstr[1] "Alerty przygotowania do certyfikacji"
 msgstr[2] "Alertów przygotowania do certyfikacji"
 
 msgid "Warns the owner when a certification readiness step risks being late"
-msgstr "Ostrzega osobę odpowiedzialną, gdy etap przygotowania do certyfikacji grozi opóźnieniem"
+msgstr ""
+"Ostrzega osobę odpowiedzialną, gdy etap przygotowania do certyfikacji grozi "
+"opóźnieniem"
 
 msgid "%d certification readiness step(s) reported."
 msgstr "Zgłoszone etapy przygotowania do certyfikacji: %d."
 
-msgid "Follow the steps in order, starting with the one marked as the next step. Click its button to open the screen concerned, complete it, then come back: the page is computed again each time. Nothing is changed automatically. Give the target date of the audit (or plan the certification audit): each step not done gets an advised deadline, shown in the compliance calendar, and the owner is warned when one risks being late. Export the PDF readiness report to share where you stand."
-msgstr "Wykonuj etapy po kolei, zaczynając od oznaczonego jako następny etap. Kliknij jego przycisk, aby otworzyć odpowiedni ekran, uzupełnij go, a następnie wróć: strona jest za każdym razem obliczana na nowo. Nic nie jest zmieniane automatycznie. Podaj datę docelową audytu (lub zaplanuj audyt certyfikacyjny): każdy niewykonany etap otrzymuje zalecany termin, widoczny w kalendarzu zgodności, a osoba odpowiedzialna jest ostrzegana, gdy któryś z nich grozi opóźnieniem. Wyeksportuj raport gotowości do PDF, aby podzielić się stanem przygotowań."
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. Give "
+"the target date of the audit (or plan the certification audit): each step "
+"not done gets an advised deadline, shown in the compliance calendar, and the "
+"owner is warned when one risks being late. Export the PDF readiness report "
+"to share where you stand."
+msgstr ""
+"Wykonuj etapy po kolei, zaczynając od oznaczonego jako następny etap. "
+"Kliknij jego przycisk, aby otworzyć odpowiedni ekran, uzupełnij go, a "
+"następnie wróć: strona jest za każdym razem obliczana na nowo. Nic nie jest "
+"zmieniane automatycznie. Podaj datę docelową audytu (lub zaplanuj audyt "
+"certyfikacyjny): każdy niewykonany etap otrzymuje zalecany termin, widoczny "
+"w kalendarzu zgodności, a osoba odpowiedzialna jest ostrzegana, gdy któryś z "
+"nich grozi opóźnieniem. Wyeksportuj raport gotowości do PDF, aby podzielić "
+"się stanem przygotowań."
 
 msgid "Certification readiness settings saved."
 msgstr "Ustawienia przygotowania do certyfikacji zapisane."
 
-msgid "Complete these steps, or adjust the target date, on the certification readiness page. Nothing is changed automatically."
-msgstr "Wykonaj te etapy lub zmień datę docelową na stronie przygotowania do certyfikacji. Nic nie jest zmieniane automatycznie."
+msgid ""
+"Complete these steps, or adjust the target date, on the certification "
+"readiness page. Nothing is changed automatically."
+msgstr ""
+"Wykonaj te etapy lub zmień datę docelową na stronie przygotowania do "
+"certyfikacji. Nic nie jest zmieniane automatycznie."
 
 msgid "View the certification readiness"
 msgstr "Zobacz przygotowanie do certyfikacji"
 
-msgid "Sent by the GRC Manager automatic task when a step of the certification readiness approaches or passes its advised deadline."
-msgstr "Wysyłane przez zadanie automatyczne GRC Manager, gdy etap przygotowania do certyfikacji zbliża się do zalecanego terminu lub go przekracza."
-
+msgid ""
+"Sent by the GRC Manager automatic task when a step of the certification "
+"readiness approaches or passes its advised deadline."
+msgstr ""
+"Wysyłane przez zadanie automatyczne GRC Manager, gdy etap przygotowania do "
+"certyfikacji zbliża się do zalecanego terminu lub go przekracza."

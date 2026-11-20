@@ -379,6 +379,23 @@ class PageHelp
                 ),
                 'reference' => __('GDPR, articles 12 and 15 to 22', 'grcmanager'),
             ],
+            // Issue #779 : conformité des licences logicielles.
+            'softwarelicensecompliance' => [
+                'purpose'   => __(
+                    'Checks, from the software and licenses already recorded in GLPI, that the organization '
+                        . 'respects the licenses it bought: commercial software installed without any license, '
+                        . 'more installations than licensed seats, and expired licenses still in use. Results '
+                        . 'are grouped by entity.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Check the list of watched publishers, then for each finding record the missing license in '
+                        . 'GLPI, buy seats, uninstall the software or renew the license. Export the list (CSV) for '
+                        . 'the auditor. Nothing is changed automatically.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.5.32', 'grcmanager'),
+            ],
             'contextitem' => [
                 'purpose'   => __(
                     'The context of the organization: the internal and external issues that affect information '
