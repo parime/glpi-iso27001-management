@@ -30689,6 +30689,46 @@ msgstr "Days before the target date"
 msgid "Adjusted"
 msgstr "Adjusted"
 
+#, php-format
+msgid ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+msgstr ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr "An audit can only be planned for the current year or a later one."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr "Audit planned: complete its objectives, scope, criteria and auditors."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Internal audit - %1$s - %2$d"
+
+msgid ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+msgstr ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Plan an internal audit of %1$s in %2$d"
+
+msgid "Through the audited controls %s"
+msgstr "Through the audited controls %s"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

@@ -27069,3 +27069,48 @@ msgstr "Jours avant la date cible"
 
 msgid "Adjusted"
 msgstr "Ajusté"
+
+#, php-format
+msgid ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+msgstr ""
+"Un auditeur ne doit pas auditer son propre travail (ISO 19011). Un auditeur "
+"qui réalise ou approuve un processus audité dans la matrice des "
+"responsabilités, directement ou par un groupe, est en conflit. L'audit ne "
+"peut être démarré ni terminé tant que chaque conflit n'est pas justifié ; la "
+"justification est conservée avec son auteur et sa date. Un processus dont "
+"les mesures de l'Annexe A (matrice des responsabilités) sont auditées dans "
+"la grille ou liées à l'audit est aussi contrôlé."
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr ""
+"Un audit ne peut être planifié que pour l'année en cours ou une année "
+"suivante."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr ""
+"Audit planifié : complétez ses objectifs, son périmètre, ses critères et ses "
+"auditeurs."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Audit interne - %1$s - %2$d"
+
+msgid ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+msgstr ""
+"« Planifier » crée un audit interne pour le processus et l'année, dans "
+"l'entité du processus. Complétez ensuite ses objectifs, son périmètre, ses "
+"critères et ses auditeurs sur la fiche de l'audit."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Planifier un audit interne du processus « %1$s » en %2$d"
+
+msgid "Through the audited controls %s"
+msgstr "Par les mesures auditées %s"

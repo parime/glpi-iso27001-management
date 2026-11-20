@@ -26853,3 +26853,46 @@ msgstr "Dias antes da data-alvo"
 
 msgid "Adjusted"
 msgstr "Ajustado"
+
+#, php-format
+msgid ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+msgstr ""
+"Um auditor não deve auditar o próprio trabalho (ISO 19011). Um auditor que "
+"executa ou aprova um processo auditado na matriz de responsabilidades, "
+"diretamente ou por meio de um grupo, está em conflito. A auditoria não pode "
+"ser iniciada nem concluída enquanto cada conflito não for justificado; a "
+"justificativa é mantida com seu autor e sua data. Um processo cujos "
+"controles do Anexo A (matriz de responsabilidades) são auditados na lista de "
+"verificação ou vinculados à auditoria também é verificado."
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr ""
+"Só é possível planejar uma auditoria para o ano atual ou um ano posterior."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr ""
+"Auditoria planejada: complete seus objetivos, escopo, critérios e auditores."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Auditoria interna - %1$s - %2$d"
+
+msgid ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+msgstr ""
+"\"Planejar\" cria uma auditoria interna para o processo e o ano, na entidade "
+"do processo. Depois complete seus objetivos, escopo, critérios e auditores "
+"na ficha da auditoria."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Planejar uma auditoria interna de %1$s em %2$d"
+
+msgid "Through the audited controls %s"
+msgstr "Pelos controles auditados %s"

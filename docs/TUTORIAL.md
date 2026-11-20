@@ -178,6 +178,14 @@ travail datées, avec leur auteur.
    indépendants, rapport remis à la direction. La page du programme reprend ces points pour chaque
    audit du cycle et signale les audits incomplets. Le rapport PDF de l'audit les reprend aussi, avec
    la compétence des auditeurs et la justification de chaque conflit.
+8. **Indépendance par les mesures auditées** : un processus dont la matrice des responsabilités porte
+   une mesure de l'Annexe A auditée (ligne « mesure » de la grille de l'audit, ou mesure liée sur la
+   fiche) est contrôlé aussi, même s'il n'est pas choisi dans l'onglet. Le conflit indique les
+   mesures concernées (« Par les mesures auditées A.8.13 ») et se justifie de la même façon.
+9. **Planifier depuis le programme** : sur la page du programme, le bouton **Planifier** d'une case
+   sans audit à venir (cette année ou une année suivante) crée un audit interne pour ce processus et
+   cette année, dans l'entité du processus, et ouvre sa fiche. Complétez ensuite ses objectifs, son
+   périmètre, ses critères et ses auditeurs.
 
 Depuis l'onglet **Non-conformités** de la rubrique, une non-conformité peut être liée à cet audit interne, avec
 une sévérité, une échéance, une description et une cause racine.
@@ -1048,6 +1056,14 @@ download (date, user, document) and the **Notes** tab keeps dated working notes 
    management. The programme page shows these points for each audit of the cycle and flags the
    incomplete ones. The PDF report of the audit includes them too, with the competence of the
    auditors and the justification of each conflict.
+8. **Independence through the audited controls**: a process whose responsibility matrix lists an
+   Annex A control that the audit covers (a "control" line of the audit checklist, or a control
+   linked on the form) is checked too, even if it is not chosen in the tab. The conflict shows the
+   controls concerned ("Through the audited controls A.8.13") and is justified the same way.
+9. **Plan from the programme**: on the programme page, the **Planifier** button of a cell with no
+   upcoming audit (this year or a later one) creates an internal audit for that process and year,
+   in the entity of the process, and opens its form. Then complete its objectives, scope, criteria
+   and auditors.
 
 From the section's **Non-conformités** tab, a non-conformity can be linked to this internal audit, with a
 severity, a due date, a description and a root cause.

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 20:53+0000\n"
+"POT-Creation-Date: 2026-11-20 21:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgid "Export PDF"
 msgstr ""
 
 #: front/audit.php:53 front/auditcoverage.php:34
-#: src/CertificationReadiness.php:947 templates/audit_checklist_tab.html.twig
+#: src/CertificationReadiness.php:952 templates/audit_checklist_tab.html.twig
 #: templates/audit_coverage.html.twig templates/audit_programme.html.twig
 msgid "Audit programme coverage"
 msgstr ""
@@ -72,12 +72,12 @@ msgstr ""
 #: front/networkflow.report.php:31 front/processingactivity.export.php:64
 #: front/risk.report.php:73 src/AccessReview.php:745 src/AcnRequirement.php:805
 #: src/Audit.php:628 src/CertificationFinding.php:410
-#: src/CertificationReadiness.php:1386 src/CompetenceMatrix.php:852
-#: src/ConsistencyCheck.php:1444 src/ContextItem.php:879
+#: src/CertificationReadiness.php:1456 src/CompetenceMatrix.php:852
+#: src/ConsistencyCheck.php:1453 src/ContextItem.php:879
 #: src/ControlTest.php:994 src/CrisisExercise.php:627
 #: src/CrisisScenario.php:872 src/Dpia.php:443 src/EbiosStudy.php:313
 #: src/ManagementReviewDossier.php:625 src/OfficialContact.php:224
-#: src/OperatingProcedure.php:332 src/PersonnelCompliance.php:727
+#: src/OperatingProcedure.php:402 src/PersonnelCompliance.php:727
 #: src/PolicyAcknowledgement.php:703 src/PolicyVersion.php:765
 #: src/RecyfRequirement.php:594 src/ResponsibilityActivity.php:806
 #: src/SecurityIncidentPostMortem.php:252
@@ -184,6 +184,14 @@ msgstr ""
 
 #: front/auditprogramme.php:38
 msgid "Audit programme settings saved."
+msgstr ""
+
+#: front/auditprogramme.php:53
+msgid "An audit can only be planned for the current year or a later one."
+msgstr ""
+
+#: front/auditprogramme.php:62
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
 msgstr ""
 
 #: front/auditteam.form.php:36 src/AuditEvidenceRequest.php:323
@@ -393,7 +401,7 @@ msgstr ""
 
 #: front/consistencycheck.export.php:53 src/EndOfLife.php:487
 #: src/HardwareWarranty.php:318 src/PersonnelCompliance.php:749
-#: src/SoftwareLicenseCompliance.php:349
+#: src/SoftwareLicenseCompliance.php:421
 #: templates/_personnel_compliance.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 #: templates/pdf/consistency_report.html.twig
@@ -577,7 +585,7 @@ msgctxt "label"
 msgid "Title"
 msgstr ""
 
-#: front/customframework.php:159 src/ConsistencyCheck.php:1408
+#: front/customframework.php:159 src/ConsistencyCheck.php:1417
 #: templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig
 msgid "Annex A"
@@ -861,7 +869,7 @@ msgid "Person"
 msgstr ""
 
 #: front/policyacknowledgement.export.php:48 src/HardwareWarranty.php:312
-#: src/PolicyAcknowledgement.php:131 src/SoftwareLicenseCompliance.php:340
+#: src/PolicyAcknowledgement.php:131 src/SoftwareLicenseCompliance.php:411
 #: templates/acn_register.html.twig templates/config_form.html.twig
 #: templates/park_hardware_warranty.html.twig
 #: templates/pdf/access_review_report.html.twig
@@ -881,7 +889,7 @@ msgstr ""
 #: front/policyacknowledgement.export.php:49
 #: src/NotificationTargetPolicy.php:131
 #: src/NotificationTargetPolicyVersion.php:138
-#: src/NotificationTargetSoaVersion.php:103 src/Policy.php:159
+#: src/NotificationTargetSoaVersion.php:103 src/Policy.php:170
 #: templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig
 #: templates/my_policies_tab.html.twig
@@ -1228,7 +1236,7 @@ msgstr ""
 msgid "SoA approval"
 msgstr ""
 
-#: front/softwarelicensecompliance.php:49
+#: front/softwarelicensecompliance.php:53
 msgid "Watched publishers saved."
 msgstr ""
 
@@ -2090,7 +2098,7 @@ msgstr ""
 #: src/NotificationTargetPolicy.php:132
 #: src/NotificationTargetRiskIndicator.php:148 src/Objective.php:158
 #: src/PersonnelCompliance.php:749 src/PhysicalSecurityAssessment.php:436
-#: src/Policy.php:167 src/ProcessingActivity.php:550
+#: src/Policy.php:178 src/ProcessingActivity.php:550
 #: src/ProcessingActivity.php:994 src/Risk.php:402 src/RiskIndicator.php:720
 #: src/RiskRegisterImport.php:614 src/SupplierRisk.php:233
 #: templates/_personnel_compliance.html.twig
@@ -2657,7 +2665,7 @@ msgstr ""
 #: src/NotificationTargetPolicyVersion.php:137
 #: src/NotificationTargetRisk.php:93 src/NotificationTargetSupplierRisk.php:115
 #: src/NotificationTargetTraining.php:125 src/Objective.php:149
-#: src/Policy.php:150 src/Risk.php:344 src/RiskRegisterImport.php:602
+#: src/Policy.php:161 src/Risk.php:344 src/RiskRegisterImport.php:602
 #: src/SupplierRisk.php:160 src/Training.php:528
 #: templates/audit_checklist_tab.html.twig
 #: templates/audit_findings_tab.html.twig templates/audit_form.html.twig
@@ -2704,9 +2712,9 @@ msgstr ""
 msgid "Risk categories covered"
 msgstr ""
 
-#: src/Audit.php:260 src/AuditProgramme.php:649 src/ComplianceEvent.php:235
+#: src/Audit.php:260 src/AuditProgramme.php:717 src/ComplianceEvent.php:235
 #: src/EbiosStudy.php:601 src/NotificationTargetComplianceEvent.php:113
-#: src/SoftwareLicenseCompliance.php:341 templates/audit_form.html.twig
+#: src/SoftwareLicenseCompliance.php:412 templates/audit_form.html.twig
 #: templates/auditor_space.html.twig templates/compliance_event_form.html.twig
 #: templates/ebios_study_form.html.twig
 #: templates/pdf/ebios_study_report.html.twig
@@ -2769,7 +2777,7 @@ msgstr ""
 msgid "Audit checklist"
 msgstr ""
 
-#: src/AuditChecklist.php:102 src/AuditProgramme.php:671
+#: src/AuditChecklist.php:102 src/AuditProgramme.php:739
 #: src/ComplianceObligation.php:108 src/ComplianceObligation.php:329
 #: src/ControlTestSample.php:125 src/CustomRequirement.php:60
 #: src/IsmsRequirement.php:155 src/PersonnelCompliance.php:288
@@ -3097,7 +3105,11 @@ msgstr ""
 msgid "Approval decision"
 msgstr ""
 
-#: src/AuditLog.php:232 templates/audit_log.html.twig
+#: src/AuditLog.php:91
+msgid "Periodic review recorded"
+msgstr ""
+
+#: src/AuditLog.php:234 templates/audit_log.html.twig
 #: templates/audit_programme.html.twig
 #: templates/document_accesses_tab.html.twig templates/pdf/action_log.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
@@ -3110,11 +3122,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: src/AuditLog.php:232
+#: src/AuditLog.php:234
 msgid "Real user (impersonation)"
 msgstr ""
 
-#: src/AuditLog.php:232 src/NotificationTargetPersonnelCompliance.php:95
+#: src/AuditLog.php:234 src/NotificationTargetPersonnelCompliance.php:95
 #: src/PersonnelCompliance.php:747 templates/account_hygiene.html.twig
 #: templates/account_hygiene_ticket.html.twig templates/audit_log.html.twig
 #: templates/document_accesses_tab.html.twig
@@ -3122,23 +3134,23 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: src/AuditLog.php:233 templates/audit_log.html.twig
+#: src/AuditLog.php:235 templates/audit_log.html.twig
 #: templates/pdf/postmortem_report.html.twig
 #: templates/physical_security_checklist_tab.html.twig
 msgid "Action"
 msgstr ""
 
-#: src/AuditLog.php:233 src/PolicyAcknowledgement.php:130
+#: src/AuditLog.php:235 src/PolicyAcknowledgement.php:130
 #: templates/audit_log.html.twig
 msgid "Profile"
 msgstr ""
 
-#: src/AuditLog.php:234 templates/my_space.html.twig
+#: src/AuditLog.php:236 templates/my_space.html.twig
 #: templates/risk_import.html.twig
 msgid "Details"
 msgstr ""
 
-#: src/AuditLog.php:234 templates/_official_contact_rows.html.twig
+#: src/AuditLog.php:236 templates/_official_contact_rows.html.twig
 #: templates/audit_log.html.twig templates/crisis_room.html.twig
 #: templates/pdf/action_log.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
@@ -3148,7 +3160,7 @@ msgstr ""
 msgid "Incident"
 msgstr ""
 
-#: src/AuditLog.php:234 src/ControlTest.php:1057
+#: src/AuditLog.php:236 src/ControlTest.php:1057
 #: src/NotificationTargetControl.php:148
 #: templates/audit_checklist_tab.html.twig templates/audit_coverage.html.twig
 #: templates/audit_log.html.twig templates/control_test_sample.html.twig
@@ -3160,24 +3172,24 @@ msgstr ""
 msgid "Result"
 msgstr ""
 
-#: src/AuditProgramme.php:64 templates/audit_programme.html.twig
+#: src/AuditProgramme.php:67 templates/audit_programme.html.twig
 #: templates/audit_programme_tab.html.twig templates/audit_team_tab.html.twig
 #: templates/certification_readiness.html.twig
 #: templates/certification_sampling.html.twig
 msgid "Multi-year audit programme"
 msgstr ""
 
-#: src/AuditProgramme.php:240
+#: src/AuditProgramme.php:258
 #, php-format
 msgid "Audited processes: %s"
 msgstr ""
 
-#: src/AuditProgramme.php:406
+#: src/AuditProgramme.php:474
 #, php-format
 msgid "Independence conflict justified: %1$s on %2$s (%3$s)"
 msgstr ""
 
-#: src/AuditProgramme.php:440
+#: src/AuditProgramme.php:508
 #, php-format
 msgid ""
 "Independence of the auditors: %s. Justify each conflict in the \"Programme "
@@ -3185,57 +3197,57 @@ msgid ""
 "the audit."
 msgstr ""
 
-#: src/AuditProgramme.php:446
+#: src/AuditProgramme.php:514
 #, php-format
 msgid "%1$s on %2$s"
 msgstr ""
 
-#: src/AuditProgramme.php:539
+#: src/AuditProgramme.php:607
 #, php-format
 msgid "Audit report delivered to management on %1$s (%2$s)"
 msgstr ""
 
-#: src/AuditProgramme.php:648
+#: src/AuditProgramme.php:716
 msgid "Audit objectives defined"
 msgstr ""
 
-#: src/AuditProgramme.php:648
+#: src/AuditProgramme.php:716
 msgid "Objectives"
 msgstr ""
 
-#: src/AuditProgramme.php:649
+#: src/AuditProgramme.php:717
 msgid "Audit scope defined"
 msgstr ""
 
-#: src/AuditProgramme.php:650
+#: src/AuditProgramme.php:718
 msgid "Audit criteria defined"
 msgstr ""
 
-#: src/AuditProgramme.php:650
+#: src/AuditProgramme.php:718
 msgid "Criteria"
 msgstr ""
 
-#: src/AuditProgramme.php:651
+#: src/AuditProgramme.php:719
 msgid "Audited processes chosen"
 msgstr ""
 
-#: src/AuditProgramme.php:651
+#: src/AuditProgramme.php:719
 msgid "Processes"
 msgstr ""
 
-#: src/AuditProgramme.php:652 templates/audit_programme_tab.html.twig
+#: src/AuditProgramme.php:720 templates/audit_programme_tab.html.twig
 msgid "Auditors"
 msgstr ""
 
-#: src/AuditProgramme.php:652
+#: src/AuditProgramme.php:720
 msgid "Auditors appointed"
 msgstr ""
 
-#: src/AuditProgramme.php:653
+#: src/AuditProgramme.php:721
 msgid "Auditors qualified"
 msgstr ""
 
-#: src/AuditProgramme.php:653 src/Competence.php:52 src/IsmsRequirement.php:119
+#: src/AuditProgramme.php:721 src/Competence.php:52 src/IsmsRequirement.php:119
 #: templates/competence_declaration_form.html.twig
 #: templates/competence_form.html.twig templates/competence_page.html.twig
 #: templates/competence_sheet.html.twig
@@ -3244,65 +3256,70 @@ msgstr ""
 msgid "Competence"
 msgstr ""
 
-#: src/AuditProgramme.php:655
+#: src/AuditProgramme.php:723
 msgid "Independence"
 msgstr ""
 
-#: src/AuditProgramme.php:656
+#: src/AuditProgramme.php:724
 msgid "Auditors independent of the audited processes, or conflict justified"
 msgstr ""
 
-#: src/AuditProgramme.php:658 templates/crisis_exercises.html.twig
+#: src/AuditProgramme.php:726 templates/crisis_exercises.html.twig
 #: templates/crisis_tab.html.twig templates/pdf/remediation_plan.html.twig
 #: templates/tabs/control_access_reviews.html.twig
 #: templates/tabs/incident_playbook.html.twig
 msgid "Report"
 msgstr ""
 
-#: src/AuditProgramme.php:658 templates/audit_programme_tab.html.twig
+#: src/AuditProgramme.php:726 templates/audit_programme_tab.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Report delivered to management"
 msgstr ""
 
-#: src/AuditProgramme.php:676
+#: src/AuditProgramme.php:744
 msgid "To watch"
 msgstr ""
 
-#: src/AuditProgramme.php:681 templates/tabs/incident_evidence.html.twig
+#: src/AuditProgramme.php:749 templates/tabs/incident_evidence.html.twig
 msgid "Missing"
 msgstr ""
 
-#: src/AuditProgramme.php:686
+#: src/AuditProgramme.php:754
 msgid "Later"
 msgstr ""
 
-#: src/AuditProgramme.php:691 src/AuditProgramme.php:787
+#: src/AuditProgramme.php:759 src/AuditProgramme.php:855
 #: templates/audit_programme_tab.html.twig
 msgid "No qualifying training chosen"
 msgstr ""
 
-#: src/AuditProgramme.php:773 templates/audit_programme_tab.html.twig
+#: src/AuditProgramme.php:841 templates/audit_programme_tab.html.twig
 #, php-format
 msgid "Delivered on %1$s to %2$s"
 msgstr ""
 
-#: src/AuditProgramme.php:784 templates/audit_programme_tab.html.twig
+#: src/AuditProgramme.php:852 templates/audit_programme_tab.html.twig
 #: templates/audit_team_tab.html.twig
 msgid "Qualified"
 msgstr ""
 
-#: src/AuditProgramme.php:785 templates/audit_programme_tab.html.twig
+#: src/AuditProgramme.php:853 templates/audit_programme_tab.html.twig
 #: templates/audit_team_tab.html.twig
 msgid "Qualification to renew"
 msgstr ""
 
-#: src/AuditProgramme.php:786 templates/audit_programme_tab.html.twig
+#: src/AuditProgramme.php:854 templates/audit_programme_tab.html.twig
 #: templates/audit_team_tab.html.twig
 msgid "No auditor qualification recorded"
 msgstr ""
 
-#: src/AuditProgramme.php:937
+#: src/AuditProgramme.php:1040
+#, php-format
+msgid "Internal audit - %1$s - %2$d"
+msgstr ""
+
+#: src/AuditProgramme.php:1085
 msgid "Programme and independence"
 msgstr ""
 
@@ -3754,6 +3771,13 @@ msgstr ""
 msgid "CPE identifiers"
 msgstr ""
 
+#: src/CanonicalProduct.php:187
+msgid ""
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
+msgstr ""
+
 #: src/CanonicalProduct.php:196
 msgid "No CPE identifier yet."
 msgstr ""
@@ -3851,43 +3875,43 @@ msgstr ""
 msgid "Document"
 msgstr ""
 
-#: src/CertificationReadiness.php:78
+#: src/CertificationReadiness.php:81
 msgid "Certification readiness"
 msgstr ""
 
-#: src/CertificationReadiness.php:129
+#: src/CertificationReadiness.php:132 templates/audit_programme.html.twig
 msgid "Plan"
 msgstr ""
 
-#: src/CertificationReadiness.php:130
+#: src/CertificationReadiness.php:133
 msgid "Set up the management system: scope, context, policy, roles, risks."
 msgstr ""
 
-#: src/CertificationReadiness.php:134
+#: src/CertificationReadiness.php:137
 msgid "Do"
 msgstr ""
 
-#: src/CertificationReadiness.php:135
+#: src/CertificationReadiness.php:138
 msgid "Run it day to day: people trained, exercises carried out."
 msgstr ""
 
-#: src/CertificationReadiness.php:139
+#: src/CertificationReadiness.php:142
 msgid "Check"
 msgstr ""
 
-#: src/CertificationReadiness.php:140
+#: src/CertificationReadiness.php:143
 msgid "Evaluate it: internal audit and management review."
 msgstr ""
 
-#: src/CertificationReadiness.php:144
+#: src/CertificationReadiness.php:147
 msgid "Act"
 msgstr ""
 
-#: src/CertificationReadiness.php:145
+#: src/CertificationReadiness.php:148
 msgid "Improve it: treat what the checks have found."
 msgstr ""
 
-#: src/CertificationReadiness.php:160 src/ManagementReviewAction.php:63
+#: src/CertificationReadiness.php:163 src/ManagementReviewAction.php:63
 #: src/PersonnelCompliance.php:303 src/PersonnelCompliance.php:336
 #: src/RiskTreatmentAction.php:89 src/RiskTreatmentAction.php:173
 #: src/SecurityIncidentPlaybookTask.php:67 templates/_crisis_review.html.twig
@@ -3896,443 +3920,458 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: src/CertificationReadiness.php:165
+#: src/CertificationReadiness.php:168
 msgid "Partly done"
 msgstr ""
 
-#: src/CertificationReadiness.php:170 src/SecurityIncidentPlaybookTask.php:61
+#: src/CertificationReadiness.php:173 src/SecurityIncidentPlaybookTask.php:61
 #: templates/crisis_room.html.twig templates/itil_regulatory_section.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "To do"
 msgstr ""
 
-#: src/CertificationReadiness.php:175
+#: src/CertificationReadiness.php:178
 msgid "Outside your rights"
 msgstr ""
 
-#: src/CertificationReadiness.php:191
+#: src/CertificationReadiness.php:194
 msgid "Define the scope of the ISMS"
 msgstr ""
 
-#: src/CertificationReadiness.php:193
+#: src/CertificationReadiness.php:196
 msgid ""
 "Write down which sites, activities, systems and teams the management system "
 "covers, and what is left out, then attach this document to requirement 4.3."
 msgstr ""
 
-#: src/CertificationReadiness.php:200
+#: src/CertificationReadiness.php:203
 msgid "Describe the context and the interested parties"
 msgstr ""
 
-#: src/CertificationReadiness.php:202
+#: src/CertificationReadiness.php:205
 msgid ""
 "List the internal and external issues and the interested parties with their "
 "expectations, and decide whether climate change matters for you."
 msgstr ""
 
-#: src/CertificationReadiness.php:209
+#: src/CertificationReadiness.php:212
 msgid "Approve the information security policy"
 msgstr ""
 
-#: src/CertificationReadiness.php:211
+#: src/CertificationReadiness.php:214
 msgid ""
 "Have management approve the security policy and set the date of its next "
 "review."
 msgstr ""
 
-#: src/CertificationReadiness.php:217
+#: src/CertificationReadiness.php:220
 msgid "Assign the roles and responsibilities"
 msgstr ""
 
-#: src/CertificationReadiness.php:219
+#: src/CertificationReadiness.php:222
 msgid ""
 "For each activity of the management system, name who carries it out, who is "
 "accountable, and who is consulted or informed."
 msgstr ""
 
-#: src/CertificationReadiness.php:226
+#: src/CertificationReadiness.php:229
 msgid "Assess the risks"
 msgstr ""
 
-#: src/CertificationReadiness.php:228
+#: src/CertificationReadiness.php:231
 msgid ""
 "Identify the risks, give each one an owner, rate them with your method and "
 "keep their review dates up to date."
 msgstr ""
 
-#: src/CertificationReadiness.php:235
+#: src/CertificationReadiness.php:238
 msgid "Decide how to treat the risks"
 msgstr ""
 
-#: src/CertificationReadiness.php:237
+#: src/CertificationReadiness.php:240
 msgid ""
 "Choose a treatment for each significant risk, have accepted risks approved, "
 "and follow up the treatment actions until they are done."
 msgstr ""
 
-#: src/CertificationReadiness.php:244
+#: src/CertificationReadiness.php:247
 msgid "Approve the Statement of Applicability"
 msgstr ""
 
-#: src/CertificationReadiness.php:246
+#: src/CertificationReadiness.php:249
 msgid ""
 "Justify whether each control applies, then have the Statement of "
 "Applicability approved; approve it again after any change."
 msgstr ""
 
-#: src/CertificationReadiness.php:253
+#: src/CertificationReadiness.php:256
 msgid "Set measurable security objectives"
 msgstr ""
 
-#: src/CertificationReadiness.php:255
+#: src/CertificationReadiness.php:258
 msgid ""
 "Define security objectives with an owner and a target, and record "
 "measurements to show their progress."
 msgstr ""
 
-#: src/CertificationReadiness.php:262
+#: src/CertificationReadiness.php:265
 msgid "Define and check the competences"
 msgstr ""
 
-#: src/CertificationReadiness.php:264
+#: src/CertificationReadiness.php:267
 msgid ""
 "For each function of the management system, list the competences it "
 "requires, say who holds it, record the competences acquired with their "
 "evidence, plan a training for each gap and archive the competence file."
 msgstr ""
 
-#: src/CertificationReadiness.php:272
+#: src/CertificationReadiness.php:275
 msgid "Train and raise awareness"
 msgstr ""
 
-#: src/CertificationReadiness.php:274
+#: src/CertificationReadiness.php:277
 msgid ""
 "Deliver security training and awareness sessions, and make sure the people "
 "concerned have completed them."
 msgstr ""
 
-#: src/CertificationReadiness.php:281
+#: src/CertificationReadiness.php:284
 msgid "Run a continuity or crisis exercise"
 msgstr ""
 
-#: src/CertificationReadiness.php:283
+#: src/CertificationReadiness.php:286
 msgid ""
 "Run at least one exercise, assess whether its objectives were met and have "
 "its review validated."
 msgstr ""
 
-#: src/CertificationReadiness.php:290
+#: src/CertificationReadiness.php:293
 msgid "Carry out the internal audit"
 msgstr ""
 
-#: src/CertificationReadiness.php:292
+#: src/CertificationReadiness.php:295
 msgid ""
 "Complete an internal audit and make sure the audit programme covers every "
 "requirement and every applicable control."
 msgstr ""
 
-#: src/CertificationReadiness.php:299
+#: src/CertificationReadiness.php:302
 msgid "Hold the management review"
 msgstr ""
 
-#: src/CertificationReadiness.php:301
+#: src/CertificationReadiness.php:304
 msgid ""
 "Hold a management review prepared with its input file, and record the "
 "decisions taken."
 msgstr ""
 
-#: src/CertificationReadiness.php:307
+#: src/CertificationReadiness.php:310
 msgid "Treat the nonconformities"
 msgstr ""
 
-#: src/CertificationReadiness.php:309
+#: src/CertificationReadiness.php:312
 msgid ""
 "Analyse each nonconformity, carry out its corrective action on time, and "
 "close it only once the action is done."
 msgstr ""
 
-#: src/CertificationReadiness.php:367
+#: src/CertificationReadiness.php:370
 #, php-format
 msgid "Declared requirements: %1$d of %2$d compliant"
 msgstr ""
 
-#: src/CertificationReadiness.php:431
+#: src/CertificationReadiness.php:436
 msgid "See the items to fix"
 msgstr ""
 
-#: src/CertificationReadiness.php:573
+#: src/CertificationReadiness.php:578
 #, php-format
 msgid "Declared status of requirement 4.3: %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:576
+#: src/CertificationReadiness.php:581
 #, php-format
 msgid "Documents attached: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:579
+#: src/CertificationReadiness.php:584
 msgid "Open requirement 4.3 (scope)"
 msgstr ""
 
-#: src/CertificationReadiness.php:596
+#: src/CertificationReadiness.php:601
 #, php-format
 msgid "Issues: %1$d, interested parties: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:601 templates/_context_summary.html.twig
+#: src/CertificationReadiness.php:606 templates/_context_summary.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Climate change question answered"
 msgstr ""
 
-#: src/CertificationReadiness.php:602 templates/_context_summary.html.twig
+#: src/CertificationReadiness.php:607 templates/_context_summary.html.twig
 msgid "Climate change question not answered yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:605
+#: src/CertificationReadiness.php:610
 #, php-format
 msgid "Reviews overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:641
+#: src/CertificationReadiness.php:646
 #, php-format
 msgid "Approved policies: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:642
+#: src/CertificationReadiness.php:647
 #, php-format
 msgid "Drafts: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:643
+#: src/CertificationReadiness.php:648
 #, php-format
 msgid "Approved policies whose review is overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:662
+#: src/CertificationReadiness.php:667
 #, php-format
 msgid "Activities in the matrix: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:665
+#: src/CertificationReadiness.php:670
 #, php-format
 msgid ""
 "Activities with a serious alert (no one accountable, several accountable, "
 "roles that should be separated): %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:697
+#: src/CertificationReadiness.php:702
 #, php-format
 msgid "Open risks: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:698
+#: src/CertificationReadiness.php:703
 #, php-format
 msgid "Without an owner: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:699
+#: src/CertificationReadiness.php:704
 #, php-format
 msgid "Review overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:727
+#: src/CertificationReadiness.php:732
 #, php-format
 msgid "High risks without a treatment decision: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:728
+#: src/CertificationReadiness.php:733
 #, php-format
 msgid "Accepted risks without approval: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:729
+#: src/CertificationReadiness.php:734
 #, php-format
 msgid "Treatment actions overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:753
+#: src/CertificationReadiness.php:758
 #, php-format
 msgid "Version %s approved, still up to date"
 msgstr ""
 
-#: src/CertificationReadiness.php:757 src/ConsistencyCheck.php:982
+#: src/CertificationReadiness.php:762 src/ConsistencyCheck.php:991
 #, php-format
 msgid "Changed since version %s was approved"
 msgstr ""
 
-#: src/CertificationReadiness.php:760 src/ConsistencyCheck.php:980
+#: src/CertificationReadiness.php:765 src/ConsistencyCheck.php:989
 #: templates/soa_approval.html.twig
 msgid "Never approved"
 msgstr ""
 
-#: src/CertificationReadiness.php:763
+#: src/CertificationReadiness.php:768
 msgid "An approval request is pending"
 msgstr ""
 
-#: src/CertificationReadiness.php:771 src/ConsistencyCheck.php:975
-#: src/ConsistencyCheck.php:977 src/ManagementReviewDossier.php:125
+#: src/CertificationReadiness.php:776 src/ConsistencyCheck.php:984
+#: src/ConsistencyCheck.php:986 src/ManagementReviewDossier.php:125
 #: templates/dashboard_perimeters.html.twig
 msgid "Statement of Applicability"
 msgstr ""
 
-#: src/CertificationReadiness.php:801
+#: src/CertificationReadiness.php:806
 #, php-format
 msgid "Objectives: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:802
+#: src/CertificationReadiness.php:807
 #, php-format
 msgid "With at least one measurement: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:820
+#: src/CertificationReadiness.php:825
 #, php-format
 msgid "ISMS functions: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:821
+#: src/CertificationReadiness.php:826
 #, php-format
 msgid "Functions without required competences: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:824
+#: src/CertificationReadiness.php:829
 #, php-format
 msgid "Functions that nobody holds: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:828
+#: src/CertificationReadiness.php:833
 #, php-format
 msgid "Competence gaps: %1$d, of which %2$d without a planned training"
 msgstr ""
 
-#: src/CertificationReadiness.php:833
+#: src/CertificationReadiness.php:838
 #, php-format
 msgid "Archived competence files: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:863
+#: src/CertificationReadiness.php:868
 #, php-format
 msgid "Trainings and sessions: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:865
+#: src/CertificationReadiness.php:870
 #, php-format
 msgid "Delivered in the last %1$d months: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:872
+#: src/CertificationReadiness.php:877
 #, php-format
 msgid "Participants who completed their training: %1$d %% (target: %2$d %%)"
 msgstr ""
 
-#: src/CertificationReadiness.php:904
+#: src/CertificationReadiness.php:909
 #, php-format
 msgid "Exercises in the last %1$d months: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:908
+#: src/CertificationReadiness.php:913
 #, php-format
 msgid "With a validated review: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:934
+#: src/CertificationReadiness.php:939
 #, php-format
 msgid "Last internal audit completed on %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:935
+#: src/CertificationReadiness.php:940
 msgid "No internal audit completed yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:937
+#: src/CertificationReadiness.php:942
 #, php-format
 msgid ""
 "Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
 msgstr ""
 
-#: src/CertificationReadiness.php:942
+#: src/CertificationReadiness.php:947
 #, php-format
 msgid "Coverage target: %d %%"
 msgstr ""
 
-#: src/CertificationReadiness.php:983
+#: src/CertificationReadiness.php:988
 msgid "Open the last management review"
 msgstr ""
 
-#: src/CertificationReadiness.php:993
+#: src/CertificationReadiness.php:998
 #, php-format
 msgid "Last management review completed on %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:994
+#: src/CertificationReadiness.php:999
 msgid "No management review completed yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:996
+#: src/CertificationReadiness.php:1001
 msgid "Input file prepared for the last review"
 msgstr ""
 
-#: src/CertificationReadiness.php:997
+#: src/CertificationReadiness.php:1002
 msgid "No input file prepared for the last review"
 msgstr ""
 
-#: src/CertificationReadiness.php:1027
+#: src/CertificationReadiness.php:1032
 #, php-format
 msgid "Open nonconformities: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:1028
+#: src/CertificationReadiness.php:1033
 #, php-format
 msgid "Overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:1029
+#: src/CertificationReadiness.php:1034
 #, php-format
 msgid "Closed without a corrective action: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:1038
+#: src/CertificationReadiness.php:1043
 #, php-format
 msgid ""
 "Findings of previous certification audits not lifted: %1$d (including %2$d "
 "nonconformities)"
 msgstr ""
 
-#: src/CertificationReadiness.php:1124 src/Objective.php:82
+#: src/CertificationReadiness.php:1176
+#, php-format
+msgid ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+msgstr ""
+
+#: src/CertificationReadiness.php:1194 src/Objective.php:82
 #: src/Objective.php:257
 msgid "On track"
 msgstr ""
 
-#: src/CertificationReadiness.php:1129
+#: src/CertificationReadiness.php:1199
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "At risk of being late"
 msgstr ""
 
-#: src/CertificationReadiness.php:1134
+#: src/CertificationReadiness.php:1204
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "Advised deadline passed"
 msgstr ""
 
-#: src/CertificationReadiness.php:1319
+#: src/CertificationReadiness.php:1389
 msgid "Advised deadline for the certification"
 msgstr ""
 
-#: src/CertificationReadiness.php:1325
+#: src/CertificationReadiness.php:1395
 #: src/NotificationTargetReadinessAlert.php:92
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "Target date of the certification audit"
 msgstr ""
 
-#: src/CertificationReadiness.php:1384
+#: src/CertificationReadiness.php:1454
 msgid "Certification readiness report"
 msgstr ""
 
 #: src/CertificationSampling.php:52 templates/certification_findings.html.twig
 #: templates/certification_sampling_tab.html.twig
 msgid "Audit plan of the certification body"
+msgstr ""
+
+#: src/Compat/Http.php:298
+#, php-format
+msgid ""
+"GLPI also refuses internal addresses for this plugin: add %s to the constant "
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 
 #: src/Competence.php:66
@@ -4811,7 +4850,7 @@ msgstr ""
 
 #: src/ComplianceObligation.php:222 src/ContextItem.php:841
 #: src/ContextItem.php:917 src/NetworkFlow.php:266 src/Objective.php:190
-#: src/Policy.php:191 src/ProcessingActivity.php:571
+#: src/Policy.php:202 src/ProcessingActivity.php:571
 #: src/ProcessingActivity.php:997 src/Risk.php:393 src/RiskIndicator.php:747
 #: src/RiskRegisterImport.php:611 src/RiskRegisterImport.php:612
 #: src/SupplierRisk.php:224 templates/compliance_obligation_form.html.twig
@@ -5170,125 +5209,136 @@ msgid ""
 "renew or replace the expired license."
 msgstr ""
 
-#: src/ConsistencyCheck.php:415
+#: src/ConsistencyCheck.php:405
+msgid "Expected operating domains without an approved procedure"
+msgstr ""
+
+#: src/ConsistencyCheck.php:407
+msgid ""
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
+msgstr ""
+
+#: src/ConsistencyCheck.php:423
 msgid "Tolerance (days)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:416
+#: src/ConsistencyCheck.php:424
 msgid "Period (months)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:417
+#: src/ConsistencyCheck.php:425
 msgid "Minimum length (characters)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:418
+#: src/ConsistencyCheck.php:426
 msgid "From risk level"
 msgstr ""
 
-#: src/ConsistencyCheck.php:624 src/EndOfLife.php:452
-#: src/HardwareWarranty.php:249 src/SoftwareLicenseCompliance.php:254
-#: src/SoftwareLicenseCompliance.php:272
+#: src/ConsistencyCheck.php:633 src/EndOfLife.php:452
+#: src/HardwareWarranty.php:249 src/SoftwareLicenseCompliance.php:321
+#: src/SoftwareLicenseCompliance.php:339
 #, php-format
 msgid "%1$s (ID %2$d)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:666
+#: src/ConsistencyCheck.php:675
 msgid "No review date"
 msgstr ""
 
-#: src/ConsistencyCheck.php:667
+#: src/ConsistencyCheck.php:676
 #, php-format
 msgid "Review was due on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:674
+#: src/ConsistencyCheck.php:683
 #, php-format
 msgid "Due on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:719 src/ConsistencyCheck.php:760
+#: src/ConsistencyCheck.php:728 src/ConsistencyCheck.php:769
 #: src/NetworkFlow.php:114 templates/_crisis_review.html.twig
 msgid "No owner"
 msgstr ""
 
-#: src/ConsistencyCheck.php:768
+#: src/ConsistencyCheck.php:777
 #, php-format
 msgid "Level: %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:777
+#: src/ConsistencyCheck.php:786
 #, php-format
 msgid "Accepted at level %s, no signed acceptance"
 msgstr ""
 
-#: src/ConsistencyCheck.php:845 src/NetworkFlow.php:113
+#: src/ConsistencyCheck.php:854 src/NetworkFlow.php:113
 #: templates/application_security_tab.html.twig
 #: templates/secure_development_page.html.twig
 msgid "No justification"
 msgstr ""
 
-#: src/ConsistencyCheck.php:846
+#: src/ConsistencyCheck.php:855
 #, php-format
 msgid "Justification too short: \"%s\""
 msgstr ""
 
-#: src/ConsistencyCheck.php:879
+#: src/ConsistencyCheck.php:888
 msgid "No linked risk"
 msgstr ""
 
-#: src/ConsistencyCheck.php:947
+#: src/ConsistencyCheck.php:956
 msgid "No valid document, never tested"
 msgstr ""
 
-#: src/ConsistencyCheck.php:948
+#: src/ConsistencyCheck.php:957
 #, php-format
 msgid "No valid document, last test on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1020
+#: src/ConsistencyCheck.php:1029
 #, php-format
 msgid "Action \"%1$s\" due on %2$s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1050
+#: src/ConsistencyCheck.php:1059
 #, php-format
 msgid "Ended on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1096
+#: src/ConsistencyCheck.php:1105
 #, php-format
 msgid "Valid until %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1137
+#: src/ConsistencyCheck.php:1146
 msgid "None recorded as completed"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1138
+#: src/ConsistencyCheck.php:1147
 #, php-format
 msgid "Last one on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1156
+#: src/ConsistencyCheck.php:1165
 msgid "Closed without a corrective action"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1227 templates/crisis_room.html.twig
+#: src/ConsistencyCheck.php:1236 templates/crisis_room.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "RTO not set"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1255
+#: src/ConsistencyCheck.php:1264
 msgid "DPIA required, not done"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1331
+#: src/ConsistencyCheck.php:1340
 #, php-format
 msgid "No longer supported: %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1442
+#: src/ConsistencyCheck.php:1451
 msgid "ISMS consistency checks: audit readiness"
 msgstr ""
 
@@ -5444,7 +5494,7 @@ msgstr ""
 #: src/NotificationTargetRisk.php:94
 #: src/NotificationTargetRiskIndicator.php:156
 #: src/NotificationTargetSupplierRisk.php:117 src/Playbook.php:214
-#: src/Policy.php:220 src/Risk.php:353 src/RiskIndicator.php:744
+#: src/Policy.php:231 src/Risk.php:353 src/RiskIndicator.php:744
 #: src/RiskRegisterImport.php:604 src/SupplierRisk.php:184
 #: templates/context_item_form.html.twig templates/pdf/context_report.html.twig
 #: templates/pdf/risk_register_report.html.twig templates/policy_form.html.twig
@@ -5506,7 +5556,7 @@ msgstr ""
 #: src/ProcessingActivity.php:574 src/ProcessingActivity.php:1010
 #: templates/context_item_form.html.twig
 #: templates/pdf/_context_review_cell.html.twig
-#: templates/periodic_reviews.html.twig
+#: templates/periodic_reviews.html.twig templates/policy_form.html.twig
 #: templates/processing_activity_form.html.twig
 msgid "Last review"
 msgstr ""
@@ -6427,7 +6477,7 @@ msgid "Tester"
 msgstr ""
 
 #: src/ControlTest.php:1082 src/PhysicalSecurityCheck.php:254
-#: src/SoftwareLicenseCompliance.php:339 templates/_crisis_review.html.twig
+#: src/SoftwareLicenseCompliance.php:410 templates/_crisis_review.html.twig
 #: templates/audit_checklist_tab.html.twig
 #: templates/certification_findings.html.twig
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
@@ -8335,14 +8385,14 @@ msgid_plural "EBIOS RM studies"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/EbiosStudy.php:91 src/Policy.php:100 src/Policy.php:296
+#: src/EbiosStudy.php:91 src/Policy.php:108 src/Policy.php:307
 #: src/PolicyVersion.php:116 src/SoaVersion.php:91
 #: templates/pdf/dpia_report.html.twig templates/policy_approval_tab.html.twig
 #: templates/tabs/dpia.html.twig
 msgid "Approved"
 msgstr ""
 
-#: src/EbiosStudy.php:92 src/Policy.php:101 src/Policy.php:297
+#: src/EbiosStudy.php:92 src/Policy.php:109 src/Policy.php:308
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
 #: templates/policy_approval_tab.html.twig
@@ -8513,7 +8563,7 @@ msgid "Not queried (earlier error or limit reached)"
 msgstr ""
 
 #: src/EndOfLife.php:181 src/NotificationTargetVulnerabilityDigest.php:256
-#: src/SoftwareLicenseCompliance.php:342 templates/park_item_tab.html.twig
+#: src/SoftwareLicenseCompliance.php:413 templates/park_item_tab.html.twig
 #: templates/park_vulnerabilities.html.twig
 #: templates/software_license_compliance.html.twig
 #: templates/software_watch.html.twig
@@ -9416,7 +9466,7 @@ msgstr ""
 msgid "Administration access"
 msgstr ""
 
-#: src/NetworkFlow.php:90 src/OperatingProcedure.php:111
+#: src/NetworkFlow.php:90 src/OperatingProcedure.php:113
 #: src/SecurityIncidentAction.php:61
 msgid "Backup"
 msgstr ""
@@ -9614,7 +9664,7 @@ msgid "Closure verification date"
 msgstr ""
 
 #: src/Nonconformity.php:409 src/NotificationTargetAuditEvidenceRequest.php:155
-#: src/Objective.php:199 src/Policy.php:200 src/RiskRegisterImport.php:603
+#: src/Objective.php:199 src/Policy.php:211 src/RiskRegisterImport.php:603
 #: src/Training.php:577 templates/_crisis_review.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/nonconformity_form.html.twig templates/objective_form.html.twig
@@ -9908,7 +9958,7 @@ msgid "Security incidents module disabled"
 msgstr ""
 
 #: src/NotificationTargetIncidentAccessWatch.php:87
-#: src/OperatingProcedure.php:119
+#: src/OperatingProcedure.php:121
 msgid "Changes"
 msgstr ""
 
@@ -9981,7 +10031,7 @@ msgstr ""
 msgid "Audience members who have not acknowledged the policy"
 msgstr ""
 
-#: src/NotificationTargetPolicy.php:133 src/Policy.php:183
+#: src/NotificationTargetPolicy.php:133 src/Policy.php:194
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/_context_review_cell.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
@@ -10538,51 +10588,59 @@ msgstr ""
 msgid "Say whether the contact was informed or not required."
 msgstr ""
 
-#: src/OperatingProcedure.php:54
+#: src/OperatingProcedure.php:56
 msgid "Operating procedure"
 msgid_plural "Operating procedures"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/OperatingProcedure.php:112
+#: src/OperatingProcedure.php:114
 msgid "Restore"
 msgstr ""
 
-#: src/OperatingProcedure.php:113
+#: src/OperatingProcedure.php:115
 msgid "Monitoring"
 msgstr ""
 
-#: src/OperatingProcedure.php:114
+#: src/OperatingProcedure.php:116
 msgid "Logs"
 msgstr ""
 
-#: src/OperatingProcedure.php:115
+#: src/OperatingProcedure.php:117
 msgid "Updates"
 msgstr ""
 
-#: src/OperatingProcedure.php:116
+#: src/OperatingProcedure.php:118
 msgid "Deployment"
 msgstr ""
 
-#: src/OperatingProcedure.php:117
+#: src/OperatingProcedure.php:119
 msgid "Access management"
 msgstr ""
 
-#: src/OperatingProcedure.php:118
+#: src/OperatingProcedure.php:120
 msgid "Incident management"
 msgstr ""
 
-#: src/OperatingProcedure.php:120
+#: src/OperatingProcedure.php:122
 msgid "Maintenance"
 msgstr ""
 
-#: src/OperatingProcedure.php:330 templates/control_form.html.twig
+#: src/OperatingProcedure.php:400 templates/control_form.html.twig
 msgid "Register of operating procedures"
 msgstr ""
 
-#: src/OperatingProcedure.php:357
+#: src/OperatingProcedure.php:428
 #, php-format
 msgid "Register of operating procedures - %s"
+msgstr ""
+
+#: src/OperatingProcedure.php:519
+msgid "No operating procedure for this domain"
+msgstr ""
+
+#: src/OperatingProcedure.php:520
+msgid "Procedure not approved yet"
 msgstr ""
 
 #: src/PageHelp.php:37
@@ -12305,7 +12363,7 @@ msgid "Last reviewed on %s, more than 12 months ago"
 msgstr ""
 
 #: src/PersonnelCompliance.php:385 templates/context_item_form.html.twig
-#: templates/pdf/_context_review_cell.html.twig
+#: templates/pdf/_context_review_cell.html.twig templates/policy_form.html.twig
 msgid "Never reviewed"
 msgstr ""
 
@@ -12609,13 +12667,13 @@ msgstr[1] ""
 msgid "The step name is required."
 msgstr ""
 
-#: src/Policy.php:70
+#: src/Policy.php:78
 msgid "Security policy"
 msgid_plural "Security policies"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Policy.php:99 src/Policy.php:295 src/ProcessingActivity.php:130
+#: src/Policy.php:107 src/Policy.php:306 src/ProcessingActivity.php:130
 #: templates/_crisis_review.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
@@ -12624,47 +12682,54 @@ msgstr[1] ""
 msgid "Draft"
 msgstr ""
 
-#: src/Policy.php:175 templates/acn_requirement_form.html.twig
-#: templates/operating_procedure_register.html.twig
-#: templates/pdf/operating_procedures_report.html.twig
+#: src/Policy.php:186 templates/acn_requirement_form.html.twig
 #: templates/policy_form.html.twig
 msgid "Approval date"
 msgstr ""
 
-#: src/Policy.php:228 templates/policy_form.html.twig
+#: src/Policy.php:239 templates/policy_form.html.twig
 msgid "Procedure domain"
 msgstr ""
 
-#: src/Policy.php:352
-msgid "An approval date is required to mark a policy as approved."
+#: src/Policy.php:370
+msgid "A review can only be recorded on an approved operating procedure."
 msgstr ""
 
 #: src/Policy.php:408
+msgid "An approval date is required to mark a policy as approved."
+msgstr ""
+
+#: src/Policy.php:464
 msgid ""
 "With the approval workflow, a policy becomes \"Approved\" only once its "
 "designated approvers have approved it: use the \"Approval\" tab."
 msgstr ""
 
-#: src/Policy.php:425
+#: src/Policy.php:481
 msgid ""
 "This version is awaiting approval: its content is frozen. Withdraw the "
 "request to modify it."
 msgstr ""
 
-#: src/Policy.php:429
+#: src/Policy.php:485
 msgid ""
 "This version has been approved: its content is frozen. Prepare a new version "
 "from the \"Approval\" tab to modify it."
 msgstr ""
 
-#: src/Policy.php:454
+#: src/Policy.php:511
+#, php-format
+msgid "Review recorded. Next review: %s."
+msgstr ""
+
+#: src/Policy.php:521
 #, php-format
 msgid ""
 "New version %1$s: an acknowledgement campaign has been launched for %2$d "
 "person(s)."
 msgstr ""
 
-#: src/Policy.php:554
+#: src/Policy.php:627
 #, php-format
 msgid "%d policy(ies) awaiting review, %d notification(s) raised."
 msgstr ""
@@ -15426,105 +15491,130 @@ msgstr ""
 msgid "Statement of Applicability - version %d"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:57 templates/control_form.html.twig
+#: src/SoftwareLicenseCompliance.php:60 templates/control_form.html.twig
 msgid "Software license compliance"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:62
+#: src/SoftwareLicenseCompliance.php:65
 msgid "Software licenses"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:132
+#: src/SoftwareLicenseCompliance.php:135
 msgid "Commercial software without a license"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:136
+#: src/SoftwareLicenseCompliance.php:139
 msgid ""
 "Installed software from a watched publisher, with no license recorded in "
 "GLPI for this entity."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:141
+#: src/SoftwareLicenseCompliance.php:144
 msgid "More installations than licensed seats"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:145
+#: src/SoftwareLicenseCompliance.php:148
 msgid ""
 "More assets have the software than the valid licenses allow. An unlimited "
 "license (number 0 or less) covers everything."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:151
+#: src/SoftwareLicenseCompliance.php:154
 msgid "Expired license still in use"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:155
+#: src/SoftwareLicenseCompliance.php:158
 msgid ""
 "The license has expired but assets are still assigned to it, or the software "
 "is still installed with no other valid license."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:171
+#: src/SoftwareLicenseCompliance.php:165
+msgid "License expiring soon"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:169
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:185
 msgid "in this entity and its sub-entities"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:172
+#: src/SoftwareLicenseCompliance.php:186
 msgid "in this entity"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:177
+#: src/SoftwareLicenseCompliance.php:191
 #, php-format
 msgid "%1$d asset has it %2$s, no license recorded."
 msgid_plural "%1$d assets have it %2$s, no license recorded."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/SoftwareLicenseCompliance.php:187
+#: src/SoftwareLicenseCompliance.php:201
 #, php-format
 msgid "%1$d asset has it %3$s for %2$d licensed seat(s)."
 msgid_plural "%1$d assets have it %3$s for %2$d licensed seat(s)."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/SoftwareLicenseCompliance.php:197
+#: src/SoftwareLicenseCompliance.php:211
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:216
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:223
 #, php-format
 msgid ""
 "Expired on %1$s: %2$d asset(s) still assigned, %3$d installation(s) %4$s."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:343
+#: src/SoftwareLicenseCompliance.php:414
 msgid "Publisher"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:344 templates/software_watch.html.twig
+#: src/SoftwareLicenseCompliance.php:415 templates/software_watch.html.twig
 msgid "Installations"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:345
+#: src/SoftwareLicenseCompliance.php:416
 msgid "Licensed seats"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:346
+#: src/SoftwareLicenseCompliance.php:417
 msgid "License"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:347
+#: src/SoftwareLicenseCompliance.php:418
 msgid "Expiration date"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:348
+#: src/SoftwareLicenseCompliance.php:419
 msgid "Assets still assigned"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:356
+#: src/SoftwareLicenseCompliance.php:420
+msgid "Over-quota allowed by the license"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:428
 msgid "Entity and sub-entities"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:357
+#: src/SoftwareLicenseCompliance.php:429
 msgid "Entity only"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:414
+#: src/SoftwareLicenseCompliance.php:499
 #, php-format
 msgid "%1$s (%2$s): %3$s"
 msgstr ""
@@ -17552,6 +17642,13 @@ msgid "the %d most recent shown"
 msgstr ""
 
 #: templates/audit_programme.html.twig
+msgid ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+msgstr ""
+
+#: templates/audit_programme.html.twig
 #, php-format
 msgid "%d applicable control(s) not audited over the cycle."
 msgstr ""
@@ -17639,6 +17736,11 @@ msgstr ""
 
 #: templates/audit_programme.html.twig
 #, php-format
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr ""
+
+#: templates/audit_programme.html.twig
+#, php-format
 msgid "Processes audited over the cycle: %1$d of %2$d (%3$d %%)"
 msgstr ""
 
@@ -17659,9 +17761,10 @@ msgstr ""
 msgid ""
 "An auditor must not audit their own work (ISO 19011). An auditor who "
 "performs or approves an audited process in the responsibility matrix, "
-"directly or through a group, is in conflict. The audit cannot be started or "
-"closed until each conflict is justified; the justification is kept with its "
-"author and date."
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
@@ -17744,6 +17847,12 @@ msgid ""
 "The results of the audit must be reported to management (ISO 27001 9.2.2). "
 "The delivery date and the recipient appear in the management review dossier "
 "(9.3.2 d 3)."
+msgstr ""
+
+#: templates/audit_programme_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#, php-format
+msgid "Through the audited controls %s"
 msgstr ""
 
 #: templates/audit_programme_tab.html.twig
@@ -18095,9 +18204,28 @@ msgid ""
 msgstr ""
 
 #: templates/certification_readiness.html.twig
+#, php-format
+msgid ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Adjusted"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 #, php-format
 msgid "Advised deadline: %s"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Advised deadlines per step"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Alert (days)"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
@@ -18114,7 +18242,24 @@ msgid "Coverage target (%)"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
 msgid "Date entered in the settings of this page."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Days before the target date"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Default"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
@@ -18200,6 +18345,14 @@ msgstr ""
 
 #: templates/certification_readiness.html.twig
 msgid ""
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
 "Once certified, enter the certification date in the settings, or complete "
 "the initial certification audit: the page then follows the three-year cycle "
 "(two annual surveillance audits, then the recertification) and highlights "
@@ -18226,6 +18379,13 @@ msgstr ""
 
 #: templates/certification_readiness.html.twig
 msgid "Settings of the certification readiness"
+msgstr ""
+
+#: templates/certification_readiness.html.twig templates/crisis_room.html.twig
+#: templates/pdf/certification_readiness_report.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/tabs/playbook_steps.html.twig
+msgid "Step"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
@@ -19867,7 +20027,7 @@ msgid ""
 "relevant. A justification is required in both cases."
 msgstr ""
 
-#: templates/context_item_form.html.twig
+#: templates/context_item_form.html.twig templates/policy_form.html.twig
 #, php-format
 msgid "%1$s by %2$s"
 msgstr ""
@@ -19955,7 +20115,7 @@ msgid ""
 "be printed."
 msgstr ""
 
-#: templates/context_item_form.html.twig
+#: templates/context_item_form.html.twig templates/policy_form.html.twig
 msgid "Record the review"
 msgstr ""
 
@@ -20226,6 +20386,11 @@ msgstr ""
 
 #: templates/control_form.html.twig
 #, php-format
+msgid "%d license(s) expiring soon"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
 msgid "%d node(s)"
 msgstr ""
 
@@ -20291,6 +20456,12 @@ msgstr ""
 #: templates/official_contact_register.html.twig
 #, php-format
 msgid "%d verified within 12 months"
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/operating_procedure_register.html.twig
+#, php-format
+msgid "%d without content"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -20406,6 +20577,12 @@ msgstr ""
 
 #: templates/control_form.html.twig
 msgid "Indicative mapping made by this project: see"
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "License coverage: %d%%"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -20789,6 +20966,14 @@ msgstr ""
 #: templates/control_test_sample.html.twig
 #: templates/pdf/control_test_record.html.twig
 msgid "Drawn by"
+msgstr ""
+
+#: templates/control_test_sample.html.twig
+#: templates/pdf/control_test_record.html.twig
+msgid ""
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
 
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
@@ -21535,13 +21720,6 @@ msgstr ""
 #: templates/crisis_room.html.twig
 #, php-format
 msgid "Started on %1$s by %2$s."
-msgstr ""
-
-#: templates/crisis_room.html.twig
-#: templates/pdf/certification_readiness_report.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
-#: templates/tabs/playbook_steps.html.twig
-msgid "Step"
 msgstr ""
 
 #: templates/crisis_room.html.twig templates/crisis_tab.html.twig
@@ -22936,6 +23114,15 @@ msgid ""
 msgstr ""
 
 #: templates/dora/register.html.twig
+msgid ""
+"One CSV file per template of the implementing regulation, with the official "
+"column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
+"written with their official English wording: your reporting tool converts "
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
+msgstr ""
+
+#: templates/dora/register.html.twig
 msgid "Partly: complete by hand"
 msgstr ""
 
@@ -23234,6 +23421,15 @@ msgstr ""
 
 #: templates/endoflife_config.html.twig
 msgid "Warn this many days before the end of support"
+msgstr ""
+
+#: templates/endoflife_config.html.twig
+msgid ""
+"Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
+"or \"Mozilla Firefox\"). For any other name, add a link: type the name "
+"exactly as GLPI shows it, and the product identifier found in the address of "
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/evidence_tab.html.twig
@@ -24474,11 +24670,36 @@ msgid "%1$d of %2$d people (%3$d%%)"
 msgstr ""
 
 #: templates/operating_procedure_register.html.twig
+#, php-format
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/operating_procedure_register.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/operating_procedure_register.html.twig
 msgid "Add an operating procedure"
 msgstr ""
 
 #: templates/operating_procedure_register.html.twig
 msgid "Add the procedure"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+msgid "Approval and review"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+#, php-format
+msgid "Approved: %s"
 msgstr ""
 
 #: templates/operating_procedure_register.html.twig
@@ -24501,6 +24722,17 @@ msgstr ""
 
 #: templates/operating_procedure_register.html.twig
 msgid ""
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+msgid "No content"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid ""
 "No expected domain is set. Choose them in the configuration of the plugin."
 msgstr ""
 
@@ -24514,6 +24746,10 @@ msgstr ""
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
 msgid "No procedure"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+msgid "No review recorded"
 msgstr ""
 
 #: templates/operating_procedure_register.html.twig
@@ -24536,8 +24772,20 @@ msgid "Procedures"
 msgstr ""
 
 #: templates/operating_procedure_register.html.twig
+msgid ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
 msgid "Review due"
+msgstr ""
+
+#: templates/operating_procedure_register.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+#, php-format
+msgid "Reviewed on %1$s by %2$s"
 msgstr ""
 
 #: templates/operating_procedure_register.html.twig
@@ -24650,6 +24898,13 @@ msgstr ""
 
 #: templates/park_endoflife.html.twig
 msgid "No followed item in your entities."
+msgstr ""
+
+#: templates/park_endoflife.html.twig
+msgid ""
+"Not enabled: the plugin can show which software, operating systems and "
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -25931,6 +26186,15 @@ msgstr ""
 
 #: templates/pdf/operating_procedures_report.html.twig
 msgid "Expected domains"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+#, php-format
+msgid "Knowledge base article: %s"
+msgstr ""
+
+#: templates/pdf/operating_procedures_report.html.twig
+msgid "Procedures without content"
 msgstr ""
 
 #: templates/pdf/personnel_compliance_report.html.twig
@@ -27255,6 +27519,12 @@ msgid "Version %s approved after this campaign: to be signed"
 msgstr ""
 
 #: templates/policy_form.html.twig
+msgid ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+msgstr ""
+
+#: templates/policy_form.html.twig
 msgid "An approval date is required to switch to the \"Approved\" status."
 msgstr ""
 
@@ -27277,6 +27547,13 @@ msgstr ""
 msgid ""
 "Operating procedures only. The list of expected domains is set in the "
 "configuration of the plugin."
+msgstr ""
+
+#: templates/policy_form.html.twig
+msgid ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
 msgstr ""
 
 #: templates/policy_form.html.twig
@@ -28766,6 +29043,13 @@ msgid "%1$d findings: the first %2$d are shown, all of them are in the export."
 msgstr ""
 
 #: templates/software_license_compliance.html.twig
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
 msgid ""
 "A license counts for an entity when it belongs to it, or when it is "
 "recursive and belongs to a parent entity. Nothing is changed in GLPI from "
@@ -28781,6 +29065,10 @@ msgid "Ignored software (part of the name, one per line)"
 msgstr ""
 
 #: templates/software_license_compliance.html.twig
+msgid "License coverage"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
 msgid "Licenses in GLPI"
 msgstr ""
 
@@ -28788,6 +29076,14 @@ msgstr ""
 msgid ""
 "No finding in your entities: every watched commercial software has a "
 "license, no license is overused, and no expired license is still in use."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "No warning before a license expires."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Over-quota allowed"
 msgstr ""
 
 #: templates/software_license_compliance.html.twig
@@ -28799,6 +29095,15 @@ msgid ""
 "Software from these publishers (manufacturer in GLPI) must have a license "
 "recorded. Software whose name contains one of the ignored words (free tools "
 "from the same publishers) is never reported as missing a license."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "Warning %d days before a license expires."
 msgstr ""
 
 #: templates/software_license_compliance.html.twig
@@ -29737,6 +30042,12 @@ msgid "Size"
 msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
+msgid ""
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+msgstr ""
+
+#: templates/tabs/incident_evidence.html.twig
 msgid "evidence(s)"
 msgstr ""
 
@@ -30312,234 +30623,6 @@ msgid "The waiver \"%1$s\" ended on %2$s."
 msgstr ""
 
 
-#: src/SoftwareLicenseCompliance.php:165
-msgid "License expiring soon"
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:169
-msgid ""
-"A license in use expires within the alert horizon and no renewal is recorded "
-"in GLPI yet. This is a reminder, not a gap."
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:211
-msgid ""
-"The license allows going over the number of seats: settle it with the "
-"publisher."
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:216
-#, php-format
-msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:420
-msgid "Over-quota allowed by the license"
-msgstr ""
-
-#: templates/control_form.html.twig
-#, php-format
-msgid "%d license(s) expiring soon"
-msgstr ""
-
-#: templates/control_form.html.twig
-#: templates/software_license_compliance.html.twig
-#, php-format
-msgid "License coverage: %d%%"
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
-#, php-format
-msgid ""
-"%1$d of %2$d watched commercial software installed (per entity) have a valid "
-"license."
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
-msgid "License coverage"
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
-msgid "No warning before a license expires."
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
-msgid "Over-quota allowed"
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
-msgid "Warn before a license expires (days, 0 to turn off)"
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
-#, php-format
-msgid "Warning %d days before a license expires."
-msgstr ""
-
-#: src/AuditLog.php:91
-msgid "Periodic review recorded"
-msgstr ""
-
-#: src/ConsistencyCheck.php:405
-msgid "Expected operating domains without an approved procedure"
-msgstr ""
-
-#: src/ConsistencyCheck.php:407
-msgid ""
-"Open the register of operating procedures, add the missing procedure (or a "
-"knowledge base article linked to it) and have it approved, or remove the "
-"domain from the expected list."
-msgstr ""
-
-#: src/OperatingProcedure.php:519
-msgid "No operating procedure for this domain"
-msgstr ""
-
-#: src/OperatingProcedure.php:520
-msgid "Procedure not approved yet"
-msgstr ""
-
-#: src/Policy.php:370
-msgid "A review can only be recorded on an approved operating procedure."
-msgstr ""
-
-#: src/Policy.php:511
-#, php-format
-msgid "Review recorded. Next review: %s."
-msgstr ""
-
-#: templates/control_form.html.twig
-#: templates/operating_procedure_register.html.twig
-#, php-format
-msgid "%d without content"
-msgstr ""
-
-#: templates/operating_procedure_register.html.twig
-#, php-format
-msgid "%d article you cannot read"
-msgid_plural "%d articles you cannot read"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/operating_procedure_register.html.twig
-#: templates/pdf/operating_procedures_report.html.twig
-#, php-format
-msgid "%d document"
-msgid_plural "%d documents"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/operating_procedure_register.html.twig
-#: templates/pdf/operating_procedures_report.html.twig
-msgid "Approval and review"
-msgstr ""
-
-#: templates/operating_procedure_register.html.twig
-#, php-format
-msgid "Approved: %s"
-msgstr ""
-
-#: templates/operating_procedure_register.html.twig
-msgid ""
-"Link a knowledge base article from the Knowledge base tab of the procedure, "
-"or attach the document from its Documents tab."
-msgstr ""
-
-#: templates/operating_procedure_register.html.twig
-#: templates/pdf/operating_procedures_report.html.twig
-msgid "No content"
-msgstr ""
-
-#: templates/operating_procedure_register.html.twig
-msgid "No review recorded"
-msgstr ""
-
-#: templates/operating_procedure_register.html.twig
-msgid ""
-"Procedures with neither a knowledge base article nor an attached document: "
-"the auditor cannot read them."
-msgstr ""
-
-#: templates/operating_procedure_register.html.twig
-#: templates/pdf/operating_procedures_report.html.twig
-#, php-format
-msgid "Reviewed on %1$s by %2$s"
-msgstr ""
-
-#: templates/pdf/operating_procedures_report.html.twig
-#, php-format
-msgid "Knowledge base article: %s"
-msgstr ""
-
-#: templates/pdf/operating_procedures_report.html.twig
-msgid "Procedures without content"
-msgstr ""
-
-#: templates/policy_form.html.twig
-msgid ""
-"A review can be recorded once the procedure is approved. Changes to the "
-"procedure go through a new version."
-msgstr ""
-
-#: templates/policy_form.html.twig
-msgid ""
-"Records today as the review date of the procedure, with your name, without a "
-"new version. The next review is the date set above if you moved it later, "
-"one year later otherwise. Your other changes on this form are saved too."
-msgstr ""
-
-
-#: src/CertificationReadiness.php:1176
-#, php-format
-msgid ""
-"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
-"deadlines."
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-#, php-format
-msgid ""
-"A step not done is at risk of being late when its advised deadline is within "
-"%d days."
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid "Adjusted"
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid "Advised deadlines per step"
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid "Alert (days)"
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid ""
-"Coverage target: share of the requirements and controls the audit programme "
-"must have covered over the last three years for the internal audit step to "
-"be done. Training target: share of the participants who must have completed "
-"their training. Alert: number of days before an advised deadline from which "
-"the step is at risk and the owner is notified."
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid "Days before the target date"
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid "Default"
-msgstr ""
-
-#: templates/certification_readiness.html.twig
-msgid ""
-"Number of days before the target date by which each step should be done. "
-"Keep the logical order: the internal audit before the management review that "
-"uses its results, then the treatment of nonconformities. A change only moves "
-"the advised deadlines: nothing else is modified."
-msgstr ""
-
 #: front/crisisexercise.form.php:168
 msgid "The exercise type could not be changed."
 msgstr ""
@@ -30578,21 +30661,6 @@ msgstr ""
 
 #: src/BusinessProcessRecovery.php:724
 msgid "Not tested"
-msgstr ""
-
-#: src/CanonicalProduct.php:187
-msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
-msgstr ""
-
-#: src/Compat/Http.php:298
-#, php-format
-msgid ""
-"GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
 msgstr ""
 
 #: src/PageHelp.php:939
@@ -30670,14 +30738,6 @@ msgid ""
 "Untick a type you do not use, and add your own types, one per line."
 msgstr ""
 
-#: templates/control_test_sample.html.twig
-#: templates/pdf/control_test_record.html.twig
-msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of "
-"\"seed:identifier\"; the first items of this ranking form the sample. The "
-"same population and the same seed always give the same sample."
-msgstr ""
-
 #: templates/crisis_exercises.html.twig templates/crisis_room.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/item_business_processes.html.twig
@@ -30706,31 +30766,6 @@ msgid ""
 "The data loss (time between the last usable backup and the incident) is "
 "compared with its RPO; leave it empty if it was not measured, enter 0 if no "
 "data was lost."
-msgstr ""
-
-#: templates/dora/register.html.twig
-msgid ""
-"One CSV file per template of the implementing regulation, with the official "
-"column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
-"written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
-msgstr ""
-
-#: templates/endoflife_config.html.twig
-msgid ""
-"Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
-"or \"Mozilla Firefox\"). For any other name, add a link: type the name "
-"exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
-msgstr ""
-
-#: templates/park_endoflife.html.twig
-msgid ""
-"Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
 msgstr ""
 
 #: templates/tabs/business_process_recovery.html.twig
@@ -30781,12 +30816,6 @@ msgstr ""
 msgid "Within the RPO"
 msgstr ""
 
-#: templates/tabs/incident_evidence.html.twig
-msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
-msgstr ""
-
 #: templates/tabs/item_business_processes.html.twig
 msgid "No recovery test has covered this item yet."
 msgstr ""
@@ -30809,3 +30838,4 @@ msgstr ""
 #: templates/tabs/item_business_processes.html.twig
 msgid "This item was tested"
 msgstr ""
+

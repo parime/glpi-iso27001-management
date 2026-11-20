@@ -27291,3 +27291,47 @@ msgstr "Tage vor dem Zieldatum"
 
 msgid "Adjusted"
 msgstr "Angepasst"
+
+#, php-format
+msgid ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+msgstr ""
+"Ein Auditor darf seine eigene Arbeit nicht auditieren (ISO 19011). Ein "
+"Auditor, der einen auditierten Prozess in der Verantwortlichkeitsmatrix "
+"direkt oder über eine Gruppe ausführt oder genehmigt, befindet sich in einem "
+"Konflikt. Das Audit kann erst gestartet oder abgeschlossen werden, wenn "
+"jeder Konflikt begründet ist; die Begründung wird mit Verfasser und Datum "
+"aufbewahrt. Ein Prozess, dessen Anhang-A-Maßnahmen (Verantwortungsmatrix) in "
+"der Checkliste geprüft werden oder mit dem Audit verknüpft sind, wird "
+"ebenfalls geprüft."
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr ""
+"Ein Audit kann nur für das laufende oder ein späteres Jahr geplant werden."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr ""
+"Audit geplant: Ergänzen Sie Ziele, Geltungsbereich, Kriterien und Auditoren."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Internes Audit - %1$s - %2$d"
+
+msgid ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+msgstr ""
+"„Planen“ legt ein internes Audit für den Prozess und das Jahr in der Entität "
+"des Prozesses an. Ergänzen Sie danach Ziele, Geltungsbereich, Kriterien und "
+"Auditoren im Audit."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Internes Audit von %1$s für %2$d planen"
+
+msgid "Through the audited controls %s"
+msgstr "Über die geprüften Maßnahmen %s"
