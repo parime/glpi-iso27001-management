@@ -61,8 +61,13 @@ final class EvidencePackRules
      *
      * @param string $validityStatus statut EvidenceValidity (none, valid, expiring, expired)
      */
-    public static function state(string $validityStatus, bool $hasFile, int $size, int $usedBytes, int $maxBytes): string
-    {
+    public static function state(
+        string $validityStatus,
+        bool $hasFile,
+        int $size,
+        int $usedBytes,
+        int $maxBytes
+    ): string {
         if ($validityStatus === EvidenceValidity::STATUS_EXPIRED) {
             return self::STATE_EXPIRED;
         }
