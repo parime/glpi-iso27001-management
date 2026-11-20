@@ -369,10 +369,11 @@ class CrisisCommunication extends CrisisCommunicationBase
             'itemtype'      => PluginGrcmanagerSecurityIncident::class,
             'items_id'      => $incident->getID(),
             'is_private'    => 1,
-            'content'       => implode('', array_map(
-                static fn (string $text): string => '<p>' . htmlescape($text) . '</p>',
-                $paragraphs
-            )),
+            // Paragraphes échappés par le gabarit (aucun HTML écrit en PHP).
+            'content'       => TemplateRenderer::getInstance()->render(
+                '@grcmanager/crisis_communication_journal.html.twig',
+                ['paragraphs' => $paragraphs]
+            ),
             '_disablenotif' => true,
         ]);
     }
