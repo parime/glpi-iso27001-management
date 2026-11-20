@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.64.0] - 2026-11-20
+
 ### Added
 
 - **Fiche de conformité sécurité de chaque collaborateur** (issue #546, A.6.1, A.6.2, A.6.3, A.6.5,
