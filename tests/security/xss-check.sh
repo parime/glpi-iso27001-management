@@ -99,6 +99,8 @@ check "onglet validation de mise en production" "$(tab Change 'GlpiPlugin%5CGrcm
 check "preuve developpement securise (A.8.31)" "$P/control.form.php?id=$(xid control_a831)"
 # Issue #779 : logiciel et ordinateur pieges (page des licences logicielles).
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
+# Issue #847 : ordinateur, outil et algorithme de chiffrement pieges (chiffrement des disques).
+check "front/diskencryption.php"              "$P/diskencryption.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).
 check "front/parkvulnerability.php?warranty=all" "$P/parkvulnerability.php?warranty=all"
 # Issue #604 : campagne de simulation d'hameconnage piegee (liste et tendance, fiche, onglet Resultats,

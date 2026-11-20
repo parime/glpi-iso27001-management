@@ -23,14 +23,18 @@ use ChangeValidation;
 use CommonGLPI;
 use CommonITILValidation;
 use Computer;
+use ComputerType;
 use Config;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
+use GlpiPlugin\Grcmanager\Services\Compliance\DiskEncryptionRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 use Html;
 use Item_Disk;
+use Location;
 use Item_Ticket;
 use Session;
 use State;
@@ -58,6 +62,15 @@ class ComplianceAudit extends CommonGLPI
 
     /** Clé de configuration (contexte plugin:grcmanager) : statuts exclus, liste JSON d'identifiants. */
     public const EXCLUDED_STATES_KEY = 'compliance_excluded_states';
+
+    /**
+     * Issue #847 : clé de configuration (contexte plugin:grcmanager) de la règle « doit être
+     * chiffré » (JSON, DiskEncryptionRules::normalizeRule()).
+     */
+    public const ENCRYPTION_RULE_KEY = 'disk_encryption_rule';
+
+    /** Contrôles calculés sur les ordinateurs (droit natif de lecture des ordinateurs). */
+    private const COMPUTER_CHECKS = ['antivirus', 'encryption', 'laptop_encryption', 'inventory'];
 
     /** Changements clos sur cette période (jours) contrôlés. */
     public const CHANGE_PERIOD_DAYS = 365;
@@ -121,10 +134,20 @@ class ComplianceAudit extends CommonGLPI
             'encryption'        => [
                 'label' => __('Computers with an unencrypted disk', 'grcmanager'),
                 'help'  => __(
-                    'From the volume inventory: at least one unencrypted or partially encrypted disk. Only '
+                    'From the volume inventory: at least one unencrypted or partially encrypted disk, or a weak '
+                        . 'encryption algorithm, on a computer that must be encrypted ("Disk encryption" page). Only '
                         . 'computers whose volumes are inventoried are counted. Volumes without a drive letter (EFI, '
                         . 'recovery), network shares, optical media, FAT partitions and, on Linux, /boot and '
                         . 'pseudo-filesystems are ignored.',
+                    'grcmanager'
+                ),
+            ],
+            // Issue #847 : portables (type d'ordinateur), quelle que soit la règle réglée (A.8.1).
+            'laptop_encryption' => [
+                'label' => __('Laptops with an unencrypted disk', 'grcmanager'),
+                'help'  => __(
+                    'Same check, limited to laptops and tablets (computer type reported by the inventory '
+                        . 'agent, such as Laptop or Notebook), which are the most exposed outside the premises.',
                     'grcmanager'
                 ),
             ],
@@ -218,6 +241,7 @@ class ComplianceAudit extends CommonGLPI
         return [
             'antivirus'         => $computers === null ? self::notEvaluated() : self::antivirus($computers, $now),
             'encryption'        => $computers === null ? self::notEvaluated() : self::encryption($computers),
+            'laptop_encryption' => $computers === null ? self::notEvaluated() : self::laptopEncryption($computers),
             'inventory'         => $computers === null ? self::notEvaluated() : self::inventory($computers, $now),
             // Liste (et lie au ticket) tous les changements des entités : réservé à qui voit tous
             // les changements. Change::canView() est vrai aussi avec « mes changements » ou un
@@ -240,16 +264,17 @@ class ComplianceAudit extends CommonGLPI
     public static function runCheck(string $check, int $approvals = 1, ?string $now = null): array
     {
         $now ??= Session::getCurrentTime();
-        if (in_array($check, ['antivirus', 'encryption', 'inventory'], true)) {
+        if (in_array($check, self::COMPUTER_CHECKS, true)) {
             if (!Computer::canView()) {
                 return self::notEvaluated();
             }
             $computers = self::computers();
 
             return match ($check) {
-                'antivirus'  => self::antivirus($computers, $now),
-                'encryption' => self::encryption($computers),
-                default      => self::inventory($computers, $now),
+                'antivirus'         => self::antivirus($computers, $now),
+                'encryption'        => self::encryption($computers),
+                'laptop_encryption' => self::laptopEncryption($computers),
+                default             => self::inventory($computers, $now),
             };
         }
         if ($check === 'change_validation') {
@@ -273,13 +298,15 @@ class ComplianceAudit extends CommonGLPI
      */
     public static function gapRate(string $check, array $entityIds): ?float
     {
-        if (!in_array($check, ['antivirus', 'encryption'], true) || $entityIds === []) {
+        if (!in_array($check, ['antivirus', 'encryption', 'laptop_encryption'], true) || $entityIds === []) {
             return null;
         }
         $computers = self::computers([Computer::getTable() . '.entities_id' => $entityIds]);
-        $result = $check === 'antivirus'
-            ? self::antivirus($computers, Session::getCurrentTime() ?? date('Y-m-d H:i:s'))
-            : self::encryption($computers);
+        $result = match ($check) {
+            'antivirus'  => self::antivirus($computers, Session::getCurrentTime() ?? date('Y-m-d H:i:s')),
+            'encryption' => self::encryption($computers),
+            default      => self::laptopEncryption($computers),
+        };
 
         return KriRules::rate(count($result['gaps']), $result['total']);
     }
@@ -356,7 +383,10 @@ class ComplianceAudit extends CommonGLPI
         $computers = [];
         foreach (
             $DB->request([
-                'SELECT' => ['id', 'name', 'is_dynamic', 'last_inventory_update'],
+                'SELECT' => [
+                    'id', 'name', 'is_dynamic', 'last_inventory_update', 'entities_id', 'computertypes_id',
+                    'locations_id',
+                ],
                 'FROM'   => Computer::getTable(),
                 'WHERE'  => $where
                     + ($entityCriteria ?? getEntitiesRestrictCriteria(Computer::getTable(), '', '', true)),
@@ -419,68 +449,282 @@ class ComplianceAudit extends CommonGLPI
     }
 
     /**
+     * Issue #847 : règle « doit être chiffré » (tous les ordinateurs par défaut).
+     *
+     * @return array{scope: string, types: list<int>, confidentiality: string}
+     */
+    public static function getEncryptionRule(): array
+    {
+        $values = Config::getConfigurationValues(AuditTeam::CONFIG_CONTEXT, [self::ENCRYPTION_RULE_KEY]);
+
+        return DiskEncryptionRules::normalizeRule(
+            json_decode((string) ($values[self::ENCRYPTION_RULE_KEY] ?? ''), true)
+        );
+    }
+
+    /**
+     * @param array<mixed> $rule valeurs soumises ; seuls les types d'ordinateur existants sont gardés
+     * @return array{scope: string, types: list<int>, confidentiality: string} règle enregistrée
+     */
+    public static function setEncryptionRule(array $rule): array
+    {
+        global $DB;
+
+        $rule = DiskEncryptionRules::normalizeRule($rule);
+        $existing = [];
+        if ($rule['types'] !== []) {
+            foreach (
+                $DB->request([
+                    'SELECT' => 'id',
+                    'FROM'   => ComputerType::getTable(),
+                    'WHERE'  => ['id' => $rule['types']],
+                ]) as $row
+            ) {
+                $existing[] = (int) $row['id'];
+            }
+            sort($existing);
+        }
+        $rule['types'] = $existing;
+        Config::setConfigurationValues(
+            AuditTeam::CONFIG_CONTEXT,
+            [self::ENCRYPTION_RULE_KEY => json_encode($rule)]
+        );
+
+        return $rule;
+    }
+
+    /**
+     * Issue #847 : chiffrement de chaque ordinateur visible (mêmes exclusions que les contrôles), pour
+     * la page « Chiffrement des disques ». L'appelant vérifie le droit de lecture des ordinateurs.
+     *
+     * @param array<string, mixed>|null $entityCriteria
+     * @return list<array<string, mixed>>
+     */
+    public static function diskEncryptionRows(?array $entityCriteria = null): array
+    {
+        return self::encryptionRows(self::computers($entityCriteria));
+    }
+
+    /**
+     * Une ligne par ordinateur : état d'après ses volumes chiffrables, volumes en clair, outils et
+     * algorithmes déclarés par l'inventaire, portable ou non, concerné ou non par la règle. Seuls
+     * l'état, l'outil et l'algorithme de chiffrement sont lus : jamais de clé.
+     *
+     * @param array<int, array<string, mixed>> $computers
+     * @return list<array<string, mixed>>
+     */
+    private static function encryptionRows(array $computers): array
+    {
+        global $DB;
+
+        if ($computers === []) {
+            return [];
+        }
+        $ids = array_keys($computers);
+        $disks = [];
+        foreach (
+            $DB->request([
+                'SELECT'    => [
+                    'glpi_items_disks.items_id',
+                    'glpi_items_disks.name',
+                    'glpi_items_disks.mountpoint',
+                    'glpi_items_disks.totalsize',
+                    'glpi_items_disks.is_dynamic',
+                    'glpi_items_disks.encryption_status',
+                    'glpi_items_disks.encryption_tool',
+                    'glpi_items_disks.encryption_algorithm',
+                    'glpi_filesystems.name AS filesystem',
+                ],
+                'FROM'      => 'glpi_items_disks',
+                'LEFT JOIN' => [
+                    'glpi_filesystems' => [
+                        'ON' => ['glpi_items_disks' => 'filesystems_id', 'glpi_filesystems' => 'id'],
+                    ],
+                ],
+                'WHERE'     => [
+                    'glpi_items_disks.itemtype'   => Computer::class,
+                    'glpi_items_disks.items_id'   => $ids,
+                    'glpi_items_disks.is_deleted' => 0,
+                ],
+                'ORDER'     => ['glpi_items_disks.mountpoint', 'glpi_items_disks.name'],
+            ]) as $row
+        ) {
+            if (
+                ComplianceAuditScore::isEncryptableVolume(
+                    (string) $row['mountpoint'],
+                    (string) $row['filesystem'],
+                    (int) $row['totalsize'],
+                    (bool) $row['is_dynamic']
+                )
+            ) {
+                $disks[(int) $row['items_id']][] = $row;
+            }
+        }
+        $types = [];
+        $typeIds = array_values(array_unique(array_filter(array_map(
+            static fn (array $computer): int => (int) ($computer['computertypes_id'] ?? 0),
+            $computers
+        ))));
+        if ($typeIds !== []) {
+            foreach (
+                $DB->request([
+                    'SELECT' => ['id', 'name'],
+                    'FROM'   => ComputerType::getTable(),
+                    'WHERE'  => ['id' => $typeIds],
+                ]) as $row
+            ) {
+                $types[(int) $row['id']] = (string) $row['name'];
+            }
+        }
+        $confidentiality = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['items_id', 'confidentiality'],
+                'FROM'   => AssetClassification::getTable(),
+                'WHERE'  => ['itemtype' => Computer::class, 'items_id' => $ids],
+            ]) as $row
+        ) {
+            $confidentiality[(int) $row['items_id']] = (string) $row['confidentiality'];
+        }
+        $rule = self::getEncryptionRule();
+        $entities = [];
+        $locations = [];
+        $rows = [];
+        foreach ($computers as $id => $computer) {
+            $volumes = $disks[$id] ?? [];
+            $clear = [];
+            $tools = [];
+            $algorithms = [];
+            foreach ($volumes as $volume) {
+                if ((int) $volume['encryption_status'] !== Item_Disk::ENCRYPTION_STATUS_YES) {
+                    $clear[] = (string) ($volume['mountpoint'] ?: $volume['name']);
+                }
+                if ((int) $volume['encryption_status'] !== Item_Disk::ENCRYPTION_STATUS_NO) {
+                    $tool = trim((string) ($volume['encryption_tool'] ?? ''));
+                    $algorithm = trim((string) ($volume['encryption_algorithm'] ?? ''));
+                    if ($tool !== '') {
+                        $tools[$tool] = $tool;
+                    }
+                    if ($algorithm !== '') {
+                        $algorithms[$algorithm] = $algorithm;
+                    }
+                }
+            }
+            $status = DiskEncryptionRules::computerStatus(array_map(
+                static fn (array $volume): int => (int) $volume['encryption_status'],
+                $volumes
+            ));
+            $typeId = (int) ($computer['computertypes_id'] ?? 0);
+            $typeName = $types[$typeId] ?? '';
+            $isLaptop = DiskEncryptionRules::isLaptopType($typeName);
+            $entityId = (int) ($computer['entities_id'] ?? 0);
+            $locationId = (int) ($computer['locations_id'] ?? 0);
+            $entities[$entityId] ??= (string) Dropdown::getDropdownName('glpi_entities', $entityId);
+            $locations[$locationId] ??= $locationId > 0
+                ? (string) Dropdown::getDropdownName(Location::getTable(), $locationId)
+                : '';
+            $strength = DiskEncryptionRules::weakestStrength(array_values($algorithms));
+            $required = DiskEncryptionRules::isRequired($rule, $isLaptop, $typeId, $confidentiality[$id] ?? '');
+            $name = (string) $computer['name'];
+            $rows[] = [
+                'id'             => $id,
+                'name'           => $name !== '' ? $name : sprintf('%s %d', Computer::getTypeName(1), $id),
+                'url'            => Computer::getFormURLWithID($id),
+                'entities_id'    => $entityId,
+                'entity'         => $entities[$entityId],
+                'type_id'        => $typeId,
+                'type'           => $typeName,
+                'location'       => $locations[$locationId],
+                'is_laptop'      => $isLaptop,
+                'required'       => $required,
+                'status'         => $status,
+                'clear_volumes'  => $clear,
+                'tools'          => array_values($tools),
+                'algorithms'     => array_values($algorithms),
+                'strength'       => $strength,
+                'is_gap'         => DiskEncryptionRules::isGap($required, $status, $strength),
+                'last_inventory' => (string) ($computer['last_inventory_update'] ?? ''),
+            ];
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Détail d'un écart de chiffrement : volumes en clair, algorithme faible.
+     *
+     * @param array<string, mixed> $row ligne de encryptionRows()
+     */
+    private static function encryptionGapDetail(array $row): string
+    {
+        $parts = [];
+        if ($row['clear_volumes'] !== []) {
+            $parts[] = sprintf(__('Not encrypted: %s', 'grcmanager'), implode(', ', $row['clear_volumes']));
+        }
+        if ($row['strength'] === DiskEncryptionRules::ALGO_WEAK) {
+            $parts[] = sprintf(
+                __('Weak encryption algorithm: %s', 'grcmanager'),
+                implode(', ', $row['algorithms'])
+            );
+        }
+
+        return implode('; ', $parts);
+    }
+
+    /**
+     * Ordinateurs concernés par la règle et dont les volumes sont inventoriés ; écart : volume en
+     * clair ou algorithme faible.
+     *
      * @param array<int, array<string, mixed>> $computers
      * @return array{evaluated: bool, total: int, gaps: list<array<string, mixed>>}
      */
     private static function encryption(array $computers): array
     {
-        global $DB;
+        return self::encryptionResult(
+            self::encryptionRows($computers),
+            static fn (array $row): bool => (bool) $row['required']
+        );
+    }
 
-        $withDisks = [];
-        $clear = [];
-        if ($computers !== []) {
-            foreach (
-                $DB->request([
-                    'SELECT'    => [
-                        'glpi_items_disks.items_id',
-                        'glpi_items_disks.name',
-                        'glpi_items_disks.mountpoint',
-                        'glpi_items_disks.totalsize',
-                        'glpi_items_disks.is_dynamic',
-                        'glpi_items_disks.encryption_status',
-                        'glpi_filesystems.name AS filesystem',
-                    ],
-                    'FROM'      => 'glpi_items_disks',
-                    'LEFT JOIN' => [
-                        'glpi_filesystems' => [
-                            'ON' => ['glpi_items_disks' => 'filesystems_id', 'glpi_filesystems' => 'id'],
-                        ],
-                    ],
-                    'WHERE'     => [
-                        'glpi_items_disks.itemtype'   => Computer::class,
-                        'glpi_items_disks.items_id'   => array_keys($computers),
-                        'glpi_items_disks.is_deleted' => 0,
-                    ],
-                ]) as $row
-            ) {
-                if (
-                    !ComplianceAuditScore::isEncryptableVolume(
-                        (string) $row['mountpoint'],
-                        (string) $row['filesystem'],
-                        (int) $row['totalsize'],
-                        (bool) $row['is_dynamic']
-                    )
-                ) {
-                    continue;
-                }
-                $id = (int) $row['items_id'];
-                $withDisks[$id] = true;
-                if ((int) $row['encryption_status'] !== Item_Disk::ENCRYPTION_STATUS_YES) {
-                    $clear[$id][] = (string) ($row['mountpoint'] ?: $row['name']);
-                }
+    /**
+     * Issue #847 : portables et tablettes, quelle que soit la règle (mesure A.8.1).
+     *
+     * @param array<int, array<string, mixed>> $computers
+     * @return array{evaluated: bool, total: int, gaps: list<array<string, mixed>>}
+     */
+    private static function laptopEncryption(array $computers): array
+    {
+        return self::encryptionResult(
+            self::encryptionRows($computers),
+            static fn (array $row): bool => (bool) $row['is_laptop']
+        );
+    }
+
+    /**
+     * @param list<array<string, mixed>> $rows
+     * @param callable(array<string, mixed>): bool $concerned
+     * @return array{evaluated: bool, total: int, gaps: list<array<string, mixed>>}
+     */
+    private static function encryptionResult(array $rows, callable $concerned): array
+    {
+        $total = 0;
+        $gaps = [];
+        foreach ($rows as $row) {
+            if (!$concerned($row) || $row['status'] === DiskEncryptionRules::STATUS_UNKNOWN) {
+                continue;
+            }
+            $total++;
+            if (DiskEncryptionRules::isGap(true, (string) $row['status'], (string) $row['strength'])) {
+                $gaps[] = self::gap(
+                    Computer::class,
+                    (int) $row['id'],
+                    (string) $row['name'],
+                    self::encryptionGapDetail($row)
+                );
             }
         }
-        $gaps = [];
-        foreach ($clear as $id => $volumes) {
-            $gaps[] = self::gap(
-                Computer::class,
-                $id,
-                (string) $computers[$id]['name'],
-                sprintf(__('Not encrypted: %s', 'grcmanager'), implode(', ', $volumes))
-            );
-        }
 
-        return ['evaluated' => true, 'total' => count($withDisks), 'gaps' => $gaps];
+        return ['evaluated' => true, 'total' => $total, 'gaps' => $gaps];
     }
 
     /**
@@ -634,7 +878,11 @@ class ComplianceAudit extends CommonGLPI
         if (
             !Session::haveRight(self::RIGHTNAME, UPDATE)
             || !Session::haveRight(Ticket::$rightname, CREATE)
-            || !in_array($check, ['antivirus', 'encryption', 'inventory', 'change_validation'], true)
+            || !in_array(
+                $check,
+                ['antivirus', 'encryption', 'laptop_encryption', 'inventory', 'change_validation'],
+                true
+            )
         ) {
             return 0;
         }
