@@ -714,7 +714,7 @@ class CertificationReadiness extends CommonGLPI
         $total = self::count(Objective::class);
         $measured = (int) ($DB->request([
             'COUNT'    => 'c',
-            'SELECT'   => ['plugin_grcmanager_objectives_id'],
+            'SELECT'   => 'plugin_grcmanager_objectives_id',
             'DISTINCT' => true,
             'FROM'     => ObjectiveMeasurement::getTable(),
         ])->current()['c'] ?? 0);
