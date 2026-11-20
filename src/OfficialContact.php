@@ -309,10 +309,11 @@ class OfficialContact extends CommonGLPI
         // Issue #771, lot 2 : contacts déjà tracés sans être cochés pour ce type d'événement
         // (un CSIRT prévenu pour une violation, par exemple) : affichés aussi.
         $shown = array_column($concerned, 'id');
-        $traced = array_diff(
-            array_map('intval', array_column(OfficialContactNotification::rowsFor($item), OfficialContactNotification::CONTACT_FK)),
-            array_map('intval', $shown)
+        $tracedIds = array_column(
+            OfficialContactNotification::rowsFor($item),
+            OfficialContactNotification::CONTACT_FK
         );
+        $traced = array_diff(array_map('intval', $tracedIds), array_map('intval', $shown));
         if ($traced !== []) {
             $concerned = array_merge(
                 $concerned,
@@ -381,7 +382,10 @@ class OfficialContact extends CommonGLPI
 
         return Rules::summary($rows, date('Y-m-d')) + [
             // Issue #771, lot 2 : prévenances tracées depuis 12 mois (incidents et violations).
-            'notified'   => OfficialContactNotification::countNotifiedSince($categories, $since->format('Y-m-d 00:00:00')),
+            'notified'   => OfficialContactNotification::countNotifiedSince(
+                $categories,
+                $since->format('Y-m-d 00:00:00')
+            ),
             'url'        => self::getRegisterURL(),
             'export_url' => self::getExportURL(),
         ];

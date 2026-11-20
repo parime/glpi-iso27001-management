@@ -206,7 +206,11 @@ final class OfficialContactNotificationTest extends GrcmanagerIntegrationTestCas
             ob_start();
             OfficialContact::displayTabContentForItem($incident);
             $html = (string) ob_get_clean();
-            $this->assertStringNotContainsString('grcmanager-trace-contact-form', $html, 'Pas de formulaire en lecture.');
+            $this->assertStringNotContainsString(
+                'grcmanager-trace-contact-form',
+                $html,
+                'Pas de formulaire en lecture.'
+            );
         } finally {
             $_SESSION['glpiactiveprofile'][$right] = $saved;
         }
@@ -248,7 +252,10 @@ final class OfficialContactNotificationTest extends GrcmanagerIntegrationTestCas
             'contact_delay_hours' => 72, 'on_security_incident' => 0, 'on_data_breach' => 1,
         ]);
         $breach = new DataBreach();
-        $breachId = (int) $breach->add(['entities_id' => 0, 'date_awareness' => date('Y-m-d H:i', strtotime('-5 days'))]);
+        $breachId = (int) $breach->add([
+            'entities_id'    => 0,
+            'date_awareness' => date('Y-m-d H:i', strtotime('-5 days')),
+        ]);
         $breach->getFromDB($breachId);
 
         $before = OfficialContact::evidence('A.5.5');
@@ -283,7 +290,10 @@ final class OfficialContactNotificationTest extends GrcmanagerIntegrationTestCas
             '_linked_obligations'     => [$obligationId],
         ]);
         $presented = OfficialContact::present($contact->fields, date('Y-m-d'));
-        $this->assertSame(['PHPUnit obligation de notification fictive'], array_column($presented['obligations'], 'name'));
+        $this->assertSame(
+            ['PHPUnit obligation de notification fictive'],
+            array_column($presented['obligations'], 'name')
+        );
         $this->assertStringContainsString('PHPUnit obligation de notification fictive', OfficialContact::reportHtml());
     }
 }

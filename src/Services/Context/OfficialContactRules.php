@@ -219,7 +219,10 @@ final class OfficialContactRules
         if (preg_match('/^(\d{4}-\d{2}-\d{2}) (\d{2}):(\d{2})(?::(\d{2}))?$/', $value, $m) !== 1) {
             return null;
         }
-        $date = \DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', sprintf('%s %s:%s:%s', $m[1], $m[2], $m[3], $m[4] ?? '00'));
+        $date = \DateTimeImmutable::createFromFormat(
+            '!Y-m-d H:i:s',
+            sprintf('%s %s:%s:%s', $m[1], $m[2], $m[3], $m[4] ?? '00')
+        );
         if ($date === false || $date->format('Y-m-d') !== $m[1]) {
             return null;
         }
@@ -245,8 +248,13 @@ final class OfficialContactRules
      * Motif du refus d'une prise de contact, ou null si elle peut être tracée. $date est déjà
      * normalisée (null : mal formée).
      */
-    public static function traceRefusal(string $decision, ?string $date, string $reason, ?string $start, string $now): ?string
-    {
+    public static function traceRefusal(
+        string $decision,
+        ?string $date,
+        string $reason,
+        ?string $start,
+        string $now
+    ): ?string {
         if (!in_array($decision, self::DECISIONS, true)) {
             return self::REFUSED_DECISION;
         }
@@ -293,14 +301,22 @@ final class OfficialContactRules
         if ($first !== null) {
             $late = $deadline !== null && $first > $deadline;
 
-            return ['state' => $late ? self::NOTICE_LATE : self::NOTICE_ON_TIME, 'deadline' => $deadline, 'date' => $first];
+            return [
+                'state'    => $late ? self::NOTICE_LATE : self::NOTICE_ON_TIME,
+                'deadline' => $deadline,
+                'date'     => $first,
+            ];
         }
         if ($notRequired) {
             return ['state' => self::NOTICE_NOT_REQUIRED, 'deadline' => $deadline, 'date' => null];
         }
         $overdue = $deadline !== null && $now > $deadline;
 
-        return ['state' => $overdue ? self::NOTICE_OVERDUE : self::NOTICE_PENDING, 'deadline' => $deadline, 'date' => null];
+        return [
+            'state'    => $overdue ? self::NOTICE_OVERDUE : self::NOTICE_PENDING,
+            'deadline' => $deadline,
+            'date'     => null,
+        ];
     }
 
     private static function limitDate(string $today): string

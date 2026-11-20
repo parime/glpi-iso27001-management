@@ -148,7 +148,10 @@ final class OfficialContactRulesTest extends TestCase
     public function testNoticeStateOnTimeLateDecisionAndOverdue(): void
     {
         $start = '2026-11-10 08:00:00';
-        $notified = static fn (string $date): array => ['decision' => Rules::DECISION_NOTIFIED, 'date_notified' => $date];
+        $notified = static fn (string $date): array => [
+            'decision'      => Rules::DECISION_NOTIFIED,
+            'date_notified' => $date,
+        ];
 
         $onTime = Rules::noticeState([$notified('2026-11-12 08:00:00')], $start, 72, '2026-11-20 10:00:00');
         $this->assertSame(Rules::NOTICE_ON_TIME, $onTime['state']);
