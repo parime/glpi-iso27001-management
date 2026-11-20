@@ -767,17 +767,24 @@ class CertificationReadiness extends CommonGLPI
         if ($pending) {
             $facts[] = __('An approval request is pending', 'grcmanager');
         }
+        $links = [
+            self::link(
+                __('Statement of Applicability', 'grcmanager'),
+                $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php'
+            ),
+            self::link(Control::getTypeName(Session::getPluralNumber()), Control::getSearchURL(), 'ti-list'),
+        ];
+        // Issue #847 : indicateur technique d'une mesure souvent demandée (A.8.24), sans effet sur l'état.
+        $encryption = DiskEncryption::readinessFact();
+        if ($encryption !== null) {
+            $facts[] = $encryption;
+            $links[] = self::link(DiskEncryption::getTypeName(), DiskEncryption::getSearchURL(), 'ti-lock');
+        }
 
         return [
             'status' => Rules::soa($state, $pending),
             'facts'  => $facts,
-            'links'  => [
-                self::link(
-                    __('Statement of Applicability', 'grcmanager'),
-                    $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php'
-                ),
-                self::link(Control::getTypeName(Session::getPluralNumber()), Control::getSearchURL(), 'ti-list'),
-            ],
+            'links'  => $links,
         ];
     }
 

@@ -76,6 +76,10 @@
          </div>
          <div class="card-body">
             <p class="text-muted small mb-2">{{ c.help }}</p>
+            {# Issue #847 : taux par entité, type et lieu, règle « doit être chiffré » et liste détaillée. #}
+            {% if c.key in ['encryption', 'laptop_encryption'] and encryption_url %}
+               <p class="small mb-2"><a href="{{ encryption_url }}"><i class="ti ti-lock me-1"></i>{{ __('Disk encryption: rates, rule and details', 'grcmanager') }}</a></p>
+            {% endif %}
             {% if not c.evaluated %}
                <p class="mb-0">{{ __('Your profile cannot read the items concerned: this check is not part of the score.', 'grcmanager') }}</p>
             {% elseif c.rate is null %}

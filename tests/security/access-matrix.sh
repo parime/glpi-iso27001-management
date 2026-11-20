@@ -125,6 +125,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/endoflife.export.php front/hardwarewarranty.export.php
   front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
+  front/diskencryption.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
@@ -590,6 +591,11 @@ if [ "$ROLE" = reader ]; then
     "$(body "$P/softwarelicensecompliance.php")"
   contains "export des licences logicielles : echeance de B absente" "Licence echeance securite B" non \
     "$(body "$P/softwarelicensecompliance.export.php")"
+  # Issue #847 : chiffrement des disques de l'entite A seulement ; regle et cles en lecture seule.
+  contains "chiffrement des disques : ordinateur de A" "PC securite A" oui "$(body "$P/diskencryption.php")"
+  contains "chiffrement des disques : rien de B" "PC securite B" non "$(body "$P/diskencryption.php")"
+  expect "front/diskencryption.php : modifier la regle de chiffrement" 403     "$(code -d "save_encryption_rule=1&encryption_scope=laptops&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
+  expect "front/diskencryption.php : declarer une cle en lecture seule" 403     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
   expect "front/softwarelicensecompliance.php : modifier l'horizon d'echeance" 403 \
     "$(code -d "save_license_watch=1&license_expiring_days=1&_glpi_csrf_token=$(csrf)" "$P/softwarelicensecompliance.php")"
   # Issue #782 : fin de garantie du materiel de l'entite A seulement (carte et export).
@@ -886,6 +892,10 @@ contains "onglet Processus metier du PC de A" "Processus securite A" oui \
 procs_b=$(tab Computer 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id computer_B)")
 contains "onglet Processus metier du PC de B : processus de B" "Processus securite B" $SEE_B "$procs_b"
 if [ "$ROLE" = limited ]; then
+  # Issue #847 : sauvegarde de cle declaree pour un ordinateur de A, refusee pour celui de B.
+  expect "front/diskencryption.php : declarer la cle d'un ordinateur de A" 302     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1&backup_date=2026-01-15&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
+  expect "front/diskencryption.php : declarer la cle d'un ordinateur de B" 403     "$(code -d "declare_key=1&computers_id=$(id computer_B)&is_backed_up=1&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
+  expect "front/diskencryption.php : declarer une cle sans jeton CSRF" 403     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1" "$P/diskencryption.php")"
   # Issue #706 : gestionnaire avec la configuration du plugin et les registres sensibles en
   # modification : l'ecran de changement de taille lui est ouvert, comme la page de configuration.
   expect "front/riskscale.php : ecran de correspondance" 200 "$(code "$P/riskscale.php?size=5")"

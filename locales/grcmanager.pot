@@ -4805,14 +4805,6 @@ msgstr ""
 msgid "Computers with an unencrypted disk"
 msgstr ""
 
-#: src/ComplianceAudit.php:124
-msgid ""
-"From the volume inventory: at least one unencrypted or partially encrypted "
-"disk. Only computers whose volumes are inventoried are counted. Volumes "
-"without a drive letter (EFI, recovery), network shares, optical media, FAT "
-"partitions and, on Linux, /boot and pseudo-filesystems are ignored."
-msgstr ""
-
 #: src/ComplianceAudit.php:133
 #, php-format
 msgid "Computers not inventoried for more than %d days"
@@ -31354,6 +31346,335 @@ msgid "The waiver \"%1$s\" ended on %2$s."
 msgstr ""
 
 
+#: front/diskencryption.php:45
+msgid "Encryption rule saved."
+msgstr ""
+
+#: front/diskencryption.php:61
+msgid "Recovery key declaration saved."
+msgstr ""
+
+#: hook.php:278 src/DiskEncryption.php:396
+msgid "Computers that must be encrypted and are (%)"
+msgstr ""
+
+#: src/ComplianceAudit.php:137
+msgid ""
+"From the volume inventory: at least one unencrypted or partially encrypted "
+"disk, or a weak encryption algorithm, on a computer that must be encrypted "
+"(\"Disk encryption\" page). Only computers whose volumes are inventoried are "
+"counted. Volumes without a drive letter (EFI, recovery), network shares, "
+"optical media, FAT partitions and, on Linux, /boot and pseudo-filesystems "
+"are ignored."
+msgstr ""
+
+#: src/ComplianceAudit.php:147
+msgid "Laptops with an unencrypted disk"
+msgstr ""
+
+#: src/ComplianceAudit.php:149
+msgid ""
+"Same check, limited to laptops and tablets (computer type reported by the "
+"inventory agent, such as Laptop or Notebook), which are the most exposed "
+"outside the premises."
+msgstr ""
+
+#: src/ComplianceAudit.php:666
+#, php-format
+msgid "Weak encryption algorithm: %s"
+msgstr ""
+
+#: src/DiskEncryption.php:58 templates/control_form.html.twig
+msgid "Disk encryption"
+msgstr ""
+
+#: src/DiskEncryption.php:125 templates/disk_encryption.html.twig
+msgid "Fully encrypted"
+msgstr ""
+
+#: src/DiskEncryption.php:128
+msgid "Every inventoried volume is encrypted."
+msgstr ""
+
+#: src/DiskEncryption.php:131 templates/disk_encryption.html.twig
+msgid "Partially encrypted"
+msgstr ""
+
+#: src/DiskEncryption.php:134
+msgid "At least one volume is encrypted, but not all of them."
+msgstr ""
+
+#: src/DiskEncryption.php:137 templates/disk_encryption.html.twig
+msgid "Not encrypted"
+msgstr ""
+
+#: src/DiskEncryption.php:140
+msgid "No inventoried volume is encrypted."
+msgstr ""
+
+#: src/DiskEncryption.php:143 templates/disk_encryption.html.twig
+msgid "Unknown"
+msgstr ""
+
+#: src/DiskEncryption.php:147
+msgid ""
+"No volume inventoried: no inventory agent, or an agent too old to report "
+"encryption."
+msgstr ""
+
+#: src/DiskEncryption.php:160
+msgid "All computers"
+msgstr ""
+
+#: src/DiskEncryption.php:161
+msgid "Laptops and tablets only"
+msgstr ""
+
+#: src/DiskEncryption.php:162
+msgid "Computers of the selected types"
+msgstr ""
+
+#: src/DiskEncryption.php:172
+msgid "Do not use the classification"
+msgstr ""
+
+#: src/DiskEncryption.php:173
+msgid "Confidentiality medium or high"
+msgstr ""
+
+#: src/DiskEncryption.php:174
+msgid "Confidentiality high"
+msgstr ""
+
+#: src/DiskEncryption.php:186
+msgid "Laptops and tablets must be encrypted."
+msgstr ""
+
+#: src/DiskEncryption.php:188
+msgid "No computer type is selected: only the classification below applies."
+msgstr ""
+
+#: src/DiskEncryption.php:190
+#, php-format
+msgid "Computers of these types must be encrypted: %s."
+msgstr ""
+
+#: src/DiskEncryption.php:196
+msgid "All computers must be encrypted."
+msgstr ""
+
+#: src/DiskEncryption.php:200
+msgid "So must any computer classified with a medium or high confidentiality."
+msgstr ""
+
+#: src/DiskEncryption.php:202
+msgid "So must any computer classified with a high confidentiality."
+msgstr ""
+
+#: src/DiskEncryption.php:416
+#, php-format
+msgid ""
+"Disk encryption: %1$d%% of the computers that must be encrypted are, %2$d "
+"gap(s)"
+msgstr ""
+
+#: src/PageHelp.php:424
+msgid ""
+"Shows, from the volumes reported by the GLPI inventory agent (BitLocker, "
+"FileVault, LUKS, VeraCrypt...), which computers are fully encrypted, "
+"partially encrypted, not encrypted or of unknown state, by entity, computer "
+"type and location. Computers that must be encrypted and are not, or use a "
+"weak algorithm, are gaps."
+msgstr ""
+
+#: src/PageHelp.php:431
+msgid ""
+"Choose which computers must be encrypted, encrypt the computers listed as "
+"gaps, install the inventory agent on those of unknown state, and declare "
+"where the recovery key is backed up. The plugin never reads nor stores any "
+"recovery key. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+msgstr ""
+
+#: src/PageHelp.php:437
+msgid "ISO/IEC 27001, controls A.8.24 and A.8.1"
+msgstr ""
+
+#: src/RiskIndicator.php:140
+msgid "Laptops with an unencrypted disk (%)"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid "Disk encryption: rates, rule and details"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d of unknown state"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d weak algorithm(s)"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "Computed on %s"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "Encryption rate: %d%%"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Encryption rate: not measured"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "Laptops: %d%%"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, gaps first."
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+#, php-format
+msgid "%d computer must be encrypted"
+msgid_plural "%d computers must be encrypted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/disk_encryption.html.twig
+#, php-format
+msgid "%d laptop or tablet"
+msgid_plural "%d laptops or tablets"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/disk_encryption.html.twig
+msgid ""
+"A computer is a laptop or a tablet when its type in GLPI is one of those "
+"reported by the inventory agent (Laptop, Notebook, Portable, Tablet, "
+"Convertible...). The classification threshold uses the C/I/A classification "
+"of the computer (tab of the computer form)."
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Also every computer classified with"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Backed up"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Backup date"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Computer types (when \"Computers of the selected types\" is chosen)"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Computers concerned"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Computers in GLPI"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Computers that must be encrypted"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Computers that must be encrypted and are"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Computers with a weak encryption algorithm"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid ""
+"For example the types used for servers and desktops that hold sensitive data."
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Laptops and tablets fully encrypted"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Last inventory"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "No computer concerned in your entities."
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "No computer concerned."
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "No location"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "No type"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Not declared"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Older algorithm or mode"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+#, php-format
+msgid "Older algorithm or mode, to plan to replace: %d"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Recovery key backed up (declared)"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid ""
+"The plugin never reads nor stores any recovery key: it only keeps whether "
+"the key is declared backed up, and when. Nothing is changed in GLPI from "
+"this page."
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Tool and algorithm"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Volumes not encrypted"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Weak algorithm"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+msgid "Which computers must be encrypted?"
+msgstr ""
+
+#: templates/disk_encryption.html.twig
+#, php-format
+msgid "not fully encrypted: %d"
+msgstr ""
+
+
 #: front/controlblocker.php:63
 msgid "Blockers"
 msgstr ""
@@ -31503,3 +31824,4 @@ msgstr ""
 #: templates/control_blockers_tab.html.twig
 msgid "Nothing blocks this control"
 msgstr ""
+

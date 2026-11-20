@@ -26555,107 +26555,117 @@ msgid_plural "Recorded contacts"
 msgstr[0] "Contacto registrado"
 msgstr[1] "Contactos registrados"
 
-msgid "Periodic review recorded"
-msgstr "Revisión periódica registrada"
+#, php-format
+msgid ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+msgstr ""
+"Se aconseja «%1$s» después de «%2$s», que se apoya en ella: revise los "
+"plazos aconsejados."
 
-msgid "Expected operating domains without an approved procedure"
-msgstr "Ámbitos de explotación esperados sin procedimiento aprobado"
+#, php-format
+msgid ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+msgstr ""
+"Una etapa no realizada corre el riesgo de retrasarse cuando su plazo "
+"aconsejado vence en los próximos %d días."
+
+msgid "Alert (days)"
+msgstr "Alerta (días)"
 
 msgid ""
-"Open the register of operating procedures, add the missing procedure (or a "
-"knowledge base article linked to it) and have it approved, or remove the "
-"domain from the expected list."
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
 msgstr ""
-"Abra el registro de procedimientos de explotación, añada el procedimiento "
-"que falta (o un artículo de la base de conocimientos vinculado a él) y haga "
-"que se apruebe, o retire el ámbito de la lista esperada."
+"Cobertura objetivo: parte de los requisitos y controles que el programa de "
+"auditoría debe haber cubierto en los últimos tres años para que la etapa de "
+"la auditoría interna esté realizada. Formación objetivo: parte de los "
+"participantes que deben haber completado su formación. Alerta: número de "
+"días antes de un plazo aconsejado a partir del cual la etapa está en riesgo "
+"y se avisa al responsable."
 
-msgid "No operating procedure for this domain"
-msgstr "Ningún procedimiento de explotación para este ámbito"
-
-msgid "Procedure not approved yet"
-msgstr "Procedimiento aún no aprobado"
-
-msgid "A review can only be recorded on an approved operating procedure."
-msgstr ""
-"Solo se puede registrar una revisión en un procedimiento de explotación "
-"aprobado."
-
-#, php-format
-msgid "Review recorded. Next review: %s."
-msgstr "Revisión registrada. Próxima revisión: %s."
-
-#, php-format
-msgid "%d without content"
-msgstr "%d sin contenido"
-
-msgid "Approval and review"
-msgstr "Aprobación y revisión"
-
-#, php-format
-msgid "Approved: %s"
-msgstr "Aprobado: %s"
+msgid "Advised deadlines per step"
+msgstr "Plazos aconsejados por etapa"
 
 msgid ""
-"Link a knowledge base article from the Knowledge base tab of the procedure, "
-"or attach the document from its Documents tab."
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
 msgstr ""
-"Vincule un artículo de la base de conocimientos desde la pestaña Base de "
-"conocimientos del procedimiento, o adjunte el documento desde su pestaña "
-"Documentos."
+"Número de días antes de la fecha objetivo en que cada etapa debería estar "
+"realizada. Mantenga el orden lógico: la auditoría interna antes de la "
+"revisión por la dirección que usa sus resultados, y después el tratamiento "
+"de las no conformidades. Un cambio solo desplaza los plazos aconsejados: no "
+"se modifica nada más."
 
-msgid "No content"
-msgstr "Sin contenido"
+msgid "Default"
+msgstr "Por defecto"
 
-msgid "No review recorded"
-msgstr "Ninguna revisión registrada"
+msgid "Days before the target date"
+msgstr "Días antes de la fecha objetivo"
+
+msgid "Adjusted"
+msgstr "Ajustado"
+
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+"%1$d de %2$d programas comerciales vigilados instalados (por entidad) tienen "
+"una licencia válida."
+
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr "%d licencia(s) a punto de caducar"
 
 msgid ""
-"Procedures with neither a knowledge base article nor an attached document: "
-"the auditor cannot read them."
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
 msgstr ""
-"Procedimientos sin artículo de la base de conocimientos ni documento "
-"adjunto: el auditor no puede leerlos."
+"Una licencia en uso caduca dentro del plazo de aviso y todavía no hay "
+"ninguna renovación registrada en GLPI. Es un recordatorio, no una desviación."
 
 #, php-format
-msgid "Reviewed on %1$s by %2$s"
-msgstr "Revisado el %1$s por %2$s"
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr "Caduca el %1$s: %2$d activo(s) asignado(s), %3$d instalación(es) %4$s."
+
+msgid "License coverage"
+msgstr "Cobertura de licencias"
 
 #, php-format
-msgid "Knowledge base article: %s"
-msgstr "Artículo de la base de conocimientos: %s"
+msgid "License coverage: %d%%"
+msgstr "Cobertura de licencias: %d %%"
 
-msgid "Procedures without content"
-msgstr "Procedimientos sin contenido"
+msgid "License expiring soon"
+msgstr "Licencia a punto de caducar"
+
+msgid "No warning before a license expires."
+msgstr "Sin aviso antes de que caduque una licencia."
+
+msgid "Over-quota allowed"
+msgstr "Exceso permitido"
+
+msgid "Over-quota allowed by the license"
+msgstr "Exceso permitido por la licencia"
 
 msgid ""
-"A review can be recorded once the procedure is approved. Changes to the "
-"procedure go through a new version."
+"The license allows going over the number of seats: settle it with the "
+"publisher."
 msgstr ""
-"Se puede registrar una revisión una vez aprobado el procedimiento. Los "
-"cambios del procedimiento pasan por una nueva versión."
+"La licencia permite superar el número de puestos: regularícelo con el editor."
 
-msgid ""
-"Records today as the review date of the procedure, with your name, without a "
-"new version. The next review is the date set above if you moved it later, "
-"one year later otherwise. Your other changes on this form are saved too."
-msgstr ""
-"Registra hoy como fecha de revisión del procedimiento, con su nombre, sin "
-"nueva versión. La próxima revisión es la fecha indicada arriba si la ha "
-"aplazado, un año después en caso contrario. También se guardan sus demás "
-"cambios en este formulario."
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr "Avisar antes de que caduque una licencia (días, 0 para desactivar)"
 
 #, php-format
-msgid "%d article you cannot read"
-msgid_plural "%d articles you cannot read"
-msgstr[0] "%d artículo que no puede leer"
-msgstr[1] "%d artículos que no puede leer"
-
-#, php-format
-msgid "%d document"
-msgid_plural "%d documents"
-msgstr[0] "%d documento"
-msgstr[1] "%d documentos"
+msgid "Warning %d days before a license expires."
+msgstr "Aviso %d días antes de que caduque una licencia."
 
 msgid "Audit objectives"
 msgstr "Objetivos de la auditoría"
@@ -26773,60 +26783,403 @@ msgstr ""
 msgid "Qualifying trainings"
 msgstr "Formaciones cualificantes"
 
-#, php-format
-msgid ""
-"%1$d of %2$d watched commercial software installed (per entity) have a valid "
-"license."
-msgstr ""
-"%1$d de %2$d programas comerciales vigilados instalados (por entidad) tienen "
-"una licencia válida."
+msgid "Periodic review recorded"
+msgstr "Revisión periódica registrada"
 
-#, php-format
-msgid "%d license(s) expiring soon"
-msgstr "%d licencia(s) a punto de caducar"
+msgid "Expected operating domains without an approved procedure"
+msgstr "Ámbitos de explotación esperados sin procedimiento aprobado"
 
 msgid ""
-"A license in use expires within the alert horizon and no renewal is recorded "
-"in GLPI yet. This is a reminder, not a gap."
+"Open the register of operating procedures, add the missing procedure (or a "
+"knowledge base article linked to it) and have it approved, or remove the "
+"domain from the expected list."
 msgstr ""
-"Una licencia en uso caduca dentro del plazo de aviso y todavía no hay "
-"ninguna renovación registrada en GLPI. Es un recordatorio, no una desviación."
+"Abra el registro de procedimientos de explotación, añada el procedimiento "
+"que falta (o un artículo de la base de conocimientos vinculado a él) y haga "
+"que se apruebe, o retire el ámbito de la lista esperada."
+
+msgid "No operating procedure for this domain"
+msgstr "Ningún procedimiento de explotación para este ámbito"
+
+msgid "Procedure not approved yet"
+msgstr "Procedimiento aún no aprobado"
+
+msgid "A review can only be recorded on an approved operating procedure."
+msgstr ""
+"Solo se puede registrar una revisión en un procedimiento de explotación "
+"aprobado."
 
 #, php-format
-msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
-msgstr "Caduca el %1$s: %2$d activo(s) asignado(s), %3$d instalación(es) %4$s."
-
-msgid "License coverage"
-msgstr "Cobertura de licencias"
+msgid "Review recorded. Next review: %s."
+msgstr "Revisión registrada. Próxima revisión: %s."
 
 #, php-format
-msgid "License coverage: %d%%"
-msgstr "Cobertura de licencias: %d %%"
+msgid "%d without content"
+msgstr "%d sin contenido"
 
-msgid "License expiring soon"
-msgstr "Licencia a punto de caducar"
+msgid "Approval and review"
+msgstr "Aprobación y revisión"
 
-msgid "No warning before a license expires."
-msgstr "Sin aviso antes de que caduque una licencia."
-
-msgid "Over-quota allowed"
-msgstr "Exceso permitido"
-
-msgid "Over-quota allowed by the license"
-msgstr "Exceso permitido por la licencia"
+#, php-format
+msgid "Approved: %s"
+msgstr "Aprobado: %s"
 
 msgid ""
-"The license allows going over the number of seats: settle it with the "
-"publisher."
+"Link a knowledge base article from the Knowledge base tab of the procedure, "
+"or attach the document from its Documents tab."
 msgstr ""
-"La licencia permite superar el número de puestos: regularícelo con el editor."
+"Vincule un artículo de la base de conocimientos desde la pestaña Base de "
+"conocimientos del procedimiento, o adjunte el documento desde su pestaña "
+"Documentos."
 
-msgid "Warn before a license expires (days, 0 to turn off)"
-msgstr "Avisar antes de que caduque una licencia (días, 0 para desactivar)"
+msgid "No content"
+msgstr "Sin contenido"
+
+msgid "No review recorded"
+msgstr "Ninguna revisión registrada"
+
+msgid ""
+"Procedures with neither a knowledge base article nor an attached document: "
+"the auditor cannot read them."
+msgstr ""
+"Procedimientos sin artículo de la base de conocimientos ni documento "
+"adjunto: el auditor no puede leerlos."
 
 #, php-format
-msgid "Warning %d days before a license expires."
-msgstr "Aviso %d días antes de que caduque una licencia."
+msgid "Reviewed on %1$s by %2$s"
+msgstr "Revisado el %1$s por %2$s"
+
+#, php-format
+msgid "Knowledge base article: %s"
+msgstr "Artículo de la base de conocimientos: %s"
+
+msgid "Procedures without content"
+msgstr "Procedimientos sin contenido"
+
+msgid ""
+"A review can be recorded once the procedure is approved. Changes to the "
+"procedure go through a new version."
+msgstr ""
+"Se puede registrar una revisión una vez aprobado el procedimiento. Los "
+"cambios del procedimiento pasan por una nueva versión."
+
+msgid ""
+"Records today as the review date of the procedure, with your name, without a "
+"new version. The next review is the date set above if you moved it later, "
+"one year later otherwise. Your other changes on this form are saved too."
+msgstr ""
+"Registra hoy como fecha de revisión del procedimiento, con su nombre, sin "
+"nueva versión. La próxima revisión es la fecha indicada arriba si la ha "
+"aplazado, un año después en caso contrario. También se guardan sus demás "
+"cambios en este formulario."
+
+#, php-format
+msgid "%d article you cannot read"
+msgid_plural "%d articles you cannot read"
+msgstr[0] "%d artículo que no puede leer"
+msgstr[1] "%d artículos que no puede leer"
+
+#, php-format
+msgid "%d document"
+msgid_plural "%d documents"
+msgstr[0] "%d documento"
+msgstr[1] "%d documentos"
+
+msgid "Encryption rule saved."
+msgstr "Regla de cifrado guardada."
+
+msgid "Recovery key declaration saved."
+msgstr "Declaración de la clave de recuperación guardada."
+
+#, php-format
+msgid "Computers that must be encrypted and are (%)"
+msgstr "Equipos que deben cifrarse y lo están (%)"
+
+msgid ""
+"From the volume inventory: at least one unencrypted or partially encrypted "
+"disk, or a weak encryption algorithm, on a computer that must be encrypted "
+"(\"Disk encryption\" page). Only computers whose volumes are inventoried are "
+"counted. Volumes without a drive letter (EFI, recovery), network shares, "
+"optical media, FAT partitions and, on Linux, /boot and pseudo-filesystems "
+"are ignored."
+msgstr ""
+"Según el inventario de volúmenes: al menos un disco sin cifrar o "
+"parcialmente cifrado, o un algoritmo de cifrado débil, en un equipo que debe "
+"estar cifrado (página «Cifrado de discos»). Solo se cuentan los equipos "
+"cuyos volúmenes están inventariados. Se ignoran los volúmenes sin letra de "
+"unidad (EFI, recuperación), los recursos compartidos de red, los soportes "
+"ópticos, las particiones FAT y, en Linux, /boot y los pseudosistemas de "
+"archivos."
+
+msgid "Laptops with an unencrypted disk"
+msgstr "Portátiles con un disco sin cifrar"
+
+msgid ""
+"Same check, limited to laptops and tablets (computer type reported by the "
+"inventory agent, such as Laptop or Notebook), which are the most exposed "
+"outside the premises."
+msgstr ""
+"El mismo control, limitado a portátiles y tabletas (tipo de equipo informado "
+"por el agente de inventario, como Laptop o Notebook), los más expuestos "
+"fuera de las instalaciones."
+
+#, php-format
+msgid "Weak encryption algorithm: %s"
+msgstr "Algoritmo de cifrado débil: %s"
+
+msgid "Disk encryption"
+msgstr "Cifrado de discos"
+
+msgid "Fully encrypted"
+msgstr "Totalmente cifrado"
+
+msgid "Every inventoried volume is encrypted."
+msgstr "Todos los volúmenes inventariados están cifrados."
+
+msgid "Partially encrypted"
+msgstr "Parcialmente cifrado"
+
+msgid "At least one volume is encrypted, but not all of them."
+msgstr "Al menos un volumen está cifrado, pero no todos."
+
+msgid "Not encrypted"
+msgstr "Sin cifrar"
+
+msgid "No inventoried volume is encrypted."
+msgstr "Ningún volumen inventariado está cifrado."
+
+msgid "Unknown"
+msgstr "Desconocido"
+
+msgid ""
+"No volume inventoried: no inventory agent, or an agent too old to report "
+"encryption."
+msgstr ""
+"Ningún volumen inventariado: sin agente de inventario, o un agente demasiado "
+"antiguo para informar del cifrado."
+
+msgid "All computers"
+msgstr "Todos los equipos"
+
+msgid "Laptops and tablets only"
+msgstr "Solo portátiles y tabletas"
+
+msgid "Computers of the selected types"
+msgstr "Equipos de los tipos seleccionados"
+
+msgid "Do not use the classification"
+msgstr "No usar la clasificación"
+
+msgid "Confidentiality medium or high"
+msgstr "Confidencialidad media o alta"
+
+msgid "Confidentiality high"
+msgstr "Confidencialidad alta"
+
+msgid "Laptops and tablets must be encrypted."
+msgstr "Los portátiles y las tabletas deben estar cifrados."
+
+msgid "No computer type is selected: only the classification below applies."
+msgstr ""
+"No se ha seleccionado ningún tipo de equipo: solo se aplica la clasificación "
+"de abajo."
+
+#, php-format
+msgid "Computers of these types must be encrypted: %s."
+msgstr "Los equipos de estos tipos deben estar cifrados: %s."
+
+msgid "All computers must be encrypted."
+msgstr "Todos los equipos deben estar cifrados."
+
+msgid "So must any computer classified with a medium or high confidentiality."
+msgstr ""
+"También cualquier equipo clasificado con confidencialidad media o alta."
+
+msgid "So must any computer classified with a high confidentiality."
+msgstr "También cualquier equipo clasificado con confidencialidad alta."
+
+#, php-format
+msgid ""
+"Disk encryption: %1$d%% of the computers that must be encrypted are, %2$d "
+"gap(s)"
+msgstr ""
+"Cifrado de discos: el %1$d %% de los equipos que deben cifrarse lo están, "
+"%2$d desviación(es)"
+
+msgid ""
+"Shows, from the volumes reported by the GLPI inventory agent (BitLocker, "
+"FileVault, LUKS, VeraCrypt...), which computers are fully encrypted, "
+"partially encrypted, not encrypted or of unknown state, by entity, computer "
+"type and location. Computers that must be encrypted and are not, or use a "
+"weak algorithm, are gaps."
+msgstr ""
+"Muestra, según los volúmenes informados por el agente de inventario de GLPI "
+"(BitLocker, FileVault, LUKS, VeraCrypt...), qué equipos están totalmente "
+"cifrados, parcialmente cifrados, sin cifrar o en estado desconocido, por "
+"entidad, tipo de equipo y ubicación. Los equipos que deben estar cifrados y "
+"no lo están, o usan un algoritmo débil, son desviaciones."
+
+msgid ""
+"Choose which computers must be encrypted, encrypt the computers listed as "
+"gaps, install the inventory agent on those of unknown state, and declare "
+"where the recovery key is backed up. The plugin never reads nor stores any "
+"recovery key. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+msgstr ""
+"Elija qué equipos deben estar cifrados, cifre los que aparecen como "
+"desviaciones, instale el agente de inventario en los de estado desconocido y "
+"declare dónde se guarda la clave de recuperación. El plugin nunca lee ni "
+"almacena ninguna clave de recuperación. Registre el resultado como prueba de "
+"eficacia del control para conservar la evidencia."
+
+msgid "ISO/IEC 27001, controls A.8.24 and A.8.1"
+msgstr "ISO/IEC 27001, controles A.8.24 y A.8.1"
+
+#, php-format
+msgid "Laptops with an unencrypted disk (%)"
+msgstr "Portátiles con un disco sin cifrar (%)"
+
+msgid "Disk encryption: rates, rule and details"
+msgstr "Cifrado de discos: tasas, regla y detalle"
+
+#, php-format
+msgid "%d of unknown state"
+msgstr "%d en estado desconocido"
+
+#, php-format
+msgid "%d weak algorithm(s)"
+msgstr "%d algoritmo(s) débil(es)"
+
+#, php-format
+msgid "Computed on %s"
+msgstr "Calculado el %s"
+
+#, php-format
+msgid "Encryption rate: %d%%"
+msgstr "Tasa de cifrado: %d %%"
+
+msgid "Encryption rate: not measured"
+msgstr "Tasa de cifrado: no medida"
+
+#, php-format
+msgid "Laptops: %d%%"
+msgstr "Portátiles: %d %%"
+
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, gaps first."
+msgstr "%1$d equipos: se muestran los %2$d primeros, desviaciones primero."
+
+#, php-format
+msgid "not fully encrypted: %d"
+msgstr "no totalmente cifrados: %d"
+
+#, php-format
+msgid "Older algorithm or mode, to plan to replace: %d"
+msgstr "Algoritmo o modo antiguo, a reemplazar: %d"
+
+msgid ""
+"A computer is a laptop or a tablet when its type in GLPI is one of those "
+"reported by the inventory agent (Laptop, Notebook, Portable, Tablet, "
+"Convertible...). The classification threshold uses the C/I/A classification "
+"of the computer (tab of the computer form)."
+msgstr ""
+"Un equipo es un portátil o una tableta cuando su tipo en GLPI es uno de los "
+"informados por el agente de inventario (Laptop, Notebook, Portable, Tablet, "
+"Convertible...). El umbral de clasificación usa la clasificación C/I/D del "
+"equipo (pestaña de su ficha)."
+
+msgid "Also every computer classified with"
+msgstr "Además, todo equipo clasificado con"
+
+msgid "Backed up"
+msgstr "Guardada"
+
+msgid "Backup date"
+msgstr "Fecha de copia"
+
+msgid "Computer types (when \"Computers of the selected types\" is chosen)"
+msgstr "Tipos de equipo (si se elige «Equipos de los tipos seleccionados»)"
+
+msgid "Computers concerned"
+msgstr "Equipos afectados"
+
+msgid "Computers in GLPI"
+msgstr "Equipos en GLPI"
+
+msgid "Computers that must be encrypted"
+msgstr "Equipos que deben estar cifrados"
+
+msgid "Computers that must be encrypted and are"
+msgstr "Equipos que deben cifrarse y lo están"
+
+msgid "Computers with a weak encryption algorithm"
+msgstr "Equipos con un algoritmo de cifrado débil"
+
+msgid ""
+"For example the types used for servers and desktops that hold sensitive data."
+msgstr ""
+"Por ejemplo, los tipos usados para servidores y equipos de sobremesa con "
+"datos sensibles."
+
+msgid "Laptops and tablets fully encrypted"
+msgstr "Portátiles y tabletas totalmente cifrados"
+
+msgid "Last inventory"
+msgstr "Último inventario"
+
+msgid "No computer concerned in your entities."
+msgstr "Ningún equipo afectado en sus entidades."
+
+msgid "No computer concerned."
+msgstr "Ningún equipo afectado."
+
+msgid "No location"
+msgstr "Sin ubicación"
+
+msgid "No type"
+msgstr "Sin tipo"
+
+msgid "Not declared"
+msgstr "No declarada"
+
+msgid "Older algorithm or mode"
+msgstr "Algoritmo o modo antiguo"
+
+msgid "Recovery key backed up (declared)"
+msgstr "Clave de recuperación guardada (declarada)"
+
+msgid ""
+"The plugin never reads nor stores any recovery key: it only keeps whether "
+"the key is declared backed up, and when. Nothing is changed in GLPI from "
+"this page."
+msgstr ""
+"El plugin nunca lee ni almacena ninguna clave de recuperación: solo guarda "
+"si la clave está declarada como guardada, y cuándo. Desde esta página no se "
+"modifica nada en GLPI."
+
+msgid "Tool and algorithm"
+msgstr "Herramienta y algoritmo"
+
+msgid "Volumes not encrypted"
+msgstr "Volúmenes sin cifrar"
+
+msgid "Weak algorithm"
+msgstr "Algoritmo débil"
+
+msgid "Which computers must be encrypted?"
+msgstr "¿Qué equipos deben estar cifrados?"
+
+#, php-format
+msgid "%d computer must be encrypted"
+msgid_plural "%d computers must be encrypted"
+msgstr[0] "%d equipo debe estar cifrado"
+msgstr[1] "%d equipos deben estar cifrados"
+
+#, php-format
+msgid "%d laptop or tablet"
+msgid_plural "%d laptops or tablets"
+msgstr[0] "%d portátil o tableta"
+msgstr[1] "%d portátiles o tabletas"
 
 msgid "Certification body report received on"
 msgstr "Informe del organismo recibido el"
@@ -27049,63 +27402,6 @@ msgstr ""
 "justificación se conserva con su autor y su fecha. También se controla un "
 "proceso cuyos controles del Anexo A (matriz de responsabilidades) se auditan "
 "en la lista de verificación o están vinculados a la auditoría."
-
-#, php-format
-msgid ""
-"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
-"deadlines."
-msgstr ""
-"Se aconseja «%1$s» después de «%2$s», que se apoya en ella: revise los "
-"plazos aconsejados."
-
-#, php-format
-msgid ""
-"A step not done is at risk of being late when its advised deadline is within "
-"%d days."
-msgstr ""
-"Una etapa no realizada corre el riesgo de retrasarse cuando su plazo "
-"aconsejado vence en los próximos %d días."
-
-msgid "Alert (days)"
-msgstr "Alerta (días)"
-
-msgid ""
-"Coverage target: share of the requirements and controls the audit programme "
-"must have covered over the last three years for the internal audit step to "
-"be done. Training target: share of the participants who must have completed "
-"their training. Alert: number of days before an advised deadline from which "
-"the step is at risk and the owner is notified."
-msgstr ""
-"Cobertura objetivo: parte de los requisitos y controles que el programa de "
-"auditoría debe haber cubierto en los últimos tres años para que la etapa de "
-"la auditoría interna esté realizada. Formación objetivo: parte de los "
-"participantes que deben haber completado su formación. Alerta: número de "
-"días antes de un plazo aconsejado a partir del cual la etapa está en riesgo "
-"y se avisa al responsable."
-
-msgid "Advised deadlines per step"
-msgstr "Plazos aconsejados por etapa"
-
-msgid ""
-"Number of days before the target date by which each step should be done. "
-"Keep the logical order: the internal audit before the management review that "
-"uses its results, then the treatment of nonconformities. A change only moves "
-"the advised deadlines: nothing else is modified."
-msgstr ""
-"Número de días antes de la fecha objetivo en que cada etapa debería estar "
-"realizada. Mantenga el orden lógico: la auditoría interna antes de la "
-"revisión por la dirección que usa sus resultados, y después el tratamiento "
-"de las no conformidades. Un cambio solo desplaza los plazos aconsejados: no "
-"se modifica nada más."
-
-msgid "Default"
-msgstr "Por defecto"
-
-msgid "Days before the target date"
-msgstr "Días antes de la fecha objetivo"
-
-msgid "Adjusted"
-msgstr "Ajustado"
 
 msgid "An audit can only be planned for the current year or a later one."
 msgstr ""
