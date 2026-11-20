@@ -1,0 +1,47 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #604 : « Mes simulations d'hameçonnage », dans les préférences de l'utilisateur connecté. #}
+{% macro step(value) %}{% if value %}{{ __('Yes') }}{% else %}<span class="text-secondary">{{ __('No') }}</span>{% endif %}{% endmacro %}
+<div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Your results in the phishing simulations of your organization. They help you spot the traps; they are seen only by you and by the people in charge of information security.', 'grcmanager') }}</div>
+{% if rows is empty %}
+   <div class="text-secondary">{{ __('You have no result in a phishing simulation.', 'grcmanager') }}</div>
+{% else %}
+   <table class="table table-hover card-table">
+      <thead>
+         <tr>
+            <th>{{ __('Campaign', 'grcmanager') }}</th>
+            <th>{{ __('Campaign date', 'grcmanager') }}</th>
+            <th>{{ __('Scenario', 'grcmanager') }}</th>
+            <th>{{ __('Opened', 'grcmanager') }}</th>
+            <th>{{ __('Link clicked', 'grcmanager') }}</th>
+            <th>{{ __('Data entered', 'grcmanager') }}</th>
+            <th>{{ __('Reported', 'grcmanager') }}</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for row in rows %}
+            <tr>
+               <td>{{ row.name }}</td>
+               <td>{{ row.date }}</td>
+               <td>{{ row.scenario }}</td>
+               <td>{{ _self.step(row.opened) }}</td>
+               <td>{{ _self.step(row.clicked) }}</td>
+               <td>{{ _self.step(row.submitted) }}</td>
+               <td>{{ _self.step(row.reported) }}</td>
+            </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+{% endif %}

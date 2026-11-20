@@ -23941,3 +23941,234 @@ msgstr "Nie można dodać tego odbiorcy."
 
 msgid "Communication recorded."
 msgstr "Komunikacja zarejestrowana."
+
+msgid "Proposed remedial training: the people who clicked the link or entered data in the phishing simulation are preselected. Check the date and the list, then click \"Add\". Nothing is saved or sent before that."
+msgstr "Proponowane szkolenie uzupełniające: osoby, które w symulacji phishingu kliknęły link lub wprowadziły dane, są wstępnie wybrane. Sprawdź datę i listę, a następnie kliknij „Dodaj”. Wcześniej nic nie jest zapisywane ani wysyłane."
+
+msgid "Phishing simulations"
+msgstr "Symulacje phishingu"
+
+msgid "%d campaign within 12 months"
+msgid_plural "%d campaigns within 12 months"
+msgstr[0] "%d kampania w ciągu 12 miesięcy"
+msgstr[1] "%d kampanie w ciągu 12 miesięcy"
+msgstr[2] "%d kampanii w ciągu 12 miesięcy"
+
+msgid "Last campaign: %s"
+msgstr "Ostatnia kampania: %s"
+
+msgid "Last campaign: %1$s, %2$s %% clicked, %3$s %% reported"
+msgstr "Ostatnia kampania: %1$s, %2$s %% kliknięć, %3$s %% zgłoszeń"
+
+msgid "Clicks: %s points since the previous campaign"
+msgstr "Kliknięcia: %s pkt od poprzedniej kampanii"
+
+msgid "Open the phishing simulations"
+msgstr "Otwórz symulacje phishingu"
+
+msgid "Import the results of \"%s\""
+msgstr "Importuj wyniki „%s”"
+
+msgid "The usual columns are recognised automatically. Only the email address (or login) is required: without a \"received\" or status column, each line is a person who received the email."
+msgstr "Typowe kolumny są rozpoznawane automatycznie. Wymagany jest tylko adres e-mail (lub login): bez kolumny „otrzymano” ani kolumny statusu każdy wiersz to osoba, która otrzymała wiadomość."
+
+msgid "First lines of the file"
+msgstr "Pierwsze wiersze pliku"
+
+msgid "The results replace those of the campaign. People are matched with the active GLPI users of the entity of the campaign; the address is kept only for the lines not matched. Nothing is sent to anyone."
+msgstr "Wyniki zastępują wyniki kampanii. Osoby są dopasowywane do aktywnych użytkowników GLPI jednostki kampanii; adres jest zachowywany tylko dla niedopasowanych wierszy. Nic nie jest do nikogo wysyłane."
+
+msgid "Rates of the campaign"
+msgstr "Wskaźniki kampanii"
+
+msgid "Last import: %1$s (%2$s)"
+msgstr "Ostatni import: %1$s (%2$s)"
+
+msgid "The results per person are personal data: they are shown only with the right on sensitive registers. Each person sees their own results in their preferences."
+msgstr "Wyniki poszczególnych osób są danymi osobowymi: są pokazywane tylko z uprawnieniem do rejestrów wrażliwych. Każdy widzi własne wyniki w swoich preferencjach."
+
+msgid "%d person clicked the link or entered data."
+msgid_plural "%d people clicked the link or entered data."
+msgstr[0] "%d osoba kliknęła link lub wprowadziła dane."
+msgstr[1] "%d osoby kliknęły link lub wprowadziły dane."
+msgstr[2] "%d osób kliknęło link lub wprowadziło dane."
+
+msgid "You can offer them a remedial training: nothing is sent, the training form is only filled in for you."
+msgstr "Możesz zaproponować im szkolenie uzupełniające: nic nie jest wysyłane, formularz szkolenia jest tylko wstępnie wypełniany dla Ciebie."
+
+msgid "Offer a remedial training"
+msgstr "Zaproponuj szkolenie uzupełniające"
+
+msgid "Results per person"
+msgstr "Wyniki poszczególnych osób"
+
+msgid "The individual results have been deleted."
+msgstr "Wyniki indywidualne zostały usunięte."
+
+msgid "No person matched yet."
+msgstr "Nie dopasowano jeszcze żadnej osoby."
+
+msgid "Email received"
+msgstr "Wiadomość otrzymana"
+
+msgid "Opened"
+msgstr "Otwarto"
+
+msgid "Link clicked"
+msgstr "Kliknięto link"
+
+msgid "Data entered"
+msgstr "Wprowadzono dane"
+
+msgid "Reported"
+msgstr "Zgłoszono"
+
+msgid "%d line not matched"
+msgid_plural "%d lines not matched"
+msgstr[0] "%d niedopasowany wiersz"
+msgstr[1] "%d niedopasowane wiersze"
+msgstr[2] "%d niedopasowanych wierszy"
+
+msgid "No single active GLPI user of the entity of the campaign has this email address or login. Correct the address in GLPI (or in the file), then import the file again. These lines still count in the rates."
+msgstr "Żaden pojedynczy aktywny użytkownik GLPI jednostki kampanii nie ma tego adresu e-mail ani loginu. Popraw adres w GLPI (lub w pliku), a następnie ponownie zaimportuj plik. Te wiersze nadal liczą się do wskaźników."
+
+msgid "Email address or login"
+msgstr "Adres e-mail lub login"
+
+msgid "Import the results"
+msgstr "Importuj wyniki"
+
+msgid "CSV export of the results from the simulation tool, one line per person: email address or login, then email received, opened, link clicked, data entered and reported (yes / no columns, or the status column of a GoPhish export). You check the columns at the next step. A new import replaces the results of the campaign."
+msgstr "Eksport CSV wyników z narzędzia do symulacji, jeden wiersz na osobę: adres e-mail lub login, a następnie wiadomość otrzymana, otwarta, kliknięty link, wprowadzone dane i zgłoszenie (kolumny tak / nie lub kolumna statusu eksportu GoPhish). Kolumny sprawdzisz w następnym kroku. Nowy import zastępuje wyniki kampanii."
+
+msgid "At most %d MB. The values of the file are read as text: no formula is evaluated."
+msgstr "Maksymalnie %d MB. Wartości pliku są odczytywane jako tekst: żadna formuła nie jest obliczana."
+
+msgid "Delete the results per person? The rates of the campaign are kept."
+msgstr "Usunąć wyniki poszczególnych osób? Wskaźniki kampanii zostaną zachowane."
+
+msgid "Once the follow-up is done (remedial training, statistics), delete the results per person: only the rates of the campaign remain."
+msgstr "Po zakończeniu działań następczych (szkolenie uzupełniające, statystyki) usuń wyniki poszczególnych osób: pozostaną tylko wskaźniki kampanii."
+
+msgid "Delete the results per person"
+msgstr "Usuń wyniki poszczególnych osób"
+
+msgid "For example \"Fake parcel delivery, spring 2026\"."
+msgstr "Na przykład „Fałszywe awizo przesyłki, wiosna 2026”."
+
+msgid "Campaign date"
+msgstr "Data kampanii"
+
+msgid "Day the simulated emails were sent."
+msgstr "Dzień wysłania symulowanych wiadomości."
+
+msgid "Simulation tool"
+msgstr "Narzędzie do symulacji"
+
+msgid "The tool or the provider that sent the emails, for example GoPhish. GLPI sends nothing."
+msgstr "Narzędzie lub dostawca, który wysłał wiadomości, na przykład GoPhish. GLPI niczego nie wysyła."
+
+msgid "Targeted population"
+msgstr "Grupa docelowa"
+
+msgid "Who received the email: all staff, a department, a site..."
+msgstr "Kto otrzymał wiadomość: wszyscy pracownicy, dział, oddział..."
+
+msgid "What the trap looked like: sender, subject, lure, fake page."
+msgstr "Jak wyglądała pułapka: nadawca, temat, przynęta, fałszywa strona."
+
+msgid "Your results in the phishing simulations of your organization. They help you spot the traps; they are seen only by you and by the people in charge of information security."
+msgstr "Twoje wyniki w symulacjach phishingu Twojej organizacji. Pomagają rozpoznawać pułapki; widzisz je tylko Ty i osoby odpowiedzialne za bezpieczeństwo informacji."
+
+msgid "You have no result in a phishing simulation."
+msgstr "Nie masz żadnego wyniku w symulacji phishingu."
+
+msgid "No results yet. Import the results file of the simulation tool in the Results tab."
+msgstr "Brak wyników. Zaimportuj plik wyników narzędzia do symulacji w zakładce Wyniki."
+
+msgid "Fewer than %d people received the email: the rates are not shown, they could identify someone."
+msgstr "Wiadomość otrzymało mniej niż %d osób: wskaźniki nie są pokazywane, mogłyby wskazać konkretną osobę."
+
+msgid "Emails received"
+msgstr "Otrzymane wiadomości"
+
+msgid "Rates out of the emails received. A good campaign has few clicks and many reports."
+msgstr "Wskaźniki w odniesieniu do otrzymanych wiadomości. Dobra kampania ma mało kliknięć i dużo zgłoszeń."
+
+msgid "Individual results deleted on %s: only the rates are kept."
+msgstr "Wyniki indywidualne usunięte %s: zachowano tylko wskaźniki."
+
+msgid "Trend from one campaign to the next"
+msgstr "Trend między kolejnymi kampaniami"
+
+msgid "Change in clicks"
+msgstr "Zmiana kliknięć"
+
+msgid "Too few people to show anonymous rates"
+msgstr "Zbyt mało osób, aby pokazać anonimowe wskaźniki"
+
+msgid "Rates out of the emails received. To follow the click rate with thresholds and an alert, create a risk indicator (KRI) with the source \"Click rate of the last phishing simulation\"."
+msgstr "Wskaźniki w odniesieniu do otrzymanych wiadomości. Aby śledzić wskaźnik kliknięć z progami i alertem, utwórz wskaźnik ryzyka (KRI) ze źródłem „Wskaźnik kliknięć ostatniej symulacji phishingu”."
+
+msgid "Phishing awareness - %s"
+msgstr "Świadomość phishingu - %s"
+
+msgid "People caught by the phishing simulation"
+msgstr "Osoby, które dały się złapać w symulacji phishingu"
+
+msgid "Phishing simulation result"
+msgid_plural "Phishing simulation results"
+msgstr[0] "Wynik symulacji phishingu"
+msgstr[1] "Wyniki symulacji phishingu"
+msgstr[2] "Wyników symulacji phishingu"
+
+msgid "My phishing simulations"
+msgstr "Moje symulacje phishingu"
+
+msgid "Results imported: %1$d people matched, %2$d lines not matched"
+msgstr "Zaimportowano wyniki: dopasowane osoby: %1$d, niedopasowane wiersze: %2$d"
+
+msgid "Individual results deleted, rates kept"
+msgstr "Usunięto wyniki indywidualne, zachowano wskaźniki"
+
+msgid "Click rate of the last phishing simulation (%)"
+msgstr "Wskaźnik kliknięć ostatniej symulacji phishingu (%)"
+
+msgid "Phishing simulation"
+msgid_plural "Phishing simulations"
+msgstr[0] "Symulacja phishingu"
+msgstr[1] "Symulacje phishingu"
+msgstr[2] "Symulacji phishingu"
+
+msgid "Give the campaign a name."
+msgstr "Nadaj kampanii nazwę."
+
+msgid "Phishing simulations: the fake phishing campaigns sent with an external tool (GoPhish, a provider...), their results and the trend from one campaign to the next. The plugin never sends any email."
+msgstr "Symulacje phishingu: fałszywe kampanie phishingowe wysłane zewnętrznym narzędziem (GoPhish, dostawca...), ich wyniki i trend między kolejnymi kampaniami. Wtyczka nigdy nie wysyła wiadomości."
+
+msgid "Record each campaign (date, tool, scenario, targeted population), then import the results file of the tool in the Results tab. Offer a remedial training to the people who clicked. Inform the staff beforehand that simulations take place, and delete the results per person once the follow-up is done."
+msgstr "Zarejestruj każdą kampanię (data, narzędzie, scenariusz, grupa docelowa), a następnie zaimportuj plik wyników narzędzia w zakładce Wyniki. Zaproponuj szkolenie uzupełniające osobom, które kliknęły. Poinformuj wcześniej pracowników, że odbywają się symulacje, i usuń wyniki poszczególnych osób po zakończeniu działań następczych."
+
+msgid "ISO/IEC 27001, clause 7.3 and control A.6.3"
+msgstr "ISO/IEC 27001, punkt 7.3 i zabezpieczenie A.6.3"
+
+msgid "Import of the results of a phishing simulation: each line of the file is matched with a GLPI user by email address or login."
+msgstr "Import wyników symulacji phishingu: każdy wiersz pliku jest dopasowywany do użytkownika GLPI po adresie e-mail lub loginie."
+
+msgid "Check the column of each field, then import. The lines not matched are listed on the campaign so that you can correct them."
+msgstr "Sprawdź kolumnę każdego pola, a następnie zaimportuj. Niedopasowane wiersze są wyświetlane w kampanii, aby można je było poprawić."
+
+msgid "Choose a CSV file (text separated by commas or semicolons)."
+msgstr "Wybierz plik CSV (tekst rozdzielany przecinkami lub średnikami)."
+
+msgid "Choose the column that holds the email address or the login."
+msgstr "Wybierz kolumnę zawierającą adres e-mail lub login."
+
+msgid "%1$d line(s) read: %2$d person(s) matched, %3$d line(s) not matched, %4$d empty line(s) ignored."
+msgstr "Odczytane wiersze: %1$d; dopasowane osoby: %2$d; niedopasowane wiersze: %3$d; pominięte puste wiersze: %4$d."
+
+msgid "Status (GoPhish export)"
+msgstr "Status (eksport GoPhish)"
+
+msgid "The individual results have been deleted. The rates of the campaign are kept."
+msgstr "Wyniki indywidualne zostały usunięte. Wskaźniki kampanii zostały zachowane."

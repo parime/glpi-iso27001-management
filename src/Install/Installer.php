@@ -381,6 +381,8 @@ final class Installer
         ...CompetenceTables::CLASSES,
         // Issue #616 : communication de crise (modèles, listes de diffusion, communications faites).
         ...CrisisCommunicationTables::CLASSES,
+        // Issue #604 : simulations d'hameçonnage (campagnes, résultats par personne).
+        ...PhishingTables::CLASSES,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
@@ -1507,6 +1509,8 @@ final class Installer
         // Issue #616 : communication de crise, et modèles fournis (une seule fois, bibliothèque vide).
         CrisisCommunicationTables::install($keySign, $charset, $collation);
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
+        // Issue #604 : campagnes de simulation d'hameçonnage et résultats importés (7.3, A.6.3).
+        PhishingTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -6243,6 +6247,7 @@ final class Installer
         PhysicalSecurityTables::uninstall($migration);
         CompetenceTables::uninstall($migration);
         CrisisCommunicationTables::uninstall($migration);
+        PhishingTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

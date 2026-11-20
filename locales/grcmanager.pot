@@ -28050,3 +28050,383 @@ msgstr ""
 #: front/crisiscommunication.form.php:36
 msgid "Communication recorded."
 msgstr ""
+
+#: templates/training_form.html.twig
+msgid ""
+"Proposed remedial training: the people who clicked the link or entered data "
+"in the phishing simulation are preselected. Check the date and the list, "
+"then click \"Add\". Nothing is saved or sent before that."
+msgstr ""
+
+#: templates/control_form.html.twig templates/_phishing_summary.html.twig
+msgid "Phishing simulations"
+msgstr ""
+
+#: templates/_phishing_summary.html.twig
+#, php-format
+msgid "%d campaign within 12 months"
+msgid_plural "%d campaigns within 12 months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_phishing_summary.html.twig
+#, php-format
+msgid "Last campaign: %s"
+msgstr ""
+
+#: templates/_phishing_summary.html.twig
+#, php-format
+msgid "Last campaign: %1$s, %2$s %% clicked, %3$s %% reported"
+msgstr ""
+
+#: templates/_phishing_summary.html.twig
+#, php-format
+msgid "Clicks: %s points since the previous campaign"
+msgstr ""
+
+#: templates/_phishing_summary.html.twig
+msgid "Open the phishing simulations"
+msgstr ""
+
+#: templates/phishing_import.html.twig
+#, php-format
+msgid "Import the results of \"%s\""
+msgstr ""
+
+#: templates/phishing_import.html.twig
+msgid ""
+"The usual columns are recognised automatically. Only the email address (or "
+"login) is required: without a \"received\" or status column, each line is a "
+"person who received the email."
+msgstr ""
+
+#: templates/phishing_import.html.twig
+msgid "First lines of the file"
+msgstr ""
+
+#: templates/phishing_import.html.twig
+msgid ""
+"The results replace those of the campaign. People are matched with the "
+"active GLPI users of the entity of the campaign; the address is kept only "
+"for the lines not matched. Nothing is sent to anyone."
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid "Rates of the campaign"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+#, php-format
+msgid "Last import: %1$s (%2$s)"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid ""
+"The results per person are personal data: they are shown only with the right "
+"on sensitive registers. Each person sees their own results in their "
+"preferences."
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+#, php-format
+msgid "%d person clicked the link or entered data."
+msgid_plural "%d people clicked the link or entered data."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/phishing_results_tab.html.twig
+msgid ""
+"You can offer them a remedial training: nothing is sent, the training form "
+"is only filled in for you."
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid "Offer a remedial training"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid "Results per person"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid "The individual results have been deleted."
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid "No person matched yet."
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig front/phishingimport.php:130
+#: front/phishingcampaign.import.php:130
+msgid "Email received"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig templates/my_phishing_tab.html.twig
+#: templates/_phishing_rates.html.twig front/phishingimport.php:131
+#: front/phishingcampaign.import.php:131
+msgid "Opened"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig templates/my_phishing_tab.html.twig
+#: templates/_phishing_rates.html.twig templates/phishing_trend.html.twig
+#: front/phishingimport.php:132 front/phishingcampaign.import.php:132
+msgid "Link clicked"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig templates/my_phishing_tab.html.twig
+#: templates/_phishing_rates.html.twig templates/phishing_trend.html.twig
+#: front/phishingimport.php:133 front/phishingcampaign.import.php:133
+msgid "Data entered"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig templates/my_phishing_tab.html.twig
+#: templates/_phishing_rates.html.twig templates/phishing_trend.html.twig
+#: front/phishingimport.php:134 front/phishingcampaign.import.php:134
+msgid "Reported"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+#, php-format
+msgid "%d line not matched"
+msgid_plural "%d lines not matched"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/phishing_results_tab.html.twig
+msgid ""
+"No single active GLPI user of the entity of the campaign has this email "
+"address or login. Correct the address in GLPI (or in the file), then import "
+"the file again. These lines still count in the rates."
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig front/phishingimport.php:128
+#: front/phishingcampaign.import.php:128
+msgid "Email address or login"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid "Import the results"
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid ""
+"CSV export of the results from the simulation tool, one line per person: "
+"email address or login, then email received, opened, link clicked, data "
+"entered and reported (yes / no columns, or the status column of a GoPhish "
+"export). You check the columns at the next step. A new import replaces the "
+"results of the campaign."
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+#, php-format
+msgid ""
+"At most %d MB. The values of the file are read as text: no formula is "
+"evaluated."
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid "Delete the results per person? The rates of the campaign are kept."
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid ""
+"Once the follow-up is done (remedial training, statistics), delete the "
+"results per person: only the rates of the campaign remain."
+msgstr ""
+
+#: templates/phishing_results_tab.html.twig
+msgid "Delete the results per person"
+msgstr ""
+
+#: templates/phishing_campaign_form.html.twig
+msgid "For example \"Fake parcel delivery, spring 2026\"."
+msgstr ""
+
+#: templates/phishing_campaign_form.html.twig
+#: templates/my_phishing_tab.html.twig templates/phishing_trend.html.twig
+#: src/PhishingCampaign.php:319
+msgid "Campaign date"
+msgstr ""
+
+#: templates/phishing_campaign_form.html.twig
+msgid "Day the simulated emails were sent."
+msgstr ""
+
+#: templates/phishing_campaign_form.html.twig src/PhishingCampaign.php:323
+msgid "Simulation tool"
+msgstr ""
+
+#: templates/phishing_campaign_form.html.twig
+msgid ""
+"The tool or the provider that sent the emails, for example GoPhish. GLPI "
+"sends nothing."
+msgstr ""
+
+#: templates/phishing_campaign_form.html.twig src/PhishingCampaign.php:328
+msgid "Targeted population"
+msgstr ""
+
+#: templates/phishing_campaign_form.html.twig
+msgid "Who received the email: all staff, a department, a site..."
+msgstr ""
+
+#: templates/phishing_campaign_form.html.twig
+msgid "What the trap looked like: sender, subject, lure, fake page."
+msgstr ""
+
+#: templates/my_phishing_tab.html.twig
+msgid ""
+"Your results in the phishing simulations of your organization. They help you "
+"spot the traps; they are seen only by you and by the people in charge of "
+"information security."
+msgstr ""
+
+#: templates/my_phishing_tab.html.twig
+msgid "You have no result in a phishing simulation."
+msgstr ""
+
+#: templates/_phishing_rates.html.twig
+msgid ""
+"No results yet. Import the results file of the simulation tool in the "
+"Results tab."
+msgstr ""
+
+#: templates/_phishing_rates.html.twig
+#, php-format
+msgid ""
+"Fewer than %d people received the email: the rates are not shown, they could "
+"identify someone."
+msgstr ""
+
+#: templates/_phishing_rates.html.twig templates/phishing_trend.html.twig
+#: src/PhishingCampaign.php:331
+msgid "Emails received"
+msgstr ""
+
+#: templates/_phishing_rates.html.twig
+msgid ""
+"Rates out of the emails received. A good campaign has few clicks and many "
+"reports."
+msgstr ""
+
+#: templates/_phishing_rates.html.twig
+#, php-format
+msgid "Individual results deleted on %s: only the rates are kept."
+msgstr ""
+
+#: templates/phishing_trend.html.twig
+msgid "Trend from one campaign to the next"
+msgstr ""
+
+#: templates/phishing_trend.html.twig
+msgid "Change in clicks"
+msgstr ""
+
+#: templates/phishing_trend.html.twig
+msgid "Too few people to show anonymous rates"
+msgstr ""
+
+#: templates/phishing_trend.html.twig
+msgid ""
+"Rates out of the emails received. To follow the click rate with thresholds "
+"and an alert, create a risk indicator (KRI) with the source \"Click rate of "
+"the last phishing simulation\"."
+msgstr ""
+
+#: src/Training.php:780
+#, php-format
+msgid "Phishing awareness - %s"
+msgstr ""
+
+#: src/Training.php:781
+msgid "People caught by the phishing simulation"
+msgstr ""
+
+#: src/PhishingResult.php:49
+msgid "Phishing simulation result"
+msgid_plural "Phishing simulation results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/PhishingResult.php:86
+msgid "My phishing simulations"
+msgstr ""
+
+#: src/PhishingResult.php:263
+#, php-format
+msgid "Results imported: %1$d people matched, %2$d lines not matched"
+msgstr ""
+
+#: src/PhishingResult.php:289
+msgid "Individual results deleted, rates kept"
+msgstr ""
+
+#: src/RiskIndicator.php:145
+msgid "Click rate of the last phishing simulation (%)"
+msgstr ""
+
+#: src/PhishingCampaign.php:60
+msgid "Phishing simulation"
+msgid_plural "Phishing simulations"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/PhishingCampaign.php:137
+msgid "Give the campaign a name."
+msgstr ""
+
+#: src/PageHelp.php:584
+msgid ""
+"Phishing simulations: the fake phishing campaigns sent with an external tool "
+"(GoPhish, a provider...), their results and the trend from one campaign to "
+"the next. The plugin never sends any email."
+msgstr ""
+
+#: src/PageHelp.php:590
+msgid ""
+"Record each campaign (date, tool, scenario, targeted population), then "
+"import the results file of the tool in the Results tab. Offer a remedial "
+"training to the people who clicked. Inform the staff beforehand that "
+"simulations take place, and delete the results per person once the follow-up "
+"is done."
+msgstr ""
+
+#: src/PageHelp.php:596 src/PageHelp.php:609
+msgid "ISO/IEC 27001, clause 7.3 and control A.6.3"
+msgstr ""
+
+#: src/PageHelp.php:600
+msgid ""
+"Import of the results of a phishing simulation: each line of the file is "
+"matched with a GLPI user by email address or login."
+msgstr ""
+
+#: src/PageHelp.php:605
+msgid ""
+"Check the column of each field, then import. The lines not matched are "
+"listed on the campaign so that you can correct them."
+msgstr ""
+
+#: front/phishingimport.php:82 front/phishingcampaign.import.php:82
+msgid "Choose a CSV file (text separated by commas or semicolons)."
+msgstr ""
+
+#: front/phishingimport.php:107 front/phishingcampaign.import.php:107
+msgid "Choose the column that holds the email address or the login."
+msgstr ""
+
+#: front/phishingimport.php:115 front/phishingcampaign.import.php:115
+#, php-format
+msgid ""
+"%1$d line(s) read: %2$d person(s) matched, %3$d line(s) not matched, %4$d "
+"empty line(s) ignored."
+msgstr ""
+
+#: front/phishingimport.php:129 front/phishingcampaign.import.php:129
+msgid "Status (GoPhish export)"
+msgstr ""
+
+#: front/phishingcampaign.form.php:48
+msgid ""
+"The individual results have been deleted. The rates of the campaign are kept."
+msgstr ""

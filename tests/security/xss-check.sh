@@ -95,6 +95,14 @@ check "onglet principal d'une procedure"      "$(tab 'GlpiPlugin%5CGrcmanager%5C
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).
 check "front/parkvulnerability.php?warranty=all" "$P/parkvulnerability.php?warranty=all"
+# Issue #604 : campagne de simulation d'hameconnage piegee (liste et tendance, fiche, onglet Resultats,
+# onglet des preferences de glpi, preuve sur A.6.3).
+check "front/phishingcampaign.php"            "$P/phishingcampaign.php"
+check "fiche d'une simulation d'hameconnage"  "$P/phishingcampaign.form.php?id=$(xid phishing)"
+check "onglet Resultats d'une simulation"     "$(tab GlpiPlugin%5CGrcmanager%5CPhishingCampaign 'GlpiPlugin%5CGrcmanager%5CPhishingResult$1' "$(xid phishing)")"
+check "onglet Mes simulations d'hameconnage"  "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPhishingResult$1' 2)"
+check "formation de rattrapage pre-remplie"   "$(tab GlpiPlugin%5CGrcmanager%5CTraining 'GlpiPlugin%5CGrcmanager%5CTraining$main' "0&phishing_of=$(xid phishing)")"
+check "preuve des simulations sur A.6.3"      "$P/control.form.php?id=$(id control_a63)"
 # Issue #771 : contact officiel piege (registre, fiche, onglets de l'incident et de la violation).
 check "front/officialcontact.php"             "$P/officialcontact.php"
 check "fiche d'un contact officiel"           "$P/contextitem.form.php?id=$(xid official_contact)"

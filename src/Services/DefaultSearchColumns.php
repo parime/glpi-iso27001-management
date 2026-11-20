@@ -49,6 +49,8 @@ final class DefaultSearchColumns
         'GlpiPlugin\\Grcmanager\\SupplierRisk'  => [11, 1, 2, 3, 6, 4, 5, 7, 8, 9],
         // Sprint 6 (formations et revues de direction), same "id first" convention.
         'GlpiPlugin\\Grcmanager\\Training'         => [8, 1, 2, 3, 4, 5, 6],
+        // Issue #604 : nom, date, outil, population ciblée, messages reçus, entité.
+        'GlpiPlugin\\Grcmanager\\PhishingCampaign' => [1, 3, 4, 5, 6, 80],
         'GlpiPlugin\\Grcmanager\\ManagementReview' => [6, 1, 2, 3, 4, 5],
         // Issue #126 : campagne (lien), statut, fréquence, dates, pilote, entité.
         'GlpiPlugin\\Grcmanager\\AccessReview'     => [1, 2, 3, 4, 5, 6, 80],

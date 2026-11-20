@@ -203,6 +203,22 @@ if ($mode === 'xss') {
         'when_to_contact' => $canary, 'contact_delay' => $canary, 'on_security_incident' => 1,
         'on_data_breach' => 1, 'expectations' => $canary, 'comment' => $canary,
     ]);
+    // Issue #604 : campagne de simulation d'hameçonnage piégée (champs texte, nom du fichier importé),
+    // avec une ligne non rapprochée piégée et un résultat de glpi (onglet de ses préférences).
+    $out['phishing'] = $insert('phishingcampaigns', [
+        'entities_id' => 0, 'is_recursive' => 1, 'name' => $canary, 'campaign_date' => date('Y-m-d'),
+        'tool' => $canary, 'scenario' => $canary, 'target_population' => $canary, 'comment' => $canary,
+        'nb_sent' => 6, 'nb_opened' => 3, 'nb_clicked' => 2, 'nb_unmatched' => 1, 'import_file' => $canary,
+        'date_import' => date('Y-m-d H:i:s'),
+    ]);
+    $insert('phishingresults', [
+        'plugin_grcmanager_phishingcampaigns_id' => $out['phishing'], 'users_id' => 0, 'identifier' => $canary,
+        'line' => 2, 'is_sent' => 1,
+    ]);
+    $insert('phishingresults', [
+        'plugin_grcmanager_phishingcampaigns_id' => $out['phishing'], 'users_id' => 2, 'line' => 3,
+        'is_sent' => 1, 'is_clicked' => 1,
+    ]);
     // Issue #616 : modèle de message de crise piégé (nom, objet, texte, commentaire), contact officiel
     // piégé dans sa liste de diffusion, et communication tracée piégée sur l'incident de A. Les
     // variables de l'incident de A (nom, ordinateur lié) sont piégées aussi.
@@ -1164,6 +1180,45 @@ foreach (['A', 'B'] as $suffix) {
         ]);
     }
 }
+// Issue #604 : une campagne de simulation d'hameçonnage dans chaque entité, avec des résultats
+// importés. Dans A : le collaborateur de A et iso-sans-droit ont cliqué (ce dernier voit les siens dans
+// ses préférences), et quatre adresses fictives restent non rapprochées (6 personnes : assez pour des
+// taux anonymes). Dans B : le collaborateur de B a cliqué.
+$phishingMail = static function (int $usersId, string $email) use ($DB): void {
+    if (countElementsInTable('glpi_useremails', ['users_id' => $usersId, 'email' => $email]) === 0) {
+        $DB->insert('glpi_useremails', ['users_id' => $usersId, 'email' => $email, 'is_default' => 1]);
+    }
+};
+$phishingMail($ids['collab_A'], 'collaborateur.a@example.org');
+$phishingMail($ids['collab_B'], 'collaborateur.b@example.org');
+$phishingMail($noRight, 'sans.droit@example.org');
+$phishingLines = [
+    'A' => "email,status,reported\ncollaborateur.a@example.org,Clicked Link,false\n"
+        . "sans.droit@example.org,Clicked Link,false\ninconnu.securite@example.org,Email Opened,true\n"
+        . "autre1.securite@example.org,Email Sent,false\nautre2.securite@example.org,Email Sent,true\n"
+        . "autre3.securite@example.org,Email Sent,false\n",
+    'B' => "email,status,reported\ncollaborateur.b@example.org,Clicked Link,false\n",
+];
+foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
+    $campaign = new \GlpiPlugin\Grcmanager\PhishingCampaign();
+    if (!$campaign->getFromDBByCrit(['name' => 'Campagne hameconnage ' . $suffix])) {
+        $add($campaign, [
+            'name' => 'Campagne hameconnage ' . $suffix, 'entities_id' => $entity, 'campaign_date' => date('Y-m-d'),
+            'tool' => 'GoPhish', 'scenario' => 'Faux avis de livraison', 'target_population' => 'Entite ' . $suffix,
+        ]);
+        $campaign->getFromDB($campaign->getID());
+        $parsed = \GlpiPlugin\Grcmanager\Services\Phishing\PhishingRules::parse($phishingLines[$suffix]);
+        \GlpiPlugin\Grcmanager\PhishingResult::import(
+            $campaign,
+            $parsed['rows'],
+            \GlpiPlugin\Grcmanager\Services\Phishing\PhishingRules::guessMapping($parsed['headers']),
+            'resultats-fictifs.csv'
+        );
+    }
+    $ids['phishing_' . $suffix] = (int) $campaign->getID();
+}
 // Issue #778 : mesure A.7.1 de la SoA du siège (preuve des évaluations de la sécurité physique).
 $ids['control_a71'] = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode(0)['A.7.1'] ?? 0;
+// Issue #604 : mesure A.6.3 de la SoA du siège (preuve des simulations d'hameçonnage).
+$ids['control_a63'] = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode(0)['A.6.3'] ?? 0;
 echo json_encode($ids), "\n";

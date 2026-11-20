@@ -337,6 +337,8 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PhysicalSecurityAssessment::class, [
         'addtabon' => [Location::class],
     ]);
+    // Issue #604 : « Mes simulations d'hameçonnage » dans les préférences (ses propres résultats).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PhishingResult::class, ['addtabon' => [Preference::class]]);
     // Issue #774 : compétences d'une personne, sur chaque utilisateur et dans ses préférences.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CompetenceMatrix::class, [
         'addtabon' => [User::class, Preference::class],
