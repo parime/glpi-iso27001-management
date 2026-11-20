@@ -7,14 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-### Fixed
-
-- **Gabarits d'incident de sécurité** (issue #796) : l'aperçu d'un gabarit affichait « Une erreur
-  inattendue s'est produite », et le statut, la priorité ou l'impact prédéfinis ne pouvaient pas être
-  réglés. Le cœur de GLPI (11 et 12) lit les champs prédéfinis avec une méthode qui ne connaît que
-  les tickets, changements et problèmes, et levait « Unknown ITIL type ». Le plugin fournit
-  désormais sa propre lecture des champs prédéfinis.
-
 ### Added
 
 - **Scénarios de crise sécurité de l'information du PCA** (issue #776, lot 1, mesure A.5.29). Constat
@@ -41,6 +33,18 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     l'indisponibilité d'un prestataire, scénarios repris dans le PCA en PDF de chaque processus,
     archivage daté du PDF sur la mesure, lien avec les exercices de reprise (#733).
 
+## [2.67.0] - 2026-11-20
+
+### Fixed
+
+- **Gabarits d'incident de sécurité** (issue #796) : l'aperçu d'un gabarit affichait « Une erreur
+  inattendue s'est produite », et le statut, la priorité ou l'impact prédéfinis ne pouvaient pas être
+  réglés. Le cœur de GLPI (11 et 12) lit les champs prédéfinis avec une méthode qui ne connaît que
+  les tickets, changements et problèmes, et levait « Unknown ITIL type ». Le plugin fournit
+  désormais sa propre lecture des champs prédéfinis.
+
+### Added
+
 - **Évaluation par référentiel sur les mesures propres de chaque référentiel** (issue #789, lot 1).
   Tableau de bord, onglet « Évaluation par référentiel » :
   - un référentiel personnalisé (par exemple un référentiel national importé en CSV) est évalué sur
@@ -54,6 +58,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     le référentiel n'est pas évalué au lieu d'afficher des mesures ISO ;
   - liste « Référentiel à détailler », choix retenu pour la session ; colonne « Évalué sur ».
   Droits et entités inchangés (droit de lecture du plugin, registre NIS2 Italia accessible seul).
+
+- **Vulnérabilités du parc : les systèmes d'exploitation sont rapprochés des CVE** (issue #780,
+  lot 1). Une grande partie des CVE critiques touche Windows, Windows Server et les distributions
+  Linux, qui échappaient au suivi : seuls les logiciels installés et les firmwares (#705) étaient
+  rapprochés.
+  - Troisième source du rapprochement : le système d'exploitation de chaque actif
+    (`Item_OperatingSystem` : nom, version et version du noyau). Il n'est relié à un produit que
+    par un alias déclaré, jamais par ressemblance de nom. Pour Windows 10 et 11, la version de
+    fonctionnalités (« 23H2 ») fait partie du nom rapproché, comme dans NVD.
+  - Correspondances proposées par défaut dans « Logiciels à surveiller » pour Windows 10 et 11,
+    Windows Server 2016 à 2025, Debian, Ubuntu et Red Hat Enterprise Linux (CPE
+    `cpe:2.3:o:...`) : l'administrateur les vérifie, puis clique sur « Accepter la proposition ».
+    La famille du système est reconnue par la règle de la fin de support (#704), qui reconnaît
+    désormais aussi le nom complet inventorié par l'agent GLPI (« Debian GNU/Linux 12
+    (bookworm) », « Ubuntu 22.04.4 LTS »).
+  - Comparaison des versions sous la forme employée par NVD : numéro de build pour Windows,
+    « 12.0 » pour Debian 12, « 9.0 » pour RHEL 9, « 22.04 » pour Ubuntu. Un build Windows sans
+    révision (« 10.0.22631 ») reste « version non vérifiable » et n'est pas interrogé auprès de
+    NVD : il n'est jamais déclaré vulnérable ni corrigé par supposition.
+  - La source « Système d'exploitation » est affichée dans l'onglet CVE d'un incident, dans
+    « Vulnérabilités du parc », dans « Logiciels à surveiller » et dans l'onglet
+    « Vulnérabilités » de l'actif. Les tickets de mise à jour lient les actifs concernés, dans
+    l'entité du ticket (règle de #702).
+  - Entités et droits inchangés : un utilisateur ne voit et ne compte que les actifs de ses
+    entités, d'un type qu'il peut lire dans l'onglet CVE. Aucun droit ajouté ni modifié.
 
 - **Fin de garantie du matériel** (issue #782, lot 1, A.7.13 et A.8.9), en complément de la fin de
   support des logiciels (#704). Calcul à la demande depuis les informations financières natives de
@@ -97,6 +126,32 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     droit du contexte et dans l'entité de l'incident ou une entité parente.
   - Reste à faire (lot 2) : suppléant de chaque contact principal, revue annuelle de l'annuaire,
     adresses des membres d'un groupe, communications dans le rapport d'exercice de crise.
+- **Sécurité physique des sites : grille d'évaluation, zones et actions** (issue #778, lot 1,
+  mesures A.7.1 à A.7.14). Les sites sont les lieux de GLPI ; aucun second référentiel.
+  - Évaluation d'un site : date, évaluateur, statut, politique de sécurité physique liée (document
+    de la bibliothèque des politiques), échéance de réévaluation fixée à 12 mois une fois
+    l'évaluation terminée.
+  - Onglet « Grille de sécurité physique » : une ligne par mesure A.7.1 à A.7.14 avec l'état
+    (conforme, partiellement conforme, non conforme, non applicable, non évaluée), le constat, les
+    preuves examinées et les documents de l'évaluation (photos, procès-verbaux) ; une mesure exclue
+    de la SoA est « non applicable » d'office ; l'état de l'évaluation précédente du site est
+    rappelé.
+  - « Créer l'action » sur une ligne partielle ou non conforme : non-conformité pré-remplie (site,
+    mesure, constat), relue et enregistrée par l'utilisateur, puis suivie par le workflow CAPA ; la
+    ligne et la non-conformité se citent mutuellement.
+  - Onglet « Zones du site » : zones publique, contrôlée, sensible et local technique, contrôles
+    d'accès, personnes autorisées, consignes affichées ; une zone sensible ou un local technique sans
+    contrôle d'accès ou sans consignes est signalé. La réévaluation reprend les zones.
+  - Rappel de réévaluation annuelle : tâche automatique `reassessmentreminder` (notification à
+    l'évaluateur 30 jours avant l'échéance puis au plus une fois par mois), échéance dans le
+    calendrier de conformité.
+  - Page « Sécurité physique » (sous-page Conformité, aucune entrée de menu en plus) : dernière
+    évaluation de chaque site côte à côte, mesure par mesure, avec score et échéance ; liste de
+    toutes les évaluations ; onglet « Sécurité physique » des lieux de GLPI.
+  - Preuve sur les mesures A.7.1 à A.7.14 : état de la mesure sur chaque site, sur la fiche de la
+    mesure.
+  - Droits : droit général du plugin et entité de l'évaluation ; lignes et zones modifiables avec le
+    droit de modifier l'évaluation ; pièces jointes lues avec le droit de lire l'évaluation.
 
 ## [2.66.0] - 2026-11-20
 

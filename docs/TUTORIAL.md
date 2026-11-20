@@ -617,7 +617,37 @@ type de matériel.
    montre les compteurs ; les contrôles de cohérence du SMSI listent chaque matériel dont la
    garantie est expirée (règle « Matériels dont la garantie est expirée »).
 
-### Étape 27 : Préparer la communication de crise (mesure A.5.26, article 7.4)
+### Étape 27 : Évaluer la sécurité physique des sites (mesures A.7.1 à A.7.14)
+
+1. Les sites sont les **lieux de GLPI** (Configuration > Intitulés > Lieux) : créez par exemple
+   « Siège fictif, 12 rue des Essais, Villefictive » et « Entrepôt fictif, 4 allée des Tests ». Aucun
+   second référentiel des sites.
+2. Ouvrez Conformité > **Sécurité physique**, puis **Évaluer un site**. Choisissez le site, la date
+   et l'évaluateur (il recevra le rappel), liez la **politique de sécurité physique et
+   environnementale** : elle reste un document de la bibliothèque des politiques.
+3. Une fois l'évaluation enregistrée, l'onglet **Grille de sécurité physique** compte une ligne par
+   mesure A.7.1 à A.7.14 (« Non applicable » d'office pour une mesure exclue de la SoA). Pour chaque
+   ligne, cliquez sur **Renseigner** : état (conforme, partiellement conforme, non conforme, non
+   applicable), constat, preuves examinées. Ajoutez les photos et procès-verbaux dans l'onglet
+   « Documents » de l'évaluation, puis citez-les sur la ligne : ils ne se lisent qu'avec le droit de
+   lire l'évaluation.
+4. Pour une ligne partielle ou non conforme (« Porte de la baie serveur non verrouillée », par
+   exemple), cliquez sur **Créer l'action** : une non-conformité pré-remplie s'ouvre (site, mesure,
+   constat). Indiquez le responsable et l'échéance, puis **Ajouter** : le workflow CAPA habituel
+   prend le relais et la ligne affiche l'action et son statut.
+5. L'onglet **Zones du site** liste les zones (publique, contrôlée, sensible, local technique), leurs
+   contrôles d'accès (badge, clé, digicode, vidéosurveillance...), les personnes autorisées et si les
+   consignes d'accès sont affichées. Une zone sensible ou un local technique sans contrôle d'accès ou
+   sans consignes est signalé.
+6. Passez l'évaluation à **Terminée** : la prochaine évaluation est fixée 12 mois plus tard. La tâche
+   automatique « reassessmentreminder » prévient l'évaluateur 30 jours avant, puis une fois par mois
+   tant que le site n'est pas réévalué ; l'échéance figure aussi dans le calendrier de conformité. La
+   réévaluation reprend les zones et montre, ligne par ligne, l'état de l'évaluation précédente.
+7. La page **Sécurité physique** compare la dernière évaluation de chaque site, mesure par mesure,
+   avec le score et l'échéance. Sur la fiche d'une mesure A.7.x de la SoA, le cadre « Sécurité
+   physique des sites » donne l'état de la mesure sur chaque site. Le lieu de GLPI a aussi un onglet
+   « Sécurité physique » avec l'historique de ses évaluations.
+### Étape 28 : Préparer la communication de crise (mesure A.5.26, article 7.4)
 
 1. Dans l'en-tête de la liste des incidents de sécurité, cliquez sur **Modèles de messages de
    crise**. Cinq modèles sont fournis : incident majeur (premier message interne et fin de crise),
@@ -654,7 +684,32 @@ type de matériel.
    modèle et les communications tracées depuis 12 mois. Pendant un exercice de crise, utilisez les
    mêmes modèles depuis l'incident d'exercice.
 
-### Étape 28 : Décrire les scénarios de crise sécurité du PCA (mesure A.5.29)
+### Étape 29 : Rapprocher les systèmes d'exploitation des CVE (mesure A.8.8)
+
+Les vulnérabilités du parc suivent les logiciels installés, les firmwares et les **systèmes
+d'exploitation** (onglet « Systèmes d'exploitation » d'un ordinateur dans GLPI : nom, version,
+version du noyau). Un système n'est rapproché d'une CVE qu'après votre validation. Il faut le droit
+« Registres sensibles » du plugin en modification et le droit de lecture des logiciels.
+
+1. Ouvrez Sécurité technique > **Logiciels à surveiller**. Les systèmes d'exploitation du parc y
+   apparaissent avec un badge **Système d'exploitation**, par exemple « Microsoft Windows 11
+   Professionnel 23H2 » ou « Debian GNU/Linux 12 (bookworm) ». Pour Windows 10 et 11, la version
+   de fonctionnalités (23H2) fait partie du nom, comme dans la base NVD.
+2. Pour Windows 10 et 11, Windows Server 2016 à 2025, Debian, Ubuntu et Red Hat Enterprise Linux,
+   la colonne « Produit surveillé » affiche une **Correspondance proposée**, par exemple
+   `cpe:2.3:o:microsoft:windows_11_23h2`. Vérifiez-la, puis cliquez sur **Accepter la
+   proposition**. Pour un autre système, cliquez sur **Chercher le CPE** comme pour un logiciel.
+3. Ouvrez **Vulnérabilités du parc** : les CVE du système portent le badge « Système
+   d'exploitation ». Le tableau, l'onglet « Vulnérabilités » de l'ordinateur et l'onglet CVE d'un
+   incident de sécurité nomment seulement les actifs de vos entités.
+4. Les versions sont comparées comme dans NVD : numéro de build pour Windows (version du noyau),
+   version majeure pour Debian et RHEL, « 22.04 » pour Ubuntu. Si l'inventaire ne donne pas la
+   révision du build Windows (« 10.0.22631 » au lieu de « 10.0.22631.4317 »), l'ordinateur reste
+   « version non vérifiable » : il n'est ni déclaré vulnérable ni déclaré corrigé.
+5. Les tickets de mise à jour lient les ordinateurs concernés de l'entité du ticket, y compris
+   ceux qui le deviennent après l'ouverture du ticket.
+
+### Étape 30 : Décrire les scénarios de crise sécurité du PCA (mesure A.5.29)
 
 Le plan de continuité décrit la restauration technique de chaque processus (stratégie de reprise,
 RTO). Cette étape y ajoute la sécurité de l'information pendant la crise : comment continuer à
@@ -676,7 +731,7 @@ travailler sans baisser la sécurité quand la crise est elle-même une attaque.
    scénarios par défaut reprennent celles fournies (rançongiciel, fuite de données, compte
    compromis). Pour le déni de service et l'indisponibilité d'un prestataire, créez la procédure
    dans la bibliothèque, puis choisissez-la ici. La **communication de crise** renvoie aux modèles de
-   messages de l'étape 27.
+   messages de l'étape 28.
 6. **Exercice** : un exercice de crise terminé (page **Exercices de crise** de la même rubrique) du
    scénario d'exercice choisi compte comme exercice du scénario. Un exercice sur table tenu sans le plugin se note dans
    **Dernier exercice hors du plugin**, son compte rendu en document joint.
@@ -1258,7 +1313,36 @@ hardware.
    ISMS consistency checks list each piece of hardware whose warranty has expired (rule "Hardware
    whose warranty has expired").
 
-### Step 27: Prepare crisis communication (control A.5.26, clause 7.4)
+### Step 27: Assess the physical security of the sites (controls A.7.1 to A.7.14)
+
+1. The sites are the **locations of GLPI** (Setup > Dropdowns > Locations): create for instance
+   "Fictitious head office, 12 Test Street, Sampletown" and "Fictitious warehouse, 4 Demo Lane".
+   There is no second list of sites.
+2. Open Compliance > **Physical security**, then **Assess a site**. Choose the site, the date and
+   the assessor (who receives the reminder), and link the **physical and environmental security
+   policy**: it stays a document of the policy library.
+3. Once the assessment is saved, the **Physical security checklist** tab has one line per control
+   A.7.1 to A.7.14 ("Not applicable" from the start for a control excluded from the SoA). For each
+   line, click **Fill in**: state (compliant, partially compliant, non-compliant, not applicable),
+   finding, evidence examined. Add the photos and reports to the "Documents" tab of the assessment,
+   then cite them on the line: they can only be read with the right to read the assessment.
+4. For a partial or non-compliant line ("Server rack door not locked", for instance), click **Create
+   the action**: a pre-filled non-conformity opens (site, control, finding). Set the owner and the
+   due date, then **Add**: the usual CAPA workflow takes over and the line shows the action and its
+   status.
+5. The **Zones of the site** tab lists the zones (public, controlled, sensitive, technical room),
+   their access controls (badge, key, door code, video surveillance...), the authorized people and
+   whether the access instructions are posted. A sensitive area or a technical room without access
+   control or without instructions is flagged.
+6. Set the assessment to **Completed**: the next assessment is set 12 months later. The automatic
+   task "reassessmentreminder" warns the assessor 30 days before, then once a month until the site
+   is assessed again; the date is also in the compliance calendar. The reassessment takes over the
+   zones and shows, line by line, the state of the previous assessment.
+7. The **Physical security** page compares the last assessment of each site, control by control,
+   with the score and the due date. On an A.7.x control of the SoA, the "Physical security of the
+   sites" box gives the state of the control on each site. The GLPI location also has a "Physical
+   security" tab with the history of its assessments.
+### Step 28: Prepare crisis communication (control A.5.26, clause 7.4)
 
 1. In the header of the security incident list, click **Crisis message templates**. Five templates
    are provided: major incident (first internal message and end of crisis), data breach
@@ -1294,7 +1378,32 @@ hardware.
    and the communications recorded within 12 months. During a crisis exercise, use the same
    templates from the exercise incident.
 
-### Step 28: Describe the security crisis scenarios of the continuity plan (control A.5.29)
+### Step 29: Match operating systems with CVEs (control A.8.8)
+
+Fleet vulnerabilities follow installed software, firmware and **operating systems** ("Operating
+systems" tab of a computer in GLPI: name, version, kernel version). An operating system is matched
+with a CVE only after you have validated it. You need the "Sensitive registers" right of the
+plugin with update, and the right to read software.
+
+1. Open Technical security > **Software to watch**. The operating systems of the fleet are listed
+   with an **Operating system** badge, for instance "Microsoft Windows 11 Pro 23H2" or "Debian
+   GNU/Linux 12 (bookworm)". For Windows 10 and 11, the feature release (23H2) is part of the
+   name, as in the NVD database.
+2. For Windows 10 and 11, Windows Server 2016 to 2025, Debian, Ubuntu and Red Hat Enterprise
+   Linux, the "Watched product" column shows a **Proposed match**, for instance
+   `cpe:2.3:o:microsoft:windows_11_23h2`. Check it, then click **Accept the proposal**. For any
+   other operating system, click **Look up the CPE** as for software.
+3. Open **Fleet vulnerabilities**: the CVEs of the operating system carry the "Operating system"
+   badge. The table, the "Vulnerabilities" tab of the computer and the CVE tab of a security
+   incident only name the assets of your entities.
+4. Versions are compared as in NVD: build number for Windows (kernel version), major version for
+   Debian and RHEL, "22.04" for Ubuntu. When the inventory does not give the revision of the
+   Windows build ("10.0.22631" instead of "10.0.22631.4317"), the computer stays "version not
+   verifiable": it is neither reported vulnerable nor reported patched.
+5. Update tickets link the affected computers of the ticket's entity, including those that become
+   affected after the ticket was opened.
+
+### Step 30: Describe the security crisis scenarios of the continuity plan (control A.5.29)
 
 The continuity plan describes the technical recovery of each process (recovery strategy, RTO). This
 step adds information security during the crisis: how to keep working without lowering security
@@ -1315,7 +1424,7 @@ when the crisis is itself an attack.
 5. The **response playbook** is a remediation playbook of the incident library: the default
    scenarios use the ones provided (ransomware, data leak, compromised account). For denial of
    service and supplier unavailability, create the playbook in the library, then choose it here.
-   **Crisis communication** points to the message templates of step 27.
+   **Crisis communication** points to the message templates of step 28.
 6. **Exercise**: a finished crisis exercise (**Crisis exercises** page of the same section) of the
    chosen exercise scenario counts as an exercise of the scenario. A tabletop exercise held without
    the plugin is recorded in **Last exercise outside the plugin**, with its report attached.

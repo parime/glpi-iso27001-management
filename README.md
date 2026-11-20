@@ -166,7 +166,8 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - Chaque partie du module est activable/désactivable indépendamment (Configuration > Plugins).
 
 **Vulnérabilités et continuité**
-- **Vulnérabilités du parc** : CVE des logiciels installés (NVD), exploitation réelle (CISA KEV,
+- **Vulnérabilités du parc** : CVE des logiciels installés, des firmwares et des systèmes
+  d'exploitation (NVD), exploitation réelle (CISA KEV,
   FIRST EPSS), avis du CERT-FR, un ticket de mise à jour par logiciel (création automatique
   désactivée par défaut), onglet « Vulnérabilités » sur les ordinateurs.
 - **Délais de correction** par niveau (exploitée, critique, élevée, moyenne, faible ; désactivés par

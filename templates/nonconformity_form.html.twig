@@ -48,6 +48,23 @@
       {% endset %}
       {{ fields.htmlField('', checklist_html, __('Audit checklist line', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #778 : action proposée depuis l'évaluation de la sécurité physique d'un site. #}
+   {% if physical_draft %}
+      <input type="hidden" name="_grcmanager_physicalsecuritycheck" value="{{ physical_draft.line_id }}">
+      <div class="col-12 mb-2">
+         <div class="alert alert-info mb-0" id="grc-physical-draft"><i class="ti ti-building-fortress me-1"></i>{{ __('Action proposed from the physical security assessment (%s): review and adapt each field, set an owner and a due date, then click "Add". Nothing is created before, and the assessment line is linked to this action once it is saved.', 'grcmanager')|format(physical_draft.line_title) }}</div>
+      </div>
+   {% endif %}
+   {% if physical_lines is not empty %}
+      {% set physical_html %}
+         {% for line in physical_lines %}
+            <div class="mb-1 grc-physical-backlink"><a href="{{ line.url }}"><i class="ti ti-building-fortress me-1"></i>{{ line.title }}</a>
+               <span class="badge {{ line.state_class }} ms-1">{{ line.state }}</span>
+               <span class="text-muted small ms-1">{{ line.site }}</span></div>
+         {% endfor %}
+      {% endset %}
+      {{ fields.htmlField('', physical_html, __('Physical security', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
 
    {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true}) }}
    {# Issue #772 : constat d'un audit de certification : vocabulaire et référence de l'organisme. #}

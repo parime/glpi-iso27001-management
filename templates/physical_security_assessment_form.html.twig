@@ -1,0 +1,70 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #778 : évaluation de la sécurité physique d'un site (lieu de GLPI) : date, évaluateur, statut,
+   politique liée, échéance de réévaluation. La grille A.7.x et les zones sont dans leurs onglets. #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {% if summary is not null %}
+      <div class="col-12 mb-3" id="grc-physical-summary">
+         <div class="d-flex flex-wrap gap-2 align-items-center">
+            {% if summary.score is not null %}
+               <span class="badge bg-blue-subtle text-blue-emphasis fs-5" title="{{ __('Compliant controls count 1, partially compliant controls count 0.5, over the applicable controls.', 'grcmanager') }}"><i class="ti ti-gauge me-1"></i>{{ __('Score: %d%%', 'grcmanager')|format(summary.score) }}</span>
+            {% endif %}
+            <span class="badge bg-secondary-subtle text-secondary-emphasis fs-5"><i class="ti ti-list-check me-1"></i>{{ __('%1$d of %2$d controls assessed', 'grcmanager')|format(summary.assessed, summary.total) }}</span>
+            {% if summary.findings > 0 %}
+               <span class="badge bg-orange-subtle text-orange-emphasis fs-5"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d finding', '%d findings', summary.findings, 'grcmanager')|format(summary.findings) }}</span>
+            {% endif %}
+            <span class="badge {{ due_labels[due][1] }} fs-5" id="grc-physical-due"><i class="ti ti-calendar-repeat me-1"></i>{{ due_labels[due][0] }}</span>
+            <a href="{{ compare_url }}" class="ms-auto"><i class="ti ti-columns me-1"></i>{{ __('Compare the sites', 'grcmanager') }}</a>
+         </div>
+      </div>
+   {% endif %}
+
+   {{ fields.smallTitle(__('Site', 'grcmanager'), 'ti ti-building') }}
+   {% if item.isNewItem() %}
+      {{ fields.dropdownField('Location', 'locations_id', item.fields['locations_id'], __('Site', 'grcmanager'), {
+         'entity': item.fields['entities_id'],
+         'add_field_html': hints.hint(__('A location of GLPI (Setup > Dropdowns > Locations). Its zones are taken over from its last assessment.', 'grcmanager')),
+      }) }}
+   {% else %}
+      {{ fields.htmlField('', '<i class="ti ti-building me-1"></i>' ~ (site_name ?: '-')|e,__('Site', 'grcmanager')) }}
+   {% endif %}
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'add_field_html': hints.hint(__('Optional, for example "2026 assessment". The name of the site is used otherwise.', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('assessment_date', item.fields['assessment_date'], __('Assessment date', 'grcmanager')) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Assessor', 'grcmanager'), {
+      'right': 'all',
+      'entity': item.fields['entities_id'],
+      'add_field_html': hints.hint(__('Receives the reminder of the yearly reassessment.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'], statuses, __('Status', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Set "Completed" once every control has been assessed.', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('next_assessment_date', item.fields['next_assessment_date'], __('Next assessment', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Filled in automatically %d months after the assessment date when the assessment is completed.', 'grcmanager')|format(months)),
+   }) }}
+
+   {{ fields.smallTitle(__('Physical and environmental security policy', 'grcmanager'), 'ti ti-file-certificate') }}
+   {{ fields.dropdownArrayField('plugin_grcmanager_policies_id', item.fields['plugin_grcmanager_policies_id'], policies, __('Policy', 'grcmanager'), {
+      'add_field_html': policy_url
+         ? '<div class="form-hint"><a href="' ~ policy_url|e('html_attr') ~ '"><i class="ti ti-external-link me-1"></i>' ~ __('Open the policy', 'grcmanager')|e ~ '</a></div>'
+         : hints.hint(__('The policy stays a document of the policy library: create it there, then link it here.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+{% endblock %}

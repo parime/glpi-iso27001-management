@@ -1698,6 +1698,8 @@ class Control extends ControlBase
             'hardware_warranty'       => HardwareWarranty::evidence($code),
             // Issue #771 : registre des contacts officiels, preuve des mesures A.5.5 et A.5.6.
             'official_contacts'       => OfficialContact::evidence($code),
+            // Issue #778 : évaluations de la sécurité physique des sites, preuve des mesures A.7.1 à A.7.14.
+            'physical_security'       => PhysicalSecurity::evidence($code),
             // Issue #616 : communication de crise (modèles, listes de diffusion, traces), mesure A.5.26.
             'crisis_communication'    => CrisisCommunication::evidence($code),
             // Issue #776 : scénarios de crise sécurité de l'information du PCA, mesure A.5.29.
