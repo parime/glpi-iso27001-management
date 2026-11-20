@@ -18114,14 +18114,6 @@ msgid "Coverage target (%)"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
-msgid ""
-"Coverage target: share of the requirements and controls the audit programme "
-"must have covered over the last three years for the internal audit step to "
-"be done. Training target: share of the participants who must have completed "
-"their training."
-msgstr ""
-
-#: templates/certification_readiness.html.twig
 msgid "Date entered in the settings of this page."
 msgstr ""
 
@@ -30384,8 +30376,6 @@ msgstr ""
 msgid "Warning %d days before a license expires."
 msgstr ""
 
-
-
 #: src/AuditLog.php:91
 msgid "Periodic review recorded"
 msgstr ""
@@ -30550,5 +30540,57 @@ msgstr ""
 msgid ""
 "Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
 "json, .pcap, .eml, .csv, .zip."
+msgstr ""
+
+
+#: src/CertificationReadiness.php:1176
+#, php-format
+msgid ""
+"\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
+"deadlines."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+#, php-format
+msgid ""
+"A step not done is at risk of being late when its advised deadline is within "
+"%d days."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Adjusted"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Advised deadlines per step"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Alert (days)"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training. Alert: number of days before an advised deadline from which "
+"the step is at risk and the owner is notified."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Days before the target date"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Default"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"Number of days before the target date by which each step should be done. "
+"Keep the logical order: the internal audit before the management review that "
+"uses its results, then the treatment of nonconformities. A change only moves "
+"the advised deadlines: nothing else is modified."
 msgstr ""
 

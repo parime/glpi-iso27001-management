@@ -65,6 +65,9 @@ class CertificationReadiness extends CommonGLPI
         'owner'           => 'readiness_owner',
         'coverage_target' => 'readiness_coverage_target',
         'training_target' => 'readiness_training_target',
+        // Lot 2 : délai d'alerte et délais conseillés par étape (JSON étape => jours).
+        'alert_days'      => 'readiness_alert_days',
+        'lead_days'       => 'readiness_lead_days',
     ];
 
     /** Types d'événement du calendrier qui valent audit de l'organisme de certification. */
@@ -343,8 +346,8 @@ class CertificationReadiness extends CommonGLPI
             $number++;
             $evaluation = $evaluations[$key];
             $requirements = Rules::declared($definition['requirements'], $declared);
-            $deadline = $target !== null ? Rules::advisedDeadline($target, $key) : null;
-            $deadlineState = Rules::deadlineState($deadline, $evaluation['status'], $today);
+            $deadline = $target !== null ? Rules::advisedDeadline($target, $key, $settings['lead_days']) : null;
+            $deadlineState = Rules::deadlineState($deadline, $evaluation['status'], $today, $settings['alert_days']);
             $steps[] = [
                 'deadline'       => $deadlineState !== Rules::DEADLINE_NONE ? $deadline : null,
                 'deadline_label' => $deadlineState !== Rules::DEADLINE_NONE ? Html::convDate($deadline) : '',
@@ -398,6 +401,8 @@ class CertificationReadiness extends CommonGLPI
         $plan['late'] = (int) ($deadlineCounts[Rules::DEADLINE_LATE] ?? 0);
         $plan['at_risk'] = (int) ($deadlineCounts[Rules::DEADLINE_AT_RISK] ?? 0);
         $plan['annual'] = array_values(array_filter($steps, static fn (array $s): bool => $s['annual']));
+        $plan['lead_rows'] = self::leadRows($steps, $settings['lead_days']);
+        $plan['lead_warnings'] = self::leadWarnings($steps, $settings['lead_days']);
 
         return [
             'steps'   => $steps,
@@ -1067,8 +1072,10 @@ class CertificationReadiness extends CommonGLPI
      * Réglages : date cible et date de certification saisies (null : reprises des audits),
      * responsable de la préparation (0 : responsable de l'audit cible), seuils en pourcentage.
      *
+     * Lot 2 : délai d'alerte (jours) et délai conseillé de chaque étape (jours avant la date cible).
+     *
      * @return array{target_date: ?string, certified_date: ?string, owner: int, coverage_target: int,
-     *     training_target: int}
+     *     training_target: int, alert_days: int, lead_days: array<string, int>}
      */
     public static function getSettings(): array
     {
@@ -1081,6 +1088,13 @@ class CertificationReadiness extends CommonGLPI
             'owner'           => max(0, (int) $value('owner')),
             'coverage_target' => Rules::normalizePercent($value('coverage_target'), Rules::COVERAGE_TARGET),
             'training_target' => Rules::normalizePercent($value('training_target'), Rules::TRAINING_RATE_TARGET),
+            'alert_days'      => Rules::normalizeDays(
+                $value('alert_days'),
+                Rules::ALERT_DAYS,
+                Rules::ALERT_DAYS_MIN,
+                Rules::ALERT_DAYS_MAX
+            ),
+            'lead_days'       => Rules::normalizeLeadDays($value('lead_days')),
         ];
     }
 
@@ -1108,8 +1122,64 @@ class CertificationReadiness extends CommonGLPI
                 $input['training_target'] ?? null,
                 Rules::TRAINING_RATE_TARGET
             ),
+            self::SETTING_KEYS['alert_days']      => Rules::normalizeDays(
+                $input['alert_days'] ?? null,
+                Rules::ALERT_DAYS,
+                Rules::ALERT_DAYS_MIN,
+                Rules::ALERT_DAYS_MAX
+            ),
+            self::SETTING_KEYS['lead_days']       => (string) json_encode(
+                Rules::normalizeLeadDays($input['lead_days'] ?? null)
+            ),
         ]);
         self::$reportCache = [];
+    }
+
+    /**
+     * Lignes du tableau des délais conseillés (réglages) : étape, délai par défaut et délai retenu.
+     *
+     * @param list<array<string, mixed>> $steps étapes du rapport
+     * @param array<string, int> $leadDays
+     * @return list<array{key: string, number: int, title: string, default: int, days: int, changed: bool}>
+     */
+    private static function leadRows(array $steps, array $leadDays): array
+    {
+        $rows = [];
+        foreach ($steps as $step) {
+            $key = (string) $step['key'];
+            $rows[] = [
+                'key'     => $key,
+                'number'  => (int) $step['number'],
+                'title'   => (string) $step['title'],
+                'default' => Rules::LEAD_DAYS[$key],
+                'days'    => $leadDays[$key] ?? Rules::LEAD_DAYS[$key],
+                'changed' => ($leadDays[$key] ?? Rules::LEAD_DAYS[$key]) !== Rules::LEAD_DAYS[$key],
+            ];
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Délais réglés à l'envers de l'ordre logique (signalés sur l'écran, jamais corrigés).
+     *
+     * @param list<array<string, mixed>> $steps étapes du rapport
+     * @param array<string, int> $leadDays
+     * @return list<string>
+     */
+    private static function leadWarnings(array $steps, array $leadDays): array
+    {
+        $titles = array_column($steps, 'title', 'key');
+        $warnings = [];
+        foreach (Rules::leadOrderWarnings($leadDays) as [$before, $after]) {
+            $warnings[] = sprintf(
+                __('"%1$s" is advised after "%2$s", which relies on it: check the advised deadlines.', 'grcmanager'),
+                (string) ($titles[$before] ?? $before),
+                (string) ($titles[$after] ?? $after)
+            );
+        }
+
+        return $warnings;
     }
 
     /**
