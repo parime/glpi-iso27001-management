@@ -21143,3 +21143,6 @@ msgid "%d policy acknowledged"
 msgid_plural "%d policies acknowledged"
 msgstr[0] "%d politique lue"
 msgstr[1] "%d politiques lues"
+
+msgid "People tracked"
+msgstr "Personnes suivies"

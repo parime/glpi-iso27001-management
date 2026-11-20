@@ -21059,3 +21059,6 @@ msgid_plural "%d policies acknowledged"
 msgstr[0] "%d polityka przeczytana"
 msgstr[1] "%d polityki przeczytane"
 msgstr[2] "%d polityk przeczytanych"
+
+msgid "People tracked"
+msgstr "Śledzone osoby"

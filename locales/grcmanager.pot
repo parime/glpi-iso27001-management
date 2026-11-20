@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 04:56+0000\n"
+"POT-Creation-Date: 2026-11-20 06:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3919,9 +3919,8 @@ msgid ""
 msgstr ""
 
 #: templates/pdf/personnel_compliance_report.html.twig
-#: templates/personnel_compliance_list.html.twig src/Control.php:129
-#: src/Traits/RiskAssessmentTrait.php:57
-msgid "People"
+#: templates/personnel_compliance_list.html.twig
+msgid "People tracked"
 msgstr ""
 
 #: templates/pdf/personnel_compliance_report.html.twig
@@ -17052,6 +17051,10 @@ msgstr ""
 
 #: src/Control.php:128
 msgid "Organizational"
+msgstr ""
+
+#: src/Control.php:129 src/Traits/RiskAssessmentTrait.php:57
+msgid "People"
 msgstr ""
 
 #: src/Control.php:130 src/Traits/RiskAssessmentTrait.php:59

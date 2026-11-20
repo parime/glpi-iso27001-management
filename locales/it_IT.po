@@ -21124,3 +21124,6 @@ msgid "%d policy acknowledged"
 msgid_plural "%d policies acknowledged"
 msgstr[0] "%d politica letta"
 msgstr[1] "%d politiche lette"
+
+msgid "People tracked"
+msgstr "Persone monitorate"

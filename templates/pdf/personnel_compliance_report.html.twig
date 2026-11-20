@@ -26,7 +26,7 @@
 
 <h2>{{ __('Summary', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
-  <tr><td>{{ __('People', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.people }}</td></tr>
+  <tr><td>{{ __('People tracked', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.people }}</td></tr>
   <tr><td>{{ __('Personnel compliance rate (no gap)', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.rate is null ? '-' : summary.rate ~ ' %' }}</td></tr>
   <tr><td>{{ __('People with a gap', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.late }}</td></tr>
   <tr><td>{{ __('People with points to do within the deadline', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.pending }}</td></tr>
