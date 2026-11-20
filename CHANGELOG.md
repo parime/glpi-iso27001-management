@@ -17,6 +17,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Évaluation par référentiel sur les mesures propres de chaque référentiel** (issue #789, lot 1).
+  Tableau de bord, onglet « Évaluation par référentiel » :
+  - un référentiel personnalisé (par exemple un référentiel national importé en CSV) est évalué sur
+    ses exigences et leur auto-évaluation, et non plus sur les mesures de l'Annexe A qu'elles citent
+    (correction : un référentiel importé sans correspondance n'avait aucune mesure applicable) ;
+  - le registre NIS2 Italia - ACN de l'entité active (ou de sa parente) est évalué sur ses points,
+    avec les preuves liées ;
+  - NIS2 (UE), ANSSI, NIST CSF, CIS Controls, AI Act et les autres catalogues intégrés sont évalués
+    sur leurs propres exigences, dont le statut vient, à titre de correspondance, des mesures de
+    l'Annexe A reliées, seulement si ISO 27001 est activé ; ISO 27001 désactivé, l'écran indique que
+    le référentiel n'est pas évalué au lieu d'afficher des mesures ISO ;
+  - liste « Référentiel à détailler », choix retenu pour la session ; colonne « Évalué sur ».
+  Droits et entités inchangés (droit de lecture du plugin, registre NIS2 Italia accessible seul).
+
 - **Fin de garantie du matériel** (issue #782, lot 1, A.7.13 et A.8.9), en complément de la fin de
   support des logiciels (#704). Calcul à la demande depuis les informations financières natives de
   GLPI (`glpi_infocoms` : date de début et durée de garantie en mois, durée « à vie » comprise),

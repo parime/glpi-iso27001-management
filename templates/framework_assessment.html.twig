@@ -14,7 +14,10 @@
  #}
 {# Issue #379 : évaluation de conformité par référentiel. Score = mesures mises en œuvre ET prouvées
    (une preuve non expirée), sur les mesures applicables du référentiel : voir
-   FrameworkAssessmentRules. Lecture seule. #}
+   FrameworkAssessmentRules. Lecture seule.
+   Issue #789 : chaque référentiel est évalué sur ses propres mesures (voir FrameworkAssessment :
+   état propre, état déduit de la correspondance avec l'Annexe A si ISO 27001 est activé, ou aucune
+   évaluation) ; le référentiel détaillé est choisi dans la liste et retenu pour la session. #}
 {% macro rate_bar(value, color) %}
    {% if value is null %}
       <span class="text-muted">-</span>
@@ -26,6 +29,15 @@
          </div>
          <span class="text-nowrap">{{ value|number_format(1, ',') }} %</span>
       </div>
+   {% endif %}
+{% endmacro %}
+{% macro basis_badge(basis, bases) %}
+   {% if basis == bases.own %}
+      <span class="badge bg-teal-lt"><i class="ti ti-list-details me-1"></i>{{ __('Own measures', 'grcmanager') }}</span>
+   {% elseif basis == bases.mapped %}
+      <span class="badge bg-azure-lt"><i class="ti ti-arrows-exchange me-1"></i>{{ __('Own measures, status from the Annex A mapping', 'grcmanager') }}</span>
+   {% else %}
+      <span class="badge bg-secondary-lt"><i class="ti ti-circle-off me-1"></i>{{ __('No status of its own', 'grcmanager') }}</span>
    {% endif %}
 {% endmacro %}
 {% set evidence_badges = {
@@ -40,16 +52,30 @@
       </div>
       <div class="card-body">
          <p class="text-muted small">
-            <i class="ti ti-info-circle me-1"></i>{{ __('Each framework is assessed on the Annex A controls it maps to. The score counts the applicable controls that are both implemented (or verified) and proven by at least one evidence document that has not expired: a control declared done without evidence does not count.', 'grcmanager') }}
+            <i class="ti ti-info-circle me-1"></i>{{ __('Each framework is assessed on its own measures. When the plugin does not track their status (NIS2 requirements, ANSSI measures, CIS controls...), the status of each measure comes from the ISO 27001 Annex A controls it is mapped to, and only while ISO 27001 is enabled. The score counts the applicable measures that are implemented (or compliant) and, when evidence is tracked, proven by at least one evidence document that has not expired.', 'grcmanager') }}
          </p>
          {% if assessments is empty %}
             <p class="text-muted">{{ __('No framework is enabled.', 'grcmanager') }} <a href="{{ config_url }}">{{ __('Configure the frameworks', 'grcmanager') }}</a></p>
          {% else %}
+         <form method="get" action="{{ page_url }}" class="d-flex flex-wrap align-items-end gap-2 mb-3" id="grc-assessment-select">
+            <div>
+               <label class="form-label" for="grc-assessment-framework">{{ __('Framework to detail', 'grcmanager') }}</label>
+               <select class="form-select" id="grc-assessment-framework" name="framework">
+                  <option value=""{% if selected is null %} selected{% endif %}>{{ __('Summary only', 'grcmanager') }}</option>
+                  {% for label, a in assessments %}
+                     <option value="{{ a.key }}"{% if selected == a.key %} selected{% endif %}>{{ label }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="ti ti-eye me-1"></i>{{ __('Show') }}</button>
+         </form>
+         <div class="table-responsive">
          <table class="table table-sm table-vcenter" id="grc-framework-assessment">
             <thead>
                <tr>
                   <th>{{ __('Framework', 'grcmanager') }}</th>
-                  <th class="text-end text-nowrap">{{ __('Applicable controls', 'grcmanager') }}</th>
+                  <th>{{ __('Assessed on', 'grcmanager') }}</th>
+                  <th class="text-end text-nowrap">{{ __('Applicable measures', 'grcmanager') }}</th>
                   <th>{{ __('Implementation', 'grcmanager') }}</th>
                   <th>{{ __('Evidence', 'grcmanager') }}</th>
                   <th>{{ __('Score', 'grcmanager') }}</th>
@@ -61,6 +87,12 @@
                {% set score_color = a.score is null ? 'secondary' : (a.score >= 80 ? 'green' : (a.score >= 50 ? 'yellow' : 'red')) %}
                <tr{% if detail and detail.key == a.key %} class="table-active"{% endif %}>
                   <td class="fw-bold">{{ label }}</td>
+                  <td>{{ _self.basis_badge(a.basis, bases) }}</td>
+                  {% if a.basis == bases.none %}
+                     <td colspan="5" class="text-muted small">
+                        <a href="{{ page_url }}?framework={{ a.key|url_encode }}#grc-assessment-gaps">{{ __('Not assessed: ISO 27001 is disabled', 'grcmanager') }}</a>
+                     </td>
+                  {% else %}
                   <td class="text-end">{{ a.applicable }}</td>
                   <td>{{ _self.rate_bar(a.implementation_rate, 'blue') }}</td>
                   <td>{{ _self.rate_bar(a.evidence_rate, 'azure') }}</td>
@@ -74,10 +106,12 @@
                         </a>
                      {% endif %}
                   </td>
+                  {% endif %}
                </tr>
             {% endfor %}
             </tbody>
          </table>
+         </div>
          {% endif %}
       </div>
    </div>
@@ -86,28 +120,74 @@
    <div class="card" id="grc-assessment-gaps">
       <div class="card-header">
          <h3 class="card-title"><i class="ti ti-list-search me-2"></i>{{ __('Gaps for %s', 'grcmanager')|format(detail.label) }}</h3>
+         <div class="card-actions">{{ _self.basis_badge(detail.basis, bases) }}</div>
       </div>
       <div class="card-body">
-         <p class="text-muted small">{{ __('%1$d of %2$d applicable controls are implemented and proven. Open a control to update its status or attach the missing evidence.', 'grcmanager')|format(detail.compliant, detail.applicable) }}</p>
-         <table class="table table-sm table-vcenter">
-            <thead>
-               <tr>
-                  <th>{{ __('Control', 'grcmanager') }}</th>
-                  <th>{{ __('Implementation status', 'grcmanager') }}</th>
-                  <th>{{ __('Evidence', 'grcmanager') }}</th>
-               </tr>
-            </thead>
-            <tbody>
-            {% for gap in detail.gaps %}
-               {% set badge = evidence_badges[gap.evidence] %}
-               <tr>
-                  <td><a href="{{ control_url }}?id={{ gap.id }}"><code>{{ gap.code }}</code> {{ gap.title }}</a></td>
-                  <td>{{ statuses[gap.implementation_status] ?? gap.implementation_status }}</td>
-                  <td><span class="badge {{ badge[0] }}"><i class="ti {{ badge[1] }} me-1"></i>{{ badge[2] }}</span></td>
-               </tr>
-            {% endfor %}
-            </tbody>
-         </table>
+         {% if detail.basis == bases.none %}
+            <div class="alert alert-warning" role="note">
+               <i class="ti ti-alert-triangle me-1"></i>{{ __('The plugin does not track a status of its own for the %1$d measures of %2$s. Their status can only come from the mapping to the ISO 27001 Annex A controls, and ISO 27001 is disabled: this framework is therefore not assessed. Enable ISO 27001 in the configuration to use the mapping, or import the framework as a custom framework to assess its requirements directly.', 'grcmanager')|format(detail.measures, detail.label) }}
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+               <a class="btn btn-sm btn-outline-secondary" href="{{ config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Configure the frameworks', 'grcmanager') }}</a>
+               <a class="btn btn-sm btn-outline-secondary" href="{{ custom_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ _n('Custom framework', 'Custom frameworks', 2, 'grcmanager') }}</a>
+               {% if detail.manage_url %}<a class="btn btn-sm btn-outline-secondary" href="{{ detail.manage_url }}"><i class="ti ti-books me-1"></i>{{ __('See its measures', 'grcmanager') }}</a>{% endif %}
+            </div>
+         {% else %}
+            {% if detail.basis == bases.mapped %}
+               <p class="text-muted small">{{ __('%1$d of %2$d applicable measures of this framework are implemented and proven. The plugin does not track their status directly: each one takes the status of the Annex A controls it is mapped to (indicative mapping). Open a mapped control to update it.', 'grcmanager')|format(detail.compliant, detail.applicable) }}</p>
+            {% elseif detail.key == iso_key %}
+               <p class="text-muted small">{{ __('%1$d of %2$d applicable controls are implemented and proven. Open a control to update its status or attach the missing evidence.', 'grcmanager')|format(detail.compliant, detail.applicable) }}</p>
+            {% else %}
+               <p class="text-muted small">{{ __('%1$d of %2$d applicable measures of this framework are compliant. Open a measure to update its status.', 'grcmanager')|format(detail.compliant, detail.applicable) }}</p>
+            {% endif %}
+            {% if detail.key == nis2_key %}
+               <div class="alert alert-info small" role="note">
+                  <i class="ti ti-bulb me-1"></i>{{ __('To assess NIS2 on the measures of a national framework (for example ReCyF in France), import it as a custom framework and enable it: it is then assessed on its own requirements.', 'grcmanager') }}
+                  <a href="{{ custom_url }}">{{ _n('Custom framework', 'Custom frameworks', 2, 'grcmanager') }}</a>
+               </div>
+            {% endif %}
+            {% if detail.manage_url %}
+               <p><a class="btn btn-sm btn-outline-secondary" href="{{ detail.manage_url }}"><i class="ti ti-books me-1"></i>{{ __('See its measures', 'grcmanager') }}</a></p>
+            {% endif %}
+            {% if detail.gaps is empty %}
+               <p class="text-success mb-0"><i class="ti ti-circle-check me-1"></i>{{ __('No gap: every applicable measure is compliant.', 'grcmanager') }}</p>
+            {% else %}
+            <div class="table-responsive">
+            <table class="table table-sm table-vcenter">
+               <thead>
+                  <tr>
+                     <th>{{ __('Measure', 'grcmanager') }}</th>
+                     {% if detail.basis == bases.mapped %}<th>{{ __('Mapped Annex A controls', 'grcmanager') }}</th>{% endif %}
+                     <th>{{ __('Status', 'grcmanager') }}</th>
+                     <th>{{ __('Evidence', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for gap in detail.gaps %}
+                  <tr>
+                     <td>
+                        {% if gap.url %}<a href="{{ gap.url }}"><code>{{ gap.code }}</code> {{ gap.title }}</a>
+                        {% else %}<code>{{ gap.code }}</code> {{ gap.title }}{% endif %}
+                     </td>
+                     {% if detail.basis == bases.mapped %}
+                        <td>{% for control in gap.controls %}<a class="badge bg-blue-lt me-1" href="{{ control.url }}">{{ control.code }}</a>{% endfor %}</td>
+                     {% endif %}
+                     <td>{{ gap.status_label }}</td>
+                     <td>
+                        {% if gap.evidence is null %}
+                           <span class="text-muted">{{ __('Not tracked', 'grcmanager') }}</span>
+                        {% else %}
+                           {% set badge = evidence_badges[gap.evidence] %}
+                           <span class="badge {{ badge[0] }}"><i class="ti {{ badge[1] }} me-1"></i>{{ badge[2] }}</span>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+            </div>
+            {% endif %}
+         {% endif %}
       </div>
    </div>
    {% endif %}
