@@ -118,7 +118,7 @@ class NotificationTargetCompetenceGapAlert extends NotificationTarget
         }
         $more = count($gaps) - count($lines);
         if ($more > 0) {
-            $lines[] = sprintf(_n('... and %d more gap.', '... and %d more gaps.', $more, 'grcmanager'), $more);
+            $lines[] = sprintf(__('Other gaps not listed here: %d', 'grcmanager'), $more);
         }
 
         $this->data['##competencegaps.action##'] = $events[$event] ?? '';

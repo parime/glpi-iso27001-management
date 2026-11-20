@@ -268,7 +268,8 @@ final class CompetenceRules
     {
         return array_values(array_filter(
             $gaps,
-            static fn (array $gap): bool => !isset($known[self::gapKey($gap['person'], $gap['competence_id'], $gap['level'])])
+            static fn (array $gap): bool
+                => !isset($known[self::gapKey($gap['person'], $gap['competence_id'], $gap['level'])])
         ));
     }
 

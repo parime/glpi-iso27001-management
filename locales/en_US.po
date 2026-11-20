@@ -31938,3 +31938,67 @@ msgstr[1] "%d months"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d competence gap(s) reported."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or declare a proof)"
+msgstr "- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or declare a proof)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Activity of the responsibility matrix"
+
+msgid "Competence gaps without planned training"
+msgstr "Competence gaps without planned training"
+
+msgid "Follows the responsibility matrix"
+msgstr "Follows the responsibility matrix"
+
+msgid "New gaps without planned training"
+msgstr "New gaps without planned training"
+
+msgid "Number of gaps without planned training"
+msgstr "Number of gaps without planned training"
+
+msgid "Number of new gaps"
+msgstr "Number of new gaps"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Other gaps not listed here: %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Responsibility matrix: %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Role in the activity"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "This activity is not available in the entity of the function."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr "Warns the owner of the competence gaps that have no planned training"
+
+msgid "Optional: the people and groups who hold the chosen role in this activity hold the function, and follow the matrix when it changes."
+msgstr "Optional: the people and groups who hold the chosen role in this activity hold the function, and follow the matrix when it changes."
+
+msgid "Sent by the GRC Manager automatic task when a person who holds an ISMS function has a competence gap with no planned training."
+msgstr "Sent by the GRC Manager automatic task when a person who holds an ISMS function has a competence gap with no planned training."
+
+msgid "Plan a session of the proposed training from the Competences page, or declare the proof the person already has. Nothing is changed automatically."
+msgstr "Plan a session of the proposed training from the Competences page, or declare the proof the person already has. Nothing is changed automatically."
+
+msgid "View the competences"
+msgstr "View the competences"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Competence gap alert"
+msgstr[1] "Competence gap alerts"

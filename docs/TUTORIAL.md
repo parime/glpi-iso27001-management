@@ -493,6 +493,28 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
 7. Chacun retrouve ses propres compétences dans ses préférences (onglet « Mes compétences »). Le
    responsable voit la matrice et l'onglet « Compétences » de chaque utilisateur, avec le droit du
    plugin et la lecture des utilisateurs, pour les personnes de ses entités.
+8. Un écart pour lequel la personne est déjà inscrite à une formation (ou à une session) qui donne la
+   compétence au niveau attendu affiche **Formation prévue**. La carte **Formations à planifier**
+   liste, pour chaque formation qui comble un écart, les personnes pas encore inscrites : **Préparer
+   une session** ouvre une nouvelle session de la formation avec ces personnes présélectionnées.
+   Vérifiez la date et la liste, puis cliquez sur « Ajouter » : rien n'est enregistré avant.
+9. Sur la page **Préparation à la certification**, l'étape « Définir et vérifier les compétences »
+   (7.2) est faite quand chaque fonction a ses compétences exigées et ses titulaires, que chaque écart
+   a une formation planifiée et que le dossier des compétences est archivé. La carte de tableau de
+   bord « Couverture des compétences exigées (%) » suit les mêmes chiffres.
+10. Si vos responsabilités sont déjà décrites dans la **Matrice des responsabilités**, une fonction
+    peut en reprendre les titulaires : dans la fiche de la fonction, choisissez une **Activité de la
+    matrice des responsabilités** et le **Rôle dans l'activité** (par exemple « Sauvegardes » et
+    « Réalise »), puis enregistrez. Les personnes et les groupes qui tiennent ce rôle tiennent la
+    fonction, avec le badge « Suit la matrice des responsabilités » : quand la matrice change, la
+    fonction suit, sans rien recopier.
+11. Chaque semaine, la tâche automatique « competencegaps » envoie au responsable de la préparation
+    à la certification (et au groupe RSSI) la notification **Écarts de compétence sans formation
+    planifiée** : chaque nouvel écart, avec la formation à planifier. Un écart n'est signalé qu'une
+    fois. Les destinataires se règlent dans Configuration > Notifications ; seuls ceux qui lisent le
+    plugin et les utilisateurs sur toutes les entités la reçoivent. Rien n'est modifié
+    automatiquement.
+
 ### Étape 22 : Tenir le registre des contacts officiels (mesures A.5.5 et A.5.6)
 
 1. Ouvrez Conformité > **Contacts officiels** (onglet à côté de « Contexte de l'organisation »).
@@ -1372,6 +1394,17 @@ To give a subsidiary its own Statement of Applicability:
    when each function has its required competences and its holders, each gap has a planned training
    and the competence file is archived. The dashboard card "Coverage of the required competences
    (%)" follows the same figures.
+10. If your responsibilities are already described in the **Responsibility matrix**, a function can
+    take its holders from it: in the form of the function, choose an **Activity of the
+    responsibility matrix** and the **Role in the activity** (for instance "Backups" and
+    "Performs"), then save. The people and groups who hold this role hold the function, with the
+    badge "Follows the responsibility matrix": when the matrix changes, the function follows,
+    nothing is copied.
+11. Every week, the automatic action "competencegaps" sends the owner of the certification
+    readiness (and the CISO group) the notification **Competence gaps without planned training**:
+    each new gap, with the training to plan. A gap is reported only once. Set the recipients in
+    Setup > Notifications; only those who can read the plugin and the users in all entities receive
+    it. Nothing is changed automatically.
 
 ### Step 22: Keep the register of official contacts (controls A.5.5 and A.5.6)
 
