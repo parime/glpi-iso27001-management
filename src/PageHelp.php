@@ -88,6 +88,28 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #772, lot 2 : plan d'audit de l'organisme de certification.
+            'certificationsampling' => [
+                'purpose'  => __(
+                    'The certification body samples the processes of your security management system over its '
+                        . 'three-year cycle: it does not audit them all every year. This page copies its sampling '
+                        . 'programme (processes in rows, years in columns) and, for the audit of the year, lists '
+                        . 'the sampled processes with their previous findings and the screens to prepare.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Record each certification audit of the cycle with its planned date. Then tick, in the column '
+                        . 'of each audit, the processes announced by the audit plan of the body, and save. Before '
+                        . 'the audit, go through each sampled process: lift its previous findings and check the '
+                        . 'controls and registers it relies on. The processes are those of the internal audit '
+                        . 'programme (ISMS activities of the responsibility matrix).',
+                    'grcmanager'
+                ),
+                'reference' => __(
+                    'ISO/IEC 27006-1 (certification audit programme), ISO/IEC 27001 clause 9.2',
+                    'grcmanager'
+                ),
+            ],
             // Issue #619 : préparation à la certification ISO 27001.
             'certificationreadiness' => [
                 'purpose'  => __(

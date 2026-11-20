@@ -28570,3 +28570,139 @@ msgid "%d default scenario added."
 msgid_plural "%d default scenarios added."
 msgstr[0] ""
 msgstr[1] ""
+
+#: templates/certification_sampling_processes.html.twig
+msgid ""
+"No process sampled for this audit yet: tick the processes announced by the "
+"certification body in its audit plan."
+msgstr ""
+
+#: templates/certification_sampling_processes.html.twig
+msgid "Screens to prepare"
+msgstr ""
+
+#: templates/certification_sampling_processes.html.twig
+msgid "No finding of a previous audit on this process."
+msgstr ""
+
+#: templates/certification_sampling_processes.html.twig
+msgid "See these findings and their evidence"
+msgstr ""
+
+#: templates/certification_sampling_processes.html.twig
+msgid ""
+"No control linked to this process: add its Annex A controls in the "
+"responsibility matrix."
+msgstr ""
+
+#: templates/certification_findings.html.twig
+#: templates/pdf/certification_findings_report.html.twig
+#, php-format
+msgid "Findings of the process: %s"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+msgid "All processes"
+msgstr ""
+
+#: templates/certification_findings.html.twig
+#: templates/certification_sampling_tab.html.twig
+#: src/CertificationSampling.php:52
+msgid "Audit plan of the certification body"
+msgstr ""
+
+#: templates/certification_sampling.html.twig
+msgid "Sampling programme of the certification body"
+msgstr ""
+
+#: templates/certification_sampling.html.twig
+msgid "The default cycle is set in the multi-year audit programme."
+msgstr ""
+
+#: templates/certification_sampling.html.twig
+msgid ""
+"No ISMS process yet. The processes of the audit plan are those of the "
+"internal audit programme: the ISMS activities of the responsibility matrix "
+"(for example context and scope, ISMS planning, customer relations and "
+"contracts, asset management, access control, physical security, operations, "
+"continuity, incidents, human resources, suppliers, information protection, "
+"legal compliance, evaluation and improvement)."
+msgstr ""
+
+#: templates/certification_sampling.html.twig
+msgid ""
+"No certification audit in this cycle. Add each audit of the cycle (initial "
+"or recertification, surveillance 1, surveillance 2) with its planned date: "
+"its column then appears here."
+msgstr ""
+
+#: templates/certification_sampling.html.twig
+#, php-format
+msgid ""
+"%d process(es) not sampled by the certification body over the cycle: the "
+"body usually covers every process within the three years."
+msgstr ""
+
+#: templates/certification_sampling.html.twig
+msgid "No certification audit"
+msgstr ""
+
+#: templates/certification_sampling.html.twig
+#, php-format
+msgid "%1$s sampled during %2$s"
+msgstr ""
+
+#: templates/certification_sampling.html.twig
+msgid "Sampled"
+msgstr ""
+
+#: templates/certification_sampling.html.twig
+msgid "Audit of the year"
+msgstr ""
+
+#: templates/certification_sampling_tab.html.twig
+msgid "Processes sampled by the certification body"
+msgstr ""
+
+#: templates/certification_sampling_tab.html.twig
+msgid ""
+"Copy here the processes that the audit plan of the certification body "
+"announces for this audit. They are the processes of the internal audit "
+"programme (ISMS activities of the responsibility matrix)."
+msgstr ""
+
+#: templates/certification_sampling_tab.html.twig
+msgid "Sampled processes"
+msgstr ""
+
+#: templates/certification_sampling_tab.html.twig
+msgid "Preparing the sampled processes"
+msgstr ""
+
+#: src/PageHelp.php:94
+msgid ""
+"The certification body samples the processes of your security management "
+"system over its three-year cycle: it does not audit them all every year. "
+"This page copies its sampling programme (processes in rows, years in "
+"columns) and, for the audit of the year, lists the sampled processes with "
+"their previous findings and the screens to prepare."
+msgstr ""
+
+#: src/PageHelp.php:101
+msgid ""
+"Record each certification audit of the cycle with its planned date. Then "
+"tick, in the column of each audit, the processes announced by the audit plan "
+"of the body, and save. Before the audit, go through each sampled process: "
+"lift its previous findings and check the controls and registers it relies "
+"on. The processes are those of the internal audit programme (ISMS activities "
+"of the responsibility matrix)."
+msgstr ""
+
+#: src/PageHelp.php:108
+msgid ""
+"ISO/IEC 27006-1 (certification audit programme), ISO/IEC 27001 clause 9.2"
+msgstr ""
+
+#: front/certificationsampling.php:42
+msgid "Audit plan of the certification body saved."
+msgstr ""

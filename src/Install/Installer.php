@@ -3922,6 +3922,9 @@ final class Installer
         }
 
         $this->seedDisplayPreferences();
+        // Issue #772, lot 2 : colonne « Type d'audit » dans la liste des audits des instances
+        // existantes, tant que leurs colonnes par défaut sont celles d'origine.
+        $this->upgradeDisplayPreferences('GlpiPlugin\\Grcmanager\\Audit', [9, 1, 2, 3, 4, 5, 6]);
 
         // Sprint 7 (tableaux de bord, consolidation) : tableau de bord natif GLPI prêt à l'emploi,
         // voir DefaultDashboardService pour le détail (idempotent comme le reste de cette
@@ -6067,6 +6070,31 @@ final class Installer
                     'interface' => 'central',
                 ]);
             }
+        }
+    }
+
+    /**
+     * Remplace les colonnes par défaut (users_id = 0) d'une liste par celles de
+     * DefaultSearchColumns, seulement si elles sont encore exactement $previous : un choix de
+     * l'administrateur n'est jamais écrasé. Rejouable : une fois à jour, plus rien ne change.
+     *
+     * @param list<int> $previous colonnes par défaut de la version précédente, dans l'ordre
+     */
+    private function upgradeDisplayPreferences(string $itemtype, array $previous): void
+    {
+        global $DB;
+
+        $where = ['itemtype' => $itemtype, 'users_id' => 0, 'interface' => 'central'];
+        $current = [];
+        foreach ($DB->request(['FROM' => 'glpi_displaypreferences', 'WHERE' => $where, 'ORDER' => 'rank']) as $row) {
+            $current[] = (int) $row['num'];
+        }
+        if ($current !== $previous) {
+            return;
+        }
+        $DB->delete('glpi_displaypreferences', $where);
+        foreach (DefaultSearchColumns::COLUMNS[$itemtype] as $index => $searchOptionId) {
+            $DB->insert('glpi_displaypreferences', $where + ['num' => $searchOptionId, 'rank' => $index + 1]);
         }
     }
 

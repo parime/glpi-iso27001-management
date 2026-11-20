@@ -24241,3 +24241,78 @@ msgid_plural "%d default scenarios added."
 msgstr[0] "Dodano %d scenariusz domyślny."
 msgstr[1] "Dodano %d scenariusze domyślne."
 msgstr[2] "Dodano %d scenariuszy domyślnych."
+
+msgid "No process sampled for this audit yet: tick the processes announced by the certification body in its audit plan."
+msgstr "Dla tego audytu nie wybrano jeszcze żadnego procesu: zaznacz procesy zapowiedziane przez jednostkę certyfikującą w jej planie audytu."
+
+msgid "Screens to prepare"
+msgstr "Ekrany do przygotowania"
+
+msgid "No finding of a previous audit on this process."
+msgstr "Brak ustaleń z poprzedniego audytu dla tego procesu."
+
+msgid "See these findings and their evidence"
+msgstr "Zobacz te ustalenia i ich dowody"
+
+msgid "No control linked to this process: add its Annex A controls in the responsibility matrix."
+msgstr "Z tym procesem nie powiązano żadnego zabezpieczenia: dodaj jego zabezpieczenia z załącznika A w macierzy odpowiedzialności."
+
+msgid "Findings of the process: %s"
+msgstr "Ustalenia procesu: %s"
+
+msgid "All processes"
+msgstr "Wszystkie procesy"
+
+msgid "Audit plan of the certification body"
+msgstr "Plan audytu jednostki certyfikującej"
+
+msgid "Sampling programme of the certification body"
+msgstr "Program próbkowania jednostki certyfikującej"
+
+msgid "The default cycle is set in the multi-year audit programme."
+msgstr "Domyślny cykl ustawia się w wieloletnim programie audytów."
+
+msgid "No ISMS process yet. The processes of the audit plan are those of the internal audit programme: the ISMS activities of the responsibility matrix (for example context and scope, ISMS planning, customer relations and contracts, asset management, access control, physical security, operations, continuity, incidents, human resources, suppliers, information protection, legal compliance, evaluation and improvement)."
+msgstr "Brak jeszcze procesów SZBI. Procesy planu audytu to procesy programu audytów wewnętrznych: działania SZBI z macierzy odpowiedzialności (na przykład kontekst i zakres, planowanie SZBI, relacje z klientami i umowy, zarządzanie aktywami, kontrola dostępu, bezpieczeństwo fizyczne, eksploatacja, ciągłość działania, incydenty, zasoby ludzkie, dostawcy, ochrona informacji, zgodność z prawem, ocena i doskonalenie)."
+
+msgid "No certification audit in this cycle. Add each audit of the cycle (initial or recertification, surveillance 1, surveillance 2) with its planned date: its column then appears here."
+msgstr "Brak audytu certyfikacyjnego w tym cyklu. Dodaj każdy audyt cyklu (certyfikacyjny lub recertyfikacyjny, nadzoru 1, nadzoru 2) z planowaną datą: jego kolumna pojawi się wtedy tutaj."
+
+msgid "%d process(es) not sampled by the certification body over the cycle: the body usually covers every process within the three years."
+msgstr "Liczba procesów niewybranych przez jednostkę certyfikującą w cyklu: %d. Jednostka zwykle obejmuje każdy proces w ciągu trzech lat."
+
+msgid "No certification audit"
+msgstr "Brak audytu certyfikacyjnego"
+
+msgid "%1$s sampled during %2$s"
+msgstr "%1$s wybrany podczas %2$s"
+
+msgid "Sampled"
+msgstr "Wybrany"
+
+msgid "Audit of the year"
+msgstr "Audyt roku"
+
+msgid "Processes sampled by the certification body"
+msgstr "Procesy wybrane przez jednostkę certyfikującą"
+
+msgid "Copy here the processes that the audit plan of the certification body announces for this audit. They are the processes of the internal audit programme (ISMS activities of the responsibility matrix)."
+msgstr "Wpisz tutaj procesy, które plan audytu jednostki certyfikującej zapowiada dla tego audytu. Są to procesy programu audytów wewnętrznych (działania SZBI z macierzy odpowiedzialności)."
+
+msgid "Sampled processes"
+msgstr "Wybrane procesy"
+
+msgid "Preparing the sampled processes"
+msgstr "Przygotowanie wybranych procesów"
+
+msgid "The certification body samples the processes of your security management system over its three-year cycle: it does not audit them all every year. This page copies its sampling programme (processes in rows, years in columns) and, for the audit of the year, lists the sampled processes with their previous findings and the screens to prepare."
+msgstr "Jednostka certyfikująca bada procesy Twojego systemu zarządzania bezpieczeństwem wyrywkowo w trzyletnim cyklu: nie audytuje wszystkich co roku. Ta strona odwzorowuje jej program próbkowania (procesy w wierszach, lata w kolumnach) i dla audytu roku wymienia wybrane procesy z ich wcześniejszymi ustaleniami oraz ekranami do przygotowania."
+
+msgid "Record each certification audit of the cycle with its planned date. Then tick, in the column of each audit, the processes announced by the audit plan of the body, and save. Before the audit, go through each sampled process: lift its previous findings and check the controls and registers it relies on. The processes are those of the internal audit programme (ISMS activities of the responsibility matrix)."
+msgstr "Zarejestruj każdy audyt certyfikacyjny cyklu z planowaną datą. Następnie w kolumnie każdego audytu zaznacz procesy zapowiedziane w planie audytu jednostki i zapisz. Przed audytem przejrzyj każdy wybrany proces: zamknij jego wcześniejsze ustalenia i sprawdź zabezpieczenia oraz rejestry, na których się opiera. Procesy to procesy programu audytów wewnętrznych (działania SZBI z macierzy odpowiedzialności)."
+
+msgid "ISO/IEC 27006-1 (certification audit programme), ISO/IEC 27001 clause 9.2"
+msgstr "ISO/IEC 27006-1 (program audytów certyfikacyjnych), ISO/IEC 27001 punkt 9.2"
+
+msgid "Audit plan of the certification body saved."
+msgstr "Zapisano plan audytu jednostki certyfikującej."

@@ -552,6 +552,8 @@ class Audit extends AuditBase
             ->addStandardTab(AuditChecklist::class, $tabs, $options)
             // Issue #773 : processus audités, indépendance des auditeurs, remise du rapport.
             ->addStandardTab(AuditProgramme::class, $tabs, $options)
+            // Issue #772, lot 2 : processus échantillonnés par l'organisme (audit de certification).
+            ->addStandardTab(CertificationSampling::class, $tabs, $options)
             ->addStandardTab(Nonconformity::class, $tabs, $options)
             ->addStandardTab(AuditTeam::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)

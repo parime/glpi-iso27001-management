@@ -91,7 +91,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
   front/certificationreadiness.php front/certificationreadiness.php?format=pdf
-  front/certificationfinding.php front/certificationfinding.php?format=pdf
+  front/certificationfinding.php front/certificationfinding.php?format=pdf front/certificationsampling.php
+  front/certificationfinding.php?process=1
   front/contextitem.php front/contextitem.form.php
   front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
@@ -128,6 +129,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/crisisscenario.form.php front/physicalsecurityassessment.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
+  # Issue #772, lot 2 : cocher le plan d'audit de l'organisme exige de modifier l'audit.
+  expect "front/certificationsampling.php : enregistrer le plan" "$1" \
+    "$(code -d "save_sampling=1&audit_ids[]=$(id audit_cert)&sampled[$(id audit_cert)][]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
   # Issue #776 : ajouter les scenarios de crise par defaut exige de pouvoir creer un scenario.
   expect "front/crisisscenario.php : ajouter les scenarios par defaut" "$1" \
     "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/crisisscenario.php")"
@@ -1234,6 +1238,26 @@ if [ "$ROLE" != admin ]; then
     "$(code -d "justify=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&process_id=1&justification=Justification%20securite&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
   expect "remise du rapport d'un audit de B" 403 \
     "$(code -d "save_delivery=1&plugin_grcmanager_audits_id=$(id audit_B)&delivery_date=2026-10-20&users_id_recipient=2&_glpi_csrf_token=$(csrf)" "$P/auditprogramme.form.php")"
+fi
+# Issue #772, lot 2 : plan d'audit de l'organisme. Cocher demande de modifier l'audit de
+# certification concerne (droit et entite) ; un audit interne est refuse ; l'audit de B n'apparait
+# qu'au super-admin ; jeton CSRF exige.
+case $ROLE in none|reader) SAMPLE_A=403 ;; *) SAMPLE_A=302 ;; esac
+expect "front/certificationsampling.php : cocher un audit de certification de A" $SAMPLE_A \
+  "$(code -d "save_sampling=1&audit_ids[]=$(id audit_cert)&sampled[$(id audit_cert)][]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+expect "front/certificationsampling.php : onglet d'un audit de certification de A" $SAMPLE_A \
+  "$(code -d "save_audit_sampling=1&plugin_grcmanager_audits_id=$(id audit_cert)&processes[]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+expect "front/certificationsampling.php : audit de certification de B" "$NOT_ADMIN_403" \
+  "$(code -d "save_sampling=1&audit_ids[]=$(id audit_cert_B)&sampled[$(id audit_cert_B)][]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+expect "front/certificationsampling.php : onglet d'un audit de certification de B" "$NOT_ADMIN_403" \
+  "$(code -d "save_audit_sampling=1&plugin_grcmanager_audits_id=$(id audit_cert_B)&processes[]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+expect "front/certificationsampling.php : audit interne refuse" 403 \
+  "$(code -d "save_audit_sampling=1&plugin_grcmanager_audits_id=$(id audit)&processes[]=1&_glpi_csrf_token=$(csrf)" "$P/certificationsampling.php")"
+expect "front/certificationsampling.php : sans jeton CSRF" 403 \
+  "$(code -d "save_sampling=1&audit_ids[]=$(id audit_cert)" "$P/certificationsampling.php")"
+if [ "$ROLE" != none ]; then
+  contains "front/certificationsampling.php : audit de certification de B" "Audit certification securite B" $IS_ADMIN \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/certificationsampling.php?start=$(( $(date +%Y) - 1 ))")"
 fi
 contains "tableau de bord consolide : non-conformites ouvertes par entite" "grcmanager-perimeters-findings" \
   $IS_ADMIN "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"

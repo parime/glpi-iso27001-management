@@ -203,7 +203,7 @@ ISO/IEC 27001:2022). Les audits existants restent des audits internes.
 
 Dans l'onglet **Constats** d'un audit de certification, chaque constat se saisit avec le
 vocabulaire de l'organisme : **non-conformité majeure**, **non-conformité mineure**, **point
-sensible** ou **piste d'amélioration**, avec la référence de l'organisme (par exemple GVE-36), le
+sensible** ou **piste de progrès**, avec la référence de l'organisme (par exemple GVE-36), le
 processus audité, la clause ou la mesure et le site (un lieu GLPI). Le traitement est le même que
 pour une non-conformité interne (cause, action corrective, responsable, échéance, preuves dans
 l'onglet **Documents**, vérification) ; l'action corrective n'est obligatoire que pour une
@@ -215,6 +215,32 @@ vérifier, levé) et leurs preuves. Il se filtre par audit ou sur les seuls cons
 s'exporte en PDF : c'est le document à remettre à l'auditeur à la réunion d'ouverture de l'audit
 suivant. La **Préparation à la certification** rappelle, dans l'étape « Traiter les
 non-conformités », le nombre de constats précédents non levés.
+
+La liste des audits affiche la colonne **Type d'audit** juste après le titre.
+
+#### Plan d'audit de l'organisme
+
+L'organisme de certification n'audite pas tous les processus chaque année : il les échantillonne
+sur son cycle de trois ans et l'annonce dans son plan d'audit. L'écran **Audits et amélioration >
+Plan d'audit de l'organisme** reprend ce programme : les processus en lignes, une colonne par audit
+de certification de chaque année du cycle (le cycle par défaut se règle dans le programme d'audit
+pluriannuel).
+
+1. Enregistrer chaque audit de certification du cycle avec sa date prévue (audit initial ou de
+   renouvellement, surveillance 1, surveillance 2) : sa colonne apparaît dans la matrice.
+2. Cocher, dans la colonne de chaque audit, les processus annoncés par l'organisme, puis
+   **Enregistrer**. On peut aussi les choisir dans l'onglet **Plan d'audit de l'organisme** de
+   l'audit.
+3. Avant l'audit, le bloc **Audit de l'année** (et le même onglet) liste chaque processus
+   échantillonné avec les constats des audits de certification précédents qui le concernent et
+   leur état de levée, ses mesures de l'Annexe A et les registres du plugin qui y répondent. Le
+   lien « Voir ces constats et leurs preuves » ouvre la vue des constats filtrée sur ce processus.
+
+Les processus sont ceux du programme d'audit interne : les activités du SMSI de la **matrice des
+responsabilités** (par exemple contexte et domaine d'application, planification du SMSI, accès
+logiques et physiques, fournisseurs). Un constat est rattaché à un processus quand son champ
+**Processus audité** reprend le nom du processus (le champ le propose), ou quand sa clause ou
+mesure fait partie des mesures du processus. Cocher demande le droit de modifier l'audit concerné.
 
 ### Étape 6 : Ajouter les indicateurs à un tableau de bord
 

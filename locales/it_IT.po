@@ -24275,3 +24275,78 @@ msgid "%d default scenario added."
 msgid_plural "%d default scenarios added."
 msgstr[0] "%d scenario predefinito aggiunto."
 msgstr[1] "%d scenari predefiniti aggiunti."
+
+msgid "No process sampled for this audit yet: tick the processes announced by the certification body in its audit plan."
+msgstr "Nessun processo campionato per questo audit: selezionare i processi annunciati dall'organismo di certificazione nel suo piano di audit."
+
+msgid "Screens to prepare"
+msgstr "Schermate da preparare"
+
+msgid "No finding of a previous audit on this process."
+msgstr "Nessun rilievo di un audit precedente su questo processo."
+
+msgid "See these findings and their evidence"
+msgstr "Vedere questi rilievi e le loro evidenze"
+
+msgid "No control linked to this process: add its Annex A controls in the responsibility matrix."
+msgstr "Nessun controllo collegato a questo processo: aggiungere i suoi controlli dell'Allegato A nella matrice delle responsabilità."
+
+msgid "Findings of the process: %s"
+msgstr "Rilievi del processo: %s"
+
+msgid "All processes"
+msgstr "Tutti i processi"
+
+msgid "Audit plan of the certification body"
+msgstr "Piano di audit dell'organismo di certificazione"
+
+msgid "Sampling programme of the certification body"
+msgstr "Programma di campionamento dell'organismo di certificazione"
+
+msgid "The default cycle is set in the multi-year audit programme."
+msgstr "Il ciclo predefinito si imposta nel programma di audit pluriennale."
+
+msgid "No ISMS process yet. The processes of the audit plan are those of the internal audit programme: the ISMS activities of the responsibility matrix (for example context and scope, ISMS planning, customer relations and contracts, asset management, access control, physical security, operations, continuity, incidents, human resources, suppliers, information protection, legal compliance, evaluation and improvement)."
+msgstr "Ancora nessun processo dell'SGSI. I processi del piano di audit sono quelli del programma di audit interno: le attività dell'SGSI della matrice delle responsabilità (per esempio contesto e campo di applicazione, pianificazione dell'SGSI, relazioni con i clienti e contratti, gestione degli asset, controllo degli accessi, sicurezza fisica, esercizio, continuità, incidenti, risorse umane, fornitori, protezione delle informazioni, conformità legale, valutazione e miglioramento)."
+
+msgid "No certification audit in this cycle. Add each audit of the cycle (initial or recertification, surveillance 1, surveillance 2) with its planned date: its column then appears here."
+msgstr "Nessun audit di certificazione in questo ciclo. Aggiungere ogni audit del ciclo (iniziale o di rinnovo, sorveglianza 1, sorveglianza 2) con la sua data prevista: la sua colonna apparirà qui."
+
+msgid "%d process(es) not sampled by the certification body over the cycle: the body usually covers every process within the three years."
+msgstr "%d processo/i non campionato/i dall'organismo di certificazione nel ciclo: l'organismo copre di solito ogni processo nei tre anni."
+
+msgid "No certification audit"
+msgstr "Nessun audit di certificazione"
+
+msgid "%1$s sampled during %2$s"
+msgstr "%1$s campionato durante %2$s"
+
+msgid "Sampled"
+msgstr "Campionato"
+
+msgid "Audit of the year"
+msgstr "Audit dell'anno"
+
+msgid "Processes sampled by the certification body"
+msgstr "Processi campionati dall'organismo di certificazione"
+
+msgid "Copy here the processes that the audit plan of the certification body announces for this audit. They are the processes of the internal audit programme (ISMS activities of the responsibility matrix)."
+msgstr "Riportare qui i processi che il piano di audit dell'organismo di certificazione annuncia per questo audit. Sono i processi del programma di audit interno (attività dell'SGSI della matrice delle responsabilità)."
+
+msgid "Sampled processes"
+msgstr "Processi campionati"
+
+msgid "Preparing the sampled processes"
+msgstr "Preparazione dei processi campionati"
+
+msgid "The certification body samples the processes of your security management system over its three-year cycle: it does not audit them all every year. This page copies its sampling programme (processes in rows, years in columns) and, for the audit of the year, lists the sampled processes with their previous findings and the screens to prepare."
+msgstr "L'organismo di certificazione campiona i processi del vostro sistema di gestione della sicurezza nel suo ciclo di tre anni: non li sottopone tutti ad audit ogni anno. Questa pagina riporta il suo programma di campionamento (processi in righe, anni in colonne) e, per l'audit dell'anno, elenca i processi campionati con i rilievi precedenti e le schermate da preparare."
+
+msgid "Record each certification audit of the cycle with its planned date. Then tick, in the column of each audit, the processes announced by the audit plan of the body, and save. Before the audit, go through each sampled process: lift its previous findings and check the controls and registers it relies on. The processes are those of the internal audit programme (ISMS activities of the responsibility matrix)."
+msgstr "Registrare ogni audit di certificazione del ciclo con la sua data prevista. Poi selezionare, nella colonna di ogni audit, i processi annunciati dal piano di audit dell'organismo e salvare. Prima dell'audit, esaminare ogni processo campionato: chiudere i suoi rilievi precedenti e verificare i controlli e i registri su cui si basa. I processi sono quelli del programma di audit interno (attività dell'SGSI della matrice delle responsabilità)."
+
+msgid "ISO/IEC 27006-1 (certification audit programme), ISO/IEC 27001 clause 9.2"
+msgstr "ISO/IEC 27006-1 (programma di audit di certificazione), ISO/IEC 27001 punto 9.2"
+
+msgid "Audit plan of the certification body saved."
+msgstr "Piano di audit dell'organismo di certificazione salvato."

@@ -111,6 +111,8 @@ class Menu extends CommonGLPI
                 Nonconformity::class,
                 // Issue #772 : constats des audits de certification et état de leur levée.
                 CertificationFinding::class,
+                // Issue #772, lot 2 : plan d'audit de l'organisme (échantillonnage sur le cycle).
+                CertificationSampling::class,
                 Objective::class,
                 ManagementReview::class,
             ],

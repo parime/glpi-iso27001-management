@@ -84,7 +84,17 @@
    {% else %}
       {{ fields.dropdownArrayField('severity', item.fields['severity'] ?: 'minor', severities, __('Severity', 'grcmanager')) }}
    {% endif %}
-   {{ fields.textField('audited_process', item.fields['audited_process'], __('Audited process', 'grcmanager')) }}
+   {# Issue #772, lot 2 : processus du programme d'audit proposés, pour rapprocher le constat du
+      plan d'audit de l'organisme (texte libre accepté). #}
+   {% set process_list %}
+      <datalist id="grc-audited-process-list">
+         {% for label in process_labels %}<option value="{{ label }}"></option>{% endfor %}
+      </datalist>
+   {% endset %}
+   {{ fields.textField('audited_process', item.fields['audited_process'], __('Audited process', 'grcmanager'), {
+      'additional_attributes': {'list': 'grc-audited-process-list', 'autocomplete': 'off'},
+      'add_field_html': process_list,
+   }) }}
    {{ fields.textField('requirement_reference', item.fields['requirement_reference'], __('Clause or control', 'grcmanager'), {
       'placeholder': 'A.8.8',
    }) }}

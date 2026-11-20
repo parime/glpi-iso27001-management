@@ -24488,3 +24488,78 @@ msgid "%d default scenario added."
 msgid_plural "%d default scenarios added."
 msgstr[0] "%d Standardszenario hinzugefügt."
 msgstr[1] "%d Standardszenarien hinzugefügt."
+
+msgid "No process sampled for this audit yet: tick the processes announced by the certification body in its audit plan."
+msgstr "Für dieses Audit ist noch kein Prozess ausgewählt: Kreuzen Sie die Prozesse an, die die Zertifizierungsstelle in ihrem Auditplan ankündigt."
+
+msgid "Screens to prepare"
+msgstr "Vorzubereitende Bildschirme"
+
+msgid "No finding of a previous audit on this process."
+msgstr "Keine Feststellung eines früheren Audits zu diesem Prozess."
+
+msgid "See these findings and their evidence"
+msgstr "Diese Feststellungen und ihre Nachweise anzeigen"
+
+msgid "No control linked to this process: add its Annex A controls in the responsibility matrix."
+msgstr "Diesem Prozess ist keine Maßnahme zugeordnet: Fügen Sie seine Maßnahmen aus Anhang A in der Verantwortlichkeitsmatrix hinzu."
+
+msgid "Findings of the process: %s"
+msgstr "Feststellungen des Prozesses: %s"
+
+msgid "All processes"
+msgstr "Alle Prozesse"
+
+msgid "Audit plan of the certification body"
+msgstr "Auditplan der Zertifizierungsstelle"
+
+msgid "Sampling programme of the certification body"
+msgstr "Stichprobenprogramm der Zertifizierungsstelle"
+
+msgid "The default cycle is set in the multi-year audit programme."
+msgstr "Der Standardzyklus wird im mehrjährigen Auditprogramm festgelegt."
+
+msgid "No ISMS process yet. The processes of the audit plan are those of the internal audit programme: the ISMS activities of the responsibility matrix (for example context and scope, ISMS planning, customer relations and contracts, asset management, access control, physical security, operations, continuity, incidents, human resources, suppliers, information protection, legal compliance, evaluation and improvement)."
+msgstr "Noch kein ISMS-Prozess. Die Prozesse des Auditplans sind die des internen Auditprogramms: die ISMS-Aktivitäten der Verantwortlichkeitsmatrix (zum Beispiel Kontext und Anwendungsbereich, ISMS-Planung, Kundenbeziehungen und Verträge, Verwaltung der Werte, Zugangssteuerung, physische Sicherheit, Betrieb, Kontinuität, Vorfälle, Personal, Lieferanten, Informationsschutz, Einhaltung gesetzlicher Vorgaben, Bewertung und Verbesserung)."
+
+msgid "No certification audit in this cycle. Add each audit of the cycle (initial or recertification, surveillance 1, surveillance 2) with its planned date: its column then appears here."
+msgstr "Kein Zertifizierungsaudit in diesem Zyklus. Legen Sie jedes Audit des Zyklus (Erst- oder Rezertifizierung, Überwachung 1, Überwachung 2) mit seinem geplanten Datum an: Seine Spalte erscheint dann hier."
+
+msgid "%d process(es) not sampled by the certification body over the cycle: the body usually covers every process within the three years."
+msgstr "%d Prozess(e) im Zyklus nicht von der Zertifizierungsstelle ausgewählt: Die Stelle deckt in der Regel jeden Prozess innerhalb der drei Jahre ab."
+
+msgid "No certification audit"
+msgstr "Kein Zertifizierungsaudit"
+
+msgid "%1$s sampled during %2$s"
+msgstr "%1$s ausgewählt bei %2$s"
+
+msgid "Sampled"
+msgstr "Ausgewählt"
+
+msgid "Audit of the year"
+msgstr "Audit des Jahres"
+
+msgid "Processes sampled by the certification body"
+msgstr "Von der Zertifizierungsstelle ausgewählte Prozesse"
+
+msgid "Copy here the processes that the audit plan of the certification body announces for this audit. They are the processes of the internal audit programme (ISMS activities of the responsibility matrix)."
+msgstr "Übernehmen Sie hier die Prozesse, die der Auditplan der Zertifizierungsstelle für dieses Audit ankündigt. Es sind die Prozesse des internen Auditprogramms (ISMS-Aktivitäten der Verantwortlichkeitsmatrix)."
+
+msgid "Sampled processes"
+msgstr "Ausgewählte Prozesse"
+
+msgid "Preparing the sampled processes"
+msgstr "Vorbereitung der ausgewählten Prozesse"
+
+msgid "The certification body samples the processes of your security management system over its three-year cycle: it does not audit them all every year. This page copies its sampling programme (processes in rows, years in columns) and, for the audit of the year, lists the sampled processes with their previous findings and the screens to prepare."
+msgstr "Die Zertifizierungsstelle prüft die Prozesse Ihres Managementsystems stichprobenartig über ihren dreijährigen Zyklus: Sie auditiert nicht jedes Jahr alle. Diese Seite übernimmt ihr Stichprobenprogramm (Prozesse in Zeilen, Jahre in Spalten) und listet für das Audit des Jahres die ausgewählten Prozesse mit ihren früheren Feststellungen und den vorzubereitenden Bildschirmen auf."
+
+msgid "Record each certification audit of the cycle with its planned date. Then tick, in the column of each audit, the processes announced by the audit plan of the body, and save. Before the audit, go through each sampled process: lift its previous findings and check the controls and registers it relies on. The processes are those of the internal audit programme (ISMS activities of the responsibility matrix)."
+msgstr "Erfassen Sie jedes Zertifizierungsaudit des Zyklus mit seinem geplanten Datum. Kreuzen Sie dann in der Spalte jedes Audits die im Auditplan der Stelle angekündigten Prozesse an und speichern Sie. Gehen Sie vor dem Audit jeden ausgewählten Prozess durch: Schließen Sie seine früheren Feststellungen ab und prüfen Sie die Maßnahmen und Register, auf die er sich stützt. Die Prozesse sind die des internen Auditprogramms (ISMS-Aktivitäten der Verantwortlichkeitsmatrix)."
+
+msgid "ISO/IEC 27006-1 (certification audit programme), ISO/IEC 27001 clause 9.2"
+msgstr "ISO/IEC 27006-1 (Programm der Zertifizierungsaudits), ISO/IEC 27001 Abschnitt 9.2"
+
+msgid "Audit plan of the certification body saved."
+msgstr "Auditplan der Zertifizierungsstelle gespeichert."

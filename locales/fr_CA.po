@@ -19907,7 +19907,7 @@ msgstr ""
 "Une ligne par exigence auditée : notez la question posée, la personne "
 "interrogée, les preuves examinées (texte, et documents de l'onglet "
 "« Documents »), puis le résultat. Pour une non-conformité, une observation "
-"ou une piste d'amélioration, « Créer le constat » ouvre une non-conformité "
+"ou une piste de progrès, « Créer le constat » ouvre une non-conformité "
 "pré-remplie que vous relisez et enregistrez vous-même. Comme les documents "
 "de l'audit, seuls l'équipe de l'audit et le groupe RSSI voient cette grille."
 
@@ -20067,7 +20067,7 @@ msgid "Observation"
 msgstr "Observation"
 
 msgid "Opportunity for improvement"
-msgstr "Piste d'amélioration"
+msgstr "Piste de progrès"
 
 msgid "Not audited"
 msgstr "Non audité"
@@ -24291,3 +24291,78 @@ msgid "%d default scenario added."
 msgid_plural "%d default scenarios added."
 msgstr[0] "%d scénario par défaut ajouté."
 msgstr[1] "%d scénarios par défaut ajoutés."
+
+msgid "No process sampled for this audit yet: tick the processes announced by the certification body in its audit plan."
+msgstr "Aucun processus échantillonné pour cet audit : cochez les processus annoncés par l'organisme de certification dans son plan d'audit."
+
+msgid "Screens to prepare"
+msgstr "Écrans à préparer"
+
+msgid "No finding of a previous audit on this process."
+msgstr "Aucun constat d'un audit précédent sur ce processus."
+
+msgid "See these findings and their evidence"
+msgstr "Voir ces constats et leurs preuves"
+
+msgid "No control linked to this process: add its Annex A controls in the responsibility matrix."
+msgstr "Aucune mesure liée à ce processus : ajoutez ses mesures de l'Annexe A dans la matrice des responsabilités."
+
+msgid "Findings of the process: %s"
+msgstr "Constats du processus : %s"
+
+msgid "All processes"
+msgstr "Tous les processus"
+
+msgid "Audit plan of the certification body"
+msgstr "Plan d'audit de l'organisme"
+
+msgid "Sampling programme of the certification body"
+msgstr "Programme d'échantillonnage de l'organisme"
+
+msgid "The default cycle is set in the multi-year audit programme."
+msgstr "Le cycle par défaut se règle dans le programme d'audit pluriannuel."
+
+msgid "No ISMS process yet. The processes of the audit plan are those of the internal audit programme: the ISMS activities of the responsibility matrix (for example context and scope, ISMS planning, customer relations and contracts, asset management, access control, physical security, operations, continuity, incidents, human resources, suppliers, information protection, legal compliance, evaluation and improvement)."
+msgstr "Aucun processus du SMSI pour l'instant. Les processus du plan d'audit sont ceux du programme d'audit interne : les activités du SMSI de la matrice des responsabilités (par exemple contexte et domaine d'application, planification du SMSI, relations clients et contrats, gestion des actifs, accès logiques et physiques, sécurité physique, infrastructures et exploitation, disponibilité et continuité, incidents, ressources humaines, fournisseurs, protection de l'information, conformité légale, évaluation et amélioration)."
+
+msgid "No certification audit in this cycle. Add each audit of the cycle (initial or recertification, surveillance 1, surveillance 2) with its planned date: its column then appears here."
+msgstr "Aucun audit de certification dans ce cycle. Ajoutez chaque audit du cycle (initial ou de renouvellement, surveillance 1, surveillance 2) avec sa date prévue : sa colonne apparaît alors ici."
+
+msgid "%d process(es) not sampled by the certification body over the cycle: the body usually covers every process within the three years."
+msgstr "%d processus non échantillonné(s) par l'organisme sur le cycle : l'organisme couvre en général chaque processus sur les trois ans."
+
+msgid "No certification audit"
+msgstr "Aucun audit de certification"
+
+msgid "%1$s sampled during %2$s"
+msgstr "%1$s échantillonné lors de %2$s"
+
+msgid "Sampled"
+msgstr "Échantillonné"
+
+msgid "Audit of the year"
+msgstr "Audit de l'année"
+
+msgid "Processes sampled by the certification body"
+msgstr "Processus échantillonnés par l'organisme"
+
+msgid "Copy here the processes that the audit plan of the certification body announces for this audit. They are the processes of the internal audit programme (ISMS activities of the responsibility matrix)."
+msgstr "Reportez ici les processus que le plan d'audit de l'organisme annonce pour cet audit. Ce sont les processus du programme d'audit interne (activités du SMSI de la matrice des responsabilités)."
+
+msgid "Sampled processes"
+msgstr "Processus échantillonnés"
+
+msgid "Preparing the sampled processes"
+msgstr "Préparer les processus échantillonnés"
+
+msgid "The certification body samples the processes of your security management system over its three-year cycle: it does not audit them all every year. This page copies its sampling programme (processes in rows, years in columns) and, for the audit of the year, lists the sampled processes with their previous findings and the screens to prepare."
+msgstr "L'organisme de certification échantillonne les processus de votre système de management de la sécurité sur son cycle de trois ans : il ne les audite pas tous chaque année. Cette page reprend son programme d'échantillonnage (processus en lignes, années en colonnes) et, pour l'audit de l'année, liste les processus échantillonnés avec leurs constats précédents et les écrans à préparer."
+
+msgid "Record each certification audit of the cycle with its planned date. Then tick, in the column of each audit, the processes announced by the audit plan of the body, and save. Before the audit, go through each sampled process: lift its previous findings and check the controls and registers it relies on. The processes are those of the internal audit programme (ISMS activities of the responsibility matrix)."
+msgstr "Enregistrez chaque audit de certification du cycle avec sa date prévue. Cochez ensuite, dans la colonne de chaque audit, les processus annoncés par le plan d'audit de l'organisme, puis enregistrez. Avant l'audit, passez en revue chaque processus échantillonné : levez ses constats précédents et vérifiez les mesures et registres sur lesquels il s'appuie. Les processus sont ceux du programme d'audit interne (activités du SMSI de la matrice des responsabilités)."
+
+msgid "ISO/IEC 27006-1 (certification audit programme), ISO/IEC 27001 clause 9.2"
+msgstr "ISO/IEC 27006-1 (programme d'audit de certification), ISO/IEC 27001 article 9.2"
+
+msgid "Audit plan of the certification body saved."
+msgstr "Plan d'audit de l'organisme enregistré."

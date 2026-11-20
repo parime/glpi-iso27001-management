@@ -9,6 +9,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Plan d'audit de l'organisme de certification** (issue #772, lot 2). Nouvel écran « Plan d'audit
+  de l'organisme » dans la rubrique Audits et amélioration :
+  - programme d'échantillonnage de l'organisme sur le cycle de certification de trois ans : matrice
+    processus x années, une colonne par audit de certification de l'année ; les cases se cochent à
+    la main et sont rattachées à cet audit ;
+  - les processus sont ceux du programme d'audit interne (#773, activités de la matrice des
+    responsabilités) : aucune nouvelle liste ni table, un processus échantillonné est un processus
+    visé par l'audit ; le programme interne ne compte toujours que les audits internes ;
+  - pour l'audit de l'année, et dans le nouvel onglet « Plan d'audit de l'organisme » de chaque audit
+    de certification : processus échantillonnés, constats des audits de certification précédents
+    sur chacun (même libellé de processus, ou clause ou mesure parmi celles du processus) avec leur
+    état de levée, mesures de l'Annexe A et registres du plugin qui y répondent ;
+  - « Constats des audits précédents » se filtre sur un processus (écran et export PDF) ; le champ
+    « Processus audité » d'un constat propose les processus du programme ;
+  - droits : lire les audits pour voir, modifier l'audit concerné pour cocher (entité de l'audit,
+    processus de son entité), jeton CSRF sur chaque enregistrement.
+
 - **Scénarios de crise sécurité de l'information du PCA** (issue #776, lot 1, mesure A.5.29). Constat
   d'audit : le PCA et le PRA décrivaient la restauration technique, sans scénario de crise intégrant
   la sécurité. Nouvel écran « Scénarios de crise sécurité » dans la rubrique Opérations, à côté des
@@ -32,6 +49,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Reste à faire (lot 2) : procédures de remédiation fournies pour le déni de service et
     l'indisponibilité d'un prestataire, scénarios repris dans le PCA en PDF de chaque processus,
     archivage daté du PDF sur la mesure, lien avec les exercices de reprise (#733).
+
+### Fixed
+
+- **Audits de certification** (issue #772, lot 1) : la colonne « Type d'audit » est affichée par
+  défaut dans la liste des audits, juste après le titre (y compris sur une instance existante dont
+  les colonnes par défaut n'ont pas été modifiées) ; le constat « Opportunity for improvement »
+  s'appelle « Piste de progrès » en français, comme dans les rapports des organismes.
 
 ## [2.67.0] - 2026-11-20
 
