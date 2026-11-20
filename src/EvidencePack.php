@@ -204,22 +204,19 @@ class EvidencePack extends CommonGLPI
             }
             $documents[$id]['state'] = $state;
         }
-        $files = [];
         foreach ($groups as $g => $group) {
             foreach ($group['rows'] as $r => $row) {
                 foreach ($row['links'] as $l => $link) {
                     $state = $link['expired'] ? Rules::STATE_EXPIRED : $documents[$link['documents_id']]['state'];
                     $groups[$g]['rows'][$r]['links'][$l]['state'] = $state;
                     $groups[$g]['rows'][$r]['links'][$l]['entry'] = $documents[$link['documents_id']]['entry'];
-                    $files[] = ['state' => $state, 'size' => 0];
                 }
             }
         }
-        $summary = Rules::summary($files);
-        $summary['bytes'] = $used;
-        $summary['files'] = count(array_filter(
-            $documents,
-            static fn (array $d): bool => $d['state'] === Rules::STATE_INCLUDED
+        // Décompte par pièce (une pièce rattachée à plusieurs mesures ne compte qu'une fois).
+        $summary = Rules::summary(array_map(
+            static fn (array $d): array => ['state' => $d['state'], 'size' => $d['size']],
+            array_values($documents)
         ));
 
         return ['groups' => $groups, 'documents' => $documents, 'summary' => $summary, 'max_mb' => $maxMb];

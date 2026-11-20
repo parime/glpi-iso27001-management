@@ -34,7 +34,7 @@
 <table class="grcmanager-pdf-summary">
   <tr><td>{{ __('Perimeter', 'grcmanager') }}</td><td><strong>{{ perimeter }}</strong></td></tr>
   <tr><td>{{ __('Prepared by', 'grcmanager') }}</td><td>{{ author }}</td></tr>
-  <tr><td>{{ __('Files included', 'grcmanager') }}</td><td>{{ summary.included }} ({{ size_mb }} MB, {{ __('limit %d MB', 'grcmanager')|format(max_mb) }})</td></tr>
+  <tr><td>{{ __('Files included', 'grcmanager') }}</td><td>{{ summary.included }} ({{ __('%s MB', 'grcmanager')|format(size_mb) }}, {{ __('limit %d MB', 'grcmanager')|format(max_mb) }})</td></tr>
   <tr><td>{{ __('Not included', 'grcmanager') }}</td><td>
     {{ m.pill(states.expired.label ~ ' : ' ~ summary.expired, 'danger') }}
     {{ m.pill(states.no_file.label ~ ' : ' ~ summary.no_file, 'secondary') }}

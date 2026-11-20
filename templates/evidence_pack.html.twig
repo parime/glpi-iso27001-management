@@ -114,7 +114,7 @@
                         <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-files me-1"></i>{{ __('%d file(s)', 'grcmanager')|format(pack.files) }}</span>
                         {% if pack.expired > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-clock-x me-1"></i>{{ __('%d expired', 'grcmanager')|format(pack.expired) }}</span>{% endif %}
                         {% if pack.skipped > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-file-alert me-1"></i>{{ __('%d over the size limit', 'grcmanager')|format(pack.skipped) }}</span>{% endif %}
-                        <div class="small text-secondary mt-1">{{ __('Generated on %s', 'grcmanager')|format(pack.date|formatted_datetime) }}{% if pack.author %} - {{ pack.author }}{% endif %} - {{ pack.size_mb }} MB</div>
+                        <div class="small text-secondary mt-1">{{ __('Generated on %s', 'grcmanager')|format(pack.date|formatted_datetime) }}{% if pack.author %} - {{ pack.author }}{% endif %} - {{ __('%s MB', 'grcmanager')|format(pack.size_mb) }}</div>
                      </div>
                      {% if pack.url %}
                         <a href="{{ pack.url }}" class="btn btn-sm btn-outline-primary text-nowrap"><i class="ti ti-download me-1"></i>{{ __('Download', 'grcmanager') }}</a>
