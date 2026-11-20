@@ -265,6 +265,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::personnelComplianceRate',
         ],
+        // Issue #774 (lot 2) : couverture des compétences exigées par les fonctions du SMSI.
+        'grcmanager_competence_coverage_rate' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Coverage of the required competences (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::competenceCoverageRate',
+        ],
         'grcmanager_training_retake_participants' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Participants to retake', 'grcmanager'),

@@ -82,6 +82,10 @@
             {% for gap in gaps %}
                <li>
                   <strong>{{ gap.competence }}</strong> :
+                  {% for planned in gap.planned %}
+                     <span class="badge bg-info-subtle text-info-emphasis"><i class="ti ti-calendar-check me-1"></i>{{ __('Training planned', 'grcmanager') }}</span>
+                     {% if not own %}<a href="{{ planned.url }}">{{ planned.label }}</a>{% else %}{{ planned.label }}{% endif %}{% if planned.date %} ({{ planned.date }}){% endif %}{{ not loop.last ? ', ' }}
+                  {% endfor %}
                   {% for training in gap.trainings %}
                      {{ __('Plan the training', 'grcmanager') }} {% if not own %}<a href="{{ training.url }}">{{ training.title }}</a>{% else %}{{ training.title }}{% endif %}{{ not loop.last ? ', ' }}
                   {% endfor %}
