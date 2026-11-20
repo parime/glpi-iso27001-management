@@ -1,0 +1,231 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #847 : chiffrement des disques du parc (A.8.24, A.8.1), d'après l'inventaire de GLPI, dans
+   les entités de la personne. Aucune clé de récupération n'est lue ni stockée. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% macro rate_color(rate) %}{{ rate is null ? 'secondary' : (rate >= 95 ? 'success' : (rate >= 80 ? 'warning' : 'danger')) }}{% endmacro %}
+{% macro breakdown(title, icon, groups, empty_label) %}
+   {% import _self as helpers %}
+   <div class="card h-100">
+      <div class="card-header"><h3 class="card-title"><i class="{{ icon }} me-2"></i>{{ title }}</h3></div>
+      {% if groups is empty %}
+         <div class="card-body text-muted small">{{ __('No computer concerned.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ title }}</th>
+                  <th class="text-end" title="{{ __('Fully encrypted', 'grcmanager') }}"><i class="ti ti-lock text-success"></i></th>
+                  <th class="text-end" title="{{ __('Partially encrypted', 'grcmanager') }}"><i class="ti ti-lock-half text-warning"></i></th>
+                  <th class="text-end" title="{{ __('Not encrypted', 'grcmanager') }}"><i class="ti ti-lock-open text-danger"></i></th>
+                  <th class="text-end" title="{{ __('Unknown', 'grcmanager') }}"><i class="ti ti-help-circle text-secondary"></i></th>
+                  <th class="text-end">{{ __('Rate', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for g in groups %}
+                  {% set color = helpers.rate_color(g.rate) %}
+                  <tr>
+                     <td>{{ g.label is empty ? empty_label : g.label }}</td>
+                     <td class="text-end">{{ g.encrypted }}</td>
+                     <td class="text-end">{{ g.partial }}</td>
+                     <td class="text-end">{{ g.clear }}</td>
+                     <td class="text-end">{{ g.unknown }}</td>
+                     <td class="text-end"><span class="badge bg-{{ color }}-subtle text-{{ color }}-emphasis">{{ g.rate is null ? '-' : g.rate ~ ' %' }}</span></td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+{% endmacro %}
+
+<div id="grc-disk-encryption">
+   {# Synthèse : ordinateurs qui doivent être chiffrés, par état. #}
+   <div class="row row-cards mb-3">
+      {% set req_color = _self.rate_color(summary.required.rate) %}
+      <div class="col-sm-6 col-lg-4"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-{{ req_color }}-subtle text-{{ req_color }}-emphasis me-2 fs-3"><i class="ti ti-shield-lock"></i></span>
+            <div>
+               <div class="fw-bold fs-3" id="grc-encryption-rate">{{ summary.required.rate is null ? '-' : summary.required.rate ~ ' %' }}</div>
+               <div class="small">{{ __('Computers that must be encrypted and are', 'grcmanager') }}</div>
+            </div>
+         </div>
+         <div class="small text-muted mt-1">{{ _n('%d computer must be encrypted', '%d computers must be encrypted', summary.required.total, 'grcmanager')|format(summary.required.total) }} · {{ _n('%d gap', '%d gaps', summary.gaps, 'grcmanager')|format(summary.gaps) }}</div>
+      </div></div></div>
+      {% set lap_color = _self.rate_color(summary.laptops.rate) %}
+      <div class="col-sm-6 col-lg-4"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-{{ lap_color }}-subtle text-{{ lap_color }}-emphasis me-2 fs-3"><i class="ti ti-device-laptop"></i></span>
+            <div>
+               <div class="fw-bold fs-3">{{ summary.laptops.rate is null ? '-' : summary.laptops.rate ~ ' %' }}</div>
+               <div class="small">{{ __('Laptops and tablets fully encrypted', 'grcmanager') }}</div>
+            </div>
+         </div>
+         <div class="small text-muted mt-1">{{ _n('%d laptop or tablet', '%d laptops or tablets', summary.laptops.total, 'grcmanager')|format(summary.laptops.total) }}, {{ _n('%d not fully encrypted', '%d not fully encrypted', summary.laptops.partial + summary.laptops.clear, 'grcmanager')|format(summary.laptops.partial + summary.laptops.clear) }}</div>
+      </div></div></div>
+      {% set algo_color = summary.weak > 0 ? 'danger' : (summary.legacy > 0 ? 'warning' : 'success') %}
+      <div class="col-sm-6 col-lg-4"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-{{ algo_color }}-subtle text-{{ algo_color }}-emphasis me-2 fs-3"><i class="ti ti-key"></i></span>
+            <div>
+               <div class="fw-bold fs-3">{{ summary.weak }}</div>
+               <div class="small">{{ __('Computers with a weak encryption algorithm', 'grcmanager') }}</div>
+            </div>
+         </div>
+         <div class="small text-muted mt-1">{{ _n('%d with an older algorithm or mode to plan to replace', '%d with an older algorithm or mode to plan to replace', summary.legacy, 'grcmanager')|format(summary.legacy) }}</div>
+      </div></div></div>
+   </div>
+   <div class="row row-cards mb-3">
+      {% for code, info in infos %}
+         <div class="col-6 col-lg-3"><div class="card card-sm"><div class="card-body" title="{{ info.help }}">
+            <div class="d-flex align-items-center">
+               <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-2 fs-3"><i class="{{ info.icon }}"></i></span>
+               <div>
+                  <div class="fw-bold fs-3">{{ summary.required[code] }}</div>
+                  <div class="small">{{ info.label }}</div>
+               </div>
+            </div>
+            <div class="small text-muted mt-1">{{ info.help }}</div>
+         </div></div></div>
+      {% endfor %}
+   </div>
+
+   {# Règle « doit être chiffré ». #}
+   <div class="card mb-3" id="grc-encryption-rule">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-adjustments me-2"></i>{{ __('Which computers must be encrypted?', 'grcmanager') }}</h3>
+      </div>
+      <div class="card-body">
+         <p class="mb-2"><i class="ti ti-info-circle me-1"></i>{{ rule_summary }}</p>
+         <p class="text-muted small">{{ __('A computer is a laptop or a tablet when its type in GLPI is one of those reported by the inventory agent (Laptop, Notebook, Portable, Tablet, Convertible...). The classification threshold uses the C/I/A classification of the computer (tab of the computer form).', 'grcmanager') }}</p>
+         {% if can_manage %}
+            <form method="post" action="{{ action }}">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="row g-3">
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-encryption-scope">{{ __('Computers concerned', 'grcmanager') }}</label>
+                     <select class="form-select" id="grc-encryption-scope" name="encryption_scope">
+                        {% for value, label in scopes %}
+                           <option value="{{ value }}" {{ rule.scope == value ? 'selected' }}>{{ label }}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-encryption-confidentiality">{{ __('Also every computer classified with', 'grcmanager') }}</label>
+                     <select class="form-select" id="grc-encryption-confidentiality" name="encryption_confidentiality">
+                        {% for value, label in thresholds %}
+                           <option value="{{ value }}" {{ rule.confidentiality == value ? 'selected' }}>{{ label }}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+               </div>
+               {{ fields.dropdownField('ComputerType', 'encryption_types', rule.types, __('Computer types (when "Computers of the selected types" is chosen)', 'grcmanager'), {
+                  'multiple': true,
+                  'entity': -1,
+                  'helper': __('For example the types used for servers and desktops that hold sensitive data.', 'grcmanager'),
+               }) }}
+               <button type="submit" class="btn btn-primary" name="save_encryption_rule" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+            </form>
+         {% endif %}
+      </div>
+   </div>
+
+   {# Taux par entité, type et lieu, parmi les ordinateurs concernés. #}
+   <div class="row row-cards mb-3">
+      <div class="col-lg-4">{{ _self.breakdown(__('Entity'), 'ti ti-building', by_entity, '-') }}</div>
+      <div class="col-lg-4">{{ _self.breakdown(__('Type'), 'ti ti-device-desktop', by_type, __('No type', 'grcmanager')) }}</div>
+      <div class="col-lg-4">{{ _self.breakdown(__('Location'), 'ti ti-map-pin', by_location, __('No location', 'grcmanager')) }}</div>
+   </div>
+
+   {# Ordinateurs concernés : écarts d'abord, puis états inconnus. #}
+   <div class="card mb-3" id="grc-encryption-list">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-list-details me-2"></i>{{ __('Computers that must be encrypted', 'grcmanager') }}</h3>
+         <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ total_rows }}</span></div>
+      </div>
+      {% if rows is empty %}
+         <div class="card-body text-muted">{{ __('No computer concerned in your entities.', 'grcmanager') }}</div>
+      {% else %}
+         {% if total_rows > rows|length %}
+            <div class="card-body small pb-0">{{ __('%1$d computers: the first %2$d are shown, gaps first.', 'grcmanager')|format(total_rows, rows|length) }}</div>
+         {% endif %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Computer') }}</th>
+                  <th>{{ __('State', 'grcmanager') }}</th>
+                  <th>{{ __('Volumes not encrypted', 'grcmanager') }}</th>
+                  <th>{{ __('Tool and algorithm', 'grcmanager') }}</th>
+                  <th>{{ __('Last inventory', 'grcmanager') }}</th>
+                  <th>{{ __('Recovery key backed up (declared)', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for row in rows %}
+                  {% set info = infos[row.status] %}
+                  <tr>
+                     <td>
+                        <a href="{{ row.url }}">{{ row.name }}</a>
+                        <div class="small text-muted">{{ row.entity }}{% if row.type %} · {{ row.type }}{% endif %}{% if row.location %} · {{ row.location }}{% endif %}</div>
+                     </td>
+                     <td>
+                        <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis" title="{{ info.help }}"><i class="{{ info.icon }} me-1"></i>{{ info.label }}</span>
+                        {% if row.is_gap %}<div class="mt-1"><span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Gap', 'grcmanager') }}</span></div>{% endif %}
+                     </td>
+                     <td class="small">{{ row.clear_volumes|join(', ') }}</td>
+                     <td class="small">
+                        {{ row.tools|join(', ') }}{% if row.tools is not empty and row.algorithms is not empty %} · {% endif %}{{ row.algorithms|join(', ') }}
+                        {% if row.strength == 'weak' %}
+                           <div class="mt-1"><span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-key-off me-1"></i>{{ __('Weak algorithm', 'grcmanager') }}</span></div>
+                        {% elseif row.strength == 'legacy' %}
+                           <div class="mt-1"><span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-history me-1"></i>{{ __('Older algorithm or mode', 'grcmanager') }}</span></div>
+                        {% endif %}
+                     </td>
+                     <td class="small">{{ row.last_inventory_label is empty ? __('Never inventoried', 'grcmanager') : row.last_inventory_label }}</td>
+                     <td class="small">
+                        {% if can_manage %}
+                           <form method="post" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-1">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="computers_id" value="{{ row.id }}">
+                              <label class="form-check mb-0">
+                                 <input class="form-check-input" type="checkbox" name="is_backed_up" value="1" {{ row.key.is_backed_up ? 'checked' }}>
+                                 <span class="form-check-label">{{ __('Backed up', 'grcmanager') }}</span>
+                              </label>
+                              <input type="date" class="form-control form-control-sm w-auto" name="backup_date" max="{{ today }}" value="{{ row.key.backup_date }}" aria-label="{{ __('Backup date', 'grcmanager') }}">
+                              <button type="submit" class="btn btn-sm btn-outline-primary" name="declare_key" value="1" title="{{ __('Save', 'grcmanager') }}"><i class="ti ti-device-floppy"></i></button>
+                           </form>
+                        {% elseif row.key.is_backed_up %}
+                           <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ row.key.backup_date is empty ? __('Yes') : row.key.backup_date|date('Y-m-d') }}</span>
+                        {% else %}
+                           <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Not declared', 'grcmanager') }}</span>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+      <span class="text-muted small me-auto">
+         <i class="ti ti-shield-lock me-1"></i>{{ __('The plugin never reads nor stores any recovery key: it only keeps whether the key is declared backed up, and when. Nothing is changed in GLPI from this page.', 'grcmanager') }}
+      </span>
+      <a class="btn btn-sm btn-outline-secondary" href="{{ computer_url }}"><i class="ti ti-device-desktop me-1"></i>{{ __('Computers in GLPI', 'grcmanager') }}</a>
+      <a class="btn btn-sm btn-outline-primary" href="{{ audit_url }}"><i class="ti ti-checklist me-1"></i>{{ __('Automated technical checks', 'grcmanager') }}</a>
+   </div>
+</div>
