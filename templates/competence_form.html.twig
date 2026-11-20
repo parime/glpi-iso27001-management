@@ -1,0 +1,65 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #774 : compétence du catalogue et formations qui la donnent une fois réussies. #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.smallTitle(__('Competence', 'grcmanager'), 'ti ti-certificate') }}
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'placeholder': default_label,
+      'add_field_html': hints.hint(__('For example "Secure configuration of firewalls".', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('description', item.fields['description'], __('Description'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('What a person with this competence knows how to do.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+
+   {% if not item.isNewItem() %}
+      {{ fields.smallTitle(__('Trainings that give this competence', 'grcmanager'), 'ti ti-school') }}
+      <div class="col-12 mb-3">
+         {% if trainings is empty %}
+            <div class="text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('No training linked yet. A person who passes a linked training (or one of its sessions) acquires the competence at the level given.', 'grcmanager') }}</div>
+         {% else %}
+            <table class="table table-sm table-hover align-middle mb-0">
+               <thead>
+                  <tr>
+                     <th>{{ training_label }}</th>
+                     <th>{{ __('Level given', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Remove', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row in trainings %}
+                     <tr>
+                        <td><a href="{{ row.url }}">{{ row.title }}</a></td>
+                        <td><span class="badge bg-primary-subtle text-primary-emphasis">{{ levels[row.level] }}</span></td>
+                        <td class="text-end">
+                           <input type="checkbox" class="form-check-input" name="_remove_trainings[]" value="{{ row.id }}" aria-label="{{ __('Remove', 'grcmanager') }}">
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         {% endif %}
+      </div>
+      {{ fields.dropdownArrayField('_add_trainings_id', 0, main_trainings, __('Link a training', 'grcmanager'), {
+         'add_field_html': hints.hint(__('Completed and not failed: the training counts as passed. Its renewal period, if any, limits the validity.', 'grcmanager')),
+      }) }}
+      {{ fields.dropdownArrayField('_add_training_level', 1, levels, __('Level given', 'grcmanager')) }}
+   {% endif %}
+{% endblock %}

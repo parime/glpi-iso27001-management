@@ -1,0 +1,139 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #774 : fonction du SMSI, ses titulaires et les compétences qu'elle exige (article 7.2). #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.smallTitle(__('Function', 'grcmanager'), 'ti ti-id-badge-2') }}
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'placeholder': default_label,
+      'add_field_html': hints.hint(__('For example "Network administrator" or "Data protection officer".', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('description', item.fields['description'], __('Mission', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('What this function does for information security. It appears on the security job description.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+
+   {% if not item.isNewItem() %}
+      {{ fields.smallTitle(__('Who holds this function', 'grcmanager'), 'ti ti-users') }}
+      <div class="col-12 mb-3">
+         {% if holders is empty %}
+            <div class="text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('Nobody holds this function yet. Add below users, groups or job titles of GLPI.', 'grcmanager') }}</div>
+         {% else %}
+            <table class="table table-sm table-hover align-middle mb-0">
+               <thead>
+                  <tr>
+                     <th>{{ __('Holder', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Remove', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row in holders %}
+                     <tr>
+                        <td><i class="ti {{ row.itemtype == 'Group' ? 'ti-users' : (row.itemtype == 'UserTitle' ? 'ti-id' : 'ti-user') }} me-1 text-secondary"></i>{{ row.label }}</td>
+                        <td class="text-end">
+                           <input type="checkbox" class="form-check-input" name="_remove_holders[]" value="{{ row.id }}" aria-label="{{ __('Remove', 'grcmanager') }}">
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         {% endif %}
+      </div>
+      {{ fields.dropdownField('User', '_add_users_id', 0, user_label, {
+         'right': 'all', 'entity': entity_id, 'entity_sons': recursive,
+         'add_field_html': hints.hint(__('Choose a user, a group or a job title, then save.', 'grcmanager')),
+      }) }}
+      {{ fields.dropdownField('Group', '_add_groups_id', 0, group_label, {
+         'entity': entity_id, 'entity_sons': recursive,
+      }) }}
+      {{ fields.dropdownField('UserTitle', '_add_usertitles_id', 0, title_label, {
+         'add_field_html': hints.hint(__('Every active user with this job title holds the function.', 'grcmanager')),
+      }) }}
+
+      {{ fields.smallTitle(__('Required competences', 'grcmanager'), 'ti ti-certificate') }}
+      <div class="col-12 mb-3">
+         {% if requirements is empty %}
+            <div class="text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('No competence required yet. Add below the competences this function needs, with the expected level.', 'grcmanager') }}</div>
+         {% else %}
+            <table class="table table-sm table-hover align-middle mb-0">
+               <thead>
+                  <tr>
+                     <th>{{ competence_label }}</th>
+                     <th>{{ __('Expected level', 'grcmanager') }}</th>
+                     <th>{{ __('How to acquire it', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Remove', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row in requirements %}
+                     <tr>
+                        <td><a href="{{ row.url }}">{{ row.competence }}</a></td>
+                        <td><span class="badge bg-primary-subtle text-primary-emphasis">{{ levels[row.level] }}</span></td>
+                        <td>{{ modes[row.mode] }}</td>
+                        <td class="text-end">
+                           <input type="checkbox" class="form-check-input" name="_remove_requirements[]" value="{{ row.id }}" aria-label="{{ __('Remove', 'grcmanager') }}">
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         {% endif %}
+      </div>
+      {{ fields.dropdownField('GlpiPlugin\\Grcmanager\\Competence', '_add_competences_id', 0, __('Add a competence', 'grcmanager'), {
+         'entity': entity_id,
+         'add_field_html': hints.hint(__('Choosing a competence already required updates its level and how to acquire it.', 'grcmanager')),
+      }) }}
+      {{ fields.dropdownArrayField('_add_level', 1, levels, __('Expected level', 'grcmanager'), {
+         'add_field_html': hints.hint(__('Basic: knows the rules. Proficient: applies them alone. Expert: can design, check and teach.', 'grcmanager')),
+      }) }}
+      {{ fields.dropdownArrayField('_add_mode', 'training', modes, __('How to acquire it', 'grcmanager')) }}
+
+      {% if sheet %}
+         {{ fields.smallTitle(__('Coverage of the holders', 'grcmanager'), 'ti ti-chart-bar') }}
+         <div class="col-12 mb-3">
+            {% if sheet.people is null %}
+               <div class="text-secondary"><i class="ti ti-lock me-1"></i>{{ __('Reading the users of GLPI is needed to see the people.', 'grcmanager') }}</div>
+            {% elseif sheet.people is empty %}
+               <div class="text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('No active person of your entities holds this function.', 'grcmanager') }}</div>
+            {% else %}
+               <ul class="list-unstyled mb-0">
+                  {% for person in sheet.people %}
+                     <li>
+                        <i class="ti ti-user me-1 text-secondary"></i>{{ person.name }}
+                        {% if person.gaps > 0 %}
+                           <span class="badge bg-danger-subtle text-danger-emphasis ms-1">{{ _n('%d gap', '%d gaps', person.gaps, 'grcmanager')|format(person.gaps) }}</span>
+                        {% else %}
+                           <span class="badge bg-success-subtle text-success-emphasis ms-1"><i class="ti ti-circle-check me-1"></i>{{ __('No gap', 'grcmanager') }}</span>
+                        {% endif %}
+                     </li>
+                  {% endfor %}
+               </ul>
+            {% endif %}
+            {% if sheet.activities is not empty %}
+               <div class="mt-2 small text-secondary"><i class="ti ti-users-group me-1"></i>{{ __('Activities of the responsibility matrix held by the holders:', 'grcmanager') }}
+                  {% for activity in sheet.activities %}{{ activity.label }} ({{ activity.roles|join(', ') }}){{ not loop.last ? ' ; ' }}{% endfor %}
+               </div>
+            {% endif %}
+            <div class="mt-2">
+               <a href="{{ pdf_url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Security job description (PDF)', 'grcmanager') }}</a>
+            </div>
+         </div>
+      {% endif %}
+   {% endif %}
+{% endblock %}
