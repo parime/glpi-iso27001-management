@@ -27975,3 +27975,9 @@ msgstr "Die offiziellen Stellen sind nur mit dem Recht des Organisationskontexts
 
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "Diese Übung wurde im Krisenraum noch nie bis zum Ende durchgeführt."
+
+msgid "Review history"
+msgstr "Überprüfungsverlauf"
+
+msgid "Each review recorded with the \"Record the review\" button is kept here and in the security audit log; it cannot be changed afterwards."
+msgstr "Jede mit der Schaltfläche „Überprüfung erfassen“ erfasste Überprüfung wird hier und im Sicherheits-Auditprotokoll aufbewahrt; sie kann danach nicht mehr geändert werden."

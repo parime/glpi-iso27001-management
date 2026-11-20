@@ -639,6 +639,10 @@ natifs de lecture des logiciels et des licences.
    affiche « Revue le … par … » et le journal d'audit garde chaque revue. Si elle a changé, préparez
    une nouvelle version.
 9. Le contrôle de cohérence signale les domaines attendus sans procédure approuvée (règle A.5.37).
+10. Sur la fiche d'une procédure, le cadre **Historique des revues** liste toutes les revues
+    enregistrées, la plus récente d'abord : date, personne qui l'a faite et prochaine revue prévue.
+    Le PDF du registre reprend cet historique, procédure par procédure : l'auditeur voit que la
+    revue est faite chaque année, pas seulement la dernière.
 
 ### Étape 26 : Suivre la fin de garantie du matériel (mesures A.7.13 et A.8.9)
 
@@ -1552,6 +1556,10 @@ rights to read software and licenses.
    review moves one year later (or to the date you set). The register shows "Reviewed on ... by ..."
    and the audit log keeps every review. If it changed, prepare a new version.
 9. The consistency check lists the expected domains without an approved procedure (rule A.5.37).
+10. On a procedure, the **Review history** frame lists every recorded review, the most recent first:
+    date, person who did it and next review planned. The PDF of the register repeats this history,
+    procedure by procedure: the auditor sees that the review is done every year, not only the last
+    one.
 
 ### Step 26: Follow the hardware warranty (controls A.7.13 and A.8.9)
 

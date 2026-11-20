@@ -27640,3 +27640,9 @@ msgstr "Oficjalne kontakty są widoczne tylko z uprawnieniem kontekstu organizac
 
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "To ćwiczenie nigdy nie zostało przeprowadzone do końca w sali kryzysowej."
+
+msgid "Review history"
+msgstr "Historia przeglądów"
+
+msgid "Each review recorded with the \"Record the review\" button is kept here and in the security audit log; it cannot be changed afterwards."
+msgstr "Każdy przegląd zapisany przyciskiem „Zapisz przegląd” jest przechowywany tutaj i w dzienniku audytu bezpieczeństwa; nie można go później zmienić."

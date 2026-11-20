@@ -9,6 +9,17 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Procédures d'exploitation : historique des revues** (issue #775, lot 3, dernier lot, mesure
+  A.5.37) :
+  - sur la fiche d'une procédure, cadre « Historique des revues » : toutes les revues enregistrées
+    avec le bouton « Enregistrer la revue », la plus récente d'abord (date, personne, prochaine
+    revue prévue) ;
+  - le PDF du registre ajoute une section « Historique des revues », procédure par procédure ;
+  - l'historique est lu dans le journal d'audit infalsifiable, qui garde déjà chaque revue : aucune
+    nouvelle table ni colonne, et une revue tracée ne se modifie plus. Seules la date, la personne
+    et la prochaine revue sont affichées, avec le droit de lire les politiques. Ce lot termine
+    l'issue #775.
+
 - **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
   contacts officiels** (issue #776, lot 2, mesure A.5.29) :
   - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les
