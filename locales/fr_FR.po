@@ -26891,7 +26891,7 @@ msgid "\"Plan\" creates an internal audit for the process and the year, in the e
 msgstr "« Planifier » crée un audit interne pour le processus et l'année, dans l'entité du processus. Complétez ensuite ses objectifs, son périmètre, ses critères et ses auditeurs sur la fiche de l'audit."
 
 msgid "Plan an internal audit of %1$s in %2$d"
-msgstr "Planifier un audit interne de %1$s en %2$d"
+msgstr "Planifier un audit interne du processus « %1$s » en %2$d"
 
 msgid "Through the audited controls %s"
 msgstr "Par les mesures auditées %s"
