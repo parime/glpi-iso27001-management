@@ -19383,6 +19383,284 @@ msgid_plural "NIS2 Italy requirements (ACN)"
 msgstr[0] "NIS2-Anforderung Italien (ACN)"
 msgstr[1] "NIS2-Anforderungen Italien (ACN)"
 
+msgid "Last reviewed by"
+msgstr "Zuletzt überprüft von"
+
+msgid "%1$s by %2$s"
+msgstr "%1$s von %2$s"
+
+msgid "Never reviewed"
+msgstr "Nie überprüft"
+
+msgid ""
+"Records today as the review date, with your name, and sets the next review "
+"one year later. Your other changes on this form are saved too."
+msgstr ""
+"Speichert das heutige Datum als Überprüfungsdatum mit Ihrem Namen und legt "
+"die nächste Überprüfung ein Jahr später fest. Ihre anderen Änderungen in "
+"diesem Formular werden ebenfalls gespeichert."
+
+msgid "Record the review"
+msgstr "Überprüfung erfassen"
+
+msgid "Register for the auditor (PDF)"
+msgstr "Register für den Auditor (PDF)"
+
+msgid "Register (CSV)"
+msgstr "Register (CSV)"
+
+msgid ""
+"Issues and interested parties of the context of the organization (ISO 27001, "
+"4.1 and 4.2) that refer to this item."
+msgstr ""
+"Themen und interessierte Parteien des Kontexts der Organisation (ISO 27001, "
+"4.1 und 4.2), die auf dieses Element verweisen."
+
+msgid "No issue or interested party refers to this item yet."
+msgstr ""
+"Noch kein Thema und keine interessierte Partei verweist auf dieses Element."
+
+msgid "Internal and external issues"
+msgstr "Interne und externe Themen"
+
+msgid "Items past their review date"
+msgstr "Einträge mit überschrittenem Überprüfungsdatum"
+
+msgid "Not answered yet"
+msgstr "Noch nicht beantwortet"
+
+msgid "No item recorded."
+msgstr "Kein Eintrag erfasst."
+
+msgid "Partially achieved"
+msgstr "Teilweise erreicht"
+
+msgid "Not achieved"
+msgstr "Nicht erreicht"
+
+msgid "To evaluate"
+msgstr "Zu bewerten"
+
+msgid "Not visible to you"
+msgstr "Für Sie nicht sichtbar"
+
+msgid "Deleted"
+msgstr "Gelöscht"
+
+msgid "Objectives of the exercise"
+msgstr "Ziele der Übung"
+
+msgid "No objective defined."
+msgstr "Kein Ziel festgelegt."
+
+msgid "Objective"
+msgstr "Ziel"
+
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr "%1$d erreicht, %2$d teilweise, %3$d nicht erreicht, %4$d zu bewerten"
+
+msgid "Findings and improvement plan"
+msgstr "Feststellungen und Verbesserungsplan"
+
+msgid "No finding recorded."
+msgstr "Keine Feststellung erfasst."
+
+msgid "Improvement action"
+msgstr "Verbesserungsmaßnahme"
+
+msgid "No action decided"
+msgstr "Keine Maßnahme beschlossen"
+
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr "%1$d Feststellung(en), %2$d Maßnahme(n) beschlossen, %3$d erledigt"
+
+msgid "Review validation"
+msgstr "Freigabe der Auswertung"
+
+msgid "Validated"
+msgstr "Freigegeben"
+
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr "am %1$s von %2$s"
+
+msgid "this review has not been validated yet."
+msgstr "diese Auswertung wurde noch nicht freigegeben."
+
+msgid "Returned to draft"
+msgstr "Zurück in den Entwurf"
+
+msgid "Exercise review"
+msgstr "Auswertung der Übung"
+
+#, php-format
+msgid ""
+"Review validated on %1$s by %2$s: it can no longer be changed unless it is "
+"returned to draft."
+msgstr ""
+"Auswertung am %1$s von %2$s freigegeben: Sie kann nur nach Rückkehr in den "
+"Entwurf geändert werden."
+
+msgid ""
+"No objective defined. Objectives say what the exercise must demonstrate (for "
+"example: \"the crisis team is convened within 45 minutes\"); they are "
+"evaluated when the exercise is finished."
+msgstr ""
+"Kein Ziel festgelegt. Ziele beschreiben, was die Übung nachweisen soll (zum "
+"Beispiel: „der Krisenstab ist innerhalb von 45 Minuten einberufen“); sie "
+"werden am Ende der Übung bewertet."
+
+msgid "What was observed"
+msgstr "Was beobachtet wurde"
+
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr ""
+"Neues Ziel, zum Beispiel: den Dateiserver innerhalb von 4 Stunden "
+"wiederherstellen"
+
+msgid "New objective"
+msgstr "Neues Ziel"
+
+msgid ""
+"Evaluate each objective: the review can be validated once they are all "
+"evaluated."
+msgstr ""
+"Bewerten Sie jedes Ziel: Die Auswertung kann freigegeben werden, sobald alle "
+"bewertet sind."
+
+msgid ""
+"No finding yet. Record each gap observed during or after the exercise "
+"(delay, missing contact, unusable procedure…)."
+msgstr ""
+"Noch keine Feststellung. Erfassen Sie jede während oder nach der Übung "
+"beobachtete Abweichung (Verzögerung, fehlender Kontakt, unbrauchbares "
+"Verfahren…)."
+
+msgid "Create an improvement action"
+msgstr "Verbesserungsmaßnahme anlegen"
+
+msgid "Risk (treatment action only)"
+msgstr "Risiko (nur Behandlungsmaßnahme)"
+
+msgid "Create the action"
+msgstr "Maßnahme anlegen"
+
+msgid ""
+"An improvement action is only created when you click it: a non-conformity "
+"linked to the exercise incident, or a treatment action of an existing risk. "
+"Its progress is shown here."
+msgstr ""
+"Eine Verbesserungsmaßnahme wird nur auf Ihren Klick angelegt: eine "
+"Nichtkonformität zum Übungsvorfall oder eine Behandlungsmaßnahme eines "
+"bestehenden Risikos. Ihr Fortschritt wird hier angezeigt."
+
+msgid "New finding"
+msgstr "Neue Feststellung"
+
+msgid ""
+"Validate the review? It will no longer be editable and the validated report "
+"will be archived."
+msgstr ""
+"Auswertung freigeben? Sie ist danach nicht mehr änderbar, und der "
+"freigegebene Bericht wird archiviert."
+
+msgid "Comment (optional)"
+msgstr "Kommentar (optional)"
+
+msgid "Validate the review"
+msgstr "Auswertung freigeben"
+
+msgid ""
+"The review is validated by a person holding the \"Validate exercise "
+"reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr ""
+"Die Auswertung wird von einer Person mit dem Recht „Übungsauswertungen "
+"freigeben“ freigegeben (Geschäftskontinuität, Registerkarte GRC Manager der "
+"Profile)."
+
+msgid ""
+"Return the review to draft? The reason is recorded in the validation history."
+msgstr ""
+"Auswertung in den Entwurf zurücksetzen? Der Grund wird im Freigabeverlauf "
+"festgehalten."
+
+msgid "Reason for returning to draft (required)"
+msgstr "Grund für die Rückkehr in den Entwurf (Pflicht)"
+
+msgid "Return to draft"
+msgstr "Zurück in den Entwurf"
+
+msgid "Objectives of the exercise (one per line)"
+msgstr "Ziele der Übung (eines pro Zeile)"
+
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr "Zum Beispiel: den Krisenstab innerhalb von 45 Minuten einberufen"
+
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr "Am Ende der Übung bewertet; sie erscheinen im Bericht."
+
+msgid "Review validated"
+msgstr "Auswertung freigegeben"
+
+msgid "Objectives achieved"
+msgstr "Erreichte Ziele"
+
+msgid "Improvement actions overdue"
+msgstr "Überfällige Verbesserungsmaßnahmen"
+
+msgid "Improvement action created."
+msgstr "Verbesserungsmaßnahme angelegt."
+
+msgid "The review could not be changed."
+msgstr "Die Auswertung konnte nicht geändert werden."
+
+msgid ""
+"Review validated: the validated report is archived in the incident documents."
+msgstr ""
+"Auswertung freigegeben: Der freigegebene Bericht ist in den Dokumenten des "
+"Vorfalls archiviert."
+
+msgid "The review is back to draft."
+msgstr "Die Auswertung ist wieder ein Entwurf."
+
+msgid "Give the reason for returning the review to draft."
+msgstr "Geben Sie den Grund für die Rückkehr in den Entwurf an."
+
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr "Feststellung der Krisenübung Nr. %1$d (%2$s)."
+
+msgid "The review is already validated."
+msgstr "Die Auswertung ist bereits freigegeben."
+
+msgid "Define at least one objective before validating the review."
+msgstr "Legen Sie vor der Freigabe mindestens ein Ziel fest."
+
+msgid ""
+"Evaluate every objective (achieved, partially achieved or not achieved) "
+"before validating the review."
+msgstr ""
+"Bewerten Sie vor der Freigabe jedes Ziel (erreicht, teilweise erreicht oder "
+"nicht erreicht)."
+
+msgid "Finish the exercise before validating its review."
+msgstr "Beenden Sie die Übung, bevor Sie ihre Auswertung freigeben."
+
+msgid "Validate exercise reviews"
+msgstr "Übungsauswertungen freigeben"
+
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr ""
+"Auswertungen von Krisenübungen freigeben und in den Entwurf zurücksetzen"
+
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] "%d Maßnahme überfällig"
+msgstr[1] "%d Maßnahmen überfällig"
+
 msgid "Preparatory file for the management review"
 msgstr "Vorbereitungsunterlage für die Managementbewertung"
 
@@ -19513,46 +19791,6 @@ msgstr ""
 "Keine Maßnahme aus einer früheren Bewertung ist offen oder wurde im Zeitraum "
 "erledigt."
 
-msgid "Last reviewed by"
-msgstr "Zuletzt überprüft von"
-
-msgid "%1$s by %2$s"
-msgstr "%1$s von %2$s"
-
-msgid "Never reviewed"
-msgstr "Nie überprüft"
-
-msgid ""
-"Records today as the review date, with your name, and sets the next review "
-"one year later. Your other changes on this form are saved too."
-msgstr ""
-"Speichert das heutige Datum als Überprüfungsdatum mit Ihrem Namen und legt "
-"die nächste Überprüfung ein Jahr später fest. Ihre anderen Änderungen in "
-"diesem Formular werden ebenfalls gespeichert."
-
-msgid "Record the review"
-msgstr "Überprüfung erfassen"
-
-msgid "Register for the auditor (PDF)"
-msgstr "Register für den Auditor (PDF)"
-
-msgid "Register (CSV)"
-msgstr "Register (CSV)"
-
-msgid ""
-"Issues and interested parties of the context of the organization (ISO 27001, "
-"4.1 and 4.2) that refer to this item."
-msgstr ""
-"Themen und interessierte Parteien des Kontexts der Organisation (ISO 27001, "
-"4.1 und 4.2), die auf dieses Element verweisen."
-
-msgid "No issue or interested party refers to this item yet."
-msgstr ""
-"Noch kein Thema und keine interessierte Partei verweist auf dieses Element."
-
-msgid "Internal and external issues"
-msgstr "Interne und externe Themen"
-
 msgid "Updated during the period"
 msgstr "Im Zeitraum aktualisiert"
 
@@ -19585,9 +19823,6 @@ msgstr "Im Zeitraum wurde kein internes Audit abgeschlossen."
 
 msgid "No information security objective recorded."
 msgstr "Kein Informationssicherheitsziel erfasst."
-
-msgid "Objective"
-msgstr "Ziel"
 
 msgid "Target set"
 msgstr "Festgelegter Zielwert"
@@ -19754,15 +19989,6 @@ msgid "Preparatory file"
 msgid_plural "Preparatory files"
 msgstr[0] "Vorbereitungsunterlage"
 msgstr[1] "Vorbereitungsunterlagen"
-
-msgid "Items past their review date"
-msgstr "Einträge mit überschrittenem Überprüfungsdatum"
-
-msgid "Not answered yet"
-msgstr "Noch nicht beantwortet"
-
-msgid "No item recorded."
-msgstr "Kein Eintrag erfasst."
 
 msgid "Audit checklist"
 msgstr "Auditcheckliste"
@@ -20073,6 +20299,739 @@ msgid "%1$s (%2$d line)"
 msgid_plural "%1$s (%2$d lines)"
 msgstr[0] "%1$s (%2$d Zeile)"
 msgstr[1] "%1$s (%2$d Zeilen)"
+
+msgid "Activities"
+msgstr "Aktivitäten"
+
+msgid "Alerts to fix"
+msgstr "Zu behebende Warnungen"
+
+msgid "Responsibility matrix"
+msgstr "Verantwortlichkeitsmatrix"
+
+msgid "Sensitive"
+msgstr "Sensibel"
+
+msgid "No activity yet."
+msgstr "Noch keine Aktivität."
+
+msgid ""
+"No alert: every activity has someone who performs it and a single approver, "
+"without conflict of duties."
+msgstr ""
+"Keine Warnung: Jede Aktivität hat eine ausführende Person und genau eine "
+"genehmigende Stelle, ohne Aufgabenkonflikt."
+
+msgid "To fix"
+msgstr "Zu beheben"
+
+msgid "To check"
+msgstr "Zu prüfen"
+
+msgid ""
+"Only the activities of the entities of the person who exported this matrix "
+"are listed. Nothing has been modified by this export."
+msgstr ""
+"Es werden nur die Aktivitäten der Einheiten der exportierenden Person "
+"aufgeführt. Dieser Export hat nichts verändert."
+
+msgid "%d activity"
+msgid_plural "%d activities"
+msgstr[0] "%d Aktivität"
+msgstr[1] "%d Aktivitäten"
+
+msgid "%d alert to fix"
+msgid_plural "%d alerts to fix"
+msgstr[0] "%d zu behebende Warnung"
+msgstr[1] "%d zu behebende Warnungen"
+
+msgid "%d point to check"
+msgid_plural "%d points to check"
+msgstr[0] "%d zu prüfender Punkt"
+msgstr[1] "%d zu prüfende Punkte"
+
+msgid "No alert"
+msgstr "Keine Warnung"
+
+msgid "Open the responsibility matrix"
+msgstr "Verantwortlichkeitsmatrix öffnen"
+
+msgid "To fix before the audit"
+msgstr "Vor dem Audit zu beheben"
+
+msgid ""
+"Nothing is changed automatically: adjust the assignments below if needed."
+msgstr ""
+"Nichts wird automatisch geändert: Passen Sie die Zuweisungen unten bei "
+"Bedarf an."
+
+msgid ""
+"Leave empty to keep the default name, shown in the language of each user."
+msgstr ""
+"Leer lassen, um den Standardnamen zu behalten, der in der Sprache jedes "
+"Benutzers angezeigt wird."
+
+msgid "For example \"Review of firewall rules\"."
+msgstr "Zum Beispiel „Überprüfung der Firewall-Regeln“."
+
+msgid "Sensitive activity"
+msgstr "Sensible Aktivität"
+
+msgid ""
+"The same person must not both perform and approve a sensitive activity "
+"(segregation of duties)."
+msgstr ""
+"Dieselbe Person darf eine sensible Aktivität nicht zugleich ausführen und "
+"genehmigen (Funktionstrennung)."
+
+msgid "Related Annex A controls"
+msgstr "Betroffene Maßnahmen aus Anhang A"
+
+msgid ""
+"Optional: the controls of your Statement of Applicability that this activity "
+"implements."
+msgstr ""
+"Optional: die Maßnahmen Ihrer Erklärung zur Anwendbarkeit, die diese "
+"Aktivität umsetzt."
+
+msgid "Who does what"
+msgstr "Wer macht was"
+
+msgid ""
+"Nobody is assigned yet. Add below who performs and who approves this "
+"activity."
+msgstr ""
+"Noch niemand ist zugewiesen. Fügen Sie unten hinzu, wer diese Aktivität "
+"ausführt und wer sie genehmigt."
+
+msgid "User or group"
+msgstr "Benutzer oder Gruppe"
+
+msgid "Add a role"
+msgstr "Rolle hinzufügen"
+
+msgid ""
+"Choose the role, then a user or a group, and save. Only one person or group "
+"approves."
+msgstr ""
+"Wählen Sie die Rolle, dann einen Benutzer oder eine Gruppe, und speichern "
+"Sie. Nur eine Person oder Gruppe genehmigt."
+
+msgid "Add an activity"
+msgstr "Aktivität hinzufügen"
+
+msgid ""
+"Adds the proposed activities that are missing, without changing the existing "
+"ones."
+msgstr ""
+"Fügt die fehlenden vorgeschlagenen Aktivitäten hinzu, ohne die vorhandenen "
+"zu ändern."
+
+msgid "Add the missing default activities"
+msgstr "Fehlende Standardaktivitäten hinzufügen"
+
+msgid "Download as PDF"
+msgstr "Als PDF herunterladen"
+
+msgid ""
+"Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your "
+"Statement of Applicability."
+msgstr ""
+"Hängt ein datiertes PDF an Anforderung 5.3 und an Maßnahme A.5.3 Ihrer "
+"Erklärung zur Anwendbarkeit an."
+
+msgid "Archive as evidence"
+msgstr "Als Nachweis archivieren"
+
+msgid ""
+"Alerts only report: nothing is changed automatically in the assignments, "
+"rights or statuses."
+msgstr ""
+"Warnungen melden nur: An Zuweisungen, Rechten oder Status wird nichts "
+"automatisch geändert."
+
+msgid ""
+"No activity yet. Add the default activities, then say for each one who "
+"performs it and who approves it."
+msgstr ""
+"Noch keine Aktivität. Fügen Sie die Standardaktivitäten hinzu und geben Sie "
+"dann für jede an, wer sie ausführt und wer sie genehmigt."
+
+msgid "No active member"
+msgstr "Kein aktives Mitglied"
+
+msgid "Segregation of duties is checked on this activity."
+msgstr "Die Funktionstrennung wird für diese Aktivität geprüft."
+
+msgid "Archived matrices"
+msgstr "Archivierte Matrizen"
+
+msgid ""
+"No archived matrix yet. Archive it before the audit: the dated PDF is "
+"attached to requirement 5.3 and to control A.5.3."
+msgstr ""
+"Noch keine archivierte Matrix. Archivieren Sie sie vor dem Audit: Das "
+"datierte PDF wird an Anforderung 5.3 und Maßnahme A.5.3 angehängt."
+
+msgid "%d default activity added."
+msgid_plural "%d default activities added."
+msgstr[0] "%d Standardaktivität hinzugefügt."
+msgstr[1] "%d Standardaktivitäten hinzugefügt."
+
+msgid ""
+"The responsibility matrix has been archived as evidence of requirement 5.3 "
+"and control A.5.3."
+msgstr ""
+"Die Verantwortlichkeitsmatrix wurde als Nachweis für Anforderung 5.3 und "
+"Maßnahme A.5.3 archiviert."
+
+msgid "The matrix could not be archived."
+msgstr "Die Matrix konnte nicht archiviert werden."
+
+msgid ""
+"Who performs, approves, is consulted on or is informed of each activity of "
+"the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
+"approvers are reported here."
+msgstr ""
+"Wer jede Aktivität des ISMS ausführt, genehmigt, konsultiert oder informiert "
+"wird, mit den Benutzern und Gruppen von GLPI. Aufgabenkonflikte und fehlende "
+"Genehmigende werden hier gemeldet."
+
+msgid ""
+"For each activity, add who performs it and a single approver, mark the "
+"sensitive activities, fix the alerts, then archive the matrix as evidence "
+"before the audit."
+msgstr ""
+"Fügen Sie für jede Aktivität hinzu, wer sie ausführt, und genau eine "
+"genehmigende Stelle, markieren Sie sensible Aktivitäten, beheben Sie die "
+"Warnungen und archivieren Sie die Matrix vor dem Audit als Nachweis."
+
+msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
+msgstr "ISO/IEC 27001, Abschnitt 5.3 und Maßnahme A.5.3"
+
+msgid "ISMS activity"
+msgid_plural "ISMS activities"
+msgstr[0] "ISMS-Aktivität"
+msgstr[1] "ISMS-Aktivitäten"
+
+msgid "Performs"
+msgstr "Führt aus"
+
+msgid "Approves"
+msgstr "Genehmigt"
+
+msgid "Consulted"
+msgstr "Konsultiert"
+
+msgid "Informed"
+msgstr "Informiert"
+
+msgctxt "responsibility"
+msgid "P"
+msgstr "D"
+
+msgctxt "responsibility"
+msgid "A"
+msgstr "G"
+
+msgctxt "responsibility"
+msgid "C"
+msgstr "K"
+
+msgctxt "responsibility"
+msgid "I"
+msgstr "I"
+
+msgid "Information security risk assessment"
+msgstr "Beurteilung der Informationssicherheitsrisiken"
+
+msgid "Acceptance of residual risks"
+msgstr "Akzeptanz der Restrisiken"
+
+msgid "Approval of security policies"
+msgstr "Genehmigung der Sicherheitsrichtlinien"
+
+msgid "Inventory of information assets"
+msgstr "Inventar der Informationswerte"
+
+msgid "Granting and removing access rights"
+msgstr "Vergabe und Entzug von Zugriffsrechten"
+
+msgid "Periodic review of access rights"
+msgstr "Regelmäßige Überprüfung der Zugriffsrechte"
+
+msgid "Management of privileged accounts"
+msgstr "Verwaltung privilegierter Konten"
+
+msgid "Approval of changes in production"
+msgstr "Genehmigung von Änderungen in der Produktion"
+
+msgid "Backups and restore tests"
+msgstr "Datensicherungen und Wiederherstellungstests"
+
+msgid "Review of logs and security events"
+msgstr "Überprüfung von Protokollen und Sicherheitsereignissen"
+
+msgid "Handling of security incidents"
+msgstr "Behandlung von Sicherheitsvorfällen"
+
+msgid "Security of suppliers"
+msgstr "Sicherheit der Lieferanten"
+
+msgid "Security awareness and training"
+msgstr "Sensibilisierung und Schulung zur Sicherheit"
+
+msgid "Business continuity and recovery plans"
+msgstr "Geschäftsfortführungs- und Wiederanlaufpläne"
+
+msgid "Internal audit of the ISMS"
+msgstr "Internes Audit des ISMS"
+
+msgid "Give the activity a name."
+msgstr "Geben Sie der Aktivität einen Namen."
+
+msgid "This user or group does not belong to the entity of the activity."
+msgstr ""
+"Dieser Benutzer oder diese Gruppe gehört nicht zur Einheit der Aktivität."
+
+msgid "Only one person or group approves \"%s\": remove the current one first."
+msgstr ""
+"Nur eine Person oder Gruppe genehmigt „%s“: Entfernen Sie zuerst die "
+"aktuelle."
+
+msgid "Deleted item #%d"
+msgstr "Gelöschtes Element Nr. %d"
+
+msgid "Nobody approves this activity."
+msgstr "Niemand genehmigt diese Aktivität."
+
+msgid "Several people or groups approve this activity: keep only one."
+msgstr ""
+"Mehrere Personen oder Gruppen genehmigen diese Aktivität: Behalten Sie nur "
+"eine."
+
+msgid "Nobody performs this activity."
+msgstr "Niemand führt diese Aktivität aus."
+
+msgid ""
+"Segregation of duties: %s both performs and approves this sensitive activity."
+msgstr ""
+"Funktionstrennung: %s führt diese sensible Aktivität aus und genehmigt sie "
+"zugleich."
+
+msgid "The group %s has no active member."
+msgstr "Die Gruppe %s hat kein aktives Mitglied."
+
+msgid "%s is disabled or no longer exists in GLPI."
+msgstr "%s ist deaktiviert oder existiert nicht mehr in GLPI."
+
+msgid "ISMS responsibility matrix"
+msgstr "Verantwortlichkeitsmatrix des ISMS"
+
+msgid "Archived responsibility matrix"
+msgid_plural "Archived responsibility matrices"
+msgstr[0] "Archivierte Verantwortlichkeitsmatrix"
+msgstr[1] "Archivierte Verantwortlichkeitsmatrizen"
+
+msgid "ISMS responsibility matrix - %s"
+msgstr "Verantwortlichkeitsmatrix des ISMS - %s"
+
+msgid "Readiness score"
+msgstr "Bereitschaftswert"
+
+msgid ""
+"Each state is computed from the data that the person who exported this "
+"report can read. Nothing has been modified."
+msgstr ""
+"Jeder Status wird aus den Daten berechnet, die die Person lesen darf, die "
+"diesen Bericht exportiert hat. Es wurde nichts geändert."
+
+msgid ""
+"A step done counts fully, a step partly done counts half. Steps outside your "
+"rights are not counted."
+msgstr ""
+"Ein erledigter Schritt zählt voll, ein teilweise erledigter Schritt zur "
+"Hälfte. Schritte außerhalb Ihrer Rechte zählen nicht."
+
+msgid "Steps"
+msgstr "Schritte"
+
+msgid ""
+"Each state is computed from the data already entered in the plugin, each "
+"time you open this page. Nothing is changed automatically."
+msgstr ""
+"Jeder Status wird bei jedem Öffnen dieser Seite aus den bereits im Plugin "
+"erfassten Daten berechnet. Nichts wird automatisch geändert."
+
+msgid "Readiness report (PDF)"
+msgstr "Bereitschaftsbericht (PDF)"
+
+msgid "Every step is done: you are ready for the certification audit."
+msgstr ""
+"Alle Schritte sind erledigt: Sie sind bereit für das Zertifizierungsaudit."
+
+msgid "No step can be evaluated with your rights."
+msgstr "Mit Ihren Rechten kann kein Schritt bewertet werden."
+
+msgid ""
+"Your profile cannot read the data of this step: ask an administrator of the "
+"management system."
+msgstr ""
+"Ihr Profil kann die Daten dieses Schritts nicht lesen: Wenden Sie sich an "
+"einen Administrator des Managementsystems."
+
+msgid "Progress towards certification"
+msgstr "Fortschritt zur Zertifizierung"
+
+msgid "Certification readiness"
+msgstr "Zertifizierungsbereitschaft"
+
+msgid "Plan"
+msgstr "Planen"
+
+msgid "Set up the management system: scope, context, policy, roles, risks."
+msgstr ""
+"Das Managementsystem aufbauen: Geltungsbereich, Kontext, Leitlinie, Rollen, "
+"Risiken."
+
+msgid "Do"
+msgstr "Umsetzen"
+
+msgid "Run it day to day: people trained, exercises carried out."
+msgstr "Es im Alltag betreiben: geschulte Personen, durchgeführte Übungen."
+
+msgid "Check"
+msgstr "Prüfen"
+
+msgid "Evaluate it: internal audit and management review."
+msgstr "Es bewerten: internes Audit und Managementbewertung."
+
+msgid "Act"
+msgstr "Handeln"
+
+msgid "Improve it: treat what the checks have found."
+msgstr "Es verbessern: behandeln, was die Prüfungen festgestellt haben."
+
+msgid "Partly done"
+msgstr "Teilweise erledigt"
+
+msgid "Outside your rights"
+msgstr "Außerhalb Ihrer Rechte"
+
+msgid "Define the scope of the ISMS"
+msgstr "Den Geltungsbereich des ISMS festlegen"
+
+msgid ""
+"Write down which sites, activities, systems and teams the management system "
+"covers, and what is left out, then attach this document to requirement 4.3."
+msgstr ""
+"Halten Sie fest, welche Standorte, Tätigkeiten, Systeme und Teams das "
+"Managementsystem abdeckt und was ausgeschlossen ist, und hängen Sie dieses "
+"Dokument an die Anforderung 4.3 an."
+
+msgid "Describe the context and the interested parties"
+msgstr "Kontext und interessierte Parteien beschreiben"
+
+msgid ""
+"List the internal and external issues and the interested parties with their "
+"expectations, and decide whether climate change matters for you."
+msgstr ""
+"Erfassen Sie die internen und externen Themen und die interessierten "
+"Parteien mit ihren Erwartungen, und entscheiden Sie, ob der Klimawandel für "
+"Sie relevant ist."
+
+msgid "Approve the information security policy"
+msgstr "Die Informationssicherheitsleitlinie genehmigen"
+
+msgid ""
+"Have management approve the security policy and set the date of its next "
+"review."
+msgstr ""
+"Lassen Sie die Sicherheitsleitlinie von der Leitung genehmigen und legen Sie "
+"das Datum ihrer nächsten Überprüfung fest."
+
+msgid "Assign the roles and responsibilities"
+msgstr "Rollen und Verantwortlichkeiten zuweisen"
+
+msgid ""
+"For each activity of the management system, name who carries it out, who is "
+"accountable, and who is consulted or informed."
+msgstr ""
+"Benennen Sie für jede Tätigkeit des Managementsystems, wer sie ausführt, wer "
+"verantwortlich ist und wer konsultiert oder informiert wird."
+
+msgid "Assess the risks"
+msgstr "Die Risiken beurteilen"
+
+msgid ""
+"Identify the risks, give each one an owner, rate them with your method and "
+"keep their review dates up to date."
+msgstr ""
+"Identifizieren Sie die Risiken, geben Sie jedem einen Eigentümer, bewerten "
+"Sie sie mit Ihrer Methode und halten Sie ihre Überprüfungstermine aktuell."
+
+msgid "Decide how to treat the risks"
+msgstr "Über die Risikobehandlung entscheiden"
+
+msgid ""
+"Choose a treatment for each significant risk, have accepted risks approved, "
+"and follow up the treatment actions until they are done."
+msgstr ""
+"Wählen Sie für jedes wesentliche Risiko eine Behandlung, lassen Sie "
+"akzeptierte Risiken genehmigen und verfolgen Sie die Behandlungsmaßnahmen "
+"bis zu ihrem Abschluss."
+
+msgid "Approve the Statement of Applicability"
+msgstr "Die Erklärung zur Anwendbarkeit genehmigen"
+
+msgid ""
+"Justify whether each control applies, then have the Statement of "
+"Applicability approved; approve it again after any change."
+msgstr ""
+"Begründen Sie für jede Maßnahme, ob sie anwendbar ist, und lassen Sie dann "
+"die Erklärung zur Anwendbarkeit genehmigen; nach jeder Änderung erneut "
+"genehmigen."
+
+msgid "Set measurable security objectives"
+msgstr "Messbare Sicherheitsziele festlegen"
+
+msgid ""
+"Define security objectives with an owner and a target, and record "
+"measurements to show their progress."
+msgstr ""
+"Legen Sie Sicherheitsziele mit einem Verantwortlichen und einem Zielwert "
+"fest und erfassen Sie Messungen, um ihren Fortschritt zu zeigen."
+
+msgid "Train and raise awareness"
+msgstr "Schulen und sensibilisieren"
+
+msgid ""
+"Deliver security training and awareness sessions, and make sure the people "
+"concerned have completed them."
+msgstr ""
+"Führen Sie Sicherheitsschulungen und Sensibilisierungen durch und stellen "
+"Sie sicher, dass die betroffenen Personen sie absolviert haben."
+
+msgid "Run a continuity or crisis exercise"
+msgstr "Eine Kontinuitäts- oder Krisenübung durchführen"
+
+msgid ""
+"Run at least one exercise, assess whether its objectives were met and have "
+"its review validated."
+msgstr ""
+"Führen Sie mindestens eine Übung durch, bewerten Sie, ob ihre Ziele erreicht "
+"wurden, und lassen Sie ihre Auswertung freigeben."
+
+msgid "Carry out the internal audit"
+msgstr "Das interne Audit durchführen"
+
+msgid ""
+"Complete an internal audit and make sure the audit programme covers every "
+"requirement and every applicable control."
+msgstr ""
+"Schließen Sie ein internes Audit ab und stellen Sie sicher, dass das "
+"Auditprogramm jede Anforderung und jede anwendbare Maßnahme abdeckt."
+
+msgid "Hold the management review"
+msgstr "Die Managementbewertung durchführen"
+
+msgid ""
+"Hold a management review prepared with its input file, and record the "
+"decisions taken."
+msgstr ""
+"Führen Sie eine mit ihrer Eingabemappe vorbereitete Managementbewertung "
+"durch und erfassen Sie die getroffenen Entscheidungen."
+
+msgid "Treat the nonconformities"
+msgstr "Die Nichtkonformitäten behandeln"
+
+msgid ""
+"Analyse each nonconformity, carry out its corrective action on time, and "
+"close it only once the action is done."
+msgstr ""
+"Analysieren Sie jede Nichtkonformität, führen Sie ihre Korrekturmaßnahme "
+"fristgerecht durch und schließen Sie sie erst, wenn die Maßnahme erledigt "
+"ist."
+
+#, php-format
+msgid "Declared requirements: %1$d of %2$d compliant"
+msgstr "Erklärte Anforderungen: %1$d von %2$d konform"
+
+msgid "See the items to fix"
+msgstr "Zu korrigierende Elemente anzeigen"
+
+#, php-format
+msgid "Declared status of requirement 4.3: %s"
+msgstr "Erklärter Status der Anforderung 4.3: %s"
+
+#, php-format
+msgid "Documents attached: %d"
+msgstr "Angehängte Dokumente: %d"
+
+msgid "Open requirement 4.3 (scope)"
+msgstr "Anforderung 4.3 öffnen (Geltungsbereich)"
+
+#, php-format
+msgid "Issues: %1$d, interested parties: %2$d"
+msgstr "Themen: %1$d, interessierte Parteien: %2$d"
+
+#, php-format
+msgid "Reviews overdue: %d"
+msgstr "Überfällige Überprüfungen: %d"
+
+#, php-format
+msgid "Approved policies: %d"
+msgstr "Genehmigte Leitlinien: %d"
+
+#, php-format
+msgid "Drafts: %d"
+msgstr "Entwürfe: %d"
+
+#, php-format
+msgid "Approved policies whose review is overdue: %d"
+msgstr "Genehmigte Leitlinien mit überfälliger Überprüfung: %d"
+
+#, php-format
+msgid "Activities in the matrix: %d"
+msgstr "Tätigkeiten in der Matrix: %d"
+
+#, php-format
+msgid ""
+"Activities with a serious alert (no one accountable, several accountable, "
+"roles that should be separated): %d"
+msgstr ""
+"Tätigkeiten mit einer ernsten Warnung (niemand verantwortlich, mehrere "
+"verantwortlich, zu trennende Rollen): %d"
+
+#, php-format
+msgid "Open risks: %d"
+msgstr "Offene Risiken: %d"
+
+#, php-format
+msgid "Without an owner: %d"
+msgstr "Ohne Eigentümer: %d"
+
+#, php-format
+msgid "Review overdue: %d"
+msgstr "Überprüfung überfällig: %d"
+
+#, php-format
+msgid "High risks without a treatment decision: %d"
+msgstr "Hohe Risiken ohne Behandlungsentscheidung: %d"
+
+#, php-format
+msgid "Accepted risks without approval: %d"
+msgstr "Akzeptierte Risiken ohne Genehmigung: %d"
+
+#, php-format
+msgid "Treatment actions overdue: %d"
+msgstr "Überfällige Behandlungsmaßnahmen: %d"
+
+#, php-format
+msgid "Version %s approved, still up to date"
+msgstr "Version %s genehmigt, weiterhin aktuell"
+
+msgid "An approval request is pending"
+msgstr "Eine Genehmigungsanfrage steht aus"
+
+#, php-format
+msgid "Objectives: %d"
+msgstr "Ziele: %d"
+
+#, php-format
+msgid "With at least one measurement: %d"
+msgstr "Mit mindestens einer Messung: %d"
+
+#, php-format
+msgid "Trainings and sessions: %d"
+msgstr "Schulungen und Sitzungen: %d"
+
+#, php-format
+msgid "Delivered in the last %1$d months: %2$d"
+msgstr "In den letzten %1$d Monaten durchgeführt: %2$d"
+
+#, php-format
+msgid "Participants who completed their training: %d %%"
+msgstr "Teilnehmende, die ihre Schulung absolviert haben: %d %%"
+
+#, php-format
+msgid "Exercises in the last %1$d months: %2$d"
+msgstr "Übungen in den letzten %1$d Monaten: %2$d"
+
+#, php-format
+msgid "With a validated review: %d"
+msgstr "Mit freigegebener Auswertung: %d"
+
+#, php-format
+msgid "Last internal audit completed on %s"
+msgstr "Letztes internes Audit abgeschlossen am %s"
+
+msgid "No internal audit completed yet"
+msgstr "Noch kein internes Audit abgeschlossen"
+
+#, php-format
+msgid ""
+"Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
+msgstr ""
+"Abdeckung des Auditprogramms: %1$d %% (%2$d von %3$d Anforderungen und "
+"Maßnahmen)"
+
+msgid "Open the last management review"
+msgstr "Letzte Managementbewertung öffnen"
+
+#, php-format
+msgid "Last management review completed on %s"
+msgstr "Letzte Managementbewertung abgeschlossen am %s"
+
+msgid "No management review completed yet"
+msgstr "Noch keine Managementbewertung abgeschlossen"
+
+msgid "Input file prepared for the last review"
+msgstr "Eingabemappe für die letzte Bewertung vorbereitet"
+
+msgid "No input file prepared for the last review"
+msgstr "Keine Eingabemappe für die letzte Bewertung vorbereitet"
+
+#, php-format
+msgid "Open nonconformities: %d"
+msgstr "Offene Nichtkonformitäten: %d"
+
+#, php-format
+msgid "Overdue: %d"
+msgstr "Überfällig: %d"
+
+#, php-format
+msgid "Closed without a corrective action: %d"
+msgstr "Ohne Korrekturmaßnahme geschlossen: %d"
+
+msgid "Certification readiness report"
+msgstr "Bericht zur Zertifizierungsbereitschaft"
+
+msgid ""
+"This page guides you, step by step, from setting up your security management "
+"system to the certification audit: for each step, it shows what is expected, "
+"where you stand according to the data already entered, and the screen to "
+"open to complete it."
+msgstr ""
+"Diese Seite führt Sie Schritt für Schritt vom Aufbau Ihres "
+"Sicherheitsmanagementsystems bis zum Zertifizierungsaudit: Für jeden Schritt "
+"zeigt sie, was erwartet wird, wo Sie laut den bereits erfassten Daten stehen "
+"und welche Seite Sie zum Vervollständigen öffnen."
+
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. "
+"Export the PDF readiness report to share where you stand."
+msgstr ""
+"Folgen Sie den Schritten der Reihe nach, beginnend mit dem als nächster "
+"Schritt markierten. Klicken Sie auf seine Schaltfläche, um die betreffende "
+"Seite zu öffnen, vervollständigen Sie sie und kehren Sie zurück: Die Seite "
+"wird jedes Mal neu berechnet. Nichts wird automatisch geändert. Exportieren "
+"Sie den Bereitschaftsbericht als PDF, um Ihren Stand zu teilen."
+
+msgid "Progress towards certification (out of 100)"
+msgstr "Fortschritt zur Zertifizierung (von 100)"
 
 msgid "Test"
 msgstr "Test"
@@ -20450,568 +21409,6 @@ msgstr "Nur abgeschlossene"
 
 msgid "Active accounts only"
 msgstr "Nur aktive Konten"
-
-msgid "Partially achieved"
-msgstr "Teilweise erreicht"
-
-msgid "Not achieved"
-msgstr "Nicht erreicht"
-
-msgid "To evaluate"
-msgstr "Zu bewerten"
-
-msgid "Not visible to you"
-msgstr "Für Sie nicht sichtbar"
-
-msgid "Deleted"
-msgstr "Gelöscht"
-
-msgid "Objectives of the exercise"
-msgstr "Ziele der Übung"
-
-msgid "No objective defined."
-msgstr "Kein Ziel festgelegt."
-
-#, php-format
-msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
-msgstr "%1$d erreicht, %2$d teilweise, %3$d nicht erreicht, %4$d zu bewerten"
-
-msgid "Findings and improvement plan"
-msgstr "Feststellungen und Verbesserungsplan"
-
-msgid "No finding recorded."
-msgstr "Keine Feststellung erfasst."
-
-msgid "Improvement action"
-msgstr "Verbesserungsmaßnahme"
-
-msgid "No action decided"
-msgstr "Keine Maßnahme beschlossen"
-
-#, php-format
-msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
-msgstr "%1$d Feststellung(en), %2$d Maßnahme(n) beschlossen, %3$d erledigt"
-
-msgid "Review validation"
-msgstr "Freigabe der Auswertung"
-
-msgid "Validated"
-msgstr "Freigegeben"
-
-#, php-format
-msgid "on %1$s by %2$s"
-msgstr "am %1$s von %2$s"
-
-msgid "this review has not been validated yet."
-msgstr "diese Auswertung wurde noch nicht freigegeben."
-
-msgid "Returned to draft"
-msgstr "Zurück in den Entwurf"
-
-msgid "Exercise review"
-msgstr "Auswertung der Übung"
-
-#, php-format
-msgid ""
-"Review validated on %1$s by %2$s: it can no longer be changed unless it is "
-"returned to draft."
-msgstr ""
-"Auswertung am %1$s von %2$s freigegeben: Sie kann nur nach Rückkehr in den "
-"Entwurf geändert werden."
-
-msgid ""
-"No objective defined. Objectives say what the exercise must demonstrate (for "
-"example: \"the crisis team is convened within 45 minutes\"); they are "
-"evaluated when the exercise is finished."
-msgstr ""
-"Kein Ziel festgelegt. Ziele beschreiben, was die Übung nachweisen soll (zum "
-"Beispiel: „der Krisenstab ist innerhalb von 45 Minuten einberufen“); sie "
-"werden am Ende der Übung bewertet."
-
-msgid "What was observed"
-msgstr "Was beobachtet wurde"
-
-msgid "New objective, for example: restore the file server within 4 hours"
-msgstr ""
-"Neues Ziel, zum Beispiel: den Dateiserver innerhalb von 4 Stunden "
-"wiederherstellen"
-
-msgid "New objective"
-msgstr "Neues Ziel"
-
-msgid ""
-"Evaluate each objective: the review can be validated once they are all "
-"evaluated."
-msgstr ""
-"Bewerten Sie jedes Ziel: Die Auswertung kann freigegeben werden, sobald alle "
-"bewertet sind."
-
-msgid ""
-"No finding yet. Record each gap observed during or after the exercise "
-"(delay, missing contact, unusable procedure…)."
-msgstr ""
-"Noch keine Feststellung. Erfassen Sie jede während oder nach der Übung "
-"beobachtete Abweichung (Verzögerung, fehlender Kontakt, unbrauchbares "
-"Verfahren…)."
-
-msgid "Create an improvement action"
-msgstr "Verbesserungsmaßnahme anlegen"
-
-msgid "Risk (treatment action only)"
-msgstr "Risiko (nur Behandlungsmaßnahme)"
-
-msgid "Create the action"
-msgstr "Maßnahme anlegen"
-
-msgid ""
-"An improvement action is only created when you click it: a non-conformity "
-"linked to the exercise incident, or a treatment action of an existing risk. "
-"Its progress is shown here."
-msgstr ""
-"Eine Verbesserungsmaßnahme wird nur auf Ihren Klick angelegt: eine "
-"Nichtkonformität zum Übungsvorfall oder eine Behandlungsmaßnahme eines "
-"bestehenden Risikos. Ihr Fortschritt wird hier angezeigt."
-
-msgid "New finding"
-msgstr "Neue Feststellung"
-
-msgid ""
-"Validate the review? It will no longer be editable and the validated report "
-"will be archived."
-msgstr ""
-"Auswertung freigeben? Sie ist danach nicht mehr änderbar, und der "
-"freigegebene Bericht wird archiviert."
-
-msgid "Comment (optional)"
-msgstr "Kommentar (optional)"
-
-msgid "Validate the review"
-msgstr "Auswertung freigeben"
-
-msgid ""
-"The review is validated by a person holding the \"Validate exercise "
-"reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
-msgstr ""
-"Die Auswertung wird von einer Person mit dem Recht „Übungsauswertungen "
-"freigeben“ freigegeben (Geschäftskontinuität, Registerkarte GRC Manager der "
-"Profile)."
-
-msgid ""
-"Return the review to draft? The reason is recorded in the validation history."
-msgstr ""
-"Auswertung in den Entwurf zurücksetzen? Der Grund wird im Freigabeverlauf "
-"festgehalten."
-
-msgid "Reason for returning to draft (required)"
-msgstr "Grund für die Rückkehr in den Entwurf (Pflicht)"
-
-msgid "Return to draft"
-msgstr "Zurück in den Entwurf"
-
-msgid "Objectives of the exercise (one per line)"
-msgstr "Ziele der Übung (eines pro Zeile)"
-
-msgid "For example: convene the crisis team within 45 minutes"
-msgstr "Zum Beispiel: den Krisenstab innerhalb von 45 Minuten einberufen"
-
-msgid "Evaluated when the exercise is finished; they appear in the report."
-msgstr "Am Ende der Übung bewertet; sie erscheinen im Bericht."
-
-msgid "Review validated"
-msgstr "Auswertung freigegeben"
-
-msgid "Objectives achieved"
-msgstr "Erreichte Ziele"
-
-msgid "Improvement actions overdue"
-msgstr "Überfällige Verbesserungsmaßnahmen"
-
-msgid "Improvement action created."
-msgstr "Verbesserungsmaßnahme angelegt."
-
-msgid "The review could not be changed."
-msgstr "Die Auswertung konnte nicht geändert werden."
-
-msgid ""
-"Review validated: the validated report is archived in the incident documents."
-msgstr ""
-"Auswertung freigegeben: Der freigegebene Bericht ist in den Dokumenten des "
-"Vorfalls archiviert."
-
-msgid "The review is back to draft."
-msgstr "Die Auswertung ist wieder ein Entwurf."
-
-msgid "Give the reason for returning the review to draft."
-msgstr "Geben Sie den Grund für die Rückkehr in den Entwurf an."
-
-#, php-format
-msgid "Finding of the crisis exercise #%1$d (%2$s)."
-msgstr "Feststellung der Krisenübung Nr. %1$d (%2$s)."
-
-msgid "The review is already validated."
-msgstr "Die Auswertung ist bereits freigegeben."
-
-msgid "Define at least one objective before validating the review."
-msgstr "Legen Sie vor der Freigabe mindestens ein Ziel fest."
-
-msgid ""
-"Evaluate every objective (achieved, partially achieved or not achieved) "
-"before validating the review."
-msgstr ""
-"Bewerten Sie vor der Freigabe jedes Ziel (erreicht, teilweise erreicht oder "
-"nicht erreicht)."
-
-msgid "Finish the exercise before validating its review."
-msgstr "Beenden Sie die Übung, bevor Sie ihre Auswertung freigeben."
-
-msgid "Validate exercise reviews"
-msgstr "Übungsauswertungen freigeben"
-
-msgid "Validate crisis exercise reviews and return them to draft"
-msgstr ""
-"Auswertungen von Krisenübungen freigeben und in den Entwurf zurücksetzen"
-
-#, php-format
-msgid "%d action overdue"
-msgid_plural "%d actions overdue"
-msgstr[0] "%d Maßnahme überfällig"
-msgstr[1] "%d Maßnahmen überfällig"
-
-msgid "Activities"
-msgstr "Aktivitäten"
-
-msgid "Alerts to fix"
-msgstr "Zu behebende Warnungen"
-
-msgid "Responsibility matrix"
-msgstr "Verantwortlichkeitsmatrix"
-
-msgid "Sensitive"
-msgstr "Sensibel"
-
-msgid "No activity yet."
-msgstr "Noch keine Aktivität."
-
-msgid ""
-"No alert: every activity has someone who performs it and a single approver, "
-"without conflict of duties."
-msgstr ""
-"Keine Warnung: Jede Aktivität hat eine ausführende Person und genau eine "
-"genehmigende Stelle, ohne Aufgabenkonflikt."
-
-msgid "To fix"
-msgstr "Zu beheben"
-
-msgid "To check"
-msgstr "Zu prüfen"
-
-msgid ""
-"Only the activities of the entities of the person who exported this matrix "
-"are listed. Nothing has been modified by this export."
-msgstr ""
-"Es werden nur die Aktivitäten der Einheiten der exportierenden Person "
-"aufgeführt. Dieser Export hat nichts verändert."
-
-msgid "%d activity"
-msgid_plural "%d activities"
-msgstr[0] "%d Aktivität"
-msgstr[1] "%d Aktivitäten"
-
-msgid "%d alert to fix"
-msgid_plural "%d alerts to fix"
-msgstr[0] "%d zu behebende Warnung"
-msgstr[1] "%d zu behebende Warnungen"
-
-msgid "%d point to check"
-msgid_plural "%d points to check"
-msgstr[0] "%d zu prüfender Punkt"
-msgstr[1] "%d zu prüfende Punkte"
-
-msgid "No alert"
-msgstr "Keine Warnung"
-
-msgid "Open the responsibility matrix"
-msgstr "Verantwortlichkeitsmatrix öffnen"
-
-msgid "To fix before the audit"
-msgstr "Vor dem Audit zu beheben"
-
-msgid ""
-"Nothing is changed automatically: adjust the assignments below if needed."
-msgstr ""
-"Nichts wird automatisch geändert: Passen Sie die Zuweisungen unten bei "
-"Bedarf an."
-
-msgid ""
-"Leave empty to keep the default name, shown in the language of each user."
-msgstr ""
-"Leer lassen, um den Standardnamen zu behalten, der in der Sprache jedes "
-"Benutzers angezeigt wird."
-
-msgid "For example \"Review of firewall rules\"."
-msgstr "Zum Beispiel „Überprüfung der Firewall-Regeln“."
-
-msgid "Sensitive activity"
-msgstr "Sensible Aktivität"
-
-msgid ""
-"The same person must not both perform and approve a sensitive activity "
-"(segregation of duties)."
-msgstr ""
-"Dieselbe Person darf eine sensible Aktivität nicht zugleich ausführen und "
-"genehmigen (Funktionstrennung)."
-
-msgid "Related Annex A controls"
-msgstr "Betroffene Maßnahmen aus Anhang A"
-
-msgid ""
-"Optional: the controls of your Statement of Applicability that this activity "
-"implements."
-msgstr ""
-"Optional: die Maßnahmen Ihrer Erklärung zur Anwendbarkeit, die diese "
-"Aktivität umsetzt."
-
-msgid "Who does what"
-msgstr "Wer macht was"
-
-msgid ""
-"Nobody is assigned yet. Add below who performs and who approves this "
-"activity."
-msgstr ""
-"Noch niemand ist zugewiesen. Fügen Sie unten hinzu, wer diese Aktivität "
-"ausführt und wer sie genehmigt."
-
-msgid "User or group"
-msgstr "Benutzer oder Gruppe"
-
-msgid "Add a role"
-msgstr "Rolle hinzufügen"
-
-msgid ""
-"Choose the role, then a user or a group, and save. Only one person or group "
-"approves."
-msgstr ""
-"Wählen Sie die Rolle, dann einen Benutzer oder eine Gruppe, und speichern "
-"Sie. Nur eine Person oder Gruppe genehmigt."
-
-msgid "Add an activity"
-msgstr "Aktivität hinzufügen"
-
-msgid ""
-"Adds the proposed activities that are missing, without changing the existing "
-"ones."
-msgstr ""
-"Fügt die fehlenden vorgeschlagenen Aktivitäten hinzu, ohne die vorhandenen "
-"zu ändern."
-
-msgid "Add the missing default activities"
-msgstr "Fehlende Standardaktivitäten hinzufügen"
-
-msgid "Download as PDF"
-msgstr "Als PDF herunterladen"
-
-msgid ""
-"Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your "
-"Statement of Applicability."
-msgstr ""
-"Hängt ein datiertes PDF an Anforderung 5.3 und an Maßnahme A.5.3 Ihrer "
-"Erklärung zur Anwendbarkeit an."
-
-msgid "Archive as evidence"
-msgstr "Als Nachweis archivieren"
-
-msgid ""
-"Alerts only report: nothing is changed automatically in the assignments, "
-"rights or statuses."
-msgstr ""
-"Warnungen melden nur: An Zuweisungen, Rechten oder Status wird nichts "
-"automatisch geändert."
-
-msgid ""
-"No activity yet. Add the default activities, then say for each one who "
-"performs it and who approves it."
-msgstr ""
-"Noch keine Aktivität. Fügen Sie die Standardaktivitäten hinzu und geben Sie "
-"dann für jede an, wer sie ausführt und wer sie genehmigt."
-
-msgid "No active member"
-msgstr "Kein aktives Mitglied"
-
-msgid "Segregation of duties is checked on this activity."
-msgstr "Die Funktionstrennung wird für diese Aktivität geprüft."
-
-msgid "Archived matrices"
-msgstr "Archivierte Matrizen"
-
-msgid ""
-"No archived matrix yet. Archive it before the audit: the dated PDF is "
-"attached to requirement 5.3 and to control A.5.3."
-msgstr ""
-"Noch keine archivierte Matrix. Archivieren Sie sie vor dem Audit: Das "
-"datierte PDF wird an Anforderung 5.3 und Maßnahme A.5.3 angehängt."
-
-msgid "%d default activity added."
-msgid_plural "%d default activities added."
-msgstr[0] "%d Standardaktivität hinzugefügt."
-msgstr[1] "%d Standardaktivitäten hinzugefügt."
-
-msgid ""
-"The responsibility matrix has been archived as evidence of requirement 5.3 "
-"and control A.5.3."
-msgstr ""
-"Die Verantwortlichkeitsmatrix wurde als Nachweis für Anforderung 5.3 und "
-"Maßnahme A.5.3 archiviert."
-
-msgid "The matrix could not be archived."
-msgstr "Die Matrix konnte nicht archiviert werden."
-
-msgid ""
-"Who performs, approves, is consulted on or is informed of each activity of "
-"the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
-"approvers are reported here."
-msgstr ""
-"Wer jede Aktivität des ISMS ausführt, genehmigt, konsultiert oder informiert "
-"wird, mit den Benutzern und Gruppen von GLPI. Aufgabenkonflikte und fehlende "
-"Genehmigende werden hier gemeldet."
-
-msgid ""
-"For each activity, add who performs it and a single approver, mark the "
-"sensitive activities, fix the alerts, then archive the matrix as evidence "
-"before the audit."
-msgstr ""
-"Fügen Sie für jede Aktivität hinzu, wer sie ausführt, und genau eine "
-"genehmigende Stelle, markieren Sie sensible Aktivitäten, beheben Sie die "
-"Warnungen und archivieren Sie die Matrix vor dem Audit als Nachweis."
-
-msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
-msgstr "ISO/IEC 27001, Abschnitt 5.3 und Maßnahme A.5.3"
-
-msgid "ISMS activity"
-msgid_plural "ISMS activities"
-msgstr[0] "ISMS-Aktivität"
-msgstr[1] "ISMS-Aktivitäten"
-
-msgid "Performs"
-msgstr "Führt aus"
-
-msgid "Approves"
-msgstr "Genehmigt"
-
-msgid "Consulted"
-msgstr "Konsultiert"
-
-msgid "Informed"
-msgstr "Informiert"
-
-msgctxt "responsibility"
-msgid "P"
-msgstr "D"
-
-msgctxt "responsibility"
-msgid "A"
-msgstr "G"
-
-msgctxt "responsibility"
-msgid "C"
-msgstr "K"
-
-msgctxt "responsibility"
-msgid "I"
-msgstr "I"
-
-msgid "Information security risk assessment"
-msgstr "Beurteilung der Informationssicherheitsrisiken"
-
-msgid "Acceptance of residual risks"
-msgstr "Akzeptanz der Restrisiken"
-
-msgid "Approval of security policies"
-msgstr "Genehmigung der Sicherheitsrichtlinien"
-
-msgid "Inventory of information assets"
-msgstr "Inventar der Informationswerte"
-
-msgid "Granting and removing access rights"
-msgstr "Vergabe und Entzug von Zugriffsrechten"
-
-msgid "Periodic review of access rights"
-msgstr "Regelmäßige Überprüfung der Zugriffsrechte"
-
-msgid "Management of privileged accounts"
-msgstr "Verwaltung privilegierter Konten"
-
-msgid "Approval of changes in production"
-msgstr "Genehmigung von Änderungen in der Produktion"
-
-msgid "Backups and restore tests"
-msgstr "Datensicherungen und Wiederherstellungstests"
-
-msgid "Review of logs and security events"
-msgstr "Überprüfung von Protokollen und Sicherheitsereignissen"
-
-msgid "Handling of security incidents"
-msgstr "Behandlung von Sicherheitsvorfällen"
-
-msgid "Security of suppliers"
-msgstr "Sicherheit der Lieferanten"
-
-msgid "Security awareness and training"
-msgstr "Sensibilisierung und Schulung zur Sicherheit"
-
-msgid "Business continuity and recovery plans"
-msgstr "Geschäftsfortführungs- und Wiederanlaufpläne"
-
-msgid "Internal audit of the ISMS"
-msgstr "Internes Audit des ISMS"
-
-msgid "Give the activity a name."
-msgstr "Geben Sie der Aktivität einen Namen."
-
-msgid "This user or group does not belong to the entity of the activity."
-msgstr ""
-"Dieser Benutzer oder diese Gruppe gehört nicht zur Einheit der Aktivität."
-
-msgid "Only one person or group approves \"%s\": remove the current one first."
-msgstr ""
-"Nur eine Person oder Gruppe genehmigt „%s“: Entfernen Sie zuerst die "
-"aktuelle."
-
-msgid "Deleted item #%d"
-msgstr "Gelöschtes Element Nr. %d"
-
-msgid "Nobody approves this activity."
-msgstr "Niemand genehmigt diese Aktivität."
-
-msgid "Several people or groups approve this activity: keep only one."
-msgstr ""
-"Mehrere Personen oder Gruppen genehmigen diese Aktivität: Behalten Sie nur "
-"eine."
-
-msgid "Nobody performs this activity."
-msgstr "Niemand führt diese Aktivität aus."
-
-msgid ""
-"Segregation of duties: %s both performs and approves this sensitive activity."
-msgstr ""
-"Funktionstrennung: %s führt diese sensible Aktivität aus und genehmigt sie "
-"zugleich."
-
-msgid "The group %s has no active member."
-msgstr "Die Gruppe %s hat kein aktives Mitglied."
-
-msgid "%s is disabled or no longer exists in GLPI."
-msgstr "%s ist deaktiviert oder existiert nicht mehr in GLPI."
-
-msgid "ISMS responsibility matrix"
-msgstr "Verantwortlichkeitsmatrix des ISMS"
-
-msgid "Archived responsibility matrix"
-msgid_plural "Archived responsibility matrices"
-msgstr[0] "Archivierte Verantwortlichkeitsmatrix"
-msgstr[1] "Archivierte Verantwortlichkeitsmatrizen"
-
-msgid "ISMS responsibility matrix - %s"
-msgstr "Verantwortlichkeitsmatrix des ISMS - %s"
 
 #, php-format
 msgid "and %d other entity"
