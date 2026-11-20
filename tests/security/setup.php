@@ -1194,6 +1194,15 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         '_add_competences_id' => $competenceId, '_add_level' => 2,
     ]);
     $ids['competence_' . $suffix] = $competenceId;
+    // Issue #774 (lot 2) : une formation donne la compétence au niveau exigé ; la session proposée
+    // pour les écarts ne présélectionne que les personnes visibles.
+    $ids['competence_training_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Training(), [
+        'title' => 'Formation competence securite ' . $suffix,
+    ]);
+    (new \GlpiPlugin\Grcmanager\Competence())->update([
+        'id' => $competenceId, '_add_trainings_id' => $ids['competence_training_' . $suffix],
+        '_add_training_level' => 2,
+    ]);
     // Issue #778 : un site fictif (lieu de GLPI) et son évaluation de la sécurité physique, avec une
     // zone, dans chaque entité.
     // Le nom d'un lieu est unique dans son entité : un second passage (test XSS) reprend le même lieu.
@@ -1228,7 +1237,8 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
 }
 $ids['competencedeclaration_B'] = $add(new \GlpiPlugin\Grcmanager\CompetenceDeclaration(), [
     'users_id' => $ids['collab_B'], 'plugin_grcmanager_competences_id' => $ids['competence_B'],
-    'level' => 2, 'evidence_type' => 'certificate', 'evidence_reference' => 'Certificat fictif B',
+    // Niveau 1 pour une compétence exigée au niveau 2 : l'écart de B sert au test de la session proposée.
+    'level' => 1, 'evidence_type' => 'certificate', 'evidence_reference' => 'Certificat fictif B',
 ]);
 // Issue #808 : fiche de conformité d'un collaborateur de A, saisie en deux temps comme dans l'écran
 // (vérification préalable, puis engagement de confidentialité). Ses journaux (glpi_logs) doivent

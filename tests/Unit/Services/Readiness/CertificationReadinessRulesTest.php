@@ -92,6 +92,25 @@ final class CertificationReadinessRulesTest extends TestCase
         self::assertSame(R::STATUS_TODO, R::soa('never_approved', false));
     }
 
+    public function testCompetencesNeedFunctionsHoldersPlannedGapsAndAnArchive(): void
+    {
+        self::assertSame(R::STATUS_TODO, R::competence(0, 0, null, null, 0), 'aucune fonction');
+        self::assertSame(R::STATUS_PARTIAL, R::competence(3, 1, 0, 0, 1), 'fonction sans compétence exigée');
+        self::assertSame(R::STATUS_PARTIAL, R::competence(3, 0, 1, 0, 1), 'fonction sans titulaire');
+        self::assertSame(R::STATUS_PARTIAL, R::competence(3, 0, 0, 2, 1), 'écarts sans formation planifiée');
+        self::assertSame(R::STATUS_PARTIAL, R::competence(3, 0, 0, 0, 0), 'dossier jamais archivé');
+        self::assertSame(R::STATUS_DONE, R::competence(3, 0, 0, 0, 1));
+        self::assertSame(R::STATUS_DONE, R::competence(3, 0, null, null, 2), 'personnes hors des droits');
+        $keys = array_keys(R::STEPS);
+        self::assertSame(
+            array_search('competence', $keys, true) + 1,
+            array_search('awareness', $keys, true),
+            'compétences (7.2) juste avant la sensibilisation (7.3)'
+        );
+        self::assertSame('7.2', R::STEPS['competence']['clauses']);
+        self::assertSame(['7.3'], R::STEPS['awareness']['requirements']);
+    }
+
     public function testAwarenessAndExercises(): void
     {
         self::assertSame(R::STATUS_TODO, R::awareness(0, 0, null));

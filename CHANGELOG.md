@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.69.0] - 2026-11-20
+
 ### Added
 
 - **Contacts officiels : prises de contact tracées depuis les incidents et les violations** (issue
@@ -39,6 +41,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Reste à faire (lot 3) : archivage daté du registre en PDF sur les mesures A.5.5 et A.5.6,
     contacts affichés depuis le plan de continuité et les exercices de crise, contacts proposés selon
     le type d'incident, reprise d'une communication de crise (#616) comme prise de contact.
+- **Compétences (ISO 27001, article 7.2), lot 2** (issue #774). Suite du lot 1 (2.65.0), pour
+  montrer à l'auditeur que chaque écart est traité :
+  - un écart pour lequel la personne est déjà inscrite (en attente) à une formation, ou l'une de ses
+    sessions, qui donne la compétence au niveau exigé apparaît « Formation prévue », sur la page
+    « Compétences », la fiche de chacun (« Mes compétences ») et le dossier PDF ; une formation de
+    niveau inférieur ne compte pas ;
+  - nouvelle carte « Formations à planifier » : pour chaque formation qui comble un écart, les
+    personnes concernées pas encore inscrites ; « Préparer une session » ouvre une nouvelle session
+    de la formation avec ces personnes présélectionnées (rien n'est enregistré avant « Ajouter ») ;
+  - préparation à la certification : nouvelle étape « Définir et vérifier les compétences » (7.2),
+    faite quand chaque fonction a ses compétences exigées et ses titulaires, que chaque écart a une
+    formation planifiée et que le dossier est archivé ; l'étape « Former et sensibiliser » ne porte
+    plus que sur 7.3 ;
+  - carte du tableau de bord « Couverture des compétences exigées (%) » ;
+  - droits : ceux de la matrice des compétences (droit du plugin et lecture des utilisateurs, entités
+    de la session) ; la session proposée ne présélectionne que les personnes visibles. Aucune
+    inscription, aucun statut ni aucun droit n'est modifié automatiquement.
 
 ## [2.68.0] - 2026-11-20
 
@@ -353,7 +372,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Preuve affichée sur les mesures A.5.5 (autorités) et A.5.6 (groupes d'intérêt) de la SoA.
   - Droits : ceux du contexte de l'organisation (droit général du plugin) et ses entités ; l'onglet
     exige en plus de pouvoir lire l'incident ou la violation.
-
 
 - **Compétences (ISO 27001, article 7.2), lot 1** (issue #774). Nouvelle sous-page « Compétences »
   de la rubrique « Revue des accès » (pas de nouvelle entrée de menu).

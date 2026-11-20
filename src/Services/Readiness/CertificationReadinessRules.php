@@ -64,6 +64,7 @@ final class CertificationReadinessRules
         'risk_treatment'    => 90,
         'soa'               => 90,
         'objectives'        => 90,
+        'competence'        => 90,
         'awareness'         => 60,
         'exercises'         => 60,
         'internal_audit'    => 45,
@@ -252,7 +253,8 @@ final class CertificationReadinessRules
         'risk_treatment'    => ['phase' => 'plan', 'clauses' => '6.1.3, 8.3', 'requirements' => ['6.1.3', '8.3']],
         'soa'               => ['phase' => 'plan', 'clauses' => '6.1.3 d)', 'requirements' => []],
         'objectives'        => ['phase' => 'plan', 'clauses' => '6.2', 'requirements' => ['6.2']],
-        'awareness'         => ['phase' => 'do', 'clauses' => '7.2, 7.3', 'requirements' => ['7.2', '7.3']],
+        'competence'        => ['phase' => 'do', 'clauses' => '7.2', 'requirements' => ['7.2']],
+        'awareness'         => ['phase' => 'do', 'clauses' => '7.3', 'requirements' => ['7.3']],
         'exercises'         => ['phase' => 'do', 'clauses' => 'A.5.29, A.5.30', 'requirements' => []],
         'internal_audit'    => ['phase' => 'check', 'clauses' => '9.2', 'requirements' => ['9.2.1', '9.2.2']],
         'management_review' => [
@@ -352,6 +354,28 @@ final class CertificationReadinessRules
         }
 
         return $measured >= $total ? self::STATUS_DONE : self::STATUS_PARTIAL;
+    }
+
+    /**
+     * Issue #774 (lot 2) : compétences. Des fonctions du SMSI, chacune avec ses compétences exigées
+     * et ses titulaires, chaque écart avec une formation planifiée, et un dossier archivé comme
+     * preuve. Les titulaires et les écarts valent null sans la lecture des utilisateurs : ils ne
+     * comptent pas.
+     */
+    public static function competence(
+        int $functions,
+        int $withoutRequirements,
+        ?int $withoutHolders,
+        ?int $gapsWithoutAction,
+        int $archives
+    ): string {
+        if ($functions === 0) {
+            return self::STATUS_TODO;
+        }
+
+        return $withoutRequirements + (int) $withoutHolders + (int) $gapsWithoutAction > 0 || $archives === 0
+            ? self::STATUS_PARTIAL
+            : self::STATUS_DONE;
     }
 
     /**

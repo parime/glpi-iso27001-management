@@ -93,6 +93,18 @@ final class CompetenceRulesTest extends TestCase
         $this->assertFalse(Rules::hasEvidence('  ', 0));
     }
 
+    public function testPlannedTrainingMustGiveTheRequiredLevel(): void
+    {
+        $planned = [
+            ['level' => 1, 'training' => 4, 'label' => 'Notions'],
+            ['level' => 3, 'training' => 5, 'label' => 'Expertise'],
+        ];
+        $this->assertSame([$planned[1]], Rules::plannedFor(2, $planned), 'Une formation de niveau 1 ne comble pas.');
+        $this->assertSame($planned, Rules::plannedFor(1, $planned));
+        $this->assertSame([], Rules::plannedFor(3, [['level' => 2]]));
+        $this->assertSame([], Rules::plannedFor(1, []));
+    }
+
     public function testDefaultCatalogIsConsistent(): void
     {
         foreach (DefaultCompetences::FUNCTIONS as $requirements) {

@@ -267,6 +267,91 @@ final class CompetenceTest extends GrcmanagerIntegrationTestCase
         $this->assertFalse($functionB->can($functionB->getID(), READ));
     }
 
+    public function testPlannedTrainingsAndProposedSession(): void
+    {
+        global $DB;
+
+        $alice = $this->member('Alice');
+        $bob = $this->member('Bob');
+        $carol = $this->member('Carol');
+        $network = $this->competence('PHPUnit réseau fictif');
+        $mainId = (int) (new Training())->add(['title' => 'PHPUnit formation réseau', 'max_score' => 0]);
+        $sessionId = (int) (new Training())->add([
+            'title' => 'PHPUnit session réseau', 'plugin_grcmanager_trainings_id' => $mainId,
+            'date_delivered' => date('Y-m-d', strtotime('+20 days')),
+        ]);
+        $basicId = (int) (new Training())->add(['title' => 'PHPUnit notions réseau']);
+        (new Competence())->update(['id' => $network, '_add_trainings_id' => $mainId, '_add_training_level' => 2]);
+        (new Competence())->update(['id' => $network, '_add_trainings_id' => $basicId, '_add_training_level' => 1]);
+        $function = $this->func('PHPUnit administrateur réseau');
+        foreach ([$alice, $bob, $carol] as $user) {
+            $function->update(['id' => $function->getID(), '_add_users_id' => $user]);
+        }
+        $function->update([
+            'id' => $function->getID(), '_add_competences_id' => $network, '_add_level' => 2,
+        ]);
+        // Bob est inscrit à la session à venir ; Carol à une formation de niveau 1 qui ne comble pas
+        // l'écart ; Alice à rien.
+        foreach ([[$bob, $sessionId], [$carol, $basicId]] as [$user, $trainingId]) {
+            $DB->insert('glpi_plugin_grcmanager_trainings_users', [
+                'plugin_grcmanager_trainings_id' => $trainingId, 'users_id' => $user,
+                'completion_status' => 'pending', 'assessment_result' => 'not_applicable',
+            ]);
+        }
+
+        $data = CompetenceMatrix::data();
+        $gaps = [];
+        foreach ($data['gaps'] as $gap) {
+            if ($gap['competence'] === 'PHPUnit réseau fictif') {
+                $gaps[$gap['person']] = $gap;
+            }
+        }
+        $this->assertCount(3, $gaps, 'Une inscription ne vaut pas acquisition : trois écarts.');
+        $this->assertSame([], $gaps[$alice]['planned']);
+        $this->assertSame('PHPUnit session réseau', $gaps[$bob]['planned'][0]['label']);
+        $this->assertSame($mainId, $gaps[$bob]['planned'][0]['training']);
+        $this->assertSame([], $gaps[$bob]['trainings'], 'Écart planifié : plus de formation à proposer.');
+        $this->assertSame([], $gaps[$carol]['planned'], 'Une formation de niveau 1 ne comble pas le niveau 2.');
+        $this->assertGreaterThanOrEqual(1, $data['summary']['gaps_planned']);
+        $this->assertSame(
+            $data['summary']['gaps'] - $data['summary']['gaps_planned'],
+            $data['summary']['gaps_unplanned']
+        );
+
+        $plans = array_column($data['to_plan'], null, 'id');
+        $this->assertArrayHasKey($mainId, $plans);
+        $this->assertArrayNotHasKey($basicId, $plans, 'Niveau insuffisant : non proposée.');
+        $expected = [$alice, $carol];
+        sort($expected);
+        $this->assertSame($expected, $plans[$mainId]['users']);
+        $this->assertSame(CompetenceMatrix::sessionUrl($mainId), $plans[$mainId]['session_url']);
+        $this->assertSame($expected, CompetenceMatrix::gapPeopleForTraining($mainId));
+
+        // Session proposée : préremplie, rattachée à la formation principale, rien n'est enregistré.
+        $before = countElementsInTable(Training::getTable());
+        ob_start();
+        (new Training())->showForm(0, ['competence_gaps_of' => $sessionId]);
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('value="' . $alice . '"', $html);
+        $this->assertStringContainsString('value="' . $carol . '"', $html);
+        $this->assertStringContainsString('PHPUnit formation réseau', $html);
+        $this->assertSame($before, countElementsInTable(Training::getTable()), 'Rien n\'est enregistré.');
+
+        $summary = CompetenceMatrix::clauseReadiness('7.2');
+        $this->assertNotNull($summary);
+        $this->assertSame($data['summary']['gaps_unplanned'], $summary['gaps_unplanned']);
+        $this->assertSame((int) $data['summary']['rate'], CompetenceMatrix::dashboardCard()['number']);
+
+        // Sans la lecture des utilisateurs : ni personnes proposées, ni écarts dans la synthèse.
+        $_SESSION['glpiactiveprofile']['user'] = 0;
+        $this->assertSame([], CompetenceMatrix::gapPeopleForTraining($mainId));
+        $summary = CompetenceMatrix::clauseReadiness('7.2');
+        $this->assertNotNull($summary);
+        $this->assertNull($summary['gaps_unplanned']);
+        $this->assertNull($summary['without_holders']);
+        $this->assertSame(0, CompetenceMatrix::dashboardCard()['number']);
+    }
+
     public function testClauseSummaryAndArchiveAsEvidence(): void
     {
         global $DB;
