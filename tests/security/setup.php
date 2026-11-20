@@ -261,6 +261,8 @@ if ($mode === 'xss') {
     ]);
     $DB->update('glpi_plugin_grcmanager_ismsrequirements', ['comment' => $canary], ['id' => ['>', 0]]);
     $DB->update('glpi_computers', ['name' => $canary], ['id' => (int) $ids['computer_A']]);
+    // Issue #779 : logiciel commercial sans licence piégé (page des licences logicielles, export).
+    $DB->update('glpi_softwares', ['name' => $canary], ['name' => 'Logiciel licence securite A']);
     // Issue #377 : processus metier et role d'une dependance (fiche, liste, onglets, export).
     $out['process'] = $insert('businessprocesses', ['name' => $canary, 'description' => $canary, 'rto_hours' => 4]);
     $insert('businessprocesses_items', [
@@ -466,6 +468,9 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager_securityincident' => CommonITILObject::READALL,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'software' => READ,
     'dashboard' => READ, 'appliance' => READ,
+    // Issue #779 : la conformité des licences exige aussi la lecture native des licences (le
+    // gestionnaire ne l'a pas : la page lui est refusée).
+    'license' => READ,
 ]));
 
 // Sans droit : aucun droit sur le plugin, chaque page doit lui être refusée. Il lit les
@@ -571,6 +576,17 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
+    // Issue #779 : logiciel commercial fictif installé sans licence sur l'ordinateur de l'entité.
+    $licenseSoftware = $add(new Software(), [
+        'name' => 'Logiciel licence securite ' . $suffix, 'entities_id' => $entity,
+        'manufacturers_id' => (int) (new Manufacturer())->import(['name' => 'Microsoft']),
+    ]);
+    $add(new Item_SoftwareVersion(), [
+        'itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix], 'entities_id' => $entity,
+        'softwareversions_id' => $add(new SoftwareVersion(), [
+            'name' => '1.0', 'softwares_id' => $licenseSoftware, 'entities_id' => $entity,
+        ]),
+    ]);
     // Issue #377, troisième étape : application classable (RTO) de l'entité.
     $ids['appliance_' . $suffix] = $add(new Appliance(), [
         'name' => 'Application securite ' . $suffix, 'entities_id' => $entity,
