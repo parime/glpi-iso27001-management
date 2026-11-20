@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.69.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.70.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -150,6 +150,8 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ContextItem::class;
     // Issue #703 : documents et preuves d'une exigence NIS2 Italia - ACN (verbale, piano, registro).
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\AcnRequirement::class;
+    // Issue #599 : documents et preuves d'une mesure du ReCyF (procédures, plans, comptes rendus).
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\RecyfRequirement::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Waiver::class;
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.

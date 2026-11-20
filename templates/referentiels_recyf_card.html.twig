@@ -1,0 +1,65 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #599 : carte ReCyF (NIS2 France) de la page Référentiels, avec l'accès au registre. #}
+<div class="card mb-3" id="grcmanager-ref-recyf">
+  <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <h3 class="card-title mb-0"><i class="ti ti-shield-check me-1"></i>{{ __('NIS2 France: Cyber France framework of ANSSI (ReCyF %s)', 'grcmanager')|format(recyf.version) }}</h3>
+    <div class="d-flex flex-wrap gap-2">
+      {% if recyf.has_register %}
+        <a class="btn btn-primary btn-sm" href="{{ recyf.register_url }}"><i class="ti ti-list-check me-1"></i>{{ __('Open the ReCyF register', 'grcmanager') }}</a>
+      {% elseif recyf.can_configure %}
+        <a class="btn btn-primary btn-sm" href="{{ recyf.config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Classify the entities', 'grcmanager') }}</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="text-muted mb-2">
+      {{ __('Acceptable means of compliance published by ANSSI for the French transposition of NIS2. Each measure has its own record in the register of the entity, without going through ISO 27001 Annex A, and the assessment of NIS2 uses these records.', 'grcmanager') }}
+    </p>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <span class="badge bg-blue-subtle text-blue-emphasis"><i class="ti ti-shield me-1"></i>{{ __('Important entities: %d measures', 'grcmanager')|format(recyf.important) }}</span>
+      <span class="badge bg-red-subtle text-red-emphasis"><i class="ti ti-shield-star me-1"></i>{{ __('Essential entities: %d measures', 'grcmanager')|format(recyf.essential) }}</span>
+      {% if recyf.own_category %}
+        <span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-building me-1"></i>{{ __('Your entity: %s', 'grcmanager')|format(recyf.own_category) }}</span>
+      {% endif %}
+      <span class="badge bg-yellow-subtle text-yellow-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Working version, may still change', 'grcmanager') }}</span>
+    </div>
+    {% for objective in recyf.objectives %}
+      <details class="mb-2">
+        <summary class="fw-bold">
+          {{ objective.number }}. {{ objective.name }} <span class="text-muted fw-normal">({{ objective.measures|length }})</span>
+          {% if objective.essential %}<span class="badge bg-red-subtle text-red-emphasis ms-1">{{ __('Essential entities', 'grcmanager') }}</span>{% endif %}
+        </summary>
+        <div class="table-responsive">
+          <table class="table table-sm table-vcenter mb-0">
+            <tbody>
+              {% for measure in objective.measures %}
+                <tr>
+                  <td class="text-nowrap"><span class="badge bg-blue-subtle text-blue-emphasis">{{ measure.reference }}</span></td>
+                  <td>{{ measure.summary }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+  <div class="card-footer text-muted small">
+    {{ __('Source: ANSSI, Cyber France framework (ReCyF), working version %s. Measure numbers are the official ones; titles, summaries and the mapping to NIS2 are made by this project. Only the text published by ANSSI is authentic.', 'grcmanager')|format(recyf.version) }}
+    <a href="{{ recyf.source_document }}" target="_blank" rel="noopener noreferrer">ReCyF {{ recyf.version }}</a>,
+    <a href="{{ recyf.source_page }}" target="_blank" rel="noopener noreferrer">messervices.cyber.gouv.fr</a>
+  </div>
+</div>
