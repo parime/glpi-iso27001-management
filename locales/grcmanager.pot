@@ -24614,3 +24614,314 @@ msgstr ""
 #, php-format
 msgid "Re-assess the waiver \"%s\""
 msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d official contact recorded"
+msgid_plural "%d official contacts recorded"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/control_form.html.twig
+#: templates/official_contact_register.html.twig
+#, php-format
+msgid "%d verified within 12 months"
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/official_contact_register.html.twig
+#, php-format
+msgid "%d to verify"
+msgstr ""
+
+#: templates/control_form.html.twig templates/official_contact_tab.html.twig
+msgid "Open the register"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Register (PDF)"
+msgstr ""
+
+#: templates/control_form.html.twig src/OfficialContact.php:195
+msgid "Register of official contacts"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Official contact (A.5.5, A.5.6)"
+msgstr ""
+
+#: templates/context_item_form.html.twig src/OfficialContact.php:51
+#: src/ContextItem.php:949
+msgid "Official contact"
+msgid_plural "Official contacts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"Tick if your organization may have to contact this party officially "
+"(authority, CSIRT, police, insurer, special interest group). It then appears "
+"in the register of official contacts."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: src/NotificationTargetContextItem.php:89 src/ContextItem.php:953
+msgid "Contact category"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: templates/pdf/official_contacts_report.html.twig
+#: templates/_official_contact_rows.html.twig src/ContextItem.php:962
+msgid "Time limit"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"For example \"72 hours after becoming aware of the breach\" or \"24 hours "
+"for the early warning\"."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: templates/pdf/official_contacts_report.html.twig
+#: templates/_official_contact_rows.html.twig
+msgid "Contact details"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"Phone numbers (including outside office hours), e-mail, online form, postal "
+"address. This information must stay usable during a crisis: the register can "
+"be printed."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: templates/pdf/official_contacts_report.html.twig
+#: templates/_official_contact_rows.html.twig
+msgid "When to contact"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"Type of event and legal obligation, e.g. \"Personal data breach with a risk "
+"for the persons (GDPR, article 33)\"."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: templates/pdf/official_contacts_report.html.twig
+#: templates/_official_contact_rows.html.twig
+msgid "Authorised internal contact"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"The person allowed to contact this party on behalf of the organization "
+"(CISO, DPO, management)."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Authorised internal group"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Optional: the team that can replace this person, e.g. the crisis team."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: templates/_official_contact_rows.html.twig src/ContextItem.php:966
+msgid "To contact for a security incident"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Shown in the \"Official contacts\" tab of every security incident."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: templates/_official_contact_rows.html.twig src/ContextItem.php:970
+msgid "To contact for a personal data breach"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Shown in the \"Official contacts\" tab of every personal data breach."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: templates/pdf/official_contacts_report.html.twig
+#: src/NotificationTargetContextItem.php:90 src/ContextItem.php:958
+msgid "Last verification"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"Date on which the contact details were last checked. A contact not verified "
+"for 12 months is flagged and its owner receives a reminder."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: templates/_official_contact_rows.html.twig
+msgid "Verification"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#, php-format
+msgid "Up to date, next verification by %s"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: templates/_official_contact_rows.html.twig
+msgid "Not verified for more than 12 months"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#: templates/pdf/official_contacts_report.html.twig
+#: templates/_official_contact_rows.html.twig
+#: src/NotificationTargetContextItem.php:65
+msgid "Never verified"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#, php-format
+msgid "Verified by %s"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"Records today as the verification date, with your name. Your other changes "
+"on this form are saved too."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Record the verification"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Open the register of official contacts"
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+#: templates/official_contact_register.html.twig
+msgid "Print the register (PDF)"
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+msgid "No official contact is marked for this type of event yet."
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+#: templates/official_contact_register.html.twig
+msgid "Add an official contact"
+msgstr ""
+
+#: templates/pdf/official_contacts_report.html.twig
+msgid "Official contacts"
+msgstr ""
+
+#: templates/pdf/official_contacts_report.html.twig
+msgid "Verified within 12 months"
+msgstr ""
+
+#: templates/pdf/official_contacts_report.html.twig
+#: templates/_official_contact_rows.html.twig
+msgid "To verify"
+msgstr ""
+
+#: templates/pdf/official_contacts_report.html.twig
+msgid "to verify"
+msgstr ""
+
+#: templates/official_contact_register.html.twig
+#, php-format
+msgid "%d official contact"
+msgid_plural "%d official contacts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/official_contact_register.html.twig
+msgid ""
+"Some contacts have not been verified for 12 months. Open each one, check its "
+"details with the organization concerned, then click \"Record the "
+"verification\"."
+msgstr ""
+
+#: templates/official_contact_register.html.twig
+msgid ""
+"No official contact recorded yet. Start with the data protection authority, "
+"the national CSIRT and the police, then add your insurer and the special "
+"interest groups you follow."
+msgstr ""
+
+#: templates/official_contact_register.html.twig
+msgid ""
+"An interested party already exists? Open it and tick \"Official contact\"."
+msgstr ""
+
+#: src/NotificationTargetContextItem.php:37
+msgid "Official contact to verify"
+msgstr ""
+
+#: src/OfficialContact.php:285
+msgid ""
+"Official contacts to inform for a personal data breach, with the time limit "
+"and the person allowed to contact them."
+msgstr ""
+
+#: src/OfficialContact.php:290
+msgid ""
+"Official contacts to inform for a security incident, with the time limit and "
+"the person allowed to contact them."
+msgstr ""
+
+#: src/OfficialContact.php:334
+msgid "Reminds the owner of each official contact not verified for 12 months"
+msgstr ""
+
+#: src/OfficialContact.php:348
+#, php-format
+msgid "%1$d official contact(s) to verify, %2$d reminder(s) sent."
+msgstr ""
+
+#: src/ContextItem.php:174
+msgid "Supervisory authority (e.g. data protection)"
+msgstr ""
+
+#: src/ContextItem.php:175
+msgid "CSIRT or national cyber security agency"
+msgstr ""
+
+#: src/ContextItem.php:176
+msgid "Law enforcement"
+msgstr ""
+
+#: src/ContextItem.php:177
+msgid "Local or state authority"
+msgstr ""
+
+#: src/ContextItem.php:178
+msgid "Sector regulator"
+msgstr ""
+
+#: src/ContextItem.php:179
+msgid "Special interest group (CERT, association, forum)"
+msgstr ""
+
+#: src/ContextItem.php:181
+msgid "Hosting provider"
+msgstr ""
+
+#: src/PageHelp.php:380
+msgid ""
+"Who to contact outside the organization when something happens: authorities "
+"(data protection authority, national CSIRT, police), regulators, insurers "
+"and special interest groups, with their details, when to contact them, the "
+"time limit and who is allowed to call them."
+msgstr ""
+
+#: src/PageHelp.php:386
+msgid ""
+"Record each official contact, tick the events for which it must be informed, "
+"verify the details at least once a year, and keep a printed copy of the "
+"register (PDF) for use during a crisis."
+msgstr ""
+
+#: src/PageHelp.php:391
+msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
+msgstr ""

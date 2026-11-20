@@ -70,6 +70,11 @@ check "onglet references CPE d'un produit"    "$(tab GlpiPlugin%5CGrcmanager%5CC
 check "onglet alias d'un produit"             "$(tab GlpiPlugin%5CGrcmanager%5CCanonicalProduct 'GlpiPlugin%5CGrcmanager%5CProductAlias$1' "$(xid product)")"
 check "onglet registre des traitements d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' "$(id computer_A)")"
 check "fiche d'un traitement (onglet principal)" "$(tab GlpiPlugin%5CGrcmanager%5CProcessingActivity 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$main' "$(xid processing)")"
+# Issue #771 : contact officiel piege (registre, fiche, onglets de l'incident et de la violation).
+check "front/officialcontact.php"             "$P/officialcontact.php"
+check "fiche d'un contact officiel"           "$P/contextitem.form.php?id=$(xid official_contact)"
+check "onglet contacts officiels d'un incident" "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(id incident_A)")"
+check "onglet contacts officiels d'une violation" "$(tab GlpiPlugin%5CGrcmanager%5CDataBreach 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(xid breach)")"
 # Issue #620 : violation piegee (fiche, liste, onglet de l'incident, export CSV).
 check "front/databreach.form.php"             "$P/databreach.form.php?id=$(xid breach)"
 check "front/databreach.php"                  "$P/databreach.php"

@@ -1,0 +1,67 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #771 : lignes du registre des contacts officiels, partagées par le registre et l'onglet des
+   incidents et des violations de données. Variables : contacts, multi (colonne Entité). #}
+<div class="table-responsive">
+   <table class="table table-hover card-table">
+      <thead>
+         <tr>
+            <th>{{ __('Name') }}</th>
+            <th>{{ __('Contact details', 'grcmanager') }}</th>
+            <th>{{ __('When to contact', 'grcmanager') }}</th>
+            <th>{{ __('Time limit', 'grcmanager') }}</th>
+            <th>{{ __('Authorised internal contact', 'grcmanager') }}</th>
+            <th>{{ __('Verification', 'grcmanager') }}</th>
+            {% if multi|default(false) %}<th>{{ _n('Entity', 'Entities', 1) }}</th>{% endif %}
+         </tr>
+      </thead>
+      <tbody>
+         {% for contact in contacts %}
+            <tr>
+               <td>
+                  <a href="{{ contact.url }}"><strong>{{ contact.name }}</strong></a>
+                  <div class="small text-secondary mt-1">{{ contact.category }}</div>
+                  <div class="mt-1">
+                     {% if contact.on_incident %}
+                        <span class="badge bg-orange-subtle text-orange-emphasis" title="{{ __('To contact for a security incident', 'grcmanager') }}"><i class="ti ti-shield-exclamation me-1"></i>{{ __('Incident', 'grcmanager') }}</span>
+                     {% endif %}
+                     {% if contact.on_breach %}
+                        <span class="badge bg-purple-subtle text-purple-emphasis" title="{{ __('To contact for a personal data breach', 'grcmanager') }}"><i class="ti ti-lock-open me-1"></i>{{ __('Data breach', 'grcmanager') }}</span>
+                     {% endif %}
+                  </div>
+               </td>
+               <td>{{ contact.details ? contact.details|nl2br : '-' }}</td>
+               <td>{{ contact.when ? contact.when|nl2br : '-' }}</td>
+               <td>{% if contact.delay %}<span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-clock me-1"></i>{{ contact.delay }}</span>{% else %}-{% endif %}</td>
+               <td>
+                  {{ contact.internal ?: '-' }}
+                  {% if contact.internal_group %}<div class="small text-secondary">{{ contact.internal_group }}</div>{% endif %}
+               </td>
+               <td>
+                  {% if contact.status == 'ok' %}
+                     <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ contact.verified|formatted_date }}</span>
+                  {% elseif contact.status == 'overdue' %}
+                     <span class="badge bg-danger-subtle text-danger-emphasis" title="{{ __('Not verified for more than 12 months', 'grcmanager') }}"><i class="ti ti-alert-triangle me-1"></i>{{ contact.verified|formatted_date }}</span>
+                     <div class="small text-danger">{{ __('To verify', 'grcmanager') }}</div>
+                  {% else %}
+                     <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Never verified', 'grcmanager') }}</span>
+                  {% endif %}
+               </td>
+               {% if multi|default(false) %}<td>{{ contact.entity }}</td>{% endif %}
+            </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>

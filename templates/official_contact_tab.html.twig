@@ -1,0 +1,34 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #771 : onglet « Contacts officiels » d'un incident de sécurité ou d'une violation de données. #}
+<div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+   <div class="text-secondary me-auto">
+      <i class="ti ti-info-circle me-1"></i>{{ intro }}
+   </div>
+   <a href="{{ export_url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Print the register (PDF)', 'grcmanager') }}</a>
+   <a href="{{ register_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-address-book me-1"></i>{{ __('Open the register', 'grcmanager') }}</a>
+</div>
+
+{% if contacts is empty %}
+   <div class="alert alert-info d-flex align-items-center">
+      <i class="ti ti-address-book me-2"></i>
+      <div>
+         {{ __('No official contact is marked for this type of event yet.', 'grcmanager') }}
+         {% if can_create %}<a href="{{ add_url }}">{{ __('Add an official contact', 'grcmanager') }}</a>{% endif %}
+      </div>
+   </div>
+{% else %}
+   {% include '@grcmanager/_official_contact_rows.html.twig' with {'contacts': contacts, 'multi': false} only %}
+{% endif %}

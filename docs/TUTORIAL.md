@@ -408,6 +408,33 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    modifiées depuis la revue précédente, revues dépassées. Pour l'auditeur, exportez la liste
    (CSV ou PDF) avec le bouton d'export de GLPI.
 
+### Étape 21 : Tenir le registre des contacts officiels (mesures A.5.5 et A.5.6)
+
+1. Ouvrez Conformité > **Contacts officiels** (onglet à côté de « Contexte de l'organisation »).
+   L'encadré « À quoi sert cette page ? » rappelle ce qui est attendu.
+2. Cliquez sur **Ajouter un contact officiel**. La fiche est une partie intéressée du contexte, déjà
+   cochée « Contact officiel » : il n'y a pas de second registre à tenir. Une partie existante (un
+   assureur, un hébergeur enregistré comme fournisseur) devient un contact officiel en cochant la
+   case sur sa fiche.
+3. Renseignez par exemple « Autorité de protection des données (fictive) » : catégorie « Autorité de
+   contrôle », coordonnées (téléphone, formulaire en ligne), **quand le contacter** (« Violation de
+   données présentant un risque pour les personnes, RGPD article 33 »), **délai** (« 72 heures »),
+   l'interlocuteur interne habilité (le DPO) et, en secours, un groupe (la cellule de crise). Cochez
+   « À contacter pour une violation de données personnelles ».
+4. Ajoutez de même le CSIRT national et la police (cochez « À contacter pour un incident de
+   sécurité »), votre assureur et les groupes d'intérêt que vous suivez (catégorie « Groupe
+   d'intérêt », preuve de la mesure A.5.6).
+5. Après avoir vérifié les coordonnées, cliquez sur **Enregistrer la vérification** : la date et
+   votre nom sont conservés dans l'historique. Un contact non vérifié depuis 12 mois est signalé dans
+   le registre, et son propriétaire reçoit une relance (au plus une fois par mois).
+6. Cliquez sur **Imprimer le registre (PDF)** et gardez la copie avec le plan de gestion de crise :
+   elle reste utilisable si GLPI est indisponible.
+7. Depuis un incident de sécurité ou une violation de données, l'onglet **Contacts officiels** affiche
+   les contacts à prévenir, avec le délai et la personne habilitée. Seuls les contacts de l'entité de
+   l'incident ou d'une entité parente (fiche visible des sous-entités) sont proposés.
+8. Sur la fiche des mesures A.5.5 et A.5.6 de la SoA, le cadre « Registre des contacts officiels »
+   montre le nombre de contacts, vérifiés ou à vérifier, avec le lien vers le registre et son PDF.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -802,3 +829,29 @@ To give a subsidiary its own Statement of Applicability:
 6. The management review form summarises the context: number of issues and parties, items changed
    since the previous review, overdue reviews. For the auditor, export the list (CSV or PDF) with the
    GLPI export button.
+
+### Step 21: Keep the register of official contacts (controls A.5.5 and A.5.6)
+
+1. Open Compliance > **Official contacts** (tab next to "Context of the organization"). The "What is
+   this page for?" box explains what is expected.
+2. Click **Add an official contact**. The record is an interested party of the context, already
+   ticked "Official contact": there is no second register to maintain. An existing party (an
+   insurer, a hosting provider recorded as a supplier) becomes an official contact by ticking the box
+   on its record.
+3. Fill in for instance "Data protection authority (fictitious)": category "Supervisory authority",
+   contact details (phone, online form), **when to contact** ("Personal data breach with a risk for
+   the persons, GDPR article 33"), **time limit** ("72 hours"), the authorised internal contact (the
+   DPO) and, as a backup, a group (the crisis team). Tick "To contact for a personal data breach".
+4. Add the national CSIRT and the police the same way (tick "To contact for a security incident"),
+   your insurer and the special interest groups you follow (category "Special interest group",
+   evidence for control A.5.6).
+5. After checking the details, click **Record the verification**: the date and your name are kept in
+   the history. A contact not verified for 12 months is flagged in the register, and its owner gets
+   a reminder (at most once a month).
+6. Click **Print the register (PDF)** and keep the copy with the crisis management plan: it stays
+   usable when GLPI is down.
+7. From a security incident or a personal data breach, the **Official contacts** tab shows the
+   contacts to inform, with the time limit and the authorised person. Only contacts of the entity of
+   the incident or of a parent entity (record visible in sub-entities) are listed.
+8. On controls A.5.5 and A.5.6 of the SoA, the "Register of official contacts" box shows the number
+   of contacts, verified or to verify, with links to the register and its PDF.

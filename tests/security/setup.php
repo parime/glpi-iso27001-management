@@ -162,6 +162,13 @@ if ($mode === 'xss') {
         'comment' => $canary, 'data_subjects' => '[]', 'data_categories' => '[]', 'sensitive_data' => '[]',
         'status' => 'active',
     ]);
+    // Issue #771 : chaque champ texte d'un contact officiel (registre, fiche, onglet de l'incident de A).
+    $out['official_contact'] = $insert('contextitems', [
+        'entities_id' => 0, 'is_recursive' => 1, 'kind' => 'party', 'name' => $canary, 'party_type' => 'authority',
+        'is_official_contact' => 1, 'contact_category' => 'csirt', 'contact_details' => $canary,
+        'when_to_contact' => $canary, 'contact_delay' => $canary, 'on_security_incident' => 1,
+        'on_data_breach' => 1, 'expectations' => $canary, 'comment' => $canary,
+    ]);
     // Issue #620 : chaque champ texte d'une violation de données.
     $out['breach'] = $insert('databreaches', [
         'name' => $canary, 'description' => $canary, 'data_details' => $canary, 'consequences' => $canary,
@@ -537,6 +544,8 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     // Issue #608 : partie intéressée de l'entité (contexte de l'organisation).
     $ids['context_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\ContextItem(), [
         'kind' => 'party', 'name' => 'Partie securite ' . $suffix, 'entities_id' => $entity,
+        // Issue #771 : contact officiel a prevenir pour un incident (onglet de l'incident de A).
+        'is_official_contact' => 1, 'contact_category' => 'csirt', 'on_security_incident' => 1,
     ]);
     // Issue #612 : activite de la matrice des responsabilites de l'entite.
     $ids['responsibility_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\ResponsibilityActivity(), [

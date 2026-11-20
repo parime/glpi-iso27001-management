@@ -1,0 +1,397 @@
+<?php
+
+/**
+ * -------------------------------------------------------------------------
+ * GLPI GRC Manager plugin for GLPI
+ * Copyright (C) 2026 Vincent GUILLOTTE
+ * https://github.com/parime/glpi-grc-manager
+ * -------------------------------------------------------------------------
+ * LICENSE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. See LICENSE for the full text.
+ * -------------------------------------------------------------------------
+ */
+
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use CommonGLPI;
+use CronTask;
+use Dropdown;
+use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Services\Context\ContextItemRules;
+use GlpiPlugin\Grcmanager\Services\Context\OfficialContactRules as Rules;
+use Html;
+use NotificationEvent;
+use PluginGrcmanagerSecurityIncident;
+use Session;
+
+/**
+ * Issue #771 : registre des contacts officiels (ISO 27001, A.5.5 relations avec les autorités, A.5.6
+ * relations avec des groupes d'intérêt).
+ *
+ * Pas d'objet ni de table à part : un contact officiel est une partie intéressée du contexte de
+ * l'organisation (ContextItem) marquée « contact officiel ». Cette classe n'en est que la vue :
+ * - le registre (liste, export PDF pour l'avoir hors ligne pendant une crise) ;
+ * - l'onglet « Contacts officiels » des incidents de sécurité et des violations de données ;
+ * - la preuve affichée sur les mesures A.5.5 et A.5.6 de la SoA ;
+ * - la relance des contacts non vérifiés depuis 12 mois (tâche automatique).
+ *
+ * Droits : ceux du contexte de l'organisation (droit général du plugin) et ses entités, partout.
+ * L'onglet d'un incident ou d'une violation exige en plus de pouvoir lire l'incident ou la
+ * violation, et ne montre que les contacts de son entité ou des entités parentes (fiche récursive).
+ */
+class OfficialContact extends CommonGLPI
+{
+    public static function getTypeName($nb = 0)
+    {
+        return _n('Official contact', 'Official contacts', $nb, 'grcmanager');
+    }
+
+    public static function getIcon()
+    {
+        return 'ti ti-address-book';
+    }
+
+    public static function canView(): bool
+    {
+        return ContextItem::canView();
+    }
+
+    public static function getRegisterURL(bool $full = true): string
+    {
+        global $CFG_GLPI;
+
+        return ($full ? $CFG_GLPI['root_doc'] : '') . '/plugins/grcmanager/front/officialcontact.php';
+    }
+
+    public static function getExportURL(): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/officialcontact.export.php';
+    }
+
+    /**
+     * Sous-page de la rubrique « Conformité » (Menu::sections()), avec les droits du contexte.
+     *
+     * @return array<string, mixed>|false
+     */
+    public static function getMenuContent()
+    {
+        if (!self::canView()) {
+            return false;
+        }
+
+        return [
+            'title' => self::getTypeName(Session::getPluralNumber()),
+            'page'  => self::getRegisterURL(false),
+            'icon'  => self::getIcon(),
+        ];
+    }
+
+    /**
+     * Contacts officiels (hors corbeille) des entités de la session, éventuellement restreints.
+     *
+     * @param array<int|string, mixed> $where
+     * @return list<array<string, mixed>>
+     */
+    public static function visibleContacts(array $where = []): array
+    {
+        global $DB;
+
+        $table = ContextItem::getTable();
+        if (!ContextItem::canView() || !$DB->fieldExists($table, 'is_official_contact')) {
+            return [];
+        }
+        $rows = [];
+        foreach (
+            $DB->request([
+                'FROM'  => $table,
+                'WHERE' => array_merge(
+                    ['is_deleted' => 0, 'is_official_contact' => 1, 'kind' => ContextItemRules::KIND_PARTY],
+                    $where,
+                    EntityPerimeter::criteria($table)
+                ),
+                'ORDER' => ['contact_category', 'name'],
+            ]) as $row
+        ) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Ligne affichable d'un contact (registre, onglet, PDF).
+     *
+     * @param array<string, mixed> $row
+     * @return array<string, mixed>
+     */
+    public static function present(array $row, string $today): array
+    {
+        $verified = isset($row['contact_verified_date']) ? (string) $row['contact_verified_date'] : null;
+        $categories = ContextItem::getContactCategories();
+        $groupId = (int) ($row['groups_id_internal'] ?? 0);
+
+        return [
+            'id'              => (int) $row['id'],
+            'url'             => ContextItem::getFormURLWithID((int) $row['id']),
+            'name'            => (string) $row['name'],
+            'category'        => $categories[(string) ($row['contact_category'] ?? '')] ?? $categories['other'],
+            'details'         => (string) ($row['contact_details'] ?? ''),
+            'when'            => (string) ($row['when_to_contact'] ?? ''),
+            'delay'           => (string) ($row['contact_delay'] ?? ''),
+            'internal'        => (int) ($row['users_id_internal'] ?? 0) > 0
+                ? getUserName((int) $row['users_id_internal']) : '',
+            'internal_group'  => $groupId > 0 ? Dropdown::getDropdownName('glpi_groups', $groupId) : '',
+            'on_incident'     => !empty($row['on_security_incident']),
+            'on_breach'       => !empty($row['on_data_breach']),
+            'verified'        => $verified ?? '',
+            'status'          => Rules::verificationStatus($verified, $today),
+            'next'            => Rules::nextVerificationDate($verified) ?? '',
+            'entity'          => Dropdown::getDropdownName('glpi_entities', (int) $row['entities_id']),
+        ];
+    }
+
+    /**
+     * @return list<array<string, mixed>>
+     */
+    private static function presentAll(array $rows): array
+    {
+        $today = date('Y-m-d');
+
+        return array_map(static fn (array $row): array => self::present($row, $today), $rows);
+    }
+
+    /**
+     * Page du registre : synthèse, boutons et liste par catégorie.
+     */
+    public static function showRegister(): void
+    {
+        $rows = self::visibleContacts();
+        TemplateRenderer::getInstance()->display('@grcmanager/official_contact_register.html.twig', [
+            'contacts'   => self::presentAll($rows),
+            'summary'    => Rules::summary($rows, date('Y-m-d')),
+            'can_create' => ContextItem::canCreate(),
+            'add_url'    => ContextItem::getFormURL() . '?kind=' . ContextItemRules::KIND_PARTY . '&official=1',
+            'export_url' => self::getExportURL(),
+            'search_url' => ContextItem::getSearchURL(),
+            'multi'      => EntityPerimeter::isMultiEntity(),
+        ]);
+    }
+
+    /**
+     * Rapport PDF du registre (HTML pour PdfRenderer), à imprimer pour l'avoir hors ligne.
+     */
+    public static function reportHtml(): string
+    {
+        $rows = self::visibleContacts();
+
+        return TemplateRenderer::getInstance()->render('@grcmanager/pdf/official_contacts_report.html.twig', [
+            'report_title'       => __('Register of official contacts', 'grcmanager'),
+            'generated_at_label' => sprintf(
+                __('Generated on %s', 'grcmanager'),
+                Html::convDateTime(date('Y-m-d H:i:s'))
+            ),
+            'perimeter'          => EntityPerimeter::isMultiEntity()
+                ? Dropdown::getDropdownName('glpi_entities', Session::getActiveEntity())
+                : '',
+            'summary'            => Rules::summary($rows, date('Y-m-d')),
+            'contacts'           => self::presentAll($rows),
+        ]);
+    }
+
+    // ------------------------------------------------------------------
+    // Onglet « Contacts officiels » des incidents de sécurité et des violations de données
+    // ------------------------------------------------------------------
+
+    /**
+     * Type d'événement de l'objet affiché, null s'il n'a pas d'onglet.
+     */
+    private static function contextFor(CommonGLPI $item): ?string
+    {
+        if ($item instanceof PluginGrcmanagerSecurityIncident) {
+            return Rules::CONTEXT_INCIDENT;
+        }
+        if ($item instanceof DataBreach) {
+            return Rules::CONTEXT_BREACH;
+        }
+
+        return null;
+    }
+
+    /**
+     * Contacts à prévenir pour cet incident ou cette violation : contacts lisibles par la personne,
+     * de l'entité de l'objet ou d'une entité parente (fiche visible des sous-entités).
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function concernedBy(CommonDBTM $item): array
+    {
+        $context = self::contextFor($item);
+        if ($context === null || $item->isNewItem()) {
+            return [];
+        }
+        $field = $context === Rules::CONTEXT_INCIDENT ? 'on_security_incident' : 'on_data_breach';
+        $table = ContextItem::getTable();
+
+        return self::visibleContacts([
+            $field => 1,
+            getEntitiesRestrictCriteria($table, '', (int) $item->fields['entities_id'], true),
+        ]);
+    }
+
+    public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
+    {
+        if (
+            self::contextFor($item) === null
+            || !$item instanceof CommonDBTM
+            || $item->isNewItem()
+            || !self::canView()
+            || !$item->canViewItem()
+        ) {
+            return '';
+        }
+
+        return self::createTabEntry(
+            self::getTypeName(Session::getPluralNumber()),
+            count(self::concernedBy($item)),
+            null,
+            self::getIcon()
+        );
+    }
+
+    public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
+    {
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem() : mêmes contrôles.
+        if (
+            self::contextFor($item) === null
+            || !$item instanceof CommonDBTM
+            || $item->isNewItem()
+            || !self::canView()
+            || !$item->can($item->getID(), READ)
+        ) {
+            return false;
+        }
+        $breach = self::contextFor($item) === Rules::CONTEXT_BREACH;
+        TemplateRenderer::getInstance()->display('@grcmanager/official_contact_tab.html.twig', [
+            'contacts'     => self::presentAll(self::concernedBy($item)),
+            'intro'        => $breach
+                ? __(
+                    'Official contacts to inform for a personal data breach, with the time limit and the person '
+                        . 'allowed to contact them.',
+                    'grcmanager'
+                )
+                : __(
+                    'Official contacts to inform for a security incident, with the time limit and the person '
+                        . 'allowed to contact them.',
+                    'grcmanager'
+                ),
+            'register_url' => self::getRegisterURL(),
+            'export_url'   => self::getExportURL(),
+            'can_create'   => ContextItem::canCreate(),
+            'add_url'      => ContextItem::getFormURL() . '?kind=' . ContextItemRules::KIND_PARTY . '&official=1',
+        ]);
+
+        return true;
+    }
+
+    // ------------------------------------------------------------------
+    // Preuve des mesures A.5.5 et A.5.6
+    // ------------------------------------------------------------------
+
+    /**
+     * Preuve affichée sur la fiche d'une mesure : contacts de la catégorie de la mesure, vérifiés ou
+     * à vérifier, dans les entités de la personne. Null pour les autres mesures ou sans droit.
+     *
+     * @return array{total: int, verified: int, to_verify: int, url: string, export_url: string}|null
+     */
+    public static function evidence(string $code): ?array
+    {
+        $categories = Rules::categoriesForControl($code);
+        if ($categories === null || !self::canView()) {
+            return null;
+        }
+        $rows = self::visibleContacts(['contact_category' => $categories]);
+
+        return Rules::summary($rows, date('Y-m-d')) + [
+            'url'        => self::getRegisterURL(),
+            'export_url' => self::getExportURL(),
+        ];
+    }
+
+    // ------------------------------------------------------------------
+    // Relance des contacts non vérifiés depuis 12 mois
+    // ------------------------------------------------------------------
+
+    public static function cronInfo(string $name): array
+    {
+        return [
+            'description' => __('Reminds the owner of each official contact not verified for 12 months', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * Tâche automatique : prévient le propriétaire de chaque contact officiel jamais vérifié ou
+     * vérifié il y a plus de 12 mois, au plus une fois par mois. Toutes les entités (pas de session),
+     * fiches de la corbeille exclues.
+     */
+    public static function cronContactverification(CronTask $task): int
+    {
+        $result = self::sendReminders(date('Y-m-d'));
+        $task->addVolume($result['notified']);
+        $task->log(sprintf(
+            __('%1$d official contact(s) to verify, %2$d reminder(s) sent.', 'grcmanager'),
+            $result['due'],
+            $result['notified']
+        ));
+
+        return $result['due'] > 0 ? 1 : 0;
+    }
+
+    /**
+     * @return array{due: int, notified: int}
+     */
+    public static function sendReminders(string $today): array
+    {
+        global $DB;
+
+        $table = ContextItem::getTable();
+        $due = 0;
+        $notified = 0;
+        if (!$DB->fieldExists($table, 'is_official_contact')) {
+            return ['due' => 0, 'notified' => 0];
+        }
+        foreach (
+            $DB->request([
+                'FROM'  => $table,
+                'WHERE' => ['is_deleted' => 0, 'is_official_contact' => 1, 'kind' => ContextItemRules::KIND_PARTY],
+            ]) as $row
+        ) {
+            $verified = isset($row['contact_verified_date']) ? (string) $row['contact_verified_date'] : null;
+            if (Rules::verificationStatus($verified, $today) === Rules::STATUS_OK) {
+                continue;
+            }
+            $due++;
+            $reminder = isset($row['contact_reminder_date']) ? (string) $row['contact_reminder_date'] : null;
+            if (!Rules::shouldRemind($verified, $reminder, $today)) {
+                continue;
+            }
+            $item = new ContextItem();
+            if (!$item->getFromDB((int) $row['id'])) {
+                continue;
+            }
+            if (NotificationEvent::raiseEvent(ContextItem::CONTACT_VERIFICATION_EVENT, $item)) {
+                $notified++;
+            }
+            // Une relance par mois au plus, envoyée ou non (aucune notification active).
+            $DB->update($table, ['contact_reminder_date' => $today . ' ' . date('H:i:s')], ['id' => (int) $row['id']]);
+        }
+
+        return ['due' => $due, 'notified' => $notified];
+    }
+}

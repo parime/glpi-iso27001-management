@@ -33,6 +33,8 @@ class NotificationTargetContextItem extends NotificationTarget
     {
         return [
             ContextItem::REVIEW_DUE_EVENT => __('Context review due', 'grcmanager'),
+            // Issue #771 : contact officiel non vérifié depuis 12 mois.
+            ContextItem::CONTACT_VERIFICATION_EVENT => __('Official contact to verify', 'grcmanager'),
         ];
     }
 
@@ -55,7 +57,14 @@ class NotificationTargetContextItem extends NotificationTarget
         $relevances = ContextItem::getRelevances();
         $this->data['##contextitem.decision##']   = $relevances[$item->fields['relevance'] ?? ''] ?? '';
         $this->data['##contextitem.reviewdate##'] = Html::convDate($item->fields['review_date'] ?? null);
-        $this->data['##contextitem.url##']        = $this->formatURL(
+        $this->data['##contextitem.contactcategory##'] = ContextItem::getContactCategories()[
+            (string) ($item->fields['contact_category'] ?? '')
+        ] ?? '';
+        $verified = $item->fields['contact_verified_date'] ?? null;
+        $this->data['##contextitem.contactverified##'] = empty($verified)
+            ? __('Never verified', 'grcmanager')
+            : Html::convDate($verified);
+        $this->data['##contextitem.url##']       = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
             ContextItem::class . '_' . $item->getID()
         );
@@ -77,6 +86,8 @@ class NotificationTargetContextItem extends NotificationTarget
             'contextitem.kind'       => __('Kind', 'grcmanager'),
             'contextitem.decision'   => __('Decision', 'grcmanager'),
             'contextitem.reviewdate' => __('Review date', 'grcmanager'),
+            'contextitem.contactcategory' => __('Contact category', 'grcmanager'),
+            'contextitem.contactverified' => __('Last verification', 'grcmanager'),
             'contextitem.url'        => __('URL'),
         ];
 
