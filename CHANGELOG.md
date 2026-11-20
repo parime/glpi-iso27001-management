@@ -7,8 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.68.0] - 2026-11-20
-
 ### Added
 
 - **Compétences (ISO 27001, article 7.2), lot 2** (issue #774). Suite du lot 1 (2.65.0), pour
@@ -28,6 +26,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - droits : ceux de la matrice des compétences (droit du plugin et lecture des utilisateurs, entités
     de la session) ; la session proposée ne présélectionne que les personnes visibles. Aucune
     inscription, aucun statut ni aucun droit n'est modifié automatiquement.
+
+## [2.68.0] - 2026-11-20
+
+### Added
+
 - **Plan d'audit de l'organisme de certification** (issue #772, lot 2). Nouvel écran « Plan d'audit
   de l'organisme » dans la rubrique Audits et amélioration :
   - programme d'échantillonnage de l'organisme sur le cycle de certification de trois ans : matrice
