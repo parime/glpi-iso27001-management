@@ -22431,18 +22431,8 @@ msgid "Independence of the auditors"
 msgstr "Niezależność audytorów"
 
 #, php-format
-msgid ""
-"An auditor must not audit their own work (ISO 19011). An auditor who "
-"performs or approves an audited process in the responsibility matrix, "
-"directly or through a group, is in conflict. The audit cannot be started or "
-"closed until each conflict is justified; the justification is kept with its "
-"author and date."
-msgstr ""
-"Audytor nie może audytować własnej pracy (ISO 19011). Audytor, który "
-"wykonuje lub zatwierdza audytowany proces w macierzy odpowiedzialności, "
-"bezpośrednio lub przez grupę, jest w konflikcie. Audytu nie można rozpocząć "
-"ani zakończyć, dopóki każdy konflikt nie zostanie uzasadniony; uzasadnienie "
-"jest przechowywane wraz z autorem i datą."
+msgid "An auditor must not audit their own work (ISO 19011). An auditor who performs or approves an audited process in the responsibility matrix, directly or through a group, is in conflict. A process whose Annex A controls (responsibility matrix) are audited in the checklist or linked to the audit is checked too. The audit cannot be started or closed until each conflict is justified; the justification is kept with its author and date."
+msgstr "Audytor nie może audytować własnej pracy (ISO 19011). Audytor, który wykonuje lub zatwierdza audytowany proces w macierzy odpowiedzialności, bezpośrednio lub przez grupę, jest w konflikcie. Audytu nie można rozpocząć ani zakończyć, dopóki każdy konflikt nie zostanie uzasadniony; uzasadnienie jest przechowywane wraz z autorem i datą. Sprawdzany jest też proces, którego zabezpieczenia z załącznika A (macierz odpowiedzialności) są audytowane w liście kontrolnej lub powiązane z audytem."
 
 #, php-format
 msgid "Auditors"
@@ -26770,3 +26760,21 @@ msgid_plural "%d documents"
 msgstr[0] "%d dokument"
 msgstr[1] "%d dokumenty"
 msgstr[2] "%d dokumentów"
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr "Audyt można zaplanować tylko na bieżący lub późniejszy rok."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr "Audyt zaplanowany: uzupełnij jego cele, zakres, kryteria i audytorów."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Audyt wewnętrzny - %1$s - %2$d"
+
+msgid "\"Plan\" creates an internal audit for the process and the year, in the entity of the process. Then complete its objectives, scope, criteria and auditors on the audit."
+msgstr "„Planuj” tworzy audyt wewnętrzny dla procesu i roku w jednostce procesu. Następnie uzupełnij jego cele, zakres, kryteria i audytorów w karcie audytu."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Zaplanuj audyt wewnętrzny procesu %1$s w roku %2$d"
+
+msgid "Through the audited controls %s"
+msgstr "Poprzez audytowane zabezpieczenia %s"
