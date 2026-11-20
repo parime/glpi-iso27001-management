@@ -536,7 +536,7 @@ natifs de lecture des logiciels et des licences.
    Oracle, Autodesk...) : c'est le champ « Fabricant » du logiciel dans GLPI. La seconde liste
    écarte les outils gratuits de ces éditeurs (« Redistributable », « Acrobat Reader »...). Seule
    une personne qui peut modifier la configuration du plugin change ces listes.
-3. Les trois compteurs donnent le nombre de constats, regroupés ensuite par entité :
+3. Les compteurs donnent le nombre de constats, regroupés ensuite par entité :
    - **Logiciel commercial sans licence** : un logiciel d'un éditeur surveillé est installé, et
      aucune licence ne compte pour cette entité. Une licence compte pour une entité si elle lui
      appartient, ou si elle est récursive et appartient à une entité parente.
@@ -546,13 +546,20 @@ natifs de lecture des logiciels et des licences.
      « Partagée avec les sous-entités » compte leurs installations ensemble.
    - **Licence expirée encore utilisée** : des ordinateurs y sont encore affectés, ou le logiciel
      reste installé sans autre licence valable.
+   - **Licence arrivant à échéance** (rappel, pas un écart) : une licence utilisée expire dans les
+     60 prochains jours et aucun renouvellement n'est saisi. Réglez ce délai en bas de la page
+     (« Alerter avant l'échéance d'une licence », 0 pour désactiver).
+
+   Le badge **Dépassement autorisé** signale un surdéploiement sur une licence qui l'autorise : il
+   reste à régulariser auprès de l'éditeur. Au-dessus des constats, la **couverture des licences**
+   donne la part des logiciels commerciaux surveillés installés qui ont une licence valable.
 4. Pour chaque constat, ouvrez le logiciel ou la licence (liens) et corrigez dans GLPI : saisissez
    la licence achetée, ajoutez des postes, désinstallez le logiciel, ou renouvelez la licence et
    déplacez les ordinateurs affectés.
 5. Cliquez sur **Export (CSV)** pour remettre la liste à l'auditeur.
 6. Sur la fiche de la mesure A.5.32 de la SoA, le cadre « Conformité des licences logicielles »
-   montre les trois compteurs, et les contrôles de cohérence du SMSI (onglet du tableau de bord) listent
-   chaque constat.
+   montre les compteurs, les licences arrivant à échéance et la couverture des licences ; les
+   contrôles de cohérence du SMSI (onglet du tableau de bord) listent chaque écart.
 ### Étape 24 : Préparer l'audit de certification avec une date cible
 
 1. Ouvrez Tableau de bord > **Préparation à la certification**. L'encadré « À quoi sert cette page ? »
@@ -1331,7 +1338,7 @@ rights to read software and licenses.
    Oracle, Autodesk...): it is the "Manufacturer" field of the software in GLPI. The second list
    leaves out the free tools of these publishers ("Redistributable", "Acrobat Reader"...). Only a
    person who can change the plugin configuration can edit these lists.
-3. The three counters give the number of findings, then grouped by entity:
+3. The counters give the number of findings, then grouped by entity:
    - **Commercial software without a license**: software from a watched publisher is installed, and
      no license counts for this entity. A license counts for an entity when it belongs to it, or when
      it is recursive and belongs to a parent entity.
@@ -1341,12 +1348,20 @@ rights to read software and licenses.
      installations together.
    - **Expired license still in use**: computers are still assigned to it, or the software is still
      installed with no other valid license.
+   - **License expiring soon** (a reminder, not a gap): a license in use expires within the next 60
+     days and no renewal is recorded. Change this delay at the bottom of the page ("Warn before a
+     license expires", 0 to turn off).
+
+   The **Over-quota allowed** badge marks an over-deployment on a license that allows it: it still
+   has to be settled with the publisher. Above the findings, the **license coverage** gives the share
+   of installed watched commercial software that has a valid license.
 4. For each finding, open the software or the license (links) and fix it in GLPI: record the
    license you bought, add seats, uninstall the software, or renew the license and move the assigned
    computers.
 5. Click **Export (CSV)** to hand the list to the auditor.
-6. On control A.5.32 of the SoA, the "Software license compliance" box shows the three counters, and
-   the ISMS consistency checks (tab of the dashboard) list each finding.
+6. On control A.5.32 of the SoA, the "Software license compliance" box shows the counters, the
+   licenses expiring soon and the license coverage; the ISMS consistency checks (tab of the
+   dashboard) list each gap.
 ### Step 24: Prepare the certification audit with a target date
 
 1. Open Dashboard > **Certification readiness**. The "What is this page for?" box explains what is

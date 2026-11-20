@@ -26444,6 +26444,63 @@ msgstr[0] "Odnotowany kontakt"
 msgstr[1] "Odnotowane kontakty"
 msgstr[2] "Odnotowanych kontaktów"
 
+#, php-format
+msgid ""
+"%1$d of %2$d watched commercial software installed (per entity) have a valid "
+"license."
+msgstr ""
+"%1$d z %2$d zainstalowanych monitorowanych programów komercyjnych (na "
+"jednostkę) ma ważną licencję."
+
+#, php-format
+msgid "%d license(s) expiring soon"
+msgstr "Licencje wkrótce wygasające: %d"
+
+msgid ""
+"A license in use expires within the alert horizon and no renewal is recorded "
+"in GLPI yet. This is a reminder, not a gap."
+msgstr ""
+"Używana licencja wygasa w okresie ostrzegania, a w GLPI nie zarejestrowano "
+"jeszcze odnowienia. To przypomnienie, a nie niezgodność."
+
+#, php-format
+msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
+msgstr ""
+"Wygasa %1$s: %2$d zasób(-ów) przypisany(-ch), %3$d instalacja(-i) %4$s."
+
+msgid "License coverage"
+msgstr "Pokrycie licencjami"
+
+#, php-format
+msgid "License coverage: %d%%"
+msgstr "Pokrycie licencjami: %d%%"
+
+msgid "License expiring soon"
+msgstr "Licencja wkrótce wygasa"
+
+msgid "No warning before a license expires."
+msgstr "Brak ostrzeżenia przed wygaśnięciem licencji."
+
+msgid "Over-quota allowed"
+msgstr "Przekroczenie dozwolone"
+
+msgid "Over-quota allowed by the license"
+msgstr "Przekroczenie dozwolone przez licencję"
+
+msgid ""
+"The license allows going over the number of seats: settle it with the "
+"publisher."
+msgstr ""
+"Licencja pozwala przekroczyć liczbę stanowisk: należy to uregulować z "
+"wydawcą."
+
+msgid "Warn before a license expires (days, 0 to turn off)"
+msgstr "Ostrzegaj przed wygaśnięciem licencji (dni, 0 aby wyłączyć)"
+
+#, php-format
+msgid "Warning %d days before a license expires."
+msgstr "Ostrzeżenie na %d dni przed wygaśnięciem licencji."
+
 msgid "Audit objectives"
 msgstr "Cele audytu"
 
@@ -26492,21 +26549,41 @@ msgstr "Później"
 msgid "No qualifying training chosen"
 msgstr "Nie wybrano szkolenia kwalifikującego"
 
-msgid "The references against which the evidence is compared: requirements of the standard (clause numbers), ISMS policies, procedures, contracts or laws."
-msgstr "Odniesienia, z którymi porównuje się dowody: wymagania normy (numery punktów), polityki SZBI, procedury, umowy lub przepisy."
+msgid ""
+"The references against which the evidence is compared: requirements of the "
+"standard (clause numbers), ISMS policies, procedures, contracts or laws."
+msgstr ""
+"Odniesienia, z którymi porównuje się dowody: wymagania normy (numery "
+"punktów), polityki SZBI, procedury, umowy lub przepisy."
 
-msgid "What the audit must establish, for example: check that access rights are reviewed as planned."
-msgstr "Co audyt ma ustalić, na przykład: sprawdzić, czy prawa dostępu są przeglądane zgodnie z planem."
+msgid ""
+"What the audit must establish, for example: check that access rights are "
+"reviewed as planned."
+msgstr ""
+"Co audyt ma ustalić, na przykład: sprawdzić, czy prawa dostępu są "
+"przeglądane zgodnie z planem."
 
 #, php-format
-msgid "%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, competence or independence of the auditors, report to management): see the table below."
-msgstr "%d audyt(y) cyklu mają punkty kontrolne do uzupełnienia (cele, kryteria, kompetencje lub niezależność audytorów, raport dla kierownictwa): zobacz tabelę poniżej."
+msgid ""
+"%d audit(s) of the cycle have checkpoints to complete (objectives, criteria, "
+"competence or independence of the auditors, report to management): see the "
+"table below."
+msgstr ""
+"%d audyt(y) cyklu mają punkty kontrolne do uzupełnienia (cele, kryteria, "
+"kompetencje lub niezależność audytorów, raport dla kierownictwa): zobacz "
+"tabelę poniżej."
 
 msgid "Checkpoints of the audits of the cycle"
 msgstr "Punkty kontrolne audytów cyklu"
 
-msgid "For each internal audit of the cycle: what the certification auditor will look for. Open the audit and its \"Programme and independence\" tab to complete a missing point."
-msgstr "Dla każdego audytu wewnętrznego cyklu: na co zwróci uwagę audytor certyfikujący. Otwórz audyt i jego kartę „Program i niezależność”, aby uzupełnić brakujący punkt."
+msgid ""
+"For each internal audit of the cycle: what the certification auditor will "
+"look for. Open the audit and its \"Programme and independence\" tab to "
+"complete a missing point."
+msgstr ""
+"Dla każdego audytu wewnętrznego cyklu: na co zwróci uwagę audytor "
+"certyfikujący. Otwórz audyt i jego kartę „Program i niezależność”, aby "
+"uzupełnić brakujący punkt."
 
 msgid "No internal audit dated in this cycle."
 msgstr "Brak audytu wewnętrznego z datą w tym cyklu."
@@ -26521,8 +26598,18 @@ msgstr "Punkty kontrolne audytu"
 msgid "Ready to show the auditor"
 msgstr "Gotowe do pokazania audytorowi"
 
-msgid "What the certification auditor checks for each internal audit: objectives, scope and criteria defined beforehand, auditors who are competent and do not audit their own work, results reported to management. Objectives, scope and criteria are entered on the audit form; competence comes from the qualifying trainings chosen on the programme page."
-msgstr "Co audytor certyfikujący sprawdza przy każdym audycie wewnętrznym: cele, zakres i kryteria określone z wyprzedzeniem, kompetentnych audytorów, którzy nie audytują własnej pracy, wyniki przekazane kierownictwu. Cele, zakres i kryteria wpisuje się w formularzu audytu; kompetencje wynikają ze szkoleń kwalifikujących wybranych na stronie programu."
+msgid ""
+"What the certification auditor checks for each internal audit: objectives, "
+"scope and criteria defined beforehand, auditors who are competent and do not "
+"audit their own work, results reported to management. Objectives, scope and "
+"criteria are entered on the audit form; competence comes from the qualifying "
+"trainings chosen on the programme page."
+msgstr ""
+"Co audytor certyfikujący sprawdza przy każdym audycie wewnętrznym: cele, "
+"zakres i kryteria określone z wyprzedzeniem, kompetentnych audytorów, którzy "
+"nie audytują własnej pracy, wyniki przekazane kierownictwu. Cele, zakres i "
+"kryteria wpisuje się w formularzu audytu; kompetencje wynikają ze szkoleń "
+"kwalifikujących wybranych na stronie programu."
 
 msgid "Qualifying trainings"
 msgstr "Szkolenia kwalifikujące"

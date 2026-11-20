@@ -60,8 +60,12 @@ final class LicenseComplianceRulesTest extends TestCase
      * @param list<array<string, mixed>> $assignments
      * @return list<array<string, mixed>>
      */
-    private static function evaluate(array $installs, array $licences = [], array $assignments = []): array
-    {
+    private static function evaluate(
+        array $installs,
+        array $licences = [],
+        array $assignments = [],
+        int $expiringDays = 0
+    ): array {
         /** @phpstan-ignore argument.type, argument.type, argument.type */
         return R::evaluate(
             self::SOFTWARE,
@@ -71,7 +75,8 @@ final class LicenseComplianceRulesTest extends TestCase
             self::ANCESTORS,
             R::DEFAULT_PUBLISHERS,
             R::DEFAULT_IGNORED,
-            self::TODAY
+            self::TODAY,
+            $expiringDays
         );
     }
 
@@ -250,6 +255,88 @@ final class LicenseComplianceRulesTest extends TestCase
             ['unlicensed:entity:4:10:1/0', 'overdeployed:entity:1:10:2/1', 'expired:entity:1:13:1/5'],
             self::summary($findings)
         );
-        self::assertSame(['unlicensed' => 1, 'overdeployed' => 1, 'expired' => 1], R::counts($findings));
+        self::assertSame(
+            ['unlicensed' => 1, 'overdeployed' => 1, 'expired' => 1, 'expiring' => 0],
+            R::counts($findings)
+        );
+    }
+
+    public function testExpiringHorizonIsBoundedAndComputed(): void
+    {
+        self::assertSame(0, R::boundExpiringDays(-5));
+        self::assertSame(R::MAX_EXPIRING_DAYS, R::boundExpiringDays(5000));
+        self::assertTrue(R::isExpiring('2026-11-20', self::TODAY, 60), 'le jour même');
+        self::assertTrue(R::isExpiring('2027-01-19', self::TODAY, 60), 'dernier jour inclus');
+        self::assertFalse(R::isExpiring('2027-01-20', self::TODAY, 60));
+        self::assertFalse(R::isExpiring('2026-11-19', self::TODAY, 60), 'déjà expirée');
+        self::assertFalse(R::isExpiring('', self::TODAY, 60), 'sans date');
+        self::assertFalse(R::isExpiring('2026-12-01', self::TODAY, 0), 'alerte désactivée');
+    }
+
+    public function testLicenceExpiringSoonIsAReminderUnlessRenewed(): void
+    {
+        $soon = self::licence(1, 13, 1, 5, false, '2026-12-15');
+        $installs = [self::install(13, 1, 100)];
+        // Alerte désactivée par défaut dans evaluate() (horizon 0).
+        self::assertSame([], self::evaluate($installs, [$soon]));
+        $findings = self::evaluate($installs, [$soon], [], 60);
+        self::assertSame(['expiring:entity:1:13:1/5'], self::summary($findings));
+        self::assertSame('2026-12-15', $findings[0]['expire']);
+        self::assertSame(1, $findings[0]['licence_id']);
+        // Échéance au-delà de l'horizon : rien.
+        self::assertSame([], self::evaluate($installs, [self::licence(1, 13, 1, 5, false, '2027-06-30')], [], 60));
+        // Renouvellement déjà enregistré (sans date ou au-delà de l'horizon) : rien.
+        self::assertSame([], self::evaluate($installs, [$soon, self::licence(2, 13, 1, 5)], [], 60));
+        self::assertSame(
+            [],
+            self::evaluate($installs, [$soon, self::licence(2, 13, 1, 5, false, '2027-12-31')], [], 60)
+        );
+        // Une autre licence qui expire aussi dans l'horizon n'est pas un renouvellement.
+        self::assertSame(
+            ['expiring:entity:1:13:1/5', 'expiring:entity:1:13:1/5'],
+            self::summary(self::evaluate(
+                $installs,
+                [$soon, self::licence(2, 13, 1, 5, false, '2026-12-31')],
+                [],
+                60
+            ))
+        );
+        // Licence inutilisée (rien d'installé, aucun actif affecté) : rien.
+        self::assertSame([], self::evaluate([], [$soon], [], 60));
+    }
+
+    public function testOverDeploymentAllowedByTheLicenceIsStillReportedWithThatNote(): void
+    {
+        $installs = [self::install(10, 1, 100), self::install(10, 1, 101)];
+        $licence = self::licence(1, 10, 1, 1);
+        $findings = self::evaluate($installs, [$licence]);
+        self::assertFalse($findings[0]['overquota_allowed']);
+        $licence['allow_overquota'] = true;
+        $findings = self::evaluate($installs, [$licence]);
+        self::assertSame(['overdeployed:entity:1:10:2/1'], self::summary($findings));
+        self::assertTrue($findings[0]['overquota_allowed']);
+    }
+
+    public function testCoverageCountsWatchedSoftwarePerEntity(): void
+    {
+        $installs = [
+            self::install(10, 1, 100), self::install(10, 1, 101), // couvert par une licence
+            self::install(10, 4, 300),                           // autre entité, sans licence
+            self::install(11, 1, 100),                           // gratuit ignoré
+            self::install(12, 1, 100),                           // éditeur non surveillé
+            self::install(13, 2, 200),                           // licence expirée seulement
+        ];
+        $licences = [self::licence(1, 10, 1, 1), self::licence(2, 13, 2, 5, false, '2026-01-01')];
+        /** @phpstan-ignore argument.type, argument.type */
+        $coverage = R::coverage(
+            self::SOFTWARE,
+            $installs,
+            $licences,
+            self::ANCESTORS,
+            R::DEFAULT_PUBLISHERS,
+            R::DEFAULT_IGNORED,
+            self::TODAY
+        );
+        self::assertSame(['watched' => 3, 'licensed' => 1], $coverage);
     }
 }

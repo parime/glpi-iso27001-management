@@ -321,6 +321,8 @@ if ($mode === 'xss') {
     $DB->update('glpi_computers', ['name' => $canary], ['id' => (int) $ids['computer_A']]);
     // Issue #779 : logiciel commercial sans licence piégé (page des licences logicielles, export).
     $DB->update('glpi_softwares', ['name' => $canary], ['name' => 'Logiciel licence securite A']);
+    // Issue #779, lot 2 : licence piégée qui arrive à échéance (lien vers la licence sur la page).
+    $DB->update('glpi_softwarelicenses', ['name' => $canary], ['name' => 'Licence echeance securite A']);
     // Issue #377 : processus metier et role d'une dependance (fiche, liste, onglets, export).
     $out['process'] = $insert('businessprocesses', ['name' => $canary, 'description' => $canary, 'rto_hours' => 4]);
     $insert('businessprocesses_items', [
@@ -696,6 +698,21 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'softwareversions_id' => $add(new SoftwareVersion(), [
             'name' => '1.0', 'softwares_id' => $licenseSoftware, 'entities_id' => $entity,
         ]),
+    ]);
+    // Issue #779, lot 2 : logiciel fictif dont la licence de l'entité expire dans 20 jours.
+    $expiringSoftware = $add(new Software(), [
+        'name' => 'Logiciel echeance securite ' . $suffix, 'entities_id' => $entity,
+        'manufacturers_id' => (int) (new Manufacturer())->import(['name' => 'Microsoft']),
+    ]);
+    $add(new Item_SoftwareVersion(), [
+        'itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix], 'entities_id' => $entity,
+        'softwareversions_id' => $add(new SoftwareVersion(), [
+            'name' => '1.0', 'softwares_id' => $expiringSoftware, 'entities_id' => $entity,
+        ]),
+    ]);
+    $add(new SoftwareLicense(), [
+        'name' => 'Licence echeance securite ' . $suffix, 'softwares_id' => $expiringSoftware,
+        'entities_id' => $entity, 'number' => 5, 'expire' => date('Y-m-d', strtotime('+20 days')),
     ]);
     // Issue #782 : ordinateur fictif de l'entité dont la garantie est expirée.
     $add(new Infocom(), [
