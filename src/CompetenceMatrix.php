@@ -83,6 +83,35 @@ class CompetenceMatrix extends CommonGLPI
         return self::canView() && CompetenceDeclaration::isVisibleUser($usersId);
     }
 
+    /**
+     * Lot 2 : nouvelle session de la formation, préremplie avec les personnes en écart sans action
+     * planifiée. Rien n'est enregistré avant « Ajouter ».
+     */
+    public static function sessionUrl(int $trainingId): string
+    {
+        return Training::getFormURL() . '?competence_gaps_of=' . $trainingId;
+    }
+
+    /**
+     * Personnes visibles en écart sur une compétence que donne la formation, sans inscription en
+     * attente qui le comble : participants proposés pour la nouvelle session.
+     *
+     * @return list<int>
+     */
+    public static function gapPeopleForTraining(int $trainingId): array
+    {
+        if ($trainingId <= 0 || !self::canView()) {
+            return [];
+        }
+        foreach (self::data()['to_plan'] as $row) {
+            if ($row['id'] === $trainingId) {
+                return $row['users'];
+            }
+        }
+
+        return [];
+    }
+
     public static function pdfUrl(int $functionId = 0): string
     {
         global $CFG_GLPI;
@@ -217,24 +246,9 @@ class CompetenceMatrix extends CommonGLPI
             return $sources;
         }
         $grants = Competence::trainingsFor($competenceIds);
-        $mainIds = [];
-        foreach ($grants as $list) {
-            foreach (array_keys($list) as $trainingId) {
-                $mainIds[$trainingId] = $trainingId;
-            }
-        }
-        if ($mainIds !== []) {
-            $fk = Training::getForeignKeyField();
-            $trainings = [];
-            foreach (
-                $DB->request([
-                    'SELECT' => ['id', 'title', $fk, 'renewal_period_months'],
-                    'FROM'   => Training::getTable(),
-                    'WHERE'  => ['OR' => ['id' => array_values($mainIds), $fk => array_values($mainIds)]],
-                ]) as $row
-            ) {
-                $trainings[(int) $row['id']] = $row;
-            }
+        $trainings = self::grantingTrainings($grants);
+        $fk = Training::getForeignKeyField();
+        if ($trainings !== []) {
             foreach (
                 $DB->request([
                     'FROM'  => self::PARTICIPANTS_TABLE,
@@ -287,6 +301,93 @@ class CompetenceMatrix extends CommonGLPI
         }
 
         return $sources;
+    }
+
+    /**
+     * Formations qui donnent les compétences : formations principales liées et leurs sessions.
+     *
+     * @param array<int, array<int, int>> $grants compétence => formation principale => niveau
+     * @return array<int, array<string, mixed>> formation ou session => ligne
+     */
+    private static function grantingTrainings(array $grants): array
+    {
+        global $DB;
+
+        $mainIds = [];
+        foreach ($grants as $list) {
+            foreach (array_keys($list) as $trainingId) {
+                $mainIds[$trainingId] = $trainingId;
+            }
+        }
+        if ($mainIds === []) {
+            return [];
+        }
+        $fk = Training::getForeignKeyField();
+        $trainings = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'title', $fk, 'renewal_period_months', 'date_delivered'],
+                'FROM'   => Training::getTable(),
+                'WHERE'  => ['OR' => ['id' => array_values($mainIds), $fk => array_values($mainIds)]],
+            ]) as $row
+        ) {
+            $trainings[(int) $row['id']] = $row;
+        }
+
+        return $trainings;
+    }
+
+    /**
+     * Lot 2 : actions déjà planifiées, c'est-à-dire les inscriptions encore en attente à une formation
+     * (ou l'une de ses sessions) qui donne la compétence. Lecture seule : rien n'est créé ici.
+     *
+     * @param list<int> $userIds
+     * @param list<int> $competenceIds
+     * @return array<int, array<int, list<array{level: int, training: int, label: string, date: string,
+     *     url: string}>>>
+     */
+    public static function planned(array $userIds, array $competenceIds): array
+    {
+        global $DB;
+
+        $planned = [];
+        if ($userIds === [] || $competenceIds === []) {
+            return $planned;
+        }
+        $grants = Competence::trainingsFor($competenceIds);
+        $trainings = self::grantingTrainings($grants);
+        if ($trainings === []) {
+            return $planned;
+        }
+        $fk = Training::getForeignKeyField();
+        foreach (
+            $DB->request([
+                'FROM'  => self::PARTICIPANTS_TABLE,
+                'WHERE' => [
+                    $fk                 => array_keys($trainings),
+                    'users_id'          => $userIds,
+                    'completion_status' => 'pending',
+                ],
+            ]) as $row
+        ) {
+            $training = $trainings[(int) $row[$fk]];
+            $mainId = (int) $training[$fk] > 0 ? (int) $training[$fk] : (int) $training['id'];
+            $date = (string) ($training['date_delivered'] ?? '');
+            foreach ($grants as $competenceId => $list) {
+                if (!isset($list[$mainId])) {
+                    continue;
+                }
+                $planned[(int) $row['users_id']][$competenceId][] = [
+                    'level'    => $list[$mainId],
+                    'training' => $mainId,
+                    'label'    => (string) $training['title'],
+                    'date'     => $date !== '' ? (string) Html::convDate($date) : '',
+                    'url'      => Training::getFormURLWithID((int) $training['id']),
+                ];
+            }
+        }
+
+        return $planned;
     }
 
     /**
@@ -403,6 +504,7 @@ class CompetenceMatrix extends CommonGLPI
         asort($labels, SORT_NATURAL | SORT_FLAG_CASE);
         $people = array_keys($functionsByPerson);
         $sources = self::sources($people, $competenceIds);
+        $plannedByPerson = self::planned($people, $competenceIds);
         $grants = Competence::trainingsFor($competenceIds);
         $trainingIds = [];
         foreach ($grants as $list) {
@@ -413,7 +515,8 @@ class CompetenceMatrix extends CommonGLPI
         $modeLabels = IsmsFunction::modeLabels();
         $canDeclare = CompetenceDeclaration::canCreate();
 
-        $rows = $gaps = $statuses = [];
+        $rows = $gaps = $statuses = $toPlan = [];
+        $gapsPlanned = 0;
         foreach ($functionsByPerson as $person => $personFunctions) {
             $name = (string) getUserName($person);
             $cells = [];
@@ -440,12 +543,22 @@ class CompetenceMatrix extends CommonGLPI
                 if (!Rules::isGap($status)) {
                     continue;
                 }
+                $planned = Rules::plannedFor($info['level'], $plannedByPerson[$person][$competenceId] ?? []);
+                if ($planned !== []) {
+                    $gapsPlanned++;
+                }
                 $proposed = [];
                 foreach (Rules::proposedTrainings($info['level'], $grants[$competenceId] ?? []) as $trainingId) {
                     $proposed[] = [
+                        'id'    => $trainingId,
                         'title' => $trainingTitles[$trainingId] ?? '',
                         'url'   => Training::getFormURLWithID($trainingId),
                     ];
+                    // Formations à planifier : seulement pour les écarts sans inscription en attente.
+                    if ($planned === []) {
+                        $toPlan[$trainingId]['people'][$person] = $name;
+                        $toPlan[$trainingId]['competences'][$competenceId] = $labels[$competenceId] ?? '';
+                    }
                 }
                 $gaps[] = [
                     'person'      => $person,
@@ -455,8 +568,9 @@ class CompetenceMatrix extends CommonGLPI
                     'status'      => $status,
                     'required'    => $levelLabels[$info['level']] ?? '',
                     'acquired'    => $levelLabels[$acquired] ?? '',
-                    'trainings'   => $proposed,
-                    'action'      => $proposed === [] ? self::actionText($mode) : '',
+                    'trainings'   => $planned === [] ? $proposed : [],
+                    'planned'     => $planned,
+                    'action'      => $proposed === [] && $planned === [] ? self::actionText($mode) : '',
                     'declare_url' => $canDeclare
                         ? $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/competencedeclaration.form.php?users_id='
                             . $person . '&competences_id=' . $competenceId . '&level=' . $info['level']
@@ -512,12 +626,38 @@ class CompetenceMatrix extends CommonGLPI
             ];
         }
 
+        $canPlan = Training::canCreate();
+        $planRows = [];
+        foreach ($toPlan as $trainingId => $entry) {
+            $users = array_map('intval', array_keys($entry['people']));
+            sort($users);
+            $names = array_values($entry['people']);
+            sort($names, SORT_NATURAL | SORT_FLAG_CASE);
+            $competences = array_values($entry['competences']);
+            sort($competences, SORT_NATURAL | SORT_FLAG_CASE);
+            $planRows[] = [
+                'id'          => $trainingId,
+                'title'       => $trainingTitles[$trainingId] ?? '',
+                'url'         => Training::getFormURLWithID($trainingId),
+                'users'       => $users,
+                'people'      => $names,
+                'competences' => $competences,
+                'session_url' => $canPlan ? self::sessionUrl($trainingId) : '',
+            ];
+        }
+        usort($planRows, static fn (array $a, array $b): int => strcasecmp($a['title'], $b['title']));
+        $summary = Rules::summary($statuses);
+
         return [
             'columns'   => $labels,
             'rows'      => $rows,
             'gaps'      => $gaps,
+            'to_plan'   => $planRows,
             'functions' => $functionRows,
-            'summary'   => Rules::summary($statuses),
+            'summary'   => $summary + [
+                'gaps_planned'   => $gapsPlanned,
+                'gaps_unplanned' => max(0, $summary['gaps'] - $gapsPlanned),
+            ],
         ];
     }
 
@@ -738,10 +878,29 @@ class CompetenceMatrix extends CommonGLPI
     }
 
     /**
+     * Lot 2 : carte du tableau de bord, part des compétences exigées acquises au niveau attendu.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function dashboardCard(array $params = []): array
+    {
+        $rate = self::canView() ? self::data()['summary']['rate'] : null;
+
+        return [
+            'number' => $rate ?? 0,
+            'url'    => IsmsFunction::getSearchURL(),
+            'label'  => $params['label'] ?? __('Coverage of the required competences (%)', 'grcmanager'),
+            'icon'   => self::getIcon(),
+        ];
+    }
+
+    /**
      * Synthèse affichée sur l'exigence 7.2, null pour les autres ou sans droit.
      *
-     * @return array{functions: int, competences: int, people: ?int, people_with_gaps: ?int, rate: ?int,
-     *     archives: int, url: string}|null
+     * @return array{without_requirements: int, without_holders: ?int, gaps: ?int, gaps_planned: ?int,
+     *     gaps_unplanned: ?int, functions: int, competences: int, people: ?int, people_with_gaps: ?int,
+     *     rate: ?int, archives: int, url: string}|null
      */
     public static function clauseReadiness(string $code): ?array
     {
@@ -751,7 +910,18 @@ class CompetenceMatrix extends CommonGLPI
         $data = self::data();
         $people = self::canView();
 
+        $withoutRequirements = count(array_filter(
+            $data['functions'],
+            static fn (array $f): bool => $f['requirements'] === 0
+        ));
+        $withoutHolders = count(array_filter($data['functions'], static fn (array $f): bool => $f['people'] === 0));
+
         return [
+            'without_requirements' => $withoutRequirements,
+            'without_holders'  => $people ? $withoutHolders : null,
+            'gaps'             => $people ? $data['summary']['gaps'] : null,
+            'gaps_planned'     => $people ? $data['summary']['gaps_planned'] : null,
+            'gaps_unplanned'   => $people ? $data['summary']['gaps_unplanned'] : null,
             'functions'        => count($data['functions']),
             'competences'      => countElementsInTable(
                 Competence::getTable(),

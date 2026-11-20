@@ -3633,9 +3633,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -4187,8 +4187,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 msgstr ""
 
 #: src/Competence.php:52 src/IsmsRequirement.php:119
@@ -20583,9 +20583,9 @@ msgstr ""
 #: templates/control_test_sample.html.twig
 #: templates/pdf/control_test_record.html.twig
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of "
-"\"seed:identifier\"; the first items of this ranking form the sample. The "
-"same population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
+"identifier\"; the first items of this ranking form the sample. The same "
+"population and the same seed always give the same sample."
 msgstr ""
 
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
@@ -22744,8 +22744,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 
 #: templates/dora/register.html.twig
@@ -23054,8 +23054,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/evidence_tab.html.twig
@@ -24477,8 +24477,8 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -29563,8 +29563,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
@@ -30133,4 +30133,104 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr ""
+
+#: templates/framework_assessment.html.twig
+msgid ""
+"To assess NIS2 on the measures of a national framework (for example ReCyF in "
+"France), import it as a custom framework and enable it: it is then assessed "
+"on its own requirements."
+msgstr ""
+
+#: templates/pdf/competence_report.html.twig
+msgid "Gaps with a training planned"
+msgstr ""
+
+#: templates/pdf/competence_report.html.twig
+#: templates/competence_page.html.twig templates/competence_sheet.html.twig
+msgid "Training planned"
+msgstr ""
+
+#: templates/training_form.html.twig
+msgid ""
+"Proposed session to close competence gaps: the people who lack a competence "
+"given by this training, and are not yet enrolled, are preselected. Fill in "
+"the date, check the list, then click \"Add\". Nothing is saved before that."
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid ""
+"Gaps for which the person is already enrolled in a training that gives the "
+"competence."
+msgstr ""
+
+#: templates/competence_page.html.twig
+#, php-format
+msgid "%d with a training planned"
+msgid_plural "%d with a training planned"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/competence_page.html.twig
+msgid "Trainings to plan"
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid ""
+"For each training that closes a gap, the people concerned who are not yet "
+"enrolled. \"Prepare a session\" opens a new session of the training with "
+"these people preselected: you check the date and the list, and nothing is "
+"saved before you click \"Add\"."
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid "Competences concerned"
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid "People to enrol"
+msgstr ""
+
+#: templates/competence_page.html.twig
+msgid "Prepare a session"
+msgstr ""
+
+#: hook.php:271 src/CompetenceMatrix.php:893
+msgid "Coverage of the required competences (%)"
+msgstr ""
+
+#: src/CertificationReadiness.php:262
+msgid "Define and check the competences"
+msgstr ""
+
+#: src/CertificationReadiness.php:264
+msgid ""
+"For each function of the management system, list the competences it "
+"requires, say who holds it, record the competences acquired with their "
+"evidence, plan a training for each gap and archive the competence file."
+msgstr ""
+
+#: src/CertificationReadiness.php:820
+#, php-format
+msgid "ISMS functions: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:821
+#, php-format
+msgid "Functions without required competences: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:824
+#, php-format
+msgid "Functions that nobody holds: %d"
+msgstr ""
+
+#: src/CertificationReadiness.php:828
+#, php-format
+msgid "Competence gaps: %1$d, of which %2$d without a planned training"
+msgstr ""
+
+#: src/CertificationReadiness.php:833
+#, php-format
+msgid "Archived competence files: %d"
 msgstr ""

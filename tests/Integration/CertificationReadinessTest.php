@@ -21,6 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\CertificationReadiness;
 use GlpiPlugin\Grcmanager\Dashboard;
+use GlpiPlugin\Grcmanager\IsmsFunction;
 use GlpiPlugin\Grcmanager\IsmsRequirement;
 use GlpiPlugin\Grcmanager\Menu;
 use GlpiPlugin\Grcmanager\Risk;
@@ -104,6 +105,22 @@ final class CertificationReadinessTest extends GrcmanagerIntegrationTestCase
         $steps = $this->steps();
         $this->assertSame(Rules::STATUS_DONE, $steps['risk_assessment']['status']);
         $this->assertStringContainsString('risk.php', $steps['risk_assessment']['links'][0]['url']);
+    }
+
+    public function testCompetenceStepFollowsTheIsmsFunctions(): void
+    {
+        global $DB;
+
+        $DB->delete(IsmsFunction::getTable(), ['id' => ['>', 0]]);
+        $this->assertSame(Rules::STATUS_TODO, $this->steps()['competence']['status'], 'aucune fonction');
+
+        $this->assertGreaterThan(0, (int) (new IsmsFunction())->add([
+            'name' => 'Fonction fictive 774', 'entities_id' => 0, 'is_recursive' => 1,
+        ]));
+        $step = $this->steps()['competence'];
+        $this->assertSame(Rules::STATUS_PARTIAL, $step['status'], 'fonction sans compétence ni titulaire');
+        $this->assertStringContainsString('ismsfunction.php', $step['links'][0]['url']);
+        $this->assertSame('7.2', $step['clauses']);
     }
 
     public function testScopeFollowsTheDeclaredRequirement(): void

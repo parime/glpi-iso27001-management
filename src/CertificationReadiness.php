@@ -258,6 +258,16 @@ class CertificationReadiness extends CommonGLPI
                 ),
                 'icon'     => 'ti-target-arrow',
             ],
+            'competence'        => [
+                'title'    => __('Define and check the competences', 'grcmanager'),
+                'expected' => __(
+                    'For each function of the management system, list the competences it requires, say who holds '
+                        . 'it, record the competences acquired with their evidence, plan a training for each gap and '
+                        . 'archive the competence file.',
+                    'grcmanager'
+                ),
+                'icon'     => 'ti-certificate',
+            ],
             'awareness'         => [
                 'title'    => __('Train and raise awareness', 'grcmanager'),
                 'expected' => __(
@@ -433,6 +443,7 @@ class CertificationReadiness extends CommonGLPI
             'risk_treatment'    => self::riskTreatmentStep($gaps, $fix),
             'soa'               => self::soaStep(),
             'objectives'        => self::objectivesStep(),
+            'competence'        => self::competenceStep(),
             'awareness'         => self::awarenessStep($since, $today, $settings['training_target']),
             'exercises'         => self::exercisesStep($since),
             'internal_audit'    => self::internalAuditStep($today, $settings['coverage_target']),
@@ -791,6 +802,46 @@ class CertificationReadiness extends CommonGLPI
                 sprintf(__('With at least one measurement: %d', 'grcmanager'), $measured),
             ],
             'links'  => [self::link(Objective::getTypeName(Session::getPluralNumber()), Objective::getSearchURL())],
+        ];
+    }
+
+    /**
+     * Issue #774 (lot 2) : compétences (7.2), tirées de la page « Compétences ».
+     *
+     * @return array{status: string, facts: list<string>, links: list<array<string, string>>}
+     */
+    private static function competenceStep(): array
+    {
+        $summary = CompetenceMatrix::clauseReadiness('7.2');
+        if ($summary === null) {
+            return self::locked();
+        }
+        $facts = [
+            sprintf(__('ISMS functions: %d', 'grcmanager'), $summary['functions']),
+            sprintf(__('Functions without required competences: %d', 'grcmanager'), $summary['without_requirements']),
+        ];
+        if ($summary['without_holders'] !== null) {
+            $facts[] = sprintf(__('Functions that nobody holds: %d', 'grcmanager'), $summary['without_holders']);
+        }
+        if ($summary['gaps'] !== null) {
+            $facts[] = sprintf(
+                __('Competence gaps: %1$d, of which %2$d without a planned training', 'grcmanager'),
+                $summary['gaps'],
+                (int) $summary['gaps_unplanned']
+            );
+        }
+        $facts[] = sprintf(__('Archived competence files: %d', 'grcmanager'), $summary['archives']);
+
+        return [
+            'status' => Rules::competence(
+                $summary['functions'],
+                $summary['without_requirements'],
+                $summary['without_holders'],
+                $summary['gaps_unplanned'],
+                $summary['archives']
+            ),
+            'facts'  => $facts,
+            'links'  => [self::link(CompetenceMatrix::getTypeName(Session::getPluralNumber()), $summary['url'])],
         ];
     }
 

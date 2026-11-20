@@ -23,6 +23,9 @@
             <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-users me-1"></i>{{ _n('%d person', '%d people', summary.people, 'grcmanager')|format(summary.people) }}</span>
             {% if summary.gaps > 0 %}
                <span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-alert-octagon me-1"></i>{{ _n('%d gap', '%d gaps', summary.gaps, 'grcmanager')|format(summary.gaps) }}</span>
+               {% if summary.gaps_planned > 0 %}
+                  <span class="badge bg-info-subtle text-info-emphasis me-1" title="{{ __('Gaps for which the person is already enrolled in a training that gives the competence.', 'grcmanager') }}"><i class="ti ti-calendar-check me-1"></i>{{ _n('%d with a training planned', '%d with a training planned', summary.gaps_planned, 'grcmanager')|format(summary.gaps_planned) }}</span>
+               {% endif %}
             {% elseif summary.required > 0 %}
                <span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-circle-check me-1"></i>{{ __('No gap', 'grcmanager') }}</span>
             {% endif %}
@@ -190,6 +193,12 @@
                            <span class="small text-secondary">{{ __('Expected level', 'grcmanager') }} : {{ gap.required }}</span>
                         </td>
                         <td>
+                           {% for planned in gap.planned %}
+                              <div>
+                                 <span class="badge bg-info-subtle text-info-emphasis"><i class="ti ti-calendar-check me-1"></i>{{ __('Training planned', 'grcmanager') }}</span>
+                                 <a href="{{ planned.url }}">{{ planned.label }}</a>{% if planned.date %} <span class="small text-secondary">({{ planned.date }})</span>{% endif %}
+                              </div>
+                           {% endfor %}
                            {% for training in gap.trainings %}
                               <div><i class="ti ti-school me-1"></i>{{ __('Plan the training', 'grcmanager') }} <a href="{{ training.url }}">{{ training.title }}</a></div>
                            {% endfor %}
@@ -205,6 +214,47 @@
          </div>
       {% endif %}
    </div>
+
+   {# Lot 2 : formations à planifier, regroupées, pour les écarts sans inscription en attente. #}
+   {% if data.to_plan is not empty %}
+      <div class="card mb-3">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-calendar-plus me-1"></i>{{ __('Trainings to plan', 'grcmanager') }}</h3></div>
+         <div class="card-body pb-0">
+            <div class="alert alert-info mb-3">
+               <i class="ti ti-info-circle me-1"></i>{{ __('For each training that closes a gap, the people concerned who are not yet enrolled. "Prepare a session" opens a new session of the training with these people preselected: you check the date and the list, and nothing is saved before you click "Add".', 'grcmanager') }}
+            </div>
+         </div>
+         <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+               <thead>
+                  <tr>
+                     <th>{{ __('Training', 'grcmanager') }}</th>
+                     <th>{{ __('Competences concerned', 'grcmanager') }}</th>
+                     <th>{{ __('People to enrol', 'grcmanager') }}</th>
+                     <th class="text-end"></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for plan in data.to_plan %}
+                     <tr>
+                        <td><a href="{{ plan.url }}" class="fw-bold"><i class="ti ti-school me-1"></i>{{ plan.title }}</a></td>
+                        <td class="small">{{ plan.competences|join(', ') }}</td>
+                        <td>
+                           <span class="badge bg-warning-subtle text-warning-emphasis me-1">{{ plan.people|length }}</span>
+                           <span class="small">{{ plan.people|join(', ') }}</span>
+                        </td>
+                        <td class="text-end">
+                           {% if plan.session_url %}
+                              <a href="{{ plan.session_url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-calendar-plus me-1"></i>{{ __('Prepare a session', 'grcmanager') }}</a>
+                           {% endif %}
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
 
    <div class="card mb-3">
       <div class="card-header"><h3 class="card-title"><i class="ti ti-file-certificate me-1"></i>{{ __('Archived competence files', 'grcmanager') }}</h3></div>

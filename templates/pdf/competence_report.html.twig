@@ -32,6 +32,7 @@
     <tr><td>{{ __('People holding a function', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ data.summary.people }}</td></tr>
     <tr><td>{{ __('People with a gap', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ data.summary.people_with_gaps }}</td></tr>
     <tr><td>{{ __('Gaps', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ data.summary.gaps }}</td></tr>
+    <tr><td>{{ __('Gaps with a training planned', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ data.summary.gaps_planned }}</td></tr>
     <tr><td>{{ __('Coverage of the required competences', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ data.summary.rate is null ? '-' : data.summary.rate ~ ' %' }}</td></tr>
     <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ generated_by }}</td></tr>
   </table>
@@ -56,6 +57,7 @@
             <td>{{ gap.competence }}</td>
             <td><span class="grc-status grc-status-{{ gap.status }}">{{ statuses[gap.status].label }}</span><br><span class="grc-muted">{{ __('Expected level', 'grcmanager') }} : {{ gap.required }}</span></td>
             <td>
+              {% for planned in gap.planned %}{{ __('Training planned', 'grcmanager') }} : {{ planned.label }}{% if planned.date %} ({{ planned.date }}){% endif %}<br>{% endfor %}
               {% for training in gap.trainings %}{{ __('Plan the training', 'grcmanager') }} {{ training.title }}<br>{% endfor %}
               {{ gap.action }}
             </td>
