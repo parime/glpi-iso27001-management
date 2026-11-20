@@ -45,6 +45,7 @@
                         <option value="{{ a.id }}" {{ a.id == selected ? 'selected' : '' }}>{{ a.title }} ({{ a.type_label }}{{ a.date ? ', ' ~ a.date : '' }})</option>
                      {% endfor %}
                   </select>
+                  {% if process %}<input type="hidden" name="process" value="{{ process.id }}">{% endif %}
                   <label class="form-check mb-0">
                      <input type="checkbox" class="form-check-input" name="open" value="1" {{ open_only ? 'checked' : '' }}>
                      <span class="form-check-label">{{ __('Only findings not lifted', 'grcmanager') }}</span>
@@ -58,6 +59,16 @@
          </div>
       </div>
    </div>
+
+   {# Lot 2 : constats d'un processus du plan d'audit de l'organisme. #}
+   {% if process %}
+      <div class="alert alert-info mt-3 d-flex flex-wrap align-items-center gap-2" id="grc-certification-process">
+         <i class="ti ti-route"></i>
+         <span>{{ __('Findings of the process: %s', 'grcmanager')|format(process.label) }}</span>
+         <a href="{{ page_url }}{{ selected ? '?audit=' ~ selected : '' }}" class="btn btn-sm btn-outline-secondary ms-auto"><i class="ti ti-x me-1"></i>{{ __('All processes', 'grcmanager') }}</a>
+         <a href="{{ plan_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-table-options me-1"></i>{{ __('Audit plan of the certification body', 'grcmanager') }}</a>
+      </div>
+   {% endif %}
 
    {% if all_audits is empty %}
       <div class="alert alert-info mt-3" id="grc-certification-empty">

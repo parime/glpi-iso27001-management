@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.68.0] - 2026-11-20
+
 ### Added
 
 - **Compétences (ISO 27001, article 7.2), lot 2** (issue #774). Suite du lot 1 (2.65.0), pour
@@ -26,6 +28,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - droits : ceux de la matrice des compétences (droit du plugin et lecture des utilisateurs, entités
     de la session) ; la session proposée ne présélectionne que les personnes visibles. Aucune
     inscription, aucun statut ni aucun droit n'est modifié automatiquement.
+- **Plan d'audit de l'organisme de certification** (issue #772, lot 2). Nouvel écran « Plan d'audit
+  de l'organisme » dans la rubrique Audits et amélioration :
+  - programme d'échantillonnage de l'organisme sur le cycle de certification de trois ans : matrice
+    processus x années, une colonne par audit de certification de l'année ; les cases se cochent à
+    la main et sont rattachées à cet audit ;
+  - les processus sont ceux du programme d'audit interne (#773, activités de la matrice des
+    responsabilités) : aucune nouvelle liste ni table, un processus échantillonné est un processus
+    visé par l'audit ; le programme interne ne compte toujours que les audits internes ;
+  - pour l'audit de l'année, et dans le nouvel onglet « Plan d'audit de l'organisme » de chaque audit
+    de certification : processus échantillonnés, constats des audits de certification précédents
+    sur chacun (même libellé de processus, ou clause ou mesure parmi celles du processus) avec leur
+    état de levée, mesures de l'Annexe A et registres du plugin qui y répondent ;
+  - « Constats des audits précédents » se filtre sur un processus (écran et export PDF) ; le champ
+    « Processus audité » d'un constat propose les processus du programme ;
+  - droits : lire les audits pour voir, modifier l'audit concerné pour cocher (entité de l'audit,
+    processus de son entité), jeton CSRF sur chaque enregistrement.
+
 - **Scénarios de crise sécurité de l'information du PCA** (issue #776, lot 1, mesure A.5.29). Constat
   d'audit : le PCA et le PRA décrivaient la restauration technique, sans scénario de crise intégrant
   la sécurité. Nouvel écran « Scénarios de crise sécurité » dans la rubrique Opérations, à côté des
@@ -102,6 +121,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     droit de voir tous les changements. Les onglets vérifient eux-mêmes leurs droits.
   - Tables créées par l'installateur (rejouable) et supprimées à la désinstallation ; la fiche et
     la liste disparaissent avec l'application ou le changement supprimé définitivement.
+
 ### Fixed
 
 - **Désinstallation : journaux de la fiche de conformité des collaborateurs** (issue #808). L'historique
@@ -109,6 +129,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   celui des fiches réflexes et des actions de la revue de direction : ces classes (et deux cibles de
   notification) manquaient à la liste des types nettoyés. Le jeu de données de la CI crée désormais une fiche de conformité, et un test
   d'intégration vérifie que toute classe historisée du plugin figure dans cette liste.
+
+- **Audits de certification** (issue #772, lot 1) : la colonne « Type d'audit » est affichée par
+  défaut dans la liste des audits, juste après le titre (y compris sur une instance existante dont
+  les colonnes par défaut n'ont pas été modifiées) ; le constat « Opportunity for improvement »
+  s'appelle « Piste de progrès » en français, comme dans les rapports des organismes.
 
 ## [2.67.0] - 2026-11-20
 
@@ -313,7 +338,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Preuve affichée sur les mesures A.5.5 (autorités) et A.5.6 (groupes d'intérêt) de la SoA.
   - Droits : ceux du contexte de l'organisation (droit général du plugin) et ses entités ; l'onglet
     exige en plus de pouvoir lire l'incident ou la violation.
-
 
 - **Compétences (ISO 27001, article 7.2), lot 1** (issue #774). Nouvelle sous-page « Compétences »
   de la rubrique « Revue des accès » (pas de nouvelle entrée de menu).

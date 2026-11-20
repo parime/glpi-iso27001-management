@@ -154,6 +154,10 @@ check "front/certificationreadiness.php"     "$P/certificationreadiness.php"
 # Issue #772 : audit de certification et constat pieges (vue des constats et onglet de l'audit).
 check "front/certificationfinding.php"       "$P/certificationfinding.php"
 check "onglet constats d'un audit de certification" "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CNonconformity$1' "$(xid audit)")"
+# Issue #772, lot 2 : plan d'audit de l'organisme (processus et constat pieges, onglet et page).
+check "onglet plan d'audit de l'organisme"   "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CCertificationSampling$1' "$(xid audit)")"
+check "front/certificationsampling.php"      "$P/certificationsampling.php"
+check "constats d'un processus"              "$P/certificationfinding.php?process=1"
 check "export CSV de prise de connaissance"   "$P/policyacknowledgement.export.php?id=$(xid ack_campaign)&format=csv"
 # Issue #540 : registre DORA piege (page, onglets du contrat, du fournisseur et du processus, export).
 check "registre DORA"                         "$P/doraregister.php"

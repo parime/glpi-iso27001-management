@@ -1,0 +1,65 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #772, lot 2 : processus échantillonnés par l'organisme pour un audit de certification,
+   avec les constats des audits précédents de chacun et les écrans du plugin qui y répondent.
+   Variables : processes (CertificationSampling::sampledProcesses()), lift_states. #}
+{% if processes is empty %}
+   <div class="alert alert-info mb-0 grc-sampling-none"><i class="ti ti-info-circle me-1"></i>{{ __('No process sampled for this audit yet: tick the processes announced by the certification body in its audit plan.', 'grcmanager') }}</div>
+{% else %}
+<div class="table-responsive">
+<table class="table table-sm table-vcenter grc-sampling-processes">
+   <thead><tr>
+      <th>{{ __('Process', 'grcmanager') }}</th>
+      <th>{{ __('Findings of previous audits', 'grcmanager') }}</th>
+      <th>{{ __('Screens to prepare', 'grcmanager') }}</th>
+   </tr></thead>
+   <tbody>
+   {% for p in processes %}
+      <tr class="grc-sampling-process" data-process="{{ p.id }}">
+         <td class="fw-bold">
+            {% if p.raci_url %}<a href="{{ p.raci_url }}">{{ p.label }}</a>{% else %}{{ p.label }}{% endif %}
+         </td>
+         <td>
+            {% for f in p.findings %}
+               <div class="mb-1 grc-sampling-finding" data-lift="{{ f.lift_state }}">
+                  {% if f.category_label %}<span class="badge {{ f.category_style.class }}"><i class="ti {{ f.category_style.icon }} me-1"></i>{{ f.category_label }}</span>{% endif %}
+                  <a href="{{ f.url }}">{% if f.reference %}{{ f.reference }} : {% endif %}{{ f.title }}</a>
+                  <span class="badge {{ f.lift.class }} ms-1"><i class="ti {{ f.lift.icon }} me-1"></i>{{ f.lift.label }}</span>
+                  {% if f.audit_title %}<span class="text-muted small ms-1">({{ f.audit_title }})</span>{% endif %}
+               </div>
+            {% else %}
+               <span class="text-muted small">{{ __('No finding of a previous audit on this process.', 'grcmanager') }}</span>
+            {% endfor %}
+            {% if p.findings is not empty %}
+               <a href="{{ p.findings_url }}" class="small"><i class="ti ti-external-link me-1"></i>{{ __('See these findings and their evidence', 'grcmanager') }}</a>
+            {% endif %}
+         </td>
+         <td>
+            {% for c in p.controls %}
+               {% if c.url %}<a href="{{ c.url }}" class="badge bg-azure-lt me-1 mb-1" title="{{ c.title }}">{{ c.code }}</a>{% else %}<span class="badge bg-secondary-lt me-1 mb-1" title="{{ c.title }}">{{ c.code }}</span>{% endif %}
+            {% endfor %}
+            {% for s in p.screens %}
+               <div><a href="{{ s.url }}"><i class="{{ s.icon }} me-1"></i>{{ s.label }}</a></div>
+            {% endfor %}
+            {% if p.controls is empty and p.screens is empty %}
+               <span class="text-muted small">{{ __('No control linked to this process: add its Annex A controls in the responsibility matrix.', 'grcmanager') }}</span>
+            {% endif %}
+         </td>
+      </tr>
+   {% endfor %}
+   </tbody>
+</table>
+</div>
+{% endif %}
