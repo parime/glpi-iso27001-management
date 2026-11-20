@@ -78,6 +78,32 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Sécurité physique des sites : grille d'évaluation, zones et actions** (issue #778, lot 1,
+  mesures A.7.1 à A.7.14). Les sites sont les lieux de GLPI ; aucun second référentiel.
+  - Évaluation d'un site : date, évaluateur, statut, politique de sécurité physique liée (document
+    de la bibliothèque des politiques), échéance de réévaluation fixée à 12 mois une fois
+    l'évaluation terminée.
+  - Onglet « Grille de sécurité physique » : une ligne par mesure A.7.1 à A.7.14 avec l'état
+    (conforme, partiellement conforme, non conforme, non applicable, non évaluée), le constat, les
+    preuves examinées et les documents de l'évaluation (photos, procès-verbaux) ; une mesure exclue
+    de la SoA est « non applicable » d'office ; l'état de l'évaluation précédente du site est
+    rappelé.
+  - « Créer l'action » sur une ligne partielle ou non conforme : non-conformité pré-remplie (site,
+    mesure, constat), relue et enregistrée par l'utilisateur, puis suivie par le workflow CAPA ; la
+    ligne et la non-conformité se citent mutuellement.
+  - Onglet « Zones du site » : zones publique, contrôlée, sensible et local technique, contrôles
+    d'accès, personnes autorisées, consignes affichées ; une zone sensible ou un local technique sans
+    contrôle d'accès ou sans consignes est signalé. La réévaluation reprend les zones.
+  - Rappel de réévaluation annuelle : tâche automatique `reassessmentreminder` (notification à
+    l'évaluateur 30 jours avant l'échéance puis au plus une fois par mois), échéance dans le
+    calendrier de conformité.
+  - Page « Sécurité physique » (sous-page Conformité, aucune entrée de menu en plus) : dernière
+    évaluation de chaque site côte à côte, mesure par mesure, avec score et échéance ; liste de
+    toutes les évaluations ; onglet « Sécurité physique » des lieux de GLPI.
+  - Preuve sur les mesures A.7.1 à A.7.14 : état de la mesure sur chaque site, sur la fiche de la
+    mesure.
+  - Droits : droit général du plugin et entité de l'évaluation ; lignes et zones modifiables avec le
+    droit de modifier l'évaluation ; pièces jointes lues avec le droit de lire l'évaluation.
 - **Procédures d'exploitation documentées** (issue #775, lot 1, A.5.37). Pas d'objet à part : une
   procédure est un document de la bibliothèque des politiques de catégorie « Procédure
   d'exploitation », avec son domaine. Elle garde la version, le responsable, la date d'approbation,

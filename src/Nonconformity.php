@@ -233,12 +233,18 @@ class Nonconformity extends NonconformityBase
         if ($lineId > 0) {
             AuditChecklist::attachFinding($lineId, $this);
         }
+        // Issue #778 : action enregistrée depuis une ligne de l'évaluation de la sécurité physique.
+        $physicalLineId = (int) ($this->input['_grcmanager_physicalsecuritycheck'] ?? 0);
+        if ($physicalLineId > 0) {
+            PhysicalSecurityCheck::attachFinding($physicalLineId, $this);
+        }
     }
 
     /** Issue #606 : constat purgé, les lignes de grille qui le citaient restent sans lien. */
     public function cleanDBonPurge()
     {
         AuditChecklist::unlinkFinding($this->getID());
+        PhysicalSecurityCheck::unlinkFinding($this->getID());
     }
 
     /**
@@ -715,6 +721,21 @@ class Nonconformity extends NonconformityBase
                 }
             }
         }
+        // Issue #778 : « Créer l'action » depuis une ligne de l'évaluation de la sécurité physique d'un
+        // site : fiche pré-remplie (site, mesure, constat), relue et enregistrée par l'utilisateur.
+        $physicalDraft = null;
+        if ($this->isNewItem() && (int) ($options['physicalsecuritycheck'] ?? 0) > 0) {
+            $physicalDraft = PhysicalSecurityCheck::findingDraft((int) $options['physicalsecuritycheck']);
+            if ($physicalDraft !== null) {
+                $preset = [
+                    'entities_id', 'is_recursive', 'locations_id', 'requirement_reference', 'title', 'description',
+                    'finding_type', 'severity',
+                ];
+                foreach ($preset as $field) {
+                    $this->fields[$field] = $physicalDraft[$field];
+                }
+            }
+        }
 
         $auditTitles = [0 => Dropdown::EMPTY_VALUE];
         // Issue #536 : audits des entités de la session seulement.
@@ -763,6 +784,8 @@ class Nonconformity extends NonconformityBase
             'audit_label'     => Audit::getTypeName(1),
             'checklist_draft' => $checklistDraft,
             'checklist_lines' => $this->isNewItem() ? [] : AuditChecklist::linesForFinding($this->getID()),
+            'physical_draft'  => $physicalDraft,
+            'physical_lines'  => $this->isNewItem() ? [] : PhysicalSecurityCheck::linesForFinding($this->getID()),
             'corrective_hint' => CapaRequirementService::isCapaMandatory($findingType)
                 ? __('Required to close or verify this non-conformity.', 'grcmanager')
                 : __('Optional for an observation: it may still be filled in if useful.', 'grcmanager'),

@@ -152,6 +152,8 @@ class ComplianceEvent extends ComplianceEventBase
             'control_test'      => [ControlTest::getTypeName(1), 'ti-test-pipe'],
             'data_subject_request' => [DataSubjectRequest::getTypeName(1), 'ti-user-question'],
             'readiness'         => [CertificationReadiness::getTypeName(), 'ti-certificate'],
+            // Issue #778 : réévaluation annuelle de la sécurité physique de chaque site.
+            'physical_security' => [PhysicalSecurity::getTypeName(), 'ti-building-fortress'],
         ];
     }
 
@@ -303,7 +305,9 @@ class ComplianceEvent extends ComplianceEventBase
             self::controlTestDeadlines(),
             self::dataSubjectRequestDeadlines(),
             // Issue #761 : échéances conseillées de la préparation à la certification.
-            CertificationReadiness::calendarDeadlines()
+            CertificationReadiness::calendarDeadlines(),
+            // Issue #778 : réévaluation de la sécurité physique de chaque site.
+            PhysicalSecurity::calendarDeadlines()
         );
 
         $events = [];
