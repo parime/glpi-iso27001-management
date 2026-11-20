@@ -116,6 +116,7 @@ class CrisisScenarioReadiness extends CommonGLPI
             'outside_date'      => (string) ($scenario->fields['last_exercise_date'] ?? ''),
             'processes'         => $presented['processes'] ?? [],
             'can_processes'     => BusinessProcess::canView(),
+            'programme_url'     => BusinessProcess::canView() ? BusinessProcessRecovery::getProgrammeURL() : '',
             'can_templates'     => CrisisMessageTemplate::canView(),
             'situation'         => CrisisMessageTemplate::getSituations()[$situation] ?? '',
             'templates'         => self::templates($situation, $entity),
@@ -164,6 +165,8 @@ class CrisisScenarioReadiness extends CommonGLPI
                 'url'       => CrisisExercise::getFormURLWithID((int) $row['id']),
                 'ended_at'  => (string) $row['ended_at'],
                 'validated' => CrisisExerciseReview::isValidated($exercise),
+                // Issue #733 : type d'exercice (sur table, fonctionnel, test technique...).
+                'type'      => BusinessProcessRecovery::typeLabel((string) ($row['exercise_type'] ?? '')),
             ];
         }
 
@@ -191,6 +194,7 @@ class CrisisScenarioReadiness extends CommonGLPI
 
         return [
             'url'                => $last['url'],
+            'type'               => $last['type'],
             'ended_at'           => $last['ended_at'],
             'validated'          => $review['validated'],
             'validated_at'       => $review['validated_at'],

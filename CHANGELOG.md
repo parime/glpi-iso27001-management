@@ -13,7 +13,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   contacts officiels** (issue #776, lot 2, mesure A.5.29) :
   - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les
     dupliquer : les exercices de crise terminés du scénario et le bilan du dernier (objectifs,
-    constats, plan d'amélioration, validation : #732), les communications, prises de contact
+    constats, plan d'amélioration, validation : #732) avec leur type d'exercice (#733), les communications, prises de contact
     officielles et temps de reprise tracés pendant cet exercice, le dernier test de reprise de
     chaque processus impacté comparé à son RTO (#733), les modèles de messages de la situation et
     leur liste de diffusion (#616, #800), les contacts officiels à prévenir visibles depuis

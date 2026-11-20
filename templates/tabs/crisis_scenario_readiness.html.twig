@@ -46,6 +46,7 @@
          {% else %}
             <div class="d-flex flex-wrap gap-2 mb-2">
                <a href="{{ last_review.url }}" class="badge bg-blue-subtle text-blue-emphasis text-decoration-none"><i class="ti ti-alarm me-1"></i>{{ __('Last exercise ended on %s', 'grcmanager')|format(last_review.ended_at|formatted_datetime) }}</a>
+               {% if last_review.type %}<span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-category me-1"></i>{{ last_review.type }}</span>{% endif %}
                {% if last_review.validated %}
                   <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-rosette-discount-check me-1"></i>{{ __('Review validated on %1$s by %2$s', 'grcmanager')|format(last_review.validated_at|formatted_datetime, last_review.validator) }}</span>
                {% else %}
@@ -72,7 +73,7 @@
                <div class="fw-bold small mt-2">{{ __('Previous exercises', 'grcmanager') }}</div>
                <ul class="list-unstyled mb-0">
                   {% for drill in drills|slice(1) %}
-                     <li class="small"><a href="{{ drill.url }}">{{ drill.ended_at|formatted_datetime }}</a>
+                     <li class="small"><a href="{{ drill.url }}">{{ drill.ended_at|formatted_datetime }}</a>{% if drill.type %} <span class="text-secondary">({{ drill.type }})</span>{% endif %}
                         {% if drill.validated %}<span class="badge bg-success-subtle text-success-emphasis ms-1">{{ __('Review validated', 'grcmanager') }}</span>{% else %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1">{{ __('Review to validate', 'grcmanager') }}</span>{% endif %}
                      </li>
                   {% endfor %}
@@ -123,7 +124,8 @@
             </tbody>
          </table>
       </div>
-      <div class="card-footer small text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('Recovery tests are recorded in the tab "Recovery strategy" of each process, or in the crisis room during an exercise.', 'grcmanager') }}</div>
+      <div class="card-footer small text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('Recovery tests are recorded in the tab "Recovery strategy" of each process, or in the crisis room during an exercise.', 'grcmanager') }}
+         {% if programme_url %}<a href="{{ programme_url }}" class="ms-2"><i class="ti ti-calendar-stats me-1"></i>{{ __('Recovery test programme', 'grcmanager') }}</a>{% endif %}</div>
    {% endif %}
 </div>
 
