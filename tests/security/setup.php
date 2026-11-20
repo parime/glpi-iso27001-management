@@ -285,6 +285,16 @@ if ($mode === 'xss') {
         'plugin_grcmanager_businessprocesses_id' => $out['process'], 'test_date' => date('Y-m-d'),
         'measured_minutes' => 90, 'comment' => $canary,
     ]);
+    // Issue #774 : fonction, compétence et déclaration piégées ; glpi tient la fonction (sa fiche).
+    $update('ismsfunctions', ['name' => $canary, 'description' => $canary], (int) $ids['ismsfunction_A']);
+    $update('competences', ['name' => $canary, 'description' => $canary], (int) $ids['competence_A']);
+    $insert('ismsfunctions_holders', [
+        'plugin_grcmanager_ismsfunctions_id' => (int) $ids['ismsfunction_A'], 'itemtype' => 'User', 'items_id' => 2,
+    ]);
+    $out['competencedeclaration'] = $insert('competencedeclarations', [
+        'entities_id' => 0, 'users_id' => 2, 'plugin_grcmanager_competences_id' => (int) $ids['competence_A'],
+        'level' => 1, 'evidence_type' => 'certificate', 'evidence_reference' => $canary, 'comment' => $canary,
+    ]);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
     // Issue #380 : nom de la preuve envoyée depuis le formulaire, citée par un test (onglet).
@@ -1012,5 +1022,22 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'users_id_supervisor' => $suffix === 'A' ? $manager : 0,
     ], ['id' => $collab]);
     $ids['collab_' . $suffix] = $collab;
+    // Issue #774 : une fonction du SMSI dans chaque entité, tenue par le collaborateur, avec une
+    // compétence exigée ; la compétence est déclarée pour le collaborateur de B.
+    $competenceId = $add(new \GlpiPlugin\Grcmanager\Competence(), [
+        'name' => 'Competence securite ' . $suffix, 'entities_id' => $entity,
+    ]);
+    $ids['ismsfunction_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\IsmsFunction(), [
+        'name' => 'Fonction securite ' . $suffix, 'entities_id' => $entity,
+    ]);
+    (new \GlpiPlugin\Grcmanager\IsmsFunction())->update([
+        'id' => $ids['ismsfunction_' . $suffix], '_add_users_id' => $collab,
+        '_add_competences_id' => $competenceId, '_add_level' => 2,
+    ]);
+    $ids['competence_' . $suffix] = $competenceId;
 }
+$ids['competencedeclaration_B'] = $add(new \GlpiPlugin\Grcmanager\CompetenceDeclaration(), [
+    'users_id' => $ids['collab_B'], 'plugin_grcmanager_competences_id' => $ids['competence_B'],
+    'level' => 2, 'evidence_type' => 'certificate', 'evidence_reference' => 'Certificat fictif B',
+]);
 echo json_encode($ids), "\n";

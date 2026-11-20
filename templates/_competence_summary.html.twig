@@ -1,0 +1,35 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #774 : état des compétences (fonctions, écarts, dossiers archivés), sur l'exigence 7.2. #}
+<div class="col-12 mt-2">
+   <div class="card card-sm">
+      <div class="card-body">
+         <div class="fw-bold mb-2"><i class="ti ti-certificate me-1"></i>{{ __('Competences', 'grcmanager') }}</div>
+         <div class="d-flex flex-wrap gap-2 mb-2">
+            <span class="badge bg-primary-subtle text-primary-emphasis">{{ _n('%d function', '%d functions', summary.functions, 'grcmanager')|format(summary.functions) }}</span>
+            <span class="badge bg-primary-subtle text-primary-emphasis">{{ _n('%d competence', '%d competences', summary.competences, 'grcmanager')|format(summary.competences) }}</span>
+            {% if summary.people_with_gaps is not null %}
+               {% if summary.people_with_gaps > 0 %}
+                  <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-alert-octagon me-1"></i>{{ _n('%d person with a gap', '%d people with a gap', summary.people_with_gaps, 'grcmanager')|format(summary.people_with_gaps) }}</span>
+               {% elseif summary.people > 0 %}
+                  <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('No gap', 'grcmanager') }}</span>
+               {% endif %}
+            {% endif %}
+            <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-archive me-1"></i>{{ _n('%d archived file', '%d archived files', summary.archives, 'grcmanager')|format(summary.archives) }}</span>
+         </div>
+         <a href="{{ summary.url }}"><i class="ti ti-link me-1"></i>{{ __('Open the competences', 'grcmanager') }}</a>
+      </div>
+   </div>
+</div>

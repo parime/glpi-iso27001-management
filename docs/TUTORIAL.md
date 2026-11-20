@@ -450,7 +450,31 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    modifiées depuis la revue précédente, revues dépassées. Pour l'auditeur, exportez la liste
    (CSV ou PDF) avec le bouton d'export de GLPI.
 
-### Étape 21 : Tenir le registre des contacts officiels (mesures A.5.5 et A.5.6)
+### Étape 21 : Décrire les compétences requises et suivre les écarts (article 7.2)
+
+1. Ouvrez la rubrique Revue des accès > **Compétences**. Cliquez sur **Ajouter les fonctions par
+   défaut manquantes** : RSSI, DPO, direction, administrateur, développeur, technicien et tout le
+   personnel arrivent avec leurs compétences requises (niveau attendu et façon de l'acquérir).
+2. Ouvrez une fonction, par exemple « Administrateur systèmes et réseaux ». Décrivez sa mission, puis
+   indiquez qui l'exerce : un utilisateur, un groupe (par exemple « Équipe infrastructure ») ou un
+   titre de GLPI (par exemple « Technicien / Technicienne », tel que créé par le plugin Configuration
+   GLPI Auto). Ajustez les compétences requises si besoin.
+3. Dans le **Catalogue des compétences**, ouvrez une compétence et liez les formations du plugin qui
+   la donnent, avec le niveau atteint. Une personne qui réussit la formation (ou l'une de ses
+   sessions) acquiert la compétence ; si la formation se renouvelle, la compétence expire avec elle.
+4. Pour un certificat, un diplôme ou l'expérience constatée à l'entretien annuel, utilisez
+   **Déclarer une compétence avec sa preuve** : la référence de la preuve est obligatoire, et le
+   fichier se joint dans l'onglet Documents (il ne se lit qu'avec les droits de la déclaration).
+5. La matrice **Personnes et compétences** montre, pour chaque titulaire, le niveau acquis et le
+   niveau attendu. Sous la matrice, chaque écart propose une action : la formation à planifier, ou
+   la preuve à déclarer. Rien n'est modifié automatiquement.
+6. Chaque fonction a sa **fiche de poste sécurité** en PDF. Avant l'audit, cliquez sur **Archiver
+   comme preuve** : le dossier daté (fiches de poste et écarts) est joint à l'exigence 7.2, dont la
+   fiche résume l'état des compétences.
+7. Chacun retrouve ses propres compétences dans ses préférences (onglet « Mes compétences »). Le
+   responsable voit la matrice et l'onglet « Compétences » de chaque utilisateur, avec le droit du
+   plugin et la lecture des utilisateurs, pour les personnes de ses entités.
+### Étape 22 : Tenir le registre des contacts officiels (mesures A.5.5 et A.5.6)
 
 1. Ouvrez Conformité > **Contacts officiels** (onglet à côté de « Contexte de l'organisation »).
    L'encadré « À quoi sert cette page ? » rappelle ce qui est attendu.
@@ -891,7 +915,31 @@ To give a subsidiary its own Statement of Applicability:
    since the previous review, overdue reviews. For the auditor, export the list (CSV or PDF) with the
    GLPI export button.
 
-### Step 21: Keep the register of official contacts (controls A.5.5 and A.5.6)
+### Step 21: Describe the required competences and follow the gaps (clause 7.2)
+
+1. Open the Access review section > **Competences**. Click **Add the missing default functions**:
+   CISO, DPO, top management, administrator, developer, technician and all staff arrive with their
+   required competences (expected level and how to acquire it).
+2. Open a function, for instance "System and network administrator". Describe its mission, then say
+   who holds it: a user, a group (for instance "Infrastructure team") or a GLPI job title (for
+   instance "Technician", as created by the Configuration GLPI Auto plugin). Adjust the required
+   competences if needed.
+3. In the **Competence catalogue**, open a competence and link the trainings of the plugin that give
+   it, with the level reached. A person who passes the training (or one of its sessions) acquires the
+   competence; if the training must be renewed, the competence expires with it.
+4. For a certificate, a diploma or the experience noted at the annual review, use **Declare a
+   competence with its evidence**: the reference of the evidence is mandatory, and the file is
+   attached in the Documents tab (it can only be read with the rights on the declaration).
+5. The **People and competences** matrix shows, for each holder, the level acquired and the level
+   expected. Below the matrix, each gap comes with a proposed action: the training to plan, or the
+   evidence to declare. Nothing is changed automatically.
+6. Each function has its **security job description** as a PDF. Before the audit, click **Archive as
+   evidence**: the dated file (job descriptions and gaps) is attached to requirement 7.2, whose form
+   summarises the state of the competences.
+7. Everyone finds their own competences in their preferences ("My competences" tab). The manager sees
+   the matrix and the "Competences" tab of each user, with the plugin right and the right to read
+   users, for the people of their entities.
+### Step 22: Keep the register of official contacts (controls A.5.5 and A.5.6)
 
 1. Open Compliance > **Official contacts** (tab next to "Context of the organization"). The "What is
    this page for?" box explains what is expected.

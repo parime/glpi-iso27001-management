@@ -420,6 +420,46 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, clause 5.3 and control A.5.3', 'grcmanager'),
             ],
+            // Issue #774 : compétences requises par fonction, acquises et écarts.
+            'ismsfunction' => [
+                'purpose'   => __(
+                    'The competences each ISMS function needs (CISO, DPO, administrator...), who holds each function, '
+                        . 'what each person has acquired through passed trainings or declared evidence, and the gaps.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Add the functions and their required competences with the expected level, say who holds them, '
+                        . 'link the trainings that give each competence, declare the certificates and diplomas, plan '
+                        . 'the proposed actions, then archive the file as evidence before the audit.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 7.2', 'grcmanager'),
+            ],
+            'competence' => [
+                'purpose'   => __(
+                    'The catalogue of the information security competences of the organization, and the trainings '
+                        . 'that give each one once passed.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Describe each competence and link the trainings that give it, with the level reached.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 7.2', 'grcmanager'),
+            ],
+            'competencedeclaration' => [
+                'purpose'   => __(
+                    'The competences acquired outside the trainings of the plugin, each one with its evidence: '
+                        . 'certificate, diploma, annual review or proven experience.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Record the reference of the evidence, its date and its end of validity, and attach the file in '
+                        . 'the Documents tab.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 7.2', 'grcmanager'),
+            ],
             'databreach' => [
                 'purpose'   => __(
                     'The register of personal data breaches: every breach is documented, whether or not it was '
