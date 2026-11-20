@@ -75,7 +75,7 @@
                <div class="small">{{ __('Laptops and tablets fully encrypted', 'grcmanager') }}</div>
             </div>
          </div>
-         <div class="small text-muted mt-1">{{ _n('%d laptop or tablet', '%d laptops or tablets', summary.laptops.total, 'grcmanager')|format(summary.laptops.total) }}, {{ _n('%d not fully encrypted', '%d not fully encrypted', summary.laptops.partial + summary.laptops.clear, 'grcmanager')|format(summary.laptops.partial + summary.laptops.clear) }}</div>
+         <div class="small text-muted mt-1">{{ _n('%d laptop or tablet', '%d laptops or tablets', summary.laptops.total, 'grcmanager')|format(summary.laptops.total) }}, {{ __('not fully encrypted: %d', 'grcmanager')|format(summary.laptops.partial + summary.laptops.clear) }}</div>
       </div></div></div>
       {% set algo_color = summary.weak > 0 ? 'danger' : (summary.legacy > 0 ? 'warning' : 'success') %}
       <div class="col-sm-6 col-lg-4"><div class="card card-sm"><div class="card-body">
@@ -86,7 +86,7 @@
                <div class="small">{{ __('Computers with a weak encryption algorithm', 'grcmanager') }}</div>
             </div>
          </div>
-         <div class="small text-muted mt-1">{{ _n('%d with an older algorithm or mode to plan to replace', '%d with an older algorithm or mode to plan to replace', summary.legacy, 'grcmanager')|format(summary.legacy) }}</div>
+         <div class="small text-muted mt-1">{{ __('Older algorithm or mode, to plan to replace: %d', 'grcmanager')|format(summary.legacy) }}</div>
       </div></div></div>
    </div>
    <div class="row row-cards mb-3">

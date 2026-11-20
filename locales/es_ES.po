@@ -26884,3 +26884,232 @@ msgid "%d document"
 msgid_plural "%d documents"
 msgstr[0] "%d documento"
 msgstr[1] "%d documentos"
+
+msgid "Encryption rule saved."
+msgstr "Regla de cifrado guardada."
+
+msgid "Recovery key declaration saved."
+msgstr "Declaración de la clave de recuperación guardada."
+
+#, php-format
+msgid "Computers that must be encrypted and are (%)"
+msgstr "Equipos que deben cifrarse y lo están (%)"
+
+msgid "From the volume inventory: at least one unencrypted or partially encrypted disk, or a weak encryption algorithm, on a computer that must be encrypted (\"Disk encryption\" page). Only computers whose volumes are inventoried are counted. Volumes without a drive letter (EFI, recovery), network shares, optical media, FAT partitions and, on Linux, /boot and pseudo-filesystems are ignored."
+msgstr "Según el inventario de volúmenes: al menos un disco sin cifrar o parcialmente cifrado, o un algoritmo de cifrado débil, en un equipo que debe estar cifrado (página «Cifrado de discos»). Solo se cuentan los equipos cuyos volúmenes están inventariados. Se ignoran los volúmenes sin letra de unidad (EFI, recuperación), los recursos compartidos de red, los soportes ópticos, las particiones FAT y, en Linux, /boot y los pseudosistemas de archivos."
+
+msgid "Laptops with an unencrypted disk"
+msgstr "Portátiles con un disco sin cifrar"
+
+msgid "Same check, limited to laptops and tablets (computer type reported by the inventory agent, such as Laptop or Notebook), which are the most exposed outside the premises."
+msgstr "El mismo control, limitado a portátiles y tabletas (tipo de equipo informado por el agente de inventario, como Laptop o Notebook), los más expuestos fuera de las instalaciones."
+
+#, php-format
+msgid "Weak encryption algorithm: %s"
+msgstr "Algoritmo de cifrado débil: %s"
+
+msgid "Disk encryption"
+msgstr "Cifrado de discos"
+
+msgid "Fully encrypted"
+msgstr "Totalmente cifrado"
+
+msgid "Every inventoried volume is encrypted."
+msgstr "Todos los volúmenes inventariados están cifrados."
+
+msgid "Partially encrypted"
+msgstr "Parcialmente cifrado"
+
+msgid "At least one volume is encrypted, but not all of them."
+msgstr "Al menos un volumen está cifrado, pero no todos."
+
+msgid "Not encrypted"
+msgstr "Sin cifrar"
+
+msgid "No inventoried volume is encrypted."
+msgstr "Ningún volumen inventariado está cifrado."
+
+msgid "Unknown"
+msgstr "Desconocido"
+
+msgid "No volume inventoried: no inventory agent, or an agent too old to report encryption."
+msgstr "Ningún volumen inventariado: sin agente de inventario, o un agente demasiado antiguo para informar del cifrado."
+
+msgid "All computers"
+msgstr "Todos los equipos"
+
+msgid "Laptops and tablets only"
+msgstr "Solo portátiles y tabletas"
+
+msgid "Computers of the selected types"
+msgstr "Equipos de los tipos seleccionados"
+
+msgid "Do not use the classification"
+msgstr "No usar la clasificación"
+
+msgid "Confidentiality medium or high"
+msgstr "Confidencialidad media o alta"
+
+msgid "Confidentiality high"
+msgstr "Confidencialidad alta"
+
+msgid "Laptops and tablets must be encrypted."
+msgstr "Los portátiles y las tabletas deben estar cifrados."
+
+msgid "No computer type is selected: only the classification below applies."
+msgstr "No se ha seleccionado ningún tipo de equipo: solo se aplica la clasificación de abajo."
+
+#, php-format
+msgid "Computers of these types must be encrypted: %s."
+msgstr "Los equipos de estos tipos deben estar cifrados: %s."
+
+msgid "All computers must be encrypted."
+msgstr "Todos los equipos deben estar cifrados."
+
+msgid "So must any computer classified with a medium or high confidentiality."
+msgstr "También cualquier equipo clasificado con confidencialidad media o alta."
+
+msgid "So must any computer classified with a high confidentiality."
+msgstr "También cualquier equipo clasificado con confidencialidad alta."
+
+#, php-format
+msgid "Disk encryption: %1$d%% of the computers that must be encrypted are, %2$d gap(s)"
+msgstr "Cifrado de discos: el %1$d %% de los equipos que deben cifrarse lo están, %2$d desviación(es)"
+
+msgid "Shows, from the volumes reported by the GLPI inventory agent (BitLocker, FileVault, LUKS, VeraCrypt...), which computers are fully encrypted, partially encrypted, not encrypted or of unknown state, by entity, computer type and location. Computers that must be encrypted and are not, or use a weak algorithm, are gaps."
+msgstr "Muestra, según los volúmenes informados por el agente de inventario de GLPI (BitLocker, FileVault, LUKS, VeraCrypt...), qué equipos están totalmente cifrados, parcialmente cifrados, sin cifrar o en estado desconocido, por entidad, tipo de equipo y ubicación. Los equipos que deben estar cifrados y no lo están, o usan un algoritmo débil, son desviaciones."
+
+msgid "Choose which computers must be encrypted, encrypt the computers listed as gaps, install the inventory agent on those of unknown state, and declare where the recovery key is backed up. The plugin never reads nor stores any recovery key. Record the result as an effectiveness test of the control to keep the evidence."
+msgstr "Elija qué equipos deben estar cifrados, cifre los que aparecen como desviaciones, instale el agente de inventario en los de estado desconocido y declare dónde se guarda la clave de recuperación. El plugin nunca lee ni almacena ninguna clave de recuperación. Registre el resultado como prueba de eficacia del control para conservar la evidencia."
+
+msgid "ISO/IEC 27001, controls A.8.24 and A.8.1"
+msgstr "ISO/IEC 27001, controles A.8.24 y A.8.1"
+
+#, php-format
+msgid "Laptops with an unencrypted disk (%)"
+msgstr "Portátiles con un disco sin cifrar (%)"
+
+msgid "Disk encryption: rates, rule and details"
+msgstr "Cifrado de discos: tasas, regla y detalle"
+
+#, php-format
+msgid "%d of unknown state"
+msgstr "%d en estado desconocido"
+
+#, php-format
+msgid "%d weak algorithm(s)"
+msgstr "%d algoritmo(s) débil(es)"
+
+#, php-format
+msgid "Computed on %s"
+msgstr "Calculado el %s"
+
+#, php-format
+msgid "Encryption rate: %d%%"
+msgstr "Tasa de cifrado: %d %%"
+
+msgid "Encryption rate: not measured"
+msgstr "Tasa de cifrado: no medida"
+
+#, php-format
+msgid "Laptops: %d%%"
+msgstr "Portátiles: %d %%"
+
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, gaps first."
+msgstr "%1$d equipos: se muestran los %2$d primeros, desviaciones primero."
+
+#, php-format
+msgid "not fully encrypted: %d"
+msgstr "no totalmente cifrados: %d"
+
+#, php-format
+msgid "Older algorithm or mode, to plan to replace: %d"
+msgstr "Algoritmo o modo antiguo, a reemplazar: %d"
+
+msgid "A computer is a laptop or a tablet when its type in GLPI is one of those reported by the inventory agent (Laptop, Notebook, Portable, Tablet, Convertible...). The classification threshold uses the C/I/A classification of the computer (tab of the computer form)."
+msgstr "Un equipo es un portátil o una tableta cuando su tipo en GLPI es uno de los informados por el agente de inventario (Laptop, Notebook, Portable, Tablet, Convertible...). El umbral de clasificación usa la clasificación C/I/D del equipo (pestaña de su ficha)."
+
+msgid "Also every computer classified with"
+msgstr "Además, todo equipo clasificado con"
+
+msgid "Backed up"
+msgstr "Guardada"
+
+msgid "Backup date"
+msgstr "Fecha de copia"
+
+msgid "Computer types (when \"Computers of the selected types\" is chosen)"
+msgstr "Tipos de equipo (si se elige «Equipos de los tipos seleccionados»)"
+
+msgid "Computers concerned"
+msgstr "Equipos afectados"
+
+msgid "Computers in GLPI"
+msgstr "Equipos en GLPI"
+
+msgid "Computers that must be encrypted"
+msgstr "Equipos que deben estar cifrados"
+
+msgid "Computers that must be encrypted and are"
+msgstr "Equipos que deben cifrarse y lo están"
+
+msgid "Computers with a weak encryption algorithm"
+msgstr "Equipos con un algoritmo de cifrado débil"
+
+msgid "For example the types used for servers and desktops that hold sensitive data."
+msgstr "Por ejemplo, los tipos usados para servidores y equipos de sobremesa con datos sensibles."
+
+msgid "Laptops and tablets fully encrypted"
+msgstr "Portátiles y tabletas totalmente cifrados"
+
+msgid "Last inventory"
+msgstr "Último inventario"
+
+msgid "No computer concerned in your entities."
+msgstr "Ningún equipo afectado en sus entidades."
+
+msgid "No computer concerned."
+msgstr "Ningún equipo afectado."
+
+msgid "No location"
+msgstr "Sin ubicación"
+
+msgid "No type"
+msgstr "Sin tipo"
+
+msgid "Not declared"
+msgstr "No declarada"
+
+msgid "Older algorithm or mode"
+msgstr "Algoritmo o modo antiguo"
+
+msgid "Recovery key backed up (declared)"
+msgstr "Clave de recuperación guardada (declarada)"
+
+msgid "The plugin never reads nor stores any recovery key: it only keeps whether the key is declared backed up, and when. Nothing is changed in GLPI from this page."
+msgstr "El plugin nunca lee ni almacena ninguna clave de recuperación: solo guarda si la clave está declarada como guardada, y cuándo. Desde esta página no se modifica nada en GLPI."
+
+msgid "Tool and algorithm"
+msgstr "Herramienta y algoritmo"
+
+msgid "Volumes not encrypted"
+msgstr "Volúmenes sin cifrar"
+
+msgid "Weak algorithm"
+msgstr "Algoritmo débil"
+
+msgid "Which computers must be encrypted?"
+msgstr "¿Qué equipos deben estar cifrados?"
+
+#, php-format
+msgid "%d computer must be encrypted"
+msgid_plural "%d computers must be encrypted"
+msgstr[0] "%d equipo debe estar cifrado"
+msgstr[1] "%d equipos deben estar cifrados"
+
+#, php-format
+msgid "%d laptop or tablet"
+msgid_plural "%d laptops or tablets"
+msgstr[0] "%d portátil o tableta"
+msgstr[1] "%d portátiles o tabletas"

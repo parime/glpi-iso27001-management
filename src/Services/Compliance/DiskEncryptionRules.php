@@ -200,7 +200,7 @@ final class DiskEncryptionRules
      * Compteurs par état et taux de chiffrement (chiffrés parmi les états connus), par valeur d'une
      * clé de regroupement (entité, type, lieu), triés par libellé.
      *
-     * @param list<array{status: string}&array<string, mixed>> $rows
+     * @param list<array<string, mixed>> $rows
      * @return list<array{label: string, encrypted: int, partial: int, clear: int, unknown: int, total: int,
      *     rate: ?int}>
      */
@@ -213,14 +213,14 @@ final class DiskEncryptionRules
                 'label' => $label, self::STATUS_ENCRYPTED => 0, self::STATUS_PARTIAL => 0,
                 self::STATUS_CLEAR => 0, self::STATUS_UNKNOWN => 0, 'total' => 0, 'rate' => null,
             ];
-            $groups[$label][$row['status']]++;
+            $groups[$label][(string) $row['status']]++;
             $groups[$label]['total']++;
         }
         foreach ($groups as &$group) {
             $group['rate'] = self::rate($group);
         }
         unset($group);
-        uksort($groups, static fn ($a, $b): int => strnatcasecmp((string) $a, (string) $b));
+        ksort($groups, SORT_NATURAL | SORT_FLAG_CASE);
 
         return array_values($groups);
     }
@@ -228,7 +228,7 @@ final class DiskEncryptionRules
     /**
      * Synthèse de toutes les lignes (mêmes compteurs que breakdown()).
      *
-     * @param list<array{status: string}&array<string, mixed>> $rows
+     * @param list<array<string, mixed>> $rows
      * @return array{encrypted: int, partial: int, clear: int, unknown: int, total: int, rate: ?int}
      */
     public static function summary(array $rows): array
@@ -238,7 +238,7 @@ final class DiskEncryptionRules
             self::STATUS_UNKNOWN => 0, 'total' => count($rows), 'rate' => null,
         ];
         foreach ($rows as $row) {
-            $summary[$row['status']]++;
+            $summary[(string) $row['status']]++;
         }
         $summary['rate'] = self::rate($summary);
 

@@ -26770,3 +26770,234 @@ msgid_plural "%d documents"
 msgstr[0] "%d dokument"
 msgstr[1] "%d dokumenty"
 msgstr[2] "%d dokumentów"
+
+msgid "Encryption rule saved."
+msgstr "Zapisano regułę szyfrowania."
+
+msgid "Recovery key declaration saved."
+msgstr "Zapisano deklarację klucza odzyskiwania."
+
+#, php-format
+msgid "Computers that must be encrypted and are (%)"
+msgstr "Komputery wymagające szyfrowania, które są zaszyfrowane (%)"
+
+msgid "From the volume inventory: at least one unencrypted or partially encrypted disk, or a weak encryption algorithm, on a computer that must be encrypted (\"Disk encryption\" page). Only computers whose volumes are inventoried are counted. Volumes without a drive letter (EFI, recovery), network shares, optical media, FAT partitions and, on Linux, /boot and pseudo-filesystems are ignored."
+msgstr "Z inwentarza woluminów: co najmniej jeden niezaszyfrowany lub częściowo zaszyfrowany dysk albo słaby algorytm szyfrowania na komputerze, który musi być zaszyfrowany (strona „Szyfrowanie dysków”). Liczone są tylko komputery z zinwentaryzowanymi woluminami. Pomijane są woluminy bez litery dysku (EFI, odzyskiwanie), udziały sieciowe, nośniki optyczne, partycje FAT oraz w Linuksie /boot i pseudosystemy plików."
+
+msgid "Laptops with an unencrypted disk"
+msgstr "Laptopy z niezaszyfrowanym dyskiem"
+
+msgid "Same check, limited to laptops and tablets (computer type reported by the inventory agent, such as Laptop or Notebook), which are the most exposed outside the premises."
+msgstr "Ta sama kontrola, ograniczona do laptopów i tabletów (typ komputera zgłaszany przez agenta inwentaryzacji, np. Laptop lub Notebook), najbardziej narażonych poza siedzibą."
+
+#, php-format
+msgid "Weak encryption algorithm: %s"
+msgstr "Słaby algorytm szyfrowania: %s"
+
+msgid "Disk encryption"
+msgstr "Szyfrowanie dysków"
+
+msgid "Fully encrypted"
+msgstr "W pełni zaszyfrowany"
+
+msgid "Every inventoried volume is encrypted."
+msgstr "Wszystkie zinwentaryzowane woluminy są zaszyfrowane."
+
+msgid "Partially encrypted"
+msgstr "Częściowo zaszyfrowany"
+
+msgid "At least one volume is encrypted, but not all of them."
+msgstr "Co najmniej jeden wolumin jest zaszyfrowany, ale nie wszystkie."
+
+msgid "Not encrypted"
+msgstr "Niezaszyfrowany"
+
+msgid "No inventoried volume is encrypted."
+msgstr "Żaden zinwentaryzowany wolumin nie jest zaszyfrowany."
+
+msgid "Unknown"
+msgstr "Nieznany"
+
+msgid "No volume inventoried: no inventory agent, or an agent too old to report encryption."
+msgstr "Brak zinwentaryzowanych woluminów: brak agenta inwentaryzacji lub agent zbyt stary, by zgłaszać szyfrowanie."
+
+msgid "All computers"
+msgstr "Wszystkie komputery"
+
+msgid "Laptops and tablets only"
+msgstr "Tylko laptopy i tablety"
+
+msgid "Computers of the selected types"
+msgstr "Komputery wybranych typów"
+
+msgid "Do not use the classification"
+msgstr "Nie używaj klasyfikacji"
+
+msgid "Confidentiality medium or high"
+msgstr "Poufność średnia lub wysoka"
+
+msgid "Confidentiality high"
+msgstr "Poufność wysoka"
+
+msgid "Laptops and tablets must be encrypted."
+msgstr "Laptopy i tablety muszą być zaszyfrowane."
+
+msgid "No computer type is selected: only the classification below applies."
+msgstr "Nie wybrano typu komputera: obowiązuje tylko poniższa klasyfikacja."
+
+#, php-format
+msgid "Computers of these types must be encrypted: %s."
+msgstr "Komputery tych typów muszą być zaszyfrowane: %s."
+
+msgid "All computers must be encrypted."
+msgstr "Wszystkie komputery muszą być zaszyfrowane."
+
+msgid "So must any computer classified with a medium or high confidentiality."
+msgstr "Dotyczy to też każdego komputera o poufności średniej lub wysokiej."
+
+msgid "So must any computer classified with a high confidentiality."
+msgstr "Dotyczy to też każdego komputera o wysokiej poufności."
+
+#, php-format
+msgid "Disk encryption: %1$d%% of the computers that must be encrypted are, %2$d gap(s)"
+msgstr "Szyfrowanie dysków: %1$d%% komputerów wymagających szyfrowania jest zaszyfrowanych, odchylenia: %2$d"
+
+msgid "Shows, from the volumes reported by the GLPI inventory agent (BitLocker, FileVault, LUKS, VeraCrypt...), which computers are fully encrypted, partially encrypted, not encrypted or of unknown state, by entity, computer type and location. Computers that must be encrypted and are not, or use a weak algorithm, are gaps."
+msgstr "Pokazuje, na podstawie woluminów zgłaszanych przez agenta inwentaryzacji GLPI (BitLocker, FileVault, LUKS, VeraCrypt...), które komputery są w pełni zaszyfrowane, częściowo zaszyfrowane, niezaszyfrowane lub w nieznanym stanie, według jednostki, typu komputera i lokalizacji. Komputery, które muszą być zaszyfrowane, a nie są, lub używają słabego algorytmu, są odchyleniami."
+
+msgid "Choose which computers must be encrypted, encrypt the computers listed as gaps, install the inventory agent on those of unknown state, and declare where the recovery key is backed up. The plugin never reads nor stores any recovery key. Record the result as an effectiveness test of the control to keep the evidence."
+msgstr "Wybierz, które komputery muszą być zaszyfrowane, zaszyfruj te wymienione jako odchylenia, zainstaluj agenta inwentaryzacji na tych w nieznanym stanie i zadeklaruj, gdzie przechowywany jest klucz odzyskiwania. Wtyczka nigdy nie odczytuje ani nie przechowuje klucza odzyskiwania. Zapisz wynik jako test skuteczności zabezpieczenia, aby zachować dowód."
+
+msgid "ISO/IEC 27001, controls A.8.24 and A.8.1"
+msgstr "ISO/IEC 27001, zabezpieczenia A.8.24 i A.8.1"
+
+#, php-format
+msgid "Laptops with an unencrypted disk (%)"
+msgstr "Laptopy z niezaszyfrowanym dyskiem (%)"
+
+msgid "Disk encryption: rates, rule and details"
+msgstr "Szyfrowanie dysków: wskaźniki, reguła i szczegóły"
+
+#, php-format
+msgid "%d of unknown state"
+msgstr "W nieznanym stanie: %d"
+
+#, php-format
+msgid "%d weak algorithm(s)"
+msgstr "Słabe algorytmy: %d"
+
+#, php-format
+msgid "Computed on %s"
+msgstr "Obliczono %s"
+
+#, php-format
+msgid "Encryption rate: %d%%"
+msgstr "Wskaźnik szyfrowania: %d%%"
+
+msgid "Encryption rate: not measured"
+msgstr "Wskaźnik szyfrowania: nie zmierzono"
+
+#, php-format
+msgid "Laptops: %d%%"
+msgstr "Laptopy: %d%%"
+
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, gaps first."
+msgstr "Komputery: %1$d; pokazano pierwsze %2$d, najpierw odchylenia."
+
+#, php-format
+msgid "not fully encrypted: %d"
+msgstr "nie w pełni zaszyfrowane: %d"
+
+#, php-format
+msgid "Older algorithm or mode, to plan to replace: %d"
+msgstr "Starszy algorytm lub tryb, do wymiany: %d"
+
+msgid "A computer is a laptop or a tablet when its type in GLPI is one of those reported by the inventory agent (Laptop, Notebook, Portable, Tablet, Convertible...). The classification threshold uses the C/I/A classification of the computer (tab of the computer form)."
+msgstr "Komputer jest laptopem lub tabletem, gdy jego typ w GLPI jest jednym z typów zgłaszanych przez agenta inwentaryzacji (Laptop, Notebook, Portable, Tablet, Convertible...). Próg klasyfikacji korzysta z klasyfikacji P/I/D komputera (karta w jego formularzu)."
+
+msgid "Also every computer classified with"
+msgstr "Ponadto każdy komputer o klasyfikacji"
+
+msgid "Backed up"
+msgstr "Zarchiwizowany"
+
+msgid "Backup date"
+msgstr "Data archiwizacji"
+
+msgid "Computer types (when \"Computers of the selected types\" is chosen)"
+msgstr "Typy komputerów (gdy wybrano „Komputery wybranych typów”)"
+
+msgid "Computers concerned"
+msgstr "Komputery objęte"
+
+msgid "Computers in GLPI"
+msgstr "Komputery w GLPI"
+
+msgid "Computers that must be encrypted"
+msgstr "Komputery, które muszą być zaszyfrowane"
+
+msgid "Computers that must be encrypted and are"
+msgstr "Komputery wymagające szyfrowania, które są zaszyfrowane"
+
+msgid "Computers with a weak encryption algorithm"
+msgstr "Komputery ze słabym algorytmem szyfrowania"
+
+msgid "For example the types used for servers and desktops that hold sensitive data."
+msgstr "Na przykład typy używane dla serwerów i komputerów stacjonarnych z danymi wrażliwymi."
+
+msgid "Laptops and tablets fully encrypted"
+msgstr "W pełni zaszyfrowane laptopy i tablety"
+
+msgid "Last inventory"
+msgstr "Ostatnia inwentaryzacja"
+
+msgid "No computer concerned in your entities."
+msgstr "Brak objętych komputerów w Twoich jednostkach."
+
+msgid "No computer concerned."
+msgstr "Brak objętych komputerów."
+
+msgid "No location"
+msgstr "Bez lokalizacji"
+
+msgid "No type"
+msgstr "Bez typu"
+
+msgid "Not declared"
+msgstr "Niezadeklarowany"
+
+msgid "Older algorithm or mode"
+msgstr "Starszy algorytm lub tryb"
+
+msgid "Recovery key backed up (declared)"
+msgstr "Klucz odzyskiwania zarchiwizowany (deklaracja)"
+
+msgid "The plugin never reads nor stores any recovery key: it only keeps whether the key is declared backed up, and when. Nothing is changed in GLPI from this page."
+msgstr "Wtyczka nigdy nie odczytuje ani nie przechowuje klucza odzyskiwania: zapisuje tylko, czy klucz zadeklarowano jako zarchiwizowany i kiedy. Na tej stronie nic nie jest zmieniane w GLPI."
+
+msgid "Tool and algorithm"
+msgstr "Narzędzie i algorytm"
+
+msgid "Volumes not encrypted"
+msgstr "Niezaszyfrowane woluminy"
+
+msgid "Weak algorithm"
+msgstr "Słaby algorytm"
+
+msgid "Which computers must be encrypted?"
+msgstr "Które komputery muszą być zaszyfrowane?"
+
+#, php-format
+msgid "%d computer must be encrypted"
+msgid_plural "%d computers must be encrypted"
+msgstr[0] "%d komputer musi być zaszyfrowany"
+msgstr[1] "Komputery do zaszyfrowania: %d"
+msgstr[2] "Komputery do zaszyfrowania: %d"
+
+#, php-format
+msgid "%d laptop or tablet"
+msgid_plural "%d laptops or tablets"
+msgstr[0] "%d laptop lub tablet"
+msgstr[1] "Laptopy lub tablety: %d"
+msgstr[2] "Laptopy lub tablety: %d"
