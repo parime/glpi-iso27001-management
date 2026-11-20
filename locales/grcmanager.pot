@@ -28051,6 +28051,26 @@ msgstr ""
 msgid "Communication recorded."
 msgstr ""
 
+#: templates/software_watch.html.twig
+msgid "Operating system of computers, servers or network equipment"
+msgstr ""
+
+#: templates/software_watch.html.twig
+msgid "Proposed match:"
+msgstr ""
+
+#: templates/software_watch.html.twig
+msgid "Watch this operating system with the proposed CPE"
+msgstr ""
+
+#: templates/software_watch.html.twig
+msgid "Accept the proposal"
+msgstr ""
+
+#: templates/software_watch.html.twig
+msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
+msgstr ""
+
 #: templates/training_form.html.twig
 msgid ""
 "Proposed remedial training: the people who clicked the link or entered data "

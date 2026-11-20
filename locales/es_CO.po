@@ -24000,6 +24000,21 @@ msgstr "Este destinatario no se puede añadir."
 msgid "Communication recorded."
 msgstr "Comunicación registrada."
 
+msgid "Operating system of computers, servers or network equipment"
+msgstr "Sistema operativo de ordenadores, servidores o equipos de red"
+
+msgid "Proposed match:"
+msgstr "Correspondencia propuesta:"
+
+msgid "Watch this operating system with the proposed CPE"
+msgstr "Vigilar este sistema operativo con la CPE propuesta"
+
+msgid "Accept the proposal"
+msgstr "Aceptar la propuesta"
+
+msgid "Operating systems are listed too. For Windows 10 and 11, Windows Server, Debian, Ubuntu and Red Hat Enterprise Linux, a CPE is proposed: check it, then accept it."
+msgstr "También se listan los sistemas operativos. Para Windows 10 y 11, Windows Server, Debian, Ubuntu y Red Hat Enterprise Linux se propone una CPE: compruébela y luego acéptela."
+
 msgid "Proposed remedial training: the people who clicked the link or entered data in the phishing simulation are preselected. Check the date and the list, then click \"Add\". Nothing is saved or sent before that."
 msgstr "Formación de refuerzo propuesta: las personas que hicieron clic en el enlace o introdujeron datos en la simulación de phishing están preseleccionadas. Compruebe la fecha y la lista y, a continuación, haga clic en «Añadir». No se guarda ni se envía nada antes."
 

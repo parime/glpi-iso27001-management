@@ -7,14 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-### Fixed
-
-- **Gabarits d'incident de sécurité** (issue #796) : l'aperçu d'un gabarit affichait « Une erreur
-  inattendue s'est produite », et le statut, la priorité ou l'impact prédéfinis ne pouvaient pas être
-  réglés. Le cœur de GLPI (11 et 12) lit les champs prédéfinis avec une méthode qui ne connaît que
-  les tickets, changements et problèmes, et levait « Unknown ITIL type ». Le plugin fournit
-  désormais sa propre lecture des champs prédéfinis.
-
 ### Added
 
 - **Simulations d'hameçonnage, preuve de sensibilisation** (issue #604, lot 1, clause 7.3 et mesure
@@ -44,6 +36,18 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     garde les taux. Entités respectées ; pas d'onglet Documents (un export nominatif y échapperait
     au droit des registres sensibles).
 
+## [2.67.0] - 2026-11-20
+
+### Fixed
+
+- **Gabarits d'incident de sécurité** (issue #796) : l'aperçu d'un gabarit affichait « Une erreur
+  inattendue s'est produite », et le statut, la priorité ou l'impact prédéfinis ne pouvaient pas être
+  réglés. Le cœur de GLPI (11 et 12) lit les champs prédéfinis avec une méthode qui ne connaît que
+  les tickets, changements et problèmes, et levait « Unknown ITIL type ». Le plugin fournit
+  désormais sa propre lecture des champs prédéfinis.
+
+### Added
+
 - **Évaluation par référentiel sur les mesures propres de chaque référentiel** (issue #789, lot 1).
   Tableau de bord, onglet « Évaluation par référentiel » :
   - un référentiel personnalisé (par exemple un référentiel national importé en CSV) est évalué sur
@@ -57,6 +61,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     le référentiel n'est pas évalué au lieu d'afficher des mesures ISO ;
   - liste « Référentiel à détailler », choix retenu pour la session ; colonne « Évalué sur ».
   Droits et entités inchangés (droit de lecture du plugin, registre NIS2 Italia accessible seul).
+
+- **Vulnérabilités du parc : les systèmes d'exploitation sont rapprochés des CVE** (issue #780,
+  lot 1). Une grande partie des CVE critiques touche Windows, Windows Server et les distributions
+  Linux, qui échappaient au suivi : seuls les logiciels installés et les firmwares (#705) étaient
+  rapprochés.
+  - Troisième source du rapprochement : le système d'exploitation de chaque actif
+    (`Item_OperatingSystem` : nom, version et version du noyau). Il n'est relié à un produit que
+    par un alias déclaré, jamais par ressemblance de nom. Pour Windows 10 et 11, la version de
+    fonctionnalités (« 23H2 ») fait partie du nom rapproché, comme dans NVD.
+  - Correspondances proposées par défaut dans « Logiciels à surveiller » pour Windows 10 et 11,
+    Windows Server 2016 à 2025, Debian, Ubuntu et Red Hat Enterprise Linux (CPE
+    `cpe:2.3:o:...`) : l'administrateur les vérifie, puis clique sur « Accepter la proposition ».
+    La famille du système est reconnue par la règle de la fin de support (#704), qui reconnaît
+    désormais aussi le nom complet inventorié par l'agent GLPI (« Debian GNU/Linux 12
+    (bookworm) », « Ubuntu 22.04.4 LTS »).
+  - Comparaison des versions sous la forme employée par NVD : numéro de build pour Windows,
+    « 12.0 » pour Debian 12, « 9.0 » pour RHEL 9, « 22.04 » pour Ubuntu. Un build Windows sans
+    révision (« 10.0.22631 ») reste « version non vérifiable » et n'est pas interrogé auprès de
+    NVD : il n'est jamais déclaré vulnérable ni corrigé par supposition.
+  - La source « Système d'exploitation » est affichée dans l'onglet CVE d'un incident, dans
+    « Vulnérabilités du parc », dans « Logiciels à surveiller » et dans l'onglet
+    « Vulnérabilités » de l'actif. Les tickets de mise à jour lient les actifs concernés, dans
+    l'entité du ticket (règle de #702).
+  - Entités et droits inchangés : un utilisateur ne voit et ne compte que les actifs de ses
+    entités, d'un type qu'il peut lire dans l'onglet CVE. Aucun droit ajouté ni modifié.
 
 - **Fin de garantie du matériel** (issue #782, lot 1, A.7.13 et A.8.9), en complément de la fin de
   support des logiciels (#704). Calcul à la demande depuis les informations financières natives de
@@ -100,11 +129,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     droit du contexte et dans l'entité de l'incident ou une entité parente.
   - Reste à faire (lot 2) : suppléant de chaque contact principal, revue annuelle de l'annuaire,
     adresses des membres d'un groupe, communications dans le rapport d'exercice de crise.
-
-## [2.66.0] - 2026-11-20
-
-### Added
-
 - **Sécurité physique des sites : grille d'évaluation, zones et actions** (issue #778, lot 1,
   mesures A.7.1 à A.7.14). Les sites sont les lieux de GLPI ; aucun second référentiel.
   - Évaluation d'un site : date, évaluateur, statut, politique de sécurité physique liée (document
@@ -131,6 +155,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     mesure.
   - Droits : droit général du plugin et entité de l'évaluation ; lignes et zones modifiables avec le
     droit de modifier l'évaluation ; pièces jointes lues avec le droit de lire l'évaluation.
+
+## [2.66.0] - 2026-11-20
+
+### Added
+
 - **Procédures d'exploitation documentées** (issue #775, lot 1, A.5.37). Pas d'objet à part : une
   procédure est un document de la bibliothèque des politiques de catégorie « Procédure
   d'exploitation », avec son domaine. Elle garde la version, le responsable, la date d'approbation,

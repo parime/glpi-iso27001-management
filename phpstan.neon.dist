@@ -128,6 +128,9 @@ parameters:
         # Issue #705 : firmwares du parc (glpi_items_devicefirmwares), même rationale.
         # FirmwareVersion.php reste analysé : pur PHP.
         - src/Services/Cve/FirmwareInventory.php
+        # Issue #780 : systèmes d'exploitation du parc (glpi_items_operatingsystems), même
+        # rationale. OperatingSystemVersion.php reste analysé : pur PHP.
+        - src/Services/Cve/OperatingSystemInventory.php
         # Issue #160 : veille des vulnérabilités du parc (base, NVD, Config de GLPI), même
         # rationale. ParkVulnerabilityRules.php reste analysé : pur PHP.
         - src/Services/Cve/ParkVulnerabilitySync.php
