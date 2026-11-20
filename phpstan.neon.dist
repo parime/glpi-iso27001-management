@@ -33,6 +33,8 @@ parameters:
         - src/Services/People/PersonnelComplianceRules.php
         # Issue #774 : règles et catalogue des compétences, PHP pur.
         - src/Services/Competence
+        # Issue #779 : règles des licences logicielles, PHP pur.
+        - src/Services/License/LicenseComplianceRules.php
     excludePaths:
         # Issue #539 : lit les registres du plugin via le $DB global, Session et les classes
         # CommonDBTM du plugin, même raison que RiskMatrixConfig.php ci-dessous. MySpaceRules.php,

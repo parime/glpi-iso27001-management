@@ -33,6 +33,12 @@
   {% if summary.next %}
     <tr><td>{{ __('Next step', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.next.number }}. {{ summary.next.title }}</td></tr>
   {% endif %}
+  {# Issue #761 : date cible et échéances conseillées. #}
+  {% if plan.target %}
+    <tr><td>{{ __('Target date of the certification audit', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ plan.target.label }}</td></tr>
+    <tr><td>{{ __('Advised deadline passed', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ plan.late }}</td></tr>
+    <tr><td>{{ __('At risk of being late', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ plan.at_risk }}</td></tr>
+  {% endif %}
   <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ generated_by }}</td></tr>
 </table>
 <p>{{ __('Each state is computed from the data that the person who exported this report can read. Nothing has been modified.', 'grcmanager') }}</p>
@@ -53,7 +59,7 @@
         <tr>
           <td>{{ step.number }}</td>
           <td><strong>{{ step.title }}</strong><br>{{ __('ISO 27001 %s', 'grcmanager')|format(step.clauses) }}<br><span class="grc-expected">{{ step.expected }}</span></td>
-          <td><span class="grc-st grc-st-{{ step.status }}">{{ step.style.label }}</span></td>
+          <td><span class="grc-st grc-st-{{ step.status }}">{{ step.style.label }}</span>{% if step.deadline %}<br>{{ __('Advised deadline: %s', 'grcmanager')|format(step.deadline_label) }}{% if step.deadline_state != 'on_track' %} ({{ step.deadline_style.label }}){% endif %}{% endif %}</td>
           <td>
             {% for fact in step.facts %}{{ fact }}<br>{% endfor %}
             {% if step.requirements %}{{ step.requirements }}{% endif %}

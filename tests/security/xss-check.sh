@@ -81,6 +81,8 @@ check "fiche d'un traitement (onglet principal)" "$(tab GlpiPlugin%5CGrcmanager%
 check "front/operatingprocedure.php"          "$P/operatingprocedure.php"
 check "fiche d'une procedure d'exploitation"  "$P/policy.form.php?id=$(xid procedure)"
 check "onglet principal d'une procedure"      "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CPolicy$main' "$(xid procedure)")"
+# Issue #779 : logiciel et ordinateur pieges (page des licences logicielles).
+check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #771 : contact officiel piege (registre, fiche, onglets de l'incident et de la violation).
 check "front/officialcontact.php"             "$P/officialcontact.php"
 check "fiche d'un contact officiel"           "$P/contextitem.form.php?id=$(xid official_contact)"

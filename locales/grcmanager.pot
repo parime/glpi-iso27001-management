@@ -26051,6 +26051,445 @@ msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
 msgstr ""
 
 #: templates/control_form.html.twig
+#, php-format
+msgid "%d commercial software without a license"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d over-deployment(s)"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d expired license(s) still in use"
+msgstr ""
+
+#: templates/control_form.html.twig src/SoftwareLicenseCompliance.php:57
+msgid "Software license compliance"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid ""
+"A license counts for an entity when it belongs to it, or when it is "
+"recursive and belongs to a parent entity. Nothing is changed in GLPI from "
+"this page."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Licenses in GLPI"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "%1$d findings: the first %2$d are shown, all of them are in the export."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid ""
+"No finding in your entities: every watched commercial software has a "
+"license, no license is overused, and no expired license is still in use."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "%d finding"
+msgid_plural "%d findings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Shared with the sub-entities"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "and %d more"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Watched commercial publishers"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid ""
+"Software from these publishers (manufacturer in GLPI) must have a license "
+"recorded. Software whose name contains one of the ignored words (free tools "
+"from the same publishers) is never reported as missing a license."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Watched publishers (one per line)"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Ignored software (part of the name, one per line)"
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Back to the default lists"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:62
+msgid "Software licenses"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:132
+msgid "Commercial software without a license"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:136
+msgid ""
+"Installed software from a watched publisher, with no license recorded in "
+"GLPI for this entity."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:141
+msgid "More installations than licensed seats"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:145
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:151
+msgid "Expired license still in use"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:155
+msgid ""
+"The license has expired but assets are still assigned to it, or the software "
+"is still installed with no other valid license."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:171
+msgid "in this entity and its sub-entities"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:172
+msgid "in this entity"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:177
+#, php-format
+msgid "%1$d asset has it %2$s, no license recorded."
+msgid_plural "%1$d assets have it %2$s, no license recorded."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SoftwareLicenseCompliance.php:187
+#, php-format
+msgid "%1$d asset has it %3$s for %2$d licensed seat(s)."
+msgid_plural "%1$d assets have it %3$s for %2$d licensed seat(s)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SoftwareLicenseCompliance.php:197
+#, php-format
+msgid ""
+"Expired on %1$s: %2$d asset(s) still assigned, %3$d installation(s) %4$s."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:343
+msgid "Publisher"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:345
+msgid "Licensed seats"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:346
+msgid "License"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:347
+msgid "Expiration date"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:348
+msgid "Assets still assigned"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:356
+msgid "Entity and sub-entities"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:357
+msgid "Entity only"
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:414
+#, php-format
+msgid "%1$s (%2$s): %3$s"
+msgstr ""
+
+#: src/ConsistencyCheck.php:387
+msgid ""
+"Software without a license, installed beyond the licensed seats, or under an "
+"expired license"
+msgstr ""
+
+#: src/ConsistencyCheck.php:391
+msgid ""
+"Record the missing license in GLPI, buy seats or uninstall the software, and "
+"renew or replace the expired license."
+msgstr ""
+
+#: src/PageHelp.php:383
+msgid ""
+"Checks, from the software and licenses already recorded in GLPI, that the "
+"organization respects the licenses it bought: commercial software installed "
+"without any license, more installations than licensed seats, and expired "
+"licenses still in use. Results are grouped by entity."
+msgstr ""
+
+#: src/PageHelp.php:390
+msgid ""
+"Check the list of watched publishers, then for each finding record the "
+"missing license in GLPI, buy seats, uninstall the software or renew the "
+"license. Export the list (CSV) for the auditor. Nothing is changed "
+"automatically."
+msgstr ""
+
+#: src/PageHelp.php:395
+msgid "ISO/IEC 27001, control A.5.32"
+msgstr ""
+
+#: front/softwarelicensecompliance.php:49
+msgid "Watched publishers saved."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Target date and advised deadlines"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+#: templates/pdf/certification_readiness_report.html.twig
+#: src/CertificationReadiness.php:1274
+#: src/NotificationTargetReadinessAlert.php:92
+msgid "Target date of the certification audit"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+#, php-format
+msgid "in %d days"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "today"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Date entered in the settings of this page."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+#, php-format
+msgid ""
+"Next audit of the maintenance cycle: %s, on the anniversary of the "
+"certification."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Next certification audit planned:"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+#: templates/pdf/certification_readiness_report.html.twig
+#: src/CertificationReadiness.php:1083
+msgid "Advised deadline passed"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+#: templates/pdf/certification_readiness_report.html.twig
+#: src/CertificationReadiness.php:1078
+msgid "At risk of being late"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"Each step not done gets an advised deadline, counted back from the target "
+"date: the foundations first, then the internal audit, the management review "
+"that uses its results, and the treatment of nonconformities. These deadlines "
+"also appear in the compliance calendar."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"No target date yet. Enter one in the settings below, or plan the "
+"certification audit: an audit whose type is a certification, surveillance or "
+"recertification audit, or an event of the compliance calendar of the same "
+"kind, is used automatically."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"The target date entered has passed: it is no longer used. Enter the date of "
+"the next audit."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+#, php-format
+msgid "Owner warned when a step risks being late: %s"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"No owner: choose one in the settings so that a notification is sent when a "
+"step risks being late."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Maintenance cycle"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+#, php-format
+msgid "Certified on %s"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "date entered in the settings"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "date of the last initial or recertification audit completed"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Next audit"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Steps to redo each year"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+#: templates/pdf/certification_readiness_report.html.twig
+#, php-format
+msgid "Advised deadline: %s"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"Once certified, enter the certification date in the settings, or complete "
+"the initial certification audit: the page then follows the three-year cycle "
+"(two annual surveillance audits, then the recertification) and highlights "
+"the steps to redo each year."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Settings of the certification readiness"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Leave empty to use the next certification audit planned."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Certification date"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Leave empty to use the last initial or recertification audit completed."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Owner of the preparation"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Empty: the owner of the target audit."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Coverage target (%)"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "Training target (%)"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid ""
+"Coverage target: share of the requirements and controls the audit programme "
+"must have covered over the last three years for the internal audit step to "
+"be done. Training target: share of the participants who must have completed "
+"their training."
+msgstr ""
+
+#: templates/certification_readiness.html.twig
+msgid "To redo each year"
+msgstr ""
+
+#: src/CertificationReadiness.php:821
+#, php-format
+msgid "Participants who completed their training: %1$d %% (target: %2$d %%)"
+msgstr ""
+
+#: src/CertificationReadiness.php:891
+#, php-format
+msgid "Coverage target: %d %%"
+msgstr ""
+
+#: src/CertificationReadiness.php:1268
+msgid "Advised deadline for the certification"
+msgstr ""
+
+#: src/NotificationTargetReadinessAlert.php:37
+msgid "Certification step at risk"
+msgstr ""
+
+#: src/NotificationTargetReadinessAlert.php:44
+msgid "Owner of the certification readiness"
+msgstr ""
+
+#: src/NotificationTargetReadinessAlert.php:65
+#, php-format
+msgid "- %1$s: advised deadline %2$s (%3$s)"
+msgstr ""
+
+#: src/NotificationTargetReadinessAlert.php:93
+msgid "Steps at risk"
+msgstr ""
+
+#: src/NotificationTargetReadinessAlert.php:94
+msgid "Number of steps"
+msgstr ""
+
+#: src/ReadinessAlert.php:55
+msgid "Certification readiness alert"
+msgid_plural "Certification readiness alerts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ReadinessAlert.php:76
+msgid "Warns the owner when a certification readiness step risks being late"
+msgstr ""
+
+#: src/ReadinessAlert.php:84
+#, php-format
+msgid "%d certification readiness step(s) reported."
+msgstr ""
+
+#: src/PageHelp.php:100
+msgid ""
+"Follow the steps in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. Give "
+"the target date of the audit (or plan the certification audit): each step "
+"not done gets an advised deadline, shown in the compliance calendar, and the "
+"owner is warned when one risks being late. Export the PDF readiness report "
+"to share where you stand."
+msgstr ""
+
+#: front/certificationreadiness.php:32
+msgid "Certification readiness settings saved."
+msgstr ""
+
+#: templates/control_form.html.twig
 #: templates/operating_procedure_register.html.twig
 #, php-format
 msgid "%1$d of %2$d domains covered by an up-to-date procedure"
@@ -26262,4 +26701,3 @@ msgstr ""
 #: front/operatingprocedure.php:32
 msgid "The register could not be archived."
 msgstr ""
-

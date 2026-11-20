@@ -99,8 +99,10 @@ class PageHelp
                 'expected' => __(
                     'Follow the steps in order, starting with the one marked as the next step. Click its button to '
                         . 'open the screen concerned, complete it, then come back: the page is computed again each '
-                        . 'time. Nothing is changed automatically. Export the PDF readiness report to share where '
-                        . 'you stand.',
+                        . 'time. Nothing is changed automatically. Give the target date of the audit (or plan the '
+                        . 'certification audit): each step not done gets an advised deadline, shown in the '
+                        . 'compliance calendar, and the owner is warned when one risks being late. Export the PDF '
+                        . 'readiness report to share where you stand.',
                     'grcmanager'
                 ),
             ],
@@ -376,6 +378,23 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('GDPR, articles 12 and 15 to 22', 'grcmanager'),
+            ],
+            // Issue #779 : conformité des licences logicielles.
+            'softwarelicensecompliance' => [
+                'purpose'   => __(
+                    'Checks, from the software and licenses already recorded in GLPI, that the organization '
+                        . 'respects the licenses it bought: commercial software installed without any license, '
+                        . 'more installations than licensed seats, and expired licenses still in use. Results '
+                        . 'are grouped by entity.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Check the list of watched publishers, then for each finding record the missing license in '
+                        . 'GLPI, buy seats, uninstall the software or renew the license. Export the list (CSV) for '
+                        . 'the auditor. Nothing is changed automatically.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.5.32', 'grcmanager'),
             ],
             'contextitem' => [
                 'purpose'   => __(

@@ -501,7 +501,66 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
 8. Sur la fiche des mesures A.5.5 et A.5.6 de la SoA, le cadre « Registre des contacts officiels »
    montre le nombre de contacts, vérifiés ou à vérifier, avec le lien vers le registre et son PDF.
 
-### Étape 23 : Tenir le registre des procédures d'exploitation (mesure A.5.37)
+### Étape 23 : Vérifier les licences logicielles (mesure A.5.32)
+
+Le plugin lit les logiciels et les licences déjà enregistrés dans GLPI (Parc > Logiciels, onglet
+Licences) ; il ne modifie rien. Il faut le droit « Registres sensibles » du plugin, et les droits
+natifs de lecture des logiciels et des licences.
+
+1. Ouvrez Sécurité technique > **Licences logicielles**. L'encadré « À quoi sert cette page ? »
+   rappelle ce qui est attendu.
+2. En bas de la page, vérifiez la liste des **éditeurs commerciaux surveillés** (Microsoft, Adobe,
+   Oracle, Autodesk...) : c'est le champ « Fabricant » du logiciel dans GLPI. La seconde liste
+   écarte les outils gratuits de ces éditeurs (« Redistributable », « Acrobat Reader »...). Seule
+   une personne qui peut modifier la configuration du plugin change ces listes.
+3. Les trois compteurs donnent le nombre de constats, regroupés ensuite par entité :
+   - **Logiciel commercial sans licence** : un logiciel d'un éditeur surveillé est installé, et
+     aucune licence ne compte pour cette entité. Une licence compte pour une entité si elle lui
+     appartient, ou si elle est récursive et appartient à une entité parente.
+   - **Plus d'installations que de postes licenciés** : par exemple 12 ordinateurs équipés pour une
+     licence de 10 postes. Une licence illimitée (nombre 0 ou moins) couvre tout ; une licence
+     expirée ne compte plus. Une licence récursive est partagée par les sous-entités : la mention
+     « Partagée avec les sous-entités » compte leurs installations ensemble.
+   - **Licence expirée encore utilisée** : des ordinateurs y sont encore affectés, ou le logiciel
+     reste installé sans autre licence valable.
+4. Pour chaque constat, ouvrez le logiciel ou la licence (liens) et corrigez dans GLPI : saisissez
+   la licence achetée, ajoutez des postes, désinstallez le logiciel, ou renouvelez la licence et
+   déplacez les ordinateurs affectés.
+5. Cliquez sur **Export (CSV)** pour remettre la liste à l'auditeur.
+6. Sur la fiche de la mesure A.5.32 de la SoA, le cadre « Conformité des licences logicielles »
+   montre les trois compteurs, et les contrôles de cohérence du SMSI (onglet du tableau de bord) listent
+   chaque constat.
+### Étape 24 : Préparer l'audit de certification avec une date cible
+
+1. Ouvrez Tableau de bord > **Préparation à la certification**. L'encadré « À quoi sert cette page ? »
+   rappelle ce qui est attendu.
+2. Donnez une **date cible** : soit dans le cadre « Réglages de la préparation à la certification »
+   (par exemple le 3 décembre), soit en planifiant l'audit lui-même. Un audit dont le type est
+   « Audit de certification initial », « Audit de surveillance 1 ou 2 » ou « Audit de renouvellement », ou un
+   événement du calendrier de conformité de même nature, est repris automatiquement : rien à saisir
+   deux fois.
+3. Chaque étape non faite reçoit une **échéance conseillée**, calculée en remontant depuis la date
+   cible (le socle d'abord, puis l'audit interne, la revue de direction et le traitement des
+   non-conformités). Une étape dont l'échéance tombe dans les 14 jours est marquée « Risque de
+   retard » ; une échéance dépassée est signalée en rouge.
+4. Choisissez le **responsable de la préparation** (à défaut, le responsable de l'audit cible). La
+   tâche automatique `certificationreadiness` lui envoie la notification « Étape de la certification
+   à risque » quand une étape approche ou dépasse son échéance, une seule fois par étape et par état.
+   Rien n'est modifié automatiquement. Il doit pouvoir lire le plugin sur toutes les entités, puisque
+   l'état couvre tout le SMSI.
+5. Les échéances conseillées figurent dans le **calendrier de conformité** (et dans le planning du
+   responsable), avec un lien vers l'étape à compléter.
+6. Réglez au besoin les **seuils** : couverture visée du programme d'audit (100 % par défaut, sur les
+   trois dernières années) et part des participants formés (80 % par défaut).
+7. Une fois certifié, saisissez la **date de certification** (ou terminez l'audit initial de
+   certification) : le cadre « Cycle de maintien » affiche les deux audits de surveillance annuels et
+   le renouvellement à trois ans, la date cible suit le prochain d'entre eux, et les étapes à refaire
+   chaque année (appréciation des risques, SoA, audit interne, revue de direction) sont mises en
+   avant. Le découpage des audits internes sur le cycle reste dans le **programme d'audit
+   pluriannuel**.
+8. Les réglages demandent le droit de modifier le plugin ; la page reste lisible avec le droit de
+   lecture.
+### Étape 25 : Tenir le registre des procédures d'exploitation (mesure A.5.37)
 
 1. Ouvrez Conformité > **Procédures d'exploitation** (onglet à côté de « Politiques de sécurité »).
    La page montre la couverture des domaines attendus : sauvegarde, restauration, supervision,
@@ -993,7 +1052,62 @@ To give a subsidiary its own Statement of Applicability:
 8. On controls A.5.5 and A.5.6 of the SoA, the "Register of official contacts" box shows the number
    of contacts, verified or to verify, with links to the register and its PDF.
 
-### Step 23: Keep the register of operating procedures (control A.5.37)
+### Step 23: Check software licenses (control A.5.32)
+
+The plugin reads the software and licenses already recorded in GLPI (Assets > Software, Licenses
+tab); it changes nothing. You need the "Sensitive registers" right of the plugin, and the native
+rights to read software and licenses.
+
+1. Open Technical security > **Software licenses**. The "What is this page for?" box explains what
+   is expected.
+2. At the bottom of the page, check the list of **watched commercial publishers** (Microsoft, Adobe,
+   Oracle, Autodesk...): it is the "Manufacturer" field of the software in GLPI. The second list
+   leaves out the free tools of these publishers ("Redistributable", "Acrobat Reader"...). Only a
+   person who can change the plugin configuration can edit these lists.
+3. The three counters give the number of findings, then grouped by entity:
+   - **Commercial software without a license**: software from a watched publisher is installed, and
+     no license counts for this entity. A license counts for an entity when it belongs to it, or when
+     it is recursive and belongs to a parent entity.
+   - **More installations than licensed seats**: for instance 12 computers for a 10-seat license. An
+     unlimited license (number 0 or less) covers everything; an expired license no longer counts. A
+     recursive license is shared by the sub-entities: "Shared with the sub-entities" counts their
+     installations together.
+   - **Expired license still in use**: computers are still assigned to it, or the software is still
+     installed with no other valid license.
+4. For each finding, open the software or the license (links) and fix it in GLPI: record the
+   license you bought, add seats, uninstall the software, or renew the license and move the assigned
+   computers.
+5. Click **Export (CSV)** to hand the list to the auditor.
+6. On control A.5.32 of the SoA, the "Software license compliance" box shows the three counters, and
+   the ISMS consistency checks (tab of the dashboard) list each finding.
+### Step 24: Prepare the certification audit with a target date
+
+1. Open Dashboard > **Certification readiness**. The "What is this page for?" box explains what is
+   expected.
+2. Give a **target date**: either in the "Settings of the certification readiness" box (for
+   instance 3 December), or by planning the audit itself. An audit whose type is "Initial
+   certification audit", "Surveillance audit 1 or 2" or "Recertification audit", or an event of the
+   compliance calendar of the same kind, is used automatically: nothing to enter twice.
+3. Each step not done gets an **advised deadline**, counted back from the target date (the
+   foundations first, then the internal audit, the management review and the treatment of
+   nonconformities). A step whose deadline falls within 14 days is marked "At risk of being late"; a
+   passed deadline is shown in red.
+4. Choose the **owner of the preparation** (otherwise, the owner of the target audit). The
+   `certificationreadiness` automatic task sends them the "Certification step at risk" notification
+   when a step approaches or passes its deadline, once per step and per state. Nothing is changed
+   automatically. They must be able to read the plugin in every entity, since the state covers the
+   whole ISMS.
+5. The advised deadlines appear in the **compliance calendar** (and in the owner's planning), with a
+   link to the step to complete.
+6. Adjust the **thresholds** if needed: coverage target of the audit programme (100% by default, over
+   the last three years) and share of trained participants (80% by default).
+7. Once certified, enter the **certification date** (or complete the initial certification audit):
+   the "Maintenance cycle" box shows the two annual surveillance audits and the recertification after
+   three years, the target date follows the next one, and the steps to redo each year (risk
+   assessment, SoA, internal audit, management review) are highlighted. Spreading the internal audits
+   over the cycle stays in the **multi-year audit programme**.
+8. The settings require the right to modify the plugin; the page stays readable with the read right.
+### Step 25: Keep the register of operating procedures (control A.5.37)
 
 1. Open Compliance > **Operating procedures** (tab next to "Security policies"). The page shows the
    coverage of the expected domains: backup, restore, monitoring, logs, updates, deployment, access
