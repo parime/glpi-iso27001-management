@@ -38,6 +38,8 @@ final class ComplianceAuditScore
     public const CHECKS = [
         'antivirus'         => [self::ISO27001 => 'A.8.7', self::NIS2 => 'art. 21.2 g)', self::GDPR => 'art. 32'],
         'encryption'        => [self::ISO27001 => 'A.8.24', self::NIS2 => 'art. 21.2 h)', self::GDPR => 'art. 32'],
+        // Issue #847 : portables et tablettes (terminaux des utilisateurs).
+        'laptop_encryption' => [self::ISO27001 => 'A.8.1', self::GDPR => 'art. 32'],
         'inventory'         => [self::ISO27001 => 'A.5.9', self::NIS2 => 'art. 21.2 i)'],
         'change_validation' => [self::ISO27001 => 'A.8.32', self::NIS2 => 'art. 21.2 e)'],
         'accounts'          => [self::ISO27001 => 'A.5.18', self::NIS2 => 'art. 21.2 i)', self::GDPR => 'art. 32'],

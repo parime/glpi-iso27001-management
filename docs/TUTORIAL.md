@@ -921,6 +921,37 @@ ou une piste de progrès. Un délai est signalé comme proche 7 jours avant. La 
 certification** compte les plans d'actions et les preuves encore à envoyer, et ceux en retard.
 Rien n'est modifié automatiquement : statut, responsable et échéance restent ceux que vous saisissez.
 
+### Étape 34 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
+
+L'agent d'inventaire de GLPI remonte, pour chaque volume d'un ordinateur, l'état du chiffrement,
+l'outil (BitLocker, FileVault, LUKS, VeraCrypt...) et l'algorithme. Le plugin lit ces données ; il
+ne modifie rien dans GLPI et ne lit ni ne stocke jamais de clé de récupération. Il faut le droit du
+plugin et le droit natif de lecture des ordinateurs.
+
+1. Ouvrez Sécurité technique > **Chiffrement des disques**. L'encadré « À quoi sert cette page ? »
+   rappelle ce qui est attendu.
+2. Dans **Quels ordinateurs doivent être chiffrés ?**, choisissez les ordinateurs concernés : tous
+   (par défaut), les portables et tablettes seulement (type d'ordinateur remonté par l'agent :
+   Laptop, Notebook, Tablet...), ou les types choisis. Vous pouvez y ajouter tout ordinateur classé
+   en confidentialité moyenne ou élevée (classification C/I/D, onglet de la fiche de l'ordinateur).
+   Il faut le droit de modifier le plugin.
+3. Les compteurs donnent le taux d'ordinateurs concernés entièrement chiffrés, le taux des
+   portables, les algorithmes faibles (DES, RC4...) et anciens (BitLocker avec diffuseur, mode CBC),
+   puis le nombre d'ordinateurs entièrement chiffrés, partiellement chiffrés, non chiffrés ou d'état
+   inconnu (aucun volume inventorié : pas d'agent, ou un agent trop ancien).
+4. Les tableaux par entité, type et lieu montrent où porter l'effort.
+5. La liste commence par les **écarts** : un ordinateur concerné dont un volume n'est pas chiffré,
+   ou chiffré avec un algorithme faible. Pour chacun : volumes en clair, outil, algorithme et date du
+   dernier inventaire. Chiffrez le poste, puis attendez le prochain inventaire.
+6. Colonne **Clé de récupération sauvegardée (déclarée)** : cochez la case et saisissez la date
+   quand la clé est sauvegardée (annuaire, coffre de l'équipe). Seule cette déclaration est gardée.
+7. Sur la fiche des mesures A.8.24 et A.8.1, le cadre « Chiffrement des disques » montre le taux,
+   la date du calcul et le nombre d'écarts. Dans l'onglet des tests de la mesure, le contrôle
+   technique « Postes avec un disque non chiffré » (A.8.24) ou « Portables avec un disque non
+   chiffré » (A.8.1) s'enregistre comme test d'efficacité. Le tableau de bord propose la carte
+   « Ordinateurs à chiffrer qui le sont (%) » et les indicateurs de risque la source « Portables
+   avec un disque non chiffré (%) ».
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -1828,3 +1859,32 @@ A response is expected for each nonconformity; it is optional for an area of con
 opportunity for improvement. A deadline is shown as close 7 days before it. **Certification
 readiness** counts the action plans and evidence still to send, and those overdue. Nothing is
 changed automatically: status, owner and due date stay as you enter them.
+
+### Step 35: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
+
+For each volume of a computer, the GLPI inventory agent reports the encryption state, the tool
+(BitLocker, FileVault, LUKS, VeraCrypt...) and the algorithm. The plugin reads this data; it changes
+nothing in GLPI and never reads nor stores any recovery key. You need the plugin right and the
+native right to read computers.
+
+1. Open Technical security > **Disk encryption**. The "What is this page for?" box recalls what is
+   expected.
+2. In **Which computers must be encrypted?**, choose the computers concerned: all of them (default),
+   laptops and tablets only (computer type reported by the agent: Laptop, Notebook, Tablet...), or
+   the selected types. You can add any computer classified with a medium or high confidentiality
+   (C/I/A classification, tab of the computer form). This requires the right to update the plugin.
+3. The counters give the rate of computers concerned that are fully encrypted, the rate of laptops,
+   the weak (DES, RC4...) and older (BitLocker with diffuser, CBC mode) algorithms, then the number
+   of computers fully encrypted, partially encrypted, not encrypted or of unknown state (no volume
+   inventoried: no agent, or an agent too old).
+4. The tables by entity, type and location show where to focus.
+5. The list starts with the **gaps**: a computer concerned with a volume that is not encrypted, or
+   encrypted with a weak algorithm. For each one: unencrypted volumes, tool, algorithm and date of
+   the last inventory. Encrypt the computer, then wait for the next inventory.
+6. **Recovery key backed up (declared)** column: tick the box and enter the date when the key is
+   backed up (directory, team vault). Only this declaration is kept.
+7. On controls A.8.24 and A.8.1, the "Disk encryption" box shows the rate, the date of the
+   computation and the number of gaps. In the tests tab of the control, the technical check
+   "Computers with an unencrypted disk" (A.8.24) or "Laptops with an unencrypted disk" (A.8.1) is
+   recorded as an effectiveness test. The dashboard offers the card "Computers that must be
+   encrypted and are (%)" and risk indicators the source "Laptops with an unencrypted disk (%)".
