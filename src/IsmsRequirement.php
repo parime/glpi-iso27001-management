@@ -409,6 +409,8 @@ class IsmsRequirement extends IsmsRequirementBase
             'responsibility' => ResponsibilityActivity::clauseReadiness($code),
             // Issue #774 : compétences requises, acquises et écarts pour 7.2.
             'competence'     => CompetenceMatrix::clauseReadiness($code),
+            // Issue #616 : communication de crise (modèles, destinataires, traces) pour 7.4.
+            'crisis_communication' => CrisisCommunication::clauseReadiness($code),
         ]);
 
         return true;

@@ -9,6 +9,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Communication de crise : modèles de messages et listes de diffusion** (issue #616, lot 1, mesure
+  A.5.26, article 7.4). **Le plugin n'envoie aucun courriel** : il prépare le message, la personne
+  l'envoie elle-même puis trace la communication.
+  - Bibliothèque « Modèles de messages de crise » (lien dans l'en-tête des incidents, à côté des
+    procédures de remédiation) : situation (incident majeur, violation de données, indisponibilité,
+    rançongiciel, autre), étape, public, objet et texte avec variables entre accolades (`{reference}`,
+    `{title}`, `{detection_date}`, `{affected_systems}`, `{next_update}`...). Cinq modèles fournis,
+    traduits, modifiables.
+  - Liste de diffusion de chaque modèle : utilisateurs et groupes GLPI, et contacts officiels du
+    contexte de l'organisation (#771), sans second annuaire. Destinataire sans adresse signalé.
+  - Onglet « Communication de crise » des incidents de sécurité et des violations de données : le
+    modèle de la situation est proposé en premier, rempli depuis l'incident (variables échappées à
+    l'affichage) ; boutons copier le message, copier les adresses, exporter en brouillon `.eml` ;
+    « Tracer comme envoyé » conserve la date, l'auteur, les destinataires, l'objet et le texte, écrit
+    une ligne dans le journal de crise (suivi privé, sans notification) et la chronologie du rapport
+    post-incident la reprend.
+  - Preuve sur la mesure A.5.26 et sur l'exigence 7.4 : modèles actifs, modèles sans destinataire,
+    situations sans modèle, communications tracées depuis 12 mois.
+  - Droits : bibliothèque et listes avec le droit général du plugin ; onglet avec ceux de l'incident
+    ou de la violation (lire pour voir, modifier pour tracer) ; contacts officiels seulement avec le
+    droit du contexte et dans l'entité de l'incident ou une entité parente.
 - **Procédures d'exploitation documentées** (issue #775, lot 1, A.5.37). Pas d'objet à part : une
   procédure est un document de la bibliothèque des politiques de catégorie « Procédure
   d'exploitation », avec son domaine. Elle garde la version, le responsable, la date d'approbation,

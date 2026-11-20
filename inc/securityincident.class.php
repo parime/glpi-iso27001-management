@@ -114,6 +114,14 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             ));
             $menu['links'][$label] = \GlpiPlugin\Grcmanager\Playbook::getSearchURL(false);
         }
+        // Issue #616 : modèles de messages de crise et leurs listes de diffusion.
+        if (is_array($menu) && \GlpiPlugin\Grcmanager\CrisisMessageTemplate::canView()) {
+            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
+                '@grcmanager/menu_link_label.html.twig',
+                ['icon' => 'ti ti-speakerphone', 'label' => __('Crisis message templates', 'grcmanager')]
+            ));
+            $menu['links'][$label] = \GlpiPlugin\Grcmanager\CrisisMessageTemplate::getSearchURL(false);
+        }
         // Issue #371 : journal d'audit des incidents (registres sensibles).
         if (is_array($menu) && \GlpiPlugin\Grcmanager\AuditLog::canView()) {
             $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(

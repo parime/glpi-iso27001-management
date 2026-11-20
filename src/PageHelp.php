@@ -762,6 +762,23 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #616 : modèles de messages de crise et leurs listes de diffusion.
+            'crisismessagetemplate' => [
+                'purpose'   => __(
+                    'Crisis message templates: the messages prepared in advance for each kind of crisis (major '
+                        . 'incident, personal data breach, unavailability, ransomware), with the people and '
+                        . 'organizations to inform for each one.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Adapt the templates provided and fill in the distribution list of each one (users, groups and '
+                        . 'official contacts). During a crisis, open the Crisis communication tab of the incident: '
+                        . 'the message is filled in from the incident, you send it yourself, then record it. The '
+                        . 'plugin never sends any email.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.5.26 and clause 7.4', 'grcmanager'),
+            ],
             // Issue #537 : référentiels personnalisés importés depuis un fichier CSV.
             'customframework' => [
                 'purpose'  => __(

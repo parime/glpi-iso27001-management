@@ -1696,6 +1696,8 @@ class Control extends ControlBase
             'endoflife'               => EndOfLife::evidence($code),
             // Issue #771 : registre des contacts officiels, preuve des mesures A.5.5 et A.5.6.
             'official_contacts'       => OfficialContact::evidence($code),
+            // Issue #616 : communication de crise (modèles, listes de diffusion, traces), mesure A.5.26.
+            'crisis_communication'    => CrisisCommunication::evidence($code),
             // Issue #775 : registre des procédures d'exploitation, preuve de la mesure A.5.37.
             'operating_procedures'    => OperatingProcedure::evidence($code),
             // Issue #779 : conformité des licences logicielles, preuve de la mesure A.5.32.

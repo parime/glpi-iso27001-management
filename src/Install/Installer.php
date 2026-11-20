@@ -375,6 +375,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\ResponsibilityExport::class,
         // Issue #774 : compétences (fonctions du SMSI, compétences, déclarations, exports archivés).
         ...CompetenceTables::CLASSES,
+        // Issue #616 : communication de crise (modèles, listes de diffusion, communications faites).
+        ...CrisisCommunicationTables::CLASSES,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
@@ -1496,6 +1498,9 @@ final class Installer
         $this->installResponsibilityTables($keySign, $charset, $collation);
         // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
         CompetenceTables::install($keySign, $charset, $collation);
+        // Issue #616 : communication de crise, et modèles fournis (une seule fois, bibliothèque vide).
+        CrisisCommunicationTables::install($keySign, $charset, $collation);
+        \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -6228,6 +6233,7 @@ final class Installer
         $migration->dropTable(self::RESPONSIBILITY_ACTIVITIES_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_EXPORTS_TABLE);
         CompetenceTables::uninstall($migration);
+        CrisisCommunicationTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

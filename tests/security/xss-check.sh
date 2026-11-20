@@ -88,6 +88,13 @@ check "front/officialcontact.php"             "$P/officialcontact.php"
 check "fiche d'un contact officiel"           "$P/contextitem.form.php?id=$(xid official_contact)"
 check "onglet contacts officiels d'un incident" "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(id incident_A)")"
 check "onglet contacts officiels d'une violation" "$(tab GlpiPlugin%5CGrcmanager%5CDataBreach 'GlpiPlugin%5CGrcmanager%5COfficialContact$1' "$(xid breach)")"
+# Issue #616 : modele de message de crise piege (liste, fiche, liste de diffusion), et onglet
+# Communication de crise de l'incident de A (variables piegees, communication tracee piegee).
+check "front/crisismessagetemplate.php"       "$P/crisismessagetemplate.php"
+check "fiche d'un modele de message de crise" "$P/crisismessagetemplate.form.php?id=$(xid crisis_template)"
+check "onglet liste de diffusion d'un modele" "$(tab 'GlpiPlugin%5CGrcmanager%5CCrisisMessageTemplate' 'GlpiPlugin%5CGrcmanager%5CCrisisMessageRecipient$1' "$(xid crisis_template)")"
+check "onglet communication de crise d'un incident" "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5CCrisisCommunication$1' "$(id incident_A)")"
+check "onglet communication de crise d'une violation" "$(tab GlpiPlugin%5CGrcmanager%5CDataBreach 'GlpiPlugin%5CGrcmanager%5CCrisisCommunication$1' "$(xid breach)")"
 # Issue #620 : violation piegee (fiche, liste, onglet de l'incident, export CSV).
 check "front/databreach.form.php"             "$P/databreach.form.php?id=$(xid breach)"
 check "front/databreach.php"                  "$P/databreach.php"
