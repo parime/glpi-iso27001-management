@@ -962,4 +962,17 @@ $ids['mreview'] = $add(new \GlpiPlugin\Grcmanager\ManagementReview(), [
     'review_date' => date('Y-m-d'),
     'decisions'   => 'Decision securite',
 ]);
+// Issue #546 : un collaborateur fictif dans chaque entité (fiche de conformité sécurité) ; celui de
+// A a pour responsable le gestionnaire de A, qui peut le prévenir des écarts.
+$collabProfile = new Profile();
+$collabProfile->getFromDBByCrit(['name' => 'Securite ISO - sans droit']);
+foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
+    $collab = $userId('iso-collaborateur-' . strtolower($suffix), $entity, (int) $collabProfile->getID());
+    $DB->update('glpi_users', [
+        'realname'            => 'Collaborateur securite ' . $suffix,
+        'firstname'           => 'Fictif',
+        'users_id_supervisor' => $suffix === 'A' ? $manager : 0,
+    ], ['id' => $collab]);
+    $ids['collab_' . $suffix] = $collab;
+}
 echo json_encode($ids), "\n";

@@ -17,7 +17,7 @@
 {% if row is null %}
    <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('This account is not active: no security compliance record.', 'grcmanager') }}</div>
 {% else %}
-   <div class="alert alert-info d-flex">
+   <div class="alert alert-info d-flex"{% if own %} id="grc-pc-own"{% endif %}>
       <i class="ti ti-help-circle me-2 mt-1"></i>
       <div>
          {% if own %}

@@ -91,7 +91,9 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/contextitem.php front/contextitem.form.php
   front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
-  front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf"
+  front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
+  front/personnelcompliance.php front/personnelcompliance.export.php?format=csv
+  front/personnelcompliance.export.php?format=pdf"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -821,6 +823,33 @@ if [ "$ROLE" = limited ]; then
   echo "    (traitement de A enregistre : verification en base par la CI)"
   echo "    (risque enregistre et approbation SoA demandee : verification en base par la CI)"
 fi
+
+# Issue #546 : fiche de conformité sécurité. Chacun voit la sienne (préférences) ; la liste et la
+# fiche d'un autre exigent la lecture du plugin et des utilisateurs, dans les entités de la session.
+# Saisir la vérification ou prévenir le responsable exige de modifier le plugin.
+SEE_STAFF=oui; [ "$ROLE" = none ] && SEE_STAFF=non
+contains "onglet Ma conformite securite : sa propre fiche" "grc-pc-own" oui \
+  "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPersonnelCompliance$1' 2)"
+staff=$(curl -s -c "$JAR" -b "$JAR" "$P/personnelcompliance.php")
+contains "front/personnelcompliance.php : collaborateur de A" "Collaborateur securite A" $SEE_STAFF "$staff"
+contains "front/personnelcompliance.php : collaborateur de B" "Collaborateur securite B" $SEE_B "$staff"
+staff_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/personnelcompliance.export.php?format=csv")
+contains "export CSV : collaborateur de B" "Collaborateur securite B" $SEE_B "$staff_csv"
+expect "export de la fiche d'un collaborateur de B" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \
+  "$(code "$P/personnelcompliance.export.php?format=csv&users_id=$(id collab_B)")"
+expect "export de la fiche d'un collaborateur de A" "$([ "$SEE_STAFF" = oui ] && echo 200 || echo 403)" \
+  "$(code "$P/personnelcompliance.export.php?format=csv&users_id=$(id collab_A)")"
+# Le profil sans registres sensibles (droit de modifier le plugin) n'enregistre rien ici : la CI
+# compare le nombre de lignes avant et apres son passage.
+EDIT_STAFF=403; case $ROLE in limited|admin) EDIT_STAFF=302 ;; general) EDIT_STAFF= ;; esac
+[ -n "$EDIT_STAFF" ] && expect "fiche de conformite de A : saisie" $EDIT_STAFF \
+  "$(code -d "save=1&users_id=$(id collab_A)&screening_status=done&screening_date=2026-01-05&_glpi_csrf_token=$(csrf)" "$P/personnelcompliance.form.php")"
+expect "fiche de conformite de B : saisie" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "save=1&users_id=$(id collab_B)&screening_status=done&_glpi_csrf_token=$(csrf)" "$P/personnelcompliance.form.php")"
+expect "fiche de conformite de B : prevenir le responsable" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "notify=1&users_id=$(id collab_B)&_glpi_csrf_token=$(csrf)" "$P/personnelcompliance.form.php")"
+expect "fiche de conformite : saisie sans jeton CSRF" 403 \
+  "$(code -d "save=1&users_id=$(id collab_A)&screening_status=done" "$P/personnelcompliance.form.php")"
 
 # Issue #535 : prise de connaissance des politiques. Seul glpi (admin) est dans le public de la
 # politique : les autres ne la voient ni dans leurs preferences ni dans leur espace, ne lisent pas
