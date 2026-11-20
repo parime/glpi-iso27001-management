@@ -40,7 +40,11 @@ if (isset($_POST['save'])) {
         Session::addMessageAfterRedirect(__('The manager has been notified of the gaps.', 'grcmanager'));
     } else {
         Session::addMessageAfterRedirect(
-            __('No notification sent: check that the person has a manager with an email address and that the notification is active.', 'grcmanager'),
+            __(
+                'No notification sent: check that the person has a manager with an email address and that the '
+                    . 'notification is active.',
+                'grcmanager'
+            ),
             false,
             WARNING
         );

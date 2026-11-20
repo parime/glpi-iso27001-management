@@ -56,7 +56,9 @@ final class PersonnelComplianceProvider
             $where += getEntitiesRestrictCriteria('glpi_profiles_users', '', '', true);
         }
         if (($filters['entities_id'] ?? -1) >= 0) {
-            $where[] = ['glpi_profiles_users.entities_id' => array_values(getSonsOf('glpi_entities', $filters['entities_id']))];
+            $where[] = [
+                'glpi_profiles_users.entities_id' => array_values(getSonsOf('glpi_entities', $filters['entities_id'])),
+            ];
         }
         if (isset($filters['users_id'])) {
             $where['glpi_users.id'] = $filters['users_id'] === [] ? [0] : $filters['users_id'];
@@ -177,7 +179,9 @@ final class PersonnelComplianceProvider
                     't.id', 't.title', 't.plugin_grcmanager_trainings_id', 't.renewal_period_months',
                 ],
                 'FROM'       => self::TRAININGS_USERS_TABLE . ' AS l',
-                'INNER JOIN' => [$trainings . ' AS t' => ['FKEY' => ['l' => 'plugin_grcmanager_trainings_id', 't' => 'id']]],
+                'INNER JOIN' => [
+                    $trainings . ' AS t' => ['FKEY' => ['l' => 'plugin_grcmanager_trainings_id', 't' => 'id']],
+                ],
                 'WHERE'      => ['l.users_id' => $ids, 't.is_mandatory' => 1],
                 'ORDER'      => ['l.completion_date DESC'],
             ]) as $row
@@ -198,7 +202,12 @@ final class PersonnelComplianceProvider
         }
         if ($mainIds !== []) {
             $titles = [];
-            foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => $trainings, 'WHERE' => ['id' => array_keys($mainIds)]]) as $row) {
+            $rows = $DB->request([
+                'SELECT' => ['id', 'title'],
+                'FROM'   => $trainings,
+                'WHERE'  => ['id' => array_keys($mainIds)],
+            ]);
+            foreach ($rows as $row) {
                 $titles[(int) $row['id']] = (string) $row['title'];
             }
             foreach ($byUser as $userId => $entries) {
@@ -277,7 +286,9 @@ final class PersonnelComplianceProvider
                 'SELECT'     => ['l.users_id', 'l.decision', 'l.date_decision', 'c.status', 'c.due_date'],
                 'FROM'       => AccessReview::LINES_TABLE . ' AS l',
                 'INNER JOIN' => [
-                    AccessReview::getTable() . ' AS c' => ['FKEY' => ['l' => 'plugin_grcmanager_accessreviews_id', 'c' => 'id']],
+                    AccessReview::getTable() . ' AS c' => [
+                        'FKEY' => ['l' => 'plugin_grcmanager_accessreviews_id', 'c' => 'id'],
+                    ],
                 ],
                 'WHERE'      => ['l.users_id' => $ids, 'c.status' => ['open', 'closed']],
             ]) as $row
@@ -369,7 +380,12 @@ final class PersonnelComplianceProvider
             return [];
         }
         $groups = [];
-        foreach ($DB->request(['SELECT' => ['users_id', 'groups_id'], 'FROM' => 'glpi_groups_users', 'WHERE' => ['users_id' => $ids]]) as $row) {
+        $rows = $DB->request([
+            'SELECT' => ['users_id', 'groups_id'],
+            'FROM'   => 'glpi_groups_users',
+            'WHERE'  => ['users_id' => $ids],
+        ]);
+        foreach ($rows as $row) {
             $groups[(int) $row['users_id']][] = (int) $row['groups_id'];
         }
 

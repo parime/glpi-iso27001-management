@@ -274,12 +274,18 @@ class PersonnelCompliance extends PersonnelComplianceBase
      */
     public static function getStatuses(): array
     {
+        $state = static fn (string $label, string $icon, string $color): array => [
+            'label' => $label,
+            'icon'  => $icon,
+            'color' => $color,
+        ];
+
         return [
-            Rules::OK             => ['label' => __('Compliant', 'grcmanager'), 'icon' => 'ti ti-circle-check', 'color' => 'success'],
-            Rules::PENDING        => ['label' => __('To do, within the deadline', 'grcmanager'), 'icon' => 'ti ti-clock', 'color' => 'warning'],
-            Rules::LATE           => ['label' => __('Gap', 'grcmanager'), 'icon' => 'ti ti-alert-triangle', 'color' => 'danger'],
-            Rules::NOT_TRACKED    => ['label' => __('Not tracked', 'grcmanager'), 'icon' => 'ti ti-plug-off', 'color' => 'secondary'],
-            Rules::NOT_APPLICABLE => ['label' => __('Not applicable', 'grcmanager'), 'icon' => 'ti ti-minus', 'color' => 'secondary'],
+            Rules::OK             => $state(__('Compliant', 'grcmanager'), 'ti ti-circle-check', 'success'),
+            Rules::PENDING        => $state(__('To do, within the deadline', 'grcmanager'), 'ti ti-clock', 'warning'),
+            Rules::LATE           => $state(__('Gap', 'grcmanager'), 'ti ti-alert-triangle', 'danger'),
+            Rules::NOT_TRACKED    => $state(__('Not tracked', 'grcmanager'), 'ti ti-plug-off', 'secondary'),
+            Rules::NOT_APPLICABLE => $state(__('Not applicable', 'grcmanager'), 'ti ti-minus', 'secondary'),
         ];
     }
 
@@ -332,14 +338,29 @@ class PersonnelCompliance extends PersonnelComplianceBase
             'nda.missing'                => __('No signed agreement recorded', 'grcmanager'),
             'training.none'              => __('No mandatory training assigned', 'grcmanager'),
             'training.pending'           => sprintf(__('To attend: %s', 'grcmanager'), self::titles($p['titles'])),
-            'training.renewal_overdue'   => sprintf(__('Renewal overdue: %s', 'grcmanager'), self::titles($p['titles'])),
+            'training.renewal_overdue'   => sprintf(
+                __('Renewal overdue: %s', 'grcmanager'),
+                self::titles($p['titles'])
+            ),
             'training.done'              => sprintf(
-                _n('%d mandatory training completed', '%d mandatory trainings completed', (int) $p['count'], 'grcmanager'),
+                _n(
+                    '%d mandatory training completed',
+                    '%d mandatory trainings completed',
+                    (int) $p['count'],
+                    'grcmanager'
+                ),
                 (int) $p['count']
             ),
             'charter.not_tracked'        => __('Not tracked: the assetsign plugin is not active', 'grcmanager'),
-            'charter.signed'             => sprintf(__('Signed on %1$s (%2$s)', 'grcmanager'), self::date($p['date']), $p['campaign']),
-            'charter.pending'            => sprintf(__('Sent for signature, not signed yet (%s)', 'grcmanager'), $p['campaign']),
+            'charter.signed'             => sprintf(
+                __('Signed on %1$s (%2$s)', 'grcmanager'),
+                self::date($p['date']),
+                $p['campaign']
+            ),
+            'charter.pending'            => sprintf(
+                __('Sent for signature, not signed yet (%s)', 'grcmanager'),
+                $p['campaign']
+            ),
             'charter.none'               => __('No charter campaign has reached this person', 'grcmanager'),
             'policies.none'              => __('No policy campaign concerns this person', 'grcmanager'),
             'policies.done'              => sprintf(
@@ -349,7 +370,10 @@ class PersonnelCompliance extends PersonnelComplianceBase
             'policies.pending'           => sprintf(__('To read: %s', 'grcmanager'), self::titles($p['titles'])),
             'access_review.reviewed'     => sprintf(__('Last reviewed on %s', 'grcmanager'), self::date($p['date'])),
             'access_review.campaign_open' => __('In an open access review campaign', 'grcmanager'),
-            'access_review.campaign_late' => __('The access review campaign deadline has passed without a decision', 'grcmanager'),
+            'access_review.campaign_late' => __(
+                'The access review campaign deadline has passed without a decision',
+                'grcmanager'
+            ),
             'access_review.outdated'     => sprintf(
                 __('Last reviewed on %s, more than 12 months ago', 'grcmanager'),
                 self::date($p['date'])
@@ -416,7 +440,9 @@ class PersonnelCompliance extends PersonnelComplianceBase
         $component = (string) ($input['component'] ?? '');
 
         return [
-            'entities_id' => isset($input['entities_id']) && $input['entities_id'] !== '' ? (int) $input['entities_id'] : -1,
+            'entities_id' => isset($input['entities_id']) && $input['entities_id'] !== ''
+                ? (int) $input['entities_id']
+                : -1,
             'groups_id'   => max(0, (int) ($input['groups_id'] ?? 0)),
             'status'      => in_array($status, [Rules::OK, Rules::PENDING, Rules::LATE], true) ? $status : '',
             'component'   => in_array($component, Rules::COMPONENTS, true) ? $component : '',
@@ -693,7 +719,10 @@ class PersonnelCompliance extends PersonnelComplianceBase
     {
         return TemplateRenderer::getInstance()->render('@grcmanager/pdf/personnel_compliance_report.html.twig', [
             'report_title'       => self::getTypeName(),
-            'generated_at_label' => sprintf(__('Generated on %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'generated_at_label' => sprintf(
+                __('Generated on %s', 'grcmanager'),
+                Html::convDateTime(date('Y-m-d H:i:s'))
+            ),
             'generated_by'       => getUserName((int) Session::getLoginUserID()),
             'rows'               => $rows,
             'summary'            => Rules::staffRate($rows),
@@ -858,7 +887,10 @@ class PersonnelCompliance extends PersonnelComplianceBase
             }
         }
         $task->addVolume($notified);
-        $task->log(sprintf(__('%d manager notification(s) raised for personnel compliance gaps.', 'grcmanager'), $notified));
+        $task->log(sprintf(
+            __('%d manager notification(s) raised for personnel compliance gaps.', 'grcmanager'),
+            $notified
+        ));
 
         return $notified > 0 ? 1 : 0;
     }
