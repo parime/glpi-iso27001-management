@@ -19123,283 +19123,6 @@ msgstr[0] "Wymaganie NIS2 Włochy (ACN)"
 msgstr[1] "Wymagania NIS2 Włochy (ACN)"
 msgstr[2] "Wymagań NIS2 Włochy (ACN)"
 
-msgid "Last reviewed by"
-msgstr "Ostatni przegląd wykonał(a)"
-
-msgid "%1$s by %2$s"
-msgstr "%1$s (%2$s)"
-
-msgid "Never reviewed"
-msgstr "Nigdy nie przeglądano"
-
-msgid ""
-"Records today as the review date, with your name, and sets the next review "
-"one year later. Your other changes on this form are saved too."
-msgstr ""
-"Zapisuje dzisiejszą datę jako datę przeglądu wraz z Twoim nazwiskiem i "
-"ustala następny przegląd za rok. Pozostałe zmiany w tym formularzu również "
-"zostaną zapisane."
-
-msgid "Record the review"
-msgstr "Zapisz przegląd"
-
-msgid "Register for the auditor (PDF)"
-msgstr "Rejestr dla audytora (PDF)"
-
-msgid "Register (CSV)"
-msgstr "Rejestr (CSV)"
-
-msgid ""
-"Issues and interested parties of the context of the organization (ISO 27001, "
-"4.1 and 4.2) that refer to this item."
-msgstr ""
-"Kwestie i strony zainteresowane z kontekstu organizacji (ISO 27001, 4.1 i "
-"4.2), które odnoszą się do tego elementu."
-
-msgid "No issue or interested party refers to this item yet."
-msgstr ""
-"Żadna kwestia ani strona zainteresowana nie odnosi się jeszcze do tego "
-"elementu."
-
-msgid "Internal and external issues"
-msgstr "Kwestie wewnętrzne i zewnętrzne"
-
-msgid "Items past their review date"
-msgstr "Pozycje z przekroczoną datą przeglądu"
-
-msgid "Not answered yet"
-msgstr "Brak odpowiedzi"
-
-msgid "No item recorded."
-msgstr "Brak zapisanych pozycji."
-
-msgid "Partially achieved"
-msgstr "Częściowo osiągnięty"
-
-msgid "Not achieved"
-msgstr "Nieosiągnięty"
-
-msgid "To evaluate"
-msgstr "Do oceny"
-
-msgid "Not visible to you"
-msgstr "Niewidoczne dla Ciebie"
-
-msgid "Deleted"
-msgstr "Usunięte"
-
-msgid "Objectives of the exercise"
-msgstr "Cele ćwiczenia"
-
-msgid "No objective defined."
-msgstr "Nie zdefiniowano celu."
-
-msgid "Objective"
-msgstr "Cel"
-
-#, php-format
-msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
-msgstr "Osiągnięte: %1$d, częściowo: %2$d, nieosiągnięte: %3$d, do oceny: %4$d"
-
-msgid "Findings and improvement plan"
-msgstr "Ustalenia i plan doskonalenia"
-
-msgid "No finding recorded."
-msgstr "Nie zarejestrowano ustaleń."
-
-msgid "Improvement action"
-msgstr "Działanie doskonalące"
-
-msgid "No action decided"
-msgstr "Nie podjęto decyzji o działaniu"
-
-#, php-format
-msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
-msgstr "Ustalenia: %1$d, zdecydowane działania: %2$d, wykonane: %3$d"
-
-msgid "Review validation"
-msgstr "Zatwierdzenie podsumowania"
-
-msgid "Validated"
-msgstr "Zatwierdzone"
-
-#, php-format
-msgid "on %1$s by %2$s"
-msgstr "%1$s, zatwierdził(a): %2$s"
-
-msgid "this review has not been validated yet."
-msgstr "to podsumowanie nie zostało jeszcze zatwierdzone."
-
-msgid "Returned to draft"
-msgstr "Przywrócono do wersji roboczej"
-
-msgid "Exercise review"
-msgstr "Podsumowanie ćwiczenia"
-
-#, php-format
-msgid ""
-"Review validated on %1$s by %2$s: it can no longer be changed unless it is "
-"returned to draft."
-msgstr ""
-"Podsumowanie zatwierdzone %1$s przez %2$s: nie można go już zmieniać bez "
-"przywrócenia do wersji roboczej."
-
-msgid ""
-"No objective defined. Objectives say what the exercise must demonstrate (for "
-"example: \"the crisis team is convened within 45 minutes\"); they are "
-"evaluated when the exercise is finished."
-msgstr ""
-"Nie zdefiniowano celu. Cele określają, co ćwiczenie ma wykazać (na przykład: "
-"„sztab kryzysowy zbiera się w ciągu 45 minut”); są oceniane po zakończeniu "
-"ćwiczenia."
-
-msgid "What was observed"
-msgstr "Co zaobserwowano"
-
-msgid "New objective, for example: restore the file server within 4 hours"
-msgstr "Nowy cel, na przykład: przywrócić serwer plików w ciągu 4 godzin"
-
-msgid "New objective"
-msgstr "Nowy cel"
-
-msgid ""
-"Evaluate each objective: the review can be validated once they are all "
-"evaluated."
-msgstr ""
-"Oceń każdy cel: podsumowanie można zatwierdzić, gdy wszystkie zostaną "
-"ocenione."
-
-msgid ""
-"No finding yet. Record each gap observed during or after the exercise "
-"(delay, missing contact, unusable procedure…)."
-msgstr ""
-"Brak ustaleń. Zarejestruj każdą rozbieżność zauważoną w trakcie lub po "
-"ćwiczeniu (opóźnienie, brak kontaktu, nieprzydatna procedura…)."
-
-msgid "Create an improvement action"
-msgstr "Utwórz działanie doskonalące"
-
-msgid "Risk (treatment action only)"
-msgstr "Ryzyko (tylko działanie postępowania)"
-
-msgid "Create the action"
-msgstr "Utwórz działanie"
-
-msgid ""
-"An improvement action is only created when you click it: a non-conformity "
-"linked to the exercise incident, or a treatment action of an existing risk. "
-"Its progress is shown here."
-msgstr ""
-"Działanie doskonalące jest tworzone tylko po kliknięciu: niezgodność "
-"powiązana z incydentem ćwiczenia lub działanie postępowania z istniejącym "
-"ryzykiem. Jego postęp jest widoczny tutaj."
-
-msgid "New finding"
-msgstr "Nowe ustalenie"
-
-msgid ""
-"Validate the review? It will no longer be editable and the validated report "
-"will be archived."
-msgstr ""
-"Zatwierdzić podsumowanie? Nie będzie można go już zmieniać, a zatwierdzony "
-"raport zostanie zarchiwizowany."
-
-msgid "Comment (optional)"
-msgstr "Komentarz (opcjonalnie)"
-
-msgid "Validate the review"
-msgstr "Zatwierdź podsumowanie"
-
-msgid ""
-"The review is validated by a person holding the \"Validate exercise "
-"reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
-msgstr ""
-"Podsumowanie zatwierdza osoba z uprawnieniem „Zatwierdzanie podsumowań "
-"ćwiczeń” (Ciągłość działania, karta GRC Manager w profilach)."
-
-msgid ""
-"Return the review to draft? The reason is recorded in the validation history."
-msgstr ""
-"Przywrócić podsumowanie do wersji roboczej? Powód zostanie zapisany w "
-"historii zatwierdzeń."
-
-msgid "Reason for returning to draft (required)"
-msgstr "Powód przywrócenia do wersji roboczej (wymagany)"
-
-msgid "Return to draft"
-msgstr "Przywróć do wersji roboczej"
-
-msgid "Objectives of the exercise (one per line)"
-msgstr "Cele ćwiczenia (jeden w wierszu)"
-
-msgid "For example: convene the crisis team within 45 minutes"
-msgstr "Na przykład: zebrać sztab kryzysowy w ciągu 45 minut"
-
-msgid "Evaluated when the exercise is finished; they appear in the report."
-msgstr "Oceniane po zakończeniu ćwiczenia; pojawiają się w raporcie."
-
-msgid "Review validated"
-msgstr "Podsumowanie zatwierdzone"
-
-msgid "Objectives achieved"
-msgstr "Osiągnięte cele"
-
-msgid "Improvement actions overdue"
-msgstr "Zaległe działania doskonalące"
-
-msgid "Improvement action created."
-msgstr "Utworzono działanie doskonalące."
-
-msgid "The review could not be changed."
-msgstr "Nie udało się zmienić podsumowania."
-
-msgid ""
-"Review validated: the validated report is archived in the incident documents."
-msgstr ""
-"Podsumowanie zatwierdzone: zatwierdzony raport zarchiwizowano w dokumentach "
-"incydentu."
-
-msgid "The review is back to draft."
-msgstr "Podsumowanie wróciło do wersji roboczej."
-
-msgid "Give the reason for returning the review to draft."
-msgstr "Podaj powód przywrócenia podsumowania do wersji roboczej."
-
-#, php-format
-msgid "Finding of the crisis exercise #%1$d (%2$s)."
-msgstr "Ustalenie z ćwiczenia kryzysowego nr %1$d (%2$s)."
-
-msgid "The review is already validated."
-msgstr "Podsumowanie jest już zatwierdzone."
-
-msgid "Define at least one objective before validating the review."
-msgstr "Zdefiniuj co najmniej jeden cel przed zatwierdzeniem podsumowania."
-
-msgid ""
-"Evaluate every objective (achieved, partially achieved or not achieved) "
-"before validating the review."
-msgstr ""
-"Oceń każdy cel (osiągnięty, częściowo osiągnięty lub nieosiągnięty) przed "
-"zatwierdzeniem podsumowania."
-
-msgid "Finish the exercise before validating its review."
-msgstr "Zakończ ćwiczenie przed zatwierdzeniem jego podsumowania."
-
-msgid "Validate exercise reviews"
-msgstr "Zatwierdzanie podsumowań ćwiczeń"
-
-msgid "Validate crisis exercise reviews and return them to draft"
-msgstr ""
-"Zatwierdzanie podsumowań ćwiczeń kryzysowych i przywracanie ich do wersji "
-"roboczej"
-
-#, php-format
-msgid "%d action overdue"
-msgid_plural "%d actions overdue"
-msgstr[0] "Zaległe działania: %d"
-msgstr[1] "Zaległe działania: %d"
-msgstr[2] "Zaległe działania: %d"
-
 msgid "Preparatory file for the management review"
 msgstr "Dokumentacja przygotowawcza przeglądu zarządzania"
 
@@ -19529,6 +19252,47 @@ msgstr ""
 "Żadne działanie z poprzedniego przeglądu nie jest otwarte ani nie zostało "
 "zrealizowane w tym okresie."
 
+msgid "Last reviewed by"
+msgstr "Ostatni przegląd wykonał(a)"
+
+msgid "%1$s by %2$s"
+msgstr "%1$s (%2$s)"
+
+msgid "Never reviewed"
+msgstr "Nigdy nie przeglądano"
+
+msgid ""
+"Records today as the review date, with your name, and sets the next review "
+"one year later. Your other changes on this form are saved too."
+msgstr ""
+"Zapisuje dzisiejszą datę jako datę przeglądu wraz z Twoim nazwiskiem i "
+"ustala następny przegląd za rok. Pozostałe zmiany w tym formularzu również "
+"zostaną zapisane."
+
+msgid "Record the review"
+msgstr "Zapisz przegląd"
+
+msgid "Register for the auditor (PDF)"
+msgstr "Rejestr dla audytora (PDF)"
+
+msgid "Register (CSV)"
+msgstr "Rejestr (CSV)"
+
+msgid ""
+"Issues and interested parties of the context of the organization (ISO 27001, "
+"4.1 and 4.2) that refer to this item."
+msgstr ""
+"Kwestie i strony zainteresowane z kontekstu organizacji (ISO 27001, 4.1 i "
+"4.2), które odnoszą się do tego elementu."
+
+msgid "No issue or interested party refers to this item yet."
+msgstr ""
+"Żadna kwestia ani strona zainteresowana nie odnosi się jeszcze do tego "
+"elementu."
+
+msgid "Internal and external issues"
+msgstr "Kwestie wewnętrzne i zewnętrzne"
+
 msgid "Updated during the period"
 msgstr "Zaktualizowane w okresie"
 
@@ -19562,6 +19326,9 @@ msgstr "W okresie nie zakończono żadnego audytu wewnętrznego."
 
 msgid "No information security objective recorded."
 msgstr "Nie zarejestrowano żadnego celu bezpieczeństwa informacji."
+
+msgid "Objective"
+msgstr "Cel"
 
 msgid "Target set"
 msgstr "Wyznaczona wartość docelowa"
@@ -19734,6 +19501,15 @@ msgid_plural "Preparatory files"
 msgstr[0] "Dokumentacja przygotowawcza"
 msgstr[1] "Dokumentacje przygotowawcze"
 msgstr[2] "Dokumentacji przygotowawczych"
+
+msgid "Items past their review date"
+msgstr "Pozycje z przekroczoną datą przeglądu"
+
+msgid "Not answered yet"
+msgstr "Brak odpowiedzi"
+
+msgid "No item recorded."
+msgstr "Brak zapisanych pozycji."
 
 msgid "Audit checklist"
 msgstr "Lista kontrolna audytu"
@@ -20037,6 +19813,601 @@ msgid_plural "%1$s (%2$d lines)"
 msgstr[0] "%1$s (%2$d wiersz)"
 msgstr[1] "%1$s (%2$d wiersze)"
 msgstr[2] "%1$s (%2$d wierszy)"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Reviewer"
+msgstr "Weryfikujący"
+
+msgid "Sample"
+msgid_plural "Samples"
+msgstr[0] "Próba"
+msgstr[1] "Próby"
+msgstr[2] "Prób"
+
+msgid "Question checked on each item"
+msgstr "Pytanie sprawdzane dla każdego elementu"
+
+msgid "Items in the population"
+msgstr "Elementy populacji"
+
+msgid "Sample size"
+msgstr "Wielkość próby"
+
+msgid "Draw date"
+msgstr "Data losowania"
+
+msgid "Drawn by"
+msgstr "Wylosował(a)"
+
+msgid "Seed"
+msgstr "Ziarno"
+
+msgid "Proposed result"
+msgstr "Proponowany wynik"
+
+msgid "Justification of a different result"
+msgstr "Uzasadnienie innego wyniku"
+
+msgid ""
+"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
+"identifier\"; the first items of this ranking form the sample. The same "
+"population and the same seed always give the same sample."
+msgstr ""
+"Każdy element populacji jest szeregowany według skrótu SHA-256 z „ziarno:"
+"identyfikator”; pierwsze elementy tego rankingu tworzą próbę. Ta sama "
+"populacja i to samo ziarno zawsze dają tę samą próbę."
+
+#, php-format
+msgid "Back to the tests of %s"
+msgstr "Powrót do testów %s"
+
+msgid "Recorded as a test"
+msgstr "Zapisano jako test"
+
+msgid "Test record for the auditor (PDF)"
+msgstr "Karta testu dla audytora (PDF)"
+
+msgid "Population and criteria"
+msgstr "Populacja i kryteria"
+
+msgid "How the sample was drawn"
+msgstr "Jak wylosowano próbę"
+
+msgid "once every item is checked"
+msgstr "po sprawdzeniu każdego elementu"
+
+msgid "none: every item is not applicable"
+msgstr "brak: wszystkie elementy nie mają zastosowania"
+
+msgid "Items drawn"
+msgstr "Wylosowane elementy"
+
+msgid ""
+"A non-compliant or not applicable item must be explained in its comment."
+msgstr ""
+"Element niezgodny lub nie mający zastosowania należy wyjaśnić w komentarzu."
+
+msgid "Save the results"
+msgstr "Zapisz wyniki"
+
+msgid "Record the test from this sample"
+msgstr "Zapisz test na podstawie tej próby"
+
+#, php-format
+msgid ""
+"Proposed: no deviation gives an effective test, at least %d%% compliant a "
+"partially effective test, below an ineffective test."
+msgstr ""
+"Propozycja: brak odchyleń daje test skuteczny, co najmniej %d%% zgodnych "
+"test częściowo skuteczny, poniżej test nieskuteczny."
+
+msgid "Optional: the sample and its results are added to the finding."
+msgstr "Opcjonalnie: próba i jej wyniki zostaną dodane do ustalenia."
+
+msgid ""
+"Another person will have to review this test before it counts for the "
+"\"Verified\" status."
+msgstr ""
+"Inna osoba musi zweryfikować ten test, zanim zostanie uwzględniony w "
+"statusie „Zweryfikowane”."
+
+msgid ""
+"Once the test is recorded, the sample is frozen. Deleting the test opens the "
+"sample again."
+msgstr ""
+"Po zapisaniu testu próba zostaje zamrożona. Usunięcie testu ponownie otwiera "
+"próbę."
+
+msgid "Delete this sample?"
+msgstr "Usunąć tę próbę?"
+
+msgid "Delete this sample"
+msgstr "Usuń tę próbę"
+
+msgid "Review of effectiveness tests"
+msgstr "Weryfikacja testów skuteczności"
+
+msgid ""
+"When enabled, an effective test only gives the \"Verified\" status once "
+"another person (neither the tester nor the person who recorded it) has "
+"approved it. A partially effective or ineffective test still withdraws the "
+"\"Verified\" status at once."
+msgstr ""
+"Po włączeniu skuteczny test nadaje status „Zweryfikowane” dopiero po "
+"zatwierdzeniu przez inną osobę (ani testującego, ani osobę, która go "
+"zapisała). Test częściowo skuteczny lub nieskuteczny nadal od razu odbiera "
+"status „Zweryfikowane”."
+
+msgid "Require a review of each new effectiveness test"
+msgstr "Wymagaj weryfikacji każdego nowego testu skuteczności"
+
+msgid "Draw a sample in GLPI"
+msgstr "Wylosuj próbę w GLPI"
+
+msgid ""
+"The items are drawn at random from what you can see in GLPI (your active "
+"entities and rights). The population, the criteria, the size, the seed, the "
+"date and the author are kept with the sample: the same draw can be checked "
+"again by the auditor."
+msgstr ""
+"Elementy są losowane spośród tego, co widzisz w GLPI (Twoje aktywne "
+"jednostki i uprawnienia). Populacja, kryteria, wielkość, ziarno, data i "
+"autor są zapisywane z próbą: audytor może ponownie sprawdzić to samo "
+"losowanie."
+
+msgid "Example: does each closed change have an approved validation?"
+msgstr "Przykład: czy każda zamknięta zmiana ma zatwierdzoną walidację?"
+
+msgid "Population"
+msgstr "Populacja"
+
+msgid "not allowed"
+msgstr "niedozwolone"
+
+msgid "Tickets and changes require the right to see all of them."
+msgstr "Zgłoszenia i zmiany wymagają uprawnienia do wyświetlania wszystkich."
+
+msgid "All my active entities"
+msgstr "Wszystkie moje aktywne jednostki"
+
+msgid "Period covered: from"
+msgstr "Objęty okres: od"
+
+msgid "to"
+msgstr "do"
+
+msgid ""
+"Creation date of users and computers; opening date of tickets and changes, "
+"or closing date if closed only."
+msgstr ""
+"Data utworzenia użytkowników i komputerów; data otwarcia zgłoszeń i zmian "
+"lub data zamknięcia, jeśli tylko zamknięte."
+
+msgid "Category (tickets and changes)"
+msgstr "Kategoria (zgłoszenia i zmiany)"
+
+msgid "Closed tickets or changes only"
+msgstr "Tylko zamknięte zgłoszenia lub zmiany"
+
+msgid "Active user accounts only"
+msgstr "Tylko aktywne konta użytkowników"
+
+msgid "How often the control operates"
+msgstr "Jak często działa kontrola"
+
+msgid "Empty: the size proposed for this frequency."
+msgstr "Puste: wielkość proponowana dla tej częstotliwości."
+
+msgid "Seed (optional)"
+msgstr "Ziarno (opcjonalnie)"
+
+msgid ""
+"Empty: a random seed is generated. Enter the seed of an earlier draw to "
+"reproduce it."
+msgstr ""
+"Puste: generowane jest losowe ziarno. Wpisz ziarno wcześniejszego losowania, "
+"aby je odtworzyć."
+
+msgid "Draw the sample"
+msgstr "Wylosuj próbę"
+
+msgid "Samples in progress"
+msgstr "Próby w toku"
+
+#, php-format
+msgid "%1$d out of %2$d"
+msgstr "%1$d z %2$d"
+
+msgid "Review comment"
+msgstr "Komentarz weryfikacji"
+
+msgid "Review comment (required to return the test)"
+msgstr "Komentarz weryfikacji (wymagany, aby zwrócić test)"
+
+msgid "Return"
+msgstr "Zwróć"
+
+#, php-format
+msgid "Sample: %1$d out of %2$d"
+msgstr "Próba: %1$d z %2$d"
+
+msgid "This sample is already recorded as a test."
+msgstr "Ta próba jest już zapisana jako test."
+
+msgid "Awaiting review"
+msgstr "Oczekuje na weryfikację"
+
+msgid "Review approved"
+msgstr "Weryfikacja zatwierdzona"
+
+msgid "Returned by the reviewer"
+msgstr "Zwrócony przez weryfikującego"
+
+msgid ""
+"The test awaits review by another person before it counts for the "
+"\"Verified\" status."
+msgstr ""
+"Test czeka na weryfikację przez inną osobę, zanim zostanie uwzględniony w "
+"statusie „Zweryfikowane”."
+
+msgid "Explain why the test is returned."
+msgstr "Wyjaśnij, dlaczego test jest zwracany."
+
+msgid "Test approved: it now counts for the \"Verified\" status."
+msgstr "Test zatwierdzony: jest teraz uwzględniany w statusie „Zweryfikowane”."
+
+msgid ""
+"Test returned to its author: it does not count for the \"Verified\" status."
+msgstr ""
+"Test zwrócony autorowi: nie jest uwzględniany w statusie „Zweryfikowane”."
+
+#, php-format
+msgid "Effectiveness test of %s"
+msgstr "Test skuteczności %s"
+
+msgid "Annual control"
+msgstr "Kontrola roczna"
+
+msgid "Quarterly control"
+msgstr "Kontrola kwartalna"
+
+msgid "Monthly control"
+msgstr "Kontrola miesięczna"
+
+msgid "Weekly control"
+msgstr "Kontrola tygodniowa"
+
+msgid "Daily control"
+msgstr "Kontrola dzienna"
+
+msgid "Control run several times a day"
+msgstr "Kontrola wykonywana kilka razy dziennie"
+
+#, php-format
+msgid "%1$s (%2$d item)"
+msgid_plural "%1$s (%2$d items)"
+msgstr[0] "%1$s (%2$d element)"
+msgstr[1] "%1$s (%2$d elementy)"
+msgstr[2] "%1$s (%2$d elementów)"
+
+msgid "You are not allowed to test this control."
+msgstr "Nie masz uprawnień do testowania tego zabezpieczenia."
+
+msgid "Choose the population to draw from."
+msgstr "Wybierz populację do losowania."
+
+#, php-format
+msgid "You are not allowed to see all the items of this population (%s)."
+msgstr ""
+"Nie masz uprawnień do wyświetlania wszystkich elementów tej populacji (%s)."
+
+msgid "Enter the question checked on each item."
+msgstr "Wpisz pytanie sprawdzane dla każdego elementu."
+
+msgid "The start of the period must be before its end."
+msgstr "Początek okresu musi być przed jego końcem."
+
+msgid "This entity is not among your active entities."
+msgstr "Ta jednostka nie należy do Twoich aktywnych jednostek."
+
+msgid "The seed may only contain letters, digits, dashes and underscores."
+msgstr "Ziarno może zawierać tylko litery, cyfry, myślniki i podkreślenia."
+
+#, php-format
+msgid "The population exceeds %d items: narrow the period or the criteria."
+msgstr "Populacja przekracza %d elementów: zawęź okres lub kryteria."
+
+msgid "No item matches these criteria: nothing was drawn."
+msgstr "Żaden element nie spełnia tych kryteriów: nic nie wylosowano."
+
+msgid "The sample could not be saved."
+msgstr "Nie można zapisać próby."
+
+#, php-format
+msgid "%1$d item drawn at random out of %2$d."
+msgid_plural "%1$d items drawn at random out of %2$d."
+msgstr[0] "Wylosowano %1$d element z %2$d."
+msgstr[1] "Wylosowano %1$d elementy z %2$d."
+msgstr[2] "Wylosowano %1$d elementów z %2$d."
+
+msgid "Give a result to every item drawn before recording the test."
+msgstr "Nadaj wynik każdemu wylosowanemu elementowi przed zapisaniem testu."
+
+msgid "Explain each non-compliant or not applicable item in its comment."
+msgstr ""
+"Wyjaśnij każdy element niezgodny lub nie mający zastosowania w jego "
+"komentarzu."
+
+msgid "Every item is not applicable: draw another sample."
+msgstr "Wszystkie elementy nie mają zastosowania: wylosuj inną próbę."
+
+msgid "Justify a result different from the proposed one."
+msgstr "Uzasadnij wynik inny niż proponowany."
+
+msgid "This sample has no item."
+msgstr "Ta próba nie zawiera elementów."
+
+#, php-format
+msgid ""
+"Random sample, %1$d of %2$d (%3$s): %4$d compliant, %5$d non-compliant, %6$d "
+"not applicable."
+msgstr ""
+"Próba losowa, %1$d z %2$d (%3$s): zgodne %4$d, niezgodne %5$d, nie dotyczy "
+"%6$d."
+
+#, php-format
+msgid "Question: %s"
+msgstr "Pytanie: %s"
+
+#, php-format
+msgid "Result changed from the proposed one (%1$s): %2$s"
+msgstr "Wynik zmieniony względem proponowanego (%1$s): %2$s"
+
+#, php-format
+msgid "%s and its sub-entities"
+msgstr "%s i jej podjednostki"
+
+msgid "No period limit"
+msgstr "Bez ograniczenia okresu"
+
+#, php-format
+msgid "From %1$s to %2$s"
+msgstr "Od %1$s do %2$s"
+
+msgid "Date used for the period"
+msgstr "Data użyta dla okresu"
+
+msgid "Closed only"
+msgstr "Tylko zamknięte"
+
+msgid "Active accounts only"
+msgstr "Tylko aktywne konta"
+
+msgid "Partially achieved"
+msgstr "Częściowo osiągnięty"
+
+msgid "Not achieved"
+msgstr "Nieosiągnięty"
+
+msgid "To evaluate"
+msgstr "Do oceny"
+
+msgid "Not visible to you"
+msgstr "Niewidoczne dla Ciebie"
+
+msgid "Deleted"
+msgstr "Usunięte"
+
+msgid "Objectives of the exercise"
+msgstr "Cele ćwiczenia"
+
+msgid "No objective defined."
+msgstr "Nie zdefiniowano celu."
+
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr "Osiągnięte: %1$d, częściowo: %2$d, nieosiągnięte: %3$d, do oceny: %4$d"
+
+msgid "Findings and improvement plan"
+msgstr "Ustalenia i plan doskonalenia"
+
+msgid "No finding recorded."
+msgstr "Nie zarejestrowano ustaleń."
+
+msgid "Improvement action"
+msgstr "Działanie doskonalące"
+
+msgid "No action decided"
+msgstr "Nie podjęto decyzji o działaniu"
+
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr "Ustalenia: %1$d, zdecydowane działania: %2$d, wykonane: %3$d"
+
+msgid "Review validation"
+msgstr "Zatwierdzenie podsumowania"
+
+msgid "Validated"
+msgstr "Zatwierdzone"
+
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr "%1$s, zatwierdził(a): %2$s"
+
+msgid "this review has not been validated yet."
+msgstr "to podsumowanie nie zostało jeszcze zatwierdzone."
+
+msgid "Returned to draft"
+msgstr "Przywrócono do wersji roboczej"
+
+msgid "Exercise review"
+msgstr "Podsumowanie ćwiczenia"
+
+#, php-format
+msgid ""
+"Review validated on %1$s by %2$s: it can no longer be changed unless it is "
+"returned to draft."
+msgstr ""
+"Podsumowanie zatwierdzone %1$s przez %2$s: nie można go już zmieniać bez "
+"przywrócenia do wersji roboczej."
+
+msgid ""
+"No objective defined. Objectives say what the exercise must demonstrate (for "
+"example: \"the crisis team is convened within 45 minutes\"); they are "
+"evaluated when the exercise is finished."
+msgstr ""
+"Nie zdefiniowano celu. Cele określają, co ćwiczenie ma wykazać (na przykład: "
+"„sztab kryzysowy zbiera się w ciągu 45 minut”); są oceniane po zakończeniu "
+"ćwiczenia."
+
+msgid "What was observed"
+msgstr "Co zaobserwowano"
+
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr "Nowy cel, na przykład: przywrócić serwer plików w ciągu 4 godzin"
+
+msgid "New objective"
+msgstr "Nowy cel"
+
+msgid ""
+"Evaluate each objective: the review can be validated once they are all "
+"evaluated."
+msgstr ""
+"Oceń każdy cel: podsumowanie można zatwierdzić, gdy wszystkie zostaną "
+"ocenione."
+
+msgid ""
+"No finding yet. Record each gap observed during or after the exercise "
+"(delay, missing contact, unusable procedure…)."
+msgstr ""
+"Brak ustaleń. Zarejestruj każdą rozbieżność zauważoną w trakcie lub po "
+"ćwiczeniu (opóźnienie, brak kontaktu, nieprzydatna procedura…)."
+
+msgid "Create an improvement action"
+msgstr "Utwórz działanie doskonalące"
+
+msgid "Risk (treatment action only)"
+msgstr "Ryzyko (tylko działanie postępowania)"
+
+msgid "Create the action"
+msgstr "Utwórz działanie"
+
+msgid ""
+"An improvement action is only created when you click it: a non-conformity "
+"linked to the exercise incident, or a treatment action of an existing risk. "
+"Its progress is shown here."
+msgstr ""
+"Działanie doskonalące jest tworzone tylko po kliknięciu: niezgodność "
+"powiązana z incydentem ćwiczenia lub działanie postępowania z istniejącym "
+"ryzykiem. Jego postęp jest widoczny tutaj."
+
+msgid "New finding"
+msgstr "Nowe ustalenie"
+
+msgid ""
+"Validate the review? It will no longer be editable and the validated report "
+"will be archived."
+msgstr ""
+"Zatwierdzić podsumowanie? Nie będzie można go już zmieniać, a zatwierdzony "
+"raport zostanie zarchiwizowany."
+
+msgid "Comment (optional)"
+msgstr "Komentarz (opcjonalnie)"
+
+msgid "Validate the review"
+msgstr "Zatwierdź podsumowanie"
+
+msgid ""
+"The review is validated by a person holding the \"Validate exercise "
+"reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr ""
+"Podsumowanie zatwierdza osoba z uprawnieniem „Zatwierdzanie podsumowań "
+"ćwiczeń” (Ciągłość działania, karta GRC Manager w profilach)."
+
+msgid ""
+"Return the review to draft? The reason is recorded in the validation history."
+msgstr ""
+"Przywrócić podsumowanie do wersji roboczej? Powód zostanie zapisany w "
+"historii zatwierdzeń."
+
+msgid "Reason for returning to draft (required)"
+msgstr "Powód przywrócenia do wersji roboczej (wymagany)"
+
+msgid "Return to draft"
+msgstr "Przywróć do wersji roboczej"
+
+msgid "Objectives of the exercise (one per line)"
+msgstr "Cele ćwiczenia (jeden w wierszu)"
+
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr "Na przykład: zebrać sztab kryzysowy w ciągu 45 minut"
+
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr "Oceniane po zakończeniu ćwiczenia; pojawiają się w raporcie."
+
+msgid "Review validated"
+msgstr "Podsumowanie zatwierdzone"
+
+msgid "Objectives achieved"
+msgstr "Osiągnięte cele"
+
+msgid "Improvement actions overdue"
+msgstr "Zaległe działania doskonalące"
+
+msgid "Improvement action created."
+msgstr "Utworzono działanie doskonalące."
+
+msgid "The review could not be changed."
+msgstr "Nie udało się zmienić podsumowania."
+
+msgid ""
+"Review validated: the validated report is archived in the incident documents."
+msgstr ""
+"Podsumowanie zatwierdzone: zatwierdzony raport zarchiwizowano w dokumentach "
+"incydentu."
+
+msgid "The review is back to draft."
+msgstr "Podsumowanie wróciło do wersji roboczej."
+
+msgid "Give the reason for returning the review to draft."
+msgstr "Podaj powód przywrócenia podsumowania do wersji roboczej."
+
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr "Ustalenie z ćwiczenia kryzysowego nr %1$d (%2$s)."
+
+msgid "The review is already validated."
+msgstr "Podsumowanie jest już zatwierdzone."
+
+msgid "Define at least one objective before validating the review."
+msgstr "Zdefiniuj co najmniej jeden cel przed zatwierdzeniem podsumowania."
+
+msgid ""
+"Evaluate every objective (achieved, partially achieved or not achieved) "
+"before validating the review."
+msgstr ""
+"Oceń każdy cel (osiągnięty, częściowo osiągnięty lub nieosiągnięty) przed "
+"zatwierdzeniem podsumowania."
+
+msgid "Finish the exercise before validating its review."
+msgstr "Zakończ ćwiczenie przed zatwierdzeniem jego podsumowania."
+
+msgid "Validate exercise reviews"
+msgstr "Zatwierdzanie podsumowań ćwiczeń"
+
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr ""
+"Zatwierdzanie podsumowań ćwiczeń kryzysowych i przywracanie ich do wersji "
+"roboczej"
+
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] "Zaległe działania: %d"
+msgstr[1] "Zaległe działania: %d"
+msgstr[2] "Zaległe działania: %d"
 
 msgid "Activities"
 msgstr "Działania"
@@ -20374,3 +20745,10 @@ msgstr[2] "Zarchiwizowanych macierzy odpowiedzialności"
 
 msgid "ISMS responsibility matrix - %s"
 msgstr "Macierz odpowiedzialności SZBI - %s"
+
+#, php-format
+msgid "and %d other entity"
+msgid_plural "and %d other entities"
+msgstr[0] "i %d inna jednostka"
+msgstr[1] "i %d inne jednostki"
+msgstr[2] "i %d innych jednostek"
