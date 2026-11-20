@@ -61,6 +61,8 @@ if (isset($_POST['add'])) {
             'audit'         => (int) ($_GET['audit'] ?? 0),
             // Issue #606 : constat proposé depuis une ligne de la grille d'audit.
             'checklistitem' => (int) ($_GET['checklistitem'] ?? 0),
+            // Issue #778 : action proposée depuis une ligne de l'évaluation de la sécurité physique.
+            'physicalsecuritycheck' => (int) ($_GET['physicalsecuritycheck'] ?? 0),
         ]
     );
 }

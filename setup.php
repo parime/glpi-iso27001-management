@@ -168,6 +168,9 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
     // Issue #542 : dossiers préparatoires archivés et compte rendu de la revue de direction.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ManagementReview::class;
+    // Issue #778 : photos et procès-verbaux d'une évaluation de la sécurité physique d'un site,
+    // réservés aux lecteurs de l'évaluation (RestrictedDocument::onDocumentItemAdd()).
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\PhysicalSecurityAssessment::class;
     // Issue #774 : fiche de poste signée d'une fonction, preuve d'une compétence déclarée (certificat,
     // diplôme), réservée aux lecteurs de la déclaration (RestrictedDocument::onDocumentItemAdd()).
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\IsmsFunction::class;
@@ -325,6 +328,10 @@ function plugin_init_grcmanager(): void
     // Issue #546 : fiche de conformité sécurité, sur chaque utilisateur et dans ses préférences.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PersonnelCompliance::class, [
         'addtabon' => [User::class, Preference::class],
+    ]);
+    // Issue #778 : onglet « Sécurité physique » des lieux de GLPI (évaluations du site).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PhysicalSecurityAssessment::class, [
+        'addtabon' => [Location::class],
     ]);
     // Issue #774 : compétences d'une personne, sur chaque utilisateur et dans ses préférences.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CompetenceMatrix::class, [
