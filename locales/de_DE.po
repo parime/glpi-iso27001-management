@@ -21722,3 +21722,141 @@ msgstr[1] "%d Richtlinien gelesen"
 
 msgid "People tracked"
 msgstr "Erfasste Personen"
+
+msgid "Finding of the certification body"
+msgstr "Feststellung der Zertifizierungsstelle"
+
+msgid "A corrective action is required to close a nonconformity; it is optional for an area of concern or an opportunity for improvement."
+msgstr "Eine Korrekturmaßnahme ist erforderlich, um eine Abweichung abzuschließen; für einen kritischen Punkt oder ein Verbesserungspotenzial ist sie optional."
+
+msgid "Certification body reference"
+msgstr "Referenz der Zertifizierungsstelle"
+
+msgid "Reference given to the finding in the certification body report."
+msgstr "Referenz der Feststellung im Bericht der Zertifizierungsstelle."
+
+msgid "Audited process"
+msgstr "Auditierter Prozess"
+
+msgid "Clause or control"
+msgstr "Abschnitt oder Maßnahme"
+
+msgid "Site"
+msgstr "Standort"
+
+msgid "Lifting status of the findings (PDF export)"
+msgstr "Status der Behebung der Feststellungen (PDF-Export)"
+
+msgid "Lifting status"
+msgstr "Status der Behebung"
+
+msgid "Findings not lifted: %1$d of %2$d"
+msgstr "Nicht behobene Feststellungen: %1$d von %2$d"
+
+msgid "Nonconformities not lifted: %d"
+msgstr "Nicht behobene Abweichungen: %d"
+
+msgid "Display"
+msgstr "Anzeige"
+
+msgid "All certification audits"
+msgstr "Alle Zertifizierungsaudits"
+
+msgid "Only findings not lifted"
+msgstr "Nur nicht behobene Feststellungen"
+
+msgid "Export (PDF)"
+msgstr "Export (PDF)"
+
+msgid "No certification audit recorded yet. Create an audit and choose its type (initial, surveillance or recertification), then record the findings of the certification body in its Findings tab."
+msgstr "Noch kein Zertifizierungsaudit erfasst. Legen Sie ein Audit an, wählen Sie seine Art (Erst-, Überwachungs- oder Rezertifizierungsaudit) und erfassen Sie dann die Feststellungen der Zertifizierungsstelle im Reiter Feststellungen."
+
+msgid "Add an audit"
+msgstr "Audit hinzufügen"
+
+msgid "Every finding of this audit is lifted or awaiting verification."
+msgstr "Alle Feststellungen dieses Audits sind behoben oder warten auf Überprüfung."
+
+msgid "Process, clause or control, site"
+msgstr "Prozess, Abschnitt oder Maßnahme, Standort"
+
+msgid "Verified on %s"
+msgstr "Überprüft am %s"
+
+msgid "Findings not lifted"
+msgstr "Nicht behobene Feststellungen"
+
+msgid "Nonconformities not lifted"
+msgstr "Nicht behobene Abweichungen"
+
+msgid "Only findings not lifted are listed."
+msgstr "Nur nicht behobene Feststellungen sind aufgeführt."
+
+msgid "No certification audit recorded yet."
+msgstr "Noch kein Zertifizierungsaudit erfasst."
+
+msgid "Audit type"
+msgstr "Auditart"
+
+msgid "Internal audit, or audit carried out by your certification body (initial, surveillance or recertification)."
+msgstr "Internes Audit oder Audit Ihrer Zertifizierungsstelle (Erst-, Überwachungs- oder Rezertifizierungsaudit)."
+
+msgid "Certification body"
+msgstr "Zertifizierungsstelle"
+
+msgid "The certification body is a GLPI supplier (Management > Suppliers)."
+msgstr "Die Zertifizierungsstelle ist ein GLPI-Lieferant (Verwaltung > Lieferanten)."
+
+msgid "Name of the lead auditor appointed by the certification body."
+msgstr "Name des von der Zertifizierungsstelle benannten leitenden Auditors."
+
+msgid "Standard and edition"
+msgstr "Norm und Ausgabe"
+
+msgid "Findings of previous certification audits not lifted: %1$d (including %2$d nonconformities)"
+msgstr "Nicht behobene Feststellungen früherer Zertifizierungsaudits: %1$d (davon %2$d Abweichungen)"
+
+msgid "Findings of previous audits"
+msgstr "Feststellungen früherer Audits"
+
+msgid "Internal audit (clause 9.2)"
+msgstr "Internes Audit (Abschnitt 9.2)"
+
+msgid "Initial certification audit"
+msgstr "Erstzertifizierungsaudit"
+
+msgid "Surveillance audit 1"
+msgstr "Überwachungsaudit 1"
+
+msgid "Surveillance audit 2"
+msgstr "Überwachungsaudit 2"
+
+msgid "Recertification audit"
+msgstr "Rezertifizierungsaudit"
+
+msgid "Major nonconformity"
+msgstr "Hauptabweichung"
+
+msgid "Minor nonconformity"
+msgstr "Nebenabweichung"
+
+msgid "Area of concern"
+msgstr "Kritischer Punkt"
+
+msgid "Not lifted"
+msgstr "Nicht behoben"
+
+msgid "Action in progress"
+msgstr "Maßnahme läuft"
+
+msgid "Action done, effectiveness to verify"
+msgstr "Maßnahme umgesetzt, Wirksamkeit zu prüfen"
+
+msgid "Lifted (verified)"
+msgstr "Behoben (überprüft)"
+
+msgid "At each surveillance audit, the certification body checks that the findings of its previous audit have been dealt with. This page lists those findings (nonconformities, areas of concern, opportunities for improvement) with their corrective action, their evidence and whether they are lifted."
+msgstr "Bei jedem Überwachungsaudit prüft die Zertifizierungsstelle, ob die Feststellungen ihres vorherigen Audits behandelt wurden. Diese Seite listet diese Feststellungen (Abweichungen, kritische Punkte, Verbesserungspotenziale) mit ihrer Korrekturmaßnahme, ihren Nachweisen und ihrem Behebungsstatus auf."
+
+msgid "Record each certification audit with its type, then its findings in the Findings tab of the audit, with the reference given by the body. Treat each finding (cause, action, owner, due date, evidence in the Documents tab) until it is verified. Export the PDF and hand it to the auditor at the opening meeting of the next audit."
+msgstr "Erfassen Sie jedes Zertifizierungsaudit mit seiner Art und dann seine Feststellungen im Reiter Feststellungen des Audits, mit der Referenz der Zertifizierungsstelle. Bearbeiten Sie jede Feststellung (Ursache, Maßnahme, Verantwortlicher, Frist, Nachweise im Reiter Dokumente) bis zu ihrer Überprüfung. Exportieren Sie das PDF und übergeben Sie es dem Auditor beim Eröffnungsgespräch des nächsten Audits."

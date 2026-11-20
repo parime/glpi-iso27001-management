@@ -1,0 +1,72 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #772 : état de levée des constats des audits de certification, remis à l'auditeur à
+   l'ouverture de l'audit suivant. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Prepared by', 'grcmanager') }}</td><td>{{ generated_by }}</td></tr>
+  <tr><td>{{ __('Findings', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.total }}</td></tr>
+  <tr><td>{{ __('Findings not lifted', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.open }}</td></tr>
+  <tr><td>{{ __('Nonconformities not lifted', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.open_nc }}</td></tr>
+  {% for key, state in lift_states %}
+    <tr><td>{{ state.label }}</td><td class="grcmanager-pdf-summary-number">{{ summary.lift[key] }}</td></tr>
+  {% endfor %}
+</table>
+{% if open_only %}<p>{{ __('Only findings not lifted are listed.', 'grcmanager') }}</p>{% endif %}
+
+{% if audits is empty %}
+  <p>{{ __('No certification audit recorded yet.', 'grcmanager') }}</p>
+{% endif %}
+
+{% for audit in audits %}
+  <h2>{{ audit.title }}</h2>
+  <p>{{ audit.type_label }}{% if audit.body %} | {{ audit.body }}{% endif %}{% if audit.lead_auditor %} | {{ __('Lead auditor', 'grcmanager') }} : {{ audit.lead_auditor }}{% endif %}{% if audit.standard %} | {{ audit.standard }}{% endif %}{% if audit.date %} | {{ audit.date }}{% endif %}</p>
+  {% if audit.findings is empty %}
+    <p>{{ __('No finding for this audit.', 'grcmanager') }}</p>
+  {% else %}
+    <table class="grcmanager-pdf-table">
+      <thead>
+        <tr>
+          <th>{{ __('Reference', 'grcmanager') }}</th>
+          <th>{{ __('Finding', 'grcmanager') }}</th>
+          <th>{{ __('Process, clause or control, site', 'grcmanager') }}</th>
+          <th>{{ __('Root cause', 'grcmanager') }}</th>
+          <th>{{ __('Corrective action', 'grcmanager') }}</th>
+          <th>{{ __('Owner', 'grcmanager') }}</th>
+          <th>{{ __('Due date', 'grcmanager') }}</th>
+          <th>{{ __('Evidence', 'grcmanager') }}</th>
+          <th>{{ __('Lifting status', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for f in audit.findings %}
+          <tr>
+            <td>{{ f.reference }}</td>
+            <td>{% if f.category_label %}<strong>{{ f.category_label }}</strong><br>{% endif %}{{ f.title }}</td>
+            <td>{{ [f.process, f.requirement, f.site]|filter(v => v)|join(' / ') }}</td>
+            <td>{{ f.root_cause|nl2br }}</td>
+            <td>{{ f.corrective_action|nl2br }}</td>
+            <td>{{ f.owner }}</td>
+            <td>{{ f.due_date }}</td>
+            <td>{{ f.documents|join(', ') }}</td>
+            <td>{{ f.lift.label }}{% if f.verification_date %}<br>{{ __('Verified on %s', 'grcmanager')|format(f.verification_date) }}{% endif %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endfor %}

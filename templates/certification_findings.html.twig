@@ -1,0 +1,129 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #772 : constats des audits de certification précédents et état de leur levée. Lecture seule. #}
+<div class="container-fluid my-2" id="grc-certification-findings">
+   <div class="row g-3">
+      <div class="col-lg-8">
+         <div class="card h-100">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-bar me-2"></i>{{ __('Lifting status', 'grcmanager') }}</h3></div>
+            <div class="card-body">
+               <div class="d-flex flex-wrap gap-2 mb-2">
+                  <span class="badge {{ summary.open > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} fs-5" id="grc-certification-open">
+                     <i class="ti ti-flag me-1"></i>{{ __('Findings not lifted: %1$d of %2$d', 'grcmanager')|format(summary.open, summary.total) }}</span>
+                  {% if summary.open_nc > 0 %}
+                     <span class="badge bg-red-lt fs-5" id="grc-certification-open-nc"><i class="ti ti-alert-octagon me-1"></i>{{ __('Nonconformities not lifted: %d', 'grcmanager')|format(summary.open_nc) }}</span>
+                  {% endif %}
+               </div>
+               <div class="d-flex flex-wrap gap-2">
+                  {% for key, state in lift_states %}
+                     <span class="badge {{ state.class }} grc-certification-lift" data-state="{{ key }}"><i class="ti {{ state.icon }} me-1"></i>{{ state.label }} : {{ summary.lift[key] }}</span>
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-4">
+         <div class="card h-100">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-filter me-2"></i>{{ __('Display', 'grcmanager') }}</h3></div>
+            <div class="card-body">
+               <form method="get" action="{{ page_url }}" class="d-flex flex-column gap-2">
+                  <select name="audit" class="form-select" aria-label="{{ __('Certification audit', 'grcmanager') }}">
+                     <option value="0">{{ __('All certification audits', 'grcmanager') }}</option>
+                     {% for a in all_audits %}
+                        <option value="{{ a.id }}" {{ a.id == selected ? 'selected' : '' }}>{{ a.title }} ({{ a.type_label }}{{ a.date ? ', ' ~ a.date : '' }})</option>
+                     {% endfor %}
+                  </select>
+                  <label class="form-check mb-0">
+                     <input type="checkbox" class="form-check-input" name="open" value="1" {{ open_only ? 'checked' : '' }}>
+                     <span class="form-check-label">{{ __('Only findings not lifted', 'grcmanager') }}</span>
+                  </label>
+                  <div class="d-flex flex-wrap gap-2">
+                     <button type="submit" class="btn btn-sm btn-primary"><i class="ti ti-filter me-1"></i>{{ __('Apply', 'grcmanager') }}</button>
+                     <a class="btn btn-sm btn-outline-secondary" href="{{ pdf_url }}" id="grc-certification-pdf"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export (PDF)', 'grcmanager') }}</a>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   {% if all_audits is empty %}
+      <div class="alert alert-info mt-3" id="grc-certification-empty">
+         <i class="ti ti-info-circle me-1"></i>{{ __('No certification audit recorded yet. Create an audit and choose its type (initial, surveillance or recertification), then record the findings of the certification body in its Findings tab.', 'grcmanager') }}
+         {% if add_url %}<a href="{{ add_url }}" class="btn btn-sm btn-primary ms-2"><i class="ti ti-plus me-1"></i>{{ __('Add an audit', 'grcmanager') }}</a>{% endif %}
+      </div>
+   {% endif %}
+
+   {% for audit in audits %}
+      <div class="card mt-3 grc-certification-audit" data-audit="{{ audit.id }}">
+         <div class="card-header d-flex flex-wrap align-items-center gap-2">
+            <h3 class="card-title mb-0"><i class="ti ti-certificate me-2"></i><a href="{{ audit.url }}">{{ audit.title }}</a></h3>
+            <span class="badge bg-purple-lt">{{ audit.type_label }}</span>
+            <span class="text-muted small">
+               {% if audit.body %}{{ audit.body }}{% endif %}
+               {% if audit.lead_auditor %} | {{ __('Lead auditor', 'grcmanager') }} : {{ audit.lead_auditor }}{% endif %}
+               {% if audit.standard %} | {{ audit.standard }}{% endif %}
+               {% if audit.date %} | {{ audit.date }}{% endif %}
+            </span>
+         </div>
+         {% if audit.findings is empty %}
+            <div class="card-body text-muted">{{ open_only ? __('Every finding of this audit is lifted or awaiting verification.', 'grcmanager') : __('No finding for this audit.', 'grcmanager') }}</div>
+         {% else %}
+            <div class="table-responsive">
+               <table class="table table-hover card-table mb-0">
+                  <thead>
+                     <tr>
+                        <th>{{ __('Reference', 'grcmanager') }}</th>
+                        <th>{{ __('Finding', 'grcmanager') }}</th>
+                        <th>{{ __('Process, clause or control, site', 'grcmanager') }}</th>
+                        <th>{{ __('Corrective action', 'grcmanager') }}</th>
+                        <th>{{ __('Owner', 'grcmanager') }}</th>
+                        <th>{{ __('Due date', 'grcmanager') }}</th>
+                        <th>{{ __('Evidence', 'grcmanager') }}</th>
+                        <th>{{ __('Lifting status', 'grcmanager') }}</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for f in audit.findings %}
+                        <tr class="grc-certification-finding" data-lift="{{ f.lift_state }}">
+                           <td class="text-nowrap">{{ f.reference }}</td>
+                           <td>
+                              {% if f.category_label %}<span class="badge {{ f.category_style.class }} mb-1"><i class="ti {{ f.category_style.icon }} me-1"></i>{{ f.category_label }}</span><br>{% endif %}
+                              <a href="{{ f.url }}">{{ f.title }}</a>
+                           </td>
+                           <td class="small">
+                              {% if f.process %}<div><i class="ti ti-route me-1"></i>{{ f.process }}</div>{% endif %}
+                              {% if f.requirement %}<div><i class="ti ti-list-check me-1"></i>{{ f.requirement }}</div>{% endif %}
+                              {% if f.site %}<div><i class="ti ti-map-pin me-1"></i>{{ f.site }}</div>{% endif %}
+                           </td>
+                           <td class="small">{{ f.corrective_action|nl2br }}</td>
+                           <td>{{ f.owner }}</td>
+                           <td class="text-nowrap">{{ f.due_date }}</td>
+                           <td class="small">
+                              {% for doc in f.documents %}<div><i class="ti ti-paperclip me-1"></i>{{ doc }}</div>{% else %}<span class="text-muted">-</span>{% endfor %}
+                           </td>
+                           <td>
+                              <span class="badge {{ f.lift.class }}"><i class="ti {{ f.lift.icon }} me-1"></i>{{ f.lift.label }}</span>
+                              {% if f.verification_date %}<div class="small text-muted mt-1">{{ __('Verified on %s', 'grcmanager')|format(f.verification_date) }}</div>{% endif %}
+                           </td>
+                        </tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         {% endif %}
+      </div>
+   {% endfor %}
+</div>
