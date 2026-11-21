@@ -40,6 +40,10 @@
                      {% if contact.on_incident %}
                         <span class="badge bg-orange-subtle text-orange-emphasis" title="{{ __('To contact for a security incident', 'grcmanager') }}"><i class="ti ti-shield-exclamation me-1"></i>{{ __('Incident', 'grcmanager') }}</span>
                      {% endif %}
+                     {# Lot 3 : types d'incident retenus (aucun : tous les incidents). #}
+                     {% for type in contact.incident_types|default([]) %}
+                        <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('Only for these types of incident', 'grcmanager') }}"><i class="ti ti-tag me-1"></i>{{ type }}</span>
+                     {% endfor %}
                      {% if contact.on_breach %}
                         <span class="badge bg-purple-subtle text-purple-emphasis" title="{{ __('To contact for a personal data breach', 'grcmanager') }}"><i class="ti ti-lock-open me-1"></i>{{ __('Data breach', 'grcmanager') }}</span>
                      {% endif %}
