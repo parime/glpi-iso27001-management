@@ -26,7 +26,7 @@
   <tr><td>{{ __('Closed on', 'grcmanager') }}</td><td>{{ dates.close }}</td></tr>
   <tr><td>{{ __('Accounts reviewed', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ progress.done }} / {{ progress.total }} ({{ progress.percent }} %)</td></tr>
   {# Issue #866 : suggestions des règles (propositions, la décision reste celle du relecteur) #}
-  <tr><td>{{ __('Suggestions', 'grcmanager') }}</td><td>{% for key, info in suggestion_infos %}{{ info.label }} : {{ suggestions[key]|default(0) }}{{ not loop.last ? ' ; ' : '' }}{% endfor %}</td></tr>
+  <tr><td>{{ __('Suggestions', 'grcmanager') }}</td><td>{% for key, info in suggestion_infos %}{{ info.short }} {{ suggestions[key]|default(0) }}{{ not loop.last ? ' ; ' : '' }}{% endfor %}</td></tr>
 </table>
 
 <h2>{{ __('Decisions per account', 'grcmanager') }}</h2>

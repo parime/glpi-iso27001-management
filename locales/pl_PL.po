@@ -29532,3 +29532,9 @@ msgstr ""
 
 msgid "Update the suggestions"
 msgstr "Zaktualizuj sugestie"
+
+msgid "Examine"
+msgstr "Do zbadania"
+
+msgid "Keep"
+msgstr "Zachować"

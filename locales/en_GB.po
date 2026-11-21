@@ -34164,3 +34164,9 @@ msgstr ""
 
 msgid "Update the suggestions"
 msgstr "Update the suggestions"
+
+msgid "Examine"
+msgstr "Examine"
+
+msgid "Keep"
+msgstr "Keep"

@@ -29647,3 +29647,9 @@ msgstr ""
 
 msgid "Update the suggestions"
 msgstr "Mettre à jour les suggestions"
+
+msgid "Examine"
+msgstr "À examiner"
+
+msgid "Keep"
+msgstr "Garder"

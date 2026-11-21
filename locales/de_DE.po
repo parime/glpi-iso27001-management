@@ -29884,3 +29884,9 @@ msgstr ""
 
 msgid "Update the suggestions"
 msgstr "Vorschläge aktualisieren"
+
+msgid "Examine"
+msgstr "Prüfen"
+
+msgid "Keep"
+msgstr "Behalten"

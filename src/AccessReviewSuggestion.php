@@ -47,23 +47,26 @@ final class AccessReviewSuggestion
     private const DEPARTURE_CANCELLED = 2;
 
     /**
-     * @return array<string, array{label: string, color: string, icon: string}>
+     * @return array<string, array{label: string, short: string, color: string, icon: string}>
      */
     public static function suggestionInfos(): array
     {
         return [
             Rules::REMOVE  => [
                 'label' => __('Suggested: remove', 'grcmanager'),
+                'short' => __('Remove', 'grcmanager'),
                 'color' => 'danger',
                 'icon'  => 'ti ti-user-x',
             ],
             Rules::EXAMINE => [
                 'label' => __('Suggested: examine', 'grcmanager'),
+                'short' => __('Examine', 'grcmanager'),
                 'color' => 'warning',
                 'icon'  => 'ti ti-zoom-question',
             ],
             Rules::KEEP    => [
                 'label' => __('Suggested: keep', 'grcmanager'),
+                'short' => __('Keep', 'grcmanager'),
                 'color' => 'success',
                 'icon'  => 'ti ti-user-check',
             ],

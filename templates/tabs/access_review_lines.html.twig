@@ -65,7 +65,7 @@
       <div class="card-body d-flex flex-wrap align-items-center gap-2">
          <span class="fw-bold me-1"><i class="ti ti-bulb me-1 text-warning"></i>{{ __('Suggestions', 'grcmanager') }}</span>
          {% for key, info in suggestion_infos %}
-            <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis"><i class="{{ info.icon }} me-1"></i>{{ info.label }} : {{ suggestions[key]|default(0) }}</span>
+            <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis"><i class="{{ info.icon }} me-1"></i>{{ info.short }}<span class="ms-1 fw-bold">{{ suggestions[key]|default(0) }}</span></span>
          {% endfor %}
          <span class="text-muted small flex-grow-1">{{ __('Proposals only: each reviewer decides. Set the rules on the campaign form.', 'grcmanager') }}</span>
          {% if can_refresh %}

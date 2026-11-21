@@ -29413,3 +29413,9 @@ msgstr ""
 
 msgid "Update the suggestions"
 msgstr "Atualizar as sugestões"
+
+msgid "Examine"
+msgstr "Examinar"
+
+msgid "Keep"
+msgstr "Manter"
