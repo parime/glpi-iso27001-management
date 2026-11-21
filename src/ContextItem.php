@@ -35,6 +35,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Group;
 use Html;
 use Log;
+use PluginGrcmanagerSecurityIncident;
 use Session;
 use Supplier;
 
@@ -73,6 +74,9 @@ class ContextItem extends ContextItemBase
 
     /** Marqueur du formulaire : une liste vide n'envoie rien, seul lui la remplace. */
     public const LINKS_MARKER = '_context_links_defined';
+
+    /** Issue #771, lot 3 : la liste des catégories d'incident était dans le formulaire. */
+    public const INCIDENT_CATEGORIES_MARKER = '_contact_incident_categories_defined';
 
     /** Champ du formulaire => type lié. */
     public const LINK_FIELDS = [
@@ -307,6 +311,18 @@ class ContextItem extends ContextItemBase
         }
         if (array_key_exists('contact_delay_hours', $input)) {
             $input['contact_delay_hours'] = ContactRules::normalizeDelayHours($input['contact_delay_hours']);
+        }
+        // Issue #771, lot 3 : catégories d'incident (liste multiple : absente du formulaire si vide).
+        if (
+            isset($input[self::INCIDENT_CATEGORIES_MARKER])
+            && !array_key_exists('contact_incident_categories', $input)
+        ) {
+            $input['contact_incident_categories'] = [];
+        }
+        if (array_key_exists('contact_incident_categories', $input)) {
+            $input['contact_incident_categories'] = ContactRules::encodeIncidentCategories(
+                $input['contact_incident_categories']
+            );
         }
         if (array_key_exists('users_id_internal', $input)) {
             $input['users_id_internal'] = max(0, (int) $input['users_id_internal']);
@@ -1118,6 +1134,12 @@ class ContextItem extends ContextItemBase
             'contact_verifier'        => (int) ($this->fields['users_id_contactverifier'] ?? 0) > 0
                 ? getUserName((int) $this->fields['users_id_contactverifier']) : '',
             'contacts_url'            => OfficialContact::getRegisterURL(),
+            // Issue #771, lot 3 : catégories d'incident pour lesquelles prévenir le contact.
+            'incident_categories'        => PluginGrcmanagerSecurityIncident::getCategories(),
+            'contact_incident_categories' => ContactRules::normalizeIncidentCategories(
+                $this->fields['contact_incident_categories'] ?? ''
+            ),
+            'incident_categories_marker' => self::INCIDENT_CATEGORIES_MARKER,
         ]);
 
         return true;

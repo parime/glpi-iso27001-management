@@ -95,6 +95,13 @@
                   </div>
                   <button type="submit" name="record" value="1" class="btn btn-primary"><i class="ti ti-circle-check me-1"></i>{{ __('Record as sent', 'grcmanager') }}</button>
                </div>
+               {# Issue #771, lot 3 : message envoyé à un contact officiel = prise de contact tracée. #}
+               {% if m.recipients|filter(r => not r.internal)|length > 0 %}
+                  <label class="form-check mt-2">
+                     <input type="checkbox" class="form-check-input" name="record_official_contacts" value="1" checked>
+                     <span class="form-check-label">{{ __('Also record it as a contact with the ticked official contacts ("Official contacts" tab)', 'grcmanager') }}</span>
+                  </label>
+               {% endif %}
                <div class="form-hint">{{ __('Record the communication only after you have sent it yourself.', 'grcmanager') }}</div>
             {% endif %}
          </form>

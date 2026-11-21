@@ -553,6 +553,21 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
     nécessaire (décision tracée) ». Rien n'est envoyé depuis le plugin.
 11. La fiche du contact a un onglet **Prises de contact tracées** : l'historique de vos relations
     avec cette autorité ou ce groupe d'intérêt, à montrer à l'auditeur.
+12. Si un contact ne concerne que certains incidents (le CERT sectoriel pour les logiciels
+    malveillants, par exemple), choisissez ces types dans **Seulement pour ces types d'incident** :
+    il n'est alors proposé que sur les incidents de ce type. Laissé vide, il est proposé sur tous
+    les incidents. Un incident de type « Violation de données » propose aussi les contacts à
+    prévenir pour une violation de données personnelles.
+13. Dans l'onglet **Communication de crise** d'un incident, un modèle dont la liste de diffusion
+    contient un contact officiel propose la case **Tracer aussi une prise de contact avec les
+    contacts officiels cochés** : en enregistrant le message envoyé, la prise de contact est tracée
+    en même temps (badge « Depuis une communication de crise » dans l'onglet Contacts officiels).
+14. Après chaque revue du registre, cliquez sur **Archiver sur les mesures A.5.5 et A.5.6** : le
+    PDF daté est joint aux deux mesures de la SoA (onglet Documents), et les derniers registres
+    archivés sont listés en tête du registre.
+15. Les contacts officiels figurent aussi à la fin du **plan de continuité (PDF)** des processus
+    métier, et dans la salle de crise d'un exercice ou d'une crise réelle (cadre « Contacts officiels
+    à prévenir », repris dans le rapport de l'exercice).
 
 ### Étape 23 : Vérifier les licences logicielles (mesure A.5.32)
 
@@ -878,9 +893,17 @@ GRC Manager du profil, attribué au Super-Admin à l'installation).
    (OWASP ASVS, OWASP Top 10, OWASP SAMM, recommandations de l'ANSSI ou autre) et son niveau, puis
    cochez **Revue de code obligatoire**, **Analyse statique (SAST)**, **Analyse dynamique (DAST)**
    et **Analyse des dépendances**. Indiquez les outils et leur fréquence.
-2. Répondez à **Environnements séparés** (oui ou non). Décrivez comment les accès, les données et
-   la configuration sont séparés ; si la réponse est non, la justification est obligatoire (risque
-   accepté, mesure compensatoire). Enregistrez : l'application entre dans le registre.
+2. Répondez à **Environnements séparés** (oui ou non). Si oui, cochez ce qui est réellement séparé
+   entre développement, test et production : **accès**, **données** (pas de données de production
+   hors production, ou anonymisées) et **configuration** ; une case manquante signale une séparation
+   partielle. Si la réponse est non, la justification est obligatoire (risque accepté, mesure
+   compensatoire).
+   Décrivez ensuite les **exigences de sécurité** de l'application (A.8.26) et les **principes
+   d'architecture sécurisée** appliqués (A.8.27), ou mettez un lien vers le cahier des charges et le
+   document d'architecture. Si le développement est confié à un prestataire (A.8.30), cochez-le,
+   choisissez le fournisseur de GLPI, cochez **Clauses de sécurité au contrat** et décrivez le suivi
+   du prestataire (revue des livraisons, recette, droit d'audit). Enregistrez : l'application entre
+   dans le registre.
 3. Créez le changement de la nouvelle version et liez-y l'application (onglet **Éléments** du
    changement). Un onglet **Validation sécurité de mise en production** apparaît.
 4. Avant la mise en production, cochez la **liste de contrôle** : tests passés (dont tests de
@@ -896,10 +919,11 @@ GRC Manager du profil, attribué au Super-Admin à l'installation).
    sans validation sécurité** des 12 derniers mois (changement résolu ou clos lié à une application
    du registre, sans validation, refusé, ou validé après la mise en production). Seules vos entités
    apparaissent ; les mises en production demandent le droit de voir tous les changements.
-7. Sur la fiche des mesures A.8.25, A.8.28, A.8.29 et A.8.31 de la SoA, le cadre **Développement
-   sécurisé** montre les indicateurs utiles à chaque mesure. Ces preuves servent à lever les
-   constats d'audit sur le cycle de développement, le codage sécurisé, les tests de sécurité et la
-   séparation des environnements.
+7. Sur la fiche des mesures A.8.25 à A.8.31 de la SoA, le cadre **Développement sécurisé** montre
+   les indicateurs utiles à chaque mesure : exigences décrites (A.8.26), principes d'architecture
+   (A.8.27), applications externalisées sans prestataire ou sans clauses (A.8.30), séparation
+   partielle (A.8.31). Ces preuves servent à lever les constats d'audit sur le cycle de
+   développement, le codage sécurisé, les tests de sécurité et la séparation des environnements.
 
 ### Étape 32 : Préparer l'audit avec le plan d'audit de l'organisme
 
@@ -1530,6 +1554,20 @@ To give a subsidiary its own Statement of Applicability:
     on time", "Contacted late" or "Not required (decision recorded)". Nothing is sent by the plugin.
 11. The contact's record has a **Recorded contacts** tab: the history of your relations with this
     authority or special interest group, to show to the auditor.
+12. When a contact only matters for some incidents (the sector CERT for malware, for example),
+    choose these types in **Only for these types of incident**: it is then listed only on incidents
+    of this type. Left empty, it is listed on every incident. An incident of the "Data breach" type
+    also lists the contacts to inform for a personal data breach.
+13. In the **Crisis communication** tab of an incident, a template whose distribution list holds an
+    official contact offers the box **Also record it as a contact with the ticked official
+    contacts**: recording the message you sent also records the contact (badge "From a crisis
+    communication" in the Official contacts tab).
+14. After each review of the register, click **Archive on controls A.5.5 and A.5.6**: the dated PDF
+    is attached to both controls of the SoA (Documents tab), and the latest archived registers are
+    listed at the top of the register.
+15. The official contacts also appear at the end of the **business continuity plan (PDF)** of the
+    business processes, and in the crisis room of an exercise or of a real crisis ("Official
+    contacts to inform" box, included in the exercise report).
 
 ### Step 23: Check software licenses (control A.5.32)
 
@@ -1843,9 +1881,16 @@ Super-Admin at installation).
    10, OWASP SAMM, ANSSI recommendations or other) and its level, then tick **Mandatory code
    review**, **Static analysis (SAST)**, **Dynamic analysis (DAST)** and **Dependency analysis**.
    Give the tools and their frequency.
-2. Answer **Separated environments** (yes or no). Describe how access, data and configuration are
-   separated; when the answer is no, the justification is mandatory (accepted risk, compensating
-   measure). Save: the application enters the register.
+2. Answer **Separated environments** (yes or no). When yes, tick what is actually separated
+   between development, test and production: **access**, **data** (no production data outside
+   production, or anonymised) and **configuration**; a missing box shows a partial separation. When
+   the answer is no, the justification is mandatory (accepted risk, compensating measure).
+   Then describe the **security requirements** of the application (A.8.26) and the **secure
+   architecture principles** applied (A.8.27), or link the specification and the architecture
+   document. When the development is entrusted to a supplier (A.8.30), tick it, choose the supplier
+   of GLPI, tick **Security clauses in the contract** and describe the supervision of the supplier
+   (review of deliveries, acceptance tests, right to audit). Save: the application enters the
+   register.
 3. Create the change of the new version and link the application to it (**Items** tab of the
    change). A **Security release validation** tab appears.
 4. Before the release, tick the **checklist**: tests passed (including security tests), code review
@@ -1860,9 +1905,11 @@ Super-Admin at installation).
    security validation** of the last 12 months (solved or closed change linked to an application of
    the register, without validation, rejected, or approved after the release). Only your entities
    are shown; the releases require the right to see all changes.
-7. On controls A.8.25, A.8.28, A.8.29 and A.8.31 of the SoA, the **Secure development** box shows
-   the indicators useful to each control. This evidence helps lift the audit findings on the
-   development life cycle, secure coding, security testing and separation of environments.
+7. On controls A.8.25 to A.8.31 of the SoA, the **Secure development** box shows the indicators
+   useful to each control: documented requirements (A.8.26), architecture principles (A.8.27),
+   outsourced applications without supplier or clauses (A.8.30), partial separation (A.8.31). This
+   evidence helps lift the audit findings on the development life cycle, secure coding, security
+   testing and separation of environments.
 ### Step 32: Use phishing simulations as evidence of awareness (clause 7.3, control A.6.3)
 
 1. Before the first simulation, inform the staff that phishing simulations take place (purpose:

@@ -58,6 +58,8 @@ final class OfficialContactTables
             `reference` varchar(255) NOT NULL DEFAULT '' COMMENT 'Numero de dossier, accuse de reception',
             `comment` text COMMENT 'Canal, interlocuteur, motif si non necessaire',
             `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur de la trace',
+            `plugin_grcmanager_crisiscommunications_id` int {$keySign} NOT NULL DEFAULT 0
+                COMMENT 'Communication de crise d ou vient la trace (lot 3), 0 sinon',
             `date_creation` timestamp NULL DEFAULT NULL,
             `date_mod` timestamp NULL DEFAULT NULL,
             PRIMARY KEY (`id`),
@@ -66,8 +68,26 @@ final class OfficialContactTables
             KEY `entities_id` (`entities_id`),
             KEY `decision` (`decision`),
             KEY `date_notified` (`date_notified`),
-            KEY `users_id` (`users_id`)
+            KEY `users_id` (`users_id`),
+            KEY `plugin_grcmanager_crisiscommunications_id` (`plugin_grcmanager_crisiscommunications_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+    }
+
+    /**
+     * Lot 3 : lien vers la communication de crise d'où vient la prise de contact (table créée par
+     * le lot 2 sans cette colonne).
+     */
+    public static function migrate(Migration $migration): void
+    {
+        global $DB;
+
+        $field = 'plugin_grcmanager_crisiscommunications_id';
+        if (!$DB->tableExists(self::NOTIFICATIONS) || $DB->fieldExists(self::NOTIFICATIONS, $field)) {
+            return;
+        }
+        $migration->addField(self::NOTIFICATIONS, $field, 'fkey', ['after' => 'users_id']);
+        $migration->addKey(self::NOTIFICATIONS, $field);
+        $migration->migrationOneTable(self::NOTIFICATIONS);
     }
 
     public static function uninstall(Migration $migration): void

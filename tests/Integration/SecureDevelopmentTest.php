@@ -133,6 +133,70 @@ final class SecureDevelopmentTest extends GrcmanagerIntegrationTestCase
         $this->assertNull(ApplicationSecurity::getForAppliance($id), 'Fiche oubliée avec l\'application (ITEM_PURGE).');
     }
 
+    public function testLot2SeparationRequirementsAndOutsourcingAreSavedAndShownAsEvidence(): void
+    {
+        $supplier = new \Supplier();
+        $supplierId = (int) $supplier->add(['name' => 'PHPUnit prestataire fictif', 'entities_id' => 0]);
+        $this->assertGreaterThan(0, $supplierId);
+        $outsourced = $this->appliance('PHPUnit appli externalisée fictive');
+        $internal = $this->appliance('PHPUnit appli interne fictive');
+
+        $this->assertNull(ApplicationSecurity::saveFor((int) $outsourced->getID(), [
+            'environments_separated'  => 'yes',
+            'separation_access'       => '1',
+            'separation_data'         => '1',
+            'separation_config'       => '1',
+            'security_requirements'   => 'MFA, chiffrement des données fictives',
+            'architecture_principles' => 'Moindre privilège',
+            'outsourced'              => '1',
+            'suppliers_id'            => $supplierId,
+            'outsourcing_clauses'     => '1',
+            'outsourcing_oversight'   => 'Revue de code de chaque livraison',
+        ]));
+        $profile = ApplicationSecurity::getForAppliance((int) $outsourced->getID());
+        $this->assertNotNull($profile);
+        $this->assertSame([], Rules::separationGaps($profile));
+        $this->assertSame($supplierId, (int) $profile['suppliers_id']);
+        $this->assertFalse(Rules::outsourcingGap($profile));
+
+        // Non externalisé : prestataire, clauses et suivi ignorés ; prestataire inexistant ignoré.
+        $this->assertNull(ApplicationSecurity::saveFor((int) $internal->getID(), [
+            'environments_separated' => 'yes', 'separation_access' => '1',
+            'suppliers_id' => $supplierId, 'outsourcing_clauses' => '1', 'outsourcing_oversight' => 'x',
+        ]));
+        $profile = ApplicationSecurity::getForAppliance((int) $internal->getID());
+        $this->assertNotNull($profile);
+        $this->assertSame(0, (int) $profile['suppliers_id']);
+        $this->assertSame(0, (int) $profile['outsourcing_clauses']);
+        $this->assertSame('', (string) $profile['outsourcing_oversight']);
+        $this->assertSame(['separation_data', 'separation_config'], Rules::separationGaps($profile));
+        $this->assertNull(ApplicationSecurity::saveFor((int) $internal->getID(), [
+            'outsourced' => '1', 'suppliers_id' => 99999999, 'outsourcing_clauses' => '1',
+        ]));
+        $profile = ApplicationSecurity::getForAppliance((int) $internal->getID());
+        $this->assertNotNull($profile);
+        $this->assertSame(0, (int) $profile['suppliers_id'], 'Prestataire inexistant ignoré.');
+        $this->assertTrue(Rules::outsourcingGap($profile));
+
+        $expected = ['A.8.26' => 'ti ti-list-check', 'A.8.27' => 'ti ti-building', 'A.8.30' => 'ti ti-file-alert'];
+        foreach ($expected as $code => $icon) {
+            $evidence = SecureDevelopment::evidence($code);
+            $this->assertNotNull($evidence, $code);
+            $this->assertContains($icon, array_column($evidence['badges'], 'icon'), $code);
+        }
+        $this->assertContains(
+            'ti ti-arrows-split-2',
+            array_column(SecureDevelopment::evidence('A.8.31')['badges'] ?? [], 'icon')
+        );
+
+        ob_start();
+        ApplicationSecurity::displayTabContentForItem($outsourced);
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('name="separation_data"', $html);
+        $this->assertStringContainsString('security_requirements', $html);
+        $this->assertStringContainsString('name="outsourced"', $html);
+    }
+
     public function testTabsCheckTheirOwnRightsBecauseCommonTabsSkipsTheTabName(): void
     {
         $appliance = $this->appliance('PHPUnit application onglet fictive');

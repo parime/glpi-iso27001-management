@@ -9,6 +9,35 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Développement sécurisé, lot 2 : séparation détaillée, exigences, architecture et développement
+  externalisé** (issue #777, mesures A.8.26, A.8.27, A.8.30 et A.8.31) :
+  - fiche « Développement sécurisé » d'une application : **accès**, **données** et
+    **configuration** séparés entre développement, test et production (au lieu d'un simple oui ou
+    non), **exigences de sécurité** de l'application, **principes d'architecture sécurisée**, et
+    **développement externalisé** avec le fournisseur de GLPI, les clauses de sécurité du contrat et
+    le suivi du prestataire ;
+  - registre : colonnes exigences, architecture et développement externalisé, séparation partielle
+    signalée ; nouveaux indicateurs (séparation partielle, exigences et principes absents,
+    applications externalisées sans prestataire ou sans clauses) ;
+  - preuves sur les mesures **A.8.26**, **A.8.27** et **A.8.30**, et séparation partielle sur A.8.31 ;
+  - colonnes ajoutées à la table existante par l'installateur (rejouable), sans toucher aux fiches
+    déjà remplies ; prestataire vérifié (fournisseur existant) et ignoré si le développement n'est
+    pas externalisé. Ce lot termine l'issue #777.
+- **Procédures d'exploitation : historique des revues** (issue #775, lot 3, dernier lot, mesure
+  A.5.37) :
+  - sur la fiche d'une procédure, cadre « Historique des revues » : toutes les revues enregistrées
+    avec le bouton « Enregistrer la revue », la plus récente d'abord (date, personne, prochaine
+    revue prévue) ;
+  - le PDF du registre ajoute une section « Historique des revues », procédure par procédure ;
+  - l'historique est lu dans le journal d'audit infalsifiable, qui garde déjà chaque revue : aucune
+    nouvelle table ni colonne, et une revue tracée ne se modifie plus. Seules la date, la personne
+    et la prochaine revue sont affichées, avec le droit de lire les politiques. Ce lot termine
+    l'issue #775.
+
+## [2.72.0] - 2026-11-21
+
+### Added
+
 - **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
   A.5.32). Les licences filles de GLPI (champ « Comme enfant de ») ne gonflent plus les postes
   licenciés : quand une licence mère et ses filles valables comptent toutes pour une entité, la
@@ -122,16 +151,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     leur référence ou par le test qui les a ouvertes), politiques en brouillon (mesure A.5.1),
     contrôles techniques automatiques et couverture Wazuh et SentinelOne (A.8.7, A.8.16) ;
   - lecture seule, uniquement ce que la personne a le droit de lire (droits et entités).
-- **Procédures d'exploitation : historique des revues** (issue #775, lot 3, dernier lot, mesure
-  A.5.37) :
-  - sur la fiche d'une procédure, cadre « Historique des revues » : toutes les revues enregistrées
-    avec le bouton « Enregistrer la revue », la plus récente d'abord (date, personne, prochaine
-    revue prévue) ;
-  - le PDF du registre ajoute une section « Historique des revues », procédure par procédure ;
-  - l'historique est lu dans le journal d'audit infalsifiable, qui garde déjà chaque revue : aucune
-    nouvelle table ni colonne, et une revue tracée ne se modifie plus. Seules la date, la personne
-    et la prochaine revue sont affichées, avec le droit de lire les politiques. Ce lot termine
-    l'issue #775.
+- **Contacts officiels, dernier lot** (issue #771, lot 3, mesures A.5.5 et A.5.6) :
+  - **contacts proposés selon le type d'incident** : nouvelle liste « Seulement pour ces types
+    d'incident » sur la fiche du contact (vide : tous les incidents) ; un incident de type
+    « Violation de données » propose aussi les contacts à prévenir pour une violation. Types
+    affichés dans le registre et son PDF ;
+  - **communication de crise reprise comme prise de contact** (#616, #800) : en traçant un message
+    envoyé à un contact officiel, la case « Tracer aussi une prise de contact » (cochée par défaut,
+    décochable) crée la prise de contact « prévenu » à la date du message, mêmes contrôles qu'une
+    saisie (droit de modifier l'incident, entité du contact, date) ; badge « Depuis une
+    communication de crise » dans l'onglet ; nouvelle colonne
+    `plugin_grcmanager_crisiscommunications_id` des prises de contact ;
+  - **archivage daté du registre** : bouton « Archiver sur les mesures A.5.5 et A.5.6 » (droit de
+    modifier le contexte), PDF joint aux deux mesures de la SoA de l'entité active, derniers
+    registres archivés listés en tête du registre ;
+  - **plan de continuité** : le PDF du PCA / PRA se termine par les contacts officiels à prévenir
+    (ceux de l'entité du processus pour le plan d'un seul processus) ;
+  - **salle de crise** : cadre « Contacts officiels à prévenir » avec l'échéance et la situation de
+    chacun, lien vers l'onglet pour tracer l'appel, repris dans le rapport PDF de l'exercice ;
+  - nouvelle colonne `contact_incident_categories` des parties intéressées ; tests unitaires et
+    d'intégration, matrice d'accès, traductions, tutoriel (étape 22, FR et EN). Ce lot termine
+    l'issue #771.
 
 ## [2.71.0] - 2026-11-20
 

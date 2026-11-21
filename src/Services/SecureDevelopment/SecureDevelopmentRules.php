@@ -29,6 +29,9 @@ namespace GlpiPlugin\Grcmanager\Services\SecureDevelopment;
  *   possible que si toute la liste est cochée ; un refus exige un motif.
  * - État d'une mise en production : validée avant la mise en production, validée après coup,
  *   refusée, en attente ou sans validation.
+ * - Lot 2 : détail de la séparation (accès, données, configuration), exigences de sécurité de
+ *   l'application (A.8.26), principes d'architecture (A.8.27) et développement externalisé avec
+ *   prestataire, clauses de sécurité et suivi (A.8.30).
  *
  * PHP pur (aucune dépendance à GLPI), testé unitairement.
  *
@@ -56,6 +59,12 @@ final class SecureDevelopmentRules
 
     /** Pratiques cochées sur la fiche d'une application. */
     public const PRACTICES = ['code_review_required', 'sast', 'dast', 'dependency_scan'];
+
+    /**
+     * Détail d'une séparation affirmée : accès, données et configuration séparés entre les
+     * environnements de développement, de test et de production.
+     */
+    public const SEPARATION_DETAILS = ['separation_access', 'separation_data', 'separation_config'];
 
     /** Liste de contrôle avant mise en production. */
     public const CHECKLIST = ['tests_passed', 'review_done', 'vulnerabilities_treated'];
@@ -148,6 +157,67 @@ final class SecureDevelopmentRules
     public static function withoutSeparation(string $separation): bool
     {
         return $separation !== self::SEPARATION_YES;
+    }
+
+    /**
+     * Séparation affirmée mais incomplète : un des aspects (accès, données, configuration) n'est
+     * pas séparé.
+     *
+     * @param array<string, mixed> $profile
+     * @return list<string> aspects non séparés, vide si la séparation n'est pas affirmée
+     */
+    public static function separationGaps(array $profile): array
+    {
+        if ((string) ($profile['environments_separated'] ?? '') !== self::SEPARATION_YES) {
+            return [];
+        }
+
+        return array_values(array_filter(
+            self::SEPARATION_DETAILS,
+            static fn (string $detail): bool => (int) ($profile[$detail] ?? 0) !== 1
+        ));
+    }
+
+    /**
+     * Exigences de sécurité de l'application non décrites (A.8.26).
+     *
+     * @param array<string, mixed> $profile
+     */
+    public static function withoutRequirements(array $profile): bool
+    {
+        return trim((string) ($profile['security_requirements'] ?? '')) === '';
+    }
+
+    /**
+     * Principes d'architecture sécurisée non décrits (A.8.27).
+     *
+     * @param array<string, mixed> $profile
+     */
+    public static function withoutArchitecture(array $profile): bool
+    {
+        return trim((string) ($profile['architecture_principles'] ?? '')) === '';
+    }
+
+    /**
+     * Développement confié à un prestataire (A.8.30).
+     *
+     * @param array<string, mixed> $profile
+     */
+    public static function isOutsourced(array $profile): bool
+    {
+        return (int) ($profile['outsourced'] ?? 0) === 1;
+    }
+
+    /**
+     * Développement externalisé sans encadrement : prestataire non désigné ou clauses de sécurité
+     * absentes du contrat.
+     *
+     * @param array<string, mixed> $profile
+     */
+    public static function outsourcingGap(array $profile): bool
+    {
+        return self::isOutsourced($profile)
+            && ((int) ($profile['suppliers_id'] ?? 0) <= 0 || (int) ($profile['outsourcing_clauses'] ?? 0) !== 1);
     }
 
     /**
@@ -248,7 +318,9 @@ final class SecureDevelopmentRules
      * @param list<string>               $releaseStates état de chaque mise en production
      * @return array{applications: int, without_separation: int, separation_unjustified: int,
      *     without_framework: int, without_review: int, without_sast: int, without_dast: int,
-     *     without_dependency_scan: int, releases: int, releases_without_validation: int}
+     *     without_dependency_scan: int, separation_incomplete: int, without_requirements: int,
+     *     without_architecture: int, outsourced: int, outsourced_without_clauses: int, releases: int,
+     *     releases_without_validation: int}
      */
     public static function indicators(array $profiles, array $releaseStates): array
     {
@@ -272,6 +344,11 @@ final class SecureDevelopmentRules
             'without_sast'            => $count(static fn (array $p): bool => (int) ($p['sast'] ?? 0) !== 1),
             'without_dast'            => $count(static fn (array $p): bool => (int) ($p['dast'] ?? 0) !== 1),
             'without_dependency_scan' => $count(static fn (array $p): bool => (int) ($p['dependency_scan'] ?? 0) !== 1),
+            'separation_incomplete'   => $count(static fn (array $p): bool => self::separationGaps($p) !== []),
+            'without_requirements'    => $count(static fn (array $p): bool => self::withoutRequirements($p)),
+            'without_architecture'    => $count(static fn (array $p): bool => self::withoutArchitecture($p)),
+            'outsourced'              => $count(static fn (array $p): bool => self::isOutsourced($p)),
+            'outsourced_without_clauses' => $count(static fn (array $p): bool => self::outsourcingGap($p)),
             'releases'                => count($releaseStates),
             'releases_without_validation' => count(array_filter(
                 $releaseStates,
