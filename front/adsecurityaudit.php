@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Exception\Http\AccessDeniedHttpException;
 use GlpiPlugin\Grcmanager\AdAttackPath;
 use GlpiPlugin\Grcmanager\AdSecurityAudit;
 use GlpiPlugin\Grcmanager\ControlTest;
@@ -111,7 +112,7 @@ if (isset($_POST['import_ad_audit'])) {
 if (isset($_POST['clear_ad_audit'])) {
     Session::checkRight(AdSecurityAudit::RIGHTNAME, UPDATE);
     if (!AdSecurityAudit::clear((int) ($_POST['audit_id'] ?? 0))) {
-        Html::displayRightError();
+        throw new AccessDeniedHttpException();
     }
     Session::addMessageAfterRedirect(htmlescape(__('Import deleted.', 'grcmanager')));
     Html::redirect(AdSecurityAudit::getSearchURL() . '#grc-ad-history');
@@ -125,7 +126,7 @@ if (isset($_POST['ad_audit_ticket'])) {
     $found = AdSecurityAudit::getRule($ruleId);
     if ($found === null) {
         // Règle d'un import hors des entités de la session.
-        Html::displayRightError();
+        throw new AccessDeniedHttpException();
     }
     $ticketId = AdSecurityAudit::createTicket($ruleId);
     if ($ticketId <= 0) {
@@ -195,7 +196,7 @@ if (isset($_POST['import_attack_path'])) {
 if (isset($_POST['clear_attack_path'])) {
     Session::checkRight(AdSecurityAudit::RIGHTNAME, UPDATE);
     if (!AdAttackPath::clear((int) ($_POST['path_id'] ?? 0))) {
-        Html::displayRightError();
+        throw new AccessDeniedHttpException();
     }
     Session::addMessageAfterRedirect(htmlescape(__('Import deleted.', 'grcmanager')));
     Html::redirect(AdSecurityAudit::getSearchURL() . '#grc-ad-paths');
@@ -206,7 +207,7 @@ if (isset($_POST['attack_path_risk'])) {
     Session::checkRight(AdSecurityAudit::RIGHTNAME, UPDATE);
     $pathId = (int) ($_POST['path_id'] ?? 0);
     if (AdAttackPath::getImport($pathId) === null) {
-        Html::displayRightError();
+        throw new AccessDeniedHttpException();
     }
     if (AdAttackPath::sendToRegister($pathId) > 0) {
         Session::addMessageAfterRedirect(htmlescape(__('The risk has been added to the register.', 'grcmanager')));
