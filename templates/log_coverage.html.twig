@@ -14,9 +14,8 @@
  #}
 {# Issue #853 : couverture de la journalisation (A.8.15, A.8.16, A.8.17), dans les entités de la
    personne. Le plugin lit seulement : rien n'est lancé sur les plateformes de journaux. #}
-{% import 'components/form/fields_macros.html.twig' as fields %}
 {% macro rate_color(rate) %}{{ rate is null ? 'secondary' : (rate >= 95 ? 'success' : (rate >= 80 ? 'warning' : 'danger')) }}{% endmacro %}
-{% macro platform_form(action, decl, platform_labels, obligation_class, choose_platform) %}
+{% macro platform_form(action, decl, platform_labels, obligations, choose_platform) %}
    <form method="post" action="{{ action }}">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
       <div class="row g-2 align-items-end">
@@ -46,9 +45,15 @@
             </label>
          </div>
       </div>
-      {{ fields.dropdownField(obligation_class, 'plugin_grcmanager_complianceobligations_id', decl.obligation_id, __('Obligation that imposes a retention', 'grcmanager'), {
-         'helper': __('For example a law, a regulation or a contract listed in the register of obligations.', 'grcmanager'),
-      }) }}
+      <div class="my-2">
+         <label class="form-label">{{ __('Obligation that imposes a retention', 'grcmanager') }}
+            <select class="form-select" name="plugin_grcmanager_complianceobligations_id">
+               <option value="0">-----</option>
+               {% for id, title in obligations %}<option value="{{ id }}" {{ decl.obligation_id == id ? 'selected' }}>{{ title }}</option>{% endfor %}
+            </select>
+         </label>
+         <div class="form-text">{{ __('For example a law, a regulation or a contract listed in the register of obligations.', 'grcmanager') }}</div>
+      </div>
       <div class="d-flex flex-wrap align-items-center gap-3">
          <label class="form-check mb-0">
             <input class="form-check-input" type="checkbox" name="is_ntp_declared" value="1" {{ decl.ntp ? 'checked' }}>
@@ -259,14 +264,14 @@
                </div>
                {% if decl.comment is not empty %}<div class="small text-muted mb-2">{{ decl.comment }}</div>{% endif %}
                {% if can_manage and decl.entities_id == active_entity %}
-                  {{ _self.platform_form(action, decl, platform_labels, obligation_class, false) }}
+                  {{ _self.platform_form(action, decl, platform_labels, obligations, false) }}
                {% endif %}
             </div>
          {% endfor %}
          {% if can_manage %}
             <details>
                <summary class="mb-2"><i class="ti ti-plus me-1"></i>{{ __('Declare another platform', 'grcmanager') }}</summary>
-               {{ _self.platform_form(action, {'platform': '', 'retention_days': 0, 'obligation_days': 0, 'ntp_server': '', 'obligation_id': 0, 'ntp': false, 'comment': ''}, platform_labels, obligation_class, true) }}
+               {{ _self.platform_form(action, {'platform': '', 'retention_days': 0, 'obligation_days': 0, 'ntp_server': '', 'obligation_id': 0, 'ntp': false, 'comment': ''}, platform_labels, obligations, true) }}
             </details>
          {% elseif declarations is empty %}
             <div class="text-muted">{{ __('No platform declared.', 'grcmanager') }}</div>

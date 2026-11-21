@@ -651,9 +651,7 @@ class LogCoverage extends CommonGLPI
                 'required_days'   => $required,
                 'retention'       => Rules::retentionStatus((int) $row['retention_days'], $required),
                 'obligation_id'   => $obligationId,
-                'obligation'      => $obligationId > 0
-                    ? (string) Dropdown::getDropdownName(ComplianceObligation::getTable(), $obligationId)
-                    : '',
+                'obligation'      => self::obligationName($obligationId),
                 'obligation_url'  => $obligationId > 0 ? ComplianceObligation::getFormURLWithID($obligationId) : '',
                 'obligation_days' => $obligationDays,
                 'ntp'             => (bool) $row['is_ntp_declared'],
@@ -686,6 +684,44 @@ class LogCoverage extends CommonGLPI
         }
 
         return $rows;
+    }
+
+    /**
+     * Obligations visibles du registre, pour le choix de celle qui impose une conservation.
+     *
+     * @return array<int, string>
+     */
+    public static function obligationChoices(): array
+    {
+        global $DB;
+
+        $choices = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'title'],
+                'FROM'   => ComplianceObligation::getTable(),
+                'WHERE'  => getEntitiesRestrictCriteria(ComplianceObligation::getTable(), '', '', true),
+                'ORDER'  => 'title',
+                'LIMIT'  => 500,
+            ]) as $row
+        ) {
+            $choices[(int) $row['id']] = (string) $row['title'];
+        }
+
+        return $choices;
+    }
+
+    /**
+     * Titre d'une obligation du registre, vide si elle n'existe plus.
+     */
+    private static function obligationName(int $id): string
+    {
+        $obligation = new ComplianceObligation();
+        if ($id <= 0 || !$obligation->getFromDB($id)) {
+            return '';
+        }
+
+        return (string) ($obligation->fields['title'] ?? '');
     }
 
     /**
@@ -921,7 +957,7 @@ class LogCoverage extends CommonGLPI
             'can_manage'       => self::canManage(),
             'active_entity'    => (int) Session::getActiveEntity(),
             'action'           => self::getSearchURL(),
-            'obligation_class' => ComplianceObligation::class,
+            'obligations'      => self::obligationChoices(),
             'obligations_url'  => ComplianceObligation::getSearchURL(),
             'audit_url'        => ComplianceAudit::getSearchURL(),
         ];

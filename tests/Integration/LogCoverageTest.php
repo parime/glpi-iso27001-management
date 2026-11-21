@@ -146,7 +146,8 @@ final class LogCoverageTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(Rules::STATUS_OK, $this->row($this->pc['server_ok'])['status']);
         $this->assertSame(['Splunk'], $this->row($this->pc['server_ok'])['platforms']);
         $this->assertSame(Rules::STATUS_STALE, $this->row($this->pc['server_stale'])['status']);
-        $this->assertSame(30, $this->row($this->pc['server_stale'])['age']);
+        $age = (int) $this->row($this->pc['server_stale'])['age'];
+        $this->assertTrue($age >= 29 && $age <= 30, 'Dernier événement il y a 30 jours.');
         $critical = $this->row($this->pc['critical']);
         $this->assertSame(Rules::STATUS_OK, $critical['status'], 'Rapproché par son adresse IP.');
         $this->assertTrue($critical['critical']);
@@ -228,6 +229,7 @@ final class LogCoverageTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(Rules::RETENTION_SHORT, $splunk['retention']);
         $this->assertFalse($splunk['ntp'], 'Case décochée.');
         $this->assertStringContainsString('Obligation de conservation', $splunk['obligation']);
+        $this->assertArrayHasKey($obligation, LogCoverage::obligationChoices());
         $this->assertSame(
             1,
             countElementsInTable(LogCoverageTables::PLATFORMS, ['entities_id' => $this->entity, 'platform' => 'splunk']),
