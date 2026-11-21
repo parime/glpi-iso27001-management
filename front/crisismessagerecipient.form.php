@@ -29,10 +29,19 @@ if (isset($_POST['add'])) {
         !CrisisMessageRecipient::addTo(
             (int) ($_POST[CrisisMessageRecipient::TEMPLATE_FK] ?? 0),
             (string) ($_POST['itemtype'] ?? ''),
-            $itemsId
+            $itemsId,
+            // Lot 2 : suppléant d'un destinataire principal de la liste (0 : destinataire principal).
+            (int) ($_POST['deputy_of'] ?? 0)
         )
     ) {
         Session::addMessageAfterRedirect(__('This recipient cannot be added.', 'grcmanager'), false, ERROR);
+    }
+} elseif (isset($_POST['review'])) {
+    // Lot 2 : revue annuelle de la liste de diffusion, droit de modifier le modèle.
+    $template = new CrisisMessageTemplate();
+    $template->check((int) ($_POST[CrisisMessageRecipient::TEMPLATE_FK] ?? 0), UPDATE);
+    if ($template->markReviewed()) {
+        Session::addMessageAfterRedirect(__('Review of the distribution list recorded.', 'grcmanager'));
     }
 } elseif (isset($_POST['purge'])) {
     $item = new CrisisMessageRecipient();

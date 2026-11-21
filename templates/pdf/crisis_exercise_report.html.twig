@@ -88,6 +88,17 @@
 </table>
 {% endif %}
 
+{% if communications is defined and communications is not empty %}
+{# Issue #616, lot 2 : communications de crise tracées pendant l'exercice ou la crise. #}
+<h2>{{ __('Crisis communications', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Sent on', 'grcmanager') }}</th><th>{{ __('Author', 'grcmanager') }}</th><th>{{ __('Message template', 'grcmanager') }}</th><th>{{ __('Subject', 'grcmanager') }}</th><th>{{ __('Recipients', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for c in communications %}<tr><td>{{ c.date }}</td><td>{{ c.author }}</td><td>{{ c.template }}</td><td>{{ c.subject }}</td><td>{{ c.recipients|join(', ') }}</td></tr>{% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
 {% if review %}
 {# Issue #732 : bilan après exercice #}
 {% set outcomes = {'met': __('Achieved', 'grcmanager'), 'partial': __('Partially achieved', 'grcmanager'), 'not_met': __('Not achieved', 'grcmanager'), '': __('To evaluate', 'grcmanager')} %}

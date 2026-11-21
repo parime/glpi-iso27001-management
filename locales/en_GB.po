@@ -18718,10 +18718,10 @@ msgstr ""
 #: src/PageHelp.php:694
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, operating system and firmware, to know where to start updating."
+"software, to know where to start updating."
 msgstr ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, operating system and firmware, to know where to start updating."
+"software, to know where to start updating."
 
 #: src/PageHelp.php:699
 msgid ""
@@ -31416,14 +31416,6 @@ msgstr ""
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "This exercise has never been run to the end in the crisis room."
 
-msgid "Physical security of the site: %s"
-msgstr "Physical security of the site: %s"
-
-msgid ""
-"Checklist, findings, actions and zones of this assessment, for the auditor."
-msgstr ""
-"Checklist, findings, actions and zones of this assessment, for the auditor."
-
 msgid "Child licenses counted once"
 msgstr "Child licenses counted once"
 
@@ -31863,6 +31855,101 @@ msgid_plural "Blocked controls"
 msgstr[0] "Blocked control"
 msgstr[1] "Blocked controls"
 
+msgid "Review of the distribution list recorded."
+msgstr "Review of the distribution list recorded."
+
+msgid "Review overdue (more than 12 months)"
+msgstr "Review overdue (more than 12 months)"
+
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr "Last review on %1$s by %2$s, next one before %3$s."
+
+msgid ""
+"Check once a year that each recipient, deputy and address is still right."
+msgstr ""
+"Check once a year that each recipient, deputy and address is still right."
+
+msgid "Mark the list as reviewed today"
+msgstr "Mark the list as reviewed today"
+
+msgid "Role in the list"
+msgstr "Role in the list"
+
+msgid "Main recipient"
+msgstr "Main recipient"
+
+#, php-format
+msgid "Deputy of %s"
+msgstr "Deputy of %s"
+
+msgid "Deputy"
+msgstr "Deputy"
+
+msgid "No deputy"
+msgstr "No deputy"
+
+msgid ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+msgstr ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+
+msgid "Distribution list last reviewed on"
+msgstr "Distribution list last reviewed on"
+
+msgid "Crisis communications"
+msgstr "Crisis communications"
+
+#, php-format
+msgid ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgid_plural ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+msgstr[0] ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgstr[1] ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] "%d member without email"
+msgstr[1] "%d members without email"
+
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] "%d distribution list not reviewed within 12 months"
+msgstr[1] "%d distribution lists not reviewed within 12 months"
+
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] "%d main recipient without deputy"
+msgstr[1] "%d main recipients without deputy"
+
+#: src/PageHelp.php:694
+msgid ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, operating system and firmware, to know where to start updating."
+msgstr ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, operating system and firmware, to know where to start updating."
+
+msgid "Physical security of the site: %s"
+msgstr "Physical security of the site: %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+
 msgid ""
 "Fill in this sheet for each application developed or maintained in-house: it "
 "then appears in the register of applications (secure development page) and "
@@ -32193,6 +32280,336 @@ msgid ""
 msgstr ""
 "Each review recorded with the \"Record the review\" button is kept here and "
 "in the security audit log; it cannot be changed afterwards."
+
+msgid "Hardware whose model has reached the manufacturer end of life"
+msgstr "Hardware whose model has reached the manufacturer end of life"
+
+msgid ""
+"Plan the replacement of the hardware, or record a waiver with compensating "
+"measures until then."
+msgstr ""
+"Plan the replacement of the hardware, or record a waiver with compensating "
+"measures until then."
+
+msgid "Manufacturer end of life reached"
+msgstr "Manufacturer end of life reached"
+
+msgid ""
+"The manufacturer no longer supports this model: plan its replacement, or "
+"record the compensating measures."
+msgstr ""
+"The manufacturer no longer supports this model: plan its replacement, or "
+"record the compensating measures."
+
+msgid "Manufacturer end of life soon"
+msgstr "Manufacturer end of life soon"
+
+msgid ""
+"Plan the replacement before the manufacturer stops supporting this model."
+msgstr ""
+"Plan the replacement before the manufacturer stops supporting this model."
+
+msgid "Supported by the manufacturer"
+msgstr "Supported by the manufacturer"
+
+msgid "The end of life date entered for this model is still ahead."
+msgstr "The end of life date entered for this model is still ahead."
+
+msgid "No end of life date"
+msgstr "No end of life date"
+
+msgid ""
+"No manufacturer end of life date entered for this model (optional, in the "
+"configuration)."
+msgstr ""
+"No manufacturer end of life date entered for this model (optional, in the "
+"configuration)."
+
+#, php-format
+msgid "Manufacturer end of life on %s."
+msgstr "Manufacturer end of life on %s."
+
+msgid "Manufacturer end of life date"
+msgstr "Manufacturer end of life date"
+
+msgid "Manufacturer end of life"
+msgstr "Manufacturer end of life"
+
+#, php-format
+msgid "%1$d reaching it within %2$d days"
+msgstr "%1$d reaching it within %2$d days"
+
+#, php-format
+msgid "%d past the manufacturer end of life"
+msgstr "%d past the manufacturer end of life"
+
+#, php-format
+msgid ""
+"%1$d models: the %2$d first ones are shown (dated models first, then the "
+"most common ones)."
+msgstr ""
+"%1$d models: the %2$d first ones are shown (dated models first, then the "
+"most common ones)."
+
+msgid "Hardware in service"
+msgstr "Hardware in service"
+
+msgid "Manufacturer end of life of hardware models"
+msgstr "Manufacturer end of life of hardware models"
+
+msgid ""
+"No hardware model in your entities: give a model to the computers, monitors "
+"or network devices in GLPI first."
+msgstr ""
+"No hardware model in your entities: give a model to the computers, monitors "
+"or network devices in GLPI first."
+
+msgid ""
+"Some manufacturers announce the date after which a model no longer receives "
+"repairs, spare parts or firmware updates. Enter it here when you know it "
+"(optional, leave empty otherwise): the \"Hardware warranty\" card of the "
+"park vulnerabilities page then shows the hardware of this model whose end of "
+"life is reached or near, with the same threshold as the end of support (ISO "
+"27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
+msgstr ""
+"Some manufacturers announce the date after which a model no longer receives "
+"repairs, spare parts or firmware updates. Enter it here when you know it "
+"(optional, leave empty otherwise): the \"Hardware warranty\" card of the "
+"park vulnerabilities page then shows the hardware of this model whose end of "
+"life is reached or near, with the same threshold as the end of support (ISO "
+"27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
+
+msgid "What is this for?"
+msgstr "What is this for?"
+
+msgid ""
+"\"To be handled\": warranty expired or ending soon, or manufacturer end of "
+"life reached or soon."
+msgstr ""
+"\"To be handled\": warranty expired or ending soon, or manufacturer end of "
+"life reached or soon."
+
+msgid "Enter the end of life dates"
+msgstr "Enter the end of life dates"
+
+msgid ""
+"No hardware has an expired warranty, a warranty ending soon or a model at "
+"its manufacturer end of life."
+msgstr ""
+"No hardware has an expired warranty, a warranty ending soon or a model at "
+"its manufacturer end of life."
+
+msgid "Optional date entered by hand for each hardware model."
+msgstr "Optional date entered by hand for each hardware model."
+
+msgid "To be handled"
+msgstr "To be handled"
+
+#, php-format
+msgid "%d end of life date not saved: enter a valid date for a hardware model."
+msgid_plural ""
+"%d end of life dates not saved: enter a valid date for a hardware model."
+msgstr[0] ""
+"%d end of life date not saved: enter a valid date for a hardware model."
+msgstr[1] ""
+"%d end of life dates not saved: enter a valid date for a hardware model."
+
+#, php-format
+msgid "Manufacturer end of life on %1$s (in %2$d day)."
+msgid_plural "Manufacturer end of life on %1$s (in %2$d days)."
+msgstr[0] "Manufacturer end of life on %1$s (in %2$d day)."
+msgstr[1] "Manufacturer end of life on %1$s (in %2$d days)."
+
+msgid "Security patches"
+msgstr "Security patches"
+
+msgid "Patches overdue"
+msgstr "Patches overdue"
+
+msgid "The last known patch is older than the target delay of the computer."
+msgstr "The last known patch is older than the target delay of the computer."
+
+msgid ""
+"No dated update in the inventory: no inventory agent, or a system whose "
+"agent does not report installed updates."
+msgstr ""
+"No dated update in the inventory: no inventory agent, or a system whose "
+"agent does not report installed updates."
+
+msgid "The last known patch is within the target delay of the computer."
+msgstr "The last known patch is within the target delay of the computer."
+
+msgid "A high C, I or A level, or published on the Internet."
+msgstr "A high C, I or A level, or published on the Internet."
+
+msgid "Important"
+msgstr "Important"
+
+msgid "A medium C, I or A level."
+msgstr "A medium C, I or A level."
+
+msgid "Standard"
+msgstr "Standard"
+
+msgid "Low or not classified."
+msgstr "Low or not classified."
+
+msgid "System update"
+msgstr "System update"
+
+msgid "Package installation"
+msgstr "Package installation"
+
+msgid "No dated update"
+msgstr "No dated update"
+
+#, php-format
+msgid "Computers with security patches on time (%)"
+msgstr "Computers with security patches on time (%)"
+
+msgid "Computers with security patches on time"
+msgstr "Computers with security patches on time"
+
+msgid "Target delays saved."
+msgstr "Target delays saved."
+
+msgid "Critical servers with overdue patches"
+msgstr "Critical servers with overdue patches"
+
+msgid ""
+"Shows, from the GLPI inventory (operating system, version, updates reported "
+"by the agent), the date of the last known security patch of each computer "
+"and whether it is within the target delay of its criticality. Computers "
+"published on the Internet and critical computers come first, with the known "
+"vulnerabilities of their system and their end of support."
+msgstr ""
+"Shows, from the GLPI inventory (operating system, version, updates reported "
+"by the agent), the date of the last known security patch of each computer "
+"and whether it is within the target delay of its criticality. Computers "
+"published on the Internet and critical computers come first, with the known "
+"vulnerabilities of their system and their end of support."
+
+msgid ""
+"Set the target delay of each criticality, classify the computers (C/I/A "
+"tab), patch the late computers, and install the inventory agent on those of "
+"unknown state. The page only reads the inventory: it starts no update. "
+"Record the result as an effectiveness test of the control to keep the "
+"evidence."
+msgstr ""
+"Set the target delay of each criticality, classify the computers (C/I/A "
+"tab), patch the late computers, and install the inventory agent on those of "
+"unknown state. The page only reads the inventory: it starts no update. "
+"Record the result as an effectiveness test of the control to keep the "
+"evidence."
+
+msgid "ISO/IEC 27001, controls A.8.8 and A.8.19"
+msgstr "ISO/IEC 27001, controls A.8.8 and A.8.19"
+
+#, php-format
+msgid "Among the %d computers whose last patch is known"
+msgstr "Among the %d computers whose last patch is known"
+
+msgid "Computers published on the Internet with overdue patches"
+msgstr "Computers published on the Internet with overdue patches"
+
+msgid "Target delays by criticality"
+msgstr "Target delays by criticality"
+
+msgid ""
+"The criticality of a computer comes from its C/I/A classification (tab of "
+"the computer form): the highest of the three levels counts. A computer that "
+"a network flow publishes on the Internet is critical. A computer is late "
+"when its last known patch is older than the delay of its criticality."
+msgstr ""
+"The criticality of a computer comes from its C/I/A classification (tab of "
+"the computer form): the highest of the three levels counts. A computer that "
+"a network flow publishes on the Internet is critical. A computer is late "
+"when its last known patch is older than the delay of its criticality."
+
+msgid "Target delay (days)"
+msgstr "Target delay (days)"
+
+msgid "Computers"
+msgstr "Computers"
+
+msgid "Patch status by computer"
+msgstr "Patch status by computer"
+
+msgid "No computer in your entities."
+msgstr "No computer in your entities."
+
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, overdue ones first."
+msgstr "%1$d computers: the first %2$d are shown, overdue ones first."
+
+msgid "Last known patch"
+msgstr "Last known patch"
+
+msgid "Vulnerabilities and end of support"
+msgstr "Vulnerabilities and end of support"
+
+msgid "Server"
+msgstr "Server"
+
+msgid "Published on the Internet"
+msgstr "Published on the Internet"
+
+msgid "Not inventoried"
+msgstr "Not inventoried"
+
+#, php-format
+msgid "Target: %d days"
+msgstr "Target: %d days"
+
+#, php-format
+msgid "%d days late"
+msgstr "%d days late"
+
+#, php-format
+msgid "%d known CVE(s) of the system"
+msgstr "%d known CVE(s) of the system"
+
+#, php-format
+msgid "%d exploited"
+msgstr "%d exploited"
+
+#, php-format
+msgid "Inventory older than %d days: the data may be out of date."
+msgstr "Inventory older than %d days: the data may be out of date."
+
+msgid "Old inventory"
+msgstr "Old inventory"
+
+msgid ""
+"Read only: the plugin reads the GLPI inventory, never starts an update and "
+"changes nothing in GLPI."
+msgstr ""
+"Read only: the plugin reads the GLPI inventory, never starts an update and "
+"changes nothing in GLPI."
+
+msgid "Network flows"
+msgstr "Network flows"
+
+msgid "Patches on time: not measured"
+msgstr "Patches on time: not measured"
+
+#, php-format
+msgid "Patches on time: %d%%"
+msgstr "Patches on time: %d%%"
+
+#, php-format
+msgid "%d computer(s) late"
+msgstr "%d computer(s) late"
+
+#, php-format
+msgid "%d critical server(s) late"
+msgstr "%d critical server(s) late"
+
+#, php-format
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] "%d day ago"
+msgstr[1] "%d days ago"
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
@@ -33198,252 +33615,3 @@ msgstr ""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-msgid "Hardware whose model has reached the manufacturer end of life"
-msgstr "Hardware whose model has reached the manufacturer end of life"
-
-msgid "Plan the replacement of the hardware, or record a waiver with compensating measures until then."
-msgstr "Plan the replacement of the hardware, or record a waiver with compensating measures until then."
-
-msgid "Manufacturer end of life reached"
-msgstr "Manufacturer end of life reached"
-
-msgid "The manufacturer no longer supports this model: plan its replacement, or record the compensating measures."
-msgstr "The manufacturer no longer supports this model: plan its replacement, or record the compensating measures."
-
-msgid "Manufacturer end of life soon"
-msgstr "Manufacturer end of life soon"
-
-msgid "Plan the replacement before the manufacturer stops supporting this model."
-msgstr "Plan the replacement before the manufacturer stops supporting this model."
-
-msgid "Supported by the manufacturer"
-msgstr "Supported by the manufacturer"
-
-msgid "The end of life date entered for this model is still ahead."
-msgstr "The end of life date entered for this model is still ahead."
-
-msgid "No end of life date"
-msgstr "No end of life date"
-
-msgid "No manufacturer end of life date entered for this model (optional, in the configuration)."
-msgstr "No manufacturer end of life date entered for this model (optional, in the configuration)."
-
-#, php-format
-msgid "Manufacturer end of life on %s."
-msgstr "Manufacturer end of life on %s."
-
-msgid "Manufacturer end of life date"
-msgstr "Manufacturer end of life date"
-
-msgid "Manufacturer end of life"
-msgstr "Manufacturer end of life"
-
-#, php-format
-msgid "%1$d reaching it within %2$d days"
-msgstr "%1$d reaching it within %2$d days"
-
-#, php-format
-msgid "%d past the manufacturer end of life"
-msgstr "%d past the manufacturer end of life"
-
-#, php-format
-msgid "%1$d models: the %2$d first ones are shown (dated models first, then the most common ones)."
-msgstr "%1$d models: the %2$d first ones are shown (dated models first, then the most common ones)."
-
-msgid "Hardware in service"
-msgstr "Hardware in service"
-
-msgid "Manufacturer end of life of hardware models"
-msgstr "Manufacturer end of life of hardware models"
-
-msgid "No hardware model in your entities: give a model to the computers, monitors or network devices in GLPI first."
-msgstr "No hardware model in your entities: give a model to the computers, monitors or network devices in GLPI first."
-
-msgid "Some manufacturers announce the date after which a model no longer receives repairs, spare parts or firmware updates. Enter it here when you know it (optional, leave empty otherwise): the \"Hardware warranty\" card of the park vulnerabilities page then shows the hardware of this model whose end of life is reached or near, with the same threshold as the end of support (ISO 27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
-msgstr "Some manufacturers announce the date after which a model no longer receives repairs, spare parts or firmware updates. Enter it here when you know it (optional, leave empty otherwise): the \"Hardware warranty\" card of the park vulnerabilities page then shows the hardware of this model whose end of life is reached or near, with the same threshold as the end of support (ISO 27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
-
-msgid "What is this for?"
-msgstr "What is this for?"
-
-msgid "\"To be handled\": warranty expired or ending soon, or manufacturer end of life reached or soon."
-msgstr "\"To be handled\": warranty expired or ending soon, or manufacturer end of life reached or soon."
-
-msgid "Enter the end of life dates"
-msgstr "Enter the end of life dates"
-
-msgid "No hardware has an expired warranty, a warranty ending soon or a model at its manufacturer end of life."
-msgstr "No hardware has an expired warranty, a warranty ending soon or a model at its manufacturer end of life."
-
-msgid "Optional date entered by hand for each hardware model."
-msgstr "Optional date entered by hand for each hardware model."
-
-msgid "To be handled"
-msgstr "To be handled"
-
-#, php-format
-msgid "%d end of life date not saved: enter a valid date for a hardware model."
-msgid_plural "%d end of life dates not saved: enter a valid date for a hardware model."
-msgstr[0] "%d end of life date not saved: enter a valid date for a hardware model."
-msgstr[1] "%d end of life dates not saved: enter a valid date for a hardware model."
-
-#, php-format
-msgid "Manufacturer end of life on %1$s (in %2$d day)."
-msgid_plural "Manufacturer end of life on %1$s (in %2$d days)."
-msgstr[0] "Manufacturer end of life on %1$s (in %2$d day)."
-msgstr[1] "Manufacturer end of life on %1$s (in %2$d days)."
-
-msgid "Security patches"
-msgstr "Security patches"
-
-msgid "Patches overdue"
-msgstr "Patches overdue"
-
-msgid "The last known patch is older than the target delay of the computer."
-msgstr "The last known patch is older than the target delay of the computer."
-
-msgid "No dated update in the inventory: no inventory agent, or a system whose agent does not report installed updates."
-msgstr "No dated update in the inventory: no inventory agent, or a system whose agent does not report installed updates."
-
-msgid "The last known patch is within the target delay of the computer."
-msgstr "The last known patch is within the target delay of the computer."
-
-msgid "A high C, I or A level, or published on the Internet."
-msgstr "A high C, I or A level, or published on the Internet."
-
-msgid "Important"
-msgstr "Important"
-
-msgid "A medium C, I or A level."
-msgstr "A medium C, I or A level."
-
-msgid "Standard"
-msgstr "Standard"
-
-msgid "Low or not classified."
-msgstr "Low or not classified."
-
-msgid "System update"
-msgstr "System update"
-
-msgid "Package installation"
-msgstr "Package installation"
-
-msgid "No dated update"
-msgstr "No dated update"
-
-#, php-format
-msgid "Computers with security patches on time (%)"
-msgstr "Computers with security patches on time (%)"
-
-msgid "Computers with security patches on time"
-msgstr "Computers with security patches on time"
-
-msgid "Target delays saved."
-msgstr "Target delays saved."
-
-msgid "Critical servers with overdue patches"
-msgstr "Critical servers with overdue patches"
-
-msgid "Shows, from the GLPI inventory (operating system, version, updates reported by the agent), the date of the last known security patch of each computer and whether it is within the target delay of its criticality. Computers published on the Internet and critical computers come first, with the known vulnerabilities of their system and their end of support."
-msgstr "Shows, from the GLPI inventory (operating system, version, updates reported by the agent), the date of the last known security patch of each computer and whether it is within the target delay of its criticality. Computers published on the Internet and critical computers come first, with the known vulnerabilities of their system and their end of support."
-
-msgid "Set the target delay of each criticality, classify the computers (C/I/A tab), patch the late computers, and install the inventory agent on those of unknown state. The page only reads the inventory: it starts no update. Record the result as an effectiveness test of the control to keep the evidence."
-msgstr "Set the target delay of each criticality, classify the computers (C/I/A tab), patch the late computers, and install the inventory agent on those of unknown state. The page only reads the inventory: it starts no update. Record the result as an effectiveness test of the control to keep the evidence."
-
-msgid "ISO/IEC 27001, controls A.8.8 and A.8.19"
-msgstr "ISO/IEC 27001, controls A.8.8 and A.8.19"
-
-#, php-format
-msgid "Among the %d computers whose last patch is known"
-msgstr "Among the %d computers whose last patch is known"
-
-msgid "Computers published on the Internet with overdue patches"
-msgstr "Computers published on the Internet with overdue patches"
-
-msgid "Target delays by criticality"
-msgstr "Target delays by criticality"
-
-msgid "The criticality of a computer comes from its C/I/A classification (tab of the computer form): the highest of the three levels counts. A computer that a network flow publishes on the Internet is critical. A computer is late when its last known patch is older than the delay of its criticality."
-msgstr "The criticality of a computer comes from its C/I/A classification (tab of the computer form): the highest of the three levels counts. A computer that a network flow publishes on the Internet is critical. A computer is late when its last known patch is older than the delay of its criticality."
-
-msgid "Target delay (days)"
-msgstr "Target delay (days)"
-
-msgid "Computers"
-msgstr "Computers"
-
-msgid "Patch status by computer"
-msgstr "Patch status by computer"
-
-msgid "No computer in your entities."
-msgstr "No computer in your entities."
-
-#, php-format
-msgid "%1$d computers: the first %2$d are shown, overdue ones first."
-msgstr "%1$d computers: the first %2$d are shown, overdue ones first."
-
-msgid "Last known patch"
-msgstr "Last known patch"
-
-msgid "Vulnerabilities and end of support"
-msgstr "Vulnerabilities and end of support"
-
-msgid "Server"
-msgstr "Server"
-
-msgid "Published on the Internet"
-msgstr "Published on the Internet"
-
-msgid "Not inventoried"
-msgstr "Not inventoried"
-
-#, php-format
-msgid "Target: %d days"
-msgstr "Target: %d days"
-
-#, php-format
-msgid "%d days late"
-msgstr "%d days late"
-
-#, php-format
-msgid "%d known CVE(s) of the system"
-msgstr "%d known CVE(s) of the system"
-
-#, php-format
-msgid "%d exploited"
-msgstr "%d exploited"
-
-#, php-format
-msgid "Inventory older than %d days: the data may be out of date."
-msgstr "Inventory older than %d days: the data may be out of date."
-
-msgid "Old inventory"
-msgstr "Old inventory"
-
-msgid "Read only: the plugin reads the GLPI inventory, never starts an update and changes nothing in GLPI."
-msgstr "Read only: the plugin reads the GLPI inventory, never starts an update and changes nothing in GLPI."
-
-msgid "Network flows"
-msgstr "Network flows"
-
-msgid "Patches on time: not measured"
-msgstr "Patches on time: not measured"
-
-#, php-format
-msgid "Patches on time: %d%%"
-msgstr "Patches on time: %d%%"
-
-#, php-format
-msgid "%d computer(s) late"
-msgstr "%d computer(s) late"
-
-#, php-format
-msgid "%d critical server(s) late"
-msgstr "%d critical server(s) late"
-
-#, php-format
-msgid "%d day ago"
-msgid_plural "%d days ago"
-msgstr[0] "%d day ago"
-msgstr[1] "%d days ago"

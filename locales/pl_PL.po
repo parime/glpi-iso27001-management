@@ -6354,11 +6354,10 @@ msgstr "Najbardziej narażone maszyny"
 
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, operating system and firmware, to know where to start updating."
+"software, to know where to start updating."
 msgstr ""
 "Maszyny najbardziej narażone na znane podatności obserwowanego "
-"oprogramowania, systemu operacyjnego i firmware'u, aby wiedzieć, od czego "
-"zacząć aktualizacje."
+"oprogramowania, aby wiedzieć, od czego zacząć aktualizacje."
 
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
@@ -28152,6 +28151,97 @@ msgid_plural "Blocked controls"
 msgstr[0] "Zablokowane zabezpieczenie"
 msgstr[1] "Zablokowane zabezpieczenia"
 msgstr[2] "Zablokowanych zabezpieczeń"
+
+msgid "Review of the distribution list recorded."
+msgstr "Zapisano przegląd listy dystrybucyjnej."
+
+msgid "Review overdue (more than 12 months)"
+msgstr "Przegląd zaległy (ponad 12 miesięcy)"
+
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr "Ostatni przegląd %1$s, wykonał(a) %2$s, następny przed %3$s."
+
+msgid ""
+"Check once a year that each recipient, deputy and address is still right."
+msgstr ""
+"Raz w roku sprawdź, czy każdy odbiorca, zastępca i adres są nadal aktualne."
+
+msgid "Mark the list as reviewed today"
+msgstr "Oznacz listę jako przejrzaną dzisiaj"
+
+msgid "Role in the list"
+msgstr "Rola na liście"
+
+msgid "Main recipient"
+msgstr "Główny odbiorca"
+
+#, php-format
+msgid "Deputy of %s"
+msgstr "Zastępca: %s"
+
+msgid "Deputy"
+msgstr "Zastępca"
+
+msgid "No deputy"
+msgstr "Brak zastępcy"
+
+msgid ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+msgstr "Adresy członków są dołączane przy kopiowaniu lub eksporcie adresów."
+
+msgid "Distribution list last reviewed on"
+msgstr "Data ostatniego przeglądu listy dystrybucyjnej"
+
+msgid "Crisis communications"
+msgstr "Komunikaty kryzysowe"
+
+#, php-format
+msgid ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgid_plural ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+msgstr[0] ""
+"Główni odbiorcy bez zastępcy: %d. Jeśli nie będzie można się z nimi "
+"skontaktować podczas kryzysu, nikt inny nie jest przewidziany."
+msgstr[1] ""
+"Główni odbiorcy bez zastępcy: %d. Jeśli nie będzie można się z nimi "
+"skontaktować podczas kryzysu, nikt inny nie jest przewidziany."
+msgstr[2] ""
+"Główni odbiorcy bez zastępcy: %d. Jeśli nie będzie można się z nimi "
+"skontaktować podczas kryzysu, nikt inny nie jest przewidziany."
+
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] "Członkowie bez e-maila: %d"
+msgstr[1] "Członkowie bez e-maila: %d"
+msgstr[2] "Członkowie bez e-maila: %d"
+
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] "Listy dystrybucyjne bez przeglądu od 12 miesięcy: %d"
+msgstr[1] "Listy dystrybucyjne bez przeglądu od 12 miesięcy: %d"
+msgstr[2] "Listy dystrybucyjne bez przeglądu od 12 miesięcy: %d"
+
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] "Główni odbiorcy bez zastępcy: %d"
+msgstr[1] "Główni odbiorcy bez zastępcy: %d"
+msgstr[2] "Główni odbiorcy bez zastępcy: %d"
+
+msgid ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, operating system and firmware, to know where to start updating."
+msgstr ""
+"Maszyny najbardziej narażone na znane podatności obserwowanego "
+"oprogramowania, systemu operacyjnego i firmware'u, aby wiedzieć, od czego "
+"zacząć aktualizacje."
 
 msgid "Hardware whose model has reached the manufacturer end of life"
 msgstr "Sprzęt, którego model osiągnął koniec życia producenta"

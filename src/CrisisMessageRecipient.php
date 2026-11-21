@@ -77,7 +77,59 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
      */
     public static function rowsFor(int $templateId): array
     {
-        return array_values((new self())->find([self::TEMPLATE_FK => $templateId], ['itemtype ASC', 'id ASC']));
+        $rows = [];
+        foreach ((new self())->find([self::TEMPLATE_FK => $templateId], ['itemtype ASC', 'id ASC']) as $row) {
+            $rows[] = ['id' => (int) $row['id'], 'deputy_of' => (int) ($row['deputy_of'] ?? 0)] + $row;
+        }
+
+        // Lot 2 : chaque suppléant juste après son destinataire principal.
+        return Rules::orderWithDeputies($rows);
+    }
+
+    /** Nombre maximal d'adresses reprises d'un groupe (liste préparée). */
+    public const GROUP_EMAILS_MAX = 200;
+
+    /**
+     * Lot 2 : adresses électroniques des membres actifs d'un groupe, reprises dans « Copier les
+     * adresses » et l'export .eml. Seulement avec le droit de lire les utilisateurs.
+     *
+     * @return array{emails: list<string>, without_email: int}
+     */
+    private static function groupEmails(int $groupId): array
+    {
+        global $DB;
+
+        $emails = [];
+        $without = 0;
+        if (!User::canView()) {
+            return ['emails' => [], 'without_email' => 0];
+        }
+        $link = Group_User::getTable();
+        foreach (
+            $DB->request([
+                'SELECT'     => ['glpi_users.id'],
+                'FROM'       => $link,
+                'INNER JOIN' => [
+                    'glpi_users' => ['ON' => [$link => 'users_id', 'glpi_users' => 'id']],
+                ],
+                'WHERE'      => [
+                    $link . '.groups_id'   => $groupId,
+                    'glpi_users.is_active'  => 1,
+                    'glpi_users.is_deleted' => 0,
+                ],
+                'ORDER'      => 'glpi_users.id',
+                'LIMIT'      => self::GROUP_EMAILS_MAX,
+            ]) as $member
+        ) {
+            $email = (string) UserEmail::getDefaultForUser((int) $member['id']);
+            if ($email === '') {
+                $without++;
+            } elseif (!in_array($email, $emails, true)) {
+                $emails[] = $email;
+            }
+        }
+
+        return ['emails' => $emails, 'without_email' => $without];
     }
 
     /**
@@ -87,7 +139,7 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
      *
      * @param array<string, mixed> $row
      * @return array{key: string, type: string, type_label: string, name: string, address: string,
-     *     missing_address: bool, internal: bool}|null
+     *     emails: string, missing_address: bool, internal: bool, without_email: int}|null
      */
     public static function describe(array $row, ?int $entity): ?array
     {
@@ -113,8 +165,10 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
                 return $base + [
                     'name'            => (string) getUserName($id),
                     'address'         => $email,
+                    'emails'          => $email,
                     'missing_address' => $canReadUsers && $email === '',
                     'internal'        => true,
+                    'without_email'   => 0,
                 ];
             case Rules::RECIPIENT_GROUP:
                 $criteria = ['id' => $id];
@@ -126,12 +180,15 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
                     return null;
                 }
                 $members = countElementsInTable(Group_User::getTable(), ['groups_id' => $id]);
+                $groupEmails = self::groupEmails($id);
 
                 return $base + [
                     'name'            => (string) $group['completename'],
                     'address'         => sprintf(_n('%d member', '%d members', $members, 'grcmanager'), $members),
+                    'emails'          => implode("\n", $groupEmails['emails']),
                     'missing_address' => $members === 0,
                     'internal'        => true,
+                    'without_email'   => $groupEmails['without_email'],
                 ];
             case Rules::RECIPIENT_CONTACT:
                 $contact = self::readableContact($id, $entity);
@@ -142,8 +199,10 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
                 return $base + [
                     'name'            => (string) $contact['name'],
                     'address'         => (string) ($contact['contact_details'] ?? ''),
+                    'emails'          => (string) ($contact['contact_details'] ?? ''),
                     'missing_address' => trim((string) ($contact['contact_details'] ?? '')) === '',
                     'internal'        => false,
+                    'without_email'   => 0,
                 ];
         }
 
@@ -170,32 +229,56 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
     /**
      * Liste de diffusion d'un modèle telle que la personne peut la voir.
      *
-     * @return array{recipients: list<array<string, mixed>>, hidden: int}
+     * Lot 2 : chaque suppléant suit son principal (« deputy_of », « principal » : nom du principal,
+     * vide s'il est masqué). « principal_available » est faux quand le principal est masqué ou sans
+     * adresse : le suppléant est alors coché par défaut dans l'onglet de l'incident.
+     *
+     * @return array{recipients: list<array<string, mixed>>, hidden: int, without_deputy: int}
      */
     public static function listFor(int $templateId, ?int $entity): array
     {
         $recipients = [];
         $hidden = 0;
-        foreach (self::rowsFor($templateId) as $row) {
-            $recipient = self::describe($row, $entity);
+        $rows = self::rowsFor($templateId);
+        $described = [];
+        foreach ($rows as $row) {
+            $described[(int) $row['id']] = self::describe($row, $entity);
+        }
+        $principalsWithDeputy = array_filter(array_column($rows, 'deputy_of'));
+        foreach ($rows as $row) {
+            $recipient = $described[(int) $row['id']];
             if ($recipient === null) {
                 $hidden++;
                 continue;
             }
-            $recipients[] = $recipient + ['id' => (int) $row['id'], 'items_id' => (int) $row['items_id']];
+            $deputyOf = (int) $row['deputy_of'];
+            $principal = $deputyOf > 0 ? ($described[$deputyOf] ?? null) : null;
+            $recipients[] = $recipient + [
+                'id'                  => (int) $row['id'],
+                'items_id'            => (int) $row['items_id'],
+                'deputy_of'           => $deputyOf,
+                'principal'           => $principal['name'] ?? '',
+                'principal_available' => $deputyOf === 0
+                    || ($principal !== null && !$principal['missing_address']),
+                'has_deputy'          => in_array((int) $row['id'], $principalsWithDeputy, true),
+            ];
         }
 
-        return ['recipients' => $recipients, 'hidden' => $hidden];
+        return [
+            'recipients'     => $recipients,
+            'hidden'         => $hidden,
+            'without_deputy' => Rules::principalsWithoutDeputy($rows),
+        ];
     }
 
     /**
      * Ajout d'un destinataire depuis l'onglet du modèle : type connu, élément existant et lisible
      * par la personne (contact officiel de ses entités, groupe de ses entités, utilisateur actif).
      */
-    public static function addTo(int $templateId, string $itemtype, int $itemsId): bool
+    public static function addTo(int $templateId, string $itemtype, int $itemsId, int $deputyOf = 0): bool
     {
         $template = new CrisisMessageTemplate();
-        if (!$template->getFromDB($templateId) || !$template->canUpdateItem()) {
+        if (!$template->getFromDB($templateId) || !$template->can($templateId, UPDATE)) {
             return false;
         }
         if (!in_array($itemtype, Rules::RECIPIENT_TYPES, true) || $itemsId <= 0) {
@@ -203,6 +286,11 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
         }
         $candidate = self::describe(['itemtype' => $itemtype, 'items_id' => $itemsId], null);
         if ($candidate === null) {
+            return false;
+        }
+        // Lot 2 : suppléant d'un destinataire principal de la même liste (jamais d'un suppléant).
+        $principal = ['id' => $deputyOf, self::TEMPLATE_FK => $templateId, 'deputy_of' => 0];
+        if ($deputyOf > 0 && countElementsInTable(self::getTable(), $principal) === 0) {
             return false;
         }
         $existing = [self::TEMPLATE_FK => $templateId, 'itemtype' => $itemtype, 'items_id' => $itemsId];
@@ -214,7 +302,18 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
             self::TEMPLATE_FK => $templateId,
             'itemtype'        => $itemtype,
             'items_id'        => $itemsId,
+            'deputy_of'       => $deputyOf,
         ]);
+    }
+
+    /**
+     * Lot 2 : retirer un destinataire principal fait de ses suppléants des destinataires principaux.
+     */
+    public function cleanDBonPurge()
+    {
+        global $DB;
+
+        $DB->update(self::getTable(), ['deputy_of' => 0], ['deputy_of' => $this->getID()]);
     }
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
@@ -241,7 +340,13 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
             'template_id'  => $item->getID(),
             'recipients'   => $list['recipients'],
             'hidden'       => $list['hidden'],
-            'can_edit'     => $item->canUpdateItem(),
+            'without_deputy' => $list['without_deputy'],
+            'review'       => $item->reviewState(),
+            'principals'   => array_values(array_filter(
+                $list['recipients'],
+                static fn (array $recipient): bool => $recipient['deputy_of'] === 0
+            )),
+            'can_edit'     => $item->can($item->getID(), UPDATE),
             'can_contacts' => ContextItem::canView(),
             'form_url'     => self::getFormURL(),
             'contacts_url' => OfficialContact::getRegisterURL(),
