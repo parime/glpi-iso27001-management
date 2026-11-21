@@ -32480,7 +32480,18 @@ msgid ""
 "in the security audit log; it cannot be changed afterwards."
 msgstr ""
 
+#: src/PhysicalSecurityAssessment.php:641
+#, php-format
+msgid "Physical security of the site: %s"
+msgstr ""
+
+#: templates/physical_security_assessment_form.html.twig
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+
 
 #: src/EntityPerimeter.php:138
 msgid "You cannot create this item in this entity."
 msgstr ""
+
