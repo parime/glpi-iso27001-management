@@ -203,6 +203,16 @@ final class MfaCoverageTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue(SecuredDashboardCards::canShow('mfaAdminRate'));
         $this->assertSame(50, SecuredDashboardCards::mfaAdminRate()['number']);
         $this->assertNotEmpty(MfaCoverage::pageData()['rows']);
+        MfaCoverage::import('okta', $this->csv());
+        $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
+            '@grcmanager/mfa_coverage.html.twig',
+            MfaCoverage::pageData()
+        );
+        $this->assertStringContainsString('grc-mfa-admin-rate', $html);
+        $this->assertStringContainsString($this->logins['admin_none'], $html);
+        $this->assertStringContainsString('unknown.demo@exemple.test', $html, 'Compte non rapproché listé.');
+        $this->assertStringContainsString('name="import_mfa"', $html);
+        MfaCoverage::clear('okta');
 
         $right = $_SESSION['glpiactiveprofile']['plugin_grcmanager'];
         $_SESSION['glpiactiveprofile']['plugin_grcmanager'] = READ;
