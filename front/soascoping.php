@@ -43,7 +43,8 @@ if (isset($_POST['save_answers']) || isset($_POST['decide'])) {
     if (isset($_POST['save_answers'])) {
         SoaScoping::saveAnswers($entityId, (array) ($_POST['answers'] ?? []));
         Session::addMessageAfterRedirect(htmlescape(__(
-            'Answers saved. Review the proposals below: nothing is applied to the Statement of Applicability until you accept it.',
+            'Answers saved. Review the proposals below: nothing is applied to the Statement of '
+                . 'Applicability until you accept it.',
             'grcmanager'
         )));
     } else {

@@ -73,7 +73,10 @@ final class SoaScopingTest extends GrcmanagerIntegrationTestCase
         SoaScoping::saveAnswers($entity, ['remote_work' => 'no', 'own_premises' => 'no', 'cloud_services' => 'yes']);
         $this->assertSame(
             ['remote_work' => 'no', 'cloud_services' => 'yes', 'own_premises' => 'no'],
-            array_intersect_key(SoaScoping::answers($entity), array_flip(['remote_work', 'cloud_services', 'own_premises']))
+            array_intersect_key(
+                SoaScoping::answers($entity),
+                array_flip(['remote_work', 'cloud_services', 'own_premises'])
+            )
         );
         $rows = self::byCode(SoaScoping::rows($entity));
         $this->assertSame(SoaScopingRules::STATUS_DIFFERS, $rows['A.6.7']['status']);
@@ -148,6 +151,7 @@ final class SoaScopingTest extends GrcmanagerIntegrationTestCase
         $codes = array_column(array_filter($lines, static fn (array $l): bool => count($l) > 2), 0);
         $this->assertContains('A.6.7', $codes);
         $this->assertContains('A.8.34', $codes);
-        $this->assertCount(count(SoaScopingRules::QUESTIONS) + 1, array_slice($lines, 0, array_search([], $lines, true)));
+        $answerLines = array_slice($lines, 0, (int) array_search([], $lines, true));
+        $this->assertCount(count(SoaScopingRules::QUESTIONS) + 1, $answerLines);
     }
 }
