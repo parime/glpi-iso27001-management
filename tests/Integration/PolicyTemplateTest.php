@@ -59,9 +59,10 @@ final class PolicyTemplateTest extends GrcmanagerIntegrationTestCase
         $this->assertArrayHasKey($second['created'][0], $imported['access_control']);
 
         foreach (array_merge($first['created'], $second['created']) as $id) {
-            $DB->delete(PolicyCoverageTables::LINKS, ['plugin_grcmanager_policies_id' => $id]);
-            $DB->delete(PolicyTemplateTables::IMPORTS, ['plugin_grcmanager_policies_id' => $id]);
-            $DB->delete(Policy::getTable(), ['id' => $id]);
+            $this->assertTrue((new Policy())->delete(['id' => $id], true));
+            $where = ['plugin_grcmanager_policies_id' => $id];
+            $this->assertSame(0, countElementsInTable(PolicyCoverageTables::LINKS, $where), 'liens purgés');
+            $this->assertSame(0, countElementsInTable(PolicyTemplateTables::IMPORTS, $where), 'trace purgée');
         }
     }
 

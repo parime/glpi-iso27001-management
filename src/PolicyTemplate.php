@@ -133,6 +133,14 @@ class PolicyTemplate extends CommonGLPI
         return $result;
     }
 
+    /** Politique purgée : sa trace d'import disparaît (le modèle peut être réimporté). */
+    public static function forgetPolicy(int $policiesId): void
+    {
+        global $DB;
+
+        $DB->delete(PolicyTemplateTables::IMPORTS, ['plugin_grcmanager_policies_id' => $policiesId]);
+    }
+
     /**
      * Crée une politique en brouillon pour chaque modèle demandé et la relie aux mesures de ses
      * sections. Renvoie les politiques créées et les codes absents de la SoA de l'entité active.
