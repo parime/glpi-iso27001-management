@@ -30785,3 +30785,393 @@ msgstr "Aus dem Sicherheitsaudit des Active Directory vorgeschlagene Maßnahme (
 msgctxt "ad rule"
 msgid "New"
 msgstr "Neu"
+
+msgid "Controller saved. Click \"Read now\" to read it."
+msgstr "Controller gespeichert. Klicken Sie auf „Jetzt lesen“, um ihn zu lesen."
+
+msgid "Controller read: %d local account(s)."
+msgstr "Controller gelesen: %d lokale(s) Konto/Konten."
+
+msgid "Controller read. Its local accounts could not be read with this account."
+msgstr "Controller gelesen. Seine lokalen Konten konnten mit diesem Konto nicht gelesen werden."
+
+msgid "Controller deleted."
+msgstr "Controller gelöscht."
+
+msgid "%1$d controller(s) imported, %2$d updated, %3$d ignored (read by Redfish)."
+msgstr "%1$d Controller importiert, %2$d aktualisiert, %3$d übersprungen (über Redfish gelesen)."
+
+msgid "Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI): they give full control of a server, even switched off, and are often forgotten. The page shows their firmware, their risky settings, their exposure outside the administration networks and their local accounts, and the physical servers without a known controller."
+msgstr "Listet die Fernverwaltungs-Controller der Server auf (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI): Sie geben die volle Kontrolle über einen Server, auch ausgeschaltet, und werden oft vergessen. Die Seite zeigt ihre Firmware, ihre riskanten Einstellungen, ihre Erreichbarkeit außerhalb der Verwaltungsnetze und ihre lokalen Konten sowie die physischen Server ohne bekannten Controller."
+
+msgid "Declare each controller with a local read-only account and click \"Read now\" (Redfish, read only), or import a CSV file for controllers with IPMI only. Then fix the gaps on the controllers yourself and review their accounts: the plugin never changes anything on the servers."
+msgstr "Erfassen Sie jeden Controller mit einem lokalen Nur-Lese-Konto und klicken Sie auf „Jetzt lesen“ (Redfish, nur lesend), oder importieren Sie eine CSV-Datei für Controller nur mit IPMI. Beheben Sie die Abweichungen dann selbst auf den Controllern und prüfen Sie ihre Konten: Das Plugin ändert nie etwas an den Servern."
+
+msgid "ISO/IEC 27001, controls A.8.2, A.8.9 and A.8.22"
+msgstr "ISO/IEC 27001, Maßnahmen A.8.2, A.8.9 und A.8.22"
+
+msgid "Server management controllers with a serious gap"
+msgstr "Server-Management-Controller mit schwerer Abweichung"
+
+msgid "Server management controllers"
+msgstr "Server-Management-Controller"
+
+msgid "Last reading failed"
+msgstr "Letzter Lesevorgang fehlgeschlagen"
+
+msgid "The values shown come from the previous successful reading."
+msgstr "Die angezeigten Werte stammen aus dem vorherigen erfolgreichen Lesevorgang."
+
+msgid "Never read"
+msgstr "Nie gelesen"
+
+msgid "Click \"Read now\" to read the controller."
+msgstr "Klicken Sie auf „Jetzt lesen“, um den Controller zu lesen."
+
+msgid "IPMI over the network enabled"
+msgstr "IPMI über das Netzwerk aktiviert"
+
+msgid "IPMI over LAN has known weaknesses (password hashes can be retrieved): disable it if it is not used."
+msgstr "IPMI über LAN hat bekannte Schwächen (Passwort-Hashes können ausgelesen werden): Deaktivieren Sie es, wenn es nicht genutzt wird."
+
+msgid "Default account still enabled"
+msgstr "Standardkonto noch aktiv"
+
+msgid "A factory account (root, Administrator, ADMIN, USERID) is enabled: check that its password was changed, or disable it."
+msgstr "Ein Werkskonto (root, Administrator, ADMIN, USERID) ist aktiv: Prüfen Sie, ob sein Passwort geändert wurde, oder deaktivieren Sie es."
+
+msgid "Outside the administration networks"
+msgstr "Außerhalb der Verwaltungsnetze"
+
+msgid "The address of the controller is not in an administration network declared in the network flow matrix: segregation gap."
+msgstr "Die Adresse des Controllers liegt in keinem in der Netzwerkfluss-Matrix erfassten Verwaltungsnetz: Abweichung bei der Netztrennung."
+
+msgid "Telnet enabled"
+msgstr "Telnet aktiviert"
+
+msgid "Telnet sends the password in clear text: disable it."
+msgstr "Telnet überträgt das Passwort im Klartext: Deaktivieren Sie es."
+
+msgid "Old protocols (SSLv3, TLS 1.0 or 1.1)"
+msgstr "Alte Protokolle (SSLv3, TLS 1.0 oder 1.1)"
+
+msgid "Reported by the import: keep only TLS 1.2 and later."
+msgstr "Vom Import gemeldet: Behalten Sie nur TLS 1.2 und neuer."
+
+msgid "Certificate expired"
+msgstr "Zertifikat abgelaufen"
+
+msgid "The HTTPS certificate of the controller has expired."
+msgstr "Das HTTPS-Zertifikat des Controllers ist abgelaufen."
+
+msgid "Hardware health critical"
+msgstr "Hardwarezustand kritisch"
+
+msgid "The controller reports a critical hardware state."
+msgstr "Der Controller meldet einen kritischen Hardwarezustand."
+
+msgid "SNMP v1 or v2c enabled"
+msgstr "SNMP v1 oder v2c aktiviert"
+
+msgid "SNMP v1 and v2c use a community sent in clear text: prefer SNMPv3."
+msgstr "SNMP v1 und v2c verwenden eine im Klartext übertragene Community: Bevorzugen Sie SNMPv3."
+
+msgid "Secure Boot disabled"
+msgstr "Secure Boot deaktiviert"
+
+msgid "Secure Boot of the server is disabled."
+msgstr "Secure Boot des Servers ist deaktiviert."
+
+msgid "Self-signed certificate"
+msgstr "Selbstsigniertes Zertifikat"
+
+msgid "Replace it with a certificate of your certification authority."
+msgstr "Ersetzen Sie es durch ein Zertifikat Ihrer Zertifizierungsstelle."
+
+msgid "Certificate not verified"
+msgstr "Zertifikat nicht geprüft"
+
+msgid "The controller is read with the option accepting a self-signed certificate: its identity is not verified."
+msgstr "Der Controller wird mit der Option gelesen, die ein selbstsigniertes Zertifikat akzeptiert: Seine Identität wird nicht geprüft."
+
+msgid "Hardware health degraded"
+msgstr "Hardwarezustand beeinträchtigt"
+
+msgid "The controller reports a warning on the hardware."
+msgstr "Der Controller meldet eine Warnung zur Hardware."
+
+msgid "Certificate expiring soon"
+msgstr "Zertifikat läuft bald ab"
+
+msgid "The HTTPS certificate expires within %d days."
+msgstr "Das HTTPS-Zertifikat läuft innerhalb von %d Tagen ab."
+
+msgid "No matching server in GLPI"
+msgstr "Kein passender Server in GLPI"
+
+msgid "No computer of GLPI has this serial number: choose the server by hand on the controller."
+msgstr "Kein Computer in GLPI hat diese Seriennummer: Wählen Sie den Server am Controller von Hand."
+
+msgid "Enter the address, the account and the password of the controller first."
+msgstr "Geben Sie zuerst die Adresse, das Konto und das Passwort des Controllers ein."
+
+msgid "The controller refused the account or the password."
+msgstr "Der Controller hat das Konto oder das Passwort abgelehnt."
+
+msgid "The controller refused access: give the account the read-only role."
+msgstr "Der Controller hat den Zugriff verweigert: Geben Sie dem Konto die Nur-Lese-Rolle."
+
+msgid "The controller has an internal address, refused by default: allow internal addresses in the plugin configuration page (Outgoing connections)."
+msgstr "Der Controller hat eine interne Adresse, die standardmäßig abgelehnt wird: Erlauben Sie interne Adressen auf der Konfigurationsseite des Plugins (Ausgehende Verbindungen)."
+
+msgid "The certificate of the controller is not trusted (self-signed or expired): install a certificate of your certification authority, or tick \"Accept a self-signed certificate\" for this controller."
+msgstr "Das Zertifikat des Controllers ist nicht vertrauenswürdig (selbstsigniert oder abgelaufen): Installieren Sie ein Zertifikat Ihrer Zertifizierungsstelle oder aktivieren Sie „Selbstsigniertes Zertifikat akzeptieren“ für diesen Controller."
+
+msgid "The controller could not be reached: check the address, the network access or the GLPI proxy."
+msgstr "Der Controller war nicht erreichbar: Prüfen Sie die Adresse, den Netzwerkzugang oder den GLPI-Proxy."
+
+msgid "No Redfish service at this address: for a controller with IPMI only, use the CSV import."
+msgstr "Kein Redfish-Dienst unter dieser Adresse: Verwenden Sie für einen Controller nur mit IPMI den CSV-Import."
+
+msgid "The address must be a https:// address of the controller, without path or parameters."
+msgstr "Die Adresse muss eine https://-Adresse des Controllers sein, ohne Pfad und Parameter."
+
+msgid "Enter a name."
+msgstr "Geben Sie einen Namen ein."
+
+msgid "Enter the password again: the address or the account changed."
+msgstr "Geben Sie das Passwort erneut ein: Die Adresse oder das Konto wurde geändert."
+
+msgid "The server chosen cannot be used."
+msgstr "Der gewählte Server kann nicht verwendet werden."
+
+msgid "This controller comes from the CSV import: import the file again to update it."
+msgstr "Dieser Controller stammt aus dem CSV-Import: Importieren Sie die Datei erneut, um ihn zu aktualisieren."
+
+msgid "Controller not found."
+msgstr "Controller nicht gefunden."
+
+msgid "You are not allowed to do this."
+msgstr "Sie dürfen das nicht tun."
+
+msgid "The file has no \"name\" column."
+msgstr "Die Datei hat keine Spalte „name“."
+
+msgid "The controller returned an unexpected answer."
+msgstr "Der Controller hat eine unerwartete Antwort geliefert."
+
+msgid "Management controller"
+msgstr "Management-Controller"
+
+msgid "%d administrator account(s)"
+msgstr "%d Administratorkonto/-konten"
+
+msgid "%d controller(s)"
+msgstr "%d Controller"
+
+msgid "%d outside the administration networks"
+msgstr "%d außerhalb der Verwaltungsnetze"
+
+msgid "%d physical server(s) without a known controller"
+msgstr "%d physische(r) Server ohne bekannten Controller"
+
+msgid "%d risky setting(s)"
+msgstr "%d riskante Einstellung(en)"
+
+msgid "%d with a default account enabled"
+msgstr "%d mit aktivem Standardkonto"
+
+msgid "%d with a serious gap"
+msgstr "%d mit schwerer Abweichung"
+
+msgid "No administration network declared"
+msgstr "Kein Verwaltungsnetz erfasst"
+
+msgid "%1$d controllers: the first %2$d are shown, serious gaps first."
+msgstr "%1$d Controller: Die ersten %2$d werden angezeigt, schwere Abweichungen zuerst."
+
+msgid "%d administration network(s) declared"
+msgstr "%d Verwaltungsnetz(e) erfasst"
+
+msgid "%d administrator account(s) in all"
+msgstr "%d Administratorkonto/-konten insgesamt"
+
+msgid "%d read at least once"
+msgstr "%d mindestens einmal gelesen"
+
+msgid "A controller is matched with a computer of GLPI by the serial number of the server, or by the server chosen by hand. Gaps are only reported: nothing is changed on the controller. Hover a gap to see what to do."
+msgstr "Ein Controller wird einem Computer in GLPI über die Seriennummer des Servers oder über den von Hand gewählten Server zugeordnet. Abweichungen werden nur gemeldet: Am Controller wird nichts geändert. Fahren Sie über eine Abweichung, um zu sehen, was zu tun ist."
+
+msgid "Accept a self-signed certificate for this controller"
+msgstr "Selbstsigniertes Zertifikat für diesen Controller akzeptieren"
+
+msgid "Account (read only)"
+msgstr "Konto (nur lesend)"
+
+msgid "Accounts read on each controller, to review in the privileged access review: an account of a controller gives full control of the server, even switched off."
+msgstr "Auf jedem Controller gelesene Konten, zur Übernahme in die Überprüfung privilegierter Zugänge: Ein Controller-Konto gibt die volle Kontrolle über den Server, auch ausgeschaltet."
+
+msgid "Address of the controller"
+msgstr "Adresse des Controllers"
+
+msgid "BIOS: %s"
+msgstr "BIOS: %s"
+
+msgid "By serial number"
+msgstr "Über die Seriennummer"
+
+msgid "CSV import"
+msgstr "CSV-Import"
+
+msgid "Certificate until %s"
+msgstr "Zertifikat bis %s"
+
+msgid "Chosen by hand"
+msgstr "Von Hand gewählt"
+
+msgid "Computers of GLPI seen as servers (type or operating system) and not virtual (model or manufacturer), for which no controller is declared. A controller nobody knows is never updated nor reviewed."
+msgstr "Computer in GLPI, die als Server erkannt werden (Typ oder Betriebssystem) und nicht virtuell sind (Modell oder Hersteller), für die kein Controller erfasst ist. Ein Controller, den niemand kennt, wird nie aktualisiert und nie überprüft."
+
+msgid "Controller: %s"
+msgstr "Controller: %s"
+
+msgid "Controllers"
+msgstr "Controller"
+
+msgid "Controllers and their gaps"
+msgstr "Controller und ihre Abweichungen"
+
+msgid "Controllers usually have an internal address, which the plugin refuses by default. To read them, allow internal addresses in the plugin configuration page."
+msgstr "Controller haben meist eine interne Adresse, die das Plugin standardmäßig ablehnt. Um sie zu lesen, erlauben Sie interne Adressen auf der Konfigurationsseite des Plugins."
+
+msgid "Controllers with a serious gap"
+msgstr "Controller mit schwerer Abweichung"
+
+msgid "Coverage: %d%%"
+msgstr "Abdeckung: %d%%"
+
+msgid "Declare a controller read by Redfish"
+msgstr "Einen über Redfish gelesenen Controller erfassen"
+
+msgid "Default account"
+msgstr "Standardkonto"
+
+msgid "Delete this controller and its accounts read?"
+msgstr "Diesen Controller und seine gelesenen Konten löschen?"
+
+msgid "Edit the controller %s"
+msgstr "Controller %s bearbeiten"
+
+msgid "Encrypted by GLPI and never shown again. If you change the address or the account, enter it again."
+msgstr "Von GLPI verschlüsselt und nie wieder angezeigt. Wenn Sie die Adresse oder das Konto ändern, geben Sie es erneut ein."
+
+msgid "Every physical server has a known controller."
+msgstr "Jeder physische Server hat einen bekannten Controller."
+
+msgid "Firmware and BIOS"
+msgstr "Firmware und BIOS"
+
+msgid "For controllers with IPMI only, or an export of a manufacturer tool. One line per controller; a controller already imported with the same name is updated. Columns (header line, separator ; or ,):"
+msgstr "Für Controller nur mit IPMI oder einen Export eines Herstellerwerkzeugs. Eine Zeile pro Controller; ein bereits unter demselben Namen importierter Controller wird aktualisiert. Spalten (Kopfzeile, Trennzeichen ; oder ,):"
+
+msgid "For example: iLO of srv-db-01"
+msgstr "Zum Beispiel: iLO von srv-db-01"
+
+msgid "Health"
+msgstr "Zustand"
+
+msgid "Healthy"
+msgstr "In Ordnung"
+
+msgid "IPMI over the network, default account, exposure..."
+msgstr "IPMI über das Netzwerk, Standardkonto, Erreichbarkeit..."
+
+msgid "Import controllers without Redfish (CSV)"
+msgstr "Controller ohne Redfish importieren (CSV)"
+
+msgid "Last reading"
+msgstr "Letzter Lesevorgang"
+
+msgid "Leave empty to match the server by its serial number."
+msgstr "Leer lassen, um den Server über seine Seriennummer zuzuordnen."
+
+msgid "Local accounts of the controllers"
+msgstr "Lokale Konten der Controller"
+
+msgid "Locked"
+msgstr "Gesperrt"
+
+msgid "No account read yet."
+msgstr "Noch kein Konto gelesen."
+
+msgid "No administration network is declared in the network flow matrix: the exposure of the controllers cannot be checked. Write the address range in the source or the destination of a flow whose name says it is an administration zone (for example \"MGMT 10.0.99.0/24\" or \"OOB iLO 192.0.2.0/24\")."
+msgstr "In der Netzwerkfluss-Matrix ist kein Verwaltungsnetz erfasst: Die Erreichbarkeit der Controller kann nicht geprüft werden. Schreiben Sie den Adressbereich in die Quelle oder das Ziel eines Flusses, dessen Name eine Verwaltungszone bezeichnet (zum Beispiel „MGMT 10.0.99.0/24“ oder „OOB iLO 192.0.2.0/24“)."
+
+msgid "No controller yet: declare one below, or import a CSV file for controllers with IPMI only."
+msgstr "Noch kein Controller: Erfassen Sie unten einen, oder importieren Sie eine CSV-Datei für Controller nur mit IPMI."
+
+msgid "No gap found"
+msgstr "Keine Abweichung gefunden"
+
+msgid "No physical server in GLPI"
+msgstr "Kein physischer Server in GLPI"
+
+msgid "Off by default. When ticked, the identity of the controller is not verified: prefer a certificate of your certification authority."
+msgstr "Standardmäßig aus. Wenn aktiviert, wird die Identität des Controllers nicht geprüft: Bevorzugen Sie ein Zertifikat Ihrer Zertifizierungsstelle."
+
+msgid "Only \"name\" is required. Yes/no columns accept yes, no, oui, non, 1, 0 (empty: unknown). Accounts: user:role separated by \";\" inside the cell, for example \"root:Administrator;audit:ReadOnly\", \":disabled\" for a disabled account. Maximum size: %s."
+msgstr "Nur „name“ ist Pflicht. Ja/Nein-Spalten akzeptieren yes, no, oui, non, 1, 0 (leer: unbekannt). Konten: benutzer:rolle, in der Zelle durch „;“ getrennt, zum Beispiel „root:Administrator;audit:ReadOnly“, „:disabled“ für ein deaktiviertes Konto. Maximale Größe: %s."
+
+msgid "Open the network flow matrix"
+msgstr "Netzwerkfluss-Matrix öffnen"
+
+msgid "Password saved (leave empty to keep it)"
+msgstr "Passwort gespeichert (leer lassen, um es zu behalten)"
+
+msgid "Physical servers without a known controller"
+msgstr "Physische Server ohne bekannten Controller"
+
+msgid "Read now"
+msgstr "Jetzt lesen"
+
+msgid "Read only: the plugin only sends Redfish read requests (GET). It never restarts a server, never updates a firmware and never changes a setting. Use a local account of the controller with the read-only role."
+msgstr "Nur lesend: Das Plugin sendet nur Redfish-Leseanfragen (GET). Es startet nie einen Server neu, aktualisiert nie eine Firmware und ändert nie eine Einstellung. Verwenden Sie ein lokales Konto des Controllers mit der Nur-Lese-Rolle."
+
+msgid "Self-signed accepted"
+msgstr "Selbstsigniert akzeptiert"
+
+msgid "Serial number: %s"
+msgstr "Seriennummer: %s"
+
+msgid "Server in GLPI"
+msgstr "Server in GLPI"
+
+msgid "Server in GLPI (optional)"
+msgstr "Server in GLPI (optional)"
+
+msgid "The controller is saved in the entity %s. Create on the controller a local account with the read-only role (ReadOnly): the plugin only reads."
+msgstr "Der Controller wird in der Entität %s gespeichert. Legen Sie auf dem Controller ein lokales Konto mit der Nur-Lese-Rolle (ReadOnly) an: Das Plugin liest nur."
+
+msgid "Warning"
+msgstr "Warnung"
+
+msgid "https:// only, with the name or the IP address of the controller and an optional port."
+msgstr "Nur https://, mit dem Namen oder der IP-Adresse des Controllers und einem optionalen Port."
+
+msgid "BIOS"
+msgstr "BIOS"
+
+msgid "Firmware of the controller"
+msgstr "Firmware des Controllers"
+
+msgid "IPMI over the network"
+msgstr "IPMI über das Netzwerk"
+
+msgid "Local accounts"
+msgstr "Lokale Konten"
+
+msgid "No management controller (iLO, iDRAC, XClarity, IPMI) is known for this computer. A controller is matched by the serial number of the server, or chosen by hand on the controller."
+msgstr "Für diesen Computer ist kein Management-Controller (iLO, iDRAC, XClarity, IPMI) bekannt. Ein Controller wird über die Seriennummer des Servers zugeordnet oder am Controller von Hand gewählt."
+
+msgid "Secure Boot"
+msgstr "Secure Boot"
