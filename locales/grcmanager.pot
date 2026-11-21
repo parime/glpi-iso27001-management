@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 15:32+0000\n"
+"POT-Creation-Date: 2026-11-21 15:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,46 +57,67 @@ msgstr ""
 msgid "Tick at least one account to check."
 msgstr ""
 
-#: front/adsecurityaudit.php:78
+#: front/adsecurityaudit.php:83
 #, php-format
 msgid "Report imported: %d rule(s) triggered."
 msgstr ""
 
-#: front/adsecurityaudit.php:83
+#: front/adsecurityaudit.php:88
 msgid ""
 "The report contains passwords or secrets (for example in group policies): "
 "they were not kept, and are removed from the archived copy. Change them as "
 "soon as possible."
 msgstr ""
 
-#: front/adsecurityaudit.php:90
+#: front/adsecurityaudit.php:95
 msgid ""
 "The report could not be archived as a document (XML files may not be allowed "
 "in the document types of GLPI)."
 msgstr ""
 
-#: front/adsecurityaudit.php:98
+#: front/adsecurityaudit.php:103
 #, php-format
 msgid "Only the first %d rules were read."
 msgstr ""
 
-#: front/adsecurityaudit.php:99
+#: front/adsecurityaudit.php:104
 msgid "The file is very long: only its first checks were read."
 msgstr ""
 
-#: front/adsecurityaudit.php:112 front/backupcoverage.php:69
-#: front/logcoverage.php:68 front/mfacoverage.php:69 front/shareaccess.php:97
+#: front/adsecurityaudit.php:117 front/adsecurityaudit.php:201
+#: front/backupcoverage.php:69 front/logcoverage.php:68
+#: front/mfacoverage.php:69 front/shareaccess.php:97
 msgid "Import deleted."
 msgstr ""
 
-#: front/adsecurityaudit.php:129 front/securityincidentticket.form.php:33
+#: front/adsecurityaudit.php:134 front/securityincidentticket.form.php:33
 #: front/zabbixmonitoring.php:119
 msgid "The ticket could not be created."
 msgstr ""
 
-#: front/adsecurityaudit.php:134
+#: front/adsecurityaudit.php:139
 #, php-format
 msgid "Ticket %d created."
+msgstr ""
+
+#: front/adsecurityaudit.php:179
+#, php-format
+msgid "Export imported: %d account with a path to Domain Admins."
+msgid_plural "Export imported: %d accounts with a path to Domain Admins."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/adsecurityaudit.php:188 templates/_ad_attack_paths.html.twig
+msgid "Very large graph: only part of it was read."
+msgstr ""
+
+#: front/adsecurityaudit.php:213 src/Dpia.php:327
+#: src/EbiosOperationalScenario.php:123
+msgid "The risk has been added to the register."
+msgstr ""
+
+#: front/adsecurityaudit.php:216
+msgid "The risk could not be created."
 msgstr ""
 
 #: front/applicationsecurity.form.php:42
@@ -1808,7 +1829,7 @@ msgstr ""
 msgid "Computers that must be encrypted and are (%)"
 msgstr ""
 
-#: hook.php:293 src/AdSecurityAudit.php:1021 src/RiskIndicator.php:222
+#: hook.php:293 src/AdSecurityAudit.php:1026 src/RiskIndicator.php:222
 msgid ""
 "Active Directory security score (PingCastle or Purple Knight, 0 is best)"
 msgstr ""
@@ -3022,6 +3043,63 @@ msgstr ""
 msgid "Last update"
 msgstr ""
 
+#: src/AdAttackPath.php:74 src/AdSecurityAudit.php:231 src/ControlTest.php:652
+#: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
+#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:303
+msgid "The file is empty."
+msgstr ""
+
+#: src/AdAttackPath.php:75 src/AdSecurityAudit.php:232
+msgid "The file is too large (20 MB at most)."
+msgstr ""
+
+#: src/AdAttackPath.php:77
+msgid ""
+"This file is not a graph exported from BloodHound CE or Adalanche (JSON with "
+"nodes and edges)."
+msgstr ""
+
+#: src/AdAttackPath.php:81
+msgid ""
+"The graph contains no Domain Admins group: export the paths that lead to "
+"this group."
+msgstr ""
+
+#: src/AdAttackPath.php:85
+msgid ""
+"The export gives no domain name: fill in the domain field of the import form."
+msgstr ""
+
+#: src/AdAttackPath.php:88 src/AdSecurityAudit.php:260
+msgid "This report has already been imported."
+msgstr ""
+
+#: src/AdAttackPath.php:89 src/AdSecurityAudit.php:261
+msgid "You do not have the right to import a report."
+msgstr ""
+
+#: src/AdAttackPath.php:90 src/AdSecurityAudit.php:262
+#: src/BackupCoverage.php:254 src/LogCoverage.php:211 src/MfaCoverage.php:192
+#: src/ShareAccess.php:248
+msgid "The file could not be read."
+msgstr ""
+
+#: src/AdAttackPath.php:331
+#, php-format
+msgid "Attack paths to Domain Admins: %s"
+msgstr ""
+
+#: src/AdAttackPath.php:336
+#, php-format
+msgid ""
+"%1$s: %2$d account has a path to the Domain Admins group (shortest path: "
+"%3$d step). Details on the Active Directory security audit page."
+msgid_plural ""
+"%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
+"%3$d steps). Details on the Active Directory security audit page."
+msgstr[0] ""
+msgstr[1] ""
+
 #: src/AdSecurityAudit.php:71 templates/control_form.html.twig
 msgid "Active Directory security audit"
 msgstr ""
@@ -3118,16 +3196,6 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: src/AdSecurityAudit.php:231 src/ControlTest.php:652
-#: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
-#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:303
-msgid "The file is empty."
-msgstr ""
-
-#: src/AdSecurityAudit.php:232
-msgid "The file is too large (20 MB at most)."
-msgstr ""
-
 #: src/AdSecurityAudit.php:234
 msgid ""
 "The file declares a DOCTYPE or entities: it is refused for security reasons. "
@@ -3149,77 +3217,70 @@ msgstr ""
 
 #: src/AdSecurityAudit.php:248
 msgid ""
+"This file is an attack path graph (BloodHound CE or Adalanche): import it in "
+"the attack paths part of this page."
+msgstr ""
+
+#: src/AdSecurityAudit.php:253
+msgid ""
 "This JSON file is neither Maester results (TestResults) nor ScubaGear "
 "results (ScubaResults)."
 msgstr ""
 
-#: src/AdSecurityAudit.php:252
+#: src/AdSecurityAudit.php:257
 msgid ""
 "The report gives no domain or tenant name: fill in the domain field of the "
 "import form."
 msgstr ""
 
-#: src/AdSecurityAudit.php:255
-msgid "This report has already been imported."
-msgstr ""
-
-#: src/AdSecurityAudit.php:256
-msgid "You do not have the right to import a report."
-msgstr ""
-
-#: src/AdSecurityAudit.php:257 src/BackupCoverage.php:254
-#: src/LogCoverage.php:211 src/MfaCoverage.php:192 src/ShareAccess.php:248
-msgid "The file could not be read."
-msgstr ""
-
-#: src/AdSecurityAudit.php:564
+#: src/AdSecurityAudit.php:569
 #, php-format
 msgid "PingCastle report - %1$s (%2$s)"
 msgstr ""
 
-#: src/AdSecurityAudit.php:651 src/AdSecurityAudit.php:746
+#: src/AdSecurityAudit.php:656 src/AdSecurityAudit.php:751
 #, php-format
 msgid "Active Directory %1$s: %2$s"
 msgstr ""
 
-#: src/AdSecurityAudit.php:670
+#: src/AdSecurityAudit.php:675
 #, php-format
 msgid "Domain: %s"
 msgstr ""
 
-#: src/AdSecurityAudit.php:672
+#: src/AdSecurityAudit.php:677
 #, php-format
 msgid "Report: %1$s of %2$s (score %3$d/100)"
 msgstr ""
 
-#: src/AdSecurityAudit.php:677
+#: src/AdSecurityAudit.php:682
 #, php-format
 msgid "Rule: %s"
 msgstr ""
 
-#: src/AdSecurityAudit.php:679
+#: src/AdSecurityAudit.php:684
 #, php-format
 msgid "Category: %s"
 msgstr ""
 
-#: src/AdSecurityAudit.php:682
+#: src/AdSecurityAudit.php:687
 #, php-format
 msgid "Points: %d"
 msgstr ""
 
-#: src/AdSecurityAudit.php:683
+#: src/AdSecurityAudit.php:688
 #, php-format
 msgid "ISO/IEC 27001 controls: %s"
 msgstr ""
 
-#: src/AdSecurityAudit.php:1048
+#: src/AdSecurityAudit.php:1053
 #, php-format
 msgid ""
 "Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) "
 "triggered"
 msgstr ""
 
-#: src/AdSecurityAudit.php:1093
+#: src/AdSecurityAudit.php:1098
 #, php-format
 msgid ""
 "Entra ID and Microsoft 365 configuration (%1$s): %2$d of %3$d checks failed "
@@ -3905,7 +3966,7 @@ msgstr ""
 
 #: src/AuditLog.php:234 src/NotificationTargetPersonnelCompliance.php:95
 #: src/PersonnelCompliance.php:747 src/ShareAccess.php:150
-#: templates/account_hygiene.html.twig
+#: templates/_ad_attack_paths.html.twig templates/account_hygiene.html.twig
 #: templates/account_hygiene_ticket.html.twig templates/audit_log.html.twig
 #: templates/document_accesses_tab.html.twig
 #: templates/personnel_compliance_list.html.twig
@@ -4323,6 +4384,8 @@ msgstr ""
 
 #: src/BackupCoverage.php:926 src/BackupCoverage.php:985
 #: src/ConfigurationCompliance.php:701
+#: templates/_ad_attack_path_evidence.html.twig
+#: templates/_ad_attack_paths.html.twig
 #: templates/_mfa_coverage_evidence.html.twig
 #: templates/_server_management_evidence.html.twig
 #: templates/_zabbix_monitoring_evidence.html.twig
@@ -9825,10 +9888,6 @@ msgstr ""
 msgid "DPIA reopened, approval withdrawn"
 msgstr ""
 
-#: src/Dpia.php:327 src/EbiosOperationalScenario.php:123
-msgid "The risk has been added to the register."
-msgstr ""
-
 #: src/EbiosElement.php:72
 msgid "The linked element does not belong to this study."
 msgstr ""
@@ -10322,6 +10381,14 @@ msgstr ""
 
 #: src/EvidencePack.php:618
 msgid "The archive could not be stored as a document."
+msgstr ""
+
+#: src/Feature/AdAttackPathFeature.php:37
+msgid "Accounts with an attack path to Domain Admins"
+msgstr ""
+
+#: src/Feature/AdAttackPathFeature.php:50 templates/_ad_attack_paths.html.twig
+msgid "Attack paths to Domain Admins"
 msgstr ""
 
 #: src/Feature/BackupCoverageFeature.php:39
@@ -17029,7 +17096,8 @@ msgid "Host"
 msgstr ""
 
 #: src/SecurityIncidentEdrImport.php:74 src/ShareAccess.php:152
-#: templates/edr_import.html.twig templates/mfa_coverage.html.twig
+#: templates/_ad_attack_paths.html.twig templates/edr_import.html.twig
+#: templates/mfa_coverage.html.twig
 #: templates/pdf/access_review_report.html.twig
 #: templates/server_management.html.twig
 #: templates/share_access_detail.html.twig
@@ -17063,7 +17131,7 @@ msgstr ""
 
 #: src/SecurityIncidentEdrImport.php:83 src/SecurityIncidentIoc.php:67
 #: src/SupplierQuestionnaireTemplate.php:339
-#: templates/ad_security_audit.html.twig
+#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
 #: templates/supplier_questionnaire_template_form.html.twig
@@ -19237,6 +19305,178 @@ msgstr ""
 msgid "Zabbix: reads hosts, problems and service availability (read only)"
 msgstr ""
 
+#: templates/_ad_attack_path_evidence.html.twig
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%d account with a path to Domain Admins"
+msgid_plural "%d accounts with a path to Domain Admins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_path_evidence.html.twig
+#, php-format
+msgid "Imported on %s"
+msgstr ""
+
+#: templates/_ad_attack_path_evidence.html.twig
+msgid "Risk in the register"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%1$s export of %2$s, imported on %3$s"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%d computer"
+msgid_plural "%d computers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%d user"
+msgid_plural "%d users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Accounts with a path"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"An attack path is a chain of rights, group memberships or open sessions that "
+"lets an ordinary account take control of the Domain Admins group. BloodHound "
+"CE and Adalanche draw these paths: import their export here to follow how "
+"many accounts have one, which ones are the most exposed, and how this "
+"changes over time."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
+msgid "Change since the previous report"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#: templates/configuration_compliance.html.twig templates/edr_import.html.twig
+msgid "Computer"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Create the risk in the register"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Delete this import"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
+msgid "Domain (if the file gives none)"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Download a fictitious BloodHound CE example"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
+msgid "Example"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "Export file: JSON (%d MB at most)"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "First export for this domain: the next import will show the change."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "History"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"In the Explore page, run the query of the shortest paths to Domain Admins, "
+"then export the graph as JSON and import that file."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "Most exposed accounts (%d at most)"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig templates/share_access_detail.html.twig
+msgid "New"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "No account has a path to Domain Admins in this export."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "No attack path export imported yet."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"Number of different rights or memberships that lead towards Domain Admins"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Number of steps of the shortest path to Domain Admins"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"Only the number of accounts with a path and the most exposed accounts (name, "
+"type, number of steps) are kept: no other property of the graph."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
+#: templates/backup_coverage.html.twig templates/config_sentinelone.html.twig
+#: templates/mfa_coverage.html.twig templates/share_access.html.twig
+msgid "Read only"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Risk in the register:"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Routes"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"Run the analysis with Domain Admins as target, then export the graph as JSON "
+"(Cytoscape format) and import that file."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "Shortest path: %d step"
+msgid_plural "Shortest path: %d steps"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_paths.html.twig
+#: templates/certification_readiness.html.twig
+msgid "Steps"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"The risk is pre-filled (maximum impact) and can then be reviewed in the "
+"register."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
+#: templates/pdf/action_log.html.twig templates/tabs/action_log.html.twig
+msgid "Tool"
+msgstr ""
+
 #: templates/_audit_certification_fields.html.twig
 msgid ""
 "Deadline given in the audit report to send the evidence that the "
@@ -20454,10 +20694,6 @@ msgid "Archived report (restricted)"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
-msgid "Change since the previous report"
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
 msgid "Checks failed"
 msgstr ""
 
@@ -20478,10 +20714,6 @@ msgid "Delete the import and its archived report"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
-msgid "Domain (if the file gives none)"
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
 msgid "Download a fictitious example report"
 msgstr ""
 
@@ -20490,10 +20722,6 @@ msgid ""
 "Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an "
 "action or a ticket for the rules you decide to treat: nothing is created "
 "before you click, and the action form is reviewed before it is saved."
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
-msgid "Example"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
@@ -20600,12 +20828,6 @@ msgstr ""
 msgid "Purple Knight score: %d/100 (100 is best)"
 msgstr ""
 
-#: templates/ad_security_audit.html.twig templates/backup_coverage.html.twig
-#: templates/config_sentinelone.html.twig templates/mfa_coverage.html.twig
-#: templates/share_access.html.twig
-msgid "Read only"
-msgstr ""
-
 #: templates/ad_security_audit.html.twig
 msgid "Report date"
 msgstr ""
@@ -20686,11 +20908,6 @@ msgstr ""
 #: templates/configuration_compliance_report.html.twig
 #, php-format
 msgid "Ticket %d"
-msgstr ""
-
-#: templates/ad_security_audit.html.twig templates/pdf/action_log.html.twig
-#: templates/tabs/action_log.html.twig
-msgid "Tool"
 msgstr ""
 
 #: templates/ad_security_audit_ticket.html.twig
@@ -22646,10 +22863,6 @@ msgid "Step"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
-msgid "Steps"
-msgstr ""
-
-#: templates/certification_readiness.html.twig
 msgid "Steps to redo each year"
 msgstr ""
 
@@ -24292,10 +24505,6 @@ msgstr ""
 #: templates/pdf/maturity_campaign_report.html.twig
 #: templates/risk_import.html.twig
 msgid "Change"
-msgstr ""
-
-#: templates/configuration_compliance.html.twig templates/edr_import.html.twig
-msgid "Computer"
 msgstr ""
 
 #: templates/configuration_compliance.html.twig
@@ -35629,10 +35838,6 @@ msgid "NTFS permission"
 msgstr ""
 
 #: templates/share_access_detail.html.twig
-msgid "New"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
 msgid "No right in the last import of this share."
 msgstr ""
 
@@ -38360,202 +38565,4 @@ msgstr ""
 #: templates/zabbix_monitoring.html.twig
 #, php-format
 msgid "out of %d critical assets"
-msgstr ""
-
-
-#: front/adsecurityaudit.php:178
-#, php-format
-msgid "Export imported: %d account with a path to Domain Admins."
-msgid_plural "Export imported: %d accounts with a path to Domain Admins."
-msgstr[0] ""
-msgstr[1] ""
-
-#: front/adsecurityaudit.php:187 templates/_ad_attack_paths.html.twig
-msgid "Very large graph: only part of it was read."
-msgstr ""
-
-#: front/adsecurityaudit.php:215
-msgid "The risk could not be created."
-msgstr ""
-
-#: src/AdAttackPath.php:77
-msgid ""
-"This file is not a graph exported from BloodHound CE or Adalanche (JSON with "
-"nodes and edges)."
-msgstr ""
-
-#: src/AdAttackPath.php:81
-msgid ""
-"The graph contains no Domain Admins group: export the paths that lead to "
-"this group."
-msgstr ""
-
-#: src/AdAttackPath.php:85
-msgid ""
-"The export gives no domain name: fill in the domain field of the import form."
-msgstr ""
-
-#: src/AdAttackPath.php:331
-#, php-format
-msgid "Attack paths to Domain Admins: %s"
-msgstr ""
-
-#: src/AdAttackPath.php:336
-#, php-format
-msgid ""
-"%1$s: %2$d account has a path to the Domain Admins group (shortest path: "
-"%3$d step). Details on the Active Directory security audit page."
-msgid_plural ""
-"%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
-"%3$d steps). Details on the Active Directory security audit page."
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/AdSecurityAudit.php:248
-msgid ""
-"This file is an attack path graph (BloodHound CE or Adalanche): import it in "
-"the attack paths part of this page."
-msgstr ""
-
-#: src/Feature/AdAttackPathFeature.php:37
-msgid "Accounts with an attack path to Domain Admins"
-msgstr ""
-
-#: src/Feature/AdAttackPathFeature.php:50 templates/_ad_attack_paths.html.twig
-msgid "Attack paths to Domain Admins"
-msgstr ""
-
-#: templates/_ad_attack_path_evidence.html.twig
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "%d account with a path to Domain Admins"
-msgid_plural "%d accounts with a path to Domain Admins"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_ad_attack_path_evidence.html.twig
-#, php-format
-msgid "Imported on %s"
-msgstr ""
-
-#: templates/_ad_attack_path_evidence.html.twig
-msgid "Risk in the register"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "%1$s export of %2$s, imported on %3$s"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "%d computer"
-msgid_plural "%d computers"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "%d user"
-msgid_plural "%d users"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Accounts with a path"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"An attack path is a chain of rights, group memberships or open sessions that "
-"lets an ordinary account take control of the Domain Admins group. BloodHound "
-"CE and Adalanche draw these paths: import their export here to follow how "
-"many accounts have one, which ones are the most exposed, and how this "
-"changes over time."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Create the risk in the register"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Delete this import"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Download a fictitious BloodHound CE example"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "Export file: JSON (%d MB at most)"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "First export for this domain: the next import will show the change."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "History"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"In the Explore page, run the query of the shortest paths to Domain Admins, "
-"then export the graph as JSON and import that file."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "Most exposed accounts (%d at most)"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "No account has a path to Domain Admins in this export."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "No attack path export imported yet."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"Number of different rights or memberships that lead towards Domain Admins"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Number of steps of the shortest path to Domain Admins"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"Only the number of accounts with a path and the most exposed accounts (name, "
-"type, number of steps) are kept: no other property of the graph."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Risk in the register:"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Routes"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"Run the analysis with Domain Admins as target, then export the graph as JSON "
-"(Cytoscape format) and import that file."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "Shortest path: %d step"
-msgid_plural "Shortest path: %d steps"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"The risk is pre-filled (maximum impact) and can then be reviewed in the "
-"register."
 msgstr ""

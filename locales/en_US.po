@@ -38385,3 +38385,157 @@ msgstr "%d account(s) of the controllers added to the campaign."
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+#, php-format
+msgid "%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr "%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
+msgstr "The document \"%s\" matches no question of the file: it was not added."
+
+msgid "Shows the answers found in the questionnaire file returned by the supplier, question by question, next to the current answers, with the points to check (unknown question, answer outside the list, missing question)."
+msgstr "Shows the answers found in the questionnaire file returned by the supplier, question by question, next to the current answers, with the points to check (unknown question, answer outside the list, missing question)."
+
+msgid "Check the answers, add the documents sent by the supplier, then save: nothing is recorded before this confirmation. Then review the evaluation and mark it as completed."
+msgstr "Check the answers, add the documents sent by the supplier, then save: nothing is recorded before this confirmation. Then review the evaluation and mark it as completed."
+
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
+msgstr "ISO/IEC 27001, controls A.5.19 to A.5.22"
+
+msgid "Supplier file"
+msgstr "Supplier file"
+
+msgid "Guidance"
+msgstr "Guidance"
+
+msgid "Allowed answers"
+msgstr "Allowed answers"
+
+msgid "Evidence file name"
+msgstr "Evidence file name"
+
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr "Questionnaire file returned by the supplier for the evaluation \"%s\""
+
+#, php-format
+msgid "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr "The file is too large (at most %d MB)."
+
+msgid "The file is not a CSV text file: save the spreadsheet as CSV before importing it."
+msgstr "The file is not a CSV text file: save the spreadsheet as CSV before importing it."
+
+msgid "This file is not a questionnaire exported from this plugin: its first line was changed or removed."
+msgstr "This file is not a questionnaire exported from this plugin: its first line was changed or removed."
+
+msgid "This file was exported for another evaluation: import it in the evaluation it comes from."
+msgstr "This file was exported for another evaluation: import it in the evaluation it comes from."
+
+msgid "The questions of this file do not match those of the evaluation: export the questionnaire again."
+msgstr "The questions of this file do not match those of the evaluation: export the questionnaire again."
+
+msgid "The header line or some columns are missing: keep the columns of the exported file."
+msgstr "The header line or some columns are missing: keep the columns of the exported file."
+
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr "Line %1$d: unknown question code \"%2$s\", line ignored."
+
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr "Line %1$d: question %2$s appears twice, only the first line is kept."
+
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+
+#, php-format
+msgid "Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr "Line %1$d: at most %2$d questions per file, the following lines were ignored."
+
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr "Question %s is missing from the file: its answer does not change."
+
+#, php-format
+msgid "%d question changes. Check the answers, then save them: they will be marked as coming from the supplier file."
+msgid_plural "%d questions change. Check the answers, then save them: they will be marked as coming from the supplier file."
+msgstr[0] "%d question changes. Check the answers, then save them: they will be marked as coming from the supplier file."
+msgstr[1] "%d questions change. Check the answers, then save them: they will be marked as coming from the supplier file."
+
+msgid "Answer in the file"
+msgstr "Answer in the file"
+
+msgid "Back to the evaluation"
+msgstr "Back to the evaluation"
+
+msgid "Comment in the file"
+msgstr "Comment in the file"
+
+msgid "Current answer"
+msgstr "Current answer"
+
+msgid "Documents sent by the supplier"
+msgstr "Documents sent by the supplier"
+
+#, php-format
+msgid "Each document is attached to the questions whose column \"Evidence file name\" gives its name. It is checked like any evidence (types allowed by GLPI, size, real content). Expected: %s"
+msgstr "Each document is attached to the questions whose column \"Evidence file name\" gives its name. It is checked like any evidence (types allowed by GLPI, size, real content). Expected: %s"
+
+msgid "Review the supplier file"
+msgstr "Review the supplier file"
+
+msgid "Save these answers"
+msgstr "Save these answers"
+
+msgid "The file brings no new answer and no new comment."
+msgstr "The file brings no new answer and no new comment."
+
+msgid "unchanged"
+msgstr "unchanged"
+
+msgid "Answer by file, outside GLPI"
+msgstr "Answer by file, outside GLPI"
+
+#, php-format
+msgid "At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before importing it."
+msgstr "At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before importing it."
+
+msgid "CSV file (separator \";\", UTF-8), one line per question. Its first line identifies the evaluation and its questions: it must stay unchanged. Send it by the means of your choice (email, exchange platform)."
+msgstr "CSV file (separator \";\", UTF-8), one line per question. Its first line identifies the evaluation and its questions: it must stay unchanged. Send it by the means of your choice (email, exchange platform)."
+
+msgid "Download the questionnaire to fill in"
+msgstr "Download the questionnaire to fill in"
+
+msgid "Each export and import is recorded in the Historical tab (who, when, which file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr "Each export and import is recorded in the Historical tab (who, when, which file); the returned file is kept in the Documents tab of the supplier risk."
+
+msgid "Import the returned file"
+msgstr "Import the returned file"
+
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr "Questionnaire filled in by the supplier (CSV)"
+
+msgid "Review the answers"
+msgstr "Review the answers"
+
+msgid "Send the questionnaire"
+msgstr "Send the questionnaire"
+
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr "This evaluation is completed: reopen it to import a file."
+
+msgid "When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns \"Answer\", \"Comment\" and, for each document provided, \"Evidence file name\", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation."
+msgstr "When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns \"Answer\", \"Comment\" and, for each document provided, \"Evidence file name\", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation."
+
+msgid "You are not allowed to change this evaluation."
+msgstr "You are not allowed to change this evaluation."
