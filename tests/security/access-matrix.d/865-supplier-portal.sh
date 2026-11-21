@@ -26,7 +26,8 @@ expect "regler le lien securise" $config \
 if [ "$ROLE" = admin ]; then
   S=$P/supplierportal.php
   PJAR=$(mktemp)
-  pcode() { curl -s -o /dev/null -w '%{http_code}' -c "$PJAR" -b "$PJAR" "$@"; }
+  # En-tete Sec-Fetch-Site : voir site() dans access-matrix.sh (GLPI 12, #980).
+  pcode() { curl -s -o /dev/null -w '%{http_code}' -c "$PJAR" -b "$PJAR" -H "Sec-Fetch-Site: $(site "$@")" "$@"; }
   pbody() { curl -s -c "$PJAR" -b "$PJAR" "$@"; }
   ptoken() { pbody "$S?t=$1" | grep -o 'name="_glpi_csrf_token" value="[^"]*"' | head -1 | sed 's/.*value="//;s/"//'; }
   zeros=$(printf '0%.0s' $(seq 64))

@@ -65,6 +65,12 @@ for try in 1 2 3 4 5; do
   [ "$try" = 5 ] && { echo "::error::connexion impossible pour $LOGIN"; exit 1; }
   sleep 3
 done
+# GLPI 12 fait ressaisir le mot de passe avant d'ouvrir la fiche d'un utilisateur (ReAuth) : la
+# session le ressaisit une fois, comme l'utilisateur dans son navigateur. Sans objet sous GLPI 11.
+if [ "$(code "$BASE/ReAuth/Prompt")" = 200 ]; then
+  code "$BASE/front/user.form.php?id=2" > /dev/null
+  code --data-urlencode "user_input=$PASSWORD" "$BASE/ReAuth/Verify" > /dev/null
+fi
 
 P=$BASE/plugins/grcmanager/front
 if [ "$ROLE" = admin ]; then SEE_B=oui; DENY=200; else SEE_B=non; DENY=403; fi
