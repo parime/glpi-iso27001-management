@@ -29763,3 +29763,340 @@ msgid ""
 msgstr ""
 "Il segreto è cifrato con la chiave di GLPI, mai più visualizzato né "
 "registrato."
+
+#, php-format
+msgid ""
+"%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr ""
+"%1$d host importati: %2$d associati a un asset GLPI, %3$d non associati."
+
+msgid "Logging settings saved."
+msgstr "Impostazioni dei log salvate."
+
+msgid "Log platform declaration saved."
+msgstr "Dichiarazione della piattaforma di log salvata."
+
+msgid "Logging coverage"
+msgstr "Copertura dei log"
+
+msgid "Syslog server"
+msgstr "Server syslog"
+
+msgid "Other log platform"
+msgstr "Altra piattaforma di log"
+
+msgid "No logs received"
+msgstr "Nessun log ricevuto"
+
+msgid "No log platform knows this asset (name or IP address)."
+msgstr "Nessuna piattaforma di log conosce questo asset (nome o indirizzo IP)."
+
+msgid "Logs stopped"
+msgstr "Log interrotti"
+
+msgid "The last event received is older than the threshold."
+msgstr "L'ultimo evento ricevuto è più vecchio della soglia."
+
+msgid "Logs received"
+msgstr "Log ricevuti"
+
+msgid "A log platform received an event from this asset recently."
+msgstr ""
+"Una piattaforma di log ha ricevuto di recente un evento da questo asset."
+
+msgid "Critical assets, servers and network devices"
+msgstr "Asset critici, server e dispositivi di rete"
+
+msgid "Critical assets only"
+msgstr "Solo asset critici"
+
+msgid "All computers and network devices"
+msgstr "Tutti i computer e dispositivi di rete"
+
+msgid "Long enough"
+msgstr "Sufficiente"
+
+msgid "Too short"
+msgstr "Troppo breve"
+
+msgid ""
+"The file has no column for the host name or IP address (for example host, "
+"hostname, source, agent.name or ip)."
+msgstr ""
+"Il file non ha una colonna per il nome host o l'indirizzo IP (ad esempio "
+"host, hostname, source, agent.name o ip)."
+
+msgid "You do not have the right to import."
+msgstr "Non hai il diritto di importare."
+
+msgid ""
+"Shows which important assets send their logs to a log platform (Wazuh, "
+"Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
+"nothing for several days, and whether each platform keeps the logs long "
+"enough and synchronizes the clocks."
+msgstr ""
+"Mostra quali asset importanti inviano i loro log a una piattaforma (Wazuh, "
+"Graylog, Elastic o OpenSearch, Splunk, syslog), quali non inviano nulla o "
+"più nulla da alcuni giorni, e se ogni piattaforma conserva i log abbastanza "
+"a lungo e sincronizza gli orologi."
+
+msgid ""
+"Choose the assets that must send their logs, import the list of hosts of "
+"each log platform (or let the Wazuh plugin be read), connect the assets "
+"listed as gaps, and declare the retention and the time server of each "
+"platform. The page only reads: it runs nothing on the platforms. Record the "
+"result as an effectiveness test of the control to keep the evidence."
+msgstr ""
+"Scegli gli asset che devono inviare i loro log, importa l'elenco degli host "
+"di ogni piattaforma (o lascia leggere il plugin Wazuh), collega gli asset "
+"elencati come scostamenti e dichiara la conservazione e il server orario di "
+"ogni piattaforma. La pagina legge soltanto: non avvia nulla sulle "
+"piattaforme. Registra il risultato come test di efficacia del controllo per "
+"conservare la prova."
+
+msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
+msgstr "ISO/IEC 27001, controlli A.8.15, A.8.16 e A.8.17"
+
+#, php-format
+msgid "Critical assets without logging (%)"
+msgstr "Asset critici senza log (%)"
+
+#, php-format
+msgid "%d asset(s) whose logs stopped"
+msgstr "%d asset con log interrotti"
+
+#, php-format
+msgid "%d critical asset(s) without logging"
+msgstr "%d asset critici senza log"
+
+#, php-format
+msgid "%d platform(s) with a retention too short or not declared"
+msgstr "%d piattaforme con conservazione troppo breve o non dichiarata"
+
+#, php-format
+msgid "%d platform(s) without declared clock synchronization"
+msgstr "%d piattaforme senza sincronizzazione degli orologi dichiarata"
+
+#, php-format
+msgid "Logging coverage: %d%%"
+msgstr "Copertura dei log: %d%%"
+
+msgid "Logging coverage: not measured"
+msgstr "Copertura dei log: non misurata"
+
+#, php-format
+msgid "%1$d assets: the first %2$d are shown, gaps first."
+msgstr "%1$d asset: sono mostrati i primi %2$d, prima gli scostamenti."
+
+#, php-format
+msgid "%d days kept"
+msgstr "%d giorni conservati"
+
+#, php-format
+msgid "%d days required"
+msgstr "%d giorni richiesti"
+
+msgid ""
+"An asset is critical when one axis of its C/I/A classification is high (tab "
+"of the asset form), or when a network flow publishes it on the Internet. "
+"Servers are recognized from the computer type or the operating system name."
+msgstr ""
+"Un asset è critico quando un asse della sua classificazione R/I/D è alto "
+"(scheda del modulo dell'asset), o quando un flusso di rete lo pubblica su "
+"Internet. I server sono riconosciuti dal tipo di computer o dal nome del "
+"sistema operativo."
+
+msgid "Assets concerned whose logs are received"
+msgstr "Asset interessati i cui log sono ricevuti"
+
+msgid "Assets that must send their logs"
+msgstr "Asset che devono inviare i loro log"
+
+msgid ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown host may be an asset missing from the inventory."
+msgstr ""
+"Verifica il nome dell'asset in GLPI o aggiungi l'asset all'inventario: un "
+"host sconosciuto può essere un asset assente dall'inventario."
+
+msgid "Clock synchronization not declared"
+msgstr "Sincronizzazione degli orologi non dichiarata"
+
+msgid "Clocks synchronized"
+msgstr "Orologi sincronizzati"
+
+msgid "Comment (where the setting can be checked)"
+msgstr "Commento (dove verificare l'impostazione)"
+
+msgid "Critical assets without logging"
+msgstr "Asset critici senza log"
+
+msgid "Declare another platform"
+msgstr "Dichiara un'altra piattaforma"
+
+msgid ""
+"Declare, for each platform, how long the logs are kept and whether the "
+"clocks are synchronized. The retention required is the longest between the "
+"policy and the obligation chosen. These are declarations: keep the "
+"screenshot of the setting as evidence."
+msgstr ""
+"Dichiara, per ogni piattaforma, per quanto tempo sono conservati i log e se "
+"gli orologi sono sincronizzati. La conservazione richiesta è la più lunga "
+"tra la politica e l'obbligo scelto. Sono dichiarazioni: conserva lo "
+"screenshot dell'impostazione come prova."
+
+msgid ""
+"Export the list of hosts that send logs from your log platform, then import "
+"the CSV file here. A new import of the same platform replaces the previous "
+"one in the current entity. Only host names, addresses and the date of the "
+"last event are kept, never the content of a log."
+msgstr ""
+"Esporta dalla tua piattaforma di log l'elenco degli host che inviano log, "
+"poi importa qui il file CSV. Una nuova importazione della stessa piattaforma "
+"sostituisce la precedente nell'entità corrente. Sono conservati solo i nomi "
+"host, gli indirizzi e la data dell'ultimo evento, mai il contenuto di un log."
+
+msgid ""
+"For example a law, a regulation or a contract listed in the register of "
+"obligations."
+msgstr ""
+"Ad esempio una legge, un regolamento o un contratto iscritto nel registro "
+"degli obblighi."
+
+msgid ""
+"Graylog, Elastic or OpenSearch: a table of the sources with the most recent "
+"timestamp (columns source or host.name, and last timestamp), exported as CSV."
+msgstr ""
+"Graylog, Elastic o OpenSearch: una tabella delle sorgenti con il timestamp "
+"più recente (colonne source o host.name, e ultimo timestamp), esportata in "
+"CSV."
+
+msgid "Hosts"
+msgstr "Host"
+
+msgid "Hosts that send logs but are not found in GLPI"
+msgstr "Host che inviano log ma non trovati in GLPI"
+
+msgid "Last event received"
+msgstr "Ultimo evento ricevuto"
+
+msgid "Log platform"
+msgstr "Piattaforma di log"
+
+msgid "Log sources"
+msgstr "Sorgenti di log"
+
+msgid "Logs stopped after (days without event)"
+msgstr "Log interrotti dopo (giorni senza eventi)"
+
+msgid "No asset concerned in your entities."
+msgstr "Nessun asset interessato nelle tue entità."
+
+#, php-format
+msgid "No event for more than %d days: logs stopped"
+msgstr "Nessun evento da più di %d giorni: log interrotti"
+
+msgid ""
+"No log source yet: import the list of hosts of your log platform to measure "
+"the coverage."
+msgstr ""
+"Nessuna sorgente di log per ora: importa l'elenco degli host della tua "
+"piattaforma per misurare la copertura."
+
+msgid "No platform declared."
+msgstr "Nessuna piattaforma dichiarata."
+
+msgid "Obligation that imposes a retention"
+msgstr "Obbligo che impone una conservazione"
+
+msgid "Platforms whose retention is too short or not declared"
+msgstr "Piattaforme con conservazione troppo breve o non dichiarata"
+
+msgid "Platforms without declared clock synchronization"
+msgstr "Piattaforme senza sincronizzazione degli orologi dichiarata"
+
+msgid "Read directly"
+msgstr "Letto direttamente"
+
+msgid ""
+"Read-only: the plugin reads the lists of hosts, it never runs anything on "
+"the log platforms and changes nothing in GLPI."
+msgstr ""
+"Sola lettura: il plugin legge gli elenchi degli host, non avvia mai nulla "
+"sulle piattaforme di log e non modifica nulla in GLPI."
+
+msgid ""
+"Recognized columns: host (or hostname, source, agent.name), ip, and last "
+"event (or lastTime, last_seen, lastKeepAlive)."
+msgstr ""
+"Colonne riconosciute: host (o hostname, source, agent.name), ip e ultimo "
+"evento (o lastTime, last_seen, lastKeepAlive)."
+
+msgid "Register of obligations"
+msgstr "Registro degli obblighi"
+
+msgid "Retention and clock synchronization"
+msgstr "Conservazione e sincronizzazione degli orologi"
+
+msgid "Retention declared (days)"
+msgstr "Conservazione dichiarata (giorni)"
+
+msgid "Retention not declared"
+msgstr "Conservazione non dichiarata"
+
+msgid "Retention required by the obligation (days)"
+msgstr "Conservazione richiesta dall'obbligo (giorni)"
+
+msgid "Retention required by the policy (days)"
+msgstr "Conservazione richiesta dalla politica (giorni)"
+
+#, php-format
+msgid "Retention required by the policy: %d days"
+msgstr "Conservazione richiesta dalla politica: %d giorni"
+
+msgid ""
+"Splunk: run the search \"| metadata type=hosts index=*\" and export the "
+"result (columns host, lastTime)."
+msgstr ""
+"Splunk: esegui la ricerca \"| metadata type=hosts index=*\" ed esporta il "
+"risultato (colonne host, lastTime)."
+
+msgid ""
+"The Wazuh plugin is active: its active agents are read directly, read-only."
+msgstr ""
+"Il plugin Wazuh è attivo: i suoi agenti attivi sono letti direttamente, in "
+"sola lettura."
+
+msgid "The clocks of the sources and of the platform are synchronized"
+msgstr "Gli orologi delle sorgenti e della piattaforma sono sincronizzati"
+
+msgid "Time server (NTP)"
+msgstr "Server orario (NTP)"
+
+msgid ""
+"Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, "
+"one host per line."
+msgstr ""
+"Wazuh senza il plugin GLPI, o un server syslog: un file CSV con "
+"intestazione, un host per riga."
+
+msgid "Which assets must send their logs?"
+msgstr "Quali asset devono inviare i loro log?"
+
+#, php-format
+msgid "%d asset concerned"
+msgid_plural "%d assets concerned"
+msgstr[0] "%d asset interessato"
+msgstr[1] "%d asset interessati"
+
+#, php-format
+msgid "%d critical asset"
+msgid_plural "%d critical assets"
+msgstr[0] "%d asset critico"
+msgstr[1] "%d asset critici"
+
+#, php-format
+msgid "%d log platform"
+msgid_plural "%d log platforms"
+msgstr[0] "%d piattaforma di log"
+msgstr[1] "%d piattaforme di log"

@@ -1587,6 +1587,8 @@ final class Installer
         MfaCoverageTables::install($keySign, $charset, $collation);
         // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
         HardwareEndOfLifeTables::install($keySign, $charset, $collation);
+        // Issue #853 : couverture de la journalisation (hôtes émetteurs importés, conservation déclarée).
+        LogCoverageTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -6490,6 +6492,7 @@ final class Installer
         DiskEncryptionTables::uninstall($migration);
         MfaCoverageTables::uninstall($migration);
         HardwareEndOfLifeTables::uninstall($migration);
+        LogCoverageTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);
