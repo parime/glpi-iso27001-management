@@ -28,7 +28,10 @@ use GlpiPlugin\Grcmanager\SupplierRisk;
 // enregistrement ou rejet des réponses reçues (droit de modifier l'évaluation). Le jeton CSRF des
 // formulaires est contrôlé par GLPI.
 if (isset($_POST['update_portal_config'])) {
+    // Réglage global (toutes les entités) qui ouvre une page publique : droit de configuration de
+    // GLPI exigé en plus du droit du plugin, qu'un gestionnaire limité à une entité peut avoir.
     Session::checkRight(Installer::RIGHT_NAME, UPDATE);
+    Session::checkRight('config', UPDATE);
     SupplierEvaluationLink::setEnabled(!empty($_POST['supplier_portal_enabled']));
     Session::addMessageAfterRedirect(htmlescape(__('Settings saved.', 'grcmanager')));
     Html::redirect(dirname(SupplierEvaluationLink::getActionURL()) . '/config.php#grc-supplier-portal-config');
