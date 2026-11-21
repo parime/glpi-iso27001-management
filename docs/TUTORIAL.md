@@ -1039,6 +1039,35 @@ plugin et le droit natif de lecture des ordinateurs.
    « Ordinateurs à chiffrer qui le sont (%) » et les indicateurs de risque la source « Portables
    avec un disque non chiffré (%) ».
 
+### Étape 36 : Mesurer la couverture de l'authentification multifacteur (mesures A.8.5 et A.5.17)
+
+L'auditeur demande quels comptes, et surtout quels administrateurs et accès distants, sont protégés
+par une authentification multifacteur (MFA). Le plugin lit la double authentification de GLPI et
+les méthodes que vous importez depuis votre fournisseur d'identité ; il ne modifie rien et ne lit
+jamais de secret. Il faut le droit du plugin et la lecture native des utilisateurs.
+
+1. Ouvrez Revue des accès > **Couverture MFA**. L'encadré « À quoi sert cette page ? » rappelle
+   ce qui est attendu.
+2. Les compteurs donnent le taux de MFA de tous les comptes actifs de vos entités, des
+   **administrateurs** (profil qui peut modifier la configuration ou les profils de GLPI, ou rôle
+   d'administrateur déclaré par le fournisseur) et des **comptes à accès distant**.
+3. Dans **Méthodes enregistrées chez votre fournisseur d'identité**, choisissez le fournisseur
+   (Microsoft Entra ID, Okta, Google Workspace, solution sur site) et importez son export CSV. Pour
+   Entra ID : Protection > Méthodes d'authentification > Détails de l'inscription des utilisateurs,
+   télécharger. Pour un autre outil : une ligne par compte avec les colonnes `login` ou `email`,
+   `methods` (ou `mfa` oui/non), et au choix `admin`, `remote_access`, `excluded`,
+   `exclusion_reason`. Les comptes sont rapprochés par identifiant, adresse e-mail ou partie de
+   l'UPN avant le @ ; ceux qui ne correspondent à aucun compte GLPI sont listés à part.
+4. Dans **Quels comptes ont un accès distant ?**, choisissez les groupes GLPI des utilisateurs du
+   VPN ou du bureau à distance.
+5. La liste commence par les **écarts** : administrateur sans MFA, accès distant sans MFA, SMS,
+   appel ou e-mail seul, compte exclu sans justification. Traitez-les dans votre fournisseur
+   d'identité, puis importez un nouvel export.
+6. Sur la fiche des mesures A.8.5 et A.5.17, le cadre « Couverture MFA » montre les taux, le nombre
+   d'administrateurs sans MFA et la date du calcul. Le tableau de bord propose la carte
+   « Administrateurs protégés par MFA (%) », les indicateurs de risque la source « Administrateurs
+   sans MFA », et la page Hygiène des comptes rappelle leur nombre.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -2048,3 +2077,31 @@ native right to read computers.
    "Computers with an unencrypted disk" (A.8.24) or "Laptops with an unencrypted disk" (A.8.1) is
    recorded as an effectiveness test. The dashboard offers the card "Computers that must be
    encrypted and are (%)" and risk indicators the source "Laptops with an unencrypted disk (%)".
+
+### Step 37: Measure the multi-factor authentication coverage (controls A.8.5 and A.5.17)
+
+The auditor asks which accounts, and above all which administrators and remote access accounts,
+are protected by multi-factor authentication (MFA). The plugin reads GLPI two-factor authentication
+and the methods you import from your identity provider; it changes nothing and never reads any
+secret. You need the plugin right and the native right to read users.
+
+1. Open Access review > **MFA coverage**. The "What is this page for?" box recalls what is expected.
+2. The counters give the MFA rate of all the active accounts of your entities, of the
+   **administrators** (profile that can change the GLPI configuration or the profiles, or
+   administrator role reported by the provider) and of the **remote access accounts**.
+3. In **Methods registered with your identity provider**, choose the provider (Microsoft Entra ID,
+   Okta, Google Workspace, on-premises solution) and import its CSV export. For Entra ID:
+   Protection > Authentication methods > User registration details, download. For another tool:
+   one line per account with the columns `login` or `email`, `methods` (or `mfa` yes/no), and
+   optionally `admin`, `remote_access`, `excluded`, `exclusion_reason`. Accounts are matched on the
+   login, the email address or the part of the UPN before the @; those that match no GLPI account
+   are listed separately.
+4. In **Which accounts have remote access?**, choose the GLPI groups of the VPN or remote desktop
+   users.
+5. The list starts with the **gaps**: administrator without MFA, remote access without MFA, SMS,
+   call or email only, account excluded without justification. Fix them in your identity provider,
+   then import a new export.
+6. On controls A.8.5 and A.5.17, the "MFA coverage" box shows the rates, the number of
+   administrators without MFA and the date of the computation. The dashboard offers the card
+   "Administrators protected by MFA (%)", risk indicators the source "Administrators without MFA",
+   and the Account hygiene page recalls their number.

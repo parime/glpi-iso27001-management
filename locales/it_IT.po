@@ -28449,3 +28449,228 @@ msgid "%d official contact recorded as contacted."
 msgid_plural "%d official contacts recorded as contacted."
 msgstr[0] "%d contatto ufficiale registrato come avvisato."
 msgstr[1] "%d contatti ufficiali registrati come avvisati."
+
+#, php-format
+msgid "%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
+msgstr "%1$d account importato/i: %2$d associato/i a un account GLPI, %3$d non associato/i."
+
+msgid "Import deleted."
+msgstr "Importazione eliminata."
+
+msgid "Remote access groups saved."
+msgstr "Gruppi di accesso remoto salvati."
+
+#, php-format
+msgid "Administrators protected by MFA (%)"
+msgstr "Amministratori protetti da MFA (%)"
+
+msgid "MFA coverage"
+msgstr "Copertura MFA"
+
+msgid "Microsoft Entra ID"
+msgstr "Microsoft Entra ID"
+
+msgid "Okta"
+msgstr "Okta"
+
+msgid "Google Workspace"
+msgstr "Google Workspace"
+
+msgid "On-premises MFA solution"
+msgstr "Soluzione MFA on-premise"
+
+msgid "Other identity provider"
+msgstr "Altro provider di identità"
+
+msgid "MFA"
+msgstr "MFA"
+
+msgid "Weak method only"
+msgstr "Solo metodo debole"
+
+msgid "No MFA"
+msgstr "Nessuna MFA"
+
+msgid "Administrator without MFA"
+msgstr "Amministratore senza MFA"
+
+msgid "Remote access without MFA"
+msgstr "Accesso remoto senza MFA"
+
+msgid "SMS, call or email only"
+msgstr "Solo SMS, chiamata o e-mail"
+
+msgid "Excluded without justification"
+msgstr "Escluso senza giustificazione"
+
+msgid "No account column found: the file needs a header with a column such as login, userPrincipalName or email."
+msgstr "Nessuna colonna account trovata: il file richiede un'intestazione con una colonna come login, userPrincipalName o email."
+
+msgid "No method column found: the file needs a column such as methodsRegistered, methods or isMfaRegistered."
+msgstr "Nessuna colonna metodo trovata: il file richiede una colonna come methodsRegistered, methods o isMfaRegistered."
+
+msgid "The file could not be read."
+msgstr "Impossibile leggere il file."
+
+msgid "GLPI two-factor authentication"
+msgstr "Autenticazione a due fattori di GLPI"
+
+msgid "GLPI authenticator app"
+msgstr "App di autenticazione (GLPI)"
+
+#, php-format
+msgid "MFA: %1$d%% of the accounts, %2$d administrator(s) without MFA"
+msgstr "MFA: %1$d%% degli account, %2$d amministratore/i senza MFA"
+
+msgid "Shows which active accounts are protected by multi-factor authentication: GLPI two-factor authentication, and the methods registered with your identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises solution) imported from a CSV export. Rates are given for all accounts, administrators and remote access accounts."
+msgstr "Mostra quali account attivi sono protetti dall'autenticazione a più fattori: autenticazione a due fattori di GLPI e metodi registrati presso il provider di identità (Microsoft Entra ID, Okta, Google Workspace, soluzione on-premise) importati da un export CSV. I tassi sono indicati per tutti gli account, gli amministratori e gli account con accesso remoto."
+
+msgid "Import the export of your identity provider, choose the remote access groups, then follow up the gaps: administrator or remote access without MFA, SMS or call only, account excluded without justification. Nothing is changed automatically. Record the result as an effectiveness test of the control to keep the evidence."
+msgstr "Importate l'export del provider di identità, scegliete i gruppi di accesso remoto, poi gestite gli scostamenti: amministratore o accesso remoto senza MFA, solo SMS o chiamata, account escluso senza giustificazione. Nulla viene modificato automaticamente. Registrate il risultato come test di efficacia del controllo per conservarne l'evidenza."
+
+msgid "ISO/IEC 27001, controls A.8.5 and A.5.17"
+msgstr "ISO/IEC 27001, controlli A.8.5 e A.5.17"
+
+msgid "Administrators without MFA"
+msgstr "Amministratori senza MFA"
+
+#, php-format
+msgid "Administrators without MFA: %d"
+msgstr "Amministratori senza MFA: %d"
+
+#, php-format
+msgid "Administrators: %d%%"
+msgstr "Amministratori: %d%%"
+
+#, php-format
+msgid "MFA rate: %d%%"
+msgstr "Tasso di MFA: %d%%"
+
+msgid "MFA rate: not measured"
+msgstr "Tasso di MFA: non misurato"
+
+#, php-format
+msgid "Remote access: %d%%"
+msgstr "Accesso remoto: %d%%"
+
+#, php-format
+msgid "%1$d accounts: the first %2$d are shown, gaps first."
+msgstr "%1$d account: vengono mostrati i primi %2$d, scostamenti per primi."
+
+msgid "Access reviews"
+msgstr "Revisioni degli accessi"
+
+msgid "Accounts and authentication methods"
+msgstr "Account e metodi di autenticazione"
+
+msgid "Accounts protected by MFA"
+msgstr "Account protetti da MFA"
+
+msgid "Accounts that sign in through your identity provider are covered by the methods you import below."
+msgstr "Gli account che accedono tramite il provider di identità sono coperti dai metodi importati qui sotto."
+
+msgid "Accounts with a gap"
+msgstr "Account con scostamento"
+
+msgid "Administrator"
+msgstr "Amministratore"
+
+msgid "Administrators are the accounts whose profile can change the GLPI configuration or the profiles, or that the identity provider reports as administrators. Nothing is changed in GLPI from this page."
+msgstr "Gli amministratori sono gli account il cui profilo può modificare la configurazione o i profili di GLPI, o che il provider di identità indica come amministratori. Da questa pagina non viene modificato nulla in GLPI."
+
+msgid "Administrators protected by MFA"
+msgstr "Amministratori protetti da MFA"
+
+msgid "Choose the remote access groups below, or import a remote_access column."
+msgstr "Scegliete qui sotto i gruppi di accesso remoto, o importate una colonna remote_access."
+
+msgid "Delete the import"
+msgstr "Elimina l'importazione"
+
+#, php-format
+msgid "Excluded with a justification: %d"
+msgstr "Esclusi con giustificazione: %d"
+
+msgid "Exempted from GLPI two-factor enforcement"
+msgstr "Esentato dall'autenticazione a due fattori obbligatoria di GLPI"
+
+msgid "Export the authentication methods registered per user from your identity provider, then import the CSV file here. A new import of the same provider replaces the previous one in the current entity. Only method names are kept, never a secret."
+msgstr "Esportate dal provider di identità i metodi di autenticazione registrati per utente, poi importate qui il file CSV. Una nuova importazione dello stesso provider sostituisce la precedente nell'entità corrente. Vengono conservati solo i nomi dei metodi, mai un segreto."
+
+msgid "GLPI two-factor authentication is enforced for every account."
+msgstr "L'autenticazione a due fattori di GLPI è obbligatoria per tutti gli account."
+
+msgid "GLPI two-factor authentication is not enforced for every account: it can be enforced by profile, group or entity, or for everyone in the general configuration (Security tab)."
+msgstr "L'autenticazione a due fattori di GLPI non è obbligatoria per tutti gli account: può essere imposta per profilo, gruppo o entità, o per tutti nella configurazione generale (scheda Sicurezza)."
+
+msgid "Identity provider"
+msgstr "Provider di identità"
+
+msgid "Imported accounts"
+msgstr "Account importati"
+
+msgid "Imported accounts not matched with a GLPI account"
+msgstr "Account importati non associati a un account GLPI"
+
+msgid "Matched"
+msgstr "Associati"
+
+#, php-format
+msgid "Members of these groups have remote access: %s."
+msgstr "I membri di questi gruppi hanno accesso remoto: %s."
+
+msgid "Methods"
+msgstr "Metodi"
+
+msgid "Methods registered with your identity provider"
+msgstr "Metodi registrati presso il provider di identità"
+
+msgid "Microsoft Entra ID: Protection > Authentication methods > User registration details, download (columns userPrincipalName, methodsRegistered, isMfaRegistered, isAdmin)."
+msgstr "Microsoft Entra ID: Protezione > Metodi di autenticazione > Dettagli registrazione utenti, scarica (colonne userPrincipalName, methodsRegistered, isMfaRegistered, isAdmin)."
+
+msgid "No active account in your entities."
+msgstr "Nessun account attivo nelle vostre entità."
+
+msgid "No group chosen: only the accounts marked remote_access in an import count as remote access accounts."
+msgstr "Nessun gruppo scelto: solo gli account contrassegnati remote_access in un'importazione contano come account con accesso remoto."
+
+msgid "None declared"
+msgstr "Nessuno dichiarato"
+
+msgid "Okta, Google Workspace or an on-premises solution: a CSV file with a header, one account per line."
+msgstr "Okta, Google Workspace o una soluzione on-premise: un file CSV con intestazione, un account per riga."
+
+msgid "Recognized columns: login or email; methods (separated by commas or semicolons) or mfa (yes/no); optional admin, remote_access, excluded and exclusion_reason (yes/no and text)."
+msgstr "Colonne riconosciute: login o email; methods (separati da virgole o punti e virgola) o mfa (sì/no); facoltative admin, remote_access, excluded e exclusion_reason (sì/no e testo)."
+
+msgid "Remote access"
+msgstr "Accesso remoto"
+
+msgid "Remote access accounts protected by MFA"
+msgstr "Account con accesso remoto protetti da MFA"
+
+msgid "Remote access groups (VPN, remote desktop...)"
+msgstr "Gruppi di accesso remoto (VPN, desktop remoto...)"
+
+msgid "SMS, phone call and email codes are reported as weak methods."
+msgstr "I codici via SMS, chiamata telefonica ed e-mail sono segnalati come metodi deboli."
+
+msgid "They are matched on the login, the email address, or the part of the user principal name before the @. Check them: an account unknown in GLPI may be a service account or a former employee."
+msgstr "L'associazione avviene su login, indirizzo e-mail o parte del nome principale utente prima della @. Verificateli: un account sconosciuto in GLPI può essere un account di servizio o un ex dipendente."
+
+msgid "Which accounts have remote access?"
+msgstr "Quali account hanno accesso remoto?"
+
+#, php-format
+msgid "weak method only: %d"
+msgstr "solo metodo debole: %d"
+
+#, php-format
+msgid "without MFA: %d"
+msgstr "senza MFA: %d"
+
+#, php-format
+msgid "%d account"
+msgid_plural "%d accounts"
+msgstr[0] "%d account"
+msgstr[1] "%d account"

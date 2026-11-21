@@ -9,6 +9,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Couverture de l'authentification multifacteur (MFA) par compte** (issue #852, mesures A.8.5
+  et A.5.17) : page « Couverture MFA » (rubrique Revue des accès) :
+  - double authentification native de GLPI lue sur chaque compte (activée ou non, le secret n'est
+    jamais lu), avec le rappel de son application imposée ou non ;
+  - import CSV générique des méthodes enregistrées chez le fournisseur d'identité (rapport
+    d'inscription d'Entra ID, Okta, Google Workspace, solution sur site), rapproché des comptes
+    GLPI par identifiant, e-mail ou partie locale de l'UPN ; comptes non rapprochés listés ; un
+    nouvel import remplace le précédent du même fournisseur ;
+  - taux de MFA global, des administrateurs (profils qui modifient la configuration ou les profils,
+    ou rôle déclaré par le fournisseur) et des comptes à accès distant (groupes GLPI choisis ou
+    colonne de l'import) ;
+  - écarts signalés : administrateur sans MFA, accès distant sans MFA, SMS, appel ou e-mail seul,
+    compte exclu sans justification ; rien n'est modifié automatiquement ;
+  - preuve sur les mesures **A.8.5** et **A.5.17**, KRI « Administrateurs sans MFA », carte du
+    tableau de bord, constat dans la préparation à la certification et rappel sur la page
+    d'hygiène des comptes.
+
 - **Développement sécurisé, lot 2 : séparation détaillée, exigences, architecture et développement
   externalisé** (issue #777, mesures A.8.26, A.8.27, A.8.30 et A.8.31) :
   - fiche « Développement sécurisé » d'une application : **accès**, **données** et
