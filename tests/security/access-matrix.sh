@@ -142,6 +142,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
+  front/controlblocker.php front/controlblocker.php?sort=code&order=DESC
   front/certificationreadiness.php front/certificationreadiness.php?format=pdf
   front/certificationfinding.php front/certificationfinding.php?format=pdf front/certificationsampling.php
   front/certificationfinding.php?process=1
@@ -159,7 +160,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/personnelcompliance.export.php?format=pdf
   front/ismsfunction.php front/ismsfunction.form.php front/ismsfunction.pdf.php front/competence.php
   front/competence.form.php front/competencedeclaration.php front/competencedeclaration.form.php
-  front/phishingcampaign.php front/phishingcampaign.form.php front/phishingimport.php?example=1"
+  front/phishingcampaign.php front/phishingcampaign.form.php front/phishingimport.php?example=1
+  front/evidencepack.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -287,6 +289,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # droit de modifier le plugin.
   expect "front/certificationreadiness.php : reglages de la preparation" "$1" \
     "$(code -d "save_readiness_settings=1&target_date=2026-12-03&coverage_target=90&alert_days=30&lead_days%5Binternal_audit%5D=60&_glpi_csrf_token=$(csrf)" "$P/certificationreadiness.php")"
+  # Issue #868 : generer le dossier de preuves (archive enregistree) et regler sa limite de taille
+  # exigent de pouvoir modifier le plugin.
+  expect "front/evidencepack.php : generer le dossier de preuves" "$1"     "$(code -d "generate=1&entities_id=$(id a)&_glpi_csrf_token=$(csrf)" "$P/evidencepack.php")"
+  expect "front/evidencepack.php : limite de taille" "$1"     "$(code -d "save_settings=1&max_mb=50&_glpi_csrf_token=$(csrf)" "$P/evidencepack.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
   # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).
@@ -663,6 +669,9 @@ if [ "$ROLE" = admin ]; then
     "$(code -d "generate=1&id=$(id mreview)&period_start=2026-01-01&period_end=2026-06-30&_glpi_csrf_token=$(csrf)" "$P/managementreview.dossier.php")"
   contains "onglet Dossier preparatoire : empreinte du dossier archive" 'dossier-revue-direction' oui \
     "$(tab GlpiPlugin%5CGrcmanager%5CManagementReview 'GlpiPlugin%5CGrcmanager%5CManagementReviewDossier$1' "$(id mreview)")"
+  # Issue #868 : dossier de preuves refuse sans jeton CSRF, genere avec.
+  expect "front/evidencepack.php : sans jeton CSRF" 403     "$(code -d "generate=1&entities_id=0" "$P/evidencepack.php")"
+  expect "front/evidencepack.php : generer le dossier de preuves" 302     "$(code -d "generate=1&entities_id=0&_glpi_csrf_token=$(csrf)" "$P/evidencepack.php")"
   # Issue #380 : reglage du rappel des tests d'efficacite au groupe RSSI. Sans jeton CSRF, refuse
   # et inchange ; avec, enregistre ; une valeur inconnue revient au reglage par defaut.
   expect "front/config.php : rappel des tests, sans jeton CSRF" 403 \
@@ -891,6 +900,13 @@ contains "onglet Processus metier du PC de A" "Processus securite A" oui \
 procs_b=$(tab Computer 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id computer_B)")
 contains "onglet Processus metier du PC de B : processus de B" "Processus securite B" $SEE_B "$procs_b"
 if [ "$ROLE" = limited ]; then
+  # Issue #868 : dossier de preuves de son entite genere et liste ; celui de B refuse ; la preuve de B
+  # (rattachee a la mesure de A) n'est jamais nommee sur la page.
+  expect "front/evidencepack.php : dossier de preuves de B" 403     "$(code -d "generate=1&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/evidencepack.php")"
+  expect "front/evidencepack.php : dossier de preuves de A" 302     "$(code -d "generate=1&entities_id=$(id a)&_glpi_csrf_token=$(csrf)" "$P/evidencepack.php")"
+  pack_page=$(curl -s -c "$JAR" -b "$JAR" "$P/evidencepack.php?entities_id=$(id a)")
+  contains "dossier de preuves : archive listee" 'ti-fingerprint' oui "$pack_page"
+  contains "dossier de preuves : preuve de B absente" 'Preuve securite B' non "$pack_page"
   # Issue #847 : sauvegarde de cle declaree pour un ordinateur de A, refusee pour celui de B.
   expect "front/diskencryption.php : declarer la cle d'un ordinateur de A" 302     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1&backup_date=2026-01-15&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
   expect "front/diskencryption.php : declarer la cle d'un ordinateur de B" 403     "$(code -d "declare_key=1&computers_id=$(id computer_B)&is_backed_up=1&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
@@ -1125,6 +1141,11 @@ ARCHIVE=403; case $ROLE in limited|admin) ARCHIVE=302 ;; general) ARCHIVE= ;; es
 [ "$ROLE" = reader ] || [ "$ROLE" = none ] && expect "front/ismsfunction.php : fonctions par defaut" 403 \
   "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.php")"
 expect "front/ismsfunction.php : archiver sans jeton CSRF" 403 "$(code -d "archive=1" "$P/ismsfunction.php")"
+# Lot 3 : titulaires repris d'une activité de la matrice des responsabilités. L'activité de B n'est
+# jamais acceptée pour la fonction de A (entité), et elle n'est proposée qu'à qui voit B.
+code -d "update=1&id=$(id ismsfunction_A)&_add_responsibilityactivities_id=$(id responsibility_B)&_add_raci_role=responsible&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.form.php" >/dev/null
+contains "fonction de A : activite de B refusee comme titulaire" "Activite securite B" non \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/ismsfunction.form.php?id=$(id ismsfunction_A)")"
 # Lot 2 : session proposée pour les écarts (formulaire de formation servi par ajax/common.tabs.php) ;
 # seules les personnes visibles en écart sont présélectionnées, rien n'est enregistré.
 contains "session proposee pour les ecarts de A : collaborateur de A" "Collaborateur securite A" $SEE_STAFF   "$(tab 'GlpiPlugin%5CGrcmanager%5CTraining' 'GlpiPlugin%5CGrcmanager%5CTraining$main' "0&competence_gaps_of=$(id competence_training_A)")"
@@ -1337,6 +1358,16 @@ contains "liste des non-conformites : constat de B" "Constat securite B" $SEE_B 
 contains "export CSV de la recherche des non-conformites : constat de B" "Constat securite B" $SEE_B   "$(curl -s -c "$JAR" -b "$JAR" "$BASE/front/report.dynamic.php?item_type=GlpiPlugin%5CGrcmanager%5CNonconformity&display_type=3&export_all=1&criteria%5B0%5D%5Bfield%5D=view&criteria%5B0%5D%5Bsearchtype%5D=contains&criteria%5B0%5D%5Bvalue%5D=securite")"
 contains "controles de coherence (CSV) : constat de B en retard" "Constat securite B" $SEE_B \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/consistencycheck.export.php?format=csv")"
+# Issue #867 : mesures bloquees. Les constats de A et de B citent la mesure testee : celui de B n'est
+# jamais cite pour un profil limite a A (vue globale et onglet de la mesure de A).
+blocked=$(curl -s -c "$JAR" -b "$JAR" "$P/controlblocker.php")
+contains "mesures bloquees : constat de A" "Constat securite A" \
+  "$(case $ROLE in none) echo non ;; *) echo oui ;; esac)" "$blocked"
+contains "mesures bloquees : constat de B" "Constat securite B" $SEE_B "$blocked"
+blocked_tab=$(tab 'GlpiPlugin%5CGrcmanager%5CControl' 'GlpiPlugin%5CGrcmanager%5CControlBlocker$1' "$(id control)")
+contains "onglet ce qui bloque la mesure de A : constat de A" "Constat securite A" \
+  "$(case $ROLE in none) echo non ;; *) echo oui ;; esac)" "$blocked_tab"
+contains "onglet ce qui bloque la mesure de A : constat de B" "Constat securite B" $SEE_B "$blocked_tab"
 myspace_b=$(curl -s -c "$JAR" -b "$JAR" "$P/myspace.php")
 contains "Mon espace GRC : constat de A confie au gestionnaire" "Constat securite A" \
   "$([ "$ROLE" = limited ] && echo oui || echo non)" "$myspace_b"

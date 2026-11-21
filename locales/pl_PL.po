@@ -27517,9 +27517,14 @@ msgstr[2] "%d scenariuszy przećwiczonych z zatwierdzonym podsumowaniem"
 
 msgid "%d scenario with a critical process never tested in recovery"
 msgid_plural "%d scenarios with a critical process never tested in recovery"
-msgstr[0] "%d scenariusz z procesem krytycznym nigdy nietestowanym pod kątem odtwarzania"
-msgstr[1] "%d scenariusze z procesem krytycznym nigdy nietestowanym pod kątem odtwarzania"
-msgstr[2] "%d scenariuszy z procesem krytycznym nigdy nietestowanym pod kątem odtwarzania"
+msgstr[0] ""
+"%d scenariusz z procesem krytycznym nigdy nietestowanym pod kątem odtwarzania"
+msgstr[1] ""
+"%d scenariusze z procesem krytycznym nigdy nietestowanym pod kątem "
+"odtwarzania"
+msgstr[2] ""
+"%d scenariuszy z procesem krytycznym nigdy nietestowanym pod kątem "
+"odtwarzania"
 
 msgid "No recovery test recorded for this process"
 msgstr "Brak zarejestrowanego testu odtwarzania dla tego procesu"
@@ -27560,17 +27565,28 @@ msgstr[0] "%d czas odtwarzania zmierzony podczas ćwiczenia"
 msgstr[1] "%d czasy odtwarzania zmierzone podczas ćwiczenia"
 msgstr[2] "%d czasów odtwarzania zmierzonych podczas ćwiczenia"
 
-msgid "Contacts marked for a security incident or a personal data breach, visible from the entity of the scenario."
-msgstr "Kontakty oznaczone dla incydentu bezpieczeństwa lub naruszenia ochrony danych osobowych, widoczne z jednostki scenariusza."
+msgid ""
+"Contacts marked for a security incident or a personal data breach, visible "
+"from the entity of the scenario."
+msgstr ""
+"Kontakty oznaczone dla incydentu bezpieczeństwa lub naruszenia ochrony "
+"danych osobowych, widoczne z jednostki scenariusza."
 
-msgid "Contacts marked for a security incident, visible from the entity of the scenario."
-msgstr "Kontakty oznaczone dla incydentu bezpieczeństwa, widoczne z jednostki scenariusza."
+msgid ""
+"Contacts marked for a security incident, visible from the entity of the "
+"scenario."
+msgstr ""
+"Kontakty oznaczone dla incydentu bezpieczeństwa, widoczne z jednostki "
+"scenariusza."
 
 msgid "Crisis exercises and review"
 msgstr "Ćwiczenia kryzysowe i podsumowanie"
 
-msgid "Evaluate the objectives and validate the review in the crisis room, tab \"Review\"."
-msgstr "Oceń cele i zatwierdź podsumowanie w sali kryzysowej, karta „Podsumowanie”."
+msgid ""
+"Evaluate the objectives and validate the review in the crisis room, tab "
+"\"Review\"."
+msgstr ""
+"Oceń cele i zatwierdź podsumowanie w sali kryzysowej, karta „Podsumowanie”."
 
 msgid "Exercise of the plugin: %s"
 msgstr "Ćwiczenie wtyczki: %s"
@@ -27579,10 +27595,20 @@ msgid "Exercise outside the plugin on %s (report in the Documents tab)."
 msgstr "Ćwiczenie poza wtyczką w dniu %s (sprawozdanie w karcie Dokumenty)."
 
 msgid "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
-msgstr "Ustalenia: %1$d, działania doskonalące: %2$d (%3$d zakończone, %4$d opóźnione)"
+msgstr ""
+"Ustalenia: %1$d, działania doskonalące: %2$d (%3$d zakończone, %4$d "
+"opóźnione)"
 
-msgid "It gathers what shows that this scenario is ready: the crisis exercises that tested it and the review of the last one, the recovery tests of the impacted processes, the crisis messages to send and the authorities to inform. Nothing is copied: each line opens the original record."
-msgstr "Zbiera to, co pokazuje, że scenariusz jest gotowy: ćwiczenia kryzysowe, które go sprawdziły, i podsumowanie ostatniego, testy odtwarzania procesów, których dotyczy, komunikaty kryzysowe do wysłania i organy do powiadomienia. Nic nie jest kopiowane: każdy wiersz otwiera oryginalny rekord."
+msgid ""
+"It gathers what shows that this scenario is ready: the crisis exercises that "
+"tested it and the review of the last one, the recovery tests of the impacted "
+"processes, the crisis messages to send and the authorities to inform. "
+"Nothing is copied: each line opens the original record."
+msgstr ""
+"Zbiera to, co pokazuje, że scenariusz jest gotowy: ćwiczenia kryzysowe, "
+"które go sprawdziły, i podsumowanie ostatniego, testy odtwarzania procesów, "
+"których dotyczy, komunikaty kryzysowe do wysłania i organy do powiadomienia. "
+"Nic nie jest kopiowane: każdy wiersz otwiera oryginalny rekord."
 
 msgid "Last exercise ended on %s"
 msgstr "Ostatnie ćwiczenie zakończone %s"
@@ -27593,11 +27619,19 @@ msgstr "Uruchom to ćwiczenie"
 msgid "No active message template for the situation \"%s\"."
 msgstr "Brak aktywnego szablonu wiadomości dla sytuacji „%s”."
 
-msgid "No communication situation is chosen for this scenario: choose one in the main tab, field \"Crisis communication\"."
-msgstr "Dla tego scenariusza nie wybrano sytuacji komunikacyjnej: wybierz ją w karcie głównej, pole „Komunikacja kryzysowa”."
+msgid ""
+"No communication situation is chosen for this scenario: choose one in the "
+"main tab, field \"Crisis communication\"."
+msgstr ""
+"Dla tego scenariusza nie wybrano sytuacji komunikacyjnej: wybierz ją w "
+"karcie głównej, pole „Komunikacja kryzysowa”."
 
-msgid "No crisis exercise is chosen for this scenario: choose one in the main tab, field \"Crisis exercise\"."
-msgstr "Dla tego scenariusza nie wybrano ćwiczenia kryzysowego: wybierz je w karcie głównej, pole „Ćwiczenie kryzysowe”."
+msgid ""
+"No crisis exercise is chosen for this scenario: choose one in the main tab, "
+"field \"Crisis exercise\"."
+msgstr ""
+"Dla tego scenariusza nie wybrano ćwiczenia kryzysowego: wybierz je w karcie "
+"głównej, pole „Ćwiczenie kryzysowe”."
 
 msgid "No distribution list"
 msgstr "Brak listy dystrybucyjnej"
@@ -27605,8 +27639,11 @@ msgstr "Brak listy dystrybucyjnej"
 msgid "No impacted process yet: choose them in the main tab."
 msgstr "Brak jeszcze procesów, których dotyczy: wybierz je w karcie głównej."
 
-msgid "Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not evaluated"
-msgstr "Cele: %1$d osiągnięte, %2$d częściowo, %3$d nieosiągnięte, %4$d nieocenione"
+msgid ""
+"Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not "
+"evaluated"
+msgstr ""
+"Cele: %1$d osiągnięte, %2$d częściowo, %3$d nieosiągnięte, %4$d nieocenione"
 
 msgid "Opens the crisis room with a fictitious incident of this exercise."
 msgstr "Otwiera salę kryzysową z fikcyjnym incydentem tego ćwiczenia."
@@ -27614,8 +27651,12 @@ msgstr "Otwiera salę kryzysową z fikcyjnym incydentem tego ćwiczenia."
 msgid "Previous exercises"
 msgstr "Poprzednie ćwiczenia"
 
-msgid "Recovery tests are recorded in the tab \"Recovery strategy\" of each process, or in the crisis room during an exercise."
-msgstr "Testy odtwarzania rejestruje się w karcie „Strategia odtwarzania” każdego procesu lub w sali kryzysowej podczas ćwiczenia."
+msgid ""
+"Recovery tests are recorded in the tab \"Recovery strategy\" of each "
+"process, or in the crisis room during an exercise."
+msgstr ""
+"Testy odtwarzania rejestruje się w karcie „Strategia odtwarzania” każdego "
+"procesu lub w sali kryzysowej podczas ćwiczenia."
 
 msgid "Recovery tests of the impacted processes"
 msgstr "Testy odtwarzania procesów, których dotyczy"
@@ -27627,22 +27668,491 @@ msgid "Situation: %s"
 msgstr "Sytuacja: %s"
 
 msgid "Situation: %s. The message templates are visible only with their right."
-msgstr "Sytuacja: %s. Szablony wiadomości są widoczne tylko z odpowiednim uprawnieniem."
+msgstr ""
+"Sytuacja: %s. Szablony wiadomości są widoczne tylko z odpowiednim "
+"uprawnieniem."
 
-msgid "The business processes are visible only with the right of the business continuity."
-msgstr "Procesy biznesowe są widoczne tylko z uprawnieniem ciągłości działania."
+msgid ""
+"The business processes are visible only with the right of the business "
+"continuity."
+msgstr ""
+"Procesy biznesowe są widoczne tylko z uprawnieniem ciągłości działania."
 
-msgid "The crisis exercises are visible only with the right to read the security incidents."
-msgstr "Ćwiczenia kryzysowe są widoczne tylko z uprawnieniem do odczytu incydentów bezpieczeństwa."
+msgid ""
+"The crisis exercises are visible only with the right to read the security "
+"incidents."
+msgstr ""
+"Ćwiczenia kryzysowe są widoczne tylko z uprawnieniem do odczytu incydentów "
+"bezpieczeństwa."
 
-msgid "The official contacts are visible only with the right of the context of the organisation."
-msgstr "Oficjalne kontakty są widoczne tylko z uprawnieniem kontekstu organizacji."
+msgid ""
+"The official contacts are visible only with the right of the context of the "
+"organisation."
+msgstr ""
+"Oficjalne kontakty są widoczne tylko z uprawnieniem kontekstu organizacji."
 
 msgid "This exercise has never been run to the end in the crisis room."
-msgstr "To ćwiczenie nigdy nie zostało przeprowadzone do końca w sali kryzysowej."
+msgstr ""
+"To ćwiczenie nigdy nie zostało przeprowadzone do końca w sali kryzysowej."
 
 msgid "Physical security of the site: %s"
 msgstr "Bezpieczeństwo fizyczne lokalizacji: %s"
 
-msgid "Checklist, findings, actions and zones of this assessment, for the auditor."
-msgstr "Lista kontrolna, ustalenia, działania i strefy tej oceny, dla audytora."
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Lista kontrolna, ustalenia, działania i strefy tej oceny, dla audytora."
+
+msgid "Child licenses counted once"
+msgstr "Licencje podrzędne liczone raz"
+
+msgid ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+msgstr ""
+"Licencje podrzędne dzielą stanowiska licencji nadrzędnej: każda rodzina jest "
+"liczona raz."
+
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
+msgstr ""
+"Więcej zasobów ma oprogramowanie, niż pozwalają ważne licencje. Licencja "
+"nieograniczona (liczba 0 lub mniejsza) obejmuje wszystko. Licencja nadrzędna "
+"i jej licencje podrzędne liczą się jako większa z wartości: liczba licencji "
+"nadrzędnej lub suma licencji podrzędnych."
+
+msgid "Evidence pack settings saved."
+msgstr "Zapisano ustawienia pakietu dowodów."
+
+msgid "Evidence pack generated and archived. Download it from the list below."
+msgstr ""
+"Pakiet dowodów został wygenerowany i zarchiwizowany. Pobierz go z listy "
+"poniżej."
+
+msgid "Evidence pack"
+msgid_plural "Evidence packs"
+msgstr[0] "Pakiet dowodów"
+msgstr[1] "Pakiety dowodów"
+msgstr[2] "Pakietów dowodów"
+
+msgid "Annex A controls (Statement of Applicability)"
+msgstr "Zabezpieczenia z załącznika A (Deklaracja stosowania)"
+
+msgid "Approved versions of the Statement of Applicability"
+msgstr "Zatwierdzone wersje Deklaracji stosowania"
+
+msgid "Approved policy versions"
+msgstr "Zatwierdzone wersje polityk"
+
+msgid "Competence records"
+msgstr "Zapisy kompetencji"
+
+msgid "Audit reports and audit evidence"
+msgstr "Raporty i dowody z audytów"
+
+msgid "Management review files"
+msgstr "Materiały przeglądów zarządzania"
+
+msgid "Access review reports"
+msgstr "Raporty z przeglądów dostępu"
+
+msgid "Reports archived by the plugin"
+msgstr "Raporty zarchiwizowane przez wtyczkę"
+
+msgid "Expired, not included"
+msgstr "Wygasły, nie dołączono"
+
+msgid "No file"
+msgstr "Brak pliku"
+
+msgid "Size limit reached, not included"
+msgstr "Osiągnięto limit rozmiaru, nie dołączono"
+
+msgid "This perimeter is not among your active entities."
+msgstr "Ten zakres nie należy do Twoich aktywnych jednostek."
+
+msgid "The PHP zip extension is missing on the server."
+msgstr "Na serwerze brakuje rozszerzenia PHP zip."
+
+msgid "The archive could not be created."
+msgstr "Nie udało się utworzyć archiwum."
+
+#, php-format
+msgid "Evidence pack - %1$s (%2$s)"
+msgstr "Pakiet dowodów - %1$s (%2$s)"
+
+msgid "The archive could not be stored as a document."
+msgstr "Nie udało się zapisać archiwum jako dokumentu."
+
+msgid ""
+"Prepare the evidence pack the auditor asks for: one ZIP archive per "
+"perimeter, with the evidence of each control and each requirement, the "
+"reports already archived and a PDF index that lists them with their date and "
+"SHA-256 fingerprint."
+msgstr ""
+"Przygotuj pakiet dowodów, o który prosi audytor: jedno archiwum ZIP na "
+"zakres, z dowodami każdego zabezpieczenia i każdego wymagania, raportami już "
+"zarchiwizowanymi i indeksem PDF, który wymienia je z datą i odciskiem "
+"SHA-256."
+
+msgid ""
+"Choose the perimeter and check its contents: renew expired evidence and "
+"attach what is missing first. Then generate the pack and download it from "
+"the list. Only what you can read is included; expired evidence is listed in "
+"the index, not included. Nothing is changed in the registers."
+msgstr ""
+"Wybierz zakres i sprawdź jego zawartość: najpierw odnów wygasłe dowody i "
+"dołącz brakujące. Następnie wygeneruj pakiet i pobierz go z listy. Dołączane "
+"jest tylko to, co możesz odczytać; wygasły dowód jest wymieniony w indeksie, "
+"ale nie jest dołączany. W rejestrach nic się nie zmienia."
+
+msgid ""
+"ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
+"(internal audit)"
+msgstr ""
+"ISO/IEC 27001, punkty 7.5.3 (nadzór nad udokumentowanymi informacjami) i 9.2 "
+"(audyt wewnętrzny)"
+
+#, php-format
+msgid "%1$d of %2$d with evidence"
+msgstr "%1$d z %2$d z dowodem"
+
+#, php-format
+msgid "%1$s MB of %2$s MB allowed"
+msgstr "%1$s MB z dozwolonych %2$s MB"
+
+#, php-format
+msgid ""
+"%d applicable control(s) have no evidence you can read: the index shows them "
+"without evidence."
+msgstr ""
+"Zabezpieczenia stosowane bez dowodu, który możesz odczytać: %d. Indeks "
+"pokazuje je bez dowodu."
+
+#, php-format
+msgid "%d file(s)"
+msgstr "Pliki: %d"
+
+#, php-format
+msgid "%d over the size limit"
+msgstr "Powyżej limitu rozmiaru: %d"
+
+msgid "Archived evidence packs"
+msgstr "Zarchiwizowane pakiety dowodów"
+
+msgid "Evidence pack for the auditor"
+msgstr "Pakiet dowodów dla audytora"
+
+msgid ""
+"Expired evidence: listed in the index, not included. Renew it from the "
+"\"Evidence validity\" tab of the control before generating the pack."
+msgstr ""
+"Wygasłe dowody: wymienione w indeksie, nie dołączone. Odnów je na karcie "
+"„Ważność dowodów” zabezpieczenia przed wygenerowaniem pakietu."
+
+msgid ""
+"Files that would exceed this size are listed in the index as not included."
+msgstr ""
+"Pliki, które przekroczyłyby ten rozmiar, są wymienione w indeksie jako "
+"niedołączone."
+
+msgid "Generate the evidence pack"
+msgstr "Wygeneruj pakiet dowodów"
+
+msgid "Maximum size of the archive (MB)"
+msgstr "Maksymalny rozmiar archiwum (MB)"
+
+msgid "No evidence pack generated yet."
+msgstr "Nie wygenerowano jeszcze żadnego pakietu dowodów."
+
+msgid ""
+"One ZIP archive per perimeter: the evidence attached to each Annex A control "
+"and each ISMS requirement, and the reports already archived by the plugin, "
+"with a PDF index listing them control by control, with their date, their "
+"state and their SHA-256 fingerprint."
+msgstr ""
+"Jedno archiwum ZIP na zakres: dowody dołączone do każdego zabezpieczenia z "
+"załącznika A i do każdego wymagania SZBI oraz raporty już zarchiwizowane "
+"przez wtyczkę, z indeksem PDF wymieniającym je zabezpieczenie po "
+"zabezpieczeniu, z datą, stanem i odciskiem SHA-256."
+
+msgid ""
+"Only the documents you can read are included. The archive is kept as a "
+"restricted document: you, and whoever can read every piece it contains, can "
+"download it. Generate a new one at any time."
+msgstr ""
+"Dołączane są tylko dokumenty, które możesz odczytać. Archiwum jest "
+"przechowywane jako dokument o ograniczonym dostępie: możesz je pobrać Ty "
+"oraz każdy, kto może odczytać każdy z jego elementów. Nowe możesz "
+"wygenerować w dowolnej chwili."
+
+msgid "Perimeter (entity)"
+msgstr "Zakres (jednostka)"
+
+msgid "Restricted"
+msgstr "Ograniczony"
+
+msgid "Show the contents"
+msgstr "Pokaż zawartość"
+
+msgid ""
+"You need the right to update the GRC plugin to generate an evidence pack."
+msgstr ""
+"Aby wygenerować pakiet dowodów, potrzebujesz prawa do modyfikacji wtyczki "
+"GRC."
+
+msgid "Files included"
+msgstr "Dołączone pliki"
+
+msgid "No evidence attached"
+msgstr "Brak dołączonego dowodu"
+
+msgid "Not included"
+msgstr "Nie dołączono"
+
+msgid ""
+"This index lists the evidence that the person who generated the pack can "
+"read, in the perimeter entity and its sub-entities. Expired evidence is "
+"listed but not included. Each included file is stored once in the "
+"\"evidence\" folder of the archive; its SHA-256 fingerprint is given here "
+"and in the SHA256SUMS.txt file, to check that nothing was changed."
+msgstr ""
+"Ten indeks wymienia dowody, które osoba generująca pakiet może odczytać, w "
+"jednostce zakresu i jej podjednostkach. Wygasły dowód jest wymieniony, ale "
+"nie jest dołączany. Każdy dołączony plik występuje raz w folderze „evidence” "
+"archiwum; jego odcisk SHA-256 podano tutaj i w pliku SHA256SUMS.txt, aby "
+"można było sprawdzić, że nic nie zostało zmienione."
+
+#, php-format
+msgid "limit %d MB"
+msgstr "limit %d MB"
+
+#, php-format
+msgid "%s MB"
+msgstr "%s MB"
+
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "Zgłoszone luki kompetencyjne: %d."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s: %2$s, oczekiwany poziom %3$s (szkolenie do zaplanowania: %4$s)"
+
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s: %2$s, oczekiwany poziom %3$s (żadne szkolenie jeszcze jej nie "
+"zapewnia: powiąż szkolenie lub zadeklaruj dowód)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Działanie z macierzy odpowiedzialności"
+
+msgid "Competence gaps without planned training"
+msgstr "Luki kompetencyjne bez zaplanowanego szkolenia"
+
+msgid "Follows the responsibility matrix"
+msgstr "Zgodnie z macierzą odpowiedzialności"
+
+msgid "New gaps without planned training"
+msgstr "Nowe luki bez zaplanowanego szkolenia"
+
+msgid "Number of gaps without planned training"
+msgstr "Liczba luk bez zaplanowanego szkolenia"
+
+msgid "Number of new gaps"
+msgstr "Liczba nowych luk"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Inne luki niewymienione tutaj: %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Macierz odpowiedzialności: %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Rola w działaniu"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "To działanie nie jest dostępne w jednostce funkcji."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+"Powiadamia odpowiedzialnego o lukach kompetencyjnych bez zaplanowanego "
+"szkolenia"
+
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+"Opcjonalnie: osoby i grupy pełniące wybraną rolę w tym działaniu pełnią "
+"funkcję i podążają za macierzą, gdy się zmienia."
+
+msgid ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+msgstr ""
+"Wysyłane przez zadanie automatyczne GRC Manager, gdy osoba pełniąca funkcję "
+"w SZBI ma lukę kompetencyjną bez zaplanowanego szkolenia."
+
+msgid ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+msgstr ""
+"Zaplanuj sesję proponowanego szkolenia na stronie „Kompetencje” lub "
+"zadeklaruj dowód, który osoba już posiada. Nic nie jest zmieniane "
+"automatycznie."
+
+msgid "View the competences"
+msgstr "Zobacz kompetencje"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Alert o luce kompetencyjnej"
+msgstr[1] "Alerty o lukach kompetencyjnych"
+msgstr[2] "Alertów o lukach kompetencyjnych"
+
+msgid "Blockers"
+msgstr "Blokady"
+
+msgid "Technical check"
+msgstr "Kontrola techniczna"
+
+msgid "Effectiveness test overdue"
+msgstr "Test skuteczności po terminie"
+
+#, php-format
+msgid "Last test: %s"
+msgstr "Ostatni test: %s"
+
+#, php-format
+msgid "Next test was due on %s"
+msgstr "Następny test był zaplanowany na %s"
+
+#, php-format
+msgid "Tested on %s"
+msgstr "Przetestowano %s"
+
+msgid "Test the control again and record the result."
+msgstr "Przetestuj ponownie zabezpieczenie i zapisz wynik."
+
+msgid "Fix the weakness found by the test, then test the control again."
+msgstr ""
+"Usuń słabość wykrytą w teście, a następnie ponownie przetestuj "
+"zabezpieczenie."
+
+#, php-format
+msgid "Open, due on %s"
+msgstr "Otwarta, termin %s"
+
+msgid "Carry out the corrective action, then close the nonconformity."
+msgstr "Wykonaj działanie korygujące, a następnie zamknij niezgodność."
+
+msgid "Have the policy approved by management."
+msgstr "Uzyskaj zatwierdzenie polityki przez kierownictwo."
+
+#, php-format
+msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
+msgstr "Luki: %1$d z %2$d (%3$d%% zgodności)"
+
+msgid "Fix the items listed by the automated check."
+msgstr "Popraw elementy wskazane przez automatyczną kontrolę."
+
+#, php-format
+msgid "%s coverage"
+msgstr "Pokrycie %s"
+
+#, php-format
+msgid "Computers without an active agent: %1$d out of %2$d"
+msgstr "Komputery bez aktywnego agenta: %1$d z %2$d"
+
+msgid "Install or reactivate the agent on the computers not covered."
+msgstr "Zainstaluj lub ponownie aktywuj agenta na niepokrytych komputerach."
+
+msgid "What blocks this control"
+msgstr "Co blokuje to zabezpieczenie"
+
+msgid ""
+"For each control of the Statement of Applicability, this page lists what "
+"prevents it from being compliant: failing automated check, missing or "
+"expired evidence, policy not approved, effectiveness test overdue or "
+"ineffective, open nonconformity, expired waiver."
+msgstr ""
+"Dla każdego zabezpieczenia deklaracji stosowania ta strona wymienia, co "
+"uniemożliwia jego zgodność: nieudana kontrola automatyczna, brakujący lub "
+"wygasły dowód, niezatwierdzona polityka, zaległy lub nieskuteczny test "
+"skuteczności, otwarta niezgodność, wygasłe odstępstwo."
+
+msgid ""
+"Sort by severity and start with the most blocked controls. Click a control "
+"to see its blockers, then click a blocker to open the screen where it is "
+"fixed. The page is computed again each time and only shows what you are "
+"allowed to read. Nothing is changed automatically."
+msgstr ""
+"Posortuj według wagi i zacznij od najbardziej zablokowanych zabezpieczeń. "
+"Kliknij zabezpieczenie, aby zobaczyć jego blokady, a następnie blokadę, aby "
+"otworzyć ekran, w którym można ją usunąć. Strona jest przeliczana za każdym "
+"razem i pokazuje tylko to, co możesz czytać. Nic nie jest zmieniane "
+"automatycznie."
+
+msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
+msgstr "ISO/IEC 27001:2022, punkt 9.1 i zabezpieczenie A.5.36."
+
+msgid "Fix"
+msgstr "Popraw"
+
+#, php-format
+msgid "%d more"
+msgstr "jeszcze %d"
+
+#, php-format
+msgid "Blocked controls: %1$d out of %2$d"
+msgstr "Zablokowane zabezpieczenia: %1$d z %2$d"
+
+msgid ""
+"No control of the Statement of Applicability is blocked among the checks you "
+"can read."
+msgstr ""
+"Żadne zabezpieczenie deklaracji stosowania nie jest zablokowane w "
+"kontrolach, które możesz czytać."
+
+msgid "Sort"
+msgstr "Sortuj"
+
+msgid "What blocks it"
+msgstr "Co je blokuje"
+
+msgid "All blocked controls"
+msgstr "Wszystkie zablokowane zabezpieczenia"
+
+msgid ""
+"Everything that prevents this control from being compliant, in a single "
+"list: failing automated check, missing or expired evidence, policy not "
+"approved, effectiveness test overdue or ineffective, open nonconformity, "
+"expired waiver. Click a line to open the screen where it is fixed. Only what "
+"you are allowed to read is shown, and nothing is changed automatically."
+msgstr ""
+"Wszystko, co uniemożliwia zgodność tego zabezpieczenia, na jednej liście: "
+"nieudana kontrola automatyczna, brakujący lub wygasły dowód, niezatwierdzona "
+"polityka, zaległy lub nieskuteczny test skuteczności, otwarta niezgodność, "
+"wygasłe odstępstwo. Kliknij wiersz, aby otworzyć ekran, w którym można to "
+"poprawić. Wyświetlane jest tylko to, co możesz czytać, i nic nie jest "
+"zmieniane automatycznie."
+
+msgid "No blocker found among the checks you can read."
+msgstr "Nie znaleziono blokad w kontrolach, które możesz czytać."
+
+msgid "Nothing blocks this control"
+msgstr "Nic nie blokuje tego zabezpieczenia"
+
+msgid "Blocked control"
+msgid_plural "Blocked controls"
+msgstr[0] "Zablokowane zabezpieczenie"
+msgstr[1] "Zablokowane zabezpieczenia"
+msgstr[2] "Zablokowanych zabezpieczeń"

@@ -70,11 +70,13 @@ final class CompetenceTables
             $DB->doQuery("CREATE TABLE `" . self::HOLDERS . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
                 `plugin_grcmanager_ismsfunctions_id` int {$keySign} NOT NULL DEFAULT 0,
-                `itemtype` varchar(100) NOT NULL DEFAULT '' COMMENT 'User, Group ou UserTitle',
+                `itemtype` varchar(100) NOT NULL DEFAULT ''
+                    COMMENT 'User, Group, UserTitle ou activite de la matrice des responsabilites',
                 `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `role` varchar(16) NOT NULL DEFAULT '' COMMENT 'Role tenu dans l activite, vide sinon',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
-                UNIQUE KEY `unicity` (`plugin_grcmanager_ismsfunctions_id`, `itemtype`, `items_id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_ismsfunctions_id`, `itemtype`, `items_id`, `role`),
                 KEY `item` (`itemtype`, `items_id`)
             ) {$suffix}");
         }
@@ -161,6 +163,34 @@ final class CompetenceTables
                 KEY `users_id` (`users_id`)
             ) {$suffix}");
         }
+    }
+
+    /**
+     * Lot 3 : titulaires dérivés d'un rôle de la matrice des responsabilités (#612). Ajoute la colonne
+     * du rôle aux tables créées par les versions précédentes, et l'inclut dans la clé d'unicité
+     * (une même activité peut donner la fonction par deux rôles). Rejouable.
+     */
+    public static function migrate(Migration $migration): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::HOLDERS) || $DB->fieldExists(self::HOLDERS, 'role')) {
+            return;
+        }
+        $migration->addField(self::HOLDERS, 'role', 'string', [
+            'value'   => '',
+            'comment' => 'Role tenu dans l activite, vide sinon',
+            'after'   => 'items_id',
+        ]);
+        $migration->dropKey(self::HOLDERS, 'unicity');
+        $migration->migrationOneTable(self::HOLDERS);
+        $migration->addKey(
+            self::HOLDERS,
+            ['plugin_grcmanager_ismsfunctions_id', 'itemtype', 'items_id', 'role'],
+            'unicity',
+            'UNIQUE'
+        );
+        $migration->migrationOneTable(self::HOLDERS);
     }
 
     public static function uninstall(Migration $migration): void

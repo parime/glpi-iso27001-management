@@ -56,6 +56,22 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #867 : mesures bloquées de la SoA.
+            'controlblocker'   => [
+                'purpose'  => __(
+                    'For each control of the Statement of Applicability, this page lists what prevents it from '
+                        . 'being compliant: failing automated check, missing or expired evidence, policy not approved, '
+                        . 'effectiveness test overdue or ineffective, open nonconformity, expired waiver.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Sort by severity and start with the most blocked controls. Click a control to see its blockers, '
+                        . 'then click a blocker to open the screen where it is fixed. The page is computed again each '
+                        . 'time and only shows what you are allowed to read. Nothing is changed automatically.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001:2022 clause 9.1 and control A.5.36.', 'grcmanager'),
+            ],
             // Issue #614 : contrôles de cohérence du SMSI avant un audit.
             'consistencycheck' => [
                 'purpose'  => __(
@@ -799,6 +815,26 @@ class PageHelp
                 ),
                 'expected' => __(
                     'State how long each piece of evidence is valid; a renewal ticket is opened when it expires.',
+                    'grcmanager'
+                ),
+            ],
+            // Issue #868 : dossier de preuves exportable pour l'auditeur.
+            'evidencepack' => [
+                'purpose'   => __(
+                    'Prepare the evidence pack the auditor asks for: one ZIP archive per perimeter, with the '
+                        . 'evidence of each control and each requirement, the reports already archived and a PDF '
+                        . 'index that lists them with their date and SHA-256 fingerprint.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Choose the perimeter and check its contents: renew expired evidence and attach what is '
+                        . 'missing first. Then generate the pack and download it from the list. Only what you can '
+                        . 'read is included; expired evidence is listed in the index, not included. Nothing is '
+                        . 'changed in the registers.',
+                    'grcmanager'
+                ),
+                'reference' => __(
+                    'ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 (internal audit)',
                     'grcmanager'
                 ),
             ],
