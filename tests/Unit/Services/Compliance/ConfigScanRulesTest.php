@@ -56,11 +56,15 @@ final class ConfigScanRulesTest extends TestCase
 
     public function testLatestPreviousAndTrend(): void
     {
+        $row = static fn (int $id, int $computer, string $host, string $profile, string $date, int $rate): array => [
+            'id' => $id, 'computers_id' => $computer, 'hostname' => $host, 'profile_id' => $profile,
+            'scan_date' => $date, 'rate' => $rate,
+        ];
         $reports = [
-            ['id' => 1, 'computers_id' => 5, 'hostname' => 'a', 'profile_id' => 'p', 'scan_date' => '2026-01-01', 'rate' => 60],
-            ['id' => 2, 'computers_id' => 5, 'hostname' => 'a', 'profile_id' => 'p', 'scan_date' => '2026-02-01', 'rate' => 75],
-            ['id' => 3, 'computers_id' => 0, 'hostname' => 'b', 'profile_id' => 'p', 'scan_date' => '2026-02-01', 'rate' => 90],
-            ['id' => 4, 'computers_id' => 5, 'hostname' => 'a', 'profile_id' => 'q', 'scan_date' => '2026-01-15', 'rate' => 40],
+            $row(1, 5, 'a', 'p', '2026-01-01', 60),
+            $row(2, 5, 'a', 'p', '2026-02-01', 75),
+            $row(3, 0, 'b', 'p', '2026-02-01', 90),
+            $row(4, 5, 'a', 'q', '2026-01-15', 40),
         ];
 
         $this->assertSame([2, 3, 4], array_column(R::latestPerTarget($reports), 'id'));

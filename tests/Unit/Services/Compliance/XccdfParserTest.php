@@ -136,7 +136,8 @@ XML;
 
     public function testMalformedTruncatedOrEmptyFiles(): void
     {
-        $this->assertSame(P::ERROR_INVALID, P::parseString('<Benchmark><TestResult id="t"><target>x</target>')['error']);
+        $truncated = '<Benchmark><TestResult id="t"><target>x</target>';
+        $this->assertSame(P::ERROR_INVALID, P::parseString($truncated)['error']);
         $this->assertSame(P::ERROR_INVALID, P::parseString('not xml at all')['error']);
         $this->assertSame(P::ERROR_NO_RESULT, P::parseString('<Benchmark id="b"/>')['error']);
         $this->assertSame(P::ERROR_UNREADABLE, P::parseString('')['error']);

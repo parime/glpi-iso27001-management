@@ -103,6 +103,11 @@ check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 check "front/diskencryption.php"              "$P/diskencryption.php"
 # Issue #854 : ordinateur piege (correctifs de securite).
 check "front/patchcompliance.php"             "$P/patchcompliance.php"
+# Issue #781 : resultats OpenSCAP pieges (liste, non rapproche, detail, preuve A.8.9).
+check "front/configcompliance.php"            "$P/configcompliance.php"
+check "front/configcompliance.php?report"     "$P/configcompliance.php?report=$(xid configscan)"
+check "front/configcompliance.php?report non rapproche" "$P/configcompliance.php?report=$(xid configscan_unmatched)"
+check "preuve conformite de configuration (A.8.9)" "$P/control.form.php?id=$(xid control_a89)"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).
 check "front/parkvulnerability.php?warranty=all" "$P/parkvulnerability.php?warranty=all"
 # Issue #604 : campagne de simulation d'hameconnage piegee (liste et tendance, fiche, onglet Resultats,

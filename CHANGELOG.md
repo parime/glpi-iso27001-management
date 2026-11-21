@@ -16,6 +16,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   type proposé et visible) ; les autres paramètres sont ignorés, un flux existant n'est jamais
   modifié. Un encadré « Flux proposé » invite à vérifier, à ajouter la justification et le
   propriétaire : rien n'est enregistré avant « Ajouter ». Contrôle XSS sur des paramètres piégés.
+- **Conformité de configuration : import des résultats OpenSCAP** (issue #781, mesure A.8.9).
+  Nouvelle page « Conformité de configuration » dans la rubrique Sécurité technique : import d'un
+  fichier de résultats XCCDF (1.1 ou 1.2) ou ARF produit par `oscap` (profils CIS, ANSSI, DISA
+  STIG…), plusieurs machines par fichier, doublons ignorés. Chaque résultat est rapproché de
+  l'ordinateur GLPI du même nom parmi ceux que la personne voit ; les autres sont listés et
+  rattachables à la main. Taux de règles conformes par ordinateur et par profil, évolution depuis
+  l'analyse précédente, règles en échec par gravité, historique de chaque machine et règles en
+  échec les plus fréquentes du parc. Ticket de remédiation lié à l'ordinateur proposé, créé
+  seulement sur un clic. Preuve sur la mesure A.8.9 (conçue par sources : d'autres, comme la
+  configuration à risque de l'inventaire Docker, s'y ajouteront), indicateur de risque « ordinateurs
+  analysés avec une règle de gravité haute en échec ». Lecture XML durcie : en flux (gros rapports
+  ARF acceptés), déclarations de type de document et d'entités refusées (ni XXE ni expansion),
+  aucun accès réseau, taille et volumes bornés ; le fichier n'est pas conservé. Tests avec fichiers
+  piégés, matrice d'accès et contrôle XSS.
 
 ## [2.73.0] - 2026-11-21
 
