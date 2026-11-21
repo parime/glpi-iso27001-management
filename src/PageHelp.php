@@ -818,6 +818,26 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #868 : dossier de preuves exportable pour l'auditeur.
+            'evidencepack' => [
+                'purpose'   => __(
+                    'Prepare the evidence pack the auditor asks for: one ZIP archive per perimeter, with the '
+                        . 'evidence of each control and each requirement, the reports already archived and a PDF '
+                        . 'index that lists them with their date and SHA-256 fingerprint.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Choose the perimeter and check its contents: renew expired evidence and attach what is '
+                        . 'missing first. Then generate the pack and download it from the list. Only what you can '
+                        . 'read is included; expired evidence is listed in the index, not included. Nothing is '
+                        . 'changed in the registers.',
+                    'grcmanager'
+                ),
+                'reference' => __(
+                    'ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 (internal audit)',
+                    'grcmanager'
+                ),
+            ],
             'controltest' => [
                 'purpose'   => __(
                     'The effectiveness tests of the Annex A controls: a control in place is checked to really work, '

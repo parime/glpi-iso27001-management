@@ -70,6 +70,22 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Lecture seule des données de GLPI, entités de la session ; nouvelle table des déclarations,
     supprimée à la désinstallation. Traductions (7 langues et variantes), tests unitaires et
     d'intégration, matrice d'accès et contrôle XSS.
+- **Dossier de preuves exportable pour l'auditeur** (issue #868, clauses 7.5.3 et 9.2). Nouvelle
+  page **Conformité > Dossier de preuves** : choix du périmètre (entité), aperçu du contenu, puis
+  génération d'une archive ZIP qui contient :
+  - les preuves rattachées à chaque mesure de la SoA du périmètre et à chaque sous-article du SMSI
+    (clauses 4 à 10), et les rapports déjà archivés par le plugin (versions approuvées de la SoA et
+    des politiques, matrice des responsabilités, compétences, audits, revues de direction, revues
+    des accès) ;
+  - un **index PDF** mesure par mesure et sous-article par sous-article : chaque preuve avec sa date,
+    son état et son **empreinte SHA-256**, et un fichier `SHA256SUMS.txt` ;
+  - seules les pièces que la personne peut lire sont incluses (droits de GLPI, documents
+    restreints) ; une **preuve expirée** est signalée dans l'index sans être incluse ; une pièce qui
+    ferait dépasser la **limite de taille réglable** (200 Mo par défaut) est signalée aussi ;
+  - l'archive est construite en flux sur un fichier temporaire, puis **archivée comme document
+    restreint** : lisible par son auteur et par qui peut lire chacune de ses pièces ;
+    régénérable à tout moment, avec l'historique des dossiers et leur empreinte. Rien n'est modifié
+    dans les registres.
 - **Ce qui bloque chaque mesure de la SoA** (issue #867, article 9.1 et mesure A.5.36). Une seule
   liste de tout ce qui empêche une mesure d'être conforme, chaque ligne avec un lien vers l'écran à
   corriger et la marche à suivre :
