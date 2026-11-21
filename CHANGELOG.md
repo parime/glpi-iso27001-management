@@ -9,6 +9,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Couverture de la journalisation** (issue #853, mesures A.8.15, A.8.16 et A.8.17). Nouvelle page
+  « Couverture de la journalisation » dans la rubrique Sécurité technique, en lecture seule : hôtes
+  émetteurs lus dans le plugin Wazuh quand il est actif (agents actifs), ou importés par CSV depuis
+  Splunk, Graylog, Elastic / OpenSearch, un serveur syslog ou Wazuh (nom, adresse, dernier
+  événement ; jamais le contenu d'un journal). Rapprochement avec les ordinateurs et matériels réseau
+  (nom, nom court sans domaine, adresse IP) : actifs concernés qui n'envoient rien, ou plus rien
+  depuis N jours (réglable, 7 par défaut), hôtes émetteurs inconnus de GLPI. Actifs concernés
+  réglables : actifs critiques (classification C/I/D élevée ou publiés sur Internet), serveurs et
+  matériels réseau (par défaut), ou tous. Conservation et serveur de temps déclarés par plateforme,
+  comparés à la politique (180 jours par défaut) et à l'obligation choisie dans le registre des
+  obligations. Preuve sur les fiches des mesures A.8.15, A.8.16 et A.8.17, source d'indicateur de
+  risque « Actifs critiques sans journalisation (%) ». Deux nouvelles tables, créées à
+  l'installation et à la mise à jour si absentes (rejouable), supprimées à la désinstallation.
+  Matrice d'accès et contrôle XSS étendus.
 - **Maturité par mesure : niveau actuel, niveau cible et écarts** (issue #603, articles 6.2, 9.3 et
   10.1). Nouvelle sous-page « Maturité par mesure » de la rubrique Tableau de bord : une campagne
   datée évalue chaque mesure applicable de la SoA de l'entité de 0 (inexistant) à 5 (optimisé), avec

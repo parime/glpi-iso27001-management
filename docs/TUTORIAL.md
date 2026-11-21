@@ -1175,6 +1175,38 @@ ni le score de maturité.
    écarts triés et comparaison avec la campagne précédente.
 6. Les libellés de l'échelle se renomment dans la configuration du plugin, cadre
    **Échelle de maturité par mesure** (un champ vide garde le libellé par défaut, traduit).
+### Étape 38 : Vérifier que les actifs importants envoient leurs journaux (mesures A.8.15, A.8.16 et A.8.17)
+
+Le plugin compare la liste des hôtes connus de vos plateformes de journaux aux ordinateurs et
+matériels réseau de GLPI. Il lit seulement : il ne lance rien sur les plateformes et ne modifie rien
+dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateurs.
+
+1. Ouvrez Sécurité technique > **Couverture de la journalisation**. L'encadré « À quoi sert cette
+   page ? » rappelle ce qui est attendu.
+2. Dans **Quels actifs doivent envoyer leurs journaux ?**, choisissez les actifs concernés (par
+   défaut les actifs critiques, les serveurs et les matériels réseau), le nombre de jours sans
+   événement au-delà duquel les journaux sont dits interrompus (7 par défaut) et la conservation
+   exigée par votre politique (180 jours par défaut). Un actif est critique quand un axe de sa
+   classification C/I/D est élevé ou qu'un flux réseau le publie sur Internet.
+3. Dans **Sources de journaux**, importez la liste des hôtes de chaque plateforme : par exemple, dans
+   Splunk, la recherche `| metadata type=hosts index=*` exportée en CSV (colonnes `host`,
+   `lastTime`) ; dans Graylog, Elastic ou OpenSearch, un tableau des sources avec leur dernier
+   horodatage. Quand le plugin Wazuh est actif, ses agents actifs sont lus directement. Un nouvel
+   import de la même plateforme remplace le précédent. Seuls le nom, l'adresse et la date du dernier
+   événement sont gardés.
+4. Dans **Conservation et synchronisation des horloges**, déclarez pour chaque plateforme la durée
+   de conservation, l'obligation du registre qui impose une durée (et laquelle), et le serveur de
+   temps. La conservation exigée est la plus longue entre la politique et l'obligation ; un badge
+   signale une conservation trop courte ou non déclarée.
+5. La liste **Actifs qui doivent envoyer leurs journaux** commence par ceux qui n'envoient rien,
+   puis ceux dont les journaux sont interrompus, les actifs critiques d'abord. Les hôtes qui envoient
+   des journaux mais que GLPI ne connaît pas sont listés à part : vérifiez leur nom ou ajoutez-les à
+   l'inventaire.
+6. Sur la fiche des mesures A.8.15, A.8.16 et A.8.17, le cadre « Couverture de la journalisation »
+   montre le taux, les actifs critiques sans journalisation, les plateformes à la conservation
+   insuffisante et la date du calcul. Les indicateurs de risque proposent la source « Actifs
+   critiques sans journalisation (%) ».
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -2316,3 +2348,31 @@ optional: they change neither the implementation status of the controls nor the 
    gaps and comparison with the previous campaign.
 6. The labels of the scale are renamed in the plugin configuration, box **Maturity scale by
    control** (an empty field keeps the default label, translated).
+### Step 39: Check that important assets send their logs (controls A.8.15, A.8.16 and A.8.17)
+
+The plugin compares the list of hosts known to your log platforms with the computers and network
+devices of GLPI. It only reads: it runs nothing on the platforms and changes nothing in GLPI. You
+need the plugin right and the native right to read computers.
+
+1. Open Technical security > **Logging coverage**. The "What is this page for?" box recalls what is
+   expected.
+2. In **Which assets must send their logs?**, choose the assets concerned (by default critical
+   assets, servers and network devices), the number of days without event after which the logs are
+   considered stopped (7 by default) and the retention required by your policy (180 days by
+   default). An asset is critical when one axis of its C/I/A classification is high or when a
+   network flow publishes it on the Internet.
+3. In **Log sources**, import the list of hosts of each platform: for example, in Splunk, the search
+   `| metadata type=hosts index=*` exported as CSV (columns `host`, `lastTime`); in Graylog, Elastic
+   or OpenSearch, a table of the sources with their last timestamp. When the Wazuh plugin is active,
+   its active agents are read directly. A new import of the same platform replaces the previous one.
+   Only the name, the address and the date of the last event are kept.
+4. In **Retention and clock synchronization**, declare for each platform the retention, the
+   obligation of the register that imposes a retention (and how long), and the time server. The
+   retention required is the longest between the policy and the obligation; a badge flags a
+   retention too short or not declared.
+5. The list **Assets that must send their logs** starts with those that send nothing, then those
+   whose logs stopped, critical assets first. Hosts that send logs but that GLPI does not know are
+   listed apart: check their name or add them to the inventory.
+6. On controls A.8.15, A.8.16 and A.8.17, the "Logging coverage" box shows the rate, the critical
+   assets without logging, the platforms whose retention is not enough and the date of the
+   computation. Risk indicators offer the source "Critical assets without logging (%)".
