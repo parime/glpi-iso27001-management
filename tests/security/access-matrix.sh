@@ -29,6 +29,16 @@ contains() { # libelle, texte, attendu (oui|non), contenu
 tab() { # itemtype, onglet, id
   body "$BASE/ajax/common.tabs.php?_target=/plugins/grcmanager/front/x.php&_itemtype=$1&_glpi_tab=$2&id=$3"
 }
+readable() { # pages consultables (comme $READABLE) : refusees sans droit, ouvertes au lecteur et au super-admin
+  local p
+  for p in "$@"; do
+    case $ROLE in
+      none)   expect "$p : sans droit" 403 "$(code "$BASE/plugins/grcmanager/$p")" ;;
+      reader) expect "$p : en lecture" 200 "$(code "$BASE/plugins/grcmanager/$p")" ;;
+      admin)  expect "$p : super-admin" 200 "$(code "$BASE/plugins/grcmanager/$p")" ;;
+    esac
+  done
+}
 # Issue #380 : preuve envoyee depuis le formulaire d'un test (vrai PDF, et faux PDF contenant du PHP).
 EVIDENCE_PDF=$(mktemp); FAKE_PDF=$(mktemp)
 trap 'rm -f "$EVIDENCE_PDF" "$FAKE_PDF"' EXIT
@@ -129,7 +139,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/endoflife.export.php front/hardwarewarranty.export.php
   front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
   front/diskencryption.php front/mfacoverage.php front/patchcompliance.php front/logcoverage.php
-  front/configcompliance.php front/zabbixmonitoring.php
+  front/configcompliance.php front/adsecurityaudit.php
+  front/zabbixmonitoring.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
@@ -511,7 +522,7 @@ if [ "$ROLE" = general ]; then
            front/networkflow.php front/networkflow.report.php front/networkflow.matrix.php front/parkvulnerability.php \
            front/endoflife.export.php front/hardwarewarranty.export.php \
            front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php \
-           front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
+           front/impactanalysis.php front/causalgraph.php front/breachexposure.php front/adsecurityaudit.php \
            front/riskappetite.php front/riskindicator.php \
            front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php \
            front/recoveryprogramme.php \
@@ -610,21 +621,6 @@ if [ "$ROLE" = reader ]; then
     "$(body "$P/softwarelicensecompliance.php")"
   contains "export des licences logicielles : echeance de B absente" "Licence echeance securite B" non \
     "$(body "$P/softwarelicensecompliance.export.php")"
-  # Issue #836 : supervision Zabbix, hote et probleme lus de l'entite A seulement ; connexion,
-  # lecture et effacement en lecture seule.
-  contains "supervision Zabbix : hote de A" "Hote Zabbix securite A" oui "$(body "$P/zabbixmonitoring.php")"
-  contains "supervision Zabbix : probleme de A" "Probleme Zabbix securite A" oui "$(body "$P/zabbixmonitoring.php")"
-  contains "supervision Zabbix : rien de B" "Zabbix securite B" non "$(body "$P/zabbixmonitoring.php")"
-  expect "front/zabbixmonitoring.php : connexion en lecture seule" 403     "$(code -d "save_zabbix=1&zabbix_url=https://zabbix.example.test&_glpi_csrf_token=$(csrf)" "$P/zabbixmonitoring.php")"
-  expect "front/zabbixmonitoring.php : lecture en lecture seule" 403     "$(code -d "read_zabbix=1&_glpi_csrf_token=$(csrf)" "$P/zabbixmonitoring.php")"
-  expect "front/zabbixmonitoring.php : effacement en lecture seule" 403     "$(code -d "clear_zabbix=1&_glpi_csrf_token=$(csrf)" "$P/zabbixmonitoring.php")"
-  # Issue #852 : couverture MFA, comptes importes de l'entite A seulement ; import en lecture seule.
-  contains "couverture MFA : compte importe de A" "Compte MFA securite A" oui "$(body "$P/mfacoverage.php")"
-  contains "couverture MFA : rien de B" "Compte MFA securite B" non "$(body "$P/mfacoverage.php")"
-  expect "front/mfacoverage.php : effacer un import en lecture seule" 403 \
-    "$(code -d "clear_mfa=1&provider=okta&_glpi_csrf_token=$(csrf)" "$P/mfacoverage.php")"
-  expect "front/mfacoverage.php : groupes d'acces distant en lecture seule" 403 \
-    "$(code -d "save_mfa_remote=1&_glpi_csrf_token=$(csrf)" "$P/mfacoverage.php")"
   # Issue #847 : chiffrement des disques de l'entite A seulement ; regle et cles en lecture seule.
   contains "chiffrement des disques : ordinateur de A" "PC securite A" oui "$(body "$P/diskencryption.php")"
   contains "chiffrement des disques : rien de B" "PC securite B" non "$(body "$P/diskencryption.php")"
@@ -1599,6 +1595,16 @@ if [ "$ROLE" != admin ]; then
   expect "creer une formation dans l'entite B" 403 \
     "$(code -d "add=1&title=Formation%20creee%20securite&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/training.form.php")"
 fi
+
+# Fragments : une fonctionnalite ajoute ses controles dans un NOUVEAU fichier
+# tests/security/access-matrix.d/<issue>-<sujet>.sh (voir docs/ARCHITECTURE.md, « Ajouter une fonctionnalite
+# sans conflit ») au lieu d'allonger ce script. Charges ici dans l'ordre des noms, avec les memes
+# fonctions et variables (ROLE, P, id, code, body, csrf, expect, contains, tab, readable, SEE_B, DENY).
+for fragment in "$(dirname "${BASH_SOURCE[0]}")"/access-matrix.d/*.sh; do
+  [ -e "$fragment" ] || continue
+  # shellcheck source=/dev/null
+  . "$fragment"
+done
 
 rm -f "$JAR"
 exit $FAIL

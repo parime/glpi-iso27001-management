@@ -1420,9 +1420,9 @@ msgstr ""
 "zum Abgleich."
 
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
 "Eine CPE-Kennung, wie sie von der NVD für dieses Produkt gemeldet wird (z. "
 "B. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Mehrere Kennungen können auf "
@@ -3203,8 +3203,8 @@ msgstr ""
 msgid ""
 "Public website;publication;Internet;Web server;tcp;443;Company website;;"
 msgstr ""
-"Öffentliche "
-"Website;publication;Internet;Webserver;tcp;443;Unternehmenswebsite;;"
+"Öffentliche Website;publication;Internet;Webserver;tcp;443;"
+"Unternehmenswebsite;;"
 
 msgid "Backup;backup;Main site;Recovery site;tcp;10000;Nightly replication;;"
 msgstr ""
@@ -3498,8 +3498,8 @@ msgstr "Geprüfte Versionen pro Durchlauf"
 
 msgid "Pick a suggestion or enter a valid CPE 2.3 (cpe:2.3:a:vendor:product)."
 msgstr ""
-"Wählen Sie einen Vorschlag oder geben Sie eine gültige CPE 2.3 ein "
-"(cpe:2.3:a:hersteller:produkt)."
+"Wählen Sie einen Vorschlag oder geben Sie eine gültige CPE 2.3 ein (cpe:2.3:"
+"a:hersteller:produkt)."
 
 #, php-format
 msgid "\"%s\" is now watched."
@@ -8427,11 +8427,11 @@ msgstr ""
 "Referenz-Fingerabdruck oben:"
 
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
-"Nützliche Beweisformate (in den GLPI-Dokumenttypen zu "
-"erlauben): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Nützliche Beweisformate (in den GLPI-Dokumenttypen zu erlauben): .log, ."
+"evtx, .json, .pcap, .eml, .csv, .zip."
 
 #, php-format
 msgid "%d evidence(s) checked: all intact."
@@ -9500,8 +9500,8 @@ msgid ""
 "The risk appetite and tolerance set by management for each risk category, "
 "and the open risks that exceed them."
 msgstr ""
-"Die von der Leitung je Kategorie festgelegte Risikobereitschaft und "
-"-toleranz sowie die offenen Risiken, die sie überschreiten."
+"Die von der Leitung je Kategorie festgelegte Risikobereitschaft und -"
+"toleranz sowie die offenen Risiken, die sie überschreiten."
 
 msgid ""
 "Have management approve the levels; then give each risk above the appetite a "
@@ -15153,8 +15153,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 "Eine CSV-Datei pro Meldebogen der Durchführungsverordnung, mit den "
 "offiziellen Spaltencodes (c0010...), wie in einem xBRL-CSV-Meldepaket. "
@@ -17407,8 +17407,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 msgstr ""
 "GLPI lehnt interne Adressen für dieses Plugin ebenfalls ab: Fügen Sie %s der "
 "Konstante GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS hinzu "
@@ -18469,8 +18469,8 @@ msgstr "Einstellungen und Zuordnungen"
 
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
 msgstr ""
 "Nicht aktiviert: Das Plugin kann anzeigen, welche Software, Betriebssysteme "
 "und Firmwares keine Sicherheitsupdates mehr erhalten, laut der öffentlichen "
@@ -18571,12 +18571,11 @@ msgid ""
 "changed in the inventory, and no ticket is created."
 msgstr ""
 "Zeigt, welche installierte Software, Betriebssysteme und Firmwares keine "
-"Sicherheitsupdates mehr erhalten, laut der öffentlichen Website "
-"endoflife.date (ISO 27001 A.8.8 und A.8.9). Einmal täglich liest das Plugin "
-"die Supportende-Daten der im Inventar gefundenen Produkte; nur der "
-"Produktname wird gesendet (zum Beispiel „debian\"), nie der Name eines "
-"Computers oder einer Entität. Im Inventar wird nichts geändert und kein "
-"Ticket erstellt."
+"Sicherheitsupdates mehr erhalten, laut der öffentlichen Website endoflife."
+"date (ISO 27001 A.8.8 und A.8.9). Einmal täglich liest das Plugin die "
+"Supportende-Daten der im Inventar gefundenen Produkte; nur der Produktname "
+"wird gesendet (zum Beispiel „debian\"), nie der Name eines Computers oder "
+"einer Entität. Im Inventar wird nichts geändert und kein Ticket erstellt."
 
 msgid "Read the end of support dates on endoflife.date"
 msgstr "Supportende-Daten auf endoflife.date lesen"
@@ -18613,8 +18612,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 "Bekannte Namen werden automatisch zugeordnet (zum Beispiel „Debian GNU/"
 "Linux\" oder „Mozilla Firefox\"). Fügen Sie für jeden anderen Namen eine "
@@ -21073,9 +21072,9 @@ msgid "Justification of a different result"
 msgstr "Begründung eines abweichenden Ergebnisses"
 
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of "
-"\"seed:identifier\"; the first items of this ranking form the sample. The "
-"same population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
+"identifier\"; the first items of this ranking form the sample. The same "
+"population and the same seed always give the same sample."
 msgstr ""
 "Jedes Element der Grundgesamtheit wird nach dem SHA-256-Fingerabdruck von "
 "„Startwert:Kennung“ geordnet; die ersten Elemente dieser Reihenfolge bilden "
@@ -30237,8 +30236,8 @@ msgstr ""
 
 msgid ""
 "Users > User roles: create a role of type User with API access limited to "
-"the methods host.get, problem.get, event.get, service.get, sla.get and "
-"sla.getsli."
+"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
+"getsli."
 msgstr ""
 "Benutzer > Benutzerrollen: Erstellen Sie eine Rolle vom Typ Benutzer, deren "
 "API-Zugriff auf die Methoden host.get, problem.get, event.get, service.get, "
@@ -31069,3 +31068,349 @@ msgstr ""
 
 msgid "Update the suggestions"
 msgstr "Vorschläge aktualisieren"
+
+#, php-format
+msgid "Report imported: %d rule(s) triggered."
+msgstr "Bericht importiert: %d ausgelöste Regel(n)."
+
+msgid ""
+"The report contains passwords or secrets (for example in group policies): "
+"they were not kept, and are removed from the archived copy. Change them as "
+"soon as possible."
+msgstr ""
+"Der Bericht enthält Passwörter oder Geheimnisse (zum Beispiel in "
+"Gruppenrichtlinien): Sie wurden nicht übernommen und aus der archivierten "
+"Kopie entfernt. Ändern Sie sie so schnell wie möglich."
+
+msgid ""
+"The report could not be archived as a document (XML files may not be allowed "
+"in the document types of GLPI)."
+msgstr ""
+"Der Bericht konnte nicht als Dokument archiviert werden (XML-Dateien sind in "
+"den Dokumenttypen von GLPI möglicherweise nicht erlaubt)."
+
+#, php-format
+msgid "Only the first %d rules were read."
+msgstr "Nur die ersten %d Regeln wurden gelesen."
+
+#, php-format
+msgid "Ticket %d created."
+msgstr "Ticket %d erstellt."
+
+msgid "Active Directory security score (PingCastle, 0 is best)"
+msgstr "Sicherheitswert des Active Directory (PingCastle, 0 ist am besten)"
+
+msgid "Active Directory security audit"
+msgstr "Sicherheitsaudit des Active Directory"
+
+msgid "Stale objects"
+msgstr "Veraltete Objekte"
+
+msgid "Privileged accounts"
+msgstr "Privilegierte Konten"
+
+msgid "Trust relationships"
+msgstr "Vertrauensstellungen"
+
+msgid "Anomalies"
+msgstr "Anomalien"
+
+msgid "Good"
+msgstr "Gut"
+
+msgid "Worrying"
+msgstr "Besorgniserregend"
+
+msgid "The file is too large (20 MB at most)."
+msgstr "Die Datei ist zu groß (höchstens 20 MB)."
+
+msgid ""
+"The file declares a DOCTYPE or entities: it is refused for security reasons. "
+"A PingCastle report never contains any."
+msgstr ""
+"Die Datei deklariert einen DOCTYPE oder Entitäten: Sie wird aus "
+"Sicherheitsgründen abgelehnt. Ein PingCastle-Bericht enthält nie welche."
+
+msgid ""
+"This is not a PingCastle health check report: import the ad_hc_[domain].xml "
+"file."
+msgstr ""
+"Dies ist kein PingCastle-Health-Check-Bericht: Importieren Sie die Datei "
+"ad_hc_[Domäne].xml."
+
+msgid "The report gives no domain name."
+msgstr "Der Bericht nennt keinen Domänennamen."
+
+msgid "This report has already been imported."
+msgstr "Dieser Bericht wurde bereits importiert."
+
+msgid "You do not have the right to import a report."
+msgstr "Sie haben nicht das Recht, einen Bericht zu importieren."
+
+#, php-format
+msgid "PingCastle report - %1$s (%2$s)"
+msgstr "PingCastle-Bericht - %1$s (%2$s)"
+
+#, php-format
+msgid "Active Directory %1$s: %2$s"
+msgstr "Active Directory %1$s: %2$s"
+
+#, php-format
+msgid "Domain: %s"
+msgstr "Domäne: %s"
+
+#, php-format
+msgid "Report: %1$s of %2$s (score %3$d/100)"
+msgstr "Bericht: %1$s vom %2$s (Wert %3$d/100)"
+
+#, php-format
+msgid "Rule: %s"
+msgstr "Regel: %s"
+
+#, php-format
+msgid "Category: %s"
+msgstr "Kategorie: %s"
+
+#, php-format
+msgid "Points: %d"
+msgstr "Punkte: %d"
+
+#, php-format
+msgid "ISO/IEC 27001 controls: %s"
+msgstr "ISO/IEC-27001-Maßnahmen: %s"
+
+#, php-format
+msgid ""
+"Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) "
+"triggered"
+msgstr ""
+"Active-Directory-Audit: Wert %1$d/100 für %2$s (%3$s), %4$d ausgelöste "
+"Regel(n)"
+
+msgid ""
+"Keeps the results of the security audits of your Active Directory: the "
+"PingCastle reports that your team produces are imported here, with the "
+"global score, the score by category and the rules triggered. Each rule is "
+"linked to the ISO/IEC 27001 controls it concerns, and the history shows how "
+"the score changes from one report to the next."
+msgstr ""
+"Bewahrt die Ergebnisse der Sicherheitsaudits Ihres Active Directory auf: Die "
+"PingCastle-Berichte Ihres Teams werden hier importiert, mit dem Gesamtwert, "
+"dem Wert je Kategorie und den ausgelösten Regeln. Jede Regel ist mit den "
+"betroffenen ISO/IEC-27001-Maßnahmen verknüpft, und der Verlauf zeigt die "
+"Entwicklung des Werts von Bericht zu Bericht."
+
+msgid ""
+"Run PingCastle regularly (for example every quarter), import each report, "
+"then decide how to treat the rules: propose an action or a ticket for those "
+"you fix, and follow the rules resolved by the next report. Nothing is "
+"created automatically. The page is reserved to the sensitive registers right."
+msgstr ""
+"Führen Sie PingCastle regelmäßig aus (zum Beispiel vierteljährlich), "
+"importieren Sie jeden Bericht und entscheiden Sie über die Behandlung der "
+"Regeln: Schlagen Sie eine Maßnahme oder ein Ticket für die Regeln vor, die "
+"Sie beheben, und verfolgen Sie die im nächsten Bericht gelösten Regeln. "
+"Nichts wird automatisch erstellt. Die Seite ist dem Recht für sensible "
+"Register vorbehalten."
+
+msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
+msgstr "ISO/IEC 27001, Maßnahmen A.5.15 bis A.5.18, A.8.2 und A.8.5"
+
+#, php-format
+msgid "%d new rule"
+msgid_plural "%d new rules"
+msgstr[0] "%d neue Regel"
+msgstr[1] "%d neue Regeln"
+
+#, php-format
+msgid "%d rule resolved"
+msgid_plural "%d rules resolved"
+msgstr[0] "%d Regel gelöst"
+msgstr[1] "%d Regeln gelöst"
+
+#, php-format
+msgid "%d rule triggered"
+msgid_plural "%d rules triggered"
+msgstr[0] "%d Regel ausgelöst"
+msgstr[1] "%d Regeln ausgelöst"
+
+msgid "Archive the report as a restricted document (passwords removed)"
+msgstr "Bericht als eingeschränktes Dokument archivieren (Passwörter entfernt)"
+
+msgid "Archived report (restricted)"
+msgstr "Archivierter Bericht (eingeschränkt)"
+
+msgid "Change since the previous report"
+msgstr "Veränderung seit dem vorigen Bericht"
+
+#, php-format
+msgid "Compared with the report of %s"
+msgstr "Verglichen mit dem Bericht vom %s"
+
+msgid "Delete the import and its archived report"
+msgstr "Import und archivierten Bericht löschen"
+
+msgid "Download a fictitious example report"
+msgstr "Fiktiven Beispielbericht herunterladen"
+
+msgid ""
+"Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an "
+"action or a ticket for the rules you decide to treat: nothing is created "
+"before you click, and the action form is reviewed before it is saved."
+msgstr ""
+"Jede Regel ist mit den betroffenen ISO/IEC-27001-Maßnahmen verknüpft. "
+"Schlagen Sie eine Maßnahme oder ein Ticket für die Regeln vor, die Sie "
+"behandeln: Vor Ihrem Klick wird nichts erstellt, und das Maßnahmenformular "
+"wird vor dem Speichern geprüft."
+
+msgid ""
+"First report for this domain: the next import will show the rules that "
+"appeared or were resolved."
+msgstr ""
+"Erster Bericht für diese Domäne: Der nächste Import zeigt die neuen oder "
+"gelösten Regeln."
+
+msgid ""
+"GLPI never runs PingCastle and never queries the directory: it reads the "
+"report that your team produced. The report is stored in the current entity."
+msgstr ""
+"GLPI führt PingCastle nie aus und fragt das Verzeichnis nie ab: Es liest den "
+"Bericht, den Ihr Team erstellt hat. Der Bericht wird in der aktuellen "
+"Einheit gespeichert."
+
+msgid "Import a PingCastle report"
+msgstr "PingCastle-Bericht importieren"
+
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr ""
+"Importieren Sie die erzeugte Datei ad_hc_[Domäne].xml (nicht die HTML-Datei)."
+
+msgid "Imported on"
+msgstr "Importiert am"
+
+msgid "Imported reports"
+msgstr "Importierte Berichte"
+
+#, php-format
+msgid "Maturity level: %d"
+msgstr "Reifegrad: %d"
+
+msgid ""
+"No report imported yet. Run PingCastle on your domain, then import the "
+"ad_hc_[domain].xml file below."
+msgstr ""
+"Noch kein Bericht importiert. Führen Sie PingCastle in Ihrer Domäne aus und "
+"importieren Sie dann unten die Datei ad_hc_[Domäne].xml."
+
+msgid "No rule triggered in this report."
+msgstr "Keine ausgelöste Regel in diesem Bericht."
+
+msgid ""
+"On a computer of the domain, run PingCastle and choose the health check (or "
+"run it with the --healthcheck option)."
+msgstr ""
+"Führen Sie PingCastle auf einem Computer der Domäne aus und wählen Sie den "
+"Health Check (oder starten Sie es mit der Option --healthcheck)."
+
+msgid ""
+"Only the scores and the triggered rules (identifier, category, points, "
+"finding) are kept: never the list of accounts, nor any password found. A new "
+"report of the same domain shows the change of score and the rules that "
+"appeared or were resolved."
+msgstr ""
+"Nur die Werte und die ausgelösten Regeln (Kennung, Kategorie, Punkte, "
+"Feststellung) werden übernommen: nie die Kontenliste und kein gefundenes "
+"Passwort. Ein neuer Bericht derselben Domäne zeigt die Veränderung des Werts "
+"und die neuen oder gelösten Regeln."
+
+msgid "Only users who can modify the sensitive registers can import a report."
+msgstr ""
+"Nur Benutzer, die die sensiblen Register ändern dürfen, können einen Bericht "
+"importieren."
+
+msgid "Open a ticket"
+msgstr "Ticket eröffnen"
+
+msgid "Passwords found in the report: not kept"
+msgstr "Passwörter im Bericht gefunden: nicht übernommen"
+
+#, php-format
+msgid "PingCastle XML report (%d MB at most)"
+msgstr "PingCastle-XML-Bericht (höchstens %d MB)"
+
+msgid ""
+"PingCastle is free for internal use; a service provider auditing a customer "
+"needs a licence. Check the terms of use of the tool."
+msgstr ""
+"PingCastle ist für die interne Nutzung kostenlos; ein Dienstleister, der "
+"einen Kunden prüft, benötigt eine Lizenz. Prüfen Sie die Nutzungsbedingungen "
+"des Werkzeugs."
+
+#, php-format
+msgid "PingCastle report of %1$s, %2$s"
+msgstr "PingCastle-Bericht von %1$s, %2$s"
+
+msgid "Points"
+msgstr "Punkte"
+
+msgid "Propose an action"
+msgstr "Maßnahme vorschlagen"
+
+msgid "Report date"
+msgstr "Berichtsdatum"
+
+#, php-format
+msgid "Report of %s"
+msgstr "Bericht vom %s"
+
+msgid "Rules resolved since the previous report"
+msgstr "Seit dem vorigen Bericht gelöste Regeln"
+
+msgid "Rules triggered"
+msgstr "Ausgelöste Regeln"
+
+msgid ""
+"These reports describe the weaknesses of the domain: the page and the "
+"archived reports are reserved to the sensitive registers right, in the "
+"entity of each import."
+msgstr ""
+"Diese Berichte beschreiben die Schwachstellen der Domäne: Die Seite und die "
+"archivierten Berichte sind dem Recht für sensible Register vorbehalten, in "
+"der Einheit jedes Imports."
+
+msgid ""
+"Weakness reported by the Active Directory security audit (\"Active Directory "
+"security audit\" screen). Fix it, then import the next report to check that "
+"the rule is resolved. Nothing was changed automatically."
+msgstr ""
+"Vom Sicherheitsaudit des Active Directory gemeldete Schwachstelle (Seite "
+"„Sicherheitsaudit des Active Directory“). Beheben Sie sie und importieren "
+"Sie dann den nächsten Bericht, um zu prüfen, ob die Regel gelöst ist. Nichts "
+"wurde automatisch geändert."
+
+#, php-format
+msgid "%d rule concerns this control"
+msgid_plural "%d rules concern this control"
+msgstr[0] "%d Regel betrifft diese Maßnahme"
+msgstr[1] "%d Regeln betreffen diese Maßnahme"
+
+#, php-format
+msgid "Score: %d/100"
+msgstr "Wert: %d/100"
+
+#, php-format
+msgid ""
+"Action proposed from the Active Directory security audit (rule %s): review "
+"and adapt each field, set an owner and a due date, then click \"Add\". "
+"Nothing is created before, and the rule is linked to this action once it is "
+"saved."
+msgstr ""
+"Aus dem Sicherheitsaudit des Active Directory vorgeschlagene Maßnahme (Regel "
+"%s): Prüfen und passen Sie jedes Feld an, legen Sie einen Verantwortlichen "
+"und eine Frist fest und klicken Sie dann auf „Hinzufügen“. Vorher wird "
+"nichts erstellt, und die Regel wird nach dem Speichern mit dieser Maßnahme "
+"verknüpft."
+
+msgctxt "ad rule"
+msgid "New"
+msgstr "Neu"

@@ -1726,6 +1726,9 @@ class Control extends ControlBase
             'log_coverage'            => LogCoverage::evidence($code),
             // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation (mesure A.6.3).
             'phishing'                => PhishingCampaign::evidence($code),
+            // Issue #835 : audit de sécurité de l'AD (PingCastle), preuve des mesures A.5.15 à A.5.18,
+            // A.8.2 et A.8.5.
+            'ad_security_audit'       => AdSecurityAudit::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
         ]);
 

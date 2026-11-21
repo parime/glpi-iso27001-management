@@ -103,12 +103,6 @@ check "preuve developpement securise (A.8.31)" "$P/control.form.php?id=$(xid con
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #847 : ordinateur, outil et algorithme de chiffrement pieges (chiffrement des disques).
 check "front/diskencryption.php"              "$P/diskencryption.php"
-# Issue #836 : hote et probleme Zabbix pieges (supervision Zabbix, preuve A.8.16).
-check "front/zabbixmonitoring.php"            "$P/zabbixmonitoring.php"
-check "preuve supervision Zabbix (A.8.16)"    "$P/control.form.php?id=$(xid control_a816)"
-# Issue #852 : compte et methode importes pieges (couverture MFA, preuve A.8.5).
-check "front/mfacoverage.php"                 "$P/mfacoverage.php"
-check "preuve couverture MFA (A.8.5)"         "$P/control.form.php?id=$(xid control_a85)"
 # Issue #854 : ordinateur piege (correctifs de securite).
 check "front/patchcompliance.php"             "$P/patchcompliance.php"
 # Issue #781 : resultats OpenSCAP pieges (liste, non rapproche, detail, preuve A.8.9).
@@ -225,6 +219,16 @@ check "page d'un echantillon de test"         "$P/controltestsample.form.php?id=
 QC="%3Csvg%2Fonload%3Dalert(%27xss-canary%27)%3E"
 check "nouveau flux pre-rempli (adresse piegee)"   "$P/networkflow.form.php?flow_type=internal&name=$QC&source_label=$QC&destination_label=$QC&protocol=tcp&ports=443"
 check "onglet d'un nouveau flux pre-rempli"   "$(tab 'GlpiPlugin%5CGrcmanager%5CNetworkFlow' 'GlpiPlugin%5CGrcmanager%5CNetworkFlow$main' 0)&prefill%5Bname%5D=$QC&prefill%5Bsource_label%5D=$QC&prefill%5Bdestination_label%5D=$QC"
+
+# Fragments : une fonctionnalite ajoute ses controles dans un NOUVEAU fichier
+# tests/security/xss-check.d/<issue>-<sujet>.sh (voir docs/ARCHITECTURE.md, « Ajouter une fonctionnalite
+# sans conflit ») au lieu d'allonger ce script. Charges ici dans l'ordre des noms, avec les memes
+# fonctions et variables (P, id, xid, check, tab).
+for fragment in "$(dirname "${BASH_SOURCE[0]}")"/xss-check.d/*.sh; do
+  [ -e "$fragment" ] || continue
+  # shellcheck source=/dev/null
+  . "$fragment"
+done
 
 rm -f "$JAR"
 if [ "$RENDERED" -lt 10 ]; then

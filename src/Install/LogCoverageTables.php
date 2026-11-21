@@ -33,7 +33,7 @@ use Migration;
  *
  * Tables créées si absentes (rejouable), supprimées à la désinstallation.
  */
-final class LogCoverageTables
+final class LogCoverageTables implements FeatureTables
 {
     public const HOSTS = 'glpi_plugin_grcmanager_loghosts';
 
@@ -87,5 +87,14 @@ final class LogCoverageTables
     {
         $migration->dropTable(self::HOSTS);
         $migration->dropTable(self::PLATFORMS);
+    }
+
+    public static function migrate(Migration $migration): void
+    {
+    }
+
+    public static function pluginClasses(): array
+    {
+        return [];
     }
 }

@@ -28,7 +28,7 @@ use Migration;
  * processus métier d'un service) sont gardés d'une lecture à l'autre. Aucun jeton n'y est stocké.
  * Créées si absentes (rejouable), supprimées à la désinstallation.
  */
-final class ZabbixTables
+final class ZabbixTables implements FeatureTables
 {
     public const HOSTS = 'glpi_plugin_grcmanager_zabbixhosts';
     public const PROBLEMS = 'glpi_plugin_grcmanager_zabbixproblems';
@@ -120,5 +120,14 @@ final class ZabbixTables
         $migration->dropTable(self::HOSTS);
         $migration->dropTable(self::PROBLEMS);
         $migration->dropTable(self::SERVICES);
+    }
+
+    public static function migrate(Migration $migration): void
+    {
+    }
+
+    public static function pluginClasses(): array
+    {
+        return [];
     }
 }
