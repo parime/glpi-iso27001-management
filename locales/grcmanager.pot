@@ -33239,3 +33239,97 @@ msgstr ""
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
 msgstr ""
+
+
+#: front/crisismessagerecipient.form.php:44
+msgid "Review of the distribution list recorded."
+msgstr ""
+
+#: src/CrisisCommunication.php:318 templates/crisis_communication_tab.html.twig
+#: templates/tabs/crisis_message_recipients.html.twig
+#, php-format
+msgid "Deputy of %s"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:301
+msgid "Distribution list last reviewed on"
+msgstr ""
+
+#: templates/_crisis_communication_summary.html.twig
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_crisis_communication_summary.html.twig
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_communication_tab.html.twig
+#: templates/tabs/crisis_message_recipients.html.twig
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_communication_tab.html.twig
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Deputy"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Crisis communications"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+#, php-format
+msgid ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgid_plural ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid ""
+"Check once a year that each recipient, deputy and address is still right."
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Main recipient"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Mark the list as reviewed today"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "No deputy"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Review overdue (more than 12 months)"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Role in the list"
+msgstr ""

@@ -195,6 +195,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #776 : ajouter les scenarios de crise par defaut exige de pouvoir creer un scenario.
   expect "front/crisisscenario.php : ajouter les scenarios par defaut" "$1" \
     "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/crisisscenario.php")"
+  # Issue #616, lot 2 : la revue annuelle d'une liste de diffusion exige de pouvoir modifier les modeles.
+  expect "front/crisismessagerecipient.form.php : revue de la liste de diffusion" "$1" \
+    "$(code -d "review=1&plugin_grcmanager_crisismessagetemplates_id=$(id crisis_template)&_glpi_csrf_token=$(csrf)" "$P/crisismessagerecipient.form.php")"
   # Issue #775 : archiver le registre des procedures d'exploitation sur A.5.37 cree un document : il
   # faut pouvoir modifier les politiques.
   expect "front/operatingprocedure.php : archiver sur A.5.37" "$1" \

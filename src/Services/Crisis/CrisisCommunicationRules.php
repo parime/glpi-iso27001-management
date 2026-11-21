@@ -138,6 +138,70 @@ final class CrisisCommunicationRules
         return $templates;
     }
 
+    /**
+     * Issue #616, lot 2 : ordre d'affichage d'une liste de diffusion, chaque suppléant juste après
+     * son destinataire principal. Un suppléant dont le principal n'est plus dans la liste (ou est
+     * lui-même suppléant) est traité comme un principal.
+     *
+     * @param list<array{id: int, deputy_of: int}> $rows
+     * @return list<array{id: int, deputy_of: int}> lignes ordonnées, deputy_of ramené à 0 si orphelin
+     */
+    public static function orderWithDeputies(array $rows): array
+    {
+        $parentOf = [];
+        foreach ($rows as $row) {
+            $parentOf[(int) $row['id']] = (int) $row['deputy_of'];
+        }
+        // Principal : sans lien, ou lié à une ligne absente, à lui-même ou elle-même suppléante.
+        $isPrincipal = static function (int $id) use ($parentOf): bool {
+            $parent = $parentOf[$id];
+
+            return $parent <= 0 || $parent === $id || !isset($parentOf[$parent])
+                || ($parentOf[$parent] > 0 && $parentOf[$parent] !== $parent && isset($parentOf[$parentOf[$parent]]));
+        };
+        $principals = [];
+        $deputies = [];
+        foreach ($rows as $row) {
+            if ($isPrincipal((int) $row['id'])) {
+                $principals[] = ['deputy_of' => 0] + $row;
+            } else {
+                $deputies[(int) $row['deputy_of']][] = $row;
+            }
+        }
+        $ordered = [];
+        foreach ($principals as $row) {
+            $ordered[] = $row;
+            foreach ($deputies[(int) $row['id']] ?? [] as $deputy) {
+                $ordered[] = $deputy;
+            }
+        }
+
+        return $ordered;
+    }
+
+    /**
+     * Destinataires principaux sans suppléant dans une liste ordonnée par orderWithDeputies(). Un
+     * groupe ne compte pas : ses membres se suppléent déjà.
+     *
+     * @param list<array{id: int, deputy_of: int, itemtype?: string}> $ordered
+     */
+    public static function principalsWithoutDeputy(array $ordered): int
+    {
+        $withDeputy = array_unique(array_filter(array_map(
+            static fn (array $row): int => (int) $row['deputy_of'],
+            $ordered
+        )));
+        $count = 0;
+        foreach ($ordered as $row) {
+            $isGroup = ($row['itemtype'] ?? '') === self::RECIPIENT_GROUP;
+            if (!$isGroup && (int) $row['deputy_of'] === 0 && !in_array((int) $row['id'], $withDeputy, true)) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
     public static function recipientKey(string $itemtype, int $id): string
     {
         return $itemtype . ':' . $id;
@@ -235,8 +299,12 @@ final class CrisisCommunicationRules
      * Synthèse de la preuve (A.5.26, clause 7.4) : modèles actifs, modèles sans destinataire, et
      * situations attendues encore sans modèle actif.
      *
-     * @param list<array{situation: string, recipients: int}> $activeTemplates
-     * @return array{templates: int, without_recipients: int, missing_situations: list<string>}
+     * Lot 2 : listes de diffusion jamais revues ou revues il y a plus de 12 mois (clé facultative
+     * « review_due »), et destinataires principaux sans suppléant (« without_deputy »).
+     *
+     * @param list<array{situation: string, recipients: int, review_due?: bool, without_deputy?: int}> $activeTemplates
+     * @return array{templates: int, without_recipients: int, missing_situations: list<string>,
+     *     review_due: int, without_deputy: int}
      */
     public static function readiness(array $activeTemplates): array
     {
@@ -253,6 +321,14 @@ final class CrisisCommunicationRules
                 static fn (array $template): bool => $template['recipients'] === 0
             )),
             'missing_situations' => array_values(array_diff($expected, $covered)),
+            'review_due'         => count(array_filter(
+                $activeTemplates,
+                static fn (array $template): bool => !empty($template['review_due'])
+            )),
+            'without_deputy'     => array_sum(array_map(
+                static fn (array $template): int => (int) ($template['without_deputy'] ?? 0),
+                $activeTemplates
+            )),
         ];
     }
 }
