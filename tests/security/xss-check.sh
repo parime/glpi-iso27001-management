@@ -80,6 +80,7 @@ for url in maturitycampaign.php "maturitycampaign.form.php?id=$(id maturity_A)" 
 done
 check "onglet niveaux par mesure"              "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$1' "$(id maturity_A)")"
 check "onglet ecarts de maturite"              "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$2' "$(id maturity_A)")"
+check "action proposee depuis un ecart"         "$(tab 'GlpiPlugin%5CGrcmanager%5CNonconformity' 'GlpiPlugin%5CGrcmanager%5CNonconformity$main' "0&maturityassessment=$(id maturity_line_A)")"
 check "onglet comparaison des campagnes"       "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$3' "$(id maturity_A)")"
 # Issue #546 : fiche de conformité de glpi, dans le public de la politique piégée.
 check "onglet Ma conformite securite"          "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPersonnelCompliance$1' 2)"

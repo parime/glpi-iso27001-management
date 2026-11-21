@@ -60,7 +60,9 @@ final class MaturityGapRulesTest extends TestCase
 
     public function testLabelsKeepKnownLevelsAndFallBackToDefaults(): void
     {
-        $clean = Rules::sanitizeLabels(['0' => ' Absent ', 3 => '', 9 => 'Unknown', 'x' => 'y', 5 => str_repeat('a', 80)]);
+        $clean = Rules::sanitizeLabels([
+            '0' => ' Absent ', 3 => '', 9 => 'Unknown', 'x' => 'y', 5 => str_repeat('a', 80),
+        ]);
         $this->assertSame([0 => 'Absent', 5 => str_repeat('a', Rules::LABEL_MAX_LENGTH)], $clean);
 
         $defaults = [0 => 'D0', 1 => 'D1', 2 => 'D2', 3 => 'D3', 4 => 'D4', 5 => 'D5'];

@@ -80,7 +80,9 @@ final class MaturityCampaignTest extends GrcmanagerIntegrationTestCase
         $DB->update(Control::getTable(), ['applicability' => 'no'], ['id' => $controls['A.7.5']]);
         $DB->update(Control::getTable(), ['applicability' => 'partial'], ['id' => $controls['A.7.6']]);
         $status = static fn (): string => (string) $DB->request([
-            'SELECT' => ['implementation_status'], 'FROM' => Control::getTable(), 'WHERE' => ['id' => $controls['A.5.1']],
+            'SELECT' => ['implementation_status'],
+            'FROM'   => Control::getTable(),
+            'WHERE'  => ['id' => $controls['A.5.1']],
         ])->current()['implementation_status'];
         $before = $status();
         $score = Maturity::current()['score'];
@@ -99,7 +101,8 @@ final class MaturityCampaignTest extends GrcmanagerIntegrationTestCase
                 'justification' => 'Politique fictive à formaliser', 'users_id' => 2],
             'A.5.2' => ['current_level' => '3', 'target_level' => '3'],
         ]));
-        $this->assertSame(0, self::fill($campaign, ['A.5.2' => ['current_level' => '3', 'target_level' => '3']]), 'Rien de changé.');
+        $unchanged = self::fill($campaign, ['A.5.2' => ['current_level' => '3', 'target_level' => '3']]);
+        $this->assertSame(0, $unchanged, 'Rien de changé.');
         $this->assertSame($before, $status(), 'L\'état de mise en œuvre ne change pas.');
         $this->assertSame($score, Maturity::current()['score'], 'Le score de maturité global ne change pas.');
 
@@ -199,8 +202,10 @@ final class MaturityCampaignTest extends GrcmanagerIntegrationTestCase
             'A.5.2' => ['current_level' => '3', 'target_level' => '3'],
         ]);
         $lines = self::linesByCode($campaign->getID());
-        $this->assertNull(MaturityAssessment::findingDraft((int) $lines['A.5.2']['id']), 'Cible atteinte : aucune action.');
-        $this->assertNull(MaturityAssessment::findingDraft((int) $lines['A.5.3']['id']), 'Non évaluée : aucune action.');
+        $reached = (int) $lines['A.5.2']['id'];
+        $notAssessed = (int) $lines['A.5.3']['id'];
+        $this->assertNull(MaturityAssessment::findingDraft($reached), 'Cible atteinte : aucune action.');
+        $this->assertNull(MaturityAssessment::findingDraft($notAssessed), 'Non évaluée : aucune action.');
 
         $lineId = (int) $lines['A.5.1']['id'];
         $draft = MaturityAssessment::findingDraft($lineId);
@@ -218,7 +223,8 @@ final class MaturityCampaignTest extends GrcmanagerIntegrationTestCase
             'severity' => 'major', 'entities_id' => 0, '_grcmanager_maturityassessment' => $lineId,
         ]);
         $this->assertGreaterThan(0, $findingId);
-        $this->assertSame($findingId, (int) MaturityAssessment::getLine($lineId)['plugin_grcmanager_nonconformities_id']);
+        $linked = MaturityAssessment::getLine($lineId);
+        $this->assertSame($findingId, (int) $linked['plugin_grcmanager_nonconformities_id']);
         $this->assertNull(MaturityAssessment::findingDraft($lineId), 'Déjà une action.');
         $this->assertCount(1, MaturityAssessment::linesForFinding($findingId));
         $byCode = array_column(MaturityAssessment::present($campaign), null, 'code');

@@ -318,7 +318,12 @@ class MaturityCampaign extends MaturityCampaignBase
         $summary = Rules::summary(self::levelRows(MaturityAssessment::getLines($item->getID())));
 
         return [
-            1 => self::createTabEntry(__('Levels by control', 'grcmanager'), $summary['assessed'], null, 'ti ti-list-numbers'),
+            1 => self::createTabEntry(
+                __('Levels by control', 'grcmanager'),
+                $summary['assessed'],
+                null,
+                'ti ti-list-numbers'
+            ),
             2 => self::createTabEntry(__('Gaps', 'grcmanager'), $summary['gaps'], null, 'ti ti-arrows-diff'),
             3 => self::createTabEntry(__('Comparison', 'grcmanager'), 0, null, 'ti ti-columns'),
         ];
@@ -414,7 +419,8 @@ class MaturityCampaign extends MaturityCampaignBase
     private static function showGaps(self $campaign): void
     {
         $canEdit = $campaign->can($campaign->getID(), UPDATE);
-        TemplateRenderer::getInstance()->display('@grcmanager/maturity_campaign_gaps_tab.html.twig', self::gapData($campaign) + [
+        $template = '@grcmanager/maturity_campaign_gaps_tab.html.twig';
+        TemplateRenderer::getInstance()->display($template, self::gapData($campaign) + [
             'labels'             => self::scaleLabels(),
             'can_create_finding' => $canEdit && Nonconformity::canCreate(),
             'can_edit'           => $canEdit,

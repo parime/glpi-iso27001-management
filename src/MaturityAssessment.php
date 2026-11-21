@@ -404,7 +404,10 @@ class MaturityAssessment
                 $DB->request([
                     'SELECT' => ['id', 'title', 'status'],
                     'FROM'   => Nonconformity::getTable(),
-                    'WHERE'  => array_merge(['id' => $findingIds], EntityPerimeter::criteria(Nonconformity::getTable())),
+                    'WHERE'  => array_merge(
+                        ['id' => $findingIds],
+                        EntityPerimeter::criteria(Nonconformity::getTable())
+                    ),
                 ]) as $row
             ) {
                 $findings[(int) $row['id']] = $row;

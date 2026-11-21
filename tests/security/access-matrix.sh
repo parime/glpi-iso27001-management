@@ -1228,7 +1228,7 @@ expect "front/maturitycampaign.pdf.php : rapport de B" "$DENY" "$(code "$P/matur
 expect "front/maturitycampaign.pdf.php : rapport de A" 200 "$(code "$P/maturitycampaign.pdf.php?id=$(id maturity_A)")"
 contains "onglet niveaux de la campagne de B" "grc-maturity-grid" $SEE_B   "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$1' "$(id maturity_B)")"
 contains "onglet ecarts de la campagne de B" "Ecart maturite securite B" $SEE_B   "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$2' "$(id maturity_B)")"
-contains "brouillon d'action depuis l'ecart de B" "Ecart maturite securite B" $SEE_B   "$(curl -s -c "$JAR" -b "$JAR" "$P/nonconformity.form.php?maturityassessment=$(id maturity_line_B)")"
+contains "brouillon d'action depuis l'ecart de B" "Ecart maturite securite B" $SEE_B   "$(tab 'GlpiPlugin%5CGrcmanager%5CNonconformity' 'GlpiPlugin%5CGrcmanager%5CNonconformity$main' "0&maturityassessment=$(id maturity_line_B)")"
 if [ "$ROLE" != admin ]; then
   expect "campagne de B : enregistrer la grille" 403     "$(code -d "save_levels=1&plugin_grcmanager_maturitycampaigns_id=$(id maturity_B)&levels[$(id maturity_line_B)][current_level]=4&_glpi_csrf_token=$(csrf)" "$P/maturitycampaign.form.php")"
 fi
