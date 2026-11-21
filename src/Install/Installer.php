@@ -399,8 +399,6 @@ final class Installer
         ...RecyfTables::CLASSES,
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         ...OfficialContactTables::CLASSES,
-        // Issue #868 : dossiers de preuves exportables pour l'auditeur.
-        ...EvidencePackTables::CLASSES,
         // Issue #808 : classes historisées oubliées, dont les journaux restaient après la
         // désinstallation (fiche de conformité des collaborateurs #546, fiches réflexes, actions
         // de la revue de direction), et deux cibles de notification absentes de la liste.
@@ -1581,18 +1579,11 @@ final class Installer
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         OfficialContactTables::install($keySign, $charset, $collation);
         OfficialContactTables::migrate($migration);
-        // Issue #868 : dossiers de preuves exportables pour l'auditeur (archive ZIP par périmètre).
-        EvidencePackTables::install($keySign, $charset, $collation);
-        // Issue #847 : sauvegarde déclarée des clés de récupération (aucune clé stockée).
-        DiskEncryptionTables::install($keySign, $charset, $collation);
-        // Issue #852 : méthodes d'authentification importées par compte (aucun secret stocké).
-        MfaCoverageTables::install($keySign, $charset, $collation);
-        // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
-        HardwareEndOfLifeTables::install($keySign, $charset, $collation);
-        // Issue #781 : rapports de conformité de configuration importés (OpenSCAP, XCCDF/ARF).
-        ConfigScanTables::install($keySign, $charset, $collation);
-        // Issue #853 : couverture de la journalisation (hôtes émetteurs importés, conservation déclarée).
-        LogCoverageTables::install($keySign, $charset, $collation);
+        // Tables des fonctionnalités découvertes (src/Install/*Tables.php qui implémentent
+        // FeatureTables, ordre alphabétique) : dossiers de preuves (#868), chiffrement des disques
+        // (#847), couverture MFA (#852), fin de vie constructeur (#782), conformité de configuration
+        // (#781), couverture de la journalisation (#853), et chaque nouvelle fonctionnalité.
+        FeatureTablesRegistry::install($keySign, $charset, $collation, $migration);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -5720,7 +5711,11 @@ final class Installer
         // de l'antislash, caractère d'échappement de LIKE).
         $byItemtype = static fn (string $column): array => ['OR' => [
             [$column => ['LIKE', 'PluginGrcmanager%']],
-            [$column => array_merge(array_values(ItemtypeRenames::MAP), self::SRC_ONLY_CLASSES)],
+            [$column => array_merge(
+                array_values(ItemtypeRenames::MAP),
+                self::SRC_ONLY_CLASSES,
+                FeatureTablesRegistry::pluginClasses()
+            )],
         ]];
         // Rapports générés (audit, revue des accès, post-incident, crise) : sans le plugin, plus
         // rien ne limiterait leur lecture à l'audience de l'objet source, qui disparaît.
@@ -6494,12 +6489,7 @@ final class Installer
         SecureDevelopmentTables::uninstall($migration);
         RecyfTables::uninstall($migration);
         OfficialContactTables::uninstall($migration);
-        EvidencePackTables::uninstall($migration);
-        DiskEncryptionTables::uninstall($migration);
-        MfaCoverageTables::uninstall($migration);
-        HardwareEndOfLifeTables::uninstall($migration);
-        ConfigScanTables::uninstall($migration);
-        LogCoverageTables::uninstall($migration);
+        FeatureTablesRegistry::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         AdSecurityAuditTables::uninstall($migration);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);

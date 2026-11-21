@@ -29,6 +29,16 @@ contains() { # libelle, texte, attendu (oui|non), contenu
 tab() { # itemtype, onglet, id
   body "$BASE/ajax/common.tabs.php?_target=/plugins/grcmanager/front/x.php&_itemtype=$1&_glpi_tab=$2&id=$3"
 }
+readable() { # pages consultables (comme $READABLE) : refusees sans droit, ouvertes au lecteur et au super-admin
+  local p
+  for p in "$@"; do
+    case $ROLE in
+      none)   expect "$p : sans droit" 403 "$(code "$BASE/plugins/grcmanager/$p")" ;;
+      reader) expect "$p : en lecture" 200 "$(code "$BASE/plugins/grcmanager/$p")" ;;
+      admin)  expect "$p : super-admin" 200 "$(code "$BASE/plugins/grcmanager/$p")" ;;
+    esac
+  done
+}
 # Issue #380 : preuve envoyee depuis le formulaire d'un test (vrai PDF, et faux PDF contenant du PHP).
 EVIDENCE_PDF=$(mktemp); FAKE_PDF=$(mktemp)
 trap 'rm -f "$EVIDENCE_PDF" "$FAKE_PDF"' EXIT
@@ -612,24 +622,6 @@ if [ "$ROLE" = reader ]; then
     "$(body "$P/softwarelicensecompliance.php")"
   contains "export des licences logicielles : echeance de B absente" "Licence echeance securite B" non \
     "$(body "$P/softwarelicensecompliance.export.php")"
-  # Issue #835 : audit de securite de l'AD, rapport de l'entite A seulement ; tout en lecture seule.
-  contains "audit de l'AD : rapport de A" "adsecurite-a.test" oui "$(body "$P/adsecurityaudit.php")"
-  contains "audit de l'AD : rien de B" "adsecurite-b.test" non "$(body "$P/adsecurityaudit.php")"
-  contains "audit de l'AD : rapport de B demande par son numero" "Constat AD securite B" non \
-    "$(body "$P/adsecurityaudit.php?id=$(id adaudit_B)")"
-  expect "front/adsecurityaudit.php : supprimer un import en lecture seule" 403 \
-    "$(code -d "clear_ad_audit=1&audit_id=$(id adaudit_A)&_glpi_csrf_token=$(csrf)" "$P/adsecurityaudit.php")"
-  expect "front/adsecurityaudit.php : ticket en lecture seule" 403 \
-    "$(code -d "ad_audit_ticket=1&rule_id=$(id adrule_A)&_glpi_csrf_token=$(csrf)" "$P/adsecurityaudit.php")"
-  expect "front/adsecurityaudit.php : import en lecture seule" 403 \
-    "$(code -d "import_ad_audit=1&_glpi_csrf_token=$(csrf)" "$P/adsecurityaudit.php")"
-  # Issue #852 : couverture MFA, comptes importes de l'entite A seulement ; import en lecture seule.
-  contains "couverture MFA : compte importe de A" "Compte MFA securite A" oui "$(body "$P/mfacoverage.php")"
-  contains "couverture MFA : rien de B" "Compte MFA securite B" non "$(body "$P/mfacoverage.php")"
-  expect "front/mfacoverage.php : effacer un import en lecture seule" 403 \
-    "$(code -d "clear_mfa=1&provider=okta&_glpi_csrf_token=$(csrf)" "$P/mfacoverage.php")"
-  expect "front/mfacoverage.php : groupes d'acces distant en lecture seule" 403 \
-    "$(code -d "save_mfa_remote=1&_glpi_csrf_token=$(csrf)" "$P/mfacoverage.php")"
   # Issue #847 : chiffrement des disques de l'entite A seulement ; regle et cles en lecture seule.
   contains "chiffrement des disques : ordinateur de A" "PC securite A" oui "$(body "$P/diskencryption.php")"
   contains "chiffrement des disques : rien de B" "PC securite B" non "$(body "$P/diskencryption.php")"
@@ -971,17 +963,6 @@ if [ "$ROLE" = limited ]; then
   pack_page=$(curl -s -c "$JAR" -b "$JAR" "$P/evidencepack.php?entities_id=$(id a)")
   contains "dossier de preuves : archive listee" 'ti-fingerprint' oui "$pack_page"
   contains "dossier de preuves : preuve de B absente" 'Preuve securite B' non "$pack_page"
-  # Issue #835 : import et ticket de l'entite B refuses ; action proposee pour une regle de B vide.
-  expect "front/adsecurityaudit.php : supprimer un import de B" 403 \
-    "$(code -d "clear_ad_audit=1&audit_id=$(id adaudit_B)&_glpi_csrf_token=$(csrf)" "$P/adsecurityaudit.php")"
-  expect "front/adsecurityaudit.php : ticket pour une regle de B" 403 \
-    "$(code -d "ad_audit_ticket=1&rule_id=$(id adrule_B)&_glpi_csrf_token=$(csrf)" "$P/adsecurityaudit.php")"
-  expect "front/adsecurityaudit.php : supprimer un import sans jeton CSRF" 403 \
-    "$(code -d "clear_ad_audit=1&audit_id=$(id adaudit_A)" "$P/adsecurityaudit.php")"
-  contains "action proposee depuis une regle de B : rien de B" "Constat AD securite B" non \
-    "$(tab 'GlpiPlugin%5CGrcmanager%5CNonconformity' 'GlpiPlugin%5CGrcmanager%5CNonconformity$main' "0&adauditrule=$(id adrule_B)")"
-  contains "action proposee depuis une regle de A : pre-remplie" "Constat AD securite A" oui \
-    "$(tab 'GlpiPlugin%5CGrcmanager%5CNonconformity' 'GlpiPlugin%5CGrcmanager%5CNonconformity$main' "0&adauditrule=$(id adrule_A)")"
   # Issue #847 : sauvegarde de cle declaree pour un ordinateur de A, refusee pour celui de B.
   expect "front/diskencryption.php : declarer la cle d'un ordinateur de A" 302     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1&backup_date=2026-01-15&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
   expect "front/diskencryption.php : declarer la cle d'un ordinateur de B" 403     "$(code -d "declare_key=1&computers_id=$(id computer_B)&is_backed_up=1&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
@@ -1633,6 +1614,16 @@ if [ "$ROLE" != admin ]; then
   expect "creer une formation dans l'entite B" 403 \
     "$(code -d "add=1&title=Formation%20creee%20securite&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/training.form.php")"
 fi
+
+# Fragments : une fonctionnalite ajoute ses controles dans un NOUVEAU fichier
+# tests/security/access-matrix.d/<issue>-<sujet>.sh (voir docs/ARCHITECTURE.md, « Ajouter une fonctionnalite
+# sans conflit ») au lieu d'allonger ce script. Charges ici dans l'ordre des noms, avec les memes
+# fonctions et variables (ROLE, P, id, code, body, csrf, expect, contains, tab, readable, SEE_B, DENY).
+for fragment in "$(dirname "${BASH_SOURCE[0]}")"/access-matrix.d/*.sh; do
+  [ -e "$fragment" ] || continue
+  # shellcheck source=/dev/null
+  . "$fragment"
+done
 
 rm -f "$JAR"
 exit $FAIL

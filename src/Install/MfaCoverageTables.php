@@ -27,7 +27,7 @@ use Migration;
  * dans la même entité (photographie). Aucun secret n'est stocké : seulement le nom des méthodes.
  * Créée si absente (rejouable), supprimée à la désinstallation.
  */
-final class MfaCoverageTables
+final class MfaCoverageTables implements FeatureTables
 {
     public const ACCOUNTS = 'glpi_plugin_grcmanager_mfaaccounts';
 
@@ -63,5 +63,14 @@ final class MfaCoverageTables
     public static function uninstall(Migration $migration): void
     {
         $migration->dropTable(self::ACCOUNTS);
+    }
+
+    public static function migrate(Migration $migration): void
+    {
+    }
+
+    public static function pluginClasses(): array
+    {
+        return [];
     }
 }
