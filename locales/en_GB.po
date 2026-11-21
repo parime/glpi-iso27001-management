@@ -37244,9 +37244,6 @@ msgstr "This controller comes from the CSV import: import the file again to upda
 msgid "Controller not found."
 msgstr "Controller not found."
 
-msgid "You are not allowed to do this."
-msgstr "You are not allowed to do this."
-
 msgid "The file has no \"name\" column."
 msgstr "The file has no \"name\" column."
 
@@ -37424,9 +37421,6 @@ msgstr "Password saved (leave empty to keep it)"
 msgid "Physical servers without a known controller"
 msgstr "Physical servers without a known controller"
 
-msgid "Read now"
-msgstr "Read now"
-
 msgid "Read only: the plugin only sends Redfish read requests (GET). It never restarts a server, never updates a firmware and never changes a setting. Use a local account of the controller with the read-only role."
 msgstr "Read only: the plugin only sends Redfish read requests (GET). It never restarts a server, never updates a firmware and never changes a setting. Use a local account of the controller with the read-only role."
 
@@ -37444,9 +37438,6 @@ msgstr "Server in GLPI (optional)"
 
 msgid "The controller is saved in the entity %s. Create on the controller a local account with the read-only role (ReadOnly): the plugin only reads."
 msgstr "The controller is saved in the entity %s. Create on the controller a local account with the read-only role (ReadOnly): the plugin only reads."
-
-msgid "Warning"
-msgstr "Warning"
 
 msgid "https:// only, with the name or the IP address of the controller and an optional port."
 msgstr "https:// only, with the name or the IP address of the controller and an optional port."
