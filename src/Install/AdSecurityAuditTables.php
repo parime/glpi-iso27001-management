@@ -28,10 +28,14 @@ use Migration;
  * un mot de passe du rapport. Le rapport brut, nettoyé de ses secrets, peut être archivé comme
  * document restreint (documents_id).
  *
+ * Lot 2 : autres outils (Purple Knight, Maester, ScubaGear) dans la même table (colonne tool), avec
+ * le score de l'outil quand il diffère du score gardé (native_score) et le nombre de contrôles
+ * évalués et réussis (checks_total, checks_passed).
+ *
  * Tables créées si absentes (rejouable), supprimées à la désinstallation. Aucune autre table n'est
  * modifiée.
  */
-final class AdSecurityAuditTables
+final class AdSecurityAuditTables implements FeatureTables
 {
     public const AUDITS = 'glpi_plugin_grcmanager_adaudits';
 
@@ -57,6 +61,9 @@ final class AdSecurityAuditTables
                 `anomaly_score` int DEFAULT NULL,
                 `maturity_level` int DEFAULT NULL,
                 `rule_count` int NOT NULL DEFAULT 0,
+                `native_score` int DEFAULT NULL COMMENT 'Score affiche par l outil s il differe (100 le meilleur)',
+                `checks_total` int DEFAULT NULL COMMENT 'Controles evalues (Purple Knight, Maester, ScubaGear)',
+                `checks_passed` int DEFAULT NULL,
                 `file_name` varchar(255) NOT NULL DEFAULT '',
                 `file_sha256` char(64) NOT NULL DEFAULT '',
                 `secrets_found` tinyint NOT NULL DEFAULT 0 COMMENT 'Secrets presents dans le rapport, jamais stockes',
@@ -92,9 +99,37 @@ final class AdSecurityAuditTables
         }
     }
 
+    /**
+     * Lot 2 : colonnes ajoutées à une table créée par le lot 1.
+     */
+    public static function migrate(Migration $migration): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::AUDITS) || $DB->fieldExists(self::AUDITS, 'native_score')) {
+            return;
+        }
+        // Type écrit en entier (INT NULL) : le type « integer » de Migration impose NOT NULL.
+        $migration->addField(self::AUDITS, 'native_score', 'int DEFAULT NULL', [
+            'comment' => 'Score affiche par l outil s il differe (100 le meilleur)',
+            'after'   => 'rule_count',
+        ]);
+        $migration->addField(self::AUDITS, 'checks_total', 'int DEFAULT NULL', ['after' => 'native_score']);
+        $migration->addField(self::AUDITS, 'checks_passed', 'int DEFAULT NULL', ['after' => 'checks_total']);
+        $migration->migrationOneTable(self::AUDITS);
+    }
+
     public static function uninstall(Migration $migration): void
     {
         $migration->dropTable(self::RULES);
         $migration->dropTable(self::AUDITS);
+    }
+
+    /**
+     * @return list<class-string>
+     */
+    public static function pluginClasses(): array
+    {
+        return [];
     }
 }
