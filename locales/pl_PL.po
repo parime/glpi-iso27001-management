@@ -28617,3 +28617,13 @@ msgid ""
 msgstr ""
 "Wskaźniki ostatniej kampanii z wynikami w każdej jednostce. Wskaźniki według "
 "grup są w zakładce Wyniki każdej kampanii."
+
+msgid "Review history"
+msgstr "Historia przeglądów"
+
+msgid ""
+"Each review recorded with the \"Record the review\" button is kept here and "
+"in the security audit log; it cannot be changed afterwards."
+msgstr ""
+"Każdy przegląd zapisany przyciskiem „Zapisz przegląd” jest przechowywany "
+"tutaj i w dzienniku audytu bezpieczeństwa; nie można go później zmienić."
