@@ -60,6 +60,7 @@ final class PhishingTables
                 `nb_submitted` int NOT NULL DEFAULT 0,
                 `nb_reported` int NOT NULL DEFAULT 0,
                 `nb_unmatched` int NOT NULL DEFAULT 0 COMMENT 'Lignes sans utilisateur GLPI',
+                `group_counts` text COMMENT 'JSON - compteurs anonymes par groupe, gardes apres anonymisation',
                 `import_file` varchar(255) NOT NULL DEFAULT '' COMMENT 'Nom du dernier fichier importe',
                 `date_import` timestamp NULL DEFAULT NULL,
                 `date_anonymized` timestamp NULL DEFAULT NULL
@@ -91,6 +92,23 @@ final class PhishingTables
                 KEY `plugin_grcmanager_phishingcampaigns_id` (`plugin_grcmanager_phishingcampaigns_id`),
                 KEY `users_id` (`users_id`)
             ) {$suffix}");
+        }
+    }
+
+    /**
+     * Issue #604, lot 2 : compteurs par service d'une table créée par le lot 1. Vides pour les
+     * campagnes déjà importées : un nouvel import les calcule.
+     */
+    public static function migrate(Migration $migration): void
+    {
+        global $DB;
+
+        if ($DB->tableExists(self::CAMPAIGNS) && !$DB->fieldExists(self::CAMPAIGNS, 'group_counts', false)) {
+            $migration->addField(self::CAMPAIGNS, 'group_counts', 'text', [
+                'after'   => 'nb_unmatched',
+                'comment' => 'JSON - compteurs anonymes par groupe, gardes apres anonymisation',
+            ]);
+            $migration->migrationOneTable(self::CAMPAIGNS);
         }
     }
 

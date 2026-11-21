@@ -20,6 +20,8 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
+use Group;
+use Group_User;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Install\PhishingTables;
@@ -123,6 +125,7 @@ class PhishingResult extends CommonGLPI
             'anonymize_url' => PhishingCampaign::getFormURL(),
             'max_mb'       => Rules::MAX_BYTES / 1048576,
             'remedial'     => $remedial,
+            'group_label'  => Group::getTypeName(1),
             'remedial_url' => $remedial > 0 && Training::canCreate()
                 ? Training::getFormURL() . '?phishing_of=' . $item->getID()
                 : '',
@@ -154,7 +157,72 @@ class PhishingResult extends CommonGLPI
                 ? Html::convDateTime((string) $campaign->fields['date_import']) : '',
             'anonymized'  => !empty($campaign->fields['date_anonymized'])
                 ? Html::convDateTime((string) $campaign->fields['date_anonymized']) : '',
+            'groups'      => self::groupRowsFor($campaign, $canDetail),
+            'purge_date'  => self::purgeDateLabel($campaign),
         ];
+    }
+
+    /**
+     * Issue #604, lot 2 : taux par service (groupe GLPI) de la campagne, avec leur nom. Sans le droit
+     * du détail, les petits services sont regroupés (PhishingRules::groupRows()).
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function groupRowsFor(PhishingCampaign $campaign, bool $canDetail): array
+    {
+        $rows = [];
+        $counts = Rules::decodeGroupCounts((string) ($campaign->fields['group_counts'] ?? ''));
+        foreach (Rules::groupRows($counts, $canDetail) as $row) {
+            $row['name'] = match ($row['groups_id']) {
+                Rules::OTHER_GROUPS => sprintf(
+                    __('Other groups (fewer than %d people each)', 'grcmanager'),
+                    Rules::MIN_ANONYMOUS
+                ),
+                0       => __('No group', 'grcmanager'),
+                default => (string) \Dropdown::getDropdownName(Group::getTable(), $row['groups_id']),
+            };
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    /** Date de suppression automatique des résultats individuels, ou vide (sans durée, déjà faite). */
+    private static function purgeDateLabel(PhishingCampaign $campaign): string
+    {
+        if (!empty($campaign->fields['date_anonymized']) || empty($campaign->fields['date_import'])) {
+            return '';
+        }
+        $date = Rules::purgeDate($campaign->fields, PhishingCampaign::retentionMonths());
+
+        return $date !== null ? Html::convDate($date) : '';
+    }
+
+    /**
+     * Groupes de chaque utilisateur.
+     *
+     * @param list<int> $usersIds
+     * @return array<int, list<int>>
+     */
+    public static function groupsOf(array $usersIds): array
+    {
+        global $DB;
+
+        if ($usersIds === []) {
+            return [];
+        }
+        $groups = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['users_id', 'groups_id'],
+                'FROM'   => Group_User::getTable(),
+                'WHERE'  => ['users_id' => array_values($usersIds)],
+            ]) as $row
+        ) {
+            $groups[(int) $row['users_id']][] = (int) $row['groups_id'];
+        }
+
+        return $groups;
     }
 
     /**
@@ -247,6 +315,9 @@ class PhishingResult extends CommonGLPI
         }
 
         $counts = Rules::counts(array_merge(array_values($byUser), $unmatched));
+        // Issue #604, lot 2 : compteurs par service (groupe GLPI), anonymes, gardés après la
+        // suppression des résultats individuels.
+        $groupCounts = Rules::groupCounts($byUser, self::groupsOf(array_keys($byUser)));
         $DB->update(PhishingCampaign::getTable(), [
             'nb_sent'         => $counts['sent'],
             'nb_opened'       => $counts['opened'],
@@ -254,6 +325,7 @@ class PhishingResult extends CommonGLPI
             'nb_submitted'    => $counts['submitted'],
             'nb_reported'     => $counts['reported'],
             'nb_unmatched'    => count($unmatched),
+            'group_counts'    => json_encode($groupCounts, JSON_FORCE_OBJECT),
             'import_file'     => mb_substr(basename($fileName), 0, 255),
             'date_import'     => $now,
             'date_anonymized' => null,
