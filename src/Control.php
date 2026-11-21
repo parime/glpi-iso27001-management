@@ -1722,6 +1722,8 @@ class Control extends ControlBase
             'configuration_compliance' => ConfigurationCompliance::evidence($code),
             // Issue #853 : couverture de la journalisation, preuve des mesures A.8.15, A.8.16 et A.8.17.
             'log_coverage'            => LogCoverage::evidence($code),
+            // Issue #846 : droits sur les partages de fichiers, preuve des mesures A.5.15, A.5.18 et A.8.3.
+            'share_access'            => ShareAccess::evidence($code),
             // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation (mesure A.6.3).
             'phishing'                => PhishingCampaign::evidence($code),
             // Issue #835 : audit de sécurité de l'AD (PingCastle), preuve des mesures A.5.15 à A.5.18,

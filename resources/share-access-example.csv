@@ -1,0 +1,10 @@
+Server,Share,SharePath,Folder,Depth,Scope,Identity,Sid,PrincipalType,Rights,AccessType,IsInherited,InheritanceProtected,Owner
+fs01.exemple.test,Compta,D:\Partages\Compta,\\fs01.exemple.test\Compta,0,Share,Everyone,S-1-1-0,,Change,Allow,False,False,
+fs01.exemple.test,Compta,D:\Partages\Compta,\\fs01.exemple.test\Compta,0,NTFS,BUILTIN\Administrators,S-1-5-32-544,,FullControl,Allow,False,False,BUILTIN\Administrators
+fs01.exemple.test,Compta,D:\Partages\Compta,\\fs01.exemple.test\Compta,0,NTFS,EXEMPLE\GG_Compta,S-1-5-21-1111111111-2222222222-3333333333-1201,Group,"Modify, Synchronize",Allow,False,False,BUILTIN\Administrators
+fs01.exemple.test,Compta,D:\Partages\Compta,\\fs01.exemple.test\Compta,0,NTFS,NT AUTHORITY\Authenticated Users,S-1-5-11,,"Modify, Synchronize",Allow,False,False,BUILTIN\Administrators
+fs01.exemple.test,Compta,D:\Partages\Compta,\\fs01.exemple.test\Compta\Paie,1,NTFS,EXEMPLE\alice.martin,S-1-5-21-1111111111-2222222222-3333333333-1105,User,FullControl,Allow,False,True,EXEMPLE\alice.martin
+fs01.exemple.test,Compta,D:\Partages\Compta,\\fs01.exemple.test\Compta\Paie,1,NTFS,S-1-5-21-1111111111-2222222222-3333333333-1188,S-1-5-21-1111111111-2222222222-3333333333-1188,,"ReadAndExecute, Synchronize",Allow,False,True,EXEMPLE\alice.martin
+fs01.exemple.test,Projets,D:\Partages\Projets,\\fs01.exemple.test\Projets,0,Share,EXEMPLE\Domain Users,S-1-5-21-1111111111-2222222222-3333333333-513,Group,Read,Allow,False,False,
+fs01.exemple.test,Projets,D:\Partages\Projets,\\fs01.exemple.test\Projets,0,NTFS,EXEMPLE\GG_Projets,S-1-5-21-1111111111-2222222222-3333333333-1202,Group,"Modify, Synchronize",Allow,False,False,BUILTIN\Administrators
+fs01.exemple.test,Projets,D:\Partages\Projets,\\fs01.exemple.test\Projets,0,NTFS,NT AUTHORITY\SYSTEM,S-1-5-18,,FullControl,Allow,False,False,BUILTIN\Administrators

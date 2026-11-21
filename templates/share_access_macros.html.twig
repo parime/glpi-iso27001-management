@@ -1,0 +1,30 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #846 : badges communs de la liste des partages et de la fiche d'un partage. #}
+{% macro classification(c, levels) %}
+   {% set colors = {'low': 'success', 'medium': 'warning', 'high': 'danger'} %}
+   {% set axes = {'confidentiality': _x('confidentiality', 'C', 'grcmanager'), 'integrity': _x('integrity', 'I', 'grcmanager'), 'availability': _x('availability', 'A', 'grcmanager')} %}
+   {% set titles = {'confidentiality': __('Confidentiality', 'grcmanager'), 'integrity': __('Integrity', 'grcmanager'), 'availability': __('Availability', 'grcmanager')} %}
+   {% for axis, letter in axes %}
+      {% if c[axis] %}
+         <span class="badge bg-{{ colors[c[axis]] }}-subtle text-{{ colors[c[axis]] }}-emphasis me-1" title="{{ titles[axis] }} : {{ levels[c[axis]] }}">{{ letter }} : {{ levels[c[axis]] }}</span>
+      {% endif %}
+   {% endfor %}
+   {% if c|filter(v => v)|length == 0 %}<span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-tag-off me-1"></i>{{ __('Not classified', 'grcmanager') }}</span>{% endif %}
+{% endmacro %}
+
+{% macro score(value, info) %}
+   <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis"><i class="ti ti-gauge me-1"></i>{{ info.label }}{% if value > 0 %} ({{ value }}){% endif %}</span>
+{% endmacro %}
