@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 15:37+0000\n"
+"POT-Creation-Date: 2026-11-21 15:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3045,7 +3045,7 @@ msgstr ""
 
 #: src/AdAttackPath.php:74 src/AdSecurityAudit.php:231 src/ControlTest.php:652
 #: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
-#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:303
+#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:306
 msgid "The file is empty."
 msgstr ""
 
@@ -11043,7 +11043,7 @@ msgstr ""
 #: src/IsmsRequirement.php:309 src/NotificationTargetAccessReview.php:107
 #: src/NotificationTargetAuditEvidenceRequest.php:162
 #: src/NotificationTargetPolicyVersion.php:141
-#: src/NotificationTargetSoaVersion.php:106 src/SupplierEvaluationFile.php:117
+#: src/NotificationTargetSoaVersion.php:106 src/SupplierEvaluationFile.php:120
 #: templates/_crisis_review.html.twig templates/access_review_form.html.twig
 #: templates/application_security_tab.html.twig
 #: templates/audit_checklist_tab.html.twig
@@ -18727,21 +18727,21 @@ msgstr ""
 msgid "Evidence added to question %s"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:49
+#: src/SupplierEvaluationFile.php:47
 msgid "Supplier file"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:109
+#: src/SupplierEvaluationFile.php:112
 #: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Code"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:110
+#: src/SupplierEvaluationFile.php:113
 #: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Section"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:111 src/SupplierQuestionnaireTemplate.php:107
+#: src/SupplierEvaluationFile.php:114 src/SupplierQuestionnaireTemplate.php:107
 #: templates/supplier_evaluation_import.html.twig
 #: templates/tabs/supplier_evaluation_answers.html.twig
 #: templates/tabs/supplier_questionnaire_questions.html.twig
@@ -18750,111 +18750,108 @@ msgid_plural "Questions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/SupplierEvaluationFile.php:112
+#: src/SupplierEvaluationFile.php:115
 msgid "Guidance"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:113
+#: src/SupplierEvaluationFile.php:116
 #: templates/tabs/supplier_evaluation_answers.html.twig
 #: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Expected answer"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:114
+#: src/SupplierEvaluationFile.php:117
 #: templates/tabs/supplier_evaluation_answers.html.twig
 #: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Evidence required"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:115
+#: src/SupplierEvaluationFile.php:118
 msgid "Allowed answers"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:116 templates/control_list_header.html.twig
-#: templates/data_subject_request_form.html.twig
-#: templates/policy_approval_tab.html.twig
-#: templates/tabs/supplier_evaluation_answers.html.twig
-msgid "Answer"
+#: src/SupplierEvaluationFile.php:119
+msgid "Supplier answer"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:118
+#: src/SupplierEvaluationFile.php:121
 #: templates/supplier_evaluation_import.html.twig
 msgid "Evidence file name"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:140
+#: src/SupplierEvaluationFile.php:143
 #, php-format
 msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:252
+#: src/SupplierEvaluationFile.php:255
 #, php-format
 msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:264
+#: src/SupplierEvaluationFile.php:267
 #, php-format
 msgid ""
 "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:280
+#: src/SupplierEvaluationFile.php:283
 #, php-format
 msgid "The file is too large (at most %d MB)."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:284
+#: src/SupplierEvaluationFile.php:287
 msgid ""
 "The file is not a CSV text file: save the spreadsheet as CSV before "
 "importing it."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:288
+#: src/SupplierEvaluationFile.php:291
 msgid ""
 "This file is not a questionnaire exported from this plugin: its first line "
 "was changed or removed."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:292
+#: src/SupplierEvaluationFile.php:295
 msgid ""
 "This file was exported for another evaluation: import it in the evaluation "
 "it comes from."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:296
+#: src/SupplierEvaluationFile.php:299
 msgid ""
 "The questions of this file do not match those of the evaluation: export the "
 "questionnaire again."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:300
+#: src/SupplierEvaluationFile.php:303
 msgid ""
 "The header line or some columns are missing: keep the columns of the "
 "exported file."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:314
+#: src/SupplierEvaluationFile.php:317
 #, php-format
 msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:319
+#: src/SupplierEvaluationFile.php:322
 #, php-format
 msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:324
+#: src/SupplierEvaluationFile.php:327
 #, php-format
 msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:329
+#: src/SupplierEvaluationFile.php:332
 #, php-format
 msgid ""
 "Line %1$d: at most %2$d questions per file, the following lines were ignored."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:334
+#: src/SupplierEvaluationFile.php:337
 #, php-format
 msgid "Question %s is missing from the file: its answer does not change."
 msgstr ""
@@ -25781,6 +25778,13 @@ msgstr ""
 #: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
 #, php-format
 msgid "%d partially"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+#: templates/data_subject_request_form.html.twig
+#: templates/policy_approval_tab.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Answer"
 msgstr ""
 
 #: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
@@ -37868,8 +37872,8 @@ msgstr ""
 #: templates/tabs/supplier_evaluation_file.html.twig
 msgid ""
 "When the supplier has no access to GLPI, send the questionnaire as a file: "
-"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for each "
-"document provided, \"Evidence file name\", in any spreadsheet. You then "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
 "import the returned file here: the answers are shown for review and nothing "
 "is saved before your confirmation."
 msgstr ""

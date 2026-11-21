@@ -34065,3 +34065,6 @@ msgstr "Quand le fournisseur n'a pas accès à GLPI, envoyez-lui le questionnair
 
 msgid "You are not allowed to change this evaluation."
 msgstr "Vous n'avez pas le droit de modifier cette évaluation."
+
+msgid "Supplier answer"
+msgstr "Réponse du fournisseur"

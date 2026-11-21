@@ -34060,3 +34060,6 @@ msgstr "Cuando el proveedor no tiene acceso a GLPI, envíele el cuestionario com
 
 msgid "You are not allowed to change this evaluation."
 msgstr "No tiene permiso para modificar esta evaluación."
+
+msgid "Supplier answer"
+msgstr "Respuesta del proveedor"
