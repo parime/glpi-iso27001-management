@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 06:51+0000\n"
+"POT-Creation-Date: 2026-11-21 07:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -712,6 +712,24 @@ msgstr ""
 msgid "Competences"
 msgstr ""
 
+#: front/logcoverage.php:55
+#, php-format
+msgid ""
+"%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr ""
+
+#: front/logcoverage.php:68 front/mfacoverage.php:69
+msgid "Import deleted."
+msgstr ""
+
+#: front/logcoverage.php:91
+msgid "Logging settings saved."
+msgstr ""
+
+#: front/logcoverage.php:101
+msgid "Log platform declaration saved."
+msgstr ""
+
 #: front/managementreview.dossier.php:38
 msgid ""
 "Choose a valid period: a start date before the end date, ten years at most."
@@ -740,10 +758,6 @@ msgstr ""
 #, php-format
 msgid ""
 "%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
-msgstr ""
-
-#: front/mfacoverage.php:69
-msgid "Import deleted."
 msgstr ""
 
 #: front/mfacoverage.php:85
@@ -829,7 +843,7 @@ msgstr ""
 msgid "The register has been archived as evidence on control A.5.37."
 msgstr ""
 
-#: front/parkmachines.php:26 src/Menu.php:177
+#: front/parkmachines.php:26 src/Menu.php:179
 msgid "Most exposed machines"
 msgstr ""
 
@@ -1356,7 +1370,7 @@ msgid ""
 "check the others."
 msgstr ""
 
-#: front/softwarewatch.php:69 src/Menu.php:170
+#: front/softwarewatch.php:69 src/Menu.php:172
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
@@ -1486,7 +1500,7 @@ msgstr ""
 msgid "Average supplier score"
 msgstr ""
 
-#: hook.php:201 src/RiskIndicator.php:162
+#: hook.php:201 src/RiskIndicator.php:168
 #: src/Services/Dashboard/PilotageCards.php:859
 msgid "Overdue periodic reviews"
 msgstr ""
@@ -1624,7 +1638,7 @@ msgstr ""
 msgid "Security incidents by severity"
 msgstr ""
 
-#: hook.php:422 src/ConsistencyCheck.php:259 src/RiskIndicator.php:155
+#: hook.php:422 src/ConsistencyCheck.php:259 src/RiskIndicator.php:161
 #: src/Services/Dashboard/DashboardCardService.php:876
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Overdue risk treatment actions"
@@ -1641,7 +1655,7 @@ msgstr ""
 msgid "Open risks above appetite"
 msgstr ""
 
-#: hook.php:441 src/RiskIndicator.php:154
+#: hook.php:441 src/RiskIndicator.php:160
 #: src/Services/Dashboard/DashboardCardService.php:988
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Open risks above tolerance"
@@ -1894,7 +1908,7 @@ msgstr ""
 #: src/Traits/RiskAssessmentTrait.php:139
 #: src/Traits/RiskAssessmentTrait.php:310
 #: templates/crisis_scenario_register.html.twig
-#: templates/park_vulnerabilities.html.twig
+#: templates/log_coverage.html.twig templates/park_vulnerabilities.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/crisis_scenarios_report.html.twig
 #: templates/risk_heatmap.html.twig
@@ -2027,7 +2041,7 @@ msgstr ""
 
 #: inc/securityincident.class.php:951 src/NetworkFlow.php:275
 #: src/NetworkFlow.php:459 src/NotificationTargetRiskIndicator.php:155
-#: src/RiskIndicator.php:761 templates/custom_framework_form.html.twig
+#: src/RiskIndicator.php:768 templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/mfa_coverage.html.twig templates/network_flow_import.html.twig
@@ -2221,7 +2235,7 @@ msgstr ""
 #: src/NotificationTargetRiskIndicator.php:148 src/Objective.php:168
 #: src/PersonnelCompliance.php:749 src/PhysicalSecurityAssessment.php:436
 #: src/Policy.php:178 src/ProcessingActivity.php:550
-#: src/ProcessingActivity.php:994 src/Risk.php:402 src/RiskIndicator.php:741
+#: src/ProcessingActivity.php:994 src/Risk.php:402 src/RiskIndicator.php:748
 #: src/RiskRegisterImport.php:614 src/SupplierRisk.php:243
 #: templates/_personnel_compliance.html.twig
 #: templates/access_review_form.html.twig
@@ -3237,7 +3251,8 @@ msgstr ""
 
 #: src/AuditLog.php:79 templates/audit_evidence_requests_tab.html.twig
 #: templates/control_csv.html.twig templates/edr_import.html.twig
-#: templates/mfa_coverage.html.twig templates/phishing_import.html.twig
+#: templates/log_coverage.html.twig templates/mfa_coverage.html.twig
+#: templates/phishing_import.html.twig
 msgid "Import"
 msgstr ""
 
@@ -4926,7 +4941,7 @@ msgid "Competences of the ISMS functions (ISO 27001, clause 7.2)"
 msgstr ""
 
 #: src/ComplianceAudit.php:86 templates/control_test_tab.html.twig
-#: templates/disk_encryption.html.twig
+#: templates/disk_encryption.html.twig templates/log_coverage.html.twig
 msgid "Automated technical checks"
 msgstr ""
 
@@ -5241,7 +5256,7 @@ msgstr ""
 #: src/ComplianceObligation.php:232 src/ContextItem.php:857
 #: src/ContextItem.php:933 src/NetworkFlow.php:286 src/Objective.php:200
 #: src/Policy.php:202 src/ProcessingActivity.php:571
-#: src/ProcessingActivity.php:997 src/Risk.php:393 src/RiskIndicator.php:768
+#: src/ProcessingActivity.php:997 src/Risk.php:393 src/RiskIndicator.php:775
 #: src/RiskRegisterImport.php:611 src/RiskRegisterImport.php:612
 #: src/SupplierRisk.php:234 templates/compliance_obligation_form.html.twig
 #: templates/context_item_form.html.twig templates/context_linked_tab.html.twig
@@ -5894,7 +5909,7 @@ msgstr ""
 #: src/NotificationTargetRisk.php:94
 #: src/NotificationTargetRiskIndicator.php:156
 #: src/NotificationTargetSupplierRisk.php:117 src/Playbook.php:214
-#: src/Policy.php:231 src/Risk.php:353 src/RiskIndicator.php:765
+#: src/Policy.php:231 src/Risk.php:353 src/RiskIndicator.php:772
 #: src/RiskRegisterImport.php:604 src/SupplierRisk.php:194
 #: templates/context_item_form.html.twig templates/pdf/context_report.html.twig
 #: templates/pdf/risk_register_report.html.twig templates/policy_form.html.twig
@@ -9237,7 +9252,7 @@ msgid "End of support of software, systems and firmwares (endoflife.date)"
 msgstr ""
 
 #: src/EndOfLife.php:477 src/HardwareWarranty.php:437
-#: templates/park_hardware_warranty.html.twig
+#: templates/log_coverage.html.twig templates/park_hardware_warranty.html.twig
 msgid "Asset"
 msgstr ""
 
@@ -9897,7 +9912,7 @@ msgstr ""
 #: templates/audit_programme_tab.html.twig
 #: templates/control_test_sample.html.twig templates/crisis_room.html.twig
 #: templates/custom_framework_form.html.twig
-#: templates/isms_requirement_form.html.twig
+#: templates/isms_requirement_form.html.twig templates/log_coverage.html.twig
 #: templates/my_evidence_requests.html.twig
 #: templates/objective_measurements.html.twig
 #: templates/official_contact_history_tab.html.twig
@@ -9922,6 +9937,80 @@ msgstr ""
 
 #: src/KriAlert.php:71
 msgid "From orange"
+msgstr ""
+
+#: src/LogCoverage.php:75 templates/control_form.html.twig
+msgid "Logging coverage"
+msgstr ""
+
+#: src/LogCoverage.php:134
+msgid "Syslog server"
+msgstr ""
+
+#: src/LogCoverage.php:135
+msgid "Other log platform"
+msgstr ""
+
+#: src/LogCoverage.php:146
+msgid "No logs received"
+msgstr ""
+
+#: src/LogCoverage.php:149
+msgid "No log platform knows this asset (name or IP address)."
+msgstr ""
+
+#: src/LogCoverage.php:152
+msgid "Logs stopped"
+msgstr ""
+
+#: src/LogCoverage.php:155
+msgid "The last event received is older than the threshold."
+msgstr ""
+
+#: src/LogCoverage.php:158
+msgid "Logs received"
+msgstr ""
+
+#: src/LogCoverage.php:161
+msgid "A log platform received an event from this asset recently."
+msgstr ""
+
+#: src/LogCoverage.php:172
+msgid "Critical assets, servers and network devices"
+msgstr ""
+
+#: src/LogCoverage.php:173
+msgid "Critical assets only"
+msgstr ""
+
+#: src/LogCoverage.php:174
+msgid "All computers and network devices"
+msgstr ""
+
+#: src/LogCoverage.php:185
+msgid "Long enough"
+msgstr ""
+
+#: src/LogCoverage.php:190
+msgid "Too short"
+msgstr ""
+
+#: src/LogCoverage.php:195 templates/disk_encryption.html.twig
+msgid "Not declared"
+msgstr ""
+
+#: src/LogCoverage.php:206
+msgid ""
+"The file has no column for the host name or IP address (for example host, "
+"hostname, source, agent.name or ip)."
+msgstr ""
+
+#: src/LogCoverage.php:210
+msgid "You do not have the right to import."
+msgstr ""
+
+#: src/LogCoverage.php:211 src/MfaCoverage.php:192
+msgid "The file could not be read."
 msgstr ""
 
 #: src/ManagementReview.php:82 src/ManagementReview.php:448
@@ -10153,10 +10242,6 @@ msgstr ""
 msgid ""
 "No method column found: the file needs a column such as methodsRegistered, "
 "methods or isMfaRegistered."
-msgstr ""
-
-#: src/MfaCoverage.php:192
-msgid "The file could not be read."
 msgstr ""
 
 #: src/MfaCoverage.php:203
@@ -11044,24 +11129,24 @@ msgstr ""
 msgid "Previous status"
 msgstr ""
 
-#: src/NotificationTargetRiskIndicator.php:150 src/RiskIndicator.php:745
+#: src/NotificationTargetRiskIndicator.php:150 src/RiskIndicator.php:752
 #: templates/risk_indicator_form.html.twig
 #: templates/ticket/risk_indicator.html.twig
 msgid "Last value"
 msgstr ""
 
-#: src/NotificationTargetRiskIndicator.php:151 src/RiskIndicator.php:749
+#: src/NotificationTargetRiskIndicator.php:151 src/RiskIndicator.php:756
 msgid "Last measured on"
 msgstr ""
 
-#: src/NotificationTargetRiskIndicator.php:152 src/RiskIndicator.php:753
-#: src/RiskIndicator.php:905 templates/risk_indicator_form.html.twig
+#: src/NotificationTargetRiskIndicator.php:152 src/RiskIndicator.php:760
+#: src/RiskIndicator.php:912 templates/risk_indicator_form.html.twig
 #: templates/ticket/risk_indicator.html.twig
 msgid "Orange threshold"
 msgstr ""
 
-#: src/NotificationTargetRiskIndicator.php:153 src/RiskIndicator.php:757
-#: src/RiskIndicator.php:906 templates/risk_indicator_form.html.twig
+#: src/NotificationTargetRiskIndicator.php:153 src/RiskIndicator.php:764
+#: src/RiskIndicator.php:913 templates/risk_indicator_form.html.twig
 #: templates/ticket/risk_indicator.html.twig
 msgid "Red threshold"
 msgstr ""
@@ -12062,14 +12147,35 @@ msgstr ""
 msgid "ISO/IEC 27001, controls A.8.8 and A.8.19"
 msgstr ""
 
-#: src/PageHelp.php:476
+#: src/PageHelp.php:477
+msgid ""
+"Shows which important assets send their logs to a log platform (Wazuh, "
+"Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
+"nothing for several days, and whether each platform keeps the logs long "
+"enough and synchronizes the clocks."
+msgstr ""
+
+#: src/PageHelp.php:483
+msgid ""
+"Choose the assets that must send their logs, import the list of hosts of "
+"each log platform (or let the Wazuh plugin be read), connect the assets "
+"listed as gaps, and declare the retention and the time server of each "
+"platform. The page only reads: it runs nothing on the platforms. Record the "
+"result as an effectiveness test of the control to keep the evidence."
+msgstr ""
+
+#: src/PageHelp.php:490
+msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
+msgstr ""
+
+#: src/PageHelp.php:494
 msgid ""
 "The context of the organization: the internal and external issues that "
 "affect information security, and the interested parties with their "
 "expectations and what the ISMS retains."
 msgstr ""
 
-#: src/PageHelp.php:481
+#: src/PageHelp.php:499
 msgid ""
 "List the issues and the interested parties, decide for each one whether the "
 "ISMS retains it, link the related risks, obligations and controls, answer "
@@ -12077,18 +12183,18 @@ msgid ""
 "the export of the list for the auditor."
 msgstr ""
 
-#: src/PageHelp.php:486
+#: src/PageHelp.php:504
 msgid "ISO/IEC 27001, clauses 4.1 and 4.2"
 msgstr ""
 
-#: src/PageHelp.php:491
+#: src/PageHelp.php:509
 msgid ""
 "Shows, for each site (a location of GLPI), the last physical security "
 "assessment: the state of each control A.7.1 to A.7.14 side by side, the "
 "score, and when the site must be assessed again (at least once a year)."
 msgstr ""
 
-#: src/PageHelp.php:497
+#: src/PageHelp.php:515
 msgid ""
 "Assess each site: walk through it, record the state, the finding and the "
 "evidence (photos, reports) of each control, and list its zones with their "
@@ -12097,18 +12203,18 @@ msgid ""
 "shown."
 msgstr ""
 
-#: src/PageHelp.php:503
+#: src/PageHelp.php:521
 msgid "ISO/IEC 27001, controls A.7.1 to A.7.14"
 msgstr ""
 
-#: src/PageHelp.php:508
+#: src/PageHelp.php:526
 msgid ""
 "Shows whether each main IT operations activity (backup, restore, monitoring, "
 "updates...) has a documented procedure that is approved and reviewed on "
 "time, with its version, its owner and who has acknowledged it."
 msgstr ""
 
-#: src/PageHelp.php:514
+#: src/PageHelp.php:532
 msgid ""
 "For each domain without an up-to-date procedure, add one or update it: "
 "attach the document, have it approved, set its next review date, then launch "
@@ -12116,11 +12222,11 @@ msgid ""
 "Archive the register on control A.5.37 before an audit."
 msgstr ""
 
-#: src/PageHelp.php:520
+#: src/PageHelp.php:538
 msgid "ISO/IEC 27001, control A.5.37"
 msgstr ""
 
-#: src/PageHelp.php:525
+#: src/PageHelp.php:543
 msgid ""
 "The applications developed or maintained in-house, with their secure "
 "development practices (framework, code review, SAST, DAST and dependency "
@@ -12129,7 +12235,7 @@ msgid ""
 "with their security validation."
 msgstr ""
 
-#: src/PageHelp.php:532
+#: src/PageHelp.php:550
 msgid ""
 "Fill in the \"Secure development\" tab of each application, link the changes "
 "to their application, then have each release approved by the CIO or the CISO "
@@ -12137,11 +12243,11 @@ msgid ""
 "into production."
 msgstr ""
 
-#: src/PageHelp.php:537
+#: src/PageHelp.php:555
 msgid "ISO/IEC 27001, controls A.8.25 to A.8.31"
 msgstr ""
 
-#: src/PageHelp.php:542
+#: src/PageHelp.php:560
 msgid ""
 "Who to contact outside the organization when something happens: authorities "
 "(data protection authority, national CSIRT, police), regulators, insurers "
@@ -12149,7 +12255,7 @@ msgid ""
 "time limit and who is allowed to call them."
 msgstr ""
 
-#: src/PageHelp.php:548
+#: src/PageHelp.php:566
 msgid ""
 "Record each official contact, tick the events (and, if needed, the types of "
 "incident) for which it must be informed, verify the details at least once a "
@@ -12157,36 +12263,36 @@ msgid ""
 "archive it on controls A.5.5 and A.5.6 after each review."
 msgstr ""
 
-#: src/PageHelp.php:554
+#: src/PageHelp.php:572
 msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
 msgstr ""
 
-#: src/PageHelp.php:558
+#: src/PageHelp.php:576
 msgid ""
 "Who performs, approves, is consulted on or is informed of each activity of "
 "the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
 "approvers are reported here."
 msgstr ""
 
-#: src/PageHelp.php:563
+#: src/PageHelp.php:581
 msgid ""
 "For each activity, add who performs it and a single approver, mark the "
 "sensitive activities, fix the alerts, then archive the matrix as evidence "
 "before the audit."
 msgstr ""
 
-#: src/PageHelp.php:567
+#: src/PageHelp.php:585
 msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
 msgstr ""
 
-#: src/PageHelp.php:572
+#: src/PageHelp.php:590
 msgid ""
 "The competences each ISMS function needs (CISO, DPO, administrator...), who "
 "holds each function, what each person has acquired through passed trainings "
 "or declared evidence, and the gaps."
 msgstr ""
 
-#: src/PageHelp.php:577
+#: src/PageHelp.php:595
 msgid ""
 "Add the functions and their required competences with the expected level, "
 "say who holds them, link the trainings that give each competence, declare "
@@ -12194,41 +12300,41 @@ msgid ""
 "file as evidence before the audit."
 msgstr ""
 
-#: src/PageHelp.php:582 src/PageHelp.php:594 src/PageHelp.php:607
+#: src/PageHelp.php:600 src/PageHelp.php:612 src/PageHelp.php:625
 msgid "ISO/IEC 27001, clause 7.2"
 msgstr ""
 
-#: src/PageHelp.php:586
+#: src/PageHelp.php:604
 msgid ""
 "The catalogue of the information security competences of the organization, "
 "and the trainings that give each one once passed."
 msgstr ""
 
-#: src/PageHelp.php:591
+#: src/PageHelp.php:609
 msgid ""
 "Describe each competence and link the trainings that give it, with the level "
 "reached."
 msgstr ""
 
-#: src/PageHelp.php:598
+#: src/PageHelp.php:616
 msgid ""
 "The competences acquired outside the trainings of the plugin, each one with "
 "its evidence: certificate, diploma, annual review or proven experience."
 msgstr ""
 
-#: src/PageHelp.php:603
+#: src/PageHelp.php:621
 msgid ""
 "Record the reference of the evidence, its date and its end of validity, and "
 "attach the file in the Documents tab."
 msgstr ""
 
-#: src/PageHelp.php:611
+#: src/PageHelp.php:629
 msgid ""
 "The register of personal data breaches: every breach is documented, whether "
 "or not it was notified, with its facts, effects and the measures taken."
 msgstr ""
 
-#: src/PageHelp.php:616
+#: src/PageHelp.php:634
 msgid ""
 "Record each breach as soon as it is known (from the security incident when "
 "there is one), decide within 72 h whether to notify the supervisory "
@@ -12236,82 +12342,82 @@ msgid ""
 "then export the register when the authority asks for it."
 msgstr ""
 
-#: src/PageHelp.php:622
+#: src/PageHelp.php:640
 msgid "GDPR, articles 33 and 34"
 msgstr ""
 
-#: src/PageHelp.php:626
+#: src/PageHelp.php:644
 msgid ""
 "The internal audit programme: scope, dates, auditors, report and findings."
 msgstr ""
 
-#: src/PageHelp.php:630
+#: src/PageHelp.php:648
 msgid ""
 "Plan the year's audits, enter the report and the findings; each "
 "nonconformity opens an action plan."
 msgstr ""
 
-#: src/PageHelp.php:634
+#: src/PageHelp.php:652
 msgid "ISO 27001, 9.2"
 msgstr ""
 
-#: src/PageHelp.php:639
+#: src/PageHelp.php:657
 msgid ""
 "The internal audit programme over the certification cycle: which ISMS "
 "process is audited which year, and which one is not covered yet."
 msgstr ""
 
-#: src/PageHelp.php:644
+#: src/PageHelp.php:662
 msgid ""
 "Make sure every process is audited at least once over the cycle: plan an "
 "audit for each process in red or orange, and choose its processes in the "
 "\"Programme and independence\" tab of the audit."
 msgstr ""
 
-#: src/PageHelp.php:649
+#: src/PageHelp.php:667
 msgid "ISO 27001, 9.2.2; ISO 19011, 5"
 msgstr ""
 
-#: src/PageHelp.php:653
+#: src/PageHelp.php:671
 msgid ""
 "Nonconformities and observations, with their corrective and preventive "
 "actions (CAPA)."
 msgstr ""
 
-#: src/PageHelp.php:657
+#: src/PageHelp.php:675
 msgid ""
 "Analyse the cause, describe the corrective action, assign an owner and a due "
 "date, then check its effectiveness before closing."
 msgstr ""
 
-#: src/PageHelp.php:661
+#: src/PageHelp.php:679
 msgid "ISO 27001, 10.2"
 msgstr ""
 
-#: src/PageHelp.php:665
+#: src/PageHelp.php:683
 msgid ""
 "Security training and awareness sessions, with their participants and "
 "results."
 msgstr ""
 
-#: src/PageHelp.php:669
+#: src/PageHelp.php:687
 msgid ""
 "Record each session, its participants and its renewal date; a reminder is "
 "sent when it is due."
 msgstr ""
 
-#: src/PageHelp.php:672
+#: src/PageHelp.php:690
 msgid "ISO 27001, 7.2 and 7.3"
 msgstr ""
 
-#: src/PageHelp.php:677
+#: src/PageHelp.php:695
 msgid ""
 "Phishing simulations: the fake phishing campaigns sent with an external tool "
 "(GoPhish, a provider...), their results and the trend from one campaign to "
 "the next. The plugin never sends any email."
 msgstr ""
 
-#: src/PageHelp.php:683
+#: src/PageHelp.php:701
 msgid ""
 "Record each campaign (date, tool, scenario, targeted population), then "
 "import the results file of the tool in the Results tab. Offer a remedial "
@@ -12321,81 +12427,81 @@ msgid ""
 "rates by group and by entity stay anonymous."
 msgstr ""
 
-#: src/PageHelp.php:690 src/PageHelp.php:703
+#: src/PageHelp.php:708 src/PageHelp.php:721
 msgid "ISO/IEC 27001, clause 7.3 and control A.6.3"
 msgstr ""
 
-#: src/PageHelp.php:694
+#: src/PageHelp.php:712
 msgid ""
 "Import of the results of a phishing simulation: each line of the file is "
 "matched with a GLPI user by email address or login."
 msgstr ""
 
-#: src/PageHelp.php:699
+#: src/PageHelp.php:717
 msgid ""
 "Check the column of each field, then import. The lines not matched are "
 "listed on the campaign so that you can correct them."
 msgstr ""
 
-#: src/PageHelp.php:707
+#: src/PageHelp.php:725
 msgid ""
 "Management reviews: the periodic review of the information security "
 "management system by top management."
 msgstr ""
 
-#: src/PageHelp.php:712
+#: src/PageHelp.php:730
 msgid ""
 "At least once a year, prepare the review (indicators, audits, incidents, "
 "risks), record the decisions and the resulting actions."
 msgstr ""
 
-#: src/PageHelp.php:716
+#: src/PageHelp.php:734
 msgid "ISO 27001, 9.3"
 msgstr ""
 
-#: src/PageHelp.php:719
+#: src/PageHelp.php:737
 msgid "Security objectives and their indicators measured over time."
 msgstr ""
 
-#: src/PageHelp.php:721
+#: src/PageHelp.php:739
 msgid ""
 "Define measurable objectives, enter the measurements each period and track "
 "progress towards the target."
 msgstr ""
 
-#: src/PageHelp.php:725
+#: src/PageHelp.php:743
 msgid "ISO 27001, 6.2 and 9.1"
 msgstr ""
 
-#: src/PageHelp.php:729
+#: src/PageHelp.php:747
 msgid ""
 "Access rights review campaigns: each manager confirms or removes the rights "
 "of their team."
 msgstr ""
 
-#: src/PageHelp.php:733
+#: src/PageHelp.php:751
 msgid ""
 "Start a campaign; managers decide line by line. Removing a right opens a "
 "ticket, it is never applied automatically."
 msgstr ""
 
-#: src/PageHelp.php:737
+#: src/PageHelp.php:755
 msgid "ISO 27001, Annex A 5.18"
 msgstr ""
 
-#: src/PageHelp.php:741
+#: src/PageHelp.php:759
 msgid ""
 "Accounts to check: inactive accounts, accounts missing from the directory, "
 "duplicates or never used."
 msgstr ""
 
-#: src/PageHelp.php:746
+#: src/PageHelp.php:764
 msgid ""
 "Review the list and open a ticket for each account to disable; nothing is "
 "disabled automatically."
 msgstr ""
 
-#: src/PageHelp.php:754
+#: src/PageHelp.php:772
 msgid ""
 "Shows which active accounts are protected by multi-factor authentication: "
 "GLPI two-factor authentication, and the methods registered with your "
@@ -12404,7 +12510,7 @@ msgid ""
 "administrators and remote access accounts."
 msgstr ""
 
-#: src/PageHelp.php:761
+#: src/PageHelp.php:779
 msgid ""
 "Import the export of your identity provider, choose the remote access "
 "groups, then follow up the gaps: administrator or remote access without MFA, "
@@ -12413,120 +12519,120 @@ msgid ""
 "keep the evidence."
 msgstr ""
 
-#: src/PageHelp.php:767
+#: src/PageHelp.php:785
 msgid "ISO/IEC 27001, controls A.8.5 and A.5.17"
 msgstr ""
 
-#: src/PageHelp.php:771
+#: src/PageHelp.php:789
 msgid ""
 "Security compliance of each person: screening, confidentiality agreement, "
 "mandatory trainings, IT charter, security policies read, access review and "
 "account hygiene."
 msgstr ""
 
-#: src/PageHelp.php:776
+#: src/PageHelp.php:794
 msgid ""
 "Follow up the gaps with the person and their manager; nothing is changed "
 "automatically. The deadline for newcomers and the weight of each component "
 "are set in the plugin configuration."
 msgstr ""
 
-#: src/PageHelp.php:781
+#: src/PageHelp.php:799
 msgid "ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18"
 msgstr ""
 
-#: src/PageHelp.php:785
+#: src/PageHelp.php:803
 msgid ""
 "Periodic reviews (backups, logs, rights, continuity plan...) scheduled as "
 "recurring tickets."
 msgstr ""
 
-#: src/PageHelp.php:789
+#: src/PageHelp.php:807
 msgid ""
 "Enable the useful reviews and their frequency; a ticket is created at each "
 "due date for the person in charge."
 msgstr ""
 
-#: src/PageHelp.php:796
+#: src/PageHelp.php:814
 msgid ""
 "The matrix of authorised network flows: who talks to whom, on which port, "
 "and why."
 msgstr ""
 
-#: src/PageHelp.php:800
+#: src/PageHelp.php:818
 msgid ""
 "Describe each flow with its justification and owner, or import your firewall "
 "export, then review the matrix regularly."
 msgstr ""
 
-#: src/PageHelp.php:804
+#: src/PageHelp.php:822
 msgid "ISO 27001, Annex A 8.20 to 8.22"
 msgstr ""
 
-#: src/PageHelp.php:808
+#: src/PageHelp.php:826
 msgid ""
 "Work email addresses found in known data breaches (Have I Been Pwned), "
 "checked every day."
 msgstr ""
 
-#: src/PageHelp.php:812
+#: src/PageHelp.php:830
 msgid ""
 "For each new exposure, have the password changed (and enable multi-factor "
 "authentication) if passwords were exposed, then mark it as handled."
 msgstr ""
 
-#: src/PageHelp.php:816
+#: src/PageHelp.php:834
 msgid "ISO 27001, Annex A 5.7 and 5.17"
 msgstr ""
 
-#: src/PageHelp.php:820
+#: src/PageHelp.php:838
 msgid ""
 "The compliance calendar: all due dates (reviews, audits, renewals, "
 "obligations) in one place, also visible in the GLPI planning."
 msgstr ""
 
-#: src/PageHelp.php:825
+#: src/PageHelp.php:843
 msgid ""
 "Check it to anticipate due dates; subscribe your calendar with the iCal link."
 msgstr ""
 
-#: src/PageHelp.php:831
+#: src/PageHelp.php:849
 msgid ""
 "One-off compliance events to add to the calendar (regulator inspection, "
 "crisis exercise, contractual deadline...)."
 msgstr ""
 
-#: src/PageHelp.php:836
+#: src/PageHelp.php:854
 msgid ""
 "Add the event with its date and owner; it appears in the compliance calendar."
 msgstr ""
 
-#: src/PageHelp.php:842
+#: src/PageHelp.php:860
 msgid ""
 "The library of security policies, versioned, with their approval and review "
 "date."
 msgstr ""
 
-#: src/PageHelp.php:846
+#: src/PageHelp.php:864
 msgid ""
 "Upload each policy, have it approved, distribute it and review it when due."
 msgstr ""
 
-#: src/PageHelp.php:849
+#: src/PageHelp.php:867
 msgid "ISO 27001, 5.2; Annex A 5.1"
 msgstr ""
 
-#: src/PageHelp.php:853
+#: src/PageHelp.php:871
 msgid "Dated evidence (reports, attestations, certificates) and its validity."
 msgstr ""
 
-#: src/PageHelp.php:857
+#: src/PageHelp.php:875
 msgid ""
 "State how long each piece of evidence is valid; a renewal ticket is opened "
 "when it expires."
 msgstr ""
 
-#: src/PageHelp.php:864
+#: src/PageHelp.php:882
 msgid ""
 "Prepare the evidence pack the auditor asks for: one ZIP archive per "
 "perimeter, with the evidence of each control and each requirement, the "
@@ -12534,7 +12640,7 @@ msgid ""
 "SHA-256 fingerprint."
 msgstr ""
 
-#: src/PageHelp.php:870
+#: src/PageHelp.php:888
 msgid ""
 "Choose the perimeter and check its contents: renew expired evidence and "
 "attach what is missing first. Then generate the pack and download it from "
@@ -12542,62 +12648,62 @@ msgid ""
 "the index, not included. Nothing is changed in the registers."
 msgstr ""
 
-#: src/PageHelp.php:877
+#: src/PageHelp.php:895
 msgid ""
 "ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
 "(internal audit)"
 msgstr ""
 
-#: src/PageHelp.php:883
+#: src/PageHelp.php:901
 msgid ""
 "The effectiveness tests of the Annex A controls: a control in place is "
 "checked to really work, with its method, result and evidence."
 msgstr ""
 
-#: src/PageHelp.php:888
+#: src/PageHelp.php:906
 msgid ""
 "Set a test plan on each control, record each test from the control's "
 "\"Effectiveness tests\" tab and carry out the tests that are due first. An "
 "ineffective control opens a non-conformity."
 msgstr ""
 
-#: src/PageHelp.php:893
+#: src/PageHelp.php:911
 msgid "ISO 27001, 9.1; ISO 27002, 5.35 and 5.36"
 msgstr ""
 
-#: src/PageHelp.php:897
+#: src/PageHelp.php:915
 msgid ""
 "The audit log of the security incidents: who consulted or changed what, "
 "when, with which profile and from which address, including impersonations."
 msgstr ""
 
-#: src/PageHelp.php:902
+#: src/PageHelp.php:920
 msgid ""
 "Filter the entries, export them for an audit or a court, and check the "
 "integrity regularly: each entry is sealed with the previous one."
 msgstr ""
 
-#: src/PageHelp.php:909
+#: src/PageHelp.php:927
 msgid ""
 "Import of a CSV export of the alerts from an EDR or XDR console: each alert "
 "becomes an incident with its indicators, MITRE ATT&CK techniques, hosts and "
 "accounts."
 msgstr ""
 
-#: src/PageHelp.php:914
+#: src/PageHelp.php:932
 msgid ""
 "Check the columns proposed, choose how to group the alerts, then import. An "
 "alert already imported is ignored; the original lines are kept unchanged on "
 "the incident."
 msgstr ""
 
-#: src/PageHelp.php:921
+#: src/PageHelp.php:939
 msgid ""
 "EBIOS Risk Manager studies: the risk assessment method of ANSSI, the French "
 "national cybersecurity agency, published under an open licence."
 msgstr ""
 
-#: src/PageHelp.php:926
+#: src/PageHelp.php:944
 msgid ""
 "Create one study per scope, then work through its workshops in order: "
 "business values and feared events, risk sources, stakeholders and strategic "
@@ -12605,20 +12711,20 @@ msgid ""
 "register."
 msgstr ""
 
-#: src/PageHelp.php:934
+#: src/PageHelp.php:952
 msgid ""
 "Remediation playbooks: the standard steps to follow for each type of "
 "incident (ransomware, phishing, compromised account...)."
 msgstr ""
 
-#: src/PageHelp.php:939
+#: src/PageHelp.php:957
 msgid ""
 "Adapt the five playbooks provided to your context; from an incident, apply "
 "one to get its plan of tasks. Mandatory steps must be done or marked not "
 "applicable before closing."
 msgstr ""
 
-#: src/PageHelp.php:947
+#: src/PageHelp.php:965
 msgid ""
 "Information security crisis scenarios of the continuity plan: ransomware, "
 "data leak, compromise of privileged accounts, unavailability of a critical "
@@ -12627,7 +12733,7 @@ msgid ""
 "follow."
 msgstr ""
 
-#: src/PageHelp.php:954
+#: src/PageHelp.php:972
 msgid ""
 "Add the default scenarios, then adapt each one: choose the impacted "
 "processes, check the secure degraded mode and the roles, link the response "
@@ -12635,18 +12741,18 @@ msgid ""
 "should be exercised at least once a year."
 msgstr ""
 
-#: src/PageHelp.php:959
+#: src/PageHelp.php:977
 msgid "ISO/IEC 27001, control A.5.29"
 msgstr ""
 
-#: src/PageHelp.php:964
+#: src/PageHelp.php:982
 msgid ""
 "Crisis message templates: the messages prepared in advance for each kind of "
 "crisis (major incident, personal data breach, unavailability, ransomware), "
 "with the people and organizations to inform for each one."
 msgstr ""
 
-#: src/PageHelp.php:970
+#: src/PageHelp.php:988
 msgid ""
 "Adapt the templates provided and fill in the distribution list of each one "
 "(users, groups and official contacts). During a crisis, open the Crisis "
@@ -12655,59 +12761,59 @@ msgid ""
 "email."
 msgstr ""
 
-#: src/PageHelp.php:976
+#: src/PageHelp.php:994
 msgid "ISO/IEC 27001, control A.5.26 and clause 7.4"
 msgstr ""
 
-#: src/PageHelp.php:981
+#: src/PageHelp.php:999
 msgid ""
 "Custom frameworks: follow a framework that is not built in (group "
 "requirements, sector or contractual framework, customer security plan) by "
 "importing it from a spreadsheet."
 msgstr ""
 
-#: src/PageHelp.php:986
+#: src/PageHelp.php:1004
 msgid ""
 "Download the template, fill in one line per requirement with the Annex A "
 "controls that meet it, import it, then enable the framework. A new version "
 "of the file updates it without losing the statuses already entered."
 msgstr ""
 
-#: src/PageHelp.php:994
+#: src/PageHelp.php:1012
 msgid ""
 "Coverage rules: which assets must have which document (for example, every "
 "server must have its operations sheet)."
 msgstr ""
 
-#: src/PageHelp.php:999
+#: src/PageHelp.php:1017
 msgid ""
 "Create one rule per requirement; the result lists the covered assets and "
 "those to complete."
 msgstr ""
 
-#: src/PageHelp.php:1005
+#: src/PageHelp.php:1023
 msgid ""
 "Security exemptions: accepted exceptions to a policy or a control, limited "
 "in time and compensated."
 msgstr ""
 
-#: src/PageHelp.php:1010
+#: src/PageHelp.php:1028
 msgid ""
 "Justify each exemption, describe the compensating measures, have it approved "
 "and set its end date; it is reassessed when due."
 msgstr ""
 
-#: src/PageHelp.php:1014
+#: src/PageHelp.php:1032
 msgid "ISO 27001, 6.1.3; Annex A 5.36"
 msgstr ""
 
-#: src/PageHelp.php:1018
+#: src/PageHelp.php:1036
 msgid ""
 "Business processes: who owns them, how critical they are, how long they can "
 "be interrupted and which GLPI items they depend on."
 msgstr ""
 
-#: src/PageHelp.php:1023
+#: src/PageHelp.php:1041
 msgid ""
 "For each process, rate the impact of an interruption over time (business "
 "impact analysis), set its MTPD, RTO and RPO, and link the applications, "
@@ -12715,17 +12821,17 @@ msgid ""
 "Export the result for your continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:1028
+#: src/PageHelp.php:1046
 msgid "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
 msgstr ""
 
-#: src/PageHelp.php:1033
+#: src/PageHelp.php:1051
 msgid ""
 "Recovery test programme: when each business process was last tested, whether "
 "the test met its RTO and RPO, and which processes are not tested in time."
 msgstr ""
 
-#: src/PageHelp.php:1038
+#: src/PageHelp.php:1056
 msgid ""
 "Plan a test for each process reported as overdue or not tested this year, "
 "then record the measured recovery time and data loss in its \"Recovery "
@@ -12733,111 +12839,111 @@ msgid ""
 "continuity is tested regularly."
 msgstr ""
 
-#: src/PageHelp.php:1043
+#: src/PageHelp.php:1061
 msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
 msgstr ""
 
-#: src/PageHelp.php:1047
+#: src/PageHelp.php:1065
 msgid ""
 "Single points of failure: critical items that depend on a single source, "
 "according to GLPI's impact analysis."
 msgstr ""
 
-#: src/PageHelp.php:1052
+#: src/PageHelp.php:1070
 msgid ""
 "Create the matching risk or add redundancy; export the list for your "
 "business continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:1055
+#: src/PageHelp.php:1073
 msgid "ISO 27001, Annex A 5.29, 5.30 and 8.14"
 msgstr ""
 
-#: src/PageHelp.php:1058
+#: src/PageHelp.php:1076
 msgid "The domino effect: how one incident or risk can lead to others."
 msgstr ""
 
-#: src/PageHelp.php:1060
+#: src/PageHelp.php:1078
 msgid ""
 "Link items from the \"Domino effect\" tab of a risk or an incident; this "
 "page shows the whole picture."
 msgstr ""
 
-#: src/PageHelp.php:1067
+#: src/PageHelp.php:1085
 msgid ""
 "Security incidents: qualification, affected assets, CVEs, costs, regulatory "
 "notifications (data protection authority, NIS2)."
 msgstr ""
 
-#: src/PageHelp.php:1072
+#: src/PageHelp.php:1090
 msgid ""
 "Declare the incident, qualify it, follow up the actions and meet the "
 "notification deadlines shown on the record."
 msgstr ""
 
-#: src/PageHelp.php:1076
+#: src/PageHelp.php:1094
 msgid "ISO 27001, Annex A 5.24 to 5.28"
 msgstr ""
 
-#: src/PageHelp.php:1080
+#: src/PageHelp.php:1098
 msgid ""
 "Known vulnerabilities (CVEs) of the software installed on your fleet, with "
 "their real-world exploitation (KEV, EPSS) and CERT-FR advisories."
 msgstr ""
 
-#: src/PageHelp.php:1085
+#: src/PageHelp.php:1103
 msgid ""
 "Handle exploited and priority vulnerabilities first; open one update ticket "
 "per software."
 msgstr ""
 
-#: src/PageHelp.php:1088 src/PageHelp.php:1112
+#: src/PageHelp.php:1106 src/PageHelp.php:1130
 msgid "ISO 27001, Annex A 8.8"
 msgstr ""
 
-#: src/PageHelp.php:1092
+#: src/PageHelp.php:1110
 msgid ""
 "Fleet software to match with a CPE reference so that its vulnerabilities are "
 "tracked."
 msgstr ""
 
-#: src/PageHelp.php:1096
+#: src/PageHelp.php:1114
 msgid ""
 "Start with the most exposed (browsers, remote access, VPN): search for the "
 "CPE, confirm it, or ignore software with no stakes."
 msgstr ""
 
-#: src/PageHelp.php:1103
+#: src/PageHelp.php:1121
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
 "software, operating system and firmware, to know where to start updating."
 msgstr ""
 
-#: src/PageHelp.php:1108
+#: src/PageHelp.php:1126
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
 "tab of each one details the CVEs and the update ticket."
 msgstr ""
 
-#: src/PageHelp.php:1116
+#: src/PageHelp.php:1134
 msgid ""
 "The correlation catalogue: reference products, their CPEs and the names "
 "under which they appear in the inventory."
 msgstr ""
 
-#: src/PageHelp.php:1121
+#: src/PageHelp.php:1139
 msgid ""
 "It is filled from \"Software to watch\"; correct an alias or a CPE here if "
 "needed."
 msgstr ""
 
-#: src/PageHelp.php:1127
+#: src/PageHelp.php:1145
 msgid ""
 "Mappings between Annex A and other frameworks, to reuse your work across "
 "several standards."
 msgstr ""
 
-#: src/PageHelp.php:1130
+#: src/PageHelp.php:1148
 msgid "Check the mappings before an audit against another framework."
 msgstr ""
 
@@ -15232,110 +15338,114 @@ msgstr ""
 msgid "ISO/IEC 27090 sections: %s"
 msgstr ""
 
-#: src/RiskIndicator.php:133
+#: src/RiskIndicator.php:138
 msgid "Risk indicator (KRI)"
 msgid_plural "Risk indicators (KRI)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/RiskIndicator.php:147
+#: src/RiskIndicator.php:152
 msgid "Manual entry"
 msgstr ""
 
-#: src/RiskIndicator.php:148
+#: src/RiskIndicator.php:153
 msgid "Computers with an unencrypted disk (%)"
 msgstr ""
 
-#: src/RiskIndicator.php:149
+#: src/RiskIndicator.php:154
 msgid "Computers without an up-to-date antivirus (%)"
 msgstr ""
 
-#: src/RiskIndicator.php:150
+#: src/RiskIndicator.php:155
 msgid "Laptops with an unencrypted disk (%)"
 msgstr ""
 
-#: src/RiskIndicator.php:151
+#: src/RiskIndicator.php:156
 msgid "Administrators without MFA"
 msgstr ""
 
-#: src/RiskIndicator.php:152 templates/patch_compliance.html.twig
+#: src/RiskIndicator.php:157 templates/patch_compliance.html.twig
 msgid "Critical servers with overdue patches"
 msgstr ""
 
-#: src/RiskIndicator.php:153
+#: src/RiskIndicator.php:158
+msgid "Critical assets without logging (%)"
+msgstr ""
+
+#: src/RiskIndicator.php:159
 msgid "Open critical vulnerabilities in the fleet"
 msgstr ""
 
-#: src/RiskIndicator.php:157
+#: src/RiskIndicator.php:163
 msgid "Actively exploited vulnerabilities in the fleet (CISA KEV)"
 msgstr ""
 
-#: src/RiskIndicator.php:160
+#: src/RiskIndicator.php:166
 msgid "Overdue corrective actions (non-conformities)"
 msgstr ""
 
-#: src/RiskIndicator.php:161
+#: src/RiskIndicator.php:167
 msgid "Overdue control effectiveness tests"
 msgstr ""
 
-#: src/RiskIndicator.php:163
+#: src/RiskIndicator.php:169
 msgid "Click rate of the last phishing simulation (%)"
 msgstr ""
 
-#: src/RiskIndicator.php:173
+#: src/RiskIndicator.php:179
 msgid "A high value is bad"
 msgstr ""
 
-#: src/RiskIndicator.php:174
+#: src/RiskIndicator.php:180
 msgid "A low value is bad"
 msgstr ""
 
-#: src/RiskIndicator.php:184
+#: src/RiskIndicator.php:190
 msgid "Green"
 msgstr ""
 
-#: src/RiskIndicator.php:185
+#: src/RiskIndicator.php:191
 msgid "Orange"
 msgstr ""
 
-#: src/RiskIndicator.php:186
+#: src/RiskIndicator.php:192
 msgid "Red"
 msgstr ""
 
-#: src/RiskIndicator.php:187 templates/tabs/business_process_recovery.html.twig
+#: src/RiskIndicator.php:193 templates/tabs/business_process_recovery.html.twig
 msgid "Not measured"
 msgstr ""
 
-#: src/RiskIndicator.php:364
+#: src/RiskIndicator.php:370
 msgid ""
 "You cannot use this automatic source: it measures data you cannot read in "
 "this entity and its sub-entities."
 msgstr ""
 
-#: src/RiskIndicator.php:405
+#: src/RiskIndicator.php:411
 msgid ""
 "The red threshold must be beyond the orange threshold, in the direction of "
 "the indicator."
 msgstr ""
 
-#: src/RiskIndicator.php:415
+#: src/RiskIndicator.php:421
 msgid "The indicator needs a name."
 msgstr ""
 
-#: src/RiskIndicator.php:613
+#: src/RiskIndicator.php:620
 msgid "Measure automatic risk indicators (KRI)"
 msgstr ""
 
-#: src/RiskIndicator.php:688
+#: src/RiskIndicator.php:695
 #, php-format
 msgid "Risk indicator in the red: %s"
 msgstr ""
 
-#: src/RiskIndicator.php:777 templates/risk_indicator_form.html.twig
+#: src/RiskIndicator.php:784 templates/risk_indicator_form.html.twig
 msgid "Unit"
 msgstr ""
 
-#: src/RiskIndicator.php:904 templates/maturity.html.twig
+#: src/RiskIndicator.php:911 templates/maturity.html.twig
 #: templates/objective_measurements.html.twig
 #: templates/pdf/soa_report.html.twig templates/risk_indicator_values.html.twig
 #: templates/tabs/ioc.html.twig
@@ -15694,7 +15804,7 @@ msgstr ""
 msgid "Alert name"
 msgstr ""
 
-#: src/SecurityIncidentEdrImport.php:73
+#: src/SecurityIncidentEdrImport.php:73 templates/log_coverage.html.twig
 msgid "Host"
 msgstr ""
 
@@ -15723,7 +15833,7 @@ msgstr ""
 msgid "File name"
 msgstr ""
 
-#: src/SecurityIncidentEdrImport.php:82
+#: src/SecurityIncidentEdrImport.php:82 templates/log_coverage.html.twig
 msgid "IP address"
 msgstr ""
 
@@ -17497,8 +17607,8 @@ msgstr ""
 #: templates/disk_encryption.html.twig templates/dora/arrangement_tab.html.twig
 #: templates/dora/function_tab.html.twig templates/dora/provider_tab.html.twig
 #: templates/dora/register.html.twig templates/evidence_pack.html.twig
-#: templates/mfa_coverage.html.twig templates/patch_compliance.html.twig
-#: templates/periodic_reviews.html.twig
+#: templates/log_coverage.html.twig templates/mfa_coverage.html.twig
+#: templates/patch_compliance.html.twig templates/periodic_reviews.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/software_license_compliance.html.twig
 msgid "Save"
@@ -18636,7 +18746,8 @@ msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/custom_framework_list.html.twig templates/edr_import.html.twig
-#: templates/mfa_coverage.html.twig templates/network_flow_import.html.twig
+#: templates/log_coverage.html.twig templates/mfa_coverage.html.twig
+#: templates/network_flow_import.html.twig
 #: templates/phishing_results_tab.html.twig templates/risk_import.html.twig
 msgid "CSV file"
 msgstr ""
@@ -18791,7 +18902,8 @@ msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/custom_framework_list.html.twig
-#: templates/disk_encryption.html.twig templates/patch_compliance.html.twig
+#: templates/disk_encryption.html.twig templates/log_coverage.html.twig
+#: templates/patch_compliance.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 #: templates/pdf/evidence_pack_index.html.twig
 #: templates/pdf/physical_security_report.html.twig
@@ -21887,6 +21999,11 @@ msgid "%1$d version change(s) observed over the last %2$d days"
 msgstr ""
 
 #: templates/control_form.html.twig
+#, php-format
+msgid "%d asset(s) whose logs stopped"
+msgstr ""
+
+#: templates/control_form.html.twig
 #: templates/operating_procedure_register.html.twig
 #, php-format
 msgid "%d awaiting approval"
@@ -21912,6 +22029,11 @@ msgstr[1] ""
 #: templates/control_form.html.twig
 #, php-format
 msgid "%d critical"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d critical asset(s) without logging"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -21974,6 +22096,16 @@ msgstr ""
 #: templates/control_form.html.twig
 #, php-format
 msgid "%d piece(s) of hardware with an expired warranty"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d platform(s) with a retention too short or not declared"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d platform(s) without declared clock synchronization"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -22172,6 +22304,15 @@ msgstr ""
 #: templates/software_license_compliance.html.twig
 #, php-format
 msgid "License coverage: %d%%"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "Logging coverage: %d%%"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Logging coverage: not measured"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -23895,7 +24036,8 @@ msgstr ""
 msgid "Issuer or document"
 msgstr ""
 
-#: templates/custom_framework_list.html.twig templates/mfa_coverage.html.twig
+#: templates/custom_framework_list.html.twig templates/log_coverage.html.twig
+#: templates/mfa_coverage.html.twig
 msgid "Last import"
 msgstr ""
 
@@ -24352,10 +24494,6 @@ msgstr ""
 
 #: templates/disk_encryption.html.twig
 msgid "No type"
-msgstr ""
-
-#: templates/disk_encryption.html.twig
-msgid "Not declared"
 msgstr ""
 
 #: templates/disk_encryption.html.twig
@@ -25934,6 +26072,263 @@ msgstr ""
 msgid "no later than %s"
 msgstr ""
 
+#: templates/log_coverage.html.twig
+#, php-format
+msgid "%1$d assets: the first %2$d are shown, gaps first."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+#, php-format
+msgid "%d asset concerned"
+msgid_plural "%d assets concerned"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/log_coverage.html.twig
+#, php-format
+msgid "%d critical asset"
+msgid_plural "%d critical assets"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/log_coverage.html.twig templates/patch_compliance.html.twig
+#, php-format
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/log_coverage.html.twig
+#, php-format
+msgid "%d days kept"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+#, php-format
+msgid "%d days required"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+#, php-format
+msgid "%d log platform"
+msgid_plural "%d log platforms"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"An asset is critical when one axis of its C/I/A classification is high (tab "
+"of the asset form), or when a network flow publishes it on the Internet. "
+"Servers are recognized from the computer type or the operating system name."
+msgstr ""
+
+#: templates/log_coverage.html.twig templates/waiver_form.html.twig
+msgid "Assets concerned"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Assets concerned whose logs are received"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Assets that must send their logs"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown host may be an asset missing from the inventory."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Clock synchronization not declared"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Clocks synchronized"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Comment (where the setting can be checked)"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Critical assets without logging"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Declare another platform"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"Declare, for each platform, how long the logs are kept and whether the "
+"clocks are synchronized. The retention required is the longest between the "
+"policy and the obligation chosen. These are declarations: keep the "
+"screenshot of the setting as evidence."
+msgstr ""
+
+#: templates/log_coverage.html.twig templates/mfa_coverage.html.twig
+msgid "Delete the import"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"Export the list of hosts that send logs from your log platform, then import "
+"the CSV file here. A new import of the same platform replaces the previous "
+"one in the current entity. Only host names, addresses and the date of the "
+"last event are kept, never the content of a log."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"For example a law, a regulation or a contract listed in the register of "
+"obligations."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"Graylog, Elastic or OpenSearch: a table of the sources with the most recent "
+"timestamp (columns source or host.name, and last timestamp), exported as CSV."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Hosts"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Hosts that send logs but are not found in GLPI"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Last event received"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Log platform"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Log sources"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Logs stopped after (days without event)"
+msgstr ""
+
+#: templates/log_coverage.html.twig templates/mfa_coverage.html.twig
+msgid "Matched"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "No asset concerned in your entities."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+#, php-format
+msgid "No event for more than %d days: logs stopped"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"No log source yet: import the list of hosts of your log platform to measure "
+"the coverage."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "No platform declared."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Obligation that imposes a retention"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Platforms whose retention is too short or not declared"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Platforms without declared clock synchronization"
+msgstr ""
+
+#: templates/log_coverage.html.twig templates/patch_compliance.html.twig
+msgid "Published on the Internet"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Read directly"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"Read-only: the plugin reads the lists of hosts, it never runs anything on "
+"the log platforms and changes nothing in GLPI."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"Recognized columns: host (or hostname, source, agent.name), ip, and last "
+"event (or lastTime, last_seen, lastKeepAlive)."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Register of obligations"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Retention and clock synchronization"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Retention declared (days)"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Retention not declared"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Retention required by the obligation (days)"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Retention required by the policy (days)"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+#, php-format
+msgid "Retention required by the policy: %d days"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"Splunk: run the search \"| metadata type=hosts index=*\" and export the "
+"result (columns host, lastTime)."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"The Wazuh plugin is active: its active agents are read directly, read-only."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "The clocks of the sources and of the platform are synchronized"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Time server (NTP)"
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid ""
+"Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, "
+"one host per line."
+msgstr ""
+
+#: templates/log_coverage.html.twig
+msgid "Which assets must send their logs?"
+msgstr ""
+
 #: templates/management_review_dossier_tab.html.twig
 #, php-format
 msgid "%d action(s)"
@@ -26178,10 +26573,6 @@ msgid "Configured"
 msgstr ""
 
 #: templates/mfa_coverage.html.twig
-msgid "Delete the import"
-msgstr ""
-
-#: templates/mfa_coverage.html.twig
 msgid "Delete the saved secret"
 msgstr ""
 
@@ -26237,10 +26628,6 @@ msgid ""
 "registration details) from Microsoft Graph when you click the button. The "
 "result replaces the Microsoft Entra ID import of the current entity. Nothing "
 "is ever written in Entra ID and nothing runs automatically."
-msgstr ""
-
-#: templates/mfa_coverage.html.twig
-msgid "Matched"
 msgstr ""
 
 #: templates/mfa_coverage.html.twig
@@ -27663,13 +28050,6 @@ msgstr ""
 
 #: templates/patch_compliance.html.twig
 #, php-format
-msgid "%d day ago"
-msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/patch_compliance.html.twig
-#, php-format
 msgid "%d days late"
 msgstr ""
 
@@ -27731,10 +28111,6 @@ msgstr ""
 
 #: templates/patch_compliance.html.twig
 msgid "Patch status by computer"
-msgstr ""
-
-#: templates/patch_compliance.html.twig
-msgid "Published on the Internet"
 msgstr ""
 
 #: templates/patch_compliance.html.twig
@@ -33416,10 +33792,6 @@ msgstr ""
 msgid ""
 "A waiver is temporary. The owner is warned 15 days before; when it ends, a "
 "re-assessment ticket is opened. Nothing is extended or closed automatically."
-msgstr ""
-
-#: templates/waiver_form.html.twig
-msgid "Assets concerned"
 msgstr ""
 
 #: templates/waiver_form.html.twig
