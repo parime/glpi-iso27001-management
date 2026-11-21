@@ -1,5 +1,8 @@
 [🇫🇷 Français](#-français) · [🇬🇧 English](#-english)
 
+<!-- Fichier généré par tools/build_tutorial.py à partir de docs/tutorial/ (à la publication) :
+     ne pas le modifier à la main, ajouter ou modifier un fragment. -->
+
 ## 🇫🇷 Français
 
 **Tutoriel : Utilisation de GLPI GRC Manager**
@@ -637,6 +640,7 @@ natifs de lecture des logiciels et des licences.
 6. Sur la fiche de la mesure A.5.32 de la SoA, le cadre « Conformité des licences logicielles »
    montre les compteurs, les licences arrivant à échéance et la couverture des licences ; les
    contrôles de cohérence du SMSI (onglet du tableau de bord) listent chaque écart.
+
 ### Étape 24 : Préparer l'audit de certification avec une date cible
 
 1. Ouvrez Tableau de bord > **Préparation à la certification**. L'encadré « À quoi sert cette page ? »
@@ -671,6 +675,7 @@ natifs de lecture des logiciels et des licences.
    pluriannuel**.
 8. Les réglages demandent le droit de modifier le plugin ; la page reste lisible avec le droit de
    lecture.
+
 ### Étape 25 : Tenir le registre des procédures d'exploitation (mesure A.5.37)
 
 1. Ouvrez Conformité > **Procédures d'exploitation** (onglet à côté de « Politiques de sécurité »).
@@ -788,6 +793,7 @@ type de matériel.
 8. Pour l'auditeur, cliquez sur **Rapport (PDF)** en haut de la fiche de l'évaluation : résumé
    (évaluateur, statut, politique, score), grille A.7.1 à A.7.14 avec constats, preuves et actions,
    puis les zones et leurs contrôles d'accès. Le rapport est calculé à la demande avec vos droits.
+
 ### Étape 28 : Préparer la communication de crise (mesure A.5.26, article 7.4)
 
 1. Dans l'en-tête de la liste des incidents de sécurité, cliquez sur **Modèles de messages de
@@ -916,7 +922,7 @@ travailler sans baisser la sécurité quand la crise est elle-même une attaque.
      « violation de données » pour une situation de fuite de données, visibles depuis l'entité du
      scénario, avec leur délai et leur dernière vérification. Ils figurent aussi dans le PDF.
 
-### Étape 30 bis : Programmer et mesurer les tests de reprise (mesure A.5.30)
+### Étape 31 : Programmer et mesurer les tests de reprise (mesure A.5.30)
 
 L'auditeur demande la preuve que la reprise des TIC est testée régulièrement, et que les temps
 mesurés tiennent les objectifs. Il faut le droit **Continuité d'activité** du profil.
@@ -945,7 +951,7 @@ mesurés tiennent les objectifs. Il faut le droit **Continuité d'activité** du
    tests de reprise qui l'ont couvert. La liste des types se règle dans **Configuration > GRC
    Manager**, encadré **Types d'exercice de reprise**.
 
-### Étape 31 : Encadrer le développement sécurisé et les mises en production (mesures A.8.25 à A.8.31)
+### Étape 32 : Encadrer le développement sécurisé et les mises en production (mesures A.8.25 à A.8.31)
 
 Le plugin s'appuie sur les **applications** de GLPI (Parc > Applications) et sur les
 **changements** (Assistance > Changements) : il n'en crée pas d'autres. Il faut le droit général du
@@ -990,8 +996,59 @@ GRC Manager du profil, attribué au Super-Admin à l'installation).
    partielle (A.8.31). Ces preuves servent à lever les constats d'audit sur le cycle de
    développement, le codage sécurisé, les tests de sécurité et la séparation des environnements.
 
-### Étape 32 : Préparer l'audit avec le plan d'audit de l'organisme
+### Étape 33 : Prouver la sensibilisation par les simulations d'hameçonnage (article 7.3, mesure A.6.3)
 
+1. Avant la première simulation, informez le personnel que des simulations d'hameçonnage ont lieu
+   (finalité : sensibiliser, pas sanctionner) et inscrivez ce traitement au registre RGPD : les
+   résultats par personne sont des données personnelles. Décidez combien de temps vous les gardez
+   (par exemple jusqu'à la fin de la formation de rattrapage).
+2. Lancez la campagne avec votre outil de simulation (GoPhish, l'outil d'un prestataire...). **Le
+   plugin n'envoie jamais aucun courriel.**
+3. Dans le menu du plugin, ouvrez **Opérations > Simulations d'hameçonnage** (à côté des
+   formations), cliquez sur **Ajouter** et renseignez le nom (par exemple « Faux avis de livraison
+   (fictif) »), la date, l'outil, le scénario et la population visée. Choisissez l'entité des
+   personnes concernées.
+4. Dans l'onglet **Résultats**, choisissez l'export CSV des résultats (une ligne par personne) et
+   cliquez sur **Suivant**. Les colonnes habituelles sont reconnues : adresse électronique ou
+   identifiant, courriel reçu, ouvert, lien cliqué, données saisies, signalé, ou la colonne
+   « status » d'un export GoPhish. Vérifiez-les, puis cliquez sur **Importer**. Un nouvel import
+   remplace les résultats de la campagne ; le **Fichier d'exemple** montre le format attendu avec
+   des adresses fictives.
+5. Chaque ligne est rapprochée d'un utilisateur GLPI actif de l'entité de la campagne par son
+   adresse électronique (ou son identifiant). Les lignes non rapprochées (adresse inconnue ou
+   ambiguë, personne d'une autre entité) sont listées avec leur numéro de ligne : corrigez l'adresse
+   dans GLPI ou dans le fichier, puis importez de nouveau.
+6. L'onglet affiche les taux rapportés aux courriels reçus (ouverts, lien cliqué, données saisies,
+   signalés). La liste des campagnes montre l'évolution d'une campagne à l'autre. Pour suivre le
+   taux de clic avec des seuils, créez un indicateur de risque (KRI) avec la source « Taux de clic
+   de la dernière simulation d'hameçonnage (%) ».
+7. Cliquez sur **Proposer une formation de rattrapage** : un formulaire de formation s'ouvre avec
+   les personnes qui ont cliqué ou saisi des données. Vérifiez-le et cliquez sur **Ajouter** ; rien
+   n'est enregistré ni envoyé avant.
+8. **Qui voit quoi** : les résultats par personne et les lignes non rapprochées exigent le droit sur
+   les registres sensibles (lecture ; modification pour importer ou supprimer). Sans lui, seuls les
+   taux sont affichés, et pas du tout en dessous de 5 personnes. Chacun voit ses propres résultats
+   dans **Préférences > Mes simulations d'hameçonnage**. Une fois le suivi terminé, cliquez sur
+   **Supprimer les résultats par personne** : les taux de la campagne sont gardés.
+9. Sur la mesure **A.6.3** et sur l'exigence du SMSI **7.3**, le cadre « Simulations
+   d'hameçonnage » montre le nombre de campagnes sur 12 mois, les taux de la dernière campagne et
+   l'évolution des clics depuis la précédente.
+10. **Taux par groupe et par entité** : l'onglet **Résultats** montre aussi les taux par groupe GLPI
+    des personnes rapprochées (une personne de plusieurs groupes compte dans chacun). Sans le droit
+    sur les registres sensibles, les groupes de moins de 5 personnes sont réunis dans « Autres
+    groupes », masqué lui aussi s'il reste trop petit. Quand vos campagnes couvrent plusieurs
+    entités, la liste des campagnes montre la dernière campagne de chaque entité. Ces taux sont
+    anonymes et restent après la suppression des résultats par personne. Au tableau de bord,
+    ajoutez la carte « Simulations d'hameçonnage : taux par campagne (%) » pour suivre les clics, les
+    données saisies et les signalements d'une campagne à l'autre.
+11. **Durée de conservation** : dans la configuration du plugin, réglez **Simulations
+    d'hameçonnage : conservation des résultats par personne** (en mois à partir de la date de la
+    campagne ; 0 = jusqu'à ce que vous les supprimiez à la main). Il faut le droit de modifier les
+    registres sensibles. L'action automatique quotidienne « phishingretention » supprime ensuite les
+    résultats par personne expirés et garde les taux ; l'onglet **Résultats** affiche la date prévue.
+    Inscrivez la même durée dans votre registre RGPD.
+
+### Étape 34 : Préparer l'audit avec le plan d'audit de l'organisme
 
 L'organisme de certification n'audite pas tous les processus chaque année : il les échantillonne
 sur son cycle de trois ans et l'annonce dans son plan d'audit. L'écran **Audits et amélioration >
@@ -1015,7 +1072,7 @@ logiques et physiques, fournisseurs). Un constat est rattaché à un processus q
 **Processus audité** reprend le nom du processus (le champ le propose), ou quand sa clause ou
 mesure fait partie des mesures du processus. Cocher demande le droit de modifier l'audit concerné.
 
-### Étape 33 : Répondre aux constats de l'organisme dans les délais
+### Étape 35 : Répondre aux constats de l'organisme dans les délais
 
 Après l'audit, l'organisme de certification fixe dans son rapport deux délais : l'envoi du **plan
 d'actions** (pour chaque non-conformité : correction, cause et action corrective), puis l'envoi des
@@ -1039,7 +1096,7 @@ ou une piste de progrès. Un délai est signalé comme proche 7 jours avant. La 
 certification** compte les plans d'actions et les preuves encore à envoyer, et ceux en retard.
 Rien n'est modifié automatiquement : statut, responsable et échéance restent ceux que vous saisissez.
 
-### Étape 34 : Voir ce qui bloque chaque mesure de la SoA
+### Étape 36 : Voir ce qui bloque chaque mesure de la SoA
 
 Avant un audit, il faut savoir pourquoi une mesure n'est pas encore conforme. Le plugin réunit en
 une seule liste ce que ses autres écrans signalent déjà, sans rien recalculer.
@@ -1057,8 +1114,8 @@ Une non-conformité est rattachée à une mesure quand son champ **Clause ou mes
 la mesure (par exemple A.8.16), ou quand elle a été ouverte par un test inefficace de la mesure.
 Une politique en brouillon bloque la mesure A.5.1. Seul ce que vous avez le droit de lire est
 affiché, et rien n'est modifié automatiquement.
-### Étape 34 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
-### Étape 34 : Remettre le dossier de preuves à l'auditeur (articles 7.5.3 et 9.2)
+
+### Étape 37 : Remettre le dossier de preuves à l'auditeur (articles 7.5.3 et 9.2)
 
 L'auditeur demande souvent, avant sa visite, l'ensemble des preuves du périmètre audité. La page
 **Conformité > Dossier de preuves** le prépare en une archive ZIP.
@@ -1077,7 +1134,8 @@ Seules les pièces que vous pouvez lire entrent dans l'archive ; une preuve expi
 l'index sans être incluse. La limite de taille se règle sur la page (200 Mo par défaut). L'archive
 est gardée comme document restreint : vous, et toute personne qui peut lire chacune de ses pièces,
 pouvez la télécharger. Rien n'est modifié dans les registres.
-### Étape 35 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
+
+### Étape 38 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
 
 L'agent d'inventaire de GLPI remonte, pour chaque volume d'un ordinateur, l'état du chiffrement,
 l'outil (BitLocker, FileVault, LUKS, VeraCrypt...) et l'algorithme. Le plugin lit ces données ; il
@@ -1108,7 +1166,7 @@ plugin et le droit natif de lecture des ordinateurs.
    « Ordinateurs à chiffrer qui le sont (%) » et les indicateurs de risque la source « Portables
    avec un disque non chiffré (%) ».
 
-### Étape 36 : Suivre le retard des correctifs de sécurité (mesures A.8.8 et A.8.19)
+### Étape 39 : Suivre le retard des correctifs de sécurité (mesures A.8.8 et A.8.19)
 
 L'agent d'inventaire de GLPI remonte le système de chaque ordinateur, sa version et, selon la
 plateforme, les mises à jour installées (articles KB de Windows) ou les paquets installés avec leur
@@ -1134,7 +1192,7 @@ faut le droit du plugin et le droit natif de lecture des ordinateurs.
    dans les délais (%) » et les indicateurs de risque la source « Serveurs critiques avec
    correctifs en retard ».
 
-### Étape 37 : Mesurer la couverture de l'authentification multifacteur (mesures A.8.5 et A.5.17)
+### Étape 40 : Mesurer la couverture de l'authentification multifacteur (mesures A.8.5 et A.5.17)
 
 L'auditeur demande quels comptes, et surtout quels administrateurs et accès distants, sont protégés
 par une authentification multifacteur (MFA). Le plugin lit la double authentification de GLPI et
@@ -1169,7 +1227,7 @@ jamais de secret. Il faut le droit du plugin et la lecture native des utilisateu
    « Administrateurs protégés par MFA (%) », les indicateurs de risque la source « Administrateurs
    sans MFA », et la page Hygiène des comptes rappelle leur nombre.
 
-### Étape 38 : Vérifier que les actifs importants envoient leurs journaux (mesures A.8.15, A.8.16 et A.8.17)
+### Étape 41 : Vérifier que les actifs importants envoient leurs journaux (mesures A.8.15, A.8.16 et A.8.17)
 
 Le plugin compare la liste des hôtes connus de vos plateformes de journaux aux ordinateurs et
 matériels réseau de GLPI. Il lit seulement : il ne lance rien sur les plateformes et ne modifie rien
@@ -1201,7 +1259,7 @@ dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateu
    insuffisante et la date du calcul. Les indicateurs de risque proposent la source « Actifs
    critiques sans journalisation (%) ».
 
-### Étape 39 : Mesurer la conformité de configuration avec OpenSCAP (mesure A.8.9)
+### Étape 42 : Mesurer la conformité de configuration avec OpenSCAP (mesure A.8.9)
 
 OpenSCAP vérifie une machine contre un guide de durcissement (profils CIS, ANSSI, DISA STIG… du
 projet SCAP Security Guide) et produit un fichier de résultats XCCDF ou ARF. Le plugin lit ce
@@ -1236,7 +1294,7 @@ Sécurité de l'import : le fichier est lu en flux (les gros rapports ARF passen
 de type de document ou d'entité est refusée et aucun accès réseau n'est fait pendant la lecture. Le
 fichier lui-même n'est pas conservé, seulement les compteurs et les règles en échec.
 
-### Étape 40 : Suivre l'audit de sécurité de l'Active Directory (mesures A.5.15 à A.5.18, A.8.2 et A.8.5)
+### Étape 43 : Suivre l'audit de sécurité de l'Active Directory (mesures A.5.15 à A.5.18, A.8.2 et A.8.5)
 
 L'Active Directory est la première cible des attaques : comptes privilégiés, délégations, comptes
 inactifs. Le plugin garde les résultats des audits que votre équipe réalise avec PingCastle ; il ne
@@ -1861,6 +1919,7 @@ rights to read software and licenses.
 6. On control A.5.32 of the SoA, the "Software license compliance" box shows the counters, the
    licenses expiring soon and the license coverage; the ISMS consistency checks (tab of the
    dashboard) list each gap.
+
 ### Step 24: Prepare the certification audit with a target date
 
 1. Open Dashboard > **Certification readiness**. The "What is this page for?" box explains what is
@@ -1892,6 +1951,7 @@ rights to read software and licenses.
    assessment, SoA, internal audit, management review) are highlighted. Spreading the internal audits
    over the cycle stays in the **multi-year audit programme**.
 8. The settings require the right to modify the plugin; the page stays readable with the read right.
+
 ### Step 25: Keep the register of operating procedures (control A.5.37)
 
 1. Open Compliance > **Operating procedures** (tab next to "Security policies"). The page shows the
@@ -2001,6 +2061,7 @@ hardware.
 8. For the auditor, click **Report (PDF)** at the top of the assessment form: summary (assessor,
    status, policy, score), A.7.1 to A.7.14 checklist with findings, evidence and actions, then the
    zones and their access controls. The report is computed on demand with your rights.
+
 ### Step 28: Prepare crisis communication (control A.5.26, clause 7.4)
 
 1. In the header of the security incident list, click **Crisis message templates**. Five templates
@@ -2122,7 +2183,7 @@ when the crisis is itself an attack.
      breach" for a data leak situation, visible from the entity of the scenario, with their time
      limit and their last verification. They are also in the PDF.
 
-### Step 30a: Schedule and measure recovery tests (control A.5.30)
+### Step 31: Schedule and measure recovery tests (control A.5.30)
 
 The auditor asks for evidence that ICT recovery is tested regularly and that the measured times
 meet the objectives. The profile needs the **Business continuity** right.
@@ -2151,7 +2212,7 @@ meet the objectives. The profile needs the **Business continuity** right.
    that covered it. The list of types is set in **Setup > GRC Manager**, **Types of recovery
    exercise** box.
 
-### Step 31: Frame secure development and releases (controls A.8.25 to A.8.31)
+### Step 32: Frame secure development and releases (controls A.8.25 to A.8.31)
 
 The plugin relies on the **appliances** of GLPI (Assets > Appliances) and on the **changes**
 (Assistance > Changes): it creates no other object. You need the general right of the plugin; to
@@ -2193,7 +2254,8 @@ Super-Admin at installation).
    outsourced applications without supplier or clauses (A.8.30), partial separation (A.8.31). This
    evidence helps lift the audit findings on the development life cycle, secure coding, security
    testing and separation of environments.
-### Step 32: Use phishing simulations as evidence of awareness (clause 7.3, control A.6.3)
+
+### Step 33: Use phishing simulations as evidence of awareness (clause 7.3, control A.6.3)
 
 1. Before the first simulation, inform the staff that phishing simulations take place (purpose:
    awareness, not sanction), and record this processing in the GDPR register: the results per
@@ -2239,7 +2301,7 @@ Super-Admin at installation).
     "phishingretention" then deletes the expired results per person and keeps the rates; the
     **Results** tab shows the planned date. Write the same period in your GDPR register.
 
-### Step 33: Prepare the audit with the audit plan of the certification body
+### Step 34: Prepare the audit with the audit plan of the certification body
 
 The certification body does not audit every process each year: it samples them over its three-year
 cycle and announces them in its audit plan. The screen **Audits and improvement > Audit plan of the
@@ -2262,7 +2324,7 @@ the process (the field suggests it), or when its clause or control is one of the
 process. Ticking requires the right to update the audit concerned. The audit list shows the
 **Audit type** column right after the title.
 
-### Step 34: Answer the findings of the certification body on time
+### Step 35: Answer the findings of the certification body on time
 
 After the audit, the certification body sets two deadlines in its report: sending the **action
 plan** (for each nonconformity: correction, root cause and corrective action), then sending the
@@ -2286,7 +2348,7 @@ opportunity for improvement. A deadline is shown as close 7 days before it. **Ce
 readiness** counts the action plans and evidence still to send, and those overdue. Nothing is
 changed automatically: status, owner and due date stay as you enter them.
 
-### Step 35: See what blocks each control of the SoA
+### Step 36: See what blocks each control of the SoA
 
 Before an audit, you need to know why a control is not compliant yet. The plugin gathers in a
 single list what its other screens already report, without computing anything again.
@@ -2304,8 +2366,8 @@ A nonconformity is linked to a control when its **Clause or control** field quot
 control (for example A.8.16), or when it was opened by an ineffective test of the control. A draft
 policy blocks control A.5.1. Only what you are allowed to read is shown, and nothing is changed
 automatically.
-### Step 35: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
-### Step 35: Hand the evidence pack to the auditor (clauses 7.5.3 and 9.2)
+
+### Step 37: Hand the evidence pack to the auditor (clauses 7.5.3 and 9.2)
 
 Before the visit, the auditor often asks for all the evidence of the audited perimeter. The
 **Compliance > Evidence pack** page prepares it as one ZIP archive.
@@ -2323,7 +2385,8 @@ Only the pieces you can read enter the archive; expired evidence is listed in th
 included. The size limit is set on the page (200 MB by default). The archive is kept as a
 restricted document: you, and anyone who can read every piece it contains, can download it.
 Nothing is changed in the registers.
-### Step 36: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
+
+### Step 38: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
 
 For each volume of a computer, the GLPI inventory agent reports the encryption state, the tool
 (BitLocker, FileVault, LUKS, VeraCrypt...) and the algorithm. The plugin reads this data; it changes
@@ -2352,7 +2415,7 @@ native right to read computers.
    recorded as an effectiveness test. The dashboard offers the card "Computers that must be
    encrypted and are (%)" and risk indicators the source "Laptops with an unencrypted disk (%)".
 
-### Step 37: Follow the security patch delay (controls A.8.8 and A.8.19)
+### Step 39: Follow the security patch delay (controls A.8.8 and A.8.19)
 
 The GLPI inventory agent reports the operating system of each computer, its version and, depending
 on the platform, the installed updates (Windows KB articles) or the installed packages with their
@@ -2376,7 +2439,7 @@ plugin right and the native right to read computers.
    the date of the computation. The dashboard offers the card "Computers with security patches on
    time (%)" and risk indicators the source "Critical servers with overdue patches".
 
-### Step 38: Measure the multi-factor authentication coverage (controls A.8.5 and A.5.17)
+### Step 40: Measure the multi-factor authentication coverage (controls A.8.5 and A.5.17)
 
 The auditor asks which accounts, and above all which administrators and remote access accounts,
 are protected by multi-factor authentication (MFA). The plugin reads GLPI two-factor authentication
@@ -2408,7 +2471,7 @@ secret. You need the plugin right and the native right to read users.
    "Administrators protected by MFA (%)", risk indicators the source "Administrators without MFA",
    and the Account hygiene page recalls their number.
 
-### Step 39: Check that important assets send their logs (controls A.8.15, A.8.16 and A.8.17)
+### Step 41: Check that important assets send their logs (controls A.8.15, A.8.16 and A.8.17)
 
 The plugin compares the list of hosts known to your log platforms with the computers and network
 devices of GLPI. It only reads: it runs nothing on the platforms and changes nothing in GLPI. You
@@ -2437,7 +2500,7 @@ need the plugin right and the native right to read computers.
    assets without logging, the platforms whose retention is not enough and the date of the
    computation. Risk indicators offer the source "Critical assets without logging (%)".
 
-### Step 40: Measure configuration compliance with OpenSCAP (control A.8.9)
+### Step 42: Measure configuration compliance with OpenSCAP (control A.8.9)
 
 OpenSCAP checks a machine against a hardening guide (CIS, ANSSI, DISA STIG... profiles of the SCAP
 Security Guide project) and writes an XCCDF or ARF results file. The plugin reads this file: it
@@ -2471,7 +2534,7 @@ Import security: the file is read as a stream (large ARF reports are accepted), 
 entity declaration is refused and no network access is made while reading. The file itself is not
 kept, only the counts and the failed rules.
 
-### Step 41: Follow the Active Directory security audit (controls A.5.15 to A.5.18, A.8.2 and A.8.5)
+### Step 43: Follow the Active Directory security audit (controls A.5.15 to A.5.18, A.8.2 and A.8.5)
 
 The Active Directory is the first target of attacks: privileged accounts, delegations, inactive
 accounts. The plugin keeps the results of the audits your team runs with PingCastle; it runs no
