@@ -102,7 +102,10 @@ class Menu extends CommonGLPI
                 PhysicalSecurity::class,
                 // Issue #777 : développement sécurisé (registre des applications, mises en production).
                 SecureDevelopment::class,
-                Evidence::class, CoverageRule::class, ControlTest::class,
+                Evidence::class,
+                // Issue #868 : dossier de preuves exportable pour l'auditeur (archive ZIP par périmètre).
+                EvidencePack::class,
+                CoverageRule::class, ControlTest::class,
                 // Issue #540 : registre d'informations DORA (référentiel DORA activé).
                 DoraRegister::class,
             ],
