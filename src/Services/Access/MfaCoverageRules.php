@@ -129,7 +129,7 @@ final class MfaCoverageRules
             if ($method === '' || self::methodClass($method) === self::METHOD_IGNORED) {
                 continue;
             }
-            $methods[mb_strtolower($method)] = $method;
+            $methods[mb_strtolower($method)] ??= $method;
         }
 
         return array_values($methods);
