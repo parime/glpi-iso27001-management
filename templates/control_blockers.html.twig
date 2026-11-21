@@ -1,0 +1,78 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #867 : vue globale « Mesures bloquées » de la SoA de l'entité active, triable. Lecture seule. #}
+<div class="container-fluid my-2" id="grc-control-blockers">
+   <div class="card mb-3">
+      <div class="card-body d-flex flex-wrap align-items-center gap-2">
+         <span class="badge {{ blocked > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} fs-4" id="grc-blocked-count" data-blocked="{{ blocked }}">
+            <i class="ti {{ blocked > 0 ? 'ti-barrier-block' : 'ti-circle-check' }} me-1"></i>{{ __('Blocked controls: %1$d out of %2$d', 'grcmanager')|format(blocked, total) }}
+         </span>
+         {% for key, s in severities %}
+            <span class="badge {{ s.class }}"><i class="ti {{ s.icon }} me-1"></i>{{ s.label }} : {{ by_severity[key] ?? 0 }}</span>
+         {% endfor %}
+         <span class="ms-auto d-flex flex-wrap gap-2">
+            {% if consistency_url %}
+               <a class="btn btn-sm btn-ghost-secondary" href="{{ consistency_url }}"><i class="ti ti-list-check me-1"></i>{{ __('Consistency checks', 'grcmanager') }}</a>
+            {% endif %}
+            {% if readiness_url %}
+               <a class="btn btn-sm btn-ghost-secondary" href="{{ readiness_url }}"><i class="ti ti-certificate me-1"></i>{{ __('Certification readiness', 'grcmanager') }}</a>
+            {% endif %}
+         </span>
+      </div>
+   </div>
+
+   {% if rows is empty %}
+      <div class="alert alert-success"><i class="ti ti-circle-check me-1"></i>{{ __('No control of the Statement of Applicability is blocked among the checks you can read.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="card">
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table mb-0">
+               <thead>
+                  <tr>
+                     {% for key, label in sort_labels %}
+                        {% set next = sort == key and order == 'ASC' ? 'DESC' : 'ASC' %}
+                        <th class="text-nowrap">
+                           <a href="{{ action }}?sort={{ key }}&amp;order={{ next }}" class="text-reset text-decoration-none" title="{{ __('Sort', 'grcmanager') }}">
+                              {{ label }}
+                              {% if sort == key %}<i class="ti {{ order == 'ASC' ? 'ti-sort-ascending' : 'ti-sort-descending' }} ms-1"></i>{% else %}<i class="ti ti-arrows-sort ms-1 text-muted"></i>{% endif %}
+                           </a>
+                        </th>
+                     {% endfor %}
+                     <th>{{ __('What blocks it', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row in rows %}
+                     {% set worst = severities[row.summary.worst] %}
+                     <tr class="grc-blocked-control" data-control="{{ row.id }}" data-code="{{ row.code }}">
+                        <td><span class="badge {{ worst.class }}"><i class="ti {{ worst.icon }} me-1"></i>{{ worst.label }}</span></td>
+                        <td><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ row.summary.total }}</span></td>
+                        <td><a href="{{ row.url }}" class="fw-bold text-nowrap">{{ row.code }}</a> <span class="text-muted">{{ row.title }}</span></td>
+                        <td class="w-50">
+                           <details>
+                              <summary class="small">
+                                 {% for blocker in row.blockers|slice(0, 2) %}{{ blocker.name }}{% if not loop.last %} · {% endif %}{% endfor %}{% if row.blockers|length > 2 %} · {{ __('%d more', 'grcmanager')|format(row.blockers|length - 2) }}{% endif %}
+                              </summary>
+                              {% include '@grcmanager/_control_blocker_list.html.twig' with {blockers: row.blockers} %}
+                           </details>
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+</div>

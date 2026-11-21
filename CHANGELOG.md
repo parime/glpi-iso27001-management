@@ -99,6 +99,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     défaut, la preuve à déclarer. Un écart n'est signalé qu'une fois. Seul un compte qui lit le
     plugin et les utilisateurs sur toutes les entités la reçoit ;
   - aucune inscription, session, affectation ni aucun droit n'est modifié automatiquement.
+- **Ce qui bloque chaque mesure de la SoA** (issue #867, article 9.1 et mesure A.5.36). Une seule
+  liste de tout ce qui empêche une mesure d'être conforme, chaque ligne avec un lien vers l'écran à
+  corriger et la marche à suivre :
+  - nouvel onglet **Ce qui bloque cette mesure** sur la fiche de chaque mesure ;
+  - nouvelle vue **Mesures bloquées** (rubrique Conformité) : mesures bloquées de la SoA de
+    l'entité active, triables par gravité, nombre de blocages ou code de mesure ;
+  - sources reprises sans rien recalculer : contrôles de cohérence (preuve manquante ou expirée,
+    justification d'exclusion faible, mesure sans risque, dérogation expirée, politique non revue
+    ou sans propriétaire, non-conformité close sans action), dernier test d'efficacité inefficace
+    ou partiel et test en retard sur le plan, non-conformités ouvertes qui citent la mesure (par
+    leur référence ou par le test qui les a ouvertes), politiques en brouillon (mesure A.5.1),
+    contrôles techniques automatiques et couverture Wazuh et SentinelOne (A.8.7, A.8.16) ;
+  - lecture seule, uniquement ce que la personne a le droit de lire (droits et entités).
 
 ## [2.71.0] - 2026-11-20
 

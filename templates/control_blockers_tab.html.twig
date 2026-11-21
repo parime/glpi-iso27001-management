@@ -1,0 +1,41 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #867 : onglet « Ce qui bloque cette mesure » de la fiche d'une mesure. Lecture seule. #}
+<div class="card" id="grc-control-blockers-tab">
+   <div class="card-header d-flex flex-wrap align-items-center gap-2">
+      <h3 class="card-title mb-0"><i class="ti ti-barrier-block me-2"></i>{{ __('What blocks this control', 'grcmanager') }}</h3>
+      {% if summary.total == 0 %}
+         <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('Nothing blocks this control', 'grcmanager') }}</span>
+      {% else %}
+         {% for key, s in severities %}
+            {% if (summary.by_severity[key] ?? 0) > 0 %}
+               <span class="badge {{ s.class }}"><i class="ti {{ s.icon }} me-1"></i>{{ s.label }} : {{ summary.by_severity[key] }}</span>
+            {% endif %}
+         {% endfor %}
+      {% endif %}
+      <a href="{{ list_url }}" class="btn btn-sm btn-ghost-secondary ms-auto"><i class="ti ti-list me-1"></i>{{ __('All blocked controls', 'grcmanager') }}</a>
+   </div>
+   <div class="card-body">
+      <div class="alert alert-info py-2 mb-2">
+         <i class="ti ti-help-circle me-1"></i><strong>{{ __('What is this tab for?', 'grcmanager') }}</strong>
+         {{ __('Everything that prevents this control from being compliant, in a single list: failing automated check, missing or expired evidence, policy not approved, effectiveness test overdue or ineffective, open nonconformity, expired waiver. Click a line to open the screen where it is fixed. Only what you are allowed to read is shown, and nothing is changed automatically.', 'grcmanager') }}
+      </div>
+      {% if blockers is empty %}
+         <p class="text-muted mb-0"><i class="ti ti-mood-happy me-1"></i>{{ __('No blocker found among the checks you can read.', 'grcmanager') }}</p>
+      {% else %}
+         {% include '@grcmanager/_control_blocker_list.html.twig' %}
+      {% endif %}
+   </div>
+</div>
