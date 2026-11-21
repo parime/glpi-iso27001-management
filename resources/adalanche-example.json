@@ -1,0 +1,13 @@
+{
+  "elements": [
+    {"group": "nodes", "data": {"id": "n1", "label": "Domain Admins", "type": "Group", "objectSid": "S-1-5-21-4000-5000-6000-512", "distinguishedName": "CN=Domain Admins,CN=Users,DC=exemple,DC=test", "target": true}},
+    {"group": "nodes", "data": {"id": "n2", "label": "svc.supervision", "type": "Person", "distinguishedName": "CN=svc.supervision,OU=Services,DC=exemple,DC=test"}},
+    {"group": "nodes", "data": {"id": "n3", "label": "Gestion des postes", "type": "Group", "distinguishedName": "CN=Gestion des postes,OU=Groupes,DC=exemple,DC=test"}},
+    {"group": "nodes", "data": {"id": "n4", "label": "m.durand", "type": "Person", "distinguishedName": "CN=m.durand,OU=Utilisateurs,DC=exemple,DC=test"}},
+    {"group": "nodes", "data": {"id": "n5", "label": "SRV-FICHIERS$", "type": "Computer", "distinguishedName": "CN=SRV-FICHIERS,OU=Serveurs,DC=exemple,DC=test"}},
+    {"group": "edges", "data": {"id": "e1", "source": "n2", "target": "n1", "methods": ["WriteDACL"]}},
+    {"group": "edges", "data": {"id": "e2", "source": "n3", "target": "n2", "methods": ["ResetPassword"]}},
+    {"group": "edges", "data": {"id": "e3", "source": "n4", "target": "n3", "methods": ["MemberOfGroup"]}},
+    {"group": "edges", "data": {"id": "e4", "source": "n5", "target": "n2", "methods": ["HasSession"]}}
+  ]
+}

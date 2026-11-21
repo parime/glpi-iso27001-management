@@ -15,8 +15,10 @@
  * -------------------------------------------------------------------------
  */
 
+use GlpiPlugin\Grcmanager\AdAttackPath;
 use GlpiPlugin\Grcmanager\AdSecurityAudit;
 use GlpiPlugin\Grcmanager\ControlTest;
+use GlpiPlugin\Grcmanager\Services\Access\AttackPathReport;
 use GlpiPlugin\Grcmanager\Services\Access\PingCastleReport;
 use GlpiPlugin\Grcmanager\Services\Control\EvidenceUploadRules;
 
@@ -33,6 +35,8 @@ if (isset($_GET['example'])) {
         'purpleknight' => ['purpleknight-example.csv', 'purpleknight-exemple.test.csv', 'text/csv'],
         'maester'      => ['maester-example.json', 'TestResults-exemple.json', 'application/json'],
         'scubagear'    => ['scubagear-example.json', 'ScubaResults_exemple.json', 'application/json'],
+        'bloodhound'   => ['bloodhound-example.json', 'bloodhound-exemple.test.json', 'application/json'],
+        'adalanche'    => ['adalanche-example.json', 'adalanche-exemple.test.json', 'application/json'],
         default        => ['pingcastle-example.xml', 'ad_hc_exemple.test.xml', 'application/xml'],
     };
     header('Content-Type: ' . $type . '; charset=UTF-8');
@@ -137,6 +141,85 @@ if (isset($_POST['ad_audit_ticket'])) {
     Html::redirect(AdSecurityAudit::getSearchURL() . ($auditId > 0 ? '?id=' . $auditId : '') . '#grc-ad-rules');
 }
 
+// Lot 3 : import d'un export de chemins d'attaque (BloodHound CE, Adalanche).
+if (isset($_POST['import_attack_path'])) {
+    Session::checkRight(AdSecurityAudit::RIGHTNAME, UPDATE);
+    $file = $_FILES['attack_path_file'] ?? null;
+    $error = is_array($file)
+        ? EvidenceUploadRules::uploadError(
+            is_int($file['error'] ?? null) ? $file['error'] : UPLOAD_ERR_NO_FILE,
+            is_int($file['size'] ?? null) ? $file['size'] : 0,
+            AttackPathReport::MAX_BYTES
+        )
+        : EvidenceUploadRules::ERROR_EMPTY;
+    $id = 0;
+    if ($error !== null || !is_string($file['tmp_name'] ?? null) || !is_uploaded_file($file['tmp_name'])) {
+        Session::addMessageAfterRedirect(
+            htmlescape(ControlTest::uploadErrorMessage($error ?? EvidenceUploadRules::ERROR_FAILED)),
+            false,
+            ERROR
+        );
+    } else {
+        $result = AdAttackPath::import(
+            (string) file_get_contents($file['tmp_name']),
+            is_string($file['name'] ?? null) ? $file['name'] : '',
+            is_string($_POST['attack_path_domain'] ?? null) ? $_POST['attack_path_domain'] : ''
+        );
+        if ($result['error'] !== '') {
+            Session::addMessageAfterRedirect(
+                htmlescape(AdAttackPath::importErrorMessage($result['error'])),
+                false,
+                ERROR
+            );
+        } else {
+            $id = $result['id'];
+            Session::addMessageAfterRedirect(htmlescape(sprintf(
+                _n(
+                    'Export imported: %d account with a path to Domain Admins.',
+                    'Export imported: %d accounts with a path to Domain Admins.',
+                    $result['paths'],
+                    'grcmanager'
+                ),
+                $result['paths']
+            )));
+            if ($result['truncated']) {
+                Session::addMessageAfterRedirect(htmlescape(
+                    __('Very large graph: only part of it was read.', 'grcmanager')
+                ), false, WARNING);
+            }
+        }
+    }
+    Html::redirect(AdSecurityAudit::getSearchURL() . ($id > 0 ? '?path=' . $id : '') . '#grc-ad-paths');
+}
+
+if (isset($_POST['clear_attack_path'])) {
+    Session::checkRight(AdSecurityAudit::RIGHTNAME, UPDATE);
+    if (!AdAttackPath::clear((int) ($_POST['path_id'] ?? 0))) {
+        Html::displayRightError();
+    }
+    Session::addMessageAfterRedirect(htmlescape(__('Import deleted.', 'grcmanager')));
+    Html::redirect(AdSecurityAudit::getSearchURL() . '#grc-ad-paths');
+}
+
+// Risque du registre, sur clic seulement.
+if (isset($_POST['attack_path_risk'])) {
+    Session::checkRight(AdSecurityAudit::RIGHTNAME, UPDATE);
+    $pathId = (int) ($_POST['path_id'] ?? 0);
+    if (AdAttackPath::getImport($pathId) === null) {
+        Html::displayRightError();
+    }
+    if (AdAttackPath::sendToRegister($pathId) > 0) {
+        Session::addMessageAfterRedirect(htmlescape(__('The risk has been added to the register.', 'grcmanager')));
+    } else {
+        Session::addMessageAfterRedirect(
+            htmlescape(__('The risk could not be created.', 'grcmanager')),
+            false,
+            ERROR
+        );
+    }
+    Html::redirect(AdSecurityAudit::getSearchURL() . '?path=' . $pathId . '#grc-ad-paths');
+}
+
 Html::header(
     AdSecurityAudit::getTypeName(),
     AdSecurityAudit::getSearchURL(),
@@ -153,5 +236,6 @@ Html::header(
 \GlpiPlugin\Grcmanager\PageHelp::show('adsecurityaudit');
 
 AdSecurityAudit::showPage((int) ($_GET['id'] ?? 0));
+AdAttackPath::showSection((int) ($_GET['path'] ?? 0));
 
 Html::footer();
