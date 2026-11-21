@@ -599,6 +599,13 @@ class CrisisExercise extends CrisisExerciseBase
             'drill'        => $drill,
             'recovery'     => $this->recovery(),
             'journal'      => $this->journal(Session::haveRight('followup', ITILFollowup::SEEPRIVATE)),
+            // Issue #616, lot 2 : communications de crise tracées sur l'incident (droits de l'incident).
+            'communications' => $incident !== null && $incident->canViewItem()
+                ? CrisisCommunication::historyFor($incident)
+                : [],
+            'communications_url' => $incident !== null && $incident->canUpdateItem()
+                ? $incident->getLinkURL() . '&forcetab=' . urlencode(CrisisCommunication::class . '$1')
+                : '',
             'incident'     => [
                 'id'      => (int) $this->fields['plugin_grcmanager_securityincidents_id'],
                 'name'    => $incident?->fields['name'] ?? '',

@@ -64,11 +64,16 @@
                      <p class="text-muted small">{{ __('This template has no distribution list yet.', 'grcmanager') }}</p>
                   {% endif %}
                   {% for r in m.recipients %}
-                     <label class="form-check">
-                        <input type="checkbox" class="form-check-input grc-crisis-recipient" name="recipients[]" value="{{ r.key }}" data-address="{{ r.address }}" checked>
+                     {# Lot 2 : un suppléant n'est coché d'office que si son principal est masqué ou sans adresse. #}
+                     <label class="form-check{% if r.deputy_of %} ms-4{% endif %}">
+                        <input type="checkbox" class="form-check-input grc-crisis-recipient" name="recipients[]" value="{{ r.key }}" data-address="{{ r.emails }}" {{ r.deputy_of and r.principal_available ? '' : 'checked' }}>
                         <span class="form-check-label">
+                           {% if r.deputy_of %}<span class="badge bg-info-subtle text-info-emphasis me-1"><i class="ti ti-corner-down-right me-1"></i>{{ __('Deputy', 'grcmanager') }}</span>{% endif %}
                            <span class="badge {{ r.internal ? 'bg-blue-lt' : 'bg-purple-lt' }} me-1">{{ r.type_label }}</span>{{ r.name }}
+                           {% if r.deputy_of and r.principal %}<span class="d-block text-muted small">{{ __('Deputy of %s', 'grcmanager')|format(r.principal) }}</span>{% endif %}
                            {% if r.missing_address %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('No address recorded', 'grcmanager') }}</span>{% endif %}
+                           {% if r.without_email > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d member without email', '%d members without email', r.without_email, 'grcmanager')|format(r.without_email) }}</span>{% endif %}
+                           {% if r.type == 'Group' and r.emails %}<span class="d-block text-muted small">{{ __('The addresses of the members are included when you copy or export the addresses.', 'grcmanager') }}</span>{% endif %}
                            {% if r.address %}<span class="d-block text-muted small" style="white-space: pre-line">{{ r.address }}</span>{% endif %}
                         </span>
                      </label>

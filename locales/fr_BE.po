@@ -28258,3 +28258,68 @@ msgid "Blocked control"
 msgid_plural "Blocked controls"
 msgstr[0] "Mesure bloquée"
 msgstr[1] "Mesures bloquées"
+
+msgid "Review of the distribution list recorded."
+msgstr "Revue de la liste de diffusion enregistrée."
+
+msgid "Review overdue (more than 12 months)"
+msgstr "Revue en retard (plus de 12 mois)"
+
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr "Dernière revue le %1$s par %2$s, prochaine avant le %3$s."
+
+msgid "Check once a year that each recipient, deputy and address is still right."
+msgstr "Vérifiez une fois par an que chaque destinataire, suppléant et adresse est toujours juste."
+
+msgid "Mark the list as reviewed today"
+msgstr "Marquer la liste comme revue aujourd'hui"
+
+msgid "Role in the list"
+msgstr "Rôle dans la liste"
+
+msgid "Main recipient"
+msgstr "Destinataire principal"
+
+#, php-format
+msgid "Deputy of %s"
+msgstr "Suppléant de %s"
+
+msgid "Deputy"
+msgstr "Suppléant"
+
+msgid "No deputy"
+msgstr "Sans suppléant"
+
+msgid "The addresses of the members are included when you copy or export the addresses."
+msgstr "Les adresses des membres sont reprises quand vous copiez ou exportez les adresses."
+
+msgid "Distribution list last reviewed on"
+msgstr "Liste de diffusion revue le"
+
+msgid "Crisis communications"
+msgstr "Communications de crise"
+
+#, php-format
+msgid "%d main recipient has no deputy: if they cannot be reached during a crisis, nobody else is planned."
+msgid_plural "%d main recipients have no deputy: if they cannot be reached during a crisis, nobody else is planned."
+msgstr[0] "%d destinataire principal n'a pas de suppléant : s'il est injoignable pendant une crise, personne d'autre n'est prévu."
+msgstr[1] "%d destinataires principaux n'ont pas de suppléant : s'ils sont injoignables pendant une crise, personne d'autre n'est prévu."
+
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] "%d membre sans courriel"
+msgstr[1] "%d membres sans courriel"
+
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] "%d liste de diffusion non revue depuis 12 mois"
+msgstr[1] "%d listes de diffusion non revues depuis 12 mois"
+
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] "%d destinataire principal sans suppléant"
+msgstr[1] "%d destinataires principaux sans suppléant"

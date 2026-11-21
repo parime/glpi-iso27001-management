@@ -252,9 +252,34 @@ if ($mode === 'xss') {
         'subject' => $canary . ' {title}', 'body' => $canary . ' {title} {affected_systems} {entity}',
         'comment' => $canary, 'is_active' => 1,
     ]);
-    $insert('crisismessagerecipients', [
+    // Lot 2 : le contact piégé est le suppléant d'un utilisateur, et inversement un utilisateur est le
+    // suppléant du contact piégé (« Suppléant de » cite le nom piégé).
+    $principalUser = $insert('crisismessagerecipients', [
+        'plugin_grcmanager_crisismessagetemplates_id' => $out['crisis_template'],
+        'itemtype' => 'User', 'items_id' => 2,
+    ]);
+    $trappedContact = $insert('crisismessagerecipients', [
         'plugin_grcmanager_crisismessagetemplates_id' => $out['crisis_template'],
         'itemtype' => 'GlpiPlugin\\Grcmanager\\ContextItem', 'items_id' => $out['official_contact'],
+    ]);
+    $update('crisismessagerecipients', ['deputy_of' => $trappedContact], $principalUser);
+    $insert('crisismessagetemplates', [
+        'name' => $canary . ' revue', 'situation' => 'other', 'stage' => 'first', 'audience' => 'internal',
+        'subject' => $canary, 'body' => $canary, 'is_active' => 1, 'last_review_date' => date('Y-m-d'),
+        'users_id_lastreviewer' => 2,
+    ]);
+    // Lot 2 : communication piégée sur l'incident de l'exercice de B (salle de crise, rapport).
+    $drillIncident = (int) ($DB->request([
+        'SELECT' => ['plugin_grcmanager_securityincidents_id'],
+        'FROM'   => 'glpi_plugin_grcmanager_crisisexercises',
+        'WHERE'  => ['id' => (int) $ids['exercise_B']],
+    ])->current()['plugin_grcmanager_securityincidents_id'] ?? 0);
+    $insert('crisiscommunications', [
+        'entities_id' => (int) $ids['b'], 'itemtype' => 'PluginGrcmanagerSecurityIncident',
+        'items_id' => $drillIncident,
+        'plugin_grcmanager_crisismessagetemplates_id' => $out['crisis_template'],
+        'template_name' => $canary, 'subject' => $canary, 'body' => $canary, 'recipients' => $canary,
+        'users_id' => 2, 'date_communication' => date('Y-m-d H:i:s'),
     ]);
     $insert('crisiscommunications', [
         'entities_id' => (int) $ids['a'], 'itemtype' => 'PluginGrcmanagerSecurityIncident',

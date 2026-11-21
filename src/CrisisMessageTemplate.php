@@ -20,6 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\CrisisMessageTemplateBase;
 use GlpiPlugin\Grcmanager\Install\CrisisCommunicationTables;
+use GlpiPlugin\Grcmanager\Services\Context\OfficialContactRules;
 use GlpiPlugin\Grcmanager\Services\Crisis\CrisisCommunicationRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Crisis\CrisisMessageDefaults;
 use Log;
@@ -179,6 +180,41 @@ class CrisisMessageTemplate extends CrisisMessageTemplateBase
     }
 
     /**
+     * Lot 2 : revue annuelle de la liste de diffusion (destinataires, suppléants et adresses encore
+     * justes). Statut « ok », « overdue » (plus de 12 mois) ou « never ».
+     *
+     * @return array{status: string, date: string, reviewer: string, next: string}
+     */
+    public function reviewState(?string $today = null): array
+    {
+        $date = !empty($this->fields['last_review_date']) ? (string) $this->fields['last_review_date'] : null;
+        $reviewer = (int) ($this->fields['users_id_lastreviewer'] ?? 0);
+
+        return [
+            'status'   => OfficialContactRules::verificationStatus($date, $today ?? date('Y-m-d')),
+            'date'     => $date ?? '',
+            'reviewer' => $reviewer > 0 ? (string) getUserName($reviewer) : '',
+            'next'     => OfficialContactRules::nextVerificationDate($date) ?? '',
+        ];
+    }
+
+    /**
+     * Lot 2 : trace la revue de la liste de diffusion à la date du jour (droit de modifier le modèle).
+     */
+    public function markReviewed(): bool
+    {
+        if ($this->isNewItem() || !$this->canUpdateItem()) {
+            return false;
+        }
+
+        return (bool) $this->update([
+            'id'                    => $this->getID(),
+            'last_review_date'      => date('Y-m-d'),
+            'users_id_lastreviewer' => (int) Session::getLoginUserID(),
+        ]);
+    }
+
+    /**
      * Modèles actifs, pour l'onglet d'un incident ou d'une violation et pour la preuve.
      *
      * @return list<array<string, mixed>>
@@ -259,6 +295,11 @@ class CrisisMessageTemplate extends CrisisMessageTemplateBase
         $tab[] = [
             'id' => 8, 'table' => $table, 'field' => 'date_mod', 'name' => __('Last update'),
             'datatype' => 'datetime', 'massiveaction' => false,
+        ];
+        $tab[] = [
+            'id' => 9, 'table' => $table, 'field' => 'last_review_date',
+            'name' => __('Distribution list last reviewed on', 'grcmanager'),
+            'datatype' => 'date', 'massiveaction' => false,
         ];
 
         return $tab;

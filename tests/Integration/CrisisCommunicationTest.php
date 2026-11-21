@@ -21,6 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\ContextItem;
 use GlpiPlugin\Grcmanager\CrisisCommunication;
+use GlpiPlugin\Grcmanager\CrisisExercise;
 use GlpiPlugin\Grcmanager\CrisisMessageRecipient;
 use GlpiPlugin\Grcmanager\CrisisMessageTemplate;
 use GlpiPlugin\Grcmanager\DataBreach;
@@ -386,5 +387,166 @@ final class CrisisCommunicationTest extends GrcmanagerIntegrationTestCase
         } finally {
             $_SESSION['glpiactiveprofile'][CrisisMessageTemplate::RIGHTNAME] = $saved;
         }
+    }
+
+    private function userWithEmail(string $firstname, string $email): int
+    {
+        $userId = $this->createTestUser($firstname, 'Fictive');
+        $this->assertGreaterThan(0, (int) (new \UserEmail())->add([
+            'users_id' => $userId, 'email' => $email, 'is_default' => 1,
+        ]));
+
+        return $userId;
+    }
+
+    public function testDeputyFollowsItsMainRecipientAndIsTickedOnlyWhenNeeded(): void
+    {
+        $template = $this->template();
+        $id = $template->getID();
+        $mainUser = $this->userWithEmail('Directrice', 'directrice@example.com');
+        $deputyUser = $this->userWithEmail('Adjoint', 'adjoint@example.com');
+        $contactWithout = $this->contact(['name' => 'PHPUnit avocat injoignable', 'contact_details' => '']);
+        $contactDeputy = $this->contact(['name' => 'PHPUnit cabinet suppléant']);
+
+        $rowOf = static function (string $itemtype, int $itemsId) use ($id): int {
+            foreach (CrisisMessageRecipient::rowsFor($id) as $row) {
+                if ($row['itemtype'] === $itemtype && (int) $row['items_id'] === $itemsId) {
+                    return (int) $row['id'];
+                }
+            }
+
+            return 0;
+        };
+        $this->assertTrue(CrisisMessageRecipient::addTo($id, 'User', $mainUser));
+        $mainRow = $rowOf('User', $mainUser);
+        $this->assertTrue(CrisisMessageRecipient::addTo($id, 'User', $deputyUser, $mainRow));
+        $this->assertTrue(CrisisMessageRecipient::addTo($id, Rules::RECIPIENT_CONTACT, $contactWithout));
+        $contactRow = $rowOf(Rules::RECIPIENT_CONTACT, $contactWithout);
+        $this->assertTrue(CrisisMessageRecipient::addTo($id, Rules::RECIPIENT_CONTACT, $contactDeputy, $contactRow));
+        $deputyRow = $rowOf('User', $deputyUser);
+        $this->assertFalse(
+            CrisisMessageRecipient::addTo($id, 'User', $this->createTestUser('Tiers', 'Fictif'), $deputyRow),
+            'Jamais le suppléant d\'un suppléant.'
+        );
+        $other = $this->template(['name' => 'PHPUnit autre modèle']);
+        $this->assertFalse(
+            CrisisMessageRecipient::addTo($other->getID(), 'User', $deputyUser, $mainRow),
+            'Le principal doit être dans la même liste.'
+        );
+
+        // Contacts officiels puis utilisateurs (ordre du type), chaque suppléant après son principal.
+        $list = CrisisMessageRecipient::listFor($id, null);
+        $this->assertSame(
+            [$contactWithout, $contactDeputy, $mainUser, $deputyUser],
+            array_map(static fn (array $r): int => (int) substr(strrchr($r['key'], ':'), 1), $list['recipients']),
+            'Chaque suppléant juste après son principal.'
+        );
+        $this->assertSame(0, $list['without_deputy']);
+        $this->assertSame($mainRow, $list['recipients'][3]['deputy_of']);
+        $this->assertTrue($list['recipients'][3]['principal_available'], 'Principal joignable.');
+        $this->assertFalse($list['recipients'][1]['principal_available'], 'Principal sans adresse.');
+        $this->assertTrue($list['recipients'][2]['has_deputy']);
+        $this->assertSame('PHPUnit avocat injoignable', $list['recipients'][1]['principal']);
+
+        ob_start();
+        CrisisCommunication::displayTabContentForItem($this->incident());
+        $html = (string) ob_get_clean();
+        $this->assertMatchesRegularExpression('/value="User:' . $deputyUser . '" data-address="[^"]*" >/', $html);
+        $this->assertMatchesRegularExpression(
+            '/value="' . preg_quote(Rules::RECIPIENT_CONTACT, '/') . ':' . $contactDeputy . '" data-address="[^"]*" checked>/',
+            $html
+        );
+
+        // La trace nomme le suppléant et son principal.
+        $incident = $this->incident();
+        $traceId = CrisisCommunication::record($incident, self::minimalInput($id) + [
+            'recipients' => [Rules::recipientKey('User', $deputyUser)],
+        ]);
+        $this->assertIsInt($traceId);
+        $this->assertStringContainsString(
+            (string) getUserName($mainUser),
+            implode("\n", CrisisCommunication::historyFor($incident)[0]['recipients'])
+        );
+
+        // Retirer le principal : son suppléant devient principal.
+        $this->assertTrue((new CrisisMessageRecipient())->delete(['id' => $mainRow], true));
+        $list = CrisisMessageRecipient::listFor($id, null);
+        $this->assertCount(3, $list['recipients']);
+        $this->assertSame(0, $list['recipients'][2]['deputy_of']);
+        $this->assertSame(1, $list['without_deputy']);
+    }
+
+    public function testGroupMembersAddressesAreIncluded(): void
+    {
+        $template = $this->template();
+        $groupId = (int) (new \Group())->add([
+            'name' => 'PHPUnit direction fictive', 'entities_id' => 0, 'is_recursive' => 1,
+        ]);
+        foreach ([$this->userWithEmail('Membre', 'membre@example.com'), $this->createTestUser('Sans', 'Courriel')] as $user) {
+            $this->assertGreaterThan(0, (int) (new \Group_User())->add(['groups_id' => $groupId, 'users_id' => $user]));
+        }
+        $this->assertTrue(CrisisMessageRecipient::addTo($template->getID(), 'Group', $groupId));
+
+        $group = CrisisMessageRecipient::listFor($template->getID(), null)['recipients'][0];
+        $this->assertSame('membre@example.com', $group['emails']);
+        $this->assertSame(1, $group['without_email']);
+        $this->assertFalse($group['missing_address']);
+        $this->assertSame(0, CrisisMessageRecipient::listFor($template->getID(), null)['without_deputy'], 'Groupe.');
+    }
+
+    public function testDistributionListReviewIsRecordedAndShownAsEvidence(): void
+    {
+        $template = $this->template();
+        $this->assertSame('never', $template->reviewState()['status']);
+        $before = CrisisCommunication::evidence('A.5.26');
+        $this->assertNotNull($before);
+        $this->assertGreaterThanOrEqual(1, $before['review_due']);
+
+        $this->assertTrue($template->markReviewed());
+        $template->getFromDB($template->getID());
+        $state = $template->reviewState();
+        $this->assertSame('ok', $state['status']);
+        $this->assertSame(date('Y-m-d'), $state['date']);
+        $this->assertNotSame('', $state['reviewer']);
+        $this->assertSame('overdue', $template->reviewState(date('Y-m-d', strtotime('+13 months')))['status']);
+        $after = CrisisCommunication::evidence('A.5.26');
+        $this->assertNotNull($after);
+        $this->assertSame($before['review_due'] - 1, $after['review_due']);
+
+        ob_start();
+        CrisisMessageRecipient::displayTabContentForItem($template);
+        $this->assertStringContainsString('name="review"', (string) ob_get_clean());
+
+        $saved = $_SESSION['glpiactiveprofile'][CrisisMessageTemplate::RIGHTNAME];
+        try {
+            $_SESSION['glpiactiveprofile'][CrisisMessageTemplate::RIGHTNAME] = READ;
+            $this->assertFalse($template->markReviewed(), 'Lecture seule : revue refusée.');
+        } finally {
+            $_SESSION['glpiactiveprofile'][CrisisMessageTemplate::RIGHTNAME] = $saved;
+        }
+    }
+
+    public function testCommunicationsAppearInTheCrisisExerciseReport(): void
+    {
+        $exerciseId = CrisisExercise::launch('outage');
+        $this->assertGreaterThan(0, $exerciseId);
+        $exercise = new CrisisExercise();
+        $this->assertTrue($exercise->getFromDB($exerciseId));
+        $incident = $exercise->getIncident();
+        $this->assertNotNull($incident);
+        $templateId = $this->template()->getID();
+        $this->assertIsInt(CrisisCommunication::record($incident, self::minimalInput($templateId)));
+
+        $data = $exercise->collect();
+        $this->assertCount(1, $data['communications']);
+        $this->assertSame('PHPUnit objet', $data['communications'][0]['subject']);
+        $this->assertStringContainsString('forcetab=', $data['communications_url']);
+
+        $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
+            '@grcmanager/pdf/crisis_exercise_report.html.twig',
+            ['journal' => []] + $data + ['report_title' => 'PHPUnit', 'generated_at_label' => '']
+        );
+        $this->assertStringContainsString('PHPUnit objet', $html, 'Repris dans le rapport d\'exercice.');
+        $this->assertStringContainsString('Direction fictive', $html);
     }
 }

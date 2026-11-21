@@ -28492,3 +28492,68 @@ msgid "Blocked control"
 msgid_plural "Blocked controls"
 msgstr[0] "Blockierte Maßnahme"
 msgstr[1] "Blockierte Maßnahmen"
+
+msgid "Review of the distribution list recorded."
+msgstr "Überprüfung des Verteilers gespeichert."
+
+msgid "Review overdue (more than 12 months)"
+msgstr "Überprüfung überfällig (mehr als 12 Monate)"
+
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr "Letzte Überprüfung am %1$s durch %2$s, nächste vor dem %3$s."
+
+msgid "Check once a year that each recipient, deputy and address is still right."
+msgstr "Prüfen Sie einmal im Jahr, ob jeder Empfänger, jede Vertretung und jede Adresse noch stimmt."
+
+msgid "Mark the list as reviewed today"
+msgstr "Verteiler heute als überprüft markieren"
+
+msgid "Role in the list"
+msgstr "Rolle im Verteiler"
+
+msgid "Main recipient"
+msgstr "Hauptempfänger"
+
+#, php-format
+msgid "Deputy of %s"
+msgstr "Vertretung von %s"
+
+msgid "Deputy"
+msgstr "Vertretung"
+
+msgid "No deputy"
+msgstr "Keine Vertretung"
+
+msgid "The addresses of the members are included when you copy or export the addresses."
+msgstr "Die Adressen der Mitglieder werden beim Kopieren oder Exportieren der Adressen übernommen."
+
+msgid "Distribution list last reviewed on"
+msgstr "Verteiler zuletzt überprüft am"
+
+msgid "Crisis communications"
+msgstr "Krisenkommunikation"
+
+#, php-format
+msgid "%d main recipient has no deputy: if they cannot be reached during a crisis, nobody else is planned."
+msgid_plural "%d main recipients have no deputy: if they cannot be reached during a crisis, nobody else is planned."
+msgstr[0] "%d Hauptempfänger hat keine Vertretung: Ist er in einer Krise nicht erreichbar, ist niemand sonst vorgesehen."
+msgstr[1] "%d Hauptempfänger haben keine Vertretung: Sind sie in einer Krise nicht erreichbar, ist niemand sonst vorgesehen."
+
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] "%d Mitglied ohne E-Mail"
+msgstr[1] "%d Mitglieder ohne E-Mail"
+
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] "%d Verteiler seit 12 Monaten nicht überprüft"
+msgstr[1] "%d Verteiler seit 12 Monaten nicht überprüft"
+
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] "%d Hauptempfänger ohne Vertretung"
+msgstr[1] "%d Hauptempfänger ohne Vertretung"

@@ -123,5 +123,54 @@ final class CrisisCommunicationRulesTest extends TestCase
         $this->assertSame(3, $summary['templates']);
         $this->assertSame(1, $summary['without_recipients']);
         $this->assertSame(['data_breach', 'unavailability'], $summary['missing_situations']);
+        $this->assertSame(0, $summary['review_due'], 'Clé facultative.');
+        $this->assertSame(0, $summary['without_deputy']);
+
+        $summary = Rules::readiness([
+            ['situation' => 'major_incident', 'recipients' => 2, 'review_due' => true, 'without_deputy' => 2],
+            ['situation' => 'ransomware', 'recipients' => 1, 'review_due' => false, 'without_deputy' => 1],
+        ]);
+        $this->assertSame(1, $summary['review_due']);
+        $this->assertSame(3, $summary['without_deputy']);
+    }
+
+    public function testDeputiesFollowTheirMainRecipient(): void
+    {
+        $ordered = Rules::orderWithDeputies([
+            ['id' => 1, 'deputy_of' => 0],
+            ['id' => 2, 'deputy_of' => 3],
+            ['id' => 3, 'deputy_of' => 0],
+            ['id' => 4, 'deputy_of' => 1],
+            ['id' => 5, 'deputy_of' => 99],
+        ]);
+
+        $this->assertSame([1, 4, 3, 2, 5], array_column($ordered, 'id'));
+        $this->assertSame(0, $ordered[4]['deputy_of'], 'Principal disparu : la ligne redevient principale.');
+    }
+
+    public function testDeputyOfADeputyOrOfItselfIsAMainRecipient(): void
+    {
+        $ordered = Rules::orderWithDeputies([
+            ['id' => 1, 'deputy_of' => 0],
+            ['id' => 2, 'deputy_of' => 1],
+            ['id' => 3, 'deputy_of' => 2],
+            ['id' => 4, 'deputy_of' => 4],
+        ]);
+
+        $this->assertSame([1, 2, 3, 4], array_column($ordered, 'id'));
+        $this->assertSame([0, 1, 0, 0], array_column($ordered, 'deputy_of'));
+    }
+
+    public function testMainRecipientsWithoutDeputyIgnoreGroups(): void
+    {
+        $ordered = Rules::orderWithDeputies([
+            ['id' => 1, 'deputy_of' => 0, 'itemtype' => 'User'],
+            ['id' => 2, 'deputy_of' => 1, 'itemtype' => 'User'],
+            ['id' => 3, 'deputy_of' => 0, 'itemtype' => Rules::RECIPIENT_CONTACT],
+            ['id' => 4, 'deputy_of' => 0, 'itemtype' => Rules::RECIPIENT_GROUP],
+        ]);
+
+        $this->assertSame(1, Rules::principalsWithoutDeputy($ordered));
+        $this->assertSame(0, Rules::principalsWithoutDeputy([]));
     }
 }
