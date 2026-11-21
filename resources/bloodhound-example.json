@@ -1,0 +1,24 @@
+{
+  "nodes": {
+    "1": {"label": "DOMAIN ADMINS@EXEMPLE.TEST", "kind": "Group", "objectId": "S-1-5-21-1000-2000-3000-512", "isTierZero": true},
+    "2": {"label": "ADM.DUPONT@EXEMPLE.TEST", "kind": "User", "objectId": "S-1-5-21-1000-2000-3000-1101", "isTierZero": true},
+    "3": {"label": "SVC.SAUVEGARDE@EXEMPLE.TEST", "kind": "User", "objectId": "S-1-5-21-1000-2000-3000-1102", "isTierZero": false},
+    "4": {"label": "SUPPORT-N1@EXEMPLE.TEST", "kind": "Group", "objectId": "S-1-5-21-1000-2000-3000-1103", "isTierZero": false},
+    "5": {"label": "J.MARTIN@EXEMPLE.TEST", "kind": "User", "objectId": "S-1-5-21-1000-2000-3000-1104", "isTierZero": false},
+    "6": {"label": "A.BERNARD@EXEMPLE.TEST", "kind": "User", "objectId": "S-1-5-21-1000-2000-3000-1105", "isTierZero": false},
+    "7": {"label": "POSTE-042.EXEMPLE.TEST", "kind": "Computer", "objectId": "S-1-5-21-1000-2000-3000-1106", "isTierZero": false},
+    "8": {"label": "P.LEROY@EXEMPLE.TEST", "kind": "User", "objectId": "S-1-5-21-1000-2000-3000-1107", "isTierZero": false},
+    "9": {"label": "C.PETIT@EXEMPLE.TEST", "kind": "User", "objectId": "S-1-5-21-1000-2000-3000-1108", "isTierZero": false}
+  },
+  "edges": [
+    {"source": "2", "target": "1", "label": "MemberOf", "kind": "MemberOf"},
+    {"source": "3", "target": "1", "label": "GenericAll", "kind": "GenericAll"},
+    {"source": "4", "target": "2", "label": "ForceChangePassword", "kind": "ForceChangePassword"},
+    {"source": "5", "target": "4", "label": "MemberOf", "kind": "MemberOf"},
+    {"source": "6", "target": "4", "label": "MemberOf", "kind": "MemberOf"},
+    {"source": "7", "target": "2", "label": "HasSession", "kind": "HasSession"},
+    {"source": "8", "target": "7", "label": "AdminTo", "kind": "AdminTo"},
+    {"source": "5", "target": "7", "label": "AdminTo", "kind": "AdminTo"},
+    {"source": "9", "target": "6", "label": "GenericWrite", "kind": "GenericWrite"}
+  ]
+}

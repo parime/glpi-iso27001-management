@@ -1,0 +1,29 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #835, lot 3 : cadre de preuve des chemins d'attaque vers Domain Admins (mesures A.5.15, A.5.18
+   et A.8.2), dernier import de chaque domaine des entités de la personne. Reçoit « evidence »
+   (AdAttackPath::evidence()), affiché par control_form.html.twig. #}
+<div id="grc-ad-path-evidence">
+   {% for d in evidence.domains %}
+      <div class="d-flex flex-wrap align-items-center gap-1 mb-1">
+         <span class="badge bg-{{ d.tool_info.color }}-subtle text-{{ d.tool_info.color }}-emphasis"><i class="{{ d.tool_info.icon }} me-1"></i>{{ d.tool_info.label }}</span>
+         <span class="fw-bold me-1">{{ d.domain }}</span>
+         <span class="badge {{ d.paths > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }}"><i class="ti ti-route me-1"></i>{{ _n('%d account with a path to Domain Admins', '%d accounts with a path to Domain Admins', d.paths, 'grcmanager')|format(d.paths) }}</span>
+         {% if d.risk_url %}<a class="badge bg-orange-subtle text-orange-emphasis" href="{{ d.risk_url }}"><i class="ti ti-alert-triangle me-1"></i>{{ __('Risk in the register', 'grcmanager') }}</a>{% endif %}
+         <span class="small text-muted">{{ __('Imported on %s', 'grcmanager')|format(d.date) }}</span>
+         <a class="small" href="{{ d.url }}">{{ __('View the details', 'grcmanager') }}</a>
+      </div>
+   {% endfor %}
+</div>

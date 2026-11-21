@@ -38113,3 +38113,201 @@ msgstr ""
 #, php-format
 msgid "out of %d critical assets"
 msgstr ""
+
+
+#: front/adsecurityaudit.php:178
+#, php-format
+msgid "Export imported: %d account with a path to Domain Admins."
+msgid_plural "Export imported: %d accounts with a path to Domain Admins."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/adsecurityaudit.php:187 templates/_ad_attack_paths.html.twig
+msgid "Very large graph: only part of it was read."
+msgstr ""
+
+#: front/adsecurityaudit.php:215
+msgid "The risk could not be created."
+msgstr ""
+
+#: src/AdAttackPath.php:77
+msgid ""
+"This file is not a graph exported from BloodHound CE or Adalanche (JSON with "
+"nodes and edges)."
+msgstr ""
+
+#: src/AdAttackPath.php:81
+msgid ""
+"The graph contains no Domain Admins group: export the paths that lead to "
+"this group."
+msgstr ""
+
+#: src/AdAttackPath.php:85
+msgid ""
+"The export gives no domain name: fill in the domain field of the import form."
+msgstr ""
+
+#: src/AdAttackPath.php:331
+#, php-format
+msgid "Attack paths to Domain Admins: %s"
+msgstr ""
+
+#: src/AdAttackPath.php:336
+#, php-format
+msgid ""
+"%1$s: %2$d account has a path to the Domain Admins group (shortest path: "
+"%3$d step). Details on the Active Directory security audit page."
+msgid_plural ""
+"%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
+"%3$d steps). Details on the Active Directory security audit page."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AdSecurityAudit.php:248
+msgid ""
+"This file is an attack path graph (BloodHound CE or Adalanche): import it in "
+"the attack paths part of this page."
+msgstr ""
+
+#: src/Feature/AdAttackPathFeature.php:37
+msgid "Accounts with an attack path to Domain Admins"
+msgstr ""
+
+#: src/Feature/AdAttackPathFeature.php:50 templates/_ad_attack_paths.html.twig
+msgid "Attack paths to Domain Admins"
+msgstr ""
+
+#: templates/_ad_attack_path_evidence.html.twig
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%d account with a path to Domain Admins"
+msgid_plural "%d accounts with a path to Domain Admins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_path_evidence.html.twig
+#, php-format
+msgid "Imported on %s"
+msgstr ""
+
+#: templates/_ad_attack_path_evidence.html.twig
+msgid "Risk in the register"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%1$s export of %2$s, imported on %3$s"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%d computer"
+msgid_plural "%d computers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%d user"
+msgid_plural "%d users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Accounts with a path"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"An attack path is a chain of rights, group memberships or open sessions that "
+"lets an ordinary account take control of the Domain Admins group. BloodHound "
+"CE and Adalanche draw these paths: import their export here to follow how "
+"many accounts have one, which ones are the most exposed, and how this "
+"changes over time."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Create the risk in the register"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Delete this import"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Download a fictitious BloodHound CE example"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "Export file: JSON (%d MB at most)"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "First export for this domain: the next import will show the change."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "History"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"In the Explore page, run the query of the shortest paths to Domain Admins, "
+"then export the graph as JSON and import that file."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "Most exposed accounts (%d at most)"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "No account has a path to Domain Admins in this export."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "No attack path export imported yet."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"Number of different rights or memberships that lead towards Domain Admins"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Number of steps of the shortest path to Domain Admins"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"Only the number of accounts with a path and the most exposed accounts (name, "
+"type, number of steps) are kept: no other property of the graph."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Risk in the register:"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Routes"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"Run the analysis with Domain Admins as target, then export the graph as JSON "
+"(Cytoscape format) and import that file."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "Shortest path: %d step"
+msgid_plural "Shortest path: %d steps"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"The risk is pre-filled (maximum impact) and can then be reviewed in the "
+"register."
+msgstr ""
