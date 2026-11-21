@@ -395,6 +395,13 @@ if ($mode === 'xss') {
         'encryption_status' => 2, 'encryption_tool' => mb_substr($canary, 0, 255),
         'encryption_algorithm' => mb_substr($canary, 0, 255),
     ], ['itemtype' => Computer::class, 'items_id' => (int) $ids['computer_A']]);
+    // Issue #835 : domaine, règle et constat piégés (page de l'audit de l'AD, preuve A.8.2).
+    $DB->update('glpi_plugin_grcmanager_adaudits', ['domain' => mb_substr($canary, 0, 255)], [
+        'domain' => 'adsecurite-a.test',
+    ]);
+    $DB->update('glpi_plugin_grcmanager_adauditrules', [
+        'rule_id' => mb_substr($canary, 0, 128), 'model' => mb_substr($canary, 0, 128), 'rationale' => $canary,
+    ], ['rule_id' => 'P-Securite-A']);
     // Issue #852 : compte et méthode importés piégés (page de la couverture MFA).
     $DB->update('glpi_plugin_grcmanager_mfaaccounts', [
         'account' => mb_substr($canary, 0, 255), 'methods' => $canary,
@@ -562,6 +569,10 @@ if ($mode === 'xss') {
         'decision' => 'rejected', 'validator_role' => 'ciso', 'decision_comment' => $canary, 'users_id_decision' => 2,
         'date_decision' => date('Y-m-d H:i:s'),
     ]);
+    // Issue #835 : mesure A.8.2 (preuve de l'audit de sécurité de l'AD).
+    $out['control_a82'] = (int) ($DB->request([
+        'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.2'], 'LIMIT' => 1,
+    ])->current()['id'] ?? 0);
     // Issue #781 : résultat OpenSCAP piégé (nom d'hôte, profil, référentiel, outil, fichier, règle en
     // échec) rattaché à l'ordinateur de A, et un second non rapproché ; preuve de la mesure A.8.9.
     $scanFields = [
@@ -1603,6 +1614,33 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         );
     }
     $ids['phishing_' . $suffix] = (int) $campaign->getID();
+}
+// Issue #835 : rapport PingCastle fictif par entité (règle privilégiée), audit de sécurité de l'AD.
+foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
+    $domain = 'adsecurite-' . strtolower($suffix) . '.test';
+    $adCriteria = ['entities_id' => $entity, 'domain' => $domain];
+    if (countElementsInTable('glpi_plugin_grcmanager_adaudits', $adCriteria) === 0) {
+        $DB->insert('glpi_plugin_grcmanager_adaudits', $adCriteria + [
+            'tool' => 'pingcastle', 'global_score' => 55, 'privileged_score' => 55, 'rule_count' => 1,
+            'report_date' => date('Y-m-d H:i:s'), 'date_import' => date('Y-m-d H:i:s'),
+            'file_sha256' => hash('sha256', $domain),
+        ]);
+        $DB->insert('glpi_plugin_grcmanager_adauditrules', [
+            'plugin_grcmanager_adaudits_id' => (int) $DB->insertId(), 'rule_id' => 'P-Securite-' . $suffix,
+            'category' => 'privileged', 'model' => 'AdminControl', 'points' => 50,
+            'rationale' => 'Constat AD securite ' . $suffix,
+        ]);
+    }
+    $adAudit = $DB->request([
+        'FROM' => 'glpi_plugin_grcmanager_adaudits', 'WHERE' => $adCriteria, 'LIMIT' => 1,
+    ])->current();
+    $ids['adaudit_' . $suffix] = (int) ($adAudit['id'] ?? 0);
+    $adRule = $DB->request([
+        'FROM'  => 'glpi_plugin_grcmanager_adauditrules',
+        'WHERE' => ['rule_id' => 'P-Securite-' . $suffix],
+        'LIMIT' => 1,
+    ])->current();
+    $ids['adrule_' . $suffix] = (int) ($adRule['id'] ?? 0);
 }
 // Issue #852 : compte importé (fournisseur d'identité fictif) sans compte GLPI, par entité.
 foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {

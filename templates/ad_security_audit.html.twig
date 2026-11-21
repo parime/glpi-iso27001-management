@@ -1,0 +1,272 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #835 : audit de sécurité de l'Active Directory (rapports PingCastle importés), registre
+   sensible, imports des entités de la personne. Rien n'est créé ni modifié sans clic. #}
+{% macro score_badge(score, level, levels, id) %}
+   {% set info = level is null ? {'label': '-', 'color': 'secondary', 'icon': 'ti ti-help-circle'} : levels[level] %}
+   <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis"{% if id %} id="{{ id }}"{% endif %} title="{{ info.label }}"><i class="{{ info.icon }} me-1"></i>{{ score is null ? '-' : score ~ ' / 100' }}</span>
+{% endmacro %}
+{% macro trend_badge(trend) %}
+   {% if trend is not null %}
+      {% if trend < 0 %}
+         <span class="badge bg-success-subtle text-success-emphasis" title="{{ __('Change since the previous report', 'grcmanager') }}"><i class="ti ti-trending-down me-1"></i>{{ trend }}</span>
+      {% elseif trend > 0 %}
+         <span class="badge bg-danger-subtle text-danger-emphasis" title="{{ __('Change since the previous report', 'grcmanager') }}"><i class="ti ti-trending-up me-1"></i>+{{ trend }}</span>
+      {% else %}
+         <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('Change since the previous report', 'grcmanager') }}"><i class="ti ti-minus me-1"></i>0</span>
+      {% endif %}
+   {% endif %}
+{% endmacro %}
+{% import _self as helpers %}
+
+<div id="grc-ad-audit">
+   {# Dernier rapport de chaque domaine. #}
+   {% if domains is empty %}
+      <div class="alert alert-info d-flex align-items-start gap-2" id="grc-ad-empty">
+         <i class="ti ti-info-circle fs-2"></i>
+         <div>
+            {{ __('No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below.', 'grcmanager') }}
+            <a href="{{ example_url }}">{{ __('Download a fictitious example report', 'grcmanager') }}</a>
+         </div>
+      </div>
+   {% else %}
+      <div class="row row-cards mb-3" id="grc-ad-domains">
+         {% for d in domains %}
+            <div class="col-sm-6 col-lg-4"><div class="card card-sm"><div class="card-body">
+               <div class="d-flex align-items-center gap-2 mb-1">
+                  <i class="ti ti-sitemap fs-2 text-muted"></i>
+                  <div class="me-auto">
+                     <div class="fw-bold">{{ d.domain }}</div>
+                     <div class="small text-muted">{{ d.entity }}</div>
+                  </div>
+                  {{ helpers.score_badge(d.score, d.level, levels, '') }}
+               </div>
+               <div class="small text-muted">
+                  {{ __('Report of %s', 'grcmanager')|format(d.date) }} · {{ _n('%d rule triggered', '%d rules triggered', d.rule_count, 'grcmanager')|format(d.rule_count) }}
+                  {{ helpers.trend_badge(d.trend) }}
+               </div>
+               <a class="small" href="{{ d.url }}#grc-ad-detail">{{ __('View the details', 'grcmanager') }}</a>
+            </div></div></div>
+         {% endfor %}
+      </div>
+   {% endif %}
+
+   {# Détail du rapport choisi. #}
+   {% if detail is not null %}
+      {% set a = detail.audit %}
+      <div class="card mb-3" id="grc-ad-detail">
+         <div class="card-header">
+            <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
+               <i class="ti ti-report-analytics"></i>{{ __('PingCastle report of %1$s, %2$s', 'grcmanager')|format(a.domain, a.date) }}
+               {{ helpers.score_badge(a.score, a.level, levels, 'grc-ad-score') }}
+               {{ helpers.trend_badge(a.trend) }}
+            </h3>
+         </div>
+         <div class="card-body">
+            <div class="row g-2 mb-3">
+               {% for code, score in a.scores %}
+                  {% set cat = categories[code] %}
+                  <div class="col-sm-6 col-lg-3">
+                     <div class="border rounded p-2 d-flex align-items-center gap-2">
+                        <i class="{{ cat.icon }} fs-2 text-muted"></i>
+                        <div class="me-auto small">{{ cat.label }}</div>
+                        {{ helpers.score_badge(score, a.levels[code], levels, '') }}
+                     </div>
+                  </div>
+               {% endfor %}
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-2 small">
+               {% if detail.previous is not null %}
+                  <span class="badge bg-orange-subtle text-orange-emphasis"><i class="ti ti-sparkles me-1"></i>{{ _n('%d new rule', '%d new rules', detail.new, 'grcmanager')|format(detail.new) }}</span>
+                  <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ _n('%d rule resolved', '%d rules resolved', detail.resolved|length, 'grcmanager')|format(detail.resolved|length) }}</span>
+                  <span class="text-muted">{{ __('Compared with the report of %s', 'grcmanager')|format(detail.previous.date) }}</span>
+               {% else %}
+                  <span class="text-muted">{{ __('First report for this domain: the next import will show the rules that appeared or were resolved.', 'grcmanager') }}</span>
+               {% endif %}
+               {% if a.maturity is not null %}<span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-stairs-up me-1"></i>{{ __('Maturity level: %d', 'grcmanager')|format(a.maturity) }}</span>{% endif %}
+               {% if a.engine %}<span class="text-muted">PingCastle {{ a.engine }}</span>{% endif %}
+               {% if a.secrets %}<span class="badge bg-danger-subtle text-danger-emphasis" id="grc-ad-secrets"><i class="ti ti-key-off me-1"></i>{{ __('Passwords found in the report: not kept', 'grcmanager') }}</span>{% endif %}
+               {% if detail.document is not null %}
+                  <a href="{{ detail.document.url }}" class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-file-lock me-1"></i>{{ __('Archived report (restricted)', 'grcmanager') }}</a>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+
+      <div class="card mb-3" id="grc-ad-rules">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-list-details me-2"></i>{{ __('Rules triggered', 'grcmanager') }}</h3>
+            <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ detail.rows|length }}</span></div>
+         </div>
+         {% if detail.rows is empty %}
+            <div class="card-body text-muted">{{ __('No rule triggered in this report.', 'grcmanager') }}</div>
+         {% else %}
+            <div class="card-body small pb-0 text-muted">{{ __('Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an action or a ticket for the rules you decide to treat: nothing is created before you click, and the action form is reviewed before it is saved.', 'grcmanager') }}</div>
+            <div class="table-responsive">
+               <table class="table table-vcenter card-table">
+                  <thead><tr>
+                     <th>{{ __('Severity', 'grcmanager') }}</th>
+                     <th>{{ __('Rule', 'grcmanager') }}</th>
+                     <th>{{ __('Category', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Points', 'grcmanager') }}</th>
+                     <th>{{ __('Finding', 'grcmanager') }}</th>
+                     <th>{{ __('Controls', 'grcmanager') }}</th>
+                     <th>{{ __('Follow-up', 'grcmanager') }}</th>
+                  </tr></thead>
+                  <tbody>
+                  {% for row in detail.rows %}
+                     {% set sev = severities[row.severity] %}
+                     {% set cat = categories[row.category] %}
+                     <tr>
+                        <td><span class="badge bg-{{ sev.color }}-subtle text-{{ sev.color }}-emphasis">{{ sev.label }}</span></td>
+                        <td>
+                           <span class="fw-bold">{{ row.rule_id }}</span>
+                           {% if row.is_new %}<span class="badge bg-orange-subtle text-orange-emphasis ms-1"><i class="ti ti-sparkles me-1"></i>{{ _x('ad rule', 'New', 'grcmanager') }}</span>{% endif %}
+                           {% if row.model %}<div class="small text-muted">{{ row.model }}</div>{% endif %}
+                        </td>
+                        <td class="small"><i class="{{ cat.icon }} me-1"></i>{{ cat.label }}</td>
+                        <td class="text-end">{{ row.points }}</td>
+                        <td class="small">{{ row.rationale }}</td>
+                        <td>{% for code in row.controls %}<span class="badge bg-indigo-subtle text-indigo-emphasis me-1 mb-1">{{ code }}</span>{% endfor %}</td>
+                        <td class="small">
+                           {% if row.finding_id > 0 %}
+                              <div><a href="{{ row.finding_url }}" class="grc-ad-finding"><i class="ti ti-alert-hexagon me-1"></i>{{ row.finding }}</a></div>
+                           {% elseif can_finding %}
+                              <a href="{{ finding_url }}?adauditrule={{ row.id }}" class="btn btn-sm btn-outline-danger mb-1 grc-ad-raise"><i class="ti ti-alert-hexagon me-1"></i>{{ __('Propose an action', 'grcmanager') }}</a>
+                           {% endif %}
+                           {% if row.ticket_id > 0 %}
+                              <div><a href="{{ row.ticket_url }}"><i class="ti ti-ticket me-1"></i>{{ __('Ticket %d', 'grcmanager')|format(row.ticket_id) }}</a></div>
+                           {% elseif can_ticket %}
+                              <form method="post" action="{{ action }}" class="d-inline">
+                                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                 <input type="hidden" name="rule_id" value="{{ row.id }}">
+                                 <button type="submit" class="btn btn-sm btn-outline-secondary" name="ad_audit_ticket" value="1"><i class="ti ti-ticket me-1"></i>{{ __('Open a ticket', 'grcmanager') }}</button>
+                              </form>
+                           {% endif %}
+                        </td>
+                     </tr>
+                  {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         {% endif %}
+      </div>
+
+      {% if detail.resolved is not empty %}
+         <div class="card mb-3" id="grc-ad-resolved">
+            <div class="card-header">
+               <h3 class="card-title"><i class="ti ti-circle-check me-2 text-success"></i>{{ __('Rules resolved since the previous report', 'grcmanager') }}</h3>
+            </div>
+            <div class="card-body">
+               {% for r in detail.resolved %}
+                  <span class="badge bg-success-subtle text-success-emphasis me-1 mb-1"><i class="{{ categories[r.category].icon }} me-1"></i>{{ r.rule_id }} ({{ r.points }})</span>
+               {% endfor %}
+            </div>
+         </div>
+      {% endif %}
+   {% endif %}
+
+   {# Historique des imports. #}
+   {% if history is not empty %}
+      <div class="card mb-3" id="grc-ad-history">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-history me-2"></i>{{ __('Imported reports', 'grcmanager') }}</h3>
+            <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ history|length }}</span></div>
+         </div>
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Report date', 'grcmanager') }}</th>
+                  <th>{{ __('Domain', 'grcmanager') }}</th>
+                  <th>{{ __('Entity') }}</th>
+                  <th>{{ __('Score', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Rules', 'grcmanager') }}</th>
+                  <th>{{ __('Imported on', 'grcmanager') }}</th>
+                  <th></th>
+               </tr></thead>
+               <tbody>
+               {% for h in history %}
+                  <tr{% if detail is not null and detail.audit.id == h.id %} class="table-active"{% endif %}>
+                     <td><a href="{{ h.url }}#grc-ad-detail">{{ h.date }}</a></td>
+                     <td>{{ h.domain }}</td>
+                     <td class="small">{{ h.entity }}</td>
+                     <td>{{ helpers.score_badge(h.score, h.level, levels, '') }} {{ helpers.trend_badge(h.trend) }}</td>
+                     <td class="text-end">{{ h.rule_count }}</td>
+                     <td class="small">{{ h.imported }}{% if h.has_report %} <i class="ti ti-file-lock text-azure" title="{{ __('Archived report (restricted)', 'grcmanager') }}"></i>{% endif %}</td>
+                     <td class="text-end">
+                        {% if can_manage %}
+                           <form method="post" action="{{ action }}" class="d-inline grc-ad-clear">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="audit_id" value="{{ h.id }}">
+                              <button type="submit" class="btn btn-sm btn-ghost-danger" name="clear_ad_audit" value="1" title="{{ __('Delete the import and its archived report', 'grcmanager') }}" aria-label="{{ __('Delete the import and its archived report', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+                           </form>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+
+   {# Import d'un rapport. #}
+   <div class="card mb-3" id="grc-ad-import">
+      <div class="card-header">
+         <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
+            <i class="ti ti-file-import"></i>{{ __('Import a PingCastle report', 'grcmanager') }}
+            <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-eye me-1"></i>{{ __('Read only', 'grcmanager') }}</span>
+         </h3>
+      </div>
+      <div class="card-body">
+         <p class="small">{{ __('GLPI never runs PingCastle and never queries the directory: it reads the report that your team produced. The report is stored in the current entity.', 'grcmanager') }}</p>
+         <ol class="small text-muted">
+            <li>{{ __('On a computer of the domain, run PingCastle and choose the health check (or run it with the --healthcheck option).', 'grcmanager') }}</li>
+            <li>{{ __('Import the ad_hc_[domain].xml file it produces (not the HTML file).', 'grcmanager') }}</li>
+            <li>{{ __('Only the scores and the triggered rules (identifier, category, points, finding) are kept: never the list of accounts, nor any password found. A new report of the same domain shows the change of score and the rules that appeared or were resolved.', 'grcmanager') }}</li>
+            <li>{{ __('PingCastle is free for internal use; a service provider auditing a customer needs a licence. Check the terms of use of the tool.', 'grcmanager') }}</li>
+         </ol>
+         {% if can_manage %}
+            <form method="post" action="{{ action }}" enctype="multipart/form-data" class="row g-2 align-items-end">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="col-md-6">
+                  <label class="form-label" for="grc-ad-file">{{ __('PingCastle XML report (%d MB at most)', 'grcmanager')|format(max_mb) }}</label>
+                  <input type="file" class="form-control" id="grc-ad-file" name="ad_audit_file" accept=".xml,application/xml,text/xml" required>
+               </div>
+               <div class="col-md-4">
+                  <div class="form-check">
+                     <input type="checkbox" class="form-check-input" id="grc-ad-archive" name="ad_audit_archive" value="1" checked>
+                     <label class="form-check-label" for="grc-ad-archive">{{ __('Archive the report as a restricted document (passwords removed)', 'grcmanager') }}</label>
+                  </div>
+               </div>
+               <div class="col-md-2">
+                  <button type="submit" class="btn btn-primary" name="import_ad_audit" value="1"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button>
+               </div>
+            </form>
+            <div class="small mt-2"><a href="{{ example_url }}"><i class="ti ti-download me-1"></i>{{ __('Download a fictitious example report', 'grcmanager') }}</a></div>
+         {% else %}
+            <p class="small text-muted mb-0">{{ __('Only users who can modify the sensitive registers can import a report.', 'grcmanager') }}</p>
+         {% endif %}
+      </div>
+   </div>
+
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+      <span class="text-muted small me-auto">
+         <i class="ti ti-lock me-1"></i>{{ __('These reports describe the weaknesses of the domain: the page and the archived reports are reserved to the sensitive registers right, in the entity of each import.', 'grcmanager') }}
+      </span>
+      <a class="btn btn-sm btn-outline-secondary" href="{{ hygiene_url }}"><i class="ti ti-user-search me-1"></i>{{ __('Account hygiene', 'grcmanager') }}</a>
+      <a class="btn btn-sm btn-outline-primary" href="{{ review_url }}"><i class="ti ti-checklist me-1"></i>{{ __('Access reviews', 'grcmanager') }}</a>
+   </div>
+</div>
