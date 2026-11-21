@@ -31,3 +31,6 @@ release). It is the single reference for every parime GLPI plugin.
 - Tests: PHPUnit (unit and integration), PHPStan, PHPCS; test the user interface as a non-technical
   user would. Fictitious data only in tests, screenshots and documentation.
 - Each pull request updates `CHANGELOG.md` (section `[Unreleased]`).
+- Add a feature by creating new files, not by growing the central lists: see
+  [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#-english) ("Adding a feature without conflicts").
+  Tutorial steps go in `docs/tutorial/{fr,en}/NNNN-*.md`; `docs/TUTORIAL.md` is generated.
