@@ -163,33 +163,7 @@ class AccountHygiene extends CommonGLPI
             $users
         )));
 
-        // Issue #184, phase 2 : derniers changements de groupe et de profil, d'après l'historique
-        // de GLPI (ajout ou retrait d'un groupe ; ajout, modification ou retrait d'une habilitation).
-        $lastChange = static function (string $linked, array $actions) use ($DB, $users): array {
-            $dates = [];
-            foreach (
-                $DB->request([
-                    'SELECT' => ['items_id', 'MAX' => 'date_mod AS last'],
-                    'FROM'   => 'glpi_logs',
-                    'WHERE'  => [
-                        'itemtype'      => 'User',
-                        'items_id'      => array_keys($users),
-                        'itemtype_link' => $linked,
-                        'linked_action' => $actions,
-                    ],
-                    'GROUPBY' => 'items_id',
-                ]) as $row
-            ) {
-                $dates[(int) $row['items_id']] = (string) $row['last'];
-            }
-
-            return $dates;
-        };
-        $groupChanges = $lastChange('Group', [Log::HISTORY_ADD_RELATION, Log::HISTORY_DEL_RELATION]);
-        $profileChanges = $lastChange(
-            'Profile',
-            [Log::HISTORY_ADD_SUBITEM, Log::HISTORY_UPDATE_SUBITEM, Log::HISTORY_DELETE_SUBITEM]
-        );
+        [$groupChanges, $profileChanges] = self::lastGroupAndProfileChanges(array_keys($users));
 
         $accounts = [];
         foreach ($users as $id => $user) {
@@ -223,6 +197,48 @@ class AccountHygiene extends CommonGLPI
         }
 
         return $accounts;
+    }
+
+    /**
+     * Issue #184, phase 2 (repris par #866) : derniers changements de groupe et de profil de chaque
+     * compte, d'après l'historique de GLPI (ajout ou retrait d'un groupe ; ajout, modification ou
+     * retrait d'une habilitation).
+     *
+     * @param list<int> $usersIds
+     * @return array{0: array<int, string>, 1: array<int, string>} groupes, profils (id du compte => date)
+     */
+    public static function lastGroupAndProfileChanges(array $usersIds): array
+    {
+        global $DB;
+
+        if ($usersIds === []) {
+            return [[], []];
+        }
+        $lastChange = static function (string $linked, array $actions) use ($DB, $usersIds): array {
+            $dates = [];
+            foreach (
+                $DB->request([
+                    'SELECT' => ['items_id', 'MAX' => 'date_mod AS last'],
+                    'FROM'   => 'glpi_logs',
+                    'WHERE'  => [
+                        'itemtype'      => 'User',
+                        'items_id'      => $usersIds,
+                        'itemtype_link' => $linked,
+                        'linked_action' => $actions,
+                    ],
+                    'GROUPBY' => 'items_id',
+                ]) as $row
+            ) {
+                $dates[(int) $row['items_id']] = (string) $row['last'];
+            }
+
+            return $dates;
+        };
+
+        return [
+            $lastChange('Group', [Log::HISTORY_ADD_RELATION, Log::HISTORY_DEL_RELATION]),
+            $lastChange('Profile', [Log::HISTORY_ADD_SUBITEM, Log::HISTORY_UPDATE_SUBITEM, Log::HISTORY_DELETE_SUBITEM]),
+        ];
     }
 
     /**

@@ -60,6 +60,26 @@
 </div>
 
 {% if lines is not empty %}
+   {# Issue #866 : répartition des suggestions calculées par les règles de la campagne #}
+   <div class="card mb-3">
+      <div class="card-body d-flex flex-wrap align-items-center gap-2">
+         <span class="fw-bold me-1"><i class="ti ti-bulb me-1 text-warning"></i>{{ __('Suggestions', 'grcmanager') }}</span>
+         {% for key, info in suggestion_infos %}
+            <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis"><i class="{{ info.icon }} me-1"></i>{{ info.label }} : {{ suggestions[key]|default(0) }}</span>
+         {% endfor %}
+         <span class="text-muted small flex-grow-1">{{ __('Proposals only: each reviewer decides. Set the rules on the campaign form.', 'grcmanager') }}</span>
+         {% if can_refresh %}
+            <form method="post" action="{{ form_action }}">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="id" value="{{ item.id }}">
+               <button type="submit" name="refresh_suggestions" value="1" class="btn btn-sm btn-outline-secondary"
+                  title="{{ __('Recompute the suggestion of the accounts still to review (decided accounts keep the one their reviewer saw).', 'grcmanager') }}">
+                  <i class="ti ti-refresh me-1"></i>{{ __('Update the suggestions', 'grcmanager') }}
+               </button>
+            </form>
+         {% endif %}
+      </div>
+   </div>
    <div class="card">
       <div class="card-body">
          <form method="post" action="{{ decide_url }}">
