@@ -29722,3 +29722,165 @@ msgstr ""
 "Docker-Inventar. Prüfen Sie sie, ergänzen Sie die Begründung und den "
 "Verantwortlichen und klicken Sie dann auf „Hinzufügen“: Vorher wird nichts "
 "gespeichert."
+
+#, php-format
+msgid "Suggestions updated for %d account(s) still to review."
+msgstr "Vorschläge für %d noch zu prüfende(s) Konto/Konten aktualisiert."
+
+msgid "Rule disabled"
+msgstr "Regel deaktiviert"
+
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d Tag"
+msgstr[1] "%d Tage"
+
+msgid ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+msgstr ""
+"Die Regeln schlagen vor, dieses Konto zu entfernen: Erklären Sie im "
+"Kommentar, warum es behalten wird."
+
+msgid "Suggested: remove"
+msgstr "Vorschlag: entfernen"
+
+msgid "Suggested: examine"
+msgstr "Vorschlag: prüfen"
+
+msgid "Suggested: keep"
+msgstr "Vorschlag: behalten"
+
+#, php-format
+msgid "Account end date passed (%s)"
+msgstr "Enddatum des Kontos überschritten (%s)"
+
+#, php-format
+msgid "Departure recorded on %s"
+msgstr "Austritt erfasst zum %s"
+
+#, php-format
+msgid "Leaving on %1$s (within %2$d days)"
+msgstr "Austritt am %1$s (innerhalb von %2$d Tagen)"
+
+#, php-format
+msgid "No login for more than %1$d days (last on %2$s)"
+msgstr "Seit mehr als %1$d Tagen keine Anmeldung (zuletzt am %2$s)"
+
+#, php-format
+msgid "Privileged profile: %s"
+msgstr "Privilegiertes Profil: %s"
+
+#, php-format
+msgid "Privileged profile without known MFA: %s"
+msgstr "Privilegiertes Profil ohne bekannte MFA: %s"
+
+#, php-format
+msgid "No warning sign (last login on %s)"
+msgstr "Kein Warnsignal (letzte Anmeldung am %s)"
+
+msgid "No warning sign"
+msgstr "Kein Warnsignal"
+
+msgid ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+msgstr ""
+"Starten Sie eine Kampagne; die Verantwortlichen entscheiden Zeile für Zeile,"
+" unterstützt durch einen Vorschlag (behalten, entfernen oder prüfen) und "
+"dessen Grund. Das Entfernen eines Rechts eröffnet ein Ticket, es wird nie "
+"automatisch angewendet."
+
+msgid ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+msgstr ""
+"Jedes Konto erhält einen Vorschlag (behalten, entfernen oder prüfen) mit "
+"seinem Grund. Der Vorschlag entscheidet nie: Der Prüfer wählt, und ein Konto"
+" zu behalten, dessen Entfernung die Regeln vorschlagen, erfordert einen "
+"Kommentar."
+
+msgid "Examine group changes without profile review"
+msgstr "Gruppenänderungen ohne Profilprüfung prüfen"
+
+msgid "Examine privileged profiles"
+msgstr "Privilegierte Profile prüfen"
+
+msgid "Examine: leaving soon, inactive, groups changed, privileged profile"
+msgstr ""
+"Prüfen: baldiger Austritt, inaktiv, Gruppen geändert, privilegiertes Profil"
+
+msgid ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+msgstr ""
+"Laut der Seite MFA-Abdeckung: Zwei-Faktor-Authentifizierung von GLPI oder "
+"importierter Bericht."
+
+msgid "Inactive account: no login for"
+msgstr "Inaktives Konto: keine Anmeldung seit"
+
+msgid "Keep: no warning sign"
+msgstr "Behalten: kein Warnsignal"
+
+msgid "Leaving soon: end date or departure within"
+msgstr "Baldiger Austritt: Enddatum oder Austritt innerhalb von"
+
+msgid "Mention privileged accounts without known MFA"
+msgstr "Privilegierte Konten ohne bekannte MFA erwähnen"
+
+msgid "Profiles that can change the GLPI configuration or profiles."
+msgstr ""
+"Profile, die die Konfiguration oder die Profile von GLPI ändern können."
+
+msgid "Remove: deleted from the directory, end date or departure passed"
+msgstr ""
+"Entfernen: aus dem Verzeichnis gelöscht, Enddatum oder Austritt "
+"überschritten"
+
+msgid "Suggestion rules"
+msgstr "Vorschlagsregeln"
+
+msgid ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+msgstr ""
+"Jedes Konto zeigt einen Vorschlag und seinen Grund (Austritt, Inaktivität, "
+"privilegiertes Profil...). Es ist nur ein Vorschlag: Sie entscheiden."
+
+msgid "Decision differs from the suggestion"
+msgstr "Entscheidung weicht vom Vorschlag ab"
+
+msgid "Suggestion and reason"
+msgstr "Vorschlag und Grund"
+
+msgid "Suggestions"
+msgstr "Vorschläge"
+
+msgid "Comment (required to keep, change or remove)"
+msgstr "Kommentar (Pflicht zum Behalten, Ändern oder Entfernen)"
+
+msgid "No suggestion yet"
+msgstr "Noch kein Vorschlag"
+
+msgid "Suggested by the rules"
+msgstr "Von den Regeln vorgeschlagen"
+
+msgid ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+msgstr ""
+"Nur Vorschläge: Jeder Prüfer entscheidet. Die Regeln werden im Formular der "
+"Kampagne eingestellt."
+
+msgid ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+msgstr ""
+"Berechnet den Vorschlag der noch zu prüfenden Konten neu (entschiedene "
+"Konten behalten den, den ihr Prüfer gesehen hat)."
+
+msgid "Update the suggestions"
+msgstr "Vorschläge aktualisieren"

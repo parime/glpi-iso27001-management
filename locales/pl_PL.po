@@ -29373,3 +29373,162 @@ msgstr ""
 "Te wartości zaproponowała inna strona, na przykład inwentarz Docker. Sprawdź "
 "je, dodaj uzasadnienie i właściciela, a następnie kliknij „Dodaj”: wcześniej "
 "nic nie jest zapisywane."
+
+#, php-format
+msgid "Suggestions updated for %d account(s) still to review."
+msgstr "Zaktualizowano sugestie dla %d kont(a) do przeglądu."
+
+msgid "Rule disabled"
+msgstr "Reguła wyłączona"
+
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d dzień"
+msgstr[1] "%d dni"
+msgstr[2] "%d dni"
+
+msgid ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+msgstr ""
+"Reguły sugerują usunięcie tego konta: wyjaśnij w komentarzu, dlaczego "
+"zostaje zachowane."
+
+msgid "Suggested: remove"
+msgstr "Sugestia: usunąć"
+
+msgid "Suggested: examine"
+msgstr "Sugestia: do zbadania"
+
+msgid "Suggested: keep"
+msgstr "Sugestia: zachować"
+
+#, php-format
+msgid "Account end date passed (%s)"
+msgstr "Data końcowa konta minęła (%s)"
+
+#, php-format
+msgid "Departure recorded on %s"
+msgstr "Odejście zarejestrowane na %s"
+
+#, php-format
+msgid "Leaving on %1$s (within %2$d days)"
+msgstr "Odejście %1$s (w ciągu %2$d dni)"
+
+#, php-format
+msgid "No login for more than %1$d days (last on %2$s)"
+msgstr "Brak logowania od ponad %1$d dni (ostatnie %2$s)"
+
+#, php-format
+msgid "Privileged profile: %s"
+msgstr "Profil uprzywilejowany: %s"
+
+#, php-format
+msgid "Privileged profile without known MFA: %s"
+msgstr "Profil uprzywilejowany bez znanego MFA: %s"
+
+#, php-format
+msgid "No warning sign (last login on %s)"
+msgstr "Brak sygnałów ostrzegawczych (ostatnie logowanie %s)"
+
+msgid "No warning sign"
+msgstr "Brak sygnałów ostrzegawczych"
+
+msgid ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+msgstr ""
+"Uruchom kampanię; kierownicy decydują wiersz po wierszu, wspierani sugestią "
+"(zachować, usunąć lub do zbadania) i jej powodem. Usunięcie uprawnienia "
+"otwiera zgłoszenie, nigdy nie jest stosowane automatycznie."
+
+msgid ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+msgstr ""
+"Każde konto otrzymuje sugestię (zachować, usunąć lub do zbadania) i jej "
+"powód. Sugestia nigdy nie decyduje: wybiera recenzent, a zachowanie konta, "
+"którego usunięcie sugerują reguły, wymaga komentarza."
+
+msgid "Examine group changes without profile review"
+msgstr "Badaj zmiany grup bez przeglądu profili"
+
+msgid "Examine privileged profiles"
+msgstr "Badaj profile uprzywilejowane"
+
+msgid "Examine: leaving soon, inactive, groups changed, privileged profile"
+msgstr ""
+"Do zbadania: bliskie odejście, nieaktywne, zmienione grupy, profil "
+"uprzywilejowany"
+
+msgid ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+msgstr ""
+"Na podstawie strony Pokrycie MFA: uwierzytelnianie dwuskładnikowe GLPI lub "
+"zaimportowany raport."
+
+msgid "Inactive account: no login for"
+msgstr "Konto nieaktywne: brak logowania od"
+
+msgid "Keep: no warning sign"
+msgstr "Zachować: brak sygnałów ostrzegawczych"
+
+msgid "Leaving soon: end date or departure within"
+msgstr "Bliskie odejście: data końcowa lub odejście w ciągu"
+
+msgid "Mention privileged accounts without known MFA"
+msgstr "Wskazuj konta uprzywilejowane bez znanego MFA"
+
+msgid "Profiles that can change the GLPI configuration or profiles."
+msgstr "Profile, które mogą zmieniać konfigurację lub profile GLPI."
+
+msgid "Remove: deleted from the directory, end date or departure passed"
+msgstr "Usunąć: usunięte z katalogu, data końcowa lub odejście minęły"
+
+msgid "Suggestion rules"
+msgstr "Reguły sugestii"
+
+msgid ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+msgstr ""
+"Każde konto pokazuje sugestię i jej powód (odejście, brak aktywności, profil"
+" uprzywilejowany...). To tylko propozycja: decyzja należy do Ciebie."
+
+msgid "Decision differs from the suggestion"
+msgstr "Decyzja różni się od sugestii"
+
+msgid "Suggestion and reason"
+msgstr "Sugestia i powód"
+
+msgid "Suggestions"
+msgstr "Sugestie"
+
+msgid "Comment (required to keep, change or remove)"
+msgstr "Komentarz (wymagany, aby zachować, zmienić lub usunąć)"
+
+msgid "No suggestion yet"
+msgstr "Brak sugestii"
+
+msgid "Suggested by the rules"
+msgstr "Zasugerowane przez reguły"
+
+msgid ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+msgstr ""
+"Tylko propozycje: każdy recenzent decyduje. Reguły ustawia się w formularzu "
+"kampanii."
+
+msgid ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+msgstr ""
+"Przelicza sugestię kont wciąż do przeglądu (konta z decyzją zachowują tę, "
+"którą widział ich recenzent)."
+
+msgid "Update the suggestions"
+msgstr "Zaktualizuj sugestie"

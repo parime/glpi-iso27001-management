@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 06:51+0000\n"
+"POT-Creation-Date: 2026-11-21 07:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,12 @@ msgid ""
 "Campaign launched: %d account(s) to review, reviewers have been notified."
 msgstr ""
 
-#: front/accessreview.form.php:52
+#: front/accessreview.form.php:54
+#, php-format
+msgid "Suggestions updated for %d account(s) still to review."
+msgstr ""
+
+#: front/accessreview.form.php:63
 msgid "Campaign closed, PDF report archived in the documents."
 msgstr ""
 
@@ -70,7 +75,7 @@ msgstr ""
 
 #: front/audit.report.php:77 front/databreach.export.php:65
 #: front/networkflow.report.php:31 front/processingactivity.export.php:64
-#: front/risk.report.php:73 src/AccessReview.php:745 src/AcnRequirement.php:805
+#: front/risk.report.php:73 src/AccessReview.php:798 src/AcnRequirement.php:805
 #: src/Audit.php:653 src/CertificationFinding.php:423
 #: src/CertificationReadiness.php:1484 src/CertificationResponse.php:433
 #: src/CompetenceMatrix.php:899 src/ConsistencyCheck.php:1503
@@ -2130,21 +2135,21 @@ msgid_plural "Security incident templates"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/AccessReview.php:73 src/MySpace.php:138 src/PersonnelCompliance.php:253
+#: src/AccessReview.php:74 src/MySpace.php:138 src/PersonnelCompliance.php:253
 msgid "Access review"
 msgid_plural "Access reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/AccessReview.php:91
+#: src/AccessReview.php:92
 msgid "Operations"
 msgstr ""
 
-#: src/AccessReview.php:103
+#: src/AccessReview.php:104
 msgid "In preparation"
 msgstr ""
 
-#: src/AccessReview.php:104 src/Audit.php:98 src/Audit.php:428
+#: src/AccessReview.php:105 src/Audit.php:98 src/Audit.php:428
 #: src/Control.php:154 src/Control.php:1366 src/DataSubjectRequest.php:97
 #: src/EbiosStudy.php:90 src/IsmsRequirement.php:154
 #: src/ManagementReviewAction.php:62 src/PhysicalSecurityAssessment.php:417
@@ -2159,61 +2164,61 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: src/AccessReview.php:105 src/Nonconformity.php:140 src/Nonconformity.php:636
+#: src/AccessReview.php:106 src/Nonconformity.php:140 src/Nonconformity.php:636
 #: templates/policy_acknowledgement_tab.html.twig
 msgid "Closed"
 msgstr ""
 
-#: src/AccessReview.php:115
+#: src/AccessReview.php:116
 msgid "Quarterly"
 msgstr ""
 
-#: src/AccessReview.php:116
+#: src/AccessReview.php:117
 msgid "Half-yearly"
 msgstr ""
 
-#: src/AccessReview.php:117
+#: src/AccessReview.php:118
 msgid "Yearly"
 msgstr ""
 
-#: src/AccessReview.php:127
+#: src/AccessReview.php:128
 msgctxt "to review"
 msgid "To review"
 msgstr ""
 
-#: src/AccessReview.php:128
+#: src/AccessReview.php:129
 msgid "Access approved"
 msgstr ""
 
-#: src/AccessReview.php:129
+#: src/AccessReview.php:130
 msgid "To change"
 msgstr ""
 
-#: src/AccessReview.php:130
+#: src/AccessReview.php:131
 msgid "To remove"
 msgstr ""
 
-#: src/AccessReview.php:140
+#: src/AccessReview.php:141
 msgid "line manager"
 msgstr ""
 
-#: src/AccessReview.php:141
+#: src/AccessReview.php:142
 msgid "group manager"
 msgstr ""
 
-#: src/AccessReview.php:142
+#: src/AccessReview.php:143
 msgid "owner (no manager)"
 msgstr ""
 
-#: src/AccessReview.php:173
+#: src/AccessReview.php:174
 msgid "Accounts to review"
 msgstr ""
 
-#: src/AccessReview.php:224
+#: src/AccessReview.php:225
 msgid "The campaign name is required."
 msgstr ""
 
-#: src/AccessReview.php:302 src/Audit.php:226 src/BreachExposure.php:132
+#: src/AccessReview.php:313 src/Audit.php:226 src/BreachExposure.php:132
 #: src/ComplianceEvent.php:229 src/EndOfLife.php:476
 #: src/HardwareWarranty.php:436 src/ManagementReview.php:361
 #: src/Nonconformity.php:379 src/NotificationTargetAuditEvidenceRequest.php:159
@@ -2264,7 +2269,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: src/AccessReview.php:309 templates/access_review_form.html.twig
+#: src/AccessReview.php:320 templates/access_review_form.html.twig
 #: templates/business_process_programme.html.twig
 #: templates/control_test_tab.html.twig
 #: templates/pdf/access_review_report.html.twig
@@ -2272,14 +2277,14 @@ msgstr ""
 msgid "Frequency"
 msgstr ""
 
-#: src/AccessReview.php:316 src/Waiver.php:521
+#: src/AccessReview.php:327 src/Waiver.php:521
 #: templates/access_review_form.html.twig
 #: templates/tabs/control_access_reviews.html.twig
 #: templates/waiver_form.html.twig
 msgid "Start date"
 msgstr ""
 
-#: src/AccessReview.php:323 src/AcnRequirement.php:757
+#: src/AccessReview.php:334 src/AcnRequirement.php:757
 #: src/AcnRequirement.php:837 src/CertificationResponse.php:249
 #: src/Nonconformity.php:396 src/NotificationTargetAccessReview.php:106
 #: src/NotificationTargetAuditEvidenceRequest.php:158
@@ -2313,85 +2318,163 @@ msgstr ""
 msgid "Due date"
 msgstr ""
 
-#: src/AccessReview.php:330 src/NotificationTargetAccessReview.php:105
+#: src/AccessReview.php:341 src/NotificationTargetAccessReview.php:105
 #: templates/access_review_form.html.twig
 #: templates/pdf/access_review_report.html.twig
 msgctxt "process pilot"
 msgid "Owner"
 msgstr ""
 
-#: src/AccessReview.php:338
+#: src/AccessReview.php:349
 msgid "Closing date"
 msgstr ""
 
-#: src/AccessReview.php:563 src/ManagementReviewDossier.php:283
+#: src/AccessReview.php:466
+msgid "Rule disabled"
+msgstr ""
+
+#: src/AccessReview.php:467
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AccessReview.php:606 src/ManagementReviewDossier.php:283
 #: templates/pdf/access_review_report.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 msgid "(and sub-entities)"
 msgstr ""
 
-#: src/AccessReview.php:567
+#: src/AccessReview.php:610
 msgid "No active account has a profile in this entity."
 msgstr ""
 
-#: src/AccessReview.php:638
+#: src/AccessReview.php:683
 msgid "This line does not belong to an ongoing campaign."
 msgstr ""
 
-#: src/AccessReview.php:643
+#: src/AccessReview.php:688
 msgid "This line is assigned to another reviewer."
 msgstr ""
 
-#: src/AccessReview.php:646 src/ReleaseValidation.php:353
+#: src/AccessReview.php:691 src/ReleaseValidation.php:353
 msgid "Unknown decision."
 msgstr ""
 
-#: src/AccessReview.php:650
+#: src/AccessReview.php:695
 msgid ""
 "A ticket has already been created for this account: the decision can no "
 "longer change."
 msgstr ""
 
-#: src/AccessReview.php:655
+#: src/AccessReview.php:700
 msgid "State what must be changed or removed."
 msgstr ""
 
-#: src/AccessReview.php:689
+#: src/AccessReview.php:706
+msgid ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+msgstr ""
+
+#: src/AccessReview.php:742
 #, php-format
 msgid "Access review: remove the access of %s"
 msgstr ""
 
-#: src/AccessReview.php:690
+#: src/AccessReview.php:743
 #, php-format
 msgid "Access review: change the access of %s"
 msgstr ""
 
-#: src/AccessReview.php:743
+#: src/AccessReview.php:796
 #, php-format
 msgid "Access review: %s"
 msgstr ""
 
-#: src/AccessReview.php:775
+#: src/AccessReview.php:830
 #, php-format
 msgid "Access review report - %s"
 msgstr ""
 
-#: src/AccessReview.php:813
+#: src/AccessReview.php:868
 #, php-format
 msgid "Access review of %s"
 msgstr ""
 
-#: src/AccessReview.php:889
+#: src/AccessReview.php:949
 msgid "Reminds reviewers who are late on an access review"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:56
+msgid "Suggested: remove"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:61
+msgid "Suggested: examine"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:66
+msgid "Suggested: keep"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:85 src/AccountHygiene.php:87
+msgid "Deleted from the directory"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:86
+#, php-format
+msgid "Account end date passed (%s)"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:87
+#, php-format
+msgid "Departure recorded on %s"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:88
+#, php-format
+msgid "Leaving on %1$s (within %2$d days)"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:90
+#, php-format
+msgid "No login for more than %1$d days (last on %2$s)"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:94 src/AccountHygiene.php:94
+#, php-format
+msgid "Never used (created more than %d days ago)"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:96 src/AccountHygiene.php:100
+#, php-format
+msgid "Groups changed less than %d days ago, profiles not reviewed"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:99
+#, php-format
+msgid "Privileged profile: %s"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:101
+#, php-format
+msgid "Privileged profile without known MFA: %s"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:105
+#, php-format
+msgid "No warning sign (last login on %s)"
+msgstr ""
+
+#: src/AccessReviewSuggestion.php:106
+msgid "No warning sign"
 msgstr ""
 
 #: src/AccountHygiene.php:46 src/PersonnelCompliance.php:254
 #: templates/mfa_coverage.html.twig
 msgid "Account hygiene"
-msgstr ""
-
-#: src/AccountHygiene.php:87
-msgid "Deleted from the directory"
 msgstr ""
 
 #: src/AccountHygiene.php:88
@@ -2403,11 +2486,6 @@ msgstr ""
 msgid "No login for more than %d days"
 msgstr ""
 
-#: src/AccountHygiene.php:94
-#, php-format
-msgid "Never used (created more than %d days ago)"
-msgstr ""
-
 #: src/AccountHygiene.php:97
 msgid "Duplicate email address"
 msgstr ""
@@ -2416,12 +2494,7 @@ msgstr ""
 msgid "Duplicate first and last name"
 msgstr ""
 
-#: src/AccountHygiene.php:100
-#, php-format
-msgid "Groups changed less than %d days ago, profiles not reviewed"
-msgstr ""
-
-#: src/AccountHygiene.php:260
+#: src/AccountHygiene.php:276
 #, php-format
 msgid "Account hygiene: %d account to check"
 msgid_plural "Account hygiene: %d accounts to check"
@@ -12375,8 +12448,9 @@ msgstr ""
 
 #: src/PageHelp.php:733
 msgid ""
-"Start a campaign; managers decide line by line. Removing a right opens a "
-"ticket, it is never applied automatically."
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
 msgstr ""
 
 #: src/PageHelp.php:737
@@ -17825,8 +17899,57 @@ msgstr ""
 
 #: templates/access_review_form.html.twig
 msgid ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid "Examine group changes without profile review"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid "Examine privileged profiles"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid "Examine: leaving soon, inactive, groups changed, privileged profile"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid "Inactive account: no login for"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid "Keep: no warning sign"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid "Leaving soon: end date or departure within"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid "Mention privileged accounts without known MFA"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid ""
 "Once saved, open the \"Accounts to review\" tab to launch the campaign. "
 "Reviewers are notified; the plugin never changes any right."
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid "Profiles that can change the GLPI configuration or profiles."
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid "Remove: deleted from the directory, end date or departure passed"
 msgstr ""
 
 #: templates/access_review_form.html.twig
@@ -17835,6 +17958,10 @@ msgstr ""
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/pdf/policy_version.html.twig
 msgid "SoA control"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid "Suggestion rules"
 msgstr ""
 
 #: templates/access_review_mine.html.twig
@@ -17846,6 +17973,12 @@ msgstr ""
 #: templates/access_review_mine.html.twig
 #, php-format
 msgid "Due: %s"
+msgstr ""
+
+#: templates/access_review_mine.html.twig
+msgid ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
 msgstr ""
 
 #: templates/access_review_mine.html.twig
@@ -27804,6 +27937,11 @@ msgid "Closed on"
 msgstr ""
 
 #: templates/pdf/access_review_report.html.twig
+#: templates/tabs/_access_review_rows.html.twig
+msgid "Decision differs from the suggestion"
+msgstr ""
+
+#: templates/pdf/access_review_report.html.twig
 msgid "Decisions per account"
 msgstr ""
 
@@ -27823,6 +27961,16 @@ msgstr ""
 
 #: templates/pdf/access_review_report.html.twig
 msgid "Start / due date"
+msgstr ""
+
+#: templates/pdf/access_review_report.html.twig
+#: templates/tabs/_access_review_rows.html.twig
+msgid "Suggestion and reason"
+msgstr ""
+
+#: templates/pdf/access_review_report.html.twig
+#: templates/tabs/access_review_lines.html.twig
+msgid "Suggestions"
 msgstr ""
 
 #: templates/pdf/acn_report.html.twig templates/pdf/recyf_report.html.twig
@@ -31862,11 +32010,23 @@ msgid "Comment (required to change or remove)"
 msgstr ""
 
 #: templates/tabs/_access_review_rows.html.twig
+msgid "Comment (required to keep, change or remove)"
+msgstr ""
+
+#: templates/tabs/_access_review_rows.html.twig
 msgid "Decision and comment"
 msgstr ""
 
 #: templates/tabs/_access_review_rows.html.twig
+msgid "No suggestion yet"
+msgstr ""
+
+#: templates/tabs/_access_review_rows.html.twig
 msgid "Profiles and groups"
+msgstr ""
+
+#: templates/tabs/_access_review_rows.html.twig
+msgid "Suggested by the rules"
 msgstr ""
 
 #: templates/tabs/access_review_lines.html.twig
@@ -31896,6 +32056,21 @@ msgstr ""
 
 #: templates/tabs/access_review_lines.html.twig
 msgid "Prepare the next campaign"
+msgstr ""
+
+#: templates/tabs/access_review_lines.html.twig
+msgid ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+msgstr ""
+
+#: templates/tabs/access_review_lines.html.twig
+msgid ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+msgstr ""
+
+#: templates/tabs/access_review_lines.html.twig
+msgid "Update the suggestions"
 msgstr ""
 
 #: templates/tabs/action_log.html.twig
