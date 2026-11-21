@@ -453,7 +453,8 @@ final class CrisisCommunicationTest extends GrcmanagerIntegrationTestCase
         $html = (string) ob_get_clean();
         $this->assertMatchesRegularExpression('/value="User:' . $deputyUser . '" data-address="[^"]*" >/', $html);
         $this->assertMatchesRegularExpression(
-            '/value="' . preg_quote(Rules::RECIPIENT_CONTACT, '/') . ':' . $contactDeputy . '" data-address="[^"]*" checked>/',
+            '/value="' . preg_quote(Rules::RECIPIENT_CONTACT, '/') . ':' . $contactDeputy
+                . '" data-address="[^"]*" checked>/',
             $html
         );
 
@@ -482,7 +483,8 @@ final class CrisisCommunicationTest extends GrcmanagerIntegrationTestCase
         $groupId = (int) (new \Group())->add([
             'name' => 'PHPUnit direction fictive', 'entities_id' => 0, 'is_recursive' => 1,
         ]);
-        foreach ([$this->userWithEmail('Membre', 'membre@example.com'), $this->createTestUser('Sans', 'Courriel')] as $user) {
+        $members = [$this->userWithEmail('Membre', 'membre@example.com'), $this->createTestUser('Sans', 'Courriel')];
+        foreach ($members as $user) {
             $this->assertGreaterThan(0, (int) (new \Group_User())->add(['groups_id' => $groupId, 'users_id' => $user]));
         }
         $this->assertTrue(CrisisMessageRecipient::addTo($template->getID(), 'Group', $groupId));
