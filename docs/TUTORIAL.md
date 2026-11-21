@@ -1573,6 +1573,62 @@ ordinateurs ; le droit de modifier le plugin pour déclarer, lire et importer.
     donne les chiffres de la preuve, et les indicateurs de risque proposent la source « Contrôleurs
     de gestion des serveurs avec un écart grave ».
 
+### Étape 51 : Suivre les chemins d'attaque vers Domain Admins (mesures A.5.15, A.5.18 et A.8.2)
+
+Un chemin d'attaque est une suite de droits, d'appartenances à des groupes ou de sessions ouvertes qui
+permet à un compte ordinaire de prendre le contrôle du groupe **Domain Admins**. BloodHound CE et
+Adalanche dessinent ces chemins ; la page **Audit de sécurité de l'Active Directory** lit leur export,
+sans lancer l'outil ni interroger l'annuaire.
+
+1. **BloodHound CE** : dans la page **Explore**, lancez la requête des plus courts chemins vers
+   Domain Admins, puis exportez le graphe en JSON. **Adalanche** : lancez l'analyse avec Domain Admins
+   comme cible, puis exportez le graphe en JSON (format Cytoscape). Un exemple fictif de chaque outil
+   se télécharge depuis la partie **Chemins d'attaque vers Domain Admins**.
+2. Importez le fichier dans cette partie (pas dans le formulaire des rapports, qui vous y renvoie). Si
+   l'export ne donne pas le domaine, saisissez-le dans le champ **Domaine**.
+3. La carte du domaine donne le **nombre de comptes ayant un chemin** vers Domain Admins et l'écart
+   avec l'export précédent. Le détail sépare utilisateurs et ordinateurs, donne le plus court chemin,
+   puis la liste des **comptes les plus exposés** (nombre de sauts, nombre de routes) ; un badge
+   **Nouveau** signale un compte absent de l'export précédent. Les comptes déjà de niveau zéro dans
+   BloodHound CE ne sont pas comptés.
+4. Le bouton **Créer le risque dans le registre** crée, sur clic seulement, un risque pré-rempli
+   (impact maximal) dans l'entité de l'import ; les exports suivants du domaine y restent reliés.
+   Ajustez ensuite la cotation et le traitement dans le registre.
+5. Les fiches des mesures A.5.15, A.5.18 et A.8.2 montrent la preuve (dernier export de chaque
+   domaine), et l'indicateur de risque **Comptes ayant un chemin d'attaque vers Domain Admins** suit le
+   chiffre dans le temps.
+6. Seuls le nombre de comptes et les comptes les plus exposés (nom, type, sauts) sont gardés. Les
+   fichiers trop gros, trop profonds ou mal formés sont refusés.
+
+### Étape 52 : Suivre le firmware des cartes de gestion et revoir leurs comptes (mesures A.8.8 et A.8.2)
+
+Une fois les contrôleurs lus (50), leur firmware
+et le BIOS du serveur sont suivis comme les autres firmwares du parc, et leurs comptes locaux entrent
+dans la revue des accès.
+
+1. Sur la page **Contrôleurs de gestion des serveurs**, la colonne **Firmware et BIOS** affiche pour
+   chacun un badge : **Non surveillé** tant que son nom n'est relié à aucun produit, sinon le nombre
+   de vulnérabilités connues (en rouge si l'une est prioritaire) et, si la vérification des fins de
+   support est activée, son état (supporté, fin proche, plus supporté).
+2. Pour surveiller un firmware, ouvrez **Vulnérabilités du parc** : son nom (par exemple
+   `HPE iLO 5` ou `HPE ProLiant DL380 Gen10 BIOS`) apparaît dans les logiciels à relier, comme un
+   firmware de GLPI. Reliez-le une fois à son produit ; la veille planifiée cherche ensuite les
+   vulnérabilités de chaque version lue.
+3. Pour la fin de support, reliez le même nom à un produit d'endoflife.date dans la configuration de
+   la vérification des fins de support, si un produit existe pour ce matériel.
+4. Les écarts **Firmware avec une vulnérabilité prioritaire**, **Firmware avec des vulnérabilités
+   connues**, **Firmware plus supporté** et **Fin de support proche** s'ajoutent aux autres écarts
+   du contrôleur et comptent dans l'indicateur des écarts graves.
+5. Lancez une campagne de revue des accès : les comptes lus sur les contrôleurs des mêmes entités
+   sont copiés dans l'onglet **Comptes des contrôleurs de serveurs** de la campagne, avec une
+   suggestion. Un compte livré par le constructeur encore actif ou un compte désactivé est proposé
+   au retrait, un compte administrateur ou verrouillé est à examiner.
+6. Pour chaque compte, cliquez sur **Accès validés** ou **À retirer**, avec un commentaire ; garder
+   un compte proposé au retrait demande une justification. Supprimez ensuite le compte sur le
+   contrôleur lui-même : le plugin ne change rien sur les serveurs, la campagne garde la trace de la
+   décision. Pour une campagne lancée avant la lecture des contrôleurs, le bouton **Ajouter les
+   comptes des contrôleurs** de l'onglet les copie une fois.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -3039,3 +3095,59 @@ plugin to declare, read and import.
 10. On a computer, the **Management controller** tab sums up its controller. On controls A.8.2,
     A.8.9 and A.8.22, the "Server management controllers" frame gives the figures of the evidence,
     and the key risk indicators offer the source "Server management controllers with a serious gap".
+
+### Step 51: Follow the attack paths to Domain Admins (controls A.5.15, A.5.18 and A.8.2)
+
+An attack path is a chain of rights, group memberships or open sessions that lets an ordinary
+account take control of the **Domain Admins** group. BloodHound CE and Adalanche draw these paths;
+the **Active Directory security audit** page reads their export, without running the tool or
+querying the directory.
+
+1. **BloodHound CE**: in the **Explore** page, run the query of the shortest paths to Domain Admins,
+   then export the graph as JSON. **Adalanche**: run the analysis with Domain Admins as target, then
+   export the graph as JSON (Cytoscape format). A fictitious example of each tool can be downloaded
+   from the **Attack paths to Domain Admins** part.
+2. Import the file in that part (not in the report form, which sends you there). If the export does
+   not give the domain, fill in the **Domain** field.
+3. The domain card gives the **number of accounts with a path** to Domain Admins and the change
+   since the previous export. The details split users and computers, give the shortest path, then
+   the list of the **most exposed accounts** (number of steps, number of routes); a **New** badge
+   marks an account missing from the previous export. Accounts already tier zero in BloodHound CE
+   are not counted.
+4. The **Create the risk in the register** button creates, on click only, a pre-filled risk
+   (maximum impact) in the entity of the import; the next exports of the domain stay linked to it.
+   Then adjust the rating and the treatment in the register.
+5. The forms of controls A.5.15, A.5.18 and A.8.2 show the evidence (latest export of each domain),
+   and the **Accounts with an attack path to Domain Admins** risk indicator follows the figure over
+   time.
+6. Only the number of accounts and the most exposed accounts (name, type, steps) are kept. Files
+   that are too large, too deep or malformed are refused.
+
+### Step 52: Follow the firmware of the management controllers and review their accounts (controls A.8.8 and A.8.2)
+
+Once the controllers are read (50), their
+firmware and the BIOS of the server are followed like the other firmwares of the fleet, and their
+local accounts enter the access review.
+
+1. On the page **Server management controllers**, the column **Firmware and BIOS** shows a badge for
+   each one: **Not watched** while its name is linked to no product, otherwise the number of known
+   vulnerabilities (red if one is a priority) and, if the end of support check is enabled, its state
+   (supported, end of support soon, no longer supported).
+2. To watch a firmware, open **Fleet vulnerabilities**: its name (for example `HPE iLO 5` or
+   `HPE ProLiant DL380 Gen10 BIOS`) appears among the software to link, like a firmware of GLPI.
+   Link it once to its product; the scheduled watch then looks for the vulnerabilities of each
+   version read.
+3. For the end of support, link the same name to an endoflife.date product in the configuration of
+   the end of support check, if a product exists for this hardware.
+4. The gaps **Firmware with a priority vulnerability**, **Firmware with known vulnerabilities**,
+   **Firmware no longer supported** and **Firmware support ending soon** join the other gaps of the
+   controller and count in the indicator of serious gaps.
+5. Launch an access review campaign: the accounts read on the controllers of the same entities are
+   copied into the tab **Server controller accounts** of the campaign, with a suggestion. A factory
+   account still enabled or a disabled account is proposed for removal, an administrator or locked
+   account is to examine.
+6. For each account, click **Access approved** or **To remove**, with a comment; keeping an account
+   proposed for removal needs a justification. Then delete the account on the controller itself: the
+   plugin changes nothing on the servers, the campaign keeps the decision. For a campaign launched
+   before the controllers were read, the button **Add the accounts of the controllers** of the tab
+   copies them once.
