@@ -33600,6 +33600,271 @@ msgstr ""
 msgid "Secure Boot"
 msgstr "Démarrage sécurisé"
 
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Toute personne disposant du lien"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "Invité externe"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Partage de fichiers Windows"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Lien public (tout le monde)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr ""
+"Un lien de partage fonctionne pour toute personne qui l'a, sans connexion."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "Un invité externe a accès"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"Une personne d'une autre organisation (compte invité) a accès : vérifiez que "
+"c'est toujours nécessaire."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"Aucune colonne de site trouvée : le fichier doit avoir une colonne telle que "
+"Site, Team ou OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Accès refusé par Microsoft Graph : accordez les permissions d'application "
+"Sites.Read.All, Files.Read.All, User.Read.All et GroupMember.Read.All avec "
+"le consentement de l'administrateur."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+"Trop de sites ou de comptes à lire en un clic : rien n'a été remplacé. "
+"Importez plutôt un export CSV."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "Lire les droits SharePoint, OneDrive et Teams"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"GLPI lit les droits de partage par Microsoft Graph quand vous cliquez, avec "
+"l'application réglée pour la couverture MFA, et ne modifie jamais rien dans "
+"Microsoft 365. SharePoint : les droits de la bibliothèque de documents de "
+"chaque site et de ses éléments de premier niveau partagés à part. OneDrive : "
+"les éléments de premier niveau que chaque personne a partagés. Teams : "
+"propriétaires, membres, invités et équipes publiques. Les mêmes écarts et la "
+"même revue que pour les partages de fichiers s'appliquent : liens publics, "
+"invités externes, droits donnés à tout le monde."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Permissions d'application à accorder, avec le consentement de "
+"l'administrateur (lecture seule) : Sites.Read.All, Files.Read.All, User.Read."
+"All et GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph connecté"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Réglages de Microsoft Graph"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "Lire %s maintenant"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"Microsoft Graph n'est pas encore réglé. Saisissez le locataire, "
+"l'identifiant d'application et le secret client sur la page de couverture "
+"MFA, ou importez un export CSV ci-dessous."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Solution de repli : importez un fichier CSV avec une ligne par droit et des "
+"colonnes telles que Source (SharePoint, OneDrive ou Teams), Site, SiteUrl, "
+"Item, Identity, Type (User, Group, Guest), Roles (read, write, owner) et "
+"LinkScope (anonymous, organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Propriétaire dans Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Lien de partage"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Appartenance à l'équipe"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Permission directe"
+
+msgid "Firmware with a priority vulnerability"
+msgstr "Firmware avec une vulnérabilité prioritaire"
+
+msgid ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+msgstr ""
+"Le firmware du contrôleur ou le BIOS a une vulnérabilité connue exploitée, "
+"critique ou susceptible d'être exploitée (page « Vulnérabilités du parc ») : "
+"mettez-le à jour en priorité."
+
+msgid "Firmware no longer supported"
+msgstr "Firmware plus supporté"
+
+msgid ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+msgstr ""
+"Le firmware du contrôleur ou le BIOS a atteint sa fin de support (endoflife."
+"date) : plus aucun correctif de sécurité."
+
+msgid "Firmware with known vulnerabilities"
+msgstr "Firmware avec des vulnérabilités connues"
+
+msgid ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+msgstr ""
+"Le firmware du contrôleur ou le BIOS a des vulnérabilités connues (page "
+"« Vulnérabilités du parc »)."
+
+msgid "Firmware support ending soon"
+msgstr "Fin de support proche du firmware"
+
+msgid ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+msgstr "La fin de support du firmware ou du BIOS est proche (endoflife.date)."
+
+msgid ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+msgstr ""
+"Reliez ce nom à un produit sur la page « Vulnérabilités du parc » pour le "
+"comparer aux vulnérabilités connues."
+
+msgid "Not watched"
+msgstr "Non surveillé"
+
+msgid "Priority CVEs: %d"
+msgstr "CVE prioritaires : %d"
+
+msgid "Known CVEs: %d"
+msgstr "CVE connues : %d"
+
+msgid "No known CVE"
+msgstr "Aucune CVE connue"
+
+msgid ""
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
+msgstr ""
+"Le firmware de chaque contrôleur et son BIOS sont comparés aux "
+"vulnérabilités connues du parc et aux dates de fin de support, comme les "
+"autres firmwares : reliez leur nom à un produit une fois, sur les mêmes "
+"pages."
+
+msgid "Enable the end of support check"
+msgstr "Activer la vérification des fins de support"
+
+msgid "Server controller accounts"
+msgstr "Comptes des contrôleurs de serveurs"
+
+msgid "Factory account still enabled: replace it with a named account"
+msgstr ""
+"Compte constructeur encore actif : le remplacer par un compte nominatif"
+
+msgid "Disabled on the controller: delete it there"
+msgstr "Désactivé sur le contrôleur : le supprimer sur place"
+
+msgid "Locked on the controller"
+msgstr "Verrouillé sur le contrôleur"
+
+msgid "Administrator role: full control of the server"
+msgstr "Rôle administrateur : contrôle complet du serveur"
+
+msgid ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+msgstr ""
+"Un compte d'un contrôleur de gestion des serveurs (iLO, iDRAC, XClarity, "
+"IPMI) donne le contrôle complet du serveur, même éteint, hors de GLPI et de "
+"l'annuaire. Au lancement de la campagne, les comptes lus sur les contrôleurs "
+"de ses entités sont copiés ici avec une suggestion. Gardez ou retirez "
+"chacun : le plugin ne change rien sur les contrôleurs, retirez le compte sur "
+"place."
+
+msgid ""
+"The accounts of the controllers are copied when the campaign is launched."
+msgstr "Les comptes des contrôleurs sont copiés au lancement de la campagne."
+
+msgid ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+msgstr ""
+"Aucun compte de contrôleur de gestion des serveurs dans cette campagne : "
+"aucun contrôleur avec des comptes lus dans ses entités à son lancement."
+
+msgid "Add the accounts of the controllers"
+msgstr "Ajouter les comptes des contrôleurs"
+
+msgid "Suggestion"
+msgstr "Suggestion"
+
+msgid "%d decided"
+msgstr "%d décidé(s)"
+
+msgid "%d account(s) of the controllers added to the campaign."
+msgstr "%d compte(s) des contrôleurs ajouté(s) à la campagne."
+
 #, php-format
 msgid "%1$s export of %2$s, imported on %3$s"
 msgstr "Export %1$s de %2$s, importé le %3$s"
@@ -33787,130 +34052,44 @@ msgstr[1] ""
 "chemin : %3$d sauts). Détail sur la page de l'audit de sécurité de l'Active "
 "Directory."
 
-msgid "Firmware with a priority vulnerability"
-msgstr "Firmware avec une vulnérabilité prioritaire"
+msgid "Docker inventory: risky configuration"
+msgstr "Inventaire Docker : configuration à risque"
 
-msgid ""
-"The firmware of the controller or the BIOS has a known vulnerability that is "
-"exploited, critical or likely to be exploited (page \"Fleet "
-"vulnerabilities\"): update it first."
-msgstr ""
-"Le firmware du contrôleur ou le BIOS a une vulnérabilité connue exploitée, "
-"critique ou susceptible d'être exploitée (page « Vulnérabilités du parc ») : "
-"mettez-le à jour en priorité."
+msgid "View the risky configuration"
+msgstr "Voir la configuration à risque"
 
-msgid "Firmware no longer supported"
-msgstr "Firmware plus supporté"
+msgid "No service analysed yet"
+msgstr "Aucun service analysé pour l'instant"
 
-msgid ""
-"The firmware of the controller or the BIOS has reached its end of support "
-"(endoflife.date): no more security fixes."
-msgstr ""
-"Le firmware du contrôleur ou le BIOS a atteint sa fin de support (endoflife."
-"date) : plus aucun correctif de sécurité."
+msgid "Without critical or high gap: not measured"
+msgstr "Sans écart critique ni haut : non mesuré"
 
-msgid "Firmware with known vulnerabilities"
-msgstr "Firmware avec des vulnérabilités connues"
+msgid "Without critical or high gap: %d%%"
+msgstr "Sans écart critique ni haut : %d %%"
 
-msgid ""
-"The firmware of the controller or the BIOS has known vulnerabilities (page "
-"\"Fleet vulnerabilities\")."
-msgstr ""
-"Le firmware du contrôleur ou le BIOS a des vulnérabilités connues (page "
-"« Vulnérabilités du parc »)."
+msgid "Without any open gap: %d%%"
+msgstr "Sans aucun écart ouvert : %d %%"
 
-msgid "Firmware support ending soon"
-msgstr "Fin de support proche du firmware"
+msgid "%d service(s) analysed"
+msgstr "%d service(s) analysé(s)"
 
-msgid ""
-"The end of support of the firmware or the BIOS is near (endoflife.date)."
-msgstr "La fin de support du firmware ou du BIOS est proche (endoflife.date)."
+msgid "%d with a critical gap"
+msgstr "%d avec un écart critique"
 
-msgid ""
-"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
-"it with the known vulnerabilities."
-msgstr ""
-"Reliez ce nom à un produit sur la page « Vulnérabilités du parc » pour le "
-"comparer aux vulnérabilités connues."
+msgid "%d with a high gap"
+msgstr "%d avec un écart haut"
 
-msgid "Not watched"
-msgstr "Non surveillé"
+msgid "%d expired exception(s)"
+msgstr "%d exception(s) expirée(s)"
 
-msgid "Priority CVEs: %d"
-msgstr "CVE prioritaires : %d"
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr "%1$d exception(s) qui finissent dans les %2$d jours"
 
-msgid "Known CVEs: %d"
-msgstr "CVE connues : %d"
+msgid "Next exception end: %s"
+msgstr "Prochaine fin d'exception : %s"
 
-msgid "No known CVE"
-msgstr "Aucune CVE connue"
-
-msgid ""
-"The firmware of each controller and its BIOS are compared with the known "
-"vulnerabilities of the fleet and with the end of support dates, like the "
-"other firmwares: link their name to a product once, on the same pages."
-msgstr ""
-"Le firmware de chaque contrôleur et son BIOS sont comparés aux "
-"vulnérabilités connues du parc et aux dates de fin de support, comme les "
-"autres firmwares : reliez leur nom à un produit une fois, sur les mêmes "
-"pages."
-
-msgid "Enable the end of support check"
-msgstr "Activer la vérification des fins de support"
-
-msgid "Server controller accounts"
-msgstr "Comptes des contrôleurs de serveurs"
-
-msgid "Factory account still enabled: replace it with a named account"
-msgstr ""
-"Compte constructeur encore actif : le remplacer par un compte nominatif"
-
-msgid "Disabled on the controller: delete it there"
-msgstr "Désactivé sur le contrôleur : le supprimer sur place"
-
-msgid "Locked on the controller"
-msgstr "Verrouillé sur le contrôleur"
-
-msgid "Administrator role: full control of the server"
-msgstr "Rôle administrateur : contrôle complet du serveur"
-
-msgid ""
-"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
-"gives full control of the server, even switched off, outside GLPI and the "
-"directory. When the campaign is launched, the accounts read on the "
-"controllers of its entities are copied here with a suggestion. Keep or "
-"remove each one: the plugin changes nothing on the controllers, remove the "
-"account there."
-msgstr ""
-"Un compte d'un contrôleur de gestion des serveurs (iLO, iDRAC, XClarity, "
-"IPMI) donne le contrôle complet du serveur, même éteint, hors de GLPI et de "
-"l'annuaire. Au lancement de la campagne, les comptes lus sur les contrôleurs "
-"de ses entités sont copiés ici avec une suggestion. Gardez ou retirez "
-"chacun : le plugin ne change rien sur les contrôleurs, retirez le compte sur "
-"place."
-
-msgid ""
-"The accounts of the controllers are copied when the campaign is launched."
-msgstr "Les comptes des contrôleurs sont copiés au lancement de la campagne."
-
-msgid ""
-"No account of a server management controller in this campaign: no controller "
-"with accounts read in its entities when it was launched."
-msgstr ""
-"Aucun compte de contrôleur de gestion des serveurs dans cette campagne : "
-"aucun contrôleur avec des comptes lus dans ses entités à son lancement."
-
-msgid "Add the accounts of the controllers"
-msgstr "Ajouter les comptes des contrôleurs"
-
-msgid "Suggestion"
-msgstr "Suggestion"
-
-msgid "%d decided"
-msgstr "%d décidé(s)"
-
-msgid "%d account(s) of the controllers added to the campaign."
-msgstr "%d compte(s) des contrôleurs ajouté(s) à la campagne."
+msgid "%d service(s) not analysed"
+msgstr "%d service(s) non analysé(s)"
 
 msgid "Security 360°"
 msgstr "Sécurité 360°"
@@ -34041,159 +34220,37 @@ msgstr ""
 "Les sources sans donnée pour cet actif (module non utilisé, rien d'importé, "
 "pas le droit) ne sont pas affichées."
 
-#: src/ShareAccess.php:160
-msgid "Anyone with the link"
-msgstr "Toute personne disposant du lien"
-
-#: src/ShareAccess.php:161
-msgid "External guest"
-msgstr "Invité externe"
-
-#: src/ShareAccess.php:173
-msgid "Windows file share"
-msgstr "Partage de fichiers Windows"
-
-#: src/ShareAccess.php:232
-msgid "Public link (anyone)"
-msgstr "Lien public (tout le monde)"
-
-#: src/ShareAccess.php:234
-msgid "A sharing link works for anyone who has it, without signing in."
-msgstr ""
-"Un lien de partage fonctionne pour toute personne qui l'a, sans connexion."
-
-#: src/ShareAccess.php:237
-msgid "External guest has access"
-msgstr "Un invité externe a accès"
-
-#: src/ShareAccess.php:240
-msgid ""
-"A person from another organization (guest account) has access: check it is "
-"still needed."
-msgstr ""
-"Une personne d'une autre organisation (compte invité) a accès : vérifiez que "
-"c'est toujours nécessaire."
-
-#: src/ShareAccess.php:286
-msgid ""
-"No site column found: the file needs a column such as Site, Team or OneDrive."
-msgstr ""
-"Aucune colonne de site trouvée : le fichier doit avoir une colonne telle que "
-"Site, Team ou OneDrive."
-
-#: src/ShareAccess.php:300
-msgid ""
-"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
-"User.Read.All and GroupMember.Read.All application permissions with admin "
-"consent."
-msgstr ""
-"Accès refusé par Microsoft Graph : accordez les permissions d'application "
-"Sites.Read.All, Files.Read.All, User.Read.All et GroupMember.Read.All avec "
-"le consentement de l'administrateur."
-
-#: src/ShareAccess.php:305
-msgid ""
-"Too many sites or accounts to read in one click: nothing was replaced. "
-"Import a CSV export instead."
-msgstr ""
-"Trop de sites ou de comptes à lire en un clic : rien n'a été remplacé. "
-"Importez plutôt un export CSV."
-
-#: templates/share_access.html.twig
-msgid "Read SharePoint, OneDrive and Teams rights"
-msgstr "Lire les droits SharePoint, OneDrive et Teams"
-
-#: templates/share_access.html.twig
-msgid ""
-"GLPI reads the sharing rights through Microsoft Graph when you click, with "
-"the application set up for the MFA coverage, and never changes anything in "
-"Microsoft 365. SharePoint: the rights of each site document library and of "
-"its top-level items shared separately. OneDrive: the top-level items each "
-"person has shared. Teams: owners, members, guests and public teams. The same "
-"gaps and the same review as the file shares apply: public links, external "
-"guests, rights given to everyone."
-msgstr ""
-"GLPI lit les droits de partage par Microsoft Graph quand vous cliquez, avec "
-"l'application réglée pour la couverture MFA, et ne modifie jamais rien dans "
-"Microsoft 365. SharePoint : les droits de la bibliothèque de documents de "
-"chaque site et de ses éléments de premier niveau partagés à part. OneDrive : "
-"les éléments de premier niveau que chaque personne a partagés. Teams : "
-"propriétaires, membres, invités et équipes publiques. Les mêmes écarts et la "
-"même revue que pour les partages de fichiers s'appliquent : liens publics, "
-"invités externes, droits donnés à tout le monde."
-
-#: templates/share_access.html.twig
-msgid ""
-"Application permissions to grant, with admin consent (read only): Sites.Read."
-"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
-msgstr ""
-"Permissions d'application à accorder, avec le consentement de "
-"l'administrateur (lecture seule) : Sites.Read.All, Files.Read.All, User.Read."
-"All et GroupMember.Read.All."
-
-#: templates/share_access.html.twig
-msgid "Microsoft Graph connected"
-msgstr "Microsoft Graph connecté"
-
-#: templates/share_access.html.twig
-msgid "Microsoft Graph settings"
-msgstr "Réglages de Microsoft Graph"
-
-#: templates/share_access.html.twig
 #, php-format
-msgid "Read %s now"
-msgstr "Lire %s maintenant"
-
-#: templates/share_access.html.twig
 msgid ""
-"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
-"the client secret on the MFA coverage page, or import a CSV export below."
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
 msgstr ""
-"Microsoft Graph n'est pas encore réglé. Saisissez le locataire, "
-"l'identifiant d'application et le secret client sur la page de couverture "
-"MFA, ou importez un export CSV ci-dessous."
-
-#: templates/share_access.html.twig
-msgid ""
-"Fallback: import a CSV file with one line per right and columns such as "
-"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
-"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
-"organization, users)."
-msgstr ""
-"Solution de repli : importez un fichier CSV avec une ligne par droit et des "
-"colonnes telles que Source (SharePoint, OneDrive ou Teams), Site, SiteUrl, "
-"Item, Identity, Type (User, Group, Guest), Roles (read, write, owner) et "
-"LinkScope (anonymous, organization, users)."
-
-#: templates/share_access_detail.html.twig
-msgid "Owner in Microsoft 365"
-msgstr "Propriétaire dans Microsoft 365"
-
-#: templates/share_access_detail.html.twig
-msgid "Sharing link"
-msgstr "Lien de partage"
-
-#: templates/share_access_detail.html.twig
-msgid "Team membership"
-msgstr "Appartenance à l'équipe"
-
-#: templates/share_access_detail.html.twig
-msgid "Direct permission"
-msgstr "Permission directe"
-
-#, php-format
-msgid "%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
-msgstr "%1$d réponse(s) importée(s) depuis le fichier du fournisseur, %2$d document(s) rattaché(s)."
+"%1$d réponse(s) importée(s) depuis le fichier du fournisseur, %2$d "
+"document(s) rattaché(s)."
 
 #, php-format
 msgid "The document \"%s\" matches no question of the file: it was not added."
-msgstr "Le document « %s » ne correspond à aucune question du fichier : il n'a pas été ajouté."
+msgstr ""
+"Le document « %s » ne correspond à aucune question du fichier : il n'a pas "
+"été ajouté."
 
-msgid "Shows the answers found in the questionnaire file returned by the supplier, question by question, next to the current answers, with the points to check (unknown question, answer outside the list, missing question)."
-msgstr "Montre les réponses trouvées dans le fichier du questionnaire retourné par le fournisseur, question par question, à côté des réponses actuelles, avec les points à vérifier (question inconnue, réponse hors liste, question absente)."
+msgid ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+msgstr ""
+"Montre les réponses trouvées dans le fichier du questionnaire retourné par "
+"le fournisseur, question par question, à côté des réponses actuelles, avec "
+"les points à vérifier (question inconnue, réponse hors liste, question "
+"absente)."
 
-msgid "Check the answers, add the documents sent by the supplier, then save: nothing is recorded before this confirmation. Then review the evaluation and mark it as completed."
-msgstr "Vérifiez les réponses, ajoutez les documents envoyés par le fournisseur, puis enregistrez : rien n'est enregistré avant cette confirmation. Relisez ensuite l'évaluation et marquez-la comme terminée."
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+"Vérifiez les réponses, ajoutez les documents envoyés par le fournisseur, "
+"puis enregistrez : rien n'est enregistré avant cette confirmation. Relisez "
+"ensuite l'évaluation et marquez-la comme terminée."
 
 msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
 msgstr "ISO/IEC 27001, mesures A.5.19 à A.5.22"
@@ -34215,34 +34272,59 @@ msgstr "Nom de la pièce jointe"
 
 #, php-format
 msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
-msgstr "Fichier du questionnaire exporté pour le fournisseur : %1$s (empreinte %2$s)"
+msgstr ""
+"Fichier du questionnaire exporté pour le fournisseur : %1$s (empreinte %2$s)"
 
 #, php-format
 msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
-msgstr "Fichier du questionnaire retourné par le fournisseur pour l'évaluation « %s »"
+msgstr ""
+"Fichier du questionnaire retourné par le fournisseur pour l'évaluation « %s »"
 
 #, php-format
-msgid "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
-msgstr "Fichier du fournisseur importé : %1$s (SHA-256 %2$s), %3$d réponse(s), %4$d document(s)"
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+"Fichier du fournisseur importé : %1$s (SHA-256 %2$s), %3$d réponse(s), %4$d "
+"document(s)"
 
 #, php-format
 msgid "The file is too large (at most %d MB)."
 msgstr "Le fichier est trop volumineux (%d Mo au plus)."
 
-msgid "The file is not a CSV text file: save the spreadsheet as CSV before importing it."
-msgstr "Le fichier n'est pas un fichier texte CSV : enregistrez le classeur au format CSV avant de l'importer."
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"Le fichier n'est pas un fichier texte CSV : enregistrez le classeur au "
+"format CSV avant de l'importer."
 
-msgid "This file is not a questionnaire exported from this plugin: its first line was changed or removed."
-msgstr "Ce fichier n'est pas un questionnaire exporté depuis ce plugin : sa première ligne a été modifiée ou supprimée."
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+"Ce fichier n'est pas un questionnaire exporté depuis ce plugin : sa première "
+"ligne a été modifiée ou supprimée."
 
-msgid "This file was exported for another evaluation: import it in the evaluation it comes from."
-msgstr "Ce fichier a été exporté pour une autre évaluation : importez-le dans l'évaluation d'origine."
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+"Ce fichier a été exporté pour une autre évaluation : importez-le dans "
+"l'évaluation d'origine."
 
-msgid "The questions of this file do not match those of the evaluation: export the questionnaire again."
-msgstr "Les questions de ce fichier ne correspondent pas à celles de l'évaluation : exportez de nouveau le questionnaire."
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+"Les questions de ce fichier ne correspondent pas à celles de l'évaluation : "
+"exportez de nouveau le questionnaire."
 
-msgid "The header line or some columns are missing: keep the columns of the exported file."
-msgstr "La ligne d'en-tête ou des colonnes manquent : gardez les colonnes du fichier exporté."
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+"La ligne d'en-tête ou des colonnes manquent : gardez les colonnes du fichier "
+"exporté."
 
 #, php-format
 msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
@@ -34250,25 +34332,39 @@ msgstr "Ligne %1$d : code de question inconnu « %2$s », ligne ignorée."
 
 #, php-format
 msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
-msgstr "Ligne %1$d : la question %2$s apparaît deux fois, seule la première ligne est gardée."
+msgstr ""
+"Ligne %1$d : la question %2$s apparaît deux fois, seule la première ligne "
+"est gardée."
 
 #, php-format
 msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
-msgstr "Ligne %1$d : la réponse « %2$s » n'est pas dans la liste, ligne ignorée."
+msgstr ""
+"Ligne %1$d : la réponse « %2$s » n'est pas dans la liste, ligne ignorée."
 
 #, php-format
-msgid "Line %1$d: at most %2$d questions per file, the following lines were ignored."
-msgstr "Ligne %1$d : %2$d questions au plus par fichier, les lignes suivantes ont été ignorées."
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+"Ligne %1$d : %2$d questions au plus par fichier, les lignes suivantes ont "
+"été ignorées."
 
 #, php-format
 msgid "Question %s is missing from the file: its answer does not change."
 msgstr "La question %s est absente du fichier : sa réponse ne change pas."
 
 #, php-format
-msgid "%d question changes. Check the answers, then save them: they will be marked as coming from the supplier file."
-msgid_plural "%d questions change. Check the answers, then save them: they will be marked as coming from the supplier file."
-msgstr[0] "%d question change. Vérifiez les réponses, puis enregistrez-les : elles seront marquées comme venant du fichier du fournisseur."
-msgstr[1] "%d questions changent. Vérifiez les réponses, puis enregistrez-les : elles seront marquées comme venant du fichier du fournisseur."
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+"%d question change. Vérifiez les réponses, puis enregistrez-les : elles "
+"seront marquées comme venant du fichier du fournisseur."
+msgstr[1] ""
+"%d questions changent. Vérifiez les réponses, puis enregistrez-les : elles "
+"seront marquées comme venant du fichier du fournisseur."
 
 msgid "Answer in the file"
 msgstr "Réponse du fichier"
@@ -34286,8 +34382,14 @@ msgid "Documents sent by the supplier"
 msgstr "Documents envoyés par le fournisseur"
 
 #, php-format
-msgid "Each document is attached to the questions whose column \"Evidence file name\" gives its name. It is checked like any evidence (types allowed by GLPI, size, real content). Expected: %s"
-msgstr "Chaque document est rattaché aux questions dont la colonne « Nom de la pièce jointe » donne son nom. Il est contrôlé comme toute preuve (types autorisés par GLPI, taille, contenu réel). Attendus : %s"
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+"Chaque document est rattaché aux questions dont la colonne « Nom de la pièce "
+"jointe » donne son nom. Il est contrôlé comme toute preuve (types autorisés "
+"par GLPI, taille, contenu réel). Attendus : %s"
 
 msgid "Review the supplier file"
 msgstr "Vérifier le fichier du fournisseur"
@@ -34296,7 +34398,8 @@ msgid "Save these answers"
 msgstr "Enregistrer ces réponses"
 
 msgid "The file brings no new answer and no new comment."
-msgstr "Le fichier n'apporte aucune nouvelle réponse ni aucun nouveau commentaire."
+msgstr ""
+"Le fichier n'apporte aucune nouvelle réponse ni aucun nouveau commentaire."
 
 msgid "unchanged"
 msgstr "inchangé"
@@ -34305,17 +34408,32 @@ msgid "Answer by file, outside GLPI"
 msgstr "Réponse par fichier, hors de GLPI"
 
 #, php-format
-msgid "At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before importing it."
-msgstr "%1$d Mo et %2$d questions au plus. Enregistrez le classeur au format CSV avant de l'importer."
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"%1$d Mo et %2$d questions au plus. Enregistrez le classeur au format CSV "
+"avant de l'importer."
 
-msgid "CSV file (separator \";\", UTF-8), one line per question. Its first line identifies the evaluation and its questions: it must stay unchanged. Send it by the means of your choice (email, exchange platform)."
-msgstr "Fichier CSV (séparateur « ; », UTF-8), une ligne par question. Sa première ligne identifie l'évaluation et ses questions : elle doit rester inchangée. Envoyez-le par le moyen de votre choix (messagerie, plateforme d'échange)."
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+"Fichier CSV (séparateur « ; », UTF-8), une ligne par question. Sa première "
+"ligne identifie l'évaluation et ses questions : elle doit rester inchangée. "
+"Envoyez-le par le moyen de votre choix (messagerie, plateforme d'échange)."
 
 msgid "Download the questionnaire to fill in"
 msgstr "Télécharger le questionnaire à remplir"
 
-msgid "Each export and import is recorded in the Historical tab (who, when, which file); the returned file is kept in the Documents tab of the supplier risk."
-msgstr "Chaque export et chaque import sont tracés dans l'onglet Historique (qui, quand, quel fichier) ; le fichier retourné est gardé dans l'onglet Documents du risque fournisseur."
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+"Chaque export et chaque import sont tracés dans l'onglet Historique (qui, "
+"quand, quel fichier) ; le fichier retourné est gardé dans l'onglet Documents "
+"du risque fournisseur."
 
 msgid "Import the returned file"
 msgstr "Importer le fichier retourné"
@@ -34332,8 +34450,19 @@ msgstr "Envoyer le questionnaire"
 msgid "This evaluation is completed: reopen it to import a file."
 msgstr "Cette évaluation est terminée : rouvrez-la pour importer un fichier."
 
-msgid "When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for each document provided, \"Evidence file name\", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation."
-msgstr "Quand le fournisseur n'a pas accès à GLPI, envoyez-lui le questionnaire sous forme de fichier : il remplit les colonnes « Réponse du fournisseur », « Commentaire » et, pour chaque document fourni, « Nom de la pièce jointe », dans n'importe quel tableur. Vous importez ensuite ici le fichier retourné : les réponses sont présentées pour relecture et rien n'est enregistré avant votre confirmation."
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+"Quand le fournisseur n'a pas accès à GLPI, envoyez-lui le questionnaire sous "
+"forme de fichier : il remplit les colonnes « Réponse du fournisseur », "
+"« Commentaire » et, pour chaque document fourni, « Nom de la pièce jointe », "
+"dans n'importe quel tableur. Vous importez ensuite ici le fichier retourné : "
+"les réponses sont présentées pour relecture et rien n'est enregistré avant "
+"votre confirmation."
 
 msgid "You are not allowed to change this evaluation."
 msgstr "Vous n'avez pas le droit de modifier cette évaluation."

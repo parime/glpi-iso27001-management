@@ -37516,6 +37516,406 @@ msgstr[1] ""
 "%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
 "%3$d steps). Details on the Active Directory security audit page."
 
+msgid "Docker inventory: risky configuration"
+msgstr "Docker inventory: risky configuration"
+
+msgid "View the risky configuration"
+msgstr "View the risky configuration"
+
+msgid "No service analysed yet"
+msgstr "No service analysed yet"
+
+msgid "Without critical or high gap: not measured"
+msgstr "Without critical or high gap: not measured"
+
+msgid "Without critical or high gap: %d%%"
+msgstr "Without critical or high gap: %d%%"
+
+msgid "Without any open gap: %d%%"
+msgstr "Without any open gap: %d%%"
+
+msgid "%d service(s) analysed"
+msgstr "%d service(s) analysed"
+
+msgid "%d with a critical gap"
+msgstr "%d with a critical gap"
+
+msgid "%d with a high gap"
+msgstr "%d with a high gap"
+
+msgid "%d expired exception(s)"
+msgstr "%d expired exception(s)"
+
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr "%1$d exception(s) ending within %2$d days"
+
+msgid "Next exception end: %s"
+msgstr "Next exception end: %s"
+
+msgid "%d service(s) not analysed"
+msgstr "%d service(s) not analysed"
+
+msgid "Security 360°"
+msgstr "Security 360°"
+
+msgid "Good security posture"
+msgstr "Good security posture"
+
+msgid "Security posture to improve"
+msgstr "Security posture to improve"
+
+msgid "Weak security posture"
+msgstr "Weak security posture"
+
+msgid "Not enough data to assess"
+msgstr "Not enough data to assess"
+
+msgid "Known vulnerabilities"
+msgstr "Known vulnerabilities"
+
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr ""
+"No known vulnerability in the watched products installed on this asset."
+
+#, php-format
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Volumes not encrypted: %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Tools: %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, although the encryption rule requires it."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, not required by the encryption rule."
+
+#, php-format
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s: last reading failed."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s: no gap found."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s: %2$d gaps found."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "No open incident (%d closed or solved)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "%1$d open incidents, %2$d of them with high priority or more."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "%1$d linked risks: %2$d high or critical, %3$d medium."
+
+msgid ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+msgstr ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Score: %s / 100"
+
+msgid ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+msgstr ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "%1$d sources assessed: %2$d critical, %3$d to watch."
+
+#, php-format
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+
+msgid "Points (weight)"
+msgstr "Points (weight)"
+
+msgid ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+msgstr ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+
+#, php-format
+msgid ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
+msgstr "The document \"%s\" matches no question of the file: it was not added."
+
+msgid ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+msgstr ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
+msgstr "ISO/IEC 27001, controls A.5.19 to A.5.22"
+
+msgid "Supplier file"
+msgstr "Supplier file"
+
+msgid "Guidance"
+msgstr "Guidance"
+
+msgid "Allowed answers"
+msgstr "Allowed answers"
+
+msgid "Supplier answer"
+msgstr "Supplier answer"
+
+msgid "Evidence file name"
+msgstr "Evidence file name"
+
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr "Questionnaire file returned by the supplier for the evaluation \"%s\""
+
+#, php-format
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr "The file is too large (at most %d MB)."
+
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr "Line %1$d: unknown question code \"%2$s\", line ignored."
+
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr "Line %1$d: question %2$s appears twice, only the first line is kept."
+
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+
+#, php-format
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr "Question %s is missing from the file: its answer does not change."
+
+#, php-format
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[1] ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+
+msgid "Answer in the file"
+msgstr "Answer in the file"
+
+msgid "Back to the evaluation"
+msgstr "Back to the evaluation"
+
+msgid "Comment in the file"
+msgstr "Comment in the file"
+
+msgid "Current answer"
+msgstr "Current answer"
+
+msgid "Documents sent by the supplier"
+msgstr "Documents sent by the supplier"
+
+#, php-format
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+
+msgid "Review the supplier file"
+msgstr "Review the supplier file"
+
+msgid "Save these answers"
+msgstr "Save these answers"
+
+msgid "The file brings no new answer and no new comment."
+msgstr "The file brings no new answer and no new comment."
+
+msgid "unchanged"
+msgstr "unchanged"
+
+msgid "Answer by file, outside GLPI"
+msgstr "Answer by file, outside GLPI"
+
+#, php-format
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+
+msgid "Download the questionnaire to fill in"
+msgstr "Download the questionnaire to fill in"
+
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+
+msgid "Import the returned file"
+msgstr "Import the returned file"
+
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr "Questionnaire filled in by the supplier (CSV)"
+
+msgid "Review the answers"
+msgstr "Review the answers"
+
+msgid "Send the questionnaire"
+msgstr "Send the questionnaire"
+
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr "This evaluation is completed: reopen it to import a file."
+
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+
+msgid "You are not allowed to change this evaluation."
+msgstr "You are not allowed to change this evaluation."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -38520,257 +38920,3 @@ msgstr[1] ""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-msgid "Security 360°"
-msgstr "Security 360°"
-
-msgid "Good security posture"
-msgstr "Good security posture"
-
-msgid "Security posture to improve"
-msgstr "Security posture to improve"
-
-msgid "Weak security posture"
-msgstr "Weak security posture"
-
-msgid "Not enough data to assess"
-msgstr "Not enough data to assess"
-
-msgid "Known vulnerabilities"
-msgstr "Known vulnerabilities"
-
-msgid "No known vulnerability in the watched products installed on this asset."
-msgstr "No known vulnerability in the watched products installed on this asset."
-
-#, php-format
-msgid "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
-msgstr "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
-
-#, php-format
-msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
-msgstr "%d listed in the catalogue of exploited vulnerabilities (KEV)"
-
-#, php-format
-msgid "Volumes not encrypted: %s"
-msgstr "Volumes not encrypted: %s"
-
-#, php-format
-msgid "Tools: %s"
-msgstr "Tools: %s"
-
-#, php-format
-msgid "%s, although the encryption rule requires it."
-msgstr "%s, although the encryption rule requires it."
-
-#, php-format
-msgid "%s, not required by the encryption rule."
-msgstr "%s, not required by the encryption rule."
-
-#, php-format
-msgid "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
-msgstr "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
-
-#, php-format
-msgid "%s: last reading failed."
-msgstr "%s: last reading failed."
-
-#, php-format
-msgid "%s: no gap found."
-msgstr "%s: no gap found."
-
-#, php-format
-msgid "%1$s: %2$d gaps found."
-msgstr "%1$s: %2$d gaps found."
-
-#, php-format
-msgid "No open incident (%d closed or solved)."
-msgstr "No open incident (%d closed or solved)."
-
-#, php-format
-msgid "%1$d open incidents, %2$d of them with high priority or more."
-msgstr "%1$d open incidents, %2$d of them with high priority or more."
-
-#, php-format
-msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
-msgstr "%1$d linked risks: %2$d high or critical, %3$d medium."
-
-msgid "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
-msgstr "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
-
-#, php-format
-msgid "Score: %s / 100"
-msgstr "Score: %s / 100"
-
-msgid "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
-msgstr "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
-
-#, php-format
-msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
-msgstr "%1$d sources assessed: %2$d critical, %3$d to watch."
-
-#, php-format
-msgid "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
-msgstr "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
-
-msgid "Points (weight)"
-msgstr "Points (weight)"
-
-msgid "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
-msgstr "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
-
-#, php-format
-msgid "%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
-msgstr "%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
-
-#, php-format
-msgid "The document \"%s\" matches no question of the file: it was not added."
-msgstr "The document \"%s\" matches no question of the file: it was not added."
-
-msgid "Shows the answers found in the questionnaire file returned by the supplier, question by question, next to the current answers, with the points to check (unknown question, answer outside the list, missing question)."
-msgstr "Shows the answers found in the questionnaire file returned by the supplier, question by question, next to the current answers, with the points to check (unknown question, answer outside the list, missing question)."
-
-msgid "Check the answers, add the documents sent by the supplier, then save: nothing is recorded before this confirmation. Then review the evaluation and mark it as completed."
-msgstr "Check the answers, add the documents sent by the supplier, then save: nothing is recorded before this confirmation. Then review the evaluation and mark it as completed."
-
-msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
-msgstr "ISO/IEC 27001, controls A.5.19 to A.5.22"
-
-msgid "Supplier file"
-msgstr "Supplier file"
-
-msgid "Guidance"
-msgstr "Guidance"
-
-msgid "Allowed answers"
-msgstr "Allowed answers"
-
-msgid "Supplier answer"
-msgstr "Supplier answer"
-
-msgid "Evidence file name"
-msgstr "Evidence file name"
-
-#, php-format
-msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
-msgstr "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
-
-#, php-format
-msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
-msgstr "Questionnaire file returned by the supplier for the evaluation \"%s\""
-
-#, php-format
-msgid "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
-msgstr "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
-
-#, php-format
-msgid "The file is too large (at most %d MB)."
-msgstr "The file is too large (at most %d MB)."
-
-msgid "The file is not a CSV text file: save the spreadsheet as CSV before importing it."
-msgstr "The file is not a CSV text file: save the spreadsheet as CSV before importing it."
-
-msgid "This file is not a questionnaire exported from this plugin: its first line was changed or removed."
-msgstr "This file is not a questionnaire exported from this plugin: its first line was changed or removed."
-
-msgid "This file was exported for another evaluation: import it in the evaluation it comes from."
-msgstr "This file was exported for another evaluation: import it in the evaluation it comes from."
-
-msgid "The questions of this file do not match those of the evaluation: export the questionnaire again."
-msgstr "The questions of this file do not match those of the evaluation: export the questionnaire again."
-
-msgid "The header line or some columns are missing: keep the columns of the exported file."
-msgstr "The header line or some columns are missing: keep the columns of the exported file."
-
-#, php-format
-msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
-msgstr "Line %1$d: unknown question code \"%2$s\", line ignored."
-
-#, php-format
-msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
-msgstr "Line %1$d: question %2$s appears twice, only the first line is kept."
-
-#, php-format
-msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
-msgstr "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
-
-#, php-format
-msgid "Line %1$d: at most %2$d questions per file, the following lines were ignored."
-msgstr "Line %1$d: at most %2$d questions per file, the following lines were ignored."
-
-#, php-format
-msgid "Question %s is missing from the file: its answer does not change."
-msgstr "Question %s is missing from the file: its answer does not change."
-
-#, php-format
-msgid "%d question changes. Check the answers, then save them: they will be marked as coming from the supplier file."
-msgid_plural "%d questions change. Check the answers, then save them: they will be marked as coming from the supplier file."
-msgstr[0] "%d question changes. Check the answers, then save them: they will be marked as coming from the supplier file."
-msgstr[1] "%d questions change. Check the answers, then save them: they will be marked as coming from the supplier file."
-
-msgid "Answer in the file"
-msgstr "Answer in the file"
-
-msgid "Back to the evaluation"
-msgstr "Back to the evaluation"
-
-msgid "Comment in the file"
-msgstr "Comment in the file"
-
-msgid "Current answer"
-msgstr "Current answer"
-
-msgid "Documents sent by the supplier"
-msgstr "Documents sent by the supplier"
-
-#, php-format
-msgid "Each document is attached to the questions whose column \"Evidence file name\" gives its name. It is checked like any evidence (types allowed by GLPI, size, real content). Expected: %s"
-msgstr "Each document is attached to the questions whose column \"Evidence file name\" gives its name. It is checked like any evidence (types allowed by GLPI, size, real content). Expected: %s"
-
-msgid "Review the supplier file"
-msgstr "Review the supplier file"
-
-msgid "Save these answers"
-msgstr "Save these answers"
-
-msgid "The file brings no new answer and no new comment."
-msgstr "The file brings no new answer and no new comment."
-
-msgid "unchanged"
-msgstr "unchanged"
-
-msgid "Answer by file, outside GLPI"
-msgstr "Answer by file, outside GLPI"
-
-#, php-format
-msgid "At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before importing it."
-msgstr "At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before importing it."
-
-msgid "CSV file (separator \";\", UTF-8), one line per question. Its first line identifies the evaluation and its questions: it must stay unchanged. Send it by the means of your choice (email, exchange platform)."
-msgstr "CSV file (separator \";\", UTF-8), one line per question. Its first line identifies the evaluation and its questions: it must stay unchanged. Send it by the means of your choice (email, exchange platform)."
-
-msgid "Download the questionnaire to fill in"
-msgstr "Download the questionnaire to fill in"
-
-msgid "Each export and import is recorded in the Historical tab (who, when, which file); the returned file is kept in the Documents tab of the supplier risk."
-msgstr "Each export and import is recorded in the Historical tab (who, when, which file); the returned file is kept in the Documents tab of the supplier risk."
-
-msgid "Import the returned file"
-msgstr "Import the returned file"
-
-msgid "Questionnaire filled in by the supplier (CSV)"
-msgstr "Questionnaire filled in by the supplier (CSV)"
-
-msgid "Review the answers"
-msgstr "Review the answers"
-
-msgid "Send the questionnaire"
-msgstr "Send the questionnaire"
-
-msgid "This evaluation is completed: reopen it to import a file."
-msgstr "This evaluation is completed: reopen it to import a file."
-
-msgid "When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for each document provided, \"Evidence file name\", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation."
-msgstr "When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for each document provided, \"Evidence file name\", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation."
-
-msgid "You are not allowed to change this evaluation."
-msgstr "You are not allowed to change this evaluation."
