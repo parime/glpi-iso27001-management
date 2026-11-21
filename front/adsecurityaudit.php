@@ -138,7 +138,7 @@ if (isset($_POST['ad_audit_ticket'])) {
     } else {
         Session::addMessageAfterRedirect(htmlescape(sprintf(__('Ticket %d created.', 'grcmanager'), $ticketId)));
     }
-    $auditId = $found === null ? 0 : (int) $found['audit']['id'];
+    $auditId = (int) $found['audit']['id'];
     Html::redirect(AdSecurityAudit::getSearchURL() . ($auditId > 0 ? '?id=' . $auditId : '') . '#grc-ad-rules');
 }
 
