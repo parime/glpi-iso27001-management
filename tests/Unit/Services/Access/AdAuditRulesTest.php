@@ -66,7 +66,10 @@ final class AdAuditRulesTest extends TestCase
             ['A.5.15', 'A.5.17', 'A.8.2', 'A.8.5'],
             Rules::controls(Rules::CATEGORY_PRIVILEGED, 'P-Kerberoasting')
         );
-        $this->assertSame(['A.5.17', 'A.8.5', 'A.8.9'], Rules::controls(Rules::CATEGORY_ANOMALY, 'A-LAPS-Not-Installed'));
+        $this->assertSame(
+            ['A.5.17', 'A.8.5', 'A.8.9'],
+            Rules::controls(Rules::CATEGORY_ANOMALY, 'A-LAPS-Not-Installed')
+        );
         $this->assertSame(['A.8.5', 'A.8.9', 'A.8.20'], Rules::controls(Rules::CATEGORY_ANOMALY, 'A-NoGPOLLMNR'));
         $this->assertSame(['A.8.9'], Rules::controls('nonexistent', 'X'));
         foreach (Rules::EVIDENCE_CONTROLS as $code) {

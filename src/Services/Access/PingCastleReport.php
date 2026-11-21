@@ -71,7 +71,9 @@ final class PingCastleReport
             'report_date'    => null,
             'engine_version' => '',
             'maturity_level' => null,
-            'scores'         => ['global' => 0, 'stale' => null, 'privileged' => null, 'trust' => null, 'anomaly' => null],
+            'scores'         => [
+                'global' => 0, 'stale' => null, 'privileged' => null, 'trust' => null, 'anomaly' => null,
+            ],
             'rules'          => [],
             'secrets'        => false,
             'truncated'      => false,

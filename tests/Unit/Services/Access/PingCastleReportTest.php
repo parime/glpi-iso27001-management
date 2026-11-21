@@ -82,14 +82,16 @@ final class PingCastleReportTest extends TestCase
         $this->assertSame(PingCastleReport::ERROR_DOCTYPE, PingCastleReport::parse($bomb)['error']);
 
         // Entité paramètre externe, sans DOCTYPE visible en tête.
-        $hidden = '<HealthcheckData><GlobalScore>1</GlobalScore></HealthcheckData><!ENTITY % x SYSTEM "http://198.51.100.7/x">';
+        $hidden = '<HealthcheckData><GlobalScore>1</GlobalScore></HealthcheckData>'
+            . '<!ENTITY % x SYSTEM "http://198.51.100.7/x">';
         $this->assertSame(PingCastleReport::ERROR_DOCTYPE, PingCastleReport::parse($hidden)['error']);
     }
 
     public function testRejectsInvalidEmptyForeignAndOversizedFiles(): void
     {
         $this->assertSame(PingCastleReport::ERROR_EMPTY, PingCastleReport::parse("  \n")['error']);
-        $this->assertSame(PingCastleReport::ERROR_INVALID, PingCastleReport::parse('<HealthcheckData><Global')['error']);
+        $broken = '<HealthcheckData><Global';
+        $this->assertSame(PingCastleReport::ERROR_INVALID, PingCastleReport::parse($broken)['error']);
         $this->assertSame(PingCastleReport::ERROR_INVALID, PingCastleReport::parse('{"GlobalScore": 10}')['error']);
         $this->assertSame(
             PingCastleReport::ERROR_NOT_PINGCASTLE,
@@ -97,7 +99,7 @@ final class PingCastleReportTest extends TestCase
         );
         $this->assertSame(
             PingCastleReport::ERROR_NOT_PINGCASTLE,
-            PingCastleReport::parse('<HealthcheckData><DomainFQDN>exemple.test</DomainFQDN></HealthcheckData>')['error'],
+            PingCastleReport::parse('<HealthcheckData><DomainFQDN>a.test</DomainFQDN></HealthcheckData>')['error'],
             'Sans score global, ce n\'est pas un rapport de santé PingCastle.'
         );
         $big = '<HealthcheckData><GlobalScore>1</GlobalScore><X>'
@@ -143,7 +145,8 @@ final class PingCastleReportTest extends TestCase
     public function testRuleLimit(): void
     {
         $rules = str_repeat(
-            '<HealthcheckRiskRule><Points>1</Points><Category>Trusts</Category><RiskId>T-X</RiskId></HealthcheckRiskRule>',
+            '<HealthcheckRiskRule><Points>1</Points><Category>Trusts</Category><RiskId>T-X</RiskId>'
+                . '</HealthcheckRiskRule>',
             PingCastleReport::MAX_RULES + 5
         );
         $report = PingCastleReport::parse('<HealthcheckData><GlobalScore>1</GlobalScore><RiskRules>' . $rules

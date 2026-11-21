@@ -774,6 +774,12 @@ class CertificationReadiness extends CommonGLPI
             ),
             self::link(Control::getTypeName(Session::getPluralNumber()), Control::getSearchURL(), 'ti-list'),
         ];
+        // Issue #835 : score de l'audit de sécurité de l'AD (A.8.2, A.8.5), sans effet sur l'état.
+        $adAudit = AdSecurityAudit::readinessFact();
+        if ($adAudit !== null) {
+            $facts[] = $adAudit;
+            $links[] = self::link(AdSecurityAudit::getTypeName(), AdSecurityAudit::getSearchURL(), 'ti-sitemap');
+        }
         // Issue #847 : indicateur technique d'une mesure souvent demandée (A.8.24), sans effet sur l'état.
         $encryption = DiskEncryption::readinessFact();
         if ($encryption !== null) {

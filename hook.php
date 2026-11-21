@@ -286,6 +286,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::diskEncryptionRate',
         ],
+        // Issue #835 : pire score de sécurité de l'Active Directory (PingCastle, 0 le meilleur).
+        'grcmanager_ad_security_score' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Active Directory security score (PingCastle, 0 is best)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::adSecurityScore',
+        ],
         // Issue #854 : ordinateurs dont les correctifs sont dans les délais (%).
         'grcmanager_patch_compliance_rate' => [
             'widgettype' => ['bigNumber'],

@@ -125,6 +125,11 @@ final class SecuredDashboardCards
             // lecture des ordinateurs).
             return \GlpiPlugin\Grcmanager\PatchCompliance::canView();
         }
+        if ($name === 'adSecurityScore') {
+            // Issue #835 : audit de sécurité de l'AD, sous le droit de sa page (registre sensible,
+            // entités de la session).
+            return \GlpiPlugin\Grcmanager\AdSecurityAudit::canView();
+        }
         if (str_starts_with($name, 'vulnerabilityRemediation')) {
             // Issue #601 : délais de correction des vulnérabilités du parc, sous les droits de leur
             // page (registre sensible et lecture des logiciels).

@@ -327,6 +327,18 @@ final class PilotageCards
     }
 
     /**
+     * Issue #835 : pire score de sécurité de l'Active Directory (PingCastle, 0 le meilleur), page
+     * « Audit de sécurité de l'Active Directory ».
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function adSecurityScore(array $params = []): array
+    {
+        return \GlpiPlugin\Grcmanager\AdSecurityAudit::dashboardCard($params);
+    }
+
+    /**
      * Issue #854 : ordinateurs dont les correctifs de sécurité sont dans les délais (%), page
      * « Correctifs de sécurité ».
      *
