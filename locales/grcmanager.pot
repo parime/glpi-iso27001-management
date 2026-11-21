@@ -39129,3 +39129,65 @@ msgstr ""
 #, php-format
 msgid "out of %d critical assets"
 msgstr ""
+
+
+#: src/ConfigurationCompliance.php:774
+msgid "Docker inventory: risky configuration"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:778
+msgid "View the risky configuration"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:784
+msgid "No service analysed yet"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:793
+msgid "Without critical or high gap: not measured"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:794
+#, php-format
+msgid "Without critical or high gap: %d%%"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:800
+#, php-format
+msgid "Without any open gap: %d%%"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:806
+#, php-format
+msgid "%d service(s) analysed"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:815
+#, php-format
+msgid "%d with a critical gap"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:816
+#, php-format
+msgid "%d with a high gap"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:824
+#, php-format
+msgid "%d expired exception(s)"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:832
+#, php-format
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:838
+#, php-format
+msgid "Next exception end: %s"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:846
+#, php-format
+msgid "%d service(s) not analysed"
+msgstr ""

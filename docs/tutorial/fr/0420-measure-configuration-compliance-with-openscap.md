@@ -32,3 +32,8 @@ et le droit natif de lecture des ordinateurs ; importer demande le droit de modi
 Sécurité de l'import : le fichier est lu en flux (les gros rapports ARF passent), toute déclaration
 de type de document ou d'entité est refusée et aucun accès réseau n'est fait pendant la lecture. Le
 fichier lui-même n'est pas conservé, seulement les compteurs et les règles en échec.
+
+Si le plugin Inventaire Docker (0.12.0 ou suivant) est installé, le même cadre ajoute une ligne
+**Inventaire Docker : configuration à risque** : part des services sans écart critique ni haut (le
+chiffre à montrer à l'auditeur), part sans aucun écart, exceptions expirées ou qui finissent dans les
+30 jours, et un lien vers la sous-page « Configuration à risque » du plugin.
