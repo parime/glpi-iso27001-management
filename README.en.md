@@ -300,12 +300,13 @@ points: an ideal map for an attacker. The plugin protects them at its own level:
 
 The ISMS can be split along GLPI entities (issue #536). **Risks** and their **treatment actions**,
 **SoA controls** and the **approved SoA versions**, **internal audits** and **non-conformities** belong
-to an entity: a user only sees and changes the ones of the
+to an entity. So do **supplier risks**, **trainings**, **management reviews**, **objectives**,
+**obligations**, **waivers**, **network flows** and **EBIOS RM studies**. A user only sees and changes the ones of the
 entities of their profile, everywhere (lists, forms, exports, dashboard, API, notifications,
 consistency checks).
 
-- **Shared data**: reference frameworks, the Annex A catalogue and policies stay shared by every
-  entity. The common SoA sits in the root entity and is readable from sub-entities.
+- **Shared data**: reference frameworks, the Annex A catalogue, the requirements of clauses 4 to 10
+  and policies stay shared by every entity. The common SoA sits in the root entity and is readable from sub-entities.
 - **One SoA per entity**: in a subsidiary, the control list (Compliance > Annex A controls) shows
   which SoA applies and offers **Create the SoA of this entity**. The copy keeps the applicability
   and justifications; every control has to be reviewed and implemented again in the subsidiary. Its
@@ -318,10 +319,12 @@ consistency checks).
   entity of the audit; an auditor limited to one entity sees nothing of another.
 - **After the update**, existing data is in the root entity (the SoA recursive), except treatment
   actions (entity of their risk) and non-conformities whose audit or incident points without
-  ambiguity to another entity. Move risks, audits and non-conformities into their entities with a
-  massive update (column "Entity").
-- Supplier risks, trainings, management reviews, objectives and other registers: third batch of
-  issue #536, depending on feedback.
+  ambiguity to another entity. Trainings, management reviews, objectives and obligations stay
+  visible from sub-entities. Move each register into its entities with a massive update (column
+  "Entity").
+- **Related items**: the measurements of an objective, the actions of a management review and the
+  elements of an EBIOS study follow their parent. A risk created from an EBIOS study goes to the
+  entity of the study, and the file of a review covers the entity of the review.
 
 ## Project status
 

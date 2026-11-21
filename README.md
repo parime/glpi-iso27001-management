@@ -362,12 +362,14 @@ avant son expiration (SentinelOne les limite dans le temps).
 
 Le SMSI se découpe selon les entités de GLPI (issue #536). Les **risques** et leurs **actions de
 traitement**, les **mesures de la SoA** et ses **versions approuvées**, les **audits internes** et les
-**non-conformités** appartiennent à une entité : un utilisateur ne
+**non-conformités** appartiennent à une entité. Il en va de même des **risques fournisseurs**,
+**formations**, **revues de direction**, **objectifs**, **obligations**, **dérogations**, **flux
+réseau** et **études EBIOS RM**. Un utilisateur ne
 voit et ne modifie que ceux des entités de son profil, partout (listes, fiches, exports, tableau de
 bord, API, notifications, contrôles de cohérence).
 
-- **Données communes** : les référentiels, le catalogue de l'Annexe A et les politiques restent
-  communs à toutes les entités. La SoA commune est dans l'entité racine, lisible des sous-entités.
+- **Données communes** : les référentiels, le catalogue de l'Annexe A, les exigences des articles 4
+  à 10 et les politiques restent communs à toutes les entités. La SoA commune est dans l'entité racine, lisible des sous-entités.
 - **Une SoA par entité** : dans une filiale, la liste des mesures (Conformité > Contrôles Annexe A)
   indique la SoA suivie et propose **Créer la SoA de cette entité**. La copie reprend l'applicabilité
   et les justifications ; chaque mesure est à revoir et à mettre en œuvre dans la filiale. Ses
@@ -381,8 +383,12 @@ bord, API, notifications, contrôles de cohérence).
   profil dans l'entité de l'audit ; un auditeur limité à une entité ne voit rien d'une autre.
 - **Après la mise à jour**, les données existantes sont dans l'entité racine (la SoA en récursif),
   sauf les actions de traitement (entité de leur risque) et les non-conformités dont l'audit ou
-  l'incident désigne sans ambiguïté une autre entité. Rangez risques, audits et non-conformités dans
-  leurs entités par une modification en masse (colonne « Entité »).
+  l'incident désigne sans ambiguïté une autre entité. Les formations, revues de direction, objectifs
+  et obligations restent visibles des sous-entités. Rangez chaque registre dans ses entités par une
+  modification en masse (colonne « Entité »).
+- **Éléments rattachés** : les mesures d'un objectif, les actions d'une revue de direction et les
+  éléments d'une étude EBIOS suivent leur parent. Le risque créé depuis une étude EBIOS va dans
+  l'entité de l'étude, et le dossier d'une revue porte sur l'entité de la revue.
 - Risques fournisseurs, formations, revues de direction, objectifs et autres registres : troisième
   lot de l'issue #536, selon les retours.
 

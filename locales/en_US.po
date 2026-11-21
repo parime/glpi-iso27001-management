@@ -13430,6 +13430,9 @@ msgstr "Cancelled"
 msgid "You cannot create an audit in this entity."
 msgstr "You cannot create an audit in this entity."
 
+msgid "You cannot create this item in this entity."
+msgstr "You cannot create this item in this entity."
+
 #: src/Audit.php:547
 #, php-format
 msgid "Internal audit report: %s"

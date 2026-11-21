@@ -434,7 +434,12 @@ class Waiver extends WaiverBase
         };
 
         $rows = [];
-        $criteria = ['FROM' => $table, 'WHERE' => $where + ['is_deleted' => 0], 'ORDER' => 'date_end'];
+        // Issue #536, lot 3 : dérogations des entités de la session.
+        $criteria = [
+            'FROM'  => $table,
+            'WHERE' => array_merge($where, ['is_deleted' => 0], EntityPerimeter::criteria($table)),
+            'ORDER' => 'date_end',
+        ];
         foreach ($DB->request($criteria) as $row) {
             $rows[] = $row + [
                 'state' => self::stateBadge((string) $row['status'], $row['date_end']),
@@ -619,6 +624,8 @@ class Waiver extends WaiverBase
                 $entitiesId = $entitiesId ?: (int) ($item->fields['entities_id'] ?? 0);
             }
         }
+        // Issue #536, lot 3 : à défaut d'élément lié, le ticket va dans l'entité de la dérogation.
+        $entitiesId = $entitiesId ?: (int) ($this->fields['entities_id'] ?? 0);
         $content = TemplateRenderer::getInstance()->render('@grcmanager/waiver_ticket.html.twig', [
             'name'         => $this->fields['name'],
             'date_end'     => Html::convDate($this->fields['date_end']),

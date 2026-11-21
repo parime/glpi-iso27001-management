@@ -17773,6 +17773,9 @@ msgstr "Sie können den Behandlungsplan dieses Risikos nicht ändern."
 msgid "You cannot create an audit in this entity."
 msgstr "Sie können in dieser Einheit kein Audit anlegen."
 
+msgid "You cannot create this item in this entity."
+msgstr "Sie können dieses Element in dieser Einheit nicht anlegen."
+
 msgid "You cannot create a non-conformity in this entity."
 msgstr "Sie können in dieser Einheit keine Nichtkonformität anlegen."
 

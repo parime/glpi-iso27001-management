@@ -20,6 +20,16 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Audit;
+use GlpiPlugin\Grcmanager\AuditProgramme;
+use GlpiPlugin\Grcmanager\ComplianceObligation;
+use GlpiPlugin\Grcmanager\EbiosStudy;
+use GlpiPlugin\Grcmanager\ManagementReview;
+use GlpiPlugin\Grcmanager\NetworkFlow;
+use GlpiPlugin\Grcmanager\Objective;
+use GlpiPlugin\Grcmanager\ObjectiveMeasurement;
+use GlpiPlugin\Grcmanager\SupplierRisk;
+use GlpiPlugin\Grcmanager\Training;
+use GlpiPlugin\Grcmanager\Waiver;
 use GlpiPlugin\Grcmanager\AuditEvidenceRequest;
 use GlpiPlugin\Grcmanager\AuditorAccess;
 use GlpiPlugin\Grcmanager\AuditTeam;
@@ -490,6 +500,115 @@ final class EntityPerimeterTest extends GrcmanagerIntegrationTestCase
     }
 
     /**
+     * Lot 3 : saisie minimale de chaque registre (sans l'entité).
+     *
+     * @return array<class-string<\CommonDBTM>, array<string, mixed>>
+     */
+    private function registerInputs(): array
+    {
+        $supplier = (int) (new \Supplier())->add([
+            'name' => 'PHPUnit fournisseur périmètre', 'entities_id' => 0, 'is_recursive' => 1,
+        ]);
+        $this->assertGreaterThan(0, $supplier);
+
+        return [
+            SupplierRisk::class         => [
+                'title' => 'PHPUnit risque fournisseur', 'suppliers_id' => $supplier,
+                'probability' => 'rare', 'impact' => 'high',
+            ],
+            Training::class             => ['title' => 'PHPUnit formation'],
+            ManagementReview::class     => ['title' => 'PHPUnit revue de direction'],
+            Objective::class            => ['title' => 'PHPUnit objectif'],
+            ComplianceObligation::class => ['title' => 'PHPUnit obligation', 'type' => 'contractual'],
+            Waiver::class               => [
+                'name' => 'PHPUnit dérogation', 'date_end' => date('Y-m-d', strtotime('+30 days')),
+            ],
+            NetworkFlow::class          => [
+                'name' => 'PHPUnit flux', 'source_label' => '10.0.0.0/24', 'destination_label' => '10.0.1.0/24',
+            ],
+            EbiosStudy::class           => ['name' => 'PHPUnit étude EBIOS'],
+        ];
+    }
+
+    public function testEachLot3RegisterBelongsToItsEntity(): void
+    {
+        $this->rootTree();
+        foreach ($this->registerInputs() as $class => $input) {
+            $north = (int) (new $class())->add($input + ['entities_id' => $this->north]);
+            $south = (int) (new $class())->add($input + ['entities_id' => $this->south]);
+            $this->assertGreaterThan(0, $north, $class);
+            $this->assertGreaterThan(0, $south, $class);
+            $this->assertSame($this->north, (int) $class::getById($north)->fields['entities_id'], $class);
+            $this->assertSame(0, (int) $class::getById($north)->fields['is_recursive'], $class);
+
+            $this->limitTo($this->north);
+            $this->assertTrue((new $class())->can($north, READ), $class);
+            $this->assertFalse((new $class())->can($south, READ), $class);
+            $this->assertContains($north, $this->visibleIds($class::getTable()), $class);
+            $this->assertNotContains($south, $this->visibleIds($class::getTable()), $class);
+            // Création forcée dans l'autre filiale : refusée ; sans entité : l'entité active.
+            $this->assertFalse((new $class())->add($input + ['entities_id' => $this->south]), $class);
+            $default = (int) (new $class())->add($input);
+            $this->assertSame($this->north, (int) $class::getById($default)->fields['entities_id'], $class);
+            // Modification en masse vers l'autre filiale : l'entité ne change pas.
+            (new $class())->update(['id' => $north, 'entities_id' => $this->south]);
+            $this->assertSame($this->north, (int) $class::getById($north)->fields['entities_id'], $class);
+            $this->rootTree();
+        }
+    }
+
+    public function testLot3SearchHasEntityColumns(): void
+    {
+        foreach (array_keys($this->registerInputs()) as $class) {
+            $ids = array_column((new $class())->rawSearchOptions(), 'id');
+            $this->assertContains(80, $ids, $class);
+            $this->assertContains(86, $ids, $class);
+        }
+    }
+
+    public function testRelatedItemsFollowTheirParentEntity(): void
+    {
+        $this->rootTree();
+        $southObjective = (int) (new Objective())->add([
+            'title' => 'PHPUnit objectif Sud', 'entities_id' => $this->south,
+        ]);
+        $northObjective = (int) (new Objective())->add([
+            'title' => 'PHPUnit objectif Nord', 'entities_id' => $this->north,
+        ]);
+        $review = (int) (new ManagementReview())->add([
+            'title' => 'PHPUnit revue Nord', 'entities_id' => $this->north,
+            'linked_objectives' => [$southObjective, $northObjective],
+        ]);
+        $this->assertGreaterThan(0, $review);
+
+        $this->limitTo($this->north);
+        // Mesure d'un objectif d'une autre entité : refusée.
+        $this->assertFalse((new ObjectiveMeasurement())->add([
+            'plugin_grcmanager_objectives_id' => $southObjective, 'comment' => 'PHPUnit mesure Sud',
+        ]));
+        $this->assertGreaterThan(0, (int) (new ObjectiveMeasurement())->add([
+            'plugin_grcmanager_objectives_id' => $northObjective, 'comment' => 'PHPUnit mesure Nord',
+        ]));
+        // Objectifs discutés : seul celui de Nord se choisit, le lien vers Sud est conservé.
+        (new ManagementReview())->update(['id' => $review, 'linked_objectives' => []]);
+        $this->assertSame([$southObjective], ManagementReview::getLinkedObjectiveIds($review));
+
+        // Formations qualifiantes des auditeurs : celles hors de la session restent choisies.
+        $this->rootTree();
+        $southTraining = (int) (new Training())->add([
+            'title' => 'PHPUnit formation Sud', 'entities_id' => $this->south,
+        ]);
+        $saved = AuditProgramme::qualifyingTrainingIds();
+        AuditProgramme::setQualifyingTrainingIds([$southTraining]);
+        $this->limitTo($this->north);
+        AuditProgramme::setQualifyingTrainingIds([]);
+        $this->assertSame([$southTraining], AuditProgramme::qualifyingTrainingIds());
+        $this->rootTree();
+        AuditProgramme::setQualifyingTrainingIds($saved);
+    }
+
+
+    /**
      * Données d'une version 2.53.0 (sans entité sur les actions, audits et constats) : chaque
      * action prend l'entité de son risque ; un constat celle de son audit, ou reste à la racine.
      */
@@ -535,6 +654,8 @@ final class EntityPerimeterTest extends GrcmanagerIntegrationTestCase
         $tables = [
             Risk::getTable(), Control::getTable(), SoaVersion::getTable(),
             RiskTreatmentAction::getTable(), Audit::getTable(), Nonconformity::getTable(),
+            SupplierRisk::getTable(), Training::getTable(), ManagementReview::getTable(), Objective::getTable(),
+            ComplianceObligation::getTable(), Waiver::getTable(), NetworkFlow::getTable(), EbiosStudy::getTable(),
         ];
         $counts = static fn (): array => array_map(
             static fn (string $table): int => countElementsInTable($table),

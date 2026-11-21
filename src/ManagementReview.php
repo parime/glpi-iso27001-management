@@ -290,11 +290,19 @@ class ManagementReview extends ManagementReviewBase
     {
         global $DB;
 
+        // Issue #536, lot 3 : seuls les objectifs lisibles se choisissent ; les liens vers des
+        // objectifs hors des entités de la session sont conservés tels quels.
+        $selectable = array_keys(self::selectableObjectives());
+        $hidden = array_diff(self::getLinkedObjectiveIds($reviewId), $selectable);
         $DB->delete(self::OBJECTIVES_TABLE, ['plugin_grcmanager_managementreviews_id' => $reviewId]);
 
-        $objectiveIds = array_unique(
-            array_filter(array_map('intval', $objectiveIds), static fn ($id) => $id > 0)
-        );
+        $objectiveIds = array_unique(array_merge(
+            array_intersect(
+                array_filter(array_map('intval', $objectiveIds), static fn ($id) => $id > 0),
+                $selectable
+            ),
+            $hidden
+        ));
 
         foreach ($objectiveIds as $objectiveId) {
             $DB->insert(self::OBJECTIVES_TABLE, [
@@ -303,6 +311,29 @@ class ManagementReview extends ManagementReviewBase
                 'date_creation'                          => date('Y-m-d H:i:s'),
             ]);
         }
+    }
+
+    /**
+     * Issue #536, lot 3 : objectifs des entités de la session (tous hors session).
+     *
+     * @return array<int, string> id => titre
+     */
+    private static function selectableObjectives(): array
+    {
+        global $DB;
+
+        $titles = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'title'],
+                'FROM'   => Objective::getTable(),
+                'WHERE'  => EntityPerimeter::criteria(Objective::getTable()),
+            ]) as $row
+        ) {
+            $titles[(int) $row['id']] = (string) $row['title'];
+        }
+
+        return $titles;
     }
 
     public function rawSearchOptions()
@@ -429,12 +460,8 @@ class ManagementReview extends ManagementReviewBase
         $this->initForm($ID, $options);
 
         // Issue #32 (clause 6.2/9.3) : objectifs ISMS effectivement abordés lors de cette revue.
-        $objectiveTitles = [];
-        foreach (
-            $DB->request(['SELECT' => ['id', 'title'], 'FROM' => Objective::getTable()]) as $row
-        ) {
-            $objectiveTitles[(int) $row['id']] = $row['title'];
-        }
+        // Issue #536, lot 3 : objectifs des entités de la session.
+        $objectiveTitles = self::selectableObjectives();
 
         TemplateRenderer::getInstance()->display('@grcmanager/management_review_form.html.twig', [
             'item'              => $this,
@@ -463,7 +490,11 @@ class ManagementReview extends ManagementReviewBase
         if ($before === '' || str_starts_with($before, '0000')) {
             $before = date('Y-m-d');
         }
-        $where = ['review_date' => ['<', $before]];
+        // Issue #536, lot 3 : revue précédente du même périmètre (entité de la revue).
+        $where = [
+            'review_date' => ['<', $before],
+            'entities_id' => (int) ($this->fields['entities_id'] ?? EntityPerimeter::activeEntity()),
+        ];
         if (!$this->isNewItem()) {
             $where['id'] = ['<>', (int) $this->getID()];
         }

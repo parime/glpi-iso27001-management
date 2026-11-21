@@ -221,7 +221,11 @@ class Training extends TrainingBase
             $DB->request([
                 'SELECT' => ['id', 'title'],
                 'FROM'   => self::getTable(),
-                'WHERE'  => ['plugin_grcmanager_trainings_id' => 0, ['NOT' => ['id' => $excludeId]]],
+                // Issue #536, lot 3 : formations des entités de la session.
+                'WHERE'  => array_merge(
+                    ['plugin_grcmanager_trainings_id' => 0, ['NOT' => ['id' => $excludeId]]],
+                    EntityPerimeter::criteria(self::getTable())
+                ),
                 'ORDER'  => 'title',
             ]) as $row
         ) {
@@ -244,7 +248,11 @@ class Training extends TrainingBase
         foreach (
             $DB->request([
                 'FROM'  => self::getTable(),
-                'WHERE' => ['plugin_grcmanager_trainings_id' => $mainId],
+                // Issue #536, lot 3 : sessions des entités de la session.
+                'WHERE' => array_merge(
+                    ['plugin_grcmanager_trainings_id' => $mainId],
+                    EntityPerimeter::criteria(self::getTable())
+                ),
                 'ORDER' => ['date_delivered', 'id'],
             ]) as $row
         ) {

@@ -254,6 +254,16 @@ class NetworkFlow extends NetworkFlowBase
         return true;
     }
 
+    /**
+     * Issue #536, lot 3 : critère des entités de la session pour les écrans de synthèse.
+     *
+     * @return list<array<mixed>>
+     */
+    private static function entityCriteria(): array
+    {
+        return EntityPerimeter::criteria(self::getTable());
+    }
+
     public function rawSearchOptions()
     {
         $tab = [['id' => 'common', 'name' => self::getTypeName(1)]];
@@ -459,7 +469,12 @@ class NetworkFlow extends NetworkFlowBase
         $active = 0;
         $byCheck = [];
         $today = date('Y-m-d');
-        foreach ($DB->request(['FROM' => self::getTable(), 'WHERE' => ['is_active' => 1]]) as $row) {
+        // Issue #536, lot 3 : flux des entités de la session.
+        $activeFlows = [
+            'FROM'  => self::getTable(),
+            'WHERE' => array_merge(['is_active' => 1], self::entityCriteria()),
+        ];
+        foreach ($DB->request($activeFlows) as $row) {
             $active++;
             foreach (NetworkFlowRules::checks($row, $today, self::internalNetworks()) as $check) {
                 $byCheck[$check] ??= [
@@ -555,7 +570,9 @@ class NetworkFlow extends NetworkFlowBase
         $byCheck = [];
         $active = 0;
         $inactive = 0;
-        foreach ($DB->request(['FROM' => self::getTable(), 'ORDER' => ['flow_type', 'name']]) as $row) {
+        // Issue #536, lot 3 : flux des entités de la session.
+        $allFlows = ['FROM' => self::getTable(), 'WHERE' => self::entityCriteria(), 'ORDER' => ['flow_type', 'name']];
+        foreach ($DB->request($allFlows) as $row) {
             if (!(int) $row['is_active']) {
                 $inactive++;
                 continue;
@@ -635,7 +652,12 @@ class NetworkFlow extends NetworkFlowBase
         $today = date('Y-m-d');
         $flows = [];
         $rows = [];
-        foreach ($DB->request(['FROM' => self::getTable(), 'WHERE' => ['is_active' => 1]]) as $row) {
+        // Issue #536, lot 3 : flux des entités de la session.
+        $activeFlows = [
+            'FROM'  => self::getTable(),
+            'WHERE' => array_merge(['is_active' => 1], self::entityCriteria()),
+        ];
+        foreach ($DB->request($activeFlows) as $row) {
             $checks = NetworkFlowRules::checks($row, $today, self::internalNetworks());
             $flows[(int) $row['id']] = [
                 'id'          => (int) $row['id'],
