@@ -1796,6 +1796,30 @@ compte GLPI (sinon, voir 55).
 5. Un lien se révoque à tout moment (bouton **Révoquer**). Le journal d'audit sécurité garde la
    création, chaque ouverture, chaque envoi et chaque révocation.
 
+### Étape 60 : Cadrer la Déclaration d'Applicabilité par questions (6.1.3 c et d)
+
+L'auditeur demande pourquoi chaque mesure de l'Annexe A est retenue ou exclue. L'onglet
+**Cadrage de la SoA** de la rubrique **Conformité** vous aide à répondre sans partir d'une page
+blanche.
+
+1. Ouvrez **Conformité > Cadrage de la SoA**. La page porte sur la SoA de l'entité active.
+2. Répondez aux huit questions (télétravail, développement logiciel, sous-traitance du
+   développement, fournisseurs, cloud, locaux, serveurs sur site, données personnelles), puis
+   cliquez sur **Enregistrer les réponses**. Une question laissée « Sans réponse » met en attente
+   les mesures qu'elle concerne.
+3. Le tableau compare, pour chaque mesure, ce que dit la SoA aujourd'hui et la proposition, avec
+   la question qui la fonde. L'état **À relire** signale une différence, **Conforme à la SoA** une
+   proposition qui ne change rien.
+4. Acceptez ou refusez une proposition avec les boutons de sa ligne. Pour un lot, cochez les
+   mesures puis **Aperçu des propositions sélectionnées**, ou cliquez sur **Aperçu de toutes les
+   propositions à relire** : l'aperçu montre ce qui changera avant que vous confirmiez.
+5. Une justification déjà écrite n'est jamais remplacée ; complétez-la si besoin depuis la fiche de
+   la mesure (lien sur le code).
+6. Le **journal des décisions** garde qui a validé quoi et quand. **Export CSV pour l'auditeur**
+   réunit les réponses, la comparaison et le journal.
+
+Rien ne change dans la SoA sans votre décision explicite.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -3478,3 +3502,26 @@ account (otherwise, see 55).
    the evaluation before.
 5. A link can be revoked at any time (**Revoke** button). The security audit log keeps the
    creation, each opening, each sending and each revocation.
+
+### Step 60: Scope the Statement of Applicability with a few questions (6.1.3 c and d)
+
+The auditor asks why each Annex A control is included or excluded. The **SoA scoping** tab of the
+**Compliance** section helps you answer without starting from a blank page.
+
+1. Open **Compliance > SoA scoping**. The page covers the Statement of Applicability of the active
+   entity.
+2. Answer the eight questions (remote work, software development, outsourced development,
+   suppliers, cloud, premises, on-site servers, personal data), then click **Save the answers**. A
+   question left "Not answered" puts the controls it concerns on hold.
+3. For each control, the table compares what the SoA says today with the proposal and the question
+   it relies on. **To review** flags a difference, **Matches the SoA** a proposal that changes
+   nothing.
+4. Accept or reject a proposal with the buttons of its row. For a batch, tick the controls then
+   **Preview the selected proposals**, or click **Preview all proposals to review**: the preview
+   shows what will change before you confirm.
+5. A justification already written is never replaced; complete it if needed from the control form
+   (link on the code).
+6. The **decision log** keeps who validated what and when. **Export CSV for the auditor** gathers
+   the answers, the comparison and the log.
+
+Nothing changes in the SoA without your explicit decision.
