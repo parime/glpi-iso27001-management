@@ -119,6 +119,8 @@ class Menu extends CommonGLPI
                 // Issue #773 : programme d'audit pluriannuel (ISO 19011).
                 AuditProgramme::class,
                 Nonconformity::class,
+                // Issue #870 : rapport du stock d'écarts (clauses 10.1 et 10.2).
+                GapStockReport::class,
                 // Issue #772 : constats des audits de certification et état de leur levée.
                 CertificationFinding::class,
                 // Issue #772, lot 2 : plan d'audit de l'organisme (échantillonnage sur le cycle).

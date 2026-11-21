@@ -47,4 +47,11 @@
    {% if phishing is defined and phishing %}
       {% include '@grcmanager/_phishing_summary.html.twig' with {'summary': phishing} only %}
    {% endif %}
+   {# Issue #870 : cadres de preuve des fonctionnalités (src/Feature/*Feature.php), comme sur la fiche d'une mesure. #}
+   {% for box in feature_evidence|default([]) %}
+      {% set box_html %}
+         {% include box.template with {'evidence': box.data} only %}
+      {% endset %}
+      {{ fields.htmlField('', box_html, box.title, {'full_width': true}) }}
+   {% endfor %}
 {% endblock %}

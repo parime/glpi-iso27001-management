@@ -34721,8 +34721,12 @@ msgid "%d service(s) not analysed"
 msgstr "%d servicio(s) sin analizar"
 
 #: templates/product_sbom_list.html.twig
-msgid "SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" tab of each application."
-msgstr "Los archivos SBOM se importan y las declaraciones VEX se introducen en la pestaña «SBOM y VEX» de cada aplicación."
+msgid ""
+"SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
+"tab of each application."
+msgstr ""
+"Los archivos SBOM se importan y las declaraciones VEX se introducen en la "
+"pestaña «SBOM y VEX» de cada aplicación."
 
 #: templates/product_sbom_list.html.twig
 msgid "No SBOM imported yet."
@@ -34731,3 +34735,187 @@ msgstr "Todavía no se ha importado ningún SBOM."
 #: templates/product_sbom_list.html.twig
 msgid "Components"
 msgstr "Componentes"
+
+msgid ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+msgstr ""
+"Informe archivado como evidencia de los requisitos 10.1 y 10.2 (pestaña "
+"Documentos). El paquete de evidencias lo incluye."
+
+msgid "The report could not be archived."
+msgstr "No se pudo archivar el informe."
+
+msgid ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+msgstr ""
+"Muestra el inventario de no conformidades, otros hallazgos y acciones "
+"correctivas, y de las acciones decididas en las revisiones por la dirección: "
+"lo que sigue abierto por gravedad, origen, entidad y responsable, su "
+"antigüedad, lo que está vencido, el plazo medio de cierre en un periodo, la "
+"tendencia mensual y si se verificó la eficacia de las acciones cerradas."
+
+msgid ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+msgstr ""
+"Elija el periodo y los filtros, haga el seguimiento de los elementos "
+"vencidos con sus responsables y exporte el informe en PDF o CSV para el "
+"auditor, o archívelo como evidencia de los requisitos 10.1 y 10.2: el "
+"paquete de evidencias lo incluye entonces. Nada se modifica automáticamente."
+
+msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+msgstr "ISO/IEC 27001, cláusulas 9.1, 10.1 y 10.2"
+
+msgid "Mean time to close gaps (days, 12 months)"
+msgstr "Plazo medio de cierre de desviaciones (días, 12 meses)"
+
+msgid "Gap backlog"
+msgstr "Inventario de desviaciones"
+
+msgid "Other finding or improvement action"
+msgstr "Otro hallazgo o acción de mejora"
+
+msgid "Other source"
+msgstr "Otra fuente"
+
+msgid "30 days or less"
+msgstr "30 días o menos"
+
+msgid "31 to 90 days"
+msgstr "31 a 90 días"
+
+msgid "91 to 180 days"
+msgstr "91 a 180 días"
+
+msgid "More than 180 days"
+msgstr "Más de 180 días"
+
+msgid "Opened on"
+msgstr "Abierto el"
+
+msgid "Age (days)"
+msgstr "Antigüedad (días)"
+
+msgid "Days overdue"
+msgstr "Días de retraso"
+
+msgid "Effectiveness verified"
+msgstr "Eficacia verificada"
+
+#, php-format
+msgid "Gap backlog report - %1$s (%2$s to %3$s)"
+msgstr "Informe del inventario de desviaciones - %1$s (%2$s a %3$s)"
+
+#, php-format
+msgid "Effectiveness verified: %d%%"
+msgstr "Eficacia verificada: %d %%"
+
+#, php-format
+msgid "Last 12 months, computed on %s"
+msgstr "Últimos 12 meses, calculado el %s"
+
+#, php-format
+msgid "Mean time to close: %d days"
+msgstr "Plazo medio de cierre: %d días"
+
+msgid "Mean time to close: not measured"
+msgstr "Plazo medio de cierre: no medido"
+
+#, php-format
+msgid "Open gaps: %d"
+msgstr "Desviaciones abiertas: %d"
+
+#, php-format
+msgid "%1$d closed in the period, median: %2$s"
+msgstr "%1$d cerrados en el periodo, mediana: %2$s"
+
+msgid "Age of open gaps"
+msgstr "Antigüedad de las desviaciones abiertas"
+
+#, php-format
+msgid "Archive as evidence (%s)"
+msgstr "Archivar como evidencia (%s)"
+
+msgid "Backlog at month end"
+msgstr "Inventario a fin de mes"
+
+msgid "By entity"
+msgstr "Por entidad"
+
+msgid "By origin"
+msgstr "Por origen"
+
+msgid "By owner"
+msgstr "Por responsable"
+
+msgid "By severity"
+msgstr "Por gravedad"
+
+#, php-format
+msgid "Closed in the period: %1$d verified, %2$d to verify"
+msgstr "Cerrados en el periodo: %1$d verificados, %2$d por verificar"
+
+msgid "Due date passed and not closed"
+msgstr "Fecha límite superada y sin cerrar"
+
+msgid "From (month)"
+msgstr "Desde (mes)"
+
+msgid "Mean time to close"
+msgstr "Plazo medio de cierre"
+
+msgid "Month"
+msgstr "Mes"
+
+#, php-format
+msgid "No due date: %d"
+msgstr "Sin fecha límite: %d"
+
+msgid "No open gap with these filters."
+msgstr "Ninguna desviación abierta con estos filtros."
+
+msgid "Nothing open."
+msgstr "Nada abierto."
+
+#, php-format
+msgid "Only the first %d gaps are listed: the CSV export contains all of them."
+msgstr ""
+"Solo se listan las %d primeras desviaciones: la exportación CSV las contiene "
+"todas."
+
+msgid "Open gaps"
+msgstr "Desviaciones abiertas"
+
+msgid "Open gaps, most overdue first"
+msgstr "Desviaciones abiertas, las más vencidas primero"
+
+msgid "To (month)"
+msgstr "Hasta (mes)"
+
+msgid "By type"
+msgstr "Por tipo"
+
+msgid "Closed in the period"
+msgstr "Cerrados en el periodo"
+
+msgid "ISMS requirements"
+msgstr "Requisitos del SGSI"
+
+msgid ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+msgstr ""
+"Plazo medio de cierre: días entre la apertura y el cierre de las "
+"desviaciones cerradas en el periodo. Eficacia verificada: no conformidades y "
+"hallazgos cerrados cuyo cierre se verificó."
+
+msgid "Opened in the period"
+msgstr "Abiertos en el periodo"

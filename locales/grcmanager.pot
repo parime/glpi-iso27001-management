@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 18:37+0000\n"
+"POT-Creation-Date: 2026-11-21 18:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,6 +126,7 @@ msgstr ""
 
 #: front/audit.php:47 front/databreach.php:44 front/processingactivity.php:44
 #: templates/acn_register.html.twig templates/control_list_header.html.twig
+#: templates/gap_stock.html.twig
 #: templates/isms_requirement_list_header.html.twig
 #: templates/recyf_register.html.twig templates/risk_list_actions.html.twig
 msgid "Export PDF"
@@ -149,12 +150,13 @@ msgstr ""
 #: src/CompetenceMatrix.php:899 src/ConsistencyCheck.php:1503
 #: src/ContextItem.php:895 src/ControlTest.php:994 src/CrisisExercise.php:677
 #: src/CrisisScenario.php:940 src/Dpia.php:443 src/EbiosStudy.php:313
-#: src/EvidencePack.php:658 src/ManagementReviewDossier.php:633
-#: src/MaturityCampaign.php:581 src/OfficialContact.php:354
-#: src/OperatingProcedure.php:447 src/PersonnelCompliance.php:727
-#: src/PhysicalSecurityAssessment.php:647 src/PolicyAcknowledgement.php:703
-#: src/PolicyVersion.php:765 src/RecyfRequirement.php:594
-#: src/ResponsibilityActivity.php:813 src/SecurityIncidentPostMortem.php:252
+#: src/EvidencePack.php:658 src/GapStockReport.php:438
+#: src/ManagementReviewDossier.php:633 src/MaturityCampaign.php:581
+#: src/OfficialContact.php:354 src/OperatingProcedure.php:447
+#: src/PersonnelCompliance.php:727 src/PhysicalSecurityAssessment.php:647
+#: src/PolicyAcknowledgement.php:703 src/PolicyVersion.php:765
+#: src/RecyfRequirement.php:594 src/ResponsibilityActivity.php:813
+#: src/SecurityIncidentPostMortem.php:252
 #: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:748
 #: templates/evidence_pack.html.twig
 #: templates/management_review_dossier_tab.html.twig
@@ -510,7 +512,8 @@ msgstr ""
 
 #: front/consistencycheck.export.php:50 front/controlblocker.php:62
 #: inc/securityincident.class.php:806 src/CrisisMessageTemplate.php:103
-#: src/Nonconformity.php:383 src/NotificationTargetNonconformity.php:92
+#: src/GapStockReport.php:461 src/Nonconformity.php:396
+#: src/NotificationTargetNonconformity.php:92
 #: src/SecurityIncidentEdrImport.php:75
 #: templates/_control_blocker_list.html.twig templates/_crisis_review.html.twig
 #: templates/ad_security_audit.html.twig templates/audit_findings_tab.html.twig
@@ -518,11 +521,13 @@ msgstr ""
 #: templates/configuration_compliance.html.twig
 #: templates/configuration_compliance_report.html.twig
 #: templates/consistency_check.html.twig templates/edr_import.html.twig
+#: templates/gap_stock.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/itil_deadline_banner.html.twig
 #: templates/nonconformity_form.html.twig templates/pdf/audit_report.html.twig
 #: templates/pdf/consistency_report.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/gap_stock_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/tabs/item_security_incidents.html.twig
 #: templates/tabs/ticket_security_incidents.html.twig
@@ -531,16 +536,17 @@ msgid "Severity"
 msgstr ""
 
 #: front/consistencycheck.export.php:51 src/ComplianceEvent.php:223
-#: src/ComplianceObligation.php:208 src/NetworkFlow.php:273
-#: src/NotificationTargetComplianceEvent.php:111
+#: src/ComplianceObligation.php:208 src/GapStockReport.php:460
+#: src/NetworkFlow.php:273 src/NotificationTargetComplianceEvent.php:111
 #: src/NotificationTargetComplianceObligation.php:92
 #: templates/_crisis_review.html.twig templates/audit_coverage.html.twig
 #: templates/compliance_event_form.html.twig
-#: templates/compliance_obligation_form.html.twig templates/my_space.html.twig
-#: templates/network_flow_form.html.twig
+#: templates/compliance_obligation_form.html.twig templates/gap_stock.html.twig
+#: templates/my_space.html.twig templates/network_flow_form.html.twig
 #: templates/network_flow_import.html.twig
 #: templates/network_flow_matrix.html.twig templates/park_machines.html.twig
-#: templates/pdf/consistency_report.html.twig templates/tabs/ioc.html.twig
+#: templates/pdf/consistency_report.html.twig
+#: templates/pdf/gap_stock_report.html.twig templates/tabs/ioc.html.twig
 msgid "Type"
 msgstr ""
 
@@ -798,7 +804,8 @@ msgid "Register of personal data breaches"
 msgstr ""
 
 #: front/databreach.php:50 front/processingactivity.php:50
-#: templates/acn_register.html.twig templates/recyf_register.html.twig
+#: templates/acn_register.html.twig templates/gap_stock.html.twig
+#: templates/recyf_register.html.twig
 msgid "Export CSV"
 msgstr ""
 
@@ -838,6 +845,16 @@ msgstr ""
 
 #: front/evidencepack.php:41
 msgid "Evidence pack generated and archived. Download it from the list below."
+msgstr ""
+
+#: front/gapstock.php:31
+msgid ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+msgstr ""
+
+#: front/gapstock.php:36
+msgid "The report could not be archived."
 msgstr ""
 
 #: front/impactanalysis.php:36
@@ -1000,7 +1017,7 @@ msgstr ""
 msgid "The register has been archived as evidence on control A.5.37."
 msgstr ""
 
-#: front/parkmachines.php:26 src/Menu.php:194
+#: front/parkmachines.php:26 src/Menu.php:196
 msgid "Most exposed machines"
 msgstr ""
 
@@ -1081,7 +1098,9 @@ msgid "Email received"
 msgstr ""
 
 #: front/phishingimport.php:131 templates/_phishing_rates.html.twig
-#: templates/my_phishing_tab.html.twig templates/phishing_results_tab.html.twig
+#: templates/gap_stock.html.twig templates/my_phishing_tab.html.twig
+#: templates/pdf/gap_stock_report.html.twig
+#: templates/phishing_results_tab.html.twig
 msgid "Opened"
 msgstr ""
 
@@ -1252,30 +1271,6 @@ msgstr ""
 
 #: front/processingactivity.export.php:63
 msgid "Record of processing activities"
-msgstr ""
-
-#: front/productsbom.form.php:76
-#, php-format
-msgid ""
-"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
-"statement(s)."
-msgstr ""
-
-#: front/productsbom.form.php:97
-#, php-format
-msgid "VEX document imported: %d statement(s)."
-msgstr ""
-
-#: front/productsbom.form.php:111
-msgid "VEX statement saved."
-msgstr ""
-
-#: front/productsbom.form.php:120
-msgid "SBOM deleted."
-msgstr ""
-
-#: front/productsbom.form.php:128
-msgid "VEX statement deleted."
 msgstr ""
 
 #: front/recoveryprogramme.php:24
@@ -1584,7 +1579,7 @@ msgid ""
 "check the others."
 msgstr ""
 
-#: front/softwarewatch.php:69 src/Menu.php:187
+#: front/softwarewatch.php:69 src/Menu.php:189
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
@@ -2069,8 +2064,8 @@ msgstr ""
 msgid "Business rules for security incidents"
 msgstr ""
 
-#: inc/securityincident.class.php:73 templates/_causal_graph.html.twig
-#: templates/data_breach_form.html.twig
+#: inc/securityincident.class.php:73 src/GapStockReport.php:112
+#: templates/_causal_graph.html.twig templates/data_breach_form.html.twig
 #: templates/tabs/item_security_incidents.html.twig
 #: templates/tabs/ticket_security_incidents.html.twig
 #: templates/zabbix_monitoring.html.twig
@@ -2196,20 +2191,20 @@ msgid "Linked tickets"
 msgstr ""
 
 #: inc/securityincident.class.php:272 inc/securityincident.class.php:1203
-#: src/Nonconformity.php:106 src/Nonconformity.php:633
+#: src/Nonconformity.php:107 src/Nonconformity.php:646
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "Minor"
 msgstr ""
 
 #: inc/securityincident.class.php:273 inc/securityincident.class.php:1204
-#: src/Nonconformity.php:107 src/Nonconformity.php:634
+#: src/Nonconformity.php:108 src/Nonconformity.php:647
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "Major"
 msgstr ""
 
 #: inc/securityincident.class.php:274 inc/securityincident.class.php:1205
 #: src/AssetSecurity360.php:172 src/BusinessImpact.php:75 src/Control.php:202
-#: src/Nonconformity.php:108 src/Nonconformity.php:635
+#: src/Nonconformity.php:109 src/Nonconformity.php:648
 #: src/PatchCompliance.php:180 src/Traits/RiskAssessmentTrait.php:123
 #: src/Traits/RiskAssessmentTrait.php:139
 #: src/Traits/RiskAssessmentTrait.php:310 templates/backup_coverage.html.twig
@@ -2270,7 +2265,7 @@ msgid "CIA impact"
 msgstr ""
 
 #: inc/securityincident.class.php:824 src/CertificationResponse.php:246
-#: src/Nonconformity.php:440 templates/itil_classification_section.html.twig
+#: src/Nonconformity.php:453 templates/itil_classification_section.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
@@ -2490,7 +2485,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: src/AccessReview.php:106 src/Nonconformity.php:140 src/Nonconformity.php:648
+#: src/AccessReview.php:106 src/Nonconformity.php:141 src/Nonconformity.php:661
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 msgid "Closed"
 msgstr ""
@@ -2547,7 +2543,7 @@ msgstr ""
 #: src/AccessReview.php:315 src/Audit.php:226 src/BreachExposure.php:132
 #: src/ComplianceEvent.php:229 src/EndOfLife.php:476
 #: src/HardwareWarranty.php:436 src/ManagementReview.php:361
-#: src/Nonconformity.php:391 src/NotificationTargetAuditEvidenceRequest.php:159
+#: src/Nonconformity.php:404 src/NotificationTargetAuditEvidenceRequest.php:159
 #: src/NotificationTargetPolicy.php:132
 #: src/NotificationTargetRiskIndicator.php:148 src/Objective.php:168
 #: src/PersonnelCompliance.php:749 src/PhysicalSecurityAssessment.php:436
@@ -2613,7 +2609,8 @@ msgstr ""
 
 #: src/AccessReview.php:336 src/AcnRequirement.php:757
 #: src/AcnRequirement.php:837 src/CertificationResponse.php:249
-#: src/Nonconformity.php:408 src/NotificationTargetAccessReview.php:106
+#: src/GapStockReport.php:462 src/Nonconformity.php:421
+#: src/NotificationTargetAccessReview.php:106
 #: src/NotificationTargetAuditEvidenceRequest.php:158
 #: src/NotificationTargetBusinessProcess.php:165
 #: src/NotificationTargetNonconformity.php:93
@@ -2627,7 +2624,7 @@ msgstr ""
 #: templates/audit_findings_tab.html.twig templates/auditor_space.html.twig
 #: templates/certification_findings.html.twig
 #: templates/certification_response_tab.html.twig
-#: templates/crisis_room.html.twig
+#: templates/crisis_room.html.twig templates/gap_stock.html.twig
 #: templates/management_review_dossier_tab.html.twig
 #: templates/my_space.html.twig templates/nonconformity_form.html.twig
 #: templates/objective_form.html.twig templates/pdf/acn_report.html.twig
@@ -2635,6 +2632,7 @@ msgstr ""
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/gap_stock_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
@@ -2941,6 +2939,7 @@ msgstr ""
 #: templates/pdf/context_report.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/crisis_scenarios_report.html.twig
+#: templates/pdf/gap_stock_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/maturity_campaign_report.html.twig
 #: templates/pdf/network_flow_report.html.twig
@@ -2987,7 +2986,7 @@ msgstr ""
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/maturity_campaign_report.html.twig
 #: templates/pdf/network_flow_report.html.twig
-#: templates/pdf/soa_report.html.twig templates/product_sbom_tab.html.twig
+#: templates/pdf/soa_report.html.twig
 #: templates/recyf_requirement_form.html.twig templates/risk_form.html.twig
 #: templates/supplier_risk_form.html.twig templates/waiver_form.html.twig
 #: templates/waiver_ticket.html.twig
@@ -3007,7 +3006,8 @@ msgstr ""
 #: src/AcnRequirement.php:756 src/AcnRequirement.php:834
 #: src/BusinessProcess.php:566 src/BusinessProcess.php:638
 #: src/CertificationResponse.php:248 src/ComplianceEvent.php:231
-#: src/EbiosStudy.php:608 src/IsmsRequirement.php:300 src/Nonconformity.php:399
+#: src/EbiosStudy.php:608 src/GapStockReport.php:461
+#: src/IsmsRequirement.php:300 src/Nonconformity.php:412
 #: src/RecyfRequirement.php:558 src/RecyfRequirement.php:618
 #: templates/_crisis_review.html.twig templates/acn_register.html.twig
 #: templates/acn_requirement_form.html.twig
@@ -3016,7 +3016,7 @@ msgstr ""
 #: templates/certification_findings.html.twig
 #: templates/certification_response_tab.html.twig
 #: templates/compliance_event_form.html.twig
-#: templates/ebios_study_form.html.twig
+#: templates/ebios_study_form.html.twig templates/gap_stock.html.twig
 #: templates/isms_requirement_form.html.twig
 #: templates/management_review_dossier_tab.html.twig
 #: templates/maturity_campaign_gaps_tab.html.twig
@@ -3028,6 +3028,7 @@ msgstr ""
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/gap_stock_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/maturity_campaign_report.html.twig
@@ -3071,9 +3072,8 @@ msgid "Last update"
 msgstr ""
 
 #: src/AdAttackPath.php:74 src/AdSecurityAudit.php:231 src/ControlTest.php:652
-#: src/CustomFramework.php:316 src/ProductSbom.php:224
-#: src/RiskRegisterImport.php:497 src/ServerManagement.php:335
-#: src/SupplierEvaluationFile.php:306
+#: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
+#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:306
 msgid "The file is empty."
 msgstr ""
 
@@ -3108,7 +3108,7 @@ msgstr ""
 
 #: src/AdAttackPath.php:90 src/AdSecurityAudit.php:262
 #: src/BackupCoverage.php:254 src/LogCoverage.php:211 src/MfaCoverage.php:192
-#: src/ProductSbom.php:253 src/ShareAccess.php:293
+#: src/ShareAccess.php:293
 msgid "The file could not be read."
 msgstr ""
 
@@ -3499,7 +3499,7 @@ msgid "Not enough data to assess"
 msgstr ""
 
 #: src/Audit.php:69 src/ComplianceEvent.php:113 src/ConsistencyCheck.php:118
-#: templates/audit_coverage.html.twig
+#: src/GapStockReport.php:110 templates/audit_coverage.html.twig
 msgid "Internal audit"
 msgid_plural "Internal audits"
 msgstr[0] ""
@@ -3529,8 +3529,8 @@ msgid "You cannot create an audit in this entity."
 msgstr ""
 
 #: src/Audit.php:217 src/ComplianceObligation.php:199
-#: src/ManagementReview.php:352 src/Nonconformity.php:364
-#: src/NotificationTargetComplianceObligation.php:91
+#: src/GapStockReport.php:460 src/ManagementReview.php:352
+#: src/Nonconformity.php:377 src/NotificationTargetComplianceObligation.php:91
 #: src/NotificationTargetNonconformity.php:91
 #: src/NotificationTargetPolicy.php:130
 #: src/NotificationTargetPolicyVersion.php:137
@@ -3543,12 +3543,13 @@ msgstr ""
 #: templates/auditor_space.html.twig
 #: templates/compliance_obligation_form.html.twig
 #: templates/data_breach_form.html.twig
-#: templates/data_subject_request_form.html.twig
+#: templates/data_subject_request_form.html.twig templates/gap_stock.html.twig
 #: templates/management_review_form.html.twig
 #: templates/nonconformity_form.html.twig templates/objective_form.html.twig
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/audit_report.html.twig
 #: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/gap_stock_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
@@ -3683,7 +3684,7 @@ msgid "Observation"
 msgstr ""
 
 #: src/AuditChecklist.php:114 src/CertificationFinding.php:111
-#: src/Nonconformity.php:128 src/Nonconformity.php:621
+#: src/Nonconformity.php:129 src/Nonconformity.php:634
 msgid "Opportunity for improvement"
 msgstr ""
 
@@ -3806,7 +3807,7 @@ msgctxt "feminine"
 msgid "Accepted"
 msgstr ""
 
-#: src/AuditEvidenceRequest.php:213 src/Nonconformity.php:194
+#: src/AuditEvidenceRequest.php:213 src/Nonconformity.php:195
 msgid "Audit not found."
 msgstr ""
 
@@ -3957,8 +3958,7 @@ msgstr ""
 #: templates/configuration_compliance.html.twig templates/control_csv.html.twig
 #: templates/edr_import.html.twig templates/log_coverage.html.twig
 #: templates/mfa_coverage.html.twig templates/phishing_import.html.twig
-#: templates/product_sbom_tab.html.twig templates/server_management.html.twig
-#: templates/share_access.html.twig
+#: templates/server_management.html.twig templates/share_access.html.twig
 msgid "Import"
 msgstr ""
 
@@ -4423,7 +4423,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/BackupCoverage.php:915 templates/_mfa_coverage_evidence.html.twig
-#: templates/_product_sbom_evidence.html.twig
 #: templates/_server_management_evidence.html.twig
 #: templates/control_form.html.twig
 #, php-format
@@ -4437,9 +4436,8 @@ msgstr ""
 #: src/BackupCoverage.php:926 src/BackupCoverage.php:985
 #: src/ConfigurationCompliance.php:707
 #: templates/_ad_attack_path_evidence.html.twig
-#: templates/_ad_attack_paths.html.twig
+#: templates/_ad_attack_paths.html.twig templates/_gap_stock_evidence.html.twig
 #: templates/_mfa_coverage_evidence.html.twig
-#: templates/_product_sbom_evidence.html.twig
 #: templates/_server_management_evidence.html.twig
 #: templates/_zabbix_monitoring_evidence.html.twig
 #: templates/ad_security_audit.html.twig
@@ -4876,9 +4874,11 @@ msgstr ""
 #: src/BusinessProcessRecovery.php:705 src/DataSubjectRequest.php:111
 #: templates/_crisis_review.html.twig templates/acn_register.html.twig
 #: templates/audit_programme.html.twig templates/crisis_room.html.twig
+#: templates/gap_stock.html.twig
 #: templates/management_review_dossier_tab.html.twig
 #: templates/pdf/acn_report.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/gap_stock_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/postmortem_report.html.twig
 #: templates/pdf/recyf_report.html.twig templates/periodic_reviews.html.twig
@@ -4968,7 +4968,6 @@ msgid "Vendor / manufacturer"
 msgstr ""
 
 #: src/CanonicalProduct.php:144 templates/canonical_product_form.html.twig
-#: templates/product_sbom_list.html.twig
 msgid "Product"
 msgstr ""
 
@@ -5052,8 +5051,8 @@ msgstr ""
 msgid "Minor nonconformity"
 msgstr ""
 
-#: src/CertificationFinding.php:110 src/Nonconformity.php:127
-#: src/Nonconformity.php:618
+#: src/CertificationFinding.php:110 src/Nonconformity.php:128
+#: src/Nonconformity.php:631
 msgid "Area of concern"
 msgstr ""
 
@@ -5510,7 +5509,7 @@ msgstr ""
 msgid "Open nonconformities: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:1054
+#: src/CertificationReadiness.php:1054 templates/_gap_stock_evidence.html.twig
 #, php-format
 msgid "Overdue: %d"
 msgstr ""
@@ -5660,13 +5659,13 @@ msgstr[1] ""
 msgid "No deadline entered"
 msgstr ""
 
-#: src/CertificationResponse.php:245 src/Nonconformity.php:526
+#: src/CertificationResponse.php:245 src/Nonconformity.php:539
 #: templates/nonconformity_form.html.twig
 #: templates/pdf/certification_response_report.html.twig
 msgid "Correction"
 msgstr ""
 
-#: src/CertificationResponse.php:247 src/Nonconformity.php:448
+#: src/CertificationResponse.php:247 src/Nonconformity.php:461
 #: templates/certification_findings.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/pdf/certification_findings_report.html.twig
@@ -6021,7 +6020,8 @@ msgid_plural "Compliance events"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ComplianceEvent.php:114 templates/certification_findings.html.twig
+#: src/ComplianceEvent.php:114 src/GapStockReport.php:111
+#: templates/certification_findings.html.twig
 msgid "Certification audit"
 msgstr ""
 
@@ -6034,7 +6034,8 @@ msgid "Penetration test"
 msgstr ""
 
 #: src/ComplianceEvent.php:118 src/ConsistencyCheck.php:119
-#: src/ManagementReview.php:67 src/ResponsibilityActivity.php:148
+#: src/GapStockReport.php:113 src/ManagementReview.php:67
+#: src/ResponsibilityActivity.php:148
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Management review"
 msgid_plural "Management reviews"
@@ -6764,7 +6765,7 @@ msgid "Due on %s"
 msgstr ""
 
 #: src/ConsistencyCheck.php:741 src/ConsistencyCheck.php:782
-#: src/NetworkFlow.php:114 src/ShareAccess.php:249
+#: src/GapStockReport.php:331 src/NetworkFlow.php:114 src/ShareAccess.php:249
 #: templates/_crisis_review.html.twig
 #: templates/maturity_campaign_gaps_tab.html.twig
 msgid "No owner"
@@ -7828,8 +7829,9 @@ msgstr ""
 msgid "Open, due on %s"
 msgstr ""
 
-#: src/ControlBlocker.php:414 src/Nonconformity.php:138
-#: src/Nonconformity.php:646 templates/zabbix_item_tab.html.twig
+#: src/ControlBlocker.php:414 src/Nonconformity.php:139
+#: src/Nonconformity.php:659 templates/gap_stock.html.twig
+#: templates/pdf/gap_stock_report.html.twig templates/zabbix_item_tab.html.twig
 #: templates/zabbix_monitoring.html.twig
 msgid "Open"
 msgstr ""
@@ -8270,7 +8272,8 @@ msgstr ""
 msgid "No period limit"
 msgstr ""
 
-#: src/ControlTestSample.php:717 templates/audit_programme.html.twig
+#: src/ControlTestSample.php:717 src/GapStockReport.php:354
+#: templates/audit_programme.html.twig
 #, php-format
 msgid "From %1$s to %2$s"
 msgstr ""
@@ -10535,6 +10538,31 @@ msgstr ""
 msgid "Critical assets without a recent backup (%)"
 msgstr ""
 
+#: src/Feature/GapStockFeature.php:35
+msgid ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+msgstr ""
+
+#: src/Feature/GapStockFeature.php:42
+msgid ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+msgstr ""
+
+#: src/Feature/GapStockFeature.php:48
+msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+msgstr ""
+
+#: src/Feature/GapStockFeature.php:59 src/GapStockReport.php:601
+msgid "Mean time to close gaps (days, 12 months)"
+msgstr ""
+
 #: src/Feature/MfaCoverageFeature.php:42
 msgid ""
 "Shows which active accounts are protected by multi-factor authentication: "
@@ -10568,32 +10596,6 @@ msgstr ""
 #: src/Feature/MfaCoverageFeature.php:91 src/MfaCoverage.php:67
 #: templates/account_hygiene.html.twig templates/ad_security_audit.html.twig
 msgid "MFA coverage"
-msgstr ""
-
-#: src/Feature/ProductSbomFeature.php:35
-msgid ""
-"Keeps the software bill of materials (SBOM) of each version of a product you "
-"build or develop, compares its components with the vulnerabilities already "
-"known to the plugin, and records your VEX statements: affected, not affected "
-"(with the reason), fixed or under investigation. Customers and the Cyber "
-"Resilience Act expect these documents from a manufacturer."
-msgstr ""
-
-#: src/Feature/ProductSbomFeature.php:43
-msgid ""
-"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
-"released version, then give a VEX status to each vulnerability found, or "
-"import the VEX document of your scanner. Nothing is sent outside GLPI."
-msgstr ""
-
-#: src/Feature/ProductSbomFeature.php:49
-msgid ""
-"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
-"Annex I part II"
-msgstr ""
-
-#: src/Feature/ProductSbomFeature.php:58
-msgid "Software bills of materials and VEX"
 msgstr ""
 
 #: src/Feature/Security360CoreSourcesFeature.php:56
@@ -10780,6 +10782,68 @@ msgstr ""
 
 #: src/FrameworkAssessment.php:269
 msgid "No mapped control"
+msgstr ""
+
+#: src/GapStockReport.php:55
+msgid "Gap backlog"
+msgstr ""
+
+#: src/GapStockReport.php:101
+msgid "Other finding or improvement action"
+msgstr ""
+
+#: src/GapStockReport.php:114
+msgid "Other source"
+msgstr ""
+
+#: src/GapStockReport.php:122
+msgid "30 days or less"
+msgstr ""
+
+#: src/GapStockReport.php:123
+msgid "31 to 90 days"
+msgstr ""
+
+#: src/GapStockReport.php:124
+msgid "91 to 180 days"
+msgstr ""
+
+#: src/GapStockReport.php:125
+msgid "More than 180 days"
+msgstr ""
+
+#: src/GapStockReport.php:460 templates/control_form.html.twig
+#: templates/gap_stock.html.twig templates/nonconformity_form.html.twig
+#: templates/pdf/gap_stock_report.html.twig
+msgid "Origin"
+msgstr ""
+
+#: src/GapStockReport.php:462 templates/pdf/access_review_report.html.twig
+#: templates/pdf/policy_acknowledgement_report.html.twig
+msgid "Closed on"
+msgstr ""
+
+#: src/GapStockReport.php:462
+msgid "Opened on"
+msgstr ""
+
+#: src/GapStockReport.php:463 templates/gap_stock.html.twig
+#: templates/pdf/gap_stock_report.html.twig
+msgid "Age (days)"
+msgstr ""
+
+#: src/GapStockReport.php:463
+msgid "Days overdue"
+msgstr ""
+
+#: src/GapStockReport.php:464 templates/gap_stock.html.twig
+#: templates/pdf/gap_stock_report.html.twig
+msgid "Effectiveness verified"
+msgstr ""
+
+#: src/GapStockReport.php:511
+#, php-format
+msgid "Gap backlog report - %1$s (%2$s to %3$s)"
 msgstr ""
 
 #: src/HardwareWarranty.php:66 templates/control_form.html.twig
@@ -11836,7 +11900,7 @@ msgstr ""
 
 #: src/NetworkFlow.php:106 src/NetworkFlow.php:739
 #: src/ParkVulnerability.php:135 templates/audit_log.html.twig
-#: templates/maturity_campaign_gaps_tab.html.twig
+#: templates/gap_stock.html.twig templates/maturity_campaign_gaps_tab.html.twig
 #: templates/personnel_compliance_list.html.twig
 #: templates/tabs/action_log.html.twig
 msgid "All"
@@ -11983,47 +12047,47 @@ msgstr ""
 msgid "No filter rule in the pfSense backup."
 msgstr ""
 
-#: src/Nonconformity.php:92
+#: src/Nonconformity.php:93
 msgid "Non-conformity"
 msgid_plural "Non-conformities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Nonconformity.php:125 src/Nonconformity.php:616
+#: src/Nonconformity.php:126 src/Nonconformity.php:629
 msgid "Observation / remark"
 msgstr ""
 
-#: src/Nonconformity.php:139 src/Nonconformity.php:647
+#: src/Nonconformity.php:140 src/Nonconformity.php:660
 #: src/Traits/RiskAssessmentTrait.php:164
 #: src/Traits/RiskAssessmentTrait.php:323
 msgid "In treatment"
 msgstr ""
 
-#: src/Nonconformity.php:141 src/Nonconformity.php:649
+#: src/Nonconformity.php:142 src/Nonconformity.php:662
 msgctxt "feminine"
 msgid "Verified"
 msgstr ""
 
-#: src/Nonconformity.php:215
+#: src/Nonconformity.php:216
 msgid "You cannot create a non-conformity in this entity."
 msgstr ""
 
-#: src/Nonconformity.php:321
+#: src/Nonconformity.php:322
 msgid "A corrective action is required to close or verify a non-conformity."
 msgstr ""
 
-#: src/Nonconformity.php:375 templates/audit_findings_tab.html.twig
+#: src/Nonconformity.php:388 templates/audit_findings_tab.html.twig
 #: templates/auditor_space.html.twig templates/nonconformity_form.html.twig
 #: templates/pdf/audit_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 msgid "Finding type"
 msgstr ""
 
-#: src/Nonconformity.php:416 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:429 templates/nonconformity_form.html.twig
 msgid "Closure verification date"
 msgstr ""
 
-#: src/Nonconformity.php:432 src/NotificationTargetAuditEvidenceRequest.php:155
+#: src/Nonconformity.php:445 src/NotificationTargetAuditEvidenceRequest.php:155
 #: src/Objective.php:209 src/Policy.php:211 src/RiskRegisterImport.php:603
 #: src/Training.php:595 templates/_crisis_review.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
@@ -12037,25 +12101,25 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/Nonconformity.php:456 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:469 templates/nonconformity_form.html.twig
 msgid "Preventive action"
 msgstr ""
 
-#: src/Nonconformity.php:476 templates/audit_findings_tab.html.twig
+#: src/Nonconformity.php:489 templates/audit_findings_tab.html.twig
 #: templates/certification_response_tab.html.twig
 #: templates/nonconformity_form.html.twig
 msgid "Certification body reference"
 msgstr ""
 
-#: src/Nonconformity.php:483 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:496 templates/nonconformity_form.html.twig
 msgid "Audited process"
 msgstr ""
 
-#: src/Nonconformity.php:490 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:503 templates/nonconformity_form.html.twig
 msgid "Clause or control"
 msgstr ""
 
-#: src/Nonconformity.php:497
+#: src/Nonconformity.php:510
 #: src/NotificationTargetPhysicalSecurityAssessment.php:78
 #: src/PhysicalSecurityAssessment.php:432 src/PhysicalSecurityCheck.php:253
 #: templates/nonconformity_form.html.twig
@@ -12064,90 +12128,90 @@ msgstr ""
 msgid "Site"
 msgstr ""
 
-#: src/Nonconformity.php:505 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:518 templates/nonconformity_form.html.twig
 msgid "Action plan sent to the certification body on"
 msgstr ""
 
-#: src/Nonconformity.php:512 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:525 templates/nonconformity_form.html.twig
 msgid "Evidence sent to the certification body on"
 msgstr ""
 
-#: src/Nonconformity.php:519 templates/nonconformity_form.html.twig
+#: src/Nonconformity.php:532 templates/nonconformity_form.html.twig
 msgid "Decision of the certification body"
 msgstr ""
 
-#: src/Nonconformity.php:719 templates/auditor_space.html.twig
+#: src/Nonconformity.php:732 templates/auditor_space.html.twig
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Findings"
 msgstr ""
 
-#: src/Nonconformity.php:888
+#: src/Nonconformity.php:901
 msgid "Required to close or verify this non-conformity."
 msgstr ""
 
-#: src/Nonconformity.php:889
+#: src/Nonconformity.php:902
 msgid "Optional for an observation: it may still be filled in if useful."
 msgstr ""
 
-#: src/Nonconformity.php:941
+#: src/Nonconformity.php:954
 #, php-format
 msgid "Apply the vendor patch: %s"
 msgstr ""
 
-#: src/Nonconformity.php:944
+#: src/Nonconformity.php:957
 msgid "Find and apply the vendor patch (no patch link published in NVD yet)."
 msgstr ""
 
-#: src/Nonconformity.php:947
+#: src/Nonconformity.php:960
 #, php-format
 msgid "Follow the vendor security advisory: %s"
 msgstr ""
 
-#: src/Nonconformity.php:953
+#: src/Nonconformity.php:966
 #, php-format
 msgid "Update the affected assets (%1$d): %2$s"
 msgstr ""
 
-#: src/Nonconformity.php:959
+#: src/Nonconformity.php:972
 msgid ""
 "Identify the affected assets (no matching asset found in the inventory)."
 msgstr ""
 
-#: src/Nonconformity.php:965
+#: src/Nonconformity.php:978
 #, php-format
 msgid ""
 "Actively exploited vulnerability: remediation due date set by CISA on %s."
 msgstr ""
 
-#: src/Nonconformity.php:970
+#: src/Nonconformity.php:983
 msgid ""
 "Check effectiveness: verify that the vulnerability no longer appears on the "
 "assets (incident CVE tab or \"Fleet vulnerabilities\")."
 msgstr ""
 
-#: src/Nonconformity.php:976
+#: src/Nonconformity.php:989
 #, php-format
 msgid "Action plan proposed for %1$s, found on the security incident \"%2$s\"."
 msgstr ""
 
-#: src/Nonconformity.php:989
+#: src/Nonconformity.php:1002
 #, php-format
 msgid "Fix %1$s (incident \"%2$s\")"
 msgstr ""
 
-#: src/Nonconformity.php:1005
+#: src/Nonconformity.php:1018
 msgid ""
 "Watch the affected software in \"Software to watch\" to be alerted of future "
 "vulnerabilities."
 msgstr ""
 
-#: src/Nonconformity.php:1008
+#: src/Nonconformity.php:1021
 msgid "Include this software in the regular patching cycle."
 msgstr ""
 
-#: src/Nonconformity.php:1028
+#: src/Nonconformity.php:1041
 #, php-format
 msgid "%d overdue corrective/preventive action(s), %d notification(s) raised."
 msgstr ""
@@ -12628,7 +12692,7 @@ msgstr ""
 
 #: src/NotificationTargetTraining.php:126 src/Training.php:555
 #: templates/pdf/training_session_report.html.twig
-#: templates/product_sbom_list.html.twig templates/training_form.html.twig
+#: templates/training_form.html.twig
 msgid "Format"
 msgstr ""
 
@@ -15114,7 +15178,6 @@ msgstr ""
 #: src/PersonnelCompliance.php:748 templates/_personnel_compliance.html.twig
 #: templates/config_form.html.twig templates/maturity.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
-#: templates/product_sbom_tab.html.twig
 msgid "Component"
 msgstr ""
 
@@ -15914,105 +15977,6 @@ msgstr ""
 #: src/ProductAlias.php:112
 #, php-format
 msgid "This alias is already attached to product \"%s / %s\"."
-msgstr ""
-
-#: src/ProductSbom.php:62
-msgid "SBOM and VEX"
-msgstr ""
-
-#: src/ProductSbom.php:170
-msgid "Affected"
-msgstr ""
-
-#: src/ProductSbom.php:171
-msgid "Under investigation"
-msgstr ""
-
-#: src/ProductSbom.php:172
-msgid "Fixed"
-msgstr ""
-
-#: src/ProductSbom.php:173
-msgid "Not affected"
-msgstr ""
-
-#: src/ProductSbom.php:192
-msgid "Component not present"
-msgstr ""
-
-#: src/ProductSbom.php:193
-msgid "Vulnerable code not present"
-msgstr ""
-
-#: src/ProductSbom.php:194
-msgid "Vulnerable code never executed"
-msgstr ""
-
-#: src/ProductSbom.php:196
-msgid "Vulnerable code out of reach of an attacker"
-msgstr ""
-
-#: src/ProductSbom.php:199
-msgid "Protections already in place"
-msgstr ""
-
-#: src/ProductSbom.php:207
-msgid "Entered by hand"
-msgstr ""
-
-#: src/ProductSbom.php:210
-msgid "SBOM file"
-msgstr ""
-
-#: src/ProductSbom.php:211
-msgid "Vulnerability watch"
-msgstr ""
-
-#: src/ProductSbom.php:226
-#, php-format
-msgid "The file is larger than %d MB."
-msgstr ""
-
-#: src/ProductSbom.php:229
-msgid "The file is not valid JSON, or it is nested too deeply."
-msgstr ""
-
-#: src/ProductSbom.php:231
-msgid ""
-"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
-"JSON."
-msgstr ""
-
-#: src/ProductSbom.php:235
-msgid ""
-"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
-msgstr ""
-
-#: src/ProductSbom.php:239
-#, php-format
-msgid ""
-"The file lists more than %d components or vulnerabilities: split it by "
-"product."
-msgstr ""
-
-#: src/ProductSbom.php:243
-msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
-msgstr ""
-
-#: src/ProductSbom.php:246
-msgid "Choose a status."
-msgstr ""
-
-#: src/ProductSbom.php:247
-msgid "Unknown justification."
-msgstr ""
-
-#: src/ProductSbom.php:249
-msgid "A \"not affected\" statement needs a justification or an explanation."
-msgstr ""
-
-#: src/ProductSbom.php:252
-msgid "Enter the product version described by the file."
 msgstr ""
 
 #: src/Profile.php:84
@@ -18571,7 +18535,8 @@ msgstr ""
 
 #: src/Services/Workspace/MySpaceProvider.php:136
 #: templates/_crisis_review.html.twig
-#: templates/audit_evidence_requests_tab.html.twig templates/my_space.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/gap_stock.html.twig templates/my_space.html.twig
 msgid "No due date"
 msgstr ""
 
@@ -18591,7 +18556,6 @@ msgstr ""
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/product_sbom_tab.html.twig
 #, php-format
 msgid "Version %s"
 msgstr ""
@@ -20299,6 +20263,30 @@ msgstr ""
 msgid "Print the scenarios (PDF)"
 msgstr ""
 
+#: templates/_gap_stock_evidence.html.twig
+#, php-format
+msgid "Effectiveness verified: %d%%"
+msgstr ""
+
+#: templates/_gap_stock_evidence.html.twig
+#, php-format
+msgid "Last 12 months, computed on %s"
+msgstr ""
+
+#: templates/_gap_stock_evidence.html.twig
+#, php-format
+msgid "Mean time to close: %d days"
+msgstr ""
+
+#: templates/_gap_stock_evidence.html.twig
+msgid "Mean time to close: not measured"
+msgstr ""
+
+#: templates/_gap_stock_evidence.html.twig
+#, php-format
+msgid "Open gaps: %d"
+msgstr ""
+
 #: templates/_impact_graph.html.twig
 #, php-format
 msgid "Dependency map: %s"
@@ -20514,38 +20502,6 @@ msgstr ""
 #: templates/crisis_scenario_register.html.twig
 #: templates/dora/register.html.twig
 msgid "Complete"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "%d affected"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#, php-format
-msgid "%d application(s) of the register without an SBOM"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#, php-format
-msgid "%d known vulnerability(ies) in the components"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#, php-format
-msgid "%d not affected or fixed"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#, php-format
-msgid "%d product(s) with an SBOM"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "%d without VEX statement"
 msgstr ""
 
 #: templates/_responsibility_summary.html.twig
@@ -20780,7 +20736,9 @@ msgstr ""
 msgid "Save decisions"
 msgstr ""
 
-#: templates/account_hygiene.html.twig templates/park_vulnerabilities.html.twig
+#: templates/account_hygiene.html.twig templates/gap_stock.html.twig
+#: templates/park_vulnerabilities.html.twig
+#: templates/pdf/gap_stock_report.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/zabbix_monitoring.html.twig
@@ -21158,7 +21116,7 @@ msgstr ""
 msgid "Import a report"
 msgstr ""
 
-#: templates/ad_security_audit.html.twig templates/product_sbom_list.html.twig
+#: templates/ad_security_audit.html.twig
 msgid "Imported on"
 msgstr ""
 
@@ -21420,7 +21378,6 @@ msgstr ""
 #: templates/control_form.html.twig
 #: templates/official_contact_history_tab.html.twig
 #: templates/official_contact_tab.html.twig
-#: templates/product_sbom_list.html.twig templates/product_sbom_tab.html.twig
 #: templates/tabs/crisis_message_recipients.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Open the register"
@@ -21781,6 +21738,7 @@ msgid "No ISMS requirement nor applicable control to show."
 msgstr ""
 
 #: templates/audit_coverage.html.twig templates/pdf/action_log.html.twig
+#: templates/pdf/gap_stock_report.html.twig
 msgid "Period"
 msgstr ""
 
@@ -22185,7 +22143,7 @@ msgstr ""
 msgid "Object"
 msgstr ""
 
-#: templates/audit_log.html.twig
+#: templates/audit_log.html.twig templates/gap_stock.html.twig
 msgid "Reset"
 msgstr ""
 
@@ -23062,7 +23020,7 @@ msgid "All processes"
 msgstr ""
 
 #: templates/certification_findings.html.twig
-#: templates/compliance_audit.html.twig
+#: templates/compliance_audit.html.twig templates/gap_stock.html.twig
 #: templates/tabs/incident_playbook.html.twig
 msgid "Apply"
 msgstr ""
@@ -25096,7 +25054,6 @@ msgstr ""
 
 #: templates/configuration_compliance_report.html.twig
 #: templates/edr_import.html.twig templates/pdf/policy_version.html.twig
-#: templates/product_sbom_list.html.twig
 #: templates/tabs/incident_evidence.html.twig
 msgid "File"
 msgstr ""
@@ -25196,7 +25153,8 @@ msgstr ""
 msgid "Items to fix (%d)"
 msgstr ""
 
-#: templates/consistency_check.html.twig templates/maturity.html.twig
+#: templates/consistency_check.html.twig templates/gap_stock.html.twig
+#: templates/maturity.html.twig templates/pdf/gap_stock_report.html.twig
 msgid "Monthly trend"
 msgstr ""
 
@@ -26011,10 +25969,6 @@ msgstr ""
 
 #: templates/control_form.html.twig
 msgid "No site assessed yet"
-msgstr ""
-
-#: templates/control_form.html.twig templates/nonconformity_form.html.twig
-msgid "Origin"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -29357,6 +29311,97 @@ msgid ""
 "directly."
 msgstr ""
 
+#: templates/gap_stock.html.twig
+#, php-format
+msgid "%1$d closed in the period, median: %2$s"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/patch_compliance.html.twig
+#: templates/pdf/gap_stock_report.html.twig
+#, php-format
+msgid "%d days late"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "Age of open gaps"
+msgstr ""
+
+#: templates/gap_stock.html.twig
+#, php-format
+msgid "Archive as evidence (%s)"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "Backlog at month end"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "By entity"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "By origin"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "By owner"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "By severity"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+#, php-format
+msgid "Closed in the period: %1$d verified, %2$d to verify"
+msgstr ""
+
+#: templates/gap_stock.html.twig
+msgid "Due date passed and not closed"
+msgstr ""
+
+#: templates/gap_stock.html.twig
+msgid "From (month)"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "Mean time to close"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "Month"
+msgstr ""
+
+#: templates/gap_stock.html.twig
+#, php-format
+msgid "No due date: %d"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "No open gap with these filters."
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "Nothing open."
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+#, php-format
+msgid "Only the first %d gaps are listed: the CSV export contains all of them."
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "Open gaps"
+msgstr ""
+
+#: templates/gap_stock.html.twig templates/pdf/gap_stock_report.html.twig
+msgid "Open gaps, most overdue first"
+msgstr ""
+
+#: templates/gap_stock.html.twig
+msgid "To (month)"
+msgstr ""
+
 #: templates/impact_spof.html.twig
 msgid ""
 "An item whose availability is classified \"high\" and that depends on a "
@@ -31893,11 +31938,6 @@ msgstr ""
 
 #: templates/patch_compliance.html.twig
 #, php-format
-msgid "%d days late"
-msgstr ""
-
-#: templates/patch_compliance.html.twig
-#, php-format
 msgid "%d exploited"
 msgstr ""
 
@@ -32016,11 +32056,6 @@ msgstr ""
 #: templates/pdf/access_review_report.html.twig
 #: templates/tabs/control_access_reviews.html.twig
 msgid "Accounts reviewed"
-msgstr ""
-
-#: templates/pdf/access_review_report.html.twig
-#: templates/pdf/policy_acknowledgement_report.html.twig
-msgid "Closed on"
 msgstr ""
 
 #: templates/pdf/access_review_report.html.twig
@@ -32696,6 +32731,29 @@ msgstr ""
 #: templates/pdf/evidence_pack_index.html.twig
 #, php-format
 msgid "limit %d MB"
+msgstr ""
+
+#: templates/pdf/gap_stock_report.html.twig
+msgid "By type"
+msgstr ""
+
+#: templates/pdf/gap_stock_report.html.twig
+msgid "Closed in the period"
+msgstr ""
+
+#: templates/pdf/gap_stock_report.html.twig
+msgid "ISMS requirements"
+msgstr ""
+
+#: templates/pdf/gap_stock_report.html.twig
+msgid ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+msgstr ""
+
+#: templates/pdf/gap_stock_report.html.twig
+msgid "Opened in the period"
 msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
@@ -34497,150 +34555,6 @@ msgstr ""
 
 #: templates/processing_activity_tab.html.twig
 msgid "Unlink"
-msgstr ""
-
-#: templates/product_sbom_list.html.twig
-msgid "Components"
-msgstr ""
-
-#: templates/product_sbom_list.html.twig
-msgid "No SBOM imported yet."
-msgstr ""
-
-#: templates/product_sbom_list.html.twig templates/product_sbom_tab.html.twig
-msgid "Product version"
-msgstr ""
-
-#: templates/product_sbom_list.html.twig
-msgid ""
-"SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
-"tab of each application."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid ""
-"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
-"a CycloneDX file are kept too."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "%d component(s)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid ""
-"A new statement replaces the previous one for the same vulnerability, "
-"component and version."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "All versions"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid ""
-"An SBOM lists the components (libraries, packages) of one version of this "
-"product. Import one file per released version; the vulnerabilities found "
-"stay here with your VEX statements."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Component (purl or name)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "Components (%d)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "CycloneDX VEX or OpenVEX file (JSON)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "CycloneDX or SPDX file (JSON)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Declare"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Delete this SBOM"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Explanation"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Found by"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Import a VEX document"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Import an SBOM"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Known exploited vulnerability (CISA KEV)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Known vulnerabilities of the components"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Licenses"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "No SBOM imported for this product yet."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "No VEX statement"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "No VEX statement for this product."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid ""
-"No known vulnerability: none in the file, and none known by the "
-"vulnerability watch for these components and versions."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "Older SBOM: only the %d most recent are detailed."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "Only the first %d components are shown."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "VEX statements"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "VEX status"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Vulnerability"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Whole product"
 msgstr ""
 
 #: templates/recyf_register.html.twig
@@ -39228,4 +39142,330 @@ msgstr ""
 #: templates/zabbix_monitoring.html.twig
 #, php-format
 msgid "out of %d critical assets"
+msgstr ""
+
+
+#: front/productsbom.form.php:76
+#, php-format
+msgid ""
+"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
+"statement(s)."
+msgstr ""
+
+#: front/productsbom.form.php:97
+#, php-format
+msgid "VEX document imported: %d statement(s)."
+msgstr ""
+
+#: front/productsbom.form.php:111
+msgid "VEX statement saved."
+msgstr ""
+
+#: front/productsbom.form.php:120
+msgid "SBOM deleted."
+msgstr ""
+
+#: front/productsbom.form.php:128
+msgid "VEX statement deleted."
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:35
+msgid ""
+"Keeps the software bill of materials (SBOM) of each version of a product you "
+"build or develop, compares its components with the vulnerabilities already "
+"known to the plugin, and records your VEX statements: affected, not affected "
+"(with the reason), fixed or under investigation. Customers and the Cyber "
+"Resilience Act expect these documents from a manufacturer."
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:43
+msgid ""
+"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
+"released version, then give a VEX status to each vulnerability found, or "
+"import the VEX document of your scanner. Nothing is sent outside GLPI."
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:49
+msgid ""
+"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
+"Annex I part II"
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:58
+msgid "Software bills of materials and VEX"
+msgstr ""
+
+#: src/ProductSbom.php:62
+msgid "SBOM and VEX"
+msgstr ""
+
+#: src/ProductSbom.php:170
+msgid "Affected"
+msgstr ""
+
+#: src/ProductSbom.php:171
+msgid "Under investigation"
+msgstr ""
+
+#: src/ProductSbom.php:172
+msgid "Fixed"
+msgstr ""
+
+#: src/ProductSbom.php:173
+msgid "Not affected"
+msgstr ""
+
+#: src/ProductSbom.php:192
+msgid "Component not present"
+msgstr ""
+
+#: src/ProductSbom.php:193
+msgid "Vulnerable code not present"
+msgstr ""
+
+#: src/ProductSbom.php:194
+msgid "Vulnerable code never executed"
+msgstr ""
+
+#: src/ProductSbom.php:196
+msgid "Vulnerable code out of reach of an attacker"
+msgstr ""
+
+#: src/ProductSbom.php:199
+msgid "Protections already in place"
+msgstr ""
+
+#: src/ProductSbom.php:207
+msgid "Entered by hand"
+msgstr ""
+
+#: src/ProductSbom.php:210
+msgid "SBOM file"
+msgstr ""
+
+#: src/ProductSbom.php:211
+msgid "Vulnerability watch"
+msgstr ""
+
+#: src/ProductSbom.php:226
+#, php-format
+msgid "The file is larger than %d MB."
+msgstr ""
+
+#: src/ProductSbom.php:229
+msgid "The file is not valid JSON, or it is nested too deeply."
+msgstr ""
+
+#: src/ProductSbom.php:231
+msgid ""
+"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
+"JSON."
+msgstr ""
+
+#: src/ProductSbom.php:235
+msgid ""
+"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+msgstr ""
+
+#: src/ProductSbom.php:239
+#, php-format
+msgid ""
+"The file lists more than %d components or vulnerabilities: split it by "
+"product."
+msgstr ""
+
+#: src/ProductSbom.php:243
+msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
+msgstr ""
+
+#: src/ProductSbom.php:246
+msgid "Choose a status."
+msgstr ""
+
+#: src/ProductSbom.php:247
+msgid "Unknown justification."
+msgstr ""
+
+#: src/ProductSbom.php:249
+msgid "A \"not affected\" statement needs a justification or an explanation."
+msgstr ""
+
+#: src/ProductSbom.php:252
+msgid "Enter the product version described by the file."
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "%d affected"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d application(s) of the register without an SBOM"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d known vulnerability(ies) in the components"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d not affected or fixed"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d product(s) with an SBOM"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "%d without VEX statement"
+msgstr ""
+
+#: templates/product_sbom_list.html.twig
+msgid "Components"
+msgstr ""
+
+#: templates/product_sbom_list.html.twig
+msgid "No SBOM imported yet."
+msgstr ""
+
+#: templates/product_sbom_list.html.twig templates/product_sbom_tab.html.twig
+msgid "Product version"
+msgstr ""
+
+#: templates/product_sbom_list.html.twig
+msgid ""
+"SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
+"tab of each application."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid ""
+"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
+"a CycloneDX file are kept too."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "%d component(s)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid ""
+"A new statement replaces the previous one for the same vulnerability, "
+"component and version."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "All versions"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid ""
+"An SBOM lists the components (libraries, packages) of one version of this "
+"product. Import one file per released version; the vulnerabilities found "
+"stay here with your VEX statements."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Component (purl or name)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "Components (%d)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "CycloneDX VEX or OpenVEX file (JSON)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "CycloneDX or SPDX file (JSON)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Declare"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Delete this SBOM"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Explanation"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Found by"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Import a VEX document"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Import an SBOM"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Known exploited vulnerability (CISA KEV)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Known vulnerabilities of the components"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Licenses"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "No SBOM imported for this product yet."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "No VEX statement"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "No VEX statement for this product."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid ""
+"No known vulnerability: none in the file, and none known by the "
+"vulnerability watch for these components and versions."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "Older SBOM: only the %d most recent are detailed."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "Only the first %d components are shown."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "VEX statements"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "VEX status"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Vulnerability"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Whole product"
 msgstr ""

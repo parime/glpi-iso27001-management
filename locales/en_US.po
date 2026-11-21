@@ -38169,6 +38169,205 @@ msgstr "Next exception end: %s"
 msgid "%d service(s) not analysed"
 msgstr "%d service(s) not analysed"
 
+#: templates/product_sbom_list.html.twig
+msgid ""
+"SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
+"tab of each application."
+msgstr ""
+"SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
+"tab of each application."
+
+#: templates/product_sbom_list.html.twig
+msgid "No SBOM imported yet."
+msgstr "No SBOM imported yet."
+
+#: templates/product_sbom_list.html.twig
+msgid "Components"
+msgstr "Components"
+
+msgid ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+msgstr ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+
+msgid "The report could not be archived."
+msgstr "The report could not be archived."
+
+msgid ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+msgstr ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+
+msgid ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+msgstr ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+
+msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+msgstr "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+
+msgid "Mean time to close gaps (days, 12 months)"
+msgstr "Mean time to close gaps (days, 12 months)"
+
+msgid "Gap backlog"
+msgstr "Gap backlog"
+
+msgid "Other finding or improvement action"
+msgstr "Other finding or improvement action"
+
+msgid "Other source"
+msgstr "Other source"
+
+msgid "30 days or less"
+msgstr "30 days or less"
+
+msgid "31 to 90 days"
+msgstr "31 to 90 days"
+
+msgid "91 to 180 days"
+msgstr "91 to 180 days"
+
+msgid "More than 180 days"
+msgstr "More than 180 days"
+
+msgid "Opened on"
+msgstr "Opened on"
+
+msgid "Age (days)"
+msgstr "Age (days)"
+
+msgid "Days overdue"
+msgstr "Days overdue"
+
+msgid "Effectiveness verified"
+msgstr "Effectiveness verified"
+
+#, php-format
+msgid "Gap backlog report - %1$s (%2$s to %3$s)"
+msgstr "Gap backlog report - %1$s (%2$s to %3$s)"
+
+#, php-format
+msgid "Effectiveness verified: %d%%"
+msgstr "Effectiveness verified: %d%%"
+
+#, php-format
+msgid "Last 12 months, computed on %s"
+msgstr "Last 12 months, computed on %s"
+
+#, php-format
+msgid "Mean time to close: %d days"
+msgstr "Mean time to close: %d days"
+
+msgid "Mean time to close: not measured"
+msgstr "Mean time to close: not measured"
+
+#, php-format
+msgid "Open gaps: %d"
+msgstr "Open gaps: %d"
+
+#, php-format
+msgid "%1$d closed in the period, median: %2$s"
+msgstr "%1$d closed in the period, median: %2$s"
+
+msgid "Age of open gaps"
+msgstr "Age of open gaps"
+
+#, php-format
+msgid "Archive as evidence (%s)"
+msgstr "Archive as evidence (%s)"
+
+msgid "Backlog at month end"
+msgstr "Backlog at month end"
+
+msgid "By entity"
+msgstr "By entity"
+
+msgid "By origin"
+msgstr "By origin"
+
+msgid "By owner"
+msgstr "By owner"
+
+msgid "By severity"
+msgstr "By severity"
+
+#, php-format
+msgid "Closed in the period: %1$d verified, %2$d to verify"
+msgstr "Closed in the period: %1$d verified, %2$d to verify"
+
+msgid "Due date passed and not closed"
+msgstr "Due date passed and not closed"
+
+msgid "From (month)"
+msgstr "From (month)"
+
+msgid "Mean time to close"
+msgstr "Mean time to close"
+
+msgid "Month"
+msgstr "Month"
+
+#, php-format
+msgid "No due date: %d"
+msgstr "No due date: %d"
+
+msgid "No open gap with these filters."
+msgstr "No open gap with these filters."
+
+msgid "Nothing open."
+msgstr "Nothing open."
+
+#, php-format
+msgid "Only the first %d gaps are listed: the CSV export contains all of them."
+msgstr ""
+"Only the first %d gaps are listed: the CSV export contains all of them."
+
+msgid "Open gaps"
+msgstr "Open gaps"
+
+msgid "Open gaps, most overdue first"
+msgstr "Open gaps, most overdue first"
+
+msgid "To (month)"
+msgstr "To (month)"
+
+msgid "By type"
+msgstr "By type"
+
+msgid "Closed in the period"
+msgstr "Closed in the period"
+
+msgid "ISMS requirements"
+msgstr "ISMS requirements"
+
+msgid ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+msgstr ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+
+msgid "Opened in the period"
+msgstr "Opened in the period"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -39173,15 +39372,3 @@ msgstr "%d service(s) not analysed"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-#: templates/product_sbom_list.html.twig
-msgid "SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" tab of each application."
-msgstr "SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" tab of each application."
-
-#: templates/product_sbom_list.html.twig
-msgid "No SBOM imported yet."
-msgstr "No SBOM imported yet."
-
-#: templates/product_sbom_list.html.twig
-msgid "Components"
-msgstr "Components"
