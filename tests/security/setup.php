@@ -449,6 +449,11 @@ if ($mode === 'xss') {
     $update('physicalsecurityzones', [
         'name' => $canary, 'authorized_people' => $canary, 'comment' => $canary,
     ], (int) $ids['physical_zone_A']);
+    // Issue #603 : campagne de maturité de A piégée (fiche, grille, écarts, comparaison, PDF, brouillon
+    // d'action), avec un libellé d'échelle piégé.
+    $update('maturitycampaigns', ['name' => $canary, 'comment' => $canary], (int) $ids['maturity_A']);
+    $update('maturityassessments', ['justification' => $canary], (int) $ids['maturity_line_A']);
+    \Config::setConfigurationValues('plugin:grcmanager', ['maturity_scale_labels' => json_encode([1 => $canary])]);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
     // Issue #868 : la même preuve, expirée sur la mesure de A, est citée par la page du dossier de preuves.
@@ -1400,6 +1405,19 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'FROM'   => 'glpi_plugin_grcmanager_physicalsecurityzones',
         'WHERE'  => ['plugin_grcmanager_physicalsecurityassessments_id' => $ids['physical_' . $suffix]],
     ])->current()['id'];
+    // Issue #603 : une campagne de maturité par mesure dans chaque entité, avec un écart sur A.5.1
+    // (niveau actuel 1, cible 3) pour afficher l'onglet des écarts et le bouton d'action.
+    $ids['maturity_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\MaturityCampaign(), [
+        'name' => 'Campagne maturite securite ' . $suffix, 'entities_id' => $entity, 'campaign_date' => '2026-01-20',
+    ]);
+    $ids['maturity_line_' . $suffix] = (int) $DB->request([
+        'SELECT' => ['id'],
+        'FROM'   => 'glpi_plugin_grcmanager_maturityassessments',
+        'WHERE'  => ['plugin_grcmanager_maturitycampaigns_id' => $ids['maturity_' . $suffix], 'code' => 'A.5.1'],
+    ])->current()['id'];
+    $DB->update('glpi_plugin_grcmanager_maturityassessments', [
+        'current_level' => 1, 'target_level' => 3, 'justification' => 'Ecart maturite securite ' . $suffix,
+    ], ['id' => $ids['maturity_line_' . $suffix]]);
 }
 $ids['competencedeclaration_B'] = $add(new \GlpiPlugin\Grcmanager\CompetenceDeclaration(), [
     'users_id' => $ids['collab_B'], 'plugin_grcmanager_competences_id' => $ids['competence_B'],
