@@ -130,6 +130,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
   front/diskencryption.php front/mfacoverage.php front/patchcompliance.php front/logcoverage.php
   front/shareaccess.php front/shareaccess.php?script=1 front/shareaccess.php?example=1
+  front/configcompliance.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
@@ -515,7 +516,7 @@ if [ "$ROLE" = general ]; then
            front/riskappetite.php front/riskindicator.php \
            front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php \
            front/recoveryprogramme.php \
-           front/crisisscenario.php front/crisisscenario.export.php "front/crisisscenario.form.php?id=$(id crisis_scenario_A)"            front/shareaccess.php; do
+           front/crisisscenario.php front/crisisscenario.export.php "front/crisisscenario.form.php?id=$(id crisis_scenario_A)" front/shareaccess.php; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
   # Issue #608, lot 2 : l'export du contexte ne nomme pas le risque lie sans le droit dedie.
@@ -643,6 +644,16 @@ if [ "$ROLE" = reader ]; then
   contains "correctifs de securite : rien de B" "PC securite B" non "$(body "$P/patchcompliance.php")"
   expect "front/patchcompliance.php : modifier les delais cibles" 403 \
     "$(code -d "save_patch_targets=1&patch_targets%5Bcritical%5D=3&_glpi_csrf_token=$(csrf)" "$P/patchcompliance.php")"
+  # Issue #781 : conformite de configuration de l'entite A seulement ; import, rattachement,
+  # suppression et ticket refuses en lecture seule ; analyse de B introuvable.
+  contains "conformite de configuration : ordinateur de A" "PC securite A" oui "$(body "$P/configcompliance.php")"
+  contains "conformite de configuration : rien de B" "PC securite B" non "$(body "$P/configcompliance.php")"
+  expect "front/configcompliance.php : analyse de A" 200 "$(code "$P/configcompliance.php?report=$(id configscan_A)")"
+  expect "front/configcompliance.php : analyse de B" 404 "$(code "$P/configcompliance.php?report=$(id configscan_B)")"
+  expect "front/configcompliance.php : importer en lecture seule" 403     "$(code -F upload=1 -F "scan_file=@$EVIDENCE_PDF;filename=resultats.xml" -F "_glpi_csrf_token=$(csrf)" "$P/configcompliance.php")"
+  expect "front/configcompliance.php : rattacher en lecture seule" 403     "$(code -d "link_computer=1&report=$(id configscan_A)&computers_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/configcompliance.php")"
+  expect "front/configcompliance.php : supprimer en lecture seule" 403     "$(code -d "delete_report=1&report=$(id configscan_A)&_glpi_csrf_token=$(csrf)" "$P/configcompliance.php")"
+  expect "front/configcompliance.php : ticket en lecture seule" 403     "$(code -d "create_ticket=1&report=$(id configscan_A)&_glpi_csrf_token=$(csrf)" "$P/configcompliance.php")"
   expect "front/diskencryption.php : declarer une cle en lecture seule" 403     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
   expect "front/softwarelicensecompliance.php : modifier l'horizon d'echeance" 403 \
     "$(code -d "save_license_watch=1&license_expiring_days=1&_glpi_csrf_token=$(csrf)" "$P/softwarelicensecompliance.php")"
@@ -893,6 +904,11 @@ contains "liste des KRI : KRI de A" "KRI securite A" oui    "$kris"
 contains "liste des KRI : KRI de B" "KRI securite B" $SEE_B "$kris"
 expect "campagne de revue, entite A"   200    "$(code "$P/accessreview.form.php?id=$(id campaign_A)")"
 expect "campagne de revue, entite B"   $DENY  "$(code "$P/accessreview.form.php?id=$(id campaign_B)")"
+# Issue #866 : recalcul des suggestions, droit de modification sur la campagne exigé.
+expect "recalculer les suggestions de la campagne B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"   "$(code -d "refresh_suggestions=1&id=$(id campaign_B)&_glpi_csrf_token=$(csrf)" "$P/accessreview.form.php")"
+if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
+  expect "recalculer les suggestions de la campagne A en lecture seule" 403     "$(code -d "refresh_suggestions=1&id=$(id campaign_A)&_glpi_csrf_token=$(csrf)" "$P/accessreview.form.php")"
+fi
 
 control_tab=$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CAccessReview$2' "$(id control)")
 contains "onglet revues d'acces d'un controle : campagne A" "Campagne securite A" oui     "$control_tab"
@@ -978,6 +994,10 @@ fs-import.exemple.test,Import securite,Everyone,Change
     "$(code -d "save_patch_targets=1&patch_targets%5Bcritical%5D=15&_glpi_csrf_token=$(csrf)" "$P/patchcompliance.php")"
   expect "front/patchcompliance.php : delais cibles sans jeton CSRF" 403 \
     "$(code -d "save_patch_targets=1&patch_targets%5Bcritical%5D=3" "$P/patchcompliance.php")"
+  # Issue #781 : analyse de B ni lue ni supprimee ; suppression jamais sans jeton CSRF.
+  expect "front/configcompliance.php : analyse de B" 404 "$(code "$P/configcompliance.php?report=$(id configscan_B)")"
+  expect "front/configcompliance.php : supprimer l'analyse de B" 403     "$(code -d "delete_report=1&report=$(id configscan_B)&_glpi_csrf_token=$(csrf)" "$P/configcompliance.php")"
+  expect "front/configcompliance.php : supprimer sans jeton CSRF" 403     "$(code -d "delete_report=1&report=$(id configscan_A)" "$P/configcompliance.php")"
   expect "front/diskencryption.php : declarer une cle sans jeton CSRF" 403     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1" "$P/diskencryption.php")"
   # Issue #706 : gestionnaire avec la configuration du plugin et les registres sensibles en
   # modification : l'ecran de changement de taille lui est ouvert, comme la page de configuration.

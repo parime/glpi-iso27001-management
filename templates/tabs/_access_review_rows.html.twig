@@ -13,7 +13,8 @@
  # -------------------------------------------------------------------------
  #}
 {# Issue #126 : lignes de revue (onglet de la campagne et « Mes revues d'accès »).
-   Paramètres : lines, decisions, sources, can_decide, show_reviewer #}
+   Paramètres : lines, decisions, sources, can_decide, show_reviewer.
+   Issue #866 : suggestion des règles et sa raison (AccessReviewSuggestion::decorate()). #}
 {% set decision_class = {'pending': 'bg-secondary-lt', 'keep': 'bg-green-lt', 'modify': 'bg-orange-lt', 'remove': 'bg-red-lt'} %}
 <div class="table-responsive">
 <table class="table table-sm table-vcenter mb-0">
@@ -21,6 +22,7 @@
       <tr>
          <th>{{ __('Account', 'grcmanager') }}</th>
          <th>{{ __('Profiles and groups', 'grcmanager') }}</th>
+         <th>{{ __('Suggestion and reason', 'grcmanager') }}</th>
          {% if show_reviewer %}<th>{{ __('Owner', 'grcmanager') }}</th>{% endif %}
          <th>{{ __('Decision and comment', 'grcmanager') }}</th>
       </tr>
@@ -36,6 +38,18 @@
                   <div class="text-muted small"><i class="ti ti-users me-1"></i>{{ line.groups_list|join(', ') }}</div>
                {% endif %}
             </td>
+            <td style="min-width: 220px">
+               {% if line.suggestion %}
+                  <span class="badge bg-{{ line.suggestion_color }}-subtle text-{{ line.suggestion_color }}-emphasis"><i class="{{ line.suggestion_icon }} me-1"></i>{{ line.suggestion_label }}</span>
+                  <ul class="list-unstyled small mb-0 mt-1">
+                     {% for reason in line.suggestion_reasons_list %}
+                        <li class="{{ reason.removal ? 'text-danger' : 'text-muted' }}"><i class="ti {{ reason.removal ? 'ti-alert-triangle' : 'ti-point' }} me-1"></i>{{ reason.label }}</li>
+                     {% endfor %}
+                  </ul>
+               {% else %}
+                  <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-help me-1"></i>{{ __('No suggestion yet', 'grcmanager') }}</span>
+               {% endif %}
+            </td>
             {% if show_reviewer %}
                <td class="text-nowrap">{{ line.reviewer_name }}<div class="text-muted small">{{ sources[line.reviewer_source]|default('') }}</div></td>
             {% endif %}
@@ -44,18 +58,21 @@
                   <div class="btn-group btn-group-sm" role="group">
                      {% for value in ['keep', 'modify', 'remove'] %}
                         <input type="radio" class="btn-check" name="decisions[{{ line.id }}]" id="d-{{ line.id }}-{{ value }}" value="{{ value }}" {{ line.decision == value ? 'checked' : '' }}>
-                        <label class="btn btn-outline-secondary" for="d-{{ line.id }}-{{ value }}">{{ decisions[value] }}</label>
+                        <label class="btn btn-outline-secondary" for="d-{{ line.id }}-{{ value }}"{% if line.suggested_decision == value %} title="{{ __('Suggested by the rules', 'grcmanager') }}"{% endif %}>{% if line.suggested_decision == value %}<i class="ti ti-bulb me-1 text-warning"></i>{% endif %}{{ decisions[value] }}</label>
                      {% endfor %}
                   </div>
                {% else %}
                   <span class="badge {{ decision_class[line.decision] }}">{{ decisions[line.decision] }}</span>
+               {% endif %}
+               {% if line.differs %}
+                  <div><span class="badge bg-info-subtle text-info-emphasis mt-1"><i class="ti ti-arrows-diff me-1"></i>{{ __('Decision differs from the suggestion', 'grcmanager') }}</span></div>
                {% endif %}
                {% if line.decided_by_name %}
                   <div class="text-muted small">{{ line.decided_by_name }}, {{ line.date_decision|formatted_datetime }}</div>
                {% endif %}
                {% if can_decide and not locked %}
                   <input type="text" class="form-control form-control-sm mt-1" name="comments[{{ line.id }}]" value="{{ line.comment }}"
-                     placeholder="{{ __('Comment (required to change or remove)', 'grcmanager') }}">
+                     placeholder="{{ line.suggestion == 'remove' ? __('Comment (required to keep, change or remove)', 'grcmanager') : __('Comment (required to change or remove)', 'grcmanager') }}">
                {% elseif line.comment %}
                   <div class="mt-1"><i class="ti ti-message me-1 text-muted"></i>{{ line.comment }}</div>
                {% endif %}

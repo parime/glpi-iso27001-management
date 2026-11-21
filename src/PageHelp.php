@@ -488,6 +488,22 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3', 'grcmanager'),
+            // Issue #781 : conformité de configuration d'après les résultats OpenSCAP.
+            'configcompliance' => [
+                'purpose'   => __(
+                    'Measures how well the configuration of the computers follows a hardening guide (CIS, ANSSI, '
+                        . 'DISA STIG...), from the results files of the OpenSCAP scanner: rate of rules passed per '
+                        . 'computer, change since the previous scan, most frequent failed rules and history.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), match the results '
+                        . 'that are not matched to a computer, then fix the failed rules, starting with the high '
+                        . 'severity ones. A remediation ticket can be proposed for a computer: it is created only '
+                        . 'when you click. Nothing is changed on the machines.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.8.9', 'grcmanager'),
             ],
             // Issue #853 : couverture de la journalisation.
             'logcoverage' => [
@@ -766,8 +782,9 @@ class PageHelp
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Start a campaign; managers decide line by line. Removing a right opens a ticket, it is never '
-                        . 'applied automatically.',
+                    'Start a campaign; managers decide line by line, helped by a suggestion (keep, remove or '
+                        . 'examine) and its reason. Removing a right opens a ticket, it is never applied '
+                        . 'automatically.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, Annex A 5.18', 'grcmanager'),

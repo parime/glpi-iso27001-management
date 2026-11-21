@@ -29455,8 +29455,10 @@ msgstr ""
 "responsabile, poi fate clic su «Aggiungi»: prima non viene salvato nulla."
 
 #, php-format
-msgid "%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
-msgstr "%1$d host importati: %2$d associati a un asset GLPI, %3$d non associati."
+msgid ""
+"%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr ""
+"%1$d host importati: %2$d associati a un asset GLPI, %3$d non associati."
 
 msgid "Logging settings saved."
 msgstr "Impostazioni dei log salvate."
@@ -29489,7 +29491,8 @@ msgid "Logs received"
 msgstr "Log ricevuti"
 
 msgid "A log platform received an event from this asset recently."
-msgstr "Una piattaforma di log ha ricevuto di recente un evento da questo asset."
+msgstr ""
+"Una piattaforma di log ha ricevuto di recente un evento da questo asset."
 
 msgid "Critical assets, servers and network devices"
 msgstr "Asset critici, server e dispositivi di rete"
@@ -29506,17 +29509,40 @@ msgstr "Sufficiente"
 msgid "Too short"
 msgstr "Troppo breve"
 
-msgid "The file has no column for the host name or IP address (for example host, hostname, source, agent.name or ip)."
-msgstr "Il file non ha una colonna per il nome host o l'indirizzo IP (ad esempio host, hostname, source, agent.name o ip)."
+msgid ""
+"The file has no column for the host name or IP address (for example host, "
+"hostname, source, agent.name or ip)."
+msgstr ""
+"Il file non ha una colonna per il nome host o l'indirizzo IP (ad esempio "
+"host, hostname, source, agent.name o ip)."
 
 msgid "You do not have the right to import."
 msgstr "Non hai il diritto di importare."
 
-msgid "Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or nothing for several days, and whether each platform keeps the logs long enough and synchronizes the clocks."
-msgstr "Mostra quali asset importanti inviano i loro log a una piattaforma (Wazuh, Graylog, Elastic o OpenSearch, Splunk, syslog), quali non inviano nulla o più nulla da alcuni giorni, e se ogni piattaforma conserva i log abbastanza a lungo e sincronizza gli orologi."
+msgid ""
+"Shows which important assets send their logs to a log platform (Wazuh, "
+"Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
+"nothing for several days, and whether each platform keeps the logs long "
+"enough and synchronizes the clocks."
+msgstr ""
+"Mostra quali asset importanti inviano i loro log a una piattaforma (Wazuh, "
+"Graylog, Elastic o OpenSearch, Splunk, syslog), quali non inviano nulla o "
+"più nulla da alcuni giorni, e se ogni piattaforma conserva i log abbastanza "
+"a lungo e sincronizza gli orologi."
 
-msgid "Choose the assets that must send their logs, import the list of hosts of each log platform (or let the Wazuh plugin be read), connect the assets listed as gaps, and declare the retention and the time server of each platform. The page only reads: it runs nothing on the platforms. Record the result as an effectiveness test of the control to keep the evidence."
-msgstr "Scegli gli asset che devono inviare i loro log, importa l'elenco degli host di ogni piattaforma (o lascia leggere il plugin Wazuh), collega gli asset elencati come scostamenti e dichiara la conservazione e il server orario di ogni piattaforma. La pagina legge soltanto: non avvia nulla sulle piattaforme. Registra il risultato come test di efficacia del controllo per conservare la prova."
+msgid ""
+"Choose the assets that must send their logs, import the list of hosts of "
+"each log platform (or let the Wazuh plugin be read), connect the assets "
+"listed as gaps, and declare the retention and the time server of each "
+"platform. The page only reads: it runs nothing on the platforms. Record the "
+"result as an effectiveness test of the control to keep the evidence."
+msgstr ""
+"Scegli gli asset che devono inviare i loro log, importa l'elenco degli host "
+"di ogni piattaforma (o lascia leggere il plugin Wazuh), collega gli asset "
+"elencati come scostamenti e dichiara la conservazione e il server orario di "
+"ogni piattaforma. La pagina legge soltanto: non avvia nulla sulle "
+"piattaforme. Registra il risultato come test di efficacia del controllo per "
+"conservare la prova."
 
 msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
 msgstr "ISO/IEC 27001, controlli A.8.15, A.8.16 e A.8.17"
@@ -29560,8 +29586,15 @@ msgstr "%d giorni conservati"
 msgid "%d days required"
 msgstr "%d giorni richiesti"
 
-msgid "An asset is critical when one axis of its C/I/A classification is high (tab of the asset form), or when a network flow publishes it on the Internet. Servers are recognized from the computer type or the operating system name."
-msgstr "Un asset è critico quando un asse della sua classificazione R/I/D è alto (scheda del modulo dell'asset), o quando un flusso di rete lo pubblica su Internet. I server sono riconosciuti dal tipo di computer o dal nome del sistema operativo."
+msgid ""
+"An asset is critical when one axis of its C/I/A classification is high (tab "
+"of the asset form), or when a network flow publishes it on the Internet. "
+"Servers are recognized from the computer type or the operating system name."
+msgstr ""
+"Un asset è critico quando un asse della sua classificazione R/I/D è alto "
+"(scheda del modulo dell'asset), o quando un flusso di rete lo pubblica su "
+"Internet. I server sono riconosciuti dal tipo di computer o dal nome del "
+"sistema operativo."
 
 msgid "Assets concerned whose logs are received"
 msgstr "Asset interessati i cui log sono ricevuti"
@@ -29569,8 +29602,12 @@ msgstr "Asset interessati i cui log sono ricevuti"
 msgid "Assets that must send their logs"
 msgstr "Asset che devono inviare i loro log"
 
-msgid "Check the name of the asset in GLPI, or add the asset to the inventory: an unknown host may be an asset missing from the inventory."
-msgstr "Verifica il nome dell'asset in GLPI o aggiungi l'asset all'inventario: un host sconosciuto può essere un asset assente dall'inventario."
+msgid ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown host may be an asset missing from the inventory."
+msgstr ""
+"Verifica il nome dell'asset in GLPI o aggiungi l'asset all'inventario: un "
+"host sconosciuto può essere un asset assente dall'inventario."
 
 msgid "Clock synchronization not declared"
 msgstr "Sincronizzazione degli orologi non dichiarata"
@@ -29587,17 +29624,42 @@ msgstr "Asset critici senza log"
 msgid "Declare another platform"
 msgstr "Dichiara un'altra piattaforma"
 
-msgid "Declare, for each platform, how long the logs are kept and whether the clocks are synchronized. The retention required is the longest between the policy and the obligation chosen. These are declarations: keep the screenshot of the setting as evidence."
-msgstr "Dichiara, per ogni piattaforma, per quanto tempo sono conservati i log e se gli orologi sono sincronizzati. La conservazione richiesta è la più lunga tra la politica e l'obbligo scelto. Sono dichiarazioni: conserva lo screenshot dell'impostazione come prova."
+msgid ""
+"Declare, for each platform, how long the logs are kept and whether the "
+"clocks are synchronized. The retention required is the longest between the "
+"policy and the obligation chosen. These are declarations: keep the "
+"screenshot of the setting as evidence."
+msgstr ""
+"Dichiara, per ogni piattaforma, per quanto tempo sono conservati i log e se "
+"gli orologi sono sincronizzati. La conservazione richiesta è la più lunga "
+"tra la politica e l'obbligo scelto. Sono dichiarazioni: conserva lo "
+"screenshot dell'impostazione come prova."
 
-msgid "Export the list of hosts that send logs from your log platform, then import the CSV file here. A new import of the same platform replaces the previous one in the current entity. Only host names, addresses and the date of the last event are kept, never the content of a log."
-msgstr "Esporta dalla tua piattaforma di log l'elenco degli host che inviano log, poi importa qui il file CSV. Una nuova importazione della stessa piattaforma sostituisce la precedente nell'entità corrente. Sono conservati solo i nomi host, gli indirizzi e la data dell'ultimo evento, mai il contenuto di un log."
+msgid ""
+"Export the list of hosts that send logs from your log platform, then import "
+"the CSV file here. A new import of the same platform replaces the previous "
+"one in the current entity. Only host names, addresses and the date of the "
+"last event are kept, never the content of a log."
+msgstr ""
+"Esporta dalla tua piattaforma di log l'elenco degli host che inviano log, "
+"poi importa qui il file CSV. Una nuova importazione della stessa piattaforma "
+"sostituisce la precedente nell'entità corrente. Sono conservati solo i nomi "
+"host, gli indirizzi e la data dell'ultimo evento, mai il contenuto di un log."
 
-msgid "For example a law, a regulation or a contract listed in the register of obligations."
-msgstr "Ad esempio una legge, un regolamento o un contratto iscritto nel registro degli obblighi."
+msgid ""
+"For example a law, a regulation or a contract listed in the register of "
+"obligations."
+msgstr ""
+"Ad esempio una legge, un regolamento o un contratto iscritto nel registro "
+"degli obblighi."
 
-msgid "Graylog, Elastic or OpenSearch: a table of the sources with the most recent timestamp (columns source or host.name, and last timestamp), exported as CSV."
-msgstr "Graylog, Elastic o OpenSearch: una tabella delle sorgenti con il timestamp più recente (colonne source o host.name, e ultimo timestamp), esportata in CSV."
+msgid ""
+"Graylog, Elastic or OpenSearch: a table of the sources with the most recent "
+"timestamp (columns source or host.name, and last timestamp), exported as CSV."
+msgstr ""
+"Graylog, Elastic o OpenSearch: una tabella delle sorgenti con il timestamp "
+"più recente (colonne source o host.name, e ultimo timestamp), esportata in "
+"CSV."
 
 msgid "Hosts"
 msgstr "Host"
@@ -29624,8 +29686,12 @@ msgstr "Nessun asset interessato nelle tue entità."
 msgid "No event for more than %d days: logs stopped"
 msgstr "Nessun evento da più di %d giorni: log interrotti"
 
-msgid "No log source yet: import the list of hosts of your log platform to measure the coverage."
-msgstr "Nessuna sorgente di log per ora: importa l'elenco degli host della tua piattaforma per misurare la copertura."
+msgid ""
+"No log source yet: import the list of hosts of your log platform to measure "
+"the coverage."
+msgstr ""
+"Nessuna sorgente di log per ora: importa l'elenco degli host della tua "
+"piattaforma per misurare la copertura."
 
 msgid "No platform declared."
 msgstr "Nessuna piattaforma dichiarata."
@@ -29642,11 +29708,19 @@ msgstr "Piattaforme senza sincronizzazione degli orologi dichiarata"
 msgid "Read directly"
 msgstr "Letto direttamente"
 
-msgid "Read-only: the plugin reads the lists of hosts, it never runs anything on the log platforms and changes nothing in GLPI."
-msgstr "Sola lettura: il plugin legge gli elenchi degli host, non avvia mai nulla sulle piattaforme di log e non modifica nulla in GLPI."
+msgid ""
+"Read-only: the plugin reads the lists of hosts, it never runs anything on "
+"the log platforms and changes nothing in GLPI."
+msgstr ""
+"Sola lettura: il plugin legge gli elenchi degli host, non avvia mai nulla "
+"sulle piattaforme di log e non modifica nulla in GLPI."
 
-msgid "Recognized columns: host (or hostname, source, agent.name), ip, and last event (or lastTime, last_seen, lastKeepAlive)."
-msgstr "Colonne riconosciute: host (o hostname, source, agent.name), ip e ultimo evento (o lastTime, last_seen, lastKeepAlive)."
+msgid ""
+"Recognized columns: host (or hostname, source, agent.name), ip, and last "
+"event (or lastTime, last_seen, lastKeepAlive)."
+msgstr ""
+"Colonne riconosciute: host (o hostname, source, agent.name), ip e ultimo "
+"evento (o lastTime, last_seen, lastKeepAlive)."
 
 msgid "Register of obligations"
 msgstr "Registro degli obblighi"
@@ -29670,11 +29744,18 @@ msgstr "Conservazione richiesta dalla politica (giorni)"
 msgid "Retention required by the policy: %d days"
 msgstr "Conservazione richiesta dalla politica: %d giorni"
 
-msgid "Splunk: run the search \"| metadata type=hosts index=*\" and export the result (columns host, lastTime)."
-msgstr "Splunk: esegui la ricerca \"| metadata type=hosts index=*\" ed esporta il risultato (colonne host, lastTime)."
+msgid ""
+"Splunk: run the search \"| metadata type=hosts index=*\" and export the "
+"result (columns host, lastTime)."
+msgstr ""
+"Splunk: esegui la ricerca \"| metadata type=hosts index=*\" ed esporta il "
+"risultato (colonne host, lastTime)."
 
-msgid "The Wazuh plugin is active: its active agents are read directly, read-only."
-msgstr "Il plugin Wazuh è attivo: i suoi agenti attivi sono letti direttamente, in sola lettura."
+msgid ""
+"The Wazuh plugin is active: its active agents are read directly, read-only."
+msgstr ""
+"Il plugin Wazuh è attivo: i suoi agenti attivi sono letti direttamente, in "
+"sola lettura."
 
 msgid "The clocks of the sources and of the platform are synchronized"
 msgstr "Gli orologi delle sorgenti e della piattaforma sono sincronizzati"
@@ -29682,8 +29763,12 @@ msgstr "Gli orologi delle sorgenti e della piattaforma sono sincronizzati"
 msgid "Time server (NTP)"
 msgstr "Server orario (NTP)"
 
-msgid "Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, one host per line."
-msgstr "Wazuh senza il plugin GLPI, o un server syslog: un file CSV con intestazione, un host per riga."
+msgid ""
+"Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, "
+"one host per line."
+msgstr ""
+"Wazuh senza il plugin GLPI, o un server syslog: un file CSV con "
+"intestazione, un host per riga."
 
 msgid "Which assets must send their logs?"
 msgstr "Quali asset devono inviare i loro log?"
@@ -29706,9 +29791,491 @@ msgid_plural "%d log platforms"
 msgstr[0] "%d piattaforma di log"
 msgstr[1] "%d piattaforme di log"
 
+msgid "Choose an XML results file produced by OpenSCAP (XCCDF or ARF)."
+msgstr "Scegliere un file di risultati XML prodotto da OpenSCAP (XCCDF o ARF)."
+
 #, php-format
-msgid "%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed since the previous import."
-msgstr "%1$d condivisione/i e %2$d diritto/i importati: %3$d nuovo/i diritto/i, %4$d rimosso/i dall'importazione precedente."
+msgid ""
+"%1$d scan result(s) imported: %2$d matched to a computer, %3$d not matched, "
+"%4$d already imported."
+msgstr ""
+"%1$d risultato/i di scansione importato/i: %2$d associato/i a un computer, "
+"%3$d non associato/i, %4$d già importato/i."
+
+msgid ""
+"The file holds more results or failed rules than the import keeps: only the "
+"first ones were kept."
+msgstr ""
+"Il file contiene più risultati o regole non superate di quanti "
+"l'importazione ne conservi: sono stati conservati solo i primi."
+
+msgid "Choose a computer you can see."
+msgstr "Scegliere un computer visibile."
+
+msgid "Scan result matched to the computer."
+msgstr "Risultato di scansione associato al computer."
+
+msgid "Scan result deleted."
+msgstr "Risultato di scansione eliminato."
+
+msgid "Configuration compliance"
+msgstr "Conformità della configurazione"
+
+msgid "Information"
+msgstr "Informazione"
+
+msgid "Error during the check"
+msgstr "Errore durante la verifica"
+
+msgid ""
+"The file contains a document type or entity declaration, refused for "
+"security reasons. OpenSCAP never writes one: export the results again with "
+"oscap."
+msgstr ""
+"Il file contiene una dichiarazione di tipo di documento o di entità, "
+"rifiutata per motivi di sicurezza. OpenSCAP non ne scrive mai: esportare di "
+"nuovo i risultati con oscap."
+
+msgid ""
+"No scan result was found in the file. Choose the results file (option --"
+"results or --results-arf of oscap), not the benchmark or the HTML report."
+msgstr ""
+"Nessun risultato di scansione trovato nel file. Scegliere il file dei "
+"risultati (opzione --results o --results-arf di oscap), non il benchmark né "
+"il report HTML."
+
+msgid "The file is not valid XML, or it is truncated."
+msgstr "Il file non è un XML valido oppure è troncato."
+
+#, php-format
+msgid "Configuration remediation: %1$s (%2$d rule(s) failed)"
+msgstr "Correzione della configurazione: %1$s (%2$d regola/e non superata/e)"
+
+msgid "OpenSCAP scans (XCCDF/ARF)"
+msgstr "Scansioni OpenSCAP (XCCDF/ARF)"
+
+msgid "No scan imported yet"
+msgstr "Nessuna scansione ancora importata"
+
+msgid "Import results"
+msgstr "Importa risultati"
+
+msgid "Average compliance: not measured"
+msgstr "Conformità media: non misurata"
+
+#, php-format
+msgid "Average compliance: %d%%"
+msgstr "Conformità media: %d%%"
+
+#, php-format
+msgid "%d machine(s) scanned"
+msgstr "%d macchina/e scansionata/e"
+
+#, php-format
+msgid "%1$d below %2$d%%"
+msgstr "%1$d sotto il %2$d%%"
+
+#, php-format
+msgid "%d with a high severity rule failed"
+msgstr "%d con una regola di gravità alta non superata"
+
+#, php-format
+msgid "%d not matched to a computer"
+msgstr "%d non associato/i a un computer"
+
+#, php-format
+msgid "Last scan on %s"
+msgstr "Ultima scansione il %s"
+
+msgid ""
+"Measures how well the configuration of the computers follows a hardening "
+"guide (CIS, ANSSI, DISA STIG...), from the results files of the OpenSCAP "
+"scanner: rate of rules passed per computer, change since the previous scan, "
+"most frequent failed rules and history."
+msgstr ""
+"Misura quanto la configurazione dei computer segue una guida di hardening "
+"(CIS, ANSSI, DISA STIG...), dai file di risultati dello scanner OpenSCAP: "
+"tasso di regole superate per computer, variazione dalla scansione "
+"precedente, regole non superate più frequenti e cronologia."
+
+msgid ""
+"Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), "
+"match the results that are not matched to a computer, then fix the failed "
+"rules, starting with the high severity ones. A remediation ticket can be "
+"proposed for a computer: it is created only when you click. Nothing is "
+"changed on the machines."
+msgstr ""
+"Scansionare le macchine con OpenSCAP, importare il file dei risultati (XCCDF "
+"o ARF), associare i risultati non associati a un computer, quindi correggere "
+"le regole non superate, a partire da quelle di gravità alta. Per un computer "
+"si può proporre un ticket di correzione: viene creato solo al vostro clic. "
+"Nulla viene modificato sulle macchine."
+
+msgid "ISO/IEC 27001, control A.8.9"
+msgstr "ISO/IEC 27001, controllo A.8.9"
+
+msgid "Scanned computers with a high severity configuration rule failed (%)"
+msgstr ""
+"Computer scansionati con una regola di configurazione di gravità alta non "
+"superata (%)"
+
+msgid "High severity"
+msgstr "Gravità alta"
+
+msgid "No previous scan with the same profile"
+msgstr "Nessuna scansione precedente con lo stesso profilo"
+
+msgid "No profile"
+msgstr "Nessun profilo"
+
+msgid "Rules passed out of the rules checked (not applicable rules excluded)"
+msgstr ""
+"Regole superate tra le regole verificate (regole non applicabili escluse)"
+
+#, php-format
+msgid "%1$d of %2$d computers shown, the least compliant first."
+msgstr "%1$d computer su %2$d mostrati, i meno conformi per primi."
+
+msgid "Average compliance of the last scans"
+msgstr "Conformità media delle ultime scansioni"
+
+#, php-format
+msgid "Below the %d%% target"
+msgstr "Sotto l'obiettivo del %d%%"
+
+msgid ""
+"Creates a remediation ticket linked to the computer, with the failed rules. "
+"Nothing is created without this click."
+msgstr ""
+"Crea un ticket di correzione collegato al computer, con le regole non "
+"superate. Senza questo clic non viene creato nulla."
+
+msgid "Download an example file"
+msgstr "Scarica un file di esempio"
+
+msgid "Host name in the report"
+msgstr "Nome host nel report"
+
+msgid "Import OpenSCAP results"
+msgstr "Importa risultati OpenSCAP"
+
+msgid "Last scan of each computer"
+msgstr "Ultima scansione di ogni computer"
+
+msgid "Machines scanned"
+msgstr "Macchine scansionate"
+
+msgid "Match"
+msgstr "Associa"
+
+msgid "Match to a computer"
+msgstr "Associa a un computer"
+
+msgid "Most frequent failed rules"
+msgstr "Regole non superate più frequenti"
+
+msgid ""
+"No computer you can see bears this name, or several do. Check the name of "
+"the computer in GLPI, or choose it here."
+msgstr ""
+"Nessun computer visibile porta questo nome, oppure più computer lo portano. "
+"Verificare il nome del computer in GLPI o sceglierlo qui."
+
+msgid "No failed rule in the last scans."
+msgstr "Nessuna regola non superata nelle ultime scansioni."
+
+msgid "No host name"
+msgstr "Nessun nome host"
+
+msgid ""
+"No scan imported yet. Import an OpenSCAP results file to measure the "
+"configuration compliance."
+msgstr ""
+"Nessuna scansione ancora importata. Importare un file di risultati OpenSCAP "
+"per misurare la conformità della configurazione."
+
+msgid "No scan result is matched to a computer yet: match them below."
+msgstr ""
+"Nessun risultato di scansione è ancora associato a un computer: associarli "
+"qui sotto."
+
+msgid "Propose a ticket"
+msgstr "Proponi un ticket"
+
+msgid "Results file"
+msgstr "File dei risultati"
+
+msgid "Rules failed"
+msgstr "Regole non superate"
+
+msgid ""
+"Run the scan on the machine, then import the results file (XCCDF or ARF). "
+"One file can hold several machines. Each result is matched to the GLPI "
+"computer of the same name."
+msgstr ""
+"Eseguire la scansione sulla macchina, poi importare il file dei risultati "
+"(XCCDF o ARF). Un file può contenere più macchine. Ogni risultato viene "
+"associato al computer GLPI con lo stesso nome."
+
+msgid "Scan date"
+msgstr "Data della scansione"
+
+msgid "Scan results not matched to a computer"
+msgstr "Risultati di scansione non associati a un computer"
+
+#, php-format
+msgid "Ticket %d"
+msgstr "Ticket %d"
+
+msgid "With a high severity rule failed"
+msgstr "Con una regola di gravità alta non superata"
+
+#, php-format
+msgid ""
+"XML file, %d MB at most. The file itself is not kept: only the counts and "
+"the failed rules."
+msgstr ""
+"File XML, al massimo %d MB. Il file non viene conservato: solo i conteggi e "
+"le regole non superate."
+
+#, php-format
+msgid "%d failed"
+msgstr "%d non superate"
+
+#, php-format
+msgid "%d in error"
+msgstr "%d in errore"
+
+#, php-format
+msgid "%d not applicable or not checked"
+msgstr "%d non applicabili o non verificate"
+
+#, php-format
+msgid "%d passed"
+msgstr "%d superate"
+
+msgid "Back to the configuration compliance"
+msgstr "Torna alla conformità della configurazione"
+
+msgid "Delete this scan result"
+msgstr "Elimina questo risultato di scansione"
+
+msgid "Delete this scan result?"
+msgstr "Eliminare questo risultato di scansione?"
+
+msgid "Failed rules"
+msgstr "Regole non superate"
+
+msgid "No failed rule in this scan."
+msgstr "Nessuna regola non superata in questa scansione."
+
+msgid "Not matched"
+msgstr "Non associato"
+
+msgid "Rules"
+msgstr "Regole"
+
+msgid "Scan history of this machine"
+msgstr "Cronologia delle scansioni di questa macchina"
+
+msgid "Scanner"
+msgstr "Scanner"
+
+msgid "Score of the tool"
+msgstr "Punteggio dello strumento"
+
+msgid ""
+"This scan has more failed rules than the import keeps: only the first ones "
+"are listed."
+msgstr ""
+"Questa scansione ha più regole non superate di quante l'importazione ne "
+"conservi: sono elencate solo le prime."
+
+#, php-format
+msgid "And %d more rule(s): see the scan in GRC."
+msgstr "E altre %d regola/e: vedere la scansione in GRC."
+
+#, php-format
+msgid ""
+"Configuration scan of %1$s on %2$s: %3$d rule(s) failed. ISO/IEC 27001, "
+"control A.8.9."
+msgstr ""
+"Scansione della configurazione di %1$s il %2$s: %3$d regola/e non superata/"
+"e. ISO/IEC 27001, controllo A.8.9."
+
+#, php-format
+msgid "Suggestions updated for %d account(s) still to review."
+msgstr "Suggerimenti aggiornati per %d account ancora da rivedere."
+
+msgid "Rule disabled"
+msgstr "Regola disattivata"
+
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d giorno"
+msgstr[1] "%d giorni"
+
+msgid ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+msgstr ""
+"Le regole suggeriscono di rimuovere questo account: spiegate nel commento "
+"perché viene mantenuto."
+
+msgid "Suggested: remove"
+msgstr "Suggerimento: rimuovere"
+
+msgid "Suggested: examine"
+msgstr "Suggerimento: da esaminare"
+
+msgid "Examine"
+msgstr "Da esaminare"
+
+msgid "Suggested: keep"
+msgstr "Suggerimento: mantenere"
+
+msgid "Keep"
+msgstr "Mantenere"
+
+#, php-format
+msgid "Account end date passed (%s)"
+msgstr "Data di fine dell'account superata (%s)"
+
+#, php-format
+msgid "Departure recorded on %s"
+msgstr "Uscita registrata il %s"
+
+#, php-format
+msgid "Leaving on %1$s (within %2$d days)"
+msgstr "Uscita il %1$s (entro %2$d giorni)"
+
+#, php-format
+msgid "No login for more than %1$d days (last on %2$s)"
+msgstr "Nessun accesso da più di %1$d giorni (ultimo il %2$s)"
+
+#, php-format
+msgid "Privileged profile: %s"
+msgstr "Profilo privilegiato: %s"
+
+#, php-format
+msgid "Privileged profile without known MFA: %s"
+msgstr "Profilo privilegiato senza MFA nota: %s"
+
+#, php-format
+msgid "No warning sign (last login on %s)"
+msgstr "Nessun segnale di allerta (ultimo accesso il %s)"
+
+msgid "No warning sign"
+msgstr "Nessun segnale di allerta"
+
+msgid ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+msgstr ""
+"Avviate una campagna; i responsabili decidono riga per riga, aiutati da un "
+"suggerimento (mantenere, rimuovere o da esaminare) e dal suo motivo. La "
+"rimozione di un diritto apre un ticket, non viene mai applicata "
+"automaticamente."
+
+msgid ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+msgstr ""
+"Ogni account arriva con un suggerimento (mantenere, rimuovere o da "
+"esaminare) e il suo motivo. Il suggerimento non decide mai: sceglie il "
+"revisore, e mantenere un account che le regole suggeriscono di rimuovere "
+"richiede un commento."
+
+msgid "Examine group changes without profile review"
+msgstr "Esaminare i cambi di gruppo senza revisione dei profili"
+
+msgid "Examine privileged profiles"
+msgstr "Esaminare i profili privilegiati"
+
+msgid "Examine: leaving soon, inactive, groups changed, privileged profile"
+msgstr ""
+"Da esaminare: uscita imminente, inattivo, gruppi cambiati, profilo "
+"privilegiato"
+
+msgid ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+msgstr ""
+"Dalla pagina Copertura MFA: autenticazione a due fattori di GLPI o report "
+"importato."
+
+msgid "Inactive account: no login for"
+msgstr "Account inattivo: nessun accesso da"
+
+msgid "Keep: no warning sign"
+msgstr "Mantenere: nessun segnale di allerta"
+
+msgid "Leaving soon: end date or departure within"
+msgstr "Uscita imminente: data di fine o uscita entro"
+
+msgid "Mention privileged accounts without known MFA"
+msgstr "Segnalare gli account privilegiati senza MFA nota"
+
+msgid "Profiles that can change the GLPI configuration or profiles."
+msgstr "Profili che possono modificare la configurazione o i profili di GLPI."
+
+msgid "Remove: deleted from the directory, end date or departure passed"
+msgstr "Rimuovere: eliminato dalla directory, data di fine o uscita superate"
+
+msgid "Suggestion rules"
+msgstr "Regole di suggerimento"
+
+msgid ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+msgstr ""
+"Ogni account mostra un suggerimento e il suo motivo (uscita, inattività, "
+"profilo privilegiato...). È solo una proposta: decidete voi."
+
+msgid "Decision differs from the suggestion"
+msgstr "Decisione diversa dal suggerimento"
+
+msgid "Suggestion and reason"
+msgstr "Suggerimento e motivo"
+
+msgid "Suggestions"
+msgstr "Suggerimenti"
+
+msgid "Comment (required to keep, change or remove)"
+msgstr "Commento (obbligatorio per mantenere, modificare o rimuovere)"
+
+msgid "No suggestion yet"
+msgstr "Ancora nessun suggerimento"
+
+msgid "Suggested by the rules"
+msgstr "Suggerito dalle regole"
+
+msgid ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+msgstr ""
+"Solo proposte: ogni revisore decide. Le regole si impostano nel modulo della "
+"campagna."
+
+msgid ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+msgstr ""
+"Ricalcola il suggerimento degli account ancora da rivedere (gli account già "
+"decisi mantengono quello visto dal loro revisore)."
+
+msgid "Update the suggestions"
+msgstr "Aggiornare i suggerimenti"
+
+#, php-format
+msgid ""
+"%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed "
+"since the previous import."
+msgstr ""
+"%1$d condivisione/i e %2$d diritto/i importati: %3$d nuovo/i diritto/i, %4$d"
+" rimosso/i dall'importazione precedente."
 
 msgid "The file is too long: only its first lines were imported."
 msgstr "Il file è troppo lungo: sono state importate solo le prime righe."
@@ -29722,11 +30289,31 @@ msgstr "Revisione avviata: il proprietario può ora decidere per ogni diritto."
 msgid "Review closed."
 msgstr "Revisione chiusa."
 
-msgid "Shows who can access the Windows file shares: share and NTFS permissions imported from each file server, accounts matched with the GLPI users and groups, and the gaps an auditor looks for (everyone can modify, rights given to a person, deleted or disabled accounts, broken inheritance, share without an owner)."
-msgstr "Mostra chi può accedere alle condivisioni di file Windows: diritti di condivisione e NTFS importati da ogni file server, account associati agli utenti e ai gruppi GLPI, e le anomalie che un auditor cerca (tutti possono modificare, diritti dati a una persona, account eliminati o disattivati, ereditarietà interrotta, condivisione senza proprietario)."
+msgid ""
+"Shows who can access the Windows file shares: share and NTFS permissions "
+"imported from each file server, accounts matched with the GLPI users and "
+"groups, and the gaps an auditor looks for (everyone can modify, rights given"
+" to a person, deleted or disabled accounts, broken inheritance, share "
+"without an owner)."
+msgstr ""
+"Mostra chi può accedere alle condivisioni di file Windows: diritti di "
+"condivisione e NTFS importati da ogni file server, account associati agli "
+"utenti e ai gruppi GLPI, e le anomalie che un auditor cerca (tutti possono "
+"modificare, diritti dati a una persona, account eliminati o disattivati, "
+"ereditarietà interrotta, condivisione senza proprietario)."
 
-msgid "Run the PowerShell script provided on each file server (it only reads), import the CSV file, classify the sensitive shares and designate an owner for each one. The owner then reviews the rights of the share; the administrator applies the changes on the server and the next import shows the rights added and removed."
-msgstr "Eseguite lo script PowerShell fornito su ogni file server (si limita a leggere), importate il file CSV, classificate le condivisioni sensibili e designate un proprietario per ciascuna. Il proprietario rivede poi i diritti della condivisione; l'amministratore applica le modifiche sul server e l'importazione successiva mostra i diritti aggiunti e rimossi."
+msgid ""
+"Run the PowerShell script provided on each file server (it only reads), "
+"import the CSV file, classify the sensitive shares and designate an owner "
+"for each one. The owner then reviews the rights of the share; the "
+"administrator applies the changes on the server and the next import shows "
+"the rights added and removed."
+msgstr ""
+"Eseguite lo script PowerShell fornito su ogni file server (si limita a "
+"leggere), importate il file CSV, classificate le condivisioni sensibili e "
+"designate un proprietario per ciascuna. Il proprietario rivede poi i diritti"
+" della condivisione; l'amministratore applica le modifiche sul server e "
+"l'importazione successiva mostra i diritti aggiunti e rimossi."
 
 msgid "ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3"
 msgstr "ISO/IEC 27001, controlli A.5.15, A.5.18 e A.8.3"
@@ -29758,47 +30345,83 @@ msgstr "Account eliminato"
 msgid "Everyone can modify"
 msgstr "Tutti possono modificare"
 
-msgid "Everyone, Authenticated Users, Domain Users or Guests can modify or have full control."
-msgstr "Tutti, Utenti autenticati, Utenti del dominio o Guest possono modificare o hanno il controllo completo."
+msgid ""
+"Everyone, Authenticated Users, Domain Users or Guests can modify or have "
+"full control."
+msgstr ""
+"Tutti, Utenti autenticati, Utenti del dominio o Guest possono modificare o "
+"hanno il controllo completo."
 
 msgid "Deleted account still has rights"
 msgstr "Account eliminato che ha ancora diritti"
 
-msgid "The account no longer exists in the directory (unresolved SID) or is in the GLPI trash."
-msgstr "L'account non esiste più nella directory (SID non risolto) o è nel cestino di GLPI."
+msgid ""
+"The account no longer exists in the directory (unresolved SID) or is in the "
+"GLPI trash."
+msgstr ""
+"L'account non esiste più nella directory (SID non risolto) o è nel cestino "
+"di GLPI."
 
 msgid "Disabled account still has rights"
 msgstr "Account disattivato che ha ancora diritti"
 
 msgid "The matching GLPI account is disabled: the person has probably left."
-msgstr "L'account GLPI corrispondente è disattivato: la persona probabilmente se n'è andata."
+msgstr ""
+"L'account GLPI corrispondente è disattivato: la persona probabilmente se n'è"
+" andata."
 
 msgid "Right given to a person"
 msgstr "Diritto dato a una persona"
 
-msgid "Rights should be given to groups, not to named people: they are easier to review."
-msgstr "I diritti dovrebbero essere dati a gruppi, non a persone nominative: sono più facili da rivedere."
+msgid ""
+"Rights should be given to groups, not to named people: they are easier to "
+"review."
+msgstr ""
+"I diritti dovrebbero essere dati a gruppi, non a persone nominative: sono "
+"più facili da rivedere."
 
 msgid "Inheritance broken"
 msgstr "Ereditarietà interrotta"
 
-msgid "A subfolder of a sensitive share does not inherit the rights of its parent folder."
-msgstr "Una sottocartella di una condivisione sensibile non eredita i diritti della cartella superiore."
+msgid ""
+"A subfolder of a sensitive share does not inherit the rights of its parent "
+"folder."
+msgstr ""
+"Una sottocartella di una condivisione sensibile non eredita i diritti della "
+"cartella superiore."
 
-msgid "No GLPI user is designated as the owner who reviews the rights of this share."
-msgstr "Nessun utente GLPI è designato come proprietario che rivede i diritti di questa condivisione."
+msgid ""
+"No GLPI user is designated as the owner who reviews the rights of this "
+"share."
+msgstr ""
+"Nessun utente GLPI è designato come proprietario che rivede i diritti di "
+"questa condivisione."
 
-msgid "No account column found: the file needs a header with a column such as Identity, IdentityReference or Sid."
-msgstr "Nessuna colonna dell'account trovata: il file deve avere un'intestazione con una colonna come Identity, IdentityReference o Sid."
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"Identity, IdentityReference or Sid."
+msgstr ""
+"Nessuna colonna dell'account trovata: il file deve avere un'intestazione con"
+" una colonna come Identity, IdentityReference o Sid."
 
-msgid "No rights column found: the file needs a column such as Rights, FileSystemRights or AccessRight."
-msgstr "Nessuna colonna dei diritti trovata: il file deve avere una colonna come Rights, FileSystemRights o AccessRight."
+msgid ""
+"No rights column found: the file needs a column such as Rights, "
+"FileSystemRights or AccessRight."
+msgstr ""
+"Nessuna colonna dei diritti trovata: il file deve avere una colonna come "
+"Rights, FileSystemRights o AccessRight."
 
-msgid "No share column found: the file needs a column such as Share, or Folder with a \\\\server\\share path."
-msgstr "Nessuna colonna della condivisione trovata: il file deve avere una colonna come Share, o Folder con un percorso \\\\server\\condivisione."
+msgid ""
+"No share column found: the file needs a column such as Share, or Folder with"
+" a \\\\server\\share path."
+msgstr ""
+"Nessuna colonna della condivisione trovata: il file deve avere una colonna "
+"come Share, o Folder con un percorso \\\\server\\condivisione."
 
 msgid "Designate the owner of the share first: they review its rights."
-msgstr "Designate prima il proprietario della condivisione: è lui che ne rivede i diritti."
+msgstr ""
+"Designate prima il proprietario della condivisione: è lui che ne rivede i "
+"diritti."
 
 msgid "Explain what must be changed or removed in the comment."
 msgstr "Spiegate nel commento cosa va modificato o rimosso."
@@ -29831,7 +30454,8 @@ msgstr "%d condivisione/i con un'anomalia"
 
 #, php-format
 msgid "%1$d shares: the first %2$d are shown, the most exposed first."
-msgstr "%1$d condivisioni: sono mostrate le prime %2$d, le più esposte per prime."
+msgstr ""
+"%1$d condivisioni: sono mostrate le prime %2$d, le più esposte per prime."
 
 #, php-format
 msgid "%d right(s) imported"
@@ -29844,23 +30468,39 @@ msgstr "%d con un punteggio ponderato elevato"
 msgid "Absent from the last import"
 msgstr "Assente dall'ultima importazione"
 
-msgid "Download an example file"
-msgstr "Scarica un file di esempio"
-
 msgid "Download the PowerShell script"
 msgstr "Scarica lo script PowerShell"
 
 msgid "Download the script and copy it to the file server."
 msgstr "Scaricate lo script e copiatelo sul file server."
 
-msgid "GLPI never connects to your file servers and never changes a right. An administrator runs the PowerShell script on the file server, with an account that can read the folders, then imports the CSV file here. A new import of the same server replaces the previous one in the current entity and shows the rights added and removed since then; the classification, the owner and the review decisions are kept."
-msgstr "GLPI non si connette mai ai vostri file server e non modifica mai un diritto. Un amministratore esegue lo script PowerShell sul file server, con un account che può leggere le cartelle, poi importa qui il file CSV. Una nuova importazione dello stesso server sostituisce la precedente nell'entità corrente e mostra i diritti aggiunti e rimossi da allora; la classificazione, il proprietario e le decisioni di revisione sono conservati."
+msgid ""
+"GLPI never connects to your file servers and never changes a right. An "
+"administrator runs the PowerShell script on the file server, with an account"
+" that can read the folders, then imports the CSV file here. A new import of "
+"the same server replaces the previous one in the current entity and shows "
+"the rights added and removed since then; the classification, the owner and "
+"the review decisions are kept."
+msgstr ""
+"GLPI non si connette mai ai vostri file server e non modifica mai un "
+"diritto. Un amministratore esegue lo script PowerShell sul file server, con "
+"un account che può leggere le cartelle, poi importa qui il file CSV. Una "
+"nuova importazione dello stesso server sostituisce la precedente nell'entità"
+" corrente e mostra i diritti aggiunti e rimossi da allora; la "
+"classificazione, il proprietario e le decisioni di revisione sono "
+"conservati."
 
 msgid "Import the rights of a file server"
 msgstr "Importa i diritti di un file server"
 
-msgid "Import the shares.csv file below. Files produced by other tools are accepted if they have a header with columns such as Server, Share, Folder, Identity, Rights, AccessType, IsInherited and InheritanceProtected."
-msgstr "Importate qui sotto il file shares.csv. Sono accettati i file prodotti da altri strumenti se hanno un'intestazione con colonne come Server, Share, Folder, Identity, Rights, AccessType, IsInherited e InheritanceProtected."
+msgid ""
+"Import the shares.csv file below. Files produced by other tools are accepted"
+" if they have a header with columns such as Server, Share, Folder, Identity,"
+" Rights, AccessType, IsInherited and InheritanceProtected."
+msgstr ""
+"Importate qui sotto il file shares.csv. Sono accettati i file prodotti da "
+"altri strumenti se hanno un'intestazione con colonne come Server, Share, "
+"Folder, Identity, Rights, AccessType, IsInherited e InheritanceProtected."
 
 msgid "Imported by"
 msgstr "Importato da"
@@ -29868,17 +30508,31 @@ msgstr "Importato da"
 msgid "Imports and changes over time"
 msgstr "Importazioni e cambiamenti nel tempo"
 
-msgid "In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -OutFile shares.csv (Depth: how many folder levels under each share are read)."
-msgstr "In PowerShell, eseguite ad esempio: ./Export-GrcShareAccess.ps1 -Depth 2 -OutFile shares.csv (Depth: quanti livelli di cartelle vengono letti sotto ogni condivisione)."
+msgid ""
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 "
+"-OutFile shares.csv (Depth: how many folder levels under each share are "
+"read)."
+msgstr ""
+"In PowerShell, eseguite ad esempio: ./Export-GrcShareAccess.ps1 -Depth 2 "
+"-OutFile shares.csv (Depth: quanti livelli di cartelle vengono letti sotto "
+"ogni condivisione)."
 
 msgid "New rights"
 msgstr "Nuovi diritti"
 
-msgid "No share imported yet. Run the PowerShell script below on a file server, then import the CSV file it produces."
-msgstr "Nessuna condivisione ancora importata. Eseguite lo script PowerShell qui sotto su un file server, poi importate il file CSV che produce."
+msgid ""
+"No share imported yet. Run the PowerShell script below on a file server, "
+"then import the CSV file it produces."
+msgstr ""
+"Nessuna condivisione ancora importata. Eseguite lo script PowerShell qui "
+"sotto su un file server, poi importate il file CSV che produce."
 
-msgid "Only users who can modify the plugin data and the sensitive registers can import."
-msgstr "Solo gli utenti che possono modificare i dati del plugin e i registri sensibili possono importare."
+msgid ""
+"Only users who can modify the plugin data and the sensitive registers can "
+"import."
+msgstr ""
+"Solo gli utenti che possono modificare i dati del plugin e i registri "
+"sensibili possono importare."
 
 msgid "Removed rights"
 msgstr "Diritti rimossi"
@@ -29910,8 +30564,14 @@ msgstr "Condivisioni senza proprietario"
 msgid "The owner reviews the rights of the share."
 msgstr "Il proprietario rivede i diritti della condivisione."
 
-msgid "The score adds 3 for each serious gap and 1 for the others, then multiplies by 3 for a share classified high and by 2 for medium. Nothing is changed on the file servers from this page."
-msgstr "Il punteggio somma 3 per ogni anomalia grave e 1 per le altre, poi moltiplica per 3 per una condivisione classificata alta e per 2 per media. Da questa pagina non viene modificato nulla sui file server."
+msgid ""
+"The score adds 3 for each serious gap and 1 for the others, then multiplies "
+"by 3 for a share classified high and by 2 for medium. Nothing is changed on "
+"the file servers from this page."
+msgstr ""
+"Il punteggio somma 3 per ogni anomalia grave e 1 per le altre, poi "
+"moltiplica per 3 per una condivisione classificata alta e per 2 per media. "
+"Da questa pagina non viene modificato nulla sui file server."
 
 msgid "Weighted score"
 msgstr "Punteggio ponderato"
@@ -29925,15 +30585,28 @@ msgstr "Classificazione e proprietario"
 msgid "Close the review"
 msgstr "Chiudi la revisione"
 
-
-msgid "During a review, the owner decides for each right: keep it, change it or remove it. Decisions are recorded with their author and date; GLPI changes nothing on the server: the administrator applies the changes, and the next import shows the removed rights."
-msgstr "Durante una revisione, il proprietario decide per ogni diritto: mantenerlo, modificarlo o rimuoverlo. Le decisioni sono registrate con autore e data; GLPI non cambia nulla sul server: l'amministratore applica le modifiche e l'importazione successiva mostra i diritti rimossi."
+msgid ""
+"During a review, the owner decides for each right: keep it, change it or "
+"remove it. Decisions are recorded with their author and date; GLPI changes "
+"nothing on the server: the administrator applies the changes, and the next "
+"import shows the removed rights."
+msgstr ""
+"Durante una revisione, il proprietario decide per ogni diritto: mantenerlo, "
+"modificarlo o rimuoverlo. Le decisioni sono registrate con autore e data; "
+"GLPI non cambia nulla sul server: l'amministratore applica le modifiche e "
+"l'importazione successiva mostra i diritti rimossi."
 
 msgid "Folder"
 msgstr "Cartella"
 
-msgid "Gaps weigh more on a share classified high, and broken inheritance is reported only on a share whose confidentiality or integrity is medium or high."
-msgstr "Le anomalie pesano di più su una condivisione classificata alta, e l'ereditarietà interrotta è segnalata solo su una condivisione la cui riservatezza o integrità è media o alta."
+msgid ""
+"Gaps weigh more on a share classified high, and broken inheritance is "
+"reported only on a share whose confidentiality or integrity is medium or "
+"high."
+msgstr ""
+"Le anomalie pesano di più su una condivisione classificata alta, e "
+"l'ereditarietà interrotta è segnalata solo su una condivisione la cui "
+"riservatezza o integrità è media o alta."
 
 #, php-format
 msgid "Last review: %s"

@@ -79,6 +79,8 @@ check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcm
 check "onglet classification d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' "$(id computer_A)")"
 check "onglet questionnaire fournisseur"      "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$1' "$(id supplierrisk)")"
 check "onglet contrats fournisseur"           "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$2' "$(id supplierrisk)")"
+# Issue #866 : ligne de revue piégée, suggestion et raison comprises.
+check "onglet comptes a revoir d'une campagne" "$(tab GlpiPlugin%5CGrcmanager%5CAccessReview 'GlpiPlugin%5CGrcmanager%5CAccessReview$1' "$(id campaign_A)")"
 check "onglet revues d'acces d'un controle"   "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CAccessReview$2' "$(id control)")"
 check "onglet incidents d'un ordinateur"     "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")"
 check "onglet couts d'un incident"            "$(tab PluginGrcmanagerSecurityIncident 'PluginGrcmanagerSecurityIncidentCost$1' "$(id incident_A)")"
@@ -109,6 +111,11 @@ check "front/patchcompliance.php"             "$P/patchcompliance.php"
 # Issue #846 : partage, chemin, compte, droit et commentaire de revue pieges (droits sur les partages).
 check "front/shareaccess.php"                 "$P/shareaccess.php"
 check "fiche d'un partage de fichiers"        "$P/shareaccess.php?share=$(id share_A)"
+# Issue #781 : resultats OpenSCAP pieges (liste, non rapproche, detail, preuve A.8.9).
+check "front/configcompliance.php"            "$P/configcompliance.php"
+check "front/configcompliance.php?report"     "$P/configcompliance.php?report=$(xid configscan)"
+check "front/configcompliance.php?report non rapproche" "$P/configcompliance.php?report=$(xid configscan_unmatched)"
+check "preuve conformite de configuration (A.8.9)" "$P/control.form.php?id=$(xid control_a89)"
 # Issue #853 : hote emetteur, serveur de temps et commentaire pieges (couverture de la journalisation).
 check "front/logcoverage.php"                 "$P/logcoverage.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).

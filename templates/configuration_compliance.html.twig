@@ -1,0 +1,201 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #781 : conformité de configuration (A.8.9) d'après les résultats OpenSCAP importés, dans les
+   entités de la personne. Rien n'est modifié dans GLPI ni sur les machines. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_configuration_compliance_macros.html.twig' as cc %}
+
+<div id="grc-config-compliance">
+   {# Synthèse des dernières analyses. #}
+   <div class="row row-cards mb-3">
+      {% set avg_color = summary.average is null ? 'secondary' : (summary.average >= 95 ? 'success' : (summary.average >= target_rate ? 'warning' : 'danger')) %}
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-{{ avg_color }}-subtle text-{{ avg_color }}-emphasis me-2 fs-3"><i class="ti ti-chart-pie"></i></span>
+            <div>
+               <div class="fw-bold fs-3" id="grc-config-average">{{ summary.average is null ? '-' : summary.average ~ ' %' }}</div>
+               <div class="small">{{ __('Average compliance of the last scans', 'grcmanager') }}</div>
+            </div>
+         </div>
+      </div></div></div>
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-secondary-subtle text-secondary-emphasis me-2 fs-3"><i class="ti ti-device-desktop-analytics"></i></span>
+            <div>
+               <div class="fw-bold fs-3">{{ summary.targets }}</div>
+               <div class="small">{{ __('Machines scanned', 'grcmanager') }}</div>
+            </div>
+         </div>
+      </div></div></div>
+      {% set below_color = summary.below_target > 0 ? 'danger' : 'success' %}
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-{{ below_color }}-subtle text-{{ below_color }}-emphasis me-2 fs-3"><i class="ti ti-target-arrow"></i></span>
+            <div>
+               <div class="fw-bold fs-3">{{ summary.below_target }}</div>
+               <div class="small">{{ __('Below the %d%% target', 'grcmanager')|format(target_rate) }}</div>
+            </div>
+         </div>
+      </div></div></div>
+      {% set high_color = summary.with_high > 0 ? 'danger' : 'success' %}
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-{{ high_color }}-subtle text-{{ high_color }}-emphasis me-2 fs-3"><i class="ti ti-alert-triangle"></i></span>
+            <div>
+               <div class="fw-bold fs-3">{{ summary.with_high }}</div>
+               <div class="small">{{ __('With a high severity rule failed', 'grcmanager') }}</div>
+            </div>
+         </div>
+      </div></div></div>
+   </div>
+
+   {# Import d'un fichier de résultats. #}
+   {% if can_manage %}
+      <div class="card mb-3" id="grc-config-import">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-file-upload me-2"></i>{{ __('Import OpenSCAP results', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            <p class="small mb-2">{{ __('Run the scan on the machine, then import the results file (XCCDF or ARF). One file can hold several machines. Each result is matched to the GLPI computer of the same name.', 'grcmanager') }}</p>
+            <pre class="small bg-light p-2 mb-2"><code>oscap xccdf eval --profile &lt;profile&gt; --results-arf results-arf.xml &lt;ssg-datastream.xml&gt;</code></pre>
+            <form method="post" action="{{ action }}" enctype="multipart/form-data" class="d-flex flex-wrap align-items-center gap-2">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="file" name="scan_file" accept=".xml" class="form-control w-auto" required aria-label="{{ __('Results file', 'grcmanager') }}">
+               <button type="submit" name="upload" value="1" class="btn btn-primary"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button>
+               <span class="small text-muted">{{ __('XML file, %d MB at most. The file itself is not kept: only the counts and the failed rules.', 'grcmanager')|format(max_mb) }}</span>
+               <a class="small" href="{{ example_url }}"><i class="ti ti-download me-1"></i>{{ __('Download an example file', 'grcmanager') }}</a>
+            </form>
+         </div>
+      </div>
+   {% endif %}
+
+   {# Dernière analyse de chaque ordinateur, les plus faibles d'abord. #}
+   <div class="card mb-3" id="grc-config-list">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-device-desktop me-2"></i>{{ __('Last scan of each computer', 'grcmanager') }}</h3></div>
+      {% if rows is empty %}
+         <div class="card-body text-muted">
+            <i class="ti ti-info-circle me-1"></i>{{ report_count == 0 ? __('No scan imported yet. Import an OpenSCAP results file to measure the configuration compliance.', 'grcmanager') : __('No scan result is matched to a computer yet: match them below.', 'grcmanager') }}
+         </div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Computer', 'grcmanager') }}</th>
+                  <th>{{ __('Profile', 'grcmanager') }}</th>
+                  <th>{{ __('Scan date', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Compliance', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Change', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Rules failed', 'grcmanager') }}</th>
+                  <th>{{ __('Ticket', 'grcmanager') }}</th>
+                  <th></th>
+               </tr></thead>
+               <tbody>
+               {% for row in rows %}
+                  <tr>
+                     <td>{% if row.computer_url %}<a href="{{ row.computer_url }}"><i class="ti ti-device-desktop me-1"></i>{{ row.computer_name }}</a>{% else %}{{ row.hostname }}{% endif %}</td>
+                     <td>{{ cc.profile(row) }}</td>
+                     <td class="text-nowrap">{{ row.scan_date_label }}</td>
+                     <td class="text-end">{{ cc.rate(row) }}</td>
+                     <td class="text-end">{{ cc.trend(row.trend) }}</td>
+                     <td class="text-end">{{ cc.failed(row) }}</td>
+                     <td>
+                        {% if row.ticket_url %}
+                           <a href="{{ row.ticket_url }}"><i class="ti ti-ticket me-1"></i>{{ __('Ticket %d', 'grcmanager')|format(row.tickets_id) }}</a>
+                        {% elseif can_ticket and (row.fail_count + row.error_count) > 0 %}
+                           <form method="post" action="{{ action }}" class="d-inline">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="report" value="{{ row.id }}">
+                              <button type="submit" name="create_ticket" value="1" class="btn btn-sm btn-outline-secondary" title="{{ __('Creates a remediation ticket linked to the computer, with the failed rules. Nothing is created without this click.', 'grcmanager') }}"><i class="ti ti-ticket me-1"></i>{{ __('Propose a ticket', 'grcmanager') }}</button>
+                           </form>
+                        {% endif %}
+                     </td>
+                     <td><a href="{{ row.url }}"><i class="ti ti-list-details me-1"></i>{{ __('Details', 'grcmanager') }}</a></td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+         {% if total_rows > rows|length %}
+            <div class="card-footer small text-muted">{{ __('%1$d of %2$d computers shown, the least compliant first.', 'grcmanager')|format(rows|length, total_rows) }}</div>
+         {% endif %}
+      {% endif %}
+   </div>
+
+   {# Résultats non rapprochés : aucun ordinateur visible ne porte ce nom. #}
+   {% if unmatched is not empty %}
+      <div class="card mb-3" id="grc-config-unmatched">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-link-off me-2 text-warning"></i>{{ __('Scan results not matched to a computer', 'grcmanager') }}</h3></div>
+         <div class="card-body small text-muted pb-0">{{ __('No computer you can see bears this name, or several do. Check the name of the computer in GLPI, or choose it here.', 'grcmanager') }}</div>
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Host name in the report', 'grcmanager') }}</th>
+                  <th>{{ __('Profile', 'grcmanager') }}</th>
+                  <th>{{ __('Scan date', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Compliance', 'grcmanager') }}</th>
+                  {% if can_manage %}<th>{{ __('Match to a computer', 'grcmanager') }}</th>{% endif %}
+                  <th></th>
+               </tr></thead>
+               <tbody>
+               {% for row in unmatched %}
+                  <tr>
+                     <td><span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-link-off me-1"></i>{{ row.hostname is empty ? __('No host name', 'grcmanager') : row.hostname }}</span>{% if row.fqdn and row.fqdn != row.hostname %} <span class="small text-muted">{{ row.fqdn }}</span>{% endif %}{% if row.address %} <span class="small text-muted">{{ row.address }}</span>{% endif %}</td>
+                     <td>{{ cc.profile(row) }}</td>
+                     <td class="text-nowrap">{{ row.scan_date_label }}</td>
+                     <td class="text-end">{{ cc.rate(row) }}</td>
+                     {% if can_manage %}
+                        <td>
+                           <form method="post" action="{{ action }}" class="d-flex align-items-center gap-2">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="report" value="{{ row.id }}">
+                              {{ fields.dropdownField('Computer', 'computers_id', 0, '', {'no_label': true, 'rand': row.id, 'aria_label': __('Computer', 'grcmanager')}) }}
+                              <button type="submit" name="link_computer" value="1" class="btn btn-sm btn-outline-primary"><i class="ti ti-link me-1"></i>{{ __('Match', 'grcmanager') }}</button>
+                           </form>
+                        </td>
+                     {% endif %}
+                     <td><a href="{{ row.url }}"><i class="ti ti-list-details me-1"></i>{{ __('Details', 'grcmanager') }}</a></td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+
+   {# Règles en échec les plus fréquentes sur les dernières analyses. #}
+   <div class="card mb-3" id="grc-config-top-rules">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-list-numbers me-2"></i>{{ __('Most frequent failed rules', 'grcmanager') }}</h3></div>
+      {% if top_rules is empty %}
+         <div class="card-body text-muted small">{{ __('No failed rule in the last scans.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Severity', 'grcmanager') }}</th>
+                  <th>{{ __('Rule', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Machines', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for rule in top_rules %}
+                  <tr>
+                     <td>{{ cc.severity(rule.severity, severities) }}</td>
+                     <td>{{ rule.title is empty ? rule.rule_id : rule.title }}<div class="small text-muted text-break">{{ rule.rule_id }}</div></td>
+                     <td class="text-end"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ rule.count }}</span></td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+</div>

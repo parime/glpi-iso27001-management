@@ -16,6 +16,7 @@
 <div class="container-fluid">
    <div class="alert alert-info">
       <i class="ti ti-info-circle me-1"></i>{{ __('For each account in your team, approve its access or request a change or removal, stating what to change. A request creates a ticket for the support team: no right is changed automatically.', 'grcmanager') }}
+      <div class="mt-1"><i class="ti ti-bulb me-1 text-warning"></i>{{ __('Each account shows a suggestion and its reason (departure, inactivity, privileged profile...). It is only a proposal: you decide.', 'grcmanager') }}</div>
    </div>
    {% if campaigns is empty %}
       <div class="card"><div class="card-body text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('No access review is waiting for you.', 'grcmanager') }}</div></div>

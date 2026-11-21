@@ -27,6 +27,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\AccessReviewBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
+use GlpiPlugin\Grcmanager\Services\Access\AccessReviewSuggestionRules;
 use Group;
 use Group_User;
 use Html;
@@ -241,6 +242,10 @@ class AccessReview extends AccessReviewBase
         if (empty($input['due_date'])) {
             $input['due_date'] = date('Y-m-d', (int) strtotime($input['date_start'] . ' +30 days'));
         }
+        // Issue #866 : règles de suggestion (formulaire), sinon reprises telles quelles ou par défaut.
+        $input['suggestion_rules'] = isset($input['_suggestion_rules_form'])
+            ? AccessReviewSuggestion::settingsFromInput($input)
+            : (string) json_encode(AccessReviewSuggestionRules::normalize($input['suggestion_rules'] ?? null));
 
         return $input;
     }
@@ -256,6 +261,12 @@ class AccessReview extends AccessReviewBase
         unset($input['status'], $input['date_launch'], $input['date_close'], $input['documents_id']);
         if (isset($input['frequency']) && !isset(self::getFrequencies()[$input['frequency']])) {
             unset($input['frequency']);
+        }
+        // Issue #866 : règles de suggestion modifiables seulement par le formulaire (cases décochées
+        // comprises), toujours normalisées.
+        unset($input['suggestion_rules']);
+        if (isset($input['_suggestion_rules_form'])) {
+            $input['suggestion_rules'] = AccessReviewSuggestion::settingsFromInput($input);
         }
 
         return $input;
@@ -434,9 +445,29 @@ class AccessReview extends AccessReviewBase
             'control_id'   => $isNew
                 ? self::getDefaultControlId()
                 : (int) ($this->fields['plugin_grcmanager_controls_id'] ?? 0),
+            // Issue #866 : règles de la suggestion « garder / retirer / à examiner ».
+            'suggestion_rules'   => AccessReviewSuggestion::settings($this->fields),
+            'inactive_days'      => self::dayChoices(AccessReviewSuggestionRules::INACTIVE_DAYS),
+            'leaving_days'       => self::dayChoices(AccessReviewSuggestionRules::LEAVING_DAYS),
         ]);
 
         return true;
+    }
+
+    /**
+     * @param list<int> $days
+     * @return array<int, string> 0 => « Règle désactivée », 30 => « 30 jours »...
+     */
+    private static function dayChoices(array $days): array
+    {
+        $choices = [];
+        foreach ($days as $day) {
+            $choices[$day] = $day === 0
+                ? __('Rule disabled', 'grcmanager')
+                : sprintf(_n('%d day', '%d days', $day, 'grcmanager'), $day);
+        }
+
+        return $choices;
     }
 
     /**
@@ -482,7 +513,7 @@ class AccessReview extends AccessReviewBase
         $row['decided_by_name'] = (int) $row['decided_by'] > 0 ? getUserName((int) $row['decided_by']) : '';
         $row['ticket_url'] = (int) $row['tickets_id'] > 0 ? Ticket::getFormURLWithID((int) $row['tickets_id']) : '';
 
-        return $row;
+        return AccessReviewSuggestion::decorate($row) + $row;
     }
 
     /**
@@ -521,6 +552,20 @@ class AccessReview extends AccessReviewBase
     }
 
     /**
+     * Entités revues par la campagne : la sienne, et ses sous-entités si elle est récursive.
+     *
+     * @return list<int>
+     */
+    public function getEntities(): array
+    {
+        $entityId = (int) ($this->fields['entities_id'] ?? 0);
+
+        return (int) ($this->fields['is_recursive'] ?? 0) === 1
+            ? array_values(array_map('intval', getSonsOf(Entity::getTable(), $entityId)))
+            : [$entityId];
+    }
+
+    /**
      * Lance la campagne : fige les comptes de l'entité (et sous-entités si récursive), leurs
      * profils et groupes, désigne leur responsable puis prévient les responsables.
      *
@@ -535,9 +580,7 @@ class AccessReview extends AccessReviewBase
         }
         $campaignId = $this->getID();
         $entityId = (int) $this->fields['entities_id'];
-        $entities = (int) $this->fields['is_recursive'] === 1
-            ? array_values(array_map('intval', getSonsOf(Entity::getTable(), $entityId)))
-            : [$entityId];
+        $entities = $this->getEntities();
         $ownerId = (int) $this->fields['users_id'];
 
         $accounts = [];
@@ -613,6 +656,8 @@ class AccessReview extends AccessReviewBase
             ['id' => $campaignId]
         );
         $this->getFromDB($campaignId);
+        // Issue #866 : suggestion « garder / retirer / à examiner » de chaque compte, figée au lancement.
+        AccessReviewSuggestion::refresh($this, false);
         NotificationEvent::raiseEvent(self::REQUEST_EVENT, $this, ['entities_id' => $entityId]);
 
         return count($accounts);
@@ -653,6 +698,14 @@ class AccessReview extends AccessReviewBase
         }
         if (AccessReviewLogic::needsTicket($decision) && trim($comment) === '') {
             return __('State what must be changed or removed.', 'grcmanager');
+        }
+        // Issue #866 : la suggestion ne décide pas, mais garder un compte qu'elle propose de retirer
+        // se justifie.
+        if (AccessReviewSuggestionRules::mustJustify((string) ($line['suggestion'] ?? ''), $decision, $comment)) {
+            return __(
+                'The rules suggest removing this account: explain in the comment why it is kept.',
+                'grcmanager'
+            );
         }
 
         $update = [
@@ -753,6 +806,8 @@ class AccessReview extends AccessReviewBase
             'progress'  => AccessReviewLogic::progress(array_column($lines, 'decision')),
             'lines'     => $lines,
             'decisions' => self::getDecisionLabels(),
+            'suggestions' => AccessReviewSuggestionRules::counts(array_column($lines, 'suggestion')),
+            'suggestion_infos' => AccessReviewSuggestion::suggestionInfos(),
             'dates'     => [
                 'start'  => Html::convDate($campaign->fields['date_start']),
                 'due'    => Html::convDate($campaign->fields['due_date']),
@@ -818,6 +873,7 @@ class AccessReview extends AccessReviewBase
             'frequency'                     => $this->fields['frequency'],
             'users_id'                      => (int) $this->fields['users_id'],
             'plugin_grcmanager_controls_id' => (int) $this->fields['plugin_grcmanager_controls_id'],
+            'suggestion_rules'              => (string) ($this->fields['suggestion_rules'] ?? ''),
             'date_start'                    => $start,
             'due_date'                      => date('Y-m-d', (int) strtotime($start . ' +' . $length . ' days')),
         ]);
@@ -846,6 +902,10 @@ class AccessReview extends AccessReviewBase
                 : '',
             'late'        => $status === AccessReviewLogic::STATUS_OPEN
                 && date('Y-m-d') > (string) $this->fields['due_date'],
+            // Issue #866 : répartition des suggestions et recalcul des lignes encore à revoir.
+            'suggestions' => AccessReviewSuggestionRules::counts(array_column($lines, 'suggestion')),
+            'suggestion_infos' => AccessReviewSuggestion::suggestionInfos(),
+            'can_refresh' => $status === AccessReviewLogic::STATUS_OPEN && $this->canUpdateItem(),
         ]);
     }
 
