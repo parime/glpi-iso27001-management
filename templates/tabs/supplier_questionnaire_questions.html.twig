@@ -76,7 +76,7 @@
             {% if can_edit %}
                {% for i in 1..new_rows %}
                   <tr class="grc-question-new table-light">
-                     <td class="text-nowrap"><span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-plus me-1"></i>{{ __('New', 'grcmanager') }}</span></td>
+                     <td class="text-nowrap"><span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-plus me-1"></i>{{ __('New question', 'grcmanager') }}</span></td>
                      <td><input type="text" class="form-control form-control-sm" name="new_questions[{{ i }}][section]" list="grc-question-sections" maxlength="255" aria-label="{{ __('Section', 'grcmanager') }}"></td>
                      <td>
                         <textarea class="form-control form-control-sm mb-1" name="new_questions[{{ i }}][question]" rows="2" placeholder="{{ __('New question (left empty: not added)', 'grcmanager') }}" aria-label="{{ __('Question', 'grcmanager') }}"></textarea>

@@ -281,6 +281,29 @@ badges colorés que le registre générique.
 
 ![Registre de risques fournisseurs avec badges colorés](screenshots/tutorial/33-supplierrisk-list-with-badges.png)
 
+#### Questionnaires fournisseurs
+
+L'onglet **Questionnaires** d'un risque fournisseur liste ses évaluations : modèle utilisé, domaine
+(sécurité de l'information, données personnelles, intelligence artificielle...), statut, score et
+évolution depuis la précédente évaluation du même domaine.
+
+1. Depuis la liste des risques fournisseurs, le bouton **Modèles de questionnaire** ouvre la
+   bibliothèque des modèles. Le modèle **Questionnaire historique** reprend les douze questions
+   d'origine ; créez vos propres modèles (ou copiez-en un avec **Dupliquer ce modèle**).
+2. Dans l'onglet **Questions** d'un modèle, écrivez les questions par section, avec la réponse
+   attendue (« Non » pour une question comme « Avez-vous subi une violation de données ces
+   12 derniers mois ? »), la pondération (0 à 10) et, si besoin, **Pièce exigée**. Chaque
+   changement crée une nouvelle version du modèle ; les évaluations déjà démarrées gardent leurs
+   questions.
+3. Sur le risque fournisseur, choisissez un modèle et cliquez sur **Démarrer une évaluation**.
+4. Dans l'onglet **Questionnaire** de l'évaluation, choisissez la réponse du fournisseur pour chaque
+   question, ajoutez un commentaire et, pour une question qui l'exige, la pièce justificative
+   (certificat ISO 27001, rapport SOC 2, politique...). Elle rejoint l'onglet Documents du risque
+   fournisseur, lisible avec ses seuls droits.
+5. Cliquez sur **Enregistrer et marquer comme terminée** : l'évaluation est figée (elle se rouvre
+   au besoin). La dernière évaluation terminée du domaine sécurité donne le score affiché sur le
+   risque et sur le tableau de bord ; le niveau de risque reste celui saisi par l'équipe.
+
 ### Étape 8 : Suivre une formation et la réalisation par participant
 
 Depuis **GRC & Conformité > Opérations > Formations**, la liste affiche les sessions déjà enregistrées.
@@ -1428,6 +1451,28 @@ The list then shows every supplier risk with its linked GLPI supplier and the sa
 badges as the generic register.
 
 ![Supplier risk register with colored badges](screenshots/tutorial/33-supplierrisk-list-with-badges.png)
+
+#### Supplier questionnaires
+
+The **Questionnaires** tab of a supplier risk lists its evaluations: template used, domain
+(information security, personal data, artificial intelligence...), status, score and change since
+the previous evaluation of the same domain.
+
+1. From the supplier risk list, the **Questionnaire templates** button opens the template library.
+   The **Historical questionnaire** template keeps the twelve original questions; create your own
+   templates (or copy one with **Duplicate this template**).
+2. In the **Questions** tab of a template, write the questions by section, with the expected answer
+   ("No" for a question such as "Have you suffered a data breach in the last 12 months?"), the
+   weight (0 to 10) and, when needed, **Evidence required**. Each change creates a new version of
+   the template; evaluations already started keep their questions.
+3. On the supplier risk, choose a template and click **Start an evaluation**.
+4. In the **Questionnaire** tab of the evaluation, choose the supplier's answer to each question,
+   add a comment and, for a question that requires it, the evidence (ISO 27001 certificate, SOC 2
+   report, policy...). It is added to the Documents tab of the supplier risk, readable only with its
+   rights.
+5. Click **Save and mark as completed**: the evaluation is frozen (it can be reopened). The last
+   completed evaluation of the security domain gives the score shown on the risk and on the
+   dashboard; the risk level stays the one entered by the team.
 
 ### Step 8: Record a training session and a participant's completion
 
