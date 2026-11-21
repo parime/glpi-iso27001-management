@@ -24,6 +24,7 @@ use GlpiPlugin\Grcmanager\IsmsRequirement;
 use GlpiPlugin\Grcmanager\PhishingCampaign;
 use GlpiPlugin\Grcmanager\PhishingResult;
 use GlpiPlugin\Grcmanager\RiskIndicator;
+use GlpiPlugin\Grcmanager\Services\Dashboard\SecuredDashboardCards;
 use GlpiPlugin\Grcmanager\Services\Phishing\PhishingRules as Rules;
 use GlpiPlugin\Grcmanager\Training;
 use Profile_User;
@@ -327,5 +328,119 @@ final class PhishingCampaignTest extends GrcmanagerIntegrationTestCase
             $requirement->showForm($requirement->getID());
             $this->assertStringContainsString('grc-phishing-evidence', (string) ob_get_clean());
         }
+    }
+
+    public function testRatesByGroupSurviveTheDeletionOfTheResultsPerPerson(): void
+    {
+        $entity = $this->createTestEntity(0, 'Hameconnage services');
+        $group = new \Group();
+        $groupId = (int) $group->add(['name' => 'Service fictif phishing', 'entities_id' => $entity]);
+        $lines = [];
+        for ($i = 1; $i <= 6; $i++) {
+            $user = $this->person('Agent' . $i, $entity, 'agent' . $i . '.group@example.org');
+            if ($i <= 5) {
+                (new \Group_User())->add(['groups_id' => $groupId, 'users_id' => $user]);
+            }
+            $lines[] = 'agent' . $i . '.group@example.org,' . ($i <= 2 ? 'Clicked Link' : 'Email Sent') . ',false';
+        }
+        $campaign = $this->campaign('Campagne services', $entity);
+        $this->import($campaign, $lines);
+
+        $groups = PhishingResult::summaryFor($campaign)['groups'];
+        $byId = array_column($groups, null, 'groups_id');
+        $this->assertSame(5, $byId[$groupId]['counts']['sent']);
+        $this->assertSame(40.0, $byId[$groupId]['rates']['clicked']);
+        $this->assertSame('Service fictif phishing', $byId[$groupId]['name']);
+        $this->assertSame(1, $byId[0]['counts']['sent'], 'Personne sans groupe.');
+
+        // Sans le droit du détail : la personne sans groupe est regroupée et masquée.
+        $_SESSION['glpiactiveprofile']['plugin_grcmanager_sensitive'] = 0;
+        $anonymous = array_column(PhishingResult::summaryFor($campaign)['groups'], null, 'groups_id');
+        $this->assertFalse($anonymous[$groupId]['hidden']);
+        $this->assertTrue($anonymous[Rules::OTHER_GROUPS]['hidden']);
+        $this->assertArrayNotHasKey(0, $anonymous);
+        ob_start();
+        PhishingResult::displayTabContentForItem($campaign);
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('grc-phishing-groups', $html);
+        $this->assertStringNotContainsString('agent1.group@example.org', $html);
+        $_SESSION['glpiactiveprofile']['plugin_grcmanager_sensitive'] = ALLSTANDARDRIGHT;
+
+        PhishingResult::anonymize($campaign);
+        $campaign->getFromDB($campaign->getID());
+        $after = array_column(PhishingResult::summaryFor($campaign)['groups'], null, 'groups_id');
+        $this->assertSame(40.0, $after[$groupId]['rates']['clicked'], 'Taux par service gardés.');
+
+        // Les compteurs par service ne viennent jamais du formulaire.
+        $campaign->update(['id' => $campaign->getID(), 'group_counts' => '{"1":{"sent":99}}']);
+        $campaign->getFromDB($campaign->getID());
+        $this->assertStringNotContainsString('99', (string) $campaign->fields['group_counts']);
+    }
+
+    public function testRetentionDeletesOnlyTheExpiredResultsPerPerson(): void
+    {
+        $old = $this->campaign('Campagne ancienne', 0, date('Y-m-d', strtotime('-14 months')));
+        $this->import($old, ['old1.retention@example.org,Clicked Link,false']);
+        $recent = $this->campaign('Campagne recente', 0, date('Y-m-d', strtotime('-2 months')));
+        $this->import($recent, ['new1.retention@example.org,Clicked Link,false']);
+
+        $this->assertSame([], PhishingCampaign::expiredCampaignIds(0, date('Y-m-d')), 'Sans durée : rien.');
+        $expired = PhishingCampaign::expiredCampaignIds(12, date('Y-m-d'));
+        $this->assertContains($old->getID(), $expired);
+        $this->assertNotContains($recent->getID(), $expired);
+
+        $before = PhishingCampaign::retentionMonths();
+        try {
+            $this->assertTrue(PhishingCampaign::saveRetention('12'));
+            $this->assertSame(12, PhishingCampaign::retentionMonths());
+            $this->assertNotSame('', PhishingResult::summaryFor($recent)['purge_date']);
+            $task = new \CronTask();
+            PhishingCampaign::cronPhishingretention($task);
+            $old->getFromDB($old->getID());
+            $this->assertNotNull($old->fields['date_anonymized']);
+            $this->assertSame(1, (int) $old->fields['nb_clicked'], 'Taux gardés.');
+            $results = static fn (PhishingCampaign $c): int
+                => countElementsInTable(PhishingTables::RESULTS, [PhishingCampaign::FK => $c->getID()]);
+            $this->assertSame(0, $results($old));
+            $this->assertSame(1, $results($recent));
+            $this->assertNotContains($old->getID(), PhishingCampaign::expiredCampaignIds(12, date('Y-m-d')));
+            $this->assertSame([], PhishingCampaign::cronInfo('other'));
+        } finally {
+            PhishingCampaign::saveRetention($before);
+        }
+    }
+
+    public function testEntityRowsAndDashboardTrendCard(): void
+    {
+        $entityA = $this->createTestEntity(0, 'Hameconnage tableau A');
+        $entityB = $this->createTestEntity(0, 'Hameconnage tableau B');
+        foreach ([$entityA => 'tabA', $entityB => 'tabB'] as $entity => $prefix) {
+            $campaign = $this->campaign('Campagne ' . $prefix, $entity, date('Y-m-d', strtotime('-1 month')));
+            $lines = [];
+            for ($i = 1; $i <= 5; $i++) {
+                $lines[] = $prefix . $i . '@example.org,' . ($i === 1 ? 'Clicked Link' : 'Email Sent') . ',false';
+            }
+            $this->import($campaign, $lines);
+        }
+        $entities = array_column(PhishingCampaign::entityRows(), 'rates', 'entity');
+        $names = array_keys($entities);
+        $this->assertNotEmpty(array_filter(
+            $names,
+            static fn (string $name): bool => str_contains($name, 'Hameconnage tableau A')
+        ));
+        foreach ($entities as $name => $rates) {
+            if (str_contains($name, 'Hameconnage tableau')) {
+                $this->assertSame(20.0, $rates['clicked']);
+            }
+        }
+
+        $card = SecuredDashboardCards::phishingTrend();
+        $this->assertTrue(SecuredDashboardCards::canShow('phishingTrend'));
+        $this->assertCount(3, $card['data']['series']);
+        $this->assertNotEmpty($card['data']['labels']);
+        $this->assertContains(20.0, $card['data']['series'][0]['data']);
+
+        $_SESSION['glpiactiveprofile']['plugin_grcmanager'] = 0;
+        $this->assertFalse(SecuredDashboardCards::canShow('phishingTrend'));
     }
 }
