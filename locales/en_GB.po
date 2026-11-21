@@ -38774,3 +38774,184 @@ msgstr "When the supplier has no access to GLPI, send the questionnaire as a fil
 
 msgid "You are not allowed to change this evaluation."
 msgstr "You are not allowed to change this evaluation."
+
+msgid "Secure link"
+msgstr "Secure link"
+
+#, php-format
+msgid "Secure link %1$d created for the supplier, valid %2$d day(s)"
+msgstr "Secure link %1$d created for the supplier, valid %2$d day(s)"
+
+#, php-format
+msgid "Secure link %d revoked"
+msgstr "Secure link %d revoked"
+
+#, php-format
+msgid "Files of type .%s are not accepted."
+msgstr "Files of type .%s are not accepted."
+
+#, php-format
+msgid "Supplier answers received by secure link %1$d: %2$d answer(s), %3$d document(s), to be reviewed"
+msgstr "Supplier answers received by secure link %1$d: %2$d answer(s), %3$d document(s), to be reviewed"
+
+#, php-format
+msgid "Answers received by secure link on %s"
+msgstr "Answers received by secure link on %s"
+
+#, php-format
+msgid "Supplier answers received by secure link reviewed and saved: %1$d answer(s), %2$d document(s)"
+msgstr "Supplier answers received by secure link reviewed and saved: %1$d answer(s), %2$d document(s)"
+
+#, php-format
+msgid "Supplier answers received by secure link discarded (draft %d)"
+msgstr "Supplier answers received by secure link discarded (draft %d)"
+
+msgid "Shows the answers sent by the supplier through the secure link, question by question, next to the current answers, with the documents received. They are not part of the evaluation yet."
+msgstr "Shows the answers sent by the supplier through the secure link, question by question, next to the current answers, with the documents received. They are not part of the evaluation yet."
+
+msgid "Check the answers, then save them (the documents are checked again like any evidence) or discard them. Then review the evaluation and mark it as completed."
+msgstr "Check the answers, then save them (the documents are checked again like any evidence) or discard them. Then review the evaluation and mark it as completed."
+
+#, php-format
+msgid "Question %s: choose an answer from the list."
+msgstr "Question %s: choose an answer from the list."
+
+msgid "Too many documents in one sending."
+msgstr "Too many documents in one sending."
+
+#, php-format
+msgid "Question %1$s: %2$s"
+msgstr "Question %1$s: %2$s"
+
+msgid "Nothing was sent: answer at least one question."
+msgstr "Nothing was sent: answer at least one question."
+
+msgid "Secure link created: copy it now, it will not be shown again."
+msgstr "Secure link created: copy it now, it will not be shown again."
+
+msgid "The link was revoked: it no longer opens the questionnaire."
+msgstr "The link was revoked: it no longer opens the questionnaire."
+
+msgid "The answers received were discarded."
+msgstr "The answers received were discarded."
+
+#, php-format
+msgid "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
+msgstr "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
+
+msgid "Your customer asks you to answer this security questionnaire. Choose an answer for each question, add a comment if useful and attach the documents asked for. Your answers are sent to your customer, who reviews them before they are recorded."
+msgstr "Your customer asks you to answer this security questionnaire. Choose an answer for each question, add a comment if useful and attach the documents asked for. Your answers are sent to your customer, who reviews them before they are recorded."
+
+#, php-format
+msgid "Link valid until %s"
+msgstr "Link valid until %s"
+
+#, php-format
+msgid "Sendings left: %d"
+msgstr "Sendings left: %d"
+
+msgid "Nothing was sent yet"
+msgstr "Nothing was sent yet"
+
+msgid "Correct these points, select the documents again, then send."
+msgstr "Correct these points, select the documents again, then send."
+
+msgid "Document expected"
+msgstr "Document expected"
+
+msgid "Document (optional)"
+msgstr "Document (optional)"
+
+#, php-format
+msgid "Documents: at most %d MB each, in the formats accepted by your customer (PDF, office documents, images...)."
+msgstr "Documents: at most %d MB each, in the formats accepted by your customer (PDF, office documents, images...)."
+
+msgid "Send my answers"
+msgstr "Send my answers"
+
+msgid "Thank you: your answers were sent. Your customer will review them; you can close this page."
+msgstr "Thank you: your answers were sent. Your customer will review them; you can close this page."
+
+msgid "Too many requests: wait a few minutes, then try again."
+msgstr "Too many requests: wait a few minutes, then try again."
+
+msgid "This link can no longer be used: it has expired, was revoked or was already used. Ask your contact for a new link."
+msgstr "This link can no longer be used: it has expired, was revoked or was already used. Ask your contact for a new link."
+
+msgid "This link is not valid. Check that you copied it in full, or ask your contact for a new link."
+msgstr "This link is not valid. Check that you copied it in full, or ask your contact for a new link."
+
+msgid "Supplier answer by secure link"
+msgstr "Supplier answer by secure link"
+
+msgid "Lets a supplier answer its security questionnaire on a page served by GLPI, without a GLPI account, from a personal link created on the evaluation (tab \"Secure link\"). Enable it only if this GLPI can be reached by your suppliers. The link opens only the questions of one evaluation, expires, can be used a limited number of times and can be revoked; the answers wait for a review in GLPI. The answer by file works without this setting."
+msgstr "Lets a supplier answer its security questionnaire on a page served by GLPI, without a GLPI account, from a personal link created on the evaluation (tab \"Secure link\"). Enable it only if this GLPI can be reached by your suppliers. The link opens only the questions of one evaluation, expires, can be used a limited number of times and can be revoked; the answers wait for a review in GLPI. The answer by file works without this setting."
+
+msgid "Allow suppliers to answer by secure link"
+msgstr "Allow suppliers to answer by secure link"
+
+msgid "All sendings used"
+msgstr "All sendings used"
+
+msgid "Evaluation completed"
+msgstr "Evaluation completed"
+
+msgid "Answer by secure link, without a GLPI account"
+msgstr "Answer by secure link, without a GLPI account"
+
+msgid "Send the supplier a personal link to a page served by GLPI, where it answers the questions of this evaluation and attaches its documents, without a GLPI account. The page shows only these questions. The link expires, can be used a limited number of times and can be revoked at any time. The answers received stay pending until you review and save them."
+msgstr "Send the supplier a personal link to a page served by GLPI, where it answers the questions of this evaluation and attaches its documents, without a GLPI account. The page shows only these questions. The link expires, can be used a limited number of times and can be revoked at any time. The answers received stay pending until you review and save them."
+
+msgid "Answers to review"
+msgstr "Answers to review"
+
+msgid "Received on"
+msgstr "Received on"
+
+msgid "Answers"
+msgstr "Answers"
+
+msgid "Link to send to the supplier"
+msgstr "Link to send to the supplier"
+
+msgid "Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). Send it by the means of your choice."
+msgstr "Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). Send it by the means of your choice."
+
+msgid "The secure link is disabled. An administrator of the plugin can enable it in the plugin settings; the answer by file stays available."
+msgstr "The secure link is disabled. An administrator of the plugin can enable it in the plugin settings; the answer by file stays available."
+
+msgid "Open the settings"
+msgstr "Open the settings"
+
+msgid "Valid for (days)"
+msgstr "Valid for (days)"
+
+msgid "Sendings allowed"
+msgstr "Sendings allowed"
+
+msgid "Create a link"
+msgstr "Create a link"
+
+msgid "This evaluation is completed: its links no longer open the questionnaire."
+msgstr "This evaluation is completed: its links no longer open the questionnaire."
+
+msgid "Expires"
+msgstr "Expires"
+
+msgid "Sendings"
+msgstr "Sendings"
+
+msgid "Openings"
+msgstr "Openings"
+
+msgid "Created by"
+msgstr "Created by"
+
+msgid "The creation of a link, each opening, each sending and each revocation are recorded in the security audit log; the Historical tab shows the sendings received and reviewed."
+msgstr "The creation of a link, each opening, each sending and each revocation are recorded in the security audit log; the Historical tab shows the sendings received and reviewed."
+
+msgid "Discard these answers"
+msgstr "Discard these answers"
+
+msgid "They are checked again like any evidence when you save, then attached to their question."
+msgstr "They are checked again like any evidence when you save, then attached to their question."

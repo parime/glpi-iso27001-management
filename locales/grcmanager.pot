@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 16:30+0000\n"
+"POT-Creation-Date: 2026-11-21 17:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -944,6 +944,7 @@ msgid "Already present"
 msgstr ""
 
 #: front/networkflow.import.php:61
+#: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Created"
 msgstr ""
 
@@ -1595,6 +1596,45 @@ msgstr ""
 msgid "The document \"%s\" matches no question of the file: it was not added."
 msgstr ""
 
+#: front/supplierevaluationlink.php:33 front/zabbixmonitoring.php:73
+msgid "Settings saved."
+msgstr ""
+
+#: front/supplierevaluationlink.php:55
+msgid "Secure link created: copy it now, it will not be shown again."
+msgstr ""
+
+#: front/supplierevaluationlink.php:61
+msgid "The link was revoked: it no longer opens the questionnaire."
+msgstr ""
+
+#: front/supplierevaluationlink.php:76
+msgid "The answers received were discarded."
+msgstr ""
+
+#: front/supplierevaluationlink.php:86
+#, php-format
+msgid "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
+msgstr ""
+
+#: front/supplierportal.php:105
+#, php-format
+msgid "Question %s: choose an answer from the list."
+msgstr ""
+
+#: front/supplierportal.php:119
+msgid "Too many documents in one sending."
+msgstr ""
+
+#: front/supplierportal.php:122
+#, php-format
+msgid "Question %1$s: %2$s"
+msgstr ""
+
+#: front/supplierportal.php:129
+msgid "Nothing was sent: answer at least one question."
+msgstr ""
+
 #: front/supplierquestionnairetemplate.form.php:48
 msgid "Template copied: adapt its questions."
 msgstr ""
@@ -1640,10 +1680,6 @@ msgstr ""
 
 #: front/zabbixmonitoring.php:56
 msgid "Zabbix settings saved."
-msgstr ""
-
-#: front/zabbixmonitoring.php:73
-msgid "Settings saved."
 msgstr ""
 
 #: front/zabbixmonitoring.php:84
@@ -2568,6 +2604,7 @@ msgstr ""
 #: templates/tabs/breach_exposures.html.twig
 #: templates/tabs/business_process_risks.html.twig
 #: templates/tabs/control_access_reviews.html.twig
+#: templates/tabs/supplier_evaluation_link.html.twig
 #: templates/tabs/supplier_questionnaire.html.twig
 msgid "Status"
 msgstr ""
@@ -3048,7 +3085,7 @@ msgstr ""
 
 #: src/AdAttackPath.php:74 src/AdSecurityAudit.php:231 src/ControlTest.php:652
 #: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
-#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:306
+#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:315
 msgid "The file is empty."
 msgstr ""
 
@@ -5832,6 +5869,7 @@ msgstr ""
 
 #: src/CompetenceMatrix.php:480 templates/competence_sheet.html.twig
 #: templates/pdf/soa_report.html.twig
+#: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Expired"
 msgstr ""
 
@@ -7909,7 +7947,7 @@ msgstr ""
 msgid "You are not allowed to add a document to this control."
 msgstr ""
 
-#: src/ControlTest.php:585
+#: src/ControlTest.php:585 src/SupplierEvaluationLink.php:329
 msgid "The file name is not valid."
 msgstr ""
 
@@ -7920,7 +7958,7 @@ msgid ""
 "types)."
 msgstr ""
 
-#: src/ControlTest.php:609
+#: src/ControlTest.php:609 src/SupplierEvaluationLink.php:351
 #, php-format
 msgid "The content of the file (%1$s) does not match its extension (.%2$s)."
 msgstr ""
@@ -10615,7 +10653,22 @@ msgid ""
 msgstr ""
 
 #: src/Feature/SupplierAnswerFileFeature.php:42
+#: src/Feature/SupplierPortalFeature.php:41
 msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
+msgstr ""
+
+#: src/Feature/SupplierPortalFeature.php:32
+msgid ""
+"Shows the answers sent by the supplier through the secure link, question by "
+"question, next to the current answers, with the documents received. They are "
+"not part of the evaluation yet."
+msgstr ""
+
+#: src/Feature/SupplierPortalFeature.php:37
+msgid ""
+"Check the answers, then save them (the documents are checked again like any "
+"evidence) or discard them. Then review the evaluation and mark it as "
+"completed."
 msgstr ""
 
 #: src/Feature/ZabbixMonitoringFeature.php:40
@@ -11174,7 +11227,7 @@ msgstr ""
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/risk_indicator_values.html.twig
-#: templates/share_access_detail.html.twig
+#: templates/share_access_detail.html.twig templates/supplier_portal.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/business_process_risks.html.twig
@@ -11805,6 +11858,7 @@ msgstr ""
 #: src/NetworkFlow.php:290 templates/audit_evidence_requests_tab.html.twig
 #: templates/compliance_calendar.html.twig templates/config_form.html.twig
 #: templates/network_flow_form.html.twig
+#: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Active"
 msgstr ""
 
@@ -15007,7 +15061,7 @@ msgstr ""
 msgid "Overall status"
 msgstr ""
 
-#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:463
+#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:464
 #: templates/ad_security_audit.html.twig
 #: templates/framework_assessment.html.twig
 #: templates/my_trainings_tab.html.twig
@@ -18731,7 +18785,7 @@ msgstr ""
 msgid "%1$s (%2$s): %3$s"
 msgstr ""
 
-#: src/SupplierAssessment.php:46
+#: src/SupplierAssessment.php:46 templates/supplier_portal.html.twig
 msgid "Security questionnaire"
 msgstr ""
 
@@ -18824,36 +18878,36 @@ msgstr ""
 msgid "Insufficient level"
 msgstr ""
 
-#: src/SupplierEvaluation.php:167
+#: src/SupplierEvaluation.php:168
 msgid "Choose the supplier risk to evaluate."
 msgstr ""
 
-#: src/SupplierEvaluation.php:182
+#: src/SupplierEvaluation.php:183
 msgid ""
 "Choose an active questionnaire template available in the entity of the "
 "supplier risk."
 msgstr ""
 
-#: src/SupplierEvaluation.php:203
+#: src/SupplierEvaluation.php:204
 #, php-format
 msgid "%1$s - %2$s"
 msgstr ""
 
-#: src/SupplierEvaluation.php:236
+#: src/SupplierEvaluation.php:237
 msgid "This evaluation is completed: reopen it to change it."
 msgstr ""
 
-#: src/SupplierEvaluation.php:407
+#: src/SupplierEvaluation.php:408
 #: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Questionnaire"
 msgstr ""
 
-#: src/SupplierEvaluation.php:467 templates/supplier_evaluation_form.html.twig
+#: src/SupplierEvaluation.php:468 templates/supplier_evaluation_form.html.twig
 #: templates/tabs/supplier_questionnaire.html.twig
 msgid "Evaluation date"
 msgstr ""
 
-#: src/SupplierEvaluation.php:471 templates/audit_checklist_tab.html.twig
+#: src/SupplierEvaluation.php:472 templates/audit_checklist_tab.html.twig
 #: templates/dora/register.html.twig
 msgid "Template"
 msgstr ""
@@ -18940,76 +18994,119 @@ msgstr ""
 msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:255
+#: src/SupplierEvaluationFile.php:264
 #, php-format
 msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:267
+#: src/SupplierEvaluationFile.php:276
 #, php-format
 msgid ""
 "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:283
+#: src/SupplierEvaluationFile.php:292 src/SupplierEvaluationLink.php:335
 #, php-format
 msgid "The file is too large (at most %d MB)."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:287
+#: src/SupplierEvaluationFile.php:296
 msgid ""
 "The file is not a CSV text file: save the spreadsheet as CSV before "
 "importing it."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:291
+#: src/SupplierEvaluationFile.php:300
 msgid ""
 "This file is not a questionnaire exported from this plugin: its first line "
 "was changed or removed."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:295
+#: src/SupplierEvaluationFile.php:304
 msgid ""
 "This file was exported for another evaluation: import it in the evaluation "
 "it comes from."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:299
+#: src/SupplierEvaluationFile.php:308
 msgid ""
 "The questions of this file do not match those of the evaluation: export the "
 "questionnaire again."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:303
+#: src/SupplierEvaluationFile.php:312
 msgid ""
 "The header line or some columns are missing: keep the columns of the "
 "exported file."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:317
+#: src/SupplierEvaluationFile.php:326
 #, php-format
 msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:322
+#: src/SupplierEvaluationFile.php:331
 #, php-format
 msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:327
+#: src/SupplierEvaluationFile.php:336
 #, php-format
 msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:332
+#: src/SupplierEvaluationFile.php:341
 #, php-format
 msgid ""
 "Line %1$d: at most %2$d questions per file, the following lines were ignored."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:337
+#: src/SupplierEvaluationFile.php:346
 #, php-format
 msgid "Question %s is missing from the file: its answer does not change."
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:65
+msgid "Secure link"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:217
+#, php-format
+msgid "Secure link %1$d created for the supplier, valid %2$d day(s)"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:241
+#, php-format
+msgid "Secure link %d revoked"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:339
+#, php-format
+msgid "Files of type .%s are not accepted."
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:411
+#, php-format
+msgid ""
+"Supplier answers received by secure link %1$d: %2$d answer(s), %3$d "
+"document(s), to be reviewed"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:489
+#, php-format
+msgid "Answers received by secure link on %s"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:524
+#, php-format
+msgid ""
+"Supplier answers received by secure link reviewed and saved: %1$d answer(s), "
+"%2$d document(s)"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:557
+#, php-format
+msgid "Supplier answers received by secure link discarded (draft %d)"
 msgstr ""
 
 #: src/SupplierQuestionnaireTemplate.php:52
@@ -20219,6 +20316,7 @@ msgid "What is expected"
 msgstr ""
 
 #: templates/_page_help.html.twig templates/asset_security_360_tab.html.twig
+#: templates/supplier_portal.html.twig
 msgid "What is this page for?"
 msgstr ""
 
@@ -21660,6 +21758,7 @@ msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/auditor_space.html.twig templates/my_evidence_requests.html.twig
+#: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Documents"
 msgstr ""
 
@@ -21787,10 +21886,12 @@ msgid "Request this evidence"
 msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig
+#: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Revoke"
 msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig
+#: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Revoked"
 msgstr ""
 
@@ -23170,6 +23271,7 @@ msgstr ""
 #: templates/tabs/access_review_bmc_accounts.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
 #: templates/tabs/supplier_evaluation_file.html.twig
+#: templates/tabs/supplier_evaluation_link.html.twig
 msgid "What is this tab for?"
 msgstr ""
 
@@ -24579,7 +24681,9 @@ msgstr ""
 #: templates/endoflife_config.html.twig
 #: templates/responsibility_matrix.html.twig
 #: templates/server_management.html.twig
+#: templates/supplier_portal_config.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
+#: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Disabled"
 msgstr ""
 
@@ -24587,6 +24691,8 @@ msgstr ""
 #: templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig
 #: templates/endoflife_config.html.twig templates/server_management.html.twig
+#: templates/supplier_portal_config.html.twig
+#: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Enabled"
 msgstr ""
 
@@ -25981,7 +26087,7 @@ msgstr ""
 
 #: templates/control_list_header.html.twig
 #: templates/data_subject_request_form.html.twig
-#: templates/policy_approval_tab.html.twig
+#: templates/policy_approval_tab.html.twig templates/supplier_portal.html.twig
 #: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Answer"
 msgstr ""
@@ -36509,6 +36615,10 @@ msgid "Current answer"
 msgstr ""
 
 #: templates/supplier_evaluation_import.html.twig
+msgid "Discard these answers"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
 msgid "Documents sent by the supplier"
 msgstr ""
 
@@ -36533,7 +36643,98 @@ msgid "The file brings no new answer and no new comment."
 msgstr ""
 
 #: templates/supplier_evaluation_import.html.twig
+msgid ""
+"They are checked again like any evidence when you save, then attached to "
+"their question."
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
 msgid "unchanged"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Correct these points, select the documents again, then send."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Document (optional)"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Document expected"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+#, php-format
+msgid ""
+"Documents: at most %d MB each, in the formats accepted by your customer "
+"(PDF, office documents, images...)."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+#, php-format
+msgid "Link valid until %s"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Nothing was sent yet"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Send my answers"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+#, php-format
+msgid "Sendings left: %d"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid ""
+"Thank you: your answers were sent. Your customer will review them; you can "
+"close this page."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid ""
+"This link can no longer be used: it has expired, was revoked or was already "
+"used. Ask your contact for a new link."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid ""
+"This link is not valid. Check that you copied it in full, or ask your "
+"contact for a new link."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Too many requests: wait a few minutes, then try again."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid ""
+"Your customer asks you to answer this security questionnaire. Choose an "
+"answer for each question, add a comment if useful and attach the documents "
+"asked for. Your answers are sent to your customer, who reviews them before "
+"they are recorded."
+msgstr ""
+
+#: templates/supplier_portal_config.html.twig
+msgid "Allow suppliers to answer by secure link"
+msgstr ""
+
+#: templates/supplier_portal_config.html.twig
+msgid ""
+"Lets a supplier answer its security questionnaire on a page served by GLPI, "
+"without a GLPI account, from a personal link created on the evaluation (tab "
+"\"Secure link\"). Enable it only if this GLPI can be reached by your "
+"suppliers. The link opens only the questions of one evaluation, expires, can "
+"be used a limited number of times and can be revoked; the answers wait for a "
+"review in GLPI. The answer by file works without this setting."
+msgstr ""
+
+#: templates/supplier_portal_config.html.twig
+msgid "Supplier answer by secure link"
 msgstr ""
 
 #: templates/supplier_questionnaire_template_form.html.twig
@@ -38122,6 +38323,7 @@ msgid "Questionnaire filled in by the supplier (CSV)"
 msgstr ""
 
 #: templates/tabs/supplier_evaluation_file.html.twig
+#: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Review the answers"
 msgstr ""
 
@@ -38144,6 +38346,99 @@ msgstr ""
 
 #: templates/tabs/supplier_evaluation_file.html.twig
 msgid "You are not allowed to change this evaluation."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "All sendings used"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Answer by secure link, without a GLPI account"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Answers"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Answers to review"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid ""
+"Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). "
+"Send it by the means of your choice."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Create a link"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Created by"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Evaluation completed"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Expires"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Link to send to the supplier"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Open the settings"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Openings"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Received on"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid ""
+"Send the supplier a personal link to a page served by GLPI, where it answers "
+"the questions of this evaluation and attaches its documents, without a GLPI "
+"account. The page shows only these questions. The link expires, can be used "
+"a limited number of times and can be revoked at any time. The answers "
+"received stay pending until you review and save them."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Sendings"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Sendings allowed"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid ""
+"The creation of a link, each opening, each sending and each revocation are "
+"recorded in the security audit log; the Historical tab shows the sendings "
+"received and reviewed."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid ""
+"The secure link is disabled. An administrator of the plugin can enable it in "
+"the plugin settings; the answer by file stays available."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid ""
+"This evaluation is completed: its links no longer open the questionnaire."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Valid for (days)"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire.html.twig
