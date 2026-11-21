@@ -251,6 +251,13 @@ jobs:
       - name: Composer install
         run: composer install --no-progress --prefer-dist
 
+      # Les .mo ne sont pas versionnés (#985) : compilés depuis les .po et les fragments
+      # locales/unreleased/ avant les tests (notifications par langue lues dans les .mo).
+      - name: Compile translations (.mo)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends gettext
+          python3 tools/build_locales.py
+
       - name: PHPUnit (unit tests)
         run: vendor/bin/phpunit --testsuite unit
 
@@ -319,6 +326,13 @@ jobs:
             docker logs glpi --tail 200
             exit 1
           fi
+
+      # Les .mo ne sont pas versionnés (#985) : compilés depuis les .po et les fragments
+      # locales/unreleased/ avant les tests (notifications par langue lues dans les .mo).
+      - name: Compile translations (.mo)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends gettext
+          python3 tools/build_locales.py
 
       - name: Copie le plugin dans le conteneur GLPI
         run: |
@@ -524,6 +538,13 @@ jobs:
             sleep 5
           done
           exit 1
+
+      # Les .mo ne sont pas versionnés (#985) : compilés depuis les .po et les fragments
+      # locales/unreleased/ avant les tests (notifications par langue lues dans les .mo).
+      - name: Compile translations (.mo)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends gettext
+          python3 tools/build_locales.py
 
       - name: Copie le plugin et installe ses dependances de production
         run: |
