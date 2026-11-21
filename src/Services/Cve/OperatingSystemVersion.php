@@ -26,7 +26,7 @@ use GlpiPlugin\Grcmanager\Services\Lifecycle\ProductMatcher;
  * Issue #780 : systèmes d'exploitation du parc (`Item_OperatingSystem`) face aux CVE. PHP pur,
  * sans GLPI.
  *
- * La famille d'un système (Windows, Windows Server, Debian, Ubuntu, RHEL) est reconnue par la
+ * La famille d'un système (Windows, Windows Server, Debian, Ubuntu, RHEL et ses dérivés, Fedora, macOS) est reconnue par la
  * règle de fin de support (#704, ProductMatcher) : un nom entier connu, jamais une ressemblance.
  * Elle sert seulement à PROPOSER un CPE et à lire la bonne version ; le rapprochement lui-même
  * passe toujours par un alias déclaré (ProductAlias), validé par l'administrateur.
@@ -37,18 +37,36 @@ use GlpiPlugin\Grcmanager\Services\Lifecycle\ProductMatcher;
  *   faire partie de l'identité.
  * - release() : version comparée aux CVE, sous la forme que NVD emploie pour cette famille :
  *   numéro de build pour Windows (version du noyau, « 10.0.22631.4317 »), « 12.0 » pour Debian 12,
- *   « 9.0 » pour RHEL 9, « 22.04 » pour Ubuntu 22.04.
+ *   « 9.0 » pour RHEL 9, « 22.04 » pour Ubuntu 22.04 ; lot 2 : « 9.3 » pour Rocky Linux et
+ *   AlmaLinux 9.3, « 9 » pour Oracle Linux 9, « 40 » pour Fedora 40, « 14.4.1 » pour macOS.
  * - evaluate() : un build sans révision (« 10.0.22631 ») face à une borne qui en a une
  *   (« 10.0.22631.4317 ») reste « version non vérifiable », jamais « touché » par supposition.
  */
 final class OperatingSystemVersion
 {
-    /** CPE proposés par défaut, par famille reconnue (#704). */
+    /**
+     * CPE proposés par défaut, par famille reconnue (#704). Lot 2 : dérivés de RHEL, Fedora et
+     * macOS, produits relevés dans le dictionnaire CPE de NVD.
+     */
     private const DEFAULT_PREFIXES = [
-        'debian' => 'cpe:2.3:o:debian:debian_linux',
-        'ubuntu' => 'cpe:2.3:o:canonical:ubuntu_linux',
-        'rhel'   => 'cpe:2.3:o:redhat:enterprise_linux',
+        'debian'       => 'cpe:2.3:o:debian:debian_linux',
+        'ubuntu'       => 'cpe:2.3:o:canonical:ubuntu_linux',
+        'rhel'         => 'cpe:2.3:o:redhat:enterprise_linux',
+        'rocky-linux'  => 'cpe:2.3:o:rockylinux:rocky_linux',
+        'almalinux'    => 'cpe:2.3:o:almalinux:almalinux',
+        'oracle-linux' => 'cpe:2.3:o:oracle:linux',
+        'fedora'       => 'cpe:2.3:o:fedoraproject:fedora',
+        'macos'        => 'cpe:2.3:o:apple:macos',
     ];
+
+    /** Familles que NVD décrit par la version majeure suivie de « .0 » (« 12.0 », « 9.0 »). */
+    private const MAJOR_DOT_ZERO = ['debian', 'rhel'];
+
+    /** Familles que NVD décrit par la version majeure seule (Oracle Linux « 9 », Fedora « 40 »). */
+    private const MAJOR_ONLY = ['oracle-linux', 'fedora'];
+
+    /** Familles que NVD décrit par la version mineure (Rocky Linux et AlmaLinux « 9.3 »). */
+    private const MAJOR_MINOR = ['rocky-linux', 'almalinux'];
 
     /** Windows Server dont NVD décrit la version par un produit `windows_server_<année>`. */
     private const WINDOWS_SERVER_YEARS = ['2016', '2019', '2022', '2025'];
@@ -130,7 +148,7 @@ final class OperatingSystemVersion
             return preg_match(self::BUILD_PATTERN, $build) === 1 ? $build : '';
         }
         $numbers = self::leadingNumbers($osVersion);
-        if ($numbers === [] && preg_match('/(?<![\w.])(\d{1,2}(\.\d{2})?)(?![\w])/', $osName, $m) === 1) {
+        if ($numbers === [] && preg_match('/(?<![\w.])(\d{1,2}(\.\d{1,2})?)(?![\w])/', $osName, $m) === 1) {
             // Version absente : numéro porté par le nom complet (« Debian GNU/Linux 12 (bookworm) »).
             $numbers = self::leadingNumbers($m[1]);
         }
@@ -142,7 +160,15 @@ final class OperatingSystemVersion
             return count($numbers) >= 2 ? $numbers[0] . '.' . str_pad($numbers[1], 2, '0', STR_PAD_LEFT) : '';
         }
 
-        return in_array($family, ['debian', 'rhel'], true) ? $numbers[0] . '.0' : implode('.', $numbers);
+        if (in_array($family, self::MAJOR_MINOR, true)) {
+            // Version mineure inconnue (« 9 ») : non vérifiable plutôt que supposée « 9.0 ».
+            return count($numbers) >= 2 ? $numbers[0] . '.' . $numbers[1] : '';
+        }
+        if (in_array($family, self::MAJOR_ONLY, true)) {
+            return $numbers[0];
+        }
+
+        return in_array($family, self::MAJOR_DOT_ZERO, true) ? $numbers[0] . '.0' : implode('.', $numbers);
     }
 
     /**
