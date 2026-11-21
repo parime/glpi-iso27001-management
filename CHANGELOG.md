@@ -7,8 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.74.0] - 2026-11-21
-
 ### Added
 
 - **Couverture de la journalisation** (issue #853, mesures A.8.15, A.8.16 et A.8.17). Nouvelle page
@@ -25,6 +23,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   risque « Actifs critiques sans journalisation (%) ». Deux nouvelles tables, créées à
   l'installation et à la mise à jour si absentes (rejouable), supprimées à la désinstallation.
   Matrice d'accès et contrôle XSS étendus.
+
+## [2.74.0] - 2026-11-21
+
+### Added
 
 - **Matrice des flux : nouveau flux pré-rempli depuis l'adresse** (issue #909). Le bouton
   « Proposer le flux » de l'inventaire Docker ouvre le formulaire d'un nouveau flux avec ses valeurs
