@@ -14,6 +14,7 @@
  * (at your option) any later version. See LICENSE for the full text.
  * -------------------------------------------------------------------------
  */
+
 declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Feature;

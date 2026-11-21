@@ -71,7 +71,10 @@ class EvidenceRecurrence extends CommonDBTM
     public static function statusInfo(string $status): array
     {
         return match ($status) {
-            Rules::STATUS_STALE    => ['bg-danger-subtle text-danger-emphasis', __('Not renewed in time', 'grcmanager')],
+            Rules::STATUS_STALE    => [
+                'bg-danger-subtle text-danger-emphasis',
+                __('Not renewed in time', 'grcmanager'),
+            ],
             Rules::STATUS_DUE_SOON => ['bg-warning-subtle text-warning-emphasis', __('Renewal due soon', 'grcmanager')],
             Rules::STATUS_FRESH    => ['bg-success-subtle text-success-emphasis', __('Up to date', 'grcmanager')],
             default                => ['bg-secondary-subtle text-secondary-emphasis', ''],
