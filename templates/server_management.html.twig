@@ -81,6 +81,11 @@
          <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ total_rows }}</span></div>
       </div>
       <div class="card-body small pb-0 text-muted">{{ __('A controller is matched with a computer of GLPI by the serial number of the server, or by the server chosen by hand. Gaps are only reported: nothing is changed on the controller. Hover a gap to see what to do.', 'grcmanager') }}</div>
+      <div class="card-body small pb-0 text-muted" id="grc-bmc-firmware-help">
+         <i class="ti ti-bug me-1"></i>{{ __('The firmware of each controller and its BIOS are compared with the known vulnerabilities of the fleet and with the end of support dates, like the other firmwares: link their name to a product once, on the same pages.', 'grcmanager') }}
+         {% if fleet_url %}<a href="{{ fleet_url }}">{{ __('Fleet vulnerabilities', 'grcmanager') }}</a>{% endif %}
+         {% if eol_config_url %}{% if fleet_url %} · {% endif %}<a href="{{ eol_config_url }}">{{ eol_enabled ? __('End of support', 'grcmanager') : __('Enable the end of support check', 'grcmanager') }}</a>{% endif %}
+      </div>
       {% if rows is empty %}
          <div class="card-body text-muted" id="grc-bmc-empty">{{ __('No controller yet: declare one below, or import a CSV file for controllers with IPMI only.', 'grcmanager') }}</div>
       {% else %}
@@ -124,6 +129,23 @@
                      <td class="small">
                         <div>{{ __('Controller: %s', 'grcmanager')|format(row.firmware_version ?: '-') }}</div>
                         <div>{{ __('BIOS: %s', 'grcmanager')|format(row.bios_version ?: '-') }}</div>
+                        {% for fw in row.firmwares %}
+                           <div class="mt-1" data-firmware="{{ fw.part }}" title="{{ fw.name }} {{ fw.version }}">
+                              <span class="text-muted">{{ fw.part_label }}</span>
+                              {% if not fw.watched %}
+                                 <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('Link this name to a product on the page "Fleet vulnerabilities" to compare it with the known vulnerabilities.', 'grcmanager') }}"><i class="ti ti-eye-off me-1"></i>{{ __('Not watched', 'grcmanager') }}</span>
+                              {% elseif fw.priority > 0 %}
+                                 <span class="badge bg-danger-subtle text-danger-emphasis" title="{{ fw.top_cves|join(', ') }}"><i class="ti ti-bug me-1"></i>{{ __('Priority CVEs: %d', 'grcmanager')|format(fw.priority) }}</span>
+                              {% elseif fw.cves > 0 %}
+                                 <span class="badge bg-warning-subtle text-warning-emphasis" title="{{ fw.top_cves|join(', ') }}"><i class="ti ti-bug me-1"></i>{{ __('Known CVEs: %d', 'grcmanager')|format(fw.cves) }}</span>
+                              {% else %}
+                                 <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-shield-check me-1"></i>{{ __('No known CVE', 'grcmanager') }}</span>
+                              {% endif %}
+                              {% if eol_enabled %}
+                                 <span class="badge bg-{{ fw.eol_info.color }}-subtle text-{{ fw.eol_info.color }}-emphasis" title="{{ fw.eol_info.help }}"><i class="{{ fw.eol_info.icon }} me-1"></i>{{ fw.eol_info.label }}{% if fw.eol_date %} ({{ fw.eol_date }}){% endif %}</span>
+                              {% endif %}
+                           </div>
+                        {% endfor %}
                         {% if row.cert_expiry %}<div class="text-muted">{{ __('Certificate until %s', 'grcmanager')|format(row.cert_expiry) }}</div>{% endif %}
                      </td>
                      <td>{{ _self.health_badge(row.health) }}</td>

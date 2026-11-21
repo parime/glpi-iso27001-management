@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 14:07+0000\n"
+"POT-Creation-Date: 2026-11-21 14:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,11 @@ msgstr ""
 #: front/accessreview.mine.php:69 front/accessreview.php:42
 #: templates/tabs/access_review_lines.html.twig
 msgid "My access reviews"
+msgstr ""
+
+#: front/accessreviewbmcaccount.php:33
+#, php-format
+msgid "%d account(s) of the controllers added to the campaign."
 msgstr ""
 
 #: front/accounthygiene.php:31
@@ -80,7 +85,7 @@ msgid "The file is very long: only its first checks were read."
 msgstr ""
 
 #: front/adsecurityaudit.php:112 front/backupcoverage.php:69
-#: front/logcoverage.php:68 front/mfacoverage.php:69 front/shareaccess.php:121
+#: front/logcoverage.php:68 front/mfacoverage.php:69 front/shareaccess.php:97
 msgid "Import deleted."
 msgstr ""
 
@@ -117,7 +122,7 @@ msgstr ""
 
 #: front/audit.report.php:77 front/databreach.export.php:65
 #: front/networkflow.report.php:31 front/processingactivity.export.php:64
-#: front/risk.report.php:73 src/AccessReview.php:798 src/AcnRequirement.php:805
+#: front/risk.report.php:73 src/AccessReview.php:802 src/AcnRequirement.php:805
 #: src/Audit.php:653 src/CertificationFinding.php:423
 #: src/CertificationReadiness.php:1490 src/CertificationResponse.php:433
 #: src/CompetenceMatrix.php:899 src/ConsistencyCheck.php:1503
@@ -1253,7 +1258,7 @@ msgstr ""
 msgid "Checklist saved."
 msgstr ""
 
-#: front/releasevalidation.form.php:50 front/shareaccess.php:159
+#: front/releasevalidation.form.php:50 front/shareaccess.php:135
 msgid "Decision recorded."
 msgstr ""
 
@@ -1487,26 +1492,26 @@ msgid ""
 "%1$d controller(s) imported, %2$d updated, %3$d ignored (read by Redfish)."
 msgstr ""
 
-#: front/shareaccess.php:60
+#: front/shareaccess.php:73
 #, php-format
 msgid ""
 "%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed "
 "since the previous import."
 msgstr ""
 
-#: front/shareaccess.php:71
+#: front/shareaccess.php:84
 msgid "The file is too long: only its first lines were imported."
 msgstr ""
 
-#: front/shareaccess.php:130
+#: front/shareaccess.php:106
 msgid "Share saved."
 msgstr ""
 
-#: front/shareaccess.php:158
+#: front/shareaccess.php:134
 msgid "Review started: the owner can now decide for each right."
 msgstr ""
 
-#: front/shareaccess.php:160
+#: front/shareaccess.php:136
 msgid "Review closed."
 msgstr ""
 
@@ -2480,7 +2485,7 @@ msgstr ""
 msgid "The campaign name is required."
 msgstr ""
 
-#: src/AccessReview.php:313 src/Audit.php:226 src/BreachExposure.php:132
+#: src/AccessReview.php:315 src/Audit.php:226 src/BreachExposure.php:132
 #: src/ComplianceEvent.php:229 src/EndOfLife.php:476
 #: src/HardwareWarranty.php:436 src/ManagementReview.php:361
 #: src/Nonconformity.php:391 src/NotificationTargetAuditEvidenceRequest.php:159
@@ -2532,7 +2537,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: src/AccessReview.php:320 templates/access_review_form.html.twig
+#: src/AccessReview.php:322 templates/access_review_form.html.twig
 #: templates/business_process_programme.html.twig
 #: templates/control_test_tab.html.twig
 #: templates/pdf/access_review_report.html.twig
@@ -2540,14 +2545,14 @@ msgstr ""
 msgid "Frequency"
 msgstr ""
 
-#: src/AccessReview.php:327 src/Waiver.php:521
+#: src/AccessReview.php:329 src/Waiver.php:521
 #: templates/access_review_form.html.twig
 #: templates/tabs/control_access_reviews.html.twig
 #: templates/waiver_form.html.twig
 msgid "Start date"
 msgstr ""
 
-#: src/AccessReview.php:334 src/AcnRequirement.php:757
+#: src/AccessReview.php:336 src/AcnRequirement.php:757
 #: src/AcnRequirement.php:837 src/CertificationResponse.php:249
 #: src/Nonconformity.php:408 src/NotificationTargetAccessReview.php:106
 #: src/NotificationTargetAuditEvidenceRequest.php:158
@@ -2581,94 +2586,124 @@ msgstr ""
 msgid "Due date"
 msgstr ""
 
-#: src/AccessReview.php:341 src/NotificationTargetAccessReview.php:105
+#: src/AccessReview.php:343 src/NotificationTargetAccessReview.php:105
 #: templates/access_review_form.html.twig
 #: templates/pdf/access_review_report.html.twig
 msgctxt "process pilot"
 msgid "Owner"
 msgstr ""
 
-#: src/AccessReview.php:349
+#: src/AccessReview.php:351
 msgid "Closing date"
 msgstr ""
 
-#: src/AccessReview.php:466
+#: src/AccessReview.php:468
 msgid "Rule disabled"
 msgstr ""
 
-#: src/AccessReview.php:467 src/BackupCoverage.php:791
+#: src/AccessReview.php:469 src/BackupCoverage.php:791
 #, php-format
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/AccessReview.php:606 src/ManagementReviewDossier.php:283
+#: src/AccessReview.php:608 src/ManagementReviewDossier.php:283
 #: templates/pdf/access_review_report.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 msgid "(and sub-entities)"
 msgstr ""
 
-#: src/AccessReview.php:610
+#: src/AccessReview.php:612
 msgid "No active account has a profile in this entity."
 msgstr ""
 
-#: src/AccessReview.php:683
+#: src/AccessReview.php:687 src/AccessReviewBmcAccount.php:206
 msgid "This line does not belong to an ongoing campaign."
 msgstr ""
 
-#: src/AccessReview.php:688
+#: src/AccessReview.php:692
 msgid "This line is assigned to another reviewer."
 msgstr ""
 
-#: src/AccessReview.php:691 src/ReleaseValidation.php:353
-#: src/ShareAccess.php:1264
+#: src/AccessReview.php:695 src/AccessReviewBmcAccount.php:212
+#: src/ReleaseValidation.php:353 src/ShareAccess.php:1100
 msgid "Unknown decision."
 msgstr ""
 
-#: src/AccessReview.php:695
+#: src/AccessReview.php:699
 msgid ""
 "A ticket has already been created for this account: the decision can no "
 "longer change."
 msgstr ""
 
-#: src/AccessReview.php:700
+#: src/AccessReview.php:704
 msgid "State what must be changed or removed."
 msgstr ""
 
-#: src/AccessReview.php:706
+#: src/AccessReview.php:710 src/AccessReviewBmcAccount.php:216
 msgid ""
 "The rules suggest removing this account: explain in the comment why it is "
 "kept."
 msgstr ""
 
-#: src/AccessReview.php:742
+#: src/AccessReview.php:746
 #, php-format
 msgid "Access review: remove the access of %s"
 msgstr ""
 
-#: src/AccessReview.php:743
+#: src/AccessReview.php:747
 #, php-format
 msgid "Access review: change the access of %s"
 msgstr ""
 
-#: src/AccessReview.php:796
+#: src/AccessReview.php:800
 #, php-format
 msgid "Access review: %s"
 msgstr ""
 
-#: src/AccessReview.php:830
+#: src/AccessReview.php:834
 #, php-format
 msgid "Access review report - %s"
 msgstr ""
 
-#: src/AccessReview.php:868
+#: src/AccessReview.php:872
 #, php-format
 msgid "Access review of %s"
 msgstr ""
 
-#: src/AccessReview.php:949
+#: src/AccessReview.php:953
 msgid "Reminds reviewers who are late on an access review"
+msgstr ""
+
+#: src/AccessReviewBmcAccount.php:48
+#: templates/tabs/access_review_bmc_accounts.html.twig
+msgid "Server controller accounts"
+msgstr ""
+
+#: src/AccessReviewBmcAccount.php:209 src/ServerManagement.php:334
+#: src/ZabbixMonitoring.php:231
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: src/AccessReviewBmcAccount.php:235
+msgid "Factory account still enabled: replace it with a named account"
+msgstr ""
+
+#: src/AccessReviewBmcAccount.php:236
+msgid "Disabled on the controller: delete it there"
+msgstr ""
+
+#: src/AccessReviewBmcAccount.php:237
+msgid "Locked on the controller"
+msgstr ""
+
+#: src/AccessReviewBmcAccount.php:238
+msgid "Administrator role: full control of the server"
+msgstr ""
+
+#: src/AccessReviewBmcAccount.php:239 src/AccessReviewSuggestion.php:115
+msgid "No warning sign"
 msgstr ""
 
 #: src/AccessReviewSuggestion.php:56
@@ -2761,10 +2796,6 @@ msgstr ""
 #: src/AccessReviewSuggestion.php:114
 #, php-format
 msgid "No warning sign (last login on %s)"
-msgstr ""
-
-#: src/AccessReviewSuggestion.php:115
-msgid "No warning sign"
 msgstr ""
 
 #: src/AccountHygiene.php:46 src/PersonnelCompliance.php:254
@@ -3042,7 +3073,7 @@ msgstr ""
 #: src/AdSecurityAudit.php:221 src/AssetClassification.php:94
 #: src/AssetClassification.php:185 src/ConfigurationCompliance.php:152
 #: src/ConsistencyCheck.php:132 src/Control.php:201 src/DoraRegister.php:238
-#: src/DoraRegister.php:243 src/ShareAccess.php:264
+#: src/DoraRegister.php:243 src/ShareAccess.php:227
 #: src/Traits/RiskAssessmentTrait.php:122
 #: src/Traits/RiskAssessmentTrait.php:138
 #: src/Traits/RiskAssessmentTrait.php:309 src/ZabbixMonitoring.php:141
@@ -3053,7 +3084,7 @@ msgstr ""
 #: src/AdSecurityAudit.php:222 src/AssetClassification.php:93
 #: src/AssetClassification.php:184 src/ConfigurationCompliance.php:153
 #: src/ConsistencyCheck.php:137 src/Control.php:200 src/DoraRegister.php:237
-#: src/DoraRegister.php:242 src/ShareAccess.php:263
+#: src/DoraRegister.php:242 src/ShareAccess.php:226
 #: src/Traits/RiskAssessmentTrait.php:121
 #: src/Traits/RiskAssessmentTrait.php:137
 #: src/Traits/RiskAssessmentTrait.php:308 templates/risk_heatmap.html.twig
@@ -3063,7 +3094,7 @@ msgstr ""
 #: src/AdSecurityAudit.php:223 src/AssetClassification.php:92
 #: src/AssetClassification.php:183 src/ConfigurationCompliance.php:154
 #: src/ConsistencyCheck.php:142 src/Control.php:199 src/DoraRegister.php:236
-#: src/DoraRegister.php:241 src/ShareAccess.php:262
+#: src/DoraRegister.php:241 src/ShareAccess.php:225
 #: src/Traits/RiskAssessmentTrait.php:120
 #: src/Traits/RiskAssessmentTrait.php:136
 #: src/Traits/RiskAssessmentTrait.php:307 templates/risk_heatmap.html.twig
@@ -3077,7 +3108,7 @@ msgstr ""
 
 #: src/AdSecurityAudit.php:231 src/ControlTest.php:652
 #: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
-#: src/ServerManagement.php:298
+#: src/ServerManagement.php:335
 msgid "The file is empty."
 msgstr ""
 
@@ -3125,7 +3156,7 @@ msgid "You do not have the right to import a report."
 msgstr ""
 
 #: src/AdSecurityAudit.php:257 src/BackupCoverage.php:254
-#: src/LogCoverage.php:211 src/MfaCoverage.php:192 src/ShareAccess.php:289
+#: src/LogCoverage.php:211 src/MfaCoverage.php:192 src/ShareAccess.php:248
 msgid "The file could not be read."
 msgstr ""
 
@@ -3861,7 +3892,7 @@ msgid "Real user (impersonation)"
 msgstr ""
 
 #: src/AuditLog.php:234 src/NotificationTargetPersonnelCompliance.php:95
-#: src/PersonnelCompliance.php:747 src/ShareAccess.php:157
+#: src/PersonnelCompliance.php:747 src/ShareAccess.php:150
 #: templates/account_hygiene.html.twig
 #: templates/account_hygiene_ticket.html.twig templates/audit_log.html.twig
 #: templates/document_accesses_tab.html.twig
@@ -4147,7 +4178,7 @@ msgstr ""
 
 #: src/BackupCoverage.php:188 src/ConfigurationCompliance.php:156
 #: src/DiskEncryption.php:143 src/PatchCompliance.php:155
-#: src/ServerManagement.php:944 templates/disk_encryption.html.twig
+#: src/ServerManagement.php:1041 templates/disk_encryption.html.twig
 msgid "Unknown"
 msgstr ""
 
@@ -6540,7 +6571,7 @@ msgid "Due on %s"
 msgstr ""
 
 #: src/ConsistencyCheck.php:741 src/ConsistencyCheck.php:782
-#: src/NetworkFlow.php:114 src/ShareAccess.php:245
+#: src/NetworkFlow.php:114 src/ShareAccess.php:208
 #: templates/_crisis_review.html.twig
 #: templates/maturity_campaign_gaps_tab.html.twig
 msgid "No owner"
@@ -6820,6 +6851,7 @@ msgstr ""
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/share_access_detail.html.twig
+#: templates/tabs/access_review_bmc_accounts.html.twig
 msgid "Decision"
 msgstr ""
 
@@ -9966,6 +9998,7 @@ msgstr[1] ""
 
 #: src/EndOfLife.php:62 src/EndOfLife.php:484
 #: templates/park_endoflife.html.twig templates/patch_compliance.html.twig
+#: templates/server_management.html.twig
 msgid "End of support"
 msgstr ""
 
@@ -10365,8 +10398,9 @@ msgstr ""
 msgid "Server management controllers with a serious gap"
 msgstr ""
 
-#: src/Feature/ServerManagementFeature.php:76 src/ServerManagement.php:77
+#: src/Feature/ServerManagementFeature.php:76 src/ServerManagement.php:82
 #: templates/server_management_item_tab.html.twig
+#: templates/tabs/access_review_bmc_accounts.html.twig
 msgid "Server management controllers"
 msgstr ""
 
@@ -10932,6 +10966,7 @@ msgstr ""
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/risk_indicator_values.html.twig
 #: templates/share_access_detail.html.twig
+#: templates/tabs/access_review_bmc_accounts.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/business_process_risks.html.twig
 #: templates/tabs/mitre_attack.html.twig
@@ -12425,7 +12460,7 @@ msgid "Vulnerabilities not listed"
 msgstr ""
 
 #: src/NotificationTargetVulnerabilityDigest.php:251
-#: src/ParkVulnerability.php:982 templates/park_machines.html.twig
+#: src/ParkVulnerability.php:1019 templates/park_machines.html.twig
 msgid "Vulnerabilities"
 msgstr ""
 
@@ -14174,7 +14209,7 @@ msgstr ""
 
 #: src/ParkVulnerability.php:79 templates/park_item_tab.html.twig
 #: templates/park_vulnerabilities.html.twig
-#: templates/patch_compliance.html.twig
+#: templates/patch_compliance.html.twig templates/server_management.html.twig
 #: templates/supplier_security_watch.html.twig
 msgid "Fleet vulnerabilities"
 msgstr ""
@@ -15115,7 +15150,7 @@ msgstr ""
 msgid "Policy acknowledgement"
 msgstr ""
 
-#: src/PolicyAcknowledgement.php:129 src/ShareAccess.php:158
+#: src/PolicyAcknowledgement.php:129 src/ShareAccess.php:151
 #: templates/periodic_reviews.html.twig
 #: templates/personnel_compliance_list.html.twig
 msgid "Group"
@@ -15258,8 +15293,10 @@ msgid_plural "Record of processing activities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ProcessingActivity.php:103 templates/server_management.html.twig
+#: src/ProcessingActivity.php:103 src/ServerManagement.php:1093
+#: templates/server_management.html.twig
 #: templates/server_management_item_tab.html.twig
+#: templates/tabs/access_review_bmc_accounts.html.twig
 msgid "Controller"
 msgstr ""
 
@@ -16961,12 +16998,13 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/SecurityIncidentEdrImport.php:74 src/ShareAccess.php:159
+#: src/SecurityIncidentEdrImport.php:74 src/ShareAccess.php:152
 #: templates/edr_import.html.twig templates/mfa_coverage.html.twig
 #: templates/pdf/access_review_report.html.twig
 #: templates/server_management.html.twig
 #: templates/share_access_detail.html.twig
 #: templates/tabs/_access_review_rows.html.twig
+#: templates/tabs/access_review_bmc_accounts.html.twig
 msgid "Account"
 msgstr ""
 
@@ -17347,224 +17385,264 @@ msgstr ""
 msgid "Alert"
 msgstr ""
 
-#: src/ServerManagement.php:132
+#: src/ServerManagement.php:137
 msgid "Last reading failed"
 msgstr ""
 
-#: src/ServerManagement.php:133
+#: src/ServerManagement.php:138
 msgid "The values shown come from the previous successful reading."
 msgstr ""
 
-#: src/ServerManagement.php:137 templates/server_management_item_tab.html.twig
+#: src/ServerManagement.php:142 templates/server_management_item_tab.html.twig
 msgid "Never read"
 msgstr ""
 
-#: src/ServerManagement.php:138
+#: src/ServerManagement.php:143
 msgid "Click \"Read now\" to read the controller."
 msgstr ""
 
-#: src/ServerManagement.php:142
+#: src/ServerManagement.php:147
 msgid "IPMI over the network enabled"
 msgstr ""
 
-#: src/ServerManagement.php:144
+#: src/ServerManagement.php:149
 msgid ""
 "IPMI over LAN has known weaknesses (password hashes can be retrieved): "
 "disable it if it is not used."
 msgstr ""
 
-#: src/ServerManagement.php:151 templates/server_management.html.twig
+#: src/ServerManagement.php:156 templates/server_management.html.twig
 msgid "Default account still enabled"
 msgstr ""
 
-#: src/ServerManagement.php:153
+#: src/ServerManagement.php:158
 msgid ""
 "A factory account (root, Administrator, ADMIN, USERID) is enabled: check "
 "that its password was changed, or disable it."
 msgstr ""
 
-#: src/ServerManagement.php:160 templates/server_management.html.twig
+#: src/ServerManagement.php:165 templates/server_management.html.twig
 msgid "Outside the administration networks"
 msgstr ""
 
-#: src/ServerManagement.php:162
+#: src/ServerManagement.php:167
 msgid ""
 "The address of the controller is not in an administration network declared "
 "in the network flow matrix: segregation gap."
 msgstr ""
 
-#: src/ServerManagement.php:169
+#: src/ServerManagement.php:174
 msgid "Telnet enabled"
 msgstr ""
 
-#: src/ServerManagement.php:170
+#: src/ServerManagement.php:175
 msgid "Telnet sends the password in clear text: disable it."
 msgstr ""
 
-#: src/ServerManagement.php:174
+#: src/ServerManagement.php:179
 msgid "Old protocols (SSLv3, TLS 1.0 or 1.1)"
 msgstr ""
 
-#: src/ServerManagement.php:175
+#: src/ServerManagement.php:180
 msgid "Reported by the import: keep only TLS 1.2 and later."
 msgstr ""
 
-#: src/ServerManagement.php:179
+#: src/ServerManagement.php:184
 msgid "Certificate expired"
 msgstr ""
 
-#: src/ServerManagement.php:180
+#: src/ServerManagement.php:185
 msgid "The HTTPS certificate of the controller has expired."
 msgstr ""
 
-#: src/ServerManagement.php:184
+#: src/ServerManagement.php:189
 msgid "Hardware health critical"
 msgstr ""
 
-#: src/ServerManagement.php:185
+#: src/ServerManagement.php:190
 msgid "The controller reports a critical hardware state."
 msgstr ""
 
-#: src/ServerManagement.php:189
+#: src/ServerManagement.php:194
+msgid "Firmware with a priority vulnerability"
+msgstr ""
+
+#: src/ServerManagement.php:196
+msgid ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+msgstr ""
+
+#: src/ServerManagement.php:203
+msgid "Firmware no longer supported"
+msgstr ""
+
+#: src/ServerManagement.php:205
+msgid ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+msgstr ""
+
+#: src/ServerManagement.php:212
+msgid "Firmware with known vulnerabilities"
+msgstr ""
+
+#: src/ServerManagement.php:214
+msgid ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+msgstr ""
+
+#: src/ServerManagement.php:221
+msgid "Firmware support ending soon"
+msgstr ""
+
+#: src/ServerManagement.php:222
+msgid ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+msgstr ""
+
+#: src/ServerManagement.php:226
 msgid "SNMP v1 or v2c enabled"
 msgstr ""
 
-#: src/ServerManagement.php:190
+#: src/ServerManagement.php:227
 msgid "SNMP v1 and v2c use a community sent in clear text: prefer SNMPv3."
 msgstr ""
 
-#: src/ServerManagement.php:194
+#: src/ServerManagement.php:231
 msgid "Secure Boot disabled"
 msgstr ""
 
-#: src/ServerManagement.php:195
+#: src/ServerManagement.php:232
 msgid "Secure Boot of the server is disabled."
 msgstr ""
 
-#: src/ServerManagement.php:199
+#: src/ServerManagement.php:236
 msgid "Self-signed certificate"
 msgstr ""
 
-#: src/ServerManagement.php:200
+#: src/ServerManagement.php:237
 msgid "Replace it with a certificate of your certification authority."
 msgstr ""
 
-#: src/ServerManagement.php:204
+#: src/ServerManagement.php:241
 msgid "Certificate not verified"
 msgstr ""
 
-#: src/ServerManagement.php:206
+#: src/ServerManagement.php:243
 msgid ""
 "The controller is read with the option accepting a self-signed certificate: "
 "its identity is not verified."
 msgstr ""
 
-#: src/ServerManagement.php:213
+#: src/ServerManagement.php:250
 msgid "Hardware health degraded"
 msgstr ""
 
-#: src/ServerManagement.php:214
+#: src/ServerManagement.php:251
 msgid "The controller reports a warning on the hardware."
 msgstr ""
 
-#: src/ServerManagement.php:218
+#: src/ServerManagement.php:255
 msgid "Certificate expiring soon"
 msgstr ""
 
-#: src/ServerManagement.php:219
+#: src/ServerManagement.php:256
 #, php-format
 msgid "The HTTPS certificate expires within %d days."
 msgstr ""
 
-#: src/ServerManagement.php:223
+#: src/ServerManagement.php:260
 msgid "No matching server in GLPI"
 msgstr ""
 
-#: src/ServerManagement.php:225
+#: src/ServerManagement.php:262
 msgid ""
 "No computer of GLPI has this serial number: choose the server by hand on the "
 "controller."
 msgstr ""
 
-#: src/ServerManagement.php:255
+#: src/ServerManagement.php:292
 msgid ""
 "Enter the address, the account and the password of the controller first."
 msgstr ""
 
-#: src/ServerManagement.php:259
+#: src/ServerManagement.php:296
 msgid "The controller refused the account or the password."
 msgstr ""
 
-#: src/ServerManagement.php:263
+#: src/ServerManagement.php:300
 msgid "The controller refused access: give the account the read-only role."
 msgstr ""
 
-#: src/ServerManagement.php:267
+#: src/ServerManagement.php:304
 msgid ""
 "The controller has an internal address, refused by default: allow internal "
 "addresses in the plugin configuration page (Outgoing connections)."
 msgstr ""
 
-#: src/ServerManagement.php:272
+#: src/ServerManagement.php:309
 msgid ""
 "The certificate of the controller is not trusted (self-signed or expired): "
 "install a certificate of your certification authority, or tick \"Accept a "
 "self-signed certificate\" for this controller."
 msgstr ""
 
-#: src/ServerManagement.php:278
+#: src/ServerManagement.php:315
 msgid ""
 "The controller could not be reached: check the address, the network access "
 "or the GLPI proxy."
 msgstr ""
 
-#: src/ServerManagement.php:282
+#: src/ServerManagement.php:319
 msgid ""
 "No Redfish service at this address: for a controller with IPMI only, use the "
 "CSV import."
 msgstr ""
 
-#: src/ServerManagement.php:286
+#: src/ServerManagement.php:323
 msgid ""
 "The address must be a https:// address of the controller, without path or "
 "parameters."
 msgstr ""
 
-#: src/ServerManagement.php:289
+#: src/ServerManagement.php:326
 msgid "Enter a name."
 msgstr ""
 
-#: src/ServerManagement.php:290
+#: src/ServerManagement.php:327
 msgid "Enter the password again: the address or the account changed."
 msgstr ""
 
-#: src/ServerManagement.php:291
+#: src/ServerManagement.php:328
 msgid "The server chosen cannot be used."
 msgstr ""
 
-#: src/ServerManagement.php:293
+#: src/ServerManagement.php:330
 msgid ""
 "This controller comes from the CSV import: import the file again to update "
 "it."
 msgstr ""
 
-#: src/ServerManagement.php:296
+#: src/ServerManagement.php:333
 msgid "Controller not found."
 msgstr ""
 
-#: src/ServerManagement.php:297 src/ZabbixMonitoring.php:231
-msgid "You are not allowed to do this."
-msgstr ""
-
-#: src/ServerManagement.php:299
+#: src/ServerManagement.php:336
 msgid "The file has no \"name\" column."
 msgstr ""
 
-#: src/ServerManagement.php:300
+#: src/ServerManagement.php:337
 msgid "The controller returned an unexpected answer."
 msgstr ""
 
-#: src/ServerManagement.php:1068
+#: src/ServerManagement.php:1093 templates/server_management_item_tab.html.twig
+msgid "BIOS"
+msgstr ""
+
+#: src/ServerManagement.php:1176
 msgid "Management controller"
 msgstr ""
 
@@ -18112,177 +18190,129 @@ msgstr ""
 msgid "Read only access until %s"
 msgstr ""
 
-#: src/ShareAccess.php:74 templates/control_form.html.twig
+#: src/ShareAccess.php:67 templates/control_form.html.twig
 msgid "File share access rights"
 msgstr ""
 
-#: src/ShareAccess.php:137
+#: src/ShareAccess.php:130
 msgid "Full control"
 msgstr ""
 
-#: src/ShareAccess.php:138
+#: src/ShareAccess.php:131
 msgid "Modify"
 msgstr ""
 
-#: src/ShareAccess.php:139
+#: src/ShareAccess.php:132
 msgid "Read"
 msgstr ""
 
-#: src/ShareAccess.php:141
+#: src/ShareAccess.php:134
 msgid "Special permissions"
 msgstr ""
 
-#: src/ShareAccess.php:154
+#: src/ShareAccess.php:147
 msgid "Everyone (broad group)"
 msgstr ""
 
-#: src/ShareAccess.php:155
+#: src/ShareAccess.php:148
 msgid "System account"
 msgstr ""
 
-#: src/ShareAccess.php:156
+#: src/ShareAccess.php:149
 msgid "Deleted account"
 msgstr ""
 
-#: src/ShareAccess.php:160
-msgid "Anyone with the link"
-msgstr ""
-
-#: src/ShareAccess.php:161
-msgid "External guest"
-msgstr ""
-
-#: src/ShareAccess.php:173
-msgid "Windows file share"
-msgstr ""
-
-#: src/ShareAccess.php:195
+#: src/ShareAccess.php:171
 msgid "Everyone can modify"
 msgstr ""
 
-#: src/ShareAccess.php:198
+#: src/ShareAccess.php:174
 msgid ""
 "Everyone, Authenticated Users, Domain Users or Guests can modify or have "
 "full control."
 msgstr ""
 
-#: src/ShareAccess.php:203
+#: src/ShareAccess.php:179
 msgid "Deleted account still has rights"
 msgstr ""
 
-#: src/ShareAccess.php:206
+#: src/ShareAccess.php:182
 msgid ""
 "The account no longer exists in the directory (unresolved SID) or is in the "
 "GLPI trash."
 msgstr ""
 
-#: src/ShareAccess.php:211
+#: src/ShareAccess.php:187
 msgid "Disabled account still has rights"
 msgstr ""
 
-#: src/ShareAccess.php:213
+#: src/ShareAccess.php:189
 msgid "The matching GLPI account is disabled: the person has probably left."
 msgstr ""
 
-#: src/ShareAccess.php:216
+#: src/ShareAccess.php:192
 msgid "Right given to a person"
 msgstr ""
 
-#: src/ShareAccess.php:219
+#: src/ShareAccess.php:195
 msgid ""
 "Rights should be given to groups, not to named people: they are easier to "
 "review."
 msgstr ""
 
-#: src/ShareAccess.php:224 templates/share_access_detail.html.twig
+#: src/ShareAccess.php:200 templates/share_access_detail.html.twig
 msgid "Inheritance broken"
 msgstr ""
 
-#: src/ShareAccess.php:227
+#: src/ShareAccess.php:203
 msgid ""
 "A subfolder of a sensitive share does not inherit the rights of its parent "
 "folder."
 msgstr ""
 
-#: src/ShareAccess.php:232
-msgid "Public link (anyone)"
-msgstr ""
-
-#: src/ShareAccess.php:234
-msgid "A sharing link works for anyone who has it, without signing in."
-msgstr ""
-
-#: src/ShareAccess.php:237
-msgid "External guest has access"
-msgstr ""
-
-#: src/ShareAccess.php:240
-msgid ""
-"A person from another organization (guest account) has access: check it is "
-"still needed."
-msgstr ""
-
-#: src/ShareAccess.php:248
+#: src/ShareAccess.php:211
 msgid ""
 "No GLPI user is designated as the owner who reviews the rights of this share."
 msgstr ""
 
-#: src/ShareAccess.php:261 templates/_competence_summary.html.twig
+#: src/ShareAccess.php:224 templates/_competence_summary.html.twig
 #: templates/competence_page.html.twig templates/competence_sheet.html.twig
 #: templates/isms_function_form.html.twig
 #: templates/share_access_detail.html.twig
 msgid "No gap"
 msgstr ""
 
-#: src/ShareAccess.php:272
+#: src/ShareAccess.php:235
 msgid ""
 "No account column found: the file needs a header with a column such as "
 "Identity, IdentityReference or Sid."
 msgstr ""
 
-#: src/ShareAccess.php:277
+#: src/ShareAccess.php:240
 msgid ""
 "No rights column found: the file needs a column such as Rights, "
 "FileSystemRights or AccessRight."
 msgstr ""
 
-#: src/ShareAccess.php:281
+#: src/ShareAccess.php:244
 msgid ""
 "No share column found: the file needs a column such as Share, or Folder with "
 "a \\\\server\\share path."
 msgstr ""
 
-#: src/ShareAccess.php:286
-msgid ""
-"No site column found: the file needs a column such as Site, Team or OneDrive."
-msgstr ""
-
-#: src/ShareAccess.php:300
-msgid ""
-"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
-"User.Read.All and GroupMember.Read.All application permissions with admin "
-"consent."
-msgstr ""
-
-#: src/ShareAccess.php:305
-msgid ""
-"Too many sites or accounts to read in one click: nothing was replaced. "
-"Import a CSV export instead."
-msgstr ""
-
-#: src/ShareAccess.php:1261 templates/share_access_detail.html.twig
+#: src/ShareAccess.php:1097 templates/share_access_detail.html.twig
 msgid "Designate the owner of the share first: they review its rights."
 msgstr ""
 
-#: src/ShareAccess.php:1262
+#: src/ShareAccess.php:1098
 msgid "Explain what must be changed or removed in the comment."
 msgstr ""
 
-#: src/ShareAccess.php:1263
+#: src/ShareAccess.php:1099
 msgid "Some rights have no decision yet."
 msgstr ""
 
-#: src/ShareAccess.php:1265
+#: src/ShareAccess.php:1101
 msgid "You cannot do this on this share."
 msgstr ""
 
@@ -20976,6 +21006,7 @@ msgstr ""
 #: templates/control_form.html.twig
 #: templates/operating_procedure_register.html.twig
 #: templates/share_access.html.twig
+#: templates/tabs/access_review_bmc_accounts.html.twig
 #, php-format
 msgid "%d to review"
 msgstr ""
@@ -21635,6 +21666,7 @@ msgstr ""
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/responsibility_activity_form.html.twig
 #: templates/server_management.html.twig
+#: templates/tabs/access_review_bmc_accounts.html.twig
 #: templates/tabs/business_process_items.html.twig
 #: templates/tabs/business_process_links.html.twig
 #: templates/tabs/incident_team.html.twig
@@ -22571,6 +22603,7 @@ msgstr ""
 
 #: templates/certification_response_tab.html.twig
 #: templates/control_blockers_tab.html.twig
+#: templates/tabs/access_review_bmc_accounts.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "What is this tab for?"
 msgstr ""
@@ -23981,6 +24014,7 @@ msgstr ""
 #: templates/endoflife_config.html.twig
 #: templates/responsibility_matrix.html.twig
 #: templates/server_management.html.twig
+#: templates/tabs/access_review_bmc_accounts.html.twig
 msgid "Disabled"
 msgstr ""
 
@@ -32020,7 +32054,6 @@ msgstr ""
 #: templates/pdf/network_flow_report.html.twig
 #: templates/pdf/processing_register_report.html.twig
 #: templates/server_management_item_tab.html.twig
-#: templates/share_access_detail.html.twig
 msgid "Address"
 msgstr ""
 
@@ -35036,6 +35069,10 @@ msgid "Edit the controller %s"
 msgstr ""
 
 #: templates/server_management.html.twig
+msgid "Enable the end of support check"
+msgstr ""
+
+#: templates/server_management.html.twig
 msgid ""
 "Encrypted by GLPI and never shown again. If you change the address or the "
 "account, enter it again."
@@ -35077,6 +35114,11 @@ msgid "Import controllers without Redfish (CSV)"
 msgstr ""
 
 #: templates/server_management.html.twig
+#, php-format
+msgid "Known CVEs: %d"
+msgstr ""
+
+#: templates/server_management.html.twig
 msgid "Last reading"
 msgstr ""
 
@@ -35085,10 +35127,17 @@ msgid "Leave empty to match the server by its serial number."
 msgstr ""
 
 #: templates/server_management.html.twig
+msgid ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+msgstr ""
+
+#: templates/server_management.html.twig
 msgid "Local accounts of the controllers"
 msgstr ""
 
 #: templates/server_management.html.twig
+#: templates/tabs/access_review_bmc_accounts.html.twig
 msgid "Locked"
 msgstr ""
 
@@ -35117,7 +35166,15 @@ msgid "No gap found"
 msgstr ""
 
 #: templates/server_management.html.twig
+msgid "No known CVE"
+msgstr ""
+
+#: templates/server_management.html.twig
 msgid "No physical server in GLPI"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Not watched"
 msgstr ""
 
 #: templates/server_management.html.twig
@@ -35141,6 +35198,11 @@ msgstr ""
 
 #: templates/server_management.html.twig
 msgid "Physical servers without a known controller"
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "Priority CVEs: %d"
 msgstr ""
 
 #: templates/server_management.html.twig templates/zabbix_monitoring.html.twig
@@ -35180,12 +35242,15 @@ msgstr ""
 
 #: templates/server_management.html.twig
 msgid ""
-"https:// only, with the name or the IP address of the controller and an "
-"optional port."
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
 msgstr ""
 
-#: templates/server_management_item_tab.html.twig
-msgid "BIOS"
+#: templates/server_management.html.twig
+msgid ""
+"https:// only, with the name or the IP address of the controller and an "
+"optional port."
 msgstr ""
 
 #: templates/server_management_item_tab.html.twig
@@ -35231,25 +35296,11 @@ msgid "Absent from the last import"
 msgstr ""
 
 #: templates/share_access.html.twig
-msgid ""
-"Application permissions to grant, with admin consent (read only): "
-"Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All."
-msgstr ""
-
-#: templates/share_access.html.twig
 msgid "Download the PowerShell script"
 msgstr ""
 
 #: templates/share_access.html.twig
 msgid "Download the script and copy it to the file server."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid ""
-"Fallback: import a CSV file with one line per right and columns such as "
-"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
-"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
-"organization, users)."
 msgstr ""
 
 #: templates/share_access.html.twig
@@ -35260,17 +35311,6 @@ msgid ""
 "the same server replaces the previous one in the current entity and shows "
 "the rights added and removed since then; the classification, the owner and "
 "the review decisions are kept."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid ""
-"GLPI reads the sharing rights through Microsoft Graph when you click, with "
-"the application set up for the MFA coverage, and never changes anything in "
-"Microsoft 365. SharePoint: the rights of each site document library and of "
-"its top-level items shared separately. OneDrive: the top-level items each "
-"person has shared. Teams: owners, members, guests and public teams. The same "
-"gaps and the same review as the file shares apply: public links, external "
-"guests, rights given to everyone."
 msgstr ""
 
 #: templates/share_access.html.twig
@@ -35300,20 +35340,6 @@ msgid ""
 msgstr ""
 
 #: templates/share_access.html.twig
-msgid "Microsoft Graph connected"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid ""
-"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
-"the client secret on the MFA coverage page, or import a CSV export below."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Microsoft Graph settings"
-msgstr ""
-
-#: templates/share_access.html.twig
 msgid "New rights"
 msgstr ""
 
@@ -35327,15 +35353,6 @@ msgstr ""
 msgid ""
 "Only users who can modify the plugin data and the sensitive registers can "
 "import."
-msgstr ""
-
-#: templates/share_access.html.twig
-#, php-format
-msgid "Read %s now"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Read SharePoint, OneDrive and Teams rights"
 msgstr ""
 
 #: templates/share_access.html.twig
@@ -35421,10 +35438,6 @@ msgid "Comment (required to change or remove)"
 msgstr ""
 
 #: templates/share_access_detail.html.twig
-msgid "Direct permission"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
 msgid ""
 "During a review, the owner decides for each right: keep it, change it or "
 "remove it. Decisions are recorded with their author and date; GLPI changes "
@@ -35474,10 +35487,6 @@ msgid "No right in the last import of this share."
 msgstr ""
 
 #: templates/share_access_detail.html.twig
-msgid "Owner in Microsoft 365"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
 msgid "Owner who reviews the rights"
 msgstr ""
 
@@ -35503,15 +35512,7 @@ msgid "Share permission"
 msgstr ""
 
 #: templates/share_access_detail.html.twig
-msgid "Sharing link"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
 msgid "Start a review"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Team membership"
 msgstr ""
 
 #: templates/share_access_detail.html.twig
@@ -35991,6 +35992,40 @@ msgstr ""
 
 #: templates/tabs/_access_review_rows.html.twig
 msgid "Suggested by the rules"
+msgstr ""
+
+#: templates/tabs/access_review_bmc_accounts.html.twig
+#, php-format
+msgid "%d decided"
+msgstr ""
+
+#: templates/tabs/access_review_bmc_accounts.html.twig
+msgid "Add the accounts of the controllers"
+msgstr ""
+
+#: templates/tabs/access_review_bmc_accounts.html.twig
+msgid ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+msgstr ""
+
+#: templates/tabs/access_review_bmc_accounts.html.twig
+msgid ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+msgstr ""
+
+#: templates/tabs/access_review_bmc_accounts.html.twig
+msgid "Suggestion"
+msgstr ""
+
+#: templates/tabs/access_review_bmc_accounts.html.twig
+msgid ""
+"The accounts of the controllers are copied when the campaign is launched."
 msgstr ""
 
 #: templates/tabs/access_review_lines.html.twig
@@ -38077,4 +38112,117 @@ msgstr ""
 #: templates/zabbix_monitoring.html.twig
 #, php-format
 msgid "out of %d critical assets"
+msgstr ""
+
+
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr ""
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr ""
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr ""
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr ""
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr ""
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr ""
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): "
+"Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr ""
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
 msgstr ""
