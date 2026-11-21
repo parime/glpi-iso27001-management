@@ -9,6 +9,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Développement sécurisé, lot 2 : séparation détaillée, exigences, architecture et développement
+  externalisé** (issue #777, mesures A.8.26, A.8.27, A.8.30 et A.8.31) :
+  - fiche « Développement sécurisé » d'une application : **accès**, **données** et
+    **configuration** séparés entre développement, test et production (au lieu d'un simple oui ou
+    non), **exigences de sécurité** de l'application, **principes d'architecture sécurisée**, et
+    **développement externalisé** avec le fournisseur de GLPI, les clauses de sécurité du contrat et
+    le suivi du prestataire ;
+  - registre : colonnes exigences, architecture et développement externalisé, séparation partielle
+    signalée ; nouveaux indicateurs (séparation partielle, exigences et principes absents,
+    applications externalisées sans prestataire ou sans clauses) ;
+  - preuves sur les mesures **A.8.26**, **A.8.27** et **A.8.30**, et séparation partielle sur A.8.31 ;
+  - colonnes ajoutées à la table existante par l'installateur (rejouable), sans toucher aux fiches
+    déjà remplies ; prestataire vérifié (fournisseur existant) et ignoré si le développement n'est
+    pas externalisé. Ce lot termine l'issue #777.
+
 - **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
   contacts officiels** (issue #776, lot 2, mesure A.5.29) :
   - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les
