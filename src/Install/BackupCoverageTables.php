@@ -31,9 +31,10 @@ use Migration;
  *   rapprochement avec les actifs GLPI se fait à la lecture.
  * - JOBS : état des travaux de sauvegarde lus par le connecteur Veeam (dernier résultat).
  *
- * Tables créées si absentes (rejouable), supprimées à la désinstallation.
+ * Tables créées si absentes (rejouable), supprimées à la désinstallation ; découvertes par
+ * FeatureTablesRegistry (aucune ligne dans Installer.php).
  */
-final class BackupCoverageTables
+final class BackupCoverageTables implements FeatureTables
 {
     public const HOSTS = 'glpi_plugin_grcmanager_backuphosts';
 
@@ -83,9 +84,19 @@ final class BackupCoverageTables
         }
     }
 
+    public static function migrate(Migration $migration): void
+    {
+        // Aucune colonne ajoutée depuis la création des tables.
+    }
+
     public static function uninstall(Migration $migration): void
     {
         $migration->dropTable(self::HOSTS);
         $migration->dropTable(self::JOBS);
+    }
+
+    public static function pluginClasses(): array
+    {
+        return [];
     }
 }

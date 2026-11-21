@@ -28,25 +28,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   nettoyé de ses mots de passe, peut être archivé comme document restreint. Rapport d'exemple fictif
   (domaine `exemple.test`) téléchargeable depuis la page. Tests unitaires avec des fichiers piégés,
   tests d'intégration, matrice d'accès et contrôle XSS.
-- **Couverture des sauvegardes** (issue #838, mesures A.8.13 et A.5.30). Nouvelle page « Couverture
-  des sauvegardes » dans la rubrique Sécurité technique, en lecture seule : machines sauvegardées lues
-  dans **Veeam Backup & Replication** par son API REST (sur clic, compte « Veeam Backup Viewer » :
-  points de restauration des 31 derniers jours et dernier résultat de chaque travail ; aucune
-  sauvegarde lancée, rien de modifié), ou importées par CSV depuis Acronis, Commvault, Synology
-  Active Backup, Proxmox Backup Server ou un autre outil (une ligne par machine ou par exécution).
-  Rapprochement avec les ordinateurs et matériels réseau comme la couverture de la journalisation
-  (nom, nom court, adresse IP) : actifs sans sauvegarde, sauvegarde plus ancienne que le RPO de
-  l'actif ou de ses processus métier (48 heures par défaut, réglable), dernière tentative en échec,
-  travaux Veeam en échec, machines inconnues de GLPI. Dernier test de restauration de chaque actif
-  repris des exercices de reprise (#733), avec une fréquence attendue réglable (12 mois). Preuve sur
-  les mesures A.8.13 et A.5.30 (liste de sources de #781), KRI « actifs critiques sans sauvegarde
-  récente (%) ». Le mot de passe Veeam est chiffré par GLPI, jamais réaffiché ni journalisé ; une
-  lecture refusée ou incomplète ne remplace rien. Mise à jour : deux tables ajoutées (rejouable),
-  supprimées à la désinstallation.
 
 ## [2.76.0] - 2026-11-21
-
-## [2.75.0] - 2026-11-21
 
 ### Added
 
@@ -67,6 +50,25 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   demande un commentaire. « Mettre à jour les suggestions » recalcule les comptes encore à revoir.
   Mise à jour : champs ajoutés aux campagnes et à leurs lignes (migration rejouable) ; les lignes
   des campagnes déjà lancées affichent « Pas encore de suggestion » jusqu'au recalcul.
+
+- **Conformité de configuration : import des résultats OpenSCAP** (issue #781, mesure A.8.9).
+  Nouvelle page « Conformité de configuration » dans la rubrique Sécurité technique : import d'un
+  fichier de résultats XCCDF (1.1 ou 1.2) ou ARF produit par `oscap` (profils CIS, ANSSI, DISA
+  STIG…), plusieurs machines par fichier, doublons ignorés. Chaque résultat est rapproché de
+  l'ordinateur GLPI du même nom parmi ceux que la personne voit ; les autres sont listés et
+  rattachables à la main. Taux de règles conformes par ordinateur et par profil, évolution depuis
+  l'analyse précédente, règles en échec par gravité, historique de chaque machine et règles en
+  échec les plus fréquentes du parc. Ticket de remédiation lié à l'ordinateur proposé, créé
+  seulement sur un clic. Preuve sur la mesure A.8.9 (conçue par sources : d'autres, comme la
+  configuration à risque de l'inventaire Docker, s'y ajouteront), indicateur de risque « ordinateurs
+  analysés avec une règle de gravité haute en échec ». Lecture XML durcie : en flux (gros rapports
+  ARF acceptés), déclarations de type de document et d'entités refusées (ni XXE ni expansion),
+  aucun accès réseau, taille et volumes bornés ; le fichier n'est pas conservé. Tests avec fichiers
+  piégés, matrice d'accès et contrôle XSS.
+
+## [2.75.0] - 2026-11-21
+
+### Added
 
 - **Couverture de la journalisation** (issue #853, mesures A.8.15, A.8.16 et A.8.17). Nouvelle page
   « Couverture de la journalisation » dans la rubrique Sécurité technique, en lecture seule : hôtes
@@ -94,20 +96,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   type proposé et visible) ; les autres paramètres sont ignorés, un flux existant n'est jamais
   modifié. Un encadré « Flux proposé » invite à vérifier, à ajouter la justification et le
   propriétaire : rien n'est enregistré avant « Ajouter ». Contrôle XSS sur des paramètres piégés.
-- **Conformité de configuration : import des résultats OpenSCAP** (issue #781, mesure A.8.9).
-  Nouvelle page « Conformité de configuration » dans la rubrique Sécurité technique : import d'un
-  fichier de résultats XCCDF (1.1 ou 1.2) ou ARF produit par `oscap` (profils CIS, ANSSI, DISA
-  STIG…), plusieurs machines par fichier, doublons ignorés. Chaque résultat est rapproché de
-  l'ordinateur GLPI du même nom parmi ceux que la personne voit ; les autres sont listés et
-  rattachables à la main. Taux de règles conformes par ordinateur et par profil, évolution depuis
-  l'analyse précédente, règles en échec par gravité, historique de chaque machine et règles en
-  échec les plus fréquentes du parc. Ticket de remédiation lié à l'ordinateur proposé, créé
-  seulement sur un clic. Preuve sur la mesure A.8.9 (conçue par sources : d'autres, comme la
-  configuration à risque de l'inventaire Docker, s'y ajouteront), indicateur de risque « ordinateurs
-  analysés avec une règle de gravité haute en échec ». Lecture XML durcie : en flux (gros rapports
-  ARF acceptés), déclarations de type de document et d'entités refusées (ni XXE ni expansion),
-  aucun accès réseau, taille et volumes bornés ; le fichier n'est pas conservé. Tests avec fichiers
-  piégés, matrice d'accès et contrôle XSS.
 - **Couverture de l'authentification multifacteur (MFA) par compte** (issue #852, mesures A.8.5
   et A.5.17) : page « Couverture MFA » (rubrique Revue des accès) :
   - double authentification native de GLPI lue sur chaque compte (activée ou non, le secret n'est
