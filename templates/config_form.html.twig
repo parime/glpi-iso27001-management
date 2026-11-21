@@ -851,6 +851,8 @@
 </div>
 
 {% include '@grcmanager/endoflife_config.html.twig' %}
+{# Issue #865, lot 2 : lien sécurisé de réponse du fournisseur (désactivé par défaut). #}
+{% include '@grcmanager/supplier_portal_config.html.twig' %}
 
 {# Sprint 2 : matrice probabilité x impact administrable (voir front/config.php,
    RiskMatrixConfig). Un seul écran pour l'instant (pas d'onglets comme le plugin jumeau

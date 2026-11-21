@@ -1,0 +1,98 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #865, lot 2 : page publique du questionnaire fournisseur (front/supplierportal.php), sans
+   session GLPI ni script. Elle ne montre que les questions de l'évaluation du lien : ni entité, ni
+   utilisateur, ni nom du fournisseur ou de l'évaluation. #}
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="robots" content="noindex, nofollow">
+   <title>{{ __('Security questionnaire', 'grcmanager') }}</title>
+   <link rel="stylesheet" href="{{ css_path('lib/base.css') }}">
+   <link rel="stylesheet" href="{{ css_path('lib/tabler.css') }}">
+</head>
+<body class="bg-light">
+<main class="container py-4" style="max-width: 960px;" id="grc-supplier-portal">
+   <h1 class="h2 mb-3"><i class="ti ti-shield-check me-2"></i>{{ __('Security questionnaire', 'grcmanager') }}</h1>
+   {% if state == 'form' %}
+      <div class="alert alert-info">
+         <h2 class="h4 alert-title"><i class="ti ti-help-circle me-1"></i>{{ __('What is this page for?', 'grcmanager') }}</h2>
+         <div>{{ __('Your customer asks you to answer this security questionnaire. Choose an answer for each question, add a comment if useful and attach the documents asked for. Your answers are sent to your customer, who reviews them before they are recorded.', 'grcmanager') }}</div>
+         <div class="mt-2 small">
+            <span class="badge bg-blue-subtle text-blue-emphasis me-1"><i class="ti ti-clock me-1"></i>{{ __('Link valid until %s', 'grcmanager')|format(date_expiration) }}</span>
+            <span class="badge bg-blue-subtle text-blue-emphasis"><i class="ti ti-send me-1"></i>{{ __('Sendings left: %d', 'grcmanager')|format(remaining) }}</span>
+         </div>
+      </div>
+      {% if errors is not empty %}
+         <div class="alert alert-danger" id="grc-portal-errors">
+            <h2 class="h4 alert-title"><i class="ti ti-alert-triangle me-1"></i>{{ __('Nothing was sent yet', 'grcmanager') }}</h2>
+            <ul class="mb-1">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            <div class="small">{{ __('Correct these points, select the documents again, then send.', 'grcmanager') }}</div>
+         </div>
+      {% endif %}
+      <form method="post" enctype="multipart/form-data" id="grc-portal-form">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="t" value="{{ token }}">
+         {% set section = null %}
+         {% for question in questions %}
+            {% if question.section != section %}
+               {% set section = question.section %}
+               {% if section %}<h2 class="h3 mt-4">{{ section }}</h2>{% endif %}
+            {% endif %}
+            <div class="card mb-3">
+               <div class="card-body">
+                  <div class="fw-bold mb-1"><span class="text-muted me-1">{{ question.code }}</span>{{ question.question }}
+                     {% if question.requires_evidence %}<span class="badge bg-orange-subtle text-orange-emphasis ms-1"><i class="ti ti-paperclip me-1"></i>{{ __('Document expected', 'grcmanager') }}</span>{% endif %}
+                  </div>
+                  {% if question.guidance %}<div class="text-muted small mb-2">{{ question.guidance|nl2br }}</div>{% endif %}
+                  <div class="row g-2">
+                     <div class="col-md-4">
+                        <label class="form-label" for="grc-answer-{{ question.id }}">{{ __('Answer', 'grcmanager') }}</label>
+                        <select class="form-select" id="grc-answer-{{ question.id }}" name="answer[{{ question.id }}]">
+                           <option value="">-</option>
+                           {% for value, label in labels %}
+                              <option value="{{ value }}" {{ question.answer == value ? 'selected' }}>{{ label }}</option>
+                           {% endfor %}
+                        </select>
+                     </div>
+                     <div class="col-md-8">
+                        <label class="form-label" for="grc-comment-{{ question.id }}">{{ __('Comment', 'grcmanager') }}</label>
+                        <textarea class="form-control" rows="2" maxlength="4000" id="grc-comment-{{ question.id }}" name="comment[{{ question.id }}]">{{ question.comment }}</textarea>
+                     </div>
+                     <div class="col-12">
+                        <label class="form-label" for="grc-evidence-{{ question.id }}">{{ __('Document (optional)', 'grcmanager') }}</label>
+                        <input type="file" class="form-control" id="grc-evidence-{{ question.id }}" name="evidence[{{ question.id }}]">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         {% endfor %}
+         <div class="form-hint mb-2">{{ __('Documents: at most %d MB each, in the formats accepted by your customer (PDF, office documents, images...).', 'grcmanager')|format(max_mb) }}</div>
+         <button type="submit" class="btn btn-primary" id="grc-portal-send"><i class="ti ti-send me-1"></i>{{ __('Send my answers', 'grcmanager') }}</button>
+      </form>
+   {% elseif state == 'sent' %}
+      <div class="alert alert-success" id="grc-portal-sent"><i class="ti ti-circle-check me-2"></i>{{ __('Thank you: your answers were sent. Your customer will review them; you can close this page.', 'grcmanager') }}</div>
+   {% elseif state == 'limit' %}
+      <div class="alert alert-warning" id="grc-portal-limit"><i class="ti ti-hourglass me-2"></i>{{ __('Too many requests: wait a few minutes, then try again.', 'grcmanager') }}</div>
+   {% elseif state == 'closed' %}
+      <div class="alert alert-warning" id="grc-portal-closed"><i class="ti ti-link-off me-2"></i>{{ __('This link can no longer be used: it has expired, was revoked or was already used. Ask your contact for a new link.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="alert alert-danger" id="grc-portal-invalid"><i class="ti ti-link-off me-2"></i>{{ __('This link is not valid. Check that you copied it in full, or ask your contact for a new link.', 'grcmanager') }}</div>
+   {% endif %}
+</main>
+</body>
+</html>

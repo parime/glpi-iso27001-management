@@ -39143,3 +39143,284 @@ msgstr ""
 #, php-format
 msgid "out of %d critical assets"
 msgstr ""
+
+
+#: front/supplierevaluationlink.php:56
+msgid "Secure link created: copy it now, it will not be shown again."
+msgstr ""
+
+#: front/supplierevaluationlink.php:64
+msgid "The link was revoked: it no longer opens the questionnaire."
+msgstr ""
+
+#: front/supplierevaluationlink.php:80
+msgid "The answers received were discarded."
+msgstr ""
+
+#: front/supplierevaluationlink.php:90
+#, php-format
+msgid "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
+msgstr ""
+
+#: front/supplierportal.php:108
+#, php-format
+msgid "Question %s: choose an answer from the list."
+msgstr ""
+
+#: front/supplierportal.php:124
+msgid "Too many documents in one sending."
+msgstr ""
+
+#: front/supplierportal.php:127
+#, php-format
+msgid "Question %1$s: %2$s"
+msgstr ""
+
+#: front/supplierportal.php:134
+msgid "Nothing was sent: answer at least one question."
+msgstr ""
+
+#: src/Feature/SupplierPortalFeature.php:32
+msgid ""
+"Shows the answers sent by the supplier through the secure link, question by "
+"question, next to the current answers, with the documents received. They are "
+"not part of the evaluation yet."
+msgstr ""
+
+#: src/Feature/SupplierPortalFeature.php:38
+msgid ""
+"Check the answers, then save them (the documents are checked again like any "
+"evidence) or discard them. Then review the evaluation and mark it as "
+"completed."
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:65
+msgid "Secure link"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:219
+#, php-format
+msgid "Secure link %1$d created for the supplier, valid %2$d day(s)"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:243
+#, php-format
+msgid "Secure link %d revoked"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:343
+#, php-format
+msgid "Files of type .%s are not accepted."
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:421
+#, php-format
+msgid ""
+"Supplier answers received by secure link %1$d: %2$d answer(s), %3$d "
+"document(s), to be reviewed"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:503
+#, php-format
+msgid "Answers received by secure link on %s"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:539
+#, php-format
+msgid ""
+"Supplier answers received by secure link reviewed and saved: %1$d answer(s), "
+"%2$d document(s)"
+msgstr ""
+
+#: src/SupplierEvaluationLink.php:575
+#, php-format
+msgid "Supplier answers received by secure link discarded (draft %d)"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Discard these answers"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid ""
+"They are checked again like any evidence when you save, then attached to "
+"their question."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Correct these points, select the documents again, then send."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Document (optional)"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Document expected"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+#, php-format
+msgid ""
+"Documents: at most %d MB each, in the formats accepted by your customer "
+"(PDF, office documents, images...)."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+#, php-format
+msgid "Link valid until %s"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Nothing was sent yet"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Send my answers"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+#, php-format
+msgid "Sendings left: %d"
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid ""
+"Thank you: your answers were sent. Your customer will review them; you can "
+"close this page."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid ""
+"This link can no longer be used: it has expired, was revoked or was already "
+"used. Ask your contact for a new link."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid ""
+"This link is not valid. Check that you copied it in full, or ask your "
+"contact for a new link."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid "Too many requests: wait a few minutes, then try again."
+msgstr ""
+
+#: templates/supplier_portal.html.twig
+msgid ""
+"Your customer asks you to answer this security questionnaire. Choose an "
+"answer for each question, add a comment if useful and attach the documents "
+"asked for. Your answers are sent to your customer, who reviews them before "
+"they are recorded."
+msgstr ""
+
+#: templates/supplier_portal_config.html.twig
+msgid "Allow suppliers to answer by secure link"
+msgstr ""
+
+#: templates/supplier_portal_config.html.twig
+msgid ""
+"Lets a supplier answer its security questionnaire on a page served by GLPI, "
+"without a GLPI account, from a personal link created on the evaluation (tab "
+"\"Secure link\"). Enable it only if this GLPI can be reached by your "
+"suppliers. The link opens only the questions of one evaluation, expires, can "
+"be used a limited number of times and can be revoked; the answers wait for a "
+"review in GLPI. The answer by file works without this setting."
+msgstr ""
+
+#: templates/supplier_portal_config.html.twig
+msgid "Supplier answer by secure link"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "All sendings used"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Answer by secure link, without a GLPI account"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Answers"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Answers to review"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid ""
+"Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). "
+"Send it by the means of your choice."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Create a link"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Created by"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Evaluation completed"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Expires"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Link to send to the supplier"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Open the settings"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Openings"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Received on"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid ""
+"Send the supplier a personal link to a page served by GLPI, where it answers "
+"the questions of this evaluation and attaches its documents, without a GLPI "
+"account. The page shows only these questions. The link expires, can be used "
+"a limited number of times and can be revoked at any time. The answers "
+"received stay pending until you review and save them."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Sendings"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Sendings allowed"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid ""
+"The creation of a link, each opening, each sending and each revocation are "
+"recorded in the security audit log; the Historical tab shows the sendings "
+"received and reviewed."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid ""
+"The secure link is disabled. An administrator of the plugin can enable it in "
+"the plugin settings; the answer by file stays available."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid ""
+"This evaluation is completed: its links no longer open the questionnaire."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_link.html.twig
+msgid "Valid for (days)"
+msgstr ""
