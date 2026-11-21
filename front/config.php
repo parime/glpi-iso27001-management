@@ -461,6 +461,21 @@ if (isset($_POST['update_personnel_compliance'])) {
     Html::back();
 }
 
+// Issue #604, lot 2 : durée de conservation des résultats individuels des simulations
+// d'hameçonnage (données personnelles) : droit de modification du plugin et des registres sensibles.
+if (isset($_POST['update_phishing_retention'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+    Session::checkRight(Installer::SENSITIVE_RIGHT, UPDATE);
+
+    if (\GlpiPlugin\Grcmanager\PhishingCampaign::saveRetention($_POST['phishing_retention_months'] ?? null)) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['phishing_retention_months' => \GlpiPlugin\Grcmanager\PhishingCampaign::retentionMonths()],
+        ]);
+    }
+
+    Html::back();
+}
+
 // Issue #611 : circuit d'approbation des politiques de sécurité par la direction.
 if (isset($_POST['update_policy_approval'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
@@ -726,6 +741,8 @@ Html::header(
     'calendar_token_lifetime'   => \GlpiPlugin\Grcmanager\CalendarToken::lifetimeDays(),
     // Issue #546 : fiche de conformité sécurité d'un collaborateur.
     'personnel_compliance'      => \GlpiPlugin\Grcmanager\PersonnelCompliance::configData(),
+    // Issue #604, lot 2 : conservation des résultats individuels d'hameçonnage.
+    'phishing_retention'        => \GlpiPlugin\Grcmanager\PhishingCampaign::configData(),
     'calendar_token_bounds'     => [
         \GlpiPlugin\Grcmanager\CalendarToken::MIN_LIFETIME_DAYS,
         \GlpiPlugin\Grcmanager\CalendarToken::MAX_LIFETIME_DAYS,
