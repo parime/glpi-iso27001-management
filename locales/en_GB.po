@@ -28902,15 +28902,6 @@ msgstr "Reject the release"
 msgid "Awaiting the decision of the CIO or the CISO."
 msgstr "Awaiting the decision of the CIO or the CISO."
 
-msgid ""
-"Fill in this sheet for each application developed or maintained in-house: it "
-"then appears in the register of applications (secure development page) and "
-"as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
-msgstr ""
-"Fill in this sheet for each application developed or maintained in-house: it "
-"then appears in the register of applications (secure development page) and "
-"as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
-
 msgid "All secure development practices are in place"
 msgstr "All secure development practices are in place"
 
@@ -29176,17 +29167,6 @@ msgstr "Decide on releases"
 
 msgid "Approve or reject the release of a change (security validation)"
 msgstr "Approve or reject the release of a change (security validation)"
-
-msgid ""
-"The applications developed or maintained in-house, with their secure "
-"development practices (framework, code review, SAST, DAST and dependency "
-"analyses, separated environments), and the releases of the last 12 months "
-"with their security validation."
-msgstr ""
-"The applications developed or maintained in-house, with their secure "
-"development practices (framework, code review, SAST, DAST and dependency "
-"analyses, separated environments), and the releases of the last 12 months "
-"with their security validation."
 
 msgid ""
 "Fill in the \"Secure development\" tab of each application, link the changes "
@@ -31414,171 +31394,292 @@ msgid "This exercise has never been run to the end in the crisis room."
 msgstr "This exercise has never been run to the end in the crisis room."
 
 msgid ""
-"Also record it as a contact with the ticked official contacts (\"Official "
-"contacts\" tab)"
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25 to A.8.31."
 msgstr ""
-"Also record it as a contact with the ticked official contacts (\"Official "
-"contacts\" tab)"
-
-msgid "Archive on controls A.5.5 and A.5.6"
-msgstr "Archive on controls A.5.5 and A.5.6"
-
-msgid "Archived registers:"
-msgstr "Archived registers:"
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25 to A.8.31."
 
 msgid ""
-"Authorities, CSIRT, police, insurer and special interest groups from the "
-"register of official contacts, with the person allowed to contact them."
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
 msgstr ""
-"Authorities, CSIRT, police, insurer and special interest groups from the "
-"register of official contacts, with the person allowed to contact them."
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
+
+msgid "%d without documented security requirements"
+msgstr "%d without documented security requirements"
+
+msgid "%d without secure architecture principles"
+msgstr "%d without secure architecture principles"
+
+msgid "%d outsourced without supplier or security clauses"
+msgstr "%d outsourced without supplier or security clauses"
+
+msgid "%d with access, data or configuration not separated"
+msgstr "%d with access, data or configuration not separated"
+
+msgid "Architecture"
+msgstr "Architecture"
+
+msgid "Architecture: %d"
+msgstr "Architecture: %d"
+
+msgid "Requirements: %d"
+msgstr "Requirements: %d"
+
+msgid "Development entrusted to a supplier"
+msgstr "Development entrusted to a supplier"
+
+msgid ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+msgstr ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+
+msgid "No architecture principles"
+msgstr "No architecture principles"
+
+msgid "No security requirements"
+msgstr "No security requirements"
+
+msgid "Not separated: %s"
+msgstr "Not separated: %s"
+
+msgid "Outsourced development (A.8.30)"
+msgstr "Outsourced development (A.8.30)"
+
+msgid "Outsourced without supplier or security clauses"
+msgstr "Outsourced without supplier or security clauses"
+
+msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
+msgstr "Outsourced: %1$d, without supplier or clauses: %2$d"
+
+msgid ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+msgstr ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+
+msgid "Requirements and architecture (A.8.26, A.8.27)"
+msgstr "Requirements and architecture (A.8.26, A.8.27)"
+
+msgid ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+msgstr ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+
+msgid "Secure architecture principles"
+msgstr "Secure architecture principles"
+
+msgid "Security clauses in the contract"
+msgstr "Security clauses in the contract"
+
+msgid "Security requirements of the application"
+msgstr "Security requirements of the application"
+
+msgid "Separate access (accounts, rights)"
+msgstr "Separate access (accounts, rights)"
+
+msgid "Separate configuration (secrets, settings)"
+msgstr "Separate configuration (secrets, settings)"
+
+msgid "Separate data (no production data outside production, or anonymised)"
+msgstr "Separate data (no production data outside production, or anonymised)"
+
+msgid "Supervised"
+msgstr "Supervised"
+
+msgid "Supervision of the supplier"
+msgstr "Supervision of the supplier"
+
+msgid ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+msgstr ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+
+msgid ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+msgstr ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+
+msgid "Without supplier or clauses"
+msgstr "Without supplier or clauses"
+
+msgid "%d outsourced application"
+msgid_plural "%d outsourced applications"
+msgstr[0] "%d outsourced application"
+msgstr[1] "%d outsourced applications"
+
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
+msgstr ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
+
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, separated environments), and the releases of the last 12 months "
+"with their security validation."
+
+msgid "Blockers"
+msgstr "Blockers"
+
+msgid "Technical check"
+msgstr "Technical check"
+
+msgid "Effectiveness test overdue"
+msgstr "Effectiveness test overdue"
 
 #, php-format
-msgid "Crisis communication: \"%s\""
-msgstr "Crisis communication: \"%s\""
-
-msgid ""
-"During an exercise, record the calls you would make: the report then shows "
-"whether the deadlines would have been met."
-msgstr ""
-"During an exercise, record the calls you would make: the report then shows "
-"whether the deadlines would have been met."
-
-msgid "From a crisis communication"
-msgstr "From a crisis communication"
-
-msgid "No official contact is set for this type of incident."
-msgstr "No official contact is set for this type of incident."
-
-msgid "Official contacts to inform"
-msgstr "Official contacts to inform"
-
-msgid "Official contacts to inform during a crisis"
-msgstr "Official contacts to inform during a crisis"
-
-msgid "Only for these types of incident"
-msgstr "Only for these types of incident"
-
-msgid ""
-"Optional: leave empty to show this contact for every security incident. An "
-"incident of the \"Data breach\" type also shows the contacts to inform for a "
-"personal data breach."
-msgstr ""
-"Optional: leave empty to show this contact for every security incident. An "
-"incident of the \"Data breach\" type also shows the contacts to inform for a "
-"personal data breach."
+msgid "Last test: %s"
+msgstr "Last test: %s"
 
 #, php-format
-msgid "Register of official contacts - %s"
-msgstr "Register of official contacts - %s"
-
-msgid ""
-"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
-"of the Statement of Applicability."
-msgstr ""
-"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
-"of the Statement of Applicability."
-
-msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
-msgstr ""
-"The register has been archived as evidence on controls A.5.5 and A.5.6."
-
-msgid ""
-"Record each official contact, tick the events (and, if needed, the types of "
-"incident) for which it must be informed, verify the details at least once a "
-"year, keep a printed copy of the register (PDF) for use during a crisis, and "
-"archive it on controls A.5.5 and A.5.6 after each review."
-msgstr ""
-"Record each official contact, tick the events (and, if needed, the types of "
-"incident) for which it must be informed, verify the details at least once a "
-"year, keep a printed copy of the register (PDF) for use during a crisis, and "
-"archive it on controls A.5.5 and A.5.6 after each review."
+msgid "Next test was due on %s"
+msgstr "Next test was due on %s"
 
 #, php-format
-msgid "%d official contact recorded as contacted."
-msgid_plural "%d official contacts recorded as contacted."
-msgstr[0] "%d official contact recorded as contacted."
-msgstr[1] "%d official contacts recorded as contacted."
+msgid "Tested on %s"
+msgstr "Tested on %s"
+
+msgid "Test the control again and record the result."
+msgstr "Test the control again and record the result."
+
+msgid "Fix the weakness found by the test, then test the control again."
+msgstr "Fix the weakness found by the test, then test the control again."
 
 #, php-format
-msgid "%d competence gap(s) reported."
-msgstr "%d competence gap(s) reported."
+msgid "Open, due on %s"
+msgstr "Open, due on %s"
+
+msgid "Carry out the corrective action, then close the nonconformity."
+msgstr "Carry out the corrective action, then close the nonconformity."
+
+msgid "Have the policy approved by management."
+msgstr "Have the policy approved by management."
 
 #, php-format
-msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
-msgstr "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
+msgstr "Gaps: %1$d out of %2$d (%3$d%% compliant)"
+
+msgid "Fix the items listed by the automated check."
+msgstr "Fix the items listed by the automated check."
 
 #, php-format
-msgid ""
-"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
-"declare a proof)"
-msgstr ""
-"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
-"declare a proof)"
-
-msgid "Activity of the responsibility matrix"
-msgstr "Activity of the responsibility matrix"
-
-msgid "Competence gaps without planned training"
-msgstr "Competence gaps without planned training"
-
-msgid "Follows the responsibility matrix"
-msgstr "Follows the responsibility matrix"
-
-msgid "New gaps without planned training"
-msgstr "New gaps without planned training"
-
-msgid "Number of gaps without planned training"
-msgstr "Number of gaps without planned training"
-
-msgid "Number of new gaps"
-msgstr "Number of new gaps"
+msgid "%s coverage"
+msgstr "%s coverage"
 
 #, php-format
-msgid "Other gaps not listed here: %d"
-msgstr "Other gaps not listed here: %d"
+msgid "Computers without an active agent: %1$d out of %2$d"
+msgstr "Computers without an active agent: %1$d out of %2$d"
 
-#, php-format
-msgid "Responsibility matrix: %1$s (%2$s)"
-msgstr "Responsibility matrix: %1$s (%2$s)"
+msgid "Install or reactivate the agent on the computers not covered."
+msgstr "Install or reactivate the agent on the computers not covered."
 
-msgid "Role in the activity"
-msgstr "Role in the activity"
-
-msgid "This activity is not available in the entity of the function."
-msgstr "This activity is not available in the entity of the function."
-
-msgid "Warns the owner of the competence gaps that have no planned training"
-msgstr "Warns the owner of the competence gaps that have no planned training"
+msgid "What blocks this control"
+msgstr "What blocks this control"
 
 msgid ""
-"Optional: the people and groups who hold the chosen role in this activity "
-"hold the function, and follow the matrix when it changes."
+"For each control of the Statement of Applicability, this page lists what "
+"prevents it from being compliant: failing automated check, missing or "
+"expired evidence, policy not approved, effectiveness test overdue or "
+"ineffective, open nonconformity, expired waiver."
 msgstr ""
-"Optional: the people and groups who hold the chosen role in this activity "
-"hold the function, and follow the matrix when it changes."
+"For each control of the Statement of Applicability, this page lists what "
+"prevents it from being compliant: failing automated check, missing or "
+"expired evidence, policy not approved, effectiveness test overdue or "
+"ineffective, open nonconformity, expired waiver."
 
 msgid ""
-"Sent by the GRC Manager automatic task when a person who holds an ISMS "
-"function has a competence gap with no planned training."
+"Sort by severity and start with the most blocked controls. Click a control "
+"to see its blockers, then click a blocker to open the screen where it is "
+"fixed. The page is computed again each time and only shows what you are "
+"allowed to read. Nothing is changed automatically."
 msgstr ""
-"Sent by the GRC Manager automatic task when a person who holds an ISMS "
-"function has a competence gap with no planned training."
+"Sort by severity and start with the most blocked controls. Click a control "
+"to see its blockers, then click a blocker to open the screen where it is "
+"fixed. The page is computed again each time and only shows what you are "
+"allowed to read. Nothing is changed automatically."
+
+msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
+msgstr "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
+
+msgid "Fix"
+msgstr "Fix"
+
+#, php-format
+msgid "%d more"
+msgstr "%d more"
+
+#, php-format
+msgid "Blocked controls: %1$d out of %2$d"
+msgstr "Blocked controls: %1$d out of %2$d"
 
 msgid ""
-"Plan a session of the proposed training from the Competences page, or "
-"declare the proof the person already has. Nothing is changed automatically."
+"No control of the Statement of Applicability is blocked among the checks you "
+"can read."
 msgstr ""
-"Plan a session of the proposed training from the Competences page, or "
-"declare the proof the person already has. Nothing is changed automatically."
+"No control of the Statement of Applicability is blocked among the checks you "
+"can read."
 
-msgid "View the competences"
-msgstr "View the competences"
+msgid "Sort"
+msgstr "Sort"
 
-msgid "Competence gap alert"
-msgid_plural "Competence gap alerts"
-msgstr[0] "Competence gap alert"
-msgstr[1] "Competence gap alerts"
+msgid "What blocks it"
+msgstr "What blocks it"
+
+msgid "All blocked controls"
+msgstr "All blocked controls"
+
+msgid ""
+"Everything that prevents this control from being compliant, in a single "
+"list: failing automated check, missing or expired evidence, policy not "
+"approved, effectiveness test overdue or ineffective, open nonconformity, "
+"expired waiver. Click a line to open the screen where it is fixed. Only what "
+"you are allowed to read is shown, and nothing is changed automatically."
+msgstr ""
+"Everything that prevents this control from being compliant, in a single "
+"list: failing automated check, missing or expired evidence, policy not "
+"approved, effectiveness test overdue or ineffective, open nonconformity, "
+"expired waiver. Click a line to open the screen where it is fixed. Only what "
+"you are allowed to read is shown, and nothing is changed automatically."
+
+msgid "No blocker found among the checks you can read."
+msgstr "No blocker found among the checks you can read."
+
+msgid "Nothing blocks this control"
+msgstr "Nothing blocks this control"
+
+msgid "Blocked control"
+msgid_plural "Blocked controls"
+msgstr[0] "Blocked control"
+msgstr[1] "Blocked controls"
 
 msgid "Evidence pack settings saved."
 msgstr "Evidence pack settings saved."
@@ -31784,139 +31885,85 @@ msgstr "limit %d MB"
 msgid "%s MB"
 msgstr "%s MB"
 
-msgid "Blockers"
-msgstr "Blockers"
-
-msgid "Technical check"
-msgstr "Technical check"
-
-msgid "Effectiveness test overdue"
-msgstr "Effectiveness test overdue"
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d competence gap(s) reported."
 
 #, php-format
-msgid "Last test: %s"
-msgstr "Last test: %s"
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
 
 #, php-format
-msgid "Next test was due on %s"
-msgstr "Next test was due on %s"
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Activity of the responsibility matrix"
+
+msgid "Competence gaps without planned training"
+msgstr "Competence gaps without planned training"
+
+msgid "Follows the responsibility matrix"
+msgstr "Follows the responsibility matrix"
+
+msgid "New gaps without planned training"
+msgstr "New gaps without planned training"
+
+msgid "Number of gaps without planned training"
+msgstr "Number of gaps without planned training"
+
+msgid "Number of new gaps"
+msgstr "Number of new gaps"
 
 #, php-format
-msgid "Tested on %s"
-msgstr "Tested on %s"
-
-msgid "Test the control again and record the result."
-msgstr "Test the control again and record the result."
-
-msgid "Fix the weakness found by the test, then test the control again."
-msgstr "Fix the weakness found by the test, then test the control again."
+msgid "Other gaps not listed here: %d"
+msgstr "Other gaps not listed here: %d"
 
 #, php-format
-msgid "Open, due on %s"
-msgstr "Open, due on %s"
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Responsibility matrix: %1$s (%2$s)"
 
-msgid "Carry out the corrective action, then close the nonconformity."
-msgstr "Carry out the corrective action, then close the nonconformity."
+msgid "Role in the activity"
+msgstr "Role in the activity"
 
-msgid "Have the policy approved by management."
-msgstr "Have the policy approved by management."
+msgid "This activity is not available in the entity of the function."
+msgstr "This activity is not available in the entity of the function."
 
-#, php-format
-msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
-msgstr "Gaps: %1$d out of %2$d (%3$d%% compliant)"
-
-msgid "Fix the items listed by the automated check."
-msgstr "Fix the items listed by the automated check."
-
-#, php-format
-msgid "%s coverage"
-msgstr "%s coverage"
-
-#, php-format
-msgid "Computers without an active agent: %1$d out of %2$d"
-msgstr "Computers without an active agent: %1$d out of %2$d"
-
-msgid "Install or reactivate the agent on the computers not covered."
-msgstr "Install or reactivate the agent on the computers not covered."
-
-msgid "What blocks this control"
-msgstr "What blocks this control"
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr "Warns the owner of the competence gaps that have no planned training"
 
 msgid ""
-"For each control of the Statement of Applicability, this page lists what "
-"prevents it from being compliant: failing automated check, missing or "
-"expired evidence, policy not approved, effectiveness test overdue or "
-"ineffective, open nonconformity, expired waiver."
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
 msgstr ""
-"For each control of the Statement of Applicability, this page lists what "
-"prevents it from being compliant: failing automated check, missing or "
-"expired evidence, policy not approved, effectiveness test overdue or "
-"ineffective, open nonconformity, expired waiver."
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
 
 msgid ""
-"Sort by severity and start with the most blocked controls. Click a control "
-"to see its blockers, then click a blocker to open the screen where it is "
-"fixed. The page is computed again each time and only shows what you are "
-"allowed to read. Nothing is changed automatically."
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
 msgstr ""
-"Sort by severity and start with the most blocked controls. Click a control "
-"to see its blockers, then click a blocker to open the screen where it is "
-"fixed. The page is computed again each time and only shows what you are "
-"allowed to read. Nothing is changed automatically."
-
-msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
-msgstr "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
-
-msgid "Fix"
-msgstr "Fix"
-
-#, php-format
-msgid "%d more"
-msgstr "%d more"
-
-#, php-format
-msgid "Blocked controls: %1$d out of %2$d"
-msgstr "Blocked controls: %1$d out of %2$d"
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
 
 msgid ""
-"No control of the Statement of Applicability is blocked among the checks you "
-"can read."
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
 msgstr ""
-"No control of the Statement of Applicability is blocked among the checks you "
-"can read."
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
 
-msgid "Sort"
-msgstr "Sort"
+msgid "View the competences"
+msgstr "View the competences"
 
-msgid "What blocks it"
-msgstr "What blocks it"
-
-msgid "All blocked controls"
-msgstr "All blocked controls"
-
-msgid ""
-"Everything that prevents this control from being compliant, in a single "
-"list: failing automated check, missing or expired evidence, policy not "
-"approved, effectiveness test overdue or ineffective, open nonconformity, "
-"expired waiver. Click a line to open the screen where it is fixed. Only what "
-"you are allowed to read is shown, and nothing is changed automatically."
-msgstr ""
-"Everything that prevents this control from being compliant, in a single "
-"list: failing automated check, missing or expired evidence, policy not "
-"approved, effectiveness test overdue or ineffective, open nonconformity, "
-"expired waiver. Click a line to open the screen where it is fixed. Only what "
-"you are allowed to read is shown, and nothing is changed automatically."
-
-msgid "No blocker found among the checks you can read."
-msgstr "No blocker found among the checks you can read."
-
-msgid "Nothing blocks this control"
-msgstr "Nothing blocks this control"
-
-msgid "Blocked control"
-msgid_plural "Blocked controls"
-msgstr[0] "Blocked control"
-msgstr[1] "Blocked controls"
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Competence gap alert"
+msgstr[1] "Competence gap alerts"
 
 msgid "Child licenses counted once"
 msgstr "Child licenses counted once"
@@ -31938,6 +31985,93 @@ msgstr ""
 "license (number 0 or less) covers everything. A parent license and its child "
 "licenses count for the larger of the parent number and the sum of the "
 "children."
+
+msgid ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+msgstr ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+
+msgid "Archive on controls A.5.5 and A.5.6"
+msgstr "Archive on controls A.5.5 and A.5.6"
+
+msgid "Archived registers:"
+msgstr "Archived registers:"
+
+msgid ""
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
+msgstr ""
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
+
+#, php-format
+msgid "Crisis communication: \"%s\""
+msgstr "Crisis communication: \"%s\""
+
+msgid ""
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
+msgstr ""
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
+
+msgid "From a crisis communication"
+msgstr "From a crisis communication"
+
+msgid "No official contact is set for this type of incident."
+msgstr "No official contact is set for this type of incident."
+
+msgid "Official contacts to inform"
+msgstr "Official contacts to inform"
+
+msgid "Official contacts to inform during a crisis"
+msgstr "Official contacts to inform during a crisis"
+
+msgid "Only for these types of incident"
+msgstr "Only for these types of incident"
+
+msgid ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+msgstr ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+
+#, php-format
+msgid "Register of official contacts - %s"
+msgstr "Register of official contacts - %s"
+
+msgid ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+msgstr ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+
+msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
+msgstr ""
+"The register has been archived as evidence on controls A.5.5 and A.5.6."
+
+msgid ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+msgstr ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+
+#, php-format
+msgid "%d official contact recorded as contacted."
+msgid_plural "%d official contacts recorded as contacted."
+msgstr[0] "%d official contact recorded as contacted."
+msgstr[1] "%d official contacts recorded as contacted."
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"

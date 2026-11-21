@@ -34,7 +34,8 @@ use Session;
  * Issue #777 : page « Développement sécurisé », sous-page de la rubrique Conformité (aucune entrée
  * de menu en plus). Registre des applications qui ont une fiche « développement sécurisé »
  * (applications du cœur), mises en production de l'année et leurs validations, indicateurs, et
- * preuves des mesures A.8.25, A.8.28, A.8.29 et A.8.31 sur la fiche de la mesure.
+ * preuves des mesures A.8.25 à A.8.31 sur la fiche de la mesure (lot 2 : A.8.26, A.8.27, A.8.30 et le
+ * détail de la séparation des environnements).
  *
  * Calculé à la demande avec les droits et les entités de la personne :
  * - droit de lecture du plugin pour la page et les preuves ;
@@ -46,7 +47,7 @@ use Session;
 class SecureDevelopment extends CommonGLPI
 {
     /** Mesures qui reçoivent les preuves du développement sécurisé. */
-    public const CONTROL_CODES = ['A.8.25', 'A.8.28', 'A.8.29', 'A.8.31'];
+    public const CONTROL_CODES = ['A.8.25', 'A.8.26', 'A.8.27', 'A.8.28', 'A.8.29', 'A.8.30', 'A.8.31'];
 
     /** Période des mises en production comptées (jours). */
     public const RELEASE_PERIOD_DAYS = 365;
@@ -267,6 +268,11 @@ class SecureDevelopment extends CommonGLPI
                     (string) $app['environments_separated'],
                     (string) ($app['separation_justification'] ?? '')
                 ),
+                'separation_gaps' => count(Rules::separationGaps($app)),
+                'requirements'  => !Rules::withoutRequirements($app),
+                'architecture'  => !Rules::withoutArchitecture($app),
+                'outsourced'    => Rules::isOutsourced($app),
+                'outsourcing_gap' => Rules::outsourcingGap($app),
             ];
         }, $applications);
 
@@ -301,7 +307,7 @@ class SecureDevelopment extends CommonGLPI
     }
 
     /**
-     * Preuves sur la fiche des mesures A.8.25, A.8.28, A.8.29 et A.8.31 (null pour une autre mesure
+     * Preuves sur la fiche des mesures A.8.25 à A.8.31 (null pour une autre mesure
      * ou sans le droit du plugin).
      *
      * @return array{badges: list<array{label: string, color: string, icon: string}>, url: string}|null
@@ -346,6 +352,32 @@ class SecureDevelopment extends CommonGLPI
                 ), 'ti ti-book');
                 $badges[] = $releasesBadge;
                 break;
+            case 'A.8.26':
+                $badges[] = $badge($i['without_requirements'] === 0, sprintf(
+                    __('%d without documented security requirements', 'grcmanager'),
+                    $i['without_requirements']
+                ), 'ti ti-list-check');
+                break;
+            case 'A.8.27':
+                $badges[] = $badge($i['without_architecture'] === 0, sprintf(
+                    __('%d without secure architecture principles', 'grcmanager'),
+                    $i['without_architecture']
+                ), 'ti ti-building');
+                break;
+            case 'A.8.30':
+                $badges[] = [
+                    'label' => sprintf(
+                        _n('%d outsourced application', '%d outsourced applications', $i['outsourced'], 'grcmanager'),
+                        $i['outsourced']
+                    ),
+                    'color' => 'info',
+                    'icon'  => 'ti ti-building-store',
+                ];
+                $badges[] = $badge($i['outsourced_without_clauses'] === 0, sprintf(
+                    __('%d outsourced without supplier or security clauses', 'grcmanager'),
+                    $i['outsourced_without_clauses']
+                ), 'ti ti-file-alert');
+                break;
             case 'A.8.28':
                 $badges[] = $badge($i['without_framework'] === 0, sprintf(
                     __('%d without secure development framework', 'grcmanager'),
@@ -382,6 +414,10 @@ class SecureDevelopment extends CommonGLPI
                     __('%d not separated without justification', 'grcmanager'),
                     $i['separation_unjustified']
                 ), 'ti ti-message-exclamation');
+                $badges[] = $badge($i['separation_incomplete'] === 0, sprintf(
+                    __('%d with access, data or configuration not separated', 'grcmanager'),
+                    $i['separation_incomplete']
+                ), 'ti ti-arrows-split-2');
         }
 
         return ['badges' => array_values(array_filter($badges)), 'url' => self::getPageURL()];
