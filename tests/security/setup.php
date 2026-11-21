@@ -393,6 +393,14 @@ if ($mode === 'xss') {
     $DB->update(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, [
         'ntp_server' => mb_substr($canary, 0, 255), 'is_ntp_declared' => 1, 'comment' => $canary,
     ], ['comment' => 'Conservation securite A']);
+    // Issue #846 : partage, chemin, compte, droit et commentaire de revue piégés (droits sur les partages).
+    $DB->update(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES, [
+        'share_path' => $canary, 'owner' => mb_substr($canary, 0, 255), 'comment' => $canary,
+    ], ['id' => (int) $ids['share_A']]);
+    $DB->update(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::ACES, [
+        'identity' => mb_substr($canary, 0, 255), 'rights' => mb_substr($canary, 0, 255), 'folder' => $canary,
+        'folder_owner' => mb_substr($canary, 0, 255), 'decision_comment' => $canary,
+    ], ['plugin_grcmanager_fileshares_id' => (int) $ids['share_A']]);
     // Issue #779 : logiciel commercial sans licence piégé (page des licences logicielles, export).
     $DB->update('glpi_softwares', ['name' => $canary], ['name' => 'Logiciel licence securite A']);
     // Issue #779, lot 2 : licence piégée qui arrive à échéance (lien vers la licence sur la page).
@@ -810,6 +818,38 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         $DB->insert(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, $logPlatform + [
             'retention_days' => 30, 'comment' => 'Conservation securite ' . $suffix,
         ]);
+    }
+    // Issue #846 : partage importé de l'entité, en cours de revue, avec un droit nominatif.
+    $shareRow = [
+        'entities_id' => $entity, 'source' => 'smb', 'server' => 'fs-securite.exemple.test',
+        'name' => 'Partage securite ' . $suffix,
+    ];
+    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES, $shareRow) === 0) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES, $shareRow + [
+            'share_path' => 'D:\Partages\Securite' . $suffix, 'is_present' => 1, 'review_status' => 'open',
+            'confidentiality' => 'high', 'date_import' => date('Y-m-d H:i:s'), 'date_creation' => date('Y-m-d H:i:s'),
+        ]);
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::ACES, [
+            'plugin_grcmanager_fileshares_id' => (int) $DB->insertId(), 'fingerprint' => sha1('securite' . $suffix),
+            'scope' => 'ntfs', 'folder' => '\\\\fs-securite.exemple.test\\Partage securite ' . $suffix,
+            'identity' => 'EXEMPLE\Compte partage securite ' . $suffix, 'kind' => 'user', 'rights' => 'Modify',
+            'level' => 'modify', 'status' => 'current', 'decision' => 'pending',
+            'decision_comment' => 'Decision partage securite ' . $suffix, 'date_first_seen' => date('Y-m-d H:i:s'),
+        ]);
+    }
+    $ids['share_' . $suffix] = 0;
+    $shareTable = \GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES;
+    foreach ($DB->request(['FROM' => $shareTable, 'WHERE' => $shareRow]) as $row) {
+        $ids['share_' . $suffix] = (int) $row['id'];
+    }
+    $ids['share_ace_' . $suffix] = 0;
+    foreach (
+        $DB->request([
+            'FROM'  => \GlpiPlugin\Grcmanager\Install\ShareAccessTables::ACES,
+            'WHERE' => ['plugin_grcmanager_fileshares_id' => $ids['share_' . $suffix]],
+        ]) as $row
+    ) {
+        $ids['share_ace_' . $suffix] = (int) $row['id'];
     }
     // Issue #779 : logiciel commercial fictif installé sans licence sur l'ordinateur de l'entité.
     $licenseSoftware = $add(new Software(), [

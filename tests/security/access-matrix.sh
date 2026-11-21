@@ -129,6 +129,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/endoflife.export.php front/hardwarewarranty.export.php
   front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
   front/diskencryption.php front/mfacoverage.php front/patchcompliance.php front/logcoverage.php
+  front/shareaccess.php front/shareaccess.php?script=1 front/shareaccess.php?example=1
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
@@ -514,7 +515,7 @@ if [ "$ROLE" = general ]; then
            front/riskappetite.php front/riskindicator.php \
            front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php \
            front/recoveryprogramme.php \
-           front/crisisscenario.php front/crisisscenario.export.php "front/crisisscenario.form.php?id=$(id crisis_scenario_A)"; do
+           front/crisisscenario.php front/crisisscenario.export.php "front/crisisscenario.form.php?id=$(id crisis_scenario_A)"            front/shareaccess.php; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
   # Issue #608, lot 2 : l'export du contexte ne nomme pas le risque lie sans le droit dedie.
@@ -620,6 +621,16 @@ if [ "$ROLE" = reader ]; then
   contains "chiffrement des disques : ordinateur de A" "PC securite A" oui "$(body "$P/diskencryption.php")"
   contains "chiffrement des disques : rien de B" "PC securite B" non "$(body "$P/diskencryption.php")"
   expect "front/diskencryption.php : modifier la regle de chiffrement" 403     "$(code -d "save_encryption_rule=1&encryption_scope=laptops&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
+  # Issue #846 : partages de l'entite A seulement ; import, fiche, revue et decisions en lecture seule.
+  contains "partages : partage de A" "Partage securite A" oui "$(body "$P/shareaccess.php")"
+  contains "partages : rien de B" "Partage securite B" non "$(body "$P/shareaccess.php")"
+  contains "fiche du partage de A : droit nominatif" "Compte partage securite A" oui     "$(body "$P/shareaccess.php?share=$(id share_A)")"
+  expect "front/shareaccess.php : fiche du partage de B" 404 "$(code "$P/shareaccess.php?share=$(id share_B)")"
+  contains "fiche du partage de A : aucun formulaire de decision" 'name="decide"' non     "$(body "$P/shareaccess.php?share=$(id share_A)")"
+  expect "front/shareaccess.php : classer un partage en lecture seule" 403     "$(code -d "save_share=1&share=$(id share_A)&confidentiality=low&_glpi_csrf_token=$(csrf)" "$P/shareaccess.php")"
+  expect "front/shareaccess.php : effacer un import en lecture seule" 403     "$(code -d "clear_shares=1&server=fs-securite.exemple.test&_glpi_csrf_token=$(csrf)" "$P/shareaccess.php")"
+  expect "front/shareaccess.php : lancer une revue en lecture seule" 403     "$(code -d "start_review=1&share=$(id share_A)&_glpi_csrf_token=$(csrf)" "$P/shareaccess.php")"
+  expect "front/shareaccess.php : decider sans etre proprietaire" 403     "$(code -d "decide=1&share=$(id share_A)&ace=$(id share_ace_A)&decision=keep&_glpi_csrf_token=$(csrf)" "$P/shareaccess.php")"
   # Issue #853 : journalisation de l'entite A seulement ; reglages, import et declarations en lecture seule.
   contains "journalisation : hote de A" "Hote journaux securite A" oui "$(body "$P/logcoverage.php")"
   contains "journalisation : hote de B absent" "Hote journaux securite B" non "$(body "$P/logcoverage.php")"
@@ -945,6 +956,20 @@ if [ "$ROLE" = limited ]; then
   # Issue #847 : sauvegarde de cle declaree pour un ordinateur de A, refusee pour celui de B.
   expect "front/diskencryption.php : declarer la cle d'un ordinateur de A" 302     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1&backup_date=2026-01-15&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
   expect "front/diskencryption.php : declarer la cle d'un ordinateur de B" 403     "$(code -d "declare_key=1&computers_id=$(id computer_B)&is_backed_up=1&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
+  # Issue #846 : partages de A modifiables par le gestionnaire, jamais ceux de B ni sans jeton CSRF.
+  expect "front/shareaccess.php : decider pour un droit de A" 302     "$(code -d "decide=1&share=$(id share_A)&ace=$(id share_ace_A)&decision=keep&_glpi_csrf_token=$(csrf)" "$P/shareaccess.php")"
+  expect "front/shareaccess.php : decider pour un droit de B" 403     "$(code -d "decide=1&share=$(id share_B)&ace=$(id share_ace_B)&decision=keep&_glpi_csrf_token=$(csrf)" "$P/shareaccess.php")"
+  expect "front/shareaccess.php : classer le partage de B" 403     "$(code -d "save_share=1&share=$(id share_B)&confidentiality=low&_glpi_csrf_token=$(csrf)" "$P/shareaccess.php")"
+  expect "front/shareaccess.php : classer sans jeton CSRF" 403     "$(code -d "save_share=1&share=$(id share_A)&confidentiality=low" "$P/shareaccess.php")"
+  share_csv=$(mktemp)
+  printf 'Server,Share,Identity,Rights
+fs-import.exemple.test,Import securite,Everyone,Change
+' > "$share_csv"
+  expect "front/shareaccess.php : importer un CSV" 302     "$(code -F import_shares=1 -F "share_file=@$share_csv;filename=shares.csv" -F "_glpi_csrf_token=$(csrf)" "$P/shareaccess.php")"
+  expect "front/shareaccess.php : importer un fichier pdf ou php (fichier piege)" 302     "$(code -F import_shares=1 -F "share_file=@$FAKE_PDF;filename=shares.php" -F "_glpi_csrf_token=$(csrf)" "$P/shareaccess.php")"
+  expect "front/shareaccess.php : importer sans jeton CSRF" 403     "$(code -F import_shares=1 -F "share_file=@$share_csv;filename=shares.csv" "$P/shareaccess.php")"
+  expect "front/shareaccess.php : effacer l'import de test" 302     "$(code -d "clear_shares=1&server=fs-import.exemple.test&_glpi_csrf_token=$(csrf)" "$P/shareaccess.php")"
+  rm -f "$share_csv"
   # Issue #853 : conservation declaree par le gestionnaire, jamais sans jeton CSRF.
   expect "front/logcoverage.php : declarer une plateforme" 302     "$(code -d "declare_log_platform=1&platform=splunk&retention_days=365&_glpi_csrf_token=$(csrf)" "$P/logcoverage.php")"
   expect "front/logcoverage.php : declarer une plateforme sans jeton CSRF" 403     "$(code -d "declare_log_platform=1&platform=splunk&retention_days=1" "$P/logcoverage.php")"

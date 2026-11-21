@@ -1181,6 +1181,50 @@ dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateu
    insuffisante et la date du calcul. Les indicateurs de risque proposent la source « Actifs
    critiques sans journalisation (%) ».
 
+### Étape 39 : Contrôler les droits d'accès aux partages de fichiers Windows (mesures A.5.15, A.5.18 et A.8.3)
+
+L'auditeur demande la preuve que les accès aux dossiers partagés sont limités au besoin et revus.
+Le plugin ne se connecte à aucun serveur de fichiers et ne modifie aucun droit : un administrateur
+lance un script PowerShell en lecture seule, puis importe le fichier CSV qu'il produit. Il faut le
+droit du plugin et le droit des registres sensibles (en modification pour importer).
+
+1. Ouvrez Revue des accès > **Droits sur les partages de fichiers**. L'encadré « À quoi sert cette
+   page ? » rappelle ce qui est attendu.
+2. Dans **Importer les droits d'un serveur de fichiers**, cliquez sur **Télécharger le script
+   PowerShell** et copiez `Export-GrcShareAccess.ps1` sur le serveur de fichiers. Lancez-le avec un
+   compte qui peut lire les dossiers :
+
+   ```powershell
+   .\Export-GrcShareAccess.ps1 -Depth 2 -OutFile shares.csv
+   ```
+
+   Le script lit les partages (`Get-SmbShare`, partages d'administration exclus), leurs droits de
+   partage (`Get-SmbShareAccess`), les droits NTFS de la racine et ceux posés sur les sous-dossiers
+   jusqu'à `-Depth` niveaux (`Get-Acl`), l'héritage et le propriétaire. `-Share Compta,Projets`
+   limite la lecture à certains partages ; `-ResolvePrincipalType` demande à Active Directory si
+   chaque compte est un utilisateur ou un groupe. Un export d'un autre outil est accepté s'il a des
+   colonnes telles que `Server`, `Share`, `Folder`, `Identity`, `Rights`, `AccessType`,
+   `IsInherited` et `InheritanceProtected` ; **Télécharger un fichier d'exemple** en montre un.
+3. Importez le fichier. Les comptes sont rapprochés des utilisateurs (identifiant) et des groupes
+   (nom) de GLPI. Un nouvel import du même serveur montre les **droits ajoutés et retirés** depuis
+   le précédent ; l'historique est dans **Imports et évolution dans le temps**.
+4. La liste des partages commence par les plus exposés. Les écarts signalés sont : **tout le monde
+   peut modifier** (Tout le monde, Utilisateurs authentifiés, Utilisateurs du domaine ou Invités avec
+   un droit de modification), **compte supprimé** (SID non résolu ou compte à la corbeille de GLPI)
+   ou **désactivé** qui a encore des droits, **droit donné à une personne** plutôt qu'à un groupe,
+   **héritage cassé** sur un sous-dossier d'un partage sensible, **partage sans propriétaire**.
+5. Ouvrez un partage : classez-le (confidentialité, intégrité, disponibilité) et désignez son
+   **propriétaire**. Le score pondéré compte 3 par écart grave et 1 pour les autres, multiplié par 3
+   pour un partage classé élevé et par 2 pour moyen.
+6. Cliquez sur **Lancer une revue** : le propriétaire décide pour chaque droit (garder, modifier ou
+   retirer, avec un commentaire pour les deux derniers), puis **Clôturer la revue**. Les décisions
+   sont tracées avec leur auteur et leur date. L'administrateur applique les changements sur le
+   serveur ; l'import suivant montre les droits retirés.
+7. Sur la fiche des mesures A.5.15, A.5.18 et A.8.3, le cadre « Droits sur les partages de
+   fichiers » montre le nombre de partages, ceux qui ont un écart, les droits qui laissent tout le
+   monde modifier, ceux des comptes supprimés ou désactivés et les partages revus dans les douze
+   derniers mois.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -2325,3 +2369,44 @@ need the plugin right and the native right to read computers.
 6. On controls A.8.15, A.8.16 and A.8.17, the "Logging coverage" box shows the rate, the critical
    assets without logging, the platforms whose retention is not enough and the date of the
    computation. Risk indicators offer the source "Critical assets without logging (%)".
+
+### Step 40: Check the access rights of the Windows file shares (controls A.5.15, A.5.18 and A.8.3)
+
+The auditor asks for evidence that access to shared folders is limited to what is needed and
+reviewed. The plugin never connects to a file server and never changes a right: an administrator
+runs a read-only PowerShell script, then imports the CSV file it produces. You need the plugin right
+and the right on the sensitive registers (with modification to import).
+
+1. Open Access review > **File share access rights**. The "What is this page for?" box recalls what
+   is expected.
+2. In **Import the rights of a file server**, click **Download the PowerShell script** and copy
+   `Export-GrcShareAccess.ps1` to the file server. Run it with an account that can read the folders:
+
+   ```powershell
+   .\Export-GrcShareAccess.ps1 -Depth 2 -OutFile shares.csv
+   ```
+
+   The script reads the shares (`Get-SmbShare`, administrative shares excluded), their share
+   permissions (`Get-SmbShareAccess`), the NTFS permissions of the root and those set on the
+   subfolders down to `-Depth` levels (`Get-Acl`), the inheritance and the owner.
+   `-Share Accounting,Projects` limits the reading to some shares; `-ResolvePrincipalType` asks
+   Active Directory whether each account is a user or a group. An export from another tool is
+   accepted if it has columns such as `Server`, `Share`, `Folder`, `Identity`, `Rights`,
+   `AccessType`, `IsInherited` and `InheritanceProtected`; **Download an example file** shows one.
+3. Import the file. Accounts are matched with the GLPI users (login) and groups (name). A new import
+   of the same server shows the **rights added and removed** since the previous one; the history is
+   in **Imports and changes over time**.
+4. The list of shares starts with the most exposed. The gaps reported are: **everyone can modify**
+   (Everyone, Authenticated Users, Domain Users or Guests with a modify right), **deleted** (unresolved
+   SID or account in the GLPI trash) or **disabled account** that still has rights, **right given to
+   a person** rather than to a group, **broken inheritance** on a subfolder of a sensitive share,
+   **share without an owner**.
+5. Open a share: classify it (confidentiality, integrity, availability) and designate its
+   **owner**. The weighted score adds 3 for each serious gap and 1 for the others, multiplied by 3
+   for a share classified high and by 2 for medium.
+6. Click **Start a review**: the owner decides for each right (keep, change or remove, with a comment
+   for the last two), then **Close the review**. Decisions are recorded with their author and date.
+   The administrator applies the changes on the server; the next import shows the removed rights.
+7. On controls A.5.15, A.5.18 and A.8.3, the "File share access rights" box shows the number of
+   shares, those with a gap, the rights that let everyone modify, those of deleted or disabled
+   accounts and the shares reviewed in the last twelve months.

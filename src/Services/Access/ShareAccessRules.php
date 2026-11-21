@@ -65,7 +65,7 @@ final class ShareAccessRules
     private const DENY_WORDS = ['deny', 'refuser', 'refus', 'verweigern', 'denegar', 'negar', 'nega', 'odmow'];
 
     /**
-     * Colonnes reconnues => en-têtes usuels normalisés (minuscules, sans séparateurs) : ceux du
+     * Colonnes reconnues => en-têtes usuels normalisés (minuscules, sans séparateurs ni accents) : ceux du
      * script fourni, de Get-SmbShareAccess / Get-Acl, et d'outils tiers courants.
      *
      * @var array<string, list<string>>
@@ -76,10 +76,10 @@ final class ShareAccessRules
         'sharepath' => ['sharepath', 'localpath', 'chemindupartage', 'cheminlocal'],
         'folder'    => ['folder', 'folderpath', 'fullname', 'path', 'directory', 'dossier', 'chemin'],
         'depth'     => ['depth', 'level', 'profondeur', 'niveau'],
-        'scope'     => ['scope', 'acltype', 'permissiontype', 'portee'],
+        'scope'     => ['scope', 'acltype', 'permissiontype', 'portee', 'porte'],
         'identity'  => [
             'identity', 'identityreference', 'accountname', 'account', 'principal', 'trustee', 'user',
-            'username', 'compte', 'identite',
+            'username', 'compte', 'identite', 'identit',
         ],
         'sid'       => ['sid', 'identitysid', 'securityidentifier', 'accountsid'],
         'type'      => ['principaltype', 'accounttype', 'objectclass', 'typedecompte', 'typeobjet'],
@@ -88,12 +88,12 @@ final class ShareAccessRules
             'droits', 'droit',
         ],
         'access'    => ['accesstype', 'accesscontroltype', 'allowdeny', 'typedacces'],
-        'inherited' => ['isinherited', 'inherited', 'herite'],
+        'inherited' => ['isinherited', 'inherited', 'herite', 'hrit'],
         'protected' => [
             'inheritanceprotected', 'areaccessrulesprotected', 'protected', 'inheritancebroken',
-            'heritagedesactive', 'heritagecasse',
+            'heritagedesactive', 'heritagecasse', 'hritagedsactiv', 'hritagecass',
         ],
-        'owner'     => ['owner', 'proprietaire'],
+        'owner'     => ['owner', 'proprietaire', 'propritaire'],
     ];
 
     /**

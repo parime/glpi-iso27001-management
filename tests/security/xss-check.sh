@@ -106,6 +106,9 @@ check "front/mfacoverage.php"                 "$P/mfacoverage.php"
 check "preuve couverture MFA (A.8.5)"         "$P/control.form.php?id=$(xid control_a85)"
 # Issue #854 : ordinateur piege (correctifs de securite).
 check "front/patchcompliance.php"             "$P/patchcompliance.php"
+# Issue #846 : partage, chemin, compte, droit et commentaire de revue pieges (droits sur les partages).
+check "front/shareaccess.php"                 "$P/shareaccess.php"
+check "fiche d'un partage de fichiers"        "$P/shareaccess.php?share=$(id share_A)"
 # Issue #853 : hote emetteur, serveur de temps et commentaire pieges (couverture de la journalisation).
 check "front/logcoverage.php"                 "$P/logcoverage.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).

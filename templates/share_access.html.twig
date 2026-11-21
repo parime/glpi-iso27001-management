@@ -93,7 +93,7 @@
                      <td>{{ share.score(row.score, scores[row.score_level]) }}</td>
                      <td class="small">
                         {% if row.review_open %}
-                           <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-progress me-1"></i>{{ __('In progress', 'grcmanager') }}{% if row.pending > 0 %} : {{ _n('%d to review', '%d to review', row.pending, 'grcmanager')|format(row.pending) }}{% endif %}</span>
+                           <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-progress me-1"></i>{{ __('In progress', 'grcmanager') }}{% if row.pending > 0 %} : {{ __('%d to review', 'grcmanager')|format(row.pending) }}{% endif %}</span>
                         {% elseif row.last_review %}
                            <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ row.last_review }}</span>
                         {% else %}
