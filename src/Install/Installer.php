@@ -1568,6 +1568,7 @@ final class Installer
         PhishingTables::install($keySign, $charset, $collation);
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         SecureDevelopmentTables::install($keySign, $charset, $collation);
+        SecureDevelopmentTables::upgrade($migration);
         RecyfTables::install($keySign, $charset, $collation);
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         OfficialContactTables::install($keySign, $charset, $collation);
