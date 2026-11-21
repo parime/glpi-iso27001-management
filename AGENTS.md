@@ -30,7 +30,8 @@ release). It is the single reference for every parime GLPI plugin.
   overwrites it), and commit the `.pot`. CI fails when it no longer matches the code.
 - Tests: PHPUnit (unit and integration), PHPStan, PHPCS; test the user interface as a non-technical
   user would. Fictitious data only in tests, screenshots and documentation.
-- Each pull request updates `CHANGELOG.md` (section `[Unreleased]`).
+- Each pull request adds its CHANGELOG entry in `changes/unreleased/<issue>-<topic>.md` (moved into
+  `CHANGELOG.md` at release).
 - Add a feature by creating new files, not by growing the central lists: see
   [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#-english) ("Adding a feature without conflicts").
   Tutorial steps go in `docs/tutorial/{fr,en}/NNNN-*.md`; `docs/TUTORIAL.md` is generated.
