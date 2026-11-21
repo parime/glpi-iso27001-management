@@ -56,6 +56,25 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #603 : maturité par mesure (campagnes datées, niveau actuel et niveau cible).
+            'maturitycampaign' => [
+                'purpose'   => __(
+                    'Rates each applicable control of the Statement of Applicability on a scale from 0 (non-existent) '
+                        . 'to 5 (optimised): the level reached today and the level aimed for, with a target date. The '
+                        . 'gaps between the two make up the security roadmap, and two dated campaigns show the '
+                        . 'progress. These optional levels change neither the implementation status of the controls '
+                        . 'nor the maturity score.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Create a campaign (for example once a year), fill in the current and target levels of each '
+                        . 'control with a justification and an owner, then open the "Gaps" tab: create an action for '
+                        . 'the largest gaps and download the report for the management review. The next campaign takes '
+                        . 'over the targets of this one.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clauses 6.2, 9.3 and 10.1', 'grcmanager'),
+            ],
             // Issue #867 : mesures bloquées de la SoA.
             'controlblocker'   => [
                 'purpose'  => __(
