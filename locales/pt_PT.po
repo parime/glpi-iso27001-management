@@ -33184,3 +33184,84 @@ msgstr "Nenhum controlador de gerenciamento (iLO, iDRAC, XClarity, IPMI) é conh
 
 msgid "Secure Boot"
 msgstr "Inicialização segura"
+
+msgid "Firmware with a priority vulnerability"
+msgstr "Firmware com uma vulnerabilidade prioritária"
+
+msgid "The firmware of the controller or the BIOS has a known vulnerability that is exploited, critical or likely to be exploited (page \"Fleet vulnerabilities\"): update it first."
+msgstr "O firmware do controlador ou a BIOS tem uma vulnerabilidade conhecida explorada, crítica ou com probabilidade de ser explorada (página «Vulnerabilidades do parque»): atualize-o primeiro."
+
+msgid "Firmware no longer supported"
+msgstr "Firmware sem suporte"
+
+msgid "The firmware of the controller or the BIOS has reached its end of support (endoflife.date): no more security fixes."
+msgstr "O firmware do controlador ou a BIOS chegou ao fim do suporte (endoflife.date): sem mais correções de segurança."
+
+msgid "Firmware with known vulnerabilities"
+msgstr "Firmware com vulnerabilidades conhecidas"
+
+msgid "The firmware of the controller or the BIOS has known vulnerabilities (page \"Fleet vulnerabilities\")."
+msgstr "O firmware do controlador ou a BIOS tem vulnerabilidades conhecidas (página «Vulnerabilidades do parque»)."
+
+msgid "Firmware support ending soon"
+msgstr "Fim do suporte do firmware próximo"
+
+msgid "The end of support of the firmware or the BIOS is near (endoflife.date)."
+msgstr "O fim do suporte do firmware ou da BIOS está próximo (endoflife.date)."
+
+msgid "Link this name to a product on the page \"Fleet vulnerabilities\" to compare it with the known vulnerabilities."
+msgstr "Associe este nome a um produto na página «Vulnerabilidades do parque» para o comparar com as vulnerabilidades conhecidas."
+
+msgid "Not watched"
+msgstr "Não vigiado"
+
+msgid "Priority CVEs: %d"
+msgstr "CVE prioritárias: %d"
+
+msgid "Known CVEs: %d"
+msgstr "CVE conhecidas: %d"
+
+msgid "No known CVE"
+msgstr "Nenhuma CVE conhecida"
+
+msgid "The firmware of each controller and its BIOS are compared with the known vulnerabilities of the fleet and with the end of support dates, like the other firmwares: link their name to a product once, on the same pages."
+msgstr "O firmware de cada controlador e a sua BIOS são comparados com as vulnerabilidades conhecidas do parque e com as datas de fim de suporte, como os outros firmwares: associe o seu nome a um produto uma vez, nas mesmas páginas."
+
+msgid "Enable the end of support check"
+msgstr "Ativar a verificação do fim de suporte"
+
+msgid "Server controller accounts"
+msgstr "Contas dos controladores de servidores"
+
+msgid "Factory account still enabled: replace it with a named account"
+msgstr "Conta de fábrica ainda ativa: substituí-la por uma conta nominativa"
+
+msgid "Disabled on the controller: delete it there"
+msgstr "Desativada no controlador: eliminá-la lá"
+
+msgid "Locked on the controller"
+msgstr "Bloqueada no controlador"
+
+msgid "Administrator role: full control of the server"
+msgstr "Função de administrador: controlo total do servidor"
+
+msgid "An account of a server management controller (iLO, iDRAC, XClarity, IPMI) gives full control of the server, even switched off, outside GLPI and the directory. When the campaign is launched, the accounts read on the controllers of its entities are copied here with a suggestion. Keep or remove each one: the plugin changes nothing on the controllers, remove the account there."
+msgstr "Uma conta de um controlador de gestão de servidores (iLO, iDRAC, XClarity, IPMI) dá o controlo total do servidor, mesmo desligado, fora do GLPI e do diretório. Ao lançar a campanha, as contas lidas nos controladores das suas entidades são copiadas aqui com uma sugestão. Mantenha ou retire cada uma: o plugin não altera nada nos controladores, retire a conta lá."
+
+msgid "The accounts of the controllers are copied when the campaign is launched."
+msgstr "As contas dos controladores são copiadas ao lançar a campanha."
+
+msgid "No account of a server management controller in this campaign: no controller with accounts read in its entities when it was launched."
+msgstr "Nenhuma conta de controlador de gestão de servidores nesta campanha: nenhum controlador com contas lidas nas suas entidades no lançamento."
+
+msgid "Add the accounts of the controllers"
+msgstr "Adicionar as contas dos controladores"
+
+msgid "Suggestion"
+msgstr "Sugestão"
+
+msgid "%d decided"
+msgstr "%d decidida(s)"
+
+msgid "%d account(s) of the controllers added to the campaign."
+msgstr "%d conta(s) dos controladores adicionada(s) à campanha."
