@@ -24,12 +24,39 @@ use GlpiPlugin\Grcmanager\Services\Dashboard\SecuredDashboardCards;
 use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 
 /**
- * Issue #852 : couverture de l'authentification multifacteur (MFA) par compte. Carte du tableau de
- * bord, source de KRI et cadre de preuve des mesures A.8.5 et A.5.17, déclarés ici plutôt que dans
+ * Issue #852 : couverture de l'authentification multifacteur (MFA) par compte. Aide de la page, carte du
+ * tableau de bord, source de KRI et cadre de preuve des mesures A.8.5 et A.5.17, déclarés ici plutôt que dans
  * les listes communes (voir FeatureRegistry).
  */
-final class MfaCoverageFeature implements DashboardCardsProvider, RiskIndicatorSourcesProvider, ControlEvidenceProvider
+final class MfaCoverageFeature implements
+    DashboardCardsProvider,
+    RiskIndicatorSourcesProvider,
+    ControlEvidenceProvider,
+    PageHelpProvider
 {
+    public static function pageHelp(): array
+    {
+        return [
+            'mfacoverage' => [
+                'purpose'   => __(
+                    'Shows which active accounts are protected by multi-factor authentication: GLPI two-factor '
+                        . 'authentication, and the methods registered with your identity provider (Microsoft Entra '
+                        . 'ID, Okta, Google Workspace, on-premises solution) imported from a CSV export. Rates are '
+                        . 'given for all accounts, administrators and remote access accounts.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Import the export of your identity provider, choose the remote access groups, then follow up '
+                        . 'the gaps: administrator or remote access without MFA, SMS or call only, account excluded '
+                        . 'without justification. Nothing is changed automatically. Record the result as an '
+                        . 'effectiveness test of the control to keep the evidence.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.5 and A.5.17', 'grcmanager'),
+            ],
+        ];
+    }
+
     public static function dashboardCards(): array
     {
         return [

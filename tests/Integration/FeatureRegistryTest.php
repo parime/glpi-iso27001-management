@@ -7,6 +7,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
 use GlpiPlugin\Grcmanager\Feature\MfaCoverageFeature;
+use GlpiPlugin\Grcmanager\PageHelp;
 use GlpiPlugin\Grcmanager\RiskIndicator;
 
 /**
@@ -64,5 +65,12 @@ final class FeatureRegistryTest extends GrcmanagerIntegrationTestCase
             FeatureRegistry::controlEvidence('A.5.1'),
             static fn (array $box): bool => $box['template'] === MfaCoverageFeature::controlEvidenceTemplate()
         ));
+    }
+
+    public function testPageHelpComesFromTheFeature(): void
+    {
+        $this->assertArrayHasKey('mfacoverage', FeatureRegistry::pageHelp());
+        $this->assertSame(FeatureRegistry::pageHelp()['mfacoverage'], PageHelp::texts()['mfacoverage']);
+        $this->assertArrayHasKey('dashboard', PageHelp::texts());
     }
 }

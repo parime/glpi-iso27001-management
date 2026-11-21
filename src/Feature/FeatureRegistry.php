@@ -21,10 +21,10 @@ namespace GlpiPlugin\Grcmanager\Feature;
 
 /**
  * Fonctionnalités découvertes : chaque fichier src/Feature/<Fonctionnalité>Feature.php déclare ce
- * que la fonctionnalité ajoute aux listes communes du plugin (cartes du tableau de bord, sources de
- * KRI, cadres de preuve sur la fiche d'une mesure) en implémentant les interfaces voulues. Une
- * nouvelle fonctionnalité ajoute ainsi un fichier au lieu d'allonger hook.php, RiskIndicator.php,
- * Control.php et control_form.html.twig, que toutes les branches modifient en même temps.
+ * que la fonctionnalité ajoute aux listes communes du plugin (aide des pages, cartes du tableau de
+ * bord, sources de KRI, cadres de preuve sur la fiche d'une mesure) en implémentant les interfaces voulues. Une
+ * nouvelle fonctionnalité ajoute ainsi un fichier au lieu d'allonger PageHelp.php, hook.php,
+ * RiskIndicator.php, Control.php et control_form.html.twig, que toutes les branches modifient en même temps.
  *
  * Ordre : alphabétique des noms de fichier ; une entrée peut demander à suivre une entrée existante
  * (clé « after ») pour garder l'ordre d'affichage, sinon elle va à la fin.
@@ -138,5 +138,20 @@ final class FeatureRegistry
         }
 
         return $boxes;
+    }
+
+    /**
+     * Aides « À quoi sert cette page ? » des fonctionnalités, par page.
+     *
+     * @return array<string, array{purpose: string, expected: string, reference?: string}>
+     */
+    public static function pageHelp(): array
+    {
+        $texts = [];
+        foreach (self::implementing(PageHelpProvider::class) as $class) {
+            $texts += $class::pageHelp();
+        }
+
+        return $texts;
     }
 }
