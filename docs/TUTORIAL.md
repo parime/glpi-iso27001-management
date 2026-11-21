@@ -1427,7 +1427,45 @@ droit du plugin et le droit des registres sensibles (en modification pour import
    monde modifier, ceux des comptes supprimés ou désactivés et les partages revus dans les douze
    derniers mois.
 
-### Étape 47 : Mesurer la maturité de chaque mesure et fixer les cibles (articles 6.2, 9.3 et 10.1)
+### Étape 47 : Prouver que les actifs importants sont sauvegardés (mesures A.8.13 et A.5.30)
+
+Le plugin compare les machines connues de vos outils de sauvegarde aux ordinateurs et matériels
+réseau de GLPI. Il lit seulement : il ne lance aucune sauvegarde ni restauration et ne modifie rien
+dans l'outil ni dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateurs.
+
+1. Ouvrez Sécurité technique > **Couverture des sauvegardes**. L'encadré « À quoi sert cette page ? »
+   rappelle ce qui est attendu.
+2. Dans **Quels actifs doivent être sauvegardés, et à quelle fréquence ?**, choisissez les actifs
+   concernés (par défaut les actifs critiques et les serveurs), l'ancienneté maximale par défaut de
+   la dernière sauvegarde réussie (48 heures) et la fréquence attendue des tests de restauration
+   (12 mois). L'ancienneté admise d'un actif est le plus petit RPO entre celui de l'actif (onglet de
+   classification C/I/D) et ceux des processus métier qui l'utilisent ; sans RPO, la valeur par
+   défaut s'applique.
+3. Pour **Veeam Backup & Replication**, créez dans la console Veeam un compte dédié avec le rôle
+   « Veeam Backup Viewer » (lecture seule), puis saisissez l'adresse du serveur (par exemple
+   `https://veeam.exemple.test:9419`), le compte, son mot de passe et la révision de l'API REST.
+   Le mot de passe est chiffré avec la clé de GLPI et n'est jamais réaffiché. **Lire maintenant
+   depuis Veeam** lit, sur votre clic seulement, les points de restauration des 31 derniers jours et
+   le dernier résultat de chaque travail. Une lecture refusée ou incomplète ne remplace rien. Un
+   serveur à adresse interne demande à un administrateur d'autoriser les adresses internes dans la
+   page de configuration du plugin, et son certificat doit être reconnu par le serveur GLPI.
+4. Pour les autres outils (Acronis, Commvault, Synology Active Backup, Proxmox Backup Server…),
+   exportez en CSV la liste des machines protégées avec la date de leur dernière sauvegarde, puis
+   importez-la dans **Outils de sauvegarde**. Colonnes reconnues : machine (`host`, `vm`, `device`,
+   `client`, `backup-id`…), `ip`, travail, dernière réussite (`last success`, `last backup`,
+   `backup-time`), date d'exécution et résultat. Un journal avec une ligne par exécution convient :
+   la plus récente de chaque machine compte. Un nouvel import du même outil remplace le précédent.
+5. La liste **Actifs qui doivent être sauvegardés** commence par ceux qui n'ont aucune sauvegarde,
+   puis ceux dont la sauvegarde est trop ancienne, puis ceux dont la dernière tentative a échoué.
+   Elle donne l'ancienneté admise et son origine, et le dernier test de restauration repris des
+   exercices de reprise : enregistrez le test sur le processus (onglet « Stratégie de reprise ») en
+   désignant l'actif testé. Les machines sauvegardées que GLPI ne connaît pas sont listées à part.
+6. Sur la fiche des mesures A.8.13 et A.5.30, le cadre « Couverture des sauvegardes » montre le taux
+   de sauvegardes récentes, les actifs critiques sans sauvegarde récente, les échecs et les actifs
+   critiques sans test de restauration récent. Les indicateurs de risque proposent la source
+   « Actifs critiques sans sauvegarde récente (%) ».
+
+### Étape 48 : Mesurer la maturité de chaque mesure et fixer les cibles (articles 6.2, 9.3 et 10.1)
 
 Le score de maturité global résume le SMSI en un chiffre. Pour bâtir et défendre la feuille de
 route, on évalue en plus chaque mesure : « nous sommes au niveau 2 et visons le niveau 4 l'an
@@ -1454,7 +1492,7 @@ ni le score de maturité.
 6. Les libellés de l'échelle se renomment dans la configuration du plugin, cadre
    **Échelle de maturité par mesure** (un champ vide garde le libellé par défaut, traduit).
 
-### Étape 48 : Lire la supervision Zabbix (mesures A.8.16, A.8.6 et A.5.30)
+### Étape 49 : Lire la supervision Zabbix (mesures A.8.16, A.8.6 et A.5.30)
 
 L'auditeur demande comment les serveurs et services sont surveillés, s'ils sont disponibles comme
 prévu et si leur capacité est suivie. Le plugin lit votre serveur **Zabbix en lecture seule** et
@@ -1491,7 +1529,7 @@ Zabbix. Il faut le droit du plugin et la lecture native des ordinateurs.
    risque proposent trois sources : disponibilité des services du mois, problèmes ouverts de
    gravité haute, actifs critiques non supervisés.
 
-### Étape 49 : Recenser et contrôler les cartes de gestion des serveurs (mesures A.8.2, A.8.9 et A.8.22)
+### Étape 50 : Recenser et contrôler les cartes de gestion des serveurs (mesures A.8.2, A.8.9 et A.8.22)
 
 Les cartes de gestion à distance (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro
 IPMI) donnent le contrôle complet d'un serveur, même éteint. Le plugin les lit **en lecture seule**
@@ -2865,7 +2903,43 @@ and the right on the sensitive registers (with modification to import).
    shares, those with a gap, the rights that let everyone modify, those of deleted or disabled
    accounts and the shares reviewed in the last twelve months.
 
-### Step 47: Rate the maturity of each control and set the targets (clauses 6.2, 9.3 and 10.1)
+### Step 47: Prove that important assets are backed up (controls A.8.13 and A.5.30)
+
+The plugin compares the machines known by your backup tools with the computers and network devices
+of GLPI. It only reads: it never starts a backup or a restore and changes nothing in the tool nor in
+GLPI. You need the plugin right and the native right to read computers.
+
+1. Open Technical security > **Backup coverage**. The "What is this page for?" box recalls what is
+   expected.
+2. In **Which assets must be backed up, and how often?**, choose the assets concerned (by default
+   critical assets and servers), the default maximum age of the last successful backup (48 hours)
+   and how often restores must be tested (12 months). The maximum age of an asset is the smallest
+   RPO among the asset (C/I/A classification tab) and the business processes that use it; without
+   any RPO, the default value applies.
+3. For **Veeam Backup & Replication**, create a dedicated account with the "Veeam Backup Viewer"
+   role (read only) in the Veeam console, then enter the address of the server (for example
+   `https://veeam.example.test:9419`), the account, its password and the REST API revision. The
+   password is encrypted with the GLPI key and never displayed again. **Read now from Veeam** reads,
+   on your click only, the restore points of the last 31 days and the last result of each job. A
+   refused or incomplete reading replaces nothing. A server with an internal address requires an
+   administrator to allow internal addresses in the configuration page of the plugin, and its
+   certificate must be trusted by the GLPI server.
+4. For the other tools (Acronis, Commvault, Synology Active Backup, Proxmox Backup Server...), export
+   as CSV the list of protected machines with the date of their last backup, then import it in
+   **Backup tools**. Recognized columns: machine (`host`, `vm`, `device`, `client`, `backup-id`...),
+   `ip`, job, last success (`last success`, `last backup`, `backup-time`), date of the run and
+   result. A log with one line per run is accepted: the most recent run of each machine counts. A new
+   import of the same tool replaces the previous one.
+5. The list **Assets that must be backed up** starts with those without any backup, then those whose
+   backup is too old, then those whose last attempt failed. It gives the maximum age and where it
+   comes from, and the last restore test taken from the recovery exercises: record the test on the
+   process ("Recovery strategy" tab), naming the asset tested. Backed up machines that GLPI does not
+   know are listed apart.
+6. On controls A.8.13 and A.5.30, the "Backup coverage" box shows the rate of recent backups, the
+   critical assets without a recent backup, the failures and the critical assets without a recent
+   restore test. Risk indicators offer the source "Critical assets without a recent backup (%)".
+
+### Step 48: Rate the maturity of each control and set the targets (clauses 6.2, 9.3 and 10.1)
 
 The overall maturity score sums up the ISMS in one figure. To build and justify the roadmap, each
 control is also rated: "we are at level 2 and aim for level 4 next year". These levels are
@@ -2891,7 +2965,7 @@ optional: they change neither the implementation status of the controls nor the 
 6. The labels of the scale are renamed in the plugin configuration, box **Maturity scale by
    control** (an empty field keeps the default label, translated).
 
-### Step 48: Read the Zabbix monitoring (controls A.8.16, A.8.6 and A.5.30)
+### Step 49: Read the Zabbix monitoring (controls A.8.16, A.8.6 and A.5.30)
 
 The auditor asks how servers and services are monitored, whether they are as available as planned
 and whether their capacity is followed up. The plugin reads your **Zabbix server in read only** and
@@ -2924,7 +2998,7 @@ Zabbix. You need the plugin right and the native read right on computers.
    business processes have a "Zabbix monitoring" tab, and risk indicators offer three sources:
    service availability of the month, open high-severity problems, critical assets not monitored.
 
-### Step 49: Inventory and check the server management controllers (controls A.8.2, A.8.9 and A.8.22)
+### Step 50: Inventory and check the server management controllers (controls A.8.2, A.8.9 and A.8.22)
 
 Remote management controllers (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI)
 give full control of a server, even switched off. The plugin reads them **in read only** through
