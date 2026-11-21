@@ -167,6 +167,8 @@ class Menu extends CommonGLPI
                 ZabbixMonitoring::class,
                 // Issue #843 : contrôleurs de gestion des serveurs (A.8.2, A.8.9, A.8.22).
                 ServerManagement::class,
+                // Issue #838 : couverture des sauvegardes (A.8.13, A.5.30).
+                BackupCoverage::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];

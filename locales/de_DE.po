@@ -1420,9 +1420,9 @@ msgstr ""
 "zum Abgleich."
 
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
 "Eine CPE-Kennung, wie sie von der NVD für dieses Produkt gemeldet wird (z. "
 "B. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Mehrere Kennungen können auf "
@@ -3203,8 +3203,8 @@ msgstr ""
 msgid ""
 "Public website;publication;Internet;Web server;tcp;443;Company website;;"
 msgstr ""
-"Öffentliche Website;publication;Internet;Webserver;tcp;443;"
-"Unternehmenswebsite;;"
+"Öffentliche "
+"Website;publication;Internet;Webserver;tcp;443;Unternehmenswebsite;;"
 
 msgid "Backup;backup;Main site;Recovery site;tcp;10000;Nightly replication;;"
 msgstr ""
@@ -3498,8 +3498,8 @@ msgstr "Geprüfte Versionen pro Durchlauf"
 
 msgid "Pick a suggestion or enter a valid CPE 2.3 (cpe:2.3:a:vendor:product)."
 msgstr ""
-"Wählen Sie einen Vorschlag oder geben Sie eine gültige CPE 2.3 ein (cpe:2.3:"
-"a:hersteller:produkt)."
+"Wählen Sie einen Vorschlag oder geben Sie eine gültige CPE 2.3 ein "
+"(cpe:2.3:a:hersteller:produkt)."
 
 #, php-format
 msgid "\"%s\" is now watched."
@@ -8427,11 +8427,11 @@ msgstr ""
 "Referenz-Fingerabdruck oben:"
 
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
-"Nützliche Beweisformate (in den GLPI-Dokumenttypen zu erlauben): .log, ."
-"evtx, .json, .pcap, .eml, .csv, .zip."
+"Nützliche Beweisformate (in den GLPI-Dokumenttypen zu "
+"erlauben): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 
 #, php-format
 msgid "%d evidence(s) checked: all intact."
@@ -9500,8 +9500,8 @@ msgid ""
 "The risk appetite and tolerance set by management for each risk category, "
 "and the open risks that exceed them."
 msgstr ""
-"Die von der Leitung je Kategorie festgelegte Risikobereitschaft und -"
-"toleranz sowie die offenen Risiken, die sie überschreiten."
+"Die von der Leitung je Kategorie festgelegte Risikobereitschaft und "
+"-toleranz sowie die offenen Risiken, die sie überschreiten."
 
 msgid ""
 "Have management approve the levels; then give each risk above the appetite a "
@@ -15153,8 +15153,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 "Eine CSV-Datei pro Meldebogen der Durchführungsverordnung, mit den "
 "offiziellen Spaltencodes (c0010...), wie in einem xBRL-CSV-Meldepaket. "
@@ -17407,8 +17407,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 "GLPI lehnt interne Adressen für dieses Plugin ebenfalls ab: Fügen Sie %s der "
 "Konstante GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS hinzu "
@@ -18469,8 +18469,8 @@ msgstr "Einstellungen und Zuordnungen"
 
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 "Nicht aktiviert: Das Plugin kann anzeigen, welche Software, Betriebssysteme "
 "und Firmwares keine Sicherheitsupdates mehr erhalten, laut der öffentlichen "
@@ -18571,11 +18571,12 @@ msgid ""
 "changed in the inventory, and no ticket is created."
 msgstr ""
 "Zeigt, welche installierte Software, Betriebssysteme und Firmwares keine "
-"Sicherheitsupdates mehr erhalten, laut der öffentlichen Website endoflife."
-"date (ISO 27001 A.8.8 und A.8.9). Einmal täglich liest das Plugin die "
-"Supportende-Daten der im Inventar gefundenen Produkte; nur der Produktname "
-"wird gesendet (zum Beispiel „debian\"), nie der Name eines Computers oder "
-"einer Entität. Im Inventar wird nichts geändert und kein Ticket erstellt."
+"Sicherheitsupdates mehr erhalten, laut der öffentlichen Website "
+"endoflife.date (ISO 27001 A.8.8 und A.8.9). Einmal täglich liest das Plugin "
+"die Supportende-Daten der im Inventar gefundenen Produkte; nur der "
+"Produktname wird gesendet (zum Beispiel „debian\"), nie der Name eines "
+"Computers oder einer Entität. Im Inventar wird nichts geändert und kein "
+"Ticket erstellt."
 
 msgid "Read the end of support dates on endoflife.date"
 msgstr "Supportende-Daten auf endoflife.date lesen"
@@ -18612,8 +18613,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 "Bekannte Namen werden automatisch zugeordnet (zum Beispiel „Debian GNU/"
 "Linux\" oder „Mozilla Firefox\"). Fügen Sie für jeden anderen Namen eine "
@@ -21072,9 +21073,9 @@ msgid "Justification of a different result"
 msgstr "Begründung eines abweichenden Ergebnisses"
 
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
 "Jedes Element der Grundgesamtheit wird nach dem SHA-256-Fingerabdruck von "
 "„Startwert:Kennung“ geordnet; die ersten Elemente dieser Reihenfolge bilden "
@@ -30545,6 +30546,498 @@ msgid "Update the suggestions"
 msgstr "Vorschläge aktualisieren"
 
 #, php-format
+msgid ""
+"%1$d machine(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr ""
+"%1$d Maschine(n) importiert: %2$d einem GLPI-Asset zugeordnet, %3$d nicht "
+"zugeordnet."
+
+msgid ""
+"Not saved: the address must start with https:// (for example https://"
+"veeam.example.test:9419) and contain no user name or password."
+msgstr ""
+"Nicht gespeichert: Die Adresse muss mit https:// beginnen (zum Beispiel "
+"https://veeam.example.test:9419) und darf weder Benutzernamen noch Passwort "
+"enthalten."
+
+msgid "Veeam settings saved."
+msgstr "Veeam-Einstellungen gespeichert."
+
+#, php-format
+msgid ""
+"%1$d machine(s) read from Veeam: %2$d matched with a GLPI asset, %3$d not "
+"matched; %4$d job(s)."
+msgstr ""
+"%1$d Maschine(n) aus Veeam gelesen: %2$d einem GLPI-Asset zugeordnet, %3$d "
+"nicht zugeordnet; %4$d Job(s)."
+
+msgid "Backup settings saved."
+msgstr "Sicherungseinstellungen gespeichert."
+
+msgid "Backup coverage"
+msgstr "Abdeckung der Datensicherung"
+
+msgid "Other backup tool"
+msgstr "Anderes Sicherungswerkzeug"
+
+msgid "No backup"
+msgstr "Keine Sicherung"
+
+msgid ""
+"No backup tool knows a successful backup of this asset (name or IP address)."
+msgstr ""
+"Kein Sicherungswerkzeug kennt eine erfolgreiche Sicherung dieses Assets "
+"(Name oder IP-Adresse)."
+
+msgid "Backup too old"
+msgstr "Sicherung zu alt"
+
+msgid "The last successful backup is older than the maximum age allowed (RPO)."
+msgstr ""
+"Die letzte erfolgreiche Sicherung ist älter als das zulässige Höchstalter "
+"(RPO)."
+
+msgid "Last backup failed"
+msgstr "Letzte Sicherung fehlgeschlagen"
+
+msgid ""
+"The last attempt failed; the previous successful backup is still within the "
+"maximum age."
+msgstr ""
+"Der letzte Versuch ist fehlgeschlagen; die vorherige erfolgreiche Sicherung "
+"liegt noch innerhalb des Höchstalters."
+
+msgid "Recent backup"
+msgstr "Aktuelle Sicherung"
+
+msgid "The last successful backup is within the maximum age allowed."
+msgstr ""
+"Die letzte erfolgreiche Sicherung liegt innerhalb des zulässigen "
+"Höchstalters."
+
+msgid "Success"
+msgstr "Erfolgreich"
+
+msgid "Warning"
+msgstr "Warnung"
+
+msgid "Restore tested"
+msgstr "Wiederherstellung getestet"
+
+msgid "Restore test failed"
+msgstr "Wiederherstellungstest fehlgeschlagen"
+
+msgid "Restore test too old"
+msgstr "Wiederherstellungstest zu alt"
+
+msgid "Restore never tested"
+msgstr "Wiederherstellung nie getestet"
+
+msgid "RPO of the asset"
+msgstr "RPO des Assets"
+
+msgid "RPO of a business process"
+msgstr "RPO eines Geschäftsprozesses"
+
+msgid "Default maximum age"
+msgstr "Standard-Höchstalter"
+
+msgid "Critical assets and servers"
+msgstr "Kritische Assets und Server"
+
+msgid ""
+"The file has no column for the machine name or IP address (for example host, "
+"hostname, vm, device, client or backup-id)."
+msgstr ""
+"Die Datei hat keine Spalte für den Maschinennamen oder die IP-Adresse (zum "
+"Beispiel host, hostname, vm, device, client oder backup-id)."
+
+msgid ""
+"The file has no column for the date of the backup (for example last_success, "
+"last backup, backup-time, end time or date)."
+msgstr ""
+"Die Datei hat keine Spalte für das Datum der Sicherung (zum Beispiel "
+"last_success, last backup, backup-time, end time oder date)."
+
+msgid ""
+"Veeam is not configured: enter the address of the server, the account and "
+"its password."
+msgstr ""
+"Veeam ist nicht konfiguriert: Geben Sie die Adresse des Servers, das Konto "
+"und sein Passwort ein."
+
+msgid ""
+"Veeam refused the account: check the user name (DOMAIN\\user) and the "
+"password."
+msgstr ""
+"Veeam hat das Konto abgelehnt: Prüfen Sie den Benutzernamen "
+"(DOMÄNE\\benutzer) und das Passwort."
+
+msgid ""
+"Access refused by Veeam: give the account at least the Veeam Backup Viewer "
+"role."
+msgstr ""
+"Zugriff von Veeam verweigert: Geben Sie dem Konto mindestens die Rolle Veeam "
+"Backup Viewer."
+
+msgid "Veeam asks to slow down: try again in a few minutes."
+msgstr ""
+"Veeam bittet um Verlangsamung: Versuchen Sie es in einigen Minuten erneut."
+
+msgid ""
+"The Veeam server has an internal address: an administrator must allow "
+"internal addresses in the configuration page of the plugin."
+msgstr ""
+"Der Veeam-Server hat eine interne Adresse: Ein Administrator muss interne "
+"Adressen auf der Konfigurationsseite des Plugins erlauben."
+
+msgid ""
+"The Veeam server could not be reached: check the address, the port (9419 by "
+"default), the network access and that its certificate is trusted by the GLPI "
+"server."
+msgstr ""
+"Der Veeam-Server ist nicht erreichbar: Prüfen Sie die Adresse, den Port "
+"(standardmäßig 9419), den Netzwerkzugang und ob sein Zertifikat vom GLPI-"
+"Server anerkannt wird."
+
+msgid ""
+"Veeam returned too many restore points to be read at once: nothing was "
+"replaced. Import a CSV export instead."
+msgstr ""
+"Veeam hat zu viele Wiederherstellungspunkte für einen einzigen Lesevorgang "
+"geliefert: Nichts wurde ersetzt. Importieren Sie stattdessen einen CSV-"
+"Export."
+
+msgid ""
+"Veeam returned an error: check the REST API revision chosen for your version."
+msgstr ""
+"Veeam hat einen Fehler zurückgegeben: Prüfen Sie die für Ihre Version "
+"gewählte REST-API-Revision."
+
+msgid "Veeam returned an unexpected answer."
+msgstr "Veeam hat eine unerwartete Antwort zurückgegeben."
+
+msgid "Backups"
+msgstr "Sicherungen"
+
+msgid "No backup tool read yet"
+msgstr "Noch kein Sicherungswerkzeug gelesen"
+
+msgid "Backup coverage: not measured"
+msgstr "Abdeckung der Datensicherung: nicht gemessen"
+
+#, php-format
+msgid "Recent backups: %d%%"
+msgstr "Aktuelle Sicherungen: %d %%"
+
+#, php-format
+msgid "%d critical asset(s) without a recent backup"
+msgstr "%d kritische(s) Asset(s) ohne aktuelle Sicherung"
+
+#, php-format
+msgid "%1$d asset(s) whose last backup failed, %2$d job(s) failed"
+msgstr ""
+"%1$d Asset(s) mit fehlgeschlagener letzter Sicherung, %2$d "
+"fehlgeschlagene(r) Job(s)"
+
+msgid "Restore tests"
+msgstr "Wiederherstellungstests"
+
+#, php-format
+msgid "%d critical asset(s) without a recent restore test"
+msgstr "%d kritische(s) Asset(s) ohne aktuellen Wiederherstellungstest"
+
+msgid ""
+"Shows which important assets have a recent successful backup (Veeam Backup & "
+"Replication, Acronis, Commvault, Synology, Proxmox Backup Server), which "
+"have none or one older than their recovery point objective (RPO), whose last "
+"backup failed, and when their restore was last tested."
+msgstr ""
+"Zeigt, welche wichtigen Assets eine aktuelle erfolgreiche Sicherung haben "
+"(Veeam Backup & Replication, Acronis, Commvault, Synology, Proxmox Backup "
+"Server), welche keine oder eine ältere als ihr Wiederherstellungspunktziel "
+"(RPO) haben, deren letzte Sicherung fehlgeschlagen ist, und wann ihre "
+"Wiederherstellung zuletzt getestet wurde."
+
+msgid ""
+"Choose the assets that must be backed up, read Veeam or import the list of "
+"machines of each backup tool, set the RPO of the assets or of their business "
+"processes, and record the restore tests in the recovery exercises. The page "
+"only reads: it never starts a backup. Record the result as an effectiveness "
+"test of the control to keep the evidence."
+msgstr ""
+"Wählen Sie die zu sichernden Assets, lesen Sie Veeam oder importieren Sie "
+"die Maschinenliste jedes Sicherungswerkzeugs, legen Sie das RPO der Assets "
+"oder ihrer Geschäftsprozesse fest und erfassen Sie die "
+"Wiederherstellungstests in den Wiederanlaufübungen. Die Seite liest nur: Sie "
+"startet nie eine Sicherung. Erfassen Sie das Ergebnis als Wirksamkeitstest "
+"der Maßnahme, um den Nachweis aufzubewahren."
+
+msgid "ISO/IEC 27001, controls A.8.13 and A.5.30"
+msgstr "ISO/IEC 27001, Maßnahmen A.8.13 und A.5.30"
+
+#, php-format
+msgid "Critical assets without a recent backup (%)"
+msgstr "Kritische Assets ohne aktuelle Sicherung (%)"
+
+#, php-format
+msgid "%d job failed"
+msgid_plural "%d jobs failed"
+msgstr[0] "%d Job fehlgeschlagen"
+msgstr[1] "%d Jobs fehlgeschlagen"
+
+#, php-format
+msgid "%s ago"
+msgstr "vor %s"
+
+msgid ""
+"A server with an internal address requires an administrator to allow "
+"internal addresses in the configuration page of the plugin."
+msgstr ""
+"Für einen Server mit interner Adresse muss ein Administrator interne "
+"Adressen auf der Konfigurationsseite des Plugins erlauben."
+
+msgid ""
+"Acronis Cyber Protect: Devices, export the list (columns Name, Last backup, "
+"Status)."
+msgstr ""
+"Acronis Cyber Protect: Geräte, Liste exportieren (Spalten Name, Last backup, "
+"Status)."
+
+msgid "Address of the Veeam server"
+msgstr "Adresse des Veeam-Servers"
+
+msgid "Assets concerned with a recent backup"
+msgstr "Betroffene Assets mit aktueller Sicherung"
+
+msgid "Assets that must be backed up"
+msgstr "Assets, die gesichert werden müssen"
+
+msgid "Assets whose last backup failed"
+msgstr "Assets mit fehlgeschlagener letzter Sicherung"
+
+msgid "Backed up machines not found in GLPI"
+msgstr "Gesicherte Maschinen, die in GLPI nicht gefunden wurden"
+
+msgid "Backup jobs"
+msgstr "Sicherungsjobs"
+
+msgid "Backup tool"
+msgstr "Sicherungswerkzeug"
+
+msgid "Backup tools"
+msgstr "Sicherungswerkzeuge"
+
+msgid "Business processes"
+msgstr "Geschäftsprozesse"
+
+msgid ""
+"Check that the REST API service runs (port 9419 by default) and that its "
+"certificate is trusted by the GLPI server."
+msgstr ""
+"Prüfen Sie, dass der REST-API-Dienst läuft (standardmäßig Port 9419) und "
+"sein Zertifikat vom GLPI-Server anerkannt wird."
+
+msgid ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown machine may be an asset missing from the inventory."
+msgstr ""
+"Prüfen Sie den Namen des Assets in GLPI oder fügen Sie das Asset dem "
+"Inventar hinzu: Eine unbekannte Maschine kann ein im Inventar fehlendes "
+"Asset sein."
+
+msgid ""
+"Commvault: report of the clients with their last successful backup (Client, "
+"Last successful backup)."
+msgstr ""
+"Commvault: Bericht der Clients mit ihrer letzten erfolgreichen Sicherung "
+"(Client, Last successful backup)."
+
+msgid "Critical assets without a recent backup"
+msgstr "Kritische Assets ohne aktuelle Sicherung"
+
+msgid "Critical assets without a recent restore test"
+msgstr "Kritische Assets ohne aktuellen Wiederherstellungstest"
+
+msgid "Default maximum age (hours)"
+msgstr "Standard-Höchstalter (Stunden)"
+
+msgid "Delete the saved password"
+msgstr "Gespeichertes Passwort löschen"
+
+#, php-format
+msgid "Expected every %d month"
+msgid_plural "Expected every %d months"
+msgstr[0] "Erwartet jeden %d. Monat"
+msgstr[1] "Erwartet alle %d Monate"
+
+msgid ""
+"For the other tools, export the list of protected machines with the date of "
+"their last backup, then import the CSV file here. A new import of the same "
+"tool replaces the previous one in the current entity. Only machine names, "
+"addresses, jobs, dates and results are kept, never the content of a backup."
+msgstr ""
+"Exportieren Sie für die anderen Werkzeuge die Liste der geschützten "
+"Maschinen mit dem Datum ihrer letzten Sicherung und importieren Sie dann die "
+"CSV-Datei hier. Ein neuer Import desselben Werkzeugs ersetzt den vorherigen "
+"in der aktuellen Einheit. Nur Maschinennamen, Adressen, Jobs, Daten und "
+"Ergebnisse werden gespeichert, nie der Inhalt einer Sicherung."
+
+msgid ""
+"In the Veeam console, Users and Roles: add a dedicated account with the "
+"Veeam Backup Viewer role (read only)."
+msgstr ""
+"In der Veeam-Konsole, Users and Roles: Fügen Sie ein eigenes Konto mit der "
+"Rolle Veeam Backup Viewer hinzu (nur Lesen)."
+
+msgid "Job"
+msgstr "Job"
+
+msgid "Last attempt failed"
+msgstr "Letzter Versuch fehlgeschlagen"
+
+msgid "Last restore test"
+msgstr "Letzter Wiederherstellungstest"
+
+msgid "Last run"
+msgstr "Letzte Ausführung"
+
+msgid "Last successful backup"
+msgstr "Letzte erfolgreiche Sicherung"
+
+msgid "Maximum age"
+msgstr "Höchstalter"
+
+#, php-format
+msgid "Maximum age without RPO: %s"
+msgstr "Höchstalter ohne RPO: %s"
+
+msgid "Most recent backup"
+msgstr "Neueste Sicherung"
+
+msgid ""
+"No backup tool yet: read Veeam or import the list of machines of your backup "
+"tool to measure the coverage."
+msgstr ""
+"Noch kein Sicherungswerkzeug: Lesen Sie Veeam oder importieren Sie die "
+"Maschinenliste Ihres Sicherungswerkzeugs, um die Abdeckung zu messen."
+
+msgid "Objects"
+msgstr "Objekte"
+
+msgid "Password saved"
+msgstr "Passwort gespeichert"
+
+msgid "Password saved (leave empty to keep it)"
+msgstr "Passwort gespeichert (leer lassen, um es zu behalten)"
+
+msgid ""
+"Proxmox Backup Server: list of the snapshots of a datastore (backup-id, "
+"backup-time), for example \"proxmox-backup-client snapshot list --output-"
+"format json\" converted to CSV."
+msgstr ""
+"Proxmox Backup Server: Liste der Snapshots eines Datastores (backup-id, "
+"backup-time), zum Beispiel „proxmox-backup-client snapshot list --output-"
+"format json“ in CSV umgewandelt."
+
+msgid "REST API revision"
+msgstr "REST-API-Revision"
+
+msgid "Read Veeam Backup & Replication directly"
+msgstr "Veeam Backup & Replication direkt lesen"
+
+msgid "Read now from Veeam"
+msgstr "Jetzt aus Veeam lesen"
+
+msgid "Read-only account"
+msgstr "Konto mit Lesezugriff"
+
+msgid ""
+"Read-only: the plugin reads the lists of backups, it never starts a backup "
+"or a restore and changes nothing in the backup tools nor in GLPI."
+msgstr ""
+"Nur Lesen: Das Plugin liest die Sicherungslisten, es startet nie eine "
+"Sicherung oder Wiederherstellung und ändert nichts in den "
+"Sicherungswerkzeugen oder in GLPI."
+
+msgid ""
+"Recognized columns: host (or hostname, vm, device, client, backup-id), ip, "
+"job, last success (or last backup, backup-time), date of the run (or end "
+"time) and result (or status). A file with one line per run is accepted: the "
+"most recent run of each machine counts."
+msgstr ""
+"Erkannte Spalten: host (oder hostname, vm, device, client, backup-id), ip, "
+"job, last success (oder last backup, backup-time), Datum der Ausführung "
+"(oder end time) und result (oder status). Eine Datei mit einer Zeile pro "
+"Ausführung wird akzeptiert: Die jüngste Ausführung jeder Maschine zählt."
+
+#, php-format
+msgid "Restore test expected every %d month"
+msgid_plural "Restore test expected every %d months"
+msgstr[0] "Wiederherstellungstest jeden %d. Monat erwartet"
+msgstr[1] "Wiederherstellungstest alle %d Monate erwartet"
+
+msgid "Restore test expected every (months)"
+msgstr "Wiederherstellungstest erwartet alle (Monate)"
+
+msgid ""
+"Restore tests come from the recovery exercises of the business processes: "
+"record a test on the process (Recovery strategy tab), naming the asset "
+"tested, to prove that its backup can be restored."
+msgstr ""
+"Die Wiederherstellungstests stammen aus den Wiederanlaufübungen der "
+"Geschäftsprozesse: Erfassen Sie einen Test am Prozess (Reiter "
+"Wiederanlaufstrategie) und benennen Sie das getestete Asset, um zu belegen, "
+"dass seine Sicherung wiederhergestellt werden kann."
+
+msgid ""
+"Synology Active Backup for Business: export of the devices or of the task "
+"log (Device, Last backup time, Status)."
+msgstr ""
+"Synology Active Backup for Business: Export der Geräte oder des "
+"Aufgabenprotokolls (Device, Last backup time, Status)."
+
+msgid ""
+"The maximum age of the last successful backup is the smallest RPO among the "
+"asset (C/I/A classification tab) and the business processes that use it. "
+"Without any RPO, the default maximum age applies. An asset is critical when "
+"one axis of its classification is high, or when a network flow publishes it "
+"on the Internet."
+msgstr ""
+"Das Höchstalter der letzten erfolgreichen Sicherung ist das kleinste RPO "
+"zwischen dem des Assets (Reiter C/I/V-Klassifizierung) und denen der "
+"Geschäftsprozesse, die es nutzen. Ohne RPO gilt das Standard-Höchstalter. "
+"Ein Asset ist kritisch, wenn eine Achse seiner Klassifizierung hoch ist oder "
+"ein Netzwerkfluss es im Internet veröffentlicht."
+
+msgid ""
+"The password is encrypted with the GLPI key, never displayed again nor "
+"logged. Revision 1.1-rev2 works from Veeam 12.1; choose 1.2 or 1.3 for more "
+"recent versions."
+msgstr ""
+"Das Passwort wird mit dem GLPI-Schlüssel verschlüsselt, nie wieder angezeigt "
+"und nie protokolliert. Revision 1.1-rev2 funktioniert ab Veeam 12.1; wählen "
+"Sie 1.2 oder 1.3 für neuere Versionen."
+
+#, php-format
+msgid ""
+"When you click the button, GLPI reads from the REST API of Veeam the restore "
+"points of the last %d days (so the last successful backup of each machine) "
+"and the last result of each job. The result replaces the Veeam import of the "
+"current entity. No backup is ever started, nothing is changed in Veeam and "
+"nothing runs automatically."
+msgstr ""
+"Wenn Sie auf die Schaltfläche klicken, liest GLPI über die REST-API von "
+"Veeam die Wiederherstellungspunkte der letzten %d Tage (also die letzte "
+"erfolgreiche Sicherung jeder Maschine) und das letzte Ergebnis jedes Jobs. "
+"Das Ergebnis ersetzt den Veeam-Import der aktuellen Einheit. Es wird nie "
+"eine Sicherung gestartet, nichts wird in Veeam geändert und nichts läuft "
+"automatisch."
+
+msgid "Which assets must be backed up, and how often?"
+msgstr "Welche Assets müssen gesichert werden, und wie oft?"
+
+#, php-format
 msgid "Report imported: %d rule(s) triggered."
 msgstr "Bericht importiert: %d ausgelöste Regel(n)."
 
@@ -32382,9 +32875,6 @@ msgstr "Nicht überwachte kritische Assets (Zabbix)"
 msgid "Zabbix monitoring"
 msgstr "Zabbix-Überwachung"
 
-msgid "Warning"
-msgstr "Warnung"
-
 msgid "Average"
 msgstr "Mittel"
 
@@ -32644,9 +33134,6 @@ msgstr ""
 
 msgid "Below the objective"
 msgstr "Unter dem Ziel"
-
-msgid "Business processes"
-msgstr "Geschäftsprozesse"
 
 msgid ""
 "Check them: the asset may be missing from the inventory, or named "
@@ -33169,9 +33656,6 @@ msgstr "Nur „name“ ist Pflicht. Ja/Nein-Spalten akzeptieren yes, no, oui, no
 
 msgid "Open the network flow matrix"
 msgstr "Netzwerkfluss-Matrix öffnen"
-
-msgid "Password saved (leave empty to keep it)"
-msgstr "Passwort gespeichert (leer lassen, um es zu behalten)"
 
 msgid "Physical servers without a known controller"
 msgstr "Physische Server ohne bekannten Controller"

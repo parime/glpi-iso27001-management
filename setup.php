@@ -259,7 +259,9 @@ function plugin_init_grcmanager(): void
         \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::SECURED,
         \GlpiPlugin\Grcmanager\Services\Incident\SentinelOneConfig::SECURED,
         \GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig::SECURED,
-        \GlpiPlugin\Grcmanager\Services\Monitoring\ZabbixConfig::SECURED
+        \GlpiPlugin\Grcmanager\Services\Monitoring\ZabbixConfig::SECURED,
+        // Issue #838 : mot de passe du compte de lecture de Veeam Backup & Replication.
+        \GlpiPlugin\Grcmanager\Services\Backup\VeeamConfig::SECURED
     );
     // Issue #836 : onglet « Supervision Zabbix » sur les ordinateurs, les matériels réseau et les
     // processus métier (lecture seule).
