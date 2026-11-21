@@ -18,7 +18,8 @@
 $item = new \GlpiPlugin\Grcmanager\Objective();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, CREATE);
+    // Issue #536, lot 3 : droit de création dans l'entité demandée (check), pas le seul droit global.
+    $item->check(-1, CREATE, $_POST);
     $newID = $item->add($_POST);
     // Comme les formulaires natifs : retour sur l'élément créé si la préférence est active.
     if ($newID && $_SESSION['glpibackcreated']) {
@@ -26,15 +27,18 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, DELETE);
+    // Issue #536, lot 3 : droit ET entité de l'élément visé (check), pas le seul droit global.
+    $item->check((int) ($_POST['id'] ?? 0), DELETE);
     $item->delete($_POST);
     Html::redirect(\GlpiPlugin\Grcmanager\Objective::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, PURGE);
+    // Issue #536, lot 3 : droit ET entité de l'élément visé (check), pas le seul droit global.
+    $item->check((int) ($_POST['id'] ?? 0), PURGE);
     $item->delete($_POST, true);
     Html::redirect(\GlpiPlugin\Grcmanager\Objective::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, UPDATE);
+    // Issue #536, lot 3 : droit ET entité de l'élément visé (check), pas le seul droit global.
+    $item->check((int) ($_POST['id'] ?? 0), UPDATE);
     $item->update($_POST);
     Html::back();
 } else {

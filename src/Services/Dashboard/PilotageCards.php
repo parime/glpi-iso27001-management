@@ -567,7 +567,11 @@ final class PilotageCards
                         'FKEY' => ['links' => 'plugin_grcmanager_trainings_id', 't' => 'id'],
                     ],
                 ],
-                'WHERE'      => ['links.assessment_result' => ['passed', 'failed']],
+                // Issue #536, lot 3 : formations des entités de la session.
+                'WHERE'      => array_merge(
+                    ['links.assessment_result' => ['passed', 'failed']],
+                    \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('t')
+                ),
             ]) as $row
         ) {
             $rows[] = [
@@ -660,7 +664,11 @@ final class PilotageCards
         $row = $DB->request([
             'SELECT' => [new \Glpi\DBAL\QueryExpression('AVG(`questionnaire_score`) AS avg_score')],
             'FROM'   => \GlpiPlugin\Grcmanager\SupplierRisk::getTable(),
-            'WHERE'  => [['NOT' => ['questionnaire_date' => null]], ['NOT' => ['questionnaire_score' => null]]],
+            // Issue #536, lot 3 : risques fournisseurs des entités de la session.
+            'WHERE'  => array_merge(
+                [['NOT' => ['questionnaire_date' => null]], ['NOT' => ['questionnaire_score' => null]]],
+                \GlpiPlugin\Grcmanager\EntityPerimeter::criteria(\GlpiPlugin\Grcmanager\SupplierRisk::getTable())
+            ),
         ])->current();
 
         return [
@@ -683,12 +691,12 @@ final class PilotageCards
         $count = (int) $DB->request([
             'SELECT' => [new \Glpi\DBAL\QueryExpression('COUNT(DISTINCT `suppliers_id`) AS c')],
             'FROM'   => \GlpiPlugin\Grcmanager\SupplierRisk::getTable(),
-            'WHERE'  => [
+            'WHERE'  => array_merge([
                 'risk_level'          => ['high', 'critical'],
                 'status'              => ['identified', 'in_treatment'],
                 'questionnaire_date'  => null,
                 ['suppliers_id' => ['>', 0]],
-            ],
+            ], \GlpiPlugin\Grcmanager\EntityPerimeter::criteria(\GlpiPlugin\Grcmanager\SupplierRisk::getTable())),
         ])->current()['c'];
 
         return [

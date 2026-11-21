@@ -1055,7 +1055,11 @@ class ConsistencyCheck extends CommonGLPI
             Waiver::class,
             $DB->request([
                 'FROM'  => Waiver::getTable(),
-                'WHERE' => ['is_deleted' => 0, 'status' => 'approved'],
+                // Issue #536, lot 3 : dérogations des entités de la session.
+                'WHERE' => array_merge(
+                    ['is_deleted' => 0, 'status' => 'approved'],
+                    EntityPerimeter::criteria(Waiver::getTable())
+                ),
                 'ORDER' => 'date_end',
             ]),
             static fn (array $w): bool => true,
@@ -1204,7 +1208,11 @@ class ConsistencyCheck extends CommonGLPI
             SupplierRisk::class,
             $DB->request([
                 'FROM'  => SupplierRisk::getTable(),
-                'WHERE' => ['NOT' => ['status' => 'closed']],
+                // Issue #536, lot 3 : risques fournisseurs des entités de la session.
+                'WHERE' => array_merge(
+                    ['NOT' => ['status' => 'closed']],
+                    EntityPerimeter::criteria(SupplierRisk::getTable())
+                ),
                 'ORDER' => 'title',
             ]),
             static fn (array $r): bool => true,
@@ -1284,7 +1292,12 @@ class ConsistencyCheck extends CommonGLPI
 
         return self::collect(
             ComplianceObligation::class,
-            $DB->request(['FROM' => ComplianceObligation::getTable(), 'ORDER' => 'title']),
+            // Issue #536, lot 3 : obligations des entités de la session.
+            $DB->request([
+                'FROM'  => ComplianceObligation::getTable(),
+                'WHERE' => EntityPerimeter::criteria(ComplianceObligation::getTable()),
+                'ORDER' => 'title',
+            ]),
             static fn (array $o): bool => true,
             static fn (array $o): ?string => ConsistencyRules::isPastDue($o['review_date'], $today, $grace)
                 ? self::reviewDetail($o['review_date'], 'overdue')

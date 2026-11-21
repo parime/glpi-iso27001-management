@@ -151,6 +151,13 @@ class NetworkFlow extends NetworkFlowBase
      */
     public function prepareInputForAdd($input)
     {
+        // Issue #536, lot 3 : entité du nouvel élément (par défaut l'entité active), refusée hors
+        // des entités de la session.
+        $input = EntityPerimeter::prepareAdd($input);
+        if ($input === false) {
+            return false;
+        }
+
         return $this->normalizeInput($input);
     }
 
@@ -160,6 +167,9 @@ class NetworkFlow extends NetworkFlowBase
      */
     public function prepareInputForUpdate($input)
     {
+        // Issue #536, lot 3 : changement d'entité vers une entité de la session seulement.
+        $input = EntityPerimeter::guardUpdate($input);
+
         return $this->normalizeInput($input);
     }
 
@@ -278,6 +288,11 @@ class NetworkFlow extends NetworkFlowBase
             'datatype' => 'text'];
         $tab[] = ['id' => 13, 'table' => $table, 'field' => 'id', 'name' => __('ID'), 'datatype' => 'itemlink',
             'itemtype' => self::class];
+
+        // Issue #536, lot 3 : entité de l'élément et visibilité dans les sous-entités.
+        foreach (EntityPerimeter::searchOptions(self::getTable()) as $option) {
+            $tab[] = $option;
+        }
 
         return $tab;
     }

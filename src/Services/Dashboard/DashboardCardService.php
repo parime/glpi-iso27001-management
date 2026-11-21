@@ -442,6 +442,8 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['risk_level', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_supplierrisks',
+            // Issue #536, lot 3 : risques fournisseurs des entités de la session.
+            'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_supplierrisks'),
             'GROUPBY' => 'risk_level',
         ]);
 
@@ -477,11 +479,11 @@ final class DashboardCardService
         $count = (int) $DB->request([
             'SELECT' => [new QueryExpression('COUNT(DISTINCT suppliers_id) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_supplierrisks',
-            'WHERE' => [
+            'WHERE' => array_merge([
                 'risk_level' => ['high', 'critical'],
                 'status'     => ['identified', 'in_treatment'],
                 new QueryExpression('suppliers_id > 0'),
-            ],
+            ], \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_supplierrisks')),
         ])->current()['c'];
 
         return [
@@ -573,13 +575,14 @@ final class DashboardCardService
                     'FKEY' => ['links' => 'plugin_grcmanager_trainings_id', 't' => 'id'],
                 ],
             ],
-            'WHERE'      => [
+            // Issue #536, lot 3 : formations des entités de la session.
+            'WHERE'      => array_merge([
                 'links.completion_status'  => 'completed',
                 't.renewal_period_months'  => ['>', 0],
                 new QueryExpression(
                     'DATE_ADD(links.completion_date, INTERVAL t.renewal_period_months MONTH) < CURDATE()'
                 ),
-            ],
+            ], \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('t')),
         ])->current()['c'];
 
         return [
@@ -602,6 +605,7 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['status', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_managementreviews',
+            'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_managementreviews'),
             'GROUPBY' => 'status',
         ]);
 
@@ -694,7 +698,10 @@ final class DashboardCardService
         $count = (int) $DB->request([
             'COUNT' => 'c',
             'FROM' => 'glpi_plugin_grcmanager_complianceobligations',
-            'WHERE' => ['compliance_status' => 'non_compliant'],
+            'WHERE' => array_merge(
+                ['compliance_status' => 'non_compliant'],
+                \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_complianceobligations')
+            ),
         ])->current()['c'];
 
         return [
@@ -720,10 +727,10 @@ final class DashboardCardService
         $count = (int) $DB->request([
             'COUNT' => 'c',
             'FROM' => 'glpi_plugin_grcmanager_complianceobligations',
-            'WHERE' => [
+            'WHERE' => array_merge([
                 new QueryExpression('review_date IS NOT NULL'),
                 new QueryExpression('review_date <= CURDATE()'),
-            ],
+            ], \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_complianceobligations')),
         ])->current()['c'];
 
         return [
@@ -742,6 +749,7 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['type', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_complianceobligations',
+            'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_complianceobligations'),
             'GROUPBY' => 'type',
         ]);
 
@@ -775,6 +783,7 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['compliance_status', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_complianceobligations',
+            'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_complianceobligations'),
             'GROUPBY' => 'compliance_status',
         ]);
 
@@ -926,6 +935,7 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['status', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_objectives',
+            'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_objectives'),
             'GROUPBY' => 'status',
         ]);
 

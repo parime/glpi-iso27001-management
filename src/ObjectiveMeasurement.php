@@ -71,7 +71,12 @@ class ObjectiveMeasurement extends ObjectiveMeasurementBase
         $objectiveId = (int) ($input['plugin_grcmanager_objectives_id'] ?? 0);
 
         $objective = new Objective();
-        if ($objectiveId <= 0 || !$objective->getFromDB($objectiveId)) {
+        // Issue #536, lot 3 : l'objectif doit être modifiable, entité comprise.
+        if (
+            $objectiveId <= 0
+            || !$objective->getFromDB($objectiveId)
+            || (EntityPerimeter::hasSession() && !$objective->can($objectiveId, UPDATE))
+        ) {
             Session::addMessageAfterRedirect(
                 __('Objective not found.', 'grcmanager'),
                 false,

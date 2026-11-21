@@ -203,6 +203,13 @@ class Waiver extends WaiverBase
 
     public function prepareInputForAdd($input)
     {
+        // Issue #536, lot 3 : entité du nouvel élément (par défaut l'entité active), refusée hors
+        // des entités de la session.
+        $input = EntityPerimeter::prepareAdd($input);
+        if ($input === false) {
+            return false;
+        }
+
         // Le demandeur est la personne qui crée la dérogation, jamais une valeur saisie.
         $input['users_id_requester'] = (int) Session::getLoginUserID();
 
@@ -211,6 +218,9 @@ class Waiver extends WaiverBase
 
     public function prepareInputForUpdate($input)
     {
+        // Issue #536, lot 3 : changement d'entité vers une entité de la session seulement.
+        $input = EntityPerimeter::guardUpdate($input);
+
         unset($input['users_id_requester']);
 
         return $this->checkInput($input);
@@ -510,6 +520,11 @@ class Waiver extends WaiverBase
             'id' => 9, 'table' => self::getTable(), 'field' => 'compensating_measures',
             'name' => __('Compensating controls', 'grcmanager'), 'datatype' => 'text',
         ];
+
+        // Issue #536, lot 3 : entité de l'élément et visibilité dans les sous-entités.
+        foreach (EntityPerimeter::searchOptions(self::getTable()) as $option) {
+            $tab[] = $option;
+        }
 
         return $tab;
     }
