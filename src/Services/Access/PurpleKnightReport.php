@@ -113,7 +113,7 @@ final class PurpleKnightReport
         $domains = [];
         $seen = [];
         while (($row = fgetcsv($handle, 0, $delimiter, '"', '')) !== false) {
-            if ($row === [null] || $row === []) {
+            if ($row === [null]) {
                 continue;
             }
             $cell = static fn (string $field): string => isset($columns[$field])

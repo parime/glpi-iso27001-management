@@ -28,15 +28,16 @@ Session::checkRight(AdSecurityAudit::RIGHTNAME, READ);
 // Rapports d'exemple fictifs (domaine exemple.test), pour essayer l'import : PingCastle par défaut
 // (?example=1), sinon l'outil demandé parmi ceux de la page (liste fermée, jamais un chemin reçu).
 if (isset($_GET['example'])) {
-    $tools = AdSecurityAudit::toolInfos();
-    $tool = is_string($_GET['example']) && isset($tools[$_GET['example']]) ? $_GET['example'] : 'pingcastle';
-    $info = $tools[$tool];
-    $type = str_ends_with($info['example'], '.json')
-        ? 'application/json'
-        : (str_ends_with($info['example'], '.csv') ? 'text/csv' : 'application/xml');
+    // Correspondance écrite en dur : le nom du fichier ne dépend jamais de la valeur reçue.
+    [$file, $download, $type] = match (is_string($_GET['example']) ? $_GET['example'] : '') {
+        'purpleknight' => ['purpleknight-example.csv', 'purpleknight-exemple.test.csv', 'text/csv'],
+        'maester'      => ['maester-example.json', 'TestResults-exemple.json', 'application/json'],
+        'scubagear'    => ['scubagear-example.json', 'ScubaResults_exemple.json', 'application/json'],
+        default        => ['pingcastle-example.xml', 'ad_hc_exemple.test.xml', 'application/xml'],
+    };
     header('Content-Type: ' . $type . '; charset=UTF-8');
-    header('Content-Disposition: attachment; filename="' . $info['file'] . '"');
-    readfile(dirname(__DIR__) . '/resources/' . $info['example']);
+    header('Content-Disposition: attachment; filename="' . $download . '"');
+    readfile(dirname(__DIR__) . '/resources/' . $file);
     exit;
 }
 
