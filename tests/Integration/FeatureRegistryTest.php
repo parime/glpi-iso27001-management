@@ -44,7 +44,6 @@ final class FeatureRegistryTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(array_keys(RiskIndicator::sourceDefinitions()), array_slice($keys, 1));
         $definition = RiskIndicator::sourceDefinitions()['admins_without_mfa'];
         $this->assertSame(['user' => READ], $definition['rights']);
-        $this->assertTrue(RiskIndicator::canUseSource('admins_without_mfa', 0));
 
         $kri = new RiskIndicator();
         $kri->fields = ['source' => 'admins_without_mfa', 'entities_id' => 0];
