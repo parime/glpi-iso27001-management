@@ -505,6 +505,10 @@
             <span class="badge {{ hardware_warranty.soon > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1"><i class="ti ti-hourglass-high me-1"></i>{{ __('%1$d ending within %2$d days', 'grcmanager')|format(hardware_warranty.soon, hardware_warranty.warning_days) }}</span>
             <span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-shield-check me-1"></i>{{ __('%d under warranty', 'grcmanager')|format(hardware_warranty.covered) }}</span>
             <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-help-circle me-1"></i>{{ __('%d without warranty information', 'grcmanager')|format(hardware_warranty.unknown) }}</span>
+            {% if hardware_warranty.eol_reached > 0 or hardware_warranty.eol_soon > 0 %}
+               <span class="badge {{ hardware_warranty.eol_reached > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1"><i class="ti ti-calendar-x me-1"></i>{{ __('%d past the manufacturer end of life', 'grcmanager')|format(hardware_warranty.eol_reached) }}</span>
+               <span class="badge {{ hardware_warranty.eol_soon > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1"><i class="ti ti-calendar-due me-1"></i>{{ __('%1$d reaching it within %2$d days', 'grcmanager')|format(hardware_warranty.eol_soon, hardware_warranty.warning_days) }}</span>
+            {% endif %}
             <a href="{{ hardware_warranty.url }}" class="me-2">{{ __('View the details', 'grcmanager') }}</a>
             <a href="{{ hardware_warranty.export_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export (CSV)', 'grcmanager') }}</a>
          </div>

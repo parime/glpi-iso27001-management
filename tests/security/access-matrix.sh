@@ -477,6 +477,9 @@ if [ "$ROLE" = none ]; then
   # Issue #378 : le niveau d'alerte des KRI se regle avec le droit de modifier la configuration.
   expect "front/config.php : niveau d'alerte des KRI" 403 \
     "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #782, lot 2 : la fin de vie constructeur des modeles se saisit avec le droit de modifier la configuration.
+  expect "front/config.php : fin de vie constructeur d'un modele" 403 \
+    "$(code -d "update_hardware_eol=1&hardware_eol%5BComputerModel%3A1%5D=2020-01-01&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
   expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
     "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
@@ -638,6 +641,9 @@ if [ "$ROLE" = reader ]; then
   # Issue #378 : le niveau d'alerte des KRI se regle avec le droit de modifier la configuration.
   expect "front/config.php : niveau d'alerte des KRI" 403 \
     "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #782, lot 2 : la fin de vie constructeur des modeles se saisit avec le droit de modifier la configuration.
+  expect "front/config.php : fin de vie constructeur d'un modele" 403 \
+    "$(code -d "update_hardware_eol=1&hardware_eol%5BComputerModel%3A1%5D=2020-01-01&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
   expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
     "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"

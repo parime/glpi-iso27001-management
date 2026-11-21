@@ -92,4 +92,30 @@ final class WarrantyRulesTest extends TestCase
         self::assertLessThan(R::severity(R::STATUS_UNKNOWN), R::severity(R::STATUS_COVERED));
         self::assertSame(count(R::STATUSES), R::severity('bogus'));
     }
+
+    public function testManufacturerEndOfLifeUsesTheCommonThreshold(): void
+    {
+        // TODAY = 2026-11-20 : atteinte le jour même, proche sous 90 jours, à venir au-delà.
+        self::assertSame(R::EOL_REACHED, R::endOfLife('2025-06-30', self::TODAY, 90)['status']);
+        self::assertSame(R::EOL_REACHED, R::endOfLife(self::TODAY, self::TODAY, 90)['status']);
+        $soon = R::endOfLife('2027-01-15', self::TODAY, 90);
+        self::assertSame(R::EOL_SOON, $soon['status']);
+        self::assertSame(56, $soon['days']);
+        self::assertSame(R::EOL_FUTURE, R::endOfLife('2027-01-15', self::TODAY, 30)['status']);
+        foreach ([null, '', '0000-00-00', 'demain', '2027-02-30'] as $date) {
+            $eol = R::endOfLife($date, self::TODAY, 90);
+            self::assertSame(R::EOL_NONE, $eol['status']);
+            self::assertSame('', $eol['date']);
+            self::assertNull($eol['days']);
+        }
+        self::assertSame(
+            [R::EOL_REACHED => 1, R::EOL_SOON => 1, R::EOL_FUTURE => 0, R::EOL_NONE => 2],
+            R::endOfLifeCounts([
+                ['eol' => ['status' => R::EOL_REACHED]],
+                ['eol' => ['status' => R::EOL_SOON]],
+                ['eol' => ['status' => R::EOL_NONE]],
+                ['eol' => ['status' => 'bogus']],
+            ])
+        );
+    }
 }
