@@ -65,6 +65,8 @@ if (isset($_POST['add'])) {
             'physicalsecuritycheck' => (int) ($_GET['physicalsecuritycheck'] ?? 0),
             // Issue #603 : action proposée depuis un écart de maturité d'une mesure.
             'maturityassessment'    => (int) ($_GET['maturityassessment'] ?? 0),
+            // Issue #835 : action proposée depuis une règle de l'audit de sécurité de l'AD.
+            'adauditrule' => (int) ($_GET['adauditrule'] ?? 0),
         ]
     );
 }
