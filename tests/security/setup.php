@@ -567,7 +567,7 @@ if ($mode === 'xss') {
         $out[$key] = (int) $DB->insertId();
         $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::FAILURES, [
             \GlpiPlugin\Grcmanager\Install\ConfigScanTables::FK => $out[$key], 'rule_id' => $canary,
-            'title' => $canary, 'severity' => $canary, 'result' => 'fail',
+            'title' => $canary, 'severity' => 'high', 'result' => 'fail',
         ]);
     }
     $out['control_a89'] = (int) ($DB->request([
