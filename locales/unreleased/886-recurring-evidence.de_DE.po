@@ -1,0 +1,86 @@
+#
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "No recurring renewal"
+msgstr "Keine wiederkehrende Erneuerung"
+
+msgid "weeks"
+msgstr "Wochen"
+
+msgid "months"
+msgstr "Monate"
+
+msgid "years"
+msgstr "Jahre"
+
+msgid "months, last business day"
+msgstr "Monate, letzter Werktag"
+
+msgid "quarters, last business day"
+msgstr "Quartale, letzter Werktag"
+
+msgid "Not renewed in time"
+msgstr "Nicht rechtzeitig erneuert"
+
+msgid "Renewal due soon"
+msgstr "Erneuerung bald fällig"
+
+msgid "Recurring evidence not renewed in time"
+msgstr "Nicht rechtzeitig erneuerte wiederkehrende Nachweise"
+
+msgid "Recurring renewal due on %s"
+msgstr "Wiederkehrende Erneuerung fällig am %s"
+
+msgid "Next renewal due"
+msgstr "Nächste Erneuerung fällig"
+
+msgid "Recurring renewal"
+msgstr "Wiederkehrende Erneuerung"
+
+msgid "Interval"
+msgstr "Intervall"
+
+msgid "Interval: %1$d %2$s"
+msgstr "Intervall: %1$d %2$s"
+
+msgid "Last collected on"
+msgstr "Zuletzt erhoben am"
+
+msgid "Next due: %s"
+msgstr "Nächste Fälligkeit: %s"
+
+msgid "from the document date %s"
+msgstr "ab Dokumentdatum %s"
+
+msgid ""
+"For evidence produced on a regular rhythm (weekly log review, monthly backup "
+"report...), set a recurring renewal: the next due date is computed from the "
+"last collection, or from the last change of the document when no date is "
+"entered. Business days exclude weekends and the close times declared in GLPI."
+" Evidence not renewed in time is flagged and its owner notified; nothing is "
+"changed automatically."
+msgstr ""
+"Für regelmäßig erstellte Nachweise (wöchentliche Protokollprüfung, "
+"monatlicher Sicherungsbericht...) eine wiederkehrende Erneuerung festlegen: "
+"Die nächste Fälligkeit wird ab der letzten Erhebung berechnet, ohne Datum ab "
+"der letzten Änderung des Dokuments. Werktage schließen Wochenenden und die in"
+" GLPI erfassten Schließzeiten aus. Nicht rechtzeitig erneuerte Nachweise "
+"werden gemeldet und ihr Verantwortlicher benachrichtigt; nichts wird "
+"automatisch geändert."
+
+msgid ""
+"Recurring evidence not renewed in time: included, and flagged in the index. "
+"Add the latest one, then update its last collection date in the \"Evidence "
+"validity\" tab of the control."
+msgstr ""
+"Nicht rechtzeitig erneuerte wiederkehrende Nachweise: enthalten und im Index "
+"markiert. Den neuesten hinzufügen, dann das Datum der letzten Erhebung im "
+"Reiter „Gültigkeit der Nachweise“ der Maßnahme aktualisieren."
+
+msgid "Evidence rhythm"
+msgid_plural "Evidence rhythms"
+msgstr[0] "Nachweisrhythmus"
+msgstr[1] "Nachweisrhythmen"

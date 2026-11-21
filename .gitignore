@@ -24,6 +24,9 @@ Thumbs.db
 /.phpunit-cache/
 /.phpcs-cache
 
+# Compiled translations: built from locales/*.po by tools/build_locales.py (CI, release, deploy)
+/locales/*.mo
+
 # Test artifacts
 /coverage/
 .phpunit.result.cache

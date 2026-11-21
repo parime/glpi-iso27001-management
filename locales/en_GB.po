@@ -39839,82 +39839,218 @@ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
 
-msgid "No recurring renewal"
-msgstr "No recurring renewal"
+msgid "SoA scoping"
+msgstr "SoA scoping"
 
-msgid "weeks"
-msgstr "weeks"
+msgid "Do staff work remotely (from home or while travelling)?"
+msgstr "Do staff work remotely (from home or while travelling)?"
 
-msgid "months"
-msgstr "months"
+msgid "Telework, nomadic work, access to the information system from outside the premises."
+msgstr "Telework, nomadic work, access to the information system from outside the premises."
 
-msgid "years"
-msgstr "years"
+msgid "staff work remotely"
+msgstr "staff work remotely"
 
-msgid "months, last business day"
-msgstr "months, last business day"
+msgid "no staff member works remotely"
+msgstr "no staff member works remotely"
 
-msgid "quarters, last business day"
-msgstr "quarters, last business day"
+msgid "Does the organisation develop or customise software in-house?"
+msgstr "Does the organisation develop or customise software in-house?"
 
-msgid "Not renewed in time"
-msgstr "Not renewed in time"
+msgid "Applications, scripts, websites, integrations or significant configuration code."
+msgstr "Applications, scripts, websites, integrations or significant configuration code."
 
-msgid "Renewal due soon"
-msgstr "Renewal due soon"
+msgid "the organisation develops or customises software in-house"
+msgstr "the organisation develops or customises software in-house"
 
-msgid "Recurring evidence not renewed in time"
-msgstr "Recurring evidence not renewed in time"
+msgid "the organisation does not develop or customise software in-house"
+msgstr "the organisation does not develop or customise software in-house"
 
-msgid "Recurring renewal due on %s"
-msgstr "Recurring renewal due on %s"
+msgid "Is software development outsourced to a provider?"
+msgstr "Is software development outsourced to a provider?"
 
-msgid "Next renewal due"
-msgstr "Next renewal due"
+msgid "A developer, integrator or agency builds or changes software for you."
+msgstr "A developer, integrator or agency builds or changes software for you."
 
-msgid "Recurring renewal"
-msgstr "Recurring renewal"
+msgid "software development is outsourced"
+msgstr "software development is outsourced"
 
-msgid "Interval"
-msgstr "Interval"
+msgid "no software development is outsourced"
+msgstr "no software development is outsourced"
 
-msgid "Interval: %1$d %2$s"
-msgstr "Interval: %1$d %2$s"
+msgid "Do suppliers or subcontractors access your information or provide ICT services?"
+msgstr "Do suppliers or subcontractors access your information or provide ICT services?"
 
-msgid "Last collected on"
-msgstr "Last collected on"
+msgid "Outsourcing, maintenance, hosting, managed services, telecoms."
+msgstr "Outsourcing, maintenance, hosting, managed services, telecoms."
 
-msgid "Next due: %s"
-msgstr "Next due: %s"
+msgid "suppliers access information or provide ICT services"
+msgstr "suppliers access information or provide ICT services"
 
-msgid "from the document date %s"
-msgstr "from the document date %s"
+msgid "no supplier accesses information or provides ICT services"
+msgstr "no supplier accesses information or provides ICT services"
 
-msgid ""
-"For evidence produced on a regular rhythm (weekly log review, monthly backup "
-"report...), set a recurring renewal: the next due date is computed from the "
-"last collection, or from the last change of the document when no date is "
-"entered. Business days exclude weekends and the close times declared in GLPI."
-" Evidence not renewed in time is flagged and its owner notified; nothing is "
-"changed automatically."
-msgstr ""
-"For evidence produced on a regular rhythm (weekly log review, monthly backup "
-"report...), set a recurring renewal: the next due date is computed from the "
-"last collection, or from the last change of the document when no date is "
-"entered. Business days exclude weekends and the close times declared in GLPI."
-" Evidence not renewed in time is flagged and its owner notified; nothing is "
-"changed automatically."
+msgid "Does the organisation use cloud services (SaaS, IaaS, PaaS)?"
+msgstr "Does the organisation use cloud services (SaaS, IaaS, PaaS)?"
 
-msgid ""
-"Recurring evidence not renewed in time: included, and flagged in the index. "
-"Add the latest one, then update its last collection date in the \"Evidence "
-"validity\" tab of the control."
-msgstr ""
-"Recurring evidence not renewed in time: included, and flagged in the index. "
-"Add the latest one, then update its last collection date in the \"Evidence "
-"validity\" tab of the control."
+msgid "Online office suite, hosted applications, cloud storage or servers."
+msgstr "Online office suite, hosted applications, cloud storage or servers."
 
-msgid "Evidence rhythm"
-msgid_plural "Evidence rhythms"
-msgstr[0] "Evidence rhythm"
-msgstr[1] "Evidence rhythms"
+msgid "the organisation uses cloud services"
+msgstr "the organisation uses cloud services"
+
+msgid "the organisation uses no cloud service"
+msgstr "the organisation uses no cloud service"
+
+msgid "Does the organisation occupy premises whose security it manages?"
+msgstr "Does the organisation occupy premises whose security it manages?"
+
+msgid "Offices, sites or shops: perimeter, entry, protection against physical threats."
+msgstr "Offices, sites or shops: perimeter, entry, protection against physical threats."
+
+msgid "the organisation manages the security of its own premises"
+msgstr "the organisation manages the security of its own premises"
+
+msgid "the organisation manages no premises (security handled by the landlord or host)"
+msgstr "the organisation manages no premises (security handled by the landlord or host)"
+
+msgid "Are servers or network equipment hosted in your own premises?"
+msgstr "Are servers or network equipment hosted in your own premises?"
+
+msgid "Server room, network cabinet, power supply and cabling under your responsibility."
+msgstr "Server room, network cabinet, power supply and cabling under your responsibility."
+
+msgid "servers or network equipment are hosted on the premises"
+msgstr "servers or network equipment are hosted on the premises"
+
+msgid "no server or network equipment is hosted on the premises"
+msgstr "no server or network equipment is hosted on the premises"
+
+msgid "Does the organisation process personal data?"
+msgstr "Does the organisation process personal data?"
+
+msgid "Staff, customers, prospects, patients, users: almost always yes."
+msgstr "Staff, customers, prospects, patients, users: almost always yes."
+
+msgid "the organisation processes personal data"
+msgstr "the organisation processes personal data"
+
+msgid "the organisation processes no personal data"
+msgstr "the organisation processes no personal data"
+
+msgid "Waiting for answers"
+msgstr "Waiting for answers"
+
+msgid "Matches the SoA"
+msgstr "Matches the SoA"
+
+msgid "Applicable: baseline control for any organisation within the ISMS scope; no scoping answer excludes it."
+msgstr "Applicable: baseline control for any organisation within the ISMS scope; no scoping answer excludes it."
+
+#, php-format
+msgid "Applicable: %s (SoA scoping questionnaire)."
+msgstr "Applicable: %s (SoA scoping questionnaire)."
+
+#, php-format
+msgid "Not applicable: %s (SoA scoping questionnaire). To be reviewed if this changes."
+msgstr "Not applicable: %s (SoA scoping questionnaire). To be reviewed if this changes."
+
+msgid "Baseline control"
+msgstr "Baseline control"
+
+msgid "Not answered"
+msgstr "Not answered"
+
+msgid "Proposed applicability"
+msgstr "Proposed applicability"
+
+msgid "Basis of the proposal"
+msgstr "Basis of the proposal"
+
+msgid "Proposed justification"
+msgstr "Proposed justification"
+
+msgid "Decided by"
+msgstr "Decided by"
+
+msgid "Decision date"
+msgstr "Decision date"
+
+msgid "Previous applicability"
+msgstr "Previous applicability"
+
+msgid "Answers saved. Review the proposals below: nothing is applied to the Statement of Applicability until you accept it."
+msgstr "Answers saved. Review the proposals below: nothing is applied to the Statement of Applicability until you accept it."
+
+#, php-format
+msgid "Proposals accepted: %d."
+msgstr "Proposals accepted: %d."
+
+#, php-format
+msgid "Proposals rejected: %d."
+msgstr "Proposals rejected: %d."
+
+#, php-format
+msgid "Statement of Applicability of: %s"
+msgstr "Statement of Applicability of: %s"
+
+msgid "Export CSV for the auditor"
+msgstr "Export CSV for the auditor"
+
+msgid "1. Describe your context"
+msgstr "1. Describe your context"
+
+msgid "Save the answers"
+msgstr "Save the answers"
+
+msgid "Preview: what accepting these proposals will change"
+msgstr "Preview: what accepting these proposals will change"
+
+msgid "Existing justification kept"
+msgstr "Existing justification kept"
+
+#, php-format
+msgid "Accept these %d proposals"
+msgstr "Accept these %d proposals"
+
+msgid "2. Review the proposals, control by control"
+msgstr "2. Review the proposals, control by control"
+
+msgid "Preview all proposals to review"
+msgstr "Preview all proposals to review"
+
+msgid "Preview the selected proposals"
+msgstr "Preview the selected proposals"
+
+msgid "Reject the selected proposals"
+msgstr "Reject the selected proposals"
+
+msgid "A written justification is never overwritten."
+msgstr "A written justification is never overwritten."
+
+msgid "In the SoA today"
+msgstr "In the SoA today"
+
+msgid "Proposal"
+msgstr "Proposal"
+
+msgid "Answer the questions above to get a proposal."
+msgstr "Answer the questions above to get a proposal."
+
+msgid "3. Decision log (who validated what, and when)"
+msgstr "3. Decision log (who validated what, and when)"
+
+msgid "No decision yet."
+msgstr "No decision yet."
+
+msgid "Helps you decide and justify the applicability of each Annex A control: a few questions about your context (remote work, software development, suppliers, cloud, premises, personal data) give a proposed applicability and justification for every control of the Statement of Applicability."
+msgstr "Helps you decide and justify the applicability of each Annex A control: a few questions about your context (remote work, software development, suppliers, cloud, premises, personal data) give a proposed applicability and justification for every control of the Statement of Applicability."
+
+msgid "Answer the questions, then accept or reject each proposal, one by one or in bulk after a preview. Nothing is applied without your decision, a written justification is never overwritten, and every decision is logged with its author and date. Export the CSV for the auditor."
+msgstr "Answer the questions, then accept or reject each proposal, one by one or in bulk after a preview. Nothing is applied without your decision, a written justification is never overwritten, and every decision is logged with its author and date. Export the CSV for the auditor."
+
+msgid "ISO/IEC 27001, clause 6.1.3 c) and d)"
+msgstr "ISO/IEC 27001, clause 6.1.3 c) and d)"
+
+msgid "Answer given"
+msgstr "Answer given"

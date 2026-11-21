@@ -1416,9 +1416,9 @@ msgstr ""
 "nigdy do dopasowania."
 
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
 "Identyfikator CPE w postaci podawanej przez NVD dla tego produktu (np. "
 "\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Kilka identyfikatorów może "
@@ -3184,8 +3184,8 @@ msgstr ""
 
 msgid "Backup;backup;Main site;Recovery site;tcp;10000;Nightly replication;;"
 msgstr ""
-"Kopia zapasowa;backup;Główna lokalizacja;Lokalizacja zapasowa;tcp;10000;"
-"Replikacja nocna;;"
+"Kopia zapasowa;backup;Główna lokalizacja;Lokalizacja "
+"zapasowa;tcp;10000;Replikacja nocna;;"
 
 msgid ""
 "Types: internal, publication, outbound, tunnel, partner, admin, backup, "
@@ -8325,11 +8325,11 @@ msgstr ""
 "Oblicz odcisk swojej kopii i porównaj go z odciskiem referencyjnym powyżej:"
 
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
-"Przydatne formaty dowodów (do zezwolenia w typach dokumentów GLPI): .log, ."
-"evtx, .json, .pcap, .eml, .csv, .zip."
+"Przydatne formaty dowodów (do zezwolenia w typach dokumentów "
+"GLPI): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 
 #, php-format
 msgid "%d evidence(s) checked: all intact."
@@ -14961,8 +14961,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 "Jeden plik CSV na każdy szablon rozporządzenia wykonawczego, z oficjalnymi "
 "kodami kolumn (c0010...), jak w pakiecie sprawozdawczym xBRL-CSV. Listy "
@@ -17168,12 +17168,12 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 "GLPI również odrzuca adresy wewnętrzne dla tej wtyczki: dodaj %s do stałej "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 
 #, php-format
 msgid "%d service(s)"
@@ -18224,8 +18224,8 @@ msgstr "Ustawienia i powiązania"
 
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 "Nie włączono: wtyczka może pokazać, które oprogramowanie, systemy operacyjne "
 "i firmware nie otrzymują już poprawek bezpieczeństwa, według publicznej "
@@ -18370,14 +18370,14 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 "Znane nazwy są wiązane automatycznie (na przykład „Debian GNU/Linux\" lub "
 "„Mozilla Firefox\"). Dla każdej innej nazwy dodaj powiązanie: wpisz nazwę "
 "dokładnie tak, jak pokazuje ją GLPI, oraz identyfikator produktu z adresu "
-"jego strony w endoflife.date (na przykład „fortios\" dla https://endoflife."
-"date/fortios). Pozostaw produkt pusty, aby przestać śledzić nazwę."
+"jego strony w endoflife.date (na przykład „fortios\" dla https://"
+"endoflife.date/fortios). Pozostaw produkt pusty, aby przestać śledzić nazwę."
 
 msgid "Kind of item"
 msgstr "Rodzaj elementu"
@@ -20807,13 +20807,13 @@ msgid "Justification of a different result"
 msgstr "Uzasadnienie innego wyniku"
 
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
-"Każdy element populacji jest szeregowany według skrótu SHA-256 z „ziarno:"
-"identyfikator”; pierwsze elementy tego rankingu tworzą próbę. Ta sama "
-"populacja i to samo ziarno zawsze dają tę samą próbę."
+"Każdy element populacji jest szeregowany według skrótu SHA-256 z "
+"„ziarno:identyfikator”; pierwsze elementy tego rankingu tworzą próbę. Ta "
+"sama populacja i to samo ziarno zawsze dają tę samą próbę."
 
 #, php-format
 msgid "Back to the tests of %s"
@@ -29263,8 +29263,9 @@ msgid ""
 "permission with admin consent (the report requires an Entra ID P1 or P2 "
 "licence)."
 msgstr ""
-"Microsoft Graph odmówił dostępu: przyznaj uprawnienie aplikacji AuditLog."
-"Read.All ze zgodą administratora (raport wymaga licencji Entra ID P1 lub P2)."
+"Microsoft Graph odmówił dostępu: przyznaj uprawnienie aplikacji "
+"AuditLog.Read.All ze zgodą administratora (raport wymaga licencji Entra ID "
+"P1 lub P2)."
 
 msgid "Microsoft Graph asks to slow down: try again in a few minutes."
 msgstr "Microsoft Graph prosi o spowolnienie: spróbuj ponownie za kilka minut."
@@ -30197,11 +30198,11 @@ msgstr ""
 "%3$d."
 
 msgid ""
-"Not saved: the address must start with https:// (for example https://veeam."
-"example.test:9419) and contain no user name or password."
+"Not saved: the address must start with https:// (for example https://"
+"veeam.example.test:9419) and contain no user name or password."
 msgstr ""
-"Nie zapisano: adres musi zaczynać się od https:// (na przykład https://veeam."
-"example.test:9419) i nie może zawierać nazwy użytkownika ani hasła."
+"Nie zapisano: adres musi zaczynać się od https:// (na przykład https://"
+"veeam.example.test:9419) i nie może zawierać nazwy użytkownika ani hasła."
 
 msgid "Veeam settings saved."
 msgstr "Zapisano ustawienia Veeam."
@@ -31203,12 +31204,12 @@ msgid ""
 "Run Invoke-SCuBA, then import the ScubaResults_[identifier].json file of the "
 "output folder."
 msgstr ""
-"Uruchom Invoke-SCuBA, a następnie zaimportuj plik ScubaResults_[identifier]."
-"json z folderu wyjściowego."
+"Uruchom Invoke-SCuBA, a następnie zaimportuj plik "
+"ScubaResults_[identifier].json z folderu wyjściowego."
 
 msgid ""
-"Run the health check (--healthcheck option), then import the ad_hc_[domain]."
-"xml file (not the HTML file)."
+"Run the health check (--healthcheck option), then import the "
+"ad_hc_[domain].xml file (not the HTML file)."
 msgstr ""
 "Uruchom kontrolę kondycji (opcja --healthcheck), a następnie zaimportuj plik "
 "ad_hc_[domain].xml (nie plik HTML)."
@@ -31487,11 +31488,12 @@ msgid "Imports and changes over time"
 msgstr "Importy i zmiany w czasie"
 
 msgid ""
-"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
-"OutFile shares.csv (Depth: how many folder levels under each share are read)."
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 "
+"-OutFile shares.csv (Depth: how many folder levels under each share are "
+"read)."
 msgstr ""
-"W PowerShell uruchom na przykład: ./Export-GrcShareAccess.ps1 -Depth 2 -"
-"OutFile shares.csv (Depth: ile poziomów folderów jest odczytywanych pod "
+"W PowerShell uruchom na przykład: ./Export-GrcShareAccess.ps1 -Depth 2 "
+"-OutFile shares.csv (Depth: ile poziomów folderów jest odczytywanych pod "
 "każdym udziałem)."
 
 msgid "New rights"
@@ -32891,12 +32893,12 @@ msgstr ""
 
 msgid ""
 "Users > User roles: create a role of type User with API access limited to "
-"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
-"getsli."
+"the methods host.get, problem.get, event.get, service.get, sla.get and "
+"sla.getsli."
 msgstr ""
 "Użytkownicy > Role użytkowników: utwórz rolę typu Użytkownik z dostępem do "
-"API ograniczonym do metod host.get, problem.get, event.get, service.get, sla."
-"get i sla.getsli."
+"API ograniczonym do metod host.get, problem.get, event.get, service.get, "
+"sla.get i sla.getsli."
 
 msgid ""
 "Users > Users: create a user with this role, in a user group with read "
@@ -33528,8 +33530,8 @@ msgstr ""
 
 #: templates/share_access.html.twig
 msgid ""
-"Application permissions to grant, with admin consent (read only): Sites.Read."
-"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+"Application permissions to grant, with admin consent (read only): "
+"Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All."
 msgstr ""
 "Uprawnienia aplikacji do nadania, ze zgodą administratora (tylko odczyt): "
 "Sites.Read.All, Files.Read.All, User.Read.All i GroupMember.Read.All."
@@ -35231,83 +35233,281 @@ msgstr ""
 "Przy zapisie są ponownie sprawdzane jak każdy dowód, a następnie dołączane "
 "do pytania."
 
-msgid "No recurring renewal"
-msgstr "Brak cyklicznego odnawiania"
+msgid "SoA scoping"
+msgstr "Określanie zakresu SoA"
 
-msgid "weeks"
-msgstr "tygodnie"
-
-msgid "months"
-msgstr "miesiące"
-
-msgid "years"
-msgstr "lata"
-
-msgid "months, last business day"
-msgstr "miesiące, ostatni dzień roboczy"
-
-msgid "quarters, last business day"
-msgstr "kwartały, ostatni dzień roboczy"
-
-msgid "Not renewed in time"
-msgstr "Nieodnowiony na czas"
-
-msgid "Renewal due soon"
-msgstr "Odnowienie wkrótce"
-
-msgid "Recurring evidence not renewed in time"
-msgstr "Cykliczne dowody nieodnowione na czas"
-
-msgid "Recurring renewal due on %s"
-msgstr "Cykliczne odnowienie wymagane do %s"
-
-msgid "Next renewal due"
-msgstr "Następne odnowienie"
-
-msgid "Recurring renewal"
-msgstr "Cykliczne odnawianie"
-
-msgid "Interval"
-msgstr "Interwał"
-
-msgid "Interval: %1$d %2$s"
-msgstr "Interwał: %1$d %2$s"
-
-msgid "Last collected on"
-msgstr "Ostatnio zebrano"
-
-msgid "Next due: %s"
-msgstr "Następny termin: %s"
-
-msgid "from the document date %s"
-msgstr "od daty dokumentu %s"
+msgid "Do staff work remotely (from home or while travelling)?"
+msgstr "Czy pracownicy pracują zdalnie (z domu lub w podróży)?"
 
 msgid ""
-"For evidence produced on a regular rhythm (weekly log review, monthly backup "
-"report...), set a recurring renewal: the next due date is computed from the "
-"last collection, or from the last change of the document when no date is "
-"entered. Business days exclude weekends and the close times declared in GLPI."
-" Evidence not renewed in time is flagged and its owner notified; nothing is "
-"changed automatically."
+"Telework, nomadic work, access to the information system from outside the "
+"premises."
 msgstr ""
-"Dla dowodów tworzonych w regularnym rytmie (cotygodniowy przegląd dzienników,"
-" miesięczny raport kopii zapasowych...) ustaw cykliczne odnawianie: następny "
-"termin jest liczony od ostatniego zebrania, a bez daty od ostatniej zmiany "
-"dokumentu. Dni robocze pomijają weekendy i okresy zamknięcia zadeklarowane w "
-"GLPI. Dowód nieodnowiony na czas jest oznaczany, a jego właściciel "
-"powiadamiany; nic nie jest zmieniane automatycznie."
+"Telepraca, praca mobilna, dostęp do systemu informacyjnego spoza siedziby."
+
+msgid "staff work remotely"
+msgstr "pracownicy pracują zdalnie"
+
+msgid "no staff member works remotely"
+msgstr "żaden pracownik nie pracuje zdalnie"
+
+msgid "Does the organisation develop or customise software in-house?"
+msgstr ""
+"Czy organizacja tworzy lub dostosowuje oprogramowanie we własnym zakresie?"
 
 msgid ""
-"Recurring evidence not renewed in time: included, and flagged in the index. "
-"Add the latest one, then update its last collection date in the \"Evidence "
-"validity\" tab of the control."
+"Applications, scripts, websites, integrations or significant configuration "
+"code."
 msgstr ""
-"Cykliczne dowody nieodnowione na czas: dołączone i oznaczone w indeksie. "
-"Dodaj najnowszy, a następnie zaktualizuj datę ostatniego zebrania w zakładce "
-"„Ważność dowodów” zabezpieczenia."
+"Aplikacje, skrypty, strony internetowe, integracje lub istotny kod "
+"konfiguracyjny."
 
-msgid "Evidence rhythm"
-msgid_plural "Evidence rhythms"
-msgstr[0] "Rytm dowodu"
-msgstr[1] "Rytmy dowodów"
-msgstr[2] "Rytmów dowodów"
+msgid "the organisation develops or customises software in-house"
+msgstr "organizacja tworzy lub dostosowuje oprogramowanie we własnym zakresie"
+
+msgid "the organisation does not develop or customise software in-house"
+msgstr ""
+"organizacja nie tworzy ani nie dostosowuje oprogramowania we własnym zakresie"
+
+msgid "Is software development outsourced to a provider?"
+msgstr "Czy tworzenie oprogramowania jest zlecane dostawcy?"
+
+msgid "A developer, integrator or agency builds or changes software for you."
+msgstr ""
+"Programista, integrator lub agencja tworzy lub zmienia dla Ciebie "
+"oprogramowanie."
+
+msgid "software development is outsourced"
+msgstr "tworzenie oprogramowania jest zlecane na zewnątrz"
+
+msgid "no software development is outsourced"
+msgstr "żadne tworzenie oprogramowania nie jest zlecane na zewnątrz"
+
+msgid ""
+"Do suppliers or subcontractors access your information or provide ICT "
+"services?"
+msgstr ""
+"Czy dostawcy lub podwykonawcy mają dostęp do Twoich informacji lub świadczą "
+"usługi ICT?"
+
+msgid "Outsourcing, maintenance, hosting, managed services, telecoms."
+msgstr "Outsourcing, utrzymanie, hosting, usługi zarządzane, telekomunikacja."
+
+msgid "suppliers access information or provide ICT services"
+msgstr "dostawcy mają dostęp do informacji lub świadczą usługi ICT"
+
+msgid "no supplier accesses information or provides ICT services"
+msgstr "żaden dostawca nie ma dostępu do informacji ani nie świadczy usług ICT"
+
+msgid "Does the organisation use cloud services (SaaS, IaaS, PaaS)?"
+msgstr "Czy organizacja korzysta z usług chmurowych (SaaS, IaaS, PaaS)?"
+
+msgid "Online office suite, hosted applications, cloud storage or servers."
+msgstr ""
+"Pakiet biurowy online, aplikacje hostowane, przechowywanie lub serwery w "
+"chmurze."
+
+msgid "the organisation uses cloud services"
+msgstr "organizacja korzysta z usług chmurowych"
+
+msgid "the organisation uses no cloud service"
+msgstr "organizacja nie korzysta z żadnych usług chmurowych"
+
+msgid "Does the organisation occupy premises whose security it manages?"
+msgstr ""
+"Czy organizacja zajmuje pomieszczenia, za których bezpieczeństwo odpowiada?"
+
+msgid ""
+"Offices, sites or shops: perimeter, entry, protection against physical "
+"threats."
+msgstr ""
+"Biura, oddziały lub sklepy: obwód, wejścia, ochrona przed zagrożeniami "
+"fizycznymi."
+
+msgid "the organisation manages the security of its own premises"
+msgstr "organizacja zarządza bezpieczeństwem własnych pomieszczeń"
+
+msgid ""
+"the organisation manages no premises (security handled by the landlord or "
+"host)"
+msgstr ""
+"organizacja nie zarządza żadnymi pomieszczeniami (bezpieczeństwo zapewnia "
+"wynajmujący lub gospodarz)"
+
+msgid "Are servers or network equipment hosted in your own premises?"
+msgstr ""
+"Czy serwery lub urządzenia sieciowe znajdują się w Twoich pomieszczeniach?"
+
+msgid ""
+"Server room, network cabinet, power supply and cabling under your "
+"responsibility."
+msgstr ""
+"Serwerownia, szafa sieciowa, zasilanie i okablowanie w Twojej "
+"odpowiedzialności."
+
+msgid "servers or network equipment are hosted on the premises"
+msgstr "serwery lub urządzenia sieciowe znajdują się w pomieszczeniach"
+
+msgid "no server or network equipment is hosted on the premises"
+msgstr ""
+"żadne serwery ani urządzenia sieciowe nie znajdują się w pomieszczeniach"
+
+msgid "Does the organisation process personal data?"
+msgstr "Czy organizacja przetwarza dane osobowe?"
+
+msgid "Staff, customers, prospects, patients, users: almost always yes."
+msgstr ""
+"Pracownicy, klienci, potencjalni klienci, pacjenci, użytkownicy: prawie "
+"zawsze tak."
+
+msgid "the organisation processes personal data"
+msgstr "organizacja przetwarza dane osobowe"
+
+msgid "the organisation processes no personal data"
+msgstr "organizacja nie przetwarza żadnych danych osobowych"
+
+msgid "Waiting for answers"
+msgstr "Oczekuje na odpowiedzi"
+
+msgid "Matches the SoA"
+msgstr "Zgodne z SoA"
+
+msgid ""
+"Applicable: baseline control for any organisation within the ISMS scope; no "
+"scoping answer excludes it."
+msgstr ""
+"Ma zastosowanie: zabezpieczenie podstawowe dla każdej organizacji w zakresie "
+"SZBI; żadna odpowiedź kwestionariusza go nie wyklucza."
+
+#, php-format
+msgid "Applicable: %s (SoA scoping questionnaire)."
+msgstr "Ma zastosowanie: %s (kwestionariusz zakresu SoA)."
+
+#, php-format
+msgid ""
+"Not applicable: %s (SoA scoping questionnaire). To be reviewed if this "
+"changes."
+msgstr ""
+"Nie ma zastosowania: %s (kwestionariusz zakresu SoA). Do ponownej oceny, "
+"jeśli to się zmieni."
+
+msgid "Baseline control"
+msgstr "Zabezpieczenie podstawowe"
+
+msgid "Not answered"
+msgstr "Brak odpowiedzi"
+
+msgid "Proposed applicability"
+msgstr "Proponowana stosowalność"
+
+msgid "Basis of the proposal"
+msgstr "Podstawa propozycji"
+
+msgid "Proposed justification"
+msgstr "Proponowane uzasadnienie"
+
+msgid "Decided by"
+msgstr "Zdecydował(a)"
+
+msgid "Decision date"
+msgstr "Data decyzji"
+
+msgid "Previous applicability"
+msgstr "Poprzednia stosowalność"
+
+msgid ""
+"Answers saved. Review the proposals below: nothing is applied to the "
+"Statement of Applicability until you accept it."
+msgstr ""
+"Odpowiedzi zapisane. Przejrzyj poniższe propozycje: nic nie zostanie "
+"wprowadzone do Deklaracji stosowania, dopóki tego nie zaakceptujesz."
+
+#, php-format
+msgid "Proposals accepted: %d."
+msgstr "Zaakceptowane propozycje: %d."
+
+#, php-format
+msgid "Proposals rejected: %d."
+msgstr "Odrzucone propozycje: %d."
+
+#, php-format
+msgid "Statement of Applicability of: %s"
+msgstr "Deklaracja stosowania dla: %s"
+
+msgid "Export CSV for the auditor"
+msgstr "Eksport CSV dla audytora"
+
+msgid "1. Describe your context"
+msgstr "1. Opisz swój kontekst"
+
+msgid "Save the answers"
+msgstr "Zapisz odpowiedzi"
+
+msgid "Preview: what accepting these proposals will change"
+msgstr "Podgląd: co zmieni akceptacja tych propozycji"
+
+msgid "Existing justification kept"
+msgstr "Istniejące uzasadnienie zachowane"
+
+#, php-format
+msgid "Accept these %d proposals"
+msgstr "Zaakceptuj te propozycje (%d)"
+
+msgid "2. Review the proposals, control by control"
+msgstr "2. Przejrzyj propozycje, zabezpieczenie po zabezpieczeniu"
+
+msgid "Preview all proposals to review"
+msgstr "Podgląd wszystkich propozycji do przejrzenia"
+
+msgid "Preview the selected proposals"
+msgstr "Podgląd wybranych propozycji"
+
+msgid "Reject the selected proposals"
+msgstr "Odrzuć wybrane propozycje"
+
+msgid "A written justification is never overwritten."
+msgstr "Już napisane uzasadnienie nigdy nie jest nadpisywane."
+
+msgid "In the SoA today"
+msgstr "Obecnie w SoA"
+
+msgid "Proposal"
+msgstr "Propozycja"
+
+msgid "Answer the questions above to get a proposal."
+msgstr "Odpowiedz na powyższe pytania, aby otrzymać propozycję."
+
+msgid "3. Decision log (who validated what, and when)"
+msgstr "3. Dziennik decyzji (kto co zatwierdził i kiedy)"
+
+msgid "No decision yet."
+msgstr "Brak decyzji."
+
+msgid ""
+"Helps you decide and justify the applicability of each Annex A control: a "
+"few questions about your context (remote work, software development, "
+"suppliers, cloud, premises, personal data) give a proposed applicability and "
+"justification for every control of the Statement of Applicability."
+msgstr ""
+"Pomaga zdecydować o stosowalności każdego zabezpieczenia z Załącznika A i ją "
+"uzasadnić: kilka pytań o Twój kontekst (praca zdalna, tworzenie "
+"oprogramowania, dostawcy, chmura, pomieszczenia, dane osobowe) daje "
+"proponowaną stosowalność i uzasadnienie dla każdego zabezpieczenia "
+"Deklaracji stosowania."
+
+msgid ""
+"Answer the questions, then accept or reject each proposal, one by one or in "
+"bulk after a preview. Nothing is applied without your decision, a written "
+"justification is never overwritten, and every decision is logged with its "
+"author and date. Export the CSV for the auditor."
+msgstr ""
+"Odpowiedz na pytania, a następnie zaakceptuj lub odrzuć każdą propozycję, "
+"pojedynczo lub zbiorczo po podglądzie. Nic nie jest wprowadzane bez Twojej "
+"decyzji, napisane uzasadnienie nigdy nie jest nadpisywane, a każda decyzja "
+"jest rejestrowana wraz z autorem i datą. Wyeksportuj plik CSV dla audytora."
+
+msgid "ISO/IEC 27001, clause 6.1.3 c) and d)"
+msgstr "ISO/IEC 27001, punkt 6.1.3 c) i d)"
+
+msgid "Answer given"
+msgstr "Odpowiedź"
