@@ -109,7 +109,10 @@ if (isset($_POST['fetch_veeam'])) {
         );
     } else {
         Session::addMessageAfterRedirect(htmlescape(sprintf(
-            __('%1$d machine(s) read from Veeam: %2$d matched with a GLPI asset, %3$d not matched; %4$d job(s).', 'grcmanager'),
+            __(
+                '%1$d machine(s) read from Veeam: %2$d matched with a GLPI asset, %3$d not matched; %4$d job(s).',
+                'grcmanager'
+            ),
             $result['imported'],
             $result['matched'],
             $result['unmatched'],

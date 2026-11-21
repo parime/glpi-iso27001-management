@@ -262,8 +262,9 @@ final class VeeamClient
      */
     public static function errorOf(int $status, string $transportError = ''): string
     {
-        if ($status === 0 && (str_starts_with($transportError, Http::ERROR_INTERNAL)
-            || str_starts_with($transportError, Http::ERROR_GLPI_CONTEXT))) {
+        $refused = str_starts_with($transportError, Http::ERROR_INTERNAL)
+            || str_starts_with($transportError, Http::ERROR_GLPI_CONTEXT);
+        if ($status === 0 && $refused) {
             return self::ERROR_PRIVATE;
         }
 

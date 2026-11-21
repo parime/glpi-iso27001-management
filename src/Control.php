@@ -1722,6 +1722,8 @@ class Control extends ControlBase
             'configuration_compliance' => ConfigurationCompliance::evidence($code),
             // Issue #853 : couverture de la journalisation, preuve des mesures A.8.15, A.8.16 et A.8.17.
             'log_coverage'            => LogCoverage::evidence($code),
+            // Issue #838 : couverture des sauvegardes et tests de restauration, mesures A.8.13 et A.5.30.
+            'backup_coverage'         => BackupCoverage::evidence($code),
             // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation (mesure A.6.3).
             'phishing'                => PhishingCampaign::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',

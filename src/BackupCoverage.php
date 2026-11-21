@@ -142,7 +142,10 @@ class BackupCoverage extends CommonGLPI
                 'label' => __('No backup', 'grcmanager'),
                 'color' => 'danger',
                 'icon'  => 'ti ti-database-off',
-                'help'  => __('No backup tool knows a successful backup of this asset (name or IP address).', 'grcmanager'),
+                'help'  => __(
+                    'No backup tool knows a successful backup of this asset (name or IP address).',
+                    'grcmanager'
+                ),
             ],
             Rules::STATUS_TOO_OLD => [
                 'label' => __('Backup too old', 'grcmanager'),
@@ -174,7 +177,9 @@ class BackupCoverage extends CommonGLPI
     public static function resultInfos(): array
     {
         return [
-            Rules::RESULT_SUCCESS => ['label' => __('Success', 'grcmanager'), 'color' => 'success', 'icon' => 'ti ti-check'],
+            Rules::RESULT_SUCCESS => [
+                'label' => __('Success', 'grcmanager'), 'color' => 'success', 'icon' => 'ti ti-check',
+            ],
             Rules::RESULT_WARNING => [
                 'label' => __('Warning', 'grcmanager'), 'color' => 'warning', 'icon' => 'ti ti-alert-triangle',
             ],
@@ -192,7 +197,8 @@ class BackupCoverage extends CommonGLPI
     {
         return [
             Rules::RESTORE_RECENT => [
-                'label' => __('Restore tested', 'grcmanager'), 'color' => 'success', 'icon' => 'ti ti-rotate-clockwise-2',
+                'label' => __('Restore tested', 'grcmanager'), 'color' => 'success',
+                'icon'  => 'ti ti-rotate-clockwise-2',
             ],
             Rules::RESTORE_FAILED => [
                 'label' => __('Restore test failed', 'grcmanager'), 'color' => 'danger', 'icon' => 'ti ti-rotate-2',
@@ -201,7 +207,8 @@ class BackupCoverage extends CommonGLPI
                 'label' => __('Restore test too old', 'grcmanager'), 'color' => 'warning', 'icon' => 'ti ti-history',
             ],
             Rules::RESTORE_NEVER  => [
-                'label' => __('Restore never tested', 'grcmanager'), 'color' => 'secondary', 'icon' => 'ti ti-help-circle',
+                'label' => __('Restore never tested', 'grcmanager'), 'color' => 'secondary',
+                'icon'  => 'ti ti-help-circle',
             ],
         ];
     }
@@ -353,7 +360,8 @@ class BackupCoverage extends CommonGLPI
                     'WHERE'  => ['itemtype' => $itemtype, 'items_id' => $ids],
                 ]) as $row
             ) {
-                $links[(int) $row['plugin_grcmanager_businessprocesses_id']][] = $itemtype . ':' . (int) $row['items_id'];
+                $processId = (int) $row['plugin_grcmanager_businessprocesses_id'];
+                $links[$processId][] = $itemtype . ':' . (int) $row['items_id'];
             }
         }
 
@@ -580,7 +588,9 @@ class BackupCoverage extends CommonGLPI
             $jobs[] = [
                 'name'           => (string) $row['name'],
                 'type'           => (string) $row['type'],
-                'last_run_label' => $row['last_run'] !== null ? (string) Html::convDateTime((string) $row['last_run']) : '',
+                'last_run_label' => $row['last_run'] !== null
+                    ? (string) Html::convDateTime((string) $row['last_run'])
+                    : '',
                 'last_result'    => $result,
                 'objects'        => (int) $row['objects'],
                 'rank'           => $rank[$result] ?? 3,
@@ -600,7 +610,10 @@ class BackupCoverage extends CommonGLPI
     public static function summary(): array
     {
         $data = self::data();
-        $critical = array_values(array_filter($data['assets'], static fn (array $row): bool => (bool) $row['critical']));
+        $critical = array_values(array_filter(
+            $data['assets'],
+            static fn (array $row): bool => (bool) $row['critical']
+        ));
 
         return [
             'concerned'         => Rules::summary($data['assets']),
@@ -654,7 +667,9 @@ class BackupCoverage extends CommonGLPI
         }
         $parsed = Rules::parseCsv($raw, date_default_timezone_get());
         if ($parsed['errors'] !== []) {
-            return ['imported' => 0, 'matched' => 0, 'unmatched' => 0, 'errors' => $parsed['errors'], 'truncated' => false];
+            return [
+                'imported' => 0, 'matched' => 0, 'unmatched' => 0, 'errors' => $parsed['errors'], 'truncated' => false,
+            ];
         }
 
         return self::store(Rules::normalizeSource($source), $parsed['rows'], [], 'csv')
@@ -679,7 +694,8 @@ class BackupCoverage extends CommonGLPI
             return ['error' => $fetch['error'] !== '' ? $fetch['error'] : VeeamClient::ERROR_TOO_LARGE] + $empty;
         }
 
-        return self::store('veeam', $fetch['hosts'], $fetch['jobs'], 'api') + ['jobs' => count($fetch['jobs']), 'error' => ''];
+        return self::store('veeam', $fetch['hosts'], $fetch['jobs'], 'api')
+            + ['jobs' => count($fetch['jobs']), 'error' => ''];
     }
 
     /**
@@ -714,7 +730,8 @@ class BackupCoverage extends CommonGLPI
                 'date_import'     => $now,
             ]);
             $result['imported']++;
-            $matched = LogCoverageRules::match($row['host'], $row['ip'], $inventory['names'], $inventory['ips']) !== null;
+            $matched = LogCoverageRules::match($row['host'], $row['ip'], $inventory['names'], $inventory['ips'])
+                !== null;
             $result[$matched ? 'matched' : 'unmatched']++;
         }
         if ($origin === 'api') {
@@ -796,7 +813,9 @@ class BackupCoverage extends CommonGLPI
                 : '';
             $row['age_label'] = $row['age_hours'] !== null ? self::formatHours((int) $row['age_hours']) : '';
             $row['allowed_label'] = self::formatHours((int) $row['allowed_hours']);
-            $row['restore_label'] = $row['restore_date'] !== '' ? (string) Html::convDate((string) $row['restore_date']) : '';
+            $row['restore_label'] = $row['restore_date'] !== ''
+                ? (string) Html::convDate((string) $row['restore_date'])
+                : '';
             $row['restore_url'] = $canProcess && $row['restore_process_id'] > 0
                 ? BusinessProcess::getFormURLWithID((int) $row['restore_process_id'])
                 : '';
@@ -867,31 +886,103 @@ class BackupCoverage extends CommonGLPI
     // ------------------------------------------------------------------ Preuves.
 
     /**
-     * Preuve des mesures A.8.13 et A.5.30 : taux de sauvegardes récentes, actifs critiques sans
-     * sauvegarde récente, échecs, tests de restauration. Null si la mesure n'est pas concernée ou
-     * sans les droits.
+     * Preuve des mesures A.8.13 et A.5.30, sous la forme d'une liste de sources affichée par le
+     * gabarit partagé de la conformité de configuration (#781, _configuration_evidence.html.twig) :
+     * sauvegardes des actifs concernés, puis tests de restauration des actifs critiques. Null si la
+     * mesure n'est pas concernée ou sans les droits.
      *
-     * @return array{rate: ?int, concerned: int, uncovered: int, failed: int, critical_uncovered: int,
-     *     critical_untested: int, failed_jobs: int, sources: int, date: string, url: string}|null
+     * @return array{sources: list<array{key: string, icon: string, label: string, badges: list<array{color: string,
+     *     icon: string, text: string}>, note: string, url: string, link: string}>}|null
      */
     public static function evidence(string $code): ?array
     {
         if (!in_array($code, self::CONTROLS, true) || !self::canView()) {
             return null;
         }
-        $summary = self::summary();
 
-        return [
-            'rate'               => $summary['concerned']['rate'],
-            'concerned'          => (int) $summary['concerned']['total'],
-            'uncovered'          => (int) $summary['concerned']['uncovered'],
-            'failed'             => (int) $summary['concerned']['failed'],
-            'critical_uncovered' => (int) $summary['critical']['uncovered'],
-            'critical_untested'  => $summary['critical_untested'],
-            'failed_jobs'        => $summary['failed_jobs'],
-            'sources'            => $summary['sources'],
-            'date'               => (string) Html::convDateTime(Session::getCurrentTime() ?? date('Y-m-d H:i:s')),
-            'url'                => self::getSearchURL(),
+        return ['sources' => self::evidenceSources()];
+    }
+
+    /**
+     * @return list<array{key: string, icon: string, label: string, badges: list<array{color: string,
+     *     icon: string, text: string}>, note: string, url: string, link: string}>
+     */
+    public static function evidenceSources(): array
+    {
+        $summary = self::summary();
+        $rate = $summary['concerned']['rate'];
+        $date = sprintf(
+            __('Computed on %s', 'grcmanager'),
+            (string) Html::convDateTime(Session::getCurrentTime() ?? date('Y-m-d H:i:s'))
+        );
+        $ok = static fn (bool $gap, string $bad = 'danger'): string => $gap ? $bad : 'success';
+        $backups = [
+            'key'    => 'backups',
+            'icon'   => self::getIcon(),
+            'label'  => __('Backups', 'grcmanager'),
+            'badges' => [],
+            'note'   => $date,
+            'url'    => self::getSearchURL(),
+            'link'   => __('View the details', 'grcmanager'),
         ];
+        if ($summary['sources'] === 0) {
+            $backups['badges'][] = [
+                'color' => 'secondary', 'icon' => 'ti ti-database-off',
+                'text'  => __('No backup tool read yet', 'grcmanager'),
+            ];
+            $backups['link'] = __('Import results', 'grcmanager');
+        } else {
+            $backups['badges'][] = [
+                'color' => match (true) {
+                    $rate === null => 'secondary',
+                    $rate >= 95    => 'success',
+                    $rate >= 80    => 'warning',
+                    default        => 'danger',
+                },
+                'icon'  => 'ti ti-database-export',
+                'text'  => $rate === null
+                    ? __('Backup coverage: not measured', 'grcmanager')
+                    : sprintf(__('Recent backups: %d%%', 'grcmanager'), $rate),
+            ];
+        }
+        $backups['badges'][] = [
+            'color' => $ok($summary['critical']['uncovered'] > 0),
+            'icon'  => 'ti ti-alert-octagon',
+            'text'  => sprintf(
+                __('%d critical asset(s) without a recent backup', 'grcmanager'),
+                $summary['critical']['uncovered']
+            ),
+        ];
+        if ($summary['concerned']['failed'] + $summary['failed_jobs'] > 0) {
+            $backups['badges'][] = [
+                'color' => 'warning',
+                'icon'  => 'ti ti-alert-triangle',
+                'text'  => sprintf(
+                    __('%1$d asset(s) whose last backup failed, %2$d job(s) failed', 'grcmanager'),
+                    $summary['concerned']['failed'],
+                    $summary['failed_jobs']
+                ),
+            ];
+        }
+        $restores = [
+            'key'    => 'restore_tests',
+            'icon'   => 'ti ti-rotate-clockwise-2',
+            'label'  => __('Restore tests', 'grcmanager'),
+            'badges' => [[
+                'color' => $summary['critical']['total'] === 0
+                    ? 'secondary'
+                    : $ok($summary['critical_untested'] > 0, 'warning'),
+                'icon'  => 'ti ti-history',
+                'text'  => sprintf(
+                    __('%d critical asset(s) without a recent restore test', 'grcmanager'),
+                    $summary['critical_untested']
+                ),
+            ]],
+            'note'   => '',
+            'url'    => self::getSearchURL() . '#grc-backup-list',
+            'link'   => __('View the details', 'grcmanager'),
+        ];
+
+        return [$backups, $restores];
     }
 }

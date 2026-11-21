@@ -98,6 +98,11 @@ class RiskIndicator extends RiskIndicatorBase
             'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => ['computer' => READ], 'global' => false,
         ],
+        // Issue #838 : actifs critiques sans sauvegarde récente (au regard de leur RPO).
+        'critical_assets_without_backup' => [
+            'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => ['computer' => READ], 'global' => false,
+        ],
         'critical_vulnerabilities'  => [
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE, 'rights' => ['software' => READ], 'global' => false,
         ],
@@ -165,6 +170,7 @@ class RiskIndicator extends RiskIndicatorBase
                 'grcmanager'
             ),
             'critical_assets_without_logging' => __('Critical assets without logging (%)', 'grcmanager'),
+            'critical_assets_without_backup' => __('Critical assets without a recent backup (%)', 'grcmanager'),
             'critical_vulnerabilities'  => __('Open critical vulnerabilities in the fleet', 'grcmanager'),
             'risks_above_tolerance'     => __('Open risks above tolerance', 'grcmanager'),
             'overdue_treatment_actions' => __('Overdue risk treatment actions', 'grcmanager'),
@@ -553,6 +559,7 @@ class RiskIndicator extends RiskIndicatorBase
             'late_patch_critical_servers' => PatchCompliance::lateCriticalServers($perimeter),
             'config_high_failures'      => ConfigurationCompliance::highFailureRate($perimeter),
             'critical_assets_without_logging' => LogCoverage::criticalWithoutLogging($perimeter),
+            'critical_assets_without_backup' => BackupCoverage::criticalWithoutRecentBackup($perimeter),
             'critical_vulnerabilities'  => (float) count(array_filter(
                 ParkVulnerability::getVulnerabilityRows(
                     false,

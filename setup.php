@@ -258,7 +258,9 @@ function plugin_init_grcmanager(): void
     $PLUGIN_HOOKS[Hooks::SECURED_CONFIGS]['grcmanager'] = array_merge(
         \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::SECURED,
         \GlpiPlugin\Grcmanager\Services\Incident\SentinelOneConfig::SECURED,
-        \GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig::SECURED
+        \GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig::SECURED,
+        // Issue #838 : mot de passe du compte de lecture de Veeam Backup & Replication.
+        \GlpiPlugin\Grcmanager\Services\Backup\VeeamConfig::SECURED
     );
 
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.

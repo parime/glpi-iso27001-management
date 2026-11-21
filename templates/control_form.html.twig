@@ -698,6 +698,16 @@
       {{ fields.htmlField('', log_coverage_html, __('Logging coverage', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #838 : sauvegardes et tests de restauration (A.8.13, A.5.30), même liste de sources que #781. #}
+   {% if backup_coverage is defined and backup_coverage is not null %}
+      {% set backup_coverage_html %}
+         <div id="grc-backup-evidence">
+            {% include '@grcmanager/_configuration_evidence.html.twig' with {'sources': backup_coverage.sources} only %}
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', backup_coverage_html, __('Backup coverage', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #604 : simulations d'hameçonnage (A.6.3), taux agrégés et tendance. #}
    {% if phishing is defined and phishing is not null %}
       {% set phishing_html %}

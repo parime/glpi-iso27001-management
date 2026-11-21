@@ -489,6 +489,24 @@ class PageHelp
                 'reference' => __('ISO/IEC 27001, control A.8.9', 'grcmanager'),
             ],
             // Issue #853 : couverture de la journalisation.
+            // Issue #838 : couverture des sauvegardes.
+            'backupcoverage' => [
+                'purpose'   => __(
+                    'Shows which important assets have a recent successful backup (Veeam Backup & Replication, '
+                        . 'Acronis, Commvault, Synology, Proxmox Backup Server), which have none or one older than '
+                        . 'their recovery point objective (RPO), whose last backup failed, and when their restore '
+                        . 'was last tested.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Choose the assets that must be backed up, read Veeam or import the list of machines of each '
+                        . 'backup tool, set the RPO of the assets or of their business processes, and record the '
+                        . 'restore tests in the recovery exercises. The page only reads: it never starts a backup. '
+                        . 'Record the result as an effectiveness test of the control to keep the evidence.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.13 and A.5.30', 'grcmanager'),
+            ],
             'logcoverage' => [
                 'purpose'   => __(
                     'Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or '

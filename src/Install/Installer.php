@@ -1589,6 +1589,8 @@ final class Installer
         ConfigScanTables::install($keySign, $charset, $collation);
         // Issue #853 : couverture de la journalisation (hôtes émetteurs importés, conservation déclarée).
         LogCoverageTables::install($keySign, $charset, $collation);
+        // Issue #838 : couverture des sauvegardes (machines sauvegardées, travaux lus dans Veeam).
+        BackupCoverageTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -6493,6 +6495,7 @@ final class Installer
         HardwareEndOfLifeTables::uninstall($migration);
         ConfigScanTables::uninstall($migration);
         LogCoverageTables::uninstall($migration);
+        BackupCoverageTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

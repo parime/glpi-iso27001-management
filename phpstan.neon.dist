@@ -37,6 +37,9 @@ parameters:
         - src/Services/License/LicenseComplianceRules.php
         # Issue #604 : règles des simulations d'hameçonnage (lecture du fichier, taux), PHP pur.
         - src/Services/Phishing
+        # Issue #838 : règles des sauvegardes et client Veeam (transport injectable), PHP pur.
+        - src/Services/Backup/BackupCoverageRules.php
+        - src/Services/Backup/VeeamClient.php
     excludePaths:
         # Issue #539 : lit les registres du plugin via le $DB global, Session et les classes
         # CommonDBTM du plugin, même raison que RiskMatrixConfig.php ci-dessous. MySpaceRules.php,
