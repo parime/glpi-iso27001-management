@@ -149,6 +149,9 @@ classification fields merged directly onto it.
 - **Outage impact** (GLPI impact analysis), single points of failure, **RTO/RPO** recovery
   objectives and an export for the business continuity plan.
 - **Evidence coverage**: which assets must have which document.
+- **Physical security of the sites (A.7.1 to A.7.14)**: assessment checklist per GLPI location
+  (state, finding, evidence, corrective action), zones and access controls, yearly reassessment
+  reminder, comparison of the sites and PDF report of the assessment for the auditor.
 - **Supplier security watch** (CERT-FR advisories naming the supplier), **typical infrastructure
   risk catalogue**, **domino effect** between risks and incidents, **security exemptions**.
 - **CSV import of a risk register kept in a spreadsheet**: downloadable template, dry-run analysis
@@ -278,7 +281,7 @@ items waiting for the user.
 |---|---|
 | Dashboard | Dashboard, Maturity score, Assessment by framework, Compliance calendar, Consistency checks |
 | Risks | Risks, Supplier risks, Impact analysis, Domino effect, Waivers |
-| Compliance | Annex A controls (SoA), Reference frameworks, ISMS requirements, Obligations, Record of processing activities, Policies, Evidence, Evidence coverage |
+| Compliance | Annex A controls (SoA), Reference frameworks, ISMS requirements, Obligations, Record of processing activities, Policies, Evidence, Evidence coverage, Physical security |
 | Audits and improvement | Internal audits, Non-conformities, ISMS objectives, Management reviews |
 | Operations | Access reviews, Account hygiene, Periodic reviews, Trainings, Crisis exercises, Business processes |
 | Technical security | Automated technical checks, Fleet vulnerabilities, Most exposed machines, Software to watch, Software licenses, Products, Network flow matrix |

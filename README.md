@@ -178,6 +178,9 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Impact d'une panne** (analyse d'impact de GLPI), points de défaillance uniques, objectifs de
   reprise **RTO/RPO** et export pour le plan de continuité.
 - **Couverture des preuves** : quels actifs doivent avoir quel document.
+- **Sécurité physique des sites (A.7.1 à A.7.14)** : grille d'évaluation par lieu de GLPI (état,
+  constat, preuves, action corrective), zones et contrôles d'accès, rappel de réévaluation annuelle,
+  comparaison des sites et rapport PDF de l'évaluation pour l'auditeur.
 - **Processus métier et analyse d'impact sur l'activité (BIA)** : responsable, criticité, DMIA, RTO,
   RPO, impacts par durée d'interruption, éléments GLPI et autres processus dont dépend chaque
   processus, signalement des actifs et processus plus lents que lui, risques liés (et risque proposé
@@ -290,7 +293,7 @@ nombre d'éléments qui attendent l'utilisateur.
 |---|---|
 | Tableau de bord | Tableau de bord, Score de maturité, Évaluation par référentiel, Calendrier de conformité, Contrôles de cohérence |
 | Risques | Risques, Risques fournisseurs, Analyse d'impact, Effet domino, Dérogations |
-| Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Registre des traitements, Registre des violations, Politiques, Preuves, Couverture des preuves |
+| Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Registre des traitements, Registre des violations, Politiques, Preuves, Couverture des preuves, Sécurité physique |
 | Audits et amélioration | Audits internes, Non-conformités, Objectifs ISMS, Revues de direction |
 | Opérations | Revues des accès, Hygiène des comptes, Revues périodiques, Formations, Exercices de crise, Processus métier |
 | Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Licences logicielles, Produits, Matrice des flux, Fuites de données |

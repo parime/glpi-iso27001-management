@@ -1137,6 +1137,9 @@ contains "front/physicalsecurity.php : site de A" "Site securite A" oui "$physic
 contains "front/physicalsecurity.php : site de B" "Site securite B" $SEE_B "$physical"
 expect "fiche de l'evaluation de B" "$DENY" "$(code "$P/physicalsecurityassessment.form.php?id=$(id physical_B)")"
 expect "fiche de l'evaluation de A" 200 "$(code "$P/physicalsecurityassessment.form.php?id=$(id physical_A)")"
+# Lot 2 : rapport PDF de l'evaluation, meme droit et meme entite que la fiche.
+expect "front/physicalsecurityassessment.pdf.php : rapport de B" "$DENY" "$(code "$P/physicalsecurityassessment.pdf.php?id=$(id physical_B)")"
+expect "front/physicalsecurityassessment.pdf.php : rapport de A" 200 "$(code "$P/physicalsecurityassessment.pdf.php?id=$(id physical_A)")"
 contains "onglet grille de l'evaluation de B" "grc-physical-checklist" $SEE_B \
   "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id physical_B)")"
 contains "onglet zones de l'evaluation de B" "Salle serveurs securite B" $SEE_B \
