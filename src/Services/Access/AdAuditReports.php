@@ -32,6 +32,9 @@ final class AdAuditReports
 {
     public const ERROR_UNKNOWN_FORMAT = 'unknown_format';
 
+    /** Lot 3 : graphe de chemins d'attaque, qui s'importe dans sa propre partie de la page. */
+    public const ERROR_ATTACK_PATH = 'attack_path';
+
     /**
      * @return array<string, mixed>
      */
@@ -75,6 +78,9 @@ final class AdAuditReports
             $start === '<' => PingCastleReport::parse($text) + [
                 'native_score' => null, 'checks_total' => 0, 'checks_passed' => 0,
             ],
+            ($start === '{' || $start === '[') && AttackPathReport::looksLikeGraph($text) => [
+                'error' => self::ERROR_ATTACK_PATH,
+            ] + self::emptyResult(''),
             $start === '{' || $start === '[' => CloudPostureReport::parse($text),
             default        => self::csv($text),
         };

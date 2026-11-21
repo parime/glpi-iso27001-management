@@ -1,0 +1,187 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #835, lot 3 : chemins d'attaque vers Domain Admins (exports BloodHound CE et Adalanche), sur la
+   page de l'audit de sécurité de l'AD. Données d'AdAttackPath::sectionData(). Rien n'est créé sans clic. #}
+{% macro tool_badge(info) %}
+   <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis"><i class="{{ info.icon }} me-1"></i>{{ info.label }}</span>
+{% endmacro %}
+{% macro paths_badge(paths, id) %}
+   <span class="badge {{ paths > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }}"{% if id %} id="{{ id }}"{% endif %}><i class="ti ti-route me-1"></i>{{ _n('%d account with a path to Domain Admins', '%d accounts with a path to Domain Admins', paths, 'grcmanager')|format(paths) }}</span>
+{% endmacro %}
+{% macro trend_badge(trend) %}
+   {% if trend is not null %}
+      {% set color = trend < 0 ? 'success' : (trend > 0 ? 'danger' : 'secondary') %}
+      <span class="badge bg-{{ color }}-subtle text-{{ color }}-emphasis" title="{{ __('Change since the previous report', 'grcmanager') }}"><i class="ti {{ trend < 0 ? 'ti-trending-down' : (trend > 0 ? 'ti-trending-up' : 'ti-minus') }} me-1"></i>{{ trend > 0 ? '+' ~ trend : trend }}</span>
+   {% endif %}
+{% endmacro %}
+{% import _self as p %}
+
+<div class="card mb-3" id="grc-ad-paths">
+   <div class="card-header">
+      <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
+         <i class="ti ti-route"></i>{{ __('Attack paths to Domain Admins', 'grcmanager') }}
+         <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-eye me-1"></i>{{ __('Read only', 'grcmanager') }}</span>
+      </h3>
+   </div>
+   <div class="card-body">
+      <p class="small">{{ __('An attack path is a chain of rights, group memberships or open sessions that lets an ordinary account take control of the Domain Admins group. BloodHound CE and Adalanche draw these paths: import their export here to follow how many accounts have one, which ones are the most exposed, and how this changes over time.', 'grcmanager') }}</p>
+
+      {% if path_domains is empty %}
+         <div class="alert alert-info d-flex align-items-start gap-2" id="grc-ad-paths-empty">
+            <i class="ti ti-info-circle fs-2"></i>
+            <div>{{ __('No attack path export imported yet.', 'grcmanager') }}
+               <a href="{{ example_base }}bloodhound">{{ __('Download a fictitious BloodHound CE example', 'grcmanager') }}</a>
+            </div>
+         </div>
+      {% else %}
+         <div class="row row-cards mb-3" id="grc-ad-path-domains">
+            {% for d in path_domains %}
+               <div class="col-sm-6 col-lg-4"><div class="card card-sm"><div class="card-body">
+                  <div class="d-flex align-items-center gap-2 mb-1">
+                     <i class="ti ti-route fs-2 text-muted"></i>
+                     <div class="me-auto"><div class="fw-bold">{{ d.domain }}</div><div class="small text-muted">{{ d.entity }}</div></div>
+                     {{ p.tool_badge(d.tool_info) }}
+                  </div>
+                  <div>{{ p.paths_badge(d.paths, '') }} {{ p.trend_badge(d.trend) }}</div>
+                  <a class="small" href="{{ d.url }}">{{ __('View the details', 'grcmanager') }}</a>
+               </div></div></div>
+            {% endfor %}
+         </div>
+      {% endif %}
+
+      {% if path_detail is not null %}
+         {% set d = path_detail %}
+         <div class="border rounded p-3 mb-3" id="grc-ad-path-detail">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+               <span class="fw-bold">{{ __('%1$s export of %2$s, imported on %3$s', 'grcmanager')|format(d.tool_info.label, d.domain, d.date) }}</span>
+               {{ p.paths_badge(d.paths, 'grc-ad-path-count') }}
+               {{ p.trend_badge(d.trend) }}
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-2 small mb-2">
+               <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-user me-1"></i>{{ _n('%d user', '%d users', d.users, 'grcmanager')|format(d.users) }}</span>
+               <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-device-desktop me-1"></i>{{ _n('%d computer', '%d computers', d.computers, 'grcmanager')|format(d.computers) }}</span>
+               {% if d.shortest is not null %}
+                  <span class="badge {{ d.shortest <= 1 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-warning-subtle text-warning-emphasis' }}"><i class="ti ti-ruler-2 me-1"></i>{{ _n('Shortest path: %d step', 'Shortest path: %d steps', d.shortest, 'grcmanager')|format(d.shortest) }}</span>
+               {% endif %}
+               {% if not d.has_previous %}<span class="text-muted">{{ __('First export for this domain: the next import will show the change.', 'grcmanager') }}</span>{% endif %}
+               {% if d.truncated %}<span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Very large graph: only part of it was read.', 'grcmanager') }}</span>{% endif %}
+            </div>
+
+            {# Registre des risques, sur clic seulement. #}
+            <div class="mb-3" id="grc-ad-path-risk">
+               {% if d.risk_url %}
+                  <a class="badge bg-orange-subtle text-orange-emphasis" href="{{ d.risk_url }}"><i class="ti ti-alert-triangle me-1"></i>{{ __('Risk in the register:', 'grcmanager') }} {{ d.risk_name }}</a>
+               {% elseif can_risk and d.paths > 0 %}
+                  <form method="post" action="{{ action }}" class="d-inline">
+                     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                     <input type="hidden" name="path_id" value="{{ d.id }}">
+                     <button type="submit" name="attack_path_risk" value="1" class="btn btn-sm btn-outline-warning"><i class="ti ti-alert-triangle me-1"></i>{{ __('Create the risk in the register', 'grcmanager') }}</button>
+                  </form>
+                  <span class="small text-muted">{{ __('The risk is pre-filled (maximum impact) and can then be reviewed in the register.', 'grcmanager') }}</span>
+               {% endif %}
+            </div>
+
+            {% if d.accounts is empty %}
+               <p class="small text-muted mb-0">{{ __('No account has a path to Domain Admins in this export.', 'grcmanager') }}</p>
+            {% else %}
+               <h4 class="h5">{{ __('Most exposed accounts (%d at most)', 'grcmanager')|format(max_accounts) }}</h4>
+               <div class="table-responsive">
+                  <table class="table table-sm table-hover mb-0" id="grc-ad-path-accounts">
+                     <thead><tr>
+                        <th>{{ __('Account', 'grcmanager') }}</th>
+                        <th>{{ __('Type') }}</th>
+                        <th title="{{ __('Number of steps of the shortest path to Domain Admins', 'grcmanager') }}">{{ __('Steps', 'grcmanager') }}</th>
+                        <th title="{{ __('Number of different rights or memberships that lead towards Domain Admins', 'grcmanager') }}">{{ __('Routes', 'grcmanager') }}</th>
+                        <th></th>
+                     </tr></thead>
+                     <tbody>
+                        {% for a in d.accounts %}
+                           <tr>
+                              <td><i class="ti {{ a.kind == 'computer' ? 'ti-device-desktop' : 'ti-user' }} me-1 text-muted"></i>{{ a.name }}</td>
+                              <td>{{ a.kind == 'computer' ? __('Computer', 'grcmanager') : __('User', 'grcmanager') }}</td>
+                              <td><span class="badge {{ a.hops <= 1 ? 'bg-danger-subtle text-danger-emphasis' : (a.hops <= 3 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis') }}">{{ a.hops }}</span></td>
+                              <td>{{ a.routes }}</td>
+                              <td>{% if a.new %}<span class="badge bg-orange-subtle text-orange-emphasis"><i class="ti ti-sparkles me-1"></i>{{ __('New', 'grcmanager') }}</span>{% endif %}</td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+            {% endif %}
+         </div>
+      {% endif %}
+
+      {% if path_history|length > 1 %}
+         <h4 class="h5">{{ __('History', 'grcmanager') }}</h4>
+         <div class="table-responsive mb-3">
+            <table class="table table-sm mb-0" id="grc-ad-path-history">
+               <thead><tr>
+                  <th>{{ __('Date') }}</th><th>{{ __('Domain', 'grcmanager') }}</th><th>{{ __('Tool', 'grcmanager') }}</th>
+                  <th>{{ __('Accounts with a path', 'grcmanager') }}</th><th></th>
+               </tr></thead>
+               <tbody>
+                  {% for h in path_history %}
+                     <tr>
+                        <td><a href="{{ h.url }}">{{ h.date }}</a></td>
+                        <td>{{ h.domain }}</td>
+                        <td>{{ p.tool_badge(h.tool_info) }}</td>
+                        <td>{{ h.paths }} {{ p.trend_badge(h.trend) }}</td>
+                        <td class="text-end">
+                           {% if can_manage %}
+                              <form method="post" action="{{ action }}" class="d-inline">
+                                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                 <input type="hidden" name="path_id" value="{{ h.id }}">
+                                 <button type="submit" name="clear_attack_path" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Delete this import', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+                              </form>
+                           {% endif %}
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+
+      <div class="row g-2 mb-3 small">
+         <div class="col-md-6"><div class="border rounded p-2 h-100">
+            <div class="mb-1">{{ p.tool_badge(path_tools.bloodhound) }}</div>
+            <div>{{ __('In the Explore page, run the query of the shortest paths to Domain Admins, then export the graph as JSON and import that file.', 'grcmanager') }}</div>
+            <a href="{{ example_base }}bloodhound"><i class="ti ti-download me-1"></i>{{ __('Example', 'grcmanager') }}</a>
+         </div></div>
+         <div class="col-md-6"><div class="border rounded p-2 h-100">
+            <div class="mb-1">{{ p.tool_badge(path_tools.adalanche) }}</div>
+            <div>{{ __('Run the analysis with Domain Admins as target, then export the graph as JSON (Cytoscape format) and import that file.', 'grcmanager') }}</div>
+            <a href="{{ example_base }}adalanche"><i class="ti ti-download me-1"></i>{{ __('Example', 'grcmanager') }}</a>
+         </div></div>
+      </div>
+      <p class="small text-muted">{{ __('Only the number of accounts with a path and the most exposed accounts (name, type, number of steps) are kept: no other property of the graph.', 'grcmanager') }}</p>
+      {% if can_manage %}
+         <form method="post" action="{{ action }}" enctype="multipart/form-data" class="row g-2 align-items-end" id="grc-ad-path-import">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <div class="col-md-6">
+               <label class="form-label" for="grc-ad-path-file">{{ __('Export file: JSON (%d MB at most)', 'grcmanager')|format(max_mb) }}</label>
+               <input type="file" class="form-control" id="grc-ad-path-file" name="attack_path_file" accept=".json,application/json" required>
+            </div>
+            <div class="col-md-4">
+               <label class="form-label" for="grc-ad-path-domain">{{ __('Domain (if the file gives none)', 'grcmanager') }}</label>
+               <input type="text" class="form-control" id="grc-ad-path-domain" name="attack_path_domain" maxlength="255" placeholder="exemple.test">
+            </div>
+            <div class="col-md-2">
+               <button type="submit" name="import_attack_path" value="1" class="btn btn-primary w-100"><i class="ti ti-file-import me-1"></i>{{ __('Import') }}</button>
+            </div>
+         </form>
+      {% endif %}
+   </div>
+</div>

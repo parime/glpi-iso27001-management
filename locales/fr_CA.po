@@ -33864,3 +33864,190 @@ msgstr "%d décidé(s)"
 
 msgid "%d account(s) of the controllers added to the campaign."
 msgstr "%d compte(s) des contrôleurs ajouté(s) à la campagne."
+
+#, php-format
+msgid "%1$s export of %2$s, imported on %3$s"
+msgstr "Export %1$s de %2$s, importé le %3$s"
+
+msgid "Accounts with a path"
+msgstr "Comptes ayant un chemin"
+
+msgid "Accounts with an attack path to Domain Admins"
+msgstr "Comptes ayant un chemin d'attaque vers Domain Admins"
+
+msgid ""
+"An attack path is a chain of rights, group memberships or open sessions that "
+"lets an ordinary account take control of the Domain Admins group. BloodHound "
+"CE and Adalanche draw these paths: import their export here to follow how "
+"many accounts have one, which ones are the most exposed, and how this "
+"changes over time."
+msgstr ""
+"Un chemin d'attaque est une suite de droits, d'appartenances à des groupes "
+"ou de sessions ouvertes qui permet à un compte ordinaire de prendre le "
+"contrôle du groupe Domain Admins. BloodHound CE et Adalanche dessinent ces "
+"chemins : importez leur export ici pour suivre combien de comptes en ont un, "
+"lesquels sont les plus exposés, et comment cela évolue."
+
+msgid "Attack paths to Domain Admins"
+msgstr "Chemins d'attaque vers Domain Admins"
+
+#, php-format
+msgid "Attack paths to Domain Admins: %s"
+msgstr "Chemins d'attaque vers Domain Admins : %s"
+
+msgid "Create the risk in the register"
+msgstr "Créer le risque dans le registre"
+
+msgid "Delete this import"
+msgstr "Supprimer cet import"
+
+msgid "Download a fictitious BloodHound CE example"
+msgstr "Télécharger un exemple fictif de BloodHound CE"
+
+#, php-format
+msgid "Export file: JSON (%d MB at most)"
+msgstr "Fichier d'export : JSON (%d Mo au plus)"
+
+msgid "First export for this domain: the next import will show the change."
+msgstr "Premier export de ce domaine : l'import suivant montrera l'évolution."
+
+msgid "History"
+msgstr "Historique"
+
+#, php-format
+msgid "Imported on %s"
+msgstr "Importé le %s"
+
+msgid ""
+"In the Explore page, run the query of the shortest paths to Domain Admins, "
+"then export the graph as JSON and import that file."
+msgstr ""
+"Dans la page Explore, lancez la requête des plus courts chemins vers Domain "
+"Admins, puis exportez le graphe en JSON et importez ce fichier."
+
+#, php-format
+msgid "Most exposed accounts (%d at most)"
+msgstr "Comptes les plus exposés (%d au plus)"
+
+msgid "No account has a path to Domain Admins in this export."
+msgstr "Aucun compte n'a de chemin vers Domain Admins dans cet export."
+
+msgid "No attack path export imported yet."
+msgstr "Aucun export de chemins d'attaque importé pour l'instant."
+
+msgid ""
+"Number of different rights or memberships that lead towards Domain Admins"
+msgstr ""
+"Nombre de droits ou d'appartenances différents qui mènent vers Domain Admins"
+
+msgid "Number of steps of the shortest path to Domain Admins"
+msgstr "Nombre de sauts du plus court chemin vers Domain Admins"
+
+msgid ""
+"Only the number of accounts with a path and the most exposed accounts (name, "
+"type, number of steps) are kept: no other property of the graph."
+msgstr ""
+"Seuls le nombre de comptes ayant un chemin et les comptes les plus exposés "
+"(nom, type, nombre de sauts) sont gardés : aucune autre propriété du graphe."
+
+msgid "Risk in the register"
+msgstr "Risque dans le registre"
+
+msgid "Risk in the register:"
+msgstr "Risque dans le registre :"
+
+msgid "Routes"
+msgstr "Routes"
+
+msgid ""
+"Run the analysis with Domain Admins as target, then export the graph as JSON "
+"(Cytoscape format) and import that file."
+msgstr ""
+"Lancez l'analyse avec Domain Admins comme cible, puis exportez le graphe en "
+"JSON (format Cytoscape) et importez ce fichier."
+
+msgid ""
+"The export gives no domain name: fill in the domain field of the import form."
+msgstr ""
+"L'export ne donne aucun nom de domaine : remplissez le champ du domaine du "
+"formulaire d'import."
+
+msgid ""
+"The graph contains no Domain Admins group: export the paths that lead to "
+"this group."
+msgstr ""
+"Le graphe ne contient aucun groupe Domain Admins : exportez les chemins qui "
+"mènent à ce groupe."
+
+msgid "The risk could not be created."
+msgstr "Le risque n'a pas pu être créé."
+
+msgid ""
+"The risk is pre-filled (maximum impact) and can then be reviewed in the "
+"register."
+msgstr ""
+"Le risque est pré-rempli (impact maximal) et se relit ensuite dans le "
+"registre."
+
+msgid ""
+"This file is an attack path graph (BloodHound CE or Adalanche): import it in "
+"the attack paths part of this page."
+msgstr ""
+"Ce fichier est un graphe de chemins d'attaque (BloodHound CE ou Adalanche) : "
+"importez-le dans la partie des chemins d'attaque de cette page."
+
+msgid ""
+"This file is not a graph exported from BloodHound CE or Adalanche (JSON with "
+"nodes and edges)."
+msgstr ""
+"Ce fichier n'est pas un graphe exporté de BloodHound CE ou d'Adalanche (JSON "
+"avec nœuds et liens)."
+
+msgid "Very large graph: only part of it was read."
+msgstr "Graphe très grand : seule une partie a été lue."
+
+#, php-format
+msgid "%d account with a path to Domain Admins"
+msgid_plural "%d accounts with a path to Domain Admins"
+msgstr[0] "%d compte ayant un chemin vers Domain Admins"
+msgstr[1] "%d comptes ayant un chemin vers Domain Admins"
+
+#, php-format
+msgid "%d computer"
+msgid_plural "%d computers"
+msgstr[0] "%d ordinateur"
+msgstr[1] "%d ordinateurs"
+
+#, php-format
+msgid "%d user"
+msgid_plural "%d users"
+msgstr[0] "%d utilisateur"
+msgstr[1] "%d utilisateurs"
+
+#, php-format
+msgid "Shortest path: %d step"
+msgid_plural "Shortest path: %d steps"
+msgstr[0] "Plus court chemin : %d saut"
+msgstr[1] "Plus court chemin : %d sauts"
+
+#, php-format
+msgid "Export imported: %d account with a path to Domain Admins."
+msgid_plural "Export imported: %d accounts with a path to Domain Admins."
+msgstr[0] "Export importé : %d compte ayant un chemin vers Domain Admins."
+msgstr[1] "Export importé : %d comptes ayant un chemin vers Domain Admins."
+
+#, php-format
+msgid ""
+"%1$s: %2$d account has a path to the Domain Admins group (shortest path: "
+"%3$d step). Details on the Active Directory security audit page."
+msgid_plural ""
+"%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
+"%3$d steps). Details on the Active Directory security audit page."
+msgstr[0] ""
+"%1$s : %2$d compte a un chemin vers le groupe Domain Admins (plus court "
+"chemin : %3$d saut). Détail sur la page de l'audit de sécurité de l'Active "
+"Directory."
+msgstr[1] ""
+"%1$s : %2$d comptes ont un chemin vers le groupe Domain Admins (plus court "
+"chemin : %3$d sauts). Détail sur la page de l'audit de sécurité de l'Active "
+"Directory."

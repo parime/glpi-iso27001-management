@@ -244,6 +244,11 @@ class AdSecurityAudit extends CommonGLPI
                     . 'Purple Knight security indicators, or the JSON results of Maester or ScubaGear.',
                 'grcmanager'
             ),
+            AdAuditReports::ERROR_ATTACK_PATH      => __(
+                'This file is an attack path graph (BloodHound CE or Adalanche): import it in the attack paths '
+                    . 'part of this page.',
+                'grcmanager'
+            ),
             CloudPostureReport::ERROR_NOT_CLOUD    => __(
                 'This JSON file is neither Maester results (TestResults) nor ScubaGear results (ScubaResults).',
                 'grcmanager'
