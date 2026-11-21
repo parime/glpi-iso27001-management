@@ -181,7 +181,7 @@ Html::header(
     \GlpiPlugin\Grcmanager\Risk::class,
     SupplierRisk::class
 );
-PageHelp::show('supplierevaluationfile');
+GlpiPluginGrcmanagerPageHelp::show('supplierevaluationfile');
 TemplateRenderer::getInstance()->display(
     '@grcmanager/supplier_evaluation_import.html.twig',
     SupplierEvaluationFile::previewData($evaluation, $parsed, (string) $pending['name'])
