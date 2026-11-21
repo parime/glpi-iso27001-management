@@ -107,6 +107,23 @@ final class BackupCoverageRules
         ],
     ];
 
+    /**
+     * En-tête comparable : sans accent (exports en français : « Dernière sauvegarde »), minuscules,
+     * lettres et chiffres seulement.
+     */
+    public static function normalizeHeader(string $header): string
+    {
+        return EdrCsvImport::normalizeHeader(self::withoutAccents($header));
+    }
+
+    private static function withoutAccents(string $value): string
+    {
+        return strtr(mb_strtolower($value), [
+            'à' => 'a', 'â' => 'a', 'ä' => 'a', 'ç' => 'c', 'é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e',
+            'î' => 'i', 'ï' => 'i', 'ô' => 'o', 'ö' => 'o', 'ù' => 'u', 'û' => 'u', 'ü' => 'u',
+        ]);
+    }
+
     public static function normalizeSource(mixed $source): string
     {
         $source = is_string($source) ? mb_strtolower(trim($source)) : '';
@@ -156,8 +173,7 @@ final class BackupCoverageRules
      */
     public static function normalizeResult(mixed $value): string
     {
-        $value = is_scalar($value) ? mb_strtolower(trim((string) $value)) : '';
-        $value = strtr($value, ['é' => 'e', 'è' => 'e', 'ê' => 'e']);
+        $value = is_scalar($value) ? self::withoutAccents(trim((string) $value)) : '';
         if ($value === '') {
             return self::RESULT_UNKNOWN;
         }
@@ -338,7 +354,7 @@ final class BackupCoverageRules
         foreach (self::FIELDS as $field => $aliases) {
             foreach ($aliases as $alias) {
                 foreach ($parsed['headers'] as $index => $header) {
-                    if (!in_array($index, $mapping, true) && EdrCsvImport::normalizeHeader($header) === $alias) {
+                    if (!in_array($index, $mapping, true) && self::normalizeHeader($header) === $alias) {
                         $mapping[$field] = $index;
                         break 2;
                     }
