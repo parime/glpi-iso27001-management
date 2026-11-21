@@ -120,6 +120,8 @@ phishing_matrix() {
 # Issue #864 : questionnaires fournisseurs. Le modèle et l'évaluation de A se lisent avec le droit des
 # registres sensibles ; répondre, envoyer une pièce, terminer ou modifier les questions exige de
 # modifier ; rien de B hors super-admin ; une pièce justificative est contrôlée (type réel du contenu).
+# Pages : front/supplierquestionnairetemplate.php, front/supplierquestionnairetemplate.form.php,
+# front/supplierevaluation.form.php.
 questionnaire_matrix() {
   local read=200 write=302 write_b=403 see_b=403 tab_a list answers upload
   case $ROLE in

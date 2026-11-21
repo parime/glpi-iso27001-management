@@ -140,8 +140,14 @@ final class SupplierEvaluationTest extends GrcmanagerIntegrationTestCase
     private function threeQuestions(): array
     {
         return [
-            ['section' => 'Data', 'question' => 'Is our data encrypted at rest?', 'weight' => 3, 'requires_evidence' => 1],
-            ['section' => 'Data', 'question' => 'Breach in the last 12 months?', 'expected_answer' => 'no', 'weight' => 1],
+            [
+                'section' => 'Data', 'question' => 'Is our data encrypted at rest?', 'weight' => 3,
+                'requires_evidence' => 1,
+            ],
+            [
+                'section' => 'Data', 'question' => 'Breach in the last 12 months?', 'expected_answer' => 'no',
+                'weight' => 1,
+            ],
             ['section' => 'Access', 'question' => 'Is MFA required?', 'weight' => 2],
             ['question' => ''],
         ];
@@ -160,7 +166,7 @@ final class SupplierEvaluationTest extends GrcmanagerIntegrationTestCase
         $fingerprint = $template->fingerprint();
 
         $result = SupplierQuestionnaireQuestion::saveQuestions($template, [
-            (int) $questions[0]['id'] => ['question' => 'Is our data encrypted at rest?', 'weight' => 99] + $questions[0],
+            (int) $questions[0]['id'] => ['weight' => 99] + $questions[0],
             (int) $questions[2]['id'] => ['delete' => 1],
         ], []);
         $template->getFromDB($template->getID());
@@ -270,12 +276,18 @@ final class SupplierEvaluationTest extends GrcmanagerIntegrationTestCase
         $north = $this->createTestEntity(0, 'PHPUnit North subsidiary');
         $south = $this->createTestEntity(0, 'PHPUnit South subsidiary');
         EntityPerimeter::reset();
-        $shared = $this->template([['question' => 'Shared question?']], ['name' => 'PHPUnit shared', 'is_recursive' => 1]);
+        $shared = $this->template(
+            [['question' => 'Shared question?']],
+            ['name' => 'PHPUnit shared', 'is_recursive' => 1]
+        );
         $southOnly = $this->template(
             [['question' => 'South question?']],
             ['name' => 'PHPUnit south only', 'entities_id' => $south]
         );
-        $inactive = $this->template([['question' => 'Old question?']], ['name' => 'PHPUnit inactive', 'is_active' => 0]);
+        $inactive = $this->template(
+            [['question' => 'Old question?']],
+            ['name' => 'PHPUnit inactive', 'is_active' => 0]
+        );
         $risk = $this->risk($north, 'PHPUnit north hosting');
 
         $available = SupplierQuestionnaireTemplate::availableFor($north);
@@ -359,7 +371,12 @@ final class SupplierEvaluationTest extends GrcmanagerIntegrationTestCase
         $ids = $this->answerIds($evaluation);
         $pdf = $this->file("%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF\n");
 
-        $documentsId = SupplierEvaluationAnswer::attachEvidence($evaluation, $ids['Q01'], $pdf, '../ISO 27001 certificate.pdf');
+        $documentsId = SupplierEvaluationAnswer::attachEvidence(
+            $evaluation,
+            $ids['Q01'],
+            $pdf,
+            '../ISO 27001 certificate.pdf'
+        );
         $this->assertGreaterThan(0, $documentsId);
         $this->documents[] = $documentsId;
         $document = new Document();
@@ -376,7 +393,8 @@ final class SupplierEvaluationTest extends GrcmanagerIntegrationTestCase
             RestrictedDocument::sourceOf($documentsId),
             'lisible avec les droits du risque fournisseur'
         );
-        $this->assertSame($documentsId, (int) SupplierEvaluationAnswer::getAnswers($evaluation->getID())[0]['documents_id']);
+        $answers = SupplierEvaluationAnswer::getAnswers($evaluation->getID());
+        $this->assertSame($documentsId, (int) $answers[0]['documents_id']);
 
         // Faux PDF (du PHP), type interdit, fichier trop gros, question d'une autre évaluation : refusés.
         $this->assertSame(0, SupplierEvaluationAnswer::attachEvidence(

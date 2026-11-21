@@ -1646,7 +1646,10 @@ foreach (['A' => [$a, 'supplierrisk'], 'B' => [$b, 'supplierrisk_B']] as $suffix
     $ids['questionnaire_' . $suffix] = (int) $questionnaire->getID();
     $evaluationRow = $DB->request([
         'SELECT' => ['id'], 'FROM' => 'glpi_plugin_grcmanager_supplierevaluations',
-        'WHERE'  => ['plugin_grcmanager_supplierrisks_id' => $ids[$riskKey], 'name' => 'Evaluation securite ' . $suffix],
+        'WHERE'  => [
+            'plugin_grcmanager_supplierrisks_id' => $ids[$riskKey],
+            'name'                               => 'Evaluation securite ' . $suffix,
+        ],
     ])->current();
     $ids['evaluation_' . $suffix] = $evaluationRow !== null ? (int) $evaluationRow['id'] : $add(
         new \GlpiPlugin\Grcmanager\SupplierEvaluation(),

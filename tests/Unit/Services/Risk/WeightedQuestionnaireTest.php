@@ -75,11 +75,12 @@ final class WeightedQuestionnaireTest extends TestCase
 
     public function testTheSummaryCountsGapsAndMissingEvidence(): void
     {
+        $evidence = ['expected_answer' => 'yes', 'weight' => 1, 'requires_evidence' => 1];
         $summary = Rules::summary([
-            ['answer' => 'yes', 'expected_answer' => 'yes', 'weight' => 1, 'requires_evidence' => 1, 'documents_id' => 0],
-            ['answer' => 'yes', 'expected_answer' => 'yes', 'weight' => 1, 'requires_evidence' => 1, 'documents_id' => 12],
+            ['answer' => 'yes', 'documents_id' => 0] + $evidence,
+            ['answer' => 'yes', 'documents_id' => 12] + $evidence,
             ['answer' => 'partial', 'expected_answer' => 'yes', 'weight' => 2],
-            ['answer' => 'na', 'expected_answer' => 'yes', 'weight' => 1, 'requires_evidence' => 1, 'documents_id' => 0],
+            ['answer' => 'na', 'documents_id' => 0] + $evidence,
             ['answer' => '', 'expected_answer' => 'yes', 'weight' => 1, 'requires_evidence' => 1],
         ]);
 
