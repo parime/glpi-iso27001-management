@@ -6354,10 +6354,11 @@ msgstr "Najbardziej narażone maszyny"
 
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
+"software, operating system and firmware, to know where to start updating."
 msgstr ""
 "Maszyny najbardziej narażone na znane podatności obserwowanego "
-"oprogramowania, aby wiedzieć, od czego zacząć aktualizacje."
+"oprogramowania, systemu operacyjnego i firmware'u, aby wiedzieć, od czego "
+"zacząć aktualizacje."
 
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "

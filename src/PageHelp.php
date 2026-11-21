@@ -1063,8 +1063,8 @@ class PageHelp
             ],
             'parkmachines' => [
                 'purpose'  => __(
-                    'The machines most exposed to the known vulnerabilities of their watched software, to know '
-                        . 'where to start updating.',
+                    'The machines most exposed to the known vulnerabilities of their watched software, operating '
+                        . 'system and firmware, to know where to start updating.',
                     'grcmanager'
                 ),
                 'expected' => __(

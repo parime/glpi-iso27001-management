@@ -12257,12 +12257,6 @@ msgid ""
 "CPE, confirm it, or ignore software with no stakes."
 msgstr ""
 
-#: src/PageHelp.php:1047
-msgid ""
-"The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
-msgstr ""
-
 #: src/PageHelp.php:1052
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
@@ -32490,3 +32484,8 @@ msgid ""
 "Checklist, findings, actions and zones of this assessment, for the auditor."
 msgstr ""
 
+#: src/PageHelp.php:1063
+msgid ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, operating system and firmware, to know where to start updating."
+msgstr ""
