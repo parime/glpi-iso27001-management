@@ -24,9 +24,12 @@ use Document_Item;
 use GlpiPlugin\Grcmanager\Competence;
 use GlpiPlugin\Grcmanager\CompetenceDeclaration;
 use GlpiPlugin\Grcmanager\CompetenceExport;
+use GlpiPlugin\Grcmanager\CompetenceGapAlert;
+use GlpiPlugin\Grcmanager\Install\CompetenceTables;
 use GlpiPlugin\Grcmanager\CompetenceMatrix;
 use GlpiPlugin\Grcmanager\IsmsFunction;
 use GlpiPlugin\Grcmanager\IsmsRequirement;
+use GlpiPlugin\Grcmanager\ResponsibilityActivity;
 use GlpiPlugin\Grcmanager\RestrictedDocument;
 use GlpiPlugin\Grcmanager\Services\Competence\CompetenceRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Competence\DefaultCompetences;
@@ -350,6 +353,131 @@ final class CompetenceTest extends GrcmanagerIntegrationTestCase
         $this->assertNull($summary['gaps_unplanned']);
         $this->assertNull($summary['without_holders']);
         $this->assertSame(0, CompetenceMatrix::dashboardCard()['number']);
+    }
+
+    public function testHoldersFollowTheResponsibilityMatrix(): void
+    {
+        $alice = $this->member('Alice');
+        $bob = $this->member('Bob');
+        $carol = $this->member('Carol');
+        $group = (int) (new Group())->add(['name' => 'PHPUnit groupe RACI', 'entities_id' => 0, 'is_recursive' => 1]);
+        (new Group_User())->add(['groups_id' => $group, 'users_id' => $carol]);
+        $activity = new ResponsibilityActivity();
+        $activityId = (int) $activity->add([
+            'name' => 'PHPUnit sauvegardes fictives', 'entities_id' => 0, 'is_recursive' => 1,
+        ]);
+        $this->assertGreaterThan(0, $activityId);
+        foreach (
+            [['responsible', '_add_users_id', $alice], ['responsible', '_add_groups_id', $group],
+                ['accountable', '_add_users_id', $bob]] as [$role, $field, $id]
+        ) {
+            $activity->update(['id' => $activityId, '_add_role' => $role, $field => $id]);
+        }
+
+        $function = $this->func('PHPUnit administrateur des sauvegardes');
+        $functionId = (int) $function->getID();
+        $function->update([
+            'id' => $functionId, '_add_responsibilityactivities_id' => $activityId, '_add_raci_role' => 'responsible',
+        ]);
+        // Rôle inconnu : ramené à « réalise », sans doublon.
+        $function->update([
+            'id' => $functionId, '_add_responsibilityactivities_id' => $activityId, '_add_raci_role' => 'bogus',
+        ]);
+        $holders = IsmsFunction::holdersFor([$functionId])[$functionId] ?? [];
+        $this->assertCount(1, $holders);
+        $this->assertSame(ResponsibilityActivity::class, $holders[0]['itemtype']);
+        $this->assertSame('responsible', $holders[0]['role']);
+        $this->assertStringContainsString(
+            'PHPUnit sauvegardes fictives',
+            IsmsFunction::holderLabels($holders)[IsmsFunction::holderKey($holders[0])] ?? ''
+        );
+
+        // Ceux qui réalisent l'activité (directement ou par leur groupe) tiennent la fonction ; celui
+        // qui approuve, non.
+        $members = CompetenceMatrix::members([$functionId => $holders])[$functionId];
+        sort($members);
+        $expected = [$alice, $carol];
+        sort($expected);
+        $this->assertSame($expected, $members);
+
+        // La fonction suit la matrice : Alice ne réalise plus l'activité, elle ne tient plus la fonction.
+        foreach (ResponsibilityActivity::assignmentsFor([$activityId])[$activityId] as $row) {
+            if ($row['itemtype'] === 'User' && $row['items_id'] === $alice) {
+                $activity->update(['id' => $activityId, '_remove_assignments' => [$row['id']]]);
+            }
+        }
+        $this->assertSame([$carol], CompetenceMatrix::members([$functionId => $holders])[$functionId]);
+
+        // Activité d'une autre entité, non récursive : refusée.
+        $entityB = $this->createTestEntity(0, 'Entité fictive RACI 774');
+        $other = $this->func('PHPUnit fonction de B', [], $entityB);
+        $rootOnly = (int) $activity->add([
+            'name' => 'PHPUnit activité racine', 'entities_id' => 0, 'is_recursive' => 0,
+        ]);
+        $this->assertFalse(IsmsFunction::activityAllowed($rootOnly, $entityB, true));
+        $other->update([
+            'id' => $other->getID(), '_add_responsibilityactivities_id' => $rootOnly, '_add_raci_role' => 'responsible',
+        ]);
+        $this->assertSame([], IsmsFunction::holdersFor([(int) $other->getID()])[(int) $other->getID()] ?? []);
+        $this->assertArrayHasKey($activityId, IsmsFunction::activityChoices(0, true));
+        $this->assertArrayNotHasKey($rootOnly, IsmsFunction::activityChoices($entityB, true));
+
+        // Activité supprimée : la fonction ne s'y réfère plus.
+        $activity->delete(['id' => $activityId], true);
+        $this->assertSame(0, countElementsInTable(CompetenceTables::HOLDERS, [
+            'itemtype' => ResponsibilityActivity::class, 'items_id' => $activityId,
+        ]));
+    }
+
+    public function testUnplannedGapsAreReportedOnce(): void
+    {
+        global $DB;
+
+        $DB->delete(CompetenceGapAlert::getTable(), ['id' => ['>', 0]]);
+        $alice = $this->member('Alice');
+        $bob = $this->member('Bob');
+        $competence = $this->competence('PHPUnit compétence alertée');
+        $trainingId = (int) (new Training())->add(['title' => 'PHPUnit formation alertée']);
+        (new Competence())->update([
+            'id' => $competence, '_add_trainings_id' => $trainingId, '_add_training_level' => 2,
+        ]);
+        $function = $this->func('PHPUnit fonction alertée');
+        foreach ([$alice, $bob] as $user) {
+            $function->update(['id' => $function->getID(), '_add_users_id' => $user]);
+        }
+        $function->update(['id' => $function->getID(), '_add_competences_id' => $competence, '_add_level' => 2]);
+        // Bob est déjà inscrit : son écart a une formation planifiée, il n'est pas signalé.
+        $DB->insert('glpi_plugin_grcmanager_trainings_users', [
+            'plugin_grcmanager_trainings_id' => $trainingId, 'users_id' => $bob,
+            'completion_status' => 'pending', 'assessment_result' => 'not_applicable',
+        ]);
+
+        $this->assertGreaterThanOrEqual(1, CompetenceGapAlert::runAlerts());
+        $alert = new CompetenceGapAlert();
+        $last = $DB->request(['FROM' => CompetenceGapAlert::getTable(), 'ORDER' => 'id DESC', 'LIMIT' => 1])->current();
+        $this->assertIsArray($last);
+        $this->assertTrue($alert->getFromDB((int) $last['id']));
+        $own = array_values(array_filter(
+            $alert->gaps(),
+            static fn (array $gap): bool => $gap['competence_id'] === $competence
+        ));
+        $this->assertCount(1, $own, 'Seul l\'écart sans formation planifiée est signalé.');
+        $this->assertSame($alice, $own[0]['person']);
+        $this->assertSame(2, $own[0]['level']);
+        $this->assertSame([$trainingId], $own[0]['trainings']);
+        $this->assertSame(0, CompetenceGapAlert::runAlerts(), 'Un écart n\'est signalé qu\'une fois.');
+        $this->assertSame(0, countElementsInTable(Training::getTable(), [
+            'plugin_grcmanager_trainings_id' => $trainingId,
+        ]), 'Aucune session créée.');
+
+        $target = \NotificationTarget::getInstance($alert, CompetenceGapAlert::EVENT);
+        $this->assertNotFalse($target);
+        $target->addDataForTemplate(CompetenceGapAlert::EVENT);
+        $this->assertStringContainsString('PHPUnit compétence alertée', $target->data['##competencegaps.gaps##']);
+        $this->assertStringContainsString('PHPUnit formation alertée', $target->data['##competencegaps.gaps##']);
+        $this->assertStringContainsString('ismsfunction.php', $target->data['##competencegaps.url##']);
+        // Sans le droit du plugin ni la lecture des utilisateurs : rien n'est reçu.
+        $this->assertFalse($target->validateSendTo(CompetenceGapAlert::EVENT, ['users_id' => $alice]));
     }
 
     public function testClauseSummaryAndArchiveAsEvidence(): void

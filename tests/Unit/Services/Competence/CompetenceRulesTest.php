@@ -105,6 +105,21 @@ final class CompetenceRulesTest extends TestCase
         $this->assertSame([], Rules::plannedFor(1, []));
     }
 
+    public function testOnlyNewGapsAreReported(): void
+    {
+        $this->assertSame('4|7|2', Rules::gapKey(4, 7, 2));
+        $this->assertSame('4|7|1', Rules::gapKey(4, 7, 9), 'Niveau inconnu ramené à 1.');
+        $gaps = [
+            ['person' => 4, 'competence_id' => 7, 'level' => 2],
+            ['person' => 4, 'competence_id' => 8, 'level' => 2],
+            ['person' => 5, 'competence_id' => 7, 'level' => 3],
+        ];
+        $this->assertSame($gaps, Rules::newGaps($gaps, []));
+        $this->assertSame([$gaps[1]], Rules::newGaps($gaps, ['4|7|2' => true, '5|7|3' => true]));
+        // Un niveau exigé plus haut est un nouvel écart.
+        $this->assertSame([$gaps[2]], Rules::newGaps([$gaps[2]], ['5|7|2' => true]));
+    }
+
     public function testDefaultCatalogIsConsistent(): void
     {
         foreach (DefaultCompetences::FUNCTIONS as $requirements) {
