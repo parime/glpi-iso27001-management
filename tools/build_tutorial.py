@@ -14,6 +14,8 @@ Usage :
     python3 tools/build_tutorial.py --check    vérifie les fragments (CI), n'écrit rien
     python3 tools/build_tutorial.py --stdout   affiche le résultat sans l'écrire
     python3 tools/build_tutorial.py --check-file   vérifie aussi que docs/TUTORIAL.md est à jour
+    python3 tools/build_tutorial.py --import   migration : chaque étape écrite à la main dans
+                                               docs/TUTORIAL.md devient un fragment, puis réassemble
 
 docs/TUTORIAL.md n'est réécrit qu'à la publication (release_bump.py) : une PR ajoute un fragment et
 ne touche pas à TUTORIAL.md, ce qui supprime les conflits et les numéros d'étape écrits à la main.
@@ -91,7 +93,56 @@ def render(steps, number, errors):
     return '\n'.join(out)
 
 
+def parse_target():
+    """Étapes de docs/TUTORIAL.md par langue : liste de (titre, corps)."""
+    text = read(TARGET)
+    steps = {}
+    for i, (lang, section, fmt) in enumerate(LANGS):
+        start = text.index(section + '\n')
+        end = text.index(LANGS[i + 1][1] + '\n') if i + 1 < len(LANGS) else len(text)
+        head = re.escape(fmt.split('{n}')[0]) + r'\d+(?:\s*bis|[a-z])?' + re.escape(fmt.split('{n}')[1].split('{title}')[0])
+        parts = re.split(r'^' + head + r'(.*)$', text[start:end], flags=re.M)
+        steps[lang] = [(parts[k].strip(), parts[k + 1].strip('\n')) for k in range(1, len(parts) - 1, 2)
+                       if parts[k + 1].strip()]
+    return steps
+
+
+def import_manual_steps():
+    """Migration : crée un fragment pour chaque étape écrite à la main dans docs/TUTORIAL.md."""
+    known = {lang: set() for lang, _, _ in LANGS}
+    for lang, _, _ in LANGS:
+        folder = os.path.join(FRAG, lang)
+        for f in os.listdir(folder):
+            if f != '_intro.md':
+                known[lang].add(read(os.path.join(folder, f)).split('\n', 1)[0][4:].strip())
+    found = parse_target()
+    new = {lang: [s for s in found[lang] if s[0] not in known[lang]] for lang, _, _ in LANGS}
+    counts = {len(v) for v in new.values()}
+    if len(counts) != 1:
+        print('::error::étapes ajoutées à la main : %s ; nombre différent selon la langue, créer les fragments '
+              'à la main' % ', '.join('%s %d' % (k, len(v)) for k, v in new.items()))
+        return 1
+    existing = [f for f in os.listdir(os.path.join(FRAG, LANGS[0][0])) if NAME.match(f)]
+    last = max(int(f[:4]) for f in existing) if existing else 0
+    en = [lg for lg, _, _ in LANGS if lg == 'en'] or [LANGS[-1][0]]
+    for k in range(counts.pop()):
+        last += 10
+        words = [w for w in re.findall(r'[a-z0-9]+', re.sub(r'\(.*?\)', '', new[en[0]][k][0].lower()))
+                 if len(w) > 2][:5]
+        name = '%04d-%s.md' % (last, '-'.join(words) or 'step')
+        for lang, _, _ in LANGS:
+            title, body = new[lang][k]
+            with open(os.path.join(FRAG, lang, name), 'w', encoding='utf-8', newline='\n') as fh:
+                fh.write('### ' + title + '\n\n' + body.strip('\n') + '\n')
+        print('tutoriel : fragment créé %s (%s)' % (name, new[en[0]][k][0]))
+    return 0
+
+
 def main(argv):
+    if '--import' in argv:
+        status = import_manual_steps()
+        if status:
+            return status
     steps, number, errors = load()
     result = render(steps, number, errors)
     if errors:
@@ -102,8 +153,9 @@ def main(argv):
         current = read(TARGET) if os.path.exists(TARGET) else ''
         if current != result:
             print('::error::docs/TUTORIAL.md ne correspond pas aux fragments de docs/tutorial/. Ne modifiez pas '
-                  'TUTORIAL.md à la main : ajoutez un fragment (voir CONTRIBUTING.md, « Ajouter une '
-                  'fonctionnalité sans conflit »).')
+                  'TUTORIAL.md à la main : ajoutez un fragment (docs/ARCHITECTURE.md, « Ajouter une '
+                  'fonctionnalité sans conflit »). Étape déjà écrite dans TUTORIAL.md : '
+                  'python3 tools/build_tutorial.py --import la transforme en fragment.')
             return 1
         print('tutoriel : docs/TUTORIAL.md à jour (%d étapes)' % len(steps))
         return 0

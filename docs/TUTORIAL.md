@@ -1259,7 +1259,7 @@ dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateu
    insuffisante et la date du calcul. Les indicateurs de risque proposent la source « Actifs
    critiques sans journalisation (%) ».
 
-### Étape 39 : Mesurer la conformité de configuration avec OpenSCAP (mesure A.8.9)
+### Étape 42 : Mesurer la conformité de configuration avec OpenSCAP (mesure A.8.9)
 
 OpenSCAP vérifie une machine contre un guide de durcissement (profils CIS, ANSSI, DISA STIG… du
 projet SCAP Security Guide) et produit un fichier de résultats XCCDF ou ARF. Le plugin lit ce
@@ -2464,7 +2464,7 @@ need the plugin right and the native right to read computers.
    assets without logging, the platforms whose retention is not enough and the date of the
    computation. Risk indicators offer the source "Critical assets without logging (%)".
 
-### Step 40: Measure configuration compliance with OpenSCAP (control A.8.9)
+### Step 42: Measure configuration compliance with OpenSCAP (control A.8.9)
 
 OpenSCAP checks a machine against a hardening guide (CIS, ANSSI, DISA STIG... profiles of the SCAP
 Security Guide project) and writes an XCCDF or ARF results file. The plugin reads this file: it

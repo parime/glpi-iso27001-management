@@ -31,6 +31,9 @@ découverts et assemblés automatiquement, sans modifier les listes centrales.
   correspond pas aux fragments. Pour relire le résultat : `python3 tools/build_tutorial.py --stdout`.
   La CI vérifie aussi qu'il ne manque aucune langue et que chaque `{{step:...}}` existe
   (`--check`).
+- Branche commencée avant les fragments, qui a ajouté son étape dans `TUTORIAL.md` : après avoir
+  ramené `dev`, `python3 tools/build_tutorial.py --import` crée les fragments des étapes écrites à
+  la main et réassemble le fichier (relire le nom et le numéro du fragment créé).
 
 ## 🇬🇧 English
 
@@ -62,3 +65,6 @@ without changing the central lists.
   released (release tool). A pull request does not change it; CI rejects a change that does not
   match the fragments. To review the result: `python3 tools/build_tutorial.py --stdout`. CI also
   checks that no language is missing and that every `{{step:...}}` exists (`--check`).
+- Branch started before the fragments, which added its step to `TUTORIAL.md`: after merging
+  `dev`, `python3 tools/build_tutorial.py --import` creates the fragments of the steps written by
+  hand and reassembles the file (check the name and number of the created fragment).
