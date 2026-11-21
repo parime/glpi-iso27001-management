@@ -687,6 +687,8 @@
          {% include '@grcmanager/_server_management_evidence.html.twig' with {'evidence': server_management} only %}
       {% endset %}
       {{ fields.htmlField('', server_management_html, __('Server management controllers', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #846 : droits sur les partages de fichiers Windows (A.5.15, A.5.18, A.8.3), dans les entités de la personne. #}
    {% if share_access is defined and share_access is not null %}
       {% set share_access_html %}
