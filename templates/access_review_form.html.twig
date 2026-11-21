@@ -28,6 +28,30 @@
    {{ fields.dropdownField('User', 'users_id', pilot, _x('process pilot', 'Owner', 'grcmanager'), {'right': 'all'}) }}
    {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', control_id, controls, __('SoA control', 'grcmanager')) }}
    {{ fields.textareaField('comment', item.fields['comment'], __('Comment', 'grcmanager'), {'full_width': true}) }}
+   {# Issue #866 : règles qui pré-remplissent chaque compte d'une suggestion et de sa raison #}
+   <div class="col-12 mb-3">
+      <div class="card border-0 bg-light-subtle">
+         <div class="card-body py-2">
+            <div class="fw-bold mb-1"><i class="ti ti-bulb me-1 text-warning"></i>{{ __('Suggestion rules', 'grcmanager') }}</div>
+            <div class="text-muted small mb-2">{{ __('Each account arrives with a suggestion (keep, remove or examine) and its reason. The suggestion never decides: the reviewer chooses, and keeping an account the rules suggest removing requires a comment.', 'grcmanager') }}</div>
+            <div class="d-flex flex-wrap gap-2 small mb-1">
+               <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-user-x me-1"></i>{{ __('Remove: deleted from the directory, end date or departure passed', 'grcmanager') }}</span>
+               <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-zoom-question me-1"></i>{{ __('Examine: leaving soon, inactive, groups changed, privileged profile', 'grcmanager') }}</span>
+               <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-user-check me-1"></i>{{ __('Keep: no warning sign', 'grcmanager') }}</span>
+            </div>
+         </div>
+      </div>
+   </div>
+   <input type="hidden" name="_suggestion_rules_form" value="1">
+   {{ fields.dropdownArrayField('suggestion_rules[inactive_days]', suggestion_rules.inactive_days, inactive_days, __('Inactive account: no login for', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('suggestion_rules[leaving_days]', suggestion_rules.leaving_days, leaving_days, __('Leaving soon: end date or departure within', 'grcmanager')) }}
+   {{ fields.checkboxField('suggestion_rules[privileged]', suggestion_rules.privileged ? 1 : 0, __('Examine privileged profiles', 'grcmanager'), {
+      'helper': __('Profiles that can change the GLPI configuration or profiles.', 'grcmanager'),
+   }) }}
+   {{ fields.checkboxField('suggestion_rules[mfa]', suggestion_rules.mfa ? 1 : 0, __('Mention privileged accounts without known MFA', 'grcmanager'), {
+      'helper': __('From the MFA coverage page: GLPI two-factor authentication or imported report.', 'grcmanager'),
+   }) }}
+   {{ fields.checkboxField('suggestion_rules[group_change]', suggestion_rules.group_change ? 1 : 0, __('Examine group changes without profile review', 'grcmanager')) }}
    {% if is_new %}
       <div class="col-12 mb-3 text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Once saved, open the "Accounts to review" tab to launch the campaign. Reviewers are notified; the plugin never changes any right.', 'grcmanager') }}</div>
    {% endif %}
