@@ -29724,7 +29724,7 @@ msgstr ""
 "gespeichert."
 
 msgid "Not saved: the address must start with https:// (or http:// when internal addresses are allowed), without user name, password or parameters."
-msgstr "Nicht gespeichert: Die Adresse muss mit https:// beginnen (oder http://, wenn interne Adressen erlaubt sind), ohne Benutzername, Passwort oder Parameter."
+msgstr "Nicht gespeichert: Die Adresse muss mit https:// beginnen (oder http:// bei erlaubten internen Adressen), ohne Benutzername, Passwort oder Parameter."
 
 msgid "Zabbix settings saved."
 msgstr "Zabbix-Einstellungen gespeichert."
