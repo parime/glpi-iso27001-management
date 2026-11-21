@@ -619,7 +619,7 @@ class ControlTest extends ControlTestBase
         }
         $input = [
             'name'                    => $name,
-            'entities_id'             => (int) Session::getActiveEntity(),
+            'entities_id'             => (int) ($extra['entities_id'] ?? Session::getActiveEntity()),
             'is_recursive'            => 0,
             '_filename'               => [$prefix . $name],
             '_prefix_filename'        => [$prefix],

@@ -681,6 +681,22 @@
       {{ fields.htmlField('', log_coverage_html, __('Logging coverage', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #846 : droits sur les partages de fichiers Windows (A.5.15, A.5.18, A.8.3), dans les entités de la personne. #}
+   {% if share_access is defined and share_access is not null %}
+      {% set share_access_html %}
+         <div id="grc-share-access-evidence">
+            <span class="badge bg-azure-subtle text-azure-emphasis me-1"><i class="ti ti-folder-share me-1"></i>{{ __('%d file share(s) imported', 'grcmanager')|format(share_access.shares) }}</span>
+            <span class="badge {{ share_access.gap_shares > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d share(s) with a gap', 'grcmanager')|format(share_access.gap_shares) }}</span>
+            {% if share_access.broad_write > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-world me-1"></i>{{ __('%d right(s) letting everyone modify', 'grcmanager')|format(share_access.broad_write) }}</span>{% endif %}
+            {% if share_access.stale_accounts > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-user-x me-1"></i>{{ __('%d right(s) of deleted or disabled accounts', 'grcmanager')|format(share_access.stale_accounts) }}</span>{% endif %}
+            <span class="badge {{ share_access.reviewed < share_access.shares ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-checklist me-1"></i>{{ __('%1$d of %2$d share(s) reviewed in the last 12 months', 'grcmanager')|format(share_access.reviewed, share_access.shares) }}</span>
+            <span class="small text-muted me-2">{{ __('Computed on %s', 'grcmanager')|format(share_access.date) }}</span>
+            <a href="{{ share_access.url }}">{{ __('View the details', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', share_access_html, __('File share access rights', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #604 : simulations d'hameçonnage (A.6.3), taux agrégés et tendance. #}
    {% if phishing is defined and phishing is not null %}
       {% set phishing_html %}
