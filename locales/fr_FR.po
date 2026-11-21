@@ -6362,10 +6362,11 @@ msgstr "Machines les plus exposées"
 
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
+"software, operating system and firmware, to know where to start updating."
 msgstr ""
 "Les machines les plus exposées aux vulnérabilités connues de leurs logiciels "
-"surveillés, pour savoir par où commencer les mises à jour."
+"surveillés, de leur système d'exploitation et de leurs firmwares, pour "
+"savoir par où commencer les mises à jour."
 
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
@@ -28262,94 +28263,6 @@ msgid_plural "Blocked controls"
 msgstr[0] "Mesure bloquée"
 msgstr[1] "Mesures bloquées"
 
-msgid "Review of the distribution list recorded."
-msgstr "Revue de la liste de diffusion enregistrée."
-
-msgid "Review overdue (more than 12 months)"
-msgstr "Revue en retard (plus de 12 mois)"
-
-#, php-format
-msgid "Last review on %1$s by %2$s, next one before %3$s."
-msgstr "Dernière revue le %1$s par %2$s, prochaine avant le %3$s."
-
-msgid ""
-"Check once a year that each recipient, deputy and address is still right."
-msgstr ""
-"Vérifiez une fois par an que chaque destinataire, suppléant et adresse est "
-"toujours juste."
-
-msgid "Mark the list as reviewed today"
-msgstr "Marquer la liste comme revue aujourd'hui"
-
-msgid "Role in the list"
-msgstr "Rôle dans la liste"
-
-msgid "Main recipient"
-msgstr "Destinataire principal"
-
-#, php-format
-msgid "Deputy of %s"
-msgstr "Suppléant de %s"
-
-msgid "Deputy"
-msgstr "Suppléant"
-
-msgid "No deputy"
-msgstr "Sans suppléant"
-
-msgid ""
-"The addresses of the members are included when you copy or export the "
-"addresses."
-msgstr ""
-"Les adresses des membres sont reprises quand vous copiez ou exportez les "
-"adresses."
-
-msgid "Distribution list last reviewed on"
-msgstr "Liste de diffusion revue le"
-
-msgid "Crisis communications"
-msgstr "Communications de crise"
-
-#, php-format
-msgid ""
-"%d main recipient has no deputy: if they cannot be reached during a crisis, "
-"nobody else is planned."
-msgid_plural ""
-"%d main recipients have no deputy: if they cannot be reached during a "
-"crisis, nobody else is planned."
-msgstr[0] ""
-"%d destinataire principal n'a pas de suppléant : s'il est injoignable "
-"pendant une crise, personne d'autre n'est prévu."
-msgstr[1] ""
-"%d destinataires principaux n'ont pas de suppléant : s'ils sont injoignables "
-"pendant une crise, personne d'autre n'est prévu."
-
-#, php-format
-msgid "%d member without email"
-msgid_plural "%d members without email"
-msgstr[0] "%d membre sans courriel"
-msgstr[1] "%d membres sans courriel"
-
-#, php-format
-msgid "%d distribution list not reviewed within 12 months"
-msgid_plural "%d distribution lists not reviewed within 12 months"
-msgstr[0] "%d liste de diffusion non revue depuis 12 mois"
-msgstr[1] "%d listes de diffusion non revues depuis 12 mois"
-
-#, php-format
-msgid "%d main recipient without deputy"
-msgid_plural "%d main recipients without deputy"
-msgstr[0] "%d destinataire principal sans suppléant"
-msgstr[1] "%d destinataires principaux sans suppléant"
-
-msgid ""
-"The machines most exposed to the known vulnerabilities of their watched "
-"software, operating system and firmware, to know where to start updating."
-msgstr ""
-"Les machines les plus exposées aux vulnérabilités connues de leurs logiciels "
-"surveillés, de leur système d'exploitation et de leurs firmwares, pour "
-"savoir par où commencer les mises à jour."
-
 msgid "Hardware whose model has reached the manufacturer end of life"
 msgstr "Matériel dont le modèle a atteint la fin de vie constructeur"
 
@@ -28839,6 +28752,318 @@ msgid ""
 msgstr ""
 "Grille, constats, actions et zones de cette évaluation, pour l'auditeur."
 
+#, php-format
+msgid ""
+"%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
+msgstr ""
+"%1$d compte(s) importé(s) : %2$d rapproché(s) d'un compte GLPI, %3$d non "
+"rapproché(s)."
+
+msgid "Import deleted."
+msgstr "Import supprimé."
+
+msgid "Remote access groups saved."
+msgstr "Groupes d'accès distant enregistrés."
+
+#, php-format
+msgid "Administrators protected by MFA (%)"
+msgstr "Administrateurs protégés par MFA (%)"
+
+msgid "MFA coverage"
+msgstr "Couverture MFA"
+
+msgid "Microsoft Entra ID"
+msgstr "Microsoft Entra ID"
+
+msgid "Okta"
+msgstr "Okta"
+
+msgid "Google Workspace"
+msgstr "Google Workspace"
+
+msgid "On-premises MFA solution"
+msgstr "Solution MFA sur site"
+
+msgid "Other identity provider"
+msgstr "Autre fournisseur d'identité"
+
+msgid "MFA"
+msgstr "MFA"
+
+msgid "Weak method only"
+msgstr "Méthode faible seule"
+
+msgid "No MFA"
+msgstr "Sans MFA"
+
+msgid "Administrator without MFA"
+msgstr "Administrateur sans MFA"
+
+msgid "Remote access without MFA"
+msgstr "Accès distant sans MFA"
+
+msgid "SMS, call or email only"
+msgstr "SMS, appel ou e-mail seul"
+
+msgid "Excluded without justification"
+msgstr "Exclu sans justification"
+
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"login, userPrincipalName or email."
+msgstr ""
+"Aucune colonne de compte trouvée : le fichier doit avoir un en-tête avec une "
+"colonne comme login, userPrincipalName ou email."
+
+msgid ""
+"No method column found: the file needs a column such as methodsRegistered, "
+"methods or isMfaRegistered."
+msgstr ""
+"Aucune colonne de méthode trouvée : le fichier doit avoir une colonne comme "
+"methodsRegistered, methods ou isMfaRegistered."
+
+msgid "The file could not be read."
+msgstr "Le fichier n'a pas pu être lu."
+
+msgid "GLPI two-factor authentication"
+msgstr "Double authentification de GLPI"
+
+msgid "GLPI authenticator app"
+msgstr "Application d'authentification (GLPI)"
+
+#, php-format
+msgid "MFA: %1$d%% of the accounts, %2$d administrator(s) without MFA"
+msgstr "MFA : %1$d %% des comptes, %2$d administrateur(s) sans MFA"
+
+msgid ""
+"Shows which active accounts are protected by multi-factor authentication: "
+"GLPI two-factor authentication, and the methods registered with your "
+"identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises "
+"solution) imported from a CSV export. Rates are given for all accounts, "
+"administrators and remote access accounts."
+msgstr ""
+"Montre quels comptes actifs sont protégés par une authentification "
+"multifacteur : double authentification de GLPI, et méthodes enregistrées "
+"chez votre fournisseur d'identité (Microsoft Entra ID, Okta, Google "
+"Workspace, solution sur site) importées depuis un export CSV. Les taux sont "
+"donnés pour tous les comptes, les administrateurs et les comptes à accès "
+"distant."
+
+msgid ""
+"Import the export of your identity provider, choose the remote access "
+"groups, then follow up the gaps: administrator or remote access without MFA, "
+"SMS or call only, account excluded without justification. Nothing is changed "
+"automatically. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+msgstr ""
+"Importez l'export de votre fournisseur d'identité, choisissez les groupes "
+"d'accès distant, puis traitez les écarts : administrateur ou accès distant "
+"sans MFA, SMS ou appel seul, compte exclu sans justification. Rien n'est "
+"modifié automatiquement. Enregistrez le résultat comme test d'efficacité de "
+"la mesure pour garder la preuve."
+
+msgid "ISO/IEC 27001, controls A.8.5 and A.5.17"
+msgstr "ISO/IEC 27001, mesures A.8.5 et A.5.17"
+
+msgid "Administrators without MFA"
+msgstr "Administrateurs sans MFA"
+
+#, php-format
+msgid "Administrators without MFA: %d"
+msgstr "Administrateurs sans MFA : %d"
+
+#, php-format
+msgid "Administrators: %d%%"
+msgstr "Administrateurs : %d %%"
+
+#, php-format
+msgid "MFA rate: %d%%"
+msgstr "Taux de MFA : %d %%"
+
+msgid "MFA rate: not measured"
+msgstr "Taux de MFA : non mesuré"
+
+#, php-format
+msgid "Remote access: %d%%"
+msgstr "Accès distant : %d %%"
+
+#, php-format
+msgid "%1$d accounts: the first %2$d are shown, gaps first."
+msgstr "%1$d comptes : les %2$d premiers sont affichés, écarts d'abord."
+
+msgid "Access reviews"
+msgstr "Revues des accès"
+
+msgid "Accounts and authentication methods"
+msgstr "Comptes et méthodes d'authentification"
+
+msgid "Accounts protected by MFA"
+msgstr "Comptes protégés par MFA"
+
+msgid ""
+"Accounts that sign in through your identity provider are covered by the "
+"methods you import below."
+msgstr ""
+"Les comptes qui se connectent par votre fournisseur d'identité sont couverts "
+"par les méthodes que vous importez ci-dessous."
+
+msgid "Accounts with a gap"
+msgstr "Comptes en écart"
+
+msgid "Administrator"
+msgstr "Administrateur"
+
+msgid ""
+"Administrators are the accounts whose profile can change the GLPI "
+"configuration or the profiles, or that the identity provider reports as "
+"administrators. Nothing is changed in GLPI from this page."
+msgstr ""
+"Les administrateurs sont les comptes dont le profil peut modifier la "
+"configuration ou les profils de GLPI, ou que le fournisseur d'identité "
+"déclare administrateurs. Rien n'est modifié dans GLPI depuis cette page."
+
+msgid "Administrators protected by MFA"
+msgstr "Administrateurs protégés par MFA"
+
+msgid ""
+"Choose the remote access groups below, or import a remote_access column."
+msgstr ""
+"Choisissez les groupes d'accès distant ci-dessous, ou importez une colonne "
+"remote_access."
+
+msgid "Delete the import"
+msgstr "Supprimer l'import"
+
+#, php-format
+msgid "Excluded with a justification: %d"
+msgstr "Exclus avec une justification : %d"
+
+msgid "Exempted from GLPI two-factor enforcement"
+msgstr "Dispensé de la double authentification imposée par GLPI"
+
+msgid ""
+"Export the authentication methods registered per user from your identity "
+"provider, then import the CSV file here. A new import of the same provider "
+"replaces the previous one in the current entity. Only method names are kept, "
+"never a secret."
+msgstr ""
+"Exportez depuis votre fournisseur d'identité les méthodes d'authentification "
+"enregistrées par utilisateur, puis importez ici le fichier CSV. Un nouvel "
+"import du même fournisseur remplace le précédent dans l'entité courante. "
+"Seuls les noms des méthodes sont gardés, jamais un secret."
+
+msgid "GLPI two-factor authentication is enforced for every account."
+msgstr "La double authentification de GLPI est imposée à tous les comptes."
+
+msgid ""
+"GLPI two-factor authentication is not enforced for every account: it can be "
+"enforced by profile, group or entity, or for everyone in the general "
+"configuration (Security tab)."
+msgstr ""
+"La double authentification de GLPI n'est pas imposée à tous les comptes : "
+"elle peut l'être par profil, groupe ou entité, ou pour tous dans la "
+"configuration générale (onglet Sécurité)."
+
+msgid "Identity provider"
+msgstr "Fournisseur d'identité"
+
+msgid "Imported accounts"
+msgstr "Comptes importés"
+
+msgid "Imported accounts not matched with a GLPI account"
+msgstr "Comptes importés non rapprochés d'un compte GLPI"
+
+msgid "Matched"
+msgstr "Rapprochés"
+
+#, php-format
+msgid "Members of these groups have remote access: %s."
+msgstr "Les membres de ces groupes ont un accès distant : %s."
+
+msgid "Methods"
+msgstr "Méthodes"
+
+msgid "Methods registered with your identity provider"
+msgstr "Méthodes enregistrées chez votre fournisseur d'identité"
+
+msgid ""
+"Microsoft Entra ID: Protection > Authentication methods > User registration "
+"details, download (columns userPrincipalName, methodsRegistered, "
+"isMfaRegistered, isAdmin)."
+msgstr ""
+"Microsoft Entra ID : Protection > Méthodes d'authentification > Détails de "
+"l'inscription des utilisateurs, télécharger (colonnes userPrincipalName, "
+"methodsRegistered, isMfaRegistered, isAdmin)."
+
+msgid "No active account in your entities."
+msgstr "Aucun compte actif dans vos entités."
+
+msgid ""
+"No group chosen: only the accounts marked remote_access in an import count "
+"as remote access accounts."
+msgstr ""
+"Aucun groupe choisi : seuls les comptes marqués remote_access dans un import "
+"comptent comme comptes à accès distant."
+
+msgid "None declared"
+msgstr "Aucune déclarée"
+
+msgid ""
+"Okta, Google Workspace or an on-premises solution: a CSV file with a header, "
+"one account per line."
+msgstr ""
+"Okta, Google Workspace ou une solution sur site : un fichier CSV avec un en-"
+"tête, un compte par ligne."
+
+msgid ""
+"Recognized columns: login or email; methods (separated by commas or "
+"semicolons) or mfa (yes/no); optional admin, remote_access, excluded and "
+"exclusion_reason (yes/no and text)."
+msgstr ""
+"Colonnes reconnues : login ou email ; methods (séparées par des virgules ou "
+"des points-virgules) ou mfa (oui/non) ; facultatives : admin, remote_access, "
+"excluded et exclusion_reason (oui/non et texte)."
+
+msgid "Remote access"
+msgstr "Accès distant"
+
+msgid "Remote access accounts protected by MFA"
+msgstr "Comptes à accès distant protégés par MFA"
+
+msgid "Remote access groups (VPN, remote desktop...)"
+msgstr "Groupes d'accès distant (VPN, bureau à distance...)"
+
+msgid "SMS, phone call and email codes are reported as weak methods."
+msgstr ""
+"Les codes par SMS, appel téléphonique et e-mail sont signalés comme méthodes "
+"faibles."
+
+msgid ""
+"They are matched on the login, the email address, or the part of the user "
+"principal name before the @. Check them: an account unknown in GLPI may be a "
+"service account or a former employee."
+msgstr ""
+"Le rapprochement se fait sur l'identifiant, l'adresse e-mail ou la partie du "
+"nom d'utilisateur principal avant le @. Vérifiez-les : un compte inconnu de "
+"GLPI peut être un compte de service ou un ancien collaborateur."
+
+msgid "Which accounts have remote access?"
+msgstr "Quels comptes ont un accès distant ?"
+
+#, php-format
+msgid "weak method only: %d"
+msgstr "méthode faible seule : %d"
+
+#, php-format
+msgid "without MFA: %d"
+msgstr "sans MFA : %d"
+
+#, php-format
+msgid "%d account"
+msgid_plural "%d accounts"
+msgstr[0] "%d compte"
+msgstr[1] "%d comptes"
+
 msgid "Security patches"
 msgstr "Correctifs de sécurité"
 
@@ -28846,10 +29071,16 @@ msgid "Patches overdue"
 msgstr "Correctifs en retard"
 
 msgid "The last known patch is older than the target delay of the computer."
-msgstr "Le dernier correctif connu est plus ancien que le délai cible de l'ordinateur."
+msgstr ""
+"Le dernier correctif connu est plus ancien que le délai cible de "
+"l'ordinateur."
 
-msgid "No dated update in the inventory: no inventory agent, or a system whose agent does not report installed updates."
-msgstr "Aucune mise à jour datée dans l'inventaire : pas d'agent d'inventaire, ou un système dont l'agent ne remonte pas les mises à jour installées."
+msgid ""
+"No dated update in the inventory: no inventory agent, or a system whose "
+"agent does not report installed updates."
+msgstr ""
+"Aucune mise à jour datée dans l'inventaire : pas d'agent d'inventaire, ou un "
+"système dont l'agent ne remonte pas les mises à jour installées."
 
 msgid "The last known patch is within the target delay of the computer."
 msgstr "Le dernier correctif connu est dans le délai cible de l'ordinateur."
@@ -28891,11 +29122,31 @@ msgstr "Délais cibles enregistrés."
 msgid "Critical servers with overdue patches"
 msgstr "Serveurs critiques avec correctifs en retard"
 
-msgid "Shows, from the GLPI inventory (operating system, version, updates reported by the agent), the date of the last known security patch of each computer and whether it is within the target delay of its criticality. Computers published on the Internet and critical computers come first, with the known vulnerabilities of their system and their end of support."
-msgstr "Montre, d'après l'inventaire GLPI (système d'exploitation, version, mises à jour remontées par l'agent), la date du dernier correctif de sécurité connu de chaque ordinateur et s'il respecte le délai cible de sa criticité. Les ordinateurs publiés sur Internet et les ordinateurs critiques passent en tête, avec les vulnérabilités connues de leur système et leur fin de support."
+msgid ""
+"Shows, from the GLPI inventory (operating system, version, updates reported "
+"by the agent), the date of the last known security patch of each computer "
+"and whether it is within the target delay of its criticality. Computers "
+"published on the Internet and critical computers come first, with the known "
+"vulnerabilities of their system and their end of support."
+msgstr ""
+"Montre, d'après l'inventaire GLPI (système d'exploitation, version, mises à "
+"jour remontées par l'agent), la date du dernier correctif de sécurité connu "
+"de chaque ordinateur et s'il respecte le délai cible de sa criticité. Les "
+"ordinateurs publiés sur Internet et les ordinateurs critiques passent en "
+"tête, avec les vulnérabilités connues de leur système et leur fin de support."
 
-msgid "Set the target delay of each criticality, classify the computers (C/I/A tab), patch the late computers, and install the inventory agent on those of unknown state. The page only reads the inventory: it starts no update. Record the result as an effectiveness test of the control to keep the evidence."
-msgstr "Réglez le délai cible de chaque criticité, classez les ordinateurs (onglet C/I/D), corrigez les ordinateurs en retard et installez l'agent d'inventaire sur ceux à l'état inconnu. La page lit seulement l'inventaire : elle ne lance aucune mise à jour. Enregistrez le résultat comme test d'efficacité de la mesure pour garder la preuve."
+msgid ""
+"Set the target delay of each criticality, classify the computers (C/I/A "
+"tab), patch the late computers, and install the inventory agent on those of "
+"unknown state. The page only reads the inventory: it starts no update. "
+"Record the result as an effectiveness test of the control to keep the "
+"evidence."
+msgstr ""
+"Réglez le délai cible de chaque criticité, classez les ordinateurs (onglet C/"
+"I/D), corrigez les ordinateurs en retard et installez l'agent d'inventaire "
+"sur ceux à l'état inconnu. La page lit seulement l'inventaire : elle ne "
+"lance aucune mise à jour. Enregistrez le résultat comme test d'efficacité de "
+"la mesure pour garder la preuve."
 
 msgid "ISO/IEC 27001, controls A.8.8 and A.8.19"
 msgstr "ISO/IEC 27001, mesures A.8.8 et A.8.19"
@@ -28910,8 +29161,17 @@ msgstr "Ordinateurs publiés sur Internet avec correctifs en retard"
 msgid "Target delays by criticality"
 msgstr "Délais cibles par criticité"
 
-msgid "The criticality of a computer comes from its C/I/A classification (tab of the computer form): the highest of the three levels counts. A computer that a network flow publishes on the Internet is critical. A computer is late when its last known patch is older than the delay of its criticality."
-msgstr "La criticité d'un ordinateur vient de sa classification C/I/D (onglet de la fiche de l'ordinateur) : le plus élevé des trois niveaux compte. Un ordinateur qu'un flux réseau publie sur Internet est critique. Un ordinateur est en retard quand son dernier correctif connu est plus ancien que le délai de sa criticité."
+msgid ""
+"The criticality of a computer comes from its C/I/A classification (tab of "
+"the computer form): the highest of the three levels counts. A computer that "
+"a network flow publishes on the Internet is critical. A computer is late "
+"when its last known patch is older than the delay of its criticality."
+msgstr ""
+"La criticité d'un ordinateur vient de sa classification C/I/D (onglet de la "
+"fiche de l'ordinateur) : le plus élevé des trois niveaux compte. Un "
+"ordinateur qu'un flux réseau publie sur Internet est critique. Un ordinateur "
+"est en retard quand son dernier correctif connu est plus ancien que le délai "
+"de sa criticité."
 
 msgid "Target delay (days)"
 msgstr "Délai cible (jours)"
@@ -28927,7 +29187,8 @@ msgstr "Aucun ordinateur dans vos entités."
 
 #, php-format
 msgid "%1$d computers: the first %2$d are shown, overdue ones first."
-msgstr "%1$d ordinateurs : les %2$d premiers sont affichés, les retards d'abord."
+msgstr ""
+"%1$d ordinateurs : les %2$d premiers sont affichés, les retards d'abord."
 
 msgid "Last known patch"
 msgstr "Dernier correctif connu"
@@ -28962,13 +29223,18 @@ msgstr "%d exploitée(s)"
 
 #, php-format
 msgid "Inventory older than %d days: the data may be out of date."
-msgstr "Inventaire de plus de %d jours : les données peuvent ne plus être à jour."
+msgstr ""
+"Inventaire de plus de %d jours : les données peuvent ne plus être à jour."
 
 msgid "Old inventory"
 msgstr "Inventaire ancien"
 
-msgid "Read only: the plugin reads the GLPI inventory, never starts an update and changes nothing in GLPI."
-msgstr "Lecture seule : le plugin lit l'inventaire GLPI, ne lance jamais de mise à jour et ne modifie rien dans GLPI."
+msgid ""
+"Read only: the plugin reads the GLPI inventory, never starts an update and "
+"changes nothing in GLPI."
+msgstr ""
+"Lecture seule : le plugin lit l'inventaire GLPI, ne lance jamais de mise à "
+"jour et ne modifie rien dans GLPI."
 
 msgid "Network flows"
 msgstr "Flux réseau"
@@ -28994,18 +29260,239 @@ msgid_plural "%d days ago"
 msgstr[0] "il y a %d jour"
 msgstr[1] "il y a %d jours"
 
+msgid ""
+"Not saved: the tenant must be a domain name or an ID, and the application ID "
+"an ID such as 00000000-0000-0000-0000-000000000000."
+msgstr ""
+"Non enregistré : le locataire doit être un nom de domaine ou un identifiant, "
+"et l'identifiant d'application un identifiant de la forme "
+"00000000-0000-0000-0000-000000000000."
+
+msgid "Microsoft Graph settings saved."
+msgstr "Réglages de Microsoft Graph enregistrés."
+
+msgid ""
+"Enter the tenant, the application (client) ID and the client secret first."
+msgstr ""
+"Saisissez d'abord le locataire, l'identifiant d'application (client) et le "
+"secret client."
+
+msgid ""
+"Microsoft Entra ID refused the tenant, the application ID or the client "
+"secret."
+msgstr ""
+"Microsoft Entra ID a refusé le locataire, l'identifiant d'application ou le "
+"secret client."
+
+msgid ""
+"Access refused by Microsoft Graph: grant the AuditLog.Read.All application "
+"permission with admin consent (the report requires an Entra ID P1 or P2 "
+"licence)."
+msgstr ""
+"Accès refusé par Microsoft Graph : accordez la permission d'application "
+"AuditLog.Read.All avec le consentement de l'administrateur (le rapport "
+"demande une licence Entra ID P1 ou P2)."
+
+msgid "Microsoft Graph asks to slow down: try again in a few minutes."
+msgstr "Microsoft Graph demande de ralentir : réessayez dans quelques minutes."
+
+msgid ""
+"Too many accounts to read in one click: import the CSV export of the report "
+"instead."
+msgstr ""
+"Trop de comptes pour une lecture en un clic : importez plutôt l'export CSV "
+"du rapport."
+
+msgid ""
+"Microsoft Graph could not be reached: check the network access or the GLPI "
+"proxy."
+msgstr ""
+"Microsoft Graph est injoignable : vérifiez l'accès réseau ou le proxy de "
+"GLPI."
+
+msgid "Microsoft Graph returned an unexpected answer."
+msgstr "Microsoft Graph a renvoyé une réponse inattendue."
+
+msgid ""
+"API permissions > Add a permission > Microsoft Graph > Application "
+"permissions: AuditLog.Read.All, then Grant admin consent. The report "
+"requires an Entra ID P1 or P2 licence."
+msgstr ""
+"Autorisations de l'API > Ajouter une autorisation > Microsoft Graph > "
+"Autorisations d'application : AuditLog.Read.All, puis Accorder le "
+"consentement de l'administrateur. Le rapport demande une licence Entra ID P1 "
+"ou P2."
+
+msgid "Application (client) ID"
+msgstr "Identifiant d'application (client)"
+
+msgid ""
+"Certificates & secrets > New client secret, then copy here the tenant ID, "
+"the application (client) ID and the secret value."
+msgstr ""
+"Certificats et secrets > Nouveau secret client, puis copiez ici "
+"l'identifiant du locataire, l'identifiant d'application (client) et la "
+"valeur du secret."
+
+msgid "Client secret"
+msgstr "Secret client"
+
+msgid "Configured"
+msgstr "Configuré"
+
+msgid "Not configured"
+msgstr "Non configuré"
+
+msgid "Delete the saved secret"
+msgstr "Supprimer le secret enregistré"
+
+msgid ""
+"In the Entra admin center, App registrations > New registration: create an "
+"application (for example \"GLPI GRC - MFA report\")."
+msgstr ""
+"Dans le centre d'administration Entra, Inscriptions d'applications > "
+"Nouvelle inscription : créez une application (par exemple « GLPI GRC - "
+"rapport MFA »)."
+
+msgid ""
+"Instead of downloading the CSV export, GLPI can read the same report (user "
+"registration details) from Microsoft Graph when you click the button. The "
+"result replaces the Microsoft Entra ID import of the current entity. Nothing "
+"is ever written in Entra ID and nothing runs automatically."
+msgstr ""
+"Au lieu de télécharger l'export CSV, GLPI peut lire le même rapport (détails "
+"de l'inscription des utilisateurs) dans Microsoft Graph quand vous cliquez "
+"sur le bouton. Le résultat remplace l'import Microsoft Entra ID de l'entité "
+"active. Rien n'est jamais écrit dans Entra ID et rien ne se lance "
+"automatiquement."
+
+msgid "Only users who can modify the plugin data can set up this reading."
+msgstr ""
+"Seules les personnes qui peuvent modifier les données du plugin peuvent "
+"régler cette lecture."
+
+msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
+msgstr "Lire directement Microsoft Entra ID (Microsoft Graph)"
+
+msgid "Read now from Microsoft Graph"
+msgstr "Lire maintenant dans Microsoft Graph"
+
+msgid "Secret saved"
+msgstr "Secret enregistré"
+
+msgid "Secret saved (leave empty to keep it)"
+msgstr "Secret enregistré (laisser vide pour le garder)"
+
+msgid "Tenant (directory) ID or domain"
+msgstr "Identifiant du locataire (annuaire) ou domaine"
+
+msgid ""
+"The secret is encrypted with the GLPI key, never displayed again nor logged."
+msgstr ""
+"Le secret est chiffré avec la clé de GLPI, jamais réaffiché ni journalisé."
+
+msgid ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, to know where to start updating."
+msgstr ""
+"Les machines les plus exposées aux vulnérabilités connues de leurs logiciels "
+"surveillés, pour savoir par où commencer les mises à jour."
+
+msgid "Review of the distribution list recorded."
+msgstr "Revue de la liste de diffusion enregistrée."
+
+msgid "Review overdue (more than 12 months)"
+msgstr "Revue en retard (plus de 12 mois)"
+
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr "Dernière revue le %1$s par %2$s, prochaine avant le %3$s."
+
+msgid ""
+"Check once a year that each recipient, deputy and address is still right."
+msgstr ""
+"Vérifiez une fois par an que chaque destinataire, suppléant et adresse est "
+"toujours juste."
+
+msgid "Mark the list as reviewed today"
+msgstr "Marquer la liste comme revue aujourd'hui"
+
+msgid "Role in the list"
+msgstr "Rôle dans la liste"
+
+msgid "Main recipient"
+msgstr "Destinataire principal"
+
+#, php-format
+msgid "Deputy of %s"
+msgstr "Suppléant de %s"
+
+msgid "Deputy"
+msgstr "Suppléant"
+
+msgid "No deputy"
+msgstr "Sans suppléant"
+
+msgid ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+msgstr ""
+"Les adresses des membres sont reprises quand vous copiez ou exportez les "
+"adresses."
+
+msgid "Distribution list last reviewed on"
+msgstr "Liste de diffusion revue le"
+
+msgid "Crisis communications"
+msgstr "Communications de crise"
+
+#, php-format
+msgid ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgid_plural ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+msgstr[0] ""
+"%d destinataire principal n'a pas de suppléant : s'il est injoignable "
+"pendant une crise, personne d'autre n'est prévu."
+msgstr[1] ""
+"%d destinataires principaux n'ont pas de suppléant : s'ils sont injoignables "
+"pendant une crise, personne d'autre n'est prévu."
+
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] "%d membre sans courriel"
+msgstr[1] "%d membres sans courriel"
+
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] "%d liste de diffusion non revue depuis 12 mois"
+msgstr[1] "%d listes de diffusion non revues depuis 12 mois"
+
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] "%d destinataire principal sans suppléant"
+msgstr[1] "%d destinataires principaux sans suppléant"
+
 msgid "Proposed flow"
 msgstr "Flux proposé"
 
-msgid "These values were proposed by another page, for example the Docker inventory. Check them, add the justification and the owner, then click \"Add\": nothing is saved before."
-msgstr "Ces valeurs ont été proposées par une autre page, par exemple l'inventaire Docker. Vérifiez-les, ajoutez la justification et le propriétaire, puis cliquez sur « Ajouter » : rien n'est enregistré avant."
+msgid ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
+msgstr ""
+"Ces valeurs ont été proposées par une autre page, par exemple l'inventaire "
+"Docker. Vérifiez-les, ajoutez la justification et le propriétaire, puis "
+"cliquez sur « Ajouter » : rien n'est enregistré avant."
 
 #, php-format
 msgid "%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
 msgstr "%1$d hôte(s) importé(s) : %2$d rapproché(s) d'un actif GLPI, %3$d non rapproché(s)."
-
-msgid "Import deleted."
-msgstr "Import supprimé."
 
 msgid "Logging settings saved."
 msgstr "Réglages de la journalisation enregistrés."
@@ -29060,9 +29547,6 @@ msgstr "Le fichier n'a pas de colonne pour le nom d'hôte ou l'adresse IP (par e
 
 msgid "You do not have the right to import."
 msgstr "Vous n'avez pas le droit d'importer."
-
-msgid "The file could not be read."
-msgstr "Le fichier n'a pas pu être lu."
 
 msgid "Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or nothing for several days, and whether each platform keeps the logs long enough and synchronizes the clocks."
 msgstr "Montre quels actifs importants envoient leurs journaux à une plateforme (Wazuh, Graylog, Elastic ou OpenSearch, Splunk, syslog), lesquels n'envoient rien ou plus rien depuis plusieurs jours, et si chaque plateforme conserve les journaux assez longtemps et synchronise les horloges."
@@ -29142,9 +29626,6 @@ msgstr "Déclarer une autre plateforme"
 msgid "Declare, for each platform, how long the logs are kept and whether the clocks are synchronized. The retention required is the longest between the policy and the obligation chosen. These are declarations: keep the screenshot of the setting as evidence."
 msgstr "Déclarez, pour chaque plateforme, combien de temps les journaux sont conservés et si les horloges sont synchronisées. La conservation exigée est la plus longue entre la politique et l'obligation choisie. Ce sont des déclarations : gardez la capture d'écran du réglage comme preuve."
 
-msgid "Delete the import"
-msgstr "Supprimer l'import"
-
 msgid "Export the list of hosts that send logs from your log platform, then import the CSV file here. A new import of the same platform replaces the previous one in the current entity. Only host names, addresses and the date of the last event are kept, never the content of a log."
 msgstr "Exportez de votre plateforme de journaux la liste des hôtes qui envoient des journaux, puis importez le fichier CSV ici. Un nouvel import de la même plateforme remplace le précédent dans l'entité courante. Seuls les noms d'hôtes, les adresses et la date du dernier événement sont conservés, jamais le contenu d'un journal."
 
@@ -29171,9 +29652,6 @@ msgstr "Sources de journaux"
 
 msgid "Logs stopped after (days without event)"
 msgstr "Journaux interrompus après (jours sans événement)"
-
-msgid "Matched"
-msgstr "Rapprochés"
 
 msgid "No asset concerned in your entities."
 msgstr "Aucun actif concerné dans vos entités."

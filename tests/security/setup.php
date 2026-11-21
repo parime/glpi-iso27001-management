@@ -382,6 +382,10 @@ if ($mode === 'xss') {
         'encryption_status' => 2, 'encryption_tool' => mb_substr($canary, 0, 255),
         'encryption_algorithm' => mb_substr($canary, 0, 255),
     ], ['itemtype' => Computer::class, 'items_id' => (int) $ids['computer_A']]);
+    // Issue #852 : compte et méthode importés piégés (page de la couverture MFA).
+    $DB->update('glpi_plugin_grcmanager_mfaaccounts', [
+        'account' => mb_substr($canary, 0, 255), 'methods' => $canary,
+    ], ['account' => 'Compte MFA securite A']);
     // Issue #853 : hôte émetteur, serveur de temps et commentaire piégés (couverture de la journalisation).
     $DB->update(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, ['host' => mb_substr($canary, 0, 255)], [
         'host' => 'Hote journaux securite A',
@@ -547,6 +551,14 @@ if ($mode === 'xss') {
     ]);
     $out['control_a831'] = (int) ($DB->request([
         'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.31'], 'LIMIT' => 1,
+    ])->current()['id'] ?? 0);
+    // Issue #852 : mesure A.8.5 (preuve de la couverture MFA).
+    $out['control_a85'] = (int) ($DB->request([
+        'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.5'], 'LIMIT' => 1,
+    ])->current()['id'] ?? 0);
+    // Issue #852 : mesure A.8.5 (preuve de la couverture MFA).
+    $out['control_a85'] = (int) ($DB->request([
+        'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.5'], 'LIMIT' => 1,
     ])->current()['id'] ?? 0);
     echo json_encode($out), "\n";
     exit(0);
@@ -1535,6 +1547,16 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         );
     }
     $ids['phishing_' . $suffix] = (int) $campaign->getID();
+}
+// Issue #852 : compte importé (fournisseur d'identité fictif) sans compte GLPI, par entité.
+foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
+    $mfaCriteria = ['entities_id' => $entity, 'provider' => 'okta'];
+    if (countElementsInTable('glpi_plugin_grcmanager_mfaaccounts', $mfaCriteria) === 0) {
+        $DB->insert('glpi_plugin_grcmanager_mfaaccounts', $mfaCriteria + [
+            'account' => 'Compte MFA securite ' . $suffix, 'email' => '', 'users_id' => 0, 'methods' => 'sms',
+            'date_import' => date('Y-m-d H:i:s'),
+        ]);
+    }
 }
 // Issue #778 : mesure A.7.1 de la SoA du siège (preuve des évaluations de la sécurité physique).
 $ids['control_a71'] = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode(0)['A.7.1'] ?? 0;

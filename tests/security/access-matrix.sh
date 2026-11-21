@@ -128,7 +128,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/endoflife.export.php front/hardwarewarranty.export.php
   front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
-  front/diskencryption.php front/patchcompliance.php front/logcoverage.php
+  front/diskencryption.php front/mfacoverage.php front/patchcompliance.php front/logcoverage.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
@@ -609,6 +609,13 @@ if [ "$ROLE" = reader ]; then
     "$(body "$P/softwarelicensecompliance.php")"
   contains "export des licences logicielles : echeance de B absente" "Licence echeance securite B" non \
     "$(body "$P/softwarelicensecompliance.export.php")"
+  # Issue #852 : couverture MFA, comptes importes de l'entite A seulement ; import en lecture seule.
+  contains "couverture MFA : compte importe de A" "Compte MFA securite A" oui "$(body "$P/mfacoverage.php")"
+  contains "couverture MFA : rien de B" "Compte MFA securite B" non "$(body "$P/mfacoverage.php")"
+  expect "front/mfacoverage.php : effacer un import en lecture seule" 403 \
+    "$(code -d "clear_mfa=1&provider=okta&_glpi_csrf_token=$(csrf)" "$P/mfacoverage.php")"
+  expect "front/mfacoverage.php : groupes d'acces distant en lecture seule" 403 \
+    "$(code -d "save_mfa_remote=1&_glpi_csrf_token=$(csrf)" "$P/mfacoverage.php")"
   # Issue #847 : chiffrement des disques de l'entite A seulement ; regle et cles en lecture seule.
   contains "chiffrement des disques : ordinateur de A" "PC securite A" oui "$(body "$P/diskencryption.php")"
   contains "chiffrement des disques : rien de B" "PC securite B" non "$(body "$P/diskencryption.php")"
