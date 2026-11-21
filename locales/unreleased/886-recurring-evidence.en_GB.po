@@ -1,0 +1,85 @@
+#
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "No recurring renewal"
+msgstr "No recurring renewal"
+
+msgid "weeks"
+msgstr "weeks"
+
+msgid "months"
+msgstr "months"
+
+msgid "years"
+msgstr "years"
+
+msgid "months, last business day"
+msgstr "months, last business day"
+
+msgid "quarters, last business day"
+msgstr "quarters, last business day"
+
+msgid "Not renewed in time"
+msgstr "Not renewed in time"
+
+msgid "Renewal due soon"
+msgstr "Renewal due soon"
+
+msgid "Recurring evidence not renewed in time"
+msgstr "Recurring evidence not renewed in time"
+
+msgid "Recurring renewal due on %s"
+msgstr "Recurring renewal due on %s"
+
+msgid "Next renewal due"
+msgstr "Next renewal due"
+
+msgid "Recurring renewal"
+msgstr "Recurring renewal"
+
+msgid "Interval"
+msgstr "Interval"
+
+msgid "Interval: %1$d %2$s"
+msgstr "Interval: %1$d %2$s"
+
+msgid "Last collected on"
+msgstr "Last collected on"
+
+msgid "Next due: %s"
+msgstr "Next due: %s"
+
+msgid "from the document date %s"
+msgstr "from the document date %s"
+
+msgid ""
+"For evidence produced on a regular rhythm (weekly log review, monthly backup "
+"report...), set a recurring renewal: the next due date is computed from the "
+"last collection, or from the last change of the document when no date is "
+"entered. Business days exclude weekends and the close times declared in GLPI."
+" Evidence not renewed in time is flagged and its owner notified; nothing is "
+"changed automatically."
+msgstr ""
+"For evidence produced on a regular rhythm (weekly log review, monthly backup "
+"report...), set a recurring renewal: the next due date is computed from the "
+"last collection, or from the last change of the document when no date is "
+"entered. Business days exclude weekends and the close times declared in GLPI."
+" Evidence not renewed in time is flagged and its owner notified; nothing is "
+"changed automatically."
+
+msgid ""
+"Recurring evidence not renewed in time: included, and flagged in the index. "
+"Add the latest one, then update its last collection date in the \"Evidence "
+"validity\" tab of the control."
+msgstr ""
+"Recurring evidence not renewed in time: included, and flagged in the index. "
+"Add the latest one, then update its last collection date in the \"Evidence "
+"validity\" tab of the control."
+
+msgid "Evidence rhythm"
+msgid_plural "Evidence rhythms"
+msgstr[0] "Evidence rhythm"
+msgstr[1] "Evidence rhythms"

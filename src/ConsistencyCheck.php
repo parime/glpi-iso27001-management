@@ -1135,6 +1135,25 @@ class ConsistencyCheck extends CommonGLPI
                 sprintf(__('Valid until %s', 'grcmanager'), Html::convDate((string) $row['valid_until']))
             );
         }
+        // Issue #886 : preuve récurrente non renouvelée à temps (prochaine échéance dépassée).
+        $recurring = EvidenceRecurrence::staleForSession($today);
+        $total += $recurring['total'];
+        foreach ($recurring['stale'] as $stale) {
+            $parent = Evidence::loadParent($stale['itemtype'], $stale['items_id']);
+            if ($parent === null) {
+                continue;
+            }
+            $gaps[] = self::gap(
+                $stale['itemtype'],
+                $stale['items_id'],
+                sprintf(
+                    '%1$s: %2$s',
+                    $parent instanceof Control ? self::controlName($parent->fields) : $parent->getName(),
+                    Dropdown::getDropdownName('glpi_documents', $stale['documents_id'])
+                ),
+                sprintf(__('Recurring renewal due on %s', 'grcmanager'), Html::convDate($stale['next_due']))
+            );
+        }
 
         return ['total' => $total, 'gaps' => $gaps];
     }

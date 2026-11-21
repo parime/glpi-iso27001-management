@@ -26,6 +26,7 @@ use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\EvidenceBase;
+use GlpiPlugin\Grcmanager\Services\Evidence\EvidenceRecurrenceRules;
 use GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
@@ -226,7 +227,7 @@ class Evidence extends EvidenceBase
      *
      * @return list<array{
      *     documents_id: int, name: string, evidence_id: int, valid_until: ?string, users_id: int,
-     *     tickets_id: int
+     *     tickets_id: int, document_date: ?string
      * }>
      */
     public static function getDocumentsFor(CommonDBTM $parent): array
@@ -245,6 +246,7 @@ class Evidence extends EvidenceBase
                     "$table.valid_until",
                     "$table.users_id",
                     "$table.tickets_id",
+                    'glpi_documents.date_mod AS document_date',
                 ],
                 'FROM'      => $links,
                 'INNER JOIN' => [
@@ -274,6 +276,7 @@ class Evidence extends EvidenceBase
                 'valid_until'  => $row['valid_until'] ?? null,
                 'users_id'     => (int) ($row['users_id'] ?? 0),
                 'tickets_id'   => (int) ($row['tickets_id'] ?? 0),
+                'document_date' => $row['document_date'] ?? null,
             ];
         }
 
@@ -290,11 +293,22 @@ class Evidence extends EvidenceBase
             return '';
         }
         $today = date('Y-m-d');
+        $documents = self::getDocumentsFor($item);
+        // Issue #886 : une preuve récurrente à renouveler compte aussi.
+        $rhythms = EvidenceRecurrence::forEvidences(array_column($documents, 'evidence_id'));
         $toRenew = count(array_filter(
-            self::getDocumentsFor($item),
+            $documents,
             static fn (array $doc): bool => in_array(
                 EvidenceValidity::status($doc['valid_until'], $today),
                 [EvidenceValidity::STATUS_EXPIRING, EvidenceValidity::STATUS_EXPIRED],
+                true
+            ) || in_array(
+                EvidenceRecurrence::describe(
+                    $rhythms[$doc['evidence_id']] ?? null,
+                    $doc['document_date'],
+                    $today
+                )['status'],
+                [EvidenceRecurrenceRules::STATUS_DUE_SOON, EvidenceRecurrenceRules::STATUS_STALE],
                 true
             )
         ));
@@ -338,9 +352,20 @@ class Evidence extends EvidenceBase
 
         $canEdit = $parent->can($parent->getID(), UPDATE);
         $documents = [];
-        foreach (self::getDocumentsFor($parent) as $doc) {
+        $today = date('Y-m-d');
+        $all = self::getDocumentsFor($parent);
+        $rhythms = EvidenceRecurrence::forEvidences(array_column($all, 'evidence_id'));
+        foreach ($all as $doc) {
             [$class, $label] = self::statusInfo($doc['valid_until']);
+            // Issue #886 : rythme de renouvellement et prochaine échéance calculée.
+            $rhythm = EvidenceRecurrence::describe(
+                $rhythms[$doc['evidence_id']] ?? null,
+                $doc['document_date'],
+                $today
+            );
+            [$rhythmClass, $rhythmLabel] = EvidenceRecurrence::statusInfo($rhythm['status']);
             $documents[] = $doc + [
+                'rhythm'       => $rhythm + ['class' => $rhythmClass, 'label' => $rhythmLabel],
                 'url'          => Document::getFormURLWithID($doc['documents_id']),
                 'ticket_url'   => $doc['tickets_id'] > 0 ? Ticket::getFormURLWithID($doc['tickets_id']) : '',
                 'status_class' => $class,
@@ -363,6 +388,8 @@ class Evidence extends EvidenceBase
             'documents'    => $documents,
             'can_edit'     => $canEdit,
             'warning_days' => EvidenceValidity::WARNING_DAYS,
+            'units'        => EvidenceRecurrence::unitOptions(),
+            'max_count'    => EvidenceRecurrenceRules::MAX_COUNT,
             'action'       => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/evidence.form.php',
             'itemtype'     => $parent->getType(),
             'items_id'     => $parent->getID(),
@@ -463,6 +490,8 @@ class Evidence extends EvidenceBase
     public static function cronEvidencereminder(CronTask $task): int
     {
         $result = self::runReminders(date('Y-m-d'));
+        // Issue #886 : rappels des preuves récurrentes (notification seule, sans ticket).
+        $result['notified'] += EvidenceRecurrence::runReminders(date('Y-m-d'));
         $task->addVolume($result['notified'] + $result['tickets']);
         $task->log(sprintf(
             __('%d reminder(s), %d renewal ticket(s).', 'grcmanager'),
@@ -501,6 +530,12 @@ class Evidence extends EvidenceBase
         }
 
         return $result;
+    }
+
+    /** Issue #886 : le rythme part avec la validité. */
+    public function cleanDBonPurge()
+    {
+        EvidenceRecurrence::purgeFor($this->getID());
     }
 
     public function getDocumentName(): string

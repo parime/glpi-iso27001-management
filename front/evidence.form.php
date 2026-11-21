@@ -53,9 +53,18 @@ if (isset($_POST['purge'])) {
     ];
     if ($exists) {
         $evidence->update($input + ['id' => $evidence->getID()]);
+        $evidencesId = $evidence->getID();
     } else {
-        $evidence->add($input + ['itemtype' => $itemtype, 'items_id' => $itemsId, 'documents_id' => $documentsId]);
+        $evidencesId = (int) $evidence->add(
+            $input + ['itemtype' => $itemtype, 'items_id' => $itemsId, 'documents_id' => $documentsId]
+        );
     }
+    // Issue #886 : rythme de renouvellement (sans unité, le rythme est retiré).
+    \GlpiPlugin\Grcmanager\EvidenceRecurrence::saveFor($evidencesId, [
+        'period_unit'    => (string) ($_POST['period_unit'] ?? ''),
+        'period_count'   => (int) ($_POST['period_count'] ?? 1),
+        'last_collected' => (string) ($_POST['last_collected'] ?? ''),
+    ]);
 }
 
 Html::redirect($parent::getFormURLWithID($itemsId));

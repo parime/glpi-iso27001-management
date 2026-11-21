@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Policy templates"
+msgstr "Modèles de politiques"
+
+msgid "Gives a starting point to an organisation that has no security policy yet: ready-to-adapt templates written by the project, each with its sections and the Annex A controls it covers. The templates follow the requirements of the standard in our own words."
+msgstr "Donne un point de départ à une organisation qui n'a encore aucune politique de sécurité : des modèles prêts à adapter, rédigés par le projet, chacun avec ses sections et les mesures de l'Annexe A qu'il couvre. Les modèles suivent les exigences de la norme avec nos propres mots."
+
+msgid "Fill in the name of the organisation, the information security manager and the review period, tick the templates you need, then import them. Each one becomes a new draft policy, linked by section to the controls of the Statement of Applicability. Adapt the text to your practice, then have it approved: nothing is approved automatically and no existing policy is replaced."
+msgstr "Indiquez le nom de l'organisation, le responsable de la sécurité de l'information et la périodicité de revue, cochez les modèles utiles, puis importez-les. Chacun devient une nouvelle politique en brouillon, reliée section par section aux mesures de la déclaration d'applicabilité. Adaptez le texte à vos pratiques, puis faites-le approuver : rien n'est approuvé automatiquement et aucune politique existante n'est remplacée."
+
+msgid "Tick at least one template."
+msgstr "Cochez au moins un modèle."
+
+msgid "Each template is written by the project in its own words, without copying the text of the standard, and is offered under the %s licence: you may adapt it freely. Importing a template creates a new draft policy; review it, adapt it to your practice and have it approved like any other policy."
+msgstr "Chaque modèle est rédigé par le projet avec ses propres mots, sans recopier le texte de la norme, et proposé sous licence %s : vous pouvez l'adapter librement. Importer un modèle crée une nouvelle politique en brouillon ; relisez-la, adaptez-la à vos pratiques et faites-la approuver comme toute autre politique."
+
+msgid "Language of the templates:"
+msgstr "Langue des modèles :"
+
+msgid "Values inserted into the text"
+msgstr "Valeurs insérées dans le texte"
+
+msgid "Organisation name"
+msgstr "Nom de l'organisation"
+
+msgid "Information security manager"
+msgstr "Responsable de la sécurité de l'information"
+
+msgid "Review period (months)"
+msgstr "Périodicité de revue (mois)"
+
+msgid "A value left empty is replaced by a reminder in square brackets, to be completed in the policy. The information security manager becomes the owner of the policies created."
+msgstr "Une valeur laissée vide est remplacée par un repère entre crochets, à compléter dans la politique. Le responsable de la sécurité de l'information devient propriétaire des politiques créées."
+
+msgid "Sections"
+msgstr "Sections"
+
+msgid "Already imported"
+msgstr "Déjà importé"
+
+msgid "Create the ticked policies as drafts"
+msgstr "Créer les politiques cochées en brouillon"
+
+msgid "%1$d draft policy created, with %2$d links to the Statement of Applicability. Adapt it, then have it approved."
+msgid_plural "%1$d draft policies created, with %2$d links to the Statement of Applicability. Adapt them, then have them approved."
+msgstr[0] "%1$d politique en brouillon créée, avec %2$d liens vers la déclaration d'applicabilité. Adaptez-la, puis faites-la approuver."
+msgstr[1] "%1$d politiques en brouillon créées, avec %2$d liens vers la déclaration d'applicabilité. Adaptez-les, puis faites-les approuver."

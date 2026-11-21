@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Policy templates"
+msgstr "Plantillas de políticas"
+
+msgid "Gives a starting point to an organisation that has no security policy yet: ready-to-adapt templates written by the project, each with its sections and the Annex A controls it covers. The templates follow the requirements of the standard in our own words."
+msgstr "Ofrece un punto de partida a una organización que aún no tiene ninguna política de seguridad: plantillas listas para adaptar, redactadas por el proyecto, cada una con sus secciones y los controles del Anexo A que cubre. Las plantillas siguen los requisitos de la norma con nuestras propias palabras."
+
+msgid "Fill in the name of the organisation, the information security manager and the review period, tick the templates you need, then import them. Each one becomes a new draft policy, linked by section to the controls of the Statement of Applicability. Adapt the text to your practice, then have it approved: nothing is approved automatically and no existing policy is replaced."
+msgstr "Indique el nombre de la organización, el responsable de seguridad de la información y la periodicidad de revisión, marque las plantillas necesarias y luego impórtelas. Cada una se convierte en una nueva política en borrador, vinculada por sección a los controles de la declaración de aplicabilidad. Adapte el texto a su práctica y hágalo aprobar: nada se aprueba automáticamente y no se reemplaza ninguna política existente."
+
+msgid "Tick at least one template."
+msgstr "Marque al menos una plantilla."
+
+msgid "Each template is written by the project in its own words, without copying the text of the standard, and is offered under the %s licence: you may adapt it freely. Importing a template creates a new draft policy; review it, adapt it to your practice and have it approved like any other policy."
+msgstr "Cada plantilla está redactada por el proyecto con sus propias palabras, sin copiar el texto de la norma, y se ofrece bajo la licencia %s: puede adaptarla libremente. Importar una plantilla crea una nueva política en borrador; revísela, adáptela a su práctica y hágala aprobar como cualquier otra política."
+
+msgid "Language of the templates:"
+msgstr "Idioma de las plantillas:"
+
+msgid "Values inserted into the text"
+msgstr "Valores insertados en el texto"
+
+msgid "Organisation name"
+msgstr "Nombre de la organización"
+
+msgid "Information security manager"
+msgstr "Responsable de seguridad de la información"
+
+msgid "Review period (months)"
+msgstr "Periodicidad de revisión (meses)"
+
+msgid "A value left empty is replaced by a reminder in square brackets, to be completed in the policy. The information security manager becomes the owner of the policies created."
+msgstr "Un valor dejado vacío se sustituye por un recordatorio entre corchetes, que debe completarse en la política. El responsable de seguridad de la información pasa a ser propietario de las políticas creadas."
+
+msgid "Sections"
+msgstr "Secciones"
+
+msgid "Already imported"
+msgstr "Ya importada"
+
+msgid "Create the ticked policies as drafts"
+msgstr "Crear las políticas marcadas como borrador"
+
+msgid "%1$d draft policy created, with %2$d links to the Statement of Applicability. Adapt it, then have it approved."
+msgid_plural "%1$d draft policies created, with %2$d links to the Statement of Applicability. Adapt them, then have them approved."
+msgstr[0] "%1$d política en borrador creada, con %2$d vínculos a la declaración de aplicabilidad. Adáptela y hágala aprobar."
+msgstr[1] "%1$d políticas en borrador creadas, con %2$d vínculos a la declaración de aplicabilidad. Adáptelas y hágalas aprobar."
