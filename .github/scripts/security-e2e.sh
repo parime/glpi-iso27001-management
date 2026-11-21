@@ -16,8 +16,12 @@ STEP=$1 BASE=${2:-http://localhost:8080} C=${GLPI_CONTAINER:-glpi}
 PLAYWRIGHT_IMAGE=mcr.microsoft.com/playwright/python:v1.57.0-noble@sha256:3de745b23fc4b33fccbcb3f592ee52dd5c80ce79f19f839c825ce23364e403c1
 setup() { docker exec -u www-data "$C" php /var/www/glpi/plugins/grcmanager/tests/security/setup.php "$@" | tail -1; }
 # Lance un script Python dans l'image Playwright : browser <script> <arguments...>
+# Le navigateur partage le reseau du conteneur GLPI et l'ouvre a l'adresse http://localhost, celle que
+# GLPI connait (url_base) : avec le port publie 8080, les redirections de GLPI vers http://localhost
+# (port 80) echouaient (ERR_CONNECTION_REFUSED).
+BROWSER_BASE=${BROWSER_BASE:-http://localhost}
 browser() {
-  docker run --rm --network host --ipc=host -v "$PWD:/w:ro" -w /w "$PLAYWRIGHT_IMAGE" \
+  docker run --rm --network "container:$C" --ipc=host -v "$PWD:/w:ro" -w /w "$PLAYWRIGHT_IMAGE" \
     sh -c 'pip install --quiet --disable-pip-version-check playwright==1.57.0 && exec python "$@"' sh "$@"
 }
 matrix() { bash tests/security/access-matrix.sh "$BASE" "$@"; }
@@ -56,7 +60,7 @@ case $STEP in
     xss=$(setup xss "$ids")
     bash tests/security/xss-check.sh "$BASE" "$ids" "$xss"
     ;;
-  js) browser tests/security/js-errors.py "$BASE" front ;;
-  edit) browser tests/security/edit-scenarios.py "$BASE" "$(setup)" ;;
+  js) browser tests/security/js-errors.py "$BROWSER_BASE" front ;;
+  edit) browser tests/security/edit-scenarios.py "$BROWSER_BASE" "$(setup)" ;;
   *) echo "usage : $0 matrix|xss|js|edit [url]" >&2; exit 2 ;;
 esac
