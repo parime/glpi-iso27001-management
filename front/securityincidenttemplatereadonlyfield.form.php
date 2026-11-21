@@ -14,11 +14,15 @@
  * (at your option) any later version. See LICENSE for the full text.
  * -------------------------------------------------------------------------
  */
+
 // Issue #951 : sans ce fichier, le formulaire « Ajouter » de l'onglet du gabarit partait vers le
 // contrôleur générique de GLPI, qui affichait ensuite la fiche du champ ajouté au lieu de revenir
 // au gabarit. Délègue au contrôleur partagé du cœur, comme front/changetemplatereadonlyfield.form.php.
 
 $itiltype  = 'PluginGrcmanagerSecurityIncident';
 $fieldtype = 'Readonly';
+
+// Même droit que le contrôleur du cœur, vérifié ici aussi avant de lui passer la main.
+Session::checkRight(ITILTemplate::$rightname, UPDATE);
 
 include(GLPI_ROOT . '/front/itiltemplatefield.form.php');

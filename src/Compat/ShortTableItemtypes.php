@@ -32,11 +32,16 @@ final class ShortTableItemtypes
 {
     /** @var array<string, string> table => classe */
     public const MAP = [
-        'glpi_plugin_grcmanager_secincidenttemplates'                  => 'PluginGrcmanagerSecurityIncidentTemplate',
-        'glpi_plugin_grcmanager_secincidenttemplates_hiddenfields'     => 'PluginGrcmanagerSecurityIncidentTemplateHiddenField',
-        'glpi_plugin_grcmanager_secincidenttemplates_mandatoryfields'  => 'PluginGrcmanagerSecurityIncidentTemplateMandatoryField',
-        'glpi_plugin_grcmanager_secincidenttemplates_predefinedfields' => 'PluginGrcmanagerSecurityIncidentTemplatePredefinedField',
-        'glpi_plugin_grcmanager_secincidenttemplates_readonlyfields'   => 'PluginGrcmanagerSecurityIncidentTemplateReadonlyField',
+        'glpi_plugin_grcmanager_secincidenttemplates'
+            => 'PluginGrcmanagerSecurityIncidentTemplate',
+        'glpi_plugin_grcmanager_secincidenttemplates_hiddenfields'
+            => 'PluginGrcmanagerSecurityIncidentTemplateHiddenField',
+        'glpi_plugin_grcmanager_secincidenttemplates_mandatoryfields'
+            => 'PluginGrcmanagerSecurityIncidentTemplateMandatoryField',
+        'glpi_plugin_grcmanager_secincidenttemplates_predefinedfields'
+            => 'PluginGrcmanagerSecurityIncidentTemplatePredefinedField',
+        'glpi_plugin_grcmanager_secincidenttemplates_readonlyfields'
+            => 'PluginGrcmanagerSecurityIncidentTemplateReadonlyField',
     ];
 
     public static function register(): void
