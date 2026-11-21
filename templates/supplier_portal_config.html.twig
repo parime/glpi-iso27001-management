@@ -1,0 +1,42 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #865, lot 2 : réglage du lien sécurisé de réponse du fournisseur (désactivé par défaut),
+   enregistré par front/supplierevaluationlink.php. #}
+{% set portal = supplier_portal %}
+<div class="card mb-3" id="grc-supplier-portal-config">
+  <div class="card-body">
+    <h4 class="d-flex align-items-center">
+      <i class="ti ti-link me-2"></i>{{ __('Supplier answer by secure link', 'grcmanager') }}
+      {% if portal.enabled %}
+        <span class="badge bg-success-subtle text-success-emphasis ms-2"><i class="ti ti-plug-connected me-1"></i>{{ __('Enabled', 'grcmanager') }}</span>
+      {% else %}
+        <span class="badge bg-secondary-subtle text-secondary-emphasis ms-2"><i class="ti ti-plug-off me-1"></i>{{ __('Disabled', 'grcmanager') }}</span>
+      {% endif %}
+    </h4>
+    <p class="text-muted">
+      {{ __('Lets a supplier answer its security questionnaire on a page served by GLPI, without a GLPI account, from a personal link created on the evaluation (tab "Secure link"). Enable it only if this GLPI can be reached by your suppliers. The link opens only the questions of one evaluation, expires, can be used a limited number of times and can be revoked; the answers wait for a review in GLPI. The answer by file works without this setting.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ portal.action }}">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="grc-supplier-portal-enabled" name="supplier_portal_enabled" value="1" {{ portal.enabled ? 'checked' }} {{ can_edit_config ? '' : 'disabled' }}>
+        <label class="form-check-label" for="grc-supplier-portal-enabled">{{ __('Allow suppliers to answer by secure link', 'grcmanager') }}</label>
+      </div>
+      {% if can_edit_config %}
+        <button type="submit" name="update_portal_config" value="1" class="btn btn-primary">{{ __('Save') }}</button>
+      {% endif %}
+    </form>
+  </div>
+</div>

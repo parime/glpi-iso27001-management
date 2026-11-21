@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.79.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.80.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -60,6 +60,13 @@ function plugin_init_grcmanager(): void
     \Glpi\Http\Firewall::addPluginStrategyForLegacyScripts(
         'grcmanager',
         '#^/front/compliancecalendar\.ics\.php$#',
+        \Glpi\Http\Firewall::STRATEGY_NO_CHECK
+    );
+    // Issue #865, lot 2 : questionnaire du fournisseur par lien sécurisé, sans compte GLPI ; la page
+    // s'autorise par le jeton du lien (SupplierEvaluationLink) et la fonction est désactivée par défaut.
+    \Glpi\Http\Firewall::addPluginStrategyForLegacyScripts(
+        'grcmanager',
+        '#^/front/supplierportal\.php$#',
         \Glpi\Http\Firewall::STRATEGY_NO_CHECK
     );
 

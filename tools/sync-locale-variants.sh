@@ -2,7 +2,7 @@
 # Variantes régionales des traductions : GLPI ne se replie pas d'une variante vers sa langue de
 # base (es_MX ne lit pas es_ES.mo, il passe à la langue de l'instance puis à en_GB). Chaque
 # variante est donc une copie de sa langue de base, à régénérer après toute modification :
-#   sh tools/sync-locale-variants.sh          (copie .po et .mo)
+#   sh tools/sync-locale-variants.sh          (copie .po, et .mo s'ils sont compilés)
 #   sh tools/sync-locale-variants.sh --check  (CI : échoue si une variante n'est pas à jour)
 set -e
 cd "$(dirname "$0")/../locales"
@@ -18,13 +18,14 @@ echo "$VARIANTS" | while IFS=: read -r base variants; do
   for variant in $variants; do
     expected=$(sed "s/^\"Language: $base\\\\n\"$/\"Language: $variant\\\\n\"/" "$base.po")
     if [ "$1" = "--check" ]; then
-      if [ "$expected" != "$(cat "$variant.po" 2>/dev/null)" ] || ! cmp -s "$base.mo" "$variant.mo"; then
+      # Les .mo ne sont pas versionnés (tools/build_locales.py les compile) : comparés s'ils existent.
+      if [ "$expected" != "$(cat "$variant.po" 2>/dev/null)" ] || { [ -f "$base.mo" ] && ! cmp -s "$base.mo" "$variant.mo"; }; then
         echo "::error::locales/$variant.po n'est pas à jour : lancer sh tools/sync-locale-variants.sh"
         exit 1
       fi
     else
       printf '%s\n' "$expected" > "$variant.po"
-      cp "$base.mo" "$variant.mo"
+      [ ! -f "$base.mo" ] || cp "$base.mo" "$variant.mo"
     fi
   done
 done || status=1

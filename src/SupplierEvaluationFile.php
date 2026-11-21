@@ -168,6 +168,9 @@ class SupplierEvaluationFile extends CommonGLPI
      *
      * @param array<string, mixed>                          $parsed résultat de analyse()
      * @param list<array{path: string, name: string}>       $files  pièces déposées par le RSSI
+     * @param string                                        $source origine des réponses (fichier ou lien
+     *                                                              sécurisé, issue #865 lot 2 : sans
+     *                                                              fichier reçu, $receivedPath vide)
      * @return array{answers: int, documents: int, unmatched: list<string>}
      */
     public static function apply(
@@ -175,7 +178,8 @@ class SupplierEvaluationFile extends CommonGLPI
         array $parsed,
         string $receivedPath,
         string $receivedName,
-        array $files = []
+        array $files = [],
+        string $source = AnswerFile::SOURCE_FILE
     ): array {
         global $DB;
 
@@ -202,7 +206,7 @@ class SupplierEvaluationFile extends CommonGLPI
                 continue;
             }
             $DB->update(Tables::ANSWERS, $fields + [
-                'answer_source' => AnswerFile::SOURCE_FILE,
+                'answer_source' => $source,
                 'users_id'      => $userId,
                 'date_mod'      => $now,
             ], ['id' => $id, Tables::EVALUATION_FK => $evaluation->getID()]);
@@ -240,6 +244,11 @@ class SupplierEvaluationFile extends CommonGLPI
             }
         }
 
+        if ($receivedPath === '') {
+            $evaluation->refreshScore();
+
+            return $result;
+        }
         $risk = $evaluation->getRisk();
         $receivedId = 0;
         // Fichier reçu gardé comme document si GLPI accepte le type .csv (sinon, l'historique suffit).

@@ -103,6 +103,7 @@ class SupplierEvaluation extends SupplierEvaluationBase
         $this->addDefaultFormTab($tabs)
             ->addStandardTab(self::class, $tabs, $options)
             ->addStandardTab(SupplierEvaluationFile::class, $tabs, $options)
+            ->addStandardTab(SupplierEvaluationLink::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
         return $tabs;

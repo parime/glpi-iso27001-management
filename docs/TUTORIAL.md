@@ -1778,7 +1778,25 @@ du développement sécurisé (33).
    dernière nomenclature de chaque produit, les vulnérabilités sans déclaration et celles qui
    affectent encore le produit.
 
-### Étape 59 : Cadrer la Déclaration d'Applicabilité par questions (6.1.3 c et d)
+### Étape 59 : Faire répondre un fournisseur par lien sécurisé
+
+Si vos fournisseurs peuvent joindre votre GLPI, ils peuvent répondre au questionnaire en ligne, sans
+compte GLPI (sinon, voir 55).
+
+1. Un administrateur du plugin active **Réponse du fournisseur par lien sécurisé** dans la
+   configuration du plugin. La fonction est désactivée par défaut.
+2. Dans l'onglet **Lien sécurisé** de l'évaluation, choisissez la durée de validité et le nombre
+   d'envois autorisés, puis cliquez sur **Créer un lien**. Copiez le lien affiché : il n'est montré
+   qu'une fois, GLPI n'en garde qu'une empreinte.
+3. Envoyez-le au fournisseur. Sa page ne montre que les questions de cette évaluation ; il choisit
+   ses réponses, ajoute des commentaires et ses documents, puis clique sur **Envoyer mes réponses**.
+4. Les réponses reçues apparaissent dans **Réponses à relire**. Cliquez sur **Vérifier les
+   réponses** : l'aperçu compare chaque réponse à la réponse actuelle. Enregistrez-les, ou
+   rejetez-les ; rien ne compte dans l'évaluation avant.
+5. Un lien se révoque à tout moment (bouton **Révoquer**). Le journal d'audit sécurité garde la
+   création, chaque ouverture, chaque envoi et chaque révocation.
+
+### Étape 60 : Cadrer la Déclaration d'Applicabilité par questions (6.1.3 c et d)
 
 L'auditeur demande pourquoi chaque mesure de l'Annexe A est retenue ou exclue. L'onglet
 **Cadrage de la SoA** de la rubrique **Conformité** vous aide à répondre sans partir d'une page
@@ -3467,7 +3485,25 @@ development (33).
    for the latest bill of materials of each product, the vulnerabilities without a statement and
    those that still affect the product.
 
-### Step 59: Scope the Statement of Applicability with a few questions (6.1.3 c and d)
+### Step 59: Have a supplier answer by secure link
+
+If your suppliers can reach your GLPI, they can answer the questionnaire online, without a GLPI
+account (otherwise, see 55).
+
+1. An administrator of the plugin enables **Supplier answer by secure link** in the plugin
+   settings. The feature is disabled by default.
+2. In the **Secure link** tab of the evaluation, choose how long the link is valid and how many
+   sendings it allows, then click **Create a link**. Copy the link shown: it is displayed only once,
+   GLPI keeps only a fingerprint of it.
+3. Send it to the supplier. Its page shows only the questions of this evaluation; it chooses its
+   answers, adds comments and its documents, then clicks **Send my answers**.
+4. The answers received appear under **Answers to review**. Click **Review the answers**: the
+   preview compares each answer with the current one. Save them, or discard them; nothing counts in
+   the evaluation before.
+5. A link can be revoked at any time (**Revoke** button). The security audit log keeps the
+   creation, each opening, each sending and each revocation.
+
+### Step 60: Scope the Statement of Applicability with a few questions (6.1.3 c and d)
 
 The auditor asks why each Annex A control is included or excluded. The **SoA scoping** tab of the
 **Compliance** section helps you answer without starting from a blank page.

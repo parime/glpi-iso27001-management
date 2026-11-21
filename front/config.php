@@ -760,6 +760,8 @@ Html::header(
     'nvd_config'                => NvdConfig::load(),
     // Issue #704 : fin de vie (endoflife.date).
     'endoflife'                 => \GlpiPlugin\Grcmanager\EndOfLife::configData(),
+    // Issue #865, lot 2 : lien sécurisé de réponse du fournisseur.
+    'supplier_portal'           => \GlpiPlugin\Grcmanager\SupplierEvaluationLink::configData(),
     // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
     'hardware_eol'              => \GlpiPlugin\Grcmanager\HardwareWarranty::modelConfigData(),
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
