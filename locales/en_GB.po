@@ -33852,6 +33852,1473 @@ msgstr ""
 msgid "Update the suggestions"
 msgstr "Update the suggestions"
 
+#, php-format
+msgid "Report imported: %d rule(s) triggered."
+msgstr "Report imported: %d rule(s) triggered."
+
+msgid ""
+"The report contains passwords or secrets (for example in group policies): "
+"they were not kept, and are removed from the archived copy. Change them as "
+"soon as possible."
+msgstr ""
+"The report contains passwords or secrets (for example in group policies): "
+"they were not kept, and are removed from the archived copy. Change them as "
+"soon as possible."
+
+msgid ""
+"The report could not be archived as a document (XML files may not be allowed "
+"in the document types of GLPI)."
+msgstr ""
+"The report could not be archived as a document (XML files may not be allowed "
+"in the document types of GLPI)."
+
+#, php-format
+msgid "Only the first %d rules were read."
+msgstr "Only the first %d rules were read."
+
+#, php-format
+msgid "Ticket %d created."
+msgstr "Ticket %d created."
+
+msgid "Active Directory security score (PingCastle, 0 is best)"
+msgstr "Active Directory security score (PingCastle, 0 is best)"
+
+msgid "Active Directory security audit"
+msgstr "Active Directory security audit"
+
+msgid "Stale objects"
+msgstr "Stale objects"
+
+msgid "Privileged accounts"
+msgstr "Privileged accounts"
+
+msgid "Trust relationships"
+msgstr "Trust relationships"
+
+msgid "Anomalies"
+msgstr "Anomalies"
+
+msgid "Good"
+msgstr "Good"
+
+msgid "Worrying"
+msgstr "Worrying"
+
+msgid "The file is too large (20 MB at most)."
+msgstr "The file is too large (20 MB at most)."
+
+msgid ""
+"The file declares a DOCTYPE or entities: it is refused for security reasons. "
+"A PingCastle report never contains any."
+msgstr ""
+"The file declares a DOCTYPE or entities: it is refused for security reasons. "
+"A PingCastle report never contains any."
+
+msgid ""
+"This is not a PingCastle health check report: import the ad_hc_[domain].xml "
+"file."
+msgstr ""
+"This is not a PingCastle health check report: import the ad_hc_[domain].xml "
+"file."
+
+msgid "The report gives no domain name."
+msgstr "The report gives no domain name."
+
+msgid "This report has already been imported."
+msgstr "This report has already been imported."
+
+msgid "You do not have the right to import a report."
+msgstr "You do not have the right to import a report."
+
+#, php-format
+msgid "PingCastle report - %1$s (%2$s)"
+msgstr "PingCastle report - %1$s (%2$s)"
+
+#, php-format
+msgid "Active Directory %1$s: %2$s"
+msgstr "Active Directory %1$s: %2$s"
+
+#, php-format
+msgid "Domain: %s"
+msgstr "Domain: %s"
+
+#, php-format
+msgid "Report: %1$s of %2$s (score %3$d/100)"
+msgstr "Report: %1$s of %2$s (score %3$d/100)"
+
+#, php-format
+msgid "Rule: %s"
+msgstr "Rule: %s"
+
+#, php-format
+msgid "Category: %s"
+msgstr "Category: %s"
+
+#, php-format
+msgid "Points: %d"
+msgstr "Points: %d"
+
+#, php-format
+msgid "ISO/IEC 27001 controls: %s"
+msgstr "ISO/IEC 27001 controls: %s"
+
+#, php-format
+msgid ""
+"Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) "
+"triggered"
+msgstr ""
+"Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) "
+"triggered"
+
+msgid ""
+"Keeps the results of the security audits of your Active Directory: the "
+"PingCastle reports that your team produces are imported here, with the "
+"global score, the score by category and the rules triggered. Each rule is "
+"linked to the ISO/IEC 27001 controls it concerns, and the history shows how "
+"the score changes from one report to the next."
+msgstr ""
+"Keeps the results of the security audits of your Active Directory: the "
+"PingCastle reports that your team produces are imported here, with the "
+"global score, the score by category and the rules triggered. Each rule is "
+"linked to the ISO/IEC 27001 controls it concerns, and the history shows how "
+"the score changes from one report to the next."
+
+msgid ""
+"Run PingCastle regularly (for example every quarter), import each report, "
+"then decide how to treat the rules: propose an action or a ticket for those "
+"you fix, and follow the rules resolved by the next report. Nothing is "
+"created automatically. The page is reserved to the sensitive registers right."
+msgstr ""
+"Run PingCastle regularly (for example every quarter), import each report, "
+"then decide how to treat the rules: propose an action or a ticket for those "
+"you fix, and follow the rules resolved by the next report. Nothing is "
+"created automatically. The page is reserved to the sensitive registers right."
+
+msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
+msgstr "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
+
+#, php-format
+msgid "%d new rule"
+msgid_plural "%d new rules"
+msgstr[0] "%d new rule"
+msgstr[1] "%d new rules"
+
+#, php-format
+msgid "%d rule resolved"
+msgid_plural "%d rules resolved"
+msgstr[0] "%d rule resolved"
+msgstr[1] "%d rules resolved"
+
+#, php-format
+msgid "%d rule triggered"
+msgid_plural "%d rules triggered"
+msgstr[0] "%d rule triggered"
+msgstr[1] "%d rules triggered"
+
+msgid "Archive the report as a restricted document (passwords removed)"
+msgstr "Archive the report as a restricted document (passwords removed)"
+
+msgid "Archived report (restricted)"
+msgstr "Archived report (restricted)"
+
+msgid "Change since the previous report"
+msgstr "Change since the previous report"
+
+#, php-format
+msgid "Compared with the report of %s"
+msgstr "Compared with the report of %s"
+
+msgid "Delete the import and its archived report"
+msgstr "Delete the import and its archived report"
+
+msgid "Download a fictitious example report"
+msgstr "Download a fictitious example report"
+
+msgid ""
+"Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an "
+"action or a ticket for the rules you decide to treat: nothing is created "
+"before you click, and the action form is reviewed before it is saved."
+msgstr ""
+"Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an "
+"action or a ticket for the rules you decide to treat: nothing is created "
+"before you click, and the action form is reviewed before it is saved."
+
+msgid ""
+"First report for this domain: the next import will show the rules that "
+"appeared or were resolved."
+msgstr ""
+"First report for this domain: the next import will show the rules that "
+"appeared or were resolved."
+
+msgid ""
+"GLPI never runs PingCastle and never queries the directory: it reads the "
+"report that your team produced. The report is stored in the current entity."
+msgstr ""
+"GLPI never runs PingCastle and never queries the directory: it reads the "
+"report that your team produced. The report is stored in the current entity."
+
+msgid "Import a PingCastle report"
+msgstr "Import a PingCastle report"
+
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+
+msgid "Imported on"
+msgstr "Imported on"
+
+msgid "Imported reports"
+msgstr "Imported reports"
+
+#, php-format
+msgid "Maturity level: %d"
+msgstr "Maturity level: %d"
+
+msgid ""
+"No report imported yet. Run PingCastle on your domain, then import the "
+"ad_hc_[domain].xml file below."
+msgstr ""
+"No report imported yet. Run PingCastle on your domain, then import the "
+"ad_hc_[domain].xml file below."
+
+msgid "No rule triggered in this report."
+msgstr "No rule triggered in this report."
+
+msgid ""
+"On a computer of the domain, run PingCastle and choose the health check (or "
+"run it with the --healthcheck option)."
+msgstr ""
+"On a computer of the domain, run PingCastle and choose the health check (or "
+"run it with the --healthcheck option)."
+
+msgid ""
+"Only the scores and the triggered rules (identifier, category, points, "
+"finding) are kept: never the list of accounts, nor any password found. A new "
+"report of the same domain shows the change of score and the rules that "
+"appeared or were resolved."
+msgstr ""
+"Only the scores and the triggered rules (identifier, category, points, "
+"finding) are kept: never the list of accounts, nor any password found. A new "
+"report of the same domain shows the change of score and the rules that "
+"appeared or were resolved."
+
+msgid "Only users who can modify the sensitive registers can import a report."
+msgstr "Only users who can modify the sensitive registers can import a report."
+
+msgid "Open a ticket"
+msgstr "Open a ticket"
+
+msgid "Passwords found in the report: not kept"
+msgstr "Passwords found in the report: not kept"
+
+#, php-format
+msgid "PingCastle XML report (%d MB at most)"
+msgstr "PingCastle XML report (%d MB at most)"
+
+msgid ""
+"PingCastle is free for internal use; a service provider auditing a customer "
+"needs a licence. Check the terms of use of the tool."
+msgstr ""
+"PingCastle is free for internal use; a service provider auditing a customer "
+"needs a licence. Check the terms of use of the tool."
+
+#, php-format
+msgid "PingCastle report of %1$s, %2$s"
+msgstr "PingCastle report of %1$s, %2$s"
+
+msgid "Points"
+msgstr "Points"
+
+msgid "Propose an action"
+msgstr "Propose an action"
+
+msgid "Report date"
+msgstr "Report date"
+
+#, php-format
+msgid "Report of %s"
+msgstr "Report of %s"
+
+msgid "Rules resolved since the previous report"
+msgstr "Rules resolved since the previous report"
+
+msgid "Rules triggered"
+msgstr "Rules triggered"
+
+msgid ""
+"These reports describe the weaknesses of the domain: the page and the "
+"archived reports are reserved to the sensitive registers right, in the "
+"entity of each import."
+msgstr ""
+"These reports describe the weaknesses of the domain: the page and the "
+"archived reports are reserved to the sensitive registers right, in the "
+"entity of each import."
+
+msgid ""
+"Weakness reported by the Active Directory security audit (\"Active Directory "
+"security audit\" screen). Fix it, then import the next report to check that "
+"the rule is resolved. Nothing was changed automatically."
+msgstr ""
+"Weakness reported by the Active Directory security audit (\"Active Directory "
+"security audit\" screen). Fix it, then import the next report to check that "
+"the rule is resolved. Nothing was changed automatically."
+
+#, php-format
+msgid "%d rule concerns this control"
+msgid_plural "%d rules concern this control"
+msgstr[0] "%d rule concerns this control"
+msgstr[1] "%d rules concern this control"
+
+#, php-format
+msgid "Score: %d/100"
+msgstr "Score: %d/100"
+
+#, php-format
+msgid ""
+"Action proposed from the Active Directory security audit (rule %s): review "
+"and adapt each field, set an owner and a due date, then click \"Add\". "
+"Nothing is created before, and the rule is linked to this action once it is "
+"saved."
+msgstr ""
+"Action proposed from the Active Directory security audit (rule %s): review "
+"and adapt each field, set an owner and a due date, then click \"Add\". "
+"Nothing is created before, and the rule is linked to this action once it is "
+"saved."
+
+msgctxt "ad rule"
+msgid "New"
+msgstr "New"
+
+msgid "Evaluation completed."
+msgstr "Evaluation completed."
+
+msgid "Evaluation reopened."
+msgstr "Evaluation reopened."
+
+msgid "Answers saved."
+msgstr "Answers saved."
+
+msgid "Template copied: adapt its questions."
+msgstr "Template copied: adapt its questions."
+
+#, php-format
+msgid "Questions saved: %1$d added, %2$d changed, %3$d deleted."
+msgstr "Questions saved: %1$d added, %2$d changed, %3$d deleted."
+
+msgid "No change to the questions."
+msgstr "No change to the questions."
+
+msgid "Back to supplier risks"
+msgstr "Back to supplier risks"
+
+msgid "New questionnaire template"
+msgstr "New questionnaire template"
+
+msgid "Questionnaire templates"
+msgstr "Questionnaire templates"
+
+msgid "Historical questionnaire"
+msgstr "Historical questionnaire"
+
+msgid ""
+"The twelve questions of the former security questionnaire, kept with the "
+"answers already given."
+msgstr ""
+"The twelve questions of the former security questionnaire, kept with the "
+"answers already given."
+
+msgid ""
+"Create one risk per important supplier, evaluate it with one or more "
+"questionnaires (Questionnaires tab), follow its contracts and the \"Security "
+"watch\" tab."
+msgstr ""
+"Create one risk per important supplier, evaluate it with one or more "
+"questionnaires (Questionnaires tab), follow its contracts and the \"Security "
+"watch\" tab."
+
+msgid ""
+"Supplier questionnaire templates: the questions asked to your suppliers, "
+"grouped by section, with their weight, the expected answer and the evidence "
+"to provide. One template per need: information security, personal data, "
+"artificial intelligence..."
+msgstr ""
+"Supplier questionnaire templates: the questions asked to your suppliers, "
+"grouped by section, with their weight, the expected answer and the evidence "
+"to provide. One template per need: information security, personal data, "
+"artificial intelligence..."
+
+msgid ""
+"Adapt the historical questionnaire or create your own templates, then start "
+"an evaluation from the Questionnaires tab of a supplier risk. A supplier can "
+"be evaluated with several templates; each evaluation keeps its score and its "
+"history."
+msgstr ""
+"Adapt the historical questionnaire or create your own templates, then start "
+"an evaluation from the Questionnaires tab of a supplier risk. A supplier can "
+"be evaluated with several templates; each evaluation keeps its score and its "
+"history."
+
+msgid ""
+"ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
+msgstr ""
+"ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
+
+msgid "Questionnaires"
+msgstr "Questionnaires"
+
+msgid "Choose the supplier risk to evaluate."
+msgstr "Choose the supplier risk to evaluate."
+
+msgid ""
+"Choose an active questionnaire template available in the entity of the "
+"supplier risk."
+msgstr ""
+"Choose an active questionnaire template available in the entity of the "
+"supplier risk."
+
+#, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s - %2$s"
+
+msgid "This evaluation is completed: reopen it to change it."
+msgstr "This evaluation is completed: reopen it to change it."
+
+msgid "Questionnaire"
+msgstr "Questionnaire"
+
+msgid "Evaluation date"
+msgstr "Evaluation date"
+
+msgid "This question cannot receive a document."
+msgstr "This question cannot receive a document."
+
+msgid "You are not allowed to add a document to this supplier risk."
+msgstr "You are not allowed to add a document to this supplier risk."
+
+#, php-format
+msgid "Evidence for question %1$s of the evaluation \"%2$s\""
+msgstr "Evidence for question %1$s of the evaluation \"%2$s\""
+
+#, php-format
+msgid "Evidence added to question %s"
+msgstr "Evidence added to question %s"
+
+msgid "Information security"
+msgstr "Information security"
+
+msgid "Personal data"
+msgstr "Personal data"
+
+msgid "Artificial intelligence"
+msgstr "Artificial intelligence"
+
+msgid "Business continuity"
+msgstr "Business continuity"
+
+#, php-format
+msgid "Copy of %s"
+msgstr "Copy of %s"
+
+msgid "Duplicate this template"
+msgstr "Duplicate this template"
+
+#, php-format
+msgid "%1$d of %2$d questions answered"
+msgstr "%1$d of %2$d questions answered"
+
+#, php-format
+msgid "%1$s (version %2$d)"
+msgstr "%1$s (version %2$d)"
+
+msgid ""
+"Answer the questions in the \"Questionnaire\" tab, then mark the evaluation "
+"as completed."
+msgstr ""
+"Answer the questions in the \"Questionnaire\" tab, then mark the evaluation "
+"as completed."
+
+msgid "Evaluation"
+msgstr "Evaluation"
+
+msgid ""
+"Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by "
+"the weight of the question; \"not applicable\" and unanswered questions are "
+"not counted."
+msgstr ""
+"Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by "
+"the weight of the question; \"not applicable\" and unanswered questions are "
+"not counted."
+
+msgid "For example \"Security 2026\" or \"Personal data - contract renewal\"."
+msgstr "For example \"Security 2026\" or \"Personal data - contract renewal\"."
+
+msgid "Questionnaire template"
+msgstr "Questionnaire template"
+
+#, php-format
+msgid "Score: %1$d%% - %2$s"
+msgstr "Score: %1$d%% - %2$s"
+
+msgid ""
+"This evaluation is completed: its answers can no longer be changed. Reopen "
+"it from the \"Questionnaire\" tab to change them."
+msgstr ""
+"This evaluation is completed: its answers can no longer be changed. Reopen "
+"it from the \"Questionnaire\" tab to change them."
+
+msgid "Add the template, then write its questions in the \"Questions\" tab."
+msgstr "Add the template, then write its questions in the \"Questions\" tab."
+
+msgid ""
+"Fingerprint of the questions, used to recognize a questionnaire file "
+"returned by a supplier."
+msgstr ""
+"Fingerprint of the questions, used to recognize a questionnaire file "
+"returned by a supplier."
+
+msgid ""
+"For example \"Hosting provider security\", \"Personal data processor (GDPR "
+"art. 28)\" or \"AI service provider\"."
+msgstr ""
+"For example \"Hosting provider security\", \"Personal data processor (GDPR "
+"art. 28)\" or \"AI service provider\"."
+
+msgid "Inactive: not offered for new evaluations"
+msgstr "Inactive: not offered for new evaluations"
+
+msgid ""
+"Increases each time the questions change. An evaluation keeps the questions "
+"of the version it was started with."
+msgstr ""
+"Increases each time the questions change. An evaluation keeps the questions "
+"of the version it was started with."
+
+msgid "Only active templates are offered when an evaluation is started."
+msgstr "Only active templates are offered when an evaluation is started."
+
+msgid "Taken over"
+msgstr "Taken over"
+
+msgid ""
+"The last completed evaluation of the \"Information security\" domain gives "
+"the score shown on the supplier risk and on the dashboard."
+msgstr ""
+"The last completed evaluation of the \"Information security\" domain gives "
+"the score shown on the supplier risk and on the dashboard."
+
+msgid ""
+"The twelve questions of the former security questionnaire. It can be "
+"deactivated but not deleted."
+msgstr ""
+"The twelve questions of the former security questionnaire. It can be "
+"deactivated but not deleted."
+
+msgid "Detach"
+msgstr "Detach"
+
+msgid "Document not readable with your rights"
+msgstr "Document not readable with your rights"
+
+msgid "Evidence missing"
+msgstr "Evidence missing"
+
+msgid "Evidence required"
+msgstr "Evidence required"
+
+msgid "Expected answer"
+msgstr "Expected answer"
+
+#, php-format
+msgid "Expected: %s"
+msgstr "Expected: %s"
+
+#, php-format
+msgid ""
+"For each question, choose the answer given by the supplier and add a comment "
+"if needed. The expected answer earns 1 point, \"partial\" half a point, the "
+"other answer 0, multiplied by the weight of the question. A question marked "
+"\"Evidence required\" waits for a document (certificate, report, policy...): "
+"it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) "
+"and added to the Documents tab of the supplier risk."
+msgstr ""
+"For each question, choose the answer given by the supplier and add a comment "
+"if needed. The expected answer earns 1 point, \"partial\" half a point, the "
+"other answer 0, multiplied by the weight of the question. A question marked "
+"\"Evidence required\" waits for a document (certificate, report, policy...): "
+"it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) "
+"and added to the Documents tab of the supplier risk."
+
+msgid "For information, not scored"
+msgstr "For information, not scored"
+
+msgid "General"
+msgstr "General"
+
+msgid ""
+"Questions without an answer do not count in the score. A completed "
+"evaluation can no longer be changed, unless it is reopened."
+msgstr ""
+"Questions without an answer do not count in the score. A completed "
+"evaluation can no longer be changed, unless it is reopened."
+
+msgid "Reopen the evaluation"
+msgstr "Reopen the evaluation"
+
+msgid "Save and mark as completed"
+msgstr "Save and mark as completed"
+
+msgid "Save answers"
+msgstr "Save answers"
+
+msgid ""
+"This evaluation has no question: its template had none when it was created."
+msgstr ""
+"This evaluation has no question: its template had none when it was created."
+
+#, php-format
+msgid "Weight %d"
+msgstr "Weight %d"
+
+#, php-format
+msgid "%1$s: %2$s points"
+msgstr "%1$s: %2$s points"
+
+msgid "Change between the last two completed evaluations"
+msgstr "Change between the last two completed evaluations"
+
+msgid ""
+"Evaluate the supplier with one or more questionnaires (security, personal "
+"data, artificial intelligence...). Each question has a weight and an "
+"expected answer; the score informs the assessment and never changes the risk "
+"level entered. Evidence requested for a question is added to the Documents "
+"tab of this supplier risk."
+msgstr ""
+"Evaluate the supplier with one or more questionnaires (security, personal "
+"data, artificial intelligence...). Each question has a weight and an "
+"expected answer; the score informs the assessment and never changes the risk "
+"level entered. Evidence requested for a question is added to the Documents "
+"tab of this supplier risk."
+
+msgid ""
+"No active questionnaire template is available in the entity of this supplier "
+"risk."
+msgstr ""
+"No active questionnaire template is available in the entity of this supplier "
+"risk."
+
+msgid "No evaluation yet for this supplier."
+msgstr "No evaluation yet for this supplier."
+
+msgid "Optional: the template name and the year otherwise"
+msgstr "Optional: the template name and the year otherwise"
+
+msgid "Start an evaluation"
+msgstr "Start an evaluation"
+
+msgid "Taken over from the former fixed questionnaire"
+msgstr "Taken over from the former fixed questionnaire"
+
+#, php-format
+msgid "Template: %1$s (version %2$d)"
+msgstr "Template: %1$s (version %2$d)"
+
+msgid "Code"
+msgstr "Code"
+
+#, php-format
+msgid ""
+"Group the questions by section. The expected answer is the compliant one "
+"(\"No\" for a question such as \"Have you suffered a data breach in the last "
+"12 months?\"). The weight, from 0 to %d, gives the importance of the "
+"question in the score; 0 makes it a question for information only. Tick "
+"\"Evidence required\" when the supplier must provide a document. Changing "
+"the questions creates a new version of the template; evaluations already "
+"started keep their questions."
+msgstr ""
+"Group the questions by section. The expected answer is the compliant one "
+"(\"No\" for a question such as \"Have you suffered a data breach in the last "
+"12 months?\"). The weight, from 0 to %d, gives the importance of the "
+"question in the score; 0 makes it a question for information only. Tick "
+"\"Evidence required\" when the supplier must provide a document. Changing "
+"the questions creates a new version of the template; evaluations already "
+"started keep their questions."
+
+msgid "Help for the answer (optional)"
+msgstr "Help for the answer (optional)"
+
+msgid "Last"
+msgstr "Last"
+
+msgid "New question (left empty: not added)"
+msgstr "New question (left empty: not added)"
+
+msgid "Question and help"
+msgstr "Question and help"
+
+msgid "Save questions"
+msgstr "Save questions"
+
+msgid "Section"
+msgstr "Section"
+
+msgid "This template has no question yet."
+msgstr "This template has no question yet."
+
+#, php-format
+msgid "Total weight: %d"
+msgstr "Total weight: %d"
+
+msgid "New question"
+msgstr "New question"
+
+#, php-format
+msgid "Answers saved, %d document added."
+msgid_plural "Answers saved, %d documents added."
+msgstr[0] "Answers saved, %d document added."
+msgstr[1] "Answers saved, %d documents added."
+
+msgid "Supplier evaluation"
+msgid_plural "Supplier evaluations"
+msgstr[0] "Supplier evaluation"
+msgstr[1] "Supplier evaluations"
+
+#, php-format
+msgid "%d answer updated"
+msgid_plural "%d answers updated"
+msgstr[0] "%d answer updated"
+msgstr[1] "%d answers updated"
+
+msgid "Supplier questionnaire template"
+msgid_plural "Supplier questionnaire templates"
+msgstr[0] "Supplier questionnaire template"
+msgstr[1] "Supplier questionnaire templates"
+
+msgid "Question"
+msgid_plural "Questions"
+msgstr[0] "Question"
+msgstr[1] "Questions"
+
+#, php-format
+msgid "%d evidence missing"
+msgid_plural "%d evidence missing"
+msgstr[0] "%d evidence missing"
+msgstr[1] "%d evidence missing"
+
+#, php-format
+msgid "%d evaluation"
+msgid_plural "%d evaluations"
+msgstr[0] "%d evaluation"
+msgstr[1] "%d evaluations"
+
+#, php-format
+msgid "%d question"
+msgid_plural "%d questions"
+msgstr[0] "%d question"
+msgstr[1] "%d questions"
+
+#, php-format
+msgid "%d control updated."
+msgid_plural "%d controls updated."
+msgstr[0] "%d control updated."
+msgstr[1] "%d controls updated."
+
+#, php-format
+msgid "Maturity campaign: %s"
+msgstr "Maturity campaign: %s"
+
+#, php-format
+msgid "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
+msgstr "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
+
+#, php-format
+msgid "Target date: %s"
+msgstr "Target date: %s"
+
+#, php-format
+msgid "Maturity gap %1$s: from level %2$d to level %3$d"
+msgstr "Maturity gap %1$s: from level %2$d to level %3$d"
+
+msgid "Maturity campaign"
+msgid_plural "Maturity campaigns"
+msgstr[0] "Maturity campaign"
+msgstr[1] "Maturity campaigns"
+
+msgid "Maturity by control"
+msgstr "Maturity by control"
+
+msgid "Non-existent"
+msgstr "Non-existent"
+
+#, php-format
+msgid "Maturity assessment of %s"
+msgstr "Maturity assessment of %s"
+
+msgid "Levels by control"
+msgstr "Levels by control"
+
+msgid "Comparison"
+msgstr "Comparison"
+
+msgid "Campaign lead"
+msgstr "Campaign lead"
+
+#, php-format
+msgid "Maturity by control: %s"
+msgstr "Maturity by control: %s"
+
+msgid ""
+"Rates each applicable control of the Statement of Applicability on a scale "
+"from 0 (non-existent) to 5 (optimised): the level reached today and the "
+"level aimed for, with a target date. The gaps between the two make up the "
+"security roadmap, and two dated campaigns show the progress. These optional "
+"levels change neither the implementation status of the controls nor the "
+"maturity score."
+msgstr ""
+"Rates each applicable control of the Statement of Applicability on a scale "
+"from 0 (non-existent) to 5 (optimised): the level reached today and the "
+"level aimed for, with a target date. The gaps between the two make up the "
+"security roadmap, and two dated campaigns show the progress. These optional "
+"levels change neither the implementation status of the controls nor the "
+"maturity score."
+
+msgid ""
+"Create a campaign (for example once a year), fill in the current and target "
+"levels of each control with a justification and an owner, then open the "
+"\"Gaps\" tab: create an action for the largest gaps and download the report "
+"for the management review. The next campaign takes over the targets of this "
+"one."
+msgstr ""
+"Create a campaign (for example once a year), fill in the current and target "
+"levels of each control with a justification and an owner, then open the "
+"\"Gaps\" tab: create an action for the largest gaps and download the report "
+"for the management review. The next campaign takes over the targets of this "
+"one."
+
+msgid "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
+msgstr "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
+
+msgid "Maturity scale by control"
+msgstr "Maturity scale by control"
+
+msgid "Open the maturity campaigns"
+msgstr "Open the maturity campaigns"
+
+msgid ""
+"Rename the levels of the scale used by the maturity campaigns to match your "
+"method. Leave a field empty to keep the default label, translated into the "
+"language of each user; a label you enter is shown as is in every language. "
+"Renaming a level changes no recorded level."
+msgstr ""
+"Rename the levels of the scale used by the maturity campaigns to match your "
+"method. Leave a field empty to keep the default label, translated into the "
+"language of each user; a label you enter is shown as is in every language. "
+"Renaming a level changes no recorded level."
+
+#, php-format
+msgid "%d control declined"
+msgid_plural "%d controls declined"
+msgstr[0] "%d control declined"
+msgstr[1] "%d controls declined"
+
+#, php-format
+msgid "%d control improved"
+msgid_plural "%d controls improved"
+msgstr[0] "%d control improved"
+msgstr[1] "%d controls improved"
+
+#, php-format
+msgid "%d control unchanged"
+msgid_plural "%d controls unchanged"
+msgstr[0] "%d control unchanged"
+msgstr[1] "%d controls unchanged"
+
+msgid "Compare"
+msgstr "Compare"
+
+msgid "Compare with"
+msgstr "Compare with"
+
+msgid "Comparison of two campaigns"
+msgstr "Comparison of two campaigns"
+
+msgid ""
+"Current levels of each campaign. A control assessed in only one of the two "
+"campaigns is not compared."
+msgstr ""
+"Current levels of each campaign. A control assessed in only one of the two "
+"campaigns is not compared."
+
+msgid "New campaign"
+msgstr "New campaign"
+
+msgid ""
+"There is no other campaign in this entity yet. Create the next campaign (for "
+"example next year): it takes over the targets of this one, and both can then "
+"be compared here."
+msgstr ""
+"There is no other campaign in this entity yet. Create the next campaign (for "
+"example next year): it takes over the targets of this one, and both can then "
+"be compared here."
+
+#, php-format
+msgid "%d gap to close"
+msgid_plural "%d gaps to close"
+msgstr[0] "%d gap to close"
+msgstr[1] "%d gaps to close"
+
+#, php-format
+msgid "Average level: %1$s, target %2$s"
+msgstr "Average level: %1$s, target %2$s"
+
+msgid ""
+"Average levels by theme, gaps sorted by size and comparison with the "
+"previous campaign, for the management review."
+msgstr ""
+"Average levels by theme, gaps sorted by size and comparison with the "
+"previous campaign, for the management review."
+
+msgid "Average over the controls that have both a current and a target level."
+msgstr "Average over the controls that have both a current and a target level."
+
+msgid "Campaigns are compared in the order of this date."
+msgstr "Campaigns are compared in the order of this date."
+
+msgid "For example \"2026 assessment\". Left empty, the date is used."
+msgstr "For example \"2026 assessment\". Left empty, the date is used."
+
+msgid "No gap: every target is reached"
+msgstr "No gap: every target is reached"
+
+msgid "Previous campaign"
+msgstr "Previous campaign"
+
+msgid ""
+"The campaign lists the applicable controls of the Statement of Applicability "
+"of the entity. The targets, target dates, justifications and owners of the "
+"previous campaign are taken over; the current levels are left to assess."
+msgstr ""
+"The campaign lists the applicable controls of the Statement of Applicability "
+"of the entity. The targets, target dates, justifications and owners of the "
+"previous campaign are taken over; the current levels are left to assess."
+
+msgid ""
+"The overall maturity score is computed separately from your data and does "
+"not use these levels."
+msgstr ""
+"The overall maturity score is computed separately from your data and does "
+"not use these levels."
+
+msgid ""
+"A gap is the target level minus the current level. The largest gaps come "
+"first, then the nearest target dates: they are the priorities of the roadmap "
+"to present to management. \"Create the action\" opens a pre-filled "
+"opportunity for improvement that you review and save yourself."
+msgstr ""
+"A gap is the target level minus the current level. The largest gaps come "
+"first, then the nearest target dates: they are the priorities of the roadmap "
+"to present to management. \"Create the action\" opens a pre-filled "
+"opportunity for improvement that you review and save yourself."
+
+msgid "All (ISO/IEC 27001 Annex A)"
+msgstr "All (ISO/IEC 27001 Annex A)"
+
+msgid "Average level of the controls of each theme that have both levels."
+msgstr "Average level of the controls of each theme that have both levels."
+
+msgid "Current and target levels by theme"
+msgstr "Current and target levels by theme"
+
+msgid "Gaps to close"
+msgstr "Gaps to close"
+
+msgid "No gap matches these filters."
+msgstr "No gap matches these filters."
+
+msgid ""
+"No gap: fill in the current and target levels in the \"Levels by control\" "
+"tab; the controls whose target is not reached are listed here."
+msgstr ""
+"No gap: fill in the current and target levels in the \"Levels by control\" "
+"tab; the controls whose target is not reached are listed here."
+
+msgid "Target date"
+msgstr "Target date"
+
+msgid "Target date passed"
+msgstr "Target date passed"
+
+msgid "Target level"
+msgstr "Target level"
+
+msgid "The chart appears once controls have both a current and a target level."
+msgstr ""
+"The chart appears once controls have both a current and a target level."
+
+msgid "Current level at the previous campaign"
+msgstr "Current level at the previous campaign"
+
+msgid ""
+"For each control, choose the level reached today and the level aimed for, on "
+"the scale below, then click \"Save the levels\" at the bottom of the page. A "
+"level left on \"Not assessed\" is simply ignored. These levels change "
+"neither the implementation status of the control nor the maturity score."
+msgstr ""
+"For each control, choose the level reached today and the level aimed for, on "
+"the scale below, then click \"Save the levels\" at the bottom of the page. A "
+"level left on \"Not assessed\" is simply ignored. These levels change "
+"neither the implementation status of the control nor the maturity score."
+
+msgid "Implementation status in the SoA"
+msgstr "Implementation status in the SoA"
+
+msgid ""
+"No applicable control in the Statement of Applicability of this entity when "
+"the campaign was created. Declare the applicable controls in the SoA, then "
+"create a new campaign."
+msgstr ""
+"No applicable control in the Statement of Applicability of this entity when "
+"the campaign was created. Declare the applicable controls in the SoA, then "
+"create a new campaign."
+
+msgid "No target"
+msgstr "No target"
+
+msgid "Open the Statement of Applicability"
+msgstr "Open the Statement of Applicability"
+
+msgid "Reached"
+msgstr "Reached"
+
+msgid "Save the levels"
+msgstr "Save the levels"
+
+msgid ""
+"Targets, dates, owners and justifications come from the previous campaign: "
+"adjust them if needed."
+msgstr ""
+"Targets, dates, owners and justifications come from the previous campaign: "
+"adjust them if needed."
+
+#, php-format
+msgid ""
+"Action proposed from a maturity gap (%s): review and adapt each field, check "
+"the owner and the due date, then click \"Add\". Nothing is created before, "
+"and the gap is linked to this action once it is saved."
+msgstr ""
+"Action proposed from a maturity gap (%s): review and adapt each field, check "
+"the owner and the due date, then click \"Add\". Nothing is created before, "
+"and the gap is linked to this action once it is saved."
+
+msgid ""
+"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
+"neither the implementation status of the controls nor the maturity score."
+msgstr ""
+"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
+"neither the implementation status of the controls nor the maturity score."
+
+msgid "No previous campaign in this entity."
+msgstr "No previous campaign in this entity."
+
+#, php-format
+msgid ""
+"%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed "
+"since the previous import."
+msgstr ""
+"%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed "
+"since the previous import."
+
+msgid "The file is too long: only its first lines were imported."
+msgstr "The file is too long: only its first lines were imported."
+
+msgid "Share saved."
+msgstr "Share saved."
+
+msgid "Review started: the owner can now decide for each right."
+msgstr "Review started: the owner can now decide for each right."
+
+msgid "Review closed."
+msgstr "Review closed."
+
+msgid ""
+"Shows who can access the Windows file shares: share and NTFS permissions "
+"imported from each file server, accounts matched with the GLPI users and "
+"groups, and the gaps an auditor looks for (everyone can modify, rights given "
+"to a person, deleted or disabled accounts, broken inheritance, share without "
+"an owner)."
+msgstr ""
+"Shows who can access the Windows file shares: share and NTFS permissions "
+"imported from each file server, accounts matched with the GLPI users and "
+"groups, and the gaps an auditor looks for (everyone can modify, rights given "
+"to a person, deleted or disabled accounts, broken inheritance, share without "
+"an owner)."
+
+msgid ""
+"Run the PowerShell script provided on each file server (it only reads), "
+"import the CSV file, classify the sensitive shares and designate an owner "
+"for each one. The owner then reviews the rights of the share; the "
+"administrator applies the changes on the server and the next import shows "
+"the rights added and removed."
+msgstr ""
+"Run the PowerShell script provided on each file server (it only reads), "
+"import the CSV file, classify the sensitive shares and designate an owner "
+"for each one. The owner then reviews the rights of the share; the "
+"administrator applies the changes on the server and the next import shows "
+"the rights added and removed."
+
+msgid "ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3"
+msgstr "ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3"
+
+msgid "File share access rights"
+msgstr "File share access rights"
+
+msgid "Full control"
+msgstr "Full control"
+
+msgid "Modify"
+msgstr "Modify"
+
+msgid "Read"
+msgstr "Read"
+
+msgid "Special permissions"
+msgstr "Special permissions"
+
+msgid "Everyone (broad group)"
+msgstr "Everyone (broad group)"
+
+msgid "System account"
+msgstr "System account"
+
+msgid "Deleted account"
+msgstr "Deleted account"
+
+msgid "Everyone can modify"
+msgstr "Everyone can modify"
+
+msgid ""
+"Everyone, Authenticated Users, Domain Users or Guests can modify or have "
+"full control."
+msgstr ""
+"Everyone, Authenticated Users, Domain Users or Guests can modify or have "
+"full control."
+
+msgid "Deleted account still has rights"
+msgstr "Deleted account still has rights"
+
+msgid ""
+"The account no longer exists in the directory (unresolved SID) or is in the "
+"GLPI trash."
+msgstr ""
+"The account no longer exists in the directory (unresolved SID) or is in the "
+"GLPI trash."
+
+msgid "Disabled account still has rights"
+msgstr "Disabled account still has rights"
+
+msgid "The matching GLPI account is disabled: the person has probably left."
+msgstr "The matching GLPI account is disabled: the person has probably left."
+
+msgid "Right given to a person"
+msgstr "Right given to a person"
+
+msgid ""
+"Rights should be given to groups, not to named people: they are easier to "
+"review."
+msgstr ""
+"Rights should be given to groups, not to named people: they are easier to "
+"review."
+
+msgid "Inheritance broken"
+msgstr "Inheritance broken"
+
+msgid ""
+"A subfolder of a sensitive share does not inherit the rights of its parent "
+"folder."
+msgstr ""
+"A subfolder of a sensitive share does not inherit the rights of its parent "
+"folder."
+
+msgid ""
+"No GLPI user is designated as the owner who reviews the rights of this share."
+msgstr ""
+"No GLPI user is designated as the owner who reviews the rights of this share."
+
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"Identity, IdentityReference or Sid."
+msgstr ""
+"No account column found: the file needs a header with a column such as "
+"Identity, IdentityReference or Sid."
+
+msgid ""
+"No rights column found: the file needs a column such as Rights, "
+"FileSystemRights or AccessRight."
+msgstr ""
+"No rights column found: the file needs a column such as Rights, "
+"FileSystemRights or AccessRight."
+
+msgid ""
+"No share column found: the file needs a column such as Share, or Folder with "
+"a \\\\server\\share path."
+msgstr ""
+"No share column found: the file needs a column such as Share, or Folder with "
+"a \\\\server\\share path."
+
+msgid "Designate the owner of the share first: they review its rights."
+msgstr "Designate the owner of the share first: they review its rights."
+
+msgid "Explain what must be changed or removed in the comment."
+msgstr "Explain what must be changed or removed in the comment."
+
+msgid "Some rights have no decision yet."
+msgstr "Some rights have no decision yet."
+
+msgid "You cannot do this on this share."
+msgstr "You cannot do this on this share."
+
+#, php-format
+msgid "%1$d of %2$d share(s) reviewed in the last 12 months"
+msgstr "%1$d of %2$d share(s) reviewed in the last 12 months"
+
+#, php-format
+msgid "%d file share(s) imported"
+msgstr "%d file share(s) imported"
+
+#, php-format
+msgid "%d right(s) letting everyone modify"
+msgstr "%d right(s) letting everyone modify"
+
+#, php-format
+msgid "%d right(s) of deleted or disabled accounts"
+msgstr "%d right(s) of deleted or disabled accounts"
+
+#, php-format
+msgid "%d share(s) with a gap"
+msgstr "%d share(s) with a gap"
+
+#, php-format
+msgid "%1$d shares: the first %2$d are shown, the most exposed first."
+msgstr "%1$d shares: the first %2$d are shown, the most exposed first."
+
+#, php-format
+msgid "%d right(s) imported"
+msgstr "%d right(s) imported"
+
+#, php-format
+msgid "%d with a high weighted score"
+msgstr "%d with a high weighted score"
+
+msgid "Absent from the last import"
+msgstr "Absent from the last import"
+
+msgid "Download the PowerShell script"
+msgstr "Download the PowerShell script"
+
+msgid "Download the script and copy it to the file server."
+msgstr "Download the script and copy it to the file server."
+
+msgid ""
+"GLPI never connects to your file servers and never changes a right. An "
+"administrator runs the PowerShell script on the file server, with an account "
+"that can read the folders, then imports the CSV file here. A new import of "
+"the same server replaces the previous one in the current entity and shows "
+"the rights added and removed since then; the classification, the owner and "
+"the review decisions are kept."
+msgstr ""
+"GLPI never connects to your file servers and never changes a right. An "
+"administrator runs the PowerShell script on the file server, with an account "
+"that can read the folders, then imports the CSV file here. A new import of "
+"the same server replaces the previous one in the current entity and shows "
+"the rights added and removed since then; the classification, the owner and "
+"the review decisions are kept."
+
+msgid "Import the rights of a file server"
+msgstr "Import the rights of a file server"
+
+msgid ""
+"Import the shares.csv file below. Files produced by other tools are accepted "
+"if they have a header with columns such as Server, Share, Folder, Identity, "
+"Rights, AccessType, IsInherited and InheritanceProtected."
+msgstr ""
+"Import the shares.csv file below. Files produced by other tools are accepted "
+"if they have a header with columns such as Server, Share, Folder, Identity, "
+"Rights, AccessType, IsInherited and InheritanceProtected."
+
+msgid "Imported by"
+msgstr "Imported by"
+
+msgid "Imports and changes over time"
+msgstr "Imports and changes over time"
+
+msgid ""
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
+"OutFile shares.csv (Depth: how many folder levels under each share are read)."
+msgstr ""
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
+"OutFile shares.csv (Depth: how many folder levels under each share are read)."
+
+msgid "New rights"
+msgstr "New rights"
+
+msgid ""
+"No share imported yet. Run the PowerShell script below on a file server, "
+"then import the CSV file it produces."
+msgstr ""
+"No share imported yet. Run the PowerShell script below on a file server, "
+"then import the CSV file it produces."
+
+msgid ""
+"Only users who can modify the plugin data and the sensitive registers can "
+"import."
+msgstr ""
+"Only users who can modify the plugin data and the sensitive registers can "
+"import."
+
+msgid "Removed rights"
+msgstr "Removed rights"
+
+msgid "Rights"
+msgstr "Rights"
+
+msgid "Server imported in this entity"
+msgstr "Server imported in this entity"
+
+msgid "Share"
+msgstr "Share"
+
+msgid "Shares"
+msgstr "Shares"
+
+msgid "Shares and their gaps"
+msgstr "Shares and their gaps"
+
+msgid "Shares reviewed in the last 12 months"
+msgstr "Shares reviewed in the last 12 months"
+
+msgid "Shares with a gap"
+msgstr "Shares with a gap"
+
+msgid "Shares without an owner"
+msgstr "Shares without an owner"
+
+msgid "The owner reviews the rights of the share."
+msgstr "The owner reviews the rights of the share."
+
+msgid ""
+"The score adds 3 for each serious gap and 1 for the others, then multiplies "
+"by 3 for a share classified high and by 2 for medium. Nothing is changed on "
+"the file servers from this page."
+msgstr ""
+"The score adds 3 for each serious gap and 1 for the others, then multiplies "
+"by 3 for a share classified high and by 2 for medium. Nothing is changed on "
+"the file servers from this page."
+
+msgid "Weighted score"
+msgstr "Weighted score"
+
+msgid "All shares"
+msgstr "All shares"
+
+msgid "Classification and owner"
+msgstr "Classification and owner"
+
+msgid "Close the review"
+msgstr "Close the review"
+
+msgid ""
+"During a review, the owner decides for each right: keep it, change it or "
+"remove it. Decisions are recorded with their author and date; GLPI changes "
+"nothing on the server: the administrator applies the changes, and the next "
+"import shows the removed rights."
+msgstr ""
+"During a review, the owner decides for each right: keep it, change it or "
+"remove it. Decisions are recorded with their author and date; GLPI changes "
+"nothing on the server: the administrator applies the changes, and the next "
+"import shows the removed rights."
+
+msgid "Folder"
+msgstr "Folder"
+
+msgid ""
+"Gaps weigh more on a share classified high, and broken inheritance is "
+"reported only on a share whose confidentiality or integrity is medium or "
+"high."
+msgstr ""
+"Gaps weigh more on a share classified high, and broken inheritance is "
+"reported only on a share whose confidentiality or integrity is medium or "
+"high."
+
+#, php-format
+msgid "Last review: %s"
+msgstr "Last review: %s"
+
+#, php-format
+msgid "Level %d"
+msgstr "Level %d"
+
+msgid "Local path"
+msgstr "Local path"
+
+msgid "NTFS owner"
+msgstr "NTFS owner"
+
+msgid "NTFS permission"
+msgstr "NTFS permission"
+
+msgid "New"
+msgstr "New"
+
+msgid "No right in the last import of this share."
+msgstr "No right in the last import of this share."
+
+msgid "Owner who reviews the rights"
+msgstr "Owner who reviews the rights"
+
+#, php-format
+msgid "Owner: %s"
+msgstr "Owner: %s"
+
+msgid "Review of the rights"
+msgstr "Review of the rights"
+
+msgid "Right"
+msgstr "Right"
+
+msgid "Rights removed since the previous import"
+msgstr "Rights removed since the previous import"
+
+msgid "Share permission"
+msgstr "Share permission"
+
+msgid "Start a review"
+msgstr "Start a review"
+
+msgid "inherited"
+msgstr "inherited"
+
+msgctxt "availability"
+msgid "A"
+msgstr "A"
+
+msgctxt "confidentiality"
+msgid "C"
+msgstr "C"
+
+msgctxt "integrity"
+msgid "I"
+msgstr "I"
+
+#, php-format
+msgid "%d right added at the last import"
+msgid_plural "%d rights added at the last import"
+msgstr[0] "%d right added at the last import"
+msgstr[1] "%d rights added at the last import"
+
+#, php-format
+msgid "%d right still to review."
+msgid_plural "%d rights still to review."
+msgstr[0] "%d right still to review."
+msgstr[1] "%d rights still to review."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -34856,863 +36323,3 @@ msgstr "Update the suggestions"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-#, php-format
-msgid "Report imported: %d rule(s) triggered."
-msgstr "Report imported: %d rule(s) triggered."
-
-msgid "The report contains passwords or secrets (for example in group policies): they were not kept, and are removed from the archived copy. Change them as soon as possible."
-msgstr "The report contains passwords or secrets (for example in group policies): they were not kept, and are removed from the archived copy. Change them as soon as possible."
-
-msgid "The report could not be archived as a document (XML files may not be allowed in the document types of GLPI)."
-msgstr "The report could not be archived as a document (XML files may not be allowed in the document types of GLPI)."
-
-#, php-format
-msgid "Only the first %d rules were read."
-msgstr "Only the first %d rules were read."
-
-#, php-format
-msgid "Ticket %d created."
-msgstr "Ticket %d created."
-
-msgid "Active Directory security score (PingCastle, 0 is best)"
-msgstr "Active Directory security score (PingCastle, 0 is best)"
-
-msgid "Active Directory security audit"
-msgstr "Active Directory security audit"
-
-msgid "Stale objects"
-msgstr "Stale objects"
-
-msgid "Privileged accounts"
-msgstr "Privileged accounts"
-
-msgid "Trust relationships"
-msgstr "Trust relationships"
-
-msgid "Anomalies"
-msgstr "Anomalies"
-
-msgid "Good"
-msgstr "Good"
-
-msgid "Worrying"
-msgstr "Worrying"
-
-msgid "The file is too large (20 MB at most)."
-msgstr "The file is too large (20 MB at most)."
-
-msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
-msgstr "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
-
-msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
-msgstr "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
-
-msgid "The report gives no domain name."
-msgstr "The report gives no domain name."
-
-msgid "This report has already been imported."
-msgstr "This report has already been imported."
-
-msgid "You do not have the right to import a report."
-msgstr "You do not have the right to import a report."
-
-#, php-format
-msgid "PingCastle report - %1$s (%2$s)"
-msgstr "PingCastle report - %1$s (%2$s)"
-
-#, php-format
-msgid "Active Directory %1$s: %2$s"
-msgstr "Active Directory %1$s: %2$s"
-
-#, php-format
-msgid "Domain: %s"
-msgstr "Domain: %s"
-
-#, php-format
-msgid "Report: %1$s of %2$s (score %3$d/100)"
-msgstr "Report: %1$s of %2$s (score %3$d/100)"
-
-#, php-format
-msgid "Rule: %s"
-msgstr "Rule: %s"
-
-#, php-format
-msgid "Category: %s"
-msgstr "Category: %s"
-
-#, php-format
-msgid "Points: %d"
-msgstr "Points: %d"
-
-#, php-format
-msgid "ISO/IEC 27001 controls: %s"
-msgstr "ISO/IEC 27001 controls: %s"
-
-#, php-format
-msgid "Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) triggered"
-msgstr "Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) triggered"
-
-msgid "Keeps the results of the security audits of your Active Directory: the PingCastle reports that your team produces are imported here, with the global score, the score by category and the rules triggered. Each rule is linked to the ISO/IEC 27001 controls it concerns, and the history shows how the score changes from one report to the next."
-msgstr "Keeps the results of the security audits of your Active Directory: the PingCastle reports that your team produces are imported here, with the global score, the score by category and the rules triggered. Each rule is linked to the ISO/IEC 27001 controls it concerns, and the history shows how the score changes from one report to the next."
-
-msgid "Run PingCastle regularly (for example every quarter), import each report, then decide how to treat the rules: propose an action or a ticket for those you fix, and follow the rules resolved by the next report. Nothing is created automatically. The page is reserved to the sensitive registers right."
-msgstr "Run PingCastle regularly (for example every quarter), import each report, then decide how to treat the rules: propose an action or a ticket for those you fix, and follow the rules resolved by the next report. Nothing is created automatically. The page is reserved to the sensitive registers right."
-
-msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
-msgstr "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
-
-#, php-format
-msgid "%d new rule"
-msgid_plural "%d new rules"
-msgstr[0] "%d new rule"
-msgstr[1] "%d new rules"
-
-#, php-format
-msgid "%d rule resolved"
-msgid_plural "%d rules resolved"
-msgstr[0] "%d rule resolved"
-msgstr[1] "%d rules resolved"
-
-#, php-format
-msgid "%d rule triggered"
-msgid_plural "%d rules triggered"
-msgstr[0] "%d rule triggered"
-msgstr[1] "%d rules triggered"
-
-msgid "Archive the report as a restricted document (passwords removed)"
-msgstr "Archive the report as a restricted document (passwords removed)"
-
-msgid "Archived report (restricted)"
-msgstr "Archived report (restricted)"
-
-msgid "Change since the previous report"
-msgstr "Change since the previous report"
-
-#, php-format
-msgid "Compared with the report of %s"
-msgstr "Compared with the report of %s"
-
-msgid "Delete the import and its archived report"
-msgstr "Delete the import and its archived report"
-
-msgid "Download a fictitious example report"
-msgstr "Download a fictitious example report"
-
-msgid "Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an action or a ticket for the rules you decide to treat: nothing is created before you click, and the action form is reviewed before it is saved."
-msgstr "Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an action or a ticket for the rules you decide to treat: nothing is created before you click, and the action form is reviewed before it is saved."
-
-msgid "First report for this domain: the next import will show the rules that appeared or were resolved."
-msgstr "First report for this domain: the next import will show the rules that appeared or were resolved."
-
-msgid "GLPI never runs PingCastle and never queries the directory: it reads the report that your team produced. The report is stored in the current entity."
-msgstr "GLPI never runs PingCastle and never queries the directory: it reads the report that your team produced. The report is stored in the current entity."
-
-msgid "Import a PingCastle report"
-msgstr "Import a PingCastle report"
-
-msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
-msgstr "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
-
-msgid "Imported on"
-msgstr "Imported on"
-
-msgid "Imported reports"
-msgstr "Imported reports"
-
-#, php-format
-msgid "Maturity level: %d"
-msgstr "Maturity level: %d"
-
-msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
-msgstr "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
-
-msgid "No rule triggered in this report."
-msgstr "No rule triggered in this report."
-
-msgid "On a computer of the domain, run PingCastle and choose the health check (or run it with the --healthcheck option)."
-msgstr "On a computer of the domain, run PingCastle and choose the health check (or run it with the --healthcheck option)."
-
-msgid "Only the scores and the triggered rules (identifier, category, points, finding) are kept: never the list of accounts, nor any password found. A new report of the same domain shows the change of score and the rules that appeared or were resolved."
-msgstr "Only the scores and the triggered rules (identifier, category, points, finding) are kept: never the list of accounts, nor any password found. A new report of the same domain shows the change of score and the rules that appeared or were resolved."
-
-msgid "Only users who can modify the sensitive registers can import a report."
-msgstr "Only users who can modify the sensitive registers can import a report."
-
-msgid "Open a ticket"
-msgstr "Open a ticket"
-
-msgid "Passwords found in the report: not kept"
-msgstr "Passwords found in the report: not kept"
-
-#, php-format
-msgid "PingCastle XML report (%d MB at most)"
-msgstr "PingCastle XML report (%d MB at most)"
-
-msgid "PingCastle is free for internal use; a service provider auditing a customer needs a licence. Check the terms of use of the tool."
-msgstr "PingCastle is free for internal use; a service provider auditing a customer needs a licence. Check the terms of use of the tool."
-
-#, php-format
-msgid "PingCastle report of %1$s, %2$s"
-msgstr "PingCastle report of %1$s, %2$s"
-
-msgid "Points"
-msgstr "Points"
-
-msgid "Propose an action"
-msgstr "Propose an action"
-
-msgid "Report date"
-msgstr "Report date"
-
-#, php-format
-msgid "Report of %s"
-msgstr "Report of %s"
-
-msgid "Rules resolved since the previous report"
-msgstr "Rules resolved since the previous report"
-
-msgid "Rules triggered"
-msgstr "Rules triggered"
-
-msgid "These reports describe the weaknesses of the domain: the page and the archived reports are reserved to the sensitive registers right, in the entity of each import."
-msgstr "These reports describe the weaknesses of the domain: the page and the archived reports are reserved to the sensitive registers right, in the entity of each import."
-
-msgid "Weakness reported by the Active Directory security audit (\"Active Directory security audit\" screen). Fix it, then import the next report to check that the rule is resolved. Nothing was changed automatically."
-msgstr "Weakness reported by the Active Directory security audit (\"Active Directory security audit\" screen). Fix it, then import the next report to check that the rule is resolved. Nothing was changed automatically."
-
-#, php-format
-msgid "%d rule concerns this control"
-msgid_plural "%d rules concern this control"
-msgstr[0] "%d rule concerns this control"
-msgstr[1] "%d rules concern this control"
-
-#, php-format
-msgid "Score: %d/100"
-msgstr "Score: %d/100"
-
-#, php-format
-msgid "Action proposed from the Active Directory security audit (rule %s): review and adapt each field, set an owner and a due date, then click \"Add\". Nothing is created before, and the rule is linked to this action once it is saved."
-msgstr "Action proposed from the Active Directory security audit (rule %s): review and adapt each field, set an owner and a due date, then click \"Add\". Nothing is created before, and the rule is linked to this action once it is saved."
-
-msgctxt "ad rule"
-msgid "New"
-msgstr "New"
-
-msgid "Evaluation completed."
-msgstr "Evaluation completed."
-
-msgid "Evaluation reopened."
-msgstr "Evaluation reopened."
-
-msgid "Answers saved."
-msgstr "Answers saved."
-
-msgid "Template copied: adapt its questions."
-msgstr "Template copied: adapt its questions."
-
-#, php-format
-msgid "Questions saved: %1$d added, %2$d changed, %3$d deleted."
-msgstr "Questions saved: %1$d added, %2$d changed, %3$d deleted."
-
-msgid "No change to the questions."
-msgstr "No change to the questions."
-
-msgid "Back to supplier risks"
-msgstr "Back to supplier risks"
-
-msgid "New questionnaire template"
-msgstr "New questionnaire template"
-
-msgid "Questionnaire templates"
-msgstr "Questionnaire templates"
-
-msgid "Historical questionnaire"
-msgstr "Historical questionnaire"
-
-msgid "The twelve questions of the former security questionnaire, kept with the answers already given."
-msgstr "The twelve questions of the former security questionnaire, kept with the answers already given."
-
-msgid "Create one risk per important supplier, evaluate it with one or more questionnaires (Questionnaires tab), follow its contracts and the \"Security watch\" tab."
-msgstr "Create one risk per important supplier, evaluate it with one or more questionnaires (Questionnaires tab), follow its contracts and the \"Security watch\" tab."
-
-msgid "Supplier questionnaire templates: the questions asked to your suppliers, grouped by section, with their weight, the expected answer and the evidence to provide. One template per need: information security, personal data, artificial intelligence..."
-msgstr "Supplier questionnaire templates: the questions asked to your suppliers, grouped by section, with their weight, the expected answer and the evidence to provide. One template per need: information security, personal data, artificial intelligence..."
-
-msgid "Adapt the historical questionnaire or create your own templates, then start an evaluation from the Questionnaires tab of a supplier risk. A supplier can be evaluated with several templates; each evaluation keeps its score and its history."
-msgstr "Adapt the historical questionnaire or create your own templates, then start an evaluation from the Questionnaires tab of a supplier risk. A supplier can be evaluated with several templates; each evaluation keeps its score and its history."
-
-msgid "ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
-msgstr "ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
-
-msgid "Questionnaires"
-msgstr "Questionnaires"
-
-msgid "Choose the supplier risk to evaluate."
-msgstr "Choose the supplier risk to evaluate."
-
-msgid "Choose an active questionnaire template available in the entity of the supplier risk."
-msgstr "Choose an active questionnaire template available in the entity of the supplier risk."
-
-#, php-format
-msgid "%1$s - %2$s"
-msgstr "%1$s - %2$s"
-
-msgid "This evaluation is completed: reopen it to change it."
-msgstr "This evaluation is completed: reopen it to change it."
-
-msgid "Questionnaire"
-msgstr "Questionnaire"
-
-msgid "Evaluation date"
-msgstr "Evaluation date"
-
-msgid "This question cannot receive a document."
-msgstr "This question cannot receive a document."
-
-msgid "You are not allowed to add a document to this supplier risk."
-msgstr "You are not allowed to add a document to this supplier risk."
-
-#, php-format
-msgid "Evidence for question %1$s of the evaluation \"%2$s\""
-msgstr "Evidence for question %1$s of the evaluation \"%2$s\""
-
-#, php-format
-msgid "Evidence added to question %s"
-msgstr "Evidence added to question %s"
-
-msgid "Information security"
-msgstr "Information security"
-
-msgid "Personal data"
-msgstr "Personal data"
-
-msgid "Artificial intelligence"
-msgstr "Artificial intelligence"
-
-msgid "Business continuity"
-msgstr "Business continuity"
-
-#, php-format
-msgid "Copy of %s"
-msgstr "Copy of %s"
-
-msgid "Duplicate this template"
-msgstr "Duplicate this template"
-
-#, php-format
-msgid "%1$d of %2$d questions answered"
-msgstr "%1$d of %2$d questions answered"
-
-#, php-format
-msgid "%1$s (version %2$d)"
-msgstr "%1$s (version %2$d)"
-
-msgid "Answer the questions in the \"Questionnaire\" tab, then mark the evaluation as completed."
-msgstr "Answer the questions in the \"Questionnaire\" tab, then mark the evaluation as completed."
-
-msgid "Evaluation"
-msgstr "Evaluation"
-
-msgid "Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by the weight of the question; \"not applicable\" and unanswered questions are not counted."
-msgstr "Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by the weight of the question; \"not applicable\" and unanswered questions are not counted."
-
-msgid "For example \"Security 2026\" or \"Personal data - contract renewal\"."
-msgstr "For example \"Security 2026\" or \"Personal data - contract renewal\"."
-
-msgid "Questionnaire template"
-msgstr "Questionnaire template"
-
-#, php-format
-msgid "Score: %1$d%% - %2$s"
-msgstr "Score: %1$d%% - %2$s"
-
-msgid "This evaluation is completed: its answers can no longer be changed. Reopen it from the \"Questionnaire\" tab to change them."
-msgstr "This evaluation is completed: its answers can no longer be changed. Reopen it from the \"Questionnaire\" tab to change them."
-
-msgid "Add the template, then write its questions in the \"Questions\" tab."
-msgstr "Add the template, then write its questions in the \"Questions\" tab."
-
-msgid "Fingerprint of the questions, used to recognize a questionnaire file returned by a supplier."
-msgstr "Fingerprint of the questions, used to recognize a questionnaire file returned by a supplier."
-
-msgid "For example \"Hosting provider security\", \"Personal data processor (GDPR art. 28)\" or \"AI service provider\"."
-msgstr "For example \"Hosting provider security\", \"Personal data processor (GDPR art. 28)\" or \"AI service provider\"."
-
-msgid "Inactive: not offered for new evaluations"
-msgstr "Inactive: not offered for new evaluations"
-
-msgid "Increases each time the questions change. An evaluation keeps the questions of the version it was started with."
-msgstr "Increases each time the questions change. An evaluation keeps the questions of the version it was started with."
-
-msgid "Only active templates are offered when an evaluation is started."
-msgstr "Only active templates are offered when an evaluation is started."
-
-msgid "Taken over"
-msgstr "Taken over"
-
-msgid "The last completed evaluation of the \"Information security\" domain gives the score shown on the supplier risk and on the dashboard."
-msgstr "The last completed evaluation of the \"Information security\" domain gives the score shown on the supplier risk and on the dashboard."
-
-msgid "The twelve questions of the former security questionnaire. It can be deactivated but not deleted."
-msgstr "The twelve questions of the former security questionnaire. It can be deactivated but not deleted."
-
-msgid "Detach"
-msgstr "Detach"
-
-msgid "Document not readable with your rights"
-msgstr "Document not readable with your rights"
-
-msgid "Evidence missing"
-msgstr "Evidence missing"
-
-msgid "Evidence required"
-msgstr "Evidence required"
-
-msgid "Expected answer"
-msgstr "Expected answer"
-
-#, php-format
-msgid "Expected: %s"
-msgstr "Expected: %s"
-
-#, php-format
-msgid "For each question, choose the answer given by the supplier and add a comment if needed. The expected answer earns 1 point, \"partial\" half a point, the other answer 0, multiplied by the weight of the question. A question marked \"Evidence required\" waits for a document (certificate, report, policy...): it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) and added to the Documents tab of the supplier risk."
-msgstr "For each question, choose the answer given by the supplier and add a comment if needed. The expected answer earns 1 point, \"partial\" half a point, the other answer 0, multiplied by the weight of the question. A question marked \"Evidence required\" waits for a document (certificate, report, policy...): it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) and added to the Documents tab of the supplier risk."
-
-msgid "For information, not scored"
-msgstr "For information, not scored"
-
-msgid "General"
-msgstr "General"
-
-msgid "Questions without an answer do not count in the score. A completed evaluation can no longer be changed, unless it is reopened."
-msgstr "Questions without an answer do not count in the score. A completed evaluation can no longer be changed, unless it is reopened."
-
-msgid "Reopen the evaluation"
-msgstr "Reopen the evaluation"
-
-msgid "Save and mark as completed"
-msgstr "Save and mark as completed"
-
-msgid "Save answers"
-msgstr "Save answers"
-
-msgid "This evaluation has no question: its template had none when it was created."
-msgstr "This evaluation has no question: its template had none when it was created."
-
-#, php-format
-msgid "Weight %d"
-msgstr "Weight %d"
-
-#, php-format
-msgid "%1$s: %2$s points"
-msgstr "%1$s: %2$s points"
-
-msgid "Change between the last two completed evaluations"
-msgstr "Change between the last two completed evaluations"
-
-msgid "Evaluate the supplier with one or more questionnaires (security, personal data, artificial intelligence...). Each question has a weight and an expected answer; the score informs the assessment and never changes the risk level entered. Evidence requested for a question is added to the Documents tab of this supplier risk."
-msgstr "Evaluate the supplier with one or more questionnaires (security, personal data, artificial intelligence...). Each question has a weight and an expected answer; the score informs the assessment and never changes the risk level entered. Evidence requested for a question is added to the Documents tab of this supplier risk."
-
-msgid "No active questionnaire template is available in the entity of this supplier risk."
-msgstr "No active questionnaire template is available in the entity of this supplier risk."
-
-msgid "No evaluation yet for this supplier."
-msgstr "No evaluation yet for this supplier."
-
-msgid "Optional: the template name and the year otherwise"
-msgstr "Optional: the template name and the year otherwise"
-
-msgid "Start an evaluation"
-msgstr "Start an evaluation"
-
-msgid "Taken over from the former fixed questionnaire"
-msgstr "Taken over from the former fixed questionnaire"
-
-#, php-format
-msgid "Template: %1$s (version %2$d)"
-msgstr "Template: %1$s (version %2$d)"
-
-msgid "Code"
-msgstr "Code"
-
-#, php-format
-msgid "Group the questions by section. The expected answer is the compliant one (\"No\" for a question such as \"Have you suffered a data breach in the last 12 months?\"). The weight, from 0 to %d, gives the importance of the question in the score; 0 makes it a question for information only. Tick \"Evidence required\" when the supplier must provide a document. Changing the questions creates a new version of the template; evaluations already started keep their questions."
-msgstr "Group the questions by section. The expected answer is the compliant one (\"No\" for a question such as \"Have you suffered a data breach in the last 12 months?\"). The weight, from 0 to %d, gives the importance of the question in the score; 0 makes it a question for information only. Tick \"Evidence required\" when the supplier must provide a document. Changing the questions creates a new version of the template; evaluations already started keep their questions."
-
-msgid "Help for the answer (optional)"
-msgstr "Help for the answer (optional)"
-
-msgid "Last"
-msgstr "Last"
-
-msgid "New question (left empty: not added)"
-msgstr "New question (left empty: not added)"
-
-msgid "Question and help"
-msgstr "Question and help"
-
-msgid "Save questions"
-msgstr "Save questions"
-
-msgid "Section"
-msgstr "Section"
-
-msgid "This template has no question yet."
-msgstr "This template has no question yet."
-
-#, php-format
-msgid "Total weight: %d"
-msgstr "Total weight: %d"
-
-msgid "New question"
-msgstr "New question"
-
-#, php-format
-msgid "Answers saved, %d document added."
-msgid_plural "Answers saved, %d documents added."
-msgstr[0] "Answers saved, %d document added."
-msgstr[1] "Answers saved, %d documents added."
-
-msgid "Supplier evaluation"
-msgid_plural "Supplier evaluations"
-msgstr[0] "Supplier evaluation"
-msgstr[1] "Supplier evaluations"
-
-#, php-format
-msgid "%d answer updated"
-msgid_plural "%d answers updated"
-msgstr[0] "%d answer updated"
-msgstr[1] "%d answers updated"
-
-msgid "Supplier questionnaire template"
-msgid_plural "Supplier questionnaire templates"
-msgstr[0] "Supplier questionnaire template"
-msgstr[1] "Supplier questionnaire templates"
-
-msgid "Question"
-msgid_plural "Questions"
-msgstr[0] "Question"
-msgstr[1] "Questions"
-
-#, php-format
-msgid "%d evidence missing"
-msgid_plural "%d evidence missing"
-msgstr[0] "%d evidence missing"
-msgstr[1] "%d evidence missing"
-
-#, php-format
-msgid "%d evaluation"
-msgid_plural "%d evaluations"
-msgstr[0] "%d evaluation"
-msgstr[1] "%d evaluations"
-
-#, php-format
-msgid "%d question"
-msgid_plural "%d questions"
-msgstr[0] "%d question"
-msgstr[1] "%d questions"
-
-#, php-format
-msgid "%d control updated."
-msgid_plural "%d controls updated."
-msgstr[0] "%d control updated."
-msgstr[1] "%d controls updated."
-
-#, php-format
-msgid "Maturity campaign: %s"
-msgstr "Maturity campaign: %s"
-
-#, php-format
-msgid "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
-msgstr "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
-
-#, php-format
-msgid "Target date: %s"
-msgstr "Target date: %s"
-
-#, php-format
-msgid "Maturity gap %1$s: from level %2$d to level %3$d"
-msgstr "Maturity gap %1$s: from level %2$d to level %3$d"
-
-msgid "Maturity campaign"
-msgid_plural "Maturity campaigns"
-msgstr[0] "Maturity campaign"
-msgstr[1] "Maturity campaigns"
-
-msgid "Maturity by control"
-msgstr "Maturity by control"
-
-msgid "Non-existent"
-msgstr "Non-existent"
-
-#, php-format
-msgid "Maturity assessment of %s"
-msgstr "Maturity assessment of %s"
-
-msgid "Levels by control"
-msgstr "Levels by control"
-
-msgid "Comparison"
-msgstr "Comparison"
-
-msgid "Campaign lead"
-msgstr "Campaign lead"
-
-#, php-format
-msgid "Maturity by control: %s"
-msgstr "Maturity by control: %s"
-
-msgid ""
-"Rates each applicable control of the Statement of Applicability on a scale "
-"from 0 (non-existent) to 5 (optimised): the level reached today and the "
-"level aimed for, with a target date. The gaps between the two make up the "
-"security roadmap, and two dated campaigns show the progress. These optional "
-"levels change neither the implementation status of the controls nor the "
-"maturity score."
-msgstr ""
-"Rates each applicable control of the Statement of Applicability on a scale "
-"from 0 (non-existent) to 5 (optimised): the level reached today and the "
-"level aimed for, with a target date. The gaps between the two make up the "
-"security roadmap, and two dated campaigns show the progress. These optional "
-"levels change neither the implementation status of the controls nor the "
-"maturity score."
-
-msgid ""
-"Create a campaign (for example once a year), fill in the current and target "
-"levels of each control with a justification and an owner, then open the "
-"\"Gaps\" tab: create an action for the largest gaps and download the report "
-"for the management review. The next campaign takes over the targets of this "
-"one."
-msgstr ""
-"Create a campaign (for example once a year), fill in the current and target "
-"levels of each control with a justification and an owner, then open the "
-"\"Gaps\" tab: create an action for the largest gaps and download the report "
-"for the management review. The next campaign takes over the targets of this "
-"one."
-
-msgid "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
-msgstr "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
-
-msgid "Maturity scale by control"
-msgstr "Maturity scale by control"
-
-msgid "Open the maturity campaigns"
-msgstr "Open the maturity campaigns"
-
-msgid ""
-"Rename the levels of the scale used by the maturity campaigns to match your "
-"method. Leave a field empty to keep the default label, translated into the "
-"language of each user; a label you enter is shown as is in every language. "
-"Renaming a level changes no recorded level."
-msgstr ""
-"Rename the levels of the scale used by the maturity campaigns to match your "
-"method. Leave a field empty to keep the default label, translated into the "
-"language of each user; a label you enter is shown as is in every language. "
-"Renaming a level changes no recorded level."
-
-#, php-format
-msgid "%d control declined"
-msgid_plural "%d controls declined"
-msgstr[0] "%d control declined"
-msgstr[1] "%d controls declined"
-
-#, php-format
-msgid "%d control improved"
-msgid_plural "%d controls improved"
-msgstr[0] "%d control improved"
-msgstr[1] "%d controls improved"
-
-#, php-format
-msgid "%d control unchanged"
-msgid_plural "%d controls unchanged"
-msgstr[0] "%d control unchanged"
-msgstr[1] "%d controls unchanged"
-
-msgid "Compare"
-msgstr "Compare"
-
-msgid "Compare with"
-msgstr "Compare with"
-
-msgid "Comparison of two campaigns"
-msgstr "Comparison of two campaigns"
-
-msgid ""
-"Current levels of each campaign. A control assessed in only one of the two "
-"campaigns is not compared."
-msgstr ""
-"Current levels of each campaign. A control assessed in only one of the two "
-"campaigns is not compared."
-
-msgid "New campaign"
-msgstr "New campaign"
-
-msgid ""
-"There is no other campaign in this entity yet. Create the next campaign (for "
-"example next year): it takes over the targets of this one, and both can then "
-"be compared here."
-msgstr ""
-"There is no other campaign in this entity yet. Create the next campaign (for "
-"example next year): it takes over the targets of this one, and both can then "
-"be compared here."
-
-#, php-format
-msgid "%d gap to close"
-msgid_plural "%d gaps to close"
-msgstr[0] "%d gap to close"
-msgstr[1] "%d gaps to close"
-
-#, php-format
-msgid "Average level: %1$s, target %2$s"
-msgstr "Average level: %1$s, target %2$s"
-
-msgid ""
-"Average levels by theme, gaps sorted by size and comparison with the "
-"previous campaign, for the management review."
-msgstr ""
-"Average levels by theme, gaps sorted by size and comparison with the "
-"previous campaign, for the management review."
-
-msgid "Average over the controls that have both a current and a target level."
-msgstr "Average over the controls that have both a current and a target level."
-
-msgid "Campaigns are compared in the order of this date."
-msgstr "Campaigns are compared in the order of this date."
-
-msgid "For example \"2026 assessment\". Left empty, the date is used."
-msgstr "For example \"2026 assessment\". Left empty, the date is used."
-
-msgid "No gap: every target is reached"
-msgstr "No gap: every target is reached"
-
-msgid "Previous campaign"
-msgstr "Previous campaign"
-
-msgid ""
-"The campaign lists the applicable controls of the Statement of Applicability "
-"of the entity. The targets, target dates, justifications and owners of the "
-"previous campaign are taken over; the current levels are left to assess."
-msgstr ""
-"The campaign lists the applicable controls of the Statement of Applicability "
-"of the entity. The targets, target dates, justifications and owners of the "
-"previous campaign are taken over; the current levels are left to assess."
-
-msgid ""
-"The overall maturity score is computed separately from your data and does "
-"not use these levels."
-msgstr ""
-"The overall maturity score is computed separately from your data and does "
-"not use these levels."
-
-msgid ""
-"A gap is the target level minus the current level. The largest gaps come "
-"first, then the nearest target dates: they are the priorities of the roadmap "
-"to present to management. \"Create the action\" opens a pre-filled "
-"opportunity for improvement that you review and save yourself."
-msgstr ""
-"A gap is the target level minus the current level. The largest gaps come "
-"first, then the nearest target dates: they are the priorities of the roadmap "
-"to present to management. \"Create the action\" opens a pre-filled "
-"opportunity for improvement that you review and save yourself."
-
-msgid "All (ISO/IEC 27001 Annex A)"
-msgstr "All (ISO/IEC 27001 Annex A)"
-
-msgid "Average level of the controls of each theme that have both levels."
-msgstr "Average level of the controls of each theme that have both levels."
-
-msgid "Current and target levels by theme"
-msgstr "Current and target levels by theme"
-
-msgid "Gaps to close"
-msgstr "Gaps to close"
-
-msgid "No gap matches these filters."
-msgstr "No gap matches these filters."
-
-msgid ""
-"No gap: fill in the current and target levels in the \"Levels by control\" "
-"tab; the controls whose target is not reached are listed here."
-msgstr ""
-"No gap: fill in the current and target levels in the \"Levels by control\" "
-"tab; the controls whose target is not reached are listed here."
-
-msgid "Target date"
-msgstr "Target date"
-
-msgid "Target date passed"
-msgstr "Target date passed"
-
-msgid "Target level"
-msgstr "Target level"
-
-msgid "The chart appears once controls have both a current and a target level."
-msgstr ""
-"The chart appears once controls have both a current and a target level."
-
-msgid "Current level at the previous campaign"
-msgstr "Current level at the previous campaign"
-
-msgid ""
-"For each control, choose the level reached today and the level aimed for, on "
-"the scale below, then click \"Save the levels\" at the bottom of the page. A "
-"level left on \"Not assessed\" is simply ignored. These levels change "
-"neither the implementation status of the control nor the maturity score."
-msgstr ""
-"For each control, choose the level reached today and the level aimed for, on "
-"the scale below, then click \"Save the levels\" at the bottom of the page. A "
-"level left on \"Not assessed\" is simply ignored. These levels change "
-"neither the implementation status of the control nor the maturity score."
-
-msgid "Implementation status in the SoA"
-msgstr "Implementation status in the SoA"
-
-msgid ""
-"No applicable control in the Statement of Applicability of this entity when "
-"the campaign was created. Declare the applicable controls in the SoA, then "
-"create a new campaign."
-msgstr ""
-"No applicable control in the Statement of Applicability of this entity when "
-"the campaign was created. Declare the applicable controls in the SoA, then "
-"create a new campaign."
-
-msgid "No target"
-msgstr "No target"
-
-msgid "Open the Statement of Applicability"
-msgstr "Open the Statement of Applicability"
-
-msgid "Reached"
-msgstr "Reached"
-
-msgid "Save the levels"
-msgstr "Save the levels"
-
-msgid ""
-"Targets, dates, owners and justifications come from the previous campaign: "
-"adjust them if needed."
-msgstr ""
-"Targets, dates, owners and justifications come from the previous campaign: "
-"adjust them if needed."
-
-#, php-format
-msgid ""
-"Action proposed from a maturity gap (%s): review and adapt each field, check "
-"the owner and the due date, then click \"Add\". Nothing is created before, "
-"and the gap is linked to this action once it is saved."
-msgstr ""
-"Action proposed from a maturity gap (%s): review and adapt each field, check "
-"the owner and the due date, then click \"Add\". Nothing is created before, "
-"and the gap is linked to this action once it is saved."
-
-msgid ""
-"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
-"neither the implementation status of the controls nor the maturity score."
-msgstr ""
-"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
-"neither the implementation status of the controls nor the maturity score."
-
-msgid "No previous campaign in this entity."
-msgstr "No previous campaign in this entity."

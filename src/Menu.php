@@ -133,6 +133,8 @@ class Menu extends CommonGLPI
                 PersonnelCompliance::class,
                 // Issue #852 : couverture de l'authentification multifacteur par compte (A.8.5).
                 MfaCoverage::class,
+                // Issue #846 : droits d'accès aux partages de fichiers Windows (A.5.15, A.5.18, A.8.3).
+                ShareAccess::class,
                 PeriodicReview::class,
                 Training::class,
                 // Issue #604 : simulations d'hameçonnage (preuve de sensibilisation, 7.3 et A.6.3).
