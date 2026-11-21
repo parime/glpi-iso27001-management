@@ -115,7 +115,10 @@ final class Security360CoreSourcesFeature implements AssetSecuritySourcesProvide
         if ($rows === []) {
             return [
                 'status'  => Rules::STATUS_OK,
-                'summary' => __('No known vulnerability in the watched products installed on this asset.', 'grcmanager'),
+                'summary' => __(
+                    'No known vulnerability in the watched products installed on this asset.',
+                    'grcmanager'
+                ),
                 'url'     => $url,
             ];
         }
@@ -123,7 +126,10 @@ final class Security360CoreSourcesFeature implements AssetSecuritySourcesProvide
         return [
             'status'  => $priority > 0 ? Rules::STATUS_CRITICAL : Rules::STATUS_WARNING,
             'summary' => sprintf(
-                __('%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe).', 'grcmanager'),
+                __(
+                    '%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe).',
+                    'grcmanager'
+                ),
                 count($rows),
                 $priority
             ),
@@ -311,7 +317,10 @@ final class Security360CoreSourcesFeature implements AssetSecuritySourcesProvide
         if ($risks === []) {
             return null;
         }
-        $levels = array_count_values(array_map(static fn (array $risk): string => (string) $risk['risk_level'], $risks));
+        $levels = array_count_values(array_map(
+            static fn (array $risk): string => (string) $risk['risk_level'],
+            $risks
+        ));
         $high = ($levels['high'] ?? 0) + ($levels['critical'] ?? 0);
         $medium = $levels['medium'] ?? 0;
 
@@ -323,7 +332,7 @@ final class Security360CoreSourcesFeature implements AssetSecuritySourcesProvide
                 $high,
                 $medium
             ),
-            'facts'   => array_slice(array_map(static fn (array $risk): string => (string) $risk['title'], $risks), 0, 5),
+            'facts'   => array_slice(array_column($risks, 'title'), 0, 5),
             'url'     => AssetSecurity360::tabUrl($item, Risk::class),
         ];
     }

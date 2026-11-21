@@ -16,6 +16,7 @@
  */
 
 declare(strict_types=1);
+
 namespace GlpiPlugin\Grcmanager\Tests\Unit\Services\Security360;
 
 use GlpiPlugin\Grcmanager\Services\Security360\Security360Rules as Rules;
@@ -29,7 +30,10 @@ final class Security360RulesTest extends TestCase
     public function testNoAssessedSourceGivesNoScore(): void
     {
         $this->assertSame(Rules::LEVEL_NONE, Rules::score([])['level']);
-        $result = Rules::score([['status' => Rules::STATUS_INFO, 'weight' => 3], ['status' => Rules::STATUS_OK, 'weight' => 0]]);
+        $result = Rules::score([
+            ['status' => Rules::STATUS_INFO, 'weight' => 3],
+            ['status' => Rules::STATUS_OK, 'weight' => 0],
+        ]);
         $this->assertNull($result['score']);
         $this->assertSame(0, $result['evaluated']);
     }

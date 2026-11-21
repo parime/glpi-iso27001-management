@@ -16,6 +16,7 @@
  */
 
 declare(strict_types=1);
+
 namespace GlpiPlugin\Grcmanager\Tests\Feature;
 
 use GlpiPlugin\Grcmanager\Feature\AssetSecuritySourcesProvider;
