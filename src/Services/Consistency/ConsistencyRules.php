@@ -152,6 +152,10 @@ final class ConsistencyRules
         'hardware_warranty_expired'            => [
             'area' => 'operations', 'clause' => 'A.7.13', 'severity' => self::SEVERITY_LOW, 'threshold' => null,
         ],
+        // Issue #782, lot 2 : matériel dont le modèle a atteint la fin de vie déclarée par le constructeur.
+        'hardware_end_of_life_reached'         => [
+            'area' => 'operations', 'clause' => 'A.7.13', 'severity' => self::SEVERITY_MEDIUM, 'threshold' => null,
+        ],
         // Issue #779 : logiciel sans licence, surdéploiement ou licence expirée encore utilisée.
         'software_license_gap'                 => [
             'area' => 'operations', 'clause' => 'A.5.32', 'severity' => self::SEVERITY_MEDIUM, 'threshold' => null,

@@ -25915,15 +25915,7 @@ msgid "All hardware"
 msgstr ""
 
 #: templates/park_hardware_warranty.html.twig
-msgid "Expired or ending soon"
-msgstr ""
-
-#: templates/park_hardware_warranty.html.twig
 msgid "Hardware type"
-msgstr ""
-
-#: templates/park_hardware_warranty.html.twig
-msgid "No hardware has an expired warranty or a warranty ending soon."
 msgstr ""
 
 #: templates/park_hardware_warranty.html.twig
@@ -32491,7 +32483,151 @@ msgid ""
 msgstr ""
 
 
+#: front/config.php:613
+#, php-format
+msgid "%d end of life date not saved: enter a valid date for a hardware model."
+msgid_plural ""
+"%d end of life dates not saved: enter a valid date for a hardware model."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ConsistencyCheck.php:394
+msgid "Hardware whose model has reached the manufacturer end of life"
+msgstr ""
+
+#: src/ConsistencyCheck.php:396
+msgid ""
+"Plan the replacement of the hardware, or record a waiver with compensating "
+"measures until then."
+msgstr ""
+
+#: src/HardwareWarranty.php:160
+msgid "Manufacturer end of life reached"
+msgstr ""
+
+#: src/HardwareWarranty.php:164
+msgid ""
+"The manufacturer no longer supports this model: plan its replacement, or "
+"record the compensating measures."
+msgstr ""
+
+#: src/HardwareWarranty.php:170
+msgid "Manufacturer end of life soon"
+msgstr ""
+
+#: src/HardwareWarranty.php:174
+msgid ""
+"Plan the replacement before the manufacturer stops supporting this model."
+msgstr ""
+
+#: src/HardwareWarranty.php:179
+msgid "Supported by the manufacturer"
+msgstr ""
+
+#: src/HardwareWarranty.php:182
+msgid "The end of life date entered for this model is still ahead."
+msgstr ""
+
+#: src/HardwareWarranty.php:185
+msgid "No end of life date"
+msgstr ""
+
+#: src/HardwareWarranty.php:189
+msgid ""
+"No manufacturer end of life date entered for this model (optional, in the "
+"configuration)."
+msgstr ""
+
+#: src/HardwareWarranty.php:208
+#, php-format
+msgid "Manufacturer end of life on %s."
+msgstr ""
+
+#: src/HardwareWarranty.php:213
+#, php-format
+msgid "Manufacturer end of life on %1$s (in %2$d day)."
+msgid_plural "Manufacturer end of life on %1$s (in %2$d days)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/HardwareWarranty.php:446 templates/endoflife_config.html.twig
+msgid "Manufacturer end of life date"
+msgstr ""
+
+#: src/HardwareWarranty.php:447 templates/park_hardware_warranty.html.twig
+msgid "Manufacturer end of life"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%1$d reaching it within %2$d days"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d past the manufacturer end of life"
+msgstr ""
+
+#: templates/endoflife_config.html.twig
+#, php-format
+msgid ""
+"%1$d models: the %2$d first ones are shown (dated models first, then the "
+"most common ones)."
+msgstr ""
+
+#: templates/endoflife_config.html.twig
+msgid "Hardware in service"
+msgstr ""
+
+#: templates/endoflife_config.html.twig
+msgid "Manufacturer end of life of hardware models"
+msgstr ""
+
+#: templates/endoflife_config.html.twig
+msgid ""
+"No hardware model in your entities: give a model to the computers, monitors "
+"or network devices in GLPI first."
+msgstr ""
+
+#: templates/endoflife_config.html.twig
+msgid ""
+"Some manufacturers announce the date after which a model no longer receives "
+"repairs, spare parts or firmware updates. Enter it here when you know it "
+"(optional, leave empty otherwise): the \"Hardware warranty\" card of the "
+"park vulnerabilities page then shows the hardware of this model whose end of "
+"life is reached or near, with the same threshold as the end of support (ISO "
+"27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
+msgstr ""
+
+#: templates/endoflife_config.html.twig
+msgid "What is this for?"
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid ""
+"\"To be handled\": warranty expired or ending soon, or manufacturer end of "
+"life reached or soon."
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid "Enter the end of life dates"
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid ""
+"No hardware has an expired warranty, a warranty ending soon or a model at "
+"its manufacturer end of life."
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid "Optional date entered by hand for each hardware model."
+msgstr ""
+
+#: templates/park_hardware_warranty.html.twig
+msgid "To be handled"
+msgstr ""
 
 #: src/EntityPerimeter.php:138
 msgid "You cannot create this item in this entity."
 msgstr ""
+

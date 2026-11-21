@@ -151,3 +151,56 @@
     {% endif %}
   </div>
 </div>
+
+{# Issue #782, lot 2 : fin de vie déclarée par le constructeur, saisie à la main par modèle de
+   matériel (facultatif). Modèles en service dans les entités de la personne, et ceux déjà datés. #}
+{% set heol = hardware_eol %}
+<div class="card mb-3" id="grc-hardware-eol-config">
+  <div class="card-body">
+    <h4 class="d-flex align-items-center"><i class="ti ti-calendar-x me-2"></i>{{ __('Manufacturer end of life of hardware models', 'grcmanager') }}</h4>
+    <div class="alert alert-info mb-3">
+      <div class="d-flex">
+        <i class="ti ti-help-circle me-2 fs-2"></i>
+        <div>
+          <div class="fw-bold">{{ __('What is this for?', 'grcmanager') }}</div>
+          {{ __('Some manufacturers announce the date after which a model no longer receives repairs, spare parts or firmware updates. Enter it here when you know it (optional, leave empty otherwise): the "Hardware warranty" card of the park vulnerabilities page then shows the hardware of this model whose end of life is reached or near, with the same threshold as the end of support (ISO 27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models.', 'grcmanager') }}
+        </div>
+      </div>
+    </div>
+    {% if heol.models is empty %}
+      <p class="text-muted mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('No hardware model in your entities: give a model to the computers, monitors or network devices in GLPI first.', 'grcmanager') }}</p>
+    {% else %}
+      <form method="post" action="{{ action }}">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+        <div class="table-responsive mb-2">
+          <table class="table table-sm table-vcenter">
+            <thead><tr>
+              <th>{{ __('Hardware type', 'grcmanager') }}</th>
+              <th>{{ __('Manufacturer', 'grcmanager') }}</th>
+              <th>{{ __('Model', 'grcmanager') }}</th>
+              <th class="text-end">{{ __('Hardware in service', 'grcmanager') }}</th>
+              <th style="width: 200px;">{{ __('Manufacturer end of life date', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+              {% for model in heol.models %}
+              <tr>
+                <td><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ model.type }}</span></td>
+                <td>{{ model.manufacturer }}</td>
+                <td>{{ model.name }}</td>
+                <td class="text-end">{{ model.assets }}</td>
+                <td><input type="date" class="form-control form-control-sm" name="hardware_eol[{{ model.field }}]" value="{{ model.date }}" aria-label="{{ __('Manufacturer end of life date', 'grcmanager') }} {{ model.name }}" {{ can_edit_config ? '' : 'disabled' }}></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% if heol.total > heol.models|length %}
+          <p class="small text-muted">{{ __('%1$d models: the %2$d first ones are shown (dated models first, then the most common ones).', 'grcmanager')|format(heol.total, heol.models|length) }}</p>
+        {% endif %}
+        {% if can_edit_config %}
+          <button type="submit" name="update_hardware_eol" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
+        {% endif %}
+      </form>
+    {% endif %}
+  </div>
+</div>
