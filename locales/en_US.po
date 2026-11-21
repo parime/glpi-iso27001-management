@@ -32623,6 +32623,739 @@ msgid_plural "%d main recipients without deputy"
 msgstr[0] "%d main recipient without deputy"
 msgstr[1] "%d main recipients without deputy"
 
+#, php-format
+msgid "%d control updated."
+msgid_plural "%d controls updated."
+msgstr[0] "%d control updated."
+msgstr[1] "%d controls updated."
+
+#, php-format
+msgid "Maturity campaign: %s"
+msgstr "Maturity campaign: %s"
+
+#, php-format
+msgid "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
+msgstr "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
+
+#, php-format
+msgid "Target date: %s"
+msgstr "Target date: %s"
+
+#, php-format
+msgid "Maturity gap %1$s: from level %2$d to level %3$d"
+msgstr "Maturity gap %1$s: from level %2$d to level %3$d"
+
+msgid "Maturity campaign"
+msgid_plural "Maturity campaigns"
+msgstr[0] "Maturity campaign"
+msgstr[1] "Maturity campaigns"
+
+msgid "Maturity by control"
+msgstr "Maturity by control"
+
+msgid "Non-existent"
+msgstr "Non-existent"
+
+#, php-format
+msgid "Maturity assessment of %s"
+msgstr "Maturity assessment of %s"
+
+msgid "Levels by control"
+msgstr "Levels by control"
+
+msgid "Comparison"
+msgstr "Comparison"
+
+msgid "Campaign lead"
+msgstr "Campaign lead"
+
+#, php-format
+msgid "Maturity by control: %s"
+msgstr "Maturity by control: %s"
+
+msgid ""
+"Rates each applicable control of the Statement of Applicability on a scale "
+"from 0 (non-existent) to 5 (optimised): the level reached today and the "
+"level aimed for, with a target date. The gaps between the two make up the "
+"security roadmap, and two dated campaigns show the progress. These optional "
+"levels change neither the implementation status of the controls nor the "
+"maturity score."
+msgstr ""
+"Rates each applicable control of the Statement of Applicability on a scale "
+"from 0 (non-existent) to 5 (optimised): the level reached today and the "
+"level aimed for, with a target date. The gaps between the two make up the "
+"security roadmap, and two dated campaigns show the progress. These optional "
+"levels change neither the implementation status of the controls nor the "
+"maturity score."
+
+msgid ""
+"Create a campaign (for example once a year), fill in the current and target "
+"levels of each control with a justification and an owner, then open the "
+"\"Gaps\" tab: create an action for the largest gaps and download the report "
+"for the management review. The next campaign takes over the targets of this "
+"one."
+msgstr ""
+"Create a campaign (for example once a year), fill in the current and target "
+"levels of each control with a justification and an owner, then open the "
+"\"Gaps\" tab: create an action for the largest gaps and download the report "
+"for the management review. The next campaign takes over the targets of this "
+"one."
+
+msgid "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
+msgstr "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
+
+msgid "Maturity scale by control"
+msgstr "Maturity scale by control"
+
+msgid "Open the maturity campaigns"
+msgstr "Open the maturity campaigns"
+
+msgid ""
+"Rename the levels of the scale used by the maturity campaigns to match your "
+"method. Leave a field empty to keep the default label, translated into the "
+"language of each user; a label you enter is shown as is in every language. "
+"Renaming a level changes no recorded level."
+msgstr ""
+"Rename the levels of the scale used by the maturity campaigns to match your "
+"method. Leave a field empty to keep the default label, translated into the "
+"language of each user; a label you enter is shown as is in every language. "
+"Renaming a level changes no recorded level."
+
+#, php-format
+msgid "%d control declined"
+msgid_plural "%d controls declined"
+msgstr[0] "%d control declined"
+msgstr[1] "%d controls declined"
+
+#, php-format
+msgid "%d control improved"
+msgid_plural "%d controls improved"
+msgstr[0] "%d control improved"
+msgstr[1] "%d controls improved"
+
+#, php-format
+msgid "%d control unchanged"
+msgid_plural "%d controls unchanged"
+msgstr[0] "%d control unchanged"
+msgstr[1] "%d controls unchanged"
+
+msgid "Compare"
+msgstr "Compare"
+
+msgid "Compare with"
+msgstr "Compare with"
+
+msgid "Comparison of two campaigns"
+msgstr "Comparison of two campaigns"
+
+msgid ""
+"Current levels of each campaign. A control assessed in only one of the two "
+"campaigns is not compared."
+msgstr ""
+"Current levels of each campaign. A control assessed in only one of the two "
+"campaigns is not compared."
+
+msgid "New campaign"
+msgstr "New campaign"
+
+msgid ""
+"There is no other campaign in this entity yet. Create the next campaign (for "
+"example next year): it takes over the targets of this one, and both can then "
+"be compared here."
+msgstr ""
+"There is no other campaign in this entity yet. Create the next campaign (for "
+"example next year): it takes over the targets of this one, and both can then "
+"be compared here."
+
+#, php-format
+msgid "%d gap to close"
+msgid_plural "%d gaps to close"
+msgstr[0] "%d gap to close"
+msgstr[1] "%d gaps to close"
+
+#, php-format
+msgid "Average level: %1$s, target %2$s"
+msgstr "Average level: %1$s, target %2$s"
+
+msgid ""
+"Average levels by theme, gaps sorted by size and comparison with the "
+"previous campaign, for the management review."
+msgstr ""
+"Average levels by theme, gaps sorted by size and comparison with the "
+"previous campaign, for the management review."
+
+msgid "Average over the controls that have both a current and a target level."
+msgstr "Average over the controls that have both a current and a target level."
+
+msgid "Campaigns are compared in the order of this date."
+msgstr "Campaigns are compared in the order of this date."
+
+msgid "For example \"2026 assessment\". Left empty, the date is used."
+msgstr "For example \"2026 assessment\". Left empty, the date is used."
+
+msgid "No gap: every target is reached"
+msgstr "No gap: every target is reached"
+
+msgid "Previous campaign"
+msgstr "Previous campaign"
+
+msgid ""
+"The campaign lists the applicable controls of the Statement of Applicability "
+"of the entity. The targets, target dates, justifications and owners of the "
+"previous campaign are taken over; the current levels are left to assess."
+msgstr ""
+"The campaign lists the applicable controls of the Statement of Applicability "
+"of the entity. The targets, target dates, justifications and owners of the "
+"previous campaign are taken over; the current levels are left to assess."
+
+msgid ""
+"The overall maturity score is computed separately from your data and does "
+"not use these levels."
+msgstr ""
+"The overall maturity score is computed separately from your data and does "
+"not use these levels."
+
+msgid ""
+"A gap is the target level minus the current level. The largest gaps come "
+"first, then the nearest target dates: they are the priorities of the roadmap "
+"to present to management. \"Create the action\" opens a pre-filled "
+"opportunity for improvement that you review and save yourself."
+msgstr ""
+"A gap is the target level minus the current level. The largest gaps come "
+"first, then the nearest target dates: they are the priorities of the roadmap "
+"to present to management. \"Create the action\" opens a pre-filled "
+"opportunity for improvement that you review and save yourself."
+
+msgid "All (ISO/IEC 27001 Annex A)"
+msgstr "All (ISO/IEC 27001 Annex A)"
+
+msgid "Average level of the controls of each theme that have both levels."
+msgstr "Average level of the controls of each theme that have both levels."
+
+msgid "Current and target levels by theme"
+msgstr "Current and target levels by theme"
+
+msgid "Gaps to close"
+msgstr "Gaps to close"
+
+msgid "No gap matches these filters."
+msgstr "No gap matches these filters."
+
+msgid ""
+"No gap: fill in the current and target levels in the \"Levels by control\" "
+"tab; the controls whose target is not reached are listed here."
+msgstr ""
+"No gap: fill in the current and target levels in the \"Levels by control\" "
+"tab; the controls whose target is not reached are listed here."
+
+msgid "Target date"
+msgstr "Target date"
+
+msgid "Target date passed"
+msgstr "Target date passed"
+
+msgid "Target level"
+msgstr "Target level"
+
+msgid "The chart appears once controls have both a current and a target level."
+msgstr ""
+"The chart appears once controls have both a current and a target level."
+
+msgid "Current level at the previous campaign"
+msgstr "Current level at the previous campaign"
+
+msgid ""
+"For each control, choose the level reached today and the level aimed for, on "
+"the scale below, then click \"Save the levels\" at the bottom of the page. A "
+"level left on \"Not assessed\" is simply ignored. These levels change "
+"neither the implementation status of the control nor the maturity score."
+msgstr ""
+"For each control, choose the level reached today and the level aimed for, on "
+"the scale below, then click \"Save the levels\" at the bottom of the page. A "
+"level left on \"Not assessed\" is simply ignored. These levels change "
+"neither the implementation status of the control nor the maturity score."
+
+msgid "Implementation status in the SoA"
+msgstr "Implementation status in the SoA"
+
+msgid ""
+"No applicable control in the Statement of Applicability of this entity when "
+"the campaign was created. Declare the applicable controls in the SoA, then "
+"create a new campaign."
+msgstr ""
+"No applicable control in the Statement of Applicability of this entity when "
+"the campaign was created. Declare the applicable controls in the SoA, then "
+"create a new campaign."
+
+msgid "No target"
+msgstr "No target"
+
+msgid "Open the Statement of Applicability"
+msgstr "Open the Statement of Applicability"
+
+msgid "Reached"
+msgstr "Reached"
+
+msgid "Save the levels"
+msgstr "Save the levels"
+
+msgid ""
+"Targets, dates, owners and justifications come from the previous campaign: "
+"adjust them if needed."
+msgstr ""
+"Targets, dates, owners and justifications come from the previous campaign: "
+"adjust them if needed."
+
+#, php-format
+msgid ""
+"Action proposed from a maturity gap (%s): review and adapt each field, check "
+"the owner and the due date, then click \"Add\". Nothing is created before, "
+"and the gap is linked to this action once it is saved."
+msgstr ""
+"Action proposed from a maturity gap (%s): review and adapt each field, check "
+"the owner and the due date, then click \"Add\". Nothing is created before, "
+"and the gap is linked to this action once it is saved."
+
+msgid ""
+"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
+"neither the implementation status of the controls nor the maturity score."
+msgstr ""
+"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
+"neither the implementation status of the controls nor the maturity score."
+
+msgid "No previous campaign in this entity."
+msgstr "No previous campaign in this entity."
+
+#, php-format
+msgid ""
+"%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
+msgstr ""
+"%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
+
+msgid "Import deleted."
+msgstr "Import deleted."
+
+msgid "Remote access groups saved."
+msgstr "Remote access groups saved."
+
+#, php-format
+msgid "Administrators protected by MFA (%)"
+msgstr "Administrators protected by MFA (%)"
+
+msgid "MFA coverage"
+msgstr "MFA coverage"
+
+msgid "Microsoft Entra ID"
+msgstr "Microsoft Entra ID"
+
+msgid "Okta"
+msgstr "Okta"
+
+msgid "Google Workspace"
+msgstr "Google Workspace"
+
+msgid "On-premises MFA solution"
+msgstr "On-premises MFA solution"
+
+msgid "Other identity provider"
+msgstr "Other identity provider"
+
+msgid "MFA"
+msgstr "MFA"
+
+msgid "Weak method only"
+msgstr "Weak method only"
+
+msgid "No MFA"
+msgstr "No MFA"
+
+msgid "Administrator without MFA"
+msgstr "Administrator without MFA"
+
+msgid "Remote access without MFA"
+msgstr "Remote access without MFA"
+
+msgid "SMS, call or email only"
+msgstr "SMS, call or email only"
+
+msgid "Excluded without justification"
+msgstr "Excluded without justification"
+
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"login, userPrincipalName or email."
+msgstr ""
+"No account column found: the file needs a header with a column such as "
+"login, userPrincipalName or email."
+
+msgid ""
+"No method column found: the file needs a column such as methodsRegistered, "
+"methods or isMfaRegistered."
+msgstr ""
+"No method column found: the file needs a column such as methodsRegistered, "
+"methods or isMfaRegistered."
+
+msgid "The file could not be read."
+msgstr "The file could not be read."
+
+msgid "GLPI two-factor authentication"
+msgstr "GLPI two-factor authentication"
+
+msgid "GLPI authenticator app"
+msgstr "GLPI authenticator app"
+
+#, php-format
+msgid "MFA: %1$d%% of the accounts, %2$d administrator(s) without MFA"
+msgstr "MFA: %1$d%% of the accounts, %2$d administrator(s) without MFA"
+
+msgid ""
+"Shows which active accounts are protected by multi-factor authentication: "
+"GLPI two-factor authentication, and the methods registered with your "
+"identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises "
+"solution) imported from a CSV export. Rates are given for all accounts, "
+"administrators and remote access accounts."
+msgstr ""
+"Shows which active accounts are protected by multi-factor authentication: "
+"GLPI two-factor authentication, and the methods registered with your "
+"identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises "
+"solution) imported from a CSV export. Rates are given for all accounts, "
+"administrators and remote access accounts."
+
+msgid ""
+"Import the export of your identity provider, choose the remote access "
+"groups, then follow up the gaps: administrator or remote access without MFA, "
+"SMS or call only, account excluded without justification. Nothing is changed "
+"automatically. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+msgstr ""
+"Import the export of your identity provider, choose the remote access "
+"groups, then follow up the gaps: administrator or remote access without MFA, "
+"SMS or call only, account excluded without justification. Nothing is changed "
+"automatically. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+
+msgid "ISO/IEC 27001, controls A.8.5 and A.5.17"
+msgstr "ISO/IEC 27001, controls A.8.5 and A.5.17"
+
+msgid "Administrators without MFA"
+msgstr "Administrators without MFA"
+
+#, php-format
+msgid "Administrators without MFA: %d"
+msgstr "Administrators without MFA: %d"
+
+#, php-format
+msgid "Administrators: %d%%"
+msgstr "Administrators: %d%%"
+
+#, php-format
+msgid "MFA rate: %d%%"
+msgstr "MFA rate: %d%%"
+
+msgid "MFA rate: not measured"
+msgstr "MFA rate: not measured"
+
+#, php-format
+msgid "Remote access: %d%%"
+msgstr "Remote access: %d%%"
+
+#, php-format
+msgid "%1$d accounts: the first %2$d are shown, gaps first."
+msgstr "%1$d accounts: the first %2$d are shown, gaps first."
+
+msgid "Access reviews"
+msgstr "Access reviews"
+
+msgid "Accounts and authentication methods"
+msgstr "Accounts and authentication methods"
+
+msgid "Accounts protected by MFA"
+msgstr "Accounts protected by MFA"
+
+msgid ""
+"Accounts that sign in through your identity provider are covered by the "
+"methods you import below."
+msgstr ""
+"Accounts that sign in through your identity provider are covered by the "
+"methods you import below."
+
+msgid "Accounts with a gap"
+msgstr "Accounts with a gap"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid ""
+"Administrators are the accounts whose profile can change the GLPI "
+"configuration or the profiles, or that the identity provider reports as "
+"administrators. Nothing is changed in GLPI from this page."
+msgstr ""
+"Administrators are the accounts whose profile can change the GLPI "
+"configuration or the profiles, or that the identity provider reports as "
+"administrators. Nothing is changed in GLPI from this page."
+
+msgid "Administrators protected by MFA"
+msgstr "Administrators protected by MFA"
+
+msgid ""
+"Choose the remote access groups below, or import a remote_access column."
+msgstr ""
+"Choose the remote access groups below, or import a remote_access column."
+
+msgid "Delete the import"
+msgstr "Delete the import"
+
+#, php-format
+msgid "Excluded with a justification: %d"
+msgstr "Excluded with a justification: %d"
+
+msgid "Exempted from GLPI two-factor enforcement"
+msgstr "Exempted from GLPI two-factor enforcement"
+
+msgid ""
+"Export the authentication methods registered per user from your identity "
+"provider, then import the CSV file here. A new import of the same provider "
+"replaces the previous one in the current entity. Only method names are kept, "
+"never a secret."
+msgstr ""
+"Export the authentication methods registered per user from your identity "
+"provider, then import the CSV file here. A new import of the same provider "
+"replaces the previous one in the current entity. Only method names are kept, "
+"never a secret."
+
+msgid "GLPI two-factor authentication is enforced for every account."
+msgstr "GLPI two-factor authentication is enforced for every account."
+
+msgid ""
+"GLPI two-factor authentication is not enforced for every account: it can be "
+"enforced by profile, group or entity, or for everyone in the general "
+"configuration (Security tab)."
+msgstr ""
+"GLPI two-factor authentication is not enforced for every account: it can be "
+"enforced by profile, group or entity, or for everyone in the general "
+"configuration (Security tab)."
+
+msgid "Identity provider"
+msgstr "Identity provider"
+
+msgid "Imported accounts"
+msgstr "Imported accounts"
+
+msgid "Imported accounts not matched with a GLPI account"
+msgstr "Imported accounts not matched with a GLPI account"
+
+msgid "Matched"
+msgstr "Matched"
+
+#, php-format
+msgid "Members of these groups have remote access: %s."
+msgstr "Members of these groups have remote access: %s."
+
+msgid "Methods"
+msgstr "Methods"
+
+msgid "Methods registered with your identity provider"
+msgstr "Methods registered with your identity provider"
+
+msgid ""
+"Microsoft Entra ID: Protection > Authentication methods > User registration "
+"details, download (columns userPrincipalName, methodsRegistered, "
+"isMfaRegistered, isAdmin)."
+msgstr ""
+"Microsoft Entra ID: Protection > Authentication methods > User registration "
+"details, download (columns userPrincipalName, methodsRegistered, "
+"isMfaRegistered, isAdmin)."
+
+msgid "No active account in your entities."
+msgstr "No active account in your entities."
+
+msgid ""
+"No group chosen: only the accounts marked remote_access in an import count "
+"as remote access accounts."
+msgstr ""
+"No group chosen: only the accounts marked remote_access in an import count "
+"as remote access accounts."
+
+msgid "None declared"
+msgstr "None declared"
+
+msgid ""
+"Okta, Google Workspace or an on-premises solution: a CSV file with a header, "
+"one account per line."
+msgstr ""
+"Okta, Google Workspace or an on-premises solution: a CSV file with a header, "
+"one account per line."
+
+msgid ""
+"Recognized columns: login or email; methods (separated by commas or "
+"semicolons) or mfa (yes/no); optional admin, remote_access, excluded and "
+"exclusion_reason (yes/no and text)."
+msgstr ""
+"Recognized columns: login or email; methods (separated by commas or "
+"semicolons) or mfa (yes/no); optional admin, remote_access, excluded and "
+"exclusion_reason (yes/no and text)."
+
+msgid "Remote access"
+msgstr "Remote access"
+
+msgid "Remote access accounts protected by MFA"
+msgstr "Remote access accounts protected by MFA"
+
+msgid "Remote access groups (VPN, remote desktop...)"
+msgstr "Remote access groups (VPN, remote desktop...)"
+
+msgid "SMS, phone call and email codes are reported as weak methods."
+msgstr "SMS, phone call and email codes are reported as weak methods."
+
+msgid ""
+"They are matched on the login, the email address, or the part of the user "
+"principal name before the @. Check them: an account unknown in GLPI may be a "
+"service account or a former employee."
+msgstr ""
+"They are matched on the login, the email address, or the part of the user "
+"principal name before the @. Check them: an account unknown in GLPI may be a "
+"service account or a former employee."
+
+msgid "Which accounts have remote access?"
+msgstr "Which accounts have remote access?"
+
+#, php-format
+msgid "weak method only: %d"
+msgstr "weak method only: %d"
+
+#, php-format
+msgid "without MFA: %d"
+msgstr "without MFA: %d"
+
+#, php-format
+msgid "%d account"
+msgid_plural "%d accounts"
+msgstr[0] "%d account"
+msgstr[1] "%d accounts"
+
+msgid ""
+"Not saved: the tenant must be a domain name or an ID, and the application ID "
+"an ID such as 00000000-0000-0000-0000-000000000000."
+msgstr ""
+"Not saved: the tenant must be a domain name or an ID, and the application ID "
+"an ID such as 00000000-0000-0000-0000-000000000000."
+
+msgid "Microsoft Graph settings saved."
+msgstr "Microsoft Graph settings saved."
+
+msgid ""
+"Enter the tenant, the application (client) ID and the client secret first."
+msgstr ""
+"Enter the tenant, the application (client) ID and the client secret first."
+
+msgid ""
+"Microsoft Entra ID refused the tenant, the application ID or the client "
+"secret."
+msgstr ""
+"Microsoft Entra ID refused the tenant, the application ID or the client "
+"secret."
+
+msgid ""
+"Access refused by Microsoft Graph: grant the AuditLog.Read.All application "
+"permission with admin consent (the report requires an Entra ID P1 or P2 "
+"licence)."
+msgstr ""
+"Access refused by Microsoft Graph: grant the AuditLog.Read.All application "
+"permission with admin consent (the report requires an Entra ID P1 or P2 "
+"licence)."
+
+msgid "Microsoft Graph asks to slow down: try again in a few minutes."
+msgstr "Microsoft Graph asks to slow down: try again in a few minutes."
+
+msgid ""
+"Too many accounts to read in one click: import the CSV export of the report "
+"instead."
+msgstr ""
+"Too many accounts to read in one click: import the CSV export of the report "
+"instead."
+
+msgid ""
+"Microsoft Graph could not be reached: check the network access or the GLPI "
+"proxy."
+msgstr ""
+"Microsoft Graph could not be reached: check the network access or the GLPI "
+"proxy."
+
+msgid "Microsoft Graph returned an unexpected answer."
+msgstr "Microsoft Graph returned an unexpected answer."
+
+msgid ""
+"API permissions > Add a permission > Microsoft Graph > Application "
+"permissions: AuditLog.Read.All, then Grant admin consent. The report "
+"requires an Entra ID P1 or P2 licence."
+msgstr ""
+"API permissions > Add a permission > Microsoft Graph > Application "
+"permissions: AuditLog.Read.All, then Grant admin consent. The report "
+"requires an Entra ID P1 or P2 licence."
+
+msgid "Application (client) ID"
+msgstr "Application (client) ID"
+
+msgid ""
+"Certificates & secrets > New client secret, then copy here the tenant ID, "
+"the application (client) ID and the secret value."
+msgstr ""
+"Certificates & secrets > New client secret, then copy here the tenant ID, "
+"the application (client) ID and the secret value."
+
+msgid "Client secret"
+msgstr "Client secret"
+
+msgid "Configured"
+msgstr "Configured"
+
+msgid "Not configured"
+msgstr "Not configured"
+
+msgid "Delete the saved secret"
+msgstr "Delete the saved secret"
+
+msgid ""
+"In the Entra admin center, App registrations > New registration: create an "
+"application (for example \"GLPI GRC - MFA report\")."
+msgstr ""
+"In the Entra admin center, App registrations > New registration: create an "
+"application (for example \"GLPI GRC - MFA report\")."
+
+msgid ""
+"Instead of downloading the CSV export, GLPI can read the same report (user "
+"registration details) from Microsoft Graph when you click the button. The "
+"result replaces the Microsoft Entra ID import of the current entity. Nothing "
+"is ever written in Entra ID and nothing runs automatically."
+msgstr ""
+"Instead of downloading the CSV export, GLPI can read the same report (user "
+"registration details) from Microsoft Graph when you click the button. The "
+"result replaces the Microsoft Entra ID import of the current entity. Nothing "
+"is ever written in Entra ID and nothing runs automatically."
+
+msgid "Only users who can modify the plugin data can set up this reading."
+msgstr "Only users who can modify the plugin data can set up this reading."
+
+msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
+msgstr "Read Microsoft Entra ID directly (Microsoft Graph)"
+
+msgid "Read now from Microsoft Graph"
+msgstr "Read now from Microsoft Graph"
+
+msgid "Secret saved"
+msgstr "Secret saved"
+
+msgid "Secret saved (leave empty to keep it)"
+msgstr "Secret saved (leave empty to keep it)"
+
+msgid "Tenant (directory) ID or domain"
+msgstr "Tenant (directory) ID or domain"
+
+msgid ""
+"The secret is encrypted with the GLPI key, never displayed again nor logged."
+msgstr ""
+"The secret is encrypted with the GLPI key, never displayed again nor logged."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -33627,211 +34360,3 @@ msgstr[1] "%d main recipients without deputy"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-#, php-format
-msgid "%d control updated."
-msgid_plural "%d controls updated."
-msgstr[0] "%d control updated."
-msgstr[1] "%d controls updated."
-
-#, php-format
-msgid "Maturity campaign: %s"
-msgstr "Maturity campaign: %s"
-
-#, php-format
-msgid "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
-msgstr "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
-
-#, php-format
-msgid "Target date: %s"
-msgstr "Target date: %s"
-
-#, php-format
-msgid "Maturity gap %1$s: from level %2$d to level %3$d"
-msgstr "Maturity gap %1$s: from level %2$d to level %3$d"
-
-msgid "Maturity campaign"
-msgid_plural "Maturity campaigns"
-msgstr[0] "Maturity campaign"
-msgstr[1] "Maturity campaigns"
-
-msgid "Maturity by control"
-msgstr "Maturity by control"
-
-msgid "Non-existent"
-msgstr "Non-existent"
-
-#, php-format
-msgid "Maturity assessment of %s"
-msgstr "Maturity assessment of %s"
-
-msgid "Levels by control"
-msgstr "Levels by control"
-
-msgid "Comparison"
-msgstr "Comparison"
-
-msgid "Campaign lead"
-msgstr "Campaign lead"
-
-#, php-format
-msgid "Maturity by control: %s"
-msgstr "Maturity by control: %s"
-
-msgid "Rates each applicable control of the Statement of Applicability on a scale from 0 (non-existent) to 5 (optimised): the level reached today and the level aimed for, with a target date. The gaps between the two make up the security roadmap, and two dated campaigns show the progress. These optional levels change neither the implementation status of the controls nor the maturity score."
-msgstr "Rates each applicable control of the Statement of Applicability on a scale from 0 (non-existent) to 5 (optimised): the level reached today and the level aimed for, with a target date. The gaps between the two make up the security roadmap, and two dated campaigns show the progress. These optional levels change neither the implementation status of the controls nor the maturity score."
-
-msgid "Create a campaign (for example once a year), fill in the current and target levels of each control with a justification and an owner, then open the \"Gaps\" tab: create an action for the largest gaps and download the report for the management review. The next campaign takes over the targets of this one."
-msgstr "Create a campaign (for example once a year), fill in the current and target levels of each control with a justification and an owner, then open the \"Gaps\" tab: create an action for the largest gaps and download the report for the management review. The next campaign takes over the targets of this one."
-
-msgid "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
-msgstr "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
-
-msgid "Maturity scale by control"
-msgstr "Maturity scale by control"
-
-msgid "Open the maturity campaigns"
-msgstr "Open the maturity campaigns"
-
-msgid "Rename the levels of the scale used by the maturity campaigns to match your method. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes no recorded level."
-msgstr "Rename the levels of the scale used by the maturity campaigns to match your method. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes no recorded level."
-
-#, php-format
-msgid "%d control declined"
-msgid_plural "%d controls declined"
-msgstr[0] "%d control declined"
-msgstr[1] "%d controls declined"
-
-#, php-format
-msgid "%d control improved"
-msgid_plural "%d controls improved"
-msgstr[0] "%d control improved"
-msgstr[1] "%d controls improved"
-
-#, php-format
-msgid "%d control unchanged"
-msgid_plural "%d controls unchanged"
-msgstr[0] "%d control unchanged"
-msgstr[1] "%d controls unchanged"
-
-msgid "Compare"
-msgstr "Compare"
-
-msgid "Compare with"
-msgstr "Compare with"
-
-msgid "Comparison of two campaigns"
-msgstr "Comparison of two campaigns"
-
-msgid "Current levels of each campaign. A control assessed in only one of the two campaigns is not compared."
-msgstr "Current levels of each campaign. A control assessed in only one of the two campaigns is not compared."
-
-msgid "New campaign"
-msgstr "New campaign"
-
-msgid "There is no other campaign in this entity yet. Create the next campaign (for example next year): it takes over the targets of this one, and both can then be compared here."
-msgstr "There is no other campaign in this entity yet. Create the next campaign (for example next year): it takes over the targets of this one, and both can then be compared here."
-
-#, php-format
-msgid "%d gap to close"
-msgid_plural "%d gaps to close"
-msgstr[0] "%d gap to close"
-msgstr[1] "%d gaps to close"
-
-#, php-format
-msgid "Average level: %1$s, target %2$s"
-msgstr "Average level: %1$s, target %2$s"
-
-msgid "Average levels by theme, gaps sorted by size and comparison with the previous campaign, for the management review."
-msgstr "Average levels by theme, gaps sorted by size and comparison with the previous campaign, for the management review."
-
-msgid "Average over the controls that have both a current and a target level."
-msgstr "Average over the controls that have both a current and a target level."
-
-msgid "Campaigns are compared in the order of this date."
-msgstr "Campaigns are compared in the order of this date."
-
-msgid "For example \"2026 assessment\". Left empty, the date is used."
-msgstr "For example \"2026 assessment\". Left empty, the date is used."
-
-msgid "No gap: every target is reached"
-msgstr "No gap: every target is reached"
-
-msgid "Previous campaign"
-msgstr "Previous campaign"
-
-msgid "The campaign lists the applicable controls of the Statement of Applicability of the entity. The targets, target dates, justifications and owners of the previous campaign are taken over; the current levels are left to assess."
-msgstr "The campaign lists the applicable controls of the Statement of Applicability of the entity. The targets, target dates, justifications and owners of the previous campaign are taken over; the current levels are left to assess."
-
-msgid "The overall maturity score is computed separately from your data and does not use these levels."
-msgstr "The overall maturity score is computed separately from your data and does not use these levels."
-
-msgid "A gap is the target level minus the current level. The largest gaps come first, then the nearest target dates: they are the priorities of the roadmap to present to management. \"Create the action\" opens a pre-filled opportunity for improvement that you review and save yourself."
-msgstr "A gap is the target level minus the current level. The largest gaps come first, then the nearest target dates: they are the priorities of the roadmap to present to management. \"Create the action\" opens a pre-filled opportunity for improvement that you review and save yourself."
-
-msgid "All (ISO/IEC 27001 Annex A)"
-msgstr "All (ISO/IEC 27001 Annex A)"
-
-msgid "Average level of the controls of each theme that have both levels."
-msgstr "Average level of the controls of each theme that have both levels."
-
-msgid "Current and target levels by theme"
-msgstr "Current and target levels by theme"
-
-msgid "Gaps to close"
-msgstr "Gaps to close"
-
-msgid "No gap matches these filters."
-msgstr "No gap matches these filters."
-
-msgid "No gap: fill in the current and target levels in the \"Levels by control\" tab; the controls whose target is not reached are listed here."
-msgstr "No gap: fill in the current and target levels in the \"Levels by control\" tab; the controls whose target is not reached are listed here."
-
-msgid "Target date"
-msgstr "Target date"
-
-msgid "Target date passed"
-msgstr "Target date passed"
-
-msgid "Target level"
-msgstr "Target level"
-
-msgid "The chart appears once controls have both a current and a target level."
-msgstr "The chart appears once controls have both a current and a target level."
-
-msgid "Current level at the previous campaign"
-msgstr "Current level at the previous campaign"
-
-msgid "For each control, choose the level reached today and the level aimed for, on the scale below, then click \"Save the levels\" at the bottom of the page. A level left on \"Not assessed\" is simply ignored. These levels change neither the implementation status of the control nor the maturity score."
-msgstr "For each control, choose the level reached today and the level aimed for, on the scale below, then click \"Save the levels\" at the bottom of the page. A level left on \"Not assessed\" is simply ignored. These levels change neither the implementation status of the control nor the maturity score."
-
-msgid "Implementation status in the SoA"
-msgstr "Implementation status in the SoA"
-
-msgid "No applicable control in the Statement of Applicability of this entity when the campaign was created. Declare the applicable controls in the SoA, then create a new campaign."
-msgstr "No applicable control in the Statement of Applicability of this entity when the campaign was created. Declare the applicable controls in the SoA, then create a new campaign."
-
-msgid "No target"
-msgstr "No target"
-
-msgid "Open the Statement of Applicability"
-msgstr "Open the Statement of Applicability"
-
-msgid "Reached"
-msgstr "Reached"
-
-msgid "Save the levels"
-msgstr "Save the levels"
-
-msgid "Targets, dates, owners and justifications come from the previous campaign: adjust them if needed."
-msgstr "Targets, dates, owners and justifications come from the previous campaign: adjust them if needed."
-
-#, php-format
-msgid "Action proposed from a maturity gap (%s): review and adapt each field, check the owner and the due date, then click \"Add\". Nothing is created before, and the gap is linked to this action once it is saved."
-msgstr "Action proposed from a maturity gap (%s): review and adapt each field, check the owner and the due date, then click \"Add\". Nothing is created before, and the gap is linked to this action once it is saved."
-
-msgid "Levels from 0 (non-existent) to 5 (optimised). These optional levels change neither the implementation status of the controls nor the maturity score."
-msgstr "Levels from 0 (non-existent) to 5 (optimised). These optional levels change neither the implementation status of the controls nor the maturity score."
-
-msgid "No previous campaign in this entity."
-msgstr "No previous campaign in this entity."

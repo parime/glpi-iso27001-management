@@ -1583,6 +1583,8 @@ final class Installer
         EvidencePackTables::install($keySign, $charset, $collation);
         // Issue #847 : sauvegarde déclarée des clés de récupération (aucune clé stockée).
         DiskEncryptionTables::install($keySign, $charset, $collation);
+        // Issue #852 : méthodes d'authentification importées par compte (aucun secret stocké).
+        MfaCoverageTables::install($keySign, $charset, $collation);
         // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
         HardwareEndOfLifeTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
@@ -6486,6 +6488,7 @@ final class Installer
         OfficialContactTables::uninstall($migration);
         EvidencePackTables::uninstall($migration);
         DiskEncryptionTables::uninstall($migration);
+        MfaCoverageTables::uninstall($migration);
         HardwareEndOfLifeTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);

@@ -16,6 +16,16 @@
 <div class="card"><div class="card-body">
    <p class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('Active accounts in the entities you can see that deserve a check. Nothing is disabled automatically: tick the accounts and open a review ticket, or handle them in an access review campaign.', 'grcmanager') }}</p>
 
+   {# Issue #852 : administrateurs sans authentification multifacteur, détaillés sur la page MFA. #}
+   {% if mfa is not null %}
+      {% set mfa_color = mfa.admins_without_mfa > 0 ? 'danger' : 'success' %}
+      <div class="alert alert-{{ mfa_color }} d-flex align-items-center gap-2" id="grc-hygiene-mfa">
+         <i class="ti {{ mfa.admins_without_mfa > 0 ? 'ti-shield-x' : 'ti-shield-check' }} fs-2"></i>
+         <span class="me-auto">{{ __('Administrators without MFA: %d', 'grcmanager')|format(mfa.admins_without_mfa) }}</span>
+         <a class="btn btn-sm btn-outline-secondary" href="{{ mfa.url }}">{{ __('MFA coverage', 'grcmanager') }}</a>
+      </div>
+   {% endif %}
+
    <form method="get" class="d-flex align-items-center gap-2 mb-3">
       <label for="grc-hygiene-days" class="mb-0">{{ __('Inactivity beyond', 'grcmanager') }}</label>
       <select id="grc-hygiene-days" name="days" class="form-select form-select-sm" style="width: auto;" onchange="this.form.submit()">

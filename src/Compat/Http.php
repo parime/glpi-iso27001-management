@@ -182,7 +182,8 @@ final class Http
      * corps et le délai « Retry-After ». Code 0 si l'appel a été refusé ou a échoué (adresse
      * refusée, redirection, erreur réseau), $error recevant alors « code : détail » (code =
      * constante ERROR_*). Les codes 4xx et 5xx sont renvoyés tels quels (une API peut répondre 404
-     * « rien » ou 429 « trop de requêtes »), avec $error = ERROR_STATUS.
+     * « rien » ou 429 « trop de requêtes »), avec $error = ERROR_STATUS. $body : corps envoyé tel
+     * quel (formulaire d'obtention d'un jeton OAuth, #852), avec l'en-tête Content-Type fourni.
      *
      * @param array<string, string> $headers
      * @return array{status: int, body: string, retry_after: int}
@@ -192,7 +193,8 @@ final class Http
         string $url,
         array $headers = [],
         ?string &$error = null,
-        int $timeout = self::DEFAULT_TIMEOUT
+        int $timeout = self::DEFAULT_TIMEOUT,
+        ?string $body = null
     ): array {
         $error = null;
         $failed = ['status' => 0, 'body' => '', 'retry_after' => 0];
@@ -230,8 +232,8 @@ final class Http
 
         try {
             $response = $glpi12
-                ? self::sendWithGlpi12($method, $url, $host, $pin, $sent, $timeout)
-                : self::sendWithGlpi11($method, $url, $host, $pin, $sent, $timeout);
+                ? self::sendWithGlpi12($method, $url, $host, $pin, $sent, $timeout, $body)
+                : self::sendWithGlpi11($method, $url, $host, $pin, $sent, $timeout, $body);
         } catch (\Throwable $e) {
             $error = self::ERROR_TRANSPORT . ': ' . $e->getMessage();
 
@@ -313,7 +315,8 @@ final class Http
         string $host,
         ?string $pin,
         array $headers,
-        int $timeout
+        int $timeout,
+        ?string $body = null
     ): array {
         if (!class_exists(\Glpi\Toolbox\HttpClient::class)) {
             throw new \LogicException('Glpi\Toolbox\HttpClient is not available.');
@@ -324,6 +327,9 @@ final class Http
             'max_duration'  => $timeout,
             'max_redirects' => 0,
         ];
+        if ($body !== null) {
+            $options['body'] = $body;
+        }
         if ($pin !== null) {
             $options['resolve'] = [$host => $pin];
         }
@@ -356,7 +362,8 @@ final class Http
         string $host,
         ?string $pin,
         array $headers,
-        int $timeout
+        int $timeout,
+        ?string $body = null
     ): array {
         $options = [
             'headers'         => $headers,
@@ -364,6 +371,9 @@ final class Http
             'allow_redirects' => false,
             'http_errors'     => false,
         ];
+        if ($body !== null) {
+            $options['body'] = $body;
+        }
         if (defined('CURLOPT_PROTOCOLS')) {
             $options['curl'] = [CURLOPT_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS];
             if ($pin !== null) {

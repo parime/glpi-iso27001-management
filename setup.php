@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.73.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.74.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -253,10 +253,12 @@ function plugin_init_grcmanager(): void
     // Issue #183 : onglet « Expositions à des fuites de données » sur la fiche de l'utilisateur (registre
     // sensible), et clé d'API Have I Been Pwned chiffrée par GLPI (configuration sécurisée).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\BreachExposure::class, ['addtabon' => [User::class]]);
-    // Issue #707 : jeton d'API SentinelOne, chiffré de la même façon.
+    // Issue #707 : jeton d'API SentinelOne, chiffré de la même façon ; #852 : secret de
+    // l'application Microsoft Graph (couverture MFA).
     $PLUGIN_HOOKS[Hooks::SECURED_CONFIGS]['grcmanager'] = array_merge(
         \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::SECURED,
-        \GlpiPlugin\Grcmanager\Services\Incident\SentinelOneConfig::SECURED
+        \GlpiPlugin\Grcmanager\Services\Incident\SentinelOneConfig::SECURED,
+        \GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig::SECURED
     );
 
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
