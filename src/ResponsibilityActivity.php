@@ -249,6 +249,13 @@ class ResponsibilityActivity extends ResponsibilityActivityBase
         $DB->delete(self::ASSIGNMENTS_TABLE, [self::FK => (int) $this->getID()]);
         // Issue #773 : le processus quitte les audits qui le visaient.
         AuditProgramme::purgeProcess((int) $this->getID());
+        // Issue #774, lot 3 : les fonctions du SMSI ne tirent plus leurs titulaires de l'activité.
+        if ($DB->tableExists(Install\CompetenceTables::HOLDERS)) {
+            $DB->delete(Install\CompetenceTables::HOLDERS, [
+                'itemtype' => self::class,
+                'items_id' => (int) $this->getID(),
+            ]);
+        }
     }
 
     /**

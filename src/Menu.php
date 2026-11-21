@@ -86,6 +86,8 @@ class Menu extends CommonGLPI
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             Control::class => [
+                // Issue #867 : mesures bloquées (ce qui empêche chaque mesure d'être conforme).
+                ControlBlocker::class,
                 Referentials::class, CustomFramework::class, IsmsRequirement::class,
                 // Issue #608 : contexte de l'organisation (enjeux, parties intéressées).
                 ContextItem::class,
@@ -102,7 +104,10 @@ class Menu extends CommonGLPI
                 PhysicalSecurity::class,
                 // Issue #777 : développement sécurisé (registre des applications, mises en production).
                 SecureDevelopment::class,
-                Evidence::class, CoverageRule::class, ControlTest::class,
+                Evidence::class,
+                // Issue #868 : dossier de preuves exportable pour l'auditeur (archive ZIP par périmètre).
+                EvidencePack::class,
+                CoverageRule::class, ControlTest::class,
                 // Issue #540 : registre d'informations DORA (référentiel DORA activé).
                 DoraRegister::class,
             ],

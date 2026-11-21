@@ -306,6 +306,8 @@ final class Installer
     private const VULNERABILITY_DIGESTS_TABLE = 'glpi_plugin_grcmanager_vulnerabilitydigests';
     // Issue #761 : alertes envoyées au responsable de la préparation à la certification.
     private const READINESS_ALERTS_TABLE = 'glpi_plugin_grcmanager_readinessalerts';
+    // Issue #774, lot 3 : alertes des écarts de compétence sans formation planifiée.
+    private const COMPETENCE_GAP_ALERTS_TABLE = 'glpi_plugin_grcmanager_competencegapalerts';
     /** Classes créées directement dans src/ (sans ancien nom) : nettoyées à la désinstallation. */
     private const SRC_ONLY_CLASSES = [
         \GlpiPlugin\Grcmanager\BreachExposure::class,
@@ -316,6 +318,9 @@ final class Installer
         // Issue #761 : alertes de la préparation à la certification.
         \GlpiPlugin\Grcmanager\ReadinessAlert::class,
         \GlpiPlugin\Grcmanager\NotificationTargetReadinessAlert::class,
+        // Issue #774, lot 3 : écarts de compétence sans formation planifiée.
+        \GlpiPlugin\Grcmanager\CompetenceGapAlert::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetCompetenceGapAlert::class,
         // Issue #371 : alertes d'accès au module des incidents.
         \GlpiPlugin\Grcmanager\IncidentAccessWatch::class,
         \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::class,
@@ -392,6 +397,8 @@ final class Installer
         ...RecyfTables::CLASSES,
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         ...OfficialContactTables::CLASSES,
+        // Issue #868 : dossiers de preuves exportables pour l'auditeur.
+        ...EvidencePackTables::CLASSES,
         // Issue #808 : classes historisées oubliées, dont les journaux restaient après la
         // désinstallation (fiche de conformité des collaborateurs #546, fiches réflexes, actions
         // de la revue de direction), et deux cibles de notification absentes de la liste.
@@ -1132,6 +1139,22 @@ final class Installer
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
         }
 
+        // Issue #774, lot 3 : un enregistrement par alerte envoyée (écarts signalés, pour ne pas les
+        // répéter).
+        if (!$DB->tableExists(self::COMPETENCE_GAP_ALERTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::COMPETENCE_GAP_ALERTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable prévenu',
+                `gaps` text COMMENT 'JSON, écarts signalés (personne, compétence, niveau, formations)',
+                `total` int NOT NULL DEFAULT 0 COMMENT 'Écarts sans formation planifiée à l envoi',
+                `is_sent` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+
         // Sprint 5 (risques fournisseurs/tiers) : même structure que RISKS_TABLE ci-dessus (mêmes
         // colonnes de notation/traitement, voir GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait),
         // avec en plus `suppliers_id`, une vraie clé étrangère vers le `Supplier` natif de GLPI
@@ -1537,6 +1560,7 @@ final class Installer
         PhysicalSecurityTables::install($keySign, $charset, $collation);
         // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
         CompetenceTables::install($keySign, $charset, $collation);
+        CompetenceTables::migrate($migration);
         // Issue #616 : communication de crise, et modèles fournis (une seule fois, bibliothèque vide).
         CrisisCommunicationTables::install($keySign, $charset, $collation);
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
@@ -1548,6 +1572,8 @@ final class Installer
         RecyfTables::install($keySign, $charset, $collation);
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         OfficialContactTables::install($keySign, $charset, $collation);
+        // Issue #868 : dossiers de preuves exportables pour l'auditeur (archive ZIP par périmètre).
+        EvidencePackTables::install($keySign, $charset, $collation);
         // Issue #847 : sauvegarde déclarée des clés de récupération (aucune clé stockée).
         DiskEncryptionTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
@@ -3855,6 +3881,18 @@ final class Installer
             [
                 'comment' => 'Prévient le responsable quand une étape de la préparation à la certification '
                     . 'risque d\'être en retard',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #774, lot 3 : prévient le responsable des écarts de compétence sans formation
+        // planifiée, une fois par écart (aucune inscription ni session créée).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\CompetenceGapAlert::class,
+            \GlpiPlugin\Grcmanager\CompetenceGapAlert::CRON_NAME,
+            WEEK_TIMESTAMP,
+            [
+                'comment' => 'Prévient le responsable des écarts de compétence sans formation planifiée',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -6252,6 +6290,8 @@ final class Installer
         $this->unseedNotification(\GlpiPlugin\Grcmanager\VulnerabilityDigest::class);
         // Issue #761 : étapes de la préparation à la certification à risque.
         $this->unseedNotification(\GlpiPlugin\Grcmanager\ReadinessAlert::class);
+        // Issue #774, lot 3 : écarts de compétence sans formation planifiée.
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\CompetenceGapAlert::class);
         $this->unseedNotification(\GlpiPlugin\Grcmanager\IncidentAccessWatch::class);
         // Issue #380 : rappel des tests d'efficacité.
         $this->unseedNotification(\GlpiPlugin\Grcmanager\Control::class);
@@ -6346,6 +6386,7 @@ final class Installer
         $migration->dropTable(self::BREACH_EXPOSURES_TABLE);
         $migration->dropTable(self::VULNERABILITY_DIGESTS_TABLE);
         $migration->dropTable(self::READINESS_ALERTS_TABLE);
+        $migration->dropTable(self::COMPETENCE_GAP_ALERTS_TABLE);
         $migration->dropTable(self::PROCESSING_ACTIVITIES_ITEMS_TABLE);
         $migration->dropTable(self::PROCESSING_ACTIVITIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
@@ -6398,6 +6439,7 @@ final class Installer
         SecureDevelopmentTables::uninstall($migration);
         RecyfTables::uninstall($migration);
         OfficialContactTables::uninstall($migration);
+        EvidencePackTables::uninstall($migration);
         DiskEncryptionTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);

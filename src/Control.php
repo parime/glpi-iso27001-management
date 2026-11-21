@@ -839,6 +839,8 @@ class Control extends ControlBase
     {
         $tabs = [];
         $this->addDefaultFormTab($tabs)
+            // Issue #867 : ce qui empêche la mesure d'être conforme.
+            ->addStandardTab(ControlBlocker::class, $tabs, $options)
             ->addStandardTab(AccessReview::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options);
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 01:18+0000\n"
+"POT-Creation-Date: 2026-11-20 23:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,12 +76,13 @@ msgstr ""
 #: src/CompetenceMatrix.php:852 src/ConsistencyCheck.php:1453
 #: src/ContextItem.php:879 src/ControlTest.php:994 src/CrisisExercise.php:642
 #: src/CrisisScenario.php:940 src/Dpia.php:443 src/EbiosStudy.php:313
-#: src/ManagementReviewDossier.php:625 src/OfficialContact.php:224
-#: src/OperatingProcedure.php:402 src/PersonnelCompliance.php:727
-#: src/PolicyAcknowledgement.php:703 src/PolicyVersion.php:765
-#: src/RecyfRequirement.php:594 src/ResponsibilityActivity.php:806
-#: src/SecurityIncidentPostMortem.php:252
+#: src/EvidencePack.php:658 src/ManagementReviewDossier.php:625
+#: src/OfficialContact.php:224 src/OperatingProcedure.php:402
+#: src/PersonnelCompliance.php:727 src/PolicyAcknowledgement.php:703
+#: src/PolicyVersion.php:765 src/RecyfRequirement.php:594
+#: src/ResponsibilityActivity.php:806 src/SecurityIncidentPostMortem.php:252
 #: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:725
+#: templates/evidence_pack.html.twig
 #: templates/management_review_dossier_tab.html.twig
 #, php-format
 msgid "Generated on %s"
@@ -640,6 +641,14 @@ msgid ""
 "supplier risk, audit or policy, for each attached document."
 msgstr ""
 
+#: front/evidencepack.php:28
+msgid "Evidence pack settings saved."
+msgstr ""
+
+#: front/evidencepack.php:41
+msgid "Evidence pack generated and archived. Download it from the list below."
+msgstr ""
+
 #: front/impactanalysis.php:36
 msgid "Risk created in the register, to be assessed."
 msgstr ""
@@ -755,7 +764,7 @@ msgstr ""
 msgid "The register could not be archived."
 msgstr ""
 
-#: front/parkmachines.php:26 src/Menu.php:168
+#: front/parkmachines.php:26 src/Menu.php:171
 msgid "Most exposed machines"
 msgstr ""
 
@@ -1274,7 +1283,7 @@ msgid ""
 "check the others."
 msgstr ""
 
-#: front/softwarewatch.php:69 src/Menu.php:161
+#: front/softwarewatch.php:69 src/Menu.php:164
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
@@ -1921,6 +1930,7 @@ msgstr ""
 #: templates/official_contact_tab.html.twig templates/pdf/acn_report.html.twig
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/pdf/recyf_report.html.twig
 #: templates/processing_activity_form.html.twig templates/risk_import.html.twig
@@ -2502,53 +2512,53 @@ msgstr ""
 msgid "Last update"
 msgstr ""
 
-#: src/ApplicationSecurity.php:61 src/Competence.php:72
-#: src/SecureDevelopment.php:57 templates/control_form.html.twig
+#: src/ApplicationSecurity.php:55 src/Competence.php:72
+#: src/SecureDevelopment.php:56 templates/control_form.html.twig
 #: templates/release_validation_tab.html.twig
 msgid "Secure development"
 msgstr ""
 
-#: src/ApplicationSecurity.php:82
+#: src/ApplicationSecurity.php:76
 msgid "OWASP ASVS (Application Security Verification Standard)"
 msgstr ""
 
-#: src/ApplicationSecurity.php:83
+#: src/ApplicationSecurity.php:77
 msgid "OWASP Top 10"
 msgstr ""
 
-#: src/ApplicationSecurity.php:84
+#: src/ApplicationSecurity.php:78
 msgid "OWASP SAMM (Software Assurance Maturity Model)"
 msgstr ""
 
-#: src/ApplicationSecurity.php:85
+#: src/ApplicationSecurity.php:79
 msgid "ANSSI recommendations"
 msgstr ""
 
-#: src/ApplicationSecurity.php:86
+#: src/ApplicationSecurity.php:80
 msgid "Other (specify)"
 msgstr ""
 
-#: src/ApplicationSecurity.php:96 templates/application_security_tab.html.twig
+#: src/ApplicationSecurity.php:90 templates/application_security_tab.html.twig
 msgid "Secure development framework"
 msgstr ""
 
-#: src/ApplicationSecurity.php:97
+#: src/ApplicationSecurity.php:91
 msgid "Mandatory code review"
 msgstr ""
 
-#: src/ApplicationSecurity.php:98
+#: src/ApplicationSecurity.php:92
 msgid "Static analysis (SAST)"
 msgstr ""
 
-#: src/ApplicationSecurity.php:99
+#: src/ApplicationSecurity.php:93
 msgid "Dynamic analysis (DAST)"
 msgstr ""
 
-#: src/ApplicationSecurity.php:100
+#: src/ApplicationSecurity.php:94
 msgid "Dependency analysis"
 msgstr ""
 
-#: src/ApplicationSecurity.php:110 src/DoraRegister.php:234
+#: src/ApplicationSecurity.php:104 src/DoraRegister.php:234
 #: src/DoraRegister.php:278 src/SupplierAssessment.php:90
 #: templates/application_security_tab.html.twig
 #: templates/dora/register.html.twig
@@ -2558,7 +2568,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/ApplicationSecurity.php:111 src/DoraRegister.php:234
+#: src/ApplicationSecurity.php:105 src/DoraRegister.php:234
 #: src/DoraRegister.php:279 src/SupplierAssessment.php:92
 #: templates/application_security_tab.html.twig
 #: templates/pdf/management_review_dossier.html.twig
@@ -2567,31 +2577,19 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/ApplicationSecurity.php:112 templates/crisis_exercises.html.twig
+#: src/ApplicationSecurity.php:106 templates/crisis_exercises.html.twig
 #: templates/crisis_room.html.twig templates/secure_development_page.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 msgid "Not specified"
 msgstr ""
 
-#: src/ApplicationSecurity.php:122
-msgid "Separate access (accounts, rights)"
-msgstr ""
-
-#: src/ApplicationSecurity.php:124
-msgid "Separate data (no production data outside production, or anonymised)"
-msgstr ""
-
-#: src/ApplicationSecurity.php:127
-msgid "Separate configuration (secrets, settings)"
-msgstr ""
-
-#: src/ApplicationSecurity.php:204
+#: src/ApplicationSecurity.php:169
 msgid ""
 "Explain why the environments are not separated (accepted risk, compensating "
 "measure)."
 msgstr ""
 
-#: src/ApplicationSecurity.php:214
+#: src/ApplicationSecurity.php:179
 msgid "The secure development sheet could not be saved."
 msgstr ""
 
@@ -2895,7 +2893,8 @@ msgstr ""
 msgid "Free item"
 msgstr ""
 
-#: src/AuditChecklist.php:329 templates/pdf/soa_report.html.twig
+#: src/AuditChecklist.php:329 src/EvidencePack.php:295
+#: templates/pdf/soa_report.html.twig
 msgid "ISMS requirements (clauses 4 to 10)"
 msgstr ""
 
@@ -4733,6 +4732,7 @@ msgstr ""
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/control_test_record.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/physical_security_checklist_tab.html.twig
 msgid "Evidence"
 msgstr ""
@@ -6442,8 +6442,7 @@ msgstr ""
 msgid "Security testing in development and acceptance"
 msgstr ""
 
-#: src/Control.php:803 templates/application_security_tab.html.twig
-#: templates/secure_development_page.html.twig
+#: src/Control.php:803
 msgid "Outsourced development"
 msgstr ""
 
@@ -9077,6 +9076,85 @@ msgstr ""
 msgid "Renew the evidence \"%s\""
 msgstr ""
 
+#: src/EvidencePack.php:77 templates/pdf/evidence_pack_index.html.twig
+msgid "Evidence pack"
+msgid_plural "Evidence packs"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/EvidencePack.php:262
+msgid "Annex A controls (Statement of Applicability)"
+msgstr ""
+
+#: src/EvidencePack.php:313
+msgid "Approved versions of the Statement of Applicability"
+msgstr ""
+
+#: src/EvidencePack.php:314
+msgid "Approved policy versions"
+msgstr ""
+
+#: src/EvidencePack.php:315 src/ResponsibilityActivity.php:804
+msgid "ISMS responsibility matrix"
+msgstr ""
+
+#: src/EvidencePack.php:316
+msgid "Competence records"
+msgstr ""
+
+#: src/EvidencePack.php:317
+msgid "Audit reports and audit evidence"
+msgstr ""
+
+#: src/EvidencePack.php:318
+msgid "Management review files"
+msgstr ""
+
+#: src/EvidencePack.php:319
+msgid "Access review reports"
+msgstr ""
+
+#: src/EvidencePack.php:349
+msgid "Reports archived by the plugin"
+msgstr ""
+
+#: src/EvidencePack.php:503 templates/pdf/management_review_dossier.html.twig
+msgid "Included"
+msgstr ""
+
+#: src/EvidencePack.php:506
+msgid "Expired, not included"
+msgstr ""
+
+#: src/EvidencePack.php:509
+msgid "No file"
+msgstr ""
+
+#: src/EvidencePack.php:512
+msgid "Size limit reached, not included"
+msgstr ""
+
+#: src/EvidencePack.php:532
+msgid "This perimeter is not among your active entities."
+msgstr ""
+
+#: src/EvidencePack.php:535
+msgid "The PHP zip extension is missing on the server."
+msgstr ""
+
+#: src/EvidencePack.php:547 src/EvidencePack.php:573
+msgid "The archive could not be created."
+msgstr ""
+
+#: src/EvidencePack.php:601
+#, php-format
+msgid "Evidence pack - %1$s (%2$s)"
+msgstr ""
+
+#: src/EvidencePack.php:618
+msgid "The archive could not be stored as a document."
+msgstr ""
+
 #: src/FrameworkAssessment.php:72 templates/custom_framework_form.html.twig
 #: templates/framework_assessment.html.twig templates/recyf_register.html.twig
 msgid "Assessment by framework"
@@ -11541,16 +11619,7 @@ msgstr ""
 msgid "ISO/IEC 27001, control A.5.37"
 msgstr ""
 
-#: src/PageHelp.php:490
-msgid ""
-"The applications developed or maintained in-house, with their secure "
-"development practices (framework, code review, SAST, DAST and dependency "
-"analyses, security requirements, architecture principles, outsourced "
-"development, separated environments), and the releases of the last 12 months "
-"with their security validation."
-msgstr ""
-
-#: src/PageHelp.php:497
+#: src/PageHelp.php:496
 msgid ""
 "Fill in the \"Secure development\" tab of each application, link the changes "
 "to their application, then have each release approved by the CIO or the CISO "
@@ -11558,11 +11627,11 @@ msgid ""
 "into production."
 msgstr ""
 
-#: src/PageHelp.php:502
+#: src/PageHelp.php:501
 msgid "ISO/IEC 27001, controls A.8.25 to A.8.31"
 msgstr ""
 
-#: src/PageHelp.php:507
+#: src/PageHelp.php:506
 msgid ""
 "Who to contact outside the organization when something happens: authorities "
 "(data protection authority, national CSIRT, police), regulators, insurers "
@@ -11570,43 +11639,43 @@ msgid ""
 "time limit and who is allowed to call them."
 msgstr ""
 
-#: src/PageHelp.php:513
+#: src/PageHelp.php:512
 msgid ""
 "Record each official contact, tick the events for which it must be informed, "
 "verify the details at least once a year, and keep a printed copy of the "
 "register (PDF) for use during a crisis."
 msgstr ""
 
-#: src/PageHelp.php:518
+#: src/PageHelp.php:517
 msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
 msgstr ""
 
-#: src/PageHelp.php:522
+#: src/PageHelp.php:521
 msgid ""
 "Who performs, approves, is consulted on or is informed of each activity of "
 "the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
 "approvers are reported here."
 msgstr ""
 
-#: src/PageHelp.php:527
+#: src/PageHelp.php:526
 msgid ""
 "For each activity, add who performs it and a single approver, mark the "
 "sensitive activities, fix the alerts, then archive the matrix as evidence "
 "before the audit."
 msgstr ""
 
-#: src/PageHelp.php:531
+#: src/PageHelp.php:530
 msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
 msgstr ""
 
-#: src/PageHelp.php:536
+#: src/PageHelp.php:535
 msgid ""
 "The competences each ISMS function needs (CISO, DPO, administrator...), who "
 "holds each function, what each person has acquired through passed trainings "
 "or declared evidence, and the gaps."
 msgstr ""
 
-#: src/PageHelp.php:541
+#: src/PageHelp.php:540
 msgid ""
 "Add the functions and their required competences with the expected level, "
 "say who holds them, link the trainings that give each competence, declare "
@@ -11614,41 +11683,41 @@ msgid ""
 "file as evidence before the audit."
 msgstr ""
 
-#: src/PageHelp.php:546 src/PageHelp.php:558 src/PageHelp.php:571
+#: src/PageHelp.php:545 src/PageHelp.php:557 src/PageHelp.php:570
 msgid "ISO/IEC 27001, clause 7.2"
 msgstr ""
 
-#: src/PageHelp.php:550
+#: src/PageHelp.php:549
 msgid ""
 "The catalogue of the information security competences of the organization, "
 "and the trainings that give each one once passed."
 msgstr ""
 
-#: src/PageHelp.php:555
+#: src/PageHelp.php:554
 msgid ""
 "Describe each competence and link the trainings that give it, with the level "
 "reached."
 msgstr ""
 
-#: src/PageHelp.php:562
+#: src/PageHelp.php:561
 msgid ""
 "The competences acquired outside the trainings of the plugin, each one with "
 "its evidence: certificate, diploma, annual review or proven experience."
 msgstr ""
 
-#: src/PageHelp.php:567
+#: src/PageHelp.php:566
 msgid ""
 "Record the reference of the evidence, its date and its end of validity, and "
 "attach the file in the Documents tab."
 msgstr ""
 
-#: src/PageHelp.php:575
+#: src/PageHelp.php:574
 msgid ""
 "The register of personal data breaches: every breach is documented, whether "
 "or not it was notified, with its facts, effects and the measures taken."
 msgstr ""
 
-#: src/PageHelp.php:580
+#: src/PageHelp.php:579
 msgid ""
 "Record each breach as soon as it is known (from the security incident when "
 "there is one), decide within 72 h whether to notify the supervisory "
@@ -11656,82 +11725,82 @@ msgid ""
 "then export the register when the authority asks for it."
 msgstr ""
 
-#: src/PageHelp.php:586
+#: src/PageHelp.php:585
 msgid "GDPR, articles 33 and 34"
 msgstr ""
 
-#: src/PageHelp.php:590
+#: src/PageHelp.php:589
 msgid ""
 "The internal audit programme: scope, dates, auditors, report and findings."
 msgstr ""
 
-#: src/PageHelp.php:594
+#: src/PageHelp.php:593
 msgid ""
 "Plan the year's audits, enter the report and the findings; each "
 "nonconformity opens an action plan."
 msgstr ""
 
-#: src/PageHelp.php:598
+#: src/PageHelp.php:597
 msgid "ISO 27001, 9.2"
 msgstr ""
 
-#: src/PageHelp.php:603
+#: src/PageHelp.php:602
 msgid ""
 "The internal audit programme over the certification cycle: which ISMS "
 "process is audited which year, and which one is not covered yet."
 msgstr ""
 
-#: src/PageHelp.php:608
+#: src/PageHelp.php:607
 msgid ""
 "Make sure every process is audited at least once over the cycle: plan an "
 "audit for each process in red or orange, and choose its processes in the "
 "\"Programme and independence\" tab of the audit."
 msgstr ""
 
-#: src/PageHelp.php:613
+#: src/PageHelp.php:612
 msgid "ISO 27001, 9.2.2; ISO 19011, 5"
 msgstr ""
 
-#: src/PageHelp.php:617
+#: src/PageHelp.php:616
 msgid ""
 "Nonconformities and observations, with their corrective and preventive "
 "actions (CAPA)."
 msgstr ""
 
-#: src/PageHelp.php:621
+#: src/PageHelp.php:620
 msgid ""
 "Analyse the cause, describe the corrective action, assign an owner and a due "
 "date, then check its effectiveness before closing."
 msgstr ""
 
-#: src/PageHelp.php:625
+#: src/PageHelp.php:624
 msgid "ISO 27001, 10.2"
 msgstr ""
 
-#: src/PageHelp.php:629
+#: src/PageHelp.php:628
 msgid ""
 "Security training and awareness sessions, with their participants and "
 "results."
 msgstr ""
 
-#: src/PageHelp.php:633
+#: src/PageHelp.php:632
 msgid ""
 "Record each session, its participants and its renewal date; a reminder is "
 "sent when it is due."
 msgstr ""
 
-#: src/PageHelp.php:636
+#: src/PageHelp.php:635
 msgid "ISO 27001, 7.2 and 7.3"
 msgstr ""
 
-#: src/PageHelp.php:641
+#: src/PageHelp.php:640
 msgid ""
 "Phishing simulations: the fake phishing campaigns sent with an external tool "
 "(GoPhish, a provider...), their results and the trend from one campaign to "
 "the next. The plugin never sends any email."
 msgstr ""
 
-#: src/PageHelp.php:647
+#: src/PageHelp.php:646
 msgid ""
 "Record each campaign (date, tool, scenario, targeted population), then "
 "import the results file of the tool in the Results tab. Offer a remedial "
@@ -11740,184 +11809,184 @@ msgid ""
 "is done."
 msgstr ""
 
-#: src/PageHelp.php:653 src/PageHelp.php:666
+#: src/PageHelp.php:652 src/PageHelp.php:665
 msgid "ISO/IEC 27001, clause 7.3 and control A.6.3"
 msgstr ""
 
-#: src/PageHelp.php:657
+#: src/PageHelp.php:656
 msgid ""
 "Import of the results of a phishing simulation: each line of the file is "
 "matched with a GLPI user by email address or login."
 msgstr ""
 
-#: src/PageHelp.php:662
+#: src/PageHelp.php:661
 msgid ""
 "Check the column of each field, then import. The lines not matched are "
 "listed on the campaign so that you can correct them."
 msgstr ""
 
-#: src/PageHelp.php:670
+#: src/PageHelp.php:669
 msgid ""
 "Management reviews: the periodic review of the information security "
 "management system by top management."
 msgstr ""
 
-#: src/PageHelp.php:675
+#: src/PageHelp.php:674
 msgid ""
 "At least once a year, prepare the review (indicators, audits, incidents, "
 "risks), record the decisions and the resulting actions."
 msgstr ""
 
-#: src/PageHelp.php:679
+#: src/PageHelp.php:678
 msgid "ISO 27001, 9.3"
 msgstr ""
 
-#: src/PageHelp.php:682
+#: src/PageHelp.php:681
 msgid "Security objectives and their indicators measured over time."
 msgstr ""
 
-#: src/PageHelp.php:684
+#: src/PageHelp.php:683
 msgid ""
 "Define measurable objectives, enter the measurements each period and track "
 "progress towards the target."
 msgstr ""
 
-#: src/PageHelp.php:688
+#: src/PageHelp.php:687
 msgid "ISO 27001, 6.2 and 9.1"
 msgstr ""
 
-#: src/PageHelp.php:692
+#: src/PageHelp.php:691
 msgid ""
 "Access rights review campaigns: each manager confirms or removes the rights "
 "of their team."
 msgstr ""
 
-#: src/PageHelp.php:696
+#: src/PageHelp.php:695
 msgid ""
 "Start a campaign; managers decide line by line. Removing a right opens a "
 "ticket, it is never applied automatically."
 msgstr ""
 
-#: src/PageHelp.php:700
+#: src/PageHelp.php:699
 msgid "ISO 27001, Annex A 5.18"
 msgstr ""
 
-#: src/PageHelp.php:704
+#: src/PageHelp.php:703
 msgid ""
 "Accounts to check: inactive accounts, accounts missing from the directory, "
 "duplicates or never used."
 msgstr ""
 
-#: src/PageHelp.php:709
+#: src/PageHelp.php:708
 msgid ""
 "Review the list and open a ticket for each account to disable; nothing is "
 "disabled automatically."
 msgstr ""
 
-#: src/PageHelp.php:716
+#: src/PageHelp.php:715
 msgid ""
 "Security compliance of each person: screening, confidentiality agreement, "
 "mandatory trainings, IT charter, security policies read, access review and "
 "account hygiene."
 msgstr ""
 
-#: src/PageHelp.php:721
+#: src/PageHelp.php:720
 msgid ""
 "Follow up the gaps with the person and their manager; nothing is changed "
 "automatically. The deadline for newcomers and the weight of each component "
 "are set in the plugin configuration."
 msgstr ""
 
-#: src/PageHelp.php:726
+#: src/PageHelp.php:725
 msgid "ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18"
 msgstr ""
 
-#: src/PageHelp.php:730
+#: src/PageHelp.php:729
 msgid ""
 "Periodic reviews (backups, logs, rights, continuity plan...) scheduled as "
 "recurring tickets."
 msgstr ""
 
-#: src/PageHelp.php:734
+#: src/PageHelp.php:733
 msgid ""
 "Enable the useful reviews and their frequency; a ticket is created at each "
 "due date for the person in charge."
 msgstr ""
 
-#: src/PageHelp.php:741
+#: src/PageHelp.php:740
 msgid ""
 "The matrix of authorised network flows: who talks to whom, on which port, "
 "and why."
 msgstr ""
 
-#: src/PageHelp.php:745
+#: src/PageHelp.php:744
 msgid ""
 "Describe each flow with its justification and owner, or import your firewall "
 "export, then review the matrix regularly."
 msgstr ""
 
-#: src/PageHelp.php:749
+#: src/PageHelp.php:748
 msgid "ISO 27001, Annex A 8.20 to 8.22"
 msgstr ""
 
-#: src/PageHelp.php:753
+#: src/PageHelp.php:752
 msgid ""
 "Work email addresses found in known data breaches (Have I Been Pwned), "
 "checked every day."
 msgstr ""
 
-#: src/PageHelp.php:757
+#: src/PageHelp.php:756
 msgid ""
 "For each new exposure, have the password changed (and enable multi-factor "
 "authentication) if passwords were exposed, then mark it as handled."
 msgstr ""
 
-#: src/PageHelp.php:761
+#: src/PageHelp.php:760
 msgid "ISO 27001, Annex A 5.7 and 5.17"
 msgstr ""
 
-#: src/PageHelp.php:765
+#: src/PageHelp.php:764
 msgid ""
 "The compliance calendar: all due dates (reviews, audits, renewals, "
 "obligations) in one place, also visible in the GLPI planning."
 msgstr ""
 
-#: src/PageHelp.php:770
+#: src/PageHelp.php:769
 msgid ""
 "Check it to anticipate due dates; subscribe your calendar with the iCal link."
 msgstr ""
 
-#: src/PageHelp.php:776
+#: src/PageHelp.php:775
 msgid ""
 "One-off compliance events to add to the calendar (regulator inspection, "
 "crisis exercise, contractual deadline...)."
 msgstr ""
 
-#: src/PageHelp.php:781
+#: src/PageHelp.php:780
 msgid ""
 "Add the event with its date and owner; it appears in the compliance calendar."
 msgstr ""
 
-#: src/PageHelp.php:787
+#: src/PageHelp.php:786
 msgid ""
 "The library of security policies, versioned, with their approval and review "
 "date."
 msgstr ""
 
-#: src/PageHelp.php:791
+#: src/PageHelp.php:790
 msgid ""
 "Upload each policy, have it approved, distribute it and review it when due."
 msgstr ""
 
-#: src/PageHelp.php:794
+#: src/PageHelp.php:793
 msgid "ISO 27001, 5.2; Annex A 5.1"
 msgstr ""
 
-#: src/PageHelp.php:798
+#: src/PageHelp.php:797
 msgid "Dated evidence (reports, attestations, certificates) and its validity."
 msgstr ""
 
-#: src/PageHelp.php:802
+#: src/PageHelp.php:801
 msgid ""
 "State how long each piece of evidence is valid; a renewal ticket is opened "
 "when it expires."
@@ -11925,54 +11994,76 @@ msgstr ""
 
 #: src/PageHelp.php:808
 msgid ""
+"Prepare the evidence pack the auditor asks for: one ZIP archive per "
+"perimeter, with the evidence of each control and each requirement, the "
+"reports already archived and a PDF index that lists them with their date and "
+"SHA-256 fingerprint."
+msgstr ""
+
+#: src/PageHelp.php:814
+msgid ""
+"Choose the perimeter and check its contents: renew expired evidence and "
+"attach what is missing first. Then generate the pack and download it from "
+"the list. Only what you can read is included; expired evidence is listed in "
+"the index, not included. Nothing is changed in the registers."
+msgstr ""
+
+#: src/PageHelp.php:821
+msgid ""
+"ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
+"(internal audit)"
+msgstr ""
+
+#: src/PageHelp.php:827
+msgid ""
 "The effectiveness tests of the Annex A controls: a control in place is "
 "checked to really work, with its method, result and evidence."
 msgstr ""
 
-#: src/PageHelp.php:813
+#: src/PageHelp.php:832
 msgid ""
 "Set a test plan on each control, record each test from the control's "
 "\"Effectiveness tests\" tab and carry out the tests that are due first. An "
 "ineffective control opens a non-conformity."
 msgstr ""
 
-#: src/PageHelp.php:818
+#: src/PageHelp.php:837
 msgid "ISO 27001, 9.1; ISO 27002, 5.35 and 5.36"
 msgstr ""
 
-#: src/PageHelp.php:822
+#: src/PageHelp.php:841
 msgid ""
 "The audit log of the security incidents: who consulted or changed what, "
 "when, with which profile and from which address, including impersonations."
 msgstr ""
 
-#: src/PageHelp.php:827
+#: src/PageHelp.php:846
 msgid ""
 "Filter the entries, export them for an audit or a court, and check the "
 "integrity regularly: each entry is sealed with the previous one."
 msgstr ""
 
-#: src/PageHelp.php:834
+#: src/PageHelp.php:853
 msgid ""
 "Import of a CSV export of the alerts from an EDR or XDR console: each alert "
 "becomes an incident with its indicators, MITRE ATT&CK techniques, hosts and "
 "accounts."
 msgstr ""
 
-#: src/PageHelp.php:839
+#: src/PageHelp.php:858
 msgid ""
 "Check the columns proposed, choose how to group the alerts, then import. An "
 "alert already imported is ignored; the original lines are kept unchanged on "
 "the incident."
 msgstr ""
 
-#: src/PageHelp.php:846
+#: src/PageHelp.php:865
 msgid ""
 "EBIOS Risk Manager studies: the risk assessment method of ANSSI, the French "
 "national cybersecurity agency, published under an open licence."
 msgstr ""
 
-#: src/PageHelp.php:851
+#: src/PageHelp.php:870
 msgid ""
 "Create one study per scope, then work through its workshops in order: "
 "business values and feared events, risk sources, stakeholders and strategic "
@@ -11980,20 +12071,20 @@ msgid ""
 "register."
 msgstr ""
 
-#: src/PageHelp.php:859
+#: src/PageHelp.php:878
 msgid ""
 "Remediation playbooks: the standard steps to follow for each type of "
 "incident (ransomware, phishing, compromised account...)."
 msgstr ""
 
-#: src/PageHelp.php:864
+#: src/PageHelp.php:883
 msgid ""
 "Adapt the five playbooks provided to your context; from an incident, apply "
 "one to get its plan of tasks. Mandatory steps must be done or marked not "
 "applicable before closing."
 msgstr ""
 
-#: src/PageHelp.php:872
+#: src/PageHelp.php:891
 msgid ""
 "Information security crisis scenarios of the continuity plan: ransomware, "
 "data leak, compromise of privileged accounts, unavailability of a critical "
@@ -12002,7 +12093,7 @@ msgid ""
 "follow."
 msgstr ""
 
-#: src/PageHelp.php:879
+#: src/PageHelp.php:898
 msgid ""
 "Add the default scenarios, then adapt each one: choose the impacted "
 "processes, check the secure degraded mode and the roles, link the response "
@@ -12010,18 +12101,18 @@ msgid ""
 "should be exercised at least once a year."
 msgstr ""
 
-#: src/PageHelp.php:884
+#: src/PageHelp.php:903
 msgid "ISO/IEC 27001, control A.5.29"
 msgstr ""
 
-#: src/PageHelp.php:889
+#: src/PageHelp.php:908
 msgid ""
 "Crisis message templates: the messages prepared in advance for each kind of "
 "crisis (major incident, personal data breach, unavailability, ransomware), "
 "with the people and organizations to inform for each one."
 msgstr ""
 
-#: src/PageHelp.php:895
+#: src/PageHelp.php:914
 msgid ""
 "Adapt the templates provided and fill in the distribution list of each one "
 "(users, groups and official contacts). During a crisis, open the Crisis "
@@ -12030,59 +12121,59 @@ msgid ""
 "email."
 msgstr ""
 
-#: src/PageHelp.php:901
+#: src/PageHelp.php:920
 msgid "ISO/IEC 27001, control A.5.26 and clause 7.4"
 msgstr ""
 
-#: src/PageHelp.php:906
+#: src/PageHelp.php:925
 msgid ""
 "Custom frameworks: follow a framework that is not built in (group "
 "requirements, sector or contractual framework, customer security plan) by "
 "importing it from a spreadsheet."
 msgstr ""
 
-#: src/PageHelp.php:911
+#: src/PageHelp.php:930
 msgid ""
 "Download the template, fill in one line per requirement with the Annex A "
 "controls that meet it, import it, then enable the framework. A new version "
 "of the file updates it without losing the statuses already entered."
 msgstr ""
 
-#: src/PageHelp.php:919
+#: src/PageHelp.php:938
 msgid ""
 "Coverage rules: which assets must have which document (for example, every "
 "server must have its operations sheet)."
 msgstr ""
 
-#: src/PageHelp.php:924
+#: src/PageHelp.php:943
 msgid ""
 "Create one rule per requirement; the result lists the covered assets and "
 "those to complete."
 msgstr ""
 
-#: src/PageHelp.php:930
+#: src/PageHelp.php:949
 msgid ""
 "Security exemptions: accepted exceptions to a policy or a control, limited "
 "in time and compensated."
 msgstr ""
 
-#: src/PageHelp.php:935
+#: src/PageHelp.php:954
 msgid ""
 "Justify each exemption, describe the compensating measures, have it approved "
 "and set its end date; it is reassessed when due."
 msgstr ""
 
-#: src/PageHelp.php:939
+#: src/PageHelp.php:958
 msgid "ISO 27001, 6.1.3; Annex A 5.36"
 msgstr ""
 
-#: src/PageHelp.php:943
+#: src/PageHelp.php:962
 msgid ""
 "Business processes: who owns them, how critical they are, how long they can "
 "be interrupted and which GLPI items they depend on."
 msgstr ""
 
-#: src/PageHelp.php:948
+#: src/PageHelp.php:967
 msgid ""
 "For each process, rate the impact of an interruption over time (business "
 "impact analysis), set its MTPD, RTO and RPO, and link the applications, "
@@ -12090,17 +12181,17 @@ msgid ""
 "Export the result for your continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:953
+#: src/PageHelp.php:972
 msgid "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
 msgstr ""
 
-#: src/PageHelp.php:958
+#: src/PageHelp.php:977
 msgid ""
 "Recovery test programme: when each business process was last tested, whether "
 "the test met its RTO and RPO, and which processes are not tested in time."
 msgstr ""
 
-#: src/PageHelp.php:963
+#: src/PageHelp.php:982
 msgid ""
 "Plan a test for each process reported as overdue or not tested this year, "
 "then record the measured recovery time and data loss in its \"Recovery "
@@ -12108,111 +12199,111 @@ msgid ""
 "continuity is tested regularly."
 msgstr ""
 
-#: src/PageHelp.php:968
+#: src/PageHelp.php:987
 msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
 msgstr ""
 
-#: src/PageHelp.php:972
+#: src/PageHelp.php:991
 msgid ""
 "Single points of failure: critical items that depend on a single source, "
 "according to GLPI's impact analysis."
 msgstr ""
 
-#: src/PageHelp.php:977
+#: src/PageHelp.php:996
 msgid ""
 "Create the matching risk or add redundancy; export the list for your "
 "business continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:980
+#: src/PageHelp.php:999
 msgid "ISO 27001, Annex A 5.29, 5.30 and 8.14"
 msgstr ""
 
-#: src/PageHelp.php:983
+#: src/PageHelp.php:1002
 msgid "The domino effect: how one incident or risk can lead to others."
 msgstr ""
 
-#: src/PageHelp.php:985
+#: src/PageHelp.php:1004
 msgid ""
 "Link items from the \"Domino effect\" tab of a risk or an incident; this "
 "page shows the whole picture."
 msgstr ""
 
-#: src/PageHelp.php:992
+#: src/PageHelp.php:1011
 msgid ""
 "Security incidents: qualification, affected assets, CVEs, costs, regulatory "
 "notifications (data protection authority, NIS2)."
 msgstr ""
 
-#: src/PageHelp.php:997
+#: src/PageHelp.php:1016
 msgid ""
 "Declare the incident, qualify it, follow up the actions and meet the "
 "notification deadlines shown on the record."
 msgstr ""
 
-#: src/PageHelp.php:1001
+#: src/PageHelp.php:1020
 msgid "ISO 27001, Annex A 5.24 to 5.28"
 msgstr ""
 
-#: src/PageHelp.php:1005
+#: src/PageHelp.php:1024
 msgid ""
 "Known vulnerabilities (CVEs) of the software installed on your fleet, with "
 "their real-world exploitation (KEV, EPSS) and CERT-FR advisories."
 msgstr ""
 
-#: src/PageHelp.php:1010
+#: src/PageHelp.php:1029
 msgid ""
 "Handle exploited and priority vulnerabilities first; open one update ticket "
 "per software."
 msgstr ""
 
-#: src/PageHelp.php:1013 src/PageHelp.php:1037
+#: src/PageHelp.php:1032 src/PageHelp.php:1056
 msgid "ISO 27001, Annex A 8.8"
 msgstr ""
 
-#: src/PageHelp.php:1017
+#: src/PageHelp.php:1036
 msgid ""
 "Fleet software to match with a CPE reference so that its vulnerabilities are "
 "tracked."
 msgstr ""
 
-#: src/PageHelp.php:1021
+#: src/PageHelp.php:1040
 msgid ""
 "Start with the most exposed (browsers, remote access, VPN): search for the "
 "CPE, confirm it, or ignore software with no stakes."
 msgstr ""
 
-#: src/PageHelp.php:1028
+#: src/PageHelp.php:1047
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
 "software, to know where to start updating."
 msgstr ""
 
-#: src/PageHelp.php:1033
+#: src/PageHelp.php:1052
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
 "tab of each one details the CVEs and the update ticket."
 msgstr ""
 
-#: src/PageHelp.php:1041
+#: src/PageHelp.php:1060
 msgid ""
 "The correlation catalogue: reference products, their CPEs and the names "
 "under which they appear in the inventory."
 msgstr ""
 
-#: src/PageHelp.php:1046
+#: src/PageHelp.php:1065
 msgid ""
 "It is filled from \"Software to watch\"; correct an alias or a CPE here if "
 "needed."
 msgstr ""
 
-#: src/PageHelp.php:1052
+#: src/PageHelp.php:1071
 msgid ""
 "Mappings between Annex A and other frameworks, to reuse your work across "
 "several standards."
 msgstr ""
 
-#: src/PageHelp.php:1055
+#: src/PageHelp.php:1074
 msgid "Check the mappings before an audit against another framework."
 msgstr ""
 
@@ -13902,10 +13993,6 @@ msgstr ""
 msgid "Sensitive activity"
 msgstr ""
 
-#: src/ResponsibilityActivity.php:804
-msgid "ISMS responsibility matrix"
-msgstr ""
-
 #: src/ResponsibilityExport.php:46
 msgid "Archived responsibility matrix"
 msgid_plural "Archived responsibility matrices"
@@ -14794,78 +14881,51 @@ msgstr ""
 msgid "%d overdue risk treatment action(s), %d notification(s) raised."
 msgstr ""
 
-#: src/SecureDevelopment.php:331
+#: src/SecureDevelopment.php:325
 #, php-format
 msgid "%d application in the register"
 msgid_plural "%d applications in the register"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/SecureDevelopment.php:341
+#: src/SecureDevelopment.php:335
 #, php-format
 msgid "%1$d release(s) without security validation out of %2$d over 12 months"
 msgstr ""
 
-#: src/SecureDevelopment.php:350 src/SecureDevelopment.php:383
+#: src/SecureDevelopment.php:344 src/SecureDevelopment.php:351
 #, php-format
 msgid "%d without secure development framework"
 msgstr ""
 
-#: src/SecureDevelopment.php:357
-#, php-format
-msgid "%d without documented security requirements"
-msgstr ""
-
-#: src/SecureDevelopment.php:363
-#, php-format
-msgid "%d without secure architecture principles"
-msgstr ""
-
-#: src/SecureDevelopment.php:370
-#, php-format
-msgid "%d outsourced application"
-msgid_plural "%d outsourced applications"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/SecureDevelopment.php:377
-#, php-format
-msgid "%d outsourced without supplier or security clauses"
-msgstr ""
-
-#: src/SecureDevelopment.php:387
+#: src/SecureDevelopment.php:355
 #, php-format
 msgid "%d without mandatory code review"
 msgstr ""
 
-#: src/SecureDevelopment.php:394
+#: src/SecureDevelopment.php:362
 #, php-format
 msgid "%d without SAST"
 msgstr ""
 
-#: src/SecureDevelopment.php:399
+#: src/SecureDevelopment.php:367
 #, php-format
 msgid "%d without DAST"
 msgstr ""
 
-#: src/SecureDevelopment.php:403
+#: src/SecureDevelopment.php:371
 #, php-format
 msgid "%d without dependency analysis"
 msgstr ""
 
-#: src/SecureDevelopment.php:410
+#: src/SecureDevelopment.php:378
 #, php-format
 msgid "%d without separation of environments"
 msgstr ""
 
-#: src/SecureDevelopment.php:414
+#: src/SecureDevelopment.php:382
 #, php-format
 msgid "%d not separated without justification"
-msgstr ""
-
-#: src/SecureDevelopment.php:418 templates/secure_development_page.html.twig
-#, php-format
-msgid "%d with access, data or configuration not separated"
 msgstr ""
 
 #: src/SecurityIncidentAction.php:42
@@ -14895,7 +14955,6 @@ msgid "Successful"
 msgstr ""
 
 #: src/SecurityIncidentAction.php:78 src/SupplierAssessment.php:91
-#: templates/secure_development_page.html.twig
 msgid "Partial"
 msgstr ""
 
@@ -16761,7 +16820,8 @@ msgstr ""
 #: templates/certification_sampling_tab.html.twig
 #: templates/disk_encryption.html.twig templates/dora/arrangement_tab.html.twig
 #: templates/dora/function_tab.html.twig templates/dora/provider_tab.html.twig
-#: templates/dora/register.html.twig templates/periodic_reviews.html.twig
+#: templates/dora/register.html.twig templates/evidence_pack.html.twig
+#: templates/periodic_reviews.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/software_license_compliance.html.twig
 msgid "Save"
@@ -17246,7 +17306,6 @@ msgstr ""
 
 #: templates/acn_register.html.twig templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig templates/pdf/acn_report.html.twig
-#: templates/secure_development_page.html.twig
 msgid "Requirements"
 msgstr ""
 
@@ -17383,10 +17442,6 @@ msgid "Code repository"
 msgstr ""
 
 #: templates/application_security_tab.html.twig
-msgid "Development entrusted to a supplier"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
 #, php-format
 msgid "Empty: the technical owner of the application (%s)."
 msgstr ""
@@ -17396,20 +17451,7 @@ msgid "Environments not separated"
 msgstr ""
 
 #: templates/application_security_tab.html.twig
-msgid ""
-"Fill in this sheet for each application developed or maintained in-house: it "
-"then appears in the register of applications (secure development page) and "
-"as evidence for controls A.8.25 to A.8.31."
-msgstr ""
-
-#: templates/application_security_tab.html.twig
 msgid "For example: ASVS 4.0.3 level 2"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid ""
-"For example: code review of each delivery, acceptance tests, right to audit, "
-"escrow of the source code."
 msgstr ""
 
 #: templates/application_security_tab.html.twig
@@ -17439,25 +17481,12 @@ msgid "Missing: %s"
 msgstr ""
 
 #: templates/application_security_tab.html.twig
-msgid "No architecture principles"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid "No security requirements"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
 #: templates/competence_page.html.twig templates/dashboard_perimeters.html.twig
 #: templates/dora/register.html.twig
 #: templates/secure_development_page.html.twig
 #: templates/tabs/incident_data_breach.html.twig
 #: templates/training_quiz_tab.html.twig
 msgid "None"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-#, php-format
-msgid "Not separated: %s"
 msgstr ""
 
 #: templates/application_security_tab.html.twig
@@ -17470,36 +17499,8 @@ msgid "Open the register"
 msgstr ""
 
 #: templates/application_security_tab.html.twig
-msgid "Outsourced development (A.8.30)"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid "Outsourced without supplier or security clauses"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
 msgid ""
 "Person accountable for the security of the development of this application."
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid ""
-"Principles applied to the design: least privilege, defence in depth, secure "
-"defaults, or a link to the architecture document."
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid "Requirements and architecture (A.8.26, A.8.27)"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid ""
-"Requirements identified before development: authentication, data protection, "
-"logging, legal obligations, or a link to the specification."
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid "Secure architecture principles"
 msgstr ""
 
 #: templates/application_security_tab.html.twig
@@ -17507,25 +17508,7 @@ msgid "Secure development owner"
 msgstr ""
 
 #: templates/application_security_tab.html.twig
-msgid "Security clauses in the contract"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid "Security requirements of the application"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
 msgid "Separated environments (development, test, production)"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid "Supervision of the supplier"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid ""
-"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
-"not outsourced."
 msgstr ""
 
 #: templates/application_security_tab.html.twig
@@ -17534,12 +17517,6 @@ msgstr ""
 
 #: templates/application_security_tab.html.twig
 msgid "Tools and frequency of the analyses"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid ""
-"When the environments are separated, tick what is actually separated between "
-"development, test and production:"
 msgstr ""
 
 #: templates/asset_classification_tab.html.twig
@@ -18034,6 +18011,7 @@ msgstr ""
 #: templates/custom_framework_list.html.twig
 #: templates/disk_encryption.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/physical_security_checklist_tab.html.twig
 msgid "State"
 msgstr ""
@@ -19529,6 +19507,7 @@ msgid "You hold no ISMS function yet."
 msgstr ""
 
 #: templates/competence_sheet.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #, php-format
 msgid "valid until %s"
 msgstr ""
@@ -21060,7 +21039,7 @@ msgstr[1] ""
 msgid "%d critical"
 msgstr ""
 
-#: templates/control_form.html.twig
+#: templates/control_form.html.twig templates/evidence_pack.html.twig
 #, php-format
 msgid "%d expired"
 msgstr ""
@@ -23942,7 +23921,7 @@ msgstr ""
 msgid "Default currency of the amounts."
 msgstr ""
 
-#: templates/dora/register.html.twig
+#: templates/dora/register.html.twig templates/evidence_pack.html.twig
 #: templates/management_review_dossier_tab.html.twig
 #: templates/my_trainings_tab.html.twig templates/training_quiz_tab.html.twig
 msgid "Download"
@@ -24176,7 +24155,7 @@ msgstr ""
 msgid "Set the selected alerts aside"
 msgstr ""
 
-#: templates/edr_import.html.twig
+#: templates/edr_import.html.twig templates/evidence_pack.html.twig
 msgid "Settings"
 msgstr ""
 
@@ -24327,6 +24306,112 @@ msgid ""
 "exactly as GLPI shows it, and the product identifier found in the address of "
 "its page on endoflife.date (for instance \"fortios\" for https://"
 "endoflife.date/fortios). Leave the product empty to stop following a name."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%1$d of %2$d with evidence"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%1$s MB of %2$s MB allowed"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid ""
+"%d applicable control(s) have no evidence you can read: the index shows them "
+"without evidence."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%d file(s)"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%d over the size limit"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
+#, php-format
+msgid "%s MB"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Archived evidence packs"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#: templates/management_review_dossier_tab.html.twig
+msgid "Document deleted"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Evidence pack for the auditor"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"Expired evidence: listed in the index, not included. Renew it from the "
+"\"Evidence validity\" tab of the control before generating the pack."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"Files that would exceed this size are listed in the index as not included."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Generate the evidence pack"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Maximum size of the archive (MB)"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "No evidence pack generated yet."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"One ZIP archive per perimeter: the evidence attached to each Annex A control "
+"and each ISMS requirement, and the reports already archived by the plugin, "
+"with a PDF index listing them control by control, with their date, their "
+"state and their SHA-256 fingerprint."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"Only the documents you can read are included. The archive is kept as a "
+"restricted document: you, and whoever can read every piece it contains, can "
+"download it. Generate a new one at any time."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Perimeter (entity)"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Restricted"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#: templates/management_review_dossier_tab.html.twig
+msgid "SHA-256 fingerprint"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Show the contents"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"You need the right to update the GRC plugin to generate an evidence pack."
 msgstr ""
 
 #: templates/evidence_tab.html.twig
@@ -24861,10 +24946,6 @@ msgid "Create the actions from the decisions"
 msgstr ""
 
 #: templates/management_review_dossier_tab.html.twig
-msgid "Document deleted"
-msgstr ""
-
-#: templates/management_review_dossier_tab.html.twig
 msgid ""
 "Each decision becomes an action with an owner, a due date and a status. The "
 "preparatory file of the next review reports where they stand."
@@ -24906,10 +24987,6 @@ msgid ""
 "Proposed period: since the previous management review (or the last twelve "
 "months) up to the date of this review. Figures follow your rights and active "
 "entities."
-msgstr ""
-
-#: templates/management_review_dossier_tab.html.twig
-msgid "SHA-256 fingerprint"
 msgstr ""
 
 #: templates/management_review_dossier_tab.html.twig
@@ -26436,6 +26513,7 @@ msgstr ""
 
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Prepared by"
 msgstr ""
@@ -26899,6 +26977,37 @@ msgstr ""
 msgid "Zone"
 msgstr ""
 
+#: templates/pdf/evidence_pack_index.html.twig
+msgid "Files included"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+msgid "No evidence attached"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+msgid "Not included"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Perimeter"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+msgid ""
+"This index lists the evidence that the person who generated the pack can "
+"read, in the perimeter entity and its sub-entities. Expired evidence is "
+"listed but not included. Each included file is stored once in the "
+"\"evidence\" folder of the archive; its SHA-256 fingerprint is given here "
+"and in the SHA256SUMS.txt file, to check that nothing was changed."
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+#, php-format
+msgid "limit %d MB"
+msgstr ""
+
 #: templates/pdf/internal_audit_report.html.twig
 msgid "Planned / actual date"
 msgstr ""
@@ -26945,10 +27054,6 @@ msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Identified during the period"
-msgstr ""
-
-#: templates/pdf/management_review_dossier.html.twig
-msgid "Included"
 msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
@@ -27014,10 +27119,6 @@ msgstr ""
 #: templates/pdf/management_review_dossier.html.twig
 #, php-format
 msgid "Open risks: %1$d in %2$s, %3$d in %4$s"
-msgstr ""
-
-#: templates/pdf/management_review_dossier.html.twig
-msgid "Perimeter"
 msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
@@ -29832,15 +29933,6 @@ msgid "Applications without separation of environments"
 msgstr ""
 
 #: templates/secure_development_page.html.twig
-msgid "Architecture"
-msgstr ""
-
-#: templates/secure_development_page.html.twig
-#, php-format
-msgid "Architecture: %d"
-msgstr ""
-
-#: templates/secure_development_page.html.twig
 #, php-format
 msgid "Code review: %d"
 msgstr ""
@@ -29872,11 +29964,6 @@ msgid ""
 msgstr ""
 
 #: templates/secure_development_page.html.twig
-#, php-format
-msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
-msgstr ""
-
-#: templates/secure_development_page.html.twig
 msgid "Practices missing"
 msgstr ""
 
@@ -29898,11 +29985,6 @@ msgid "Releases without security validation (12 months)"
 msgstr ""
 
 #: templates/secure_development_page.html.twig
-#, php-format
-msgid "Requirements: %d"
-msgstr ""
-
-#: templates/secure_development_page.html.twig
 msgid "Requires the right to read the applications of GLPI."
 msgstr ""
 
@@ -29916,14 +29998,6 @@ msgstr ""
 
 #: templates/secure_development_page.html.twig
 msgid "Separated environments"
-msgstr ""
-
-#: templates/secure_development_page.html.twig
-msgid "Supervised"
-msgstr ""
-
-#: templates/secure_development_page.html.twig
-msgid "Without supplier or clauses"
 msgstr ""
 
 #: templates/secure_development_page.html.twig
@@ -31821,4 +31895,386 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr ""
+
+#: src/CompetenceGapAlert.php:62
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/CompetenceGapAlert.php:99
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+
+#: src/CompetenceGapAlert.php:110
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr ""
+
+#: src/IsmsFunction.php:412
+msgid "This activity is not available in the entity of the function."
+msgstr ""
+
+#: src/IsmsFunction.php:474
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:43
+msgid "Competence gaps without planned training"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:103
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:111
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:121
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:144
+msgid "New gaps without planned training"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:145
+msgid "Number of new gaps"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:146
+msgid "Number of gaps without planned training"
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Activity of the responsibility matrix"
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Follows the responsibility matrix"
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Role in the activity"
+msgstr ""
+
+#: front/controlblocker.php:63
+msgid "Blockers"
+msgstr ""
+
+#: src/ControlBlocker.php:54
+msgid "Blocked control"
+msgid_plural "Blocked controls"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ControlBlocker.php:99
+msgid "Technical check"
+msgstr ""
+
+#: src/ControlBlocker.php:316
+msgid "Effectiveness test overdue"
+msgstr ""
+
+#: src/ControlBlocker.php:318
+#, php-format
+msgid "Last test: %s"
+msgstr ""
+
+#: src/ControlBlocker.php:322
+#, php-format
+msgid "Next test was due on %s"
+msgstr ""
+
+#: src/ControlBlocker.php:323
+#, php-format
+msgid "Tested on %s"
+msgstr ""
+
+#: src/ControlBlocker.php:326
+msgid "Test the control again and record the result."
+msgstr ""
+
+#: src/ControlBlocker.php:327
+msgid "Fix the weakness found by the test, then test the control again."
+msgstr ""
+
+#: src/ControlBlocker.php:413
+#, php-format
+msgid "Open, due on %s"
+msgstr ""
+
+#: src/ControlBlocker.php:416
+msgid "Carry out the corrective action, then close the nonconformity."
+msgstr ""
+
+#: src/ControlBlocker.php:450
+msgid "Have the policy approved by management."
+msgstr ""
+
+#: src/ControlBlocker.php:490
+#, php-format
+msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
+msgstr ""
+
+#: src/ControlBlocker.php:496
+msgid "Fix the items listed by the automated check."
+msgstr ""
+
+#: src/ControlBlocker.php:535
+#, php-format
+msgid "%s coverage"
+msgstr ""
+
+#: src/ControlBlocker.php:537
+#, php-format
+msgid "Computers without an active agent: %1$d out of %2$d"
+msgstr ""
+
+#: src/ControlBlocker.php:542
+msgid "Install or reactivate the agent on the computers not covered."
+msgstr ""
+
+#: src/ControlBlocker.php:586 templates/control_blockers_tab.html.twig
+msgid "What blocks this control"
+msgstr ""
+
+#: src/PageHelp.php:62
+msgid ""
+"For each control of the Statement of Applicability, this page lists what "
+"prevents it from being compliant: failing automated check, missing or "
+"expired evidence, policy not approved, effectiveness test overdue or "
+"ineffective, open nonconformity, expired waiver."
+msgstr ""
+
+#: src/PageHelp.php:68
+msgid ""
+"Sort by severity and start with the most blocked controls. Click a control "
+"to see its blockers, then click a blocker to open the screen where it is "
+"fixed. The page is computed again each time and only shows what you are "
+"allowed to read. Nothing is changed automatically."
+msgstr ""
+
+#: src/PageHelp.php:73
+msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
+msgstr ""
+
+#: templates/_control_blocker_list.html.twig
+msgid "Fix"
+msgstr ""
+
+#: templates/control_blockers.html.twig
+#, php-format
+msgid "%d more"
+msgstr ""
+
+#: templates/control_blockers.html.twig
+#, php-format
+msgid "Blocked controls: %1$d out of %2$d"
+msgstr ""
+
+#: templates/control_blockers.html.twig
+msgid ""
+"No control of the Statement of Applicability is blocked among the checks you "
+"can read."
+msgstr ""
+
+#: templates/control_blockers.html.twig
+msgid "Sort"
+msgstr ""
+
+#: templates/control_blockers.html.twig
+msgid "What blocks it"
+msgstr ""
+
+#: templates/control_blockers_tab.html.twig
+msgid "All blocked controls"
+msgstr ""
+
+#: templates/control_blockers_tab.html.twig
+msgid ""
+"Everything that prevents this control from being compliant, in a single "
+"list: failing automated check, missing or expired evidence, policy not "
+"approved, effectiveness test overdue or ineffective, open nonconformity, "
+"expired waiver. Click a line to open the screen where it is fixed. Only what "
+"you are allowed to read is shown, and nothing is changed automatically."
+msgstr ""
+
+#: templates/control_blockers_tab.html.twig
+msgid "No blocker found among the checks you can read."
+msgstr ""
+
+#: templates/control_blockers_tab.html.twig
+msgid "Nothing blocks this control"
+msgstr ""
+
+#: src/ApplicationSecurity.php:122
+msgid "Separate access (accounts, rights)"
+msgstr ""
+
+#: src/ApplicationSecurity.php:124
+msgid "Separate data (no production data outside production, or anonymised)"
+msgstr ""
+
+#: src/ApplicationSecurity.php:127
+msgid "Separate configuration (secrets, settings)"
+msgstr ""
+
+#: src/PageHelp.php:490
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+
+#: src/SecureDevelopment.php:357
+#, php-format
+msgid "%d without documented security requirements"
+msgstr ""
+
+#: src/SecureDevelopment.php:363
+#, php-format
+msgid "%d without secure architecture principles"
+msgstr ""
+
+#: src/SecureDevelopment.php:370
+#, php-format
+msgid "%d outsourced application"
+msgid_plural "%d outsourced applications"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SecureDevelopment.php:377
+#, php-format
+msgid "%d outsourced without supplier or security clauses"
+msgstr ""
+
+#: src/SecureDevelopment.php:418 templates/secure_development_page.html.twig
+#, php-format
+msgid "%d with access, data or configuration not separated"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Development entrusted to a supplier"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25 to A.8.31."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "No architecture principles"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "No security requirements"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+#, php-format
+msgid "Not separated: %s"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Outsourced development (A.8.30)"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Outsourced without supplier or security clauses"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Requirements and architecture (A.8.26, A.8.27)"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Secure architecture principles"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Security clauses in the contract"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Security requirements of the application"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Supervision of the supplier"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Architecture"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "Architecture: %d"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "Requirements: %d"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Supervised"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Without supplier or clauses"
 msgstr ""

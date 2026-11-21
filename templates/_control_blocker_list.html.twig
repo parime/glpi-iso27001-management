@@ -1,0 +1,34 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #867 : liste des blocages d'une mesure (onglet de la mesure et vue globale), chaque ligne
+   renvoyant à l'écran à corriger. #}
+<ul class="list-group list-group-flush grc-control-blockers">
+   {% for blocker in blockers %}
+      {% set category = categories[blocker.category] %}
+      {% set severity = severities[blocker.severity] %}
+      <li class="list-group-item px-2 py-2 grc-control-blocker" data-category="{{ blocker.category }}" data-severity="{{ blocker.severity }}">
+         <div class="d-flex flex-wrap align-items-center gap-2">
+            <span class="badge {{ severity.class }}" title="{{ __('Severity', 'grcmanager') }}"><i class="ti {{ severity.icon }} me-1"></i>{{ severity.label }}</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti {{ category.icon }} me-1"></i>{{ category.label }}</span>
+            <a href="{{ blocker.url }}" class="fw-bold">{{ blocker.name }}</a>
+            <span class="text-muted small">{{ blocker.detail }}</span>
+            <a href="{{ blocker.url }}" class="btn btn-sm btn-outline-primary ms-auto"><i class="ti ti-tool me-1"></i>{{ __('Fix', 'grcmanager') }}</a>
+         </div>
+         {% if blocker.fix %}
+            <div class="small text-muted mt-1"><i class="ti ti-bulb me-1"></i>{{ blocker.fix }}</div>
+         {% endif %}
+      </li>
+   {% endfor %}
+</ul>
