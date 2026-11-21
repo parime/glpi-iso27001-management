@@ -32474,9 +32474,18 @@ msgid ""
 "in the security audit log; it cannot be changed afterwards."
 msgstr ""
 
+#: src/PhysicalSecurityAssessment.php:641
+#, php-format
+msgid "Physical security of the site: %s"
+msgstr ""
+
+#: templates/physical_security_assessment_form.html.twig
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+
 #: src/PageHelp.php:1063
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
 "software, operating system and firmware, to know where to start updating."
 msgstr ""
-

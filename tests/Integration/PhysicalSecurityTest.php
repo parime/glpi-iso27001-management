@@ -25,6 +25,7 @@ use GlpiPlugin\Grcmanager\ComplianceEvent;
 use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\EntityPerimeter;
 use GlpiPlugin\Grcmanager\Nonconformity;
+use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\PhysicalSecurity;
 use GlpiPlugin\Grcmanager\PhysicalSecurityAssessment;
 use GlpiPlugin\Grcmanager\PhysicalSecurityCheck;
@@ -352,6 +353,33 @@ final class PhysicalSecurityTest extends GrcmanagerIntegrationTestCase
         PhysicalSecurityAssessment::sendReminders(date('Y-m-d'));
         $late->getFromDB($late->getID());
         $this->assertNull($late->fields['reminder_date']);
+    }
+
+    public function testPdfReportListsTheChecklistTheZonesAndEscapesTheText(): void
+    {
+        $siteId = $this->site('PHPUnit Entrepot fictif');
+        $item = $this->assessment($siteId, ['name' => 'PHPUnit evaluation <b>fictive</b>']);
+        $line = self::linesByCode($item->getID())['A.7.2'];
+        $this->assertTrue(PhysicalSecurityCheck::updateLine($item, (int) $line['id'], [
+            'state' => Rules::STATE_NONCOMPLIANT, 'finding' => 'PHPUnit badge <script>x</script>',
+        ]));
+        $this->assertTrue(PhysicalSecurityZone::addZone($item, [
+            'name' => 'PHPUnit local technique fictif', 'zone_type' => 'technical', 'access_means' => [],
+            'instructions_posted' => 0,
+        ]));
+
+        $html = PhysicalSecurityAssessment::renderPdf($item);
+        $this->assertStringContainsString('PHPUnit Entrepot fictif', $html, 'Site dans le titre.');
+        $this->assertStringContainsString('A.7.14', $html, 'Les 14 mesures sont listées.');
+        $this->assertStringContainsString('PHPUnit local technique fictif', $html, 'Zones du site.');
+        $this->assertStringContainsString('PHPUnit badge &lt;script&gt;', $html, 'Constat échappé.');
+        $this->assertStringNotContainsString('<script>x</script>', $html);
+        $this->assertStringNotContainsString('<b>fictive</b>', $html);
+        $this->assertStringStartsWith('%PDF-', PdfRenderer::renderHtmlToPdf($html));
+        $this->assertStringContainsString(
+            'physicalsecurityassessment.pdf.php?id=' . $item->getID(),
+            PhysicalSecurityAssessment::pdfURL($item->getID())
+        );
     }
 
     public function testPurgeRemovesTheChecklistAndTheZones(): void
