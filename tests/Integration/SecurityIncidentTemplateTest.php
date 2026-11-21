@@ -56,4 +56,35 @@ final class SecurityIncidentTemplateTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue($loaded->getFromDBWithData($templateId, true));
         $this->assertSame('2', (string) ($loaded->predefined['status'] ?? ''));
     }
+
+    /**
+     * Issue #951 : la liste des gabarits (bouton « Modèle » des incidents de sécurité) plantait dès
+     * qu'un gabarit existait : le lien du nom cherche la classe depuis la table, raccourcie, que
+     * le cœur ne savait pas résoudre.
+     */
+    public function testTemplateListRendersWithRows(): void
+    {
+        $dbu = new \DbUtils();
+        foreach (\GlpiPlugin\Grcmanager\Compat\ShortTableItemtypes::MAP as $table => $class) {
+            $this->assertSame($table, $class::getTable());
+            $this->assertSame($class, $dbu->getItemTypeForTable($table));
+        }
+
+        $template = new PluginGrcmanagerSecurityIncidentTemplate();
+        $this->assertGreaterThan(0, (int) $template->add(['name' => 'PHPUnit gabarit 951', 'entities_id' => 0]));
+
+        $session = [$_SESSION['glpiactiveentities_string'] ?? null, $_SESSION['glpiparententities'] ?? null];
+        $_SESSION['glpiactiveentities_string'] = "'" . implode("','", $_SESSION['glpiactiveentities']) . "'";
+        $_SESSION['glpiparententities'] = [];
+        try {
+            $data = \Glpi\Search\SearchEngine::getData(PluginGrcmanagerSecurityIncidentTemplate::class, ['criteria' => []]);
+        } finally {
+            [$_SESSION['glpiactiveentities_string'], $_SESSION['glpiparententities']] = $session;
+        }
+        $this->assertGreaterThan(0, $data['data']['totalcount']);
+        $this->assertStringContainsString(
+            'securityincidenttemplate.form.php?id=',
+            json_encode($data['data']['rows'], JSON_UNESCAPED_SLASHES) ?: ''
+        );
+    }
 }
