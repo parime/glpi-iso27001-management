@@ -101,6 +101,26 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   documents cités, actions CAPA et état précédent, puis les zones et leurs contrôles d'accès avec
   les signalements. Même droit et même entité que la fiche, calculé à la demande, rien n'est
   conservé. Ligne « Sécurité physique » dans les README. Ce lot termine l'issue #778.
+- **Communication de crise : suppléants, groupes, revue annuelle et exercices** (issue #616,
+  lot 2, dernier lot, mesure A.5.26, article 7.4) :
+  - chaque destinataire de la liste de diffusion d'un modèle peut avoir un **suppléant** (choix
+    « Rôle dans la liste » à l'ajout). Le suppléant s'affiche sous son principal, un principal sans
+    suppléant est signalé (un groupe n'en a pas besoin) ; dans l'onglet de l'incident, le suppléant
+    n'est coché d'office que si son principal est masqué ou sans adresse, et la trace le nomme
+    « Suppléant de ... ». Retirer un principal fait de ses suppléants des principaux. Nouvelle
+    colonne `deputy_of` (migration dans l'installeur) ;
+  - les **adresses des membres actifs d'un groupe** sont reprises par « Copier les adresses
+    électroniques » et l'export `.eml` (avec le droit de lire les utilisateurs), les membres sans
+    adresse sont comptés ;
+  - **revue annuelle de la liste de diffusion** : bouton « Marquer la liste comme revue
+    aujourd'hui » (droit de modifier les modèles), date et auteur de la revue, badge « Revue en
+    retard » après 12 mois, critère de recherche. Le cadre de la mesure A.5.26 et de l'exigence 7.4
+    compte les listes non revues et les principaux sans suppléant. Nouvelles colonnes
+    `last_review_date` et `users_id_lastreviewer` ;
+  - les **communications tracées pendant un exercice** (ou une cellule de crise) apparaissent dans
+    la salle de crise, avec un lien vers l'onglet de l'incident, et dans le rapport PDF de
+    l'exercice (le rapport ne reprenait pas les suivis privés du journal).
+  Rien n'est envoyé automatiquement. Ce lot termine l'issue #616.
 
 ## [2.72.0] - 2026-11-21
 

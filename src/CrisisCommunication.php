@@ -317,7 +317,10 @@ class CrisisCommunication extends CrisisCommunicationBase
         $contactIds = [];
         foreach (Rules::selectedRecipients($input['recipients'] ?? [], array_keys($byKey)) as $key) {
             $recipient = $byKey[$key];
-            $labels[] = $recipient['type_label'] . ' : ' . $recipient['name'];
+            $labels[] = $recipient['type_label'] . ' : ' . $recipient['name']
+                . ($recipient['deputy_of'] > 0 && $recipient['principal'] !== ''
+                    ? ' (' . sprintf(__('Deputy of %s', 'grcmanager'), $recipient['principal']) . ')'
+                    : '');
             if ($recipient['type'] === Rules::RECIPIENT_CONTACT) {
                 $contactIds[] = (int) $recipient['items_id'];
             }
@@ -452,13 +455,17 @@ class CrisisCommunication extends CrisisCommunicationBase
             return null;
         }
         $templates = [];
+        $today = date('Y-m-d');
         foreach (CrisisMessageTemplate::activeTemplates() as $row) {
+            $rows = CrisisMessageRecipient::rowsFor((int) $row['id']);
+            $template = new CrisisMessageTemplate();
+            $template->fields = $row;
             $templates[] = [
-                'situation'  => (string) $row['situation'],
-                'recipients' => countElementsInTable(
-                    CrisisMessageRecipient::getTable(),
-                    [CrisisMessageRecipient::TEMPLATE_FK => (int) $row['id']]
-                ),
+                'situation'      => (string) $row['situation'],
+                'recipients'     => count($rows),
+                // Lot 2 : revue annuelle de la liste et suppléants des destinataires principaux.
+                'review_due'     => $template->reviewState($today)['status'] !== 'ok',
+                'without_deputy' => Rules::principalsWithoutDeputy($rows),
             ];
         }
         $summary = Rules::readiness($templates);
@@ -483,6 +490,8 @@ class CrisisCommunication extends CrisisCommunicationBase
         return [
             'templates'          => $summary['templates'],
             'without_recipients' => $summary['without_recipients'],
+            'review_due'         => $summary['review_due'],
+            'without_deputy'     => $summary['without_deputy'],
             'missing_situations' => array_map(
                 static fn (string $key): string => $situations[$key] ?? $key,
                 $summary['missing_situations']

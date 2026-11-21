@@ -804,6 +804,22 @@ type de matériel.
    de crise » indique le nombre de modèles actifs, les modèles sans destinataire, les situations sans
    modèle et les communications tracées depuis 12 mois. Pendant un exercice de crise, utilisez les
    mêmes modèles depuis l'incident d'exercice.
+9. **Suppléants** : en ajoutant un destinataire à la liste de diffusion, choisissez dans « Rôle dans
+   la liste » le destinataire principal dont il est le suppléant (par exemple l'adjoint de la
+   directrice fictive). Le suppléant s'affiche sous son principal ; un principal sans suppléant
+   porte le badge « Sans suppléant » (un groupe n'en a pas besoin). Dans l'onglet de l'incident, le
+   suppléant n'est coché d'office que si son principal est masqué ou sans adresse. Retirer un
+   principal fait de ses suppléants des destinataires principaux.
+10. **Groupes** : les adresses électroniques des membres actifs d'un groupe sont reprises par
+   « Copier les adresses électroniques » et par l'export `.eml` ; les membres sans adresse sont
+   comptés.
+11. **Revue annuelle** : une fois par an, relisez la liste de diffusion de chaque modèle puis
+   cliquez sur **Marquer la liste comme revue aujourd'hui** (droit de modifier les modèles). Le
+   cadre de la mesure A.5.26 compte les listes non revues depuis 12 mois et les destinataires
+   principaux sans suppléant.
+12. **Exercices** : les communications tracées sur l'incident d'un exercice (ou d'une cellule de
+   crise) apparaissent dans la salle de crise, avec un lien « Préparer un message », et dans le
+   rapport PDF de l'exercice.
 
 ### Étape 29 : Rapprocher les systèmes d'exploitation des CVE (mesure A.8.8)
 
@@ -1842,6 +1858,20 @@ hardware.
    number of active templates, the templates without recipients, the situations without a template
    and the communications recorded within 12 months. During a crisis exercise, use the same
    templates from the exercise incident.
+9. **Deputies**: when adding a recipient to the distribution list, choose in "Role in the list" the
+   main recipient it stands in for (for instance the deputy of the fictitious director). The deputy
+   is shown under its main recipient; a main recipient without a deputy has the "No deputy" badge
+   (a group does not need one). In the incident tab, a deputy is ticked by default only when its
+   main recipient is hidden or has no address. Removing a main recipient turns its deputies into
+   main recipients.
+10. **Groups**: the email addresses of the active members of a group are included by "Copy the
+   email addresses" and by the `.eml` export; members without an address are counted.
+11. **Annual review**: once a year, read the distribution list of each template again, then click
+   **Mark the list as reviewed today** (right to update the templates). The box of control A.5.26
+   counts the lists not reviewed within 12 months and the main recipients without a deputy.
+12. **Exercises**: the communications recorded on the incident of an exercise (or of a crisis team)
+   are shown in the crisis room, with a "Prepare a message" link, and in the PDF report of the
+   exercise.
 
 ### Step 29: Match operating systems with CVEs (control A.8.8)
 
