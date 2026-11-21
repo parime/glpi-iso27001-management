@@ -7,8 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.75.0] - 2026-11-21
-
 ### Added
 
 - **Audit de sécurité de l'Active Directory, lot 1 : PingCastle** (issue #835, mesures A.5.15 à
@@ -30,6 +28,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   nettoyé de ses mots de passe, peut être archivé comme document restreint. Rapport d'exemple fictif
   (domaine `exemple.test`) téléchargeable depuis la page. Tests unitaires avec des fichiers piégés,
   tests d'intégration, matrice d'accès et contrôle XSS.
+
+## [2.75.0] - 2026-11-21
+
+### Added
 
 - **Couverture de la journalisation** (issue #853, mesures A.8.15, A.8.16 et A.8.17). Nouvelle page
   « Couverture de la journalisation » dans la rubrique Sécurité technique, en lecture seule : hôtes
