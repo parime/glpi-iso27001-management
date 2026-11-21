@@ -556,25 +556,6 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, control A.8.9', 'grcmanager'),
             ],
-            // Issue #843 : contrôleurs de gestion des serveurs.
-            'servermanagement' => [
-                'purpose'   => __(
-                    'Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, Lenovo XClarity '
-                        . 'Controller, Supermicro IPMI): they give full control of a server, even switched off, and '
-                        . 'are often forgotten. The page shows their firmware, their risky settings, their exposure '
-                        . 'outside the administration networks and their local accounts, and the physical servers '
-                        . 'without a known controller.',
-                    'grcmanager'
-                ),
-                'expected'  => __(
-                    'Declare each controller with a local read-only account and click "Read now" (Redfish, read '
-                        . 'only), or import a CSV file for controllers with IPMI only. Then fix the gaps on the '
-                        . 'controllers yourself and review their accounts: the plugin never changes anything on the '
-                        . 'servers.',
-                    'grcmanager'
-                ),
-                'reference' => __('ISO/IEC 27001, controls A.8.2, A.8.9 and A.8.22', 'grcmanager'),
-            ],
             // Issue #853 : couverture de la journalisation.
             'logcoverage' => [
                 'purpose'   => __(

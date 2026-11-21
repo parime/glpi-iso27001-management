@@ -94,11 +94,6 @@ class RiskIndicator extends RiskIndicatorBase
             'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => ['computer' => READ], 'global' => false,
         ],
-        // Issue #843 : contrôleurs de gestion des serveurs avec un écart grave.
-        'bmc_serious_gaps' => [
-            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
-            'rights' => ['computer' => READ], 'global' => false,
-        ],
         'critical_vulnerabilities'  => [
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE, 'rights' => ['software' => READ], 'global' => false,
         ],
@@ -212,7 +207,6 @@ class RiskIndicator extends RiskIndicatorBase
                 'grcmanager'
             ),
             'critical_assets_without_logging' => __('Critical assets without logging (%)', 'grcmanager'),
-            'bmc_serious_gaps' => __('Server management controllers with a serious gap', 'grcmanager'),
             'critical_vulnerabilities'  => __('Open critical vulnerabilities in the fleet', 'grcmanager'),
             'risks_above_tolerance'     => __('Open risks above tolerance', 'grcmanager'),
             'overdue_treatment_actions' => __('Overdue risk treatment actions', 'grcmanager'),
@@ -605,7 +599,6 @@ class RiskIndicator extends RiskIndicatorBase
             'late_patch_critical_servers' => PatchCompliance::lateCriticalServers($perimeter),
             'config_high_failures'      => ConfigurationCompliance::highFailureRate($perimeter),
             'critical_assets_without_logging' => LogCoverage::criticalWithoutLogging($perimeter),
-            'bmc_serious_gaps' => ServerManagement::riskyControllers($perimeter),
             'critical_vulnerabilities'  => (float) count(array_filter(
                 ParkVulnerability::getVulnerabilityRows(
                     false,

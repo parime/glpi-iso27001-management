@@ -31931,394 +31931,520 @@ msgstr ""
 msgid "No previous campaign in this entity."
 msgstr "Brak poprzedniej kampanii w tej jednostce."
 
-msgid "Controller saved. Click \"Read now\" to read it."
-msgstr "Kontroler zapisany. Kliknij „Odczytaj teraz”, aby go odczytać."
-
-msgid "Controller read: %d local account(s)."
-msgstr "Kontroler odczytany: kont lokalnych: %d."
-
-msgid "Controller read. Its local accounts could not be read with this account."
-msgstr "Kontroler odczytany. Jego kont lokalnych nie udało się odczytać tym kontem."
-
-msgid "Controller deleted."
-msgstr "Kontroler usunięty."
-
-msgid "%1$d controller(s) imported, %2$d updated, %3$d ignored (read by Redfish)."
-msgstr "Zaimportowano kontrolerów: %1$d, zaktualizowano: %2$d, pominięto: %3$d (odczytywane przez Redfish)."
-
-msgid "Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI): they give full control of a server, even switched off, and are often forgotten. The page shows their firmware, their risky settings, their exposure outside the administration networks and their local accounts, and the physical servers without a known controller."
-msgstr "Wyświetla kontrolery zdalnego zarządzania serwerów (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI): dają pełną kontrolę nad serwerem, nawet wyłączonym, i często są zapominane. Strona pokazuje ich firmware, ryzykowne ustawienia, ekspozycję poza sieciami administracyjnymi i konta lokalne, a także serwery fizyczne bez znanego kontrolera."
-
-msgid "Declare each controller with a local read-only account and click \"Read now\" (Redfish, read only), or import a CSV file for controllers with IPMI only. Then fix the gaps on the controllers yourself and review their accounts: the plugin never changes anything on the servers."
-msgstr "Zadeklaruj każdy kontroler z lokalnym kontem tylko do odczytu i kliknij „Odczytaj teraz” (Redfish, tylko odczyt) lub zaimportuj plik CSV dla kontrolerów tylko z IPMI. Następnie samodzielnie usuń odchylenia na kontrolerach i przejrzyj ich konta: wtyczka nigdy niczego nie zmienia na serwerach."
-
-msgid "ISO/IEC 27001, controls A.8.2, A.8.9 and A.8.22"
-msgstr "ISO/IEC 27001, zabezpieczenia A.8.2, A.8.9 i A.8.22"
-
-msgid "Server management controllers with a serious gap"
-msgstr "Kontrolery zarządzania serwerami z poważnym odchyleniem"
-
-msgid "Server management controllers"
-msgstr "Kontrolery zarządzania serwerami"
-
-msgid "Last reading failed"
-msgstr "Ostatni odczyt nieudany"
-
-msgid "The values shown come from the previous successful reading."
-msgstr "Wyświetlane wartości pochodzą z poprzedniego udanego odczytu."
-
-msgid "Never read"
-msgstr "Nigdy nie odczytano"
-
-msgid "Click \"Read now\" to read the controller."
-msgstr "Kliknij „Odczytaj teraz”, aby odczytać kontroler."
-
-msgid "IPMI over the network enabled"
-msgstr "IPMI przez sieć włączone"
-
-msgid "IPMI over LAN has known weaknesses (password hashes can be retrieved): disable it if it is not used."
-msgstr "IPMI przez LAN ma znane słabości (można pobrać skróty haseł): wyłącz je, jeśli nie jest używane."
-
-msgid "Default account still enabled"
-msgstr "Konto domyślne nadal aktywne"
-
-msgid "A factory account (root, Administrator, ADMIN, USERID) is enabled: check that its password was changed, or disable it."
-msgstr "Konto fabryczne (root, Administrator, ADMIN, USERID) jest aktywne: sprawdź, czy jego hasło zostało zmienione, lub je wyłącz."
-
-msgid "Outside the administration networks"
-msgstr "Poza sieciami administracyjnymi"
-
-msgid "The address of the controller is not in an administration network declared in the network flow matrix: segregation gap."
-msgstr "Adres kontrolera nie należy do żadnej sieci administracyjnej zadeklarowanej w macierzy przepływów: odchylenie w separacji sieci."
-
-msgid "Telnet enabled"
-msgstr "Telnet włączony"
-
-msgid "Telnet sends the password in clear text: disable it."
-msgstr "Telnet przesyła hasło otwartym tekstem: wyłącz go."
-
-msgid "Old protocols (SSLv3, TLS 1.0 or 1.1)"
-msgstr "Stare protokoły (SSLv3, TLS 1.0 lub 1.1)"
-
-msgid "Reported by the import: keep only TLS 1.2 and later."
-msgstr "Zgłoszone przez import: zachowaj tylko TLS 1.2 i nowsze."
-
-msgid "Certificate expired"
-msgstr "Certyfikat wygasł"
-
-msgid "The HTTPS certificate of the controller has expired."
-msgstr "Certyfikat HTTPS kontrolera wygasł."
-
-msgid "Hardware health critical"
-msgstr "Stan sprzętu krytyczny"
-
-msgid "The controller reports a critical hardware state."
-msgstr "Kontroler zgłasza krytyczny stan sprzętu."
-
-msgid "SNMP v1 or v2c enabled"
-msgstr "SNMP v1 lub v2c włączone"
-
-msgid "SNMP v1 and v2c use a community sent in clear text: prefer SNMPv3."
-msgstr "SNMP v1 i v2c używają community przesyłanego otwartym tekstem: preferuj SNMPv3."
-
-msgid "Secure Boot disabled"
-msgstr "Bezpieczny rozruch wyłączony"
-
-msgid "Secure Boot of the server is disabled."
-msgstr "Bezpieczny rozruch (Secure Boot) serwera jest wyłączony."
-
-msgid "Self-signed certificate"
-msgstr "Certyfikat samopodpisany"
-
-msgid "Replace it with a certificate of your certification authority."
-msgstr "Zastąp go certyfikatem swojego urzędu certyfikacji."
-
-msgid "Certificate not verified"
-msgstr "Certyfikat niezweryfikowany"
-
-msgid "The controller is read with the option accepting a self-signed certificate: its identity is not verified."
-msgstr "Kontroler jest odczytywany z opcją akceptującą certyfikat samopodpisany: jego tożsamość nie jest weryfikowana."
-
-msgid "Hardware health degraded"
-msgstr "Stan sprzętu pogorszony"
-
-msgid "The controller reports a warning on the hardware."
-msgstr "Kontroler zgłasza ostrzeżenie dotyczące sprzętu."
-
-msgid "Certificate expiring soon"
-msgstr "Certyfikat wkrótce wygaśnie"
-
-msgid "The HTTPS certificate expires within %d days."
-msgstr "Certyfikat HTTPS wygaśnie w ciągu %d dni."
-
-msgid "No matching server in GLPI"
-msgstr "Brak pasującego serwera w GLPI"
-
-msgid "No computer of GLPI has this serial number: choose the server by hand on the controller."
-msgstr "Żaden komputer w GLPI nie ma tego numeru seryjnego: wybierz serwer ręcznie na kontrolerze."
-
-msgid "Enter the address, the account and the password of the controller first."
-msgstr "Najpierw wprowadź adres, konto i hasło kontrolera."
-
-msgid "The controller refused the account or the password."
-msgstr "Kontroler odrzucił konto lub hasło."
-
-msgid "The controller refused access: give the account the read-only role."
-msgstr "Kontroler odmówił dostępu: nadaj kontu rolę tylko do odczytu."
-
-msgid "The controller has an internal address, refused by default: allow internal addresses in the plugin configuration page (Outgoing connections)."
-msgstr "Kontroler ma adres wewnętrzny, domyślnie odrzucany: zezwól na adresy wewnętrzne na stronie konfiguracji wtyczki (Połączenia wychodzące)."
-
-msgid "The certificate of the controller is not trusted (self-signed or expired): install a certificate of your certification authority, or tick \"Accept a self-signed certificate\" for this controller."
-msgstr "Certyfikat kontrolera nie jest zaufany (samopodpisany lub wygasły): zainstaluj certyfikat swojego urzędu certyfikacji lub zaznacz „Akceptuj certyfikat samopodpisany” dla tego kontrolera."
-
-msgid "The controller could not be reached: check the address, the network access or the GLPI proxy."
-msgstr "Nie udało się połączyć z kontrolerem: sprawdź adres, dostęp do sieci lub serwer proxy GLPI."
-
-msgid "No Redfish service at this address: for a controller with IPMI only, use the CSV import."
-msgstr "Brak usługi Redfish pod tym adresem: dla kontrolera tylko z IPMI użyj importu CSV."
-
-msgid "The address must be a https:// address of the controller, without path or parameters."
-msgstr "Adres musi być adresem https:// kontrolera, bez ścieżki i parametrów."
-
-msgid "Enter a name."
-msgstr "Wprowadź nazwę."
-
-msgid "Enter the password again: the address or the account changed."
-msgstr "Wprowadź ponownie hasło: adres lub konto uległy zmianie."
-
-msgid "The server chosen cannot be used."
-msgstr "Wybranego serwera nie można użyć."
-
-msgid "This controller comes from the CSV import: import the file again to update it."
-msgstr "Ten kontroler pochodzi z importu CSV: zaimportuj plik ponownie, aby go zaktualizować."
-
-msgid "Controller not found."
-msgstr "Nie znaleziono kontrolera."
-
-msgid "You are not allowed to do this."
-msgstr "Nie masz uprawnień do wykonania tej czynności."
-
-msgid "The file has no \"name\" column."
-msgstr "Plik nie ma kolumny „name”."
-
-msgid "The controller returned an unexpected answer."
-msgstr "Kontroler zwrócił nieoczekiwaną odpowiedź."
-
-msgid "Management controller"
-msgstr "Kontroler zarządzania"
-
-msgid "%d administrator account(s)"
-msgstr "Kont administratora: %d"
-
-msgid "%d controller(s)"
-msgstr "Kontrolerów: %d"
-
-msgid "%d outside the administration networks"
-msgstr "Poza sieciami administracyjnymi: %d"
-
-msgid "%d physical server(s) without a known controller"
-msgstr "Serwerów fizycznych bez znanego kontrolera: %d"
-
-msgid "%d risky setting(s)"
-msgstr "Ryzykownych ustawień: %d"
-
-msgid "%d with a default account enabled"
-msgstr "Z aktywnym kontem domyślnym: %d"
-
-msgid "%d with a serious gap"
-msgstr "Z poważnym odchyleniem: %d"
-
-msgid "No administration network declared"
-msgstr "Nie zadeklarowano sieci administracyjnej"
-
-msgid "%1$d controllers: the first %2$d are shown, serious gaps first."
-msgstr "Kontrolerów: %1$d; wyświetlono pierwsze %2$d, najpierw poważne odchylenia."
-
-msgid "%d administration network(s) declared"
-msgstr "Zadeklarowanych sieci administracyjnych: %d"
-
-msgid "%d administrator account(s) in all"
-msgstr "Kont administratora łącznie: %d"
-
-msgid "%d read at least once"
-msgstr "Odczytanych co najmniej raz: %d"
-
-msgid "A controller is matched with a computer of GLPI by the serial number of the server, or by the server chosen by hand. Gaps are only reported: nothing is changed on the controller. Hover a gap to see what to do."
-msgstr "Kontroler jest dopasowywany do komputera w GLPI po numerze seryjnym serwera lub po serwerze wybranym ręcznie. Odchylenia są tylko zgłaszane: na kontrolerze nic nie jest zmieniane. Najedź na odchylenie, aby zobaczyć, co zrobić."
-
-msgid "Accept a self-signed certificate for this controller"
-msgstr "Akceptuj certyfikat samopodpisany dla tego kontrolera"
-
-msgid "Account (read only)"
-msgstr "Konto (tylko odczyt)"
-
-msgid "Accounts read on each controller, to review in the privileged access review: an account of a controller gives full control of the server, even switched off."
-msgstr "Konta odczytane na każdym kontrolerze, do uwzględnienia w przeglądzie dostępu uprzywilejowanego: konto kontrolera daje pełną kontrolę nad serwerem, nawet wyłączonym."
-
-msgid "Address of the controller"
-msgstr "Adres kontrolera"
-
-msgid "BIOS: %s"
-msgstr "BIOS: %s"
-
-msgid "By serial number"
-msgstr "Po numerze seryjnym"
-
-msgid "CSV import"
-msgstr "Import CSV"
-
-msgid "Certificate until %s"
-msgstr "Certyfikat ważny do %s"
-
-msgid "Chosen by hand"
-msgstr "Wybrany ręcznie"
-
-msgid "Computers of GLPI seen as servers (type or operating system) and not virtual (model or manufacturer), for which no controller is declared. A controller nobody knows is never updated nor reviewed."
-msgstr "Komputery w GLPI rozpoznane jako serwery (typ lub system operacyjny) i niewirtualne (model lub producent), dla których nie zadeklarowano kontrolera. Kontroler, o którym nikt nie wie, nigdy nie jest aktualizowany ani przeglądany."
-
-msgid "Controller: %s"
-msgstr "Kontroler: %s"
-
-msgid "Controllers"
-msgstr "Kontrolery"
-
-msgid "Controllers and their gaps"
-msgstr "Kontrolery i ich odchylenia"
-
-msgid "Controllers usually have an internal address, which the plugin refuses by default. To read them, allow internal addresses in the plugin configuration page."
-msgstr "Kontrolery mają zwykle adres wewnętrzny, który wtyczka domyślnie odrzuca. Aby je odczytać, zezwól na adresy wewnętrzne na stronie konfiguracji wtyczki."
-
-msgid "Controllers with a serious gap"
-msgstr "Kontrolery z poważnym odchyleniem"
-
-msgid "Coverage: %d%%"
-msgstr "Pokrycie: %d%%"
-
-msgid "Declare a controller read by Redfish"
-msgstr "Zadeklaruj kontroler odczytywany przez Redfish"
-
-msgid "Default account"
-msgstr "Konto domyślne"
-
-msgid "Delete this controller and its accounts read?"
-msgstr "Usunąć ten kontroler i jego odczytane konta?"
-
-msgid "Edit the controller %s"
-msgstr "Edytuj kontroler %s"
-
-msgid "Encrypted by GLPI and never shown again. If you change the address or the account, enter it again."
-msgstr "Szyfrowane przez GLPI i nigdy więcej nie wyświetlane. Jeśli zmienisz adres lub konto, wprowadź je ponownie."
-
-msgid "Every physical server has a known controller."
-msgstr "Każdy serwer fizyczny ma znany kontroler."
-
-msgid "Firmware and BIOS"
-msgstr "Firmware i BIOS"
-
-msgid "For controllers with IPMI only, or an export of a manufacturer tool. One line per controller; a controller already imported with the same name is updated. Columns (header line, separator ; or ,):"
-msgstr "Dla kontrolerów tylko z IPMI lub eksportu z narzędzia producenta. Jeden wiersz na kontroler; kontroler już zaimportowany pod tą samą nazwą jest aktualizowany. Kolumny (wiersz nagłówka, separator ; lub ,):"
-
-msgid "For example: iLO of srv-db-01"
-msgstr "Na przykład: iLO serwera srv-db-01"
-
-msgid "Health"
-msgstr "Stan"
-
-msgid "Healthy"
-msgstr "Sprawny"
-
-msgid "IPMI over the network, default account, exposure..."
-msgstr "IPMI przez sieć, konto domyślne, ekspozycja..."
-
-msgid "Import controllers without Redfish (CSV)"
-msgstr "Importuj kontrolery bez Redfish (CSV)"
-
-msgid "Last reading"
-msgstr "Ostatni odczyt"
-
-msgid "Leave empty to match the server by its serial number."
-msgstr "Pozostaw puste, aby dopasować serwer po numerze seryjnym."
-
-msgid "Local accounts of the controllers"
-msgstr "Konta lokalne kontrolerów"
-
-msgid "Locked"
-msgstr "Zablokowane"
-
-msgid "No account read yet."
-msgstr "Nie odczytano jeszcze żadnego konta."
-
-msgid "No administration network is declared in the network flow matrix: the exposure of the controllers cannot be checked. Write the address range in the source or the destination of a flow whose name says it is an administration zone (for example \"MGMT 10.0.99.0/24\" or \"OOB iLO 192.0.2.0/24\")."
-msgstr "W macierzy przepływów nie zadeklarowano sieci administracyjnej: nie można sprawdzić ekspozycji kontrolerów. Wpisz zakres adresów w źródle lub celu przepływu, którego nazwa wskazuje strefę administracyjną (na przykład „MGMT 10.0.99.0/24” lub „OOB iLO 192.0.2.0/24”)."
-
-msgid "No controller yet: declare one below, or import a CSV file for controllers with IPMI only."
-msgstr "Brak kontrolerów: zadeklaruj jeden poniżej lub zaimportuj plik CSV dla kontrolerów tylko z IPMI."
-
-msgid "No gap found"
-msgstr "Nie znaleziono odchyleń"
-
-msgid "No physical server in GLPI"
-msgstr "Brak serwerów fizycznych w GLPI"
-
-msgid "Off by default. When ticked, the identity of the controller is not verified: prefer a certificate of your certification authority."
-msgstr "Domyślnie wyłączone. Po zaznaczeniu tożsamość kontrolera nie jest weryfikowana: preferuj certyfikat swojego urzędu certyfikacji."
-
-msgid "Only \"name\" is required. Yes/no columns accept yes, no, oui, non, 1, 0 (empty: unknown). Accounts: user:role separated by \";\" inside the cell, for example \"root:Administrator;audit:ReadOnly\", \":disabled\" for a disabled account. Maximum size: %s."
-msgstr "Wymagana jest tylko kolumna „name”. Kolumny tak/nie akceptują yes, no, oui, non, 1, 0 (puste: nieznane). Konta: użytkownik:rola oddzielone „;” w komórce, na przykład „root:Administrator;audit:ReadOnly”, „:disabled” dla konta wyłączonego. Maksymalny rozmiar: %s."
-
-msgid "Open the network flow matrix"
-msgstr "Otwórz macierz przepływów"
-
-msgid "Password saved (leave empty to keep it)"
-msgstr "Hasło zapisane (pozostaw puste, aby je zachować)"
-
-msgid "Physical servers without a known controller"
-msgstr "Serwery fizyczne bez znanego kontrolera"
-
-msgid "Read now"
-msgstr "Odczytaj teraz"
-
-msgid "Read only: the plugin only sends Redfish read requests (GET). It never restarts a server, never updates a firmware and never changes a setting. Use a local account of the controller with the read-only role."
-msgstr "Tylko odczyt: wtyczka wysyła wyłącznie żądania odczytu Redfish (GET). Nigdy nie restartuje serwera, nigdy nie aktualizuje firmware'u i nigdy nie zmienia ustawień. Użyj lokalnego konta kontrolera z rolą tylko do odczytu."
-
-msgid "Self-signed accepted"
-msgstr "Samopodpisany zaakceptowany"
-
-msgid "Serial number: %s"
-msgstr "Numer seryjny: %s"
-
-msgid "Server in GLPI"
-msgstr "Serwer w GLPI"
-
-msgid "Server in GLPI (optional)"
-msgstr "Serwer w GLPI (opcjonalnie)"
-
-msgid "The controller is saved in the entity %s. Create on the controller a local account with the read-only role (ReadOnly): the plugin only reads."
-msgstr "Kontroler jest zapisywany w jednostce %s. Utwórz na kontrolerze konto lokalne z rolą tylko do odczytu (ReadOnly): wtyczka tylko odczytuje."
+msgid ""
+"Not saved: the address must start with https:// (or http:// when internal "
+"addresses are allowed), without user name, password or parameters."
+msgstr ""
+"Nie zapisano: adres musi zaczynać się od https:// (lub http:// przy "
+"dozwolonych adresach wewnętrznych), bez nazwy użytkownika, hasła i "
+"parametrów."
+
+msgid "Zabbix settings saved."
+msgstr "Ustawienia Zabbix zapisane."
+
+msgid "Settings saved."
+msgstr "Ustawienia zapisane."
+
+#, php-format
+msgid "Zabbix read: %1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr "Odczyt Zabbix: hosty: %1$d, problemy: %2$d, usługi: %3$d."
+
+msgid "Zabbix readings deleted."
+msgstr "Odczyty Zabbix usunięte."
+
+msgid "Business process saved."
+msgstr "Proces biznesowy zapisany."
+
+msgid "The business process could not be saved."
+msgstr "Nie udało się zapisać procesu biznesowego."
+
+msgid "Infrastructure monitoring"
+msgstr "Monitorowanie infrastruktury"
+
+msgid ""
+"Reads your Zabbix monitoring server, in read only: hosts, problems and "
+"availability of the services. Hosts are matched with the computers and "
+"network devices of GLPI to show the assets that nobody monitors, the "
+"measured availability compared with the recovery time objectives of the "
+"business processes, and the saturations of disk, memory or processor."
+msgstr ""
+"Odczytuje serwer monitorowania Zabbix, tylko do odczytu: hosty, problemy i "
+"dostępność usług. Hosty są dopasowywane do komputerów i urządzeń sieciowych "
+"GLPI, aby pokazać zasoby, których nikt nie monitoruje, zmierzoną dostępność "
+"w porównaniu z docelowym czasem odtworzenia (RTO) procesów biznesowych oraz "
+"nasycenie dysku, pamięci lub procesora."
+
+msgid ""
+"Enter the address of the Zabbix server and the API token of a read-only "
+"Zabbix user, read now, then follow up the critical assets not monitored, the "
+"open high-severity problems and the services below their objective. A high-"
+"severity problem can be turned into a security incident or a ticket with one "
+"click; nothing is created automatically and nothing is changed in Zabbix."
+msgstr ""
+"Wprowadź adres serwera Zabbix i token API użytkownika Zabbix tylko do "
+"odczytu, wykonaj odczyt, a następnie śledź niemonitorowane zasoby krytyczne, "
+"otwarte problemy o wysokiej ważności i usługi poniżej celu. Problem o "
+"wysokiej ważności można jednym kliknięciem zamienić w incydent "
+"bezpieczeństwa lub zgłoszenie; nic nie jest tworzone automatycznie i nic nie "
+"jest zmieniane w Zabbix."
+
+msgid "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
+msgstr "ISO/IEC 27001, zabezpieczenia A.8.16, A.8.6 i A.5.30"
+
+#, php-format
+msgid "Service availability this month, lowest (%) (Zabbix)"
+msgstr "Dostępność usług w tym miesiącu, najniższa (%) (Zabbix)"
+
+msgid "Open high-severity problems (Zabbix)"
+msgstr "Otwarte problemy o wysokiej ważności (Zabbix)"
+
+msgid "Critical assets not monitored (Zabbix)"
+msgstr "Niemonitorowane zasoby krytyczne (Zabbix)"
+
+msgid "Zabbix monitoring"
+msgstr "Monitorowanie Zabbix"
 
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
-msgid "https:// only, with the name or the IP address of the controller and an optional port."
-msgstr "Tylko https:// z nazwą lub adresem IP kontrolera i opcjonalnym portem."
+msgid "Average"
+msgstr "Średnia"
 
-msgid "BIOS"
-msgstr "BIOS"
+msgid "Disaster"
+msgstr "Katastrofa"
 
-msgid "Firmware of the controller"
-msgstr "Firmware kontrolera"
+msgid "Monitored"
+msgstr "Monitorowany"
 
-msgid "IPMI over the network"
-msgstr "IPMI przez sieć"
+msgid "Monitored, unreachable"
+msgstr "Monitorowany, nieosiągalny"
 
-msgid "Local accounts"
-msgstr "Konta lokalne"
+msgid "Monitoring disabled in Zabbix"
+msgstr "Monitorowanie wyłączone w Zabbix"
 
-msgid "No management controller (iLO, iDRAC, XClarity, IPMI) is known for this computer. A controller is matched by the serial number of the server, or chosen by hand on the controller."
-msgstr "Dla tego komputera nie jest znany żaden kontroler zarządzania (iLO, iDRAC, XClarity, IPMI). Kontroler jest dopasowywany po numerze seryjnym serwera lub wybierany ręcznie na kontrolerze."
+msgid "Not monitored"
+msgstr "Niemonitorowany"
 
-msgid "Secure Boot"
-msgstr "Bezpieczny rozruch"
+msgid "Disk space"
+msgstr "Miejsce na dysku"
 
+msgid "Memory"
+msgstr "Pamięć"
 
+msgid "Processor"
+msgstr "Procesor"
+
+msgid "Enter the address of the Zabbix server and an API token first."
+msgstr "Najpierw wprowadź adres serwera Zabbix i token API."
+
+msgid ""
+"Zabbix refused the API token: check that it is valid, not expired, and that "
+"its user is enabled."
+msgstr ""
+"Zabbix odrzucił token API: sprawdź, czy jest ważny, nie wygasł i czy jego "
+"użytkownik jest aktywny."
+
+msgid ""
+"Zabbix refused access: give the user of the token read access to the host "
+"groups and services."
+msgstr ""
+"Zabbix odmówił dostępu: nadaj użytkownikowi tokenu prawo odczytu grup hostów "
+"i usług."
+
+msgid ""
+"The Zabbix server has an internal address, refused by default: allow "
+"internal addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+"Serwer Zabbix ma adres wewnętrzny, domyślnie odrzucany: zezwól na adresy "
+"wewnętrzne na stronie konfiguracji wtyczki (Połączenia wychodzące)."
+
+msgid ""
+"The Zabbix server could not be reached: check the address, the network "
+"access or the GLPI proxy."
+msgstr ""
+"Nie udało się połączyć z serwerem Zabbix: sprawdź adres, dostęp do sieci lub "
+"proxy GLPI."
+
+msgid "This version of Zabbix is too old: version 5.4 or later is required."
+msgstr "Ta wersja Zabbix jest zbyt stara: wymagana jest wersja 5.4 lub nowsza."
+
+msgid "Refused: the connector only reads from Zabbix."
+msgstr "Odrzucono: łącznik tylko odczytuje dane z Zabbix."
+
+msgid "You are not allowed to do this."
+msgstr "Nie masz uprawnień do wykonania tej czynności."
+
+msgid "Zabbix returned an unexpected answer."
+msgstr "Zabbix zwrócił nieoczekiwaną odpowiedź."
+
+#, php-format
+msgid "Problem reported by Zabbix: %s"
+msgstr "Problem zgłoszony przez Zabbix: %s"
+
+#, php-format
+msgid "Host: %s"
+msgstr "Host: %s"
+
+#, php-format
+msgid "Severity: %s"
+msgstr "Ważność: %s"
+
+#, php-format
+msgid "Started on: %s"
+msgstr "Początek: %s"
+
+#, php-format
+msgid "Zabbix event: %s"
+msgstr "Zdarzenie Zabbix: %s"
+
+msgid "Zabbix: reads hosts, problems and service availability (read only)"
+msgstr "Zabbix: odczytuje hosty, problemy i dostępność usług (tylko odczyt)"
+
+#, php-format
+msgid "Assets with a saturation: %d"
+msgstr "Zasoby z nasyceniem: %d"
+
+#, php-format
+msgid "Critical assets not monitored: %d"
+msgstr "Niemonitorowane zasoby krytyczne: %d"
+
+#, php-format
+msgid "Disk, memory or processor problems: %d"
+msgstr "Problemy z dyskiem, pamięcią lub procesorem: %d"
+
+#, php-format
+msgid "High-severity problems resolved: %d"
+msgstr "Rozwiązane problemy o wysokiej ważności: %d"
+
+#, php-format
+msgid "Lowest service availability: %s %%"
+msgstr "Najniższa dostępność usługi: %s %%"
+
+#, php-format
+msgid "Monitored assets: %d%%"
+msgstr "Monitorowane zasoby: %d %%"
+
+msgid "Monitored assets: not measured"
+msgstr "Monitorowane zasoby: nie zmierzono"
+
+#, php-format
+msgid "Open high-severity problems: %d"
+msgstr "Otwarte problemy o wysokiej ważności: %d"
+
+#, php-format
+msgid "Outages longer than the RTO: %d"
+msgstr "Przerwy dłuższe niż RTO: %d"
+
+#, php-format
+msgid "Over %1$d days, read from Zabbix on %2$s"
+msgstr "Za %1$d dni, odczytano z Zabbix %2$s"
+
+#, php-format
+msgid "Services below their objective: %d"
+msgstr "Usługi poniżej celu: %d"
+
+msgid "Assets this process depends on"
+msgstr "Zasoby, od których zależy ten proces"
+
+msgid "Availability of the services (Zabbix SLA)"
+msgstr "Dostępność usług (SLA Zabbix)"
+
+#, php-format
+msgid "Availability over %d days"
+msgstr "Dostępność za %d dni"
+
+#, php-format
+msgid "Downtime: %s"
+msgstr "Czas przestoju: %s"
+
+#, php-format
+msgid "High: %d"
+msgstr "Wysoka: %d"
+
+msgid "Longest outage and RTO"
+msgstr "Najdłuższa przerwa i RTO"
+
+msgid ""
+"No Zabbix service is linked to this process: link one on the Zabbix "
+"monitoring page."
+msgstr ""
+"Żadna usługa Zabbix nie jest powiązana z tym procesem: powiąż ją na stronie "
+"monitorowania Zabbix."
+
+msgid "No computer or network device in the dependencies of this process."
+msgstr "Brak komputerów i urządzeń sieciowych w zależnościach tego procesu."
+
+msgid "No problem over the period."
+msgstr "Brak problemów w okresie."
+
+msgid "Nothing has been read from Zabbix yet."
+msgstr "Z Zabbix nie odczytano jeszcze niczego."
+
+msgid "Open problems"
+msgstr "Otwarte problemy"
+
+#, php-format
+msgid "Other: %d"
+msgstr "Inne: %d"
+
+msgid "Outage longer than the RTO"
+msgstr "Przerwa dłuższa niż RTO"
+
+#, php-format
+msgid "Problems over the last %d days"
+msgstr "Problemy z ostatnich %d dni"
+
+msgid "Saturation"
+msgstr "Nasycenie"
+
+msgid "Started"
+msgstr "Początek"
+
+msgid ""
+"This asset is not concerned by the monitoring settings and no Zabbix host "
+"matches it."
+msgstr ""
+"Ten zasób nie jest objęty ustawieniami monitorowania i nie odpowiada mu "
+"żaden host Zabbix."
+
+#, php-format
+msgid "Zabbix host: %s"
+msgstr "Host Zabbix: %s"
+
+#, php-format
+msgid "%1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr "Hosty: %1$d, problemy: %2$d, usługi: %3$d."
+
+#, php-format
+msgid "%1$d problem(s) over %2$d days"
+msgstr "Problemy: %1$d w ciągu %2$d dni"
+
+#, php-format
+msgid "%1$d service(s), %2$d below their objective"
+msgstr "Usługi: %1$d, poniżej celu: %2$d"
+
+msgid ""
+"A Zabbix server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+msgstr ""
+"Serwer Zabbix pod adresem wewnętrznym (sieć prywatna) jest domyślnie "
+"odrzucany: administrator może zezwolić na adresy wewnętrzne w konfiguracji "
+"wtyczki."
+
+msgid "Acknowledged in Zabbix"
+msgstr "Potwierdzony w Zabbix"
+
+msgid "Address of the Zabbix interface"
+msgstr "Adres interfejsu Zabbix"
+
+msgid "Assets and their monitoring"
+msgstr "Zasoby i ich monitorowanie"
+
+#, php-format
+msgid "Assets concerned: %d"
+msgstr "Objęte zasoby: %d"
+
+msgid "Assets monitored by Zabbix"
+msgstr "Zasoby monitorowane przez Zabbix"
+
+msgid "Assets with a saturation"
+msgstr "Zasoby z nasyceniem"
+
+msgid ""
+"Availability measured by Zabbix over the current period of each SLA, "
+"compared with its objective (SLO). Link a service to the business process it "
+"supports to compare it with the continuity needs."
+msgstr ""
+"Dostępność zmierzona przez Zabbix w bieżącym okresie każdego SLA, porównana "
+"z celem (SLO). Powiąż usługę z procesem biznesowym, który wspiera, aby "
+"porównać ją z potrzebami ciągłości działania."
+
+msgid "Below the objective"
+msgstr "Poniżej celu"
+
+msgid "Business processes"
+msgstr "Procesy biznesowe"
+
+msgid ""
+"Check them: the asset may be missing from the inventory, or named "
+"differently in GLPI and in Zabbix."
+msgstr ""
+"Sprawdź je: zasobu może brakować w inwentarzu lub może mieć inną nazwę w "
+"GLPI i w Zabbix."
+
+#, php-format
+msgid ""
+"Concerned assets: %s. A Zabbix host is matched with an asset by its serial "
+"number, its name, its short name (without the domain) or its IP address. The "
+"availability is the share of time without a high-severity problem over the "
+"period."
+msgstr ""
+"Objęte zasoby: %s. Host Zabbix jest dopasowywany do zasobu po numerze "
+"seryjnym, nazwie, nazwie krótkiej (bez domeny) lub adresie IP. Dostępność to "
+"część czasu bez problemu o wysokiej ważności w okresie."
+
+msgid "Connection to Zabbix (read only)"
+msgstr "Połączenie z Zabbix (tylko odczyt)"
+
+msgid ""
+"Critical assets are those with a high confidentiality, integrity or "
+"availability level (C/I/A classification tab), or published on the Internet "
+"(network flow matrix)."
+msgstr ""
+"Zasoby krytyczne to te z wysokim poziomem poufności, integralności lub "
+"dostępności (karta klasyfikacji P/I/D) lub publikowane w Internecie (macierz "
+"przepływów)."
+
+msgid "Critical assets not monitored"
+msgstr "Niemonitorowane zasoby krytyczne"
+
+msgid "Current period"
+msgstr "Bieżący okres"
+
+msgid "Delete the readings"
+msgstr "Usuń odczyty"
+
+#, php-format
+msgid "Disk, memory or processor, over %d days"
+msgstr "Dysk, pamięć lub procesor, za %d dni"
+
+msgid "Downtime"
+msgstr "Czas przestoju"
+
+msgid "Entity of the readings"
+msgstr "Jednostka odczytów"
+
+msgid "How to prepare Zabbix:"
+msgstr "Jak przygotować Zabbix:"
+
+msgid "IP addresses"
+msgstr "Adresy IP"
+
+#, php-format
+msgid "Last reading: %s"
+msgstr "Ostatni odczyt: %s"
+
+msgid "Lowest service availability"
+msgstr "Najniższa dostępność usługi"
+
+msgid "No computer or network device concerned in your entities."
+msgstr "Brak objętych komputerów i urządzeń sieciowych w Twoich jednostkach."
+
+msgid "No problem on your assets over the period."
+msgstr "Brak problemów z Twoimi zasobami w okresie."
+
+msgid "No reading yet."
+msgstr "Brak odczytów."
+
+msgid "No service level (SLA) read"
+msgstr "Nie odczytano poziomu usług (SLA)"
+
+msgid ""
+"No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
+msgstr ""
+"Nie odczytano poziomu usług: SLA są dostępne od Zabbix 6.0 (Usługi > SLA)."
+
+msgid ""
+"Nothing has been read from Zabbix yet: enter the connection below, then "
+"click \"Read now\". Until then, every asset concerned is shown as not "
+"monitored."
+msgstr ""
+"Z Zabbix nie odczytano jeszcze niczego: wprowadź połączenie poniżej, a "
+"następnie kliknij „Odczytaj teraz”. Do tego czasu każdy objęty zasób jest "
+"pokazywany jako niemonitorowany."
+
+msgid "Objective (SLO)"
+msgstr "Cel (SLO)"
+
+msgid "Only the most recent items were read"
+msgstr "Odczytano tylko najnowsze elementy"
+
+msgid "Open high-severity problems"
+msgstr "Otwarte problemy o wysokiej ważności"
+
+msgid "Period of the problems (days)"
+msgstr "Okres problemów (dni)"
+
+msgid "Previous period"
+msgstr "Poprzedni okres"
+
+msgid ""
+"Problems of severity Warning or higher, open ones first. A high-severity "
+"problem can be turned into a security incident or a ticket: it is only "
+"created when you click, never automatically."
+msgstr ""
+"Problemy o ważności Ostrzeżenie lub wyższej, najpierw otwarte. Problem o "
+"wysokiej ważności można zamienić w incydent bezpieczeństwa lub zgłoszenie: "
+"jest tworzony tylko po kliknięciu, nigdy automatycznie."
+
+msgid "Propose as security incident"
+msgstr "Zaproponuj jako incydent bezpieczeństwa"
+
+msgid "Read automatically every day (automatic action \"zabbix\")"
+msgstr "Odczytuj automatycznie codziennie (akcja automatyczna „zabbix”)"
+
+msgid "Read now"
+msgstr "Odczytaj teraz"
+
+msgid "Read only: nothing is ever changed in Zabbix from GLPI."
+msgstr "Tylko odczyt: z GLPI nic nie jest nigdy zmieniane w Zabbix."
+
+msgid "Technical name"
+msgstr "Nazwa techniczna"
+
+msgid ""
+"The last reading failed: the page shows the previous successful reading."
+msgstr ""
+"Ostatni odczyt się nie powiódł: strona pokazuje poprzedni udany odczyt."
+
+msgid ""
+"The readings are visible in this entity and its sub-entities; hosts not "
+"matched with an asset are only listed in this entity."
+msgstr ""
+"Odczyty są widoczne w tej jednostce i jej podjednostkach; hosty "
+"niedopasowane do zasobu są wyświetlane tylko w tej jednostce."
+
+msgid ""
+"The token is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+msgstr ""
+"Token jest szyfrowany kluczem GLPI, nigdy ponownie nie wyświetlany ani nie "
+"zapisywany w dzienniku. Wywoływany jest tylko adres tego serwera i tylko w "
+"celu odczytu."
+
+msgid ""
+"Users > API tokens: create a token for this user, then copy it here with the "
+"address of the Zabbix interface."
+msgstr ""
+"Użytkownicy > Tokeny API: utwórz token dla tego użytkownika, a następnie "
+"skopiuj go tutaj razem z adresem interfejsu Zabbix."
+
+msgid ""
+"Users > User roles: create a role of type User with API access limited to "
+"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
+"getsli."
+msgstr ""
+"Użytkownicy > Role użytkowników: utwórz rolę typu Użytkownik z dostępem do "
+"API ograniczonym do metod host.get, problem.get, event.get, service.get, sla."
+"get i sla.getsli."
+
+msgid ""
+"Users > Users: create a user with this role, in a user group with read "
+"permission on the host groups to monitor (and on the services)."
+msgstr ""
+"Użytkownicy > Użytkownicy: utwórz użytkownika z tą rolą w grupie "
+"użytkowników z prawem odczytu grup hostów do monitorowania (i usług)."
+
+msgid "Which assets must be monitored?"
+msgstr "Które zasoby muszą być monitorowane?"
+
+msgid "Zabbix host"
+msgstr "Host Zabbix"
+
+msgid "Zabbix hosts not matched with a GLPI asset"
+msgstr "Hosty Zabbix niedopasowane do zasobu GLPI"
+
+#, php-format
+msgid "out of %d critical assets"
+msgstr "z %d zasobów krytycznych"

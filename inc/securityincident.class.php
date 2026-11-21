@@ -172,6 +172,8 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'ticket'    => __('Ticket', 'grcmanager'),
             'edr'       => __('EDR / XDR', 'grcmanager'),
             'siem'      => __('SIEM / log monitoring', 'grcmanager'),
+            // Issue #836 : problème de supervision (Zabbix) proposé comme incident, sur clic.
+            'monitoring' => __('Infrastructure monitoring', 'grcmanager'),
             'partner'   => __('Supplier or partner', 'grcmanager'),
             'authority' => __('Authority (CERT, regulator...)', 'grcmanager'),
             'other'     => __('Other', 'grcmanager'),

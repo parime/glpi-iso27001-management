@@ -3672,6 +3672,19 @@ final class Installer
             ]
         );
 
+        // Issue #836 : lecture de Zabbix (lecture seule), DÉSACTIVÉE à l'installation : elle est
+        // activée depuis la page « Supervision Zabbix ». Un réglage existant est gardé.
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\ZabbixMonitoring::class,
+            'zabbix',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Lit les hotes, problemes et disponibilites de Zabbix (lecture seule)',
+                'mode'    => CronTask::MODE_EXTERNAL,
+                'state'   => CronTask::STATE_DISABLE,
+            ]
+        );
+
         // Issue #183 : surveillance des fuites de données (Have I Been Pwned). Sans effet tant
         // qu'elle n'est pas activée avec une clé d'API dans la configuration du plugin.
         CronTask::Register(

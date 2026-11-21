@@ -1454,49 +1454,42 @@ ni le score de maturité.
 6. Les libellés de l'échelle se renomment dans la configuration du plugin, cadre
    **Échelle de maturité par mesure** (un champ vide garde le libellé par défaut, traduit).
 
-### Étape 48 : Recenser et contrôler les cartes de gestion des serveurs (mesures A.8.2, A.8.9 et A.8.22)
+### Étape 48 : Lire la supervision Zabbix (mesures A.8.16, A.8.6 et A.5.30)
 
-Les cartes de gestion à distance (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro
-IPMI) donnent le contrôle complet d'un serveur, même éteint. Le plugin les lit **en lecture seule**
-par Redfish : il n'envoie que des requêtes de lecture (GET), ne redémarre rien, ne met à jour aucun
-firmware et ne change aucun réglage. Il faut le droit du plugin et le droit natif de lecture des
-ordinateurs ; le droit de modifier le plugin pour déclarer, lire et importer.
+L'auditeur demande comment les serveurs et services sont surveillés, s'ils sont disponibles comme
+prévu et si leur capacité est suivie. Le plugin lit votre serveur **Zabbix en lecture seule** et
+rapproche ses hôtes des ordinateurs et matériels réseau de GLPI ; il ne modifie jamais rien dans
+Zabbix. Il faut le droit du plugin et la lecture native des ordinateurs.
 
-1. Sur chaque contrôleur, créez un compte local avec le rôle **lecture seule** (ReadOnly), réservé
-   au plugin.
-2. Les contrôleurs ont presque toujours une adresse interne : dans la configuration du plugin,
-   section **Connexions sortantes**, autorisez les adresses internes (la page le rappelle tant que ce
-   n'est pas fait).
-3. Ouvrez Sécurité technique > **Contrôleurs de gestion des serveurs**. Dans **Déclarer un
-   contrôleur lu par Redfish**, saisissez son nom, son adresse `https://`, le compte et son mot de
-   passe. Le mot de passe est chiffré par GLPI et n'est jamais réaffiché ; il faut le ressaisir si
-   l'adresse ou le compte changent. Laissez **Serveur dans GLPI** vide pour rapprocher le serveur
-   par son numéro de série.
-4. Un contrôleur au certificat auto-signé est refusé tant que vous ne cochez pas **Accepter un
-   certificat auto-signé pour ce contrôleur** : l'option est désactivée par défaut, vaut pour ce
-   seul contrôleur, et l'écart « Certificat non vérifié » reste signalé.
-5. Cliquez sur **Lire maintenant**. Le plugin lit le modèle, le firmware du contrôleur, le BIOS, le
-   numéro de série et la santé du serveur, les protocoles ouverts, le certificat HTTPS, le démarrage
-   sécurisé et les comptes locaux. Une lecture en échec ne remplace pas la précédente : la cause est
-   affichée à côté de la dernière lecture réussie.
-6. Pour un contrôleur sans Redfish (IPMI seul), importez un fichier CSV dans **Importer des
-   contrôleurs sans Redfish**, une ligne par contrôleur, par exemple :
-   `name;address;model;firmware;serial;ipmi_lan;weak_tls;accounts` puis
-   `bmc-srv03;192.0.2.30;X11;3.10;SM123456;oui;non;ADMIN:Administrator`.
-7. La liste **Contrôleurs et leurs écarts** commence par les écarts graves : IPMI sur le réseau,
-   compte par défaut actif, adresse hors des réseaux d'administration, Telnet, protocoles anciens,
-   certificat expiré. Survolez un écart pour savoir quoi faire, puis corrigez-le sur le contrôleur :
-   le plugin ne fait que le signaler.
-8. L'exposition se vérifie par rapport à la matrice des flux : écrivez la plage du réseau
-   d'administration dans la source ou la destination d'un flux dont le nom désigne une zone
-   d'administration, par exemple `MGMT 10.0.99.0/24`.
-9. **Comptes locaux des contrôleurs** liste les comptes et leur rôle, à reprendre dans la revue des
-   accès privilégiés. **Serveurs physiques sans contrôleur connu** liste les serveurs de GLPI (par
-   leur type ou leur système, hors machines virtuelles) dont personne ne suit la carte de gestion.
-10. Sur la fiche d'un ordinateur, l'onglet **Contrôleur de gestion** résume son contrôleur. Sur les
-    fiches des mesures A.8.2, A.8.9 et A.8.22, le cadre « Contrôleurs de gestion des serveurs »
-    donne les chiffres de la preuve, et les indicateurs de risque proposent la source « Contrôleurs
-    de gestion des serveurs avec un écart grave ».
+1. Dans Zabbix, préparez un compte de lecture : Utilisateurs > Rôles utilisateur, un rôle de type
+   Utilisateur dont l'API est limitée à host.get, problem.get, event.get, service.get, sla.get et
+   sla.getsli ; Utilisateurs > Utilisateurs, un utilisateur de ce rôle dans un groupe qui a la
+   lecture des groupes d'hôtes à superviser ; Utilisateurs > Jetons d'API, un jeton pour lui.
+2. Ouvrez Sécurité technique > **Supervision Zabbix**. Dans **Connexion à Zabbix (lecture
+   seule)**, saisissez l'adresse de l'interface Zabbix (par exemple
+   `https://zabbix.exemple.test/zabbix`) et le jeton, choisissez l'entité des lectures puis
+   enregistrez. Le jeton est chiffré par GLPI et n'est jamais réaffiché. Un serveur sur une adresse
+   interne demande d'autoriser les adresses internes (Configuration du plugin > Connexions
+   sortantes).
+3. Cliquez sur **Lire maintenant**. Une lecture en échec ne remplace pas la précédente ; la case
+   « Lire automatiquement chaque jour » active la tâche automatique « zabbix », désactivée par
+   défaut.
+4. Dans **Quels actifs doivent être supervisés ?**, choisissez les actifs concernés (actifs
+   critiques, serveurs et matériels réseau, par défaut) et la période des problèmes.
+5. Les compteurs donnent le taux d'actifs supervisés, les **actifs critiques non supervisés**, les
+   problèmes ouverts de gravité haute, la disponibilité de service la plus faible et les actifs
+   saturés (disque, mémoire, processeur). La liste des actifs montre pour chacun sa supervision, sa
+   disponibilité mesurée, ses problèmes ouverts et son plus long arrêt comparé au RTO des processus
+   métier qui en dépendent.
+6. Dans **Problèmes des N derniers jours**, un problème de gravité haute peut être **proposé comme
+   incident de sécurité** ou devenir un **ticket** : il n'est créé que sur votre clic.
+7. Dans **Disponibilité des services (SLA Zabbix)**, rattachez chaque service au processus métier
+   qu'il porte. Les hôtes Zabbix non rapprochés d'un actif sont listés à part.
+8. Sur la fiche des mesures A.8.16, A.8.6 et A.5.30, le cadre « Supervision Zabbix » montre la
+   couverture, les saturations ou la disponibilité, avec la date de la lecture. Les ordinateurs,
+   matériels réseau et processus métier ont un onglet « Supervision Zabbix », et les indicateurs de
+   risque proposent trois sources : disponibilité des services du mois, problèmes ouverts de
+   gravité haute, actifs critiques non supervisés.
 
 ## 🇬🇧 English
 
@@ -2854,44 +2847,35 @@ optional: they change neither the implementation status of the controls nor the 
 6. The labels of the scale are renamed in the plugin configuration, box **Maturity scale by
    control** (an empty field keeps the default label, translated).
 
-### Step 48: Inventory and check the server management controllers (controls A.8.2, A.8.9 and A.8.22)
+### Step 48: Read the Zabbix monitoring (controls A.8.16, A.8.6 and A.5.30)
 
-Remote management controllers (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI)
-give full control of a server, even switched off. The plugin reads them **in read only** through
-Redfish: it only sends read requests (GET), restarts nothing, updates no firmware and changes no
-setting. You need the plugin right and the native read right on computers; the right to update the
-plugin to declare, read and import.
+The auditor asks how servers and services are monitored, whether they are as available as planned
+and whether their capacity is followed up. The plugin reads your **Zabbix server in read only** and
+matches its hosts with the computers and network devices of GLPI; it never changes anything in
+Zabbix. You need the plugin right and the native read right on computers.
 
-1. On each controller, create a local account with the **read-only** role (ReadOnly), dedicated to
-   the plugin.
-2. Controllers nearly always have an internal address: in the plugin configuration, section
-   **Outgoing connections**, allow internal addresses (the page reminds you until it is done).
-3. Open Technical security > **Server management controllers**. In **Declare a controller read by
-   Redfish**, enter its name, its `https://` address, the account and its password. The password is
-   encrypted by GLPI and never shown again; it must be entered again if the address or the account
-   changes. Leave **Server in GLPI** empty to match the server by its serial number.
-4. A controller with a self-signed certificate is refused until you tick **Accept a self-signed
-   certificate for this controller**: the option is off by default, applies to this controller only,
-   and the "Certificate not verified" gap stays reported.
-5. Click **Read now**. The plugin reads the model, the firmware of the controller, the BIOS, the
-   serial number and the health of the server, the open protocols, the HTTPS certificate, Secure
-   Boot and the local accounts. A failed reading does not replace the previous one: the cause is
-   shown next to the last successful reading.
-6. For a controller without Redfish (IPMI only), import a CSV file in **Import controllers without
-   Redfish**, one line per controller, for example:
-   `name;address;model;firmware;serial;ipmi_lan;weak_tls;accounts` then
-   `bmc-srv03;192.0.2.30;X11;3.10;SM123456;yes;no;ADMIN:Administrator`.
-7. The list **Controllers and their gaps** starts with the serious gaps: IPMI over the network,
-   default account enabled, address outside the administration networks, Telnet, old protocols,
-   expired certificate. Hover a gap to see what to do, then fix it on the controller: the plugin only
-   reports it.
-8. The exposure is checked against the network flow matrix: write the range of the administration
-   network in the source or the destination of a flow whose name says it is an administration zone,
-   for example `MGMT 10.0.99.0/24`.
-9. **Local accounts of the controllers** lists the accounts and their role, to take into the
-   privileged access review. **Physical servers without a known controller** lists the servers of
-   GLPI (by their type or operating system, virtual machines excluded) whose management controller
-   nobody follows.
-10. On a computer, the **Management controller** tab sums up its controller. On controls A.8.2,
-    A.8.9 and A.8.22, the "Server management controllers" frame gives the figures of the evidence,
-    and the key risk indicators offer the source "Server management controllers with a serious gap".
+1. In Zabbix, prepare a reading account: Users > User roles, a role of type User whose API is
+   limited to host.get, problem.get, event.get, service.get, sla.get and sla.getsli; Users > Users,
+   a user with this role in a group that can read the host groups to monitor; Users > API tokens, a
+   token for this user.
+2. Open Technical security > **Zabbix monitoring**. In **Connection to Zabbix (read only)**, enter
+   the address of the Zabbix interface (for example `https://zabbix.example.test/zabbix`) and the
+   token, choose the entity of the readings and save. The token is encrypted by GLPI and never
+   displayed again. A server on an internal address requires allowing internal addresses (plugin
+   configuration > Outgoing connections).
+3. Click **Read now**. A failed reading does not replace the previous one; the box "Read
+   automatically every day" enables the automatic action "zabbix", disabled by default.
+4. In **Which assets must be monitored?**, choose the concerned assets (critical assets, servers
+   and network devices, by default) and the period of the problems.
+5. The counters give the share of monitored assets, the **critical assets not monitored**, the open
+   high-severity problems, the lowest service availability and the saturated assets (disk, memory,
+   processor). The asset list shows for each one its monitoring, measured availability, open
+   problems and longest outage compared with the RTO of the business processes that depend on it.
+6. In **Problems over the last N days**, a high-severity problem can be **proposed as a security
+   incident** or turned into a **ticket**: it is only created when you click.
+7. In **Availability of the services (Zabbix SLA)**, link each service to the business process it
+   supports. Zabbix hosts not matched with an asset are listed separately.
+8. On controls A.8.16, A.8.6 and A.5.30, the "Zabbix monitoring" box shows the coverage, the
+   saturations or the availability, with the date of the reading. Computers, network devices and
+   business processes have a "Zabbix monitoring" tab, and risk indicators offer three sources:
+   service availability of the month, open high-severity problems, critical assets not monitored.
