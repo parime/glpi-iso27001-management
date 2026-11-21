@@ -30,8 +30,8 @@ namespace GlpiPlugin\Grcmanager\Services\Evidence;
  *   suivant celle de la dernière collecte est attendue au dernier jour ouvré de cette période.
  *   Sans collecte, la preuve de la période en cours est attendue.
  *
- * Jours ouvrés : du lundi au vendredi, hors fermetures déclarées dans GLPI (Configuration >
- * Intitulés > Fermetures), passées en paramètre. Rien ici ne modifie une preuve.
+ * Jours ouvrés : du lundi au vendredi, hors périodes de fermeture déclarées dans GLPI (intitulés
+ * des calendriers), passées en paramètre. Rien ici ne modifie une preuve.
  */
 final class EvidenceRecurrenceRules
 {

@@ -15,7 +15,7 @@
 {# Issue #145 : onglet « Validités des preuves » d'un élément (issue #199 : passé de PHP à Twig) #}
 <div class="mb-2 text-muted">{{ __('State until when each document proves something (certificate, report, certification). The owner is notified %d days before the due date, then a "Renew the evidence" ticket is opened; the item\'s status never changes.', 'grcmanager')|format(warning_days) }}</div>
 
-<div class="mb-2 text-muted small"><i class="ti ti-repeat me-1"></i>{{ __('For evidence produced on a regular rhythm (weekly log review, monthly backup report...), set a recurring renewal: the next due date is computed from the last collection, or from the last change of the document when no date is entered. Business days exclude weekends and the closing days declared in GLPI. Evidence not renewed in time is flagged and its owner notified; nothing is changed automatically.', 'grcmanager') }}</div>
+<div class="mb-2 text-muted small"><i class="ti ti-repeat me-1"></i>{{ __('For evidence produced on a regular rhythm (weekly log review, monthly backup report...), set a recurring renewal: the next due date is computed from the last collection, or from the last change of the document when no date is entered. Business days exclude weekends and the close times declared in GLPI. Evidence not renewed in time is flagged and its owner notified; nothing is changed automatically.', 'grcmanager') }}</div>
 
 {% if documents is empty %}
    <div class="alert alert-info">{{ __('No linked document: first add the evidence in the Documents tab.', 'grcmanager') }}</div>
@@ -37,8 +37,8 @@
                   <td><input type="date" class="form-control form-control-sm" name="valid_until" form="{{ form_id }}" value="{{ doc.valid_until }}" aria-label="{{ __('Valid until', 'grcmanager') }} - {{ doc.name }}"></td>
                   <td>
                      <div class="d-flex flex-wrap gap-1 align-items-center">
-                        <span class="small text-muted">{{ __('Every', 'grcmanager') }}</span>
-                        <input type="number" class="form-control form-control-sm" style="width: 5em" min="1" max="{{ max_count }}" name="period_count" form="{{ form_id }}" value="{{ doc.rhythm.count }}" aria-label="{{ __('Every', 'grcmanager') }} - {{ doc.name }}">
+                        <span class="small text-muted">{{ __('Interval', 'grcmanager') }}</span>
+                        <input type="number" class="form-control form-control-sm" style="width: 5em" min="1" max="{{ max_count }}" name="period_count" form="{{ form_id }}" value="{{ doc.rhythm.count }}" aria-label="{{ __('Interval', 'grcmanager') }} - {{ doc.name }}">
                         <select class="form-select form-select-sm w-auto" name="period_unit" form="{{ form_id }}" aria-label="{{ __('Recurring renewal', 'grcmanager') }} - {{ doc.name }}">
                            {% for value, label in units %}
                               <option value="{{ value }}"{% if value == doc.rhythm.unit %} selected{% endif %}>{{ label }}</option>
@@ -69,7 +69,7 @@
                   <td>{{ doc.valid_until ? doc.valid_until|formatted_date }}</td>
                   <td>
                      {% if doc.rhythm.unit %}
-                        <div>{{ __('Every', 'grcmanager') }} {{ doc.rhythm.count }} {{ units[doc.rhythm.unit] }}</div>
+                        <div>{{ __('Interval: %1$d %2$s', 'grcmanager')|format(doc.rhythm.count, units[doc.rhythm.unit]) }}</div>
                      {% endif %}
                      {{ include('@grcmanager/_evidence_rhythm_status.html.twig', {rhythm: doc.rhythm}) }}
                   </td>

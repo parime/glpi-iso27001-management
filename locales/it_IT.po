@@ -35352,3 +35352,84 @@ msgid ""
 msgstr ""
 "Sono ricontrollati come ogni evidenza al salvataggio, poi allegati alla loro "
 "domanda."
+
+msgid "No recurring renewal"
+msgstr "Nessun rinnovo ricorrente"
+
+msgid "weeks"
+msgstr "settimane"
+
+msgid "months"
+msgstr "mesi"
+
+msgid "years"
+msgstr "anni"
+
+msgid "months, last business day"
+msgstr "mesi, ultimo giorno lavorativo"
+
+msgid "quarters, last business day"
+msgstr "trimestri, ultimo giorno lavorativo"
+
+msgid "Not renewed in time"
+msgstr "Non rinnovata in tempo"
+
+msgid "Renewal due soon"
+msgstr "Rinnovo imminente"
+
+msgid "Recurring evidence not renewed in time"
+msgstr "Evidenze ricorrenti non rinnovate in tempo"
+
+msgid "Recurring renewal due on %s"
+msgstr "Rinnovo ricorrente previsto il %s"
+
+msgid "Next renewal due"
+msgstr "Prossimo rinnovo previsto"
+
+msgid "Recurring renewal"
+msgstr "Rinnovo ricorrente"
+
+msgid "Interval"
+msgstr "Intervallo"
+
+msgid "Interval: %1$d %2$s"
+msgstr "Intervallo: %1$d %2$s"
+
+msgid "Last collected on"
+msgstr "Ultima raccolta il"
+
+msgid "Next due: %s"
+msgstr "Prossima scadenza: %s"
+
+msgid "from the document date %s"
+msgstr "dalla data del documento, %s"
+
+msgid ""
+"For evidence produced on a regular rhythm (weekly log review, monthly backup "
+"report...), set a recurring renewal: the next due date is computed from the "
+"last collection, or from the last change of the document when no date is "
+"entered. Business days exclude weekends and the close times declared in GLPI."
+" Evidence not renewed in time is flagged and its owner notified; nothing is "
+"changed automatically."
+msgstr ""
+"Per un'evidenza prodotta a ritmo regolare (revisione settimanale dei log, "
+"rapporto mensile dei backup...), imposta un rinnovo ricorrente: la prossima "
+"scadenza è calcolata dall'ultima raccolta, o dall'ultima modifica del "
+"documento se non è indicata una data. I giorni lavorativi escludono i fine "
+"settimana e i periodi di chiusura dichiarati in GLPI. Un'evidenza non "
+"rinnovata in tempo viene segnalata e il responsabile avvisato; nulla viene "
+"modificato automaticamente."
+
+msgid ""
+"Recurring evidence not renewed in time: included, and flagged in the index. "
+"Add the latest one, then update its last collection date in the \"Evidence "
+"validity\" tab of the control."
+msgstr ""
+"Evidenze ricorrenti non rinnovate in tempo: incluse e segnalate nell'indice. "
+"Aggiungi la più recente, poi aggiorna la data dell'ultima raccolta nella "
+"scheda «Validità delle evidenze» del controllo."
+
+msgid "Evidence rhythm"
+msgid_plural "Evidence rhythms"
+msgstr[0] "Ritmo di evidenza"
+msgstr[1] "Ritmi di evidenza"

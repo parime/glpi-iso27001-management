@@ -35394,3 +35394,84 @@ msgid ""
 msgstr ""
 "Se vuelven a comprobar como cualquier evidencia al guardar y luego se "
 "adjuntan a su pregunta."
+
+msgid "No recurring renewal"
+msgstr "Sin renovación periódica"
+
+msgid "weeks"
+msgstr "semanas"
+
+msgid "months"
+msgstr "meses"
+
+msgid "years"
+msgstr "años"
+
+msgid "months, last business day"
+msgstr "meses, último día hábil"
+
+msgid "quarters, last business day"
+msgstr "trimestres, último día hábil"
+
+msgid "Not renewed in time"
+msgstr "No renovada a tiempo"
+
+msgid "Renewal due soon"
+msgstr "Renovación próxima"
+
+msgid "Recurring evidence not renewed in time"
+msgstr "Evidencias periódicas no renovadas a tiempo"
+
+msgid "Recurring renewal due on %s"
+msgstr "Renovación periódica prevista el %s"
+
+msgid "Next renewal due"
+msgstr "Próxima renovación prevista"
+
+msgid "Recurring renewal"
+msgstr "Renovación periódica"
+
+msgid "Interval"
+msgstr "Intervalo"
+
+msgid "Interval: %1$d %2$s"
+msgstr "Intervalo: %1$d %2$s"
+
+msgid "Last collected on"
+msgstr "Última recogida el"
+
+msgid "Next due: %s"
+msgstr "Próximo vencimiento: %s"
+
+msgid "from the document date %s"
+msgstr "desde la fecha del documento, %s"
+
+msgid ""
+"For evidence produced on a regular rhythm (weekly log review, monthly backup "
+"report...), set a recurring renewal: the next due date is computed from the "
+"last collection, or from the last change of the document when no date is "
+"entered. Business days exclude weekends and the close times declared in GLPI."
+" Evidence not renewed in time is flagged and its owner notified; nothing is "
+"changed automatically."
+msgstr ""
+"Para una evidencia producida a ritmo regular (revisión semanal de registros, "
+"informe mensual de copias de seguridad...), defina una renovación periódica: "
+"el próximo vencimiento se calcula desde la última recogida, o desde la última"
+" modificación del documento si no se indica fecha. Los días hábiles excluyen "
+"los fines de semana y los periodos de cierre declarados en GLPI. Una "
+"evidencia no renovada a tiempo se señala y se avisa a su responsable; nada se"
+" modifica automáticamente."
+
+msgid ""
+"Recurring evidence not renewed in time: included, and flagged in the index. "
+"Add the latest one, then update its last collection date in the \"Evidence "
+"validity\" tab of the control."
+msgstr ""
+"Evidencias periódicas no renovadas a tiempo: incluidas y señaladas en el "
+"índice. Añada la más reciente y actualice su fecha de última recogida en la "
+"pestaña «Validez de las evidencias» del control."
+
+msgid "Evidence rhythm"
+msgid_plural "Evidence rhythms"
+msgstr[0] "Ritmo de evidencia"
+msgstr[1] "Ritmos de evidencia"

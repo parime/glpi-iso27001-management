@@ -79,7 +79,7 @@ class EvidenceRecurrence extends CommonDBTM
     }
 
     /**
-     * Fermetures déclarées dans GLPI (Configuration > Intitulés > Fermetures), lues une fois.
+     * Périodes de fermeture déclarées dans GLPI (intitulés des calendriers), lues une fois.
      *
      * @return list<array{begin: string, end: string, perpetual: bool}>
      */
