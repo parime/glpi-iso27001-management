@@ -107,8 +107,7 @@ final class RedfishClientTest extends TestCase
         bool $verifyTls = true,
         int $transportStatus = 200,
         string $transportError = ''
-    ): RedfishClient
-    {
+    ): RedfishClient {
         return new RedfishClient(
             self::BASE,
             'audit-grc',

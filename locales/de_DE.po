@@ -30934,7 +30934,7 @@ msgid "No Redfish service at this address: for a controller with IPMI only, use 
 msgstr "Kein Redfish-Dienst unter dieser Adresse: Verwenden Sie für einen Controller nur mit IPMI den CSV-Import."
 
 msgid "The address must be a https:// address of the controller, without path or parameters."
-msgstr "Die Adresse muss eine https://-Adresse des Controllers sein, ohne Pfad und Parameter."
+msgstr "Die Adresse muss die Adresse des Controllers mit https:// sein, ohne Pfad und Parameter."
 
 msgid "Enter a name."
 msgstr "Geben Sie einen Namen ein."

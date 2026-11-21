@@ -367,8 +367,7 @@ final class BmcRules
         ?bool $inAdminNetwork,
         bool $hasServer,
         string $today
-    ): array
-    {
+    ): array {
         $found = [];
         $read = (string) ($controller['date_read'] ?? '') !== '';
         if (!$read) {
