@@ -20,15 +20,24 @@ use GlpiPlugin\Grcmanager\ControlTest;
 use GlpiPlugin\Grcmanager\Services\Access\PingCastleReport;
 use GlpiPlugin\Grcmanager\Services\Control\EvidenceUploadRules;
 
-// Issue #835 : audit de sécurité de l'Active Directory (rapports PingCastle), registre sensible ;
-// imports des entités de la session seulement. Le plugin ne lance aucun outil.
+// Issue #835 : audit de sécurité de l'Active Directory (PingCastle, Purple Knight) et de la
+// configuration d'Entra ID et de Microsoft 365 (Maester, ScubaGear), registre sensible ; imports des
+// entités de la session seulement. Le plugin ne lance aucun outil.
 Session::checkRight(AdSecurityAudit::RIGHTNAME, READ);
 
-// Rapport d'exemple fictif (domaine exemple.test), pour essayer l'import.
+// Rapports d'exemple fictifs (domaine exemple.test), pour essayer l'import : PingCastle par défaut
+// (?example=1), sinon l'outil demandé parmi ceux de la page (liste fermée, jamais un chemin reçu).
 if (isset($_GET['example'])) {
-    header('Content-Type: application/xml; charset=UTF-8');
-    header('Content-Disposition: attachment; filename="ad_hc_exemple.test.xml"');
-    readfile(dirname(__DIR__) . '/resources/pingcastle-example.xml');
+    // Correspondance écrite en dur : le nom du fichier ne dépend jamais de la valeur reçue.
+    [$file, $download, $type] = match (is_string($_GET['example']) ? $_GET['example'] : '') {
+        'purpleknight' => ['purpleknight-example.csv', 'purpleknight-exemple.test.csv', 'text/csv'],
+        'maester'      => ['maester-example.json', 'TestResults-exemple.json', 'application/json'],
+        'scubagear'    => ['scubagear-example.json', 'ScubaResults_exemple.json', 'application/json'],
+        default        => ['pingcastle-example.xml', 'ad_hc_exemple.test.xml', 'application/xml'],
+    };
+    header('Content-Type: ' . $type . '; charset=UTF-8');
+    header('Content-Disposition: attachment; filename="' . $download . '"');
+    readfile(dirname(__DIR__) . '/resources/' . $file);
     exit;
 }
 
@@ -54,7 +63,8 @@ if (isset($_POST['import_ad_audit'])) {
         $result = AdSecurityAudit::import(
             (string) file_get_contents($file['tmp_name']),
             is_string($file['name'] ?? null) ? $file['name'] : '',
-            !empty($_POST['ad_audit_archive'])
+            !empty($_POST['ad_audit_archive']),
+            is_string($_POST['ad_audit_domain'] ?? null) ? $_POST['ad_audit_domain'] : ''
         );
         if ($result['error'] !== '') {
             Session::addMessageAfterRedirect(
@@ -75,7 +85,7 @@ if (isset($_POST['import_ad_audit'])) {
                     'grcmanager'
                 )), false, WARNING);
             }
-            if (!empty($_POST['ad_audit_archive']) && !$result['archived']) {
+            if (!empty($_POST['ad_audit_archive']) && $result['tool'] === 'pingcastle' && !$result['archived']) {
                 Session::addMessageAfterRedirect(htmlescape(__(
                     'The report could not be archived as a document (XML files may not be allowed in the '
                         . 'document types of GLPI).',
@@ -83,10 +93,11 @@ if (isset($_POST['import_ad_audit'])) {
                 )), false, WARNING);
             }
             if ($result['truncated']) {
-                Session::addMessageAfterRedirect(htmlescape(sprintf(
-                    __('Only the first %d rules were read.', 'grcmanager'),
-                    PingCastleReport::MAX_RULES
-                )), false, WARNING);
+                Session::addMessageAfterRedirect(htmlescape(
+                    $result['tool'] === 'pingcastle'
+                        ? sprintf(__('Only the first %d rules were read.', 'grcmanager'), PingCastleReport::MAX_RULES)
+                        : __('The file is very long: only its first checks were read.', 'grcmanager')
+                ), false, WARNING);
             }
         }
     }

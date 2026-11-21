@@ -24,7 +24,9 @@ use Document;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Install\AdSecurityAuditTables as Tables;
+use GlpiPlugin\Grcmanager\Services\Access\AdAuditReports;
 use GlpiPlugin\Grcmanager\Services\Access\AdAuditRules as Rules;
+use GlpiPlugin\Grcmanager\Services\Access\CloudPostureReport;
 use GlpiPlugin\Grcmanager\Services\Access\PingCastleReport;
 use Html;
 use Session;
@@ -48,6 +50,12 @@ use Ticket;
  * plugin_grcmanager_sensitive), limité aux entités de la session ; le rapport brut, nettoyé de ses
  * mots de passe et secrets, peut être archivé comme document restreint (RestrictedDocument), lisible
  * seulement avec ce droit dans l'entité de l'import.
+ *
+ * Lot 2 : mêmes écrans pour Purple Knight (indicateurs d'exposition et de compromission de l'AD,
+ * export CSV) et pour Maester et ScubaGear (configuration d'Entra ID et de Microsoft 365, JSON). Le
+ * format est reconnu à l'import (AdAuditReports). Le score de l'AD (KRI, carte, préparation) ne
+ * retient que les outils de l'annuaire ; un locataire Entra ID renvoie à la couverture MFA par
+ * compte (MfaCoverage, issue #852), qui reste la source du taux de MFA.
  */
 class AdSecurityAudit extends CommonGLPI
 {
@@ -105,6 +113,39 @@ class AdSecurityAudit extends CommonGLPI
     // ------------------------------------------------------------------ Libellés.
 
     /**
+     * Outils dont les rapports s'importent ici (noms propres, non traduits).
+     *
+     * @return array<string, array{label: string, icon: string, color: string, cloud: bool,
+     *     example: string, file: string}>
+     */
+    public static function toolInfos(): array
+    {
+        return [
+            Rules::TOOL_PINGCASTLE   => [
+                'label' => 'PingCastle', 'icon' => 'ti ti-sitemap', 'color' => 'indigo', 'cloud' => false,
+                'example' => 'pingcastle-example.xml', 'file' => 'ad_hc_exemple.test.xml',
+            ],
+            Rules::TOOL_PURPLEKNIGHT => [
+                'label' => 'Purple Knight', 'icon' => 'ti ti-chess-knight', 'color' => 'purple', 'cloud' => false,
+                'example' => 'purpleknight-example.csv', 'file' => 'purpleknight-exemple.test.csv',
+            ],
+            Rules::TOOL_MAESTER      => [
+                'label' => 'Maester', 'icon' => 'ti ti-cloud-lock', 'color' => 'azure', 'cloud' => true,
+                'example' => 'maester-example.json', 'file' => 'TestResults-exemple.json',
+            ],
+            Rules::TOOL_SCUBAGEAR    => [
+                'label' => 'ScubaGear', 'icon' => 'ti ti-cloud-lock', 'color' => 'cyan', 'cloud' => true,
+                'example' => 'scubagear-example.json', 'file' => 'ScubaResults_exemple.json',
+            ],
+        ];
+    }
+
+    public static function toolLabel(string $tool): string
+    {
+        return self::toolInfos()[$tool]['label'] ?? $tool;
+    }
+
+    /**
      * @return array<string, array{label: string, icon: string}>
      */
     public static function categoryInfos(): array
@@ -118,6 +159,32 @@ class AdSecurityAudit extends CommonGLPI
             Rules::CATEGORY_TRUST      => ['label' => __('Trust relationships', 'grcmanager'), 'icon' => 'ti ti-link'],
             Rules::CATEGORY_ANOMALY    => ['label' => __('Anomalies', 'grcmanager'), 'icon' => 'ti ti-alert-triangle'],
             Rules::CATEGORY_OTHER      => ['label' => __('Other', 'grcmanager'), 'icon' => 'ti ti-dots'],
+            // Lot 2 : Purple Knight, Entra ID et Microsoft 365.
+            Rules::CATEGORY_ACCOUNTS       => [
+                'label' => __('Account security', 'grcmanager'),
+                'icon'  => 'ti ti-user-shield',
+            ],
+            Rules::CATEGORY_DELEGATION     => [
+                'label' => __('Delegation of rights', 'grcmanager'),
+                'icon'  => 'ti ti-hierarchy-2',
+            ],
+            Rules::CATEGORY_INFRASTRUCTURE => [
+                'label' => __('Directory infrastructure', 'grcmanager'),
+                'icon'  => 'ti ti-server-2',
+            ],
+            Rules::CATEGORY_GPO            => [
+                'label' => __('Group policies', 'grcmanager'),
+                'icon'  => 'ti ti-file-settings',
+            ],
+            Rules::CATEGORY_KERBEROS       => ['label' => __('Kerberos', 'grcmanager'), 'icon' => 'ti ti-ticket'],
+            Rules::CATEGORY_IDENTITY       => [
+                'label' => __('Cloud identity (Entra ID)', 'grcmanager'),
+                'icon'  => 'ti ti-id-badge-2',
+            ],
+            Rules::CATEGORY_CLOUD          => [
+                'label' => __('Microsoft 365 services', 'grcmanager'),
+                'icon'  => 'ti ti-cloud',
+            ],
         ];
     }
 
@@ -164,15 +231,27 @@ class AdSecurityAudit extends CommonGLPI
             PingCastleReport::ERROR_EMPTY          => __('The file is empty.', 'grcmanager'),
             PingCastleReport::ERROR_TOO_LARGE      => __('The file is too large (20 MB at most).', 'grcmanager'),
             PingCastleReport::ERROR_DOCTYPE        => __(
-                'The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle '
-                    . 'report never contains any.',
+                'The file declares a DOCTYPE or entities: it is refused for security reasons. A report of '
+                    . 'these tools never contains any.',
                 'grcmanager'
             ),
             PingCastleReport::ERROR_NOT_PINGCASTLE => __(
                 'This is not a PingCastle health check report: import the ad_hc_[domain].xml file.',
                 'grcmanager'
             ),
-            'no_domain'                            => __('The report gives no domain name.', 'grcmanager'),
+            AdAuditReports::ERROR_UNKNOWN_FORMAT   => __(
+                'This file was not recognised: import the XML report of PingCastle, the CSV export of the '
+                    . 'Purple Knight security indicators, or the JSON results of Maester or ScubaGear.',
+                'grcmanager'
+            ),
+            CloudPostureReport::ERROR_NOT_CLOUD    => __(
+                'This JSON file is neither Maester results (TestResults) nor ScubaGear results (ScubaResults).',
+                'grcmanager'
+            ),
+            'no_domain'                            => __(
+                'The report gives no domain or tenant name: fill in the domain field of the import form.',
+                'grcmanager'
+            ),
             'duplicate'                            => __('This report has already been imported.', 'grcmanager'),
             'rights'                               => __('You do not have the right to import a report.', 'grcmanager'),
             default                                => __('The file could not be read.', 'grcmanager'),
@@ -319,7 +398,8 @@ class AdSecurityAudit extends CommonGLPI
 
     /**
      * Pire score global (le plus élevé) des derniers imports de chaque domaine d'un périmètre
-     * d'entités (KRI, sans session) ; null sans import.
+     * d'entités (KRI, sans session) ; null sans import. Outils de l'annuaire seulement (PingCastle,
+     * Purple Knight) : la configuration d'Entra ID se lit à part.
      *
      * @param list<int> $perimeter
      */
@@ -328,7 +408,10 @@ class AdSecurityAudit extends CommonGLPI
         if ($perimeter === []) {
             return null;
         }
-        $latest = self::latestByDomain(self::fetchAudits(['entities_id' => $perimeter]));
+        $latest = self::latestByDomain(self::fetchAudits([
+            'entities_id' => $perimeter,
+            'tool'        => Rules::AD_TOOLS,
+        ]));
         if ($latest === []) {
             return null;
         }
@@ -339,27 +422,36 @@ class AdSecurityAudit extends CommonGLPI
     // ------------------------------------------------------------------ Import.
 
     /**
-     * Importe un rapport PingCastle dans l'entité active. Le même fichier n'est importé qu'une fois
-     * par entité. Les liens d'une règle déjà présente dans l'import précédent du domaine (action,
-     * ticket) sont repris.
+     * Importe un rapport (PingCastle, Purple Knight, Maester ou ScubaGear, reconnu à son contenu)
+     * dans l'entité active. Le même fichier n'est importé qu'une fois par entité. Les liens d'une
+     * règle déjà présente dans l'import précédent du domaine (action, ticket) sont repris.
      *
-     * @return array{id: int, error: string, rules: int, secrets: bool, archived: bool, truncated: bool}
+     * $domainHint : domaine saisi, utilisé seulement si le fichier n'en donne pas (export de Purple
+     * Knight sans colonne de domaine). L'archive n'existe que pour PingCastle (rapport nettoyé de ses
+     * secrets) : les autres fichiers ne sont pas conservés.
+     *
+     * @return array{id: int, error: string, tool: string, rules: int, secrets: bool, archived: bool,
+     *     truncated: bool}
      */
-    public static function import(string $raw, string $fileName, bool $archive): array
+    public static function import(string $raw, string $fileName, bool $archive, string $domainHint = ''): array
     {
         global $DB;
 
         $result = [
-            'id' => 0, 'error' => '', 'rules' => 0, 'secrets' => false, 'archived' => false, 'truncated' => false,
+            'id' => 0, 'error' => '', 'tool' => '', 'rules' => 0, 'secrets' => false, 'archived' => false,
+            'truncated' => false,
         ];
         if (!self::canManage()) {
             return ['error' => 'rights'] + $result;
         }
-        $report = PingCastleReport::parse($raw);
+        $report = AdAuditReports::parse($raw);
         if ($report['error'] !== '') {
             return ['error' => $report['error']] + $result;
         }
-        $domain = Rules::normalizeDomain($report['domain']);
+        $domain = Rules::normalizeDomain((string) $report['domain']);
+        if ($domain === '') {
+            $domain = Rules::normalizeDomain($domainHint);
+        }
         if ($domain === '') {
             return ['error' => 'no_domain'] + $result;
         }
@@ -384,6 +476,9 @@ class AdSecurityAudit extends CommonGLPI
             'anomaly_score'    => $report['scores']['anomaly'],
             'maturity_level'   => $report['maturity_level'],
             'rule_count'       => count($report['rules']),
+            'native_score'     => $report['native_score'],
+            'checks_total'     => $report['tool'] === Rules::TOOL_PINGCASTLE ? null : $report['checks_total'],
+            'checks_passed'    => $report['tool'] === Rules::TOOL_PINGCASTLE ? null : $report['checks_passed'],
             'file_name'        => mb_substr(basename($fileName), 0, 255),
             'file_sha256'      => $hash,
             'secrets_found'    => $report['secrets'] ? 1 : 0,
@@ -420,7 +515,7 @@ class AdSecurityAudit extends CommonGLPI
         }
 
         $archived = false;
-        if ($archive) {
+        if ($archive && $report['tool'] === Rules::TOOL_PINGCASTLE) {
             $archived = self::archive($auditId, $raw, $domain, $entity, (string) ($audit['report_date'] ?? $now));
         }
         AuditLog::record('import', self::class, $auditId, 0, 'success', [
@@ -434,6 +529,7 @@ class AdSecurityAudit extends CommonGLPI
         return [
             'id'        => $auditId,
             'error'     => '',
+            'tool'      => (string) $report['tool'],
             'rules'     => count($report['rules']),
             'secrets'   => $report['secrets'],
             'archived'  => $archived,
@@ -574,7 +670,7 @@ class AdSecurityAudit extends CommonGLPI
             sprintf(__('Domain: %s', 'grcmanager'), (string) $audit['domain']),
             sprintf(
                 __('Report: %1$s of %2$s (score %3$d/100)', 'grcmanager'),
-                'PingCastle',
+                self::toolLabel((string) $audit['tool']),
                 Html::convDateTime((string) $audit['report_date']),
                 (int) $audit['global_score']
             ),
@@ -677,6 +773,7 @@ class AdSecurityAudit extends CommonGLPI
 
         $previous = self::previousAudit($audit);
         $rules = self::rulesOf((int) $audit['id']);
+        $isCloud = in_array((string) $audit['tool'], Rules::CLOUD_TOOLS, true);
         $previousRules = $previous === null ? [] : self::rulesOf((int) $previous['id']);
         $ids = static fn (array $list): array => array_map(
             static fn (array $r): string => (string) $r['rule_id'],
@@ -742,6 +839,30 @@ class AdSecurityAudit extends CommonGLPI
                 'points'   => (int) $r['points'],
             ], $resolved),
             'document' => $document,
+            // Locataire Entra ID : la couverture MFA par compte (issue #852) complète la configuration.
+            'mfa'      => $isCloud ? self::mfaSummary() : null,
+        ];
+    }
+
+    /**
+     * Taux de MFA de la page « Couverture MFA » (comptes des entités de la session), ou null sans
+     * droit sur cette page.
+     *
+     * @return array{rate: ?int, admins_rate: ?int, admins_without_mfa: int, total: int, url: string}|null
+     */
+    public static function mfaSummary(): ?array
+    {
+        if (!MfaCoverage::canView()) {
+            return null;
+        }
+        $summary = MfaCoverage::summary();
+
+        return [
+            'rate'               => $summary['all']['rate'],
+            'admins_rate'        => $summary['admins']['rate'],
+            'admins_without_mfa' => (int) $summary['admins_without_mfa'],
+            'total'              => (int) $summary['all']['total'],
+            'url'                => MfaCoverage::getSearchURL(),
         ];
     }
 
@@ -761,11 +882,21 @@ class AdSecurityAudit extends CommonGLPI
             Rules::CATEGORY_ANOMALY    => $int($audit['anomaly_score']),
         ];
 
+        $tool = (string) $audit['tool'];
+        $checks = $audit['checks_total'] ?? null;
+
         return [
             'id'          => (int) $audit['id'],
             'domain'      => (string) $audit['domain'],
             'netbios'     => (string) $audit['netbios'],
-            'tool'        => (string) $audit['tool'],
+            'tool'        => $tool,
+            'tool_label'  => self::toolLabel($tool),
+            'tool_info'   => self::toolInfos()[$tool] ?? self::toolInfos()[Rules::TOOL_PINGCASTLE],
+            'is_cloud'    => in_array($tool, Rules::CLOUD_TOOLS, true),
+            'native'      => $int($audit['native_score'] ?? null),
+            'checks'      => $int($checks),
+            'passed'      => $int($audit['checks_passed'] ?? null),
+            'has_scores'  => array_filter($scores, static fn (?int $v): bool => $v !== null) !== [],
             'date'        => (string) Html::convDateTime((string) $audit['report_date']),
             'imported'    => (string) Html::convDateTime((string) $audit['date_import']),
             'engine'      => (string) $audit['engine_version'],
@@ -820,6 +951,9 @@ class AdSecurityAudit extends CommonGLPI
             'action'          => self::getSearchURL(),
             'max_mb'          => (int) (PingCastleReport::MAX_BYTES / 1024 / 1024),
             'example_url'     => self::getSearchURL() . '?example=1',
+            'tools'           => self::toolInfos(),
+            'example_base'    => self::getSearchURL() . '?example=',
+            'mfa_url'         => MfaCoverage::canView() ? MfaCoverage::getSearchURL() : '',
             'hygiene_url'     => AccountHygiene::getSearchURL(),
             'review_url'      => AccessReview::getSearchURL(),
         ];
@@ -839,8 +973,8 @@ class AdSecurityAudit extends CommonGLPI
      * Preuve des mesures A.5.15, A.5.17, A.5.18, A.8.2 et A.8.5 : dernier score de chaque domaine
      * et règles déclenchées qui concernent la mesure.
      *
-     * @return array{domains: list<array{domain: string, score: int, level: ?string, date: string,
-     *     rules: int, url: string}>, url: string}|null
+     * @return array{domains: list<array{domain: string, tool: string, score: int, level: ?string,
+     *     date: string, rules: int, url: string}>, url: string}|null
      */
     public static function evidence(string $code): ?array
     {
@@ -857,6 +991,7 @@ class AdSecurityAudit extends CommonGLPI
             }
             $domains[] = [
                 'domain' => (string) $audit['domain'],
+                'tool'   => self::toolLabel((string) $audit['tool']),
                 'score'  => (int) $audit['global_score'],
                 'level'  => Rules::scoreLevel((int) $audit['global_score']),
                 'date'   => (string) Html::convDateTime((string) $audit['report_date']),
@@ -876,13 +1011,16 @@ class AdSecurityAudit extends CommonGLPI
      */
     public static function dashboardCard(array $params = []): array
     {
-        $latest = self::canView() ? self::latestByDomain(self::audits()) : [];
+        $latest = self::canView() ? self::adLatest() : [];
         $score = $latest === [] ? 0 : max(array_map(static fn (array $a): int => (int) $a['global_score'], $latest));
 
         return [
             'number' => $score,
             'url'    => self::getSearchURL(),
-            'label'  => $params['label'] ?? __('Active Directory security score (PingCastle, 0 is best)', 'grcmanager'),
+            'label'  => $params['label'] ?? __(
+                'Active Directory security score (PingCastle or Purple Knight, 0 is best)',
+                'grcmanager'
+            ),
             'icon'   => self::getIcon(),
         ];
     }
@@ -895,9 +1033,9 @@ class AdSecurityAudit extends CommonGLPI
         if (!self::canView()) {
             return null;
         }
-        $latest = self::latestByDomain(self::audits());
+        $latest = self::adLatest();
         if ($latest === []) {
-            return null;
+            return self::cloudReadinessFact();
         }
         $worst = $latest[0];
         foreach ($latest as $audit) {
@@ -906,12 +1044,60 @@ class AdSecurityAudit extends CommonGLPI
             }
         }
 
-        return sprintf(
+        $fact = sprintf(
             __('Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) triggered', 'grcmanager'),
             (int) $worst['global_score'],
             (string) $worst['domain'],
             (string) Html::convDate((string) $worst['report_date']),
             (int) $worst['rule_count']
+        );
+        $cloud = self::cloudReadinessFact();
+
+        return $cloud === null ? $fact : $fact . ' · ' . $cloud;
+    }
+
+    /**
+     * Derniers imports de chaque domaine, outils de l'annuaire seulement (PingCastle, Purple Knight).
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function adLatest(): array
+    {
+        return array_values(array_filter(
+            self::latestByDomain(self::audits()),
+            static fn (array $a): bool => in_array((string) $a['tool'], Rules::AD_TOOLS, true)
+        ));
+    }
+
+    /**
+     * Constat Entra ID / Microsoft 365 (Maester, ScubaGear) : contrôles en échec du locataire le moins
+     * bien noté ; null sans import.
+     */
+    private static function cloudReadinessFact(): ?string
+    {
+        $worst = null;
+        foreach (self::latestByDomain(self::audits()) as $audit) {
+            if (
+                in_array((string) $audit['tool'], Rules::CLOUD_TOOLS, true)
+                && ($worst === null || (int) $audit['global_score'] > (int) $worst['global_score'])
+            ) {
+                $worst = $audit;
+            }
+        }
+        if ($worst === null) {
+            return null;
+        }
+
+        return sprintf(
+            __(
+                'Entra ID and Microsoft 365 configuration (%1$s): %2$d of %3$d checks failed for %4$s (%5$s)',
+                'grcmanager'
+            ),
+            self::toolLabel((string) $worst['tool']),
+            (int) $worst['checks_total'] - (int) $worst['checks_passed'],
+            (int) $worst['checks_total'],
+            (string) ($worst['netbios'] !== '' ? $worst['netbios'] : $worst['domain']),
+            (string) Html::convDate((string) $worst['report_date'])
         );
     }
 }

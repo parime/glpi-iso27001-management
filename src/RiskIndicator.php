@@ -224,7 +224,10 @@ class RiskIndicator extends RiskIndicatorBase
             'overdue_control_tests'     => __('Overdue control effectiveness tests', 'grcmanager'),
             'overdue_periodic_reviews'  => __('Overdue periodic reviews', 'grcmanager'),
             'phishing_click_rate'       => __('Click rate of the last phishing simulation (%)', 'grcmanager'),
-            'ad_security_score'         => __('Active Directory security score (PingCastle, 0 is best)', 'grcmanager'),
+            'ad_security_score'         => __(
+                'Active Directory security score (PingCastle or Purple Knight, 0 is best)',
+                'grcmanager'
+            ),
         ];
     }
 

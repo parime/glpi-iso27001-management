@@ -21,6 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\AdSecurityAudit;
 use GlpiPlugin\Grcmanager\Install\AdSecurityAuditTables as Tables;
+use GlpiPlugin\Grcmanager\MfaCoverage;
 use GlpiPlugin\Grcmanager\Nonconformity;
 use GlpiPlugin\Grcmanager\RestrictedDocument;
 use GlpiPlugin\Grcmanager\RiskIndicator;
@@ -332,5 +333,99 @@ final class AdSecurityAuditTest extends GrcmanagerIntegrationTestCase
         $kri = new RiskIndicator();
         $kri->fields = ['source' => 'ad_security_score', 'entities_id' => $this->entity];
         $this->assertSame(55.0, $kri->computeSourceValue());
+    }
+
+    /**
+     * Exemple fictif d'un autre outil, pour le domaine (ou locataire) du test.
+     */
+    private function sample(string $file, string $replace): string
+    {
+        $content = (string) file_get_contents(dirname(__DIR__, 2) . '/resources/' . $file);
+
+        return str_replace($replace, $this->domain, $content);
+    }
+
+    public function testPurpleKnightExportIsImportedWithTheAdScore(): void
+    {
+        $result = AdSecurityAudit::import(
+            $this->sample('purpleknight-example.csv', 'exemple.test'),
+            'purpleknight.csv',
+            true
+        );
+        $this->assertSame('', $result['error']);
+        $this->assertSame('purpleknight', $result['tool']);
+        $this->assertSame(6, $result['rules']);
+        $this->assertFalse($result['archived'], 'Seul le rapport PingCastle est archivé.');
+
+        $audit = AdSecurityAudit::getAudit($result['id']);
+        $this->assertNotNull($audit);
+        $this->assertSame(9, (int) $audit['checks_total']);
+        $this->assertSame(3, (int) $audit['checks_passed']);
+        $this->assertSame(100 - (int) $audit['native_score'], (int) $audit['global_score']);
+        $this->assertSame(0, (int) $audit['documents_id']);
+
+        $detail = AdSecurityAudit::detail($audit);
+        $this->assertSame('Purple Knight', $detail['audit']['tool_label']);
+        $this->assertFalse($detail['audit']['has_scores']);
+        $this->assertFalse($detail['audit']['is_cloud']);
+        $this->assertNull($detail['mfa']);
+        $this->assertSame(40, $detail['rows'][0]['points']);
+        $this->assertSame((float) $audit['global_score'], AdSecurityAudit::worstScore([$this->entity]));
+
+        // Export sans colonne de domaine : domaine saisi dans le formulaire.
+        $csv = "Indicator Name,Severity,Status\nFictitious check,Critical,Failed\n";
+        $this->assertSame('no_domain', AdSecurityAudit::import($csv, 'pk.csv', false)['error']);
+        $hinted = AdSecurityAudit::import($csv, 'pk.csv', false, strtoupper($this->domain));
+        $this->assertSame('', $hinted['error']);
+        $this->assertSame($this->domain, AdSecurityAudit::getAudit($hinted['id'])['domain'] ?? '');
+        $this->assertSame(
+            'unknown_format',
+            AdSecurityAudit::import("a,b\n1,2\n", 'other.csv', false, $this->domain)['error']
+        );
+    }
+
+    public function testEntraIdResultsAreKeptApartFromTheAdScore(): void
+    {
+        $maester = AdSecurityAudit::import(
+            $this->sample('maester-example.json', '00000000-0000-4000-8000-000000000835'),
+            'TestResults.json',
+            false
+        );
+        $this->assertSame('', $maester['error']);
+        $this->assertSame('maester', $maester['tool']);
+        $scuba = AdSecurityAudit::import(
+            $this->sample('scubagear-example.json', 'exemple.onmicrosoft.test'),
+            'ScubaResults.json',
+            false
+        );
+        $this->assertSame('', $scuba['error']);
+        $this->assertSame('scubagear', $scuba['tool']);
+
+        $audit = AdSecurityAudit::getAudit($scuba['id']);
+        $this->assertNotNull($audit);
+        $this->assertSame('Exemple fictif', $audit['netbios']);
+        $this->assertSame(7, (int) $audit['checks_total']);
+        $detail = AdSecurityAudit::detail($audit);
+        $this->assertTrue($detail['audit']['is_cloud']);
+        if (MfaCoverage::canView()) {
+            $this->assertNotNull($detail['mfa'], 'Lien vers la couverture MFA par compte (#852).');
+            $this->assertStringContainsString('mfacoverage.php', $detail['mfa']['url']);
+        }
+        $this->assertSame(30, $detail['rows'][0]['points']);
+
+        // Hors du score de l'AD : KRI et carte ne lisent que PingCastle et Purple Knight.
+        $this->assertNull(AdSecurityAudit::worstScore([$this->entity]));
+        $this->assertSame(0, SecuredDashboardCards::adSecurityScore()['number']);
+        $this->assertStringContainsString('ScubaGear', (string) AdSecurityAudit::readinessFact());
+
+        $evidence = AdSecurityAudit::evidence('A.5.23');
+        $this->assertNotNull($evidence);
+        $mine = array_values(array_filter($evidence['domains'], fn (array $d): bool => $d['domain'] === $this->domain));
+        $this->assertCount(2, $mine, 'Un dernier import par outil.');
+        $this->assertContains('Maester', array_column($mine, 'tool'));
+
+        $draft = AdSecurityAudit::findingDraft((int) $detail['rows'][0]['id']);
+        $this->assertNotNull($draft);
+        $this->assertStringContainsString('ScubaGear', $draft['description']);
     }
 }

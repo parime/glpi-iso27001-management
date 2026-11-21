@@ -1,0 +1,59 @@
+{
+  "MetaData": {
+    "TenantId": "00000000-0000-4000-8000-000000000836",
+    "DisplayName": "Exemple fictif",
+    "DomainName": "exemple.onmicrosoft.test",
+    "Tool": "ScubaGear",
+    "ToolVersion": "1.6.0",
+    "TimestampZulu": "2026-03-22T07:45:00.000Z",
+    "ReportUUID": "00000000-0000-4000-8000-000000000837",
+    "ProductsAssessed": ["Azure Active Directory", "Exchange Online"],
+    "ProductAbbreviationMapping": { "Azure Active Directory": "AAD", "Exchange Online": "EXO" }
+  },
+  "Summary": {
+    "AAD": { "Manual": 1, "Passes": 2, "Errors": 0, "Failures": 2, "Warnings": 1, "Omits": 0 },
+    "EXO": { "Manual": 0, "Passes": 1, "Errors": 0, "Failures": 1, "Warnings": 0, "Omits": 0 }
+  },
+  "Results": {
+    "AAD": [
+      {
+        "GroupName": "Legacy Authentication",
+        "GroupNumber": "1",
+        "Controls": [
+          { "Control ID": "MS.AAD.1.1v1", "Requirement": "Legacy authentication is blocked.<div class='policy-indicators'><a href='#'>Automated Check</a></div>", "Result": "Pass", "Criticality": "Shall", "Details": "1 conditional access policy blocks it" }
+        ]
+      },
+      {
+        "GroupName": "Strong Authentication and a Secure Registration Process",
+        "GroupNumber": "3",
+        "Controls": [
+          { "Control ID": "MS.AAD.3.1v1", "Requirement": "Phishing-resistant MFA is enforced for all users.", "Result": "Fail", "Criticality": "Shall", "Details": "0 conforming policies" },
+          { "Control ID": "MS.AAD.3.3v1", "Requirement": "Number matching is shown when Microsoft Authenticator is used.", "Result": "Pass", "Criticality": "Shall", "Details": "Requirement met" },
+          { "Control ID": "MS.AAD.3.5v1", "Requirement": "SMS and voice call methods are disabled.", "Result": "Warning", "Criticality": "Should", "Details": "SMS is still allowed" }
+        ]
+      },
+      {
+        "GroupName": "Highly Privileged User Access",
+        "GroupNumber": "7",
+        "Controls": [
+          { "Control ID": "MS.AAD.7.1v1", "Requirement": "Between two and eight users hold the Global Administrator role.", "Result": "Fail", "Criticality": "Shall", "Details": "11 global administrators" },
+          { "Control ID": "MS.AAD.7.2v1", "Requirement": "Privileged users are reviewed.", "Result": "N/A", "Criticality": "Shall/Not-Implemented", "Details": "Manual check" }
+        ]
+      }
+    ],
+    "EXO": [
+      {
+        "GroupName": "DMARC",
+        "GroupNumber": "4",
+        "Controls": [
+          { "Control ID": "MS.EXO.4.1v1", "Requirement": "A DMARC policy is published for every second-level domain.", "Result": "Fail", "Criticality": "Shall", "Details": "1 domain without DMARC" },
+          { "Control ID": "MS.EXO.2.2v2", "Requirement": "An SPF policy is published for each domain.", "Result": "Pass", "Criticality": "Shall", "Details": "Requirement met" }
+        ]
+      }
+    ]
+  },
+  "Raw": {
+    "privileged_users": { "fictitious-object-id": { "DisplayName": "Fictitious raw account kept out of GLPI" } },
+    "total_user_count": 42
+  }
+}

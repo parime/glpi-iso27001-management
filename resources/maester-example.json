@@ -1,0 +1,29 @@
+{
+  "Result": "Failed",
+  "FailedCount": 4,
+  "PassedCount": 5,
+  "ErrorCount": 0,
+  "InvestigateCount": 0,
+  "SkippedCount": 1,
+  "NotRunCount": 0,
+  "TotalCount": 10,
+  "ExecutedAt": "2026-03-21T08:30:00.0000000+01:00",
+  "TenantId": "00000000-0000-4000-8000-000000000835",
+  "TenantName": "Exemple fictif",
+  "Account": "auditeur@exemple.test",
+  "CurrentVersion": "1.1.0",
+  "SystemInfo": { "MachineName": "POSTE-FICTIF", "UserName": "auditeur" },
+  "MgContext": { "Account": "auditeur@exemple.test", "ClientId": "00000000-0000-4000-8000-000000000001" },
+  "Tests": [
+    { "Id": "MT.1005", "Title": "All users must use MFA for every access to the tenant", "Name": "MT.1005: All users must use MFA for every access to the tenant", "Severity": "Critical", "Tag": ["Maester", "Entra", "MFA"], "Result": "Failed", "Block": "Conditional Access", "ResultDetail": { "TestResult": "Fictitious detail kept out of GLPI: user1@exemple.test" } },
+    { "Id": "MT.1020", "Title": "Global administrators are limited to five accounts", "Name": "MT.1020: Global administrators are limited to five accounts", "Severity": "High", "Tag": ["Maester", "Entra", "Privileged"], "Result": "Failed", "Block": "Privileged roles", "ResultDetail": { "TestResult": "7 global administrators" } },
+    { "Id": "EIDSCA.AP04", "Title": "Guest invite restrictions", "Name": "EIDSCA.AP04: Guest invite restrictions", "Severity": "Medium", "Tag": ["EIDSCA", "Entra"], "Result": "Failed", "Block": "EIDSCA" },
+    { "Id": "CISA.MS.EXO.4.1", "Title": "A DMARC policy is published for every mail domain", "Name": "CISA.MS.EXO.4.1: A DMARC policy is published for every mail domain", "Severity": "", "Tag": ["CISA", "EXO"], "Result": "Failed", "Block": "Exchange Online" },
+    { "Id": "MT.1001", "Title": "At least one conditional access policy is configured with device compliance", "Severity": "High", "Tag": ["Maester", "Entra"], "Result": "Passed", "Block": "Conditional Access" },
+    { "Id": "MT.1003", "Title": "At least one conditional access policy blocks legacy authentication", "Severity": "High", "Tag": ["Maester", "Entra"], "Result": "Passed", "Block": "Conditional Access" },
+    { "Id": "MT.1008", "Title": "Emergency access accounts are excluded from conditional access", "Severity": "Medium", "Tag": ["Maester", "Entra"], "Result": "Passed", "Block": "Conditional Access" },
+    { "Id": "EIDSCA.AF01", "Title": "Passkey (FIDO2) authentication method is enabled", "Severity": "Medium", "Tag": ["EIDSCA", "Entra"], "Result": "Passed", "Block": "EIDSCA" },
+    { "Id": "CISA.MS.AAD.3.1", "Title": "Phishing-resistant MFA is required for administrators", "Severity": "High", "Tag": ["CISA", "AAD"], "Result": "Passed", "Block": "CISA" },
+    { "Id": "MT.1050", "Title": "Apps with high privileges are reviewed", "Severity": "Low", "Tag": ["Maester"], "Result": "Skipped", "Block": "Applications" }
+  ]
+}
