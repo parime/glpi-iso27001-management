@@ -84,7 +84,11 @@ final class M365ShareReader
         return $this->error() !== '' ? ['rows' => [], 'error' => $this->error()] : ['rows' => $rows, 'error' => ''];
     }
 
-    /** Erreur de la lecture en cours (posée par collection()). */
+    /**
+     * Erreur de la lecture en cours (posée par collection()).
+     *
+     * @phpstan-impure
+     */
     private function error(): string
     {
         return $this->error;
