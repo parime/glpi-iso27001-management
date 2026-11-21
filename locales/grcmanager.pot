@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 23:18+0000\n"
+"POT-Creation-Date: 2026-11-20 23:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,12 +76,13 @@ msgstr ""
 #: src/CompetenceMatrix.php:852 src/ConsistencyCheck.php:1453
 #: src/ContextItem.php:879 src/ControlTest.php:994 src/CrisisExercise.php:642
 #: src/CrisisScenario.php:940 src/Dpia.php:443 src/EbiosStudy.php:313
-#: src/ManagementReviewDossier.php:625 src/OfficialContact.php:224
-#: src/OperatingProcedure.php:402 src/PersonnelCompliance.php:727
-#: src/PolicyAcknowledgement.php:703 src/PolicyVersion.php:765
-#: src/RecyfRequirement.php:594 src/ResponsibilityActivity.php:806
-#: src/SecurityIncidentPostMortem.php:252
+#: src/EvidencePack.php:658 src/ManagementReviewDossier.php:625
+#: src/OfficialContact.php:224 src/OperatingProcedure.php:402
+#: src/PersonnelCompliance.php:727 src/PolicyAcknowledgement.php:703
+#: src/PolicyVersion.php:765 src/RecyfRequirement.php:594
+#: src/ResponsibilityActivity.php:806 src/SecurityIncidentPostMortem.php:252
 #: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:725
+#: templates/evidence_pack.html.twig
 #: templates/management_review_dossier_tab.html.twig
 #, php-format
 msgid "Generated on %s"
@@ -401,7 +402,7 @@ msgstr ""
 
 #: front/consistencycheck.export.php:53 src/EndOfLife.php:487
 #: src/HardwareWarranty.php:318 src/PersonnelCompliance.php:749
-#: src/SoftwareLicenseCompliance.php:428
+#: src/SoftwareLicenseCompliance.php:421
 #: templates/_personnel_compliance.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 #: templates/pdf/consistency_report.html.twig
@@ -640,6 +641,14 @@ msgid ""
 "supplier risk, audit or policy, for each attached document."
 msgstr ""
 
+#: front/evidencepack.php:28
+msgid "Evidence pack settings saved."
+msgstr ""
+
+#: front/evidencepack.php:41
+msgid "Evidence pack generated and archived. Download it from the list below."
+msgstr ""
+
 #: front/impactanalysis.php:36
 msgid "Risk created in the register, to be assessed."
 msgstr ""
@@ -755,7 +764,7 @@ msgstr ""
 msgid "The register could not be archived."
 msgstr ""
 
-#: front/parkmachines.php:26 src/Menu.php:168
+#: front/parkmachines.php:26 src/Menu.php:171
 msgid "Most exposed machines"
 msgstr ""
 
@@ -881,7 +890,7 @@ msgid "Person"
 msgstr ""
 
 #: front/policyacknowledgement.export.php:48 src/HardwareWarranty.php:312
-#: src/PolicyAcknowledgement.php:131 src/SoftwareLicenseCompliance.php:418
+#: src/PolicyAcknowledgement.php:131 src/SoftwareLicenseCompliance.php:411
 #: templates/acn_register.html.twig templates/config_form.html.twig
 #: templates/park_hardware_warranty.html.twig
 #: templates/pdf/access_review_report.html.twig
@@ -1274,7 +1283,7 @@ msgid ""
 "check the others."
 msgstr ""
 
-#: front/softwarewatch.php:69 src/Menu.php:161
+#: front/softwarewatch.php:69 src/Menu.php:164
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
@@ -1921,6 +1930,7 @@ msgstr ""
 #: templates/official_contact_tab.html.twig templates/pdf/acn_report.html.twig
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/pdf/recyf_report.html.twig
 #: templates/processing_activity_form.html.twig templates/risk_import.html.twig
@@ -2748,7 +2758,7 @@ msgstr ""
 
 #: src/Audit.php:267 src/AuditProgramme.php:717 src/ComplianceEvent.php:235
 #: src/EbiosStudy.php:601 src/NotificationTargetComplianceEvent.php:113
-#: src/SoftwareLicenseCompliance.php:419 templates/audit_form.html.twig
+#: src/SoftwareLicenseCompliance.php:412 templates/audit_form.html.twig
 #: templates/auditor_space.html.twig templates/compliance_event_form.html.twig
 #: templates/ebios_study_form.html.twig
 #: templates/pdf/ebios_study_report.html.twig
@@ -2883,7 +2893,8 @@ msgstr ""
 msgid "Free item"
 msgstr ""
 
-#: src/AuditChecklist.php:329 templates/pdf/soa_report.html.twig
+#: src/AuditChecklist.php:329 src/EvidencePack.php:295
+#: templates/pdf/soa_report.html.twig
 msgid "ISMS requirements (clauses 4 to 10)"
 msgstr ""
 
@@ -4721,6 +4732,7 @@ msgstr ""
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/control_test_record.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/physical_security_checklist_tab.html.twig
 msgid "Evidence"
 msgstr ""
@@ -5496,8 +5508,8 @@ msgid "From risk level"
 msgstr ""
 
 #: src/ConsistencyCheck.php:633 src/EndOfLife.php:452
-#: src/HardwareWarranty.php:249 src/SoftwareLicenseCompliance.php:327
-#: src/SoftwareLicenseCompliance.php:345
+#: src/HardwareWarranty.php:249 src/SoftwareLicenseCompliance.php:321
+#: src/SoftwareLicenseCompliance.php:339
 #, php-format
 msgid "%1$s (ID %2$d)"
 msgstr ""
@@ -6733,7 +6745,7 @@ msgid "Tester"
 msgstr ""
 
 #: src/ControlTest.php:1082 src/PhysicalSecurityCheck.php:254
-#: src/SoftwareLicenseCompliance.php:417 templates/_crisis_review.html.twig
+#: src/SoftwareLicenseCompliance.php:410 templates/_crisis_review.html.twig
 #: templates/audit_checklist_tab.html.twig
 #: templates/certification_findings.html.twig
 #: templates/certification_response_tab.html.twig
@@ -8914,7 +8926,7 @@ msgid "Not queried (earlier error or limit reached)"
 msgstr ""
 
 #: src/EndOfLife.php:181 src/NotificationTargetVulnerabilityDigest.php:256
-#: src/SoftwareLicenseCompliance.php:420 templates/park_item_tab.html.twig
+#: src/SoftwareLicenseCompliance.php:413 templates/park_item_tab.html.twig
 #: templates/park_vulnerabilities.html.twig
 #: templates/software_license_compliance.html.twig
 #: templates/software_watch.html.twig
@@ -9062,6 +9074,85 @@ msgstr ""
 #: src/Evidence.php:532
 #, php-format
 msgid "Renew the evidence \"%s\""
+msgstr ""
+
+#: src/EvidencePack.php:77 templates/pdf/evidence_pack_index.html.twig
+msgid "Evidence pack"
+msgid_plural "Evidence packs"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/EvidencePack.php:262
+msgid "Annex A controls (Statement of Applicability)"
+msgstr ""
+
+#: src/EvidencePack.php:313
+msgid "Approved versions of the Statement of Applicability"
+msgstr ""
+
+#: src/EvidencePack.php:314
+msgid "Approved policy versions"
+msgstr ""
+
+#: src/EvidencePack.php:315 src/ResponsibilityActivity.php:804
+msgid "ISMS responsibility matrix"
+msgstr ""
+
+#: src/EvidencePack.php:316
+msgid "Competence records"
+msgstr ""
+
+#: src/EvidencePack.php:317
+msgid "Audit reports and audit evidence"
+msgstr ""
+
+#: src/EvidencePack.php:318
+msgid "Management review files"
+msgstr ""
+
+#: src/EvidencePack.php:319
+msgid "Access review reports"
+msgstr ""
+
+#: src/EvidencePack.php:349
+msgid "Reports archived by the plugin"
+msgstr ""
+
+#: src/EvidencePack.php:503 templates/pdf/management_review_dossier.html.twig
+msgid "Included"
+msgstr ""
+
+#: src/EvidencePack.php:506
+msgid "Expired, not included"
+msgstr ""
+
+#: src/EvidencePack.php:509
+msgid "No file"
+msgstr ""
+
+#: src/EvidencePack.php:512
+msgid "Size limit reached, not included"
+msgstr ""
+
+#: src/EvidencePack.php:532
+msgid "This perimeter is not among your active entities."
+msgstr ""
+
+#: src/EvidencePack.php:535
+msgid "The PHP zip extension is missing on the server."
+msgstr ""
+
+#: src/EvidencePack.php:547 src/EvidencePack.php:573
+msgid "The archive could not be created."
+msgstr ""
+
+#: src/EvidencePack.php:601
+#, php-format
+msgid "Evidence pack - %1$s (%2$s)"
+msgstr ""
+
+#: src/EvidencePack.php:618
+msgid "The archive could not be stored as a document."
 msgstr ""
 
 #: src/FrameworkAssessment.php:72 templates/custom_framework_form.html.twig
@@ -11909,56 +12000,78 @@ msgid ""
 "when it expires."
 msgstr ""
 
-#: src/PageHelp.php:807
+#: src/PageHelp.php:808
+msgid ""
+"Prepare the evidence pack the auditor asks for: one ZIP archive per "
+"perimeter, with the evidence of each control and each requirement, the "
+"reports already archived and a PDF index that lists them with their date and "
+"SHA-256 fingerprint."
+msgstr ""
+
+#: src/PageHelp.php:814
+msgid ""
+"Choose the perimeter and check its contents: renew expired evidence and "
+"attach what is missing first. Then generate the pack and download it from "
+"the list. Only what you can read is included; expired evidence is listed in "
+"the index, not included. Nothing is changed in the registers."
+msgstr ""
+
+#: src/PageHelp.php:821
+msgid ""
+"ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
+"(internal audit)"
+msgstr ""
+
+#: src/PageHelp.php:827
 msgid ""
 "The effectiveness tests of the Annex A controls: a control in place is "
 "checked to really work, with its method, result and evidence."
 msgstr ""
 
-#: src/PageHelp.php:812
+#: src/PageHelp.php:832
 msgid ""
 "Set a test plan on each control, record each test from the control's "
 "\"Effectiveness tests\" tab and carry out the tests that are due first. An "
 "ineffective control opens a non-conformity."
 msgstr ""
 
-#: src/PageHelp.php:817
+#: src/PageHelp.php:837
 msgid "ISO 27001, 9.1; ISO 27002, 5.35 and 5.36"
 msgstr ""
 
-#: src/PageHelp.php:821
+#: src/PageHelp.php:841
 msgid ""
 "The audit log of the security incidents: who consulted or changed what, "
 "when, with which profile and from which address, including impersonations."
 msgstr ""
 
-#: src/PageHelp.php:826
+#: src/PageHelp.php:846
 msgid ""
 "Filter the entries, export them for an audit or a court, and check the "
 "integrity regularly: each entry is sealed with the previous one."
 msgstr ""
 
-#: src/PageHelp.php:833
+#: src/PageHelp.php:853
 msgid ""
 "Import of a CSV export of the alerts from an EDR or XDR console: each alert "
 "becomes an incident with its indicators, MITRE ATT&CK techniques, hosts and "
 "accounts."
 msgstr ""
 
-#: src/PageHelp.php:838
+#: src/PageHelp.php:858
 msgid ""
 "Check the columns proposed, choose how to group the alerts, then import. An "
 "alert already imported is ignored; the original lines are kept unchanged on "
 "the incident."
 msgstr ""
 
-#: src/PageHelp.php:845
+#: src/PageHelp.php:865
 msgid ""
 "EBIOS Risk Manager studies: the risk assessment method of ANSSI, the French "
 "national cybersecurity agency, published under an open licence."
 msgstr ""
 
-#: src/PageHelp.php:850
+#: src/PageHelp.php:870
 msgid ""
 "Create one study per scope, then work through its workshops in order: "
 "business values and feared events, risk sources, stakeholders and strategic "
@@ -11966,20 +12079,20 @@ msgid ""
 "register."
 msgstr ""
 
-#: src/PageHelp.php:858
+#: src/PageHelp.php:878
 msgid ""
 "Remediation playbooks: the standard steps to follow for each type of "
 "incident (ransomware, phishing, compromised account...)."
 msgstr ""
 
-#: src/PageHelp.php:863
+#: src/PageHelp.php:883
 msgid ""
 "Adapt the five playbooks provided to your context; from an incident, apply "
 "one to get its plan of tasks. Mandatory steps must be done or marked not "
 "applicable before closing."
 msgstr ""
 
-#: src/PageHelp.php:871
+#: src/PageHelp.php:891
 msgid ""
 "Information security crisis scenarios of the continuity plan: ransomware, "
 "data leak, compromise of privileged accounts, unavailability of a critical "
@@ -11988,7 +12101,7 @@ msgid ""
 "follow."
 msgstr ""
 
-#: src/PageHelp.php:878
+#: src/PageHelp.php:898
 msgid ""
 "Add the default scenarios, then adapt each one: choose the impacted "
 "processes, check the secure degraded mode and the roles, link the response "
@@ -11996,18 +12109,18 @@ msgid ""
 "should be exercised at least once a year."
 msgstr ""
 
-#: src/PageHelp.php:883
+#: src/PageHelp.php:903
 msgid "ISO/IEC 27001, control A.5.29"
 msgstr ""
 
-#: src/PageHelp.php:888
+#: src/PageHelp.php:908
 msgid ""
 "Crisis message templates: the messages prepared in advance for each kind of "
 "crisis (major incident, personal data breach, unavailability, ransomware), "
 "with the people and organizations to inform for each one."
 msgstr ""
 
-#: src/PageHelp.php:894
+#: src/PageHelp.php:914
 msgid ""
 "Adapt the templates provided and fill in the distribution list of each one "
 "(users, groups and official contacts). During a crisis, open the Crisis "
@@ -12016,59 +12129,59 @@ msgid ""
 "email."
 msgstr ""
 
-#: src/PageHelp.php:900
+#: src/PageHelp.php:920
 msgid "ISO/IEC 27001, control A.5.26 and clause 7.4"
 msgstr ""
 
-#: src/PageHelp.php:905
+#: src/PageHelp.php:925
 msgid ""
 "Custom frameworks: follow a framework that is not built in (group "
 "requirements, sector or contractual framework, customer security plan) by "
 "importing it from a spreadsheet."
 msgstr ""
 
-#: src/PageHelp.php:910
+#: src/PageHelp.php:930
 msgid ""
 "Download the template, fill in one line per requirement with the Annex A "
 "controls that meet it, import it, then enable the framework. A new version "
 "of the file updates it without losing the statuses already entered."
 msgstr ""
 
-#: src/PageHelp.php:918
+#: src/PageHelp.php:938
 msgid ""
 "Coverage rules: which assets must have which document (for example, every "
 "server must have its operations sheet)."
 msgstr ""
 
-#: src/PageHelp.php:923
+#: src/PageHelp.php:943
 msgid ""
 "Create one rule per requirement; the result lists the covered assets and "
 "those to complete."
 msgstr ""
 
-#: src/PageHelp.php:929
+#: src/PageHelp.php:949
 msgid ""
 "Security exemptions: accepted exceptions to a policy or a control, limited "
 "in time and compensated."
 msgstr ""
 
-#: src/PageHelp.php:934
+#: src/PageHelp.php:954
 msgid ""
 "Justify each exemption, describe the compensating measures, have it approved "
 "and set its end date; it is reassessed when due."
 msgstr ""
 
-#: src/PageHelp.php:938
+#: src/PageHelp.php:958
 msgid "ISO 27001, 6.1.3; Annex A 5.36"
 msgstr ""
 
-#: src/PageHelp.php:942
+#: src/PageHelp.php:962
 msgid ""
 "Business processes: who owns them, how critical they are, how long they can "
 "be interrupted and which GLPI items they depend on."
 msgstr ""
 
-#: src/PageHelp.php:947
+#: src/PageHelp.php:967
 msgid ""
 "For each process, rate the impact of an interruption over time (business "
 "impact analysis), set its MTPD, RTO and RPO, and link the applications, "
@@ -12076,17 +12189,17 @@ msgid ""
 "Export the result for your continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:952
+#: src/PageHelp.php:972
 msgid "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
 msgstr ""
 
-#: src/PageHelp.php:957
+#: src/PageHelp.php:977
 msgid ""
 "Recovery test programme: when each business process was last tested, whether "
 "the test met its RTO and RPO, and which processes are not tested in time."
 msgstr ""
 
-#: src/PageHelp.php:962
+#: src/PageHelp.php:982
 msgid ""
 "Plan a test for each process reported as overdue or not tested this year, "
 "then record the measured recovery time and data loss in its \"Recovery "
@@ -12094,111 +12207,111 @@ msgid ""
 "continuity is tested regularly."
 msgstr ""
 
-#: src/PageHelp.php:967
+#: src/PageHelp.php:987
 msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
 msgstr ""
 
-#: src/PageHelp.php:971
+#: src/PageHelp.php:991
 msgid ""
 "Single points of failure: critical items that depend on a single source, "
 "according to GLPI's impact analysis."
 msgstr ""
 
-#: src/PageHelp.php:976
+#: src/PageHelp.php:996
 msgid ""
 "Create the matching risk or add redundancy; export the list for your "
 "business continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:979
+#: src/PageHelp.php:999
 msgid "ISO 27001, Annex A 5.29, 5.30 and 8.14"
 msgstr ""
 
-#: src/PageHelp.php:982
+#: src/PageHelp.php:1002
 msgid "The domino effect: how one incident or risk can lead to others."
 msgstr ""
 
-#: src/PageHelp.php:984
+#: src/PageHelp.php:1004
 msgid ""
 "Link items from the \"Domino effect\" tab of a risk or an incident; this "
 "page shows the whole picture."
 msgstr ""
 
-#: src/PageHelp.php:991
+#: src/PageHelp.php:1011
 msgid ""
 "Security incidents: qualification, affected assets, CVEs, costs, regulatory "
 "notifications (data protection authority, NIS2)."
 msgstr ""
 
-#: src/PageHelp.php:996
+#: src/PageHelp.php:1016
 msgid ""
 "Declare the incident, qualify it, follow up the actions and meet the "
 "notification deadlines shown on the record."
 msgstr ""
 
-#: src/PageHelp.php:1000
+#: src/PageHelp.php:1020
 msgid "ISO 27001, Annex A 5.24 to 5.28"
 msgstr ""
 
-#: src/PageHelp.php:1004
+#: src/PageHelp.php:1024
 msgid ""
 "Known vulnerabilities (CVEs) of the software installed on your fleet, with "
 "their real-world exploitation (KEV, EPSS) and CERT-FR advisories."
 msgstr ""
 
-#: src/PageHelp.php:1009
+#: src/PageHelp.php:1029
 msgid ""
 "Handle exploited and priority vulnerabilities first; open one update ticket "
 "per software."
 msgstr ""
 
-#: src/PageHelp.php:1012 src/PageHelp.php:1036
+#: src/PageHelp.php:1032 src/PageHelp.php:1056
 msgid "ISO 27001, Annex A 8.8"
 msgstr ""
 
-#: src/PageHelp.php:1016
+#: src/PageHelp.php:1036
 msgid ""
 "Fleet software to match with a CPE reference so that its vulnerabilities are "
 "tracked."
 msgstr ""
 
-#: src/PageHelp.php:1020
+#: src/PageHelp.php:1040
 msgid ""
 "Start with the most exposed (browsers, remote access, VPN): search for the "
 "CPE, confirm it, or ignore software with no stakes."
 msgstr ""
 
-#: src/PageHelp.php:1027
+#: src/PageHelp.php:1047
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
 "software, to know where to start updating."
 msgstr ""
 
-#: src/PageHelp.php:1032
+#: src/PageHelp.php:1052
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
 "tab of each one details the CVEs and the update ticket."
 msgstr ""
 
-#: src/PageHelp.php:1040
+#: src/PageHelp.php:1060
 msgid ""
 "The correlation catalogue: reference products, their CPEs and the names "
 "under which they appear in the inventory."
 msgstr ""
 
-#: src/PageHelp.php:1045
+#: src/PageHelp.php:1065
 msgid ""
 "It is filled from \"Software to watch\"; correct an alias or a CPE here if "
 "needed."
 msgstr ""
 
-#: src/PageHelp.php:1051
+#: src/PageHelp.php:1071
 msgid ""
 "Mappings between Annex A and other frameworks, to reuse your work across "
 "several standards."
 msgstr ""
 
-#: src/PageHelp.php:1054
+#: src/PageHelp.php:1074
 msgid "Check the mappings before an audit against another framework."
 msgstr ""
 
@@ -13886,10 +13999,6 @@ msgstr ""
 #: src/ResponsibilityActivity.php:723
 #: templates/responsibility_activity_form.html.twig
 msgid "Sensitive activity"
-msgstr ""
-
-#: src/ResponsibilityActivity.php:804
-msgid "ISMS responsibility matrix"
 msgstr ""
 
 #: src/ResponsibilityExport.php:46
@@ -15910,116 +16019,102 @@ msgstr ""
 msgid "More installations than licensed seats"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:148
-msgid ""
-"More assets have the software than the valid licenses allow. An unlimited "
-"license (number 0 or less) covers everything. A parent license and its child "
-"licenses count for the larger of the parent number and the sum of the "
-"children."
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:155
+#: src/SoftwareLicenseCompliance.php:154
 msgid "Expired license still in use"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:159
+#: src/SoftwareLicenseCompliance.php:158
 msgid ""
 "The license has expired but assets are still assigned to it, or the software "
 "is still installed with no other valid license."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:166
+#: src/SoftwareLicenseCompliance.php:165
 msgid "License expiring soon"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:170
+#: src/SoftwareLicenseCompliance.php:169
 msgid ""
 "A license in use expires within the alert horizon and no renewal is recorded "
 "in GLPI yet. This is a reminder, not a gap."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:186
+#: src/SoftwareLicenseCompliance.php:185
 msgid "in this entity and its sub-entities"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:187
+#: src/SoftwareLicenseCompliance.php:186
 msgid "in this entity"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:192
+#: src/SoftwareLicenseCompliance.php:191
 #, php-format
 msgid "%1$d asset has it %2$s, no license recorded."
 msgid_plural "%1$d assets have it %2$s, no license recorded."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/SoftwareLicenseCompliance.php:202
+#: src/SoftwareLicenseCompliance.php:201
 #, php-format
 msgid "%1$d asset has it %3$s for %2$d licensed seat(s)."
 msgid_plural "%1$d assets have it %3$s for %2$d licensed seat(s)."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/SoftwareLicenseCompliance.php:212
+#: src/SoftwareLicenseCompliance.php:211
 msgid ""
 "The license allows going over the number of seats: settle it with the "
 "publisher."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:217
-msgid ""
-"Child licenses share the seats of their parent license: each family is "
-"counted once."
-msgstr ""
-
-#: src/SoftwareLicenseCompliance.php:222
+#: src/SoftwareLicenseCompliance.php:216
 #, php-format
 msgid "Expires on %1$s: %2$d asset(s) assigned, %3$d installation(s) %4$s."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:229
+#: src/SoftwareLicenseCompliance.php:223
 #, php-format
 msgid ""
 "Expired on %1$s: %2$d asset(s) still assigned, %3$d installation(s) %4$s."
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:421
+#: src/SoftwareLicenseCompliance.php:414
 msgid "Publisher"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:422 templates/software_watch.html.twig
+#: src/SoftwareLicenseCompliance.php:415 templates/software_watch.html.twig
 msgid "Installations"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:423
+#: src/SoftwareLicenseCompliance.php:416
 msgid "Licensed seats"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:424
+#: src/SoftwareLicenseCompliance.php:417
 msgid "License"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:425
+#: src/SoftwareLicenseCompliance.php:418
 msgid "Expiration date"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:426
+#: src/SoftwareLicenseCompliance.php:419
 msgid "Assets still assigned"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:427
+#: src/SoftwareLicenseCompliance.php:420
 msgid "Over-quota allowed by the license"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:435
+#: src/SoftwareLicenseCompliance.php:428
 msgid "Entity and sub-entities"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:436
+#: src/SoftwareLicenseCompliance.php:429
 msgid "Entity only"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:506
+#: src/SoftwareLicenseCompliance.php:499
 #, php-format
 msgid "%1$s (%2$s): %3$s"
 msgstr ""
@@ -16727,7 +16822,8 @@ msgstr ""
 #: templates/certification_sampling_tab.html.twig
 #: templates/disk_encryption.html.twig templates/dora/arrangement_tab.html.twig
 #: templates/dora/function_tab.html.twig templates/dora/provider_tab.html.twig
-#: templates/dora/register.html.twig templates/periodic_reviews.html.twig
+#: templates/dora/register.html.twig templates/evidence_pack.html.twig
+#: templates/periodic_reviews.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/software_license_compliance.html.twig
 msgid "Save"
@@ -17924,6 +18020,7 @@ msgstr ""
 #: templates/custom_framework_list.html.twig
 #: templates/disk_encryption.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/physical_security_checklist_tab.html.twig
 msgid "State"
 msgstr ""
@@ -19419,6 +19516,7 @@ msgid "You hold no ISMS function yet."
 msgstr ""
 
 #: templates/competence_sheet.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #, php-format
 msgid "valid until %s"
 msgstr ""
@@ -20950,7 +21048,7 @@ msgstr[1] ""
 msgid "%d critical"
 msgstr ""
 
-#: templates/control_form.html.twig
+#: templates/control_form.html.twig templates/evidence_pack.html.twig
 #, php-format
 msgid "%d expired"
 msgstr ""
@@ -23832,7 +23930,7 @@ msgstr ""
 msgid "Default currency of the amounts."
 msgstr ""
 
-#: templates/dora/register.html.twig
+#: templates/dora/register.html.twig templates/evidence_pack.html.twig
 #: templates/management_review_dossier_tab.html.twig
 #: templates/my_trainings_tab.html.twig templates/training_quiz_tab.html.twig
 msgid "Download"
@@ -24066,7 +24164,7 @@ msgstr ""
 msgid "Set the selected alerts aside"
 msgstr ""
 
-#: templates/edr_import.html.twig
+#: templates/edr_import.html.twig templates/evidence_pack.html.twig
 msgid "Settings"
 msgstr ""
 
@@ -24217,6 +24315,112 @@ msgid ""
 "exactly as GLPI shows it, and the product identifier found in the address of "
 "its page on endoflife.date (for instance \"fortios\" for https://"
 "endoflife.date/fortios). Leave the product empty to stop following a name."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%1$d of %2$d with evidence"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%1$s MB of %2$s MB allowed"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid ""
+"%d applicable control(s) have no evidence you can read: the index shows them "
+"without evidence."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%d file(s)"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%d over the size limit"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
+#, php-format
+msgid "%s MB"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Archived evidence packs"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#: templates/management_review_dossier_tab.html.twig
+msgid "Document deleted"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Evidence pack for the auditor"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"Expired evidence: listed in the index, not included. Renew it from the "
+"\"Evidence validity\" tab of the control before generating the pack."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"Files that would exceed this size are listed in the index as not included."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Generate the evidence pack"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Maximum size of the archive (MB)"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "No evidence pack generated yet."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"One ZIP archive per perimeter: the evidence attached to each Annex A control "
+"and each ISMS requirement, and the reports already archived by the plugin, "
+"with a PDF index listing them control by control, with their date, their "
+"state and their SHA-256 fingerprint."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"Only the documents you can read are included. The archive is kept as a "
+"restricted document: you, and whoever can read every piece it contains, can "
+"download it. Generate a new one at any time."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Perimeter (entity)"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Restricted"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#: templates/management_review_dossier_tab.html.twig
+msgid "SHA-256 fingerprint"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Show the contents"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"You need the right to update the GRC plugin to generate an evidence pack."
 msgstr ""
 
 #: templates/evidence_tab.html.twig
@@ -24751,10 +24955,6 @@ msgid "Create the actions from the decisions"
 msgstr ""
 
 #: templates/management_review_dossier_tab.html.twig
-msgid "Document deleted"
-msgstr ""
-
-#: templates/management_review_dossier_tab.html.twig
 msgid ""
 "Each decision becomes an action with an owner, a due date and a status. The "
 "preparatory file of the next review reports where they stand."
@@ -24796,10 +24996,6 @@ msgid ""
 "Proposed period: since the previous management review (or the last twelve "
 "months) up to the date of this review. Figures follow your rights and active "
 "entities."
-msgstr ""
-
-#: templates/management_review_dossier_tab.html.twig
-msgid "SHA-256 fingerprint"
 msgstr ""
 
 #: templates/management_review_dossier_tab.html.twig
@@ -26326,6 +26522,7 @@ msgstr ""
 
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Prepared by"
 msgstr ""
@@ -26789,6 +26986,37 @@ msgstr ""
 msgid "Zone"
 msgstr ""
 
+#: templates/pdf/evidence_pack_index.html.twig
+msgid "Files included"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+msgid "No evidence attached"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+msgid "Not included"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Perimeter"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+msgid ""
+"This index lists the evidence that the person who generated the pack can "
+"read, in the perimeter entity and its sub-entities. Expired evidence is "
+"listed but not included. Each included file is stored once in the "
+"\"evidence\" folder of the archive; its SHA-256 fingerprint is given here "
+"and in the SHA256SUMS.txt file, to check that nothing was changed."
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+#, php-format
+msgid "limit %d MB"
+msgstr ""
+
 #: templates/pdf/internal_audit_report.html.twig
 msgid "Planned / actual date"
 msgstr ""
@@ -26835,10 +27063,6 @@ msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Identified during the period"
-msgstr ""
-
-#: templates/pdf/management_review_dossier.html.twig
-msgid "Included"
 msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
@@ -26904,10 +27128,6 @@ msgstr ""
 #: templates/pdf/management_review_dossier.html.twig
 #, php-format
 msgid "Open risks: %1$d in %2$s, %3$d in %4$s"
-msgstr ""
-
-#: templates/pdf/management_review_dossier.html.twig
-msgid "Perimeter"
 msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
@@ -29878,10 +30098,6 @@ msgid "Back to the default lists"
 msgstr ""
 
 #: templates/software_license_compliance.html.twig
-msgid "Child licenses counted once"
-msgstr ""
-
-#: templates/software_license_compliance.html.twig
 msgid "Ignored software (part of the name, one per line)"
 msgstr ""
 
@@ -31688,4 +31904,23 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr ""
+
+
+#: src/SoftwareLicenseCompliance.php:148
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:217
+msgid ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Child licenses counted once"
 msgstr ""

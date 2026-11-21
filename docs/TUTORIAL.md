@@ -924,7 +924,26 @@ ou une piste de progrès. Un délai est signalé comme proche 7 jours avant. La 
 certification** compte les plans d'actions et les preuves encore à envoyer, et ceux en retard.
 Rien n'est modifié automatiquement : statut, responsable et échéance restent ceux que vous saisissez.
 
-### Étape 34 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
+### Étape 34 : Remettre le dossier de preuves à l'auditeur (articles 7.5.3 et 9.2)
+
+L'auditeur demande souvent, avant sa visite, l'ensemble des preuves du périmètre audité. La page
+**Conformité > Dossier de preuves** le prépare en une archive ZIP.
+
+1. Choisir le **périmètre** (une entité) et cliquer sur **Afficher le contenu** : nombre de pièces
+   incluses, expirées, sans fichier ou au-delà de la limite de taille, mesures applicables sans
+   preuve, et liste des preuves expirées.
+2. Renouveler les preuves expirées (onglet **Validités des preuves** de la mesure) et joindre ce qui
+   manque.
+3. Cliquer sur **Générer le dossier de preuves**, puis le télécharger dans **Dossiers de preuves
+   archivés** : l'archive contient un index PDF (mesure par mesure, sous-article par sous-article,
+   avec la date, l'état et l'empreinte SHA-256 de chaque pièce), un fichier `SHA256SUMS.txt` et
+   les pièces, chacune une seule fois dans le dossier `evidence`.
+
+Seules les pièces que vous pouvez lire entrent dans l'archive ; une preuve expirée figure dans
+l'index sans être incluse. La limite de taille se règle sur la page (200 Mo par défaut). L'archive
+est gardée comme document restreint : vous, et toute personne qui peut lire chacune de ses pièces,
+pouvez la télécharger. Rien n'est modifié dans les registres.
+### Étape 35 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
 
 L'agent d'inventaire de GLPI remonte, pour chaque volume d'un ordinateur, l'état du chiffrement,
 l'outil (BitLocker, FileVault, LUKS, VeraCrypt...) et l'algorithme. Le plugin lit ces données ; il
@@ -1865,7 +1884,25 @@ opportunity for improvement. A deadline is shown as close 7 days before it. **Ce
 readiness** counts the action plans and evidence still to send, and those overdue. Nothing is
 changed automatically: status, owner and due date stay as you enter them.
 
-### Step 35: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
+### Step 35: Hand the evidence pack to the auditor (clauses 7.5.3 and 9.2)
+
+Before the visit, the auditor often asks for all the evidence of the audited perimeter. The
+**Compliance > Evidence pack** page prepares it as one ZIP archive.
+
+1. Choose the **perimeter** (an entity) and click **Show the contents**: number of pieces included,
+   expired, without a file or over the size limit, applicable controls without evidence, and the
+   list of expired evidence.
+2. Renew expired evidence (**Evidence validity** tab of the control) and attach what is missing.
+3. Click **Generate the evidence pack**, then download it from **Archived evidence packs**: the
+   archive holds a PDF index (control by control, requirement by requirement, with the date, state
+   and SHA-256 fingerprint of each piece), a `SHA256SUMS.txt` file and the pieces, each stored once
+   in the `evidence` folder.
+
+Only the pieces you can read enter the archive; expired evidence is listed in the index but not
+included. The size limit is set on the page (200 MB by default). The archive is kept as a
+restricted document: you, and anyone who can read every piece it contains, can download it.
+Nothing is changed in the registers.
+### Step 36: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
 
 For each volume of a computer, the GLPI inventory agent reports the encryption state, the tool
 (BitLocker, FileVault, LUKS, VeraCrypt...) and the algorithm. The plugin reads this data; it changes
