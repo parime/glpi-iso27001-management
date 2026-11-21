@@ -32918,6 +32918,18 @@ msgid_plural "%d main recipients without deputy"
 msgstr[0] "%d main recipient without deputy"
 msgstr[1] "%d main recipients without deputy"
 
+msgid "Proposed flow"
+msgstr "Proposed flow"
+
+msgid ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
+msgstr ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

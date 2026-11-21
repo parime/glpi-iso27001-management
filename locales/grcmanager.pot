@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 06:42+0000\n"
+"POT-Creation-Date: 2026-11-21 06:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2026,7 +2026,7 @@ msgid "Reference"
 msgstr ""
 
 #: inc/securityincident.class.php:951 src/NetworkFlow.php:275
-#: src/NetworkFlow.php:425 src/NotificationTargetRiskIndicator.php:155
+#: src/NetworkFlow.php:459 src/NotificationTargetRiskIndicator.php:155
 #: src/RiskIndicator.php:761 templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig
 #: templates/itil_classification_section.html.twig
@@ -10321,7 +10321,7 @@ msgstr ""
 msgid "Backup"
 msgstr ""
 
-#: src/NetworkFlow.php:106 src/NetworkFlow.php:704
+#: src/NetworkFlow.php:106 src/NetworkFlow.php:739
 #: src/ParkVulnerability.php:135 templates/audit_log.html.twig
 #: templates/personnel_compliance_list.html.twig
 #: templates/tabs/action_log.html.twig
@@ -10381,7 +10381,7 @@ msgstr ""
 msgid "Asset not found or not allowed."
 msgstr ""
 
-#: src/NetworkFlow.php:278 src/NetworkFlow.php:425
+#: src/NetworkFlow.php:278 src/NetworkFlow.php:459
 #: templates/network_flow_import.html.twig
 #: templates/network_flow_matrix.html.twig
 #: templates/pdf/network_flow_report.html.twig
@@ -10418,54 +10418,54 @@ msgstr ""
 msgid "Checks"
 msgstr ""
 
-#: src/NetworkFlow.php:490
+#: src/NetworkFlow.php:525
 #, php-format
 msgid "%d active flow"
 msgid_plural "%d active flows"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/NetworkFlow.php:547 templates/_network_flow_badges.html.twig
+#: src/NetworkFlow.php:582 templates/_network_flow_badges.html.twig
 msgid "Asset not visible"
 msgstr ""
 
-#: src/NetworkFlow.php:774
+#: src/NetworkFlow.php:809
 #, php-format
 msgid "Owner \"%s\" not found: flow imported without an owner."
 msgstr ""
 
-#: src/NetworkFlow.php:816
+#: src/NetworkFlow.php:851
 #, php-format
 msgid ""
 "Service object not known from this export (%s): rule skipped, add the flow "
 "with its ports by hand."
 msgstr ""
 
-#: src/NetworkFlow.php:825
+#: src/NetworkFlow.php:860
 msgid "Header without \"source\" and \"destination\" columns."
 msgstr ""
 
-#: src/NetworkFlow.php:826
+#: src/NetworkFlow.php:861
 msgid "Empty file."
 msgstr ""
 
-#: src/NetworkFlow.php:827
+#: src/NetworkFlow.php:862
 msgid "Missing source or destination: line skipped."
 msgstr ""
 
-#: src/NetworkFlow.php:828
+#: src/NetworkFlow.php:863
 msgid "Invalid ports: line skipped."
 msgstr ""
 
-#: src/NetworkFlow.php:829
+#: src/NetworkFlow.php:864
 msgid "Invalid end date: line skipped."
 msgstr ""
 
-#: src/NetworkFlow.php:830
+#: src/NetworkFlow.php:865
 msgid "XML file that is not a pfSense backup (config.xml)."
 msgstr ""
 
-#: src/NetworkFlow.php:831
+#: src/NetworkFlow.php:866
 msgid "No filter rule in the pfSense backup."
 msgstr ""
 
@@ -26550,6 +26550,17 @@ msgstr ""
 
 #: templates/network_flow_form.html.twig
 msgid "Network, zone or address"
+msgstr ""
+
+#: templates/network_flow_form.html.twig
+msgid "Proposed flow"
+msgstr ""
+
+#: templates/network_flow_form.html.twig
+msgid ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
 msgstr ""
 
 #: templates/network_flow_form.html.twig

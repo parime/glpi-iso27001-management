@@ -86,11 +86,97 @@ final class NetworkFlowRules
 
     public static function normalizeProtocol(mixed $value): string
     {
-        $value = strtolower(str_replace(['/', ' ', '+'], '_', trim((string) $value)));
+        return self::knownProtocol((string) $value) ?? self::DEFAULT_PROTOCOL;
+    }
+
+    /** Protocole reconnu (alias compris), ou null s'il est inconnu. */
+    public static function knownProtocol(string $value): ?string
+    {
+        $value = strtolower(str_replace(['/', ' ', '+'], '_', trim($value)));
         $aliases = ['tcp_udp' => 'tcp_udp', 'udp_tcp' => 'tcp_udp', 'both' => 'tcp_udp', '*' => 'any', 'all' => 'any',
             'ip' => 'any', 'esp' => 'ipsec', 'ike' => 'ipsec'];
         $value = $aliases[$value] ?? $value;
-        return in_array($value, self::PROTOCOLS, true) ? $value : self::DEFAULT_PROTOCOL;
+
+        return in_array($value, self::PROTOCOLS, true) ? $value : null;
+    }
+
+    /**
+     * Issue #909 : champs qu'une autre page (bouton « Proposer le flux » de l'inventaire Docker)
+     * peut proposer dans l'adresse d'un nouveau flux. Liste fermée : tout autre paramètre est ignoré.
+     */
+    public const PREFILL_FIELDS = [
+        'flow_type',
+        'name',
+        'source_label',
+        'destination_itemtype',
+        'destination_items_id',
+        'destination_label',
+        'protocol',
+        'ports',
+    ];
+
+    /** Longueur des colonnes texte (VARCHAR 255) pré-remplies. */
+    public const PREFILL_TEXT_LENGTH = 255;
+
+    /**
+     * Issue #909 : valeurs proposées dans l'adresse, validées comme à l'enregistrement. Seuls les
+     * champs de PREFILL_FIELDS sont lus ; un type ou un protocole inconnu, des ports invalides ou un
+     * texte vide sont écartés (le champ garde sa valeur par défaut). Le type d'actif de destination
+     * est seulement contrôlé dans sa forme : l'appelant vérifie qu'il est proposé et que l'actif est
+     * visible. Les textes ne sont pas échappés ici : le gabarit Twig les échappe à l'affichage.
+     *
+     * @param array<mixed> $query
+     * @return array<string, string|int>
+     */
+    public static function prefill(array $query): array
+    {
+        $values = [];
+        foreach (['name', 'source_label', 'destination_label'] as $field) {
+            $text = self::prefillText($query[$field] ?? null);
+            if ($text !== '') {
+                $values[$field] = $text;
+            }
+        }
+        $type = $query['flow_type'] ?? null;
+        if (is_string($type) && in_array(strtolower(trim($type)), self::TYPES, true)) {
+            $values['flow_type'] = strtolower(trim($type));
+        }
+        $protocol = $query['protocol'] ?? null;
+        if (is_string($protocol)) {
+            $known = self::knownProtocol($protocol);
+            if ($known !== null) {
+                $values['protocol'] = $known;
+            }
+        }
+        $ports = $query['ports'] ?? null;
+        if (is_string($ports) || is_int($ports)) {
+            $normalized = self::normalizePorts($ports);
+            if ($normalized !== null && $normalized !== 'any') {
+                $values['ports'] = $normalized;
+            }
+        }
+        $itemtype = $query['destination_itemtype'] ?? null;
+        $itemsId = $query['destination_items_id'] ?? null;
+        if (
+            is_string($itemtype) && preg_match('/^[A-Za-z][A-Za-z0-9_\\\\]{0,254}$/', $itemtype) === 1
+            && (is_string($itemsId) || is_int($itemsId)) && preg_match('/^[1-9]\d{0,9}$/', (string) $itemsId) === 1
+        ) {
+            $values['destination_itemtype'] = $itemtype;
+            $values['destination_items_id'] = (int) $itemsId;
+        }
+
+        return $values;
+    }
+
+    /** Texte d'une ligne : caractères de contrôle retirés, espaces resserrés, longueur de la colonne. */
+    private static function prefillText(mixed $value): string
+    {
+        if (!is_string($value) || preg_match('//u', $value) !== 1) {
+            return '';
+        }
+        $value = trim((string) preg_replace('/[\x00-\x1F\x7F\s]+/u', ' ', $value));
+
+        return mb_substr($value, 0, self::PREFILL_TEXT_LENGTH);
     }
 
     /**
