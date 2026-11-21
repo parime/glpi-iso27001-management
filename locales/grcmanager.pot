@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 11:21+0000\n"
+"POT-Creation-Date: 2026-11-21 14:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,7 +80,7 @@ msgid "The file is very long: only its first checks were read."
 msgstr ""
 
 #: front/adsecurityaudit.php:112 front/backupcoverage.php:69
-#: front/logcoverage.php:68 front/mfacoverage.php:69 front/shareaccess.php:97
+#: front/logcoverage.php:68 front/mfacoverage.php:69 front/shareaccess.php:121
 msgid "Import deleted."
 msgstr ""
 
@@ -1253,7 +1253,7 @@ msgstr ""
 msgid "Checklist saved."
 msgstr ""
 
-#: front/releasevalidation.form.php:50 front/shareaccess.php:135
+#: front/releasevalidation.form.php:50 front/shareaccess.php:159
 msgid "Decision recorded."
 msgstr ""
 
@@ -1487,26 +1487,26 @@ msgid ""
 "%1$d controller(s) imported, %2$d updated, %3$d ignored (read by Redfish)."
 msgstr ""
 
-#: front/shareaccess.php:73
+#: front/shareaccess.php:60
 #, php-format
 msgid ""
 "%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed "
 "since the previous import."
 msgstr ""
 
-#: front/shareaccess.php:84
+#: front/shareaccess.php:71
 msgid "The file is too long: only its first lines were imported."
 msgstr ""
 
-#: front/shareaccess.php:106
+#: front/shareaccess.php:130
 msgid "Share saved."
 msgstr ""
 
-#: front/shareaccess.php:134
+#: front/shareaccess.php:158
 msgid "Review started: the owner can now decide for each right."
 msgstr ""
 
-#: front/shareaccess.php:136
+#: front/shareaccess.php:160
 msgid "Review closed."
 msgstr ""
 
@@ -2622,7 +2622,7 @@ msgid "This line is assigned to another reviewer."
 msgstr ""
 
 #: src/AccessReview.php:691 src/ReleaseValidation.php:353
-#: src/ShareAccess.php:1100
+#: src/ShareAccess.php:1264
 msgid "Unknown decision."
 msgstr ""
 
@@ -3042,7 +3042,7 @@ msgstr ""
 #: src/AdSecurityAudit.php:221 src/AssetClassification.php:94
 #: src/AssetClassification.php:185 src/ConfigurationCompliance.php:152
 #: src/ConsistencyCheck.php:132 src/Control.php:201 src/DoraRegister.php:238
-#: src/DoraRegister.php:243 src/ShareAccess.php:227
+#: src/DoraRegister.php:243 src/ShareAccess.php:264
 #: src/Traits/RiskAssessmentTrait.php:122
 #: src/Traits/RiskAssessmentTrait.php:138
 #: src/Traits/RiskAssessmentTrait.php:309 src/ZabbixMonitoring.php:141
@@ -3053,7 +3053,7 @@ msgstr ""
 #: src/AdSecurityAudit.php:222 src/AssetClassification.php:93
 #: src/AssetClassification.php:184 src/ConfigurationCompliance.php:153
 #: src/ConsistencyCheck.php:137 src/Control.php:200 src/DoraRegister.php:237
-#: src/DoraRegister.php:242 src/ShareAccess.php:226
+#: src/DoraRegister.php:242 src/ShareAccess.php:263
 #: src/Traits/RiskAssessmentTrait.php:121
 #: src/Traits/RiskAssessmentTrait.php:137
 #: src/Traits/RiskAssessmentTrait.php:308 templates/risk_heatmap.html.twig
@@ -3063,7 +3063,7 @@ msgstr ""
 #: src/AdSecurityAudit.php:223 src/AssetClassification.php:92
 #: src/AssetClassification.php:183 src/ConfigurationCompliance.php:154
 #: src/ConsistencyCheck.php:142 src/Control.php:199 src/DoraRegister.php:236
-#: src/DoraRegister.php:241 src/ShareAccess.php:225
+#: src/DoraRegister.php:241 src/ShareAccess.php:262
 #: src/Traits/RiskAssessmentTrait.php:120
 #: src/Traits/RiskAssessmentTrait.php:136
 #: src/Traits/RiskAssessmentTrait.php:307 templates/risk_heatmap.html.twig
@@ -3125,7 +3125,7 @@ msgid "You do not have the right to import a report."
 msgstr ""
 
 #: src/AdSecurityAudit.php:257 src/BackupCoverage.php:254
-#: src/LogCoverage.php:211 src/MfaCoverage.php:192 src/ShareAccess.php:248
+#: src/LogCoverage.php:211 src/MfaCoverage.php:192 src/ShareAccess.php:289
 msgid "The file could not be read."
 msgstr ""
 
@@ -3861,7 +3861,7 @@ msgid "Real user (impersonation)"
 msgstr ""
 
 #: src/AuditLog.php:234 src/NotificationTargetPersonnelCompliance.php:95
-#: src/PersonnelCompliance.php:747 src/ShareAccess.php:150
+#: src/PersonnelCompliance.php:747 src/ShareAccess.php:157
 #: templates/account_hygiene.html.twig
 #: templates/account_hygiene_ticket.html.twig templates/audit_log.html.twig
 #: templates/document_accesses_tab.html.twig
@@ -6540,7 +6540,7 @@ msgid "Due on %s"
 msgstr ""
 
 #: src/ConsistencyCheck.php:741 src/ConsistencyCheck.php:782
-#: src/NetworkFlow.php:114 src/ShareAccess.php:208
+#: src/NetworkFlow.php:114 src/ShareAccess.php:245
 #: templates/_crisis_review.html.twig
 #: templates/maturity_campaign_gaps_tab.html.twig
 msgid "No owner"
@@ -15115,7 +15115,7 @@ msgstr ""
 msgid "Policy acknowledgement"
 msgstr ""
 
-#: src/PolicyAcknowledgement.php:129 src/ShareAccess.php:151
+#: src/PolicyAcknowledgement.php:129 src/ShareAccess.php:158
 #: templates/periodic_reviews.html.twig
 #: templates/personnel_compliance_list.html.twig
 msgid "Group"
@@ -16961,7 +16961,7 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/SecurityIncidentEdrImport.php:74 src/ShareAccess.php:152
+#: src/SecurityIncidentEdrImport.php:74 src/ShareAccess.php:159
 #: templates/edr_import.html.twig templates/mfa_coverage.html.twig
 #: templates/pdf/access_review_report.html.twig
 #: templates/server_management.html.twig
@@ -18112,129 +18112,177 @@ msgstr ""
 msgid "Read only access until %s"
 msgstr ""
 
-#: src/ShareAccess.php:67 templates/control_form.html.twig
+#: src/ShareAccess.php:74 templates/control_form.html.twig
 msgid "File share access rights"
 msgstr ""
 
-#: src/ShareAccess.php:130
+#: src/ShareAccess.php:137
 msgid "Full control"
 msgstr ""
 
-#: src/ShareAccess.php:131
+#: src/ShareAccess.php:138
 msgid "Modify"
 msgstr ""
 
-#: src/ShareAccess.php:132
+#: src/ShareAccess.php:139
 msgid "Read"
 msgstr ""
 
-#: src/ShareAccess.php:134
+#: src/ShareAccess.php:141
 msgid "Special permissions"
 msgstr ""
 
-#: src/ShareAccess.php:147
+#: src/ShareAccess.php:154
 msgid "Everyone (broad group)"
 msgstr ""
 
-#: src/ShareAccess.php:148
+#: src/ShareAccess.php:155
 msgid "System account"
 msgstr ""
 
-#: src/ShareAccess.php:149
+#: src/ShareAccess.php:156
 msgid "Deleted account"
 msgstr ""
 
-#: src/ShareAccess.php:171
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr ""
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr ""
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr ""
+
+#: src/ShareAccess.php:195
 msgid "Everyone can modify"
 msgstr ""
 
-#: src/ShareAccess.php:174
+#: src/ShareAccess.php:198
 msgid ""
 "Everyone, Authenticated Users, Domain Users or Guests can modify or have "
 "full control."
 msgstr ""
 
-#: src/ShareAccess.php:179
+#: src/ShareAccess.php:203
 msgid "Deleted account still has rights"
 msgstr ""
 
-#: src/ShareAccess.php:182
+#: src/ShareAccess.php:206
 msgid ""
 "The account no longer exists in the directory (unresolved SID) or is in the "
 "GLPI trash."
 msgstr ""
 
-#: src/ShareAccess.php:187
+#: src/ShareAccess.php:211
 msgid "Disabled account still has rights"
 msgstr ""
 
-#: src/ShareAccess.php:189
+#: src/ShareAccess.php:213
 msgid "The matching GLPI account is disabled: the person has probably left."
 msgstr ""
 
-#: src/ShareAccess.php:192
+#: src/ShareAccess.php:216
 msgid "Right given to a person"
 msgstr ""
 
-#: src/ShareAccess.php:195
+#: src/ShareAccess.php:219
 msgid ""
 "Rights should be given to groups, not to named people: they are easier to "
 "review."
 msgstr ""
 
-#: src/ShareAccess.php:200 templates/share_access_detail.html.twig
+#: src/ShareAccess.php:224 templates/share_access_detail.html.twig
 msgid "Inheritance broken"
 msgstr ""
 
-#: src/ShareAccess.php:203
+#: src/ShareAccess.php:227
 msgid ""
 "A subfolder of a sensitive share does not inherit the rights of its parent "
 "folder."
 msgstr ""
 
-#: src/ShareAccess.php:211
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr ""
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr ""
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr ""
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+
+#: src/ShareAccess.php:248
 msgid ""
 "No GLPI user is designated as the owner who reviews the rights of this share."
 msgstr ""
 
-#: src/ShareAccess.php:224 templates/_competence_summary.html.twig
+#: src/ShareAccess.php:261 templates/_competence_summary.html.twig
 #: templates/competence_page.html.twig templates/competence_sheet.html.twig
 #: templates/isms_function_form.html.twig
 #: templates/share_access_detail.html.twig
 msgid "No gap"
 msgstr ""
 
-#: src/ShareAccess.php:235
+#: src/ShareAccess.php:272
 msgid ""
 "No account column found: the file needs a header with a column such as "
 "Identity, IdentityReference or Sid."
 msgstr ""
 
-#: src/ShareAccess.php:240
+#: src/ShareAccess.php:277
 msgid ""
 "No rights column found: the file needs a column such as Rights, "
 "FileSystemRights or AccessRight."
 msgstr ""
 
-#: src/ShareAccess.php:244
+#: src/ShareAccess.php:281
 msgid ""
 "No share column found: the file needs a column such as Share, or Folder with "
 "a \\\\server\\share path."
 msgstr ""
 
-#: src/ShareAccess.php:1097 templates/share_access_detail.html.twig
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+
+#: src/ShareAccess.php:1261 templates/share_access_detail.html.twig
 msgid "Designate the owner of the share first: they review its rights."
 msgstr ""
 
-#: src/ShareAccess.php:1098
+#: src/ShareAccess.php:1262
 msgid "Explain what must be changed or removed in the comment."
 msgstr ""
 
-#: src/ShareAccess.php:1099
+#: src/ShareAccess.php:1263
 msgid "Some rights have no decision yet."
 msgstr ""
 
-#: src/ShareAccess.php:1101
+#: src/ShareAccess.php:1265
 msgid "You cannot do this on this share."
 msgstr ""
 
@@ -31972,6 +32020,7 @@ msgstr ""
 #: templates/pdf/network_flow_report.html.twig
 #: templates/pdf/processing_register_report.html.twig
 #: templates/server_management_item_tab.html.twig
+#: templates/share_access_detail.html.twig
 msgid "Address"
 msgstr ""
 
@@ -35182,11 +35231,25 @@ msgid "Absent from the last import"
 msgstr ""
 
 #: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): "
+"Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+
+#: templates/share_access.html.twig
 msgid "Download the PowerShell script"
 msgstr ""
 
 #: templates/share_access.html.twig
 msgid "Download the script and copy it to the file server."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
 msgstr ""
 
 #: templates/share_access.html.twig
@@ -35197,6 +35260,17 @@ msgid ""
 "the same server replaces the previous one in the current entity and shows "
 "the rights added and removed since then; the classification, the owner and "
 "the review decisions are kept."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
 msgstr ""
 
 #: templates/share_access.html.twig
@@ -35226,6 +35300,20 @@ msgid ""
 msgstr ""
 
 #: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr ""
+
+#: templates/share_access.html.twig
 msgid "New rights"
 msgstr ""
 
@@ -35239,6 +35327,15 @@ msgstr ""
 msgid ""
 "Only users who can modify the plugin data and the sensitive registers can "
 "import."
+msgstr ""
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
 msgstr ""
 
 #: templates/share_access.html.twig
@@ -35324,6 +35421,10 @@ msgid "Comment (required to change or remove)"
 msgstr ""
 
 #: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
 msgid ""
 "During a review, the owner decides for each right: keep it, change it or "
 "remove it. Decisions are recorded with their author and date; GLPI changes "
@@ -35373,6 +35474,10 @@ msgid "No right in the last import of this share."
 msgstr ""
 
 #: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
 msgid "Owner who reviews the rights"
 msgstr ""
 
@@ -35398,7 +35503,15 @@ msgid "Share permission"
 msgstr ""
 
 #: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
 msgid "Start a review"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
 msgstr ""
 
 #: templates/share_access_detail.html.twig

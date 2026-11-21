@@ -33698,3 +33698,142 @@ msgstr "Für diesen Computer ist kein Management-Controller (iLO, iDRAC, XClarit
 
 msgid "Secure Boot"
 msgstr "Secure Boot"
+
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Jeder mit dem Link"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "Externer Gast"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Windows-Dateifreigabe"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Öffentlicher Link (jeder)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr "Ein Freigabelink funktioniert für jeden, der ihn hat, ohne Anmeldung."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "Externer Gast hat Zugriff"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"Eine Person aus einer anderen Organisation (Gastkonto) hat Zugriff: prüfen "
+"Sie, ob er noch nötig ist."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"Keine Websitespalte gefunden: Die Datei braucht eine Spalte wie Site, Team "
+"oder OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Zugriff von Microsoft Graph verweigert: Erteilen Sie die "
+"Anwendungsberechtigungen Sites.Read.All, Files.Read.All, User.Read.All und "
+"GroupMember.Read.All mit Administratorzustimmung."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. Import"
+" a CSV export instead."
+msgstr ""
+"Zu viele Websites oder Konten für einen Klick: Nichts wurde ersetzt. "
+"Importieren Sie stattdessen einen CSV-Export."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "SharePoint-, OneDrive- und Teams-Rechte lesen"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"GLPI liest die Freigaberechte beim Klicken über Microsoft Graph, mit der für "
+"die MFA-Abdeckung eingerichteten Anwendung, und ändert nie etwas in Microsoft"
+" 365. SharePoint: die Rechte der Dokumentbibliothek jeder Website und ihrer "
+"separat freigegebenen Elemente der obersten Ebene. OneDrive: die Elemente der"
+" obersten Ebene, die jede Person freigegeben hat. Teams: Besitzer, "
+"Mitglieder, Gäste und öffentliche Teams. Es gelten dieselben Abweichungen und"
+" dieselbe Überprüfung wie bei den Dateifreigaben: öffentliche Links, externe "
+"Gäste, Rechte für alle."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): "
+"Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Zu erteilende Anwendungsberechtigungen, mit Administratorzustimmung (nur "
+"Lesen): Sites.Read.All, Files.Read.All, User.Read.All und "
+"GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph verbunden"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Microsoft-Graph-Einstellungen"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "%s jetzt lesen"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"Microsoft Graph ist noch nicht eingerichtet. Geben Sie Mandant, Anwendungs-ID"
+" und Clientgeheimnis auf der Seite der MFA-Abdeckung ein oder importieren Sie"
+" unten einen CSV-Export."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Ausweichlösung: Importieren Sie eine CSV-Datei mit einer Zeile pro Recht und "
+"Spalten wie Source (SharePoint, OneDrive oder Teams), Site, SiteUrl, Item, "
+"Identity, Type (User, Group, Guest), Roles (read, write, owner) und LinkScope"
+" (anonymous, organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Besitzer in Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Freigabelink"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Teammitgliedschaft"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Direkte Berechtigung"
