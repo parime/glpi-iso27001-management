@@ -488,6 +488,24 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, control A.8.9', 'grcmanager'),
             ],
+            // Issue #853 : couverture de la journalisation.
+            'logcoverage' => [
+                'purpose'   => __(
+                    'Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or '
+                        . 'OpenSearch, Splunk, syslog), which send nothing or nothing for several days, and whether '
+                        . 'each platform keeps the logs long enough and synchronizes the clocks.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Choose the assets that must send their logs, import the list of hosts of each log platform '
+                        . '(or let the Wazuh plugin be read), connect the assets listed as gaps, and declare the '
+                        . 'retention and the time server of each platform. The page only reads: it runs nothing on '
+                        . 'the platforms. Record the result as an effectiveness test of the control to keep the '
+                        . 'evidence.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17', 'grcmanager'),
+            ],
             'contextitem' => [
                 'purpose'   => __(
                     'The context of the organization: the internal and external issues that affect information '
@@ -764,6 +782,24 @@ class PageHelp
                         . 'automatically.',
                     'grcmanager'
                 ),
+            ],
+            // Issue #852 : couverture MFA par compte.
+            'mfacoverage' => [
+                'purpose'   => __(
+                    'Shows which active accounts are protected by multi-factor authentication: GLPI two-factor '
+                        . 'authentication, and the methods registered with your identity provider (Microsoft Entra '
+                        . 'ID, Okta, Google Workspace, on-premises solution) imported from a CSV export. Rates are '
+                        . 'given for all accounts, administrators and remote access accounts.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Import the export of your identity provider, choose the remote access groups, then follow up '
+                        . 'the gaps: administrator or remote access without MFA, SMS or call only, account excluded '
+                        . 'without justification. Nothing is changed automatically. Record the result as an '
+                        . 'effectiveness test of the control to keep the evidence.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.5 and A.5.17', 'grcmanager'),
             ],
             'personnelcompliance' => [
                 'purpose'   => __(

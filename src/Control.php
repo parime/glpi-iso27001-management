@@ -1714,10 +1714,14 @@ class Control extends ControlBase
             'software_licenses'       => SoftwareLicenseCompliance::evidence($code),
             // Issue #847 : chiffrement des disques du parc, preuve des mesures A.8.24 et A.8.1.
             'disk_encryption'         => DiskEncryption::evidence($code),
+            // Issue #852 : couverture MFA par compte, preuve des mesures A.8.5 et A.5.17.
+            'mfa_coverage'            => MfaCoverage::evidence($code),
             // Issue #854 : retard des correctifs de sécurité, preuve des mesures A.8.8 et A.8.19.
             'patch_compliance'        => PatchCompliance::evidence($code),
             // Issue #781 : conformité de configuration (OpenSCAP, puis d'autres sources), mesure A.8.9.
             'configuration_compliance' => ConfigurationCompliance::evidence($code),
+            // Issue #853 : couverture de la journalisation, preuve des mesures A.8.15, A.8.16 et A.8.17.
+            'log_coverage'            => LogCoverage::evidence($code),
             // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation (mesure A.6.3).
             'phishing'                => PhishingCampaign::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',

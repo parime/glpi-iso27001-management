@@ -640,6 +640,23 @@
       {{ fields.htmlField('', disk_encryption_html, __('Disk encryption', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #852 : couverture MFA par compte (A.8.5, A.5.17), dans les entités de la personne. #}
+   {% if mfa_coverage is defined and mfa_coverage is not null %}
+      {% set mfa_coverage_html %}
+         <div id="grc-mfa-coverage-evidence">
+            {% set mfa_color = mfa_coverage.rate is null ? 'secondary' : (mfa_coverage.rate >= 95 ? 'success' : (mfa_coverage.rate >= 80 ? 'warning' : 'danger')) %}
+            <span class="badge bg-{{ mfa_color }}-subtle text-{{ mfa_color }}-emphasis me-1"><i class="ti ti-shield-check me-1"></i>{{ mfa_coverage.rate is null ? __('MFA rate: not measured', 'grcmanager') : __('MFA rate: %d%%', 'grcmanager')|format(mfa_coverage.rate) }}</span>
+            {% if mfa_coverage.admin_rate is not null %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-crown me-1"></i>{{ __('Administrators: %d%%', 'grcmanager')|format(mfa_coverage.admin_rate) }}</span>{% endif %}
+            {% if mfa_coverage.remote_rate is not null %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-world-share me-1"></i>{{ __('Remote access: %d%%', 'grcmanager')|format(mfa_coverage.remote_rate) }}</span>{% endif %}
+            <span class="badge {{ mfa_coverage.admins_without_mfa > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-crown-off me-1"></i>{{ __('Administrators without MFA: %d', 'grcmanager')|format(mfa_coverage.admins_without_mfa) }}</span>
+            <span class="badge {{ mfa_coverage.gaps > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d gap', '%d gaps', mfa_coverage.gaps, 'grcmanager')|format(mfa_coverage.gaps) }}</span>
+            <span class="small text-muted me-2">{{ __('Computed on %s', 'grcmanager')|format(mfa_coverage.date) }}</span>
+            <a href="{{ mfa_coverage.url }}">{{ __('View the details', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', mfa_coverage_html, __('MFA coverage', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #854 : retard des correctifs de sécurité (A.8.8, A.8.19), dans les entités de la personne. #}
    {% if patch_compliance is defined and patch_compliance is not null %}
       {% set patch_compliance_html %}
@@ -662,6 +679,23 @@
          {% include '@grcmanager/_configuration_evidence.html.twig' with {'sources': configuration_compliance.sources} only %}
       {% endset %}
       {{ fields.htmlField('', configuration_compliance_html, __('Configuration compliance', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
+   {# Issue #853 : couverture de la journalisation (A.8.15, A.8.16, A.8.17), dans les entités de la personne. #}
+   {% if log_coverage is defined and log_coverage is not null %}
+      {% set log_coverage_html %}
+         <div id="grc-log-coverage-evidence">
+            {% set log_color = log_coverage.rate is null ? 'secondary' : (log_coverage.rate >= 95 ? 'success' : (log_coverage.rate >= 80 ? 'warning' : 'danger')) %}
+            <span class="badge bg-{{ log_color }}-subtle text-{{ log_color }}-emphasis me-1"><i class="ti ti-file-search me-1"></i>{{ log_coverage.rate is null ? __('Logging coverage: not measured', 'grcmanager') : __('Logging coverage: %d%%', 'grcmanager')|format(log_coverage.rate) }}</span>
+            <span class="badge {{ log_coverage.critical_uncovered > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alert-octagon me-1"></i>{{ __('%d critical asset(s) without logging', 'grcmanager')|format(log_coverage.critical_uncovered) }}</span>
+            {% if log_coverage.stale > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-clock-pause me-1"></i>{{ __('%d asset(s) whose logs stopped', 'grcmanager')|format(log_coverage.stale) }}</span>{% endif %}
+            <span class="badge {{ log_coverage.retention_gaps > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-archive me-1"></i>{{ __('%d platform(s) with a retention too short or not declared', 'grcmanager')|format(log_coverage.retention_gaps) }}</span>
+            {% if log_coverage.ntp_missing > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-clock-exclamation me-1"></i>{{ __('%d platform(s) without declared clock synchronization', 'grcmanager')|format(log_coverage.ntp_missing) }}</span>{% endif %}
+            <span class="small text-muted me-2">{{ __('Computed on %s', 'grcmanager')|format(log_coverage.date) }}</span>
+            <a href="{{ log_coverage.url }}">{{ __('View the details', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', log_coverage_html, __('Logging coverage', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
    {# Issue #604 : simulations d'hameçonnage (A.6.3), taux agrégés et tendance. #}

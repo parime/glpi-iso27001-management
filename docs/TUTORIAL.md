@@ -1114,7 +1114,74 @@ faut le droit du plugin et le droit natif de lecture des ordinateurs.
    dans les délais (%) » et les indicateurs de risque la source « Serveurs critiques avec
    correctifs en retard ».
 
-### Étape 37 : Mesurer la conformité de configuration avec OpenSCAP (mesure A.8.9)
+### Étape 37 : Mesurer la couverture de l'authentification multifacteur (mesures A.8.5 et A.5.17)
+
+L'auditeur demande quels comptes, et surtout quels administrateurs et accès distants, sont protégés
+par une authentification multifacteur (MFA). Le plugin lit la double authentification de GLPI et
+les méthodes que vous importez depuis votre fournisseur d'identité ; il ne modifie rien et ne lit
+jamais de secret. Il faut le droit du plugin et la lecture native des utilisateurs.
+
+1. Ouvrez Revue des accès > **Couverture MFA**. L'encadré « À quoi sert cette page ? » rappelle
+   ce qui est attendu.
+2. Les compteurs donnent le taux de MFA de tous les comptes actifs de vos entités, des
+   **administrateurs** (profil qui peut modifier la configuration ou les profils de GLPI, ou rôle
+   d'administrateur déclaré par le fournisseur) et des **comptes à accès distant**.
+3. Dans **Méthodes enregistrées chez votre fournisseur d'identité**, choisissez le fournisseur
+   (Microsoft Entra ID, Okta, Google Workspace, solution sur site) et importez son export CSV. Pour
+   Entra ID : Protection > Méthodes d'authentification > Détails de l'inscription des utilisateurs,
+   télécharger. Pour un autre outil : une ligne par compte avec les colonnes `login` ou `email`,
+   `methods` (ou `mfa` oui/non), et au choix `admin`, `remote_access`, `excluded`,
+   `exclusion_reason`. Les comptes sont rapprochés par identifiant, adresse e-mail ou partie de
+   l'UPN avant le @ ; ceux qui ne correspondent à aucun compte GLPI sont listés à part.
+   Pour Entra ID, vous pouvez aussi remplir **Lire directement Microsoft Entra ID (Microsoft
+   Graph)** : inscrivez une application dans le centre d'administration Entra, donnez-lui la
+   permission d'application AuditLog.Read.All avec le consentement de l'administrateur, créez un
+   secret client, puis saisissez le locataire, l'identifiant d'application et le secret.
+   **Lire maintenant dans Microsoft Graph** remplace l'import Entra ID de l'entité ; rien n'est
+   écrit dans Entra ID.
+4. Dans **Quels comptes ont un accès distant ?**, choisissez les groupes GLPI des utilisateurs du
+   VPN ou du bureau à distance.
+5. La liste commence par les **écarts** : administrateur sans MFA, accès distant sans MFA, SMS,
+   appel ou e-mail seul, compte exclu sans justification. Traitez-les dans votre fournisseur
+   d'identité, puis importez un nouvel export.
+6. Sur la fiche des mesures A.8.5 et A.5.17, le cadre « Couverture MFA » montre les taux, le nombre
+   d'administrateurs sans MFA et la date du calcul. Le tableau de bord propose la carte
+   « Administrateurs protégés par MFA (%) », les indicateurs de risque la source « Administrateurs
+   sans MFA », et la page Hygiène des comptes rappelle leur nombre.
+
+### Étape 38 : Vérifier que les actifs importants envoient leurs journaux (mesures A.8.15, A.8.16 et A.8.17)
+
+Le plugin compare la liste des hôtes connus de vos plateformes de journaux aux ordinateurs et
+matériels réseau de GLPI. Il lit seulement : il ne lance rien sur les plateformes et ne modifie rien
+dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateurs.
+
+1. Ouvrez Sécurité technique > **Couverture de la journalisation**. L'encadré « À quoi sert cette
+   page ? » rappelle ce qui est attendu.
+2. Dans **Quels actifs doivent envoyer leurs journaux ?**, choisissez les actifs concernés (par
+   défaut les actifs critiques, les serveurs et les matériels réseau), le nombre de jours sans
+   événement au-delà duquel les journaux sont dits interrompus (7 par défaut) et la conservation
+   exigée par votre politique (180 jours par défaut). Un actif est critique quand un axe de sa
+   classification C/I/D est élevé ou qu'un flux réseau le publie sur Internet.
+3. Dans **Sources de journaux**, importez la liste des hôtes de chaque plateforme : par exemple, dans
+   Splunk, la recherche `| metadata type=hosts index=*` exportée en CSV (colonnes `host`,
+   `lastTime`) ; dans Graylog, Elastic ou OpenSearch, un tableau des sources avec leur dernier
+   horodatage. Quand le plugin Wazuh est actif, ses agents actifs sont lus directement. Un nouvel
+   import de la même plateforme remplace le précédent. Seuls le nom, l'adresse et la date du dernier
+   événement sont gardés.
+4. Dans **Conservation et synchronisation des horloges**, déclarez pour chaque plateforme la durée
+   de conservation, l'obligation du registre qui impose une durée (et laquelle), et le serveur de
+   temps. La conservation exigée est la plus longue entre la politique et l'obligation ; un badge
+   signale une conservation trop courte ou non déclarée.
+5. La liste **Actifs qui doivent envoyer leurs journaux** commence par ceux qui n'envoient rien,
+   puis ceux dont les journaux sont interrompus, les actifs critiques d'abord. Les hôtes qui envoient
+   des journaux mais que GLPI ne connaît pas sont listés à part : vérifiez leur nom ou ajoutez-les à
+   l'inventaire.
+6. Sur la fiche des mesures A.8.15, A.8.16 et A.8.17, le cadre « Couverture de la journalisation »
+   montre le taux, les actifs critiques sans journalisation, les plateformes à la conservation
+   insuffisante et la date du calcul. Les indicateurs de risque proposent la source « Actifs
+   critiques sans journalisation (%) ».
+
+### Étape 39 : Mesurer la conformité de configuration avec OpenSCAP (mesure A.8.9)
 
 OpenSCAP vérifie une machine contre un guide de durcissement (profils CIS, ANSSI, DISA STIG… du
 projet SCAP Security Guide) et produit un fichier de résultats XCCDF ou ARF. Le plugin lit ce
@@ -1148,7 +1215,6 @@ et le droit natif de lecture des ordinateurs ; importer demande le droit de modi
 Sécurité de l'import : le fichier est lu en flux (les gros rapports ARF passent), toute déclaration
 de type de document ou d'entité est refusée et aucun accès réseau n'est fait pendant la lecture. Le
 fichier lui-même n'est pas conservé, seulement les compteurs et les règles en échec.
-
 
 ## 🇬🇧 English
 
@@ -2234,7 +2300,68 @@ plugin right and the native right to read computers.
    the date of the computation. The dashboard offers the card "Computers with security patches on
    time (%)" and risk indicators the source "Critical servers with overdue patches".
 
-### Step 38: Measure configuration compliance with OpenSCAP (control A.8.9)
+### Step 38: Measure the multi-factor authentication coverage (controls A.8.5 and A.5.17)
+
+The auditor asks which accounts, and above all which administrators and remote access accounts,
+are protected by multi-factor authentication (MFA). The plugin reads GLPI two-factor authentication
+and the methods you import from your identity provider; it changes nothing and never reads any
+secret. You need the plugin right and the native right to read users.
+
+1. Open Access review > **MFA coverage**. The "What is this page for?" box recalls what is expected.
+2. The counters give the MFA rate of all the active accounts of your entities, of the
+   **administrators** (profile that can change the GLPI configuration or the profiles, or
+   administrator role reported by the provider) and of the **remote access accounts**.
+3. In **Methods registered with your identity provider**, choose the provider (Microsoft Entra ID,
+   Okta, Google Workspace, on-premises solution) and import its CSV export. For Entra ID:
+   Protection > Authentication methods > User registration details, download. For another tool:
+   one line per account with the columns `login` or `email`, `methods` (or `mfa` yes/no), and
+   optionally `admin`, `remote_access`, `excluded`, `exclusion_reason`. Accounts are matched on the
+   login, the email address or the part of the UPN before the @; those that match no GLPI account
+   are listed separately. For Entra ID, you can also fill in **Read Microsoft Entra ID directly
+   (Microsoft Graph)**: register an application in the Entra admin center, grant it the
+   AuditLog.Read.All application permission with admin consent, create a client secret, then
+   enter the tenant, the application ID and the secret. **Read now from Microsoft Graph** replaces
+   the Entra ID import of the entity; nothing is written in Entra ID.
+4. In **Which accounts have remote access?**, choose the GLPI groups of the VPN or remote desktop
+   users.
+5. The list starts with the **gaps**: administrator without MFA, remote access without MFA, SMS,
+   call or email only, account excluded without justification. Fix them in your identity provider,
+   then import a new export.
+6. On controls A.8.5 and A.5.17, the "MFA coverage" box shows the rates, the number of
+   administrators without MFA and the date of the computation. The dashboard offers the card
+   "Administrators protected by MFA (%)", risk indicators the source "Administrators without MFA",
+   and the Account hygiene page recalls their number.
+
+### Step 39: Check that important assets send their logs (controls A.8.15, A.8.16 and A.8.17)
+
+The plugin compares the list of hosts known to your log platforms with the computers and network
+devices of GLPI. It only reads: it runs nothing on the platforms and changes nothing in GLPI. You
+need the plugin right and the native right to read computers.
+
+1. Open Technical security > **Logging coverage**. The "What is this page for?" box recalls what is
+   expected.
+2. In **Which assets must send their logs?**, choose the assets concerned (by default critical
+   assets, servers and network devices), the number of days without event after which the logs are
+   considered stopped (7 by default) and the retention required by your policy (180 days by
+   default). An asset is critical when one axis of its C/I/A classification is high or when a
+   network flow publishes it on the Internet.
+3. In **Log sources**, import the list of hosts of each platform: for example, in Splunk, the search
+   `| metadata type=hosts index=*` exported as CSV (columns `host`, `lastTime`); in Graylog, Elastic
+   or OpenSearch, a table of the sources with their last timestamp. When the Wazuh plugin is active,
+   its active agents are read directly. A new import of the same platform replaces the previous one.
+   Only the name, the address and the date of the last event are kept.
+4. In **Retention and clock synchronization**, declare for each platform the retention, the
+   obligation of the register that imposes a retention (and how long), and the time server. The
+   retention required is the longest between the policy and the obligation; a badge flags a
+   retention too short or not declared.
+5. The list **Assets that must send their logs** starts with those that send nothing, then those
+   whose logs stopped, critical assets first. Hosts that send logs but that GLPI does not know are
+   listed apart: check their name or add them to the inventory.
+6. On controls A.8.15, A.8.16 and A.8.17, the "Logging coverage" box shows the rate, the critical
+   assets without logging, the platforms whose retention is not enough and the date of the
+   computation. Risk indicators offer the source "Critical assets without logging (%)".
+
+### Step 40: Measure configuration compliance with OpenSCAP (control A.8.9)
 
 OpenSCAP checks a machine against a hardening guide (CIS, ANSSI, DISA STIG... profiles of the SCAP
 Security Guide project) and writes an XCCDF or ARF results file. The plugin reads this file: it

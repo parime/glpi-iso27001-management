@@ -78,6 +78,11 @@ class RiskIndicator extends RiskIndicatorBase
             'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => ['computer' => READ], 'global' => false,
         ],
+        // Issue #852 : administrateurs sans authentification multifacteur.
+        'admins_without_mfa'        => [
+            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => ['user' => READ], 'global' => false,
+        ],
         // Issue #854 : serveurs critiques dont les correctifs sont en retard.
         'late_patch_critical_servers' => [
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
@@ -85,6 +90,11 @@ class RiskIndicator extends RiskIndicatorBase
         ],
         // Issue #781 : ordinateurs analysés par OpenSCAP avec une règle de gravité haute en échec.
         'config_high_failures'      => [
+            'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => ['computer' => READ], 'global' => false,
+        ],
+        // Issue #853 : actifs critiques qui n'envoient pas leurs journaux, ou plus depuis N jours.
+        'critical_assets_without_logging' => [
             'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => ['computer' => READ], 'global' => false,
         ],
@@ -148,11 +158,13 @@ class RiskIndicator extends RiskIndicatorBase
             'unencrypted_computers'     => __('Computers with an unencrypted disk (%)', 'grcmanager'),
             'antivirus_gaps'            => __('Computers without an up-to-date antivirus (%)', 'grcmanager'),
             'unencrypted_laptops'       => __('Laptops with an unencrypted disk (%)', 'grcmanager'),
+            'admins_without_mfa'        => __('Administrators without MFA', 'grcmanager'),
             'late_patch_critical_servers' => __('Critical servers with overdue patches', 'grcmanager'),
             'config_high_failures'      => __(
                 'Scanned computers with a high severity configuration rule failed (%)',
                 'grcmanager'
             ),
+            'critical_assets_without_logging' => __('Critical assets without logging (%)', 'grcmanager'),
             'critical_vulnerabilities'  => __('Open critical vulnerabilities in the fleet', 'grcmanager'),
             'risks_above_tolerance'     => __('Open risks above tolerance', 'grcmanager'),
             'overdue_treatment_actions' => __('Overdue risk treatment actions', 'grcmanager'),
@@ -537,8 +549,10 @@ class RiskIndicator extends RiskIndicatorBase
             'unencrypted_computers'     => ComplianceAudit::gapRate('encryption', $perimeter),
             'antivirus_gaps'            => ComplianceAudit::gapRate('antivirus', $perimeter),
             'unencrypted_laptops'       => ComplianceAudit::gapRate('laptop_encryption', $perimeter),
+            'admins_without_mfa'        => MfaCoverage::adminsWithoutMfa($perimeter),
             'late_patch_critical_servers' => PatchCompliance::lateCriticalServers($perimeter),
             'config_high_failures'      => ConfigurationCompliance::highFailureRate($perimeter),
+            'critical_assets_without_logging' => LogCoverage::criticalWithoutLogging($perimeter),
             'critical_vulnerabilities'  => (float) count(array_filter(
                 ParkVulnerability::getVulnerabilityRows(
                     false,
