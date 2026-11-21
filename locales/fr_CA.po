@@ -6362,10 +6362,11 @@ msgstr "Machines les plus exposées"
 
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
+"software, operating system and firmware, to know where to start updating."
 msgstr ""
 "Les machines les plus exposées aux vulnérabilités connues de leurs logiciels "
-"surveillés, pour savoir par où commencer les mises à jour."
+"surveillés, de leur système d'exploitation et de leurs firmwares, pour "
+"savoir par où commencer les mises à jour."
 
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
@@ -28262,94 +28263,6 @@ msgid_plural "Blocked controls"
 msgstr[0] "Mesure bloquée"
 msgstr[1] "Mesures bloquées"
 
-msgid "Review of the distribution list recorded."
-msgstr "Revue de la liste de diffusion enregistrée."
-
-msgid "Review overdue (more than 12 months)"
-msgstr "Revue en retard (plus de 12 mois)"
-
-#, php-format
-msgid "Last review on %1$s by %2$s, next one before %3$s."
-msgstr "Dernière revue le %1$s par %2$s, prochaine avant le %3$s."
-
-msgid ""
-"Check once a year that each recipient, deputy and address is still right."
-msgstr ""
-"Vérifiez une fois par an que chaque destinataire, suppléant et adresse est "
-"toujours juste."
-
-msgid "Mark the list as reviewed today"
-msgstr "Marquer la liste comme revue aujourd'hui"
-
-msgid "Role in the list"
-msgstr "Rôle dans la liste"
-
-msgid "Main recipient"
-msgstr "Destinataire principal"
-
-#, php-format
-msgid "Deputy of %s"
-msgstr "Suppléant de %s"
-
-msgid "Deputy"
-msgstr "Suppléant"
-
-msgid "No deputy"
-msgstr "Sans suppléant"
-
-msgid ""
-"The addresses of the members are included when you copy or export the "
-"addresses."
-msgstr ""
-"Les adresses des membres sont reprises quand vous copiez ou exportez les "
-"adresses."
-
-msgid "Distribution list last reviewed on"
-msgstr "Liste de diffusion revue le"
-
-msgid "Crisis communications"
-msgstr "Communications de crise"
-
-#, php-format
-msgid ""
-"%d main recipient has no deputy: if they cannot be reached during a crisis, "
-"nobody else is planned."
-msgid_plural ""
-"%d main recipients have no deputy: if they cannot be reached during a "
-"crisis, nobody else is planned."
-msgstr[0] ""
-"%d destinataire principal n'a pas de suppléant : s'il est injoignable "
-"pendant une crise, personne d'autre n'est prévu."
-msgstr[1] ""
-"%d destinataires principaux n'ont pas de suppléant : s'ils sont injoignables "
-"pendant une crise, personne d'autre n'est prévu."
-
-#, php-format
-msgid "%d member without email"
-msgid_plural "%d members without email"
-msgstr[0] "%d membre sans courriel"
-msgstr[1] "%d membres sans courriel"
-
-#, php-format
-msgid "%d distribution list not reviewed within 12 months"
-msgid_plural "%d distribution lists not reviewed within 12 months"
-msgstr[0] "%d liste de diffusion non revue depuis 12 mois"
-msgstr[1] "%d listes de diffusion non revues depuis 12 mois"
-
-#, php-format
-msgid "%d main recipient without deputy"
-msgid_plural "%d main recipients without deputy"
-msgstr[0] "%d destinataire principal sans suppléant"
-msgstr[1] "%d destinataires principaux sans suppléant"
-
-msgid ""
-"The machines most exposed to the known vulnerabilities of their watched "
-"software, operating system and firmware, to know where to start updating."
-msgstr ""
-"Les machines les plus exposées aux vulnérabilités connues de leurs logiciels "
-"surveillés, de leur système d'exploitation et de leurs firmwares, pour "
-"savoir par où commencer les mises à jour."
-
 msgid "Hardware whose model has reached the manufacturer end of life"
 msgstr "Matériel dont le modèle a atteint la fin de vie constructeur"
 
@@ -28839,524 +28752,6 @@ msgid ""
 msgstr ""
 "Grille, constats, actions et zones de cette évaluation, pour l'auditeur."
 
-msgid "Security patches"
-msgstr "Correctifs de sécurité"
-
-msgid "Patches overdue"
-msgstr "Correctifs en retard"
-
-msgid "The last known patch is older than the target delay of the computer."
-msgstr ""
-"Le dernier correctif connu est plus ancien que le délai cible de "
-"l'ordinateur."
-
-msgid ""
-"No dated update in the inventory: no inventory agent, or a system whose "
-"agent does not report installed updates."
-msgstr ""
-"Aucune mise à jour datée dans l'inventaire : pas d'agent d'inventaire, ou un "
-"système dont l'agent ne remonte pas les mises à jour installées."
-
-msgid "The last known patch is within the target delay of the computer."
-msgstr "Le dernier correctif connu est dans le délai cible de l'ordinateur."
-
-msgid "A high C, I or A level, or published on the Internet."
-msgstr "Un niveau C, I ou D élevé, ou publié sur Internet."
-
-msgid "Important"
-msgstr "Important"
-
-msgid "A medium C, I or A level."
-msgstr "Un niveau C, I ou D moyen."
-
-msgid "Standard"
-msgstr "Standard"
-
-msgid "Low or not classified."
-msgstr "Faible ou non classé."
-
-msgid "System update"
-msgstr "Mise à jour du système"
-
-msgid "Package installation"
-msgstr "Installation de paquet"
-
-msgid "No dated update"
-msgstr "Aucune mise à jour datée"
-
-#, php-format
-msgid "Computers with security patches on time (%)"
-msgstr "Ordinateurs aux correctifs dans les délais (%)"
-
-msgid "Computers with security patches on time"
-msgstr "Ordinateurs aux correctifs dans les délais"
-
-msgid "Target delays saved."
-msgstr "Délais cibles enregistrés."
-
-msgid "Critical servers with overdue patches"
-msgstr "Serveurs critiques avec correctifs en retard"
-
-msgid ""
-"Shows, from the GLPI inventory (operating system, version, updates reported "
-"by the agent), the date of the last known security patch of each computer "
-"and whether it is within the target delay of its criticality. Computers "
-"published on the Internet and critical computers come first, with the known "
-"vulnerabilities of their system and their end of support."
-msgstr ""
-"Montre, d'après l'inventaire GLPI (système d'exploitation, version, mises à "
-"jour remontées par l'agent), la date du dernier correctif de sécurité connu "
-"de chaque ordinateur et s'il respecte le délai cible de sa criticité. Les "
-"ordinateurs publiés sur Internet et les ordinateurs critiques passent en "
-"tête, avec les vulnérabilités connues de leur système et leur fin de support."
-
-msgid ""
-"Set the target delay of each criticality, classify the computers (C/I/A "
-"tab), patch the late computers, and install the inventory agent on those of "
-"unknown state. The page only reads the inventory: it starts no update. "
-"Record the result as an effectiveness test of the control to keep the "
-"evidence."
-msgstr ""
-"Réglez le délai cible de chaque criticité, classez les ordinateurs (onglet C/"
-"I/D), corrigez les ordinateurs en retard et installez l'agent d'inventaire "
-"sur ceux à l'état inconnu. La page lit seulement l'inventaire : elle ne "
-"lance aucune mise à jour. Enregistrez le résultat comme test d'efficacité de "
-"la mesure pour garder la preuve."
-
-msgid "ISO/IEC 27001, controls A.8.8 and A.8.19"
-msgstr "ISO/IEC 27001, mesures A.8.8 et A.8.19"
-
-#, php-format
-msgid "Among the %d computers whose last patch is known"
-msgstr "Parmi les %d ordinateurs dont le dernier correctif est connu"
-
-msgid "Computers published on the Internet with overdue patches"
-msgstr "Ordinateurs publiés sur Internet avec correctifs en retard"
-
-msgid "Target delays by criticality"
-msgstr "Délais cibles par criticité"
-
-msgid ""
-"The criticality of a computer comes from its C/I/A classification (tab of "
-"the computer form): the highest of the three levels counts. A computer that "
-"a network flow publishes on the Internet is critical. A computer is late "
-"when its last known patch is older than the delay of its criticality."
-msgstr ""
-"La criticité d'un ordinateur vient de sa classification C/I/D (onglet de la "
-"fiche de l'ordinateur) : le plus élevé des trois niveaux compte. Un "
-"ordinateur qu'un flux réseau publie sur Internet est critique. Un ordinateur "
-"est en retard quand son dernier correctif connu est plus ancien que le délai "
-"de sa criticité."
-
-msgid "Target delay (days)"
-msgstr "Délai cible (jours)"
-
-msgid "Computers"
-msgstr "Ordinateurs"
-
-msgid "Patch status by computer"
-msgstr "État des correctifs par ordinateur"
-
-msgid "No computer in your entities."
-msgstr "Aucun ordinateur dans vos entités."
-
-#, php-format
-msgid "%1$d computers: the first %2$d are shown, overdue ones first."
-msgstr ""
-"%1$d ordinateurs : les %2$d premiers sont affichés, les retards d'abord."
-
-msgid "Last known patch"
-msgstr "Dernier correctif connu"
-
-msgid "Vulnerabilities and end of support"
-msgstr "Vulnérabilités et fin de support"
-
-msgid "Server"
-msgstr "Serveur"
-
-msgid "Published on the Internet"
-msgstr "Publié sur Internet"
-
-msgid "Not inventoried"
-msgstr "Non inventorié"
-
-#, php-format
-msgid "Target: %d days"
-msgstr "Cible : %d jours"
-
-#, php-format
-msgid "%d days late"
-msgstr "%d jours de retard"
-
-#, php-format
-msgid "%d known CVE(s) of the system"
-msgstr "%d CVE connue(s) du système"
-
-#, php-format
-msgid "%d exploited"
-msgstr "%d exploitée(s)"
-
-#, php-format
-msgid "Inventory older than %d days: the data may be out of date."
-msgstr ""
-"Inventaire de plus de %d jours : les données peuvent ne plus être à jour."
-
-msgid "Old inventory"
-msgstr "Inventaire ancien"
-
-msgid ""
-"Read only: the plugin reads the GLPI inventory, never starts an update and "
-"changes nothing in GLPI."
-msgstr ""
-"Lecture seule : le plugin lit l'inventaire GLPI, ne lance jamais de mise à "
-"jour et ne modifie rien dans GLPI."
-
-msgid "Network flows"
-msgstr "Flux réseau"
-
-msgid "Patches on time: not measured"
-msgstr "Correctifs dans les délais : non mesuré"
-
-#, php-format
-msgid "Patches on time: %d%%"
-msgstr "Correctifs dans les délais : %d %%"
-
-#, php-format
-msgid "%d computer(s) late"
-msgstr "%d ordinateur(s) en retard"
-
-#, php-format
-msgid "%d critical server(s) late"
-msgstr "%d serveur(s) critique(s) en retard"
-
-#, php-format
-msgid "%d day ago"
-msgid_plural "%d days ago"
-msgstr[0] "il y a %d jour"
-msgstr[1] "il y a %d jours"
-
-msgid "Proposed flow"
-msgstr "Flux proposé"
-
-msgid ""
-"These values were proposed by another page, for example the Docker "
-"inventory. Check them, add the justification and the owner, then click "
-"\"Add\": nothing is saved before."
-msgstr ""
-"Ces valeurs ont été proposées par une autre page, par exemple l'inventaire "
-"Docker. Vérifiez-les, ajoutez la justification et le propriétaire, puis "
-"cliquez sur « Ajouter » : rien n'est enregistré avant."
-
-#, php-format
-msgid "%d control updated."
-msgid_plural "%d controls updated."
-msgstr[0] "%d mesure mise à jour."
-msgstr[1] "%d mesures mises à jour."
-
-#, php-format
-msgid "Maturity campaign: %s"
-msgstr "Campagne de maturité : %s"
-
-#, php-format
-msgid "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
-msgstr "Niveau actuel : %1$d (%2$s). Niveau cible : %3$d (%4$s)."
-
-#, php-format
-msgid "Target date: %s"
-msgstr "Échéance : %s"
-
-#, php-format
-msgid "Maturity gap %1$s: from level %2$d to level %3$d"
-msgstr "Écart de maturité %1$s : du niveau %2$d au niveau %3$d"
-
-msgid "Maturity campaign"
-msgid_plural "Maturity campaigns"
-msgstr[0] "Campagne de maturité"
-msgstr[1] "Campagnes de maturité"
-
-msgid "Maturity by control"
-msgstr "Maturité par mesure"
-
-msgid "Non-existent"
-msgstr "Inexistant"
-
-#, php-format
-msgid "Maturity assessment of %s"
-msgstr "Évaluation de maturité du %s"
-
-msgid "Levels by control"
-msgstr "Niveaux par mesure"
-
-msgid "Comparison"
-msgstr "Comparaison"
-
-msgid "Campaign lead"
-msgstr "Pilote de la campagne"
-
-#, php-format
-msgid "Maturity by control: %s"
-msgstr "Maturité par mesure : %s"
-
-msgid ""
-"Rates each applicable control of the Statement of Applicability on a scale "
-"from 0 (non-existent) to 5 (optimised): the level reached today and the "
-"level aimed for, with a target date. The gaps between the two make up the "
-"security roadmap, and two dated campaigns show the progress. These optional "
-"levels change neither the implementation status of the controls nor the "
-"maturity score."
-msgstr ""
-"Évalue chaque mesure applicable de la déclaration d'applicabilité sur une "
-"échelle de 0 (inexistant) à 5 (optimisé) : le niveau atteint aujourd'hui et "
-"le niveau visé, avec une échéance. Les écarts entre les deux forment la "
-"feuille de route de la sécurité, et deux campagnes datées montrent les "
-"progrès. Ces niveaux facultatifs ne changent ni l'état de mise en œuvre des "
-"mesures ni le score de maturité."
-
-msgid ""
-"Create a campaign (for example once a year), fill in the current and target "
-"levels of each control with a justification and an owner, then open the "
-"\"Gaps\" tab: create an action for the largest gaps and download the report "
-"for the management review. The next campaign takes over the targets of this "
-"one."
-msgstr ""
-"Créez une campagne (par exemple une fois par an), renseignez les niveaux "
-"actuel et cible de chaque mesure avec une justification et un responsable, "
-"puis ouvrez l'onglet « Écarts » : créez une action pour les plus grands "
-"écarts et téléchargez le rapport pour la revue de direction. La campagne "
-"suivante reprend les cibles de celle-ci."
-
-msgid "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
-msgstr "ISO/IEC 27001, articles 6.2, 9.3 et 10.1"
-
-msgid "Maturity scale by control"
-msgstr "Échelle de maturité par mesure"
-
-msgid "Open the maturity campaigns"
-msgstr "Ouvrir les campagnes de maturité"
-
-msgid ""
-"Rename the levels of the scale used by the maturity campaigns to match your "
-"method. Leave a field empty to keep the default label, translated into the "
-"language of each user; a label you enter is shown as is in every language. "
-"Renaming a level changes no recorded level."
-msgstr ""
-"Renommez les niveaux de l'échelle utilisée par les campagnes de maturité "
-"pour suivre votre méthode. Laissez un champ vide pour garder le libellé par "
-"défaut, traduit dans la langue de chaque utilisateur ; un libellé saisi "
-"s'affiche tel quel dans toutes les langues. Renommer un niveau ne change "
-"aucun niveau enregistré."
-
-#, php-format
-msgid "%d control declined"
-msgid_plural "%d controls declined"
-msgstr[0] "%d mesure en recul"
-msgstr[1] "%d mesures en recul"
-
-#, php-format
-msgid "%d control improved"
-msgid_plural "%d controls improved"
-msgstr[0] "%d mesure en progrès"
-msgstr[1] "%d mesures en progrès"
-
-#, php-format
-msgid "%d control unchanged"
-msgid_plural "%d controls unchanged"
-msgstr[0] "%d mesure inchangée"
-msgstr[1] "%d mesures inchangées"
-
-msgid "Compare"
-msgstr "Comparer"
-
-msgid "Compare with"
-msgstr "Comparer avec"
-
-msgid "Comparison of two campaigns"
-msgstr "Comparaison de deux campagnes"
-
-msgid ""
-"Current levels of each campaign. A control assessed in only one of the two "
-"campaigns is not compared."
-msgstr ""
-"Niveaux actuels de chaque campagne. Une mesure évaluée dans une seule des "
-"deux campagnes n'est pas comparée."
-
-msgid "New campaign"
-msgstr "Nouvelle campagne"
-
-msgid ""
-"There is no other campaign in this entity yet. Create the next campaign (for "
-"example next year): it takes over the targets of this one, and both can then "
-"be compared here."
-msgstr ""
-"Il n'y a pas encore d'autre campagne dans cette entité. Créez la campagne "
-"suivante (par exemple l'an prochain) : elle reprend les cibles de celle-ci, "
-"et les deux pourront alors être comparées ici."
-
-#, php-format
-msgid "%d gap to close"
-msgid_plural "%d gaps to close"
-msgstr[0] "%d écart à combler"
-msgstr[1] "%d écarts à combler"
-
-#, php-format
-msgid "Average level: %1$s, target %2$s"
-msgstr "Niveau moyen : %1$s, cible %2$s"
-
-msgid ""
-"Average levels by theme, gaps sorted by size and comparison with the "
-"previous campaign, for the management review."
-msgstr ""
-"Niveaux moyens par thème, écarts triés par taille et comparaison avec la "
-"campagne précédente, pour la revue de direction."
-
-msgid "Average over the controls that have both a current and a target level."
-msgstr ""
-"Moyenne des mesures qui ont à la fois un niveau actuel et un niveau cible."
-
-msgid "Campaigns are compared in the order of this date."
-msgstr "Les campagnes sont comparées dans l'ordre de cette date."
-
-msgid "For example \"2026 assessment\". Left empty, the date is used."
-msgstr "Par exemple « Évaluation 2026 ». Laissé vide, la date est utilisée."
-
-msgid "No gap: every target is reached"
-msgstr "Aucun écart : toutes les cibles sont atteintes"
-
-msgid "Previous campaign"
-msgstr "Campagne précédente"
-
-msgid ""
-"The campaign lists the applicable controls of the Statement of Applicability "
-"of the entity. The targets, target dates, justifications and owners of the "
-"previous campaign are taken over; the current levels are left to assess."
-msgstr ""
-"La campagne reprend les mesures applicables de la déclaration "
-"d'applicabilité de l'entité. Les cibles, échéances, justifications et "
-"responsables de la campagne précédente sont repris ; les niveaux actuels "
-"restent à évaluer."
-
-msgid ""
-"The overall maturity score is computed separately from your data and does "
-"not use these levels."
-msgstr ""
-"Le score de maturité global est calculé à part, à partir de vos données, et "
-"n'utilise pas ces niveaux."
-
-msgid ""
-"A gap is the target level minus the current level. The largest gaps come "
-"first, then the nearest target dates: they are the priorities of the roadmap "
-"to present to management. \"Create the action\" opens a pre-filled "
-"opportunity for improvement that you review and save yourself."
-msgstr ""
-"Un écart est le niveau cible moins le niveau actuel. Les plus grands écarts "
-"viennent d'abord, puis les échéances les plus proches : ce sont les "
-"priorités de la feuille de route à présenter à la direction. « Créer "
-"l'action » ouvre une piste d'amélioration pré-remplie que vous relisez et "
-"enregistrez vous-même."
-
-msgid "All (ISO/IEC 27001 Annex A)"
-msgstr "Tous (Annexe A de l'ISO/IEC 27001)"
-
-msgid "Average level of the controls of each theme that have both levels."
-msgstr "Niveau moyen des mesures de chaque thème qui ont les deux niveaux."
-
-msgid "Current and target levels by theme"
-msgstr "Niveaux actuel et cible par thème"
-
-msgid "Gaps to close"
-msgstr "Écarts à combler"
-
-msgid "No gap matches these filters."
-msgstr "Aucun écart ne correspond à ces filtres."
-
-msgid ""
-"No gap: fill in the current and target levels in the \"Levels by control\" "
-"tab; the controls whose target is not reached are listed here."
-msgstr ""
-"Aucun écart : renseignez les niveaux actuel et cible dans l'onglet « Niveaux "
-"par mesure » ; les mesures dont la cible n'est pas atteinte sont listées ici."
-
-msgid "Target date"
-msgstr "Échéance"
-
-msgid "Target date passed"
-msgstr "Échéance dépassée"
-
-msgid "Target level"
-msgstr "Niveau cible"
-
-msgid "The chart appears once controls have both a current and a target level."
-msgstr ""
-"Le graphique apparaît dès que des mesures ont à la fois un niveau actuel et "
-"un niveau cible."
-
-msgid "Current level at the previous campaign"
-msgstr "Niveau actuel lors de la campagne précédente"
-
-msgid ""
-"For each control, choose the level reached today and the level aimed for, on "
-"the scale below, then click \"Save the levels\" at the bottom of the page. A "
-"level left on \"Not assessed\" is simply ignored. These levels change "
-"neither the implementation status of the control nor the maturity score."
-msgstr ""
-"Pour chaque mesure, choisissez le niveau atteint aujourd'hui et le niveau "
-"visé, sur l'échelle ci-dessous, puis cliquez sur « Enregistrer les niveaux » "
-"en bas de la page. Un niveau laissé sur « Non évalué » est simplement "
-"ignoré. Ces niveaux ne changent ni l'état de mise en œuvre de la mesure ni "
-"le score de maturité."
-
-msgid "Implementation status in the SoA"
-msgstr "État de mise en œuvre dans la SoA"
-
-msgid ""
-"No applicable control in the Statement of Applicability of this entity when "
-"the campaign was created. Declare the applicable controls in the SoA, then "
-"create a new campaign."
-msgstr ""
-"Aucune mesure applicable dans la déclaration d'applicabilité de cette entité "
-"à la création de la campagne. Déclarez les mesures applicables dans la SoA, "
-"puis créez une nouvelle campagne."
-
-msgid "No target"
-msgstr "Pas de cible"
-
-msgid "Open the Statement of Applicability"
-msgstr "Ouvrir la déclaration d'applicabilité"
-
-msgid "Reached"
-msgstr "Atteinte"
-
-msgid "Save the levels"
-msgstr "Enregistrer les niveaux"
-
-msgid ""
-"Targets, dates, owners and justifications come from the previous campaign: "
-"adjust them if needed."
-msgstr ""
-"Les cibles, échéances, responsables et justifications viennent de la "
-"campagne précédente : ajustez-les si besoin."
-
-#, php-format
-msgid ""
-"Action proposed from a maturity gap (%s): review and adapt each field, check "
-"the owner and the due date, then click \"Add\". Nothing is created before, "
-"and the gap is linked to this action once it is saved."
-msgstr ""
-"Action proposée depuis un écart de maturité (%s) : relisez et adaptez chaque "
-"champ, vérifiez le responsable et l'échéance, puis cliquez sur « Ajouter ». "
-"Rien n'est créé avant, et l'écart est lié à cette action une fois "
-"enregistrée."
-
-msgid ""
-"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
-"neither the implementation status of the controls nor the maturity score."
-msgstr ""
-"Niveaux de 0 (inexistant) à 5 (optimisé). Ces niveaux facultatifs ne "
-"changent ni l'état de mise en œuvre des mesures ni le score de maturité."
-
-msgid "No previous campaign in this entity."
-msgstr "Aucune campagne précédente dans cette entité."
-
 #, php-format
 msgid ""
 "%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
@@ -29669,6 +29064,202 @@ msgid_plural "%d accounts"
 msgstr[0] "%d compte"
 msgstr[1] "%d comptes"
 
+msgid "Security patches"
+msgstr "Correctifs de sécurité"
+
+msgid "Patches overdue"
+msgstr "Correctifs en retard"
+
+msgid "The last known patch is older than the target delay of the computer."
+msgstr ""
+"Le dernier correctif connu est plus ancien que le délai cible de "
+"l'ordinateur."
+
+msgid ""
+"No dated update in the inventory: no inventory agent, or a system whose "
+"agent does not report installed updates."
+msgstr ""
+"Aucune mise à jour datée dans l'inventaire : pas d'agent d'inventaire, ou un "
+"système dont l'agent ne remonte pas les mises à jour installées."
+
+msgid "The last known patch is within the target delay of the computer."
+msgstr "Le dernier correctif connu est dans le délai cible de l'ordinateur."
+
+msgid "A high C, I or A level, or published on the Internet."
+msgstr "Un niveau C, I ou D élevé, ou publié sur Internet."
+
+msgid "Important"
+msgstr "Important"
+
+msgid "A medium C, I or A level."
+msgstr "Un niveau C, I ou D moyen."
+
+msgid "Standard"
+msgstr "Standard"
+
+msgid "Low or not classified."
+msgstr "Faible ou non classé."
+
+msgid "System update"
+msgstr "Mise à jour du système"
+
+msgid "Package installation"
+msgstr "Installation de paquet"
+
+msgid "No dated update"
+msgstr "Aucune mise à jour datée"
+
+#, php-format
+msgid "Computers with security patches on time (%)"
+msgstr "Ordinateurs aux correctifs dans les délais (%)"
+
+msgid "Computers with security patches on time"
+msgstr "Ordinateurs aux correctifs dans les délais"
+
+msgid "Target delays saved."
+msgstr "Délais cibles enregistrés."
+
+msgid "Critical servers with overdue patches"
+msgstr "Serveurs critiques avec correctifs en retard"
+
+msgid ""
+"Shows, from the GLPI inventory (operating system, version, updates reported "
+"by the agent), the date of the last known security patch of each computer "
+"and whether it is within the target delay of its criticality. Computers "
+"published on the Internet and critical computers come first, with the known "
+"vulnerabilities of their system and their end of support."
+msgstr ""
+"Montre, d'après l'inventaire GLPI (système d'exploitation, version, mises à "
+"jour remontées par l'agent), la date du dernier correctif de sécurité connu "
+"de chaque ordinateur et s'il respecte le délai cible de sa criticité. Les "
+"ordinateurs publiés sur Internet et les ordinateurs critiques passent en "
+"tête, avec les vulnérabilités connues de leur système et leur fin de support."
+
+msgid ""
+"Set the target delay of each criticality, classify the computers (C/I/A "
+"tab), patch the late computers, and install the inventory agent on those of "
+"unknown state. The page only reads the inventory: it starts no update. "
+"Record the result as an effectiveness test of the control to keep the "
+"evidence."
+msgstr ""
+"Réglez le délai cible de chaque criticité, classez les ordinateurs (onglet C/"
+"I/D), corrigez les ordinateurs en retard et installez l'agent d'inventaire "
+"sur ceux à l'état inconnu. La page lit seulement l'inventaire : elle ne "
+"lance aucune mise à jour. Enregistrez le résultat comme test d'efficacité de "
+"la mesure pour garder la preuve."
+
+msgid "ISO/IEC 27001, controls A.8.8 and A.8.19"
+msgstr "ISO/IEC 27001, mesures A.8.8 et A.8.19"
+
+#, php-format
+msgid "Among the %d computers whose last patch is known"
+msgstr "Parmi les %d ordinateurs dont le dernier correctif est connu"
+
+msgid "Computers published on the Internet with overdue patches"
+msgstr "Ordinateurs publiés sur Internet avec correctifs en retard"
+
+msgid "Target delays by criticality"
+msgstr "Délais cibles par criticité"
+
+msgid ""
+"The criticality of a computer comes from its C/I/A classification (tab of "
+"the computer form): the highest of the three levels counts. A computer that "
+"a network flow publishes on the Internet is critical. A computer is late "
+"when its last known patch is older than the delay of its criticality."
+msgstr ""
+"La criticité d'un ordinateur vient de sa classification C/I/D (onglet de la "
+"fiche de l'ordinateur) : le plus élevé des trois niveaux compte. Un "
+"ordinateur qu'un flux réseau publie sur Internet est critique. Un ordinateur "
+"est en retard quand son dernier correctif connu est plus ancien que le délai "
+"de sa criticité."
+
+msgid "Target delay (days)"
+msgstr "Délai cible (jours)"
+
+msgid "Computers"
+msgstr "Ordinateurs"
+
+msgid "Patch status by computer"
+msgstr "État des correctifs par ordinateur"
+
+msgid "No computer in your entities."
+msgstr "Aucun ordinateur dans vos entités."
+
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, overdue ones first."
+msgstr ""
+"%1$d ordinateurs : les %2$d premiers sont affichés, les retards d'abord."
+
+msgid "Last known patch"
+msgstr "Dernier correctif connu"
+
+msgid "Vulnerabilities and end of support"
+msgstr "Vulnérabilités et fin de support"
+
+msgid "Server"
+msgstr "Serveur"
+
+msgid "Published on the Internet"
+msgstr "Publié sur Internet"
+
+msgid "Not inventoried"
+msgstr "Non inventorié"
+
+#, php-format
+msgid "Target: %d days"
+msgstr "Cible : %d jours"
+
+#, php-format
+msgid "%d days late"
+msgstr "%d jours de retard"
+
+#, php-format
+msgid "%d known CVE(s) of the system"
+msgstr "%d CVE connue(s) du système"
+
+#, php-format
+msgid "%d exploited"
+msgstr "%d exploitée(s)"
+
+#, php-format
+msgid "Inventory older than %d days: the data may be out of date."
+msgstr ""
+"Inventaire de plus de %d jours : les données peuvent ne plus être à jour."
+
+msgid "Old inventory"
+msgstr "Inventaire ancien"
+
+msgid ""
+"Read only: the plugin reads the GLPI inventory, never starts an update and "
+"changes nothing in GLPI."
+msgstr ""
+"Lecture seule : le plugin lit l'inventaire GLPI, ne lance jamais de mise à "
+"jour et ne modifie rien dans GLPI."
+
+msgid "Network flows"
+msgstr "Flux réseau"
+
+msgid "Patches on time: not measured"
+msgstr "Correctifs dans les délais : non mesuré"
+
+#, php-format
+msgid "Patches on time: %d%%"
+msgstr "Correctifs dans les délais : %d %%"
+
+#, php-format
+msgid "%d computer(s) late"
+msgstr "%d ordinateur(s) en retard"
+
+#, php-format
+msgid "%d critical server(s) late"
+msgstr "%d serveur(s) critique(s) en retard"
+
+#, php-format
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] "il y a %d jour"
+msgstr[1] "il y a %d jours"
+
 msgid ""
 "Not saved: the tenant must be a domain name or an ID, and the application ID "
 "an ID such as 00000000-0000-0000-0000-000000000000."
@@ -29799,6 +29390,105 @@ msgid ""
 "The secret is encrypted with the GLPI key, never displayed again nor logged."
 msgstr ""
 "Le secret est chiffré avec la clé de GLPI, jamais réaffiché ni journalisé."
+
+msgid ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, to know where to start updating."
+msgstr ""
+"Les machines les plus exposées aux vulnérabilités connues de leurs logiciels "
+"surveillés, pour savoir par où commencer les mises à jour."
+
+msgid "Review of the distribution list recorded."
+msgstr "Revue de la liste de diffusion enregistrée."
+
+msgid "Review overdue (more than 12 months)"
+msgstr "Revue en retard (plus de 12 mois)"
+
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr "Dernière revue le %1$s par %2$s, prochaine avant le %3$s."
+
+msgid ""
+"Check once a year that each recipient, deputy and address is still right."
+msgstr ""
+"Vérifiez une fois par an que chaque destinataire, suppléant et adresse est "
+"toujours juste."
+
+msgid "Mark the list as reviewed today"
+msgstr "Marquer la liste comme revue aujourd'hui"
+
+msgid "Role in the list"
+msgstr "Rôle dans la liste"
+
+msgid "Main recipient"
+msgstr "Destinataire principal"
+
+#, php-format
+msgid "Deputy of %s"
+msgstr "Suppléant de %s"
+
+msgid "Deputy"
+msgstr "Suppléant"
+
+msgid "No deputy"
+msgstr "Sans suppléant"
+
+msgid ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+msgstr ""
+"Les adresses des membres sont reprises quand vous copiez ou exportez les "
+"adresses."
+
+msgid "Distribution list last reviewed on"
+msgstr "Liste de diffusion revue le"
+
+msgid "Crisis communications"
+msgstr "Communications de crise"
+
+#, php-format
+msgid ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgid_plural ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+msgstr[0] ""
+"%d destinataire principal n'a pas de suppléant : s'il est injoignable "
+"pendant une crise, personne d'autre n'est prévu."
+msgstr[1] ""
+"%d destinataires principaux n'ont pas de suppléant : s'ils sont injoignables "
+"pendant une crise, personne d'autre n'est prévu."
+
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] "%d membre sans courriel"
+msgstr[1] "%d membres sans courriel"
+
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] "%d liste de diffusion non revue depuis 12 mois"
+msgstr[1] "%d listes de diffusion non revues depuis 12 mois"
+
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] "%d destinataire principal sans suppléant"
+msgstr[1] "%d destinataires principaux sans suppléant"
+
+msgid "Proposed flow"
+msgstr "Flux proposé"
+
+msgid ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
+msgstr ""
+"Ces valeurs ont été proposées par une autre page, par exemple l'inventaire "
+"Docker. Vérifiez-les, ajoutez la justification et le propriétaire, puis "
+"cliquez sur « Ajouter » : rien n'est enregistré avant."
 
 #, php-format
 msgid ""
@@ -30139,6 +29829,320 @@ msgid_plural "%d log platforms"
 msgstr[0] "%d plateforme de journaux"
 msgstr[1] "%d plateformes de journaux"
 
+msgid "Choose an XML results file produced by OpenSCAP (XCCDF or ARF)."
+msgstr ""
+"Choisissez un fichier de résultats XML produit par OpenSCAP (XCCDF ou ARF)."
+
+#, php-format
+msgid ""
+"%1$d scan result(s) imported: %2$d matched to a computer, %3$d not matched, "
+"%4$d already imported."
+msgstr ""
+"%1$d résultat(s) d'analyse importé(s) : %2$d rapproché(s) d'un ordinateur, "
+"%3$d non rapproché(s), %4$d déjà importé(s)."
+
+msgid ""
+"The file holds more results or failed rules than the import keeps: only the "
+"first ones were kept."
+msgstr ""
+"Le fichier contient plus de résultats ou de règles en échec que l'import "
+"n'en garde : seuls les premiers ont été gardés."
+
+msgid "Choose a computer you can see."
+msgstr "Choisissez un ordinateur que vous voyez."
+
+msgid "Scan result matched to the computer."
+msgstr "Résultat d'analyse rattaché à l'ordinateur."
+
+msgid "Scan result deleted."
+msgstr "Résultat d'analyse supprimé."
+
+msgid "Configuration compliance"
+msgstr "Conformité de configuration"
+
+msgid "Information"
+msgstr "Information"
+
+msgid "Error during the check"
+msgstr "Erreur pendant la vérification"
+
+msgid ""
+"The file contains a document type or entity declaration, refused for "
+"security reasons. OpenSCAP never writes one: export the results again with "
+"oscap."
+msgstr ""
+"Le fichier contient une déclaration de type de document ou d'entité, refusée "
+"pour des raisons de sécurité. OpenSCAP n'en écrit jamais : exportez de "
+"nouveau les résultats avec oscap."
+
+msgid ""
+"No scan result was found in the file. Choose the results file (option --"
+"results or --results-arf of oscap), not the benchmark or the HTML report."
+msgstr ""
+"Aucun résultat d'analyse dans le fichier. Choisissez le fichier de résultats "
+"(option --results ou --results-arf d'oscap), pas le référentiel ni le "
+"rapport HTML."
+
+msgid "The file is not valid XML, or it is truncated."
+msgstr "Le fichier n'est pas un XML valide, ou il est tronqué."
+
+#, php-format
+msgid "Configuration remediation: %1$s (%2$d rule(s) failed)"
+msgstr "Remédiation de configuration : %1$s (%2$d règle(s) en échec)"
+
+msgid "OpenSCAP scans (XCCDF/ARF)"
+msgstr "Analyses OpenSCAP (XCCDF/ARF)"
+
+msgid "No scan imported yet"
+msgstr "Aucune analyse importée pour l'instant"
+
+msgid "Import results"
+msgstr "Importer des résultats"
+
+msgid "Average compliance: not measured"
+msgstr "Conformité moyenne : non mesurée"
+
+#, php-format
+msgid "Average compliance: %d%%"
+msgstr "Conformité moyenne : %d %%"
+
+#, php-format
+msgid "%d machine(s) scanned"
+msgstr "%d machine(s) analysée(s)"
+
+#, php-format
+msgid "%1$d below %2$d%%"
+msgstr "%1$d sous %2$d %%"
+
+#, php-format
+msgid "%d with a high severity rule failed"
+msgstr "%d avec une règle de gravité haute en échec"
+
+#, php-format
+msgid "%d not matched to a computer"
+msgstr "%d non rapproché(s) d'un ordinateur"
+
+#, php-format
+msgid "Last scan on %s"
+msgstr "Dernière analyse le %s"
+
+msgid ""
+"Measures how well the configuration of the computers follows a hardening "
+"guide (CIS, ANSSI, DISA STIG...), from the results files of the OpenSCAP "
+"scanner: rate of rules passed per computer, change since the previous scan, "
+"most frequent failed rules and history."
+msgstr ""
+"Mesure à quel point la configuration des ordinateurs suit un guide de "
+"durcissement (CIS, ANSSI, DISA STIG...), d'après les fichiers de résultats "
+"de l'outil OpenSCAP : taux de règles conformes par ordinateur, évolution "
+"depuis l'analyse précédente, règles en échec les plus fréquentes et "
+"historique."
+
+msgid ""
+"Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), "
+"match the results that are not matched to a computer, then fix the failed "
+"rules, starting with the high severity ones. A remediation ticket can be "
+"proposed for a computer: it is created only when you click. Nothing is "
+"changed on the machines."
+msgstr ""
+"Analysez les machines avec OpenSCAP, importez le fichier de résultats (XCCDF "
+"ou ARF), rattachez les résultats non rapprochés d'un ordinateur, puis "
+"corrigez les règles en échec, en commençant par celles de gravité haute. Un "
+"ticket de remédiation peut être proposé pour un ordinateur : il n'est créé "
+"que sur votre clic. Rien n'est modifié sur les machines."
+
+msgid "ISO/IEC 27001, control A.8.9"
+msgstr "ISO/IEC 27001, mesure A.8.9"
+
+msgid "Scanned computers with a high severity configuration rule failed (%)"
+msgstr ""
+"Ordinateurs analysés avec une règle de configuration de gravité haute en "
+"échec (%)"
+
+msgid "High severity"
+msgstr "Gravité haute"
+
+msgid "No previous scan with the same profile"
+msgstr "Pas d'analyse précédente avec le même profil"
+
+msgid "No profile"
+msgstr "Aucun profil"
+
+msgid "Rules passed out of the rules checked (not applicable rules excluded)"
+msgstr ""
+"Règles conformes parmi les règles vérifiées (règles non applicables exclues)"
+
+#, php-format
+msgid "%1$d of %2$d computers shown, the least compliant first."
+msgstr "%1$d ordinateurs affichés sur %2$d, les moins conformes d'abord."
+
+msgid "Average compliance of the last scans"
+msgstr "Conformité moyenne des dernières analyses"
+
+#, php-format
+msgid "Below the %d%% target"
+msgstr "Sous l'objectif de %d %%"
+
+msgid ""
+"Creates a remediation ticket linked to the computer, with the failed rules. "
+"Nothing is created without this click."
+msgstr ""
+"Crée un ticket de remédiation lié à l'ordinateur, avec les règles en échec. "
+"Rien n'est créé sans ce clic."
+
+msgid "Download an example file"
+msgstr "Télécharger un fichier d'exemple"
+
+msgid "Host name in the report"
+msgstr "Nom d'hôte dans le rapport"
+
+msgid "Import OpenSCAP results"
+msgstr "Importer des résultats OpenSCAP"
+
+msgid "Last scan of each computer"
+msgstr "Dernière analyse de chaque ordinateur"
+
+msgid "Machines scanned"
+msgstr "Machines analysées"
+
+msgid "Match"
+msgstr "Rattacher"
+
+msgid "Match to a computer"
+msgstr "Rattacher à un ordinateur"
+
+msgid "Most frequent failed rules"
+msgstr "Règles en échec les plus fréquentes"
+
+msgid ""
+"No computer you can see bears this name, or several do. Check the name of "
+"the computer in GLPI, or choose it here."
+msgstr ""
+"Aucun ordinateur que vous voyez ne porte ce nom, ou plusieurs le portent. "
+"Vérifiez le nom de l'ordinateur dans GLPI, ou choisissez-le ici."
+
+msgid "No failed rule in the last scans."
+msgstr "Aucune règle en échec dans les dernières analyses."
+
+msgid "No host name"
+msgstr "Aucun nom d'hôte"
+
+msgid ""
+"No scan imported yet. Import an OpenSCAP results file to measure the "
+"configuration compliance."
+msgstr ""
+"Aucune analyse importée pour l'instant. Importez un fichier de résultats "
+"OpenSCAP pour mesurer la conformité de configuration."
+
+msgid "No scan result is matched to a computer yet: match them below."
+msgstr ""
+"Aucun résultat d'analyse n'est encore rattaché à un ordinateur : rattachez-"
+"les ci-dessous."
+
+msgid "Propose a ticket"
+msgstr "Proposer un ticket"
+
+msgid "Results file"
+msgstr "Fichier de résultats"
+
+msgid "Rules failed"
+msgstr "Règles en échec"
+
+msgid ""
+"Run the scan on the machine, then import the results file (XCCDF or ARF). "
+"One file can hold several machines. Each result is matched to the GLPI "
+"computer of the same name."
+msgstr ""
+"Lancez l'analyse sur la machine, puis importez le fichier de résultats "
+"(XCCDF ou ARF). Un fichier peut contenir plusieurs machines. Chaque résultat "
+"est rapproché de l'ordinateur GLPI du même nom."
+
+msgid "Scan date"
+msgstr "Date de l'analyse"
+
+msgid "Scan results not matched to a computer"
+msgstr "Résultats d'analyse non rapprochés d'un ordinateur"
+
+#, php-format
+msgid "Ticket %d"
+msgstr "Ticket %d"
+
+msgid "With a high severity rule failed"
+msgstr "Avec une règle de gravité haute en échec"
+
+#, php-format
+msgid ""
+"XML file, %d MB at most. The file itself is not kept: only the counts and "
+"the failed rules."
+msgstr ""
+"Fichier XML, %d Mo au plus. Le fichier lui-même n'est pas gardé : seulement "
+"les compteurs et les règles en échec."
+
+#, php-format
+msgid "%d failed"
+msgstr "%d en échec"
+
+#, php-format
+msgid "%d in error"
+msgstr "%d en erreur"
+
+#, php-format
+msgid "%d not applicable or not checked"
+msgstr "%d non applicables ou non vérifiées"
+
+#, php-format
+msgid "%d passed"
+msgstr "%d conformes"
+
+msgid "Back to the configuration compliance"
+msgstr "Retour à la conformité de configuration"
+
+msgid "Delete this scan result"
+msgstr "Supprimer ce résultat d'analyse"
+
+msgid "Delete this scan result?"
+msgstr "Supprimer ce résultat d'analyse ?"
+
+msgid "Failed rules"
+msgstr "Règles en échec"
+
+msgid "No failed rule in this scan."
+msgstr "Aucune règle en échec dans cette analyse."
+
+msgid "Not matched"
+msgstr "Non rapproché"
+
+msgid "Rules"
+msgstr "Règles"
+
+msgid "Scan history of this machine"
+msgstr "Historique des analyses de cette machine"
+
+msgid "Scanner"
+msgstr "Outil d'analyse"
+
+msgid "Score of the tool"
+msgstr "Score de l'outil"
+
+msgid ""
+"This scan has more failed rules than the import keeps: only the first ones "
+"are listed."
+msgstr ""
+"Cette analyse a plus de règles en échec que l'import n'en garde : seules les "
+"premières sont listées."
+
+#, php-format
+msgid "And %d more rule(s): see the scan in GRC."
+msgstr "Et %d autre(s) règle(s) : voir l'analyse dans GRC."
+
+#, php-format
+msgid ""
+"Configuration scan of %1$s on %2$s: %3$d rule(s) failed. ISO/IEC 27001, "
+"control A.8.9."
+msgstr ""
+"Analyse de configuration de %1$s le %2$s : %3$d règle(s) en échec. ISO/IEC "
+"27001, mesure A.8.9."
+
 #, php-format
 msgid "Suggestions updated for %d account(s) still to review."
 msgstr "Suggestions mises à jour pour %d compte(s) encore à revoir."
@@ -30210,9 +30214,9 @@ msgid ""
 "(keep, remove or examine) and its reason. Removing a right opens a ticket, "
 "it is never applied automatically."
 msgstr ""
-"Lancez une campagne ; les responsables décident ligne par ligne, aidés d'une"
-" suggestion (garder, retirer ou à examiner) et de sa raison. Retirer un "
-"droit ouvre un ticket, ce n'est jamais appliqué automatiquement."
+"Lancez une campagne ; les responsables décident ligne par ligne, aidés d'une "
+"suggestion (garder, retirer ou à examiner) et de sa raison. Retirer un droit "
+"ouvre un ticket, ce n'est jamais appliqué automatiquement."
 
 msgid ""
 "Each account arrives with a suggestion (keep, remove or examine) and its "
@@ -30290,8 +30294,8 @@ msgstr "Proposé par les règles"
 msgid ""
 "Proposals only: each reviewer decides. Set the rules on the campaign form."
 msgstr ""
-"De simples propositions : chaque relecteur décide. Les règles se règlent sur"
-" le formulaire de la campagne."
+"De simples propositions : chaque relecteur décide. Les règles se règlent sur "
+"le formulaire de la campagne."
 
 msgid ""
 "Recompute the suggestion of the accounts still to review (decided accounts "
@@ -30302,3 +30306,313 @@ msgstr ""
 
 msgid "Update the suggestions"
 msgstr "Mettre à jour les suggestions"
+
+#, php-format
+msgid "%d control updated."
+msgid_plural "%d controls updated."
+msgstr[0] "%d mesure mise à jour."
+msgstr[1] "%d mesures mises à jour."
+
+#, php-format
+msgid "Maturity campaign: %s"
+msgstr "Campagne de maturité : %s"
+
+#, php-format
+msgid "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
+msgstr "Niveau actuel : %1$d (%2$s). Niveau cible : %3$d (%4$s)."
+
+#, php-format
+msgid "Target date: %s"
+msgstr "Échéance : %s"
+
+#, php-format
+msgid "Maturity gap %1$s: from level %2$d to level %3$d"
+msgstr "Écart de maturité %1$s : du niveau %2$d au niveau %3$d"
+
+msgid "Maturity campaign"
+msgid_plural "Maturity campaigns"
+msgstr[0] "Campagne de maturité"
+msgstr[1] "Campagnes de maturité"
+
+msgid "Maturity by control"
+msgstr "Maturité par mesure"
+
+msgid "Non-existent"
+msgstr "Inexistant"
+
+#, php-format
+msgid "Maturity assessment of %s"
+msgstr "Évaluation de maturité du %s"
+
+msgid "Levels by control"
+msgstr "Niveaux par mesure"
+
+msgid "Comparison"
+msgstr "Comparaison"
+
+msgid "Campaign lead"
+msgstr "Pilote de la campagne"
+
+#, php-format
+msgid "Maturity by control: %s"
+msgstr "Maturité par mesure : %s"
+
+msgid ""
+"Rates each applicable control of the Statement of Applicability on a scale "
+"from 0 (non-existent) to 5 (optimised): the level reached today and the "
+"level aimed for, with a target date. The gaps between the two make up the "
+"security roadmap, and two dated campaigns show the progress. These optional "
+"levels change neither the implementation status of the controls nor the "
+"maturity score."
+msgstr ""
+"Évalue chaque mesure applicable de la déclaration d'applicabilité sur une "
+"échelle de 0 (inexistant) à 5 (optimisé) : le niveau atteint aujourd'hui et "
+"le niveau visé, avec une échéance. Les écarts entre les deux forment la "
+"feuille de route de la sécurité, et deux campagnes datées montrent les "
+"progrès. Ces niveaux facultatifs ne changent ni l'état de mise en œuvre des "
+"mesures ni le score de maturité."
+
+msgid ""
+"Create a campaign (for example once a year), fill in the current and target "
+"levels of each control with a justification and an owner, then open the "
+"\"Gaps\" tab: create an action for the largest gaps and download the report "
+"for the management review. The next campaign takes over the targets of this "
+"one."
+msgstr ""
+"Créez une campagne (par exemple une fois par an), renseignez les niveaux "
+"actuel et cible de chaque mesure avec une justification et un responsable, "
+"puis ouvrez l'onglet « Écarts » : créez une action pour les plus grands "
+"écarts et téléchargez le rapport pour la revue de direction. La campagne "
+"suivante reprend les cibles de celle-ci."
+
+msgid "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
+msgstr "ISO/IEC 27001, articles 6.2, 9.3 et 10.1"
+
+msgid "Maturity scale by control"
+msgstr "Échelle de maturité par mesure"
+
+msgid "Open the maturity campaigns"
+msgstr "Ouvrir les campagnes de maturité"
+
+msgid ""
+"Rename the levels of the scale used by the maturity campaigns to match your "
+"method. Leave a field empty to keep the default label, translated into the "
+"language of each user; a label you enter is shown as is in every language. "
+"Renaming a level changes no recorded level."
+msgstr ""
+"Renommez les niveaux de l'échelle utilisée par les campagnes de maturité "
+"pour suivre votre méthode. Laissez un champ vide pour garder le libellé par "
+"défaut, traduit dans la langue de chaque utilisateur ; un libellé saisi "
+"s'affiche tel quel dans toutes les langues. Renommer un niveau ne change "
+"aucun niveau enregistré."
+
+#, php-format
+msgid "%d control declined"
+msgid_plural "%d controls declined"
+msgstr[0] "%d mesure en recul"
+msgstr[1] "%d mesures en recul"
+
+#, php-format
+msgid "%d control improved"
+msgid_plural "%d controls improved"
+msgstr[0] "%d mesure en progrès"
+msgstr[1] "%d mesures en progrès"
+
+#, php-format
+msgid "%d control unchanged"
+msgid_plural "%d controls unchanged"
+msgstr[0] "%d mesure inchangée"
+msgstr[1] "%d mesures inchangées"
+
+msgid "Compare"
+msgstr "Comparer"
+
+msgid "Compare with"
+msgstr "Comparer avec"
+
+msgid "Comparison of two campaigns"
+msgstr "Comparaison de deux campagnes"
+
+msgid ""
+"Current levels of each campaign. A control assessed in only one of the two "
+"campaigns is not compared."
+msgstr ""
+"Niveaux actuels de chaque campagne. Une mesure évaluée dans une seule des "
+"deux campagnes n'est pas comparée."
+
+msgid "New campaign"
+msgstr "Nouvelle campagne"
+
+msgid ""
+"There is no other campaign in this entity yet. Create the next campaign (for "
+"example next year): it takes over the targets of this one, and both can then "
+"be compared here."
+msgstr ""
+"Il n'y a pas encore d'autre campagne dans cette entité. Créez la campagne "
+"suivante (par exemple l'an prochain) : elle reprend les cibles de celle-ci, "
+"et les deux pourront alors être comparées ici."
+
+#, php-format
+msgid "%d gap to close"
+msgid_plural "%d gaps to close"
+msgstr[0] "%d écart à combler"
+msgstr[1] "%d écarts à combler"
+
+#, php-format
+msgid "Average level: %1$s, target %2$s"
+msgstr "Niveau moyen : %1$s, cible %2$s"
+
+msgid ""
+"Average levels by theme, gaps sorted by size and comparison with the "
+"previous campaign, for the management review."
+msgstr ""
+"Niveaux moyens par thème, écarts triés par taille et comparaison avec la "
+"campagne précédente, pour la revue de direction."
+
+msgid "Average over the controls that have both a current and a target level."
+msgstr ""
+"Moyenne des mesures qui ont à la fois un niveau actuel et un niveau cible."
+
+msgid "Campaigns are compared in the order of this date."
+msgstr "Les campagnes sont comparées dans l'ordre de cette date."
+
+msgid "For example \"2026 assessment\". Left empty, the date is used."
+msgstr "Par exemple « Évaluation 2026 ». Laissé vide, la date est utilisée."
+
+msgid "No gap: every target is reached"
+msgstr "Aucun écart : toutes les cibles sont atteintes"
+
+msgid "Previous campaign"
+msgstr "Campagne précédente"
+
+msgid ""
+"The campaign lists the applicable controls of the Statement of Applicability "
+"of the entity. The targets, target dates, justifications and owners of the "
+"previous campaign are taken over; the current levels are left to assess."
+msgstr ""
+"La campagne reprend les mesures applicables de la déclaration "
+"d'applicabilité de l'entité. Les cibles, échéances, justifications et "
+"responsables de la campagne précédente sont repris ; les niveaux actuels "
+"restent à évaluer."
+
+msgid ""
+"The overall maturity score is computed separately from your data and does "
+"not use these levels."
+msgstr ""
+"Le score de maturité global est calculé à part, à partir de vos données, et "
+"n'utilise pas ces niveaux."
+
+msgid ""
+"A gap is the target level minus the current level. The largest gaps come "
+"first, then the nearest target dates: they are the priorities of the roadmap "
+"to present to management. \"Create the action\" opens a pre-filled "
+"opportunity for improvement that you review and save yourself."
+msgstr ""
+"Un écart est le niveau cible moins le niveau actuel. Les plus grands écarts "
+"viennent d'abord, puis les échéances les plus proches : ce sont les "
+"priorités de la feuille de route à présenter à la direction. « Créer "
+"l'action » ouvre une piste d'amélioration pré-remplie que vous relisez et "
+"enregistrez vous-même."
+
+msgid "All (ISO/IEC 27001 Annex A)"
+msgstr "Tous (Annexe A de l'ISO/IEC 27001)"
+
+msgid "Average level of the controls of each theme that have both levels."
+msgstr "Niveau moyen des mesures de chaque thème qui ont les deux niveaux."
+
+msgid "Current and target levels by theme"
+msgstr "Niveaux actuel et cible par thème"
+
+msgid "Gaps to close"
+msgstr "Écarts à combler"
+
+msgid "No gap matches these filters."
+msgstr "Aucun écart ne correspond à ces filtres."
+
+msgid ""
+"No gap: fill in the current and target levels in the \"Levels by control\" "
+"tab; the controls whose target is not reached are listed here."
+msgstr ""
+"Aucun écart : renseignez les niveaux actuel et cible dans l'onglet « Niveaux "
+"par mesure » ; les mesures dont la cible n'est pas atteinte sont listées ici."
+
+msgid "Target date"
+msgstr "Échéance"
+
+msgid "Target date passed"
+msgstr "Échéance dépassée"
+
+msgid "Target level"
+msgstr "Niveau cible"
+
+msgid "The chart appears once controls have both a current and a target level."
+msgstr ""
+"Le graphique apparaît dès que des mesures ont à la fois un niveau actuel et "
+"un niveau cible."
+
+msgid "Current level at the previous campaign"
+msgstr "Niveau actuel lors de la campagne précédente"
+
+msgid ""
+"For each control, choose the level reached today and the level aimed for, on "
+"the scale below, then click \"Save the levels\" at the bottom of the page. A "
+"level left on \"Not assessed\" is simply ignored. These levels change "
+"neither the implementation status of the control nor the maturity score."
+msgstr ""
+"Pour chaque mesure, choisissez le niveau atteint aujourd'hui et le niveau "
+"visé, sur l'échelle ci-dessous, puis cliquez sur « Enregistrer les niveaux » "
+"en bas de la page. Un niveau laissé sur « Non évalué » est simplement "
+"ignoré. Ces niveaux ne changent ni l'état de mise en œuvre de la mesure ni "
+"le score de maturité."
+
+msgid "Implementation status in the SoA"
+msgstr "État de mise en œuvre dans la SoA"
+
+msgid ""
+"No applicable control in the Statement of Applicability of this entity when "
+"the campaign was created. Declare the applicable controls in the SoA, then "
+"create a new campaign."
+msgstr ""
+"Aucune mesure applicable dans la déclaration d'applicabilité de cette entité "
+"à la création de la campagne. Déclarez les mesures applicables dans la SoA, "
+"puis créez une nouvelle campagne."
+
+msgid "No target"
+msgstr "Pas de cible"
+
+msgid "Open the Statement of Applicability"
+msgstr "Ouvrir la déclaration d'applicabilité"
+
+msgid "Reached"
+msgstr "Atteinte"
+
+msgid "Save the levels"
+msgstr "Enregistrer les niveaux"
+
+msgid ""
+"Targets, dates, owners and justifications come from the previous campaign: "
+"adjust them if needed."
+msgstr ""
+"Les cibles, échéances, responsables et justifications viennent de la "
+"campagne précédente : ajustez-les si besoin."
+
+#, php-format
+msgid ""
+"Action proposed from a maturity gap (%s): review and adapt each field, check "
+"the owner and the due date, then click \"Add\". Nothing is created before, "
+"and the gap is linked to this action once it is saved."
+msgstr ""
+"Action proposée depuis un écart de maturité (%s) : relisez et adaptez chaque "
+"champ, vérifiez le responsable et l'échéance, puis cliquez sur « Ajouter ». "
+"Rien n'est créé avant, et l'écart est lié à cette action une fois "
+"enregistrée."
+
+msgid ""
+"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
+"neither the implementation status of the controls nor the maturity score."
+msgstr ""
+"Niveaux de 0 (inexistant) à 5 (optimisé). Ces niveaux facultatifs ne "
+"changent ni l'état de mise en œuvre des mesures ni le score de maturité."
+
+msgid "No previous campaign in this entity."
+msgstr "Aucune campagne précédente dans cette entité."
