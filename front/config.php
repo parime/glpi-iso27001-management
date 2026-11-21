@@ -426,6 +426,26 @@ if (isset($_POST['update_consistency_rules'])) {
 
 // Issue #664 : durée de vie des liens d'abonnement au calendrier (jeton dédié). S'applique aux liens
 // créés ensuite ; ceux déjà créés gardent leur date d'expiration.
+if (isset($_POST['update_maturity_scale_labels'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    // Issue #603 : libellés de l'échelle de maturité par mesure (0 à 5). Un champ vide remet le
+    // libellé par défaut, traduit ; seules les clés 0 à 5 sont gardées (MaturityGapRules::sanitizeLabels).
+    $before = \GlpiPlugin\Grcmanager\MaturityCampaign::customScaleLabels();
+    \GlpiPlugin\Grcmanager\MaturityCampaign::saveScaleLabels(
+        is_array($_POST['maturity_labels'] ?? null) ? $_POST['maturity_labels'] : []
+    );
+    $after = \GlpiPlugin\Grcmanager\MaturityCampaign::customScaleLabels();
+    if ($after !== $before) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'maturity_scale_labels' => ['from' => $before, 'to' => $after],
+        ]);
+    }
+    Session::addMessageAfterRedirect(__('The level labels have been saved.', 'grcmanager'));
+
+    Html::back();
+}
+
 if (isset($_POST['update_calendar_token'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -785,6 +805,11 @@ Html::header(
     'frameworks_enabled'        => FrameworkConfig::enabled(),
     'dpo_contact'               => \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact(),
     'can_edit_config'           => Session::haveRight(Installer::RIGHT_NAME, UPDATE),
+    // Issue #603 : libellés de l'échelle de maturité par mesure (vides : libellé par défaut, traduit).
+    'maturity_scale_custom'     => \GlpiPlugin\Grcmanager\MaturityCampaign::customScaleLabels(),
+    'maturity_scale_defaults'   => \GlpiPlugin\Grcmanager\MaturityCampaign::defaultScaleLabels(),
+    'maturity_label_max_length' => \GlpiPlugin\Grcmanager\Services\Maturity\MaturityGapRules::LABEL_MAX_LENGTH,
+    'maturity_campaigns_url'    => \GlpiPlugin\Grcmanager\MaturityCampaign::getSearchURL(),
     // Issue #611 : approbation des politiques.
     'policy_approval'           => [
         'enabled'        => PolicyApprovalConfig::isEnabled(),

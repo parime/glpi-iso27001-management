@@ -31138,6 +31138,417 @@ msgctxt "ad rule"
 msgid "New"
 msgstr "Nouvelle"
 
+#, php-format
+msgid ""
+"%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed "
+"since the previous import."
+msgstr ""
+"%1$d partage(s) et %2$d droit(s) importés : %3$d nouveau(x) droit(s), %4$d "
+"retiré(s) depuis l'import précédent."
+
+msgid "The file is too long: only its first lines were imported."
+msgstr ""
+"Le fichier est trop long : seules ses premières lignes ont été importées."
+
+msgid "Share saved."
+msgstr "Partage enregistré."
+
+msgid "Review started: the owner can now decide for each right."
+msgstr ""
+"Revue lancée : le propriétaire peut maintenant décider pour chaque droit."
+
+msgid "Review closed."
+msgstr "Revue clôturée."
+
+msgid ""
+"Shows who can access the Windows file shares: share and NTFS permissions "
+"imported from each file server, accounts matched with the GLPI users and "
+"groups, and the gaps an auditor looks for (everyone can modify, rights given "
+"to a person, deleted or disabled accounts, broken inheritance, share without "
+"an owner)."
+msgstr ""
+"Montre qui a accès aux partages de fichiers Windows : droits de partage et "
+"droits NTFS importés de chaque serveur de fichiers, comptes rapprochés des "
+"utilisateurs et groupes GLPI, et écarts recherchés par un auditeur (tout le "
+"monde peut modifier, droits donnés à une personne, comptes supprimés ou "
+"désactivés, héritage cassé, partage sans propriétaire)."
+
+msgid ""
+"Run the PowerShell script provided on each file server (it only reads), "
+"import the CSV file, classify the sensitive shares and designate an owner "
+"for each one. The owner then reviews the rights of the share; the "
+"administrator applies the changes on the server and the next import shows "
+"the rights added and removed."
+msgstr ""
+"Lancez le script PowerShell fourni sur chaque serveur de fichiers (il ne "
+"fait que lire), importez le fichier CSV, classez les partages sensibles et "
+"désignez un propriétaire pour chacun. Le propriétaire revoit ensuite les "
+"droits du partage ; l'administrateur applique les changements sur le serveur "
+"et l'import suivant montre les droits ajoutés et retirés."
+
+msgid "ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3"
+msgstr "ISO/IEC 27001, mesures A.5.15, A.5.18 et A.8.3"
+
+msgid "File share access rights"
+msgstr "Droits sur les partages de fichiers"
+
+msgid "Full control"
+msgstr "Contrôle total"
+
+msgid "Modify"
+msgstr "Modification"
+
+msgid "Read"
+msgstr "Lecture"
+
+msgid "Special permissions"
+msgstr "Autorisations spéciales"
+
+msgid "Everyone (broad group)"
+msgstr "Tout le monde (groupe large)"
+
+msgid "System account"
+msgstr "Compte système"
+
+msgid "Deleted account"
+msgstr "Compte supprimé"
+
+msgid "Everyone can modify"
+msgstr "Tout le monde peut modifier"
+
+msgid ""
+"Everyone, Authenticated Users, Domain Users or Guests can modify or have "
+"full control."
+msgstr ""
+"Tout le monde, Utilisateurs authentifiés, Utilisateurs du domaine ou Invités "
+"peuvent modifier ou ont le contrôle total."
+
+msgid "Deleted account still has rights"
+msgstr "Compte supprimé qui a encore des droits"
+
+msgid ""
+"The account no longer exists in the directory (unresolved SID) or is in the "
+"GLPI trash."
+msgstr ""
+"Le compte n'existe plus dans l'annuaire (SID non résolu) ou est dans la "
+"corbeille de GLPI."
+
+msgid "Disabled account still has rights"
+msgstr "Compte désactivé qui a encore des droits"
+
+msgid "The matching GLPI account is disabled: the person has probably left."
+msgstr ""
+"Le compte GLPI correspondant est désactivé : la personne est probablement "
+"partie."
+
+msgid "Right given to a person"
+msgstr "Droit donné à une personne"
+
+msgid ""
+"Rights should be given to groups, not to named people: they are easier to "
+"review."
+msgstr ""
+"Les droits devraient être donnés à des groupes, pas à des personnes "
+"nommées : ils sont plus faciles à revoir."
+
+msgid "Inheritance broken"
+msgstr "Héritage cassé"
+
+msgid ""
+"A subfolder of a sensitive share does not inherit the rights of its parent "
+"folder."
+msgstr ""
+"Un sous-dossier d'un partage sensible n'hérite pas des droits de son dossier "
+"parent."
+
+msgid ""
+"No GLPI user is designated as the owner who reviews the rights of this share."
+msgstr ""
+"Aucun utilisateur GLPI n'est désigné comme propriétaire qui revoit les "
+"droits de ce partage."
+
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"Identity, IdentityReference or Sid."
+msgstr ""
+"Aucune colonne de compte trouvée : le fichier doit avoir un en-tête avec une "
+"colonne telle que Identity, IdentityReference ou Sid."
+
+msgid ""
+"No rights column found: the file needs a column such as Rights, "
+"FileSystemRights or AccessRight."
+msgstr ""
+"Aucune colonne de droits trouvée : le fichier doit avoir une colonne telle "
+"que Rights, FileSystemRights ou AccessRight."
+
+msgid ""
+"No share column found: the file needs a column such as Share, or Folder with "
+"a \\\\server\\share path."
+msgstr ""
+"Aucune colonne de partage trouvée : le fichier doit avoir une colonne telle "
+"que Share, ou Folder avec un chemin \\\\serveur\\partage."
+
+msgid "Designate the owner of the share first: they review its rights."
+msgstr ""
+"Désignez d'abord le propriétaire du partage : c'est lui qui revoit ses "
+"droits."
+
+msgid "Explain what must be changed or removed in the comment."
+msgstr "Expliquez dans le commentaire ce qu'il faut modifier ou retirer."
+
+msgid "Some rights have no decision yet."
+msgstr "Certains droits n'ont pas encore de décision."
+
+msgid "You cannot do this on this share."
+msgstr "Vous ne pouvez pas faire cela sur ce partage."
+
+#, php-format
+msgid "%1$d of %2$d share(s) reviewed in the last 12 months"
+msgstr "%1$d partage(s) sur %2$d revu(s) dans les 12 derniers mois"
+
+#, php-format
+msgid "%d file share(s) imported"
+msgstr "%d partage(s) de fichiers importé(s)"
+
+#, php-format
+msgid "%d right(s) letting everyone modify"
+msgstr "%d droit(s) qui laissent tout le monde modifier"
+
+#, php-format
+msgid "%d right(s) of deleted or disabled accounts"
+msgstr "%d droit(s) de comptes supprimés ou désactivés"
+
+#, php-format
+msgid "%d share(s) with a gap"
+msgstr "%d partage(s) avec un écart"
+
+#, php-format
+msgid "%1$d shares: the first %2$d are shown, the most exposed first."
+msgstr ""
+"%1$d partages : les %2$d premiers sont affichés, les plus exposés d'abord."
+
+#, php-format
+msgid "%d right(s) imported"
+msgstr "%d droit(s) importé(s)"
+
+#, php-format
+msgid "%d with a high weighted score"
+msgstr "%d avec un score pondéré élevé"
+
+msgid "Absent from the last import"
+msgstr "Absent du dernier import"
+
+msgid "Download the PowerShell script"
+msgstr "Télécharger le script PowerShell"
+
+msgid "Download the script and copy it to the file server."
+msgstr "Téléchargez le script et copiez-le sur le serveur de fichiers."
+
+msgid ""
+"GLPI never connects to your file servers and never changes a right. An "
+"administrator runs the PowerShell script on the file server, with an account "
+"that can read the folders, then imports the CSV file here. A new import of "
+"the same server replaces the previous one in the current entity and shows "
+"the rights added and removed since then; the classification, the owner and "
+"the review decisions are kept."
+msgstr ""
+"GLPI ne se connecte jamais à vos serveurs de fichiers et ne modifie jamais "
+"un droit. Un administrateur lance le script PowerShell sur le serveur de "
+"fichiers, avec un compte qui peut lire les dossiers, puis importe ici le "
+"fichier CSV. Un nouvel import du même serveur remplace le précédent dans "
+"l'entité courante et montre les droits ajoutés et retirés depuis ; la "
+"classification, le propriétaire et les décisions de revue sont gardés."
+
+msgid "Import the rights of a file server"
+msgstr "Importer les droits d'un serveur de fichiers"
+
+msgid ""
+"Import the shares.csv file below. Files produced by other tools are accepted "
+"if they have a header with columns such as Server, Share, Folder, Identity, "
+"Rights, AccessType, IsInherited and InheritanceProtected."
+msgstr ""
+"Importez ci-dessous le fichier shares.csv. Les fichiers produits par "
+"d'autres outils sont acceptés s'ils ont un en-tête avec des colonnes telles "
+"que Server, Share, Folder, Identity, Rights, AccessType, IsInherited et "
+"InheritanceProtected."
+
+msgid "Imported by"
+msgstr "Importé par"
+
+msgid "Imports and changes over time"
+msgstr "Imports et évolution dans le temps"
+
+msgid ""
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
+"OutFile shares.csv (Depth: how many folder levels under each share are read)."
+msgstr ""
+"Dans PowerShell, lancez par exemple : ./Export-GrcShareAccess.ps1 -Depth 2 -"
+"OutFile shares.csv (Depth : nombre de niveaux de dossiers lus sous chaque "
+"partage)."
+
+msgid "New rights"
+msgstr "Nouveaux droits"
+
+msgid ""
+"No share imported yet. Run the PowerShell script below on a file server, "
+"then import the CSV file it produces."
+msgstr ""
+"Aucun partage importé pour l'instant. Lancez le script PowerShell ci-dessous "
+"sur un serveur de fichiers, puis importez le fichier CSV qu'il produit."
+
+msgid ""
+"Only users who can modify the plugin data and the sensitive registers can "
+"import."
+msgstr ""
+"Seules les personnes qui peuvent modifier les données du plugin et les "
+"registres sensibles peuvent importer."
+
+msgid "Removed rights"
+msgstr "Droits retirés"
+
+msgid "Rights"
+msgstr "Droits"
+
+msgid "Server imported in this entity"
+msgstr "Serveur importé dans cette entité"
+
+msgid "Share"
+msgstr "Partage"
+
+msgid "Shares"
+msgstr "Partages"
+
+msgid "Shares and their gaps"
+msgstr "Partages et leurs écarts"
+
+msgid "Shares reviewed in the last 12 months"
+msgstr "Partages revus dans les 12 derniers mois"
+
+msgid "Shares with a gap"
+msgstr "Partages avec un écart"
+
+msgid "Shares without an owner"
+msgstr "Partages sans propriétaire"
+
+msgid "The owner reviews the rights of the share."
+msgstr "Le propriétaire revoit les droits du partage."
+
+msgid ""
+"The score adds 3 for each serious gap and 1 for the others, then multiplies "
+"by 3 for a share classified high and by 2 for medium. Nothing is changed on "
+"the file servers from this page."
+msgstr ""
+"Le score compte 3 par écart grave et 1 pour les autres, puis multiplie par 3 "
+"pour un partage classé élevé et par 2 pour moyen. Rien n'est modifié sur les "
+"serveurs de fichiers depuis cette page."
+
+msgid "Weighted score"
+msgstr "Score pondéré"
+
+msgid "All shares"
+msgstr "Tous les partages"
+
+msgid "Classification and owner"
+msgstr "Classification et propriétaire"
+
+msgid "Close the review"
+msgstr "Clôturer la revue"
+
+msgid ""
+"During a review, the owner decides for each right: keep it, change it or "
+"remove it. Decisions are recorded with their author and date; GLPI changes "
+"nothing on the server: the administrator applies the changes, and the next "
+"import shows the removed rights."
+msgstr ""
+"Pendant une revue, le propriétaire décide pour chaque droit : le garder, le "
+"modifier ou le retirer. Les décisions sont tracées avec leur auteur et leur "
+"date ; GLPI ne change rien sur le serveur : l'administrateur applique les "
+"changements, et l'import suivant montre les droits retirés."
+
+msgid "Folder"
+msgstr "Dossier"
+
+msgid ""
+"Gaps weigh more on a share classified high, and broken inheritance is "
+"reported only on a share whose confidentiality or integrity is medium or "
+"high."
+msgstr ""
+"Les écarts pèsent plus sur un partage classé élevé, et l'héritage cassé "
+"n'est signalé que sur un partage dont la confidentialité ou l'intégrité est "
+"moyenne ou élevée."
+
+#, php-format
+msgid "Last review: %s"
+msgstr "Dernière revue : %s"
+
+#, php-format
+msgid "Level %d"
+msgstr "Niveau %d"
+
+msgid "Local path"
+msgstr "Chemin local"
+
+msgid "NTFS owner"
+msgstr "Propriétaire NTFS"
+
+msgid "NTFS permission"
+msgstr "Droit NTFS"
+
+msgid "New"
+msgstr "Nouveau"
+
+msgid "No right in the last import of this share."
+msgstr "Aucun droit dans le dernier import de ce partage."
+
+msgid "Owner who reviews the rights"
+msgstr "Propriétaire qui revoit les droits"
+
+#, php-format
+msgid "Owner: %s"
+msgstr "Propriétaire : %s"
+
+msgid "Review of the rights"
+msgstr "Revue des droits"
+
+msgid "Right"
+msgstr "Droit"
+
+msgid "Rights removed since the previous import"
+msgstr "Droits retirés depuis l'import précédent"
+
+msgid "Share permission"
+msgstr "Droit de partage"
+
+msgid "Start a review"
+msgstr "Lancer une revue"
+
+msgid "inherited"
+msgstr "hérité"
+
+msgctxt "availability"
+msgid "A"
+msgstr "D"
+
+msgctxt "confidentiality"
+msgid "C"
+msgstr "C"
+
+msgctxt "integrity"
+msgid "I"
+msgstr "I"
+
+#, php-format
+msgid "%d right added at the last import"
+msgid_plural "%d rights added at the last import"
+msgstr[0] "%d droit ajouté au dernier import"
+msgstr[1] "%d droits ajoutés au dernier import"
+
+#, php-format
+msgid "%d right still to review."
+msgid_plural "%d rights still to review."
+msgstr[0] "%d droit encore à revoir."
+msgstr[1] "%d droits encore à revoir."
+
 msgid "Evaluation completed."
 msgstr "Évaluation terminée."
 
@@ -31152,7 +31563,9 @@ msgstr "Modèle copié : adaptez ses questions."
 
 #, php-format
 msgid "Questions saved: %1$d added, %2$d changed, %3$d deleted."
-msgstr "Questions enregistrées : %1$d ajoutée(s), %2$d modifiée(s), %3$d supprimée(s)."
+msgstr ""
+"Questions enregistrées : %1$d ajoutée(s), %2$d modifiée(s), %3$d "
+"supprimée(s)."
 
 msgid "No change to the questions."
 msgstr "Aucun changement des questions."
@@ -31169,20 +31582,48 @@ msgstr "Modèles de questionnaire"
 msgid "Historical questionnaire"
 msgstr "Questionnaire historique"
 
-msgid "The twelve questions of the former security questionnaire, kept with the answers already given."
-msgstr "Les douze questions de l'ancien questionnaire de sécurité, conservées avec les réponses déjà données."
+msgid ""
+"The twelve questions of the former security questionnaire, kept with the "
+"answers already given."
+msgstr ""
+"Les douze questions de l'ancien questionnaire de sécurité, conservées avec "
+"les réponses déjà données."
 
-msgid "Create one risk per important supplier, evaluate it with one or more questionnaires (Questionnaires tab), follow its contracts and the \"Security watch\" tab."
-msgstr "Créez un risque par fournisseur important, évaluez-le avec un ou plusieurs questionnaires (onglet Questionnaires), suivez ses contrats et l'onglet « Veille de sécurité »."
+msgid ""
+"Create one risk per important supplier, evaluate it with one or more "
+"questionnaires (Questionnaires tab), follow its contracts and the \"Security "
+"watch\" tab."
+msgstr ""
+"Créez un risque par fournisseur important, évaluez-le avec un ou plusieurs "
+"questionnaires (onglet Questionnaires), suivez ses contrats et l'onglet "
+"« Veille de sécurité »."
 
-msgid "Supplier questionnaire templates: the questions asked to your suppliers, grouped by section, with their weight, the expected answer and the evidence to provide. One template per need: information security, personal data, artificial intelligence..."
-msgstr "Modèles de questionnaire fournisseur : les questions posées à vos fournisseurs, regroupées par section, avec leur pondération, la réponse attendue et la pièce justificative à fournir. Un modèle par besoin : sécurité de l'information, données personnelles, intelligence artificielle..."
+msgid ""
+"Supplier questionnaire templates: the questions asked to your suppliers, "
+"grouped by section, with their weight, the expected answer and the evidence "
+"to provide. One template per need: information security, personal data, "
+"artificial intelligence..."
+msgstr ""
+"Modèles de questionnaire fournisseur : les questions posées à vos "
+"fournisseurs, regroupées par section, avec leur pondération, la réponse "
+"attendue et la pièce justificative à fournir. Un modèle par besoin : "
+"sécurité de l'information, données personnelles, intelligence artificielle..."
 
-msgid "Adapt the historical questionnaire or create your own templates, then start an evaluation from the Questionnaires tab of a supplier risk. A supplier can be evaluated with several templates; each evaluation keeps its score and its history."
-msgstr "Adaptez le questionnaire historique ou créez vos propres modèles, puis démarrez une évaluation depuis l'onglet Questionnaires d'un risque fournisseur. Un fournisseur peut être évalué avec plusieurs modèles ; chaque évaluation garde son score et son historique."
+msgid ""
+"Adapt the historical questionnaire or create your own templates, then start "
+"an evaluation from the Questionnaires tab of a supplier risk. A supplier can "
+"be evaluated with several templates; each evaluation keeps its score and its "
+"history."
+msgstr ""
+"Adaptez le questionnaire historique ou créez vos propres modèles, puis "
+"démarrez une évaluation depuis l'onglet Questionnaires d'un risque "
+"fournisseur. Un fournisseur peut être évalué avec plusieurs modèles ; chaque "
+"évaluation garde son score et son historique."
 
-msgid "ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
-msgstr "ISO/IEC 27001, mesures A.5.19 à A.5.21 ; NIS2 art. 21 §2 d) ; DORA art. 28"
+msgid ""
+"ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
+msgstr ""
+"ISO/IEC 27001, mesures A.5.19 à A.5.21 ; NIS2 art. 21 §2 d) ; DORA art. 28"
 
 msgid "Questionnaires"
 msgstr "Questionnaires"
@@ -31190,8 +31631,12 @@ msgstr "Questionnaires"
 msgid "Choose the supplier risk to evaluate."
 msgstr "Choisissez le risque fournisseur à évaluer."
 
-msgid "Choose an active questionnaire template available in the entity of the supplier risk."
-msgstr "Choisissez un modèle de questionnaire actif disponible dans l'entité du risque fournisseur."
+msgid ""
+"Choose an active questionnaire template available in the entity of the "
+"supplier risk."
+msgstr ""
+"Choisissez un modèle de questionnaire actif disponible dans l'entité du "
+"risque fournisseur."
 
 #, php-format
 msgid "%1$s - %2$s"
@@ -31210,7 +31655,8 @@ msgid "This question cannot receive a document."
 msgstr "Cette question ne peut pas recevoir de document."
 
 msgid "You are not allowed to add a document to this supplier risk."
-msgstr "Vous n'avez pas le droit d'ajouter un document à ce risque fournisseur."
+msgstr ""
+"Vous n'avez pas le droit d'ajouter un document à ce risque fournisseur."
 
 #, php-format
 msgid "Evidence for question %1$s of the evaluation \"%2$s\""
@@ -31247,17 +31693,29 @@ msgstr "%1$d question(s) répondue(s) sur %2$d"
 msgid "%1$s (version %2$d)"
 msgstr "%1$s (version %2$d)"
 
-msgid "Answer the questions in the \"Questionnaire\" tab, then mark the evaluation as completed."
-msgstr "Répondez aux questions dans l'onglet « Questionnaire », puis marquez l'évaluation comme terminée."
+msgid ""
+"Answer the questions in the \"Questionnaire\" tab, then mark the evaluation "
+"as completed."
+msgstr ""
+"Répondez aux questions dans l'onglet « Questionnaire », puis marquez "
+"l'évaluation comme terminée."
 
 msgid "Evaluation"
 msgstr "Évaluation"
 
-msgid "Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by the weight of the question; \"not applicable\" and unanswered questions are not counted."
-msgstr "Réponse attendue = 1 point, partiel = 0,5, autre réponse = 0, multiplié par la pondération de la question ; « sans objet » et les questions sans réponse ne comptent pas."
+msgid ""
+"Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by "
+"the weight of the question; \"not applicable\" and unanswered questions are "
+"not counted."
+msgstr ""
+"Réponse attendue = 1 point, partiel = 0,5, autre réponse = 0, multiplié par "
+"la pondération de la question ; « sans objet » et les questions sans réponse "
+"ne comptent pas."
 
 msgid "For example \"Security 2026\" or \"Personal data - contract renewal\"."
-msgstr "Par exemple « Sécurité 2026 » ou « Données personnelles - renouvellement du contrat »."
+msgstr ""
+"Par exemple « Sécurité 2026 » ou « Données personnelles - renouvellement du "
+"contrat »."
 
 msgid "Questionnaire template"
 msgstr "Modèle de questionnaire"
@@ -31266,23 +31724,40 @@ msgstr "Modèle de questionnaire"
 msgid "Score: %1$d%% - %2$s"
 msgstr "Score : %1$d %% - %2$s"
 
-msgid "This evaluation is completed: its answers can no longer be changed. Reopen it from the \"Questionnaire\" tab to change them."
-msgstr "Cette évaluation est terminée : ses réponses ne peuvent plus être modifiées. Rouvrez-la depuis l'onglet « Questionnaire » pour les changer."
+msgid ""
+"This evaluation is completed: its answers can no longer be changed. Reopen "
+"it from the \"Questionnaire\" tab to change them."
+msgstr ""
+"Cette évaluation est terminée : ses réponses ne peuvent plus être modifiées. "
+"Rouvrez-la depuis l'onglet « Questionnaire » pour les changer."
 
 msgid "Add the template, then write its questions in the \"Questions\" tab."
-msgstr "Ajoutez le modèle, puis rédigez ses questions dans l'onglet « Questions »."
+msgstr ""
+"Ajoutez le modèle, puis rédigez ses questions dans l'onglet « Questions »."
 
-msgid "Fingerprint of the questions, used to recognize a questionnaire file returned by a supplier."
-msgstr "Empreinte des questions, qui sert à reconnaître un fichier de questionnaire retourné par un fournisseur."
+msgid ""
+"Fingerprint of the questions, used to recognize a questionnaire file "
+"returned by a supplier."
+msgstr ""
+"Empreinte des questions, qui sert à reconnaître un fichier de questionnaire "
+"retourné par un fournisseur."
 
-msgid "For example \"Hosting provider security\", \"Personal data processor (GDPR art. 28)\" or \"AI service provider\"."
-msgstr "Par exemple « Sécurité de l'hébergeur », « Sous-traitant de données personnelles (RGPD art. 28) » ou « Fournisseur de service d'IA »."
+msgid ""
+"For example \"Hosting provider security\", \"Personal data processor (GDPR "
+"art. 28)\" or \"AI service provider\"."
+msgstr ""
+"Par exemple « Sécurité de l'hébergeur », « Sous-traitant de données "
+"personnelles (RGPD art. 28) » ou « Fournisseur de service d'IA »."
 
 msgid "Inactive: not offered for new evaluations"
 msgstr "Inactif : non proposé pour les nouvelles évaluations"
 
-msgid "Increases each time the questions change. An evaluation keeps the questions of the version it was started with."
-msgstr "Augmente à chaque changement des questions. Une évaluation garde les questions de la version avec laquelle elle a été démarrée."
+msgid ""
+"Increases each time the questions change. An evaluation keeps the questions "
+"of the version it was started with."
+msgstr ""
+"Augmente à chaque changement des questions. Une évaluation garde les "
+"questions de la version avec laquelle elle a été démarrée."
 
 msgid "Only active templates are offered when an evaluation is started."
 msgstr "Seuls les modèles actifs sont proposés au démarrage d'une évaluation."
@@ -31290,11 +31765,19 @@ msgstr "Seuls les modèles actifs sont proposés au démarrage d'une évaluation
 msgid "Taken over"
 msgstr "Repris"
 
-msgid "The last completed evaluation of the \"Information security\" domain gives the score shown on the supplier risk and on the dashboard."
-msgstr "La dernière évaluation terminée du domaine « Sécurité de l'information » donne le score affiché sur le risque fournisseur et sur le tableau de bord."
+msgid ""
+"The last completed evaluation of the \"Information security\" domain gives "
+"the score shown on the supplier risk and on the dashboard."
+msgstr ""
+"La dernière évaluation terminée du domaine « Sécurité de l'information » "
+"donne le score affiché sur le risque fournisseur et sur le tableau de bord."
 
-msgid "The twelve questions of the former security questionnaire. It can be deactivated but not deleted."
-msgstr "Les douze questions de l'ancien questionnaire de sécurité. Il peut être désactivé, mais pas supprimé."
+msgid ""
+"The twelve questions of the former security questionnaire. It can be "
+"deactivated but not deleted."
+msgstr ""
+"Les douze questions de l'ancien questionnaire de sécurité. Il peut être "
+"désactivé, mais pas supprimé."
 
 msgid "Detach"
 msgstr "Retirer"
@@ -31316,8 +31799,21 @@ msgid "Expected: %s"
 msgstr "Attendu : %s"
 
 #, php-format
-msgid "For each question, choose the answer given by the supplier and add a comment if needed. The expected answer earns 1 point, \"partial\" half a point, the other answer 0, multiplied by the weight of the question. A question marked \"Evidence required\" waits for a document (certificate, report, policy...): it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) and added to the Documents tab of the supplier risk."
-msgstr "Pour chaque question, choisissez la réponse donnée par le fournisseur et ajoutez un commentaire si besoin. La réponse attendue rapporte 1 point, « partiel » un demi-point, l'autre réponse 0, multiplié par la pondération de la question. Une question marquée « Pièce exigée » attend un document (certificat, rapport, politique...) : il est contrôlé comme toute preuve (types autorisés par GLPI, taille maximale %d Mio) et ajouté à l'onglet Documents du risque fournisseur."
+msgid ""
+"For each question, choose the answer given by the supplier and add a comment "
+"if needed. The expected answer earns 1 point, \"partial\" half a point, the "
+"other answer 0, multiplied by the weight of the question. A question marked "
+"\"Evidence required\" waits for a document (certificate, report, policy...): "
+"it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) "
+"and added to the Documents tab of the supplier risk."
+msgstr ""
+"Pour chaque question, choisissez la réponse donnée par le fournisseur et "
+"ajoutez un commentaire si besoin. La réponse attendue rapporte 1 point, "
+"« partiel » un demi-point, l'autre réponse 0, multiplié par la pondération "
+"de la question. Une question marquée « Pièce exigée » attend un document "
+"(certificat, rapport, politique...) : il est contrôlé comme toute preuve "
+"(types autorisés par GLPI, taille maximale %d Mio) et ajouté à l'onglet "
+"Documents du risque fournisseur."
 
 msgid "For information, not scored"
 msgstr "Pour information, non notée"
@@ -31325,8 +31821,12 @@ msgstr "Pour information, non notée"
 msgid "General"
 msgstr "Général"
 
-msgid "Questions without an answer do not count in the score. A completed evaluation can no longer be changed, unless it is reopened."
-msgstr "Les questions sans réponse ne comptent pas dans le score. Une évaluation terminée ne peut plus être modifiée, sauf à la rouvrir."
+msgid ""
+"Questions without an answer do not count in the score. A completed "
+"evaluation can no longer be changed, unless it is reopened."
+msgstr ""
+"Les questions sans réponse ne comptent pas dans le score. Une évaluation "
+"terminée ne peut plus être modifiée, sauf à la rouvrir."
 
 msgid "Reopen the evaluation"
 msgstr "Rouvrir l'évaluation"
@@ -31337,8 +31837,11 @@ msgstr "Enregistrer et marquer comme terminée"
 msgid "Save answers"
 msgstr "Enregistrer les réponses"
 
-msgid "This evaluation has no question: its template had none when it was created."
-msgstr "Cette évaluation n'a aucune question : son modèle n'en avait pas lors de sa création."
+msgid ""
+"This evaluation has no question: its template had none when it was created."
+msgstr ""
+"Cette évaluation n'a aucune question : son modèle n'en avait pas lors de sa "
+"création."
 
 #, php-format
 msgid "Weight %d"
@@ -31351,11 +31854,25 @@ msgstr "%1$s : %2$s points"
 msgid "Change between the last two completed evaluations"
 msgstr "Écart entre les deux dernières évaluations terminées"
 
-msgid "Evaluate the supplier with one or more questionnaires (security, personal data, artificial intelligence...). Each question has a weight and an expected answer; the score informs the assessment and never changes the risk level entered. Evidence requested for a question is added to the Documents tab of this supplier risk."
-msgstr "Évaluez le fournisseur avec un ou plusieurs questionnaires (sécurité, données personnelles, intelligence artificielle...). Chaque question a une pondération et une réponse attendue ; le score éclaire l'appréciation et ne modifie jamais le niveau de risque saisi. La pièce justificative demandée pour une question est ajoutée à l'onglet Documents de ce risque fournisseur."
+msgid ""
+"Evaluate the supplier with one or more questionnaires (security, personal "
+"data, artificial intelligence...). Each question has a weight and an "
+"expected answer; the score informs the assessment and never changes the risk "
+"level entered. Evidence requested for a question is added to the Documents "
+"tab of this supplier risk."
+msgstr ""
+"Évaluez le fournisseur avec un ou plusieurs questionnaires (sécurité, "
+"données personnelles, intelligence artificielle...). Chaque question a une "
+"pondération et une réponse attendue ; le score éclaire l'appréciation et ne "
+"modifie jamais le niveau de risque saisi. La pièce justificative demandée "
+"pour une question est ajoutée à l'onglet Documents de ce risque fournisseur."
 
-msgid "No active questionnaire template is available in the entity of this supplier risk."
-msgstr "Aucun modèle de questionnaire actif n'est disponible dans l'entité de ce risque fournisseur."
+msgid ""
+"No active questionnaire template is available in the entity of this supplier "
+"risk."
+msgstr ""
+"Aucun modèle de questionnaire actif n'est disponible dans l'entité de ce "
+"risque fournisseur."
 
 msgid "No evaluation yet for this supplier."
 msgstr "Aucune évaluation pour ce fournisseur pour l'instant."
@@ -31377,8 +31894,22 @@ msgid "Code"
 msgstr "Code"
 
 #, php-format
-msgid "Group the questions by section. The expected answer is the compliant one (\"No\" for a question such as \"Have you suffered a data breach in the last 12 months?\"). The weight, from 0 to %d, gives the importance of the question in the score; 0 makes it a question for information only. Tick \"Evidence required\" when the supplier must provide a document. Changing the questions creates a new version of the template; evaluations already started keep their questions."
-msgstr "Regroupez les questions par section. La réponse attendue est la réponse conforme (« Non » pour une question comme « Avez-vous subi une violation de données ces 12 derniers mois ? »). La pondération, de 0 à %d, donne l'importance de la question dans le score ; 0 en fait une question pour information. Cochez « Pièce exigée » quand le fournisseur doit fournir un document. Changer les questions crée une nouvelle version du modèle ; les évaluations déjà démarrées gardent leurs questions."
+msgid ""
+"Group the questions by section. The expected answer is the compliant one "
+"(\"No\" for a question such as \"Have you suffered a data breach in the last "
+"12 months?\"). The weight, from 0 to %d, gives the importance of the "
+"question in the score; 0 makes it a question for information only. Tick "
+"\"Evidence required\" when the supplier must provide a document. Changing "
+"the questions creates a new version of the template; evaluations already "
+"started keep their questions."
+msgstr ""
+"Regroupez les questions par section. La réponse attendue est la réponse "
+"conforme (« Non » pour une question comme « Avez-vous subi une violation de "
+"données ces 12 derniers mois ? »). La pondération, de 0 à %d, donne "
+"l'importance de la question dans le score ; 0 en fait une question pour "
+"information. Cochez « Pièce exigée » quand le fournisseur doit fournir un "
+"document. Changer les questions crée une nouvelle version du modèle ; les "
+"évaluations déjà démarrées gardent leurs questions."
 
 msgid "Help for the answer (optional)"
 msgstr "Aide pour répondre (facultatif)"
@@ -31452,3 +31983,313 @@ msgid "%d question"
 msgid_plural "%d questions"
 msgstr[0] "%d question"
 msgstr[1] "%d questions"
+
+#, php-format
+msgid "%d control updated."
+msgid_plural "%d controls updated."
+msgstr[0] "%d mesure mise à jour."
+msgstr[1] "%d mesures mises à jour."
+
+#, php-format
+msgid "Maturity campaign: %s"
+msgstr "Campagne de maturité : %s"
+
+#, php-format
+msgid "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
+msgstr "Niveau actuel : %1$d (%2$s). Niveau cible : %3$d (%4$s)."
+
+#, php-format
+msgid "Target date: %s"
+msgstr "Échéance : %s"
+
+#, php-format
+msgid "Maturity gap %1$s: from level %2$d to level %3$d"
+msgstr "Écart de maturité %1$s : du niveau %2$d au niveau %3$d"
+
+msgid "Maturity campaign"
+msgid_plural "Maturity campaigns"
+msgstr[0] "Campagne de maturité"
+msgstr[1] "Campagnes de maturité"
+
+msgid "Maturity by control"
+msgstr "Maturité par mesure"
+
+msgid "Non-existent"
+msgstr "Inexistant"
+
+#, php-format
+msgid "Maturity assessment of %s"
+msgstr "Évaluation de maturité du %s"
+
+msgid "Levels by control"
+msgstr "Niveaux par mesure"
+
+msgid "Comparison"
+msgstr "Comparaison"
+
+msgid "Campaign lead"
+msgstr "Pilote de la campagne"
+
+#, php-format
+msgid "Maturity by control: %s"
+msgstr "Maturité par mesure : %s"
+
+msgid ""
+"Rates each applicable control of the Statement of Applicability on a scale "
+"from 0 (non-existent) to 5 (optimised): the level reached today and the "
+"level aimed for, with a target date. The gaps between the two make up the "
+"security roadmap, and two dated campaigns show the progress. These optional "
+"levels change neither the implementation status of the controls nor the "
+"maturity score."
+msgstr ""
+"Évalue chaque mesure applicable de la déclaration d'applicabilité sur une "
+"échelle de 0 (inexistant) à 5 (optimisé) : le niveau atteint aujourd'hui et "
+"le niveau visé, avec une échéance. Les écarts entre les deux forment la "
+"feuille de route de la sécurité, et deux campagnes datées montrent les "
+"progrès. Ces niveaux facultatifs ne changent ni l'état de mise en œuvre des "
+"mesures ni le score de maturité."
+
+msgid ""
+"Create a campaign (for example once a year), fill in the current and target "
+"levels of each control with a justification and an owner, then open the "
+"\"Gaps\" tab: create an action for the largest gaps and download the report "
+"for the management review. The next campaign takes over the targets of this "
+"one."
+msgstr ""
+"Créez une campagne (par exemple une fois par an), renseignez les niveaux "
+"actuel et cible de chaque mesure avec une justification et un responsable, "
+"puis ouvrez l'onglet « Écarts » : créez une action pour les plus grands "
+"écarts et téléchargez le rapport pour la revue de direction. La campagne "
+"suivante reprend les cibles de celle-ci."
+
+msgid "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
+msgstr "ISO/IEC 27001, articles 6.2, 9.3 et 10.1"
+
+msgid "Maturity scale by control"
+msgstr "Échelle de maturité par mesure"
+
+msgid "Open the maturity campaigns"
+msgstr "Ouvrir les campagnes de maturité"
+
+msgid ""
+"Rename the levels of the scale used by the maturity campaigns to match your "
+"method. Leave a field empty to keep the default label, translated into the "
+"language of each user; a label you enter is shown as is in every language. "
+"Renaming a level changes no recorded level."
+msgstr ""
+"Renommez les niveaux de l'échelle utilisée par les campagnes de maturité "
+"pour suivre votre méthode. Laissez un champ vide pour garder le libellé par "
+"défaut, traduit dans la langue de chaque utilisateur ; un libellé saisi "
+"s'affiche tel quel dans toutes les langues. Renommer un niveau ne change "
+"aucun niveau enregistré."
+
+#, php-format
+msgid "%d control declined"
+msgid_plural "%d controls declined"
+msgstr[0] "%d mesure en recul"
+msgstr[1] "%d mesures en recul"
+
+#, php-format
+msgid "%d control improved"
+msgid_plural "%d controls improved"
+msgstr[0] "%d mesure en progrès"
+msgstr[1] "%d mesures en progrès"
+
+#, php-format
+msgid "%d control unchanged"
+msgid_plural "%d controls unchanged"
+msgstr[0] "%d mesure inchangée"
+msgstr[1] "%d mesures inchangées"
+
+msgid "Compare"
+msgstr "Comparer"
+
+msgid "Compare with"
+msgstr "Comparer avec"
+
+msgid "Comparison of two campaigns"
+msgstr "Comparaison de deux campagnes"
+
+msgid ""
+"Current levels of each campaign. A control assessed in only one of the two "
+"campaigns is not compared."
+msgstr ""
+"Niveaux actuels de chaque campagne. Une mesure évaluée dans une seule des "
+"deux campagnes n'est pas comparée."
+
+msgid "New campaign"
+msgstr "Nouvelle campagne"
+
+msgid ""
+"There is no other campaign in this entity yet. Create the next campaign (for "
+"example next year): it takes over the targets of this one, and both can then "
+"be compared here."
+msgstr ""
+"Il n'y a pas encore d'autre campagne dans cette entité. Créez la campagne "
+"suivante (par exemple l'an prochain) : elle reprend les cibles de celle-ci, "
+"et les deux pourront alors être comparées ici."
+
+#, php-format
+msgid "%d gap to close"
+msgid_plural "%d gaps to close"
+msgstr[0] "%d écart à combler"
+msgstr[1] "%d écarts à combler"
+
+#, php-format
+msgid "Average level: %1$s, target %2$s"
+msgstr "Niveau moyen : %1$s, cible %2$s"
+
+msgid ""
+"Average levels by theme, gaps sorted by size and comparison with the "
+"previous campaign, for the management review."
+msgstr ""
+"Niveaux moyens par thème, écarts triés par taille et comparaison avec la "
+"campagne précédente, pour la revue de direction."
+
+msgid "Average over the controls that have both a current and a target level."
+msgstr ""
+"Moyenne des mesures qui ont à la fois un niveau actuel et un niveau cible."
+
+msgid "Campaigns are compared in the order of this date."
+msgstr "Les campagnes sont comparées dans l'ordre de cette date."
+
+msgid "For example \"2026 assessment\". Left empty, the date is used."
+msgstr "Par exemple « Évaluation 2026 ». Laissé vide, la date est utilisée."
+
+msgid "No gap: every target is reached"
+msgstr "Aucun écart : toutes les cibles sont atteintes"
+
+msgid "Previous campaign"
+msgstr "Campagne précédente"
+
+msgid ""
+"The campaign lists the applicable controls of the Statement of Applicability "
+"of the entity. The targets, target dates, justifications and owners of the "
+"previous campaign are taken over; the current levels are left to assess."
+msgstr ""
+"La campagne reprend les mesures applicables de la déclaration "
+"d'applicabilité de l'entité. Les cibles, échéances, justifications et "
+"responsables de la campagne précédente sont repris ; les niveaux actuels "
+"restent à évaluer."
+
+msgid ""
+"The overall maturity score is computed separately from your data and does "
+"not use these levels."
+msgstr ""
+"Le score de maturité global est calculé à part, à partir de vos données, et "
+"n'utilise pas ces niveaux."
+
+msgid ""
+"A gap is the target level minus the current level. The largest gaps come "
+"first, then the nearest target dates: they are the priorities of the roadmap "
+"to present to management. \"Create the action\" opens a pre-filled "
+"opportunity for improvement that you review and save yourself."
+msgstr ""
+"Un écart est le niveau cible moins le niveau actuel. Les plus grands écarts "
+"viennent d'abord, puis les échéances les plus proches : ce sont les "
+"priorités de la feuille de route à présenter à la direction. « Créer "
+"l'action » ouvre une piste d'amélioration pré-remplie que vous relisez et "
+"enregistrez vous-même."
+
+msgid "All (ISO/IEC 27001 Annex A)"
+msgstr "Tous (Annexe A de l'ISO/IEC 27001)"
+
+msgid "Average level of the controls of each theme that have both levels."
+msgstr "Niveau moyen des mesures de chaque thème qui ont les deux niveaux."
+
+msgid "Current and target levels by theme"
+msgstr "Niveaux actuel et cible par thème"
+
+msgid "Gaps to close"
+msgstr "Écarts à combler"
+
+msgid "No gap matches these filters."
+msgstr "Aucun écart ne correspond à ces filtres."
+
+msgid ""
+"No gap: fill in the current and target levels in the \"Levels by control\" "
+"tab; the controls whose target is not reached are listed here."
+msgstr ""
+"Aucun écart : renseignez les niveaux actuel et cible dans l'onglet « Niveaux "
+"par mesure » ; les mesures dont la cible n'est pas atteinte sont listées ici."
+
+msgid "Target date"
+msgstr "Échéance"
+
+msgid "Target date passed"
+msgstr "Échéance dépassée"
+
+msgid "Target level"
+msgstr "Niveau cible"
+
+msgid "The chart appears once controls have both a current and a target level."
+msgstr ""
+"Le graphique apparaît dès que des mesures ont à la fois un niveau actuel et "
+"un niveau cible."
+
+msgid "Current level at the previous campaign"
+msgstr "Niveau actuel lors de la campagne précédente"
+
+msgid ""
+"For each control, choose the level reached today and the level aimed for, on "
+"the scale below, then click \"Save the levels\" at the bottom of the page. A "
+"level left on \"Not assessed\" is simply ignored. These levels change "
+"neither the implementation status of the control nor the maturity score."
+msgstr ""
+"Pour chaque mesure, choisissez le niveau atteint aujourd'hui et le niveau "
+"visé, sur l'échelle ci-dessous, puis cliquez sur « Enregistrer les niveaux » "
+"en bas de la page. Un niveau laissé sur « Non évalué » est simplement "
+"ignoré. Ces niveaux ne changent ni l'état de mise en œuvre de la mesure ni "
+"le score de maturité."
+
+msgid "Implementation status in the SoA"
+msgstr "État de mise en œuvre dans la SoA"
+
+msgid ""
+"No applicable control in the Statement of Applicability of this entity when "
+"the campaign was created. Declare the applicable controls in the SoA, then "
+"create a new campaign."
+msgstr ""
+"Aucune mesure applicable dans la déclaration d'applicabilité de cette entité "
+"à la création de la campagne. Déclarez les mesures applicables dans la SoA, "
+"puis créez une nouvelle campagne."
+
+msgid "No target"
+msgstr "Pas de cible"
+
+msgid "Open the Statement of Applicability"
+msgstr "Ouvrir la déclaration d'applicabilité"
+
+msgid "Reached"
+msgstr "Atteinte"
+
+msgid "Save the levels"
+msgstr "Enregistrer les niveaux"
+
+msgid ""
+"Targets, dates, owners and justifications come from the previous campaign: "
+"adjust them if needed."
+msgstr ""
+"Les cibles, échéances, responsables et justifications viennent de la "
+"campagne précédente : ajustez-les si besoin."
+
+#, php-format
+msgid ""
+"Action proposed from a maturity gap (%s): review and adapt each field, check "
+"the owner and the due date, then click \"Add\". Nothing is created before, "
+"and the gap is linked to this action once it is saved."
+msgstr ""
+"Action proposée depuis un écart de maturité (%s) : relisez et adaptez chaque "
+"champ, vérifiez le responsable et l'échéance, puis cliquez sur « Ajouter ». "
+"Rien n'est créé avant, et l'écart est lié à cette action une fois "
+"enregistrée."
+
+msgid ""
+"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
+"neither the implementation status of the controls nor the maturity score."
+msgstr ""
+"Niveaux de 0 (inexistant) à 5 (optimisé). Ces niveaux facultatifs ne "
+"changent ni l'état de mise en œuvre des mesures ni le score de maturité."
+
+msgid "No previous campaign in this entity."
+msgstr "Aucune campagne précédente dans cette entité."

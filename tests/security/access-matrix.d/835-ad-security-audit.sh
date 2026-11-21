@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 # Issue #835 : audit de securite de l'AD, rapport de l'entite A seulement ; tout en lecture seule.
 # Fragment charge par tests/security/access-matrix.sh (memes fonctions et variables).
+readable front/adsecurityaudit.php
 if [ "$ROLE" = reader ]; then
   contains "audit de l'AD : rapport de A" "adsecurite-a.test" oui "$(body "$P/adsecurityaudit.php")"
   contains "audit de l'AD : rien de B" "adsecurite-b.test" non "$(body "$P/adsecurityaudit.php")"

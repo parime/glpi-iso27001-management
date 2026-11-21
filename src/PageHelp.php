@@ -18,6 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
 
 /**
  * Encadré « À quoi sert cette page ? » en tête de chaque écran du menu GRC & Conformité : ce
@@ -30,6 +31,17 @@ class PageHelp
      * @return array<string, array{purpose: string, expected: string, reference?: string}>
      */
     public static function texts(): array
+    {
+        return self::coreTexts() + FeatureRegistry::pageHelp();
+    }
+
+    /**
+     * Aides des pages plus anciennes ; une nouvelle fonctionnalité donne la sienne dans
+     * src/Feature/<Fonctionnalité>Feature.php (PageHelpProvider).
+     *
+     * @return array<string, array{purpose: string, expected: string, reference?: string}>
+     */
+    private static function coreTexts(): array
     {
         return [
             'dashboard' => [
@@ -55,6 +67,25 @@ class PageHelp
                         . 'first.',
                     'grcmanager'
                 ),
+            ],
+            // Issue #603 : maturité par mesure (campagnes datées, niveau actuel et niveau cible).
+            'maturitycampaign' => [
+                'purpose'   => __(
+                    'Rates each applicable control of the Statement of Applicability on a scale from 0 (non-existent) '
+                        . 'to 5 (optimised): the level reached today and the level aimed for, with a target date. The '
+                        . 'gaps between the two make up the security roadmap, and two dated campaigns show the '
+                        . 'progress. These optional levels change neither the implementation status of the controls '
+                        . 'nor the maturity score.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Create a campaign (for example once a year), fill in the current and target levels of each '
+                        . 'control with a justification and an owner, then open the "Gaps" tab: create an action for '
+                        . 'the largest gaps and download the report for the management review. The next campaign takes '
+                        . 'over the targets of this one.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clauses 6.2, 9.3 and 10.1', 'grcmanager'),
             ],
             // Issue #867 : mesures bloquées de la SoA.
             'controlblocker'   => [
@@ -489,6 +520,24 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.8.8 and A.8.19', 'grcmanager'),
             ],
+            // Issue #846 : droits d'accès aux partages de fichiers Windows.
+            'shareaccess' => [
+                'purpose'   => __(
+                    'Shows who can access the Windows file shares: share and NTFS permissions imported from each '
+                        . 'file server, accounts matched with the GLPI users and groups, and the gaps an auditor '
+                        . 'looks for (everyone can modify, rights given to a person, deleted or disabled accounts, '
+                        . 'broken inheritance, share without an owner).',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Run the PowerShell script provided on each file server (it only reads), import the CSV file, '
+                        . 'classify the sensitive shares and designate an owner for each one. The owner then reviews '
+                        . 'the rights of the share; the administrator applies the changes on the server and the next '
+                        . 'import shows the rights added and removed.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3', 'grcmanager'),
+            ],
             // Issue #781 : conformité de configuration d'après les résultats OpenSCAP.
             'configcompliance' => [
                 'purpose'   => __(
@@ -507,24 +556,6 @@ class PageHelp
                 'reference' => __('ISO/IEC 27001, control A.8.9', 'grcmanager'),
             ],
             // Issue #853 : couverture de la journalisation.
-            // Issue #838 : couverture des sauvegardes.
-            'backupcoverage' => [
-                'purpose'   => __(
-                    'Shows which important assets have a recent successful backup (Veeam Backup & Replication, '
-                        . 'Acronis, Commvault, Synology, Proxmox Backup Server), which have none or one older than '
-                        . 'their recovery point objective (RPO), whose last backup failed, and when their restore '
-                        . 'was last tested.',
-                    'grcmanager'
-                ),
-                'expected'  => __(
-                    'Choose the assets that must be backed up, read Veeam or import the list of machines of each '
-                        . 'backup tool, set the RPO of the assets or of their business processes, and record the '
-                        . 'restore tests in the recovery exercises. The page only reads: it never starts a backup. '
-                        . 'Record the result as an effectiveness test of the control to keep the evidence.',
-                    'grcmanager'
-                ),
-                'reference' => __('ISO/IEC 27001, controls A.8.13 and A.5.30', 'grcmanager'),
-            ],
             'logcoverage' => [
                 'purpose'   => __(
                     'Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or '
@@ -821,23 +852,6 @@ class PageHelp
                 ),
             ],
             // Issue #852 : couverture MFA par compte.
-            'mfacoverage' => [
-                'purpose'   => __(
-                    'Shows which active accounts are protected by multi-factor authentication: GLPI two-factor '
-                        . 'authentication, and the methods registered with your identity provider (Microsoft Entra '
-                        . 'ID, Okta, Google Workspace, on-premises solution) imported from a CSV export. Rates are '
-                        . 'given for all accounts, administrators and remote access accounts.',
-                    'grcmanager'
-                ),
-                'expected'  => __(
-                    'Import the export of your identity provider, choose the remote access groups, then follow up '
-                        . 'the gaps: administrator or remote access without MFA, SMS or call only, account excluded '
-                        . 'without justification. Nothing is changed automatically. Record the result as an '
-                        . 'effectiveness test of the control to keep the evidence.',
-                    'grcmanager'
-                ),
-                'reference' => __('ISO/IEC 27001, controls A.8.5 and A.5.17', 'grcmanager'),
-            ],
             'personnelcompliance' => [
                 'purpose'   => __(
                     'Security compliance of each person: screening, confidentiality agreement, mandatory trainings, '
