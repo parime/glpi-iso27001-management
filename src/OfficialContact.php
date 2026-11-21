@@ -20,8 +20,11 @@ namespace GlpiPlugin\Grcmanager;
 use CommonDBTM;
 use CommonGLPI;
 use CronTask;
+use Document;
+use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Context\ContextItemRules;
 use GlpiPlugin\Grcmanager\Services\Context\OfficialContactRules as Rules;
 use Html;
@@ -36,7 +39,8 @@ use Session;
  * Pas d'objet ni de table à part : un contact officiel est une partie intéressée du contexte de
  * l'organisation (ContextItem) marquée « contact officiel ». Cette classe n'en est que la vue :
  * - le registre (liste, export PDF pour l'avoir hors ligne pendant une crise) ;
- * - l'onglet « Contacts officiels » des incidents de sécurité et des violations de données ;
+ * - l'onglet « Contacts officiels » des incidents de sécurité et des violations de données, avec
+ *   les contacts proposés selon la catégorie de l'incident (lot 3) ;
  * - la preuve affichée sur les mesures A.5.5 et A.5.6 de la SoA ;
  * - la relance des contacts non vérifiés depuis 12 mois (tâche automatique).
  *
@@ -152,6 +156,11 @@ class OfficialContact extends CommonGLPI
             'internal_group'  => $groupId > 0 ? Dropdown::getDropdownName('glpi_groups', $groupId) : '',
             'on_incident'     => !empty($row['on_security_incident']),
             'on_breach'       => !empty($row['on_data_breach']),
+            // Lot 3 : catégories d'incident retenues (vide : tous les incidents).
+            'incident_types'  => array_values(array_intersect_key(
+                PluginGrcmanagerSecurityIncident::getCategories(),
+                array_flip(Rules::normalizeIncidentCategories($row['contact_incident_categories'] ?? ''))
+            )),
             'verified'        => $verified ?? '',
             'status'          => Rules::verificationStatus($verified, $today),
             'next'            => Rules::nextVerificationDate($verified) ?? '',
@@ -208,7 +217,128 @@ class OfficialContact extends CommonGLPI
             'export_url' => self::getExportURL(),
             'search_url' => ContextItem::getSearchURL(),
             'multi'      => EntityPerimeter::isMultiEntity(),
+            // Lot 3 : archivage daté du registre sur les mesures A.5.5 et A.5.6.
+            'can_archive'  => self::canArchive(),
+            'register_url' => self::getRegisterURL(),
+            'archives'     => self::recentArchives(),
         ]);
+    }
+
+    // ------------------------------------------------------------------
+    // Lot 3 : archivage daté du registre, preuve des mesures A.5.5 et A.5.6
+    // ------------------------------------------------------------------
+
+    /** Archiver crée un document lié aux mesures : droit de modifier le contexte de l'organisation. */
+    public static function canArchive(): bool
+    {
+        return self::canView() && ContextItem::canUpdate();
+    }
+
+    /**
+     * Archive le registre en PDF daté, joint aux mesures A.5.5 et A.5.6 de la SoA suivie par
+     * l'entité active. Renvoie l'identifiant du document, 0 en cas d'échec.
+     */
+    public static function archive(): int
+    {
+        if (!self::canArchive()) {
+            return 0;
+        }
+        $fileName = sprintf('contacts-officiels-%s.pdf', date('Ymd-His'));
+        try {
+            $pdf = PdfRenderer::renderHtmlToPdf(self::reportHtml());
+        } catch (\Throwable $e) {
+            return 0;
+        }
+        if (file_put_contents(GLPI_TMP_DIR . '/' . $fileName, $pdf) === false) {
+            return 0;
+        }
+        // Document::add() empile des messages techniques sans intérêt pour l'utilisateur.
+        $messagesBefore = $_SESSION['MESSAGE_AFTER_REDIRECT'] ?? [];
+        $documentsId = (int) (new Document())->add([
+            'name'          => sprintf(__('Register of official contacts - %s', 'grcmanager'), date('Y-m-d')),
+            'entities_id'   => EntityPerimeter::soaEntity(),
+            'is_recursive'  => 0,
+            '_filename'     => [$fileName],
+            '_tag_filename' => [$fileName],
+        ]);
+        $_SESSION['MESSAGE_AFTER_REDIRECT'] = $messagesBefore;
+        if ($documentsId <= 0) {
+            return 0;
+        }
+        foreach (self::controlIds() as $controlId) {
+            (new Document_Item())->add([
+                'documents_id' => $documentsId,
+                'itemtype'     => Control::class,
+                'items_id'     => $controlId,
+            ]);
+        }
+
+        return $documentsId;
+    }
+
+    /**
+     * Mesures A.5.5 et A.5.6 de la SoA suivie par l'entité active.
+     *
+     * @return list<int>
+     */
+    public static function controlIds(): array
+    {
+        global $DB;
+
+        $ids = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id'],
+                'FROM'   => Control::getTable(),
+                'WHERE'  => ['code' => array_keys(Rules::CONTROL_CATEGORIES)] + EntityPerimeter::controlCriteria(),
+            ]) as $control
+        ) {
+            $ids[] = (int) $control['id'];
+        }
+
+        return $ids;
+    }
+
+    /**
+     * Derniers registres archivés sur ces mesures (documents lisibles par la personne).
+     *
+     * @return list<array{name: string, date: string, url: string}>
+     */
+    public static function recentArchives(int $limit = 5): array
+    {
+        global $DB;
+
+        $controlIds = self::controlIds();
+        if ($controlIds === [] || !Document::canView()) {
+            return [];
+        }
+        $documents = Document::getTable();
+        $links = Document_Item::getTable();
+        $archives = [];
+        foreach (
+            $DB->request([
+                'SELECT'     => ["$documents.id", "$documents.name", "$documents.date_creation"],
+                'DISTINCT'   => true,
+                'FROM'       => $documents,
+                'INNER JOIN' => [$links => ['FKEY' => [$links => 'documents_id', $documents => 'id']]],
+                'WHERE'      => [
+                    "$links.itemtype"       => Control::class,
+                    "$links.items_id"       => $controlIds,
+                    "$documents.filename"   => ['LIKE', '%contacts-officiels-%'],
+                    "$documents.is_deleted" => 0,
+                ] + getEntitiesRestrictCriteria($documents, '', '', true),
+                'ORDER'      => "$documents.id DESC",
+                'LIMIT'      => $limit,
+            ]) as $row
+        ) {
+            $archives[] = [
+                'name' => (string) $row['name'],
+                'date' => (string) $row['date_creation'],
+                'url'  => Document::getFormURLWithID((int) $row['id']),
+            ];
+        }
+
+        return $archives;
     }
 
     /**
@@ -230,6 +360,30 @@ class OfficialContact extends CommonGLPI
             'summary'            => Rules::summary($rows, date('Y-m-d')),
             'contacts'           => self::presentAll($rows),
         ]);
+    }
+
+    /**
+     * Lot 3 : contacts officiels du plan de continuité (PCA / PRA) en PDF : ceux que la personne
+     * peut lire, et pour un seul processus ceux de son entité ou d'une entité parente.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function forContinuityPlan(?CommonDBTM $process = null): array
+    {
+        if (!self::canView()) {
+            return [];
+        }
+        $where = [];
+        if ($process !== null && !$process->isNewItem()) {
+            $where[] = getEntitiesRestrictCriteria(
+                ContextItem::getTable(),
+                '',
+                (int) $process->fields['entities_id'],
+                true
+            );
+        }
+
+        return self::presentAll(self::visibleContacts($where));
     }
 
     // ------------------------------------------------------------------
@@ -263,13 +417,18 @@ class OfficialContact extends CommonGLPI
         if ($context === null || $item->isNewItem()) {
             return [];
         }
-        $field = $context === Rules::CONTEXT_INCIDENT ? 'on_security_incident' : 'on_data_breach';
         $table = ContextItem::getTable();
-
-        return self::visibleContacts([
-            $field => 1,
+        // Lot 3 : contacts proposés selon la catégorie de l'incident (Rules::concerns()).
+        $category = $context === Rules::CONTEXT_INCIDENT ? (string) ($item->fields['category'] ?? '') : null;
+        $rows = self::visibleContacts([
+            ['OR' => [['on_security_incident' => 1], ['on_data_breach' => 1]]],
             getEntitiesRestrictCriteria($table, '', (int) $item->fields['entities_id'], true),
         ]);
+
+        return array_values(array_filter(
+            $rows,
+            static fn (array $row): bool => Rules::concerns($row, $context, $category === '' ? null : $category)
+        ));
     }
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
