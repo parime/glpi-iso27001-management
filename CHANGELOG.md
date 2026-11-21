@@ -7,6 +7,131 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.80.0] - 2026-11-21
+
+### Added
+
+- **Vue Sécurité 360° de chaque actif** (issue #837, partie 1). Un onglet **Sécurité 360°** sur les
+  ordinateurs et les matériels réseau résume, pour l'actif, chaque source de sécurité disponible avec
+  un badge d'état (critique, à surveiller, conforme, information), un court résumé et un lien vers le
+  détail : vulnérabilités connues, chiffrement des disques, conformité de configuration (OpenSCAP),
+  contrôleur de gestion, incidents de sécurité et risques liés. Un score sur 100 et un niveau global
+  (bon, à améliorer, faible) sont expliqués sur la page : moyenne pondérée des sources évaluées, et
+  une seule source critique empêche le niveau « bon ». Les sources sans données (module non utilisé,
+  rien d'importé, pas le droit) restent masquées. Les sources viennent d'un registre extensible
+  (`AssetSecuritySourcesProvider` dans `src/Feature/`) : un module ajoute la sienne sans toucher à
+  l'onglet. Lecture seule, calculé seulement à l'ouverture de l'onglet.
+
+- **Droits d'accès à SharePoint, OneDrive et Teams** (issue #846, lot 2, mesures A.5.15, A.5.18 et
+  A.8.3). Sur la page « Droits sur les partages de fichiers », un cadre **Lire les droits SharePoint,
+  OneDrive et Teams** lit les droits par Microsoft Graph, sur clic et en lecture seule, avec
+  l'application et le secret chiffré déjà réglés pour la couverture MFA (#852) : droits des
+  bibliothèques de documents des sites et de leurs éléments partagés à part, éléments partagés des
+  OneDrive, propriétaires, membres, invités et visibilité des équipes Teams. Permissions
+  d'application à accorder : Sites.Read.All, Files.Read.All, User.Read.All et GroupMember.Read.All.
+  Import CSV en solution de repli (fichier d'exemple fourni). Mêmes écarts, même score et même
+  revue par le propriétaire que les partages Windows, avec deux écarts en plus : **lien public**
+  (n'importe qui ayant le lien, sans connexion) et **invité externe**. Un lien « personnes de
+  l'organisation » et une équipe publique comptent comme « tout le monde ». Une lecture incomplète
+  ou refusée ne remplace rien.
+
+- **Réponse du fournisseur hors ligne, par fichier** (partie de l'issue #865, mesures A.5.19 à
+  A.5.22). Un nouvel onglet **Fichier fournisseur** d'une évaluation télécharge le questionnaire à
+  remplir (CSV « ; » en UTF-8, une ligne par question, colonnes réponse, commentaire et nom de la
+  pièce jointe), que le RSSI envoie par le moyen de son choix. Le fichier retourné est réimporté
+  avec contrôle : repère de l'évaluation et empreinte de ses questions (un fichier d'une autre
+  évaluation ou d'autres questions est refusé), réponses rattachées par code, écarts signalés
+  (question inconnue ou absente, réponse hors liste, doublon), aperçu des changements, et rien
+  n'est enregistré sans confirmation. Les pièces envoyées par le fournisseur sont déposées au même
+  moment et rattachées aux questions par leur nom, avec les contrôles habituels des preuves. Les
+  réponses importées portent l'origine « fichier », le fichier reçu rejoint les documents du risque
+  fournisseur et chaque export ou import est tracé dans l'historique (qui, quand, quel fichier,
+  empreinte). Fichiers piégés écartés : classeur ou binaire renommé, formules neutralisées à
+  l'export, caractères de contrôle et chemins retirés, taille et nombre de lignes limités.
+
+- **Nomenclature logicielle (SBOM) et déclarations VEX des produits fabriqués** (issue #869, mesures
+  A.5.21, A.8.8 et A.8.28, Cyber Resilience Act annexe I partie II). Un onglet **SBOM et VEX** sur les
+  applications importe, pour chaque version publiée, une nomenclature CycloneDX ou SPDX 2 en JSON,
+  avec une lecture bornée : 10 Mo, profondeur du JSON, 10 000 composants et 5 000 vulnérabilités au
+  plus, champs nettoyés, fichier refusé plutôt que lu en partie. Les composants (nom, version,
+  fournisseur, licences, purl, CPE) sont rapprochés des vulnérabilités citées par le fichier et de
+  celles que la veille des vulnérabilités du parc connaît déjà pour le même produit et la même version
+  (alias d'un produit surveillé ou CPE du composant), sans aucun appel extérieur, avec la note CVSS et
+  le marquage KEV. Chaque vulnérabilité reçoit un statut VEX (affecté, en cours d'analyse, corrigé,
+  non affecté avec une justification ou une explication), saisi dans l'onglet ou importé d'un
+  document CycloneDX VEX ou OpenVEX ; la déclaration la plus précise s'applique. Les fiches des mesures
+  A.5.21, A.8.8 et A.8.28 montrent les produits avec un SBOM, les applications du registre du
+  développement sécurisé sans SBOM et les vulnérabilités sans déclaration ou encore affectées.
+
+- **Rapport du stock d'écarts** (issue #870, clauses 9.1, 10.1 et 10.2). Nouvel onglet
+  **Stock des écarts** de la rubrique Audits : non-conformités, autres constats et actions
+  correctives du registre des CAPA, et actions décidées en revue de direction. Stock ouvert par
+  gravité, origine (audit interne, audit de certification, incident de sécurité, revue de
+  direction, autre), type, entité et responsable ; âge des écarts ouverts et retard sur
+  l'échéance ; délai moyen et médian de clôture sur la période choisie ; tendance mensuelle
+  (ouverts, clôturés, stock en fin de mois) ; part des clôtures dont l'efficacité a été vérifiée.
+  Filtres par période, type, gravité, origine, entité et responsable ; export CSV et PDF pour le
+  dossier de l'auditeur ; archivage du PDF comme preuve des exigences 10.1 et 10.2 (onglet
+  Documents), repris par le dossier de preuves de l'auditeur. Cadre de preuve sur la fiche des
+  exigences 10.1 et 10.2, carte « Délai moyen de clôture des écarts » du tableau de bord. La date
+  de clôture d'une non-conformité est désormais enregistrée (reprise de la date de vérification,
+  sinon de la dernière modification, pour les constats déjà clos). Lecture seule : aucun statut,
+  aucune échéance ni aucun responsable n'est modifié.
+
+- **Mesures de la SoA couvertes par les textes de la bibliothèque des politiques** (issue #879,
+  clause 5.2 et mesure A.5.1). Onglet **Mesures couvertes** d'une politique : la politique entière,
+  ou une de ses sections nommée librement, se relie à plusieurs mesures d'un coup, par la liste ou
+  en saisissant des codes (`A.5.1`, plage `A.5.15-A.5.18`, thème `A.8`) ; un lien déjà présent
+  n'est pas doublé et un code inconnu est signalé. Onglet **Textes de référence** d'une mesure :
+  les textes qui la couvrent, leur état (approuvé, revue dépassée, non approuvé) et la liaison de
+  plusieurs politiques. Sous-page **Couverture des mesures par les politiques** de la rubrique
+  Conformité : taux de couverture et mesures applicables non couvertes, couvertes seulement par un
+  texte non approuvé ou à réviser, exportables en CSV et en PDF. Nouvelle règle des contrôles de
+  cohérence (A.5.1), évaluée dès qu'un texte est relié, reprise dans « Ce qui bloque cette
+  mesure ». Relier demande le droit de modifier les politiques ; seules les mesures des entités de
+  la session sont montrées. Lecture seule pour les statuts.
+
+- **Configuration à risque de l'inventaire Docker sur la mesure A.8.9** (issue #916). Dans le cadre
+  « Conformité de configuration » de la mesure, une ligne **Inventaire Docker : configuration à
+  risque** apparaît quand le plugin Inventaire Docker 0.12.0 ou suivant est actif et que
+  l'utilisateur peut lire ses services : taux de services **sans écart critique ni haut** mis en
+  avant, taux sans aucun écart, nombre de services analysés et non analysés, services dont l'écart
+  le plus grave est critique ou haut, exceptions **expirées** et exceptions qui finissent dans les
+  30 jours (avec la date de la plus proche), et lien vers la sous-page « Configuration à risque ».
+  Les exceptions ne sont comptées que sur les services des entités actives. Rien ne s'affiche sans
+  le plugin ou avec une version plus ancienne. Lecture seule.
+
+### Fixed
+
+- **Pages en erreur 500 sous GLPI 12.** Le journal d'audit ne tombe plus quand il contient un
+  événement d'un type qui n'est pas un objet GLPI (import de chemins d'attaque Active Directory) :
+  le nom court du type est affiché. Les pages qui refusaient l'accès avec une méthode retirée de
+  GLPI 12 (comptes des contrôleurs dans la revue des accès, programme d'audit, conformité des
+  configurations, chiffrement des disques, couverture des journaux, gestion des serveurs, blocages
+  d'une mesure, échantillonnage de l'audit de certification) renvoient de nouveau un refus 403.
+  Un test vérifie qu'aucun appel à ces méthodes retirées ne revient.
+
+- **Gabarits et champs des incidents de sécurité sur GLPI 11 et 12** (issue #951, suite de #796).
+  - La liste des gabarits (bouton « Modèle » des incidents de sécurité) affichait « An unexpected
+    error occurred » dès qu'un gabarit existait : GLPI ne retrouvait pas la classe à partir du nom
+    raccourci des tables des gabarits. La liste s'affiche de nouveau et ouvre chaque gabarit.
+  - Les listes Urgence et Impact d'un incident étaient vides et son statut restait bloqué sur
+    « Nouveau », même pour un super-admin, dans le formulaire de l'incident comme dans les champs
+    prédéfinis d'un gabarit. Un incident suit maintenant les mêmes réglages que les tickets :
+    masques d'urgence et d'impact et matrice de priorité de la configuration, cycle de vie des
+    tickets du profil.
+  - Après l'ajout d'un champ masqué, obligatoire, prédéfini ou en lecture seule, on revient au
+    gabarit au lieu d'arriver sur la fiche technique du champ.
+
+- **Erreurs JavaScript surveillées dans un vrai navigateur** (issue #978). Un nouveau contrôle de la
+  CI (`tests/security/js-errors.py`, Playwright) ouvre en super-admin l'accueil de GLPI et chaque page
+  du plugin, après le jeu de données piégé du test XSS, et échoue si une page lève une erreur
+  JavaScript non interceptée (par exemple « Maximum call stack size exceeded ») ou ouvre une boîte de
+  dialogue (charge XSS exécutée). Une erreur qui ne revient pas à une seconde visite de la page est
+  signalée en avertissement seulement. L'erreur relevée une fois avant publication n'a pas été
+  reproduite sur la version de développement : ni boucle, ni requête relancée sans fin sur l'accueil
+  et les pages du plugin.
+
 ## [2.79.0] - 2026-11-21
 
 ### Added

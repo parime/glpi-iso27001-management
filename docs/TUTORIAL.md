@@ -1317,6 +1317,11 @@ Sécurité de l'import : le fichier est lu en flux (les gros rapports ARF passen
 de type de document ou d'entité est refusée et aucun accès réseau n'est fait pendant la lecture. Le
 fichier lui-même n'est pas conservé, seulement les compteurs et les règles en échec.
 
+Si le plugin Inventaire Docker (0.12.0 ou suivant) est installé, le même cadre ajoute une ligne
+**Inventaire Docker : configuration à risque** : part des services sans écart critique ni haut (le
+chiffre à montrer à l'auditeur), part sans aucun écart, exceptions expirées ou qui finissent dans les
+30 jours, et un lien vers la sous-page « Configuration à risque » du plugin.
+
 ### Étape 44 : Suivre l'audit de sécurité de l'Active Directory (mesures A.5.15 à A.5.18, A.8.2 et A.8.5)
 
 L'Active Directory est la première cible des attaques : comptes privilégiés, délégations, comptes
@@ -1573,7 +1578,39 @@ ordinateurs ; le droit de modifier le plugin pour déclarer, lire et importer.
     donne les chiffres de la preuve, et les indicateurs de risque proposent la source « Contrôleurs
     de gestion des serveurs avec un écart grave ».
 
-### Étape 51 : Suivre les chemins d'attaque vers Domain Admins (mesures A.5.15, A.5.18 et A.8.2)
+### Étape 51 : Contrôler les droits d'accès à SharePoint, OneDrive et Teams (mesures A.5.15, A.5.18 et A.8.3)
+
+Les documents ne sont plus seulement sur des serveurs de fichiers : l'auditeur regarde aussi les
+liens de partage et les invités de Microsoft 365. Le plugin lit les droits par Microsoft Graph, en
+lecture seule, et ne modifie rien dans Microsoft 365. Il faut le droit du plugin et le droit des
+registres sensibles (en modification pour lire ou importer).
+
+1. Réglez une fois l'application Microsoft Graph sur la page **Couverture MFA** (locataire,
+   identifiant d'application, secret)  (voir étape 41). Accordez-lui en
+   plus, avec le consentement de l'administrateur, les permissions d'application
+   `Sites.Read.All`, `Files.Read.All`, `User.Read.All` et `GroupMember.Read.All`.
+2. Ouvrez Revue des accès > **Droits sur les partages de fichiers**, cadre **Lire les droits
+   SharePoint, OneDrive et Teams**. Cliquez sur **Lire SharePoint maintenant**, **Lire OneDrive
+   maintenant** ou **Lire Teams maintenant**.
+   - SharePoint : droits de la bibliothèque de documents de chaque site et des éléments de premier
+     niveau partagés à part ;
+   - OneDrive : éléments de premier niveau que chaque personne a partagés (les droits du titulaire
+     sont ignorés) ;
+   - Teams : propriétaires, membres, invités et visibilité de chaque équipe.
+   Si Microsoft Graph refuse l'accès ou si le locataire est trop grand pour une lecture, rien n'est
+   remplacé et un message indique quoi faire.
+3. Sans accès à Microsoft Graph, importez un fichier CSV (une ligne par droit, colonnes telles que
+   `Source`, `Site`, `SiteUrl`, `Item`, `Identity`, `Type`, `Roles` et `LinkScope`) ;
+   **Télécharger un fichier d'exemple** en montre un.
+4. Les sites, OneDrive et équipes rejoignent la liste des partages, avec les mêmes écarts et le même
+   score, plus deux écarts : **lien public** (n'importe qui ayant le lien, sans se connecter) et
+   **invité externe**. Un lien « personnes de l'organisation » et une équipe publique comptent comme
+   « tout le monde » ; un membre nommé d'une équipe n'est pas un écart.
+5. Classez chaque site, désignez son propriétaire et lancez la revue comme pour un partage Windows.
+   Les décisions s'appliquent ensuite dans Microsoft 365 ; la lecture suivante montre les droits
+   retirés.
+
+### Étape 52 : Suivre les chemins d'attaque vers Domain Admins (mesures A.5.15, A.5.18 et A.8.2)
 
 Un chemin d'attaque est une suite de droits, d'appartenances à des groupes ou de sessions ouvertes qui
 permet à un compte ordinaire de prendre le contrôle du groupe **Domain Admins**. BloodHound CE et
@@ -1600,7 +1637,7 @@ sans lancer l'outil ni interroger l'annuaire.
 6. Seuls le nombre de comptes et les comptes les plus exposés (nom, type, sauts) sont gardés. Les
    fichiers trop gros, trop profonds ou mal formés sont refusés.
 
-### Étape 52 : Suivre le firmware des cartes de gestion et revoir leurs comptes (mesures A.8.8 et A.8.2)
+### Étape 53 : Suivre le firmware des cartes de gestion et revoir leurs comptes (mesures A.8.8 et A.8.2)
 
 Une fois les contrôleurs lus (50), leur firmware
 et le BIOS du serveur sont suivis comme les autres firmwares du parc, et leurs comptes locaux entrent
@@ -1628,6 +1665,136 @@ dans la revue des accès.
    contrôleur lui-même : le plugin ne change rien sur les serveurs, la campagne garde la trace de la
    décision. Pour une campagne lancée avant la lecture des contrôleurs, le bouton **Ajouter les
    comptes des contrôleurs** de l'onglet les copie une fois.
+
+### Étape 54 : Voir la sécurité d'un actif d'un seul coup d'œil (vue Sécurité 360°)
+
+Devant un auditeur qui choisit un serveur au hasard, l'onglet **Sécurité 360°** de la fiche de
+l'ordinateur (ou du matériel réseau) rassemble ce que le plugin sait de cet actif.
+
+1. Ouvrez la fiche d'un ordinateur, par exemple `SRV-DEMO-01`, puis l'onglet **Sécurité 360°**.
+2. Le bandeau donne le niveau global (bon, à améliorer, faible) et un score sur 100 : moyenne
+   pondérée des sources évaluées (conforme 100, à surveiller 50, critique 0). Une seule source
+   critique empêche le niveau « bon ».
+3. Chaque ligne résume une source avec son badge : vulnérabilités connues, chiffrement des disques,
+   conformité de configuration (OpenSCAP), contrôleur de gestion, incidents de sécurité, risques
+   liés. Le lien **Voir le détail** ouvre l'onglet ou la page du module pour corriger l'écart.
+4. Une source sans donnée pour cet actif (module non utilisé, rien d'importé, pas le droit) n'est
+   pas affichée : importez ou lisez d'abord les données des modules concernés.
+
+Rien n'est modifié depuis cet onglet : il sert de point d'entrée, les corrections se font dans les
+modules.
+
+### Étape 55 : Faire répondre un fournisseur par fichier
+
+Quand le fournisseur n'a pas accès à GLPI, envoyez-lui le questionnaire d'une évaluation sous forme
+de fichier (voir 8).
+
+1. Dans l'onglet **Fichier fournisseur** de l'évaluation, cliquez sur **Télécharger le
+   questionnaire à remplir**. Le fichier CSV contient une ligne par question ; sa première ligne
+   identifie l'évaluation et ses questions, elle ne doit pas être modifiée.
+2. Envoyez-le par le moyen de votre choix. Le fournisseur remplit dans un tableur les colonnes
+   **Réponse du fournisseur** (Oui, Partiel, Non, Sans objet), **Commentaire** et, pour chaque document fourni,
+   **Nom de la pièce jointe**, puis l'enregistre au format CSV.
+3. Au retour, choisissez le fichier dans le même onglet et cliquez sur **Vérifier les réponses**.
+   L'aperçu montre, question par question, la réponse actuelle et celle du fichier, ainsi que les
+   points à vérifier (question inconnue ou absente, réponse hors liste).
+4. Ajoutez les documents envoyés par le fournisseur : chacun est rattaché aux questions qui citent
+   son nom. Cliquez sur **Enregistrer ces réponses** ; rien n'est enregistré avant.
+5. Relisez l'onglet **Questionnaire**, puis marquez l'évaluation comme terminée. L'onglet
+   **Historique** garde la trace de chaque export et de chaque import.
+
+### Étape 56 : Présenter le stock d'écarts à l'auditeur (clause 10)
+
+Pour montrer que les non-conformités sont traitées dans les délais, l'onglet **Stock des écarts**
+de la rubrique **Audits** rassemble les non-conformités, les autres constats et les actions
+décidées en revue de direction.
+
+1. Ouvrez **Audits > Stock des écarts**. Par défaut, la période couvre les douze derniers mois.
+2. Les quatre cartes donnent les écarts ouverts, ceux en retard, le délai moyen de clôture sur la
+   période et la part des clôtures dont l'efficacité a été vérifiée.
+3. Les tableaux répartissent le stock ouvert par gravité, origine (audit interne, audit de
+   certification, incident, revue de direction), entité et responsable, avec les retards en rouge.
+4. La tendance mensuelle montre les écarts ouverts, clôturés et le stock en fin de mois : un stock
+   qui baisse est un bon signe d'amélioration continue.
+5. La liste du bas cite les écarts ouverts, les plus en retard d'abord ; cliquez sur un titre pour
+   ouvrir la fiche et relancer son responsable.
+6. Filtrez si besoin (période, type, gravité, origine, entité, responsable), puis cliquez sur
+   **Export PDF** ou **Export CSV** pour le dossier de l'auditeur.
+7. **Archiver comme preuve (10.1, 10.2)** joint le PDF aux exigences 10.1 et 10.2 : il
+   apparaît sur leur fiche et dans le dossier de preuves de l'auditeur.
+
+Rien n'est modifié depuis cette page : les statuts et les échéances se changent sur chaque fiche.
+
+### Étape 57 : Relier les politiques aux mesures de la SoA
+
+L'auditeur vérifie que chaque mesure applicable de la déclaration d'applicabilité est traitée par
+au moins un texte approuvé (clause 5.2 et mesure A.5.1). Reliez les textes de la bibliothèque des
+politiques aux mesures qu'ils traitent :
+
+1. Ouvrez une politique, puis son onglet **Mesures couvertes**.
+2. Dans **Section**, indiquez la partie du texte concernée (par exemple « 4.2 Contrôle d'accès »),
+   ou laissez vide si le texte entier couvre les mesures.
+3. Choisissez plusieurs mesures dans la liste, ou saisissez leurs codes dans **Ou saisir les codes
+   des mesures** : une mesure (`A.5.1`), une plage (`A.5.15-A.5.18`) ou tout un thème (`A.8`).
+   Cliquez sur **Relier**. Un lien déjà présent n'est pas doublé ; un code inconnu est signalé.
+4. Sur la fiche d'une mesure, l'onglet **Textes de référence** montre les textes qui la couvrent et
+   leur état ; il permet aussi d'y relier plusieurs politiques d'un coup.
+5. Dans **Conformité > Couverture des mesures par les politiques**, la liste des mesures
+   applicables non couvertes, couvertes seulement par un texte non approuvé ou par un texte dont la
+   date de revue est passée. Exportez-la en **CSV** ou en **PDF** pour l'auditeur.
+
+Les contrôles de cohérence comptent aussi ces mesures (règle de la mesure A.5.1), dès qu'au moins un
+texte est relié. Rien n'est modifié automatiquement : écrivez, faites approuver ou révisez le texte
+manquant.
+
+### Étape 58 : Tenir la nomenclature logicielle (SBOM) et les déclarations VEX de vos produits (mesures A.5.21, A.8.8 et A.8.28)
+
+Si vous fabriquez ou développez un logiciel (application, produit avec des éléments numériques au
+sens du Cyber Resilience Act), vos clients et le CRA attendent sa nomenclature logicielle et vos
+déclarations sur ses vulnérabilités. Le produit est une application de GLPI, comme dans le registre
+du développement sécurisé (33).
+
+1. Faites produire la nomenclature par votre chaîne de construction, au format CycloneDX ou SPDX 2 en
+   JSON (par exemple avec Syft, Trivy, cdxgen ou le greffon CycloneDX de Maven ou de npm).
+2. Ouvrez l'application dans **Parc > Applications**, onglet **SBOM et VEX**. Dans **Importer un
+   SBOM**, saisissez la version publiée (par exemple `2.4.0`), choisissez le fichier et cliquez sur
+   **Importer**. Le fichier est refusé s'il dépasse 10 Mo, s'il est trop imbriqué ou s'il liste plus
+   de 10 000 composants : découpez-le alors par produit.
+3. La carte de la version liste les **vulnérabilités connues des composants** : celles que cite le
+   fichier (CycloneDX, souvent ajoutées par l'outil d'analyse) et celles que la veille des
+   vulnérabilités du parc connaît déjà pour le même produit et la même version (nom relié à un
+   produit surveillé, ou CPE du composant). Aucune requête n'est envoyée hors de GLPI. Dépliez
+   **Composants** pour voir le détail : nom, version, fournisseur, licences, purl ou CPE.
+4. Pour chaque vulnérabilité, choisissez un statut VEX : **Affecté**, **En cours d'analyse**,
+   **Corrigé** ou **Non affecté**. « Non affecté » demande une justification (composant absent, code
+   vulnérable absent ou jamais exécuté, hors de portée d'un attaquant, protections déjà en place) ou
+   une explication. Vous pouvez aussi importer le document VEX de votre outil (CycloneDX VEX ou
+   OpenVEX) dans **Importer un document VEX**, ou ajouter une déclaration pour le produit entier dans
+   **Déclarations VEX**.
+5. Une nouvelle déclaration remplace la précédente pour la même vulnérabilité, le même composant et
+   la même version ; la plus précise s'applique (composant nommé plutôt que produit entier).
+6. Sur la fiche des mesures A.5.21, A.8.8 et A.8.28, l'encadré **Nomenclatures logicielles et VEX**
+   donne le nombre de produits avec un SBOM, les applications du registre sans SBOM et, pour la
+   dernière nomenclature de chaque produit, les vulnérabilités sans déclaration et celles qui
+   affectent encore le produit.
+
+### Étape 59 : Faire répondre un fournisseur par lien sécurisé
+
+Si vos fournisseurs peuvent joindre votre GLPI, ils peuvent répondre au questionnaire en ligne, sans
+compte GLPI (sinon, voir 55).
+
+1. Un administrateur du plugin active **Réponse du fournisseur par lien sécurisé** dans la
+   configuration du plugin. La fonction est désactivée par défaut.
+2. Dans l'onglet **Lien sécurisé** de l'évaluation, choisissez la durée de validité et le nombre
+   d'envois autorisés, puis cliquez sur **Créer un lien**. Copiez le lien affiché : il n'est montré
+   qu'une fois, GLPI n'en garde qu'une empreinte.
+3. Envoyez-le au fournisseur. Sa page ne montre que les questions de cette évaluation ; il choisit
+   ses réponses, ajoute des commentaires et ses documents, puis clique sur **Envoyer mes réponses**.
+4. Les réponses reçues apparaissent dans **Réponses à relire**. Cliquez sur **Vérifier les
+   réponses** : l'aperçu compare chaque réponse à la réponse actuelle. Enregistrez-les, ou
+   rejetez-les ; rien ne compte dans l'évaluation avant.
+5. Un lien se révoque à tout moment (bouton **Révoquer**). Le journal d'audit sécurité garde la
+   création, chaque ouverture, chaque envoi et chaque révocation.
 
 ## 🇬🇧 English
 
@@ -2855,6 +3022,11 @@ Import security: the file is read as a stream (large ARF reports are accepted), 
 entity declaration is refused and no network access is made while reading. The file itself is not
 kept, only the counts and the failed rules.
 
+If the Docker Inventory plugin (0.12.0 or later) is installed, the same box adds a line **Docker
+inventory: risky configuration**: share of services without a critical or high gap (the figure to
+show the auditor), share without any gap, exceptions expired or ending within 30 days, and a link to
+the "Risky configuration" sub-page of the plugin.
+
 ### Step 44: Follow the Active Directory security audit (controls A.5.15 to A.5.18, A.8.2 and A.8.5)
 
 The Active Directory is the first target of attacks: privileged accounts, delegations, inactive
@@ -3096,7 +3268,36 @@ plugin to declare, read and import.
     A.8.9 and A.8.22, the "Server management controllers" frame gives the figures of the evidence,
     and the key risk indicators offer the source "Server management controllers with a serious gap".
 
-### Step 51: Follow the attack paths to Domain Admins (controls A.5.15, A.5.18 and A.8.2)
+### Step 51: Check the access rights of SharePoint, OneDrive and Teams (controls A.5.15, A.5.18 and A.8.3)
+
+Documents are no longer only on file servers: the auditor also looks at the sharing links and the
+guests of Microsoft 365. The plugin reads the rights through Microsoft Graph, read only, and never
+changes anything in Microsoft 365. You need the plugin right and the right on the sensitive
+registers (with modification to read or import).
+
+1. Set up the Microsoft Graph application once on the **MFA coverage** page (tenant, application ID,
+   secret) (see step 41). Also grant it, with
+   admin consent, the `Sites.Read.All`, `Files.Read.All`, `User.Read.All` and `GroupMember.Read.All`
+   application permissions.
+2. Open Access review > **File share access rights**, box **Read SharePoint, OneDrive and Teams
+   rights**. Click **Read SharePoint now**, **Read OneDrive now** or **Read Teams now**.
+   - SharePoint: the rights of each site document library and of its top-level items shared
+     separately;
+   - OneDrive: the top-level items each person has shared (the owner's own rights are ignored);
+   - Teams: owners, members, guests and visibility of each team.
+   If Microsoft Graph refuses access or the tenant is too large for one read, nothing is replaced
+   and a message says what to do.
+3. Without access to Microsoft Graph, import a CSV file (one line per right, columns such as
+   `Source`, `Site`, `SiteUrl`, `Item`, `Identity`, `Type`, `Roles` and `LinkScope`); **Download an
+   example file** shows one.
+4. Sites, OneDrives and teams join the list of shares, with the same gaps and the same score, plus
+   two gaps: **public link** (anyone who has the link, without signing in) and **external guest**. A
+   "people in the organization" link and a public team count as "everyone"; a named member of a team
+   is not a gap.
+5. Classify each site, designate its owner and start the review as for a Windows share. The
+   decisions are then applied in Microsoft 365; the next read shows the removed rights.
+
+### Step 52: Follow the attack paths to Domain Admins (controls A.5.15, A.5.18 and A.8.2)
 
 An attack path is a chain of rights, group memberships or open sessions that lets an ordinary
 account take control of the **Domain Admins** group. BloodHound CE and Adalanche draw these paths;
@@ -3123,7 +3324,7 @@ querying the directory.
 6. Only the number of accounts and the most exposed accounts (name, type, steps) are kept. Files
    that are too large, too deep or malformed are refused.
 
-### Step 52: Follow the firmware of the management controllers and review their accounts (controls A.8.8 and A.8.2)
+### Step 53: Follow the firmware of the management controllers and review their accounts (controls A.8.8 and A.8.2)
 
 Once the controllers are read (50), their
 firmware and the BIOS of the server are followed like the other firmwares of the fleet, and their
@@ -3151,3 +3352,129 @@ local accounts enter the access review.
    plugin changes nothing on the servers, the campaign keeps the decision. For a campaign launched
    before the controllers were read, the button **Add the accounts of the controllers** of the tab
    copies them once.
+
+### Step 54: See the security of an asset at a glance (Security 360° view)
+
+When an auditor picks a server at random, the **Security 360°** tab of the computer (or network
+device) brings together what the plugin knows about this asset.
+
+1. Open a computer, for example `SRV-DEMO-01`, then the **Security 360°** tab.
+2. The banner gives the overall level (good, to improve, weak) and a score out of 100: weighted
+   average of the assessed sources (compliant 100, to watch 50, critical 0). A single critical
+   source prevents the good level.
+3. Each line summarises one source with its badge: known vulnerabilities, disk encryption,
+   configuration compliance (OpenSCAP), management controller, security incidents, linked risks.
+   The **View the details** link opens the tab or page of the module to fix the gap.
+4. A source without data for this asset (module not used, nothing imported, no right) is not
+   shown: first import or read the data of the relevant modules.
+
+Nothing is changed from this tab: it is an entry point, fixes are made in the modules.
+
+### Step 55: Have a supplier answer by file
+
+When the supplier has no access to GLPI, send the questionnaire of an evaluation as a file (see
+8).
+
+1. In the **Supplier file** tab of the evaluation, click **Download the questionnaire to fill
+   in**. The CSV file has one line per question; its first line identifies the evaluation and its
+   questions and must not be changed.
+2. Send it by the means of your choice. The supplier fills in the columns **Supplier answer** (Yes,
+   Partial, No, Not applicable), **Comment** and, for each document provided, **Evidence file
+   name** in a spreadsheet, then saves it as CSV.
+3. When it comes back, choose the file in the same tab and click **Review the answers**. The
+   preview shows, question by question, the current answer and the one in the file, with the
+   points to check (unknown or missing question, answer outside the list).
+4. Add the documents sent by the supplier: each one is attached to the questions that give its
+   name. Click **Save these answers**; nothing is recorded before.
+5. Review the **Questionnaire** tab, then mark the evaluation as completed. The **Historical** tab
+   keeps a record of each export and import.
+
+### Step 56: Showing the gap backlog to the auditor (clause 10)
+
+To show that non-conformities are handled on time, the **Gap backlog** tab of the **Audits**
+section gathers non-conformities, other findings and the actions decided in management reviews.
+
+1. Open **Audits > Gap backlog**. By default, the period covers the last twelve months.
+2. The four cards give the open gaps, the overdue ones, the mean time to close over the period and
+   the share of closures whose effectiveness was verified.
+3. The tables split the open backlog by severity, origin (internal audit, certification audit,
+   incident, management review), entity and owner, with overdue items in red.
+4. The monthly trend shows the gaps opened, closed and the backlog at month end: a decreasing
+   backlog is a good sign of continual improvement.
+5. The list at the bottom shows the open gaps, most overdue first; click a title to open the record
+   and follow up with its owner.
+6. Filter if needed (period, type, severity, origin, entity, owner), then click **Export PDF** or
+   **Export CSV** for the auditor's file.
+7. **Archive as evidence (10.1, 10.2)** attaches the PDF to requirements 10.1 and 10.2: it
+   appears on their record and in the auditor's evidence pack.
+
+Nothing is changed from this page: statuses and due dates are changed on each record.
+
+### Step 57: Link the policies to the controls of the SoA
+
+The auditor checks that each applicable control of the Statement of Applicability is dealt with by
+at least one approved text (clause 5.2 and control A.5.1). Link the texts of the policy library to
+the controls they deal with:
+
+1. Open a policy, then its **Covered controls** tab.
+2. In **Section**, give the part of the text concerned (for example "4.2 Access control"), or leave
+   it empty when the whole text covers the controls.
+3. Choose several controls in the list, or type their codes in **Or type control codes**: a control
+   (`A.5.1`), a range (`A.5.15-A.5.18`) or a whole theme (`A.8`). Click **Link**. A link that already
+   exists is not duplicated; an unknown code is reported.
+4. On a control, the **Reference texts** tab shows the texts that cover it and their status; it also
+   links several policies at once.
+5. In **Compliance > Control coverage by policies**, the list of applicable controls not covered,
+   covered only by a text not approved, or by a text whose review date has passed. Export it in
+   **CSV** or **PDF** for the auditor.
+
+The consistency checks also count these controls (rule of control A.5.1), as soon as at least one
+text is linked. Nothing is changed automatically: write, approve or review the missing text.
+
+### Step 58: Keep the software bill of materials (SBOM) and the VEX statements of your products (controls A.5.21, A.8.8 and A.8.28)
+
+If you build or develop software (an application, a product with digital elements in the sense of
+the Cyber Resilience Act), your customers and the CRA expect its software bill of materials and your
+statements about its vulnerabilities. The product is a GLPI application, as in the register of secure
+development (33).
+
+1. Have your build produce the bill of materials in CycloneDX or SPDX 2 format, as JSON (for example
+   with Syft, Trivy, cdxgen or the CycloneDX plugin for Maven or npm).
+2. Open the application in **Assets > Appliances**, tab **SBOM and VEX**. In **Import an SBOM**,
+   enter the released version (for example `2.4.0`), choose the file and click **Import**. The file is
+   refused if it exceeds 10 MB, is nested too deeply or lists more than 10,000 components: split it by
+   product in that case.
+3. The card of the version lists the **known vulnerabilities of the components**: those cited by the
+   file (CycloneDX, often added by the scanner) and those the vulnerability watch of the fleet already
+   knows for the same product and version (name linked to a watched product, or CPE of the
+   component). No request is sent outside GLPI. Unfold **Components** for the details: name,
+   version, supplier, licenses, purl or CPE.
+4. For each vulnerability, choose a VEX status: **Affected**, **Under investigation**, **Fixed** or
+   **Not affected**. "Not affected" needs a justification (component not present, vulnerable code
+   not present or never executed, out of reach of an attacker, protections already in place) or an
+   explanation. You can also import the VEX document of your tool (CycloneDX VEX or OpenVEX) in
+   **Import a VEX document**, or add a statement for the whole product in **VEX statements**.
+5. A new statement replaces the previous one for the same vulnerability, component and version; the
+   most precise one applies (a named component rather than the whole product).
+6. On the sheet of controls A.5.21, A.8.8 and A.8.28, the box **Software bills of materials and VEX**
+   gives the number of products with an SBOM, the applications of the register without an SBOM and,
+   for the latest bill of materials of each product, the vulnerabilities without a statement and
+   those that still affect the product.
+
+### Step 59: Have a supplier answer by secure link
+
+If your suppliers can reach your GLPI, they can answer the questionnaire online, without a GLPI
+account (otherwise, see 55).
+
+1. An administrator of the plugin enables **Supplier answer by secure link** in the plugin
+   settings. The feature is disabled by default.
+2. In the **Secure link** tab of the evaluation, choose how long the link is valid and how many
+   sendings it allows, then click **Create a link**. Copy the link shown: it is displayed only once,
+   GLPI keeps only a fingerprint of it.
+3. Send it to the supplier. Its page shows only the questions of this evaluation; it chooses its
+   answers, adds comments and its documents, then clicks **Send my answers**.
+4. The answers received appear under **Answers to review**. Click **Review the answers**: the
+   preview compares each answer with the current one. Save them, or discard them; nothing counts in
+   the evaluation before.
+5. A link can be revoked at any time (**Revoke** button). The security audit log keeps the
+   creation, each opening, each sending and each revocation.
