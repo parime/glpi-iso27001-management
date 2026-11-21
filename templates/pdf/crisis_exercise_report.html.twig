@@ -60,6 +60,24 @@
 </table>
 {% endif %}
 
+{# Issue #771, lot 3 : contacts officiels à prévenir et situation de chacun. #}
+{% if official_contacts.contacts|default([]) is not empty %}
+<h2>{{ __('Official contacts to inform', 'grcmanager') }} (A.5.5, A.5.6)</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Name') }}</th><th>{{ __('Contact category', 'grcmanager') }}</th><th>{{ __('Deadline', 'grcmanager') }}</th><th>{{ __('Outcome', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for contact in official_contacts.contacts %}
+      <tr>
+        <td>{{ contact.name }}</td>
+        <td>{{ contact.category }}</td>
+        <td>{{ contact.notice and contact.notice.deadline ? contact.notice.deadline|formatted_datetime : '-' }}</td>
+        <td>{{ contact.notice ? contact.notice.label : '-' }}{% if contact.notice and contact.notice.date %} ({{ contact.notice.date|formatted_datetime }}){% endif %}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
 {% if journal is not empty %}
 <h2>{{ __('Crisis log', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
