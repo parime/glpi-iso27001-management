@@ -62,6 +62,13 @@ function plugin_init_grcmanager(): void
         '#^/front/compliancecalendar\.ics\.php$#',
         \Glpi\Http\Firewall::STRATEGY_NO_CHECK
     );
+    // Issue #865, lot 2 : questionnaire du fournisseur par lien sécurisé, sans compte GLPI ; la page
+    // s'autorise par le jeton du lien (SupplierEvaluationLink) et la fonction est désactivée par défaut.
+    \Glpi\Http\Firewall::addPluginStrategyForLegacyScripts(
+        'grcmanager',
+        '#^/front/supplierportal\.php$#',
+        \Glpi\Http\Firewall::STRATEGY_NO_CHECK
+    );
 
     // GLPI's own legacy `inc/{name}.class.php` autoloader (src/autoload/legacy-autoloader.php,
     // glpi_autoload()) only fires for a classname that itself STARTS WITH "Plugin" (or the PSR-4

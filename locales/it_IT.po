@@ -35081,3 +35081,274 @@ msgstr "Nessun SBOM ancora importato."
 #: templates/product_sbom_list.html.twig
 msgid "Components"
 msgstr "Componenti"
+
+msgid "Secure link"
+msgstr "Link sicuro"
+
+#, php-format
+msgid "Secure link %1$d created for the supplier, valid %2$d day(s)"
+msgstr "Link sicuro %1$d creato per il fornitore, valido %2$d giorno/i"
+
+#, php-format
+msgid "Secure link %d revoked"
+msgstr "Link sicuro %d revocato"
+
+#, php-format
+msgid "Files of type .%s are not accepted."
+msgstr "I file di tipo .%s non sono accettati."
+
+#, php-format
+msgid ""
+"Supplier answers received by secure link %1$d: %2$d answer(s), %3$d "
+"document(s), to be reviewed"
+msgstr ""
+"Risposte del fornitore ricevute tramite il link sicuro %1$d: %2$d risposta/"
+"e, %3$d documento/i, da rivedere"
+
+#, php-format
+msgid "Answers received by secure link on %s"
+msgstr "Risposte ricevute tramite link sicuro il %s"
+
+#, php-format
+msgid ""
+"Supplier answers received by secure link reviewed and saved: %1$d answer(s), "
+"%2$d document(s)"
+msgstr ""
+"Risposte del fornitore ricevute tramite link sicuro riviste e salvate: %1$d "
+"risposta/e, %2$d documento/i"
+
+#, php-format
+msgid "Supplier answers received by secure link discarded (draft %d)"
+msgstr ""
+"Risposte del fornitore ricevute tramite link sicuro scartate (bozza %d)"
+
+msgid ""
+"Shows the answers sent by the supplier through the secure link, question by "
+"question, next to the current answers, with the documents received. They are "
+"not part of the evaluation yet."
+msgstr ""
+"Mostra le risposte inviate dal fornitore tramite il link sicuro, domanda per "
+"domanda, accanto alle risposte attuali, con i documenti ricevuti. Non fanno "
+"ancora parte della valutazione."
+
+msgid ""
+"Check the answers, then save them (the documents are checked again like any "
+"evidence) or discard them. Then review the evaluation and mark it as "
+"completed."
+msgstr ""
+"Controllate le risposte, poi salvatele (i documenti sono ricontrollati come "
+"ogni evidenza) o scartatele. Rivedete poi la valutazione e segnatela come "
+"completata."
+
+#, php-format
+msgid "Question %s: choose an answer from the list."
+msgstr "Domanda %s: scegliete una risposta dall'elenco."
+
+msgid "Too many documents in one sending."
+msgstr "Troppi documenti in un solo invio."
+
+#, php-format
+msgid "Question %1$s: %2$s"
+msgstr "Domanda %1$s: %2$s"
+
+msgid "Nothing was sent: answer at least one question."
+msgstr "Non è stato inviato nulla: rispondete ad almeno una domanda."
+
+msgid "Secure link created: copy it now, it will not be shown again."
+msgstr "Link sicuro creato: copiatelo ora, non sarà più mostrato."
+
+msgid "The link was revoked: it no longer opens the questionnaire."
+msgstr "Il link è stato revocato: non apre più il questionario."
+
+msgid "The answers received were discarded."
+msgstr "Le risposte ricevute sono state scartate."
+
+#, php-format
+msgid "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
+msgstr ""
+"%1$d risposta/e salvata/e dal link sicuro, %2$d documento/i allegato/i."
+
+msgid ""
+"Your customer asks you to answer this security questionnaire. Choose an "
+"answer for each question, add a comment if useful and attach the documents "
+"asked for. Your answers are sent to your customer, who reviews them before "
+"they are recorded."
+msgstr ""
+"Il vostro cliente vi chiede di rispondere a questo questionario di "
+"sicurezza. Scegliete una risposta per ogni domanda, aggiungete un commento "
+"se utile e allegate i documenti richiesti. Le risposte sono inviate al "
+"cliente, che le rivede prima di registrarle."
+
+#, php-format
+msgid "Link valid until %s"
+msgstr "Link valido fino al %s"
+
+#, php-format
+msgid "Sendings left: %d"
+msgstr "Invii rimanenti: %d"
+
+msgid "Nothing was sent yet"
+msgstr "Non è ancora stato inviato nulla"
+
+msgid "Correct these points, select the documents again, then send."
+msgstr ""
+"Correggete questi punti, selezionate di nuovo i documenti, poi inviate."
+
+msgid "Document expected"
+msgstr "Documento atteso"
+
+msgid "Document (optional)"
+msgstr "Documento (facoltativo)"
+
+#, php-format
+msgid ""
+"Documents: at most %d MB each, in the formats accepted by your customer "
+"(PDF, office documents, images...)."
+msgstr ""
+"Documenti: al massimo %d MB ciascuno, nei formati accettati dal cliente "
+"(PDF, documenti d'ufficio, immagini...)."
+
+msgid "Send my answers"
+msgstr "Invia le mie risposte"
+
+msgid ""
+"Thank you: your answers were sent. Your customer will review them; you can "
+"close this page."
+msgstr ""
+"Grazie: le vostre risposte sono state inviate. Il cliente le rivedrà; potete "
+"chiudere questa pagina."
+
+msgid "Too many requests: wait a few minutes, then try again."
+msgstr "Troppe richieste: attendete qualche minuto, poi riprovate."
+
+msgid ""
+"This link can no longer be used: it has expired, was revoked or was already "
+"used. Ask your contact for a new link."
+msgstr ""
+"Questo link non può più essere usato: è scaduto, è stato revocato o è già "
+"stato usato. Chiedete un nuovo link al vostro referente."
+
+msgid ""
+"This link is not valid. Check that you copied it in full, or ask your "
+"contact for a new link."
+msgstr ""
+"Questo link non è valido. Verificate di averlo copiato per intero, o "
+"chiedete un nuovo link al vostro referente."
+
+msgid "Supplier answer by secure link"
+msgstr "Risposta del fornitore tramite link sicuro"
+
+msgid ""
+"Lets a supplier answer its security questionnaire on a page served by GLPI, "
+"without a GLPI account, from a personal link created on the evaluation (tab "
+"\"Secure link\"). Enable it only if this GLPI can be reached by your "
+"suppliers. The link opens only the questions of one evaluation, expires, can "
+"be used a limited number of times and can be revoked; the answers wait for a "
+"review in GLPI. The answer by file works without this setting."
+msgstr ""
+"Consente a un fornitore di rispondere al proprio questionario di sicurezza "
+"su una pagina servita da GLPI, senza account GLPI, da un link personale "
+"creato sulla valutazione (scheda «Link sicuro»). Attivatelo solo se questo "
+"GLPI è raggiungibile dai fornitori. Il link apre solo le domande di una "
+"valutazione, scade, può essere usato un numero limitato di volte e può "
+"essere revocato; le risposte attendono una revisione in GLPI. La risposta "
+"tramite file funziona senza questa impostazione."
+
+msgid "Allow suppliers to answer by secure link"
+msgstr "Consentire ai fornitori di rispondere tramite link sicuro"
+
+msgid "All sendings used"
+msgstr "Invii esauriti"
+
+msgid "Evaluation completed"
+msgstr "Valutazione completata"
+
+msgid "Answer by secure link, without a GLPI account"
+msgstr "Risposta tramite link sicuro, senza account GLPI"
+
+msgid ""
+"Send the supplier a personal link to a page served by GLPI, where it answers "
+"the questions of this evaluation and attaches its documents, without a GLPI "
+"account. The page shows only these questions. The link expires, can be used "
+"a limited number of times and can be revoked at any time. The answers "
+"received stay pending until you review and save them."
+msgstr ""
+"Inviate al fornitore un link personale a una pagina servita da GLPI, dove "
+"risponde alle domande di questa valutazione e allega i suoi documenti, senza "
+"account GLPI. La pagina mostra solo queste domande. Il link scade, può "
+"essere usato un numero limitato di volte e revocato in qualsiasi momento. Le "
+"risposte ricevute restano in attesa finché non le rivedete e salvate."
+
+msgid "Answers to review"
+msgstr "Risposte da rivedere"
+
+msgid "Received on"
+msgstr "Ricevute il"
+
+msgid "Answers"
+msgstr "Risposte"
+
+msgid "Link to send to the supplier"
+msgstr "Link da inviare al fornitore"
+
+msgid ""
+"Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). "
+"Send it by the means of your choice."
+msgstr ""
+"Copiatelo ora: è mostrato una sola volta (GLPI ne conserva solo "
+"un'impronta). Inviatelo con il mezzo che preferite."
+
+msgid ""
+"The secure link is disabled. An administrator of the plugin can enable it in "
+"the plugin settings; the answer by file stays available."
+msgstr ""
+"Il link sicuro è disattivato. Un amministratore del plugin può attivarlo "
+"nelle impostazioni del plugin; la risposta tramite file resta disponibile."
+
+msgid "Open the settings"
+msgstr "Apri le impostazioni"
+
+msgid "Valid for (days)"
+msgstr "Valido per (giorni)"
+
+msgid "Sendings allowed"
+msgstr "Invii consentiti"
+
+msgid "Create a link"
+msgstr "Crea un link"
+
+msgid ""
+"This evaluation is completed: its links no longer open the questionnaire."
+msgstr ""
+"Questa valutazione è completata: i suoi link non aprono più il questionario."
+
+msgid "Expires"
+msgstr "Scade"
+
+msgid "Sendings"
+msgstr "Invii"
+
+msgid "Openings"
+msgstr "Aperture"
+
+msgid "Created by"
+msgstr "Creato da"
+
+msgid ""
+"The creation of a link, each opening, each sending and each revocation are "
+"recorded in the security audit log; the Historical tab shows the sendings "
+"received and reviewed."
+msgstr ""
+"La creazione di un link, ogni apertura, ogni invio e ogni revoca sono "
+"registrati nel registro di audit di sicurezza; la scheda Cronologia mostra "
+"gli invii ricevuti e rivisti."
+
+msgid "Discard these answers"
+msgstr "Scarta queste risposte"
+
+msgid ""
+"They are checked again like any evidence when you save, then attached to "
+"their question."
+msgstr ""
+"Sono ricontrollati come ogni evidenza al salvataggio, poi allegati alla loro "
+"domanda."
