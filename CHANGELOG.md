@@ -9,6 +9,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Revue des accès pré-remplie par des règles** (issue #866, mesures A.5.18 et A.8.2). Au
+  lancement d'une campagne, chaque compte arrive avec une suggestion et sa raison, calculées sans IA
+  à partir des données déjà présentes dans GLPI :
+  - **retirer** : compte supprimé de l'annuaire, date de fin du compte dépassée, départ enregistré
+    dans assetsign (s'il est actif) dont la date est passée ;
+  - **à examiner** : départ ou fin du compte dans les N jours, aucune connexion depuis N jours ou
+    compte jamais utilisé, groupes changés sans revue des profils, profil à privilèges (la raison
+    précise quand aucune MFA n'est connue, d'après la couverture MFA de #852) ;
+  - **garder** : aucun signal d'alerte.
+
+  Les règles se règlent sur le formulaire de la campagne (durées, règles activées) et passent à la
+  campagne suivante. L'onglet « Comptes à revoir », « Mes revues d'accès » et le rapport PDF
+  affichent la suggestion, ses raisons et les décisions opposées à la suggestion. La décision reste
+  humaine : rien n'est présélectionné, et garder un compte que les règles proposent de retirer
+  demande un commentaire. « Mettre à jour les suggestions » recalcule les comptes encore à revoir.
+  Mise à jour : champs ajoutés aux campagnes et à leurs lignes (migration rejouable) ; les lignes
+  des campagnes déjà lancées affichent « Pas encore de suggestion » jusqu'au recalcul.
+
 - **Matrice des flux : nouveau flux pré-rempli depuis l'adresse** (issue #909). Le bouton
   « Proposer le flux » de l'inventaire Docker ouvre le formulaire d'un nouveau flux avec ses valeurs
   proposées : type, nom, source, actif et libellé de destination, protocole et ports. Liste fermée de

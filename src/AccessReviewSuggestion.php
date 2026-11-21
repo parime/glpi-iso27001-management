@@ -77,7 +77,9 @@ final class AccessReviewSuggestion
      */
     public static function reasonLabel(string $code, array $params): string
     {
-        $date = isset($params['date']) ? (string) Html::convDate((string) $params['date']) : '';
+        // Date stockée par les règles (AAAA-MM-JJ) ; toute autre valeur est ignorée.
+        $rawDate = (string) ($params['date'] ?? '');
+        $date = preg_match('/^\d{4}-\d{2}-\d{2}$/', $rawDate) === 1 ? (string) Html::convDate($rawDate) : '';
         $days = (int) ($params['days'] ?? 0);
         $profiles = implode(', ', array_map('strval', is_array($params['profiles'] ?? null) ? $params['profiles'] : []));
 
