@@ -1,0 +1,85 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #603 : onglet « Comparaison » d'une campagne : niveaux actuels de deux campagnes de la même
+   entité, mesure par mesure (la plus ancienne à gauche). #}
+{% set level_classes = {0: 'bg-red-subtle text-red-emphasis', 1: 'bg-red-subtle text-red-emphasis', 2: 'bg-orange-subtle text-orange-emphasis', 3: 'bg-yellow-subtle text-yellow-emphasis', 4: 'bg-lime-subtle text-lime-emphasis', 5: 'bg-green-subtle text-green-emphasis'} %}
+
+<div class="card" id="grc-maturity-compare">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-columns me-2"></i>{{ __('Comparison of two campaigns', 'grcmanager') }}</h3>
+   </div>
+   <div class="card-body">
+      {% if others is empty %}
+         <div class="alert alert-info mb-0" id="grc-maturity-compare-empty">
+            <i class="ti ti-info-circle me-1"></i>{{ __('There is no other campaign in this entity yet. Create the next campaign (for example next year): it takes over the targets of this one, and both can then be compared here.', 'grcmanager') }}
+            {% if can_create %}<a href="{{ add_url }}" class="ms-1"><i class="ti ti-plus me-1"></i>{{ __('New campaign', 'grcmanager') }}</a>{% endif %}
+         </div>
+      {% else %}
+         <form method="get" action="{{ action }}" class="row g-2 align-items-end mb-3">
+            <input type="hidden" name="id" value="{{ campaign_id }}">
+            <input type="hidden" name="forcetab" value="GlpiPlugin\Grcmanager\MaturityCampaign$3">
+            <div class="col-md-6">
+               <label class="form-label" for="grc-maturity-compare-with">{{ __('Compare with', 'grcmanager') }}</label>
+               <select class="form-select" name="compare_with" id="grc-maturity-compare-with">
+                  {% for id, label in others %}<option value="{{ id }}"{% if id == other_id %} selected{% endif %}>{{ label }}</option>{% endfor %}
+               </select>
+            </div>
+            <div class="col-md-3">
+               <button type="submit" class="btn btn-outline-primary"><i class="ti ti-arrows-exchange me-1"></i>{{ __('Compare', 'grcmanager') }}</button>
+            </div>
+         </form>
+         {% if comparison is not null %}
+            <div class="d-flex flex-wrap gap-2 mb-3" id="grc-maturity-compare-summary">
+               <span class="badge bg-green-subtle text-green-emphasis fs-5"><i class="ti ti-trending-up me-1"></i>{{ _n('%d control improved', '%d controls improved', comparison.improved, 'grcmanager')|format(comparison.improved) }}</span>
+               <span class="badge bg-red-subtle text-red-emphasis fs-5"><i class="ti ti-trending-down me-1"></i>{{ _n('%d control declined', '%d controls declined', comparison.declined, 'grcmanager')|format(comparison.declined) }}</span>
+               <span class="badge bg-secondary-subtle text-secondary-emphasis fs-5"><i class="ti ti-equal me-1"></i>{{ _n('%d control unchanged', '%d controls unchanged', comparison.unchanged, 'grcmanager')|format(comparison.unchanged) }}</span>
+            </div>
+            <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Current levels of each campaign. A control assessed in only one of the two campaigns is not compared.', 'grcmanager') }}</p>
+            <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table" id="grc-maturity-compare-lines">
+               <thead>
+                  <tr>
+                     <th>{{ __('Control', 'grcmanager') }}</th>
+                     <th>{{ comparison.before_date }}<div class="small text-muted fw-normal">{{ comparison.before_name }}</div></th>
+                     <th>{{ comparison.after_date }}<div class="small text-muted fw-normal">{{ comparison.after_name }}</div></th>
+                     <th>{{ __('Change', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for line in comparison.lines %}
+                  <tr>
+                     <td><span class="fw-bold">{{ line.code }}</span> <span class="small">{{ line.title }}</span></td>
+                     <td>{% if line.before is not null %}<span class="badge {{ level_classes[line.before] }}">{{ line.before }} - {{ line.before_label }}</span>{% else %}<span class="text-muted small">{{ __('Not assessed', 'grcmanager') }}</span>{% endif %}</td>
+                     <td>{% if line.after is not null %}<span class="badge {{ level_classes[line.after] }}">{{ line.after }} - {{ line.after_label }}</span>{% else %}<span class="text-muted small">{{ __('Not assessed', 'grcmanager') }}</span>{% endif %}</td>
+                     <td>
+                        {% if line.delta is null %}
+                           <span class="text-muted small">-</span>
+                        {% elseif line.delta > 0 %}
+                           <span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-arrow-up me-1"></i>+{{ line.delta }}</span>
+                        {% elseif line.delta < 0 %}
+                           <span class="badge bg-red-subtle text-red-emphasis"><i class="ti ti-arrow-down me-1"></i>{{ line.delta }}</span>
+                        {% else %}
+                           <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-equal me-1"></i>0</span>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+            </div>
+         {% endif %}
+      {% endif %}
+   </div>
+</div>

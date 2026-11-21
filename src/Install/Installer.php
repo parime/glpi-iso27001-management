@@ -383,6 +383,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\ResponsibilityExport::class,
         // Issue #778 : évaluations de la sécurité physique des sites, rappel de réévaluation.
         ...PhysicalSecurityTables::CLASSES,
+        // Issue #603 : maturité par mesure (campagnes, niveaux actuel et cible).
+        ...MaturityCampaignTables::CLASSES,
         // Issue #774 : compétences (fonctions du SMSI, compétences, déclarations, exports archivés).
         ...CompetenceTables::CLASSES,
         // Issue #616 : communication de crise (modèles, listes de diffusion, communications faites).
@@ -1558,6 +1560,8 @@ final class Installer
         $this->installResponsibilityTables($keySign, $charset, $collation);
         // Issue #778 : sécurité physique des sites (A.7.1 à A.7.14), grille, zones et rappel annuel.
         PhysicalSecurityTables::install($keySign, $charset, $collation);
+        // Issue #603 : maturité par mesure, niveau actuel, niveau cible et écarts.
+        MaturityCampaignTables::install($keySign, $charset, $collation);
         // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
         CompetenceTables::install($keySign, $charset, $collation);
         CompetenceTables::migrate($migration);
@@ -6472,6 +6476,7 @@ final class Installer
         $migration->dropTable(self::RESPONSIBILITY_ACTIVITIES_TABLE);
         $migration->dropTable(self::RESPONSIBILITY_EXPORTS_TABLE);
         PhysicalSecurityTables::uninstall($migration);
+        MaturityCampaignTables::uninstall($migration);
         CompetenceTables::uninstall($migration);
         CrisisCommunicationTables::uninstall($migration);
         CrisisScenarioTables::uninstall($migration);

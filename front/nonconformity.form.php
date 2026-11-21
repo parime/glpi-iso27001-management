@@ -63,6 +63,8 @@ if (isset($_POST['add'])) {
             'checklistitem' => (int) ($_GET['checklistitem'] ?? 0),
             // Issue #778 : action proposée depuis une ligne de l'évaluation de la sécurité physique.
             'physicalsecuritycheck' => (int) ($_GET['physicalsecuritycheck'] ?? 0),
+            // Issue #603 : action proposée depuis un écart de maturité d'une mesure.
+            'maturityassessment'    => (int) ($_GET['maturityassessment'] ?? 0),
         ]
     );
 }

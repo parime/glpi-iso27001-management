@@ -1,0 +1,199 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #603 : onglet « Écarts » d'une campagne : écarts (cible moins actuel) du plus grand au plus
+   petit, filtrables par référentiel, thème et responsable, radar par thème et action par écart. #}
+{% set level_classes = {0: 'bg-red-subtle text-red-emphasis', 1: 'bg-red-subtle text-red-emphasis', 2: 'bg-orange-subtle text-orange-emphasis', 3: 'bg-yellow-subtle text-yellow-emphasis', 4: 'bg-lime-subtle text-lime-emphasis', 5: 'bg-green-subtle text-green-emphasis'} %}
+
+<div class="row g-3" id="grc-maturity-gaps">
+   <div class="col-lg-5">
+      <div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-radar me-2"></i>{{ __('Current and target levels by theme', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            {% if radar is empty %}
+               <p class="text-muted mb-0">{{ __('The chart appears once controls have both a current and a target level.', 'grcmanager') }}</p>
+            {% else %}
+               <div id="grc-maturity-gap-radar" style="height: 300px;" data-themes="{{ radar|json_encode }}" data-current="{{ __('Current level', 'grcmanager') }}" data-target="{{ __('Target level', 'grcmanager') }}"></div>
+               <p class="text-muted small mb-0">{{ __('Average level of the controls of each theme that have both levels.', 'grcmanager') }}</p>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-7">
+      <div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-report-analytics me-2"></i>{{ __('Summary', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            <div class="d-flex flex-wrap gap-2 mb-3">
+               <span class="badge bg-blue-subtle text-blue-emphasis fs-5"><i class="ti ti-list-check me-1"></i>{{ __('%1$d of %2$d controls assessed', 'grcmanager')|format(summary.assessed, summary.total) }}</span>
+               <span class="badge bg-orange-subtle text-orange-emphasis fs-5"><i class="ti ti-arrows-diff me-1"></i>{{ _n('%d gap to close', '%d gaps to close', summary.gaps, 'grcmanager')|format(summary.gaps) }}</span>
+               {% if summary.average_current is not null %}
+                  <span class="badge bg-secondary-subtle text-secondary-emphasis fs-5"><i class="ti ti-stairs me-1"></i>{{ __('Average level: %1$s, target %2$s', 'grcmanager')|format(summary.average_current|number_format(1, ','), summary.average_target|number_format(1, ',')) }}</span>
+               {% endif %}
+            </div>
+            <p class="text-muted small">
+               <i class="ti ti-info-circle me-1"></i>{{ __('A gap is the target level minus the current level. The largest gaps come first, then the nearest target dates: they are the priorities of the roadmap to present to management. "Create the action" opens a pre-filled opportunity for improvement that you review and save yourself.', 'grcmanager') }}
+            </p>
+            <a href="{{ pdf_url }}" class="btn btn-outline-secondary btn-sm" id="grc-maturity-gaps-pdf"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Report (PDF)', 'grcmanager') }}</a>
+         </div>
+      </div>
+   </div>
+
+   <div class="col-12">
+      <div class="card">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-arrows-diff me-2"></i>{{ __('Gaps to close', 'grcmanager') }}</h3>
+         </div>
+         <div class="card-body">
+            {% if rows is empty %}
+               <div class="alert alert-success mb-0" id="grc-maturity-no-gap"><i class="ti ti-circle-check me-1"></i>{{ __('No gap: fill in the current and target levels in the "Levels by control" tab; the controls whose target is not reached are listed here.', 'grcmanager') }}</div>
+            {% else %}
+               <div class="row g-2 mb-3" id="grc-maturity-gap-filters">
+                  {% if frameworks is not empty %}
+                     <div class="col-md-4">
+                        <label class="form-label" for="grc-maturity-filter-framework"><i class="ti ti-books me-1"></i>{{ __('Framework', 'grcmanager') }}</label>
+                        <select class="form-select form-select-sm" id="grc-maturity-filter-framework" data-filter="frameworks">
+                           <option value="">{{ __('All (ISO/IEC 27001 Annex A)', 'grcmanager') }}</option>
+                           {% for key, label in frameworks %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+                        </select>
+                     </div>
+                  {% endif %}
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-maturity-filter-theme"><i class="ti ti-category me-1"></i>{{ __('Theme', 'grcmanager') }}</label>
+                     <select class="form-select form-select-sm" id="grc-maturity-filter-theme" data-filter="theme">
+                        <option value="">{{ __('All', 'grcmanager') }}</option>
+                        {% for key, label in themes %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+                     </select>
+                  </div>
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-maturity-filter-owner"><i class="ti ti-user me-1"></i>{{ __('Owner', 'grcmanager') }}</label>
+                     <select class="form-select form-select-sm" id="grc-maturity-filter-owner" data-filter="owner">
+                        <option value="">{{ __('All', 'grcmanager') }}</option>
+                        {% for id, name in owners %}<option value="{{ id }}">{{ name }}</option>{% endfor %}
+                        <option value="0">{{ __('No owner', 'grcmanager') }}</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="table-responsive">
+               <table class="table table-sm table-vcenter card-table" id="grc-maturity-gap-lines">
+                  <thead>
+                     <tr>
+                        <th>{{ __('Control', 'grcmanager') }}</th>
+                        <th>{{ __('Current level', 'grcmanager') }}</th>
+                        <th>{{ __('Target level', 'grcmanager') }}</th>
+                        <th>{{ __('Gap', 'grcmanager') }}</th>
+                        <th>{{ __('Target date', 'grcmanager') }}</th>
+                        <th>{{ __('Owner', 'grcmanager') }}</th>
+                        <th>{{ __('Justification', 'grcmanager') }}</th>
+                        <th>{{ __('Action', 'grcmanager') }}</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                  {% for row in rows %}
+                     <tr class="grc-maturity-gap-row" data-theme="{{ row.theme }}" data-owner="{{ row.users_id }}" data-frameworks="{{ row.frameworks|join(' ') }}">
+                        <td>
+                           <div class="fw-bold text-nowrap">{{ row.code }}</div>
+                           <div class="small">{{ row.title }}</div>
+                           {% if row.theme_label %}<span class="badge bg-azure-subtle text-azure-emphasis">{{ row.theme_label }}</span>{% endif %}
+                        </td>
+                        <td><span class="badge {{ level_classes[row.current] }}">{{ row.current }} - {{ row.current_label }}</span></td>
+                        <td><span class="badge {{ level_classes[row.target] }}">{{ row.target }} - {{ row.target_label }}</span></td>
+                        <td><span class="badge {{ row.gap_class }} fs-5">+{{ row.gap }}</span></td>
+                        <td>
+                           {% if row.target_date_label %}
+                              <span class="{{ row.overdue ? 'text-danger fw-bold' : '' }}">{% if row.overdue %}<i class="ti ti-alarm me-1" title="{{ __('Target date passed', 'grcmanager') }}"></i>{% endif %}{{ row.target_date_label }}</span>
+                           {% else %}
+                              <span class="text-muted small">-</span>
+                           {% endif %}
+                        </td>
+                        <td>{{ row.owner ?: '-' }}</td>
+                        <td>{% if row.justification %}<div class="small">{{ row.justification|nl2br }}</div>{% else %}<span class="text-muted small">-</span>{% endif %}</td>
+                        <td>
+                           {% if row.finding_id %}
+                              <a href="{{ row.finding_url }}" class="grc-maturity-finding"><i class="ti ti-bulb me-1"></i>{{ row.finding_title }}</a>
+                              {% if row.finding_status %}<div class="text-muted small">{{ row.finding_status }}</div>{% endif %}
+                           {% elseif can_create_finding %}
+                              <a href="{{ finding_url }}?maturityassessment={{ row.id }}" class="btn btn-sm btn-outline-primary grc-maturity-raise"><i class="ti ti-bulb me-1"></i>{{ __('Create the action', 'grcmanager') }}</a>
+                           {% else %}
+                              <span class="badge bg-yellow-subtle text-yellow-emphasis"><i class="ti ti-hourglass me-1"></i>{{ __('No action yet', 'grcmanager') }}</span>
+                           {% endif %}
+                        </td>
+                     </tr>
+                  {% endfor %}
+                  </tbody>
+               </table>
+               </div>
+               <p class="text-muted small mb-0 d-none" id="grc-maturity-gap-none">{{ __('No gap matches these filters.', 'grcmanager') }}</p>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   (function () {
+      const root = document.getElementById('grc-maturity-gaps');
+      const filters = root.querySelectorAll('[data-filter]');
+      const apply = function () {
+         let shown = 0;
+         root.querySelectorAll('.grc-maturity-gap-row').forEach(function (row) {
+            let visible = true;
+            filters.forEach(function (select) {
+               if (select.value === '') {
+                  return;
+               }
+               const key = select.dataset.filter;
+               if (key === 'frameworks') {
+                  visible = visible && (row.dataset.frameworks || '').split(' ').indexOf(select.value) !== -1;
+               } else {
+                  visible = visible && row.dataset[key] === select.value;
+               }
+            });
+            row.classList.toggle('d-none', !visible);
+            shown += visible ? 1 : 0;
+         });
+         const none = document.getElementById('grc-maturity-gap-none');
+         if (none) {
+            none.classList.toggle('d-none', shown > 0);
+         }
+      };
+      filters.forEach(function (select) { select.addEventListener('change', apply); });
+
+      const radar = document.getElementById('grc-maturity-gap-radar');
+      if (!radar) {
+         return;
+      }
+      const draw = function () {
+         const themes = JSON.parse(radar.dataset.themes);
+         window.echarts.init(radar).setOption({
+            tooltip: {},
+            legend: {bottom: 0, data: [radar.dataset.current, radar.dataset.target]},
+            radar: {indicator: themes.map(function (t) { return {name: t.label, max: 5}; })},
+            series: [{
+               type: 'radar',
+               data: [
+                  {name: radar.dataset.current, value: themes.map(function (t) { return t.current; }), areaStyle: {opacity: 0.25}},
+                  {name: radar.dataset.target, value: themes.map(function (t) { return t.target; }), lineStyle: {type: 'dashed'}}
+               ]
+            }]
+         });
+      };
+      if (typeof window.echarts === 'undefined') {
+         const script = document.createElement('script');
+         script.src = '{{ config('root_doc') }}/lib/echarts.min.js';
+         script.onload = draw;
+         document.head.appendChild(script);
+      } else {
+         draw();
+      }
+   })();
+</script>

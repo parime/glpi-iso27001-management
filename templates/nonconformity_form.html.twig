@@ -65,6 +65,22 @@
       {% endset %}
       {{ fields.htmlField('', physical_html, __('Physical security', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #603 : action proposée depuis un écart de maturité d'une mesure. #}
+   {% if maturity_draft %}
+      <input type="hidden" name="_grcmanager_maturityassessment" value="{{ maturity_draft.line_id }}">
+      <div class="col-12 mb-2">
+         <div class="alert alert-info mb-0" id="grc-maturity-draft"><i class="ti ti-stairs-up me-1"></i>{{ __('Action proposed from a maturity gap (%s): review and adapt each field, check the owner and the due date, then click "Add". Nothing is created before, and the gap is linked to this action once it is saved.', 'grcmanager')|format(maturity_draft.line_title) }}</div>
+      </div>
+   {% endif %}
+   {% if maturity_lines is not empty %}
+      {% set maturity_html %}
+         {% for line in maturity_lines %}
+            <div class="mb-1 grc-maturity-backlink"><a href="{{ line.url }}"><i class="ti ti-stairs-up me-1"></i>{{ line.title }}</a>
+               <span class="text-muted small ms-1">{{ line.campaign }}</span></div>
+         {% endfor %}
+      {% endset %}
+      {{ fields.htmlField('', maturity_html, __('Maturity by control', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
 
    {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true}) }}
    {# Issue #772 : constat d'un audit de certification : vocabulaire et référence de l'organisme. #}

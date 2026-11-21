@@ -70,7 +70,10 @@ class Menu extends CommonGLPI
         return [
             // Pilotage.
             Dashboard::class => [
-                Maturity::class, FrameworkAssessment::class, ComplianceEvent::class,
+                Maturity::class,
+                // Issue #603 : maturité par mesure (niveau actuel, niveau cible et écarts).
+                MaturityCampaign::class,
+                FrameworkAssessment::class, ComplianceEvent::class,
                 // Issue #614 : contrôles de cohérence du SMSI avant un audit.
                 ConsistencyCheck::class,
                 // Issue #619 : préparation à la certification ISO 27001.

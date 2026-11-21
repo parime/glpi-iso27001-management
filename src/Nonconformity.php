@@ -239,6 +239,11 @@ class Nonconformity extends NonconformityBase
         if ($physicalLineId > 0) {
             PhysicalSecurityCheck::attachFinding($physicalLineId, $this);
         }
+        // Issue #603 : action enregistrée depuis un écart de maturité d'une mesure.
+        $maturityLineId = (int) ($this->input['_grcmanager_maturityassessment'] ?? 0);
+        if ($maturityLineId > 0) {
+            MaturityAssessment::attachFinding($maturityLineId, $this);
+        }
     }
 
     /** Issue #606 : constat purgé, les lignes de grille qui le citaient restent sans lien. */
@@ -246,6 +251,7 @@ class Nonconformity extends NonconformityBase
     {
         AuditChecklist::unlinkFinding($this->getID());
         PhysicalSecurityCheck::unlinkFinding($this->getID());
+        MaturityAssessment::unlinkFinding($this->getID());
     }
 
     /**
@@ -782,6 +788,21 @@ class Nonconformity extends NonconformityBase
                 }
             }
         }
+        // Issue #603 : « Créer l'action » depuis un écart de maturité d'une mesure : piste
+        // d'amélioration pré-remplie (mesure, niveaux, échéance, responsable), relue et enregistrée.
+        $maturityDraft = null;
+        if ($this->isNewItem() && (int) ($options['maturityassessment'] ?? 0) > 0) {
+            $maturityDraft = MaturityAssessment::findingDraft((int) $options['maturityassessment']);
+            if ($maturityDraft !== null) {
+                $preset = [
+                    'entities_id', 'is_recursive', 'requirement_reference', 'title', 'description', 'finding_type',
+                    'severity', 'due_date', 'users_id',
+                ];
+                foreach ($preset as $field) {
+                    $this->fields[$field] = $maturityDraft[$field];
+                }
+            }
+        }
 
         $auditTitles = [0 => Dropdown::EMPTY_VALUE];
         // Issue #536 : audits des entités de la session seulement.
@@ -837,6 +858,8 @@ class Nonconformity extends NonconformityBase
             'checklist_draft' => $checklistDraft,
             'checklist_lines' => $this->isNewItem() ? [] : AuditChecklist::linesForFinding($this->getID()),
             'physical_draft'  => $physicalDraft,
+            'maturity_draft'  => $maturityDraft,
+            'maturity_lines'  => $this->isNewItem() ? [] : MaturityAssessment::linesForFinding($this->getID()),
             'physical_lines'  => $this->isNewItem() ? [] : PhysicalSecurityCheck::linesForFinding($this->getID()),
             'corrective_hint' => CapaRequirementService::isCapaMandatory($findingType)
                 ? __('Required to close or verify this non-conformity.', 'grcmanager')
