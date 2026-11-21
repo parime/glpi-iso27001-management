@@ -34680,3 +34680,42 @@ msgstr ""
 
 msgid "You are not allowed to change this evaluation."
 msgstr "No tiene permiso para modificar esta evaluación."
+
+msgid "Docker inventory: risky configuration"
+msgstr "Inventario Docker: configuración de riesgo"
+
+msgid "View the risky configuration"
+msgstr "Ver la configuración de riesgo"
+
+msgid "No service analysed yet"
+msgstr "Aún no se ha analizado ningún servicio"
+
+msgid "Without critical or high gap: not measured"
+msgstr "Sin desviación crítica ni alta: no medido"
+
+msgid "Without critical or high gap: %d%%"
+msgstr "Sin desviación crítica ni alta: %d %%"
+
+msgid "Without any open gap: %d%%"
+msgstr "Sin ninguna desviación abierta: %d %%"
+
+msgid "%d service(s) analysed"
+msgstr "%d servicio(s) analizado(s)"
+
+msgid "%d with a critical gap"
+msgstr "%d con una desviación crítica"
+
+msgid "%d with a high gap"
+msgstr "%d con una desviación alta"
+
+msgid "%d expired exception(s)"
+msgstr "%d excepción(es) caducada(s)"
+
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr "%1$d excepción(es) que terminan en los próximos %2$d días"
+
+msgid "Next exception end: %s"
+msgstr "Próximo fin de excepción: %s"
+
+msgid "%d service(s) not analysed"
+msgstr "%d servicio(s) sin analizar"

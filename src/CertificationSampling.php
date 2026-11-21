@@ -23,7 +23,6 @@ use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Audit\ProgrammeRules;
 use GlpiPlugin\Grcmanager\Services\Audit\SamplingPlanRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Responsibility\ResponsibilityRules;
-use Html;
 use Session;
 
 /**
@@ -356,7 +355,7 @@ class CertificationSampling extends CommonGLPI
         $audit = new Audit();
         $audit->check($auditId, UPDATE);
         if (!CertificationAuditRules::isExternal((string) ($audit->fields['audit_type'] ?? ''))) {
-            Html::displayRightError();
+            throw new \Glpi\Exception\Http\AccessDeniedHttpException();
         }
 
         return $audit;
