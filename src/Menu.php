@@ -152,6 +152,10 @@ class Menu extends CommonGLPI
                 DiskEncryption::class,
                 // Issue #854 : retard des correctifs de sécurité (A.8.8, A.8.19).
                 PatchCompliance::class,
+                // Issue #781 : conformité de configuration, résultats OpenSCAP importés (A.8.9).
+                ConfigurationCompliance::class,
+                // Issue #853 : couverture de la journalisation (A.8.15, A.8.16, A.8.17).
+                LogCoverage::class,
                 // Issue #836 : supervision lue dans Zabbix (A.8.16, A.8.6, A.5.30).
                 ZabbixMonitoring::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,

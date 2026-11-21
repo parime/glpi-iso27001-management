@@ -357,6 +357,19 @@ if ($mode === 'xss') {
         'title' => $canary, 'description' => $canary, 'justification' => $canary,
     ], (int) $ids['supplierrisk']);
     $update('accessreviews', ['name' => $canary, 'comment' => $canary], (int) $ids['campaign_A']);
+    // Issue #866 : ligne de revue piégée (profils, groupes, commentaire et raison de la suggestion).
+    $campaignLines = ['plugin_grcmanager_accessreviews_id' => (int) $ids['campaign_A']];
+    if (countElementsInTable('glpi_plugin_grcmanager_accessreviews_users', $campaignLines) === 0) {
+        $insert('accessreviews_users', [
+            'plugin_grcmanager_accessreviews_id' => (int) $ids['campaign_A'], 'users_id' => 2, 'reviewers_id' => 2,
+            'profiles' => json_encode([$canary]), 'user_groups' => json_encode([$canary]), 'comment' => $canary,
+            'decision' => 'pending', 'suggestion' => 'examine',
+            'suggestion_reasons' => json_encode([
+                ['code' => 'privileged', 'params' => ['profiles' => [$canary]]],
+                ['code' => $canary, 'params' => ['date' => $canary]],
+            ]),
+        ]);
+    }
     $update('securityincidents', [
         'name' => $canary, 'content' => $canary, 'root_cause' => $canary, 'lessons_learned' => $canary,
         'regulatory_alerts' => $canary, 'impact_content' => $canary, 'control_list_content' => $canary,
@@ -392,6 +405,13 @@ if ($mode === 'xss') {
     $DB->update('glpi_plugin_grcmanager_mfaaccounts', [
         'account' => mb_substr($canary, 0, 255), 'methods' => $canary,
     ], ['account' => 'Compte MFA securite A']);
+    // Issue #853 : hôte émetteur, serveur de temps et commentaire piégés (couverture de la journalisation).
+    $DB->update(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, ['host' => mb_substr($canary, 0, 255)], [
+        'host' => 'Hote journaux securite A',
+    ]);
+    $DB->update(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, [
+        'ntp_server' => mb_substr($canary, 0, 255), 'is_ntp_declared' => 1, 'comment' => $canary,
+    ], ['comment' => 'Conservation securite A']);
     // Issue #779 : logiciel commercial sans licence piégé (page des licences logicielles, export).
     $DB->update('glpi_softwares', ['name' => $canary], ['name' => 'Logiciel licence securite A']);
     // Issue #779, lot 2 : licence piégée qui arrive à échéance (lien vers la licence sur la page).
@@ -548,6 +568,30 @@ if ($mode === 'xss') {
         'decision' => 'rejected', 'validator_role' => 'ciso', 'decision_comment' => $canary, 'users_id_decision' => 2,
         'date_decision' => date('Y-m-d H:i:s'),
     ]);
+    // Issue #781 : résultat OpenSCAP piégé (nom d'hôte, profil, référentiel, outil, fichier, règle en
+    // échec) rattaché à l'ordinateur de A, et un second non rapproché ; preuve de la mesure A.8.9.
+    $scanFields = [
+        'hostname' => mb_substr($canary, 0, 255), 'fqdn' => $canary, 'address' => $canary,
+        'benchmark_id' => $canary, 'benchmark_title' => $canary, 'profile_id' => $canary,
+        'profile_title' => $canary, 'scanner' => $canary, 'file_name' => $canary,
+        'scan_date' => date('Y-m-d H:i:s'), 'pass_count' => 1, 'fail_count' => 1, 'high_fail_count' => 1,
+    ];
+    $entityA = (int) ($DB->request([
+        'SELECT' => 'entities_id', 'FROM' => 'glpi_computers', 'WHERE' => ['id' => (int) $ids['computer_A']],
+    ])->current()['entities_id'] ?? 0);
+    foreach (['configscan' => (int) $ids['computer_A'], 'configscan_unmatched' => 0] as $key => $computerId) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, $scanFields + [
+            'entities_id' => $computerId > 0 ? $entityA : 0, 'computers_id' => $computerId,
+        ]);
+        $out[$key] = (int) $DB->insertId();
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::FAILURES, [
+            \GlpiPlugin\Grcmanager\Install\ConfigScanTables::FK => $out[$key], 'rule_id' => $canary,
+            'title' => $canary, 'severity' => 'high', 'result' => 'fail',
+        ]);
+    }
+    $out['control_a89'] = (int) ($DB->request([
+        'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.9'], 'LIMIT' => 1,
+    ])->current()['id'] ?? 0);
     $out['control_a831'] = (int) ($DB->request([
         'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.31'], 'LIMIT' => 1,
     ])->current()['id'] ?? 0);
@@ -791,12 +835,42 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
+    // Issue #781 : résultat OpenSCAP fictif de l'ordinateur de l'entité (conformité de configuration).
+    $scan = [
+        'computers_id' => $ids['computer_' . $suffix], 'hostname' => 'pc-securite-' . strtolower($suffix),
+    ];
+    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, $scan) === 0) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, $scan + [
+            'entities_id' => $entity, 'profile_id' => 'xccdf_demo_profile', 'profile_title' => 'Profil securite',
+            'scan_date' => date('Y-m-d H:i:s'), 'pass_count' => 3, 'fail_count' => 1, 'high_fail_count' => 1,
+            'file_name' => 'resultats-securite.xml',
+        ]);
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::FAILURES, [
+            \GlpiPlugin\Grcmanager\Install\ConfigScanTables::FK => (int) $DB->insertId(),
+            'rule_id' => 'xccdf_demo_rule_ssh', 'title' => 'Regle securite ' . $suffix, 'severity' => 'high',
+        ]);
+    }
+    $ids['configscan_' . $suffix] = (int) ($DB->request([
+        'SELECT' => 'id', 'FROM' => \GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, 'WHERE' => $scan,
+        'LIMIT' => 1,
+    ])->current()['id'] ?? 0);
     // Issue #847 : volume système non chiffré (page du chiffrement des disques, entité seulement).
     $diskCriteria = ['itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix]];
     if (countElementsInTable('glpi_items_disks', $diskCriteria) === 0) {
         $DB->insert('glpi_items_disks', [
             'itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix], 'name' => 'Disque securite',
             'mountpoint' => 'C:', 'encryption_status' => 0, 'is_deleted' => 0,
+        ]);
+    }
+    // Issue #853 : hôte émetteur inconnu de GLPI et conservation déclarée (entité seulement).
+    $logHost = ['entities_id' => $entity, 'platform' => 'graylog', 'host' => 'Hote journaux securite ' . $suffix];
+    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, $logHost) === 0) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, $logHost + ['ip' => '192.0.2.99']);
+    }
+    $logPlatform = ['entities_id' => $entity, 'platform' => 'graylog'];
+    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, $logPlatform) === 0) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, $logPlatform + [
+            'retention_days' => 30, 'comment' => 'Conservation securite ' . $suffix,
         ]);
     }
     // Issue #779 : logiciel commercial fictif installé sans licence sur l'ordinateur de l'entité.

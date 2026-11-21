@@ -1306,6 +1306,8 @@ final class Installer
 
             $DB->doQuery($query);
         }
+        // Issue #866 : suggestion « garder / retirer / à examiner » de chaque ligne et ses règles.
+        AccessReviewSuggestionFields::install($migration);
 
         // Indicateur manquant identifié lors de l'audit complet du plugin (recherche des bonnes
         // pratiques KPI ISO 27001:2022) : `completion_status` (pending/completed/exempted) ne
@@ -1585,6 +1587,10 @@ final class Installer
         ZabbixTables::install($keySign, $charset, $collation);
         // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
         HardwareEndOfLifeTables::install($keySign, $charset, $collation);
+        // Issue #781 : rapports de conformité de configuration importés (OpenSCAP, XCCDF/ARF).
+        ConfigScanTables::install($keySign, $charset, $collation);
+        // Issue #853 : couverture de la journalisation (hôtes émetteurs importés, conservation déclarée).
+        LogCoverageTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -6501,6 +6507,8 @@ final class Installer
         MfaCoverageTables::uninstall($migration);
         ZabbixTables::uninstall($migration);
         HardwareEndOfLifeTables::uninstall($migration);
+        ConfigScanTables::uninstall($migration);
+        LogCoverageTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

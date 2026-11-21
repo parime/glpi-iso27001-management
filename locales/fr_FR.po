@@ -1412,9 +1412,9 @@ msgstr ""
 "de comparaison."
 
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
 "Un identifiant CPE tel que rapporté par le NVD pour ce produit (ex. "
 "\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Plusieurs identifiants peuvent "
@@ -3470,8 +3470,8 @@ msgstr "Versions vérifiées par passage"
 
 msgid "Pick a suggestion or enter a valid CPE 2.3 (cpe:2.3:a:vendor:product)."
 msgstr ""
-"Choisissez une suggestion ou saisissez un CPE 2.3 valide (cpe:2.3:a:éditeur:"
-"produit)."
+"Choisissez une suggestion ou saisissez un CPE 2.3 valide "
+"(cpe:2.3:a:éditeur:produit)."
 
 #, php-format
 msgid "\"%s\" is now watched."
@@ -8362,8 +8362,8 @@ msgstr ""
 "référence ci-dessus :"
 
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
 "Formats de preuve utiles (à autoriser dans les types de documents de "
 "GLPI) : .log, .evtx, .json, .pcap, .eml, .csv, .zip."
@@ -15020,8 +15020,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 "Un fichier CSV par modèle du règlement d'exécution, avec les codes officiels "
 "des colonnes (c0010...), comme dans un paquet de déclaration xBRL-CSV. Les "
@@ -17258,8 +17258,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 "GLPI refuse aussi les adresses internes pour ce plugin : ajoutez %s à la "
 "constante GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
@@ -18312,8 +18312,8 @@ msgstr "Réglages et correspondances"
 
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 "Non activé : le plugin peut indiquer quels logiciels, systèmes "
 "d'exploitation et firmwares ne reçoivent plus de correctifs de sécurité, "
@@ -18413,12 +18413,12 @@ msgid ""
 "changed in the inventory, and no ticket is created."
 msgstr ""
 "Indique quels logiciels, systèmes d'exploitation et firmwares installés ne "
-"reçoivent plus de correctifs de sécurité, d'après le site public endoflife."
-"date (ISO 27001 A.8.8 et A.8.9). Une fois par jour, le plugin lit les dates "
-"de fin de support des produits trouvés dans l'inventaire ; seul le nom du "
-"produit est envoyé (par exemple « debian »), jamais le nom d'un ordinateur "
-"ou d'une entité. Rien n'est modifié dans l'inventaire et aucun ticket n'est "
-"créé."
+"reçoivent plus de correctifs de sécurité, d'après le site public "
+"endoflife.date (ISO 27001 A.8.8 et A.8.9). Une fois par jour, le plugin lit "
+"les dates de fin de support des produits trouvés dans l'inventaire ; seul le "
+"nom du produit est envoyé (par exemple « debian »), jamais le nom d'un "
+"ordinateur ou d'une entité. Rien n'est modifié dans l'inventaire et aucun "
+"ticket n'est créé."
 
 msgid "Read the end of support dates on endoflife.date"
 msgstr "Lire les dates de fin de support sur endoflife.date"
@@ -18454,15 +18454,15 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 "Les noms bien connus sont reliés automatiquement (par exemple « Debian GNU/"
 "Linux » ou « Mozilla Firefox »). Pour tout autre nom, ajoutez une "
 "correspondance : saisissez le nom exactement comme GLPI l'affiche, et "
-"l'identifiant du produit qui figure dans l'adresse de sa page sur endoflife."
-"date (par exemple « fortios » pour https://endoflife.date/fortios). Laissez "
-"le produit vide pour ne plus suivre un nom."
+"l'identifiant du produit qui figure dans l'adresse de sa page sur "
+"endoflife.date (par exemple « fortios » pour https://endoflife.date/"
+"fortios). Laissez le produit vide pour ne plus suivre un nom."
 
 msgid "Kind of item"
 msgstr "Type d'élément"
@@ -20896,9 +20896,9 @@ msgid "Justification of a different result"
 msgstr "Justification d'un résultat différent"
 
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
 "Chaque élément de la population est classé selon l'empreinte SHA-256 de "
 "« graine:identifiant » ; les premiers éléments de ce classement forment "
@@ -29490,8 +29490,13 @@ msgstr ""
 "Docker. Vérifiez-les, ajoutez la justification et le propriétaire, puis "
 "cliquez sur « Ajouter » : rien n'est enregistré avant."
 
-msgid "Not saved: the address must start with https:// (or http:// when internal addresses are allowed), without user name, password or parameters."
-msgstr "Non enregistré : l'adresse doit commencer par https:// (ou http:// si les adresses internes sont autorisées), sans nom d'utilisateur, mot de passe ni paramètres."
+msgid ""
+"Not saved: the address must start with https:// (or http:// when internal "
+"addresses are allowed), without user name, password or parameters."
+msgstr ""
+"Non enregistré : l'adresse doit commencer par https:// (ou http:// si les "
+"adresses internes sont autorisées), sans nom d'utilisateur, mot de passe ni "
+"paramètres."
 
 msgid "Zabbix settings saved."
 msgstr "Réglages de Zabbix enregistrés."
@@ -29515,11 +29520,32 @@ msgstr "Le processus métier n'a pas pu être enregistré."
 msgid "Infrastructure monitoring"
 msgstr "Supervision de l'infrastructure"
 
-msgid "Reads your Zabbix monitoring server, in read only: hosts, problems and availability of the services. Hosts are matched with the computers and network devices of GLPI to show the assets that nobody monitors, the measured availability compared with the recovery time objectives of the business processes, and the saturations of disk, memory or processor."
-msgstr "Lit votre serveur de supervision Zabbix, en lecture seule : hôtes, problèmes et disponibilité des services. Les hôtes sont rapprochés des ordinateurs et matériels réseau de GLPI pour montrer les actifs que personne ne supervise, la disponibilité mesurée comparée aux durées maximales de reprise (RTO) des processus métier, et les saturations de disque, de mémoire ou de processeur."
+msgid ""
+"Reads your Zabbix monitoring server, in read only: hosts, problems and "
+"availability of the services. Hosts are matched with the computers and "
+"network devices of GLPI to show the assets that nobody monitors, the "
+"measured availability compared with the recovery time objectives of the "
+"business processes, and the saturations of disk, memory or processor."
+msgstr ""
+"Lit votre serveur de supervision Zabbix, en lecture seule : hôtes, problèmes "
+"et disponibilité des services. Les hôtes sont rapprochés des ordinateurs et "
+"matériels réseau de GLPI pour montrer les actifs que personne ne supervise, "
+"la disponibilité mesurée comparée aux durées maximales de reprise (RTO) des "
+"processus métier, et les saturations de disque, de mémoire ou de processeur."
 
-msgid "Enter the address of the Zabbix server and the API token of a read-only Zabbix user, read now, then follow up the critical assets not monitored, the open high-severity problems and the services below their objective. A high-severity problem can be turned into a security incident or a ticket with one click; nothing is created automatically and nothing is changed in Zabbix."
-msgstr "Saisissez l'adresse du serveur Zabbix et le jeton d'API d'un utilisateur Zabbix en lecture seule, lancez la lecture, puis suivez les actifs critiques non supervisés, les problèmes ouverts de gravité haute et les services sous leur objectif. Un problème de gravité haute peut devenir un incident de sécurité ou un ticket en un clic ; rien n'est créé automatiquement et rien n'est modifié dans Zabbix."
+msgid ""
+"Enter the address of the Zabbix server and the API token of a read-only "
+"Zabbix user, read now, then follow up the critical assets not monitored, the "
+"open high-severity problems and the services below their objective. A high-"
+"severity problem can be turned into a security incident or a ticket with one "
+"click; nothing is created automatically and nothing is changed in Zabbix."
+msgstr ""
+"Saisissez l'adresse du serveur Zabbix et le jeton d'API d'un utilisateur "
+"Zabbix en lecture seule, lancez la lecture, puis suivez les actifs critiques "
+"non supervisés, les problèmes ouverts de gravité haute et les services sous "
+"leur objectif. Un problème de gravité haute peut devenir un incident de "
+"sécurité ou un ticket en un clic ; rien n'est créé automatiquement et rien "
+"n'est modifié dans Zabbix."
 
 msgid "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
 msgstr "ISO/IEC 27001, mesures A.8.16, A.8.6 et A.5.30"
@@ -29582,20 +29608,39 @@ msgstr "Processeur"
 msgid "Enter the address of the Zabbix server and an API token first."
 msgstr "Saisissez d'abord l'adresse du serveur Zabbix et un jeton d'API."
 
-msgid "Zabbix refused the API token: check that it is valid, not expired, and that its user is enabled."
-msgstr "Zabbix a refusé le jeton d'API : vérifiez qu'il est valide, non expiré, et que son utilisateur est actif."
+msgid ""
+"Zabbix refused the API token: check that it is valid, not expired, and that "
+"its user is enabled."
+msgstr ""
+"Zabbix a refusé le jeton d'API : vérifiez qu'il est valide, non expiré, et "
+"que son utilisateur est actif."
 
-msgid "Zabbix refused access: give the user of the token read access to the host groups and services."
-msgstr "Zabbix a refusé l'accès : donnez à l'utilisateur du jeton la lecture des groupes d'hôtes et des services."
+msgid ""
+"Zabbix refused access: give the user of the token read access to the host "
+"groups and services."
+msgstr ""
+"Zabbix a refusé l'accès : donnez à l'utilisateur du jeton la lecture des "
+"groupes d'hôtes et des services."
 
-msgid "The Zabbix server has an internal address, refused by default: allow internal addresses in the plugin configuration page (Outgoing connections)."
-msgstr "Le serveur Zabbix a une adresse interne, refusée par défaut : autorisez les adresses internes dans la page de configuration du plugin (Connexions sortantes)."
+msgid ""
+"The Zabbix server has an internal address, refused by default: allow "
+"internal addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+"Le serveur Zabbix a une adresse interne, refusée par défaut : autorisez les "
+"adresses internes dans la page de configuration du plugin (Connexions "
+"sortantes)."
 
-msgid "The Zabbix server could not be reached: check the address, the network access or the GLPI proxy."
-msgstr "Le serveur Zabbix n'a pas pu être joint : vérifiez l'adresse, l'accès réseau ou le proxy de GLPI."
+msgid ""
+"The Zabbix server could not be reached: check the address, the network "
+"access or the GLPI proxy."
+msgstr ""
+"Le serveur Zabbix n'a pas pu être joint : vérifiez l'adresse, l'accès réseau "
+"ou le proxy de GLPI."
 
 msgid "This version of Zabbix is too old: version 5.4 or later is required."
-msgstr "Cette version de Zabbix est trop ancienne : la version 5.4 ou suivante est nécessaire."
+msgstr ""
+"Cette version de Zabbix est trop ancienne : la version 5.4 ou suivante est "
+"nécessaire."
 
 msgid "Refused: the connector only reads from Zabbix."
 msgstr "Refusé : le connecteur ne fait que lire dans Zabbix."
@@ -29627,7 +29672,9 @@ msgid "Zabbix event: %s"
 msgstr "Événement Zabbix : %s"
 
 msgid "Zabbix: reads hosts, problems and service availability (read only)"
-msgstr "Zabbix : lit les hôtes, les problèmes et la disponibilité des services (lecture seule)"
+msgstr ""
+"Zabbix : lit les hôtes, les problèmes et la disponibilité des services "
+"(lecture seule)"
 
 #, php-format
 msgid "Assets with a saturation: %d"
@@ -29693,11 +29740,16 @@ msgstr "Haute : %d"
 msgid "Longest outage and RTO"
 msgstr "Plus long arrêt et RTO"
 
-msgid "No Zabbix service is linked to this process: link one on the Zabbix monitoring page."
-msgstr "Aucun service Zabbix n'est rattaché à ce processus : rattachez-en un sur la page de supervision Zabbix."
+msgid ""
+"No Zabbix service is linked to this process: link one on the Zabbix "
+"monitoring page."
+msgstr ""
+"Aucun service Zabbix n'est rattaché à ce processus : rattachez-en un sur la "
+"page de supervision Zabbix."
 
 msgid "No computer or network device in the dependencies of this process."
-msgstr "Aucun ordinateur ni matériel réseau dans les dépendances de ce processus."
+msgstr ""
+"Aucun ordinateur ni matériel réseau dans les dépendances de ce processus."
 
 msgid "No problem over the period."
 msgstr "Aucun problème sur la période."
@@ -29725,8 +29777,12 @@ msgstr "Saturation"
 msgid "Started"
 msgstr "Début"
 
-msgid "This asset is not concerned by the monitoring settings and no Zabbix host matches it."
-msgstr "Cet actif n'est pas concerné par les réglages de la supervision et aucun hôte Zabbix ne lui correspond."
+msgid ""
+"This asset is not concerned by the monitoring settings and no Zabbix host "
+"matches it."
+msgstr ""
+"Cet actif n'est pas concerné par les réglages de la supervision et aucun "
+"hôte Zabbix ne lui correspond."
 
 #, php-format
 msgid "Zabbix host: %s"
@@ -29748,8 +29804,14 @@ msgstr "%1$d problème(s) sur %2$d jours"
 msgid "%1$d service(s), %2$d below their objective"
 msgstr "%1$d service(s), %2$d sous leur objectif"
 
-msgid "A Zabbix server on an internal address (private network) is refused by default: an administrator can allow internal addresses in the plugin configuration."
-msgstr "Un serveur Zabbix sur une adresse interne (réseau privé) est refusé par défaut : un administrateur peut autoriser les adresses internes dans la configuration du plugin."
+msgid ""
+"A Zabbix server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+msgstr ""
+"Un serveur Zabbix sur une adresse interne (réseau privé) est refusé par "
+"défaut : un administrateur peut autoriser les adresses internes dans la "
+"configuration du plugin."
 
 msgid "Acknowledged in Zabbix"
 msgstr "Acquitté dans Zabbix"
@@ -29770,8 +29832,14 @@ msgstr "Actifs supervisés par Zabbix"
 msgid "Assets with a saturation"
 msgstr "Actifs saturés"
 
-msgid "Availability measured by Zabbix over the current period of each SLA, compared with its objective (SLO). Link a service to the business process it supports to compare it with the continuity needs."
-msgstr "Disponibilité mesurée par Zabbix sur la période en cours de chaque SLA, comparée à son objectif (SLO). Rattachez un service au processus métier qu'il porte pour le comparer aux besoins de continuité."
+msgid ""
+"Availability measured by Zabbix over the current period of each SLA, "
+"compared with its objective (SLO). Link a service to the business process it "
+"supports to compare it with the continuity needs."
+msgstr ""
+"Disponibilité mesurée par Zabbix sur la période en cours de chaque SLA, "
+"comparée à son objectif (SLO). Rattachez un service au processus métier "
+"qu'il porte pour le comparer aux besoins de continuité."
 
 msgid "Below the objective"
 msgstr "Sous l'objectif"
@@ -29779,18 +29847,36 @@ msgstr "Sous l'objectif"
 msgid "Business processes"
 msgstr "Processus métier"
 
-msgid "Check them: the asset may be missing from the inventory, or named differently in GLPI and in Zabbix."
-msgstr "Vérifiez-les : l'actif peut manquer à l'inventaire, ou porter un nom différent dans GLPI et dans Zabbix."
+msgid ""
+"Check them: the asset may be missing from the inventory, or named "
+"differently in GLPI and in Zabbix."
+msgstr ""
+"Vérifiez-les : l'actif peut manquer à l'inventaire, ou porter un nom "
+"différent dans GLPI et dans Zabbix."
 
 #, php-format
-msgid "Concerned assets: %s. A Zabbix host is matched with an asset by its serial number, its name, its short name (without the domain) or its IP address. The availability is the share of time without a high-severity problem over the period."
-msgstr "Actifs concernés : %s. Un hôte Zabbix est rapproché d'un actif par son numéro de série, son nom, son nom court (sans le domaine) ou son adresse IP. La disponibilité est la part du temps sans problème de gravité haute sur la période."
+msgid ""
+"Concerned assets: %s. A Zabbix host is matched with an asset by its serial "
+"number, its name, its short name (without the domain) or its IP address. The "
+"availability is the share of time without a high-severity problem over the "
+"period."
+msgstr ""
+"Actifs concernés : %s. Un hôte Zabbix est rapproché d'un actif par son "
+"numéro de série, son nom, son nom court (sans le domaine) ou son adresse IP. "
+"La disponibilité est la part du temps sans problème de gravité haute sur la "
+"période."
 
 msgid "Connection to Zabbix (read only)"
 msgstr "Connexion à Zabbix (lecture seule)"
 
-msgid "Critical assets are those with a high confidentiality, integrity or availability level (C/I/A classification tab), or published on the Internet (network flow matrix)."
-msgstr "Les actifs critiques sont ceux dont le niveau de confidentialité, d'intégrité ou de disponibilité est élevé (onglet de classification C/I/D), ou publiés sur Internet (matrice des flux)."
+msgid ""
+"Critical assets are those with a high confidentiality, integrity or "
+"availability level (C/I/A classification tab), or published on the Internet "
+"(network flow matrix)."
+msgstr ""
+"Les actifs critiques sont ceux dont le niveau de confidentialité, "
+"d'intégrité ou de disponibilité est élevé (onglet de classification C/I/D), "
+"ou publiés sur Internet (matrice des flux)."
 
 msgid "Critical assets not monitored"
 msgstr "Actifs critiques non supervisés"
@@ -29836,11 +29922,20 @@ msgstr "Aucune lecture pour l'instant."
 msgid "No service level (SLA) read"
 msgstr "Aucun niveau de service (SLA) lu"
 
-msgid "No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
-msgstr "Aucun niveau de service lu : les SLA existent à partir de Zabbix 6.0 (Services > SLA)."
+msgid ""
+"No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
+msgstr ""
+"Aucun niveau de service lu : les SLA existent à partir de Zabbix 6.0 "
+"(Services > SLA)."
 
-msgid "Nothing has been read from Zabbix yet: enter the connection below, then click \"Read now\". Until then, every asset concerned is shown as not monitored."
-msgstr "Rien n'a encore été lu dans Zabbix : saisissez la connexion ci-dessous, puis cliquez sur « Lire maintenant ». D'ici là, chaque actif concerné apparaît comme non supervisé."
+msgid ""
+"Nothing has been read from Zabbix yet: enter the connection below, then "
+"click \"Read now\". Until then, every asset concerned is shown as not "
+"monitored."
+msgstr ""
+"Rien n'a encore été lu dans Zabbix : saisissez la connexion ci-dessous, puis "
+"cliquez sur « Lire maintenant ». D'ici là, chaque actif concerné apparaît "
+"comme non supervisé."
 
 msgid "Objective (SLO)"
 msgstr "Objectif (SLO)"
@@ -29857,8 +29952,14 @@ msgstr "Période des problèmes (jours)"
 msgid "Previous period"
 msgstr "Période précédente"
 
-msgid "Problems of severity Warning or higher, open ones first. A high-severity problem can be turned into a security incident or a ticket: it is only created when you click, never automatically."
-msgstr "Problèmes de gravité Avertissement ou plus, ouverts d'abord. Un problème de gravité haute peut devenir un incident de sécurité ou un ticket : il n'est créé que lorsque vous cliquez, jamais automatiquement."
+msgid ""
+"Problems of severity Warning or higher, open ones first. A high-severity "
+"problem can be turned into a security incident or a ticket: it is only "
+"created when you click, never automatically."
+msgstr ""
+"Problèmes de gravité Avertissement ou plus, ouverts d'abord. Un problème de "
+"gravité haute peut devenir un incident de sécurité ou un ticket : il n'est "
+"créé que lorsque vous cliquez, jamais automatiquement."
 
 msgid "Propose as security incident"
 msgstr "Proposer comme incident de sécurité"
@@ -29875,23 +29976,48 @@ msgstr "Lecture seule : rien n'est jamais modifié dans Zabbix depuis GLPI."
 msgid "Technical name"
 msgstr "Nom technique"
 
-msgid "The last reading failed: the page shows the previous successful reading."
-msgstr "La dernière lecture a échoué : la page montre la lecture réussie précédente."
+msgid ""
+"The last reading failed: the page shows the previous successful reading."
+msgstr ""
+"La dernière lecture a échoué : la page montre la lecture réussie précédente."
 
-msgid "The readings are visible in this entity and its sub-entities; hosts not matched with an asset are only listed in this entity."
-msgstr "Les lectures sont visibles dans cette entité et ses sous-entités ; les hôtes non rapprochés d'un actif ne sont listés que dans cette entité."
+msgid ""
+"The readings are visible in this entity and its sub-entities; hosts not "
+"matched with an asset are only listed in this entity."
+msgstr ""
+"Les lectures sont visibles dans cette entité et ses sous-entités ; les hôtes "
+"non rapprochés d'un actif ne sont listés que dans cette entité."
 
-msgid "The token is encrypted with the GLPI key, never displayed again nor logged. Only the address of this server is called, and only to read."
-msgstr "Le jeton est chiffré avec la clé de GLPI, jamais réaffiché ni journalisé. Seule l'adresse de ce serveur est appelée, et seulement pour lire."
+msgid ""
+"The token is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+msgstr ""
+"Le jeton est chiffré avec la clé de GLPI, jamais réaffiché ni journalisé. "
+"Seule l'adresse de ce serveur est appelée, et seulement pour lire."
 
-msgid "Users > API tokens: create a token for this user, then copy it here with the address of the Zabbix interface."
-msgstr "Utilisateurs > Jetons d'API : créez un jeton pour cet utilisateur, puis copiez-le ici avec l'adresse de l'interface Zabbix."
+msgid ""
+"Users > API tokens: create a token for this user, then copy it here with the "
+"address of the Zabbix interface."
+msgstr ""
+"Utilisateurs > Jetons d'API : créez un jeton pour cet utilisateur, puis "
+"copiez-le ici avec l'adresse de l'interface Zabbix."
 
-msgid "Users > User roles: create a role of type User with API access limited to the methods host.get, problem.get, event.get, service.get, sla.get and sla.getsli."
-msgstr "Utilisateurs > Rôles utilisateur : créez un rôle de type Utilisateur dont l'accès à l'API est limité aux méthodes host.get, problem.get, event.get, service.get, sla.get et sla.getsli."
+msgid ""
+"Users > User roles: create a role of type User with API access limited to "
+"the methods host.get, problem.get, event.get, service.get, sla.get and "
+"sla.getsli."
+msgstr ""
+"Utilisateurs > Rôles utilisateur : créez un rôle de type Utilisateur dont "
+"l'accès à l'API est limité aux méthodes host.get, problem.get, event.get, "
+"service.get, sla.get et sla.getsli."
 
-msgid "Users > Users: create a user with this role, in a user group with read permission on the host groups to monitor (and on the services)."
-msgstr "Utilisateurs > Utilisateurs : créez un utilisateur avec ce rôle, dans un groupe d'utilisateurs qui a la lecture des groupes d'hôtes à superviser (et des services)."
+msgid ""
+"Users > Users: create a user with this role, in a user group with read "
+"permission on the host groups to monitor (and on the services)."
+msgstr ""
+"Utilisateurs > Utilisateurs : créez un utilisateur avec ce rôle, dans un "
+"groupe d'utilisateurs qui a la lecture des groupes d'hôtes à superviser (et "
+"des services)."
 
 msgid "Which assets must be monitored?"
 msgstr "Quels actifs doivent être supervisés ?"
@@ -29905,3 +30031,804 @@ msgstr "Hôtes Zabbix non rapprochés d'un actif GLPI"
 #, php-format
 msgid "out of %d critical assets"
 msgstr "sur %d actifs critiques"
+
+#, php-format
+msgid ""
+"%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr ""
+"%1$d hôte(s) importé(s) : %2$d rapproché(s) d'un actif GLPI, %3$d non "
+"rapproché(s)."
+
+msgid "Logging settings saved."
+msgstr "Réglages de la journalisation enregistrés."
+
+msgid "Log platform declaration saved."
+msgstr "Déclaration de la plateforme de journaux enregistrée."
+
+msgid "Logging coverage"
+msgstr "Couverture de la journalisation"
+
+msgid "Syslog server"
+msgstr "Serveur syslog"
+
+msgid "Other log platform"
+msgstr "Autre plateforme de journaux"
+
+msgid "No logs received"
+msgstr "Aucun journal reçu"
+
+msgid "No log platform knows this asset (name or IP address)."
+msgstr ""
+"Aucune plateforme de journaux ne connaît cet actif (nom ou adresse IP)."
+
+msgid "Logs stopped"
+msgstr "Journaux interrompus"
+
+msgid "The last event received is older than the threshold."
+msgstr "Le dernier événement reçu est plus ancien que le seuil."
+
+msgid "Logs received"
+msgstr "Journaux reçus"
+
+msgid "A log platform received an event from this asset recently."
+msgstr "Une plateforme de journaux a reçu récemment un événement de cet actif."
+
+msgid "Long enough"
+msgstr "Suffisante"
+
+msgid "Too short"
+msgstr "Trop courte"
+
+msgid ""
+"The file has no column for the host name or IP address (for example host, "
+"hostname, source, agent.name or ip)."
+msgstr ""
+"Le fichier n'a pas de colonne pour le nom d'hôte ou l'adresse IP (par "
+"exemple host, hostname, source, agent.name ou ip)."
+
+msgid "You do not have the right to import."
+msgstr "Vous n'avez pas le droit d'importer."
+
+msgid ""
+"Shows which important assets send their logs to a log platform (Wazuh, "
+"Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
+"nothing for several days, and whether each platform keeps the logs long "
+"enough and synchronizes the clocks."
+msgstr ""
+"Montre quels actifs importants envoient leurs journaux à une plateforme "
+"(Wazuh, Graylog, Elastic ou OpenSearch, Splunk, syslog), lesquels n'envoient "
+"rien ou plus rien depuis plusieurs jours, et si chaque plateforme conserve "
+"les journaux assez longtemps et synchronise les horloges."
+
+msgid ""
+"Choose the assets that must send their logs, import the list of hosts of "
+"each log platform (or let the Wazuh plugin be read), connect the assets "
+"listed as gaps, and declare the retention and the time server of each "
+"platform. The page only reads: it runs nothing on the platforms. Record the "
+"result as an effectiveness test of the control to keep the evidence."
+msgstr ""
+"Choisissez les actifs qui doivent envoyer leurs journaux, importez la liste "
+"des hôtes de chaque plateforme (ou laissez lire le plugin Wazuh), raccordez "
+"les actifs listés en écart, et déclarez la conservation et le serveur de "
+"temps de chaque plateforme. La page lit seulement : elle ne lance rien sur "
+"les plateformes. Enregistrez le résultat comme test d'efficacité de la "
+"mesure pour garder la preuve."
+
+msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
+msgstr "ISO/IEC 27001, mesures A.8.15, A.8.16 et A.8.17"
+
+#, php-format
+msgid "Critical assets without logging (%)"
+msgstr "Actifs critiques sans journalisation (%)"
+
+#, php-format
+msgid "%d asset(s) whose logs stopped"
+msgstr "%d actif(s) dont les journaux sont interrompus"
+
+#, php-format
+msgid "%d critical asset(s) without logging"
+msgstr "%d actif(s) critique(s) sans journalisation"
+
+#, php-format
+msgid "%d platform(s) with a retention too short or not declared"
+msgstr "%d plateforme(s) à la conservation trop courte ou non déclarée"
+
+#, php-format
+msgid "%d platform(s) without declared clock synchronization"
+msgstr "%d plateforme(s) sans synchronisation des horloges déclarée"
+
+#, php-format
+msgid "Logging coverage: %d%%"
+msgstr "Couverture de la journalisation : %d %%"
+
+msgid "Logging coverage: not measured"
+msgstr "Couverture de la journalisation : non mesurée"
+
+#, php-format
+msgid "%d days kept"
+msgstr "%d jours conservés"
+
+#, php-format
+msgid "%d days required"
+msgstr "%d jours exigés"
+
+msgid ""
+"An asset is critical when one axis of its C/I/A classification is high (tab "
+"of the asset form), or when a network flow publishes it on the Internet. "
+"Servers are recognized from the computer type or the operating system name."
+msgstr ""
+"Un actif est critique quand un axe de sa classification C/I/D est élevé "
+"(onglet de la fiche de l'actif), ou quand un flux réseau le publie sur "
+"Internet. Les serveurs sont reconnus d'après le type d'ordinateur ou le nom "
+"du système d'exploitation."
+
+msgid "Assets concerned whose logs are received"
+msgstr "Actifs concernés dont les journaux sont reçus"
+
+msgid "Assets that must send their logs"
+msgstr "Actifs qui doivent envoyer leurs journaux"
+
+msgid ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown host may be an asset missing from the inventory."
+msgstr ""
+"Vérifiez le nom de l'actif dans GLPI, ou ajoutez l'actif à l'inventaire : un "
+"hôte inconnu peut être un actif absent de l'inventaire."
+
+msgid "Clock synchronization not declared"
+msgstr "Synchronisation des horloges non déclarée"
+
+msgid "Clocks synchronized"
+msgstr "Horloges synchronisées"
+
+msgid "Comment (where the setting can be checked)"
+msgstr "Commentaire (où vérifier le réglage)"
+
+msgid "Critical assets without logging"
+msgstr "Actifs critiques sans journalisation"
+
+msgid "Declare another platform"
+msgstr "Déclarer une autre plateforme"
+
+msgid ""
+"Declare, for each platform, how long the logs are kept and whether the "
+"clocks are synchronized. The retention required is the longest between the "
+"policy and the obligation chosen. These are declarations: keep the "
+"screenshot of the setting as evidence."
+msgstr ""
+"Déclarez, pour chaque plateforme, combien de temps les journaux sont "
+"conservés et si les horloges sont synchronisées. La conservation exigée est "
+"la plus longue entre la politique et l'obligation choisie. Ce sont des "
+"déclarations : gardez la capture d'écran du réglage comme preuve."
+
+msgid ""
+"Export the list of hosts that send logs from your log platform, then import "
+"the CSV file here. A new import of the same platform replaces the previous "
+"one in the current entity. Only host names, addresses and the date of the "
+"last event are kept, never the content of a log."
+msgstr ""
+"Exportez de votre plateforme de journaux la liste des hôtes qui envoient des "
+"journaux, puis importez le fichier CSV ici. Un nouvel import de la même "
+"plateforme remplace le précédent dans l'entité courante. Seuls les noms "
+"d'hôtes, les adresses et la date du dernier événement sont conservés, jamais "
+"le contenu d'un journal."
+
+msgid ""
+"For example a law, a regulation or a contract listed in the register of "
+"obligations."
+msgstr ""
+"Par exemple une loi, un règlement ou un contrat inscrit au registre des "
+"obligations."
+
+msgid ""
+"Graylog, Elastic or OpenSearch: a table of the sources with the most recent "
+"timestamp (columns source or host.name, and last timestamp), exported as CSV."
+msgstr ""
+"Graylog, Elastic ou OpenSearch : un tableau des sources avec l'horodatage le "
+"plus récent (colonnes source ou host.name, et dernier horodatage), exporté "
+"en CSV."
+
+msgid "Hosts"
+msgstr "Hôtes"
+
+msgid "Hosts that send logs but are not found in GLPI"
+msgstr "Hôtes qui envoient des journaux mais introuvables dans GLPI"
+
+msgid "Last event received"
+msgstr "Dernier événement reçu"
+
+msgid "Log platform"
+msgstr "Plateforme de journaux"
+
+msgid "Log sources"
+msgstr "Sources de journaux"
+
+msgid "Logs stopped after (days without event)"
+msgstr "Journaux interrompus après (jours sans événement)"
+
+msgid "No asset concerned in your entities."
+msgstr "Aucun actif concerné dans vos entités."
+
+#, php-format
+msgid "No event for more than %d days: logs stopped"
+msgstr "Aucun événement depuis plus de %d jours : journaux interrompus"
+
+msgid ""
+"No log source yet: import the list of hosts of your log platform to measure "
+"the coverage."
+msgstr ""
+"Aucune source de journaux pour l'instant : importez la liste des hôtes de "
+"votre plateforme pour mesurer la couverture."
+
+msgid "No platform declared."
+msgstr "Aucune plateforme déclarée."
+
+msgid "Obligation that imposes a retention"
+msgstr "Obligation qui impose une conservation"
+
+msgid "Platforms whose retention is too short or not declared"
+msgstr "Plateformes à la conservation trop courte ou non déclarée"
+
+msgid "Platforms without declared clock synchronization"
+msgstr "Plateformes sans synchronisation des horloges déclarée"
+
+msgid "Read directly"
+msgstr "Lu directement"
+
+msgid ""
+"Read-only: the plugin reads the lists of hosts, it never runs anything on "
+"the log platforms and changes nothing in GLPI."
+msgstr ""
+"Lecture seule : le plugin lit les listes d'hôtes, il ne lance jamais rien "
+"sur les plateformes de journaux et ne modifie rien dans GLPI."
+
+msgid ""
+"Recognized columns: host (or hostname, source, agent.name), ip, and last "
+"event (or lastTime, last_seen, lastKeepAlive)."
+msgstr ""
+"Colonnes reconnues : host (ou hostname, source, agent.name), ip, et dernier "
+"événement (ou lastTime, last_seen, lastKeepAlive)."
+
+msgid "Register of obligations"
+msgstr "Registre des obligations"
+
+msgid "Retention and clock synchronization"
+msgstr "Conservation et synchronisation des horloges"
+
+msgid "Retention declared (days)"
+msgstr "Conservation déclarée (jours)"
+
+msgid "Retention not declared"
+msgstr "Conservation non déclarée"
+
+msgid "Retention required by the obligation (days)"
+msgstr "Conservation exigée par l'obligation (jours)"
+
+msgid "Retention required by the policy (days)"
+msgstr "Conservation exigée par la politique (jours)"
+
+#, php-format
+msgid "Retention required by the policy: %d days"
+msgstr "Conservation exigée par la politique : %d jours"
+
+msgid ""
+"Splunk: run the search \"| metadata type=hosts index=*\" and export the "
+"result (columns host, lastTime)."
+msgstr ""
+"Splunk : lancez la recherche « | metadata type=hosts index=* » et exportez "
+"le résultat (colonnes host, lastTime)."
+
+msgid ""
+"The Wazuh plugin is active: its active agents are read directly, read-only."
+msgstr ""
+"Le plugin Wazuh est actif : ses agents actifs sont lus directement, en "
+"lecture seule."
+
+msgid "The clocks of the sources and of the platform are synchronized"
+msgstr "Les horloges des sources et de la plateforme sont synchronisées"
+
+msgid "Time server (NTP)"
+msgstr "Serveur de temps (NTP)"
+
+msgid ""
+"Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, "
+"one host per line."
+msgstr ""
+"Wazuh sans le plugin GLPI, ou un serveur syslog : un fichier CSV avec un en-"
+"tête, un hôte par ligne."
+
+msgid "Which assets must send their logs?"
+msgstr "Quels actifs doivent envoyer leurs journaux ?"
+
+#, php-format
+msgid "%d asset concerned"
+msgid_plural "%d assets concerned"
+msgstr[0] "%d actif concerné"
+msgstr[1] "%d actifs concernés"
+
+#, php-format
+msgid "%d critical asset"
+msgid_plural "%d critical assets"
+msgstr[0] "%d actif critique"
+msgstr[1] "%d actifs critiques"
+
+#, php-format
+msgid "%d log platform"
+msgid_plural "%d log platforms"
+msgstr[0] "%d plateforme de journaux"
+msgstr[1] "%d plateformes de journaux"
+
+msgid "Choose an XML results file produced by OpenSCAP (XCCDF or ARF)."
+msgstr ""
+"Choisissez un fichier de résultats XML produit par OpenSCAP (XCCDF ou ARF)."
+
+#, php-format
+msgid ""
+"%1$d scan result(s) imported: %2$d matched to a computer, %3$d not matched, "
+"%4$d already imported."
+msgstr ""
+"%1$d résultat(s) d'analyse importé(s) : %2$d rapproché(s) d'un ordinateur, "
+"%3$d non rapproché(s), %4$d déjà importé(s)."
+
+msgid ""
+"The file holds more results or failed rules than the import keeps: only the "
+"first ones were kept."
+msgstr ""
+"Le fichier contient plus de résultats ou de règles en échec que l'import "
+"n'en garde : seuls les premiers ont été gardés."
+
+msgid "Choose a computer you can see."
+msgstr "Choisissez un ordinateur que vous voyez."
+
+msgid "Scan result matched to the computer."
+msgstr "Résultat d'analyse rattaché à l'ordinateur."
+
+msgid "Scan result deleted."
+msgstr "Résultat d'analyse supprimé."
+
+msgid "Configuration compliance"
+msgstr "Conformité de configuration"
+
+msgid "Error during the check"
+msgstr "Erreur pendant la vérification"
+
+msgid ""
+"The file contains a document type or entity declaration, refused for "
+"security reasons. OpenSCAP never writes one: export the results again with "
+"oscap."
+msgstr ""
+"Le fichier contient une déclaration de type de document ou d'entité, refusée "
+"pour des raisons de sécurité. OpenSCAP n'en écrit jamais : exportez de "
+"nouveau les résultats avec oscap."
+
+msgid ""
+"No scan result was found in the file. Choose the results file (option --"
+"results or --results-arf of oscap), not the benchmark or the HTML report."
+msgstr ""
+"Aucun résultat d'analyse dans le fichier. Choisissez le fichier de résultats "
+"(option --results ou --results-arf d'oscap), pas le référentiel ni le "
+"rapport HTML."
+
+msgid "The file is not valid XML, or it is truncated."
+msgstr "Le fichier n'est pas un XML valide, ou il est tronqué."
+
+#, php-format
+msgid "Configuration remediation: %1$s (%2$d rule(s) failed)"
+msgstr "Remédiation de configuration : %1$s (%2$d règle(s) en échec)"
+
+msgid "OpenSCAP scans (XCCDF/ARF)"
+msgstr "Analyses OpenSCAP (XCCDF/ARF)"
+
+msgid "No scan imported yet"
+msgstr "Aucune analyse importée pour l'instant"
+
+msgid "Import results"
+msgstr "Importer des résultats"
+
+msgid "Average compliance: not measured"
+msgstr "Conformité moyenne : non mesurée"
+
+#, php-format
+msgid "Average compliance: %d%%"
+msgstr "Conformité moyenne : %d %%"
+
+#, php-format
+msgid "%d machine(s) scanned"
+msgstr "%d machine(s) analysée(s)"
+
+#, php-format
+msgid "%1$d below %2$d%%"
+msgstr "%1$d sous %2$d %%"
+
+#, php-format
+msgid "%d with a high severity rule failed"
+msgstr "%d avec une règle de gravité haute en échec"
+
+#, php-format
+msgid "%d not matched to a computer"
+msgstr "%d non rapproché(s) d'un ordinateur"
+
+#, php-format
+msgid "Last scan on %s"
+msgstr "Dernière analyse le %s"
+
+msgid ""
+"Measures how well the configuration of the computers follows a hardening "
+"guide (CIS, ANSSI, DISA STIG...), from the results files of the OpenSCAP "
+"scanner: rate of rules passed per computer, change since the previous scan, "
+"most frequent failed rules and history."
+msgstr ""
+"Mesure à quel point la configuration des ordinateurs suit un guide de "
+"durcissement (CIS, ANSSI, DISA STIG...), d'après les fichiers de résultats "
+"de l'outil OpenSCAP : taux de règles conformes par ordinateur, évolution "
+"depuis l'analyse précédente, règles en échec les plus fréquentes et "
+"historique."
+
+msgid ""
+"Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), "
+"match the results that are not matched to a computer, then fix the failed "
+"rules, starting with the high severity ones. A remediation ticket can be "
+"proposed for a computer: it is created only when you click. Nothing is "
+"changed on the machines."
+msgstr ""
+"Analysez les machines avec OpenSCAP, importez le fichier de résultats (XCCDF "
+"ou ARF), rattachez les résultats non rapprochés d'un ordinateur, puis "
+"corrigez les règles en échec, en commençant par celles de gravité haute. Un "
+"ticket de remédiation peut être proposé pour un ordinateur : il n'est créé "
+"que sur votre clic. Rien n'est modifié sur les machines."
+
+msgid "ISO/IEC 27001, control A.8.9"
+msgstr "ISO/IEC 27001, mesure A.8.9"
+
+msgid "Scanned computers with a high severity configuration rule failed (%)"
+msgstr ""
+"Ordinateurs analysés avec une règle de configuration de gravité haute en "
+"échec (%)"
+
+msgid "High severity"
+msgstr "Gravité haute"
+
+msgid "No previous scan with the same profile"
+msgstr "Pas d'analyse précédente avec le même profil"
+
+msgid "No profile"
+msgstr "Aucun profil"
+
+msgid "Rules passed out of the rules checked (not applicable rules excluded)"
+msgstr ""
+"Règles conformes parmi les règles vérifiées (règles non applicables exclues)"
+
+#, php-format
+msgid "%1$d of %2$d computers shown, the least compliant first."
+msgstr "%1$d ordinateurs affichés sur %2$d, les moins conformes d'abord."
+
+msgid "Average compliance of the last scans"
+msgstr "Conformité moyenne des dernières analyses"
+
+#, php-format
+msgid "Below the %d%% target"
+msgstr "Sous l'objectif de %d %%"
+
+msgid ""
+"Creates a remediation ticket linked to the computer, with the failed rules. "
+"Nothing is created without this click."
+msgstr ""
+"Crée un ticket de remédiation lié à l'ordinateur, avec les règles en échec. "
+"Rien n'est créé sans ce clic."
+
+msgid "Download an example file"
+msgstr "Télécharger un fichier d'exemple"
+
+msgid "Host name in the report"
+msgstr "Nom d'hôte dans le rapport"
+
+msgid "Import OpenSCAP results"
+msgstr "Importer des résultats OpenSCAP"
+
+msgid "Last scan of each computer"
+msgstr "Dernière analyse de chaque ordinateur"
+
+msgid "Machines scanned"
+msgstr "Machines analysées"
+
+msgid "Match"
+msgstr "Rattacher"
+
+msgid "Match to a computer"
+msgstr "Rattacher à un ordinateur"
+
+msgid "Most frequent failed rules"
+msgstr "Règles en échec les plus fréquentes"
+
+msgid ""
+"No computer you can see bears this name, or several do. Check the name of "
+"the computer in GLPI, or choose it here."
+msgstr ""
+"Aucun ordinateur que vous voyez ne porte ce nom, ou plusieurs le portent. "
+"Vérifiez le nom de l'ordinateur dans GLPI, ou choisissez-le ici."
+
+msgid "No failed rule in the last scans."
+msgstr "Aucune règle en échec dans les dernières analyses."
+
+msgid "No host name"
+msgstr "Aucun nom d'hôte"
+
+msgid ""
+"No scan imported yet. Import an OpenSCAP results file to measure the "
+"configuration compliance."
+msgstr ""
+"Aucune analyse importée pour l'instant. Importez un fichier de résultats "
+"OpenSCAP pour mesurer la conformité de configuration."
+
+msgid "No scan result is matched to a computer yet: match them below."
+msgstr ""
+"Aucun résultat d'analyse n'est encore rattaché à un ordinateur : rattachez-"
+"les ci-dessous."
+
+msgid "Propose a ticket"
+msgstr "Proposer un ticket"
+
+msgid "Results file"
+msgstr "Fichier de résultats"
+
+msgid "Rules failed"
+msgstr "Règles en échec"
+
+msgid ""
+"Run the scan on the machine, then import the results file (XCCDF or ARF). "
+"One file can hold several machines. Each result is matched to the GLPI "
+"computer of the same name."
+msgstr ""
+"Lancez l'analyse sur la machine, puis importez le fichier de résultats "
+"(XCCDF ou ARF). Un fichier peut contenir plusieurs machines. Chaque résultat "
+"est rapproché de l'ordinateur GLPI du même nom."
+
+msgid "Scan date"
+msgstr "Date de l'analyse"
+
+msgid "Scan results not matched to a computer"
+msgstr "Résultats d'analyse non rapprochés d'un ordinateur"
+
+#, php-format
+msgid "Ticket %d"
+msgstr "Ticket %d"
+
+msgid "With a high severity rule failed"
+msgstr "Avec une règle de gravité haute en échec"
+
+#, php-format
+msgid ""
+"XML file, %d MB at most. The file itself is not kept: only the counts and "
+"the failed rules."
+msgstr ""
+"Fichier XML, %d Mo au plus. Le fichier lui-même n'est pas gardé : seulement "
+"les compteurs et les règles en échec."
+
+#, php-format
+msgid "%d failed"
+msgstr "%d en échec"
+
+#, php-format
+msgid "%d in error"
+msgstr "%d en erreur"
+
+#, php-format
+msgid "%d not applicable or not checked"
+msgstr "%d non applicables ou non vérifiées"
+
+#, php-format
+msgid "%d passed"
+msgstr "%d conformes"
+
+msgid "Back to the configuration compliance"
+msgstr "Retour à la conformité de configuration"
+
+msgid "Delete this scan result"
+msgstr "Supprimer ce résultat d'analyse"
+
+msgid "Delete this scan result?"
+msgstr "Supprimer ce résultat d'analyse ?"
+
+msgid "Failed rules"
+msgstr "Règles en échec"
+
+msgid "No failed rule in this scan."
+msgstr "Aucune règle en échec dans cette analyse."
+
+msgid "Not matched"
+msgstr "Non rapproché"
+
+msgid "Rules"
+msgstr "Règles"
+
+msgid "Scan history of this machine"
+msgstr "Historique des analyses de cette machine"
+
+msgid "Scanner"
+msgstr "Outil d'analyse"
+
+msgid "Score of the tool"
+msgstr "Score de l'outil"
+
+msgid ""
+"This scan has more failed rules than the import keeps: only the first ones "
+"are listed."
+msgstr ""
+"Cette analyse a plus de règles en échec que l'import n'en garde : seules les "
+"premières sont listées."
+
+#, php-format
+msgid "And %d more rule(s): see the scan in GRC."
+msgstr "Et %d autre(s) règle(s) : voir l'analyse dans GRC."
+
+#, php-format
+msgid ""
+"Configuration scan of %1$s on %2$s: %3$d rule(s) failed. ISO/IEC 27001, "
+"control A.8.9."
+msgstr ""
+"Analyse de configuration de %1$s le %2$s : %3$d règle(s) en échec. ISO/IEC "
+"27001, mesure A.8.9."
+
+#, php-format
+msgid "Suggestions updated for %d account(s) still to review."
+msgstr "Suggestions mises à jour pour %d compte(s) encore à revoir."
+
+msgid "Rule disabled"
+msgstr "Règle désactivée"
+
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d jour"
+msgstr[1] "%d jours"
+
+msgid ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+msgstr ""
+"Les règles proposent de retirer ce compte : expliquez dans le commentaire "
+"pourquoi il est gardé."
+
+msgid "Suggested: remove"
+msgstr "Suggestion : retirer"
+
+msgid "Suggested: examine"
+msgstr "Suggestion : à examiner"
+
+msgid "Examine"
+msgstr "À examiner"
+
+msgid "Suggested: keep"
+msgstr "Suggestion : garder"
+
+msgid "Keep"
+msgstr "Garder"
+
+#, php-format
+msgid "Account end date passed (%s)"
+msgstr "Date de fin du compte dépassée (%s)"
+
+#, php-format
+msgid "Departure recorded on %s"
+msgstr "Départ enregistré le %s"
+
+#, php-format
+msgid "Leaving on %1$s (within %2$d days)"
+msgstr "Départ le %1$s (dans les %2$d jours)"
+
+#, php-format
+msgid "No login for more than %1$d days (last on %2$s)"
+msgstr "Aucune connexion depuis plus de %1$d jours (dernière le %2$s)"
+
+#, php-format
+msgid "Privileged profile: %s"
+msgstr "Profil à privilèges : %s"
+
+#, php-format
+msgid "Privileged profile without known MFA: %s"
+msgstr "Profil à privilèges sans MFA connue : %s"
+
+#, php-format
+msgid "No warning sign (last login on %s)"
+msgstr "Aucun signal d'alerte (dernière connexion le %s)"
+
+msgid "No warning sign"
+msgstr "Aucun signal d'alerte"
+
+msgid ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+msgstr ""
+"Lancez une campagne ; les responsables décident ligne par ligne, aidés d'une "
+"suggestion (garder, retirer ou à examiner) et de sa raison. Retirer un droit "
+"ouvre un ticket, ce n'est jamais appliqué automatiquement."
+
+msgid ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+msgstr ""
+"Chaque compte arrive avec une suggestion (garder, retirer ou à examiner) et "
+"sa raison. La suggestion ne décide jamais : le relecteur choisit, et garder "
+"un compte que les règles proposent de retirer demande un commentaire."
+
+msgid "Examine group changes without profile review"
+msgstr "Examiner les changements de groupes sans revue des profils"
+
+msgid "Examine privileged profiles"
+msgstr "Examiner les profils à privilèges"
+
+msgid "Examine: leaving soon, inactive, groups changed, privileged profile"
+msgstr ""
+"À examiner : départ proche, inactif, groupes changés, profil à privilèges"
+
+msgid ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+msgstr ""
+"D'après la page Couverture MFA : double authentification GLPI ou rapport "
+"importé."
+
+msgid "Inactive account: no login for"
+msgstr "Compte inactif : aucune connexion depuis"
+
+msgid "Keep: no warning sign"
+msgstr "Garder : aucun signal d'alerte"
+
+msgid "Leaving soon: end date or departure within"
+msgstr "Départ proche : date de fin ou départ dans les"
+
+msgid "Mention privileged accounts without known MFA"
+msgstr "Signaler les comptes à privilèges sans MFA connue"
+
+msgid "Profiles that can change the GLPI configuration or profiles."
+msgstr "Profils qui peuvent modifier la configuration ou les profils de GLPI."
+
+msgid "Remove: deleted from the directory, end date or departure passed"
+msgstr "Retirer : supprimé de l'annuaire, date de fin ou départ passés"
+
+msgid "Suggestion rules"
+msgstr "Règles de suggestion"
+
+msgid ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+msgstr ""
+"Chaque compte affiche une suggestion et sa raison (départ, inactivité, "
+"profil à privilèges...). Ce n'est qu'une proposition : c'est vous qui "
+"décidez."
+
+msgid "Decision differs from the suggestion"
+msgstr "Décision différente de la suggestion"
+
+msgid "Suggestion and reason"
+msgstr "Suggestion et raison"
+
+msgid "Suggestions"
+msgstr "Suggestions"
+
+msgid "Comment (required to keep, change or remove)"
+msgstr "Commentaire (obligatoire pour garder, modifier ou retirer)"
+
+msgid "No suggestion yet"
+msgstr "Pas encore de suggestion"
+
+msgid "Suggested by the rules"
+msgstr "Proposé par les règles"
+
+msgid ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+msgstr ""
+"De simples propositions : chaque relecteur décide. Les règles se règlent sur "
+"le formulaire de la campagne."
+
+msgid ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+msgstr ""
+"Recalcule la suggestion des comptes encore à revoir (les comptes décidés "
+"gardent celle que leur relecteur a vue)."
+
+msgid "Update the suggestions"
+msgstr "Mettre à jour les suggestions"

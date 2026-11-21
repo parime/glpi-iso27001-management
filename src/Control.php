@@ -1720,6 +1720,10 @@ class Control extends ControlBase
             'zabbix'                  => ZabbixMonitoring::evidence($code),
             // Issue #854 : retard des correctifs de sécurité, preuve des mesures A.8.8 et A.8.19.
             'patch_compliance'        => PatchCompliance::evidence($code),
+            // Issue #781 : conformité de configuration (OpenSCAP, puis d'autres sources), mesure A.8.9.
+            'configuration_compliance' => ConfigurationCompliance::evidence($code),
+            // Issue #853 : couverture de la journalisation, preuve des mesures A.8.15, A.8.16 et A.8.17.
+            'log_coverage'            => LogCoverage::evidence($code),
             // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation (mesure A.6.3).
             'phishing'                => PhishingCampaign::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',

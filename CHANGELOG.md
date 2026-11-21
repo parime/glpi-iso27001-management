@@ -28,7 +28,46 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     sur les mesures A.8.16, A.8.6 et A.5.30 ; trois sources d'indicateurs de risque (disponibilité
     des services du mois, problèmes ouverts de gravité haute, actifs critiques non supervisés) ;
   - tables rejouables supprimées à la désinstallation ; tests contre un faux serveur Zabbix,
-    matrice d'accès et contrôle XSS ; tutoriel (étape 38).
+    matrice d'accès et contrôle XSS ; tutoriel (étape 40).
+
+## [2.76.0] - 2026-11-21
+
+## [2.75.0] - 2026-11-21
+
+### Added
+
+- **Revue des accès pré-remplie par des règles** (issue #866, mesures A.5.18 et A.8.2). Au
+  lancement d'une campagne, chaque compte arrive avec une suggestion et sa raison, calculées sans IA
+  à partir des données déjà présentes dans GLPI :
+  - **retirer** : compte supprimé de l'annuaire, date de fin du compte dépassée, départ enregistré
+    dans assetsign (s'il est actif) dont la date est passée ;
+  - **à examiner** : départ ou fin du compte dans les N jours, aucune connexion depuis N jours ou
+    compte jamais utilisé, groupes changés sans revue des profils, profil à privilèges (la raison
+    précise quand aucune MFA n'est connue, d'après la couverture MFA de #852) ;
+  - **garder** : aucun signal d'alerte.
+
+  Les règles se règlent sur le formulaire de la campagne (durées, règles activées) et passent à la
+  campagne suivante. L'onglet « Comptes à revoir », « Mes revues d'accès » et le rapport PDF
+  affichent la suggestion, ses raisons et les décisions opposées à la suggestion. La décision reste
+  humaine : rien n'est présélectionné, et garder un compte que les règles proposent de retirer
+  demande un commentaire. « Mettre à jour les suggestions » recalcule les comptes encore à revoir.
+  Mise à jour : champs ajoutés aux campagnes et à leurs lignes (migration rejouable) ; les lignes
+  des campagnes déjà lancées affichent « Pas encore de suggestion » jusqu'au recalcul.
+
+- **Couverture de la journalisation** (issue #853, mesures A.8.15, A.8.16 et A.8.17). Nouvelle page
+  « Couverture de la journalisation » dans la rubrique Sécurité technique, en lecture seule : hôtes
+  émetteurs lus dans le plugin Wazuh quand il est actif (agents actifs), ou importés par CSV depuis
+  Splunk, Graylog, Elastic / OpenSearch, un serveur syslog ou Wazuh (nom, adresse, dernier
+  événement ; jamais le contenu d'un journal). Rapprochement avec les ordinateurs et matériels réseau
+  (nom, nom court sans domaine, adresse IP) : actifs concernés qui n'envoient rien, ou plus rien
+  depuis N jours (réglable, 7 par défaut), hôtes émetteurs inconnus de GLPI. Actifs concernés
+  réglables : actifs critiques (classification C/I/D élevée ou publiés sur Internet), serveurs et
+  matériels réseau (par défaut), ou tous. Conservation et serveur de temps déclarés par plateforme,
+  comparés à la politique (180 jours par défaut) et à l'obligation choisie dans le registre des
+  obligations. Preuve sur les fiches des mesures A.8.15, A.8.16 et A.8.17, source d'indicateur de
+  risque « Actifs critiques sans journalisation (%) ». Deux nouvelles tables, créées à
+  l'installation et à la mise à jour si absentes (rejouable), supprimées à la désinstallation.
+  Matrice d'accès et contrôle XSS étendus.
 
 ## [2.74.0] - 2026-11-21
 
@@ -41,6 +80,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   type proposé et visible) ; les autres paramètres sont ignorés, un flux existant n'est jamais
   modifié. Un encadré « Flux proposé » invite à vérifier, à ajouter la justification et le
   propriétaire : rien n'est enregistré avant « Ajouter ». Contrôle XSS sur des paramètres piégés.
+- **Conformité de configuration : import des résultats OpenSCAP** (issue #781, mesure A.8.9).
+  Nouvelle page « Conformité de configuration » dans la rubrique Sécurité technique : import d'un
+  fichier de résultats XCCDF (1.1 ou 1.2) ou ARF produit par `oscap` (profils CIS, ANSSI, DISA
+  STIG…), plusieurs machines par fichier, doublons ignorés. Chaque résultat est rapproché de
+  l'ordinateur GLPI du même nom parmi ceux que la personne voit ; les autres sont listés et
+  rattachables à la main. Taux de règles conformes par ordinateur et par profil, évolution depuis
+  l'analyse précédente, règles en échec par gravité, historique de chaque machine et règles en
+  échec les plus fréquentes du parc. Ticket de remédiation lié à l'ordinateur proposé, créé
+  seulement sur un clic. Preuve sur la mesure A.8.9 (conçue par sources : d'autres, comme la
+  configuration à risque de l'inventaire Docker, s'y ajouteront), indicateur de risque « ordinateurs
+  analysés avec une règle de gravité haute en échec ». Lecture XML durcie : en flux (gros rapports
+  ARF acceptés), déclarations de type de document et d'entités refusées (ni XXE ni expansion),
+  aucun accès réseau, taille et volumes bornés ; le fichier n'est pas conservé. Tests avec fichiers
+  piégés, matrice d'accès et contrôle XSS.
 - **Couverture de l'authentification multifacteur (MFA) par compte** (issue #852, mesures A.8.5
   et A.5.17) : page « Couverture MFA » (rubrique Revue des accès) :
   - double authentification native de GLPI lue sur chaque compte (activée ou non, le secret n'est

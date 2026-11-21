@@ -970,14 +970,14 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 
 #: templates/dora/register.html.twig
 msgid "Template"
@@ -7315,11 +7315,11 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 
 #: templates/tabs/_access_review_rows.html.twig
 msgid "Profiles and groups"
@@ -13958,13 +13958,13 @@ msgstr "CPE identifiers"
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 
 #: src/CanonicalProduct.php:196
 msgid "No CPE identifier yet."
@@ -14006,12 +14006,12 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 
 #: src/ComplianceAudit.php:100
 msgid "Technical security"
@@ -22097,12 +22097,12 @@ msgstr "Settings and links"
 
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 
 msgid "Enable it in the configuration"
 msgstr "Enable it in the configuration"
@@ -22237,14 +22237,14 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 
 msgid "Kind of item"
 msgstr "Kind of item"
@@ -24636,13 +24636,13 @@ msgid "Justification of a different result"
 msgstr "Justification of a different result"
 
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 
 #, php-format
 msgid "Back to the tests of %s"
@@ -32930,6 +32930,1444 @@ msgstr ""
 "inventory. Check them, add the justification and the owner, then click "
 "\"Add\": nothing is saved before."
 
+msgid ""
+"Not saved: the tenant must be a domain name or an ID, and the application ID "
+"an ID such as 00000000-0000-0000-0000-000000000000."
+msgstr ""
+"Not saved: the tenant must be a domain name or an ID, and the application ID "
+"an ID such as 00000000-0000-0000-0000-000000000000."
+
+msgid "Microsoft Graph settings saved."
+msgstr "Microsoft Graph settings saved."
+
+msgid ""
+"Enter the tenant, the application (client) ID and the client secret first."
+msgstr ""
+"Enter the tenant, the application (client) ID and the client secret first."
+
+msgid ""
+"Microsoft Entra ID refused the tenant, the application ID or the client "
+"secret."
+msgstr ""
+"Microsoft Entra ID refused the tenant, the application ID or the client "
+"secret."
+
+msgid ""
+"Access refused by Microsoft Graph: grant the AuditLog.Read.All application "
+"permission with admin consent (the report requires an Entra ID P1 or P2 "
+"licence)."
+msgstr ""
+"Access refused by Microsoft Graph: grant the AuditLog.Read.All application "
+"permission with admin consent (the report requires an Entra ID P1 or P2 "
+"licence)."
+
+msgid "Microsoft Graph asks to slow down: try again in a few minutes."
+msgstr "Microsoft Graph asks to slow down: try again in a few minutes."
+
+msgid ""
+"Too many accounts to read in one click: import the CSV export of the report "
+"instead."
+msgstr ""
+"Too many accounts to read in one click: import the CSV export of the report "
+"instead."
+
+msgid ""
+"Microsoft Graph could not be reached: check the network access or the GLPI "
+"proxy."
+msgstr ""
+"Microsoft Graph could not be reached: check the network access or the GLPI "
+"proxy."
+
+msgid "Microsoft Graph returned an unexpected answer."
+msgstr "Microsoft Graph returned an unexpected answer."
+
+msgid ""
+"API permissions > Add a permission > Microsoft Graph > Application "
+"permissions: AuditLog.Read.All, then Grant admin consent. The report "
+"requires an Entra ID P1 or P2 licence."
+msgstr ""
+"API permissions > Add a permission > Microsoft Graph > Application "
+"permissions: AuditLog.Read.All, then Grant admin consent. The report "
+"requires an Entra ID P1 or P2 licence."
+
+msgid "Application (client) ID"
+msgstr "Application (client) ID"
+
+msgid ""
+"Certificates & secrets > New client secret, then copy here the tenant ID, "
+"the application (client) ID and the secret value."
+msgstr ""
+"Certificates & secrets > New client secret, then copy here the tenant ID, "
+"the application (client) ID and the secret value."
+
+msgid "Client secret"
+msgstr "Client secret"
+
+msgid "Configured"
+msgstr "Configured"
+
+msgid "Not configured"
+msgstr "Not configured"
+
+msgid "Delete the saved secret"
+msgstr "Delete the saved secret"
+
+msgid ""
+"In the Entra admin center, App registrations > New registration: create an "
+"application (for example \"GLPI GRC - MFA report\")."
+msgstr ""
+"In the Entra admin center, App registrations > New registration: create an "
+"application (for example \"GLPI GRC - MFA report\")."
+
+msgid ""
+"Instead of downloading the CSV export, GLPI can read the same report (user "
+"registration details) from Microsoft Graph when you click the button. The "
+"result replaces the Microsoft Entra ID import of the current entity. Nothing "
+"is ever written in Entra ID and nothing runs automatically."
+msgstr ""
+"Instead of downloading the CSV export, GLPI can read the same report (user "
+"registration details) from Microsoft Graph when you click the button. The "
+"result replaces the Microsoft Entra ID import of the current entity. Nothing "
+"is ever written in Entra ID and nothing runs automatically."
+
+msgid "Only users who can modify the plugin data can set up this reading."
+msgstr "Only users who can modify the plugin data can set up this reading."
+
+msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
+msgstr "Read Microsoft Entra ID directly (Microsoft Graph)"
+
+msgid "Read now from Microsoft Graph"
+msgstr "Read now from Microsoft Graph"
+
+msgid "Secret saved"
+msgstr "Secret saved"
+
+msgid "Secret saved (leave empty to keep it)"
+msgstr "Secret saved (leave empty to keep it)"
+
+msgid "Tenant (directory) ID or domain"
+msgstr "Tenant (directory) ID or domain"
+
+msgid ""
+"The secret is encrypted with the GLPI key, never displayed again nor logged."
+msgstr ""
+"The secret is encrypted with the GLPI key, never displayed again nor logged."
+
+msgid ""
+"Not saved: the address must start with https:// (or http:// when internal "
+"addresses are allowed), without user name, password or parameters."
+msgstr ""
+"Not saved: the address must start with https:// (or http:// when internal "
+"addresses are allowed), without user name, password or parameters."
+
+msgid "Zabbix settings saved."
+msgstr "Zabbix settings saved."
+
+msgid "Settings saved."
+msgstr "Settings saved."
+
+#, php-format
+msgid "Zabbix read: %1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr "Zabbix read: %1$d host(s), %2$d problem(s), %3$d service(s)."
+
+msgid "Zabbix readings deleted."
+msgstr "Zabbix readings deleted."
+
+msgid "Business process saved."
+msgstr "Business process saved."
+
+msgid "The business process could not be saved."
+msgstr "The business process could not be saved."
+
+msgid "Infrastructure monitoring"
+msgstr "Infrastructure monitoring"
+
+msgid ""
+"Reads your Zabbix monitoring server, in read only: hosts, problems and "
+"availability of the services. Hosts are matched with the computers and "
+"network devices of GLPI to show the assets that nobody monitors, the "
+"measured availability compared with the recovery time objectives of the "
+"business processes, and the saturations of disk, memory or processor."
+msgstr ""
+"Reads your Zabbix monitoring server, in read only: hosts, problems and "
+"availability of the services. Hosts are matched with the computers and "
+"network devices of GLPI to show the assets that nobody monitors, the "
+"measured availability compared with the recovery time objectives of the "
+"business processes, and the saturations of disk, memory or processor."
+
+msgid ""
+"Enter the address of the Zabbix server and the API token of a read-only "
+"Zabbix user, read now, then follow up the critical assets not monitored, the "
+"open high-severity problems and the services below their objective. A high-"
+"severity problem can be turned into a security incident or a ticket with one "
+"click; nothing is created automatically and nothing is changed in Zabbix."
+msgstr ""
+"Enter the address of the Zabbix server and the API token of a read-only "
+"Zabbix user, read now, then follow up the critical assets not monitored, the "
+"open high-severity problems and the services below their objective. A high-"
+"severity problem can be turned into a security incident or a ticket with one "
+"click; nothing is created automatically and nothing is changed in Zabbix."
+
+msgid "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
+msgstr "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
+
+#, php-format
+msgid "Service availability this month, lowest (%) (Zabbix)"
+msgstr "Service availability this month, lowest (%) (Zabbix)"
+
+msgid "Open high-severity problems (Zabbix)"
+msgstr "Open high-severity problems (Zabbix)"
+
+msgid "Critical assets not monitored (Zabbix)"
+msgstr "Critical assets not monitored (Zabbix)"
+
+msgid "Zabbix monitoring"
+msgstr "Zabbix monitoring"
+
+msgid "Information"
+msgstr "Information"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Average"
+msgstr "Average"
+
+msgid "Disaster"
+msgstr "Disaster"
+
+msgid "Monitored"
+msgstr "Monitored"
+
+msgid "Monitored, unreachable"
+msgstr "Monitored, unreachable"
+
+msgid "Monitoring disabled in Zabbix"
+msgstr "Monitoring disabled in Zabbix"
+
+msgid "Not monitored"
+msgstr "Not monitored"
+
+msgid "Critical assets, servers and network devices"
+msgstr "Critical assets, servers and network devices"
+
+msgid "Critical assets only"
+msgstr "Critical assets only"
+
+msgid "All computers and network devices"
+msgstr "All computers and network devices"
+
+msgid "Disk space"
+msgstr "Disk space"
+
+msgid "Memory"
+msgstr "Memory"
+
+msgid "Processor"
+msgstr "Processor"
+
+msgid "Enter the address of the Zabbix server and an API token first."
+msgstr "Enter the address of the Zabbix server and an API token first."
+
+msgid ""
+"Zabbix refused the API token: check that it is valid, not expired, and that "
+"its user is enabled."
+msgstr ""
+"Zabbix refused the API token: check that it is valid, not expired, and that "
+"its user is enabled."
+
+msgid ""
+"Zabbix refused access: give the user of the token read access to the host "
+"groups and services."
+msgstr ""
+"Zabbix refused access: give the user of the token read access to the host "
+"groups and services."
+
+msgid ""
+"The Zabbix server has an internal address, refused by default: allow "
+"internal addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+"The Zabbix server has an internal address, refused by default: allow "
+"internal addresses in the plugin configuration page (Outgoing connections)."
+
+msgid ""
+"The Zabbix server could not be reached: check the address, the network "
+"access or the GLPI proxy."
+msgstr ""
+"The Zabbix server could not be reached: check the address, the network "
+"access or the GLPI proxy."
+
+msgid "This version of Zabbix is too old: version 5.4 or later is required."
+msgstr "This version of Zabbix is too old: version 5.4 or later is required."
+
+msgid "Refused: the connector only reads from Zabbix."
+msgstr "Refused: the connector only reads from Zabbix."
+
+msgid "You are not allowed to do this."
+msgstr "You are not allowed to do this."
+
+msgid "Zabbix returned an unexpected answer."
+msgstr "Zabbix returned an unexpected answer."
+
+#, php-format
+msgid "Problem reported by Zabbix: %s"
+msgstr "Problem reported by Zabbix: %s"
+
+#, php-format
+msgid "Host: %s"
+msgstr "Host: %s"
+
+#, php-format
+msgid "Severity: %s"
+msgstr "Severity: %s"
+
+#, php-format
+msgid "Started on: %s"
+msgstr "Started on: %s"
+
+#, php-format
+msgid "Zabbix event: %s"
+msgstr "Zabbix event: %s"
+
+msgid "Zabbix: reads hosts, problems and service availability (read only)"
+msgstr "Zabbix: reads hosts, problems and service availability (read only)"
+
+#, php-format
+msgid "Assets with a saturation: %d"
+msgstr "Assets with a saturation: %d"
+
+#, php-format
+msgid "Critical assets not monitored: %d"
+msgstr "Critical assets not monitored: %d"
+
+#, php-format
+msgid "Disk, memory or processor problems: %d"
+msgstr "Disk, memory or processor problems: %d"
+
+#, php-format
+msgid "High-severity problems resolved: %d"
+msgstr "High-severity problems resolved: %d"
+
+#, php-format
+msgid "Lowest service availability: %s %%"
+msgstr "Lowest service availability: %s %%"
+
+#, php-format
+msgid "Monitored assets: %d%%"
+msgstr "Monitored assets: %d%%"
+
+msgid "Monitored assets: not measured"
+msgstr "Monitored assets: not measured"
+
+#, php-format
+msgid "Open high-severity problems: %d"
+msgstr "Open high-severity problems: %d"
+
+#, php-format
+msgid "Outages longer than the RTO: %d"
+msgstr "Outages longer than the RTO: %d"
+
+#, php-format
+msgid "Over %1$d days, read from Zabbix on %2$s"
+msgstr "Over %1$d days, read from Zabbix on %2$s"
+
+#, php-format
+msgid "Services below their objective: %d"
+msgstr "Services below their objective: %d"
+
+msgid "Assets this process depends on"
+msgstr "Assets this process depends on"
+
+msgid "Availability of the services (Zabbix SLA)"
+msgstr "Availability of the services (Zabbix SLA)"
+
+#, php-format
+msgid "Availability over %d days"
+msgstr "Availability over %d days"
+
+#, php-format
+msgid "Downtime: %s"
+msgstr "Downtime: %s"
+
+#, php-format
+msgid "High: %d"
+msgstr "High: %d"
+
+msgid "Longest outage and RTO"
+msgstr "Longest outage and RTO"
+
+msgid ""
+"No Zabbix service is linked to this process: link one on the Zabbix "
+"monitoring page."
+msgstr ""
+"No Zabbix service is linked to this process: link one on the Zabbix "
+"monitoring page."
+
+msgid "No computer or network device in the dependencies of this process."
+msgstr "No computer or network device in the dependencies of this process."
+
+msgid "No problem over the period."
+msgstr "No problem over the period."
+
+msgid "Nothing has been read from Zabbix yet."
+msgstr "Nothing has been read from Zabbix yet."
+
+msgid "Open problems"
+msgstr "Open problems"
+
+#, php-format
+msgid "Other: %d"
+msgstr "Other: %d"
+
+msgid "Outage longer than the RTO"
+msgstr "Outage longer than the RTO"
+
+#, php-format
+msgid "Problems over the last %d days"
+msgstr "Problems over the last %d days"
+
+msgid "Saturation"
+msgstr "Saturation"
+
+msgid "Started"
+msgstr "Started"
+
+msgid ""
+"This asset is not concerned by the monitoring settings and no Zabbix host "
+"matches it."
+msgstr ""
+"This asset is not concerned by the monitoring settings and no Zabbix host "
+"matches it."
+
+#, php-format
+msgid "Zabbix host: %s"
+msgstr "Zabbix host: %s"
+
+#, php-format
+msgid "%1$d assets: the first %2$d are shown, gaps first."
+msgstr "%1$d assets: the first %2$d are shown, gaps first."
+
+#, php-format
+msgid "%1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr "%1$d host(s), %2$d problem(s), %3$d service(s)."
+
+#, php-format
+msgid "%1$d problem(s) over %2$d days"
+msgstr "%1$d problem(s) over %2$d days"
+
+#, php-format
+msgid "%1$d service(s), %2$d below their objective"
+msgstr "%1$d service(s), %2$d below their objective"
+
+msgid ""
+"A Zabbix server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+msgstr ""
+"A Zabbix server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+
+msgid "Acknowledged in Zabbix"
+msgstr "Acknowledged in Zabbix"
+
+msgid "Address of the Zabbix interface"
+msgstr "Address of the Zabbix interface"
+
+msgid "Assets and their monitoring"
+msgstr "Assets and their monitoring"
+
+#, php-format
+msgid "Assets concerned: %d"
+msgstr "Assets concerned: %d"
+
+msgid "Assets monitored by Zabbix"
+msgstr "Assets monitored by Zabbix"
+
+msgid "Assets with a saturation"
+msgstr "Assets with a saturation"
+
+msgid ""
+"Availability measured by Zabbix over the current period of each SLA, "
+"compared with its objective (SLO). Link a service to the business process it "
+"supports to compare it with the continuity needs."
+msgstr ""
+"Availability measured by Zabbix over the current period of each SLA, "
+"compared with its objective (SLO). Link a service to the business process it "
+"supports to compare it with the continuity needs."
+
+msgid "Below the objective"
+msgstr "Below the objective"
+
+msgid "Business processes"
+msgstr "Business processes"
+
+msgid ""
+"Check them: the asset may be missing from the inventory, or named "
+"differently in GLPI and in Zabbix."
+msgstr ""
+"Check them: the asset may be missing from the inventory, or named "
+"differently in GLPI and in Zabbix."
+
+#, php-format
+msgid ""
+"Concerned assets: %s. A Zabbix host is matched with an asset by its serial "
+"number, its name, its short name (without the domain) or its IP address. The "
+"availability is the share of time without a high-severity problem over the "
+"period."
+msgstr ""
+"Concerned assets: %s. A Zabbix host is matched with an asset by its serial "
+"number, its name, its short name (without the domain) or its IP address. The "
+"availability is the share of time without a high-severity problem over the "
+"period."
+
+msgid "Connection to Zabbix (read only)"
+msgstr "Connection to Zabbix (read only)"
+
+msgid ""
+"Critical assets are those with a high confidentiality, integrity or "
+"availability level (C/I/A classification tab), or published on the Internet "
+"(network flow matrix)."
+msgstr ""
+"Critical assets are those with a high confidentiality, integrity or "
+"availability level (C/I/A classification tab), or published on the Internet "
+"(network flow matrix)."
+
+msgid "Critical assets not monitored"
+msgstr "Critical assets not monitored"
+
+msgid "Current period"
+msgstr "Current period"
+
+msgid "Delete the readings"
+msgstr "Delete the readings"
+
+#, php-format
+msgid "Disk, memory or processor, over %d days"
+msgstr "Disk, memory or processor, over %d days"
+
+msgid "Downtime"
+msgstr "Downtime"
+
+msgid "Entity of the readings"
+msgstr "Entity of the readings"
+
+msgid "How to prepare Zabbix:"
+msgstr "How to prepare Zabbix:"
+
+msgid "IP addresses"
+msgstr "IP addresses"
+
+#, php-format
+msgid "Last reading: %s"
+msgstr "Last reading: %s"
+
+msgid "Lowest service availability"
+msgstr "Lowest service availability"
+
+msgid "No computer or network device concerned in your entities."
+msgstr "No computer or network device concerned in your entities."
+
+msgid "No problem on your assets over the period."
+msgstr "No problem on your assets over the period."
+
+msgid "No reading yet."
+msgstr "No reading yet."
+
+msgid "No service level (SLA) read"
+msgstr "No service level (SLA) read"
+
+msgid ""
+"No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
+msgstr ""
+"No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
+
+msgid ""
+"Nothing has been read from Zabbix yet: enter the connection below, then "
+"click \"Read now\". Until then, every asset concerned is shown as not "
+"monitored."
+msgstr ""
+"Nothing has been read from Zabbix yet: enter the connection below, then "
+"click \"Read now\". Until then, every asset concerned is shown as not "
+"monitored."
+
+msgid "Objective (SLO)"
+msgstr "Objective (SLO)"
+
+msgid "Only the most recent items were read"
+msgstr "Only the most recent items were read"
+
+msgid "Open high-severity problems"
+msgstr "Open high-severity problems"
+
+msgid "Period of the problems (days)"
+msgstr "Period of the problems (days)"
+
+msgid "Previous period"
+msgstr "Previous period"
+
+msgid ""
+"Problems of severity Warning or higher, open ones first. A high-severity "
+"problem can be turned into a security incident or a ticket: it is only "
+"created when you click, never automatically."
+msgstr ""
+"Problems of severity Warning or higher, open ones first. A high-severity "
+"problem can be turned into a security incident or a ticket: it is only "
+"created when you click, never automatically."
+
+msgid "Propose as security incident"
+msgstr "Propose as security incident"
+
+msgid "Read automatically every day (automatic action \"zabbix\")"
+msgstr "Read automatically every day (automatic action \"zabbix\")"
+
+msgid "Read now"
+msgstr "Read now"
+
+msgid "Read only: nothing is ever changed in Zabbix from GLPI."
+msgstr "Read only: nothing is ever changed in Zabbix from GLPI."
+
+msgid "Technical name"
+msgstr "Technical name"
+
+msgid ""
+"The last reading failed: the page shows the previous successful reading."
+msgstr ""
+"The last reading failed: the page shows the previous successful reading."
+
+msgid ""
+"The readings are visible in this entity and its sub-entities; hosts not "
+"matched with an asset are only listed in this entity."
+msgstr ""
+"The readings are visible in this entity and its sub-entities; hosts not "
+"matched with an asset are only listed in this entity."
+
+msgid ""
+"The token is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+msgstr ""
+"The token is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+
+msgid ""
+"Users > API tokens: create a token for this user, then copy it here with the "
+"address of the Zabbix interface."
+msgstr ""
+"Users > API tokens: create a token for this user, then copy it here with the "
+"address of the Zabbix interface."
+
+msgid ""
+"Users > User roles: create a role of type User with API access limited to "
+"the methods host.get, problem.get, event.get, service.get, sla.get and "
+"sla.getsli."
+msgstr ""
+"Users > User roles: create a role of type User with API access limited to "
+"the methods host.get, problem.get, event.get, service.get, sla.get and "
+"sla.getsli."
+
+msgid ""
+"Users > Users: create a user with this role, in a user group with read "
+"permission on the host groups to monitor (and on the services)."
+msgstr ""
+"Users > Users: create a user with this role, in a user group with read "
+"permission on the host groups to monitor (and on the services)."
+
+msgid "Which assets must be monitored?"
+msgstr "Which assets must be monitored?"
+
+msgid "Zabbix host"
+msgstr "Zabbix host"
+
+msgid "Zabbix hosts not matched with a GLPI asset"
+msgstr "Zabbix hosts not matched with a GLPI asset"
+
+#, php-format
+msgid "out of %d critical assets"
+msgstr "out of %d critical assets"
+
+#, php-format
+msgid ""
+"%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr ""
+"%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+
+msgid "Logging settings saved."
+msgstr "Logging settings saved."
+
+msgid "Log platform declaration saved."
+msgstr "Log platform declaration saved."
+
+msgid "Logging coverage"
+msgstr "Logging coverage"
+
+msgid "Syslog server"
+msgstr "Syslog server"
+
+msgid "Other log platform"
+msgstr "Other log platform"
+
+msgid "No logs received"
+msgstr "No logs received"
+
+msgid "No log platform knows this asset (name or IP address)."
+msgstr "No log platform knows this asset (name or IP address)."
+
+msgid "Logs stopped"
+msgstr "Logs stopped"
+
+msgid "The last event received is older than the threshold."
+msgstr "The last event received is older than the threshold."
+
+msgid "Logs received"
+msgstr "Logs received"
+
+msgid "A log platform received an event from this asset recently."
+msgstr "A log platform received an event from this asset recently."
+
+msgid "Long enough"
+msgstr "Long enough"
+
+msgid "Too short"
+msgstr "Too short"
+
+msgid ""
+"The file has no column for the host name or IP address (for example host, "
+"hostname, source, agent.name or ip)."
+msgstr ""
+"The file has no column for the host name or IP address (for example host, "
+"hostname, source, agent.name or ip)."
+
+msgid "You do not have the right to import."
+msgstr "You do not have the right to import."
+
+msgid ""
+"Shows which important assets send their logs to a log platform (Wazuh, "
+"Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
+"nothing for several days, and whether each platform keeps the logs long "
+"enough and synchronizes the clocks."
+msgstr ""
+"Shows which important assets send their logs to a log platform (Wazuh, "
+"Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
+"nothing for several days, and whether each platform keeps the logs long "
+"enough and synchronizes the clocks."
+
+msgid ""
+"Choose the assets that must send their logs, import the list of hosts of "
+"each log platform (or let the Wazuh plugin be read), connect the assets "
+"listed as gaps, and declare the retention and the time server of each "
+"platform. The page only reads: it runs nothing on the platforms. Record the "
+"result as an effectiveness test of the control to keep the evidence."
+msgstr ""
+"Choose the assets that must send their logs, import the list of hosts of "
+"each log platform (or let the Wazuh plugin be read), connect the assets "
+"listed as gaps, and declare the retention and the time server of each "
+"platform. The page only reads: it runs nothing on the platforms. Record the "
+"result as an effectiveness test of the control to keep the evidence."
+
+msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
+msgstr "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
+
+#, php-format
+msgid "Critical assets without logging (%)"
+msgstr "Critical assets without logging (%)"
+
+#, php-format
+msgid "%d asset(s) whose logs stopped"
+msgstr "%d asset(s) whose logs stopped"
+
+#, php-format
+msgid "%d critical asset(s) without logging"
+msgstr "%d critical asset(s) without logging"
+
+#, php-format
+msgid "%d platform(s) with a retention too short or not declared"
+msgstr "%d platform(s) with a retention too short or not declared"
+
+#, php-format
+msgid "%d platform(s) without declared clock synchronization"
+msgstr "%d platform(s) without declared clock synchronization"
+
+#, php-format
+msgid "Logging coverage: %d%%"
+msgstr "Logging coverage: %d%%"
+
+msgid "Logging coverage: not measured"
+msgstr "Logging coverage: not measured"
+
+#, php-format
+msgid "%d days kept"
+msgstr "%d days kept"
+
+#, php-format
+msgid "%d days required"
+msgstr "%d days required"
+
+msgid ""
+"An asset is critical when one axis of its C/I/A classification is high (tab "
+"of the asset form), or when a network flow publishes it on the Internet. "
+"Servers are recognized from the computer type or the operating system name."
+msgstr ""
+"An asset is critical when one axis of its C/I/A classification is high (tab "
+"of the asset form), or when a network flow publishes it on the Internet. "
+"Servers are recognized from the computer type or the operating system name."
+
+msgid "Assets concerned whose logs are received"
+msgstr "Assets concerned whose logs are received"
+
+msgid "Assets that must send their logs"
+msgstr "Assets that must send their logs"
+
+msgid ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown host may be an asset missing from the inventory."
+msgstr ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown host may be an asset missing from the inventory."
+
+msgid "Clock synchronization not declared"
+msgstr "Clock synchronization not declared"
+
+msgid "Clocks synchronized"
+msgstr "Clocks synchronized"
+
+msgid "Comment (where the setting can be checked)"
+msgstr "Comment (where the setting can be checked)"
+
+msgid "Critical assets without logging"
+msgstr "Critical assets without logging"
+
+msgid "Declare another platform"
+msgstr "Declare another platform"
+
+msgid ""
+"Declare, for each platform, how long the logs are kept and whether the "
+"clocks are synchronized. The retention required is the longest between the "
+"policy and the obligation chosen. These are declarations: keep the "
+"screenshot of the setting as evidence."
+msgstr ""
+"Declare, for each platform, how long the logs are kept and whether the "
+"clocks are synchronized. The retention required is the longest between the "
+"policy and the obligation chosen. These are declarations: keep the "
+"screenshot of the setting as evidence."
+
+msgid ""
+"Export the list of hosts that send logs from your log platform, then import "
+"the CSV file here. A new import of the same platform replaces the previous "
+"one in the current entity. Only host names, addresses and the date of the "
+"last event are kept, never the content of a log."
+msgstr ""
+"Export the list of hosts that send logs from your log platform, then import "
+"the CSV file here. A new import of the same platform replaces the previous "
+"one in the current entity. Only host names, addresses and the date of the "
+"last event are kept, never the content of a log."
+
+msgid ""
+"For example a law, a regulation or a contract listed in the register of "
+"obligations."
+msgstr ""
+"For example a law, a regulation or a contract listed in the register of "
+"obligations."
+
+msgid ""
+"Graylog, Elastic or OpenSearch: a table of the sources with the most recent "
+"timestamp (columns source or host.name, and last timestamp), exported as CSV."
+msgstr ""
+"Graylog, Elastic or OpenSearch: a table of the sources with the most recent "
+"timestamp (columns source or host.name, and last timestamp), exported as CSV."
+
+msgid "Hosts"
+msgstr "Hosts"
+
+msgid "Hosts that send logs but are not found in GLPI"
+msgstr "Hosts that send logs but are not found in GLPI"
+
+msgid "Last event received"
+msgstr "Last event received"
+
+msgid "Log platform"
+msgstr "Log platform"
+
+msgid "Log sources"
+msgstr "Log sources"
+
+msgid "Logs stopped after (days without event)"
+msgstr "Logs stopped after (days without event)"
+
+msgid "No asset concerned in your entities."
+msgstr "No asset concerned in your entities."
+
+#, php-format
+msgid "No event for more than %d days: logs stopped"
+msgstr "No event for more than %d days: logs stopped"
+
+msgid ""
+"No log source yet: import the list of hosts of your log platform to measure "
+"the coverage."
+msgstr ""
+"No log source yet: import the list of hosts of your log platform to measure "
+"the coverage."
+
+msgid "No platform declared."
+msgstr "No platform declared."
+
+msgid "Obligation that imposes a retention"
+msgstr "Obligation that imposes a retention"
+
+msgid "Platforms whose retention is too short or not declared"
+msgstr "Platforms whose retention is too short or not declared"
+
+msgid "Platforms without declared clock synchronization"
+msgstr "Platforms without declared clock synchronization"
+
+msgid "Read directly"
+msgstr "Read directly"
+
+msgid ""
+"Read-only: the plugin reads the lists of hosts, it never runs anything on "
+"the log platforms and changes nothing in GLPI."
+msgstr ""
+"Read-only: the plugin reads the lists of hosts, it never runs anything on "
+"the log platforms and changes nothing in GLPI."
+
+msgid ""
+"Recognized columns: host (or hostname, source, agent.name), ip, and last "
+"event (or lastTime, last_seen, lastKeepAlive)."
+msgstr ""
+"Recognized columns: host (or hostname, source, agent.name), ip, and last "
+"event (or lastTime, last_seen, lastKeepAlive)."
+
+msgid "Register of obligations"
+msgstr "Register of obligations"
+
+msgid "Retention and clock synchronization"
+msgstr "Retention and clock synchronization"
+
+msgid "Retention declared (days)"
+msgstr "Retention declared (days)"
+
+msgid "Retention not declared"
+msgstr "Retention not declared"
+
+msgid "Retention required by the obligation (days)"
+msgstr "Retention required by the obligation (days)"
+
+msgid "Retention required by the policy (days)"
+msgstr "Retention required by the policy (days)"
+
+#, php-format
+msgid "Retention required by the policy: %d days"
+msgstr "Retention required by the policy: %d days"
+
+msgid ""
+"Splunk: run the search \"| metadata type=hosts index=*\" and export the "
+"result (columns host, lastTime)."
+msgstr ""
+"Splunk: run the search \"| metadata type=hosts index=*\" and export the "
+"result (columns host, lastTime)."
+
+msgid ""
+"The Wazuh plugin is active: its active agents are read directly, read-only."
+msgstr ""
+"The Wazuh plugin is active: its active agents are read directly, read-only."
+
+msgid "The clocks of the sources and of the platform are synchronized"
+msgstr "The clocks of the sources and of the platform are synchronized"
+
+msgid "Time server (NTP)"
+msgstr "Time server (NTP)"
+
+msgid ""
+"Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, "
+"one host per line."
+msgstr ""
+"Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, "
+"one host per line."
+
+msgid "Which assets must send their logs?"
+msgstr "Which assets must send their logs?"
+
+#, php-format
+msgid "%d asset concerned"
+msgid_plural "%d assets concerned"
+msgstr[0] "%d asset concerned"
+msgstr[1] "%d assets concerned"
+
+#, php-format
+msgid "%d critical asset"
+msgid_plural "%d critical assets"
+msgstr[0] "%d critical asset"
+msgstr[1] "%d critical assets"
+
+#, php-format
+msgid "%d log platform"
+msgid_plural "%d log platforms"
+msgstr[0] "%d log platform"
+msgstr[1] "%d log platforms"
+
+msgid "Choose an XML results file produced by OpenSCAP (XCCDF or ARF)."
+msgstr "Choose an XML results file produced by OpenSCAP (XCCDF or ARF)."
+
+#, php-format
+msgid ""
+"%1$d scan result(s) imported: %2$d matched to a computer, %3$d not matched, "
+"%4$d already imported."
+msgstr ""
+"%1$d scan result(s) imported: %2$d matched to a computer, %3$d not matched, "
+"%4$d already imported."
+
+msgid ""
+"The file holds more results or failed rules than the import keeps: only the "
+"first ones were kept."
+msgstr ""
+"The file holds more results or failed rules than the import keeps: only the "
+"first ones were kept."
+
+msgid "Choose a computer you can see."
+msgstr "Choose a computer you can see."
+
+msgid "Scan result matched to the computer."
+msgstr "Scan result matched to the computer."
+
+msgid "Scan result deleted."
+msgstr "Scan result deleted."
+
+msgid "Configuration compliance"
+msgstr "Configuration compliance"
+
+msgid "Error during the check"
+msgstr "Error during the check"
+
+msgid ""
+"The file contains a document type or entity declaration, refused for "
+"security reasons. OpenSCAP never writes one: export the results again with "
+"oscap."
+msgstr ""
+"The file contains a document type or entity declaration, refused for "
+"security reasons. OpenSCAP never writes one: export the results again with "
+"oscap."
+
+msgid ""
+"No scan result was found in the file. Choose the results file (option --"
+"results or --results-arf of oscap), not the benchmark or the HTML report."
+msgstr ""
+"No scan result was found in the file. Choose the results file (option --"
+"results or --results-arf of oscap), not the benchmark or the HTML report."
+
+msgid "The file is not valid XML, or it is truncated."
+msgstr "The file is not valid XML, or it is truncated."
+
+#, php-format
+msgid "Configuration remediation: %1$s (%2$d rule(s) failed)"
+msgstr "Configuration remediation: %1$s (%2$d rule(s) failed)"
+
+msgid "OpenSCAP scans (XCCDF/ARF)"
+msgstr "OpenSCAP scans (XCCDF/ARF)"
+
+msgid "No scan imported yet"
+msgstr "No scan imported yet"
+
+msgid "Import results"
+msgstr "Import results"
+
+msgid "Average compliance: not measured"
+msgstr "Average compliance: not measured"
+
+#, php-format
+msgid "Average compliance: %d%%"
+msgstr "Average compliance: %d%%"
+
+#, php-format
+msgid "%d machine(s) scanned"
+msgstr "%d machine(s) scanned"
+
+#, php-format
+msgid "%1$d below %2$d%%"
+msgstr "%1$d below %2$d%%"
+
+#, php-format
+msgid "%d with a high severity rule failed"
+msgstr "%d with a high severity rule failed"
+
+#, php-format
+msgid "%d not matched to a computer"
+msgstr "%d not matched to a computer"
+
+#, php-format
+msgid "Last scan on %s"
+msgstr "Last scan on %s"
+
+msgid ""
+"Measures how well the configuration of the computers follows a hardening "
+"guide (CIS, ANSSI, DISA STIG...), from the results files of the OpenSCAP "
+"scanner: rate of rules passed per computer, change since the previous scan, "
+"most frequent failed rules and history."
+msgstr ""
+"Measures how well the configuration of the computers follows a hardening "
+"guide (CIS, ANSSI, DISA STIG...), from the results files of the OpenSCAP "
+"scanner: rate of rules passed per computer, change since the previous scan, "
+"most frequent failed rules and history."
+
+msgid ""
+"Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), "
+"match the results that are not matched to a computer, then fix the failed "
+"rules, starting with the high severity ones. A remediation ticket can be "
+"proposed for a computer: it is created only when you click. Nothing is "
+"changed on the machines."
+msgstr ""
+"Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), "
+"match the results that are not matched to a computer, then fix the failed "
+"rules, starting with the high severity ones. A remediation ticket can be "
+"proposed for a computer: it is created only when you click. Nothing is "
+"changed on the machines."
+
+msgid "ISO/IEC 27001, control A.8.9"
+msgstr "ISO/IEC 27001, control A.8.9"
+
+msgid "Scanned computers with a high severity configuration rule failed (%)"
+msgstr "Scanned computers with a high severity configuration rule failed (%)"
+
+msgid "High severity"
+msgstr "High severity"
+
+msgid "No previous scan with the same profile"
+msgstr "No previous scan with the same profile"
+
+msgid "No profile"
+msgstr "No profile"
+
+msgid "Rules passed out of the rules checked (not applicable rules excluded)"
+msgstr "Rules passed out of the rules checked (not applicable rules excluded)"
+
+#, php-format
+msgid "%1$d of %2$d computers shown, the least compliant first."
+msgstr "%1$d of %2$d computers shown, the least compliant first."
+
+msgid "Average compliance of the last scans"
+msgstr "Average compliance of the last scans"
+
+#, php-format
+msgid "Below the %d%% target"
+msgstr "Below the %d%% target"
+
+msgid ""
+"Creates a remediation ticket linked to the computer, with the failed rules. "
+"Nothing is created without this click."
+msgstr ""
+"Creates a remediation ticket linked to the computer, with the failed rules. "
+"Nothing is created without this click."
+
+msgid "Download an example file"
+msgstr "Download an example file"
+
+msgid "Host name in the report"
+msgstr "Host name in the report"
+
+msgid "Import OpenSCAP results"
+msgstr "Import OpenSCAP results"
+
+msgid "Last scan of each computer"
+msgstr "Last scan of each computer"
+
+msgid "Machines scanned"
+msgstr "Machines scanned"
+
+msgid "Match"
+msgstr "Match"
+
+msgid "Match to a computer"
+msgstr "Match to a computer"
+
+msgid "Most frequent failed rules"
+msgstr "Most frequent failed rules"
+
+msgid ""
+"No computer you can see bears this name, or several do. Check the name of "
+"the computer in GLPI, or choose it here."
+msgstr ""
+"No computer you can see bears this name, or several do. Check the name of "
+"the computer in GLPI, or choose it here."
+
+msgid "No failed rule in the last scans."
+msgstr "No failed rule in the last scans."
+
+msgid "No host name"
+msgstr "No host name"
+
+msgid ""
+"No scan imported yet. Import an OpenSCAP results file to measure the "
+"configuration compliance."
+msgstr ""
+"No scan imported yet. Import an OpenSCAP results file to measure the "
+"configuration compliance."
+
+msgid "No scan result is matched to a computer yet: match them below."
+msgstr "No scan result is matched to a computer yet: match them below."
+
+msgid "Propose a ticket"
+msgstr "Propose a ticket"
+
+msgid "Results file"
+msgstr "Results file"
+
+msgid "Rules failed"
+msgstr "Rules failed"
+
+msgid ""
+"Run the scan on the machine, then import the results file (XCCDF or ARF). "
+"One file can hold several machines. Each result is matched to the GLPI "
+"computer of the same name."
+msgstr ""
+"Run the scan on the machine, then import the results file (XCCDF or ARF). "
+"One file can hold several machines. Each result is matched to the GLPI "
+"computer of the same name."
+
+msgid "Scan date"
+msgstr "Scan date"
+
+msgid "Scan results not matched to a computer"
+msgstr "Scan results not matched to a computer"
+
+#, php-format
+msgid "Ticket %d"
+msgstr "Ticket %d"
+
+msgid "With a high severity rule failed"
+msgstr "With a high severity rule failed"
+
+#, php-format
+msgid ""
+"XML file, %d MB at most. The file itself is not kept: only the counts and "
+"the failed rules."
+msgstr ""
+"XML file, %d MB at most. The file itself is not kept: only the counts and "
+"the failed rules."
+
+#, php-format
+msgid "%d failed"
+msgstr "%d failed"
+
+#, php-format
+msgid "%d in error"
+msgstr "%d in error"
+
+#, php-format
+msgid "%d not applicable or not checked"
+msgstr "%d not applicable or not checked"
+
+#, php-format
+msgid "%d passed"
+msgstr "%d passed"
+
+msgid "Back to the configuration compliance"
+msgstr "Back to the configuration compliance"
+
+msgid "Delete this scan result"
+msgstr "Delete this scan result"
+
+msgid "Delete this scan result?"
+msgstr "Delete this scan result?"
+
+msgid "Failed rules"
+msgstr "Failed rules"
+
+msgid "No failed rule in this scan."
+msgstr "No failed rule in this scan."
+
+msgid "Not matched"
+msgstr "Not matched"
+
+msgid "Rules"
+msgstr "Rules"
+
+msgid "Scan history of this machine"
+msgstr "Scan history of this machine"
+
+msgid "Scanner"
+msgstr "Scanner"
+
+msgid "Score of the tool"
+msgstr "Score of the tool"
+
+msgid ""
+"This scan has more failed rules than the import keeps: only the first ones "
+"are listed."
+msgstr ""
+"This scan has more failed rules than the import keeps: only the first ones "
+"are listed."
+
+#, php-format
+msgid "And %d more rule(s): see the scan in GRC."
+msgstr "And %d more rule(s): see the scan in GRC."
+
+#, php-format
+msgid ""
+"Configuration scan of %1$s on %2$s: %3$d rule(s) failed. ISO/IEC 27001, "
+"control A.8.9."
+msgstr ""
+"Configuration scan of %1$s on %2$s: %3$d rule(s) failed. ISO/IEC 27001, "
+"control A.8.9."
+
+#, php-format
+msgid "Suggestions updated for %d account(s) still to review."
+msgstr "Suggestions updated for %d account(s) still to review."
+
+msgid "Rule disabled"
+msgstr "Rule disabled"
+
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d day"
+msgstr[1] "%d days"
+
+msgid ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+msgstr ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+
+msgid "Suggested: remove"
+msgstr "Suggested: remove"
+
+msgid "Suggested: examine"
+msgstr "Suggested: examine"
+
+msgid "Examine"
+msgstr "Examine"
+
+msgid "Suggested: keep"
+msgstr "Suggested: keep"
+
+msgid "Keep"
+msgstr "Keep"
+
+#, php-format
+msgid "Account end date passed (%s)"
+msgstr "Account end date passed (%s)"
+
+#, php-format
+msgid "Departure recorded on %s"
+msgstr "Departure recorded on %s"
+
+#, php-format
+msgid "Leaving on %1$s (within %2$d days)"
+msgstr "Leaving on %1$s (within %2$d days)"
+
+#, php-format
+msgid "No login for more than %1$d days (last on %2$s)"
+msgstr "No login for more than %1$d days (last on %2$s)"
+
+#, php-format
+msgid "Privileged profile: %s"
+msgstr "Privileged profile: %s"
+
+#, php-format
+msgid "Privileged profile without known MFA: %s"
+msgstr "Privileged profile without known MFA: %s"
+
+#, php-format
+msgid "No warning sign (last login on %s)"
+msgstr "No warning sign (last login on %s)"
+
+msgid "No warning sign"
+msgstr "No warning sign"
+
+msgid ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+msgstr ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+
+msgid ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+msgstr ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+
+msgid "Examine group changes without profile review"
+msgstr "Examine group changes without profile review"
+
+msgid "Examine privileged profiles"
+msgstr "Examine privileged profiles"
+
+msgid "Examine: leaving soon, inactive, groups changed, privileged profile"
+msgstr "Examine: leaving soon, inactive, groups changed, privileged profile"
+
+msgid ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+msgstr ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+
+msgid "Inactive account: no login for"
+msgstr "Inactive account: no login for"
+
+msgid "Keep: no warning sign"
+msgstr "Keep: no warning sign"
+
+msgid "Leaving soon: end date or departure within"
+msgstr "Leaving soon: end date or departure within"
+
+msgid "Mention privileged accounts without known MFA"
+msgstr "Mention privileged accounts without known MFA"
+
+msgid "Profiles that can change the GLPI configuration or profiles."
+msgstr "Profiles that can change the GLPI configuration or profiles."
+
+msgid "Remove: deleted from the directory, end date or departure passed"
+msgstr "Remove: deleted from the directory, end date or departure passed"
+
+msgid "Suggestion rules"
+msgstr "Suggestion rules"
+
+msgid ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+msgstr ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+
+msgid "Decision differs from the suggestion"
+msgstr "Decision differs from the suggestion"
+
+msgid "Suggestion and reason"
+msgstr "Suggestion and reason"
+
+msgid "Suggestions"
+msgstr "Suggestions"
+
+msgid "Comment (required to keep, change or remove)"
+msgstr "Comment (required to keep, change or remove)"
+
+msgid "No suggestion yet"
+msgstr "No suggestion yet"
+
+msgid "Suggested by the rules"
+msgstr "Suggested by the rules"
+
+msgid ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+msgstr ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+
+msgid ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+msgstr ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+
+msgid "Update the suggestions"
+msgstr "Update the suggestions"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -33934,494 +35372,3 @@ msgstr ""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-msgid "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
-msgstr "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
-
-msgid "Microsoft Graph settings saved."
-msgstr "Microsoft Graph settings saved."
-
-msgid "Enter the tenant, the application (client) ID and the client secret first."
-msgstr "Enter the tenant, the application (client) ID and the client secret first."
-
-msgid "Microsoft Entra ID refused the tenant, the application ID or the client secret."
-msgstr "Microsoft Entra ID refused the tenant, the application ID or the client secret."
-
-msgid "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
-msgstr "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
-
-msgid "Microsoft Graph asks to slow down: try again in a few minutes."
-msgstr "Microsoft Graph asks to slow down: try again in a few minutes."
-
-msgid "Too many accounts to read in one click: import the CSV export of the report instead."
-msgstr "Too many accounts to read in one click: import the CSV export of the report instead."
-
-msgid "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
-msgstr "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
-
-msgid "Microsoft Graph returned an unexpected answer."
-msgstr "Microsoft Graph returned an unexpected answer."
-
-msgid "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
-msgstr "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
-
-msgid "Application (client) ID"
-msgstr "Application (client) ID"
-
-msgid "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
-msgstr "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
-
-msgid "Client secret"
-msgstr "Client secret"
-
-msgid "Configured"
-msgstr "Configured"
-
-msgid "Not configured"
-msgstr "Not configured"
-
-msgid "Delete the saved secret"
-msgstr "Delete the saved secret"
-
-msgid "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
-msgstr "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
-
-msgid "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
-msgstr "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
-
-msgid "Only users who can modify the plugin data can set up this reading."
-msgstr "Only users who can modify the plugin data can set up this reading."
-
-msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
-msgstr "Read Microsoft Entra ID directly (Microsoft Graph)"
-
-msgid "Read now from Microsoft Graph"
-msgstr "Read now from Microsoft Graph"
-
-msgid "Secret saved"
-msgstr "Secret saved"
-
-msgid "Secret saved (leave empty to keep it)"
-msgstr "Secret saved (leave empty to keep it)"
-
-msgid "Tenant (directory) ID or domain"
-msgstr "Tenant (directory) ID or domain"
-
-msgid "The secret is encrypted with the GLPI key, never displayed again nor logged."
-msgstr "The secret is encrypted with the GLPI key, never displayed again nor logged."
-
-msgid "Not saved: the address must start with https:// (or http:// when internal addresses are allowed), without user name, password or parameters."
-msgstr "Not saved: the address must start with https:// (or http:// when internal addresses are allowed), without user name, password or parameters."
-
-msgid "Zabbix settings saved."
-msgstr "Zabbix settings saved."
-
-msgid "Settings saved."
-msgstr "Settings saved."
-
-#, php-format
-msgid "Zabbix read: %1$d host(s), %2$d problem(s), %3$d service(s)."
-msgstr "Zabbix read: %1$d host(s), %2$d problem(s), %3$d service(s)."
-
-msgid "Zabbix readings deleted."
-msgstr "Zabbix readings deleted."
-
-msgid "Business process saved."
-msgstr "Business process saved."
-
-msgid "The business process could not be saved."
-msgstr "The business process could not be saved."
-
-msgid "Infrastructure monitoring"
-msgstr "Infrastructure monitoring"
-
-msgid "Reads your Zabbix monitoring server, in read only: hosts, problems and availability of the services. Hosts are matched with the computers and network devices of GLPI to show the assets that nobody monitors, the measured availability compared with the recovery time objectives of the business processes, and the saturations of disk, memory or processor."
-msgstr "Reads your Zabbix monitoring server, in read only: hosts, problems and availability of the services. Hosts are matched with the computers and network devices of GLPI to show the assets that nobody monitors, the measured availability compared with the recovery time objectives of the business processes, and the saturations of disk, memory or processor."
-
-msgid "Enter the address of the Zabbix server and the API token of a read-only Zabbix user, read now, then follow up the critical assets not monitored, the open high-severity problems and the services below their objective. A high-severity problem can be turned into a security incident or a ticket with one click; nothing is created automatically and nothing is changed in Zabbix."
-msgstr "Enter the address of the Zabbix server and the API token of a read-only Zabbix user, read now, then follow up the critical assets not monitored, the open high-severity problems and the services below their objective. A high-severity problem can be turned into a security incident or a ticket with one click; nothing is created automatically and nothing is changed in Zabbix."
-
-msgid "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
-msgstr "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
-
-#, php-format
-msgid "Service availability this month, lowest (%) (Zabbix)"
-msgstr "Service availability this month, lowest (%) (Zabbix)"
-
-msgid "Open high-severity problems (Zabbix)"
-msgstr "Open high-severity problems (Zabbix)"
-
-msgid "Critical assets not monitored (Zabbix)"
-msgstr "Critical assets not monitored (Zabbix)"
-
-msgid "Zabbix monitoring"
-msgstr "Zabbix monitoring"
-
-msgid "Information"
-msgstr "Information"
-
-msgid "Warning"
-msgstr "Warning"
-
-msgid "Average"
-msgstr "Average"
-
-msgid "Disaster"
-msgstr "Disaster"
-
-msgid "Monitored"
-msgstr "Monitored"
-
-msgid "Monitored, unreachable"
-msgstr "Monitored, unreachable"
-
-msgid "Monitoring disabled in Zabbix"
-msgstr "Monitoring disabled in Zabbix"
-
-msgid "Not monitored"
-msgstr "Not monitored"
-
-msgid "Critical assets, servers and network devices"
-msgstr "Critical assets, servers and network devices"
-
-msgid "Critical assets only"
-msgstr "Critical assets only"
-
-msgid "All computers and network devices"
-msgstr "All computers and network devices"
-
-msgid "Disk space"
-msgstr "Disk space"
-
-msgid "Memory"
-msgstr "Memory"
-
-msgid "Processor"
-msgstr "Processor"
-
-msgid "Enter the address of the Zabbix server and an API token first."
-msgstr "Enter the address of the Zabbix server and an API token first."
-
-msgid "Zabbix refused the API token: check that it is valid, not expired, and that its user is enabled."
-msgstr "Zabbix refused the API token: check that it is valid, not expired, and that its user is enabled."
-
-msgid "Zabbix refused access: give the user of the token read access to the host groups and services."
-msgstr "Zabbix refused access: give the user of the token read access to the host groups and services."
-
-msgid "The Zabbix server has an internal address, refused by default: allow internal addresses in the plugin configuration page (Outgoing connections)."
-msgstr "The Zabbix server has an internal address, refused by default: allow internal addresses in the plugin configuration page (Outgoing connections)."
-
-msgid "The Zabbix server could not be reached: check the address, the network access or the GLPI proxy."
-msgstr "The Zabbix server could not be reached: check the address, the network access or the GLPI proxy."
-
-msgid "This version of Zabbix is too old: version 5.4 or later is required."
-msgstr "This version of Zabbix is too old: version 5.4 or later is required."
-
-msgid "Refused: the connector only reads from Zabbix."
-msgstr "Refused: the connector only reads from Zabbix."
-
-msgid "You are not allowed to do this."
-msgstr "You are not allowed to do this."
-
-msgid "Zabbix returned an unexpected answer."
-msgstr "Zabbix returned an unexpected answer."
-
-#, php-format
-msgid "Problem reported by Zabbix: %s"
-msgstr "Problem reported by Zabbix: %s"
-
-#, php-format
-msgid "Host: %s"
-msgstr "Host: %s"
-
-#, php-format
-msgid "Severity: %s"
-msgstr "Severity: %s"
-
-#, php-format
-msgid "Started on: %s"
-msgstr "Started on: %s"
-
-#, php-format
-msgid "Zabbix event: %s"
-msgstr "Zabbix event: %s"
-
-msgid "Zabbix: reads hosts, problems and service availability (read only)"
-msgstr "Zabbix: reads hosts, problems and service availability (read only)"
-
-#, php-format
-msgid "Assets with a saturation: %d"
-msgstr "Assets with a saturation: %d"
-
-#, php-format
-msgid "Critical assets not monitored: %d"
-msgstr "Critical assets not monitored: %d"
-
-#, php-format
-msgid "Disk, memory or processor problems: %d"
-msgstr "Disk, memory or processor problems: %d"
-
-#, php-format
-msgid "High-severity problems resolved: %d"
-msgstr "High-severity problems resolved: %d"
-
-#, php-format
-msgid "Lowest service availability: %s %%"
-msgstr "Lowest service availability: %s %%"
-
-#, php-format
-msgid "Monitored assets: %d%%"
-msgstr "Monitored assets: %d%%"
-
-msgid "Monitored assets: not measured"
-msgstr "Monitored assets: not measured"
-
-#, php-format
-msgid "Open high-severity problems: %d"
-msgstr "Open high-severity problems: %d"
-
-#, php-format
-msgid "Outages longer than the RTO: %d"
-msgstr "Outages longer than the RTO: %d"
-
-#, php-format
-msgid "Over %1$d days, read from Zabbix on %2$s"
-msgstr "Over %1$d days, read from Zabbix on %2$s"
-
-#, php-format
-msgid "Services below their objective: %d"
-msgstr "Services below their objective: %d"
-
-msgid "Assets this process depends on"
-msgstr "Assets this process depends on"
-
-msgid "Availability of the services (Zabbix SLA)"
-msgstr "Availability of the services (Zabbix SLA)"
-
-#, php-format
-msgid "Availability over %d days"
-msgstr "Availability over %d days"
-
-#, php-format
-msgid "Downtime: %s"
-msgstr "Downtime: %s"
-
-#, php-format
-msgid "High: %d"
-msgstr "High: %d"
-
-msgid "Longest outage and RTO"
-msgstr "Longest outage and RTO"
-
-msgid "No Zabbix service is linked to this process: link one on the Zabbix monitoring page."
-msgstr "No Zabbix service is linked to this process: link one on the Zabbix monitoring page."
-
-msgid "No computer or network device in the dependencies of this process."
-msgstr "No computer or network device in the dependencies of this process."
-
-msgid "No problem over the period."
-msgstr "No problem over the period."
-
-msgid "Nothing has been read from Zabbix yet."
-msgstr "Nothing has been read from Zabbix yet."
-
-msgid "Open problems"
-msgstr "Open problems"
-
-#, php-format
-msgid "Other: %d"
-msgstr "Other: %d"
-
-msgid "Outage longer than the RTO"
-msgstr "Outage longer than the RTO"
-
-#, php-format
-msgid "Problems over the last %d days"
-msgstr "Problems over the last %d days"
-
-msgid "Saturation"
-msgstr "Saturation"
-
-msgid "Started"
-msgstr "Started"
-
-msgid "This asset is not concerned by the monitoring settings and no Zabbix host matches it."
-msgstr "This asset is not concerned by the monitoring settings and no Zabbix host matches it."
-
-#, php-format
-msgid "Zabbix host: %s"
-msgstr "Zabbix host: %s"
-
-#, php-format
-msgid "%1$d assets: the first %2$d are shown, gaps first."
-msgstr "%1$d assets: the first %2$d are shown, gaps first."
-
-#, php-format
-msgid "%1$d host(s), %2$d problem(s), %3$d service(s)."
-msgstr "%1$d host(s), %2$d problem(s), %3$d service(s)."
-
-#, php-format
-msgid "%1$d problem(s) over %2$d days"
-msgstr "%1$d problem(s) over %2$d days"
-
-#, php-format
-msgid "%1$d service(s), %2$d below their objective"
-msgstr "%1$d service(s), %2$d below their objective"
-
-msgid "A Zabbix server on an internal address (private network) is refused by default: an administrator can allow internal addresses in the plugin configuration."
-msgstr "A Zabbix server on an internal address (private network) is refused by default: an administrator can allow internal addresses in the plugin configuration."
-
-msgid "Acknowledged in Zabbix"
-msgstr "Acknowledged in Zabbix"
-
-msgid "Address of the Zabbix interface"
-msgstr "Address of the Zabbix interface"
-
-msgid "Assets and their monitoring"
-msgstr "Assets and their monitoring"
-
-#, php-format
-msgid "Assets concerned: %d"
-msgstr "Assets concerned: %d"
-
-msgid "Assets monitored by Zabbix"
-msgstr "Assets monitored by Zabbix"
-
-msgid "Assets with a saturation"
-msgstr "Assets with a saturation"
-
-msgid "Availability measured by Zabbix over the current period of each SLA, compared with its objective (SLO). Link a service to the business process it supports to compare it with the continuity needs."
-msgstr "Availability measured by Zabbix over the current period of each SLA, compared with its objective (SLO). Link a service to the business process it supports to compare it with the continuity needs."
-
-msgid "Below the objective"
-msgstr "Below the objective"
-
-msgid "Business processes"
-msgstr "Business processes"
-
-msgid "Check them: the asset may be missing from the inventory, or named differently in GLPI and in Zabbix."
-msgstr "Check them: the asset may be missing from the inventory, or named differently in GLPI and in Zabbix."
-
-#, php-format
-msgid "Concerned assets: %s. A Zabbix host is matched with an asset by its serial number, its name, its short name (without the domain) or its IP address. The availability is the share of time without a high-severity problem over the period."
-msgstr "Concerned assets: %s. A Zabbix host is matched with an asset by its serial number, its name, its short name (without the domain) or its IP address. The availability is the share of time without a high-severity problem over the period."
-
-msgid "Connection to Zabbix (read only)"
-msgstr "Connection to Zabbix (read only)"
-
-msgid "Critical assets are those with a high confidentiality, integrity or availability level (C/I/A classification tab), or published on the Internet (network flow matrix)."
-msgstr "Critical assets are those with a high confidentiality, integrity or availability level (C/I/A classification tab), or published on the Internet (network flow matrix)."
-
-msgid "Critical assets not monitored"
-msgstr "Critical assets not monitored"
-
-msgid "Current period"
-msgstr "Current period"
-
-msgid "Delete the readings"
-msgstr "Delete the readings"
-
-#, php-format
-msgid "Disk, memory or processor, over %d days"
-msgstr "Disk, memory or processor, over %d days"
-
-msgid "Downtime"
-msgstr "Downtime"
-
-msgid "Entity of the readings"
-msgstr "Entity of the readings"
-
-msgid "How to prepare Zabbix:"
-msgstr "How to prepare Zabbix:"
-
-msgid "IP addresses"
-msgstr "IP addresses"
-
-#, php-format
-msgid "Last reading: %s"
-msgstr "Last reading: %s"
-
-msgid "Lowest service availability"
-msgstr "Lowest service availability"
-
-msgid "No computer or network device concerned in your entities."
-msgstr "No computer or network device concerned in your entities."
-
-msgid "No problem on your assets over the period."
-msgstr "No problem on your assets over the period."
-
-msgid "No reading yet."
-msgstr "No reading yet."
-
-msgid "No service level (SLA) read"
-msgstr "No service level (SLA) read"
-
-msgid "No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
-msgstr "No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
-
-msgid "Nothing has been read from Zabbix yet: enter the connection below, then click \"Read now\". Until then, every asset concerned is shown as not monitored."
-msgstr "Nothing has been read from Zabbix yet: enter the connection below, then click \"Read now\". Until then, every asset concerned is shown as not monitored."
-
-msgid "Objective (SLO)"
-msgstr "Objective (SLO)"
-
-msgid "Only the most recent items were read"
-msgstr "Only the most recent items were read"
-
-msgid "Open high-severity problems"
-msgstr "Open high-severity problems"
-
-msgid "Period of the problems (days)"
-msgstr "Period of the problems (days)"
-
-msgid "Previous period"
-msgstr "Previous period"
-
-msgid "Problems of severity Warning or higher, open ones first. A high-severity problem can be turned into a security incident or a ticket: it is only created when you click, never automatically."
-msgstr "Problems of severity Warning or higher, open ones first. A high-severity problem can be turned into a security incident or a ticket: it is only created when you click, never automatically."
-
-msgid "Propose as security incident"
-msgstr "Propose as security incident"
-
-msgid "Read automatically every day (automatic action \"zabbix\")"
-msgstr "Read automatically every day (automatic action \"zabbix\")"
-
-msgid "Read now"
-msgstr "Read now"
-
-msgid "Read only: nothing is ever changed in Zabbix from GLPI."
-msgstr "Read only: nothing is ever changed in Zabbix from GLPI."
-
-msgid "Technical name"
-msgstr "Technical name"
-
-msgid "The last reading failed: the page shows the previous successful reading."
-msgstr "The last reading failed: the page shows the previous successful reading."
-
-msgid "The readings are visible in this entity and its sub-entities; hosts not matched with an asset are only listed in this entity."
-msgstr "The readings are visible in this entity and its sub-entities; hosts not matched with an asset are only listed in this entity."
-
-msgid "The token is encrypted with the GLPI key, never displayed again nor logged. Only the address of this server is called, and only to read."
-msgstr "The token is encrypted with the GLPI key, never displayed again nor logged. Only the address of this server is called, and only to read."
-
-msgid "Users > API tokens: create a token for this user, then copy it here with the address of the Zabbix interface."
-msgstr "Users > API tokens: create a token for this user, then copy it here with the address of the Zabbix interface."
-
-msgid "Users > User roles: create a role of type User with API access limited to the methods host.get, problem.get, event.get, service.get, sla.get and sla.getsli."
-msgstr "Users > User roles: create a role of type User with API access limited to the methods host.get, problem.get, event.get, service.get, sla.get and sla.getsli."
-
-msgid "Users > Users: create a user with this role, in a user group with read permission on the host groups to monitor (and on the services)."
-msgstr "Users > Users: create a user with this role, in a user group with read permission on the host groups to monitor (and on the services)."
-
-msgid "Which assets must be monitored?"
-msgstr "Which assets must be monitored?"
-
-msgid "Zabbix host"
-msgstr "Zabbix host"
-
-msgid "Zabbix hosts not matched with a GLPI asset"
-msgstr "Zabbix hosts not matched with a GLPI asset"
-
-#, php-format
-msgid "out of %d critical assets"
-msgstr "out of %d critical assets"
