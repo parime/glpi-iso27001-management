@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.78.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.79.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -276,6 +276,10 @@ function plugin_init_grcmanager(): void
     // Issue #843 : onglet « Contrôleur de gestion » sur les ordinateurs (iLO, iDRAC, XClarity, IPMI),
     // lecture seule.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ServerManagement::class, ['addtabon' => ['Computer']]);
+    // Issue #843, lot 2 : onglet « Comptes des contrôleurs de serveurs » des campagnes de revue des accès.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\AccessReviewBmcAccount::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\AccessReview::class],
+    ]);
     // Issue #620 : onglet « Violation de données personnelles » de l'incident qualifié de violation.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\DataBreach::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],

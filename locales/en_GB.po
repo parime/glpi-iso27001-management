@@ -970,14 +970,14 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 
 #: templates/dora/register.html.twig
 msgid "Template"
@@ -7315,11 +7315,11 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 
 #: templates/tabs/_access_review_rows.html.twig
 msgid "Profiles and groups"
@@ -13958,13 +13958,13 @@ msgstr "CPE identifiers"
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 
 #: src/CanonicalProduct.php:196
 msgid "No CPE identifier yet."
@@ -14006,12 +14006,12 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 msgstr ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 
 #: src/ComplianceAudit.php:100
 msgid "Technical security"
@@ -22097,12 +22097,12 @@ msgstr "Settings and links"
 
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
 msgstr ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
 
 msgid "Enable it in the configuration"
 msgstr "Enable it in the configuration"
@@ -22237,14 +22237,14 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
 
 msgid "Kind of item"
 msgstr "Kind of item"
@@ -24636,13 +24636,13 @@ msgid "Justification of a different result"
 msgstr "Justification of a different result"
 
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of "
-"\"seed:identifier\"; the first items of this ranking form the sample. The "
-"same population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
+"identifier\"; the first items of this ranking form the sample. The same "
+"population and the same seed always give the same sample."
 msgstr ""
-"Each item of the population is ranked by the SHA-256 fingerprint of "
-"\"seed:identifier\"; the first items of this ranking form the sample. The "
-"same population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
+"identifier\"; the first items of this ranking form the sample. The same "
+"population and the same seed always give the same sample."
 
 #, php-format
 msgid "Back to the tests of %s"
@@ -33859,11 +33859,11 @@ msgstr ""
 "%1$d machine(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
 
 msgid ""
-"Not saved: the address must start with https:// (for example https://"
-"veeam.example.test:9419) and contain no user name or password."
+"Not saved: the address must start with https:// (for example https://veeam."
+"example.test:9419) and contain no user name or password."
 msgstr ""
-"Not saved: the address must start with https:// (for example https://"
-"veeam.example.test:9419) and contain no user name or password."
+"Not saved: the address must start with https:// (for example https://veeam."
+"example.test:9419) and contain no user name or password."
 
 msgid "Veeam settings saved."
 msgstr "Veeam settings saved."
@@ -35624,13 +35624,11 @@ msgid "Imports and changes over time"
 msgstr "Imports and changes over time"
 
 msgid ""
-"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 "
-"-OutFile shares.csv (Depth: how many folder levels under each share are "
-"read)."
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
+"OutFile shares.csv (Depth: how many folder levels under each share are read)."
 msgstr ""
-"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 "
-"-OutFile shares.csv (Depth: how many folder levels under each share are "
-"read)."
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
+"OutFile shares.csv (Depth: how many folder levels under each share are read)."
 
 msgid "New rights"
 msgstr "New rights"
@@ -35990,11 +35988,11 @@ msgstr ""
 "output folder."
 
 msgid ""
-"Run the health check (--healthcheck option), then import the "
-"ad_hc_[domain].xml file (not the HTML file)."
+"Run the health check (--healthcheck option), then import the ad_hc_[domain]."
+"xml file (not the HTML file)."
 msgstr ""
-"Run the health check (--healthcheck option), then import the "
-"ad_hc_[domain].xml file (not the HTML file)."
+"Run the health check (--healthcheck option), then import the ad_hc_[domain]."
+"xml file (not the HTML file)."
 
 msgid "The MFA coverage of each account is followed on its own page:"
 msgstr "The MFA coverage of each account is followed on its own page:"
@@ -36517,12 +36515,12 @@ msgstr ""
 
 msgid ""
 "Users > User roles: create a role of type User with API access limited to "
-"the methods host.get, problem.get, event.get, service.get, sla.get and "
-"sla.getsli."
+"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
+"getsli."
 msgstr ""
 "Users > User roles: create a role of type User with API access limited to "
-"the methods host.get, problem.get, event.get, service.get, sla.get and "
-"sla.getsli."
+"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
+"getsli."
 
 msgid ""
 "Users > Users: create a user with this role, in a user group with read "
@@ -36543,6 +36541,845 @@ msgstr "Zabbix hosts not matched with a GLPI asset"
 #, php-format
 msgid "out of %d critical assets"
 msgstr "out of %d critical assets"
+
+msgid "Controller saved. Click \"Read now\" to read it."
+msgstr "Controller saved. Click \"Read now\" to read it."
+
+msgid "Controller read: %d local account(s)."
+msgstr "Controller read: %d local account(s)."
+
+msgid ""
+"Controller read. Its local accounts could not be read with this account."
+msgstr ""
+"Controller read. Its local accounts could not be read with this account."
+
+msgid "Controller deleted."
+msgstr "Controller deleted."
+
+msgid ""
+"%1$d controller(s) imported, %2$d updated, %3$d ignored (read by Redfish)."
+msgstr ""
+"%1$d controller(s) imported, %2$d updated, %3$d ignored (read by Redfish)."
+
+msgid ""
+"Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, "
+"Lenovo XClarity Controller, Supermicro IPMI): they give full control of a "
+"server, even switched off, and are often forgotten. The page shows their "
+"firmware, their risky settings, their exposure outside the administration "
+"networks and their local accounts, and the physical servers without a known "
+"controller."
+msgstr ""
+"Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, "
+"Lenovo XClarity Controller, Supermicro IPMI): they give full control of a "
+"server, even switched off, and are often forgotten. The page shows their "
+"firmware, their risky settings, their exposure outside the administration "
+"networks and their local accounts, and the physical servers without a known "
+"controller."
+
+msgid ""
+"Declare each controller with a local read-only account and click \"Read "
+"now\" (Redfish, read only), or import a CSV file for controllers with IPMI "
+"only. Then fix the gaps on the controllers yourself and review their "
+"accounts: the plugin never changes anything on the servers."
+msgstr ""
+"Declare each controller with a local read-only account and click \"Read "
+"now\" (Redfish, read only), or import a CSV file for controllers with IPMI "
+"only. Then fix the gaps on the controllers yourself and review their "
+"accounts: the plugin never changes anything on the servers."
+
+msgid "ISO/IEC 27001, controls A.8.2, A.8.9 and A.8.22"
+msgstr "ISO/IEC 27001, controls A.8.2, A.8.9 and A.8.22"
+
+msgid "Server management controllers with a serious gap"
+msgstr "Server management controllers with a serious gap"
+
+msgid "Server management controllers"
+msgstr "Server management controllers"
+
+msgid "Last reading failed"
+msgstr "Last reading failed"
+
+msgid "The values shown come from the previous successful reading."
+msgstr "The values shown come from the previous successful reading."
+
+msgid "Never read"
+msgstr "Never read"
+
+msgid "Click \"Read now\" to read the controller."
+msgstr "Click \"Read now\" to read the controller."
+
+msgid "IPMI over the network enabled"
+msgstr "IPMI over the network enabled"
+
+msgid ""
+"IPMI over LAN has known weaknesses (password hashes can be retrieved): "
+"disable it if it is not used."
+msgstr ""
+"IPMI over LAN has known weaknesses (password hashes can be retrieved): "
+"disable it if it is not used."
+
+msgid "Default account still enabled"
+msgstr "Default account still enabled"
+
+msgid ""
+"A factory account (root, Administrator, ADMIN, USERID) is enabled: check "
+"that its password was changed, or disable it."
+msgstr ""
+"A factory account (root, Administrator, ADMIN, USERID) is enabled: check "
+"that its password was changed, or disable it."
+
+msgid "Outside the administration networks"
+msgstr "Outside the administration networks"
+
+msgid ""
+"The address of the controller is not in an administration network declared "
+"in the network flow matrix: segregation gap."
+msgstr ""
+"The address of the controller is not in an administration network declared "
+"in the network flow matrix: segregation gap."
+
+msgid "Telnet enabled"
+msgstr "Telnet enabled"
+
+msgid "Telnet sends the password in clear text: disable it."
+msgstr "Telnet sends the password in clear text: disable it."
+
+msgid "Old protocols (SSLv3, TLS 1.0 or 1.1)"
+msgstr "Old protocols (SSLv3, TLS 1.0 or 1.1)"
+
+msgid "Reported by the import: keep only TLS 1.2 and later."
+msgstr "Reported by the import: keep only TLS 1.2 and later."
+
+msgid "Certificate expired"
+msgstr "Certificate expired"
+
+msgid "The HTTPS certificate of the controller has expired."
+msgstr "The HTTPS certificate of the controller has expired."
+
+msgid "Hardware health critical"
+msgstr "Hardware health critical"
+
+msgid "The controller reports a critical hardware state."
+msgstr "The controller reports a critical hardware state."
+
+msgid "SNMP v1 or v2c enabled"
+msgstr "SNMP v1 or v2c enabled"
+
+msgid "SNMP v1 and v2c use a community sent in clear text: prefer SNMPv3."
+msgstr "SNMP v1 and v2c use a community sent in clear text: prefer SNMPv3."
+
+msgid "Secure Boot disabled"
+msgstr "Secure Boot disabled"
+
+msgid "Secure Boot of the server is disabled."
+msgstr "Secure Boot of the server is disabled."
+
+msgid "Self-signed certificate"
+msgstr "Self-signed certificate"
+
+msgid "Replace it with a certificate of your certification authority."
+msgstr "Replace it with a certificate of your certification authority."
+
+msgid "Certificate not verified"
+msgstr "Certificate not verified"
+
+msgid ""
+"The controller is read with the option accepting a self-signed certificate: "
+"its identity is not verified."
+msgstr ""
+"The controller is read with the option accepting a self-signed certificate: "
+"its identity is not verified."
+
+msgid "Hardware health degraded"
+msgstr "Hardware health degraded"
+
+msgid "The controller reports a warning on the hardware."
+msgstr "The controller reports a warning on the hardware."
+
+msgid "Certificate expiring soon"
+msgstr "Certificate expiring soon"
+
+msgid "The HTTPS certificate expires within %d days."
+msgstr "The HTTPS certificate expires within %d days."
+
+msgid "No matching server in GLPI"
+msgstr "No matching server in GLPI"
+
+msgid ""
+"No computer of GLPI has this serial number: choose the server by hand on the "
+"controller."
+msgstr ""
+"No computer of GLPI has this serial number: choose the server by hand on the "
+"controller."
+
+msgid ""
+"Enter the address, the account and the password of the controller first."
+msgstr ""
+"Enter the address, the account and the password of the controller first."
+
+msgid "The controller refused the account or the password."
+msgstr "The controller refused the account or the password."
+
+msgid "The controller refused access: give the account the read-only role."
+msgstr "The controller refused access: give the account the read-only role."
+
+msgid ""
+"The controller has an internal address, refused by default: allow internal "
+"addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+"The controller has an internal address, refused by default: allow internal "
+"addresses in the plugin configuration page (Outgoing connections)."
+
+msgid ""
+"The certificate of the controller is not trusted (self-signed or expired): "
+"install a certificate of your certification authority, or tick \"Accept a "
+"self-signed certificate\" for this controller."
+msgstr ""
+"The certificate of the controller is not trusted (self-signed or expired): "
+"install a certificate of your certification authority, or tick \"Accept a "
+"self-signed certificate\" for this controller."
+
+msgid ""
+"The controller could not be reached: check the address, the network access "
+"or the GLPI proxy."
+msgstr ""
+"The controller could not be reached: check the address, the network access "
+"or the GLPI proxy."
+
+msgid ""
+"No Redfish service at this address: for a controller with IPMI only, use the "
+"CSV import."
+msgstr ""
+"No Redfish service at this address: for a controller with IPMI only, use the "
+"CSV import."
+
+msgid ""
+"The address must be a https:// address of the controller, without path or "
+"parameters."
+msgstr ""
+"The address must be a https:// address of the controller, without path or "
+"parameters."
+
+msgid "Enter a name."
+msgstr "Enter a name."
+
+msgid "Enter the password again: the address or the account changed."
+msgstr "Enter the password again: the address or the account changed."
+
+msgid "The server chosen cannot be used."
+msgstr "The server chosen cannot be used."
+
+msgid ""
+"This controller comes from the CSV import: import the file again to update "
+"it."
+msgstr ""
+"This controller comes from the CSV import: import the file again to update "
+"it."
+
+msgid "Controller not found."
+msgstr "Controller not found."
+
+msgid "The file has no \"name\" column."
+msgstr "The file has no \"name\" column."
+
+msgid "The controller returned an unexpected answer."
+msgstr "The controller returned an unexpected answer."
+
+msgid "Management controller"
+msgstr "Management controller"
+
+msgid "%d administrator account(s)"
+msgstr "%d administrator account(s)"
+
+msgid "%d controller(s)"
+msgstr "%d controller(s)"
+
+msgid "%d outside the administration networks"
+msgstr "%d outside the administration networks"
+
+msgid "%d physical server(s) without a known controller"
+msgstr "%d physical server(s) without a known controller"
+
+msgid "%d risky setting(s)"
+msgstr "%d risky setting(s)"
+
+msgid "%d with a default account enabled"
+msgstr "%d with a default account enabled"
+
+msgid "%d with a serious gap"
+msgstr "%d with a serious gap"
+
+msgid "No administration network declared"
+msgstr "No administration network declared"
+
+msgid "%1$d controllers: the first %2$d are shown, serious gaps first."
+msgstr "%1$d controllers: the first %2$d are shown, serious gaps first."
+
+msgid "%d administration network(s) declared"
+msgstr "%d administration network(s) declared"
+
+msgid "%d administrator account(s) in all"
+msgstr "%d administrator account(s) in all"
+
+msgid "%d read at least once"
+msgstr "%d read at least once"
+
+msgid ""
+"A controller is matched with a computer of GLPI by the serial number of the "
+"server, or by the server chosen by hand. Gaps are only reported: nothing is "
+"changed on the controller. Hover a gap to see what to do."
+msgstr ""
+"A controller is matched with a computer of GLPI by the serial number of the "
+"server, or by the server chosen by hand. Gaps are only reported: nothing is "
+"changed on the controller. Hover a gap to see what to do."
+
+msgid "Accept a self-signed certificate for this controller"
+msgstr "Accept a self-signed certificate for this controller"
+
+msgid "Account (read only)"
+msgstr "Account (read only)"
+
+msgid ""
+"Accounts read on each controller, to review in the privileged access review: "
+"an account of a controller gives full control of the server, even switched "
+"off."
+msgstr ""
+"Accounts read on each controller, to review in the privileged access review: "
+"an account of a controller gives full control of the server, even switched "
+"off."
+
+msgid "Address of the controller"
+msgstr "Address of the controller"
+
+msgid "BIOS: %s"
+msgstr "BIOS: %s"
+
+msgid "By serial number"
+msgstr "By serial number"
+
+msgid "CSV import"
+msgstr "CSV import"
+
+msgid "Certificate until %s"
+msgstr "Certificate until %s"
+
+msgid "Chosen by hand"
+msgstr "Chosen by hand"
+
+msgid ""
+"Computers of GLPI seen as servers (type or operating system) and not virtual "
+"(model or manufacturer), for which no controller is declared. A controller "
+"nobody knows is never updated nor reviewed."
+msgstr ""
+"Computers of GLPI seen as servers (type or operating system) and not virtual "
+"(model or manufacturer), for which no controller is declared. A controller "
+"nobody knows is never updated nor reviewed."
+
+msgid "Controller: %s"
+msgstr "Controller: %s"
+
+msgid "Controllers"
+msgstr "Controllers"
+
+msgid "Controllers and their gaps"
+msgstr "Controllers and their gaps"
+
+msgid ""
+"Controllers usually have an internal address, which the plugin refuses by "
+"default. To read them, allow internal addresses in the plugin configuration "
+"page."
+msgstr ""
+"Controllers usually have an internal address, which the plugin refuses by "
+"default. To read them, allow internal addresses in the plugin configuration "
+"page."
+
+msgid "Controllers with a serious gap"
+msgstr "Controllers with a serious gap"
+
+msgid "Coverage: %d%%"
+msgstr "Coverage: %d%%"
+
+msgid "Declare a controller read by Redfish"
+msgstr "Declare a controller read by Redfish"
+
+msgid "Default account"
+msgstr "Default account"
+
+msgid "Delete this controller and its accounts read?"
+msgstr "Delete this controller and its accounts read?"
+
+msgid "Edit the controller %s"
+msgstr "Edit the controller %s"
+
+msgid ""
+"Encrypted by GLPI and never shown again. If you change the address or the "
+"account, enter it again."
+msgstr ""
+"Encrypted by GLPI and never shown again. If you change the address or the "
+"account, enter it again."
+
+msgid "Every physical server has a known controller."
+msgstr "Every physical server has a known controller."
+
+msgid "Firmware and BIOS"
+msgstr "Firmware and BIOS"
+
+msgid ""
+"For controllers with IPMI only, or an export of a manufacturer tool. One "
+"line per controller; a controller already imported with the same name is "
+"updated. Columns (header line, separator ; or ,):"
+msgstr ""
+"For controllers with IPMI only, or an export of a manufacturer tool. One "
+"line per controller; a controller already imported with the same name is "
+"updated. Columns (header line, separator ; or ,):"
+
+msgid "For example: iLO of srv-db-01"
+msgstr "For example: iLO of srv-db-01"
+
+msgid "Health"
+msgstr "Health"
+
+msgid "Healthy"
+msgstr "Healthy"
+
+msgid "IPMI over the network, default account, exposure..."
+msgstr "IPMI over the network, default account, exposure..."
+
+msgid "Import controllers without Redfish (CSV)"
+msgstr "Import controllers without Redfish (CSV)"
+
+msgid "Last reading"
+msgstr "Last reading"
+
+msgid "Leave empty to match the server by its serial number."
+msgstr "Leave empty to match the server by its serial number."
+
+msgid "Local accounts of the controllers"
+msgstr "Local accounts of the controllers"
+
+msgid "Locked"
+msgstr "Locked"
+
+msgid "No account read yet."
+msgstr "No account read yet."
+
+msgid ""
+"No administration network is declared in the network flow matrix: the "
+"exposure of the controllers cannot be checked. Write the address range in "
+"the source or the destination of a flow whose name says it is an "
+"administration zone (for example \"MGMT 10.0.99.0/24\" or \"OOB iLO "
+"192.0.2.0/24\")."
+msgstr ""
+"No administration network is declared in the network flow matrix: the "
+"exposure of the controllers cannot be checked. Write the address range in "
+"the source or the destination of a flow whose name says it is an "
+"administration zone (for example \"MGMT 10.0.99.0/24\" or \"OOB iLO "
+"192.0.2.0/24\")."
+
+msgid ""
+"No controller yet: declare one below, or import a CSV file for controllers "
+"with IPMI only."
+msgstr ""
+"No controller yet: declare one below, or import a CSV file for controllers "
+"with IPMI only."
+
+msgid "No gap found"
+msgstr "No gap found"
+
+msgid "No physical server in GLPI"
+msgstr "No physical server in GLPI"
+
+msgid ""
+"Off by default. When ticked, the identity of the controller is not verified: "
+"prefer a certificate of your certification authority."
+msgstr ""
+"Off by default. When ticked, the identity of the controller is not verified: "
+"prefer a certificate of your certification authority."
+
+msgid ""
+"Only \"name\" is required. Yes/no columns accept yes, no, oui, non, 1, 0 "
+"(empty: unknown). Accounts: user:role separated by \";\" inside the cell, "
+"for example \"root:Administrator;audit:ReadOnly\", \":disabled\" for a "
+"disabled account. Maximum size: %s."
+msgstr ""
+"Only \"name\" is required. Yes/no columns accept yes, no, oui, non, 1, 0 "
+"(empty: unknown). Accounts: user:role separated by \";\" inside the cell, "
+"for example \"root:Administrator;audit:ReadOnly\", \":disabled\" for a "
+"disabled account. Maximum size: %s."
+
+msgid "Open the network flow matrix"
+msgstr "Open the network flow matrix"
+
+msgid "Physical servers without a known controller"
+msgstr "Physical servers without a known controller"
+
+msgid ""
+"Read only: the plugin only sends Redfish read requests (GET). It never "
+"restarts a server, never updates a firmware and never changes a setting. Use "
+"a local account of the controller with the read-only role."
+msgstr ""
+"Read only: the plugin only sends Redfish read requests (GET). It never "
+"restarts a server, never updates a firmware and never changes a setting. Use "
+"a local account of the controller with the read-only role."
+
+msgid "Self-signed accepted"
+msgstr "Self-signed accepted"
+
+msgid "Serial number: %s"
+msgstr "Serial number: %s"
+
+msgid "Server in GLPI"
+msgstr "Server in GLPI"
+
+msgid "Server in GLPI (optional)"
+msgstr "Server in GLPI (optional)"
+
+msgid ""
+"The controller is saved in the entity %s. Create on the controller a local "
+"account with the read-only role (ReadOnly): the plugin only reads."
+msgstr ""
+"The controller is saved in the entity %s. Create on the controller a local "
+"account with the read-only role (ReadOnly): the plugin only reads."
+
+msgid ""
+"https:// only, with the name or the IP address of the controller and an "
+"optional port."
+msgstr ""
+"https:// only, with the name or the IP address of the controller and an "
+"optional port."
+
+msgid "BIOS"
+msgstr "BIOS"
+
+msgid "Firmware of the controller"
+msgstr "Firmware of the controller"
+
+msgid "IPMI over the network"
+msgstr "IPMI over the network"
+
+msgid "Local accounts"
+msgstr "Local accounts"
+
+msgid ""
+"No management controller (iLO, iDRAC, XClarity, IPMI) is known for this "
+"computer. A controller is matched by the serial number of the server, or "
+"chosen by hand on the controller."
+msgstr ""
+"No management controller (iLO, iDRAC, XClarity, IPMI) is known for this "
+"computer. A controller is matched by the serial number of the server, or "
+"chosen by hand on the controller."
+
+msgid "Secure Boot"
+msgstr "Secure Boot"
+
+#, php-format
+msgid "%1$s export of %2$s, imported on %3$s"
+msgstr "%1$s export of %2$s, imported on %3$s"
+
+msgid "Accounts with a path"
+msgstr "Accounts with a path"
+
+msgid "Accounts with an attack path to Domain Admins"
+msgstr "Accounts with an attack path to Domain Admins"
+
+msgid ""
+"An attack path is a chain of rights, group memberships or open sessions that "
+"lets an ordinary account take control of the Domain Admins group. BloodHound "
+"CE and Adalanche draw these paths: import their export here to follow how "
+"many accounts have one, which ones are the most exposed, and how this "
+"changes over time."
+msgstr ""
+"An attack path is a chain of rights, group memberships or open sessions that "
+"lets an ordinary account take control of the Domain Admins group. BloodHound "
+"CE and Adalanche draw these paths: import their export here to follow how "
+"many accounts have one, which ones are the most exposed, and how this "
+"changes over time."
+
+msgid "Attack paths to Domain Admins"
+msgstr "Attack paths to Domain Admins"
+
+#, php-format
+msgid "Attack paths to Domain Admins: %s"
+msgstr "Attack paths to Domain Admins: %s"
+
+msgid "Create the risk in the register"
+msgstr "Create the risk in the register"
+
+msgid "Delete this import"
+msgstr "Delete this import"
+
+msgid "Download a fictitious BloodHound CE example"
+msgstr "Download a fictitious BloodHound CE example"
+
+#, php-format
+msgid "Export file: JSON (%d MB at most)"
+msgstr "Export file: JSON (%d MB at most)"
+
+msgid "First export for this domain: the next import will show the change."
+msgstr "First export for this domain: the next import will show the change."
+
+msgid "History"
+msgstr "History"
+
+#, php-format
+msgid "Imported on %s"
+msgstr "Imported on %s"
+
+msgid ""
+"In the Explore page, run the query of the shortest paths to Domain Admins, "
+"then export the graph as JSON and import that file."
+msgstr ""
+"In the Explore page, run the query of the shortest paths to Domain Admins, "
+"then export the graph as JSON and import that file."
+
+#, php-format
+msgid "Most exposed accounts (%d at most)"
+msgstr "Most exposed accounts (%d at most)"
+
+msgid "No account has a path to Domain Admins in this export."
+msgstr "No account has a path to Domain Admins in this export."
+
+msgid "No attack path export imported yet."
+msgstr "No attack path export imported yet."
+
+msgid ""
+"Number of different rights or memberships that lead towards Domain Admins"
+msgstr ""
+"Number of different rights or memberships that lead towards Domain Admins"
+
+msgid "Number of steps of the shortest path to Domain Admins"
+msgstr "Number of steps of the shortest path to Domain Admins"
+
+msgid ""
+"Only the number of accounts with a path and the most exposed accounts (name, "
+"type, number of steps) are kept: no other property of the graph."
+msgstr ""
+"Only the number of accounts with a path and the most exposed accounts (name, "
+"type, number of steps) are kept: no other property of the graph."
+
+msgid "Risk in the register"
+msgstr "Risk in the register"
+
+msgid "Risk in the register:"
+msgstr "Risk in the register:"
+
+msgid "Routes"
+msgstr "Routes"
+
+msgid ""
+"Run the analysis with Domain Admins as target, then export the graph as JSON "
+"(Cytoscape format) and import that file."
+msgstr ""
+"Run the analysis with Domain Admins as target, then export the graph as JSON "
+"(Cytoscape format) and import that file."
+
+msgid ""
+"The export gives no domain name: fill in the domain field of the import form."
+msgstr ""
+"The export gives no domain name: fill in the domain field of the import form."
+
+msgid ""
+"The graph contains no Domain Admins group: export the paths that lead to "
+"this group."
+msgstr ""
+"The graph contains no Domain Admins group: export the paths that lead to "
+"this group."
+
+msgid "The risk could not be created."
+msgstr "The risk could not be created."
+
+msgid ""
+"The risk is pre-filled (maximum impact) and can then be reviewed in the "
+"register."
+msgstr ""
+"The risk is pre-filled (maximum impact) and can then be reviewed in the "
+"register."
+
+msgid ""
+"This file is an attack path graph (BloodHound CE or Adalanche): import it in "
+"the attack paths part of this page."
+msgstr ""
+"This file is an attack path graph (BloodHound CE or Adalanche): import it in "
+"the attack paths part of this page."
+
+msgid ""
+"This file is not a graph exported from BloodHound CE or Adalanche (JSON with "
+"nodes and edges)."
+msgstr ""
+"This file is not a graph exported from BloodHound CE or Adalanche (JSON with "
+"nodes and edges)."
+
+msgid "Very large graph: only part of it was read."
+msgstr "Very large graph: only part of it was read."
+
+#, php-format
+msgid "%d account with a path to Domain Admins"
+msgid_plural "%d accounts with a path to Domain Admins"
+msgstr[0] "%d account with a path to Domain Admins"
+msgstr[1] "%d accounts with a path to Domain Admins"
+
+#, php-format
+msgid "%d computer"
+msgid_plural "%d computers"
+msgstr[0] "%d computer"
+msgstr[1] "%d computers"
+
+#, php-format
+msgid "%d user"
+msgid_plural "%d users"
+msgstr[0] "%d user"
+msgstr[1] "%d users"
+
+#, php-format
+msgid "Shortest path: %d step"
+msgid_plural "Shortest path: %d steps"
+msgstr[0] "Shortest path: %d step"
+msgstr[1] "Shortest path: %d steps"
+
+#, php-format
+msgid "Export imported: %d account with a path to Domain Admins."
+msgid_plural "Export imported: %d accounts with a path to Domain Admins."
+msgstr[0] "Export imported: %d account with a path to Domain Admins."
+msgstr[1] "Export imported: %d accounts with a path to Domain Admins."
+
+#, php-format
+msgid ""
+"%1$s: %2$d account has a path to the Domain Admins group (shortest path: "
+"%3$d step). Details on the Active Directory security audit page."
+msgid_plural ""
+"%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
+"%3$d steps). Details on the Active Directory security audit page."
+msgstr[0] ""
+"%1$s: %2$d account has a path to the Domain Admins group (shortest path: "
+"%3$d step). Details on the Active Directory security audit page."
+msgstr[1] ""
+"%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
+"%3$d steps). Details on the Active Directory security audit page."
+
+msgid "Firmware with a priority vulnerability"
+msgstr "Firmware with a priority vulnerability"
+
+msgid ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+msgstr ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+
+msgid "Firmware no longer supported"
+msgstr "Firmware no longer supported"
+
+msgid ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+msgstr ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+
+msgid "Firmware with known vulnerabilities"
+msgstr "Firmware with known vulnerabilities"
+
+msgid ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+msgstr ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+
+msgid "Firmware support ending soon"
+msgstr "Firmware support ending soon"
+
+msgid ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+msgstr ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+
+msgid ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+msgstr ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+
+msgid "Not watched"
+msgstr "Not watched"
+
+msgid "Priority CVEs: %d"
+msgstr "Priority CVEs: %d"
+
+msgid "Known CVEs: %d"
+msgstr "Known CVEs: %d"
+
+msgid "No known CVE"
+msgstr "No known CVE"
+
+msgid ""
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
+msgstr ""
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
+
+msgid "Enable the end of support check"
+msgstr "Enable the end of support check"
+
+msgid "Server controller accounts"
+msgstr "Server controller accounts"
+
+msgid "Factory account still enabled: replace it with a named account"
+msgstr "Factory account still enabled: replace it with a named account"
+
+msgid "Disabled on the controller: delete it there"
+msgstr "Disabled on the controller: delete it there"
+
+msgid "Locked on the controller"
+msgstr "Locked on the controller"
+
+msgid "Administrator role: full control of the server"
+msgstr "Administrator role: full control of the server"
+
+msgid ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+msgstr ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+
+msgid ""
+"The accounts of the controllers are copied when the campaign is launched."
+msgstr ""
+"The accounts of the controllers are copied when the campaign is launched."
+
+msgid ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+msgstr ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+
+msgid "Add the accounts of the controllers"
+msgstr "Add the accounts of the controllers"
+
+msgid "Suggestion"
+msgstr "Suggestion"
+
+msgid "%d decided"
+msgstr "%d decided"
+
+msgid "%d account(s) of the controllers added to the campaign."
+msgstr "%d account(s) of the controllers added to the campaign."
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
@@ -37548,384 +38385,3 @@ msgstr "out of %d critical assets"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-msgid "Controller saved. Click \"Read now\" to read it."
-msgstr "Controller saved. Click \"Read now\" to read it."
-
-msgid "Controller read: %d local account(s)."
-msgstr "Controller read: %d local account(s)."
-
-msgid "Controller read. Its local accounts could not be read with this account."
-msgstr "Controller read. Its local accounts could not be read with this account."
-
-msgid "Controller deleted."
-msgstr "Controller deleted."
-
-msgid "%1$d controller(s) imported, %2$d updated, %3$d ignored (read by Redfish)."
-msgstr "%1$d controller(s) imported, %2$d updated, %3$d ignored (read by Redfish)."
-
-msgid "Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI): they give full control of a server, even switched off, and are often forgotten. The page shows their firmware, their risky settings, their exposure outside the administration networks and their local accounts, and the physical servers without a known controller."
-msgstr "Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI): they give full control of a server, even switched off, and are often forgotten. The page shows their firmware, their risky settings, their exposure outside the administration networks and their local accounts, and the physical servers without a known controller."
-
-msgid "Declare each controller with a local read-only account and click \"Read now\" (Redfish, read only), or import a CSV file for controllers with IPMI only. Then fix the gaps on the controllers yourself and review their accounts: the plugin never changes anything on the servers."
-msgstr "Declare each controller with a local read-only account and click \"Read now\" (Redfish, read only), or import a CSV file for controllers with IPMI only. Then fix the gaps on the controllers yourself and review their accounts: the plugin never changes anything on the servers."
-
-msgid "ISO/IEC 27001, controls A.8.2, A.8.9 and A.8.22"
-msgstr "ISO/IEC 27001, controls A.8.2, A.8.9 and A.8.22"
-
-msgid "Server management controllers with a serious gap"
-msgstr "Server management controllers with a serious gap"
-
-msgid "Server management controllers"
-msgstr "Server management controllers"
-
-msgid "Last reading failed"
-msgstr "Last reading failed"
-
-msgid "The values shown come from the previous successful reading."
-msgstr "The values shown come from the previous successful reading."
-
-msgid "Never read"
-msgstr "Never read"
-
-msgid "Click \"Read now\" to read the controller."
-msgstr "Click \"Read now\" to read the controller."
-
-msgid "IPMI over the network enabled"
-msgstr "IPMI over the network enabled"
-
-msgid "IPMI over LAN has known weaknesses (password hashes can be retrieved): disable it if it is not used."
-msgstr "IPMI over LAN has known weaknesses (password hashes can be retrieved): disable it if it is not used."
-
-msgid "Default account still enabled"
-msgstr "Default account still enabled"
-
-msgid "A factory account (root, Administrator, ADMIN, USERID) is enabled: check that its password was changed, or disable it."
-msgstr "A factory account (root, Administrator, ADMIN, USERID) is enabled: check that its password was changed, or disable it."
-
-msgid "Outside the administration networks"
-msgstr "Outside the administration networks"
-
-msgid "The address of the controller is not in an administration network declared in the network flow matrix: segregation gap."
-msgstr "The address of the controller is not in an administration network declared in the network flow matrix: segregation gap."
-
-msgid "Telnet enabled"
-msgstr "Telnet enabled"
-
-msgid "Telnet sends the password in clear text: disable it."
-msgstr "Telnet sends the password in clear text: disable it."
-
-msgid "Old protocols (SSLv3, TLS 1.0 or 1.1)"
-msgstr "Old protocols (SSLv3, TLS 1.0 or 1.1)"
-
-msgid "Reported by the import: keep only TLS 1.2 and later."
-msgstr "Reported by the import: keep only TLS 1.2 and later."
-
-msgid "Certificate expired"
-msgstr "Certificate expired"
-
-msgid "The HTTPS certificate of the controller has expired."
-msgstr "The HTTPS certificate of the controller has expired."
-
-msgid "Hardware health critical"
-msgstr "Hardware health critical"
-
-msgid "The controller reports a critical hardware state."
-msgstr "The controller reports a critical hardware state."
-
-msgid "SNMP v1 or v2c enabled"
-msgstr "SNMP v1 or v2c enabled"
-
-msgid "SNMP v1 and v2c use a community sent in clear text: prefer SNMPv3."
-msgstr "SNMP v1 and v2c use a community sent in clear text: prefer SNMPv3."
-
-msgid "Secure Boot disabled"
-msgstr "Secure Boot disabled"
-
-msgid "Secure Boot of the server is disabled."
-msgstr "Secure Boot of the server is disabled."
-
-msgid "Self-signed certificate"
-msgstr "Self-signed certificate"
-
-msgid "Replace it with a certificate of your certification authority."
-msgstr "Replace it with a certificate of your certification authority."
-
-msgid "Certificate not verified"
-msgstr "Certificate not verified"
-
-msgid "The controller is read with the option accepting a self-signed certificate: its identity is not verified."
-msgstr "The controller is read with the option accepting a self-signed certificate: its identity is not verified."
-
-msgid "Hardware health degraded"
-msgstr "Hardware health degraded"
-
-msgid "The controller reports a warning on the hardware."
-msgstr "The controller reports a warning on the hardware."
-
-msgid "Certificate expiring soon"
-msgstr "Certificate expiring soon"
-
-msgid "The HTTPS certificate expires within %d days."
-msgstr "The HTTPS certificate expires within %d days."
-
-msgid "No matching server in GLPI"
-msgstr "No matching server in GLPI"
-
-msgid "No computer of GLPI has this serial number: choose the server by hand on the controller."
-msgstr "No computer of GLPI has this serial number: choose the server by hand on the controller."
-
-msgid "Enter the address, the account and the password of the controller first."
-msgstr "Enter the address, the account and the password of the controller first."
-
-msgid "The controller refused the account or the password."
-msgstr "The controller refused the account or the password."
-
-msgid "The controller refused access: give the account the read-only role."
-msgstr "The controller refused access: give the account the read-only role."
-
-msgid "The controller has an internal address, refused by default: allow internal addresses in the plugin configuration page (Outgoing connections)."
-msgstr "The controller has an internal address, refused by default: allow internal addresses in the plugin configuration page (Outgoing connections)."
-
-msgid "The certificate of the controller is not trusted (self-signed or expired): install a certificate of your certification authority, or tick \"Accept a self-signed certificate\" for this controller."
-msgstr "The certificate of the controller is not trusted (self-signed or expired): install a certificate of your certification authority, or tick \"Accept a self-signed certificate\" for this controller."
-
-msgid "The controller could not be reached: check the address, the network access or the GLPI proxy."
-msgstr "The controller could not be reached: check the address, the network access or the GLPI proxy."
-
-msgid "No Redfish service at this address: for a controller with IPMI only, use the CSV import."
-msgstr "No Redfish service at this address: for a controller with IPMI only, use the CSV import."
-
-msgid "The address must be a https:// address of the controller, without path or parameters."
-msgstr "The address must be a https:// address of the controller, without path or parameters."
-
-msgid "Enter a name."
-msgstr "Enter a name."
-
-msgid "Enter the password again: the address or the account changed."
-msgstr "Enter the password again: the address or the account changed."
-
-msgid "The server chosen cannot be used."
-msgstr "The server chosen cannot be used."
-
-msgid "This controller comes from the CSV import: import the file again to update it."
-msgstr "This controller comes from the CSV import: import the file again to update it."
-
-msgid "Controller not found."
-msgstr "Controller not found."
-
-msgid "The file has no \"name\" column."
-msgstr "The file has no \"name\" column."
-
-msgid "The controller returned an unexpected answer."
-msgstr "The controller returned an unexpected answer."
-
-msgid "Management controller"
-msgstr "Management controller"
-
-msgid "%d administrator account(s)"
-msgstr "%d administrator account(s)"
-
-msgid "%d controller(s)"
-msgstr "%d controller(s)"
-
-msgid "%d outside the administration networks"
-msgstr "%d outside the administration networks"
-
-msgid "%d physical server(s) without a known controller"
-msgstr "%d physical server(s) without a known controller"
-
-msgid "%d risky setting(s)"
-msgstr "%d risky setting(s)"
-
-msgid "%d with a default account enabled"
-msgstr "%d with a default account enabled"
-
-msgid "%d with a serious gap"
-msgstr "%d with a serious gap"
-
-msgid "No administration network declared"
-msgstr "No administration network declared"
-
-msgid "%1$d controllers: the first %2$d are shown, serious gaps first."
-msgstr "%1$d controllers: the first %2$d are shown, serious gaps first."
-
-msgid "%d administration network(s) declared"
-msgstr "%d administration network(s) declared"
-
-msgid "%d administrator account(s) in all"
-msgstr "%d administrator account(s) in all"
-
-msgid "%d read at least once"
-msgstr "%d read at least once"
-
-msgid "A controller is matched with a computer of GLPI by the serial number of the server, or by the server chosen by hand. Gaps are only reported: nothing is changed on the controller. Hover a gap to see what to do."
-msgstr "A controller is matched with a computer of GLPI by the serial number of the server, or by the server chosen by hand. Gaps are only reported: nothing is changed on the controller. Hover a gap to see what to do."
-
-msgid "Accept a self-signed certificate for this controller"
-msgstr "Accept a self-signed certificate for this controller"
-
-msgid "Account (read only)"
-msgstr "Account (read only)"
-
-msgid "Accounts read on each controller, to review in the privileged access review: an account of a controller gives full control of the server, even switched off."
-msgstr "Accounts read on each controller, to review in the privileged access review: an account of a controller gives full control of the server, even switched off."
-
-msgid "Address of the controller"
-msgstr "Address of the controller"
-
-msgid "BIOS: %s"
-msgstr "BIOS: %s"
-
-msgid "By serial number"
-msgstr "By serial number"
-
-msgid "CSV import"
-msgstr "CSV import"
-
-msgid "Certificate until %s"
-msgstr "Certificate until %s"
-
-msgid "Chosen by hand"
-msgstr "Chosen by hand"
-
-msgid "Computers of GLPI seen as servers (type or operating system) and not virtual (model or manufacturer), for which no controller is declared. A controller nobody knows is never updated nor reviewed."
-msgstr "Computers of GLPI seen as servers (type or operating system) and not virtual (model or manufacturer), for which no controller is declared. A controller nobody knows is never updated nor reviewed."
-
-msgid "Controller: %s"
-msgstr "Controller: %s"
-
-msgid "Controllers"
-msgstr "Controllers"
-
-msgid "Controllers and their gaps"
-msgstr "Controllers and their gaps"
-
-msgid "Controllers usually have an internal address, which the plugin refuses by default. To read them, allow internal addresses in the plugin configuration page."
-msgstr "Controllers usually have an internal address, which the plugin refuses by default. To read them, allow internal addresses in the plugin configuration page."
-
-msgid "Controllers with a serious gap"
-msgstr "Controllers with a serious gap"
-
-msgid "Coverage: %d%%"
-msgstr "Coverage: %d%%"
-
-msgid "Declare a controller read by Redfish"
-msgstr "Declare a controller read by Redfish"
-
-msgid "Default account"
-msgstr "Default account"
-
-msgid "Delete this controller and its accounts read?"
-msgstr "Delete this controller and its accounts read?"
-
-msgid "Edit the controller %s"
-msgstr "Edit the controller %s"
-
-msgid "Encrypted by GLPI and never shown again. If you change the address or the account, enter it again."
-msgstr "Encrypted by GLPI and never shown again. If you change the address or the account, enter it again."
-
-msgid "Every physical server has a known controller."
-msgstr "Every physical server has a known controller."
-
-msgid "Firmware and BIOS"
-msgstr "Firmware and BIOS"
-
-msgid "For controllers with IPMI only, or an export of a manufacturer tool. One line per controller; a controller already imported with the same name is updated. Columns (header line, separator ; or ,):"
-msgstr "For controllers with IPMI only, or an export of a manufacturer tool. One line per controller; a controller already imported with the same name is updated. Columns (header line, separator ; or ,):"
-
-msgid "For example: iLO of srv-db-01"
-msgstr "For example: iLO of srv-db-01"
-
-msgid "Health"
-msgstr "Health"
-
-msgid "Healthy"
-msgstr "Healthy"
-
-msgid "IPMI over the network, default account, exposure..."
-msgstr "IPMI over the network, default account, exposure..."
-
-msgid "Import controllers without Redfish (CSV)"
-msgstr "Import controllers without Redfish (CSV)"
-
-msgid "Last reading"
-msgstr "Last reading"
-
-msgid "Leave empty to match the server by its serial number."
-msgstr "Leave empty to match the server by its serial number."
-
-msgid "Local accounts of the controllers"
-msgstr "Local accounts of the controllers"
-
-msgid "Locked"
-msgstr "Locked"
-
-msgid "No account read yet."
-msgstr "No account read yet."
-
-msgid "No administration network is declared in the network flow matrix: the exposure of the controllers cannot be checked. Write the address range in the source or the destination of a flow whose name says it is an administration zone (for example \"MGMT 10.0.99.0/24\" or \"OOB iLO 192.0.2.0/24\")."
-msgstr "No administration network is declared in the network flow matrix: the exposure of the controllers cannot be checked. Write the address range in the source or the destination of a flow whose name says it is an administration zone (for example \"MGMT 10.0.99.0/24\" or \"OOB iLO 192.0.2.0/24\")."
-
-msgid "No controller yet: declare one below, or import a CSV file for controllers with IPMI only."
-msgstr "No controller yet: declare one below, or import a CSV file for controllers with IPMI only."
-
-msgid "No gap found"
-msgstr "No gap found"
-
-msgid "No physical server in GLPI"
-msgstr "No physical server in GLPI"
-
-msgid "Off by default. When ticked, the identity of the controller is not verified: prefer a certificate of your certification authority."
-msgstr "Off by default. When ticked, the identity of the controller is not verified: prefer a certificate of your certification authority."
-
-msgid "Only \"name\" is required. Yes/no columns accept yes, no, oui, non, 1, 0 (empty: unknown). Accounts: user:role separated by \";\" inside the cell, for example \"root:Administrator;audit:ReadOnly\", \":disabled\" for a disabled account. Maximum size: %s."
-msgstr "Only \"name\" is required. Yes/no columns accept yes, no, oui, non, 1, 0 (empty: unknown). Accounts: user:role separated by \";\" inside the cell, for example \"root:Administrator;audit:ReadOnly\", \":disabled\" for a disabled account. Maximum size: %s."
-
-msgid "Open the network flow matrix"
-msgstr "Open the network flow matrix"
-
-msgid "Physical servers without a known controller"
-msgstr "Physical servers without a known controller"
-
-msgid "Read only: the plugin only sends Redfish read requests (GET). It never restarts a server, never updates a firmware and never changes a setting. Use a local account of the controller with the read-only role."
-msgstr "Read only: the plugin only sends Redfish read requests (GET). It never restarts a server, never updates a firmware and never changes a setting. Use a local account of the controller with the read-only role."
-
-msgid "Self-signed accepted"
-msgstr "Self-signed accepted"
-
-msgid "Serial number: %s"
-msgstr "Serial number: %s"
-
-msgid "Server in GLPI"
-msgstr "Server in GLPI"
-
-msgid "Server in GLPI (optional)"
-msgstr "Server in GLPI (optional)"
-
-msgid "The controller is saved in the entity %s. Create on the controller a local account with the read-only role (ReadOnly): the plugin only reads."
-msgstr "The controller is saved in the entity %s. Create on the controller a local account with the read-only role (ReadOnly): the plugin only reads."
-
-msgid "https:// only, with the name or the IP address of the controller and an optional port."
-msgstr "https:// only, with the name or the IP address of the controller and an optional port."
-
-msgid "BIOS"
-msgstr "BIOS"
-
-msgid "Firmware of the controller"
-msgstr "Firmware of the controller"
-
-msgid "IPMI over the network"
-msgstr "IPMI over the network"
-
-msgid "Local accounts"
-msgstr "Local accounts"
-
-msgid "No management controller (iLO, iDRAC, XClarity, IPMI) is known for this computer. A controller is matched by the serial number of the server, or chosen by hand on the controller."
-msgstr "No management controller (iLO, iDRAC, XClarity, IPMI) is known for this computer. A controller is matched by the serial number of the server, or chosen by hand on the controller."
-
-msgid "Secure Boot"
-msgstr "Secure Boot"
-
-
-

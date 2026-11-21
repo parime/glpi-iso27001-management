@@ -1,0 +1,96 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #843, lot 2 : comptes locaux des contrôleurs de gestion des serveurs figés dans la campagne. #}
+<div class="alert alert-info d-flex align-items-start gap-2 mb-3" id="grc-arbmc-help">
+   <i class="ti ti-help-circle fs-2"></i>
+   <div>
+      <div class="fw-bold">{{ __('What is this tab for?', 'grcmanager') }}</div>
+      {{ __('An account of a server management controller (iLO, iDRAC, XClarity, IPMI) gives full control of the server, even switched off, outside GLPI and the directory. When the campaign is launched, the accounts read on the controllers of its entities are copied here with a suggestion. Keep or remove each one: the plugin changes nothing on the controllers, remove the account there.', 'grcmanager') }}
+      <a href="{{ bmc_url }}#grc-bmc-accounts">{{ __('Server management controllers', 'grcmanager') }}</a>
+   </div>
+</div>
+
+{% if lines is empty and is_draft %}
+   <div class="card mb-3"><div class="card-body text-muted" id="grc-arbmc-draft"><i class="ti ti-info-circle me-1"></i>{{ __('The accounts of the controllers are copied when the campaign is launched.', 'grcmanager') }}</div></div>
+{% elseif lines is empty %}
+   <div class="card mb-3"><div class="card-body d-flex flex-wrap align-items-center gap-3" id="grc-arbmc-empty">
+      <span class="text-muted flex-grow-1">{{ __('No account of a server management controller in this campaign: no controller with accounts read in its entities when it was launched.', 'grcmanager') }}</span>
+      {% if can_snapshot %}
+         <form method="post" action="{{ action }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="campaign_id" value="{{ campaign_id }}">
+            <button type="submit" name="snapshot" value="1" class="btn btn-outline-primary"><i class="ti ti-download me-1"></i>{{ __('Add the accounts of the controllers', 'grcmanager') }}</button>
+         </form>
+      {% endif %}
+   </div></div>
+{% else %}
+   <div class="card mb-3" id="grc-arbmc-list">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-server-cog me-2"></i>{{ __('Server controller accounts', 'grcmanager') }}</h3>
+         <div class="card-actions">
+            <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-hourglass me-1"></i>{{ __('%d to review', 'grcmanager')|format(pending) }}</span>
+            <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ __('%d decided', 'grcmanager')|format(decided) }}</span>
+         </div>
+      </div>
+      <div class="table-responsive">
+         <table class="table table-vcenter card-table">
+            <thead><tr>
+               <th>{{ __('Controller', 'grcmanager') }}</th>
+               <th>{{ __('Account', 'grcmanager') }}</th>
+               <th>{{ __('Role', 'grcmanager') }}</th>
+               <th>{{ __('Suggestion', 'grcmanager') }}</th>
+               <th>{{ __('Decision', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+            {% for line in lines %}
+               <tr id="grc-arbmc-{{ line.id }}">
+                  <td>
+                     <span class="fw-bold">{{ line.controller }}</span>
+                     {% if line.server %}<div class="small"><a href="{{ line.server.url }}">{{ line.server.name }}</a></div>{% endif %}
+                  </td>
+                  <td>
+                     {{ line.username }}
+                     {% if not line.enabled %}<span class="badge bg-secondary-subtle text-secondary-emphasis ms-1"><i class="ti ti-user-off me-1"></i>{{ __('Disabled', 'grcmanager') }}</span>{% endif %}
+                     {% if line.locked %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-lock me-1"></i>{{ __('Locked', 'grcmanager') }}</span>{% endif %}
+                  </td>
+                  <td>{{ line.role ?: '-' }}</td>
+                  <td>
+                     {% if line.suggestion %}<span class="badge bg-{{ line.suggestion.color }}-subtle text-{{ line.suggestion.color }}-emphasis"><i class="{{ line.suggestion.icon }} me-1"></i>{{ line.suggestion.short }}</span>{% endif %}
+                     {% for reason in line.reasons %}<div class="small text-muted">{{ reason }}</div>{% endfor %}
+                  </td>
+                  <td>
+                     {% if line.pending and can_decide %}
+                        <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-1 align-items-start">
+                           <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                           <input type="hidden" name="line_id" value="{{ line.id }}">
+                           <input type="text" name="comment" class="form-control form-control-sm" maxlength="2000" placeholder="{{ __('Comment', 'grcmanager') }}" aria-label="{{ __('Comment', 'grcmanager') }}">
+                           <button type="submit" name="decide" value="keep" class="btn btn-sm btn-outline-success"><i class="ti ti-user-check me-1"></i>{{ decisions.keep }}</button>
+                           <button type="submit" name="decide" value="remove" class="btn btn-sm btn-outline-danger"><i class="ti ti-user-x me-1"></i>{{ decisions.remove }}</button>
+                        </form>
+                     {% elseif line.pending %}
+                        <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ line.decision_label }}</span>
+                     {% else %}
+                        <span class="badge bg-{{ line.decision == 'remove' ? 'danger' : 'success' }}-subtle text-{{ line.decision == 'remove' ? 'danger' : 'success' }}-emphasis">{{ line.decision_label }}</span>
+                        <div class="small text-muted">{{ line.decided_by }} · {{ line.date_decision }}</div>
+                        {% if line.comment %}<div class="small">{{ line.comment }}</div>{% endif %}
+                     {% endif %}
+                  </td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </div>
+{% endif %}

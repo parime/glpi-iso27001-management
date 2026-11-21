@@ -134,6 +134,9 @@ parameters:
         # Issue #780 : systèmes d'exploitation du parc (glpi_items_operatingsystems), même
         # rationale. OperatingSystemVersion.php reste analysé : pur PHP.
         - src/Services/Cve/OperatingSystemInventory.php
+        # Issue #843 : firmwares des contrôleurs de gestion des serveurs (base), même rationale.
+        # BmcFirmwareRules.php reste analysé : pur PHP.
+        - src/Services/ServerManagement/BmcFirmwareInventory.php
         # Issue #160 : veille des vulnérabilités du parc (base, NVD, Config de GLPI), même
         # rationale. ParkVulnerabilityRules.php reste analysé : pur PHP.
         - src/Services/Cve/ParkVulnerabilitySync.php

@@ -31,6 +31,11 @@ use GlpiPlugin\Grcmanager\Compat\Http;
 use GlpiPlugin\Grcmanager\Install\ServerManagementTables as Tables;
 use GlpiPlugin\Grcmanager\Services\Compliance\PatchLagRules;
 use GlpiPlugin\Grcmanager\Services\Cve\OperatingSystemInventory;
+use GlpiPlugin\Grcmanager\Services\Lifecycle\CycleMatcher;
+use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeInventory;
+use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeStore;
+use GlpiPlugin\Grcmanager\Services\Lifecycle\ProductMatcher;
+use GlpiPlugin\Grcmanager\Services\ServerManagement\BmcFirmwareRules;
 use GlpiPlugin\Grcmanager\Services\ServerManagement\BmcRules as Rules;
 use GlpiPlugin\Grcmanager\Services\ServerManagement\RedfishClient;
 use Html;
@@ -184,6 +189,38 @@ class ServerManagement extends CommonGLPI
                 __('Hardware health critical', 'grcmanager'),
                 __('The controller reports a critical hardware state.', 'grcmanager'),
                 'ti ti-heart-broken',
+            ],
+            Rules::GAP_FIRMWARE_PRIORITY_CVE => [
+                __('Firmware with a priority vulnerability', 'grcmanager'),
+                __(
+                    'The firmware of the controller or the BIOS has a known vulnerability that is exploited, critical '
+                        . 'or likely to be exploited (page "Fleet vulnerabilities"): update it first.',
+                    'grcmanager'
+                ),
+                'ti ti-bug',
+            ],
+            Rules::GAP_FIRMWARE_EOL => [
+                __('Firmware no longer supported', 'grcmanager'),
+                __(
+                    'The firmware of the controller or the BIOS has reached its end of support (endoflife.date): '
+                        . 'no more security fixes.',
+                    'grcmanager'
+                ),
+                'ti ti-calendar-off',
+            ],
+            Rules::GAP_FIRMWARE_CVE => [
+                __('Firmware with known vulnerabilities', 'grcmanager'),
+                __(
+                    'The firmware of the controller or the BIOS has known vulnerabilities (page "Fleet '
+                        . 'vulnerabilities").',
+                    'grcmanager'
+                ),
+                'ti ti-bug',
+            ],
+            Rules::GAP_FIRMWARE_EOL_SOON => [
+                __('Firmware support ending soon', 'grcmanager'),
+                __('The end of support of the firmware or the BIOS is near (endoflife.date).', 'grcmanager'),
+                'ti ti-calendar-time',
             ],
             Rules::GAP_SNMP_V1V2 => [
                 __('SNMP v1 or v2c enabled', 'grcmanager'),
@@ -721,7 +758,8 @@ class ServerManagement extends CommonGLPI
         return $computers;
     }
 
-    private static function serialKey(string $serial): ?string
+    /** Numéro de série utilisable pour un rapprochement (null : trop court ou générique). */
+    public static function serialKey(string $serial): ?string
     {
         $serial = mb_strtolower(trim($serial));
 
@@ -797,6 +835,7 @@ class ServerManagement extends CommonGLPI
         }
 
         $today = substr((string) ($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s')), 0, 10);
+        $firmwares = self::firmwares($rows, $today);
         $matched = [];
         $controllers = [];
         foreach ($rows as $id => $row) {
@@ -819,7 +858,8 @@ class ServerManagement extends CommonGLPI
             }
             $list = $accounts[$id] ?? [];
             $inAdmin = Rules::inAdminNetwork((string) $row['ip_address'], $networks);
-            $gaps = Rules::gaps($row, $list, $inAdmin, $computerId > 0, $today);
+            $firmware = $firmwares[$id] ?? [];
+            $gaps = Rules::gaps($row, $list, $inAdmin, $computerId > 0, $today, BmcFirmwareRules::gaps($firmware));
             $controllers[] = [
                 'id'          => (int) $id,
                 'row'         => $row,
@@ -827,6 +867,7 @@ class ServerManagement extends CommonGLPI
                 'computer'    => $computerId > 0 ? $computers[$computerId] : null,
                 'matched_by'  => $matchedBy,
                 'accounts'    => $list,
+                'firmwares'   => $firmware,
                 'in_admin'    => $inAdmin,
                 'gaps'        => $gaps,
                 'high'        => Rules::hasHighGap($gaps),
@@ -852,6 +893,65 @@ class ServerManagement extends CommonGLPI
             'physical_servers' => $physical,
             'admin_networks'   => count($networks),
         ];
+    }
+
+    /**
+     * Lot 2 : firmware du contrôleur et BIOS de chaque contrôleur, rapprochés des vulnérabilités
+     * du parc (#780) et des fins de support (#782) déjà calculées par ces modules (mêmes alias,
+     * même cache, aucun appel extérieur).
+     *
+     * @param array<int, array<string, mixed>> $rows contrôleurs par identifiant
+     * @return array<int, list<array{part: string, name: string, version: string, cves: int, priority: int,
+     *     top_cves: list<string>, eol_status: string, eol: string, cycle: string, product: string,
+     *     watched: bool}>>
+     */
+    private static function firmwares(array $rows, string $today): array
+    {
+        $items = [];
+        foreach ($rows as $id => $row) {
+            foreach (BmcFirmwareRules::items($row) as $item) {
+                $items[$id . ':' . $item['part']] = $item + ['controller_id' => (int) $id];
+            }
+        }
+        if ($items === []) {
+            return [];
+        }
+        $cves = ParkVulnerability::getForFirmwares($items);
+        $eol = [];
+        if (EndOfLifeStore::isEnabled()) {
+            $eol = EndOfLifeInventory::evaluate(array_map(static fn (array $item): array => [
+                'kind'      => ProductMatcher::KIND_FIRMWARE,
+                'itemtype'  => self::class,
+                'items_id'  => $item['controller_id'],
+                'item_name' => '',
+                'name'      => $item['name'],
+                'version'   => $item['version'],
+            ], $items), $today);
+        }
+        $result = [];
+        foreach ($items as $key => $item) {
+            $list = $cves[$key]['cves'] ?? [];
+            $evaluation = $eol[$key]['evaluation'] ?? null;
+            $result[$item['controller_id']][] = [
+                'part'       => $item['part'],
+                'name'       => $item['name'],
+                'version'    => $item['version'],
+                'cves'       => count($list),
+                'priority'   => count(array_filter($list, static fn (array $cve): bool => (bool) $cve['priority'])),
+                'top_cves'   => array_map(
+                    static fn (array $c): string => (string) $c['cve_id'],
+                    array_slice($list, 0, 3)
+                ),
+                'watched'    => $cves[$key]['watched'] ?? false,
+                'eol_status' => $evaluation !== null && $evaluation['product'] !== ''
+                    ? $evaluation['status'] : CycleMatcher::STATUS_UNKNOWN,
+                'eol'        => (string) ($evaluation['eol'] ?? ''),
+                'cycle'      => (string) ($evaluation['cycle'] ?? ''),
+                'product'    => (string) ($evaluation['product'] ?? ''),
+            ];
+        }
+
+        return $result;
     }
 
     /**
@@ -991,6 +1091,13 @@ class ServerManagement extends CommonGLPI
             'matched_by'       => $controller['matched_by'],
             'in_admin'         => $controller['in_admin'],
             'accounts'         => $controller['accounts'],
+            'firmwares'        => array_map(static fn (array $f): array => $f + [
+                'part_label' => $f['part'] === BmcFirmwareRules::PART_BIOS
+                    ? __('BIOS', 'grcmanager') : __('Controller', 'grcmanager'),
+                'eol_info'   => EndOfLife::statusInfo($f['eol_status']),
+                'eol_date'   => preg_match('/^\d{4}-\d{2}-\d{2}$/', $f['eol']) === 1
+                    ? (string) Html::convDate($f['eol']) : '',
+            ], $controller['firmwares'] ?? []),
             'gaps'             => $controller['gaps'],
             'high'             => $controller['high'],
         ];
@@ -1047,6 +1154,10 @@ class ServerManagement extends CommonGLPI
             'action'          => self::getSearchURL(),
             'config_url'      => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grc-outgoing-http',
             'flows_url'       => NetworkFlow::getSearchURL(),
+            // Lot 2 : vulnérabilités du parc (droit sensible) et fins de support.
+            'fleet_url'       => ParkVulnerability::canView() ? ParkVulnerability::getSearchURL() : '',
+            'eol_enabled'     => EndOfLifeStore::isEnabled(),
+            'eol_config_url'  => EndOfLife::canView() ? EndOfLife::getConfigURL() : '',
             'entity_name'     => (string) Dropdown::getDropdownName('glpi_entities', (int) Session::getActiveEntity()),
             'max_bytes_label' => sprintf('%d MB', (int) (Rules::MAX_BYTES / 1024 / 1024)),
         ];
