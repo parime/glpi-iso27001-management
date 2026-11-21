@@ -78,6 +78,11 @@ class RiskIndicator extends RiskIndicatorBase
             'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => ['computer' => READ], 'global' => false,
         ],
+        // Issue #852 : administrateurs sans authentification multifacteur.
+        'admins_without_mfa'        => [
+            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => ['user' => READ], 'global' => false,
+        ],
         'critical_vulnerabilities'  => [
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE, 'rights' => ['software' => READ], 'global' => false,
         ],
@@ -138,6 +143,7 @@ class RiskIndicator extends RiskIndicatorBase
             'unencrypted_computers'     => __('Computers with an unencrypted disk (%)', 'grcmanager'),
             'antivirus_gaps'            => __('Computers without an up-to-date antivirus (%)', 'grcmanager'),
             'unencrypted_laptops'       => __('Laptops with an unencrypted disk (%)', 'grcmanager'),
+            'admins_without_mfa'        => __('Administrators without MFA', 'grcmanager'),
             'critical_vulnerabilities'  => __('Open critical vulnerabilities in the fleet', 'grcmanager'),
             'risks_above_tolerance'     => __('Open risks above tolerance', 'grcmanager'),
             'overdue_treatment_actions' => __('Overdue risk treatment actions', 'grcmanager'),
@@ -522,6 +528,7 @@ class RiskIndicator extends RiskIndicatorBase
             'unencrypted_computers'     => ComplianceAudit::gapRate('encryption', $perimeter),
             'antivirus_gaps'            => ComplianceAudit::gapRate('antivirus', $perimeter),
             'unencrypted_laptops'       => ComplianceAudit::gapRate('laptop_encryption', $perimeter),
+            'admins_without_mfa'        => MfaCoverage::adminsWithoutMfa($perimeter),
             'critical_vulnerabilities'  => (float) count(array_filter(
                 ParkVulnerability::getVulnerabilityRows(
                     false,

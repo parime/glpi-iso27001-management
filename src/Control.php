@@ -1714,6 +1714,8 @@ class Control extends ControlBase
             'software_licenses'       => SoftwareLicenseCompliance::evidence($code),
             // Issue #847 : chiffrement des disques du parc, preuve des mesures A.8.24 et A.8.1.
             'disk_encryption'         => DiskEncryption::evidence($code),
+            // Issue #852 : couverture MFA par compte, preuve des mesures A.8.5 et A.5.17.
+            'mfa_coverage'            => MfaCoverage::evidence($code),
             // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation (mesure A.6.3).
             'phishing'                => PhishingCampaign::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',

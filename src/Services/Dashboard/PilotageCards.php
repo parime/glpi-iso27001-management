@@ -314,6 +314,17 @@ final class PilotageCards
         return \GlpiPlugin\Grcmanager\DiskEncryption::dashboardCard($params);
     }
 
+    /**
+     * Issue #852 : administrateurs protégés par MFA (%), page « Couverture MFA ».
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function mfaAdminRate(array $params = []): array
+    {
+        return \GlpiPlugin\Grcmanager\MfaCoverage::dashboardCard($params);
+    }
+
     public static function accessReviewProgress(array $params = []): array
     {
         global $DB;
