@@ -779,7 +779,9 @@ class ConfigurationCompliance extends CommonGLPI
         ];
         if ($summary['analysed'] === 0) {
             $source['badges'][] = [
-                'color' => 'secondary', 'icon' => 'ti ti-file-off', 'text' => __('No service analysed yet', 'grcmanager'),
+                'color' => 'secondary',
+                'icon'  => 'ti ti-file-off',
+                'text'  => __('No service analysed yet', 'grcmanager'),
             ];
 
             return $source;
