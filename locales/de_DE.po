@@ -27858,8 +27858,10 @@ msgstr[1] "%d Szenarien mit freigegebener Auswertung geübt"
 
 msgid "%d scenario with a critical process never tested in recovery"
 msgid_plural "%d scenarios with a critical process never tested in recovery"
-msgstr[0] "%d Szenario mit einem nie im Wiederanlauf getesteten kritischen Prozess"
-msgstr[1] "%d Szenarien mit einem nie im Wiederanlauf getesteten kritischen Prozess"
+msgstr[0] ""
+"%d Szenario mit einem nie im Wiederanlauf getesteten kritischen Prozess"
+msgstr[1] ""
+"%d Szenarien mit einem nie im Wiederanlauf getesteten kritischen Prozess"
 
 msgid "No recovery test recorded for this process"
 msgstr "Kein Wiederanlauftest für diesen Prozess erfasst"
@@ -27895,29 +27897,54 @@ msgid_plural "%d recovery times measured during the exercise"
 msgstr[0] "%d Wiederanlaufzeit während der Übung gemessen"
 msgstr[1] "%d Wiederanlaufzeiten während der Übung gemessen"
 
-msgid "Contacts marked for a security incident or a personal data breach, visible from the entity of the scenario."
-msgstr "Für einen Sicherheitsvorfall oder eine Verletzung des Schutzes personenbezogener Daten markierte Kontakte, aus der Einheit des Szenarios sichtbar."
+msgid ""
+"Contacts marked for a security incident or a personal data breach, visible "
+"from the entity of the scenario."
+msgstr ""
+"Für einen Sicherheitsvorfall oder eine Verletzung des Schutzes "
+"personenbezogener Daten markierte Kontakte, aus der Einheit des Szenarios "
+"sichtbar."
 
-msgid "Contacts marked for a security incident, visible from the entity of the scenario."
-msgstr "Für einen Sicherheitsvorfall markierte Kontakte, aus der Einheit des Szenarios sichtbar."
+msgid ""
+"Contacts marked for a security incident, visible from the entity of the "
+"scenario."
+msgstr ""
+"Für einen Sicherheitsvorfall markierte Kontakte, aus der Einheit des "
+"Szenarios sichtbar."
 
 msgid "Crisis exercises and review"
 msgstr "Krisenübungen und Auswertung"
 
-msgid "Evaluate the objectives and validate the review in the crisis room, tab \"Review\"."
-msgstr "Bewerten Sie die Ziele und geben Sie die Auswertung im Krisenraum frei, Registerkarte „Auswertung“."
+msgid ""
+"Evaluate the objectives and validate the review in the crisis room, tab "
+"\"Review\"."
+msgstr ""
+"Bewerten Sie die Ziele und geben Sie die Auswertung im Krisenraum frei, "
+"Registerkarte „Auswertung“."
 
 msgid "Exercise of the plugin: %s"
 msgstr "Übung des Plugins: %s"
 
 msgid "Exercise outside the plugin on %s (report in the Documents tab)."
-msgstr "Übung außerhalb des Plugins am %s (Bericht in der Registerkarte Dokumente)."
+msgstr ""
+"Übung außerhalb des Plugins am %s (Bericht in der Registerkarte Dokumente)."
 
 msgid "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
-msgstr "Feststellungen: %1$d, Verbesserungsmaßnahmen: %2$d (%3$d erledigt, %4$d verspätet)"
+msgstr ""
+"Feststellungen: %1$d, Verbesserungsmaßnahmen: %2$d (%3$d erledigt, %4$d "
+"verspätet)"
 
-msgid "It gathers what shows that this scenario is ready: the crisis exercises that tested it and the review of the last one, the recovery tests of the impacted processes, the crisis messages to send and the authorities to inform. Nothing is copied: each line opens the original record."
-msgstr "Sie fasst zusammen, was zeigt, dass dieses Szenario bereit ist: die Krisenübungen, die es getestet haben, und die Auswertung der letzten, die Wiederanlauftests der betroffenen Prozesse, die zu sendenden Krisenmeldungen und die zu benachrichtigenden Behörden. Nichts wird kopiert: jede Zeile öffnet den ursprünglichen Datensatz."
+msgid ""
+"It gathers what shows that this scenario is ready: the crisis exercises that "
+"tested it and the review of the last one, the recovery tests of the impacted "
+"processes, the crisis messages to send and the authorities to inform. "
+"Nothing is copied: each line opens the original record."
+msgstr ""
+"Sie fasst zusammen, was zeigt, dass dieses Szenario bereit ist: die "
+"Krisenübungen, die es getestet haben, und die Auswertung der letzten, die "
+"Wiederanlauftests der betroffenen Prozesse, die zu sendenden Krisenmeldungen "
+"und die zu benachrichtigenden Behörden. Nichts wird kopiert: jede Zeile "
+"öffnet den ursprünglichen Datensatz."
 
 msgid "Last exercise ended on %s"
 msgstr "Letzte Übung beendet am %s"
@@ -27928,20 +27955,33 @@ msgstr "Diese Übung starten"
 msgid "No active message template for the situation \"%s\"."
 msgstr "Keine aktive Nachrichtenvorlage für die Situation „%s“."
 
-msgid "No communication situation is chosen for this scenario: choose one in the main tab, field \"Crisis communication\"."
-msgstr "Für dieses Szenario ist keine Kommunikationssituation gewählt: wählen Sie eine in der Hauptregisterkarte, Feld „Krisenkommunikation“."
+msgid ""
+"No communication situation is chosen for this scenario: choose one in the "
+"main tab, field \"Crisis communication\"."
+msgstr ""
+"Für dieses Szenario ist keine Kommunikationssituation gewählt: wählen Sie "
+"eine in der Hauptregisterkarte, Feld „Krisenkommunikation“."
 
-msgid "No crisis exercise is chosen for this scenario: choose one in the main tab, field \"Crisis exercise\"."
-msgstr "Für dieses Szenario ist keine Krisenübung gewählt: wählen Sie eine in der Hauptregisterkarte, Feld „Krisenübung“."
+msgid ""
+"No crisis exercise is chosen for this scenario: choose one in the main tab, "
+"field \"Crisis exercise\"."
+msgstr ""
+"Für dieses Szenario ist keine Krisenübung gewählt: wählen Sie eine in der "
+"Hauptregisterkarte, Feld „Krisenübung“."
 
 msgid "No distribution list"
 msgstr "Kein Verteiler"
 
 msgid "No impacted process yet: choose them in the main tab."
-msgstr "Noch kein betroffener Prozess: wählen Sie sie in der Hauptregisterkarte."
+msgstr ""
+"Noch kein betroffener Prozess: wählen Sie sie in der Hauptregisterkarte."
 
-msgid "Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not evaluated"
-msgstr "Ziele: %1$d erreicht, %2$d teilweise, %3$d nicht erreicht, %4$d nicht bewertet"
+msgid ""
+"Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not "
+"evaluated"
+msgstr ""
+"Ziele: %1$d erreicht, %2$d teilweise, %3$d nicht erreicht, %4$d nicht "
+"bewertet"
 
 msgid "Opens the crisis room with a fictitious incident of this exercise."
 msgstr "Öffnet den Krisenraum mit einem fiktiven Vorfall dieser Übung."
@@ -27949,8 +27989,12 @@ msgstr "Öffnet den Krisenraum mit einem fiktiven Vorfall dieser Übung."
 msgid "Previous exercises"
 msgstr "Frühere Übungen"
 
-msgid "Recovery tests are recorded in the tab \"Recovery strategy\" of each process, or in the crisis room during an exercise."
-msgstr "Wiederanlauftests werden in der Registerkarte „Wiederanlaufstrategie“ jedes Prozesses oder während einer Übung im Krisenraum erfasst."
+msgid ""
+"Recovery tests are recorded in the tab \"Recovery strategy\" of each "
+"process, or in the crisis room during an exercise."
+msgstr ""
+"Wiederanlauftests werden in der Registerkarte „Wiederanlaufstrategie“ jedes "
+"Prozesses oder während einer Übung im Krisenraum erfasst."
 
 msgid "Recovery tests of the impacted processes"
 msgstr "Wiederanlauftests der betroffenen Prozesse"
@@ -27962,22 +28006,39 @@ msgid "Situation: %s"
 msgstr "Situation: %s"
 
 msgid "Situation: %s. The message templates are visible only with their right."
-msgstr "Situation: %s. Die Nachrichtenvorlagen sind nur mit ihrem Recht sichtbar."
+msgstr ""
+"Situation: %s. Die Nachrichtenvorlagen sind nur mit ihrem Recht sichtbar."
 
-msgid "The business processes are visible only with the right of the business continuity."
-msgstr "Die Geschäftsprozesse sind nur mit dem Recht der Betriebskontinuität sichtbar."
+msgid ""
+"The business processes are visible only with the right of the business "
+"continuity."
+msgstr ""
+"Die Geschäftsprozesse sind nur mit dem Recht der Betriebskontinuität "
+"sichtbar."
 
-msgid "The crisis exercises are visible only with the right to read the security incidents."
-msgstr "Die Krisenübungen sind nur mit dem Recht zum Lesen der Sicherheitsvorfälle sichtbar."
+msgid ""
+"The crisis exercises are visible only with the right to read the security "
+"incidents."
+msgstr ""
+"Die Krisenübungen sind nur mit dem Recht zum Lesen der Sicherheitsvorfälle "
+"sichtbar."
 
-msgid "The official contacts are visible only with the right of the context of the organisation."
-msgstr "Die offiziellen Stellen sind nur mit dem Recht des Organisationskontexts sichtbar."
+msgid ""
+"The official contacts are visible only with the right of the context of the "
+"organisation."
+msgstr ""
+"Die offiziellen Stellen sind nur mit dem Recht des Organisationskontexts "
+"sichtbar."
 
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "Diese Übung wurde im Krisenraum noch nie bis zum Ende durchgeführt."
 
-msgid "Also record it as a contact with the ticked official contacts (\"Official contacts\" tab)"
-msgstr "Auch als Kontaktaufnahme mit den angekreuzten offiziellen Kontakten erfassen (Registerkarte „Offizielle Kontakte“)"
+msgid ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+msgstr ""
+"Auch als Kontaktaufnahme mit den angekreuzten offiziellen Kontakten erfassen "
+"(Registerkarte „Offizielle Kontakte“)"
 
 msgid "Archive on controls A.5.5 and A.5.6"
 msgstr "Bei den Maßnahmen A.5.5 und A.5.6 archivieren"
@@ -27985,15 +28046,23 @@ msgstr "Bei den Maßnahmen A.5.5 und A.5.6 archivieren"
 msgid "Archived registers:"
 msgstr "Archivierte Register:"
 
-msgid "Authorities, CSIRT, police, insurer and special interest groups from the register of official contacts, with the person allowed to contact them."
-msgstr "Behörden, CSIRT, Polizei, Versicherer und Interessengruppen aus dem Register der offiziellen Kontakte, mit der Person, die sie kontaktieren darf."
+msgid ""
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
+msgstr ""
+"Behörden, CSIRT, Polizei, Versicherer und Interessengruppen aus dem Register "
+"der offiziellen Kontakte, mit der Person, die sie kontaktieren darf."
 
 #, php-format
 msgid "Crisis communication: \"%s\""
 msgstr "Krisenkommunikation: „%s“"
 
-msgid "During an exercise, record the calls you would make: the report then shows whether the deadlines would have been met."
-msgstr "Erfassen Sie während einer Übung die Anrufe, die Sie tätigen würden: Der Bericht zeigt dann, ob die Fristen eingehalten worden wären."
+msgid ""
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
+msgstr ""
+"Erfassen Sie während einer Übung die Anrufe, die Sie tätigen würden: Der "
+"Bericht zeigt dann, ob die Fristen eingehalten worden wären."
 
 msgid "From a crisis communication"
 msgstr "Aus einer Krisenkommunikation"
@@ -28010,24 +28079,340 @@ msgstr "In einer Krise zu benachrichtigende offizielle Kontakte"
 msgid "Only for these types of incident"
 msgstr "Nur für diese Vorfallsarten"
 
-msgid "Optional: leave empty to show this contact for every security incident. An incident of the \"Data breach\" type also shows the contacts to inform for a personal data breach."
-msgstr "Optional: Leer lassen, um diesen Kontakt bei jedem Sicherheitsvorfall anzuzeigen. Ein Vorfall der Art „Datenpanne“ zeigt auch die bei einer Verletzung personenbezogener Daten zu benachrichtigenden Kontakte."
+msgid ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+msgstr ""
+"Optional: Leer lassen, um diesen Kontakt bei jedem Sicherheitsvorfall "
+"anzuzeigen. Ein Vorfall der Art „Datenpanne“ zeigt auch die bei einer "
+"Verletzung personenbezogener Daten zu benachrichtigenden Kontakte."
 
 #, php-format
 msgid "Register of official contacts - %s"
 msgstr "Register der offiziellen Kontakte - %s"
 
-msgid "Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 of the Statement of Applicability."
-msgstr "Speichert das Register als datiertes PDF-Dokument bei den Maßnahmen A.5.5 und A.5.6 der Erklärung zur Anwendbarkeit."
+msgid ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+msgstr ""
+"Speichert das Register als datiertes PDF-Dokument bei den Maßnahmen A.5.5 "
+"und A.5.6 der Erklärung zur Anwendbarkeit."
 
 msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
-msgstr "Das Register wurde als Nachweis bei den Maßnahmen A.5.5 und A.5.6 archiviert."
+msgstr ""
+"Das Register wurde als Nachweis bei den Maßnahmen A.5.5 und A.5.6 archiviert."
 
-msgid "Record each official contact, tick the events (and, if needed, the types of incident) for which it must be informed, verify the details at least once a year, keep a printed copy of the register (PDF) for use during a crisis, and archive it on controls A.5.5 and A.5.6 after each review."
-msgstr "Erfassen Sie jeden offiziellen Kontakt, kreuzen Sie die Ereignisse (und bei Bedarf die Vorfallsarten) an, bei denen er zu benachrichtigen ist, prüfen Sie die Angaben mindestens einmal jährlich, bewahren Sie einen Ausdruck des Registers (PDF) für den Krisenfall auf und archivieren Sie es nach jeder Überprüfung bei den Maßnahmen A.5.5 und A.5.6."
+msgid ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+msgstr ""
+"Erfassen Sie jeden offiziellen Kontakt, kreuzen Sie die Ereignisse (und bei "
+"Bedarf die Vorfallsarten) an, bei denen er zu benachrichtigen ist, prüfen "
+"Sie die Angaben mindestens einmal jährlich, bewahren Sie einen Ausdruck des "
+"Registers (PDF) für den Krisenfall auf und archivieren Sie es nach jeder "
+"Überprüfung bei den Maßnahmen A.5.5 und A.5.6."
 
 #, php-format
 msgid "%d official contact recorded as contacted."
 msgid_plural "%d official contacts recorded as contacted."
 msgstr[0] "%d offizieller Kontakt als benachrichtigt erfasst."
 msgstr[1] "%d offizielle Kontakte als benachrichtigt erfasst."
+
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d Kompetenzlücke(n) gemeldet."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s: %2$s, erwartete Stufe %3$s (zu planende Schulung: %4$s)"
+
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s: %2$s, erwartete Stufe %3$s (noch keine Schulung vermittelt sie: eine "
+"verknüpfen oder einen Nachweis erfassen)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Tätigkeit der Verantwortungsmatrix"
+
+msgid "Competence gaps without planned training"
+msgstr "Kompetenzlücken ohne geplante Schulung"
+
+msgid "Follows the responsibility matrix"
+msgstr "Folgt der Verantwortungsmatrix"
+
+msgid "New gaps without planned training"
+msgstr "Neue Lücken ohne geplante Schulung"
+
+msgid "Number of gaps without planned training"
+msgstr "Anzahl der Lücken ohne geplante Schulung"
+
+msgid "Number of new gaps"
+msgstr "Anzahl neuer Lücken"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Weitere, hier nicht aufgeführte Lücken: %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Verantwortungsmatrix: %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Rolle in der Tätigkeit"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "Diese Tätigkeit ist in der Entität der Funktion nicht verfügbar."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+"Benachrichtigt den Verantwortlichen über Kompetenzlücken ohne geplante "
+"Schulung"
+
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+"Optional: Die Personen und Gruppen mit der gewählten Rolle in dieser "
+"Tätigkeit üben die Funktion aus und folgen der Matrix, wenn sie sich ändert."
+
+msgid ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+msgstr ""
+"Wird von der automatischen Aufgabe von GRC Manager gesendet, wenn eine "
+"Person mit einer ISMS-Funktion eine Kompetenzlücke ohne geplante Schulung "
+"hat."
+
+msgid ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+msgstr ""
+"Planen Sie auf der Seite „Kompetenzen“ eine Sitzung der vorgeschlagenen "
+"Schulung oder erfassen Sie den Nachweis, den die Person bereits besitzt. Es "
+"wird nichts automatisch geändert."
+
+msgid "View the competences"
+msgstr "Kompetenzen anzeigen"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Warnung zu Kompetenzlücken"
+msgstr[1] "Warnungen zu Kompetenzlücken"
+
+msgid "Evidence pack settings saved."
+msgstr "Einstellungen des Nachweispakets gespeichert."
+
+msgid "Evidence pack generated and archived. Download it from the list below."
+msgstr ""
+"Nachweispaket erstellt und archiviert. Laden Sie es aus der Liste unten "
+"herunter."
+
+msgid "Evidence pack"
+msgid_plural "Evidence packs"
+msgstr[0] "Nachweispaket"
+msgstr[1] "Nachweispakete"
+
+msgid "Annex A controls (Statement of Applicability)"
+msgstr "Maßnahmen aus Anhang A (Erklärung zur Anwendbarkeit)"
+
+msgid "Approved versions of the Statement of Applicability"
+msgstr "Genehmigte Versionen der Erklärung zur Anwendbarkeit"
+
+msgid "Approved policy versions"
+msgstr "Genehmigte Richtlinienversionen"
+
+msgid "Competence records"
+msgstr "Kompetenznachweise"
+
+msgid "Audit reports and audit evidence"
+msgstr "Auditberichte und Auditnachweise"
+
+msgid "Management review files"
+msgstr "Unterlagen der Managementbewertungen"
+
+msgid "Access review reports"
+msgstr "Berichte der Zugriffsüberprüfungen"
+
+msgid "Reports archived by the plugin"
+msgstr "Vom Plugin archivierte Berichte"
+
+msgid "Expired, not included"
+msgstr "Abgelaufen, nicht enthalten"
+
+msgid "No file"
+msgstr "Keine Datei"
+
+msgid "Size limit reached, not included"
+msgstr "Größenlimit erreicht, nicht enthalten"
+
+msgid "This perimeter is not among your active entities."
+msgstr "Dieser Geltungsbereich gehört nicht zu Ihren aktiven Einheiten."
+
+msgid "The PHP zip extension is missing on the server."
+msgstr "Die PHP-Erweiterung zip fehlt auf dem Server."
+
+msgid "The archive could not be created."
+msgstr "Das Archiv konnte nicht erstellt werden."
+
+#, php-format
+msgid "Evidence pack - %1$s (%2$s)"
+msgstr "Nachweispaket - %1$s (%2$s)"
+
+msgid "The archive could not be stored as a document."
+msgstr "Das Archiv konnte nicht als Dokument gespeichert werden."
+
+msgid ""
+"Prepare the evidence pack the auditor asks for: one ZIP archive per "
+"perimeter, with the evidence of each control and each requirement, the "
+"reports already archived and a PDF index that lists them with their date and "
+"SHA-256 fingerprint."
+msgstr ""
+"Bereiten Sie das Nachweispaket vor, das der Auditor anfordert: ein ZIP-"
+"Archiv pro Geltungsbereich mit den Nachweisen jeder Maßnahme und jeder "
+"Anforderung, den bereits archivierten Berichten und einem PDF-Index, der sie "
+"mit Datum und SHA-256-Fingerabdruck auflistet."
+
+msgid ""
+"Choose the perimeter and check its contents: renew expired evidence and "
+"attach what is missing first. Then generate the pack and download it from "
+"the list. Only what you can read is included; expired evidence is listed in "
+"the index, not included. Nothing is changed in the registers."
+msgstr ""
+"Wählen Sie den Geltungsbereich und prüfen Sie seinen Inhalt: Erneuern Sie "
+"zuerst abgelaufene Nachweise und fügen Sie Fehlendes hinzu. Erstellen Sie "
+"dann das Paket und laden Sie es aus der Liste herunter. Nur was Sie lesen "
+"dürfen, wird aufgenommen; abgelaufene Nachweise werden im Index aufgeführt, "
+"aber nicht aufgenommen. In den Registern wird nichts geändert."
+
+msgid ""
+"ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
+"(internal audit)"
+msgstr ""
+"ISO/IEC 27001, Abschnitte 7.5.3 (Lenkung dokumentierter Information) und 9.2 "
+"(internes Audit)"
+
+#, php-format
+msgid "%1$d of %2$d with evidence"
+msgstr "%1$d von %2$d mit Nachweis"
+
+#, php-format
+msgid "%1$s MB of %2$s MB allowed"
+msgstr "%1$s MB von %2$s MB erlaubt"
+
+#, php-format
+msgid ""
+"%d applicable control(s) have no evidence you can read: the index shows them "
+"without evidence."
+msgstr ""
+"%d anwendbare Maßnahme(n) ohne für Sie lesbaren Nachweis: Der Index zeigt "
+"sie ohne Nachweis."
+
+#, php-format
+msgid "%d file(s)"
+msgstr "%d Datei(en)"
+
+#, php-format
+msgid "%d over the size limit"
+msgstr "%d über dem Größenlimit"
+
+msgid "Archived evidence packs"
+msgstr "Archivierte Nachweispakete"
+
+msgid "Evidence pack for the auditor"
+msgstr "Nachweispaket für den Auditor"
+
+msgid ""
+"Expired evidence: listed in the index, not included. Renew it from the "
+"\"Evidence validity\" tab of the control before generating the pack."
+msgstr ""
+"Abgelaufene Nachweise: im Index aufgeführt, nicht enthalten. Erneuern Sie "
+"sie über die Registerkarte „Gültigkeit der Nachweise“ der Maßnahme, bevor "
+"Sie das Paket erstellen."
+
+msgid ""
+"Files that would exceed this size are listed in the index as not included."
+msgstr ""
+"Dateien, die diese Größe überschreiten würden, werden im Index als nicht "
+"enthalten aufgeführt."
+
+msgid "Generate the evidence pack"
+msgstr "Nachweispaket erstellen"
+
+msgid "Maximum size of the archive (MB)"
+msgstr "Maximale Größe des Archivs (MB)"
+
+msgid "No evidence pack generated yet."
+msgstr "Noch kein Nachweispaket erstellt."
+
+msgid ""
+"One ZIP archive per perimeter: the evidence attached to each Annex A control "
+"and each ISMS requirement, and the reports already archived by the plugin, "
+"with a PDF index listing them control by control, with their date, their "
+"state and their SHA-256 fingerprint."
+msgstr ""
+"Ein ZIP-Archiv pro Geltungsbereich: die Nachweise zu jeder Maßnahme aus "
+"Anhang A und jeder ISMS-Anforderung sowie die bereits vom Plugin "
+"archivierten Berichte, mit einem PDF-Index, der sie Maßnahme für Maßnahme "
+"mit Datum, Status und SHA-256-Fingerabdruck auflistet."
+
+msgid ""
+"Only the documents you can read are included. The archive is kept as a "
+"restricted document: you, and whoever can read every piece it contains, can "
+"download it. Generate a new one at any time."
+msgstr ""
+"Nur Dokumente, die Sie lesen dürfen, werden aufgenommen. Das Archiv wird als "
+"eingeschränktes Dokument aufbewahrt: Sie und alle, die jedes enthaltene "
+"Stück lesen dürfen, können es herunterladen. Erstellen Sie jederzeit ein "
+"neues."
+
+msgid "Perimeter (entity)"
+msgstr "Geltungsbereich (Einheit)"
+
+msgid "Restricted"
+msgstr "Eingeschränkt"
+
+msgid "Show the contents"
+msgstr "Inhalt anzeigen"
+
+msgid ""
+"You need the right to update the GRC plugin to generate an evidence pack."
+msgstr ""
+"Sie benötigen das Recht, das GRC-Plugin zu ändern, um ein Nachweispaket zu "
+"erstellen."
+
+msgid "Files included"
+msgstr "Enthaltene Dateien"
+
+msgid "No evidence attached"
+msgstr "Kein Nachweis angehängt"
+
+msgid "Not included"
+msgstr "Nicht enthalten"
+
+msgid ""
+"This index lists the evidence that the person who generated the pack can "
+"read, in the perimeter entity and its sub-entities. Expired evidence is "
+"listed but not included. Each included file is stored once in the "
+"\"evidence\" folder of the archive; its SHA-256 fingerprint is given here "
+"and in the SHA256SUMS.txt file, to check that nothing was changed."
+msgstr ""
+"Dieser Index listet die Nachweise auf, die die erstellende Person in der "
+"Einheit des Geltungsbereichs und ihren Untereinheiten lesen darf. "
+"Abgelaufene Nachweise werden aufgeführt, aber nicht aufgenommen. Jede "
+"enthaltene Datei liegt einmal im Ordner „evidence“ des Archivs; ihr SHA-256-"
+"Fingerabdruck steht hier und in der Datei SHA256SUMS.txt, um zu prüfen, dass "
+"nichts verändert wurde."
+
+#, php-format
+msgid "limit %d MB"
+msgstr "Limit %d MB"
+
+#, php-format
+msgid "%s MB"
+msgstr "%s MB"

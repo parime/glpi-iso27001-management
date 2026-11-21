@@ -157,8 +157,10 @@ final class DiskEncryptionRules
             }
         }
         ksort($types);
-        $confidentiality = in_array($raw['confidentiality'] ?? '', self::CONFIDENTIALITY_THRESHOLDS, true)
-            ? (string) $raw['confidentiality'] : '';
+        $confidentiality = (string) ($raw['confidentiality'] ?? '');
+        if (!in_array($confidentiality, self::CONFIDENTIALITY_THRESHOLDS, true)) {
+            $confidentiality = '';
+        }
 
         return ['scope' => $scope, 'types' => array_values($types), 'confidentiality' => $confidentiality];
     }

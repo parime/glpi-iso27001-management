@@ -26,6 +26,7 @@ use GlpiPlugin\Grcmanager\Compat\Base\IsmsFunctionBase;
 use GlpiPlugin\Grcmanager\Install\CompetenceTables;
 use GlpiPlugin\Grcmanager\Services\Competence\CompetenceRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Competence\DefaultCompetences;
+use GlpiPlugin\Grcmanager\Services\Responsibility\ResponsibilityRules;
 use Group;
 use Log;
 use Session;
@@ -38,6 +39,8 @@ use UserTitle;
  *
  * Les titulaires sont des utilisateurs, des groupes ou des titres (intitulés de poste) de GLPI :
  * rien n'est recréé, et les titres posés par le plugin Configuration GLPI Auto servent tels quels.
+ * Lot 3 : un titulaire peut aussi être un rôle dans une activité de la matrice des responsabilités
+ * (#612) ; les personnes et groupes qui tiennent ce rôle tiennent alors la fonction, sans copie.
  * Droit général du plugin et entité de la fonction (check() du cœur) ; les utilisateurs, groupes et
  * compétences acceptés sont ceux de l'entité de la fonction.
  */
@@ -215,7 +218,7 @@ class IsmsFunction extends IsmsFunctionBase
      * Titulaires des fonctions.
      *
      * @param list<int> $functionIds
-     * @return array<int, list<array{id: int, itemtype: string, items_id: int}>>
+     * @return array<int, list<array{id: int, itemtype: string, items_id: int, role: string}>>
      */
     public static function holdersFor(array $functionIds): array
     {
@@ -236,6 +239,7 @@ class IsmsFunction extends IsmsFunctionBase
                 'id'       => (int) $row['id'],
                 'itemtype' => (string) $row['itemtype'],
                 'items_id' => (int) $row['items_id'],
+                'role'     => (string) ($row['role'] ?? ''),
             ];
         }
 
@@ -281,11 +285,59 @@ class IsmsFunction extends IsmsFunctionBase
         if ($itemtype === 'UserTitle') {
             return $id > 0 && (new UserTitle())->getFromDB($id);
         }
+        if ($itemtype === ResponsibilityActivity::class) {
+            return self::activityAllowed($id, $entityId, $recursive);
+        }
         if ($itemtype !== 'User' && $itemtype !== 'Group') {
             return false;
         }
 
         return ResponsibilityActivity::principalAllowed($itemtype, $id, $entityId, $recursive);
+    }
+
+    /**
+     * Lot 3 : l'activité de la matrice des responsabilités est-elle visible depuis l'entité de la
+     * fonction (même entité, entité parente avec une activité récursive, ou sous-entité d'une
+     * fonction récursive) ?
+     */
+    public static function activityAllowed(int $activityId, int $entityId, bool $recursive): bool
+    {
+        $activity = new ResponsibilityActivity();
+        if ($activityId <= 0 || !$activity->getFromDB($activityId)) {
+            return false;
+        }
+        $own = (int) $activity->fields['entities_id'];
+        if ($own === $entityId) {
+            return true;
+        }
+        if (
+            !empty($activity->fields['is_recursive'])
+            && in_array($own, array_map('intval', getAncestorsOf('glpi_entities', $entityId)), true)
+        ) {
+            return true;
+        }
+
+        return $recursive && in_array($own, array_map('intval', getSonsOf('glpi_entities', $entityId)), true);
+    }
+
+    /**
+     * Lot 3 : activités de la matrice des responsabilités proposées comme titulaires (entités de la
+     * session, visibles depuis l'entité de la fonction).
+     *
+     * @return array<int, string>
+     */
+    public static function activityChoices(int $entityId, bool $recursive): array
+    {
+        $choices = [];
+        foreach (ResponsibilityActivity::visibleActivities() as $row) {
+            $id = (int) $row['id'];
+            if (self::activityAllowed($id, $entityId, $recursive)) {
+                $choices[$id] = ResponsibilityActivity::label($row);
+            }
+        }
+        asort($choices, SORT_NATURAL | SORT_FLAG_CASE);
+
+        return $choices;
     }
 
     /**
@@ -348,6 +400,32 @@ class IsmsFunction extends IsmsFunctionBase
             }
         }
 
+        // Lot 3 : rôle tenu dans une activité de la matrice des responsabilités (#612).
+        $activityId = (int) ($this->input['_add_responsibilityactivities_id'] ?? 0);
+        if ($activityId > 0) {
+            $role = (string) ($this->input['_add_raci_role'] ?? '');
+            if (!isset(ResponsibilityActivity::getRoles()[$role])) {
+                $role = ResponsibilityRules::ROLE_RESPONSIBLE;
+            }
+            if (!self::activityAllowed($activityId, $entityId, $recursive)) {
+                Session::addMessageAfterRedirect(
+                    __('This activity is not available in the entity of the function.', 'grcmanager'),
+                    false,
+                    ERROR
+                );
+            } elseif (
+                countElementsInTable(CompetenceTables::HOLDERS, [
+                    self::FK => $functionId, 'itemtype' => ResponsibilityActivity::class,
+                    'items_id' => $activityId, 'role' => $role,
+                ]) === 0
+            ) {
+                $DB->insert(CompetenceTables::HOLDERS, [
+                    self::FK => $functionId, 'itemtype' => ResponsibilityActivity::class,
+                    'items_id' => $activityId, 'role' => $role, 'date_creation' => $now,
+                ]);
+            }
+        }
+
         $removed = array_map('intval', (array) ($this->input['_remove_requirements'] ?? []));
         if ($removed !== []) {
             $DB->delete(CompetenceTables::REQUIREMENTS, ['id' => $removed, self::FK => $functionId]);
@@ -372,17 +450,33 @@ class IsmsFunction extends IsmsFunctionBase
     }
 
     /**
-     * Noms des titulaires, clé « User:12 », « Group:3 » ou « UserTitle:5 ».
+     * Noms des titulaires, clé holderKey() : « User:12 », « Group:3 », « UserTitle:5 » ou, pour un
+     * rôle de la matrice des responsabilités, la classe de l'activité, son id et le rôle.
      *
-     * @param list<array{itemtype: string, items_id: int}> $rows
+     * @param list<array{itemtype: string, items_id: int, role?: string}> $rows
      * @return array<string, string>
      */
     public static function holderLabels(array $rows): array
     {
         $labels = ResponsibilityActivity::principalLabels(array_values(array_filter(
             $rows,
-            static fn (array $row): bool => $row['itemtype'] !== 'UserTitle'
+            static fn (array $row): bool => $row['itemtype'] === 'User' || $row['itemtype'] === 'Group'
         )));
+        $roles = ResponsibilityActivity::getRoles();
+        foreach ($rows as $row) {
+            if ($row['itemtype'] !== ResponsibilityActivity::class) {
+                continue;
+            }
+            $role = (string) ($row['role'] ?? '');
+            $activity = new ResponsibilityActivity();
+            $labels[self::holderKey($row)] = $activity->getFromDB($row['items_id'])
+                ? sprintf(
+                    __('Responsibility matrix: %1$s (%2$s)', 'grcmanager'),
+                    ResponsibilityActivity::label($activity->fields),
+                    $roles[$role] ?? $role
+                )
+                : sprintf(__('Deleted item #%d', 'grcmanager'), $row['items_id']);
+        }
         foreach ($rows as $row) {
             if ($row['itemtype'] === 'UserTitle') {
                 $title = new UserTitle();
@@ -393,6 +487,18 @@ class IsmsFunction extends IsmsFunctionBase
         }
 
         return $labels;
+    }
+
+    /**
+     * Clé d'un titulaire dans holderLabels().
+     *
+     * @param array{itemtype: string, items_id: int, role?: string} $row
+     */
+    public static function holderKey(array $row): string
+    {
+        $key = $row['itemtype'] . ':' . $row['items_id'];
+
+        return $row['itemtype'] === ResponsibilityActivity::class ? $key . ':' . ($row['role'] ?? '') : $key;
     }
 
     /**
@@ -528,7 +634,7 @@ class IsmsFunction extends IsmsFunctionBase
         $holders = $this->isNewItem() ? [] : (self::holdersFor([(int) $ID])[(int) $ID] ?? []);
         $labels = self::holderLabels($holders);
         foreach ($holders as &$row) {
-            $row['label'] = $labels[$row['itemtype'] . ':' . $row['items_id']] ?? '';
+            $row['label'] = $labels[self::holderKey($row)] ?? '';
         }
         unset($row);
         $requirements = [];
@@ -544,6 +650,10 @@ class IsmsFunction extends IsmsFunctionBase
             usort($requirements, static fn (array $a, array $b): int => strcasecmp($a['competence'], $b['competence']));
         }
 
+        $activities = $this->isNewItem()
+            ? []
+            : self::activityChoices($entityId, !empty($this->fields['is_recursive']));
+
         TemplateRenderer::getInstance()->display('@grcmanager/isms_function_form.html.twig', [
             'item'          => $this,
             'params'        => $options,
@@ -557,6 +667,10 @@ class IsmsFunction extends IsmsFunctionBase
             'user_label'    => User::getTypeName(1),
             'group_label'   => Group::getTypeName(1),
             'title_label'   => UserTitle::getTypeName(1),
+            'activities'    => $activities,
+            'activity_options' => [0 => '-----'] + $activities,
+            'raci_roles'    => ResponsibilityActivity::getRoles(),
+            'activity_class' => ResponsibilityActivity::class,
             'competence_label' => Competence::getTypeName(1),
             'sheet'         => $this->isNewItem() ? null : CompetenceMatrix::functionSheet($this),
             'pdf_url'       => $this->isNewItem() ? '' : CompetenceMatrix::pdfUrl((int) $ID),

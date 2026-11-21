@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 23:21+0000\n"
+"POT-Creation-Date: 2026-11-20 23:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,14 +74,15 @@ msgstr ""
 #: src/Audit.php:653 src/CertificationFinding.php:423
 #: src/CertificationReadiness.php:1476 src/CertificationResponse.php:433
 #: src/CompetenceMatrix.php:852 src/ConsistencyCheck.php:1453
-#: src/ContextItem.php:895 src/ControlTest.php:994 src/CrisisExercise.php:670
+#: src/ContextItem.php:879 src/ControlTest.php:994 src/CrisisExercise.php:642
 #: src/CrisisScenario.php:940 src/Dpia.php:443 src/EbiosStudy.php:313
-#: src/ManagementReviewDossier.php:625 src/OfficialContact.php:354
-#: src/OperatingProcedure.php:402 src/PersonnelCompliance.php:727
-#: src/PolicyAcknowledgement.php:703 src/PolicyVersion.php:765
-#: src/RecyfRequirement.php:594 src/ResponsibilityActivity.php:806
-#: src/SecurityIncidentPostMortem.php:252
+#: src/EvidencePack.php:658 src/ManagementReviewDossier.php:625
+#: src/OfficialContact.php:224 src/OperatingProcedure.php:402
+#: src/PersonnelCompliance.php:727 src/PolicyAcknowledgement.php:703
+#: src/PolicyVersion.php:765 src/RecyfRequirement.php:594
+#: src/ResponsibilityActivity.php:806 src/SecurityIncidentPostMortem.php:252
 #: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:725
+#: templates/evidence_pack.html.twig
 #: templates/management_review_dossier_tab.html.twig
 #, php-format
 msgid "Generated on %s"
@@ -421,8 +422,8 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: front/contextitem.php:27 src/ContextItem.php:110 src/ContextItem.php:696
-#: src/ContextItem.php:893 src/IsmsRequirement.php:102
+#: front/contextitem.php:27 src/ContextItem.php:106 src/ContextItem.php:680
+#: src/ContextItem.php:877 src/IsmsRequirement.php:102
 #: templates/_context_summary.html.twig
 msgid "Context of the organization"
 msgstr ""
@@ -470,13 +471,6 @@ msgstr ""
 msgid "Communication recorded."
 msgstr ""
 
-#: front/crisiscommunication.form.php:42
-#, php-format
-msgid "%d official contact recorded as contacted."
-msgid_plural "%d official contacts recorded as contacted."
-msgstr[0] ""
-msgstr[1] ""
-
 #: front/crisisexercise.form.php:40
 msgid "The crisis team could not be activated."
 msgstr ""
@@ -514,7 +508,7 @@ msgstr ""
 msgid "The exercise type could not be changed."
 msgstr ""
 
-#: front/crisisexercise.form.php:184 src/CrisisExercise.php:793
+#: front/crisisexercise.form.php:184 src/CrisisExercise.php:765
 msgid "Crisis team"
 msgstr ""
 
@@ -647,6 +641,14 @@ msgid ""
 "supplier risk, audit or policy, for each attached document."
 msgstr ""
 
+#: front/evidencepack.php:28
+msgid "Evidence pack settings saved."
+msgstr ""
+
+#: front/evidencepack.php:41
+msgid "Evidence pack generated and archived. Download it from the list below."
+msgstr ""
+
 #: front/impactanalysis.php:36
 msgid "Risk created in the register, to be assessed."
 msgstr ""
@@ -746,14 +748,6 @@ msgstr ""
 msgid "My corrective/preventive actions"
 msgstr ""
 
-#: front/officialcontact.php:32
-msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
-msgstr ""
-
-#: front/officialcontact.php:33 front/operatingprocedure.php:32
-msgid "The register could not be archived."
-msgstr ""
-
 #: front/officialcontactnotification.form.php:47
 msgid "Contact recorded."
 msgstr ""
@@ -766,7 +760,11 @@ msgstr ""
 msgid "The register has been archived as evidence on control A.5.37."
 msgstr ""
 
-#: front/parkmachines.php:26 src/Menu.php:168
+#: front/operatingprocedure.php:32
+msgid "The register could not be archived."
+msgstr ""
+
+#: front/parkmachines.php:26 src/Menu.php:171
 msgid "Most exposed machines"
 msgstr ""
 
@@ -931,7 +929,6 @@ msgstr ""
 #: src/NotificationTargetControl.php:145
 #: templates/data_subject_request_form.html.twig
 #: templates/park_vulnerabilities.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/policy_acknowledgement_report.html.twig
 #: templates/pdf/postmortem_report.html.twig
 msgid "Deadline"
@@ -1286,7 +1283,7 @@ msgid ""
 "check the others."
 msgstr ""
 
-#: front/softwarewatch.php:69 src/Menu.php:161
+#: front/softwarewatch.php:69 src/Menu.php:164
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
@@ -1686,7 +1683,7 @@ msgstr[1] ""
 
 #: inc/securityincident.class.php:92 inc/securityincident.class.php:1182
 #: templates/_official_contact_rows.html.twig
-#: templates/pdf/_official_contacts_table.html.twig
+#: templates/pdf/official_contacts_report.html.twig
 msgid "Data breach"
 msgstr ""
 
@@ -1705,7 +1702,7 @@ msgstr ""
 #: inc/securityincident.class.php:96 inc/securityincident.class.php:177
 #: inc/securityincident.class.php:1190 src/CompetenceDeclaration.php:92
 #: src/ComplianceEvent.php:120 src/ComplianceEvent.php:211
-#: src/ContextItem.php:150 src/ContextItem.php:166 src/ContextItem.php:186
+#: src/ContextItem.php:146 src/ContextItem.php:162 src/ContextItem.php:182
 #: src/CrisisMessageTemplate.php:64 src/EbiosStakeholder.php:51
 #: src/IsmsFunction.php:139 src/NetworkFlow.php:91
 #: src/ProcessingActivity.php:151 src/ProcessingActivity.php:168
@@ -1879,7 +1876,7 @@ msgstr ""
 msgid "Subject to NIS2"
 msgstr ""
 
-#: inc/securityincident.class.php:854 src/CrisisCommunication.php:190
+#: inc/securityincident.class.php:854 src/CrisisCommunication.php:187
 #: src/CrisisMessageTemplate.php:61 templates/itil_regulatory_section.html.twig
 msgid "Personal data breach"
 msgstr ""
@@ -1933,6 +1930,7 @@ msgstr ""
 #: templates/official_contact_tab.html.twig templates/pdf/acn_report.html.twig
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/pdf/recyf_report.html.twig
 #: templates/processing_activity_form.html.twig templates/risk_import.html.twig
@@ -2425,7 +2423,7 @@ msgstr ""
 msgid "Applicability"
 msgstr ""
 
-#: src/AcnRequirement.php:754 src/ContextItem.php:853 src/ContextItem.php:943
+#: src/AcnRequirement.php:754 src/ContextItem.php:837 src/ContextItem.php:927
 #: src/Control.php:1049 src/NetworkFlow.php:265 src/RecyfRequirement.php:556
 #: src/RiskRegisterImport.php:610 templates/acn_requirement_form.html.twig
 #: templates/application_security_tab.html.twig
@@ -2452,7 +2450,7 @@ msgid "Implementation status"
 msgstr ""
 
 #: src/AcnRequirement.php:756 src/AcnRequirement.php:834
-#: src/BusinessProcess.php:566 src/BusinessProcess.php:638
+#: src/BusinessProcess.php:562 src/BusinessProcess.php:634
 #: src/CertificationResponse.php:248 src/ComplianceEvent.php:231
 #: src/EbiosStudy.php:598 src/IsmsRequirement.php:300 src/Nonconformity.php:387
 #: src/RecyfRequirement.php:558 src/RecyfRequirement.php:618
@@ -2509,7 +2507,7 @@ msgstr ""
 msgid "Point"
 msgstr ""
 
-#: src/AcnRequirement.php:845 src/ContextItem.php:958 src/Control.php:1065
+#: src/AcnRequirement.php:845 src/ContextItem.php:942 src/Control.php:1065
 #: src/IsmsRequirement.php:317 src/RecyfRequirement.php:629
 msgid "Last update"
 msgstr ""
@@ -2895,7 +2893,8 @@ msgstr ""
 msgid "Free item"
 msgstr ""
 
-#: src/AuditChecklist.php:329 templates/pdf/soa_report.html.twig
+#: src/AuditChecklist.php:329 src/EvidencePack.php:295
+#: templates/pdf/soa_report.html.twig
 msgid "ISMS requirements (clauses 4 to 10)"
 msgstr ""
 
@@ -3220,9 +3219,9 @@ msgstr ""
 
 #: src/AuditLog.php:236 templates/_official_contact_rows.html.twig
 #: templates/audit_log.html.twig templates/crisis_room.html.twig
-#: templates/pdf/_official_contacts_table.html.twig
 #: templates/pdf/action_log.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/official_contacts_report.html.twig
 #: templates/pdf/postmortem_report.html.twig
 #: templates/pdf/remediation_plan.html.twig
 msgid "Incident"
@@ -3658,7 +3657,7 @@ msgstr ""
 msgid "Generated on %1$s by %2$s"
 msgstr ""
 
-#: src/BusinessProcess.php:567 src/BusinessProcess.php:646
+#: src/BusinessProcess.php:563 src/BusinessProcess.php:642
 #: src/NotificationTargetBusinessProcess.php:163
 #: templates/business_process_form.html.twig
 #: templates/pdf/business_continuity_report.html.twig
@@ -3666,7 +3665,7 @@ msgstr ""
 msgid "Business criticality"
 msgstr ""
 
-#: src/BusinessProcess.php:568 src/BusinessProcess.php:650
+#: src/BusinessProcess.php:564 src/BusinessProcess.php:646
 #: templates/business_process_form.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/tabs/business_impact.html.twig
@@ -3676,52 +3675,52 @@ msgstr ""
 msgid "MTPD"
 msgstr ""
 
-#: src/BusinessProcess.php:571 src/BusinessProcess.php:663
+#: src/BusinessProcess.php:567 src/BusinessProcess.php:659
 #: src/NotificationTargetBusinessProcess.php:166
 #: templates/business_process_form.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 msgid "Last business impact analysis"
 msgstr ""
 
-#: src/BusinessProcess.php:574
+#: src/BusinessProcess.php:570
 #, php-format
 msgid "Worst impact after %s"
 msgstr ""
 
-#: src/BusinessProcess.php:576 src/ImpactAnalysis.php:229
+#: src/BusinessProcess.php:572 src/ImpactAnalysis.php:229
 msgid "Depends on"
 msgstr ""
 
-#: src/BusinessProcess.php:577
+#: src/BusinessProcess.php:573
 msgid "Items not meeting the objectives"
 msgstr ""
 
-#: src/BusinessProcess.php:578
+#: src/BusinessProcess.php:574
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/tabs/business_process_items.html.twig
 #: templates/tabs/business_process_links.html.twig
 msgid "Consistency checks"
 msgstr ""
 
-#: src/BusinessProcess.php:579 src/NotificationTargetBusinessProcess.php:168
+#: src/BusinessProcess.php:575 src/NotificationTargetBusinessProcess.php:168
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 msgid "Recovery time measured at the last test"
 msgstr ""
 
-#: src/BusinessProcess.php:676
+#: src/BusinessProcess.php:672
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 msgid "Degraded mode"
 msgstr ""
 
-#: src/BusinessProcess.php:680
+#: src/BusinessProcess.php:676
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 msgid "Backup solution"
 msgstr ""
 
-#: src/BusinessProcess.php:684
+#: src/BusinessProcess.php:680
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 msgid "Recovery procedure"
@@ -4733,6 +4732,7 @@ msgstr ""
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
 #: templates/pdf/control_test_record.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/physical_security_checklist_tab.html.twig
 msgid "Evidence"
 msgstr ""
@@ -5083,7 +5083,7 @@ msgid "Legal"
 msgstr ""
 
 #: src/ComplianceObligation.php:97 src/ComplianceObligation.php:317
-#: src/ContextItem.php:142
+#: src/ContextItem.php:138
 msgid "Regulatory"
 msgstr ""
 
@@ -5119,8 +5119,8 @@ msgstr ""
 msgid "Compliance status"
 msgstr ""
 
-#: src/ComplianceObligation.php:222 src/ContextItem.php:857
-#: src/ContextItem.php:933 src/NetworkFlow.php:266 src/Objective.php:190
+#: src/ComplianceObligation.php:222 src/ContextItem.php:841
+#: src/ContextItem.php:917 src/NetworkFlow.php:266 src/Objective.php:190
 #: src/Policy.php:202 src/ProcessingActivity.php:571
 #: src/ProcessingActivity.php:997 src/Risk.php:393 src/RiskIndicator.php:754
 #: src/RiskRegisterImport.php:611 src/RiskRegisterImport.php:612
@@ -5139,8 +5139,8 @@ msgctxt "owner"
 msgid "Owner"
 msgstr ""
 
-#: src/ComplianceObligation.php:231 src/ContextItem.php:858
-#: src/ContextItem.php:937 src/ManagementReview.php:328
+#: src/ComplianceObligation.php:231 src/ContextItem.php:842
+#: src/ContextItem.php:921 src/ManagementReview.php:328
 #: src/NotificationTargetComplianceObligation.php:94
 #: src/NotificationTargetContextItem.php:141 src/NotificationTargetRisk.php:96
 #: src/NotificationTargetSupplierRisk.php:119 src/Risk.php:410
@@ -5613,155 +5613,155 @@ msgstr ""
 msgid "ISMS consistency checks: audit readiness"
 msgstr ""
 
-#: src/ContextItem.php:95
+#: src/ContextItem.php:91
 msgid "Issue or interested party"
 msgid_plural "Issues and interested parties"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ContextItem.php:124 templates/context_item_form.html.twig
+#: src/ContextItem.php:120 templates/context_item_form.html.twig
 msgid "Internal or external issue"
 msgstr ""
 
-#: src/ContextItem.php:125 templates/context_item_form.html.twig
+#: src/ContextItem.php:121 templates/context_item_form.html.twig
 msgid "Interested party"
 msgstr ""
 
-#: src/ContextItem.php:133 src/CrisisMessageTemplate.php:86
+#: src/ContextItem.php:129 src/CrisisMessageTemplate.php:86
 msgid "Internal"
 msgstr ""
 
-#: src/ContextItem.php:134 src/CrisisMessageTemplate.php:87
+#: src/ContextItem.php:130 src/CrisisMessageTemplate.php:87
 msgid "External"
 msgstr ""
 
-#: src/ContextItem.php:143 src/Control.php:131
+#: src/ContextItem.php:139 src/Control.php:131
 msgid "Technological"
 msgstr ""
 
-#: src/ContextItem.php:144
+#: src/ContextItem.php:140
 msgid "Economic"
 msgstr ""
 
-#: src/ContextItem.php:145
+#: src/ContextItem.php:141
 msgid "Human"
 msgstr ""
 
-#: src/ContextItem.php:146
+#: src/ContextItem.php:142
 msgid "Organisational"
 msgstr ""
 
-#: src/ContextItem.php:147
+#: src/ContextItem.php:143
 msgid "Political"
 msgstr ""
 
-#: src/ContextItem.php:148
+#: src/ContextItem.php:144
 msgid "Environmental"
 msgstr ""
 
-#: src/ContextItem.php:149 src/ContextItem.php:1079
+#: src/ContextItem.php:145 src/ContextItem.php:1063
 #: templates/context_overview.html.twig templates/pdf/context_report.html.twig
 msgid "Climate change"
 msgstr ""
 
-#: src/ContextItem.php:158 src/EbiosStakeholder.php:49
+#: src/ContextItem.php:154 src/EbiosStakeholder.php:49
 msgid "Customer"
 msgstr ""
 
-#: src/ContextItem.php:159
+#: src/ContextItem.php:155
 msgid "Authority or regulator"
 msgstr ""
 
-#: src/ContextItem.php:160 src/ProcessingActivity.php:142
+#: src/ContextItem.php:156 src/ProcessingActivity.php:142
 msgid "Employees"
 msgstr ""
 
-#: src/ContextItem.php:161
+#: src/ContextItem.php:157
 msgid "Supplier or service provider"
 msgstr ""
 
-#: src/ContextItem.php:162
+#: src/ContextItem.php:158
 msgid "Shareholder or owner"
 msgstr ""
 
-#: src/ContextItem.php:163 src/EbiosStakeholder.php:48
+#: src/ContextItem.php:159 src/EbiosStakeholder.php:48
 msgid "Partner"
 msgstr ""
 
-#: src/ContextItem.php:164 src/ContextItem.php:184
+#: src/ContextItem.php:160 src/ContextItem.php:180
 msgid "Insurer"
 msgstr ""
 
-#: src/ContextItem.php:165
+#: src/ContextItem.php:161
 msgid "Neighbours and public"
 msgstr ""
 
-#: src/ContextItem.php:178
+#: src/ContextItem.php:174
 msgid "Supervisory authority (e.g. data protection)"
 msgstr ""
 
-#: src/ContextItem.php:179
+#: src/ContextItem.php:175
 msgid "CSIRT or national cyber security agency"
 msgstr ""
 
-#: src/ContextItem.php:180
+#: src/ContextItem.php:176
 msgid "Law enforcement"
 msgstr ""
 
-#: src/ContextItem.php:181
+#: src/ContextItem.php:177
 msgid "Local or state authority"
 msgstr ""
 
-#: src/ContextItem.php:182
+#: src/ContextItem.php:178
 msgid "Sector regulator"
 msgstr ""
 
-#: src/ContextItem.php:183
+#: src/ContextItem.php:179
 msgid "Special interest group (CERT, association, forum)"
 msgstr ""
 
-#: src/ContextItem.php:185
+#: src/ContextItem.php:181
 msgid "Hosting provider"
 msgstr ""
 
-#: src/ContextItem.php:194 src/Risk.php:509 src/Risk.php:663 src/Risk.php:664
+#: src/ContextItem.php:190 src/Risk.php:509 src/Risk.php:663 src/Risk.php:664
 msgid "To be assessed"
 msgstr ""
 
-#: src/ContextItem.php:195
+#: src/ContextItem.php:191
 msgid "Retained by the ISMS"
 msgstr ""
 
-#: src/ContextItem.php:196
+#: src/ContextItem.php:192
 msgid "Not retained"
 msgstr ""
 
-#: src/ContextItem.php:359
+#: src/ContextItem.php:343
 msgid "Give the issue or the interested party a name."
 msgstr ""
 
-#: src/ContextItem.php:362
+#: src/ContextItem.php:346
 msgid ""
 "Explain why climate change is or is not a relevant issue: auditors check "
 "this justification."
 msgstr ""
 
-#: src/ContextItem.php:365
+#: src/ContextItem.php:349
 msgid "Explain why this item is not retained by the ISMS."
 msgstr ""
 
-#: src/ContextItem.php:844 src/ContextItem.php:919
+#: src/ContextItem.php:828 src/ContextItem.php:903
 #: src/NotificationTargetContextItem.php:139
 #: templates/context_linked_tab.html.twig
 msgid "Kind"
 msgstr ""
 
-#: src/ContextItem.php:846 src/ContextItem.php:920
+#: src/ContextItem.php:830 src/ContextItem.php:904
 #: templates/context_item_form.html.twig
 msgid "Internal or external"
 msgstr ""
 
-#: src/ContextItem.php:847 src/ContextItem.php:921
+#: src/ContextItem.php:831 src/ContextItem.php:905
 #: src/NotificationTargetRisk.php:94
 #: src/NotificationTargetRiskIndicator.php:156
 #: src/NotificationTargetSupplierRisk.php:117 src/Playbook.php:214
@@ -5774,27 +5774,27 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: src/ContextItem.php:848 src/ContextItem.php:922
+#: src/ContextItem.php:832 src/ContextItem.php:906
 #: templates/context_item_form.html.twig
 msgid "Type of interested party"
 msgstr ""
 
-#: src/ContextItem.php:849 src/ContextItem.php:940
+#: src/ContextItem.php:833 src/ContextItem.php:924
 #: templates/context_item_form.html.twig templates/pdf/context_report.html.twig
 msgid "Needs and expectations"
 msgstr ""
 
-#: src/ContextItem.php:850 src/ContextItem.php:941
+#: src/ContextItem.php:834 src/ContextItem.php:925
 #: templates/context_item_form.html.twig templates/pdf/context_report.html.twig
 msgid "Requirements retained by the ISMS"
 msgstr ""
 
-#: src/ContextItem.php:851 src/ContextItem.php:942
+#: src/ContextItem.php:835 src/ContextItem.php:926
 #: templates/context_item_form.html.twig templates/pdf/context_report.html.twig
 msgid "Effect on the ISMS"
 msgstr ""
 
-#: src/ContextItem.php:852 src/ContextItem.php:923
+#: src/ContextItem.php:836 src/ContextItem.php:907
 #: src/NotificationTargetContextItem.php:140
 #: src/NotificationTargetPolicyVersion.php:142
 #: templates/context_item_form.html.twig templates/context_linked_tab.html.twig
@@ -5808,22 +5808,22 @@ msgstr ""
 msgid "Decision"
 msgstr ""
 
-#: src/ContextItem.php:854 templates/context_item_form.html.twig
+#: src/ContextItem.php:838 templates/context_item_form.html.twig
 #: templates/impact_tab.html.twig templates/pdf/_context_links_cell.html.twig
 msgid "Related risks"
 msgstr ""
 
-#: src/ContextItem.php:855 templates/context_item_form.html.twig
+#: src/ContextItem.php:839 templates/context_item_form.html.twig
 #: templates/pdf/_context_links_cell.html.twig
 msgid "Related obligations"
 msgstr ""
 
-#: src/ContextItem.php:856 templates/context_item_form.html.twig
+#: src/ContextItem.php:840 templates/context_item_form.html.twig
 #: templates/pdf/_context_links_cell.html.twig
 msgid "Controls that respond"
 msgstr ""
 
-#: src/ContextItem.php:859 src/ContextItem.php:962
+#: src/ContextItem.php:843 src/ContextItem.php:946
 #: src/ProcessingActivity.php:574 src/ProcessingActivity.php:1010
 #: templates/context_item_form.html.twig
 #: templates/pdf/_context_review_cell.html.twig
@@ -5832,11 +5832,11 @@ msgstr ""
 msgid "Last review"
 msgstr ""
 
-#: src/ContextItem.php:860 src/ContextItem.php:966
+#: src/ContextItem.php:844 src/ContextItem.php:950
 msgid "Last reviewed by"
 msgstr ""
 
-#: src/ContextItem.php:972 src/OfficialContact.php:55
+#: src/ContextItem.php:956 src/OfficialContact.php:51
 #: templates/context_item_form.html.twig
 #: templates/official_contact_tab.html.twig
 #: templates/pdf/crisis_scenarios_report.html.twig
@@ -5846,35 +5846,34 @@ msgid_plural "Official contacts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ContextItem.php:976 src/NotificationTargetContextItem.php:142
+#: src/ContextItem.php:960 src/NotificationTargetContextItem.php:142
 #: templates/context_item_form.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
 msgid "Contact category"
 msgstr ""
 
-#: src/ContextItem.php:981 src/NotificationTargetContextItem.php:143
+#: src/ContextItem.php:965 src/NotificationTargetContextItem.php:143
 #: templates/context_item_form.html.twig
-#: templates/pdf/_official_contacts_table.html.twig
+#: templates/pdf/official_contacts_report.html.twig
 msgid "Last verification"
 msgstr ""
 
-#: src/ContextItem.php:985 templates/_official_contact_rows.html.twig
+#: src/ContextItem.php:969 templates/_official_contact_rows.html.twig
 #: templates/context_item_form.html.twig
-#: templates/pdf/_official_contacts_table.html.twig
+#: templates/pdf/official_contacts_report.html.twig
 msgid "Time limit"
 msgstr ""
 
-#: src/ContextItem.php:989 templates/_official_contact_rows.html.twig
+#: src/ContextItem.php:973 templates/_official_contact_rows.html.twig
 #: templates/context_item_form.html.twig
 msgid "To contact for a security incident"
 msgstr ""
 
-#: src/ContextItem.php:993 templates/_official_contact_rows.html.twig
+#: src/ContextItem.php:977 templates/_official_contact_rows.html.twig
 #: templates/context_item_form.html.twig
 msgid "To contact for a personal data breach"
 msgstr ""
 
-#: src/ContextItem.php:1174
+#: src/ContextItem.php:1152
 #, php-format
 msgid "%d context item(s) awaiting review, %d notification(s) raised."
 msgstr ""
@@ -6999,7 +6998,7 @@ msgstr ""
 msgid "This CPE identifier is already attached to product \"%s / %s\"."
 msgstr ""
 
-#: src/CrisisCommunication.php:65 src/SecurityIncidentPostMortem.php:143
+#: src/CrisisCommunication.php:62 src/SecurityIncidentPostMortem.php:143
 #: templates/_crisis_communication_summary.html.twig
 #: templates/control_form.html.twig templates/crisis_scenario_form.html.twig
 #: templates/pdf/crisis_scenarios_report.html.twig
@@ -7009,40 +7008,40 @@ msgid_plural "Crisis communications"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/CrisisCommunication.php:211
+#: src/CrisisCommunication.php:208
 msgid "[to be completed]"
 msgstr ""
 
-#: src/CrisisCommunication.php:299
+#: src/CrisisCommunication.php:296
 msgid "You are not allowed to record a communication on this item."
 msgstr ""
 
-#: src/CrisisCommunication.php:304
+#: src/CrisisCommunication.php:301
 msgid "Choose an active message template."
 msgstr ""
 
-#: src/CrisisCommunication.php:309
+#: src/CrisisCommunication.php:306
 msgid "The subject and the message are required."
 msgstr ""
 
-#: src/CrisisCommunication.php:327
+#: src/CrisisCommunication.php:320
 msgid "Tick or type at least one recipient."
 msgstr ""
 
-#: src/CrisisCommunication.php:332
+#: src/CrisisCommunication.php:325
 msgid "The date of the communication is invalid or in the future."
 msgstr ""
 
-#: src/CrisisCommunication.php:347
+#: src/CrisisCommunication.php:340
 msgid "The communication could not be recorded."
 msgstr ""
 
-#: src/CrisisCommunication.php:374
+#: src/CrisisCommunication.php:362
 #, php-format
 msgid "Crisis communication made on %1$s: \"%2$s\"."
 msgstr ""
 
-#: src/CrisisCommunication.php:378 src/SecurityIncidentPostMortem.php:145
+#: src/CrisisCommunication.php:366 src/SecurityIncidentPostMortem.php:145
 #, php-format
 msgid "Recipients: %s"
 msgstr ""
@@ -7161,22 +7160,22 @@ msgstr ""
 msgid "Target: %d min after the crisis team was activated."
 msgstr ""
 
-#: src/CrisisExercise.php:665
+#: src/CrisisExercise.php:637
 #, php-format
 msgid "Crisis exercise report: %s"
 msgstr ""
 
-#: src/CrisisExercise.php:666
+#: src/CrisisExercise.php:638
 #, php-format
 msgid "Crisis team report: %s"
 msgstr ""
 
-#: src/CrisisExercise.php:682
+#: src/CrisisExercise.php:654
 #, php-format
 msgid "Crisis exercise report - %s"
 msgstr ""
 
-#: src/CrisisExercise.php:683
+#: src/CrisisExercise.php:655
 #, php-format
 msgid "Crisis team report - %s"
 msgstr ""
@@ -9077,6 +9076,85 @@ msgstr ""
 msgid "Renew the evidence \"%s\""
 msgstr ""
 
+#: src/EvidencePack.php:77 templates/pdf/evidence_pack_index.html.twig
+msgid "Evidence pack"
+msgid_plural "Evidence packs"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/EvidencePack.php:262
+msgid "Annex A controls (Statement of Applicability)"
+msgstr ""
+
+#: src/EvidencePack.php:313
+msgid "Approved versions of the Statement of Applicability"
+msgstr ""
+
+#: src/EvidencePack.php:314
+msgid "Approved policy versions"
+msgstr ""
+
+#: src/EvidencePack.php:315 src/ResponsibilityActivity.php:804
+msgid "ISMS responsibility matrix"
+msgstr ""
+
+#: src/EvidencePack.php:316
+msgid "Competence records"
+msgstr ""
+
+#: src/EvidencePack.php:317
+msgid "Audit reports and audit evidence"
+msgstr ""
+
+#: src/EvidencePack.php:318
+msgid "Management review files"
+msgstr ""
+
+#: src/EvidencePack.php:319
+msgid "Access review reports"
+msgstr ""
+
+#: src/EvidencePack.php:349
+msgid "Reports archived by the plugin"
+msgstr ""
+
+#: src/EvidencePack.php:503 templates/pdf/management_review_dossier.html.twig
+msgid "Included"
+msgstr ""
+
+#: src/EvidencePack.php:506
+msgid "Expired, not included"
+msgstr ""
+
+#: src/EvidencePack.php:509
+msgid "No file"
+msgstr ""
+
+#: src/EvidencePack.php:512
+msgid "Size limit reached, not included"
+msgstr ""
+
+#: src/EvidencePack.php:532
+msgid "This perimeter is not among your active entities."
+msgstr ""
+
+#: src/EvidencePack.php:535
+msgid "The PHP zip extension is missing on the server."
+msgstr ""
+
+#: src/EvidencePack.php:547 src/EvidencePack.php:573
+msgid "The archive could not be created."
+msgstr ""
+
+#: src/EvidencePack.php:601
+#, php-format
+msgid "Evidence pack - %1$s (%2$s)"
+msgstr ""
+
+#: src/EvidencePack.php:618
+msgid "The archive could not be stored as a document."
+msgstr ""
+
 #: src/FrameworkAssessment.php:72 templates/custom_framework_form.html.twig
 #: templates/framework_assessment.html.twig templates/recyf_register.html.twig
 msgid "Assessment by framework"
@@ -10280,7 +10358,7 @@ msgstr ""
 #: src/NotificationTargetContextItem.php:51
 #: templates/_official_contact_rows.html.twig
 #: templates/context_item_form.html.twig
-#: templates/pdf/_official_contacts_table.html.twig
+#: templates/pdf/official_contacts_report.html.twig
 msgid "Authorised internal contact"
 msgstr ""
 
@@ -10292,7 +10370,7 @@ msgstr ""
 #: src/NotificationTargetContextItem.php:118
 #: templates/_official_contact_rows.html.twig
 #: templates/context_item_form.html.twig
-#: templates/pdf/_official_contacts_table.html.twig
+#: templates/pdf/official_contacts_report.html.twig
 msgid "Never verified"
 msgstr ""
 
@@ -10830,137 +10908,126 @@ msgid ""
 "objective)."
 msgstr ""
 
-#: src/OfficialContact.php:258
-#, php-format
-msgid "Register of official contacts - %s"
-msgstr ""
-
-#: src/OfficialContact.php:352 templates/control_form.html.twig
+#: src/OfficialContact.php:222 templates/control_form.html.twig
 msgid "Register of official contacts"
 msgstr ""
 
-#: src/OfficialContact.php:500
+#: src/OfficialContact.php:341
 msgid "Awareness of the breach"
 msgstr ""
 
-#: src/OfficialContact.php:501
+#: src/OfficialContact.php:342
 msgid "Detection of the incident"
 msgstr ""
 
-#: src/OfficialContact.php:505
+#: src/OfficialContact.php:346
 msgid ""
 "Official contacts to inform for a personal data breach, with the time limit "
 "and the person allowed to contact them."
 msgstr ""
 
-#: src/OfficialContact.php:510
+#: src/OfficialContact.php:351
 msgid ""
 "Official contacts to inform for a security incident, with the time limit and "
 "the person allowed to contact them."
 msgstr ""
 
-#: src/OfficialContact.php:560
+#: src/OfficialContact.php:401
 msgid "Reminds the owner of each official contact not verified for 12 months"
 msgstr ""
 
-#: src/OfficialContact.php:574
+#: src/OfficialContact.php:415
 #, php-format
 msgid "%1$d official contact(s) to verify, %2$d reminder(s) sent."
 msgstr ""
 
-#: src/OfficialContactNotification.php:70
+#: src/OfficialContactNotification.php:67
 #: templates/official_contact_tab.html.twig
 msgid "Recorded contact"
 msgid_plural "Recorded contacts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/OfficialContactNotification.php:91
+#: src/OfficialContactNotification.php:88
 msgid "Contacted or notified"
 msgstr ""
 
-#: src/OfficialContactNotification.php:92
+#: src/OfficialContactNotification.php:89
 msgid "Not required (decision)"
 msgstr ""
 
-#: src/OfficialContactNotification.php:105
+#: src/OfficialContactNotification.php:102
 msgid "Contacted on time"
 msgstr ""
 
-#: src/OfficialContactNotification.php:110
+#: src/OfficialContactNotification.php:107
 msgid "Contacted late"
 msgstr ""
 
-#: src/OfficialContactNotification.php:115
+#: src/OfficialContactNotification.php:112
 msgid "Not required (decision recorded)"
 msgstr ""
 
-#: src/OfficialContactNotification.php:120
+#: src/OfficialContactNotification.php:117
 msgid "To contact"
 msgstr ""
 
-#: src/OfficialContactNotification.php:125
+#: src/OfficialContactNotification.php:122
 msgid "Deadline passed, nothing recorded"
 msgstr ""
 
-#: src/OfficialContactNotification.php:211
+#: src/OfficialContactNotification.php:208
 msgid "Contact not visible to you"
 msgstr ""
 
-#: src/OfficialContactNotification.php:272
-#: src/OfficialContactNotification.php:410
+#: src/OfficialContactNotification.php:268
+#: src/OfficialContactNotification.php:321
 msgid "You are not allowed to record a contact on this item."
 msgstr ""
 
-#: src/OfficialContactNotification.php:277
+#: src/OfficialContactNotification.php:273
 msgid "Choose an official contact from the register."
 msgstr ""
 
-#: src/OfficialContactNotification.php:299
+#: src/OfficialContactNotification.php:295
 msgid "The contact could not be recorded."
 msgstr ""
 
-#: src/OfficialContactNotification.php:302
-#: src/OfficialContactNotification.php:372
+#: src/OfficialContactNotification.php:298
 #, php-format
 msgid "Official contact %1$s: %2$s on %3$s"
 msgstr ""
 
-#: src/OfficialContactNotification.php:346
-#, php-format
-msgid "Crisis communication: \"%s\""
-msgstr ""
-
-#: src/OfficialContactNotification.php:406
+#: src/OfficialContactNotification.php:317
 msgid "This recorded contact no longer exists."
 msgstr ""
 
-#: src/OfficialContactNotification.php:413
+#: src/OfficialContactNotification.php:324
 msgid "The recorded contact could not be removed."
 msgstr ""
 
-#: src/OfficialContactNotification.php:416
+#: src/OfficialContactNotification.php:327
 #, php-format
 msgid "Recorded contact of %s removed"
 msgstr ""
 
-#: src/OfficialContactNotification.php:434
+#: src/OfficialContactNotification.php:345
 msgid "Give the reason why this contact did not need to be informed."
 msgstr ""
 
-#: src/OfficialContactNotification.php:437
+#: src/OfficialContactNotification.php:348
 msgid "Enter the date and time of the contact."
 msgstr ""
 
-#: src/OfficialContactNotification.php:438
+#: src/OfficialContactNotification.php:349
 msgid "The date of the contact cannot be in the future."
 msgstr ""
 
-#: src/OfficialContactNotification.php:440
+#: src/OfficialContactNotification.php:351
 msgid "The contact cannot be dated before the start of the event."
 msgstr ""
 
-#: src/OfficialContactNotification.php:443
+#: src/OfficialContactNotification.php:354
 msgid "Say whether the contact was informed or not required."
 msgstr ""
 
@@ -11580,44 +11647,36 @@ msgid ""
 "time limit and who is allowed to call them."
 msgstr ""
 
-#: src/PageHelp.php:512
-msgid ""
-"Record each official contact, tick the events (and, if needed, the types of "
-"incident) for which it must be informed, verify the details at least once a "
-"year, keep a printed copy of the register (PDF) for use during a crisis, and "
-"archive it on controls A.5.5 and A.5.6 after each review."
-msgstr ""
-
-#: src/PageHelp.php:518
+#: src/PageHelp.php:517
 msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
 msgstr ""
 
-#: src/PageHelp.php:522
+#: src/PageHelp.php:521
 msgid ""
 "Who performs, approves, is consulted on or is informed of each activity of "
 "the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
 "approvers are reported here."
 msgstr ""
 
-#: src/PageHelp.php:527
+#: src/PageHelp.php:526
 msgid ""
 "For each activity, add who performs it and a single approver, mark the "
 "sensitive activities, fix the alerts, then archive the matrix as evidence "
 "before the audit."
 msgstr ""
 
-#: src/PageHelp.php:531
+#: src/PageHelp.php:530
 msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
 msgstr ""
 
-#: src/PageHelp.php:536
+#: src/PageHelp.php:535
 msgid ""
 "The competences each ISMS function needs (CISO, DPO, administrator...), who "
 "holds each function, what each person has acquired through passed trainings "
 "or declared evidence, and the gaps."
 msgstr ""
 
-#: src/PageHelp.php:541
+#: src/PageHelp.php:540
 msgid ""
 "Add the functions and their required competences with the expected level, "
 "say who holds them, link the trainings that give each competence, declare "
@@ -11625,41 +11684,41 @@ msgid ""
 "file as evidence before the audit."
 msgstr ""
 
-#: src/PageHelp.php:546 src/PageHelp.php:558 src/PageHelp.php:571
+#: src/PageHelp.php:545 src/PageHelp.php:557 src/PageHelp.php:570
 msgid "ISO/IEC 27001, clause 7.2"
 msgstr ""
 
-#: src/PageHelp.php:550
+#: src/PageHelp.php:549
 msgid ""
 "The catalogue of the information security competences of the organization, "
 "and the trainings that give each one once passed."
 msgstr ""
 
-#: src/PageHelp.php:555
+#: src/PageHelp.php:554
 msgid ""
 "Describe each competence and link the trainings that give it, with the level "
 "reached."
 msgstr ""
 
-#: src/PageHelp.php:562
+#: src/PageHelp.php:561
 msgid ""
 "The competences acquired outside the trainings of the plugin, each one with "
 "its evidence: certificate, diploma, annual review or proven experience."
 msgstr ""
 
-#: src/PageHelp.php:567
+#: src/PageHelp.php:566
 msgid ""
 "Record the reference of the evidence, its date and its end of validity, and "
 "attach the file in the Documents tab."
 msgstr ""
 
-#: src/PageHelp.php:575
+#: src/PageHelp.php:574
 msgid ""
 "The register of personal data breaches: every breach is documented, whether "
 "or not it was notified, with its facts, effects and the measures taken."
 msgstr ""
 
-#: src/PageHelp.php:580
+#: src/PageHelp.php:579
 msgid ""
 "Record each breach as soon as it is known (from the security incident when "
 "there is one), decide within 72 h whether to notify the supervisory "
@@ -11667,82 +11726,82 @@ msgid ""
 "then export the register when the authority asks for it."
 msgstr ""
 
-#: src/PageHelp.php:586
+#: src/PageHelp.php:585
 msgid "GDPR, articles 33 and 34"
 msgstr ""
 
-#: src/PageHelp.php:590
+#: src/PageHelp.php:589
 msgid ""
 "The internal audit programme: scope, dates, auditors, report and findings."
 msgstr ""
 
-#: src/PageHelp.php:594
+#: src/PageHelp.php:593
 msgid ""
 "Plan the year's audits, enter the report and the findings; each "
 "nonconformity opens an action plan."
 msgstr ""
 
-#: src/PageHelp.php:598
+#: src/PageHelp.php:597
 msgid "ISO 27001, 9.2"
 msgstr ""
 
-#: src/PageHelp.php:603
+#: src/PageHelp.php:602
 msgid ""
 "The internal audit programme over the certification cycle: which ISMS "
 "process is audited which year, and which one is not covered yet."
 msgstr ""
 
-#: src/PageHelp.php:608
+#: src/PageHelp.php:607
 msgid ""
 "Make sure every process is audited at least once over the cycle: plan an "
 "audit for each process in red or orange, and choose its processes in the "
 "\"Programme and independence\" tab of the audit."
 msgstr ""
 
-#: src/PageHelp.php:613
+#: src/PageHelp.php:612
 msgid "ISO 27001, 9.2.2; ISO 19011, 5"
 msgstr ""
 
-#: src/PageHelp.php:617
+#: src/PageHelp.php:616
 msgid ""
 "Nonconformities and observations, with their corrective and preventive "
 "actions (CAPA)."
 msgstr ""
 
-#: src/PageHelp.php:621
+#: src/PageHelp.php:620
 msgid ""
 "Analyse the cause, describe the corrective action, assign an owner and a due "
 "date, then check its effectiveness before closing."
 msgstr ""
 
-#: src/PageHelp.php:625
+#: src/PageHelp.php:624
 msgid "ISO 27001, 10.2"
 msgstr ""
 
-#: src/PageHelp.php:629
+#: src/PageHelp.php:628
 msgid ""
 "Security training and awareness sessions, with their participants and "
 "results."
 msgstr ""
 
-#: src/PageHelp.php:633
+#: src/PageHelp.php:632
 msgid ""
 "Record each session, its participants and its renewal date; a reminder is "
 "sent when it is due."
 msgstr ""
 
-#: src/PageHelp.php:636
+#: src/PageHelp.php:635
 msgid "ISO 27001, 7.2 and 7.3"
 msgstr ""
 
-#: src/PageHelp.php:641
+#: src/PageHelp.php:640
 msgid ""
 "Phishing simulations: the fake phishing campaigns sent with an external tool "
 "(GoPhish, a provider...), their results and the trend from one campaign to "
 "the next. The plugin never sends any email."
 msgstr ""
 
-#: src/PageHelp.php:647
+#: src/PageHelp.php:646
 msgid ""
 "Record each campaign (date, tool, scenario, targeted population), then "
 "import the results file of the tool in the Results tab. Offer a remedial "
@@ -11751,184 +11810,184 @@ msgid ""
 "is done."
 msgstr ""
 
-#: src/PageHelp.php:653 src/PageHelp.php:666
+#: src/PageHelp.php:652 src/PageHelp.php:665
 msgid "ISO/IEC 27001, clause 7.3 and control A.6.3"
 msgstr ""
 
-#: src/PageHelp.php:657
+#: src/PageHelp.php:656
 msgid ""
 "Import of the results of a phishing simulation: each line of the file is "
 "matched with a GLPI user by email address or login."
 msgstr ""
 
-#: src/PageHelp.php:662
+#: src/PageHelp.php:661
 msgid ""
 "Check the column of each field, then import. The lines not matched are "
 "listed on the campaign so that you can correct them."
 msgstr ""
 
-#: src/PageHelp.php:670
+#: src/PageHelp.php:669
 msgid ""
 "Management reviews: the periodic review of the information security "
 "management system by top management."
 msgstr ""
 
-#: src/PageHelp.php:675
+#: src/PageHelp.php:674
 msgid ""
 "At least once a year, prepare the review (indicators, audits, incidents, "
 "risks), record the decisions and the resulting actions."
 msgstr ""
 
-#: src/PageHelp.php:679
+#: src/PageHelp.php:678
 msgid "ISO 27001, 9.3"
 msgstr ""
 
-#: src/PageHelp.php:682
+#: src/PageHelp.php:681
 msgid "Security objectives and their indicators measured over time."
 msgstr ""
 
-#: src/PageHelp.php:684
+#: src/PageHelp.php:683
 msgid ""
 "Define measurable objectives, enter the measurements each period and track "
 "progress towards the target."
 msgstr ""
 
-#: src/PageHelp.php:688
+#: src/PageHelp.php:687
 msgid "ISO 27001, 6.2 and 9.1"
 msgstr ""
 
-#: src/PageHelp.php:692
+#: src/PageHelp.php:691
 msgid ""
 "Access rights review campaigns: each manager confirms or removes the rights "
 "of their team."
 msgstr ""
 
-#: src/PageHelp.php:696
+#: src/PageHelp.php:695
 msgid ""
 "Start a campaign; managers decide line by line. Removing a right opens a "
 "ticket, it is never applied automatically."
 msgstr ""
 
-#: src/PageHelp.php:700
+#: src/PageHelp.php:699
 msgid "ISO 27001, Annex A 5.18"
 msgstr ""
 
-#: src/PageHelp.php:704
+#: src/PageHelp.php:703
 msgid ""
 "Accounts to check: inactive accounts, accounts missing from the directory, "
 "duplicates or never used."
 msgstr ""
 
-#: src/PageHelp.php:709
+#: src/PageHelp.php:708
 msgid ""
 "Review the list and open a ticket for each account to disable; nothing is "
 "disabled automatically."
 msgstr ""
 
-#: src/PageHelp.php:716
+#: src/PageHelp.php:715
 msgid ""
 "Security compliance of each person: screening, confidentiality agreement, "
 "mandatory trainings, IT charter, security policies read, access review and "
 "account hygiene."
 msgstr ""
 
-#: src/PageHelp.php:721
+#: src/PageHelp.php:720
 msgid ""
 "Follow up the gaps with the person and their manager; nothing is changed "
 "automatically. The deadline for newcomers and the weight of each component "
 "are set in the plugin configuration."
 msgstr ""
 
-#: src/PageHelp.php:726
+#: src/PageHelp.php:725
 msgid "ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18"
 msgstr ""
 
-#: src/PageHelp.php:730
+#: src/PageHelp.php:729
 msgid ""
 "Periodic reviews (backups, logs, rights, continuity plan...) scheduled as "
 "recurring tickets."
 msgstr ""
 
-#: src/PageHelp.php:734
+#: src/PageHelp.php:733
 msgid ""
 "Enable the useful reviews and their frequency; a ticket is created at each "
 "due date for the person in charge."
 msgstr ""
 
-#: src/PageHelp.php:741
+#: src/PageHelp.php:740
 msgid ""
 "The matrix of authorised network flows: who talks to whom, on which port, "
 "and why."
 msgstr ""
 
-#: src/PageHelp.php:745
+#: src/PageHelp.php:744
 msgid ""
 "Describe each flow with its justification and owner, or import your firewall "
 "export, then review the matrix regularly."
 msgstr ""
 
-#: src/PageHelp.php:749
+#: src/PageHelp.php:748
 msgid "ISO 27001, Annex A 8.20 to 8.22"
 msgstr ""
 
-#: src/PageHelp.php:753
+#: src/PageHelp.php:752
 msgid ""
 "Work email addresses found in known data breaches (Have I Been Pwned), "
 "checked every day."
 msgstr ""
 
-#: src/PageHelp.php:757
+#: src/PageHelp.php:756
 msgid ""
 "For each new exposure, have the password changed (and enable multi-factor "
 "authentication) if passwords were exposed, then mark it as handled."
 msgstr ""
 
-#: src/PageHelp.php:761
+#: src/PageHelp.php:760
 msgid "ISO 27001, Annex A 5.7 and 5.17"
 msgstr ""
 
-#: src/PageHelp.php:765
+#: src/PageHelp.php:764
 msgid ""
 "The compliance calendar: all due dates (reviews, audits, renewals, "
 "obligations) in one place, also visible in the GLPI planning."
 msgstr ""
 
-#: src/PageHelp.php:770
+#: src/PageHelp.php:769
 msgid ""
 "Check it to anticipate due dates; subscribe your calendar with the iCal link."
 msgstr ""
 
-#: src/PageHelp.php:776
+#: src/PageHelp.php:775
 msgid ""
 "One-off compliance events to add to the calendar (regulator inspection, "
 "crisis exercise, contractual deadline...)."
 msgstr ""
 
-#: src/PageHelp.php:781
+#: src/PageHelp.php:780
 msgid ""
 "Add the event with its date and owner; it appears in the compliance calendar."
 msgstr ""
 
-#: src/PageHelp.php:787
+#: src/PageHelp.php:786
 msgid ""
 "The library of security policies, versioned, with their approval and review "
 "date."
 msgstr ""
 
-#: src/PageHelp.php:791
+#: src/PageHelp.php:790
 msgid ""
 "Upload each policy, have it approved, distribute it and review it when due."
 msgstr ""
 
-#: src/PageHelp.php:794
+#: src/PageHelp.php:793
 msgid "ISO 27001, 5.2; Annex A 5.1"
 msgstr ""
 
-#: src/PageHelp.php:798
+#: src/PageHelp.php:797
 msgid "Dated evidence (reports, attestations, certificates) and its validity."
 msgstr ""
 
-#: src/PageHelp.php:802
+#: src/PageHelp.php:801
 msgid ""
 "State how long each piece of evidence is valid; a renewal ticket is opened "
 "when it expires."
@@ -11936,54 +11995,76 @@ msgstr ""
 
 #: src/PageHelp.php:808
 msgid ""
+"Prepare the evidence pack the auditor asks for: one ZIP archive per "
+"perimeter, with the evidence of each control and each requirement, the "
+"reports already archived and a PDF index that lists them with their date and "
+"SHA-256 fingerprint."
+msgstr ""
+
+#: src/PageHelp.php:814
+msgid ""
+"Choose the perimeter and check its contents: renew expired evidence and "
+"attach what is missing first. Then generate the pack and download it from "
+"the list. Only what you can read is included; expired evidence is listed in "
+"the index, not included. Nothing is changed in the registers."
+msgstr ""
+
+#: src/PageHelp.php:821
+msgid ""
+"ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
+"(internal audit)"
+msgstr ""
+
+#: src/PageHelp.php:827
+msgid ""
 "The effectiveness tests of the Annex A controls: a control in place is "
 "checked to really work, with its method, result and evidence."
 msgstr ""
 
-#: src/PageHelp.php:813
+#: src/PageHelp.php:832
 msgid ""
 "Set a test plan on each control, record each test from the control's "
 "\"Effectiveness tests\" tab and carry out the tests that are due first. An "
 "ineffective control opens a non-conformity."
 msgstr ""
 
-#: src/PageHelp.php:818
+#: src/PageHelp.php:837
 msgid "ISO 27001, 9.1; ISO 27002, 5.35 and 5.36"
 msgstr ""
 
-#: src/PageHelp.php:822
+#: src/PageHelp.php:841
 msgid ""
 "The audit log of the security incidents: who consulted or changed what, "
 "when, with which profile and from which address, including impersonations."
 msgstr ""
 
-#: src/PageHelp.php:827
+#: src/PageHelp.php:846
 msgid ""
 "Filter the entries, export them for an audit or a court, and check the "
 "integrity regularly: each entry is sealed with the previous one."
 msgstr ""
 
-#: src/PageHelp.php:834
+#: src/PageHelp.php:853
 msgid ""
 "Import of a CSV export of the alerts from an EDR or XDR console: each alert "
 "becomes an incident with its indicators, MITRE ATT&CK techniques, hosts and "
 "accounts."
 msgstr ""
 
-#: src/PageHelp.php:839
+#: src/PageHelp.php:858
 msgid ""
 "Check the columns proposed, choose how to group the alerts, then import. An "
 "alert already imported is ignored; the original lines are kept unchanged on "
 "the incident."
 msgstr ""
 
-#: src/PageHelp.php:846
+#: src/PageHelp.php:865
 msgid ""
 "EBIOS Risk Manager studies: the risk assessment method of ANSSI, the French "
 "national cybersecurity agency, published under an open licence."
 msgstr ""
 
-#: src/PageHelp.php:851
+#: src/PageHelp.php:870
 msgid ""
 "Create one study per scope, then work through its workshops in order: "
 "business values and feared events, risk sources, stakeholders and strategic "
@@ -11991,20 +12072,20 @@ msgid ""
 "register."
 msgstr ""
 
-#: src/PageHelp.php:859
+#: src/PageHelp.php:878
 msgid ""
 "Remediation playbooks: the standard steps to follow for each type of "
 "incident (ransomware, phishing, compromised account...)."
 msgstr ""
 
-#: src/PageHelp.php:864
+#: src/PageHelp.php:883
 msgid ""
 "Adapt the five playbooks provided to your context; from an incident, apply "
 "one to get its plan of tasks. Mandatory steps must be done or marked not "
 "applicable before closing."
 msgstr ""
 
-#: src/PageHelp.php:872
+#: src/PageHelp.php:891
 msgid ""
 "Information security crisis scenarios of the continuity plan: ransomware, "
 "data leak, compromise of privileged accounts, unavailability of a critical "
@@ -12013,7 +12094,7 @@ msgid ""
 "follow."
 msgstr ""
 
-#: src/PageHelp.php:879
+#: src/PageHelp.php:898
 msgid ""
 "Add the default scenarios, then adapt each one: choose the impacted "
 "processes, check the secure degraded mode and the roles, link the response "
@@ -12021,18 +12102,18 @@ msgid ""
 "should be exercised at least once a year."
 msgstr ""
 
-#: src/PageHelp.php:884
+#: src/PageHelp.php:903
 msgid "ISO/IEC 27001, control A.5.29"
 msgstr ""
 
-#: src/PageHelp.php:889
+#: src/PageHelp.php:908
 msgid ""
 "Crisis message templates: the messages prepared in advance for each kind of "
 "crisis (major incident, personal data breach, unavailability, ransomware), "
 "with the people and organizations to inform for each one."
 msgstr ""
 
-#: src/PageHelp.php:895
+#: src/PageHelp.php:914
 msgid ""
 "Adapt the templates provided and fill in the distribution list of each one "
 "(users, groups and official contacts). During a crisis, open the Crisis "
@@ -12041,59 +12122,59 @@ msgid ""
 "email."
 msgstr ""
 
-#: src/PageHelp.php:901
+#: src/PageHelp.php:920
 msgid "ISO/IEC 27001, control A.5.26 and clause 7.4"
 msgstr ""
 
-#: src/PageHelp.php:906
+#: src/PageHelp.php:925
 msgid ""
 "Custom frameworks: follow a framework that is not built in (group "
 "requirements, sector or contractual framework, customer security plan) by "
 "importing it from a spreadsheet."
 msgstr ""
 
-#: src/PageHelp.php:911
+#: src/PageHelp.php:930
 msgid ""
 "Download the template, fill in one line per requirement with the Annex A "
 "controls that meet it, import it, then enable the framework. A new version "
 "of the file updates it without losing the statuses already entered."
 msgstr ""
 
-#: src/PageHelp.php:919
+#: src/PageHelp.php:938
 msgid ""
 "Coverage rules: which assets must have which document (for example, every "
 "server must have its operations sheet)."
 msgstr ""
 
-#: src/PageHelp.php:924
+#: src/PageHelp.php:943
 msgid ""
 "Create one rule per requirement; the result lists the covered assets and "
 "those to complete."
 msgstr ""
 
-#: src/PageHelp.php:930
+#: src/PageHelp.php:949
 msgid ""
 "Security exemptions: accepted exceptions to a policy or a control, limited "
 "in time and compensated."
 msgstr ""
 
-#: src/PageHelp.php:935
+#: src/PageHelp.php:954
 msgid ""
 "Justify each exemption, describe the compensating measures, have it approved "
 "and set its end date; it is reassessed when due."
 msgstr ""
 
-#: src/PageHelp.php:939
+#: src/PageHelp.php:958
 msgid "ISO 27001, 6.1.3; Annex A 5.36"
 msgstr ""
 
-#: src/PageHelp.php:943
+#: src/PageHelp.php:962
 msgid ""
 "Business processes: who owns them, how critical they are, how long they can "
 "be interrupted and which GLPI items they depend on."
 msgstr ""
 
-#: src/PageHelp.php:948
+#: src/PageHelp.php:967
 msgid ""
 "For each process, rate the impact of an interruption over time (business "
 "impact analysis), set its MTPD, RTO and RPO, and link the applications, "
@@ -12101,17 +12182,17 @@ msgid ""
 "Export the result for your continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:953
+#: src/PageHelp.php:972
 msgid "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
 msgstr ""
 
-#: src/PageHelp.php:958
+#: src/PageHelp.php:977
 msgid ""
 "Recovery test programme: when each business process was last tested, whether "
 "the test met its RTO and RPO, and which processes are not tested in time."
 msgstr ""
 
-#: src/PageHelp.php:963
+#: src/PageHelp.php:982
 msgid ""
 "Plan a test for each process reported as overdue or not tested this year, "
 "then record the measured recovery time and data loss in its \"Recovery "
@@ -12119,111 +12200,111 @@ msgid ""
 "continuity is tested regularly."
 msgstr ""
 
-#: src/PageHelp.php:968
+#: src/PageHelp.php:987
 msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
 msgstr ""
 
-#: src/PageHelp.php:972
+#: src/PageHelp.php:991
 msgid ""
 "Single points of failure: critical items that depend on a single source, "
 "according to GLPI's impact analysis."
 msgstr ""
 
-#: src/PageHelp.php:977
+#: src/PageHelp.php:996
 msgid ""
 "Create the matching risk or add redundancy; export the list for your "
 "business continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:980
+#: src/PageHelp.php:999
 msgid "ISO 27001, Annex A 5.29, 5.30 and 8.14"
 msgstr ""
 
-#: src/PageHelp.php:983
+#: src/PageHelp.php:1002
 msgid "The domino effect: how one incident or risk can lead to others."
 msgstr ""
 
-#: src/PageHelp.php:985
+#: src/PageHelp.php:1004
 msgid ""
 "Link items from the \"Domino effect\" tab of a risk or an incident; this "
 "page shows the whole picture."
 msgstr ""
 
-#: src/PageHelp.php:992
+#: src/PageHelp.php:1011
 msgid ""
 "Security incidents: qualification, affected assets, CVEs, costs, regulatory "
 "notifications (data protection authority, NIS2)."
 msgstr ""
 
-#: src/PageHelp.php:997
+#: src/PageHelp.php:1016
 msgid ""
 "Declare the incident, qualify it, follow up the actions and meet the "
 "notification deadlines shown on the record."
 msgstr ""
 
-#: src/PageHelp.php:1001
+#: src/PageHelp.php:1020
 msgid "ISO 27001, Annex A 5.24 to 5.28"
 msgstr ""
 
-#: src/PageHelp.php:1005
+#: src/PageHelp.php:1024
 msgid ""
 "Known vulnerabilities (CVEs) of the software installed on your fleet, with "
 "their real-world exploitation (KEV, EPSS) and CERT-FR advisories."
 msgstr ""
 
-#: src/PageHelp.php:1010
+#: src/PageHelp.php:1029
 msgid ""
 "Handle exploited and priority vulnerabilities first; open one update ticket "
 "per software."
 msgstr ""
 
-#: src/PageHelp.php:1013 src/PageHelp.php:1037
+#: src/PageHelp.php:1032 src/PageHelp.php:1056
 msgid "ISO 27001, Annex A 8.8"
 msgstr ""
 
-#: src/PageHelp.php:1017
+#: src/PageHelp.php:1036
 msgid ""
 "Fleet software to match with a CPE reference so that its vulnerabilities are "
 "tracked."
 msgstr ""
 
-#: src/PageHelp.php:1021
+#: src/PageHelp.php:1040
 msgid ""
 "Start with the most exposed (browsers, remote access, VPN): search for the "
 "CPE, confirm it, or ignore software with no stakes."
 msgstr ""
 
-#: src/PageHelp.php:1028
+#: src/PageHelp.php:1047
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
 "software, to know where to start updating."
 msgstr ""
 
-#: src/PageHelp.php:1033
+#: src/PageHelp.php:1052
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
 "tab of each one details the CVEs and the update ticket."
 msgstr ""
 
-#: src/PageHelp.php:1041
+#: src/PageHelp.php:1060
 msgid ""
 "The correlation catalogue: reference products, their CPEs and the names "
 "under which they appear in the inventory."
 msgstr ""
 
-#: src/PageHelp.php:1046
+#: src/PageHelp.php:1065
 msgid ""
 "It is filled from \"Software to watch\"; correct an alias or a CPE here if "
 "needed."
 msgstr ""
 
-#: src/PageHelp.php:1052
+#: src/PageHelp.php:1071
 msgid ""
 "Mappings between Annex A and other frameworks, to reuse your work across "
 "several standards."
 msgstr ""
 
-#: src/PageHelp.php:1055
+#: src/PageHelp.php:1074
 msgid "Check the mappings before an audit against another framework."
 msgstr ""
 
@@ -13911,10 +13992,6 @@ msgstr ""
 #: src/ResponsibilityActivity.php:723
 #: templates/responsibility_activity_form.html.twig
 msgid "Sensitive activity"
-msgstr ""
-
-#: src/ResponsibilityActivity.php:804
-msgid "ISMS responsibility matrix"
 msgstr ""
 
 #: src/ResponsibilityExport.php:46
@@ -16744,7 +16821,8 @@ msgstr ""
 #: templates/certification_sampling_tab.html.twig
 #: templates/disk_encryption.html.twig templates/dora/arrangement_tab.html.twig
 #: templates/dora/function_tab.html.twig templates/dora/provider_tab.html.twig
-#: templates/dora/register.html.twig templates/periodic_reviews.html.twig
+#: templates/dora/register.html.twig templates/evidence_pack.html.twig
+#: templates/periodic_reviews.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/software_license_compliance.html.twig
 msgid "Save"
@@ -16890,7 +16968,7 @@ msgid "an outage of the source affects the item pointed to"
 msgstr ""
 
 #: templates/_official_contact_rows.html.twig
-#: templates/pdf/_official_contacts_table.html.twig
+#: templates/pdf/official_contacts_report.html.twig
 #, php-format
 msgid "%d hour"
 msgid_plural "%d hours"
@@ -16899,7 +16977,7 @@ msgstr[1] ""
 
 #: templates/_official_contact_rows.html.twig
 #: templates/context_item_form.html.twig
-#: templates/pdf/_official_contacts_table.html.twig
+#: templates/pdf/official_contacts_report.html.twig
 msgid "Contact details"
 msgstr ""
 
@@ -16907,7 +16985,7 @@ msgstr ""
 msgid "Deadline and contact"
 msgstr ""
 
-#: templates/_official_contact_rows.html.twig templates/crisis_room.html.twig
+#: templates/_official_contact_rows.html.twig
 #, php-format
 msgid "Deadline: %s"
 msgstr ""
@@ -16922,11 +17000,6 @@ msgid "Not verified for more than 12 months"
 msgstr ""
 
 #: templates/_official_contact_rows.html.twig
-#: templates/context_item_form.html.twig
-msgid "Only for these types of incident"
-msgstr ""
-
-#: templates/_official_contact_rows.html.twig templates/crisis_room.html.twig
 #: templates/official_contact_tab.html.twig
 msgid "Record a contact"
 msgstr ""
@@ -16943,7 +17016,7 @@ msgstr ""
 
 #: templates/_official_contact_rows.html.twig
 #: templates/context_item_form.html.twig
-#: templates/pdf/_official_contacts_table.html.twig
+#: templates/pdf/official_contacts_report.html.twig
 msgid "When to contact"
 msgstr ""
 
@@ -17946,6 +18019,7 @@ msgstr ""
 #: templates/custom_framework_list.html.twig
 #: templates/disk_encryption.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/physical_security_checklist_tab.html.twig
 msgid "State"
 msgstr ""
@@ -19441,6 +19515,7 @@ msgid "You hold no ISMS function yet."
 msgstr ""
 
 #: templates/competence_sheet.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #, php-format
 msgid "valid until %s"
 msgstr ""
@@ -20700,13 +20775,6 @@ msgid ""
 msgstr ""
 
 #: templates/context_item_form.html.twig
-msgid ""
-"Optional: leave empty to show this contact for every security incident. An "
-"incident of the \"Data breach\" type also shows the contacts to inform for a "
-"personal data breach."
-msgstr ""
-
-#: templates/context_item_form.html.twig
 msgid "Optional: the team that can replace this person, e.g. the crisis team."
 msgstr ""
 
@@ -20979,7 +21047,7 @@ msgstr[1] ""
 msgid "%d critical"
 msgstr ""
 
-#: templates/control_form.html.twig
+#: templates/control_form.html.twig templates/evidence_pack.html.twig
 #, php-format
 msgid "%d expired"
 msgstr ""
@@ -21972,12 +22040,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/crisis_communication_tab.html.twig
-msgid ""
-"Also record it as a contact with the ticked official contacts (\"Official "
-"contacts\" tab)"
-msgstr ""
-
-#: templates/crisis_communication_tab.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "Author"
 msgstr ""
@@ -22244,12 +22306,6 @@ msgid "Done at"
 msgstr ""
 
 #: templates/crisis_room.html.twig
-msgid ""
-"During an exercise, record the calls you would make: the report then shows "
-"whether the deadlines would have been met."
-msgstr ""
-
-#: templates/crisis_room.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "EXERCISE"
 msgstr ""
@@ -22316,10 +22372,6 @@ msgid ""
 msgstr ""
 
 #: templates/crisis_room.html.twig
-msgid "No official contact is set for this type of incident."
-msgstr ""
-
-#: templates/crisis_room.html.twig
 msgid "No recovery time recorded for a business process during this exercise."
 msgstr ""
 
@@ -22330,11 +22382,6 @@ msgstr ""
 
 #: templates/crisis_room.html.twig
 msgid "Objectives achieved"
-msgstr ""
-
-#: templates/crisis_room.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Official contacts to inform"
 msgstr ""
 
 #: templates/crisis_room.html.twig
@@ -23882,7 +23929,7 @@ msgstr ""
 msgid "Default currency of the amounts."
 msgstr ""
 
-#: templates/dora/register.html.twig
+#: templates/dora/register.html.twig templates/evidence_pack.html.twig
 #: templates/management_review_dossier_tab.html.twig
 #: templates/my_trainings_tab.html.twig templates/training_quiz_tab.html.twig
 msgid "Download"
@@ -24116,7 +24163,7 @@ msgstr ""
 msgid "Set the selected alerts aside"
 msgstr ""
 
-#: templates/edr_import.html.twig
+#: templates/edr_import.html.twig templates/evidence_pack.html.twig
 msgid "Settings"
 msgstr ""
 
@@ -24267,6 +24314,112 @@ msgid ""
 "exactly as GLPI shows it, and the product identifier found in the address of "
 "its page on endoflife.date (for instance \"fortios\" for https://"
 "endoflife.date/fortios). Leave the product empty to stop following a name."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%1$d of %2$d with evidence"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%1$s MB of %2$s MB allowed"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid ""
+"%d applicable control(s) have no evidence you can read: the index shows them "
+"without evidence."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%d file(s)"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#, php-format
+msgid "%d over the size limit"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
+#, php-format
+msgid "%s MB"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Archived evidence packs"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#: templates/management_review_dossier_tab.html.twig
+msgid "Document deleted"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Evidence pack for the auditor"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"Expired evidence: listed in the index, not included. Renew it from the "
+"\"Evidence validity\" tab of the control before generating the pack."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"Files that would exceed this size are listed in the index as not included."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Generate the evidence pack"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Maximum size of the archive (MB)"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "No evidence pack generated yet."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"One ZIP archive per perimeter: the evidence attached to each Annex A control "
+"and each ISMS requirement, and the reports already archived by the plugin, "
+"with a PDF index listing them control by control, with their date, their "
+"state and their SHA-256 fingerprint."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"Only the documents you can read are included. The archive is kept as a "
+"restricted document: you, and whoever can read every piece it contains, can "
+"download it. Generate a new one at any time."
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Perimeter (entity)"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Restricted"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+#: templates/management_review_dossier_tab.html.twig
+msgid "SHA-256 fingerprint"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid "Show the contents"
+msgstr ""
+
+#: templates/evidence_pack.html.twig
+msgid ""
+"You need the right to update the GRC plugin to generate an evidence pack."
 msgstr ""
 
 #: templates/evidence_tab.html.twig
@@ -24801,10 +24954,6 @@ msgid "Create the actions from the decisions"
 msgstr ""
 
 #: templates/management_review_dossier_tab.html.twig
-msgid "Document deleted"
-msgstr ""
-
-#: templates/management_review_dossier_tab.html.twig
 msgid ""
 "Each decision becomes an action with an owner, a due date and a status. The "
 "preparatory file of the next review reports where they stand."
@@ -24846,10 +24995,6 @@ msgid ""
 "Proposed period: since the previous management review (or the last twelve "
 "months) up to the date of this review. Figures follow your rights and active "
 "entities."
-msgstr ""
-
-#: templates/management_review_dossier_tab.html.twig
-msgid "SHA-256 fingerprint"
 msgstr ""
 
 #: templates/management_review_dossier_tab.html.twig
@@ -25453,14 +25598,6 @@ msgid ""
 msgstr ""
 
 #: templates/official_contact_register.html.twig
-msgid "Archive on controls A.5.5 and A.5.6"
-msgstr ""
-
-#: templates/official_contact_register.html.twig
-msgid "Archived registers:"
-msgstr ""
-
-#: templates/official_contact_register.html.twig
 msgid ""
 "No official contact recorded yet. Start with the data protection authority, "
 "the national CSIRT and the police, then add your insurer and the special "
@@ -25471,12 +25608,6 @@ msgstr ""
 #: templates/official_contact_tab.html.twig
 #: templates/operating_procedure_register.html.twig
 msgid "Print the register (PDF)"
-msgstr ""
-
-#: templates/official_contact_register.html.twig
-msgid ""
-"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
-"of the Statement of Applicability."
 msgstr ""
 
 #: templates/official_contact_register.html.twig
@@ -25500,10 +25631,6 @@ msgstr ""
 
 #: templates/official_contact_tab.html.twig
 msgid "File number, acknowledgement of receipt"
-msgstr ""
-
-#: templates/official_contact_tab.html.twig
-msgid "From a crisis communication"
 msgstr ""
 
 #: templates/official_contact_tab.html.twig
@@ -26218,22 +26345,6 @@ msgstr ""
 msgid "previous period: %d %%"
 msgstr ""
 
-#: templates/pdf/_official_contacts_table.html.twig
-#: templates/pdf/context_report.html.twig
-#: templates/pdf/crisis_scenarios_report.html.twig
-#: templates/pdf/operating_procedures_report.html.twig
-msgid "No item recorded."
-msgstr ""
-
-#: templates/pdf/_official_contacts_table.html.twig
-#, php-format
-msgid "Obligation: %s"
-msgstr ""
-
-#: templates/pdf/_official_contacts_table.html.twig
-msgid "to verify"
-msgstr ""
-
 #: templates/pdf/_pdf_style.html.twig
 #, php-format
 msgid "Perimeter: %s"
@@ -26335,12 +26446,6 @@ msgstr[1] ""
 
 #: templates/pdf/business_continuity_report.html.twig
 msgid ""
-"Authorities, CSIRT, police, insurer and special interest groups from the "
-"register of official contacts, with the person allowed to contact them."
-msgstr ""
-
-#: templates/pdf/business_continuity_report.html.twig
-msgid ""
 "Consistency checks: objectives of the process, plus items and processes it "
 "depends on that do not meet them."
 msgstr ""
@@ -26373,10 +26478,6 @@ msgstr ""
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 msgid "Not described"
-msgstr ""
-
-#: templates/pdf/business_continuity_report.html.twig
-msgid "Official contacts to inform during a crisis"
 msgstr ""
 
 #: templates/pdf/business_continuity_report.html.twig
@@ -26420,6 +26521,7 @@ msgstr ""
 
 #: templates/pdf/certification_findings_report.html.twig
 #: templates/pdf/certification_response_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Prepared by"
 msgstr ""
@@ -26516,6 +26618,13 @@ msgstr ""
 
 #: templates/pdf/context_report.html.twig
 msgid "Items past their review date"
+msgstr ""
+
+#: templates/pdf/context_report.html.twig
+#: templates/pdf/crisis_scenarios_report.html.twig
+#: templates/pdf/official_contacts_report.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+msgid "No item recorded."
 msgstr ""
 
 #: templates/pdf/context_report.html.twig
@@ -26876,6 +26985,37 @@ msgstr ""
 msgid "Zone"
 msgstr ""
 
+#: templates/pdf/evidence_pack_index.html.twig
+msgid "Files included"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+msgid "No evidence attached"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+msgid "Not included"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Perimeter"
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+msgid ""
+"This index lists the evidence that the person who generated the pack can "
+"read, in the perimeter entity and its sub-entities. Expired evidence is "
+"listed but not included. Each included file is stored once in the "
+"\"evidence\" folder of the archive; its SHA-256 fingerprint is given here "
+"and in the SHA256SUMS.txt file, to check that nothing was changed."
+msgstr ""
+
+#: templates/pdf/evidence_pack_index.html.twig
+#, php-format
+msgid "limit %d MB"
+msgstr ""
+
 #: templates/pdf/internal_audit_report.html.twig
 msgid "Planned / actual date"
 msgstr ""
@@ -26922,10 +27062,6 @@ msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Identified during the period"
-msgstr ""
-
-#: templates/pdf/management_review_dossier.html.twig
-msgid "Included"
 msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
@@ -26991,10 +27127,6 @@ msgstr ""
 #: templates/pdf/management_review_dossier.html.twig
 #, php-format
 msgid "Open risks: %1$d in %2$s, %3$d in %4$s"
-msgstr ""
-
-#: templates/pdf/management_review_dossier.html.twig
-msgid "Perimeter"
 msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
@@ -27078,11 +27210,20 @@ msgid "Protocol and ports"
 msgstr ""
 
 #: templates/pdf/official_contacts_report.html.twig
+#, php-format
+msgid "Obligation: %s"
+msgstr ""
+
+#: templates/pdf/official_contacts_report.html.twig
 msgid "Official contacts"
 msgstr ""
 
 #: templates/pdf/official_contacts_report.html.twig
 msgid "Verified within 12 months"
+msgstr ""
+
+#: templates/pdf/official_contacts_report.html.twig
+msgid "to verify"
 msgstr ""
 
 #: templates/pdf/operating_procedures_report.html.twig
@@ -31762,4 +31903,169 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr ""
+
+#: src/CompetenceGapAlert.php:62
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/CompetenceGapAlert.php:99
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+
+#: src/CompetenceGapAlert.php:110
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr ""
+
+#: src/IsmsFunction.php:412
+msgid "This activity is not available in the entity of the function."
+msgstr ""
+
+#: src/IsmsFunction.php:474
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:43
+msgid "Competence gaps without planned training"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:103
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:111
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:121
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:144
+msgid "New gaps without planned training"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:145
+msgid "Number of new gaps"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:146
+msgid "Number of gaps without planned training"
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Activity of the responsibility matrix"
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Follows the responsibility matrix"
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Role in the activity"
+msgstr ""
+
+#: front/crisiscommunication.form.php:42
+#, php-format
+msgid "%d official contact recorded as contacted."
+msgid_plural "%d official contacts recorded as contacted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/officialcontact.php:32
+msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
+msgstr ""
+
+#: src/OfficialContact.php:258
+#, php-format
+msgid "Register of official contacts - %s"
+msgstr ""
+
+#: src/OfficialContactNotification.php:346
+#, php-format
+msgid "Crisis communication: \"%s\""
+msgstr ""
+
+#: src/PageHelp.php:512
+msgid ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+msgstr ""
+
+#: templates/_official_contact_rows.html.twig
+#: templates/context_item_form.html.twig
+msgid "Only for these types of incident"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid ""
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "No official contact is set for this type of incident."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Official contacts to inform"
+msgstr ""
+
+#: templates/official_contact_register.html.twig
+msgid "Archive on controls A.5.5 and A.5.6"
+msgstr ""
+
+#: templates/official_contact_register.html.twig
+msgid "Archived registers:"
+msgstr ""
+
+#: templates/official_contact_register.html.twig
+msgid ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+msgstr ""
+
+#: templates/official_contact_tab.html.twig
+msgid "From a crisis communication"
+msgstr ""
+
+#: templates/pdf/business_continuity_report.html.twig
+msgid ""
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
+msgstr ""
+
+#: templates/pdf/business_continuity_report.html.twig
+msgid "Official contacts to inform during a crisis"
 msgstr ""

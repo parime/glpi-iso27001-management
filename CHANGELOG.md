@@ -92,6 +92,35 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Lecture seule des données de GLPI, entités de la session ; nouvelle table des déclarations,
     supprimée à la désinstallation. Traductions (7 langues et variantes), tests unitaires et
     d'intégration, matrice d'accès et contrôle XSS.
+- **Dossier de preuves exportable pour l'auditeur** (issue #868, clauses 7.5.3 et 9.2). Nouvelle
+  page **Conformité > Dossier de preuves** : choix du périmètre (entité), aperçu du contenu, puis
+  génération d'une archive ZIP qui contient :
+  - les preuves rattachées à chaque mesure de la SoA du périmètre et à chaque sous-article du SMSI
+    (clauses 4 à 10), et les rapports déjà archivés par le plugin (versions approuvées de la SoA et
+    des politiques, matrice des responsabilités, compétences, audits, revues de direction, revues
+    des accès) ;
+  - un **index PDF** mesure par mesure et sous-article par sous-article : chaque preuve avec sa date,
+    son état et son **empreinte SHA-256**, et un fichier `SHA256SUMS.txt` ;
+  - seules les pièces que la personne peut lire sont incluses (droits de GLPI, documents
+    restreints) ; une **preuve expirée** est signalée dans l'index sans être incluse ; une pièce qui
+    ferait dépasser la **limite de taille réglable** (200 Mo par défaut) est signalée aussi ;
+  - l'archive est construite en flux sur un fichier temporaire, puis **archivée comme document
+    restreint** : lisible par son auteur et par qui peut lire chacune de ses pièces ;
+    régénérable à tout moment, avec l'historique des dossiers et leur empreinte. Rien n'est modifié
+    dans les registres.
+- **Compétences (7.2) : titulaires repris de la matrice des responsabilités et alerte des écarts
+  sans formation planifiée** (issue #774, lot 3, dernier lot) :
+  - une fonction du SMSI peut être tenue par un **rôle dans une activité de la matrice des
+    responsabilités** (#612), par exemple « Réalise » pour « Sauvegardes » : les personnes et les
+    groupes qui tiennent ce rôle tiennent la fonction, sans copie, et la fonction suit la matrice
+    quand elle change (badge « Suit la matrice des responsabilités ») ; seules les activités
+    visibles depuis l'entité de la fonction sont proposées et acceptées ;
+  - nouvelle tâche automatique hebdomadaire **competencegaps** et notification modifiable
+    **Écarts de compétence sans formation planifiée**, envoyée au responsable de la préparation à
+    la certification et au groupe RSSI : chaque nouvel écart, avec la formation à planifier ou, à
+    défaut, la preuve à déclarer. Un écart n'est signalé qu'une fois. Seul un compte qui lit le
+    plugin et les utilisateurs sur toutes les entités la reçoit ;
+  - aucune inscription, session, affectation ni aucun droit n'est modifié automatiquement.
 
 ## [2.71.0] - 2026-11-20
 

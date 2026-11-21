@@ -493,6 +493,28 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
 7. Chacun retrouve ses propres compétences dans ses préférences (onglet « Mes compétences »). Le
    responsable voit la matrice et l'onglet « Compétences » de chaque utilisateur, avec le droit du
    plugin et la lecture des utilisateurs, pour les personnes de ses entités.
+8. Un écart pour lequel la personne est déjà inscrite à une formation (ou à une session) qui donne la
+   compétence au niveau attendu affiche **Formation prévue**. La carte **Formations à planifier**
+   liste, pour chaque formation qui comble un écart, les personnes pas encore inscrites : **Préparer
+   une session** ouvre une nouvelle session de la formation avec ces personnes présélectionnées.
+   Vérifiez la date et la liste, puis cliquez sur « Ajouter » : rien n'est enregistré avant.
+9. Sur la page **Préparation à la certification**, l'étape « Définir et vérifier les compétences »
+   (7.2) est faite quand chaque fonction a ses compétences exigées et ses titulaires, que chaque écart
+   a une formation planifiée et que le dossier des compétences est archivé. La carte de tableau de
+   bord « Couverture des compétences exigées (%) » suit les mêmes chiffres.
+10. Si vos responsabilités sont déjà décrites dans la **Matrice des responsabilités**, une fonction
+    peut en reprendre les titulaires : dans la fiche de la fonction, choisissez une **Activité de la
+    matrice des responsabilités** et le **Rôle dans l'activité** (par exemple « Sauvegardes » et
+    « Réalise »), puis enregistrez. Les personnes et les groupes qui tiennent ce rôle tiennent la
+    fonction, avec le badge « Suit la matrice des responsabilités » : quand la matrice change, la
+    fonction suit, sans rien recopier.
+11. Chaque semaine, la tâche automatique « competencegaps » envoie au responsable de la préparation
+    à la certification (et au groupe RSSI) la notification **Écarts de compétence sans formation
+    planifiée** : chaque nouvel écart, avec la formation à planifier. Un écart n'est signalé qu'une
+    fois. Les destinataires se règlent dans Configuration > Notifications ; seuls ceux qui lisent le
+    plugin et les utilisateurs sur toutes les entités la reçoivent. Rien n'est modifié
+    automatiquement.
+
 ### Étape 22 : Tenir le registre des contacts officiels (mesures A.5.5 et A.5.6)
 
 1. Ouvrez Conformité > **Contacts officiels** (onglet à côté de « Contexte de l'organisation »).
@@ -936,7 +958,26 @@ ou une piste de progrès. Un délai est signalé comme proche 7 jours avant. La 
 certification** compte les plans d'actions et les preuves encore à envoyer, et ceux en retard.
 Rien n'est modifié automatiquement : statut, responsable et échéance restent ceux que vous saisissez.
 
-### Étape 34 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
+### Étape 34 : Remettre le dossier de preuves à l'auditeur (articles 7.5.3 et 9.2)
+
+L'auditeur demande souvent, avant sa visite, l'ensemble des preuves du périmètre audité. La page
+**Conformité > Dossier de preuves** le prépare en une archive ZIP.
+
+1. Choisir le **périmètre** (une entité) et cliquer sur **Afficher le contenu** : nombre de pièces
+   incluses, expirées, sans fichier ou au-delà de la limite de taille, mesures applicables sans
+   preuve, et liste des preuves expirées.
+2. Renouveler les preuves expirées (onglet **Validités des preuves** de la mesure) et joindre ce qui
+   manque.
+3. Cliquer sur **Générer le dossier de preuves**, puis le télécharger dans **Dossiers de preuves
+   archivés** : l'archive contient un index PDF (mesure par mesure, sous-article par sous-article,
+   avec la date, l'état et l'empreinte SHA-256 de chaque pièce), un fichier `SHA256SUMS.txt` et
+   les pièces, chacune une seule fois dans le dossier `evidence`.
+
+Seules les pièces que vous pouvez lire entrent dans l'archive ; une preuve expirée figure dans
+l'index sans être incluse. La limite de taille se règle sur la page (200 Mo par défaut). L'archive
+est gardée comme document restreint : vous, et toute personne qui peut lire chacune de ses pièces,
+pouvez la télécharger. Rien n'est modifié dans les registres.
+### Étape 35 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
 
 L'agent d'inventaire de GLPI remonte, pour chaque volume d'un ordinateur, l'état du chiffrement,
 l'outil (BitLocker, FileVault, LUKS, VeraCrypt...) et l'algorithme. Le plugin lit ces données ; il
@@ -1431,6 +1472,17 @@ To give a subsidiary its own Statement of Applicability:
    when each function has its required competences and its holders, each gap has a planned training
    and the competence file is archived. The dashboard card "Coverage of the required competences
    (%)" follows the same figures.
+10. If your responsibilities are already described in the **Responsibility matrix**, a function can
+    take its holders from it: in the form of the function, choose an **Activity of the
+    responsibility matrix** and the **Role in the activity** (for instance "Backups" and
+    "Performs"), then save. The people and groups who hold this role hold the function, with the
+    badge "Follows the responsibility matrix": when the matrix changes, the function follows,
+    nothing is copied.
+11. Every week, the automatic action "competencegaps" sends the owner of the certification
+    readiness (and the CISO group) the notification **Competence gaps without planned training**:
+    each new gap, with the training to plan. A gap is reported only once. Set the recipients in
+    Setup > Notifications; only those who can read the plugin and the users in all entities receive
+    it. Nothing is changed automatically.
 
 ### Step 22: Keep the register of official contacts (controls A.5.5 and A.5.6)
 
@@ -1889,7 +1941,25 @@ opportunity for improvement. A deadline is shown as close 7 days before it. **Ce
 readiness** counts the action plans and evidence still to send, and those overdue. Nothing is
 changed automatically: status, owner and due date stay as you enter them.
 
-### Step 35: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
+### Step 35: Hand the evidence pack to the auditor (clauses 7.5.3 and 9.2)
+
+Before the visit, the auditor often asks for all the evidence of the audited perimeter. The
+**Compliance > Evidence pack** page prepares it as one ZIP archive.
+
+1. Choose the **perimeter** (an entity) and click **Show the contents**: number of pieces included,
+   expired, without a file or over the size limit, applicable controls without evidence, and the
+   list of expired evidence.
+2. Renew expired evidence (**Evidence validity** tab of the control) and attach what is missing.
+3. Click **Generate the evidence pack**, then download it from **Archived evidence packs**: the
+   archive holds a PDF index (control by control, requirement by requirement, with the date, state
+   and SHA-256 fingerprint of each piece), a `SHA256SUMS.txt` file and the pieces, each stored once
+   in the `evidence` folder.
+
+Only the pieces you can read enter the archive; expired evidence is listed in the index but not
+included. The size limit is set on the page (200 MB by default). The archive is kept as a
+restricted document: you, and anyone who can read every piece it contains, can download it.
+Nothing is changed in the registers.
+### Step 36: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
 
 For each volume of a computer, the GLPI inventory agent reports the encryption state, the tool
 (BitLocker, FileVault, LUKS, VeraCrypt...) and the algorithm. The plugin reads this data; it changes
