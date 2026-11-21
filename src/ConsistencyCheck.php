@@ -493,8 +493,12 @@ class ConsistencyCheck extends CommonGLPI
      *
      * @return array<string, array{key: string, area: string, clause: string, severity: string, enabled: bool,
      *     evaluated: bool, total: int, gaps: list<array<string, mixed>>}>
+     *
+     * Issue #867 : $only limite l'évaluation à ces règles (les autres restent « non évaluées »).
+     *
+     * @param list<string>|null $only
      */
-    public static function run(?string $today = null): array
+    public static function run(?string $today = null, ?array $only = null): array
     {
         $today ??= substr((string) (Session::getCurrentTime() ?? date('Y-m-d H:i:s')), 0, 10);
         $settings = self::getSettings();
@@ -502,7 +506,7 @@ class ConsistencyCheck extends CommonGLPI
         $results = [];
         foreach (ConsistencyRules::RULES as $key => $rule) {
             $result = ['evaluated' => false, 'total' => 0, 'gaps' => []];
-            if ($settings[$key]['enabled']) {
+            if ($settings[$key]['enabled'] && ($only === null || in_array($key, $only, true))) {
                 $evaluated = self::evaluate($key, $settings[$key]['threshold'], $today, $cache);
                 if ($evaluated !== null) {
                     $result = ['evaluated' => true] + $evaluated;
