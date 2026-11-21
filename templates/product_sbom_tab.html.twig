@@ -1,0 +1,264 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #869 : nomenclatures logicielles (SBOM) et déclarations VEX d'un produit (onglet de l'application). #}
+{% macro status_badge(status, statuses, colors) %}
+   {% if status %}
+      <span class="badge bg-{{ colors[status] }}-subtle text-{{ colors[status] }}-emphasis"><i class="ti {{ status == 'affected' ? 'ti-alert-octagon' : (status == 'under_investigation' ? 'ti-search' : 'ti-shield-check') }} me-1"></i>{{ statuses[status] }}</span>
+   {% else %}
+      <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-help-hexagon me-1"></i>{{ __('No VEX statement', 'grcmanager') }}</span>
+   {% endif %}
+{% endmacro %}
+{% import _self as sbom_macros %}
+<div class="container-fluid" id="grc-product-sbom">
+   <p class="text-muted">
+      <i class="ti ti-info-circle me-1"></i>{{ __('An SBOM lists the components (libraries, packages) of one version of this product. Import one file per released version; the vulnerabilities found stay here with your VEX statements.', 'grcmanager') }}
+      <a href="{{ register_url }}">{{ __('Open the register', 'grcmanager') }}</a>
+   </p>
+
+   {% if can_edit %}
+      <div class="row g-3 mb-3">
+         <div class="col-lg-6">
+            <div class="card h-100">
+               <div class="card-header"><h4 class="card-title mb-0"><i class="ti ti-file-upload me-1"></i>{{ __('Import an SBOM', 'grcmanager') }}</h4></div>
+               <div class="card-body">
+                  <form method="post" action="{{ action }}" enctype="multipart/form-data" class="row g-2 align-items-end">
+                     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                     <input type="hidden" name="appliances_id" value="{{ appliances_id }}">
+                     <div class="col-sm-4">
+                        <label class="form-label" for="grc-sbom-version">{{ __('Product version', 'grcmanager') }}</label>
+                        <input type="text" class="form-control" id="grc-sbom-version" name="product_version" maxlength="100" placeholder="2.4.0" required>
+                     </div>
+                     <div class="col-sm-8">
+                        <label class="form-label" for="grc-sbom-file">{{ __('CycloneDX or SPDX file (JSON)', 'grcmanager') }}</label>
+                        <input type="file" class="form-control" id="grc-sbom-file" name="sbom_file" accept=".json,application/json" required>
+                     </div>
+                     <div class="col-12 small text-muted">{{ __('%1$d MB and %2$d components at most. Vulnerabilities and analyses written in a CycloneDX file are kept too.', 'grcmanager')|format(max_mb, max_components) }}</div>
+                     <div class="col-12"><button type="submit" name="import_sbom" value="1" class="btn btn-primary"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button></div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card h-100">
+               <div class="card-header"><h4 class="card-title mb-0"><i class="ti ti-file-certificate me-1"></i>{{ __('Import a VEX document', 'grcmanager') }}</h4></div>
+               <div class="card-body">
+                  <form method="post" action="{{ action }}" enctype="multipart/form-data" class="row g-2 align-items-end">
+                     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                     <input type="hidden" name="appliances_id" value="{{ appliances_id }}">
+                     <div class="col-sm-4">
+                        <label class="form-label" for="grc-vex-version">{{ __('Product version', 'grcmanager') }}</label>
+                        <input type="text" class="form-control" id="grc-vex-version" name="product_version" maxlength="100" placeholder="{{ __('All versions', 'grcmanager') }}">
+                     </div>
+                     <div class="col-sm-8">
+                        <label class="form-label" for="grc-vex-file">{{ __('CycloneDX VEX or OpenVEX file (JSON)', 'grcmanager') }}</label>
+                        <input type="file" class="form-control" id="grc-vex-file" name="vex_file" accept=".json,application/json" required>
+                     </div>
+                     <div class="col-12 small text-muted">{{ __('A new statement replaces the previous one for the same vulnerability, component and version.', 'grcmanager') }}</div>
+                     <div class="col-12"><button type="submit" name="import_vex" value="1" class="btn btn-primary"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button></div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   {% endif %}
+
+   {% if sboms is empty %}
+      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('No SBOM imported for this product yet.', 'grcmanager') }}</div>
+   {% endif %}
+
+   {% for sbom in sboms %}
+      <div class="card mb-3 grc-sbom">
+         <div class="card-header d-flex flex-wrap align-items-center gap-2">
+            <h4 class="card-title mb-0"><i class="ti ti-packages me-1"></i>{{ __('Version %s', 'grcmanager')|format(sbom.product_version) }}</h4>
+            <span class="badge bg-azure-subtle text-azure-emphasis">{{ formats[sbom.format]|default(sbom.format) }} {{ sbom.spec_version }}</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-box me-1"></i>{{ __('%d component(s)', 'grcmanager')|format(sbom.components) }}</span>
+            {% if sbom.indicators is defined %}
+               <span class="badge {{ sbom.indicators.affected > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }}"><i class="ti ti-alert-octagon me-1"></i>{{ __('%d affected', 'grcmanager')|format(sbom.indicators.affected) }}</span>
+               <span class="badge {{ sbom.indicators.without_statement > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }}"><i class="ti ti-help-hexagon me-1"></i>{{ __('%d without VEX statement', 'grcmanager')|format(sbom.indicators.without_statement) }}</span>
+            {% endif %}
+            <span class="small text-muted ms-auto">{{ sbom.file_name }} - {{ sbom.date }}{% if sbom.user_name %} - {{ sbom.user_name }}{% endif %}</span>
+            {% if can_edit %}
+               <form method="post" action="{{ action }}" class="d-inline">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="sboms_id" value="{{ sbom.id }}">
+                  <button type="submit" name="delete_sbom" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Delete this SBOM', 'grcmanager') }}" aria-label="{{ __('Delete this SBOM', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+               </form>
+            {% endif %}
+         </div>
+         {% if sbom.findings is defined %}
+            <div class="card-body">
+               <h5><i class="ti ti-bug me-1"></i>{{ __('Known vulnerabilities of the components', 'grcmanager') }}</h5>
+               {% if sbom.findings is empty %}
+                  <p class="text-muted mb-2">{{ __('No known vulnerability: none in the file, and none known by the vulnerability watch for these components and versions.', 'grcmanager') }}</p>
+               {% else %}
+                  <div class="table-responsive">
+                     <table class="table table-sm table-hover align-middle">
+                        <thead><tr>
+                           <th>{{ __('Vulnerability', 'grcmanager') }}</th>
+                           <th>{{ __('Component', 'grcmanager') }}</th>
+                           <th>CVSS</th>
+                           <th>{{ __('Found by', 'grcmanager') }}</th>
+                           <th>{{ __('VEX status', 'grcmanager') }}</th>
+                           {% if can_edit %}<th>{{ __('Declare', 'grcmanager') }}</th>{% endif %}
+                        </tr></thead>
+                        <tbody>
+                        {% for f in sbom.findings %}
+                           <tr>
+                              <td>
+                                 {% if f.is_cve %}<a href="https://nvd.nist.gov/vuln/detail/{{ f.vulnerability_id|url_encode }}" target="_blank" rel="noopener noreferrer">{{ f.vulnerability_id }}</a>{% else %}{{ f.vulnerability_id }}{% endif %}
+                                 {% if f.is_kev %}<span class="badge bg-danger-subtle text-danger-emphasis ms-1" title="{{ __('Known exploited vulnerability (CISA KEV)', 'grcmanager') }}">KEV</span>{% endif %}
+                              </td>
+                              <td>{{ f.component_name }} <span class="text-muted">{{ f.component_version }}</span></td>
+                              <td>{{ f.cvss is not null ? f.cvss|number_format(1) : '-' }}</td>
+                              <td>{{ sources[f.source]|default(f.source) }}</td>
+                              <td>
+                                 {{ sbom_macros.status_badge(f.status, statuses, status_colors) }}
+                                 {% if f.justification %}<div class="small text-muted">{{ justifications[f.justification]|default(f.justification) }}</div>{% endif %}
+                                 {% if f.detail %}<div class="small text-muted">{{ f.detail }}</div>{% endif %}
+                              </td>
+                              {% if can_edit %}
+                                 <td>
+                                    <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-1">
+                                       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                       <input type="hidden" name="appliances_id" value="{{ appliances_id }}">
+                                       <input type="hidden" name="vulnerability_id" value="{{ f.vulnerability_id }}">
+                                       <input type="hidden" name="component" value="{{ f.component_key }}">
+                                       <input type="hidden" name="product_version" value="{{ sbom.product_version }}">
+                                       <select name="status" class="form-select form-select-sm w-auto" aria-label="{{ __('VEX status', 'grcmanager') }}">
+                                          {% for key, label in statuses %}<option value="{{ key }}" {{ f.status == key ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+                                       </select>
+                                       <select name="justification" class="form-select form-select-sm w-auto" aria-label="{{ __('Justification', 'grcmanager') }}">
+                                          <option value="">{{ __('Justification', 'grcmanager') }}</option>
+                                          {% for key, label in justifications %}<option value="{{ key }}" {{ f.justification == key ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+                                       </select>
+                                       <input type="text" name="detail" class="form-control form-control-sm w-auto" maxlength="2000" placeholder="{{ __('Explanation', 'grcmanager') }}" aria-label="{{ __('Explanation', 'grcmanager') }}" value="{{ f.detail }}">
+                                       <button type="submit" name="declare" value="1" class="btn btn-sm btn-outline-primary" title="{{ __('Save') }}" aria-label="{{ __('Save') }}"><i class="ti ti-device-floppy"></i></button>
+                                    </form>
+                                 </td>
+                              {% endif %}
+                           </tr>
+                        {% endfor %}
+                        </tbody>
+                     </table>
+                  </div>
+               {% endif %}
+               <details class="mt-2">
+                  <summary><i class="ti ti-list me-1"></i>{{ __('Components (%d)', 'grcmanager')|format(sbom.components) }}</summary>
+                  <div class="table-responsive mt-2">
+                     <table class="table table-sm table-striped">
+                        <thead><tr>
+                           <th>{{ __('Name') }}</th><th>{{ __('Version') }}</th><th>{{ __('Type') }}</th>
+                           <th>{{ __('Supplier') }}</th><th>{{ __('Licenses', 'grcmanager') }}</th><th>purl / CPE</th>
+                        </tr></thead>
+                        <tbody>
+                        {% for c in sbom.listed_components %}
+                           <tr>
+                              <td>{{ c.name }}</td><td>{{ c.version }}</td><td>{{ c.type }}</td>
+                              <td>{{ c.supplier }}</td><td>{{ c.licenses }}</td>
+                              <td class="small text-break">{{ c.purl ?: c.cpe }}</td>
+                           </tr>
+                        {% endfor %}
+                        </tbody>
+                     </table>
+                     {% if sbom.components > listed %}<p class="small text-muted">{{ __('Only the first %d components are shown.', 'grcmanager')|format(listed) }}</p>{% endif %}
+                  </div>
+               </details>
+            </div>
+         {% else %}
+            <div class="card-body small text-muted">{{ __('Older SBOM: only the %d most recent are detailed.', 'grcmanager')|format(detailed) }}</div>
+         {% endif %}
+      </div>
+   {% endfor %}
+
+   <div class="card mb-3">
+      <div class="card-header"><h4 class="card-title mb-0"><i class="ti ti-file-certificate me-1"></i>{{ __('VEX statements', 'grcmanager') }}</h4></div>
+      <div class="card-body">
+         {% if can_edit %}
+            <form method="post" action="{{ action }}" class="row g-2 align-items-end mb-3">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="appliances_id" value="{{ appliances_id }}">
+               <div class="col-md-2">
+                  <label class="form-label" for="grc-vex-id">{{ __('Vulnerability', 'grcmanager') }}</label>
+                  <input type="text" class="form-control" id="grc-vex-id" name="vulnerability_id" maxlength="64" placeholder="CVE-2024-12345" required>
+               </div>
+               <div class="col-md-2">
+                  <label class="form-label" for="grc-vex-comp">{{ __('Component (purl or name)', 'grcmanager') }}</label>
+                  <input type="text" class="form-control" id="grc-vex-comp" name="component" maxlength="512" placeholder="{{ __('Whole product', 'grcmanager') }}">
+               </div>
+               <div class="col-md-1">
+                  <label class="form-label" for="grc-vex-ver">{{ __('Version') }}</label>
+                  <input type="text" class="form-control" id="grc-vex-ver" name="product_version" maxlength="100" placeholder="{{ __('All versions', 'grcmanager') }}">
+               </div>
+               <div class="col-md-2">
+                  <label class="form-label" for="grc-vex-status">{{ __('VEX status', 'grcmanager') }}</label>
+                  <select class="form-select" id="grc-vex-status" name="status">
+                     {% for key, label in statuses %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+                  </select>
+               </div>
+               <div class="col-md-2">
+                  <label class="form-label" for="grc-vex-just">{{ __('Justification', 'grcmanager') }}</label>
+                  <select class="form-select" id="grc-vex-just" name="justification">
+                     <option value="">-</option>
+                     {% for key, label in justifications %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+                  </select>
+               </div>
+               <div class="col-md-2">
+                  <label class="form-label" for="grc-vex-detail">{{ __('Explanation', 'grcmanager') }}</label>
+                  <input type="text" class="form-control" id="grc-vex-detail" name="detail" maxlength="2000">
+               </div>
+               <div class="col-md-1"><button type="submit" name="declare" value="1" class="btn btn-primary"><i class="ti ti-plus me-1"></i>{{ __('Add') }}</button></div>
+            </form>
+         {% endif %}
+         {% if statements is empty %}
+            <p class="text-muted mb-0">{{ __('No VEX statement for this product.', 'grcmanager') }}</p>
+         {% else %}
+            <div class="table-responsive">
+               <table class="table table-sm table-hover align-middle">
+                  <thead><tr>
+                     <th>{{ __('Vulnerability', 'grcmanager') }}</th><th>{{ __('Component', 'grcmanager') }}</th><th>{{ __('Version') }}</th>
+                     <th>{{ __('VEX status', 'grcmanager') }}</th><th>{{ __('Source') }}</th><th>{{ __('Last update') }}</th>
+                     {% if can_edit %}<th></th>{% endif %}
+                  </tr></thead>
+                  <tbody>
+                  {% for s in statements %}
+                     <tr>
+                        <td>{{ s.vulnerability_id }}</td>
+                        <td class="small text-break">{{ s.component ?: __('Whole product', 'grcmanager') }}</td>
+                        <td>{{ s.product_version ?: __('All versions', 'grcmanager') }}</td>
+                        <td>
+                           {{ sbom_macros.status_badge(s.status, statuses, status_colors) }}
+                           {% if s.justification %}<div class="small text-muted">{{ justifications[s.justification]|default(s.justification) }}</div>{% endif %}
+                           {% if s.detail %}<div class="small text-muted">{{ s.detail }}</div>{% endif %}
+                        </td>
+                        <td>{{ sources[s.source]|default(s.source) }}</td>
+                        <td class="small">{{ s.date }}{% if s.user_name %}<br>{{ s.user_name }}{% endif %}</td>
+                        {% if can_edit %}
+                           <td>
+                              <form method="post" action="{{ action }}">
+                                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                 <input type="hidden" name="statements_id" value="{{ s.id }}">
+                                 <button type="submit" name="delete_statement" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Delete') }}" aria-label="{{ __('Delete') }}"><i class="ti ti-trash"></i></button>
+                              </form>
+                           </td>
+                        {% endif %}
+                     </tr>
+                  {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         {% endif %}
+      </div>
+   </div>
+</div>
