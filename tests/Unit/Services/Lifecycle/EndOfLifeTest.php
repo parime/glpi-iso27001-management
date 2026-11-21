@@ -141,6 +141,13 @@ final class EndOfLifeTest extends TestCase
         $this->assertSame('ubuntu', ProductMatcher::automatic('os', 'Ubuntu 22.04.4 LTS'));
         $this->assertSame('rhel', ProductMatcher::automatic('os', 'Red Hat Enterprise Linux 9.3 (Plow)'));
         $this->assertSame('', ProductMatcher::automatic('os', 'Ubuntu Demo Edition'));
+        // Issue #780, lot 2 : dérivés de RHEL, Fedora et macOS.
+        $this->assertSame('rocky-linux', ProductMatcher::automatic('os', 'Rocky Linux 9.3 (Blue Onyx)'));
+        $this->assertSame('almalinux', ProductMatcher::automatic('os', 'AlmaLinux 9.4 (Seafoam Ocelot)'));
+        $this->assertSame('oracle-linux', ProductMatcher::automatic('os', 'Oracle Linux Server 8.9'));
+        $this->assertSame('fedora', ProductMatcher::automatic('os', 'Fedora Linux 40 (Workstation Edition)'));
+        $this->assertSame('macos', ProductMatcher::automatic('os', 'macOS 14.4.1'));
+        $this->assertSame('', ProductMatcher::automatic('os', 'Rocky Linux Demo Tools'));
         $this->assertSame('fortios', ProductMatcher::automatic('firmware', 'FortiOS'));
         // Ressemblance seulement : jamais rapproché.
         $this->assertSame('', ProductMatcher::automatic('software', 'Firefox Helper Toolbar'));
