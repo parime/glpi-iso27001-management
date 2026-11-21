@@ -488,6 +488,7 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3', 'grcmanager'),
+            ],
             // Issue #781 : conformité de configuration d'après les résultats OpenSCAP.
             'configcompliance' => [
                 'purpose'   => __(
