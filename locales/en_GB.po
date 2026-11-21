@@ -34662,6 +34662,433 @@ msgctxt "ad rule"
 msgid "New"
 msgstr "New"
 
+msgid "Evaluation completed."
+msgstr "Evaluation completed."
+
+msgid "Evaluation reopened."
+msgstr "Evaluation reopened."
+
+msgid "Answers saved."
+msgstr "Answers saved."
+
+msgid "Template copied: adapt its questions."
+msgstr "Template copied: adapt its questions."
+
+#, php-format
+msgid "Questions saved: %1$d added, %2$d changed, %3$d deleted."
+msgstr "Questions saved: %1$d added, %2$d changed, %3$d deleted."
+
+msgid "No change to the questions."
+msgstr "No change to the questions."
+
+msgid "Back to supplier risks"
+msgstr "Back to supplier risks"
+
+msgid "New questionnaire template"
+msgstr "New questionnaire template"
+
+msgid "Questionnaire templates"
+msgstr "Questionnaire templates"
+
+msgid "Historical questionnaire"
+msgstr "Historical questionnaire"
+
+msgid ""
+"The twelve questions of the former security questionnaire, kept with the "
+"answers already given."
+msgstr ""
+"The twelve questions of the former security questionnaire, kept with the "
+"answers already given."
+
+msgid ""
+"Create one risk per important supplier, evaluate it with one or more "
+"questionnaires (Questionnaires tab), follow its contracts and the \"Security "
+"watch\" tab."
+msgstr ""
+"Create one risk per important supplier, evaluate it with one or more "
+"questionnaires (Questionnaires tab), follow its contracts and the \"Security "
+"watch\" tab."
+
+msgid ""
+"Supplier questionnaire templates: the questions asked to your suppliers, "
+"grouped by section, with their weight, the expected answer and the evidence "
+"to provide. One template per need: information security, personal data, "
+"artificial intelligence..."
+msgstr ""
+"Supplier questionnaire templates: the questions asked to your suppliers, "
+"grouped by section, with their weight, the expected answer and the evidence "
+"to provide. One template per need: information security, personal data, "
+"artificial intelligence..."
+
+msgid ""
+"Adapt the historical questionnaire or create your own templates, then start "
+"an evaluation from the Questionnaires tab of a supplier risk. A supplier can "
+"be evaluated with several templates; each evaluation keeps its score and its "
+"history."
+msgstr ""
+"Adapt the historical questionnaire or create your own templates, then start "
+"an evaluation from the Questionnaires tab of a supplier risk. A supplier can "
+"be evaluated with several templates; each evaluation keeps its score and its "
+"history."
+
+msgid ""
+"ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
+msgstr ""
+"ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
+
+msgid "Questionnaires"
+msgstr "Questionnaires"
+
+msgid "Choose the supplier risk to evaluate."
+msgstr "Choose the supplier risk to evaluate."
+
+msgid ""
+"Choose an active questionnaire template available in the entity of the "
+"supplier risk."
+msgstr ""
+"Choose an active questionnaire template available in the entity of the "
+"supplier risk."
+
+#, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s - %2$s"
+
+msgid "This evaluation is completed: reopen it to change it."
+msgstr "This evaluation is completed: reopen it to change it."
+
+msgid "Questionnaire"
+msgstr "Questionnaire"
+
+msgid "Evaluation date"
+msgstr "Evaluation date"
+
+msgid "This question cannot receive a document."
+msgstr "This question cannot receive a document."
+
+msgid "You are not allowed to add a document to this supplier risk."
+msgstr "You are not allowed to add a document to this supplier risk."
+
+#, php-format
+msgid "Evidence for question %1$s of the evaluation \"%2$s\""
+msgstr "Evidence for question %1$s of the evaluation \"%2$s\""
+
+#, php-format
+msgid "Evidence added to question %s"
+msgstr "Evidence added to question %s"
+
+msgid "Information security"
+msgstr "Information security"
+
+msgid "Personal data"
+msgstr "Personal data"
+
+msgid "Artificial intelligence"
+msgstr "Artificial intelligence"
+
+msgid "Business continuity"
+msgstr "Business continuity"
+
+#, php-format
+msgid "Copy of %s"
+msgstr "Copy of %s"
+
+msgid "Duplicate this template"
+msgstr "Duplicate this template"
+
+#, php-format
+msgid "%1$d of %2$d questions answered"
+msgstr "%1$d of %2$d questions answered"
+
+#, php-format
+msgid "%1$s (version %2$d)"
+msgstr "%1$s (version %2$d)"
+
+msgid ""
+"Answer the questions in the \"Questionnaire\" tab, then mark the evaluation "
+"as completed."
+msgstr ""
+"Answer the questions in the \"Questionnaire\" tab, then mark the evaluation "
+"as completed."
+
+msgid "Evaluation"
+msgstr "Evaluation"
+
+msgid ""
+"Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by "
+"the weight of the question; \"not applicable\" and unanswered questions are "
+"not counted."
+msgstr ""
+"Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by "
+"the weight of the question; \"not applicable\" and unanswered questions are "
+"not counted."
+
+msgid "For example \"Security 2026\" or \"Personal data - contract renewal\"."
+msgstr "For example \"Security 2026\" or \"Personal data - contract renewal\"."
+
+msgid "Questionnaire template"
+msgstr "Questionnaire template"
+
+#, php-format
+msgid "Score: %1$d%% - %2$s"
+msgstr "Score: %1$d%% - %2$s"
+
+msgid ""
+"This evaluation is completed: its answers can no longer be changed. Reopen "
+"it from the \"Questionnaire\" tab to change them."
+msgstr ""
+"This evaluation is completed: its answers can no longer be changed. Reopen "
+"it from the \"Questionnaire\" tab to change them."
+
+msgid "Add the template, then write its questions in the \"Questions\" tab."
+msgstr "Add the template, then write its questions in the \"Questions\" tab."
+
+msgid ""
+"Fingerprint of the questions, used to recognize a questionnaire file "
+"returned by a supplier."
+msgstr ""
+"Fingerprint of the questions, used to recognize a questionnaire file "
+"returned by a supplier."
+
+msgid ""
+"For example \"Hosting provider security\", \"Personal data processor (GDPR "
+"art. 28)\" or \"AI service provider\"."
+msgstr ""
+"For example \"Hosting provider security\", \"Personal data processor (GDPR "
+"art. 28)\" or \"AI service provider\"."
+
+msgid "Inactive: not offered for new evaluations"
+msgstr "Inactive: not offered for new evaluations"
+
+msgid ""
+"Increases each time the questions change. An evaluation keeps the questions "
+"of the version it was started with."
+msgstr ""
+"Increases each time the questions change. An evaluation keeps the questions "
+"of the version it was started with."
+
+msgid "Only active templates are offered when an evaluation is started."
+msgstr "Only active templates are offered when an evaluation is started."
+
+msgid "Taken over"
+msgstr "Taken over"
+
+msgid ""
+"The last completed evaluation of the \"Information security\" domain gives "
+"the score shown on the supplier risk and on the dashboard."
+msgstr ""
+"The last completed evaluation of the \"Information security\" domain gives "
+"the score shown on the supplier risk and on the dashboard."
+
+msgid ""
+"The twelve questions of the former security questionnaire. It can be "
+"deactivated but not deleted."
+msgstr ""
+"The twelve questions of the former security questionnaire. It can be "
+"deactivated but not deleted."
+
+msgid "Detach"
+msgstr "Detach"
+
+msgid "Document not readable with your rights"
+msgstr "Document not readable with your rights"
+
+msgid "Evidence missing"
+msgstr "Evidence missing"
+
+msgid "Evidence required"
+msgstr "Evidence required"
+
+msgid "Expected answer"
+msgstr "Expected answer"
+
+#, php-format
+msgid "Expected: %s"
+msgstr "Expected: %s"
+
+#, php-format
+msgid ""
+"For each question, choose the answer given by the supplier and add a comment "
+"if needed. The expected answer earns 1 point, \"partial\" half a point, the "
+"other answer 0, multiplied by the weight of the question. A question marked "
+"\"Evidence required\" waits for a document (certificate, report, policy...): "
+"it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) "
+"and added to the Documents tab of the supplier risk."
+msgstr ""
+"For each question, choose the answer given by the supplier and add a comment "
+"if needed. The expected answer earns 1 point, \"partial\" half a point, the "
+"other answer 0, multiplied by the weight of the question. A question marked "
+"\"Evidence required\" waits for a document (certificate, report, policy...): "
+"it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) "
+"and added to the Documents tab of the supplier risk."
+
+msgid "For information, not scored"
+msgstr "For information, not scored"
+
+msgid "General"
+msgstr "General"
+
+msgid ""
+"Questions without an answer do not count in the score. A completed "
+"evaluation can no longer be changed, unless it is reopened."
+msgstr ""
+"Questions without an answer do not count in the score. A completed "
+"evaluation can no longer be changed, unless it is reopened."
+
+msgid "Reopen the evaluation"
+msgstr "Reopen the evaluation"
+
+msgid "Save and mark as completed"
+msgstr "Save and mark as completed"
+
+msgid "Save answers"
+msgstr "Save answers"
+
+msgid ""
+"This evaluation has no question: its template had none when it was created."
+msgstr ""
+"This evaluation has no question: its template had none when it was created."
+
+#, php-format
+msgid "Weight %d"
+msgstr "Weight %d"
+
+#, php-format
+msgid "%1$s: %2$s points"
+msgstr "%1$s: %2$s points"
+
+msgid "Change between the last two completed evaluations"
+msgstr "Change between the last two completed evaluations"
+
+msgid ""
+"Evaluate the supplier with one or more questionnaires (security, personal "
+"data, artificial intelligence...). Each question has a weight and an "
+"expected answer; the score informs the assessment and never changes the risk "
+"level entered. Evidence requested for a question is added to the Documents "
+"tab of this supplier risk."
+msgstr ""
+"Evaluate the supplier with one or more questionnaires (security, personal "
+"data, artificial intelligence...). Each question has a weight and an "
+"expected answer; the score informs the assessment and never changes the risk "
+"level entered. Evidence requested for a question is added to the Documents "
+"tab of this supplier risk."
+
+msgid ""
+"No active questionnaire template is available in the entity of this supplier "
+"risk."
+msgstr ""
+"No active questionnaire template is available in the entity of this supplier "
+"risk."
+
+msgid "No evaluation yet for this supplier."
+msgstr "No evaluation yet for this supplier."
+
+msgid "Optional: the template name and the year otherwise"
+msgstr "Optional: the template name and the year otherwise"
+
+msgid "Start an evaluation"
+msgstr "Start an evaluation"
+
+msgid "Taken over from the former fixed questionnaire"
+msgstr "Taken over from the former fixed questionnaire"
+
+#, php-format
+msgid "Template: %1$s (version %2$d)"
+msgstr "Template: %1$s (version %2$d)"
+
+msgid "Code"
+msgstr "Code"
+
+#, php-format
+msgid ""
+"Group the questions by section. The expected answer is the compliant one "
+"(\"No\" for a question such as \"Have you suffered a data breach in the last "
+"12 months?\"). The weight, from 0 to %d, gives the importance of the "
+"question in the score; 0 makes it a question for information only. Tick "
+"\"Evidence required\" when the supplier must provide a document. Changing "
+"the questions creates a new version of the template; evaluations already "
+"started keep their questions."
+msgstr ""
+"Group the questions by section. The expected answer is the compliant one "
+"(\"No\" for a question such as \"Have you suffered a data breach in the last "
+"12 months?\"). The weight, from 0 to %d, gives the importance of the "
+"question in the score; 0 makes it a question for information only. Tick "
+"\"Evidence required\" when the supplier must provide a document. Changing "
+"the questions creates a new version of the template; evaluations already "
+"started keep their questions."
+
+msgid "Help for the answer (optional)"
+msgstr "Help for the answer (optional)"
+
+msgid "Last"
+msgstr "Last"
+
+msgid "New question (left empty: not added)"
+msgstr "New question (left empty: not added)"
+
+msgid "Question and help"
+msgstr "Question and help"
+
+msgid "Save questions"
+msgstr "Save questions"
+
+msgid "Section"
+msgstr "Section"
+
+msgid "This template has no question yet."
+msgstr "This template has no question yet."
+
+#, php-format
+msgid "Total weight: %d"
+msgstr "Total weight: %d"
+
+msgid "New question"
+msgstr "New question"
+
+#, php-format
+msgid "Answers saved, %d document added."
+msgid_plural "Answers saved, %d documents added."
+msgstr[0] "Answers saved, %d document added."
+msgstr[1] "Answers saved, %d documents added."
+
+msgid "Supplier evaluation"
+msgid_plural "Supplier evaluations"
+msgstr[0] "Supplier evaluation"
+msgstr[1] "Supplier evaluations"
+
+#, php-format
+msgid "%d answer updated"
+msgid_plural "%d answers updated"
+msgstr[0] "%d answer updated"
+msgstr[1] "%d answers updated"
+
+msgid "Supplier questionnaire template"
+msgid_plural "Supplier questionnaire templates"
+msgstr[0] "Supplier questionnaire template"
+msgstr[1] "Supplier questionnaire templates"
+
+msgid "Question"
+msgid_plural "Questions"
+msgstr[0] "Question"
+msgstr[1] "Questions"
+
+#, php-format
+msgid "%d evidence missing"
+msgid_plural "%d evidence missing"
+msgstr[0] "%d evidence missing"
+msgstr[1] "%d evidence missing"
+
+#, php-format
+msgid "%d evaluation"
+msgid_plural "%d evaluations"
+msgstr[0] "%d evaluation"
+msgstr[1] "%d evaluations"
+
+#, php-format
+msgid "%d question"
+msgid_plural "%d questions"
+msgstr[0] "%d question"
+msgstr[1] "%d questions"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

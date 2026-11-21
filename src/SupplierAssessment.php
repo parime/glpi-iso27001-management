@@ -22,18 +22,19 @@ use Contract;
 use Contract_Supplier;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Risk\SupplierQuestionnaire;
-use Session;
+use GlpiPlugin\Grcmanager\Services\Risk\WeightedQuestionnaire;
 
 /**
  * Issue #127 : évaluation de la sécurité d'un fournisseur, en onglets du risque fournisseur.
  *
- * - « Questionnaire de sécurité » : douze questions (oui / partiel / non / sans objet) et leur
- *   score (SupplierQuestionnaire), indicatif : le niveau de risque reste celui saisi par l'équipe ;
+ * - « Questionnaires » (issue #864) : évaluations du fournisseur avec des modèles configurables
+ *   (SupplierEvaluation), chacune avec son score pondéré, indicatif : le niveau de risque reste
+ *   celui saisi par l'équipe. Les douze questions fixes d'origine (getQuestionLabels()) sont
+ *   reprises dans le modèle « Questionnaire historique » ;
  * - « Contrats du fournisseur » : contrats GLPI du fournisseur, avec leurs échéances.
  *
- * Les preuves (questionnaire signé, certificats) s'ajoutent dans l'onglet Documents natif du
- * risque fournisseur. Simple fournisseur d'onglets (CommonGLPI) : les réponses sont stockées sur
- * le risque fournisseur lui-même, avec l'historique GLPI habituel.
+ * Les preuves (questionnaire signé, certificats, pièces justificatives des questions) sont dans
+ * l'onglet Documents natif du risque fournisseur. Simple fournisseur d'onglets (CommonGLPI).
  */
 class SupplierAssessment extends CommonGLPI
 {
@@ -101,7 +102,12 @@ class SupplierAssessment extends CommonGLPI
         }
 
         return [
-            self::TAB_QUESTIONNAIRE => self::createTabEntry(self::getTypeName(1), 0, null, 'ti ti-checklist'),
+            self::TAB_QUESTIONNAIRE => self::createTabEntry(
+                __('Questionnaires', 'grcmanager'),
+                count(SupplierEvaluation::forRisk($item->getID())),
+                null,
+                'ti ti-checklist'
+            ),
             self::TAB_CONTRACTS     => self::createTabEntry(
                 __('Supplier contracts', 'grcmanager'),
                 0,
@@ -113,8 +119,6 @@ class SupplierAssessment extends CommonGLPI
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
-        global $CFG_GLPI;
-
         if (!$item instanceof SupplierRisk) {
             return false;
         }
@@ -127,41 +131,58 @@ class SupplierAssessment extends CommonGLPI
             return true;
         }
 
-        $answers = json_decode((string) ($item->fields['questionnaire_answers'] ?? ''), true);
-        $score = $item->fields['questionnaire_score'] ?? null;
-        $authorId = (int) ($item->fields['questionnaire_users_id'] ?? 0);
-        TemplateRenderer::getInstance()->display('@grcmanager/tabs/supplier_questionnaire.html.twig', [
-            'item'      => $item,
-            'questions' => self::getQuestionLabels(),
-            'choices'   => self::getAnswerLabels(),
-            'answers'   => is_array($answers) ? $answers : [],
-            'score'     => $score === null ? null : (int) $score,
-            'level'     => SupplierQuestionnaire::level($score === null ? null : (int) $score),
-            'date'      => $item->fields['questionnaire_date'] ?? null,
-            'author'    => $authorId > 0 ? getUserName($authorId) : '',
-            'can_edit'  => $item->canUpdateItem(),
-            'action'    => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/supplierassessment.form.php',
-        ]);
+        if (!$item->can($item->getID(), READ)) {
+            return false;
+        }
+        self::showEvaluations($item);
 
         return true;
     }
 
     /**
-     * Enregistre le questionnaire sur le risque fournisseur (score recalculé, auteur et date).
-     *
-     * @param array<mixed> $answers question => réponse
+     * Issue #864 : évaluations du risque fournisseur (plusieurs modèles : sécurité, données
+     * personnelles, IA...), avec leur score et leur historique, et création d'une évaluation.
      */
-    public static function save(SupplierRisk $risk, array $answers): bool
+    private static function showEvaluations(SupplierRisk $risk): void
     {
-        $clean = SupplierQuestionnaire::sanitize($answers);
-        $score = SupplierQuestionnaire::score($clean);
+        global $CFG_GLPI;
 
-        return (bool) $risk->update([
-            'id'                     => $risk->getID(),
-            'questionnaire_answers'  => json_encode($clean),
-            'questionnaire_score'    => $score ?? 'NULL',
-            'questionnaire_date'     => date('Y-m-d H:i:s'),
-            'questionnaire_users_id' => (int) Session::getLoginUserID(),
+        $rows = [];
+        $history = [];
+        foreach (SupplierEvaluation::forRisk($risk->getID()) as $row) {
+            $score = $row['score'] === null ? null : (int) $row['score'];
+            $row['level'] = SupplierQuestionnaire::level($score);
+            $row['url'] = SupplierEvaluation::getFormURLWithID((int) $row['id']);
+            $row['evaluator'] = (int) $row['users_id'] > 0 ? getUserName((int) $row['users_id']) : '';
+            $rows[] = $row;
+            if ($score !== null && $row['status'] === WeightedQuestionnaire::STATUS_COMPLETED) {
+                $history[(string) $row['domain']][] = $score;
+            }
+        }
+        // Évolution par domaine : écart entre les deux dernières évaluations terminées.
+        $trends = [];
+        foreach ($history as $domain => $scores) {
+            if (count($scores) >= 2) {
+                $trends[$domain] = $scores[0] - $scores[1];
+            }
+        }
+        $entityId = (int) ($risk->fields['entities_id'] ?? 0);
+        $canCreate = $risk->can($risk->getID(), UPDATE) && SupplierEvaluation::canCreate();
+        TemplateRenderer::getInstance()->display('@grcmanager/tabs/supplier_questionnaire.html.twig', [
+            'risk'          => $risk,
+            'evaluations'   => $rows,
+            'trends'        => $trends,
+            'statuses'      => SupplierEvaluation::getStatuses(),
+            'levels'        => SupplierEvaluation::getLevels(),
+            'domains'       => SupplierQuestionnaireTemplate::getDomains(),
+            'badges'        => SupplierQuestionnaireTemplate::getDomainBadges(),
+            'templates'     => $canCreate ? SupplierQuestionnaireTemplate::availableFor($entityId) : [],
+            'can_create'    => $canCreate,
+            'templates_url' => SupplierQuestionnaireTemplate::canView()
+                ? SupplierQuestionnaireTemplate::getSearchURL()
+                : '',
+            'entity_id'     => $entityId,
+            'action'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/supplierevaluation.form.php',
         ]);
     }
 
