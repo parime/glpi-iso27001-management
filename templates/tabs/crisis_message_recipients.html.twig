@@ -18,6 +18,35 @@
 
 <p class="text-muted">{{ __('People and organizations to inform with this message. Internal recipients are GLPI users and groups; external recipients are the official contacts of the organization context. The plugin never sends the message: it only prepares it.', 'grcmanager') }}</p>
 
+{# Lot 2 : revue annuelle de la liste de diffusion. #}
+<div class="card card-body mb-3 d-flex flex-row flex-wrap align-items-center gap-2">
+  <i class="ti ti-calendar-check"></i>
+  {% if review.status == 'ok' %}
+    <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ __('Reviewed', 'grcmanager') }}</span>
+  {% elseif review.status == 'overdue' %}
+    <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Review overdue (more than 12 months)', 'grcmanager') }}</span>
+  {% else %}
+    <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-clock me-1"></i>{{ __('Never reviewed', 'grcmanager') }}</span>
+  {% endif %}
+  <span class="text-muted">
+    {% if review.date %}
+      {{ __('Last review on %1$s by %2$s, next one before %3$s.', 'grcmanager')|format(review.date|formatted_date, review.reviewer ?: '-', review.next|formatted_date) }}
+    {% else %}
+      {{ __('Check once a year that each recipient, deputy and address is still right.', 'grcmanager') }}
+    {% endif %}
+  </span>
+  {% if can_edit %}
+    <form method="post" action="{{ form_url }}" class="ms-auto">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="plugin_grcmanager_crisismessagetemplates_id" value="{{ template_id }}">
+      <button type="submit" name="review" value="1" class="btn btn-outline-primary btn-sm"><i class="ti ti-circle-check me-1"></i>{{ __('Mark the list as reviewed today', 'grcmanager') }}</button>
+    </form>
+  {% endif %}
+</div>
+{% if without_deputy > 0 %}
+  <div class="alert alert-warning"><i class="ti ti-user-question me-1"></i>{{ _n('%d main recipient has no deputy: if they cannot be reached during a crisis, nobody else is planned.', '%d main recipients have no deputy: if they cannot be reached during a crisis, nobody else is planned.', without_deputy, 'grcmanager')|format(without_deputy) }}</div>
+{% endif %}
+
 {% if can_edit %}
 <div class="row g-2 mb-3">
   {% set forms = [
@@ -35,6 +64,15 @@
         <input type="hidden" name="itemtype" value="{{ f.itemtype }}">
         <input type="hidden" name="items_field" value="{{ f.name }}">
         {{ fields.dropdownField(f.itemtype, f.name, 0, f.label, f.options|merge({'full_width': true, 'is_horizontal': false})) }}
+        {% if principals is not empty %}
+          <label class="form-label mt-2" for="grc-crisis-deputy-{{ loop.index }}">{{ __('Role in the list', 'grcmanager') }}</label>
+          <select class="form-select" name="deputy_of" id="grc-crisis-deputy-{{ loop.index }}">
+            <option value="0">{{ __('Main recipient', 'grcmanager') }}</option>
+            {% for p in principals %}
+              <option value="{{ p.id }}">{{ __('Deputy of %s', 'grcmanager')|format(p.name) }}</option>
+            {% endfor %}
+          </select>
+        {% endif %}
         <button type="submit" name="add" value="1" class="btn btn-primary mt-2"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
       </form>
     </div>
@@ -61,10 +99,20 @@
     {% for r in recipients %}
       <tr>
         <td><span class="badge {{ r.internal ? 'bg-blue-lt' : 'bg-purple-lt' }}">{{ r.type_label }}</span></td>
-        <td>{{ r.name }}</td>
+        <td{% if r.deputy_of %} class="ps-4"{% endif %}>
+          {% if r.deputy_of %}
+            <i class="ti ti-corner-down-right me-1 text-muted"></i><span class="badge bg-info-subtle text-info-emphasis me-1">{{ __('Deputy', 'grcmanager') }}</span>
+          {% endif %}
+          {{ r.name }}
+          {% if r.deputy_of and r.principal %}<div class="small text-muted">{{ __('Deputy of %s', 'grcmanager')|format(r.principal) }}</div>{% endif %}
+          {% if not r.deputy_of and not r.has_deputy and r.type != 'Group' %}<span class="badge bg-secondary-subtle text-secondary-emphasis ms-1">{{ __('No deputy', 'grcmanager') }}</span>{% endif %}
+        </td>
         <td>
           {% if r.missing_address %}
             <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('No address recorded', 'grcmanager') }}</span>
+          {% endif %}
+          {% if r.without_email > 0 %}
+            <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d member without email', '%d members without email', r.without_email, 'grcmanager')|format(r.without_email) }}</span>
           {% endif %}
           <span class="text-muted" style="white-space: pre-line">{{ r.address }}</span>
         </td>

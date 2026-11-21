@@ -23,6 +23,12 @@
             {% if summary.without_recipients > 0 %}
                <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d template without recipients', '%d templates without recipients', summary.without_recipients, 'grcmanager')|format(summary.without_recipients) }}</span>
             {% endif %}
+            {% if summary.review_due is defined and summary.review_due > 0 %}
+               <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-calendar-exclamation me-1"></i>{{ _n('%d distribution list not reviewed within 12 months', '%d distribution lists not reviewed within 12 months', summary.review_due, 'grcmanager')|format(summary.review_due) }}</span>
+            {% endif %}
+            {% if summary.without_deputy is defined and summary.without_deputy > 0 %}
+               <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-user-question me-1"></i>{{ _n('%d main recipient without deputy', '%d main recipients without deputy', summary.without_deputy, 'grcmanager')|format(summary.without_deputy) }}</span>
+            {% endif %}
             {% if summary.missing_situations is not empty %}
                <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('No template for: %s', 'grcmanager')|format(summary.missing_situations|join(', ')) }}</span>
             {% endif %}

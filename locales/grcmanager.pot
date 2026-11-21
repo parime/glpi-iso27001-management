@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 06:31+0000\n"
+"POT-Creation-Date: 2026-11-21 06:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,7 +74,7 @@ msgstr ""
 #: src/Audit.php:653 src/CertificationFinding.php:423
 #: src/CertificationReadiness.php:1484 src/CertificationResponse.php:433
 #: src/CompetenceMatrix.php:899 src/ConsistencyCheck.php:1503
-#: src/ContextItem.php:895 src/ControlTest.php:994 src/CrisisExercise.php:670
+#: src/ContextItem.php:895 src/ControlTest.php:994 src/CrisisExercise.php:677
 #: src/CrisisScenario.php:940 src/Dpia.php:443 src/EbiosStudy.php:313
 #: src/EvidencePack.php:658 src/ManagementReviewDossier.php:633
 #: src/OfficialContact.php:354 src/OperatingProcedure.php:447
@@ -364,7 +364,7 @@ msgid "Rule"
 msgstr ""
 
 #: front/consistencycheck.export.php:50 front/controlblocker.php:62
-#: inc/securityincident.class.php:804 src/CrisisMessageTemplate.php:102
+#: inc/securityincident.class.php:804 src/CrisisMessageTemplate.php:103
 #: src/Nonconformity.php:371 src/NotificationTargetNonconformity.php:92
 #: src/SecurityIncidentEdrImport.php:75
 #: templates/_control_blocker_list.html.twig templates/_crisis_review.html.twig
@@ -541,7 +541,7 @@ msgstr ""
 msgid "The exercise type could not be changed."
 msgstr ""
 
-#: front/crisisexercise.form.php:184 src/CrisisExercise.php:793
+#: front/crisisexercise.form.php:184 src/CrisisExercise.php:800
 msgid "Crisis team"
 msgstr ""
 
@@ -549,8 +549,12 @@ msgstr ""
 msgid "The exercise could not be started."
 msgstr ""
 
-#: front/crisismessagerecipient.form.php:35
+#: front/crisismessagerecipient.form.php:37
 msgid "This recipient cannot be added."
+msgstr ""
+
+#: front/crisismessagerecipient.form.php:44
+msgid "Review of the distribution list recorded."
 msgstr ""
 
 #: front/crisisscenario.php:29
@@ -1784,7 +1788,7 @@ msgstr ""
 #: inc/securityincident.class.php:1190 src/CompetenceDeclaration.php:92
 #: src/ComplianceEvent.php:120 src/ComplianceEvent.php:211
 #: src/ContextItem.php:150 src/ContextItem.php:166 src/ContextItem.php:186
-#: src/CrisisMessageTemplate.php:64 src/EbiosStakeholder.php:51
+#: src/CrisisMessageTemplate.php:65 src/EbiosStakeholder.php:51
 #: src/IsmsFunction.php:142 src/NetworkFlow.php:91
 #: src/ProcessingActivity.php:151 src/ProcessingActivity.php:168
 #: src/ProcessingActivity.php:201 src/SecurityIncidentAction.php:64
@@ -1959,7 +1963,7 @@ msgid "Subject to NIS2"
 msgstr ""
 
 #: inc/securityincident.class.php:854 src/CrisisCommunication.php:190
-#: src/CrisisMessageTemplate.php:61 templates/itil_regulatory_section.html.twig
+#: src/CrisisMessageTemplate.php:62 templates/itil_regulatory_section.html.twig
 msgid "Personal data breach"
 msgstr ""
 
@@ -5752,11 +5756,11 @@ msgstr ""
 msgid "Interested party"
 msgstr ""
 
-#: src/ContextItem.php:133 src/CrisisMessageTemplate.php:86
+#: src/ContextItem.php:133 src/CrisisMessageTemplate.php:87
 msgid "Internal"
 msgstr ""
 
-#: src/ContextItem.php:134 src/CrisisMessageTemplate.php:87
+#: src/ContextItem.php:134 src/CrisisMessageTemplate.php:88
 msgid "External"
 msgstr ""
 
@@ -6593,7 +6597,7 @@ msgstr ""
 msgid "A justification is required whenever a control is not fully applicable."
 msgstr ""
 
-#: src/Control.php:1059
+#: src/Control.php:1059 templates/tabs/crisis_message_recipients.html.twig
 msgid "Reviewed"
 msgstr ""
 
@@ -7246,24 +7250,30 @@ msgstr ""
 msgid "The subject and the message are required."
 msgstr ""
 
-#: src/CrisisCommunication.php:327
+#: src/CrisisCommunication.php:322 templates/crisis_communication_tab.html.twig
+#: templates/tabs/crisis_message_recipients.html.twig
+#, php-format
+msgid "Deputy of %s"
+msgstr ""
+
+#: src/CrisisCommunication.php:330
 msgid "Tick or type at least one recipient."
 msgstr ""
 
-#: src/CrisisCommunication.php:332
+#: src/CrisisCommunication.php:335
 msgid "The date of the communication is invalid or in the future."
 msgstr ""
 
-#: src/CrisisCommunication.php:347
+#: src/CrisisCommunication.php:350
 msgid "The communication could not be recorded."
 msgstr ""
 
-#: src/CrisisCommunication.php:374
+#: src/CrisisCommunication.php:377
 #, php-format
 msgid "Crisis communication made on %1$s: \"%2$s\"."
 msgstr ""
 
-#: src/CrisisCommunication.php:378 src/SecurityIncidentPostMortem.php:145
+#: src/CrisisCommunication.php:381 src/SecurityIncidentPostMortem.php:145
 #, php-format
 msgid "Recipients: %s"
 msgstr ""
@@ -7382,22 +7392,22 @@ msgstr ""
 msgid "Target: %d min after the crisis team was activated."
 msgstr ""
 
-#: src/CrisisExercise.php:665
+#: src/CrisisExercise.php:672
 #, php-format
 msgid "Crisis exercise report: %s"
 msgstr ""
 
-#: src/CrisisExercise.php:666
+#: src/CrisisExercise.php:673
 #, php-format
 msgid "Crisis team report: %s"
 msgstr ""
 
-#: src/CrisisExercise.php:682
+#: src/CrisisExercise.php:689
 #, php-format
 msgid "Crisis exercise report - %s"
 msgstr ""
 
-#: src/CrisisExercise.php:683
+#: src/CrisisExercise.php:690
 #, php-format
 msgid "Crisis team report - %s"
 msgstr ""
@@ -7446,101 +7456,106 @@ msgid_plural "Distribution lists"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/CrisisMessageRecipient.php:132
+#: src/CrisisMessageRecipient.php:187
 #, php-format
 msgid "%d member"
 msgid_plural "%d members"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/CrisisMessageTemplate.php:46
+#: src/CrisisMessageTemplate.php:47
 msgid "Crisis message template"
 msgid_plural "Crisis message templates"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/CrisisMessageTemplate.php:60
+#: src/CrisisMessageTemplate.php:61
 msgid "Major incident"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:62
+#: src/CrisisMessageTemplate.php:63
 msgid "Service unavailability"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:63
+#: src/CrisisMessageTemplate.php:64
 #: src/NotificationTargetVulnerabilityDigest.php:240
 #: templates/park_vulnerabilities.html.twig
 msgid "Ransomware"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:74
+#: src/CrisisMessageTemplate.php:75
 msgid "First message"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:75
+#: src/CrisisMessageTemplate.php:76
 msgid "Situation update"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:76
+#: src/CrisisMessageTemplate.php:77
 msgid "End of crisis"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:99
+#: src/CrisisMessageTemplate.php:100
 msgid "Reference of the incident (SEC-YYYY-NNNN)"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:100
+#: src/CrisisMessageTemplate.php:101
 msgid "Title of the incident or of the breach"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:101
+#: src/CrisisMessageTemplate.php:102
 msgid "Type of incident"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:103
+#: src/CrisisMessageTemplate.php:104
 msgid "Date and time of detection"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:104
+#: src/CrisisMessageTemplate.php:105
 msgid "Affected systems (items linked to the incident)"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:106
+#: src/CrisisMessageTemplate.php:107
 msgid "Person preparing the message"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:107
+#: src/CrisisMessageTemplate.php:108
 msgid "Current date and time"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:108
+#: src/CrisisMessageTemplate.php:109
 msgid "Time of the next communication (to be completed)"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:156
+#: src/CrisisMessageTemplate.php:157
 msgid "The template name is required."
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:244 src/DataBreach.php:1058
+#: src/CrisisMessageTemplate.php:280 src/DataBreach.php:1058
 #: templates/crisis_message_template_form.html.twig
 msgid "Situation"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:245
+#: src/CrisisMessageTemplate.php:281
 #: templates/crisis_message_template_form.html.twig
 msgid "Stage"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:246
+#: src/CrisisMessageTemplate.php:282
 #: templates/crisis_message_template_form.html.twig
 msgid "Audience"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:256
+#: src/CrisisMessageTemplate.php:292
 #: src/NotificationTargetVulnerabilityDigest.php:230
 #: templates/crisis_communication_tab.html.twig
 #: templates/crisis_message_template_form.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
 msgid "Subject"
+msgstr ""
+
+#: src/CrisisMessageTemplate.php:301
+msgid "Distribution list last reviewed on"
 msgstr ""
 
 #: src/CrisisScenario.php:70 templates/_crisis_scenario_summary.html.twig
@@ -13443,6 +13458,7 @@ msgstr ""
 
 #: src/PersonnelCompliance.php:385 templates/context_item_form.html.twig
 #: templates/pdf/_context_review_cell.html.twig templates/policy_form.html.twig
+#: templates/tabs/crisis_message_recipients.html.twig
 msgid "Never reviewed"
 msgstr ""
 
@@ -14242,6 +14258,7 @@ msgstr ""
 
 #: src/ProcessingActivity.php:581 src/ProcessingActivity.php:1004
 #: templates/crisis_communication_tab.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
 #: templates/processing_activity_form.html.twig
 msgid "Recipients"
 msgstr ""
@@ -17268,6 +17285,20 @@ msgstr[1] ""
 #, php-format
 msgid "%d communication recorded within 12 months"
 msgid_plural "%d communications recorded within 12 months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_crisis_communication_summary.html.twig
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_crisis_communication_summary.html.twig
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -22909,6 +22940,14 @@ msgstr ""
 #: templates/crisis_communication_tab.html.twig
 #: templates/tabs/crisis_message_recipients.html.twig
 #, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_communication_tab.html.twig
+#: templates/tabs/crisis_message_recipients.html.twig
+#, php-format
 msgid "%d recipient not shown (outside your entities or rights)."
 msgid_plural "%d recipients not shown (outside your entities or rights)."
 msgstr[0] ""
@@ -22948,6 +22987,11 @@ msgid "Copy the message"
 msgstr ""
 
 #: templates/crisis_communication_tab.html.twig
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Deputy"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
 msgid ""
 "Exercise incident: use the templates to train, and say clearly in the "
 "message that it is an exercise."
@@ -22963,6 +23007,7 @@ msgid "Message"
 msgstr ""
 
 #: templates/crisis_communication_tab.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
 msgid "Message template"
 msgstr ""
 
@@ -22975,7 +23020,7 @@ msgstr ""
 msgid "No address recorded"
 msgstr ""
 
-#: templates/crisis_communication_tab.html.twig
+#: templates/crisis_communication_tab.html.twig templates/crisis_room.html.twig
 msgid "No communication recorded yet."
 msgstr ""
 
@@ -22983,7 +23028,7 @@ msgstr ""
 msgid "Other recipients (one per line)"
 msgstr ""
 
-#: templates/crisis_communication_tab.html.twig
+#: templates/crisis_communication_tab.html.twig templates/crisis_room.html.twig
 msgid "Prepare a message"
 msgstr ""
 
@@ -23004,7 +23049,14 @@ msgid "Record the communication only after you have sent it yourself."
 msgstr ""
 
 #: templates/crisis_communication_tab.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
 msgid "Sent on"
+msgstr ""
+
+#: templates/crisis_communication_tab.html.twig
+msgid ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
 msgstr ""
 
 #: templates/crisis_communication_tab.html.twig
@@ -23156,6 +23208,11 @@ msgstr ""
 
 #: templates/crisis_room.html.twig
 msgid "Close the crisis team? The timer stops; the incident itself stays open."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Crisis communications"
 msgstr ""
 
 #: templates/crisis_room.html.twig
@@ -32103,6 +32160,17 @@ msgid "Prepare a campaign"
 msgstr ""
 
 #: templates/tabs/crisis_message_recipients.html.twig
+#, php-format
+msgid ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgid_plural ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
 msgid "Add a user"
 msgstr ""
 
@@ -32114,6 +32182,28 @@ msgstr ""
 msgid ""
 "An external recipient missing from the list? Record it first in the register "
 "of official contacts."
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid ""
+"Check once a year that each recipient, deputy and address is still right."
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Main recipient"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Mark the list as reviewed today"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "No deputy"
 msgstr ""
 
 #: templates/tabs/crisis_message_recipients.html.twig
@@ -32130,6 +32220,14 @@ msgstr ""
 
 #: templates/tabs/crisis_message_recipients.html.twig
 msgid "Remove this recipient?"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Review overdue (more than 12 months)"
+msgstr ""
+
+#: templates/tabs/crisis_message_recipients.html.twig
+msgid "Role in the list"
 msgstr ""
 
 #: templates/tabs/crisis_scenario_readiness.html.twig

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
-"Language: pt_PT\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6345,11 +6345,10 @@ msgstr "Máquinas mais expostas"
 
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, operating system and firmware, to know where to start updating."
+"software, to know where to start updating."
 msgstr ""
 "As máquinas mais expostas às vulnerabilidades conhecidas de seus softwares "
-"monitorados, de seu sistema operacional e de seu firmware, para saber por "
-"onde começar as atualizações."
+"monitorados, para saber por onde começar as atualizações."
 
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
@@ -28036,6 +28035,93 @@ msgid "Blocked control"
 msgid_plural "Blocked controls"
 msgstr[0] "Controle bloqueado"
 msgstr[1] "Controles bloqueados"
+
+msgid "Review of the distribution list recorded."
+msgstr "Revisão da lista de distribuição registrada."
+
+msgid "Review overdue (more than 12 months)"
+msgstr "Revisão atrasada (mais de 12 meses)"
+
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr "Última revisão em %1$s por %2$s, a próxima antes de %3$s."
+
+msgid ""
+"Check once a year that each recipient, deputy and address is still right."
+msgstr ""
+"Verifique uma vez por ano se cada destinatário, suplente e endereço continua "
+"correto."
+
+msgid "Mark the list as reviewed today"
+msgstr "Marcar a lista como revisada hoje"
+
+msgid "Role in the list"
+msgstr "Papel na lista"
+
+msgid "Main recipient"
+msgstr "Destinatário principal"
+
+#, php-format
+msgid "Deputy of %s"
+msgstr "Suplente de %s"
+
+msgid "Deputy"
+msgstr "Suplente"
+
+msgid "No deputy"
+msgstr "Sem suplente"
+
+msgid ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+msgstr ""
+"Os endereços dos membros são incluídos ao copiar ou exportar os endereços."
+
+msgid "Distribution list last reviewed on"
+msgstr "Lista de distribuição revisada em"
+
+msgid "Crisis communications"
+msgstr "Comunicações de crise"
+
+#, php-format
+msgid ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgid_plural ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+msgstr[0] ""
+"%d destinatário principal não tem suplente: se não puder ser contatado "
+"durante uma crise, ninguém mais está previsto."
+msgstr[1] ""
+"%d destinatários principais não têm suplente: se não puderem ser contatados "
+"durante uma crise, ninguém mais está previsto."
+
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] "%d membro sem e-mail"
+msgstr[1] "%d membros sem e-mail"
+
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] "%d lista de distribuição não revisada há 12 meses"
+msgstr[1] "%d listas de distribuição não revisadas há 12 meses"
+
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] "%d destinatário principal sem suplente"
+msgstr[1] "%d destinatários principais sem suplente"
+
+msgid ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, operating system and firmware, to know where to start updating."
+msgstr ""
+"As máquinas mais expostas às vulnerabilidades conhecidas de seus softwares "
+"monitorados, de seu sistema operacional e de seu firmware, para saber por "
+"onde começar as atualizações."
 
 msgid "Hardware whose model has reached the manufacturer end of life"
 msgstr "Hardware cujo modelo atingiu o fim de vida do fabricante"
