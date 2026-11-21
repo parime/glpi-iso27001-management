@@ -86,6 +86,32 @@ final class OfficialContactRulesTest extends TestCase
         $this->assertFalse(Rules::concerns($row, 'other'));
     }
 
+    public function testIncidentCategoriesAreNormalized(): void
+    {
+        $this->assertSame(['malware', 'availability'], Rules::normalizeIncidentCategories(['availability', 'malware']));
+        $this->assertSame(['malware'], Rules::normalizeIncidentCategories('["malware","<script>"]'));
+        $this->assertSame([], Rules::normalizeIncidentCategories(''));
+        $this->assertSame([], Rules::normalizeIncidentCategories('not json'));
+        $this->assertSame([], Rules::normalizeIncidentCategories(42));
+        $this->assertSame('', Rules::encodeIncidentCategories([]));
+        $this->assertSame('["data_breach"]', Rules::encodeIncidentCategories(['data_breach', 'data_breach']));
+    }
+
+    public function testContactsAreProposedByIncidentCategory(): void
+    {
+        $base = ['is_official_contact' => 1, 'on_security_incident' => 1, 'on_data_breach' => 0];
+        $malware = $base + ['contact_incident_categories' => '["malware"]'];
+        $this->assertTrue(Rules::concerns($malware, Rules::CONTEXT_INCIDENT, 'malware'));
+        $this->assertFalse(Rules::concerns($malware, Rules::CONTEXT_INCIDENT, 'availability'));
+        $this->assertTrue(Rules::concerns($malware, Rules::CONTEXT_INCIDENT), 'Incident sans catégorie.');
+        $this->assertTrue(Rules::concerns($base, Rules::CONTEXT_INCIDENT, 'availability'), 'Aucune catégorie : tous.');
+
+        $breach = ['is_official_contact' => 1, 'on_security_incident' => 0, 'on_data_breach' => 1];
+        $this->assertTrue(Rules::concerns($breach, Rules::CONTEXT_INCIDENT, Rules::INCIDENT_CATEGORY_DATA_BREACH));
+        $this->assertFalse(Rules::concerns($breach, Rules::CONTEXT_INCIDENT, 'malware'));
+        $this->assertTrue(Rules::concerns($breach, Rules::CONTEXT_BREACH));
+    }
+
     public function testSummary(): void
     {
         $summary = Rules::summary([

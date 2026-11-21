@@ -31416,26 +31416,172 @@ msgstr ""
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "This exercise has never been run to the end in the crisis room."
 
-msgid "Child licenses counted once"
-msgstr "Child licenses counted once"
+msgid ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+msgstr ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+
+msgid "Archive on controls A.5.5 and A.5.6"
+msgstr "Archive on controls A.5.5 and A.5.6"
+
+msgid "Archived registers:"
+msgstr "Archived registers:"
 
 msgid ""
-"Child licenses share the seats of their parent license: each family is "
-"counted once."
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
 msgstr ""
-"Child licenses share the seats of their parent license: each family is "
-"counted once."
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
+
+#, php-format
+msgid "Crisis communication: \"%s\""
+msgstr "Crisis communication: \"%s\""
 
 msgid ""
-"More assets have the software than the valid licenses allow. An unlimited "
-"license (number 0 or less) covers everything. A parent license and its child "
-"licenses count for the larger of the parent number and the sum of the "
-"children."
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
 msgstr ""
-"More assets have the software than the valid licenses allow. An unlimited "
-"license (number 0 or less) covers everything. A parent license and its child "
-"licenses count for the larger of the parent number and the sum of the "
-"children."
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
+
+msgid "From a crisis communication"
+msgstr "From a crisis communication"
+
+msgid "No official contact is set for this type of incident."
+msgstr "No official contact is set for this type of incident."
+
+msgid "Official contacts to inform"
+msgstr "Official contacts to inform"
+
+msgid "Official contacts to inform during a crisis"
+msgstr "Official contacts to inform during a crisis"
+
+msgid "Only for these types of incident"
+msgstr "Only for these types of incident"
+
+msgid ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+msgstr ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+
+#, php-format
+msgid "Register of official contacts - %s"
+msgstr "Register of official contacts - %s"
+
+msgid ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+msgstr ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+
+msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
+msgstr ""
+"The register has been archived as evidence on controls A.5.5 and A.5.6."
+
+msgid ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+msgstr ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+
+#, php-format
+msgid "%d official contact recorded as contacted."
+msgid_plural "%d official contacts recorded as contacted."
+msgstr[0] "%d official contact recorded as contacted."
+msgstr[1] "%d official contacts recorded as contacted."
+
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d competence gap(s) reported."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Activity of the responsibility matrix"
+
+msgid "Competence gaps without planned training"
+msgstr "Competence gaps without planned training"
+
+msgid "Follows the responsibility matrix"
+msgstr "Follows the responsibility matrix"
+
+msgid "New gaps without planned training"
+msgstr "New gaps without planned training"
+
+msgid "Number of gaps without planned training"
+msgstr "Number of gaps without planned training"
+
+msgid "Number of new gaps"
+msgstr "Number of new gaps"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Other gaps not listed here: %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Responsibility matrix: %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Role in the activity"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "This activity is not available in the entity of the function."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr "Warns the owner of the competence gaps that have no planned training"
+
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+
+msgid ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+msgstr ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+
+msgid ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+msgstr ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+
+msgid "View the competences"
+msgstr "View the competences"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Competence gap alert"
+msgstr[1] "Competence gap alerts"
 
 msgid "Evidence pack settings saved."
 msgstr "Evidence pack settings saved."
@@ -31641,86 +31787,6 @@ msgstr "limit %d MB"
 msgid "%s MB"
 msgstr "%s MB"
 
-#, php-format
-msgid "%d competence gap(s) reported."
-msgstr "%d competence gap(s) reported."
-
-#, php-format
-msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
-msgstr "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
-
-#, php-format
-msgid ""
-"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
-"declare a proof)"
-msgstr ""
-"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
-"declare a proof)"
-
-msgid "Activity of the responsibility matrix"
-msgstr "Activity of the responsibility matrix"
-
-msgid "Competence gaps without planned training"
-msgstr "Competence gaps without planned training"
-
-msgid "Follows the responsibility matrix"
-msgstr "Follows the responsibility matrix"
-
-msgid "New gaps without planned training"
-msgstr "New gaps without planned training"
-
-msgid "Number of gaps without planned training"
-msgstr "Number of gaps without planned training"
-
-msgid "Number of new gaps"
-msgstr "Number of new gaps"
-
-#, php-format
-msgid "Other gaps not listed here: %d"
-msgstr "Other gaps not listed here: %d"
-
-#, php-format
-msgid "Responsibility matrix: %1$s (%2$s)"
-msgstr "Responsibility matrix: %1$s (%2$s)"
-
-msgid "Role in the activity"
-msgstr "Role in the activity"
-
-msgid "This activity is not available in the entity of the function."
-msgstr "This activity is not available in the entity of the function."
-
-msgid "Warns the owner of the competence gaps that have no planned training"
-msgstr "Warns the owner of the competence gaps that have no planned training"
-
-msgid ""
-"Optional: the people and groups who hold the chosen role in this activity "
-"hold the function, and follow the matrix when it changes."
-msgstr ""
-"Optional: the people and groups who hold the chosen role in this activity "
-"hold the function, and follow the matrix when it changes."
-
-msgid ""
-"Sent by the GRC Manager automatic task when a person who holds an ISMS "
-"function has a competence gap with no planned training."
-msgstr ""
-"Sent by the GRC Manager automatic task when a person who holds an ISMS "
-"function has a competence gap with no planned training."
-
-msgid ""
-"Plan a session of the proposed training from the Competences page, or "
-"declare the proof the person already has. Nothing is changed automatically."
-msgstr ""
-"Plan a session of the proposed training from the Competences page, or "
-"declare the proof the person already has. Nothing is changed automatically."
-
-msgid "View the competences"
-msgstr "View the competences"
-
-msgid "Competence gap alert"
-msgid_plural "Competence gap alerts"
-msgstr[0] "Competence gap alert"
-msgstr[1] "Competence gap alerts"
-
 msgid "Blockers"
 msgstr "Blockers"
 
@@ -31854,6 +31920,27 @@ msgid "Blocked control"
 msgid_plural "Blocked controls"
 msgstr[0] "Blocked control"
 msgstr[1] "Blocked controls"
+
+msgid "Child licenses counted once"
+msgstr "Child licenses counted once"
+
+msgid ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+msgstr ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
+msgstr ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"

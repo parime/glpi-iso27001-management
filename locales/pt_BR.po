@@ -27593,25 +27593,172 @@ msgstr ""
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "Este exercício nunca foi conduzido até o fim na sala de crise."
 
-msgid "Child licenses counted once"
-msgstr "Licenças filhas contadas uma vez"
+msgid ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+msgstr ""
+"Registrar também como contato com os contatos oficiais marcados (aba "
+"“Contatos oficiais”)"
+
+msgid "Archive on controls A.5.5 and A.5.6"
+msgstr "Arquivar nos controles A.5.5 e A.5.6"
+
+msgid "Archived registers:"
+msgstr "Registros arquivados:"
 
 msgid ""
-"Child licenses share the seats of their parent license: each family is "
-"counted once."
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
 msgstr ""
-"As licenças filhas compartilham os postos da licença mãe: cada família é "
-"contada uma vez."
+"Autoridades, CSIRT, polícia, seguradora e grupos de interesse do registro de "
+"contatos oficiais, com a pessoa autorizada a contatá-los."
+
+#, php-format
+msgid "Crisis communication: \"%s\""
+msgstr "Comunicação de crise: “%s”"
 
 msgid ""
-"More assets have the software than the valid licenses allow. An unlimited "
-"license (number 0 or less) covers everything. A parent license and its child "
-"licenses count for the larger of the parent number and the sum of the "
-"children."
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
 msgstr ""
-"Mais ativos têm o software do que as licenças válidas permitem. Uma licença "
-"ilimitada (número 0 ou menor) cobre tudo. Uma licença mãe e suas licenças "
-"filhas contam pelo maior entre o número da mãe e a soma das filhas."
+"Durante um exercício, registre as chamadas que você faria: o relatório "
+"mostra então se os prazos teriam sido cumpridos."
+
+msgid "From a crisis communication"
+msgstr "De uma comunicação de crise"
+
+msgid "No official contact is set for this type of incident."
+msgstr "Nenhum contato oficial definido para este tipo de incidente."
+
+msgid "Official contacts to inform"
+msgstr "Contatos oficiais a avisar"
+
+msgid "Official contacts to inform during a crisis"
+msgstr "Contatos oficiais a avisar durante uma crise"
+
+msgid "Only for these types of incident"
+msgstr "Somente para estes tipos de incidente"
+
+msgid ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+msgstr ""
+"Opcional: deixe vazio para mostrar este contato em todos os incidentes de "
+"segurança. Um incidente do tipo “Violação de dados” também mostra os "
+"contatos a avisar em caso de violação de dados pessoais."
+
+#, php-format
+msgid "Register of official contacts - %s"
+msgstr "Registro de contatos oficiais - %s"
+
+msgid ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+msgstr ""
+"Salva o registro como documento PDF datado nos controles A.5.5 e A.5.6 da "
+"declaração de aplicabilidade."
+
+msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
+msgstr "O registro foi arquivado como evidência nos controles A.5.5 e A.5.6."
+
+msgid ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+msgstr ""
+"Registre cada contato oficial, marque os eventos (e, se necessário, os tipos "
+"de incidente) em que ele deve ser avisado, verifique os dados pelo menos uma "
+"vez por ano, guarde uma cópia impressa do registro (PDF) para uso durante "
+"uma crise e arquive-o nos controles A.5.5 e A.5.6 após cada revisão."
+
+#, php-format
+msgid "%d official contact recorded as contacted."
+msgid_plural "%d official contacts recorded as contacted."
+msgstr[0] "%d contato oficial registrado como avisado."
+msgstr[1] "%d contatos oficiais registrados como avisados."
+
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d lacuna(s) de competência informada(s)."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s: %2$s, nível esperado %3$s (treinamento a planejar: %4$s)"
+
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s: %2$s, nível esperado %3$s (nenhum treinamento a fornece ainda: "
+"vincule um ou declare uma evidência)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Atividade da matriz de responsabilidades"
+
+msgid "Competence gaps without planned training"
+msgstr "Lacunas de competência sem treinamento planejado"
+
+msgid "Follows the responsibility matrix"
+msgstr "Segue a matriz de responsabilidades"
+
+msgid "New gaps without planned training"
+msgstr "Novas lacunas sem treinamento planejado"
+
+msgid "Number of gaps without planned training"
+msgstr "Número de lacunas sem treinamento planejado"
+
+msgid "Number of new gaps"
+msgstr "Número de novas lacunas"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Outras lacunas não listadas aqui: %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Matriz de responsabilidades: %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Papel na atividade"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "Esta atividade não está disponível na entidade da função."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+"Avisa o responsável sobre as lacunas de competência sem treinamento planejado"
+
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+"Opcional: as pessoas e grupos que têm o papel escolhido nesta atividade "
+"ocupam a função e seguem a matriz quando ela muda."
+
+msgid ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+msgstr ""
+"Enviada pela tarefa automática do GRC Manager quando uma pessoa que ocupa "
+"uma função do SGSI tem uma lacuna de competência sem treinamento planejado."
+
+msgid ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+msgstr ""
+"Planeje uma sessão do treinamento proposto na página \"Competências\" ou "
+"declare a evidência que a pessoa já tem. Nada é alterado automaticamente."
+
+msgid "View the competences"
+msgstr "Ver as competências"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Alerta de lacuna de competência"
+msgstr[1] "Alertas de lacunas de competência"
 
 msgid "Evidence pack settings saved."
 msgstr "Configurações do dossiê de evidências salvas."
@@ -27820,87 +27967,6 @@ msgstr "limite %d MB"
 msgid "%s MB"
 msgstr "%s MB"
 
-#, php-format
-msgid "%d competence gap(s) reported."
-msgstr "%d lacuna(s) de competência informada(s)."
-
-#, php-format
-msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
-msgstr "- %1$s: %2$s, nível esperado %3$s (treinamento a planejar: %4$s)"
-
-#, php-format
-msgid ""
-"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
-"declare a proof)"
-msgstr ""
-"- %1$s: %2$s, nível esperado %3$s (nenhum treinamento a fornece ainda: "
-"vincule um ou declare uma evidência)"
-
-msgid "Activity of the responsibility matrix"
-msgstr "Atividade da matriz de responsabilidades"
-
-msgid "Competence gaps without planned training"
-msgstr "Lacunas de competência sem treinamento planejado"
-
-msgid "Follows the responsibility matrix"
-msgstr "Segue a matriz de responsabilidades"
-
-msgid "New gaps without planned training"
-msgstr "Novas lacunas sem treinamento planejado"
-
-msgid "Number of gaps without planned training"
-msgstr "Número de lacunas sem treinamento planejado"
-
-msgid "Number of new gaps"
-msgstr "Número de novas lacunas"
-
-#, php-format
-msgid "Other gaps not listed here: %d"
-msgstr "Outras lacunas não listadas aqui: %d"
-
-#, php-format
-msgid "Responsibility matrix: %1$s (%2$s)"
-msgstr "Matriz de responsabilidades: %1$s (%2$s)"
-
-msgid "Role in the activity"
-msgstr "Papel na atividade"
-
-msgid "This activity is not available in the entity of the function."
-msgstr "Esta atividade não está disponível na entidade da função."
-
-msgid "Warns the owner of the competence gaps that have no planned training"
-msgstr ""
-"Avisa o responsável sobre as lacunas de competência sem treinamento planejado"
-
-msgid ""
-"Optional: the people and groups who hold the chosen role in this activity "
-"hold the function, and follow the matrix when it changes."
-msgstr ""
-"Opcional: as pessoas e grupos que têm o papel escolhido nesta atividade "
-"ocupam a função e seguem a matriz quando ela muda."
-
-msgid ""
-"Sent by the GRC Manager automatic task when a person who holds an ISMS "
-"function has a competence gap with no planned training."
-msgstr ""
-"Enviada pela tarefa automática do GRC Manager quando uma pessoa que ocupa "
-"uma função do SGSI tem uma lacuna de competência sem treinamento planejado."
-
-msgid ""
-"Plan a session of the proposed training from the Competences page, or "
-"declare the proof the person already has. Nothing is changed automatically."
-msgstr ""
-"Planeje uma sessão do treinamento proposto na página \"Competências\" ou "
-"declare a evidência que a pessoa já tem. Nada é alterado automaticamente."
-
-msgid "View the competences"
-msgstr "Ver as competências"
-
-msgid "Competence gap alert"
-msgid_plural "Competence gap alerts"
-msgstr[0] "Alerta de lacuna de competência"
-msgstr[1] "Alertas de lacunas de competência"
-
 msgid "Blockers"
 msgstr "Bloqueios"
 
@@ -28035,3 +28101,23 @@ msgid "Blocked control"
 msgid_plural "Blocked controls"
 msgstr[0] "Controle bloqueado"
 msgstr[1] "Controles bloqueados"
+
+msgid "Child licenses counted once"
+msgstr "Licenças filhas contadas uma vez"
+
+msgid ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+msgstr ""
+"As licenças filhas compartilham os postos da licença mãe: cada família é "
+"contada uma vez."
+
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
+msgstr ""
+"Mais ativos têm o software do que as licenças válidas permitem. Uma licença "
+"ilimitada (número 0 ou menor) cobre tudo. Uma licença mãe e suas licenças "
+"filhas contam pelo maior entre o número da mãe e a soma das filhas."

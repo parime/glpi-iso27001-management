@@ -74,6 +74,13 @@
          {{ fields.checkboxField('on_security_incident', item.fields['on_security_incident'] ?? 0, __('To contact for a security incident', 'grcmanager'), {
             'add_field_html': hints.hint(__('Shown in the "Official contacts" tab of every security incident.', 'grcmanager')),
          }) }}
+         {# Issue #771, lot 3 : contacts proposés selon la catégorie de l'incident. #}
+         <input type="hidden" name="{{ incident_categories_marker }}" value="1">
+         {{ fields.dropdownArrayField('contact_incident_categories', null, incident_categories, __('Only for these types of incident', 'grcmanager'), {
+            'multiple': true,
+            'values': contact_incident_categories,
+            'add_field_html': hints.hint(__('Optional: leave empty to show this contact for every security incident. An incident of the "Data breach" type also shows the contacts to inform for a personal data breach.', 'grcmanager')),
+         }) }}
          {{ fields.checkboxField('on_data_breach', item.fields['on_data_breach'] ?? 0, __('To contact for a personal data breach', 'grcmanager'), {
             'add_field_html': hints.hint(__('Shown in the "Official contacts" tab of every personal data breach.', 'grcmanager')),
          }) }}

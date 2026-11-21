@@ -24,45 +24,4 @@
 </table>
 
 <h2>{{ __('Official contacts', 'grcmanager') }} (A.5.5, A.5.6)</h2>
-{% if contacts is empty %}
-  <p>{{ __('No item recorded.', 'grcmanager') }}</p>
-{% else %}
-  <table class="grcmanager-pdf-table">
-    <thead>
-      <tr>
-        <th style="width: 17%;">{{ __('Name') }}</th>
-        <th style="width: 22%;">{{ __('Contact details', 'grcmanager') }}</th>
-        <th style="width: 20%;">{{ __('When to contact', 'grcmanager') }}</th>
-        <th style="width: 11%;">{{ __('Time limit', 'grcmanager') }}</th>
-        <th style="width: 15%;">{{ __('Authorised internal contact', 'grcmanager') }}</th>
-        <th style="width: 15%;">{{ __('Last verification', 'grcmanager') }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for contact in contacts %}
-        <tr>
-          <td>
-            <strong>{{ contact.name }}</strong><br>{{ contact.category }}
-            {% if contact.on_incident %}<br>{{ __('Incident', 'grcmanager') }}{% endif %}
-            {% if contact.on_breach %}<br>{{ __('Data breach', 'grcmanager') }}{% endif %}
-            {% if perimeter %}<br>{{ contact.entity }}{% endif %}
-          </td>
-          <td>{{ contact.details|nl2br }}</td>
-          <td>
-            {{ contact.when|nl2br }}
-            {% for obligation in contact.obligations %}<br>{{ __('Obligation: %s', 'grcmanager')|format(obligation.name) }}{% endfor %}
-          </td>
-          <td>
-            {{ contact.delay }}
-            {% if contact.delay_hours > 0 %}{% if contact.delay %}<br>{% endif %}{{ _n('%d hour', '%d hours', contact.delay_hours, 'grcmanager')|format(contact.delay_hours) }}{% endif %}
-          </td>
-          <td>{{ contact.internal }}{% if contact.internal_group %}<br>{{ contact.internal_group }}{% endif %}</td>
-          <td>
-            {% if contact.verified %}{{ contact.verified|formatted_date }}{% else %}{{ __('Never verified', 'grcmanager') }}{% endif %}
-            {% if contact.status != 'ok' %}<br>({{ __('to verify', 'grcmanager') }}){% endif %}
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-{% endif %}
+{% include '@grcmanager/pdf/_official_contacts_table.html.twig' with {'contacts': contacts, 'perimeter': perimeter} only %}
