@@ -28,16 +28,38 @@ namespace GlpiPlugin\Grcmanager\Services\Access;
  * - Mesures de l'Annexe A concernées : par catégorie, complétées selon l'identifiant de la règle
  *   (mots de passe, systèmes obsolètes, protocoles réseau).
  * - Comparaison de deux imports d'un domaine : règles apparues, résolues, toujours présentes.
+ *
+ * Lot 2 : Purple Knight (indicateurs d'exposition et de compromission de l'AD), Maester et
+ * ScubaGear (configuration d'Entra ID et de Microsoft 365). Tous les scores gardés suivent la
+ * convention de PingCastle (0 le meilleur, 100 le pire) : le score de Purple Knight (100 le
+ * meilleur) est retourné, celui de Maester et ScubaGear est la part des contrôles en échec.
  */
 final class AdAuditRules
 {
     public const TOOL_PINGCASTLE = 'pingcastle';
+    public const TOOL_PURPLEKNIGHT = 'purpleknight';
+    public const TOOL_MAESTER = 'maester';
+    public const TOOL_SCUBAGEAR = 'scubagear';
+
+    /** Outils qui auditent l'annuaire Active Directory (score de l'AD, KRI, carte). */
+    public const AD_TOOLS = [self::TOOL_PINGCASTLE, self::TOOL_PURPLEKNIGHT];
+
+    /** Outils qui auditent la configuration d'Entra ID et de Microsoft 365. */
+    public const CLOUD_TOOLS = [self::TOOL_MAESTER, self::TOOL_SCUBAGEAR];
 
     public const CATEGORY_STALE = 'stale';
     public const CATEGORY_PRIVILEGED = 'privileged';
     public const CATEGORY_TRUST = 'trust';
     public const CATEGORY_ANOMALY = 'anomaly';
     public const CATEGORY_OTHER = 'other';
+    // Lot 2 : catégories de Purple Knight, puis d'Entra ID et de Microsoft 365.
+    public const CATEGORY_ACCOUNTS = 'accounts';
+    public const CATEGORY_DELEGATION = 'delegation';
+    public const CATEGORY_INFRASTRUCTURE = 'infrastructure';
+    public const CATEGORY_GPO = 'gpo';
+    public const CATEGORY_KERBEROS = 'kerberos';
+    public const CATEGORY_IDENTITY = 'identity';
+    public const CATEGORY_CLOUD = 'cloud';
 
     public const LEVEL_GOOD = 'good';
     public const LEVEL_WATCH = 'watch';
@@ -49,7 +71,7 @@ final class AdAuditRules
     public const SEVERITY_INFO = 'info';
 
     /** Mesures dont la fiche montre la preuve de l'audit de l'AD. */
-    public const EVIDENCE_CONTROLS = ['A.5.15', 'A.5.17', 'A.5.18', 'A.8.2', 'A.8.5'];
+    public const EVIDENCE_CONTROLS = ['A.5.15', 'A.5.17', 'A.5.18', 'A.5.23', 'A.8.2', 'A.8.5'];
 
     /** Mesures de l'Annexe A concernées par chaque catégorie de PingCastle. */
     private const CATEGORY_CONTROLS = [
@@ -58,6 +80,13 @@ final class AdAuditRules
         self::CATEGORY_TRUST      => ['A.5.15', 'A.8.2'],
         self::CATEGORY_ANOMALY    => ['A.8.5', 'A.8.9'],
         self::CATEGORY_OTHER      => ['A.8.9'],
+        self::CATEGORY_ACCOUNTS       => ['A.5.17', 'A.5.18', 'A.8.5'],
+        self::CATEGORY_DELEGATION     => ['A.5.15', 'A.8.2'],
+        self::CATEGORY_INFRASTRUCTURE => ['A.8.9', 'A.8.20'],
+        self::CATEGORY_GPO            => ['A.8.9'],
+        self::CATEGORY_KERBEROS       => ['A.5.17', 'A.8.5'],
+        self::CATEGORY_IDENTITY       => ['A.5.15', 'A.5.17', 'A.8.5'],
+        self::CATEGORY_CLOUD          => ['A.5.23', 'A.8.9'],
     ];
 
     /** Mesures ajoutées selon l'identifiant de la règle. */
@@ -66,6 +95,8 @@ final class AdAuditRules
         '/^S-OS-|obsolete|notupdated|^S-DC-/i'                           => ['A.8.8'],
         '/llmnr|netbios|smb|ntlm|ldapsigning|ldaps|signing|spooler/i'    => ['A.8.20'],
         '/admin|delegat|dcsync|privileg|operators|^P-/i'                 => ['A.8.2'],
+        '/mfa|multi-?factor|phishing-resistant|authenticat|conditional/i' => ['A.8.5'],
+        '/guest|external|sharing/i'                                       => ['A.5.15', 'A.5.23'],
     ];
 
     public static function normalizeCategory(string $category): string
@@ -76,8 +107,63 @@ final class AdAuditRules
             'privilegiedgroup', 'privilegedgroup'                        => self::CATEGORY_PRIVILEGED,
             'trusts', 'trust'                                            => self::CATEGORY_TRUST,
             'anomalies', 'anomaly'                                       => self::CATEGORY_ANOMALY,
+            'accounts', 'account', 'accountsecurity'                     => self::CATEGORY_ACCOUNTS,
+            'delegation', 'addelegation'                                 => self::CATEGORY_DELEGATION,
+            'infrastructure', 'adinfrastructure', 'adinfrastructuresecurity',
+            'infrastructuresecurity'                                     => self::CATEGORY_INFRASTRUCTURE,
+            'gpo', 'grouppolicy', 'grouppolicysecurity'                  => self::CATEGORY_GPO,
+            'kerberos', 'kerberossecurity'                               => self::CATEGORY_KERBEROS,
+            'identity', 'entraid', 'azuread', 'aad', 'hybrid', 'hybridad', 'entraidsecurity',
+            'okta', 'oktasecurity'                                       => self::CATEGORY_IDENTITY,
+            'cloud', 'microsoft365', 'm365', 'exo', 'exchange', 'exchangeonline', 'defender',
+            'sharepoint', 'teams', 'powerplatform', 'powerbi'            => self::CATEGORY_CLOUD,
             default                                                      => self::CATEGORY_OTHER,
         };
+    }
+
+    /**
+     * Catégorie lue sur un libellé libre (Purple Knight : « AD Delegation », « Kerberos Security »).
+     */
+    public static function categoryFromLabel(string $label): string
+    {
+        return self::normalizeCategory((string) preg_replace('/[^a-z0-9]/', '', strtolower($label)));
+    }
+
+    /**
+     * Points d'une règle selon la gravité annoncée par l'outil (Purple Knight, Maester), pour garder
+     * la même lecture de gravité que PingCastle (severity()).
+     */
+    public static function pointsForSeverity(string $severity): int
+    {
+        return match (strtolower(trim($severity))) {
+            'critical', 'critique'           => 40,
+            'high', 'élevée', 'elevee'       => 30,
+            'warning', 'medium', 'moderate' => 10,
+            'low', 'faible'                  => 5,
+            default                          => 0,
+        };
+    }
+
+    /**
+     * Score à la convention du plugin (0 le meilleur) depuis un score où 100 est le meilleur
+     * (Purple Knight).
+     */
+    public static function riskFromSecurityScore(int $securityScore): int
+    {
+        return 100 - self::clampScore($securityScore);
+    }
+
+    /**
+     * Part des contrôles en échec, de 0 (tous réussis) à 100 ; null sans contrôle évalué (Maester,
+     * ScubaGear).
+     */
+    public static function failureRate(int $failed, int $evaluated): ?int
+    {
+        if ($evaluated <= 0) {
+            return null;
+        }
+
+        return self::clampScore((int) round(100 * max(0, $failed) / $evaluated));
     }
 
     public static function clampScore(int $score): int

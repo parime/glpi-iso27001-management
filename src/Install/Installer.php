@@ -1594,6 +1594,8 @@ final class Installer
         $this->installSentinelOneTables($keySign, $charset, $collation);
         // Issue #835 : imports des rapports d'audit de sécurité de l'Active Directory (PingCastle).
         AdSecurityAuditTables::install($keySign, $charset, $collation);
+        // Issue #835, lot 2 : Purple Knight, Maester et ScubaGear (score de l'outil, contrôles évalués).
+        AdSecurityAuditTables::migrate($migration);
         $this->installEndOfLifeTables($keySign, $charset, $collation);
         $this->installManagementReviewDossierTables($keySign, $charset, $collation);
         // Issue #776 : scénarios de crise sécurité de l'information (ajoutés à la demande, par entité).
