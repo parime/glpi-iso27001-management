@@ -722,7 +722,7 @@
       {{ fields.htmlField('', box_html, box.title, {'full_width': true}) }}
    {% endfor %}
 
-   {# Issue #835 : audit de sécurité de l'Active Directory (PingCastle), dernier rapport de chaque domaine. #}
+   {# Issue #835 : audit de sécurité de l'Active Directory (PingCastle, Purple Knight) et d'Entra ID (Maester, ScubaGear), dernier rapport de chaque domaine ou locataire. #}
    {% if ad_security_audit is defined and ad_security_audit is not null %}
       {% set ad_security_audit_html %}
          <div id="grc-ad-audit-evidence">
@@ -730,6 +730,7 @@
                {% set ad_color = d.level == 'good' ? 'success' : (d.level == 'watch' ? 'warning' : 'danger') %}
                <div class="mb-1">
                   <i class="ti ti-sitemap me-1 text-muted"></i><a href="{{ d.url }}">{{ d.domain }}</a>
+                  <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1">{{ d.tool }}</span>
                   <span class="badge bg-{{ ad_color }}-subtle text-{{ ad_color }}-emphasis ms-1">{{ __('Score: %d/100', 'grcmanager')|format(d.score) }}</span>
                   <span class="badge {{ d.rules > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} ms-1"><i class="ti ti-list-details me-1"></i>{{ _n('%d rule concerns this control', '%d rules concern this control', d.rules, 'grcmanager')|format(d.rules) }}</span>
                   <span class="small text-muted ms-1">{{ __('Report of %s', 'grcmanager')|format(d.date) }}</span>
