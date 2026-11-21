@@ -232,7 +232,10 @@ final class LogCoverageTest extends GrcmanagerIntegrationTestCase
         $this->assertArrayHasKey($obligation, LogCoverage::obligationChoices());
         $this->assertSame(
             1,
-            countElementsInTable(LogCoverageTables::PLATFORMS, ['entities_id' => $this->entity, 'platform' => 'splunk']),
+            countElementsInTable(
+                LogCoverageTables::PLATFORMS,
+                ['entities_id' => $this->entity, 'platform' => 'splunk']
+            ),
             'Une déclaration par plateforme et par entité.'
         );
 
