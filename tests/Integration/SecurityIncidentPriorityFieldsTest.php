@@ -83,11 +83,14 @@ final class SecurityIncidentPriorityFieldsTest extends GrcmanagerIntegrationTest
         ]);
         $this->assertGreaterThan(0, $id);
 
+        // Comme le formulaire : la priorité envoyée est celle calculée par la matrice.
+        $priority = (int) PluginGrcmanagerSecurityIncident::computePriority(5, 4);
         $this->assertTrue($incident->update([
-            'id'      => $id,
-            'status'  => CommonITILObject::WAITING,
-            'urgency' => 5,
-            'impact'  => 4,
+            'id'       => $id,
+            'status'   => CommonITILObject::WAITING,
+            'urgency'  => 5,
+            'impact'   => 4,
+            'priority' => $priority,
         ]));
 
         $reloaded = new PluginGrcmanagerSecurityIncident();
@@ -95,9 +98,6 @@ final class SecurityIncidentPriorityFieldsTest extends GrcmanagerIntegrationTest
         $this->assertSame(CommonITILObject::WAITING, (int) $reloaded->fields['status']);
         $this->assertSame(5, (int) $reloaded->fields['urgency']);
         $this->assertSame(4, (int) $reloaded->fields['impact']);
-        $this->assertSame(
-            (int) PluginGrcmanagerSecurityIncident::computePriority(5, 4),
-            (int) $reloaded->fields['priority']
-        );
+        $this->assertSame($priority, (int) $reloaded->fields['priority']);
     }
 }
