@@ -226,7 +226,12 @@ final class MfaCoverageTest extends GrcmanagerIntegrationTestCase
 
         // Réglages : identifiants invalides refusés, secret jamais renvoyé.
         $this->assertFalse(EntraGraphConfig::save('not a tenant', '', '', false)['saved']);
-        $saved = EntraGraphConfig::save('exemple.onmicrosoft.com', '11111111-2222-3333-4444-555555555555', 'fictif', false);
+        $saved = EntraGraphConfig::save(
+            'exemple.onmicrosoft.com',
+            '11111111-2222-3333-4444-555555555555',
+            'fictif',
+            false
+        );
         $this->assertTrue($saved['saved']);
         $this->assertSame('changed', $saved['changes'][EntraGraphConfig::SECRET_KEY]);
         $this->assertTrue(EntraGraphConfig::isConfigured());
