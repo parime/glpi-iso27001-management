@@ -417,9 +417,43 @@ class NetworkFlow extends NetworkFlowBase
         return NetworkFlowRules::checks($this->fields, date('Y-m-d'), self::internalNetworks());
     }
 
+    /**
+     * Issue #909 : valeurs proposées par une autre page pour un nouveau flux (bouton « Proposer le
+     * flux » de l'inventaire Docker), validées comme à l'enregistrement. L'actif de destination
+     * n'est gardé que s'il est d'un type proposé et visible de la personne connectée. Rien n'est
+     * enregistré : les valeurs ne servent qu'à remplir le formulaire avant « Ajouter ».
+     *
+     * @param array<mixed> $query
+     * @return array<string, string|int>
+     */
+    public static function prefillFromQuery(array $query): array
+    {
+        $values = NetworkFlowRules::prefill($query);
+        if (isset($values['destination_itemtype'])) {
+            $itemtype = (string) $values['destination_itemtype'];
+            $itemsId = (int) $values['destination_items_id'];
+            $item = in_array($itemtype, self::getEndpointItemtypes(), true) ? getItemForItemtype($itemtype) : false;
+            if (!$item instanceof CommonDBTM || !$item->getFromDB($itemsId) || !$item->can($itemsId, READ)) {
+                unset($values['destination_itemtype'], $values['destination_items_id']);
+            }
+        }
+
+        return $values;
+    }
+
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
+
+        // Issue #909 : pré-remplissage d'un nouveau flux seulement ; les valeurs sont revalidées ici,
+        // car l'onglet du formulaire reçoit ses options par l'adresse.
+        $prefill = [];
+        if ($this->isNewItem() && is_array($options['prefill'] ?? null)) {
+            $prefill = self::prefillFromQuery($options['prefill']);
+            foreach ($prefill as $field => $value) {
+                $this->fields[$field] = $value;
+            }
+        }
 
         $sides = [];
         $titles = ['source' => __('Source', 'grcmanager'), 'destination' => __('Destination', 'grcmanager')];
@@ -454,6 +488,7 @@ class NetworkFlow extends NetworkFlowBase
             'sides'            => $sides,
             'ports'            => $ports === 'any' ? '' : $ports,
             'checks'           => $this->isNewItem() ? '' : self::checksHtml($this->getChecks()),
+            'prefilled'        => $prefill !== [],
         ]);
 
         return true;

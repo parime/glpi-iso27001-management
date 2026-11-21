@@ -400,6 +400,11 @@ fichier ne crée pas de doublon.
 
 ![Import CSV de la matrice des flux](screenshots/tutorial/47-network-flow-import.png)
 
+Avec le plugin Inventaire Docker, le bouton **Proposer le flux** d'une exposition (port publié,
+route Traefik, ingress) ouvre un nouveau flux déjà rempli : type, nom, source, application de
+destination, protocole et ports. Un encadré « Flux proposé » le signale ; vérifiez les valeurs,
+ajoutez la justification et le propriétaire, puis **Ajouter** : rien n'est enregistré avant.
+
 ### Étape 16 : Vérifier l'hygiène des comptes
 
 **GRC & Conformité > Opérations > Hygiène des comptes** liste les comptes actifs à vérifier : supprimés de
@@ -1500,6 +1505,11 @@ An existing matrix can be imported from CSV, with a dry run that writes nothing;
 same file again creates no duplicate.
 
 ![CSV import of the network flow matrix](screenshots/tutorial/47-network-flow-import.png)
+
+With the Docker inventory plugin, the **Propose the flow** button of an exposure (published
+port, Traefik route, ingress) opens a new flow already filled in: type, name, source, destination
+application, protocol and ports. A "Proposed flow" box says so; check the values, add the
+justification and the owner, then **Add**: nothing is saved before.
 
 ### Step 16: Check account hygiene
 

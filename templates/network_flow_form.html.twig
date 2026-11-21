@@ -18,6 +18,18 @@
 {% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
+   {% if is_new and prefilled %}
+      {# Issue #909 : formulaire pré-rempli par une autre page (bouton « Proposer le flux » de l'inventaire Docker) #}
+      <div class="col-12 mb-3">
+         <div class="alert alert-info d-flex align-items-start mb-0" id="grc-networkflow-prefilled">
+            <i class="ti ti-wand fs-2 me-2"></i>
+            <div>
+               <span class="badge bg-info-subtle text-info-emphasis me-1"><i class="ti ti-clipboard-text me-1"></i>{{ __('Proposed flow', 'grcmanager') }}</span>
+               {{ __('These values were proposed by another page, for example the Docker inventory. Check them, add the justification and the owner, then click "Add": nothing is saved before.', 'grcmanager') }}
+            </div>
+         </div>
+      </div>
+   {% endif %}
    {{ fields.textField('name', item.fields['name'], __('Name', 'grcmanager'), {
       'full_width': true,
       'add_field_html': hints.hint(__('If left empty, it is built from the source and destination.', 'grcmanager')),
