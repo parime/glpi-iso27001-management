@@ -38,7 +38,7 @@ use Session;
  * portent l'origine « file » ; le fichier reçu est gardé comme document du risque fournisseur et
  * l'export comme l'import sont tracés dans l'historique de l'évaluation (qui, quand, quel fichier).
  */
-final class SupplierEvaluationFile extends CommonGLPI
+class SupplierEvaluationFile extends CommonGLPI
 {
     public const SESSION_KEY = 'grcmanager_supplier_answer_file';
 
