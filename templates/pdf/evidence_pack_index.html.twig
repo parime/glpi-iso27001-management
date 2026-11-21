@@ -57,6 +57,7 @@
             <td>
               {% for link in row.links %}
                 <div>{{ link.name }}<span class="muted">{% if link.date %} - {{ link.date }}{% endif %}{% if link.valid_until %} - {{ __('valid until %s', 'grcmanager')|format(link.valid_until) }}{% endif %}</span></div>
+                {% if link.stale %}<div>{{ m.pill(__('Not renewed in time', 'grcmanager'), 'warning') }} <span class="muted">{{ __('Recurring renewal due on %s', 'grcmanager')|format(link.next_due) }}</span></div>{% endif %}
                 {% if link.sha256 %}<div class="hash">{{ link.entry }}<br>SHA-256 {{ link.sha256 }}</div>{% endif %}
               {% endfor %}
             </td>

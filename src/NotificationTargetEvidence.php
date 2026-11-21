@@ -88,7 +88,13 @@ class NotificationTargetEvidence extends NotificationTarget
         $this->data['##evidence.item##']       = $parent !== null
             ? $parent::getTypeName(1) . ' - ' . $parent->getName()
             : '';
-        $this->data['##evidence.validuntil##'] = (string) Html::convDate($evidence->fields['valid_until'] ?? null);
+        // Issue #886 : rappel d'une preuve récurrente, prochaine échéance calculée ; sans date de
+        // validité fixe, le modèle existant montre l'échéance dans « Valide jusqu'au ».
+        $nextDue = (string) ($options['next_due'] ?? '');
+        $this->data['##evidence.nextdue##']    = $nextDue !== '' ? (string) Html::convDate($nextDue) : '';
+        $this->data['##evidence.validuntil##'] = (string) Html::convDate(
+            ($evidence->fields['valid_until'] ?? null) ?: ($nextDue !== '' ? $nextDue : null)
+        );
         $this->data['##evidence.url##']        = $parent !== null
             ? $this->formatURL(
                 $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
@@ -112,6 +118,7 @@ class NotificationTargetEvidence extends NotificationTarget
             'evidence.document'   => __('Document', 'grcmanager'),
             'evidence.item'       => __('Item', 'grcmanager'),
             'evidence.validuntil' => __('Valid until', 'grcmanager'),
+            'evidence.nextdue'    => __('Next renewal due', 'grcmanager'),
             'evidence.url'        => __('URL'),
         ];
         foreach ($tags as $tag => $label) {
