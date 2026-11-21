@@ -38312,8 +38312,6 @@ msgid ""
 "register."
 msgstr ""
 
-
-
 #: src/ShareAccess.php:160
 msgid "Anyone with the link"
 msgstr ""
@@ -38426,3 +38424,141 @@ msgstr ""
 msgid "Team membership"
 msgstr ""
 
+#: src/AssetSecurity360.php:58
+msgid "Security 360°"
+msgstr ""
+
+#: src/AssetSecurity360.php:201
+msgid "Good security posture"
+msgstr ""
+
+#: src/AssetSecurity360.php:206
+msgid "Security posture to improve"
+msgstr ""
+
+#: src/AssetSecurity360.php:211
+msgid "Weak security posture"
+msgstr ""
+
+#: src/AssetSecurity360.php:216
+msgid "Not enough data to assess"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:56
+msgid "Known vulnerabilities"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:119
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:130
+#, php-format
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:137
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:163
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:166
+#, php-format
+msgid "Tools: %s"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:170
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:176
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:203
+#, php-format
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:243
+#, php-format
+msgid "%s: last reading failed."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:243
+#, php-format
+msgid "%s: no gap found."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:248
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:288
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:296
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:330
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid "Points (weight)"
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid "Score: %s / 100"
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+msgstr ""

@@ -38520,3 +38520,100 @@ msgstr[1] ""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Security 360°"
+msgstr "Security 360°"
+
+msgid "Good security posture"
+msgstr "Good security posture"
+
+msgid "Security posture to improve"
+msgstr "Security posture to improve"
+
+msgid "Weak security posture"
+msgstr "Weak security posture"
+
+msgid "Not enough data to assess"
+msgstr "Not enough data to assess"
+
+msgid "Known vulnerabilities"
+msgstr "Known vulnerabilities"
+
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr "No known vulnerability in the watched products installed on this asset."
+
+#, php-format
+msgid "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
+msgstr "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
+
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Volumes not encrypted: %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Tools: %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, although the encryption rule requires it."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, not required by the encryption rule."
+
+#, php-format
+msgid "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
+msgstr "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
+
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s: last reading failed."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s: no gap found."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s: %2$d gaps found."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "No open incident (%d closed or solved)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "%1$d open incidents, %2$d of them with high priority or more."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "%1$d linked risks: %2$d high or critical, %3$d medium."
+
+msgid "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
+msgstr "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
+
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Score: %s / 100"
+
+msgid "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
+msgstr "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
+
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "%1$d sources assessed: %2$d critical, %3$d to watch."
+
+#, php-format
+msgid "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
+msgstr "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
+
+msgid "Points (weight)"
+msgstr "Points (weight)"
+
+msgid "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
+msgstr "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
