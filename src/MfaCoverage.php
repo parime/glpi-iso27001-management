@@ -201,9 +201,7 @@ class MfaCoverage extends CommonGLPI
         $values = Config::getConfigurationValues(AuditTeam::CONFIG_CONTEXT, [self::REMOTE_GROUPS_KEY]);
         $groups = json_decode((string) ($values[self::REMOTE_GROUPS_KEY] ?? ''), true);
 
-        return is_array($groups)
-            ? array_values(array_unique(array_filter(array_map('intval', $groups), static fn (int $id): bool => $id > 0)))
-            : [];
+        return is_array($groups) ? self::ids($groups) : [];
     }
 
     /**
@@ -214,7 +212,7 @@ class MfaCoverage extends CommonGLPI
     {
         global $DB;
 
-        $ids = array_values(array_unique(array_filter(array_map('intval', $groups), static fn (int $id): bool => $id > 0)));
+        $ids = self::ids($groups);
         $existing = [];
         if ($ids !== []) {
             foreach ($DB->request(['SELECT' => 'id', 'FROM' => Group::getTable(), 'WHERE' => ['id' => $ids]]) as $row) {
@@ -226,6 +224,18 @@ class MfaCoverage extends CommonGLPI
         self::reset();
 
         return $existing;
+    }
+
+    /**
+     * @param array<mixed> $values
+     * @return list<int> identifiants positifs, sans doublon
+     */
+    private static function ids(array $values): array
+    {
+        return array_values(array_unique(array_filter(
+            array_map('intval', $values),
+            static fn (int $id): bool => $id > 0
+        )));
     }
 
     // ------------------------------------------------------------------ Calculs.
@@ -316,8 +326,10 @@ class MfaCoverage extends CommonGLPI
                 $DB->request([
                     'SELECT' => ['glpi_profiles_users.users_id'],
                     'FROM'   => 'glpi_profiles_users',
-                    'WHERE'  => ['glpi_profiles_users.users_id' => $ids, 'glpi_profiles_users.profiles_id' => $privileged]
-                        + $entityCriteria,
+                    'WHERE'  => [
+                        'glpi_profiles_users.users_id'    => $ids,
+                        'glpi_profiles_users.profiles_id' => $privileged,
+                    ] + $entityCriteria,
                 ]) as $row
             ) {
                 $admins[(int) $row['users_id']] = true;

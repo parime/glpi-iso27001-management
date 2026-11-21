@@ -81,7 +81,11 @@ final class MfaCoverageTest extends GrcmanagerIntegrationTestCase
         $add('service', 1);
         $add('hidden_admin', 4, $this->hiddenEntity);
         // Double authentification native activée : seul le fait qu'elle existe compte.
-        $DB->update('glpi_users', ['2fa' => '{"algorithm":"sha1","secret":"fictif"}'], ['id' => $this->users['admin_totp']]);
+        $DB->update(
+            'glpi_users',
+            ['2fa' => '{"algorithm":"sha1","secret":"fictif"}'],
+            ['id' => $this->users['admin_totp']]
+        );
         $DB->insert('glpi_useremails', [
             'users_id' => $this->users['user_none'], 'email' => 'remote.demo' . $suffix . '@exemple.test',
             'is_default' => 1,
@@ -163,7 +167,10 @@ final class MfaCoverageTest extends GrcmanagerIntegrationTestCase
 
         // Un nouvel import du même fournisseur remplace le précédent.
         MfaCoverage::import('okta', "login,methods\n" . $this->logins['user_sms'] . ",Okta Verify\n");
-        $this->assertSame(1, countElementsInTable(MfaCoverageTables::ACCOUNTS, ['provider' => 'okta', 'entities_id' => $this->entity]));
+        $this->assertSame(1, countElementsInTable(
+            MfaCoverageTables::ACCOUNTS,
+            ['provider' => 'okta', 'entities_id' => $this->entity]
+        ));
         $this->assertSame(Rules::LEVEL_STRONG, $this->row('user_sms')['level']);
         $this->assertSame([], $this->row('service')['gaps']);
 

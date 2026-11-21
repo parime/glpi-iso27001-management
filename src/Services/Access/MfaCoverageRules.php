@@ -103,8 +103,10 @@ final class MfaCoverageRules
         }
         // Les applications d'authentification par notification ou code (Authenticator, Okta Verify,
         // « Google prompt ») sont fortes même si leur nom contient « phone ».
-        if (preg_match('/authenticator|totp|otp|fido|webauthn|passkey|hello|securitykey|yubikey|u2f|certificate'
-            . '|smartcard|verify|push|prompt|hardwaretoken|token|app|secureenclave|platformcredential|glpi/', $key)) {
+        if (
+            preg_match('/authenticator|totp|otp|fido|webauthn|passkey|hello|securitykey|yubikey|u2f|certificate'
+            . '|smartcard|verify|push|prompt|hardwaretoken|token|app|secureenclave|platformcredential|glpi/', $key)
+        ) {
             return self::METHOD_STRONG;
         }
         if (preg_match(self::WEAK_PATTERNS, $key)) {
@@ -244,7 +246,8 @@ final class MfaCoverageRules
         $mapping = [];
         foreach (self::FIELDS as $field => $aliases) {
             foreach ($parsed['headers'] as $index => $header) {
-                if (!in_array($index, $mapping, true) && in_array(EdrCsvImport::normalizeHeader($header), $aliases, true)) {
+                $normalized = EdrCsvImport::normalizeHeader($header);
+                if (!in_array($index, $mapping, true) && in_array($normalized, $aliases, true)) {
                     $mapping[$field] = $index;
                     break;
                 }

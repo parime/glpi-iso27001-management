@@ -29,8 +29,10 @@ final class MfaCoverageRulesTest extends TestCase
 {
     public function testMethodClasses(): void
     {
-        foreach (['microsoftAuthenticatorPush', 'fido2', 'windowsHelloForBusiness', 'Okta Verify', 'totp',
-            'softwareOneTimePasscode', 'Google prompt', 'passKeyDeviceBound', 'glpi_totp', 'Phone app'] as $strong) {
+        foreach (
+            ['microsoftAuthenticatorPush', 'fido2', 'windowsHelloForBusiness', 'Okta Verify', 'totp',
+            'softwareOneTimePasscode', 'Google prompt', 'passKeyDeviceBound', 'glpi_totp', 'Phone app'] as $strong
+        ) {
             $this->assertSame(R::METHOD_STRONG, R::methodClass($strong), $strong);
         }
         foreach (['sms', 'mobilePhone', 'alternateMobilePhone', 'officePhone', 'voice', 'email', 'Okta SMS'] as $weak) {
@@ -43,7 +45,10 @@ final class MfaCoverageRulesTest extends TestCase
 
     public function testSplitMethods(): void
     {
-        $this->assertSame(['mobilePhone', 'microsoftAuthenticatorPush'], R::splitMethods('[mobilePhone,microsoftAuthenticatorPush]'));
+        $this->assertSame(
+            ['mobilePhone', 'microsoftAuthenticatorPush'],
+            R::splitMethods('[mobilePhone,microsoftAuthenticatorPush]')
+        );
         $this->assertSame(['Okta Verify', 'SMS'], R::splitMethods('Okta Verify; SMS; sms'));
         $this->assertSame([], R::splitMethods('password'));
     }
@@ -58,13 +63,19 @@ final class MfaCoverageRulesTest extends TestCase
 
     public function testGaps(): void
     {
-        $account = ['level' => R::LEVEL_NONE, 'is_admin' => true, 'is_remote' => true, 'is_excluded' => false, 'reason' => ''];
+        $account = [
+            'level' => R::LEVEL_NONE, 'is_admin' => true, 'is_remote' => true, 'is_excluded' => false, 'reason' => '',
+        ];
         $this->assertSame([R::GAP_ADMIN_NO_MFA, R::GAP_REMOTE_NO_MFA], R::gaps($account));
         $this->assertSame([R::GAP_WEAK_ONLY], R::gaps(['level' => R::LEVEL_WEAK] + $account));
         $this->assertSame([], R::gaps(['level' => R::LEVEL_STRONG] + $account));
         $this->assertSame([R::GAP_EXCLUDED_NO_REASON], R::gaps(['is_excluded' => true] + $account));
         $this->assertSame([], R::gaps(['is_excluded' => true, 'reason' => 'Compte de service'] + $account));
-        $this->assertSame([], R::gaps(['is_admin' => false, 'is_remote' => false] + $account), 'Simple compte sans MFA : compté dans le taux, pas un écart.');
+        $this->assertSame(
+            [],
+            R::gaps(['is_admin' => false, 'is_remote' => false] + $account),
+            'Simple compte sans MFA : compté dans le taux, pas un écart.'
+        );
     }
 
     public function testSummary(): void
