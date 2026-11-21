@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use CommonDBTM;
+use GlpiPlugin\Grcmanager\Install\FeatureTablesRegistry;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Install\ItemtypeRenames;
 use NotificationTarget;
@@ -37,7 +38,8 @@ final class UninstallCleanupListTest extends GrcmanagerIntegrationTestCase
     {
         $listed = array_merge(
             array_values(ItemtypeRenames::MAP),
-            (new ReflectionClassConstant(Installer::class, 'SRC_ONLY_CLASSES'))->getValue()
+            (new ReflectionClassConstant(Installer::class, 'SRC_ONLY_CLASSES'))->getValue(),
+            FeatureTablesRegistry::pluginClasses()
         );
         $missing = [];
         foreach (glob(dirname(__DIR__, 2) . '/src/*.php') ?: [] as $file) {
@@ -57,6 +59,10 @@ final class UninstallCleanupListTest extends GrcmanagerIntegrationTestCase
             }
         }
 
-        $this->assertSame([], $missing, 'Classes à ajouter à Installer::SRC_ONLY_CLASSES');
+        $this->assertSame(
+            [],
+            $missing,
+            'Classes à ajouter à Installer::SRC_ONLY_CLASSES ou à pluginClasses() de la classe *Tables'
+        );
     }
 }

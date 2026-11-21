@@ -32,9 +32,10 @@ use Migration;
  * - IMPORTS : historique des imports par serveur (droits ajoutés et retirés).
  *
  * Aucun contenu de fichier n'est stocké, seulement des noms de dossiers et de comptes. Tables
- * créées si absentes (rejouable), supprimées à la désinstallation.
+ * créées si absentes (rejouable), supprimées à la désinstallation ; classe découverte par
+ * l'installeur (FeatureTablesRegistry).
  */
-final class ShareAccessTables
+final class ShareAccessTables implements FeatureTables
 {
     public const SHARES = 'glpi_plugin_grcmanager_fileshares';
 
@@ -135,5 +136,14 @@ final class ShareAccessTables
         $migration->dropTable(self::SHARES);
         $migration->dropTable(self::ACES);
         $migration->dropTable(self::IMPORTS);
+    }
+
+    public static function migrate(Migration $migration): void
+    {
+    }
+
+    public static function pluginClasses(): array
+    {
+        return [];
     }
 }

@@ -9,24 +9,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
-- **Droits d'accès aux partages de fichiers Windows (SMB et NTFS)** (issue #846, lot 1, mesures
-  A.5.15, A.5.18 et A.8.3). Nouvelle page « Droits sur les partages de fichiers » dans la rubrique
-  Revue des accès, en lecture seule : import du fichier CSV produit par le script PowerShell fourni
-  (`Export-GrcShareAccess.ps1`, téléchargeable depuis la page : `Get-SmbShare`,
-  `Get-SmbShareAccess`, `Get-Acl` jusqu'à une profondeur réglable, héritage, propriétaire), ou par
-  un outil tiers (colonnes reconnues par leurs noms usuels). Le plugin ne se connecte à aucun
-  serveur et ne modifie aucun droit. Comptes rapprochés des utilisateurs et groupes GLPI ; comptes
-  larges et comptes système reconnus par leur SID, quelle que soit la langue de Windows. Écarts
-  signalés : tout le monde peut modifier, compte supprimé (SID non résolu) ou désactivé qui a
-  encore des droits, droit nominatif, héritage cassé sur un partage sensible, partage sans
-  propriétaire. Classification C/I/D par partage et score pondéré, suivi d'un import à l'autre
-  (droits ajoutés et retirés, historique des imports), revue des droits par le propriétaire désigné
-  (garder, modifier, retirer, décision tracée ; rien n'est appliqué sur le serveur). Preuve sur les
-  fiches des mesures A.5.15, A.5.18 et A.8.3. Données réservées au droit des registres sensibles.
-  Point d'extension `ShareAccess::accessesForUser()` pour la revue des accès. Trois nouvelles
-  tables, créées à l'installation et à la mise à jour si absentes (rejouable), supprimées à la
-  désinstallation. Matrice d'accès et contrôle XSS étendus.
-
 - **Audit de sécurité de l'Active Directory, lot 1 : PingCastle** (issue #835, mesures A.5.15 à
   A.5.18, A.8.2 et A.8.5). Nouvelle page « Audit de sécurité de l'Active Directory » dans la
   rubrique Sécurité technique, réservée au droit des registres sensibles et limitée aux entités de
@@ -49,8 +31,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [2.76.0] - 2026-11-21
 
-## [2.75.0] - 2026-11-21
-
 ### Added
 
 - **Revue des accès pré-remplie par des règles** (issue #866, mesures A.5.18 et A.8.2). Au
@@ -70,6 +50,25 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   demande un commentaire. « Mettre à jour les suggestions » recalcule les comptes encore à revoir.
   Mise à jour : champs ajoutés aux campagnes et à leurs lignes (migration rejouable) ; les lignes
   des campagnes déjà lancées affichent « Pas encore de suggestion » jusqu'au recalcul.
+
+- **Conformité de configuration : import des résultats OpenSCAP** (issue #781, mesure A.8.9).
+  Nouvelle page « Conformité de configuration » dans la rubrique Sécurité technique : import d'un
+  fichier de résultats XCCDF (1.1 ou 1.2) ou ARF produit par `oscap` (profils CIS, ANSSI, DISA
+  STIG…), plusieurs machines par fichier, doublons ignorés. Chaque résultat est rapproché de
+  l'ordinateur GLPI du même nom parmi ceux que la personne voit ; les autres sont listés et
+  rattachables à la main. Taux de règles conformes par ordinateur et par profil, évolution depuis
+  l'analyse précédente, règles en échec par gravité, historique de chaque machine et règles en
+  échec les plus fréquentes du parc. Ticket de remédiation lié à l'ordinateur proposé, créé
+  seulement sur un clic. Preuve sur la mesure A.8.9 (conçue par sources : d'autres, comme la
+  configuration à risque de l'inventaire Docker, s'y ajouteront), indicateur de risque « ordinateurs
+  analysés avec une règle de gravité haute en échec ». Lecture XML durcie : en flux (gros rapports
+  ARF acceptés), déclarations de type de document et d'entités refusées (ni XXE ni expansion),
+  aucun accès réseau, taille et volumes bornés ; le fichier n'est pas conservé. Tests avec fichiers
+  piégés, matrice d'accès et contrôle XSS.
+
+## [2.75.0] - 2026-11-21
+
+### Added
 
 - **Couverture de la journalisation** (issue #853, mesures A.8.15, A.8.16 et A.8.17). Nouvelle page
   « Couverture de la journalisation » dans la rubrique Sécurité technique, en lecture seule : hôtes
@@ -97,20 +96,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   type proposé et visible) ; les autres paramètres sont ignorés, un flux existant n'est jamais
   modifié. Un encadré « Flux proposé » invite à vérifier, à ajouter la justification et le
   propriétaire : rien n'est enregistré avant « Ajouter ». Contrôle XSS sur des paramètres piégés.
-- **Conformité de configuration : import des résultats OpenSCAP** (issue #781, mesure A.8.9).
-  Nouvelle page « Conformité de configuration » dans la rubrique Sécurité technique : import d'un
-  fichier de résultats XCCDF (1.1 ou 1.2) ou ARF produit par `oscap` (profils CIS, ANSSI, DISA
-  STIG…), plusieurs machines par fichier, doublons ignorés. Chaque résultat est rapproché de
-  l'ordinateur GLPI du même nom parmi ceux que la personne voit ; les autres sont listés et
-  rattachables à la main. Taux de règles conformes par ordinateur et par profil, évolution depuis
-  l'analyse précédente, règles en échec par gravité, historique de chaque machine et règles en
-  échec les plus fréquentes du parc. Ticket de remédiation lié à l'ordinateur proposé, créé
-  seulement sur un clic. Preuve sur la mesure A.8.9 (conçue par sources : d'autres, comme la
-  configuration à risque de l'inventaire Docker, s'y ajouteront), indicateur de risque « ordinateurs
-  analysés avec une règle de gravité haute en échec ». Lecture XML durcie : en flux (gros rapports
-  ARF acceptés), déclarations de type de document et d'entités refusées (ni XXE ni expansion),
-  aucun accès réseau, taille et volumes bornés ; le fichier n'est pas conservé. Tests avec fichiers
-  piégés, matrice d'accès et contrôle XSS.
 - **Couverture de l'authentification multifacteur (MFA) par compte** (issue #852, mesures A.8.5
   et A.5.17) : page « Couverture MFA » (rubrique Revue des accès) :
   - double authentification native de GLPI lue sur chaque compte (activée ou non, le secret n'est

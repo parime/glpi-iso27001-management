@@ -5,21 +5,19 @@
  * (jeu de données).
  */
 
-use GlpiPlugin\Grcmanager\Install\ShareAccessTables;
-
 // Issue #846 : partage importé de chaque entité, en cours de revue, avec un droit nominatif.
 foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     $shareRow = [
         'entities_id' => $entity, 'source' => 'smb', 'server' => 'fs-securite.exemple.test',
         'name' => 'Partage securite ' . $suffix,
     ];
-    if (countElementsInTable(ShareAccessTables::SHARES, $shareRow) === 0) {
+    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES, $shareRow) === 0) {
         $now = date('Y-m-d H:i:s');
-        $DB->insert(ShareAccessTables::SHARES, $shareRow + [
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES, $shareRow + [
             'share_path' => 'D:\\Partages\\Securite' . $suffix, 'is_present' => 1, 'review_status' => 'open',
             'confidentiality' => 'high', 'date_import' => $now, 'date_creation' => $now,
         ]);
-        $DB->insert(ShareAccessTables::ACES, [
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::ACES, [
             'plugin_grcmanager_fileshares_id' => (int) $DB->insertId(), 'fingerprint' => sha1('securite' . $suffix),
             'scope' => 'ntfs', 'folder' => '\\\\fs-securite.exemple.test\\Partage securite ' . $suffix,
             'identity' => 'EXEMPLE\\Compte partage securite ' . $suffix, 'kind' => 'user', 'rights' => 'Modify',
@@ -28,13 +26,14 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['share_' . $suffix] = 0;
-    foreach ($DB->request(['FROM' => ShareAccessTables::SHARES, 'WHERE' => $shareRow]) as $row) {
+    $shareTable = \GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES;
+    foreach ($DB->request(['FROM' => $shareTable, 'WHERE' => $shareRow]) as $row) {
         $ids['share_' . $suffix] = (int) $row['id'];
     }
     $ids['share_ace_' . $suffix] = 0;
     foreach (
         $DB->request([
-            'FROM'  => ShareAccessTables::ACES,
+            'FROM'  => \GlpiPlugin\Grcmanager\Install\ShareAccessTables::ACES,
             'WHERE' => ['plugin_grcmanager_fileshares_id' => $ids['share_' . $suffix]],
         ]) as $row
     ) {

@@ -395,17 +395,6 @@ if ($mode === 'xss') {
         'encryption_status' => 2, 'encryption_tool' => mb_substr($canary, 0, 255),
         'encryption_algorithm' => mb_substr($canary, 0, 255),
     ], ['itemtype' => Computer::class, 'items_id' => (int) $ids['computer_A']]);
-    // Issue #835 : domaine, règle et constat piégés (page de l'audit de l'AD, preuve A.8.2).
-    $DB->update('glpi_plugin_grcmanager_adaudits', ['domain' => mb_substr($canary, 0, 255)], [
-        'domain' => 'adsecurite-a.test',
-    ]);
-    $DB->update('glpi_plugin_grcmanager_adauditrules', [
-        'rule_id' => mb_substr($canary, 0, 128), 'model' => mb_substr($canary, 0, 128), 'rationale' => $canary,
-    ], ['rule_id' => 'P-Securite-A']);
-    // Issue #852 : compte et méthode importés piégés (page de la couverture MFA).
-    $DB->update('glpi_plugin_grcmanager_mfaaccounts', [
-        'account' => mb_substr($canary, 0, 255), 'methods' => $canary,
-    ], ['account' => 'Compte MFA securite A']);
     // Issue #853 : hôte émetteur, serveur de temps et commentaire piégés (couverture de la journalisation).
     $DB->update(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, ['host' => mb_substr($canary, 0, 255)], [
         'host' => 'Hote journaux securite A',
@@ -413,14 +402,6 @@ if ($mode === 'xss') {
     $DB->update(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, [
         'ntp_server' => mb_substr($canary, 0, 255), 'is_ntp_declared' => 1, 'comment' => $canary,
     ], ['comment' => 'Conservation securite A']);
-    // Issue #846 : partage, chemin, compte, droit et commentaire de revue piégés (droits sur les partages).
-    $DB->update(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES, [
-        'share_path' => $canary, 'owner' => mb_substr($canary, 0, 255), 'comment' => $canary,
-    ], ['id' => (int) $ids['share_A']]);
-    $DB->update(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::ACES, [
-        'identity' => mb_substr($canary, 0, 255), 'rights' => mb_substr($canary, 0, 255), 'folder' => $canary,
-        'folder_owner' => mb_substr($canary, 0, 255), 'decision_comment' => $canary,
-    ], ['plugin_grcmanager_fileshares_id' => (int) $ids['share_A']]);
     // Issue #779 : logiciel commercial sans licence piégé (page des licences logicielles, export).
     $DB->update('glpi_softwares', ['name' => $canary], ['name' => 'Logiciel licence securite A']);
     // Issue #779, lot 2 : licence piégée qui arrive à échéance (lien vers la licence sur la page).
@@ -577,10 +558,6 @@ if ($mode === 'xss') {
         'decision' => 'rejected', 'validator_role' => 'ciso', 'decision_comment' => $canary, 'users_id_decision' => 2,
         'date_decision' => date('Y-m-d H:i:s'),
     ]);
-    // Issue #835 : mesure A.8.2 (preuve de l'audit de sécurité de l'AD).
-    $out['control_a82'] = (int) ($DB->request([
-        'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.2'], 'LIMIT' => 1,
-    ])->current()['id'] ?? 0);
     // Issue #781 : résultat OpenSCAP piégé (nom d'hôte, profil, référentiel, outil, fichier, règle en
     // échec) rattaché à l'ordinateur de A, et un second non rapproché ; preuve de la mesure A.8.9.
     $scanFields = [
@@ -608,14 +585,13 @@ if ($mode === 'xss') {
     $out['control_a831'] = (int) ($DB->request([
         'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.31'], 'LIMIT' => 1,
     ])->current()['id'] ?? 0);
-    // Issue #852 : mesure A.8.5 (preuve de la couverture MFA).
-    $out['control_a85'] = (int) ($DB->request([
-        'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.5'], 'LIMIT' => 1,
-    ])->current()['id'] ?? 0);
-    // Issue #852 : mesure A.8.5 (preuve de la couverture MFA).
-    $out['control_a85'] = (int) ($DB->request([
-        'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.5'], 'LIMIT' => 1,
-    ])->current()['id'] ?? 0);
+    // Fragments : une fonctionnalité ajoute ses données piégées dans un NOUVEAU fichier
+    // tests/security/setup-xss.d/<issue>-<sujet>.php (voir docs/ARCHITECTURE.md, « Ajouter une
+    // fonctionnalité sans conflit ») au lieu d'allonger ce script. Inclus ici dans l'ordre des noms,
+    // avec les mêmes variables ($DB, $ids, $out, $canary, $insert, $update).
+    foreach (glob(__DIR__ . '/setup-xss.d/*.php') ?: [] as $fragment) {
+        require $fragment;
+    }
     echo json_encode($out), "\n";
     exit(0);
 }
@@ -885,38 +861,6 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         $DB->insert(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, $logPlatform + [
             'retention_days' => 30, 'comment' => 'Conservation securite ' . $suffix,
         ]);
-    }
-    // Issue #846 : partage importé de l'entité, en cours de revue, avec un droit nominatif.
-    $shareRow = [
-        'entities_id' => $entity, 'source' => 'smb', 'server' => 'fs-securite.exemple.test',
-        'name' => 'Partage securite ' . $suffix,
-    ];
-    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES, $shareRow) === 0) {
-        $DB->insert(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES, $shareRow + [
-            'share_path' => 'D:\Partages\Securite' . $suffix, 'is_present' => 1, 'review_status' => 'open',
-            'confidentiality' => 'high', 'date_import' => date('Y-m-d H:i:s'), 'date_creation' => date('Y-m-d H:i:s'),
-        ]);
-        $DB->insert(\GlpiPlugin\Grcmanager\Install\ShareAccessTables::ACES, [
-            'plugin_grcmanager_fileshares_id' => (int) $DB->insertId(), 'fingerprint' => sha1('securite' . $suffix),
-            'scope' => 'ntfs', 'folder' => '\\\\fs-securite.exemple.test\\Partage securite ' . $suffix,
-            'identity' => 'EXEMPLE\Compte partage securite ' . $suffix, 'kind' => 'user', 'rights' => 'Modify',
-            'level' => 'modify', 'status' => 'current', 'decision' => 'pending',
-            'decision_comment' => 'Decision partage securite ' . $suffix, 'date_first_seen' => date('Y-m-d H:i:s'),
-        ]);
-    }
-    $ids['share_' . $suffix] = 0;
-    $shareTable = \GlpiPlugin\Grcmanager\Install\ShareAccessTables::SHARES;
-    foreach ($DB->request(['FROM' => $shareTable, 'WHERE' => $shareRow]) as $row) {
-        $ids['share_' . $suffix] = (int) $row['id'];
-    }
-    $ids['share_ace_' . $suffix] = 0;
-    foreach (
-        $DB->request([
-            'FROM'  => \GlpiPlugin\Grcmanager\Install\ShareAccessTables::ACES,
-            'WHERE' => ['plugin_grcmanager_fileshares_id' => $ids['share_' . $suffix]],
-        ]) as $row
-    ) {
-        $ids['share_ace_' . $suffix] = (int) $row['id'];
     }
     // Issue #779 : logiciel commercial fictif installé sans licence sur l'ordinateur de l'entité.
     $licenseSoftware = $add(new Software(), [
@@ -1655,45 +1599,16 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     }
     $ids['phishing_' . $suffix] = (int) $campaign->getID();
 }
-// Issue #835 : rapport PingCastle fictif par entité (règle privilégiée), audit de sécurité de l'AD.
-foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
-    $domain = 'adsecurite-' . strtolower($suffix) . '.test';
-    $adCriteria = ['entities_id' => $entity, 'domain' => $domain];
-    if (countElementsInTable('glpi_plugin_grcmanager_adaudits', $adCriteria) === 0) {
-        $DB->insert('glpi_plugin_grcmanager_adaudits', $adCriteria + [
-            'tool' => 'pingcastle', 'global_score' => 55, 'privileged_score' => 55, 'rule_count' => 1,
-            'report_date' => date('Y-m-d H:i:s'), 'date_import' => date('Y-m-d H:i:s'),
-            'file_sha256' => hash('sha256', $domain),
-        ]);
-        $DB->insert('glpi_plugin_grcmanager_adauditrules', [
-            'plugin_grcmanager_adaudits_id' => (int) $DB->insertId(), 'rule_id' => 'P-Securite-' . $suffix,
-            'category' => 'privileged', 'model' => 'AdminControl', 'points' => 50,
-            'rationale' => 'Constat AD securite ' . $suffix,
-        ]);
-    }
-    $adAudit = $DB->request([
-        'FROM' => 'glpi_plugin_grcmanager_adaudits', 'WHERE' => $adCriteria, 'LIMIT' => 1,
-    ])->current();
-    $ids['adaudit_' . $suffix] = (int) ($adAudit['id'] ?? 0);
-    $adRule = $DB->request([
-        'FROM'  => 'glpi_plugin_grcmanager_adauditrules',
-        'WHERE' => ['rule_id' => 'P-Securite-' . $suffix],
-        'LIMIT' => 1,
-    ])->current();
-    $ids['adrule_' . $suffix] = (int) ($adRule['id'] ?? 0);
-}
-// Issue #852 : compte importé (fournisseur d'identité fictif) sans compte GLPI, par entité.
-foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
-    $mfaCriteria = ['entities_id' => $entity, 'provider' => 'okta'];
-    if (countElementsInTable('glpi_plugin_grcmanager_mfaaccounts', $mfaCriteria) === 0) {
-        $DB->insert('glpi_plugin_grcmanager_mfaaccounts', $mfaCriteria + [
-            'account' => 'Compte MFA securite ' . $suffix, 'email' => '', 'users_id' => 0, 'methods' => 'sms',
-            'date_import' => date('Y-m-d H:i:s'),
-        ]);
-    }
-}
 // Issue #778 : mesure A.7.1 de la SoA du siège (preuve des évaluations de la sécurité physique).
 $ids['control_a71'] = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode(0)['A.7.1'] ?? 0;
 // Issue #604 : mesure A.6.3 de la SoA du siège (preuve des simulations d'hameçonnage).
 $ids['control_a63'] = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode(0)['A.6.3'] ?? 0;
+// Fragments : une fonctionnalité ajoute son jeu de données dans un NOUVEAU fichier
+// tests/security/setup.d/<issue>-<sujet>.php (voir docs/ARCHITECTURE.md, « Ajouter une
+// fonctionnalité sans conflit ») au lieu d'allonger ce script. Inclus ici dans l'ordre des noms,
+// avec les mêmes variables ($DB, $ids, $a, $b, $add...). Le script est relancé plusieurs fois par la
+// CI : un fragment ne recrée pas ce qui existe déjà.
+foreach (glob(__DIR__ . '/setup.d/*.php') ?: [] as $fragment) {
+    require $fragment;
+}
 echo json_encode($ids), "\n";
