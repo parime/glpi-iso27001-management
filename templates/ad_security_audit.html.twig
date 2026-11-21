@@ -133,7 +133,7 @@
                         <td><span class="badge bg-{{ sev.color }}-subtle text-{{ sev.color }}-emphasis">{{ sev.label }}</span></td>
                         <td>
                            <span class="fw-bold">{{ row.rule_id }}</span>
-                           {% if row.is_new %}<span class="badge bg-orange-subtle text-orange-emphasis ms-1"><i class="ti ti-sparkles me-1"></i>{{ __('New', 'grcmanager') }}</span>{% endif %}
+                           {% if row.is_new %}<span class="badge bg-orange-subtle text-orange-emphasis ms-1"><i class="ti ti-sparkles me-1"></i>{{ _x('ad rule', 'New', 'grcmanager') }}</span>{% endif %}
                            {% if row.model %}<div class="small text-muted">{{ row.model }}</div>{% endif %}
                         </td>
                         <td class="small"><i class="{{ cat.icon }} me-1"></i>{{ cat.label }}</td>

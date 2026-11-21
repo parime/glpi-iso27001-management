@@ -108,6 +108,10 @@ if (isset($_POST['ad_audit_ticket'])) {
     Session::checkRight(Ticket::$rightname, CREATE);
     $ruleId = (int) ($_POST['rule_id'] ?? 0);
     $found = AdSecurityAudit::getRule($ruleId);
+    if ($found === null) {
+        // Règle d'un import hors des entités de la session.
+        Html::displayRightError();
+    }
     $ticketId = AdSecurityAudit::createTicket($ruleId);
     if ($ticketId <= 0) {
         Session::addMessageAfterRedirect(
