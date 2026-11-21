@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Sbom\SbomParser;
 // Droit : mise à jour du plugin, vérifiée avant toute lecture ; l'application doit être visible
 // par la personne (droit natif ET entité, can()). Jeton CSRF vérifié par GLPI.
 if (!ProductSbom::canView()) {
-    Html::displayRightError();
+    throw new GlpixceptionHttpAccessDeniedHttpException();
 }
 Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 

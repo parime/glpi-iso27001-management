@@ -21,8 +21,9 @@ use GlpiPlugin\Grcmanager\SecureDevelopment;
 // Issue #869 : lecture des nomenclatures (SBOM) importées, par produit et par version, avec un lien
 // vers l'onglet « SBOM et VEX » de chaque application. Droit : lecture du plugin et des
 // applications ; applications limitées aux entités de la session (ProductSbom::allSboms()).
+Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, READ);
 if (!ProductSbom::canView()) {
-    Html::displayRightError();
+    throw new GlpixceptionHttpAccessDeniedHttpException();
 }
 
 Html::header(
