@@ -888,7 +888,9 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     }
     $backupJob = ['entities_id' => $entity, 'source' => 'veeam', 'name' => 'Travail sauvegarde securite ' . $suffix];
     if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\BackupCoverageTables::JOBS, $backupJob) === 0) {
-        $DB->insert(\GlpiPlugin\Grcmanager\Install\BackupCoverageTables::JOBS, $backupJob + ['type' => 'Backup', 'last_result' => 'failed']);
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\BackupCoverageTables::JOBS, $backupJob + [
+            'type' => 'Backup', 'last_result' => 'failed',
+        ]);
     }
     // Issue #779 : logiciel commercial fictif installé sans licence sur l'ordinateur de l'entité.
     $licenseSoftware = $add(new Software(), [
