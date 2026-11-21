@@ -34051,3 +34051,42 @@ msgstr[1] ""
 "%1$s : %2$d comptes ont un chemin vers le groupe Domain Admins (plus court "
 "chemin : %3$d sauts). Détail sur la page de l'audit de sécurité de l'Active "
 "Directory."
+
+msgid "Docker inventory: risky configuration"
+msgstr "Inventaire Docker : configuration à risque"
+
+msgid "View the risky configuration"
+msgstr "Voir la configuration à risque"
+
+msgid "No service analysed yet"
+msgstr "Aucun service analysé pour l'instant"
+
+msgid "Without critical or high gap: not measured"
+msgstr "Sans écart critique ni haut : non mesuré"
+
+msgid "Without critical or high gap: %d%%"
+msgstr "Sans écart critique ni haut : %d %%"
+
+msgid "Without any open gap: %d%%"
+msgstr "Sans aucun écart ouvert : %d %%"
+
+msgid "%d service(s) analysed"
+msgstr "%d service(s) analysé(s)"
+
+msgid "%d with a critical gap"
+msgstr "%d avec un écart critique"
+
+msgid "%d with a high gap"
+msgstr "%d avec un écart haut"
+
+msgid "%d expired exception(s)"
+msgstr "%d exception(s) expirée(s)"
+
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr "%1$d exception(s) qui finissent dans les %2$d jours"
+
+msgid "Next exception end: %s"
+msgstr "Prochaine fin d'exception : %s"
+
+msgid "%d service(s) not analysed"
+msgstr "%d service(s) non analysé(s)"

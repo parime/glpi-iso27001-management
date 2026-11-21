@@ -45,6 +45,43 @@ final class DockerInventoryBridgeTest extends GrcmanagerIntegrationTestCase
         }
     }
 
+    /**
+     * Issue #916 : sans le plugin, la preuve de configuration à risque n'apparaît pas dans les
+     * sources de conformité de configuration (A.8.9).
+     */
+    public function testWithoutTheDockerInventoryPluginNoHardeningSource(): void
+    {
+        if (self::dockerUsable()) {
+            $this->markTestSkipped('Le plugin Inventaire Docker est actif sur cette instance.');
+        }
+        $this->assertNull(DockerInventoryEvidenceProvider::fetchHardening());
+        $keys = array_column(\GlpiPlugin\Grcmanager\ConfigurationCompliance::evidenceSources(), 'key');
+        $this->assertNotContains('docker_hardening', $keys);
+        $this->assertStringNotContainsString('data-config-source="docker_hardening"', $this->render('A.8.9'));
+    }
+
+    /**
+     * Issue #916 : avec un plugin qui fournit Evidence::hardening(), la source apparaît avec le lien
+     * vers la sous-page ; avec une version plus ancienne, elle n'apparaît pas.
+     */
+    public function testHardeningSourceFollowsThePluginApi(): void
+    {
+        if (!self::dockerUsable()) {
+            $this->markTestSkipped('Le plugin Inventaire Docker n'est pas actif sur cette instance.');
+        }
+        $keys = array_column(\GlpiPlugin\Grcmanager\ConfigurationCompliance::evidenceSources(), 'key');
+        if (!method_exists(DockerInventoryEvidence::API_CLASS, 'hardening')) {
+            $this->assertNull(DockerInventoryEvidenceProvider::fetchHardening());
+            $this->assertNotContains('docker_hardening', $keys);
+
+            return;
+        }
+        $summary = DockerInventoryEvidenceProvider::fetchHardening();
+        $this->assertNotNull($summary);
+        $this->assertContains('docker_hardening', $keys);
+        $this->assertStringContainsString('hardening', $summary['page_url']);
+    }
+
     public function testEvidenceOfTheActiveEntityOnlyWhenThePluginIsPresent(): void
     {
         if (!self::dockerUsable()) {

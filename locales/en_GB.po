@@ -38520,3 +38520,42 @@ msgstr[1] ""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Docker inventory: risky configuration"
+msgstr "Docker inventory: risky configuration"
+
+msgid "View the risky configuration"
+msgstr "View the risky configuration"
+
+msgid "No service analysed yet"
+msgstr "No service analysed yet"
+
+msgid "Without critical or high gap: not measured"
+msgstr "Without critical or high gap: not measured"
+
+msgid "Without critical or high gap: %d%%"
+msgstr "Without critical or high gap: %d%%"
+
+msgid "Without any open gap: %d%%"
+msgstr "Without any open gap: %d%%"
+
+msgid "%d service(s) analysed"
+msgstr "%d service(s) analysed"
+
+msgid "%d with a critical gap"
+msgstr "%d with a critical gap"
+
+msgid "%d with a high gap"
+msgstr "%d with a high gap"
+
+msgid "%d expired exception(s)"
+msgstr "%d expired exception(s)"
+
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr "%1$d exception(s) ending within %2$d days"
+
+msgid "Next exception end: %s"
+msgstr "Next exception end: %s"
+
+msgid "%d service(s) not analysed"
+msgstr "%d service(s) not analysed"

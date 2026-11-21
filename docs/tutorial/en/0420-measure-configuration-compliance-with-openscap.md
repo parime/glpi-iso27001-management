@@ -31,3 +31,8 @@ to read computers; importing requires the right to update the plugin.
 Import security: the file is read as a stream (large ARF reports are accepted), any document type or
 entity declaration is refused and no network access is made while reading. The file itself is not
 kept, only the counts and the failed rules.
+
+If the Docker Inventory plugin (0.12.0 or later) is installed, the same box adds a line **Docker
+inventory: risky configuration**: share of services without a critical or high gap (the figure to
+show the auditor), share without any gap, exceptions expired or ending within 30 days, and a link to
+the "Risky configuration" sub-page of the plugin.

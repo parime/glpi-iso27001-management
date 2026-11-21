@@ -25,6 +25,8 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Install\ConfigScanTables as Tables;
 use GlpiPlugin\Grcmanager\Services\Compliance\ConfigScanRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Compliance\XccdfParser;
+use GlpiPlugin\Grcmanager\Services\Control\DockerHardeningEvidence;
+use GlpiPlugin\Grcmanager\Services\Control\DockerInventoryEvidenceProvider;
 use Html;
 use Item_Ticket;
 use Session;
@@ -676,6 +678,10 @@ class ConfigurationCompliance extends CommonGLPI
         if ($openscap !== null) {
             $sources[] = $openscap;
         }
+        $docker = self::dockerHardeningSource();
+        if ($docker !== null) {
+            $sources[] = $docker;
+        }
 
         return $sources;
     }
@@ -745,6 +751,99 @@ class ConfigurationCompliance extends CommonGLPI
             __('Last scan on %s', 'grcmanager'),
             (string) Html::convDateTime((string) $reports[0]['scan_date'])
         );
+
+        return $source;
+    }
+
+    /**
+     * Issue #916 : configuration à risque de l'inventaire Docker, si le plugin fournit
+     * Evidence::hardening() (0.12.0 et suivantes) ; null sinon.
+     *
+     * @return array{key: string, icon: string, label: string, badges: list<array{color: string,
+     *     icon: string, text: string}>, note: string, url: string, link: string}|null
+     */
+    private static function dockerHardeningSource(): ?array
+    {
+        $summary = DockerInventoryEvidenceProvider::fetchHardening();
+        if ($summary === null) {
+            return null;
+        }
+        $source = [
+            'key'    => 'docker_hardening',
+            'icon'   => 'ti ti-brand-docker',
+            'label'  => __('Docker inventory: risky configuration', 'grcmanager'),
+            'badges' => [],
+            'note'   => '',
+            'url'    => $summary['page_url'],
+            'link'   => __('View the risky configuration', 'grcmanager'),
+        ];
+        if ($summary['analysed'] === 0) {
+            $source['badges'][] = [
+                'color' => 'secondary', 'icon' => 'ti ti-file-off', 'text' => __('No service analysed yet', 'grcmanager'),
+            ];
+
+            return $source;
+        }
+        $source['badges'][] = [
+            'color' => Rules::rateColor($summary['rate_serious']),
+            'icon'  => 'ti ti-shield-check',
+            'text'  => $summary['rate_serious'] === null
+                ? __('Without critical or high gap: not measured', 'grcmanager')
+                : sprintf(__('Without critical or high gap: %d%%', 'grcmanager'), $summary['rate_serious']),
+        ];
+        if ($summary['rate'] !== null) {
+            $source['badges'][] = [
+                'color' => 'secondary',
+                'icon'  => 'ti ti-chart-pie',
+                'text'  => sprintf(__('Without any open gap: %d%%', 'grcmanager'), $summary['rate']),
+            ];
+        }
+        $source['badges'][] = [
+            'color' => 'secondary',
+            'icon'  => 'ti ti-brand-docker',
+            'text'  => sprintf(__('%d service(s) analysed', 'grcmanager'), $summary['analysed']),
+        ];
+        foreach (['critical' => 'danger', 'high' => 'warning'] as $severity => $color) {
+            $count = $summary['by_severity'][$severity];
+            if ($count > 0) {
+                $source['badges'][] = [
+                    'color' => $color,
+                    'icon'  => 'ti ti-alert-triangle',
+                    'text'  => $severity === 'critical'
+                        ? sprintf(__('%d with a critical gap', 'grcmanager'), $count)
+                        : sprintf(__('%d with a high gap', 'grcmanager'), $count),
+                ];
+            }
+        }
+        if ($summary['expired'] > 0) {
+            $source['badges'][] = [
+                'color' => 'danger',
+                'icon'  => 'ti ti-calendar-x',
+                'text'  => sprintf(__('%d expired exception(s)', 'grcmanager'), $summary['expired']),
+            ];
+        }
+        if ($summary['expiring'] > 0) {
+            $source['badges'][] = [
+                'color' => 'warning',
+                'icon'  => 'ti ti-calendar-due',
+                'text'  => sprintf(
+                    __('%1$d exception(s) ending within %2$d days', 'grcmanager'),
+                    $summary['expiring'],
+                    DockerHardeningEvidence::EXPIRING_DAYS
+                ),
+            ];
+            $source['note'] = sprintf(
+                __('Next exception end: %s', 'grcmanager'),
+                (string) Html::convDate($summary['next_end'])
+            );
+        }
+        if ($summary['not_analysed'] > 0) {
+            $source['badges'][] = [
+                'color' => 'secondary',
+                'icon'  => 'ti ti-help-circle',
+                'text'  => sprintf(__('%d service(s) not analysed', 'grcmanager'), $summary['not_analysed']),
+            ];
+        }
 
         return $source;
     }
