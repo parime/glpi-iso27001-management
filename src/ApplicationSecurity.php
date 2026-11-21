@@ -22,11 +22,13 @@ namespace GlpiPlugin\Grcmanager;
 use Appliance;
 use CommonDBTM;
 use CommonGLPI;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\ApplicationSecurityBase;
 use GlpiPlugin\Grcmanager\Install\SecureDevelopmentTables;
 use GlpiPlugin\Grcmanager\Services\SecureDevelopment\SecureDevelopmentRules as Rules;
 use Session;
+use Supplier;
 use User;
 
 /**
@@ -37,6 +39,10 @@ use User;
  * maintenues en interne (page « Développement sécurisé ») : responsable, dépôt de code, référentiel
  * suivi, revue de code, analyses SAST, DAST et des dépendances, séparation des environnements et sa
  * justification. Preuves des mesures A.8.25, A.8.28, A.8.29 et A.8.31.
+ *
+ * Lot 2 : détail de la séparation (accès, données, configuration), exigences de sécurité (A.8.26),
+ * principes d'architecture (A.8.27) et développement externalisé, avec le prestataire du cœur
+ * (Supplier), les clauses de sécurité du contrat et le suivi du prestataire (A.8.30).
  *
  * Droits : droit général du plugin (lecture pour l'onglet, création ou modification pour la fiche),
  * et l'application doit être visible par la personne (droit natif et entité, can()).
@@ -108,6 +114,18 @@ class ApplicationSecurity extends ApplicationSecurityBase
     }
 
     /**
+     * @return array<string, string>
+     */
+    public static function separationDetailLabels(): array
+    {
+        return [
+            'separation_access' => __('Separate access (accounts, rights)', 'grcmanager'),
+            'separation_data'   => __('Separate data (no production data outside production, or anonymised)', 'grcmanager'),
+            'separation_config' => __('Separate configuration (secrets, settings)', 'grcmanager'),
+        ];
+    }
+
+    /**
      * @return array<string, mixed>|null fiche de l'application, null si elle n'en a pas
      */
     public static function getForAppliance(int $appliancesId): ?array
@@ -138,6 +156,11 @@ class ApplicationSecurity extends ApplicationSecurityBase
         if ($owner > 0 && !(new User())->getFromDB($owner)) {
             $owner = 0;
         }
+        $supplier = (int) ($input['suppliers_id'] ?? 0);
+        if ($supplier > 0 && !(new Supplier())->getFromDB($supplier)) {
+            $supplier = 0;
+        }
+        $outsourced = Rules::flag($input['outsourced'] ?? 0);
         $clean = [
             'users_id_owner'           => max(0, $owner),
             'repository_url'           => Rules::sanitizeRepository($input['repository_url'] ?? ''),
@@ -147,8 +170,15 @@ class ApplicationSecurity extends ApplicationSecurityBase
             'environments_separated'   => Rules::sanitizeSeparation($input['environments_separated'] ?? ''),
             'separation_justification' => trim((string) ($input['separation_justification'] ?? '')),
             'comment'                  => trim((string) ($input['comment'] ?? '')),
+            'security_requirements'    => trim((string) ($input['security_requirements'] ?? '')),
+            'architecture_principles'  => trim((string) ($input['architecture_principles'] ?? '')),
+            'outsourced'               => $outsourced,
+            // Prestataire, clauses et suivi n'ont de sens que pour un développement externalisé.
+            'suppliers_id'             => $outsourced === 1 ? max(0, $supplier) : 0,
+            'outsourcing_clauses'      => $outsourced === 1 ? Rules::flag($input['outsourcing_clauses'] ?? 0) : 0,
+            'outsourcing_oversight'    => $outsourced === 1 ? trim((string) ($input['outsourcing_oversight'] ?? '')) : '',
         ];
-        foreach (Rules::PRACTICES as $practice) {
+        foreach ([...Rules::PRACTICES, ...Rules::SEPARATION_DETAILS] as $practice) {
             $clean[$practice] = Rules::flag($input[$practice] ?? 0);
         }
 
@@ -236,6 +266,14 @@ class ApplicationSecurity extends ApplicationSecurityBase
                 (string) $profile['environments_separated'],
                 (string) ($profile['separation_justification'] ?? '')
             ),
+            'separation_details' => self::separationDetailLabels(),
+            'separation_gaps' => $profile !== null ? Rules::separationGaps($profile) : [],
+            'no_requirements' => $profile !== null && Rules::withoutRequirements($profile),
+            'no_architecture' => $profile !== null && Rules::withoutArchitecture($profile),
+            'outsourcing_gap' => $profile !== null && Rules::outsourcingGap($profile),
+            'supplier_name'   => (int) ($profile['suppliers_id'] ?? 0) > 0
+                ? (string) \Dropdown::getDropdownName('glpi_suppliers', (int) $profile['suppliers_id'])
+                : '',
             'repository_link' => $profile !== null && Rules::isWebLink((string) $profile['repository_url']),
             'owner_name'      => $owner > 0 ? getUserName($owner) : '',
             'tech_owner_name' => $techOwner > 0 ? getUserName($techOwner) : '',
