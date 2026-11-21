@@ -9,6 +9,18 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Fin de support du matériel : fin de vie constructeur par modèle** (issue #782, lot 2, dernier
+  lot, mesures A.7.13 et A.8.9). Date facultative, saisie à la main pour chaque modèle de matériel
+  en service dans la configuration (cadre « Fin de vie constructeur des modèles de matériel », sous
+  la fin de support) ; elle vit dans une table du plugin, rien n'est écrit dans les modèles de
+  GLPI, et chaque saisie est tracée dans le journal d'audit. La carte « Fin de garantie du
+  matériel » gagne les états fin de vie atteinte, proche (seuil commun de la fin de support), à
+  venir et sans date, une colonne dédiée et un filtre « À traiter » qui inclut ces matériels ;
+  l'export ajoute la date et l'état, la preuve des mesures les compte, et la nouvelle règle du
+  contrôle de cohérence `hardware_end_of_life_reached` (A.7.13, gravité moyenne) liste chaque
+  matériel concerné. Mêmes droits et mêmes entités que le lot 1 ; la saisie exige le droit de
+  modifier la configuration du plugin. Ce lot termine l'issue #782.
+
 - **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
   A.5.32). Les licences filles de GLPI (champ « Comme enfant de ») ne gonflent plus les postes
   licenciés : quand une licence mère et ses filles valables comptent toutes pour une entité, la
