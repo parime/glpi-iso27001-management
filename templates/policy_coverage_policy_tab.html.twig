@@ -1,0 +1,92 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #879 : onglet « Mesures couvertes » d'une politique : la politique entière, ou une de ses
+   sections, reliée à plusieurs mesures de la SoA d'un coup. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+<div class="card" id="grc-policy-coverage-tab">
+   <div class="card-header d-flex flex-wrap align-items-center gap-2">
+      <h3 class="card-title mb-0"><i class="ti ti-file-check me-2"></i>{{ __('Controls covered by this text', 'grcmanager') }}</h3>
+      <span class="badge bg-blue-subtle text-blue-emphasis" id="grc-policy-links-count" data-count="{{ links|length }}"><i class="ti ti-link me-1"></i>{{ _n('%d linked control', '%d linked controls', links|length, 'grcmanager')|format(links|length) }}</span>
+      <a href="{{ report_url }}" class="btn btn-sm btn-ghost-secondary ms-auto"><i class="ti ti-report-search me-1"></i>{{ __('Controls not covered by any text', 'grcmanager') }}</a>
+   </div>
+   <div class="card-body">
+      <div class="alert alert-info py-2 mb-3">
+         <i class="ti ti-help-circle me-1"></i><strong>{{ __('What is this tab for?', 'grcmanager') }}</strong>
+         {{ __('Link this policy, or one of its sections, to the Annex A controls it deals with. Each applicable control of the Statement of Applicability should be covered by at least one approved text: the coverage report lists the controls without one, for the auditor (clause 5.2, control A.5.1). Only the controls of your entities are shown.', 'grcmanager') }}
+      </div>
+
+      {% if can_edit %}
+         <form method="post" action="{{ form_url }}" class="border rounded p-3 mb-3" id="grc-policy-coverage-add">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="policies_id[]" value="{{ policy_id }}">
+            <h4 class="mb-2"><i class="ti ti-link-plus me-1"></i>{{ __('Link controls', 'grcmanager') }}</h4>
+            <div class="row">
+               {{ fields.textField('section', '', __('Section', 'grcmanager'), {
+                  'field_class': 'col-12', 'full_width': true,
+                  'add_field_html': hints.hint(__('For example "4.2 Access control". Leave empty when the whole text covers the controls.', 'grcmanager')),
+               }) }}
+               {{ fields.dropdownArrayField('controls_id', null, choices, __('Controls', 'grcmanager'), {
+                  'field_class': 'col-12', 'full_width': true, 'multiple': true, 'values': [], 'rand': 'grcpolcov',
+                  'add_field_html': hints.hint(__('Choose one or several controls in the list.', 'grcmanager')),
+               }) }}
+               {{ fields.textField('codes', '', __('Or type control codes', 'grcmanager'), {
+                  'field_class': 'col-12', 'full_width': true,
+                  'add_field_html': hints.hint(__('Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) or a whole theme (A.8 for all technological controls).', 'grcmanager')),
+               }) }}
+            </div>
+            <button type="submit" name="add_links" value="1" class="btn btn-primary"><i class="ti ti-link-plus me-1"></i>{{ __('Link', 'grcmanager') }}</button>
+         </form>
+      {% endif %}
+
+      {% if links is empty %}
+         <p class="text-muted mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('This text is not linked to any control yet.', 'grcmanager') }}</p>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter mb-0">
+               <thead>
+                  <tr>
+                     <th>{{ __('Section', 'grcmanager') }}</th>
+                     <th>{{ __('Control', 'grcmanager') }}</th>
+                     <th>{{ __('Entity') }}</th>
+                     {% if can_edit %}<th class="text-end"></th>{% endif %}
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for link in links %}
+                     <tr class="grc-policy-link" data-code="{{ link.code }}">
+                        <td>{% if link.section != '' %}<i class="ti ti-section me-1 text-muted"></i>{{ link.section }}{% else %}<span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Whole text', 'grcmanager') }}</span>{% endif %}</td>
+                        <td>
+                           <a href="{{ link.url }}"><span class="badge bg-blue-subtle text-blue-emphasis me-1">{{ link.code }}</span>{{ link.title }}</a>
+                           {% if not link.applicable %}<span class="badge bg-secondary-subtle text-secondary-emphasis ms-1">{{ __('Not applicable', 'grcmanager') }}</span>{% endif %}
+                        </td>
+                        <td class="text-muted">{{ link.entity }}</td>
+                        {% if can_edit %}
+                           <td class="text-end">
+                              <form method="post" action="{{ form_url }}" class="d-inline">
+                                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                 <input type="hidden" name="links_id" value="{{ link.id }}">
+                                 <button type="submit" name="remove_link" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove the link', 'grcmanager') }}"><i class="ti ti-unlink"></i></button>
+                              </form>
+                           </td>
+                        {% endif %}
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+</div>

@@ -59,6 +59,7 @@ final class ControlBlockerRules
         'waiver_expired'                       => self::CATEGORY_WAIVER,
         'policy_review_overdue'                => self::CATEGORY_POLICY,
         'policy_without_owner'                 => self::CATEGORY_POLICY,
+        'control_without_approved_policy'      => self::CATEGORY_POLICY,
         'nonconformity_closed_without_action'  => self::CATEGORY_NONCONFORMITY,
     ];
 
