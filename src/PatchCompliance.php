@@ -230,8 +230,7 @@ class PatchCompliance extends CommonGLPI
         ?array $entityCriteria = null,
         bool $withContext = false,
         ?string $today = null
-    ): array
-    {
+    ): array {
         $computers = ComplianceAudit::computers($entityCriteria);
         if ($computers === []) {
             return [];
