@@ -77,7 +77,10 @@ final class SecurityIncidentTemplateTest extends GrcmanagerIntegrationTestCase
         $_SESSION['glpiactiveentities_string'] = "'" . implode("','", $_SESSION['glpiactiveentities']) . "'";
         $_SESSION['glpiparententities'] = [];
         try {
-            $data = \Glpi\Search\SearchEngine::getData(PluginGrcmanagerSecurityIncidentTemplate::class, ['criteria' => []]);
+            $data = \Glpi\Search\SearchEngine::getData(
+                PluginGrcmanagerSecurityIncidentTemplate::class,
+                ['criteria' => []]
+            );
         } finally {
             [$_SESSION['glpiactiveentities_string'], $_SESSION['glpiparententities']] = $session;
         }

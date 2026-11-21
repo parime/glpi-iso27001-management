@@ -56,7 +56,13 @@ final class SecurityIncidentPriorityFieldsTest extends GrcmanagerIntegrationTest
     public function testSuperAdminCanMoveIncidentOutOfNewStatus(): void
     {
         $allowed = PluginGrcmanagerSecurityIncident::getAllowedStatusArray(CommonITILObject::INCOMING);
-        foreach ([CommonITILObject::ASSIGNED, CommonITILObject::WAITING, CommonITILObject::SOLVED, CommonITILObject::CLOSED] as $status) {
+        $targets = [
+            CommonITILObject::ASSIGNED,
+            CommonITILObject::WAITING,
+            CommonITILObject::SOLVED,
+            CommonITILObject::CLOSED,
+        ];
+        foreach ($targets as $status) {
             $this->assertArrayHasKey($status, $allowed, 'status ' . $status . ' not allowed from New');
         }
     }
