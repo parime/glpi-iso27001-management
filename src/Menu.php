@@ -91,6 +91,8 @@ class Menu extends CommonGLPI
             Control::class => [
                 // Issue #867 : mesures bloquées (ce qui empêche chaque mesure d'être conforme).
                 ControlBlocker::class,
+                // Issue #873 : cadrage guidé de la SoA par questions (applicabilité et justifications).
+                SoaScoping::class,
                 Referentials::class, CustomFramework::class, IsmsRequirement::class,
                 // Issue #608 : contexte de l'organisation (enjeux, parties intéressées).
                 ContextItem::class,

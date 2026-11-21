@@ -1,0 +1,184 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #873 : cadrage guidé de la SoA (6.1.3 c et d). Questionnaire, propositions à relire, journal. #}
+<div class="container-fluid my-2" id="grc-soa-scoping">
+   <div class="card mb-3">
+      <div class="card-body d-flex flex-wrap align-items-center gap-2">
+         <span class="fw-bold me-2"><i class="ti ti-building me-1"></i>{{ __('Statement of Applicability of: %s', 'grcmanager')|format(entity) }}</span>
+         {% for key, s in statuses %}
+            <span class="badge {{ s.class }} grc-scoping-count" data-status="{{ key }}" data-count="{{ counts[key] ?? 0 }}"><i class="ti {{ s.icon }} me-1"></i>{{ s.label }} : {{ counts[key] ?? 0 }}</span>
+         {% endfor %}
+         <span class="ms-auto d-flex flex-wrap gap-2">
+            <a class="btn btn-sm btn-ghost-secondary" href="{{ soa_url }}"><i class="ti ti-list-check me-1"></i>{{ __('Statement of Applicability', 'grcmanager') }}</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{{ action }}?export=csv"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export CSV for the auditor', 'grcmanager') }}</a>
+         </span>
+      </div>
+   </div>
+
+   <div class="card mb-3">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-message-question me-1"></i>{{ __('1. Describe your context', 'grcmanager') }}</h3></div>
+      <form method="post" action="{{ action }}">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <div class="card-body">
+            <div class="row g-3">
+               {% for key, q in questions %}
+                  {% set current = answers[key] ?? '' %}
+                  <div class="col-12 col-lg-6">
+                     <div class="fw-bold">{{ q.label }}</div>
+                     <div class="text-muted small mb-1">{{ q.help }}</div>
+                     {% for value, label in {'yes': __('Yes'), 'no': __('No'), '': __('Not answered', 'grcmanager')} %}
+                        <label class="form-check form-check-inline">
+                           <input class="form-check-input" type="radio" name="answers[{{ key }}]" value="{{ value }}" {{ current == value ? 'checked' : '' }} {{ can_decide ? '' : 'disabled' }}>
+                           <span class="form-check-label">{{ label }}</span>
+                        </label>
+                     {% endfor %}
+                  </div>
+               {% endfor %}
+            </div>
+         </div>
+         {% if can_decide %}
+            <div class="card-footer text-end">
+               <button type="submit" name="save_answers" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save the answers', 'grcmanager') }}</button>
+            </div>
+         {% endif %}
+      </form>
+   </div>
+
+   {% if preview is not empty %}
+      <div class="card mb-3 border-warning" id="grc-scoping-preview">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-eye me-1"></i>{{ __('Preview: what accepting these proposals will change', 'grcmanager') }}</h3></div>
+         <form method="post" action="{{ action }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <div class="table-responsive">
+               <table class="table table-vcenter card-table mb-0">
+                  <thead><tr><th>{{ __('Control', 'grcmanager') }}</th><th>{{ __('Applicability', 'grcmanager') }}</th><th>{{ __('Justification', 'grcmanager') }}</th></tr></thead>
+                  <tbody>
+                     {% for row in preview %}
+                        <tr class="grc-scoping-preview-row" data-code="{{ row.code }}">
+                           <td><input type="hidden" name="controls[]" value="{{ row.id }}"><a href="{{ row.url }}">{{ row.code }}</a> {{ row.title }}</td>
+                           <td class="text-nowrap">{{ row.applicability_label }} <i class="ti ti-arrow-right mx-1"></i><strong>{{ row.proposal_label }}</strong></td>
+                           <td>
+                              {% if row.changes.justification is defined %}
+                                 <span class="badge bg-info-subtle text-info-emphasis me-1">{{ __('Added', 'grcmanager') }}</span>{{ row.changes.justification }}
+                              {% else %}
+                                 <span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ __('Existing justification kept', 'grcmanager') }}</span>{{ row.justification }}
+                              {% endif %}
+                           </td>
+                        </tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+            <div class="card-footer d-flex flex-wrap gap-2 justify-content-end">
+               <a class="btn btn-ghost-secondary" href="{{ action }}"><i class="ti ti-x me-1"></i>{{ __('Cancel') }}</a>
+               <button type="submit" name="decide" value="accepted" class="btn btn-success"><i class="ti ti-check me-1"></i>{{ __('Accept these %d proposals', 'grcmanager')|format(preview|length) }}</button>
+            </div>
+         </form>
+      </div>
+   {% endif %}
+
+   <div class="card mb-3">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-list-details me-1"></i>{{ __('2. Review the proposals, control by control', 'grcmanager') }}</h3></div>
+      <form method="post" action="{{ action }}">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         {% if can_decide %}
+            <div class="card-body d-flex flex-wrap gap-2 border-bottom">
+               <button type="submit" name="preview_pending" value="1" class="btn btn-sm btn-outline-primary"><i class="ti ti-eye me-1"></i>{{ __('Preview all proposals to review', 'grcmanager') }}</button>
+               <button type="submit" name="preview" value="1" class="btn btn-sm btn-outline-primary"><i class="ti ti-eye-check me-1"></i>{{ __('Preview the selected proposals', 'grcmanager') }}</button>
+               <button type="submit" name="decide" value="rejected" class="btn btn-sm btn-outline-danger"><i class="ti ti-circle-x me-1"></i>{{ __('Reject the selected proposals', 'grcmanager') }}</button>
+               <span class="text-muted small align-self-center">{{ __('A written justification is never overwritten.', 'grcmanager') }}</span>
+            </div>
+         {% endif %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table mb-0">
+               <thead>
+                  <tr>
+                     {% if can_decide %}<th></th>{% endif %}
+                     <th>{{ __('Control', 'grcmanager') }}</th>
+                     <th>{{ __('In the SoA today', 'grcmanager') }}</th>
+                     <th>{{ __('Proposal', 'grcmanager') }}</th>
+                     <th>{{ __('Status') }}</th>
+                     {% if can_decide %}<th></th>{% endif %}
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row in rows %}
+                     {% set s = statuses[row.status] %}
+                     <tr class="grc-scoping-row" data-code="{{ row.code }}" data-status="{{ row.status }}">
+                        {% if can_decide %}
+                           <td>{% if row.proposal is not null and row.status != 'accepted' %}<input class="form-check-input" type="checkbox" name="controls[]" value="{{ row.id }}" aria-label="{{ row.code }}">{% endif %}</td>
+                        {% endif %}
+                        <td><a href="{{ row.url }}" class="fw-bold">{{ row.code }}</a><div class="small">{{ row.title }}</div></td>
+                        <td>
+                           <div>{{ row.applicability_label }}</div>
+                           {% if row.justification %}<div class="small text-muted">{{ row.justification }}</div>{% endif %}
+                        </td>
+                        <td>
+                           {% if row.proposal is null %}
+                              <span class="text-muted small">{{ __('Answer the questions above to get a proposal.', 'grcmanager') }}</span>
+                           {% else %}
+                              <div><strong>{{ row.proposal_label }}</strong></div>
+                              <div class="small text-muted"><i class="ti ti-help-circle me-1"></i>{{ row.basis_label }}</div>
+                              <div class="small">{{ row.proposed_justification }}</div>
+                           {% endif %}
+                        </td>
+                        <td>
+                           <span class="badge {{ s.class }}"><i class="ti {{ s.icon }} me-1"></i>{{ s.label }}</span>
+                           {% if row.decision %}
+                              <div class="small text-muted mt-1">{{ __('%1$s on %2$s', 'grcmanager')|format(row.decision.user, row.decision.date) }}</div>
+                           {% endif %}
+                        </td>
+                        {% if can_decide %}
+                           <td class="text-nowrap">
+                              {% if row.proposal is not null and row.status != 'accepted' %}
+                                 <button type="submit" name="accept_one" value="{{ row.id }}" class="btn btn-sm btn-ghost-success" title="{{ __('Accept', 'grcmanager') }}"><i class="ti ti-check"></i><span class="visually-hidden">{{ __('Accept', 'grcmanager') }}</span></button>
+                                 {% if row.status != 'rejected' %}
+                                    <button type="submit" name="reject_one" value="{{ row.id }}" class="btn btn-sm btn-ghost-danger" title="{{ __('Reject', 'grcmanager') }}"><i class="ti ti-x"></i><span class="visually-hidden">{{ __('Reject', 'grcmanager') }}</span></button>
+                                 {% endif %}
+                              {% endif %}
+                           </td>
+                        {% endif %}
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </form>
+   </div>
+
+   <div class="card">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-history me-1"></i>{{ __('3. Decision log (who validated what, and when)', 'grcmanager') }}</h3></div>
+      {% if journal is empty %}
+         <div class="card-body text-muted">{{ __('No decision yet.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table mb-0">
+               <thead><tr><th>{{ __('Date') }}</th><th>{{ __('User') }}</th><th>{{ __('Control', 'grcmanager') }}</th><th>{{ __('Decision', 'grcmanager') }}</th><th>{{ __('Applicability', 'grcmanager') }}</th></tr></thead>
+               <tbody>
+                  {% for entry in journal %}
+                     <tr class="grc-scoping-journal" data-code="{{ entry.code }}" data-decision="{{ entry.decision_key }}">
+                        <td class="text-nowrap">{{ entry.date }}</td>
+                        <td>{{ entry.user }}</td>
+                        <td>{{ entry.code }}</td>
+                        <td><span class="badge {{ statuses[entry.decision_key].class ?? 'bg-secondary-subtle text-secondary-emphasis' }}">{{ entry.decision }}</span></td>
+                        <td class="text-nowrap">{{ entry.previous }} <i class="ti ti-arrow-right mx-1"></i>{{ entry.proposed }}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+</div>

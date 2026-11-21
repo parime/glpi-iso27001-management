@@ -35081,3 +35081,216 @@ msgstr "Nessun SBOM ancora importato."
 #: templates/product_sbom_list.html.twig
 msgid "Components"
 msgstr "Componenti"
+
+msgid "SoA scoping"
+msgstr "Definizione della SoA"
+
+msgid "Do staff work remotely (from home or while travelling)?"
+msgstr "Il personale lavora da remoto (da casa o in viaggio)?"
+
+msgid "Telework, nomadic work, access to the information system from outside the premises."
+msgstr "Telelavoro, lavoro in mobilità, accesso al sistema informativo fuori dai locali."
+
+msgid "staff work remotely"
+msgstr "il personale lavora da remoto"
+
+msgid "no staff member works remotely"
+msgstr "nessun membro del personale lavora da remoto"
+
+msgid "Does the organisation develop or customise software in-house?"
+msgstr "L'organizzazione sviluppa o personalizza software internamente?"
+
+msgid "Applications, scripts, websites, integrations or significant configuration code."
+msgstr "Applicazioni, script, siti web, integrazioni o codice di configurazione rilevante."
+
+msgid "the organisation develops or customises software in-house"
+msgstr "l'organizzazione sviluppa o personalizza software internamente"
+
+msgid "the organisation does not develop or customise software in-house"
+msgstr "l'organizzazione non sviluppa né personalizza software internamente"
+
+msgid "Is software development outsourced to a provider?"
+msgstr "Lo sviluppo software è affidato a un fornitore?"
+
+msgid "A developer, integrator or agency builds or changes software for you."
+msgstr "Uno sviluppatore, un integratore o un'agenzia crea o modifica software per voi."
+
+msgid "software development is outsourced"
+msgstr "lo sviluppo software è esternalizzato"
+
+msgid "no software development is outsourced"
+msgstr "nessuno sviluppo software è esternalizzato"
+
+msgid "Do suppliers or subcontractors access your information or provide ICT services?"
+msgstr "Fornitori o subappaltatori accedono alle vostre informazioni o forniscono servizi ICT?"
+
+msgid "Outsourcing, maintenance, hosting, managed services, telecoms."
+msgstr "Outsourcing, manutenzione, hosting, servizi gestiti, telecomunicazioni."
+
+msgid "suppliers access information or provide ICT services"
+msgstr "fornitori accedono alle informazioni o forniscono servizi ICT"
+
+msgid "no supplier accesses information or provides ICT services"
+msgstr "nessun fornitore accede alle informazioni né fornisce servizi ICT"
+
+msgid "Does the organisation use cloud services (SaaS, IaaS, PaaS)?"
+msgstr "L'organizzazione utilizza servizi cloud (SaaS, IaaS, PaaS)?"
+
+msgid "Online office suite, hosted applications, cloud storage or servers."
+msgstr "Suite per ufficio online, applicazioni ospitate, archiviazione o server cloud."
+
+msgid "the organisation uses cloud services"
+msgstr "l'organizzazione utilizza servizi cloud"
+
+msgid "the organisation uses no cloud service"
+msgstr "l'organizzazione non utilizza alcun servizio cloud"
+
+msgid "Does the organisation occupy premises whose security it manages?"
+msgstr "L'organizzazione occupa locali di cui gestisce la sicurezza?"
+
+msgid "Offices, sites or shops: perimeter, entry, protection against physical threats."
+msgstr "Uffici, sedi o negozi: perimetro, accessi, protezione dalle minacce fisiche."
+
+msgid "the organisation manages the security of its own premises"
+msgstr "l'organizzazione gestisce la sicurezza dei propri locali"
+
+msgid "the organisation manages no premises (security handled by the landlord or host)"
+msgstr "l'organizzazione non gestisce alcun locale (sicurezza affidata al locatore o all'ospitante)"
+
+msgid "Are servers or network equipment hosted in your own premises?"
+msgstr "Server o apparati di rete sono ospitati nei vostri locali?"
+
+msgid "Server room, network cabinet, power supply and cabling under your responsibility."
+msgstr "Sala server, armadio di rete, alimentazione elettrica e cablaggio sotto la vostra responsabilità."
+
+msgid "servers or network equipment are hosted on the premises"
+msgstr "server o apparati di rete sono ospitati nei locali"
+
+msgid "no server or network equipment is hosted on the premises"
+msgstr "nessun server o apparato di rete è ospitato nei locali"
+
+msgid "Does the organisation process personal data?"
+msgstr "L'organizzazione tratta dati personali?"
+
+msgid "Staff, customers, prospects, patients, users: almost always yes."
+msgstr "Personale, clienti, potenziali clienti, pazienti, utenti: quasi sempre sì."
+
+msgid "the organisation processes personal data"
+msgstr "l'organizzazione tratta dati personali"
+
+msgid "the organisation processes no personal data"
+msgstr "l'organizzazione non tratta alcun dato personale"
+
+msgid "Waiting for answers"
+msgstr "In attesa delle risposte"
+
+msgid "Matches the SoA"
+msgstr "Conforme alla SoA"
+
+msgid "Applicable: baseline control for any organisation within the ISMS scope; no scoping answer excludes it."
+msgstr "Applicabile: controllo di base per qualsiasi organizzazione nel perimetro dell'SGSI; nessuna risposta della definizione lo esclude."
+
+#, php-format
+msgid "Applicable: %s (SoA scoping questionnaire)."
+msgstr "Applicabile: %s (questionario di definizione della SoA)."
+
+#, php-format
+msgid "Not applicable: %s (SoA scoping questionnaire). To be reviewed if this changes."
+msgstr "Non applicabile: %s (questionario di definizione della SoA). Da rivedere se la situazione cambia."
+
+msgid "Baseline control"
+msgstr "Controllo di base"
+
+msgid "Not answered"
+msgstr "Senza risposta"
+
+msgid "Proposed applicability"
+msgstr "Applicabilità proposta"
+
+msgid "Basis of the proposal"
+msgstr "Fondamento della proposta"
+
+msgid "Proposed justification"
+msgstr "Giustificazione proposta"
+
+msgid "Decided by"
+msgstr "Deciso da"
+
+msgid "Decision date"
+msgstr "Data della decisione"
+
+msgid "Previous applicability"
+msgstr "Applicabilità precedente"
+
+msgid "Answers saved. Review the proposals below: nothing is applied to the Statement of Applicability until you accept it."
+msgstr "Risposte salvate. Rivedete le proposte qui sotto: nulla viene applicato alla Dichiarazione di Applicabilità finché non lo accettate."
+
+#, php-format
+msgid "Proposals accepted: %d."
+msgstr "Proposte accettate: %d."
+
+#, php-format
+msgid "Proposals rejected: %d."
+msgstr "Proposte rifiutate: %d."
+
+#, php-format
+msgid "Statement of Applicability of: %s"
+msgstr "Dichiarazione di Applicabilità di: %s"
+
+msgid "Export CSV for the auditor"
+msgstr "Esporta CSV per l'auditor"
+
+msgid "1. Describe your context"
+msgstr "1. Descrivete il vostro contesto"
+
+msgid "Save the answers"
+msgstr "Salva le risposte"
+
+msgid "Preview: what accepting these proposals will change"
+msgstr "Anteprima: cosa cambierà accettando queste proposte"
+
+msgid "Existing justification kept"
+msgstr "Giustificazione esistente mantenuta"
+
+#, php-format
+msgid "Accept these %d proposals"
+msgstr "Accetta queste %d proposte"
+
+msgid "2. Review the proposals, control by control"
+msgstr "2. Rivedete le proposte, controllo per controllo"
+
+msgid "Preview all proposals to review"
+msgstr "Anteprima di tutte le proposte da rivedere"
+
+msgid "Preview the selected proposals"
+msgstr "Anteprima delle proposte selezionate"
+
+msgid "Reject the selected proposals"
+msgstr "Rifiuta le proposte selezionate"
+
+msgid "A written justification is never overwritten."
+msgstr "Una giustificazione già scritta non viene mai sovrascritta."
+
+msgid "In the SoA today"
+msgstr "Oggi nella SoA"
+
+msgid "Proposal"
+msgstr "Proposta"
+
+msgid "Answer the questions above to get a proposal."
+msgstr "Rispondete alle domande qui sopra per ottenere una proposta."
+
+msgid "3. Decision log (who validated what, and when)"
+msgstr "3. Registro delle decisioni (chi ha convalidato cosa e quando)"
+
+msgid "No decision yet."
+msgstr "Nessuna decisione per ora."
+
+msgid "Helps you decide and justify the applicability of each Annex A control: a few questions about your context (remote work, software development, suppliers, cloud, premises, personal data) give a proposed applicability and justification for every control of the Statement of Applicability."
+msgstr "Aiuta a decidere e giustificare l'applicabilità di ogni controllo dell'Allegato A: alcune domande sul vostro contesto (telelavoro, sviluppo software, fornitori, cloud, locali, dati personali) propongono un'applicabilità e una giustificazione per ogni controllo della Dichiarazione di Applicabilità."
+
+msgid "Answer the questions, then accept or reject each proposal, one by one or in bulk after a preview. Nothing is applied without your decision, a written justification is never overwritten, and every decision is logged with its author and date. Export the CSV for the auditor."
+msgstr "Rispondete alle domande, poi accettate o rifiutate ogni proposta, una alla volta o in blocco dopo un'anteprima. Nulla viene applicato senza la vostra decisione, una giustificazione scritta non viene mai sovrascritta e ogni decisione è registrata con autore e data. Esportate il CSV per l'auditor."
+
+msgid "ISO/IEC 27001, clause 6.1.3 c) and d)"
+msgstr "ISO/IEC 27001, clausola 6.1.3 c) e d)"
