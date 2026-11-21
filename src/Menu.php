@@ -165,6 +165,8 @@ class Menu extends CommonGLPI
                 LogCoverage::class,
                 // Issue #836 : supervision lue dans Zabbix (A.8.16, A.8.6, A.5.30).
                 ZabbixMonitoring::class,
+                // Issue #843 : contrôleurs de gestion des serveurs (A.8.2, A.8.9, A.8.22).
+                ServerManagement::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];

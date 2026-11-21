@@ -1,0 +1,34 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #843 : preuve des contrôleurs de gestion des serveurs sur la fiche d'une mesure (A.8.2, A.8.9, A.8.22). #}
+<div id="grc-bmc-evidence">
+   <span class="badge bg-azure-subtle text-azure-emphasis me-1"><i class="ti ti-server-cog me-1"></i>{{ __('%d controller(s)', 'grcmanager')|format(evidence.controllers) }}</span>
+   <span class="badge {{ evidence.high > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alert-octagon me-1"></i>{{ __('%d with a serious gap', 'grcmanager')|format(evidence.high) }}</span>
+   {% if evidence.code == 'A.8.2' %}
+      <span class="badge bg-orange-subtle text-orange-emphasis me-1"><i class="ti ti-crown me-1"></i>{{ __('%d administrator account(s)', 'grcmanager')|format(evidence.admin_accounts) }}</span>
+      <span class="badge {{ evidence.default_accounts > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-user-exclamation me-1"></i>{{ __('%d with a default account enabled', 'grcmanager')|format(evidence.default_accounts) }}</span>
+   {% elseif evidence.code == 'A.8.9' %}
+      <span class="badge {{ evidence.config_gaps > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-adjustments-alt me-1"></i>{{ __('%d risky setting(s)', 'grcmanager')|format(evidence.config_gaps) }}</span>
+      <span class="badge {{ evidence.servers_without > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-server-off me-1"></i>{{ __('%d physical server(s) without a known controller', 'grcmanager')|format(evidence.servers_without) }}</span>
+   {% else %}
+      {% if evidence.admin_networks == 0 %}
+         <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-route me-1"></i>{{ __('No administration network declared', 'grcmanager') }}</span>
+      {% else %}
+         <span class="badge {{ evidence.outside_admin > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-route-off me-1"></i>{{ __('%d outside the administration networks', 'grcmanager')|format(evidence.outside_admin) }}</span>
+      {% endif %}
+   {% endif %}
+   <span class="small text-muted me-2">{{ __('Computed on %s', 'grcmanager')|format(evidence.date) }}</span>
+   <a href="{{ evidence.url }}">{{ __('View the details', 'grcmanager') }}</a>
+</div>

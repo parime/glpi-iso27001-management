@@ -1,0 +1,58 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #843 : contrôleur de gestion du serveur (onglet de l'ordinateur), lecture seule. #}
+<div id="grc-bmc-tab" class="p-2">
+   {% if rows is empty %}
+      <div class="alert alert-info d-flex align-items-start gap-2">
+         <i class="ti ti-info-circle fs-2"></i>
+         <div>{{ __('No management controller (iLO, iDRAC, XClarity, IPMI) is known for this computer. A controller is matched by the serial number of the server, or chosen by hand on the controller.', 'grcmanager') }} <a href="{{ page_url }}">{{ __('Server management controllers', 'grcmanager') }}</a></div>
+      </div>
+   {% endif %}
+   {% for row in rows %}
+      <div class="card mb-3">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-server-cog me-2"></i>{{ row.name }}</h3>
+            <div class="card-actions small text-muted">{{ row.date_read ? __('Read on %s', 'grcmanager')|format(row.date_read) : __('Never read', 'grcmanager') }}</div>
+         </div>
+         <div class="card-body">
+            <div class="row g-2 small mb-2">
+               <div class="col-md-4"><span class="text-muted">{{ __('Controller', 'grcmanager') }} :</span> {{ [row.vendor, row.manager_model]|filter(v => v)|join(' · ') ?: '-' }}</div>
+               <div class="col-md-4"><span class="text-muted">{{ __('Firmware of the controller', 'grcmanager') }} :</span> {{ row.firmware_version ?: '-' }}</div>
+               <div class="col-md-4"><span class="text-muted">{{ __('BIOS', 'grcmanager') }} :</span> {{ row.bios_version ?: '-' }}</div>
+               <div class="col-md-4"><span class="text-muted">{{ __('Address', 'grcmanager') }} :</span> {{ row.url ?: row.ip_address ?: '-' }}</div>
+               <div class="col-md-4"><span class="text-muted">{{ __('IPMI over the network', 'grcmanager') }} :</span> {{ row.ipmi_lan }}</div>
+               <div class="col-md-4"><span class="text-muted">{{ __('Secure Boot', 'grcmanager') }} :</span> {{ row.secure_boot }}</div>
+            </div>
+            {% if row.read_error %}<div class="text-danger small mb-2"><i class="ti ti-alert-triangle me-1"></i>{{ row.read_error }}</div>{% endif %}
+            <div>
+               {% for gap in row.gaps %}
+                  {% set info = gap_infos[gap] %}
+                  <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-1 mb-1" title="{{ info.help }}"><i class="{{ info.icon }} me-1"></i>{{ info.label }}</span>
+               {% else %}
+                  <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('No gap found', 'grcmanager') }}</span>
+               {% endfor %}
+            </div>
+            {% if row.accounts is not empty %}
+               <div class="small mt-2"><span class="text-muted">{{ __('Local accounts', 'grcmanager') }} :</span>
+                  {% for account in row.accounts %}
+                     <span class="badge {{ account.enabled ? (account.admin ? 'bg-orange-subtle text-orange-emphasis' : 'bg-secondary-subtle text-secondary-emphasis') : 'bg-secondary-subtle text-secondary-emphasis text-decoration-line-through' }} me-1">{{ account.username }}{% if account.role %} ({{ account.role }}){% endif %}</span>
+                  {% endfor %}
+               </div>
+            {% endif %}
+            <div class="mt-2"><a href="{{ page_url }}#grc-bmc-{{ row.id }}">{{ __('View the details', 'grcmanager') }}</a></div>
+         </div>
+      </div>
+   {% endfor %}
+</div>
