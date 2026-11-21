@@ -31981,6 +31981,156 @@ msgstr ""
 msgid "Role in the activity"
 msgstr ""
 
+#: front/controlblocker.php:63
+msgid "Blockers"
+msgstr ""
+
+#: src/ControlBlocker.php:54
+msgid "Blocked control"
+msgid_plural "Blocked controls"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ControlBlocker.php:99
+msgid "Technical check"
+msgstr ""
+
+#: src/ControlBlocker.php:316
+msgid "Effectiveness test overdue"
+msgstr ""
+
+#: src/ControlBlocker.php:318
+#, php-format
+msgid "Last test: %s"
+msgstr ""
+
+#: src/ControlBlocker.php:322
+#, php-format
+msgid "Next test was due on %s"
+msgstr ""
+
+#: src/ControlBlocker.php:323
+#, php-format
+msgid "Tested on %s"
+msgstr ""
+
+#: src/ControlBlocker.php:326
+msgid "Test the control again and record the result."
+msgstr ""
+
+#: src/ControlBlocker.php:327
+msgid "Fix the weakness found by the test, then test the control again."
+msgstr ""
+
+#: src/ControlBlocker.php:413
+#, php-format
+msgid "Open, due on %s"
+msgstr ""
+
+#: src/ControlBlocker.php:416
+msgid "Carry out the corrective action, then close the nonconformity."
+msgstr ""
+
+#: src/ControlBlocker.php:450
+msgid "Have the policy approved by management."
+msgstr ""
+
+#: src/ControlBlocker.php:490
+#, php-format
+msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
+msgstr ""
+
+#: src/ControlBlocker.php:496
+msgid "Fix the items listed by the automated check."
+msgstr ""
+
+#: src/ControlBlocker.php:535
+#, php-format
+msgid "%s coverage"
+msgstr ""
+
+#: src/ControlBlocker.php:537
+#, php-format
+msgid "Computers without an active agent: %1$d out of %2$d"
+msgstr ""
+
+#: src/ControlBlocker.php:542
+msgid "Install or reactivate the agent on the computers not covered."
+msgstr ""
+
+#: src/ControlBlocker.php:586 templates/control_blockers_tab.html.twig
+msgid "What blocks this control"
+msgstr ""
+
+#: src/PageHelp.php:62
+msgid ""
+"For each control of the Statement of Applicability, this page lists what "
+"prevents it from being compliant: failing automated check, missing or "
+"expired evidence, policy not approved, effectiveness test overdue or "
+"ineffective, open nonconformity, expired waiver."
+msgstr ""
+
+#: src/PageHelp.php:68
+msgid ""
+"Sort by severity and start with the most blocked controls. Click a control "
+"to see its blockers, then click a blocker to open the screen where it is "
+"fixed. The page is computed again each time and only shows what you are "
+"allowed to read. Nothing is changed automatically."
+msgstr ""
+
+#: src/PageHelp.php:73
+msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
+msgstr ""
+
+#: templates/_control_blocker_list.html.twig
+msgid "Fix"
+msgstr ""
+
+#: templates/control_blockers.html.twig
+#, php-format
+msgid "%d more"
+msgstr ""
+
+#: templates/control_blockers.html.twig
+#, php-format
+msgid "Blocked controls: %1$d out of %2$d"
+msgstr ""
+
+#: templates/control_blockers.html.twig
+msgid ""
+"No control of the Statement of Applicability is blocked among the checks you "
+"can read."
+msgstr ""
+
+#: templates/control_blockers.html.twig
+msgid "Sort"
+msgstr ""
+
+#: templates/control_blockers.html.twig
+msgid "What blocks it"
+msgstr ""
+
+#: templates/control_blockers_tab.html.twig
+msgid "All blocked controls"
+msgstr ""
+
+#: templates/control_blockers_tab.html.twig
+msgid ""
+"Everything that prevents this control from being compliant, in a single "
+"list: failing automated check, missing or expired evidence, policy not "
+"approved, effectiveness test overdue or ineffective, open nonconformity, "
+"expired waiver. Click a line to open the screen where it is fixed. Only what "
+"you are allowed to read is shown, and nothing is changed automatically."
+msgstr ""
+
+#: templates/control_blockers_tab.html.twig
+msgid "No blocker found among the checks you can read."
+msgstr ""
+
+#: templates/control_blockers_tab.html.twig
+msgid "Nothing blocks this control"
+msgstr ""
+
 
 #: src/SoftwareLicenseCompliance.php:148
 msgid ""
@@ -31999,4 +32149,3 @@ msgstr ""
 #: templates/software_license_compliance.html.twig
 msgid "Child licenses counted once"
 msgstr ""
-
