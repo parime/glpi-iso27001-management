@@ -65,15 +65,15 @@ final class M365ShareReader
         }
         $this->error = '';
         $organization = $this->collection(self::V1 . 'organization?$select=verifiedDomains', 1);
-        foreach ($organization ?? [] as $org) {
+        if ($organization === null) {
+            return $this->result([]);
+        }
+        foreach ($organization as $org) {
             foreach (is_array($org['verifiedDomains'] ?? null) ? $org['verifiedDomains'] : [] as $domain) {
                 if (is_array($domain) && is_string($domain['name'] ?? null)) {
                     $this->domains[] = mb_strtolower($domain['name']);
                 }
             }
-        }
-        if ($this->error() !== '') {
-            return ['rows' => [], 'error' => $this->error()];
         }
         $rows = match ($source) {
             M365ShareRules::SOURCE_SHAREPOINT => $this->sharePoint(),
@@ -81,17 +81,18 @@ final class M365ShareReader
             default                           => $this->teams(),
         };
 
-        return $this->error() !== '' ? ['rows' => [], 'error' => $this->error()] : ['rows' => $rows, 'error' => ''];
+        return $this->result($rows);
     }
 
     /**
-     * Erreur de la lecture en cours (posée par collection()).
+     * Résultat de la lecture : en cas d'erreur (posée par collection()), aucune ligne.
      *
-     * @phpstan-impure
+     * @param list<Row> $rows
+     * @return array{rows: list<Row>, error: string}
      */
-    private function error(): string
+    private function result(array $rows): array
     {
-        return $this->error;
+        return $this->error !== '' ? ['rows' => [], 'error' => $this->error] : ['rows' => $rows, 'error' => ''];
     }
 
     /**
