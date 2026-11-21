@@ -97,7 +97,7 @@ if (isset($_POST['link_computer'])) {
 if (isset($_POST['delete_report'])) {
     Session::checkRight(ConfigurationCompliance::RIGHTNAME, UPDATE);
     if (!ConfigurationCompliance::deleteReport((int) ($_POST['report'] ?? 0))) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     Session::addMessageAfterRedirect(htmlescape(__('Scan result deleted.', 'grcmanager')));
     Html::redirect($page);

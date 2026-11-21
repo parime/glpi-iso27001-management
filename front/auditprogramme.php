@@ -45,7 +45,7 @@ if (isset($_POST['plan_audit'])) {
     Session::checkRight(Audit::$rightname, CREATE);
     $process = AuditProgramme::plannableProcess((int) ($_POST['process_id'] ?? 0));
     if ($process === null) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     } else {
         $input = AuditProgramme::planInput($process, (int) ($_POST['year'] ?? 0));
         if ($input === null) {

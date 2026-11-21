@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 16:49+0000\n"
+"POT-Creation-Date: 2026-11-21 16:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -450,14 +450,15 @@ msgstr ""
 
 #: front/configcompliance.php:42 front/configcompliance.php:55
 #: front/phishingimport.php:76 front/securityincidentedrimport.php:70
-#: src/ConfigurationCompliance.php:179
+#: src/ConfigurationCompliance.php:177
 msgid "The file is too large."
 msgstr ""
 
 #: front/configcompliance.php:43 front/phishingimport.php:71
 #: front/phishingimport.php:98 front/securityincidentedrimport.php:66
-#: front/securityincidentedrimport.php:85 src/ConfigurationCompliance.php:191
-#: src/ControlTest.php:653
+#: front/securityincidentedrimport.php:85 front/supplierevaluationfile.php:87
+#: front/supplierevaluationfile.php:101 front/supplierevaluationfile.php:141
+#: src/ConfigurationCompliance.php:189 src/ControlTest.php:653
 msgid "The file could not be received."
 msgstr ""
 
@@ -1583,6 +1584,17 @@ msgstr[1] ""
 msgid "Answers saved."
 msgstr ""
 
+#: front/supplierevaluationfile.php:159
+#, php-format
+msgid ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr ""
+
+#: front/supplierevaluationfile.php:165
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
+msgstr ""
+
 #: front/supplierquestionnairetemplate.form.php:48
 msgid "Template copied: adapt its questions."
 msgstr ""
@@ -1943,7 +1955,8 @@ msgstr ""
 msgid "Business processes whose last recovery test exceeded the RTO"
 msgstr ""
 
-#: hook.php:496 src/Services/Dashboard/SecurityIncidentCardProvider.php:232
+#: hook.php:496 src/Feature/Security360CoreSourcesFeature.php:84
+#: src/Services/Dashboard/SecurityIncidentCardProvider.php:232
 #: templates/config_form.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Security incidents"
@@ -2171,9 +2184,9 @@ msgid "Major"
 msgstr ""
 
 #: inc/securityincident.class.php:274 inc/securityincident.class.php:1205
-#: src/BusinessImpact.php:75 src/Control.php:202 src/Nonconformity.php:108
-#: src/Nonconformity.php:635 src/PatchCompliance.php:180
-#: src/Traits/RiskAssessmentTrait.php:123
+#: src/AssetSecurity360.php:172 src/BusinessImpact.php:75 src/Control.php:202
+#: src/Nonconformity.php:108 src/Nonconformity.php:635
+#: src/PatchCompliance.php:180 src/Traits/RiskAssessmentTrait.php:123
 #: src/Traits/RiskAssessmentTrait.php:139
 #: src/Traits/RiskAssessmentTrait.php:310 templates/backup_coverage.html.twig
 #: templates/crisis_scenario_register.html.twig
@@ -2318,7 +2331,8 @@ msgstr ""
 
 #: inc/securityincident.class.php:953 src/NetworkFlow.php:275
 #: src/NetworkFlow.php:459 src/NotificationTargetRiskIndicator.php:155
-#: src/RiskIndicator.php:837 templates/custom_framework_form.html.twig
+#: src/RiskIndicator.php:837 templates/asset_security_360_tab.html.twig
+#: templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/mfa_coverage.html.twig templates/network_flow_import.html.twig
@@ -2890,6 +2904,7 @@ msgstr ""
 #: src/AcnRequirement.php:751 src/NotificationTargetVulnerabilityDigest.php:233
 #: src/RecyfRequirement.php:554 templates/acn_register.html.twig
 #: templates/acn_requirement_form.html.twig
+#: templates/asset_security_360_tab.html.twig
 #: templates/maturity_campaign_gaps_tab.html.twig
 #: templates/pdf/access_review_report.html.twig
 #: templates/pdf/acn_report.html.twig templates/pdf/action_log.html.twig
@@ -3033,7 +3048,7 @@ msgstr ""
 
 #: src/AdAttackPath.php:74 src/AdSecurityAudit.php:231 src/ControlTest.php:652
 #: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
-#: src/ServerManagement.php:335
+#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:306
 msgid "The file is empty."
 msgstr ""
 
@@ -3140,7 +3155,8 @@ msgstr ""
 msgid "Good"
 msgstr ""
 
-#: src/AdSecurityAudit.php:203 src/AuditProgramme.php:746
+#: src/AdSecurityAudit.php:203 src/AssetSecurity360.php:177
+#: src/AuditProgramme.php:746
 msgid "To watch"
 msgstr ""
 
@@ -3149,7 +3165,7 @@ msgid "Worrying"
 msgstr ""
 
 #: src/AdSecurityAudit.php:221 src/AssetClassification.php:94
-#: src/AssetClassification.php:185 src/ConfigurationCompliance.php:154
+#: src/AssetClassification.php:185 src/ConfigurationCompliance.php:152
 #: src/ConsistencyCheck.php:132 src/Control.php:201 src/DoraRegister.php:238
 #: src/DoraRegister.php:243 src/ShareAccess.php:268
 #: src/Traits/RiskAssessmentTrait.php:122
@@ -3160,7 +3176,7 @@ msgid "High"
 msgstr ""
 
 #: src/AdSecurityAudit.php:222 src/AssetClassification.php:93
-#: src/AssetClassification.php:184 src/ConfigurationCompliance.php:155
+#: src/AssetClassification.php:184 src/ConfigurationCompliance.php:153
 #: src/ConsistencyCheck.php:137 src/Control.php:200 src/DoraRegister.php:237
 #: src/DoraRegister.php:242 src/ShareAccess.php:267
 #: src/Traits/RiskAssessmentTrait.php:121
@@ -3170,7 +3186,7 @@ msgid "Medium"
 msgstr ""
 
 #: src/AdSecurityAudit.php:223 src/AssetClassification.php:92
-#: src/AssetClassification.php:183 src/ConfigurationCompliance.php:156
+#: src/AssetClassification.php:183 src/ConfigurationCompliance.php:154
 #: src/ConsistencyCheck.php:142 src/Control.php:199 src/DoraRegister.php:236
 #: src/DoraRegister.php:241 src/ShareAccess.php:266
 #: src/Traits/RiskAssessmentTrait.php:120
@@ -3179,8 +3195,8 @@ msgstr ""
 msgid "Low"
 msgstr ""
 
-#: src/AdSecurityAudit.php:224 src/ConfigurationCompliance.php:157
-#: src/ZabbixMonitoring.php:138
+#: src/AdSecurityAudit.php:224 src/AssetSecurity360.php:187
+#: src/ConfigurationCompliance.php:155 src/ZabbixMonitoring.php:138
 msgid "Information"
 msgstr ""
 
@@ -3426,6 +3442,37 @@ msgstr ""
 msgid "1 week"
 msgstr ""
 
+#: src/AssetSecurity360.php:58
+msgid "Security 360°"
+msgstr ""
+
+#: src/AssetSecurity360.php:182 src/AuditChecklist.php:102
+#: src/AuditProgramme.php:741 src/ComplianceObligation.php:108
+#: src/ComplianceObligation.php:344 src/ControlTestSample.php:125
+#: src/CustomRequirement.php:60 src/IsmsRequirement.php:155
+#: src/PersonnelCompliance.php:288 src/PhysicalSecurity.php:97
+#: templates/_network_flow_badges.html.twig
+#: templates/compliance_audit.html.twig
+#: templates/network_flow_summary.html.twig
+msgid "Compliant"
+msgstr ""
+
+#: src/AssetSecurity360.php:201
+msgid "Good security posture"
+msgstr ""
+
+#: src/AssetSecurity360.php:206
+msgid "Security posture to improve"
+msgstr ""
+
+#: src/AssetSecurity360.php:211
+msgid "Weak security posture"
+msgstr ""
+
+#: src/AssetSecurity360.php:216
+msgid "Not enough data to assess"
+msgstr ""
+
 #: src/Audit.php:69 src/ComplianceEvent.php:113 src/ConsistencyCheck.php:118
 #: templates/audit_coverage.html.twig
 msgid "Internal audit"
@@ -3596,16 +3643,6 @@ msgstr ""
 #: templates/audit_checklist_tab.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 msgid "Audit checklist"
-msgstr ""
-
-#: src/AuditChecklist.php:102 src/AuditProgramme.php:741
-#: src/ComplianceObligation.php:108 src/ComplianceObligation.php:344
-#: src/ControlTestSample.php:125 src/CustomRequirement.php:60
-#: src/IsmsRequirement.php:155 src/PersonnelCompliance.php:288
-#: src/PhysicalSecurity.php:97 templates/_network_flow_badges.html.twig
-#: templates/compliance_audit.html.twig
-#: templates/network_flow_summary.html.twig
-msgid "Compliant"
 msgstr ""
 
 #: src/AuditChecklist.php:105
@@ -4232,12 +4269,12 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: src/BackupCoverage.php:186 src/ConfigurationCompliance.php:168
+#: src/BackupCoverage.php:186 src/ConfigurationCompliance.php:166
 #: src/SecurityIncidentAction.php:80 src/Training.php:116
 msgid "Failed"
 msgstr ""
 
-#: src/BackupCoverage.php:188 src/ConfigurationCompliance.php:158
+#: src/BackupCoverage.php:188 src/ConfigurationCompliance.php:156
 #: src/DiskEncryption.php:143 src/PatchCompliance.php:155
 #: src/ServerManagement.php:1044 templates/disk_encryption.html.twig
 msgid "Unknown"
@@ -4371,13 +4408,14 @@ msgid "Backups"
 msgstr ""
 
 #: src/BackupCoverage.php:926 src/BackupCoverage.php:985
-#: src/ConfigurationCompliance.php:707
+#: src/ConfigurationCompliance.php:701
 #: templates/_ad_attack_path_evidence.html.twig
 #: templates/_ad_attack_paths.html.twig
 #: templates/_mfa_coverage_evidence.html.twig
 #: templates/_server_management_evidence.html.twig
 #: templates/_zabbix_monitoring_evidence.html.twig
-#: templates/ad_security_audit.html.twig templates/control_form.html.twig
+#: templates/ad_security_audit.html.twig
+#: templates/asset_security_360_tab.html.twig templates/control_form.html.twig
 #: templates/server_management_item_tab.html.twig
 msgid "View the details"
 msgstr ""
@@ -4386,7 +4424,7 @@ msgstr ""
 msgid "No backup tool read yet"
 msgstr ""
 
-#: src/BackupCoverage.php:933 src/ConfigurationCompliance.php:713
+#: src/BackupCoverage.php:933 src/ConfigurationCompliance.php:707
 msgid "Import results"
 msgstr ""
 
@@ -6187,137 +6225,78 @@ msgstr ""
 msgid "%d obligation(s) awaiting review, %d notification(s) raised."
 msgstr ""
 
-#: src/ConfigurationCompliance.php:67 templates/control_form.html.twig
+#: src/ConfigurationCompliance.php:65
+#: src/Feature/Security360CoreSourcesFeature.php:70
+#: templates/control_form.html.twig
 msgid "Configuration compliance"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:169
+#: src/ConfigurationCompliance.php:167
 msgid "Error during the check"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:181
+#: src/ConfigurationCompliance.php:179
 msgid ""
 "The file contains a document type or entity declaration, refused for "
 "security reasons. OpenSCAP never writes one: export the results again with "
 "oscap."
 msgstr ""
 
-#: src/ConfigurationCompliance.php:186
+#: src/ConfigurationCompliance.php:184
 msgid ""
 "No scan result was found in the file. Choose the results file (option --"
 "results or --results-arf of oscap), not the benchmark or the HTML report."
 msgstr ""
 
-#: src/ConfigurationCompliance.php:190
+#: src/ConfigurationCompliance.php:188
 msgid "The file is not valid XML, or it is truncated."
 msgstr ""
 
-#: src/ConfigurationCompliance.php:516
+#: src/ConfigurationCompliance.php:514
 #, php-format
 msgid "Configuration remediation: %1$s (%2$d rule(s) failed)"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:703
+#: src/ConfigurationCompliance.php:697
 msgid "OpenSCAP scans (XCCDF/ARF)"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:711
+#: src/ConfigurationCompliance.php:705
 msgid "No scan imported yet"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:721
+#: src/ConfigurationCompliance.php:715
 msgid "Average compliance: not measured"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:722
+#: src/ConfigurationCompliance.php:716
 #, php-format
 msgid "Average compliance: %d%%"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:727
+#: src/ConfigurationCompliance.php:721
 #, php-format
 msgid "%d machine(s) scanned"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:733
+#: src/ConfigurationCompliance.php:727
 #, php-format
 msgid "%1$d below %2$d%%"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:741
+#: src/ConfigurationCompliance.php:735
 #, php-format
 msgid "%d with a high severity rule failed"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:747
+#: src/ConfigurationCompliance.php:741
 #, php-format
 msgid "%d not matched to a computer"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:751
+#: src/ConfigurationCompliance.php:745
 #, php-format
 msgid "Last scan on %s"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:774
-msgid "Docker inventory: risky configuration"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:778
-msgid "View the risky configuration"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:784
-msgid "No service analysed yet"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:793
-msgid "Without critical or high gap: not measured"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:794
-#, php-format
-msgid "Without critical or high gap: %d%%"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:800
-#, php-format
-msgid "Without any open gap: %d%%"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:806
-#, php-format
-msgid "%d service(s) analysed"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:815
-#, php-format
-msgid "%d with a critical gap"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:816
-#, php-format
-msgid "%d with a high gap"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:824
-#, php-format
-msgid "%d expired exception(s)"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:832
-#, php-format
-msgid "%1$d exception(s) ending within %2$d days"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:838
-#, php-format
-msgid "Next exception end: %s"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:846
-#, php-format
-msgid "%d service(s) not analysed"
 msgstr ""
 
 #: src/ConsistencyCheck.php:58 templates/config_form.html.twig
@@ -9114,7 +9093,8 @@ msgstr ""
 msgid "Requester"
 msgstr ""
 
-#: src/DiskEncryption.php:58 templates/control_form.html.twig
+#: src/DiskEncryption.php:58 src/Feature/Security360CoreSourcesFeature.php:63
+#: templates/control_form.html.twig
 msgid "Disk encryption"
 msgstr ""
 
@@ -10500,6 +10480,94 @@ msgstr ""
 msgid "MFA coverage"
 msgstr ""
 
+#: src/Feature/Security360CoreSourcesFeature.php:56
+msgid "Known vulnerabilities"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:77
+#: src/ServerManagement.php:1179
+msgid "Management controller"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:91 src/ImpactAnalysis.php:232
+#: templates/control_form.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+msgid "Linked risks"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:119
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:130
+#, php-format
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:137
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:163
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:166
+#, php-format
+msgid "Tools: %s"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:170
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:176
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:203
+#, php-format
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:243
+#, php-format
+msgid "%s: last reading failed."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:243
+#, php-format
+msgid "%s: no gap found."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:248
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:288
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:296
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:330
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr ""
+
 #: src/Feature/ServerManagementFeature.php:40
 msgid ""
 "Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, "
@@ -10530,6 +10598,24 @@ msgstr ""
 #: templates/server_management_item_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
 msgid "Server management controllers"
+msgstr ""
+
+#: src/Feature/SupplierAnswerFileFeature.php:32
+msgid ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+msgstr ""
+
+#: src/Feature/SupplierAnswerFileFeature.php:38
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+
+#: src/Feature/SupplierAnswerFileFeature.php:42
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
 msgstr ""
 
 #: src/Feature/ZabbixMonitoringFeature.php:40
@@ -10744,11 +10830,6 @@ msgstr ""
 
 #: src/ImpactAnalysis.php:231
 msgid "Single point of failure for"
-msgstr ""
-
-#: src/ImpactAnalysis.php:232 templates/control_form.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-msgid "Linked risks"
 msgstr ""
 
 #: src/ImpactAnalysis.php:354
@@ -11074,8 +11155,8 @@ msgstr ""
 #: src/IsmsRequirement.php:309 src/NotificationTargetAccessReview.php:107
 #: src/NotificationTargetAuditEvidenceRequest.php:162
 #: src/NotificationTargetPolicyVersion.php:141
-#: src/NotificationTargetSoaVersion.php:106 templates/_crisis_review.html.twig
-#: templates/access_review_form.html.twig
+#: src/NotificationTargetSoaVersion.php:106 src/SupplierEvaluationFile.php:120
+#: templates/_crisis_review.html.twig templates/access_review_form.html.twig
 #: templates/application_security_tab.html.twig
 #: templates/audit_checklist_tab.html.twig
 #: templates/audit_programme_tab.html.twig
@@ -14926,7 +15007,7 @@ msgstr ""
 msgid "Overall status"
 msgstr ""
 
-#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:462
+#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:463
 #: templates/ad_security_audit.html.twig
 #: templates/framework_assessment.html.twig
 #: templates/my_trainings_tab.html.twig
@@ -17771,10 +17852,6 @@ msgstr ""
 msgid "BIOS"
 msgstr ""
 
-#: src/ServerManagement.php:1179
-msgid "Management controller"
-msgstr ""
-
 #: src/Services/Continuity/CrisisScenarioDefaults.php:78
 msgid ""
 "Data and systems are encrypted by malicious software and a ransom is "
@@ -18747,36 +18824,36 @@ msgstr ""
 msgid "Insufficient level"
 msgstr ""
 
-#: src/SupplierEvaluation.php:166
+#: src/SupplierEvaluation.php:167
 msgid "Choose the supplier risk to evaluate."
 msgstr ""
 
-#: src/SupplierEvaluation.php:181
+#: src/SupplierEvaluation.php:182
 msgid ""
 "Choose an active questionnaire template available in the entity of the "
 "supplier risk."
 msgstr ""
 
-#: src/SupplierEvaluation.php:202
+#: src/SupplierEvaluation.php:203
 #, php-format
 msgid "%1$s - %2$s"
 msgstr ""
 
-#: src/SupplierEvaluation.php:235
+#: src/SupplierEvaluation.php:236
 msgid "This evaluation is completed: reopen it to change it."
 msgstr ""
 
-#: src/SupplierEvaluation.php:406
+#: src/SupplierEvaluation.php:407
 #: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Questionnaire"
 msgstr ""
 
-#: src/SupplierEvaluation.php:466 templates/supplier_evaluation_form.html.twig
+#: src/SupplierEvaluation.php:467 templates/supplier_evaluation_form.html.twig
 #: templates/tabs/supplier_questionnaire.html.twig
 msgid "Evaluation date"
 msgstr ""
 
-#: src/SupplierEvaluation.php:470 templates/audit_checklist_tab.html.twig
+#: src/SupplierEvaluation.php:471 templates/audit_checklist_tab.html.twig
 #: templates/dora/register.html.twig
 msgid "Template"
 msgstr ""
@@ -18806,6 +18883,135 @@ msgstr ""
 msgid "Evidence added to question %s"
 msgstr ""
 
+#: src/SupplierEvaluationFile.php:47
+msgid "Supplier file"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:112
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Code"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:113
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Section"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:114 src/SupplierQuestionnaireTemplate.php:107
+#: templates/supplier_evaluation_import.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Question"
+msgid_plural "Questions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SupplierEvaluationFile.php:115
+msgid "Guidance"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:116
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Expected answer"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:117
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Evidence required"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:118
+msgid "Allowed answers"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:119
+msgid "Supplier answer"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:121
+#: templates/supplier_evaluation_import.html.twig
+msgid "Evidence file name"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:143
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:255
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:267
+#, php-format
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:283
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:287
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:291
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:295
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:299
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:303
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:317
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:322
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:327
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:332
+#, php-format
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:337
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr ""
+
 #: src/SupplierQuestionnaireTemplate.php:52
 msgid "Supplier questionnaire template"
 msgid_plural "Supplier questionnaire templates"
@@ -18827,14 +19033,6 @@ msgstr ""
 #: src/SupplierQuestionnaireTemplate.php:69
 msgid "Business continuity"
 msgstr ""
-
-#: src/SupplierQuestionnaireTemplate.php:107
-#: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Question"
-msgid_plural "Questions"
-msgstr[0] ""
-msgstr[1] ""
 
 #: src/SupplierQuestionnaireTemplate.php:224
 #, php-format
@@ -20020,7 +20218,7 @@ msgstr ""
 msgid "What is expected"
 msgstr ""
 
-#: templates/_page_help.html.twig
+#: templates/_page_help.html.twig templates/asset_security_360_tab.html.twig
 msgid "What is this page for?"
 msgstr ""
 
@@ -20119,6 +20317,7 @@ msgstr[1] ""
 
 #: templates/_responsibility_summary.html.twig
 #: templates/responsibility_matrix.html.twig
+#: templates/supplier_evaluation_import.html.twig
 #, php-format
 msgid "%d point to check"
 msgid_plural "%d points to check"
@@ -21069,6 +21268,62 @@ msgstr ""
 msgid "Time beyond which an outage of this asset becomes unacceptable."
 msgstr ""
 
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid "Points (weight)"
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid "Score: %s / 100"
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/backup_coverage.html.twig
+#: templates/custom_framework_list.html.twig
+#: templates/disk_encryption.html.twig templates/log_coverage.html.twig
+#: templates/patch_compliance.html.twig
+#: templates/pdf/certification_readiness_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
+#: templates/pdf/physical_security_report.html.twig
+#: templates/physical_security_checklist_tab.html.twig
+#: templates/server_management.html.twig
+msgid "State"
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+msgstr ""
+
 #: templates/audit_checklist_tab.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #, php-format
@@ -21537,19 +21792,6 @@ msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig
 msgid "Revoked"
-msgstr ""
-
-#: templates/audit_evidence_requests_tab.html.twig
-#: templates/backup_coverage.html.twig
-#: templates/custom_framework_list.html.twig
-#: templates/disk_encryption.html.twig templates/log_coverage.html.twig
-#: templates/patch_compliance.html.twig
-#: templates/pdf/certification_readiness_report.html.twig
-#: templates/pdf/evidence_pack_index.html.twig
-#: templates/pdf/physical_security_report.html.twig
-#: templates/physical_security_checklist_tab.html.twig
-#: templates/server_management.html.twig
-msgid "State"
 msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig
@@ -22927,6 +23169,7 @@ msgstr ""
 #: templates/control_blockers_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
+#: templates/tabs/supplier_evaluation_file.html.twig
 msgid "What is this tab for?"
 msgstr ""
 
@@ -27142,6 +27385,7 @@ msgstr ""
 
 #: templates/custom_framework_list.html.twig templates/risk_import.html.twig
 #: templates/risk_scale_change.html.twig
+#: templates/supplier_evaluation_import.html.twig
 msgid "Cancel"
 msgstr ""
 
@@ -36237,6 +36481,61 @@ msgid ""
 "it from the \"Questionnaire\" tab to change them."
 msgstr ""
 
+#: templates/supplier_evaluation_import.html.twig
+#, php-format
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Answer in the file"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Back to the evaluation"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Comment in the file"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Current answer"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Documents sent by the supplier"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+#, php-format
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Review the supplier file"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Save these answers"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "The file brings no new answer and no new comment."
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "unchanged"
+msgstr ""
+
 #: templates/supplier_questionnaire_template_form.html.twig
 #, php-format
 msgid "%d evaluation"
@@ -37735,16 +38034,6 @@ msgid "Evidence missing"
 msgstr ""
 
 #: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Evidence required"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Expected answer"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_answers.html.twig
 #, php-format
 msgid "Expected: %s"
 msgstr ""
@@ -37796,6 +38085,67 @@ msgstr ""
 msgid "Weight %d"
 msgstr ""
 
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Answer by file, outside GLPI"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+#, php-format
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Download the questionnaire to fill in"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Import the returned file"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Review the answers"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Send the questionnaire"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "You are not allowed to change this evaluation."
+msgstr ""
+
 #: templates/tabs/supplier_questionnaire.html.twig
 #, php-format
 msgid "%1$s: %2$s points"
@@ -37842,10 +38192,6 @@ msgid "Template: %1$s (version %2$d)"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Code"
-msgstr ""
-
-#: templates/tabs/supplier_questionnaire_questions.html.twig
 #, php-format
 msgid ""
 "Group the questions by section. The expected answer is the compliant one "
@@ -37879,10 +38225,6 @@ msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Save questions"
-msgstr ""
-
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Section"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
@@ -38491,4 +38833,66 @@ msgstr ""
 #: templates/zabbix_monitoring.html.twig
 #, php-format
 msgid "out of %d critical assets"
+msgstr ""
+
+
+#: src/ConfigurationCompliance.php:774
+msgid "Docker inventory: risky configuration"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:778
+msgid "View the risky configuration"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:784
+msgid "No service analysed yet"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:793
+msgid "Without critical or high gap: not measured"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:794
+#, php-format
+msgid "Without critical or high gap: %d%%"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:800
+#, php-format
+msgid "Without any open gap: %d%%"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:806
+#, php-format
+msgid "%d service(s) analysed"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:815
+#, php-format
+msgid "%d with a critical gap"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:816
+#, php-format
+msgid "%d with a high gap"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:824
+#, php-format
+msgid "%d expired exception(s)"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:832
+#, php-format
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:838
+#, php-format
+msgid "Next exception end: %s"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:846
+#, php-format
+msgid "%d service(s) not analysed"
 msgstr ""
