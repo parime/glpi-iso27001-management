@@ -357,6 +357,19 @@ if ($mode === 'xss') {
         'title' => $canary, 'description' => $canary, 'justification' => $canary,
     ], (int) $ids['supplierrisk']);
     $update('accessreviews', ['name' => $canary, 'comment' => $canary], (int) $ids['campaign_A']);
+    // Issue #866 : ligne de revue piégée (profils, groupes, commentaire et raison de la suggestion).
+    $campaignLines = ['plugin_grcmanager_accessreviews_id' => (int) $ids['campaign_A']];
+    if (countElementsInTable('glpi_plugin_grcmanager_accessreviews_users', $campaignLines) === 0) {
+        $insert('accessreviews_users', [
+            'plugin_grcmanager_accessreviews_id' => (int) $ids['campaign_A'], 'users_id' => 2, 'reviewers_id' => 2,
+            'profiles' => json_encode([$canary]), 'user_groups' => json_encode([$canary]), 'comment' => $canary,
+            'decision' => 'pending', 'suggestion' => 'examine',
+            'suggestion_reasons' => json_encode([
+                ['code' => 'privileged', 'params' => ['profiles' => [$canary]]],
+                ['code' => $canary, 'params' => ['date' => $canary]],
+            ]),
+        ]);
+    }
     $update('securityincidents', [
         'name' => $canary, 'content' => $canary, 'root_cause' => $canary, 'lessons_learned' => $canary,
         'regulatory_alerts' => $canary, 'impact_content' => $canary, 'control_list_content' => $canary,

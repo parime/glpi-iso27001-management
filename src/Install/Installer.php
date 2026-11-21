@@ -1306,6 +1306,8 @@ final class Installer
 
             $DB->doQuery($query);
         }
+        // Issue #866 : suggestion « garder / retirer / à examiner » de chaque ligne et ses règles.
+        AccessReviewSuggestionFields::install($migration);
 
         // Indicateur manquant identifié lors de l'audit complet du plugin (recherche des bonnes
         // pratiques KPI ISO 27001:2022) : `completion_status` (pending/completed/exempted) ne
