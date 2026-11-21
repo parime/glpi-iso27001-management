@@ -523,6 +523,13 @@ final class CrisisCommunicationTest extends GrcmanagerIntegrationTestCase
         try {
             $_SESSION['glpiactiveprofile'][CrisisMessageTemplate::RIGHTNAME] = READ;
             $this->assertFalse($template->markReviewed(), 'Lecture seule : revue refusée.');
+            $this->assertFalse(
+                CrisisMessageRecipient::addTo($template->getID(), 'User', 2),
+                'Lecture seule : ajout refusé.'
+            );
+            ob_start();
+            CrisisMessageRecipient::displayTabContentForItem($template);
+            $this->assertStringNotContainsString('name="review"', (string) ob_get_clean(), 'Pas de bouton.');
         } finally {
             $_SESSION['glpiactiveprofile'][CrisisMessageTemplate::RIGHTNAME] = $saved;
         }

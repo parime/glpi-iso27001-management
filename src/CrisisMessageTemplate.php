@@ -203,7 +203,7 @@ class CrisisMessageTemplate extends CrisisMessageTemplateBase
      */
     public function markReviewed(): bool
     {
-        if ($this->isNewItem() || !$this->canUpdateItem()) {
+        if ($this->isNewItem() || !$this->can($this->getID(), UPDATE)) {
             return false;
         }
 

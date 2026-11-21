@@ -277,7 +277,7 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
     public static function addTo(int $templateId, string $itemtype, int $itemsId, int $deputyOf = 0): bool
     {
         $template = new CrisisMessageTemplate();
-        if (!$template->getFromDB($templateId) || !$template->canUpdateItem()) {
+        if (!$template->getFromDB($templateId) || !$template->can($templateId, UPDATE)) {
             return false;
         }
         if (!in_array($itemtype, Rules::RECIPIENT_TYPES, true) || $itemsId <= 0) {
@@ -345,7 +345,7 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
                 $list['recipients'],
                 static fn (array $recipient): bool => $recipient['deputy_of'] === 0
             )),
-            'can_edit'     => $item->canUpdateItem(),
+            'can_edit'     => $item->can($item->getID(), UPDATE),
             'can_contacts' => ContextItem::canView(),
             'form_url'     => self::getFormURL(),
             'contacts_url' => OfficialContact::getRegisterURL(),
