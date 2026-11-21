@@ -30273,11 +30273,21 @@ msgstr "Aggiornare i suggerimenti"
 msgid "Report imported: %d rule(s) triggered."
 msgstr "Rapporto importato: %d regola/e attivata/e."
 
-msgid "The report contains passwords or secrets (for example in group policies): they were not kept, and are removed from the archived copy. Change them as soon as possible."
-msgstr "Il rapporto contiene password o segreti (ad esempio nei criteri di gruppo): non sono stati conservati e sono rimossi dalla copia archiviata. Cambiateli al più presto."
+msgid ""
+"The report contains passwords or secrets (for example in group policies): "
+"they were not kept, and are removed from the archived copy. Change them as "
+"soon as possible."
+msgstr ""
+"Il rapporto contiene password o segreti (ad esempio nei criteri di gruppo): "
+"non sono stati conservati e sono rimossi dalla copia archiviata. Cambiateli "
+"al più presto."
 
-msgid "The report could not be archived as a document (XML files may not be allowed in the document types of GLPI)."
-msgstr "Non è stato possibile archiviare il rapporto come documento (i file XML potrebbero non essere consentiti nei tipi di documento di GLPI)."
+msgid ""
+"The report could not be archived as a document (XML files may not be allowed "
+"in the document types of GLPI)."
+msgstr ""
+"Non è stato possibile archiviare il rapporto come documento (i file XML "
+"potrebbero non essere consentiti nei tipi di documento di GLPI)."
 
 #, php-format
 msgid "Only the first %d rules were read."
@@ -30288,7 +30298,8 @@ msgid "Ticket %d created."
 msgstr "Ticket %d creato."
 
 msgid "Active Directory security score (PingCastle, 0 is best)"
-msgstr "Punteggio di sicurezza di Active Directory (PingCastle, 0 è il migliore)"
+msgstr ""
+"Punteggio di sicurezza di Active Directory (PingCastle, 0 è il migliore)"
 
 msgid "Active Directory security audit"
 msgstr "Audit di sicurezza di Active Directory"
@@ -30314,11 +30325,19 @@ msgstr "Preoccupante"
 msgid "The file is too large (20 MB at most)."
 msgstr "Il file è troppo grande (al massimo 20 MB)."
 
-msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
-msgstr "Il file dichiara un DOCTYPE o delle entità: è rifiutato per motivi di sicurezza. Un rapporto PingCastle non ne contiene mai."
+msgid ""
+"The file declares a DOCTYPE or entities: it is refused for security reasons. "
+"A PingCastle report never contains any."
+msgstr ""
+"Il file dichiara un DOCTYPE o delle entità: è rifiutato per motivi di "
+"sicurezza. Un rapporto PingCastle non ne contiene mai."
 
-msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
-msgstr "Non è un rapporto di controllo dello stato di PingCastle: importate il file ad_hc_[dominio].xml."
+msgid ""
+"This is not a PingCastle health check report: import the ad_hc_[domain].xml "
+"file."
+msgstr ""
+"Non è un rapporto di controllo dello stato di PingCastle: importate il file "
+"ad_hc_[dominio].xml."
 
 msgid "The report gives no domain name."
 msgstr "Il rapporto non indica alcun nome di dominio."
@@ -30362,14 +30381,37 @@ msgid "ISO/IEC 27001 controls: %s"
 msgstr "Controlli ISO/IEC 27001: %s"
 
 #, php-format
-msgid "Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) triggered"
-msgstr "Audit di Active Directory: punteggio %1$d/100 per %2$s (%3$s), %4$d regola/e attivata/e"
+msgid ""
+"Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) "
+"triggered"
+msgstr ""
+"Audit di Active Directory: punteggio %1$d/100 per %2$s (%3$s), %4$d regola/e "
+"attivata/e"
 
-msgid "Keeps the results of the security audits of your Active Directory: the PingCastle reports that your team produces are imported here, with the global score, the score by category and the rules triggered. Each rule is linked to the ISO/IEC 27001 controls it concerns, and the history shows how the score changes from one report to the next."
-msgstr "Conserva i risultati degli audit di sicurezza del vostro Active Directory: i rapporti PingCastle prodotti dal vostro team sono importati qui, con il punteggio globale, il punteggio per categoria e le regole attivate. Ogni regola è collegata ai controlli ISO/IEC 27001 interessati e la cronologia mostra l'evoluzione del punteggio da un rapporto all'altro."
+msgid ""
+"Keeps the results of the security audits of your Active Directory: the "
+"PingCastle reports that your team produces are imported here, with the "
+"global score, the score by category and the rules triggered. Each rule is "
+"linked to the ISO/IEC 27001 controls it concerns, and the history shows how "
+"the score changes from one report to the next."
+msgstr ""
+"Conserva i risultati degli audit di sicurezza del vostro Active Directory: i "
+"rapporti PingCastle prodotti dal vostro team sono importati qui, con il "
+"punteggio globale, il punteggio per categoria e le regole attivate. Ogni "
+"regola è collegata ai controlli ISO/IEC 27001 interessati e la cronologia "
+"mostra l'evoluzione del punteggio da un rapporto all'altro."
 
-msgid "Run PingCastle regularly (for example every quarter), import each report, then decide how to treat the rules: propose an action or a ticket for those you fix, and follow the rules resolved by the next report. Nothing is created automatically. The page is reserved to the sensitive registers right."
-msgstr "Eseguite PingCastle regolarmente (ad esempio ogni trimestre), importate ogni rapporto, poi decidete come trattare le regole: proponete un'azione o un ticket per quelle che correggete e seguite le regole risolte dal rapporto successivo. Nulla viene creato automaticamente. La pagina è riservata al diritto dei registri sensibili."
+msgid ""
+"Run PingCastle regularly (for example every quarter), import each report, "
+"then decide how to treat the rules: propose an action or a ticket for those "
+"you fix, and follow the rules resolved by the next report. Nothing is "
+"created automatically. The page is reserved to the sensitive registers right."
+msgstr ""
+"Eseguite PingCastle regolarmente (ad esempio ogni trimestre), importate ogni "
+"rapporto, poi decidete come trattare le regole: proponete un'azione o un "
+"ticket per quelle che correggete e seguite le regole risolte dal rapporto "
+"successivo. Nulla viene creato automaticamente. La pagina è riservata al "
+"diritto dei registri sensibili."
 
 msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
 msgstr "ISO/IEC 27001, controlli da A.5.15 a A.5.18, A.8.2 e A.8.5"
@@ -30411,14 +30453,30 @@ msgstr "Eliminare l'importazione e il suo rapporto archiviato"
 msgid "Download a fictitious example report"
 msgstr "Scaricare un rapporto di esempio fittizio"
 
-msgid "Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an action or a ticket for the rules you decide to treat: nothing is created before you click, and the action form is reviewed before it is saved."
-msgstr "Ogni regola è collegata ai controlli ISO/IEC 27001 interessati. Proponete un'azione o un ticket per le regole che decidete di trattare: nulla viene creato prima del vostro clic e la scheda dell'azione viene riletta prima del salvataggio."
+msgid ""
+"Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an "
+"action or a ticket for the rules you decide to treat: nothing is created "
+"before you click, and the action form is reviewed before it is saved."
+msgstr ""
+"Ogni regola è collegata ai controlli ISO/IEC 27001 interessati. Proponete "
+"un'azione o un ticket per le regole che decidete di trattare: nulla viene "
+"creato prima del vostro clic e la scheda dell'azione viene riletta prima del "
+"salvataggio."
 
-msgid "First report for this domain: the next import will show the rules that appeared or were resolved."
-msgstr "Primo rapporto per questo dominio: la prossima importazione mostrerà le regole comparse o risolte."
+msgid ""
+"First report for this domain: the next import will show the rules that "
+"appeared or were resolved."
+msgstr ""
+"Primo rapporto per questo dominio: la prossima importazione mostrerà le "
+"regole comparse o risolte."
 
-msgid "GLPI never runs PingCastle and never queries the directory: it reads the report that your team produced. The report is stored in the current entity."
-msgstr "GLPI non esegue mai PingCastle e non interroga mai la directory: legge il rapporto prodotto dal vostro team. Il rapporto è memorizzato nell'entità corrente."
+msgid ""
+"GLPI never runs PingCastle and never queries the directory: it reads the "
+"report that your team produced. The report is stored in the current entity."
+msgstr ""
+"GLPI non esegue mai PingCastle e non interroga mai la directory: legge il "
+"rapporto prodotto dal vostro team. Il rapporto è memorizzato nell'entità "
+"corrente."
 
 msgid "Import a PingCastle report"
 msgstr "Importare un rapporto PingCastle"
@@ -30436,20 +30494,38 @@ msgstr "Rapporti importati"
 msgid "Maturity level: %d"
 msgstr "Livello di maturità: %d"
 
-msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
-msgstr "Nessun rapporto ancora importato. Eseguite PingCastle sul vostro dominio, poi importate qui sotto il file ad_hc_[dominio].xml."
+msgid ""
+"No report imported yet. Run PingCastle on your domain, then import the "
+"ad_hc_[domain].xml file below."
+msgstr ""
+"Nessun rapporto ancora importato. Eseguite PingCastle sul vostro dominio, "
+"poi importate qui sotto il file ad_hc_[dominio].xml."
 
 msgid "No rule triggered in this report."
 msgstr "Nessuna regola attivata in questo rapporto."
 
-msgid "On a computer of the domain, run PingCastle and choose the health check (or run it with the --healthcheck option)."
-msgstr "Su un computer del dominio, eseguite PingCastle e scegliete il controllo dello stato (o eseguitelo con l'opzione --healthcheck)."
+msgid ""
+"On a computer of the domain, run PingCastle and choose the health check (or "
+"run it with the --healthcheck option)."
+msgstr ""
+"Su un computer del dominio, eseguite PingCastle e scegliete il controllo "
+"dello stato (o eseguitelo con l'opzione --healthcheck)."
 
-msgid "Only the scores and the triggered rules (identifier, category, points, finding) are kept: never the list of accounts, nor any password found. A new report of the same domain shows the change of score and the rules that appeared or were resolved."
-msgstr "Sono conservati solo i punteggi e le regole attivate (identificativo, categoria, punti, rilievo): mai l'elenco degli account, né alcuna password trovata. Un nuovo rapporto dello stesso dominio mostra la variazione del punteggio e le regole comparse o risolte."
+msgid ""
+"Only the scores and the triggered rules (identifier, category, points, "
+"finding) are kept: never the list of accounts, nor any password found. A new "
+"report of the same domain shows the change of score and the rules that "
+"appeared or were resolved."
+msgstr ""
+"Sono conservati solo i punteggi e le regole attivate (identificativo, "
+"categoria, punti, rilievo): mai l'elenco degli account, né alcuna password "
+"trovata. Un nuovo rapporto dello stesso dominio mostra la variazione del "
+"punteggio e le regole comparse o risolte."
 
 msgid "Only users who can modify the sensitive registers can import a report."
-msgstr "Solo gli utenti che possono modificare i registri sensibili possono importare un rapporto."
+msgstr ""
+"Solo gli utenti che possono modificare i registri sensibili possono "
+"importare un rapporto."
 
 msgid "Open a ticket"
 msgstr "Aprire un ticket"
@@ -30461,8 +30537,13 @@ msgstr "Password trovate nel rapporto: non conservate"
 msgid "PingCastle XML report (%d MB at most)"
 msgstr "Rapporto XML di PingCastle (al massimo %d MB)"
 
-msgid "PingCastle is free for internal use; a service provider auditing a customer needs a licence. Check the terms of use of the tool."
-msgstr "PingCastle è gratuito per uso interno; un fornitore che sottopone a audit un cliente necessita di una licenza. Verificate le condizioni d'uso dello strumento."
+msgid ""
+"PingCastle is free for internal use; a service provider auditing a customer "
+"needs a licence. Check the terms of use of the tool."
+msgstr ""
+"PingCastle è gratuito per uso interno; un fornitore che sottopone a audit un "
+"cliente necessita di una licenza. Verificate le condizioni d'uso dello "
+"strumento."
 
 #, php-format
 msgid "PingCastle report of %1$s, %2$s"
@@ -30487,11 +30568,24 @@ msgstr "Regole risolte rispetto al rapporto precedente"
 msgid "Rules triggered"
 msgstr "Regole attivate"
 
-msgid "These reports describe the weaknesses of the domain: the page and the archived reports are reserved to the sensitive registers right, in the entity of each import."
-msgstr "Questi rapporti descrivono le debolezze del dominio: la pagina e i rapporti archiviati sono riservati al diritto dei registri sensibili, nell'entità di ogni importazione."
+msgid ""
+"These reports describe the weaknesses of the domain: the page and the "
+"archived reports are reserved to the sensitive registers right, in the "
+"entity of each import."
+msgstr ""
+"Questi rapporti descrivono le debolezze del dominio: la pagina e i rapporti "
+"archiviati sono riservati al diritto dei registri sensibili, nell'entità di "
+"ogni importazione."
 
-msgid "Weakness reported by the Active Directory security audit (\"Active Directory security audit\" screen). Fix it, then import the next report to check that the rule is resolved. Nothing was changed automatically."
-msgstr "Debolezza segnalata dall'audit di sicurezza di Active Directory (schermata «Audit di sicurezza di Active Directory»). Correggetela, poi importate il rapporto successivo per verificare che la regola sia risolta. Nulla è stato modificato automaticamente."
+msgid ""
+"Weakness reported by the Active Directory security audit (\"Active Directory "
+"security audit\" screen). Fix it, then import the next report to check that "
+"the rule is resolved. Nothing was changed automatically."
+msgstr ""
+"Debolezza segnalata dall'audit di sicurezza di Active Directory (schermata "
+"«Audit di sicurezza di Active Directory»). Correggetela, poi importate il "
+"rapporto successivo per verificare che la regola sia risolta. Nulla è stato "
+"modificato automaticamente."
 
 #, php-format
 msgid "%d rule concerns this control"
@@ -30504,399 +30598,1168 @@ msgid "Score: %d/100"
 msgstr "Punteggio: %d/100"
 
 #, php-format
-msgid "Action proposed from the Active Directory security audit (rule %s): review and adapt each field, set an owner and a due date, then click \"Add\". Nothing is created before, and the rule is linked to this action once it is saved."
-msgstr "Azione proposta dall'audit di sicurezza di Active Directory (regola %s): rileggete e adattate ogni campo, designate un responsabile e una scadenza, poi fate clic su «Aggiungi». Nulla viene creato prima e la regola è collegata a questa azione una volta salvata."
+msgid ""
+"Action proposed from the Active Directory security audit (rule %s): review "
+"and adapt each field, set an owner and a due date, then click \"Add\". "
+"Nothing is created before, and the rule is linked to this action once it is "
+"saved."
+msgstr ""
+"Azione proposta dall'audit di sicurezza di Active Directory (regola %s): "
+"rileggete e adattate ogni campo, designate un responsabile e una scadenza, "
+"poi fate clic su «Aggiungi». Nulla viene creato prima e la regola è "
+"collegata a questa azione una volta salvata."
 
 msgctxt "ad rule"
 msgid "New"
 msgstr "Nuova"
 
-msgid "Controller saved. Click \"Read now\" to read it."
-msgstr "Controller salvato. Fare clic su «Leggi ora» per leggerlo."
-
-msgid "Controller read: %d local account(s)."
-msgstr "Controller letto: %d account locale/i."
-
-msgid "Controller read. Its local accounts could not be read with this account."
-msgstr "Controller letto. I suoi account locali non hanno potuto essere letti con questo account."
-
-msgid "Controller deleted."
-msgstr "Controller eliminato."
-
-msgid "%1$d controller(s) imported, %2$d updated, %3$d ignored (read by Redfish)."
-msgstr "%1$d controller importato/i, %2$d aggiornato/i, %3$d ignorato/i (letti da Redfish)."
-
-msgid "Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI): they give full control of a server, even switched off, and are often forgotten. The page shows their firmware, their risky settings, their exposure outside the administration networks and their local accounts, and the physical servers without a known controller."
-msgstr "Elenca i controller di gestione remota dei server (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI): danno il controllo completo di un server, anche spento, e sono spesso dimenticati. La pagina mostra il loro firmware, le impostazioni a rischio, l'esposizione fuori dalle reti di amministrazione e gli account locali, nonché i server fisici senza controller noto."
-
-msgid "Declare each controller with a local read-only account and click \"Read now\" (Redfish, read only), or import a CSV file for controllers with IPMI only. Then fix the gaps on the controllers yourself and review their accounts: the plugin never changes anything on the servers."
-msgstr "Dichiarare ogni controller con un account locale in sola lettura e fare clic su «Leggi ora» (Redfish, sola lettura), oppure importare un file CSV per i controller solo IPMI. Correggere poi personalmente gli scostamenti sui controller e rivedere i loro account: il plugin non modifica mai nulla sui server."
-
-msgid "ISO/IEC 27001, controls A.8.2, A.8.9 and A.8.22"
-msgstr "ISO/IEC 27001, controlli A.8.2, A.8.9 e A.8.22"
-
-msgid "Server management controllers with a serious gap"
-msgstr "Controller di gestione dei server con uno scostamento grave"
-
-msgid "Server management controllers"
-msgstr "Controller di gestione dei server"
-
-msgid "Last reading failed"
-msgstr "Ultima lettura non riuscita"
-
-msgid "The values shown come from the previous successful reading."
-msgstr "I valori mostrati provengono dalla lettura riuscita precedente."
-
-msgid "Never read"
-msgstr "Mai letto"
-
-msgid "Click \"Read now\" to read the controller."
-msgstr "Fare clic su «Leggi ora» per leggere il controller."
-
-msgid "IPMI over the network enabled"
-msgstr "IPMI in rete attivato"
-
-msgid "IPMI over LAN has known weaknesses (password hashes can be retrieved): disable it if it is not used."
-msgstr "IPMI su LAN ha debolezze note (gli hash delle password possono essere recuperati): disattivarlo se non è usato."
-
-msgid "Default account still enabled"
-msgstr "Account predefinito ancora attivo"
-
-msgid "A factory account (root, Administrator, ADMIN, USERID) is enabled: check that its password was changed, or disable it."
-msgstr "Un account di fabbrica (root, Administrator, ADMIN, USERID) è attivo: verificare che la sua password sia stata cambiata, oppure disattivarlo."
-
-msgid "Outside the administration networks"
-msgstr "Fuori dalle reti di amministrazione"
-
-msgid "The address of the controller is not in an administration network declared in the network flow matrix: segregation gap."
-msgstr "L'indirizzo del controller non è in alcuna rete di amministrazione dichiarata nella matrice dei flussi: scostamento di segregazione."
-
-msgid "Telnet enabled"
-msgstr "Telnet attivato"
-
-msgid "Telnet sends the password in clear text: disable it."
-msgstr "Telnet invia la password in chiaro: disattivarlo."
-
-msgid "Old protocols (SSLv3, TLS 1.0 or 1.1)"
-msgstr "Protocolli obsoleti (SSLv3, TLS 1.0 o 1.1)"
-
-msgid "Reported by the import: keep only TLS 1.2 and later."
-msgstr "Segnalato dall'importazione: mantenere solo TLS 1.2 e successivi."
-
-msgid "Certificate expired"
-msgstr "Certificato scaduto"
-
-msgid "The HTTPS certificate of the controller has expired."
-msgstr "Il certificato HTTPS del controller è scaduto."
-
-msgid "Hardware health critical"
-msgstr "Stato hardware critico"
-
-msgid "The controller reports a critical hardware state."
-msgstr "Il controller segnala uno stato hardware critico."
-
-msgid "SNMP v1 or v2c enabled"
-msgstr "SNMP v1 o v2c attivato"
-
-msgid "SNMP v1 and v2c use a community sent in clear text: prefer SNMPv3."
-msgstr "SNMP v1 e v2c usano una community inviata in chiaro: preferire SNMPv3."
-
-msgid "Secure Boot disabled"
-msgstr "Avvio protetto disattivato"
-
-msgid "Secure Boot of the server is disabled."
-msgstr "L'avvio protetto (Secure Boot) del server è disattivato."
-
-msgid "Self-signed certificate"
-msgstr "Certificato autofirmato"
-
-msgid "Replace it with a certificate of your certification authority."
-msgstr "Sostituirlo con un certificato della propria autorità di certificazione."
-
-msgid "Certificate not verified"
-msgstr "Certificato non verificato"
-
-msgid "The controller is read with the option accepting a self-signed certificate: its identity is not verified."
-msgstr "Il controller è letto con l'opzione che accetta un certificato autofirmato: la sua identità non è verificata."
-
-msgid "Hardware health degraded"
-msgstr "Stato hardware degradato"
-
-msgid "The controller reports a warning on the hardware."
-msgstr "Il controller segnala un avviso sull'hardware."
-
-msgid "Certificate expiring soon"
-msgstr "Certificato in scadenza"
-
-msgid "The HTTPS certificate expires within %d days."
-msgstr "Il certificato HTTPS scade entro %d giorni."
-
-msgid "No matching server in GLPI"
-msgstr "Nessun server corrispondente in GLPI"
-
-msgid "No computer of GLPI has this serial number: choose the server by hand on the controller."
-msgstr "Nessun computer di GLPI ha questo numero di serie: scegliere il server a mano sul controller."
-
-msgid "Enter the address, the account and the password of the controller first."
-msgstr "Inserire prima l'indirizzo, l'account e la password del controller."
-
-msgid "The controller refused the account or the password."
-msgstr "Il controller ha rifiutato l'account o la password."
-
-msgid "The controller refused access: give the account the read-only role."
-msgstr "Il controller ha rifiutato l'accesso: assegnare all'account il ruolo di sola lettura."
-
-msgid "The controller has an internal address, refused by default: allow internal addresses in the plugin configuration page (Outgoing connections)."
-msgstr "Il controller ha un indirizzo interno, rifiutato per impostazione predefinita: consentire gli indirizzi interni nella pagina di configurazione del plugin (Connessioni in uscita)."
-
-msgid "The certificate of the controller is not trusted (self-signed or expired): install a certificate of your certification authority, or tick \"Accept a self-signed certificate\" for this controller."
-msgstr "Il certificato del controller non è attendibile (autofirmato o scaduto): installare un certificato della propria autorità di certificazione, oppure selezionare «Accetta un certificato autofirmato» per questo controller."
-
-msgid "The controller could not be reached: check the address, the network access or the GLPI proxy."
-msgstr "Impossibile raggiungere il controller: verificare l'indirizzo, l'accesso di rete o il proxy di GLPI."
-
-msgid "No Redfish service at this address: for a controller with IPMI only, use the CSV import."
-msgstr "Nessun servizio Redfish a questo indirizzo: per un controller solo IPMI, usare l'importazione CSV."
-
-msgid "The address must be a https:// address of the controller, without path or parameters."
-msgstr "L'indirizzo deve essere un indirizzo https:// del controller, senza percorso né parametri."
-
-msgid "Enter a name."
-msgstr "Inserire un nome."
-
-msgid "Enter the password again: the address or the account changed."
-msgstr "Inserire di nuovo la password: l'indirizzo o l'account sono cambiati."
-
-msgid "The server chosen cannot be used."
-msgstr "Il server scelto non può essere usato."
-
-msgid "This controller comes from the CSV import: import the file again to update it."
-msgstr "Questo controller proviene dall'importazione CSV: importare di nuovo il file per aggiornarlo."
-
-msgid "Controller not found."
-msgstr "Controller non trovato."
-
-msgid "You are not allowed to do this."
-msgstr "Non si è autorizzati a farlo."
-
-msgid "The file has no \"name\" column."
-msgstr "Il file non ha la colonna «name»."
-
-msgid "The controller returned an unexpected answer."
-msgstr "Il controller ha restituito una risposta inattesa."
-
-msgid "Management controller"
-msgstr "Controller di gestione"
-
-msgid "%d administrator account(s)"
-msgstr "%d account amministratore"
-
-msgid "%d controller(s)"
-msgstr "%d controller"
-
-msgid "%d outside the administration networks"
-msgstr "%d fuori dalle reti di amministrazione"
-
-msgid "%d physical server(s) without a known controller"
-msgstr "%d server fisico/i senza controller noto"
-
-msgid "%d risky setting(s)"
-msgstr "%d impostazione/i a rischio"
-
-msgid "%d with a default account enabled"
-msgstr "%d con un account predefinito attivo"
-
-msgid "%d with a serious gap"
-msgstr "%d con uno scostamento grave"
-
-msgid "No administration network declared"
-msgstr "Nessuna rete di amministrazione dichiarata"
-
-msgid "%1$d controllers: the first %2$d are shown, serious gaps first."
-msgstr "%1$d controller: sono mostrati i primi %2$d, prima gli scostamenti gravi."
-
-msgid "%d administration network(s) declared"
-msgstr "%d rete/i di amministrazione dichiarata/e"
-
-msgid "%d administrator account(s) in all"
-msgstr "%d account amministratore in totale"
-
-msgid "%d read at least once"
-msgstr "%d letto/i almeno una volta"
-
-msgid "A controller is matched with a computer of GLPI by the serial number of the server, or by the server chosen by hand. Gaps are only reported: nothing is changed on the controller. Hover a gap to see what to do."
-msgstr "Un controller è associato a un computer di GLPI tramite il numero di serie del server, o tramite il server scelto a mano. Gli scostamenti sono solo segnalati: nulla viene modificato sul controller. Passare il mouse su uno scostamento per sapere cosa fare."
-
-msgid "Accept a self-signed certificate for this controller"
-msgstr "Accetta un certificato autofirmato per questo controller"
-
-msgid "Account (read only)"
-msgstr "Account (sola lettura)"
-
-msgid "Accounts read on each controller, to review in the privileged access review: an account of a controller gives full control of the server, even switched off."
-msgstr "Account letti su ogni controller, da riprendere nella revisione degli accessi privilegiati: un account di controller dà il controllo completo del server, anche spento."
-
-msgid "Address of the controller"
-msgstr "Indirizzo del controller"
-
-msgid "BIOS: %s"
-msgstr "BIOS: %s"
-
-msgid "By serial number"
-msgstr "Tramite numero di serie"
-
-msgid "CSV import"
-msgstr "Importazione CSV"
-
-msgid "Certificate until %s"
-msgstr "Certificato fino al %s"
-
-msgid "Chosen by hand"
-msgstr "Scelto a mano"
-
-msgid "Computers of GLPI seen as servers (type or operating system) and not virtual (model or manufacturer), for which no controller is declared. A controller nobody knows is never updated nor reviewed."
-msgstr "Computer di GLPI considerati server (tipo o sistema operativo) e non virtuali (modello o produttore), per i quali non è dichiarato alcun controller. Un controller che nessuno conosce non viene mai aggiornato né rivisto."
-
-msgid "Controller: %s"
-msgstr "Controller: %s"
-
-msgid "Controllers"
-msgstr "Controller"
-
-msgid "Controllers and their gaps"
-msgstr "Controller e loro scostamenti"
-
-msgid "Controllers usually have an internal address, which the plugin refuses by default. To read them, allow internal addresses in the plugin configuration page."
-msgstr "I controller hanno di solito un indirizzo interno, che il plugin rifiuta per impostazione predefinita. Per leggerli, consentire gli indirizzi interni nella pagina di configurazione del plugin."
-
-msgid "Controllers with a serious gap"
-msgstr "Controller con uno scostamento grave"
-
-msgid "Coverage: %d%%"
-msgstr "Copertura: %d%%"
-
-msgid "Declare a controller read by Redfish"
-msgstr "Dichiarare un controller letto da Redfish"
-
-msgid "Default account"
-msgstr "Account predefinito"
-
-msgid "Delete this controller and its accounts read?"
-msgstr "Eliminare questo controller e i suoi account letti?"
-
-msgid "Edit the controller %s"
-msgstr "Modifica il controller %s"
-
-msgid "Encrypted by GLPI and never shown again. If you change the address or the account, enter it again."
-msgstr "Cifrata da GLPI e mai più mostrata. Se si cambia l'indirizzo o l'account, inserirla di nuovo."
-
-msgid "Every physical server has a known controller."
-msgstr "Ogni server fisico ha un controller noto."
-
-msgid "Firmware and BIOS"
-msgstr "Firmware e BIOS"
-
-msgid "For controllers with IPMI only, or an export of a manufacturer tool. One line per controller; a controller already imported with the same name is updated. Columns (header line, separator ; or ,):"
-msgstr "Per i controller solo IPMI, o un'esportazione di uno strumento del produttore. Una riga per controller; un controller già importato con lo stesso nome viene aggiornato. Colonne (riga di intestazione, separatore ; o ,):"
-
-msgid "For example: iLO of srv-db-01"
-msgstr "Ad esempio: iLO di srv-db-01"
-
-msgid "Health"
-msgstr "Stato di salute"
-
-msgid "Healthy"
-msgstr "Integro"
-
-msgid "IPMI over the network, default account, exposure..."
-msgstr "IPMI in rete, account predefinito, esposizione..."
-
-msgid "Import controllers without Redfish (CSV)"
-msgstr "Importa controller senza Redfish (CSV)"
-
-msgid "Last reading"
-msgstr "Ultima lettura"
-
-msgid "Leave empty to match the server by its serial number."
-msgstr "Lasciare vuoto per associare il server tramite il numero di serie."
-
-msgid "Local accounts of the controllers"
-msgstr "Account locali dei controller"
-
-msgid "Locked"
-msgstr "Bloccato"
-
-msgid "No account read yet."
-msgstr "Nessun account ancora letto."
-
-msgid "No administration network is declared in the network flow matrix: the exposure of the controllers cannot be checked. Write the address range in the source or the destination of a flow whose name says it is an administration zone (for example \"MGMT 10.0.99.0/24\" or \"OOB iLO 192.0.2.0/24\")."
-msgstr "Nessuna rete di amministrazione è dichiarata nella matrice dei flussi: l'esposizione dei controller non può essere verificata. Scrivere l'intervallo di indirizzi nell'origine o nella destinazione di un flusso il cui nome indica una zona di amministrazione (ad esempio «MGMT 10.0.99.0/24» o «OOB iLO 192.0.2.0/24»)."
-
-msgid "No controller yet: declare one below, or import a CSV file for controllers with IPMI only."
-msgstr "Ancora nessun controller: dichiararne uno qui sotto, oppure importare un file CSV per i controller solo IPMI."
-
-msgid "No gap found"
-msgstr "Nessuno scostamento trovato"
-
-msgid "No physical server in GLPI"
-msgstr "Nessun server fisico in GLPI"
-
-msgid "Off by default. When ticked, the identity of the controller is not verified: prefer a certificate of your certification authority."
-msgstr "Disattivata per impostazione predefinita. Se selezionata, l'identità del controller non è verificata: preferire un certificato della propria autorità di certificazione."
-
-msgid "Only \"name\" is required. Yes/no columns accept yes, no, oui, non, 1, 0 (empty: unknown). Accounts: user:role separated by \";\" inside the cell, for example \"root:Administrator;audit:ReadOnly\", \":disabled\" for a disabled account. Maximum size: %s."
-msgstr "Solo «name» è obbligatoria. Le colonne sì/no accettano yes, no, oui, non, 1, 0 (vuoto: sconosciuto). Account: utente:ruolo separati da «;» nella cella, ad esempio «root:Administrator;audit:ReadOnly», «:disabled» per un account disattivato. Dimensione massima: %s."
-
-msgid "Open the network flow matrix"
-msgstr "Apri la matrice dei flussi"
-
-msgid "Password saved (leave empty to keep it)"
-msgstr "Password salvata (lasciare vuoto per mantenerla)"
-
-msgid "Physical servers without a known controller"
-msgstr "Server fisici senza controller noto"
-
-msgid "Read now"
-msgstr "Leggi ora"
-
-msgid "Read only: the plugin only sends Redfish read requests (GET). It never restarts a server, never updates a firmware and never changes a setting. Use a local account of the controller with the read-only role."
-msgstr "Sola lettura: il plugin invia solo richieste di lettura Redfish (GET). Non riavvia mai un server, non aggiorna mai un firmware e non cambia mai un'impostazione. Usare un account locale del controller con il ruolo di sola lettura."
-
-msgid "Self-signed accepted"
-msgstr "Autofirmato accettato"
-
-msgid "Serial number: %s"
-msgstr "Numero di serie: %s"
-
-msgid "Server in GLPI"
-msgstr "Server in GLPI"
-
-msgid "Server in GLPI (optional)"
-msgstr "Server in GLPI (facoltativo)"
-
-msgid "The controller is saved in the entity %s. Create on the controller a local account with the read-only role (ReadOnly): the plugin only reads."
-msgstr "Il controller è salvato nell'entità %s. Creare sul controller un account locale con il ruolo di sola lettura (ReadOnly): il plugin si limita a leggere."
-
-msgid "Warning"
-msgstr "Avviso"
-
-msgid "https:// only, with the name or the IP address of the controller and an optional port."
-msgstr "https:// soltanto, con il nome o l'indirizzo IP del controller e una porta facoltativa."
-
-msgid "BIOS"
-msgstr "BIOS"
-
-msgid "Firmware of the controller"
-msgstr "Firmware del controller"
-
-msgid "IPMI over the network"
-msgstr "IPMI in rete"
-
-msgid "Local accounts"
-msgstr "Account locali"
-
-msgid "No management controller (iLO, iDRAC, XClarity, IPMI) is known for this computer. A controller is matched by the serial number of the server, or chosen by hand on the controller."
-msgstr "Nessun controller di gestione (iLO, iDRAC, XClarity, IPMI) è noto per questo computer. Un controller è associato tramite il numero di serie del server, o scelto a mano sul controller."
-
-msgid "Secure Boot"
-msgstr "Avvio protetto"
+#, php-format
+msgid ""
+"%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed "
+"since the previous import."
+msgstr ""
+"%1$d condivisione/i e %2$d diritto/i importati: %3$d nuovo/i diritto/i, %4$d "
+"rimosso/i dall'importazione precedente."
+
+msgid "The file is too long: only its first lines were imported."
+msgstr "Il file è troppo lungo: sono state importate solo le prime righe."
+
+msgid "Share saved."
+msgstr "Condivisione salvata."
+
+msgid "Review started: the owner can now decide for each right."
+msgstr "Revisione avviata: il proprietario può ora decidere per ogni diritto."
+
+msgid "Review closed."
+msgstr "Revisione chiusa."
+
+msgid ""
+"Shows who can access the Windows file shares: share and NTFS permissions "
+"imported from each file server, accounts matched with the GLPI users and "
+"groups, and the gaps an auditor looks for (everyone can modify, rights given "
+"to a person, deleted or disabled accounts, broken inheritance, share without "
+"an owner)."
+msgstr ""
+"Mostra chi può accedere alle condivisioni di file Windows: diritti di "
+"condivisione e NTFS importati da ogni file server, account associati agli "
+"utenti e ai gruppi GLPI, e le anomalie che un auditor cerca (tutti possono "
+"modificare, diritti dati a una persona, account eliminati o disattivati, "
+"ereditarietà interrotta, condivisione senza proprietario)."
+
+msgid ""
+"Run the PowerShell script provided on each file server (it only reads), "
+"import the CSV file, classify the sensitive shares and designate an owner "
+"for each one. The owner then reviews the rights of the share; the "
+"administrator applies the changes on the server and the next import shows "
+"the rights added and removed."
+msgstr ""
+"Eseguite lo script PowerShell fornito su ogni file server (si limita a "
+"leggere), importate il file CSV, classificate le condivisioni sensibili e "
+"designate un proprietario per ciascuna. Il proprietario rivede poi i diritti "
+"della condivisione; l'amministratore applica le modifiche sul server e "
+"l'importazione successiva mostra i diritti aggiunti e rimossi."
+
+msgid "ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3"
+msgstr "ISO/IEC 27001, controlli A.5.15, A.5.18 e A.8.3"
+
+msgid "File share access rights"
+msgstr "Diritti sulle condivisioni di file"
+
+msgid "Full control"
+msgstr "Controllo completo"
+
+msgid "Modify"
+msgstr "Modifica"
+
+msgid "Read"
+msgstr "Lettura"
+
+msgid "Special permissions"
+msgstr "Autorizzazioni speciali"
+
+msgid "Everyone (broad group)"
+msgstr "Tutti (gruppo ampio)"
+
+msgid "System account"
+msgstr "Account di sistema"
+
+msgid "Deleted account"
+msgstr "Account eliminato"
+
+msgid "Everyone can modify"
+msgstr "Tutti possono modificare"
+
+msgid ""
+"Everyone, Authenticated Users, Domain Users or Guests can modify or have "
+"full control."
+msgstr ""
+"Tutti, Utenti autenticati, Utenti del dominio o Guest possono modificare o "
+"hanno il controllo completo."
+
+msgid "Deleted account still has rights"
+msgstr "Account eliminato che ha ancora diritti"
+
+msgid ""
+"The account no longer exists in the directory (unresolved SID) or is in the "
+"GLPI trash."
+msgstr ""
+"L'account non esiste più nella directory (SID non risolto) o è nel cestino "
+"di GLPI."
+
+msgid "Disabled account still has rights"
+msgstr "Account disattivato che ha ancora diritti"
+
+msgid "The matching GLPI account is disabled: the person has probably left."
+msgstr ""
+"L'account GLPI corrispondente è disattivato: la persona probabilmente se n'è "
+"andata."
+
+msgid "Right given to a person"
+msgstr "Diritto dato a una persona"
+
+msgid ""
+"Rights should be given to groups, not to named people: they are easier to "
+"review."
+msgstr ""
+"I diritti dovrebbero essere dati a gruppi, non a persone nominative: sono "
+"più facili da rivedere."
+
+msgid "Inheritance broken"
+msgstr "Ereditarietà interrotta"
+
+msgid ""
+"A subfolder of a sensitive share does not inherit the rights of its parent "
+"folder."
+msgstr ""
+"Una sottocartella di una condivisione sensibile non eredita i diritti della "
+"cartella superiore."
+
+msgid ""
+"No GLPI user is designated as the owner who reviews the rights of this share."
+msgstr ""
+"Nessun utente GLPI è designato come proprietario che rivede i diritti di "
+"questa condivisione."
+
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"Identity, IdentityReference or Sid."
+msgstr ""
+"Nessuna colonna dell'account trovata: il file deve avere un'intestazione con "
+"una colonna come Identity, IdentityReference o Sid."
+
+msgid ""
+"No rights column found: the file needs a column such as Rights, "
+"FileSystemRights or AccessRight."
+msgstr ""
+"Nessuna colonna dei diritti trovata: il file deve avere una colonna come "
+"Rights, FileSystemRights o AccessRight."
+
+msgid ""
+"No share column found: the file needs a column such as Share, or Folder with "
+"a \\\\server\\share path."
+msgstr ""
+"Nessuna colonna della condivisione trovata: il file deve avere una colonna "
+"come Share, o Folder con un percorso \\\\server\\condivisione."
+
+msgid "Designate the owner of the share first: they review its rights."
+msgstr ""
+"Designate prima il proprietario della condivisione: è lui che ne rivede i "
+"diritti."
+
+msgid "Explain what must be changed or removed in the comment."
+msgstr "Spiegate nel commento cosa va modificato o rimosso."
+
+msgid "Some rights have no decision yet."
+msgstr "Alcuni diritti non hanno ancora una decisione."
+
+msgid "You cannot do this on this share."
+msgstr "Non potete farlo su questa condivisione."
+
+#, php-format
+msgid "%1$d of %2$d share(s) reviewed in the last 12 months"
+msgstr "%1$d condivisione/i su %2$d rivista/e negli ultimi 12 mesi"
+
+#, php-format
+msgid "%d file share(s) imported"
+msgstr "%d condivisione/i di file importata/e"
+
+#, php-format
+msgid "%d right(s) letting everyone modify"
+msgstr "%d diritto/i che lasciano modificare a tutti"
+
+#, php-format
+msgid "%d right(s) of deleted or disabled accounts"
+msgstr "%d diritto/i di account eliminati o disattivati"
+
+#, php-format
+msgid "%d share(s) with a gap"
+msgstr "%d condivisione/i con un'anomalia"
+
+#, php-format
+msgid "%1$d shares: the first %2$d are shown, the most exposed first."
+msgstr ""
+"%1$d condivisioni: sono mostrate le prime %2$d, le più esposte per prime."
+
+#, php-format
+msgid "%d right(s) imported"
+msgstr "%d diritto/i importato/i"
+
+#, php-format
+msgid "%d with a high weighted score"
+msgstr "%d con un punteggio ponderato elevato"
+
+msgid "Absent from the last import"
+msgstr "Assente dall'ultima importazione"
+
+msgid "Download the PowerShell script"
+msgstr "Scarica lo script PowerShell"
+
+msgid "Download the script and copy it to the file server."
+msgstr "Scaricate lo script e copiatelo sul file server."
+
+msgid ""
+"GLPI never connects to your file servers and never changes a right. An "
+"administrator runs the PowerShell script on the file server, with an account "
+"that can read the folders, then imports the CSV file here. A new import of "
+"the same server replaces the previous one in the current entity and shows "
+"the rights added and removed since then; the classification, the owner and "
+"the review decisions are kept."
+msgstr ""
+"GLPI non si connette mai ai vostri file server e non modifica mai un "
+"diritto. Un amministratore esegue lo script PowerShell sul file server, con "
+"un account che può leggere le cartelle, poi importa qui il file CSV. Una "
+"nuova importazione dello stesso server sostituisce la precedente nell'entità "
+"corrente e mostra i diritti aggiunti e rimossi da allora; la "
+"classificazione, il proprietario e le decisioni di revisione sono conservati."
+
+msgid "Import the rights of a file server"
+msgstr "Importa i diritti di un file server"
+
+msgid ""
+"Import the shares.csv file below. Files produced by other tools are accepted "
+"if they have a header with columns such as Server, Share, Folder, Identity, "
+"Rights, AccessType, IsInherited and InheritanceProtected."
+msgstr ""
+"Importate qui sotto il file shares.csv. Sono accettati i file prodotti da "
+"altri strumenti se hanno un'intestazione con colonne come Server, Share, "
+"Folder, Identity, Rights, AccessType, IsInherited e InheritanceProtected."
+
+msgid "Imported by"
+msgstr "Importato da"
+
+msgid "Imports and changes over time"
+msgstr "Importazioni e cambiamenti nel tempo"
+
+msgid ""
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
+"OutFile shares.csv (Depth: how many folder levels under each share are read)."
+msgstr ""
+"In PowerShell, eseguite ad esempio: ./Export-GrcShareAccess.ps1 -Depth 2 -"
+"OutFile shares.csv (Depth: quanti livelli di cartelle vengono letti sotto "
+"ogni condivisione)."
+
+msgid "New rights"
+msgstr "Nuovi diritti"
+
+msgid ""
+"No share imported yet. Run the PowerShell script below on a file server, "
+"then import the CSV file it produces."
+msgstr ""
+"Nessuna condivisione ancora importata. Eseguite lo script PowerShell qui "
+"sotto su un file server, poi importate il file CSV che produce."
+
+msgid ""
+"Only users who can modify the plugin data and the sensitive registers can "
+"import."
+msgstr ""
+"Solo gli utenti che possono modificare i dati del plugin e i registri "
+"sensibili possono importare."
+
+msgid "Removed rights"
+msgstr "Diritti rimossi"
+
+msgid "Rights"
+msgstr "Diritti"
+
+msgid "Server imported in this entity"
+msgstr "Server importato in questa entità"
+
+msgid "Share"
+msgstr "Condivisione"
+
+msgid "Shares"
+msgstr "Condivisioni"
+
+msgid "Shares and their gaps"
+msgstr "Condivisioni e relative anomalie"
+
+msgid "Shares reviewed in the last 12 months"
+msgstr "Condivisioni riviste negli ultimi 12 mesi"
+
+msgid "Shares with a gap"
+msgstr "Condivisioni con un'anomalia"
+
+msgid "Shares without an owner"
+msgstr "Condivisioni senza proprietario"
+
+msgid "The owner reviews the rights of the share."
+msgstr "Il proprietario rivede i diritti della condivisione."
+
+msgid ""
+"The score adds 3 for each serious gap and 1 for the others, then multiplies "
+"by 3 for a share classified high and by 2 for medium. Nothing is changed on "
+"the file servers from this page."
+msgstr ""
+"Il punteggio somma 3 per ogni anomalia grave e 1 per le altre, poi "
+"moltiplica per 3 per una condivisione classificata alta e per 2 per media. "
+"Da questa pagina non viene modificato nulla sui file server."
+
+msgid "Weighted score"
+msgstr "Punteggio ponderato"
+
+msgid "All shares"
+msgstr "Tutte le condivisioni"
+
+msgid "Classification and owner"
+msgstr "Classificazione e proprietario"
+
+msgid "Close the review"
+msgstr "Chiudi la revisione"
+
+msgid ""
+"During a review, the owner decides for each right: keep it, change it or "
+"remove it. Decisions are recorded with their author and date; GLPI changes "
+"nothing on the server: the administrator applies the changes, and the next "
+"import shows the removed rights."
+msgstr ""
+"Durante una revisione, il proprietario decide per ogni diritto: mantenerlo, "
+"modificarlo o rimuoverlo. Le decisioni sono registrate con autore e data; "
+"GLPI non cambia nulla sul server: l'amministratore applica le modifiche e "
+"l'importazione successiva mostra i diritti rimossi."
+
+msgid "Folder"
+msgstr "Cartella"
+
+msgid ""
+"Gaps weigh more on a share classified high, and broken inheritance is "
+"reported only on a share whose confidentiality or integrity is medium or "
+"high."
+msgstr ""
+"Le anomalie pesano di più su una condivisione classificata alta, e "
+"l'ereditarietà interrotta è segnalata solo su una condivisione la cui "
+"riservatezza o integrità è media o alta."
+
+#, php-format
+msgid "Last review: %s"
+msgstr "Ultima revisione: %s"
+
+#, php-format
+msgid "Level %d"
+msgstr "Livello %d"
+
+msgid "Local path"
+msgstr "Percorso locale"
+
+msgid "NTFS owner"
+msgstr "Proprietario NTFS"
+
+msgid "NTFS permission"
+msgstr "Diritto NTFS"
+
+msgid "New"
+msgstr "Nuovo"
+
+msgid "No right in the last import of this share."
+msgstr "Nessun diritto nell'ultima importazione di questa condivisione."
+
+msgid "Owner who reviews the rights"
+msgstr "Proprietario che rivede i diritti"
+
+#, php-format
+msgid "Owner: %s"
+msgstr "Proprietario: %s"
+
+msgid "Review of the rights"
+msgstr "Revisione dei diritti"
+
+msgid "Right"
+msgstr "Diritto"
+
+msgid "Rights removed since the previous import"
+msgstr "Diritti rimossi dall'importazione precedente"
+
+msgid "Share permission"
+msgstr "Diritto di condivisione"
+
+msgid "Start a review"
+msgstr "Avvia una revisione"
+
+msgid "inherited"
+msgstr "ereditato"
+
+msgctxt "availability"
+msgid "A"
+msgstr "D"
+
+msgctxt "confidentiality"
+msgid "C"
+msgstr "R"
+
+msgctxt "integrity"
+msgid "I"
+msgstr "I"
+
+#, php-format
+msgid "%d right added at the last import"
+msgid_plural "%d rights added at the last import"
+msgstr[0] "%d diritto aggiunto all'ultima importazione"
+msgstr[1] "%d diritti aggiunti all'ultima importazione"
+
+#, php-format
+msgid "%d right still to review."
+msgid_plural "%d rights still to review."
+msgstr[0] "%d diritto ancora da rivedere."
+msgstr[1] "%d diritti ancora da rivedere."
+
+msgid "Evaluation completed."
+msgstr "Valutazione completata."
+
+msgid "Evaluation reopened."
+msgstr "Valutazione riaperta."
+
+msgid "Answers saved."
+msgstr "Risposte salvate."
+
+msgid "Template copied: adapt its questions."
+msgstr "Modello copiato: adattane le domande."
+
+#, php-format
+msgid "Questions saved: %1$d added, %2$d changed, %3$d deleted."
+msgstr "Domande salvate: %1$d aggiunte, %2$d modificate, %3$d eliminate."
+
+msgid "No change to the questions."
+msgstr "Nessuna modifica alle domande."
+
+msgid "Back to supplier risks"
+msgstr "Torna ai rischi fornitore"
+
+msgid "New questionnaire template"
+msgstr "Nuovo modello di questionario"
+
+msgid "Questionnaire templates"
+msgstr "Modelli di questionario"
+
+msgid "Historical questionnaire"
+msgstr "Questionario storico"
+
+msgid ""
+"The twelve questions of the former security questionnaire, kept with the "
+"answers already given."
+msgstr ""
+"Le dodici domande del precedente questionario di sicurezza, conservate con "
+"le risposte già date."
+
+msgid ""
+"Create one risk per important supplier, evaluate it with one or more "
+"questionnaires (Questionnaires tab), follow its contracts and the \"Security "
+"watch\" tab."
+msgstr ""
+"Create un rischio per ogni fornitore importante, valutatelo con uno o più "
+"questionari (scheda Questionari), seguite i suoi contratti e la scheda "
+"«Monitoraggio di sicurezza»."
+
+msgid ""
+"Supplier questionnaire templates: the questions asked to your suppliers, "
+"grouped by section, with their weight, the expected answer and the evidence "
+"to provide. One template per need: information security, personal data, "
+"artificial intelligence..."
+msgstr ""
+"Modelli di questionario fornitore: le domande poste ai vostri fornitori, "
+"raggruppate per sezione, con il loro peso, la risposta attesa e l'evidenza "
+"da fornire. Un modello per esigenza: sicurezza delle informazioni, dati "
+"personali, intelligenza artificiale..."
+
+msgid ""
+"Adapt the historical questionnaire or create your own templates, then start "
+"an evaluation from the Questionnaires tab of a supplier risk. A supplier can "
+"be evaluated with several templates; each evaluation keeps its score and its "
+"history."
+msgstr ""
+"Adattate il questionario storico o create i vostri modelli, poi avviate una "
+"valutazione dalla scheda Questionari di un rischio fornitore. Un fornitore "
+"può essere valutato con più modelli; ogni valutazione conserva il proprio "
+"punteggio e la propria cronologia."
+
+msgid ""
+"ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
+msgstr ""
+"ISO/IEC 27001, controlli da A.5.19 a A.5.21; NIS2 art. 21, par. 2, lett. d); "
+"DORA art. 28"
+
+msgid "Questionnaires"
+msgstr "Questionari"
+
+msgid "Choose the supplier risk to evaluate."
+msgstr "Scegliete il rischio fornitore da valutare."
+
+msgid ""
+"Choose an active questionnaire template available in the entity of the "
+"supplier risk."
+msgstr ""
+"Scegliete un modello di questionario attivo disponibile nell'entità del "
+"rischio fornitore."
+
+#, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s - %2$s"
+
+msgid "This evaluation is completed: reopen it to change it."
+msgstr "Questa valutazione è completata: riapritela per modificarla."
+
+msgid "Questionnaire"
+msgstr "Questionario"
+
+msgid "Evaluation date"
+msgstr "Data della valutazione"
+
+msgid "This question cannot receive a document."
+msgstr "Questa domanda non può ricevere un documento."
+
+msgid "You are not allowed to add a document to this supplier risk."
+msgstr ""
+"Non siete autorizzati ad aggiungere un documento a questo rischio fornitore."
+
+#, php-format
+msgid "Evidence for question %1$s of the evaluation \"%2$s\""
+msgstr "Evidenza per la domanda %1$s della valutazione «%2$s»"
+
+#, php-format
+msgid "Evidence added to question %s"
+msgstr "Evidenza aggiunta alla domanda %s"
+
+msgid "Information security"
+msgstr "Sicurezza delle informazioni"
+
+msgid "Personal data"
+msgstr "Dati personali"
+
+msgid "Artificial intelligence"
+msgstr "Intelligenza artificiale"
+
+msgid "Business continuity"
+msgstr "Continuità operativa"
+
+#, php-format
+msgid "Copy of %s"
+msgstr "Copia di %s"
+
+msgid "Duplicate this template"
+msgstr "Duplica questo modello"
+
+#, php-format
+msgid "%1$d of %2$d questions answered"
+msgstr "%1$d di %2$d domande con risposta"
+
+#, php-format
+msgid "%1$s (version %2$d)"
+msgstr "%1$s (versione %2$d)"
+
+msgid ""
+"Answer the questions in the \"Questionnaire\" tab, then mark the evaluation "
+"as completed."
+msgstr ""
+"Rispondete alle domande nella scheda «Questionario», poi contrassegnate la "
+"valutazione come completata."
+
+msgid "Evaluation"
+msgstr "Valutazione"
+
+msgid ""
+"Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by "
+"the weight of the question; \"not applicable\" and unanswered questions are "
+"not counted."
+msgstr ""
+"Risposta attesa = 1 punto, parziale = 0,5, altra risposta = 0, moltiplicato "
+"per il peso della domanda; «non applicabile» e le domande senza risposta non "
+"sono conteggiate."
+
+msgid "For example \"Security 2026\" or \"Personal data - contract renewal\"."
+msgstr ""
+"Ad esempio «Sicurezza 2026» o «Dati personali - rinnovo del contratto»."
+
+msgid "Questionnaire template"
+msgstr "Modello di questionario"
+
+#, php-format
+msgid "Score: %1$d%% - %2$s"
+msgstr "Punteggio: %1$d%% - %2$s"
+
+msgid ""
+"This evaluation is completed: its answers can no longer be changed. Reopen "
+"it from the \"Questionnaire\" tab to change them."
+msgstr ""
+"Questa valutazione è completata: le sue risposte non possono più essere "
+"modificate. Riapritela dalla scheda «Questionario» per cambiarle."
+
+msgid "Add the template, then write its questions in the \"Questions\" tab."
+msgstr ""
+"Aggiungete il modello, poi scrivete le sue domande nella scheda «Domande»."
+
+msgid ""
+"Fingerprint of the questions, used to recognize a questionnaire file "
+"returned by a supplier."
+msgstr ""
+"Impronta delle domande, usata per riconoscere un file di questionario "
+"restituito da un fornitore."
+
+msgid ""
+"For example \"Hosting provider security\", \"Personal data processor (GDPR "
+"art. 28)\" or \"AI service provider\"."
+msgstr ""
+"Ad esempio «Sicurezza del provider di hosting», «Responsabile del "
+"trattamento (GDPR art. 28)» o «Fornitore di servizi di IA»."
+
+msgid "Inactive: not offered for new evaluations"
+msgstr "Inattivo: non proposto per nuove valutazioni"
+
+msgid ""
+"Increases each time the questions change. An evaluation keeps the questions "
+"of the version it was started with."
+msgstr ""
+"Aumenta a ogni modifica delle domande. Una valutazione conserva le domande "
+"della versione con cui è stata avviata."
+
+msgid "Only active templates are offered when an evaluation is started."
+msgstr "All'avvio di una valutazione sono proposti solo i modelli attivi."
+
+msgid "Taken over"
+msgstr "Ripreso"
+
+msgid ""
+"The last completed evaluation of the \"Information security\" domain gives "
+"the score shown on the supplier risk and on the dashboard."
+msgstr ""
+"L'ultima valutazione completata del dominio «Sicurezza delle informazioni» "
+"fornisce il punteggio mostrato sul rischio fornitore e sulla dashboard."
+
+msgid ""
+"The twelve questions of the former security questionnaire. It can be "
+"deactivated but not deleted."
+msgstr ""
+"Le dodici domande del precedente questionario di sicurezza. Può essere "
+"disattivato ma non eliminato."
+
+msgid "Detach"
+msgstr "Rimuovi"
+
+msgid "Document not readable with your rights"
+msgstr "Documento non leggibile con i vostri diritti"
+
+msgid "Evidence missing"
+msgstr "Evidenza mancante"
+
+msgid "Evidence required"
+msgstr "Evidenza richiesta"
+
+msgid "Expected answer"
+msgstr "Risposta attesa"
+
+#, php-format
+msgid "Expected: %s"
+msgstr "Attesa: %s"
+
+#, php-format
+msgid ""
+"For each question, choose the answer given by the supplier and add a comment "
+"if needed. The expected answer earns 1 point, \"partial\" half a point, the "
+"other answer 0, multiplied by the weight of the question. A question marked "
+"\"Evidence required\" waits for a document (certificate, report, policy...): "
+"it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) "
+"and added to the Documents tab of the supplier risk."
+msgstr ""
+"Per ogni domanda, scegliete la risposta data dal fornitore e aggiungete un "
+"commento se necessario. La risposta attesa vale 1 punto, «parziale» mezzo "
+"punto, l'altra risposta 0, moltiplicato per il peso della domanda. Una "
+"domanda contrassegnata «Evidenza richiesta» attende un documento "
+"(certificato, rapporto, politica...): è controllato come ogni evidenza (tipi "
+"consentiti da GLPI, dimensione massima %d MiB) e aggiunto alla scheda "
+"Documenti del rischio fornitore."
+
+msgid "For information, not scored"
+msgstr "Informativa, non valutata"
+
+msgid "General"
+msgstr "Generale"
+
+msgid ""
+"Questions without an answer do not count in the score. A completed "
+"evaluation can no longer be changed, unless it is reopened."
+msgstr ""
+"Le domande senza risposta non contano nel punteggio. Una valutazione "
+"completata non può più essere modificata, a meno di riaprirla."
+
+msgid "Reopen the evaluation"
+msgstr "Riapri la valutazione"
+
+msgid "Save and mark as completed"
+msgstr "Salva e contrassegna come completata"
+
+msgid "Save answers"
+msgstr "Salva le risposte"
+
+msgid ""
+"This evaluation has no question: its template had none when it was created."
+msgstr ""
+"Questa valutazione non ha domande: il suo modello non ne aveva al momento "
+"della creazione."
+
+#, php-format
+msgid "Weight %d"
+msgstr "Peso %d"
+
+#, php-format
+msgid "%1$s: %2$s points"
+msgstr "%1$s: %2$s punti"
+
+msgid "Change between the last two completed evaluations"
+msgstr "Variazione tra le ultime due valutazioni completate"
+
+msgid ""
+"Evaluate the supplier with one or more questionnaires (security, personal "
+"data, artificial intelligence...). Each question has a weight and an "
+"expected answer; the score informs the assessment and never changes the risk "
+"level entered. Evidence requested for a question is added to the Documents "
+"tab of this supplier risk."
+msgstr ""
+"Valutate il fornitore con uno o più questionari (sicurezza, dati personali, "
+"intelligenza artificiale...). Ogni domanda ha un peso e una risposta attesa; "
+"il punteggio orienta la valutazione e non modifica mai il livello di rischio "
+"inserito. L'evidenza richiesta per una domanda è aggiunta alla scheda "
+"Documenti di questo rischio fornitore."
+
+msgid ""
+"No active questionnaire template is available in the entity of this supplier "
+"risk."
+msgstr ""
+"Nessun modello di questionario attivo è disponibile nell'entità di questo "
+"rischio fornitore."
+
+msgid "No evaluation yet for this supplier."
+msgstr "Ancora nessuna valutazione per questo fornitore."
+
+msgid "Optional: the template name and the year otherwise"
+msgstr "Facoltativo: altrimenti il nome del modello e l'anno"
+
+msgid "Start an evaluation"
+msgstr "Avvia una valutazione"
+
+msgid "Taken over from the former fixed questionnaire"
+msgstr "Ripresa dal precedente questionario fisso"
+
+#, php-format
+msgid "Template: %1$s (version %2$d)"
+msgstr "Modello: %1$s (versione %2$d)"
+
+msgid "Code"
+msgstr "Codice"
+
+#, php-format
+msgid ""
+"Group the questions by section. The expected answer is the compliant one "
+"(\"No\" for a question such as \"Have you suffered a data breach in the last "
+"12 months?\"). The weight, from 0 to %d, gives the importance of the "
+"question in the score; 0 makes it a question for information only. Tick "
+"\"Evidence required\" when the supplier must provide a document. Changing "
+"the questions creates a new version of the template; evaluations already "
+"started keep their questions."
+msgstr ""
+"Raggruppate le domande per sezione. La risposta attesa è quella conforme "
+"(«No» per una domanda come «Avete subito una violazione dei dati negli "
+"ultimi 12 mesi?»). Il peso, da 0 a %d, indica l'importanza della domanda nel "
+"punteggio; 0 la rende una domanda solo informativa. Spuntate «Evidenza "
+"richiesta» quando il fornitore deve fornire un documento. Modificare le "
+"domande crea una nuova versione del modello; le valutazioni già avviate "
+"conservano le loro domande."
+
+msgid "Help for the answer (optional)"
+msgstr "Aiuto per la risposta (facoltativo)"
+
+msgid "Last"
+msgstr "Ultima"
+
+msgid "New question (left empty: not added)"
+msgstr "Nuova domanda (lasciata vuota: non aggiunta)"
+
+msgid "Question and help"
+msgstr "Domanda e aiuto"
+
+msgid "Save questions"
+msgstr "Salva le domande"
+
+msgid "Section"
+msgstr "Sezione"
+
+msgid "This template has no question yet."
+msgstr "Questo modello non ha ancora domande."
+
+#, php-format
+msgid "Total weight: %d"
+msgstr "Peso totale: %d"
+
+msgid "New question"
+msgstr "Nuova domanda"
+
+#, php-format
+msgid "Answers saved, %d document added."
+msgid_plural "Answers saved, %d documents added."
+msgstr[0] "Risposte salvate, %d documento aggiunto."
+msgstr[1] "Risposte salvate, %d documenti aggiunti."
+
+msgid "Supplier evaluation"
+msgid_plural "Supplier evaluations"
+msgstr[0] "Valutazione fornitore"
+msgstr[1] "Valutazioni fornitori"
+
+#, php-format
+msgid "%d answer updated"
+msgid_plural "%d answers updated"
+msgstr[0] "%d risposta aggiornata"
+msgstr[1] "%d risposte aggiornate"
+
+msgid "Supplier questionnaire template"
+msgid_plural "Supplier questionnaire templates"
+msgstr[0] "Modello di questionario fornitore"
+msgstr[1] "Modelli di questionario fornitore"
+
+msgid "Question"
+msgid_plural "Questions"
+msgstr[0] "Domanda"
+msgstr[1] "Domande"
+
+#, php-format
+msgid "%d evidence missing"
+msgid_plural "%d evidence missing"
+msgstr[0] "%d evidenza mancante"
+msgstr[1] "%d evidenze mancanti"
+
+#, php-format
+msgid "%d evaluation"
+msgid_plural "%d evaluations"
+msgstr[0] "%d valutazione"
+msgstr[1] "%d valutazioni"
+
+#, php-format
+msgid "%d question"
+msgid_plural "%d questions"
+msgstr[0] "%d domanda"
+msgstr[1] "%d domande"
+
+#, php-format
+msgid "%d control updated."
+msgid_plural "%d controls updated."
+msgstr[0] "%d misura aggiornata."
+msgstr[1] "%d misure aggiornate."
+
+#, php-format
+msgid "Maturity campaign: %s"
+msgstr "Campagna di maturità: %s"
+
+#, php-format
+msgid "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
+msgstr "Livello attuale: %1$d (%2$s). Livello obiettivo: %3$d (%4$s)."
+
+#, php-format
+msgid "Target date: %s"
+msgstr "Scadenza: %s"
+
+#, php-format
+msgid "Maturity gap %1$s: from level %2$d to level %3$d"
+msgstr "Divario di maturità %1$s: dal livello %2$d al livello %3$d"
+
+msgid "Maturity campaign"
+msgid_plural "Maturity campaigns"
+msgstr[0] "Campagna di maturità"
+msgstr[1] "Campagne di maturità"
+
+msgid "Maturity by control"
+msgstr "Maturità per misura"
+
+msgid "Non-existent"
+msgstr "Inesistente"
+
+#, php-format
+msgid "Maturity assessment of %s"
+msgstr "Valutazione di maturità del %s"
+
+msgid "Levels by control"
+msgstr "Livelli per misura"
+
+msgid "Comparison"
+msgstr "Confronto"
+
+msgid "Campaign lead"
+msgstr "Responsabile della campagna"
+
+#, php-format
+msgid "Maturity by control: %s"
+msgstr "Maturità per misura: %s"
+
+msgid ""
+"Rates each applicable control of the Statement of Applicability on a scale "
+"from 0 (non-existent) to 5 (optimised): the level reached today and the "
+"level aimed for, with a target date. The gaps between the two make up the "
+"security roadmap, and two dated campaigns show the progress. These optional "
+"levels change neither the implementation status of the controls nor the "
+"maturity score."
+msgstr ""
+"Valuta ogni misura applicabile della dichiarazione di applicabilità su una "
+"scala da 0 (inesistente) a 5 (ottimizzato): il livello raggiunto oggi e il "
+"livello mirato, con una scadenza. I divari tra i due formano la roadmap "
+"della sicurezza, e due campagne datate mostrano i progressi. Questi livelli "
+"facoltativi non cambiano né lo stato di attuazione delle misure né il "
+"punteggio di maturità."
+
+msgid ""
+"Create a campaign (for example once a year), fill in the current and target "
+"levels of each control with a justification and an owner, then open the "
+"\"Gaps\" tab: create an action for the largest gaps and download the report "
+"for the management review. The next campaign takes over the targets of this "
+"one."
+msgstr ""
+"Create una campagna (per esempio una volta all'anno), compilate i livelli "
+"attuale e obiettivo di ogni misura con una giustificazione e un "
+"responsabile, poi aprite la scheda «Divari»: create un'azione per i divari "
+"più grandi e scaricate il rapporto per il riesame della direzione. La "
+"campagna successiva riprende gli obiettivi di questa."
+
+msgid "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
+msgstr "ISO/IEC 27001, punti 6.2, 9.3 e 10.1"
+
+msgid "Maturity scale by control"
+msgstr "Scala di maturità per misura"
+
+msgid "Open the maturity campaigns"
+msgstr "Aprire le campagne di maturità"
+
+msgid ""
+"Rename the levels of the scale used by the maturity campaigns to match your "
+"method. Leave a field empty to keep the default label, translated into the "
+"language of each user; a label you enter is shown as is in every language. "
+"Renaming a level changes no recorded level."
+msgstr ""
+"Rinominate i livelli della scala usata dalle campagne di maturità per "
+"seguire il vostro metodo. Lasciate un campo vuoto per mantenere l'etichetta "
+"predefinita, tradotta nella lingua di ogni utente; un'etichetta inserita è "
+"mostrata così com'è in tutte le lingue. Rinominare un livello non cambia "
+"alcun livello registrato."
+
+#, php-format
+msgid "%d control declined"
+msgid_plural "%d controls declined"
+msgstr[0] "%d misura peggiorata"
+msgstr[1] "%d misure peggiorate"
+
+#, php-format
+msgid "%d control improved"
+msgid_plural "%d controls improved"
+msgstr[0] "%d misura migliorata"
+msgstr[1] "%d misure migliorate"
+
+#, php-format
+msgid "%d control unchanged"
+msgid_plural "%d controls unchanged"
+msgstr[0] "%d misura invariata"
+msgstr[1] "%d misure invariate"
+
+msgid "Compare"
+msgstr "Confronta"
+
+msgid "Compare with"
+msgstr "Confronta con"
+
+msgid "Comparison of two campaigns"
+msgstr "Confronto di due campagne"
+
+msgid ""
+"Current levels of each campaign. A control assessed in only one of the two "
+"campaigns is not compared."
+msgstr ""
+"Livelli attuali di ogni campagna. Una misura valutata in una sola delle due "
+"campagne non viene confrontata."
+
+msgid "New campaign"
+msgstr "Nuova campagna"
+
+msgid ""
+"There is no other campaign in this entity yet. Create the next campaign (for "
+"example next year): it takes over the targets of this one, and both can then "
+"be compared here."
+msgstr ""
+"Non c'è ancora un'altra campagna in questa entità. Create la campagna "
+"successiva (per esempio l'anno prossimo): riprende gli obiettivi di questa, "
+"e le due potranno poi essere confrontate qui."
+
+#, php-format
+msgid "%d gap to close"
+msgid_plural "%d gaps to close"
+msgstr[0] "%d divario da colmare"
+msgstr[1] "%d divari da colmare"
+
+#, php-format
+msgid "Average level: %1$s, target %2$s"
+msgstr "Livello medio: %1$s, obiettivo %2$s"
+
+msgid ""
+"Average levels by theme, gaps sorted by size and comparison with the "
+"previous campaign, for the management review."
+msgstr ""
+"Livelli medi per tema, divari ordinati per grandezza e confronto con la "
+"campagna precedente, per il riesame della direzione."
+
+msgid "Average over the controls that have both a current and a target level."
+msgstr ""
+"Media delle misure che hanno sia un livello attuale sia un livello obiettivo."
+
+msgid "Campaigns are compared in the order of this date."
+msgstr "Le campagne sono confrontate nell'ordine di questa data."
+
+msgid "For example \"2026 assessment\". Left empty, the date is used."
+msgstr "Per esempio «Valutazione 2026». Se lasciato vuoto, si usa la data."
+
+msgid "No gap: every target is reached"
+msgstr "Nessun divario: tutti gli obiettivi sono raggiunti"
+
+msgid "Previous campaign"
+msgstr "Campagna precedente"
+
+msgid ""
+"The campaign lists the applicable controls of the Statement of Applicability "
+"of the entity. The targets, target dates, justifications and owners of the "
+"previous campaign are taken over; the current levels are left to assess."
+msgstr ""
+"La campagna elenca le misure applicabili della dichiarazione di "
+"applicabilità dell'entità. Obiettivi, scadenze, giustificazioni e "
+"responsabili della campagna precedente sono ripresi; i livelli attuali "
+"restano da valutare."
+
+msgid ""
+"The overall maturity score is computed separately from your data and does "
+"not use these levels."
+msgstr ""
+"Il punteggio di maturità complessivo è calcolato a parte dai vostri dati e "
+"non usa questi livelli."
+
+msgid ""
+"A gap is the target level minus the current level. The largest gaps come "
+"first, then the nearest target dates: they are the priorities of the roadmap "
+"to present to management. \"Create the action\" opens a pre-filled "
+"opportunity for improvement that you review and save yourself."
+msgstr ""
+"Un divario è il livello obiettivo meno il livello attuale. I divari più "
+"grandi vengono prima, poi le scadenze più vicine: sono le priorità della "
+"roadmap da presentare alla direzione. «Crea l'azione» apre un'opportunità di "
+"miglioramento precompilata che rileggete e salvate voi stessi."
+
+msgid "All (ISO/IEC 27001 Annex A)"
+msgstr "Tutti (Allegato A della ISO/IEC 27001)"
+
+msgid "Average level of the controls of each theme that have both levels."
+msgstr "Livello medio delle misure di ogni tema che hanno entrambi i livelli."
+
+msgid "Current and target levels by theme"
+msgstr "Livelli attuale e obiettivo per tema"
+
+msgid "Gaps to close"
+msgstr "Divari da colmare"
+
+msgid "No gap matches these filters."
+msgstr "Nessun divario corrisponde a questi filtri."
+
+msgid ""
+"No gap: fill in the current and target levels in the \"Levels by control\" "
+"tab; the controls whose target is not reached are listed here."
+msgstr ""
+"Nessun divario: compilate i livelli attuale e obiettivo nella scheda "
+"«Livelli per misura»; le misure il cui obiettivo non è raggiunto sono "
+"elencate qui."
+
+msgid "Target date"
+msgstr "Scadenza"
+
+msgid "Target date passed"
+msgstr "Scadenza superata"
+
+msgid "Target level"
+msgstr "Livello obiettivo"
+
+msgid "The chart appears once controls have both a current and a target level."
+msgstr ""
+"Il grafico appare non appena delle misure hanno sia un livello attuale sia "
+"un livello obiettivo."
+
+msgid "Current level at the previous campaign"
+msgstr "Livello attuale nella campagna precedente"
+
+msgid ""
+"For each control, choose the level reached today and the level aimed for, on "
+"the scale below, then click \"Save the levels\" at the bottom of the page. A "
+"level left on \"Not assessed\" is simply ignored. These levels change "
+"neither the implementation status of the control nor the maturity score."
+msgstr ""
+"Per ogni misura, scegliete il livello raggiunto oggi e il livello mirato "
+"sulla scala qui sotto, poi fate clic su «Salva i livelli» in fondo alla "
+"pagina. Un livello lasciato su «Non valutato» viene semplicemente ignorato. "
+"Questi livelli non cambiano né lo stato di attuazione della misura né il "
+"punteggio di maturità."
+
+msgid "Implementation status in the SoA"
+msgstr "Stato di attuazione nella SoA"
+
+msgid ""
+"No applicable control in the Statement of Applicability of this entity when "
+"the campaign was created. Declare the applicable controls in the SoA, then "
+"create a new campaign."
+msgstr ""
+"Nessuna misura applicabile nella dichiarazione di applicabilità di questa "
+"entità alla creazione della campagna. Dichiarate le misure applicabili nella "
+"SoA, poi create una nuova campagna."
+
+msgid "No target"
+msgstr "Nessun obiettivo"
+
+msgid "Open the Statement of Applicability"
+msgstr "Aprire la dichiarazione di applicabilità"
+
+msgid "Reached"
+msgstr "Raggiunto"
+
+msgid "Save the levels"
+msgstr "Salva i livelli"
+
+msgid ""
+"Targets, dates, owners and justifications come from the previous campaign: "
+"adjust them if needed."
+msgstr ""
+"Obiettivi, scadenze, responsabili e giustificazioni provengono dalla "
+"campagna precedente: adattateli se necessario."
+
+#, php-format
+msgid ""
+"Action proposed from a maturity gap (%s): review and adapt each field, check "
+"the owner and the due date, then click \"Add\". Nothing is created before, "
+"and the gap is linked to this action once it is saved."
+msgstr ""
+"Azione proposta da un divario di maturità (%s): rileggete e adattate ogni "
+"campo, verificate il responsabile e la scadenza, poi fate clic su "
+"«Aggiungi». Nulla viene creato prima, e il divario è collegato a questa "
+"azione una volta salvata."
+
+msgid ""
+"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
+"neither the implementation status of the controls nor the maturity score."
+msgstr ""
+"Livelli da 0 (inesistente) a 5 (ottimizzato). Questi livelli facoltativi non "
+"cambiano né lo stato di attuazione delle misure né il punteggio di maturità."
+
+msgid "No previous campaign in this entity."
+msgstr "Nessuna campagna precedente in questa entità."

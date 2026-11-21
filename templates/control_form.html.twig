@@ -640,23 +640,6 @@
       {{ fields.htmlField('', disk_encryption_html, __('Disk encryption', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
-   {# Issue #852 : couverture MFA par compte (A.8.5, A.5.17), dans les entités de la personne. #}
-   {% if mfa_coverage is defined and mfa_coverage is not null %}
-      {% set mfa_coverage_html %}
-         <div id="grc-mfa-coverage-evidence">
-            {% set mfa_color = mfa_coverage.rate is null ? 'secondary' : (mfa_coverage.rate >= 95 ? 'success' : (mfa_coverage.rate >= 80 ? 'warning' : 'danger')) %}
-            <span class="badge bg-{{ mfa_color }}-subtle text-{{ mfa_color }}-emphasis me-1"><i class="ti ti-shield-check me-1"></i>{{ mfa_coverage.rate is null ? __('MFA rate: not measured', 'grcmanager') : __('MFA rate: %d%%', 'grcmanager')|format(mfa_coverage.rate) }}</span>
-            {% if mfa_coverage.admin_rate is not null %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-crown me-1"></i>{{ __('Administrators: %d%%', 'grcmanager')|format(mfa_coverage.admin_rate) }}</span>{% endif %}
-            {% if mfa_coverage.remote_rate is not null %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-world-share me-1"></i>{{ __('Remote access: %d%%', 'grcmanager')|format(mfa_coverage.remote_rate) }}</span>{% endif %}
-            <span class="badge {{ mfa_coverage.admins_without_mfa > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-crown-off me-1"></i>{{ __('Administrators without MFA: %d', 'grcmanager')|format(mfa_coverage.admins_without_mfa) }}</span>
-            <span class="badge {{ mfa_coverage.gaps > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d gap', '%d gaps', mfa_coverage.gaps, 'grcmanager')|format(mfa_coverage.gaps) }}</span>
-            <span class="small text-muted me-2">{{ __('Computed on %s', 'grcmanager')|format(mfa_coverage.date) }}</span>
-            <a href="{{ mfa_coverage.url }}">{{ __('View the details', 'grcmanager') }}</a>
-         </div>
-      {% endset %}
-      {{ fields.htmlField('', mfa_coverage_html, __('MFA coverage', 'grcmanager'), {'full_width': true}) }}
-   {% endif %}
-
    {# Issue #854 : retard des correctifs de sécurité (A.8.8, A.8.19), dans les entités de la personne. #}
    {% if patch_compliance is defined and patch_compliance is not null %}
       {% set patch_compliance_html %}
@@ -704,6 +687,20 @@
          {% include '@grcmanager/_server_management_evidence.html.twig' with {'evidence': server_management} only %}
       {% endset %}
       {{ fields.htmlField('', server_management_html, __('Server management controllers', 'grcmanager'), {'full_width': true}) }}
+   {# Issue #846 : droits sur les partages de fichiers Windows (A.5.15, A.5.18, A.8.3), dans les entités de la personne. #}
+   {% if share_access is defined and share_access is not null %}
+      {% set share_access_html %}
+         <div id="grc-share-access-evidence">
+            <span class="badge bg-azure-subtle text-azure-emphasis me-1"><i class="ti ti-folder-share me-1"></i>{{ __('%d file share(s) imported', 'grcmanager')|format(share_access.shares) }}</span>
+            <span class="badge {{ share_access.gap_shares > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d share(s) with a gap', 'grcmanager')|format(share_access.gap_shares) }}</span>
+            {% if share_access.broad_write > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-world me-1"></i>{{ __('%d right(s) letting everyone modify', 'grcmanager')|format(share_access.broad_write) }}</span>{% endif %}
+            {% if share_access.stale_accounts > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-user-x me-1"></i>{{ __('%d right(s) of deleted or disabled accounts', 'grcmanager')|format(share_access.stale_accounts) }}</span>{% endif %}
+            <span class="badge {{ share_access.reviewed < share_access.shares ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-checklist me-1"></i>{{ __('%1$d of %2$d share(s) reviewed in the last 12 months', 'grcmanager')|format(share_access.reviewed, share_access.shares) }}</span>
+            <span class="small text-muted me-2">{{ __('Computed on %s', 'grcmanager')|format(share_access.date) }}</span>
+            <a href="{{ share_access.url }}">{{ __('View the details', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', share_access_html, __('File share access rights', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
    {# Issue #604 : simulations d'hameçonnage (A.6.3), taux agrégés et tendance. #}
@@ -713,6 +710,15 @@
       {% endset %}
       {{ fields.htmlField('', phishing_html, __('Phishing simulations', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+
+   {# Cadres de preuve des fonctionnalités (src/Feature/*Feature.php, ControlEvidenceProvider) :
+      une nouvelle fonctionnalité ajoute le sien sans modifier ce gabarit. #}
+   {% for box in feature_evidence|default([]) %}
+      {% set box_html %}
+         {% include box.template with {'evidence': box.data} only %}
+      {% endset %}
+      {{ fields.htmlField('', box_html, box.title, {'full_width': true}) }}
+   {% endfor %}
 
    {# Issue #835 : audit de sécurité de l'Active Directory (PingCastle), dernier rapport de chaque domaine. #}
    {% if ad_security_audit is defined and ad_security_audit is not null %}

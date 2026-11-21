@@ -36,7 +36,6 @@ fonctions :
   et au super-admin, comme la liste `READABLE`), `$SEE_B` et `$DENY`.
 - `xss-check.sh` : `$P`, `id`, `xid`, `check <libellé> <url>`, `tab`.
 
-Le contrôle commun de couverture (glpi-plugin-security) exige que le chemin de chaque page de
-`front/` apparaisse dans la matrice. À partir de sa version qui lit `access-matrix.d/`, le chemin
-cité dans le fragment suffit ; d'ici là, garder la page dans la liste `READABLE` de
-`access-matrix.sh` (une ligne).
+Le contrôle commun de couverture (glpi-plugin-security v1.9.1 et suivantes) trouve le chemin d'une
+page dans `access-matrix.d/` : une page testée dans un fragment n'a pas à figurer dans la liste
+`READABLE` d'`access-matrix.sh` (appeler `readable front/<page>.php` dans le fragment).

@@ -138,9 +138,9 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/endoflife.export.php front/hardwarewarranty.export.php
   front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
-  front/diskencryption.php front/mfacoverage.php front/patchcompliance.php front/logcoverage.php
-  front/configcompliance.php front/adsecurityaudit.php
-  front/servermanagement.php
+  front/diskencryption.php front/patchcompliance.php front/logcoverage.php
+  front/shareaccess.php front/shareaccess.php?script=1 front/shareaccess.php?example=1
+  front/configcompliance.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
@@ -167,6 +167,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/officialcontact.php front/officialcontact.export.php
   front/operatingprocedure.php front/operatingprocedure.export.php
   front/physicalsecurity.php front/physicalsecurityassessment.php
+  front/maturitycampaign.php
   front/crisismessagetemplate.php front/crisismessagetemplate.form.php
   front/securedevelopment.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf
@@ -198,7 +199,8 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/managementreviewaction.form.php front/responsibilityactivity.form.php \
     front/ismsfunction.form.php front/competence.form.php front/competencedeclaration.form.php \
     front/crisismessagetemplate.form.php front/crisismessagerecipient.form.php \
-    front/crisisscenario.form.php front/physicalsecurityassessment.form.php front/phishingcampaign.form.php; do
+    front/crisisscenario.form.php front/physicalsecurityassessment.form.php front/phishingcampaign.form.php \
+    front/maturitycampaign.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   # Issue #772, lot 2 : cocher le plan d'audit de l'organisme exige de modifier l'audit.
@@ -242,8 +244,12 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   done
   expect "front/ismsrequirement.form.php : modification" "$1" \
     "$(code -d "update=1&id=1&status=done&_glpi_csrf_token=$(csrf)" "$P/ismsrequirement.form.php")"
-  expect "front/supplierassessment.form.php : questionnaire" "$1" \
-    "$(code -d "save=1&id=$(id supplierrisk)&_glpi_csrf_token=$(csrf)" "$P/supplierassessment.form.php")"
+  # Issue #864 : questionnaires fournisseurs (front/supplierquestionnairetemplate.php ; le reste dans
+  # le fragment access-matrix.d/864-supplier-questionnaires.sh).
+  expect "front/supplierquestionnairetemplate.form.php : creation d'un modele" "$1" \
+    "$(code -d "add=1&name=securite&_glpi_csrf_token=$(csrf)" "$P/supplierquestionnairetemplate.form.php")"
+  expect "front/supplierevaluation.form.php : creation d'une evaluation" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_supplierrisks_id=$(id supplierrisk)&plugin_grcmanager_supplierquestionnairetemplates_id=$(id questionnaire_A)&_glpi_csrf_token=$(csrf)" "$P/supplierevaluation.form.php")"
   expect "front/assetclassification.form.php : classification" "$2" \
     "$(code -d "save=1&itemtype=Computer&items_id=$(id computer_A)&confidentiality=high&integrity=high&availability=high&_glpi_csrf_token=$(csrf)" "$P/assetclassification.form.php")"
   expect "front/securityincident_item.form.php : lier un actif" "$1" \
@@ -1228,6 +1234,8 @@ expect "fiche de l'evaluation de A" 200 "$(code "$P/physicalsecurityassessment.f
 # Lot 2 : rapport PDF de l'evaluation, meme droit et meme entite que la fiche.
 expect "front/physicalsecurityassessment.pdf.php : rapport de B" "$DENY" "$(code "$P/physicalsecurityassessment.pdf.php?id=$(id physical_B)")"
 expect "front/physicalsecurityassessment.pdf.php : rapport de A" 200 "$(code "$P/physicalsecurityassessment.pdf.php?id=$(id physical_A)")"
+# Issue #603 : rapport PDF d'une campagne de maturite (autres cas dans access-matrix.d/603-*).
+expect "front/maturitycampaign.pdf.php : rapport de B" "$DENY" "$(code "$P/maturitycampaign.pdf.php?id=$(id maturity_B)")"
 contains "onglet grille de l'evaluation de B" "grc-physical-checklist" $SEE_B \
   "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id physical_B)")"
 contains "onglet zones de l'evaluation de B" "Salle serveurs securite B" $SEE_B \

@@ -1,0 +1,57 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #864 : modèle de questionnaire fournisseur (nom, domaine, actif) ; les questions sont dans
+   l'onglet « Questions ». #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {% if not item.isNewItem() %}
+      {% set badge = badges[item.fields['domain']] ?? badges['other'] %}
+      <div class="col-12 mb-3" id="grc-template-summary">
+         <div class="d-flex flex-wrap gap-2 align-items-center">
+            <span class="badge {{ badge[0] }} fs-5"><i class="ti {{ badge[1] }} me-1"></i>{{ domains[item.fields['domain']] ?? item.fields['domain'] }}</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis fs-5" title="{{ __('Increases each time the questions change. An evaluation keeps the questions of the version it was started with.', 'grcmanager') }}"><i class="ti ti-versions me-1"></i>{{ __('Version %d', 'grcmanager')|format(item.fields['version']) }}</span>
+            <span class="badge bg-blue-subtle text-blue-emphasis fs-5"><i class="ti ti-list-details me-1"></i>{{ _n('%d question', '%d questions', questions, 'grcmanager')|format(questions) }}</span>
+            <span class="badge bg-teal-subtle text-teal-emphasis fs-5"><i class="ti ti-clipboard-check me-1"></i>{{ _n('%d evaluation', '%d evaluations', evaluations, 'grcmanager')|format(evaluations) }}</span>
+            {% if item.fields['is_legacy'] %}
+               <span class="badge bg-secondary-subtle text-secondary-emphasis fs-5" title="{{ __('The twelve questions of the former security questionnaire. It can be deactivated but not deleted.', 'grcmanager') }}"><i class="ti ti-archive me-1"></i>{{ __('Taken over', 'grcmanager') }}</span>
+            {% endif %}
+            {% if not item.fields['is_active'] %}
+               <span class="badge bg-yellow-subtle text-yellow-emphasis fs-5"><i class="ti ti-player-pause me-1"></i>{{ __('Inactive: not offered for new evaluations', 'grcmanager') }}</span>
+            {% endif %}
+            {% if fingerprint %}
+               <span class="text-muted small ms-auto" title="{{ __('Fingerprint of the questions, used to recognize a questionnaire file returned by a supplier.', 'grcmanager') }}"><i class="ti ti-fingerprint me-1"></i>{{ fingerprint }}</span>
+            {% endif %}
+         </div>
+      </div>
+   {% endif %}
+
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'required': true,
+      'add_field_html': hints.hint(__('For example "Hosting provider security", "Personal data processor (GDPR art. 28)" or "AI service provider".', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('domain', item.fields['domain'], domains, __('Domain', 'grcmanager'), {
+      'add_field_html': hints.hint(__('The last completed evaluation of the "Information security" domain gives the score shown on the supplier risk and on the dashboard.', 'grcmanager')),
+   }) }}
+   {{ fields.checkboxField('is_active', item.fields['is_active'], __('Active'), {
+      'add_field_html': hints.hint(__('Only active templates are offered when an evaluation is started.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+   {% if item.isNewItem() %}
+      <div class="col-12 form-hint"><i class="ti ti-info-circle me-1"></i>{{ __('Add the template, then write its questions in the "Questions" tab.', 'grcmanager') }}</div>
+   {% endif %}
+{% endblock %}
