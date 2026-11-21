@@ -1,0 +1,219 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #846 : fiche d'un partage de fichiers : classification, propriétaire, droits par dossier,
+   écarts, droits retirés au dernier import et revue des droits par le propriétaire. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/share_access_macros.html.twig' as sharem %}
+{% set decision_colors = {'pending': 'secondary', 'keep': 'success', 'modify': 'warning', 'remove': 'danger'} %}
+
+<div id="grc-share-detail">
+   <div class="mb-3">
+      <a class="btn btn-sm btn-outline-secondary" href="{{ list_url }}"><i class="ti ti-arrow-left me-1"></i>{{ __('All shares', 'grcmanager') }}</a>
+   </div>
+
+   <div class="card mb-3">
+      <div class="card-header">
+         <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
+            <i class="ti ti-folder-share"></i><span id="grc-share-label">{{ share.label }}</span>
+            {{ sharem.score(share.score, scores[share.score_level]) }}
+            {% if not share.is_present %}<span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-folder-off me-1"></i>{{ __('Absent from the last import', 'grcmanager') }}</span>{% endif %}
+         </h3>
+      </div>
+      <div class="card-body">
+         <div class="row g-3">
+            <div class="col-md-6 small">
+               {% if share.share_path %}<div><i class="ti ti-folder me-1"></i>{{ __('Local path', 'grcmanager') }} : {{ share.share_path }}</div>{% endif %}
+               {% if share.owner %}<div><i class="ti ti-user-cog me-1"></i>{{ __('NTFS owner', 'grcmanager') }} : {{ share.owner }}</div>{% endif %}
+               <div><i class="ti ti-calendar me-1"></i>{{ __('Last import', 'grcmanager') }} : {{ share.imported }}</div>
+               <div class="mt-2">{{ sharem.classification(share.classification, cid_levels) }}</div>
+            </div>
+            <div class="col-md-6">
+               {% for code, count in share.gaps %}
+                  {% set info = gap_infos[code] %}
+                  <div class="mb-1"><span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-1"><i class="ti ti-alert-triangle me-1"></i>{{ info.label }}{% if count > 1 %} : {{ count }}{% endif %}</span><span class="small text-muted">{{ info.help }}</span></div>
+               {% else %}
+                  <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('No gap', 'grcmanager') }}</span>
+               {% endfor %}
+               {% if added > 0 %}<div class="mt-2"><span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-plus me-1"></i>{{ _n('%d right added at the last import', '%d rights added at the last import', added, 'grcmanager')|format(added) }}</span></div>{% endif %}
+            </div>
+         </div>
+      </div>
+   </div>
+
+   {# Classification, propriétaire désigné, commentaire. #}
+   {% if can_manage %}
+      <div class="card mb-3" id="grc-share-settings">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-tags me-2"></i>{{ __('Classification and owner', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            <form method="post" action="{{ action }}">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="share" value="{{ share.id }}">
+               <div class="row g-2">
+                  {% for axis, label in {'confidentiality': __('Confidentiality', 'grcmanager'), 'integrity': __('Integrity', 'grcmanager'), 'availability': __('Availability', 'grcmanager')} %}
+                     <div class="col-md-4">
+                        <label class="form-label" for="grc-share-{{ axis }}">{{ label }}</label>
+                        <select class="form-select" id="grc-share-{{ axis }}" name="{{ axis }}">
+                           <option value="">{{ __('Not classified', 'grcmanager') }}</option>
+                           {% for value, level in cid_levels %}<option value="{{ value }}"{% if share.classification[axis] == value %} selected{% endif %}>{{ level }}</option>{% endfor %}
+                        </select>
+                     </div>
+                  {% endfor %}
+               </div>
+               <div class="form-hint mb-2">{{ __('Gaps weigh more on a share classified high, and broken inheritance is reported only on a share whose confidentiality or integrity is medium or high.', 'grcmanager') }}</div>
+               {{ fields.dropdownField('User', 'users_id_owner', share.users_id_owner, __('Owner who reviews the rights', 'grcmanager'), {
+                  'right': 'all',
+                  'entity': -1,
+               }) }}
+               {{ fields.textareaField('comment', share.comment, __('Comment', 'grcmanager')) }}
+               <button type="submit" class="btn btn-primary" name="save_share" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+            </form>
+         </div>
+      </div>
+   {% else %}
+      <p class="small mb-3"><i class="ti ti-user-star me-1"></i>{{ __('Owner who reviews the rights', 'grcmanager') }} : {{ share.owner_name ?: __('None', 'grcmanager') }}</p>
+   {% endif %}
+
+   {# Revue des droits du partage par son propriétaire. #}
+   <div class="card mb-3" id="grc-share-review">
+      <div class="card-header">
+         <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
+            <i class="ti ti-checklist"></i>{{ __('Review of the rights', 'grcmanager') }}
+            {% if share.review_open %}
+               <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-progress me-1"></i>{{ __('In progress', 'grcmanager') }}</span>
+            {% elseif share.last_review %}
+               <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ __('Last review: %s', 'grcmanager')|format(share.last_review) }}</span>
+            {% else %}
+               <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Never reviewed', 'grcmanager') }}</span>
+            {% endif %}
+         </h3>
+      </div>
+      <div class="card-body">
+         <p class="small">{{ __('During a review, the owner decides for each right: keep it, change it or remove it. Decisions are recorded with their author and date; GLPI changes nothing on the server: the administrator applies the changes, and the next import shows the removed rights.', 'grcmanager') }}</p>
+         {% if share.review_open %}
+            <p class="small mb-2">{{ _n('%d right still to review.', '%d rights still to review.', share.pending, 'grcmanager')|format(share.pending) }}</p>
+         {% endif %}
+         <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-2">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="share" value="{{ share.id }}">
+            {% if can_manage and not share.review_open and share.is_present %}
+               <button type="submit" class="btn btn-primary" name="start_review" value="1"{% if share.users_id_owner == 0 %} disabled title="{{ __('Designate the owner of the share first: they review its rights.', 'grcmanager') }}"{% endif %}><i class="ti ti-player-play me-1"></i>{{ __('Start a review', 'grcmanager') }}</button>
+            {% endif %}
+            {% if can_decide %}
+               <button type="submit" class="btn btn-success" name="close_review" value="1"{% if share.pending > 0 %} disabled{% endif %}><i class="ti ti-lock-check me-1"></i>{{ __('Close the review', 'grcmanager') }}</button>
+            {% endif %}
+         </form>
+      </div>
+   </div>
+
+   {# Droits par dossier. #}
+   {% for folder in folders %}
+      <div class="card mb-3 grc-share-folder">
+         <div class="card-header">
+            <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
+               <i class="ti {{ folder.depth == 0 ? 'ti-folder-root' : 'ti-folder' }}"></i>{{ folder.folder }}
+               {% if folder.depth > 0 %}<span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Level %d', 'grcmanager')|format(folder.depth) }}</span>{% endif %}
+               {% if folder.is_protected and folder.depth > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-link-off me-1"></i>{{ __('Inheritance broken', 'grcmanager') }}</span>{% endif %}
+               {% if folder.owner %}<span class="small text-muted">{{ __('Owner: %s', 'grcmanager')|format(folder.owner) }}</span>{% endif %}
+            </h3>
+         </div>
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Account', 'grcmanager') }}</th>
+                  <th>{{ __('Right', 'grcmanager') }}</th>
+                  <th>{{ __('Gaps', 'grcmanager') }}</th>
+                  <th>{{ __('Decision', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for ace in folder.aces %}
+                  {% set kind = kinds[ace.kind] ?? kinds['unknown'] %}
+                  {% set level = levels[ace.level] ?? levels['other'] %}
+                  <tr id="grc-share-ace-{{ ace.id }}">
+                     <td>
+                        <div>{{ ace.identity }}</div>
+                        <span class="badge bg-{{ kind.color }}-subtle text-{{ kind.color }}-emphasis me-1"><i class="{{ kind.icon }} me-1"></i>{{ kind.label }}</span>
+                        {% if ace.user %}<a class="small" href="{{ ace.user.url }}"><i class="ti ti-link me-1"></i>{{ ace.user.name }}</a>{% endif %}
+                        {% if ace.group %}<a class="small" href="{{ ace.group.url }}"><i class="ti ti-link me-1"></i>{{ ace.group.name }}</a>{% endif %}
+                        {% if ace.is_new %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-sparkles me-1"></i>{{ __('New', 'grcmanager') }}</span>{% endif %}
+                     </td>
+                     <td>
+                        {% if ace.is_deny %}<span class="badge bg-dark-subtle text-dark-emphasis me-1"><i class="ti ti-ban me-1"></i>{{ __('Denied', 'grcmanager') }}</span>{% endif %}
+                        <span class="badge bg-{{ level.color }}-subtle text-{{ level.color }}-emphasis" title="{{ ace.rights }}"><i class="{{ level.icon }} me-1"></i>{{ level.label }}</span>
+                        <div class="small text-muted">
+                           {{ ace.scope == 'share' ? __('Share permission', 'grcmanager') : __('NTFS permission', 'grcmanager') }}{% if ace.is_inherited %} · {{ __('inherited', 'grcmanager') }}{% endif %}
+                        </div>
+                     </td>
+                     <td>
+                        {% for gap in ace.gaps %}
+                           {% set info = gap_infos[gap] %}
+                           <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-1 mb-1" title="{{ info.help }}">{{ info.label }}</span>
+                        {% endfor %}
+                     </td>
+                     <td class="small">
+                        {% if ace.decision %}
+                           {% set dcolor = decision_colors[ace.decision] ?? 'secondary' %}
+                           <span class="badge bg-{{ dcolor }}-subtle text-{{ dcolor }}-emphasis">{{ decisions[ace.decision] ?? ace.decision }}</span>
+                           {% if ace.decided_by %}<div class="text-muted">{{ ace.decided_by }}, {{ ace.decided_on }}</div>{% endif %}
+                           {% if ace.comment %}<div>{{ ace.comment }}</div>{% endif %}
+                        {% endif %}
+                        {% if can_decide %}
+                           <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-1 mt-1">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="share" value="{{ share.id }}">
+                              <input type="hidden" name="ace" value="{{ ace.id }}">
+                              <select class="form-select form-select-sm w-auto" name="decision" aria-label="{{ __('Decision', 'grcmanager') }}">
+                                 {% for value in ['keep', 'modify', 'remove'] %}<option value="{{ value }}"{% if ace.decision == value %} selected{% endif %}>{{ decisions[value] }}</option>{% endfor %}
+                              </select>
+                              <input type="text" class="form-control form-control-sm w-auto" name="decision_comment" value="{{ ace.comment }}" maxlength="2000" placeholder="{{ __('Comment (required to change or remove)', 'grcmanager') }}">
+                              <button type="submit" class="btn btn-sm btn-outline-primary" name="decide" value="1"><i class="ti ti-check me-1"></i>{{ __('Record', 'grcmanager') }}</button>
+                           </form>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% else %}
+      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('No right in the last import of this share.', 'grcmanager') }}</div>
+   {% endfor %}
+
+   {# Droits retirés depuis l'import précédent. #}
+   {% if removed is not empty %}
+      <div class="card mb-3" id="grc-share-removed">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-user-minus me-2"></i>{{ __('Rights removed since the previous import', 'grcmanager') }}</h3>
+            <div class="card-actions"><span class="badge bg-success-subtle text-success-emphasis">{{ removed|length }}</span></div>
+         </div>
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr><th>{{ __('Folder', 'grcmanager') }}</th><th>{{ __('Account', 'grcmanager') }}</th><th>{{ __('Right', 'grcmanager') }}</th><th>{{ __('Decision', 'grcmanager') }}</th></tr></thead>
+               <tbody>
+               {% for ace in removed %}
+                  {% set level = levels[ace.level] ?? levels['other'] %}
+                  <tr>
+                     <td class="small">{{ ace.folder }}</td>
+                     <td>{{ ace.identity }}</td>
+                     <td><span class="badge bg-{{ level.color }}-subtle text-{{ level.color }}-emphasis"><i class="{{ level.icon }} me-1"></i>{{ level.label }}</span></td>
+                     <td class="small">{% if ace.decision %}{{ decisions[ace.decision] ?? ace.decision }}{% endif %}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+</div>
