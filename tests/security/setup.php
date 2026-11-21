@@ -411,6 +411,11 @@ if ($mode === 'xss') {
     ], (int) $ids['physical_zone_A']);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
+    // Issue #868 : la même preuve, expirée sur la mesure de A, est citée par la page du dossier de preuves.
+    $DB->updateOrInsert('glpi_plugin_grcmanager_evidences', ['valid_until' => '2020-01-31'], [
+        'itemtype' => 'GlpiPlugin\Grcmanager\Control', 'items_id' => (int) $ids['control'],
+        'documents_id' => (int) $ids['document_A'],
+    ]);
     // Issue #380 : nom de la preuve envoyée depuis le formulaire, citée par un test (onglet).
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['evidence_upload']]);
     $insert('controltests', [

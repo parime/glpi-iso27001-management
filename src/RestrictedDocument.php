@@ -189,6 +189,10 @@ class RestrictedDocument
         if ($itemtype === PolicyAcknowledgement::class) {
             return PolicyAcknowledgement::canReadReport($source['items_id']);
         }
+        // Issue #868 : dossier de preuves, à son auteur et à qui peut lire chacune de ses pièces.
+        if ($itemtype === EvidencePack::class) {
+            return EvidencePack::canRead($source['items_id']);
+        }
         if (!is_a($itemtype, CommonDBTM::class, true)) {
             return false;
         }
