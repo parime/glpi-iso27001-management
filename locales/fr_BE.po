@@ -35340,3 +35340,6 @@ msgstr "Répondez aux questions, puis acceptez ou refusez chaque proposition, un
 
 msgid "ISO/IEC 27001, clause 6.1.3 c) and d)"
 msgstr "ISO/IEC 27001, clause 6.1.3 c) et d)"
+
+msgid "Answer given"
+msgstr "Réponse"

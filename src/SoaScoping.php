@@ -440,7 +440,7 @@ class SoaScoping extends CommonGLPI
         $statuses = self::statusStyles();
         $answerLabels = [Rules::ANSWER_YES => __('Yes'), Rules::ANSWER_NO => __('No')];
         $answers = self::answers($entityId);
-        $lines = [[__('Question', 'grcmanager'), __('Answer', 'grcmanager')]];
+        $lines = [[__('Question', 'grcmanager'), __('Answer given', 'grcmanager')]];
         foreach (self::questions() as $key => $question) {
             $lines[] = [$question['label'], $answerLabels[$answers[$key] ?? ''] ?? __('Not answered', 'grcmanager')];
         }

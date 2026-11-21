@@ -35617,3 +35617,6 @@ msgstr "Beantworten Sie die Fragen und nehmen Sie dann jeden Vorschlag an oder l
 
 msgid "ISO/IEC 27001, clause 6.1.3 c) and d)"
 msgstr "ISO/IEC 27001, Abschnitt 6.1.3 c) und d)"
+
+msgid "Answer given"
+msgstr "Antwort"

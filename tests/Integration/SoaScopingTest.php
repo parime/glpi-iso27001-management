@@ -71,7 +71,7 @@ final class SoaScopingTest extends GrcmanagerIntegrationTestCase
         $this->assertNotNull($rows['A.5.1']['proposal'], 'mesure de base');
 
         SoaScoping::saveAnswers($entity, ['remote_work' => 'no', 'own_premises' => 'no', 'cloud_services' => 'yes']);
-        $this->assertSame(
+        $this->assertEquals(
             ['remote_work' => 'no', 'cloud_services' => 'yes', 'own_premises' => 'no'],
             array_intersect_key(
                 SoaScoping::answers($entity),

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 20:36+0000\n"
+"POT-Creation-Date: 2026-11-21 21:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -633,7 +633,7 @@ msgstr ""
 #: front/controlblocker.php:64 src/Control.php:1013 src/ControlTest.php:1031
 #: src/NotificationTargetAuditEvidenceRequest.php:156
 #: src/NotificationTargetControl.php:144 src/PolicyCoverage.php:674
-#: src/SoaScoping.php:447 src/SoaScoping.php:462
+#: src/SoaScoping.php:449 src/SoaScoping.php:464
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/control_form.html.twig templates/control_test_due.html.twig
 #: templates/maturity_campaign_compare_tab.html.twig
@@ -1619,12 +1619,12 @@ msgid ""
 "Statement of Applicability until you accept it."
 msgstr ""
 
-#: front/soascoping.php:55
+#: front/soascoping.php:56
 #, php-format
 msgid "Proposals accepted: %d."
 msgstr ""
 
-#: front/soascoping.php:56
+#: front/soascoping.php:57
 #, php-format
 msgid "Proposals rejected: %d."
 msgstr ""
@@ -3035,7 +3035,7 @@ msgid "Annex"
 msgstr ""
 
 #: src/AcnRequirement.php:753 src/Control.php:1036 src/RecyfRequirement.php:555
-#: src/SoaScoping.php:447 templates/acn_register.html.twig
+#: src/SoaScoping.php:449 templates/acn_register.html.twig
 #: templates/acn_requirement_form.html.twig templates/control_form.html.twig
 #: templates/pdf/acn_report.html.twig templates/pdf/recyf_report.html.twig
 #: templates/pdf/soa_report.html.twig templates/recyf_register.html.twig
@@ -3046,7 +3046,7 @@ msgstr ""
 #: src/AcnRequirement.php:754 src/ContextItem.php:853 src/ContextItem.php:943
 #: src/Control.php:1052 src/MaturityAssessment.php:260 src/NetworkFlow.php:285
 #: src/RecyfRequirement.php:556 src/RiskRegisterImport.php:610
-#: src/SoaScoping.php:448 templates/acn_requirement_form.html.twig
+#: src/SoaScoping.php:450 templates/acn_requirement_form.html.twig
 #: templates/application_security_tab.html.twig
 #: templates/audit_programme_tab.html.twig
 #: templates/context_item_form.html.twig templates/control_form.html.twig
@@ -7124,7 +7124,7 @@ msgstr ""
 
 #: src/ContextItem.php:852 src/ContextItem.php:923
 #: src/NotificationTargetContextItem.php:140
-#: src/NotificationTargetPolicyVersion.php:142 src/SoaScoping.php:462
+#: src/NotificationTargetPolicyVersion.php:142 src/SoaScoping.php:464
 #: templates/context_item_form.html.twig templates/context_linked_tab.html.twig
 #: templates/data_breach_form.html.twig
 #: templates/official_contact_history_tab.html.twig
@@ -19231,30 +19231,27 @@ msgid ""
 "scoping answer excludes it."
 msgstr ""
 
-#: src/SoaScoping.php:253
+#: src/SoaScoping.php:254
 #, php-format
 msgid "Applicable: %s (SoA scoping questionnaire)."
 msgstr ""
 
-#: src/SoaScoping.php:257
+#: src/SoaScoping.php:258
 #, php-format
 msgid ""
 "Not applicable: %s (SoA scoping questionnaire). To be reviewed if this "
 "changes."
 msgstr ""
 
-#: src/SoaScoping.php:323
+#: src/SoaScoping.php:325
 msgid "Baseline control"
 msgstr ""
 
-#: src/SoaScoping.php:441 templates/control_list_header.html.twig
-#: templates/data_subject_request_form.html.twig
-#: templates/policy_approval_tab.html.twig
-#: templates/tabs/supplier_evaluation_answers.html.twig
-msgid "Answer"
+#: src/SoaScoping.php:443
+msgid "Answer given"
 msgstr ""
 
-#: src/SoaScoping.php:441 src/SupplierEvaluationFile.php:114
+#: src/SoaScoping.php:443 src/SupplierEvaluationFile.php:114
 #: src/SupplierQuestionnaireTemplate.php:107
 #: templates/supplier_evaluation_import.html.twig
 #: templates/tabs/supplier_evaluation_answers.html.twig
@@ -19264,31 +19261,31 @@ msgid_plural "Questions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/SoaScoping.php:443 templates/soa_scoping.html.twig
+#: src/SoaScoping.php:445 templates/soa_scoping.html.twig
 msgid "Not answered"
 msgstr ""
 
-#: src/SoaScoping.php:448 src/SoaScoping.php:463
+#: src/SoaScoping.php:450 src/SoaScoping.php:465
 msgid "Proposed applicability"
 msgstr ""
 
-#: src/SoaScoping.php:449
+#: src/SoaScoping.php:451
 msgid "Basis of the proposal"
 msgstr ""
 
-#: src/SoaScoping.php:449 src/SoaScoping.php:464
+#: src/SoaScoping.php:451 src/SoaScoping.php:466
 msgid "Proposed justification"
 msgstr ""
 
-#: src/SoaScoping.php:450
+#: src/SoaScoping.php:452
 msgid "Decided by"
 msgstr ""
 
-#: src/SoaScoping.php:450
+#: src/SoaScoping.php:452
 msgid "Decision date"
 msgstr ""
 
-#: src/SoaScoping.php:463
+#: src/SoaScoping.php:465
 msgid "Previous applicability"
 msgstr ""
 
@@ -26740,6 +26737,13 @@ msgstr ""
 #: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
 #, php-format
 msgid "%d partially"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+#: templates/data_subject_request_form.html.twig
+#: templates/policy_approval_tab.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Answer"
 msgstr ""
 
 #: templates/control_list_header.html.twig
