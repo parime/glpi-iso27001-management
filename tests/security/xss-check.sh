@@ -101,6 +101,8 @@ check "preuve developpement securise (A.8.31)" "$P/control.form.php?id=$(xid con
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #847 : ordinateur, outil et algorithme de chiffrement pieges (chiffrement des disques).
 check "front/diskencryption.php"              "$P/diskencryption.php"
+# Issue #854 : ordinateur piege (correctifs de securite).
+check "front/patchcompliance.php"             "$P/patchcompliance.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).
 check "front/parkvulnerability.php?warranty=all" "$P/parkvulnerability.php?warranty=all"
 # Issue #604 : campagne de simulation d'hameconnage piegee (liste et tendance, fiche, onglet Resultats,

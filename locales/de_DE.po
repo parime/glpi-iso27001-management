@@ -29076,3 +29076,158 @@ msgid ""
 msgstr ""
 "Prüfliste, Feststellungen, Maßnahmen und Zonen dieser Bewertung, für den "
 "Auditor."
+
+msgid "Security patches"
+msgstr "Sicherheitspatches"
+
+msgid "Patches overdue"
+msgstr "Patches überfällig"
+
+msgid "The last known patch is older than the target delay of the computer."
+msgstr "Der letzte bekannte Patch ist älter als die Zielfrist des Computers."
+
+msgid "No dated update in the inventory: no inventory agent, or a system whose agent does not report installed updates."
+msgstr "Kein datiertes Update im Inventar: kein Inventaragent oder ein System, dessen Agent installierte Updates nicht meldet."
+
+msgid "The last known patch is within the target delay of the computer."
+msgstr "Der letzte bekannte Patch liegt innerhalb der Zielfrist des Computers."
+
+msgid "A high C, I or A level, or published on the Internet."
+msgstr "Eine hohe Stufe bei V, I oder V, oder im Internet veröffentlicht."
+
+msgid "Important"
+msgstr "Wichtig"
+
+msgid "A medium C, I or A level."
+msgstr "Eine mittlere Stufe bei V, I oder V."
+
+msgid "Standard"
+msgstr "Standard"
+
+msgid "Low or not classified."
+msgstr "Niedrig oder nicht klassifiziert."
+
+msgid "System update"
+msgstr "Systemupdate"
+
+msgid "Package installation"
+msgstr "Paketinstallation"
+
+msgid "No dated update"
+msgstr "Kein datiertes Update"
+
+#, php-format
+msgid "Computers with security patches on time (%)"
+msgstr "Computer mit fristgerechten Sicherheitspatches (%)"
+
+msgid "Computers with security patches on time"
+msgstr "Computer mit fristgerechten Sicherheitspatches"
+
+msgid "Target delays saved."
+msgstr "Zielfristen gespeichert."
+
+msgid "Critical servers with overdue patches"
+msgstr "Kritische Server mit überfälligen Patches"
+
+msgid "Shows, from the GLPI inventory (operating system, version, updates reported by the agent), the date of the last known security patch of each computer and whether it is within the target delay of its criticality. Computers published on the Internet and critical computers come first, with the known vulnerabilities of their system and their end of support."
+msgstr "Zeigt anhand des GLPI-Inventars (Betriebssystem, Version, vom Agenten gemeldete Updates) das Datum des letzten bekannten Sicherheitspatches jedes Computers und ob es innerhalb der Zielfrist seiner Kritikalität liegt. Im Internet veröffentlichte und kritische Computer stehen oben, mit den bekannten Schwachstellen ihres Systems und ihrem Supportende."
+
+msgid "Set the target delay of each criticality, classify the computers (C/I/A tab), patch the late computers, and install the inventory agent on those of unknown state. The page only reads the inventory: it starts no update. Record the result as an effectiveness test of the control to keep the evidence."
+msgstr "Legen Sie die Zielfrist jeder Kritikalität fest, klassifizieren Sie die Computer (Reiter V/I/V), patchen Sie die verspäteten Computer und installieren Sie den Inventaragenten auf denen mit unbekanntem Zustand. Die Seite liest nur das Inventar: Sie startet kein Update. Erfassen Sie das Ergebnis als Wirksamkeitstest der Maßnahme, um den Nachweis zu behalten."
+
+msgid "ISO/IEC 27001, controls A.8.8 and A.8.19"
+msgstr "ISO/IEC 27001, Maßnahmen A.8.8 und A.8.19"
+
+#, php-format
+msgid "Among the %d computers whose last patch is known"
+msgstr "Unter den %d Computern mit bekanntem letztem Patch"
+
+msgid "Computers published on the Internet with overdue patches"
+msgstr "Im Internet veröffentlichte Computer mit überfälligen Patches"
+
+msgid "Target delays by criticality"
+msgstr "Zielfristen nach Kritikalität"
+
+msgid "The criticality of a computer comes from its C/I/A classification (tab of the computer form): the highest of the three levels counts. A computer that a network flow publishes on the Internet is critical. A computer is late when its last known patch is older than the delay of its criticality."
+msgstr "Die Kritikalität eines Computers ergibt sich aus seiner V/I/V-Klassifizierung (Reiter des Computerformulars): Die höchste der drei Stufen zählt. Ein Computer, den ein Netzwerkfluss im Internet veröffentlicht, ist kritisch. Ein Computer ist verspätet, wenn sein letzter bekannter Patch älter als die Frist seiner Kritikalität ist."
+
+msgid "Target delay (days)"
+msgstr "Zielfrist (Tage)"
+
+msgid "Computers"
+msgstr "Computer"
+
+msgid "Patch status by computer"
+msgstr "Patchstatus nach Computer"
+
+msgid "No computer in your entities."
+msgstr "Kein Computer in Ihren Einheiten."
+
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, overdue ones first."
+msgstr "%1$d Computer: Die ersten %2$d werden angezeigt, verspätete zuerst."
+
+msgid "Last known patch"
+msgstr "Letzter bekannter Patch"
+
+msgid "Vulnerabilities and end of support"
+msgstr "Schwachstellen und Supportende"
+
+msgid "Server"
+msgstr "Server"
+
+msgid "Published on the Internet"
+msgstr "Im Internet veröffentlicht"
+
+msgid "Not inventoried"
+msgstr "Nicht inventarisiert"
+
+#, php-format
+msgid "Target: %d days"
+msgstr "Ziel: %d Tage"
+
+#, php-format
+msgid "%d days late"
+msgstr "%d Tage verspätet"
+
+#, php-format
+msgid "%d known CVE(s) of the system"
+msgstr "%d bekannte CVE(s) des Systems"
+
+#, php-format
+msgid "%d exploited"
+msgstr "%d ausgenutzt"
+
+#, php-format
+msgid "Inventory older than %d days: the data may be out of date."
+msgstr "Inventar älter als %d Tage: Die Daten sind möglicherweise veraltet."
+
+msgid "Old inventory"
+msgstr "Altes Inventar"
+
+msgid "Read only: the plugin reads the GLPI inventory, never starts an update and changes nothing in GLPI."
+msgstr "Nur Lesen: Das Plugin liest das GLPI-Inventar, startet nie ein Update und ändert nichts in GLPI."
+
+msgid "Network flows"
+msgstr "Netzwerkflüsse"
+
+msgid "Patches on time: not measured"
+msgstr "Fristgerechte Patches: nicht gemessen"
+
+#, php-format
+msgid "Patches on time: %d%%"
+msgstr "Fristgerechte Patches: %d %%"
+
+#, php-format
+msgid "%d computer(s) late"
+msgstr "%d Computer verspätet"
+
+#, php-format
+msgid "%d critical server(s) late"
+msgstr "%d kritische(r) Server verspätet"
+
+#, php-format
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] "vor %d Tag"
+msgstr[1] "vor %d Tagen"

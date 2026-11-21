@@ -367,11 +367,12 @@ class ComplianceAudit extends CommonGLPI
     /**
      * Ordinateurs visibles (entités actives, hors corbeille, gabarits et statuts exclus).
      * Issue #378 : un indicateur de risque passe à la place le périmètre de son entité.
+     * Issue #854 : relu par le retard des correctifs (PatchCompliance), mêmes exclusions.
      *
      * @param array<string, mixed>|null $entityCriteria
      * @return array<int, array<string, mixed>>
      */
-    private static function computers(?array $entityCriteria = null): array
+    public static function computers(?array $entityCriteria = null): array
     {
         global $DB;
 
