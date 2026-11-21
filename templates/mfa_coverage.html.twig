@@ -209,6 +209,64 @@
       </div>
    </div>
 
+   {# Lecture directe d'Entra ID par Microsoft Graph (#852), sur clic, en lecture seule. #}
+   <div class="card mb-3" id="grc-mfa-graph">
+      <div class="card-header">
+         <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
+            <i class="ti ti-cloud-download"></i>{{ __('Read Microsoft Entra ID directly (Microsoft Graph)', 'grcmanager') }}
+            <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-eye me-1"></i>{{ __('Read only', 'grcmanager') }}</span>
+            {% if graph.configured %}
+               <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-plug-connected me-1"></i>{{ __('Configured', 'grcmanager') }}</span>
+            {% else %}
+               <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-plug-off me-1"></i>{{ __('Not configured', 'grcmanager') }}</span>
+            {% endif %}
+         </h3>
+      </div>
+      <div class="card-body">
+         <p class="small">{{ __('Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically.', 'grcmanager') }}</p>
+         <ol class="small text-muted">
+            <li>{{ __('In the Entra admin center, App registrations > New registration: create an application (for example "GLPI GRC - MFA report").', 'grcmanager') }}</li>
+            <li>{{ __('API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence.', 'grcmanager') }}</li>
+            <li>{{ __('Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value.', 'grcmanager') }}</li>
+         </ol>
+         {% if can_manage %}
+            <form method="post" action="{{ action }}" class="row g-2 align-items-end">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="col-md-4">
+                  <label class="form-label" for="grc-mfa-graph-tenant">{{ __('Tenant (directory) ID or domain', 'grcmanager') }}</label>
+                  <input type="text" class="form-control" id="grc-mfa-graph-tenant" name="mfa_graph_tenant" value="{{ graph.tenant }}" maxlength="253" placeholder="example.onmicrosoft.com" autocomplete="off">
+               </div>
+               <div class="col-md-4">
+                  <label class="form-label" for="grc-mfa-graph-client">{{ __('Application (client) ID', 'grcmanager') }}</label>
+                  <input type="text" class="form-control" id="grc-mfa-graph-client" name="mfa_graph_client_id" value="{{ graph.client_id }}" maxlength="36" placeholder="00000000-0000-0000-0000-000000000000" autocomplete="off">
+               </div>
+               <div class="col-md-4">
+                  <label class="form-label" for="grc-mfa-graph-secret">{{ __('Client secret', 'grcmanager') }}</label>
+                  <input type="password" class="form-control" id="grc-mfa-graph-secret" name="mfa_graph_secret" value="" autocomplete="new-password" placeholder="{{ graph.has_secret ? __('Secret saved (leave empty to keep it)', 'grcmanager') : '' }}">
+               </div>
+               <div class="col-12 form-hint">
+                  {% if graph.has_secret %}<span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-lock me-1"></i>{{ __('Secret saved', 'grcmanager') }}</span>{% endif %}
+                  {{ __('The secret is encrypted with the GLPI key, never displayed again nor logged.', 'grcmanager') }}
+                  {% if graph.has_secret %}
+                     <span class="form-check form-check-inline ms-2">
+                        <input type="checkbox" class="form-check-input" id="grc-mfa-graph-clear" name="mfa_graph_clear_secret" value="1">
+                        <label class="form-check-label" for="grc-mfa-graph-clear">{{ __('Delete the saved secret', 'grcmanager') }}</label>
+                     </span>
+                  {% endif %}
+               </div>
+               <div class="col-12 d-flex flex-wrap gap-2">
+                  <button type="submit" class="btn btn-outline-primary" name="save_mfa_graph" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
+                  {% if graph.configured %}
+                     <button type="submit" class="btn btn-primary" name="fetch_mfa_graph" value="1"><i class="ti ti-refresh me-1"></i>{{ __('Read now from Microsoft Graph', 'grcmanager') }}</button>
+                  {% endif %}
+               </div>
+            </form>
+         {% else %}
+            <p class="small text-muted mb-0">{{ __('Only users who can modify the plugin data can set up this reading.', 'grcmanager') }}</p>
+         {% endif %}
+      </div>
+   </div>
+
    {# Comptes à accès distant : groupes GLPI choisis. #}
    <div class="card mb-3" id="grc-mfa-remote">
       <div class="card-header">

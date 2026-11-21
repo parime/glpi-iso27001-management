@@ -22,6 +22,8 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use GlpiPlugin\Grcmanager\Install\MfaCoverageTables;
 use GlpiPlugin\Grcmanager\MfaCoverage;
 use GlpiPlugin\Grcmanager\RiskIndicator;
+use GlpiPlugin\Grcmanager\Services\Access\EntraGraphClient;
+use GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig;
 use GlpiPlugin\Grcmanager\Services\Access\MfaCoverageRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Dashboard\SecuredDashboardCards;
 
@@ -177,6 +179,68 @@ final class MfaCoverageTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue(MfaCoverage::clear('okta'));
         $this->assertSame(0, countElementsInTable(MfaCoverageTables::ACCOUNTS, ['entities_id' => $this->entity]));
         $this->assertSame(['missing_account'], MfaCoverage::import('okta', "foo,methods\nx,sms\n")['errors']);
+    }
+
+    /**
+     * Lecture d'Entra ID par un faux Microsoft Graph (aucun appel réseau) : rangée comme un import
+     * Entra ID, rapprochée par l'UPN ; une erreur ne remplace rien.
+     */
+    public function testGraphReadIsStoredAsTheEntraImport(): void
+    {
+        $upn = $this->logins['admin_none'] . '@exemple.test';
+        $transport = static function (string $method, string $url) use ($upn): array {
+            if ($method === 'POST') {
+                return ['status' => 200, 'body' => '{"access_token":"fictif"}', 'retry_after' => 0];
+            }
+
+            return ['status' => 200, 'retry_after' => 0, 'body' => (string) json_encode(['value' => [
+                ['userPrincipalName' => $upn, 'methodsRegistered' => ['mobilePhone'], 'isAdmin' => true],
+                ['userPrincipalName' => 'nobody.demo@exemple.test', 'methodsRegistered' => ['fido2']],
+            ]])];
+        };
+        $client = new EntraGraphClient(
+            'exemple.onmicrosoft.com',
+            '11111111-2222-3333-4444-555555555555',
+            'fictif',
+            \Closure::fromCallable($transport)
+        );
+        $result = MfaCoverage::importFromGraph($client);
+        $this->assertSame('', $result['graph_error']);
+        $this->assertSame(2, $result['imported']);
+        $this->assertSame(1, $result['matched']);
+        $this->assertSame(['Microsoft Entra ID'], $this->row('admin_none')['sources']);
+        $this->assertSame([Rules::GAP_WEAK_ONLY], $this->row('admin_none')['gaps']);
+
+        $refused = new EntraGraphClient(
+            'exemple.onmicrosoft.com',
+            '11111111-2222-3333-4444-555555555555',
+            'fictif',
+            static fn (): array => ['status' => 403, 'body' => '', 'retry_after' => 0]
+        );
+        $this->assertSame(EntraGraphClient::ERROR_FORBIDDEN, MfaCoverage::importFromGraph($refused)['graph_error']);
+        $this->assertSame(2, countElementsInTable(
+            MfaCoverageTables::ACCOUNTS,
+            ['provider' => 'entra', 'entities_id' => $this->entity]
+        ), 'Une lecture refusée ne remplace rien.');
+        MfaCoverage::clear('entra');
+
+        // Réglages : identifiants invalides refusés, secret jamais renvoyé.
+        $this->assertFalse(EntraGraphConfig::save('not a tenant', '', '', false)['saved']);
+        $saved = EntraGraphConfig::save('exemple.onmicrosoft.com', '11111111-2222-3333-4444-555555555555', 'fictif', false);
+        $this->assertTrue($saved['saved']);
+        $this->assertSame('changed', $saved['changes'][EntraGraphConfig::SECRET_KEY]);
+        $this->assertTrue(EntraGraphConfig::isConfigured());
+        $graph = MfaCoverage::pageData()['graph'];
+        $this->assertTrue($graph['has_secret']);
+        $this->assertArrayNotHasKey('secret', $graph);
+        $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
+            '@grcmanager/mfa_coverage.html.twig',
+            MfaCoverage::pageData()
+        );
+        $this->assertStringContainsString('name="fetch_mfa_graph"', $html);
+        $this->assertStringNotContainsString('value="fictif"', $html);
+        EntraGraphConfig::save('', '', '', true);
+        $this->assertFalse(EntraGraphConfig::isConfigured());
     }
 
     public function testRemoteGroups(): void

@@ -17,6 +17,7 @@
 
 use GlpiPlugin\Grcmanager\ControlTest;
 use GlpiPlugin\Grcmanager\MfaCoverage;
+use GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig;
 use GlpiPlugin\Grcmanager\Services\Access\MfaCoverageRules;
 use GlpiPlugin\Grcmanager\Services\Control\EvidenceUploadRules;
 
@@ -67,6 +68,53 @@ if (isset($_POST['clear_mfa'])) {
     MfaCoverage::clear((string) ($_POST['provider'] ?? ''));
     Session::addMessageAfterRedirect(htmlescape(__('Import deleted.', 'grcmanager')));
     Html::redirect(MfaCoverage::getSearchURL() . '#grc-mfa-import');
+}
+
+// Lecture d'Entra ID par Microsoft Graph (#852) : réglages et lecture sur clic, droit de modifier.
+// Le secret n'est jamais renvoyé au navigateur ni écrit dans un journal.
+if (isset($_POST['save_mfa_graph'])) {
+    Session::checkRight(MfaCoverage::RIGHTNAME, UPDATE);
+    $saved = EntraGraphConfig::save(
+        (string) ($_POST['mfa_graph_tenant'] ?? ''),
+        (string) ($_POST['mfa_graph_client_id'] ?? ''),
+        (string) ($_POST['mfa_graph_secret'] ?? ''),
+        !empty($_POST['mfa_graph_clear_secret'])
+    );
+    if (!$saved['saved']) {
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as '
+                . '00000000-0000-0000-0000-000000000000.',
+            'grcmanager'
+        )), false, ERROR);
+    } else {
+        if ($saved['changes'] !== []) {
+            \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+                'changes' => $saved['changes'],
+            ]);
+        }
+        Session::addMessageAfterRedirect(htmlescape(__('Microsoft Graph settings saved.', 'grcmanager')));
+    }
+    Html::redirect(MfaCoverage::getSearchURL() . '#grc-mfa-graph');
+}
+
+if (isset($_POST['fetch_mfa_graph'])) {
+    Session::checkRight(MfaCoverage::RIGHTNAME, UPDATE);
+    $result = MfaCoverage::importFromGraph();
+    if ($result['graph_error'] !== '') {
+        Session::addMessageAfterRedirect(
+            htmlescape(MfaCoverage::graphErrorMessage($result['graph_error'])),
+            false,
+            ERROR
+        );
+    } elseif ($result['errors'] === []) {
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            __('%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched.', 'grcmanager'),
+            $result['imported'],
+            $result['matched'],
+            $result['unmatched']
+        )), false, $result['imported'] > 0 ? INFO : WARNING);
+    }
+    Html::redirect(MfaCoverage::getSearchURL() . '#grc-mfa-graph');
 }
 
 // Groupes dont les membres ont un accès distant (VPN, bureau à distance).

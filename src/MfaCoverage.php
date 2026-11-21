@@ -24,6 +24,8 @@ use Config;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Install\MfaCoverageTables;
+use GlpiPlugin\Grcmanager\Services\Access\EntraGraphClient;
+use GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig;
 use GlpiPlugin\Grcmanager\Services\Access\MfaCoverageRules as Rules;
 use Group;
 use Html;
@@ -38,6 +40,8 @@ use User;
  *   regarde seulement si elle est activée, il ne lit jamais le secret.
  * - Import CSV générique des méthodes enregistrées chez le fournisseur d'identité (Entra ID, Okta,
  *   Google Workspace, solution sur site), rapproché des comptes GLPI (identifiant, e-mail, UPN).
+ * - Pour Entra ID, lecture directe du même rapport par Microsoft Graph, sur clic (EntraGraphClient,
+ *   lecture seule, aucune tâche automatique).
  * - Taux global, des administrateurs (profils qui modifient la configuration ou les profils de GLPI,
  *   ou rôle d'administrateur déclaré par le fournisseur) et des comptes à accès distant (groupes
  *   choisis ou colonne de l'import) ; écarts : administrateur ou accès distant sans MFA, méthode
@@ -186,6 +190,41 @@ class MfaCoverage extends CommonGLPI
                 'grcmanager'
             ),
             default           => __('The file could not be read.', 'grcmanager'),
+        };
+    }
+
+    /**
+     * Message d'une erreur de lecture par Microsoft Graph (jamais le secret ni le jeton).
+     */
+    public static function graphErrorMessage(string $code): string
+    {
+        return match ($code) {
+            EntraGraphClient::ERROR_CONFIG       => __(
+                'Enter the tenant, the application (client) ID and the client secret first.',
+                'grcmanager'
+            ),
+            EntraGraphClient::ERROR_UNAUTHORIZED => __(
+                'Microsoft Entra ID refused the tenant, the application ID or the client secret.',
+                'grcmanager'
+            ),
+            EntraGraphClient::ERROR_FORBIDDEN    => __(
+                'Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with '
+                    . 'admin consent (the report requires an Entra ID P1 or P2 licence).',
+                'grcmanager'
+            ),
+            EntraGraphClient::ERROR_RATE_LIMITED => __(
+                'Microsoft Graph asks to slow down: try again in a few minutes.',
+                'grcmanager'
+            ),
+            EntraGraphClient::ERROR_TOO_LARGE    => __(
+                'Too many accounts to read in one click: import the CSV export of the report instead.',
+                'grcmanager'
+            ),
+            EntraGraphClient::ERROR_UNREACHABLE  => __(
+                'Microsoft Graph could not be reached: check the network access or the GLPI proxy.',
+                'grcmanager'
+            ),
+            default                              => __('Microsoft Graph returned an unexpected answer.', 'grcmanager'),
         };
     }
 
@@ -602,8 +641,6 @@ class MfaCoverage extends CommonGLPI
      */
     public static function import(string $provider, string $raw): array
     {
-        global $DB;
-
         $result = ['imported' => 0, 'matched' => 0, 'unmatched' => 0, 'errors' => [], 'truncated' => false];
         if (!self::canManage()) {
             $result['errors'][] = 'rights';
@@ -617,11 +654,54 @@ class MfaCoverage extends CommonGLPI
 
             return $result;
         }
+
+        return self::store($provider, $parsed['rows'], $parsed['truncated'], 'csv');
+    }
+
+    /**
+     * Lit le rapport des méthodes d'Entra ID par Microsoft Graph et le range comme un import du
+     * fournisseur Entra ID (remplace le précédent dans l'entité active). Lecture complète
+     * seulement : une lecture interrompue ne remplace rien.
+     *
+     * @return array{imported: int, matched: int, unmatched: int, errors: list<string>, truncated: bool,
+     *     graph_error: string}
+     */
+    public static function importFromGraph(?EntraGraphClient $client = null): array
+    {
+        $empty = ['imported' => 0, 'matched' => 0, 'unmatched' => 0, 'errors' => [], 'truncated' => false];
+        if (!self::canManage()) {
+            return ['errors' => ['rights'], 'graph_error' => ''] + $empty;
+        }
+        $client ??= EntraGraphConfig::client();
+        $fetch = $client->fetchRegistrationDetails();
+        if ($fetch['error'] !== '') {
+            return ['graph_error' => $fetch['error']] + $empty;
+        }
+        if (!$fetch['complete']) {
+            return ['graph_error' => EntraGraphClient::ERROR_TOO_LARGE] + $empty;
+        }
+
+        return self::store('entra', EntraGraphClient::rows($fetch['items']), false, 'graph') + ['graph_error' => ''];
+    }
+
+    /**
+     * Range les lignes d'un fournisseur dans l'entité active (remplace les précédentes) et les
+     * rapproche des comptes GLPI visibles.
+     *
+     * @param list<array{account: string, email: string, methods: list<string>, mfa: ?bool,
+     *     admin: ?bool, remote: ?bool, excluded: bool, reason: string}> $rows
+     * @return array{imported: int, matched: int, unmatched: int, errors: list<string>, truncated: bool}
+     */
+    private static function store(string $provider, array $rows, bool $truncated, string $source): array
+    {
+        global $DB;
+
+        $result = ['imported' => 0, 'matched' => 0, 'unmatched' => 0, 'errors' => [], 'truncated' => false];
         $entity = (int) Session::getActiveEntity();
         $lookup = self::lookup();
         $now = Session::getCurrentTime() ?? date('Y-m-d H:i:s');
         $DB->delete(MfaCoverageTables::ACCOUNTS, ['provider' => $provider, 'entities_id' => $entity]);
-        foreach ($parsed['rows'] as $row) {
+        foreach ($rows as $row) {
             $usersId = Rules::match($row['account'], $row['email'], $lookup['logins'], $lookup['emails']);
             $DB->insert(MfaCoverageTables::ACCOUNTS, [
                 'entities_id'       => $entity,
@@ -641,9 +721,10 @@ class MfaCoverage extends CommonGLPI
             $result['imported']++;
             $result[$usersId > 0 ? 'matched' : 'unmatched']++;
         }
-        $result['truncated'] = $parsed['truncated'];
+        $result['truncated'] = $truncated;
         AuditLog::record('import', self::class, 0, 0, 'success', [
             'provider' => $provider,
+            'source'   => $source,
             'imported' => $result['imported'],
             'matched'  => $result['matched'],
         ]);
@@ -714,6 +795,13 @@ class MfaCoverage extends CommonGLPI
                 $remoteGroups
             ),
             'glpi_enforced'  => (int) ($CFG_GLPI['2fa_enforced'] ?? 0) === 1,
+            // Lecture d'Entra ID par Microsoft Graph : le secret n'est jamais renvoyé, seulement sa présence.
+            'graph'          => [
+                'tenant'     => EntraGraphConfig::tenant(),
+                'client_id'  => EntraGraphConfig::clientId(),
+                'has_secret' => EntraGraphConfig::hasSecret(),
+                'configured' => EntraGraphConfig::isConfigured(),
+            ],
             'can_manage'     => self::canManage(),
             'action'         => self::getSearchURL(),
             'hygiene_url'    => AccountHygiene::getSearchURL(),
