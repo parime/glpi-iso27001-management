@@ -29,7 +29,8 @@ use GlpiPlugin\Grcmanager\Compat\Http;
  * - Jeton d'application obtenu par le flux « client credentials » (identifiant et secret d'une
  *   application inscrite dans le locataire, permission d'application AuditLog.Read.All). Seule
  *   requête POST : celle du jeton, vers login.microsoftonline.com ; toutes les autres sont des GET
- *   sur un seul chemin de graph.microsoft.com. Rien n'est jamais écrit dans Entra ID.
+ *   sur graph.microsoft.com (ce rapport, et pour #846 les sites, OneDrive et équipes Teams avec
+ *   leurs droits). Rien n'est jamais écrit dans Entra ID ni dans Microsoft 365.
  * - Le secret et le jeton ne sortent que dans le corps de la demande de jeton et dans l'en-tête
  *   Authorization : jamais dans une adresse, un message d'erreur ni un journal.
  * - Pages suivies par @odata.nextLink, seulement si le lien reste sur graph.microsoft.com ; au plus
@@ -54,6 +55,8 @@ final class EntraGraphClient
     public const ERROR_UNREACHABLE = 'unreachable';
     public const ERROR_INVALID = 'invalid_response';
     public const ERROR_STATUS = 'http_error';
+    /** Ressource absente (404), par exemple un compte sans OneDrive (#846). */
+    public const ERROR_NOT_FOUND = 'not_found';
     /** Limite de pages atteinte : rien n'est remplacé (MfaCoverage::importFromGraph()). */
     public const ERROR_TOO_LARGE = 'too_large';
 
@@ -66,6 +69,11 @@ final class EntraGraphClient
 
     /** @var Transport */
     private Closure $transport;
+
+    /** Jeton gardé pendant une lecture (jamais écrit ailleurs). */
+    private ?string $token = null;
+
+    private int $requests = 0;
 
     /**
      * @param Transport|null $transport Transport HTTP (Http::send() par défaut)
@@ -111,23 +119,42 @@ final class EntraGraphClient
      */
     public function fetchRegistrationDetails(int $maxPages = self::MAX_PAGES): array
     {
+        return $this->fetchCollection(self::REPORT_URL, $maxPages);
+    }
+
+    /**
+     * Lit une collection Graph (GET seulement, page par page). $url doit commencer par GRAPH_BASE.
+     * #846 : réutilisé pour SharePoint, OneDrive et Teams ; le jeton est gardé pour la lecture.
+     *
+     * @param array<string, string> $headers en-têtes ajoutés (ConsistencyLevel par exemple)
+     * @return array{items: list<array<string, mixed>>, pages: int, complete: bool, error: string}
+     */
+    public function fetchCollection(string $url, int $maxPages = self::MAX_PAGES, array $headers = []): array
+    {
         $out = ['items' => [], 'pages' => 0, 'complete' => false, 'error' => ''];
         if (!self::isValidTenant($this->tenant) || !self::isValidClientId($this->clientId) || $this->secret === '') {
             return ['error' => self::ERROR_CONFIG] + $out;
         }
-        $token = $this->token();
-        if ($token['error'] !== '') {
-            return ['error' => $token['error']] + $out;
+        if (!str_starts_with($url, self::GRAPH_BASE)) {
+            return ['error' => self::ERROR_INVALID] + $out;
         }
-        $url = self::REPORT_URL;
-        while ($url !== null) {
+        if ($this->token === null) {
+            $token = $this->token();
+            if ($token['error'] !== '') {
+                return ['error' => $token['error']] + $out;
+            }
+            $this->token = $token['token'];
+        }
+        $next = $url;
+        while ($next !== null) {
             if ($out['pages'] >= $maxPages) {
                 return $out;
             }
-            $result = ($this->transport)('GET', $url, [
-                'Authorization' => 'Bearer ' . $token['token'],
+            $this->requests++;
+            $result = ($this->transport)('GET', $next, [
+                'Authorization' => 'Bearer ' . $this->token,
                 'Accept'        => 'application/json',
-            ], null);
+            ] + $headers, null);
             $error = self::errorOf($result['status']);
             if ($error !== '') {
                 return ['error' => $error] + $out;
@@ -142,13 +169,19 @@ final class EntraGraphClient
                     $out['items'][] = $item;
                 }
             }
-            $next = $page['@odata.nextLink'] ?? null;
+            $link = $page['@odata.nextLink'] ?? null;
             // Page suivante : seulement sur Graph, jamais vers un autre hôte.
-            $url = is_string($next) && str_starts_with($next, self::GRAPH_BASE) ? $next : null;
+            $next = is_string($link) && str_starts_with($link, self::GRAPH_BASE) ? $link : null;
         }
         $out['complete'] = true;
 
         return $out;
+    }
+
+    /** Requêtes GET envoyées depuis la création du client (budget d'une lecture sur clic). */
+    public function requests(): int
+    {
+        return $this->requests;
     }
 
     /**
@@ -192,6 +225,7 @@ final class EntraGraphClient
             $status === 0                   => self::ERROR_UNREACHABLE,
             $status === 401                 => self::ERROR_UNAUTHORIZED,
             $status === 403                 => self::ERROR_FORBIDDEN,
+            $status === 404                 => self::ERROR_NOT_FOUND,
             $status === 429                 => self::ERROR_RATE_LIMITED,
             default                         => self::ERROR_STATUS,
         };

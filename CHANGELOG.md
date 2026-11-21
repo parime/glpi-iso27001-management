@@ -7,6 +7,38 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.79.0] - 2026-11-21
+
+### Added
+
+- **Chemins d'attaque vers Domain Admins** (issue #835, lot 3, mesures A.5.15, A.5.18 et A.8.2). La
+  page Audit de sécurité de l'Active Directory importe, en lecture seule, l'export JSON du graphe de
+  BloodHound CE ou d'Adalanche (format Cytoscape) : nombre de comptes ayant un chemin vers le groupe
+  Domain Admins (utilisateurs, ordinateurs, plus court chemin), comptes les plus exposés (nom, type,
+  nombre de sauts et de routes) et évolution d'un export au suivant (écart, nouveaux comptes). Lecture
+  sûre : taille, profondeur du JSON, nombre de nœuds et de liens bornés, noms nettoyés, aucune autre
+  propriété du graphe gardée. Sur clic, le risque est créé dans le registre (une fois par domaine,
+  repris par les exports suivants). Preuve sur les fiches des mesures A.5.15, A.5.18 et A.8.2, source
+  de KRI « comptes ayant un chemin d'attaque vers Domain Admins », exemples fictifs téléchargeables.
+  Un graphe importé par erreur dans le formulaire des rapports est renvoyé vers la bonne partie.
+
+- **Contrôleurs de gestion des serveurs, lot 2** (issue #843, mesures A.5.18, A.8.2 et A.8.8). Le
+  firmware de chaque contrôleur (iLO, iDRAC, XClarity, IPMI) et le BIOS du serveur sont comparés aux
+  vulnérabilités du parc et aux fins de support d'endoflife.date, comme les autres firmwares : mêmes
+  alias et même veille, aucun nouvel appel extérieur. Quatre écarts s'ajoutent sur la page des
+  contrôleurs (vulnérabilité prioritaire, vulnérabilités connues, firmware plus supporté, fin de
+  support proche), et les firmwares des contrôleurs apparaissent sur les pages des vulnérabilités du
+  parc et des fins de support, rattachés à leur serveur. Les comptes locaux des contrôleurs sont
+  figés au lancement d'une campagne de revue des accès, dans un onglet **Comptes des contrôleurs de
+  serveurs**, avec une suggestion (compte constructeur ou désactivé : retirer ; administrateur ou
+  verrouillé : examiner) ; le gestionnaire de la campagne garde ou retire chaque compte, rien n'est
+  changé sur les contrôleurs.
+
+### Fixed
+
+- **Audit de sécurité de l'Active Directory** : supprimer un import ou proposer un ticket pour une
+  règle hors de vos entités affiche de nouveau le refus d'accès au lieu d'une erreur sous GLPI 12.
+
 ## [2.78.0] - 2026-11-21
 
 ### Added

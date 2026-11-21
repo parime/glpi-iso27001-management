@@ -37072,6 +37072,266 @@ msgstr ""
 msgid "Secure Boot"
 msgstr "Secure Boot"
 
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Anyone with the link"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "External guest"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Windows file share"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Public link (anyone)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr "A sharing link works for anyone who has it, without signing in."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "External guest has access"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "Read SharePoint, OneDrive and Teams rights"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph connected"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Microsoft Graph settings"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "Read %s now"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Owner in Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Sharing link"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Team membership"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Direct permission"
+
+msgid "Firmware with a priority vulnerability"
+msgstr "Firmware with a priority vulnerability"
+
+msgid ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+msgstr ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+
+msgid "Firmware no longer supported"
+msgstr "Firmware no longer supported"
+
+msgid ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+msgstr ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+
+msgid "Firmware with known vulnerabilities"
+msgstr "Firmware with known vulnerabilities"
+
+msgid ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+msgstr ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+
+msgid "Firmware support ending soon"
+msgstr "Firmware support ending soon"
+
+msgid ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+msgstr ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+
+msgid ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+msgstr ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+
+msgid "Not watched"
+msgstr "Not watched"
+
+msgid "Priority CVEs: %d"
+msgstr "Priority CVEs: %d"
+
+msgid "Known CVEs: %d"
+msgstr "Known CVEs: %d"
+
+msgid "No known CVE"
+msgstr "No known CVE"
+
+msgid ""
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
+msgstr ""
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
+
+msgid "Enable the end of support check"
+msgstr "Enable the end of support check"
+
+msgid "Server controller accounts"
+msgstr "Server controller accounts"
+
+msgid "Factory account still enabled: replace it with a named account"
+msgstr "Factory account still enabled: replace it with a named account"
+
+msgid "Disabled on the controller: delete it there"
+msgstr "Disabled on the controller: delete it there"
+
+msgid "Locked on the controller"
+msgstr "Locked on the controller"
+
+msgid "Administrator role: full control of the server"
+msgstr "Administrator role: full control of the server"
+
+msgid ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+msgstr ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+
+msgid ""
+"The accounts of the controllers are copied when the campaign is launched."
+msgstr ""
+"The accounts of the controllers are copied when the campaign is launched."
+
+msgid ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+msgstr ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+
+msgid "Add the accounts of the controllers"
+msgstr "Add the accounts of the controllers"
+
+msgid "Suggestion"
+msgstr "Suggestion"
+
+msgid "%d decided"
+msgstr "%d decided"
+
+msgid "%d account(s) of the controllers added to the campaign."
+msgstr "%d account(s) of the controllers added to the campaign."
+
 #, php-format
 msgid "%1$s export of %2$s, imported on %3$s"
 msgstr "%1$s export of %2$s, imported on %3$s"
@@ -37255,131 +37515,6 @@ msgstr[0] ""
 msgstr[1] ""
 "%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
 "%3$d steps). Details on the Active Directory security audit page."
-
-msgid "Firmware with a priority vulnerability"
-msgstr "Firmware with a priority vulnerability"
-
-msgid ""
-"The firmware of the controller or the BIOS has a known vulnerability that is "
-"exploited, critical or likely to be exploited (page \"Fleet "
-"vulnerabilities\"): update it first."
-msgstr ""
-"The firmware of the controller or the BIOS has a known vulnerability that is "
-"exploited, critical or likely to be exploited (page \"Fleet "
-"vulnerabilities\"): update it first."
-
-msgid "Firmware no longer supported"
-msgstr "Firmware no longer supported"
-
-msgid ""
-"The firmware of the controller or the BIOS has reached its end of support "
-"(endoflife.date): no more security fixes."
-msgstr ""
-"The firmware of the controller or the BIOS has reached its end of support "
-"(endoflife.date): no more security fixes."
-
-msgid "Firmware with known vulnerabilities"
-msgstr "Firmware with known vulnerabilities"
-
-msgid ""
-"The firmware of the controller or the BIOS has known vulnerabilities (page "
-"\"Fleet vulnerabilities\")."
-msgstr ""
-"The firmware of the controller or the BIOS has known vulnerabilities (page "
-"\"Fleet vulnerabilities\")."
-
-msgid "Firmware support ending soon"
-msgstr "Firmware support ending soon"
-
-msgid ""
-"The end of support of the firmware or the BIOS is near (endoflife.date)."
-msgstr ""
-"The end of support of the firmware or the BIOS is near (endoflife.date)."
-
-msgid ""
-"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
-"it with the known vulnerabilities."
-msgstr ""
-"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
-"it with the known vulnerabilities."
-
-msgid "Not watched"
-msgstr "Not watched"
-
-msgid "Priority CVEs: %d"
-msgstr "Priority CVEs: %d"
-
-msgid "Known CVEs: %d"
-msgstr "Known CVEs: %d"
-
-msgid "No known CVE"
-msgstr "No known CVE"
-
-msgid ""
-"The firmware of each controller and its BIOS are compared with the known "
-"vulnerabilities of the fleet and with the end of support dates, like the "
-"other firmwares: link their name to a product once, on the same pages."
-msgstr ""
-"The firmware of each controller and its BIOS are compared with the known "
-"vulnerabilities of the fleet and with the end of support dates, like the "
-"other firmwares: link their name to a product once, on the same pages."
-
-msgid "Enable the end of support check"
-msgstr "Enable the end of support check"
-
-msgid "Server controller accounts"
-msgstr "Server controller accounts"
-
-msgid "Factory account still enabled: replace it with a named account"
-msgstr "Factory account still enabled: replace it with a named account"
-
-msgid "Disabled on the controller: delete it there"
-msgstr "Disabled on the controller: delete it there"
-
-msgid "Locked on the controller"
-msgstr "Locked on the controller"
-
-msgid "Administrator role: full control of the server"
-msgstr "Administrator role: full control of the server"
-
-msgid ""
-"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
-"gives full control of the server, even switched off, outside GLPI and the "
-"directory. When the campaign is launched, the accounts read on the "
-"controllers of its entities are copied here with a suggestion. Keep or "
-"remove each one: the plugin changes nothing on the controllers, remove the "
-"account there."
-msgstr ""
-"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
-"gives full control of the server, even switched off, outside GLPI and the "
-"directory. When the campaign is launched, the accounts read on the "
-"controllers of its entities are copied here with a suggestion. Keep or "
-"remove each one: the plugin changes nothing on the controllers, remove the "
-"account there."
-
-msgid ""
-"The accounts of the controllers are copied when the campaign is launched."
-msgstr ""
-"The accounts of the controllers are copied when the campaign is launched."
-
-msgid ""
-"No account of a server management controller in this campaign: no controller "
-"with accounts read in its entities when it was launched."
-msgstr ""
-"No account of a server management controller in this campaign: no controller "
-"with accounts read in its entities when it was launched."
-
-msgid "Add the accounts of the controllers"
-msgstr "Add the accounts of the controllers"
-
-msgid "Suggestion"
-msgstr "Suggestion"
-
-msgid "%d decided"
-msgstr "%d decided"
-
-msgid "%d account(s) of the controllers added to the campaign."
-msgstr "%d account(s) of the controllers added to the campaign."
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"

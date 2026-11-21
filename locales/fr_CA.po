@@ -33931,11 +33931,17 @@ msgid "Known vulnerabilities"
 msgstr "Vulnérabilités connues"
 
 msgid "No known vulnerability in the watched products installed on this asset."
-msgstr "Aucune vulnérabilité connue dans les produits surveillés installés sur cet actif."
+msgstr ""
+"Aucune vulnérabilité connue dans les produits surveillés installés sur cet "
+"actif."
 
 #, php-format
-msgid "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
-msgstr "%1$d vulnérabilités connues, dont %2$d prioritaires (exploitées activement ou très graves)."
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+"%1$d vulnérabilités connues, dont %2$d prioritaires (exploitées activement "
+"ou très graves)."
 
 #, php-format
 msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
@@ -33958,8 +33964,12 @@ msgid "%s, not required by the encryption rule."
 msgstr "%s, non exigé par la règle de chiffrement."
 
 #, php-format
-msgid "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
-msgstr "Analyse du %1$s : %2$s des règles respectées, %3$d en échec dont %4$d de gravité haute."
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+"Analyse du %1$s : %2$s des règles respectées, %3$d en échec dont %4$d de "
+"gravité haute."
 
 #, php-format
 msgid "%s: last reading failed."
@@ -33985,26 +33995,188 @@ msgstr "%1$d incidents ouverts, dont %2$d de priorité haute ou plus."
 msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
 msgstr "%1$d risques liés : %2$d élevés ou critiques, %3$d moyens."
 
-msgid "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
-msgstr "Cet onglet rassemble, pour cet actif, chaque source de sécurité connue du plugin : vulnérabilités, chiffrement, configuration, contrôleur de gestion, incidents, risques. Chaque ligne donne son état et un lien vers le détail. Rien n'est modifié : corrigez les écarts depuis les pages de détail."
+msgid ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+msgstr ""
+"Cet onglet rassemble, pour cet actif, chaque source de sécurité connue du "
+"plugin : vulnérabilités, chiffrement, configuration, contrôleur de gestion, "
+"incidents, risques. Chaque ligne donne son état et un lien vers le détail. "
+"Rien n'est modifié : corrigez les écarts depuis les pages de détail."
 
 #, php-format
 msgid "Score: %s / 100"
 msgstr "Score : %s / 100"
 
-msgid "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
-msgstr "Aucune source évaluée pour cet actif pour l'instant : importez ou lisez les données des modules de sécurité pour remplir cette vue."
+msgid ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+msgstr ""
+"Aucune source évaluée pour cet actif pour l'instant : importez ou lisez les "
+"données des modules de sécurité pour remplir cette vue."
 
 #, php-format
 msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
 msgstr "%1$d sources évaluées : %2$d critiques, %3$d à surveiller."
 
 #, php-format
-msgid "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
-msgstr "Le score est la moyenne pondérée des sources (conforme 100, à surveiller 50, critique 0) ; bon à partir de %1$d, à améliorer à partir de %2$d, faible en dessous. Une seule source critique empêche le niveau bon."
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+"Le score est la moyenne pondérée des sources (conforme 100, à surveiller 50, "
+"critique 0) ; bon à partir de %1$d, à améliorer à partir de %2$d, faible en "
+"dessous. Une seule source critique empêche le niveau bon."
 
 msgid "Points (weight)"
 msgstr "Points (poids)"
 
-msgid "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
-msgstr "Les sources sans donnée pour cet actif (module non utilisé, rien d'importé, pas le droit) ne sont pas affichées."
+msgid ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+msgstr ""
+"Les sources sans donnée pour cet actif (module non utilisé, rien d'importé, "
+"pas le droit) ne sont pas affichées."
+
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Toute personne disposant du lien"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "Invité externe"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Partage de fichiers Windows"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Lien public (tout le monde)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr ""
+"Un lien de partage fonctionne pour toute personne qui l'a, sans connexion."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "Un invité externe a accès"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"Une personne d'une autre organisation (compte invité) a accès : vérifiez que "
+"c'est toujours nécessaire."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"Aucune colonne de site trouvée : le fichier doit avoir une colonne telle que "
+"Site, Team ou OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Accès refusé par Microsoft Graph : accordez les permissions d'application "
+"Sites.Read.All, Files.Read.All, User.Read.All et GroupMember.Read.All avec "
+"le consentement de l'administrateur."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+"Trop de sites ou de comptes à lire en un clic : rien n'a été remplacé. "
+"Importez plutôt un export CSV."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "Lire les droits SharePoint, OneDrive et Teams"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"GLPI lit les droits de partage par Microsoft Graph quand vous cliquez, avec "
+"l'application réglée pour la couverture MFA, et ne modifie jamais rien dans "
+"Microsoft 365. SharePoint : les droits de la bibliothèque de documents de "
+"chaque site et de ses éléments de premier niveau partagés à part. OneDrive : "
+"les éléments de premier niveau que chaque personne a partagés. Teams : "
+"propriétaires, membres, invités et équipes publiques. Les mêmes écarts et la "
+"même revue que pour les partages de fichiers s'appliquent : liens publics, "
+"invités externes, droits donnés à tout le monde."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Permissions d'application à accorder, avec le consentement de "
+"l'administrateur (lecture seule) : Sites.Read.All, Files.Read.All, User.Read."
+"All et GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph connecté"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Réglages de Microsoft Graph"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "Lire %s maintenant"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"Microsoft Graph n'est pas encore réglé. Saisissez le locataire, "
+"l'identifiant d'application et le secret client sur la page de couverture "
+"MFA, ou importez un export CSV ci-dessous."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Solution de repli : importez un fichier CSV avec une ligne par droit et des "
+"colonnes telles que Source (SharePoint, OneDrive ou Teams), Site, SiteUrl, "
+"Item, Identity, Type (User, Group, Guest), Roles (read, write, owner) et "
+"LinkScope (anonymous, organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Propriétaire dans Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Lien de partage"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Appartenance à l'équipe"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Permission directe"
