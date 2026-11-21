@@ -245,6 +245,8 @@ if ($mode === 'xss') {
         'tool' => $canary, 'scenario' => $canary, 'target_population' => $canary, 'comment' => $canary,
         'nb_sent' => 6, 'nb_opened' => 3, 'nb_clicked' => 2, 'nb_unmatched' => 1, 'import_file' => $canary,
         'date_import' => date('Y-m-d H:i:s'),
+        // Issue #604, lot 2 : taux par groupe, avec le groupe piégé (nom affiché dans l'onglet).
+        'group_counts' => json_encode([$xssGroup => ['sent' => 6, 'opened' => 3, 'clicked' => 2]]),
     ]);
     $insert('phishingresults', [
         'plugin_grcmanager_phishingcampaigns_id' => $out['phishing'], 'users_id' => 0, 'identifier' => $canary,

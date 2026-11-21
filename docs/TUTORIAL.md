@@ -1943,6 +1943,18 @@ Super-Admin at installation).
 9. On control **A.6.3** and on ISMS requirement **7.3**, the "Phishing simulations" box shows the
    number of campaigns within 12 months, the rates of the last campaign and the change in clicks
    since the previous one.
+10. **Rates by group and by entity**: the **Results** tab also shows the rates by GLPI group of the
+    matched people (a person in several groups counts in each). Without the right on sensitive
+    registers, the groups of fewer than 5 people are combined into "Other groups", hidden too if
+    they remain too small. When your campaigns cover several entities, the list of campaigns shows
+    the last campaign of each entity. These rates are anonymous and stay after the results per
+    person are deleted. On the dashboard, add the card "Phishing simulations: rates by campaign (%)"
+    to follow the clicks, the data entered and the reports from one campaign to the next.
+11. **Retention period**: in the configuration of the plugin, set **Phishing simulations: retention
+    of the results per person** (in months from the date of the campaign; 0 = until you delete them
+    by hand). It needs the right to update the sensitive registers. The daily automatic action
+    "phishingretention" then deletes the expired results per person and keeps the rates; the
+    **Results** tab shows the planned date. Write the same period in your GDPR register.
 
 ### Step 33: Prepare the audit with the audit plan of the certification body
 
