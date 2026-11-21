@@ -86,6 +86,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     restreint** : lisible par son auteur et par qui peut lire chacune de ses pièces ;
     régénérable à tout moment, avec l'historique des dossiers et leur empreinte. Rien n'est modifié
     dans les registres.
+- **Compétences (7.2) : titulaires repris de la matrice des responsabilités et alerte des écarts
+  sans formation planifiée** (issue #774, lot 3, dernier lot) :
+  - une fonction du SMSI peut être tenue par un **rôle dans une activité de la matrice des
+    responsabilités** (#612), par exemple « Réalise » pour « Sauvegardes » : les personnes et les
+    groupes qui tiennent ce rôle tiennent la fonction, sans copie, et la fonction suit la matrice
+    quand elle change (badge « Suit la matrice des responsabilités ») ; seules les activités
+    visibles depuis l'entité de la fonction sont proposées et acceptées ;
+  - nouvelle tâche automatique hebdomadaire **competencegaps** et notification modifiable
+    **Écarts de compétence sans formation planifiée**, envoyée au responsable de la préparation à
+    la certification et au groupe RSSI : chaque nouvel écart, avec la formation à planifier ou, à
+    défaut, la preuve à déclarer. Un écart n'est signalé qu'une fois. Seul un compte qui lit le
+    plugin et les utilisateurs sur toutes les entités la reçoit ;
+  - aucune inscription, session, affectation ni aucun droit n'est modifié automatiquement.
 - **Ce qui bloque chaque mesure de la SoA** (issue #867, article 9.1 et mesure A.5.36). Une seule
   liste de tout ce qui empêche une mesure d'être conforme, chaque ligne avec un lien vers l'écran à
   corriger et la marche à suivre :

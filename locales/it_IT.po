@@ -28120,3 +28120,86 @@ msgstr "limite %d MB"
 #, php-format
 msgid "%s MB"
 msgstr "%s MB"
+
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d divario/i di competenza segnalato/i."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s: %2$s, livello atteso %3$s (formazione da pianificare: %4$s)"
+
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s: %2$s, livello atteso %3$s (nessuna formazione la fornisce ancora: "
+"collegane una o dichiara una prova)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Attività della matrice delle responsabilità"
+
+msgid "Competence gaps without planned training"
+msgstr "Divari di competenza senza formazione pianificata"
+
+msgid "Follows the responsibility matrix"
+msgstr "Segue la matrice delle responsabilità"
+
+msgid "New gaps without planned training"
+msgstr "Nuovi divari senza formazione pianificata"
+
+msgid "Number of gaps without planned training"
+msgstr "Numero di divari senza formazione pianificata"
+
+msgid "Number of new gaps"
+msgstr "Numero di nuovi divari"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Altri divari non elencati qui: %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Matrice delle responsabilità: %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Ruolo nell'attività"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "Questa attività non è disponibile nell'entità della funzione."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+"Avvisa il responsabile dei divari di competenza senza formazione pianificata"
+
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+"Facoltativo: le persone e i gruppi che hanno il ruolo scelto in questa "
+"attività ricoprono la funzione e seguono la matrice quando cambia."
+
+msgid ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+msgstr ""
+"Inviata dall'attività automatica di GRC Manager quando una persona che "
+"ricopre una funzione del SGSI ha un divario di competenza senza formazione "
+"pianificata."
+
+msgid ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+msgstr ""
+"Pianifica una sessione della formazione proposta dalla pagina «Competenze», "
+"oppure dichiara la prova che la persona possiede già. Nulla viene modificato "
+"automaticamente."
+
+msgid "View the competences"
+msgstr "Vedi le competenze"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Avviso di divario di competenza"
+msgstr[1] "Avvisi di divario di competenza"
