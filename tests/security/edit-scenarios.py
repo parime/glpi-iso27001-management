@@ -86,11 +86,21 @@ class Run:
         return result == 'ok'
 
     def submit(self, scenario, button):
-        with self.page.expect_navigation(wait_until='load'):
-            self.page.locator('form button[name="%s"]' % button).first.click()
+        try:
+            with self.page.expect_navigation(wait_until='load'):
+                self.page.locator('form button[name="%s"]:visible' % button).first.click(timeout=15000)
+        except Exception as exc:
+            self.fail(scenario, 'bouton %s : %s' % (button, str(exc).splitlines()[0][:200]))
+            return False
         return self.check(scenario)
 
-    def edit(self, scenario, url, texts, selects, min_options=None, button='update'):
+    def edit(self, scenario, *args, **kwargs):
+        try:
+            self._edit(scenario, *args, **kwargs)
+        except Exception as exc:
+            self.fail(scenario, 'exception %s' % str(exc).splitlines()[0][:300])
+
+    def _edit(self, scenario, url, texts, selects, min_options=None, button='update'):
         """Change des champs texte et des listes, enregistre, rouvre et vérifie."""
         if not self.open(scenario, url):
             return
@@ -169,7 +179,10 @@ def main():
                 continue
             run = Run(page, login)
             if admin:
-                run.template_fields('gabarit d\'incident de sécurité', IDS['incident_template'])
+                try:
+                    run.template_fields('gabarit d\'incident de sécurité', IDS['incident_template'])
+                except Exception as exc:
+                    run.fail('gabarit d\'incident de sécurité', 'exception %s' % str(exc).splitlines()[0][:300])
                 run.edit('ticket', BASE + '/front/ticket.form.php?id=%d' % IDS['ticket_A'],
                          {}, {'urgency': ['4', '2'], 'impact': ['4', '2']}, {'urgency': 5, 'impact': 5})
             # Statut « En attente » : un statut « En cours (attribué) » sans technicien revient à « Nouveau ».
