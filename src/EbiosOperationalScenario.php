@@ -112,6 +112,8 @@ class EbiosOperationalScenario extends EbiosElement
             'treatment'     => (string) $this->fields['treatment'],
             'justification' => (string) $this->fields['justification'],
             'users_id'      => (int) ($study->fields['users_id'] ?? 0),
+            // Issue #536, lot 3 : le risque va dans l'entité de l'étude.
+            'entities_id'   => (int) ($study->fields['entities_id'] ?? 0),
         ]);
         if ($riskId === false || (int) $riskId <= 0) {
             return 0;

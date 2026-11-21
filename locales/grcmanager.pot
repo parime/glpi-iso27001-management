@@ -32627,6 +32627,10 @@ msgstr ""
 msgid "To be handled"
 msgstr ""
 
+#: src/EntityPerimeter.php:138
+msgid "You cannot create this item in this entity."
+msgstr ""
+
 #: front/crisismessagerecipient.form.php:44
 msgid "Review of the distribution list recorded."
 msgstr ""
@@ -32719,3 +32723,4 @@ msgstr ""
 #: templates/tabs/crisis_message_recipients.html.twig
 msgid "Role in the list"
 msgstr ""
+

@@ -6012,9 +6012,24 @@ final class Installer
             self::RISK_TREATMENT_ACTIONS_TABLE => 0,
             self::AUDITS_TABLE                 => 0,
             self::NONCONFORMITIES_TABLE        => 0,
+            // Lot 3 : les registres opérationnels (risques fournisseurs, dérogations, flux réseau,
+            // études EBIOS) restent dans l'entité racine seule, comme les risques ; les registres de
+            // pilotage (formations, revues de direction, objectifs, obligations) gardent leur
+            // visibilité d'avant dans les sous-entités (récursifs).
+            self::SUPPLIER_RISKS_TABLE         => 0,
+            self::WAIVERS_TABLE                => 0,
+            self::NETWORK_FLOWS_TABLE          => 0,
+            self::EBIOS_STUDIES_TABLE          => 0,
+            self::TRAININGS_TABLE              => 1,
+            self::MANAGEMENT_REVIEWS_TABLE     => 1,
+            self::OBJECTIVES_TABLE             => 1,
+            self::COMPLIANCE_OBLIGATIONS_TABLE => 1,
         ];
         $legacyFindings = !$DB->fieldExists(self::NONCONFORMITIES_TABLE, 'entities_id');
         foreach ($tables as $table => $recursive) {
+            if (!$DB->tableExists($table)) {
+                continue;
+            }
             if (!$DB->fieldExists($table, 'entities_id')) {
                 $migration->addField($table, 'entities_id', 'fkey', ['after' => 'id', 'value' => 0]);
             }

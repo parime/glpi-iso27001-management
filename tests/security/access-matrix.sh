@@ -1527,5 +1527,23 @@ if [ "$ROLE" != admin ]; then
     "$(code -d "reopen=1&changes_id=$(id change_A)&_glpi_csrf_token=$(csrf)" "$P/releasevalidation.form.php")"
 fi
 
+# Issue #536, lot 3 : risques fournisseurs, formations, revues de direction, objectifs,
+# obligations, derogations, flux reseau et etudes EBIOS appartiennent a une entite. Un profil
+# limite a A n'ouvre ni ne liste jamais ceux de B ; le super-admin, a la racine, les voit.
+for spec in "supplierrisk:supplierrisk_B:Risque fournisseur securite B" "training:training_B:Formation securite B" \
+  "managementreview:mreview_B:Revue securite B" "objective:objective_B:Objectif registre securite B" \
+  "complianceobligation:obligation_B:Obligation securite B" "waiver:waiver_B:Derogation securite B" \
+  "networkflow:flow_B:Flux securite B" "ebiosstudy:ebios_B:Etude securite B"; do
+  page=${spec%%:*}; rest=${spec#*:}; key=${rest%%:*}; label=${rest#*:}
+  expect "$page de l'entite B" $DENY "$(code "$P/$page.form.php?id=$(id "$key")")"
+  contains "liste $page : element de B" "$label" $SEE_B "$(curl -s -c "$JAR" -b "$JAR" "$P/$page.php")"
+done
+if [ "$ROLE" != admin ]; then
+  expect "modifier un risque fournisseur de B" 403 \
+    "$(code -d "update=1&id=$(id supplierrisk_B)&title=Risque%20fournisseur%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/supplierrisk.form.php")"
+  expect "creer une formation dans l'entite B" 403 \
+    "$(code -d "add=1&title=Formation%20creee%20securite&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/training.form.php")"
+fi
+
 rm -f "$JAR"
 exit $FAIL

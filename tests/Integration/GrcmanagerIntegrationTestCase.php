@@ -35,7 +35,10 @@ abstract class GrcmanagerIntegrationTestCase extends TestCase
         // Issue #536 : entité active des créations (audits, non-conformités...), comme une session réelle.
         $_SESSION['glpiactive_entity'] ??= 0;
         $_SESSION['glpiactiveentities'] ??= [0];
-        $_SESSION['glpiactiveentities_string'] ??= '0';
+        // Issue #536, lot 3 : chaîne au format de GLPI ('0', '12'), que la recherche insère telle quelle
+        // dans IN (...) ; une forme sans guillemets extérieurs laissée par un test précédent casse la
+        // recherche des registres qui ont une entité.
+        $_SESSION['glpiactiveentities_string'] = self::entitiesString($_SESSION['glpiactiveentities']);
         $_SESSION['glpiID'] ??= 2; // native "glpi" super-admin account.
         $_SESSION['glpiname'] ??= 'glpi';
     }
@@ -46,6 +49,16 @@ abstract class GrcmanagerIntegrationTestCase extends TestCase
         $DB->rollBack();
 
         parent::tearDown();
+    }
+
+    /**
+     * Liste d'entités au format de session de GLPI : '0', '12'.
+     *
+     * @param array<mixed> $entities
+     */
+    protected static function entitiesString(array $entities): string
+    {
+        return "'" . implode("', '", array_map('intval', $entities)) . "'";
     }
 
     protected function createTestEntity(int $parentId, string $name): int
@@ -68,7 +81,7 @@ abstract class GrcmanagerIntegrationTestCase extends TestCase
         ]);
 
         $_SESSION['glpiactiveentities'][] = $id;
-        $_SESSION['glpiactiveentities_string'] = implode("','", $_SESSION['glpiactiveentities']);
+        $_SESSION['glpiactiveentities_string'] = self::entitiesString($_SESSION['glpiactiveentities']);
 
         return $id;
     }

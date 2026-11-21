@@ -9,6 +9,34 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Périmètres multiples, lot 3 : les autres registres par entité GLPI** (issue #536, dernier lot).
+  Après les risques, la SoA, les audits et les non-conformités, huit registres appartiennent à une
+  entité : **risques fournisseurs**, **formations**, **revues de direction**, **objectifs**,
+  **obligations**, **dérogations**, **flux réseau** et **études EBIOS RM**. Un utilisateur ne voit et
+  ne modifie que ceux des entités de son profil, partout :
+  - listes, fiches, recherches, exports et API ;
+  - cartes du tableau de bord et de pilotage ;
+  - contrôles de cohérence, calendrier de conformité, préparation à la certification ;
+  - matrice et rapport des flux réseau, dérogations des vulnérabilités du parc.
+
+  Un nouvel élément prend l'entité active ; le serveur refuse une autre entité que celles de la
+  session, y compris par modification en masse. Les colonnes « Entité » et « Sous-entités » sont
+  dans chaque recherche. Les éléments rattachés suivent leur parent :
+  - mesures d'un objectif, actions d'une revue, éléments d'une étude EBIOS ;
+  - le risque créé depuis un scénario opérationnel EBIOS va dans l'entité de l'étude ;
+  - le dossier préparatoire d'une revue de direction porte sur l'entité de la revue et reprend
+    les actions des revues précédentes de cette entité ; son document y est rangé.
+
+  Une revue ne peut citer que des objectifs lisibles, et les liens vers les autres sont conservés.
+  Les formations qualifiantes des auditeurs choisies hors de la session le restent aussi.
+  **À la mise à jour**, les données existantes vont dans l'entité racine :
+  - les formations, revues, objectifs et obligations restent visibles des sous-entités, comme avant ;
+  - les risques fournisseurs, dérogations, flux et études EBIOS ne le sont plus, comme les risques.
+
+  Rangez-les ensuite par une modification en masse (colonne « Entité »). Aucun statut, responsable
+  ou droit ne change. Restent communs : les référentiels, le catalogue de l'Annexe A, les exigences
+  des articles 4 à 10 et les politiques. Ce lot termine l'issue #536.
+
 - **Développement sécurisé, lot 2 : séparation détaillée, exigences, architecture et développement
   externalisé** (issue #777, mesures A.8.26, A.8.27, A.8.30 et A.8.31) :
   - fiche « Développement sécurisé » d'une application : **accès**, **données** et
