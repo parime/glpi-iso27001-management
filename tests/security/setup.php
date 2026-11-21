@@ -386,6 +386,13 @@ if ($mode === 'xss') {
     $DB->update('glpi_plugin_grcmanager_mfaaccounts', [
         'account' => mb_substr($canary, 0, 255), 'methods' => $canary,
     ], ['account' => 'Compte MFA securite A']);
+    // Issue #853 : hôte émetteur, serveur de temps et commentaire piégés (couverture de la journalisation).
+    $DB->update(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, ['host' => mb_substr($canary, 0, 255)], [
+        'host' => 'Hote journaux securite A',
+    ]);
+    $DB->update(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, [
+        'ntp_server' => mb_substr($canary, 0, 255), 'is_ntp_declared' => 1, 'comment' => $canary,
+    ], ['comment' => 'Conservation securite A']);
     // Issue #779 : logiciel commercial sans licence piégé (page des licences logicielles, export).
     $DB->update('glpi_softwares', ['name' => $canary], ['name' => 'Logiciel licence securite A']);
     // Issue #779, lot 2 : licence piégée qui arrive à échéance (lien vers la licence sur la page).
@@ -791,6 +798,17 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         $DB->insert('glpi_items_disks', [
             'itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix], 'name' => 'Disque securite',
             'mountpoint' => 'C:', 'encryption_status' => 0, 'is_deleted' => 0,
+        ]);
+    }
+    // Issue #853 : hôte émetteur inconnu de GLPI et conservation déclarée (entité seulement).
+    $logHost = ['entities_id' => $entity, 'platform' => 'graylog', 'host' => 'Hote journaux securite ' . $suffix];
+    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, $logHost) === 0) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, $logHost + ['ip' => '192.0.2.99']);
+    }
+    $logPlatform = ['entities_id' => $entity, 'platform' => 'graylog'];
+    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, $logPlatform) === 0) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, $logPlatform + [
+            'retention_days' => 30, 'comment' => 'Conservation securite ' . $suffix,
         ]);
     }
     // Issue #779 : logiciel commercial fictif installé sans licence sur l'ordinateur de l'entité.
