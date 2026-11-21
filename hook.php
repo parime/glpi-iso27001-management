@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Dashboard\SecuredDashboardCards;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
@@ -292,13 +293,6 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'label' => __('Active Directory security score (PingCastle or Purple Knight, 0 is best)', 'grcmanager'),
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::adSecurityScore',
-        ],
-        // Issue #852 : administrateurs protégés par MFA (%).
-        'grcmanager_mfa_admin_rate' => [
-            'widgettype' => ['bigNumber'],
-            'label' => __('Administrators protected by MFA (%)', 'grcmanager'),
-            'group' => $group,
-            'provider' => SecuredDashboardCards::class . '::mfaAdminRate',
         ],
         // Issue #854 : ordinateurs dont les correctifs sont dans les délais (%).
         'grcmanager_patch_compliance_rate' => [
@@ -607,6 +601,10 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             ],
         ];
     }
+
+    // Cartes des fonctionnalités découvertes (src/Feature/*Feature.php, DashboardCardsProvider) : une
+    // nouvelle fonctionnalité ajoute les siennes sans modifier cette liste.
+    $own = FeatureRegistry::dashboardCards($own, $group);
 
     // Issue #143 : seules les cartes que l'utilisateur peut voir sont proposées et calculées.
     return $cards + SecuredDashboardCards::filterCatalog($own);

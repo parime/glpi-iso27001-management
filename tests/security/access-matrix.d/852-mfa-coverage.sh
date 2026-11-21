@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 # Issue #852 : couverture MFA, comptes importes de l'entite A seulement ; import en lecture seule.
 # Fragment charge par tests/security/access-matrix.sh (memes fonctions et variables).
+readable front/mfacoverage.php
 if [ "$ROLE" = reader ]; then
   contains "couverture MFA : compte importe de A" "Compte MFA securite A" oui "$(body "$P/mfacoverage.php")"
   contains "couverture MFA : rien de B" "Compte MFA securite B" non "$(body "$P/mfacoverage.php")"

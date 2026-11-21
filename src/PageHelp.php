@@ -18,6 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
 
 /**
  * Encadré « À quoi sert cette page ? » en tête de chaque écran du menu GRC & Conformité : ce
@@ -30,6 +31,17 @@ class PageHelp
      * @return array<string, array{purpose: string, expected: string, reference?: string}>
      */
     public static function texts(): array
+    {
+        return self::coreTexts() + FeatureRegistry::pageHelp();
+    }
+
+    /**
+     * Aides des pages plus anciennes ; une nouvelle fonctionnalité donne la sienne dans
+     * src/Feature/<Fonctionnalité>Feature.php (PageHelpProvider).
+     *
+     * @return array<string, array{purpose: string, expected: string, reference?: string}>
+     */
+    private static function coreTexts(): array
     {
         return [
             'dashboard' => [
@@ -841,23 +853,6 @@ class PageHelp
                 ),
             ],
             // Issue #852 : couverture MFA par compte.
-            'mfacoverage' => [
-                'purpose'   => __(
-                    'Shows which active accounts are protected by multi-factor authentication: GLPI two-factor '
-                        . 'authentication, and the methods registered with your identity provider (Microsoft Entra '
-                        . 'ID, Okta, Google Workspace, on-premises solution) imported from a CSV export. Rates are '
-                        . 'given for all accounts, administrators and remote access accounts.',
-                    'grcmanager'
-                ),
-                'expected'  => __(
-                    'Import the export of your identity provider, choose the remote access groups, then follow up '
-                        . 'the gaps: administrator or remote access without MFA, SMS or call only, account excluded '
-                        . 'without justification. Nothing is changed automatically. Record the result as an '
-                        . 'effectiveness test of the control to keep the evidence.',
-                    'grcmanager'
-                ),
-                'reference' => __('ISO/IEC 27001, controls A.8.5 and A.5.17', 'grcmanager'),
-            ],
             'personnelcompliance' => [
                 'purpose'   => __(
                     'Security compliance of each person: screening, confidentiality agreement, mandatory trainings, '
