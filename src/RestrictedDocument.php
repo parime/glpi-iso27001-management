@@ -193,6 +193,11 @@ class RestrictedDocument
         if ($itemtype === EvidencePack::class) {
             return EvidencePack::canRead($source['items_id']);
         }
+        // Issue #835 : rapport d'audit de l'AD archivé, avec le droit du registre sensible dans
+        // l'entité de l'import.
+        if ($itemtype === AdSecurityAudit::class) {
+            return AdSecurityAudit::canReadAudit($source['items_id']);
+        }
         if (!is_a($itemtype, CommonDBTM::class, true)) {
             return false;
         }

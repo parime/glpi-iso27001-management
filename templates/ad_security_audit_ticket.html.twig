@@ -1,0 +1,17 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #835 : contenu du ticket proposé pour une règle de l'audit de sécurité de l'Active Directory. #}
+<p>{{ __('Weakness reported by the Active Directory security audit ("Active Directory security audit" screen). Fix it, then import the next report to check that the rule is resolved. Nothing was changed automatically.', 'grcmanager') }}</p>
+<p>{% for line in lines %}{{ line }}<br>{% endfor %}</p>

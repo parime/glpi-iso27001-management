@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Issue #835 : rapport PingCastle fictif (domaine exemple.test), pour essayer l'import. -->
+<HealthcheckData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <EngineVersion>3.3.0.1</EngineVersion>
+  <GenerationDate>2026-03-14T10:22:31.1234567+01:00</GenerationDate>
+  <DomainFQDN>exemple.test</DomainFQDN>
+  <NetBIOSName>EXEMPLE</NetBIOSName>
+  <ForestFQDN>exemple.test</ForestFQDN>
+  <MaturityLevel>2</MaturityLevel>
+  <GlobalScore>55</GlobalScore>
+  <StaleObjectsScore>35</StaleObjectsScore>
+  <PrivilegiedGroupScore>55</PrivilegiedGroupScore>
+  <TrustScore>0</TrustScore>
+  <AnomalyScore>40</AnomalyScore>
+  <RiskRules>
+    <HealthcheckRiskRule>
+      <Points>15</Points>
+      <Category>StaleObjects</Category>
+      <Model>InactiveUserOrComputer</Model>
+      <RiskId>S-Inactive</RiskId>
+      <Rationale>Inactive user accounts that are still enabled: 42</Rationale>
+      <Details>
+        <string>Fictitious detail line kept out of GLPI</string>
+      </Details>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>20</Points>
+      <Category>StaleObjects</Category>
+      <Model>ObsoleteOS</Model>
+      <RiskId>S-OS-2012</RiskId>
+      <Rationale>Domain controllers or servers running an operating system out of support: 2</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>50</Points>
+      <Category>PrivilegiedAccounts</Category>
+      <Model>AdminControl</Model>
+      <RiskId>P-Delegated</RiskId>
+      <Rationale>Administrator accounts that can be delegated: 3</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>5</Points>
+      <Category>PrivilegiedAccounts</Category>
+      <Model>AccountTakeOver</Model>
+      <RiskId>P-Kerberoasting</RiskId>
+      <Rationale>Privileged accounts with a service principal name: 1</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>30</Points>
+      <Category>Anomalies</Category>
+      <Model>PassTheCredential</Model>
+      <RiskId>A-LAPS-Not-Installed</RiskId>
+      <Rationale>The local administrator password solution (LAPS) is not deployed</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>10</Points>
+      <Category>Anomalies</Category>
+      <Model>NetworkSniffing</Model>
+      <RiskId>A-NoGPOLLMNR</RiskId>
+      <Rationale>LLMNR name resolution is not disabled by a group policy</Rationale>
+    </HealthcheckRiskRule>
+  </RiskRules>
+</HealthcheckData>

@@ -103,6 +103,9 @@ check "preuve developpement securise (A.8.31)" "$P/control.form.php?id=$(xid con
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #847 : ordinateur, outil et algorithme de chiffrement pieges (chiffrement des disques).
 check "front/diskencryption.php"              "$P/diskencryption.php"
+# Issue #835 : domaine, regle et constat pieges (audit de securite de l'AD, preuve A.8.2).
+check "front/adsecurityaudit.php"             "$P/adsecurityaudit.php"
+check "preuve audit de l'AD (A.8.2)"          "$P/control.form.php?id=$(xid control_a82)"
 # Issue #852 : compte et methode importes pieges (couverture MFA, preuve A.8.5).
 check "front/mfacoverage.php"                 "$P/mfacoverage.php"
 check "preuve couverture MFA (A.8.5)"         "$P/control.form.php?id=$(xid control_a85)"
