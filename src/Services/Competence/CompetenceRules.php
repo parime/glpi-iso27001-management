@@ -249,6 +249,31 @@ final class CompetenceRules
     }
 
     /**
+     * Lot 3 : clé d'un écart (personne, compétence, niveau exigé), pour ne le signaler qu'une fois.
+     */
+    public static function gapKey(int $person, int $competence, int $level): string
+    {
+        return $person . '|' . $competence . '|' . self::normalizeLevel($level);
+    }
+
+    /**
+     * Lot 3 : écarts sans formation planifiée pas encore signalés au responsable.
+     *
+     * @template T of array{person: int, competence_id: int, level: int}
+     * @param list<T> $gaps
+     * @param array<string, true> $known clés déjà signalées
+     * @return list<T>
+     */
+    public static function newGaps(array $gaps, array $known): array
+    {
+        return array_values(array_filter(
+            $gaps,
+            static fn (array $gap): bool
+                => !isset($known[self::gapKey($gap['person'], $gap['competence_id'], $gap['level'])])
+        ));
+    }
+
+    /**
      * Une déclaration doit citer sa preuve : une référence écrite ou un document joint.
      */
     public static function hasEvidence(string $reference, int $documentsId): bool

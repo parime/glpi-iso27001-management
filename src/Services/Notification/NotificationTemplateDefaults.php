@@ -23,6 +23,7 @@ use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\BreachExposure;
 use GlpiPlugin\Grcmanager\BusinessProcess;
 use GlpiPlugin\Grcmanager\BusinessProcessReminder;
+use GlpiPlugin\Grcmanager\CompetenceGapAlert;
 use GlpiPlugin\Grcmanager\ComplianceEvent;
 use GlpiPlugin\Grcmanager\ComplianceObligation;
 use GlpiPlugin\Grcmanager\ContextItem;
@@ -35,6 +36,7 @@ use GlpiPlugin\Grcmanager\Nonconformity;
 use GlpiPlugin\Grcmanager\NotificationTargetAccessReview;
 use GlpiPlugin\Grcmanager\NotificationTargetBreachExposure;
 use GlpiPlugin\Grcmanager\NotificationTargetBusinessProcess;
+use GlpiPlugin\Grcmanager\NotificationTargetCompetenceGapAlert;
 use GlpiPlugin\Grcmanager\NotificationTargetContextItem;
 use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
 use GlpiPlugin\Grcmanager\NotificationTargetControl;
@@ -511,6 +513,13 @@ final class NotificationTemplateDefaults
                 $owner,
                 'Étape de la certification à risque', '',
             ],
+            // Issue #774, lot 3 : écarts de compétence sans formation planifiée (article 7.2).
+            'competence_gaps_unplanned' => [
+                CompetenceGapAlert::class, CompetenceGapAlert::EVENT, 'Competence gaps without planned training',
+                $sentByTask . 'a person who holds an ISMS function has a competence gap with no planned training.',
+                [Notification::ITEM_USER, NotificationTargetCompetenceGapAlert::TARGET_CISO_GROUP],
+                'Écarts de compétence sans formation planifiée', '',
+            ],
             'evidence_request_to_complete' => [
                 AuditEvidenceRequest::class, AuditEvidenceRequest::TO_COMPLETE_EVENT, 'Audit evidence to complete',
                 'Sent to the person who provided audit evidence when the audit asks for it to be completed.',
@@ -584,6 +593,16 @@ final class NotificationTemplateDefaults
                     . $t('Complete these steps, or adjust the target date, on the certification readiness page. '
                         . 'Nothing is changed automatically.') . "\n\n"
                     . $line('View the certification readiness', '##readinessalert.url##'));
+
+            case 'competence_gaps_unplanned':
+                $title = $head('##competencegaps.action##', '##competencegaps.count##');
+
+                return self::plain($title, $title . "\n\n"
+                    . "##competencegaps.gaps##\n\n"
+                    . $line('Number of gaps without planned training', '##competencegaps.total##') . "\n\n"
+                    . $t('Plan a session of the proposed training from the Competences page, or declare the proof '
+                        . 'the person already has. Nothing is changed automatically.') . "\n\n"
+                    . $line('View the competences', '##competencegaps.url##'));
 
             case 'context_review':
                 $title = $head('##contextitem.action##', '##contextitem.name##');

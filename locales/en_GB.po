@@ -31225,6 +31225,274 @@ msgid_plural "%d months"
 msgstr[0] "%d month"
 msgstr[1] "%d months"
 
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d competence gap(s) reported."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Activity of the responsibility matrix"
+
+msgid "Competence gaps without planned training"
+msgstr "Competence gaps without planned training"
+
+msgid "Follows the responsibility matrix"
+msgstr "Follows the responsibility matrix"
+
+msgid "New gaps without planned training"
+msgstr "New gaps without planned training"
+
+msgid "Number of gaps without planned training"
+msgstr "Number of gaps without planned training"
+
+msgid "Number of new gaps"
+msgstr "Number of new gaps"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Other gaps not listed here: %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Responsibility matrix: %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Role in the activity"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "This activity is not available in the entity of the function."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr "Warns the owner of the competence gaps that have no planned training"
+
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+
+msgid ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+msgstr ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+
+msgid ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+msgstr ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+
+msgid "View the competences"
+msgstr "View the competences"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Competence gap alert"
+msgstr[1] "Competence gap alerts"
+
+msgid "Review of the last exercise not validated"
+msgstr "Review of the last exercise not validated"
+
+msgid "Critical process never tested in recovery"
+msgstr "Critical process never tested in recovery"
+
+msgid "Preparedness"
+msgstr "Preparedness"
+
+msgid "%d exercise review to validate"
+msgid_plural "%d exercise reviews to validate"
+msgstr[0] "%d exercise review to validate"
+msgstr[1] "%d exercise reviews to validate"
+
+msgid "%d scenario exercised with a validated review"
+msgid_plural "%d scenarios exercised with a validated review"
+msgstr[0] "%d scenario exercised with a validated review"
+msgstr[1] "%d scenarios exercised with a validated review"
+
+msgid "%d scenario with a critical process never tested in recovery"
+msgid_plural "%d scenarios with a critical process never tested in recovery"
+msgstr[0] "%d scenario with a critical process never tested in recovery"
+msgstr[1] "%d scenarios with a critical process never tested in recovery"
+
+msgid "No recovery test recorded for this process"
+msgstr "No recovery test recorded for this process"
+
+msgid "Review to validate"
+msgstr "Review to validate"
+
+msgid "No official contact to inform for this scenario."
+msgstr "No official contact to inform for this scenario."
+
+msgid "%d crisis communication recorded during the exercise"
+msgid_plural "%d crisis communications recorded during the exercise"
+msgstr[0] "%d crisis communication recorded during the exercise"
+msgstr[1] "%d crisis communications recorded during the exercise"
+
+msgid "%d official contact recorded during the exercise"
+msgid_plural "%d official contacts recorded during the exercise"
+msgstr[0] "%d official contact recorded during the exercise"
+msgstr[1] "%d official contacts recorded during the exercise"
+
+msgid "%d recipient"
+msgid_plural "%d recipients"
+msgstr[0] "%d recipient"
+msgstr[1] "%d recipients"
+
+msgid "%d recipient not visible to you"
+msgid_plural "%d recipients not visible to you"
+msgstr[0] "%d recipient not visible to you"
+msgstr[1] "%d recipients not visible to you"
+
+msgid "%d recovery time measured during the exercise"
+msgid_plural "%d recovery times measured during the exercise"
+msgstr[0] "%d recovery time measured during the exercise"
+msgstr[1] "%d recovery times measured during the exercise"
+
+msgid ""
+"Contacts marked for a security incident or a personal data breach, visible "
+"from the entity of the scenario."
+msgstr ""
+"Contacts marked for a security incident or a personal data breach, visible "
+"from the entity of the scenario."
+
+msgid ""
+"Contacts marked for a security incident, visible from the entity of the "
+"scenario."
+msgstr ""
+"Contacts marked for a security incident, visible from the entity of the "
+"scenario."
+
+msgid "Crisis exercises and review"
+msgstr "Crisis exercises and review"
+
+msgid ""
+"Evaluate the objectives and validate the review in the crisis room, tab "
+"\"Review\"."
+msgstr ""
+"Evaluate the objectives and validate the review in the crisis room, tab "
+"\"Review\"."
+
+msgid "Exercise of the plugin: %s"
+msgstr "Exercise of the plugin: %s"
+
+msgid "Exercise outside the plugin on %s (report in the Documents tab)."
+msgstr "Exercise outside the plugin on %s (report in the Documents tab)."
+
+msgid "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
+msgstr "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
+
+msgid ""
+"It gathers what shows that this scenario is ready: the crisis exercises that "
+"tested it and the review of the last one, the recovery tests of the impacted "
+"processes, the crisis messages to send and the authorities to inform. "
+"Nothing is copied: each line opens the original record."
+msgstr ""
+"It gathers what shows that this scenario is ready: the crisis exercises that "
+"tested it and the review of the last one, the recovery tests of the impacted "
+"processes, the crisis messages to send and the authorities to inform. "
+"Nothing is copied: each line opens the original record."
+
+msgid "Last exercise ended on %s"
+msgstr "Last exercise ended on %s"
+
+msgid "Launch this exercise"
+msgstr "Launch this exercise"
+
+msgid "No active message template for the situation \"%s\"."
+msgstr "No active message template for the situation \"%s\"."
+
+msgid ""
+"No communication situation is chosen for this scenario: choose one in the "
+"main tab, field \"Crisis communication\"."
+msgstr ""
+"No communication situation is chosen for this scenario: choose one in the "
+"main tab, field \"Crisis communication\"."
+
+msgid ""
+"No crisis exercise is chosen for this scenario: choose one in the main tab, "
+"field \"Crisis exercise\"."
+msgstr ""
+"No crisis exercise is chosen for this scenario: choose one in the main tab, "
+"field \"Crisis exercise\"."
+
+msgid "No distribution list"
+msgstr "No distribution list"
+
+msgid "No impacted process yet: choose them in the main tab."
+msgstr "No impacted process yet: choose them in the main tab."
+
+msgid ""
+"Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not "
+"evaluated"
+msgstr ""
+"Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not "
+"evaluated"
+
+msgid "Opens the crisis room with a fictitious incident of this exercise."
+msgstr "Opens the crisis room with a fictitious incident of this exercise."
+
+msgid "Previous exercises"
+msgstr "Previous exercises"
+
+msgid ""
+"Recovery tests are recorded in the tab \"Recovery strategy\" of each "
+"process, or in the crisis room during an exercise."
+msgstr ""
+"Recovery tests are recorded in the tab \"Recovery strategy\" of each "
+"process, or in the crisis room during an exercise."
+
+msgid "Recovery tests of the impacted processes"
+msgstr "Recovery tests of the impacted processes"
+
+msgid "Review validated on %1$s by %2$s"
+msgstr "Review validated on %1$s by %2$s"
+
+msgid "Situation: %s"
+msgstr "Situation: %s"
+
+msgid "Situation: %s. The message templates are visible only with their right."
+msgstr ""
+"Situation: %s. The message templates are visible only with their right."
+
+msgid ""
+"The business processes are visible only with the right of the business "
+"continuity."
+msgstr ""
+"The business processes are visible only with the right of the business "
+"continuity."
+
+msgid ""
+"The crisis exercises are visible only with the right to read the security "
+"incidents."
+msgstr ""
+"The crisis exercises are visible only with the right to read the security "
+"incidents."
+
+msgid ""
+"The official contacts are visible only with the right of the context of the "
+"organisation."
+msgstr ""
+"The official contacts are visible only with the right of the context of the "
+"organisation."
+
+msgid "This exercise has never been run to the end in the crisis room."
+msgstr "This exercise has never been run to the end in the crisis room."
+
 msgid "Evidence pack settings saved."
 msgstr "Evidence pack settings saved."
 
@@ -31425,193 +31693,9 @@ msgstr ""
 msgid "limit %d MB"
 msgstr "limit %d MB"
 
-msgid "Review of the last exercise not validated"
-msgstr "Review of the last exercise not validated"
-
-msgid "Critical process never tested in recovery"
-msgstr "Critical process never tested in recovery"
-
-msgid "Preparedness"
-msgstr "Preparedness"
-
-msgid "%d exercise review to validate"
-msgid_plural "%d exercise reviews to validate"
-msgstr[0] "%d exercise review to validate"
-msgstr[1] "%d exercise reviews to validate"
-
-msgid "%d scenario exercised with a validated review"
-msgid_plural "%d scenarios exercised with a validated review"
-msgstr[0] "%d scenario exercised with a validated review"
-msgstr[1] "%d scenarios exercised with a validated review"
-
-msgid "%d scenario with a critical process never tested in recovery"
-msgid_plural "%d scenarios with a critical process never tested in recovery"
-msgstr[0] "%d scenario with a critical process never tested in recovery"
-msgstr[1] "%d scenarios with a critical process never tested in recovery"
-
-msgid "No recovery test recorded for this process"
-msgstr "No recovery test recorded for this process"
-
-msgid "Review to validate"
-msgstr "Review to validate"
-
-msgid "No official contact to inform for this scenario."
-msgstr "No official contact to inform for this scenario."
-
-msgid "%d crisis communication recorded during the exercise"
-msgid_plural "%d crisis communications recorded during the exercise"
-msgstr[0] "%d crisis communication recorded during the exercise"
-msgstr[1] "%d crisis communications recorded during the exercise"
-
-msgid "%d official contact recorded during the exercise"
-msgid_plural "%d official contacts recorded during the exercise"
-msgstr[0] "%d official contact recorded during the exercise"
-msgstr[1] "%d official contacts recorded during the exercise"
-
-msgid "%d recipient"
-msgid_plural "%d recipients"
-msgstr[0] "%d recipient"
-msgstr[1] "%d recipients"
-
-msgid "%d recipient not visible to you"
-msgid_plural "%d recipients not visible to you"
-msgstr[0] "%d recipient not visible to you"
-msgstr[1] "%d recipients not visible to you"
-
-msgid "%d recovery time measured during the exercise"
-msgid_plural "%d recovery times measured during the exercise"
-msgstr[0] "%d recovery time measured during the exercise"
-msgstr[1] "%d recovery times measured during the exercise"
-
-msgid ""
-"Contacts marked for a security incident or a personal data breach, visible "
-"from the entity of the scenario."
-msgstr ""
-"Contacts marked for a security incident or a personal data breach, visible "
-"from the entity of the scenario."
-
-msgid ""
-"Contacts marked for a security incident, visible from the entity of the "
-"scenario."
-msgstr ""
-"Contacts marked for a security incident, visible from the entity of the "
-"scenario."
-
-msgid "Crisis exercises and review"
-msgstr "Crisis exercises and review"
-
-msgid ""
-"Evaluate the objectives and validate the review in the crisis room, tab "
-"\"Review\"."
-msgstr ""
-"Evaluate the objectives and validate the review in the crisis room, tab "
-"\"Review\"."
-
-msgid "Exercise of the plugin: %s"
-msgstr "Exercise of the plugin: %s"
-
-msgid "Exercise outside the plugin on %s (report in the Documents tab)."
-msgstr "Exercise outside the plugin on %s (report in the Documents tab)."
-
-msgid "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
-msgstr "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
-
-msgid ""
-"It gathers what shows that this scenario is ready: the crisis exercises that "
-"tested it and the review of the last one, the recovery tests of the impacted "
-"processes, the crisis messages to send and the authorities to inform. "
-"Nothing is copied: each line opens the original record."
-msgstr ""
-"It gathers what shows that this scenario is ready: the crisis exercises that "
-"tested it and the review of the last one, the recovery tests of the impacted "
-"processes, the crisis messages to send and the authorities to inform. "
-"Nothing is copied: each line opens the original record."
-
-msgid "Last exercise ended on %s"
-msgstr "Last exercise ended on %s"
-
-msgid "Launch this exercise"
-msgstr "Launch this exercise"
-
-msgid "No active message template for the situation \"%s\"."
-msgstr "No active message template for the situation \"%s\"."
-
-msgid ""
-"No communication situation is chosen for this scenario: choose one in the "
-"main tab, field \"Crisis communication\"."
-msgstr ""
-"No communication situation is chosen for this scenario: choose one in the "
-"main tab, field \"Crisis communication\"."
-
-msgid ""
-"No crisis exercise is chosen for this scenario: choose one in the main tab, "
-"field \"Crisis exercise\"."
-msgstr ""
-"No crisis exercise is chosen for this scenario: choose one in the main tab, "
-"field \"Crisis exercise\"."
-
-msgid "No distribution list"
-msgstr "No distribution list"
-
-msgid "No impacted process yet: choose them in the main tab."
-msgstr "No impacted process yet: choose them in the main tab."
-
-msgid ""
-"Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not "
-"evaluated"
-msgstr ""
-"Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not "
-"evaluated"
-
-msgid "Opens the crisis room with a fictitious incident of this exercise."
-msgstr "Opens the crisis room with a fictitious incident of this exercise."
-
-msgid "Previous exercises"
-msgstr "Previous exercises"
-
-msgid ""
-"Recovery tests are recorded in the tab \"Recovery strategy\" of each "
-"process, or in the crisis room during an exercise."
-msgstr ""
-"Recovery tests are recorded in the tab \"Recovery strategy\" of each "
-"process, or in the crisis room during an exercise."
-
-msgid "Recovery tests of the impacted processes"
-msgstr "Recovery tests of the impacted processes"
-
-msgid "Review validated on %1$s by %2$s"
-msgstr "Review validated on %1$s by %2$s"
-
-msgid "Situation: %s"
-msgstr "Situation: %s"
-
-msgid "Situation: %s. The message templates are visible only with their right."
-msgstr ""
-"Situation: %s. The message templates are visible only with their right."
-
-msgid ""
-"The business processes are visible only with the right of the business "
-"continuity."
-msgstr ""
-"The business processes are visible only with the right of the business "
-"continuity."
-
-msgid ""
-"The crisis exercises are visible only with the right to read the security "
-"incidents."
-msgstr ""
-"The crisis exercises are visible only with the right to read the security "
-"incidents."
-
-msgid ""
-"The official contacts are visible only with the right of the context of the "
-"organisation."
-msgstr ""
-"The official contacts are visible only with the right of the context of the "
-"organisation."
-
-msgid "This exercise has never been run to the end in the crisis room."
-msgstr "This exercise has never been run to the end in the crisis room."
+#, php-format
+msgid "%s MB"
+msgstr "%s MB"
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
@@ -32617,7 +32701,3 @@ msgstr "This exercise has never been run to the end in the crisis room."
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-#, php-format
-msgid "%s MB"
-msgstr "%s MB"

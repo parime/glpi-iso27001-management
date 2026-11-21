@@ -27617,6 +27617,280 @@ msgid_plural "%d months"
 msgstr[0] "%d mois"
 msgstr[1] "%d mois"
 
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d écart(s) de compétence signalé(s)."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s : %2$s, niveau attendu %3$s (formation à planifier : %4$s)"
+
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s : %2$s, niveau attendu %3$s (aucune formation ne la donne encore : "
+"liez-en une, ou déclarez une preuve)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Activité de la matrice des responsabilités"
+
+msgid "Competence gaps without planned training"
+msgstr "Écarts de compétence sans formation planifiée"
+
+msgid "Follows the responsibility matrix"
+msgstr "Suit la matrice des responsabilités"
+
+msgid "New gaps without planned training"
+msgstr "Nouveaux écarts sans formation planifiée"
+
+msgid "Number of gaps without planned training"
+msgstr "Nombre d'écarts sans formation planifiée"
+
+msgid "Number of new gaps"
+msgstr "Nombre de nouveaux écarts"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Autres écarts non cités ici : %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Matrice des responsabilités : %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Rôle dans l'activité"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "Cette activité n'est pas disponible dans l'entité de la fonction."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+"Prévient le responsable des écarts de compétence sans formation planifiée"
+
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+"Facultatif : les personnes et groupes qui tiennent le rôle choisi dans cette "
+"activité tiennent la fonction, et suivent la matrice quand elle change."
+
+msgid ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+msgstr ""
+"Envoyée par la tâche automatique GRC Manager lorsqu'une personne qui tient "
+"une fonction du SMSI a un écart de compétence sans formation planifiée."
+
+msgid ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+msgstr ""
+"Planifiez une session de la formation proposée depuis la page "
+"« Compétences », ou déclarez la preuve que la personne détient déjà. Rien "
+"n'est modifié automatiquement."
+
+msgid "View the competences"
+msgstr "Voir les compétences"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Alerte d'écart de compétence"
+msgstr[1] "Alertes d'écarts de compétence"
+
+msgid "Review of the last exercise not validated"
+msgstr "Bilan du dernier exercice non validé"
+
+msgid "Critical process never tested in recovery"
+msgstr "Processus critique jamais testé en reprise"
+
+msgid "Preparedness"
+msgstr "Préparation"
+
+msgid "%d exercise review to validate"
+msgid_plural "%d exercise reviews to validate"
+msgstr[0] "%d bilan d'exercice à valider"
+msgstr[1] "%d bilans d'exercice à valider"
+
+msgid "%d scenario exercised with a validated review"
+msgid_plural "%d scenarios exercised with a validated review"
+msgstr[0] "%d scénario exercé avec un bilan validé"
+msgstr[1] "%d scénarios exercés avec un bilan validé"
+
+msgid "%d scenario with a critical process never tested in recovery"
+msgid_plural "%d scenarios with a critical process never tested in recovery"
+msgstr[0] "%d scénario avec un processus critique jamais testé en reprise"
+msgstr[1] "%d scénarios avec un processus critique jamais testé en reprise"
+
+msgid "No recovery test recorded for this process"
+msgstr "Aucun test de reprise enregistré pour ce processus"
+
+msgid "Review to validate"
+msgstr "Bilan à valider"
+
+msgid "No official contact to inform for this scenario."
+msgstr "Aucun contact officiel à prévenir pour ce scénario."
+
+msgid "%d crisis communication recorded during the exercise"
+msgid_plural "%d crisis communications recorded during the exercise"
+msgstr[0] "%d communication de crise tracée pendant l'exercice"
+msgstr[1] "%d communications de crise tracées pendant l'exercice"
+
+msgid "%d official contact recorded during the exercise"
+msgid_plural "%d official contacts recorded during the exercise"
+msgstr[0] "%d prise de contact officielle tracée pendant l'exercice"
+msgstr[1] "%d prises de contact officielles tracées pendant l'exercice"
+
+msgid "%d recipient"
+msgid_plural "%d recipients"
+msgstr[0] "%d destinataire"
+msgstr[1] "%d destinataires"
+
+msgid "%d recipient not visible to you"
+msgid_plural "%d recipients not visible to you"
+msgstr[0] "%d destinataire qui ne vous est pas visible"
+msgstr[1] "%d destinataires qui ne vous sont pas visibles"
+
+msgid "%d recovery time measured during the exercise"
+msgid_plural "%d recovery times measured during the exercise"
+msgstr[0] "%d temps de reprise mesuré pendant l'exercice"
+msgstr[1] "%d temps de reprise mesurés pendant l'exercice"
+
+msgid ""
+"Contacts marked for a security incident or a personal data breach, visible "
+"from the entity of the scenario."
+msgstr ""
+"Contacts marqués pour un incident de sécurité ou une violation de données "
+"personnelles, visibles depuis l'entité du scénario."
+
+msgid ""
+"Contacts marked for a security incident, visible from the entity of the "
+"scenario."
+msgstr ""
+"Contacts marqués pour un incident de sécurité, visibles depuis l'entité du "
+"scénario."
+
+msgid "Crisis exercises and review"
+msgstr "Exercices de crise et bilan"
+
+msgid ""
+"Evaluate the objectives and validate the review in the crisis room, tab "
+"\"Review\"."
+msgstr ""
+"Évaluez les objectifs et validez le bilan dans la salle de crise, onglet "
+"« Bilan »."
+
+msgid "Exercise of the plugin: %s"
+msgstr "Exercice du plugin : %s"
+
+msgid "Exercise outside the plugin on %s (report in the Documents tab)."
+msgstr "Exercice hors plugin le %s (compte rendu dans l'onglet Documents)."
+
+msgid "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
+msgstr ""
+"Constats : %1$d, actions d'amélioration : %2$d (%3$d terminées, %4$d en "
+"retard)"
+
+msgid ""
+"It gathers what shows that this scenario is ready: the crisis exercises that "
+"tested it and the review of the last one, the recovery tests of the impacted "
+"processes, the crisis messages to send and the authorities to inform. "
+"Nothing is copied: each line opens the original record."
+msgstr ""
+"Il rassemble ce qui montre que ce scénario est prêt : les exercices de crise "
+"qui l'ont testé et le bilan du dernier, les tests de reprise des processus "
+"impactés, les messages de crise à envoyer et les autorités à prévenir. Rien "
+"n'est recopié : chaque ligne ouvre la fiche d'origine."
+
+msgid "Last exercise ended on %s"
+msgstr "Dernier exercice terminé le %s"
+
+msgid "Launch this exercise"
+msgstr "Lancer cet exercice"
+
+msgid "No active message template for the situation \"%s\"."
+msgstr "Aucun modèle de message actif pour la situation « %s »."
+
+msgid ""
+"No communication situation is chosen for this scenario: choose one in the "
+"main tab, field \"Crisis communication\"."
+msgstr ""
+"Aucune situation de communication n'est choisie pour ce scénario : "
+"choisissez-en une dans l'onglet principal, champ « Communication de crise »."
+
+msgid ""
+"No crisis exercise is chosen for this scenario: choose one in the main tab, "
+"field \"Crisis exercise\"."
+msgstr ""
+"Aucun exercice de crise n'est choisi pour ce scénario : choisissez-en un "
+"dans l'onglet principal, champ « Exercice de crise »."
+
+msgid "No distribution list"
+msgstr "Aucune liste de diffusion"
+
+msgid "No impacted process yet: choose them in the main tab."
+msgstr ""
+"Aucun processus impacté pour l'instant : choisissez-les dans l'onglet "
+"principal."
+
+msgid ""
+"Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not "
+"evaluated"
+msgstr ""
+"Objectifs : %1$d atteints, %2$d partiellement, %3$d non atteints, %4$d non "
+"évalués"
+
+msgid "Opens the crisis room with a fictitious incident of this exercise."
+msgstr "Ouvre la salle de crise avec un incident fictif de cet exercice."
+
+msgid "Previous exercises"
+msgstr "Exercices précédents"
+
+msgid ""
+"Recovery tests are recorded in the tab \"Recovery strategy\" of each "
+"process, or in the crisis room during an exercise."
+msgstr ""
+"Les tests de reprise s'enregistrent dans l'onglet « Stratégie de reprise » "
+"de chaque processus, ou dans la salle de crise pendant un exercice."
+
+msgid "Recovery tests of the impacted processes"
+msgstr "Tests de reprise des processus impactés"
+
+msgid "Review validated on %1$s by %2$s"
+msgstr "Bilan validé le %1$s par %2$s"
+
+msgid "Situation: %s"
+msgstr "Situation : %s"
+
+msgid "Situation: %s. The message templates are visible only with their right."
+msgstr ""
+"Situation : %s. Les modèles de messages ne sont visibles qu'avec leur droit."
+
+msgid ""
+"The business processes are visible only with the right of the business "
+"continuity."
+msgstr ""
+"Les processus métier ne sont visibles qu'avec le droit de la continuité "
+"d'activité."
+
+msgid ""
+"The crisis exercises are visible only with the right to read the security "
+"incidents."
+msgstr ""
+"Les exercices de crise ne sont visibles qu'avec le droit de lire les "
+"incidents de sécurité."
+
+msgid ""
+"The official contacts are visible only with the right of the context of the "
+"organisation."
+msgstr ""
+"Les contacts officiels ne sont visibles qu'avec le droit du contexte de "
+"l'organisme."
+
+msgid "This exercise has never been run to the end in the crisis room."
+msgstr "Cet exercice n'a jamais été mené jusqu'au bout dans la salle de crise."
+
 msgid "Evidence pack settings saved."
 msgstr "Réglages du dossier de preuves enregistrés."
 
@@ -27822,198 +28096,6 @@ msgstr ""
 #, php-format
 msgid "limit %d MB"
 msgstr "limite %d Mo"
-
-msgid "Review of the last exercise not validated"
-msgstr "Bilan du dernier exercice non validé"
-
-msgid "Critical process never tested in recovery"
-msgstr "Processus critique jamais testé en reprise"
-
-msgid "Preparedness"
-msgstr "Préparation"
-
-msgid "%d exercise review to validate"
-msgid_plural "%d exercise reviews to validate"
-msgstr[0] "%d bilan d'exercice à valider"
-msgstr[1] "%d bilans d'exercice à valider"
-
-msgid "%d scenario exercised with a validated review"
-msgid_plural "%d scenarios exercised with a validated review"
-msgstr[0] "%d scénario exercé avec un bilan validé"
-msgstr[1] "%d scénarios exercés avec un bilan validé"
-
-msgid "%d scenario with a critical process never tested in recovery"
-msgid_plural "%d scenarios with a critical process never tested in recovery"
-msgstr[0] "%d scénario avec un processus critique jamais testé en reprise"
-msgstr[1] "%d scénarios avec un processus critique jamais testé en reprise"
-
-msgid "No recovery test recorded for this process"
-msgstr "Aucun test de reprise enregistré pour ce processus"
-
-msgid "Review to validate"
-msgstr "Bilan à valider"
-
-msgid "No official contact to inform for this scenario."
-msgstr "Aucun contact officiel à prévenir pour ce scénario."
-
-msgid "%d crisis communication recorded during the exercise"
-msgid_plural "%d crisis communications recorded during the exercise"
-msgstr[0] "%d communication de crise tracée pendant l'exercice"
-msgstr[1] "%d communications de crise tracées pendant l'exercice"
-
-msgid "%d official contact recorded during the exercise"
-msgid_plural "%d official contacts recorded during the exercise"
-msgstr[0] "%d prise de contact officielle tracée pendant l'exercice"
-msgstr[1] "%d prises de contact officielles tracées pendant l'exercice"
-
-msgid "%d recipient"
-msgid_plural "%d recipients"
-msgstr[0] "%d destinataire"
-msgstr[1] "%d destinataires"
-
-msgid "%d recipient not visible to you"
-msgid_plural "%d recipients not visible to you"
-msgstr[0] "%d destinataire qui ne vous est pas visible"
-msgstr[1] "%d destinataires qui ne vous sont pas visibles"
-
-msgid "%d recovery time measured during the exercise"
-msgid_plural "%d recovery times measured during the exercise"
-msgstr[0] "%d temps de reprise mesuré pendant l'exercice"
-msgstr[1] "%d temps de reprise mesurés pendant l'exercice"
-
-msgid ""
-"Contacts marked for a security incident or a personal data breach, visible "
-"from the entity of the scenario."
-msgstr ""
-"Contacts marqués pour un incident de sécurité ou une violation de données "
-"personnelles, visibles depuis l'entité du scénario."
-
-msgid ""
-"Contacts marked for a security incident, visible from the entity of the "
-"scenario."
-msgstr ""
-"Contacts marqués pour un incident de sécurité, visibles depuis l'entité du "
-"scénario."
-
-msgid "Crisis exercises and review"
-msgstr "Exercices de crise et bilan"
-
-msgid ""
-"Evaluate the objectives and validate the review in the crisis room, tab "
-"\"Review\"."
-msgstr ""
-"Évaluez les objectifs et validez le bilan dans la salle de crise, onglet "
-"« Bilan »."
-
-msgid "Exercise of the plugin: %s"
-msgstr "Exercice du plugin : %s"
-
-msgid "Exercise outside the plugin on %s (report in the Documents tab)."
-msgstr "Exercice hors plugin le %s (compte rendu dans l'onglet Documents)."
-
-msgid "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
-msgstr ""
-"Constats : %1$d, actions d'amélioration : %2$d (%3$d terminées, %4$d en "
-"retard)"
-
-msgid ""
-"It gathers what shows that this scenario is ready: the crisis exercises that "
-"tested it and the review of the last one, the recovery tests of the impacted "
-"processes, the crisis messages to send and the authorities to inform. "
-"Nothing is copied: each line opens the original record."
-msgstr ""
-"Il rassemble ce qui montre que ce scénario est prêt : les exercices de crise "
-"qui l'ont testé et le bilan du dernier, les tests de reprise des processus "
-"impactés, les messages de crise à envoyer et les autorités à prévenir. Rien "
-"n'est recopié : chaque ligne ouvre la fiche d'origine."
-
-msgid "Last exercise ended on %s"
-msgstr "Dernier exercice terminé le %s"
-
-msgid "Launch this exercise"
-msgstr "Lancer cet exercice"
-
-msgid "No active message template for the situation \"%s\"."
-msgstr "Aucun modèle de message actif pour la situation « %s »."
-
-msgid ""
-"No communication situation is chosen for this scenario: choose one in the "
-"main tab, field \"Crisis communication\"."
-msgstr ""
-"Aucune situation de communication n'est choisie pour ce scénario : "
-"choisissez-en une dans l'onglet principal, champ « Communication de crise »."
-
-msgid ""
-"No crisis exercise is chosen for this scenario: choose one in the main tab, "
-"field \"Crisis exercise\"."
-msgstr ""
-"Aucun exercice de crise n'est choisi pour ce scénario : choisissez-en un "
-"dans l'onglet principal, champ « Exercice de crise »."
-
-msgid "No distribution list"
-msgstr "Aucune liste de diffusion"
-
-msgid "No impacted process yet: choose them in the main tab."
-msgstr ""
-"Aucun processus impacté pour l'instant : choisissez-les dans l'onglet "
-"principal."
-
-msgid ""
-"Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not "
-"evaluated"
-msgstr ""
-"Objectifs : %1$d atteints, %2$d partiellement, %3$d non atteints, %4$d non "
-"évalués"
-
-msgid "Opens the crisis room with a fictitious incident of this exercise."
-msgstr "Ouvre la salle de crise avec un incident fictif de cet exercice."
-
-msgid "Previous exercises"
-msgstr "Exercices précédents"
-
-msgid ""
-"Recovery tests are recorded in the tab \"Recovery strategy\" of each "
-"process, or in the crisis room during an exercise."
-msgstr ""
-"Les tests de reprise s'enregistrent dans l'onglet « Stratégie de reprise » "
-"de chaque processus, ou dans la salle de crise pendant un exercice."
-
-msgid "Recovery tests of the impacted processes"
-msgstr "Tests de reprise des processus impactés"
-
-msgid "Review validated on %1$s by %2$s"
-msgstr "Bilan validé le %1$s par %2$s"
-
-msgid "Situation: %s"
-msgstr "Situation : %s"
-
-msgid "Situation: %s. The message templates are visible only with their right."
-msgstr ""
-"Situation : %s. Les modèles de messages ne sont visibles qu'avec leur droit."
-
-msgid ""
-"The business processes are visible only with the right of the business "
-"continuity."
-msgstr ""
-"Les processus métier ne sont visibles qu'avec le droit de la continuité "
-"d'activité."
-
-msgid ""
-"The crisis exercises are visible only with the right to read the security "
-"incidents."
-msgstr ""
-"Les exercices de crise ne sont visibles qu'avec le droit de lire les "
-"incidents de sécurité."
-
-msgid ""
-"The official contacts are visible only with the right of the context of the "
-"organisation."
-msgstr ""
-"Les contacts officiels ne sont visibles qu'avec le droit du contexte de "
-"l'organisme."
-
-msgid "This exercise has never been run to the end in the crisis room."
-msgstr "Cet exercice n'a jamais été mené jusqu'au bout dans la salle de crise."
 
 #, php-format
 msgid "%s MB"
