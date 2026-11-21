@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 15:46+0000\n"
+"POT-Creation-Date: 2026-11-21 14:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,67 +57,46 @@ msgstr ""
 msgid "Tick at least one account to check."
 msgstr ""
 
-#: front/adsecurityaudit.php:83
+#: front/adsecurityaudit.php:78
 #, php-format
 msgid "Report imported: %d rule(s) triggered."
 msgstr ""
 
-#: front/adsecurityaudit.php:88
+#: front/adsecurityaudit.php:83
 msgid ""
 "The report contains passwords or secrets (for example in group policies): "
 "they were not kept, and are removed from the archived copy. Change them as "
 "soon as possible."
 msgstr ""
 
-#: front/adsecurityaudit.php:95
+#: front/adsecurityaudit.php:90
 msgid ""
 "The report could not be archived as a document (XML files may not be allowed "
 "in the document types of GLPI)."
 msgstr ""
 
-#: front/adsecurityaudit.php:103
+#: front/adsecurityaudit.php:98
 #, php-format
 msgid "Only the first %d rules were read."
 msgstr ""
 
-#: front/adsecurityaudit.php:104
+#: front/adsecurityaudit.php:99
 msgid "The file is very long: only its first checks were read."
 msgstr ""
 
-#: front/adsecurityaudit.php:117 front/adsecurityaudit.php:201
-#: front/backupcoverage.php:69 front/logcoverage.php:68
-#: front/mfacoverage.php:69 front/shareaccess.php:97
+#: front/adsecurityaudit.php:112 front/backupcoverage.php:69
+#: front/logcoverage.php:68 front/mfacoverage.php:69 front/shareaccess.php:97
 msgid "Import deleted."
 msgstr ""
 
-#: front/adsecurityaudit.php:134 front/securityincidentticket.form.php:33
+#: front/adsecurityaudit.php:129 front/securityincidentticket.form.php:33
 #: front/zabbixmonitoring.php:119
 msgid "The ticket could not be created."
 msgstr ""
 
-#: front/adsecurityaudit.php:139
+#: front/adsecurityaudit.php:134
 #, php-format
 msgid "Ticket %d created."
-msgstr ""
-
-#: front/adsecurityaudit.php:179
-#, php-format
-msgid "Export imported: %d account with a path to Domain Admins."
-msgid_plural "Export imported: %d accounts with a path to Domain Admins."
-msgstr[0] ""
-msgstr[1] ""
-
-#: front/adsecurityaudit.php:188 templates/_ad_attack_paths.html.twig
-msgid "Very large graph: only part of it was read."
-msgstr ""
-
-#: front/adsecurityaudit.php:213 src/Dpia.php:327
-#: src/EbiosOperationalScenario.php:123
-msgid "The risk has been added to the register."
-msgstr ""
-
-#: front/adsecurityaudit.php:216
-msgid "The risk could not be created."
 msgstr ""
 
 #: front/applicationsecurity.form.php:42
@@ -456,9 +435,8 @@ msgstr ""
 
 #: front/configcompliance.php:43 front/phishingimport.php:71
 #: front/phishingimport.php:98 front/securityincidentedrimport.php:66
-#: front/securityincidentedrimport.php:85 front/supplierevaluationfile.php:81
-#: front/supplierevaluationfile.php:94 front/supplierevaluationfile.php:133
-#: src/ConfigurationCompliance.php:189 src/ControlTest.php:653
+#: front/securityincidentedrimport.php:85 src/ConfigurationCompliance.php:189
+#: src/ControlTest.php:653
 msgid "The file could not be received."
 msgstr ""
 
@@ -1584,17 +1562,6 @@ msgstr[1] ""
 msgid "Answers saved."
 msgstr ""
 
-#: front/supplierevaluationfile.php:151
-#, php-format
-msgid ""
-"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
-msgstr ""
-
-#: front/supplierevaluationfile.php:157
-#, php-format
-msgid "The document \"%s\" matches no question of the file: it was not added."
-msgstr ""
-
 #: front/supplierquestionnairetemplate.form.php:48
 msgid "Template copied: adapt its questions."
 msgstr ""
@@ -1829,7 +1796,7 @@ msgstr ""
 msgid "Computers that must be encrypted and are (%)"
 msgstr ""
 
-#: hook.php:293 src/AdSecurityAudit.php:1026 src/RiskIndicator.php:222
+#: hook.php:293 src/AdSecurityAudit.php:1021 src/RiskIndicator.php:222
 msgid ""
 "Active Directory security score (PingCastle or Purple Knight, 0 is best)"
 msgstr ""
@@ -3043,63 +3010,6 @@ msgstr ""
 msgid "Last update"
 msgstr ""
 
-#: src/AdAttackPath.php:74 src/AdSecurityAudit.php:231 src/ControlTest.php:652
-#: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
-#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:306
-msgid "The file is empty."
-msgstr ""
-
-#: src/AdAttackPath.php:75 src/AdSecurityAudit.php:232
-msgid "The file is too large (20 MB at most)."
-msgstr ""
-
-#: src/AdAttackPath.php:77
-msgid ""
-"This file is not a graph exported from BloodHound CE or Adalanche (JSON with "
-"nodes and edges)."
-msgstr ""
-
-#: src/AdAttackPath.php:81
-msgid ""
-"The graph contains no Domain Admins group: export the paths that lead to "
-"this group."
-msgstr ""
-
-#: src/AdAttackPath.php:85
-msgid ""
-"The export gives no domain name: fill in the domain field of the import form."
-msgstr ""
-
-#: src/AdAttackPath.php:88 src/AdSecurityAudit.php:260
-msgid "This report has already been imported."
-msgstr ""
-
-#: src/AdAttackPath.php:89 src/AdSecurityAudit.php:261
-msgid "You do not have the right to import a report."
-msgstr ""
-
-#: src/AdAttackPath.php:90 src/AdSecurityAudit.php:262
-#: src/BackupCoverage.php:254 src/LogCoverage.php:211 src/MfaCoverage.php:192
-#: src/ShareAccess.php:248
-msgid "The file could not be read."
-msgstr ""
-
-#: src/AdAttackPath.php:331
-#, php-format
-msgid "Attack paths to Domain Admins: %s"
-msgstr ""
-
-#: src/AdAttackPath.php:336
-#, php-format
-msgid ""
-"%1$s: %2$d account has a path to the Domain Admins group (shortest path: "
-"%3$d step). Details on the Active Directory security audit page."
-msgid_plural ""
-"%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
-"%3$d steps). Details on the Active Directory security audit page."
-msgstr[0] ""
-msgstr[1] ""
-
 #: src/AdSecurityAudit.php:71 templates/control_form.html.twig
 msgid "Active Directory security audit"
 msgstr ""
@@ -3196,6 +3106,16 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
+#: src/AdSecurityAudit.php:231 src/ControlTest.php:652
+#: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
+#: src/ServerManagement.php:335
+msgid "The file is empty."
+msgstr ""
+
+#: src/AdSecurityAudit.php:232
+msgid "The file is too large (20 MB at most)."
+msgstr ""
+
 #: src/AdSecurityAudit.php:234
 msgid ""
 "The file declares a DOCTYPE or entities: it is refused for security reasons. "
@@ -3217,70 +3137,77 @@ msgstr ""
 
 #: src/AdSecurityAudit.php:248
 msgid ""
-"This file is an attack path graph (BloodHound CE or Adalanche): import it in "
-"the attack paths part of this page."
-msgstr ""
-
-#: src/AdSecurityAudit.php:253
-msgid ""
 "This JSON file is neither Maester results (TestResults) nor ScubaGear "
 "results (ScubaResults)."
 msgstr ""
 
-#: src/AdSecurityAudit.php:257
+#: src/AdSecurityAudit.php:252
 msgid ""
 "The report gives no domain or tenant name: fill in the domain field of the "
 "import form."
 msgstr ""
 
-#: src/AdSecurityAudit.php:569
+#: src/AdSecurityAudit.php:255
+msgid "This report has already been imported."
+msgstr ""
+
+#: src/AdSecurityAudit.php:256
+msgid "You do not have the right to import a report."
+msgstr ""
+
+#: src/AdSecurityAudit.php:257 src/BackupCoverage.php:254
+#: src/LogCoverage.php:211 src/MfaCoverage.php:192 src/ShareAccess.php:248
+msgid "The file could not be read."
+msgstr ""
+
+#: src/AdSecurityAudit.php:564
 #, php-format
 msgid "PingCastle report - %1$s (%2$s)"
 msgstr ""
 
-#: src/AdSecurityAudit.php:656 src/AdSecurityAudit.php:751
+#: src/AdSecurityAudit.php:651 src/AdSecurityAudit.php:746
 #, php-format
 msgid "Active Directory %1$s: %2$s"
 msgstr ""
 
-#: src/AdSecurityAudit.php:675
+#: src/AdSecurityAudit.php:670
 #, php-format
 msgid "Domain: %s"
 msgstr ""
 
-#: src/AdSecurityAudit.php:677
+#: src/AdSecurityAudit.php:672
 #, php-format
 msgid "Report: %1$s of %2$s (score %3$d/100)"
 msgstr ""
 
-#: src/AdSecurityAudit.php:682
+#: src/AdSecurityAudit.php:677
 #, php-format
 msgid "Rule: %s"
 msgstr ""
 
-#: src/AdSecurityAudit.php:684
+#: src/AdSecurityAudit.php:679
 #, php-format
 msgid "Category: %s"
 msgstr ""
 
-#: src/AdSecurityAudit.php:687
+#: src/AdSecurityAudit.php:682
 #, php-format
 msgid "Points: %d"
 msgstr ""
 
-#: src/AdSecurityAudit.php:688
+#: src/AdSecurityAudit.php:683
 #, php-format
 msgid "ISO/IEC 27001 controls: %s"
 msgstr ""
 
-#: src/AdSecurityAudit.php:1053
+#: src/AdSecurityAudit.php:1048
 #, php-format
 msgid ""
 "Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) "
 "triggered"
 msgstr ""
 
-#: src/AdSecurityAudit.php:1098
+#: src/AdSecurityAudit.php:1093
 #, php-format
 msgid ""
 "Entra ID and Microsoft 365 configuration (%1$s): %2$d of %3$d checks failed "
@@ -3966,7 +3893,7 @@ msgstr ""
 
 #: src/AuditLog.php:234 src/NotificationTargetPersonnelCompliance.php:95
 #: src/PersonnelCompliance.php:747 src/ShareAccess.php:150
-#: templates/_ad_attack_paths.html.twig templates/account_hygiene.html.twig
+#: templates/account_hygiene.html.twig
 #: templates/account_hygiene_ticket.html.twig templates/audit_log.html.twig
 #: templates/document_accesses_tab.html.twig
 #: templates/personnel_compliance_list.html.twig
@@ -4251,7 +4178,7 @@ msgstr ""
 
 #: src/BackupCoverage.php:188 src/ConfigurationCompliance.php:156
 #: src/DiskEncryption.php:143 src/PatchCompliance.php:155
-#: src/ServerManagement.php:1044 templates/disk_encryption.html.twig
+#: src/ServerManagement.php:1041 templates/disk_encryption.html.twig
 msgid "Unknown"
 msgstr ""
 
@@ -4384,8 +4311,6 @@ msgstr ""
 
 #: src/BackupCoverage.php:926 src/BackupCoverage.php:985
 #: src/ConfigurationCompliance.php:701
-#: templates/_ad_attack_path_evidence.html.twig
-#: templates/_ad_attack_paths.html.twig
 #: templates/_mfa_coverage_evidence.html.twig
 #: templates/_server_management_evidence.html.twig
 #: templates/_zabbix_monitoring_evidence.html.twig
@@ -9888,6 +9813,10 @@ msgstr ""
 msgid "DPIA reopened, approval withdrawn"
 msgstr ""
 
+#: src/Dpia.php:327 src/EbiosOperationalScenario.php:123
+msgid "The risk has been added to the register."
+msgstr ""
+
 #: src/EbiosElement.php:72
 msgid "The linked element does not belong to this study."
 msgstr ""
@@ -10383,14 +10312,6 @@ msgstr ""
 msgid "The archive could not be stored as a document."
 msgstr ""
 
-#: src/Feature/AdAttackPathFeature.php:37
-msgid "Accounts with an attack path to Domain Admins"
-msgstr ""
-
-#: src/Feature/AdAttackPathFeature.php:50 templates/_ad_attack_paths.html.twig
-msgid "Attack paths to Domain Admins"
-msgstr ""
-
 #: src/Feature/BackupCoverageFeature.php:39
 msgid ""
 "Shows which important assets have a recent successful backup (Veeam Backup & "
@@ -10481,24 +10402,6 @@ msgstr ""
 #: templates/server_management_item_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
 msgid "Server management controllers"
-msgstr ""
-
-#: src/Feature/SupplierAnswerFileFeature.php:32
-msgid ""
-"Shows the answers found in the questionnaire file returned by the supplier, "
-"question by question, next to the current answers, with the points to check "
-"(unknown question, answer outside the list, missing question)."
-msgstr ""
-
-#: src/Feature/SupplierAnswerFileFeature.php:38
-msgid ""
-"Check the answers, add the documents sent by the supplier, then save: "
-"nothing is recorded before this confirmation. Then review the evaluation and "
-"mark it as completed."
-msgstr ""
-
-#: src/Feature/SupplierAnswerFileFeature.php:42
-msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
 msgstr ""
 
 #: src/Feature/ZabbixMonitoringFeature.php:40
@@ -11043,8 +10946,8 @@ msgstr ""
 #: src/IsmsRequirement.php:309 src/NotificationTargetAccessReview.php:107
 #: src/NotificationTargetAuditEvidenceRequest.php:162
 #: src/NotificationTargetPolicyVersion.php:141
-#: src/NotificationTargetSoaVersion.php:106 src/SupplierEvaluationFile.php:120
-#: templates/_crisis_review.html.twig templates/access_review_form.html.twig
+#: src/NotificationTargetSoaVersion.php:106 templates/_crisis_review.html.twig
+#: templates/access_review_form.html.twig
 #: templates/application_security_tab.html.twig
 #: templates/audit_checklist_tab.html.twig
 #: templates/audit_programme_tab.html.twig
@@ -14895,7 +14798,7 @@ msgstr ""
 msgid "Overall status"
 msgstr ""
 
-#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:463
+#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:462
 #: templates/ad_security_audit.html.twig
 #: templates/framework_assessment.html.twig
 #: templates/my_trainings_tab.html.twig
@@ -15390,7 +15293,7 @@ msgid_plural "Record of processing activities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ProcessingActivity.php:103 src/ServerManagement.php:1096
+#: src/ProcessingActivity.php:103 src/ServerManagement.php:1093
 #: templates/server_management.html.twig
 #: templates/server_management_item_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
@@ -17096,8 +16999,7 @@ msgid "Host"
 msgstr ""
 
 #: src/SecurityIncidentEdrImport.php:74 src/ShareAccess.php:152
-#: templates/_ad_attack_paths.html.twig templates/edr_import.html.twig
-#: templates/mfa_coverage.html.twig
+#: templates/edr_import.html.twig templates/mfa_coverage.html.twig
 #: templates/pdf/access_review_report.html.twig
 #: templates/server_management.html.twig
 #: templates/share_access_detail.html.twig
@@ -17131,7 +17033,7 @@ msgstr ""
 
 #: src/SecurityIncidentEdrImport.php:83 src/SecurityIncidentIoc.php:67
 #: src/SupplierQuestionnaireTemplate.php:339
-#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
+#: templates/ad_security_audit.html.twig
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
 #: templates/supplier_questionnaire_template_form.html.twig
@@ -17736,11 +17638,11 @@ msgstr ""
 msgid "The controller returned an unexpected answer."
 msgstr ""
 
-#: src/ServerManagement.php:1096 templates/server_management_item_tab.html.twig
+#: src/ServerManagement.php:1093 templates/server_management_item_tab.html.twig
 msgid "BIOS"
 msgstr ""
 
-#: src/ServerManagement.php:1179
+#: src/ServerManagement.php:1176
 msgid "Management controller"
 msgstr ""
 
@@ -18668,36 +18570,36 @@ msgstr ""
 msgid "Insufficient level"
 msgstr ""
 
-#: src/SupplierEvaluation.php:167
+#: src/SupplierEvaluation.php:166
 msgid "Choose the supplier risk to evaluate."
 msgstr ""
 
-#: src/SupplierEvaluation.php:182
+#: src/SupplierEvaluation.php:181
 msgid ""
 "Choose an active questionnaire template available in the entity of the "
 "supplier risk."
 msgstr ""
 
-#: src/SupplierEvaluation.php:203
+#: src/SupplierEvaluation.php:202
 #, php-format
 msgid "%1$s - %2$s"
 msgstr ""
 
-#: src/SupplierEvaluation.php:236
+#: src/SupplierEvaluation.php:235
 msgid "This evaluation is completed: reopen it to change it."
 msgstr ""
 
-#: src/SupplierEvaluation.php:407
+#: src/SupplierEvaluation.php:406
 #: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Questionnaire"
 msgstr ""
 
-#: src/SupplierEvaluation.php:467 templates/supplier_evaluation_form.html.twig
+#: src/SupplierEvaluation.php:466 templates/supplier_evaluation_form.html.twig
 #: templates/tabs/supplier_questionnaire.html.twig
 msgid "Evaluation date"
 msgstr ""
 
-#: src/SupplierEvaluation.php:471 templates/audit_checklist_tab.html.twig
+#: src/SupplierEvaluation.php:470 templates/audit_checklist_tab.html.twig
 #: templates/dora/register.html.twig
 msgid "Template"
 msgstr ""
@@ -18727,135 +18629,6 @@ msgstr ""
 msgid "Evidence added to question %s"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:47
-msgid "Supplier file"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:112
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Code"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:113
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Section"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:114 src/SupplierQuestionnaireTemplate.php:107
-#: templates/supplier_evaluation_import.html.twig
-#: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Question"
-msgid_plural "Questions"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/SupplierEvaluationFile.php:115
-msgid "Guidance"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:116
-#: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Expected answer"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:117
-#: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Evidence required"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:118
-msgid "Allowed answers"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:119
-msgid "Supplier answer"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:121
-#: templates/supplier_evaluation_import.html.twig
-msgid "Evidence file name"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:143
-#, php-format
-msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:255
-#, php-format
-msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:267
-#, php-format
-msgid ""
-"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:283
-#, php-format
-msgid "The file is too large (at most %d MB)."
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:287
-msgid ""
-"The file is not a CSV text file: save the spreadsheet as CSV before "
-"importing it."
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:291
-msgid ""
-"This file is not a questionnaire exported from this plugin: its first line "
-"was changed or removed."
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:295
-msgid ""
-"This file was exported for another evaluation: import it in the evaluation "
-"it comes from."
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:299
-msgid ""
-"The questions of this file do not match those of the evaluation: export the "
-"questionnaire again."
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:303
-msgid ""
-"The header line or some columns are missing: keep the columns of the "
-"exported file."
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:317
-#, php-format
-msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:322
-#, php-format
-msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:327
-#, php-format
-msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:332
-#, php-format
-msgid ""
-"Line %1$d: at most %2$d questions per file, the following lines were ignored."
-msgstr ""
-
-#: src/SupplierEvaluationFile.php:337
-#, php-format
-msgid "Question %s is missing from the file: its answer does not change."
-msgstr ""
-
 #: src/SupplierQuestionnaireTemplate.php:52
 msgid "Supplier questionnaire template"
 msgid_plural "Supplier questionnaire templates"
@@ -18877,6 +18650,14 @@ msgstr ""
 #: src/SupplierQuestionnaireTemplate.php:69
 msgid "Business continuity"
 msgstr ""
+
+#: src/SupplierQuestionnaireTemplate.php:107
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Question"
+msgid_plural "Questions"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/SupplierQuestionnaireTemplate.php:224
 #, php-format
@@ -19300,178 +19081,6 @@ msgstr ""
 
 #: src/ZabbixMonitoring.php:1215
 msgid "Zabbix: reads hosts, problems and service availability (read only)"
-msgstr ""
-
-#: templates/_ad_attack_path_evidence.html.twig
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "%d account with a path to Domain Admins"
-msgid_plural "%d accounts with a path to Domain Admins"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_ad_attack_path_evidence.html.twig
-#, php-format
-msgid "Imported on %s"
-msgstr ""
-
-#: templates/_ad_attack_path_evidence.html.twig
-msgid "Risk in the register"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "%1$s export of %2$s, imported on %3$s"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "%d computer"
-msgid_plural "%d computers"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "%d user"
-msgid_plural "%d users"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Accounts with a path"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"An attack path is a chain of rights, group memberships or open sessions that "
-"lets an ordinary account take control of the Domain Admins group. BloodHound "
-"CE and Adalanche draw these paths: import their export here to follow how "
-"many accounts have one, which ones are the most exposed, and how this "
-"changes over time."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
-msgid "Change since the previous report"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#: templates/configuration_compliance.html.twig templates/edr_import.html.twig
-msgid "Computer"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Create the risk in the register"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Delete this import"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
-msgid "Domain (if the file gives none)"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Download a fictitious BloodHound CE example"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
-msgid "Example"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "Export file: JSON (%d MB at most)"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "First export for this domain: the next import will show the change."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "History"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"In the Explore page, run the query of the shortest paths to Domain Admins, "
-"then export the graph as JSON and import that file."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "Most exposed accounts (%d at most)"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig templates/share_access_detail.html.twig
-msgid "New"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "No account has a path to Domain Admins in this export."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "No attack path export imported yet."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"Number of different rights or memberships that lead towards Domain Admins"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Number of steps of the shortest path to Domain Admins"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"Only the number of accounts with a path and the most exposed accounts (name, "
-"type, number of steps) are kept: no other property of the graph."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
-#: templates/backup_coverage.html.twig templates/config_sentinelone.html.twig
-#: templates/mfa_coverage.html.twig templates/share_access.html.twig
-msgid "Read only"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Risk in the register:"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid "Routes"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"Run the analysis with Domain Admins as target, then export the graph as JSON "
-"(Cytoscape format) and import that file."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-#, php-format
-msgid "Shortest path: %d step"
-msgid_plural "Shortest path: %d steps"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_ad_attack_paths.html.twig
-#: templates/certification_readiness.html.twig
-msgid "Steps"
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig
-msgid ""
-"The risk is pre-filled (maximum impact) and can then be reviewed in the "
-"register."
-msgstr ""
-
-#: templates/_ad_attack_paths.html.twig templates/ad_security_audit.html.twig
-#: templates/pdf/action_log.html.twig templates/tabs/action_log.html.twig
-msgid "Tool"
 msgstr ""
 
 #: templates/_audit_certification_fields.html.twig
@@ -20161,7 +19770,6 @@ msgstr[1] ""
 
 #: templates/_responsibility_summary.html.twig
 #: templates/responsibility_matrix.html.twig
-#: templates/supplier_evaluation_import.html.twig
 #, php-format
 msgid "%d point to check"
 msgid_plural "%d points to check"
@@ -20691,6 +20299,10 @@ msgid "Archived report (restricted)"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
+msgid "Change since the previous report"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
 msgid "Checks failed"
 msgstr ""
 
@@ -20711,6 +20323,10 @@ msgid "Delete the import and its archived report"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
+msgid "Domain (if the file gives none)"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
 msgid "Download a fictitious example report"
 msgstr ""
 
@@ -20719,6 +20335,10 @@ msgid ""
 "Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an "
 "action or a ticket for the rules you decide to treat: nothing is created "
 "before you click, and the action form is reviewed before it is saved."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid "Example"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
@@ -20825,6 +20445,12 @@ msgstr ""
 msgid "Purple Knight score: %d/100 (100 is best)"
 msgstr ""
 
+#: templates/ad_security_audit.html.twig templates/backup_coverage.html.twig
+#: templates/config_sentinelone.html.twig templates/mfa_coverage.html.twig
+#: templates/share_access.html.twig
+msgid "Read only"
+msgstr ""
+
 #: templates/ad_security_audit.html.twig
 msgid "Report date"
 msgstr ""
@@ -20905,6 +20531,11 @@ msgstr ""
 #: templates/configuration_compliance_report.html.twig
 #, php-format
 msgid "Ticket %d"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig templates/pdf/action_log.html.twig
+#: templates/tabs/action_log.html.twig
+msgid "Tool"
 msgstr ""
 
 #: templates/ad_security_audit_ticket.html.twig
@@ -22860,6 +22491,10 @@ msgid "Step"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
+msgid "Steps"
+msgstr ""
+
+#: templates/certification_readiness.html.twig
 msgid "Steps to redo each year"
 msgstr ""
 
@@ -22970,7 +22605,6 @@ msgstr ""
 #: templates/control_blockers_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
-#: templates/tabs/supplier_evaluation_file.html.twig
 msgid "What is this tab for?"
 msgstr ""
 
@@ -24502,6 +24136,10 @@ msgstr ""
 #: templates/pdf/maturity_campaign_report.html.twig
 #: templates/risk_import.html.twig
 msgid "Change"
+msgstr ""
+
+#: templates/configuration_compliance.html.twig templates/edr_import.html.twig
+msgid "Computer"
 msgstr ""
 
 #: templates/configuration_compliance.html.twig
@@ -27186,7 +26824,6 @@ msgstr ""
 
 #: templates/custom_framework_list.html.twig templates/risk_import.html.twig
 #: templates/risk_scale_change.html.twig
-#: templates/supplier_evaluation_import.html.twig
 msgid "Cancel"
 msgstr ""
 
@@ -35842,6 +35479,10 @@ msgid "NTFS permission"
 msgstr ""
 
 #: templates/share_access_detail.html.twig
+msgid "New"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
 msgid "No right in the last import of this share."
 msgstr ""
 
@@ -36215,61 +35856,6 @@ msgstr ""
 msgid ""
 "This evaluation is completed: its answers can no longer be changed. Reopen "
 "it from the \"Questionnaire\" tab to change them."
-msgstr ""
-
-#: templates/supplier_evaluation_import.html.twig
-#, php-format
-msgid ""
-"%d question changes. Check the answers, then save them: they will be marked "
-"as coming from the supplier file."
-msgid_plural ""
-"%d questions change. Check the answers, then save them: they will be marked "
-"as coming from the supplier file."
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/supplier_evaluation_import.html.twig
-msgid "Answer in the file"
-msgstr ""
-
-#: templates/supplier_evaluation_import.html.twig
-msgid "Back to the evaluation"
-msgstr ""
-
-#: templates/supplier_evaluation_import.html.twig
-msgid "Comment in the file"
-msgstr ""
-
-#: templates/supplier_evaluation_import.html.twig
-msgid "Current answer"
-msgstr ""
-
-#: templates/supplier_evaluation_import.html.twig
-msgid "Documents sent by the supplier"
-msgstr ""
-
-#: templates/supplier_evaluation_import.html.twig
-#, php-format
-msgid ""
-"Each document is attached to the questions whose column \"Evidence file "
-"name\" gives its name. It is checked like any evidence (types allowed by "
-"GLPI, size, real content). Expected: %s"
-msgstr ""
-
-#: templates/supplier_evaluation_import.html.twig
-msgid "Review the supplier file"
-msgstr ""
-
-#: templates/supplier_evaluation_import.html.twig
-msgid "Save these answers"
-msgstr ""
-
-#: templates/supplier_evaluation_import.html.twig
-msgid "The file brings no new answer and no new comment."
-msgstr ""
-
-#: templates/supplier_evaluation_import.html.twig
-msgid "unchanged"
 msgstr ""
 
 #: templates/supplier_questionnaire_template_form.html.twig
@@ -37770,6 +37356,16 @@ msgid "Evidence missing"
 msgstr ""
 
 #: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Evidence required"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Expected answer"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
 #, php-format
 msgid "Expected: %s"
 msgstr ""
@@ -37821,67 +37417,6 @@ msgstr ""
 msgid "Weight %d"
 msgstr ""
 
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid "Answer by file, outside GLPI"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-#, php-format
-msgid ""
-"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
-"importing it."
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid ""
-"CSV file (separator \";\", UTF-8), one line per question. Its first line "
-"identifies the evaluation and its questions: it must stay unchanged. Send it "
-"by the means of your choice (email, exchange platform)."
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid "Download the questionnaire to fill in"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid ""
-"Each export and import is recorded in the Historical tab (who, when, which "
-"file); the returned file is kept in the Documents tab of the supplier risk."
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid "Import the returned file"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid "Questionnaire filled in by the supplier (CSV)"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid "Review the answers"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid "Send the questionnaire"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid "This evaluation is completed: reopen it to import a file."
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid ""
-"When the supplier has no access to GLPI, send the questionnaire as a file: "
-"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
-"each document provided, \"Evidence file name\", in any spreadsheet. You then "
-"import the returned file here: the answers are shown for review and nothing "
-"is saved before your confirmation."
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_file.html.twig
-msgid "You are not allowed to change this evaluation."
-msgstr ""
-
 #: templates/tabs/supplier_questionnaire.html.twig
 #, php-format
 msgid "%1$s: %2$s points"
@@ -37928,6 +37463,10 @@ msgid "Template: %1$s (version %2$d)"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Code"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
 #, php-format
 msgid ""
 "Group the questions by section. The expected answer is the compliant one "
@@ -37961,6 +37500,10 @@ msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Save questions"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Section"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
@@ -38569,4 +38112,453 @@ msgstr ""
 #: templates/zabbix_monitoring.html.twig
 #, php-format
 msgid "out of %d critical assets"
+msgstr ""
+
+
+#: front/adsecurityaudit.php:178
+#, php-format
+msgid "Export imported: %d account with a path to Domain Admins."
+msgid_plural "Export imported: %d accounts with a path to Domain Admins."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/adsecurityaudit.php:187 templates/_ad_attack_paths.html.twig
+msgid "Very large graph: only part of it was read."
+msgstr ""
+
+#: front/adsecurityaudit.php:215
+msgid "The risk could not be created."
+msgstr ""
+
+#: src/AdAttackPath.php:77
+msgid ""
+"This file is not a graph exported from BloodHound CE or Adalanche (JSON with "
+"nodes and edges)."
+msgstr ""
+
+#: src/AdAttackPath.php:81
+msgid ""
+"The graph contains no Domain Admins group: export the paths that lead to "
+"this group."
+msgstr ""
+
+#: src/AdAttackPath.php:85
+msgid ""
+"The export gives no domain name: fill in the domain field of the import form."
+msgstr ""
+
+#: src/AdAttackPath.php:331
+#, php-format
+msgid "Attack paths to Domain Admins: %s"
+msgstr ""
+
+#: src/AdAttackPath.php:336
+#, php-format
+msgid ""
+"%1$s: %2$d account has a path to the Domain Admins group (shortest path: "
+"%3$d step). Details on the Active Directory security audit page."
+msgid_plural ""
+"%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
+"%3$d steps). Details on the Active Directory security audit page."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AdSecurityAudit.php:248
+msgid ""
+"This file is an attack path graph (BloodHound CE or Adalanche): import it in "
+"the attack paths part of this page."
+msgstr ""
+
+#: src/Feature/AdAttackPathFeature.php:37
+msgid "Accounts with an attack path to Domain Admins"
+msgstr ""
+
+#: src/Feature/AdAttackPathFeature.php:50 templates/_ad_attack_paths.html.twig
+msgid "Attack paths to Domain Admins"
+msgstr ""
+
+#: templates/_ad_attack_path_evidence.html.twig
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%d account with a path to Domain Admins"
+msgid_plural "%d accounts with a path to Domain Admins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_path_evidence.html.twig
+#, php-format
+msgid "Imported on %s"
+msgstr ""
+
+#: templates/_ad_attack_path_evidence.html.twig
+msgid "Risk in the register"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%1$s export of %2$s, imported on %3$s"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%d computer"
+msgid_plural "%d computers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "%d user"
+msgid_plural "%d users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Accounts with a path"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"An attack path is a chain of rights, group memberships or open sessions that "
+"lets an ordinary account take control of the Domain Admins group. BloodHound "
+"CE and Adalanche draw these paths: import their export here to follow how "
+"many accounts have one, which ones are the most exposed, and how this "
+"changes over time."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Create the risk in the register"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Delete this import"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Download a fictitious BloodHound CE example"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "Export file: JSON (%d MB at most)"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "First export for this domain: the next import will show the change."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "History"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"In the Explore page, run the query of the shortest paths to Domain Admins, "
+"then export the graph as JSON and import that file."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "Most exposed accounts (%d at most)"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "No account has a path to Domain Admins in this export."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "No attack path export imported yet."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"Number of different rights or memberships that lead towards Domain Admins"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Number of steps of the shortest path to Domain Admins"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"Only the number of accounts with a path and the most exposed accounts (name, "
+"type, number of steps) are kept: no other property of the graph."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Risk in the register:"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid "Routes"
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"Run the analysis with Domain Admins as target, then export the graph as JSON "
+"(Cytoscape format) and import that file."
+msgstr ""
+
+#: templates/_ad_attack_paths.html.twig
+#, php-format
+msgid "Shortest path: %d step"
+msgid_plural "Shortest path: %d steps"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_ad_attack_paths.html.twig
+msgid ""
+"The risk is pre-filled (maximum impact) and can then be reviewed in the "
+"register."
+msgstr ""
+
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr ""
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr ""
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr ""
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr ""
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr ""
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr ""
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): "
+"Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr ""
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr ""
+
+#: src/AssetSecurity360.php:58
+msgid "Security 360°"
+msgstr ""
+
+#: src/AssetSecurity360.php:201
+msgid "Good security posture"
+msgstr ""
+
+#: src/AssetSecurity360.php:206
+msgid "Security posture to improve"
+msgstr ""
+
+#: src/AssetSecurity360.php:211
+msgid "Weak security posture"
+msgstr ""
+
+#: src/AssetSecurity360.php:216
+msgid "Not enough data to assess"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:56
+msgid "Known vulnerabilities"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:119
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:130
+#, php-format
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:137
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:163
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:166
+#, php-format
+msgid "Tools: %s"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:170
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:176
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:203
+#, php-format
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:243
+#, php-format
+msgid "%s: last reading failed."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:243
+#, php-format
+msgid "%s: no gap found."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:248
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:288
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:296
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:330
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid "Points (weight)"
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid "Score: %s / 100"
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
 msgstr ""
