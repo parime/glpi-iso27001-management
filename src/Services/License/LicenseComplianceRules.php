@@ -33,7 +33,9 @@ namespace GlpiPlugin\Grcmanager\Services\License;
  * - lot 2 : licence utilisée qui arrive à échéance dans l'horizon choisi (60 jours par défaut), sans
  *   autre licence valable au-delà ; c'est une alerte d'anticipation, pas un écart. Un surdéploiement
  *   couvert par une licence qui autorise le dépassement (allow_overquota) reste signalé, avec cette
- *   précision. Taux de couverture des logiciels commerciaux surveillés (coverage()).
+ *   précision. Taux de couverture des logiciels commerciaux surveillés (coverage()) ;
+ * - lot 3 : hiérarchie des licences (licences filles) : une famille de licences comptée une fois
+ *   dans les postes (seatCount()).
  *
  * Entités (#536) : une licence compte pour une entité si elle lui appartient, ou si elle est
  * récursive et appartient à une entité parente. Une licence récursive est partagée par les
@@ -45,12 +47,13 @@ namespace GlpiPlugin\Grcmanager\Services\License;
  * @phpstan-type Install array{software_id: int, entity_id: int, itemtype: string, items_id: int,
  *     item_name: string}
  * @phpstan-type Licence array{id: int, name: string, software_id: int, entity_id: int,
- *     is_recursive: bool, number: int, expire: string, allow_overquota?: bool}
+ *     is_recursive: bool, number: int, expire: string, allow_overquota?: bool, parent_id?: int}
  * @phpstan-type Assignment array{licence_id: int, itemtype: string, items_id: int}
  * @phpstan-type Asset array{itemtype: string, items_id: int, item_name: string}
  * @phpstan-type Finding array{type: string, scope: string, entity_id: int, software_id: int,
  *     software_name: string, manufacturer: string, installs: int, seats: int, licence_id: int,
- *     licence_name: string, expire: string, assigned: int, assets: list<Asset>, overquota_allowed: bool}
+ *     licence_name: string, expire: string, assigned: int, assets: list<Asset>, overquota_allowed: bool,
+ *     nested: bool}
  */
 final class LicenseComplianceRules
 {
@@ -256,18 +259,90 @@ final class LicenseComplianceRules
      */
     public static function seats(array $licences, string $today): ?int
     {
-        $seats = 0;
+        return self::seatCount($licences, $today)['seats'];
+    }
+
+    /**
+     * Lot 3 : postes licenciés, hiérarchie des licences comprise (licences filles, champ
+     * softwarelicenses_id de GLPI). Une licence fille partage les postes de sa mère : quand la mère et
+     * des filles valables sont toutes comptées, la famille vaut le plus grand du nombre de la mère et de
+     * la somme de ses filles (sans jamais inventer un surdéploiement : une fille « mise à niveau » d'un
+     * poste ne réduit pas la mère). Une licence expirée ne compte plus ; ses filles valables, si.
+     * null si l'une des licences valables est illimitée ; « nested » : une famille a été comptée une fois.
+     *
+     * @param list<Licence> $licences
+     * @return array{seats: int|null, nested: bool}
+     */
+    public static function seatCount(array $licences, string $today): array
+    {
+        $byId = [];
+        $all = [];
         foreach ($licences as $licence) {
+            $all[$licence['id']] = $licence;
             if (self::isExpired($licence['expire'], $today)) {
                 continue;
             }
             if (self::isUnlimited($licence['number'])) {
-                return null;
+                return ['seats' => null, 'nested' => false];
             }
-            $seats += $licence['number'];
+            $byId[$licence['id']] = $licence;
+        }
+        $children = [];
+        $roots = [];
+        foreach ($byId as $id => $licence) {
+            $parent = self::countedAncestor($licence, $byId, $all);
+            if ($parent === null) {
+                $roots[] = $id;
+            } else {
+                $children[$parent][] = $id;
+            }
+        }
+        $reached = [];
+        $value = static function (int $id) use (&$value, &$reached, $byId, $children): int {
+            $reached[$id] = true;
+            $sum = 0;
+            foreach ($children[$id] ?? [] as $child) {
+                $sum += $value($child);
+            }
+
+            return max($byId[$id]['number'], $sum);
+        };
+        $seats = 0;
+        foreach ($roots as $id) {
+            $seats += $value($id);
+        }
+        $nested = count($reached) > count($roots);
+        // Boucle dans les données (mère et fille l'une de l'autre) : chaque licence compte seule.
+        foreach ($byId as $id => $licence) {
+            if (!isset($reached[$id])) {
+                $seats += $licence['number'];
+            }
         }
 
-        return $seats;
+        return ['seats' => $seats, 'nested' => $nested];
+    }
+
+    /**
+     * Plus proche licence mère (ou grand-mère...) de la licence parmi celles comptées, en remontant par
+     * les licences fournies (null : aucune). Une boucle dans les données est coupée.
+     *
+     * @param Licence $licence
+     * @param array<int, Licence> $counted
+     * @param array<int, Licence> $all
+     */
+    private static function countedAncestor(array $licence, array $counted, array $all): ?int
+    {
+        $seen = [$licence['id'] => true];
+        $parent = (int) ($licence['parent_id'] ?? 0);
+        while ($parent > 0 && !isset($seen[$parent]) && isset($all[$parent])) {
+            if (isset($counted[$parent])) {
+                return $parent;
+            }
+            $seen[$parent] = true;
+            $parent = (int) ($all[$parent]['parent_id'] ?? 0);
+        }
+
+        return null;
     }
 
     /**
@@ -359,7 +434,8 @@ final class LicenseComplianceRules
                 }
                 // Seules des licences expirées : le constat « licence expirée » le dit déjà.
                 $valid = self::valid($applicable, $today);
-                $seats = self::seats($valid, $today);
+                $count = self::seatCount($applicable, $today);
+                $seats = $count['seats'];
                 if ($valid !== [] && $seats !== null && count($assets) > $seats) {
                     $flagged[$entityId] = true;
                     $finding = self::finding(
@@ -371,6 +447,7 @@ final class LicenseComplianceRules
                         $seats
                     );
                     $finding['overquota_allowed'] = self::allowsOverquota($valid);
+                    $finding['nested'] = $count['nested'];
                     $findings[] = $finding;
                 }
             }
@@ -402,7 +479,8 @@ final class LicenseComplianceRules
                     static fn (array $l): bool => $isUnder($l['entity_id'], $owner)
                         || ($l['is_recursive'] && in_array($l['entity_id'], $ancestors[$owner] ?? [], true))
                 ));
-                $seats = self::seats($supply, $today);
+                $count = self::seatCount($supply, $today);
+                $seats = $count['seats'];
                 if (self::valid($supply, $today) !== [] && $seats !== null && count($demand) > $seats) {
                     $finding = self::finding(
                         self::FINDING_OVERDEPLOYED,
@@ -413,6 +491,7 @@ final class LicenseComplianceRules
                         $seats
                     );
                     $finding['overquota_allowed'] = self::allowsOverquota(self::valid($supply, $today));
+                    $finding['nested'] = $count['nested'];
                     $findings[] = $finding;
                 }
             }
@@ -632,6 +711,7 @@ final class LicenseComplianceRules
             'assigned'      => 0,
             'assets'        => array_slice(array_values($assets), 0, self::MAX_ASSETS),
             'overquota_allowed' => false,
+            'nested'        => false,
         ];
     }
 
