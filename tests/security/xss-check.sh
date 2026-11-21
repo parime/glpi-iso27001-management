@@ -108,6 +108,8 @@ check "front/mfacoverage.php"                 "$P/mfacoverage.php"
 check "preuve couverture MFA (A.8.5)"         "$P/control.form.php?id=$(xid control_a85)"
 # Issue #854 : ordinateur piege (correctifs de securite).
 check "front/patchcompliance.php"             "$P/patchcompliance.php"
+# Issue #853 : hote emetteur, serveur de temps et commentaire pieges (couverture de la journalisation).
+check "front/logcoverage.php"                 "$P/logcoverage.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).
 check "front/parkvulnerability.php?warranty=all" "$P/parkvulnerability.php?warranty=all"
 # Issue #604 : campagne de simulation d'hameconnage piegee (liste et tendance, fiche, onglet Resultats,
