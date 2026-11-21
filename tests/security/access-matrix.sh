@@ -142,6 +142,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
+  front/controlblocker.php front/controlblocker.php?sort=code&order=DESC
   front/certificationreadiness.php front/certificationreadiness.php?format=pdf
   front/certificationfinding.php front/certificationfinding.php?format=pdf front/certificationsampling.php
   front/certificationfinding.php?process=1
@@ -1354,6 +1355,16 @@ contains "liste des non-conformites : constat de B" "Constat securite B" $SEE_B 
 contains "export CSV de la recherche des non-conformites : constat de B" "Constat securite B" $SEE_B   "$(curl -s -c "$JAR" -b "$JAR" "$BASE/front/report.dynamic.php?item_type=GlpiPlugin%5CGrcmanager%5CNonconformity&display_type=3&export_all=1&criteria%5B0%5D%5Bfield%5D=view&criteria%5B0%5D%5Bsearchtype%5D=contains&criteria%5B0%5D%5Bvalue%5D=securite")"
 contains "controles de coherence (CSV) : constat de B en retard" "Constat securite B" $SEE_B \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/consistencycheck.export.php?format=csv")"
+# Issue #867 : mesures bloquees. Les constats de A et de B citent la mesure testee : celui de B n'est
+# jamais cite pour un profil limite a A (vue globale et onglet de la mesure de A).
+blocked=$(curl -s -c "$JAR" -b "$JAR" "$P/controlblocker.php")
+contains "mesures bloquees : constat de A" "Constat securite A" \
+  "$(case $ROLE in none) echo non ;; *) echo oui ;; esac)" "$blocked"
+contains "mesures bloquees : constat de B" "Constat securite B" $SEE_B "$blocked"
+blocked_tab=$(tab 'GlpiPlugin%5CGrcmanager%5CControl' 'GlpiPlugin%5CGrcmanager%5CControlBlocker$1' "$(id control)")
+contains "onglet ce qui bloque la mesure de A : constat de A" "Constat securite A" \
+  "$(case $ROLE in none) echo non ;; *) echo oui ;; esac)" "$blocked_tab"
+contains "onglet ce qui bloque la mesure de A : constat de B" "Constat securite B" $SEE_B "$blocked_tab"
 myspace_b=$(curl -s -c "$JAR" -b "$JAR" "$P/myspace.php")
 contains "Mon espace GRC : constat de A confie au gestionnaire" "Constat securite A" \
   "$([ "$ROLE" = limited ] && echo oui || echo non)" "$myspace_b"

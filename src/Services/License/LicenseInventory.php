@@ -237,7 +237,8 @@ final class LicenseInventory
         $licences = [];
         $iterator = $DB->request([
             'SELECT' => [
-                'id', 'name', 'softwares_id', 'entities_id', 'is_recursive', 'number', 'expire', 'allow_overquota',
+                'id', 'name', 'completename', 'softwares_id', 'softwarelicenses_id', 'entities_id', 'is_recursive',
+                'number', 'expire', 'allow_overquota',
             ],
             'FROM'   => 'glpi_softwarelicenses',
             'WHERE'  => [
@@ -250,13 +251,16 @@ final class LicenseInventory
         foreach ($iterator as $row) {
             $licences[] = [
                 'id'           => (int) $row['id'],
-                'name'         => (string) ($row['name'] ?? ''),
+                // Lot 3 : nom complet « Licence mère > Licence fille » de la hiérarchie native.
+                'name'         => (string) (($row['completename'] ?? '') !== ''
+                    ? $row['completename'] : ($row['name'] ?? '')),
                 'software_id'  => (int) $row['softwares_id'],
                 'entity_id'    => (int) $row['entities_id'],
                 'is_recursive' => (int) $row['is_recursive'] === 1,
                 'number'       => (int) $row['number'],
                 'expire'       => (string) ($row['expire'] ?? ''),
                 'allow_overquota' => (int) ($row['allow_overquota'] ?? 0) === 1,
+                'parent_id'    => (int) ($row['softwarelicenses_id'] ?? 0),
             ];
         }
 

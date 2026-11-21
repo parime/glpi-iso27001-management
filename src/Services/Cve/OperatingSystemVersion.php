@@ -26,8 +26,9 @@ use GlpiPlugin\Grcmanager\Services\Lifecycle\ProductMatcher;
  * Issue #780 : systèmes d'exploitation du parc (`Item_OperatingSystem`) face aux CVE. PHP pur,
  * sans GLPI.
  *
- * La famille d'un système (Windows, Windows Server, Debian, Ubuntu, RHEL et ses dérivés, Fedora, macOS) est reconnue par la
- * règle de fin de support (#704, ProductMatcher) : un nom entier connu, jamais une ressemblance.
+ * La famille d'un système (Windows, Windows Server, Debian, Ubuntu, RHEL et ses dérivés, Fedora,
+ * macOS) est reconnue par la règle de fin de support (#704, ProductMatcher) : un nom entier connu,
+ * jamais une ressemblance.
  * Elle sert seulement à PROPOSER un CPE et à lire la bonne version ; le rapprochement lui-même
  * passe toujours par un alias déclaré (ProductAlias), validé par l'administrateur.
  *

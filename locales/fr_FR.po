@@ -27618,88 +27618,6 @@ msgid_plural "%d months"
 msgstr[0] "%d mois"
 msgstr[1] "%d mois"
 
-#, php-format
-msgid "%d competence gap(s) reported."
-msgstr "%d écart(s) de compétence signalé(s)."
-
-#, php-format
-msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
-msgstr "- %1$s : %2$s, niveau attendu %3$s (formation à planifier : %4$s)"
-
-#, php-format
-msgid ""
-"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
-"declare a proof)"
-msgstr ""
-"- %1$s : %2$s, niveau attendu %3$s (aucune formation ne la donne encore : "
-"liez-en une, ou déclarez une preuve)"
-
-msgid "Activity of the responsibility matrix"
-msgstr "Activité de la matrice des responsabilités"
-
-msgid "Competence gaps without planned training"
-msgstr "Écarts de compétence sans formation planifiée"
-
-msgid "Follows the responsibility matrix"
-msgstr "Suit la matrice des responsabilités"
-
-msgid "New gaps without planned training"
-msgstr "Nouveaux écarts sans formation planifiée"
-
-msgid "Number of gaps without planned training"
-msgstr "Nombre d'écarts sans formation planifiée"
-
-msgid "Number of new gaps"
-msgstr "Nombre de nouveaux écarts"
-
-#, php-format
-msgid "Other gaps not listed here: %d"
-msgstr "Autres écarts non cités ici : %d"
-
-#, php-format
-msgid "Responsibility matrix: %1$s (%2$s)"
-msgstr "Matrice des responsabilités : %1$s (%2$s)"
-
-msgid "Role in the activity"
-msgstr "Rôle dans l'activité"
-
-msgid "This activity is not available in the entity of the function."
-msgstr "Cette activité n'est pas disponible dans l'entité de la fonction."
-
-msgid "Warns the owner of the competence gaps that have no planned training"
-msgstr ""
-"Prévient le responsable des écarts de compétence sans formation planifiée"
-
-msgid ""
-"Optional: the people and groups who hold the chosen role in this activity "
-"hold the function, and follow the matrix when it changes."
-msgstr ""
-"Facultatif : les personnes et groupes qui tiennent le rôle choisi dans cette "
-"activité tiennent la fonction, et suivent la matrice quand elle change."
-
-msgid ""
-"Sent by the GRC Manager automatic task when a person who holds an ISMS "
-"function has a competence gap with no planned training."
-msgstr ""
-"Envoyée par la tâche automatique GRC Manager lorsqu'une personne qui tient "
-"une fonction du SMSI a un écart de compétence sans formation planifiée."
-
-msgid ""
-"Plan a session of the proposed training from the Competences page, or "
-"declare the proof the person already has. Nothing is changed automatically."
-msgstr ""
-"Planifiez une session de la formation proposée depuis la page "
-"« Compétences », ou déclarez la preuve que la personne détient déjà. Rien "
-"n'est modifié automatiquement."
-
-msgid "View the competences"
-msgstr "Voir les compétences"
-
-msgid "Competence gap alert"
-msgid_plural "Competence gap alerts"
-msgstr[0] "Alerte d'écart de compétence"
-msgstr[1] "Alertes d'écarts de compétence"
-
 msgid "Review of the last exercise not validated"
 msgstr "Bilan du dernier exercice non validé"
 
@@ -27891,6 +27809,27 @@ msgstr ""
 
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "Cet exercice n'a jamais été mené jusqu'au bout dans la salle de crise."
+
+msgid "Child licenses counted once"
+msgstr "Licences filles comptées une fois"
+
+msgid ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+msgstr ""
+"Les licences filles partagent les postes de leur licence mère : chaque "
+"famille est comptée une fois."
+
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
+msgstr ""
+"Plus d'actifs ont le logiciel que ne le permettent les licences valables. "
+"Une licence illimitée (nombre inférieur ou égal à 0) couvre tout. Une "
+"licence mère et ses licences filles comptent pour le plus grand du nombre de "
+"la mère et de la somme des filles."
 
 msgid "Evidence pack settings saved."
 msgstr "Réglages du dossier de preuves enregistrés."
@@ -28101,3 +28040,222 @@ msgstr "limite %d Mo"
 #, php-format
 msgid "%s MB"
 msgstr "%s Mo"
+
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d écart(s) de compétence signalé(s)."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s : %2$s, niveau attendu %3$s (formation à planifier : %4$s)"
+
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s : %2$s, niveau attendu %3$s (aucune formation ne la donne encore : "
+"liez-en une, ou déclarez une preuve)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Activité de la matrice des responsabilités"
+
+msgid "Competence gaps without planned training"
+msgstr "Écarts de compétence sans formation planifiée"
+
+msgid "Follows the responsibility matrix"
+msgstr "Suit la matrice des responsabilités"
+
+msgid "New gaps without planned training"
+msgstr "Nouveaux écarts sans formation planifiée"
+
+msgid "Number of gaps without planned training"
+msgstr "Nombre d'écarts sans formation planifiée"
+
+msgid "Number of new gaps"
+msgstr "Nombre de nouveaux écarts"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Autres écarts non cités ici : %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Matrice des responsabilités : %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Rôle dans l'activité"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "Cette activité n'est pas disponible dans l'entité de la fonction."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+"Prévient le responsable des écarts de compétence sans formation planifiée"
+
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+"Facultatif : les personnes et groupes qui tiennent le rôle choisi dans cette "
+"activité tiennent la fonction, et suivent la matrice quand elle change."
+
+msgid ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+msgstr ""
+"Envoyée par la tâche automatique GRC Manager lorsqu'une personne qui tient "
+"une fonction du SMSI a un écart de compétence sans formation planifiée."
+
+msgid ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+msgstr ""
+"Planifiez une session de la formation proposée depuis la page "
+"« Compétences », ou déclarez la preuve que la personne détient déjà. Rien "
+"n'est modifié automatiquement."
+
+msgid "View the competences"
+msgstr "Voir les compétences"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Alerte d'écart de compétence"
+msgstr[1] "Alertes d'écarts de compétence"
+
+msgid "Blockers"
+msgstr "Blocages"
+
+msgid "Technical check"
+msgstr "Contrôle technique"
+
+msgid "Effectiveness test overdue"
+msgstr "Test d'efficacité en retard"
+
+#, php-format
+msgid "Last test: %s"
+msgstr "Dernier test : %s"
+
+#, php-format
+msgid "Next test was due on %s"
+msgstr "Le prochain test était prévu le %s"
+
+#, php-format
+msgid "Tested on %s"
+msgstr "Testé le %s"
+
+msgid "Test the control again and record the result."
+msgstr "Testez de nouveau la mesure et enregistrez le résultat."
+
+msgid "Fix the weakness found by the test, then test the control again."
+msgstr ""
+"Corrigez la faiblesse relevée par le test, puis testez de nouveau la mesure."
+
+#, php-format
+msgid "Open, due on %s"
+msgstr "Ouverte, échéance le %s"
+
+msgid "Carry out the corrective action, then close the nonconformity."
+msgstr "Réalisez l'action corrective, puis clôturez la non-conformité."
+
+msgid "Have the policy approved by management."
+msgstr "Faites approuver la politique par la direction."
+
+#, php-format
+msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
+msgstr "Écarts : %1$d sur %2$d (%3$d %% conforme)"
+
+msgid "Fix the items listed by the automated check."
+msgstr "Corrigez les éléments listés par le contrôle automatique."
+
+#, php-format
+msgid "%s coverage"
+msgstr "Couverture %s"
+
+#, php-format
+msgid "Computers without an active agent: %1$d out of %2$d"
+msgstr "Ordinateurs sans agent actif : %1$d sur %2$d"
+
+msgid "Install or reactivate the agent on the computers not covered."
+msgstr "Installez ou réactivez l'agent sur les ordinateurs non couverts."
+
+msgid "What blocks this control"
+msgstr "Ce qui bloque cette mesure"
+
+msgid ""
+"For each control of the Statement of Applicability, this page lists what "
+"prevents it from being compliant: failing automated check, missing or "
+"expired evidence, policy not approved, effectiveness test overdue or "
+"ineffective, open nonconformity, expired waiver."
+msgstr ""
+"Pour chaque mesure de la déclaration d'applicabilité, cette page liste ce "
+"qui l'empêche d'être conforme : contrôle automatique en échec, preuve "
+"manquante ou expirée, politique non approuvée, test d'efficacité en retard "
+"ou inefficace, non-conformité ouverte, dérogation expirée."
+
+msgid ""
+"Sort by severity and start with the most blocked controls. Click a control "
+"to see its blockers, then click a blocker to open the screen where it is "
+"fixed. The page is computed again each time and only shows what you are "
+"allowed to read. Nothing is changed automatically."
+msgstr ""
+"Triez par gravité et commencez par les mesures les plus bloquées. Cliquez "
+"sur une mesure pour voir ses blocages, puis sur un blocage pour ouvrir "
+"l'écran où le corriger. La page est recalculée à chaque ouverture et ne "
+"montre que ce que vous avez le droit de lire. Rien n'est modifié "
+"automatiquement."
+
+msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
+msgstr "ISO/IEC 27001:2022, article 9.1 et mesure A.5.36."
+
+msgid "Fix"
+msgstr "Corriger"
+
+#, php-format
+msgid "%d more"
+msgstr "%d de plus"
+
+#, php-format
+msgid "Blocked controls: %1$d out of %2$d"
+msgstr "Mesures bloquées : %1$d sur %2$d"
+
+msgid ""
+"No control of the Statement of Applicability is blocked among the checks you "
+"can read."
+msgstr ""
+"Aucune mesure de la déclaration d'applicabilité n'est bloquée parmi les "
+"contrôles que vous pouvez lire."
+
+msgid "Sort"
+msgstr "Trier"
+
+msgid "What blocks it"
+msgstr "Ce qui la bloque"
+
+msgid "All blocked controls"
+msgstr "Toutes les mesures bloquées"
+
+msgid ""
+"Everything that prevents this control from being compliant, in a single "
+"list: failing automated check, missing or expired evidence, policy not "
+"approved, effectiveness test overdue or ineffective, open nonconformity, "
+"expired waiver. Click a line to open the screen where it is fixed. Only what "
+"you are allowed to read is shown, and nothing is changed automatically."
+msgstr ""
+"Tout ce qui empêche cette mesure d'être conforme, en une seule liste : "
+"contrôle automatique en échec, preuve manquante ou expirée, politique non "
+"approuvée, test d'efficacité en retard ou inefficace, non-conformité "
+"ouverte, dérogation expirée. Cliquez sur une ligne pour ouvrir l'écran où la "
+"corriger. Seul ce que vous avez le droit de lire est affiché, et rien n'est "
+"modifié automatiquement."
+
+msgid "No blocker found among the checks you can read."
+msgstr "Aucun blocage trouvé parmi les contrôles que vous pouvez lire."
+
+msgid "Nothing blocks this control"
+msgstr "Rien ne bloque cette mesure"
+
+msgid "Blocked control"
+msgid_plural "Blocked controls"
+msgstr[0] "Mesure bloquée"
+msgstr[1] "Mesures bloquées"

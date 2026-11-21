@@ -25,6 +25,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     d'exploitation et des firmwares (#705) de chaque machine, en plus de ses logiciels, avec les
     mêmes règles d'entités et de droits. Aucun droit ajouté ni modifié, aucune table.
 
+- **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
+  A.5.32). Les licences filles de GLPI (champ « Comme enfant de ») ne gonflent plus les postes
+  licenciés : quand une licence mère et ses filles valables comptent toutes pour une entité, la
+  famille vaut le plus grand du nombre de la mère et de la somme des filles (un contrat de 10 postes
+  réparti en filles de 4 et 6 vaut 10 postes, pas 20 ; une fille « mise à niveau » d'un poste ne
+  réduit pas la mère). Une mère expirée ne compte plus, ses filles valables si. Le surdéploiement
+  ainsi révélé porte le badge « Licences filles comptées une fois » ; les licences sont nommées
+  avec leur mère (« Contrat > Licence fille ») sur la page et dans l'export. Toujours en lecture
+  seule. Ce lot termine l'issue #779.
+
 - **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
   contacts officiels** (issue #776, lot 2, mesure A.5.29) :
   - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les
@@ -115,6 +125,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     défaut, la preuve à déclarer. Un écart n'est signalé qu'une fois. Seul un compte qui lit le
     plugin et les utilisateurs sur toutes les entités la reçoit ;
   - aucune inscription, session, affectation ni aucun droit n'est modifié automatiquement.
+- **Ce qui bloque chaque mesure de la SoA** (issue #867, article 9.1 et mesure A.5.36). Une seule
+  liste de tout ce qui empêche une mesure d'être conforme, chaque ligne avec un lien vers l'écran à
+  corriger et la marche à suivre :
+  - nouvel onglet **Ce qui bloque cette mesure** sur la fiche de chaque mesure ;
+  - nouvelle vue **Mesures bloquées** (rubrique Conformité) : mesures bloquées de la SoA de
+    l'entité active, triables par gravité, nombre de blocages ou code de mesure ;
+  - sources reprises sans rien recalculer : contrôles de cohérence (preuve manquante ou expirée,
+    justification d'exclusion faible, mesure sans risque, dérogation expirée, politique non revue
+    ou sans propriétaire, non-conformité close sans action), dernier test d'efficacité inefficace
+    ou partiel et test en retard sur le plan, non-conformités ouvertes qui citent la mesure (par
+    leur référence ou par le test qui les a ouvertes), politiques en brouillon (mesure A.5.1),
+    contrôles techniques automatiques et couverture Wazuh et SentinelOne (A.8.7, A.8.16) ;
+  - lecture seule, uniquement ce que la personne a le droit de lire (droits et entités).
 
 ## [2.71.0] - 2026-11-20
 
