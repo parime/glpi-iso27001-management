@@ -254,14 +254,20 @@ function plugin_init_grcmanager(): void
     // sensible), et clé d'API Have I Been Pwned chiffrée par GLPI (configuration sécurisée).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\BreachExposure::class, ['addtabon' => [User::class]]);
     // Issue #707 : jeton d'API SentinelOne, chiffré de la même façon ; #852 : secret de
-    // l'application Microsoft Graph (couverture MFA).
+    // l'application Microsoft Graph (couverture MFA) ; #836 : jeton d'API Zabbix.
     $PLUGIN_HOOKS[Hooks::SECURED_CONFIGS]['grcmanager'] = array_merge(
         \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::SECURED,
         \GlpiPlugin\Grcmanager\Services\Incident\SentinelOneConfig::SECURED,
         \GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig::SECURED,
+        \GlpiPlugin\Grcmanager\Services\Monitoring\ZabbixConfig::SECURED,
         // Issue #838 : mot de passe du compte de lecture de Veeam Backup & Replication.
         \GlpiPlugin\Grcmanager\Services\Backup\VeeamConfig::SECURED
     );
+    // Issue #836 : onglet « Supervision Zabbix » sur les ordinateurs, les matériels réseau et les
+    // processus métier (lecture seule).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ZabbixMonitoring::class, [
+        'addtabon' => [Computer::class, NetworkEquipment::class, \GlpiPlugin\Grcmanager\BusinessProcess::class],
+    ]);
 
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class, [
