@@ -1,0 +1,8 @@
+Source;Tenant;Site;SiteUrl;Item;Identity;Type;Roles;LinkScope;Owner
+SharePoint;exemple.onmicrosoft.com;Direction financiere;https://exemple.sharepoint.com/sites/finance;;Membres Direction financiere;Group;write;;marie.durand@exemple.test
+SharePoint;exemple.onmicrosoft.com;Direction financiere;https://exemple.sharepoint.com/sites/finance;;Tout le monde sauf les utilisateurs externes;Everyone;read;;marie.durand@exemple.test
+SharePoint;exemple.onmicrosoft.com;Direction financiere;https://exemple.sharepoint.com/sites/finance;https://exemple.sharepoint.com/sites/finance/Documents/Budget;;;read;anonymous;marie.durand@exemple.test
+SharePoint;exemple.onmicrosoft.com;Direction financiere;https://exemple.sharepoint.com/sites/finance;https://exemple.sharepoint.com/sites/finance/Documents/Contrats;expert.comptable@cabinet-partenaire.test;Guest;write;users;marie.durand@exemple.test
+OneDrive;exemple.onmicrosoft.com;OneDrive - Paul Martin;https://exemple-my.sharepoint.com/personal/paul_martin;https://exemple-my.sharepoint.com/personal/paul_martin/Documents/Projets;;;write;organization;paul.martin@exemple.test
+Teams;exemple.onmicrosoft.com;Projet Atlas;;;paul.martin@exemple.test;User;owner;;paul.martin@exemple.test
+Teams;exemple.onmicrosoft.com;Projet Atlas;;;consultant@prestataire.test;Guest;member;;paul.martin@exemple.test

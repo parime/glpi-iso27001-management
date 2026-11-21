@@ -33778,11 +33778,17 @@ msgid "Known vulnerabilities"
 msgstr "Znane podatności"
 
 msgid "No known vulnerability in the watched products installed on this asset."
-msgstr "Brak znanych podatności w monitorowanych produktach zainstalowanych na tym zasobie."
+msgstr ""
+"Brak znanych podatności w monitorowanych produktach zainstalowanych na tym "
+"zasobie."
 
 #, php-format
-msgid "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
-msgstr "%1$d znanych podatności, w tym %2$d priorytetowych (aktywnie wykorzystywanych lub bardzo poważnych)."
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+"%1$d znanych podatności, w tym %2$d priorytetowych (aktywnie "
+"wykorzystywanych lub bardzo poważnych)."
 
 #, php-format
 msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
@@ -33805,8 +33811,12 @@ msgid "%s, not required by the encryption rule."
 msgstr "%s, niewymagane przez regułę szyfrowania."
 
 #, php-format
-msgid "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
-msgstr "Skan z %1$s: %2$s reguł spełnionych, %3$d niespełnionych, w tym %4$d o wysokiej wadze."
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+"Skan z %1$s: %2$s reguł spełnionych, %3$d niespełnionych, w tym %4$d o "
+"wysokiej wadze."
 
 #, php-format
 msgid "%s: last reading failed."
@@ -33832,26 +33842,185 @@ msgstr "Otwarte incydenty: %1$d, w tym %2$d o wysokim lub wyższym priorytecie."
 msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
 msgstr "Powiązane ryzyka: %1$d; wysokie lub krytyczne: %2$d, średnie: %3$d."
 
-msgid "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
-msgstr "Ta karta zbiera dla tego zasobu wszystkie źródła bezpieczeństwa znane wtyczce: podatności, szyfrowanie, konfigurację, kontroler zarządzania, incydenty, ryzyka. Każdy wiersz podaje stan i link do szczegółów. Nic nie jest zmieniane: usuwaj odstępstwa na stronach szczegółów."
+msgid ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+msgstr ""
+"Ta karta zbiera dla tego zasobu wszystkie źródła bezpieczeństwa znane "
+"wtyczce: podatności, szyfrowanie, konfigurację, kontroler zarządzania, "
+"incydenty, ryzyka. Każdy wiersz podaje stan i link do szczegółów. Nic nie "
+"jest zmieniane: usuwaj odstępstwa na stronach szczegółów."
 
 #, php-format
 msgid "Score: %s / 100"
 msgstr "Wynik: %s / 100"
 
-msgid "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
-msgstr "Nie oceniono jeszcze żadnego źródła dla tego zasobu: zaimportuj lub odczytaj dane modułów bezpieczeństwa, aby wypełnić ten widok."
+msgid ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+msgstr ""
+"Nie oceniono jeszcze żadnego źródła dla tego zasobu: zaimportuj lub odczytaj "
+"dane modułów bezpieczeństwa, aby wypełnić ten widok."
 
 #, php-format
 msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
 msgstr "Ocenione źródła: %1$d; krytyczne: %2$d, do obserwacji: %3$d."
 
 #, php-format
-msgid "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
-msgstr "Wynik to średnia ważona źródeł (zgodne 100, do obserwacji 50, krytyczne 0); dobry od %1$d, do poprawy od %2$d, poniżej słaby. Jedno krytyczne źródło wyklucza poziom dobry."
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+"Wynik to średnia ważona źródeł (zgodne 100, do obserwacji 50, krytyczne 0); "
+"dobry od %1$d, do poprawy od %2$d, poniżej słaby. Jedno krytyczne źródło "
+"wyklucza poziom dobry."
 
 msgid "Points (weight)"
 msgstr "Punkty (waga)"
 
-msgid "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
-msgstr "Źródła bez danych dla tego zasobu (moduł nieużywany, nic nie zaimportowano, brak uprawnień) nie są wyświetlane."
+msgid ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+msgstr ""
+"Źródła bez danych dla tego zasobu (moduł nieużywany, nic nie zaimportowano, "
+"brak uprawnień) nie są wyświetlane."
+
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Każdy, kto ma link"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "Gość zewnętrzny"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Udział plików Windows"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Link publiczny (każdy)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr "Link udostępniania działa dla każdego, kto go ma, bez logowania."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "Gość zewnętrzny ma dostęp"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"Osoba z innej organizacji (konto gościa) ma dostęp: sprawdź, czy jest nadal "
+"potrzebny."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"Nie znaleziono kolumny witryny: plik musi mieć kolumnę taką jak Site, Team "
+"lub OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Microsoft Graph odmówił dostępu: nadaj uprawnienia aplikacji Sites.Read.All, "
+"Files.Read.All, User.Read.All i GroupMember.Read.All ze zgodą administratora."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+"Zbyt wiele witryn lub kont do odczytu jednym kliknięciem: nic nie "
+"zastąpiono. Zaimportuj zamiast tego eksport CSV."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "Odczytaj uprawnienia SharePoint, OneDrive i Teams"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"GLPI odczytuje uprawnienia udostępniania przez Microsoft Graph po "
+"kliknięciu, za pomocą aplikacji skonfigurowanej dla pokrycia MFA, i nigdy "
+"niczego nie zmienia w Microsoft 365. SharePoint: uprawnienia biblioteki "
+"dokumentów każdej witryny i jej elementów najwyższego poziomu udostępnionych "
+"osobno. OneDrive: elementy najwyższego poziomu udostępnione przez każdą "
+"osobę. Teams: właściciele, członkowie, goście i zespoły publiczne. "
+"Obowiązują te same odstępstwa i ten sam przegląd co dla udziałów plików: "
+"linki publiczne, goście zewnętrzni, uprawnienia dla wszystkich."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Uprawnienia aplikacji do nadania, ze zgodą administratora (tylko odczyt): "
+"Sites.Read.All, Files.Read.All, User.Read.All i GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph połączony"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Ustawienia Microsoft Graph"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "Odczytaj %s teraz"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"Microsoft Graph nie jest jeszcze skonfigurowany. Wprowadź dzierżawę, "
+"identyfikator aplikacji i klucz tajny klienta na stronie pokrycia MFA albo "
+"zaimportuj poniżej eksport CSV."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Rozwiązanie zastępcze: zaimportuj plik CSV z jednym wierszem na uprawnienie "
+"i kolumnami takimi jak Source (SharePoint, OneDrive lub Teams), Site, "
+"SiteUrl, Item, Identity, Type (User, Group, Guest), Roles (read, write, "
+"owner) i LinkScope (anonymous, organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Właściciel w Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Link udostępniania"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Członkostwo w zespole"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Uprawnienie bezpośrednie"
