@@ -75,7 +75,7 @@ final class AccessReviewBmcAccount extends CommonGLPI
             'plugin_grcmanager_accessreviews_id' => $item->getID(),
         ]);
 
-        return self::createTabEntry(self::getTypeName(2), $count, null, self::getIcon());
+        return [1 => self::createTabEntry(self::getTypeName(2), $count, null, self::getIcon())];
     }
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
