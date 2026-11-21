@@ -108,6 +108,11 @@ check "front/mfacoverage.php"                 "$P/mfacoverage.php"
 check "preuve couverture MFA (A.8.5)"         "$P/control.form.php?id=$(xid control_a85)"
 # Issue #854 : ordinateur piege (correctifs de securite).
 check "front/patchcompliance.php"             "$P/patchcompliance.php"
+# Issue #781 : resultats OpenSCAP pieges (liste, non rapproche, detail, preuve A.8.9).
+check "front/configcompliance.php"            "$P/configcompliance.php"
+check "front/configcompliance.php?report"     "$P/configcompliance.php?report=$(xid configscan)"
+check "front/configcompliance.php?report non rapproche" "$P/configcompliance.php?report=$(xid configscan_unmatched)"
+check "preuve conformite de configuration (A.8.9)" "$P/control.form.php?id=$(xid control_a89)"
 # Issue #853 : hote emetteur, serveur de temps et commentaire pieges (couverture de la journalisation).
 check "front/logcoverage.php"                 "$P/logcoverage.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).

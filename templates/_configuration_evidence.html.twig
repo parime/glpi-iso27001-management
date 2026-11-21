@@ -1,0 +1,29 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #781 : preuve de conformité de configuration (A.8.9), une ligne par source (OpenSCAP, puis
+   d'autres comme la configuration à risque de l'inventaire Docker, issue #916). Chaque source donne
+   key, icon, label, badges (color, icon, text), note, url et link : aucun HTML venu du PHP. #}
+<div id="grc-configuration-evidence">
+{% for source in sources %}
+   <div class="mb-1" data-config-source="{{ source.key }}">
+      <strong><i class="{{ source.icon }} me-1"></i>{{ source.label }}</strong> :
+      {% for badge in source.badges %}
+         <span class="badge bg-{{ badge.color }}-subtle text-{{ badge.color }}-emphasis me-1"><i class="{{ badge.icon }} me-1"></i>{{ badge.text }}</span>
+      {% endfor %}
+      {% if source.note %}<span class="small text-muted me-2">{{ source.note }}</span>{% endif %}
+      {% if source.url %}<a href="{{ source.url }}">{{ source.link }}</a>{% endif %}
+   </div>
+{% endfor %}
+</div>
