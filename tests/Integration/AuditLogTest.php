@@ -64,4 +64,19 @@ final class AuditLogTest extends GrcmanagerIntegrationTestCase
         $DB->update(AuditLog::getTable(), ['users_id' => $row['users_id']], ['id' => $row['id']]);
         $this->assertTrue(AuditLog::verifyAll()['valid']);
     }
+
+    /**
+     * Un type journalisé qui n'est pas un objet GLPI (AdAttackPath n'a pas de getTypeName()) ne
+     * doit pas faire tomber la page du journal (« Call to undefined method », HTTP 500).
+     */
+    public function testPresentAcceptsItemtypesWithoutTypeName(): void
+    {
+        $rows = AuditLog::present([[
+            'users_id' => 0, 'users_id_real' => 0, 'profiles_id' => 0,
+            'itemtype' => \GlpiPlugin\Grcmanager\AdAttackPath::class, 'items_id' => 7,
+            'plugin_grcmanager_securityincidents_id' => 0,
+        ]]);
+        $this->assertSame('AdAttackPath #7', $rows[0]['object']);
+        $this->assertSame('', AuditLog::objectLabel('', 3));
+    }
 }
