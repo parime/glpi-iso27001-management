@@ -70,7 +70,10 @@ class Menu extends CommonGLPI
         return [
             // Pilotage.
             Dashboard::class => [
-                Maturity::class, FrameworkAssessment::class, ComplianceEvent::class,
+                Maturity::class,
+                // Issue #603 : maturité par mesure (niveau actuel, niveau cible et écarts).
+                MaturityCampaign::class,
+                FrameworkAssessment::class, ComplianceEvent::class,
                 // Issue #614 : contrôles de cohérence du SMSI avant un audit.
                 ConsistencyCheck::class,
                 // Issue #619 : préparation à la certification ISO 27001.
@@ -130,6 +133,8 @@ class Menu extends CommonGLPI
                 PersonnelCompliance::class,
                 // Issue #852 : couverture de l'authentification multifacteur par compte (A.8.5).
                 MfaCoverage::class,
+                // Issue #846 : droits d'accès aux partages de fichiers Windows (A.5.15, A.5.18, A.8.3).
+                ShareAccess::class,
                 PeriodicReview::class,
                 Training::class,
                 // Issue #604 : simulations d'hameçonnage (preuve de sensibilisation, 7.3 et A.6.3).
@@ -152,10 +157,18 @@ class Menu extends CommonGLPI
                 DiskEncryption::class,
                 // Issue #854 : retard des correctifs de sécurité (A.8.8, A.8.19).
                 PatchCompliance::class,
+                // Issue #835 : audit de sécurité de l'Active Directory (rapports PingCastle).
+                AdSecurityAudit::class,
                 // Issue #781 : conformité de configuration, résultats OpenSCAP importés (A.8.9).
                 ConfigurationCompliance::class,
                 // Issue #853 : couverture de la journalisation (A.8.15, A.8.16, A.8.17).
                 LogCoverage::class,
+                // Issue #836 : supervision lue dans Zabbix (A.8.16, A.8.6, A.5.30).
+                ZabbixMonitoring::class,
+                // Issue #843 : contrôleurs de gestion des serveurs (A.8.2, A.8.9, A.8.22).
+                ServerManagement::class,
+                // Issue #838 : couverture des sauvegardes (A.8.13, A.5.30).
+                BackupCoverage::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];

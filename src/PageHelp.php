@@ -18,6 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
 
 /**
  * Encadré « À quoi sert cette page ? » en tête de chaque écran du menu GRC & Conformité : ce
@@ -30,6 +31,17 @@ class PageHelp
      * @return array<string, array{purpose: string, expected: string, reference?: string}>
      */
     public static function texts(): array
+    {
+        return self::coreTexts() + FeatureRegistry::pageHelp();
+    }
+
+    /**
+     * Aides des pages plus anciennes ; une nouvelle fonctionnalité donne la sienne dans
+     * src/Feature/<Fonctionnalité>Feature.php (PageHelpProvider).
+     *
+     * @return array<string, array{purpose: string, expected: string, reference?: string}>
+     */
+    private static function coreTexts(): array
     {
         return [
             'dashboard' => [
@@ -55,6 +67,25 @@ class PageHelp
                         . 'first.',
                     'grcmanager'
                 ),
+            ],
+            // Issue #603 : maturité par mesure (campagnes datées, niveau actuel et niveau cible).
+            'maturitycampaign' => [
+                'purpose'   => __(
+                    'Rates each applicable control of the Statement of Applicability on a scale from 0 (non-existent) '
+                        . 'to 5 (optimised): the level reached today and the level aimed for, with a target date. The '
+                        . 'gaps between the two make up the security roadmap, and two dated campaigns show the '
+                        . 'progress. These optional levels change neither the implementation status of the controls '
+                        . 'nor the maturity score.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Create a campaign (for example once a year), fill in the current and target levels of each '
+                        . 'control with a justification and an owner, then open the "Gaps" tab: create an action for '
+                        . 'the largest gaps and download the report for the management review. The next campaign takes '
+                        . 'over the targets of this one.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clauses 6.2, 9.3 and 10.1', 'grcmanager'),
             ],
             // Issue #867 : mesures bloquées de la SoA.
             'controlblocker'   => [
@@ -323,8 +354,8 @@ class PageHelp
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Create one risk per important supplier, have the security questionnaire filled in, follow its '
-                        . 'contracts and the "Security watch" tab.',
+                    'Create one risk per important supplier, evaluate it with one or more questionnaires '
+                        . '(Questionnaires tab), follow its contracts and the "Security watch" tab.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, Annex A 5.19 to 5.22', 'grcmanager'),
@@ -452,6 +483,25 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.8.24 and A.8.1', 'grcmanager'),
             ],
+            // Issue #835 : audit de sécurité de l'Active Directory.
+            'adsecurityaudit' => [
+                'purpose'   => __(
+                    'Keeps the results of the security audits of your Active Directory (PingCastle, Purple '
+                        . 'Knight) and of the configuration of your Entra ID and Microsoft 365 tenant (Maester, '
+                        . 'ScubaGear): the files that your team produces are imported here, with the score and '
+                        . 'the rules or checks that failed. Each one is linked to the ISO/IEC 27001 controls it '
+                        . 'concerns, and the history shows how the score changes from one report to the next.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Run these tools regularly (for example every quarter), import each report, then decide how '
+                        . 'to treat the rules: propose an action or a ticket for those you fix, and follow the '
+                        . 'rules resolved by the next report. Nothing is created automatically. The page is '
+                        . 'reserved to the sensitive registers right.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.5.15 to A.5.18, A.5.23, A.8.2 and A.8.5', 'grcmanager'),
+            ],
             // Issue #854 : retard des correctifs de sécurité des systèmes.
             'patchcompliance' => [
                 'purpose'   => __(
@@ -470,6 +520,24 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.8.8 and A.8.19', 'grcmanager'),
+            ],
+            // Issue #846 : droits d'accès aux partages de fichiers Windows.
+            'shareaccess' => [
+                'purpose'   => __(
+                    'Shows who can access the Windows file shares: share and NTFS permissions imported from each '
+                        . 'file server, accounts matched with the GLPI users and groups, and the gaps an auditor '
+                        . 'looks for (everyone can modify, rights given to a person, deleted or disabled accounts, '
+                        . 'broken inheritance, share without an owner).',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Run the PowerShell script provided on each file server (it only reads), import the CSV file, '
+                        . 'classify the sensitive shares and designate an owner for each one. The owner then reviews '
+                        . 'the rights of the share; the administrator applies the changes on the server and the next '
+                        . 'import shows the rights added and removed.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3', 'grcmanager'),
             ],
             // Issue #781 : conformité de configuration d'après les résultats OpenSCAP.
             'configcompliance' => [
@@ -785,23 +853,6 @@ class PageHelp
                 ),
             ],
             // Issue #852 : couverture MFA par compte.
-            'mfacoverage' => [
-                'purpose'   => __(
-                    'Shows which active accounts are protected by multi-factor authentication: GLPI two-factor '
-                        . 'authentication, and the methods registered with your identity provider (Microsoft Entra '
-                        . 'ID, Okta, Google Workspace, on-premises solution) imported from a CSV export. Rates are '
-                        . 'given for all accounts, administrators and remote access accounts.',
-                    'grcmanager'
-                ),
-                'expected'  => __(
-                    'Import the export of your identity provider, choose the remote access groups, then follow up '
-                        . 'the gaps: administrator or remote access without MFA, SMS or call only, account excluded '
-                        . 'without justification. Nothing is changed automatically. Record the result as an '
-                        . 'effectiveness test of the control to keep the evidence.',
-                    'grcmanager'
-                ),
-                'reference' => __('ISO/IEC 27001, controls A.8.5 and A.5.17', 'grcmanager'),
-            ],
             'personnelcompliance' => [
                 'purpose'   => __(
                     'Security compliance of each person: screening, confidentiality agreement, mandatory trainings, '
@@ -1010,6 +1061,25 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, control A.5.26 and clause 7.4', 'grcmanager'),
+            ],
+            // Issue #864 : modèles de questionnaire fournisseur.
+            'supplierquestionnairetemplate' => [
+                'purpose'   => __(
+                    'Supplier questionnaire templates: the questions asked to your suppliers, grouped by section, '
+                        . 'with their weight, the expected answer and the evidence to provide. One template per '
+                        . 'need: information security, personal data, artificial intelligence...',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Adapt the historical questionnaire or create your own templates, then start an evaluation from '
+                        . 'the Questionnaires tab of a supplier risk. A supplier can be evaluated with several '
+                        . 'templates; each evaluation keeps its score and its history.',
+                    'grcmanager'
+                ),
+                'reference' => __(
+                    'ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28',
+                    'grcmanager'
+                ),
             ],
             // Issue #537 : référentiels personnalisés importés depuis un fichier CSV.
             'customframework' => [

@@ -83,7 +83,7 @@ final class KriAlert
     {
         $rights = [RiskIndicator::RIGHTNAME => READ];
         $perimeter = [];
-        $definition = RiskIndicator::SOURCES[(string) ($kri->fields['source'] ?? '')] ?? null;
+        $definition = RiskIndicator::sourceDefinitions()[(string) ($kri->fields['source'] ?? '')] ?? null;
         if ($definition !== null) {
             $rights += $definition['rights'];
             if (!$definition['global']) {

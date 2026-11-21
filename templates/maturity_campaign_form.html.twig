@@ -1,0 +1,56 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #603 : campagne de maturité par mesure : nom, date, pilote, commentaire. La grille des
+   niveaux, les écarts et la comparaison sont dans leurs onglets. #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {% if summary is not null %}
+      <div class="col-12 mb-3" id="grc-maturity-campaign-summary">
+         <div class="d-flex flex-wrap gap-2 align-items-center">
+            <span class="badge bg-blue-subtle text-blue-emphasis fs-5"><i class="ti ti-list-check me-1"></i>{{ __('%1$d of %2$d controls assessed', 'grcmanager')|format(summary.assessed, summary.total) }}</span>
+            {% if summary.average_current is not null %}
+               <span class="badge bg-secondary-subtle text-secondary-emphasis fs-5" title="{{ __('Average over the controls that have both a current and a target level.', 'grcmanager') }}"><i class="ti ti-stairs me-1"></i>{{ __('Average level: %1$s, target %2$s', 'grcmanager')|format(summary.average_current|number_format(1, ','), summary.average_target|number_format(1, ',')) }}</span>
+            {% endif %}
+            {% if summary.gaps > 0 %}
+               <span class="badge bg-orange-subtle text-orange-emphasis fs-5"><i class="ti ti-arrows-diff me-1"></i>{{ _n('%d gap to close', '%d gaps to close', summary.gaps, 'grcmanager')|format(summary.gaps) }}</span>
+            {% elseif summary.assessed > 0 %}
+               <span class="badge bg-green-subtle text-green-emphasis fs-5"><i class="ti ti-circle-check me-1"></i>{{ __('No gap: every target is reached', 'grcmanager') }}</span>
+            {% endif %}
+            <a href="{{ pdf_url }}" class="ms-auto" id="grc-maturity-campaign-pdf" title="{{ __('Average levels by theme, gaps sorted by size and comparison with the previous campaign, for the management review.', 'grcmanager') }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Report (PDF)', 'grcmanager') }}</a>
+         </div>
+      </div>
+   {% endif %}
+
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'add_field_html': hints.hint(__('For example "2026 assessment". Left empty, the date is used.', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('campaign_date', item.fields['campaign_date'], __('Assessment date', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Campaigns are compared in the order of this date.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Campaign lead', 'grcmanager'), {
+      'right': 'all',
+      'entity': item.fields['entities_id'],
+   }) }}
+   {% if item.isNewItem() %}
+      {{ fields.htmlField('', '<i class="ti ti-info-circle me-1"></i>' ~ __('The campaign lists the applicable controls of the Statement of Applicability of the entity. The targets, target dates, justifications and owners of the previous campaign are taken over; the current levels are left to assess.', 'grcmanager')|e, __('Controls', 'grcmanager'), {'full_width': true}) }}
+   {% elseif previous %}
+      {{ fields.htmlField('', '<i class="ti ti-history me-1"></i>' ~ previous|e, __('Previous campaign', 'grcmanager')) }}
+   {% endif %}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+   {{ fields.htmlField('', '<a href="' ~ maturity_url|e('html_attr') ~ '"><i class="ti ti-gauge me-1"></i>' ~ __('The overall maturity score is computed separately from your data and does not use these levels.', 'grcmanager')|e ~ '</a>', __('Maturity score', 'grcmanager'), {'full_width': true}) }}
+{% endblock %}

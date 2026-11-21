@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.76.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.77.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -254,17 +254,28 @@ function plugin_init_grcmanager(): void
     // sensible), et clé d'API Have I Been Pwned chiffrée par GLPI (configuration sécurisée).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\BreachExposure::class, ['addtabon' => [User::class]]);
     // Issue #707 : jeton d'API SentinelOne, chiffré de la même façon ; #852 : secret de
-    // l'application Microsoft Graph (couverture MFA).
+    // l'application Microsoft Graph (couverture MFA) ; #836 : jeton d'API Zabbix.
     $PLUGIN_HOOKS[Hooks::SECURED_CONFIGS]['grcmanager'] = array_merge(
         \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::SECURED,
         \GlpiPlugin\Grcmanager\Services\Incident\SentinelOneConfig::SECURED,
-        \GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig::SECURED
+        \GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig::SECURED,
+        \GlpiPlugin\Grcmanager\Services\Monitoring\ZabbixConfig::SECURED,
+        // Issue #838 : mot de passe du compte de lecture de Veeam Backup & Replication.
+        \GlpiPlugin\Grcmanager\Services\Backup\VeeamConfig::SECURED
     );
+    // Issue #836 : onglet « Supervision Zabbix » sur les ordinateurs, les matériels réseau et les
+    // processus métier (lecture seule).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ZabbixMonitoring::class, [
+        'addtabon' => [Computer::class, NetworkEquipment::class, \GlpiPlugin\Grcmanager\BusinessProcess::class],
+    ]);
 
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
     ]);
+    // Issue #843 : onglet « Contrôleur de gestion » sur les ordinateurs (iLO, iDRAC, XClarity, IPMI),
+    // lecture seule.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ServerManagement::class, ['addtabon' => ['Computer']]);
     // Issue #620 : onglet « Violation de données personnelles » de l'incident qualifié de violation.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\DataBreach::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],

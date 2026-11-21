@@ -1,0 +1,26 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #852 : cadre de preuve de la couverture MFA (mesures A.8.5 et A.5.17), dans les entités de la
+   personne. Reçoit « evidence » (MfaCoverage::evidence()), affiché par control_form.html.twig. #}
+<div id="grc-mfa-coverage-evidence">
+   {% set mfa_color = evidence.rate is null ? 'secondary' : (evidence.rate >= 95 ? 'success' : (evidence.rate >= 80 ? 'warning' : 'danger')) %}
+   <span class="badge bg-{{ mfa_color }}-subtle text-{{ mfa_color }}-emphasis me-1"><i class="ti ti-shield-check me-1"></i>{{ evidence.rate is null ? __('MFA rate: not measured', 'grcmanager') : __('MFA rate: %d%%', 'grcmanager')|format(evidence.rate) }}</span>
+   {% if evidence.admin_rate is not null %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-crown me-1"></i>{{ __('Administrators: %d%%', 'grcmanager')|format(evidence.admin_rate) }}</span>{% endif %}
+   {% if evidence.remote_rate is not null %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-world-share me-1"></i>{{ __('Remote access: %d%%', 'grcmanager')|format(evidence.remote_rate) }}</span>{% endif %}
+   <span class="badge {{ evidence.admins_without_mfa > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-crown-off me-1"></i>{{ __('Administrators without MFA: %d', 'grcmanager')|format(evidence.admins_without_mfa) }}</span>
+   <span class="badge {{ evidence.gaps > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d gap', '%d gaps', evidence.gaps, 'grcmanager')|format(evidence.gaps) }}</span>
+   <span class="small text-muted me-2">{{ __('Computed on %s', 'grcmanager')|format(evidence.date) }}</span>
+   <a href="{{ evidence.url }}">{{ __('View the details', 'grcmanager') }}</a>
+</div>

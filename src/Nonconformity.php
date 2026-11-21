@@ -239,6 +239,16 @@ class Nonconformity extends NonconformityBase
         if ($physicalLineId > 0) {
             PhysicalSecurityCheck::attachFinding($physicalLineId, $this);
         }
+        // Issue #603 : action enregistrée depuis un écart de maturité d'une mesure.
+        $maturityLineId = (int) ($this->input['_grcmanager_maturityassessment'] ?? 0);
+        if ($maturityLineId > 0) {
+            MaturityAssessment::attachFinding($maturityLineId, $this);
+        }
+        // Issue #835 : action enregistrée depuis une règle de l'audit de sécurité de l'AD.
+        $adRuleId = (int) ($this->input['_grcmanager_adauditrule'] ?? 0);
+        if ($adRuleId > 0) {
+            AdSecurityAudit::attachFinding($adRuleId, $this);
+        }
     }
 
     /** Issue #606 : constat purgé, les lignes de grille qui le citaient restent sans lien. */
@@ -246,6 +256,8 @@ class Nonconformity extends NonconformityBase
     {
         AuditChecklist::unlinkFinding($this->getID());
         PhysicalSecurityCheck::unlinkFinding($this->getID());
+        MaturityAssessment::unlinkFinding($this->getID());
+        AdSecurityAudit::unlinkFinding($this->getID());
     }
 
     /**
@@ -782,6 +794,36 @@ class Nonconformity extends NonconformityBase
                 }
             }
         }
+        // Issue #603 : « Créer l'action » depuis un écart de maturité d'une mesure : piste
+        // d'amélioration pré-remplie (mesure, niveaux, échéance, responsable), relue et enregistrée.
+        $maturityDraft = null;
+        if ($this->isNewItem() && (int) ($options['maturityassessment'] ?? 0) > 0) {
+            $maturityDraft = MaturityAssessment::findingDraft((int) $options['maturityassessment']);
+            if ($maturityDraft !== null) {
+                $preset = [
+                    'entities_id', 'is_recursive', 'requirement_reference', 'title', 'description', 'finding_type',
+                    'severity', 'due_date', 'users_id',
+                ];
+                foreach ($preset as $field) {
+                    $this->fields[$field] = $maturityDraft[$field];
+                }
+            }
+        }
+        // Issue #835 : « Proposer une action » depuis une règle de l'audit de sécurité de l'AD : fiche
+        // pré-remplie (domaine, règle, mesures), relue et enregistrée par l'utilisateur.
+        $adAuditDraft = null;
+        if ($this->isNewItem() && (int) ($options['adauditrule'] ?? 0) > 0) {
+            $adAuditDraft = AdSecurityAudit::findingDraft((int) $options['adauditrule']);
+            if ($adAuditDraft !== null) {
+                $preset = [
+                    'entities_id', 'is_recursive', 'requirement_reference', 'title', 'description', 'finding_type',
+                    'severity',
+                ];
+                foreach ($preset as $field) {
+                    $this->fields[$field] = $adAuditDraft[$field];
+                }
+            }
+        }
 
         $auditTitles = [0 => Dropdown::EMPTY_VALUE];
         // Issue #536 : audits des entités de la session seulement.
@@ -837,6 +879,10 @@ class Nonconformity extends NonconformityBase
             'checklist_draft' => $checklistDraft,
             'checklist_lines' => $this->isNewItem() ? [] : AuditChecklist::linesForFinding($this->getID()),
             'physical_draft'  => $physicalDraft,
+            'maturity_draft'  => $maturityDraft,
+            'maturity_lines'  => $this->isNewItem() ? [] : MaturityAssessment::linesForFinding($this->getID()),
+            // Issue #835 : action proposée depuis une règle de l'audit de sécurité de l'AD.
+            'ad_audit_draft'  => $adAuditDraft,
             'physical_lines'  => $this->isNewItem() ? [] : PhysicalSecurityCheck::linesForFinding($this->getID()),
             'corrective_hint' => CapaRequirementService::isCapaMandatory($findingType)
                 ? __('Required to close or verify this non-conformity.', 'grcmanager')

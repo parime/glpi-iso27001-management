@@ -25,6 +25,7 @@ use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\RiskIndicatorBase;
+use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
 use GlpiPlugin\Grcmanager\Services\Dashboard\PilotageCards;
 use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
@@ -78,11 +79,6 @@ class RiskIndicator extends RiskIndicatorBase
             'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => ['computer' => READ], 'global' => false,
         ],
-        // Issue #852 : administrateurs sans authentification multifacteur.
-        'admins_without_mfa'        => [
-            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
-            'rights' => ['user' => READ], 'global' => false,
-        ],
         // Issue #854 : serveurs critiques dont les correctifs sont en retard.
         'late_patch_critical_servers' => [
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
@@ -128,7 +124,32 @@ class RiskIndicator extends RiskIndicatorBase
             'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => [PhishingCampaign::RIGHTNAME => READ], 'global' => false,
         ],
+        // Issue #835 : pire score PingCastle des domaines (0 le meilleur, 100 le pire).
+        'ad_security_score' => [
+            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => [AdSecurityAudit::RIGHTNAME => READ], 'global' => false,
+        ],
     ];
+
+    /**
+     * Sources automatiques : celles de SOURCES et celles des fonctionnalités (src/Feature/,
+     * RiskIndicatorSourcesProvider), chacune à sa place dans la liste de choix.
+     *
+     * @return array<string, array{unit: string, direction: string, rights: array<string, int>, global: bool}>
+     */
+    public static function sourceDefinitions(): array
+    {
+        $features = [];
+        foreach (FeatureRegistry::riskIndicatorSources() as $key => $source) {
+            $features[$key] = [
+                'unit' => $source['unit'], 'direction' => $source['direction'],
+                'rights' => $source['rights'], 'global' => $source['global'], 'after' => $source['after'] ?? '',
+            ];
+        }
+
+        /** @var array<string, array{unit: string, direction: string, rights: array<string, int>, global: bool}> */
+        return FeatureRegistry::insertAfter(self::SOURCES, $features);
+    }
 
     /** Score CVSS à partir duquel une vulnérabilité est critique. */
     public const CRITICAL_CVSS = 9.0;
@@ -153,12 +174,33 @@ class RiskIndicator extends RiskIndicatorBase
      */
     public static function getSources(): array
     {
+        $labels = self::coreSourceLabels();
+        $order = array_merge([self::SOURCE_MANUAL], array_keys(self::sourceDefinitions()));
+        foreach (FeatureRegistry::riskIndicatorSources() as $key => $source) {
+            $labels[$key] = $source['label'];
+        }
+        $sources = [];
+        foreach ($order as $key) {
+            if (isset($labels[$key])) {
+                $sources[$key] = $labels[$key];
+            }
+        }
+
+        return $sources;
+    }
+
+    /**
+     * Libellés des sources de SOURCES (les fonctionnalités donnent les leurs).
+     *
+     * @return array<string, string>
+     */
+    private static function coreSourceLabels(): array
+    {
         return [
             self::SOURCE_MANUAL         => __('Manual entry', 'grcmanager'),
             'unencrypted_computers'     => __('Computers with an unencrypted disk (%)', 'grcmanager'),
             'antivirus_gaps'            => __('Computers without an up-to-date antivirus (%)', 'grcmanager'),
             'unencrypted_laptops'       => __('Laptops with an unencrypted disk (%)', 'grcmanager'),
-            'admins_without_mfa'        => __('Administrators without MFA', 'grcmanager'),
             'late_patch_critical_servers' => __('Critical servers with overdue patches', 'grcmanager'),
             'config_high_failures'      => __(
                 'Scanned computers with a high severity configuration rule failed (%)',
@@ -176,6 +218,10 @@ class RiskIndicator extends RiskIndicatorBase
             'overdue_control_tests'     => __('Overdue control effectiveness tests', 'grcmanager'),
             'overdue_periodic_reviews'  => __('Overdue periodic reviews', 'grcmanager'),
             'phishing_click_rate'       => __('Click rate of the last phishing simulation (%)', 'grcmanager'),
+            'ad_security_score'         => __(
+                'Active Directory security score (PingCastle or Purple Knight, 0 is best)',
+                'grcmanager'
+            ),
         ];
     }
 
@@ -285,7 +331,7 @@ class RiskIndicator extends RiskIndicatorBase
         $prefix = ($tablename ?? self::getTable()) . '.';
         $open = [self::SOURCE_MANUAL];
         $bySource = [];
-        foreach (self::SOURCES as $source => $definition) {
+        foreach (self::sourceDefinitions() as $source => $definition) {
             if ($definition['global']) {
                 $open[] = $source;
             } else {
@@ -317,7 +363,7 @@ class RiskIndicator extends RiskIndicatorBase
         if ($source === self::SOURCE_MANUAL) {
             return true;
         }
-        $definition = self::SOURCES[$source] ?? null;
+        $definition = self::sourceDefinitions()[$source] ?? null;
         if ($definition === null) {
             return false;
         }
@@ -387,8 +433,9 @@ class RiskIndicator extends RiskIndicatorBase
             return false;
         }
         if ($source !== self::SOURCE_MANUAL) {
-            $input['unit'] = self::SOURCES[$source]['unit'];
-            $input['direction'] = self::SOURCES[$source]['direction'];
+            $definition = self::sourceDefinitions()[$source];
+            $input['unit'] = $definition['unit'];
+            $input['direction'] = $definition['direction'];
         }
 
         if (array_key_exists('direction', $input) && !KriRules::isDirection((string) $input['direction'])) {
@@ -549,7 +596,6 @@ class RiskIndicator extends RiskIndicatorBase
             'unencrypted_computers'     => ComplianceAudit::gapRate('encryption', $perimeter),
             'antivirus_gaps'            => ComplianceAudit::gapRate('antivirus', $perimeter),
             'unencrypted_laptops'       => ComplianceAudit::gapRate('laptop_encryption', $perimeter),
-            'admins_without_mfa'        => MfaCoverage::adminsWithoutMfa($perimeter),
             'late_patch_critical_servers' => PatchCompliance::lateCriticalServers($perimeter),
             'config_high_failures'      => ConfigurationCompliance::highFailureRate($perimeter),
             'critical_assets_without_logging' => LogCoverage::criticalWithoutLogging($perimeter),
@@ -574,8 +620,21 @@ class RiskIndicator extends RiskIndicatorBase
             'overdue_control_tests'     => (float) PilotageCards::overdueControlTests()['number'],
             'overdue_periodic_reviews'  => (float) self::overduePeriodicReviews($perimeter),
             'phishing_click_rate'       => PhishingCampaign::lastClickRate($perimeter),
-            default                     => null,
+            'ad_security_score'         => AdSecurityAudit::worstScore($perimeter),
+            default                     => self::featureSourceValue($source, $perimeter),
         };
+    }
+
+    /**
+     * Valeur d'une source d'une fonctionnalité (src/Feature/), null si la source est inconnue.
+     *
+     * @param list<int> $perimeter
+     */
+    private static function featureSourceValue(string $source, array $perimeter): ?float
+    {
+        $definition = FeatureRegistry::riskIndicatorSources()[$source] ?? null;
+
+        return $definition === null ? null : ($definition['compute'])($perimeter);
     }
 
     /**

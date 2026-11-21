@@ -449,6 +449,98 @@ class LogCoverage extends CommonGLPI
     }
 
     /**
+     * Description des actifs : nom affiché, lien, entité, type, serveur, critique, publié sur
+     * Internet. Partagée avec la couverture des sauvegardes (issue #838).
+     *
+     * @param array<string, array<string, mixed>> $assets
+     * @param array{levels: array<string, array{confidentiality: string, integrity: string, availability: string}>,
+     *     exposed: array<string, true>} $criticality
+     * @return array<string, array{key: string, itemtype: string, id: int, name: string, url: string, kind: string,
+     *     type: string, entity: string, is_server: bool, critical: bool, exposed: bool}>
+     */
+    private static function describe(array $assets, array $criticality): array
+    {
+        global $DB;
+
+        // Types et systèmes des ordinateurs (serveurs).
+        $computerIds = [];
+        $typeIds = [];
+        foreach ($assets as $asset) {
+            if ($asset['itemtype'] === Computer::class) {
+                $computerIds[] = (int) $asset['id'];
+                $typeIds[(int) $asset['type_id']] = true;
+            }
+        }
+        $systems = OperatingSystemInventory::forComputers($computerIds);
+        $typeNames = [];
+        unset($typeIds[0]);
+        if ($typeIds !== []) {
+            foreach (
+                $DB->request([
+                    'SELECT' => ['id', 'name'],
+                    'FROM'   => ComputerType::getTable(),
+                    'WHERE'  => ['id' => array_keys($typeIds)],
+                ]) as $row
+            ) {
+                $typeNames[(int) $row['id']] = (string) $row['name'];
+            }
+        }
+
+        $entityNames = [];
+        $described = [];
+        foreach ($assets as $key => $asset) {
+            $levels = $criticality['levels'][$key]
+                ?? ['confidentiality' => '', 'integrity' => '', 'availability' => ''];
+            $exposed = isset($criticality['exposed'][$key]);
+            $isNetwork = $asset['kind'] === 'network';
+            $typeName = $typeNames[(int) $asset['type_id']] ?? '';
+            $entityId = (int) $asset['entities_id'];
+            $entityNames[$entityId] ??= (string) Dropdown::getDropdownName('glpi_entities', $entityId);
+            $itemtype = (string) $asset['itemtype'];
+            $name = (string) $asset['name'];
+            $described[$key] = [
+                'key'       => $key,
+                'itemtype'  => $itemtype,
+                'id'        => (int) $asset['id'],
+                'name'      => $name !== '' ? $name : sprintf('%s %d', $itemtype::getTypeName(1), (int) $asset['id']),
+                'url'       => $itemtype::getFormURLWithID((int) $asset['id']),
+                'kind'      => (string) $asset['kind'],
+                'type'      => $isNetwork ? NetworkEquipment::getTypeName(1) : $typeName,
+                'entity'    => $entityNames[$entityId],
+                'is_server' => !$isNetwork
+                    && PatchLagRules::isServer($typeName, (string) ($systems[(int) $asset['id']]['name'] ?? '')),
+                'critical'  => Rules::isCritical(
+                    $levels['confidentiality'],
+                    $levels['integrity'],
+                    $levels['availability'],
+                    $exposed
+                ),
+                'exposed'   => $exposed,
+            ];
+        }
+
+        return $described;
+    }
+
+    /**
+     * Inventaire des actifs (ordinateurs et matériels réseau) des entités données, ou de la
+     * session, décrits par describe(), avec l'index de rapprochement par nom et adresse IP.
+     * Partagé avec la couverture des sauvegardes (issue #838).
+     *
+     * @param list<int>|null $entities
+     * @return array{assets: array<string, array{key: string, itemtype: string, id: int, name: string, url: string,
+     *     kind: string, type: string, entity: string, is_server: bool, critical: bool, exposed: bool}>,
+     *     names: array<string, string>, ips: array<string, string>}
+     */
+    public static function inventory(?array $entities): array
+    {
+        $assets = self::assets($entities);
+        $lookup = self::lookup($assets);
+
+        return ['assets' => self::describe($assets, self::criticality($assets))] + $lookup;
+    }
+
+    /**
      * Calcul complet : actifs avec leur état, hôtes importés non rapprochés, plateformes.
      *
      * @param list<int>|null $entities périmètre (tâche planifiée, KRI) ; null = session
@@ -520,67 +612,15 @@ class LogCoverage extends CommonGLPI
             }
         }
 
-        // Types et systèmes des ordinateurs (serveurs).
-        $computerIds = [];
-        $typeIds = [];
-        foreach ($assets as $asset) {
-            if ($asset['itemtype'] === Computer::class) {
-                $computerIds[] = (int) $asset['id'];
-                $typeIds[(int) $asset['type_id']] = true;
-            }
-        }
-        $systems = OperatingSystemInventory::forComputers($computerIds);
-        $typeNames = [];
-        unset($typeIds[0]);
-        if ($typeIds !== []) {
-            foreach (
-                $DB->request([
-                    'SELECT' => ['id', 'name'],
-                    'FROM'   => ComputerType::getTable(),
-                    'WHERE'  => ['id' => array_keys($typeIds)],
-                ]) as $row
-            ) {
-                $typeNames[(int) $row['id']] = (string) $row['name'];
-            }
-        }
-
-        $entityNames = [];
         $rows = [];
-        foreach ($assets as $key => $asset) {
-            $levels = $criticality['levels'][$key]
-                ?? ['confidentiality' => '', 'integrity' => '', 'availability' => ''];
-            $exposed = isset($criticality['exposed'][$key]);
-            $critical = Rules::isCritical(
-                $levels['confidentiality'],
-                $levels['integrity'],
-                $levels['availability'],
-                $exposed
-            );
+        foreach (self::describe($assets, $criticality) as $key => $asset) {
             $isNetwork = $asset['kind'] === 'network';
-            $typeName = $typeNames[(int) $asset['type_id']] ?? '';
-            $isServer = !$isNetwork
-                && PatchLagRules::isServer($typeName, (string) ($systems[(int) $asset['id']]['name'] ?? ''));
-            if (!Rules::isConcerned($settings['scope'], $critical, $isServer, $isNetwork)) {
+            if (!Rules::isConcerned($settings['scope'], $asset['critical'], $asset['is_server'], $isNetwork)) {
                 continue;
             }
             $info = $received[$key] ?? null;
             $last = $info['last_event'] ?? null;
-            $entityId = (int) $asset['entities_id'];
-            $entityNames[$entityId] ??= (string) Dropdown::getDropdownName('glpi_entities', $entityId);
-            $itemtype = (string) $asset['itemtype'];
-            $name = (string) $asset['name'];
-            $rows[] = [
-                'key'        => $key,
-                'itemtype'   => $itemtype,
-                'id'         => (int) $asset['id'],
-                'name'       => $name !== '' ? $name : sprintf('%s %d', $itemtype::getTypeName(1), (int) $asset['id']),
-                'url'        => $itemtype::getFormURLWithID((int) $asset['id']),
-                'kind'       => $asset['kind'],
-                'type'       => $isNetwork ? NetworkEquipment::getTypeName(1) : $typeName,
-                'entity'     => $entityNames[$entityId],
-                'is_server'  => $isServer,
-                'critical'   => $critical,
-                'exposed'    => $exposed,
+            $rows[] = $asset + [
                 'status'     => Rules::status(
                     $info !== null,
                     ($info['undated'] ?? false) ? null : $last,

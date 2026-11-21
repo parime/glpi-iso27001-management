@@ -15,20 +15,26 @@
  * -------------------------------------------------------------------------
  */
 
-/**
- * Issue #127 : enregistrement du questionnaire de sécurité d'un risque fournisseur.
+declare(strict_types=1);
+
+namespace GlpiPlugin\Grcmanager\Compat\Base;
+
+use CommonDBTM;
+use GlpiPlugin\Grcmanager\Compat\GlpiVersion;
+
+/*
+ * Propriétés typées sur GLPI 12, non typées sur GLPI 11 (issue #603).
  */
-
-Session::checkRight(\GlpiPlugin\Grcmanager\SupplierRisk::RIGHTNAME, UPDATE);
-
-$risk = new \GlpiPlugin\Grcmanager\SupplierRisk();
-$id = (int) ($_POST['id'] ?? 0);
-if (!isset($_POST['save_questionnaire']) || !$risk->getFromDB($id) || !$risk->can($id, UPDATE)) {
-    Html::back();
+if (GlpiVersion::isAtLeast12()) {
+    abstract class MaturityCampaignBase extends CommonDBTM
+    {
+        public static string $rightname = \GlpiPlugin\Grcmanager\MaturityCampaign::RIGHTNAME;
+        public bool $dohistory = true;
+    }
+} else {
+    abstract class MaturityCampaignBase extends CommonDBTM
+    {
+        public static $rightname = \GlpiPlugin\Grcmanager\MaturityCampaign::RIGHTNAME;
+        public $dohistory = true;
+    }
 }
-
-$answers = is_array($_POST['answers'] ?? null) ? $_POST['answers'] : [];
-if (\GlpiPlugin\Grcmanager\SupplierAssessment::save($risk, $answers)) {
-    Session::addMessageAfterRedirect(__('Security questionnaire saved.', 'grcmanager'));
-}
-Html::back();

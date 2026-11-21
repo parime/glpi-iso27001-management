@@ -26,7 +26,7 @@ use Migration;
  * comme document restreint), créé si absent à chaque installation ou mise à jour, supprimé à la
  * désinstallation (le réglage de taille part avec le contexte de configuration du plugin).
  */
-final class EvidencePackTables
+final class EvidencePackTables implements FeatureTables
 {
     public const PACKS = 'glpi_plugin_grcmanager_evidencepacks';
 
@@ -64,5 +64,14 @@ final class EvidencePackTables
     public static function uninstall(Migration $migration): void
     {
         $migration->dropTable(self::PACKS);
+    }
+
+    public static function migrate(Migration $migration): void
+    {
+    }
+
+    public static function pluginClasses(): array
+    {
+        return self::CLASSES;
     }
 }

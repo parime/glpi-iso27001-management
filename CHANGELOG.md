@@ -7,9 +7,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.76.0] - 2026-11-21
+## [2.77.0] - 2026-11-21
 
-## [2.75.0] - 2026-11-21
+### Added
+
+- **Audit de sécurité de l'Active Directory, lot 1 : PingCastle** (issue #835, mesures A.5.15 à
+  A.5.18, A.8.2 et A.8.5). Nouvelle page « Audit de sécurité de l'Active Directory » dans la
+  rubrique Sécurité technique, réservée au droit des registres sensibles et limitée aux entités de
+  la session. Le plugin ne lance aucun outil et n'interroge pas l'annuaire : il importe le rapport
+  XML de PingCastle (`ad_hc_<domaine>.xml`) que l'équipe a produit, dans l'entité active. Score
+  global, scores par catégorie (objets obsolètes, comptes privilégiés, relations d'approbation,
+  anomalies), niveau de maturité et règles déclenchées (identifiant, catégorie, points, constat),
+  avec une gravité selon les points. Historique par domaine : évolution du score, règles apparues
+  et résolues d'un rapport au suivant ; un même fichier n'est importé qu'une fois. Chaque règle est
+  rattachée aux mesures de l'Annexe A concernées et, sur clic seulement, proposée comme action (fiche
+  de non-conformité pré-remplie, relue avant l'enregistrement) ou comme ticket ; ces liens suivent
+  la règle dans les rapports suivants. Preuve sur les fiches des mesures A.5.15, A.5.17, A.5.18,
+  A.8.2 et A.8.5, source de KRI « Score de sécurité de l'Active Directory », carte du tableau de
+  bord et constat de la préparation à la certification. Lecture sûre : taille limitée à 20 Mo,
+  fichier avec DOCTYPE ou entités refusé (XXE), aucun accès réseau ; ni la liste des comptes ni les
+  mots de passe trouvés (GPP) ne sont repris, leur présence est seulement signalée. Le rapport,
+  nettoyé de ses mots de passe, peut être archivé comme document restreint. Rapport d'exemple fictif
+  (domaine `exemple.test`) téléchargeable depuis la page. Tests unitaires avec des fichiers piégés,
+  tests d'intégration, matrice d'accès et contrôle XSS.
+
+## [2.76.0] - 2026-11-21
 
 ### Added
 
@@ -30,6 +52,25 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   demande un commentaire. « Mettre à jour les suggestions » recalcule les comptes encore à revoir.
   Mise à jour : champs ajoutés aux campagnes et à leurs lignes (migration rejouable) ; les lignes
   des campagnes déjà lancées affichent « Pas encore de suggestion » jusqu'au recalcul.
+
+- **Conformité de configuration : import des résultats OpenSCAP** (issue #781, mesure A.8.9).
+  Nouvelle page « Conformité de configuration » dans la rubrique Sécurité technique : import d'un
+  fichier de résultats XCCDF (1.1 ou 1.2) ou ARF produit par `oscap` (profils CIS, ANSSI, DISA
+  STIG…), plusieurs machines par fichier, doublons ignorés. Chaque résultat est rapproché de
+  l'ordinateur GLPI du même nom parmi ceux que la personne voit ; les autres sont listés et
+  rattachables à la main. Taux de règles conformes par ordinateur et par profil, évolution depuis
+  l'analyse précédente, règles en échec par gravité, historique de chaque machine et règles en
+  échec les plus fréquentes du parc. Ticket de remédiation lié à l'ordinateur proposé, créé
+  seulement sur un clic. Preuve sur la mesure A.8.9 (conçue par sources : d'autres, comme la
+  configuration à risque de l'inventaire Docker, s'y ajouteront), indicateur de risque « ordinateurs
+  analysés avec une règle de gravité haute en échec ». Lecture XML durcie : en flux (gros rapports
+  ARF acceptés), déclarations de type de document et d'entités refusées (ni XXE ni expansion),
+  aucun accès réseau, taille et volumes bornés ; le fichier n'est pas conservé. Tests avec fichiers
+  piégés, matrice d'accès et contrôle XSS.
+
+## [2.75.0] - 2026-11-21
+
+### Added
 
 - **Couverture de la journalisation** (issue #853, mesures A.8.15, A.8.16 et A.8.17). Nouvelle page
   « Couverture de la journalisation » dans la rubrique Sécurité technique, en lecture seule : hôtes
@@ -57,20 +98,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   type proposé et visible) ; les autres paramètres sont ignorés, un flux existant n'est jamais
   modifié. Un encadré « Flux proposé » invite à vérifier, à ajouter la justification et le
   propriétaire : rien n'est enregistré avant « Ajouter ». Contrôle XSS sur des paramètres piégés.
-- **Conformité de configuration : import des résultats OpenSCAP** (issue #781, mesure A.8.9).
-  Nouvelle page « Conformité de configuration » dans la rubrique Sécurité technique : import d'un
-  fichier de résultats XCCDF (1.1 ou 1.2) ou ARF produit par `oscap` (profils CIS, ANSSI, DISA
-  STIG…), plusieurs machines par fichier, doublons ignorés. Chaque résultat est rapproché de
-  l'ordinateur GLPI du même nom parmi ceux que la personne voit ; les autres sont listés et
-  rattachables à la main. Taux de règles conformes par ordinateur et par profil, évolution depuis
-  l'analyse précédente, règles en échec par gravité, historique de chaque machine et règles en
-  échec les plus fréquentes du parc. Ticket de remédiation lié à l'ordinateur proposé, créé
-  seulement sur un clic. Preuve sur la mesure A.8.9 (conçue par sources : d'autres, comme la
-  configuration à risque de l'inventaire Docker, s'y ajouteront), indicateur de risque « ordinateurs
-  analysés avec une règle de gravité haute en échec ». Lecture XML durcie : en flux (gros rapports
-  ARF acceptés), déclarations de type de document et d'entités refusées (ni XXE ni expansion),
-  aucun accès réseau, taille et volumes bornés ; le fichier n'est pas conservé. Tests avec fichiers
-  piégés, matrice d'accès et contrôle XSS.
 - **Couverture de l'authentification multifacteur (MFA) par compte** (issue #852, mesures A.8.5
   et A.5.17) : page « Couverture MFA » (rubrique Revue des accès) :
   - double authentification native de GLPI lue sur chaque compte (activée ou non, le secret n'est
