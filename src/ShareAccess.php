@@ -265,7 +265,7 @@ class ShareAccess extends CommonGLPI
                 return [];
             }
 
-            return self::$memo ??= self::compute(getEntitiesRestrictCriteria(ShareAccessTables::SHARES, '', '', true));
+            return self::$memo ??= self::compute(getEntitiesRestrictCriteria(ShareAccessTables::SHARES));
         }
 
         return $entities === [] ? [] : self::compute([ShareAccessTables::SHARES . '.entities_id' => $entities]);
