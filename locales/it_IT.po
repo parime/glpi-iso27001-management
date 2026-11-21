@@ -33469,3 +33469,100 @@ msgstr "%d deciso/i"
 
 msgid "%d account(s) of the controllers added to the campaign."
 msgstr "%d account dei controller aggiunti alla campagna."
+
+msgid "Security 360°"
+msgstr "Sicurezza 360°"
+
+msgid "Good security posture"
+msgstr "Buon livello di sicurezza"
+
+msgid "Security posture to improve"
+msgstr "Livello di sicurezza da migliorare"
+
+msgid "Weak security posture"
+msgstr "Livello di sicurezza debole"
+
+msgid "Not enough data to assess"
+msgstr "Dati insufficienti per valutare"
+
+msgid "Known vulnerabilities"
+msgstr "Vulnerabilità note"
+
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr "Nessuna vulnerabilità nota nei prodotti sorvegliati installati su questo asset."
+
+#, php-format
+msgid "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
+msgstr "%1$d vulnerabilità note, di cui %2$d prioritarie (sfruttate attivamente o molto gravi)."
+
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d nel catalogo delle vulnerabilità sfruttate (KEV)"
+
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Volumi non cifrati: %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Strumenti: %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, anche se la regola di cifratura lo richiede."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, non richiesto dalla regola di cifratura."
+
+#, php-format
+msgid "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
+msgstr "Analisi del %1$s: %2$s delle regole superate, %3$d non superate di cui %4$d di gravità alta."
+
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s: l'ultima lettura non è riuscita."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s: nessuno scostamento trovato."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s: %2$d scostamenti trovati."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "Nessun incidente aperto (%d chiusi o risolti)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "%1$d incidenti aperti, di cui %2$d con priorità alta o superiore."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "%1$d rischi collegati: %2$d alti o critici, %3$d medi."
+
+msgid "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
+msgstr "Questa scheda riunisce, per questo asset, ogni fonte di sicurezza nota al plugin: vulnerabilità, cifratura, configurazione, controller di gestione, incidenti, rischi. Ogni riga indica il suo stato e un link al dettaglio. Nulla viene modificato: correggete gli scostamenti dalle pagine di dettaglio."
+
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Punteggio: %s / 100"
+
+msgid "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
+msgstr "Nessuna fonte ancora valutata per questo asset: importate o leggete i dati dei moduli di sicurezza per riempire questa vista."
+
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "%1$d fonti valutate: %2$d critiche, %3$d da sorvegliare."
+
+#, php-format
+msgid "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
+msgstr "Il punteggio è la media ponderata delle fonti (conforme 100, da sorvegliare 50, critico 0); buono da %1$d, da migliorare da %2$d, debole sotto. Una sola fonte critica impedisce il livello buono."
+
+msgid "Points (weight)"
+msgstr "Punti (peso)"
+
+msgid "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
+msgstr "Le fonti senza dati per questo asset (modulo non usato, nulla importato, nessun diritto) non sono mostrate."

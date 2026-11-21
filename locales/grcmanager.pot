@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 14:09+0000\n"
+"POT-Creation-Date: 2026-11-21 15:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1922,7 +1922,8 @@ msgstr ""
 msgid "Business processes whose last recovery test exceeded the RTO"
 msgstr ""
 
-#: hook.php:496 src/Services/Dashboard/SecurityIncidentCardProvider.php:232
+#: hook.php:496 src/Feature/Security360CoreSourcesFeature.php:84
+#: src/Services/Dashboard/SecurityIncidentCardProvider.php:232
 #: templates/config_form.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Security incidents"
@@ -2150,9 +2151,9 @@ msgid "Major"
 msgstr ""
 
 #: inc/securityincident.class.php:274 inc/securityincident.class.php:1205
-#: src/BusinessImpact.php:75 src/Control.php:202 src/Nonconformity.php:108
-#: src/Nonconformity.php:635 src/PatchCompliance.php:180
-#: src/Traits/RiskAssessmentTrait.php:123
+#: src/AssetSecurity360.php:172 src/BusinessImpact.php:75 src/Control.php:202
+#: src/Nonconformity.php:108 src/Nonconformity.php:635
+#: src/PatchCompliance.php:180 src/Traits/RiskAssessmentTrait.php:123
 #: src/Traits/RiskAssessmentTrait.php:139
 #: src/Traits/RiskAssessmentTrait.php:310 templates/backup_coverage.html.twig
 #: templates/crisis_scenario_register.html.twig
@@ -2297,7 +2298,8 @@ msgstr ""
 
 #: inc/securityincident.class.php:953 src/NetworkFlow.php:275
 #: src/NetworkFlow.php:459 src/NotificationTargetRiskIndicator.php:155
-#: src/RiskIndicator.php:837 templates/custom_framework_form.html.twig
+#: src/RiskIndicator.php:837 templates/asset_security_360_tab.html.twig
+#: templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/mfa_coverage.html.twig templates/network_flow_import.html.twig
@@ -2869,6 +2871,7 @@ msgstr ""
 #: src/AcnRequirement.php:751 src/NotificationTargetVulnerabilityDigest.php:233
 #: src/RecyfRequirement.php:554 templates/acn_register.html.twig
 #: templates/acn_requirement_form.html.twig
+#: templates/asset_security_360_tab.html.twig
 #: templates/maturity_campaign_gaps_tab.html.twig
 #: templates/pdf/access_review_report.html.twig
 #: templates/pdf/acn_report.html.twig templates/pdf/action_log.html.twig
@@ -3062,7 +3065,8 @@ msgstr ""
 msgid "Good"
 msgstr ""
 
-#: src/AdSecurityAudit.php:203 src/AuditProgramme.php:746
+#: src/AdSecurityAudit.php:203 src/AssetSecurity360.php:177
+#: src/AuditProgramme.php:746
 msgid "To watch"
 msgstr ""
 
@@ -3101,8 +3105,8 @@ msgstr ""
 msgid "Low"
 msgstr ""
 
-#: src/AdSecurityAudit.php:224 src/ConfigurationCompliance.php:155
-#: src/ZabbixMonitoring.php:138
+#: src/AdSecurityAudit.php:224 src/AssetSecurity360.php:187
+#: src/ConfigurationCompliance.php:155 src/ZabbixMonitoring.php:138
 msgid "Information"
 msgstr ""
 
@@ -3365,6 +3369,37 @@ msgstr ""
 msgid "1 week"
 msgstr ""
 
+#: src/AssetSecurity360.php:58
+msgid "Security 360°"
+msgstr ""
+
+#: src/AssetSecurity360.php:182 src/AuditChecklist.php:102
+#: src/AuditProgramme.php:741 src/ComplianceObligation.php:108
+#: src/ComplianceObligation.php:344 src/ControlTestSample.php:125
+#: src/CustomRequirement.php:60 src/IsmsRequirement.php:155
+#: src/PersonnelCompliance.php:288 src/PhysicalSecurity.php:97
+#: templates/_network_flow_badges.html.twig
+#: templates/compliance_audit.html.twig
+#: templates/network_flow_summary.html.twig
+msgid "Compliant"
+msgstr ""
+
+#: src/AssetSecurity360.php:201
+msgid "Good security posture"
+msgstr ""
+
+#: src/AssetSecurity360.php:206
+msgid "Security posture to improve"
+msgstr ""
+
+#: src/AssetSecurity360.php:211
+msgid "Weak security posture"
+msgstr ""
+
+#: src/AssetSecurity360.php:216
+msgid "Not enough data to assess"
+msgstr ""
+
 #: src/Audit.php:69 src/ComplianceEvent.php:113 src/ConsistencyCheck.php:118
 #: templates/audit_coverage.html.twig
 msgid "Internal audit"
@@ -3535,16 +3570,6 @@ msgstr ""
 #: templates/audit_checklist_tab.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 msgid "Audit checklist"
-msgstr ""
-
-#: src/AuditChecklist.php:102 src/AuditProgramme.php:741
-#: src/ComplianceObligation.php:108 src/ComplianceObligation.php:344
-#: src/ControlTestSample.php:125 src/CustomRequirement.php:60
-#: src/IsmsRequirement.php:155 src/PersonnelCompliance.php:288
-#: src/PhysicalSecurity.php:97 templates/_network_flow_badges.html.twig
-#: templates/compliance_audit.html.twig
-#: templates/network_flow_summary.html.twig
-msgid "Compliant"
 msgstr ""
 
 #: src/AuditChecklist.php:105
@@ -4178,7 +4203,7 @@ msgstr ""
 
 #: src/BackupCoverage.php:188 src/ConfigurationCompliance.php:156
 #: src/DiskEncryption.php:143 src/PatchCompliance.php:155
-#: src/ServerManagement.php:1041 templates/disk_encryption.html.twig
+#: src/ServerManagement.php:1044 templates/disk_encryption.html.twig
 msgid "Unknown"
 msgstr ""
 
@@ -4314,7 +4339,8 @@ msgstr ""
 #: templates/_mfa_coverage_evidence.html.twig
 #: templates/_server_management_evidence.html.twig
 #: templates/_zabbix_monitoring_evidence.html.twig
-#: templates/ad_security_audit.html.twig templates/control_form.html.twig
+#: templates/ad_security_audit.html.twig
+#: templates/asset_security_360_tab.html.twig templates/control_form.html.twig
 #: templates/server_management_item_tab.html.twig
 msgid "View the details"
 msgstr ""
@@ -6124,7 +6150,9 @@ msgstr ""
 msgid "%d obligation(s) awaiting review, %d notification(s) raised."
 msgstr ""
 
-#: src/ConfigurationCompliance.php:65 templates/control_form.html.twig
+#: src/ConfigurationCompliance.php:65
+#: src/Feature/Security360CoreSourcesFeature.php:70
+#: templates/control_form.html.twig
 msgid "Configuration compliance"
 msgstr ""
 
@@ -8990,7 +9018,8 @@ msgstr ""
 msgid "Requester"
 msgstr ""
 
-#: src/DiskEncryption.php:58 templates/control_form.html.twig
+#: src/DiskEncryption.php:58 src/Feature/Security360CoreSourcesFeature.php:63
+#: templates/control_form.html.twig
 msgid "Disk encryption"
 msgstr ""
 
@@ -10372,6 +10401,94 @@ msgstr ""
 msgid "MFA coverage"
 msgstr ""
 
+#: src/Feature/Security360CoreSourcesFeature.php:56
+msgid "Known vulnerabilities"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:77
+#: src/ServerManagement.php:1179
+msgid "Management controller"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:91 src/ImpactAnalysis.php:232
+#: templates/control_form.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+msgid "Linked risks"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:118
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:126
+#, php-format
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:131
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:157
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:160
+#, php-format
+msgid "Tools: %s"
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:164
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:170
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:197
+#, php-format
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:237
+#, php-format
+msgid "%s: last reading failed."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:237
+#, php-format
+msgid "%s: no gap found."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:242
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:282
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:290
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr ""
+
+#: src/Feature/Security360CoreSourcesFeature.php:321
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr ""
+
 #: src/Feature/ServerManagementFeature.php:40
 msgid ""
 "Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, "
@@ -10616,11 +10733,6 @@ msgstr ""
 
 #: src/ImpactAnalysis.php:231
 msgid "Single point of failure for"
-msgstr ""
-
-#: src/ImpactAnalysis.php:232 templates/control_form.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-msgid "Linked risks"
 msgstr ""
 
 #: src/ImpactAnalysis.php:354
@@ -15293,7 +15405,7 @@ msgid_plural "Record of processing activities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ProcessingActivity.php:103 src/ServerManagement.php:1093
+#: src/ProcessingActivity.php:103 src/ServerManagement.php:1096
 #: templates/server_management.html.twig
 #: templates/server_management_item_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
@@ -17638,12 +17750,8 @@ msgstr ""
 msgid "The controller returned an unexpected answer."
 msgstr ""
 
-#: src/ServerManagement.php:1093 templates/server_management_item_tab.html.twig
+#: src/ServerManagement.php:1096 templates/server_management_item_tab.html.twig
 msgid "BIOS"
-msgstr ""
-
-#: src/ServerManagement.php:1176
-msgid "Management controller"
 msgstr ""
 
 #: src/Services/Continuity/CrisisScenarioDefaults.php:78
@@ -19671,7 +19779,7 @@ msgstr ""
 msgid "What is expected"
 msgstr ""
 
-#: templates/_page_help.html.twig
+#: templates/_page_help.html.twig templates/asset_security_360_tab.html.twig
 msgid "What is this page for?"
 msgstr ""
 
@@ -20743,6 +20851,62 @@ msgstr ""
 msgid "Time beyond which an outage of this asset becomes unacceptable."
 msgstr ""
 
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid "Points (weight)"
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid "Score: %s / 100"
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/backup_coverage.html.twig
+#: templates/custom_framework_list.html.twig
+#: templates/disk_encryption.html.twig templates/log_coverage.html.twig
+#: templates/patch_compliance.html.twig
+#: templates/pdf/certification_readiness_report.html.twig
+#: templates/pdf/evidence_pack_index.html.twig
+#: templates/pdf/physical_security_report.html.twig
+#: templates/physical_security_checklist_tab.html.twig
+#: templates/server_management.html.twig
+msgid "State"
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+#, php-format
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+
+#: templates/asset_security_360_tab.html.twig
+msgid ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+msgstr ""
+
 #: templates/audit_checklist_tab.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #, php-format
@@ -21211,19 +21375,6 @@ msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig
 msgid "Revoked"
-msgstr ""
-
-#: templates/audit_evidence_requests_tab.html.twig
-#: templates/backup_coverage.html.twig
-#: templates/custom_framework_list.html.twig
-#: templates/disk_encryption.html.twig templates/log_coverage.html.twig
-#: templates/patch_compliance.html.twig
-#: templates/pdf/certification_readiness_report.html.twig
-#: templates/pdf/evidence_pack_index.html.twig
-#: templates/pdf/physical_security_report.html.twig
-#: templates/physical_security_checklist_tab.html.twig
-#: templates/server_management.html.twig
-msgid "State"
 msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig

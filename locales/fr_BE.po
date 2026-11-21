@@ -33517,3 +33517,100 @@ msgstr "%d décidé(s)"
 
 msgid "%d account(s) of the controllers added to the campaign."
 msgstr "%d compte(s) des contrôleurs ajouté(s) à la campagne."
+
+msgid "Security 360°"
+msgstr "Sécurité 360°"
+
+msgid "Good security posture"
+msgstr "Bon niveau de sécurité"
+
+msgid "Security posture to improve"
+msgstr "Niveau de sécurité à améliorer"
+
+msgid "Weak security posture"
+msgstr "Niveau de sécurité faible"
+
+msgid "Not enough data to assess"
+msgstr "Pas assez de données pour évaluer"
+
+msgid "Known vulnerabilities"
+msgstr "Vulnérabilités connues"
+
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr "Aucune vulnérabilité connue dans les produits surveillés installés sur cet actif."
+
+#, php-format
+msgid "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
+msgstr "%1$d vulnérabilités connues, dont %2$d prioritaires (exploitées activement ou très graves)."
+
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d dans le catalogue des vulnérabilités exploitées (KEV)"
+
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Volumes non chiffrés : %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Outils : %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, alors que la règle de chiffrement l'exige."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, non exigé par la règle de chiffrement."
+
+#, php-format
+msgid "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
+msgstr "Analyse du %1$s : %2$s des règles respectées, %3$d en échec dont %4$d de gravité haute."
+
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s : la dernière lecture a échoué."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s : aucun écart trouvé."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s : %2$d écarts trouvés."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "Aucun incident ouvert (%d clos ou résolus)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "%1$d incidents ouverts, dont %2$d de priorité haute ou plus."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "%1$d risques liés : %2$d élevés ou critiques, %3$d moyens."
+
+msgid "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
+msgstr "Cet onglet rassemble, pour cet actif, chaque source de sécurité connue du plugin : vulnérabilités, chiffrement, configuration, contrôleur de gestion, incidents, risques. Chaque ligne donne son état et un lien vers le détail. Rien n'est modifié : corrigez les écarts depuis les pages de détail."
+
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Score : %s / 100"
+
+msgid "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
+msgstr "Aucune source évaluée pour cet actif pour l'instant : importez ou lisez les données des modules de sécurité pour remplir cette vue."
+
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "%1$d sources évaluées : %2$d critiques, %3$d à surveiller."
+
+#, php-format
+msgid "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
+msgstr "Le score est la moyenne pondérée des sources (conforme 100, à surveiller 50, critique 0) ; bon à partir de %1$d, à améliorer à partir de %2$d, faible en dessous. Une seule source critique empêche le niveau bon."
+
+msgid "Points (weight)"
+msgstr "Points (poids)"
+
+msgid "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
+msgstr "Les sources sans donnée pour cet actif (module non utilisé, rien d'importé, pas le droit) ne sont pas affichées."

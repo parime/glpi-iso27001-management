@@ -33265,3 +33265,100 @@ msgstr "%d decidida(s)"
 
 msgid "%d account(s) of the controllers added to the campaign."
 msgstr "%d conta(s) dos controladores adicionada(s) à campanha."
+
+msgid "Security 360°"
+msgstr "Segurança 360°"
+
+msgid "Good security posture"
+msgstr "Bom nível de segurança"
+
+msgid "Security posture to improve"
+msgstr "Nível de segurança a melhorar"
+
+msgid "Weak security posture"
+msgstr "Nível de segurança fraco"
+
+msgid "Not enough data to assess"
+msgstr "Dados insuficientes para avaliar"
+
+msgid "Known vulnerabilities"
+msgstr "Vulnerabilidades conhecidas"
+
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr "Nenhuma vulnerabilidade conhecida nos produtos vigiados instalados neste ativo."
+
+#, php-format
+msgid "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
+msgstr "%1$d vulnerabilidades conhecidas, %2$d delas prioritárias (exploradas ativamente ou muito graves)."
+
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d no catálogo de vulnerabilidades exploradas (KEV)"
+
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Volumes não criptografados: %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Ferramentas: %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, embora a regra de criptografia o exija."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, não exigido pela regra de criptografia."
+
+#, php-format
+msgid "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
+msgstr "Análise de %1$s: %2$s das regras aprovadas, %3$d reprovadas, %4$d delas de gravidade alta."
+
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s: a última leitura falhou."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s: nenhuma lacuna encontrada."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s: %2$d lacunas encontradas."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "Nenhum incidente aberto (%d fechados ou resolvidos)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "%1$d incidentes abertos, %2$d deles com prioridade alta ou superior."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "%1$d riscos vinculados: %2$d altos ou críticos, %3$d médios."
+
+msgid "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
+msgstr "Esta aba reúne, para este ativo, cada fonte de segurança conhecida pelo plugin: vulnerabilidades, criptografia, configuração, controlador de gestão, incidentes, riscos. Cada linha indica seu estado e um link para o detalhe. Nada é alterado: corrija as lacunas nas páginas de detalhe."
+
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Pontuação: %s / 100"
+
+msgid "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
+msgstr "Nenhuma fonte avaliada para este ativo ainda: importe ou leia os dados dos módulos de segurança para preencher esta visão."
+
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "%1$d fontes avaliadas: %2$d críticas, %3$d a vigiar."
+
+#, php-format
+msgid "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
+msgstr "A pontuação é a média ponderada das fontes (conforme 100, a vigiar 50, crítico 0); bom a partir de %1$d, a melhorar a partir de %2$d, fraco abaixo. Uma única fonte crítica impede o nível bom."
+
+msgid "Points (weight)"
+msgstr "Pontos (peso)"
+
+msgid "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
+msgstr "As fontes sem dados para este ativo (módulo não usado, nada importado, sem direito) não são exibidas."

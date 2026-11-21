@@ -33377,3 +33377,100 @@ msgstr "Zdecydowano: %d"
 
 msgid "%d account(s) of the controllers added to the campaign."
 msgstr "Dodano do kampanii kont kontrolerów: %d."
+
+msgid "Security 360°"
+msgstr "Bezpieczeństwo 360°"
+
+msgid "Good security posture"
+msgstr "Dobry poziom bezpieczeństwa"
+
+msgid "Security posture to improve"
+msgstr "Poziom bezpieczeństwa do poprawy"
+
+msgid "Weak security posture"
+msgstr "Słaby poziom bezpieczeństwa"
+
+msgid "Not enough data to assess"
+msgstr "Za mało danych do oceny"
+
+msgid "Known vulnerabilities"
+msgstr "Znane podatności"
+
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr "Brak znanych podatności w monitorowanych produktach zainstalowanych na tym zasobie."
+
+#, php-format
+msgid "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
+msgstr "%1$d znanych podatności, w tym %2$d priorytetowych (aktywnie wykorzystywanych lub bardzo poważnych)."
+
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d w katalogu wykorzystywanych podatności (KEV)"
+
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Niezaszyfrowane woluminy: %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Narzędzia: %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, choć reguła szyfrowania tego wymaga."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, niewymagane przez regułę szyfrowania."
+
+#, php-format
+msgid "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
+msgstr "Skan z %1$s: %2$s reguł spełnionych, %3$d niespełnionych, w tym %4$d o wysokiej wadze."
+
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s: ostatni odczyt nie powiódł się."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s: nie znaleziono odstępstw."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s: znaleziono odstępstw: %2$d."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "Brak otwartych incydentów (zamknięte lub rozwiązane: %d)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "Otwarte incydenty: %1$d, w tym %2$d o wysokim lub wyższym priorytecie."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "Powiązane ryzyka: %1$d; wysokie lub krytyczne: %2$d, średnie: %3$d."
+
+msgid "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
+msgstr "Ta karta zbiera dla tego zasobu wszystkie źródła bezpieczeństwa znane wtyczce: podatności, szyfrowanie, konfigurację, kontroler zarządzania, incydenty, ryzyka. Każdy wiersz podaje stan i link do szczegółów. Nic nie jest zmieniane: usuwaj odstępstwa na stronach szczegółów."
+
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Wynik: %s / 100"
+
+msgid "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
+msgstr "Nie oceniono jeszcze żadnego źródła dla tego zasobu: zaimportuj lub odczytaj dane modułów bezpieczeństwa, aby wypełnić ten widok."
+
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "Ocenione źródła: %1$d; krytyczne: %2$d, do obserwacji: %3$d."
+
+#, php-format
+msgid "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
+msgstr "Wynik to średnia ważona źródeł (zgodne 100, do obserwacji 50, krytyczne 0); dobry od %1$d, do poprawy od %2$d, poniżej słaby. Jedno krytyczne źródło wyklucza poziom dobry."
+
+msgid "Points (weight)"
+msgstr "Punkty (waga)"
+
+msgid "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
+msgstr "Źródła bez danych dla tego zasobu (moduł nieużywany, nic nie zaimportowano, brak uprawnień) nie są wyświetlane."
