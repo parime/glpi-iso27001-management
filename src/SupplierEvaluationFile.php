@@ -40,8 +40,6 @@ use Session;
  */
 final class SupplierEvaluationFile extends CommonGLPI
 {
-    public static $rightname = SupplierRisk::RIGHTNAME;
-
     public const SESSION_KEY = 'grcmanager_supplier_answer_file';
 
     public static function getTypeName($nb = 0)
@@ -52,6 +50,11 @@ final class SupplierEvaluationFile extends CommonGLPI
     public static function getIcon()
     {
         return 'ti ti-file-spreadsheet';
+    }
+
+    public static function canView(): bool
+    {
+        return SupplierEvaluation::canView();
     }
 
     public static function getActionURL(): string
@@ -113,7 +116,7 @@ final class SupplierEvaluationFile extends CommonGLPI
             __('Expected answer', 'grcmanager'),
             __('Evidence required', 'grcmanager'),
             __('Allowed answers', 'grcmanager'),
-            __('Answer', 'grcmanager'),
+            __('Supplier answer', 'grcmanager'),
             __('Comment', 'grcmanager'),
             __('Evidence file name', 'grcmanager'),
         ];

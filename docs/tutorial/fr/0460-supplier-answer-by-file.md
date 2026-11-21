@@ -7,7 +7,7 @@ de fichier (voir {{step:0075-evaluate-supplier-questionnaires.md}}).
    questionnaire à remplir**. Le fichier CSV contient une ligne par question ; sa première ligne
    identifie l'évaluation et ses questions, elle ne doit pas être modifiée.
 2. Envoyez-le par le moyen de votre choix. Le fournisseur remplit dans un tableur les colonnes
-   **Réponse** (Oui, Partiel, Non, Sans objet), **Commentaire** et, pour chaque document fourni,
+   **Réponse du fournisseur** (Oui, Partiel, Non, Sans objet), **Commentaire** et, pour chaque document fourni,
    **Nom de la pièce jointe**, puis l'enregistre au format CSV.
 3. Au retour, choisissez le fichier dans le même onglet et cliquez sur **Vérifier les réponses**.
    L'aperçu montre, question par question, la réponse actuelle et celle du fichier, ainsi que les

@@ -34020,8 +34020,8 @@ msgstr "Inviare il questionario"
 msgid "This evaluation is completed: reopen it to import a file."
 msgstr "Questa valutazione è completata: riaprirla per importare un file."
 
-msgid "When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns \"Answer\", \"Comment\" and, for each document provided, \"Evidence file name\", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation."
-msgstr "Quando il fornitore non ha accesso a GLPI, inviare il questionario come file: il fornitore compila le colonne «Risposta», «Commento» e, per ogni documento fornito, «Nome del file di evidenza», in qualsiasi foglio di calcolo. Importare poi qui il file restituito: le risposte vengono mostrate per la revisione e nulla viene salvato prima della conferma."
+msgid "When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for each document provided, \"Evidence file name\", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation."
+msgstr "Quando il fornitore non ha accesso a GLPI, inviare il questionario come file: il fornitore compila le colonne «Risposta del fornitore», «Commento» e, per ogni documento fornito, «Nome del file di evidenza», in qualsiasi foglio di calcolo. Importare poi qui il file restituito: le risposte vengono mostrate per la revisione e nulla viene salvato prima della conferma."
 
 msgid "You are not allowed to change this evaluation."
 msgstr "Non si è autorizzati a modificare questa valutazione."

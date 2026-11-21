@@ -6,7 +6,7 @@ When the supplier has no access to GLPI, send the questionnaire of an evaluation
 1. In the **Supplier file** tab of the evaluation, click **Download the questionnaire to fill
    in**. The CSV file has one line per question; its first line identifies the evaluation and its
    questions and must not be changed.
-2. Send it by the means of your choice. The supplier fills in the columns **Answer** (Yes,
+2. Send it by the means of your choice. The supplier fills in the columns **Supplier answer** (Yes,
    Partial, No, Not applicable), **Comment** and, for each document provided, **Evidence file
    name** in a spreadsheet, then saves it as CSV.
 3. When it comes back, choose the file in the same tab and click **Review the answers**. The

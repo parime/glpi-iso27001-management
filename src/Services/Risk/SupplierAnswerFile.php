@@ -268,7 +268,7 @@ final class SupplierAnswerFile
     {
         $key = self::normalize($value);
         foreach (WeightedQuestionnaire::ANSWERS as $answer) {
-            $words = self::ANSWER_WORDS[$answer] ?? [];
+            $words = self::ANSWER_WORDS[$answer];
             if ($key === $answer || in_array($key, $words, true)) {
                 return $answer;
             }
