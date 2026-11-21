@@ -37516,6 +37516,620 @@ msgstr[1] ""
 "%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
 "%3$d steps). Details on the Active Directory security audit page."
 
+msgid "Security 360°"
+msgstr "Security 360°"
+
+msgid "Good security posture"
+msgstr "Good security posture"
+
+msgid "Security posture to improve"
+msgstr "Security posture to improve"
+
+msgid "Weak security posture"
+msgstr "Weak security posture"
+
+msgid "Not enough data to assess"
+msgstr "Not enough data to assess"
+
+msgid "Known vulnerabilities"
+msgstr "Known vulnerabilities"
+
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr ""
+"No known vulnerability in the watched products installed on this asset."
+
+#, php-format
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Volumes not encrypted: %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Tools: %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, although the encryption rule requires it."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, not required by the encryption rule."
+
+#, php-format
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s: last reading failed."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s: no gap found."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s: %2$d gaps found."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "No open incident (%d closed or solved)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "%1$d open incidents, %2$d of them with high priority or more."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "%1$d linked risks: %2$d high or critical, %3$d medium."
+
+msgid ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+msgstr ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Score: %s / 100"
+
+msgid ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+msgstr ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "%1$d sources assessed: %2$d critical, %3$d to watch."
+
+#, php-format
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+
+msgid "Points (weight)"
+msgstr "Points (weight)"
+
+msgid ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+msgstr ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+
+msgid "SBOM and VEX"
+msgstr "SBOM and VEX"
+
+msgid "Affected"
+msgstr "Affected"
+
+msgid "Under investigation"
+msgstr "Under investigation"
+
+msgid "Fixed"
+msgstr "Fixed"
+
+msgid "Not affected"
+msgstr "Not affected"
+
+msgid "Component not present"
+msgstr "Component not present"
+
+msgid "Vulnerable code not present"
+msgstr "Vulnerable code not present"
+
+msgid "Vulnerable code never executed"
+msgstr "Vulnerable code never executed"
+
+msgid "Vulnerable code out of reach of an attacker"
+msgstr "Vulnerable code out of reach of an attacker"
+
+msgid "Protections already in place"
+msgstr "Protections already in place"
+
+msgid "Entered by hand"
+msgstr "Entered by hand"
+
+msgid "SBOM file"
+msgstr "SBOM file"
+
+msgid "Vulnerability watch"
+msgstr "Vulnerability watch"
+
+msgid "The file is larger than %d MB."
+msgstr "The file is larger than %d MB."
+
+msgid "The file is not valid JSON, or it is nested too deeply."
+msgstr "The file is not valid JSON, or it is nested too deeply."
+
+msgid ""
+"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
+"JSON."
+msgstr ""
+"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
+"JSON."
+
+msgid ""
+"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+msgstr ""
+"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+
+msgid ""
+"The file lists more than %d components or vulnerabilities: split it by "
+"product."
+msgstr ""
+"The file lists more than %d components or vulnerabilities: split it by "
+"product."
+
+msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
+msgstr "Enter a vulnerability identifier, such as CVE-2024-12345."
+
+msgid "Choose a status."
+msgstr "Choose a status."
+
+msgid "Unknown justification."
+msgstr "Unknown justification."
+
+msgid "A \"not affected\" statement needs a justification or an explanation."
+msgstr "A \"not affected\" statement needs a justification or an explanation."
+
+msgid "Enter the product version described by the file."
+msgstr "Enter the product version described by the file."
+
+msgid ""
+"Keeps the software bill of materials (SBOM) of each version of a product you "
+"build or develop, compares its components with the vulnerabilities already "
+"known to the plugin, and records your VEX statements: affected, not affected "
+"(with the reason), fixed or under investigation. Customers and the Cyber "
+"Resilience Act expect these documents from a manufacturer."
+msgstr ""
+"Keeps the software bill of materials (SBOM) of each version of a product you "
+"build or develop, compares its components with the vulnerabilities already "
+"known to the plugin, and records your VEX statements: affected, not affected "
+"(with the reason), fixed or under investigation. Customers and the Cyber "
+"Resilience Act expect these documents from a manufacturer."
+
+msgid ""
+"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
+"released version, then give a VEX status to each vulnerability found, or "
+"import the VEX document of your scanner. Nothing is sent outside GLPI."
+msgstr ""
+"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
+"released version, then give a VEX status to each vulnerability found, or "
+"import the VEX document of your scanner. Nothing is sent outside GLPI."
+
+msgid ""
+"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
+"Annex I part II"
+msgstr ""
+"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
+"Annex I part II"
+
+msgid "Software bills of materials and VEX"
+msgstr "Software bills of materials and VEX"
+
+msgid ""
+"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
+"statement(s)."
+msgstr ""
+"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
+"statement(s)."
+
+msgid "VEX document imported: %d statement(s)."
+msgstr "VEX document imported: %d statement(s)."
+
+msgid "VEX statement saved."
+msgstr "VEX statement saved."
+
+msgid "SBOM deleted."
+msgstr "SBOM deleted."
+
+msgid "VEX statement deleted."
+msgstr "VEX statement deleted."
+
+msgid "No VEX statement"
+msgstr "No VEX statement"
+
+msgid ""
+"An SBOM lists the components (libraries, packages) of one version of this "
+"product. Import one file per released version; the vulnerabilities found "
+"stay here with your VEX statements."
+msgstr ""
+"An SBOM lists the components (libraries, packages) of one version of this "
+"product. Import one file per released version; the vulnerabilities found "
+"stay here with your VEX statements."
+
+msgid "Import an SBOM"
+msgstr "Import an SBOM"
+
+msgid "Product version"
+msgstr "Product version"
+
+msgid "CycloneDX or SPDX file (JSON)"
+msgstr "CycloneDX or SPDX file (JSON)"
+
+msgid ""
+"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
+"a CycloneDX file are kept too."
+msgstr ""
+"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
+"a CycloneDX file are kept too."
+
+msgid "Import a VEX document"
+msgstr "Import a VEX document"
+
+msgid "All versions"
+msgstr "All versions"
+
+msgid "CycloneDX VEX or OpenVEX file (JSON)"
+msgstr "CycloneDX VEX or OpenVEX file (JSON)"
+
+msgid ""
+"A new statement replaces the previous one for the same vulnerability, "
+"component and version."
+msgstr ""
+"A new statement replaces the previous one for the same vulnerability, "
+"component and version."
+
+msgid "No SBOM imported for this product yet."
+msgstr "No SBOM imported for this product yet."
+
+msgid "%d component(s)"
+msgstr "%d component(s)"
+
+msgid "%d affected"
+msgstr "%d affected"
+
+msgid "%d without VEX statement"
+msgstr "%d without VEX statement"
+
+msgid "Delete this SBOM"
+msgstr "Delete this SBOM"
+
+msgid "Known vulnerabilities of the components"
+msgstr "Known vulnerabilities of the components"
+
+msgid ""
+"No known vulnerability: none in the file, and none known by the "
+"vulnerability watch for these components and versions."
+msgstr ""
+"No known vulnerability: none in the file, and none known by the "
+"vulnerability watch for these components and versions."
+
+msgid "Vulnerability"
+msgstr "Vulnerability"
+
+msgid "Found by"
+msgstr "Found by"
+
+msgid "VEX status"
+msgstr "VEX status"
+
+msgid "Declare"
+msgstr "Declare"
+
+msgid "Known exploited vulnerability (CISA KEV)"
+msgstr "Known exploited vulnerability (CISA KEV)"
+
+msgid "Explanation"
+msgstr "Explanation"
+
+msgid "Components (%d)"
+msgstr "Components (%d)"
+
+msgid "Licenses"
+msgstr "Licenses"
+
+msgid "Only the first %d components are shown."
+msgstr "Only the first %d components are shown."
+
+msgid "Older SBOM: only the %d most recent are detailed."
+msgstr "Older SBOM: only the %d most recent are detailed."
+
+msgid "VEX statements"
+msgstr "VEX statements"
+
+msgid "Component (purl or name)"
+msgstr "Component (purl or name)"
+
+msgid "Whole product"
+msgstr "Whole product"
+
+msgid "No VEX statement for this product."
+msgstr "No VEX statement for this product."
+
+msgid "%d product(s) with an SBOM"
+msgstr "%d product(s) with an SBOM"
+
+msgid "%d application(s) of the register without an SBOM"
+msgstr "%d application(s) of the register without an SBOM"
+
+msgid "%d known vulnerability(ies) in the components"
+msgstr "%d known vulnerability(ies) in the components"
+
+msgid "%d not affected or fixed"
+msgstr "%d not affected or fixed"
+
+#, php-format
+msgid ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
+msgstr "The document \"%s\" matches no question of the file: it was not added."
+
+msgid ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+msgstr ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
+msgstr "ISO/IEC 27001, controls A.5.19 to A.5.22"
+
+msgid "Supplier file"
+msgstr "Supplier file"
+
+msgid "Guidance"
+msgstr "Guidance"
+
+msgid "Allowed answers"
+msgstr "Allowed answers"
+
+msgid "Supplier answer"
+msgstr "Supplier answer"
+
+msgid "Evidence file name"
+msgstr "Evidence file name"
+
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr "Questionnaire file returned by the supplier for the evaluation \"%s\""
+
+#, php-format
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr "The file is too large (at most %d MB)."
+
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr "Line %1$d: unknown question code \"%2$s\", line ignored."
+
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr "Line %1$d: question %2$s appears twice, only the first line is kept."
+
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+
+#, php-format
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr "Question %s is missing from the file: its answer does not change."
+
+#, php-format
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[1] ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+
+msgid "Answer in the file"
+msgstr "Answer in the file"
+
+msgid "Back to the evaluation"
+msgstr "Back to the evaluation"
+
+msgid "Comment in the file"
+msgstr "Comment in the file"
+
+msgid "Current answer"
+msgstr "Current answer"
+
+msgid "Documents sent by the supplier"
+msgstr "Documents sent by the supplier"
+
+#, php-format
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+
+msgid "Review the supplier file"
+msgstr "Review the supplier file"
+
+msgid "Save these answers"
+msgstr "Save these answers"
+
+msgid "The file brings no new answer and no new comment."
+msgstr "The file brings no new answer and no new comment."
+
+msgid "unchanged"
+msgstr "unchanged"
+
+msgid "Answer by file, outside GLPI"
+msgstr "Answer by file, outside GLPI"
+
+#, php-format
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+
+msgid "Download the questionnaire to fill in"
+msgstr "Download the questionnaire to fill in"
+
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+
+msgid "Import the returned file"
+msgstr "Import the returned file"
+
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr "Questionnaire filled in by the supplier (CSV)"
+
+msgid "Review the answers"
+msgstr "Review the answers"
+
+msgid "Send the questionnaire"
+msgstr "Send the questionnaire"
+
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr "This evaluation is completed: reopen it to import a file."
+
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+
+msgid "You are not allowed to change this evaluation."
+msgstr "You are not allowed to change this evaluation."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -38520,301 +39134,3 @@ msgstr[1] ""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-msgid "Security 360°"
-msgstr "Security 360°"
-
-msgid "Good security posture"
-msgstr "Good security posture"
-
-msgid "Security posture to improve"
-msgstr "Security posture to improve"
-
-msgid "Weak security posture"
-msgstr "Weak security posture"
-
-msgid "Not enough data to assess"
-msgstr "Not enough data to assess"
-
-msgid "Known vulnerabilities"
-msgstr "Known vulnerabilities"
-
-msgid "No known vulnerability in the watched products installed on this asset."
-msgstr "No known vulnerability in the watched products installed on this asset."
-
-#, php-format
-msgid "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
-msgstr "%1$d known vulnerabilities, %2$d of them priority (actively exploited or very severe)."
-
-#, php-format
-msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
-msgstr "%d listed in the catalogue of exploited vulnerabilities (KEV)"
-
-#, php-format
-msgid "Volumes not encrypted: %s"
-msgstr "Volumes not encrypted: %s"
-
-#, php-format
-msgid "Tools: %s"
-msgstr "Tools: %s"
-
-#, php-format
-msgid "%s, although the encryption rule requires it."
-msgstr "%s, although the encryption rule requires it."
-
-#, php-format
-msgid "%s, not required by the encryption rule."
-msgstr "%s, not required by the encryption rule."
-
-#, php-format
-msgid "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
-msgstr "Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high severity."
-
-#, php-format
-msgid "%s: last reading failed."
-msgstr "%s: last reading failed."
-
-#, php-format
-msgid "%s: no gap found."
-msgstr "%s: no gap found."
-
-#, php-format
-msgid "%1$s: %2$d gaps found."
-msgstr "%1$s: %2$d gaps found."
-
-#, php-format
-msgid "No open incident (%d closed or solved)."
-msgstr "No open incident (%d closed or solved)."
-
-#, php-format
-msgid "%1$d open incidents, %2$d of them with high priority or more."
-msgstr "%1$d open incidents, %2$d of them with high priority or more."
-
-#, php-format
-msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
-msgstr "%1$d linked risks: %2$d high or critical, %3$d medium."
-
-msgid "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
-msgstr "This tab brings together, for this asset, every security source known to the plugin: vulnerabilities, encryption, configuration, management controller, incidents, risks. Each line gives its state and a link to the detail. Nothing is changed: fix the gaps from the detail pages."
-
-#, php-format
-msgid "Score: %s / 100"
-msgstr "Score: %s / 100"
-
-msgid "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
-msgstr "No source assessed for this asset yet: import or read the data of the security modules to fill this view."
-
-#, php-format
-msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
-msgstr "%1$d sources assessed: %2$d critical, %3$d to watch."
-
-#, php-format
-msgid "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
-msgstr "The score is the weighted average of the sources (compliant 100, to watch 50, critical 0); good from %1$d, to improve from %2$d, weak below. A single critical source prevents the good level."
-
-msgid "Points (weight)"
-msgstr "Points (weight)"
-
-msgid "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
-msgstr "Sources without data for this asset (module not used, nothing imported, no right) are not shown."
-
-msgid "SBOM and VEX"
-msgstr "SBOM and VEX"
-
-msgid "Affected"
-msgstr "Affected"
-
-msgid "Under investigation"
-msgstr "Under investigation"
-
-msgid "Fixed"
-msgstr "Fixed"
-
-msgid "Not affected"
-msgstr "Not affected"
-
-msgid "Component not present"
-msgstr "Component not present"
-
-msgid "Vulnerable code not present"
-msgstr "Vulnerable code not present"
-
-msgid "Vulnerable code never executed"
-msgstr "Vulnerable code never executed"
-
-msgid "Vulnerable code out of reach of an attacker"
-msgstr "Vulnerable code out of reach of an attacker"
-
-msgid "Protections already in place"
-msgstr "Protections already in place"
-
-msgid "Entered by hand"
-msgstr "Entered by hand"
-
-msgid "SBOM file"
-msgstr "SBOM file"
-
-msgid "Vulnerability watch"
-msgstr "Vulnerability watch"
-
-msgid "The file is larger than %d MB."
-msgstr "The file is larger than %d MB."
-
-msgid "The file is not valid JSON, or it is nested too deeply."
-msgstr "The file is not valid JSON, or it is nested too deeply."
-
-msgid "The file is neither a CycloneDX nor an SPDX 2 software bill of materials in JSON."
-msgstr "The file is neither a CycloneDX nor an SPDX 2 software bill of materials in JSON."
-
-msgid "The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
-msgstr "The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
-
-msgid "The file lists more than %d components or vulnerabilities: split it by product."
-msgstr "The file lists more than %d components or vulnerabilities: split it by product."
-
-msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
-msgstr "Enter a vulnerability identifier, such as CVE-2024-12345."
-
-msgid "Choose a status."
-msgstr "Choose a status."
-
-msgid "Unknown justification."
-msgstr "Unknown justification."
-
-msgid "A \"not affected\" statement needs a justification or an explanation."
-msgstr "A \"not affected\" statement needs a justification or an explanation."
-
-msgid "Enter the product version described by the file."
-msgstr "Enter the product version described by the file."
-
-msgid "Keeps the software bill of materials (SBOM) of each version of a product you build or develop, compares its components with the vulnerabilities already known to the plugin, and records your VEX statements: affected, not affected (with the reason), fixed or under investigation. Customers and the Cyber Resilience Act expect these documents from a manufacturer."
-msgstr "Keeps the software bill of materials (SBOM) of each version of a product you build or develop, compares its components with the vulnerabilities already known to the plugin, and records your VEX statements: affected, not affected (with the reason), fixed or under investigation. Customers and the Cyber Resilience Act expect these documents from a manufacturer."
-
-msgid "Import the CycloneDX or SPDX file (JSON) produced by your build for each released version, then give a VEX status to each vulnerability found, or import the VEX document of your scanner. Nothing is sent outside GLPI."
-msgstr "Import the CycloneDX or SPDX file (JSON) produced by your build for each released version, then give a VEX status to each vulnerability found, or import the VEX document of your scanner. Nothing is sent outside GLPI."
-
-msgid "ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, Annex I part II"
-msgstr "ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, Annex I part II"
-
-msgid "Software bills of materials and VEX"
-msgstr "Software bills of materials and VEX"
-
-msgid "SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX statement(s)."
-msgstr "SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX statement(s)."
-
-msgid "VEX document imported: %d statement(s)."
-msgstr "VEX document imported: %d statement(s)."
-
-msgid "VEX statement saved."
-msgstr "VEX statement saved."
-
-msgid "SBOM deleted."
-msgstr "SBOM deleted."
-
-msgid "VEX statement deleted."
-msgstr "VEX statement deleted."
-
-msgid "No VEX statement"
-msgstr "No VEX statement"
-
-msgid "An SBOM lists the components (libraries, packages) of one version of this product. Import one file per released version; the vulnerabilities found stay here with your VEX statements."
-msgstr "An SBOM lists the components (libraries, packages) of one version of this product. Import one file per released version; the vulnerabilities found stay here with your VEX statements."
-
-msgid "Import an SBOM"
-msgstr "Import an SBOM"
-
-msgid "Product version"
-msgstr "Product version"
-
-msgid "CycloneDX or SPDX file (JSON)"
-msgstr "CycloneDX or SPDX file (JSON)"
-
-msgid "%1$d MB and %2$d components at most. Vulnerabilities and analyses written in a CycloneDX file are kept too."
-msgstr "%1$d MB and %2$d components at most. Vulnerabilities and analyses written in a CycloneDX file are kept too."
-
-msgid "Import a VEX document"
-msgstr "Import a VEX document"
-
-msgid "All versions"
-msgstr "All versions"
-
-msgid "CycloneDX VEX or OpenVEX file (JSON)"
-msgstr "CycloneDX VEX or OpenVEX file (JSON)"
-
-msgid "A new statement replaces the previous one for the same vulnerability, component and version."
-msgstr "A new statement replaces the previous one for the same vulnerability, component and version."
-
-msgid "No SBOM imported for this product yet."
-msgstr "No SBOM imported for this product yet."
-
-msgid "%d component(s)"
-msgstr "%d component(s)"
-
-msgid "%d affected"
-msgstr "%d affected"
-
-msgid "%d without VEX statement"
-msgstr "%d without VEX statement"
-
-msgid "Delete this SBOM"
-msgstr "Delete this SBOM"
-
-msgid "Known vulnerabilities of the components"
-msgstr "Known vulnerabilities of the components"
-
-msgid "No known vulnerability: none in the file, and none known by the vulnerability watch for these components and versions."
-msgstr "No known vulnerability: none in the file, and none known by the vulnerability watch for these components and versions."
-
-msgid "Vulnerability"
-msgstr "Vulnerability"
-
-msgid "Found by"
-msgstr "Found by"
-
-msgid "VEX status"
-msgstr "VEX status"
-
-msgid "Declare"
-msgstr "Declare"
-
-msgid "Known exploited vulnerability (CISA KEV)"
-msgstr "Known exploited vulnerability (CISA KEV)"
-
-msgid "Explanation"
-msgstr "Explanation"
-
-msgid "Components (%d)"
-msgstr "Components (%d)"
-
-msgid "Licenses"
-msgstr "Licenses"
-
-msgid "Only the first %d components are shown."
-msgstr "Only the first %d components are shown."
-
-msgid "Older SBOM: only the %d most recent are detailed."
-msgstr "Older SBOM: only the %d most recent are detailed."
-
-msgid "VEX statements"
-msgstr "VEX statements"
-
-msgid "Component (purl or name)"
-msgstr "Component (purl or name)"
-
-msgid "Whole product"
-msgstr "Whole product"
-
-msgid "No VEX statement for this product."
-msgstr "No VEX statement for this product."
-
-msgid "%d product(s) with an SBOM"
-msgstr "%d product(s) with an SBOM"
-
-msgid "%d application(s) of the register without an SBOM"
-msgstr "%d application(s) of the register without an SBOM"
-
-msgid "%d known vulnerability(ies) in the components"
-msgstr "%d known vulnerability(ies) in the components"
-
-msgid "%d not affected or fixed"
-msgstr "%d not affected or fixed"

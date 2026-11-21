@@ -34499,14 +34499,24 @@ msgstr "Die Datei ist größer als %d MB."
 msgid "The file is not valid JSON, or it is nested too deeply."
 msgstr "Die Datei ist kein gültiges JSON oder zu tief verschachtelt."
 
-msgid "The file is neither a CycloneDX nor an SPDX 2 software bill of materials in JSON."
-msgstr "Die Datei ist weder eine CycloneDX- noch eine SPDX-2-Softwarestückliste im JSON-Format."
+msgid ""
+"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
+"JSON."
+msgstr ""
+"Die Datei ist weder eine CycloneDX- noch eine SPDX-2-Softwarestückliste im "
+"JSON-Format."
 
-msgid "The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
-msgstr "Die Datei enthält keine VEX-Erklärung (CycloneDX mit Analyse oder OpenVEX)."
+msgid ""
+"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+msgstr ""
+"Die Datei enthält keine VEX-Erklärung (CycloneDX mit Analyse oder OpenVEX)."
 
-msgid "The file lists more than %d components or vulnerabilities: split it by product."
-msgstr "Die Datei listet mehr als %d Komponenten oder Schwachstellen auf: Teilen Sie sie nach Produkt auf."
+msgid ""
+"The file lists more than %d components or vulnerabilities: split it by "
+"product."
+msgstr ""
+"Die Datei listet mehr als %d Komponenten oder Schwachstellen auf: Teilen Sie "
+"sie nach Produkt auf."
 
 msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
 msgstr "Geben Sie eine Schwachstellenkennung ein, z. B. CVE-2024-12345."
@@ -34518,25 +34528,53 @@ msgid "Unknown justification."
 msgstr "Unbekannte Begründung."
 
 msgid "A \"not affected\" statement needs a justification or an explanation."
-msgstr "Eine Erklärung „nicht betroffen“ erfordert eine Begründung oder eine Erläuterung."
+msgstr ""
+"Eine Erklärung „nicht betroffen“ erfordert eine Begründung oder eine "
+"Erläuterung."
 
 msgid "Enter the product version described by the file."
 msgstr "Geben Sie die in der Datei beschriebene Produktversion ein."
 
-msgid "Keeps the software bill of materials (SBOM) of each version of a product you build or develop, compares its components with the vulnerabilities already known to the plugin, and records your VEX statements: affected, not affected (with the reason), fixed or under investigation. Customers and the Cyber Resilience Act expect these documents from a manufacturer."
-msgstr "Bewahrt die Softwarestückliste (SBOM) jeder Version eines von Ihnen hergestellten oder entwickelten Produkts auf, gleicht ihre Komponenten mit den dem Plugin bereits bekannten Schwachstellen ab und erfasst Ihre VEX-Erklärungen: betroffen, nicht betroffen (mit Begründung), behoben oder in Untersuchung. Kunden und der Cyber Resilience Act erwarten diese Dokumente von einem Hersteller."
+msgid ""
+"Keeps the software bill of materials (SBOM) of each version of a product you "
+"build or develop, compares its components with the vulnerabilities already "
+"known to the plugin, and records your VEX statements: affected, not affected "
+"(with the reason), fixed or under investigation. Customers and the Cyber "
+"Resilience Act expect these documents from a manufacturer."
+msgstr ""
+"Bewahrt die Softwarestückliste (SBOM) jeder Version eines von Ihnen "
+"hergestellten oder entwickelten Produkts auf, gleicht ihre Komponenten mit "
+"den dem Plugin bereits bekannten Schwachstellen ab und erfasst Ihre VEX-"
+"Erklärungen: betroffen, nicht betroffen (mit Begründung), behoben oder in "
+"Untersuchung. Kunden und der Cyber Resilience Act erwarten diese Dokumente "
+"von einem Hersteller."
 
-msgid "Import the CycloneDX or SPDX file (JSON) produced by your build for each released version, then give a VEX status to each vulnerability found, or import the VEX document of your scanner. Nothing is sent outside GLPI."
-msgstr "Importieren Sie für jede veröffentlichte Version die von Ihrem Build erzeugte CycloneDX- oder SPDX-Datei (JSON) und vergeben Sie dann für jede gefundene Schwachstelle einen VEX-Status oder importieren Sie das VEX-Dokument Ihres Scanners. Nichts wird außerhalb von GLPI gesendet."
+msgid ""
+"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
+"released version, then give a VEX status to each vulnerability found, or "
+"import the VEX document of your scanner. Nothing is sent outside GLPI."
+msgstr ""
+"Importieren Sie für jede veröffentlichte Version die von Ihrem Build "
+"erzeugte CycloneDX- oder SPDX-Datei (JSON) und vergeben Sie dann für jede "
+"gefundene Schwachstelle einen VEX-Status oder importieren Sie das VEX-"
+"Dokument Ihres Scanners. Nichts wird außerhalb von GLPI gesendet."
 
-msgid "ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, Annex I part II"
-msgstr "ISO/IEC 27001, Maßnahmen A.5.21, A.8.8 und A.8.28; Cyber Resilience Act, Anhang I Teil II"
+msgid ""
+"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
+"Annex I part II"
+msgstr ""
+"ISO/IEC 27001, Maßnahmen A.5.21, A.8.8 und A.8.28; Cyber Resilience Act, "
+"Anhang I Teil II"
 
 msgid "Software bills of materials and VEX"
 msgstr "Softwarestücklisten und VEX"
 
-msgid "SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX statement(s)."
-msgstr "SBOM importiert: %1$d Komponente(n), %2$d genannte Schwachstelle(n), %3$d VEX-Erklärung(en)."
+msgid ""
+"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
+"statement(s)."
+msgstr ""
+"SBOM importiert: %1$d Komponente(n), %2$d genannte Schwachstelle(n), %3$d "
+"VEX-Erklärung(en)."
 
 msgid "VEX document imported: %d statement(s)."
 msgstr "VEX-Dokument importiert: %d Erklärung(en)."
@@ -34553,8 +34591,14 @@ msgstr "VEX-Erklärung gelöscht."
 msgid "No VEX statement"
 msgstr "Keine VEX-Erklärung"
 
-msgid "An SBOM lists the components (libraries, packages) of one version of this product. Import one file per released version; the vulnerabilities found stay here with your VEX statements."
-msgstr "Eine SBOM listet die Komponenten (Bibliotheken, Pakete) einer Version dieses Produkts auf. Importieren Sie eine Datei pro veröffentlichter Version; die gefundenen Schwachstellen bleiben hier mit Ihren VEX-Erklärungen."
+msgid ""
+"An SBOM lists the components (libraries, packages) of one version of this "
+"product. Import one file per released version; the vulnerabilities found "
+"stay here with your VEX statements."
+msgstr ""
+"Eine SBOM listet die Komponenten (Bibliotheken, Pakete) einer Version dieses "
+"Produkts auf. Importieren Sie eine Datei pro veröffentlichter Version; die "
+"gefundenen Schwachstellen bleiben hier mit Ihren VEX-Erklärungen."
 
 msgid "Import an SBOM"
 msgstr "SBOM importieren"
@@ -34565,8 +34609,12 @@ msgstr "Produktversion"
 msgid "CycloneDX or SPDX file (JSON)"
 msgstr "CycloneDX- oder SPDX-Datei (JSON)"
 
-msgid "%1$d MB and %2$d components at most. Vulnerabilities and analyses written in a CycloneDX file are kept too."
-msgstr "Höchstens %1$d MB und %2$d Komponenten. In einer CycloneDX-Datei enthaltene Schwachstellen und Analysen werden ebenfalls übernommen."
+msgid ""
+"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
+"a CycloneDX file are kept too."
+msgstr ""
+"Höchstens %1$d MB und %2$d Komponenten. In einer CycloneDX-Datei enthaltene "
+"Schwachstellen und Analysen werden ebenfalls übernommen."
 
 msgid "Import a VEX document"
 msgstr "VEX-Dokument importieren"
@@ -34577,8 +34625,12 @@ msgstr "Alle Versionen"
 msgid "CycloneDX VEX or OpenVEX file (JSON)"
 msgstr "CycloneDX-VEX- oder OpenVEX-Datei (JSON)"
 
-msgid "A new statement replaces the previous one for the same vulnerability, component and version."
-msgstr "Eine neue Erklärung ersetzt die vorherige für dieselbe Schwachstelle, Komponente und Version."
+msgid ""
+"A new statement replaces the previous one for the same vulnerability, "
+"component and version."
+msgstr ""
+"Eine neue Erklärung ersetzt die vorherige für dieselbe Schwachstelle, "
+"Komponente und Version."
 
 msgid "No SBOM imported for this product yet."
 msgstr "Für dieses Produkt wurde noch keine SBOM importiert."
@@ -34598,8 +34650,12 @@ msgstr "Diese SBOM löschen"
 msgid "Known vulnerabilities of the components"
 msgstr "Bekannte Schwachstellen der Komponenten"
 
-msgid "No known vulnerability: none in the file, and none known by the vulnerability watch for these components and versions."
-msgstr "Keine bekannte Schwachstelle: keine in der Datei und keine, die der Schwachstellenbeobachtung für diese Komponenten und Versionen bekannt ist."
+msgid ""
+"No known vulnerability: none in the file, and none known by the "
+"vulnerability watch for these components and versions."
+msgstr ""
+"Keine bekannte Schwachstelle: keine in der Datei und keine, die der "
+"Schwachstellenbeobachtung für diese Komponenten und Versionen bekannt ist."
 
 msgid "Vulnerability"
 msgstr "Schwachstelle"
@@ -34654,3 +34710,250 @@ msgstr "%d bekannte Schwachstelle(n) in den Komponenten"
 
 msgid "%d not affected or fixed"
 msgstr "%d nicht betroffen oder behoben"
+
+#, php-format
+msgid ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr ""
+"%1$d Antwort(en) aus der Lieferantendatei importiert, %2$d Dokument(e) "
+"angehängt."
+
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
+msgstr ""
+"Das Dokument „%s“ passt zu keiner Frage der Datei: Es wurde nicht "
+"hinzugefügt."
+
+msgid ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+msgstr ""
+"Zeigt die in der vom Lieferanten zurückgesandten Fragebogendatei gefundenen "
+"Antworten Frage für Frage neben den aktuellen Antworten, mit den zu "
+"prüfenden Punkten (unbekannte Frage, Antwort außerhalb der Liste, fehlende "
+"Frage)."
+
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+"Prüfen Sie die Antworten, fügen Sie die vom Lieferanten gesendeten Dokumente "
+"hinzu und speichern Sie: Vor dieser Bestätigung wird nichts gespeichert. "
+"Prüfen Sie danach die Bewertung und markieren Sie sie als abgeschlossen."
+
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
+msgstr "ISO/IEC 27001, Maßnahmen A.5.19 bis A.5.22"
+
+msgid "Supplier file"
+msgstr "Lieferantendatei"
+
+msgid "Guidance"
+msgstr "Hinweise"
+
+msgid "Allowed answers"
+msgstr "Mögliche Antworten"
+
+msgid "Supplier answer"
+msgstr "Antwort des Lieferanten"
+
+msgid "Evidence file name"
+msgstr "Name der Nachweisdatei"
+
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr ""
+"Fragebogendatei für den Lieferanten exportiert: %1$s (Fingerabdruck %2$s)"
+
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr "Vom Lieferanten zurückgesandte Fragebogendatei für die Bewertung „%s“"
+
+#, php-format
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+"Lieferantendatei importiert: %1$s (SHA-256 %2$s), %3$d Antwort(en), %4$d "
+"Dokument(e)"
+
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr "Die Datei ist zu groß (höchstens %d MB)."
+
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"Die Datei ist keine CSV-Textdatei: Speichern Sie die Tabelle vor dem Import "
+"als CSV."
+
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+"Diese Datei ist kein aus diesem Plugin exportierter Fragebogen: Ihre erste "
+"Zeile wurde geändert oder entfernt."
+
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+"Diese Datei wurde für eine andere Bewertung exportiert: Importieren Sie sie "
+"in die Bewertung, aus der sie stammt."
+
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+"Die Fragen dieser Datei entsprechen nicht denen der Bewertung: Exportieren "
+"Sie den Fragebogen erneut."
+
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+"Die Kopfzeile oder einige Spalten fehlen: Behalten Sie die Spalten der "
+"exportierten Datei bei."
+
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr "Zeile %1$d: unbekannter Fragecode „%2$s“, Zeile ignoriert."
+
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr ""
+"Zeile %1$d: Frage %2$s kommt zweimal vor, nur die erste Zeile wird "
+"übernommen."
+
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr ""
+"Zeile %1$d: Die Antwort „%2$s“ steht nicht in der Liste, Zeile ignoriert."
+
+#, php-format
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+"Zeile %1$d: höchstens %2$d Fragen pro Datei, die folgenden Zeilen wurden "
+"ignoriert."
+
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr "Frage %s fehlt in der Datei: Ihre Antwort bleibt unverändert."
+
+#, php-format
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+"%d Frage ändert sich. Prüfen Sie die Antworten und speichern Sie sie: Sie "
+"werden als aus der Lieferantendatei stammend gekennzeichnet."
+msgstr[1] ""
+"%d Fragen ändern sich. Prüfen Sie die Antworten und speichern Sie sie: Sie "
+"werden als aus der Lieferantendatei stammend gekennzeichnet."
+
+msgid "Answer in the file"
+msgstr "Antwort in der Datei"
+
+msgid "Back to the evaluation"
+msgstr "Zurück zur Bewertung"
+
+msgid "Comment in the file"
+msgstr "Kommentar in der Datei"
+
+msgid "Current answer"
+msgstr "Aktuelle Antwort"
+
+msgid "Documents sent by the supplier"
+msgstr "Vom Lieferanten gesendete Dokumente"
+
+#, php-format
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+"Jedes Dokument wird den Fragen zugeordnet, deren Spalte „Name der "
+"Nachweisdatei“ seinen Namen nennt. Es wird wie jeder Nachweis geprüft (von "
+"GLPI erlaubte Typen, Größe, tatsächlicher Inhalt). Erwartet: %s"
+
+msgid "Review the supplier file"
+msgstr "Lieferantendatei prüfen"
+
+msgid "Save these answers"
+msgstr "Diese Antworten speichern"
+
+msgid "The file brings no new answer and no new comment."
+msgstr "Die Datei enthält keine neue Antwort und keinen neuen Kommentar."
+
+msgid "unchanged"
+msgstr "unverändert"
+
+msgid "Answer by file, outside GLPI"
+msgstr "Antwort per Datei, außerhalb von GLPI"
+
+#, php-format
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"Höchstens %1$d MB und %2$d Fragen. Speichern Sie die Tabelle vor dem Import "
+"als CSV."
+
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+"CSV-Datei (Trennzeichen „;“, UTF-8), eine Zeile pro Frage. Die erste Zeile "
+"kennzeichnet die Bewertung und ihre Fragen: Sie muss unverändert bleiben. "
+"Senden Sie die Datei auf dem Weg Ihrer Wahl (E-Mail, Austauschplattform)."
+
+msgid "Download the questionnaire to fill in"
+msgstr "Auszufüllenden Fragebogen herunterladen"
+
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+"Jeder Export und Import wird auf der Registerkarte Historie erfasst (wer, "
+"wann, welche Datei); die zurückgesandte Datei wird auf der Registerkarte "
+"Dokumente des Lieferantenrisikos aufbewahrt."
+
+msgid "Import the returned file"
+msgstr "Zurückgesandte Datei importieren"
+
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr "Vom Lieferanten ausgefüllter Fragebogen (CSV)"
+
+msgid "Review the answers"
+msgstr "Antworten prüfen"
+
+msgid "Send the questionnaire"
+msgstr "Fragebogen senden"
+
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr ""
+"Diese Bewertung ist abgeschlossen: Öffnen Sie sie erneut, um eine Datei zu "
+"importieren."
+
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+"Hat der Lieferant keinen Zugang zu GLPI, senden Sie den Fragebogen als "
+"Datei: Der Lieferant füllt in einer beliebigen Tabellenkalkulation die "
+"Spalten „Antwort des Lieferanten“, „Kommentar“ und für jedes bereitgestellte "
+"Dokument „Name der Nachweisdatei“ aus. Anschließend importieren Sie die "
+"zurückgesandte Datei hier: Die Antworten werden zur Prüfung angezeigt und "
+"vor Ihrer Bestätigung wird nichts gespeichert."
+
+msgid "You are not allowed to change this evaluation."
+msgstr "Sie dürfen diese Bewertung nicht ändern."

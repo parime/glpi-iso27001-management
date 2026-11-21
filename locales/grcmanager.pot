@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 16:39+0000\n"
+"POT-Creation-Date: 2026-11-21 16:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -456,8 +456,9 @@ msgstr ""
 
 #: front/configcompliance.php:43 front/phishingimport.php:71
 #: front/phishingimport.php:98 front/securityincidentedrimport.php:66
-#: front/securityincidentedrimport.php:85 src/ConfigurationCompliance.php:189
-#: src/ControlTest.php:653
+#: front/securityincidentedrimport.php:85 front/supplierevaluationfile.php:87
+#: front/supplierevaluationfile.php:101 front/supplierevaluationfile.php:141
+#: src/ConfigurationCompliance.php:189 src/ControlTest.php:653
 msgid "The file could not be received."
 msgstr ""
 
@@ -1253,30 +1254,6 @@ msgstr ""
 msgid "Record of processing activities"
 msgstr ""
 
-#: front/productsbom.form.php:75
-#, php-format
-msgid ""
-"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
-"statement(s)."
-msgstr ""
-
-#: front/productsbom.form.php:94
-#, php-format
-msgid "VEX document imported: %d statement(s)."
-msgstr ""
-
-#: front/productsbom.form.php:108
-msgid "VEX statement saved."
-msgstr ""
-
-#: front/productsbom.form.php:117
-msgid "SBOM deleted."
-msgstr ""
-
-#: front/productsbom.form.php:125
-msgid "VEX statement deleted."
-msgstr ""
-
 #: front/recoveryprogramme.php:24
 #: templates/business_process_list_header.html.twig
 #: templates/business_process_programme.html.twig
@@ -1605,6 +1582,17 @@ msgstr[1] ""
 
 #: front/supplierevaluation.form.php:123
 msgid "Answers saved."
+msgstr ""
+
+#: front/supplierevaluationfile.php:159
+#, php-format
+msgid ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr ""
+
+#: front/supplierevaluationfile.php:165
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
 msgstr ""
 
 #: front/supplierquestionnairetemplate.form.php:48
@@ -2975,7 +2963,7 @@ msgstr ""
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/maturity_campaign_report.html.twig
 #: templates/pdf/network_flow_report.html.twig
-#: templates/pdf/soa_report.html.twig templates/product_sbom_tab.html.twig
+#: templates/pdf/soa_report.html.twig
 #: templates/recyf_requirement_form.html.twig templates/risk_form.html.twig
 #: templates/supplier_risk_form.html.twig templates/waiver_form.html.twig
 #: templates/waiver_ticket.html.twig
@@ -3059,8 +3047,8 @@ msgid "Last update"
 msgstr ""
 
 #: src/AdAttackPath.php:74 src/AdSecurityAudit.php:231 src/ControlTest.php:652
-#: src/CustomFramework.php:316 src/ProductSbom.php:214
-#: src/RiskRegisterImport.php:497 src/ServerManagement.php:335
+#: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
+#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:306
 msgid "The file is empty."
 msgstr ""
 
@@ -3095,7 +3083,7 @@ msgstr ""
 
 #: src/AdAttackPath.php:90 src/AdSecurityAudit.php:262
 #: src/BackupCoverage.php:254 src/LogCoverage.php:211 src/MfaCoverage.php:192
-#: src/ProductSbom.php:231 src/ShareAccess.php:293
+#: src/ShareAccess.php:293
 msgid "The file could not be read."
 msgstr ""
 
@@ -3944,8 +3932,7 @@ msgstr ""
 #: templates/configuration_compliance.html.twig templates/control_csv.html.twig
 #: templates/edr_import.html.twig templates/log_coverage.html.twig
 #: templates/mfa_coverage.html.twig templates/phishing_import.html.twig
-#: templates/product_sbom_tab.html.twig templates/server_management.html.twig
-#: templates/share_access.html.twig
+#: templates/server_management.html.twig templates/share_access.html.twig
 msgid "Import"
 msgstr ""
 
@@ -4410,7 +4397,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/BackupCoverage.php:915 templates/_mfa_coverage_evidence.html.twig
-#: templates/_product_sbom_evidence.html.twig
 #: templates/_server_management_evidence.html.twig
 #: templates/control_form.html.twig
 #, php-format
@@ -4426,7 +4412,6 @@ msgstr ""
 #: templates/_ad_attack_path_evidence.html.twig
 #: templates/_ad_attack_paths.html.twig
 #: templates/_mfa_coverage_evidence.html.twig
-#: templates/_product_sbom_evidence.html.twig
 #: templates/_server_management_evidence.html.twig
 #: templates/_zabbix_monitoring_evidence.html.twig
 #: templates/ad_security_audit.html.twig
@@ -10495,32 +10480,6 @@ msgstr ""
 msgid "MFA coverage"
 msgstr ""
 
-#: src/Feature/ProductSbomFeature.php:35
-msgid ""
-"Keeps the software bill of materials (SBOM) of each version of a product you "
-"build or develop, compares its components with the vulnerabilities already "
-"known to the plugin, and records your VEX statements: affected, not affected "
-"(with the reason), fixed or under investigation. Customers and the Cyber "
-"Resilience Act expect these documents from a manufacturer."
-msgstr ""
-
-#: src/Feature/ProductSbomFeature.php:43
-msgid ""
-"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
-"released version, then give a VEX status to each vulnerability found, or "
-"import the VEX document of your scanner. Nothing is sent outside GLPI."
-msgstr ""
-
-#: src/Feature/ProductSbomFeature.php:49
-msgid ""
-"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
-"Annex I part II"
-msgstr ""
-
-#: src/Feature/ProductSbomFeature.php:58
-msgid "Software bills of materials and VEX"
-msgstr ""
-
 #: src/Feature/Security360CoreSourcesFeature.php:56
 msgid "Known vulnerabilities"
 msgstr ""
@@ -10639,6 +10598,24 @@ msgstr ""
 #: templates/server_management_item_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
 msgid "Server management controllers"
+msgstr ""
+
+#: src/Feature/SupplierAnswerFileFeature.php:32
+msgid ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+msgstr ""
+
+#: src/Feature/SupplierAnswerFileFeature.php:38
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+
+#: src/Feature/SupplierAnswerFileFeature.php:42
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
 msgstr ""
 
 #: src/Feature/ZabbixMonitoringFeature.php:40
@@ -11178,8 +11155,8 @@ msgstr ""
 #: src/IsmsRequirement.php:309 src/NotificationTargetAccessReview.php:107
 #: src/NotificationTargetAuditEvidenceRequest.php:162
 #: src/NotificationTargetPolicyVersion.php:141
-#: src/NotificationTargetSoaVersion.php:106 templates/_crisis_review.html.twig
-#: templates/access_review_form.html.twig
+#: src/NotificationTargetSoaVersion.php:106 src/SupplierEvaluationFile.php:120
+#: templates/_crisis_review.html.twig templates/access_review_form.html.twig
 #: templates/application_security_tab.html.twig
 #: templates/audit_checklist_tab.html.twig
 #: templates/audit_programme_tab.html.twig
@@ -15021,7 +14998,6 @@ msgstr ""
 #: src/PersonnelCompliance.php:748 templates/_personnel_compliance.html.twig
 #: templates/config_form.html.twig templates/maturity.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
-#: templates/product_sbom_tab.html.twig
 msgid "Component"
 msgstr ""
 
@@ -15031,7 +15007,7 @@ msgstr ""
 msgid "Overall status"
 msgstr ""
 
-#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:462
+#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:463
 #: templates/ad_security_audit.html.twig
 #: templates/framework_assessment.html.twig
 #: templates/my_trainings_tab.html.twig
@@ -15821,105 +15797,6 @@ msgstr ""
 #: src/ProductAlias.php:112
 #, php-format
 msgid "This alias is already attached to product \"%s / %s\"."
-msgstr ""
-
-#: src/ProductSbom.php:62
-msgid "SBOM and VEX"
-msgstr ""
-
-#: src/ProductSbom.php:163
-msgid "Affected"
-msgstr ""
-
-#: src/ProductSbom.php:164
-msgid "Under investigation"
-msgstr ""
-
-#: src/ProductSbom.php:165
-msgid "Fixed"
-msgstr ""
-
-#: src/ProductSbom.php:166
-msgid "Not affected"
-msgstr ""
-
-#: src/ProductSbom.php:185
-msgid "Component not present"
-msgstr ""
-
-#: src/ProductSbom.php:186
-msgid "Vulnerable code not present"
-msgstr ""
-
-#: src/ProductSbom.php:187
-msgid "Vulnerable code never executed"
-msgstr ""
-
-#: src/ProductSbom.php:188
-msgid "Vulnerable code out of reach of an attacker"
-msgstr ""
-
-#: src/ProductSbom.php:189
-msgid "Protections already in place"
-msgstr ""
-
-#: src/ProductSbom.php:197
-msgid "Entered by hand"
-msgstr ""
-
-#: src/ProductSbom.php:200
-msgid "SBOM file"
-msgstr ""
-
-#: src/ProductSbom.php:201
-msgid "Vulnerability watch"
-msgstr ""
-
-#: src/ProductSbom.php:216
-#, php-format
-msgid "The file is larger than %d MB."
-msgstr ""
-
-#: src/ProductSbom.php:219
-msgid "The file is not valid JSON, or it is nested too deeply."
-msgstr ""
-
-#: src/ProductSbom.php:220
-msgid ""
-"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
-"JSON."
-msgstr ""
-
-#: src/ProductSbom.php:221
-msgid ""
-"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
-msgstr ""
-
-#: src/ProductSbom.php:223
-#, php-format
-msgid ""
-"The file lists more than %d components or vulnerabilities: split it by "
-"product."
-msgstr ""
-
-#: src/ProductSbom.php:226
-msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
-msgstr ""
-
-#: src/ProductSbom.php:227
-msgid "Choose a status."
-msgstr ""
-
-#: src/ProductSbom.php:228
-msgid "Unknown justification."
-msgstr ""
-
-#: src/ProductSbom.php:229
-msgid "A \"not affected\" statement needs a justification or an explanation."
-msgstr ""
-
-#: src/ProductSbom.php:230
-msgid "Enter the product version described by the file."
 msgstr ""
 
 #: src/Profile.php:84
@@ -18498,7 +18375,6 @@ msgstr ""
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/product_sbom_tab.html.twig
 #, php-format
 msgid "Version %s"
 msgstr ""
@@ -18948,36 +18824,36 @@ msgstr ""
 msgid "Insufficient level"
 msgstr ""
 
-#: src/SupplierEvaluation.php:166
+#: src/SupplierEvaluation.php:167
 msgid "Choose the supplier risk to evaluate."
 msgstr ""
 
-#: src/SupplierEvaluation.php:181
+#: src/SupplierEvaluation.php:182
 msgid ""
 "Choose an active questionnaire template available in the entity of the "
 "supplier risk."
 msgstr ""
 
-#: src/SupplierEvaluation.php:202
+#: src/SupplierEvaluation.php:203
 #, php-format
 msgid "%1$s - %2$s"
 msgstr ""
 
-#: src/SupplierEvaluation.php:235
+#: src/SupplierEvaluation.php:236
 msgid "This evaluation is completed: reopen it to change it."
 msgstr ""
 
-#: src/SupplierEvaluation.php:406
+#: src/SupplierEvaluation.php:407
 #: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Questionnaire"
 msgstr ""
 
-#: src/SupplierEvaluation.php:466 templates/supplier_evaluation_form.html.twig
+#: src/SupplierEvaluation.php:467 templates/supplier_evaluation_form.html.twig
 #: templates/tabs/supplier_questionnaire.html.twig
 msgid "Evaluation date"
 msgstr ""
 
-#: src/SupplierEvaluation.php:470 templates/audit_checklist_tab.html.twig
+#: src/SupplierEvaluation.php:471 templates/audit_checklist_tab.html.twig
 #: templates/dora/register.html.twig
 msgid "Template"
 msgstr ""
@@ -19007,6 +18883,135 @@ msgstr ""
 msgid "Evidence added to question %s"
 msgstr ""
 
+#: src/SupplierEvaluationFile.php:47
+msgid "Supplier file"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:112
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Code"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:113
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Section"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:114 src/SupplierQuestionnaireTemplate.php:107
+#: templates/supplier_evaluation_import.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Question"
+msgid_plural "Questions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SupplierEvaluationFile.php:115
+msgid "Guidance"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:116
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Expected answer"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:117
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Evidence required"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:118
+msgid "Allowed answers"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:119
+msgid "Supplier answer"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:121
+#: templates/supplier_evaluation_import.html.twig
+msgid "Evidence file name"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:143
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:255
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:267
+#, php-format
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:283
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:287
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:291
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:295
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:299
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:303
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:317
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:322
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:327
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:332
+#, php-format
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:337
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr ""
+
 #: src/SupplierQuestionnaireTemplate.php:52
 msgid "Supplier questionnaire template"
 msgid_plural "Supplier questionnaire templates"
@@ -19028,14 +19033,6 @@ msgstr ""
 #: src/SupplierQuestionnaireTemplate.php:69
 msgid "Business continuity"
 msgstr ""
-
-#: src/SupplierQuestionnaireTemplate.php:107
-#: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Question"
-msgid_plural "Questions"
-msgstr[0] ""
-msgstr[1] ""
 
 #: src/SupplierQuestionnaireTemplate.php:224
 #, php-format
@@ -20302,38 +20299,6 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: templates/_product_sbom_evidence.html.twig
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "%d affected"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#, php-format
-msgid "%d application(s) of the register without an SBOM"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#, php-format
-msgid "%d known vulnerability(ies) in the components"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#, php-format
-msgid "%d not affected or fixed"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#, php-format
-msgid "%d product(s) with an SBOM"
-msgstr ""
-
-#: templates/_product_sbom_evidence.html.twig
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "%d without VEX statement"
-msgstr ""
-
 #: templates/_responsibility_summary.html.twig
 #: templates/responsibility_matrix.html.twig
 #, php-format
@@ -20352,6 +20317,7 @@ msgstr[1] ""
 
 #: templates/_responsibility_summary.html.twig
 #: templates/responsibility_matrix.html.twig
+#: templates/supplier_evaluation_import.html.twig
 #, php-format
 msgid "%d point to check"
 msgid_plural "%d points to check"
@@ -21205,7 +21171,6 @@ msgstr ""
 #: templates/control_form.html.twig
 #: templates/official_contact_history_tab.html.twig
 #: templates/official_contact_tab.html.twig
-#: templates/product_sbom_tab.html.twig
 #: templates/tabs/crisis_message_recipients.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
 msgid "Open the register"
@@ -23204,6 +23169,7 @@ msgstr ""
 #: templates/control_blockers_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
+#: templates/tabs/supplier_evaluation_file.html.twig
 msgid "What is this tab for?"
 msgstr ""
 
@@ -27419,6 +27385,7 @@ msgstr ""
 
 #: templates/custom_framework_list.html.twig templates/risk_import.html.twig
 #: templates/risk_scale_change.html.twig
+#: templates/supplier_evaluation_import.html.twig
 msgid "Cancel"
 msgstr ""
 
@@ -34281,136 +34248,6 @@ msgstr ""
 msgid "Unlink"
 msgstr ""
 
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid ""
-"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
-"a CycloneDX file are kept too."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "%d component(s)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid ""
-"A new statement replaces the previous one for the same vulnerability, "
-"component and version."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "All versions"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid ""
-"An SBOM lists the components (libraries, packages) of one version of this "
-"product. Import one file per released version; the vulnerabilities found "
-"stay here with your VEX statements."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Component (purl or name)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "Components (%d)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "CycloneDX VEX or OpenVEX file (JSON)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "CycloneDX or SPDX file (JSON)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Declare"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Delete this SBOM"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Explanation"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Found by"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Import a VEX document"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Import an SBOM"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Known exploited vulnerability (CISA KEV)"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Known vulnerabilities of the components"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Licenses"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "No SBOM imported for this product yet."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "No VEX statement"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "No VEX statement for this product."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid ""
-"No known vulnerability: none in the file, and none known by the "
-"vulnerability watch for these components and versions."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "Older SBOM: only the %d most recent are detailed."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-#, php-format
-msgid "Only the first %d components are shown."
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Product version"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "VEX statements"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "VEX status"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Vulnerability"
-msgstr ""
-
-#: templates/product_sbom_tab.html.twig
-msgid "Whole product"
-msgstr ""
-
 #: templates/recyf_register.html.twig
 #, php-format
 msgid "%1$d objectives, %2$d measures"
@@ -36644,6 +36481,61 @@ msgid ""
 "it from the \"Questionnaire\" tab to change them."
 msgstr ""
 
+#: templates/supplier_evaluation_import.html.twig
+#, php-format
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Answer in the file"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Back to the evaluation"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Comment in the file"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Current answer"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Documents sent by the supplier"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+#, php-format
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Review the supplier file"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Save these answers"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "The file brings no new answer and no new comment."
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "unchanged"
+msgstr ""
+
 #: templates/supplier_questionnaire_template_form.html.twig
 #, php-format
 msgid "%d evaluation"
@@ -38142,16 +38034,6 @@ msgid "Evidence missing"
 msgstr ""
 
 #: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Evidence required"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Expected answer"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_answers.html.twig
 #, php-format
 msgid "Expected: %s"
 msgstr ""
@@ -38203,6 +38085,67 @@ msgstr ""
 msgid "Weight %d"
 msgstr ""
 
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Answer by file, outside GLPI"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+#, php-format
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Download the questionnaire to fill in"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Import the returned file"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Review the answers"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Send the questionnaire"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "You are not allowed to change this evaluation."
+msgstr ""
+
 #: templates/tabs/supplier_questionnaire.html.twig
 #, php-format
 msgid "%1$s: %2$s points"
@@ -38249,10 +38192,6 @@ msgid "Template: %1$s (version %2$d)"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Code"
-msgstr ""
-
-#: templates/tabs/supplier_questionnaire_questions.html.twig
 #, php-format
 msgid ""
 "Group the questions by section. The expected answer is the compliant one "
@@ -38286,10 +38225,6 @@ msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Save questions"
-msgstr ""
-
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Section"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
@@ -38898,4 +38833,316 @@ msgstr ""
 #: templates/zabbix_monitoring.html.twig
 #, php-format
 msgid "out of %d critical assets"
+msgstr ""
+
+
+#: front/productsbom.form.php:75
+#, php-format
+msgid ""
+"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
+"statement(s)."
+msgstr ""
+
+#: front/productsbom.form.php:94
+#, php-format
+msgid "VEX document imported: %d statement(s)."
+msgstr ""
+
+#: front/productsbom.form.php:108
+msgid "VEX statement saved."
+msgstr ""
+
+#: front/productsbom.form.php:117
+msgid "SBOM deleted."
+msgstr ""
+
+#: front/productsbom.form.php:125
+msgid "VEX statement deleted."
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:35
+msgid ""
+"Keeps the software bill of materials (SBOM) of each version of a product you "
+"build or develop, compares its components with the vulnerabilities already "
+"known to the plugin, and records your VEX statements: affected, not affected "
+"(with the reason), fixed or under investigation. Customers and the Cyber "
+"Resilience Act expect these documents from a manufacturer."
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:43
+msgid ""
+"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
+"released version, then give a VEX status to each vulnerability found, or "
+"import the VEX document of your scanner. Nothing is sent outside GLPI."
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:49
+msgid ""
+"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
+"Annex I part II"
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:58
+msgid "Software bills of materials and VEX"
+msgstr ""
+
+#: src/ProductSbom.php:62
+msgid "SBOM and VEX"
+msgstr ""
+
+#: src/ProductSbom.php:163
+msgid "Affected"
+msgstr ""
+
+#: src/ProductSbom.php:164
+msgid "Under investigation"
+msgstr ""
+
+#: src/ProductSbom.php:165
+msgid "Fixed"
+msgstr ""
+
+#: src/ProductSbom.php:166
+msgid "Not affected"
+msgstr ""
+
+#: src/ProductSbom.php:185
+msgid "Component not present"
+msgstr ""
+
+#: src/ProductSbom.php:186
+msgid "Vulnerable code not present"
+msgstr ""
+
+#: src/ProductSbom.php:187
+msgid "Vulnerable code never executed"
+msgstr ""
+
+#: src/ProductSbom.php:188
+msgid "Vulnerable code out of reach of an attacker"
+msgstr ""
+
+#: src/ProductSbom.php:189
+msgid "Protections already in place"
+msgstr ""
+
+#: src/ProductSbom.php:197
+msgid "Entered by hand"
+msgstr ""
+
+#: src/ProductSbom.php:200
+msgid "SBOM file"
+msgstr ""
+
+#: src/ProductSbom.php:201
+msgid "Vulnerability watch"
+msgstr ""
+
+#: src/ProductSbom.php:216
+#, php-format
+msgid "The file is larger than %d MB."
+msgstr ""
+
+#: src/ProductSbom.php:219
+msgid "The file is not valid JSON, or it is nested too deeply."
+msgstr ""
+
+#: src/ProductSbom.php:220
+msgid ""
+"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
+"JSON."
+msgstr ""
+
+#: src/ProductSbom.php:221
+msgid ""
+"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+msgstr ""
+
+#: src/ProductSbom.php:223
+#, php-format
+msgid ""
+"The file lists more than %d components or vulnerabilities: split it by "
+"product."
+msgstr ""
+
+#: src/ProductSbom.php:226
+msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
+msgstr ""
+
+#: src/ProductSbom.php:227
+msgid "Choose a status."
+msgstr ""
+
+#: src/ProductSbom.php:228
+msgid "Unknown justification."
+msgstr ""
+
+#: src/ProductSbom.php:229
+msgid "A \"not affected\" statement needs a justification or an explanation."
+msgstr ""
+
+#: src/ProductSbom.php:230
+msgid "Enter the product version described by the file."
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "%d affected"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d application(s) of the register without an SBOM"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d known vulnerability(ies) in the components"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d not affected or fixed"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d product(s) with an SBOM"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "%d without VEX statement"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid ""
+"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
+"a CycloneDX file are kept too."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "%d component(s)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid ""
+"A new statement replaces the previous one for the same vulnerability, "
+"component and version."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "All versions"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid ""
+"An SBOM lists the components (libraries, packages) of one version of this "
+"product. Import one file per released version; the vulnerabilities found "
+"stay here with your VEX statements."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Component (purl or name)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "Components (%d)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "CycloneDX VEX or OpenVEX file (JSON)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "CycloneDX or SPDX file (JSON)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Declare"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Delete this SBOM"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Explanation"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Found by"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Import a VEX document"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Import an SBOM"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Known exploited vulnerability (CISA KEV)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Known vulnerabilities of the components"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Licenses"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "No SBOM imported for this product yet."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "No VEX statement"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "No VEX statement for this product."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid ""
+"No known vulnerability: none in the file, and none known by the "
+"vulnerability watch for these components and versions."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "Older SBOM: only the %d most recent are detailed."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "Only the first %d components are shown."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Product version"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "VEX statements"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "VEX status"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Vulnerability"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Whole product"
 msgstr ""
