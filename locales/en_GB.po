@@ -38920,3 +38920,136 @@ msgstr "You are not allowed to change this evaluation."
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Control coverage by policies"
+msgstr "Control coverage by policies"
+
+msgid "Not covered by any text"
+msgstr "Not covered by any text"
+
+msgid "Covered only by a text not approved"
+msgstr "Covered only by a text not approved"
+
+msgid "Covered only by a text to review"
+msgstr "Covered only by a text to review"
+
+msgid "Covered by an approved text"
+msgstr "Covered by an approved text"
+
+msgid "Covered controls"
+msgstr "Covered controls"
+
+msgid "Reference texts"
+msgstr "Reference texts"
+
+msgid "Text status"
+msgstr "Text status"
+
+msgid "Shows, for each applicable control of the Statement of Applicability, the texts of the policy library that cover it, and lists the controls covered by no text, or only by a text not approved yet or whose review date has passed."
+msgstr "Shows, for each applicable control of the Statement of Applicability, the texts of the policy library that cover it, and lists the controls covered by no text, or only by a text not approved yet or whose review date has passed."
+
+msgid "Open each policy, then its \"Covered controls\" tab, and link the whole text or one of its sections to the controls it deals with (several at once, or by typing codes such as A.5.15-A.5.18). Then write, approve or review the missing texts. Export the report in PDF or CSV for the auditor. Nothing is changed automatically."
+msgstr "Open each policy, then its \"Covered controls\" tab, and link the whole text or one of its sections to the controls it deals with (several at once, or by typing codes such as A.5.15-A.5.18). Then write, approve or review the missing texts. Export the report in PDF or CSV for the auditor. Nothing is changed automatically."
+
+msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
+msgstr "ISO/IEC 27001, clause 5.2 and control A.5.1"
+
+msgid "Gaps only"
+msgstr "Gaps only"
+
+msgid "All applicable controls"
+msgstr "All applicable controls"
+
+msgid "%d link added."
+msgid_plural "%d links added."
+msgstr[0] "%d link added."
+msgstr[1] "%d links added."
+
+msgid "Codes not found in the Statement of Applicability: %s"
+msgstr "Codes not found in the Statement of Applicability: %s"
+
+msgid "Applicable controls not covered by an approved text of the policy library whose review is up to date"
+msgstr "Applicable controls not covered by an approved text of the policy library whose review is up to date"
+
+msgid "Open the coverage report of the controls by the policies, link the text that deals with the control (or write it), then have it approved or reviewed."
+msgstr "Open the coverage report of the controls by the policies, link the text that deals with the control (or write it), then have it approved or reviewed."
+
+msgid "Controls covered by an approved text: %1$d out of %2$d"
+msgstr "Controls covered by an approved text: %1$d out of %2$d"
+
+msgid "Policy library"
+msgstr "Policy library"
+
+msgid "No text of the policy library is linked to a control yet. Open a policy, then its \"Covered controls\" tab, to link it to the controls it deals with."
+msgstr "No text of the policy library is linked to a control yet. Open a policy, then its \"Covered controls\" tab, to link it to the controls it deals with."
+
+msgid "Every applicable control is covered by an approved text whose review is up to date."
+msgstr "Every applicable control is covered by an approved text whose review is up to date."
+
+msgid "No applicable control in the Statement of Applicability you can read."
+msgstr "No applicable control in the Statement of Applicability you can read."
+
+msgid "Texts"
+msgstr "Texts"
+
+msgid "Controls covered by this text"
+msgstr "Controls covered by this text"
+
+msgid "%d linked control"
+msgid_plural "%d linked controls"
+msgstr[0] "%d linked control"
+msgstr[1] "%d linked controls"
+
+msgid "Controls not covered by any text"
+msgstr "Controls not covered by any text"
+
+msgid "Link this policy, or one of its sections, to the Annex A controls it deals with. Each applicable control of the Statement of Applicability should be covered by at least one approved text: the coverage report lists the controls without one, for the auditor (clause 5.2, control A.5.1). Only the controls of your entities are shown."
+msgstr "Link this policy, or one of its sections, to the Annex A controls it deals with. Each applicable control of the Statement of Applicability should be covered by at least one approved text: the coverage report lists the controls without one, for the auditor (clause 5.2, control A.5.1). Only the controls of your entities are shown."
+
+msgid "Link controls"
+msgstr "Link controls"
+
+msgid "For example \"4.2 Access control\". Leave empty when the whole text covers the controls."
+msgstr "For example \"4.2 Access control\". Leave empty when the whole text covers the controls."
+
+msgid "Choose one or several controls in the list."
+msgstr "Choose one or several controls in the list."
+
+msgid "Or type control codes"
+msgstr "Or type control codes"
+
+msgid "Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) or a whole theme (A.8 for all technological controls)."
+msgstr "Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) or a whole theme (A.8 for all technological controls)."
+
+msgid "This text is not linked to any control yet."
+msgstr "This text is not linked to any control yet."
+
+msgid "Whole text"
+msgstr "Whole text"
+
+msgid "Remove the link"
+msgstr "Remove the link"
+
+msgid "Texts that cover this control"
+msgstr "Texts that cover this control"
+
+msgid "The policies, or sections of policies, that deal with this control. An auditor expects each applicable control to be covered by at least one approved text whose review is up to date. Only the texts you are allowed to read are shown."
+msgstr "The policies, or sections of policies, that deal with this control. An auditor expects each applicable control to be covered by at least one approved text whose review is up to date. Only the texts you are allowed to read are shown."
+
+msgid "No text of the policy library covers this control yet."
+msgstr "No text of the policy library covers this control yet."
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Link texts"
+msgstr "Link texts"
+
+msgid "Policies"
+msgstr "Policies"
+
+msgid "Leave empty when the whole text covers the control."
+msgstr "Leave empty when the whole text covers the control."
+
+msgid "A control is covered when at least one approved text of the policy library, whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 and control A.5.1). Only the items the person who exported this report can read are counted."
+msgstr "A control is covered when at least one approved text of the policy library, whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 and control A.5.1). Only the items the person who exported this report can read are counted."

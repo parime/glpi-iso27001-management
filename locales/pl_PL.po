@@ -34301,3 +34301,138 @@ msgstr ""
 
 msgid "You are not allowed to change this evaluation."
 msgstr "Nie masz uprawnień do zmiany tej oceny."
+
+msgid "Control coverage by policies"
+msgstr "Pokrycie zabezpieczeń przez polityki"
+
+msgid "Not covered by any text"
+msgstr "Nieobjęte żadnym dokumentem"
+
+msgid "Covered only by a text not approved"
+msgstr "Objęte tylko niezatwierdzonym dokumentem"
+
+msgid "Covered only by a text to review"
+msgstr "Objęte tylko dokumentem do przeglądu"
+
+msgid "Covered by an approved text"
+msgstr "Objęte zatwierdzonym dokumentem"
+
+msgid "Covered controls"
+msgstr "Objęte zabezpieczenia"
+
+msgid "Reference texts"
+msgstr "Dokumenty referencyjne"
+
+msgid "Text status"
+msgstr "Status dokumentu"
+
+msgid "Shows, for each applicable control of the Statement of Applicability, the texts of the policy library that cover it, and lists the controls covered by no text, or only by a text not approved yet or whose review date has passed."
+msgstr "Pokazuje dla każdego mającego zastosowanie zabezpieczenia deklaracji stosowania dokumenty biblioteki polityk, które je obejmują, oraz wymienia zabezpieczenia nieobjęte żadnym dokumentem albo objęte tylko dokumentem jeszcze niezatwierdzonym lub z przekroczoną datą przeglądu."
+
+msgid "Open each policy, then its \"Covered controls\" tab, and link the whole text or one of its sections to the controls it deals with (several at once, or by typing codes such as A.5.15-A.5.18). Then write, approve or review the missing texts. Export the report in PDF or CSV for the auditor. Nothing is changed automatically."
+msgstr "Otwórz każdą politykę, a następnie jej kartę „Objęte zabezpieczenia”, i powiąż cały dokument lub jedną z jego sekcji z zabezpieczeniami, których dotyczy (kilka naraz lub wpisując kody, np. A.5.15-A.5.18). Następnie napisz, zatwierdź lub przejrzyj brakujące dokumenty. Wyeksportuj raport do PDF lub CSV dla audytora. Nic nie jest zmieniane automatycznie."
+
+msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
+msgstr "ISO/IEC 27001, punkt 5.2 i zabezpieczenie A.5.1"
+
+msgid "Gaps only"
+msgstr "Tylko luki"
+
+msgid "All applicable controls"
+msgstr "Wszystkie mające zastosowanie zabezpieczenia"
+
+msgid "%d link added."
+msgid_plural "%d links added."
+msgstr[0] "Dodano %d powiązanie."
+msgstr[1] "Dodano %d powiązania."
+msgstr[2] "Dodano %d powiązań."
+
+msgid "Codes not found in the Statement of Applicability: %s"
+msgstr "Kody nieznalezione w deklaracji stosowania: %s"
+
+msgid "Applicable controls not covered by an approved text of the policy library whose review is up to date"
+msgstr "Mające zastosowanie zabezpieczenia nieobjęte zatwierdzonym i aktualnie przejrzanym dokumentem biblioteki polityk"
+
+msgid "Open the coverage report of the controls by the policies, link the text that deals with the control (or write it), then have it approved or reviewed."
+msgstr "Otwórz raport pokrycia zabezpieczeń przez polityki, powiąż dokument dotyczący zabezpieczenia (lub go napisz), a następnie przekaż go do zatwierdzenia lub przeglądu."
+
+msgid "Controls covered by an approved text: %1$d out of %2$d"
+msgstr "Zabezpieczenia objęte zatwierdzonym dokumentem: %1$d z %2$d"
+
+msgid "Policy library"
+msgstr "Biblioteka polityk"
+
+msgid "No text of the policy library is linked to a control yet. Open a policy, then its \"Covered controls\" tab, to link it to the controls it deals with."
+msgstr "Żaden dokument biblioteki polityk nie jest jeszcze powiązany z zabezpieczeniem. Otwórz politykę, a następnie jej kartę „Objęte zabezpieczenia”, aby powiązać ją z zabezpieczeniami, których dotyczy."
+
+msgid "Every applicable control is covered by an approved text whose review is up to date."
+msgstr "Każde mające zastosowanie zabezpieczenie jest objęte zatwierdzonym dokumentem z aktualnym przeglądem."
+
+msgid "No applicable control in the Statement of Applicability you can read."
+msgstr "Brak mających zastosowanie zabezpieczeń w deklaracji stosowania, którą możesz odczytać."
+
+msgid "Texts"
+msgstr "Dokumenty"
+
+msgid "Controls covered by this text"
+msgstr "Zabezpieczenia objęte tym dokumentem"
+
+msgid "%d linked control"
+msgid_plural "%d linked controls"
+msgstr[0] "%d powiązane zabezpieczenie"
+msgstr[1] "%d powiązane zabezpieczenia"
+msgstr[2] "%d powiązanych zabezpieczeń"
+
+msgid "Controls not covered by any text"
+msgstr "Zabezpieczenia nieobjęte żadnym dokumentem"
+
+msgid "Link this policy, or one of its sections, to the Annex A controls it deals with. Each applicable control of the Statement of Applicability should be covered by at least one approved text: the coverage report lists the controls without one, for the auditor (clause 5.2, control A.5.1). Only the controls of your entities are shown."
+msgstr "Powiąż tę politykę lub jedną z jej sekcji z zabezpieczeniami z Załącznika A, których dotyczy. Każde mające zastosowanie zabezpieczenie deklaracji stosowania powinno być objęte co najmniej jednym zatwierdzonym dokumentem: raport pokrycia wymienia te, które go nie mają, dla audytora (punkt 5.2, zabezpieczenie A.5.1). Wyświetlane są tylko zabezpieczenia Twoich jednostek."
+
+msgid "Link controls"
+msgstr "Powiąż zabezpieczenia"
+
+msgid "For example \"4.2 Access control\". Leave empty when the whole text covers the controls."
+msgstr "Na przykład „4.2 Kontrola dostępu”. Pozostaw puste, jeśli cały dokument obejmuje zabezpieczenia."
+
+msgid "Choose one or several controls in the list."
+msgstr "Wybierz jedno lub kilka zabezpieczeń z listy."
+
+msgid "Or type control codes"
+msgstr "Lub wpisz kody zabezpieczeń"
+
+msgid "Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) or a whole theme (A.8 for all technological controls)."
+msgstr "Szybkie wprowadzanie, oddzielone przecinkami: zabezpieczenie (A.5.1), zakres (A.5.15-A.5.18) lub cały temat (A.8 dla wszystkich zabezpieczeń technologicznych)."
+
+msgid "This text is not linked to any control yet."
+msgstr "Ten dokument nie jest jeszcze powiązany z żadnym zabezpieczeniem."
+
+msgid "Whole text"
+msgstr "Cały dokument"
+
+msgid "Remove the link"
+msgstr "Usuń powiązanie"
+
+msgid "Texts that cover this control"
+msgstr "Dokumenty obejmujące to zabezpieczenie"
+
+msgid "The policies, or sections of policies, that deal with this control. An auditor expects each applicable control to be covered by at least one approved text whose review is up to date. Only the texts you are allowed to read are shown."
+msgstr "Polityki lub sekcje polityk dotyczące tego zabezpieczenia. Audytor oczekuje, że każde mające zastosowanie zabezpieczenie będzie objęte co najmniej jednym zatwierdzonym dokumentem z aktualnym przeglądem. Wyświetlane są tylko dokumenty, które możesz odczytać."
+
+msgid "No text of the policy library covers this control yet."
+msgstr "Żaden dokument biblioteki polityk nie obejmuje jeszcze tego zabezpieczenia."
+
+msgid "Text"
+msgstr "Dokument"
+
+msgid "Link texts"
+msgstr "Powiąż dokumenty"
+
+msgid "Policies"
+msgstr "Polityki"
+
+msgid "Leave empty when the whole text covers the control."
+msgstr "Pozostaw puste, jeśli cały dokument obejmuje zabezpieczenie."
+
+msgid "A control is covered when at least one approved text of the policy library, whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 and control A.5.1). Only the items the person who exported this report can read are counted."
+msgstr "Zabezpieczenie jest objęte, gdy dotyczy go co najmniej jeden zatwierdzony dokument biblioteki polityk z nieprzekroczoną datą przeglądu (ISO/IEC 27001, punkt 5.2 i zabezpieczenie A.5.1). Liczone są tylko elementy, które może odczytać osoba eksportująca ten raport."

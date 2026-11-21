@@ -34739,3 +34739,136 @@ msgstr ""
 
 msgid "You are not allowed to change this evaluation."
 msgstr "Sie dürfen diese Bewertung nicht ändern."
+
+msgid "Control coverage by policies"
+msgstr "Abdeckung der Maßnahmen durch Richtlinien"
+
+msgid "Not covered by any text"
+msgstr "Durch keinen Text abgedeckt"
+
+msgid "Covered only by a text not approved"
+msgstr "Nur durch einen nicht genehmigten Text abgedeckt"
+
+msgid "Covered only by a text to review"
+msgstr "Nur durch einen zu überprüfenden Text abgedeckt"
+
+msgid "Covered by an approved text"
+msgstr "Durch einen genehmigten Text abgedeckt"
+
+msgid "Covered controls"
+msgstr "Abgedeckte Maßnahmen"
+
+msgid "Reference texts"
+msgstr "Referenztexte"
+
+msgid "Text status"
+msgstr "Status des Textes"
+
+msgid "Shows, for each applicable control of the Statement of Applicability, the texts of the policy library that cover it, and lists the controls covered by no text, or only by a text not approved yet or whose review date has passed."
+msgstr "Zeigt für jede anwendbare Maßnahme der Erklärung zur Anwendbarkeit die Texte der Richtlinienbibliothek, die sie abdecken, und listet die Maßnahmen auf, die durch keinen Text abgedeckt sind oder nur durch einen noch nicht genehmigten Text oder einen Text, dessen Überprüfungsdatum überschritten ist."
+
+msgid "Open each policy, then its \"Covered controls\" tab, and link the whole text or one of its sections to the controls it deals with (several at once, or by typing codes such as A.5.15-A.5.18). Then write, approve or review the missing texts. Export the report in PDF or CSV for the auditor. Nothing is changed automatically."
+msgstr "Öffnen Sie jede Richtlinie und dann ihren Reiter „Abgedeckte Maßnahmen“ und verknüpfen Sie den ganzen Text oder einen seiner Abschnitte mit den behandelten Maßnahmen (mehrere auf einmal oder durch Eingabe von Codes wie A.5.15-A.5.18). Schreiben, genehmigen oder überprüfen Sie dann die fehlenden Texte. Exportieren Sie den Bericht als PDF oder CSV für den Auditor. Nichts wird automatisch geändert."
+
+msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
+msgstr "ISO/IEC 27001, Abschnitt 5.2 und Maßnahme A.5.1"
+
+msgid "Gaps only"
+msgstr "Nur Abweichungen"
+
+msgid "All applicable controls"
+msgstr "Alle anwendbaren Maßnahmen"
+
+msgid "%d link added."
+msgid_plural "%d links added."
+msgstr[0] "%d Verknüpfung hinzugefügt."
+msgstr[1] "%d Verknüpfungen hinzugefügt."
+
+msgid "Codes not found in the Statement of Applicability: %s"
+msgstr "In der Erklärung zur Anwendbarkeit nicht gefundene Codes: %s"
+
+msgid "Applicable controls not covered by an approved text of the policy library whose review is up to date"
+msgstr "Anwendbare Maßnahmen, die durch keinen genehmigten und aktuell überprüften Text der Richtlinienbibliothek abgedeckt sind"
+
+msgid "Open the coverage report of the controls by the policies, link the text that deals with the control (or write it), then have it approved or reviewed."
+msgstr "Öffnen Sie den Bericht zur Abdeckung der Maßnahmen durch Richtlinien, verknüpfen Sie den Text, der die Maßnahme behandelt (oder schreiben Sie ihn), und lassen Sie ihn dann genehmigen oder überprüfen."
+
+msgid "Controls covered by an approved text: %1$d out of %2$d"
+msgstr "Durch einen genehmigten Text abgedeckte Maßnahmen: %1$d von %2$d"
+
+msgid "Policy library"
+msgstr "Richtlinienbibliothek"
+
+msgid "No text of the policy library is linked to a control yet. Open a policy, then its \"Covered controls\" tab, to link it to the controls it deals with."
+msgstr "Noch kein Text der Richtlinienbibliothek ist mit einer Maßnahme verknüpft. Öffnen Sie eine Richtlinie und dann ihren Reiter „Abgedeckte Maßnahmen“, um sie mit den behandelten Maßnahmen zu verknüpfen."
+
+msgid "Every applicable control is covered by an approved text whose review is up to date."
+msgstr "Jede anwendbare Maßnahme ist durch einen genehmigten Text mit aktueller Überprüfung abgedeckt."
+
+msgid "No applicable control in the Statement of Applicability you can read."
+msgstr "Keine anwendbare Maßnahme in der Erklärung zur Anwendbarkeit, die Sie lesen dürfen."
+
+msgid "Texts"
+msgstr "Texte"
+
+msgid "Controls covered by this text"
+msgstr "Durch diesen Text abgedeckte Maßnahmen"
+
+msgid "%d linked control"
+msgid_plural "%d linked controls"
+msgstr[0] "%d verknüpfte Maßnahme"
+msgstr[1] "%d verknüpfte Maßnahmen"
+
+msgid "Controls not covered by any text"
+msgstr "Durch keinen Text abgedeckte Maßnahmen"
+
+msgid "Link this policy, or one of its sections, to the Annex A controls it deals with. Each applicable control of the Statement of Applicability should be covered by at least one approved text: the coverage report lists the controls without one, for the auditor (clause 5.2, control A.5.1). Only the controls of your entities are shown."
+msgstr "Verknüpfen Sie diese Richtlinie oder einen ihrer Abschnitte mit den behandelten Maßnahmen aus Anhang A. Jede anwendbare Maßnahme der Erklärung zur Anwendbarkeit sollte durch mindestens einen genehmigten Text abgedeckt sein: Der Abdeckungsbericht listet die Maßnahmen ohne Text für den Auditor auf (Abschnitt 5.2, Maßnahme A.5.1). Nur die Maßnahmen Ihrer Entitäten werden angezeigt."
+
+msgid "Link controls"
+msgstr "Maßnahmen verknüpfen"
+
+msgid "For example \"4.2 Access control\". Leave empty when the whole text covers the controls."
+msgstr "Zum Beispiel „4.2 Zugangssteuerung“. Leer lassen, wenn der ganze Text die Maßnahmen abdeckt."
+
+msgid "Choose one or several controls in the list."
+msgstr "Wählen Sie eine oder mehrere Maßnahmen in der Liste."
+
+msgid "Or type control codes"
+msgstr "Oder Maßnahmencodes eingeben"
+
+msgid "Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) or a whole theme (A.8 for all technological controls)."
+msgstr "Schnelleingabe, durch Kommas getrennt: eine Maßnahme (A.5.1), ein Bereich (A.5.15-A.5.18) oder ein ganzes Thema (A.8 für alle technologischen Maßnahmen)."
+
+msgid "This text is not linked to any control yet."
+msgstr "Dieser Text ist noch mit keiner Maßnahme verknüpft."
+
+msgid "Whole text"
+msgstr "Ganzer Text"
+
+msgid "Remove the link"
+msgstr "Verknüpfung entfernen"
+
+msgid "Texts that cover this control"
+msgstr "Texte, die diese Maßnahme abdecken"
+
+msgid "The policies, or sections of policies, that deal with this control. An auditor expects each applicable control to be covered by at least one approved text whose review is up to date. Only the texts you are allowed to read are shown."
+msgstr "Die Richtlinien oder Richtlinienabschnitte, die diese Maßnahme behandeln. Ein Auditor erwartet, dass jede anwendbare Maßnahme durch mindestens einen genehmigten Text mit aktueller Überprüfung abgedeckt ist. Nur die Texte, die Sie lesen dürfen, werden angezeigt."
+
+msgid "No text of the policy library covers this control yet."
+msgstr "Noch kein Text der Richtlinienbibliothek deckt diese Maßnahme ab."
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Link texts"
+msgstr "Texte verknüpfen"
+
+msgid "Policies"
+msgstr "Richtlinien"
+
+msgid "Leave empty when the whole text covers the control."
+msgstr "Leer lassen, wenn der ganze Text die Maßnahme abdeckt."
+
+msgid "A control is covered when at least one approved text of the policy library, whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 and control A.5.1). Only the items the person who exported this report can read are counted."
+msgstr "Eine Maßnahme ist abgedeckt, wenn mindestens ein genehmigter Text der Richtlinienbibliothek, dessen Überprüfungsdatum nicht überschritten ist, sie behandelt (ISO/IEC 27001, Abschnitt 5.2 und Maßnahme A.5.1). Nur die Elemente, die die exportierende Person lesen darf, werden gezählt."

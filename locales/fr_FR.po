@@ -34466,3 +34466,136 @@ msgstr ""
 
 msgid "You are not allowed to change this evaluation."
 msgstr "Vous n'avez pas le droit de modifier cette évaluation."
+
+msgid "Control coverage by policies"
+msgstr "Couverture des mesures par les politiques"
+
+msgid "Not covered by any text"
+msgstr "Couverte par aucun texte"
+
+msgid "Covered only by a text not approved"
+msgstr "Couverte seulement par un texte non approuvé"
+
+msgid "Covered only by a text to review"
+msgstr "Couverte seulement par un texte à réviser"
+
+msgid "Covered by an approved text"
+msgstr "Couverte par un texte approuvé"
+
+msgid "Covered controls"
+msgstr "Mesures couvertes"
+
+msgid "Reference texts"
+msgstr "Textes de référence"
+
+msgid "Text status"
+msgstr "État du texte"
+
+msgid "Shows, for each applicable control of the Statement of Applicability, the texts of the policy library that cover it, and lists the controls covered by no text, or only by a text not approved yet or whose review date has passed."
+msgstr "Montre, pour chaque mesure applicable de la déclaration d'applicabilité, les textes de la bibliothèque des politiques qui la couvrent, et liste les mesures couvertes par aucun texte, ou seulement par un texte pas encore approuvé ou dont la date de revue est passée."
+
+msgid "Open each policy, then its \"Covered controls\" tab, and link the whole text or one of its sections to the controls it deals with (several at once, or by typing codes such as A.5.15-A.5.18). Then write, approve or review the missing texts. Export the report in PDF or CSV for the auditor. Nothing is changed automatically."
+msgstr "Ouvrez chaque politique, puis son onglet « Mesures couvertes », et reliez le texte entier ou une de ses sections aux mesures qu'il traite (plusieurs d'un coup, ou en saisissant des codes comme A.5.15-A.5.18). Écrivez, faites approuver ou révisez ensuite les textes manquants. Exportez le rapport en PDF ou en CSV pour l'auditeur. Rien n'est modifié automatiquement."
+
+msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
+msgstr "ISO/IEC 27001, clause 5.2 et mesure A.5.1"
+
+msgid "Gaps only"
+msgstr "Écarts seulement"
+
+msgid "All applicable controls"
+msgstr "Toutes les mesures applicables"
+
+msgid "%d link added."
+msgid_plural "%d links added."
+msgstr[0] "%d lien ajouté."
+msgstr[1] "%d liens ajoutés."
+
+msgid "Codes not found in the Statement of Applicability: %s"
+msgstr "Codes absents de la déclaration d'applicabilité : %s"
+
+msgid "Applicable controls not covered by an approved text of the policy library whose review is up to date"
+msgstr "Mesures applicables non couvertes par un texte approuvé et à jour de la bibliothèque des politiques"
+
+msgid "Open the coverage report of the controls by the policies, link the text that deals with the control (or write it), then have it approved or reviewed."
+msgstr "Ouvrez le rapport de couverture des mesures par les politiques, reliez le texte qui traite la mesure (ou écrivez-le), puis faites-le approuver ou réviser."
+
+msgid "Controls covered by an approved text: %1$d out of %2$d"
+msgstr "Mesures couvertes par un texte approuvé : %1$d sur %2$d"
+
+msgid "Policy library"
+msgstr "Bibliothèque des politiques"
+
+msgid "No text of the policy library is linked to a control yet. Open a policy, then its \"Covered controls\" tab, to link it to the controls it deals with."
+msgstr "Aucun texte de la bibliothèque des politiques n'est encore relié à une mesure. Ouvrez une politique, puis son onglet « Mesures couvertes », pour la relier aux mesures qu'elle traite."
+
+msgid "Every applicable control is covered by an approved text whose review is up to date."
+msgstr "Chaque mesure applicable est couverte par un texte approuvé dont la revue est à jour."
+
+msgid "No applicable control in the Statement of Applicability you can read."
+msgstr "Aucune mesure applicable dans la déclaration d'applicabilité que vous pouvez lire."
+
+msgid "Texts"
+msgstr "Textes"
+
+msgid "Controls covered by this text"
+msgstr "Mesures couvertes par ce texte"
+
+msgid "%d linked control"
+msgid_plural "%d linked controls"
+msgstr[0] "%d mesure reliée"
+msgstr[1] "%d mesures reliées"
+
+msgid "Controls not covered by any text"
+msgstr "Mesures couvertes par aucun texte"
+
+msgid "Link this policy, or one of its sections, to the Annex A controls it deals with. Each applicable control of the Statement of Applicability should be covered by at least one approved text: the coverage report lists the controls without one, for the auditor (clause 5.2, control A.5.1). Only the controls of your entities are shown."
+msgstr "Reliez cette politique, ou une de ses sections, aux mesures de l'Annexe A qu'elle traite. Chaque mesure applicable de la déclaration d'applicabilité devrait être couverte par au moins un texte approuvé : le rapport de couverture liste celles qui n'en ont pas, pour l'auditeur (clause 5.2, mesure A.5.1). Seules les mesures de vos entités sont montrées."
+
+msgid "Link controls"
+msgstr "Relier des mesures"
+
+msgid "For example \"4.2 Access control\". Leave empty when the whole text covers the controls."
+msgstr "Par exemple « 4.2 Contrôle d'accès ». Laissez vide si le texte entier couvre les mesures."
+
+msgid "Choose one or several controls in the list."
+msgstr "Choisissez une ou plusieurs mesures dans la liste."
+
+msgid "Or type control codes"
+msgstr "Ou saisir les codes des mesures"
+
+msgid "Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) or a whole theme (A.8 for all technological controls)."
+msgstr "Saisie rapide, séparée par des virgules : une mesure (A.5.1), une plage (A.5.15-A.5.18) ou tout un thème (A.8 pour toutes les mesures technologiques)."
+
+msgid "This text is not linked to any control yet."
+msgstr "Ce texte n'est encore relié à aucune mesure."
+
+msgid "Whole text"
+msgstr "Texte entier"
+
+msgid "Remove the link"
+msgstr "Retirer le lien"
+
+msgid "Texts that cover this control"
+msgstr "Textes qui couvrent cette mesure"
+
+msgid "The policies, or sections of policies, that deal with this control. An auditor expects each applicable control to be covered by at least one approved text whose review is up to date. Only the texts you are allowed to read are shown."
+msgstr "Les politiques, ou sections de politiques, qui traitent cette mesure. Un auditeur attend que chaque mesure applicable soit couverte par au moins un texte approuvé dont la revue est à jour. Seuls les textes que vous avez le droit de lire sont montrés."
+
+msgid "No text of the policy library covers this control yet."
+msgstr "Aucun texte de la bibliothèque des politiques ne couvre encore cette mesure."
+
+msgid "Text"
+msgstr "Texte"
+
+msgid "Link texts"
+msgstr "Relier des textes"
+
+msgid "Policies"
+msgstr "Politiques"
+
+msgid "Leave empty when the whole text covers the control."
+msgstr "Laissez vide si le texte entier couvre la mesure."
+
+msgid "A control is covered when at least one approved text of the policy library, whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 and control A.5.1). Only the items the person who exported this report can read are counted."
+msgstr "Une mesure est couverte quand au moins un texte approuvé de la bibliothèque des politiques, dont la date de revue n'est pas passée, la traite (ISO/IEC 27001, clause 5.2 et mesure A.5.1). Seuls les éléments que la personne qui a exporté ce rapport peut lire sont comptés."

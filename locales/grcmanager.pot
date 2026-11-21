@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 16:30+0000\n"
+"POT-Creation-Date: 2026-11-21 18:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,7 +127,8 @@ msgstr ""
 #: front/audit.php:47 front/databreach.php:44 front/processingactivity.php:44
 #: templates/acn_register.html.twig templates/control_list_header.html.twig
 #: templates/isms_requirement_list_header.html.twig
-#: templates/recyf_register.html.twig templates/risk_list_actions.html.twig
+#: templates/policy_coverage.html.twig templates/recyf_register.html.twig
+#: templates/risk_list_actions.html.twig
 msgid "Export PDF"
 msgstr ""
 
@@ -146,15 +147,16 @@ msgstr ""
 #: front/risk.report.php:73 src/AccessReview.php:802 src/AcnRequirement.php:805
 #: src/Audit.php:653 src/CertificationFinding.php:423
 #: src/CertificationReadiness.php:1490 src/CertificationResponse.php:433
-#: src/CompetenceMatrix.php:899 src/ConsistencyCheck.php:1503
+#: src/CompetenceMatrix.php:899 src/ConsistencyCheck.php:1516
 #: src/ContextItem.php:895 src/ControlTest.php:994 src/CrisisExercise.php:677
 #: src/CrisisScenario.php:940 src/Dpia.php:443 src/EbiosStudy.php:313
 #: src/EvidencePack.php:658 src/ManagementReviewDossier.php:633
 #: src/MaturityCampaign.php:581 src/OfficialContact.php:354
 #: src/OperatingProcedure.php:447 src/PersonnelCompliance.php:727
 #: src/PhysicalSecurityAssessment.php:647 src/PolicyAcknowledgement.php:703
-#: src/PolicyVersion.php:765 src/RecyfRequirement.php:594
-#: src/ResponsibilityActivity.php:813 src/SecurityIncidentPostMortem.php:252
+#: src/PolicyCoverage.php:645 src/PolicyVersion.php:765
+#: src/RecyfRequirement.php:594 src/ResponsibilityActivity.php:813
+#: src/SecurityIncidentPostMortem.php:252
 #: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:748
 #: templates/evidence_pack.html.twig
 #: templates/management_review_dossier_tab.html.twig
@@ -450,7 +452,7 @@ msgstr ""
 
 #: front/configcompliance.php:42 front/configcompliance.php:55
 #: front/phishingimport.php:76 front/securityincidentedrimport.php:70
-#: src/ConfigurationCompliance.php:177
+#: src/ConfigurationCompliance.php:179
 msgid "The file is too large."
 msgstr ""
 
@@ -458,7 +460,7 @@ msgstr ""
 #: front/phishingimport.php:98 front/securityincidentedrimport.php:66
 #: front/securityincidentedrimport.php:85 front/supplierevaluationfile.php:87
 #: front/supplierevaluationfile.php:101 front/supplierevaluationfile.php:141
-#: src/ConfigurationCompliance.php:189 src/ControlTest.php:653
+#: src/ConfigurationCompliance.php:191 src/ControlTest.php:653
 msgid "The file could not be received."
 msgstr ""
 
@@ -576,6 +578,8 @@ msgid "How to fix"
 msgstr ""
 
 #: front/consistencycheck.export.php:55 templates/causal_tab.html.twig
+#: templates/policy_coverage_control_tab.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
 #: templates/processing_activity_tab.html.twig
 msgid "Link"
 msgstr ""
@@ -623,7 +627,7 @@ msgstr ""
 
 #: front/controlblocker.php:64 src/Control.php:1013 src/ControlTest.php:1031
 #: src/NotificationTargetAuditEvidenceRequest.php:156
-#: src/NotificationTargetControl.php:144
+#: src/NotificationTargetControl.php:144 src/PolicyCoverage.php:663
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/control_form.html.twig templates/control_test_due.html.twig
 #: templates/maturity_campaign_compare_tab.html.twig
@@ -633,7 +637,10 @@ msgstr ""
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/maturity_campaign_report.html.twig
 #: templates/pdf/physical_security_report.html.twig
+#: templates/pdf/policy_coverage_report.html.twig
 #: templates/physical_security_checklist_tab.html.twig
+#: templates/policy_coverage.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
 msgid "Control"
 msgstr ""
 
@@ -781,7 +788,7 @@ msgctxt "label"
 msgid "Title"
 msgstr ""
 
-#: front/customframework.php:159 src/ConsistencyCheck.php:1467
+#: front/customframework.php:159 src/ConsistencyCheck.php:1480
 #: templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig
 msgid "Annex A"
@@ -798,7 +805,8 @@ msgid "Register of personal data breaches"
 msgstr ""
 
 #: front/databreach.php:50 front/processingactivity.php:50
-#: templates/acn_register.html.twig templates/recyf_register.html.twig
+#: templates/acn_register.html.twig templates/policy_coverage.html.twig
+#: templates/recyf_register.html.twig
 msgid "Export CSV"
 msgstr ""
 
@@ -1000,7 +1008,7 @@ msgstr ""
 msgid "The register has been archived as evidence on control A.5.37."
 msgstr ""
 
-#: front/parkmachines.php:26 src/Menu.php:194
+#: front/parkmachines.php:26 src/Menu.php:196
 msgid "Most exposed machines"
 msgstr ""
 
@@ -1248,6 +1256,26 @@ msgstr ""
 
 #: front/policyapproval.php:155 src/PolicyVersion.php:76
 msgid "Policy approval"
+msgstr ""
+
+#: front/policycoverage.form.php:34
+#, php-format
+msgid "%d link added."
+msgid_plural "%d links added."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/policycoverage.form.php:39
+#, php-format
+msgid "Codes not found in the Statement of Applicability: %s"
+msgstr ""
+
+#: front/policycoverage.php:49 templates/pdf/policy_coverage_report.html.twig
+msgid "Gaps only"
+msgstr ""
+
+#: front/policycoverage.php:50 templates/pdf/policy_coverage_report.html.twig
+msgid "All applicable controls"
 msgstr ""
 
 #: front/processingactivity.export.php:63
@@ -1560,7 +1588,7 @@ msgid ""
 "check the others."
 msgstr ""
 
-#: front/softwarewatch.php:69 src/Menu.php:187
+#: front/softwarewatch.php:69 src/Menu.php:189
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
@@ -1911,7 +1939,7 @@ msgstr ""
 msgid "Security incidents by severity"
 msgstr ""
 
-#: hook.php:423 src/ConsistencyCheck.php:259 src/RiskIndicator.php:212
+#: hook.php:423 src/ConsistencyCheck.php:271 src/RiskIndicator.php:212
 #: src/Services/Dashboard/DashboardCardService.php:876
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Overdue risk treatment actions"
@@ -2925,6 +2953,7 @@ msgstr ""
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/pdf/physical_security_report.html.twig
 #: templates/pdf/policy_acknowledgement_report.html.twig
+#: templates/pdf/policy_coverage_report.html.twig
 #: templates/pdf/postmortem_report.html.twig
 #: templates/pdf/recyf_report.html.twig
 #: templates/pdf/remediation_plan.html.twig
@@ -3165,7 +3194,7 @@ msgid "Worrying"
 msgstr ""
 
 #: src/AdSecurityAudit.php:221 src/AssetClassification.php:94
-#: src/AssetClassification.php:185 src/ConfigurationCompliance.php:152
+#: src/AssetClassification.php:185 src/ConfigurationCompliance.php:154
 #: src/ConsistencyCheck.php:132 src/Control.php:201 src/DoraRegister.php:238
 #: src/DoraRegister.php:243 src/ShareAccess.php:268
 #: src/Traits/RiskAssessmentTrait.php:122
@@ -3176,7 +3205,7 @@ msgid "High"
 msgstr ""
 
 #: src/AdSecurityAudit.php:222 src/AssetClassification.php:93
-#: src/AssetClassification.php:184 src/ConfigurationCompliance.php:153
+#: src/AssetClassification.php:184 src/ConfigurationCompliance.php:155
 #: src/ConsistencyCheck.php:137 src/Control.php:200 src/DoraRegister.php:237
 #: src/DoraRegister.php:242 src/ShareAccess.php:267
 #: src/Traits/RiskAssessmentTrait.php:121
@@ -3186,7 +3215,7 @@ msgid "Medium"
 msgstr ""
 
 #: src/AdSecurityAudit.php:223 src/AssetClassification.php:92
-#: src/AssetClassification.php:183 src/ConfigurationCompliance.php:154
+#: src/AssetClassification.php:183 src/ConfigurationCompliance.php:156
 #: src/ConsistencyCheck.php:142 src/Control.php:199 src/DoraRegister.php:236
 #: src/DoraRegister.php:241 src/ShareAccess.php:266
 #: src/Traits/RiskAssessmentTrait.php:120
@@ -3196,7 +3225,7 @@ msgid "Low"
 msgstr ""
 
 #: src/AdSecurityAudit.php:224 src/AssetSecurity360.php:187
-#: src/ConfigurationCompliance.php:155 src/ZabbixMonitoring.php:138
+#: src/ConfigurationCompliance.php:157 src/ZabbixMonitoring.php:138
 msgid "Information"
 msgstr ""
 
@@ -3511,8 +3540,8 @@ msgstr ""
 #: src/NotificationTargetPolicyVersion.php:137
 #: src/NotificationTargetRisk.php:93 src/NotificationTargetSupplierRisk.php:115
 #: src/NotificationTargetTraining.php:125 src/Objective.php:159
-#: src/Policy.php:161 src/Risk.php:344 src/RiskRegisterImport.php:602
-#: src/SupplierRisk.php:170 src/Training.php:546
+#: src/Policy.php:161 src/PolicyCoverage.php:664 src/Risk.php:344
+#: src/RiskRegisterImport.php:602 src/SupplierRisk.php:170 src/Training.php:546
 #: templates/audit_checklist_tab.html.twig
 #: templates/audit_findings_tab.html.twig templates/audit_form.html.twig
 #: templates/auditor_space.html.twig
@@ -3972,7 +4001,7 @@ msgstr ""
 msgid "Periodic review recorded"
 msgstr ""
 
-#: src/AuditLog.php:234 templates/audit_log.html.twig
+#: src/AuditLog.php:249 templates/audit_log.html.twig
 #: templates/audit_programme.html.twig
 #: templates/document_accesses_tab.html.twig templates/pdf/action_log.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
@@ -3985,11 +4014,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: src/AuditLog.php:234
+#: src/AuditLog.php:249
 msgid "Real user (impersonation)"
 msgstr ""
 
-#: src/AuditLog.php:234 src/NotificationTargetPersonnelCompliance.php:95
+#: src/AuditLog.php:249 src/NotificationTargetPersonnelCompliance.php:95
 #: src/PersonnelCompliance.php:747 src/ShareAccess.php:157
 #: templates/_ad_attack_paths.html.twig templates/account_hygiene.html.twig
 #: templates/account_hygiene_ticket.html.twig templates/audit_log.html.twig
@@ -3998,7 +4027,7 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: src/AuditLog.php:235 templates/audit_log.html.twig
+#: src/AuditLog.php:250 templates/audit_log.html.twig
 #: templates/maturity_campaign_gaps_tab.html.twig
 #: templates/pdf/maturity_campaign_report.html.twig
 #: templates/pdf/physical_security_report.html.twig
@@ -4007,19 +4036,19 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: src/AuditLog.php:235 src/PolicyAcknowledgement.php:130
+#: src/AuditLog.php:250 src/PolicyAcknowledgement.php:130
 #: templates/audit_log.html.twig templates/configuration_compliance.html.twig
 #: templates/configuration_compliance_report.html.twig
 #: templates/configuration_compliance_ticket.html.twig
 msgid "Profile"
 msgstr ""
 
-#: src/AuditLog.php:236 templates/configuration_compliance.html.twig
+#: src/AuditLog.php:251 templates/configuration_compliance.html.twig
 #: templates/my_space.html.twig templates/risk_import.html.twig
 msgid "Details"
 msgstr ""
 
-#: src/AuditLog.php:236 templates/_official_contact_rows.html.twig
+#: src/AuditLog.php:251 templates/_official_contact_rows.html.twig
 #: templates/audit_log.html.twig templates/crisis_room.html.twig
 #: templates/pdf/_official_contacts_table.html.twig
 #: templates/pdf/action_log.html.twig
@@ -4029,7 +4058,7 @@ msgstr ""
 msgid "Incident"
 msgstr ""
 
-#: src/AuditLog.php:236 src/ControlTest.php:1057
+#: src/AuditLog.php:251 src/ControlTest.php:1057
 #: src/NotificationTargetControl.php:148
 #: templates/audit_checklist_tab.html.twig templates/audit_coverage.html.twig
 #: templates/audit_log.html.twig templates/backup_coverage.html.twig
@@ -4269,12 +4298,12 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: src/BackupCoverage.php:186 src/ConfigurationCompliance.php:166
+#: src/BackupCoverage.php:186 src/ConfigurationCompliance.php:168
 #: src/SecurityIncidentAction.php:80 src/Training.php:116
 msgid "Failed"
 msgstr ""
 
-#: src/BackupCoverage.php:188 src/ConfigurationCompliance.php:156
+#: src/BackupCoverage.php:188 src/ConfigurationCompliance.php:158
 #: src/DiskEncryption.php:143 src/PatchCompliance.php:155
 #: src/ServerManagement.php:1044 templates/disk_encryption.html.twig
 msgid "Unknown"
@@ -4408,7 +4437,7 @@ msgid "Backups"
 msgstr ""
 
 #: src/BackupCoverage.php:926 src/BackupCoverage.php:985
-#: src/ConfigurationCompliance.php:701
+#: src/ConfigurationCompliance.php:707
 #: templates/_ad_attack_path_evidence.html.twig
 #: templates/_ad_attack_paths.html.twig
 #: templates/_mfa_coverage_evidence.html.twig
@@ -4424,7 +4453,7 @@ msgstr ""
 msgid "No backup tool read yet"
 msgstr ""
 
-#: src/BackupCoverage.php:933 src/ConfigurationCompliance.php:707
+#: src/BackupCoverage.php:933 src/ConfigurationCompliance.php:713
 msgid "Import results"
 msgstr ""
 
@@ -4737,6 +4766,7 @@ msgstr ""
 
 #: src/BusinessProcess.php:578 templates/control_blockers.html.twig
 #: templates/pdf/business_continuity_report.html.twig
+#: templates/policy_coverage.html.twig
 #: templates/tabs/business_process_items.html.twig
 #: templates/tabs/business_process_links.html.twig
 msgid "Consistency checks"
@@ -5355,12 +5385,12 @@ msgstr ""
 msgid "Version %s approved, still up to date"
 msgstr ""
 
-#: src/CertificationReadiness.php:762 src/ConsistencyCheck.php:1004
+#: src/CertificationReadiness.php:762 src/ConsistencyCheck.php:1017
 #, php-format
 msgid "Changed since version %s was approved"
 msgstr ""
 
-#: src/CertificationReadiness.php:765 src/ConsistencyCheck.php:1002
+#: src/CertificationReadiness.php:765 src/ConsistencyCheck.php:1015
 #: templates/soa_approval.html.twig
 msgid "Never approved"
 msgstr ""
@@ -5369,8 +5399,8 @@ msgstr ""
 msgid "An approval request is pending"
 msgstr ""
 
-#: src/CertificationReadiness.php:772 src/ConsistencyCheck.php:997
-#: src/ConsistencyCheck.php:999 src/ControlBlocker.php:105
+#: src/CertificationReadiness.php:772 src/ConsistencyCheck.php:1010
+#: src/ConsistencyCheck.php:1012 src/ControlBlocker.php:105
 #: src/ManagementReviewDossier.php:125 templates/dashboard_perimeters.html.twig
 msgid "Statement of Applicability"
 msgstr ""
@@ -5650,7 +5680,7 @@ msgstr ""
 msgid "Corrective action plan for the certification body"
 msgstr ""
 
-#: src/CertificationSampling.php:52 templates/certification_findings.html.twig
+#: src/CertificationSampling.php:51 templates/certification_findings.html.twig
 #: templates/certification_sampling_tab.html.twig
 msgid "Audit plan of the certification body"
 msgstr ""
@@ -6225,78 +6255,139 @@ msgstr ""
 msgid "%d obligation(s) awaiting review, %d notification(s) raised."
 msgstr ""
 
-#: src/ConfigurationCompliance.php:65
+#: src/ConfigurationCompliance.php:67
 #: src/Feature/Security360CoreSourcesFeature.php:70
 #: templates/control_form.html.twig
 msgid "Configuration compliance"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:167
+#: src/ConfigurationCompliance.php:169
 msgid "Error during the check"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:179
+#: src/ConfigurationCompliance.php:181
 msgid ""
 "The file contains a document type or entity declaration, refused for "
 "security reasons. OpenSCAP never writes one: export the results again with "
 "oscap."
 msgstr ""
 
-#: src/ConfigurationCompliance.php:184
+#: src/ConfigurationCompliance.php:186
 msgid ""
 "No scan result was found in the file. Choose the results file (option --"
 "results or --results-arf of oscap), not the benchmark or the HTML report."
 msgstr ""
 
-#: src/ConfigurationCompliance.php:188
+#: src/ConfigurationCompliance.php:190
 msgid "The file is not valid XML, or it is truncated."
 msgstr ""
 
-#: src/ConfigurationCompliance.php:514
+#: src/ConfigurationCompliance.php:516
 #, php-format
 msgid "Configuration remediation: %1$s (%2$d rule(s) failed)"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:697
+#: src/ConfigurationCompliance.php:703
 msgid "OpenSCAP scans (XCCDF/ARF)"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:705
+#: src/ConfigurationCompliance.php:711
 msgid "No scan imported yet"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:715
+#: src/ConfigurationCompliance.php:721
 msgid "Average compliance: not measured"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:716
+#: src/ConfigurationCompliance.php:722
 #, php-format
 msgid "Average compliance: %d%%"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:721
+#: src/ConfigurationCompliance.php:727
 #, php-format
 msgid "%d machine(s) scanned"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:727
+#: src/ConfigurationCompliance.php:733
 #, php-format
 msgid "%1$d below %2$d%%"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:735
+#: src/ConfigurationCompliance.php:741
 #, php-format
 msgid "%d with a high severity rule failed"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:741
+#: src/ConfigurationCompliance.php:747
 #, php-format
 msgid "%d not matched to a computer"
 msgstr ""
 
-#: src/ConfigurationCompliance.php:745
+#: src/ConfigurationCompliance.php:751
 #, php-format
 msgid "Last scan on %s"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:774
+msgid "Docker inventory: risky configuration"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:778
+msgid "View the risky configuration"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:784
+msgid "No service analysed yet"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:793
+msgid "Without critical or high gap: not measured"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:794
+#, php-format
+msgid "Without critical or high gap: %d%%"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:800
+#, php-format
+msgid "Without any open gap: %d%%"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:806
+#, php-format
+msgid "%d service(s) analysed"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:815
+#, php-format
+msgid "%d with a critical gap"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:816
+#, php-format
+msgid "%d with a high gap"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:824
+#, php-format
+msgid "%d expired exception(s)"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:832
+#, php-format
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:838
+#, php-format
+msgid "Next exception end: %s"
+msgstr ""
+
+#: src/ConfigurationCompliance.php:846
+#, php-format
+msgid "%d service(s) not analysed"
 msgstr ""
 
 #: src/ConsistencyCheck.php:58 templates/config_form.html.twig
@@ -6351,412 +6442,424 @@ msgid ""
 "Open the policy and choose the person responsible for keeping it up to date."
 msgstr ""
 
-#: src/ConsistencyCheck.php:184
+#: src/ConsistencyCheck.php:185
+msgid ""
+"Applicable controls not covered by an approved text of the policy library "
+"whose review is up to date"
+msgstr ""
+
+#: src/ConsistencyCheck.php:190
+msgid ""
+"Open the coverage report of the controls by the policies, link the text that "
+"deals with the control (or write it), then have it approved or reviewed."
+msgstr ""
+
+#: src/ConsistencyCheck.php:196
 msgid "Open risks without an owner"
 msgstr ""
 
-#: src/ConsistencyCheck.php:186
+#: src/ConsistencyCheck.php:198
 msgid ""
 "Open the risk and choose its owner: the person accountable for the risk and "
 "its treatment."
 msgstr ""
 
-#: src/ConsistencyCheck.php:193
+#: src/ConsistencyCheck.php:205
 #, php-format
 msgid "Open risks whose review is overdue by more than %d days"
 msgstr ""
 
-#: src/ConsistencyCheck.php:196
+#: src/ConsistencyCheck.php:208
 msgid "Open risks whose review date has passed or is missing"
 msgstr ""
 
-#: src/ConsistencyCheck.php:198
+#: src/ConsistencyCheck.php:210
 msgid ""
 "Reassess the risk with its owner (probability, impact, treatment), then set "
 "the next review date."
 msgstr ""
 
-#: src/ConsistencyCheck.php:204
+#: src/ConsistencyCheck.php:216
 #, php-format
 msgid "Open risks of level %s or above without a treatment decision"
 msgstr ""
 
-#: src/ConsistencyCheck.php:208
+#: src/ConsistencyCheck.php:220
 msgid ""
 "Open the risk and choose a treatment (mitigate, transfer, avoid or accept) "
 "with its justification."
 msgstr ""
 
-#: src/ConsistencyCheck.php:215
+#: src/ConsistencyCheck.php:227
 #, php-format
 msgid "Risks of level %s or above accepted without a formal approval"
 msgstr ""
 
-#: src/ConsistencyCheck.php:219
+#: src/ConsistencyCheck.php:231
 msgid ""
 "Have the acceptance signed by the risk owner or management: save the risk "
 "again with the \"Accept\" treatment and its justification, or choose another "
 "treatment."
 msgstr ""
 
-#: src/ConsistencyCheck.php:227
+#: src/ConsistencyCheck.php:239
 #, php-format
 msgid ""
 "Excluded or partially applicable controls with a justification under %d "
 "characters"
 msgstr ""
 
-#: src/ConsistencyCheck.php:233
+#: src/ConsistencyCheck.php:245
 msgid ""
 "Open the control and explain why it is excluded (no such activity, risk "
 "accepted, covered elsewhere): the auditor checks every exclusion."
 msgstr ""
 
-#: src/ConsistencyCheck.php:239
+#: src/ConsistencyCheck.php:251
 msgid "Applicable controls linked to no risk"
 msgstr ""
 
-#: src/ConsistencyCheck.php:241
+#: src/ConsistencyCheck.php:253
 msgid ""
 "Link the control to the risks it treats (\"Risks\" tab of the control, or "
 "\"Controls\" tab of the risk): it justifies its inclusion in the SoA."
 msgstr ""
 
-#: src/ConsistencyCheck.php:247
+#: src/ConsistencyCheck.php:259
 msgid "Statement of Applicability not approved in its current version"
 msgstr ""
 
-#: src/ConsistencyCheck.php:249
+#: src/ConsistencyCheck.php:261
 msgid ""
 "Open \"SoA approval\" and request the approval of the current version by "
 "management."
 msgstr ""
 
-#: src/ConsistencyCheck.php:256
+#: src/ConsistencyCheck.php:268
 #, php-format
 msgid "Risk treatment actions overdue by more than %d days"
 msgstr ""
 
-#: src/ConsistencyCheck.php:261
+#: src/ConsistencyCheck.php:273
 msgid ""
 "Open the risk, \"Risk treatment actions\" tab: mark the action as done, or "
 "set a realistic new due date."
 msgstr ""
 
-#: src/ConsistencyCheck.php:267
+#: src/ConsistencyCheck.php:279
 msgid "Approved waivers past their end date"
 msgstr ""
 
-#: src/ConsistencyCheck.php:268
+#: src/ConsistencyCheck.php:280
 msgid "Open the waiver: close it, or reassess it and set a new end date."
 msgstr ""
 
-#: src/ConsistencyCheck.php:272
+#: src/ConsistencyCheck.php:284
 #, php-format
 msgid ""
 "Implemented controls without valid evidence nor a test in the last %d months"
 msgstr ""
 
-#: src/ConsistencyCheck.php:276
+#: src/ConsistencyCheck.php:288
 msgid ""
 "Attach a document proving the control works (\"Documents\" tab), or record "
 "an effectiveness test."
 msgstr ""
 
-#: src/ConsistencyCheck.php:281
+#: src/ConsistencyCheck.php:293
 msgid "Expired evidence still attached"
 msgstr ""
 
-#: src/ConsistencyCheck.php:283
+#: src/ConsistencyCheck.php:295
 msgid ""
 "Open the item, \"Evidence validities\" tab: attach an up-to-date document "
 "and remove or renew the expired one."
 msgstr ""
 
-#: src/ConsistencyCheck.php:290
+#: src/ConsistencyCheck.php:302
 #, php-format
 msgid "No internal audit completed in the last %d months"
 msgstr ""
 
-#: src/ConsistencyCheck.php:293
+#: src/ConsistencyCheck.php:305
 msgid "Plan an internal audit and record it as completed with its actual date."
 msgstr ""
 
-#: src/ConsistencyCheck.php:297
+#: src/ConsistencyCheck.php:309
 #, php-format
 msgid "No management review held in the last %d months"
 msgstr ""
 
-#: src/ConsistencyCheck.php:301
+#: src/ConsistencyCheck.php:313
 msgid ""
 "Hold a management review and record it as completed with its date and "
 "decisions."
 msgstr ""
 
-#: src/ConsistencyCheck.php:306
+#: src/ConsistencyCheck.php:318
 msgid "Nonconformities closed without a corrective action"
 msgstr ""
 
-#: src/ConsistencyCheck.php:308
+#: src/ConsistencyCheck.php:320
 msgid ""
 "Open the nonconformity and describe the corrective action taken; reopen it "
 "if nothing was done."
 msgstr ""
 
-#: src/ConsistencyCheck.php:315
+#: src/ConsistencyCheck.php:327
 #, php-format
 msgid "Open nonconformities overdue by more than %d days"
 msgstr ""
 
-#: src/ConsistencyCheck.php:318
+#: src/ConsistencyCheck.php:330
 msgid "Open nonconformities past their due date"
 msgstr ""
 
-#: src/ConsistencyCheck.php:320
+#: src/ConsistencyCheck.php:332
 msgid ""
 "Complete the corrective action and close the nonconformity, or set a new due "
 "date."
 msgstr ""
 
-#: src/ConsistencyCheck.php:327
+#: src/ConsistencyCheck.php:339
 #, php-format
 msgid "Supplier risks whose review is overdue by more than %d days"
 msgstr ""
 
-#: src/ConsistencyCheck.php:330
+#: src/ConsistencyCheck.php:342
 msgid "Supplier risks whose review date has passed or is missing"
 msgstr ""
 
-#: src/ConsistencyCheck.php:332
+#: src/ConsistencyCheck.php:344
 msgid ""
 "Reassess the supplier (questionnaire, contracts), then set the next review "
 "date."
 msgstr ""
 
-#: src/ConsistencyCheck.php:337
+#: src/ConsistencyCheck.php:349
 msgid "Business processes without a recovery time objective (RTO)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:339
+#: src/ConsistencyCheck.php:351
 msgid ""
 "Open the process and set its RTO, ideally after its business impact analysis "
 "(BIA)."
 msgstr ""
 
-#: src/ConsistencyCheck.php:344
+#: src/ConsistencyCheck.php:356
 msgid "Processing activities whose required DPIA is not done"
 msgstr ""
 
-#: src/ConsistencyCheck.php:346
+#: src/ConsistencyCheck.php:358
 msgid ""
 "Open the processing activity, \"DPIA\" tab: carry out the DPIA, then mark it "
 "as done."
 msgstr ""
 
-#: src/ConsistencyCheck.php:354
+#: src/ConsistencyCheck.php:366
 #, php-format
 msgid "Compliance obligations whose review is overdue by more than %d days"
 msgstr ""
 
-#: src/ConsistencyCheck.php:357
+#: src/ConsistencyCheck.php:369
 msgid "Compliance obligations past their review date"
 msgstr ""
 
-#: src/ConsistencyCheck.php:359
+#: src/ConsistencyCheck.php:371
 msgid ""
 "Check the compliance status of the obligation, then set the next review date."
 msgstr ""
 
-#: src/ConsistencyCheck.php:366
+#: src/ConsistencyCheck.php:378
 #, php-format
 msgid "Access review campaigns overdue by more than %d days"
 msgstr ""
 
-#: src/ConsistencyCheck.php:369
+#: src/ConsistencyCheck.php:381
 msgid "Access review campaigns past their due date"
 msgstr ""
 
-#: src/ConsistencyCheck.php:371
+#: src/ConsistencyCheck.php:383
 msgid ""
 "Remind the reviewers, then close the campaign once every access has been "
 "reviewed."
 msgstr ""
 
-#: src/ConsistencyCheck.php:377
+#: src/ConsistencyCheck.php:389
 msgid ""
 "Assets running software, a system or a firmware that is no longer supported"
 msgstr ""
 
-#: src/ConsistencyCheck.php:381
+#: src/ConsistencyCheck.php:393
 msgid ""
 "Upgrade to a supported version, or record a waiver with compensating "
 "measures until the upgrade."
 msgstr ""
 
-#: src/ConsistencyCheck.php:386
+#: src/ConsistencyCheck.php:398
 msgid "Hardware whose warranty has expired"
 msgstr ""
 
-#: src/ConsistencyCheck.php:388
+#: src/ConsistencyCheck.php:400
 msgid ""
 "Check that a maintenance contract covers the hardware, renew the warranty or "
 "plan its replacement."
 msgstr ""
 
-#: src/ConsistencyCheck.php:394
+#: src/ConsistencyCheck.php:406
 msgid "Hardware whose model has reached the manufacturer end of life"
 msgstr ""
 
-#: src/ConsistencyCheck.php:396
+#: src/ConsistencyCheck.php:408
 msgid ""
 "Plan the replacement of the hardware, or record a waiver with compensating "
 "measures until then."
 msgstr ""
 
-#: src/ConsistencyCheck.php:403
+#: src/ConsistencyCheck.php:415
 msgid ""
 "Software without a license, installed beyond the licensed seats, or under an "
 "expired license"
 msgstr ""
 
-#: src/ConsistencyCheck.php:407
+#: src/ConsistencyCheck.php:419
 msgid ""
 "Record the missing license in GLPI, buy seats or uninstall the software, and "
 "renew or replace the expired license."
 msgstr ""
 
-#: src/ConsistencyCheck.php:413
+#: src/ConsistencyCheck.php:425
 msgid "Expected operating domains without an approved procedure"
 msgstr ""
 
-#: src/ConsistencyCheck.php:415
+#: src/ConsistencyCheck.php:427
 msgid ""
 "Open the register of operating procedures, add the missing procedure (or a "
 "knowledge base article linked to it) and have it approved, or remove the "
 "domain from the expected list."
 msgstr ""
 
-#: src/ConsistencyCheck.php:431
+#: src/ConsistencyCheck.php:443
 msgid "Tolerance (days)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:432
+#: src/ConsistencyCheck.php:444
 msgid "Period (months)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:433
+#: src/ConsistencyCheck.php:445
 msgid "Minimum length (characters)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:434
+#: src/ConsistencyCheck.php:446
 msgid "From risk level"
 msgstr ""
 
-#: src/ConsistencyCheck.php:646 src/ControlBlocker.php:411
+#: src/ConsistencyCheck.php:659 src/ControlBlocker.php:411
 #: src/EndOfLife.php:452 src/HardwareWarranty.php:375
 #: src/SoftwareLicenseCompliance.php:327 src/SoftwareLicenseCompliance.php:345
 #, php-format
 msgid "%1$s (ID %2$d)"
 msgstr ""
 
-#: src/ConsistencyCheck.php:688
+#: src/ConsistencyCheck.php:701
 msgid "No review date"
 msgstr ""
 
-#: src/ConsistencyCheck.php:689
+#: src/ConsistencyCheck.php:702
 #, php-format
 msgid "Review was due on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:696
+#: src/ConsistencyCheck.php:709
 #, php-format
 msgid "Due on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:741 src/ConsistencyCheck.php:782
+#: src/ConsistencyCheck.php:754 src/ConsistencyCheck.php:795
 #: src/NetworkFlow.php:114 src/ShareAccess.php:249
 #: templates/_crisis_review.html.twig
 #: templates/maturity_campaign_gaps_tab.html.twig
 msgid "No owner"
 msgstr ""
 
-#: src/ConsistencyCheck.php:790
+#: src/ConsistencyCheck.php:803
 #, php-format
 msgid "Level: %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:799
+#: src/ConsistencyCheck.php:812
 #, php-format
 msgid "Accepted at level %s, no signed acceptance"
 msgstr ""
 
-#: src/ConsistencyCheck.php:867 src/NetworkFlow.php:113
+#: src/ConsistencyCheck.php:880 src/NetworkFlow.php:113
 #: templates/application_security_tab.html.twig
 #: templates/secure_development_page.html.twig
 msgid "No justification"
 msgstr ""
 
-#: src/ConsistencyCheck.php:868
+#: src/ConsistencyCheck.php:881
 #, php-format
 msgid "Justification too short: \"%s\""
 msgstr ""
 
-#: src/ConsistencyCheck.php:901
+#: src/ConsistencyCheck.php:914
 msgid "No linked risk"
 msgstr ""
 
-#: src/ConsistencyCheck.php:969
+#: src/ConsistencyCheck.php:982
 msgid "No valid document, never tested"
 msgstr ""
 
-#: src/ConsistencyCheck.php:970
+#: src/ConsistencyCheck.php:983
 #, php-format
 msgid "No valid document, last test on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1042
+#: src/ConsistencyCheck.php:1055
 #, php-format
 msgid "Action \"%1$s\" due on %2$s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1076
+#: src/ConsistencyCheck.php:1089
 #, php-format
 msgid "Ended on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1122
+#: src/ConsistencyCheck.php:1135
 #, php-format
 msgid "Valid until %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1163
+#: src/ConsistencyCheck.php:1176
 msgid "None recorded as completed"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1164
+#: src/ConsistencyCheck.php:1177
 #, php-format
 msgid "Last one on %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1182
+#: src/ConsistencyCheck.php:1195
 msgid "Closed without a corrective action"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1257 templates/crisis_room.html.twig
+#: src/ConsistencyCheck.php:1270 templates/crisis_room.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "RTO not set"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1285
+#: src/ConsistencyCheck.php:1298
 msgid "DPIA required, not done"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1366
+#: src/ConsistencyCheck.php:1379
 #, php-format
 msgid "No longer supported: %s"
 msgstr ""
 
-#: src/ConsistencyCheck.php:1501
+#: src/ConsistencyCheck.php:1514
 msgid "ISMS consistency checks: audit readiness"
 msgstr ""
 
@@ -7058,8 +7161,10 @@ msgstr ""
 #: src/PersonnelCompliance.php:304 src/PhysicalSecurity.php:106
 #: src/SecurityIncidentPlaybookTask.php:70 templates/acn_register.html.twig
 #: templates/itil_regulatory_section.html.twig
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
-#: templates/recyf_register.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/policy_coverage_control_tab.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
+#: templates/postmortem_tab.html.twig templates/recyf_register.html.twig
 msgid "Not applicable"
 msgstr ""
 
@@ -8215,7 +8320,7 @@ msgstr ""
 msgid "Choose the category of the required document."
 msgstr ""
 
-#: src/CoverageRule.php:292
+#: src/CoverageRule.php:292 templates/pdf/policy_coverage_report.html.twig
 msgid "Coverage rate"
 msgstr ""
 
@@ -9999,7 +10104,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/EbiosStudy.php:91 src/Policy.php:108 src/Policy.php:307
-#: src/PolicyVersion.php:116 src/SoaVersion.php:91
+#: src/PolicyCoverage.php:152 src/PolicyVersion.php:116 src/SoaVersion.php:91
 #: templates/pdf/dpia_report.html.twig templates/policy_approval_tab.html.twig
 #: templates/tabs/dpia.html.twig
 msgid "Approved"
@@ -10478,6 +10583,26 @@ msgstr ""
 #: src/Feature/MfaCoverageFeature.php:91 src/MfaCoverage.php:67
 #: templates/account_hygiene.html.twig templates/ad_security_audit.html.twig
 msgid "MFA coverage"
+msgstr ""
+
+#: src/Feature/PolicyCoverageFeature.php:33
+msgid ""
+"Shows, for each applicable control of the Statement of Applicability, the "
+"texts of the policy library that cover it, and lists the controls covered by "
+"no text, or only by a text not approved yet or whose review date has passed."
+msgstr ""
+
+#: src/Feature/PolicyCoverageFeature.php:39
+msgid ""
+"Open each policy, then its \"Covered controls\" tab, and link the whole text "
+"or one of its sections to the controls it deals with (several at once, or by "
+"typing codes such as A.5.15-A.5.18). Then write, approve or review the "
+"missing texts. Export the report in PDF or CSV for the auditor. Nothing is "
+"changed automatically."
+msgstr ""
+
+#: src/Feature/PolicyCoverageFeature.php:45
+msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
 msgstr ""
 
 #: src/Feature/Security360CoreSourcesFeature.php:56
@@ -12318,9 +12443,10 @@ msgid "Audience members who have not acknowledged the policy"
 msgstr ""
 
 #: src/NotificationTargetPolicy.php:133 src/Policy.php:194
-#: templates/operating_procedure_register.html.twig
+#: src/PolicyCoverage.php:669 templates/operating_procedure_register.html.twig
 #: templates/pdf/_context_review_cell.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
+#: templates/policy_coverage_control_tab.html.twig
 #: templates/policy_form.html.twig
 msgid "Next review"
 msgstr ""
@@ -15396,6 +15522,61 @@ msgstr ""
 #: src/PolicyAcknowledgement.php:1046
 msgid ""
 "Reminds people who have not acknowledged a security policy by its deadline"
+msgstr ""
+
+#: src/PolicyCoverage.php:51
+msgid "Control coverage by policies"
+msgstr ""
+
+#: src/PolicyCoverage.php:123
+msgid "Not covered by any text"
+msgstr ""
+
+#: src/PolicyCoverage.php:128
+msgid "Covered only by a text not approved"
+msgstr ""
+
+#: src/PolicyCoverage.php:133
+msgid "Covered only by a text to review"
+msgstr ""
+
+#: src/PolicyCoverage.php:138
+msgid "Covered by an approved text"
+msgstr ""
+
+#: src/PolicyCoverage.php:157 templates/pdf/management_review_dossier.html.twig
+msgid "Review overdue"
+msgstr ""
+
+#: src/PolicyCoverage.php:162 templates/operating_procedure_register.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+msgid "Not approved"
+msgstr ""
+
+#: src/PolicyCoverage.php:578
+msgid "Covered controls"
+msgstr ""
+
+#: src/PolicyCoverage.php:588
+msgid "Reference texts"
+msgstr ""
+
+#: src/PolicyCoverage.php:665 templates/operating_procedure_register.html.twig
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/pdf/policy_coverage_report.html.twig
+#: templates/policy_coverage.html.twig
+msgid "Coverage"
+msgstr ""
+
+#: src/PolicyCoverage.php:667 src/SupplierEvaluationFile.php:113
+#: templates/policy_coverage_control_tab.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Section"
+msgstr ""
+
+#: src/PolicyCoverage.php:668 templates/policy_coverage_control_tab.html.twig
+msgid "Text status"
 msgstr ""
 
 #: src/PolicyVersion.php:115 src/SoaVersion.php:90
@@ -18892,11 +19073,6 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:113
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Section"
-msgstr ""
-
 #: src/SupplierEvaluationFile.php:114 src/SupplierQuestionnaireTemplate.php:107
 #: templates/supplier_evaluation_import.html.twig
 #: templates/tabs/supplier_evaluation_answers.html.twig
@@ -20859,6 +21035,7 @@ msgstr ""
 #: templates/control_list_header.html.twig
 #: templates/maturity_campaign_form.html.twig
 #: templates/pdf/soa_report.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
 msgid "Controls"
 msgstr ""
 
@@ -23167,6 +23344,8 @@ msgstr ""
 
 #: templates/certification_response_tab.html.twig
 #: templates/control_blockers_tab.html.twig
+#: templates/policy_coverage_control_tab.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
 #: templates/tabs/supplier_evaluation_file.html.twig
@@ -25986,7 +26165,9 @@ msgstr ""
 msgid "Answer"
 msgstr ""
 
-#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+#: templates/control_list_header.html.twig
+#: templates/pdf/policy_coverage_report.html.twig
+#: templates/pdf/soa_report.html.twig
 msgid "Applicable controls"
 msgstr ""
 
@@ -30997,11 +31178,6 @@ msgstr ""
 
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
-msgid "Coverage"
-msgstr ""
-
-#: templates/operating_procedure_register.html.twig
-#: templates/pdf/operating_procedures_report.html.twig
 msgid "Coverage of the expected domains"
 msgstr ""
 
@@ -31036,11 +31212,6 @@ msgstr ""
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
 msgid "No review recorded"
-msgstr ""
-
-#: templates/operating_procedure_register.html.twig
-#: templates/pdf/operating_procedures_report.html.twig
-msgid "Not approved"
 msgstr ""
 
 #: templates/operating_procedure_register.html.twig
@@ -31971,6 +32142,7 @@ msgstr ""
 #: templates/pdf/maturity_campaign_report.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/pdf/physical_security_report.html.twig
+#: templates/pdf/policy_coverage_report.html.twig
 #: templates/pdf/responsibility_matrix.html.twig
 msgid "Exported by"
 msgstr ""
@@ -32565,10 +32737,6 @@ msgid "Raised during the period"
 msgstr ""
 
 #: templates/pdf/management_review_dossier.html.twig
-msgid "Review overdue"
-msgstr ""
-
-#: templates/pdf/management_review_dossier.html.twig
 msgid ""
 "Security incidents not included: no right to read them, or module disabled."
 msgstr ""
@@ -32827,6 +32995,26 @@ msgstr ""
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/policy_approval_tab.html.twig
 msgid "No frozen version: approval date entered manually."
+msgstr ""
+
+#: templates/pdf/policy_coverage_report.html.twig
+msgid ""
+"A control is covered when at least one approved text of the policy library, "
+"whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 "
+"and control A.5.1). Only the items the person who exported this report can "
+"read are counted."
+msgstr ""
+
+#: templates/pdf/policy_coverage_report.html.twig
+#: templates/policy_coverage.html.twig
+msgid ""
+"Every applicable control is covered by an approved text whose review is up "
+"to date."
+msgstr ""
+
+#: templates/pdf/policy_coverage_report.html.twig
+#: templates/policy_coverage.html.twig
+msgid "Texts"
 msgstr ""
 
 #: templates/pdf/policy_version.html.twig
@@ -34019,6 +34207,120 @@ msgstr ""
 #: templates/policy_charter_signatures.html.twig
 #, php-format
 msgid "Version %s approved after this campaign: to be signed"
+msgstr ""
+
+#: templates/policy_coverage.html.twig
+#, php-format
+msgid "Controls covered by an approved text: %1$d out of %2$d"
+msgstr ""
+
+#: templates/policy_coverage.html.twig
+msgid "No applicable control in the Statement of Applicability you can read."
+msgstr ""
+
+#: templates/policy_coverage.html.twig
+msgid ""
+"No text of the policy library is linked to a control yet. Open a policy, "
+"then its \"Covered controls\" tab, to link it to the controls it deals with."
+msgstr ""
+
+#: templates/policy_coverage.html.twig
+msgid "Policy library"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Controls not covered by any text"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "Leave empty when the whole text covers the control."
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "Link texts"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "No text of the policy library covers this control yet."
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "Policies"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Remove the link"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "Text"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "Texts that cover this control"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid ""
+"The policies, or sections of policies, that deal with this control. An "
+"auditor expects each applicable control to be covered by at least one "
+"approved text whose review is up to date. Only the texts you are allowed to "
+"read are shown."
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Whole text"
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+#, php-format
+msgid "%d linked control"
+msgid_plural "%d linked controls"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Choose one or several controls in the list."
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Controls covered by this text"
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid ""
+"For example \"4.2 Access control\". Leave empty when the whole text covers "
+"the controls."
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Link controls"
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid ""
+"Link this policy, or one of its sections, to the Annex A controls it deals "
+"with. Each applicable control of the Statement of Applicability should be "
+"covered by at least one approved text: the coverage report lists the "
+"controls without one, for the auditor (clause 5.2, control A.5.1). Only the "
+"controls of your entities are shown."
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Or type control codes"
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid ""
+"Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) "
+"or a whole theme (A.8 for all technological controls)."
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "This text is not linked to any control yet."
 msgstr ""
 
 #: templates/policy_form.html.twig
@@ -38833,66 +39135,4 @@ msgstr ""
 #: templates/zabbix_monitoring.html.twig
 #, php-format
 msgid "out of %d critical assets"
-msgstr ""
-
-
-#: src/ConfigurationCompliance.php:774
-msgid "Docker inventory: risky configuration"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:778
-msgid "View the risky configuration"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:784
-msgid "No service analysed yet"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:793
-msgid "Without critical or high gap: not measured"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:794
-#, php-format
-msgid "Without critical or high gap: %d%%"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:800
-#, php-format
-msgid "Without any open gap: %d%%"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:806
-#, php-format
-msgid "%d service(s) analysed"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:815
-#, php-format
-msgid "%d with a critical gap"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:816
-#, php-format
-msgid "%d with a high gap"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:824
-#, php-format
-msgid "%d expired exception(s)"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:832
-#, php-format
-msgid "%1$d exception(s) ending within %2$d days"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:838
-#, php-format
-msgid "Next exception end: %s"
-msgstr ""
-
-#: src/ConfigurationCompliance.php:846
-#, php-format
-msgid "%d service(s) not analysed"
 msgstr ""
