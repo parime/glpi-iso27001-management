@@ -1,0 +1,354 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #853 : couverture de la journalisation (A.8.15, A.8.16, A.8.17), dans les entités de la
+   personne. Le plugin lit seulement : rien n'est lancé sur les plateformes de journaux. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% macro rate_color(rate) %}{{ rate is null ? 'secondary' : (rate >= 95 ? 'success' : (rate >= 80 ? 'warning' : 'danger')) }}{% endmacro %}
+{% macro platform_form(action, decl, platform_labels, obligation_class, choose_platform) %}
+   <form method="post" action="{{ action }}">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <div class="row g-2 align-items-end">
+         {% if choose_platform %}
+            <div class="col-md-3">
+               <label class="form-label" for="grc-log-decl-platform">{{ __('Log platform', 'grcmanager') }}</label>
+               <select class="form-select" id="grc-log-decl-platform" name="platform">
+                  {% for value, label in platform_labels %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+               </select>
+            </div>
+         {% else %}
+            <input type="hidden" name="platform" value="{{ decl.platform }}">
+         {% endif %}
+         <div class="col-md-3">
+            <label class="form-label">{{ __('Retention declared (days)', 'grcmanager') }}
+               <input type="number" class="form-control" name="retention_days" min="0" max="3650" value="{{ decl.retention_days > 0 ? decl.retention_days }}">
+            </label>
+         </div>
+         <div class="col-md-3">
+            <label class="form-label">{{ __('Retention required by the obligation (days)', 'grcmanager') }}
+               <input type="number" class="form-control" name="obligation_days" min="0" max="3650" value="{{ decl.obligation_days > 0 ? decl.obligation_days }}">
+            </label>
+         </div>
+         <div class="col-md-3">
+            <label class="form-label">{{ __('Time server (NTP)', 'grcmanager') }}
+               <input type="text" class="form-control" name="ntp_server" maxlength="255" value="{{ decl.ntp_server }}" placeholder="ntp.exemple.test">
+            </label>
+         </div>
+      </div>
+      {{ fields.dropdownField(obligation_class, 'plugin_grcmanager_complianceobligations_id', decl.obligation_id, __('Obligation that imposes a retention', 'grcmanager'), {
+         'helper': __('For example a law, a regulation or a contract listed in the register of obligations.', 'grcmanager'),
+      }) }}
+      <div class="d-flex flex-wrap align-items-center gap-3">
+         <label class="form-check mb-0">
+            <input class="form-check-input" type="checkbox" name="is_ntp_declared" value="1" {{ decl.ntp ? 'checked' }}>
+            <span class="form-check-label">{{ __('The clocks of the sources and of the platform are synchronized', 'grcmanager') }}</span>
+         </label>
+         <input type="text" class="form-control w-auto flex-grow-1" name="comment" maxlength="2000" value="{{ decl.comment }}" placeholder="{{ __('Comment (where the setting can be checked)', 'grcmanager') }}" aria-label="{{ __('Comment', 'grcmanager') }}">
+         <button type="submit" class="btn btn-primary" name="declare_log_platform" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+      </div>
+   </form>
+{% endmacro %}
+
+<div id="grc-log-coverage">
+   {# Synthèse. #}
+   <div class="row row-cards mb-3">
+      {% set cov_color = _self.rate_color(summary.concerned.rate) %}
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-{{ cov_color }}-subtle text-{{ cov_color }}-emphasis me-2 fs-3"><i class="ti ti-file-search"></i></span>
+            <div>
+               <div class="fw-bold fs-3" id="grc-log-rate">{{ summary.concerned.rate is null ? '-' : summary.concerned.rate ~ ' %' }}</div>
+               <div class="small">{{ __('Assets concerned whose logs are received', 'grcmanager') }}</div>
+            </div>
+         </div>
+         <div class="small text-muted mt-1">{{ _n('%d asset concerned', '%d assets concerned', summary.concerned.total, 'grcmanager')|format(summary.concerned.total) }}</div>
+      </div></div></div>
+      {% set crit_color = summary.critical.total == 0 ? 'secondary' : (summary.critical.uncovered > 0 ? 'danger' : 'success') %}
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-{{ crit_color }}-subtle text-{{ crit_color }}-emphasis me-2 fs-3"><i class="ti ti-alert-octagon"></i></span>
+            <div>
+               <div class="fw-bold fs-3" id="grc-log-critical">{{ summary.critical.uncovered }}</div>
+               <div class="small">{{ __('Critical assets without logging', 'grcmanager') }}</div>
+            </div>
+         </div>
+         <div class="small text-muted mt-1">{{ _n('%d critical asset', '%d critical assets', summary.critical.total, 'grcmanager')|format(summary.critical.total) }}</div>
+      </div></div></div>
+      {% set ret_color = summary.platforms == 0 ? 'secondary' : (summary.retention_gaps > 0 ? 'danger' : 'success') %}
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-{{ ret_color }}-subtle text-{{ ret_color }}-emphasis me-2 fs-3"><i class="ti ti-archive"></i></span>
+            <div>
+               <div class="fw-bold fs-3">{{ summary.retention_gaps }}</div>
+               <div class="small">{{ __('Platforms whose retention is too short or not declared', 'grcmanager') }}</div>
+            </div>
+         </div>
+         <div class="small text-muted mt-1">{{ __('Retention required by the policy: %d days', 'grcmanager')|format(settings.policy_days) }}</div>
+      </div></div></div>
+      {% set ntp_color = summary.platforms == 0 ? 'secondary' : (summary.ntp_missing > 0 ? 'warning' : 'success') %}
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="d-flex align-items-center">
+            <span class="badge bg-{{ ntp_color }}-subtle text-{{ ntp_color }}-emphasis me-2 fs-3"><i class="ti ti-clock-cog"></i></span>
+            <div>
+               <div class="fw-bold fs-3">{{ summary.ntp_missing }}</div>
+               <div class="small">{{ __('Platforms without declared clock synchronization', 'grcmanager') }}</div>
+            </div>
+         </div>
+         <div class="small text-muted mt-1">{{ _n('%d log platform', '%d log platforms', summary.platforms, 'grcmanager')|format(summary.platforms) }}</div>
+      </div></div></div>
+   </div>
+   <div class="row row-cards mb-3">
+      {% for code, info in infos %}
+         <div class="col-md-4"><div class="card card-sm"><div class="card-body" title="{{ info.help }}">
+            <div class="d-flex align-items-center">
+               <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-2 fs-3"><i class="{{ info.icon }}"></i></span>
+               <div>
+                  <div class="fw-bold fs-3">{{ summary.concerned[code] }}</div>
+                  <div class="small">{{ info.label }}</div>
+               </div>
+            </div>
+            <div class="small text-muted mt-1">{{ info.help }}</div>
+         </div></div></div>
+      {% endfor %}
+   </div>
+
+   {# Réglages. #}
+   <div class="card mb-3" id="grc-log-settings">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-adjustments me-2"></i>{{ __('Which assets must send their logs?', 'grcmanager') }}</h3>
+      </div>
+      <div class="card-body">
+         <p class="mb-2"><i class="ti ti-info-circle me-1"></i>{{ scopes[settings.scope] }} · {{ __('No event for more than %d days: logs stopped', 'grcmanager')|format(settings.stale_days) }} · {{ __('Retention required by the policy: %d days', 'grcmanager')|format(settings.policy_days) }}</p>
+         <p class="text-muted small">{{ __('An asset is critical when one axis of its C/I/A classification is high (tab of the asset form), or when a network flow publishes it on the Internet. Servers are recognized from the computer type or the operating system name.', 'grcmanager') }}</p>
+         {% if can_manage %}
+            <form method="post" action="{{ action }}">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="row g-3 align-items-end">
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-log-scope">{{ __('Assets concerned', 'grcmanager') }}</label>
+                     <select class="form-select" id="grc-log-scope" name="log_scope">
+                        {% for value, label in scopes %}
+                           <option value="{{ value }}" {{ settings.scope == value ? 'selected' }}>{{ label }}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+                  <div class="col-md-3">
+                     <label class="form-label" for="grc-log-stale">{{ __('Logs stopped after (days without event)', 'grcmanager') }}</label>
+                     <input type="number" class="form-control" id="grc-log-stale" name="log_stale_days" min="1" max="365" value="{{ settings.stale_days }}">
+                  </div>
+                  <div class="col-md-3">
+                     <label class="form-label" for="grc-log-policy">{{ __('Retention required by the policy (days)', 'grcmanager') }}</label>
+                     <input type="number" class="form-control" id="grc-log-policy" name="log_policy_days" min="1" max="3650" value="{{ settings.policy_days }}">
+                  </div>
+                  <div class="col-md-2">
+                     <button type="submit" class="btn btn-primary" name="save_log_settings" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+                  </div>
+               </div>
+            </form>
+         {% endif %}
+      </div>
+   </div>
+
+   {# Sources de journaux : Wazuh lu en direct, imports CSV. #}
+   <div class="card mb-3" id="grc-log-import">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-database-import me-2"></i>{{ __('Log sources', 'grcmanager') }}</h3>
+      </div>
+      <div class="card-body">
+         {% if wazuh_available %}
+            <p class="small"><span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-plug-connected me-1"></i>Wazuh</span>{{ __('The Wazuh plugin is active: its active agents are read directly, read-only.', 'grcmanager') }}</p>
+         {% endif %}
+         <p class="small">{{ __('Export the list of hosts that send logs from your log platform, then import the CSV file here. A new import of the same platform replaces the previous one in the current entity. Only host names, addresses and the date of the last event are kept, never the content of a log.', 'grcmanager') }}</p>
+         <ul class="small text-muted">
+            <li>{{ __('Splunk: run the search "| metadata type=hosts index=*" and export the result (columns host, lastTime).', 'grcmanager') }}</li>
+            <li>{{ __('Graylog, Elastic or OpenSearch: a table of the sources with the most recent timestamp (columns source or host.name, and last timestamp), exported as CSV.', 'grcmanager') }}</li>
+            <li>{{ __('Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, one host per line.', 'grcmanager') }}</li>
+            <li>{{ __('Recognized columns: host (or hostname, source, agent.name), ip, and last event (or lastTime, last_seen, lastKeepAlive).', 'grcmanager') }}</li>
+         </ul>
+         {% if platforms is not empty %}
+            <div class="table-responsive">
+               <table class="table table-sm mb-3">
+                  <thead><tr>
+                     <th>{{ __('Log platform', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Hosts', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Matched', 'grcmanager') }}</th>
+                     <th>{{ __('Last event received', 'grcmanager') }}</th>
+                     <th>{{ __('Last import', 'grcmanager') }}</th>
+                     {% if can_manage %}<th></th>{% endif %}
+                  </tr></thead>
+                  <tbody>
+                  {% for p in platforms %}
+                     <tr>
+                        <td>{{ p.label }}{% if p.live %} <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-plug-connected me-1"></i>{{ __('Read directly', 'grcmanager') }}</span>{% endif %}</td>
+                        <td class="text-end">{{ p.hosts }}</td>
+                        <td class="text-end">{{ p.matched }}</td>
+                        <td>{{ p.last_event_label is empty ? '-' : p.last_event_label }}</td>
+                        <td>{{ p.date_import_label is empty ? '-' : p.date_import_label }}</td>
+                        {% if can_manage %}
+                           <td class="text-end">
+                              {% if p.date_import_label is not empty %}
+                                 <form method="post" action="{{ action }}" class="d-inline">
+                                    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="platform" value="{{ p.platform }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" name="clear_log_hosts" value="1"><i class="ti ti-trash me-1"></i>{{ __('Delete the import', 'grcmanager') }}</button>
+                                 </form>
+                              {% endif %}
+                           </td>
+                        {% endif %}
+                     </tr>
+                  {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         {% else %}
+            <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('No log source yet: import the list of hosts of your log platform to measure the coverage.', 'grcmanager') }}</div>
+         {% endif %}
+         {% if can_manage %}
+            <form method="post" action="{{ action }}" enctype="multipart/form-data" class="row g-2 align-items-end">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="col-md-4">
+                  <label class="form-label" for="grc-log-platform">{{ __('Log platform', 'grcmanager') }}</label>
+                  <select class="form-select" id="grc-log-platform" name="platform">
+                     {% for value, label in platform_labels %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+                  </select>
+               </div>
+               <div class="col-md-5">
+                  <label class="form-label" for="grc-log-file">{{ __('CSV file', 'grcmanager') }}</label>
+                  <input type="file" class="form-control" id="grc-log-file" name="log_file" accept=".csv,.txt,text/csv" required>
+               </div>
+               <div class="col-md-3">
+                  <button type="submit" class="btn btn-primary" name="import_log_hosts" value="1"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button>
+               </div>
+            </form>
+         {% endif %}
+      </div>
+   </div>
+
+   {# Conservation et horloges, par plateforme. #}
+   <div class="card mb-3" id="grc-log-retention">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-archive me-2"></i>{{ __('Retention and clock synchronization', 'grcmanager') }}</h3>
+      </div>
+      <div class="card-body">
+         <p class="small text-muted">{{ __('Declare, for each platform, how long the logs are kept and whether the clocks are synchronized. The retention required is the longest between the policy and the obligation chosen. These are declarations: keep the screenshot of the setting as evidence.', 'grcmanager') }}</p>
+         {% for decl in declarations %}
+            {% set ret = retention_infos[decl.retention] %}
+            <div class="border rounded p-3 mb-3">
+               <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                  <span class="fw-bold">{{ decl.label }}</span>
+                  {% if decl.entity is not empty %}<span class="small text-muted">{{ decl.entity }}</span>{% endif %}
+                  <span class="badge bg-{{ ret.color }}-subtle text-{{ ret.color }}-emphasis"><i class="{{ ret.icon }} me-1"></i>{{ ret.label }}</span>
+                  <span class="small">{{ decl.retention_days > 0 ? __('%d days kept', 'grcmanager')|format(decl.retention_days) : __('Retention not declared', 'grcmanager') }} · {{ __('%d days required', 'grcmanager')|format(decl.required_days) }}</span>
+                  {% if decl.obligation is not empty %}<a class="small" href="{{ decl.obligation_url }}"><i class="ti ti-scale me-1"></i>{{ decl.obligation }}</a>{% endif %}
+                  {% if decl.ntp %}
+                     <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-clock-check me-1"></i>{{ __('Clocks synchronized', 'grcmanager') }}{% if decl.ntp_server is not empty %} ({{ decl.ntp_server }}){% endif %}</span>
+                  {% else %}
+                     <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-clock-exclamation me-1"></i>{{ __('Clock synchronization not declared', 'grcmanager') }}</span>
+                  {% endif %}
+               </div>
+               {% if decl.comment is not empty %}<div class="small text-muted mb-2">{{ decl.comment }}</div>{% endif %}
+               {% if can_manage and decl.entities_id == active_entity %}
+                  {{ _self.platform_form(action, decl, platform_labels, obligation_class, false) }}
+               {% endif %}
+            </div>
+         {% endfor %}
+         {% if can_manage %}
+            <details>
+               <summary class="mb-2"><i class="ti ti-plus me-1"></i>{{ __('Declare another platform', 'grcmanager') }}</summary>
+               {{ _self.platform_form(action, {'platform': '', 'retention_days': 0, 'obligation_days': 0, 'ntp_server': '', 'obligation_id': 0, 'ntp': false, 'comment': ''}, platform_labels, obligation_class, true) }}
+            </details>
+         {% elseif declarations is empty %}
+            <div class="text-muted">{{ __('No platform declared.', 'grcmanager') }}</div>
+         {% endif %}
+         <div class="mt-2"><a class="small" href="{{ obligations_url }}"><i class="ti ti-scale me-1"></i>{{ __('Register of obligations', 'grcmanager') }}</a></div>
+      </div>
+   </div>
+
+   {# Actifs concernés : rien d'abord, puis plus rien depuis N jours. #}
+   <div class="card mb-3" id="grc-log-list">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-list-details me-2"></i>{{ __('Assets that must send their logs', 'grcmanager') }}</h3>
+         <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ total_rows }}</span></div>
+      </div>
+      {% if rows is empty %}
+         <div class="card-body text-muted">{{ __('No asset concerned in your entities.', 'grcmanager') }}</div>
+      {% else %}
+         {% if total_rows > rows|length %}
+            <div class="card-body small pb-0">{{ __('%1$d assets: the first %2$d are shown, gaps first.', 'grcmanager')|format(total_rows, rows|length) }}</div>
+         {% endif %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Asset', 'grcmanager') }}</th>
+                  <th>{{ __('State', 'grcmanager') }}</th>
+                  <th>{{ __('Last event received', 'grcmanager') }}</th>
+                  <th>{{ __('Log platform', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for row in rows %}
+                  {% set info = infos[row.status] %}
+                  <tr>
+                     <td>
+                        <a href="{{ row.url }}"><i class="ti {{ row.kind == 'network' ? 'ti-router' : (row.is_server ? 'ti-server' : 'ti-device-desktop') }} me-1"></i>{{ row.name }}</a>
+                        {% if row.critical %}<span class="badge bg-danger-subtle text-danger-emphasis ms-1"><i class="ti ti-alert-octagon me-1"></i>{{ __('Critical', 'grcmanager') }}</span>{% endif %}
+                        {% if row.exposed %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-world me-1"></i>{{ __('Published on the Internet', 'grcmanager') }}</span>{% endif %}
+                        <div class="small text-muted">{{ row.entity }}{% if row.type %} · {{ row.type }}{% endif %}</div>
+                     </td>
+                     <td><span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis" title="{{ info.help }}"><i class="{{ info.icon }} me-1"></i>{{ info.label }}</span></td>
+                     <td class="small">
+                        {{ row.last_event_label is empty ? '-' : row.last_event_label }}
+                        {% if row.age is not null %}<div class="text-muted">{{ _n('%d day ago', '%d days ago', row.age, 'grcmanager')|format(row.age) }}</div>{% endif %}
+                     </td>
+                     <td class="small">{{ row.platforms|join(', ') }}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   {# Hôtes importés qu'aucun actif ne reconnaît. #}
+   {% if unmatched is not empty %}
+      <div class="card mb-3" id="grc-log-unmatched">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-question-mark me-2"></i>{{ __('Hosts that send logs but are not found in GLPI', 'grcmanager') }}</h3>
+            <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ total_unmatched }}</span></div>
+         </div>
+         <div class="card-body small pb-0">{{ __('Check the name of the asset in GLPI, or add the asset to the inventory: an unknown host may be an asset missing from the inventory.', 'grcmanager') }}</div>
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr><th>{{ __('Host', 'grcmanager') }}</th><th>{{ __('IP address', 'grcmanager') }}</th><th>{{ __('Log platform', 'grcmanager') }}</th><th>{{ __('Last event received', 'grcmanager') }}</th></tr></thead>
+               <tbody>
+               {% for host in unmatched %}
+                  <tr>
+                     <td>{{ host.host }}</td>
+                     <td>{{ host.ip }}</td>
+                     <td>{{ host.platform_label }}</td>
+                     <td>{{ host.last_event_label is empty ? '-' : host.last_event_label }}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+      <span class="text-muted small me-auto">
+         <i class="ti ti-eye me-1"></i>{{ __('Read-only: the plugin reads the lists of hosts, it never runs anything on the log platforms and changes nothing in GLPI.', 'grcmanager') }}
+      </span>
+      <a class="btn btn-sm btn-outline-primary" href="{{ audit_url }}"><i class="ti ti-checklist me-1"></i>{{ __('Automated technical checks', 'grcmanager') }}</a>
+   </div>
+</div>
