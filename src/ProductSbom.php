@@ -74,6 +74,13 @@ final class ProductSbom extends CommonGLPI
         return ($full ? $CFG_GLPI['root_doc'] : '') . '/plugins/grcmanager/front/productsbom.form.php';
     }
 
+    public static function getPageURL(bool $full = true): string
+    {
+        global $CFG_GLPI;
+
+        return ($full ? $CFG_GLPI['root_doc'] : '') . '/plugins/grcmanager/front/productsbom.php';
+    }
+
     public static function canView(): bool
     {
         return (bool) Session::haveRight(Installer::RIGHT_NAME, READ) && Appliance::canView();
@@ -248,6 +255,55 @@ final class ProductSbom extends CommonGLPI
     }
 
     // ------------------------------------------------------------------ Lecture.
+
+    /**
+     * Page de lecture : nomenclatures importées par produit et par version, limitées aux
+     * applications visibles (non supprimées, entités de la session).
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function allSboms(): array
+    {
+        global $DB;
+
+        if (!self::canView()) {
+            return [];
+        }
+        $rows = [];
+        foreach (
+            $DB->request([
+                'SELECT'     => [
+                    SbomTables::SBOMS . '.*',
+                    'glpi_appliances.name AS appliance_name',
+                ],
+                'FROM'       => SbomTables::SBOMS,
+                'INNER JOIN' => [
+                    'glpi_appliances' => ['FKEY' => [
+                        'glpi_appliances' => 'id',
+                        SbomTables::SBOMS => 'appliances_id',
+                    ]],
+                ],
+                'WHERE'      => ['glpi_appliances.is_deleted' => 0]
+                    + getEntitiesRestrictCriteria('glpi_appliances', '', '', true),
+                'ORDER'      => ['glpi_appliances.name', SbomTables::SBOMS . '.date_creation DESC'],
+            ]) as $row
+        ) {
+            $row['date'] = Html::convDateTime((string) $row['date_creation']);
+            $row['appliance_url'] = Appliance::getFormURLWithID((int) $row['appliances_id']);
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    public static function showPage(): void
+    {
+        TemplateRenderer::getInstance()->display('@grcmanager/product_sbom_list.html.twig', [
+            'sboms'        => self::allSboms(),
+            'formats'      => self::formatLabels(),
+            'register_url' => SecureDevelopment::getPageURL(),
+        ]);
+    }
 
     /**
      * Nomenclatures d'une application, les plus récentes d'abord.

@@ -3,7 +3,8 @@
 # visible (entite) ; importer, declarer, supprimer : mise a jour du plugin en plus. Le profil general
 # ne lit pas les applications : rien ne lui est montre ni enregistre.
 # Fragment charge par tests/security/access-matrix.sh (memes fonctions et variables).
-# Page : front/productsbom.form.php.
+# Pages : front/productsbom.form.php (actions) et front/productsbom.php (liste en lecture).
+readable front/productsbom.php
 sbom_tab() {
   tab Appliance 'GlpiPlugin%5CGrcmanager%5CProductSbom$1' "$(id "appliance_$1")"
 }
@@ -31,4 +32,8 @@ if [ "$ROLE" = limited ]; then
   expect "suppression d'une nomenclature de B" 404 "$(sbom_post "delete_sbom=1&sboms_id=$(id sbom_B)")"
   expect "declaration VEX sans jeton CSRF" 403 \
     "$(code -d "declare=1&appliances_id=$(id appliance_A)&vulnerability_id=CVE-2024-0870&status=affected" "$P/productsbom.form.php")"
+fi
+if [ "$ROLE" = reader ]; then
+  contains "liste des SBOM : version de A" "1.0.A" oui "$(body "$P/productsbom.php")"
+  contains "liste des SBOM : version de B" "1.0.B" $SEE_B "$(body "$P/productsbom.php")"
 fi
