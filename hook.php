@@ -272,6 +272,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::competenceCoverageRate',
         ],
+        // Issue #847 : ordinateurs qui doivent être chiffrés et le sont (%).
+        'grcmanager_disk_encryption_rate' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Computers that must be encrypted and are (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::diskEncryptionRate',
+        ],
         'grcmanager_training_retake_participants' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Participants to retake', 'grcmanager'),

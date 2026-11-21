@@ -99,6 +99,8 @@ check "onglet validation de mise en production" "$(tab Change 'GlpiPlugin%5CGrcm
 check "preuve developpement securise (A.8.31)" "$P/control.form.php?id=$(xid control_a831)"
 # Issue #779 : logiciel et ordinateur pieges (page des licences logicielles).
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
+# Issue #847 : ordinateur, outil et algorithme de chiffrement pieges (chiffrement des disques).
+check "front/diskencryption.php"              "$P/diskencryption.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).
 check "front/parkvulnerability.php?warranty=all" "$P/parkvulnerability.php?warranty=all"
 # Issue #604 : campagne de simulation d'hameconnage piegee (liste et tendance, fiche, onglet Resultats,
@@ -129,6 +131,8 @@ check "front/databreach.php"                  "$P/databreach.php"
 check "onglet violation de donnees d'un incident" "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5CDataBreach$1' "$(id incident_A)")"
 check "front/businessprocess.form.php"         "$P/businessprocess.form.php?id=$(xid process)"
 check "front/businessprocess.php"              "$P/businessprocess.php"
+# Issue #733 : programme des tests de reprise (nom du processus et type d'exercice pieges).
+check "programme des tests de reprise"         "$P/recoveryprogramme.php"
 check "onglet BIA d'un processus"              "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessImpact$1' "$(xid process)")"
 check "onglet dependances d'un processus"      "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(xid process)")"
 check "onglet processus metier d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id computer_A)")"
@@ -136,6 +140,8 @@ check "onglet processus metier d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGr
 check "front/crisisscenario.php"               "$P/crisisscenario.php"
 check "fiche d'un scenario de crise"           "$(tab GlpiPlugin%5CGrcmanager%5CCrisisScenario 'GlpiPlugin%5CGrcmanager%5CCrisisScenario$main' "$(xid crisis_scenario)")"
 check "onglet scenarios de crise d'un processus" "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CCrisisScenario$1' "$(xid process)")"
+# Issue #776, lot 2 : onglet Preparation (processus, modele de message et contact officiel pieges).
+check "onglet preparation d'un scenario de crise" "$(tab GlpiPlugin%5CGrcmanager%5CCrisisScenario 'GlpiPlugin%5CGrcmanager%5CCrisisScenarioReadiness$1' "$(xid crisis_scenario)")"
 # Issue #377, deuxieme etape : processus lies, risques d'un processus, processus d'un risque.
 check "onglet processus lies d'un processus"   "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$1' "$(xid process)")"
 check "onglet risques d'un processus"          "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(xid process)")"
@@ -150,8 +156,13 @@ check "onglet validites des preuves"          "$(tab 'GlpiPlugin%5CGrcmanager%5C
 # Issue #535 : politique piegee a lire (preferences) et onglet de prise de connaissance (groupe piege).
 check "onglet Politiques a lire"              "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' 2)"
 check "onglet prise de connaissance"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' "$(xid policy)")"
+# Issue #868 : dossier de preuves (nom piege d'une preuve expiree de la mesure de A).
+check "front/evidencepack.php"                "$P/evidencepack.php?entities_id=$(id a)"
 # Issue #614 : controles de coherence (noms pieges des risques, politiques, traitements...).
 check "front/consistencycheck.php"            "$P/consistencycheck.php"
+# Issue #867 : mesures bloquees et onglet de la mesure (constats, politiques et justification pieges).
+check "front/controlblocker.php"             "$P/controlblocker.php"
+check "onglet ce qui bloque la mesure"       "$(tab 'GlpiPlugin%5CGrcmanager%5CControl' 'GlpiPlugin%5CGrcmanager%5CControlBlocker$1' "$(id control)")"
 # Issue #619 : preparation a la certification (titres des fiches pieges jamais repris tels quels).
 check "front/certificationreadiness.php"     "$P/certificationreadiness.php"
 # Issue #772 : audit de certification et constat pieges (vue des constats et onglet de l'audit).
@@ -161,6 +172,8 @@ check "onglet constats d'un audit de certification" "$(tab 'GlpiPlugin%5CGrcmana
 check "onglet plan d'audit de l'organisme"   "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CCertificationSampling$1' "$(xid audit)")"
 check "front/certificationsampling.php"      "$P/certificationsampling.php"
 check "constats d'un processus"              "$P/certificationfinding.php?process=1"
+# Issue #772, lot 3 : reponse a l'organisme (correction et retour de l'organisme pieges).
+check "onglet reponse a l'organisme"         "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CCertificationResponse$1' "$(xid audit)")"
 check "export CSV de prise de connaissance"   "$P/policyacknowledgement.export.php?id=$(xid ack_campaign)&format=csv"
 # Issue #540 : registre DORA piege (page, onglets du contrat, du fournisseur et du processus, export).
 check "registre DORA"                         "$P/doraregister.php"

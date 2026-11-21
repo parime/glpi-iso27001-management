@@ -23,6 +23,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\BusinessProcessBase;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Continuity\BusinessImpactRules;
+use GlpiPlugin\Grcmanager\Services\Continuity\RecoveryExerciseRules;
 use GlpiPlugin\Grcmanager\Services\Continuity\RecoveryStrategyRules;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
 use Log;
@@ -160,6 +161,12 @@ class BusinessProcess extends BusinessProcessBase
         }
         if (array_key_exists('bia_date', $input) && (string) $input['bia_date'] === '') {
             $input['bia_date'] = null;
+        }
+        // Issue #733 : fréquence de test de reprise propre au processus (0 : celle de la revue périodique).
+        if (array_key_exists('recovery_test_months', $input)) {
+            $input['recovery_test_months'] = RecoveryExerciseRules::sanitizeFrequencyMonths(
+                $input['recovery_test_months']
+            );
         }
 
         return $input;
@@ -339,6 +346,10 @@ class BusinessProcess extends BusinessProcessBase
         if ($measured !== null && RecoveryStrategyRules::exceedsRto($rto, $measured)) {
             $issues[] = 'recovery_above_rto';
         }
+        // Issue #733 : la perte de données mesurée au dernier test dépasse le RPO.
+        if (RecoveryExerciseRules::exceedsRpo($rpo, BusinessProcessRecovery::lastMeasuredRpo($processId))) {
+            $issues[] = 'recovery_above_rpo';
+        }
 
         return [
             'grid'               => $grid,
@@ -386,6 +397,11 @@ class BusinessProcess extends BusinessProcessBase
             // Issue #377, troisième étape : stratégie de reprise.
             'recovery_above_rto' => __(
                 'The recovery time measured at the last test exceeds the RTO.',
+                'grcmanager'
+            ),
+            // Issue #733 : perte de données mesurée.
+            'recovery_above_rpo' => __(
+                'The data loss measured at the last test exceeds the RPO.',
                 'grcmanager'
             ),
             'strategy_missing'   => __(

@@ -1,0 +1,111 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #772, lot 3 : onglet « Réponse à l'organisme » d'un audit de certification. #}
+<div id="grc-certification-response-tab">
+<div class="alert alert-info">
+   <h4 class="alert-title"><i class="ti ti-help-circle me-1"></i>{{ __('What is this tab for?', 'grcmanager') }}</h4>
+   <div>{{ __('After the audit, the certification body asks you to send an action plan for each nonconformity (correction, root cause, corrective action), then the evidence that it is lifted, each within a deadline. This tab shows what is still to send and produces the action plan to send to the body.', 'grcmanager') }}</div>
+   <div class="mt-1 small">{{ __('Enter the deadlines in the audit form, and the sending dates and the decision of the body in each finding. Nothing is changed automatically.', 'grcmanager') }}</div>
+</div>
+
+<div class="row g-3 mb-3">
+   <div class="col-md-4">
+      <div class="card h-100"><div class="card-body">
+         <div class="text-muted small"><i class="ti ti-file-description me-1"></i>{{ __('Certification body report received on', 'grcmanager') }}</div>
+         <div class="fs-3">{{ audit.report_date_label ?: '-' }}</div>
+         {% if audit.body %}<div class="small text-muted">{{ audit.body }}{% if audit.lead_auditor %} | {{ audit.lead_auditor }}{% endif %}</div>{% endif %}
+      </div></div>
+   </div>
+   {% for key, deadline in deadlines %}
+      <div class="col-md-4">
+         <div class="card h-100" id="grc-response-deadline-{{ key }}"><div class="card-body">
+            <div class="text-muted small">
+               {% if key == 'response' %}<i class="ti ti-send me-1"></i>{{ __('Action plan due to the certification body', 'grcmanager') }}
+               {% else %}<i class="ti ti-paperclip me-1"></i>{{ __('Evidence due to the certification body', 'grcmanager') }}{% endif %}
+            </div>
+            <div class="fs-3">{{ deadline.date ?: '-' }}</div>
+            <span class="badge {{ deadline.badge.class }}"><i class="ti {{ deadline.badge.icon }} me-1"></i>{{ deadline.badge.label }}</span>
+            <div class="small text-muted mt-1">
+               {% if key == 'response' %}{{ __('Still to send: %d', 'grcmanager')|format(summary.responses_to_send) }}
+               {% else %}{{ __('Still to send: %d', 'grcmanager')|format(summary.evidence_to_send) }}{% endif %}
+            </div>
+         </div></div>
+      </div>
+   {% endfor %}
+</div>
+
+{% if deadlines.response.state == 'none' or deadlines.evidence.state == 'none' %}
+   <div class="alert alert-warning" id="grc-response-no-deadline"><i class="ti ti-calendar-question me-1"></i>{{ __('Enter the deadlines given in the report of the certification body in the main tab of the audit, so that the remaining days are shown.', 'grcmanager') }}</div>
+{% endif %}
+{% if to_complete > 0 %}
+   <div class="alert alert-warning" id="grc-response-incomplete"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d nonconformity still lacks information before the action plan is sent (see the "To fill in" column).', '%d nonconformities still lack information before the action plan is sent (see the "To fill in" column).', to_complete, 'grcmanager')|format(to_complete) }}</div>
+{% endif %}
+
+<div class="d-flex flex-wrap gap-2 mb-3">
+   <a href="{{ pdf_url }}" class="btn btn-primary btn-sm" id="grc-response-pdf"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Corrective action plan for the certification body (PDF)', 'grcmanager') }}</a>
+   <a href="{{ findings_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-certificate-2 me-1"></i>{{ __('Lifting status of the findings (PDF export)', 'grcmanager') }}</a>
+</div>
+
+{% if findings is empty %}
+   <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('No finding for this audit.', 'grcmanager') }}</div>
+{% else %}
+   <div class="table-responsive">
+   <table class="table table-hover card-table">
+      <thead>
+         <tr>
+            <th>{{ __('Certification body reference', 'grcmanager') }}</th>
+            <th>{{ __('Finding', 'grcmanager') }}</th>
+            <th>{{ __('Owner', 'grcmanager') }}</th>
+            <th>{{ __('Action plan', 'grcmanager') }}</th>
+            <th>{{ __('Evidence', 'grcmanager') }}</th>
+            <th>{{ __('Lifting status', 'grcmanager') }}</th>
+            <th>{{ __('To fill in', 'grcmanager') }}</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for f in findings %}
+            <tr class="grc-response-row" data-response="{{ f.response_state }}" data-evidence="{{ f.evidence_state }}">
+               <td>{{ f.reference }}</td>
+               <td>
+                  {% if f.category_label %}<span class="badge {{ f.category_style.class }}"><i class="ti {{ f.category_style.icon }} me-1"></i>{{ f.category_label }}</span><br>{% endif %}
+                  <a href="{{ f.url }}">{{ f.title }}</a>
+               </td>
+               <td>{{ f.owner }}{% if f.due_date %}<div class="small text-muted">{{ __('Due date', 'grcmanager') }} : {{ f.due_date }}</div>{% endif %}</td>
+               <td>
+                  <span class="badge {{ f.response.class }}"><i class="ti {{ f.response.icon }} me-1"></i>{{ f.response.label }}</span>
+                  {% if f.response_date_label %}<div class="small text-muted">{{ __('Sent on %s', 'grcmanager')|format(f.response_date_label) }}</div>{% endif %}
+                  {% if f.feedback %}<div class="small text-muted">{{ f.feedback }}</div>{% endif %}
+               </td>
+               <td>
+                  <span class="badge {{ f.evidence.class }}"><i class="ti {{ f.evidence.icon }} me-1"></i>{{ f.evidence.label }}</span>
+                  {% if f.evidence_date_label %}<div class="small text-muted">{{ __('Sent on %s', 'grcmanager')|format(f.evidence_date_label) }}</div>{% endif %}
+                  {% if f.documents is not empty %}<div class="small text-muted"><i class="ti ti-paperclip me-1"></i>{{ f.documents|join(', ') }}</div>{% endif %}
+               </td>
+               <td><span class="badge {{ f.lift.class }}"><i class="ti {{ f.lift.icon }} me-1"></i>{{ f.lift.label }}</span></td>
+               <td>
+                  {% if f.missing is not empty %}
+                     <span class="badge bg-warning-subtle text-warning-emphasis grc-response-missing"><i class="ti ti-pencil me-1"></i>{{ f.missing|join(', ') }}</span>
+                  {% else %}
+                     <i class="ti ti-check text-success" title="{{ __('Complete', 'grcmanager') }}"></i>
+                  {% endif %}
+               </td>
+            </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+   </div>
+   <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('A response is expected for each nonconformity. It is optional for an area of concern or an opportunity for improvement. A deadline is shown as close %d days before it.', 'grcmanager')|format(soon_days) }}</p>
+{% endif %}
+</div>

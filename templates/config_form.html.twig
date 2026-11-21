@@ -555,6 +555,36 @@
   </div>
 </div>
 
+{# Issue #733 : types des exercices de reprise (exercices de crise et tests de reprise des processus). #}
+<div class="card mb-3" id="grc-recovery-exercise-types-config">
+  <div class="card-body">
+    <h4><i class="ti ti-category me-1"></i>{{ __('Types of recovery exercise', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Types offered when starting a crisis exercise or recording a recovery test. Untick a type you do not use, and add your own types, one per line.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="row g-2 mb-2">
+        {% for type in recovery_exercise_types.defaults %}
+          <div class="col-md-3">
+            <label class="form-check">
+              <input type="checkbox" class="form-check-input" name="recovery_exercise_types[]" value="{{ type.key }}" {{ type.checked ? 'checked' }} {{ can_edit_config ? '' : 'disabled' }}>
+              <span class="form-check-label">{{ type.label }}</span>
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+      <label class="form-label" for="grc-recovery-exercise-others">{{ __('Other types (one per line)', 'grcmanager') }}</label>
+      <textarea class="form-control" id="grc-recovery-exercise-others" name="recovery_exercise_others" rows="3" {{ can_edit_config ? '' : 'disabled' }}>{{ recovery_exercise_types.others }}</textarea>
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_recovery_exercise_types" class="btn btn-primary">{{ __('Save') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
 {# Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
    module/CVE/modèles/tableau de bord, un par fonctionnalité plutôt qu'un seul bouton global
    (voir front/config.php, SecurityIncidentModuleConfig). Le sous-module technique

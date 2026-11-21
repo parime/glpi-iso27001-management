@@ -26884,3 +26884,1372 @@ msgid "%d document"
 msgid_plural "%d documents"
 msgstr[0] "%d documento"
 msgstr[1] "%d documentos"
+
+msgid "Encryption rule saved."
+msgstr "Regla de cifrado guardada."
+
+msgid "Recovery key declaration saved."
+msgstr "Declaración de la clave de recuperación guardada."
+
+#, php-format
+msgid "Computers that must be encrypted and are (%)"
+msgstr "Equipos que deben cifrarse y lo están (%)"
+
+msgid ""
+"From the volume inventory: at least one unencrypted or partially encrypted "
+"disk, or a weak encryption algorithm, on a computer that must be encrypted "
+"(\"Disk encryption\" page). Only computers whose volumes are inventoried are "
+"counted. Volumes without a drive letter (EFI, recovery), network shares, "
+"optical media, FAT partitions and, on Linux, /boot and pseudo-filesystems "
+"are ignored."
+msgstr ""
+"Según el inventario de volúmenes: al menos un disco sin cifrar o "
+"parcialmente cifrado, o un algoritmo de cifrado débil, en un equipo que debe "
+"estar cifrado (página «Cifrado de discos»). Solo se cuentan los equipos "
+"cuyos volúmenes están inventariados. Se ignoran los volúmenes sin letra de "
+"unidad (EFI, recuperación), los recursos compartidos de red, los soportes "
+"ópticos, las particiones FAT y, en Linux, /boot y los pseudosistemas de "
+"archivos."
+
+msgid "Laptops with an unencrypted disk"
+msgstr "Portátiles con un disco sin cifrar"
+
+msgid ""
+"Same check, limited to laptops and tablets (computer type reported by the "
+"inventory agent, such as Laptop or Notebook), which are the most exposed "
+"outside the premises."
+msgstr ""
+"El mismo control, limitado a portátiles y tabletas (tipo de equipo informado "
+"por el agente de inventario, como Laptop o Notebook), los más expuestos "
+"fuera de las instalaciones."
+
+#, php-format
+msgid "Weak encryption algorithm: %s"
+msgstr "Algoritmo de cifrado débil: %s"
+
+msgid "Disk encryption"
+msgstr "Cifrado de discos"
+
+msgid "Fully encrypted"
+msgstr "Totalmente cifrado"
+
+msgid "Every inventoried volume is encrypted."
+msgstr "Todos los volúmenes inventariados están cifrados."
+
+msgid "Partially encrypted"
+msgstr "Parcialmente cifrado"
+
+msgid "At least one volume is encrypted, but not all of them."
+msgstr "Al menos un volumen está cifrado, pero no todos."
+
+msgid "Not encrypted"
+msgstr "Sin cifrar"
+
+msgid "No inventoried volume is encrypted."
+msgstr "Ningún volumen inventariado está cifrado."
+
+msgid "Unknown"
+msgstr "Desconocido"
+
+msgid ""
+"No volume inventoried: no inventory agent, or an agent too old to report "
+"encryption."
+msgstr ""
+"Ningún volumen inventariado: sin agente de inventario, o un agente demasiado "
+"antiguo para informar del cifrado."
+
+msgid "All computers"
+msgstr "Todos los equipos"
+
+msgid "Laptops and tablets only"
+msgstr "Solo portátiles y tabletas"
+
+msgid "Computers of the selected types"
+msgstr "Equipos de los tipos seleccionados"
+
+msgid "Do not use the classification"
+msgstr "No usar la clasificación"
+
+msgid "Confidentiality medium or high"
+msgstr "Confidencialidad media o alta"
+
+msgid "Confidentiality high"
+msgstr "Confidencialidad alta"
+
+msgid "Laptops and tablets must be encrypted."
+msgstr "Los portátiles y las tabletas deben estar cifrados."
+
+msgid "No computer type is selected: only the classification below applies."
+msgstr ""
+"No se ha seleccionado ningún tipo de equipo: solo se aplica la clasificación "
+"de abajo."
+
+#, php-format
+msgid "Computers of these types must be encrypted: %s."
+msgstr "Los equipos de estos tipos deben estar cifrados: %s."
+
+msgid "All computers must be encrypted."
+msgstr "Todos los equipos deben estar cifrados."
+
+msgid "So must any computer classified with a medium or high confidentiality."
+msgstr ""
+"También cualquier equipo clasificado con confidencialidad media o alta."
+
+msgid "So must any computer classified with a high confidentiality."
+msgstr "También cualquier equipo clasificado con confidencialidad alta."
+
+#, php-format
+msgid ""
+"Disk encryption: %1$d%% of the computers that must be encrypted are, %2$d "
+"gap(s)"
+msgstr ""
+"Cifrado de discos: el %1$d %% de los equipos que deben cifrarse lo están, "
+"%2$d desviación(es)"
+
+msgid ""
+"Shows, from the volumes reported by the GLPI inventory agent (BitLocker, "
+"FileVault, LUKS, VeraCrypt...), which computers are fully encrypted, "
+"partially encrypted, not encrypted or of unknown state, by entity, computer "
+"type and location. Computers that must be encrypted and are not, or use a "
+"weak algorithm, are gaps."
+msgstr ""
+"Muestra, según los volúmenes informados por el agente de inventario de GLPI "
+"(BitLocker, FileVault, LUKS, VeraCrypt...), qué equipos están totalmente "
+"cifrados, parcialmente cifrados, sin cifrar o en estado desconocido, por "
+"entidad, tipo de equipo y ubicación. Los equipos que deben estar cifrados y "
+"no lo están, o usan un algoritmo débil, son desviaciones."
+
+msgid ""
+"Choose which computers must be encrypted, encrypt the computers listed as "
+"gaps, install the inventory agent on those of unknown state, and declare "
+"where the recovery key is backed up. The plugin never reads nor stores any "
+"recovery key. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+msgstr ""
+"Elija qué equipos deben estar cifrados, cifre los que aparecen como "
+"desviaciones, instale el agente de inventario en los de estado desconocido y "
+"declare dónde se guarda la clave de recuperación. El plugin nunca lee ni "
+"almacena ninguna clave de recuperación. Registre el resultado como prueba de "
+"eficacia del control para conservar la evidencia."
+
+msgid "ISO/IEC 27001, controls A.8.24 and A.8.1"
+msgstr "ISO/IEC 27001, controles A.8.24 y A.8.1"
+
+#, php-format
+msgid "Laptops with an unencrypted disk (%)"
+msgstr "Portátiles con un disco sin cifrar (%)"
+
+msgid "Disk encryption: rates, rule and details"
+msgstr "Cifrado de discos: tasas, regla y detalle"
+
+#, php-format
+msgid "%d of unknown state"
+msgstr "%d en estado desconocido"
+
+#, php-format
+msgid "%d weak algorithm(s)"
+msgstr "%d algoritmo(s) débil(es)"
+
+#, php-format
+msgid "Computed on %s"
+msgstr "Calculado el %s"
+
+#, php-format
+msgid "Encryption rate: %d%%"
+msgstr "Tasa de cifrado: %d %%"
+
+msgid "Encryption rate: not measured"
+msgstr "Tasa de cifrado: no medida"
+
+#, php-format
+msgid "Laptops: %d%%"
+msgstr "Portátiles: %d %%"
+
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, gaps first."
+msgstr "%1$d equipos: se muestran los %2$d primeros, desviaciones primero."
+
+#, php-format
+msgid "not fully encrypted: %d"
+msgstr "no totalmente cifrados: %d"
+
+#, php-format
+msgid "Older algorithm or mode, to plan to replace: %d"
+msgstr "Algoritmo o modo antiguo, a reemplazar: %d"
+
+msgid ""
+"A computer is a laptop or a tablet when its type in GLPI is one of those "
+"reported by the inventory agent (Laptop, Notebook, Portable, Tablet, "
+"Convertible...). The classification threshold uses the C/I/A classification "
+"of the computer (tab of the computer form)."
+msgstr ""
+"Un equipo es un portátil o una tableta cuando su tipo en GLPI es uno de los "
+"informados por el agente de inventario (Laptop, Notebook, Portable, Tablet, "
+"Convertible...). El umbral de clasificación usa la clasificación C/I/D del "
+"equipo (pestaña de su ficha)."
+
+msgid "Also every computer classified with"
+msgstr "Además, todo equipo clasificado con"
+
+msgid "Backed up"
+msgstr "Guardada"
+
+msgid "Backup date"
+msgstr "Fecha de copia"
+
+msgid "Computer types (when \"Computers of the selected types\" is chosen)"
+msgstr "Tipos de equipo (si se elige «Equipos de los tipos seleccionados»)"
+
+msgid "Computers concerned"
+msgstr "Equipos afectados"
+
+msgid "Computers in GLPI"
+msgstr "Equipos en GLPI"
+
+msgid "Computers that must be encrypted"
+msgstr "Equipos que deben estar cifrados"
+
+msgid "Computers that must be encrypted and are"
+msgstr "Equipos que deben cifrarse y lo están"
+
+msgid "Computers with a weak encryption algorithm"
+msgstr "Equipos con un algoritmo de cifrado débil"
+
+msgid ""
+"For example the types used for servers and desktops that hold sensitive data."
+msgstr ""
+"Por ejemplo, los tipos usados para servidores y equipos de sobremesa con "
+"datos sensibles."
+
+msgid "Laptops and tablets fully encrypted"
+msgstr "Portátiles y tabletas totalmente cifrados"
+
+msgid "Last inventory"
+msgstr "Último inventario"
+
+msgid "No computer concerned in your entities."
+msgstr "Ningún equipo afectado en sus entidades."
+
+msgid "No computer concerned."
+msgstr "Ningún equipo afectado."
+
+msgid "No location"
+msgstr "Sin ubicación"
+
+msgid "No type"
+msgstr "Sin tipo"
+
+msgid "Not declared"
+msgstr "No declarada"
+
+msgid "Older algorithm or mode"
+msgstr "Algoritmo o modo antiguo"
+
+msgid "Recovery key backed up (declared)"
+msgstr "Clave de recuperación guardada (declarada)"
+
+msgid ""
+"The plugin never reads nor stores any recovery key: it only keeps whether "
+"the key is declared backed up, and when. Nothing is changed in GLPI from "
+"this page."
+msgstr ""
+"El plugin nunca lee ni almacena ninguna clave de recuperación: solo guarda "
+"si la clave está declarada como guardada, y cuándo. Desde esta página no se "
+"modifica nada en GLPI."
+
+msgid "Tool and algorithm"
+msgstr "Herramienta y algoritmo"
+
+msgid "Volumes not encrypted"
+msgstr "Volúmenes sin cifrar"
+
+msgid "Weak algorithm"
+msgstr "Algoritmo débil"
+
+msgid "Which computers must be encrypted?"
+msgstr "¿Qué equipos deben estar cifrados?"
+
+#, php-format
+msgid "%d computer must be encrypted"
+msgid_plural "%d computers must be encrypted"
+msgstr[0] "%d equipo debe estar cifrado"
+msgstr[1] "%d equipos deben estar cifrados"
+
+#, php-format
+msgid "%d laptop or tablet"
+msgid_plural "%d laptops or tablets"
+msgstr[0] "%d portátil o tableta"
+msgstr[1] "%d portátiles o tabletas"
+
+msgid "Certification body report received on"
+msgstr "Informe del organismo recibido el"
+
+msgid "Action plan due to the certification body"
+msgstr "Plan de acciones a enviar al organismo antes del"
+
+msgid "Evidence due to the certification body"
+msgstr "Evidencias a enviar al organismo antes del"
+
+#, php-format
+msgid ""
+"To send to the certification body: %1$d action plans and %2$d evidence "
+"(overdue: %3$d)"
+msgstr ""
+"Por enviar al organismo: %1$d planes de acciones y %2$d evidencias "
+"(vencidos: %3$d)"
+
+msgid "Response to the certification body"
+msgstr "Respuesta al organismo"
+
+msgid "Awaiting the decision of the certification body"
+msgstr "A la espera de la decisión del organismo"
+
+msgid "Accepted by the certification body"
+msgstr "Aceptado por el organismo"
+
+msgid "To be completed at the request of the certification body"
+msgstr "A completar a petición del organismo"
+
+msgid "Action plan overdue"
+msgstr "Plan de acciones vencido"
+
+msgid "Action plan to complete"
+msgstr "Plan de acciones por completar"
+
+msgid "Action plan due soon"
+msgstr "Plan de acciones próximo a vencer"
+
+msgid "Action plan to send"
+msgstr "Plan de acciones por enviar"
+
+msgid "Action plan sent, awaiting decision"
+msgstr "Plan de acciones enviado, a la espera de decisión"
+
+msgid "Action plan accepted"
+msgstr "Plan de acciones aceptado"
+
+msgid "No response required"
+msgstr "No se requiere respuesta"
+
+msgid "Evidence overdue"
+msgstr "Evidencias vencidas"
+
+msgid "Evidence due soon"
+msgstr "Evidencias próximas a vencer"
+
+msgid "Evidence to send"
+msgstr "Evidencias por enviar"
+
+msgid "Evidence sent"
+msgstr "Evidencias enviadas"
+
+msgid "No evidence required"
+msgstr "No se requieren evidencias"
+
+msgid "Everything has been sent"
+msgstr "Todo se ha enviado"
+
+msgid "No deadline entered"
+msgstr "Ningún plazo indicado"
+
+msgid "Correction"
+msgstr "Corrección"
+
+msgid "Corrective action plan for the certification body"
+msgstr "Plan de acciones correctivas para el organismo"
+
+msgid "Action plan sent to the certification body on"
+msgstr "Plan de acciones enviado al organismo el"
+
+msgid "Evidence sent to the certification body on"
+msgstr "Evidencias enviadas al organismo el"
+
+msgid "Decision of the certification body"
+msgstr "Decisión del organismo"
+
+msgid ""
+"Deadline given in the audit report to send the evidence that the "
+"nonconformities are lifted."
+msgstr ""
+"Plazo fijado en el informe de auditoría para enviar las evidencias del "
+"cierre de las no conformidades."
+
+msgid ""
+"Deadline given in the audit report to send your action plan (correction, "
+"root cause and corrective action of each nonconformity)."
+msgstr ""
+"Plazo fijado en el informe de auditoría para enviar su plan de acciones "
+"(corrección, causa y acción correctiva de cada no conformidad)."
+
+#, php-format
+msgid ""
+"A response is expected for each nonconformity. It is optional for an area of "
+"concern or an opportunity for improvement. A deadline is shown as close %d "
+"days before it."
+msgstr ""
+"Se espera una respuesta para cada no conformidad. Es opcional para un punto "
+"sensible o una oportunidad de mejora. Un plazo se indica como próximo %d "
+"días antes."
+
+msgid "Action plan"
+msgstr "Plan de acciones"
+
+msgid ""
+"After the audit, the certification body asks you to send an action plan for "
+"each nonconformity (correction, root cause, corrective action), then the "
+"evidence that it is lifted, each within a deadline. This tab shows what is "
+"still to send and produces the action plan to send to the body."
+msgstr ""
+"Tras la auditoría, el organismo le pide enviar un plan de acciones para cada "
+"no conformidad (corrección, causa, acción correctiva) y luego las evidencias "
+"de su cierre, cada uno en un plazo. Esta pestaña muestra lo que queda por "
+"enviar y genera el plan de acciones para el organismo."
+
+msgid "Corrective action plan for the certification body (PDF)"
+msgstr "Plan de acciones correctivas para el organismo (PDF)"
+
+msgid ""
+"Enter the deadlines given in the report of the certification body in the "
+"main tab of the audit, so that the remaining days are shown."
+msgstr ""
+"Indique los plazos fijados en el informe del organismo en la pestaña "
+"principal de la auditoría para ver los días restantes."
+
+msgid ""
+"Enter the deadlines in the audit form, and the sending dates and the "
+"decision of the body in each finding. Nothing is changed automatically."
+msgstr ""
+"Indique los plazos en la ficha de la auditoría, y las fechas de envío y la "
+"decisión del organismo en cada hallazgo. Nada se modifica automáticamente."
+
+#, php-format
+msgid "Sent on %s"
+msgstr "Enviado el %s"
+
+#, php-format
+msgid "Still to send: %d"
+msgstr "Por enviar: %d"
+
+msgid "To fill in"
+msgstr "Por completar"
+
+msgid "What is this tab for?"
+msgstr "¿Para qué sirve esta pestaña?"
+
+msgid ""
+"Date on which the correction, root cause and corrective action were sent to "
+"the certification body."
+msgstr ""
+"Fecha en que se enviaron al organismo la corrección, la causa y la acción "
+"correctiva."
+
+msgid ""
+"Date on which the evidence that the finding is lifted was sent. Attach the "
+"evidence in the Documents tab."
+msgstr ""
+"Fecha en que se enviaron las evidencias del cierre del hallazgo. Adjunte las "
+"evidencias en la pestaña Documentos."
+
+msgid "Feedback of the certification body"
+msgstr "Comentarios del organismo"
+
+msgid ""
+"What was done at once to deal with the finding itself, before treating its "
+"cause."
+msgstr ""
+"Lo que se hizo de inmediato para tratar el hallazgo en sí, antes de tratar "
+"su causa."
+
+msgid "Audit date"
+msgstr "Fecha de la auditoría"
+
+msgid "No nonconformity calls for a response in this audit."
+msgstr "Ninguna no conformidad de esta auditoría requiere respuesta."
+
+#, php-format
+msgid "Overdue by %d day"
+msgid_plural "Overdue by %d days"
+msgstr[0] "Vencido hace %d día"
+msgstr[1] "Vencido hace %d días"
+
+#, php-format
+msgid ""
+"%d nonconformity still lacks information before the action plan is sent (see "
+"the \"To fill in\" column)."
+msgid_plural ""
+"%d nonconformities still lack information before the action plan is sent "
+"(see the \"To fill in\" column)."
+msgstr[0] ""
+"A %d no conformidad aún le falta información antes de enviar el plan de "
+"acciones (ver la columna «Por completar»)."
+msgstr[1] ""
+"A %d no conformidades aún les falta información antes de enviar el plan de "
+"acciones (ver la columna «Por completar»)."
+
+#, php-format
+msgid ""
+"An auditor must not audit their own work (ISO 19011). An auditor who "
+"performs or approves an audited process in the responsibility matrix, "
+"directly or through a group, is in conflict. A process whose Annex A "
+"controls (responsibility matrix) are audited in the checklist or linked to "
+"the audit is checked too. The audit cannot be started or closed until each "
+"conflict is justified; the justification is kept with its author and date."
+msgstr ""
+"Un auditor no debe auditar su propio trabajo (ISO 19011). Un auditor que "
+"realiza o aprueba un proceso auditado en la matriz de responsabilidades, "
+"directamente o mediante un grupo, está en conflicto. La auditoría no puede "
+"iniciarse ni cerrarse hasta que cada conflicto esté justificado; la "
+"justificación se conserva con su autor y su fecha. También se controla un "
+"proceso cuyos controles del Anexo A (matriz de responsabilidades) se auditan "
+"en la lista de verificación o están vinculados a la auditoría."
+
+msgid "An audit can only be planned for the current year or a later one."
+msgstr ""
+"Solo se puede planificar una auditoría para el año en curso o uno posterior."
+
+msgid "Audit planned: complete its objectives, scope, criteria and auditors."
+msgstr ""
+"Auditoría planificada: complete sus objetivos, alcance, criterios y "
+"auditores."
+
+msgid "Internal audit - %1$s - %2$d"
+msgstr "Auditoría interna - %1$s - %2$d"
+
+msgid ""
+"\"Plan\" creates an internal audit for the process and the year, in the "
+"entity of the process. Then complete its objectives, scope, criteria and "
+"auditors on the audit."
+msgstr ""
+"«Planificar» crea una auditoría interna para el proceso y el año, en la "
+"entidad del proceso. Después complete sus objetivos, alcance, criterios y "
+"auditores en la ficha de la auditoría."
+
+msgid "Plan an internal audit of %1$s in %2$d"
+msgstr "Planificar una auditoría interna de %1$s en %2$d"
+
+msgid "Through the audited controls %s"
+msgstr "Por los controles auditados %s"
+
+msgid "The exercise type could not be changed."
+msgstr "No se ha podido cambiar el tipo de ejercicio."
+
+msgid "The data loss measured at the last test exceeds the RPO."
+msgstr "La pérdida de datos medida en la última prueba supera el RPO."
+
+msgid "Tabletop exercise"
+msgstr "Ejercicio de mesa"
+
+msgid "Functional exercise"
+msgstr "Ejercicio funcional"
+
+msgid "Technical restore test"
+msgstr "Prueba técnica de restauración"
+
+msgid "Full-scale exercise"
+msgstr "Simulacro a escala real"
+
+msgid "Not scheduled"
+msgstr "No planificado"
+
+msgid "Objectives met"
+msgstr "Objetivos cumplidos"
+
+msgid "Objectives missed"
+msgstr "Objetivos no cumplidos"
+
+msgid "Not tested"
+msgstr "No probado"
+
+msgid ""
+"Recovery test programme: when each business process was last tested, whether "
+"the test met its RTO and RPO, and which processes are not tested in time."
+msgstr ""
+"Programa de pruebas de recuperación: cuándo se probó por última vez cada "
+"proceso de negocio, si la prueba cumplió su RTO y su RPO, y qué procesos no "
+"se prueban a tiempo."
+
+msgid ""
+"Plan a test for each process reported as overdue or not tested this year, "
+"then record the measured recovery time and data loss in its \"Recovery "
+"strategy\" tab. Show this view to the auditor as evidence that ICT "
+"continuity is tested regularly."
+msgstr ""
+"Planifique una prueba para cada proceso señalado como atrasado o no probado "
+"este año y registre el tiempo de recuperación y la pérdida de datos medidos "
+"en su pestaña «Estrategia de recuperación». Muestre esta vista al auditor "
+"como prueba de que la continuidad de las TIC se prueba con regularidad."
+
+msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
+msgstr "ISO 22301, 8.5; ISO 27001, anexo A 5.30"
+
+msgid "Recovery test programme"
+msgstr "Programa de pruebas de recuperación"
+
+msgid "All business processes"
+msgstr "Todos los procesos de negocio"
+
+msgid "Each year shows the result of the last test of that year."
+msgstr "Cada año muestra el resultado de la última prueba de ese año."
+
+msgid "Last test missed the objectives"
+msgstr "La última prueba no cumplió los objetivos"
+
+msgid "Next test due"
+msgstr "Próxima prueba prevista"
+
+msgid ""
+"No business process you can see. Create your business processes first, then "
+"record their recovery tests."
+msgstr ""
+"No hay ningún proceso de negocio visible. Cree primero sus procesos de "
+"negocio y luego registre sus pruebas de recuperación."
+
+msgid "Not tested this year"
+msgstr "No probados este año"
+
+msgid "Test overdue"
+msgstr "Prueba atrasada"
+
+msgid "Other types (one per line)"
+msgstr "Otros tipos (uno por línea)"
+
+msgid "Types of recovery exercise"
+msgstr "Tipos de ejercicio de recuperación"
+
+msgid ""
+"Types offered when starting a crisis exercise or recording a recovery test. "
+"Untick a type you do not use, and add your own types, one per line."
+msgstr ""
+"Tipos propuestos al iniciar un ejercicio de crisis o al registrar una prueba "
+"de recuperación. Desmarque un tipo que no utilice y añada sus propios tipos, "
+"uno por línea."
+
+msgid "Type of exercise"
+msgstr "Tipo de ejercicio"
+
+msgid "Above the RPO"
+msgstr "Por encima del RPO"
+
+msgid "Data loss (minutes)"
+msgstr "Pérdida de datos (minutos)"
+
+msgid "Measured data loss"
+msgstr "Pérdida de datos medida"
+
+msgid ""
+"The data loss (time between the last usable backup and the incident) is "
+"compared with its RPO; leave it empty if it was not measured, enter 0 if no "
+"data was lost."
+msgstr ""
+"La pérdida de datos (tiempo entre la última copia de seguridad utilizable y "
+"el incidente) se compara con su RPO; déjela vacía si no se midió e indique 0 "
+"si no se perdió ningún dato."
+
+msgid "0: use the frequency of the periodic review."
+msgstr "0: usar la frecuencia de la revisión periódica."
+
+msgid ""
+"A process that is not tested in time is reported to its owner and to the "
+"CISO group by an automatic action; nothing is changed automatically."
+msgstr ""
+"Un proceso que no se prueba a tiempo se notifica a su responsable y al grupo "
+"CISO mediante una acción automática; no se modifica nada automáticamente."
+
+msgid "Above the objectives of the item tested"
+msgstr "Por encima de los objetivos del elemento probado"
+
+msgid "Coverage by year"
+msgstr "Cobertura por año"
+
+#, php-format
+msgid "Every %d months (frequency of the periodic review of continuity tests)."
+msgstr ""
+"Cada %d meses (frecuencia de la revisión periódica de las pruebas de "
+"continuidad)."
+
+#, php-format
+msgid "Every %d months (frequency set on this process)."
+msgstr "Cada %d meses (frecuencia definida en este proceso)."
+
+msgid "Item tested"
+msgstr "Elemento probado"
+
+msgid "Test frequency (months)"
+msgstr "Frecuencia de prueba (meses)"
+
+msgid "Test programme"
+msgstr "Programa de pruebas"
+
+msgid "The whole process"
+msgstr "El proceso completo"
+
+msgid "Within the RPO"
+msgstr "Dentro del RPO"
+
+msgid "No recovery test has covered this item yet."
+msgstr "Ninguna prueba de recuperación ha cubierto todavía este elemento."
+
+#, php-format
+msgid "Only the %d most recent tests are listed."
+msgstr "Solo se muestran las %d pruebas más recientes."
+
+msgid "Recovery tests that covered this item"
+msgstr "Pruebas de recuperación que han cubierto este elemento"
+
+msgid ""
+"Tests that named this item, and tests of the business processes that depend "
+"on it. Record a test from the \"Recovery strategy\" tab of the process."
+msgstr ""
+"Pruebas que designaron este elemento y pruebas de los procesos de negocio "
+"que dependen de él. Registre una prueba desde la pestaña «Estrategia de "
+"recuperación» del proceso."
+
+msgid "This item was tested"
+msgstr "Este elemento fue probado"
+
+#, php-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] "%d mes"
+msgstr[1] "%d meses"
+
+msgid "Review of the last exercise not validated"
+msgstr "Balance del último ejercicio no validado"
+
+msgid "Critical process never tested in recovery"
+msgstr "Proceso crítico nunca probado en recuperación"
+
+msgid "Preparedness"
+msgstr "Preparación"
+
+msgid "%d exercise review to validate"
+msgid_plural "%d exercise reviews to validate"
+msgstr[0] "%d balance de ejercicio por validar"
+msgstr[1] "%d balances de ejercicio por validar"
+
+msgid "%d scenario exercised with a validated review"
+msgid_plural "%d scenarios exercised with a validated review"
+msgstr[0] "%d escenario ejercitado con un balance validado"
+msgstr[1] "%d escenarios ejercitados con un balance validado"
+
+msgid "%d scenario with a critical process never tested in recovery"
+msgid_plural "%d scenarios with a critical process never tested in recovery"
+msgstr[0] "%d escenario con un proceso crítico nunca probado en recuperación"
+msgstr[1] "%d escenarios con un proceso crítico nunca probado en recuperación"
+
+msgid "No recovery test recorded for this process"
+msgstr "Ninguna prueba de recuperación registrada para este proceso"
+
+msgid "Review to validate"
+msgstr "Balance por validar"
+
+msgid "No official contact to inform for this scenario."
+msgstr "Ningún contacto oficial que avisar para este escenario."
+
+msgid "%d crisis communication recorded during the exercise"
+msgid_plural "%d crisis communications recorded during the exercise"
+msgstr[0] "%d comunicación de crisis registrada durante el ejercicio"
+msgstr[1] "%d comunicaciones de crisis registradas durante el ejercicio"
+
+msgid "%d official contact recorded during the exercise"
+msgid_plural "%d official contacts recorded during the exercise"
+msgstr[0] "%d contacto oficial registrado durante el ejercicio"
+msgstr[1] "%d contactos oficiales registrados durante el ejercicio"
+
+msgid "%d recipient"
+msgid_plural "%d recipients"
+msgstr[0] "%d destinatario"
+msgstr[1] "%d destinatarios"
+
+msgid "%d recipient not visible to you"
+msgid_plural "%d recipients not visible to you"
+msgstr[0] "%d destinatario no visible para usted"
+msgstr[1] "%d destinatarios no visibles para usted"
+
+msgid "%d recovery time measured during the exercise"
+msgid_plural "%d recovery times measured during the exercise"
+msgstr[0] "%d tiempo de recuperación medido durante el ejercicio"
+msgstr[1] "%d tiempos de recuperación medidos durante el ejercicio"
+
+msgid ""
+"Contacts marked for a security incident or a personal data breach, visible "
+"from the entity of the scenario."
+msgstr ""
+"Contactos marcados para un incidente de seguridad o una violación de datos "
+"personales, visibles desde la entidad del escenario."
+
+msgid ""
+"Contacts marked for a security incident, visible from the entity of the "
+"scenario."
+msgstr ""
+"Contactos marcados para un incidente de seguridad, visibles desde la entidad "
+"del escenario."
+
+msgid "Crisis exercises and review"
+msgstr "Ejercicios de crisis y balance"
+
+msgid ""
+"Evaluate the objectives and validate the review in the crisis room, tab "
+"\"Review\"."
+msgstr ""
+"Evalúe los objetivos y valide el balance en la sala de crisis, pestaña "
+"«Balance»."
+
+msgid "Exercise of the plugin: %s"
+msgstr "Ejercicio del plugin: %s"
+
+msgid "Exercise outside the plugin on %s (report in the Documents tab)."
+msgstr "Ejercicio fuera del plugin el %s (informe en la pestaña Documentos)."
+
+msgid "Findings: %1$d, improvement actions: %2$d (%3$d done, %4$d late)"
+msgstr ""
+"Hallazgos: %1$d, acciones de mejora: %2$d (%3$d terminadas, %4$d con retraso)"
+
+msgid ""
+"It gathers what shows that this scenario is ready: the crisis exercises that "
+"tested it and the review of the last one, the recovery tests of the impacted "
+"processes, the crisis messages to send and the authorities to inform. "
+"Nothing is copied: each line opens the original record."
+msgstr ""
+"Reúne lo que demuestra que este escenario está listo: los ejercicios de "
+"crisis que lo probaron y el balance del último, las pruebas de recuperación "
+"de los procesos afectados, los mensajes de crisis que enviar y las "
+"autoridades que avisar. Nada se copia: cada línea abre la ficha original."
+
+msgid "Last exercise ended on %s"
+msgstr "Último ejercicio terminado el %s"
+
+msgid "Launch this exercise"
+msgstr "Iniciar este ejercicio"
+
+msgid "No active message template for the situation \"%s\"."
+msgstr "Ninguna plantilla de mensaje activa para la situación «%s»."
+
+msgid ""
+"No communication situation is chosen for this scenario: choose one in the "
+"main tab, field \"Crisis communication\"."
+msgstr ""
+"No se ha elegido ninguna situación de comunicación para este escenario: "
+"elija una en la pestaña principal, campo «Comunicación de crisis»."
+
+msgid ""
+"No crisis exercise is chosen for this scenario: choose one in the main tab, "
+"field \"Crisis exercise\"."
+msgstr ""
+"No se ha elegido ningún ejercicio de crisis para este escenario: elija uno "
+"en la pestaña principal, campo «Ejercicio de crisis»."
+
+msgid "No distribution list"
+msgstr "Ninguna lista de distribución"
+
+msgid "No impacted process yet: choose them in the main tab."
+msgstr "Todavía ningún proceso afectado: elíjalos en la pestaña principal."
+
+msgid ""
+"Objectives: %1$d achieved, %2$d partially, %3$d not achieved, %4$d not "
+"evaluated"
+msgstr ""
+"Objetivos: %1$d alcanzados, %2$d parcialmente, %3$d no alcanzados, %4$d no "
+"evaluados"
+
+msgid "Opens the crisis room with a fictitious incident of this exercise."
+msgstr "Abre la sala de crisis con un incidente ficticio de este ejercicio."
+
+msgid "Previous exercises"
+msgstr "Ejercicios anteriores"
+
+msgid ""
+"Recovery tests are recorded in the tab \"Recovery strategy\" of each "
+"process, or in the crisis room during an exercise."
+msgstr ""
+"Las pruebas de recuperación se registran en la pestaña «Estrategia de "
+"recuperación» de cada proceso, o en la sala de crisis durante un ejercicio."
+
+msgid "Recovery tests of the impacted processes"
+msgstr "Pruebas de recuperación de los procesos afectados"
+
+msgid "Review validated on %1$s by %2$s"
+msgstr "Balance validado el %1$s por %2$s"
+
+msgid "Situation: %s"
+msgstr "Situación: %s"
+
+msgid "Situation: %s. The message templates are visible only with their right."
+msgstr ""
+"Situación: %s. Las plantillas de mensajes solo son visibles con su derecho."
+
+msgid ""
+"The business processes are visible only with the right of the business "
+"continuity."
+msgstr ""
+"Los procesos de negocio solo son visibles con el derecho de continuidad del "
+"negocio."
+
+msgid ""
+"The crisis exercises are visible only with the right to read the security "
+"incidents."
+msgstr ""
+"Los ejercicios de crisis solo son visibles con el derecho de leer los "
+"incidentes de seguridad."
+
+msgid ""
+"The official contacts are visible only with the right of the context of the "
+"organisation."
+msgstr ""
+"Los contactos oficiales solo son visibles con el derecho del contexto de la "
+"organización."
+
+msgid "This exercise has never been run to the end in the crisis room."
+msgstr ""
+"Este ejercicio nunca se ha llevado hasta el final en la sala de crisis."
+
+msgid "Child licenses counted once"
+msgstr "Licencias hijas contadas una vez"
+
+msgid ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+msgstr ""
+"Las licencias hijas comparten los puestos de su licencia madre: cada familia "
+"se cuenta una vez."
+
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
+msgstr ""
+"Más activos tienen el software de lo que permiten las licencias válidas. Una "
+"licencia ilimitada (número 0 o menor) lo cubre todo. Una licencia madre y "
+"sus licencias hijas cuentan por el mayor entre el número de la madre y la "
+"suma de las hijas."
+
+msgid "Evidence pack settings saved."
+msgstr "Ajustes del dossier de evidencias guardados."
+
+msgid "Evidence pack generated and archived. Download it from the list below."
+msgstr ""
+"Dossier de evidencias generado y archivado. Descárguelo desde la lista de "
+"abajo."
+
+msgid "Evidence pack"
+msgid_plural "Evidence packs"
+msgstr[0] "Dossier de evidencias"
+msgstr[1] "Dossieres de evidencias"
+
+msgid "Annex A controls (Statement of Applicability)"
+msgstr "Controles del Anexo A (Declaración de aplicabilidad)"
+
+msgid "Approved versions of the Statement of Applicability"
+msgstr "Versiones aprobadas de la Declaración de aplicabilidad"
+
+msgid "Approved policy versions"
+msgstr "Versiones aprobadas de las políticas"
+
+msgid "Competence records"
+msgstr "Registros de competencias"
+
+msgid "Audit reports and audit evidence"
+msgstr "Informes y evidencias de auditoría"
+
+msgid "Management review files"
+msgstr "Dossieres de las revisiones por la dirección"
+
+msgid "Access review reports"
+msgstr "Informes de las revisiones de accesos"
+
+msgid "Reports archived by the plugin"
+msgstr "Informes archivados por el plugin"
+
+msgid "Expired, not included"
+msgstr "Caducada, no incluida"
+
+msgid "No file"
+msgstr "Sin archivo"
+
+msgid "Size limit reached, not included"
+msgstr "Límite de tamaño alcanzado, no incluida"
+
+msgid "This perimeter is not among your active entities."
+msgstr "Este perímetro no forma parte de sus entidades activas."
+
+msgid "The PHP zip extension is missing on the server."
+msgstr "Falta la extensión zip de PHP en el servidor."
+
+msgid "The archive could not be created."
+msgstr "No se pudo crear el archivo comprimido."
+
+#, php-format
+msgid "Evidence pack - %1$s (%2$s)"
+msgstr "Dossier de evidencias - %1$s (%2$s)"
+
+msgid "The archive could not be stored as a document."
+msgstr "No se pudo guardar el archivo comprimido como documento."
+
+msgid ""
+"Prepare the evidence pack the auditor asks for: one ZIP archive per "
+"perimeter, with the evidence of each control and each requirement, the "
+"reports already archived and a PDF index that lists them with their date and "
+"SHA-256 fingerprint."
+msgstr ""
+"Prepare el dossier de evidencias que pide el auditor: un archivo ZIP por "
+"perímetro, con las evidencias de cada control y de cada requisito, los "
+"informes ya archivados y un índice PDF que los enumera con su fecha y su "
+"huella SHA-256."
+
+msgid ""
+"Choose the perimeter and check its contents: renew expired evidence and "
+"attach what is missing first. Then generate the pack and download it from "
+"the list. Only what you can read is included; expired evidence is listed in "
+"the index, not included. Nothing is changed in the registers."
+msgstr ""
+"Elija el perímetro y compruebe su contenido: renueve primero las evidencias "
+"caducadas y adjunte lo que falte. Después genere el dossier y descárguelo "
+"desde la lista. Solo se incluye lo que usted puede leer; una evidencia "
+"caducada figura en el índice, sin incluirse. No se modifica nada en los "
+"registros."
+
+msgid ""
+"ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
+"(internal audit)"
+msgstr ""
+"ISO/IEC 27001, cláusulas 7.5.3 (control de la información documentada) y 9.2 "
+"(auditoría interna)"
+
+#, php-format
+msgid "%1$d of %2$d with evidence"
+msgstr "%1$d de %2$d con evidencia"
+
+#, php-format
+msgid "%1$s MB of %2$s MB allowed"
+msgstr "%1$s MB de %2$s MB permitidos"
+
+#, php-format
+msgid ""
+"%d applicable control(s) have no evidence you can read: the index shows them "
+"without evidence."
+msgstr ""
+"%d control(es) aplicable(s) sin evidencia que usted pueda leer: el índice "
+"los muestra sin evidencia."
+
+#, php-format
+msgid "%d file(s)"
+msgstr "%d archivo(s)"
+
+#, php-format
+msgid "%d over the size limit"
+msgstr "%d por encima del límite de tamaño"
+
+msgid "Archived evidence packs"
+msgstr "Dossieres de evidencias archivados"
+
+msgid "Evidence pack for the auditor"
+msgstr "Dossier de evidencias para el auditor"
+
+msgid ""
+"Expired evidence: listed in the index, not included. Renew it from the "
+"\"Evidence validity\" tab of the control before generating the pack."
+msgstr ""
+"Evidencias caducadas: figuran en el índice, no se incluyen. Renuévelas desde "
+"la pestaña «Validez de las evidencias» del control antes de generar el "
+"dossier."
+
+msgid ""
+"Files that would exceed this size are listed in the index as not included."
+msgstr ""
+"Los archivos que superarían este tamaño figuran en el índice como no "
+"incluidos."
+
+msgid "Generate the evidence pack"
+msgstr "Generar el dossier de evidencias"
+
+msgid "Maximum size of the archive (MB)"
+msgstr "Tamaño máximo del archivo comprimido (MB)"
+
+msgid "No evidence pack generated yet."
+msgstr "Todavía no se ha generado ningún dossier de evidencias."
+
+msgid ""
+"One ZIP archive per perimeter: the evidence attached to each Annex A control "
+"and each ISMS requirement, and the reports already archived by the plugin, "
+"with a PDF index listing them control by control, with their date, their "
+"state and their SHA-256 fingerprint."
+msgstr ""
+"Un archivo ZIP por perímetro: las evidencias adjuntas a cada control del "
+"Anexo A y a cada requisito del SGSI, y los informes ya archivados por el "
+"plugin, con un índice PDF que los enumera control por control, con su fecha, "
+"su estado y su huella SHA-256."
+
+msgid ""
+"Only the documents you can read are included. The archive is kept as a "
+"restricted document: you, and whoever can read every piece it contains, can "
+"download it. Generate a new one at any time."
+msgstr ""
+"Solo se incluyen los documentos que usted puede leer. El archivo se conserva "
+"como documento restringido: usted, y quien pueda leer cada una de sus "
+"piezas, puede descargarlo. Genere uno nuevo en cualquier momento."
+
+msgid "Perimeter (entity)"
+msgstr "Perímetro (entidad)"
+
+msgid "Restricted"
+msgstr "Restringido"
+
+msgid "Show the contents"
+msgstr "Mostrar el contenido"
+
+msgid ""
+"You need the right to update the GRC plugin to generate an evidence pack."
+msgstr ""
+"Necesita el derecho de modificar el plugin GRC para generar un dossier de "
+"evidencias."
+
+msgid "Files included"
+msgstr "Archivos incluidos"
+
+msgid "No evidence attached"
+msgstr "Ninguna evidencia adjunta"
+
+msgid "Not included"
+msgstr "No incluido"
+
+msgid ""
+"This index lists the evidence that the person who generated the pack can "
+"read, in the perimeter entity and its sub-entities. Expired evidence is "
+"listed but not included. Each included file is stored once in the "
+"\"evidence\" folder of the archive; its SHA-256 fingerprint is given here "
+"and in the SHA256SUMS.txt file, to check that nothing was changed."
+msgstr ""
+"Este índice enumera las evidencias que la persona que generó el dossier "
+"puede leer, en la entidad del perímetro y sus subentidades. Una evidencia "
+"caducada figura sin incluirse. Cada archivo incluido figura una sola vez en "
+"la carpeta «evidence» del archivo comprimido; su huella SHA-256 se indica "
+"aquí y en el archivo SHA256SUMS.txt, para comprobar que nada se ha "
+"modificado."
+
+#, php-format
+msgid "limit %d MB"
+msgstr "límite %d MB"
+
+#, php-format
+msgid "%s MB"
+msgstr "%s MB"
+
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d brecha(s) de competencia notificada(s)."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s: %2$s, nivel esperado %3$s (formación por planificar: %4$s)"
+
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s: %2$s, nivel esperado %3$s (ninguna formación la otorga todavía: "
+"vincule una o declare una prueba)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Actividad de la matriz de responsabilidades"
+
+msgid "Competence gaps without planned training"
+msgstr "Brechas de competencia sin formación planificada"
+
+msgid "Follows the responsibility matrix"
+msgstr "Sigue la matriz de responsabilidades"
+
+msgid "New gaps without planned training"
+msgstr "Nuevas brechas sin formación planificada"
+
+msgid "Number of gaps without planned training"
+msgstr "Número de brechas sin formación planificada"
+
+msgid "Number of new gaps"
+msgstr "Número de nuevas brechas"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Otras brechas no indicadas aquí: %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Matriz de responsabilidades: %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Rol en la actividad"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "Esta actividad no está disponible en la entidad de la función."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+"Avisa al responsable de las brechas de competencia sin formación planificada"
+
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+"Opcional: las personas y grupos que tienen el rol elegido en esta actividad "
+"ocupan la función y siguen la matriz cuando cambia."
+
+msgid ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+msgstr ""
+"Enviada por la tarea automática de GRC Manager cuando una persona que ocupa "
+"una función del SGSI tiene una brecha de competencia sin formación "
+"planificada."
+
+msgid ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+msgstr ""
+"Planifique una sesión de la formación propuesta desde la página "
+"«Competencias», o declare la prueba que la persona ya tiene. No se modifica "
+"nada automáticamente."
+
+msgid "View the competences"
+msgstr "Ver las competencias"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Alerta de brecha de competencia"
+msgstr[1] "Alertas de brechas de competencia"
+
+msgid "Blockers"
+msgstr "Bloqueos"
+
+msgid "Technical check"
+msgstr "Control técnico"
+
+msgid "Effectiveness test overdue"
+msgstr "Prueba de eficacia atrasada"
+
+#, php-format
+msgid "Last test: %s"
+msgstr "Última prueba: %s"
+
+#, php-format
+msgid "Next test was due on %s"
+msgstr "La próxima prueba vencía el %s"
+
+#, php-format
+msgid "Tested on %s"
+msgstr "Probado el %s"
+
+msgid "Test the control again and record the result."
+msgstr "Vuelva a probar el control y registre el resultado."
+
+msgid "Fix the weakness found by the test, then test the control again."
+msgstr ""
+"Corrija la debilidad detectada por la prueba y vuelva a probar el control."
+
+#, php-format
+msgid "Open, due on %s"
+msgstr "Abierta, vence el %s"
+
+msgid "Carry out the corrective action, then close the nonconformity."
+msgstr "Realice la acción correctiva y luego cierre la no conformidad."
+
+msgid "Have the policy approved by management."
+msgstr "Haga aprobar la política por la dirección."
+
+#, php-format
+msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
+msgstr "Brechas: %1$d de %2$d (%3$d %% conforme)"
+
+msgid "Fix the items listed by the automated check."
+msgstr "Corrija los elementos listados por el control automático."
+
+#, php-format
+msgid "%s coverage"
+msgstr "Cobertura de %s"
+
+#, php-format
+msgid "Computers without an active agent: %1$d out of %2$d"
+msgstr "Equipos sin agente activo: %1$d de %2$d"
+
+msgid "Install or reactivate the agent on the computers not covered."
+msgstr "Instale o reactive el agente en los equipos no cubiertos."
+
+msgid "What blocks this control"
+msgstr "Qué bloquea este control"
+
+msgid ""
+"For each control of the Statement of Applicability, this page lists what "
+"prevents it from being compliant: failing automated check, missing or "
+"expired evidence, policy not approved, effectiveness test overdue or "
+"ineffective, open nonconformity, expired waiver."
+msgstr ""
+"Para cada control de la declaración de aplicabilidad, esta página lista lo "
+"que impide su conformidad: control automático fallido, evidencia ausente o "
+"caducada, política no aprobada, prueba de eficacia atrasada o ineficaz, no "
+"conformidad abierta, excepción caducada."
+
+msgid ""
+"Sort by severity and start with the most blocked controls. Click a control "
+"to see its blockers, then click a blocker to open the screen where it is "
+"fixed. The page is computed again each time and only shows what you are "
+"allowed to read. Nothing is changed automatically."
+msgstr ""
+"Ordene por gravedad y empiece por los controles más bloqueados. Haga clic en "
+"un control para ver sus bloqueos y luego en un bloqueo para abrir la "
+"pantalla donde corregirlo. La página se recalcula cada vez y solo muestra lo "
+"que puede leer. Nada se modifica automáticamente."
+
+msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
+msgstr "ISO/IEC 27001:2022, cláusula 9.1 y control A.5.36."
+
+msgid "Fix"
+msgstr "Corregir"
+
+#, php-format
+msgid "%d more"
+msgstr "%d más"
+
+#, php-format
+msgid "Blocked controls: %1$d out of %2$d"
+msgstr "Controles bloqueados: %1$d de %2$d"
+
+msgid ""
+"No control of the Statement of Applicability is blocked among the checks you "
+"can read."
+msgstr ""
+"Ningún control de la declaración de aplicabilidad está bloqueado según las "
+"verificaciones que puede leer."
+
+msgid "Sort"
+msgstr "Ordenar"
+
+msgid "What blocks it"
+msgstr "Qué lo bloquea"
+
+msgid "All blocked controls"
+msgstr "Todos los controles bloqueados"
+
+msgid ""
+"Everything that prevents this control from being compliant, in a single "
+"list: failing automated check, missing or expired evidence, policy not "
+"approved, effectiveness test overdue or ineffective, open nonconformity, "
+"expired waiver. Click a line to open the screen where it is fixed. Only what "
+"you are allowed to read is shown, and nothing is changed automatically."
+msgstr ""
+"Todo lo que impide la conformidad de este control, en una sola lista: "
+"control automático fallido, evidencia ausente o caducada, política no "
+"aprobada, prueba de eficacia atrasada o ineficaz, no conformidad abierta, "
+"excepción caducada. Haga clic en una línea para abrir la pantalla donde "
+"corregirla. Solo se muestra lo que puede leer y nada se modifica "
+"automáticamente."
+
+msgid "No blocker found among the checks you can read."
+msgstr "No se encontró ningún bloqueo entre las verificaciones que puede leer."
+
+msgid "Nothing blocks this control"
+msgstr "Nada bloquea este control"
+
+msgid "Blocked control"
+msgid_plural "Blocked controls"
+msgstr[0] "Control bloqueado"
+msgstr[1] "Controles bloqueados"

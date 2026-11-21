@@ -7,9 +7,140 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.72.0] - 2026-11-21
+
+### Added
+
+- **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
+  A.5.32). Les licences filles de GLPI (champ « Comme enfant de ») ne gonflent plus les postes
+  licenciés : quand une licence mère et ses filles valables comptent toutes pour une entité, la
+  famille vaut le plus grand du nombre de la mère et de la somme des filles (un contrat de 10 postes
+  réparti en filles de 4 et 6 vaut 10 postes, pas 20 ; une fille « mise à niveau » d'un poste ne
+  réduit pas la mère). Une mère expirée ne compte plus, ses filles valables si. Le surdéploiement
+  ainsi révélé porte le badge « Licences filles comptées une fois » ; les licences sont nommées
+  avec leur mère (« Contrat > Licence fille ») sur la page et dans l'export. Toujours en lecture
+  seule. Ce lot termine l'issue #779.
+
+- **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
+  contacts officiels** (issue #776, lot 2, mesure A.5.29) :
+  - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les
+    dupliquer : les exercices de crise terminés du scénario et le bilan du dernier (objectifs,
+    constats, plan d'amélioration, validation : #732) avec leur type d'exercice (#733), les communications, prises de contact
+    officielles et temps de reprise tracés pendant cet exercice, le dernier test de reprise de
+    chaque processus impacté comparé à son RTO (#733), les modèles de messages de la situation et
+    leur liste de diffusion (#616, #800), les contacts officiels à prévenir visibles depuis
+    l'entité du scénario (#771). Bouton « Lancer cet exercice » vers la salle de crise ;
+  - deux nouveaux manques : **bilan du dernier exercice non validé** et **processus critique
+    jamais testé en reprise**, comptés dans la couverture, sur la mesure A.5.29 (avec le nombre de
+    scénarios exercés au bilan validé) et dans le PDF ;
+  - registre : état du bilan du dernier exercice et processus sans test de reprise signalés ;
+  - PDF : dernier test de reprise de chaque processus, état du bilan, modèles de messages et
+    contacts officiels à prévenir de chaque scénario ;
+  - chaque objet garde ses droits (exercices avec la lecture des incidents, modèles et contacts
+    avec le leur) ; aucune nouvelle table ni colonne ; rien n'est modifié automatiquement. Ce lot
+    termine l'issue #776.
+
+- **Audits de certification : réponse aux constats de l'organisme dans les délais** (issue #772,
+  lot 3). Après l'audit, l'organisme attend un plan d'actions puis les preuves de levée, chacun
+  dans un délai fixé par son rapport :
+  - fiche d'un audit de certification : **Rapport de l'organisme reçu le**, **Plan d'actions à
+    envoyer à l'organisme avant le**, **Preuves à envoyer à l'organisme avant le** (aussi dans la
+    recherche) ;
+  - fiche d'un constat d'audit de certification : **Correction** (avant la cause et l'action
+    corrective) et bloc **Réponse à l'organisme** : date d'envoi du plan d'actions, **décision de
+    l'organisme** (en attente, accepté, à compléter) et son retour, date d'envoi des preuves ;
+  - nouvel onglet **Réponse à l'organisme** de l'audit : délais et jours restants en badges, état
+    du plan d'actions et des preuves de chaque constat (à envoyer, bientôt dû, en retard, envoyé,
+    accepté, à compléter), éléments manquants avant l'envoi (correction, cause, action,
+    responsable, échéance) ;
+  - export PDF **Plan d'actions correctives pour l'organisme** (référence, constat, correction,
+    cause, action, responsable, échéance, preuves, état de levée), à envoyer à l'organisme ;
+  - « Préparation à la certification » : plans d'actions et preuves encore à envoyer, dont ceux en
+    retard ;
+  - une réponse est attendue pour une non-conformité, facultative pour un point sensible ou une
+    piste de progrès. Aucun statut, responsable ni échéance n'est modifié automatiquement ;
+  - colonnes `body_report_date`, `body_response_due_date`, `body_evidence_due_date` des audits et
+    `correction`, `body_response_date`, `body_decision`, `body_feedback`, `body_evidence_date` des
+    non-conformités (migration rejouable, supprimées avec les tables à la désinstallation).
+- **Chiffrement des disques du parc** (issue #847, mesures A.8.24 et A.8.1). Nouvelle page Sécurité
+  technique > « Chiffrement des disques », d'après les volumes remontés par l'agent d'inventaire de
+  GLPI (état, outil BitLocker, FileVault, LUKS, VeraCrypt..., algorithme) :
+  - taux d'ordinateurs entièrement chiffrés, partiellement chiffrés, non chiffrés ou d'état inconnu,
+    par entité, type d'ordinateur et lieu, et taux des portables et tablettes ;
+  - **règle réglable** « doit être chiffré » : tous les ordinateurs (par défaut, comme avant), les
+    portables et tablettes, ou les types choisis, plus un seuil de confidentialité de la
+    classification C/I/D ; droit de modifier le plugin, jeton CSRF, journal d'audit ;
+  - liste des écarts avec le dernier inventaire, l'outil et l'algorithme ; algorithme faible (DES,
+    RC4...) compté comme écart, algorithme ou mode ancien (diffuseur BitLocker, CBC) signalé ;
+  - **clé de récupération** : le plugin ne lit ni ne stocke jamais de clé, l'administrateur déclare
+    seulement qu'elle est sauvegardée (case et date) ;
+  - le contrôle technique « Postes avec un disque non chiffré » est étendu (règle, algorithme)
+    et un contrôle « Portables avec un disque non chiffré » (A.8.1) s'y ajoute, enregistrable comme
+    test d'efficacité ; preuve sur les fiches des mesures A.8.24 et A.8.1 ; carte du tableau de bord
+    « Ordinateurs à chiffrer qui le sont (%) » ; source de KRI « Portables avec un disque non chiffré
+    (%) » ; constat dans l'étape SoA de la préparation à la certification.
+  - Lecture seule des données de GLPI, entités de la session ; nouvelle table des déclarations,
+    supprimée à la désinstallation. Traductions (7 langues et variantes), tests unitaires et
+    d'intégration, matrice d'accès et contrôle XSS.
+- **Dossier de preuves exportable pour l'auditeur** (issue #868, clauses 7.5.3 et 9.2). Nouvelle
+  page **Conformité > Dossier de preuves** : choix du périmètre (entité), aperçu du contenu, puis
+  génération d'une archive ZIP qui contient :
+  - les preuves rattachées à chaque mesure de la SoA du périmètre et à chaque sous-article du SMSI
+    (clauses 4 à 10), et les rapports déjà archivés par le plugin (versions approuvées de la SoA et
+    des politiques, matrice des responsabilités, compétences, audits, revues de direction, revues
+    des accès) ;
+  - un **index PDF** mesure par mesure et sous-article par sous-article : chaque preuve avec sa date,
+    son état et son **empreinte SHA-256**, et un fichier `SHA256SUMS.txt` ;
+  - seules les pièces que la personne peut lire sont incluses (droits de GLPI, documents
+    restreints) ; une **preuve expirée** est signalée dans l'index sans être incluse ; une pièce qui
+    ferait dépasser la **limite de taille réglable** (200 Mo par défaut) est signalée aussi ;
+  - l'archive est construite en flux sur un fichier temporaire, puis **archivée comme document
+    restreint** : lisible par son auteur et par qui peut lire chacune de ses pièces ;
+    régénérable à tout moment, avec l'historique des dossiers et leur empreinte. Rien n'est modifié
+    dans les registres.
+- **Compétences (7.2) : titulaires repris de la matrice des responsabilités et alerte des écarts
+  sans formation planifiée** (issue #774, lot 3, dernier lot) :
+  - une fonction du SMSI peut être tenue par un **rôle dans une activité de la matrice des
+    responsabilités** (#612), par exemple « Réalise » pour « Sauvegardes » : les personnes et les
+    groupes qui tiennent ce rôle tiennent la fonction, sans copie, et la fonction suit la matrice
+    quand elle change (badge « Suit la matrice des responsabilités ») ; seules les activités
+    visibles depuis l'entité de la fonction sont proposées et acceptées ;
+  - nouvelle tâche automatique hebdomadaire **competencegaps** et notification modifiable
+    **Écarts de compétence sans formation planifiée**, envoyée au responsable de la préparation à
+    la certification et au groupe RSSI : chaque nouvel écart, avec la formation à planifier ou, à
+    défaut, la preuve à déclarer. Un écart n'est signalé qu'une fois. Seul un compte qui lit le
+    plugin et les utilisateurs sur toutes les entités la reçoit ;
+  - aucune inscription, session, affectation ni aucun droit n'est modifié automatiquement.
+- **Ce qui bloque chaque mesure de la SoA** (issue #867, article 9.1 et mesure A.5.36). Une seule
+  liste de tout ce qui empêche une mesure d'être conforme, chaque ligne avec un lien vers l'écran à
+  corriger et la marche à suivre :
+  - nouvel onglet **Ce qui bloque cette mesure** sur la fiche de chaque mesure ;
+  - nouvelle vue **Mesures bloquées** (rubrique Conformité) : mesures bloquées de la SoA de
+    l'entité active, triables par gravité, nombre de blocages ou code de mesure ;
+  - sources reprises sans rien recalculer : contrôles de cohérence (preuve manquante ou expirée,
+    justification d'exclusion faible, mesure sans risque, dérogation expirée, politique non revue
+    ou sans propriétaire, non-conformité close sans action), dernier test d'efficacité inefficace
+    ou partiel et test en retard sur le plan, non-conformités ouvertes qui citent la mesure (par
+    leur référence ou par le test qui les a ouvertes), politiques en brouillon (mesure A.5.1),
+    contrôles techniques automatiques et couverture Wazuh et SentinelOne (A.8.7, A.8.16) ;
+  - lecture seule, uniquement ce que la personne a le droit de lire (droits et entités).
+
 ## [2.71.0] - 2026-11-20
 
 ### Added
+
+- **Audit interne selon l'ISO 19011 : indépendance par les mesures auditées et planification depuis
+  le programme** (issue #773, lot 3, ISO 27001 9.2) :
+  - le contrôle d'indépendance porte aussi sur les processus dont la matrice des responsabilités
+    porte une mesure de l'Annexe A auditée (ligne « mesure » de la grille de l'audit ou mesure liée
+    à la fiche), même s'ils ne sont pas choisis dans l'onglet. Le conflit indique les mesures
+    concernées, dans l'onglet « Programme et indépendance » et dans le rapport PDF, et bloque le
+    démarrage et la clôture jusqu'à sa justification, comme les autres ;
+  - page du programme pluriannuel : bouton **Planifier** dans chaque case sans audit à venir (année
+    en cours ou suivante). Il crée un audit interne « Prévu » pour ce processus et cette année, dans
+    l'entité du processus (droit de créer un audit exigé), et ouvre sa fiche ;
+  - aucune nouvelle table ni colonne ; aucun statut ni droit n'est modifié automatiquement. Ce lot
+    termine l'issue #773.
 
 - **Préparation à la certification : délais réglables** (issue #761, lot 2). Les réglages de l'écran
   « Préparation à la certification » gagnent :
@@ -26,6 +157,30 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits inchangés (réglages : droit de modifier le plugin, jeton CSRF) ; valeurs nettoyées et
     bornées à l'enregistrement ; réglages stockés dans le contexte `plugin:grcmanager`, retiré à la
     désinstallation. Traductions (7 langues et variantes), tests unitaires et d'intégration.
+- **Exercices de reprise : type d'exercice, RPO mesuré, programme de tests et historique par
+  élément** (issue #733, ISO 27001 A.5.30, ISO 22301 8.5). Ce que l'auditeur regarde pour la
+  préparation des TIC à la continuité :
+  - **type d'exercice** (sur table, fonctionnel, test technique de restauration, grandeur nature),
+    choisi au lancement d'un exercice de crise, modifiable dans la salle de crise jusqu'à la
+    validation du bilan, repris par les tests de reprise saisis pendant l'exercice ; liste réglable
+    dans la configuration du plugin (types par défaut cochés, types propres un par ligne) ;
+  - **perte de données mesurée** (RPO mesuré) à côté du temps de reprise, comparée au RPO du
+    processus et, si un **élément testé** est désigné parmi ses dépendances, aux objectifs de cet
+    élément ; un dernier test au-delà du RPO est signalé dans la BIA et la stratégie de reprise ;
+  - **programme de tests** : fréquence propre à chaque processus (sinon celle de la revue
+    périodique), prochaine échéance et **couverture sur quatre ans** (badge selon le résultat du
+    dernier test de l'année) dans l'onglet « Stratégie de reprise », et vue **Programme des tests de
+    reprise** depuis la liste des processus métier (en retard, non testés cette année, hors
+    objectifs) ;
+  - la tâche `businessprocessreminder` signale aussi les processus jamais testés, une période après
+    leur création (notification uniquement, aucune modification ; à la mise à jour, l'état actuel
+    est tenu pour rappelé) ;
+  - **historique sur l'élément** : l'onglet « Processus métier » d'un serveur, d'une application...
+    liste les tests de reprise qui l'ont couvert et leur résultat ;
+  - colonnes `exercise_type`, `measured_rpo_minutes`, `itemtype`, `items_id` des tests de reprise,
+    `recovery_test_months` des processus et `exercise_type` des exercices (supprimées avec leurs
+    tables à la désinstallation), réglage `recovery_exercise_types`. Un élément ou un exercice
+    illisible n'est jamais nommé ; traductions dans les 7 langues ; tutoriel, étape 30 bis.
 
 ## [2.70.0] - 2026-11-20
 

@@ -69,7 +69,7 @@
         {% for c in programme.conflicts %}
           <tr>
             <td>{{ c.user }}</td>
-            <td>{{ c.process }}</td>
+            <td>{{ c.process }}{% if c.measures is not empty %} ({{ __('Through the audited controls %s', 'grcmanager')|format(c.measures|join(', ')) }}){% endif %}</td>
             <td>{{ c.role_label }}</td>
             <td>{% if c.waiver %}{{ c.waiver.justification|nl2br }} ({{ __('%1$s, %2$s', 'grcmanager')|format(c.waiver.author, c.waiver.date) }}){% else %}{{ __('To justify', 'grcmanager') }}{% endif %}</td>
           </tr>

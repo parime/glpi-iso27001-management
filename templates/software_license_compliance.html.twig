@@ -82,6 +82,7 @@
                         <td><span class="badge bg-{{ row.info.color }}-subtle text-{{ row.info.color }}-emphasis" title="{{ row.info.help }}"><i class="{{ row.info.icon }} me-1"></i>{{ row.info.label }}</span>
                            {% if row.subtree %}<div class="small text-muted mt-1"><i class="ti ti-sitemap me-1"></i>{{ __('Shared with the sub-entities', 'grcmanager') }}</div>{% endif %}
                            {% if row.overquota_allowed %}<div class="mt-1"><span class="badge bg-info-subtle text-info-emphasis"><i class="ti ti-receipt me-1"></i>{{ __('Over-quota allowed', 'grcmanager') }}</span></div>{% endif %}
+                           {% if row.nested %}<div class="mt-1"><span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-hierarchy me-1"></i>{{ __('Child licenses counted once', 'grcmanager') }}</span></div>{% endif %}
                         </td>
                         <td>
                            <a href="{{ row.software_url }}">{{ row.software_name }}</a>

@@ -56,6 +56,22 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #867 : mesures bloquées de la SoA.
+            'controlblocker'   => [
+                'purpose'  => __(
+                    'For each control of the Statement of Applicability, this page lists what prevents it from '
+                        . 'being compliant: failing automated check, missing or expired evidence, policy not approved, '
+                        . 'effectiveness test overdue or ineffective, open nonconformity, expired waiver.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Sort by severity and start with the most blocked controls. Click a control to see its blockers, '
+                        . 'then click a blocker to open the screen where it is fixed. The page is computed again each '
+                        . 'time and only shows what you are allowed to read. Nothing is changed automatically.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001:2022 clause 9.1 and control A.5.36.', 'grcmanager'),
+            ],
             // Issue #614 : contrôles de cohérence du SMSI avant un audit.
             'consistencycheck' => [
                 'purpose'  => __(
@@ -417,6 +433,24 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, control A.5.32', 'grcmanager'),
+            ],
+            // Issue #847 : chiffrement des disques du parc.
+            'diskencryption' => [
+                'purpose'   => __(
+                    'Shows, from the volumes reported by the GLPI inventory agent (BitLocker, FileVault, LUKS, '
+                        . 'VeraCrypt...), which computers are fully encrypted, partially encrypted, not encrypted or '
+                        . 'of unknown state, by entity, computer type and location. Computers that must be encrypted '
+                        . 'and are not, or use a weak algorithm, are gaps.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Choose which computers must be encrypted, encrypt the computers listed as gaps, install the '
+                        . 'inventory agent on those of unknown state, and declare where the recovery key is backed '
+                        . 'up. The plugin never reads nor stores any recovery key. Record the result as an '
+                        . 'effectiveness test of the control to keep the evidence.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.24 and A.8.1', 'grcmanager'),
             ],
             'contextitem' => [
                 'purpose'   => __(
@@ -784,6 +818,26 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #868 : dossier de preuves exportable pour l'auditeur.
+            'evidencepack' => [
+                'purpose'   => __(
+                    'Prepare the evidence pack the auditor asks for: one ZIP archive per perimeter, with the '
+                        . 'evidence of each control and each requirement, the reports already archived and a PDF '
+                        . 'index that lists them with their date and SHA-256 fingerprint.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Choose the perimeter and check its contents: renew expired evidence and attach what is '
+                        . 'missing first. Then generate the pack and download it from the list. Only what you can '
+                        . 'read is included; expired evidence is listed in the index, not included. Nothing is '
+                        . 'changed in the registers.',
+                    'grcmanager'
+                ),
+                'reference' => __(
+                    'ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 (internal audit)',
+                    'grcmanager'
+                ),
+            ],
             'controltest' => [
                 'purpose'   => __(
                     'The effectiveness tests of the Annex A controls: a control in place is checked to really work, '
@@ -932,6 +986,21 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30', 'grcmanager'),
+            ],
+            // Issue #733 : programme de tests de reprise (front/recoveryprogramme.php).
+            'recoveryprogramme' => [
+                'purpose'   => __(
+                    'Recovery test programme: when each business process was last tested, whether the test met '
+                        . 'its RTO and RPO, and which processes are not tested in time.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Plan a test for each process reported as overdue or not tested this year, then record the '
+                        . 'measured recovery time and data loss in its "Recovery strategy" tab. Show this view to '
+                        . 'the auditor as evidence that ICT continuity is tested regularly.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 22301, 8.5; ISO 27001, Annex A 5.30', 'grcmanager'),
             ],
             'impactanalysis' => [
                 'purpose'   => __(

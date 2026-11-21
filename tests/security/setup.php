@@ -90,6 +90,9 @@ if ($mode === 'xss') {
         'title' => $canary, 'plugin_grcmanager_audits_id' => $out['audit'], 'body_reference' => $canary,
         'audited_process' => $canary, 'requirement_reference' => $canary, 'corrective_action' => $canary,
         'root_cause' => $canary,
+        // Lot 3 : réponse à l'organisme piégée (correction, retour de l'organisme), onglet et PDF.
+        'correction' => $canary, 'body_feedback' => $canary, 'description' => $canary,
+        'body_response_date' => date('Y-m-d'), 'body_decision' => 'to_complete',
     ]);
     $out['obligation'] = $insert('complianceobligations', [
         'title' => $canary, 'description' => $canary, 'reference_source' => $canary,
@@ -330,6 +333,11 @@ if ($mode === 'xss') {
     ]);
     $DB->update('glpi_plugin_grcmanager_ismsrequirements', ['comment' => $canary], ['id' => ['>', 0]]);
     $DB->update('glpi_computers', ['name' => $canary], ['id' => (int) $ids['computer_A']]);
+    // Issue #847 : outil et algorithme de chiffrement piégés (page du chiffrement des disques).
+    $DB->update('glpi_items_disks', [
+        'encryption_status' => 2, 'encryption_tool' => mb_substr($canary, 0, 255),
+        'encryption_algorithm' => mb_substr($canary, 0, 255),
+    ], ['itemtype' => Computer::class, 'items_id' => (int) $ids['computer_A']]);
     // Issue #779 : logiciel commercial sans licence piégé (page des licences logicielles, export).
     $DB->update('glpi_softwares', ['name' => $canary], ['name' => 'Logiciel licence securite A']);
     // Issue #779, lot 2 : licence piégée qui arrive à échéance (lien vers la licence sur la page).
@@ -357,12 +365,16 @@ if ($mode === 'xss') {
     $insert('businessprocessrecoveries', [
         'plugin_grcmanager_businessprocesses_id' => $out['process'], 'test_date' => date('Y-m-d'),
         'measured_minutes' => 90, 'comment' => $canary,
+        // Issue #733 : type d'exercice piégé (onglet du processus, programme, historique de l'élément).
+        'exercise_type' => $canary, 'measured_rpo_minutes' => 30,
     ]);
     // Issue #776 : scénario de crise piégé (nom, description, mode dégradé, rôles, commentaire), lié au
     // processus piégé (registre, fiche, onglet du processus, PDF).
     $out['crisis_scenario'] = $insert('crisisscenarios', [
         'name' => $canary, 'description' => $canary, 'degraded_mode' => $canary, 'role_management' => $canary,
         'role_ciso' => $canary, 'role_it' => $canary, 'comment' => $canary, 'is_active' => 1,
+        // Issue #776, lot 2 : situation du modèle piégé, pour l'onglet « Préparation ».
+        'communication_situation' => 'major_incident', 'exercise_scenario' => 'ransomware',
     ]);
     $insert('crisisscenarios_businessprocesses', [
         'plugin_grcmanager_crisisscenarios_id' => $out['crisis_scenario'],
@@ -373,6 +385,12 @@ if ($mode === 'xss') {
     $update('competences', ['name' => $canary, 'description' => $canary], (int) $ids['competence_A']);
     $insert('ismsfunctions_holders', [
         'plugin_grcmanager_ismsfunctions_id' => (int) $ids['ismsfunction_A'], 'itemtype' => 'User', 'items_id' => 2,
+    ]);
+    // Lot 3 : la fonction piégée est aussi tenue par le rôle « réalise » de l'activité piégée.
+    $insert('ismsfunctions_holders', [
+        'plugin_grcmanager_ismsfunctions_id' => (int) $ids['ismsfunction_A'],
+        'itemtype' => \GlpiPlugin\Grcmanager\ResponsibilityActivity::class, 'items_id' => $xssProcess,
+        'role' => 'responsible',
     ]);
     $out['competencedeclaration'] = $insert('competencedeclarations', [
         'entities_id' => 0, 'users_id' => 2, 'plugin_grcmanager_competences_id' => (int) $ids['competence_A'],
@@ -389,6 +407,11 @@ if ($mode === 'xss') {
     ], (int) $ids['physical_zone_A']);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
+    // Issue #868 : la même preuve, expirée sur la mesure de A, est citée par la page du dossier de preuves.
+    $DB->updateOrInsert('glpi_plugin_grcmanager_evidences', ['valid_until' => '2020-01-31'], [
+        'itemtype' => 'GlpiPlugin\Grcmanager\Control', 'items_id' => (int) $ids['control'],
+        'documents_id' => (int) $ids['document_A'],
+    ]);
     // Issue #380 : nom de la preuve envoyée depuis le formulaire, citée par un test (onglet).
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['evidence_upload']]);
     $insert('controltests', [
@@ -441,6 +464,8 @@ if ($mode === 'xss') {
         'plugin_grcmanager_crisisexercises_id' => $exercise, 'action' => 'reopened', 'users_id' => 2,
         'date' => date('Y-m-d H:i:s'), 'comment' => $canary,
     ]);
+    // Issue #733 : type d'exercice piégé (salle de crise, liste des exercices).
+    $DB->update('glpi_plugin_grcmanager_crisisexercises', ['exercise_type' => $canary], ['id' => $exercise]);
     $out['exercise'] = $exercise;
     // Issue #777 : application et changement pieges (nom), avec leur fiche et leur liste de controle
     // piegees : page du developpement securise, onglets de l'application et du changement.
@@ -699,6 +724,14 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
+    // Issue #847 : volume système non chiffré (page du chiffrement des disques, entité seulement).
+    $diskCriteria = ['itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix]];
+    if (countElementsInTable('glpi_items_disks', $diskCriteria) === 0) {
+        $DB->insert('glpi_items_disks', [
+            'itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix], 'name' => 'Disque securite',
+            'mountpoint' => 'C:', 'encryption_status' => 0, 'is_deleted' => 0,
+        ]);
+    }
     // Issue #779 : logiciel commercial fictif installé sans licence sur l'ordinateur de l'entité.
     $licenseSoftware = $add(new Software(), [
         'name' => 'Logiciel licence securite ' . $suffix, 'entities_id' => $entity,
@@ -1149,6 +1182,16 @@ foreach (['A' => $ids['audit'], 'B' => $ids['audit_B']] as $suffix => $auditId) 
         'due_date'                    => $overdue,
     ]);
 }
+// Issue #867 : les constats de A et de B citent la mesure testée (code commun aux SoA de A et de
+// B) ; la vue « Mesures bloquées » ne cite jamais celui de B pour un profil limité à A.
+$testedCode = (string) $DB->request([
+    'SELECT' => ['code'], 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['id' => $ids['control']],
+])->current()['code'];
+$DB->update(
+    'glpi_plugin_grcmanager_nonconformities',
+    ['requirement_reference' => $testedCode],
+    ['id' => [$ids['nc_A'], $ids['nc_B']]]
+);
 $ids['action_B'] = $add(new \GlpiPlugin\Grcmanager\RiskTreatmentAction(), [
     'plugin_grcmanager_risks_id' => $ids['risk_B'],
     'description'                => 'Action securite B',

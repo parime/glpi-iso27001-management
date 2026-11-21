@@ -107,6 +107,14 @@
    {{ fields.dateField('closure_verification_date', item.fields['closure_verification_date'], __('Closure verification date', 'grcmanager')) }}
 
    {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
+   {# Issue #772, lot 3 : correction immédiate, demandée par l'organisme avant la cause et l'action. #}
+   {% if certification %}
+      {{ fields.textareaField('correction', item.fields['correction'], __('Correction', 'grcmanager'), {
+         'full_width': true,
+         'rows': 3,
+         'add_field_html': hints.hint(__('What was done at once to deal with the finding itself, before treating its cause.', 'grcmanager')),
+      }) }}
+   {% endif %}
    {{ fields.textareaField('root_cause', item.fields['root_cause'], __('Root cause', 'grcmanager'), {'full_width': true}) }}
    {{ fields.textareaField('corrective_action', item.fields['corrective_action'], __('Corrective action', 'grcmanager'), {
       'full_width': true,
@@ -117,4 +125,19 @@
       'full_width': true,
       'rows': 4,
    }) }}
+   {# Issue #772, lot 3 : réponse à l'organisme de certification (dates saisies à la main). #}
+   {% if certification %}
+      {{ fields.smallTitle(__('Response to the certification body', 'grcmanager'), 'ti ti-send') }}
+      {{ fields.dateField('body_response_date', item.fields['body_response_date'], __('Action plan sent to the certification body on', 'grcmanager'), {
+         'add_field_html': hints.hint(__('Date on which the correction, root cause and corrective action were sent to the certification body.', 'grcmanager')),
+      }) }}
+      {{ fields.dropdownArrayField('body_decision', item.fields['body_decision'] ?? '', body_decisions, __('Decision of the certification body', 'grcmanager')) }}
+      {{ fields.dateField('body_evidence_date', item.fields['body_evidence_date'], __('Evidence sent to the certification body on', 'grcmanager'), {
+         'add_field_html': hints.hint(__('Date on which the evidence that the finding is lifted was sent. Attach the evidence in the Documents tab.', 'grcmanager')),
+      }) }}
+      {{ fields.textareaField('body_feedback', item.fields['body_feedback'], __('Feedback of the certification body', 'grcmanager'), {
+         'full_width': true,
+         'rows': 3,
+      }) }}
+   {% endif %}
 {% endblock %}

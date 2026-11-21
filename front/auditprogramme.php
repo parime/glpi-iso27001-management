@@ -39,6 +39,35 @@ if (isset($_POST['save_settings'])) {
     Html::redirect(AuditProgramme::getSearchURL());
 }
 
+// Issue #773, lot 3 : planifier un audit interne depuis une case du programme (processus, année).
+// Droit de créer un audit dans l'entité du processus ; processus des entités de la session.
+if (isset($_POST['plan_audit'])) {
+    Session::checkRight(Audit::$rightname, CREATE);
+    $process = AuditProgramme::plannableProcess((int) ($_POST['process_id'] ?? 0));
+    if ($process === null) {
+        Html::displayRightError();
+    } else {
+        $input = AuditProgramme::planInput($process, (int) ($_POST['year'] ?? 0));
+        if ($input === null) {
+            Session::addMessageAfterRedirect(
+                __('An audit can only be planned for the current year or a later one.', 'grcmanager'),
+                false,
+                ERROR
+            );
+        } else {
+            (new Audit())->check(-1, CREATE, $input);
+            $auditId = AuditProgramme::planAudit((int) $process['id'], $input);
+            if ($auditId > 0) {
+                Session::addMessageAfterRedirect(
+                    __('Audit planned: complete its objectives, scope, criteria and auditors.', 'grcmanager')
+                );
+                Html::redirect(Audit::getFormURLWithID($auditId));
+            }
+        }
+        Html::redirect(AuditProgramme::getSearchURL());
+    }
+}
+
 $start = AuditProgramme::cycleStart($_GET['start'] ?? null);
 
 Html::header(AuditProgramme::getTypeName(), $_SERVER['PHP_SELF'], 'grcmanager', Audit::class);

@@ -178,6 +178,14 @@ travail datées, avec leur auteur.
    indépendants, rapport remis à la direction. La page du programme reprend ces points pour chaque
    audit du cycle et signale les audits incomplets. Le rapport PDF de l'audit les reprend aussi, avec
    la compétence des auditeurs et la justification de chaque conflit.
+8. **Indépendance par les mesures auditées** : un processus dont la matrice des responsabilités porte
+   une mesure de l'Annexe A auditée (ligne « mesure » de la grille de l'audit, ou mesure liée sur la
+   fiche) est contrôlé aussi, même s'il n'est pas choisi dans l'onglet. Le conflit indique les
+   mesures concernées (« Par les mesures auditées A.8.13 ») et se justifie de la même façon.
+9. **Planifier depuis le programme** : sur la page du programme, le bouton **Planifier** d'une case
+   sans audit à venir (cette année ou une année suivante) crée un audit interne pour ce processus et
+   cette année, dans l'entité du processus, et ouvre sa fiche. Complétez ensuite ses objectifs, son
+   périmètre, ses critères et ses auditeurs.
 
 Depuis l'onglet **Non-conformités** de la rubrique, une non-conformité peut être liée à cet audit interne, avec
 une sévérité, une échéance, une description et une cause racine.
@@ -485,6 +493,28 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
 7. Chacun retrouve ses propres compétences dans ses préférences (onglet « Mes compétences »). Le
    responsable voit la matrice et l'onglet « Compétences » de chaque utilisateur, avec le droit du
    plugin et la lecture des utilisateurs, pour les personnes de ses entités.
+8. Un écart pour lequel la personne est déjà inscrite à une formation (ou à une session) qui donne la
+   compétence au niveau attendu affiche **Formation prévue**. La carte **Formations à planifier**
+   liste, pour chaque formation qui comble un écart, les personnes pas encore inscrites : **Préparer
+   une session** ouvre une nouvelle session de la formation avec ces personnes présélectionnées.
+   Vérifiez la date et la liste, puis cliquez sur « Ajouter » : rien n'est enregistré avant.
+9. Sur la page **Préparation à la certification**, l'étape « Définir et vérifier les compétences »
+   (7.2) est faite quand chaque fonction a ses compétences exigées et ses titulaires, que chaque écart
+   a une formation planifiée et que le dossier des compétences est archivé. La carte de tableau de
+   bord « Couverture des compétences exigées (%) » suit les mêmes chiffres.
+10. Si vos responsabilités sont déjà décrites dans la **Matrice des responsabilités**, une fonction
+    peut en reprendre les titulaires : dans la fiche de la fonction, choisissez une **Activité de la
+    matrice des responsabilités** et le **Rôle dans l'activité** (par exemple « Sauvegardes » et
+    « Réalise »), puis enregistrez. Les personnes et les groupes qui tiennent ce rôle tiennent la
+    fonction, avec le badge « Suit la matrice des responsabilités » : quand la matrice change, la
+    fonction suit, sans rien recopier.
+11. Chaque semaine, la tâche automatique « competencegaps » envoie au responsable de la préparation
+    à la certification (et au groupe RSSI) la notification **Écarts de compétence sans formation
+    planifiée** : chaque nouvel écart, avec la formation à planifier. Un écart n'est signalé qu'une
+    fois. Les destinataires se règlent dans Configuration > Notifications ; seuls ceux qui lisent le
+    plugin et les utilisateurs sur toutes les entités la reçoivent. Rien n'est modifié
+    automatiquement.
+
 ### Étape 22 : Tenir le registre des contacts officiels (mesures A.5.5 et A.5.6)
 
 1. Ouvrez Conformité > **Contacts officiels** (onglet à côté de « Contexte de l'organisation »).
@@ -543,7 +573,10 @@ natifs de lecture des logiciels et des licences.
    - **Plus d'installations que de postes licenciés** : par exemple 12 ordinateurs équipés pour une
      licence de 10 postes. Une licence illimitée (nombre 0 ou moins) couvre tout ; une licence
      expirée ne compte plus. Une licence récursive est partagée par les sous-entités : la mention
-     « Partagée avec les sous-entités » compte leurs installations ensemble.
+     « Partagée avec les sous-entités » compte leurs installations ensemble. Une licence fille
+     (champ « Comme enfant de » de GLPI) partage les postes de sa mère : la famille compte pour le
+     plus grand du nombre de la mère et de la somme des filles, avec le badge **Licences filles
+     comptées une fois**.
    - **Licence expirée encore utilisée** : des ordinateurs y sont encore affectés, ou le logiciel
      reste installé sans autre licence valable.
    - **Licence arrivant à échéance** (rappel, pas un écart) : une licence utilisée expire dans les
@@ -785,6 +818,48 @@ travailler sans baisser la sécurité quand la crise est elle-même une attaque.
    métier montre les scénarios qui le touchent.
 8. **Imprimer les scénarios (PDF)** donne le document à présenter à l'auditeur. Sur la fiche de la
    mesure **A.5.29**, le cadre « Scénarios de crise sécurité » reprend la couverture.
+9. L'onglet **Préparation** d'un scénario rassemble les preuves qu'il est prêt, sans rien recopier :
+   - **exercices de crise et bilan** : les exercices terminés du scénario d'exercice choisi, le bilan
+     du dernier (objectifs atteints, constats, actions d'amélioration, validation) et ce qui a été
+     tracé pendant l'exercice (communications, prises de contact officielles, temps de reprise
+     mesurés). Le bouton **Lancer cet exercice** ouvre la salle de crise. Un bilan non validé
+     apparaît dans ce qui reste à compléter ;
+   - **tests de reprise des processus impactés** : le dernier test de chaque processus, comparé à son
+     RTO. Un processus critique jamais testé apparaît dans ce qui reste à compléter ;
+   - **communication de crise** : les modèles de messages de la situation choisie et le nombre de
+     destinataires de leur liste de diffusion ;
+   - **contacts officiels** à prévenir : ceux marqués « incident de sécurité », plus ceux marqués
+     « violation de données » pour une situation de fuite de données, visibles depuis l'entité du
+     scénario, avec leur délai et leur dernière vérification. Ils figurent aussi dans le PDF.
+
+### Étape 30 bis : Programmer et mesurer les tests de reprise (mesure A.5.30)
+
+L'auditeur demande la preuve que la reprise des TIC est testée régulièrement, et que les temps
+mesurés tiennent les objectifs. Il faut le droit **Continuité d'activité** du profil.
+
+1. Ouvrez un processus métier fictif, par exemple « Facturation (fictif) », avec un **RTO** de 4 h
+   et un **RPO** de 1 h, puis l'onglet **Stratégie de reprise**.
+2. Dans **Programme de tests**, réglez la **fréquence de test** (par exemple 6 mois). 0 garde la
+   fréquence de la revue périodique des tests de continuité (annuelle par défaut). La prochaine
+   échéance et la **couverture par année** (badge vert : objectifs tenus, rouge : objectifs non
+   tenus, gris : non testé) s'affichent à côté.
+3. Saisissez un test : temps de reprise mesuré, **perte de données** en minutes (le temps entre la
+   dernière sauvegarde utilisable et l'incident ; laissez vide si elle n'a pas été mesurée, 0 si rien
+   n'a été perdu), **type d'exercice** (sur table, fonctionnel, test technique de restauration,
+   grandeur nature) et, si besoin, l'**élément testé** parmi les dépendances du processus. Le test
+   est comparé au RTO et au RPO du processus, et à ceux de l'élément testé (onglet Classification).
+4. Sur la page **Exercices de crise**, choisissez le type au lancement ; il reste modifiable dans la
+   salle de crise jusqu'à la validation du bilan. Un test saisi depuis la salle de crise reprend le
+   type de l'exercice.
+5. La liste des processus métier a un bouton **Programme des tests de reprise** : tous les
+   processus, leur couverture sur quatre ans, la fréquence et la prochaine échéance, avec le nombre
+   de processus en retard ou non testés cette année. C'est la vue à montrer à l'auditeur.
+6. Un processus non testé à temps (ou jamais testé, une période après sa création) est signalé à
+   son responsable et au groupe RSSI par la tâche automatique **businessprocessreminder**. Rien
+   n'est modifié automatiquement.
+7. Sur la fiche d'un élément (serveur, application...), l'onglet **Processus métier** liste les
+   tests de reprise qui l'ont couvert. La liste des types se règle dans **Configuration > GRC
+   Manager**, encadré **Types d'exercice de reprise**.
 
 ### Étape 31 : Encadrer le développement sécurisé et les mises en production (mesures A.8.25 à A.8.31)
 
@@ -846,6 +921,99 @@ responsabilités** (par exemple contexte et domaine d'application, planification
 logiques et physiques, fournisseurs). Un constat est rattaché à un processus quand son champ
 **Processus audité** reprend le nom du processus (le champ le propose), ou quand sa clause ou
 mesure fait partie des mesures du processus. Cocher demande le droit de modifier l'audit concerné.
+
+### Étape 33 : Répondre aux constats de l'organisme dans les délais
+
+Après l'audit, l'organisme de certification fixe dans son rapport deux délais : l'envoi du **plan
+d'actions** (pour chaque non-conformité : correction, cause et action corrective), puis l'envoi des
+**preuves de levée**. Il accepte le plan ou demande de le compléter.
+
+1. Sur la fiche de l'audit de certification, renseigner **Rapport de l'organisme reçu le**, **Plan
+   d'actions à envoyer à l'organisme avant le** et **Preuves à envoyer à l'organisme avant le**.
+2. Ouvrir l'onglet **Réponse à l'organisme** de l'audit : les délais et les jours restants, puis
+   l'état de chaque constat (plan d'actions à envoyer, bientôt dû, en retard, envoyé, accepté, à
+   compléter ; preuves à envoyer ou envoyées). La colonne **À compléter** signale ce qui manque
+   avant l'envoi (correction, cause, action corrective, responsable, échéance).
+3. Compléter chaque non-conformité (la **Correction** apparaît sur la fiche d'un constat d'audit de
+   certification), puis cliquer sur **Plan d'actions correctives pour l'organisme (PDF)** et
+   envoyer ce document à l'organisme.
+4. Sur chaque constat, dans le bloc **Réponse à l'organisme**, noter la date d'envoi du plan
+   d'actions, la **décision de l'organisme** et son retour, puis la date d'envoi des preuves (les
+   preuves elles-mêmes sont jointes dans l'onglet Documents).
+
+Une réponse est attendue pour chaque non-conformité ; elle reste facultative pour un point sensible
+ou une piste de progrès. Un délai est signalé comme proche 7 jours avant. La **Préparation à la
+certification** compte les plans d'actions et les preuves encore à envoyer, et ceux en retard.
+Rien n'est modifié automatiquement : statut, responsable et échéance restent ceux que vous saisissez.
+
+### Étape 34 : Voir ce qui bloque chaque mesure de la SoA
+
+Avant un audit, il faut savoir pourquoi une mesure n'est pas encore conforme. Le plugin réunit en
+une seule liste ce que ses autres écrans signalent déjà, sans rien recalculer.
+
+1. Ouvrir une mesure de la **Déclaration d'applicabilité**, onglet **Ce qui bloque cette mesure** :
+   chaque blocage indique sa gravité, sa catégorie (contrôle technique, preuve, politique, test
+   d'efficacité, non-conformité, dérogation, SoA), le détail et la marche à suivre.
+2. Cliquer sur **Corriger** : l'écran concerné s'ouvre (onglet Documents de la mesure, onglet des
+   tests, fiche de la non-conformité, de la politique ou de la dérogation, contrôles techniques).
+3. Pour une vue d'ensemble, ouvrir **Mesures bloquées** dans la barre d'onglets de la rubrique
+   Conformité : les mesures bloquées de la SoA de l'entité active, triables par gravité, nombre de
+   blocages ou code de mesure.
+
+Une non-conformité est rattachée à une mesure quand son champ **Clause ou mesure** cite le code de
+la mesure (par exemple A.8.16), ou quand elle a été ouverte par un test inefficace de la mesure.
+Une politique en brouillon bloque la mesure A.5.1. Seul ce que vous avez le droit de lire est
+affiché, et rien n'est modifié automatiquement.
+### Étape 34 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
+### Étape 34 : Remettre le dossier de preuves à l'auditeur (articles 7.5.3 et 9.2)
+
+L'auditeur demande souvent, avant sa visite, l'ensemble des preuves du périmètre audité. La page
+**Conformité > Dossier de preuves** le prépare en une archive ZIP.
+
+1. Choisir le **périmètre** (une entité) et cliquer sur **Afficher le contenu** : nombre de pièces
+   incluses, expirées, sans fichier ou au-delà de la limite de taille, mesures applicables sans
+   preuve, et liste des preuves expirées.
+2. Renouveler les preuves expirées (onglet **Validités des preuves** de la mesure) et joindre ce qui
+   manque.
+3. Cliquer sur **Générer le dossier de preuves**, puis le télécharger dans **Dossiers de preuves
+   archivés** : l'archive contient un index PDF (mesure par mesure, sous-article par sous-article,
+   avec la date, l'état et l'empreinte SHA-256 de chaque pièce), un fichier `SHA256SUMS.txt` et
+   les pièces, chacune une seule fois dans le dossier `evidence`.
+
+Seules les pièces que vous pouvez lire entrent dans l'archive ; une preuve expirée figure dans
+l'index sans être incluse. La limite de taille se règle sur la page (200 Mo par défaut). L'archive
+est gardée comme document restreint : vous, et toute personne qui peut lire chacune de ses pièces,
+pouvez la télécharger. Rien n'est modifié dans les registres.
+### Étape 35 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
+
+L'agent d'inventaire de GLPI remonte, pour chaque volume d'un ordinateur, l'état du chiffrement,
+l'outil (BitLocker, FileVault, LUKS, VeraCrypt...) et l'algorithme. Le plugin lit ces données ; il
+ne modifie rien dans GLPI et ne lit ni ne stocke jamais de clé de récupération. Il faut le droit du
+plugin et le droit natif de lecture des ordinateurs.
+
+1. Ouvrez Sécurité technique > **Chiffrement des disques**. L'encadré « À quoi sert cette page ? »
+   rappelle ce qui est attendu.
+2. Dans **Quels ordinateurs doivent être chiffrés ?**, choisissez les ordinateurs concernés : tous
+   (par défaut), les portables et tablettes seulement (type d'ordinateur remonté par l'agent :
+   Laptop, Notebook, Tablet...), ou les types choisis. Vous pouvez y ajouter tout ordinateur classé
+   en confidentialité moyenne ou élevée (classification C/I/D, onglet de la fiche de l'ordinateur).
+   Il faut le droit de modifier le plugin.
+3. Les compteurs donnent le taux d'ordinateurs concernés entièrement chiffrés, le taux des
+   portables, les algorithmes faibles (DES, RC4...) et anciens (BitLocker avec diffuseur, mode CBC),
+   puis le nombre d'ordinateurs entièrement chiffrés, partiellement chiffrés, non chiffrés ou d'état
+   inconnu (aucun volume inventorié : pas d'agent, ou un agent trop ancien).
+4. Les tableaux par entité, type et lieu montrent où porter l'effort.
+5. La liste commence par les **écarts** : un ordinateur concerné dont un volume n'est pas chiffré,
+   ou chiffré avec un algorithme faible. Pour chacun : volumes en clair, outil, algorithme et date du
+   dernier inventaire. Chiffrez le poste, puis attendez le prochain inventaire.
+6. Colonne **Clé de récupération sauvegardée (déclarée)** : cochez la case et saisissez la date
+   quand la clé est sauvegardée (annuaire, coffre de l'équipe). Seule cette déclaration est gardée.
+7. Sur la fiche des mesures A.8.24 et A.8.1, le cadre « Chiffrement des disques » montre le taux,
+   la date du calcul et le nombre d'écarts. Dans l'onglet des tests de la mesure, le contrôle
+   technique « Postes avec un disque non chiffré » (A.8.24) ou « Portables avec un disque non
+   chiffré » (A.8.1) s'enregistre comme test d'efficacité. Le tableau de bord propose la carte
+   « Ordinateurs à chiffrer qui le sont (%) » et les indicateurs de risque la source « Portables
+   avec un disque non chiffré (%) ».
 
 ## 🇬🇧 English
 
@@ -1019,6 +1187,14 @@ download (date, user, document) and the **Notes** tab keeps dated working notes 
    management. The programme page shows these points for each audit of the cycle and flags the
    incomplete ones. The PDF report of the audit includes them too, with the competence of the
    auditors and the justification of each conflict.
+8. **Independence through the audited controls**: a process whose responsibility matrix lists an
+   Annex A control that the audit covers (a "control" line of the audit checklist, or a control
+   linked on the form) is checked too, even if it is not chosen in the tab. The conflict shows the
+   controls concerned ("Through the audited controls A.8.13") and is justified the same way.
+9. **Plan from the programme**: on the programme page, the **Planifier** button of a cell with no
+   upcoming audit (this year or a later one) creates an internal audit for that process and year,
+   in the entity of the process, and opens its form. Then complete its objectives, scope, criteria
+   and auditors.
 
 From the section's **Non-conformités** tab, a non-conformity can be linked to this internal audit, with a
 severity, a due date, a description and a root cause.
@@ -1303,6 +1479,17 @@ To give a subsidiary its own Statement of Applicability:
    when each function has its required competences and its holders, each gap has a planned training
    and the competence file is archived. The dashboard card "Coverage of the required competences
    (%)" follows the same figures.
+10. If your responsibilities are already described in the **Responsibility matrix**, a function can
+    take its holders from it: in the form of the function, choose an **Activity of the
+    responsibility matrix** and the **Role in the activity** (for instance "Backups" and
+    "Performs"), then save. The people and groups who hold this role hold the function, with the
+    badge "Follows the responsibility matrix": when the matrix changes, the function follows,
+    nothing is copied.
+11. Every week, the automatic action "competencegaps" sends the owner of the certification
+    readiness (and the CISO group) the notification **Competence gaps without planned training**:
+    each new gap, with the training to plan. A gap is reported only once. Set the recipients in
+    Setup > Notifications; only those who can read the plugin and the users in all entities receive
+    it. Nothing is changed automatically.
 
 ### Step 22: Keep the register of official contacts (controls A.5.5 and A.5.6)
 
@@ -1359,7 +1546,9 @@ rights to read software and licenses.
    - **More installations than licensed seats**: for instance 12 computers for a 10-seat license. An
      unlimited license (number 0 or less) covers everything; an expired license no longer counts. A
      recursive license is shared by the sub-entities: "Shared with the sub-entities" counts their
-     installations together.
+     installations together. A child license ("As child of" field in GLPI) shares the seats of
+     its parent: the family counts for the larger of the parent number and the sum of the children,
+     with the **Child licenses counted once** badge.
    - **Expired license still in use**: computers are still assigned to it, or the software is still
      installed with no other valid license.
    - **License expiring soon** (a reminder, not a gap): a license in use expires within the next 60
@@ -1589,6 +1778,49 @@ when the crisis is itself an attack.
    process shows the scenarios that impact it.
 8. **Print the scenarios (PDF)** gives the document to show the auditor. On control **A.5.29**, the
    "Security crisis scenarios" box shows the coverage.
+9. The **Preparedness** tab of a scenario gathers the evidence that it is ready, without copying
+   anything:
+   - **crisis exercises and review**: the finished exercises of the chosen exercise scenario, the
+     review of the last one (objectives achieved, findings, improvement actions, validation) and what
+     was recorded during the exercise (communications, official contacts, measured recovery times).
+     The **Launch this exercise** button opens the crisis room. A review that is not validated
+     appears in what remains to complete;
+   - **recovery tests of the impacted processes**: the last test of each process, compared with its
+     RTO. A critical process never tested appears in what remains to complete;
+   - **crisis communication**: the message templates of the chosen situation and the number of
+     recipients of their distribution list;
+   - **official contacts** to inform: those marked "security incident", plus those marked "data
+     breach" for a data leak situation, visible from the entity of the scenario, with their time
+     limit and their last verification. They are also in the PDF.
+
+### Step 30a: Schedule and measure recovery tests (control A.5.30)
+
+The auditor asks for evidence that ICT recovery is tested regularly and that the measured times
+meet the objectives. The profile needs the **Business continuity** right.
+
+1. Open a fictitious business process, for instance "Invoicing (fictitious)", with an **RTO** of
+   4 h and an **RPO** of 1 h, then the **Recovery strategy** tab.
+2. In **Test programme**, set the **test frequency** (for instance 6 months). 0 keeps the frequency
+   of the periodic review of continuity tests (yearly by default). The next due date and the
+   **coverage by year** (green badge: objectives met, red: objectives missed, grey: not tested) are
+   shown next to it.
+3. Record a test: measured recovery time, **data loss** in minutes (the time between the last
+   usable backup and the incident; leave it empty if it was not measured, 0 if nothing was lost),
+   **type of exercise** (tabletop, functional, technical restore test, full-scale) and, if needed,
+   the **item tested** among the dependencies of the process. The test is compared with the RTO and
+   RPO of the process, and with those of the item tested (Classification tab).
+4. On the **Crisis exercises** page, choose the type when starting; it can be changed in the crisis
+   room until the review is validated. A test recorded from the crisis room takes the type of the
+   exercise.
+5. The list of business processes has a **Recovery test programme** button: every process, its
+   coverage over four years, the frequency and the next due date, with the number of processes
+   overdue or not tested this year. This is the view to show the auditor.
+6. A process not tested in time (or never tested, one period after its creation) is reported to its
+   owner and to the CISO group by the automatic action **businessprocessreminder**. Nothing is
+   changed automatically.
+7. On an item (server, application...), the **Business processes** tab lists the recovery tests
+   that covered it. The list of types is set in **Setup > GRC Manager**, **Types of recovery
+   exercise** box.
 
 ### Step 31: Frame secure development and releases (controls A.8.25 to A.8.31)
 
@@ -1679,3 +1911,93 @@ suppliers). A finding is linked to a process when its **Audited process** field 
 the process (the field suggests it), or when its clause or control is one of the controls of the
 process. Ticking requires the right to update the audit concerned. The audit list shows the
 **Audit type** column right after the title.
+
+### Step 34: Answer the findings of the certification body on time
+
+After the audit, the certification body sets two deadlines in its report: sending the **action
+plan** (for each nonconformity: correction, root cause and corrective action), then sending the
+**evidence that the findings are lifted**. It accepts the plan or asks you to complete it.
+
+1. On the certification audit, fill in **Certification body report received on**, **Action plan due
+   to the certification body** and **Evidence due to the certification body**.
+2. Open the **Response to the certification body** tab of the audit: the deadlines and the days
+   left, then the state of each finding (action plan to send, due soon, overdue, sent, accepted, to
+   complete; evidence to send or sent). The **To fill in** column shows what is missing before
+   sending (correction, root cause, corrective action, owner, due date).
+3. Complete each nonconformity (the **Correction** field appears on a finding of a certification
+   audit), then click **Corrective action plan for the certification body (PDF)** and send this
+   document to the body.
+4. On each finding, in the **Response to the certification body** block, record the date the
+   action plan was sent, the **decision of the certification body** and its feedback, then the date
+   the evidence was sent (the evidence itself is attached in the Documents tab).
+
+A response is expected for each nonconformity; it is optional for an area of concern or an
+opportunity for improvement. A deadline is shown as close 7 days before it. **Certification
+readiness** counts the action plans and evidence still to send, and those overdue. Nothing is
+changed automatically: status, owner and due date stay as you enter them.
+
+### Step 35: See what blocks each control of the SoA
+
+Before an audit, you need to know why a control is not compliant yet. The plugin gathers in a
+single list what its other screens already report, without computing anything again.
+
+1. Open a control of the **Statement of Applicability**, tab **What blocks this control**: each
+   blocker shows its severity, its category (technical check, evidence, policy, effectiveness test,
+   nonconformity, waiver, SoA), the details and what to do.
+2. Click **Fix**: the screen concerned opens (Documents tab of the control, tests tab, form of the
+   nonconformity, policy or waiver, automated technical checks).
+3. For an overview, open **Blocked controls** in the tab bar of the Compliance section: the blocked
+   controls of the SoA of the active entity, sortable by severity, number of blockers or control
+   code.
+
+A nonconformity is linked to a control when its **Clause or control** field quotes the code of the
+control (for example A.8.16), or when it was opened by an ineffective test of the control. A draft
+policy blocks control A.5.1. Only what you are allowed to read is shown, and nothing is changed
+automatically.
+### Step 35: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
+### Step 35: Hand the evidence pack to the auditor (clauses 7.5.3 and 9.2)
+
+Before the visit, the auditor often asks for all the evidence of the audited perimeter. The
+**Compliance > Evidence pack** page prepares it as one ZIP archive.
+
+1. Choose the **perimeter** (an entity) and click **Show the contents**: number of pieces included,
+   expired, without a file or over the size limit, applicable controls without evidence, and the
+   list of expired evidence.
+2. Renew expired evidence (**Evidence validity** tab of the control) and attach what is missing.
+3. Click **Generate the evidence pack**, then download it from **Archived evidence packs**: the
+   archive holds a PDF index (control by control, requirement by requirement, with the date, state
+   and SHA-256 fingerprint of each piece), a `SHA256SUMS.txt` file and the pieces, each stored once
+   in the `evidence` folder.
+
+Only the pieces you can read enter the archive; expired evidence is listed in the index but not
+included. The size limit is set on the page (200 MB by default). The archive is kept as a
+restricted document: you, and anyone who can read every piece it contains, can download it.
+Nothing is changed in the registers.
+### Step 36: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
+
+For each volume of a computer, the GLPI inventory agent reports the encryption state, the tool
+(BitLocker, FileVault, LUKS, VeraCrypt...) and the algorithm. The plugin reads this data; it changes
+nothing in GLPI and never reads nor stores any recovery key. You need the plugin right and the
+native right to read computers.
+
+1. Open Technical security > **Disk encryption**. The "What is this page for?" box recalls what is
+   expected.
+2. In **Which computers must be encrypted?**, choose the computers concerned: all of them (default),
+   laptops and tablets only (computer type reported by the agent: Laptop, Notebook, Tablet...), or
+   the selected types. You can add any computer classified with a medium or high confidentiality
+   (C/I/A classification, tab of the computer form). This requires the right to update the plugin.
+3. The counters give the rate of computers concerned that are fully encrypted, the rate of laptops,
+   the weak (DES, RC4...) and older (BitLocker with diffuser, CBC mode) algorithms, then the number
+   of computers fully encrypted, partially encrypted, not encrypted or of unknown state (no volume
+   inventoried: no agent, or an agent too old).
+4. The tables by entity, type and location show where to focus.
+5. The list starts with the **gaps**: a computer concerned with a volume that is not encrypted, or
+   encrypted with a weak algorithm. For each one: unencrypted volumes, tool, algorithm and date of
+   the last inventory. Encrypt the computer, then wait for the next inventory.
+6. **Recovery key backed up (declared)** column: tick the box and enter the date when the key is
+   backed up (directory, team vault). Only this declaration is kept.
+7. On controls A.8.24 and A.8.1, the "Disk encryption" box shows the rate, the date of the
+   computation and the number of gaps. In the tests tab of the control, the technical check
+   "Computers with an unencrypted disk" (A.8.24) or "Laptops with an unencrypted disk" (A.8.1) is
+   recorded as an effectiveness test. The dashboard offers the card "Computers that must be
+   encrypted and are (%)" and risk indicators the source "Laptops with an unencrypted disk (%)".

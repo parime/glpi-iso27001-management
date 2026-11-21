@@ -767,17 +767,24 @@ class CertificationReadiness extends CommonGLPI
         if ($pending) {
             $facts[] = __('An approval request is pending', 'grcmanager');
         }
+        $links = [
+            self::link(
+                __('Statement of Applicability', 'grcmanager'),
+                $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php'
+            ),
+            self::link(Control::getTypeName(Session::getPluralNumber()), Control::getSearchURL(), 'ti-list'),
+        ];
+        // Issue #847 : indicateur technique d'une mesure souvent demandée (A.8.24), sans effet sur l'état.
+        $encryption = DiskEncryption::readinessFact();
+        if ($encryption !== null) {
+            $facts[] = $encryption;
+            $links[] = self::link(DiskEncryption::getTypeName(), DiskEncryption::getSearchURL(), 'ti-lock');
+        }
 
         return [
             'status' => Rules::soa($state, $pending),
             'facts'  => $facts,
-            'links'  => [
-                self::link(
-                    __('Statement of Applicability', 'grcmanager'),
-                    $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php'
-                ),
-                self::link(Control::getTypeName(Session::getPluralNumber()), Control::getSearchURL(), 'ti-list'),
-            ],
+            'links'  => $links,
         ];
     }
 
@@ -1051,6 +1058,19 @@ class CertificationReadiness extends CommonGLPI
                     CertificationFinding::getSearchURL() . ($certification['open'] > 0 ? '?open=1' : ''),
                     'ti-certificate-2'
                 );
+                // Issue #772, lot 3 : plans d'actions et preuves encore à envoyer à l'organisme.
+                $pending = CertificationResponse::pendingCounts();
+                if ($pending['responses'] + $pending['evidence'] > 0) {
+                    $facts[] = sprintf(
+                        __(
+                            'To send to the certification body: %1$d action plans and %2$d evidence (overdue: %3$d)',
+                            'grcmanager'
+                        ),
+                        $pending['responses'],
+                        $pending['evidence'],
+                        $pending['late']
+                    );
+                }
             }
         }
 
