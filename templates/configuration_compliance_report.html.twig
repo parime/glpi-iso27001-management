@@ -1,0 +1,125 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #781 : détail d'un résultat OpenSCAP (règles en échec) et historique de la machine. #}
+{% import '@grcmanager/_configuration_compliance_macros.html.twig' as cc %}
+
+<div id="grc-config-report">
+   <div class="mb-2"><a href="{{ back }}"><i class="ti ti-arrow-left me-1"></i>{{ __('Back to the configuration compliance', 'grcmanager') }}</a></div>
+
+   <div class="card mb-3">
+      <div class="card-header">
+         <h3 class="card-title">
+            {% if report.computer_url %}
+               <a href="{{ report.computer_url }}"><i class="ti ti-device-desktop me-1"></i>{{ report.computer_name }}</a>
+            {% else %}
+               <span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-link-off me-1"></i>{{ __('Not matched', 'grcmanager') }}</span>{{ report.hostname }}
+            {% endif %}
+         </h3>
+         <div class="card-actions">{{ cc.rate(report) }} {{ cc.trend(report.trend) }}</div>
+      </div>
+      <div class="card-body">
+         <dl class="row mb-0 small">
+            <dt class="col-sm-3">{{ __('Profile', 'grcmanager') }}</dt><dd class="col-sm-9">{{ cc.profile(report) }}</dd>
+            <dt class="col-sm-3">{{ __('Scan date', 'grcmanager') }}</dt><dd class="col-sm-9">{{ report.scan_date_label }}</dd>
+            <dt class="col-sm-3">{{ __('Host name in the report', 'grcmanager') }}</dt><dd class="col-sm-9">{{ report.hostname }}{% if report.fqdn and report.fqdn != report.hostname %} ({{ report.fqdn }}){% endif %}{% if report.address %} · {{ report.address }}{% endif %}</dd>
+            <dt class="col-sm-3">{{ __('Rules', 'grcmanager') }}</dt>
+            <dd class="col-sm-9">
+               <span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-check me-1"></i>{{ __('%d passed', 'grcmanager')|format(report.pass_count + report.fixed_count) }}</span>
+               <span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-x me-1"></i>{{ __('%d failed', 'grcmanager')|format(report.fail_count) }}</span>
+               {% if report.error_count > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-bug me-1"></i>{{ __('%d in error', 'grcmanager')|format(report.error_count) }}</span>{% endif %}
+               <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-minus me-1"></i>{{ __('%d not applicable or not checked', 'grcmanager')|format(report.other_count) }}</span>
+            </dd>
+            {% if report.score is not null %}
+               <dt class="col-sm-3">{{ __('Score of the tool', 'grcmanager') }}</dt><dd class="col-sm-9">{{ report.score }} / {{ report.score_max }}</dd>
+            {% endif %}
+            {% if report.scanner %}<dt class="col-sm-3">{{ __('Scanner', 'grcmanager') }}</dt><dd class="col-sm-9 text-break">{{ report.scanner }}</dd>{% endif %}
+            <dt class="col-sm-3">{{ __('File', 'grcmanager') }}</dt><dd class="col-sm-9 text-break">{{ report.file_name }}</dd>
+         </dl>
+         {% if report.is_truncated %}
+            <div class="alert alert-warning mt-2 mb-0"><i class="ti ti-alert-circle me-1"></i>{{ __('This scan has more failed rules than the import keeps: only the first ones are listed.', 'grcmanager') }}</div>
+         {% endif %}
+      </div>
+      {% if can_manage %}
+         <div class="card-footer d-flex flex-wrap gap-2">
+            {% if report.ticket_url %}
+               <a class="btn btn-sm btn-outline-secondary" href="{{ report.ticket_url }}"><i class="ti ti-ticket me-1"></i>{{ __('Ticket %d', 'grcmanager')|format(report.tickets_id) }}</a>
+            {% elseif can_ticket and report.computers_id > 0 and failures is not empty %}
+               <form method="post" action="{{ action }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="report" value="{{ report.id }}">
+                  <button type="submit" name="create_ticket" value="1" class="btn btn-sm btn-outline-secondary"><i class="ti ti-ticket me-1"></i>{{ __('Propose a ticket', 'grcmanager') }}</button>
+               </form>
+            {% endif %}
+            <form method="post" action="{{ action }}" onsubmit="return confirm('{{ __('Delete this scan result?', 'grcmanager')|e('js') }}');">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="report" value="{{ report.id }}">
+               <button type="submit" name="delete_report" value="1" class="btn btn-sm btn-outline-danger"><i class="ti ti-trash me-1"></i>{{ __('Delete this scan result', 'grcmanager') }}</button>
+            </form>
+         </div>
+      {% endif %}
+   </div>
+
+   <div class="card mb-3" id="grc-config-failures">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-list-check me-2"></i>{{ __('Failed rules', 'grcmanager') }}</h3></div>
+      {% if failures is empty %}
+         <div class="card-body text-muted small"><i class="ti ti-circle-check text-success me-1"></i>{{ __('No failed rule in this scan.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Severity', 'grcmanager') }}</th>
+                  <th>{{ __('Rule', 'grcmanager') }}</th>
+                  <th>{{ __('Result', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for rule in failures %}
+                  <tr>
+                     <td>{{ cc.severity(rule.severity, severities) }}</td>
+                     <td>{{ rule.title is empty ? rule.rule_id : rule.title }}<div class="small text-muted text-break">{{ rule.rule_id }}</div></td>
+                     <td>{{ results[rule.result] ?? rule.result }}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   <div class="card mb-3" id="grc-config-history">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-history me-2"></i>{{ __('Scan history of this machine', 'grcmanager') }}</h3></div>
+      <div class="table-responsive">
+         <table class="table table-sm table-vcenter card-table">
+            <thead><tr>
+               <th>{{ __('Scan date', 'grcmanager') }}</th>
+               <th>{{ __('Profile', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Compliance', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Change', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Rules failed', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+            {% for row in history %}
+               <tr{% if row.id == report.id %} class="table-active"{% endif %}>
+                  <td class="text-nowrap"><a href="{{ row.url }}">{{ row.scan_date_label }}</a></td>
+                  <td>{{ cc.profile(row) }}</td>
+                  <td class="text-end">{{ cc.rate(row) }}</td>
+                  <td class="text-end">{{ cc.trend(row.trend) }}</td>
+                  <td class="text-end">{{ cc.failed(row) }}</td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>

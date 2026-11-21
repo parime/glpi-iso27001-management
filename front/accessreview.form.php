@@ -45,6 +45,17 @@ if (isset($_POST['add'])) {
         ));
     }
     Html::back();
+} elseif (isset($_POST['refresh_suggestions'])) {
+    // Issue #866 : recalcule la suggestion des lignes encore à revoir (les décisions prises gardent
+    // celle que le relecteur a vue).
+    $item->check((int) $_POST['id'], UPDATE);
+    if (($item->fields['status'] ?? '') === \GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic::STATUS_OPEN) {
+        Session::addMessageAfterRedirect(sprintf(
+            __('Suggestions updated for %d account(s) still to review.', 'grcmanager'),
+            \GlpiPlugin\Grcmanager\AccessReviewSuggestion::refresh($item)
+        ));
+    }
+    Html::back();
 } elseif (isset($_POST['close'])) {
     $item->check((int) $_POST['id'], UPDATE);
     if ($item->close()) {
