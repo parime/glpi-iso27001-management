@@ -588,7 +588,10 @@ natifs de lecture des logiciels et des licences.
    - **Plus d'installations que de postes licenciés** : par exemple 12 ordinateurs équipés pour une
      licence de 10 postes. Une licence illimitée (nombre 0 ou moins) couvre tout ; une licence
      expirée ne compte plus. Une licence récursive est partagée par les sous-entités : la mention
-     « Partagée avec les sous-entités » compte leurs installations ensemble.
+     « Partagée avec les sous-entités » compte leurs installations ensemble. Une licence fille
+     (champ « Comme enfant de » de GLPI) partage les postes de sa mère : la famille compte pour le
+     plus grand du nombre de la mère et de la somme des filles, avec le badge **Licences filles
+     comptées une fois**.
    - **Licence expirée encore utilisée** : des ordinateurs y sont encore affectés, ou le logiciel
      reste installé sans autre licence valable.
    - **Licence arrivant à échéance** (rappel, pas un écart) : une licence utilisée expire dans les
@@ -1572,7 +1575,9 @@ rights to read software and licenses.
    - **More installations than licensed seats**: for instance 12 computers for a 10-seat license. An
      unlimited license (number 0 or less) covers everything; an expired license no longer counts. A
      recursive license is shared by the sub-entities: "Shared with the sub-entities" counts their
-     installations together.
+     installations together. A child license ("As child of" field in GLPI) shares the seats of
+     its parent: the family counts for the larger of the parent number and the sum of the children,
+     with the **Child licenses counted once** badge.
    - **Expired license still in use**: computers are still assigned to it, or the software is still
      installed with no other valid license.
    - **License expiring soon** (a reminder, not a gap): a license in use expires within the next 60
