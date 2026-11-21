@@ -1,0 +1,52 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #865 : onglet « Fichier fournisseur » d'une évaluation : questionnaire à remplir hors de GLPI
+   (CSV), puis import du fichier retourné avec aperçu avant enregistrement. #}
+<div class="card" id="grc-evaluation-file">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Answer by file, outside GLPI', 'grcmanager') }}</h3>
+   </div>
+   <div class="card-body">
+      <div class="alert alert-info">
+         <h4 class="alert-title"><i class="ti ti-help-circle me-1"></i>{{ __('What is this tab for?', 'grcmanager') }}</h4>
+         <div class="text-secondary">{{ __('When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns "Answer", "Comment" and, for each document provided, "Evidence file name", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation.', 'grcmanager') }}</div>
+      </div>
+      <div class="row g-3">
+         <div class="col-md-6">
+            <h4><span class="badge bg-blue-subtle text-blue-emphasis me-1">1</span>{{ __('Send the questionnaire', 'grcmanager') }}</h4>
+            <p class="text-muted small">{{ __('CSV file (separator ";", UTF-8), one line per question. Its first line identifies the evaluation and its questions: it must stay unchanged. Send it by the means of your choice (email, exchange platform).', 'grcmanager') }}</p>
+            <a href="{{ action }}?id={{ evaluation_id }}&amp;export=1" class="btn btn-outline-primary" id="grc-evaluation-export"><i class="ti ti-download me-1"></i>{{ __('Download the questionnaire to fill in', 'grcmanager') }}</a>
+         </div>
+         <div class="col-md-6">
+            <h4><span class="badge bg-blue-subtle text-blue-emphasis me-1">2</span>{{ __('Import the returned file', 'grcmanager') }}</h4>
+            {% if can_import %}
+               <form method="post" action="{{ action }}" enctype="multipart/form-data" id="grc-evaluation-import-form">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="id" value="{{ evaluation_id }}">
+                  <label class="form-label" for="grc-answer-file">{{ __('Questionnaire filled in by the supplier (CSV)', 'grcmanager') }}</label>
+                  <input type="file" id="grc-answer-file" name="answer_file" class="form-control" accept=".csv,.txt,text/csv" required>
+                  <div class="form-hint">{{ __('At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before importing it.', 'grcmanager')|format(max_mb, max_rows) }}</div>
+                  <button type="submit" name="upload" value="1" class="btn btn-primary mt-2"><i class="ti ti-eye-check me-1"></i>{{ __('Review the answers', 'grcmanager') }}</button>
+               </form>
+            {% elseif completed %}
+               <p class="text-muted"><i class="ti ti-lock me-1"></i>{{ __('This evaluation is completed: reopen it to import a file.', 'grcmanager') }}</p>
+            {% else %}
+               <p class="text-muted"><i class="ti ti-lock me-1"></i>{{ __('You are not allowed to change this evaluation.', 'grcmanager') }}</p>
+            {% endif %}
+         </div>
+      </div>
+      <p class="text-muted small mt-3 mb-0"><i class="ti ti-history me-1"></i>{{ __('Each export and import is recorded in the Historical tab (who, when, which file); the returned file is kept in the Documents tab of the supplier risk.', 'grcmanager') }}</p>
+   </div>
+</div>
