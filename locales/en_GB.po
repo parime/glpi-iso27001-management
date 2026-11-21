@@ -33688,6 +33688,167 @@ msgid_plural "%d log platforms"
 msgstr[0] "%d log platform"
 msgstr[1] "%d log platforms"
 
+#, php-format
+msgid "Suggestions updated for %d account(s) still to review."
+msgstr "Suggestions updated for %d account(s) still to review."
+
+msgid "Rule disabled"
+msgstr "Rule disabled"
+
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d day"
+msgstr[1] "%d days"
+
+msgid ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+msgstr ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+
+msgid "Suggested: remove"
+msgstr "Suggested: remove"
+
+msgid "Suggested: examine"
+msgstr "Suggested: examine"
+
+msgid "Examine"
+msgstr "Examine"
+
+msgid "Suggested: keep"
+msgstr "Suggested: keep"
+
+msgid "Keep"
+msgstr "Keep"
+
+#, php-format
+msgid "Account end date passed (%s)"
+msgstr "Account end date passed (%s)"
+
+#, php-format
+msgid "Departure recorded on %s"
+msgstr "Departure recorded on %s"
+
+#, php-format
+msgid "Leaving on %1$s (within %2$d days)"
+msgstr "Leaving on %1$s (within %2$d days)"
+
+#, php-format
+msgid "No login for more than %1$d days (last on %2$s)"
+msgstr "No login for more than %1$d days (last on %2$s)"
+
+#, php-format
+msgid "Privileged profile: %s"
+msgstr "Privileged profile: %s"
+
+#, php-format
+msgid "Privileged profile without known MFA: %s"
+msgstr "Privileged profile without known MFA: %s"
+
+#, php-format
+msgid "No warning sign (last login on %s)"
+msgstr "No warning sign (last login on %s)"
+
+msgid "No warning sign"
+msgstr "No warning sign"
+
+msgid ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+msgstr ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+
+msgid ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+msgstr ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+
+msgid "Examine group changes without profile review"
+msgstr "Examine group changes without profile review"
+
+msgid "Examine privileged profiles"
+msgstr "Examine privileged profiles"
+
+msgid "Examine: leaving soon, inactive, groups changed, privileged profile"
+msgstr "Examine: leaving soon, inactive, groups changed, privileged profile"
+
+msgid ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+msgstr ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+
+msgid "Inactive account: no login for"
+msgstr "Inactive account: no login for"
+
+msgid "Keep: no warning sign"
+msgstr "Keep: no warning sign"
+
+msgid "Leaving soon: end date or departure within"
+msgstr "Leaving soon: end date or departure within"
+
+msgid "Mention privileged accounts without known MFA"
+msgstr "Mention privileged accounts without known MFA"
+
+msgid "Profiles that can change the GLPI configuration or profiles."
+msgstr "Profiles that can change the GLPI configuration or profiles."
+
+msgid "Remove: deleted from the directory, end date or departure passed"
+msgstr "Remove: deleted from the directory, end date or departure passed"
+
+msgid "Suggestion rules"
+msgstr "Suggestion rules"
+
+msgid ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+msgstr ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+
+msgid "Decision differs from the suggestion"
+msgstr "Decision differs from the suggestion"
+
+msgid "Suggestion and reason"
+msgstr "Suggestion and reason"
+
+msgid "Suggestions"
+msgstr "Suggestions"
+
+msgid "Comment (required to keep, change or remove)"
+msgstr "Comment (required to keep, change or remove)"
+
+msgid "No suggestion yet"
+msgstr "No suggestion yet"
+
+msgid "Suggested by the rules"
+msgstr "Suggested by the rules"
+
+msgid ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+msgstr ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+
+msgid ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+msgstr ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+
+msgid "Update the suggestions"
+msgstr "Update the suggestions"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

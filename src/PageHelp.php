@@ -767,8 +767,9 @@ class PageHelp
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Start a campaign; managers decide line by line. Removing a right opens a ticket, it is never '
-                        . 'applied automatically.',
+                    'Start a campaign; managers decide line by line, helped by a suggestion (keep, remove or '
+                        . 'examine) and its reason. Removing a right opens a ticket, it is never applied '
+                        . 'automatically.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, Annex A 5.18', 'grcmanager'),
