@@ -67,10 +67,12 @@ for try in 1 2 3 4 5; do
 done
 # GLPI 12 fait ressaisir le mot de passe avant d'ouvrir la fiche d'un utilisateur (ReAuth) : la
 # session le ressaisit une fois, comme l'utilisateur dans son navigateur. Sans objet sous GLPI 11.
-if [ "$(code "$BASE/ReAuth/Prompt")" = 200 ]; then
-  code "$BASE/front/user.form.php?id=2" > /dev/null
-  code --data-urlencode "user_input=$PASSWORD" "$BASE/ReAuth/Verify" > /dev/null
-fi
+# Le jeton CSRF n'est pas lu par GLPI 12 : il marque l'envoi comme venu de GLPI (voir site()).
+reauth=$(curl -s -o /dev/null -w '%{redirect_url}' -c "$JAR" -b "$JAR" "$BASE/front/user.form.php?id=2")
+case $reauth in
+  */ReAuth/*)
+    echo "INFO ressaisie du mot de passe demandee par GLPI : $(code --data-urlencode "user_input=$PASSWORD" -d "_glpi_csrf_token=$(csrf)" "$BASE/ReAuth/Verify"), puis fiche utilisateur : $(code "$BASE/front/user.form.php?id=2")" ;;
+esac
 
 P=$BASE/plugins/grcmanager/front
 if [ "$ROLE" = admin ]; then SEE_B=oui; DENY=200; else SEE_B=non; DENY=403; fi
