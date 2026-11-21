@@ -95,8 +95,12 @@ final class VexRules
      * Erreur d'une déclaration saisie, ou chaîne vide. « Non affecté » demande une justification
      * ou une explication : sans elle, la déclaration ne vaut rien devant un client ou un auditeur.
      */
-    public static function validate(string $vulnerabilityId, string $status, string $justification, string $detail): string
-    {
+    public static function validate(
+        string $vulnerabilityId,
+        string $status,
+        string $justification,
+        string $detail
+    ): string {
         if (SbomParser::vulnerabilityId($vulnerabilityId) === '') {
             return 'vulnerability';
         }
@@ -122,8 +126,12 @@ final class VexRules
      * @param array<string, string> $component bom_ref, purl et name
      * @return array<string, mixed>|null
      */
-    public static function statementFor(array $statements, string $vulnerabilityId, array $component, string $version): ?array
-    {
+    public static function statementFor(
+        array $statements,
+        string $vulnerabilityId,
+        array $component,
+        string $version
+    ): ?array {
         $keys = array_filter([
             (string) ($component['bom_ref'] ?? ''),
             (string) ($component['purl'] ?? ''),

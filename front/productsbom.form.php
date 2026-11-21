@@ -72,7 +72,10 @@ if (isset($_POST['import_sbom'])) {
             Session::addMessageAfterRedirect(htmlescape(ProductSbom::errorMessage($result['error'])), false, ERROR);
         } else {
             Session::addMessageAfterRedirect(htmlescape(sprintf(
-                __('SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX statement(s).', 'grcmanager'),
+                __(
+                    'SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX statement(s).',
+                    'grcmanager'
+                ),
                 $result['components'],
                 $result['vulnerabilities'],
                 $result['statements']

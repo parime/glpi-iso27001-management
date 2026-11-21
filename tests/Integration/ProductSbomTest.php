@@ -53,7 +53,10 @@ final class ProductSbomTest extends GrcmanagerIntegrationTestCase
             'bomFormat' => 'CycloneDX', 'specVersion' => '1.6',
             'components' => [
                 ['bom-ref' => 'lib-1', 'name' => $library, 'version' => '3.0.1'],
-                ['bom-ref' => 'lib-2', 'name' => 'phpunitdemo-json', 'version' => '1.2.0', 'purl' => 'pkg:npm/phpunitdemo-json@1.2.0'],
+                [
+                    'bom-ref' => 'lib-2', 'name' => 'phpunitdemo-json', 'version' => '1.2.0',
+                    'purl' => 'pkg:npm/phpunitdemo-json@1.2.0',
+                ],
             ],
             'vulnerabilities' => [[
                 'id' => 'CVE-2099-0001', 'ratings' => [['score' => 9.8]], 'affects' => [['ref' => 'lib-2']],
@@ -67,11 +70,13 @@ final class ProductSbomTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(1, $result['vulnerabilities']);
         $this->assertSame(1, $result['statements'], 'The analysis of the file is a VEX statement');
         $this->assertSame('version', ProductSbom::importSbom($appliance, ' ', $sbom, 'x.json')['error']);
-        $this->assertSame(SbomParser::ERROR_NOT_SBOM, ProductSbom::importSbom($appliance, '1', '{"a":1}', 'x.json')['error']);
+        $notSbom = ProductSbom::importSbom($appliance, '1', '{"a":1}', 'x.json');
+        $this->assertSame(SbomParser::ERROR_NOT_SBOM, $notSbom['error']);
 
         ParkVulnerabilitySync::replaceParkCves($canonical, '3.0.1', [$parkCve]);
         $row = ProductSbom::sboms($appliance)[0];
-        $findings = ProductSbom::findings($row, ProductSbom::components((int) $row['id']), ProductSbom::statements($appliance));
+        $components = ProductSbom::components((int) $row['id']);
+        $findings = ProductSbom::findings($row, $components, ProductSbom::statements($appliance));
         $DB->delete(ParkVulnerabilitySync::PARK_CVES_TABLE, ['cve_id' => $parkCve]);
         $byId = array_column($findings, null, 'vulnerability_id');
         $this->assertCount(2, $findings);
@@ -101,19 +106,24 @@ final class ProductSbomTest extends GrcmanagerIntegrationTestCase
         ]));
 
         ParkVulnerabilitySync::replaceParkCves($canonical, '3.0.1', [$parkCve]);
-        $findings = ProductSbom::findings($row, ProductSbom::components((int) $row['id']), ProductSbom::statements($appliance));
+        $findings = ProductSbom::findings($row, $components, ProductSbom::statements($appliance));
         $evidence = ProductSbom::evidence('A.8.8');
         $DB->delete(ParkVulnerabilitySync::PARK_CVES_TABLE, ['cve_id' => $parkCve]);
         $byId = array_column($findings, null, 'vulnerability_id');
         $this->assertSame(VexRules::STATUS_NOT_AFFECTED, $byId[$parkCve]['status']);
         $this->assertSame('vulnerable_code_not_present', $byId[$parkCve]['justification']);
-        $this->assertSame(VexRules::STATUS_FIXED, $byId['CVE-2099-0001']['status'], 'The newer, more precise statement wins');
+        $this->assertSame(
+            VexRules::STATUS_FIXED,
+            $byId['CVE-2099-0001']['status'],
+            'The newer, more precise statement wins'
+        );
         $this->assertNotNull($evidence);
         $this->assertGreaterThanOrEqual(1, $evidence['products']);
         $this->assertNull(ProductSbom::evidence('A.5.1'));
 
         ProductSbom::deleteSbom((int) $row['id']);
-        $this->assertSame(0, countElementsInTable(SbomTables::COMPONENTS, ['plugin_grcmanager_sboms_id' => (int) $row['id']]));
-        $this->assertSame(0, countElementsInTable(SbomTables::VULNERABILITIES, ['plugin_grcmanager_sboms_id' => (int) $row['id']]));
+        $criteria = ['plugin_grcmanager_sboms_id' => (int) $row['id']];
+        $this->assertSame(0, countElementsInTable(SbomTables::COMPONENTS, $criteria));
+        $this->assertSame(0, countElementsInTable(SbomTables::VULNERABILITIES, $criteria));
     }
 }

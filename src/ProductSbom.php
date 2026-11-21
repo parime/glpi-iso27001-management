@@ -185,7 +185,10 @@ final class ProductSbom extends CommonGLPI
             'component_not_present'                             => __('Component not present', 'grcmanager'),
             'vulnerable_code_not_present'                       => __('Vulnerable code not present', 'grcmanager'),
             'vulnerable_code_not_in_execute_path'               => __('Vulnerable code never executed', 'grcmanager'),
-            'vulnerable_code_cannot_be_controlled_by_adversary' => __('Vulnerable code out of reach of an attacker', 'grcmanager'),
+            'vulnerable_code_cannot_be_controlled_by_adversary' => __(
+                'Vulnerable code out of reach of an attacker',
+                'grcmanager'
+            ),
             'inline_mitigations_already_exist'                  => __('Protections already in place', 'grcmanager'),
         ];
     }
@@ -217,16 +220,28 @@ final class ProductSbom extends CommonGLPI
                 (int) (SbomParser::MAX_BYTES / 1024 / 1024)
             ),
             SbomParser::ERROR_INVALID   => __('The file is not valid JSON, or it is nested too deeply.', 'grcmanager'),
-            SbomParser::ERROR_NOT_SBOM  => __('The file is neither a CycloneDX nor an SPDX 2 software bill of materials in JSON.', 'grcmanager'),
-            SbomParser::ERROR_NOT_VEX   => __('The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX).', 'grcmanager'),
+            SbomParser::ERROR_NOT_SBOM  => __(
+                'The file is neither a CycloneDX nor an SPDX 2 software bill of materials in JSON.',
+                'grcmanager'
+            ),
+            SbomParser::ERROR_NOT_VEX   => __(
+                'The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX).',
+                'grcmanager'
+            ),
             SbomParser::ERROR_TOO_MANY  => sprintf(
                 __('The file lists more than %d components or vulnerabilities: split it by product.', 'grcmanager'),
                 SbomParser::MAX_COMPONENTS
             ),
-            'vulnerability'               => __('Enter a vulnerability identifier, such as CVE-2024-12345.', 'grcmanager'),
+            'vulnerability'               => __(
+                'Enter a vulnerability identifier, such as CVE-2024-12345.',
+                'grcmanager'
+            ),
             'status'                      => __('Choose a status.', 'grcmanager'),
             'justification'               => __('Unknown justification.', 'grcmanager'),
-            'not_affected_without_reason' => __('A "not affected" statement needs a justification or an explanation.', 'grcmanager'),
+            'not_affected_without_reason' => __(
+                'A "not affected" statement needs a justification or an explanation.',
+                'grcmanager'
+            ),
             'version'                     => __('Enter the product version described by the file.', 'grcmanager'),
             default                       => __('The file could not be read.', 'grcmanager'),
         };
@@ -348,11 +363,13 @@ final class ProductSbom extends CommonGLPI
 
         $cves = array_values(array_unique(array_column($found, 'vulnerability_id')));
         $scores = [];
-        foreach ($DB->request(['FROM' => 'glpi_plugin_grcmanager_cveenrichments', 'WHERE' => ['cve_id' => $cves]]) as $row) {
+        $enrichments = ['FROM' => 'glpi_plugin_grcmanager_cveenrichments', 'WHERE' => ['cve_id' => $cves]];
+        foreach ($DB->request($enrichments) as $row) {
             $scores[(string) $row['cve_id']] = $row['cvss_score'] !== null ? (float) $row['cvss_score'] : null;
         }
         $kev = [];
-        foreach ($DB->request(['FROM' => ParkVulnerabilitySync::SIGNALS_TABLE, 'WHERE' => ['cve_id' => $cves]]) as $row) {
+        $signals = ['FROM' => ParkVulnerabilitySync::SIGNALS_TABLE, 'WHERE' => ['cve_id' => $cves]];
+        foreach ($DB->request($signals) as $row) {
             $kev[(string) $row['cve_id']] = (bool) $row['is_kev'];
         }
 
@@ -387,8 +404,8 @@ final class ProductSbom extends CommonGLPI
             VexRules::STATUS_UNDER_INVESTIGATION => 2,
             default => 3,
         };
-        usort($findings, static fn (array $a, array $b): int => [$rank($a), -($a['cvss'] ?? 0.0), $a['vulnerability_id']]
-            <=> [$rank($b), -($b['cvss'] ?? 0.0), $b['vulnerability_id']]);
+        $order = static fn (array $f): array => [$rank($f), -($f['cvss'] ?? 0.0), $f['vulnerability_id']];
+        usort($findings, static fn (array $a, array $b): int => $order($a) <=> $order($b));
 
         return $findings;
     }
@@ -452,7 +469,8 @@ final class ProductSbom extends CommonGLPI
                 ],
             ]) as $row
         ) {
-            foreach ($pairs[$row['plugin_grcmanager_canonicalproducts_id'] . "\0" . $row['version']] ?? [] as $componentId) {
+            $pair = $row['plugin_grcmanager_canonicalproducts_id'] . "\0" . $row['version'];
+            foreach ($pairs[$pair] ?? [] as $componentId) {
                 $matches[] = [(string) $row['cve_id'], $componentId];
             }
         }
@@ -553,8 +571,12 @@ final class ProductSbom extends CommonGLPI
     /**
      * @param list<array<string, mixed>> $vulnerabilities
      */
-    private static function saveStatements(int $appliancesId, string $version, array $vulnerabilities, string $source): int
-    {
+    private static function saveStatements(
+        int $appliancesId,
+        string $version,
+        array $vulnerabilities,
+        string $source
+    ): int {
         $count = 0;
         foreach ($vulnerabilities as $vulnerability) {
             if ((string) $vulnerability['status'] === '') {
@@ -586,7 +608,8 @@ final class ProductSbom extends CommonGLPI
      */
     public static function declare(int $appliancesId, array $input): string
     {
-        $id = SbomParser::vulnerabilityId(is_string($input['vulnerability_id'] ?? null) ? trim($input['vulnerability_id']) : '');
+        $raw = $input['vulnerability_id'] ?? null;
+        $id = SbomParser::vulnerabilityId(is_string($raw) ? trim($raw) : '');
         $status = is_string($input['status'] ?? null) ? $input['status'] : '';
         $justification = is_string($input['justification'] ?? null) ? $input['justification'] : '';
         $detail = SbomParser::text($input['detail'] ?? '', 2000);
@@ -622,7 +645,9 @@ final class ProductSbom extends CommonGLPI
             array_flip(['product_version', 'vulnerability_id', 'component'])
         );
         $values = $fields + ['users_id' => (int) Session::getLoginUserID(), 'date_mod' => self::now()];
-        $existing = $DB->request(['SELECT' => 'id', 'FROM' => SbomTables::VEX, 'WHERE' => $key, 'LIMIT' => 1])->current();
+        $existing = $DB->request([
+            'SELECT' => 'id', 'FROM' => SbomTables::VEX, 'WHERE' => $key, 'LIMIT' => 1,
+        ])->current();
         if ($existing !== null) {
             $DB->update(SbomTables::VEX, $values, ['id' => (int) $existing['id']]);
         } else {
@@ -635,7 +660,9 @@ final class ProductSbom extends CommonGLPI
     {
         global $DB;
 
-        $row = $DB->request(['SELECT' => 'appliances_id', 'FROM' => SbomTables::SBOMS, 'WHERE' => ['id' => $sbomsId]])->current();
+        $row = $DB->request([
+            'SELECT' => 'appliances_id', 'FROM' => SbomTables::SBOMS, 'WHERE' => ['id' => $sbomsId],
+        ])->current();
 
         return $row !== null ? (int) $row['appliances_id'] : 0;
     }
@@ -645,7 +672,9 @@ final class ProductSbom extends CommonGLPI
     {
         global $DB;
 
-        $row = $DB->request(['SELECT' => 'appliances_id', 'FROM' => SbomTables::VEX, 'WHERE' => ['id' => $statementsId]])->current();
+        $row = $DB->request([
+            'SELECT' => 'appliances_id', 'FROM' => SbomTables::VEX, 'WHERE' => ['id' => $statementsId],
+        ])->current();
 
         return $row !== null ? (int) $row['appliances_id'] : 0;
     }
@@ -695,7 +724,8 @@ final class ProductSbom extends CommonGLPI
                 'INNER JOIN' => [
                     'glpi_appliances' => ['FKEY' => ['glpi_appliances' => 'id', SbomTables::SBOMS => 'appliances_id']],
                 ],
-                'WHERE'      => ['glpi_appliances.is_deleted' => 0] + getEntitiesRestrictCriteria('glpi_appliances', '', '', true),
+                'WHERE'      => ['glpi_appliances.is_deleted' => 0]
+                    + getEntitiesRestrictCriteria('glpi_appliances', '', '', true),
                 'ORDER'      => [SbomTables::SBOMS . '.date_creation DESC', SbomTables::SBOMS . '.id DESC'],
             ]) as $row
         ) {

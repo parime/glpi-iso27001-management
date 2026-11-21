@@ -48,7 +48,10 @@ final class SbomParserTest extends TestCase
                 [
                     'id' => 'cve-2021-23337', 'ratings' => [['score' => 7.2], ['score' => 6.5]],
                     'affects' => [['ref' => 'urn:cdx:3e671687/1#pkg:npm/lodash@4.17.20']],
-                    'analysis' => ['state' => 'not_affected', 'justification' => 'code_not_reachable', 'detail' => 'Template not used'],
+                    'analysis' => [
+                        'state' => 'not_affected', 'justification' => 'code_not_reachable',
+                        'detail' => 'Template not used',
+                    ],
                 ],
                 ['id' => 'CVE-2022-0778', 'affects' => [['ref' => 'ossl']]],
                 ['id' => 'not an id', 'affects' => [['ref' => 'ossl']]],
@@ -65,7 +68,11 @@ final class SbomParserTest extends TestCase
         $this->assertSame('1.5', $result['spec_version']);
         $this->assertSame('Example portal', $result['name']);
         $names = array_column($result['components'], 'name');
-        $this->assertSame(['lodash', 'org.example/openssl', 'inner-lib'], $names, 'Nested components are read, tags removed');
+        $this->assertSame(
+            ['lodash', 'org.example/openssl', 'inner-lib'],
+            $names,
+            'Nested components are read, tags removed'
+        );
         $this->assertSame('MIT', $result['components'][0]['licenses']);
         $this->assertSame('Example supplier', $result['components'][1]['supplier']);
 
@@ -152,7 +159,10 @@ final class SbomParserTest extends TestCase
             'statements' => [
                 [
                     'vulnerability' => ['name' => 'CVE-2023-44487'],
-                    'products' => [['@id' => 'pkg:oci/portal', 'subcomponents' => [['@id' => 'pkg:golang/golang.org/x/net@0.7.0']]]],
+                    'products' => [[
+                        '@id' => 'pkg:oci/portal',
+                        'subcomponents' => [['@id' => 'pkg:golang/golang.org/x/net@0.7.0']],
+                    ]],
                     'status' => 'not_affected', 'justification' => 'vulnerable_code_not_in_execute_path',
                     'impact_statement' => 'HTTP/2 is disabled',
                 ],
@@ -173,14 +183,16 @@ final class SbomParserTest extends TestCase
         $this->assertSame('', $cycloneVex['error']);
         $this->assertCount(1, $cycloneVex['vulnerabilities'], 'Only analysed vulnerabilities are statements');
 
-        $this->assertSame(SbomParser::ERROR_NOT_VEX, SbomParser::parseVex('{"bomFormat":"CycloneDX","components":[]}')['error']);
+        $empty = SbomParser::parseVex('{"bomFormat":"CycloneDX","components":[]}');
+        $this->assertSame(SbomParser::ERROR_NOT_VEX, $empty['error']);
         $this->assertSame(SbomParser::ERROR_NOT_VEX, SbomParser::parseVex('{"hello":"world"}')['error']);
     }
 
     public function testStatementPrecedence(): void
     {
         $statement = static fn (string $version, string $component, string $status): array => [
-            'vulnerability_id' => 'CVE-2024-1', 'product_version' => $version, 'component' => $component, 'status' => $status,
+            'vulnerability_id' => 'CVE-2024-1', 'product_version' => $version,
+            'component' => $component, 'status' => $status,
         ];
         $component = ['bom_ref' => 'ref-1', 'purl' => 'pkg:npm/lodash@4.17.20', 'name' => 'lodash'];
         $statements = [
@@ -190,7 +202,11 @@ final class SbomParserTest extends TestCase
         ];
 
         $found = VexRules::statementFor($statements, 'CVE-2024-1', $component, '2.4.0');
-        $this->assertSame(VexRules::STATUS_AFFECTED, $found['status'] ?? null, 'A named component wins over the whole product');
+        $this->assertSame(
+            VexRules::STATUS_AFFECTED,
+            $found['status'] ?? null,
+            'A named component wins over the whole product'
+        );
         $this->assertNull(VexRules::statementFor($statements, 'CVE-2024-2', $component, '2.4.0'));
         $this->assertSame(
             VexRules::STATUS_FIXED,
@@ -209,7 +225,9 @@ final class SbomParserTest extends TestCase
         $this->assertNull(VexRules::cpeVendorProduct('cpe:2.3:a:*:openssl:3.0.1'));
         $this->assertSame(['openssl', 'openssl'], VexRules::cpeVendorProduct('cpe:/a:openssl:openssl:3.0.1'));
 
-        $counts = VexRules::indicators([['status' => ''], ['status' => 'affected'], ['status' => 'fixed'], ['status' => 'not_affected']]);
+        $counts = VexRules::indicators([
+            ['status' => ''], ['status' => 'affected'], ['status' => 'fixed'], ['status' => 'not_affected'],
+        ]);
         $this->assertSame(4, $counts['total']);
         $this->assertSame(1, $counts['without_statement']);
         $this->assertSame(1, $counts['affected']);

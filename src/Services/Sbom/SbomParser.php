@@ -371,7 +371,10 @@ final class SbomParser
             'purl'     => $purl,
             'cpe'      => $cpe,
             'supplier' => self::text($supplier ?? '', 255),
-            'licenses' => self::text($license !== '' ? $license : self::spdxValue($package['licenseDeclared'] ?? ''), 255),
+            'licenses' => self::text(
+                $license !== '' ? $license : self::spdxValue($package['licenseDeclared'] ?? ''),
+                255
+            ),
         ];
     }
 
