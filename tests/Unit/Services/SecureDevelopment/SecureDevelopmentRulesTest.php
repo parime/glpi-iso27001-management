@@ -49,6 +49,26 @@ final class SecureDevelopmentRulesTest extends TestCase
         self::assertFalse(R::withoutSeparation(R::SEPARATION_YES));
     }
 
+    public function testSeparationDetailsRequirementsAndOutsourcing(): void
+    {
+        self::assertSame([], R::separationGaps(['environments_separated' => 'no']), 'Séparation non affirmée.');
+        self::assertSame(
+            ['separation_data', 'separation_config'],
+            R::separationGaps(['environments_separated' => 'yes', 'separation_access' => 1])
+        );
+        self::assertSame([], R::separationGaps([
+            'environments_separated' => 'yes', 'separation_access' => 1, 'separation_data' => 1,
+            'separation_config' => 1,
+        ]));
+        self::assertTrue(R::withoutRequirements(['security_requirements' => '  ']));
+        self::assertFalse(R::withoutRequirements(['security_requirements' => 'Authentication with MFA']));
+        self::assertTrue(R::withoutArchitecture([]));
+        self::assertFalse(R::outsourcingGap(['outsourced' => 0]));
+        self::assertTrue(R::outsourcingGap(['outsourced' => 1, 'suppliers_id' => 3, 'outsourcing_clauses' => 0]));
+        self::assertTrue(R::outsourcingGap(['outsourced' => 1, 'suppliers_id' => 0, 'outsourcing_clauses' => 1]));
+        self::assertFalse(R::outsourcingGap(['outsourced' => 1, 'suppliers_id' => 3, 'outsourcing_clauses' => 1]));
+    }
+
     public function testMissingPractices(): void
     {
         self::assertSame(
@@ -125,6 +145,20 @@ final class SecureDevelopmentRulesTest extends TestCase
         self::assertSame(1, $indicators['without_sast']);
         self::assertSame(2, $indicators['without_dast']);
         self::assertSame(1, $indicators['without_dependency_scan']);
+        self::assertSame(1, $indicators['separation_incomplete'], 'Séparée sans le détail coché.');
+        self::assertSame(3, $indicators['without_requirements']);
+        self::assertSame(3, $indicators['without_architecture']);
+        self::assertSame(0, $indicators['outsourced']);
+
+        $detailed = R::indicators([
+            $profiles[0] + ['separation_access' => 1, 'security_requirements' => 'x', 'outsourced' => 1],
+            ['outsourced' => 1, 'suppliers_id' => 2, 'outsourcing_clauses' => 1, 'architecture_principles' => 'y'],
+        ], []);
+        self::assertSame(1, $detailed['separation_incomplete']);
+        self::assertSame(1, $detailed['without_requirements']);
+        self::assertSame(1, $detailed['without_architecture']);
+        self::assertSame(2, $detailed['outsourced']);
+        self::assertSame(1, $detailed['outsourced_without_clauses']);
         self::assertSame(3, $indicators['releases']);
         self::assertSame(2, $indicators['releases_without_validation']);
     }

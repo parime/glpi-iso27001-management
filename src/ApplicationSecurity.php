@@ -120,7 +120,10 @@ class ApplicationSecurity extends ApplicationSecurityBase
     {
         return [
             'separation_access' => __('Separate access (accounts, rights)', 'grcmanager'),
-            'separation_data'   => __('Separate data (no production data outside production, or anonymised)', 'grcmanager'),
+            'separation_data'   => __(
+                'Separate data (no production data outside production, or anonymised)',
+                'grcmanager'
+            ),
             'separation_config' => __('Separate configuration (secrets, settings)', 'grcmanager'),
         ];
     }
@@ -176,7 +179,9 @@ class ApplicationSecurity extends ApplicationSecurityBase
             // Prestataire, clauses et suivi n'ont de sens que pour un développement externalisé.
             'suppliers_id'             => $outsourced === 1 ? max(0, $supplier) : 0,
             'outsourcing_clauses'      => $outsourced === 1 ? Rules::flag($input['outsourcing_clauses'] ?? 0) : 0,
-            'outsourcing_oversight'    => $outsourced === 1 ? trim((string) ($input['outsourcing_oversight'] ?? '')) : '',
+            'outsourcing_oversight'    => $outsourced === 1
+                ? trim((string) ($input['outsourcing_oversight'] ?? ''))
+                : '',
         ];
         foreach ([...Rules::PRACTICES, ...Rules::SEPARATION_DETAILS] as $practice) {
             $clean[$practice] = Rules::flag($input[$practice] ?? 0);

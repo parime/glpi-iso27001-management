@@ -488,7 +488,8 @@ class PageHelp
             'securedevelopment' => [
                 'purpose'   => __(
                     'The applications developed or maintained in-house, with their secure development practices '
-                        . '(framework, code review, SAST, DAST and dependency analyses, separated environments), and '
+                        . '(framework, code review, SAST, DAST and dependency analyses, security requirements, '
+                        . 'architecture principles, outsourced development, separated environments), and '
                         . 'the releases of the last 12 months with their security validation.',
                     'grcmanager'
                 ),
