@@ -221,6 +221,14 @@ final class OperatingSystemCveMatchTest extends GrcmanagerIntegrationTestCase
         $tab = ParkVulnerability::getForItem($computer);
         $this->assertSame([$this->cve], array_column($tab, 'cve_id'));
         $this->assertSame('os', $tab[0]['source']);
+
+        // Lot 2 : le classement « Machines les plus exposées » compte aussi le système.
+        $ranked = array_column(array_filter(
+            ParkVulnerability::getMachineRanking(1000)['rows'],
+            static fn (array $row): bool => $row['itemtype'] === \Computer::class
+        ), 'cves', 'items_id');
+        $this->assertSame(1, $ranked[$visible] ?? null, 'Exposé par son système d\'exploitation.');
+        $this->assertArrayNotHasKey($hidden, $ranked, 'Entité B jamais classée.');
     }
 
     /**

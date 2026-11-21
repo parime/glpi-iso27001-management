@@ -58,33 +58,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
-- **Périmètres multiples, lot 3 : les autres registres par entité GLPI** (issue #536, dernier lot).
-  Après les risques, la SoA, les audits et les non-conformités, huit registres appartiennent à une
-  entité : **risques fournisseurs**, **formations**, **revues de direction**, **objectifs**,
-  **obligations**, **dérogations**, **flux réseau** et **études EBIOS RM**. Un utilisateur ne voit et
-  ne modifie que ceux des entités de son profil, partout :
-  - listes, fiches, recherches, exports et API ;
-  - cartes du tableau de bord et de pilotage ;
-  - contrôles de cohérence, calendrier de conformité, préparation à la certification ;
-  - matrice et rapport des flux réseau, dérogations des vulnérabilités du parc.
-
-  Un nouvel élément prend l'entité active ; le serveur refuse une autre entité que celles de la
-  session, y compris par modification en masse. Les colonnes « Entité » et « Sous-entités » sont
-  dans chaque recherche. Les éléments rattachés suivent leur parent :
-  - mesures d'un objectif, actions d'une revue, éléments d'une étude EBIOS ;
-  - le risque créé depuis un scénario opérationnel EBIOS va dans l'entité de l'étude ;
-  - le dossier préparatoire d'une revue de direction porte sur l'entité de la revue et reprend
-    les actions des revues précédentes de cette entité ; son document y est rangé.
-
-  Une revue ne peut citer que des objectifs lisibles, et les liens vers les autres sont conservés.
-  Les formations qualifiantes des auditeurs choisies hors de la session le restent aussi.
-  **À la mise à jour**, les données existantes vont dans l'entité racine :
-  - les formations, revues, objectifs et obligations restent visibles des sous-entités, comme avant ;
-  - les risques fournisseurs, dérogations, flux et études EBIOS ne le sont plus, comme les risques.
-
-  Rangez-les ensuite par une modification en masse (colonne « Entité »). Aucun statut, responsable
-  ou droit ne change. Restent communs : les référentiels, le catalogue de l'Annexe A, les exigences
-  des articles 4 à 10 et les politiques. Ce lot termine l'issue #536.
+- **Vulnérabilités du parc : dérivés de RHEL, Fedora et macOS, et classement des machines par
+  leur système** (issue #780, lot 2, mesure A.8.8). Ce lot termine l'issue #780 :
+  - correspondances proposées par défaut, à valider dans « Logiciels à surveiller », pour
+    **Rocky Linux** (`cpe:2.3:o:rockylinux:rocky_linux`), **AlmaLinux**
+    (`cpe:2.3:o:almalinux:almalinux`), **Oracle Linux** (`cpe:2.3:o:oracle:linux`), **Fedora**
+    (`cpe:2.3:o:fedoraproject:fedora`) et **macOS** (`cpe:2.3:o:apple:macos`), produits relevés
+    dans le dictionnaire CPE de NVD ;
+  - versions comparées sous la forme de NVD : « 9.3 » pour Rocky Linux et AlmaLinux 9.3 (version
+    mineure inconnue : « version non vérifiable »), « 8 » pour Oracle Linux 8, « 40 » pour
+    Fedora 40, version complète pour macOS (« 14.4.1 ») ;
+  - la règle de fin de support (#704) reconnaît aussi leur nom complet inventorié par l'agent
+    GLPI (« Rocky Linux 9.3 (Blue Onyx) », « Oracle Linux Server 8.9 », « macOS 14.4.1 ») ;
+  - **Machines les plus exposées** : le classement compte désormais les vulnérabilités du système
+    d'exploitation et des firmwares (#705) de chaque machine, en plus de ses logiciels, avec les
+    mêmes règles d'entités et de droits. Aucun droit ajouté ni modifié, aucune table.
 
 - **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
   A.5.32). Les licences filles de GLPI (champ « Comme enfant de ») ne gonflent plus les postes
