@@ -25133,15 +25133,6 @@ msgstr "Odrzuć wdrożenie"
 msgid "Awaiting the decision of the CIO or the CISO."
 msgstr "Oczekuje na decyzję dyrektora IT lub CISO."
 
-msgid ""
-"Fill in this sheet for each application developed or maintained in-house: it "
-"then appears in the register of applications (secure development page) and "
-"as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
-msgstr ""
-"Wypełnij tę kartę dla każdej aplikacji tworzonej lub utrzymywanej "
-"wewnętrznie: pojawi się ona w rejestrze aplikacji (strona Bezpieczne "
-"wytwarzanie) i jako dowód dla zabezpieczeń A.8.25, A.8.28, A.8.29 i A.8.31."
-
 msgid "All secure development practices are in place"
 msgstr "Wszystkie praktyki bezpiecznego wytwarzania są wdrożone"
 
@@ -25412,17 +25403,6 @@ msgstr "Decydowanie o wdrożeniach"
 msgid "Approve or reject the release of a change (security validation)"
 msgstr ""
 "Zatwierdzanie lub odrzucanie wdrożenia zmiany (zatwierdzenie bezpieczeństwa)"
-
-msgid ""
-"The applications developed or maintained in-house, with their secure "
-"development practices (framework, code review, SAST, DAST and dependency "
-"analyses, separated environments), and the releases of the last 12 months "
-"with their security validation."
-msgstr ""
-"Aplikacje tworzone lub utrzymywane wewnętrznie wraz z praktykami "
-"bezpiecznego wytwarzania (standard, przegląd kodu, analizy SAST, DAST i "
-"zależności, rozdzielone środowiska) oraz wdrożenia z ostatnich 12 miesięcy "
-"wraz z ich zatwierdzeniem bezpieczeństwa."
 
 msgid ""
 "Fill in the \"Secure development\" tab of each application, link the changes "
@@ -27640,3 +27620,139 @@ msgstr "Oficjalne kontakty są widoczne tylko z uprawnieniem kontekstu organizac
 
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "To ćwiczenie nigdy nie zostało przeprowadzone do końca w sali kryzysowej."
+
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and as"
+" evidence for controls A.8.25 to A.8.31."
+msgstr ""
+"Wypełnij tę kartę dla każdej aplikacji rozwijanej lub utrzymywanej "
+"wewnętrznie: pojawi się ona w rejestrze aplikacji (strona Bezpieczny rozwój) "
+"i jako dowód dla zabezpieczeń od A.8.25 do A.8.31."
+
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+"Aplikacje rozwijane lub utrzymywane wewnętrznie wraz z praktykami "
+"bezpiecznego rozwoju (standard, przegląd kodu, analizy SAST, DAST i "
+"zależności, wymagania bezpieczeństwa, zasady architektury, rozwój zlecony na "
+"zewnątrz, separacja środowisk) oraz wdrożenia produkcyjne z ostatnich 12 "
+"miesięcy wraz z ich zatwierdzeniem bezpieczeństwa."
+
+msgid "%d without documented security requirements"
+msgstr "%d bez udokumentowanych wymagań bezpieczeństwa"
+
+msgid "%d without secure architecture principles"
+msgstr "%d bez zasad bezpiecznej architektury"
+
+msgid "%d outsourced without supplier or security clauses"
+msgstr "%d zleconych bez dostawcy lub klauzul bezpieczeństwa"
+
+msgid "%d with access, data or configuration not separated"
+msgstr "%d z nierozdzielonym dostępem, danymi lub konfiguracją"
+
+msgid "Architecture"
+msgstr "Architektura"
+
+msgid "Architecture: %d"
+msgstr "Architektura: %d"
+
+msgid "Requirements: %d"
+msgstr "Wymagania: %d"
+
+msgid "Development entrusted to a supplier"
+msgstr "Rozwój powierzony dostawcy"
+
+msgid ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+msgstr ""
+"Na przykład: przegląd kodu każdej dostawy, testy odbiorcze, prawo do audytu, "
+"depozyt kodu źródłowego."
+
+msgid "No architecture principles"
+msgstr "Brak zasad architektury"
+
+msgid "No security requirements"
+msgstr "Brak wymagań bezpieczeństwa"
+
+msgid "Not separated: %s"
+msgstr "Nierozdzielone: %s"
+
+msgid "Outsourced development (A.8.30)"
+msgstr "Rozwój zlecony na zewnątrz (A.8.30)"
+
+msgid "Outsourced without supplier or security clauses"
+msgstr "Zlecone bez dostawcy lub klauzul bezpieczeństwa"
+
+msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
+msgstr "Zlecone: %1$d, bez dostawcy lub klauzul: %2$d"
+
+msgid ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+msgstr ""
+"Zasady stosowane w projekcie: najmniejsze uprawnienia, obrona w głąb, "
+"bezpieczne ustawienia domyślne lub link do dokumentu architektury."
+
+msgid "Requirements and architecture (A.8.26, A.8.27)"
+msgstr "Wymagania i architektura (A.8.26, A.8.27)"
+
+msgid ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+msgstr ""
+"Wymagania określone przed rozwojem: uwierzytelnianie, ochrona danych, "
+"rejestrowanie zdarzeń, obowiązki prawne lub link do specyfikacji."
+
+msgid "Secure architecture principles"
+msgstr "Zasady bezpiecznej architektury"
+
+msgid "Security clauses in the contract"
+msgstr "Klauzule bezpieczeństwa w umowie"
+
+msgid "Security requirements of the application"
+msgstr "Wymagania bezpieczeństwa aplikacji"
+
+msgid "Separate access (accounts, rights)"
+msgstr "Oddzielny dostęp (konta, uprawnienia)"
+
+msgid "Separate configuration (secrets, settings)"
+msgstr "Oddzielna konfiguracja (sekrety, ustawienia)"
+
+msgid "Separate data (no production data outside production, or anonymised)"
+msgstr ""
+"Oddzielne dane (brak danych produkcyjnych poza produkcją lub zanonimizowane)"
+
+msgid "Supervised"
+msgstr "Nadzorowane"
+
+msgid "Supervision of the supplier"
+msgstr "Nadzór nad dostawcą"
+
+msgid ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+msgstr ""
+"Dostawca w GLPI (Zarządzanie > Dostawcy). Ignorowany, gdy rozwój nie jest "
+"zlecony na zewnątrz."
+
+msgid ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+msgstr ""
+"Jeśli środowiska są rozdzielone, zaznacz, co faktycznie jest rozdzielone "
+"między rozwojem, testami i produkcją:"
+
+msgid "Without supplier or clauses"
+msgstr "Bez dostawcy lub klauzul"
+
+msgid "%d outsourced application"
+msgid_plural "%d outsourced applications"
+msgstr[0] "%d aplikacja zlecona"
+msgstr[1] "%d aplikacje zlecone"
+msgstr[2] "%d aplikacji zleconych"
