@@ -412,43 +412,12 @@ jobs:
       # l'utilisateur ne voit pas, et un demandeur ne peut pas approuver sa propre SoA. Le
       # super-admin garde l'acces a tout.
       - name: Matrice de controle d'acces (profils limites a une entite, puis super-admin)
-        run: |
-          # bin/console tourne en root plus haut : rend files/ a Apache (www-data).
-          docker exec -u root glpi chown -R www-data:www-data /var/glpi/files
-          setup() { docker exec -u www-data glpi php /var/www/glpi/plugins/grcmanager/tests/security/setup.php "$@" | tail -1; }
-          ids=$(setup); echo "$ids"
-          bash tests/security/access-matrix.sh http://localhost:8080 limited iso-gestionnaire 'Secrev#2026' "$ids"
-          links=$(setup risk-links "$(jq -r .risk <<< "$ids")")
-          jq -e --arg b "Computer:$(jq -r .computer_B <<< "$ids")" 'index($b) != null' <<< "$links" > /dev/null \
-            || { echo "::error::enregistrer le risque a efface le lien vers un actif invisible pour l'utilisateur : $links"; exit 1; }
-          approvers=$(setup soa-approvers)
-          jq -e --argjson me "$(jq -r .manager <<< "$ids")" '.approvers | index($me) == null' <<< "$approvers" > /dev/null \
-            || { echo "::error::le demandeur s'est designe approbateur de sa propre SoA : $approvers"; exit 1; }
-          echo "OK  liens du risque conserves ($links), demandeur absent des approbateurs ($approvers)"
-          # Issue #375 : enregistrer le traitement de A ne retire pas l'ordinateur de B, invisible pour lui.
-          plinks=$(setup processing-links "$(jq -r .processing_A <<< "$ids")")
-          jq -e --arg b "Computer:$(jq -r .computer_B <<< "$ids")" --arg a "Computer:$(jq -r .computer_A <<< "$ids")" \
-            'index($b) != null and index($a) != null' <<< "$plinks" > /dev/null \
-            || { echo "::error::enregistrer le traitement a modifie un lien vers un actif invisible pour l'utilisateur : $plinks"; exit 1; }
-          echo "OK  liens du traitement conserves ($plinks)"
-          counts_before=$(setup counts)
-          bash tests/security/access-matrix.sh http://localhost:8080 none iso-sans-droit 'Secrev#2026' "$ids"
-          bash tests/security/access-matrix.sh http://localhost:8080 reader iso-lecteur 'Secrev#2026' "$ids"
-          # Registres sensibles : droit general du SMSI sans le droit dedie.
-          bash tests/security/access-matrix.sh http://localhost:8080 general iso-general 'Secrev#2026' "$ids"
-          counts_after=$(setup counts)
-          [ "$counts_before" = "$counts_after" ] || { echo "::error::un profil sans droit ou en lecture seule a cree ou supprime des donnees"; echo "avant : $counts_before"; echo "apres : $counts_after"; exit 1; }
-          echo "OK  aucune ligne creee ni supprimee par les profils sans droit et lecteur"
-          bash tests/security/access-matrix.sh http://localhost:8080 admin glpi glpi "$ids"
+        run: bash .github/scripts/security-e2e.sh matrix
 
       # Test XSS de bout en bout : une charge piegee dans chaque champ texte libre, aucune page ni
       # onglet ne doit la restituer sans echappement.
       - name: Test XSS (charge piegee dans chaque champ texte libre)
-        run: |
-          setup() { docker exec -u www-data glpi php /var/www/glpi/plugins/grcmanager/tests/security/setup.php "$@" | tail -1; }
-          ids=$(setup)
-          xss=$(setup xss "$ids")
-          bash tests/security/xss-check.sh http://localhost:8080 "$ids" "$xss"
+        run: bash .github/scripts/security-e2e.sh xss
 
       # Issue #978 : dans un vrai navigateur, aucune erreur JavaScript (« Maximum call stack size
       # exceeded »...) ni boite de dialogue (charge XSS executee) sur l'accueil et les pages du plugin.
@@ -531,7 +500,7 @@ jobs:
 
       - name: Demarre GLPI 12 et installe sa base
         run: |
-          docker run -d --name glpi --network grcmanager-ci -e TIMEZONE=Europe/Paris "$GLPI12_IMAGE"
+          docker run -d --name glpi --network grcmanager-ci -p 8080:80 -e TIMEZONE=Europe/Paris "$GLPI12_IMAGE"
           for i in $(seq 1 12); do
             docker exec glpi php bin/console database:install --db-host=mariadb --db-name=glpidb \
               --db-user=glpi_user --db-password=glpi_password --no-interaction && exit 0
@@ -585,6 +554,13 @@ jobs:
 
       - name: PHPStan contre les sources de GLPI 12 (méthodes du cœur supprimées)
         run: docker exec glpi sh -c 'cd /var/www/glpi/plugins/grcmanager && php vendor/bin/phpstan analyse -c phpstan.glpi12.neon --no-progress --memory-limit=2G'
+
+      # Issue #980 : la matrice d'acces et le test XSS ne tournaient que sur GLPI 11.
+      - name: Matrice de controle d'acces sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh matrix
+
+      - name: Test XSS sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh xss
 
       - name: Logs GLPI (en cas d'echec)
         if: failure()
