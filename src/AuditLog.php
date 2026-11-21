@@ -191,6 +191,23 @@ class AuditLog extends CommonGLPI
     }
 
     /**
+     * Libellé de l'objet d'une ligne. Certains types journalisés ne sont pas des objets GLPI
+     * (AdAttackPath, services) : sans getTypeName(), on affiche le nom court de la classe au lieu
+     * d'une erreur 500 sur la page du journal.
+     */
+    public static function objectLabel(string $itemtype, int $itemsId): string
+    {
+        if ($itemtype === '' || !class_exists($itemtype)) {
+            return '';
+        }
+        $label = method_exists($itemtype, 'getTypeName')
+            ? (string) $itemtype::getTypeName(1)
+            : substr((string) strrchr('\\' . $itemtype, '\\'), 1);
+
+        return $label . ($itemsId > 0 ? ' #' . $itemsId : '');
+    }
+
+    /**
      * Lignes prêtes à afficher (noms d'utilisateurs et de profils, objet, lien vers l'incident).
      *
      * @param list<array<string, mixed>> $rows
@@ -213,9 +230,7 @@ class AuditLog extends CommonGLPI
                 ? \Dropdown::getDropdownName('glpi_profiles', (int) $row['profiles_id'])
                 : '';
             $itemtype = (string) $row['itemtype'];
-            $row['object'] = $itemtype !== '' && class_exists($itemtype)
-                ? $itemtype::getTypeName(1) . ((int) $row['items_id'] > 0 ? ' #' . (int) $row['items_id'] : '')
-                : '';
+            $row['object'] = self::objectLabel($itemtype, (int) $row['items_id']);
             $incidentId = (int) $row['plugin_grcmanager_securityincidents_id'];
             $row['incident_url'] = $incidentId > 0
                 ? \PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentId)
