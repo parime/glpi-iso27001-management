@@ -115,6 +115,9 @@ check "front/configcompliance.php?report non rapproche" "$P/configcompliance.php
 check "preuve conformite de configuration (A.8.9)" "$P/control.form.php?id=$(xid control_a89)"
 # Issue #853 : hote emetteur, serveur de temps et commentaire pieges (couverture de la journalisation).
 check "front/logcoverage.php"                 "$P/logcoverage.php"
+# Issue #838 : machine sauvegardee, travail et type pieges (couverture des sauvegardes, preuve A.8.13).
+check "front/backupcoverage.php"              "$P/backupcoverage.php"
+check "preuve couverture des sauvegardes (A.8.13)" "$P/control.form.php?id=$(xid control_a813)"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).
 check "front/parkvulnerability.php?warranty=all" "$P/parkvulnerability.php?warranty=all"
 # Issue #604 : campagne de simulation d'hameconnage piegee (liste et tendance, fiche, onglet Resultats,

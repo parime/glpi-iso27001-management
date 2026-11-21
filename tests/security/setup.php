@@ -406,6 +406,13 @@ if ($mode === 'xss') {
     $DB->update(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, [
         'ntp_server' => mb_substr($canary, 0, 255), 'is_ntp_declared' => 1, 'comment' => $canary,
     ], ['comment' => 'Conservation securite A']);
+    // Issue #838 : machine sauvegardée, travail et type piégés (couverture des sauvegardes).
+    $DB->update(\GlpiPlugin\Grcmanager\Install\BackupCoverageTables::HOSTS, [
+        'host' => mb_substr($canary, 0, 255), 'job' => mb_substr($canary, 0, 255),
+    ], ['host' => 'Hote sauvegarde securite A']);
+    $DB->update(\GlpiPlugin\Grcmanager\Install\BackupCoverageTables::JOBS, [
+        'name' => mb_substr($canary, 0, 255), 'type' => mb_substr($canary, 0, 64),
+    ], ['name' => 'Travail sauvegarde securite A']);
     // Issue #779 : logiciel commercial sans licence piégé (page des licences logicielles, export).
     $DB->update('glpi_softwares', ['name' => $canary], ['name' => 'Logiciel licence securite A']);
     // Issue #779, lot 2 : licence piégée qui arrive à échéance (lien vers la licence sur la page).
@@ -588,6 +595,10 @@ if ($mode === 'xss') {
     ])->current()['id'] ?? 0);
     $out['control_a831'] = (int) ($DB->request([
         'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.31'], 'LIMIT' => 1,
+    ])->current()['id'] ?? 0);
+    // Issue #838 : mesure A.8.13 (preuve de la couverture des sauvegardes).
+    $out['control_a813'] = (int) ($DB->request([
+        'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.13'], 'LIMIT' => 1,
     ])->current()['id'] ?? 0);
     // Issue #852 : mesure A.8.5 (preuve de la couverture MFA).
     $out['control_a85'] = (int) ($DB->request([
@@ -866,6 +877,18 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         $DB->insert(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, $logPlatform + [
             'retention_days' => 30, 'comment' => 'Conservation securite ' . $suffix,
         ]);
+    }
+    // Issue #838 : machine sauvegardée inconnue de GLPI et travail lu dans Veeam (entité seulement).
+    $backupHost = ['entities_id' => $entity, 'source' => 'acronis', 'host' => 'Hote sauvegarde securite ' . $suffix];
+    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\BackupCoverageTables::HOSTS, $backupHost) === 0) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\BackupCoverageTables::HOSTS, $backupHost + [
+            'ip' => '192.0.2.98', 'job' => 'Plan securite', 'last_result' => 'success',
+            'last_success' => date('Y-m-d H:i:s'),
+        ]);
+    }
+    $backupJob = ['entities_id' => $entity, 'source' => 'veeam', 'name' => 'Travail sauvegarde securite ' . $suffix];
+    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\BackupCoverageTables::JOBS, $backupJob) === 0) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\BackupCoverageTables::JOBS, $backupJob + ['type' => 'Backup', 'last_result' => 'failed']);
     }
     // Issue #779 : logiciel commercial fictif installé sans licence sur l'ordinateur de l'entité.
     $licenseSoftware = $add(new Software(), [

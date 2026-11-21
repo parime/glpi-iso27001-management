@@ -129,6 +129,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/endoflife.export.php front/hardwarewarranty.export.php
   front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
   front/diskencryption.php front/mfacoverage.php front/patchcompliance.php front/logcoverage.php
+  front/backupcoverage.php
   front/configcompliance.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
@@ -628,6 +629,14 @@ if [ "$ROLE" = reader ]; then
   expect "front/logcoverage.php : modifier les reglages" 403     "$(code -d "save_log_settings=1&log_scope=all&_glpi_csrf_token=$(csrf)" "$P/logcoverage.php")"
   expect "front/logcoverage.php : declarer une plateforme en lecture seule" 403     "$(code -d "declare_log_platform=1&platform=splunk&retention_days=1&_glpi_csrf_token=$(csrf)" "$P/logcoverage.php")"
   expect "front/logcoverage.php : effacer un import en lecture seule" 403     "$(code -d "clear_log_hosts=1&platform=graylog&_glpi_csrf_token=$(csrf)" "$P/logcoverage.php")"
+  # Issue #838 : sauvegardes de l'entite A seulement ; reglages, connecteur, lecture et import en lecture seule.
+  contains "sauvegardes : machine de A" "Hote sauvegarde securite A" oui "$(body "$P/backupcoverage.php")"
+  contains "sauvegardes : machine de B absente" "Hote sauvegarde securite B" non "$(body "$P/backupcoverage.php")"
+  contains "sauvegardes : travail de B absent" "Travail sauvegarde securite B" non "$(body "$P/backupcoverage.php")"
+  expect "front/backupcoverage.php : modifier les reglages" 403     "$(code -d "save_backup_settings=1&backup_scope=all&_glpi_csrf_token=$(csrf)" "$P/backupcoverage.php")"
+  expect "front/backupcoverage.php : regler Veeam en lecture seule" 403     "$(code -d "save_veeam=1&veeam_url=https%3A%2F%2Fveeam.example.test&_glpi_csrf_token=$(csrf)" "$P/backupcoverage.php")"
+  expect "front/backupcoverage.php : lire Veeam en lecture seule" 403     "$(code -d "fetch_veeam=1&_glpi_csrf_token=$(csrf)" "$P/backupcoverage.php")"
+  expect "front/backupcoverage.php : effacer un import en lecture seule" 403     "$(code -d "clear_backup_hosts=1&source=acronis&_glpi_csrf_token=$(csrf)" "$P/backupcoverage.php")"
   # Issue #854 : correctifs de securite de l'entite A seulement ; delais cibles en lecture seule.
   contains "correctifs de securite : ordinateur de A" "PC securite A" oui "$(body "$P/patchcompliance.php")"
   contains "correctifs de securite : rien de B" "PC securite B" non "$(body "$P/patchcompliance.php")"
@@ -964,6 +973,9 @@ if [ "$ROLE" = limited ]; then
   # Issue #853 : conservation declaree par le gestionnaire, jamais sans jeton CSRF.
   expect "front/logcoverage.php : declarer une plateforme" 302     "$(code -d "declare_log_platform=1&platform=splunk&retention_days=365&_glpi_csrf_token=$(csrf)" "$P/logcoverage.php")"
   expect "front/logcoverage.php : declarer une plateforme sans jeton CSRF" 403     "$(code -d "declare_log_platform=1&platform=splunk&retention_days=1" "$P/logcoverage.php")"
+  # Issue #838 : reglages des sauvegardes modifiables par le gestionnaire, jamais sans jeton CSRF.
+  expect "front/backupcoverage.php : reglages" 302     "$(code -d "save_backup_settings=1&backup_scope=critical_servers&backup_max_age_hours=48&backup_restore_months=12&_glpi_csrf_token=$(csrf)" "$P/backupcoverage.php")"
+  expect "front/backupcoverage.php : reglages sans jeton CSRF" 403     "$(code -d "save_backup_settings=1&backup_scope=all" "$P/backupcoverage.php")"
   # Issue #854 : delais cibles modifiables par le gestionnaire, jamais sans jeton CSRF.
   expect "front/patchcompliance.php : delais cibles" 302 \
     "$(code -d "save_patch_targets=1&patch_targets%5Bcritical%5D=15&_glpi_csrf_token=$(csrf)" "$P/patchcompliance.php")"
