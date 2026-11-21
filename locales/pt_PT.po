@@ -34232,11 +34232,28 @@ msgstr "Textos de referência"
 msgid "Text status"
 msgstr "Situação do texto"
 
-msgid "Shows, for each applicable control of the Statement of Applicability, the texts of the policy library that cover it, and lists the controls covered by no text, or only by a text not approved yet or whose review date has passed."
-msgstr "Mostra, para cada controle aplicável da declaração de aplicabilidade, os textos da biblioteca de políticas que o cobrem, e lista os controles não cobertos por nenhum texto, ou apenas por um texto ainda não aprovado ou cuja data de revisão já passou."
+msgid ""
+"Shows, for each applicable control of the Statement of Applicability, the "
+"texts of the policy library that cover it, and lists the controls covered by "
+"no text, or only by a text not approved yet or whose review date has passed."
+msgstr ""
+"Mostra, para cada controle aplicável da declaração de aplicabilidade, os "
+"textos da biblioteca de políticas que o cobrem, e lista os controles não "
+"cobertos por nenhum texto, ou apenas por um texto ainda não aprovado ou cuja "
+"data de revisão já passou."
 
-msgid "Open each policy, then its \"Covered controls\" tab, and link the whole text or one of its sections to the controls it deals with (several at once, or by typing codes such as A.5.15-A.5.18). Then write, approve or review the missing texts. Export the report in PDF or CSV for the auditor. Nothing is changed automatically."
-msgstr "Abra cada política, depois sua aba \"Controles cobertos\", e vincule o texto inteiro ou uma de suas seções aos controles que ele trata (vários de uma vez, ou digitando códigos como A.5.15-A.5.18). Depois redija, faça aprovar ou revise os textos que faltam. Exporte o relatório em PDF ou CSV para o auditor. Nada é alterado automaticamente."
+msgid ""
+"Open each policy, then its \"Covered controls\" tab, and link the whole text "
+"or one of its sections to the controls it deals with (several at once, or by "
+"typing codes such as A.5.15-A.5.18). Then write, approve or review the "
+"missing texts. Export the report in PDF or CSV for the auditor. Nothing is "
+"changed automatically."
+msgstr ""
+"Abra cada política, depois sua aba \"Controles cobertos\", e vincule o texto "
+"inteiro ou uma de suas seções aos controles que ele trata (vários de uma "
+"vez, ou digitando códigos como A.5.15-A.5.18). Depois redija, faça aprovar "
+"ou revise os textos que faltam. Exporte o relatório em PDF ou CSV para o "
+"auditor. Nada é alterado automaticamente."
 
 msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
 msgstr "ISO/IEC 27001, cláusula 5.2 e controle A.5.1"
@@ -34255,11 +34272,19 @@ msgstr[1] "%d vínculos adicionados."
 msgid "Codes not found in the Statement of Applicability: %s"
 msgstr "Códigos não encontrados na declaração de aplicabilidade: %s"
 
-msgid "Applicable controls not covered by an approved text of the policy library whose review is up to date"
-msgstr "Controles aplicáveis não cobertos por um texto aprovado e com revisão em dia da biblioteca de políticas"
+msgid ""
+"Applicable controls not covered by an approved text of the policy library "
+"whose review is up to date"
+msgstr ""
+"Controles aplicáveis não cobertos por um texto aprovado e com revisão em dia "
+"da biblioteca de políticas"
 
-msgid "Open the coverage report of the controls by the policies, link the text that deals with the control (or write it), then have it approved or reviewed."
-msgstr "Abra o relatório de cobertura dos controles pelas políticas, vincule o texto que trata o controle (ou redija-o) e depois faça-o aprovar ou revisar."
+msgid ""
+"Open the coverage report of the controls by the policies, link the text that "
+"deals with the control (or write it), then have it approved or reviewed."
+msgstr ""
+"Abra o relatório de cobertura dos controles pelas políticas, vincule o texto "
+"que trata o controle (ou redija-o) e depois faça-o aprovar ou revisar."
 
 msgid "Controls covered by an approved text: %1$d out of %2$d"
 msgstr "Controles cobertos por um texto aprovado: %1$d de %2$d"
@@ -34267,14 +34292,23 @@ msgstr "Controles cobertos por um texto aprovado: %1$d de %2$d"
 msgid "Policy library"
 msgstr "Biblioteca de políticas"
 
-msgid "No text of the policy library is linked to a control yet. Open a policy, then its \"Covered controls\" tab, to link it to the controls it deals with."
-msgstr "Nenhum texto da biblioteca de políticas está vinculado ainda a um controle. Abra uma política, depois sua aba \"Controles cobertos\", para vinculá-la aos controles que ela trata."
+msgid ""
+"No text of the policy library is linked to a control yet. Open a policy, "
+"then its \"Covered controls\" tab, to link it to the controls it deals with."
+msgstr ""
+"Nenhum texto da biblioteca de políticas está vinculado ainda a um controle. "
+"Abra uma política, depois sua aba \"Controles cobertos\", para vinculá-la "
+"aos controles que ela trata."
 
-msgid "Every applicable control is covered by an approved text whose review is up to date."
-msgstr "Cada controle aplicável é coberto por um texto aprovado com revisão em dia."
+msgid ""
+"Every applicable control is covered by an approved text whose review is up "
+"to date."
+msgstr ""
+"Cada controle aplicável é coberto por um texto aprovado com revisão em dia."
 
 msgid "No applicable control in the Statement of Applicability you can read."
-msgstr "Nenhum controle aplicável na declaração de aplicabilidade que você pode ler."
+msgstr ""
+"Nenhum controle aplicável na declaração de aplicabilidade que você pode ler."
 
 msgid "Texts"
 msgstr "Textos"
@@ -34290,14 +34324,28 @@ msgstr[1] "%d controles vinculados"
 msgid "Controls not covered by any text"
 msgstr "Controles não cobertos por nenhum texto"
 
-msgid "Link this policy, or one of its sections, to the Annex A controls it deals with. Each applicable control of the Statement of Applicability should be covered by at least one approved text: the coverage report lists the controls without one, for the auditor (clause 5.2, control A.5.1). Only the controls of your entities are shown."
-msgstr "Vincule esta política, ou uma de suas seções, aos controles do Anexo A que ela trata. Cada controle aplicável da declaração de aplicabilidade deveria ser coberto por pelo menos um texto aprovado: o relatório de cobertura lista os que não têm, para o auditor (cláusula 5.2, controle A.5.1). Somente os controles de suas entidades são mostrados."
+msgid ""
+"Link this policy, or one of its sections, to the Annex A controls it deals "
+"with. Each applicable control of the Statement of Applicability should be "
+"covered by at least one approved text: the coverage report lists the "
+"controls without one, for the auditor (clause 5.2, control A.5.1). Only the "
+"controls of your entities are shown."
+msgstr ""
+"Vincule esta política, ou uma de suas seções, aos controles do Anexo A que "
+"ela trata. Cada controle aplicável da declaração de aplicabilidade deveria "
+"ser coberto por pelo menos um texto aprovado: o relatório de cobertura lista "
+"os que não têm, para o auditor (cláusula 5.2, controle A.5.1). Somente os "
+"controles de suas entidades são mostrados."
 
 msgid "Link controls"
 msgstr "Vincular controles"
 
-msgid "For example \"4.2 Access control\". Leave empty when the whole text covers the controls."
-msgstr "Por exemplo \"4.2 Controle de acesso\". Deixe vazio se o texto inteiro cobre os controles."
+msgid ""
+"For example \"4.2 Access control\". Leave empty when the whole text covers "
+"the controls."
+msgstr ""
+"Por exemplo \"4.2 Controle de acesso\". Deixe vazio se o texto inteiro cobre "
+"os controles."
 
 msgid "Choose one or several controls in the list."
 msgstr "Escolha um ou vários controles na lista."
@@ -34305,8 +34353,13 @@ msgstr "Escolha um ou vários controles na lista."
 msgid "Or type control codes"
 msgstr "Ou digite os códigos dos controles"
 
-msgid "Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) or a whole theme (A.8 for all technological controls)."
-msgstr "Entrada rápida, separada por vírgulas: um controle (A.5.1), um intervalo (A.5.15-A.5.18) ou um tema inteiro (A.8 para todos os controles tecnológicos)."
+msgid ""
+"Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) "
+"or a whole theme (A.8 for all technological controls)."
+msgstr ""
+"Entrada rápida, separada por vírgulas: um controle (A.5.1), um intervalo "
+"(A.5.15-A.5.18) ou um tema inteiro (A.8 para todos os controles "
+"tecnológicos)."
 
 msgid "This text is not linked to any control yet."
 msgstr "Este texto ainda não está vinculado a nenhum controle."
@@ -34320,8 +34373,16 @@ msgstr "Remover o vínculo"
 msgid "Texts that cover this control"
 msgstr "Textos que cobrem este controle"
 
-msgid "The policies, or sections of policies, that deal with this control. An auditor expects each applicable control to be covered by at least one approved text whose review is up to date. Only the texts you are allowed to read are shown."
-msgstr "As políticas, ou seções de políticas, que tratam este controle. Um auditor espera que cada controle aplicável seja coberto por pelo menos um texto aprovado com revisão em dia. Somente os textos que você tem direito de ler são mostrados."
+msgid ""
+"The policies, or sections of policies, that deal with this control. An "
+"auditor expects each applicable control to be covered by at least one "
+"approved text whose review is up to date. Only the texts you are allowed to "
+"read are shown."
+msgstr ""
+"As políticas, ou seções de políticas, que tratam este controle. Um auditor "
+"espera que cada controle aplicável seja coberto por pelo menos um texto "
+"aprovado com revisão em dia. Somente os textos que você tem direito de ler "
+"são mostrados."
 
 msgid "No text of the policy library covers this control yet."
 msgstr "Nenhum texto da biblioteca de políticas cobre ainda este controle."
@@ -34338,5 +34399,196 @@ msgstr "Políticas"
 msgid "Leave empty when the whole text covers the control."
 msgstr "Deixe vazio se o texto inteiro cobre o controle."
 
-msgid "A control is covered when at least one approved text of the policy library, whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 and control A.5.1). Only the items the person who exported this report can read are counted."
-msgstr "Um controle é coberto quando pelo menos um texto aprovado da biblioteca de políticas, cuja data de revisão não passou, o trata (ISO/IEC 27001, cláusula 5.2 e controle A.5.1). Somente os itens que a pessoa que exportou este relatório pode ler são contados."
+msgid ""
+"A control is covered when at least one approved text of the policy library, "
+"whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 "
+"and control A.5.1). Only the items the person who exported this report can "
+"read are counted."
+msgstr ""
+"Um controle é coberto quando pelo menos um texto aprovado da biblioteca de "
+"políticas, cuja data de revisão não passou, o trata (ISO/IEC 27001, cláusula "
+"5.2 e controle A.5.1). Somente os itens que a pessoa que exportou este "
+"relatório pode ler são contados."
+
+msgid ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+msgstr ""
+"Relatório arquivado como evidência dos requisitos 10.1 e 10.2 (separador "
+"Documentos). O pacote de evidências inclui-o."
+
+msgid "The report could not be archived."
+msgstr "Não foi possível arquivar o relatório."
+
+msgid ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+msgstr ""
+"Mostra o estoque de não conformidades, outras constatações e ações "
+"corretivas, e das ações decididas nas análises críticas pela direção: o que "
+"continua aberto por gravidade, origem, entidade e responsável, há quanto "
+"tempo, o que está atrasado, o prazo médio de encerramento num período, a "
+"tendência mensal e se a eficácia das ações encerradas foi verificada."
+
+msgid ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+msgstr ""
+"Escolha o período e os filtros, acompanhe os itens atrasados com os seus "
+"responsáveis e exporte o relatório em PDF ou CSV para o auditor, ou arquive-"
+"o como evidência dos requisitos 10.1 e 10.2: o pacote de evidências passa a "
+"incluí-lo. Nada é alterado automaticamente."
+
+msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+msgstr "ISO/IEC 27001, cláusulas 9.1, 10.1 e 10.2"
+
+msgid "Mean time to close gaps (days, 12 months)"
+msgstr "Prazo médio de encerramento dos desvios (dias, 12 meses)"
+
+msgid "Gap backlog"
+msgstr "Estoque de desvios"
+
+msgid "Other finding or improvement action"
+msgstr "Outra constatação ou ação de melhoria"
+
+msgid "Other source"
+msgstr "Outra fonte"
+
+msgid "30 days or less"
+msgstr "30 dias ou menos"
+
+msgid "31 to 90 days"
+msgstr "31 a 90 dias"
+
+msgid "91 to 180 days"
+msgstr "91 a 180 dias"
+
+msgid "More than 180 days"
+msgstr "Mais de 180 dias"
+
+msgid "Opened on"
+msgstr "Aberto em"
+
+msgid "Age (days)"
+msgstr "Idade (dias)"
+
+msgid "Days overdue"
+msgstr "Dias de atraso"
+
+msgid "Effectiveness verified"
+msgstr "Eficácia verificada"
+
+#, php-format
+msgid "Gap backlog report - %1$s (%2$s to %3$s)"
+msgstr "Relatório do estoque de desvios - %1$s (%2$s a %3$s)"
+
+#, php-format
+msgid "Effectiveness verified: %d%%"
+msgstr "Eficácia verificada: %d%%"
+
+#, php-format
+msgid "Last 12 months, computed on %s"
+msgstr "Últimos 12 meses, calculado em %s"
+
+#, php-format
+msgid "Mean time to close: %d days"
+msgstr "Prazo médio de encerramento: %d dias"
+
+msgid "Mean time to close: not measured"
+msgstr "Prazo médio de encerramento: não medido"
+
+#, php-format
+msgid "Open gaps: %d"
+msgstr "Desvios abertos: %d"
+
+#, php-format
+msgid "%1$d closed in the period, median: %2$s"
+msgstr "%1$d encerrados no período, mediana: %2$s"
+
+msgid "Age of open gaps"
+msgstr "Idade dos desvios abertos"
+
+#, php-format
+msgid "Archive as evidence (%s)"
+msgstr "Arquivar como evidência (%s)"
+
+msgid "Backlog at month end"
+msgstr "Estoque no fim do mês"
+
+msgid "By entity"
+msgstr "Por entidade"
+
+msgid "By origin"
+msgstr "Por origem"
+
+msgid "By owner"
+msgstr "Por responsável"
+
+msgid "By severity"
+msgstr "Por gravidade"
+
+#, php-format
+msgid "Closed in the period: %1$d verified, %2$d to verify"
+msgstr "Encerrados no período: %1$d verificados, %2$d por verificar"
+
+msgid "Due date passed and not closed"
+msgstr "Prazo ultrapassado e não encerrado"
+
+msgid "From (month)"
+msgstr "De (mês)"
+
+msgid "Mean time to close"
+msgstr "Prazo médio de encerramento"
+
+msgid "Month"
+msgstr "Mês"
+
+#, php-format
+msgid "No due date: %d"
+msgstr "Sem prazo: %d"
+
+msgid "No open gap with these filters."
+msgstr "Nenhum desvio aberto com estes filtros."
+
+msgid "Nothing open."
+msgstr "Nada em aberto."
+
+#, php-format
+msgid "Only the first %d gaps are listed: the CSV export contains all of them."
+msgstr ""
+"Só são listados os primeiros %d desvios: a exportação CSV contém todos."
+
+msgid "Open gaps"
+msgstr "Desvios abertos"
+
+msgid "Open gaps, most overdue first"
+msgstr "Desvios abertos, os mais atrasados primeiro"
+
+msgid "To (month)"
+msgstr "Até (mês)"
+
+msgid "By type"
+msgstr "Por tipo"
+
+msgid "Closed in the period"
+msgstr "Encerrados no período"
+
+msgid "ISMS requirements"
+msgstr "Requisitos do SGSI"
+
+msgid ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+msgstr ""
+"Prazo médio de encerramento: dias entre a abertura e o encerramento dos "
+"desvios encerrados no período. Eficácia verificada: não conformidades e "
+"constatações encerradas cujo encerramento foi verificado."
+
+msgid "Opened in the period"
+msgstr "Abertos no período"
