@@ -7,6 +7,22 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Correctifs de sécurité des systèmes** (issue #854, mesures A.8.8 et A.8.19). Nouvelle page
+  « Correctifs de sécurité » dans la rubrique Sécurité technique, en lecture seule de l'inventaire
+  natif de GLPI (aucun nouveau connecteur) : pour chaque ordinateur, le système, sa version et son
+  noyau, la date du dernier correctif connu (mise à jour remontée par l'agent : article KB de
+  Windows, catégorie « mise à jour » ; hors Windows, dernière installation de paquet) et son âge.
+  Délais cibles réglables par criticité (critique, important, standard), déduite de la
+  classification C/I/D ; un ordinateur publié sur Internet par un flux réseau déclaré est critique.
+  Les ordinateurs en retard passent en tête, les exposés sur Internet et les critiques d'abord ;
+  inventaire ancien signalé, état inconnu sans mise à jour datée. Chaque ligne reprend les CVE
+  connues de la version du système (#780, KEV compris) et la fin de support (#704). Preuve sur les
+  mesures A.8.8 et A.8.19, KRI « serveurs critiques avec correctifs en retard », carte du tableau
+  de bord « ordinateurs aux correctifs dans les délais (%) ». Le plugin ne lance aucune mise à jour
+  et ne modifie rien dans GLPI.
+
 ## [2.72.0] - 2026-11-21
 
 ### Added

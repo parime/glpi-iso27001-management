@@ -226,7 +226,11 @@ class PatchCompliance extends CommonGLPI
      * @param array<string, mixed>|null $entityCriteria
      * @return list<array<string, mixed>>
      */
-    public static function computeRows(?array $entityCriteria = null, bool $withContext = false, ?string $today = null): array
+    public static function computeRows(
+        ?array $entityCriteria = null,
+        bool $withContext = false,
+        ?string $today = null
+    ): array
     {
         $computers = ComplianceAudit::computers($entityCriteria);
         if ($computers === []) {
@@ -254,7 +258,8 @@ class PatchCompliance extends CommonGLPI
         $entities = [];
         $rows = [];
         foreach ($computers as $id => $computer) {
-            $system = $systems[$id] ?? ['name' => '', 'os_version' => '', 'kernel' => '', 'os_name' => '', 'version' => ''];
+            $system = $systems[$id]
+                ?? ['name' => '', 'os_version' => '', 'kernel' => '', 'os_name' => '', 'version' => ''];
             $update = $updates[$id] ?? ['date' => '', 'name' => ''];
             $patch = Rules::lastPatch($update['date'], $packages[$id] ?? '', $system['name']);
             $levels = $classification[$id] ?? ['confidentiality' => '', 'integrity' => '', 'availability' => ''];
@@ -271,7 +276,8 @@ class PatchCompliance extends CommonGLPI
                 'id'              => $id,
                 'name'            => $name !== '' ? $name : sprintf('%s %d', Computer::getTypeName(1), $id),
                 'url'             => Computer::getFormURLWithID($id),
-                'vuln_url'        => Computer::getFormURLWithID($id) . '&forcetab=' . rawurlencode(ParkVulnerability::class . '$1'),
+                'vuln_url'        => Computer::getFormURLWithID($id) . '&forcetab='
+                    . rawurlencode(ParkVulnerability::class . '$1'),
                 'entities_id'     => $entityId,
                 'entity'          => $entities[$entityId],
                 'type'            => $typeName,
@@ -291,7 +297,9 @@ class PatchCompliance extends CommonGLPI
                 'levels'          => $levels,
                 'last_inventory'  => $lastInventory,
                 'stale_inventory' => Rules::isStaleInventory($lastInventory, $today),
-                'cves'            => $cves === null ? null : ($cves[$id] ?? ['total' => 0, 'critical' => 0, 'kev' => 0]),
+                'cves'            => $cves === null
+                    ? null
+                    : ($cves[$id] ?? ['total' => 0, 'critical' => 0, 'kev' => 0]),
                 'eol'             => $eol === null ? null : ($eol[$id] ?? []),
             ];
         }
@@ -313,7 +321,8 @@ class PatchCompliance extends CommonGLPI
             ['glpi_softwares.name' => ['LIKE', '%KB%']],
             ['glpi_softwares.is_update' => 1],
         ];
-        foreach (['%update%', '%hotfix%', '%patch%', '%mise%jour%', '%correctif%', '%actualizaci%', '%aggiornamento%'] as $like) {
+        $likes = ['%update%', '%hotfix%', '%patch%', '%mise%jour%', '%correctif%', '%actualizaci%', '%aggiornamento%'];
+        foreach ($likes as $like) {
             $candidates[] = ['glpi_softwarecategories.name' => ['LIKE', $like]];
         }
         $updates = [];
@@ -324,7 +333,7 @@ class PatchCompliance extends CommonGLPI
                     'glpi_softwares.name',
                     'glpi_softwares.is_update',
                     'glpi_softwarecategories.name AS category',
-                    'MAX'                                    => 'glpi_items_softwareversions.date_install AS last_install',
+                    'MAX' => 'glpi_items_softwareversions.date_install AS last_install',
                 ],
                 'FROM'       => 'glpi_items_softwareversions',
                 'INNER JOIN' => [
@@ -471,7 +480,8 @@ class PatchCompliance extends CommonGLPI
             return [];
         }
         $types = [];
-        foreach ($DB->request(['SELECT' => ['id', 'name'], 'FROM' => ComputerType::getTable(), 'WHERE' => ['id' => $typeIds]]) as $row) {
+        $criteria = ['SELECT' => ['id', 'name'], 'FROM' => ComputerType::getTable(), 'WHERE' => ['id' => $typeIds]];
+        foreach ($DB->request($criteria) as $row) {
             $types[(int) $row['id']] = (string) $row['name'];
         }
 
@@ -517,14 +527,18 @@ class PatchCompliance extends CommonGLPI
                     'glpi_plugin_grcmanager_cveenrichments AS e' => ['FKEY' => [$park => 'cve_id', 'e' => 'cve_id']],
                     ParkVulnerabilitySync::SIGNALS_TABLE . ' AS s' => ['FKEY' => [$park => 'cve_id', 's' => 'cve_id']],
                 ],
-                'WHERE'     => ["$park.plugin_grcmanager_canonicalproducts_id" => array_values(array_unique($productByAlias))],
+                'WHERE'     => [
+                    "$park.plugin_grcmanager_canonicalproducts_id" => array_values(array_unique($productByAlias)),
+                ],
             ]) as $row
         ) {
             $key = (int) $row['canonical_id'] . "\0" . (string) $row['version'];
             $counts[$key] ??= ['total' => 0, 'critical' => 0, 'kev' => 0];
             $counts[$key]['total']++;
             $cvss = $row['cvss_score'] !== null ? (float) $row['cvss_score'] : null;
-            if (($cvss !== null && $cvss >= RiskIndicator::CRITICAL_CVSS) || strtoupper((string) $row['severity']) === 'CRITICAL') {
+            $critical = ($cvss !== null && $cvss >= RiskIndicator::CRITICAL_CVSS)
+                || strtoupper((string) $row['severity']) === 'CRITICAL';
+            if ($critical) {
                 $counts[$key]['critical']++;
             }
             if ((bool) ($row['is_kev'] ?? false)) {
@@ -534,8 +548,9 @@ class PatchCompliance extends CommonGLPI
         $byComputer = [];
         foreach ($systems as $id => $system) {
             $productId = $productByAlias[$system['os_name']] ?? null;
-            if ($productId !== null && $system['version'] !== '' && isset($counts[$productId . "\0" . $system['version']])) {
-                $byComputer[$id] = $counts[$productId . "\0" . $system['version']];
+            $key = $productId . "\0" . $system['version'];
+            if ($productId !== null && $system['version'] !== '' && isset($counts[$key])) {
+                $byComputer[$id] = $counts[$key];
             }
         }
 
@@ -602,7 +617,9 @@ class PatchCompliance extends CommonGLPI
             'show_cves'        => ParkVulnerability::canView(),
             'action'           => self::getSearchURL(),
             'vulnerabilities_url' => ParkVulnerability::canView() ? ParkVulnerability::getSearchURL() : '',
-            'endoflife_url'    => ParkVulnerability::canView() ? ParkVulnerability::getSearchURL() . '#grc-endoflife' : '',
+            'endoflife_url'    => ParkVulnerability::canView()
+                ? ParkVulnerability::getSearchURL() . '#grc-endoflife'
+                : '',
             'flows_url'        => NetworkFlow::canView() ? NetworkFlow::getSearchURL() : '',
             'computer_url'     => Computer::getSearchURL(),
         ];
