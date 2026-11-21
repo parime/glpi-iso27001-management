@@ -1680,10 +1680,6 @@ msgstr ""
 msgid "Computers that must be encrypted and are (%)"
 msgstr ""
 
-#: hook.php:292 src/AdSecurityAudit.php:885 src/RiskIndicator.php:184
-msgid "Active Directory security score (PingCastle, 0 is best)"
-msgstr ""
-
 #: hook.php:299 src/MfaCoverage.php:858
 msgid "Administrators protected by MFA (%)"
 msgstr ""
@@ -2927,20 +2923,10 @@ msgstr ""
 msgid "The file is too large (20 MB at most)."
 msgstr ""
 
-#: src/AdSecurityAudit.php:167
-msgid ""
-"The file declares a DOCTYPE or entities: it is refused for security reasons. "
-"A PingCastle report never contains any."
-msgstr ""
-
 #: src/AdSecurityAudit.php:172
 msgid ""
 "This is not a PingCastle health check report: import the ad_hc_[domain].xml "
 "file."
-msgstr ""
-
-#: src/AdSecurityAudit.php:175
-msgid "The report gives no domain name."
 msgstr ""
 
 #: src/AdSecurityAudit.php:176
@@ -12686,27 +12672,6 @@ msgstr ""
 msgid "ISO/IEC 27001, controls A.8.24 and A.8.1"
 msgstr ""
 
-#: src/PageHelp.php:477
-msgid ""
-"Keeps the results of the security audits of your Active Directory: the "
-"PingCastle reports that your team produces are imported here, with the "
-"global score, the score by category and the rules triggered. Each rule is "
-"linked to the ISO/IEC 27001 controls it concerns, and the history shows how "
-"the score changes from one report to the next."
-msgstr ""
-
-#: src/PageHelp.php:484
-msgid ""
-"Run PingCastle regularly (for example every quarter), import each report, "
-"then decide how to treat the rules: propose an action or a ticket for those "
-"you fix, and follow the rules resolved by the next report. Nothing is "
-"created automatically. The page is reserved to the sensitive registers right."
-msgstr ""
-
-#: src/PageHelp.php:490
-msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
-msgstr ""
-
 #: src/PageHelp.php:495
 msgid ""
 "Shows, from the GLPI inventory (operating system, version, updates reported "
@@ -19085,10 +19050,6 @@ msgid "Access reviews"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
-msgid "Archive the report as a restricted document (passwords removed)"
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
 msgid "Archived report (restricted)"
 msgstr ""
 
@@ -19134,20 +19095,6 @@ msgid "Follow-up"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
-msgid ""
-"GLPI never runs PingCastle and never queries the directory: it reads the "
-"report that your team produced. The report is stored in the current entity."
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
-msgid "Import a PingCastle report"
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
-msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
 msgid "Imported on"
 msgstr ""
 
@@ -19166,27 +19113,7 @@ msgid "New"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
-msgid ""
-"No report imported yet. Run PingCastle on your domain, then import the "
-"ad_hc_[domain].xml file below."
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
 msgid "No rule triggered in this report."
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
-msgid ""
-"On a computer of the domain, run PingCastle and choose the health check (or "
-"run it with the --healthcheck option)."
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
-msgid ""
-"Only the scores and the triggered rules (identifier, category, points, "
-"finding) are kept: never the list of accounts, nor any password found. A new "
-"report of the same domain shows the change of score and the rules that "
-"appeared or were resolved."
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
@@ -19199,22 +19126,6 @@ msgstr ""
 
 #: templates/ad_security_audit.html.twig
 msgid "Passwords found in the report: not kept"
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
-#, php-format
-msgid "PingCastle XML report (%d MB at most)"
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
-msgid ""
-"PingCastle is free for internal use; a service provider auditing a customer "
-"needs a licence. Check the terms of use of the tool."
-msgstr ""
-
-#: templates/ad_security_audit.html.twig
-#, php-format
-msgid "PingCastle report of %1$s, %2$s"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
@@ -36061,3 +35972,236 @@ msgstr ""
 msgctxt "integrity"
 msgid "I"
 msgstr ""
+
+
+
+#: front/adsecurityaudit.php:98
+msgid "The file is very long: only its first checks were read."
+msgstr ""
+
+#: hook.php:292 src/AdSecurityAudit.php:1021 src/RiskIndicator.php:185
+msgid ""
+"Active Directory security score (PingCastle or Purple Knight, 0 is best)"
+msgstr ""
+
+#: src/AdSecurityAudit.php:164
+msgid "Account security"
+msgstr ""
+
+#: src/AdSecurityAudit.php:168
+msgid "Delegation of rights"
+msgstr ""
+
+#: src/AdSecurityAudit.php:172
+msgid "Directory infrastructure"
+msgstr ""
+
+#: src/AdSecurityAudit.php:176
+msgid "Group policies"
+msgstr ""
+
+#: src/AdSecurityAudit.php:179
+msgid "Kerberos"
+msgstr ""
+
+#: src/AdSecurityAudit.php:181
+msgid "Cloud identity (Entra ID)"
+msgstr ""
+
+#: src/AdSecurityAudit.php:185
+msgid "Microsoft 365 services"
+msgstr ""
+
+#: src/AdSecurityAudit.php:234
+msgid ""
+"The file declares a DOCTYPE or entities: it is refused for security reasons. "
+"A report of these tools never contains any."
+msgstr ""
+
+#: src/AdSecurityAudit.php:243
+msgid ""
+"This file was not recognised: import the XML report of PingCastle, the CSV "
+"export of the Purple Knight security indicators, or the JSON results of "
+"Maester or ScubaGear."
+msgstr ""
+
+#: src/AdSecurityAudit.php:248
+msgid ""
+"This JSON file is neither Maester results (TestResults) nor ScubaGear "
+"results (ScubaResults)."
+msgstr ""
+
+#: src/AdSecurityAudit.php:252
+msgid ""
+"The report gives no domain or tenant name: fill in the domain field of the "
+"import form."
+msgstr ""
+
+#: src/AdSecurityAudit.php:1093
+#, php-format
+msgid ""
+"Entra ID and Microsoft 365 configuration (%1$s): %2$d of %3$d checks failed "
+"for %4$s (%5$s)"
+msgstr ""
+
+#: src/PageHelp.php:458
+msgid ""
+"Keeps the results of the security audits of your Active Directory "
+"(PingCastle, Purple Knight) and of the configuration of your Entra ID and "
+"Microsoft 365 tenant (Maester, ScubaGear): the files that your team produces "
+"are imported here, with the score and the rules or checks that failed. Each "
+"one is linked to the ISO/IEC 27001 controls it concerns, and the history "
+"shows how the score changes from one report to the next."
+msgstr ""
+
+#: src/PageHelp.php:466
+msgid ""
+"Run these tools regularly (for example every quarter), import each report, "
+"then decide how to treat the rules: propose an action or a ticket for those "
+"you fix, and follow the rules resolved by the next report. Nothing is "
+"created automatically. The page is reserved to the sensitive registers right."
+msgstr ""
+
+#: src/PageHelp.php:472
+msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.5.23, A.8.2 and A.8.5"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+#, php-format
+msgid "%1$d check passed out of %2$d"
+msgid_plural "%1$d checks passed out of %2$d"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/ad_security_audit.html.twig
+#, php-format
+msgid "%1$s report of %2$s, %3$s"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+#, php-format
+msgid "%d administrator without MFA"
+msgid_plural "%d administrators without MFA"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"After the scan, save the security indicators as CSV, then import that file. "
+"Indicators of exposure (IOE) and of compromise (IOC) that failed are kept."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"Archive the PingCastle report as a restricted document (passwords removed)"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid "Checks failed"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid "Domain (if the file gives none)"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid "Example"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"Free for internal use; a service provider auditing a customer needs a "
+"licence."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"GLPI never runs these tools and never queries the directory or the tenant: "
+"it reads the file that your team produced. The type of file is recognised "
+"automatically and the report is stored in the current entity."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid "If the file has no domain column, fill in the domain below."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid "Import a report"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+#, php-format
+msgid "MFA coverage: %d%%"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"No report imported yet. Run PingCastle or Purple Knight on your domain, or "
+"Maester or ScubaGear on your Microsoft 365 tenant, then import the file it "
+"produces below."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"Only the scores and the failed rules or checks (identifier, category, "
+"severity, finding) are kept: never the list of accounts, the raw "
+"configuration of the tenant, nor any password found. A new report of the "
+"same domain or tenant shows the change of score and what appeared or was "
+"resolved."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid "Open the MFA coverage"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+#, php-format
+msgid "Purple Knight score: %d/100 (100 is best)"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+#, php-format
+msgid "Report file: XML, CSV or JSON (%d MB at most)"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"Run Invoke-Maester, then import the TestResults-[date].json file of the test-"
+"results folder."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"Run Invoke-SCuBA, then import the ScubaResults_[identifier].json file of the "
+"output folder."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"Run the health check (--healthcheck option), then import the "
+"ad_hc_[domain].xml file (not the HTML file)."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid "The MFA coverage of each account is followed on its own page:"
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"The score of this page (0 is best) is 100 minus the score calculated from "
+"the indicators, weighted by their severity: it may differ slightly from the "
+"report of the tool."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid "The score of this page (0 is best) is the share of checks that failed."
+msgstr ""
+
+#: templates/ad_security_audit.html.twig
+msgid ""
+"This tool checks the configuration of the tenant (conditional access, "
+"authentication methods, roles). The MFA coverage account by account comes "
+"from the MFA coverage page, which reads Entra ID through Microsoft Graph or "
+"a CSV import."
+msgstr ""
+
