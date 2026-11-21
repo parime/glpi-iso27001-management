@@ -241,7 +241,8 @@ class SoaScoping extends CommonGLPI
     {
         if ($proposal['basis'] === Rules::BASIS_BASELINE) {
             return __(
-                'Applicable: baseline control for any organisation within the ISMS scope; no scoping answer excludes it.',
+                'Applicable: baseline control for any organisation within the ISMS scope; '
+                    . 'no scoping answer excludes it.',
                 'grcmanager'
             );
         }
@@ -318,7 +319,8 @@ class SoaScoping extends CommonGLPI
                 'applicability_label'    => $applicabilities[$current] ?? $current,
                 'justification'          => $justification,
                 'proposal'               => $proposal,
-                'proposal_label'         => $proposal !== null ? ($applicabilities[$proposal['applicability']] ?? '') : '',
+                'proposal_label'         => $proposal !== null
+                    ? ($applicabilities[$proposal['applicability']] ?? '') : '',
                 'basis_label'            => $proposal === null ? ''
                     : ($questions[$proposal['basis']]['label'] ?? __('Baseline control', 'grcmanager')),
                 'proposed_justification' => $proposedJustification,
