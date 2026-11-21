@@ -50,7 +50,12 @@ Une PR n'est acceptée que si elle inclut, quand applicable :
   comme la CI) : celui d'Alpine (musl) perd une partie des chaînes ;
 - migration idempotente dans `src/Install/Installer.php` si le modèle de données change ;
 - entrée [CHANGELOG.md](CHANGELOG.md) ;
+- étape du tutoriel dans un fragment `docs/tutorial/{fr,en}/NNNN-*.md`, jamais dans
+  `docs/TUTORIAL.md` (généré) ;
 - capture d'écran si l'interface est modifiée.
+
+Une nouvelle fonctionnalité s'ajoute en créant de nouveaux fichiers plutôt qu'en allongeant les
+listes centrales : voir [Ajouter une fonctionnalité sans conflit](docs/ARCHITECTURE.md#-français).
 
 ### Code de conduite
 
@@ -106,7 +111,12 @@ A PR is only accepted if it includes, where applicable:
 - FR/EN translations for any new user-facing string;
 - an idempotent migration in `src/Install/Installer.php` if the data model changes;
 - a [CHANGELOG.md](CHANGELOG.md) entry;
+- a tutorial step in a fragment `docs/tutorial/{fr,en}/NNNN-*.md`, never in `docs/TUTORIAL.md`
+  (generated);
 - a screenshot if the interface is changed.
+
+A new feature is added by creating new files rather than by growing the central lists: see
+[Adding a feature without conflicts](docs/ARCHITECTURE.md#-english).
 
 ### Code of conduct
 

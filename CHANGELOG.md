@@ -7,6 +7,46 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Droits d'accès aux partages de fichiers Windows (SMB et NTFS)** (issue #846, lot 1, mesures
+  A.5.15, A.5.18 et A.8.3). Nouvelle page « Droits sur les partages de fichiers » dans la rubrique
+  Revue des accès, en lecture seule : import du fichier CSV produit par le script PowerShell fourni
+  (`Export-GrcShareAccess.ps1`, téléchargeable depuis la page : `Get-SmbShare`,
+  `Get-SmbShareAccess`, `Get-Acl` jusqu'à une profondeur réglable, héritage, propriétaire), ou par
+  un outil tiers (colonnes reconnues par leurs noms usuels). Le plugin ne se connecte à aucun
+  serveur et ne modifie aucun droit. Comptes rapprochés des utilisateurs et groupes GLPI ; comptes
+  larges et comptes système reconnus par leur SID, quelle que soit la langue de Windows. Écarts
+  signalés : tout le monde peut modifier, compte supprimé (SID non résolu) ou désactivé qui a
+  encore des droits, droit nominatif, héritage cassé sur un partage sensible, partage sans
+  propriétaire. Classification C/I/D par partage et score pondéré, suivi d'un import à l'autre
+  (droits ajoutés et retirés, historique des imports), revue des droits par le propriétaire désigné
+  (garder, modifier, retirer, décision tracée ; rien n'est appliqué sur le serveur). Preuve sur les
+  fiches des mesures A.5.15, A.5.18 et A.8.3. Données réservées au droit des registres sensibles.
+  Point d'extension `ShareAccess::accessesForUser()` pour la revue des accès. Trois nouvelles
+  tables, créées à l'installation et à la mise à jour si absentes (rejouable), supprimées à la
+  désinstallation. Matrice d'accès et contrôle XSS étendus.
+
+- **Audit de sécurité de l'Active Directory, lot 1 : PingCastle** (issue #835, mesures A.5.15 à
+  A.5.18, A.8.2 et A.8.5). Nouvelle page « Audit de sécurité de l'Active Directory » dans la
+  rubrique Sécurité technique, réservée au droit des registres sensibles et limitée aux entités de
+  la session. Le plugin ne lance aucun outil et n'interroge pas l'annuaire : il importe le rapport
+  XML de PingCastle (`ad_hc_<domaine>.xml`) que l'équipe a produit, dans l'entité active. Score
+  global, scores par catégorie (objets obsolètes, comptes privilégiés, relations d'approbation,
+  anomalies), niveau de maturité et règles déclenchées (identifiant, catégorie, points, constat),
+  avec une gravité selon les points. Historique par domaine : évolution du score, règles apparues
+  et résolues d'un rapport au suivant ; un même fichier n'est importé qu'une fois. Chaque règle est
+  rattachée aux mesures de l'Annexe A concernées et, sur clic seulement, proposée comme action (fiche
+  de non-conformité pré-remplie, relue avant l'enregistrement) ou comme ticket ; ces liens suivent
+  la règle dans les rapports suivants. Preuve sur les fiches des mesures A.5.15, A.5.17, A.5.18,
+  A.8.2 et A.8.5, source de KRI « Score de sécurité de l'Active Directory », carte du tableau de
+  bord et constat de la préparation à la certification. Lecture sûre : taille limitée à 20 Mo,
+  fichier avec DOCTYPE ou entités refusé (XXE), aucun accès réseau ; ni la liste des comptes ni les
+  mots de passe trouvés (GPP) ne sont repris, leur présence est seulement signalée. Le rapport,
+  nettoyé de ses mots de passe, peut être archivé comme document restreint. Rapport d'exemple fictif
+  (domaine `exemple.test`) téléchargeable depuis la page. Tests unitaires avec des fichiers piégés,
+  tests d'intégration, matrice d'accès et contrôle XSS.
+
 ## [2.76.0] - 2026-11-21
 
 ## [2.75.0] - 2026-11-21
@@ -31,23 +71,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   Mise à jour : champs ajoutés aux campagnes et à leurs lignes (migration rejouable) ; les lignes
   des campagnes déjà lancées affichent « Pas encore de suggestion » jusqu'au recalcul.
 
-- **Droits d'accès aux partages de fichiers Windows (SMB et NTFS)** (issue #846, lot 1, mesures
-  A.5.15, A.5.18 et A.8.3). Nouvelle page « Droits sur les partages de fichiers » dans la rubrique
-  Revue des accès, en lecture seule : import du fichier CSV produit par le script PowerShell fourni
-  (`Export-GrcShareAccess.ps1`, téléchargeable depuis la page : `Get-SmbShare`,
-  `Get-SmbShareAccess`, `Get-Acl` jusqu'à une profondeur réglable, héritage, propriétaire), ou par
-  un outil tiers (colonnes reconnues par leurs noms usuels). Le plugin ne se connecte à aucun
-  serveur et ne modifie aucun droit. Comptes rapprochés des utilisateurs et groupes GLPI ; comptes
-  larges et comptes système reconnus par leur SID, quelle que soit la langue de Windows. Écarts
-  signalés : tout le monde peut modifier, compte supprimé (SID non résolu) ou désactivé qui a
-  encore des droits, droit nominatif, héritage cassé sur un partage sensible, partage sans
-  propriétaire. Classification C/I/D par partage et score pondéré, suivi d'un import à l'autre
-  (droits ajoutés et retirés, historique des imports), revue des droits par le propriétaire désigné
-  (garder, modifier, retirer, décision tracée ; rien n'est appliqué sur le serveur). Preuve sur les
-  fiches des mesures A.5.15, A.5.18 et A.8.3. Données réservées au droit des registres sensibles.
-  Point d'extension `ShareAccess::accessesForUser()` pour la revue des accès. Trois nouvelles
-  tables, créées à l'installation et à la mise à jour si absentes (rejouable), supprimées à la
-  désinstallation. Matrice d'accès et contrôle XSS étendus.
 - **Couverture de la journalisation** (issue #853, mesures A.8.15, A.8.16 et A.8.17). Nouvelle page
   « Couverture de la journalisation » dans la rubrique Sécurité technique, en lecture seule : hôtes
   émetteurs lus dans le plugin Wazuh quand il est actif (agents actifs), ou importés par CSV depuis
