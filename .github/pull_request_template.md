@@ -41,5 +41,5 @@
 
 ## Checklist
 
-- [ ] `CHANGELOG.md` mis à jour
+- [ ] Entrée de CHANGELOG dans `changes/unreleased/<issue>-<sujet>.md` (pas dans `CHANGELOG.md`)
 - [ ] Revue par rapport à [DEFINITION_OF_DONE.md](../DEFINITION_OF_DONE.md) effectuée
