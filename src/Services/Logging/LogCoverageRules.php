@@ -273,7 +273,7 @@ final class LogCoverageRules
     public static function latest(?string $a, ?string $b): ?string
     {
         if ($a === null || $a === '') {
-            return $b;
+            return $b === '' ? null : $b;
         }
         if ($b === null || $b === '') {
             return $a;
