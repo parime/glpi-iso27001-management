@@ -1030,6 +1030,32 @@ plugin et le droit natif de lecture des ordinateurs.
    « Ordinateurs à chiffrer qui le sont (%) » et les indicateurs de risque la source « Portables
    avec un disque non chiffré (%) ».
 
+### Étape 36 : Suivre le retard des correctifs de sécurité (mesures A.8.8 et A.8.19)
+
+L'agent d'inventaire de GLPI remonte le système de chaque ordinateur, sa version et, selon la
+plateforme, les mises à jour installées (articles KB de Windows) ou les paquets installés avec leur
+date. Le plugin lit ces données ; il ne lance aucune mise à jour et ne modifie rien dans GLPI. Il
+faut le droit du plugin et le droit natif de lecture des ordinateurs.
+
+1. Ouvrez Sécurité technique > **Correctifs de sécurité**. L'encadré « À quoi sert cette page ? »
+   rappelle ce qui est attendu.
+2. Dans **Délais cibles par criticité**, réglez le nombre de jours admis depuis le dernier correctif
+   pour les ordinateurs critiques, importants et standard (15, 30 et 60 jours par défaut). La
+   criticité vient de la classification C/I/D de l'ordinateur ; un ordinateur publié sur Internet par
+   un flux réseau déclaré est critique. Il faut le droit de modifier le plugin.
+3. Les compteurs donnent le taux d'ordinateurs dans les délais, le nombre en retard et d'état
+   inconnu (aucune mise à jour datée : pas d'agent, ou un système dont l'agent ne remonte pas les
+   mises à jour), les serveurs critiques et les ordinateurs publiés sur Internet en retard.
+4. La liste commence par les retards, les ordinateurs exposés sur Internet et critiques d'abord.
+   Pour chacun : système et version, date du dernier correctif connu et son origine, délai cible,
+   jours de retard, CVE connues du système et fin de support, date du dernier inventaire (badge
+   « Inventaire ancien » au-delà de 30 jours). Appliquez les correctifs, puis attendez le prochain
+   inventaire.
+5. Sur la fiche des mesures A.8.8 et A.8.19, le cadre « Correctifs de sécurité » montre le taux, les
+   retards et la date du calcul. Le tableau de bord propose la carte « Ordinateurs aux correctifs
+   dans les délais (%) » et les indicateurs de risque la source « Serveurs critiques avec
+   correctifs en retard ».
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -2030,3 +2056,27 @@ native right to read computers.
    "Computers with an unencrypted disk" (A.8.24) or "Laptops with an unencrypted disk" (A.8.1) is
    recorded as an effectiveness test. The dashboard offers the card "Computers that must be
    encrypted and are (%)" and risk indicators the source "Laptops with an unencrypted disk (%)".
+
+### Step 37: Follow the security patch delay (controls A.8.8 and A.8.19)
+
+The GLPI inventory agent reports the operating system of each computer, its version and, depending
+on the platform, the installed updates (Windows KB articles) or the installed packages with their
+date. The plugin reads this data; it starts no update and changes nothing in GLPI. You need the
+plugin right and the native right to read computers.
+
+1. Open Technical security > **Security patches**. The "What is this page for?" box recalls what is
+   expected.
+2. In **Target delays by criticality**, set the number of days allowed since the last patch for
+   critical, important and standard computers (15, 30 and 60 days by default). The criticality comes
+   from the C/I/A classification of the computer; a computer that a declared network flow publishes
+   on the Internet is critical. This requires the right to update the plugin.
+3. The counters give the rate of computers on time, the number late and of unknown state (no dated
+   update: no agent, or a system whose agent does not report updates), and the critical servers and
+   computers published on the Internet that are late.
+4. The list starts with the late computers, those exposed on the Internet and critical first. For
+   each one: system and version, date and origin of the last known patch, target delay, days late,
+   known CVEs of the system and end of support, date of the last inventory ("Old inventory" badge
+   beyond 30 days). Apply the patches, then wait for the next inventory.
+5. On controls A.8.8 and A.8.19, the "Security patches" box shows the rate, the late computers and
+   the date of the computation. The dashboard offers the card "Computers with security patches on
+   time (%)" and risk indicators the source "Critical servers with overdue patches".
