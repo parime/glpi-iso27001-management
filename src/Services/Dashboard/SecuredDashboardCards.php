@@ -120,6 +120,11 @@ final class SecuredDashboardCards
             // lecture des ordinateurs).
             return \GlpiPlugin\Grcmanager\DiskEncryption::canView();
         }
+        if ($name === 'mfaAdminRate') {
+            // Issue #852 : couverture MFA, sous les droits de sa page (droit du plugin et lecture des
+            // utilisateurs).
+            return \GlpiPlugin\Grcmanager\MfaCoverage::canView();
+        }
         if ($name === 'patchComplianceRate') {
             // Issue #854 : correctifs de sécurité, sous les droits de leur page (droit du plugin et
             // lecture des ordinateurs).

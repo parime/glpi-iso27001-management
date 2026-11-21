@@ -296,6 +296,11 @@ class AccountHygiene extends CommonGLPI
             'day_options' => AccountHygieneRules::INACTIVITY_DAYS,
             'action'      => self::getSearchURL(),
             'can_ticket'  => Session::haveRight(Ticket::$rightname, CREATE),
+            // Issue #852 : renvoi vers la couverture MFA (administrateurs sans MFA).
+            'mfa'         => MfaCoverage::canView() ? [
+                'admins_without_mfa' => MfaCoverage::summary()['admins_without_mfa'],
+                'url'                => MfaCoverage::getSearchURL(),
+            ] : null,
         ]);
     }
 }
