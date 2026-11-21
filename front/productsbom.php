@@ -14,6 +14,7 @@
  * (at your option) any later version. See LICENSE for the full text.
  * -------------------------------------------------------------------------
  */
+
 use GlpiPlugin\Grcmanager\ProductSbom;
 use GlpiPlugin\Grcmanager\SecureDevelopment;
 
