@@ -16010,12 +16010,6 @@ msgstr ""
 msgid "More installations than licensed seats"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:148
-msgid ""
-"More assets have the software than the valid licenses allow. An unlimited "
-"license (number 0 or less) covers everything."
-msgstr ""
-
 #: src/SoftwareLicenseCompliance.php:154
 msgid "Expired license still in use"
 msgstr ""
@@ -32128,6 +32122,26 @@ msgstr ""
 msgid "Nothing blocks this control"
 msgstr ""
 
+
+#: src/SoftwareLicenseCompliance.php:148
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:217
+msgid ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Child licenses counted once"
+msgstr ""
+
+
 #: hook.php:278 src/PhishingCampaign.php:481
 msgid "Phishing simulations: rates by campaign (%)"
 msgstr ""
@@ -32227,3 +32241,4 @@ msgid ""
 "Rates of the last campaign with results of each entity. The rates by group "
 "are on the Results tab of each campaign."
 msgstr ""
+
