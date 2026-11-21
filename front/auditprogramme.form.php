@@ -29,7 +29,7 @@ Session::checkRight(Audit::$rightname, UPDATE);
 $audit = new Audit();
 $audit->check((int) ($_POST['plugin_grcmanager_audits_id'] ?? 0), UPDATE);
 if (!AuditProgramme::isInternal($audit)) {
-    Html::displayRightError();
+    throw new GlpixceptionHttpAccessDeniedHttpException();
 }
 
 if (isset($_POST['save_processes'])) {

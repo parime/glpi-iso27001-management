@@ -26,7 +26,7 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlBlockerRules;
 // blocage renvoie à l'écran à corriger, rien n'est modifié.
 Session::checkRight(ControlBlocker::RIGHTNAME, READ);
 if (!ControlBlocker::canView()) {
-    Html::displayRightError();
+    throw new GlpixceptionHttpAccessDeniedHttpException();
 }
 
 $sort = ControlBlockerRules::normalizeSort($_GET['sort'] ?? null);
