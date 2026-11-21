@@ -137,7 +137,8 @@ final class SupplierPortalRules
      * @param list<array<string, mixed>> $rows
      * @param array<mixed>               $draftAnswers id => [answer, comment]
      * @param array<mixed>               $draftFiles   id => [name, ...]
-     * @return array{error: null, changes: list<array<string, mixed>>, warnings: list<mixed>, evidence: array<string, list<int>>}
+     * @return array{error: null, changes: list<array<string, mixed>>, warnings: list<mixed>,
+     *                evidence: array<string, list<int>>}
      */
     public static function changes(array $rows, array $draftAnswers, array $draftFiles): array
     {

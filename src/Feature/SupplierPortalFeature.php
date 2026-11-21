@@ -30,7 +30,8 @@ final class SupplierPortalFeature implements PageHelpProvider
             'supplierevaluationlink' => [
                 'purpose'   => __(
                     'Shows the answers sent by the supplier through the secure link, question by question, next '
-                        . 'to the current answers, with the documents received. They are not part of the evaluation yet.',
+                        . 'to the current answers, with the documents received. They are not part of the evaluation '
+                        . 'yet.',
                     'grcmanager'
                 ),
                 'expected'  => __(

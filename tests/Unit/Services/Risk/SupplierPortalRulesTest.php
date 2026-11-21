@@ -47,7 +47,8 @@ final class SupplierPortalRulesTest extends TestCase
 
     public function testMalformedTokensAreRefused(): void
     {
-        foreach (['', 'abc', str_repeat('0', 63), str_repeat('G', 64), str_repeat('0', 64) . "\n", ['x'], null, 12] as $bad) {
+        $values = ['', 'abc', str_repeat('0', 63), str_repeat('G', 64), str_repeat('0', 64) . "\n", ['x'], null, 12];
+        foreach ($values as $bad) {
             $this->assertFalse(Rules::isWellFormed($bad));
         }
         $this->assertTrue(Rules::isWellFormed(str_repeat('0', 64)));
@@ -56,10 +57,13 @@ final class SupplierPortalRulesTest extends TestCase
     public function testStatusOfALink(): void
     {
         $this->assertSame(Rules::STATUS_ACTIVE, Rules::status(self::link(), self::NOW, false));
-        $this->assertSame(Rules::STATUS_EXPIRED, Rules::status(self::link(['date_expiration' => self::NOW]), self::NOW, false));
-        $this->assertSame(Rules::STATUS_EXPIRED, Rules::status(self::link(['date_expiration' => '']), self::NOW, false));
+        $expired = self::link(['date_expiration' => self::NOW]);
+        $this->assertSame(Rules::STATUS_EXPIRED, Rules::status($expired, self::NOW, false));
+        $never = self::link(['date_expiration' => '']);
+        $this->assertSame(Rules::STATUS_EXPIRED, Rules::status($never, self::NOW, false));
         $this->assertSame(Rules::STATUS_USED, Rules::status(self::link(['uses' => 1]), self::NOW, false));
-        $this->assertSame(Rules::STATUS_REVOKED, Rules::status(self::link(['is_revoked' => 1, 'uses' => 1]), self::NOW, false));
+        $revoked = self::link(['is_revoked' => 1, 'uses' => 1]);
+        $this->assertSame(Rules::STATUS_REVOKED, Rules::status($revoked, self::NOW, false));
         $this->assertSame(Rules::STATUS_CLOSED, Rules::status(self::link(), self::NOW, true));
     }
 
@@ -89,7 +93,11 @@ final class SupplierPortalRulesTest extends TestCase
     {
         $parsed = Rules::changes(
             self::rows(),
-            [11 => ['answer' => 'yes', 'comment' => ''], 12 => ['answer' => 'no', 'comment' => 'old'], 99 => ['answer' => 'yes']],
+            [
+                11 => ['answer' => 'yes', 'comment' => ''],
+                12 => ['answer' => 'no', 'comment' => 'old'],
+                99 => ['answer' => 'yes'],
+            ],
             [12 => ['name' => 'Q02-Backup.PDF']]
         );
         $this->assertNull($parsed['error']);

@@ -203,7 +203,9 @@ class SupplierEvaluationLink extends CommonGLPI
         $DB->insert(Portal::LINKS, [
             Tables::EVALUATION_FK => $evaluation->getID(),
             'token_hash'          => Rules::hashToken($token),
-            'fingerprint'         => WeightedQuestionnaire::fingerprint(SupplierEvaluationAnswer::getAnswers($evaluation->getID())),
+            'fingerprint'         => WeightedQuestionnaire::fingerprint(
+                SupplierEvaluationAnswer::getAnswers($evaluation->getID())
+            ),
             'max_uses'            => Rules::normalizeUses($uses),
             'date_expiration'     => date('Y-m-d H:i:s', strtotime('+' . $days . ' days')),
             'users_id'            => (int) Session::getLoginUserID(),
@@ -329,14 +331,18 @@ class SupplierEvaluationLink extends CommonGLPI
             return __('The file name is not valid.', 'grcmanager');
         }
         $maxBytes = min(Rules::MAX_FILE_BYTES, (int) $CFG_GLPI['document_max_size'] * 1024 * 1024);
-        $error = EvidenceUploadRules::uploadError($phpError, $phpError === UPLOAD_ERR_OK ? (int) filesize($path) : 0, $maxBytes);
+        $size = $phpError === UPLOAD_ERR_OK ? (int) filesize($path) : 0;
+        $error = EvidenceUploadRules::uploadError($phpError, $size, $maxBytes);
         if ($error !== null) {
             return $error === EvidenceUploadRules::ERROR_TOO_LARGE
                 ? sprintf(__('The file is too large (at most %d MB).', 'grcmanager'), intdiv($maxBytes, 1048576))
                 : ControlTest::uploadErrorMessage($error);
         }
         if ((string) Document::isValidDoc((string) $name) === '') {
-            return sprintf(__('Files of type .%s are not accepted.', 'grcmanager'), EvidenceUploadRules::extension((string) $name));
+            return sprintf(
+                __('Files of type .%s are not accepted.', 'grcmanager'),
+                EvidenceUploadRules::extension((string) $name)
+            );
         }
         $extension = EvidenceUploadRules::extension((string) $name);
         $type = $DB->request([
@@ -384,7 +390,10 @@ class SupplierEvaluationLink extends CommonGLPI
         foreach ($files as $answerId => $file) {
             $name = EvidenceUploadRules::safeName($file['name']);
             $storedName = bin2hex(random_bytes(16)) . '.bin';
-            if ($name === null || !isset($codes[$answerId]) || !move_uploaded_file($file['tmp'], $dir . '/' . $storedName)) {
+            if (
+                $name === null || !isset($codes[$answerId])
+                || !move_uploaded_file($file['tmp'], $dir . '/' . $storedName)
+            ) {
                 continue;
             }
             $stored[$answerId] = [
@@ -408,7 +417,10 @@ class SupplierEvaluationLink extends CommonGLPI
             'files' => array_values(array_column($stored, 'sha256', 'name')), 'public' => 1,
         ]);
         self::history($evaluation, sprintf(
-            __('Supplier answers received by secure link %1$d: %2$d answer(s), %3$d document(s), to be reviewed', 'grcmanager'),
+            __(
+                'Supplier answers received by secure link %1$d: %2$d answer(s), %3$d document(s), to be reviewed',
+                'grcmanager'
+            ),
             (int) $link['id'],
             count($answers),
             count($stored)
@@ -455,7 +467,9 @@ class SupplierEvaluationLink extends CommonGLPI
 
         $row = $DB->request([
             'FROM'  => Portal::DRAFTS,
-            'WHERE' => ['id' => $draftId, Tables::EVALUATION_FK => $evaluation->getID(), 'status' => self::DRAFT_PENDING],
+            'WHERE' => [
+                'id' => $draftId, Tables::EVALUATION_FK => $evaluation->getID(), 'status' => self::DRAFT_PENDING,
+            ],
         ])->current();
 
         return is_array($row) ? $row : null;
@@ -521,7 +535,10 @@ class SupplierEvaluationLink extends CommonGLPI
         $result = SupplierEvaluationFile::apply($evaluation, $parsed, '', '', $files, Rules::SOURCE_LINK);
         self::close($evaluation, $draft, self::DRAFT_APPLIED);
         self::history($evaluation, sprintf(
-            __('Supplier answers received by secure link reviewed and saved: %1$d answer(s), %2$d document(s)', 'grcmanager'),
+            __(
+                'Supplier answers received by secure link reviewed and saved: %1$d answer(s), %2$d document(s)',
+                'grcmanager'
+            ),
             $result['answers'],
             $result['documents']
         ));
@@ -554,7 +571,10 @@ class SupplierEvaluationLink extends CommonGLPI
             'event' => 'review_' . $status, 'evaluation' => $evaluation->getID(), 'draft' => (int) $draft['id'],
         ]);
         if ($status === self::DRAFT_DISCARDED) {
-            self::history($evaluation, sprintf(__('Supplier answers received by secure link discarded (draft %d)', 'grcmanager'), (int) $draft['id']));
+            self::history($evaluation, sprintf(
+                __('Supplier answers received by secure link discarded (draft %d)', 'grcmanager'),
+                (int) $draft['id']
+            ));
         }
     }
 
@@ -580,8 +600,13 @@ class SupplierEvaluationLink extends CommonGLPI
      * @param list<string>                       $errors
      * @return array<string, mixed>
      */
-    public static function portalData(array $link, SupplierEvaluation $evaluation, string $token, array $values, array $errors): array
-    {
+    public static function portalData(
+        array $link,
+        SupplierEvaluation $evaluation,
+        string $token,
+        array $values,
+        array $errors
+    ): array {
         $questions = [];
         foreach (SupplierEvaluationAnswer::getAnswers($evaluation->getID()) as $row) {
             $id = (int) $row['id'];
@@ -605,13 +630,22 @@ class SupplierEvaluationLink extends CommonGLPI
             'errors'          => $errors,
             'date_expiration' => \Html::convDateTime((string) $link['date_expiration']),
             'remaining'       => max(0, (int) $link['max_uses'] - (int) $link['uses']),
-            'max_mb'          => intdiv(min(Rules::MAX_FILE_BYTES, (int) ($GLOBALS['CFG_GLPI']['document_max_size'] ?? 2) * 1048576), 1048576),
+            'max_mb'          => intdiv(min(
+                Rules::MAX_FILE_BYTES,
+                (int) ($GLOBALS['CFG_GLPI']['document_max_size'] ?? 2) * 1048576
+            ), 1048576),
         ];
     }
 
     private static function history(SupplierEvaluation $evaluation, string $message): void
     {
-        Log::history($evaluation->getID(), SupplierEvaluation::class, [0, '', $message], '', Log::HISTORY_LOG_SIMPLE_MESSAGE);
+        Log::history(
+            $evaluation->getID(),
+            SupplierEvaluation::class,
+            [0, '', $message],
+            '',
+            Log::HISTORY_LOG_SIMPLE_MESSAGE
+        );
     }
 
     /**

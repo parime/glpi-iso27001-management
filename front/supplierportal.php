@@ -66,7 +66,9 @@ if ($link === null) {
 
         return;
     }
-    AuditLog::record('access_denied', SupplierEvaluationLink::class, 0, 0, 'denied', ['reason' => 'unknown_token', 'public' => 1]);
+    AuditLog::record('access_denied', SupplierEvaluationLink::class, 0, 0, 'denied', [
+        'reason' => 'unknown_token', 'public' => 1,
+    ]);
     $render(404, []);
 
     return;
@@ -102,7 +104,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $rows = SupplierEvaluationAnswer::getAnswers($evaluation->getID());
 $collected = Rules::collect($rows, $_POST['answer'] ?? [], $_POST['comment'] ?? []);
 $errors = array_map(
-    static fn (string $code): string => sprintf(__('Question %s: choose an answer from the list.', 'grcmanager'), $code),
+    static fn (string $code): string => sprintf(
+        __('Question %s: choose an answer from the list.', 'grcmanager'),
+        $code
+    ),
     $collected['errors']
 );
 $files = [];

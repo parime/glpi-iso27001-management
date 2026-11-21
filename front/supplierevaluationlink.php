@@ -52,13 +52,17 @@ if (isset($_POST['create_link'])) {
         throw new AccessDeniedHttpException();
     }
     SupplierEvaluationLink::create($evaluation, $_POST['days'] ?? null, $_POST['max_uses'] ?? null);
-    Session::addMessageAfterRedirect(htmlescape(__('Secure link created: copy it now, it will not be shown again.', 'grcmanager')));
+    Session::addMessageAfterRedirect(htmlescape(
+        __('Secure link created: copy it now, it will not be shown again.', 'grcmanager')
+    ));
     Html::redirect($back);
 }
 
 if (isset($_POST['revoke_link'])) {
     if (SupplierEvaluationLink::revoke($evaluation, (int) $_POST['link_id'])) {
-        Session::addMessageAfterRedirect(htmlescape(__('The link was revoked: it no longer opens the questionnaire.', 'grcmanager')));
+        Session::addMessageAfterRedirect(htmlescape(
+            __('The link was revoked: it no longer opens the questionnaire.', 'grcmanager')
+        ));
     }
     Html::redirect($back);
 }

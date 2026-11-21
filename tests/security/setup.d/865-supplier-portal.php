@@ -12,8 +12,9 @@
 $DB->delete('glpi_plugin_grcmanager_supplierportalthrottles', ['id' => ['>', 0]]);
 foreach (['A', 'B'] as $suffix) {
     $evaluationId = (int) $ids['evaluation_' . $suffix];
-    $DB->delete('glpi_plugin_grcmanager_supplierportallinks', ['plugin_grcmanager_supplierevaluations_id' => $evaluationId]);
-    $DB->delete('glpi_plugin_grcmanager_supplierportaldrafts', ['plugin_grcmanager_supplierevaluations_id' => $evaluationId]);
+    $criteria = ['plugin_grcmanager_supplierevaluations_id' => $evaluationId];
+    $DB->delete('glpi_plugin_grcmanager_supplierportallinks', $criteria);
+    $DB->delete('glpi_plugin_grcmanager_supplierportaldrafts', $criteria);
 }
 $evaluationA = new \GlpiPlugin\Grcmanager\SupplierEvaluation();
 $evaluationA->getFromDB((int) $ids['evaluation_A']);
@@ -23,10 +24,10 @@ $ids['portal_token_A'] = \GlpiPlugin\Grcmanager\SupplierEvaluationLink::create($
 $ids['portal_token_B'] = \GlpiPlugin\Grcmanager\SupplierEvaluationLink::create($evaluationB, 7, 1);
 $ids['portal_token_rate'] = \GlpiPlugin\Grcmanager\SupplierEvaluationLink::create($evaluationA, 7, 1);
 $ids['portal_token_expired'] = \GlpiPlugin\Grcmanager\SupplierEvaluationLink::create($evaluationA, 7, 1);
-$DB->update('glpi_plugin_grcmanager_supplierportallinks', ['date_expiration' => date('Y-m-d H:i:s', strtotime('-1 hour'))], [
+$expired = ['date_expiration' => date('Y-m-d H:i:s', strtotime('-1 hour'))];
+$DB->update('glpi_plugin_grcmanager_supplierportallinks', $expired, [
     'token_hash' => hash('sha256', $ids['portal_token_expired']),
 ]);
 $ids['portal_token_revoked'] = \GlpiPlugin\Grcmanager\SupplierEvaluationLink::create($evaluationA, 7, 1);
 $revoked = \GlpiPlugin\Grcmanager\SupplierEvaluationLink::findByToken($ids['portal_token_revoked']);
 \GlpiPlugin\Grcmanager\SupplierEvaluationLink::revoke($evaluationA, (int) $revoked['id']);
-$ids['portal_link_A'] = (int) \GlpiPlugin\Grcmanager\SupplierEvaluationLink::findByToken($ids['portal_token_A'])['id'];
