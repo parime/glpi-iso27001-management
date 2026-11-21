@@ -34176,3 +34176,160 @@ msgstr "Pertenencia al equipo"
 #: templates/share_access_detail.html.twig
 msgid "Direct permission"
 msgstr "Permiso directo"
+
+#, php-format
+msgid "%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr "%1$d respuesta(s) importada(s) del archivo del proveedor, %2$d documento(s) adjunto(s)."
+
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
+msgstr "El documento «%s» no corresponde a ninguna pregunta del archivo: no se añadió."
+
+msgid "Shows the answers found in the questionnaire file returned by the supplier, question by question, next to the current answers, with the points to check (unknown question, answer outside the list, missing question)."
+msgstr "Muestra las respuestas encontradas en el archivo del cuestionario devuelto por el proveedor, pregunta por pregunta, junto a las respuestas actuales, con los puntos que revisar (pregunta desconocida, respuesta fuera de la lista, pregunta ausente)."
+
+msgid "Check the answers, add the documents sent by the supplier, then save: nothing is recorded before this confirmation. Then review the evaluation and mark it as completed."
+msgstr "Revise las respuestas, añada los documentos enviados por el proveedor y guarde: no se registra nada antes de esta confirmación. Después revise la evaluación y márquela como terminada."
+
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
+msgstr "ISO/IEC 27001, controles A.5.19 a A.5.22"
+
+msgid "Supplier file"
+msgstr "Archivo del proveedor"
+
+msgid "Guidance"
+msgstr "Orientación"
+
+msgid "Allowed answers"
+msgstr "Respuestas posibles"
+
+msgid "Supplier answer"
+msgstr "Respuesta del proveedor"
+
+msgid "Evidence file name"
+msgstr "Nombre del archivo de evidencia"
+
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr "Archivo del cuestionario exportado para el proveedor: %1$s (huella %2$s)"
+
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr "Archivo del cuestionario devuelto por el proveedor para la evaluación «%s»"
+
+#, php-format
+msgid "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr "Archivo del proveedor importado: %1$s (SHA-256 %2$s), %3$d respuesta(s), %4$d documento(s)"
+
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr "El archivo es demasiado grande (%d MB como máximo)."
+
+msgid "The file is not a CSV text file: save the spreadsheet as CSV before importing it."
+msgstr "El archivo no es un archivo de texto CSV: guarde la hoja de cálculo como CSV antes de importarla."
+
+msgid "This file is not a questionnaire exported from this plugin: its first line was changed or removed."
+msgstr "Este archivo no es un cuestionario exportado desde este plugin: su primera línea se modificó o se eliminó."
+
+msgid "This file was exported for another evaluation: import it in the evaluation it comes from."
+msgstr "Este archivo se exportó para otra evaluación: impórtelo en la evaluación de la que procede."
+
+msgid "The questions of this file do not match those of the evaluation: export the questionnaire again."
+msgstr "Las preguntas de este archivo no coinciden con las de la evaluación: exporte de nuevo el cuestionario."
+
+msgid "The header line or some columns are missing: keep the columns of the exported file."
+msgstr "Faltan la línea de encabezado o algunas columnas: conserve las columnas del archivo exportado."
+
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr "Línea %1$d: código de pregunta desconocido «%2$s», línea ignorada."
+
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr "Línea %1$d: la pregunta %2$s aparece dos veces, solo se conserva la primera línea."
+
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr "Línea %1$d: la respuesta «%2$s» no está en la lista, línea ignorada."
+
+#, php-format
+msgid "Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr "Línea %1$d: como máximo %2$d preguntas por archivo, se ignoraron las líneas siguientes."
+
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr "La pregunta %s no figura en el archivo: su respuesta no cambia."
+
+#, php-format
+msgid "%d question changes. Check the answers, then save them: they will be marked as coming from the supplier file."
+msgid_plural "%d questions change. Check the answers, then save them: they will be marked as coming from the supplier file."
+msgstr[0] "%d pregunta cambia. Revise las respuestas y guárdelas: se marcarán como procedentes del archivo del proveedor."
+msgstr[1] "%d preguntas cambian. Revise las respuestas y guárdelas: se marcarán como procedentes del archivo del proveedor."
+
+msgid "Answer in the file"
+msgstr "Respuesta en el archivo"
+
+msgid "Back to the evaluation"
+msgstr "Volver a la evaluación"
+
+msgid "Comment in the file"
+msgstr "Comentario en el archivo"
+
+msgid "Current answer"
+msgstr "Respuesta actual"
+
+msgid "Documents sent by the supplier"
+msgstr "Documentos enviados por el proveedor"
+
+#, php-format
+msgid "Each document is attached to the questions whose column \"Evidence file name\" gives its name. It is checked like any evidence (types allowed by GLPI, size, real content). Expected: %s"
+msgstr "Cada documento se vincula a las preguntas cuya columna «Nombre del archivo de evidencia» indica su nombre. Se controla como cualquier evidencia (tipos permitidos por GLPI, tamaño, contenido real). Esperados: %s"
+
+msgid "Review the supplier file"
+msgstr "Revisar el archivo del proveedor"
+
+msgid "Save these answers"
+msgstr "Guardar estas respuestas"
+
+msgid "The file brings no new answer and no new comment."
+msgstr "El archivo no aporta ninguna respuesta ni comentario nuevos."
+
+msgid "unchanged"
+msgstr "sin cambios"
+
+msgid "Answer by file, outside GLPI"
+msgstr "Respuesta por archivo, fuera de GLPI"
+
+#, php-format
+msgid "At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before importing it."
+msgstr "Como máximo %1$d MB y %2$d preguntas. Guarde la hoja de cálculo como CSV antes de importarla."
+
+msgid "CSV file (separator \";\", UTF-8), one line per question. Its first line identifies the evaluation and its questions: it must stay unchanged. Send it by the means of your choice (email, exchange platform)."
+msgstr "Archivo CSV (separador «;», UTF-8), una línea por pregunta. Su primera línea identifica la evaluación y sus preguntas: debe permanecer sin cambios. Envíelo por el medio que prefiera (correo electrónico, plataforma de intercambio)."
+
+msgid "Download the questionnaire to fill in"
+msgstr "Descargar el cuestionario para rellenar"
+
+msgid "Each export and import is recorded in the Historical tab (who, when, which file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr "Cada exportación e importación queda registrada en la pestaña Histórico (quién, cuándo, qué archivo); el archivo devuelto se conserva en la pestaña Documentos del riesgo del proveedor."
+
+msgid "Import the returned file"
+msgstr "Importar el archivo devuelto"
+
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr "Cuestionario rellenado por el proveedor (CSV)"
+
+msgid "Review the answers"
+msgstr "Revisar las respuestas"
+
+msgid "Send the questionnaire"
+msgstr "Enviar el cuestionario"
+
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr "Esta evaluación está terminada: vuelva a abrirla para importar un archivo."
+
+msgid "When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for each document provided, \"Evidence file name\", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation."
+msgstr "Cuando el proveedor no tiene acceso a GLPI, envíele el cuestionario como archivo: el proveedor rellena las columnas «Respuesta del proveedor», «Comentario» y, para cada documento aportado, «Nombre del archivo de evidencia», en cualquier hoja de cálculo. Después importe aquí el archivo devuelto: las respuestas se muestran para revisión y no se guarda nada antes de su confirmación."
+
+msgid "You are not allowed to change this evaluation."
+msgstr "No tiene permiso para modificar esta evaluación."
