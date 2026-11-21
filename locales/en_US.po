@@ -34856,3 +34856,245 @@ msgstr "Update the suggestions"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+#, php-format
+msgid "Report imported: %d rule(s) triggered."
+msgstr "Report imported: %d rule(s) triggered."
+
+msgid "The report contains passwords or secrets (for example in group policies): they were not kept, and are removed from the archived copy. Change them as soon as possible."
+msgstr "The report contains passwords or secrets (for example in group policies): they were not kept, and are removed from the archived copy. Change them as soon as possible."
+
+msgid "The report could not be archived as a document (XML files may not be allowed in the document types of GLPI)."
+msgstr "The report could not be archived as a document (XML files may not be allowed in the document types of GLPI)."
+
+#, php-format
+msgid "Only the first %d rules were read."
+msgstr "Only the first %d rules were read."
+
+#, php-format
+msgid "Ticket %d created."
+msgstr "Ticket %d created."
+
+msgid "Active Directory security score (PingCastle, 0 is best)"
+msgstr "Active Directory security score (PingCastle, 0 is best)"
+
+msgid "Active Directory security audit"
+msgstr "Active Directory security audit"
+
+msgid "Stale objects"
+msgstr "Stale objects"
+
+msgid "Privileged accounts"
+msgstr "Privileged accounts"
+
+msgid "Trust relationships"
+msgstr "Trust relationships"
+
+msgid "Anomalies"
+msgstr "Anomalies"
+
+msgid "Good"
+msgstr "Good"
+
+msgid "Worrying"
+msgstr "Worrying"
+
+msgid "The file is too large (20 MB at most)."
+msgstr "The file is too large (20 MB at most)."
+
+msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
+msgstr "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
+
+msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
+msgstr "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
+
+msgid "The report gives no domain name."
+msgstr "The report gives no domain name."
+
+msgid "This report has already been imported."
+msgstr "This report has already been imported."
+
+msgid "You do not have the right to import a report."
+msgstr "You do not have the right to import a report."
+
+#, php-format
+msgid "PingCastle report - %1$s (%2$s)"
+msgstr "PingCastle report - %1$s (%2$s)"
+
+#, php-format
+msgid "Active Directory %1$s: %2$s"
+msgstr "Active Directory %1$s: %2$s"
+
+#, php-format
+msgid "Domain: %s"
+msgstr "Domain: %s"
+
+#, php-format
+msgid "Report: %1$s of %2$s (score %3$d/100)"
+msgstr "Report: %1$s of %2$s (score %3$d/100)"
+
+#, php-format
+msgid "Rule: %s"
+msgstr "Rule: %s"
+
+#, php-format
+msgid "Category: %s"
+msgstr "Category: %s"
+
+#, php-format
+msgid "Points: %d"
+msgstr "Points: %d"
+
+#, php-format
+msgid "ISO/IEC 27001 controls: %s"
+msgstr "ISO/IEC 27001 controls: %s"
+
+#, php-format
+msgid "Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) triggered"
+msgstr "Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) triggered"
+
+msgid "Keeps the results of the security audits of your Active Directory: the PingCastle reports that your team produces are imported here, with the global score, the score by category and the rules triggered. Each rule is linked to the ISO/IEC 27001 controls it concerns, and the history shows how the score changes from one report to the next."
+msgstr "Keeps the results of the security audits of your Active Directory: the PingCastle reports that your team produces are imported here, with the global score, the score by category and the rules triggered. Each rule is linked to the ISO/IEC 27001 controls it concerns, and the history shows how the score changes from one report to the next."
+
+msgid "Run PingCastle regularly (for example every quarter), import each report, then decide how to treat the rules: propose an action or a ticket for those you fix, and follow the rules resolved by the next report. Nothing is created automatically. The page is reserved to the sensitive registers right."
+msgstr "Run PingCastle regularly (for example every quarter), import each report, then decide how to treat the rules: propose an action or a ticket for those you fix, and follow the rules resolved by the next report. Nothing is created automatically. The page is reserved to the sensitive registers right."
+
+msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
+msgstr "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
+
+#, php-format
+msgid "%d new rule"
+msgid_plural "%d new rules"
+msgstr[0] "%d new rule"
+msgstr[1] "%d new rules"
+
+#, php-format
+msgid "%d rule resolved"
+msgid_plural "%d rules resolved"
+msgstr[0] "%d rule resolved"
+msgstr[1] "%d rules resolved"
+
+#, php-format
+msgid "%d rule triggered"
+msgid_plural "%d rules triggered"
+msgstr[0] "%d rule triggered"
+msgstr[1] "%d rules triggered"
+
+msgid "Archive the report as a restricted document (passwords removed)"
+msgstr "Archive the report as a restricted document (passwords removed)"
+
+msgid "Archived report (restricted)"
+msgstr "Archived report (restricted)"
+
+msgid "Change since the previous report"
+msgstr "Change since the previous report"
+
+#, php-format
+msgid "Compared with the report of %s"
+msgstr "Compared with the report of %s"
+
+msgid "Delete the import and its archived report"
+msgstr "Delete the import and its archived report"
+
+msgid "Download a fictitious example report"
+msgstr "Download a fictitious example report"
+
+msgid "Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an action or a ticket for the rules you decide to treat: nothing is created before you click, and the action form is reviewed before it is saved."
+msgstr "Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an action or a ticket for the rules you decide to treat: nothing is created before you click, and the action form is reviewed before it is saved."
+
+msgid "First report for this domain: the next import will show the rules that appeared or were resolved."
+msgstr "First report for this domain: the next import will show the rules that appeared or were resolved."
+
+msgid "GLPI never runs PingCastle and never queries the directory: it reads the report that your team produced. The report is stored in the current entity."
+msgstr "GLPI never runs PingCastle and never queries the directory: it reads the report that your team produced. The report is stored in the current entity."
+
+msgid "Import a PingCastle report"
+msgstr "Import a PingCastle report"
+
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+
+msgid "Imported on"
+msgstr "Imported on"
+
+msgid "Imported reports"
+msgstr "Imported reports"
+
+#, php-format
+msgid "Maturity level: %d"
+msgstr "Maturity level: %d"
+
+msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
+msgstr "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
+
+msgid "No rule triggered in this report."
+msgstr "No rule triggered in this report."
+
+msgid "On a computer of the domain, run PingCastle and choose the health check (or run it with the --healthcheck option)."
+msgstr "On a computer of the domain, run PingCastle and choose the health check (or run it with the --healthcheck option)."
+
+msgid "Only the scores and the triggered rules (identifier, category, points, finding) are kept: never the list of accounts, nor any password found. A new report of the same domain shows the change of score and the rules that appeared or were resolved."
+msgstr "Only the scores and the triggered rules (identifier, category, points, finding) are kept: never the list of accounts, nor any password found. A new report of the same domain shows the change of score and the rules that appeared or were resolved."
+
+msgid "Only users who can modify the sensitive registers can import a report."
+msgstr "Only users who can modify the sensitive registers can import a report."
+
+msgid "Open a ticket"
+msgstr "Open a ticket"
+
+msgid "Passwords found in the report: not kept"
+msgstr "Passwords found in the report: not kept"
+
+#, php-format
+msgid "PingCastle XML report (%d MB at most)"
+msgstr "PingCastle XML report (%d MB at most)"
+
+msgid "PingCastle is free for internal use; a service provider auditing a customer needs a licence. Check the terms of use of the tool."
+msgstr "PingCastle is free for internal use; a service provider auditing a customer needs a licence. Check the terms of use of the tool."
+
+#, php-format
+msgid "PingCastle report of %1$s, %2$s"
+msgstr "PingCastle report of %1$s, %2$s"
+
+msgid "Points"
+msgstr "Points"
+
+msgid "Propose an action"
+msgstr "Propose an action"
+
+msgid "Report date"
+msgstr "Report date"
+
+#, php-format
+msgid "Report of %s"
+msgstr "Report of %s"
+
+msgid "Rules resolved since the previous report"
+msgstr "Rules resolved since the previous report"
+
+msgid "Rules triggered"
+msgstr "Rules triggered"
+
+msgid "These reports describe the weaknesses of the domain: the page and the archived reports are reserved to the sensitive registers right, in the entity of each import."
+msgstr "These reports describe the weaknesses of the domain: the page and the archived reports are reserved to the sensitive registers right, in the entity of each import."
+
+msgid "Weakness reported by the Active Directory security audit (\"Active Directory security audit\" screen). Fix it, then import the next report to check that the rule is resolved. Nothing was changed automatically."
+msgstr "Weakness reported by the Active Directory security audit (\"Active Directory security audit\" screen). Fix it, then import the next report to check that the rule is resolved. Nothing was changed automatically."
+
+#, php-format
+msgid "%d rule concerns this control"
+msgid_plural "%d rules concern this control"
+msgstr[0] "%d rule concerns this control"
+msgstr[1] "%d rules concern this control"
+
+#, php-format
+msgid "Score: %d/100"
+msgstr "Score: %d/100"
+
+#, php-format
+msgid "Action proposed from the Active Directory security audit (rule %s): review and adapt each field, set an owner and a due date, then click \"Add\". Nothing is created before, and the rule is linked to this action once it is saved."
+msgstr "Action proposed from the Active Directory security audit (rule %s): review and adapt each field, set an owner and a due date, then click \"Add\". Nothing is created before, and the rule is linked to this action once it is saved."
+
+msgctxt "ad rule"
+msgid "New"
+msgstr "New"
