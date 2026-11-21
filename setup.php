@@ -230,6 +230,8 @@ function plugin_init_grcmanager(): void
     // Issue #777 : onglet « Développement sécurisé » des applications, et « Validation sécurité de
     // mise en production » des changements liés à une application.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ApplicationSecurity::class, ['addtabon' => [Appliance::class]]);
+    // Issue #869 : onglet « SBOM et VEX » des applications (nomenclatures et déclarations VEX).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ProductSbom::class, ['addtabon' => [Appliance::class]]);
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ReleaseValidation::class, ['addtabon' => [Change::class]]);
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent

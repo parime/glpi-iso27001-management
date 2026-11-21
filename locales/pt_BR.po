@@ -33343,270 +33343,6 @@ msgstr ""
 msgid "Secure Boot"
 msgstr "Inicialização segura"
 
-#: src/ShareAccess.php:160
-msgid "Anyone with the link"
-msgstr "Qualquer pessoa com o link"
-
-#: src/ShareAccess.php:161
-msgid "External guest"
-msgstr "Convidado externo"
-
-#: src/ShareAccess.php:173
-msgid "Windows file share"
-msgstr "Compartilhamento de arquivos Windows"
-
-#: src/ShareAccess.php:232
-msgid "Public link (anyone)"
-msgstr "Link público (qualquer pessoa)"
-
-#: src/ShareAccess.php:234
-msgid "A sharing link works for anyone who has it, without signing in."
-msgstr ""
-"Um link de compartilhamento funciona para qualquer pessoa que o tenha, sem "
-"entrar."
-
-#: src/ShareAccess.php:237
-msgid "External guest has access"
-msgstr "Um convidado externo tem acesso"
-
-#: src/ShareAccess.php:240
-msgid ""
-"A person from another organization (guest account) has access: check it is "
-"still needed."
-msgstr ""
-"Uma pessoa de outra organização (conta de convidado) tem acesso: verifique "
-"se ainda é necessário."
-
-#: src/ShareAccess.php:286
-msgid ""
-"No site column found: the file needs a column such as Site, Team or OneDrive."
-msgstr ""
-"Nenhuma coluna de site encontrada: o arquivo precisa de uma coluna como "
-"Site, Team ou OneDrive."
-
-#: src/ShareAccess.php:300
-msgid ""
-"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
-"User.Read.All and GroupMember.Read.All application permissions with admin "
-"consent."
-msgstr ""
-"Acesso recusado pelo Microsoft Graph: conceda as permissões de aplicativo "
-"Sites.Read.All, Files.Read.All, User.Read.All e GroupMember.Read.All com "
-"consentimento do administrador."
-
-#: src/ShareAccess.php:305
-msgid ""
-"Too many sites or accounts to read in one click: nothing was replaced. "
-"Import a CSV export instead."
-msgstr ""
-"Sites ou contas demais para ler em um clique: nada foi substituído. Importe "
-"uma exportação CSV."
-
-#: templates/share_access.html.twig
-msgid "Read SharePoint, OneDrive and Teams rights"
-msgstr "Ler os direitos do SharePoint, OneDrive e Teams"
-
-#: templates/share_access.html.twig
-msgid ""
-"GLPI reads the sharing rights through Microsoft Graph when you click, with "
-"the application set up for the MFA coverage, and never changes anything in "
-"Microsoft 365. SharePoint: the rights of each site document library and of "
-"its top-level items shared separately. OneDrive: the top-level items each "
-"person has shared. Teams: owners, members, guests and public teams. The same "
-"gaps and the same review as the file shares apply: public links, external "
-"guests, rights given to everyone."
-msgstr ""
-"O GLPI lê os direitos de compartilhamento pelo Microsoft Graph quando você "
-"clica, com o aplicativo configurado para a cobertura MFA, e nunca altera "
-"nada no Microsoft 365. SharePoint: os direitos da biblioteca de documentos "
-"de cada site e de seus itens de primeiro nível compartilhados à parte. "
-"OneDrive: os itens de primeiro nível que cada pessoa compartilhou. Teams: "
-"proprietários, membros, convidados e equipes públicas. Aplicam-se os mesmos "
-"desvios e a mesma revisão dos compartilhamentos de arquivos: links públicos, "
-"convidados externos, direitos dados a todos."
-
-#: templates/share_access.html.twig
-msgid ""
-"Application permissions to grant, with admin consent (read only): Sites.Read."
-"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
-msgstr ""
-"Permissões de aplicativo a conceder, com consentimento do administrador "
-"(somente leitura): Sites.Read.All, Files.Read.All, User.Read.All e "
-"GroupMember.Read.All."
-
-#: templates/share_access.html.twig
-msgid "Microsoft Graph connected"
-msgstr "Microsoft Graph conectado"
-
-#: templates/share_access.html.twig
-msgid "Microsoft Graph settings"
-msgstr "Configurações do Microsoft Graph"
-
-#: templates/share_access.html.twig
-#, php-format
-msgid "Read %s now"
-msgstr "Ler %s agora"
-
-#: templates/share_access.html.twig
-msgid ""
-"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
-"the client secret on the MFA coverage page, or import a CSV export below."
-msgstr ""
-"O Microsoft Graph ainda não está configurado. Informe o locatário, o ID do "
-"aplicativo e o segredo do cliente na página de cobertura MFA, ou importe uma "
-"exportação CSV abaixo."
-
-#: templates/share_access.html.twig
-msgid ""
-"Fallback: import a CSV file with one line per right and columns such as "
-"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
-"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
-"organization, users)."
-msgstr ""
-"Alternativa: importe um arquivo CSV com uma linha por direito e colunas como "
-"Source (SharePoint, OneDrive ou Teams), Site, SiteUrl, Item, Identity, Type "
-"(User, Group, Guest), Roles (read, write, owner) e LinkScope (anonymous, "
-"organization, users)."
-
-#: templates/share_access_detail.html.twig
-msgid "Owner in Microsoft 365"
-msgstr "Proprietário no Microsoft 365"
-
-#: templates/share_access_detail.html.twig
-msgid "Sharing link"
-msgstr "Link de compartilhamento"
-
-#: templates/share_access_detail.html.twig
-msgid "Team membership"
-msgstr "Participação na equipe"
-
-#: templates/share_access_detail.html.twig
-msgid "Direct permission"
-msgstr "Permissão direta"
-
-msgid "Firmware with a priority vulnerability"
-msgstr "Firmware com uma vulnerabilidade prioritária"
-
-msgid ""
-"The firmware of the controller or the BIOS has a known vulnerability that is "
-"exploited, critical or likely to be exploited (page \"Fleet "
-"vulnerabilities\"): update it first."
-msgstr ""
-"O firmware do controlador ou a BIOS tem uma vulnerabilidade conhecida "
-"explorada, crítica ou com probabilidade de ser explorada (página "
-"«Vulnerabilidades do parque»): atualize-o primeiro."
-
-msgid "Firmware no longer supported"
-msgstr "Firmware sem suporte"
-
-msgid ""
-"The firmware of the controller or the BIOS has reached its end of support "
-"(endoflife.date): no more security fixes."
-msgstr ""
-"O firmware do controlador ou a BIOS chegou ao fim do suporte (endoflife."
-"date): sem mais correções de segurança."
-
-msgid "Firmware with known vulnerabilities"
-msgstr "Firmware com vulnerabilidades conhecidas"
-
-msgid ""
-"The firmware of the controller or the BIOS has known vulnerabilities (page "
-"\"Fleet vulnerabilities\")."
-msgstr ""
-"O firmware do controlador ou a BIOS tem vulnerabilidades conhecidas (página "
-"«Vulnerabilidades do parque»)."
-
-msgid "Firmware support ending soon"
-msgstr "Fim do suporte do firmware próximo"
-
-msgid ""
-"The end of support of the firmware or the BIOS is near (endoflife.date)."
-msgstr "O fim do suporte do firmware ou da BIOS está próximo (endoflife.date)."
-
-msgid ""
-"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
-"it with the known vulnerabilities."
-msgstr ""
-"Associe este nome a um produto na página «Vulnerabilidades do parque» para o "
-"comparar com as vulnerabilidades conhecidas."
-
-msgid "Not watched"
-msgstr "Não vigiado"
-
-msgid "Priority CVEs: %d"
-msgstr "CVE prioritárias: %d"
-
-msgid "Known CVEs: %d"
-msgstr "CVE conhecidas: %d"
-
-msgid "No known CVE"
-msgstr "Nenhuma CVE conhecida"
-
-msgid ""
-"The firmware of each controller and its BIOS are compared with the known "
-"vulnerabilities of the fleet and with the end of support dates, like the "
-"other firmwares: link their name to a product once, on the same pages."
-msgstr ""
-"O firmware de cada controlador e a sua BIOS são comparados com as "
-"vulnerabilidades conhecidas do parque e com as datas de fim de suporte, como "
-"os outros firmwares: associe o seu nome a um produto uma vez, nas mesmas "
-"páginas."
-
-msgid "Enable the end of support check"
-msgstr "Ativar a verificação do fim de suporte"
-
-msgid "Server controller accounts"
-msgstr "Contas dos controladores de servidores"
-
-msgid "Factory account still enabled: replace it with a named account"
-msgstr "Conta de fábrica ainda ativa: substituí-la por uma conta nominativa"
-
-msgid "Disabled on the controller: delete it there"
-msgstr "Desativada no controlador: eliminá-la lá"
-
-msgid "Locked on the controller"
-msgstr "Bloqueada no controlador"
-
-msgid "Administrator role: full control of the server"
-msgstr "Função de administrador: controlo total do servidor"
-
-msgid ""
-"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
-"gives full control of the server, even switched off, outside GLPI and the "
-"directory. When the campaign is launched, the accounts read on the "
-"controllers of its entities are copied here with a suggestion. Keep or "
-"remove each one: the plugin changes nothing on the controllers, remove the "
-"account there."
-msgstr ""
-"Uma conta de um controlador de gestão de servidores (iLO, iDRAC, XClarity, "
-"IPMI) dá o controlo total do servidor, mesmo desligado, fora do GLPI e do "
-"diretório. Ao lançar a campanha, as contas lidas nos controladores das suas "
-"entidades são copiadas aqui com uma sugestão. Mantenha ou retire cada uma: o "
-"plugin não altera nada nos controladores, retire a conta lá."
-
-msgid ""
-"The accounts of the controllers are copied when the campaign is launched."
-msgstr "As contas dos controladores são copiadas ao lançar a campanha."
-
-msgid ""
-"No account of a server management controller in this campaign: no controller "
-"with accounts read in its entities when it was launched."
-msgstr ""
-"Nenhuma conta de controlador de gestão de servidores nesta campanha: nenhum "
-"controlador com contas lidas nas suas entidades no lançamento."
-
-msgid "Add the accounts of the controllers"
-msgstr "Adicionar as contas dos controladores"
-
-msgid "Suggestion"
-msgstr "Sugestão"
-
-msgid "%d decided"
-msgstr "%d decidida(s)"
-
-msgid "%d account(s) of the controllers added to the campaign."
-msgstr "%d conta(s) dos controladores adicionada(s) à campanha."
-
 #, php-format
 msgid "%1$s export of %2$s, imported on %3$s"
 msgstr "Exportação do %1$s de %2$s, importada em %3$s"
@@ -33795,44 +33531,128 @@ msgstr[1] ""
 "%3$d passos). Detalhes na página da auditoria de segurança do Active "
 "Directory."
 
-msgid "Docker inventory: risky configuration"
-msgstr "Inventário Docker: configuração de risco"
+msgid "Firmware with a priority vulnerability"
+msgstr "Firmware com uma vulnerabilidade prioritária"
 
-msgid "View the risky configuration"
-msgstr "Ver a configuração de risco"
+msgid ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+msgstr ""
+"O firmware do controlador ou a BIOS tem uma vulnerabilidade conhecida "
+"explorada, crítica ou com probabilidade de ser explorada (página "
+"«Vulnerabilidades do parque»): atualize-o primeiro."
 
-msgid "No service analysed yet"
-msgstr "Nenhum serviço analisado ainda"
+msgid "Firmware no longer supported"
+msgstr "Firmware sem suporte"
 
-msgid "Without critical or high gap: not measured"
-msgstr "Sem desvio crítico nem alto: não medido"
+msgid ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+msgstr ""
+"O firmware do controlador ou a BIOS chegou ao fim do suporte (endoflife."
+"date): sem mais correções de segurança."
 
-msgid "Without critical or high gap: %d%%"
-msgstr "Sem desvio crítico nem alto: %d%%"
+msgid "Firmware with known vulnerabilities"
+msgstr "Firmware com vulnerabilidades conhecidas"
 
-msgid "Without any open gap: %d%%"
-msgstr "Sem nenhum desvio aberto: %d%%"
+msgid ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+msgstr ""
+"O firmware do controlador ou a BIOS tem vulnerabilidades conhecidas (página "
+"«Vulnerabilidades do parque»)."
 
-msgid "%d service(s) analysed"
-msgstr "%d serviço(s) analisado(s)"
+msgid "Firmware support ending soon"
+msgstr "Fim do suporte do firmware próximo"
 
-msgid "%d with a critical gap"
-msgstr "%d com um desvio crítico"
+msgid ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+msgstr "O fim do suporte do firmware ou da BIOS está próximo (endoflife.date)."
 
-msgid "%d with a high gap"
-msgstr "%d com um desvio alto"
+msgid ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+msgstr ""
+"Associe este nome a um produto na página «Vulnerabilidades do parque» para o "
+"comparar com as vulnerabilidades conhecidas."
 
-msgid "%d expired exception(s)"
-msgstr "%d exceção(ões) expirada(s)"
+msgid "Not watched"
+msgstr "Não vigiado"
 
-msgid "%1$d exception(s) ending within %2$d days"
-msgstr "%1$d exceção(ões) que terminam nos próximos %2$d dias"
+msgid "Priority CVEs: %d"
+msgstr "CVE prioritárias: %d"
 
-msgid "Next exception end: %s"
-msgstr "Próximo fim de exceção: %s"
+msgid "Known CVEs: %d"
+msgstr "CVE conhecidas: %d"
 
-msgid "%d service(s) not analysed"
-msgstr "%d serviço(s) não analisado(s)"
+msgid "No known CVE"
+msgstr "Nenhuma CVE conhecida"
+
+msgid ""
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
+msgstr ""
+"O firmware de cada controlador e a sua BIOS são comparados com as "
+"vulnerabilidades conhecidas do parque e com as datas de fim de suporte, como "
+"os outros firmwares: associe o seu nome a um produto uma vez, nas mesmas "
+"páginas."
+
+msgid "Enable the end of support check"
+msgstr "Ativar a verificação do fim de suporte"
+
+msgid "Server controller accounts"
+msgstr "Contas dos controladores de servidores"
+
+msgid "Factory account still enabled: replace it with a named account"
+msgstr "Conta de fábrica ainda ativa: substituí-la por uma conta nominativa"
+
+msgid "Disabled on the controller: delete it there"
+msgstr "Desativada no controlador: eliminá-la lá"
+
+msgid "Locked on the controller"
+msgstr "Bloqueada no controlador"
+
+msgid "Administrator role: full control of the server"
+msgstr "Função de administrador: controlo total do servidor"
+
+msgid ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+msgstr ""
+"Uma conta de um controlador de gestão de servidores (iLO, iDRAC, XClarity, "
+"IPMI) dá o controlo total do servidor, mesmo desligado, fora do GLPI e do "
+"diretório. Ao lançar a campanha, as contas lidas nos controladores das suas "
+"entidades são copiadas aqui com uma sugestão. Mantenha ou retire cada uma: o "
+"plugin não altera nada nos controladores, retire a conta lá."
+
+msgid ""
+"The accounts of the controllers are copied when the campaign is launched."
+msgstr "As contas dos controladores são copiadas ao lançar a campanha."
+
+msgid ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+msgstr ""
+"Nenhuma conta de controlador de gestão de servidores nesta campanha: nenhum "
+"controlador com contas lidas nas suas entidades no lançamento."
+
+msgid "Add the accounts of the controllers"
+msgstr "Adicionar as contas dos controladores"
+
+msgid "Suggestion"
+msgstr "Sugestão"
+
+msgid "%d decided"
+msgstr "%d decidida(s)"
+
+msgid "%d account(s) of the controllers added to the campaign."
+msgstr "%d conta(s) dos controladores adicionada(s) à campanha."
 
 msgid "Security 360°"
 msgstr "Segurança 360°"
@@ -33962,6 +33782,404 @@ msgid ""
 msgstr ""
 "As fontes sem dados para este ativo (módulo não usado, nada importado, sem "
 "direito) não são exibidas."
+
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Qualquer pessoa com o link"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "Convidado externo"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Compartilhamento de arquivos Windows"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Link público (qualquer pessoa)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr ""
+"Um link de compartilhamento funciona para qualquer pessoa que o tenha, sem "
+"entrar."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "Um convidado externo tem acesso"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"Uma pessoa de outra organização (conta de convidado) tem acesso: verifique "
+"se ainda é necessário."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"Nenhuma coluna de site encontrada: o arquivo precisa de uma coluna como "
+"Site, Team ou OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Acesso recusado pelo Microsoft Graph: conceda as permissões de aplicativo "
+"Sites.Read.All, Files.Read.All, User.Read.All e GroupMember.Read.All com "
+"consentimento do administrador."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+"Sites ou contas demais para ler em um clique: nada foi substituído. Importe "
+"uma exportação CSV."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "Ler os direitos do SharePoint, OneDrive e Teams"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"O GLPI lê os direitos de compartilhamento pelo Microsoft Graph quando você "
+"clica, com o aplicativo configurado para a cobertura MFA, e nunca altera "
+"nada no Microsoft 365. SharePoint: os direitos da biblioteca de documentos "
+"de cada site e de seus itens de primeiro nível compartilhados à parte. "
+"OneDrive: os itens de primeiro nível que cada pessoa compartilhou. Teams: "
+"proprietários, membros, convidados e equipes públicas. Aplicam-se os mesmos "
+"desvios e a mesma revisão dos compartilhamentos de arquivos: links públicos, "
+"convidados externos, direitos dados a todos."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Permissões de aplicativo a conceder, com consentimento do administrador "
+"(somente leitura): Sites.Read.All, Files.Read.All, User.Read.All e "
+"GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph conectado"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Configurações do Microsoft Graph"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "Ler %s agora"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"O Microsoft Graph ainda não está configurado. Informe o locatário, o ID do "
+"aplicativo e o segredo do cliente na página de cobertura MFA, ou importe uma "
+"exportação CSV abaixo."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Alternativa: importe um arquivo CSV com uma linha por direito e colunas como "
+"Source (SharePoint, OneDrive ou Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) e LinkScope (anonymous, "
+"organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Proprietário no Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Link de compartilhamento"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Participação na equipe"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Permissão direta"
+
+msgid "SBOM and VEX"
+msgstr "SBOM e VEX"
+
+msgid "Affected"
+msgstr "Afetado"
+
+msgid "Under investigation"
+msgstr "Em análise"
+
+msgid "Fixed"
+msgstr "Corrigido"
+
+msgid "Not affected"
+msgstr "Não afetado"
+
+msgid "Component not present"
+msgstr "Componente não presente"
+
+msgid "Vulnerable code not present"
+msgstr "Código vulnerável não presente"
+
+msgid "Vulnerable code never executed"
+msgstr "Código vulnerável nunca executado"
+
+msgid "Vulnerable code out of reach of an attacker"
+msgstr "Código vulnerável fora do alcance de um atacante"
+
+msgid "Protections already in place"
+msgstr "Proteções já implementadas"
+
+msgid "Entered by hand"
+msgstr "Inserido manualmente"
+
+msgid "SBOM file"
+msgstr "Arquivo SBOM"
+
+msgid "Vulnerability watch"
+msgstr "Monitoramento de vulnerabilidades"
+
+msgid "The file is larger than %d MB."
+msgstr "O arquivo excede %d MB."
+
+msgid "The file is not valid JSON, or it is nested too deeply."
+msgstr "O arquivo não é um JSON válido ou está aninhado demais."
+
+msgid ""
+"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
+"JSON."
+msgstr ""
+"O arquivo não é uma lista de materiais de software CycloneDX nem SPDX 2 em "
+"JSON."
+
+msgid ""
+"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+msgstr ""
+"O arquivo não contém nenhuma declaração VEX (CycloneDX com uma análise, ou "
+"OpenVEX)."
+
+msgid ""
+"The file lists more than %d components or vulnerabilities: split it by "
+"product."
+msgstr ""
+"O arquivo lista mais de %d componentes ou vulnerabilidades: divida-o por "
+"produto."
+
+msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
+msgstr ""
+"Informe um identificador de vulnerabilidade, por exemplo CVE-2024-12345."
+
+msgid "Choose a status."
+msgstr "Escolha um status."
+
+msgid "Unknown justification."
+msgstr "Justificativa desconhecida."
+
+msgid "A \"not affected\" statement needs a justification or an explanation."
+msgstr ""
+"Uma declaração \"não afetado\" exige uma justificativa ou uma explicação."
+
+msgid "Enter the product version described by the file."
+msgstr "Informe a versão do produto descrita pelo arquivo."
+
+msgid ""
+"Keeps the software bill of materials (SBOM) of each version of a product you "
+"build or develop, compares its components with the vulnerabilities already "
+"known to the plugin, and records your VEX statements: affected, not affected "
+"(with the reason), fixed or under investigation. Customers and the Cyber "
+"Resilience Act expect these documents from a manufacturer."
+msgstr ""
+"Mantém a lista de materiais de software (SBOM) de cada versão de um produto "
+"que você fabrica ou desenvolve, compara seus componentes com as "
+"vulnerabilidades já conhecidas pelo plugin e registra suas declarações VEX: "
+"afetado, não afetado (com o motivo), corrigido ou em análise. Os clientes e "
+"o Cyber Resilience Act esperam esses documentos de um fabricante."
+
+msgid ""
+"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
+"released version, then give a VEX status to each vulnerability found, or "
+"import the VEX document of your scanner. Nothing is sent outside GLPI."
+msgstr ""
+"Importe o arquivo CycloneDX ou SPDX (JSON) gerado pela sua compilação para "
+"cada versão publicada e depois atribua um status VEX a cada vulnerabilidade "
+"encontrada, ou importe o documento VEX do seu scanner. Nada é enviado para "
+"fora do GLPI."
+
+msgid ""
+"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
+"Annex I part II"
+msgstr ""
+"ISO/IEC 27001, controles A.5.21, A.8.8 e A.8.28; Cyber Resilience Act, anexo "
+"I parte II"
+
+msgid "Software bills of materials and VEX"
+msgstr "Listas de materiais de software e VEX"
+
+msgid ""
+"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
+"statement(s)."
+msgstr ""
+"SBOM importado: %1$d componente(s), %2$d vulnerabilidade(s) citada(s), %3$d "
+"declaração(ões) VEX."
+
+msgid "VEX document imported: %d statement(s)."
+msgstr "Documento VEX importado: %d declaração(ões)."
+
+msgid "VEX statement saved."
+msgstr "Declaração VEX salva."
+
+msgid "SBOM deleted."
+msgstr "SBOM excluído."
+
+msgid "VEX statement deleted."
+msgstr "Declaração VEX excluída."
+
+msgid "No VEX statement"
+msgstr "Nenhuma declaração VEX"
+
+msgid ""
+"An SBOM lists the components (libraries, packages) of one version of this "
+"product. Import one file per released version; the vulnerabilities found "
+"stay here with your VEX statements."
+msgstr ""
+"Uma SBOM lista os componentes (bibliotecas, pacotes) de uma versão deste "
+"produto. Importe um arquivo por versão publicada; as vulnerabilidades "
+"encontradas ficam aqui com suas declarações VEX."
+
+msgid "Import an SBOM"
+msgstr "Importar uma SBOM"
+
+msgid "Product version"
+msgstr "Versão do produto"
+
+msgid "CycloneDX or SPDX file (JSON)"
+msgstr "Arquivo CycloneDX ou SPDX (JSON)"
+
+msgid ""
+"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
+"a CycloneDX file are kept too."
+msgstr ""
+"No máximo %1$d MB e %2$d componentes. As vulnerabilidades e análises "
+"escritas em um arquivo CycloneDX também são mantidas."
+
+msgid "Import a VEX document"
+msgstr "Importar um documento VEX"
+
+msgid "All versions"
+msgstr "Todas as versões"
+
+msgid "CycloneDX VEX or OpenVEX file (JSON)"
+msgstr "Arquivo CycloneDX VEX ou OpenVEX (JSON)"
+
+msgid ""
+"A new statement replaces the previous one for the same vulnerability, "
+"component and version."
+msgstr ""
+"Uma nova declaração substitui a anterior para a mesma vulnerabilidade, "
+"componente e versão."
+
+msgid "No SBOM imported for this product yet."
+msgstr "Nenhuma SBOM importada para este produto ainda."
+
+msgid "%d component(s)"
+msgstr "%d componente(s)"
+
+msgid "%d affected"
+msgstr "%d afetada(s)"
+
+msgid "%d without VEX statement"
+msgstr "%d sem declaração VEX"
+
+msgid "Delete this SBOM"
+msgstr "Excluir esta SBOM"
+
+msgid "Known vulnerabilities of the components"
+msgstr "Vulnerabilidades conhecidas dos componentes"
+
+msgid ""
+"No known vulnerability: none in the file, and none known by the "
+"vulnerability watch for these components and versions."
+msgstr ""
+"Nenhuma vulnerabilidade conhecida: nenhuma no arquivo e nenhuma conhecida "
+"pelo monitoramento de vulnerabilidades para esses componentes e versões."
+
+msgid "Vulnerability"
+msgstr "Vulnerabilidade"
+
+msgid "Found by"
+msgstr "Encontrada por"
+
+msgid "VEX status"
+msgstr "Status VEX"
+
+msgid "Declare"
+msgstr "Declarar"
+
+msgid "Known exploited vulnerability (CISA KEV)"
+msgstr "Vulnerabilidade explorada conhecida (CISA KEV)"
+
+msgid "Explanation"
+msgstr "Explicação"
+
+msgid "Components (%d)"
+msgstr "Componentes (%d)"
+
+msgid "Licenses"
+msgstr "Licenças"
+
+msgid "Only the first %d components are shown."
+msgstr "Somente os primeiros %d componentes são exibidos."
+
+msgid "Older SBOM: only the %d most recent are detailed."
+msgstr "SBOM mais antiga: somente as %d mais recentes são detalhadas."
+
+msgid "VEX statements"
+msgstr "Declarações VEX"
+
+msgid "Component (purl or name)"
+msgstr "Componente (purl ou nome)"
+
+msgid "Whole product"
+msgstr "Produto inteiro"
+
+msgid "No VEX statement for this product."
+msgstr "Nenhuma declaração VEX para este produto."
+
+msgid "%d product(s) with an SBOM"
+msgstr "%d produto(s) com uma SBOM"
+
+msgid "%d application(s) of the register without an SBOM"
+msgstr "%d aplicação(ões) do registro sem SBOM"
+
+msgid "%d known vulnerability(ies) in the components"
+msgstr "%d vulnerabilidade(s) conhecida(s) nos componentes"
+
+msgid "%d not affected or fixed"
+msgstr "%d não afetada(s) ou corrigida(s)"
 
 #, php-format
 msgid ""
@@ -34208,17 +34426,94 @@ msgstr ""
 msgid "You are not allowed to change this evaluation."
 msgstr "Você não tem permissão para alterar esta avaliação."
 
-msgid "Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). The evidence pack includes it."
-msgstr "Relatório arquivado como evidência dos requisitos 10.1 e 10.2 (separador Documentos). O pacote de evidências inclui-o."
+msgid "Docker inventory: risky configuration"
+msgstr "Inventário Docker: configuração de risco"
+
+msgid "View the risky configuration"
+msgstr "Ver a configuração de risco"
+
+msgid "No service analysed yet"
+msgstr "Nenhum serviço analisado ainda"
+
+msgid "Without critical or high gap: not measured"
+msgstr "Sem desvio crítico nem alto: não medido"
+
+msgid "Without critical or high gap: %d%%"
+msgstr "Sem desvio crítico nem alto: %d%%"
+
+msgid "Without any open gap: %d%%"
+msgstr "Sem nenhum desvio aberto: %d%%"
+
+msgid "%d service(s) analysed"
+msgstr "%d serviço(s) analisado(s)"
+
+msgid "%d with a critical gap"
+msgstr "%d com um desvio crítico"
+
+msgid "%d with a high gap"
+msgstr "%d com um desvio alto"
+
+msgid "%d expired exception(s)"
+msgstr "%d exceção(ões) expirada(s)"
+
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr "%1$d exceção(ões) que terminam nos próximos %2$d dias"
+
+msgid "Next exception end: %s"
+msgstr "Próximo fim de exceção: %s"
+
+msgid "%d service(s) not analysed"
+msgstr "%d serviço(s) não analisado(s)"
+
+#: templates/product_sbom_list.html.twig
+msgid ""
+"SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
+"tab of each application."
+msgstr ""
+"Os arquivos SBOM são importados e as declarações VEX inseridas na aba \"SBOM "
+"e VEX\" de cada aplicação."
+
+#: templates/product_sbom_list.html.twig
+msgid "No SBOM imported yet."
+msgstr "Nenhum SBOM importado ainda."
+
+#: templates/product_sbom_list.html.twig
+msgid "Components"
+msgstr "Componentes"
+
+msgid ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+msgstr ""
+"Relatório arquivado como evidência dos requisitos 10.1 e 10.2 (separador "
+"Documentos). O pacote de evidências inclui-o."
 
 msgid "The report could not be archived."
 msgstr "Não foi possível arquivar o relatório."
 
-msgid "Shows the backlog of non-conformities, other findings and corrective actions, and of the actions decided in management reviews: what is still open by severity, origin, entity and owner, how old it is, what is overdue, the mean time to close over a period, the monthly trend and whether the effectiveness of closed actions was verified."
-msgstr "Mostra o estoque de não conformidades, outras constatações e ações corretivas, e das ações decididas nas análises críticas pela direção: o que continua aberto por gravidade, origem, entidade e responsável, há quanto tempo, o que está atrasado, o prazo médio de encerramento num período, a tendência mensal e se a eficácia das ações encerradas foi verificada."
+msgid ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+msgstr ""
+"Mostra o estoque de não conformidades, outras constatações e ações "
+"corretivas, e das ações decididas nas análises críticas pela direção: o que "
+"continua aberto por gravidade, origem, entidade e responsável, há quanto "
+"tempo, o que está atrasado, o prazo médio de encerramento num período, a "
+"tendência mensal e se a eficácia das ações encerradas foi verificada."
 
-msgid "Choose the period and the filters, follow up the overdue items with their owners, then export the report in PDF or CSV for the auditor, or archive it as evidence of requirements 10.1 and 10.2: the evidence pack then includes it. Nothing is changed automatically."
-msgstr "Escolha o período e os filtros, acompanhe os itens atrasados com os seus responsáveis e exporte o relatório em PDF ou CSV para o auditor, ou arquive-o como evidência dos requisitos 10.1 e 10.2: o pacote de evidências passa a incluí-lo. Nada é alterado automaticamente."
+msgid ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+msgstr ""
+"Escolha o período e os filtros, acompanhe os itens atrasados com os seus "
+"responsáveis e exporte o relatório em PDF ou CSV para o auditor, ou arquive-"
+"o como evidência dos requisitos 10.1 e 10.2: o pacote de evidências passa a "
+"incluí-lo. Nada é alterado automaticamente."
 
 msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
 msgstr "ISO/IEC 27001, cláusulas 9.1, 10.1 e 10.2"
@@ -34336,7 +34631,8 @@ msgstr "Nada em aberto."
 
 #, php-format
 msgid "Only the first %d gaps are listed: the CSV export contains all of them."
-msgstr "Só são listados os primeiros %d desvios: a exportação CSV contém todos."
+msgstr ""
+"Só são listados os primeiros %d desvios: a exportação CSV contém todos."
 
 msgid "Open gaps"
 msgstr "Desvios abertos"
@@ -34356,8 +34652,14 @@ msgstr "Encerrados no período"
 msgid "ISMS requirements"
 msgstr "Requisitos do SGSI"
 
-msgid "Mean time to close: days between the opening and the closure of the gaps closed in the period. Effectiveness verified: closed non-conformities and findings whose closure was verified."
-msgstr "Prazo médio de encerramento: dias entre a abertura e o encerramento dos desvios encerrados no período. Eficácia verificada: não conformidades e constatações encerradas cujo encerramento foi verificado."
+msgid ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+msgstr ""
+"Prazo médio de encerramento: dias entre a abertura e o encerramento dos "
+"desvios encerrados no período. Eficácia verificada: não conformidades e "
+"constatações encerradas cujo encerramento foi verificado."
 
 msgid "Opened in the period"
 msgstr "Abertos no período"
