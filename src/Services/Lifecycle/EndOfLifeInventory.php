@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Lifecycle;
 
 use GlpiPlugin\Grcmanager\Services\Cve\FirmwareInventory;
+use GlpiPlugin\Grcmanager\Services\ServerManagement\BmcFirmwareInventory;
 
 /**
  * Issue #704 : éléments du parc dont la fin de support est suivie, et leur état.
@@ -57,7 +58,9 @@ final class EndOfLifeInventory
         foreach (self::operatingSystemRows(true) as $row) {
             $items[] = $row;
         }
-        foreach (FirmwareInventory::visibleToCurrentUser() as $firmware) {
+        // Issue #843 : firmware des contrôleurs de gestion des serveurs et BIOS lus par eux.
+        $firmwares = [...FirmwareInventory::visibleToCurrentUser(), ...BmcFirmwareInventory::visibleToCurrentUser()];
+        foreach ($firmwares as $firmware) {
             $items[] = [
                 'kind'      => ProductMatcher::KIND_FIRMWARE,
                 'itemtype'  => $firmware['itemtype'],
@@ -82,7 +85,7 @@ final class EndOfLifeInventory
         foreach ([...self::softwareRows(false), ...self::operatingSystemRows(false)] as $row) {
             $names[$row['kind'] . "\0" . $row['name']] = ['kind' => $row['kind'], 'name' => $row['name']];
         }
-        foreach (FirmwareInventory::counts() as $firmware) {
+        foreach ([...FirmwareInventory::counts(), ...BmcFirmwareInventory::counts()] as $firmware) {
             $names[ProductMatcher::KIND_FIRMWARE . "\0" . $firmware['software']] = [
                 'kind' => ProductMatcher::KIND_FIRMWARE,
                 'name' => $firmware['software'],
@@ -121,13 +124,26 @@ final class EndOfLifeInventory
      */
     public static function evaluateVisible(?string $today = null): array
     {
+        return array_values(self::evaluate(self::visibleItems(), $today));
+    }
+
+    /**
+     * État d'éléments donnés (issue #843 : firmwares des contrôleurs de gestion des serveurs),
+     * d'après les correspondances et le cache existants ; aucun appel à endoflife.date.
+     *
+     * @param array<array-key, Item> $items
+     * @param string|null $today « 2026-11-18 » (tests) ; date du jour sinon.
+     * @return array<array-key, EvaluatedItem> mêmes clés que $items
+     */
+    public static function evaluate(array $items, ?string $today = null): array
+    {
         $today ??= substr((string) ($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s')), 0, 10);
         $manual = EndOfLifeStore::manualMap();
         $cache = EndOfLifeStore::cache();
         $warning = EndOfLifeStore::warningDays();
         $memo = [];
         $result = [];
-        foreach (self::visibleItems() as $item) {
+        foreach ($items as $index => $item) {
             $key = $item['kind'] . "\0" . $item['name'] . "\0" . $item['version'];
             if (!isset($memo[$key])) {
                 $resolved = ProductMatcher::resolve($item['kind'], $item['name'], $manual);
@@ -145,7 +161,7 @@ final class EndOfLifeInventory
                     ),
                 ];
             }
-            $result[] = $item + $memo[$key];
+            $result[$index] = $item + $memo[$key];
         }
 
         return $result;

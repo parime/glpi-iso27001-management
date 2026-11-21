@@ -50,6 +50,11 @@ final class BmcRules
     public const GAP_HEALTH_WARNING = 'health_warning';
     public const GAP_HEALTH_CRITICAL = 'health_critical';
     public const GAP_NO_SERVER = 'no_server';
+    // Lot 2 : firmwares rapprochés des vulnérabilités et des fins de support (BmcFirmwareRules).
+    public const GAP_FIRMWARE_PRIORITY_CVE = 'firmware_priority_cve';
+    public const GAP_FIRMWARE_CVE = 'firmware_cve';
+    public const GAP_FIRMWARE_EOL = 'firmware_eol';
+    public const GAP_FIRMWARE_EOL_SOON = 'firmware_eol_soon';
 
     public const SEVERITY_HIGH = 'high';
     public const SEVERITY_MEDIUM = 'medium';
@@ -66,12 +71,16 @@ final class BmcRules
         self::GAP_WEAK_TLS              => self::SEVERITY_HIGH,
         self::GAP_CERT_EXPIRED          => self::SEVERITY_HIGH,
         self::GAP_HEALTH_CRITICAL       => self::SEVERITY_HIGH,
+        self::GAP_FIRMWARE_PRIORITY_CVE => self::SEVERITY_HIGH,
+        self::GAP_FIRMWARE_EOL          => self::SEVERITY_MEDIUM,
+        self::GAP_FIRMWARE_CVE          => self::SEVERITY_MEDIUM,
         self::GAP_SNMP_V1V2             => self::SEVERITY_MEDIUM,
         self::GAP_SECURE_BOOT_OFF       => self::SEVERITY_MEDIUM,
         self::GAP_CERT_SELF_SIGNED      => self::SEVERITY_MEDIUM,
         self::GAP_TLS_NOT_VERIFIED      => self::SEVERITY_MEDIUM,
         self::GAP_HEALTH_WARNING        => self::SEVERITY_MEDIUM,
         self::GAP_CERT_EXPIRING         => self::SEVERITY_LOW,
+        self::GAP_FIRMWARE_EOL_SOON     => self::SEVERITY_LOW,
         self::GAP_NO_SERVER             => self::SEVERITY_LOW,
     ];
 
@@ -359,6 +368,7 @@ final class BmcRules
      *
      * @param array<string, mixed> $controller ligne de la table (valeurs lues)
      * @param list<array{username: string, enabled: int}> $accounts
+     * @param list<string> $extra écarts déjà calculés ailleurs (firmwares, BmcFirmwareRules::gaps())
      * @return list<string>
      */
     public static function gaps(
@@ -366,9 +376,10 @@ final class BmcRules
         array $accounts,
         ?bool $inAdminNetwork,
         bool $hasServer,
-        string $today
+        string $today,
+        array $extra = []
     ): array {
-        $found = [];
+        $found = array_fill_keys(array_intersect($extra, array_keys(self::GAPS)), true);
         $read = (string) ($controller['date_read'] ?? '') !== '';
         if (!$read) {
             $found[self::GAP_NOT_READ] = true;
