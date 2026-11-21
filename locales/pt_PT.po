@@ -28032,3 +28032,97 @@ msgid "Blocked control"
 msgid_plural "Blocked controls"
 msgstr[0] "Controle bloqueado"
 msgstr[1] "Controles bloqueados"
+
+msgid "Hardware whose model has reached the manufacturer end of life"
+msgstr "Hardware cujo modelo atingiu o fim de vida do fabricante"
+
+msgid "Plan the replacement of the hardware, or record a waiver with compensating measures until then."
+msgstr "Planejar a substituição do hardware, ou registrar uma exceção com medidas compensatórias até lá."
+
+msgid "Manufacturer end of life reached"
+msgstr "Fim de vida do fabricante atingido"
+
+msgid "The manufacturer no longer supports this model: plan its replacement, or record the compensating measures."
+msgstr "O fabricante não oferece mais suporte a este modelo: planejar sua substituição, ou registrar as medidas compensatórias."
+
+msgid "Manufacturer end of life soon"
+msgstr "Fim de vida do fabricante próximo"
+
+msgid "Plan the replacement before the manufacturer stops supporting this model."
+msgstr "Planejar a substituição antes que o fabricante deixe de oferecer suporte a este modelo."
+
+msgid "Supported by the manufacturer"
+msgstr "Com suporte do fabricante"
+
+msgid "The end of life date entered for this model is still ahead."
+msgstr "A data de fim de vida informada para este modelo ainda não chegou."
+
+msgid "No end of life date"
+msgstr "Sem data de fim de vida"
+
+msgid "No manufacturer end of life date entered for this model (optional, in the configuration)."
+msgstr "Nenhuma data de fim de vida do fabricante informada para este modelo (opcional, na configuração)."
+
+#, php-format
+msgid "Manufacturer end of life on %s."
+msgstr "Fim de vida do fabricante em %s."
+
+msgid "Manufacturer end of life date"
+msgstr "Data de fim de vida do fabricante"
+
+msgid "Manufacturer end of life"
+msgstr "Fim de vida do fabricante"
+
+#, php-format
+msgid "%1$d reaching it within %2$d days"
+msgstr "%1$d o atingem em até %2$d dias"
+
+#, php-format
+msgid "%d past the manufacturer end of life"
+msgstr "%d após o fim de vida do fabricante"
+
+#, php-format
+msgid "%1$d models: the %2$d first ones are shown (dated models first, then the most common ones)."
+msgstr "%1$d modelos: os %2$d primeiros são exibidos (primeiro os modelos com data, depois os mais comuns)."
+
+msgid "Hardware in service"
+msgstr "Hardware em serviço"
+
+msgid "Manufacturer end of life of hardware models"
+msgstr "Fim de vida do fabricante dos modelos de hardware"
+
+msgid "No hardware model in your entities: give a model to the computers, monitors or network devices in GLPI first."
+msgstr "Nenhum modelo de hardware nas suas entidades: atribua primeiro um modelo aos computadores, monitores ou dispositivos de rede no GLPI."
+
+msgid "Some manufacturers announce the date after which a model no longer receives repairs, spare parts or firmware updates. Enter it here when you know it (optional, leave empty otherwise): the \"Hardware warranty\" card of the park vulnerabilities page then shows the hardware of this model whose end of life is reached or near, with the same threshold as the end of support (ISO 27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
+msgstr "Alguns fabricantes anunciam a data após a qual um modelo deixa de receber reparos, peças de reposição ou atualizações de firmware. Informe-a aqui quando a conhecer (opcional, deixe vazio caso contrário): o cartão \"Garantia do hardware\" da página de vulnerabilidades do parque mostra então o hardware deste modelo cujo fim de vida foi atingido ou está próximo, com o mesmo limite do fim de suporte (ISO 27001 A.7.13 e A.8.9). Nada é alterado nos modelos do GLPI."
+
+msgid "What is this for?"
+msgstr "Para que serve?"
+
+msgid "\"To be handled\": warranty expired or ending soon, or manufacturer end of life reached or soon."
+msgstr "\"A tratar\": garantia expirada ou terminando em breve, ou fim de vida do fabricante atingido ou próximo."
+
+msgid "Enter the end of life dates"
+msgstr "Informar as datas de fim de vida"
+
+msgid "No hardware has an expired warranty, a warranty ending soon or a model at its manufacturer end of life."
+msgstr "Nenhum hardware tem garantia expirada, garantia terminando em breve ou modelo em fim de vida do fabricante."
+
+msgid "Optional date entered by hand for each hardware model."
+msgstr "Data opcional informada manualmente para cada modelo de hardware."
+
+msgid "To be handled"
+msgstr "A tratar"
+
+#, php-format
+msgid "%d end of life date not saved: enter a valid date for a hardware model."
+msgid_plural "%d end of life dates not saved: enter a valid date for a hardware model."
+msgstr[0] "%d data de fim de vida não salva: informar uma data válida para um modelo de hardware."
+msgstr[1] "%d datas de fim de vida não salvas: informar uma data válida para um modelo de hardware."
+
+#, php-format
+msgid "Manufacturer end of life on %1$s (in %2$d day)."
+msgid_plural "Manufacturer end of life on %1$s (in %2$d days)."
+msgstr[0] "Fim de vida do fabricante em %1$s (em %2$d dia)."
+msgstr[1] "Fim de vida do fabricante em %1$s (em %2$d dias)."

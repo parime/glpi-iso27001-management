@@ -170,7 +170,10 @@ class HardwareWarranty extends CommonGLPI
                 'label' => __('Manufacturer end of life soon', 'grcmanager'),
                 'color' => 'warning',
                 'icon'  => 'ti ti-calendar-due',
-                'help'  => __('Plan the replacement before the manufacturer stops supporting this model.', 'grcmanager'),
+                'help'  => __(
+                    'Plan the replacement before the manufacturer stops supporting this model.',
+                    'grcmanager'
+                ),
             ],
             WarrantyRules::EOL_FUTURE  => [
                 'label' => __('Supported by the manufacturer', 'grcmanager'),
