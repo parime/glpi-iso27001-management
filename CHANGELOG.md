@@ -7,6 +7,151 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.78.0] - 2026-11-21
+
+### Added
+
+- **Maturité par mesure : niveau actuel, niveau cible et écarts** (issue #603, articles 6.2, 9.3 et
+  10.1). Nouvelle sous-page « Maturité par mesure » de la rubrique Tableau de bord : une campagne
+  datée évalue chaque mesure applicable de la SoA de l'entité de 0 (inexistant) à 5 (optimisé), avec
+  niveau actuel, niveau cible, échéance, responsable et justification. Niveaux facultatifs : ni
+  l'état de mise en œuvre ni le score de maturité global ne changent. Une nouvelle campagne reprend
+  les cibles de la précédente ; les campagnes sont conservées et deux campagnes de la même entité se
+  comparent mesure par mesure (progrès, recul, inchangé). Onglet « Écarts » : écarts triés par
+  taille puis échéance, filtres par référentiel activé, thème et responsable, radar actuel/cible par
+  thème, « Créer l'action » (piste d'amélioration pré-remplie, relue et enregistrée par
+  l'utilisateur, liée à l'écart). Rapport PDF pour la revue de direction. Libellés de l'échelle
+  modifiables dans la configuration du plugin. Tables créées par l'installateur (rejouable),
+  supprimées à la désinstallation ; droits du plugin et entité de la campagne ; matrice d'accès et
+  contrôle XSS.
+
+- **Audit de sécurité de l'Active Directory, lot 2 : Purple Knight, Maester et ScubaGear** (issue
+  #835, mesures A.5.15 à A.5.18, A.5.23, A.8.2 et A.8.5). La même page importe aussi l'export CSV des
+  indicateurs de sécurité de Purple Knight (indicateurs d'exposition et de compromission de l'AD) et
+  les résultats JSON de Maester (`TestResults-<date>.json`) et de ScubaGear
+  (`ScubaResults_<identifiant>.json`) pour la configuration d'Entra ID et de Microsoft 365 ; le type
+  de fichier est reconnu tout seul. Les scores gardent la lecture de PingCastle (0 le meilleur) : le
+  score de Purple Knight est retourné, celui de Maester et de ScubaGear est la part des contrôles en
+  échec ; le nombre de contrôles évalués et réussis est affiché. Seuls les contrôles en échec sont
+  gardés, avec leur gravité, une catégorie (sécurité des comptes, délégation, infrastructure,
+  stratégies de groupe, Kerberos, identité Entra ID, services Microsoft 365) et les mesures de
+  l'Annexe A concernées, A.5.23 comprise ; action ou ticket sur clic, historique et comparaison
+  comme pour PingCastle. Champ « Domaine » pour un export sans colonne de domaine. Le score de
+  sécurité de l'AD (KRI, carte du tableau de bord) ne retient que PingCastle et Purple Knight ; la
+  préparation à la certification ajoute le constat Entra ID. Pour un locataire Entra ID, la page
+  renvoie à la couverture MFA par compte (issue #852) au lieu de la recalculer. Lecture sûre : taille
+  limitée, JSON borné en profondeur et en nombre de contrôles, balises retirées, texte ressemblant à
+  un mot de passe écarté ; ni la section `Raw` de ScubaGear, ni le compte, la machine ou le détail
+  des résultats de Maester ne sont lus. Exemples fictifs pour chaque outil, tests unitaires avec
+  fichiers piégés, tests d'intégration, matrice d'accès et contrôle XSS.
+
+- **Connecteur Zabbix en lecture seule** (issue #836, mesures A.8.16, A.8.6 et A.5.30) : page
+  « Supervision Zabbix » (rubrique Sécurité technique) :
+  - lecture de l'API JSON-RPC du serveur Zabbix configuré (5.4 et suivants), sur clic ou par la
+    tâche automatique « zabbix » désactivée par défaut ; liste fermée de méthodes de lecture
+    (host.get, problem.get, event.get, sla.get, sla.getsli, service.get), seule l'adresse du serveur
+    configuré est appelée ; jeton d'API chiffré par GLPI, jamais réaffiché ni journalisé ; une
+    lecture en échec ne remplace pas la précédente ;
+  - hôtes rapprochés des ordinateurs et matériels réseau (numéro de série, nom, nom court, adresse
+    IP) : taux d'actifs supervisés, actifs critiques non supervisés, hôtes non rapprochés ;
+  - disponibilité mesurée par actif (temps sans problème de gravité haute) et plus long arrêt
+    comparé au RTO des processus métier dépendants ; disponibilité des services (SLA Zabbix)
+    comparée au SLO, chaque service rattaché à un processus métier ;
+  - problèmes de la période et problèmes ouverts (gravité, durée, acquittement), saturations de
+    disque, mémoire ou processeur (A.8.6) ; un problème de gravité haute peut devenir un incident de
+    sécurité (nouvelle origine « Supervision de l'infrastructure ») ou un ticket, sur clic seulement ;
+  - onglet « Supervision Zabbix » sur les ordinateurs, matériels réseau et processus métier ; preuve
+    sur les mesures A.8.16, A.8.6 et A.5.30 ; trois sources d'indicateurs de risque (disponibilité
+    des services du mois, problèmes ouverts de gravité haute, actifs critiques non supervisés) ;
+  - tables rejouables supprimées à la désinstallation ; tests contre un faux serveur Zabbix,
+    matrice d'accès et contrôle XSS ; tutoriel (étape « Lire la supervision Zabbix »).
+
+- **Couverture des sauvegardes** (issue #838, mesures A.8.13 et A.5.30). Nouvelle page « Couverture
+  des sauvegardes » dans la rubrique Sécurité technique, en lecture seule : machines sauvegardées lues
+  dans **Veeam Backup & Replication** par son API REST (sur clic, compte « Veeam Backup Viewer » :
+  points de restauration des 31 derniers jours et dernier résultat de chaque travail ; aucune
+  sauvegarde lancée, rien de modifié), ou importées par CSV depuis Acronis, Commvault, Synology
+  Active Backup, Proxmox Backup Server ou un autre outil (une ligne par machine ou par exécution).
+  Rapprochement avec les ordinateurs et matériels réseau comme la couverture de la journalisation
+  (nom, nom court, adresse IP) : actifs sans sauvegarde, sauvegarde plus ancienne que le RPO de
+  l'actif ou de ses processus métier (48 heures par défaut, réglable), dernière tentative en échec,
+  travaux Veeam en échec, machines inconnues de GLPI. Dernier test de restauration de chaque actif
+  repris des exercices de reprise (#733), avec une fréquence attendue réglable (12 mois). Preuve sur
+  les mesures A.8.13 et A.5.30 (liste de sources de #781), KRI « actifs critiques sans sauvegarde
+  récente (%) ». Le mot de passe Veeam est chiffré par GLPI, jamais réaffiché ni journalisé ; une
+  lecture refusée ou incomplète ne remplace rien. Mise à jour : deux tables ajoutées (rejouable),
+  supprimées à la désinstallation.
+
+- **Contrôleurs de gestion des serveurs, lot 1 : Redfish en lecture seule et import CSV** (issue
+  #843, mesures A.8.2, A.8.9 et A.8.22). Nouvelle page « Contrôleurs de gestion des serveurs » dans
+  la rubrique Sécurité technique (droit du plugin et lecture des ordinateurs, entités de la session).
+  Chaque contrôleur (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro) est déclaré avec
+  son adresse https et un compte local en lecture seule ; le mot de passe est chiffré par GLPI,
+  jamais réaffiché, et doit être ressaisi si l'adresse ou le compte changent. Lecture Redfish sur
+  clic, uniquement par des requêtes GET (aucune session, aucune action, aucun réglage modifié),
+  limitée à l'adresse configurée (liens renvoyés suivis seulement sous `/redfish/v1`) ; certificat
+  auto-signé accepté seulement si l'option, désactivée par défaut, est cochée pour ce contrôleur.
+  Une lecture en échec ne remplace pas la précédente. Inventaire (modèle, firmware du contrôleur,
+  BIOS, numéro de série, santé), rapprochement avec l'ordinateur de GLPI par le numéro de série ou
+  choisi à la main, onglet « Contrôleur de gestion » sur l'ordinateur, serveurs physiques sans
+  contrôleur connu. Écarts signalés seulement : IPMI sur le réseau, Telnet, SNMP v1/v2c, protocoles
+  TLS anciens (import), certificat auto-signé, expiré ou proche de l'expiration, démarrage sécurisé
+  désactivé, compte par défaut actif, adresse hors des réseaux d'administration déclarés dans la
+  matrice des flux, santé dégradée. Comptes locaux et leur rôle listés pour la revue des accès
+  privilégiés. Import CSV des contrôleurs sans Redfish (IPMI seul). Preuve sur les fiches des mesures
+  A.8.2, A.8.9 et A.8.22, source de KRI « Contrôleurs de gestion des serveurs avec un écart grave ».
+  `Http::send()` accepte une option explicite qui désactive la vérification du certificat, utilisée
+  seulement pour ces contrôleurs. Tests contre un faux Redfish, tests d'intégration, matrice d'accès
+  et contrôle XSS.
+
+- **Droits d'accès aux partages de fichiers Windows (SMB et NTFS)** (issue #846, lot 1, mesures
+  A.5.15, A.5.18 et A.8.3). Nouvelle page « Droits sur les partages de fichiers » dans la rubrique
+  Revue des accès, en lecture seule : import du fichier CSV produit par le script PowerShell fourni
+  (`Export-GrcShareAccess.ps1`, téléchargeable depuis la page : `Get-SmbShare`,
+  `Get-SmbShareAccess`, `Get-Acl` jusqu'à une profondeur réglable, héritage, propriétaire), ou par
+  un outil tiers (colonnes reconnues par leurs noms usuels). Le plugin ne se connecte à aucun
+  serveur et ne modifie aucun droit. Comptes rapprochés des utilisateurs et groupes GLPI ; comptes
+  larges et comptes système reconnus par leur SID, quelle que soit la langue de Windows. Écarts
+  signalés : tout le monde peut modifier, compte supprimé (SID non résolu) ou désactivé qui a
+  encore des droits, droit nominatif, héritage cassé sur un partage sensible, partage sans
+  propriétaire. Classification C/I/D par partage et score pondéré, suivi d'un import à l'autre
+  (droits ajoutés et retirés, historique des imports), revue des droits par le propriétaire désigné
+  (garder, modifier, retirer, décision tracée ; rien n'est appliqué sur le serveur). Preuve sur les
+  fiches des mesures A.5.15, A.5.18 et A.8.3. Données réservées au droit des registres sensibles.
+  Point d'extension `ShareAccess::accessesForUser()` pour la revue des accès. Trois nouvelles
+  tables, créées à l'installation et à la mise à jour si absentes (rejouable), supprimées à la
+  désinstallation. Matrice d'accès et contrôle XSS étendus.
+
+- **Questionnaires fournisseurs configurables** (issue #864, mesures A.5.19 à A.5.21, NIS2
+  art. 21 §2 d), DORA art. 28). Les douze questions fixes du questionnaire de sécurité deviennent
+  des modèles éditables :
+  - bibliothèque « Modèles de questionnaire » ouverte depuis la liste des risques fournisseurs
+    (aucune nouvelle entrée de menu) : nom, domaine (sécurité de l'information, données
+    personnelles, intelligence artificielle, continuité d'activité, autre), entité et
+    sous-entités comme les risques fournisseurs, copie d'un modèle ;
+  - onglet « Questions » du modèle : sections, texte, aide, réponse attendue (« oui » ou « non »),
+    pondération de 0 à 10 (0 : question informative), pièce justificative exigée, ordre ; chaque
+    changement crée une nouvelle version, et une empreinte des questions est calculée pour
+    reconnaître plus tard un fichier retourné par un fournisseur (#865) ;
+  - plusieurs évaluations par risque fournisseur (onglet « Questionnaires »), chacune avec son
+    modèle, son score pondéré (réponse attendue 1 point, partiel 0,5, autre réponse 0, multiplié
+    par la pondération ; « sans objet » et l'absence de réponse ne comptent pas), son évaluateur, sa
+    date, son historique et l'évolution entre les deux dernières évaluations d'un même domaine ;
+    les questions sont copiées dans l'évaluation, qui ne change pas si le modèle change ensuite ;
+  - pièce justificative envoyée question par question : Document GLPI joint au risque fournisseur
+    (onglet Documents), dans son entité, lisible avec ses seuls droits, avec les contrôles des
+    preuves (types autorisés par GLPI, taille maximale, type réel du contenu) ; badges « pièce
+    manquante » et « écart » ;
+  - une évaluation terminée ne se modifie plus sauf à la rouvrir ; la dernière évaluation terminée
+    du domaine sécurité alimente le score affiché sur le risque et la carte du tableau de bord. Le
+    niveau de risque n'est jamais modifié.
+
+  Reprise sans perte : les douze questions d'origine forment le modèle « Questionnaire
+  historique » (désactivable, non supprimable) et chaque questionnaire déjà rempli devient une
+  évaluation terminée avec ses réponses, son score, sa date et son auteur d'origine (colonnes
+  d'origine conservées). Quatre nouvelles tables, créées à l'installation et à la mise à jour si
+  absentes (rejouable), supprimées à la désinstallation. Matrice d'accès et contrôle XSS étendus.
+
 ## [2.77.0] - 2026-11-21
 
 ### Added
