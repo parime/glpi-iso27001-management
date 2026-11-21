@@ -73,10 +73,8 @@ final class PolicyTemplateCatalogTest extends TestCase
     {
         $data = Catalog::load('en');
         $text = '{organisation} / {ciso} / {review_months}';
-        self::assertSame(
-            'Fictive Ltd / Alice Martin / 6',
-            Catalog::fill($text, $data, ['organisation' => 'Fictive Ltd', 'ciso' => 'Alice Martin', 'review_months' => 6])
-        );
+        $values = ['organisation' => 'Fictive Ltd', 'ciso' => 'Alice Martin', 'review_months' => 6];
+        self::assertSame('Fictive Ltd / Alice Martin / 6', Catalog::fill($text, $data, $values));
         self::assertSame(
             '[organisation name] / [information security manager] / 12',
             Catalog::fill($text, $data, ['organisation' => '  '])
