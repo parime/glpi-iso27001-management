@@ -961,9 +961,9 @@ if [ "$ROLE" = limited ]; then
   expect "front/adsecurityaudit.php : supprimer un import sans jeton CSRF" 403 \
     "$(code -d "clear_ad_audit=1&audit_id=$(id adaudit_A)" "$P/adsecurityaudit.php")"
   contains "action proposee depuis une regle de B : rien de B" "Constat AD securite B" non \
-    "$(body "$P/nonconformity.form.php?adauditrule=$(id adrule_B)")"
+    "$(tab 'GlpiPlugin%5CGrcmanager%5CNonconformity' 'GlpiPlugin%5CGrcmanager%5CNonconformity$main' "0&adauditrule=$(id adrule_B)")"
   contains "action proposee depuis une regle de A : pre-remplie" "Constat AD securite A" oui \
-    "$(body "$P/nonconformity.form.php?adauditrule=$(id adrule_A)")"
+    "$(tab 'GlpiPlugin%5CGrcmanager%5CNonconformity' 'GlpiPlugin%5CGrcmanager%5CNonconformity$main' "0&adauditrule=$(id adrule_A)")"
   # Issue #847 : sauvegarde de cle declaree pour un ordinateur de A, refusee pour celui de B.
   expect "front/diskencryption.php : declarer la cle d'un ordinateur de A" 302     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1&backup_date=2026-01-15&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
   expect "front/diskencryption.php : declarer la cle d'un ordinateur de B" 403     "$(code -d "declare_key=1&computers_id=$(id computer_B)&is_backed_up=1&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
