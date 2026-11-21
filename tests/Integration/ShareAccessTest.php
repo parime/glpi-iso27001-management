@@ -202,7 +202,7 @@ final class ShareAccessTest extends GrcmanagerIntegrationTestCase
         $data = ShareAccess::pageData();
         $this->assertSame($compta['id'], $data['rows'][0]['id'], 'Le partage le plus exposé d\'abord.');
         $this->assertSame(2, $data['summary']['shares']);
-        $this->assertSame([$this->server()], $data['servers']);
+        $this->assertSame([['source' => 'smb', 'server' => $this->server()]], $data['servers']);
 
         // Entité cachée : rien de visible.
         $this->activate($this->hiddenEntity);

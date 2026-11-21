@@ -43,10 +43,17 @@ final class ShareAccessRules
     public const KIND_USER = 'user';
     public const KIND_GROUP = 'group';
     public const KIND_UNKNOWN = 'unknown';
+    /** Lien de partage « tout le monde » (anonyme) de SharePoint ou OneDrive (#846, lot 2). */
+    public const KIND_ANONYMOUS = 'anonymous';
+    /** Invité externe (compte d'une autre organisation) de Microsoft 365. */
+    public const KIND_EXTERNAL = 'external';
 
     /** Portée d'une ligne : droit de partage SMB ou droit NTFS d'un dossier. */
     public const SCOPE_SHARE = 'share';
     public const SCOPE_NTFS = 'ntfs';
+    /** Microsoft 365 : lien de partage, et appartenance à une équipe Teams (membre, propriétaire). */
+    public const SCOPE_LINK = 'link';
+    public const SCOPE_MEMBER = 'member';
 
     /** Écarts signalés. */
     public const GAP_BROAD_WRITE = 'broad_write';
@@ -55,9 +62,13 @@ final class ShareAccessRules
     public const GAP_DISABLED_ACCOUNT = 'disabled_account';
     public const GAP_BROKEN_INHERITANCE = 'broken_inheritance';
     public const GAP_NO_OWNER = 'no_owner';
+    public const GAP_ANONYMOUS_LINK = 'anonymous_link';
+    public const GAP_EXTERNAL_GUEST = 'external_guest';
 
     /** Écarts graves (poids 3) ; les autres pèsent 1. */
-    public const SERIOUS_GAPS = [self::GAP_BROAD_WRITE, self::GAP_DELETED_ACCOUNT, self::GAP_DISABLED_ACCOUNT];
+    public const SERIOUS_GAPS = [
+        self::GAP_BROAD_WRITE, self::GAP_DELETED_ACCOUNT, self::GAP_DISABLED_ACCOUNT, self::GAP_ANONYMOUS_LINK,
+    ];
 
     public const MAX_BYTES = 20 * 1024 * 1024;
 
@@ -215,6 +226,14 @@ final class ShareAccessRules
      */
     public static function principalKind(string $identity, string $sid = '', string $type = ''): string
     {
+        // Types posés par l'import Microsoft 365 (#846, lot 2) : prioritaires sur le nom.
+        $declared = mb_strtolower(trim($type));
+        if (in_array($declared, [self::KIND_ANONYMOUS, self::KIND_EXTERNAL], true)) {
+            return $declared;
+        }
+        if ($declared === self::KIND_BROAD) {
+            return self::KIND_BROAD;
+        }
         $sid = mb_strtolower(trim($sid));
         $id = mb_strtolower(trim($identity));
         // Un SID non résolu à la place du nom : compte supprimé de l'annuaire.
@@ -381,7 +400,7 @@ final class ShareAccessRules
     /**
      * Écarts d'un droit. $account : état du compte GLPI rapproché (null si aucun).
      *
-     * @param array<string, mixed> $ace kind, level, is_deny
+     * @param array<string, mixed> $ace kind, level, is_deny, scope
      * @param array{is_active: bool, is_deleted: bool}|null $account
      * @return list<string>
      */
@@ -401,8 +420,15 @@ final class ShareAccessRules
         } elseif ($account !== null && !$account['is_active']) {
             $gaps[] = self::GAP_DISABLED_ACCOUNT;
         }
-        if ($kind === self::KIND_USER) {
+        // Un membre nommé d'une équipe Teams est la règle, pas un écart.
+        if ($kind === self::KIND_USER && ($ace['scope'] ?? '') !== self::SCOPE_MEMBER) {
             $gaps[] = self::GAP_DIRECT_USER;
+        }
+        if ($kind === self::KIND_ANONYMOUS) {
+            $gaps[] = self::GAP_ANONYMOUS_LINK;
+        }
+        if ($kind === self::KIND_EXTERNAL) {
+            $gaps[] = self::GAP_EXTERNAL_GUEST;
         }
 
         return $gaps;

@@ -24,6 +24,10 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Install\ShareAccessTables;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
+use GlpiPlugin\Grcmanager\Services\Access\EntraGraphClient;
+use GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig;
+use GlpiPlugin\Grcmanager\Services\Access\M365ShareReader;
+use GlpiPlugin\Grcmanager\Services\Access\M365ShareRules;
 use GlpiPlugin\Grcmanager\Services\Access\ShareAccessRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use Group;
@@ -44,6 +48,9 @@ use User;
  *   partage sensible, partage sans propriétaire ; pondérés par la classification C/I/D du partage.
  * - Suivi d'un import à l'autre (droits ajoutés, retirés), revue par partage : le propriétaire
  *   désigné décide pour chaque droit (garder, modifier, retirer), décision tracée.
+ * - Lot 2 : sites SharePoint, OneDrive et équipes Teams, lus par Microsoft Graph en lecture seule
+ *   sur clic (configuration et client de la couverture MFA, #852) ou importés en CSV ; écarts en
+ *   plus : lien anonyme, invité externe ; mêmes tables (colonne source), même revue.
  *
  * Données réservées au droit des registres sensibles, dans les entités de la session.
  */
@@ -150,6 +157,27 @@ class ShareAccess extends CommonGLPI
             Rules::KIND_USER    => self::info(__('User', 'grcmanager'), 'azure', 'ti ti-user'),
             Rules::KIND_GROUP   => self::info(__('Group', 'grcmanager'), 'purple', 'ti ti-users-group'),
             Rules::KIND_UNKNOWN => self::info(__('Account', 'grcmanager'), 'secondary', 'ti ti-user-question'),
+            Rules::KIND_ANONYMOUS => self::info(__('Anyone with the link', 'grcmanager'), 'danger', 'ti ti-link'),
+            Rules::KIND_EXTERNAL  => self::info(__('External guest', 'grcmanager'), 'orange', 'ti ti-user-share'),
+        ];
+    }
+
+    /**
+     * Sources des droits : partages Windows, SharePoint, OneDrive, Teams.
+     *
+     * @return array<string, array{label: string, color: string, icon: string}>
+     */
+    public static function sourceInfos(): array
+    {
+        return [
+            self::SOURCE_SMB                  => self::info(
+                __('Windows file share', 'grcmanager'),
+                'secondary',
+                'ti ti-server'
+            ),
+            M365ShareRules::SOURCE_SHAREPOINT => self::info('SharePoint', 'teal', 'ti ti-world-www'),
+            M365ShareRules::SOURCE_ONEDRIVE   => self::info('OneDrive', 'azure', 'ti ti-cloud'),
+            M365ShareRules::SOURCE_TEAMS      => self::info('Teams', 'indigo', 'ti ti-messages'),
         ];
     }
 
@@ -204,6 +232,19 @@ class ShareAccess extends CommonGLPI
                     'grcmanager'
                 ),
             ],
+            Rules::GAP_ANONYMOUS_LINK     => [
+                'label' => __('Public link (anyone)', 'grcmanager'),
+                'color' => 'danger',
+                'help'  => __('A sharing link works for anyone who has it, without signing in.', 'grcmanager'),
+            ],
+            Rules::GAP_EXTERNAL_GUEST     => [
+                'label' => __('External guest has access', 'grcmanager'),
+                'color' => 'warning',
+                'help'  => __(
+                    'A person from another organization (guest account) has access: check it is still needed.',
+                    'grcmanager'
+                ),
+            ],
             Rules::GAP_NO_OWNER           => [
                 'label' => __('No owner', 'grcmanager'),
                 'color' => 'warning',
@@ -245,7 +286,31 @@ class ShareAccess extends CommonGLPI
                     . '\\\\server\\share path.',
                 'grcmanager'
             ),
+            'missing_site'     => __(
+                'No site column found: the file needs a column such as Site, Team or OneDrive.',
+                'grcmanager'
+            ),
             default            => __('The file could not be read.', 'grcmanager'),
+        };
+    }
+
+    /**
+     * Message d'une erreur de lecture de Microsoft 365 par Graph (jamais le secret ni le jeton).
+     */
+    public static function graphErrorMessage(string $code): string
+    {
+        return match ($code) {
+            EntraGraphClient::ERROR_FORBIDDEN => __(
+                'Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, User.Read.All '
+                    . 'and GroupMember.Read.All application permissions with admin consent.',
+                'grcmanager'
+            ),
+            EntraGraphClient::ERROR_TOO_LARGE => __(
+                'Too many sites or accounts to read in one click: nothing was replaced. Import a CSV export '
+                    . 'instead.',
+                'grcmanager'
+            ),
+            default                           => MfaCoverage::graphErrorMessage($code),
         };
     }
 
@@ -310,7 +375,7 @@ class ShareAccess extends CommonGLPI
             $DB->request([
                 'FROM'  => ShareAccessTables::SHARES,
                 'WHERE' => $criteria,
-                'ORDER' => ['server', 'name'],
+                'ORDER' => ['source', 'server', 'name'],
             ]) as $row
         ) {
             $shares[(int) $row['id']] = $row;
@@ -323,7 +388,7 @@ class ShareAccess extends CommonGLPI
         foreach (
             $DB->request([
                 'SELECT' => [
-                    'id', 'plugin_grcmanager_fileshares_id', 'folder', 'depth', 'kind', 'level', 'is_deny',
+                    'id', 'plugin_grcmanager_fileshares_id', 'scope', 'folder', 'depth', 'kind', 'level', 'is_deny',
                     'is_protected', 'users_id', 'status', 'decision',
                 ],
                 'FROM'   => ShareAccessTables::ACES,
@@ -365,9 +430,12 @@ class ShareAccess extends CommonGLPI
             $out[] = [
                 'id'              => $id,
                 'entities_id'     => (int) $share['entities_id'],
+                'source'          => (string) $share['source'],
                 'server'          => (string) $share['server'],
                 'name'            => (string) $share['name'],
-                'label'           => '\\\\' . $share['server'] . '\\' . $share['name'],
+                'label'           => $share['source'] === self::SOURCE_SMB
+                    ? '\\\\' . $share['server'] . '\\' . $share['name']
+                    : (string) $share['name'],
                 'share_path'      => (string) $share['share_path'],
                 'owner'           => (string) $share['owner'],
                 'users_id_owner'  => (int) $share['users_id_owner'],
@@ -587,8 +655,8 @@ class ShareAccess extends CommonGLPI
     /**
      * Derniers imports (les plus récents d'abord), dans les entités de la session.
      *
-     * @return list<array{server: string, shares: int, aces: int, added: int, removed: int, date: string,
-     *     user: string}>
+     * @return list<array{source: string, server: string, shares: int, aces: int, added: int, removed: int,
+     *     date: string, user: string}>
      */
     public static function imports(int $limit = 20): array
     {
@@ -607,6 +675,7 @@ class ShareAccess extends CommonGLPI
             ]) as $row
         ) {
             $out[] = [
+                'source'  => (string) $row['source'],
                 'server'  => (string) $row['server'],
                 'shares'  => (int) $row['shares'],
                 'aces'    => (int) $row['aces'],
@@ -668,7 +737,10 @@ class ShareAccess extends CommonGLPI
     public static function resolve(string $identity, string $sid, string $type, array $lookup): array
     {
         $kind = Rules::principalKind($identity, $sid, $type);
-        if (in_array($kind, [Rules::KIND_BROAD, Rules::KIND_SYSTEM, Rules::KIND_ORPHAN], true)) {
+        $unmatched = [
+            Rules::KIND_BROAD, Rules::KIND_SYSTEM, Rules::KIND_ORPHAN, Rules::KIND_ANONYMOUS, Rules::KIND_EXTERNAL,
+        ];
+        if (in_array($kind, $unmatched, true)) {
             return ['kind' => $kind, 'users_id' => 0, 'groups_id' => 0];
         }
         $full = mb_strtolower(trim($identity));
@@ -698,12 +770,7 @@ class ShareAccess extends CommonGLPI
      */
     public static function import(string $raw): array
     {
-        global $DB;
-
-        $result = [
-            'shares' => 0, 'aces' => 0, 'added' => 0, 'removed' => 0, 'matched' => 0,
-            'errors' => [], 'truncated' => false,
-        ];
+        $result = self::emptyResult();
         if (!self::canManage()) {
             $result['errors'][] = 'rights';
 
@@ -715,37 +782,134 @@ class ShareAccess extends CommonGLPI
 
             return $result;
         }
-        $result['truncated'] = $parsed['truncated'];
+        $rows = array_map(static fn (array $row): array => $row + ['source' => self::SOURCE_SMB], $parsed['rows']);
+
+        return ['truncated' => $parsed['truncated']] + self::storeRows($rows, [], 'csv');
+    }
+
+    /**
+     * Lot 2 : importe un export CSV des droits SharePoint, OneDrive ou Teams (solution de repli
+     * quand Microsoft Graph n'est pas joignable ou que le locataire est trop grand).
+     *
+     * @return array{shares: int, aces: int, added: int, removed: int, matched: int, errors: list<string>,
+     *     truncated: bool}
+     */
+    public static function importM365Csv(string $raw): array
+    {
+        $result = self::emptyResult();
+        if (!self::canManage()) {
+            $result['errors'][] = 'rights';
+
+            return $result;
+        }
+        $tenant = EntraGraphConfig::tenant();
+        $parsed = M365ShareRules::parseCsv($raw, $tenant !== '' ? $tenant : M365ShareRules::DEFAULT_TENANT);
+        if ($parsed['errors'] !== []) {
+            $result['errors'] = $parsed['errors'];
+
+            return $result;
+        }
+
+        return ['truncated' => $parsed['truncated']] + self::storeRows($parsed['rows'], [], 'csv');
+    }
+
+    /**
+     * Lot 2 : lit par Microsoft Graph, sur clic et en lecture seule, les droits d'une source
+     * (sharepoint, onedrive ou teams) et les range comme un import. Lecture incomplète ou en erreur :
+     * rien n'est remplacé.
+     *
+     * @return array{shares: int, aces: int, added: int, removed: int, matched: int, errors: list<string>,
+     *     truncated: bool, graph_error: string}
+     */
+    public static function importFromGraph(string $source, ?EntraGraphClient $client = null): array
+    {
+        $result = self::emptyResult() + ['graph_error' => ''];
+        if (!self::canManage()) {
+            $result['errors'][] = 'rights';
+
+            return $result;
+        }
+        if (!M365ShareRules::isSource($source)) {
+            return ['graph_error' => EntraGraphClient::ERROR_INVALID] + $result;
+        }
+        if ($client === null && !EntraGraphConfig::isConfigured()) {
+            return ['graph_error' => EntraGraphClient::ERROR_CONFIG] + $result;
+        }
+        $client ??= EntraGraphConfig::client();
+        $server = EntraGraphConfig::tenant() !== '' ? EntraGraphConfig::tenant() : M365ShareRules::DEFAULT_TENANT;
+        $read = (new M365ShareReader($client, $server))->read($source);
+        if ($read['error'] !== '') {
+            return ['graph_error' => $read['error']] + $result;
+        }
+
+        return ['graph_error' => ''] + self::storeRows($read['rows'], [[$source, $server]], 'graph');
+    }
+
+    /**
+     * @return array{shares: int, aces: int, added: int, removed: int, matched: int, errors: list<string>,
+     *     truncated: bool}
+     */
+    private static function emptyResult(): array
+    {
+        return [
+            'shares' => 0, 'aces' => 0, 'added' => 0, 'removed' => 0, 'matched' => 0,
+            'errors' => [], 'truncated' => false,
+        ];
+    }
+
+    /**
+     * Range des lignes de droits : pour chaque source et serveur (ou locataire), met à jour ses
+     * partages dans l'entité active, marque comme retirés les droits qui ont disparu et ajoute les
+     * nouveaux. La classification, le propriétaire désigné et les décisions de revue des droits
+     * inchangés sont gardés. $cover : couples [source, serveur] lus en entier même sans ligne (une
+     * lecture Graph sans aucun site marque les sites connus absents).
+     *
+     * @param list<array<string, mixed>> $rows
+     * @param list<array{0: string, 1: string}> $cover
+     * @return array{shares: int, aces: int, added: int, removed: int, matched: int, errors: list<string>,
+     *     truncated: bool}
+     */
+    private static function storeRows(array $rows, array $cover, string $origin): array
+    {
+        global $DB;
+
+        $result = self::emptyResult();
         $entity = (int) Session::getActiveEntity();
         $now = Session::getCurrentTime() ?? date('Y-m-d H:i:s');
         $lookup = self::lookup();
 
-        // Lignes regroupées par serveur puis par partage (insensible à la casse).
+        // Lignes regroupées par source et serveur, puis par partage (insensible à la casse).
         $servers = [];
-        foreach ($parsed['rows'] as $row) {
-            $serverKey = mb_strtolower($row['server']);
+        foreach ($cover as [$source, $name]) {
+            $servers[$source . '|' . mb_strtolower($name)] = ['source' => $source, 'name' => $name, 'shares' => []];
+        }
+        foreach ($rows as $row) {
+            $source = (string) $row['source'];
+            $serverKey = $source . '|' . mb_strtolower((string) $row['server']);
+            $servers[$serverKey]['source'] ??= $source;
             $servers[$serverKey]['name'] ??= $row['server'];
-            $servers[$serverKey]['shares'][mb_strtolower($row['share'])][] = $row;
+            $servers[$serverKey]['shares'][mb_strtolower((string) $row['share'])][] = $row;
         }
 
         foreach ($servers as $server) {
+            $source = $server['source'];
             $stats = ['shares' => 0, 'aces' => 0, 'added' => 0, 'removed' => 0];
             // Partages déjà connus de ce serveur dans l'entité active.
             $known = [];
             foreach (
                 $DB->request([
                     'FROM'  => ShareAccessTables::SHARES,
-                    'WHERE' => ['entities_id' => $entity, 'source' => self::SOURCE_SMB, 'server' => $server['name']],
+                    'WHERE' => ['entities_id' => $entity, 'source' => $source, 'server' => $server['name']],
                 ]) as $row
             ) {
                 $known[mb_strtolower((string) $row['name'])] = $row;
             }
             $seenShares = [];
-            foreach ($server['shares'] as $shareKey => $rows) {
-                $root = self::rootOwner($rows);
+            foreach ($server['shares'] as $shareKey => $shareRows) {
+                $root = self::rootOwner($shareRows);
                 $sharePath = '';
-                foreach ($rows as $row) {
-                    $sharePath = $sharePath !== '' ? $sharePath : $row['share_path'];
+                foreach ($shareRows as $row) {
+                    $sharePath = $sharePath !== '' ? $sharePath : (string) $row['share_path'];
                 }
                 if (isset($known[$shareKey])) {
                     $shareId = (int) $known[$shareKey]['id'];
@@ -759,9 +923,9 @@ class ShareAccess extends CommonGLPI
                 } else {
                     $DB->insert(ShareAccessTables::SHARES, [
                         'entities_id'   => $entity,
-                        'source'        => self::SOURCE_SMB,
+                        'source'        => $source,
                         'server'        => $server['name'],
-                        'name'          => $rows[0]['share'],
+                        'name'          => $shareRows[0]['share'],
                         'share_path'    => $sharePath,
                         'owner'         => $root,
                         'is_present'    => 1,
@@ -773,7 +937,7 @@ class ShareAccess extends CommonGLPI
                 }
                 $seenShares[$shareId] = true;
                 $stats['shares']++;
-                $diff = self::storeAces($shareId, $rows, $lookup, $now, $reviewOpen);
+                $diff = self::storeAces($shareId, $shareRows, $lookup, $now, $reviewOpen);
                 $stats['aces'] += $diff['aces'];
                 $stats['added'] += $diff['added'];
                 $stats['removed'] += $diff['removed'];
@@ -790,7 +954,7 @@ class ShareAccess extends CommonGLPI
             }
             $DB->insert(ShareAccessTables::IMPORTS, [
                 'entities_id' => $entity,
-                'source'      => self::SOURCE_SMB,
+                'source'      => $source,
                 'server'      => $server['name'],
                 'users_id'    => (int) Session::getLoginUserID(),
                 'date_import' => $now,
@@ -800,6 +964,8 @@ class ShareAccess extends CommonGLPI
             }
         }
         AuditLog::record('import', self::class, 0, 0, 'success', [
+            'origin'  => $origin,
+            'sources' => array_values(array_unique(array_column($servers, 'source'))),
             'servers' => count($servers),
             'shares'  => $result['shares'],
             'aces'    => $result['aces'],
@@ -908,14 +1074,14 @@ class ShareAccess extends CommonGLPI
      * Efface tout ce qui a été importé pour un serveur dans l'entité active (partages, droits,
      * historique), classification et revues comprises.
      */
-    public static function clear(string $server): bool
+    public static function clear(string $server, string $source = self::SOURCE_SMB): bool
     {
         global $DB;
 
-        if (!self::canManage() || trim($server) === '') {
+        if (!self::canManage() || trim($server) === '' || !isset(self::sourceInfos()[$source])) {
             return false;
         }
-        $where = ['entities_id' => (int) Session::getActiveEntity(), 'source' => self::SOURCE_SMB, 'server' => $server];
+        $where = ['entities_id' => (int) Session::getActiveEntity(), 'source' => $source, 'server' => $server];
         $ids = [];
         foreach ($DB->request(['SELECT' => ['id'], 'FROM' => ShareAccessTables::SHARES, 'WHERE' => $where]) as $row) {
             $ids[] = (int) $row['id'];
@@ -925,7 +1091,9 @@ class ShareAccess extends CommonGLPI
             $DB->delete(ShareAccessTables::SHARES, ['id' => $ids]);
         }
         $DB->delete(ShareAccessTables::IMPORTS, $where);
-        AuditLog::record('purge', self::class, 0, 0, 'success', ['server' => $server, 'shares' => count($ids)]);
+        AuditLog::record('purge', self::class, 0, 0, 'success', [
+            'source' => $source, 'server' => $server, 'shares' => count($ids),
+        ]);
         self::reset();
 
         return $ids !== [];
@@ -1126,7 +1294,9 @@ class ShareAccess extends CommonGLPI
         $servers = [];
         foreach ($shares as $share) {
             if ((int) $share['entities_id'] === (int) Session::getActiveEntity()) {
-                $servers[$share['server']] = $share['server'];
+                $servers[$share['source'] . '|' . $share['server']] = [
+                    'source' => $share['source'], 'server' => $share['server'],
+                ];
             }
         }
 
@@ -1137,6 +1307,14 @@ class ShareAccess extends CommonGLPI
             'imports'     => self::imports(),
             'servers'     => array_values($servers),
             'example_url' => self::getSearchURL() . '?example=1',
+            'm365_example_url' => self::getSearchURL() . '?example=m365',
+            // Lecture de Microsoft 365 par Graph : réglages de la couverture MFA (#852), jamais le secret.
+            'graph'       => [
+                'configured'   => EntraGraphConfig::isConfigured(),
+                'tenant'       => EntraGraphConfig::tenant(),
+                'settings_url' => MfaCoverage::getSearchURL() . '#grc-mfa-graph',
+                'sources'      => M365ShareRules::SOURCES,
+            ],
             'script_url'  => self::getSearchURL() . '?script=1',
             'review_url'  => AccessReview::getSearchURL(),
             'hygiene_url' => AccountHygiene::getSearchURL(),
@@ -1151,6 +1329,7 @@ class ShareAccess extends CommonGLPI
         return [
             'levels'     => self::levelInfos(),
             'kinds'      => self::kindInfos(),
+            'sources'    => self::sourceInfos(),
             'gap_infos'  => self::gapInfos(),
             'scores'     => self::scoreInfos(),
             'cid_levels' => AssetClassification::getLevels(),
