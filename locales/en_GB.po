@@ -33195,3 +33195,97 @@ msgstr ""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Hardware whose model has reached the manufacturer end of life"
+msgstr "Hardware whose model has reached the manufacturer end of life"
+
+msgid "Plan the replacement of the hardware, or record a waiver with compensating measures until then."
+msgstr "Plan the replacement of the hardware, or record a waiver with compensating measures until then."
+
+msgid "Manufacturer end of life reached"
+msgstr "Manufacturer end of life reached"
+
+msgid "The manufacturer no longer supports this model: plan its replacement, or record the compensating measures."
+msgstr "The manufacturer no longer supports this model: plan its replacement, or record the compensating measures."
+
+msgid "Manufacturer end of life soon"
+msgstr "Manufacturer end of life soon"
+
+msgid "Plan the replacement before the manufacturer stops supporting this model."
+msgstr "Plan the replacement before the manufacturer stops supporting this model."
+
+msgid "Supported by the manufacturer"
+msgstr "Supported by the manufacturer"
+
+msgid "The end of life date entered for this model is still ahead."
+msgstr "The end of life date entered for this model is still ahead."
+
+msgid "No end of life date"
+msgstr "No end of life date"
+
+msgid "No manufacturer end of life date entered for this model (optional, in the configuration)."
+msgstr "No manufacturer end of life date entered for this model (optional, in the configuration)."
+
+#, php-format
+msgid "Manufacturer end of life on %s."
+msgstr "Manufacturer end of life on %s."
+
+msgid "Manufacturer end of life date"
+msgstr "Manufacturer end of life date"
+
+msgid "Manufacturer end of life"
+msgstr "Manufacturer end of life"
+
+#, php-format
+msgid "%1$d reaching it within %2$d days"
+msgstr "%1$d reaching it within %2$d days"
+
+#, php-format
+msgid "%d past the manufacturer end of life"
+msgstr "%d past the manufacturer end of life"
+
+#, php-format
+msgid "%1$d models: the %2$d first ones are shown (dated models first, then the most common ones)."
+msgstr "%1$d models: the %2$d first ones are shown (dated models first, then the most common ones)."
+
+msgid "Hardware in service"
+msgstr "Hardware in service"
+
+msgid "Manufacturer end of life of hardware models"
+msgstr "Manufacturer end of life of hardware models"
+
+msgid "No hardware model in your entities: give a model to the computers, monitors or network devices in GLPI first."
+msgstr "No hardware model in your entities: give a model to the computers, monitors or network devices in GLPI first."
+
+msgid "Some manufacturers announce the date after which a model no longer receives repairs, spare parts or firmware updates. Enter it here when you know it (optional, leave empty otherwise): the \"Hardware warranty\" card of the park vulnerabilities page then shows the hardware of this model whose end of life is reached or near, with the same threshold as the end of support (ISO 27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
+msgstr "Some manufacturers announce the date after which a model no longer receives repairs, spare parts or firmware updates. Enter it here when you know it (optional, leave empty otherwise): the \"Hardware warranty\" card of the park vulnerabilities page then shows the hardware of this model whose end of life is reached or near, with the same threshold as the end of support (ISO 27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
+
+msgid "What is this for?"
+msgstr "What is this for?"
+
+msgid "\"To be handled\": warranty expired or ending soon, or manufacturer end of life reached or soon."
+msgstr "\"To be handled\": warranty expired or ending soon, or manufacturer end of life reached or soon."
+
+msgid "Enter the end of life dates"
+msgstr "Enter the end of life dates"
+
+msgid "No hardware has an expired warranty, a warranty ending soon or a model at its manufacturer end of life."
+msgstr "No hardware has an expired warranty, a warranty ending soon or a model at its manufacturer end of life."
+
+msgid "Optional date entered by hand for each hardware model."
+msgstr "Optional date entered by hand for each hardware model."
+
+msgid "To be handled"
+msgstr "To be handled"
+
+#, php-format
+msgid "%d end of life date not saved: enter a valid date for a hardware model."
+msgid_plural "%d end of life dates not saved: enter a valid date for a hardware model."
+msgstr[0] "%d end of life date not saved: enter a valid date for a hardware model."
+msgstr[1] "%d end of life dates not saved: enter a valid date for a hardware model."
+
+#, php-format
+msgid "Manufacturer end of life on %1$s (in %2$d day)."
+msgid_plural "Manufacturer end of life on %1$s (in %2$d days)."
+msgstr[0] "Manufacturer end of life on %1$s (in %2$d day)."
+msgstr[1] "Manufacturer end of life on %1$s (in %2$d days)."

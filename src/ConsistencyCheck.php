@@ -390,6 +390,14 @@ class ConsistencyCheck extends CommonGLPI
                     'grcmanager'
                 ),
             ],
+            'hardware_end_of_life_reached'         => [
+                'label' => __('Hardware whose model has reached the manufacturer end of life', 'grcmanager'),
+                'fix'   => __(
+                    'Plan the replacement of the hardware, or record a waiver with compensating measures until '
+                        . 'then.',
+                    'grcmanager'
+                ),
+            ],
             'software_license_gap'                 => [
                 'label' => __(
                     'Software without a license, installed beyond the licensed seats, or under an expired license',
@@ -604,6 +612,7 @@ class ConsistencyCheck extends CommonGLPI
             'access_review_overdue'                => self::accessReviews($today, $number),
             'asset_end_of_life'                    => self::endOfLifeAssets($today),
             'hardware_warranty_expired'            => self::expiredWarranties($today),
+            'hardware_end_of_life_reached'         => self::hardwareEndOfLife($today),
             'software_license_gap'                 => self::softwareLicenseGaps($today),
             'operating_procedure_uncovered'        => OperatingProcedure::consistencyGaps($today),
             default                               => null,
@@ -1357,6 +1366,30 @@ class ConsistencyCheck extends CommonGLPI
     private static function expiredWarranties(string $today): ?array
     {
         $findings = HardwareWarranty::consistencyGaps($today);
+        if ($findings === null) {
+            return null;
+        }
+        $gaps = [];
+        foreach ($findings as $finding) {
+            if (!is_a($finding['itemtype'], CommonDBTM::class, true)) {
+                continue;
+            }
+            $gaps[] = self::gap($finding['itemtype'], $finding['items_id'], $finding['name'], $finding['detail']);
+        }
+
+        return ['total' => count($findings), 'gaps' => $gaps];
+    }
+
+    /**
+     * Issue #782, lot 2 : matériels visibles dont le modèle a atteint la fin de vie constructeur
+     * (A.7.13). Non évaluable sans le droit des registres sensibles et la lecture des informations
+     * financières.
+     *
+     * @return array{total: int, gaps: list<array<string, mixed>>}|null
+     */
+    private static function hardwareEndOfLife(string $today): ?array
+    {
+        $findings = HardwareWarranty::endOfLifeGaps($today);
         if ($findings === null) {
             return null;
         }

@@ -614,6 +614,29 @@ if (
     Html::redirect(\GlpiPlugin\Grcmanager\EndOfLife::getConfigURL());
 }
 
+// Issue #782, lot 2 : fin de vie déclarée par le constructeur, saisie à la main par modèle de
+// matériel (facultatif). Rien n'est écrit dans les modèles de GLPI.
+if (isset($_POST['update_hardware_eol'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    $refused = \GlpiPlugin\Grcmanager\HardwareWarranty::saveModelDates(
+        is_array($_POST['hardware_eol'] ?? null) ? $_POST['hardware_eol'] : []
+    );
+    if ($refused > 0) {
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            _n(
+                '%d end of life date not saved: enter a valid date for a hardware model.',
+                '%d end of life dates not saved: enter a valid date for a hardware model.',
+                $refused,
+                'grcmanager'
+            ),
+            $refused
+        )), false, ERROR);
+    }
+
+    Html::redirect(\GlpiPlugin\Grcmanager\HardwareWarranty::getConfigURL());
+}
+
 if (isset($_POST['update_nvd_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -717,6 +740,8 @@ Html::header(
     'nvd_config'                => NvdConfig::load(),
     // Issue #704 : fin de vie (endoflife.date).
     'endoflife'                 => \GlpiPlugin\Grcmanager\EndOfLife::configData(),
+    // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
+    'hardware_eol'              => \GlpiPlugin\Grcmanager\HardwareWarranty::modelConfigData(),
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
     'digest'                    => \GlpiPlugin\Grcmanager\VulnerabilityDigest::configData(),
     'remediation_settings'      => \GlpiPlugin\Grcmanager\ParkRemediation::getSettings(),

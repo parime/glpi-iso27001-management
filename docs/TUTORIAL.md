@@ -712,6 +712,19 @@ type de matériel.
 6. Sur la fiche des mesures A.7.13 et A.8.9 de la SoA, le cadre « Fin de garantie du matériel »
    montre les compteurs ; les contrôles de cohérence du SMSI listent chaque matériel dont la
    garantie est expirée (règle « Matériels dont la garantie est expirée »).
+7. **Fin de vie constructeur** (facultatif) : quand un constructeur annonce la date après laquelle
+   un modèle n'a plus de réparations, de pièces ni de firmware, ouvrez la configuration du plugin,
+   cadre **Fin de vie constructeur des modèles de matériel** (lien « Saisir les dates de fin de
+   vie » de la carte). Les modèles en service dans vos entités y sont listés : saisissez par
+   exemple 30/06/2025 pour le modèle fictif « Modèle-Essai 100 », puis **Sauvegarder**. Rien n'est
+   écrit dans les modèles de GLPI ; une date vidée est effacée, et chaque saisie est tracée dans
+   le journal d'audit.
+8. La carte affiche alors les compteurs « Fin de vie constructeur atteinte », « proche » (même
+   seuil), « pris en charge » et « pas de date », et la colonne **Fin de vie constructeur** ; le
+   filtre **À traiter** inclut les matériels dont la fin de vie est atteinte ou proche, même sous
+   garantie. L'export ajoute la date et l'état, la preuve des mesures les compte, et le contrôle de
+   cohérence liste chaque matériel concerné (règle « Matériel dont le modèle a atteint la fin de
+   vie constructeur »).
 
 ### Étape 27 : Évaluer la sécurité physique des sites (mesures A.7.1 à A.7.14)
 
@@ -1709,6 +1722,18 @@ hardware.
 6. On controls A.7.13 and A.8.9 of the SoA, the "Hardware warranty" box shows the counters; the
    ISMS consistency checks list each piece of hardware whose warranty has expired (rule "Hardware
    whose warranty has expired").
+7. **Manufacturer end of life** (optional): when a manufacturer announces the date after which a
+   model no longer gets repairs, spare parts or firmware, open the plugin configuration, box
+   **Manufacturer end of life of hardware models** (link "Enter the end of life dates" of the
+   card). The models in service in your entities are listed: enter for instance 2025-06-30 for the
+   fictitious model "Test-Model 100", then **Save**. Nothing is written in the GLPI models; an
+   emptied date is deleted, and each change is recorded in the audit log.
+8. The card then shows the counters "Manufacturer end of life reached", "soon" (same threshold),
+   "supported" and "no date", and the **Manufacturer end of life** column; the **To be handled**
+   filter includes the hardware whose end of life is reached or near, even under warranty. The
+   export adds the date and the state, the evidence of the controls counts them, and the
+   consistency check lists each affected piece of hardware (rule "Hardware whose model has reached
+   the manufacturer end of life").
 
 ### Step 27: Assess the physical security of the sites (controls A.7.1 to A.7.14)
 

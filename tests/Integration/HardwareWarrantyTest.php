@@ -23,6 +23,7 @@ use GlpiPlugin\Grcmanager\ConsistencyCheck;
 use GlpiPlugin\Grcmanager\HardwareWarranty;
 use GlpiPlugin\Grcmanager\Services\Consistency\ConsistencyRules;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeStore;
+use GlpiPlugin\Grcmanager\Services\Lifecycle\HardwareModelEolStore;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\WarrantyRules as R;
 
 /**
@@ -255,5 +256,103 @@ final class HardwareWarrantyTest extends GrcmanagerIntegrationTestCase
         $this->assertCount(1, $rows);
         $this->assertSame(HardwareWarranty::statusInfo(R::STATUS_UNKNOWN)['label'], $rows[0][0]);
         $this->assertStringStartsWith("'=", ConsistencyRules::csvCell($rows[0][1]));
+    }
+
+    /**
+     * Lot 2 : fin de vie constructeur saisie par modèle, sans rien écrire dans les modèles de GLPI.
+     */
+    public function testManufacturerEndOfLifePerModel(): void
+    {
+        global $DB;
+
+        $old = (int) (new \ComputerModel())->add(['name' => 'PhpUnitDemo Ancien modele ' . $this->suffix]);
+        $recent = (int) (new \ComputerModel())->add(['name' => 'PhpUnitDemo Modele recent ' . $this->suffix]);
+        $this->assertGreaterThan(0, $old);
+        $oldPc = $this->asset(\Computer::class, 'PC ancien', $this->visible, '2026-01-01', 36, [
+            'computermodels_id' => $old,
+        ]);
+        $recentPc = $this->asset(\Computer::class, 'PC recent', $this->visible, '2026-01-01', 36, [
+            'computermodels_id' => $recent,
+        ]);
+        $plainPc = $this->asset(\Computer::class, 'PC sans modele', $this->visible, '2026-01-01', 36);
+        $models = iterator_to_array($DB->request(['FROM' => 'glpi_computermodels', 'ORDER' => 'id']), false);
+
+        // Saisie depuis la configuration : refus d'une classe non suivie et d'une date invalide.
+        $this->assertSame(2, HardwareWarranty::saveModelDates([
+            'ComputerModel:' . $old    => '2025-06-30',
+            'ComputerModel:' . $recent => '2027-01-15',
+            'User:1'                   => '2025-01-01',
+            'ComputerModel:' . $plainPc => 'demain',
+        ]));
+        $this->assertFalse(HardwareModelEolStore::save('Computer', $oldPc, '2025-01-01', 0));
+        $this->assertSame('2025-06-30', HardwareModelEolStore::dateFor('ComputerModel', $old));
+
+        $eol = [];
+        HardwareWarranty::reset();
+        foreach (HardwareWarranty::assets(self::TODAY) as $asset) {
+            if (str_ends_with($asset['item_name'], ' ' . $this->suffix)) {
+                $eol[$asset['items_id']] = $asset['eol']['status'];
+            }
+        }
+        $this->assertSame(R::EOL_REACHED, $eol[$oldPc]);
+        $this->assertSame(R::EOL_SOON, $eol[$recentPc]);
+        $this->assertSame(R::EOL_NONE, $eol[$plainPc]);
+
+        // Carte : sous garantie, mais à traiter pour la fin de vie ; compteurs.
+        $page = HardwareWarranty::pageData(false, self::TODAY);
+        $this->assertNotNull($page);
+        $names = array_column($page['rows'], 'name');
+        $this->assertContains('PhpUnitDemo PC ancien ' . $this->suffix, $names);
+        $this->assertContains('PhpUnitDemo PC recent ' . $this->suffix, $names);
+        $this->assertNotContains('PhpUnitDemo PC sans modele ' . $this->suffix, $names);
+        $this->assertGreaterThanOrEqual(1, $page['eol_counts'][R::EOL_REACHED]);
+
+        // Export : date et état de la fin de vie en dernières colonnes.
+        $byName = array_column(array_values(array_filter(
+            HardwareWarranty::csvRows(self::TODAY),
+            fn (array $r): bool => str_ends_with($r[1], ' ' . $this->suffix)
+        )), null, 1);
+        $this->assertSame('2025-06-30', $byName['PhpUnitDemo PC ancien ' . $this->suffix][10]);
+        $this->assertSame(
+            HardwareWarranty::endOfLifeInfos()[R::EOL_REACHED]['label'],
+            $byName['PhpUnitDemo PC ancien ' . $this->suffix][11]
+        );
+        $this->assertSame('', $byName['PhpUnitDemo PC sans modele ' . $this->suffix][10]);
+
+        // Preuve et contrôle de cohérence : fin de vie atteinte seulement.
+        $evidence = HardwareWarranty::evidence('A.7.13');
+        $this->assertNotNull($evidence);
+        $this->assertGreaterThanOrEqual(1, $evidence['eol_reached']);
+        $results = ConsistencyCheck::run(self::TODAY);
+        $this->assertTrue($results['hardware_end_of_life_reached']['evaluated']);
+        $gaps = array_map(
+            static fn (array $gap): string => $gap['itemtype'] . ':' . $gap['id'],
+            $results['hardware_end_of_life_reached']['gaps']
+        );
+        $this->assertContains('Computer:' . $oldPc, $gaps);
+        $this->assertNotContains('Computer:' . $recentPc, $gaps);
+
+        // Configuration : modèles en service, datés d'abord ; effacer une date.
+        $config = HardwareWarranty::modelConfigData();
+        $fields = array_column($config['models'], 'date', 'field');
+        $this->assertSame('2025-06-30', $fields['ComputerModel:' . $old]);
+        $this->assertSame(0, HardwareWarranty::saveModelDates(['ComputerModel:' . $old => '']));
+        $this->assertNull(HardwareModelEolStore::dateFor('ComputerModel', $old));
+
+        $this->assertSame(
+            $models,
+            iterator_to_array($DB->request(['FROM' => 'glpi_computermodels', 'ORDER' => 'id']), false),
+            'Aucun modèle de GLPI modifié.'
+        );
+
+        // Sans les droits : règle non évaluable.
+        $saved = $_SESSION['glpiactiveprofile'][\Infocom::$rightname] ?? 0;
+        $_SESSION['glpiactiveprofile'][\Infocom::$rightname] = 0;
+        try {
+            $this->assertNull(HardwareWarranty::endOfLifeGaps(self::TODAY));
+            $this->assertFalse(ConsistencyCheck::run(self::TODAY)['hardware_end_of_life_reached']['evaluated']);
+        } finally {
+            $_SESSION['glpiactiveprofile'][\Infocom::$rightname] = $saved;
+        }
     }
 }

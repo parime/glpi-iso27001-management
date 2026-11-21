@@ -345,6 +345,13 @@ if ($mode === 'xss') {
     ]);
     $DB->update('glpi_plugin_grcmanager_ismsrequirements', ['comment' => $canary], ['id' => ['>', 0]]);
     $DB->update('glpi_computers', ['name' => $canary], ['id' => (int) $ids['computer_A']]);
+    // Issue #782, lot 2 : modèle piégé dont la fin de vie constructeur est atteinte (carte de la fin
+    // de garantie, saisie des dates dans la configuration).
+    $xssModel = (int) (new ComputerModel())->add(['name' => mb_substr($canary, 0, 255)]);
+    $DB->update('glpi_computers', ['computermodels_id' => $xssModel], ['id' => (int) $ids['computer_A']]);
+    $DB->insert(\GlpiPlugin\Grcmanager\Install\HardwareEndOfLifeTables::MODELS, [
+        'itemtype' => ComputerModel::class, 'items_id' => $xssModel, 'end_of_life_date' => '2020-01-01',
+    ]);
     // Issue #847 : outil et algorithme de chiffrement piégés (page du chiffrement des disques).
     $DB->update('glpi_items_disks', [
         'encryption_status' => 2, 'encryption_tool' => mb_substr($canary, 0, 255),

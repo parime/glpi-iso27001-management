@@ -27776,15 +27776,6 @@ msgstr ""
 "Questa esercitazione non è mai stata condotta fino in fondo nella sala di "
 "crisi."
 
-msgid "Physical security of the site: %s"
-msgstr "Sicurezza fisica del sito: %s"
-
-msgid ""
-"Checklist, findings, actions and zones of this assessment, for the auditor."
-msgstr ""
-"Lista di controllo, rilievi, azioni e zone di questa valutazione, per "
-"l'auditor."
-
 msgid "Child licenses counted once"
 msgstr "Licenze figlie contate una volta"
 
@@ -28235,6 +28226,238 @@ msgid_plural "Blocked controls"
 msgstr[0] "Controllo bloccato"
 msgstr[1] "Controlli bloccati"
 
+msgid "Hardware whose model has reached the manufacturer end of life"
+msgstr "Hardware il cui modello ha raggiunto il fine vita del produttore"
+
+msgid ""
+"Plan the replacement of the hardware, or record a waiver with compensating "
+"measures until then."
+msgstr ""
+"Pianificare la sostituzione dell'hardware, o registrare una deroga con "
+"misure compensative fino ad allora."
+
+msgid "Manufacturer end of life reached"
+msgstr "Fine vita del produttore raggiunto"
+
+msgid ""
+"The manufacturer no longer supports this model: plan its replacement, or "
+"record the compensating measures."
+msgstr ""
+"Il produttore non supporta più questo modello: pianificarne la sostituzione, "
+"o registrare le misure compensative."
+
+msgid "Manufacturer end of life soon"
+msgstr "Fine vita del produttore vicino"
+
+msgid ""
+"Plan the replacement before the manufacturer stops supporting this model."
+msgstr ""
+"Pianificare la sostituzione prima che il produttore smetta di supportare "
+"questo modello."
+
+msgid "Supported by the manufacturer"
+msgstr "Supportato dal produttore"
+
+msgid "The end of life date entered for this model is still ahead."
+msgstr ""
+"La data di fine vita inserita per questo modello non è ancora raggiunta."
+
+msgid "No end of life date"
+msgstr "Nessuna data di fine vita"
+
+msgid ""
+"No manufacturer end of life date entered for this model (optional, in the "
+"configuration)."
+msgstr ""
+"Nessuna data di fine vita del produttore inserita per questo modello "
+"(facoltativo, nella configurazione)."
+
+#, php-format
+msgid "Manufacturer end of life on %s."
+msgstr "Fine vita del produttore il %s."
+
+msgid "Manufacturer end of life date"
+msgstr "Data di fine vita del produttore"
+
+msgid "Manufacturer end of life"
+msgstr "Fine vita del produttore"
+
+#, php-format
+msgid "%1$d reaching it within %2$d days"
+msgstr "%1$d lo raggiungono entro %2$d giorni"
+
+#, php-format
+msgid "%d past the manufacturer end of life"
+msgstr "%d oltre il fine vita del produttore"
+
+#, php-format
+msgid ""
+"%1$d models: the %2$d first ones are shown (dated models first, then the "
+"most common ones)."
+msgstr ""
+"%1$d modelli: sono mostrati i primi %2$d (prima i modelli con data, poi i "
+"più diffusi)."
+
+msgid "Hardware in service"
+msgstr "Hardware in servizio"
+
+msgid "Manufacturer end of life of hardware models"
+msgstr "Fine vita del produttore dei modelli di hardware"
+
+msgid ""
+"No hardware model in your entities: give a model to the computers, monitors "
+"or network devices in GLPI first."
+msgstr ""
+"Nessun modello di hardware nelle vostre entità: assegnare prima un modello a "
+"computer, monitor o dispositivi di rete in GLPI."
+
+msgid ""
+"Some manufacturers announce the date after which a model no longer receives "
+"repairs, spare parts or firmware updates. Enter it here when you know it "
+"(optional, leave empty otherwise): the \"Hardware warranty\" card of the "
+"park vulnerabilities page then shows the hardware of this model whose end of "
+"life is reached or near, with the same threshold as the end of support (ISO "
+"27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
+msgstr ""
+"Alcuni produttori annunciano la data dopo la quale un modello non riceve più "
+"riparazioni, pezzi di ricambio né aggiornamenti del firmware. Inseritela qui "
+"quando la conoscete (facoltativo, altrimenti lasciate vuoto): la scheda "
+"«Garanzia dell'hardware» della pagina delle vulnerabilità del parco mostra "
+"allora l'hardware di questo modello il cui fine vita è raggiunto o vicino, "
+"con la stessa soglia della fine del supporto (ISO 27001 A.7.13 e A.8.9). Nei "
+"modelli di GLPI non viene modificato nulla."
+
+msgid "What is this for?"
+msgstr "A cosa serve?"
+
+msgid ""
+"\"To be handled\": warranty expired or ending soon, or manufacturer end of "
+"life reached or soon."
+msgstr ""
+"«Da trattare»: garanzia scaduta o in scadenza, o fine vita del produttore "
+"raggiunto o vicino."
+
+msgid "Enter the end of life dates"
+msgstr "Inserire le date di fine vita"
+
+msgid ""
+"No hardware has an expired warranty, a warranty ending soon or a model at "
+"its manufacturer end of life."
+msgstr ""
+"Nessun hardware ha una garanzia scaduta, una garanzia in scadenza o un "
+"modello a fine vita del produttore."
+
+msgid "Optional date entered by hand for each hardware model."
+msgstr "Data facoltativa inserita a mano per ogni modello di hardware."
+
+msgid "To be handled"
+msgstr "Da trattare"
+
+#, php-format
+msgid "%d end of life date not saved: enter a valid date for a hardware model."
+msgid_plural ""
+"%d end of life dates not saved: enter a valid date for a hardware model."
+msgstr[0] ""
+"%d data di fine vita non salvata: inserire una data valida per un modello di "
+"hardware."
+msgstr[1] ""
+"%d date di fine vita non salvate: inserire una data valida per un modello di "
+"hardware."
+
+#, php-format
+msgid "Manufacturer end of life on %1$s (in %2$d day)."
+msgid_plural "Manufacturer end of life on %1$s (in %2$d days)."
+msgstr[0] "Fine vita del produttore il %1$s (tra %2$d giorno)."
+msgstr[1] "Fine vita del produttore il %1$s (tra %2$d giorni)."
+
+msgid ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+msgstr ""
+"Registrarlo anche come contatto con i contatti ufficiali selezionati (scheda "
+"«Contatti ufficiali»)"
+
+msgid "Archive on controls A.5.5 and A.5.6"
+msgstr "Archivia sui controlli A.5.5 e A.5.6"
+
+msgid "Archived registers:"
+msgstr "Registri archiviati:"
+
+msgid ""
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
+msgstr ""
+"Autorità, CSIRT, forze dell'ordine, assicuratore e gruppi di interesse del "
+"registro dei contatti ufficiali, con la persona autorizzata a contattarli."
+
+#, php-format
+msgid "Crisis communication: \"%s\""
+msgstr "Comunicazione di crisi: «%s»"
+
+msgid ""
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
+msgstr ""
+"Durante un'esercitazione, registrate le chiamate che fareste: il rapporto "
+"mostra allora se le scadenze sarebbero state rispettate."
+
+msgid "From a crisis communication"
+msgstr "Da una comunicazione di crisi"
+
+msgid "No official contact is set for this type of incident."
+msgstr "Nessun contatto ufficiale previsto per questo tipo di incidente."
+
+msgid "Official contacts to inform"
+msgstr "Contatti ufficiali da avvisare"
+
+msgid "Official contacts to inform during a crisis"
+msgstr "Contatti ufficiali da avvisare durante una crisi"
+
+msgid "Only for these types of incident"
+msgstr "Solo per questi tipi di incidente"
+
+msgid ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+msgstr ""
+"Facoltativo: lasciate vuoto per mostrare questo contatto su ogni incidente "
+"di sicurezza. Un incidente di tipo «Violazione di dati» mostra anche i "
+"contatti da avvisare per una violazione di dati personali."
+
+#, php-format
+msgid "Register of official contacts - %s"
+msgstr "Registro dei contatti ufficiali - %s"
+
+msgid ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+msgstr ""
+"Salva il registro come documento PDF datato sui controlli A.5.5 e A.5.6 "
+"della dichiarazione di applicabilità."
+
+msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
+msgstr ""
+"Il registro è stato archiviato come evidenza sui controlli A.5.5 e A.5.6."
+
+msgid ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+msgstr ""
+"Registrate ogni contatto ufficiale, selezionate gli eventi (e, se "
+"necessario, i tipi di incidente) per cui avvisarlo, verificatene i recapiti "
+"almeno una volta all'anno, conservate una copia stampata del registro (PDF) "
+"da usare durante una crisi e archiviatelo sui controlli A.5.5 e A.5.6 dopo "
+"ogni revisione."
+
+#, php-format
+msgid "%d official contact recorded as contacted."
+msgid_plural "%d official contacts recorded as contacted."
+msgstr[0] "%d contatto ufficiale registrato come avvisato."
+msgstr[1] "%d contatti ufficiali registrati come avvisati."
+
 msgid ""
 "Fill in this sheet for each application developed or maintained in-house: it "
 "then appears in the register of applications (secure development page) and "
@@ -28372,94 +28595,6 @@ msgid_plural "%d outsourced applications"
 msgstr[0] "%d applicazione esternalizzata"
 msgstr[1] "%d applicazioni esternalizzate"
 
-msgid ""
-"Also record it as a contact with the ticked official contacts (\"Official "
-"contacts\" tab)"
-msgstr ""
-"Registrarlo anche come contatto con i contatti ufficiali selezionati (scheda "
-"«Contatti ufficiali»)"
-
-msgid "Archive on controls A.5.5 and A.5.6"
-msgstr "Archivia sui controlli A.5.5 e A.5.6"
-
-msgid "Archived registers:"
-msgstr "Registri archiviati:"
-
-msgid ""
-"Authorities, CSIRT, police, insurer and special interest groups from the "
-"register of official contacts, with the person allowed to contact them."
-msgstr ""
-"Autorità, CSIRT, forze dell'ordine, assicuratore e gruppi di interesse del "
-"registro dei contatti ufficiali, con la persona autorizzata a contattarli."
-
-#, php-format
-msgid "Crisis communication: \"%s\""
-msgstr "Comunicazione di crisi: «%s»"
-
-msgid ""
-"During an exercise, record the calls you would make: the report then shows "
-"whether the deadlines would have been met."
-msgstr ""
-"Durante un'esercitazione, registrate le chiamate che fareste: il rapporto "
-"mostra allora se le scadenze sarebbero state rispettate."
-
-msgid "From a crisis communication"
-msgstr "Da una comunicazione di crisi"
-
-msgid "No official contact is set for this type of incident."
-msgstr "Nessun contatto ufficiale previsto per questo tipo di incidente."
-
-msgid "Official contacts to inform"
-msgstr "Contatti ufficiali da avvisare"
-
-msgid "Official contacts to inform during a crisis"
-msgstr "Contatti ufficiali da avvisare durante una crisi"
-
-msgid "Only for these types of incident"
-msgstr "Solo per questi tipi di incidente"
-
-msgid ""
-"Optional: leave empty to show this contact for every security incident. An "
-"incident of the \"Data breach\" type also shows the contacts to inform for a "
-"personal data breach."
-msgstr ""
-"Facoltativo: lasciate vuoto per mostrare questo contatto su ogni incidente "
-"di sicurezza. Un incidente di tipo «Violazione di dati» mostra anche i "
-"contatti da avvisare per una violazione di dati personali."
-
-#, php-format
-msgid "Register of official contacts - %s"
-msgstr "Registro dei contatti ufficiali - %s"
-
-msgid ""
-"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
-"of the Statement of Applicability."
-msgstr ""
-"Salva il registro come documento PDF datato sui controlli A.5.5 e A.5.6 "
-"della dichiarazione di applicabilità."
-
-msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
-msgstr ""
-"Il registro è stato archiviato come evidenza sui controlli A.5.5 e A.5.6."
-
-msgid ""
-"Record each official contact, tick the events (and, if needed, the types of "
-"incident) for which it must be informed, verify the details at least once a "
-"year, keep a printed copy of the register (PDF) for use during a crisis, and "
-"archive it on controls A.5.5 and A.5.6 after each review."
-msgstr ""
-"Registrate ogni contatto ufficiale, selezionate gli eventi (e, se "
-"necessario, i tipi di incidente) per cui avvisarlo, verificatene i recapiti "
-"almeno una volta all'anno, conservate una copia stampata del registro (PDF) "
-"da usare durante una crisi e archiviatelo sui controlli A.5.5 e A.5.6 dopo "
-"ogni revisione."
-
-#, php-format
-msgid "%d official contact recorded as contacted."
-msgid_plural "%d official contacts recorded as contacted."
-msgstr[0] "%d contatto ufficiale registrato come avvisato."
-msgstr[1] "%d contatti ufficiali registrati come avvisati."
-
 msgid "Phishing simulations: rates by campaign (%)"
 msgstr "Simulazioni di phishing: tassi per campagna (%)"
 
@@ -28575,3 +28710,12 @@ msgstr ""
 "Ogni riesame registrato con il pulsante «Registra il riesame» è conservato "
 "qui e nel registro di audit di sicurezza; non può più essere modificato in "
 "seguito."
+
+msgid "Physical security of the site: %s"
+msgstr "Sicurezza fisica del sito: %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Lista di controllo, rilievi, azioni e zone di questa valutazione, per "
+"l'auditor."
