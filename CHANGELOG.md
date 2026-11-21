@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.72.0] - 2026-11-21
+
 ### Added
 
 - **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
