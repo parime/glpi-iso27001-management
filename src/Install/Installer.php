@@ -1542,6 +1542,7 @@ final class Installer
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
         // Issue #604 : campagnes de simulation d'hameçonnage et résultats importés (7.3, A.6.3).
         PhishingTables::install($keySign, $charset, $collation);
+        PhishingTables::migrate($migration);
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         SecureDevelopmentTables::install($keySign, $charset, $collation);
         RecyfTables::install($keySign, $charset, $collation);
@@ -3559,6 +3560,18 @@ final class Installer
                 'comment' => 'Previent les responsables des ecarts de conformite securite de leurs collaborateurs',
                 'mode'    => CronTask::MODE_EXTERNAL,
                 'state'   => CronTask::STATE_DISABLE,
+            ]
+        );
+
+        // Issue #604, lot 2 : suppression des résultats individuels d'hameçonnage au-delà de la durée
+        // de conservation réglée (sans effet tant qu'aucune durée n'est réglée ; taux gardés).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\PhishingCampaign::class,
+            'phishingretention',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Supprime les resultats individuels d hameconnage au-dela de la duree de conservation',
+                'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
 

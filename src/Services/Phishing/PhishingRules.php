@@ -321,4 +321,186 @@ final class PhishingRules
 
         return $trend;
     }
+
+    /** Durée de conservation des résultats individuels (mois) : 0 = jusqu'à suppression manuelle. */
+    public const MAX_RETENTION_MONTHS = 120;
+
+    /** Clé du regroupement des services de moins de MIN_ANONYMOUS personnes. */
+    public const OTHER_GROUPS = -1;
+
+    public static function normalizeRetention(mixed $months): int
+    {
+        $value = is_numeric($months) ? (int) $months : 0;
+
+        return max(0, min(self::MAX_RETENTION_MONTHS, $value));
+    }
+
+    /**
+     * Date (Y-m-d) avant laquelle une campagne dépasse la durée de conservation ; null sans durée.
+     */
+    public static function retentionLimit(int $months, string $today): ?string
+    {
+        $months = self::normalizeRetention($months);
+        if ($months === 0) {
+            return null;
+        }
+        $date = \DateTime::createFromFormat('!Y-m-d', substr($today, 0, 10));
+        if ($date === false) {
+            return null;
+        }
+
+        return $date->modify('-' . $months . ' months')->format('Y-m-d');
+    }
+
+    /**
+     * Date de référence d'une campagne pour la conservation : la date de la campagne, sinon celle
+     * de l'import.
+     *
+     * @param array<string, mixed> $campaign
+     */
+    public static function referenceDate(array $campaign): ?string
+    {
+        foreach (['campaign_date', 'date_import'] as $field) {
+            $value = trim((string) ($campaign[$field] ?? ''));
+            if ($value !== '') {
+                return substr($value, 0, 10);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Date (Y-m-d) à laquelle les résultats individuels d'une campagne seront supprimés ; null sans
+     * durée de conservation ou sans date.
+     *
+     * @param array<string, mixed> $campaign
+     */
+    public static function purgeDate(array $campaign, int $months): ?string
+    {
+        $months = self::normalizeRetention($months);
+        $reference = self::referenceDate($campaign);
+        if ($months === 0 || $reference === null) {
+            return null;
+        }
+        $date = \DateTime::createFromFormat('!Y-m-d', $reference);
+
+        return $date === false ? null : $date->modify('+' . $months . ' months')->format('Y-m-d');
+    }
+
+    /**
+     * Compteurs par service (groupe GLPI) des personnes rapprochées. Une personne de plusieurs
+     * groupes compte dans chacun ; une personne sans groupe compte sous la clé 0.
+     *
+     * @param array<int, array<string, mixed>> $byUser utilisateur => étapes
+     * @param array<int, list<int>> $groupsByUser utilisateur => groupes
+     * @return array<int, array{sent: int, opened: int, clicked: int, submitted: int, reported: int}>
+     */
+    public static function groupCounts(array $byUser, array $groupsByUser): array
+    {
+        $byGroup = [];
+        foreach ($byUser as $usersId => $result) {
+            $groups = array_values(array_unique(array_map('intval', $groupsByUser[$usersId] ?? [])));
+            foreach ($groups === [] ? [0] : $groups as $groupId) {
+                $byGroup[$groupId][] = $result;
+            }
+        }
+        $counts = [];
+        foreach ($byGroup as $groupId => $results) {
+            $counts[$groupId] = self::counts($results);
+        }
+        ksort($counts);
+
+        return $counts;
+    }
+
+    /**
+     * Compteurs par service relus de la base (JSON), nettoyés : clés entières, étapes entières.
+     *
+     * @return array<int, array{sent: int, opened: int, clicked: int, submitted: int, reported: int}>
+     */
+    public static function decodeGroupCounts(?string $json): array
+    {
+        $decoded = json_decode((string) $json, true);
+        if (!is_array($decoded)) {
+            return [];
+        }
+        $counts = [];
+        foreach ($decoded as $groupId => $row) {
+            if (!is_numeric($groupId) || !is_array($row)) {
+                continue;
+            }
+            foreach (self::STEPS as $step) {
+                $counts[(int) $groupId][$step] = max(0, (int) ($row[$step] ?? 0));
+            }
+        }
+
+        return $counts;
+    }
+
+    /**
+     * Lignes par service à afficher. Sans le droit du détail, les services de moins de
+     * MIN_ANONYMOUS personnes sont regroupés sous OTHER_GROUPS, masqué lui aussi s'il reste trop
+     * petit.
+     *
+     * @param array<int, array<string, int>> $groupCounts
+     * @return list<array{groups_id: int, counts: array<string, int>, rates: array<string, ?float>, hidden: bool}>
+     */
+    public static function groupRows(array $groupCounts, bool $canDetail): array
+    {
+        $rows = [];
+        $other = [];
+        foreach ($groupCounts as $groupId => $counts) {
+            if (!$canDetail && !self::isAnonymousEnough((int) ($counts['sent'] ?? 0))) {
+                $other[] = $counts;
+                continue;
+            }
+            $rows[] = ['groups_id' => (int) $groupId, 'counts' => $counts];
+        }
+        if ($other !== []) {
+            $sum = array_fill_keys(self::STEPS, 0);
+            foreach ($other as $counts) {
+                foreach (self::STEPS as $step) {
+                    $sum[$step] += (int) ($counts[$step] ?? 0);
+                }
+            }
+            $rows[] = ['groups_id' => self::OTHER_GROUPS, 'counts' => $sum];
+        }
+        foreach ($rows as $i => $row) {
+            $hidden = !$canDetail && !self::isAnonymousEnough($row['counts']['sent']);
+            $rates = self::rates($row['counts']);
+            $rows[$i]['rates'] = $hidden ? array_fill_keys(array_keys($rates), null) : $rates;
+            $rows[$i]['hidden'] = $hidden;
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Indicateurs par entité : nombre de campagnes mesurées et taux de la dernière, de la plus
+     * ancienne à la plus récente pour chaque entité.
+     *
+     * @param list<array{entities_id: int, date: ?string, id: int, counts: array<string, int>}> $campaigns
+     * @return array<int, array{campaigns: int, last_date: ?string, counts: array<string, int>, rates: array<string, ?float>}>
+     */
+    public static function entityRows(array $campaigns): array
+    {
+        usort($campaigns, static fn (array $a, array $b): int
+            => [(string) $a['date'], $a['id']] <=> [(string) $b['date'], $b['id']]);
+        $rows = [];
+        foreach ($campaigns as $campaign) {
+            if ((int) ($campaign['counts']['sent'] ?? 0) === 0) {
+                continue;
+            }
+            $entityId = (int) $campaign['entities_id'];
+            $rows[$entityId] = [
+                'campaigns' => ($rows[$entityId]['campaigns'] ?? 0) + 1,
+                'last_date' => $campaign['date'],
+                'counts'    => $campaign['counts'],
+                'rates'     => self::rates($campaign['counts']),
+            ];
+        }
+
+        return $rows;
+    }
 }
