@@ -263,8 +263,9 @@ class ManagementReviewDossier extends CommonGLPI
                 'data'     => $data ?? [],
             ];
         }
-        $entityId = EntityPerimeter::activeEntity();
-        $recursive = (bool) ($_SESSION['glpiactive_entity_recursive'] ?? false);
+        // Issue #536, lot 3 : périmètre de la revue (son entité), non celui de la session.
+        $entityId = (int) ($review->fields['entities_id'] ?? EntityPerimeter::activeEntity());
+        $recursive = (bool) ($review->fields['is_recursive'] ?? false);
 
         return [
             'review'    => [
@@ -446,7 +447,14 @@ class ManagementReviewDossier extends CommonGLPI
         $statuses = Objective::getStatuses();
         $discussed = ManagementReview::getLinkedObjectiveIds((int) $review->getID());
         $objectives = [];
-        foreach ($DB->request(['FROM' => Objective::getTable(), 'ORDER' => 'title ASC']) as $row) {
+        // Issue #536, lot 3 : objectifs des entités de la session.
+        foreach (
+            $DB->request([
+                'FROM'  => Objective::getTable(),
+                'WHERE' => EntityPerimeter::criteria(Objective::getTable()),
+                'ORDER' => 'title ASC',
+            ]) as $row
+        ) {
             $inPeriod = array_values(array_filter(
                 ObjectiveMeasurement::getMeasurements((int) $row['id']),
                 static fn (array $m): bool => Rules::inPeriod($m['measurement_date'] ?? null, $start, $end)
@@ -655,10 +663,10 @@ class ManagementReviewDossier extends CommonGLPI
                 Html::convDate($period['start']),
                 Html::convDate($period['end'])
             ),
-            // La revue de direction couvre tout le SMSI : document à la racine, non récursif, lisible
-            // seulement par qui peut lire la revue (RestrictedDocument), jamais avec le seul droit
-            // Documents des sous-entités (même règle que les versions de la SoA et des politiques).
-            'entities_id'   => 0,
+            // Issue #536, lot 3 : document dans l'entité de la revue, non récursif, lisible seulement
+            // par qui peut lire la revue (RestrictedDocument), jamais avec le seul droit Documents
+            // des sous-entités (même règle que les versions de la SoA et des politiques).
+            'entities_id'   => (int) ($review->fields['entities_id'] ?? 0),
             'is_recursive'  => 0,
             '_filename'     => [$fileName],
             '_tag_filename' => [$fileName],

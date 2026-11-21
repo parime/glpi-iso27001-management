@@ -70,6 +70,14 @@ final class OperatingSystemVersionTest extends TestCase
             'Debian GNU/Linux'                         => 'cpe:2.3:o:debian:debian_linux',
             'Ubuntu 22.04.4 LTS'                       => 'cpe:2.3:o:canonical:ubuntu_linux',
             'Red Hat Enterprise Linux 9.3 (Plow)'      => 'cpe:2.3:o:redhat:enterprise_linux',
+            // Lot 2 : dérivés de RHEL, Fedora et macOS.
+            'Rocky Linux 9.3 (Blue Onyx)'              => 'cpe:2.3:o:rockylinux:rocky_linux',
+            'Rocky Linux'                              => 'cpe:2.3:o:rockylinux:rocky_linux',
+            'AlmaLinux 9.4 (Seafoam Ocelot)'           => 'cpe:2.3:o:almalinux:almalinux',
+            'Oracle Linux Server 8.9'                  => 'cpe:2.3:o:oracle:linux',
+            'Fedora Linux 40 (Workstation Edition)'    => 'cpe:2.3:o:fedoraproject:fedora',
+            'macOS'                                    => 'cpe:2.3:o:apple:macos',
+            'macOS 14.4.1'                             => 'cpe:2.3:o:apple:macos',
         ];
         foreach ($cases as $designation => $prefix) {
             $this->assertSame($prefix, OperatingSystemVersion::proposedPrefix($designation), $designation);
@@ -78,7 +86,8 @@ final class OperatingSystemVersionTest extends TestCase
 
         $this->assertNull(OperatingSystemVersion::proposedPrefix('Microsoft Windows 11 Pro'), 'Version inconnue.');
         $this->assertNull(OperatingSystemVersion::proposedPrefix('Microsoft Windows Server 2012 R2 Standard'));
-        $this->assertNull(OperatingSystemVersion::proposedPrefix('Rocky Linux 9.3 (Blue Onyx)'), 'Hors du lot 1.');
+        $this->assertNull(OperatingSystemVersion::proposedPrefix('CentOS Linux 7 (Core)'), 'Hors de NVD courant.');
+        $this->assertNull(OperatingSystemVersion::proposedPrefix('SUSE Linux Enterprise Server 15 SP5'));
         // Ressemblance seulement : jamais de proposition.
         $this->assertNull(OperatingSystemVersion::proposedPrefix('DemoOS Debian Tools'));
         $this->assertNull(OperatingSystemVersion::proposedPrefix('Ubuntu Demo Edition'));
@@ -103,6 +112,14 @@ final class OperatingSystemVersionTest extends TestCase
         $this->assertSame('22.04', $release('Ubuntu 22.04.4 LTS', '22.04.4 LTS (Jammy Jellyfish)', '5.15.0-105'));
         $this->assertSame('22.04', $release('Ubuntu 22.04.4 LTS', ''));
         $this->assertSame('9.0', $release('Red Hat Enterprise Linux 9.3 (Plow)', '9.3'));
+        // Lot 2 : Rocky Linux et AlmaLinux en version mineure, Oracle Linux et Fedora en majeure.
+        $this->assertSame('9.3', $release('Rocky Linux 9.3 (Blue Onyx)', '9.3', '5.14.0-362.8.1.el9_3'));
+        $this->assertSame('9.3', $release('Rocky Linux 9.3 (Blue Onyx)', ''), 'Lu dans le nom.');
+        $this->assertSame('', $release('Rocky Linux', '9'), 'Version mineure inconnue : non vérifiable.');
+        $this->assertSame('8.10', $release('AlmaLinux', '8.10 (Cerulean Leopard)'));
+        $this->assertSame('8', $release('Oracle Linux Server', '8.9'));
+        $this->assertSame('40', $release('Fedora Linux 40 (Workstation Edition)', '40'));
+        $this->assertSame('14.4.1', $release('macOS', '14.4.1'));
         // Autre système : nombres en tête de la version, rien de deviné sinon.
         $this->assertSame('3.2.1', $release('DemoOS', '3.2.1 build 7'));
         $this->assertSame('', $release('DemoOS', 'latest'));
@@ -148,6 +165,22 @@ final class OperatingSystemVersionTest extends TestCase
         );
         $this->assertSame(CpeVersionMatch::MATCHED, OperatingSystemVersion::evaluate($rhel, '8.0'));
         $this->assertSame(CpeVersionMatch::EXCLUDED, OperatingSystemVersion::evaluate($rhel, '9.0'));
+
+        $rocky = $this->affectedCpe('cpe:2.3:o:rockylinux:rocky_linux:9.3:*:*:*:*:*:*:*');
+        $this->assertSame(CpeVersionMatch::MATCHED, OperatingSystemVersion::evaluate($rocky, '9.3'));
+        $this->assertSame(CpeVersionMatch::EXCLUDED, OperatingSystemVersion::evaluate($rocky, '9.4'));
+
+        $oracle = $this->affectedCpe('cpe:2.3:o:oracle:linux:8:-:*:*:*:*:*:*');
+        $this->assertSame(CpeVersionMatch::MATCHED, OperatingSystemVersion::evaluate($oracle, '8'));
+        $this->assertSame(CpeVersionMatch::EXCLUDED, OperatingSystemVersion::evaluate($oracle, '9'));
+
+        $macos = $this->affectedCpe(
+            'cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:*',
+            ['version_start_including' => '14.0', 'version_end_excluding' => '14.4']
+        );
+        $this->assertSame(CpeVersionMatch::MATCHED, OperatingSystemVersion::evaluate($macos, '14.3.1'));
+        $this->assertSame(CpeVersionMatch::EXCLUDED, OperatingSystemVersion::evaluate($macos, '14.4.1'));
+        $this->assertSame(CpeVersionMatch::EXCLUDED, OperatingSystemVersion::evaluate($macos, '13.6.4'));
 
         $any = $this->affectedCpe('cpe:2.3:o:microsoft:windows_server_2019:-:*:*:*:*:*:*:*');
         $this->assertSame(

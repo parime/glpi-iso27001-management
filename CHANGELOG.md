@@ -22,10 +22,98 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   mesures A.8.8 et A.8.19, KRI « serveurs critiques avec correctifs en retard », carte du tableau
   de bord « ordinateurs aux correctifs dans les délais (%) ». Le plugin ne lance aucune mise à jour
   et ne modifie rien dans GLPI.
+- **Périmètres multiples, lot 3 : les autres registres par entité GLPI** (issue #536, dernier lot).
+  Après les risques, la SoA, les audits et les non-conformités, huit registres appartiennent à une
+  entité : **risques fournisseurs**, **formations**, **revues de direction**, **objectifs**,
+  **obligations**, **dérogations**, **flux réseau** et **études EBIOS RM**. Un utilisateur ne voit et
+  ne modifie que ceux des entités de son profil, partout :
+  - listes, fiches, recherches, exports et API ;
+  - cartes du tableau de bord et de pilotage ;
+  - contrôles de cohérence, calendrier de conformité, préparation à la certification ;
+  - matrice et rapport des flux réseau, dérogations des vulnérabilités du parc.
+
+  Un nouvel élément prend l'entité active ; le serveur refuse une autre entité que celles de la
+  session, y compris par modification en masse. Les colonnes « Entité » et « Sous-entités » sont
+  dans chaque recherche. Les éléments rattachés suivent leur parent :
+  - mesures d'un objectif, actions d'une revue, éléments d'une étude EBIOS ;
+  - le risque créé depuis un scénario opérationnel EBIOS va dans l'entité de l'étude ;
+  - le dossier préparatoire d'une revue de direction porte sur l'entité de la revue et reprend
+    les actions des revues précédentes de cette entité ; son document y est rangé.
+
+  Une revue ne peut citer que des objectifs lisibles, et les liens vers les autres sont conservés.
+  Les formations qualifiantes des auditeurs choisies hors de la session le restent aussi.
+  **À la mise à jour**, les données existantes vont dans l'entité racine :
+  - les formations, revues, objectifs et obligations restent visibles des sous-entités, comme avant ;
+  - les risques fournisseurs, dérogations, flux et études EBIOS ne le sont plus, comme les risques.
+
+  Rangez-les ensuite par une modification en masse (colonne « Entité »). Aucun statut, responsable
+  ou droit ne change. Restent communs : les référentiels, le catalogue de l'Annexe A, les exigences
+  des articles 4 à 10 et les politiques. Ce lot termine l'issue #536.
+
+- **Développement sécurisé, lot 2 : séparation détaillée, exigences, architecture et développement
+  externalisé** (issue #777, mesures A.8.26, A.8.27, A.8.30 et A.8.31) :
+  - fiche « Développement sécurisé » d'une application : **accès**, **données** et
+    **configuration** séparés entre développement, test et production (au lieu d'un simple oui ou
+    non), **exigences de sécurité** de l'application, **principes d'architecture sécurisée**, et
+    **développement externalisé** avec le fournisseur de GLPI, les clauses de sécurité du contrat et
+    le suivi du prestataire ;
+  - registre : colonnes exigences, architecture et développement externalisé, séparation partielle
+    signalée ; nouveaux indicateurs (séparation partielle, exigences et principes absents,
+    applications externalisées sans prestataire ou sans clauses) ;
+  - preuves sur les mesures **A.8.26**, **A.8.27** et **A.8.30**, et séparation partielle sur A.8.31 ;
+  - colonnes ajoutées à la table existante par l'installateur (rejouable), sans toucher aux fiches
+    déjà remplies ; prestataire vérifié (fournisseur existant) et ignoré si le développement n'est
+    pas externalisé. Ce lot termine l'issue #777.
+- **Simulations d'hameçonnage : taux par groupe et par entité, carte du tableau de bord et durée de
+  conservation** (issue #604, lot 2, dernier lot, exigence 7.3 et mesure A.6.3) :
+  - onglet **Résultats** : taux de clic, de saisie et de signalement par groupe GLPI des personnes
+    rapprochées. Sans le droit des registres sensibles, les groupes de moins de 5 personnes sont
+    regroupés, et masqués s'ils restent trop petits. Ces compteurs sont anonymes et gardés quand les
+    résultats par personne sont supprimés ;
+  - liste des campagnes : dernière campagne de chaque entité, avec le même masquage ;
+  - nouvelle carte du tableau de bord « Simulations d'hameçonnage : taux par campagne (%) », sous le
+    droit de la page, taux agrégés seulement ;
+  - **durée de conservation** des résultats par personne dans la configuration du plugin (en mois,
+    0 = jusqu'à suppression manuelle), réglable avec le droit de modification des registres
+    sensibles. Une action automatique quotidienne supprime les résultats expirés et garde les taux ;
+    la date prévue est affichée sur la campagne ;
+  - nouvelle colonne `group_counts` des campagnes (migration), remplie au prochain import.
+- **Procédures d'exploitation : historique des revues** (issue #775, lot 3, dernier lot, mesure
+  A.5.37) :
+  - sur la fiche d'une procédure, cadre « Historique des revues » : toutes les revues enregistrées
+    avec le bouton « Enregistrer la revue », la plus récente d'abord (date, personne, prochaine
+    revue prévue) ;
+  - le PDF du registre ajoute une section « Historique des revues », procédure par procédure ;
+  - l'historique est lu dans le journal d'audit infalsifiable, qui garde déjà chaque revue : aucune
+    nouvelle table ni colonne, et une revue tracée ne se modifie plus. Seules la date, la personne
+    et la prochaine revue sont affichées, avec le droit de lire les politiques. Ce lot termine
+    l'issue #775.
+- **Sécurité physique des sites : rapport PDF de l'évaluation** (issue #778, lot 2, mesures A.7.1
+  à A.7.14) : bouton « Rapport (PDF) » sur la fiche d'une évaluation, avec le résumé (évaluateur,
+  statut, échéance, politique, score et décompte des états), la grille avec constats, preuves,
+  documents cités, actions CAPA et état précédent, puis les zones et leurs contrôles d'accès avec
+  les signalements. Même droit et même entité que la fiche, calculé à la demande, rien n'est
+  conservé. Ligne « Sécurité physique » dans les README. Ce lot termine l'issue #778.
 
 ## [2.72.0] - 2026-11-21
 
 ### Added
+
+- **Vulnérabilités du parc : dérivés de RHEL, Fedora et macOS, et classement des machines par
+  leur système** (issue #780, lot 2, mesure A.8.8). Ce lot termine l'issue #780 :
+  - correspondances proposées par défaut, à valider dans « Logiciels à surveiller », pour
+    **Rocky Linux** (`cpe:2.3:o:rockylinux:rocky_linux`), **AlmaLinux**
+    (`cpe:2.3:o:almalinux:almalinux`), **Oracle Linux** (`cpe:2.3:o:oracle:linux`), **Fedora**
+    (`cpe:2.3:o:fedoraproject:fedora`) et **macOS** (`cpe:2.3:o:apple:macos`), produits relevés
+    dans le dictionnaire CPE de NVD ;
+  - versions comparées sous la forme de NVD : « 9.3 » pour Rocky Linux et AlmaLinux 9.3 (version
+    mineure inconnue : « version non vérifiable »), « 8 » pour Oracle Linux 8, « 40 » pour
+    Fedora 40, version complète pour macOS (« 14.4.1 ») ;
+  - la règle de fin de support (#704) reconnaît aussi leur nom complet inventorié par l'agent
+    GLPI (« Rocky Linux 9.3 (Blue Onyx) », « Oracle Linux Server 8.9 », « macOS 14.4.1 ») ;
+  - **Machines les plus exposées** : le classement compte désormais les vulnérabilités du système
+    d'exploitation et des firmwares (#705) de chaque machine, en plus de ses logiciels, avec les
+    mêmes règles d'entités et de droits. Aucun droit ajouté ni modifié, aucune table.
 
 - **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
   A.5.32). Les licences filles de GLPI (champ « Comme enfant de ») ne gonflent plus les postes

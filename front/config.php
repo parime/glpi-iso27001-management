@@ -461,6 +461,21 @@ if (isset($_POST['update_personnel_compliance'])) {
     Html::back();
 }
 
+// Issue #604, lot 2 : durée de conservation des résultats individuels des simulations
+// d'hameçonnage (données personnelles) : droit de modification du plugin et des registres sensibles.
+if (isset($_POST['update_phishing_retention'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+    Session::checkRight(Installer::SENSITIVE_RIGHT, UPDATE);
+
+    if (\GlpiPlugin\Grcmanager\PhishingCampaign::saveRetention($_POST['phishing_retention_months'] ?? null)) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['phishing_retention_months' => \GlpiPlugin\Grcmanager\PhishingCampaign::retentionMonths()],
+        ]);
+    }
+
+    Html::back();
+}
+
 // Issue #611 : circuit d'approbation des politiques de sécurité par la direction.
 if (isset($_POST['update_policy_approval'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
@@ -599,6 +614,29 @@ if (
     Html::redirect(\GlpiPlugin\Grcmanager\EndOfLife::getConfigURL());
 }
 
+// Issue #782, lot 2 : fin de vie déclarée par le constructeur, saisie à la main par modèle de
+// matériel (facultatif). Rien n'est écrit dans les modèles de GLPI.
+if (isset($_POST['update_hardware_eol'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    $refused = \GlpiPlugin\Grcmanager\HardwareWarranty::saveModelDates(
+        is_array($_POST['hardware_eol'] ?? null) ? $_POST['hardware_eol'] : []
+    );
+    if ($refused > 0) {
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            _n(
+                '%d end of life date not saved: enter a valid date for a hardware model.',
+                '%d end of life dates not saved: enter a valid date for a hardware model.',
+                $refused,
+                'grcmanager'
+            ),
+            $refused
+        )), false, ERROR);
+    }
+
+    Html::redirect(\GlpiPlugin\Grcmanager\HardwareWarranty::getConfigURL());
+}
+
 if (isset($_POST['update_nvd_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -702,6 +740,8 @@ Html::header(
     'nvd_config'                => NvdConfig::load(),
     // Issue #704 : fin de vie (endoflife.date).
     'endoflife'                 => \GlpiPlugin\Grcmanager\EndOfLife::configData(),
+    // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
+    'hardware_eol'              => \GlpiPlugin\Grcmanager\HardwareWarranty::modelConfigData(),
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
     'digest'                    => \GlpiPlugin\Grcmanager\VulnerabilityDigest::configData(),
     'remediation_settings'      => \GlpiPlugin\Grcmanager\ParkRemediation::getSettings(),
@@ -726,6 +766,8 @@ Html::header(
     'calendar_token_lifetime'   => \GlpiPlugin\Grcmanager\CalendarToken::lifetimeDays(),
     // Issue #546 : fiche de conformité sécurité d'un collaborateur.
     'personnel_compliance'      => \GlpiPlugin\Grcmanager\PersonnelCompliance::configData(),
+    // Issue #604, lot 2 : conservation des résultats individuels d'hameçonnage.
+    'phishing_retention'        => \GlpiPlugin\Grcmanager\PhishingCampaign::configData(),
     'calendar_token_bounds'     => [
         \GlpiPlugin\Grcmanager\CalendarToken::MIN_LIFETIME_DAYS,
         \GlpiPlugin\Grcmanager\CalendarToken::MAX_LIFETIME_DAYS,

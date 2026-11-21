@@ -26,7 +26,7 @@ final class ConsistencyRulesTest extends TestCase
             self::assertGreaterThanOrEqual($previous, $position, $key . ' : règles regroupées par domaine');
             $previous = $position;
         }
-        self::assertCount(26, R::RULES);
+        self::assertCount(27, R::RULES);
     }
 
     public function testSettingsDefaultToEnabledWithDefaultThresholds(): void

@@ -566,6 +566,9 @@ class Policy extends PolicyBase
                 && OperatingProcedureRules::canRecordReview($category, (string) ($this->fields['status'] ?? '')),
             'last_reviewer'  => (int) ($this->fields['users_id_lastreviewer'] ?? 0) > 0
                 ? (string) getUserName((int) $this->fields['users_id_lastreviewer']) : '',
+            // Issue #775, lot 3 : historique de toutes les revues sur la fiche.
+            'review_history' => $category === OperatingProcedureRules::CATEGORY_PROCEDURE && !$this->isNewItem()
+                ? OperatingProcedure::reviewHistory($this->getID()) : [],
             // Issue #611 : circuit d'approbation activé, « Approuvée » ne se choisit plus ici.
             'approval_workflow' => PolicyApprovalConfig::isEnabled(),
             'content_locked'    => PolicyApprovalConfig::isEnabled() && !$this->isNewItem()

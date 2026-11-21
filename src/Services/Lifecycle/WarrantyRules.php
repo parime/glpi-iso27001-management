@@ -29,10 +29,14 @@ namespace GlpiPlugin\Grcmanager\Services\Lifecycle;
  *   de support (CycleMatcher) ; « fin proche » avec le seuil commun de la fin de support.
  * - Sans date de début ou sans durée : état inconnu, jamais compté comme sous garantie.
  *
+ * - Lot 2 : fin de vie déclarée par le constructeur, saisie à la main par modèle ; atteinte le jour
+ *   de sa date, « proche » avec le même seuil commun. Indépendante de la garantie.
+ *
  * PHP pur (aucune dépendance à GLPI), testé unitairement.
  *
  * @phpstan-type Warranty array{status: string, reason: string, end: string, days: int|null,
  *     lifetime: bool}
+ * @phpstan-type EndOfLife array{status: string, date: string, days: int|null}
  */
 final class WarrantyRules
 {
@@ -51,6 +55,53 @@ final class WarrantyRules
 
     /** Durée de garantie « à vie » de GLPI. */
     public const LIFETIME = -1;
+
+    /** États de la fin de vie constructeur (lot 2), du plus grave au moins grave. */
+    public const EOL_REACHED = 'eol_reached';
+    public const EOL_SOON = 'eol_soon';
+    public const EOL_FUTURE = 'eol_future';
+    public const EOL_NONE = 'eol_none';
+    public const EOL_STATUSES = [self::EOL_REACHED, self::EOL_SOON, self::EOL_FUTURE, self::EOL_NONE];
+
+    /**
+     * État de la fin de vie déclarée par le constructeur pour le modèle du matériel.
+     *
+     * @param string|null $date « 2027-06-30 », null ou '' si aucune date n'est saisie.
+     * @return EndOfLife
+     */
+    public static function endOfLife(?string $date, string $today, int $warningDays): array
+    {
+        $date = self::date($date);
+        if ($date === null) {
+            return ['status' => self::EOL_NONE, 'date' => '', 'days' => null];
+        }
+        $days = CycleMatcher::daysBetween($today, $date);
+        $status = match (true) {
+            $days <= 0            => self::EOL_REACHED,
+            $days <= $warningDays => self::EOL_SOON,
+            default               => self::EOL_FUTURE,
+        };
+
+        return ['status' => $status, 'date' => $date, 'days' => $days];
+    }
+
+    /**
+     * Nombre de matériels de chaque état de fin de vie constructeur.
+     *
+     * @param iterable<array{eol: array{status: string}}> $assets
+     * @return array<string, int>
+     */
+    public static function endOfLifeCounts(iterable $assets): array
+    {
+        $counts = array_fill_keys(self::EOL_STATUSES, 0);
+        foreach ($assets as $asset) {
+            $status = in_array($asset['eol']['status'], self::EOL_STATUSES, true)
+                ? $asset['eol']['status'] : self::EOL_NONE;
+            $counts[$status]++;
+        }
+
+        return $counts;
+    }
 
     /**
      * État de la garantie à la date du jour.

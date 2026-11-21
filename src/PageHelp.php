@@ -523,7 +523,8 @@ class PageHelp
             'securedevelopment' => [
                 'purpose'   => __(
                     'The applications developed or maintained in-house, with their secure development practices '
-                        . '(framework, code review, SAST, DAST and dependency analyses, separated environments), and '
+                        . '(framework, code review, SAST, DAST and dependency analyses, security requirements, '
+                        . 'architecture principles, outsourced development, separated environments), and '
                         . 'the releases of the last 12 months with their security validation.',
                     'grcmanager'
                 ),
@@ -682,7 +683,8 @@ class PageHelp
                     'Record each campaign (date, tool, scenario, targeted population), then import the results '
                         . 'file of the tool in the Results tab. Offer a remedial training to the people who '
                         . 'clicked. Inform the staff beforehand that simulations take place, and delete the '
-                        . 'results per person once the follow-up is done.',
+                        . 'results per person once the follow-up is done, or set a retention period in the '
+                        . 'configuration of the plugin. The rates by group and by entity stay anonymous.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, clause 7.3 and control A.6.3', 'grcmanager'),
@@ -1080,8 +1082,8 @@ class PageHelp
             ],
             'parkmachines' => [
                 'purpose'  => __(
-                    'The machines most exposed to the known vulnerabilities of their watched software, to know '
-                        . 'where to start updating.',
+                    'The machines most exposed to the known vulnerabilities of their watched software, operating '
+                        . 'system and firmware, to know where to start updating.',
                     'grcmanager'
                 ),
                 'expected' => __(

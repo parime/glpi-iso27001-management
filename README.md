@@ -178,6 +178,9 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Impact d'une panne** (analyse d'impact de GLPI), points de défaillance uniques, objectifs de
   reprise **RTO/RPO** et export pour le plan de continuité.
 - **Couverture des preuves** : quels actifs doivent avoir quel document.
+- **Sécurité physique des sites (A.7.1 à A.7.14)** : grille d'évaluation par lieu de GLPI (état,
+  constat, preuves, action corrective), zones et contrôles d'accès, rappel de réévaluation annuelle,
+  comparaison des sites et rapport PDF de l'évaluation pour l'auditeur.
 - **Processus métier et analyse d'impact sur l'activité (BIA)** : responsable, criticité, DMIA, RTO,
   RPO, impacts par durée d'interruption, éléments GLPI et autres processus dont dépend chaque
   processus, signalement des actifs et processus plus lents que lui, risques liés (et risque proposé
@@ -290,7 +293,7 @@ nombre d'éléments qui attendent l'utilisateur.
 |---|---|
 | Tableau de bord | Tableau de bord, Score de maturité, Évaluation par référentiel, Calendrier de conformité, Contrôles de cohérence |
 | Risques | Risques, Risques fournisseurs, Analyse d'impact, Effet domino, Dérogations |
-| Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Registre des traitements, Registre des violations, Politiques, Preuves, Couverture des preuves |
+| Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Registre des traitements, Registre des violations, Politiques, Preuves, Couverture des preuves, Sécurité physique |
 | Audits et amélioration | Audits internes, Non-conformités, Objectifs ISMS, Revues de direction |
 | Opérations | Revues des accès, Hygiène des comptes, Revues périodiques, Formations, Exercices de crise, Processus métier |
 | Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Licences logicielles, Produits, Matrice des flux, Fuites de données |
@@ -362,12 +365,14 @@ avant son expiration (SentinelOne les limite dans le temps).
 
 Le SMSI se découpe selon les entités de GLPI (issue #536). Les **risques** et leurs **actions de
 traitement**, les **mesures de la SoA** et ses **versions approuvées**, les **audits internes** et les
-**non-conformités** appartiennent à une entité : un utilisateur ne
+**non-conformités** appartiennent à une entité. Il en va de même des **risques fournisseurs**,
+**formations**, **revues de direction**, **objectifs**, **obligations**, **dérogations**, **flux
+réseau** et **études EBIOS RM**. Un utilisateur ne
 voit et ne modifie que ceux des entités de son profil, partout (listes, fiches, exports, tableau de
 bord, API, notifications, contrôles de cohérence).
 
-- **Données communes** : les référentiels, le catalogue de l'Annexe A et les politiques restent
-  communs à toutes les entités. La SoA commune est dans l'entité racine, lisible des sous-entités.
+- **Données communes** : les référentiels, le catalogue de l'Annexe A, les exigences des articles 4
+  à 10 et les politiques restent communs à toutes les entités. La SoA commune est dans l'entité racine, lisible des sous-entités.
 - **Une SoA par entité** : dans une filiale, la liste des mesures (Conformité > Contrôles Annexe A)
   indique la SoA suivie et propose **Créer la SoA de cette entité**. La copie reprend l'applicabilité
   et les justifications ; chaque mesure est à revoir et à mettre en œuvre dans la filiale. Ses
@@ -381,8 +386,12 @@ bord, API, notifications, contrôles de cohérence).
   profil dans l'entité de l'audit ; un auditeur limité à une entité ne voit rien d'une autre.
 - **Après la mise à jour**, les données existantes sont dans l'entité racine (la SoA en récursif),
   sauf les actions de traitement (entité de leur risque) et les non-conformités dont l'audit ou
-  l'incident désigne sans ambiguïté une autre entité. Rangez risques, audits et non-conformités dans
-  leurs entités par une modification en masse (colonne « Entité »).
+  l'incident désigne sans ambiguïté une autre entité. Les formations, revues de direction, objectifs
+  et obligations restent visibles des sous-entités. Rangez chaque registre dans ses entités par une
+  modification en masse (colonne « Entité »).
+- **Éléments rattachés** : les mesures d'un objectif, les actions d'une revue de direction et les
+  éléments d'une étude EBIOS suivent leur parent. Le risque créé depuis une étude EBIOS va dans
+  l'entité de l'étude, et le dossier d'une revue porte sur l'entité de la revue.
 - Risques fournisseurs, formations, revues de direction, objectifs et autres registres : troisième
   lot de l'issue #536, selon les retours.
 
