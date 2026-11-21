@@ -16011,12 +16011,6 @@ msgstr ""
 msgid "More installations than licensed seats"
 msgstr ""
 
-#: src/SoftwareLicenseCompliance.php:148
-msgid ""
-"More assets have the software than the valid licenses allow. An unlimited "
-"license (number 0 or less) covers everything."
-msgstr ""
-
 #: src/SoftwareLicenseCompliance.php:154
 msgid "Expired license still in use"
 msgstr ""
@@ -32122,6 +32116,26 @@ msgstr ""
 msgid "Nothing blocks this control"
 msgstr ""
 
+
+#: src/SoftwareLicenseCompliance.php:148
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
+msgstr ""
+
+#: src/SoftwareLicenseCompliance.php:217
+msgid ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+msgstr ""
+
+#: templates/software_license_compliance.html.twig
+msgid "Child licenses counted once"
+msgstr ""
+
+
 #: src/ApplicationSecurity.php:122
 msgid "Separate access (accounts, rights)"
 msgstr ""
@@ -32278,3 +32292,4 @@ msgstr ""
 #: templates/secure_development_page.html.twig
 msgid "Without supplier or clauses"
 msgstr ""
+

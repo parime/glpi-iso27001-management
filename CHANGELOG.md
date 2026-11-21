@@ -9,20 +9,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
-- **Développement sécurisé, lot 2 : séparation détaillée, exigences, architecture et développement
-  externalisé** (issue #777, mesures A.8.26, A.8.27, A.8.30 et A.8.31) :
-  - fiche « Développement sécurisé » d'une application : **accès**, **données** et
-    **configuration** séparés entre développement, test et production (au lieu d'un simple oui ou
-    non), **exigences de sécurité** de l'application, **principes d'architecture sécurisée**, et
-    **développement externalisé** avec le fournisseur de GLPI, les clauses de sécurité du contrat et
-    le suivi du prestataire ;
-  - registre : colonnes exigences, architecture et développement externalisé, séparation partielle
-    signalée ; nouveaux indicateurs (séparation partielle, exigences et principes absents,
-    applications externalisées sans prestataire ou sans clauses) ;
-  - preuves sur les mesures **A.8.26**, **A.8.27** et **A.8.30**, et séparation partielle sur A.8.31 ;
-  - colonnes ajoutées à la table existante par l'installateur (rejouable), sans toucher aux fiches
-    déjà remplies ; prestataire vérifié (fournisseur existant) et ignoré si le développement n'est
-    pas externalisé. Ce lot termine l'issue #777.
+- **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
+  A.5.32). Les licences filles de GLPI (champ « Comme enfant de ») ne gonflent plus les postes
+  licenciés : quand une licence mère et ses filles valables comptent toutes pour une entité, la
+  famille vaut le plus grand du nombre de la mère et de la somme des filles (un contrat de 10 postes
+  réparti en filles de 4 et 6 vaut 10 postes, pas 20 ; une fille « mise à niveau » d'un poste ne
+  réduit pas la mère). Une mère expirée ne compte plus, ses filles valables si. Le surdéploiement
+  ainsi révélé porte le badge « Licences filles comptées une fois » ; les licences sont nommées
+  avec leur mère (« Contrat > Licence fille ») sur la page et dans l'export. Toujours en lecture
+  seule. Ce lot termine l'issue #779.
 
 - **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
   contacts officiels** (issue #776, lot 2, mesure A.5.29) :
@@ -127,6 +122,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     leur référence ou par le test qui les a ouvertes), politiques en brouillon (mesure A.5.1),
     contrôles techniques automatiques et couverture Wazuh et SentinelOne (A.8.7, A.8.16) ;
   - lecture seule, uniquement ce que la personne a le droit de lire (droits et entités).
+- **Développement sécurisé, lot 2 : séparation détaillée, exigences, architecture et développement
+  externalisé** (issue #777, mesures A.8.26, A.8.27, A.8.30 et A.8.31) :
+  - fiche « Développement sécurisé » d'une application : **accès**, **données** et
+    **configuration** séparés entre développement, test et production (au lieu d'un simple oui ou
+    non), **exigences de sécurité** de l'application, **principes d'architecture sécurisée**, et
+    **développement externalisé** avec le fournisseur de GLPI, les clauses de sécurité du contrat et
+    le suivi du prestataire ;
+  - registre : colonnes exigences, architecture et développement externalisé, séparation partielle
+    signalée ; nouveaux indicateurs (séparation partielle, exigences et principes absents,
+    applications externalisées sans prestataire ou sans clauses) ;
+  - preuves sur les mesures **A.8.26**, **A.8.27** et **A.8.30**, et séparation partielle sur A.8.31 ;
+  - colonnes ajoutées à la table existante par l'installateur (rejouable), sans toucher aux fiches
+    déjà remplies ; prestataire vérifié (fournisseur existant) et ignoré si le développement n'est
+    pas externalisé. Ce lot termine l'issue #777.
 
 ## [2.71.0] - 2026-11-20
 
