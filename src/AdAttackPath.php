@@ -448,7 +448,10 @@ final class AdAttackPath
         if (!self::canView()) {
             return;
         }
-        TemplateRenderer::getInstance()->display('@grcmanager/_ad_attack_paths.html.twig', self::sectionData($selectedId));
+        TemplateRenderer::getInstance()->display(
+            '@grcmanager/_ad_attack_paths.html.twig',
+            self::sectionData($selectedId)
+        );
     }
 
     // ------------------------------------------------------------------ Preuve.

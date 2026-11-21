@@ -165,7 +165,8 @@ final class AdAttackPathTest extends GrcmanagerIntegrationTestCase
     {
         global $DB;
 
-        $this->assertSame('no_target', AdAttackPath::import('{"nodes": {"1": {"label": "x", "kind": "User"}}, "edges": []}', 'a.json')['error']);
+        $noTarget = '{"nodes": {"1": {"label": "x", "kind": "User"}}, "edges": []}';
+        $this->assertSame('no_target', AdAttackPath::import($noTarget, 'a.json')['error']);
         $this->assertSame('invalid', AdAttackPath::import('{"nodes": [', 'a.json')['error']);
         $noDomain = '{"elements": [{"data": {"id": "1", "label": "Domain Admins", "type": "Group", "target": true}}]}';
         $this->assertSame('no_domain', AdAttackPath::import($noDomain, 'a.json')['error']);

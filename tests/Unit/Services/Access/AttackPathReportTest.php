@@ -59,7 +59,10 @@ final class AttackPathReportTest extends TestCase
                 'A.BERNARD@EXEMPLE.TEST', 'P.LEROY@EXEMPLE.TEST', 'C.PETIT@EXEMPLE.TEST'],
             array_column($report['accounts'], 'name')
         );
-        $this->assertSame(['name' => 'J.MARTIN@EXEMPLE.TEST', 'kind' => 'user', 'hops' => 3, 'routes' => 2], $report['accounts'][2]);
+        $this->assertSame(
+            ['name' => 'J.MARTIN@EXEMPLE.TEST', 'kind' => 'user', 'hops' => 3, 'routes' => 2],
+            $report['accounts'][2]
+        );
         $this->assertSame('computer', $report['accounts'][1]['kind']);
         $this->assertFalse($report['truncated']);
     }
@@ -95,7 +98,9 @@ final class AttackPathReportTest extends TestCase
     {
         $report = AttackPathReport::parse(self::json(['elements' => [
             'nodes' => [
-                ['data' => ['id' => '1', 'label' => 'Domain Admins', 'type' => 'Group', 'objectSid' => 'S-1-5-21-9-512']],
+                ['data' => [
+                    'id' => '1', 'label' => 'Domain Admins', 'type' => 'Group', 'objectSid' => 'S-1-5-21-9-512',
+                ]],
                 ['data' => ['id' => '2', 'label' => 'x', 'type' => 'Person']],
             ],
             'edges' => [['data' => ['source' => '2', 'target' => '1']]],
@@ -125,7 +130,8 @@ final class AttackPathReportTest extends TestCase
     {
         $this->assertSame(AttackPathReport::ERROR_NOT_GRAPH, AttackPathReport::parse('{"Result": "Failed"}')['error']);
         $this->assertSame(AttackPathReport::ERROR_NOT_GRAPH, AttackPathReport::parse('"text"')['error']);
-        $this->assertSame(AttackPathReport::ERROR_NOT_GRAPH, AttackPathReport::parse('{"nodes": 3, "edges": "x"}')['error']);
+        $notGraph = AttackPathReport::parse('{"nodes": 3, "edges": "x"}');
+        $this->assertSame(AttackPathReport::ERROR_NOT_GRAPH, $notGraph['error']);
         $this->assertSame(AttackPathReport::ERROR_NO_TARGET, AttackPathReport::parse(self::json([
             'nodes' => ['1' => ['label' => 'U@EXEMPLE.TEST', 'kind' => 'User']],
             'edges' => [],
