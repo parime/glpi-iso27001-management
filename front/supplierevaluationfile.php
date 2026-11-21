@@ -18,7 +18,6 @@
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\Exception\Http\AccessDeniedHttpException;
 use Glpi\Exception\Http\BadRequestHttpException;
-use GlpiPlugin\Grcmanager\PageHelp;
 use GlpiPlugin\Grcmanager\Services\Control\EvidenceUploadRules;
 use GlpiPlugin\Grcmanager\Services\Risk\SupplierAnswerFile;
 use GlpiPlugin\Grcmanager\SupplierEvaluation;
@@ -181,7 +180,7 @@ Html::header(
     \GlpiPlugin\Grcmanager\Risk::class,
     SupplierRisk::class
 );
-GlpiPluginGrcmanagerPageHelp::show('supplierevaluationfile');
+\GlpiPlugin\Grcmanager\PageHelp::show('supplierevaluationfile');
 TemplateRenderer::getInstance()->display(
     '@grcmanager/supplier_evaluation_import.html.twig',
     SupplierEvaluationFile::previewData($evaluation, $parsed, (string) $pending['name'])
