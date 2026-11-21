@@ -105,6 +105,8 @@ class Menu extends CommonGLPI
                 DataBreach::class, Policy::class,
                 // Issue #879 : mesures couvertes par les textes de la bibliothèque des politiques.
                 PolicyCoverage::class,
+                // Issue #545 : modèles de politiques prêts à adapter, importés en brouillon.
+                PolicyTemplate::class,
                 // Issue #775 : registre des procédures d'exploitation et couverture (A.5.37).
                 OperatingProcedure::class,
                 // Issue #778 : sécurité physique des sites (A.7.1 à A.7.14), comparaison entre sites.

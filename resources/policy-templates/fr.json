@@ -1,0 +1,323 @@
+{
+    "license": "CC0-1.0",
+    "placeholders": {
+        "organisation": "[nom de l'organisation]",
+        "ciso": "[responsable de la sécurité de l'information]"
+    },
+    "common": {
+        "review": {
+            "title": "Approbation, revue et dérogations",
+            "body": "La présente politique est approuvée par la direction de {organisation}. {ciso} la tient à jour : elle est revue au moins tous les {review_months} mois, ainsi qu'après un incident majeur, un changement important d'organisation ou de contexte, ou un écart relevé en audit. Toute dérogation est demandée par écrit, justifiée, limitée dans le temps et enregistrée."
+        }
+    },
+    "templates": {
+        "isms": {
+            "title": "Politique de sécurité de l'information",
+            "summary": "Politique de plus haut niveau : engagement de la direction, objectifs de sécurité, rôles et règles que suivent toutes les politiques thématiques.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique dit comment {organisation} protège la confidentialité, l'intégrité et la disponibilité des informations qu'elle détient, quels que soient leur forme et le lieu où elles sont traitées. Elle s'applique à tous les salariés, prestataires et partenaires qui utilisent les informations ou les systèmes de {organisation}, et chapeaute toutes les politiques de sécurité thématiques."
+                },
+                "commitments": {
+                    "title": "Engagement de la direction et objectifs",
+                    "body": "La direction s'engage à donner au système de management de la sécurité de l'information les moyens dont il a besoin, à fixer chaque année des objectifs de sécurité mesurables, à respecter les exigences légales, réglementaires et contractuelles, et à améliorer le système en continu. La sécurité est prise en compte dès le début des projets, en proportion des risques."
+                },
+                "roles": {
+                    "title": "Rôles et responsabilités",
+                    "body": "{ciso} pilote le système de management de la sécurité de l'information, suit les risques et rend compte à la direction. Chaque responsable veille à ce que les personnes de son équipe connaissent et appliquent les règles. Chaque actif a un propriétaire qui décide de sa protection. Les tâches incompatibles sont séparées là où une erreur ou une fraude pourrait sinon passer inaperçue."
+                },
+                "compliance": {
+                    "title": "Respect des règles",
+                    "body": "Chacun est informé de cette politique à son arrivée et à chaque changement. Le respect des règles de sécurité est vérifié régulièrement. Un manquement délibéré peut donner lieu à des mesures prévues par le règlement intérieur, en proportion de sa gravité."
+                }
+            }
+        },
+        "access_control": {
+            "title": "Politique de contrôle d'accès",
+            "summary": "Qui accède à quoi : besoin d'en connaître, cycle de vie des comptes, authentification et accès à privilèges.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique fixe les règles d'attribution, de modification et de retrait des accès aux informations, applications, systèmes et locaux de {organisation}. Elle couvre les comptes des utilisateurs, des services et des administrateurs, y compris ceux des prestataires."
+                },
+                "principles": {
+                    "title": "Principes",
+                    "body": "Les accès sont accordés selon le besoin d'en connaître et avec le moindre privilège nécessaire à la fonction. Tout ce qui n'est pas explicitement autorisé est interdit. Les droits sont rattachés à des rôles plutôt qu'à des personnes dès que possible, et chaque demande est validée par le propriétaire de la ressource."
+                },
+                "lifecycle": {
+                    "title": "Cycle de vie des comptes et des droits",
+                    "body": "Chaque compte est personnel et rattaché à une personne nommée. Les comptes sont créés sur demande tracée, modifiés lors d'un changement de poste et désactivés au plus tard le jour du départ. Les droits sont revus au moins tous les {review_months} mois par les propriétaires des ressources, et les comptes inutilisés sont désactivés."
+                },
+                "authentication": {
+                    "title": "Authentification",
+                    "body": "Les mots de passe sont longs, propres à chaque service, jamais partagés ni écrits en clair. L'authentification multifacteur est exigée pour les accès à distance, la messagerie, les services en nuage et tous les comptes d'administration. Les secrets d'authentification sont transmis par un canal distinct de l'identifiant."
+                },
+                "privileged": {
+                    "title": "Accès à privilèges",
+                    "body": "Les droits d'administration sont accordés à une liste restreinte de personnes nommées, sur des comptes distincts de leur compte courant, et ne servent qu'aux tâches d'administration. Leur usage est journalisé. L'accès aux informations sensibles est limité aux personnes et applications qui en ont besoin."
+                }
+            }
+        },
+        "asset_management": {
+            "title": "Politique de gestion des actifs",
+            "summary": "Inventaire et propriétaires, utilisation acceptable, restitution du matériel et mise au rebut sécurisée des supports.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique couvre les actifs informationnels de {organisation} : informations, logiciels, matériels, services et supports de stockage, qu'ils soient détenus, loués ou fournis par un prestataire."
+                },
+                "inventory": {
+                    "title": "Inventaire et propriétaires",
+                    "body": "Un inventaire des actifs est tenu à jour, de préférence automatiquement. Chaque actif a un propriétaire qui connaît sa valeur, décide de sa protection et vérifie qu'il est toujours utile. Un actif absent de l'inventaire n'est pas raccordé au réseau."
+                },
+                "acceptable_use": {
+                    "title": "Utilisation acceptable",
+                    "body": "Les matériels et services fournis par {organisation} sont utilisés à des fins professionnelles, dans les limites fixées par la charte informatique. L'installation de logiciels, le raccordement d'appareils personnels ou l'usage de services en ligne non validés sont soumis à accord préalable."
+                },
+                "return": {
+                    "title": "Restitution des actifs",
+                    "body": "Au départ d'une personne ou lors d'un changement de poste, les matériels, badges, clés et supports d'information qui lui ont été confiés sont restitués et rapprochés de l'inventaire. Les informations professionnelles conservées sur des appareils personnels sont supprimées."
+                },
+                "disposal": {
+                    "title": "Supports et mise au rebut",
+                    "body": "Les supports amovibles ne sont utilisés qu'en cas de besoin et sont chiffrés lorsqu'ils contiennent des informations non publiques. Avant réemploi ou mise au rebut, les matériels et supports sont effacés de manière sûre ou détruits, et l'opération est tracée."
+                }
+            }
+        },
+        "backup": {
+            "title": "Politique de sauvegarde",
+            "summary": "Ce qui est sauvegardé, à quelle fréquence, comment les copies sont protégées et comment la restauration est testée.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique garantit que {organisation} peut récupérer ses informations, logiciels et configurations de systèmes après une erreur, une panne, un acte malveillant ou un sinistre."
+                },
+                "frequency": {
+                    "title": "Périmètre et fréquence",
+                    "body": "Les propriétaires de chaque système fixent avec l'informatique ce qui est sauvegardé, à quelle fréquence et pour quelle durée, selon la perte de données maximale admissible des processus métier concernés. Le plan de sauvegarde liste chaque système, sa fréquence et sa durée de conservation."
+                },
+                "protection": {
+                    "title": "Protection des copies",
+                    "body": "Au moins une copie est conservée hors site et une copie ne peut être ni modifiée ni supprimée depuis le réseau de production (hors ligne ou immuable). Les copies sont chiffrées et leur accès est limité aux personnes chargées des sauvegardes."
+                },
+                "restore": {
+                    "title": "Tests de restauration",
+                    "body": "Les sauvegardes sont surveillées et les échecs traités sans délai. Un test de restauration est mené au moins tous les {review_months} mois sur un échantillon de systèmes, et son résultat et sa durée sont consignés."
+                }
+            }
+        },
+        "logging": {
+            "title": "Politique de journalisation et de surveillance",
+            "summary": "Les événements journalisés, la protection et la conservation des journaux, et leur surveillance.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique permet de détecter une activité anormale sur les systèmes de {organisation}, d'enquêter sur les incidents et de fournir des preuves si besoin."
+                },
+                "events": {
+                    "title": "Événements journalisés",
+                    "body": "Les systèmes journalisent au moins les authentifications, les tentatives d'accès refusées, l'usage des droits d'administration, les modifications des paramètres de sécurité et les alertes des outils de protection. Chaque événement indique la date et l'heure, le compte, la source et l'action."
+                },
+                "protection": {
+                    "title": "Protection et conservation",
+                    "body": "Les journaux sont copiés vers un point central où les administrateurs des systèmes concernés ne peuvent pas les modifier. Ils sont conservés pendant une durée fixée selon les obligations légales et les besoins d'enquête. Les horloges des systèmes sont synchronisées sur une source de temps commune."
+                },
+                "monitoring": {
+                    "title": "Surveillance",
+                    "body": "Les journaux et les alertes sont examinés régulièrement, automatiquement si possible. Un comportement inhabituel est analysé et, si besoin, traité comme un incident de sécurité. Les règles de surveillance sont ajustées après chaque incident important."
+                }
+            }
+        },
+        "incident_management": {
+            "title": "Politique de gestion des incidents de sécurité de l'information",
+            "summary": "Signalement, qualification, réponse, preuves et retour d'expérience des incidents de sécurité.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique organise le traitement des événements et incidents de sécurité de l'information chez {organisation}, du premier signalement au retour d'expérience."
+                },
+                "reporting": {
+                    "title": "Signalement",
+                    "body": "Toute personne qui constate un événement suspect, une faiblesse ou la perte d'un matériel le signale sans attendre par le canal indiqué par l'informatique, même en cas de doute. Personne ne tente de tester soi-même une faiblesse supposée."
+                },
+                "assessment": {
+                    "title": "Qualification",
+                    "body": "Chaque signalement est examiné pour décider s'il s'agit d'un incident de sécurité, et sa gravité est évaluée selon une échelle partagée. {ciso} est informé de chaque incident significatif et décide de l'escalade vers la direction."
+                },
+                "response": {
+                    "title": "Préparation et réponse",
+                    "body": "Les rôles, contacts et procédures de réponse aux incidents sont écrits et tenus à jour. La réponse vise d'abord à contenir l'incident, puis à en supprimer la cause et à rétablir l'activité. Les notifications exigées par la loi ou les contrats sont faites dans les délais."
+                },
+                "evidence": {
+                    "title": "Preuves",
+                    "body": "Les informations pouvant servir de preuve (journaux, copies, messages) sont collectées et conservées de façon à pouvoir en démontrer l'intégrité, en notant qui les a manipulées et quand."
+                },
+                "lessons": {
+                    "title": "Retour d'expérience",
+                    "body": "Après chaque incident significatif, une revue identifie les causes et les améliorations à apporter. Les actions décidées sont suivies jusqu'à leur réalisation."
+                }
+            }
+        },
+        "supplier": {
+            "title": "Politique de sécurité des relations avec les fournisseurs",
+            "summary": "Sélection, clauses contractuelles, chaîne d'approvisionnement TIC, suivi des fournisseurs et services en nuage.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique couvre les fournisseurs et prestataires qui accèdent aux informations ou aux systèmes de {organisation}, ou qui fournissent un service dont dépendent ses activités, y compris les services en nuage."
+                },
+                "selection": {
+                    "title": "Sélection et évaluation",
+                    "body": "Avant signature, les fournisseurs sont classés selon la sensibilité des informations et l'importance du service. Les plus critiques sont évalués (questionnaire, certifications, références) et les risques résiduels sont acceptés par le propriétaire du service."
+                },
+                "agreements": {
+                    "title": "Exigences contractuelles",
+                    "body": "Les contrats précisent les exigences de sécurité applicables : confidentialité, protection des données, notification des incidents, droit d'audit, localisation des données, recours à la sous-traitance et restitution ou suppression des informations en fin de contrat."
+                },
+                "supply_chain": {
+                    "title": "Chaîne d'approvisionnement TIC",
+                    "body": "Les fournisseurs de logiciels, de matériels et de services informatiques répercutent les exigences de sécurité sur leurs propres sous-traitants. L'origine et la durée de support des produits utilisés sont connues."
+                },
+                "monitoring": {
+                    "title": "Suivi et changements",
+                    "body": "Les fournisseurs critiques sont revus au moins tous les {review_months} mois : qualité de service, incidents, certifications et changements. Un changement de fournisseur, de service ou de sous-traitant est évalué avant d'être accepté."
+                },
+                "cloud": {
+                    "title": "Services en nuage",
+                    "body": "Le recours à un service en nuage est validé au préalable. Le partage des responsabilités de sécurité avec le fournisseur est documenté, et un plan de réversibilité permet de récupérer les données."
+                }
+            }
+        },
+        "teleworking": {
+            "title": "Politique de télétravail et de travail nomade",
+            "summary": "Conditions du travail hors des locaux, matériel, connexion et protection des informations.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique s'applique à toute personne qui travaille pour {organisation} hors de ses locaux : à domicile, en déplacement ou chez un client."
+                },
+                "conditions": {
+                    "title": "Conditions",
+                    "body": "Le travail hors des locaux suit les règles de la présente politique et l'accord passé avec le responsable. Les informations ou tâches les plus sensibles peuvent être exclues du travail à distance."
+                },
+                "equipment": {
+                    "title": "Matériel",
+                    "body": "Le travail se fait sur un matériel fourni ou validé par {organisation}, avec un disque chiffré, un système à jour et un outil de protection actif. Le matériel n'est jamais laissé sans surveillance dans un lieu public ou dans un véhicule."
+                },
+                "connection": {
+                    "title": "Connexion",
+                    "body": "L'accès aux ressources internes passe par la connexion sécurisée fournie par l'informatique, avec authentification multifacteur. Les réseaux publics ne sont utilisés qu'à travers cette connexion."
+                },
+                "workplace": {
+                    "title": "Protection des informations",
+                    "body": "Les écrans ne sont pas visibles par des tiers, la session est verrouillée dès que la personne quitte son poste et les documents ne traînent pas. Les documents papier sont rapportés ou détruits de manière sûre. Une perte ou un vol est signalé immédiatement."
+                }
+            }
+        },
+        "secure_development": {
+            "title": "Politique de développement sécurisé",
+            "summary": "La sécurité dans le cycle de développement : exigences, architecture, codage, tests et environnements.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique s'applique aux applications développées, paramétrées ou adaptées par ou pour {organisation}, y compris les scripts, les intégrations et les développements sous-traités."
+                },
+                "lifecycle": {
+                    "title": "Cycle de développement",
+                    "body": "La sécurité est prise en compte à chaque étape d'un projet, de l'expression du besoin au retrait de l'application. Les développeurs sont formés aux bonnes pratiques de développement sécurisé."
+                },
+                "requirements": {
+                    "title": "Exigences et architecture",
+                    "body": "Les exigences de sécurité sont fixées au début de chaque projet selon les informations traitées. L'architecture suit des principes éprouvés : défense en profondeur, moindre privilège, réglages par défaut sûrs et validation de toute entrée."
+                },
+                "coding": {
+                    "title": "Codage sécurisé",
+                    "body": "Le code suit les règles de codage sécurisé de l'équipe, est relu avant d'être intégré et est analysé par des outils automatiques. Les composants tiers sont connus, tenus à jour et contrôlés contre les vulnérabilités connues. Aucun secret n'est stocké dans le code source."
+                },
+                "testing": {
+                    "title": "Tests de sécurité",
+                    "body": "Les tests de sécurité font partie de la recette avant la mise en production. Les données de test ne contiennent pas de données personnelles ou confidentielles réelles, sauf si elles sont anonymisées et protégées comme en production."
+                },
+                "environments": {
+                    "title": "Environnements et changements",
+                    "body": "Les environnements de développement, de test et de production sont séparés. La mise en production suit le processus de gestion des changements, avec validation et possibilité de retour arrière."
+                },
+                "outsourced": {
+                    "title": "Développement sous-traité",
+                    "body": "Lorsque le développement est sous-traité, les exigences de sécurité de la présente politique sont inscrites au contrat et leur application est vérifiée à la recette."
+                }
+            }
+        },
+        "cryptography": {
+            "title": "Politique de cryptographie",
+            "summary": "Quand chiffrer, quels algorithmes utiliser et comment gérer les clés.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique fixe la façon dont {organisation} utilise la cryptographie pour protéger la confidentialité, l'intégrité et l'authenticité de ses informations, et dont elle gère les clés."
+                },
+                "usage": {
+                    "title": "Quand chiffrer",
+                    "body": "Le chiffrement est utilisé pour les ordinateurs portables et les supports amovibles, pour les informations transmises sur des réseaux publics, pour les sauvegardes et pour les informations confidentielles stockées chez un tiers. Les restrictions légales sur la cryptographie dans les pays concernés sont prises en compte."
+                },
+                "algorithms": {
+                    "title": "Algorithmes et protocoles",
+                    "body": "Seuls des algorithmes, longueurs de clés et protocoles reconnus comme robustes par les agences nationales de sécurité sont utilisés. Ceux devenus obsolètes sont retirés selon un plan."
+                },
+                "keys": {
+                    "title": "Gestion des clés",
+                    "body": "Les clés et certificats sont générés, stockés, distribués, renouvelés et révoqués selon une procédure écrite. L'accès aux clés privées est limité aux personnes qui en ont besoin, et leurs dates d'expiration sont surveillées."
+                }
+            }
+        },
+        "continuity": {
+            "title": "Politique de continuité d'activité (préparation des TIC)",
+            "summary": "Analyse d'impact, objectifs de reprise, sécurité pendant une perturbation, redondance et exercices.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique garantit que {organisation} peut poursuivre ou reprendre rapidement ses activités essentielles après une perturbation majeure, tout en gardant ses informations protégées."
+                },
+                "impact": {
+                    "title": "Analyse d'impact et objectifs",
+                    "body": "L'analyse d'impact sur l'activité identifie les activités essentielles, les systèmes dont elles dépendent et, pour chacune, la durée maximale d'interruption et la perte de données admissibles. Les plans de continuité et de reprise reposent sur ces objectifs."
+                },
+                "security": {
+                    "title": "Sécurité pendant une perturbation",
+                    "body": "Les plans de continuité maintiennent le niveau de sécurité nécessaire en mode dégradé : contrôle d'accès, journalisation et protection des informations restent en place sur les sites et solutions de secours."
+                },
+                "redundancy": {
+                    "title": "Redondance",
+                    "body": "Les systèmes dont l'interruption n'est pas admissible disposent d'une redondance suffisante (matériels, liaisons, sites ou fournisseurs) pour atteindre les objectifs de disponibilité."
+                },
+                "exercises": {
+                    "title": "Exercices",
+                    "body": "Les plans sont testés au moins tous les {review_months} mois par des exercices aux scénarios variés. Les résultats donnent lieu à des améliorations suivies jusqu'à leur réalisation."
+                }
+            }
+        },
+        "classification": {
+            "title": "Politique de classification de l'information",
+            "summary": "Niveaux de classification, marquage, et règles de manipulation et de transfert pour chaque niveau.",
+            "sections": {
+                "purpose": {
+                    "title": "Objet et périmètre",
+                    "body": "La présente politique aide chacun chez {organisation} à savoir à quel point une information est sensible et à la protéger en conséquence."
+                },
+                "levels": {
+                    "title": "Niveaux de classification",
+                    "body": "Les informations sont classées à l'un des quatre niveaux suivants : public, interne, confidentiel et secret. Le propriétaire de l'information choisit le niveau selon le préjudice que causerait sa divulgation, son altération ou sa perte, et le revoit quand le contexte change."
+                },
+                "labelling": {
+                    "title": "Marquage",
+                    "body": "Les documents, messages et supports de niveau confidentiel ou secret portent leur niveau de façon visible. Une information non marquée est traitée comme interne."
+                },
+                "handling": {
+                    "title": "Manipulation et transfert",
+                    "body": "Chaque niveau a ses règles de stockage, de partage, d'impression, d'envoi et de destruction. Les informations confidentielles et secrètes ne sont transmises qu'à des destinataires autorisés, par des moyens chiffrés, et leur transfert à un tiers est encadré par un accord."
+                }
+            }
+        }
+    }
+}
