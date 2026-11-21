@@ -413,6 +413,9 @@ class IsmsRequirement extends IsmsRequirementBase
             'crisis_communication' => CrisisCommunication::clauseReadiness($code),
             // Issue #604 : simulations d'hameçonnage (taux, tendance) pour 7.3.
             'phishing'       => PhishingCampaign::clauseReadiness($code),
+            // Issue #870 : cadres de preuve des fonctionnalités (src/Feature, ControlEvidenceProvider),
+            // par exemple le stock d'écarts pour 10.1 et 10.2.
+            'feature_evidence' => \GlpiPlugin\Grcmanager\Feature\FeatureRegistry::controlEvidence($code),
         ]);
 
         return true;

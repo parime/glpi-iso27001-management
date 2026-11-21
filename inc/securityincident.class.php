@@ -68,6 +68,21 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     public const SUPPLIERLINKCLASS = PluginGrcmanagerSecurityIncident_Supplier::class;
     public const RIGHTNAME = 'plugin_grcmanager_securityincident';
 
+    /**
+     * Issue #951 : le cœur de GLPI lit la matrice de priorité, les masques d'urgence et
+     * d'impact (`$CFG_GLPI[static::…]`) et le cycle de vie des statuts du profil
+     * (`$_SESSION['glpiactiveprofile'][static::STATUS_MATRIX_FIELD]`) au travers de ces
+     * constantes, vides dans `CommonITILObject`. Sans elles, les listes Urgence et Impact sont
+     * vides, le statut reste bloqué sur « Nouveau » (aucun autre statut n'est « autorisé ») et
+     * la priorité ne suit pas la matrice, dans le formulaire comme dans les champs prédéfinis
+     * des gabarits, même en super-admin. Mêmes réglages que les tickets : les statuts d'un
+     * incident de sécurité sont un sous-ensemble de ceux d'un ticket (voir getAllStatusArray()).
+     */
+    public const MATRIX_FIELD        = 'priority_matrix';
+    public const URGENCY_MASK_FIELD  = 'urgency_mask';
+    public const IMPACT_MASK_FIELD   = 'impact_mask';
+    public const STATUS_MATRIX_FIELD = 'ticket_status';
+
     public static function getTypeName($nb = 0)
     {
         return _n('Security incident', 'Security incidents', $nb, 'grcmanager');
