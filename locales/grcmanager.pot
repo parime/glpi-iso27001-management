@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 09:10+0000\n"
+"POT-Creation-Date: 2026-11-21 09:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,7 +76,7 @@ msgid "Only the first %d rules were read."
 msgstr ""
 
 #: front/adsecurityaudit.php:101 front/logcoverage.php:68
-#: front/mfacoverage.php:69 front/shareaccess.php:97
+#: front/mfacoverage.php:69
 msgid "Import deleted."
 msgstr ""
 
@@ -927,7 +927,7 @@ msgstr ""
 msgid "The register has been archived as evidence on control A.5.37."
 msgstr ""
 
-#: front/parkmachines.php:26 src/Menu.php:185
+#: front/parkmachines.php:26 src/Menu.php:183
 msgid "Most exposed machines"
 msgstr ""
 
@@ -1207,7 +1207,7 @@ msgstr ""
 msgid "Checklist saved."
 msgstr ""
 
-#: front/releasevalidation.form.php:50 front/shareaccess.php:135
+#: front/releasevalidation.form.php:50
 msgid "Decision recorded."
 msgstr ""
 
@@ -1417,29 +1417,6 @@ msgstr ""
 msgid "Ticket qualified as security incident no. %d."
 msgstr ""
 
-#: front/shareaccess.php:73
-#, php-format
-msgid ""
-"%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed "
-"since the previous import."
-msgstr ""
-
-#: front/shareaccess.php:84
-msgid "The file is too long: only its first lines were imported."
-msgstr ""
-
-#: front/shareaccess.php:106
-msgid "Share saved."
-msgstr ""
-
-#: front/shareaccess.php:134
-msgid "Review started: the owner can now decide for each right."
-msgstr ""
-
-#: front/shareaccess.php:136
-msgid "Review closed."
-msgstr ""
-
 #: front/soaapproval.php:95 src/MySpace.php:145
 msgid "SoA approval"
 msgstr ""
@@ -1463,17 +1440,57 @@ msgid ""
 "check the others."
 msgstr ""
 
-#: front/softwarewatch.php:69 src/Menu.php:178
+#: front/softwarewatch.php:69 src/Menu.php:176
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
 
-#: front/supplierassessment.form.php:32
-msgid "Security questionnaire saved."
+#: front/supplierevaluation.form.php:63 front/supplierevaluation.form.php:126
+msgid "Evaluation completed."
+msgstr ""
+
+#: front/supplierevaluation.form.php:64
+msgid "Evaluation reopened."
+msgstr ""
+
+#: front/supplierevaluation.form.php:120
+#, php-format
+msgid "Answers saved, %d document added."
+msgid_plural "Answers saved, %d documents added."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/supplierevaluation.form.php:123
+msgid "Answers saved."
+msgstr ""
+
+#: front/supplierquestionnairetemplate.form.php:48
+msgid "Template copied: adapt its questions."
+msgstr ""
+
+#: front/supplierquestionnairetemplate.form.php:65
+#, php-format
+msgid "Questions saved: %1$d added, %2$d changed, %3$d deleted."
+msgstr ""
+
+#: front/supplierquestionnairetemplate.form.php:70
+msgid "No change to the questions."
+msgstr ""
+
+#: front/supplierquestionnairetemplate.php:37
+msgid "Back to supplier risks"
+msgstr ""
+
+#: front/supplierquestionnairetemplate.php:43
+msgid "New questionnaire template"
 msgstr ""
 
 #: front/supplierrisk.php:50
 msgid "My supplier risks"
+msgstr ""
+
+#: front/supplierrisk.php:55 templates/tabs/supplier_questionnaire.html.twig
+msgid "Questionnaire templates"
 msgstr ""
 
 #: front/trainingquiz.form.php:38
@@ -1903,7 +1920,8 @@ msgstr ""
 #: src/EbiosStakeholder.php:51 src/IsmsFunction.php:142 src/NetworkFlow.php:91
 #: src/ProcessingActivity.php:151 src/ProcessingActivity.php:168
 #: src/ProcessingActivity.php:201 src/SecurityIncidentAction.php:64
-#: src/Training.php:85 src/Training.php:677
+#: src/SupplierQuestionnaireTemplate.php:70 src/Training.php:85
+#: src/Training.php:677
 msgid "Other"
 msgstr ""
 
@@ -2016,23 +2034,17 @@ msgstr ""
 
 #: inc/securityincident.class.php:282 src/AssetClassification.php:119
 #: src/Control.php:557 templates/asset_classification_tab.html.twig
-#: templates/share_access_detail.html.twig
-#: templates/share_access_macros.html.twig
 msgid "Confidentiality"
 msgstr ""
 
 #: inc/securityincident.class.php:283 src/AssetClassification.php:127
 #: src/Control.php:558 templates/asset_classification_tab.html.twig
-#: templates/share_access_detail.html.twig
-#: templates/share_access_macros.html.twig
 msgid "Integrity"
 msgstr ""
 
 #: inc/securityincident.class.php:284 src/AssetClassification.php:135
 #: src/Control.php:559 src/ImpactAnalysis.php:226
 #: templates/asset_classification_tab.html.twig templates/impact_tab.html.twig
-#: templates/share_access_detail.html.twig
-#: templates/share_access_macros.html.twig
 #: templates/tabs/business_process_items.html.twig
 msgid "Availability"
 msgstr ""
@@ -2267,14 +2279,14 @@ msgstr ""
 #: src/EbiosStudy.php:90 src/IsmsRequirement.php:154
 #: src/ManagementReviewAction.php:62 src/PhysicalSecurityAssessment.php:417
 #: src/RiskTreatmentAction.php:88 src/RiskTreatmentAction.php:172
-#: src/SecurityIncidentPlaybookTask.php:64 src/Waiver.php:101
-#: templates/_crisis_review.html.twig templates/control_list_header.html.twig
+#: src/SecurityIncidentPlaybookTask.php:64 src/SupplierEvaluation.php:69
+#: src/Waiver.php:101 templates/_crisis_review.html.twig
+#: templates/control_list_header.html.twig
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
 #: templates/crisis_exercises.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/soa_report.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/share_access.html.twig templates/share_access_detail.html.twig
 msgid "In progress"
 msgstr ""
 
@@ -2380,6 +2392,7 @@ msgstr ""
 #: templates/tabs/breach_exposures.html.twig
 #: templates/tabs/business_process_risks.html.twig
 #: templates/tabs/control_access_reviews.html.twig
+#: templates/tabs/supplier_questionnaire.html.twig
 msgid "Status"
 msgstr ""
 
@@ -2473,7 +2486,6 @@ msgid "This line is assigned to another reviewer."
 msgstr ""
 
 #: src/AccessReview.php:691 src/ReleaseValidation.php:353
-#: src/ShareAccess.php:1100
 msgid "Unknown decision."
 msgstr ""
 
@@ -2620,7 +2632,6 @@ msgstr ""
 
 #: src/AccountHygiene.php:46 src/PersonnelCompliance.php:254
 #: templates/ad_security_audit.html.twig templates/mfa_coverage.html.twig
-#: templates/share_access.html.twig
 msgid "Account hygiene"
 msgstr ""
 
@@ -2786,7 +2797,7 @@ msgstr ""
 #: templates/periodic_reviews.html.twig templates/recyf_register.html.twig
 #: templates/recyf_requirement_form.html.twig
 #: templates/risk_treatment_plan.html.twig
-#: templates/secure_development_page.html.twig templates/share_access.html.twig
+#: templates/secure_development_page.html.twig
 #: templates/tabs/_access_review_rows.html.twig
 msgid "Owner"
 msgstr ""
@@ -2856,8 +2867,7 @@ msgstr ""
 #: src/AdSecurityAudit.php:154 src/AssetClassification.php:94
 #: src/AssetClassification.php:185 src/ConfigurationCompliance.php:152
 #: src/ConsistencyCheck.php:132 src/Control.php:200 src/DoraRegister.php:238
-#: src/DoraRegister.php:243 src/ShareAccess.php:227
-#: src/Traits/RiskAssessmentTrait.php:122
+#: src/DoraRegister.php:243 src/Traits/RiskAssessmentTrait.php:122
 #: src/Traits/RiskAssessmentTrait.php:138
 #: src/Traits/RiskAssessmentTrait.php:309
 #: templates/park_vulnerabilities.html.twig templates/risk_heatmap.html.twig
@@ -2867,8 +2877,7 @@ msgstr ""
 #: src/AdSecurityAudit.php:155 src/AssetClassification.php:93
 #: src/AssetClassification.php:184 src/ConfigurationCompliance.php:153
 #: src/ConsistencyCheck.php:137 src/Control.php:199 src/DoraRegister.php:237
-#: src/DoraRegister.php:242 src/ShareAccess.php:226
-#: src/Traits/RiskAssessmentTrait.php:121
+#: src/DoraRegister.php:242 src/Traits/RiskAssessmentTrait.php:121
 #: src/Traits/RiskAssessmentTrait.php:137
 #: src/Traits/RiskAssessmentTrait.php:308 templates/risk_heatmap.html.twig
 msgid "Medium"
@@ -2877,8 +2886,7 @@ msgstr ""
 #: src/AdSecurityAudit.php:156 src/AssetClassification.php:92
 #: src/AssetClassification.php:183 src/ConfigurationCompliance.php:154
 #: src/ConsistencyCheck.php:142 src/Control.php:198 src/DoraRegister.php:236
-#: src/DoraRegister.php:241 src/ShareAccess.php:225
-#: src/Traits/RiskAssessmentTrait.php:120
+#: src/DoraRegister.php:241 src/Traits/RiskAssessmentTrait.php:120
 #: src/Traits/RiskAssessmentTrait.php:136
 #: src/Traits/RiskAssessmentTrait.php:307 templates/risk_heatmap.html.twig
 msgid "Low"
@@ -2922,7 +2930,6 @@ msgid "You do not have the right to import a report."
 msgstr ""
 
 #: src/AdSecurityAudit.php:178 src/LogCoverage.php:211 src/MfaCoverage.php:192
-#: src/ShareAccess.php:248
 msgid "The file could not be read."
 msgstr ""
 
@@ -3020,17 +3027,20 @@ msgid "Dependency analysis"
 msgstr ""
 
 #: src/ApplicationSecurity.php:110 src/DoraRegister.php:234
-#: src/DoraRegister.php:278 src/SupplierAssessment.php:90
+#: src/DoraRegister.php:278 src/SupplierAssessment.php:91
+#: src/SupplierQuestionnaireQuestion.php:157
 #: templates/application_security_tab.html.twig
 #: templates/dora/register.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/training_session_report.html.twig
 #: templates/secure_development_page.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Yes"
 msgstr ""
 
 #: src/ApplicationSecurity.php:111 src/DoraRegister.php:234
-#: src/DoraRegister.php:279 src/SupplierAssessment.php:92
+#: src/DoraRegister.php:279 src/SupplierAssessment.php:93
+#: src/SupplierQuestionnaireQuestion.php:158
 #: templates/application_security_tab.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/training_session_report.html.twig
@@ -3088,8 +3098,6 @@ msgstr ""
 
 #: src/AssetClassification.php:189 src/Risk.php:836
 #: templates/asset_classification_tab.html.twig
-#: templates/share_access_detail.html.twig
-#: templates/share_access_macros.html.twig
 msgid "Not classified"
 msgstr ""
 
@@ -3138,8 +3146,8 @@ msgctxt "masculine"
 msgid "Planned"
 msgstr ""
 
-#: src/Audit.php:99 src/Audit.php:429 templates/crisis_room.html.twig
-#: templates/crisis_tab.html.twig
+#: src/Audit.php:99 src/Audit.php:429 src/SupplierEvaluation.php:74
+#: templates/crisis_room.html.twig templates/crisis_tab.html.twig
 msgid "Completed"
 msgstr ""
 
@@ -3589,7 +3597,6 @@ msgstr ""
 #: templates/configuration_compliance.html.twig templates/control_csv.html.twig
 #: templates/edr_import.html.twig templates/log_coverage.html.twig
 #: templates/mfa_coverage.html.twig templates/phishing_import.html.twig
-#: templates/share_access.html.twig
 msgid "Import"
 msgstr ""
 
@@ -3647,8 +3654,7 @@ msgid "Real user (impersonation)"
 msgstr ""
 
 #: src/AuditLog.php:234 src/NotificationTargetPersonnelCompliance.php:95
-#: src/PersonnelCompliance.php:747 src/ShareAccess.php:150
-#: templates/account_hygiene.html.twig
+#: src/PersonnelCompliance.php:747 templates/account_hygiene.html.twig
 #: templates/account_hygiene_ticket.html.twig templates/audit_log.html.twig
 #: templates/document_accesses_tab.html.twig
 #: templates/personnel_compliance_list.html.twig
@@ -5190,6 +5196,7 @@ msgstr ""
 #: templates/pdf/evidence_pack_index.html.twig
 #: templates/pdf/physical_security_report.html.twig
 #: templates/physical_security_checklist_tab.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Evidence"
 msgstr ""
 
@@ -6102,8 +6109,7 @@ msgid "Due on %s"
 msgstr ""
 
 #: src/ConsistencyCheck.php:741 src/ConsistencyCheck.php:782
-#: src/NetworkFlow.php:114 src/ShareAccess.php:208
-#: templates/_crisis_review.html.twig
+#: src/NetworkFlow.php:114 templates/_crisis_review.html.twig
 msgid "No owner"
 msgstr ""
 
@@ -6380,7 +6386,6 @@ msgstr ""
 #: templates/pdf/context_report.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/policy_approval_record.html.twig
-#: templates/share_access_detail.html.twig
 msgid "Decision"
 msgstr ""
 
@@ -7435,7 +7440,7 @@ msgstr ""
 #: src/ControlTest.php:1101 templates/pdf/context_report.html.twig
 #: templates/pdf/control_test_record.html.twig
 #: templates/pdf/management_review_dossier.html.twig
-#: templates/periodic_reviews.html.twig templates/share_access.html.twig
+#: templates/periodic_reviews.html.twig
 msgid "Review"
 msgstr ""
 
@@ -7972,7 +7977,7 @@ msgstr ""
 msgid "Time of the next communication (to be completed)"
 msgstr ""
 
-#: src/CrisisMessageTemplate.php:157
+#: src/CrisisMessageTemplate.php:157 src/SupplierQuestionnaireTemplate.php:160
 msgid "The template name is required."
 msgstr ""
 
@@ -9405,7 +9410,7 @@ msgid_plural "Stakeholders"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/EbiosStakeholder.php:47
+#: src/EbiosStakeholder.php:47 templates/supplier_evaluation_form.html.twig
 msgid "Supplier"
 msgstr ""
 
@@ -10070,6 +10075,16 @@ msgstr ""
 msgid "%1$s lost profile %2$s (entity %3$s)"
 msgstr ""
 
+#: src/Install/SupplierQuestionnaireTables.php:321
+msgid "Historical questionnaire"
+msgstr ""
+
+#: src/Install/SupplierQuestionnaireTables.php:327
+msgid ""
+"The twelve questions of the former security questionnaire, kept with the "
+"answers already given."
+msgstr ""
+
 #: src/IsmsFunction.php:60
 msgid "ISMS function"
 msgid_plural "ISMS functions"
@@ -10349,11 +10364,11 @@ msgstr ""
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/risk_indicator_values.html.twig
-#: templates/share_access_detail.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/business_process_risks.html.twig
 #: templates/tabs/mitre_attack.html.twig
 #: templates/tabs/risk_business_processes.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Comment"
 msgstr ""
 
@@ -11388,7 +11403,6 @@ msgstr ""
 #: templates/pdf/competence_report.html.twig
 #: templates/pdf/network_flow_report.html.twig
 #: templates/personnel_compliance_list.html.twig
-#: templates/share_access.html.twig templates/share_access_detail.html.twig
 msgid "Gaps"
 msgstr ""
 
@@ -11401,6 +11415,8 @@ msgstr ""
 #: templates/pdf/physical_security_report.html.twig
 #: templates/physical_security_assessment_form.html.twig
 #: templates/physical_security_site_tab.html.twig
+#: templates/supplier_evaluation_form.html.twig
+#: templates/tabs/supplier_questionnaire.html.twig
 msgid "Assessor"
 msgstr ""
 
@@ -12387,8 +12403,9 @@ msgstr ""
 
 #: src/PageHelp.php:326
 msgid ""
-"Create one risk per important supplier, have the security questionnaire "
-"filled in, follow its contracts and the \"Security watch\" tab."
+"Create one risk per important supplier, evaluate it with one or more "
+"questionnaires (Questionnaires tab), follow its contracts and the \"Security "
+"watch\" tab."
 msgstr ""
 
 #: src/PageHelp.php:330
@@ -12594,35 +12611,13 @@ msgstr ""
 
 #: src/PageHelp.php:495
 msgid ""
-"Shows who can access the Windows file shares: share and NTFS permissions "
-"imported from each file server, accounts matched with the GLPI users and "
-"groups, and the gaps an auditor looks for (everyone can modify, rights given "
-"to a person, deleted or disabled accounts, broken inheritance, share without "
-"an owner)."
-msgstr ""
-
-#: src/PageHelp.php:502
-msgid ""
-"Run the PowerShell script provided on each file server (it only reads), "
-"import the CSV file, classify the sensitive shares and designate an owner "
-"for each one. The owner then reviews the rights of the share; the "
-"administrator applies the changes on the server and the next import shows "
-"the rights added and removed."
-msgstr ""
-
-#: src/PageHelp.php:508
-msgid "ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3"
-msgstr ""
-
-#: src/PageHelp.php:513
-msgid ""
 "Measures how well the configuration of the computers follows a hardening "
 "guide (CIS, ANSSI, DISA STIG...), from the results files of the OpenSCAP "
 "scanner: rate of rules passed per computer, change since the previous scan, "
 "most frequent failed rules and history."
 msgstr ""
 
-#: src/PageHelp.php:519
+#: src/PageHelp.php:501
 msgid ""
 "Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), "
 "match the results that are not matched to a computer, then fix the failed "
@@ -12631,11 +12626,11 @@ msgid ""
 "changed on the machines."
 msgstr ""
 
-#: src/PageHelp.php:525
+#: src/PageHelp.php:507
 msgid "ISO/IEC 27001, control A.8.9"
 msgstr ""
 
-#: src/PageHelp.php:530
+#: src/PageHelp.php:512
 msgid ""
 "Shows which important assets send their logs to a log platform (Wazuh, "
 "Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
@@ -12643,7 +12638,7 @@ msgid ""
 "enough and synchronizes the clocks."
 msgstr ""
 
-#: src/PageHelp.php:536
+#: src/PageHelp.php:518
 msgid ""
 "Choose the assets that must send their logs, import the list of hosts of "
 "each log platform (or let the Wazuh plugin be read), connect the assets "
@@ -12652,18 +12647,18 @@ msgid ""
 "result as an effectiveness test of the control to keep the evidence."
 msgstr ""
 
-#: src/PageHelp.php:543
+#: src/PageHelp.php:525
 msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
 msgstr ""
 
-#: src/PageHelp.php:547
+#: src/PageHelp.php:529
 msgid ""
 "The context of the organization: the internal and external issues that "
 "affect information security, and the interested parties with their "
 "expectations and what the ISMS retains."
 msgstr ""
 
-#: src/PageHelp.php:552
+#: src/PageHelp.php:534
 msgid ""
 "List the issues and the interested parties, decide for each one whether the "
 "ISMS retains it, link the related risks, obligations and controls, answer "
@@ -12671,18 +12666,18 @@ msgid ""
 "the export of the list for the auditor."
 msgstr ""
 
-#: src/PageHelp.php:557
+#: src/PageHelp.php:539
 msgid "ISO/IEC 27001, clauses 4.1 and 4.2"
 msgstr ""
 
-#: src/PageHelp.php:562
+#: src/PageHelp.php:544
 msgid ""
 "Shows, for each site (a location of GLPI), the last physical security "
 "assessment: the state of each control A.7.1 to A.7.14 side by side, the "
 "score, and when the site must be assessed again (at least once a year)."
 msgstr ""
 
-#: src/PageHelp.php:568
+#: src/PageHelp.php:550
 msgid ""
 "Assess each site: walk through it, record the state, the finding and the "
 "evidence (photos, reports) of each control, and list its zones with their "
@@ -12691,18 +12686,18 @@ msgid ""
 "shown."
 msgstr ""
 
-#: src/PageHelp.php:574
+#: src/PageHelp.php:556
 msgid "ISO/IEC 27001, controls A.7.1 to A.7.14"
 msgstr ""
 
-#: src/PageHelp.php:579
+#: src/PageHelp.php:561
 msgid ""
 "Shows whether each main IT operations activity (backup, restore, monitoring, "
 "updates...) has a documented procedure that is approved and reviewed on "
 "time, with its version, its owner and who has acknowledged it."
 msgstr ""
 
-#: src/PageHelp.php:585
+#: src/PageHelp.php:567
 msgid ""
 "For each domain without an up-to-date procedure, add one or update it: "
 "attach the document, have it approved, set its next review date, then launch "
@@ -12710,11 +12705,11 @@ msgid ""
 "Archive the register on control A.5.37 before an audit."
 msgstr ""
 
-#: src/PageHelp.php:591
+#: src/PageHelp.php:573
 msgid "ISO/IEC 27001, control A.5.37"
 msgstr ""
 
-#: src/PageHelp.php:596
+#: src/PageHelp.php:578
 msgid ""
 "The applications developed or maintained in-house, with their secure "
 "development practices (framework, code review, SAST, DAST and dependency "
@@ -12723,7 +12718,7 @@ msgid ""
 "with their security validation."
 msgstr ""
 
-#: src/PageHelp.php:603
+#: src/PageHelp.php:585
 msgid ""
 "Fill in the \"Secure development\" tab of each application, link the changes "
 "to their application, then have each release approved by the CIO or the CISO "
@@ -12731,11 +12726,11 @@ msgid ""
 "into production."
 msgstr ""
 
-#: src/PageHelp.php:608
+#: src/PageHelp.php:590
 msgid "ISO/IEC 27001, controls A.8.25 to A.8.31"
 msgstr ""
 
-#: src/PageHelp.php:613
+#: src/PageHelp.php:595
 msgid ""
 "Who to contact outside the organization when something happens: authorities "
 "(data protection authority, national CSIRT, police), regulators, insurers "
@@ -12743,7 +12738,7 @@ msgid ""
 "time limit and who is allowed to call them."
 msgstr ""
 
-#: src/PageHelp.php:619
+#: src/PageHelp.php:601
 msgid ""
 "Record each official contact, tick the events (and, if needed, the types of "
 "incident) for which it must be informed, verify the details at least once a "
@@ -12751,36 +12746,36 @@ msgid ""
 "archive it on controls A.5.5 and A.5.6 after each review."
 msgstr ""
 
-#: src/PageHelp.php:625
+#: src/PageHelp.php:607
 msgid "ISO/IEC 27001, controls A.5.5 and A.5.6"
 msgstr ""
 
-#: src/PageHelp.php:629
+#: src/PageHelp.php:611
 msgid ""
 "Who performs, approves, is consulted on or is informed of each activity of "
 "the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
 "approvers are reported here."
 msgstr ""
 
-#: src/PageHelp.php:634
+#: src/PageHelp.php:616
 msgid ""
 "For each activity, add who performs it and a single approver, mark the "
 "sensitive activities, fix the alerts, then archive the matrix as evidence "
 "before the audit."
 msgstr ""
 
-#: src/PageHelp.php:638
+#: src/PageHelp.php:620
 msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
 msgstr ""
 
-#: src/PageHelp.php:643
+#: src/PageHelp.php:625
 msgid ""
 "The competences each ISMS function needs (CISO, DPO, administrator...), who "
 "holds each function, what each person has acquired through passed trainings "
 "or declared evidence, and the gaps."
 msgstr ""
 
-#: src/PageHelp.php:648
+#: src/PageHelp.php:630
 msgid ""
 "Add the functions and their required competences with the expected level, "
 "say who holds them, link the trainings that give each competence, declare "
@@ -12788,41 +12783,41 @@ msgid ""
 "file as evidence before the audit."
 msgstr ""
 
-#: src/PageHelp.php:653 src/PageHelp.php:665 src/PageHelp.php:678
+#: src/PageHelp.php:635 src/PageHelp.php:647 src/PageHelp.php:660
 msgid "ISO/IEC 27001, clause 7.2"
 msgstr ""
 
-#: src/PageHelp.php:657
+#: src/PageHelp.php:639
 msgid ""
 "The catalogue of the information security competences of the organization, "
 "and the trainings that give each one once passed."
 msgstr ""
 
-#: src/PageHelp.php:662
+#: src/PageHelp.php:644
 msgid ""
 "Describe each competence and link the trainings that give it, with the level "
 "reached."
 msgstr ""
 
-#: src/PageHelp.php:669
+#: src/PageHelp.php:651
 msgid ""
 "The competences acquired outside the trainings of the plugin, each one with "
 "its evidence: certificate, diploma, annual review or proven experience."
 msgstr ""
 
-#: src/PageHelp.php:674
+#: src/PageHelp.php:656
 msgid ""
 "Record the reference of the evidence, its date and its end of validity, and "
 "attach the file in the Documents tab."
 msgstr ""
 
-#: src/PageHelp.php:682
+#: src/PageHelp.php:664
 msgid ""
 "The register of personal data breaches: every breach is documented, whether "
 "or not it was notified, with its facts, effects and the measures taken."
 msgstr ""
 
-#: src/PageHelp.php:687
+#: src/PageHelp.php:669
 msgid ""
 "Record each breach as soon as it is known (from the security incident when "
 "there is one), decide within 72 h whether to notify the supervisory "
@@ -12830,82 +12825,82 @@ msgid ""
 "then export the register when the authority asks for it."
 msgstr ""
 
-#: src/PageHelp.php:693
+#: src/PageHelp.php:675
 msgid "GDPR, articles 33 and 34"
 msgstr ""
 
-#: src/PageHelp.php:697
+#: src/PageHelp.php:679
 msgid ""
 "The internal audit programme: scope, dates, auditors, report and findings."
 msgstr ""
 
-#: src/PageHelp.php:701
+#: src/PageHelp.php:683
 msgid ""
 "Plan the year's audits, enter the report and the findings; each "
 "nonconformity opens an action plan."
 msgstr ""
 
-#: src/PageHelp.php:705
+#: src/PageHelp.php:687
 msgid "ISO 27001, 9.2"
 msgstr ""
 
-#: src/PageHelp.php:710
+#: src/PageHelp.php:692
 msgid ""
 "The internal audit programme over the certification cycle: which ISMS "
 "process is audited which year, and which one is not covered yet."
 msgstr ""
 
-#: src/PageHelp.php:715
+#: src/PageHelp.php:697
 msgid ""
 "Make sure every process is audited at least once over the cycle: plan an "
 "audit for each process in red or orange, and choose its processes in the "
 "\"Programme and independence\" tab of the audit."
 msgstr ""
 
-#: src/PageHelp.php:720
+#: src/PageHelp.php:702
 msgid "ISO 27001, 9.2.2; ISO 19011, 5"
 msgstr ""
 
-#: src/PageHelp.php:724
+#: src/PageHelp.php:706
 msgid ""
 "Nonconformities and observations, with their corrective and preventive "
 "actions (CAPA)."
 msgstr ""
 
-#: src/PageHelp.php:728
+#: src/PageHelp.php:710
 msgid ""
 "Analyse the cause, describe the corrective action, assign an owner and a due "
 "date, then check its effectiveness before closing."
 msgstr ""
 
-#: src/PageHelp.php:732
+#: src/PageHelp.php:714
 msgid "ISO 27001, 10.2"
 msgstr ""
 
-#: src/PageHelp.php:736
+#: src/PageHelp.php:718
 msgid ""
 "Security training and awareness sessions, with their participants and "
 "results."
 msgstr ""
 
-#: src/PageHelp.php:740
+#: src/PageHelp.php:722
 msgid ""
 "Record each session, its participants and its renewal date; a reminder is "
 "sent when it is due."
 msgstr ""
 
-#: src/PageHelp.php:743
+#: src/PageHelp.php:725
 msgid "ISO 27001, 7.2 and 7.3"
 msgstr ""
 
-#: src/PageHelp.php:748
+#: src/PageHelp.php:730
 msgid ""
 "Phishing simulations: the fake phishing campaigns sent with an external tool "
 "(GoPhish, a provider...), their results and the trend from one campaign to "
 "the next. The plugin never sends any email."
 msgstr ""
 
-#: src/PageHelp.php:754
+#: src/PageHelp.php:736
 msgid ""
 "Record each campaign (date, tool, scenario, targeted population), then "
 "import the results file of the tool in the Results tab. Offer a remedial "
@@ -12915,82 +12910,82 @@ msgid ""
 "rates by group and by entity stay anonymous."
 msgstr ""
 
-#: src/PageHelp.php:761 src/PageHelp.php:774
+#: src/PageHelp.php:743 src/PageHelp.php:756
 msgid "ISO/IEC 27001, clause 7.3 and control A.6.3"
 msgstr ""
 
-#: src/PageHelp.php:765
+#: src/PageHelp.php:747
 msgid ""
 "Import of the results of a phishing simulation: each line of the file is "
 "matched with a GLPI user by email address or login."
 msgstr ""
 
-#: src/PageHelp.php:770
+#: src/PageHelp.php:752
 msgid ""
 "Check the column of each field, then import. The lines not matched are "
 "listed on the campaign so that you can correct them."
 msgstr ""
 
-#: src/PageHelp.php:778
+#: src/PageHelp.php:760
 msgid ""
 "Management reviews: the periodic review of the information security "
 "management system by top management."
 msgstr ""
 
-#: src/PageHelp.php:783
+#: src/PageHelp.php:765
 msgid ""
 "At least once a year, prepare the review (indicators, audits, incidents, "
 "risks), record the decisions and the resulting actions."
 msgstr ""
 
-#: src/PageHelp.php:787
+#: src/PageHelp.php:769
 msgid "ISO 27001, 9.3"
 msgstr ""
 
-#: src/PageHelp.php:790
+#: src/PageHelp.php:772
 msgid "Security objectives and their indicators measured over time."
 msgstr ""
 
-#: src/PageHelp.php:792
+#: src/PageHelp.php:774
 msgid ""
 "Define measurable objectives, enter the measurements each period and track "
 "progress towards the target."
 msgstr ""
 
-#: src/PageHelp.php:796
+#: src/PageHelp.php:778
 msgid "ISO 27001, 6.2 and 9.1"
 msgstr ""
 
-#: src/PageHelp.php:800
+#: src/PageHelp.php:782
 msgid ""
 "Access rights review campaigns: each manager confirms or removes the rights "
 "of their team."
 msgstr ""
 
-#: src/PageHelp.php:804
+#: src/PageHelp.php:786
 msgid ""
 "Start a campaign; managers decide line by line, helped by a suggestion "
 "(keep, remove or examine) and its reason. Removing a right opens a ticket, "
 "it is never applied automatically."
 msgstr ""
 
-#: src/PageHelp.php:809
+#: src/PageHelp.php:791
 msgid "ISO 27001, Annex A 5.18"
 msgstr ""
 
-#: src/PageHelp.php:813
+#: src/PageHelp.php:795
 msgid ""
 "Accounts to check: inactive accounts, accounts missing from the directory, "
 "duplicates or never used."
 msgstr ""
 
-#: src/PageHelp.php:818
+#: src/PageHelp.php:800
 msgid ""
 "Review the list and open a ticket for each account to disable; nothing is "
 "disabled automatically."
 msgstr ""
 
-#: src/PageHelp.php:826
+#: src/PageHelp.php:808
 msgid ""
 "Shows which active accounts are protected by multi-factor authentication: "
 "GLPI two-factor authentication, and the methods registered with your "
@@ -12999,7 +12994,7 @@ msgid ""
 "administrators and remote access accounts."
 msgstr ""
 
-#: src/PageHelp.php:833
+#: src/PageHelp.php:815
 msgid ""
 "Import the export of your identity provider, choose the remote access "
 "groups, then follow up the gaps: administrator or remote access without MFA, "
@@ -13008,120 +13003,120 @@ msgid ""
 "keep the evidence."
 msgstr ""
 
-#: src/PageHelp.php:839
+#: src/PageHelp.php:821
 msgid "ISO/IEC 27001, controls A.8.5 and A.5.17"
 msgstr ""
 
-#: src/PageHelp.php:843
+#: src/PageHelp.php:825
 msgid ""
 "Security compliance of each person: screening, confidentiality agreement, "
 "mandatory trainings, IT charter, security policies read, access review and "
 "account hygiene."
 msgstr ""
 
-#: src/PageHelp.php:848
+#: src/PageHelp.php:830
 msgid ""
 "Follow up the gaps with the person and their manager; nothing is changed "
 "automatically. The deadline for newcomers and the weight of each component "
 "are set in the plugin configuration."
 msgstr ""
 
-#: src/PageHelp.php:853
+#: src/PageHelp.php:835
 msgid "ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18"
 msgstr ""
 
-#: src/PageHelp.php:857
+#: src/PageHelp.php:839
 msgid ""
 "Periodic reviews (backups, logs, rights, continuity plan...) scheduled as "
 "recurring tickets."
 msgstr ""
 
-#: src/PageHelp.php:861
+#: src/PageHelp.php:843
 msgid ""
 "Enable the useful reviews and their frequency; a ticket is created at each "
 "due date for the person in charge."
 msgstr ""
 
-#: src/PageHelp.php:868
+#: src/PageHelp.php:850
 msgid ""
 "The matrix of authorised network flows: who talks to whom, on which port, "
 "and why."
 msgstr ""
 
-#: src/PageHelp.php:872
+#: src/PageHelp.php:854
 msgid ""
 "Describe each flow with its justification and owner, or import your firewall "
 "export, then review the matrix regularly."
 msgstr ""
 
-#: src/PageHelp.php:876
+#: src/PageHelp.php:858
 msgid "ISO 27001, Annex A 8.20 to 8.22"
 msgstr ""
 
-#: src/PageHelp.php:880
+#: src/PageHelp.php:862
 msgid ""
 "Work email addresses found in known data breaches (Have I Been Pwned), "
 "checked every day."
 msgstr ""
 
-#: src/PageHelp.php:884
+#: src/PageHelp.php:866
 msgid ""
 "For each new exposure, have the password changed (and enable multi-factor "
 "authentication) if passwords were exposed, then mark it as handled."
 msgstr ""
 
-#: src/PageHelp.php:888
+#: src/PageHelp.php:870
 msgid "ISO 27001, Annex A 5.7 and 5.17"
 msgstr ""
 
-#: src/PageHelp.php:892
+#: src/PageHelp.php:874
 msgid ""
 "The compliance calendar: all due dates (reviews, audits, renewals, "
 "obligations) in one place, also visible in the GLPI planning."
 msgstr ""
 
-#: src/PageHelp.php:897
+#: src/PageHelp.php:879
 msgid ""
 "Check it to anticipate due dates; subscribe your calendar with the iCal link."
 msgstr ""
 
-#: src/PageHelp.php:903
+#: src/PageHelp.php:885
 msgid ""
 "One-off compliance events to add to the calendar (regulator inspection, "
 "crisis exercise, contractual deadline...)."
 msgstr ""
 
-#: src/PageHelp.php:908
+#: src/PageHelp.php:890
 msgid ""
 "Add the event with its date and owner; it appears in the compliance calendar."
 msgstr ""
 
-#: src/PageHelp.php:914
+#: src/PageHelp.php:896
 msgid ""
 "The library of security policies, versioned, with their approval and review "
 "date."
 msgstr ""
 
-#: src/PageHelp.php:918
+#: src/PageHelp.php:900
 msgid ""
 "Upload each policy, have it approved, distribute it and review it when due."
 msgstr ""
 
-#: src/PageHelp.php:921
+#: src/PageHelp.php:903
 msgid "ISO 27001, 5.2; Annex A 5.1"
 msgstr ""
 
-#: src/PageHelp.php:925
+#: src/PageHelp.php:907
 msgid "Dated evidence (reports, attestations, certificates) and its validity."
 msgstr ""
 
-#: src/PageHelp.php:929
+#: src/PageHelp.php:911
 msgid ""
 "State how long each piece of evidence is valid; a renewal ticket is opened "
 "when it expires."
 msgstr ""
 
-#: src/PageHelp.php:936
+#: src/PageHelp.php:918
 msgid ""
 "Prepare the evidence pack the auditor asks for: one ZIP archive per "
 "perimeter, with the evidence of each control and each requirement, the "
@@ -13129,7 +13124,7 @@ msgid ""
 "SHA-256 fingerprint."
 msgstr ""
 
-#: src/PageHelp.php:942
+#: src/PageHelp.php:924
 msgid ""
 "Choose the perimeter and check its contents: renew expired evidence and "
 "attach what is missing first. Then generate the pack and download it from "
@@ -13137,62 +13132,62 @@ msgid ""
 "the index, not included. Nothing is changed in the registers."
 msgstr ""
 
-#: src/PageHelp.php:949
+#: src/PageHelp.php:931
 msgid ""
 "ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
 "(internal audit)"
 msgstr ""
 
-#: src/PageHelp.php:955
+#: src/PageHelp.php:937
 msgid ""
 "The effectiveness tests of the Annex A controls: a control in place is "
 "checked to really work, with its method, result and evidence."
 msgstr ""
 
-#: src/PageHelp.php:960
+#: src/PageHelp.php:942
 msgid ""
 "Set a test plan on each control, record each test from the control's "
 "\"Effectiveness tests\" tab and carry out the tests that are due first. An "
 "ineffective control opens a non-conformity."
 msgstr ""
 
-#: src/PageHelp.php:965
+#: src/PageHelp.php:947
 msgid "ISO 27001, 9.1; ISO 27002, 5.35 and 5.36"
 msgstr ""
 
-#: src/PageHelp.php:969
+#: src/PageHelp.php:951
 msgid ""
 "The audit log of the security incidents: who consulted or changed what, "
 "when, with which profile and from which address, including impersonations."
 msgstr ""
 
-#: src/PageHelp.php:974
+#: src/PageHelp.php:956
 msgid ""
 "Filter the entries, export them for an audit or a court, and check the "
 "integrity regularly: each entry is sealed with the previous one."
 msgstr ""
 
-#: src/PageHelp.php:981
+#: src/PageHelp.php:963
 msgid ""
 "Import of a CSV export of the alerts from an EDR or XDR console: each alert "
 "becomes an incident with its indicators, MITRE ATT&CK techniques, hosts and "
 "accounts."
 msgstr ""
 
-#: src/PageHelp.php:986
+#: src/PageHelp.php:968
 msgid ""
 "Check the columns proposed, choose how to group the alerts, then import. An "
 "alert already imported is ignored; the original lines are kept unchanged on "
 "the incident."
 msgstr ""
 
-#: src/PageHelp.php:993
+#: src/PageHelp.php:975
 msgid ""
 "EBIOS Risk Manager studies: the risk assessment method of ANSSI, the French "
 "national cybersecurity agency, published under an open licence."
 msgstr ""
 
-#: src/PageHelp.php:998
+#: src/PageHelp.php:980
 msgid ""
 "Create one study per scope, then work through its workshops in order: "
 "business values and feared events, risk sources, stakeholders and strategic "
@@ -13200,20 +13195,20 @@ msgid ""
 "register."
 msgstr ""
 
-#: src/PageHelp.php:1006
+#: src/PageHelp.php:988
 msgid ""
 "Remediation playbooks: the standard steps to follow for each type of "
 "incident (ransomware, phishing, compromised account...)."
 msgstr ""
 
-#: src/PageHelp.php:1011
+#: src/PageHelp.php:993
 msgid ""
 "Adapt the five playbooks provided to your context; from an incident, apply "
 "one to get its plan of tasks. Mandatory steps must be done or marked not "
 "applicable before closing."
 msgstr ""
 
-#: src/PageHelp.php:1019
+#: src/PageHelp.php:1001
 msgid ""
 "Information security crisis scenarios of the continuity plan: ransomware, "
 "data leak, compromise of privileged accounts, unavailability of a critical "
@@ -13222,7 +13217,7 @@ msgid ""
 "follow."
 msgstr ""
 
-#: src/PageHelp.php:1026
+#: src/PageHelp.php:1008
 msgid ""
 "Add the default scenarios, then adapt each one: choose the impacted "
 "processes, check the secure degraded mode and the roles, link the response "
@@ -13230,18 +13225,18 @@ msgid ""
 "should be exercised at least once a year."
 msgstr ""
 
-#: src/PageHelp.php:1031
+#: src/PageHelp.php:1013
 msgid "ISO/IEC 27001, control A.5.29"
 msgstr ""
 
-#: src/PageHelp.php:1036
+#: src/PageHelp.php:1018
 msgid ""
 "Crisis message templates: the messages prepared in advance for each kind of "
 "crisis (major incident, personal data breach, unavailability, ransomware), "
 "with the people and organizations to inform for each one."
 msgstr ""
 
-#: src/PageHelp.php:1042
+#: src/PageHelp.php:1024
 msgid ""
 "Adapt the templates provided and fill in the distribution list of each one "
 "(users, groups and official contacts). During a crisis, open the Crisis "
@@ -13250,59 +13245,80 @@ msgid ""
 "email."
 msgstr ""
 
-#: src/PageHelp.php:1048
+#: src/PageHelp.php:1030
 msgid "ISO/IEC 27001, control A.5.26 and clause 7.4"
 msgstr ""
 
-#: src/PageHelp.php:1053
+#: src/PageHelp.php:1035
+msgid ""
+"Supplier questionnaire templates: the questions asked to your suppliers, "
+"grouped by section, with their weight, the expected answer and the evidence "
+"to provide. One template per need: information security, personal data, "
+"artificial intelligence..."
+msgstr ""
+
+#: src/PageHelp.php:1041
+msgid ""
+"Adapt the historical questionnaire or create your own templates, then start "
+"an evaluation from the Questionnaires tab of a supplier risk. A supplier can "
+"be evaluated with several templates; each evaluation keeps its score and its "
+"history."
+msgstr ""
+
+#: src/PageHelp.php:1047
+msgid ""
+"ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
+msgstr ""
+
+#: src/PageHelp.php:1054
 msgid ""
 "Custom frameworks: follow a framework that is not built in (group "
 "requirements, sector or contractual framework, customer security plan) by "
 "importing it from a spreadsheet."
 msgstr ""
 
-#: src/PageHelp.php:1058
+#: src/PageHelp.php:1059
 msgid ""
 "Download the template, fill in one line per requirement with the Annex A "
 "controls that meet it, import it, then enable the framework. A new version "
 "of the file updates it without losing the statuses already entered."
 msgstr ""
 
-#: src/PageHelp.php:1066
+#: src/PageHelp.php:1067
 msgid ""
 "Coverage rules: which assets must have which document (for example, every "
 "server must have its operations sheet)."
 msgstr ""
 
-#: src/PageHelp.php:1071
+#: src/PageHelp.php:1072
 msgid ""
 "Create one rule per requirement; the result lists the covered assets and "
 "those to complete."
 msgstr ""
 
-#: src/PageHelp.php:1077
+#: src/PageHelp.php:1078
 msgid ""
 "Security exemptions: accepted exceptions to a policy or a control, limited "
 "in time and compensated."
 msgstr ""
 
-#: src/PageHelp.php:1082
+#: src/PageHelp.php:1083
 msgid ""
 "Justify each exemption, describe the compensating measures, have it approved "
 "and set its end date; it is reassessed when due."
 msgstr ""
 
-#: src/PageHelp.php:1086
+#: src/PageHelp.php:1087
 msgid "ISO 27001, 6.1.3; Annex A 5.36"
 msgstr ""
 
-#: src/PageHelp.php:1090
+#: src/PageHelp.php:1091
 msgid ""
 "Business processes: who owns them, how critical they are, how long they can "
 "be interrupted and which GLPI items they depend on."
 msgstr ""
 
-#: src/PageHelp.php:1095
+#: src/PageHelp.php:1096
 msgid ""
 "For each process, rate the impact of an interruption over time (business "
 "impact analysis), set its MTPD, RTO and RPO, and link the applications, "
@@ -13310,17 +13326,17 @@ msgid ""
 "Export the result for your continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:1100
+#: src/PageHelp.php:1101
 msgid "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
 msgstr ""
 
-#: src/PageHelp.php:1105
+#: src/PageHelp.php:1106
 msgid ""
 "Recovery test programme: when each business process was last tested, whether "
 "the test met its RTO and RPO, and which processes are not tested in time."
 msgstr ""
 
-#: src/PageHelp.php:1110
+#: src/PageHelp.php:1111
 msgid ""
 "Plan a test for each process reported as overdue or not tested this year, "
 "then record the measured recovery time and data loss in its \"Recovery "
@@ -13328,111 +13344,111 @@ msgid ""
 "continuity is tested regularly."
 msgstr ""
 
-#: src/PageHelp.php:1115
+#: src/PageHelp.php:1116
 msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
 msgstr ""
 
-#: src/PageHelp.php:1119
+#: src/PageHelp.php:1120
 msgid ""
 "Single points of failure: critical items that depend on a single source, "
 "according to GLPI's impact analysis."
 msgstr ""
 
-#: src/PageHelp.php:1124
+#: src/PageHelp.php:1125
 msgid ""
 "Create the matching risk or add redundancy; export the list for your "
 "business continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:1127
+#: src/PageHelp.php:1128
 msgid "ISO 27001, Annex A 5.29, 5.30 and 8.14"
 msgstr ""
 
-#: src/PageHelp.php:1130
+#: src/PageHelp.php:1131
 msgid "The domino effect: how one incident or risk can lead to others."
 msgstr ""
 
-#: src/PageHelp.php:1132
+#: src/PageHelp.php:1133
 msgid ""
 "Link items from the \"Domino effect\" tab of a risk or an incident; this "
 "page shows the whole picture."
 msgstr ""
 
-#: src/PageHelp.php:1139
+#: src/PageHelp.php:1140
 msgid ""
 "Security incidents: qualification, affected assets, CVEs, costs, regulatory "
 "notifications (data protection authority, NIS2)."
 msgstr ""
 
-#: src/PageHelp.php:1144
+#: src/PageHelp.php:1145
 msgid ""
 "Declare the incident, qualify it, follow up the actions and meet the "
 "notification deadlines shown on the record."
 msgstr ""
 
-#: src/PageHelp.php:1148
+#: src/PageHelp.php:1149
 msgid "ISO 27001, Annex A 5.24 to 5.28"
 msgstr ""
 
-#: src/PageHelp.php:1152
+#: src/PageHelp.php:1153
 msgid ""
 "Known vulnerabilities (CVEs) of the software installed on your fleet, with "
 "their real-world exploitation (KEV, EPSS) and CERT-FR advisories."
 msgstr ""
 
-#: src/PageHelp.php:1157
+#: src/PageHelp.php:1158
 msgid ""
 "Handle exploited and priority vulnerabilities first; open one update ticket "
 "per software."
 msgstr ""
 
-#: src/PageHelp.php:1160 src/PageHelp.php:1184
+#: src/PageHelp.php:1161 src/PageHelp.php:1185
 msgid "ISO 27001, Annex A 8.8"
 msgstr ""
 
-#: src/PageHelp.php:1164
+#: src/PageHelp.php:1165
 msgid ""
 "Fleet software to match with a CPE reference so that its vulnerabilities are "
 "tracked."
 msgstr ""
 
-#: src/PageHelp.php:1168
+#: src/PageHelp.php:1169
 msgid ""
 "Start with the most exposed (browsers, remote access, VPN): search for the "
 "CPE, confirm it, or ignore software with no stakes."
 msgstr ""
 
-#: src/PageHelp.php:1175
+#: src/PageHelp.php:1176
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
 "software, operating system and firmware, to know where to start updating."
 msgstr ""
 
-#: src/PageHelp.php:1180
+#: src/PageHelp.php:1181
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
 "tab of each one details the CVEs and the update ticket."
 msgstr ""
 
-#: src/PageHelp.php:1188
+#: src/PageHelp.php:1189
 msgid ""
 "The correlation catalogue: reference products, their CPEs and the names "
 "under which they appear in the inventory."
 msgstr ""
 
-#: src/PageHelp.php:1193
+#: src/PageHelp.php:1194
 msgid ""
 "It is filled from \"Software to watch\"; correct an alias or a CPE here if "
 "needed."
 msgstr ""
 
-#: src/PageHelp.php:1199
+#: src/PageHelp.php:1200
 msgid ""
 "Mappings between Annex A and other frameworks, to reuse your work across "
 "several standards."
 msgstr ""
 
-#: src/PageHelp.php:1202
+#: src/PageHelp.php:1203
 msgid "Check the mappings before an audit against another framework."
 msgstr ""
 
@@ -13940,6 +13956,7 @@ msgstr ""
 #: templates/compliance_audit_ticket.html.twig
 #: templates/disk_encryption.html.twig
 #: templates/pdf/competence_report.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Gap"
 msgstr ""
 
@@ -14053,7 +14070,6 @@ msgstr ""
 
 #: src/PersonnelCompliance.php:385 templates/context_item_form.html.twig
 #: templates/pdf/_context_review_cell.html.twig templates/policy_form.html.twig
-#: templates/share_access.html.twig templates/share_access_detail.html.twig
 #: templates/tabs/crisis_message_recipients.html.twig
 msgid "Never reviewed"
 msgstr ""
@@ -14094,7 +14110,8 @@ msgstr ""
 msgid "Overall status"
 msgstr ""
 
-#: src/PersonnelCompliance.php:748 templates/ad_security_audit.html.twig
+#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:462
+#: templates/ad_security_audit.html.twig
 #: templates/framework_assessment.html.twig
 #: templates/my_trainings_tab.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
@@ -14104,12 +14121,14 @@ msgstr ""
 #: templates/personnel_compliance_tab.html.twig
 #: templates/physical_security_page.html.twig
 #: templates/physical_security_site_tab.html.twig
+#: templates/tabs/supplier_questionnaire.html.twig
 #: templates/training_form.html.twig templates/training_quiz_tab.html.twig
 msgid "Score"
 msgstr ""
 
 #: src/PersonnelCompliance.php:750 templates/_personnel_compliance.html.twig
 #: templates/config_form.html.twig templates/maturity.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Weight"
 msgstr ""
 
@@ -14451,8 +14470,7 @@ msgstr ""
 msgid "Policy acknowledgement"
 msgstr ""
 
-#: src/PolicyAcknowledgement.php:129 src/ShareAccess.php:151
-#: templates/periodic_reviews.html.twig
+#: src/PolicyAcknowledgement.php:129 templates/periodic_reviews.html.twig
 #: templates/personnel_compliance_list.html.twig
 msgid "Group"
 msgstr ""
@@ -16214,7 +16232,7 @@ msgstr ""
 msgid "Successful"
 msgstr ""
 
-#: src/SecurityIncidentAction.php:78 src/SupplierAssessment.php:91
+#: src/SecurityIncidentAction.php:78 src/SupplierAssessment.php:92
 #: templates/secure_development_page.html.twig
 msgid "Partial"
 msgstr ""
@@ -16300,10 +16318,9 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/SecurityIncidentEdrImport.php:74 src/ShareAccess.php:152
-#: templates/edr_import.html.twig templates/mfa_coverage.html.twig
+#: src/SecurityIncidentEdrImport.php:74 templates/edr_import.html.twig
+#: templates/mfa_coverage.html.twig
 #: templates/pdf/access_review_report.html.twig
-#: templates/share_access_detail.html.twig
 #: templates/tabs/_access_review_rows.html.twig
 msgid "Account"
 msgstr ""
@@ -16331,9 +16348,12 @@ msgid "IP address"
 msgstr ""
 
 #: src/SecurityIncidentEdrImport.php:83 src/SecurityIncidentIoc.php:67
+#: src/SupplierQuestionnaireTemplate.php:339
 #: templates/ad_security_audit.html.twig
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
+#: templates/supplier_questionnaire_template_form.html.twig
+#: templates/tabs/supplier_questionnaire.html.twig
 msgid "Domain"
 msgstr ""
 
@@ -17224,132 +17244,6 @@ msgstr ""
 msgid "Read only access until %s"
 msgstr ""
 
-#: src/ShareAccess.php:67 templates/control_form.html.twig
-msgid "File share access rights"
-msgstr ""
-
-#: src/ShareAccess.php:130
-msgid "Full control"
-msgstr ""
-
-#: src/ShareAccess.php:131
-msgid "Modify"
-msgstr ""
-
-#: src/ShareAccess.php:132
-msgid "Read"
-msgstr ""
-
-#: src/ShareAccess.php:134
-msgid "Special permissions"
-msgstr ""
-
-#: src/ShareAccess.php:147
-msgid "Everyone (broad group)"
-msgstr ""
-
-#: src/ShareAccess.php:148
-msgid "System account"
-msgstr ""
-
-#: src/ShareAccess.php:149
-msgid "Deleted account"
-msgstr ""
-
-#: src/ShareAccess.php:171
-msgid "Everyone can modify"
-msgstr ""
-
-#: src/ShareAccess.php:174
-msgid ""
-"Everyone, Authenticated Users, Domain Users or Guests can modify or have "
-"full control."
-msgstr ""
-
-#: src/ShareAccess.php:179
-msgid "Deleted account still has rights"
-msgstr ""
-
-#: src/ShareAccess.php:182
-msgid ""
-"The account no longer exists in the directory (unresolved SID) or is in the "
-"GLPI trash."
-msgstr ""
-
-#: src/ShareAccess.php:187
-msgid "Disabled account still has rights"
-msgstr ""
-
-#: src/ShareAccess.php:189
-msgid "The matching GLPI account is disabled: the person has probably left."
-msgstr ""
-
-#: src/ShareAccess.php:192
-msgid "Right given to a person"
-msgstr ""
-
-#: src/ShareAccess.php:195
-msgid ""
-"Rights should be given to groups, not to named people: they are easier to "
-"review."
-msgstr ""
-
-#: src/ShareAccess.php:200 templates/share_access_detail.html.twig
-msgid "Inheritance broken"
-msgstr ""
-
-#: src/ShareAccess.php:203
-msgid ""
-"A subfolder of a sensitive share does not inherit the rights of its parent "
-"folder."
-msgstr ""
-
-#: src/ShareAccess.php:211
-msgid ""
-"No GLPI user is designated as the owner who reviews the rights of this share."
-msgstr ""
-
-#: src/ShareAccess.php:224 templates/_competence_summary.html.twig
-#: templates/competence_page.html.twig templates/competence_sheet.html.twig
-#: templates/isms_function_form.html.twig
-#: templates/share_access_detail.html.twig
-msgid "No gap"
-msgstr ""
-
-#: src/ShareAccess.php:235
-msgid ""
-"No account column found: the file needs a header with a column such as "
-"Identity, IdentityReference or Sid."
-msgstr ""
-
-#: src/ShareAccess.php:240
-msgid ""
-"No rights column found: the file needs a column such as Rights, "
-"FileSystemRights or AccessRight."
-msgstr ""
-
-#: src/ShareAccess.php:244
-msgid ""
-"No share column found: the file needs a column such as Share, or Folder with "
-"a \\\\server\\share path."
-msgstr ""
-
-#: src/ShareAccess.php:1097 templates/share_access_detail.html.twig
-msgid "Designate the owner of the share first: they review its rights."
-msgstr ""
-
-#: src/ShareAccess.php:1098
-msgid "Explain what must be changed or removed in the comment."
-msgstr ""
-
-#: src/ShareAccess.php:1099
-msgid "Some rights have no decision yet."
-msgstr ""
-
-#: src/ShareAccess.php:1101
-msgid "You cannot do this on this share."
-msgstr ""
-
 #: src/SoaVersion.php:59 templates/dashboard_perimeters.html.twig
 msgid "Approved SoA version"
 msgid_plural "Approved SoA versions"
@@ -17511,78 +17405,199 @@ msgstr ""
 msgid "%1$s (%2$s): %3$s"
 msgstr ""
 
-#: src/SupplierAssessment.php:45
-#: templates/tabs/supplier_questionnaire.html.twig
+#: src/SupplierAssessment.php:46
 msgid "Security questionnaire"
 msgstr ""
 
-#: src/SupplierAssessment.php:55
+#: src/SupplierAssessment.php:56
 msgid ""
 "The supplier holds a valid security certification (ISO 27001, SOC 2, HDS…)."
 msgstr ""
 
-#: src/SupplierAssessment.php:58
+#: src/SupplierAssessment.php:59
 msgid "It has a formal, up-to-date information security policy."
 msgstr ""
 
-#: src/SupplierAssessment.php:59
+#: src/SupplierAssessment.php:60
 msgid "Our data is hosted and processed in the European Union."
 msgstr ""
 
-#: src/SupplierAssessment.php:60
+#: src/SupplierAssessment.php:61
 msgid "Our data is encrypted at rest and in transit."
 msgstr ""
 
-#: src/SupplierAssessment.php:61
+#: src/SupplierAssessment.php:62
 msgid "Access to our data requires multi-factor authentication."
 msgstr ""
 
-#: src/SupplierAssessment.php:63
+#: src/SupplierAssessment.php:64
 msgid ""
 "Its list of subcontractors is shared with us and our requirements are passed "
 "on to them."
 msgstr ""
 
-#: src/SupplierAssessment.php:67
+#: src/SupplierAssessment.php:68
 msgid ""
 "It commits to notifying us of its security incidents within a contractual "
 "deadline."
 msgstr ""
 
-#: src/SupplierAssessment.php:70
+#: src/SupplierAssessment.php:71
 msgid "Its backups are tested and it has a business continuity plan."
 msgstr ""
 
-#: src/SupplierAssessment.php:71
+#: src/SupplierAssessment.php:72
 msgid ""
 "It performs regular audits or penetration tests, or agrees to be audited."
 msgstr ""
 
-#: src/SupplierAssessment.php:73
+#: src/SupplierAssessment.php:74
 msgid ""
 "It manages its vulnerabilities and applies patches within defined timeframes."
 msgstr ""
 
-#: src/SupplierAssessment.php:77
+#: src/SupplierAssessment.php:78
 msgid ""
 "The return and deletion of our data at the end of the contract are provided "
 "for."
 msgstr ""
 
-#: src/SupplierAssessment.php:80
+#: src/SupplierAssessment.php:81
 msgid "The contract includes security and confidentiality clauses."
 msgstr ""
 
-#: src/SupplierAssessment.php:93 templates/compliance_audit.html.twig
+#: src/SupplierAssessment.php:94 templates/compliance_audit.html.twig
 msgctxt "nothing to assess"
 msgid "Not applicable"
 msgstr ""
 
 #: src/SupplierAssessment.php:106
+#: templates/tabs/supplier_questionnaire.html.twig
+msgid "Questionnaires"
+msgstr ""
+
+#: src/SupplierAssessment.php:112
 msgid "Supplier contracts"
 msgstr ""
 
+#: src/SupplierEvaluation.php:54
+msgid "Supplier evaluation"
+msgid_plural "Supplier evaluations"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SupplierEvaluation.php:87
+msgid "Good level"
+msgstr ""
+
+#: src/SupplierEvaluation.php:88
+msgid "Needs improvement"
+msgstr ""
+
+#: src/SupplierEvaluation.php:89
+msgid "Insufficient level"
+msgstr ""
+
+#: src/SupplierEvaluation.php:166
+msgid "Choose the supplier risk to evaluate."
+msgstr ""
+
+#: src/SupplierEvaluation.php:181
+msgid ""
+"Choose an active questionnaire template available in the entity of the "
+"supplier risk."
+msgstr ""
+
+#: src/SupplierEvaluation.php:202
+#, php-format
+msgid "%1$s - %2$s"
+msgstr ""
+
+#: src/SupplierEvaluation.php:235
+msgid "This evaluation is completed: reopen it to change it."
+msgstr ""
+
+#: src/SupplierEvaluation.php:406
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Questionnaire"
+msgstr ""
+
+#: src/SupplierEvaluation.php:466 templates/supplier_evaluation_form.html.twig
+#: templates/tabs/supplier_questionnaire.html.twig
+msgid "Evaluation date"
+msgstr ""
+
+#: src/SupplierEvaluation.php:470 templates/audit_checklist_tab.html.twig
+#: templates/dora/register.html.twig
+msgid "Template"
+msgstr ""
+
+#: src/SupplierEvaluationAnswer.php:149
+#, php-format
+msgid "%d answer updated"
+msgid_plural "%d answers updated"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SupplierEvaluationAnswer.php:181
+msgid "This question cannot receive a document."
+msgstr ""
+
+#: src/SupplierEvaluationAnswer.php:184
+msgid "You are not allowed to add a document to this supplier risk."
+msgstr ""
+
+#: src/SupplierEvaluationAnswer.php:191
+#, php-format
+msgid "Evidence for question %1$s of the evaluation \"%2$s\""
+msgstr ""
+
+#: src/SupplierEvaluationAnswer.php:208
+#, php-format
+msgid "Evidence added to question %s"
+msgstr ""
+
+#: src/SupplierQuestionnaireTemplate.php:52
+msgid "Supplier questionnaire template"
+msgid_plural "Supplier questionnaire templates"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SupplierQuestionnaireTemplate.php:66
+msgid "Information security"
+msgstr ""
+
+#: src/SupplierQuestionnaireTemplate.php:67
+msgid "Personal data"
+msgstr ""
+
+#: src/SupplierQuestionnaireTemplate.php:68
+msgid "Artificial intelligence"
+msgstr ""
+
+#: src/SupplierQuestionnaireTemplate.php:69
+msgid "Business continuity"
+msgstr ""
+
+#: src/SupplierQuestionnaireTemplate.php:107
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Question"
+msgid_plural "Questions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SupplierQuestionnaireTemplate.php:224
+#, php-format
+msgid "Copy of %s"
+msgstr ""
+
+#: src/SupplierQuestionnaireTemplate.php:294
+msgid "Duplicate this template"
+msgstr ""
+
 #: src/SupplierRisk.php:77 templates/_causal_graph.html.twig
+#: templates/supplier_evaluation_form.html.twig
 msgid "Supplier risk"
 msgid_plural "Supplier risks"
 msgstr[0] ""
@@ -17955,6 +17970,11 @@ msgid_plural "%d people with a gap"
 msgstr[0] ""
 msgstr[1] ""
 
+#: templates/_competence_summary.html.twig templates/competence_page.html.twig
+#: templates/competence_sheet.html.twig templates/isms_function_form.html.twig
+msgid "No gap"
+msgstr ""
+
 #: templates/_competence_summary.html.twig
 msgid "Open the competences"
 msgstr ""
@@ -18197,7 +18217,6 @@ msgid "Reason for returning to draft (required)"
 msgstr ""
 
 #: templates/_crisis_review.html.twig templates/crisis_room.html.twig
-#: templates/share_access_detail.html.twig
 msgid "Record"
 msgstr ""
 
@@ -18242,7 +18261,6 @@ msgstr ""
 #: templates/log_coverage.html.twig templates/mfa_coverage.html.twig
 #: templates/patch_compliance.html.twig templates/periodic_reviews.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/share_access_detail.html.twig
 #: templates/software_license_compliance.html.twig
 msgid "Save"
 msgstr ""
@@ -18947,7 +18965,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/ad_security_audit.html.twig templates/mfa_coverage.html.twig
-#: templates/share_access.html.twig
 msgid "Access reviews"
 msgstr ""
 
@@ -19091,7 +19108,7 @@ msgid "Propose an action"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig templates/config_sentinelone.html.twig
-#: templates/mfa_coverage.html.twig templates/share_access.html.twig
+#: templates/mfa_coverage.html.twig
 msgid "Read only"
 msgstr ""
 
@@ -19223,8 +19240,7 @@ msgstr ""
 #: templates/application_security_tab.html.twig
 #: templates/competence_page.html.twig templates/dashboard_perimeters.html.twig
 #: templates/dora/register.html.twig
-#: templates/secure_development_page.html.twig templates/share_access.html.twig
-#: templates/share_access_detail.html.twig
+#: templates/secure_development_page.html.twig
 #: templates/tabs/incident_data_breach.html.twig
 #: templates/training_quiz_tab.html.twig
 msgid "None"
@@ -19494,10 +19510,6 @@ msgstr ""
 msgid "Save this checklist as a template"
 msgstr ""
 
-#: templates/audit_checklist_tab.html.twig templates/dora/register.html.twig
-msgid "Template"
-msgstr ""
-
 #: templates/audit_checklist_tab.html.twig
 msgid ""
 "The audit checklist is reserved to the audit team and the CISO group, like "
@@ -19602,7 +19614,6 @@ msgstr ""
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/control_form.html.twig
 #: templates/operating_procedure_register.html.twig
-#: templates/share_access.html.twig
 #, php-format
 msgid "%d to review"
 msgstr ""
@@ -19656,7 +19667,6 @@ msgstr ""
 #: templates/log_coverage.html.twig templates/mfa_coverage.html.twig
 #: templates/network_flow_import.html.twig
 #: templates/phishing_results_tab.html.twig templates/risk_import.html.twig
-#: templates/share_access.html.twig
 msgid "CSV file"
 msgstr ""
 
@@ -19917,7 +19927,7 @@ msgstr ""
 msgid "Check integrity"
 msgstr ""
 
-#: templates/audit_log.html.twig templates/share_access_detail.html.twig
+#: templates/audit_log.html.twig
 msgid "Denied"
 msgstr ""
 
@@ -21048,6 +21058,7 @@ msgstr ""
 #: templates/competence_page.html.twig templates/competence_sheet.html.twig
 #: templates/control_form.html.twig templates/disk_encryption.html.twig
 #: templates/isms_function_form.html.twig
+#: templates/supplier_evaluation_form.html.twig
 #, php-format
 msgid "%d gap"
 msgid_plural "%d gaps"
@@ -21683,7 +21694,7 @@ msgid ""
 msgstr ""
 
 #: templates/config_form.html.twig templates/pdf/acn_report.html.twig
-#: templates/pdf/recyf_report.html.twig templates/share_access.html.twig
+#: templates/pdf/recyf_report.html.twig
 msgid "Classification"
 msgstr ""
 
@@ -22396,7 +22407,6 @@ msgid ""
 msgstr ""
 
 #: templates/configuration_compliance.html.twig
-#: templates/share_access.html.twig
 msgid "Download an example file"
 msgstr ""
 
@@ -23066,11 +23076,6 @@ msgstr ""
 
 #: templates/control_form.html.twig
 #, php-format
-msgid "%1$d of %2$d share(s) reviewed in the last 12 months"
-msgstr ""
-
-#: templates/control_form.html.twig
-#, php-format
 msgid "%1$d reaching it within %2$d days"
 msgstr ""
 
@@ -23144,11 +23149,6 @@ msgstr ""
 
 #: templates/control_form.html.twig
 #, php-format
-msgid "%d file share(s) imported"
-msgstr ""
-
-#: templates/control_form.html.twig
-#, php-format
 msgid "%d high"
 msgstr ""
 
@@ -23211,16 +23211,6 @@ msgstr ""
 
 #: templates/control_form.html.twig
 #, php-format
-msgid "%d right(s) letting everyone modify"
-msgstr ""
-
-#: templates/control_form.html.twig
-#, php-format
-msgid "%d right(s) of deleted or disabled accounts"
-msgstr ""
-
-#: templates/control_form.html.twig
-#, php-format
 msgid "%d rule concerns this control"
 msgid_plural "%d rules concern this control"
 msgstr[0] ""
@@ -23229,11 +23219,6 @@ msgstr[1] ""
 #: templates/control_form.html.twig
 #, php-format
 msgid "%d service(s)"
-msgstr ""
-
-#: templates/control_form.html.twig
-#, php-format
-msgid "%d share(s) with a gap"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -23691,6 +23676,7 @@ msgstr ""
 #: templates/control_list_header.html.twig
 #: templates/data_subject_request_form.html.twig
 #: templates/policy_approval_tab.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Answer"
 msgstr ""
 
@@ -25148,7 +25134,7 @@ msgid "Issuer or document"
 msgstr ""
 
 #: templates/custom_framework_list.html.twig templates/log_coverage.html.twig
-#: templates/mfa_coverage.html.twig templates/share_access_detail.html.twig
+#: templates/mfa_coverage.html.twig
 msgid "Last import"
 msgstr ""
 
@@ -25255,6 +25241,8 @@ msgid "This entity only"
 msgstr ""
 
 #: templates/dashboard_perimeters.html.twig templates/pdf/soa_report.html.twig
+#: templates/supplier_questionnaire_template_form.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
 #, php-format
 msgid "Version %d"
 msgstr ""
@@ -27271,7 +27259,6 @@ msgid ""
 msgstr ""
 
 #: templates/log_coverage.html.twig templates/mfa_coverage.html.twig
-#: templates/share_access.html.twig
 msgid "Delete the import"
 msgstr ""
 
@@ -29227,7 +29214,7 @@ msgid ""
 "changes nothing in GLPI."
 msgstr ""
 
-#: templates/patch_compliance.html.twig templates/share_access.html.twig
+#: templates/patch_compliance.html.twig
 msgid "Server"
 msgstr ""
 
@@ -33035,264 +33022,6 @@ msgstr ""
 msgid "out of %d release(s)"
 msgstr ""
 
-#: templates/share_access.html.twig
-#, php-format
-msgid "%1$d shares: the first %2$d are shown, the most exposed first."
-msgstr ""
-
-#: templates/share_access.html.twig
-#, php-format
-msgid "%d right(s) imported"
-msgstr ""
-
-#: templates/share_access.html.twig
-#, php-format
-msgid "%d with a high weighted score"
-msgstr ""
-
-#: templates/share_access.html.twig templates/share_access_detail.html.twig
-msgid "Absent from the last import"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Download the PowerShell script"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Download the script and copy it to the file server."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid ""
-"GLPI never connects to your file servers and never changes a right. An "
-"administrator runs the PowerShell script on the file server, with an account "
-"that can read the folders, then imports the CSV file here. A new import of "
-"the same server replaces the previous one in the current entity and shows "
-"the rights added and removed since then; the classification, the owner and "
-"the review decisions are kept."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Import the rights of a file server"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid ""
-"Import the shares.csv file below. Files produced by other tools are accepted "
-"if they have a header with columns such as Server, Share, Folder, Identity, "
-"Rights, AccessType, IsInherited and InheritanceProtected."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Imported by"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Imports and changes over time"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid ""
-"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 "
-"-OutFile shares.csv (Depth: how many folder levels under each share are "
-"read)."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "New rights"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid ""
-"No share imported yet. Run the PowerShell script below on a file server, "
-"then import the CSV file it produces."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid ""
-"Only users who can modify the plugin data and the sensitive registers can "
-"import."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Removed rights"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Rights"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Server imported in this entity"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Share"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Shares"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Shares and their gaps"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Shares reviewed in the last 12 months"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Shares with a gap"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Shares without an owner"
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "The owner reviews the rights of the share."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid ""
-"The score adds 3 for each serious gap and 1 for the others, then multiplies "
-"by 3 for a share classified high and by 2 for medium. Nothing is changed on "
-"the file servers from this page."
-msgstr ""
-
-#: templates/share_access.html.twig
-msgid "Weighted score"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-#, php-format
-msgid "%d right added at the last import"
-msgid_plural "%d rights added at the last import"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/share_access_detail.html.twig
-#, php-format
-msgid "%d right still to review."
-msgid_plural "%d rights still to review."
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/share_access_detail.html.twig
-msgid "All shares"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Classification and owner"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Close the review"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-#: templates/tabs/_access_review_rows.html.twig
-msgid "Comment (required to change or remove)"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid ""
-"During a review, the owner decides for each right: keep it, change it or "
-"remove it. Decisions are recorded with their author and date; GLPI changes "
-"nothing on the server: the administrator applies the changes, and the next "
-"import shows the removed rights."
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Folder"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid ""
-"Gaps weigh more on a share classified high, and broken inheritance is "
-"reported only on a share whose confidentiality or integrity is medium or "
-"high."
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-#, php-format
-msgid "Last review: %s"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-#, php-format
-msgid "Level %d"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Local path"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "NTFS owner"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "NTFS permission"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "New"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "No right in the last import of this share."
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Owner who reviews the rights"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-#, php-format
-msgid "Owner: %s"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Review of the rights"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Right"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Rights removed since the previous import"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Share permission"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "Start a review"
-msgstr ""
-
-#: templates/share_access_detail.html.twig
-msgid "inherited"
-msgstr ""
-
-#: templates/share_access_macros.html.twig
-msgctxt "availability"
-msgid "A"
-msgstr ""
-
-#: templates/share_access_macros.html.twig
-msgctxt "confidentiality"
-msgid "C"
-msgstr ""
-
-#: templates/share_access_macros.html.twig
-msgctxt "integrity"
-msgid "I"
-msgstr ""
-
 #: templates/soa_approval.html.twig
 msgid ""
 "Freezes the current SoA into a dated PDF (kept in GLPI documents with its "
@@ -33559,6 +33288,125 @@ msgstr ""
 msgid "Watched product"
 msgstr ""
 
+#: templates/supplier_evaluation_form.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#, php-format
+msgid "%1$d of %2$d questions answered"
+msgstr ""
+
+#: templates/supplier_evaluation_form.html.twig
+#, php-format
+msgid "%1$s (version %2$d)"
+msgstr ""
+
+#: templates/supplier_evaluation_form.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#, php-format
+msgid "%d evidence missing"
+msgid_plural "%d evidence missing"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/supplier_evaluation_form.html.twig
+msgid ""
+"Answer the questions in the \"Questionnaire\" tab, then mark the evaluation "
+"as completed."
+msgstr ""
+
+#: templates/supplier_evaluation_form.html.twig
+#: templates/tabs/supplier_questionnaire.html.twig
+msgid "Evaluation"
+msgstr ""
+
+#: templates/supplier_evaluation_form.html.twig
+msgid ""
+"Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by "
+"the weight of the question; \"not applicable\" and unanswered questions are "
+"not counted."
+msgstr ""
+
+#: templates/supplier_evaluation_form.html.twig
+msgid "For example \"Security 2026\" or \"Personal data - contract renewal\"."
+msgstr ""
+
+#: templates/supplier_evaluation_form.html.twig
+#: templates/tabs/supplier_questionnaire.html.twig
+msgid "Questionnaire template"
+msgstr ""
+
+#: templates/supplier_evaluation_form.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#, php-format
+msgid "Score: %1$d%% - %2$s"
+msgstr ""
+
+#: templates/supplier_evaluation_form.html.twig
+msgid ""
+"This evaluation is completed: its answers can no longer be changed. Reopen "
+"it from the \"Questionnaire\" tab to change them."
+msgstr ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+#, php-format
+msgid "%d evaluation"
+msgid_plural "%d evaluations"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+#, php-format
+msgid "%d question"
+msgid_plural "%d questions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+msgid "Add the template, then write its questions in the \"Questions\" tab."
+msgstr ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+msgid ""
+"Fingerprint of the questions, used to recognize a questionnaire file "
+"returned by a supplier."
+msgstr ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+msgid ""
+"For example \"Hosting provider security\", \"Personal data processor (GDPR "
+"art. 28)\" or \"AI service provider\"."
+msgstr ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+msgid "Inactive: not offered for new evaluations"
+msgstr ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+msgid ""
+"Increases each time the questions change. An evaluation keeps the questions "
+"of the version it was started with."
+msgstr ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+msgid "Only active templates are offered when an evaluation is started."
+msgstr ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+#: templates/tabs/supplier_questionnaire.html.twig
+msgid "Taken over"
+msgstr ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+msgid ""
+"The last completed evaluation of the \"Information security\" domain gives "
+"the score shown on the supplier risk and on the dashboard."
+msgstr ""
+
+#: templates/supplier_questionnaire_template_form.html.twig
+msgid ""
+"The twelve questions of the former security questionnaire. It can be "
+"deactivated but not deleted."
+msgstr ""
+
 #: templates/supplier_risk_form.html.twig
 msgid "Reassessment ticket"
 msgstr ""
@@ -33612,6 +33460,10 @@ msgstr ""
 
 #: templates/supplier_security_watch.html.twig
 msgid "Vulnerabilities of its software in the fleet"
+msgstr ""
+
+#: templates/tabs/_access_review_rows.html.twig
+msgid "Comment (required to change or remove)"
 msgstr ""
 
 #: templates/tabs/_access_review_rows.html.twig
@@ -34909,6 +34761,7 @@ msgid "No step yet: add the first one above."
 msgstr ""
 
 #: templates/tabs/playbook_steps.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Order"
 msgstr ""
 
@@ -34948,38 +34801,176 @@ msgid ""
 "Suppliers tab)."
 msgstr ""
 
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Detach"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Document not readable with your rights"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Evidence missing"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Evidence required"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Expected answer"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#, php-format
+msgid "Expected: %s"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#, php-format
+msgid ""
+"For each question, choose the answer given by the supplier and add a comment "
+"if needed. The expected answer earns 1 point, \"partial\" half a point, the "
+"other answer 0, multiplied by the weight of the question. A question marked "
+"\"Evidence required\" waits for a document (certificate, report, policy...): "
+"it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) "
+"and added to the Documents tab of the supplier risk."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "For information, not scored"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "General"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid ""
+"Questions without an answer do not count in the score. A completed "
+"evaluation can no longer be changed, unless it is reopened."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Reopen the evaluation"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Save and mark as completed"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Save answers"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid ""
+"This evaluation has no question: its template had none when it was created."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#, php-format
+msgid "Weight %d"
+msgstr ""
+
 #: templates/tabs/supplier_questionnaire.html.twig
 #, php-format
-msgid "Filled in on %1$s by %2$s"
+msgid "%1$s: %2$s points"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire.html.twig
-msgid "Good level"
-msgstr ""
-
-#: templates/tabs/supplier_questionnaire.html.twig
-msgid "Insufficient level"
-msgstr ""
-
-#: templates/tabs/supplier_questionnaire.html.twig
-msgid "Needs improvement"
-msgstr ""
-
-#: templates/tabs/supplier_questionnaire.html.twig
-msgid "Save questionnaire"
-msgstr ""
-
-#: templates/tabs/supplier_questionnaire.html.twig
-#, php-format
-msgid "Score: %d %%"
+msgid "Change between the last two completed evaluations"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire.html.twig
 msgid ""
-"Yes = 1 point, partial = ½, no = 0; \"not applicable\" is not counted. The "
-"score informs the assessment; it does not change the risk level entered. "
-"Attach the evidence (signed questionnaire, certificates) in the Documents "
-"tab."
+"Evaluate the supplier with one or more questionnaires (security, personal "
+"data, artificial intelligence...). Each question has a weight and an "
+"expected answer; the score informs the assessment and never changes the risk "
+"level entered. Evidence requested for a question is added to the Documents "
+"tab of this supplier risk."
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire.html.twig
+msgid ""
+"No active questionnaire template is available in the entity of this supplier "
+"risk."
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire.html.twig
+msgid "No evaluation yet for this supplier."
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire.html.twig
+msgid "Optional: the template name and the year otherwise"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire.html.twig
+msgid "Start an evaluation"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire.html.twig
+msgid "Taken over from the former fixed questionnaire"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire.html.twig
+#, php-format
+msgid "Template: %1$s (version %2$d)"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Code"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+#, php-format
+msgid ""
+"Group the questions by section. The expected answer is the compliant one "
+"(\"No\" for a question such as \"Have you suffered a data breach in the last "
+"12 months?\"). The weight, from 0 to %d, gives the importance of the "
+"question in the score; 0 makes it a question for information only. Tick "
+"\"Evidence required\" when the supplier must provide a document. Changing "
+"the questions creates a new version of the template; evaluations already "
+"started keep their questions."
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Help for the answer (optional)"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Last"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "New question"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "New question (left empty: not added)"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Question and help"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Save questions"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Section"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "This template has no question yet."
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+#, php-format
+msgid "Total weight: %d"
 msgstr ""
 
 #: templates/tabs/ticket_security_incidents.html.twig
@@ -35247,4 +35238,447 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr ""
+
+
+#: front/shareaccess.php:73
+#, php-format
+msgid ""
+"%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed "
+"since the previous import."
+msgstr ""
+
+#: front/shareaccess.php:84
+msgid "The file is too long: only its first lines were imported."
+msgstr ""
+
+#: front/shareaccess.php:106
+msgid "Share saved."
+msgstr ""
+
+#: front/shareaccess.php:134
+msgid "Review started: the owner can now decide for each right."
+msgstr ""
+
+#: front/shareaccess.php:136
+msgid "Review closed."
+msgstr ""
+
+#: src/PageHelp.php:495
+msgid ""
+"Shows who can access the Windows file shares: share and NTFS permissions "
+"imported from each file server, accounts matched with the GLPI users and "
+"groups, and the gaps an auditor looks for (everyone can modify, rights given "
+"to a person, deleted or disabled accounts, broken inheritance, share without "
+"an owner)."
+msgstr ""
+
+#: src/PageHelp.php:502
+msgid ""
+"Run the PowerShell script provided on each file server (it only reads), "
+"import the CSV file, classify the sensitive shares and designate an owner "
+"for each one. The owner then reviews the rights of the share; the "
+"administrator applies the changes on the server and the next import shows "
+"the rights added and removed."
+msgstr ""
+
+#: src/PageHelp.php:508
+msgid "ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3"
+msgstr ""
+
+#: src/ShareAccess.php:67 templates/control_form.html.twig
+msgid "File share access rights"
+msgstr ""
+
+#: src/ShareAccess.php:130
+msgid "Full control"
+msgstr ""
+
+#: src/ShareAccess.php:131
+msgid "Modify"
+msgstr ""
+
+#: src/ShareAccess.php:132
+msgid "Read"
+msgstr ""
+
+#: src/ShareAccess.php:134
+msgid "Special permissions"
+msgstr ""
+
+#: src/ShareAccess.php:147
+msgid "Everyone (broad group)"
+msgstr ""
+
+#: src/ShareAccess.php:148
+msgid "System account"
+msgstr ""
+
+#: src/ShareAccess.php:149
+msgid "Deleted account"
+msgstr ""
+
+#: src/ShareAccess.php:171
+msgid "Everyone can modify"
+msgstr ""
+
+#: src/ShareAccess.php:174
+msgid ""
+"Everyone, Authenticated Users, Domain Users or Guests can modify or have "
+"full control."
+msgstr ""
+
+#: src/ShareAccess.php:179
+msgid "Deleted account still has rights"
+msgstr ""
+
+#: src/ShareAccess.php:182
+msgid ""
+"The account no longer exists in the directory (unresolved SID) or is in the "
+"GLPI trash."
+msgstr ""
+
+#: src/ShareAccess.php:187
+msgid "Disabled account still has rights"
+msgstr ""
+
+#: src/ShareAccess.php:189
+msgid "The matching GLPI account is disabled: the person has probably left."
+msgstr ""
+
+#: src/ShareAccess.php:192
+msgid "Right given to a person"
+msgstr ""
+
+#: src/ShareAccess.php:195
+msgid ""
+"Rights should be given to groups, not to named people: they are easier to "
+"review."
+msgstr ""
+
+#: src/ShareAccess.php:200 templates/share_access_detail.html.twig
+msgid "Inheritance broken"
+msgstr ""
+
+#: src/ShareAccess.php:203
+msgid ""
+"A subfolder of a sensitive share does not inherit the rights of its parent "
+"folder."
+msgstr ""
+
+#: src/ShareAccess.php:211
+msgid ""
+"No GLPI user is designated as the owner who reviews the rights of this share."
+msgstr ""
+
+#: src/ShareAccess.php:235
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"Identity, IdentityReference or Sid."
+msgstr ""
+
+#: src/ShareAccess.php:240
+msgid ""
+"No rights column found: the file needs a column such as Rights, "
+"FileSystemRights or AccessRight."
+msgstr ""
+
+#: src/ShareAccess.php:244
+msgid ""
+"No share column found: the file needs a column such as Share, or Folder with "
+"a \\\\server\\share path."
+msgstr ""
+
+#: src/ShareAccess.php:1097 templates/share_access_detail.html.twig
+msgid "Designate the owner of the share first: they review its rights."
+msgstr ""
+
+#: src/ShareAccess.php:1098
+msgid "Explain what must be changed or removed in the comment."
+msgstr ""
+
+#: src/ShareAccess.php:1099
+msgid "Some rights have no decision yet."
+msgstr ""
+
+#: src/ShareAccess.php:1101
+msgid "You cannot do this on this share."
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%1$d of %2$d share(s) reviewed in the last 12 months"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d file share(s) imported"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d right(s) letting everyone modify"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d right(s) of deleted or disabled accounts"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d share(s) with a gap"
+msgstr ""
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "%1$d shares: the first %2$d are shown, the most exposed first."
+msgstr ""
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "%d right(s) imported"
+msgstr ""
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "%d with a high weighted score"
+msgstr ""
+
+#: templates/share_access.html.twig templates/share_access_detail.html.twig
+msgid "Absent from the last import"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Download the PowerShell script"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Download the script and copy it to the file server."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI never connects to your file servers and never changes a right. An "
+"administrator runs the PowerShell script on the file server, with an account "
+"that can read the folders, then imports the CSV file here. A new import of "
+"the same server replaces the previous one in the current entity and shows "
+"the rights added and removed since then; the classification, the owner and "
+"the review decisions are kept."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Import the rights of a file server"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"Import the shares.csv file below. Files produced by other tools are accepted "
+"if they have a header with columns such as Server, Share, Folder, Identity, "
+"Rights, AccessType, IsInherited and InheritanceProtected."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Imported by"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Imports and changes over time"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 "
+"-OutFile shares.csv (Depth: how many folder levels under each share are "
+"read)."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "New rights"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"No share imported yet. Run the PowerShell script below on a file server, "
+"then import the CSV file it produces."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"Only users who can modify the plugin data and the sensitive registers can "
+"import."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Removed rights"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Rights"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Server imported in this entity"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Share"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Shares"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Shares and their gaps"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Shares reviewed in the last 12 months"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Shares with a gap"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Shares without an owner"
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "The owner reviews the rights of the share."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid ""
+"The score adds 3 for each serious gap and 1 for the others, then multiplies "
+"by 3 for a share classified high and by 2 for medium. Nothing is changed on "
+"the file servers from this page."
+msgstr ""
+
+#: templates/share_access.html.twig
+msgid "Weighted score"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+#, php-format
+msgid "%d right added at the last import"
+msgid_plural "%d rights added at the last import"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/share_access_detail.html.twig
+#, php-format
+msgid "%d right still to review."
+msgid_plural "%d rights still to review."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/share_access_detail.html.twig
+msgid "All shares"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Classification and owner"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Close the review"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid ""
+"During a review, the owner decides for each right: keep it, change it or "
+"remove it. Decisions are recorded with their author and date; GLPI changes "
+"nothing on the server: the administrator applies the changes, and the next "
+"import shows the removed rights."
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Folder"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid ""
+"Gaps weigh more on a share classified high, and broken inheritance is "
+"reported only on a share whose confidentiality or integrity is medium or "
+"high."
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+#, php-format
+msgid "Last review: %s"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+#, php-format
+msgid "Level %d"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Local path"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "NTFS owner"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "NTFS permission"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "New"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "No right in the last import of this share."
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Owner who reviews the rights"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+#, php-format
+msgid "Owner: %s"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Review of the rights"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Right"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Rights removed since the previous import"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Share permission"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "Start a review"
+msgstr ""
+
+#: templates/share_access_detail.html.twig
+msgid "inherited"
+msgstr ""
+
+#: templates/share_access_macros.html.twig
+msgctxt "availability"
+msgid "A"
+msgstr ""
+
+#: templates/share_access_macros.html.twig
+msgctxt "confidentiality"
+msgid "C"
+msgstr ""
+
+#: templates/share_access_macros.html.twig
+msgctxt "integrity"
+msgid "I"
 msgstr ""

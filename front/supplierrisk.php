@@ -44,11 +44,16 @@ $myRisksURL = \GlpiPlugin\Grcmanager\SupplierRisk::getSearchURL() . '?' . http_b
     ],
 ]);
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [
-    'buttons' => [[
+    'buttons' => array_merge([[
         'url'   => $myRisksURL,
         'icon'  => 'ti-user-check',
         'label' => __('My supplier risks', 'grcmanager'),
-    ]],
+    ]], \GlpiPlugin\Grcmanager\SupplierQuestionnaireTemplate::canView() ? [[
+        // Issue #864 : bibliothèque des modèles de questionnaire (pas d'entrée de menu propre).
+        'url'   => \GlpiPlugin\Grcmanager\SupplierQuestionnaireTemplate::getSearchURL(),
+        'icon'  => 'ti-forms',
+        'label' => __('Questionnaire templates', 'grcmanager'),
+    ]] : []),
 ]);
 
 // Same URL-driven search fix as front/risk.php (Search::showList() does not merge $_GET on its
