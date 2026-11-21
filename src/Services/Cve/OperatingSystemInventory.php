@@ -118,6 +118,33 @@ final class OperatingSystemInventory
     }
 
     /**
+     * Issue #854 : système de chaque ordinateur donné (déjà filtrés par l'appelant : entités, droits),
+     * avec le nom, la version et le noyau tels qu'inventoriés, et la désignation et la version
+     * comparées aux CVE. Un seul système par ordinateur (le premier inventorié).
+     *
+     * @param list<int> $computerIds
+     * @return array<int, array{name: string, os_version: string, kernel: string, os_name: string,
+     *     version: string}>
+     */
+    public static function forComputers(array $computerIds): array
+    {
+        if ($computerIds === []) {
+            return [];
+        }
+        $systems = [];
+        foreach (self::query(\Computer::class, [], [self::LINK_TABLE . '.items_id' => $computerIds], false) as $row) {
+            $id = (int) $row['items_id'];
+            $systems[$id] ??= [
+                'name'       => trim((string) ($row['os_name'] ?? '')),
+                'os_version' => trim((string) ($row['os_version'] ?? '')),
+                'kernel'     => trim((string) ($row['kernel_version'] ?? '')),
+            ] + self::identity($row);
+        }
+
+        return $systems;
+    }
+
+    /**
      * Nombre d'actifs par désignation et par version, comme FirmwareInventory::counts().
      *
      * @param list<string> $names Désignations retenues ; vide : toutes.
