@@ -1,0 +1,108 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #864 : onglet « Questions » d'un modèle de questionnaire fournisseur : grille des questions
+   (section, texte, aide, réponse attendue, pondération, pièce exigée, ordre), modifiée d'un seul envoi. #}
+<div class="card" id="grc-template-questions">
+   <div class="card-header d-flex flex-wrap align-items-center gap-2">
+      <h3 class="card-title mb-0"><i class="ti ti-list-details me-1"></i>{{ _n('Question', 'Questions', 2, 'grcmanager') }}</h3>
+      <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-versions me-1"></i>{{ __('Version %d', 'grcmanager')|format(version) }}</span>
+      <span class="badge bg-blue-subtle text-blue-emphasis"><i class="ti ti-scale me-1"></i>{{ __('Total weight: %d', 'grcmanager')|format(total) }}</span>
+   </div>
+   <div class="card-body">
+      <p class="text-muted small">
+         <i class="ti ti-info-circle me-1"></i>{{ __('Group the questions by section. The expected answer is the compliant one ("No" for a question such as "Have you suffered a data breach in the last 12 months?"). The weight, from 0 to %d, gives the importance of the question in the score; 0 makes it a question for information only. Tick "Evidence required" when the supplier must provide a document. Changing the questions creates a new version of the template; evaluations already started keep their questions.', 'grcmanager')|format(max_weight) }}
+      </p>
+      <datalist id="grc-question-sections">
+         {% for section in sections %}{% if section %}<option value="{{ section }}"></option>{% endif %}{% endfor %}
+      </datalist>
+      <form method="post" action="{{ action }}" id="grc-template-questions-form">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="id" value="{{ template_id }}">
+         <div class="table-responsive">
+         <table class="table table-sm table-vcenter card-table" id="grc-question-list">
+            <thead>
+               <tr>
+                  <th>{{ __('Code', 'grcmanager') }}</th>
+                  <th>{{ __('Section', 'grcmanager') }}</th>
+                  <th class="w-50">{{ __('Question and help', 'grcmanager') }}</th>
+                  <th>{{ __('Expected answer', 'grcmanager') }}</th>
+                  <th>{{ __('Weight', 'grcmanager') }}</th>
+                  <th>{{ __('Evidence required', 'grcmanager') }}</th>
+                  <th>{{ __('Order', 'grcmanager') }}</th>
+                  {% if can_edit %}<th>{{ __('Delete') }}</th>{% endif %}
+               </tr>
+            </thead>
+            <tbody>
+            {% for q in questions %}
+               <tr id="grc-question-{{ q.id }}">
+                  <td class="text-nowrap"><code>{{ q.code }}</code></td>
+                  {% if can_edit %}
+                     <td><input type="text" class="form-control form-control-sm" name="questions[{{ q.id }}][section]" value="{{ q.section }}" list="grc-question-sections" maxlength="255" aria-label="{{ __('Section', 'grcmanager') }}"></td>
+                     <td>
+                        <textarea class="form-control form-control-sm mb-1" name="questions[{{ q.id }}][question]" rows="2" required aria-label="{{ __('Question', 'grcmanager') }}">{{ q.question }}</textarea>
+                        <textarea class="form-control form-control-sm" name="questions[{{ q.id }}][guidance]" rows="1" placeholder="{{ __('Help for the answer (optional)', 'grcmanager') }}" aria-label="{{ __('Help for the answer (optional)', 'grcmanager') }}">{{ q.guidance }}</textarea>
+                     </td>
+                     <td>
+                        <select class="form-select form-select-sm" name="questions[{{ q.id }}][expected_answer]" aria-label="{{ __('Expected answer', 'grcmanager') }}">
+                           {% for value, label in expected %}<option value="{{ value }}" {{ q.expected_answer == value ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+                        </select>
+                     </td>
+                     <td><input type="number" class="form-control form-control-sm" name="questions[{{ q.id }}][weight]" value="{{ q.weight }}" min="0" max="{{ max_weight }}" aria-label="{{ __('Weight', 'grcmanager') }}"></td>
+                     <td class="text-center"><input type="checkbox" class="form-check-input" name="questions[{{ q.id }}][requires_evidence]" value="1" {{ q.requires_evidence ? 'checked' : '' }} aria-label="{{ __('Evidence required', 'grcmanager') }}"></td>
+                     <td><input type="number" class="form-control form-control-sm" name="questions[{{ q.id }}][position]" value="{{ q.position }}" min="0" aria-label="{{ __('Order', 'grcmanager') }}"></td>
+                     <td class="text-center"><input type="checkbox" class="form-check-input" name="questions[{{ q.id }}][delete]" value="1" aria-label="{{ __('Delete') }}"></td>
+                  {% else %}
+                     <td>{{ q.section ?: '-' }}</td>
+                     <td>{{ q.question }}{% if q.guidance %}<div class="form-hint">{{ q.guidance|nl2br }}</div>{% endif %}</td>
+                     <td><span class="badge bg-blue-subtle text-blue-emphasis">{{ expected[q.expected_answer] ?? q.expected_answer }}</span></td>
+                     <td>{{ q.weight }}</td>
+                     <td>{% if q.requires_evidence %}<span class="badge bg-purple-subtle text-purple-emphasis"><i class="ti ti-paperclip me-1"></i>{{ __('Yes', 'grcmanager') }}</span>{% else %}-{% endif %}</td>
+                     <td>{{ q.position }}</td>
+                  {% endif %}
+               </tr>
+            {% endfor %}
+            {% if can_edit %}
+               {% for i in 1..new_rows %}
+                  <tr class="grc-question-new table-light">
+                     <td class="text-nowrap"><span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-plus me-1"></i>{{ __('New', 'grcmanager') }}</span></td>
+                     <td><input type="text" class="form-control form-control-sm" name="new_questions[{{ i }}][section]" list="grc-question-sections" maxlength="255" aria-label="{{ __('Section', 'grcmanager') }}"></td>
+                     <td>
+                        <textarea class="form-control form-control-sm mb-1" name="new_questions[{{ i }}][question]" rows="2" placeholder="{{ __('New question (left empty: not added)', 'grcmanager') }}" aria-label="{{ __('Question', 'grcmanager') }}"></textarea>
+                        <textarea class="form-control form-control-sm" name="new_questions[{{ i }}][guidance]" rows="1" placeholder="{{ __('Help for the answer (optional)', 'grcmanager') }}" aria-label="{{ __('Help for the answer (optional)', 'grcmanager') }}"></textarea>
+                     </td>
+                     <td>
+                        <select class="form-select form-select-sm" name="new_questions[{{ i }}][expected_answer]" aria-label="{{ __('Expected answer', 'grcmanager') }}">
+                           {% for value, label in expected %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+                        </select>
+                     </td>
+                     <td><input type="number" class="form-control form-control-sm" name="new_questions[{{ i }}][weight]" value="1" min="0" max="{{ max_weight }}" aria-label="{{ __('Weight', 'grcmanager') }}"></td>
+                     <td class="text-center"><input type="checkbox" class="form-check-input" name="new_questions[{{ i }}][requires_evidence]" value="1" aria-label="{{ __('Evidence required', 'grcmanager') }}"></td>
+                     <td><input type="number" class="form-control form-control-sm" name="new_questions[{{ i }}][position]" min="0" placeholder="{{ __('Last', 'grcmanager') }}" aria-label="{{ __('Order', 'grcmanager') }}"></td>
+                     <td></td>
+                  </tr>
+               {% endfor %}
+            {% endif %}
+            </tbody>
+         </table>
+         </div>
+         {% if questions is empty and not can_edit %}
+            <div class="alert alert-info mt-2 mb-0"><i class="ti ti-info-circle me-2"></i>{{ __('This template has no question yet.', 'grcmanager') }}</div>
+         {% endif %}
+         {% if can_edit %}
+            <button type="submit" name="save_questions" value="1" class="btn btn-primary mt-3"><i class="ti ti-device-floppy me-1"></i>{{ __('Save questions', 'grcmanager') }}</button>
+         {% endif %}
+      </form>
+   </div>
+</div>

@@ -399,6 +399,8 @@ final class Installer
         ...OfficialContactTables::CLASSES,
         // Issue #868 : dossiers de preuves exportables pour l'auditeur.
         ...EvidencePackTables::CLASSES,
+        // Issue #864 : questionnaires fournisseurs configurables (modèles, évaluations).
+        ...SupplierQuestionnaireTables::CLASSES,
         // Issue #808 : classes historisées oubliées, dont les journaux restaient après la
         // désinstallation (fiche de conformité des collaborateurs #546, fiches réflexes, actions
         // de la revue de direction), et deux cibles de notification absentes de la liste.
@@ -1585,6 +1587,8 @@ final class Installer
         HardwareEndOfLifeTables::install($keySign, $charset, $collation);
         // Issue #853 : couverture de la journalisation (hôtes émetteurs importés, conservation déclarée).
         LogCoverageTables::install($keySign, $charset, $collation);
+        // Issue #864 : questionnaires fournisseurs configurables (modèles, questions, évaluations, réponses).
+        SupplierQuestionnaireTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -3549,6 +3553,8 @@ final class Installer
         }
 
         $this->migrateEntityPerimeters($migration);
+        // Issue #864 : reprise des questionnaires fixes de l'issue #127 (entité des risques déjà posée).
+        SupplierQuestionnaireTables::migrateLegacy();
         $this->seedControls();
         $this->seedControlAttributes();
         $this->seedClauses();
@@ -6488,6 +6494,7 @@ final class Installer
         MfaCoverageTables::uninstall($migration);
         HardwareEndOfLifeTables::uninstall($migration);
         LogCoverageTables::uninstall($migration);
+        SupplierQuestionnaireTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);
