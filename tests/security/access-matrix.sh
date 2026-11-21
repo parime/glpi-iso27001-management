@@ -138,9 +138,9 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/endoflife.export.php front/hardwarewarranty.export.php
   front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
-  front/diskencryption.php front/mfacoverage.php front/patchcompliance.php front/logcoverage.php
+  front/diskencryption.php front/patchcompliance.php front/logcoverage.php
   front/shareaccess.php front/shareaccess.php?script=1 front/shareaccess.php?example=1
-  front/configcompliance.php front/adsecurityaudit.php
+  front/configcompliance.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
