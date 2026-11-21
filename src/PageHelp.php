@@ -452,6 +452,25 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.8.24 and A.8.1', 'grcmanager'),
             ],
+            // Issue #854 : retard des correctifs de sécurité des systèmes.
+            'patchcompliance' => [
+                'purpose'   => __(
+                    'Shows, from the GLPI inventory (operating system, version, updates reported by the agent), '
+                        . 'the date of the last known security patch of each computer and whether it is within the '
+                        . 'target delay of its criticality. Computers published on the Internet and critical '
+                        . 'computers come first, with the known vulnerabilities of their system and their end of '
+                        . 'support.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Set the target delay of each criticality, classify the computers (C/I/A tab), patch the '
+                        . 'late computers, and install the inventory agent on those of unknown state. The page only '
+                        . 'reads the inventory: it starts no update. Record the result as an effectiveness test of '
+                        . 'the control to keep the evidence.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.8 and A.8.19', 'grcmanager'),
+            ],
             'contextitem' => [
                 'purpose'   => __(
                     'The context of the organization: the internal and external issues that affect information '
