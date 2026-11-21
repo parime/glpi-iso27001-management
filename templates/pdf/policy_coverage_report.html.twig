@@ -1,0 +1,53 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #879 : rapport de couverture des mesures applicables de la SoA par les textes approuvés,
+   calculé à la demande avec les droits de la personne qui l'exporte. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Entity') }}</td><td class="grcmanager-pdf-summary-number">{{ entity }}</td></tr>
+  <tr><td>{{ __('Applicable controls', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.total }}</td></tr>
+  {% for key, s in statuses %}
+    <tr><td>{{ s.label }}</td><td class="grcmanager-pdf-summary-number">{{ summary.counts[key] ?? 0 }}</td></tr>
+  {% endfor %}
+  <tr><td>{{ __('Coverage rate', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.rate is null ? '-' : summary.rate ~ ' %' }}</td></tr>
+  <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ generated_by }}</td></tr>
+</table>
+<p>{{ __('A control is covered when at least one approved text of the policy library, whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 and control A.5.1). Only the items the person who exported this report can read are counted.', 'grcmanager') }}</p>
+
+<h2>{{ filter == 'all' ? __('All applicable controls', 'grcmanager') : __('Gaps only', 'grcmanager') }}</h2>
+{% if rows is empty %}
+  <p>{{ __('Every applicable control is covered by an approved text whose review is up to date.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead><tr><th>{{ __('Control', 'grcmanager') }}</th><th>{{ __('Coverage', 'grcmanager') }}</th><th>{{ __('Texts', 'grcmanager') }}</th></tr></thead>
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          <td>{{ row.code }} {{ row.title }}</td>
+          <td>{{ row.style.label }}</td>
+          <td>
+            {% for text in row.texts %}
+              {{ text.title }}{% if text.section != '' %} ({{ text.section }}){% endif %} : {{ text.style.label }}{% if not loop.last %}<br>{% endif %}
+            {% else %}
+              -
+            {% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

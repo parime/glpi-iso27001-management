@@ -1,0 +1,91 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #879 : onglet « Textes de référence » d'une mesure : les politiques (ou leurs sections) qui
+   la couvrent et leur état ; liaison rapide de plusieurs politiques. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+<div class="card" id="grc-control-policies-tab">
+   <div class="card-header d-flex flex-wrap align-items-center gap-2">
+      <h3 class="card-title mb-0"><i class="ti ti-file-check me-2"></i>{{ __('Texts that cover this control', 'grcmanager') }}</h3>
+      {% if status is not null %}
+         {% set s = statuses[status] %}
+         <span class="badge {{ s.class }}" id="grc-control-coverage-status" data-status="{{ status }}"><i class="ti {{ s.icon }} me-1"></i>{{ s.label }}</span>
+      {% else %}
+         <span class="badge bg-secondary-subtle text-secondary-emphasis" id="grc-control-coverage-status" data-status="not_applicable">{{ __('Not applicable', 'grcmanager') }}</span>
+      {% endif %}
+      <a href="{{ report_url }}" class="btn btn-sm btn-ghost-secondary ms-auto"><i class="ti ti-report-search me-1"></i>{{ __('Controls not covered by any text', 'grcmanager') }}</a>
+   </div>
+   <div class="card-body">
+      <div class="alert alert-info py-2 mb-3">
+         <i class="ti ti-help-circle me-1"></i><strong>{{ __('What is this tab for?', 'grcmanager') }}</strong>
+         {{ __('The policies, or sections of policies, that deal with this control. An auditor expects each applicable control to be covered by at least one approved text whose review is up to date. Only the texts you are allowed to read are shown.', 'grcmanager') }}
+      </div>
+
+      {% if texts is empty %}
+         <p class="text-muted"><i class="ti ti-file-off me-1"></i>{{ __('No text of the policy library covers this control yet.', 'grcmanager') }}</p>
+      {% else %}
+         <div class="table-responsive mb-3">
+            <table class="table table-sm table-vcenter mb-0">
+               <thead>
+                  <tr>
+                     <th>{{ __('Text', 'grcmanager') }}</th>
+                     <th>{{ __('Section', 'grcmanager') }}</th>
+                     <th>{{ __('Text status', 'grcmanager') }}</th>
+                     <th>{{ __('Next review', 'grcmanager') }}</th>
+                     {% if can_edit %}<th class="text-end"></th>{% endif %}
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for text in texts %}
+                     <tr class="grc-control-text" data-state="{{ text.state }}">
+                        <td><a href="{{ text.url }}"><i class="ti ti-file-text me-1"></i>{{ text.title }}</a>{% if text.version != '' %} <span class="text-muted">v{{ text.version }}</span>{% endif %}</td>
+                        <td>{{ text.section != '' ? text.section : __('Whole text', 'grcmanager') }}</td>
+                        <td><span class="badge {{ text.style.class }}"><i class="ti {{ text.style.icon }} me-1"></i>{{ text.style.label }}</span></td>
+                        <td>{{ text.next_review_label }}</td>
+                        {% if can_edit %}
+                           <td class="text-end">
+                              <form method="post" action="{{ form_url }}" class="d-inline">
+                                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                 <input type="hidden" name="links_id" value="{{ text.link_id }}">
+                                 <button type="submit" name="remove_link" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove the link', 'grcmanager') }}"><i class="ti ti-unlink"></i></button>
+                              </form>
+                           </td>
+                        {% endif %}
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+
+      {% if can_edit and choices is not empty %}
+         <form method="post" action="{{ form_url }}" class="border rounded p-3" id="grc-control-coverage-add">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="controls_id[]" value="{{ control_id }}">
+            <h4 class="mb-2"><i class="ti ti-link-plus me-1"></i>{{ __('Link texts', 'grcmanager') }}</h4>
+            <div class="row">
+               {{ fields.dropdownArrayField('policies_id', null, choices, __('Policies', 'grcmanager'), {
+                  'field_class': 'col-md-7', 'multiple': true, 'values': [], 'rand': 'grcctlcov',
+               }) }}
+               {{ fields.textField('section', '', __('Section', 'grcmanager'), {
+                  'field_class': 'col-md-5',
+                  'add_field_html': hints.hint(__('Leave empty when the whole text covers the control.', 'grcmanager')),
+               }) }}
+            </div>
+            <button type="submit" name="add_links" value="1" class="btn btn-primary"><i class="ti ti-link-plus me-1"></i>{{ __('Link', 'grcmanager') }}</button>
+         </form>
+      {% endif %}
+   </div>
+</div>

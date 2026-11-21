@@ -101,6 +101,8 @@ class Menu extends CommonGLPI
                 ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class,
                 // Issue #620 : registre des violations de données personnelles.
                 DataBreach::class, Policy::class,
+                // Issue #879 : mesures couvertes par les textes de la bibliothèque des politiques.
+                PolicyCoverage::class,
                 // Issue #775 : registre des procédures d'exploitation et couverture (A.5.37).
                 OperatingProcedure::class,
                 // Issue #778 : sécurité physique des sites (A.7.1 à A.7.14), comparaison entre sites.

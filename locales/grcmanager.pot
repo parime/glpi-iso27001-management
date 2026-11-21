@@ -39469,3 +39469,224 @@ msgstr ""
 #: templates/product_sbom_tab.html.twig
 msgid "Whole product"
 msgstr ""
+
+
+
+#: front/policycoverage.form.php:34
+#, php-format
+msgid "%d link added."
+msgid_plural "%d links added."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/policycoverage.form.php:39
+#, php-format
+msgid "Codes not found in the Statement of Applicability: %s"
+msgstr ""
+
+#: front/policycoverage.php:49 templates/pdf/policy_coverage_report.html.twig
+msgid "Gaps only"
+msgstr ""
+
+#: front/policycoverage.php:50 templates/pdf/policy_coverage_report.html.twig
+msgid "All applicable controls"
+msgstr ""
+
+#: src/ConsistencyCheck.php:185
+msgid ""
+"Applicable controls not covered by an approved text of the policy library "
+"whose review is up to date"
+msgstr ""
+
+#: src/ConsistencyCheck.php:190
+msgid ""
+"Open the coverage report of the controls by the policies, link the text that "
+"deals with the control (or write it), then have it approved or reviewed."
+msgstr ""
+
+#: src/Feature/PolicyCoverageFeature.php:33
+msgid ""
+"Shows, for each applicable control of the Statement of Applicability, the "
+"texts of the policy library that cover it, and lists the controls covered by "
+"no text, or only by a text not approved yet or whose review date has passed."
+msgstr ""
+
+#: src/Feature/PolicyCoverageFeature.php:39
+msgid ""
+"Open each policy, then its \"Covered controls\" tab, and link the whole text "
+"or one of its sections to the controls it deals with (several at once, or by "
+"typing codes such as A.5.15-A.5.18). Then write, approve or review the "
+"missing texts. Export the report in PDF or CSV for the auditor. Nothing is "
+"changed automatically."
+msgstr ""
+
+#: src/Feature/PolicyCoverageFeature.php:45
+msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
+msgstr ""
+
+#: src/PolicyCoverage.php:51
+msgid "Control coverage by policies"
+msgstr ""
+
+#: src/PolicyCoverage.php:123
+msgid "Not covered by any text"
+msgstr ""
+
+#: src/PolicyCoverage.php:128
+msgid "Covered only by a text not approved"
+msgstr ""
+
+#: src/PolicyCoverage.php:133
+msgid "Covered only by a text to review"
+msgstr ""
+
+#: src/PolicyCoverage.php:138
+msgid "Covered by an approved text"
+msgstr ""
+
+#: src/PolicyCoverage.php:578
+msgid "Covered controls"
+msgstr ""
+
+#: src/PolicyCoverage.php:588
+msgid "Reference texts"
+msgstr ""
+
+#: src/PolicyCoverage.php:668 templates/policy_coverage_control_tab.html.twig
+msgid "Text status"
+msgstr ""
+
+#: templates/pdf/policy_coverage_report.html.twig
+msgid ""
+"A control is covered when at least one approved text of the policy library, "
+"whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 "
+"and control A.5.1). Only the items the person who exported this report can "
+"read are counted."
+msgstr ""
+
+#: templates/pdf/policy_coverage_report.html.twig
+#: templates/policy_coverage.html.twig
+msgid ""
+"Every applicable control is covered by an approved text whose review is up "
+"to date."
+msgstr ""
+
+#: templates/pdf/policy_coverage_report.html.twig
+#: templates/policy_coverage.html.twig
+msgid "Texts"
+msgstr ""
+
+#: templates/policy_coverage.html.twig
+#, php-format
+msgid "Controls covered by an approved text: %1$d out of %2$d"
+msgstr ""
+
+#: templates/policy_coverage.html.twig
+msgid "No applicable control in the Statement of Applicability you can read."
+msgstr ""
+
+#: templates/policy_coverage.html.twig
+msgid ""
+"No text of the policy library is linked to a control yet. Open a policy, "
+"then its \"Covered controls\" tab, to link it to the controls it deals with."
+msgstr ""
+
+#: templates/policy_coverage.html.twig
+msgid "Policy library"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Controls not covered by any text"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "Leave empty when the whole text covers the control."
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "Link texts"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "No text of the policy library covers this control yet."
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "Policies"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Remove the link"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "Text"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid "Texts that cover this control"
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+msgid ""
+"The policies, or sections of policies, that deal with this control. An "
+"auditor expects each applicable control to be covered by at least one "
+"approved text whose review is up to date. Only the texts you are allowed to "
+"read are shown."
+msgstr ""
+
+#: templates/policy_coverage_control_tab.html.twig
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Whole text"
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+#, php-format
+msgid "%d linked control"
+msgid_plural "%d linked controls"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Choose one or several controls in the list."
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Controls covered by this text"
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid ""
+"For example \"4.2 Access control\". Leave empty when the whole text covers "
+"the controls."
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Link controls"
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid ""
+"Link this policy, or one of its sections, to the Annex A controls it deals "
+"with. Each applicable control of the Statement of Applicability should be "
+"covered by at least one approved text: the coverage report lists the "
+"controls without one, for the auditor (clause 5.2, control A.5.1). Only the "
+"controls of your entities are shown."
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "Or type control codes"
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid ""
+"Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) "
+"or a whole theme (A.8 for all technological controls)."
+msgstr ""
+
+#: templates/policy_coverage_policy_tab.html.twig
+msgid "This text is not linked to any control yet."
+msgstr ""
+

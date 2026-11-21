@@ -33447,6 +33447,264 @@ msgstr ""
 msgid "Secure Boot"
 msgstr "Bezpieczny rozruch"
 
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Każdy, kto ma link"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "Gość zewnętrzny"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Udział plików Windows"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Link publiczny (każdy)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr "Link udostępniania działa dla każdego, kto go ma, bez logowania."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "Gość zewnętrzny ma dostęp"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"Osoba z innej organizacji (konto gościa) ma dostęp: sprawdź, czy jest nadal "
+"potrzebny."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"Nie znaleziono kolumny witryny: plik musi mieć kolumnę taką jak Site, Team "
+"lub OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Microsoft Graph odmówił dostępu: nadaj uprawnienia aplikacji Sites.Read.All, "
+"Files.Read.All, User.Read.All i GroupMember.Read.All ze zgodą administratora."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+"Zbyt wiele witryn lub kont do odczytu jednym kliknięciem: nic nie "
+"zastąpiono. Zaimportuj zamiast tego eksport CSV."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "Odczytaj uprawnienia SharePoint, OneDrive i Teams"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"GLPI odczytuje uprawnienia udostępniania przez Microsoft Graph po "
+"kliknięciu, za pomocą aplikacji skonfigurowanej dla pokrycia MFA, i nigdy "
+"niczego nie zmienia w Microsoft 365. SharePoint: uprawnienia biblioteki "
+"dokumentów każdej witryny i jej elementów najwyższego poziomu udostępnionych "
+"osobno. OneDrive: elementy najwyższego poziomu udostępnione przez każdą "
+"osobę. Teams: właściciele, członkowie, goście i zespoły publiczne. "
+"Obowiązują te same odstępstwa i ten sam przegląd co dla udziałów plików: "
+"linki publiczne, goście zewnętrzni, uprawnienia dla wszystkich."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Uprawnienia aplikacji do nadania, ze zgodą administratora (tylko odczyt): "
+"Sites.Read.All, Files.Read.All, User.Read.All i GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph połączony"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Ustawienia Microsoft Graph"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "Odczytaj %s teraz"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"Microsoft Graph nie jest jeszcze skonfigurowany. Wprowadź dzierżawę, "
+"identyfikator aplikacji i klucz tajny klienta na stronie pokrycia MFA albo "
+"zaimportuj poniżej eksport CSV."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Rozwiązanie zastępcze: zaimportuj plik CSV z jednym wierszem na uprawnienie "
+"i kolumnami takimi jak Source (SharePoint, OneDrive lub Teams), Site, "
+"SiteUrl, Item, Identity, Type (User, Group, Guest), Roles (read, write, "
+"owner) i LinkScope (anonymous, organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Właściciel w Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Link udostępniania"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Członkostwo w zespole"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Uprawnienie bezpośrednie"
+
+msgid "Firmware with a priority vulnerability"
+msgstr "Firmware z podatnością priorytetową"
+
+msgid ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+msgstr ""
+"Firmware kontrolera lub BIOS ma znaną podatność wykorzystywaną, krytyczną "
+"lub prawdopodobnie wykorzystywaną (strona „Podatności floty”): zaktualizuj "
+"go w pierwszej kolejności."
+
+msgid "Firmware no longer supported"
+msgstr "Firmware bez wsparcia"
+
+msgid ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+msgstr ""
+"Firmware kontrolera lub BIOS osiągnął koniec wsparcia (endoflife.date): brak "
+"dalszych poprawek bezpieczeństwa."
+
+msgid "Firmware with known vulnerabilities"
+msgstr "Firmware ze znanymi podatnościami"
+
+msgid ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+msgstr ""
+"Firmware kontrolera lub BIOS ma znane podatności (strona „Podatności floty”)."
+
+msgid "Firmware support ending soon"
+msgstr "Koniec wsparcia firmware wkrótce"
+
+msgid ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+msgstr "Koniec wsparcia firmware lub BIOS jest bliski (endoflife.date)."
+
+msgid ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+msgstr ""
+"Powiąż tę nazwę z produktem na stronie „Podatności floty”, aby porównać ją "
+"ze znanymi podatnościami."
+
+msgid "Not watched"
+msgstr "Nieobserwowany"
+
+msgid "Priority CVEs: %d"
+msgstr "Priorytetowe CVE: %d"
+
+msgid "Known CVEs: %d"
+msgstr "Znane CVE: %d"
+
+msgid "No known CVE"
+msgstr "Brak znanych CVE"
+
+msgid ""
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
+msgstr ""
+"Firmware każdego kontrolera i jego BIOS są porównywane ze znanymi "
+"podatnościami floty i datami końca wsparcia, jak inne firmware: powiąż ich "
+"nazwę z produktem raz, na tych samych stronach."
+
+msgid "Enable the end of support check"
+msgstr "Włącz sprawdzanie końca wsparcia"
+
+msgid "Server controller accounts"
+msgstr "Konta kontrolerów serwerów"
+
+msgid "Factory account still enabled: replace it with a named account"
+msgstr "Konto fabryczne nadal aktywne: zastąp je kontem imiennym"
+
+msgid "Disabled on the controller: delete it there"
+msgstr "Wyłączone na kontrolerze: usuń je tam"
+
+msgid "Locked on the controller"
+msgstr "Zablokowane na kontrolerze"
+
+msgid "Administrator role: full control of the server"
+msgstr "Rola administratora: pełna kontrola nad serwerem"
+
+msgid ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+msgstr ""
+"Konto kontrolera zarządzania serwerem (iLO, iDRAC, XClarity, IPMI) daje "
+"pełną kontrolę nad serwerem, nawet wyłączonym, poza GLPI i katalogiem. Przy "
+"uruchomieniu kampanii konta odczytane na kontrolerach jej jednostek są tu "
+"kopiowane z sugestią. Zachowaj lub usuń każde: wtyczka niczego nie zmienia "
+"na kontrolerach, usuń konto na miejscu."
+
+msgid ""
+"The accounts of the controllers are copied when the campaign is launched."
+msgstr "Konta kontrolerów są kopiowane przy uruchomieniu kampanii."
+
+msgid ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+msgstr ""
+"Brak kont kontrolerów zarządzania serwerami w tej kampanii: przy jej "
+"uruchomieniu żaden kontroler w jej jednostkach nie miał odczytanych kont."
+
+msgid "Add the accounts of the controllers"
+msgstr "Dodaj konta kontrolerów"
+
+msgid "Suggestion"
+msgstr "Sugestia"
+
+msgid "%d decided"
+msgstr "Zdecydowano: %d"
+
+msgid "%d account(s) of the controllers added to the campaign."
+msgstr "Dodano do kampanii kont kontrolerów: %d."
+
 #, php-format
 msgid "%1$s export of %2$s, imported on %3$s"
 msgstr "Eksport %1$s dla %2$s, zaimportowany %3$s"
@@ -33638,126 +33896,44 @@ msgstr[2] ""
 "%1$s: %2$d kont ma ścieżkę do grupy Domain Admins (najkrótsza ścieżka: %3$d "
 "kroków). Szczegóły na stronie audytu bezpieczeństwa Active Directory."
 
-msgid "Firmware with a priority vulnerability"
-msgstr "Firmware z podatnością priorytetową"
+msgid "Docker inventory: risky configuration"
+msgstr "Inwentarz Docker: ryzykowna konfiguracja"
 
-msgid ""
-"The firmware of the controller or the BIOS has a known vulnerability that is "
-"exploited, critical or likely to be exploited (page \"Fleet "
-"vulnerabilities\"): update it first."
-msgstr ""
-"Firmware kontrolera lub BIOS ma znaną podatność wykorzystywaną, krytyczną "
-"lub prawdopodobnie wykorzystywaną (strona „Podatności floty”): zaktualizuj "
-"go w pierwszej kolejności."
+msgid "View the risky configuration"
+msgstr "Zobacz ryzykowną konfigurację"
 
-msgid "Firmware no longer supported"
-msgstr "Firmware bez wsparcia"
+msgid "No service analysed yet"
+msgstr "Nie przeanalizowano jeszcze żadnej usługi"
 
-msgid ""
-"The firmware of the controller or the BIOS has reached its end of support "
-"(endoflife.date): no more security fixes."
-msgstr ""
-"Firmware kontrolera lub BIOS osiągnął koniec wsparcia (endoflife.date): brak "
-"dalszych poprawek bezpieczeństwa."
+msgid "Without critical or high gap: not measured"
+msgstr "Bez odchyleń krytycznych i wysokich: nie zmierzono"
 
-msgid "Firmware with known vulnerabilities"
-msgstr "Firmware ze znanymi podatnościami"
+msgid "Without critical or high gap: %d%%"
+msgstr "Bez odchyleń krytycznych i wysokich: %d%%"
 
-msgid ""
-"The firmware of the controller or the BIOS has known vulnerabilities (page "
-"\"Fleet vulnerabilities\")."
-msgstr ""
-"Firmware kontrolera lub BIOS ma znane podatności (strona „Podatności floty”)."
+msgid "Without any open gap: %d%%"
+msgstr "Bez żadnych otwartych odchyleń: %d%%"
 
-msgid "Firmware support ending soon"
-msgstr "Koniec wsparcia firmware wkrótce"
+msgid "%d service(s) analysed"
+msgstr "Przeanalizowane usługi: %d"
 
-msgid ""
-"The end of support of the firmware or the BIOS is near (endoflife.date)."
-msgstr "Koniec wsparcia firmware lub BIOS jest bliski (endoflife.date)."
+msgid "%d with a critical gap"
+msgstr "Z odchyleniem krytycznym: %d"
 
-msgid ""
-"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
-"it with the known vulnerabilities."
-msgstr ""
-"Powiąż tę nazwę z produktem na stronie „Podatności floty”, aby porównać ją "
-"ze znanymi podatnościami."
+msgid "%d with a high gap"
+msgstr "Z odchyleniem wysokim: %d"
 
-msgid "Not watched"
-msgstr "Nieobserwowany"
+msgid "%d expired exception(s)"
+msgstr "Wygasłe wyjątki: %d"
 
-msgid "Priority CVEs: %d"
-msgstr "Priorytetowe CVE: %d"
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr "Wyjątki kończące się w ciągu %2$d dni: %1$d"
 
-msgid "Known CVEs: %d"
-msgstr "Znane CVE: %d"
+msgid "Next exception end: %s"
+msgstr "Najbliższy koniec wyjątku: %s"
 
-msgid "No known CVE"
-msgstr "Brak znanych CVE"
-
-msgid ""
-"The firmware of each controller and its BIOS are compared with the known "
-"vulnerabilities of the fleet and with the end of support dates, like the "
-"other firmwares: link their name to a product once, on the same pages."
-msgstr ""
-"Firmware każdego kontrolera i jego BIOS są porównywane ze znanymi "
-"podatnościami floty i datami końca wsparcia, jak inne firmware: powiąż ich "
-"nazwę z produktem raz, na tych samych stronach."
-
-msgid "Enable the end of support check"
-msgstr "Włącz sprawdzanie końca wsparcia"
-
-msgid "Server controller accounts"
-msgstr "Konta kontrolerów serwerów"
-
-msgid "Factory account still enabled: replace it with a named account"
-msgstr "Konto fabryczne nadal aktywne: zastąp je kontem imiennym"
-
-msgid "Disabled on the controller: delete it there"
-msgstr "Wyłączone na kontrolerze: usuń je tam"
-
-msgid "Locked on the controller"
-msgstr "Zablokowane na kontrolerze"
-
-msgid "Administrator role: full control of the server"
-msgstr "Rola administratora: pełna kontrola nad serwerem"
-
-msgid ""
-"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
-"gives full control of the server, even switched off, outside GLPI and the "
-"directory. When the campaign is launched, the accounts read on the "
-"controllers of its entities are copied here with a suggestion. Keep or "
-"remove each one: the plugin changes nothing on the controllers, remove the "
-"account there."
-msgstr ""
-"Konto kontrolera zarządzania serwerem (iLO, iDRAC, XClarity, IPMI) daje "
-"pełną kontrolę nad serwerem, nawet wyłączonym, poza GLPI i katalogiem. Przy "
-"uruchomieniu kampanii konta odczytane na kontrolerach jej jednostek są tu "
-"kopiowane z sugestią. Zachowaj lub usuń każde: wtyczka niczego nie zmienia "
-"na kontrolerach, usuń konto na miejscu."
-
-msgid ""
-"The accounts of the controllers are copied when the campaign is launched."
-msgstr "Konta kontrolerów są kopiowane przy uruchomieniu kampanii."
-
-msgid ""
-"No account of a server management controller in this campaign: no controller "
-"with accounts read in its entities when it was launched."
-msgstr ""
-"Brak kont kontrolerów zarządzania serwerami w tej kampanii: przy jej "
-"uruchomieniu żaden kontroler w jej jednostkach nie miał odczytanych kont."
-
-msgid "Add the accounts of the controllers"
-msgstr "Dodaj konta kontrolerów"
-
-msgid "Suggestion"
-msgstr "Sugestia"
-
-msgid "%d decided"
-msgstr "Zdecydowano: %d"
-
-msgid "%d account(s) of the controllers added to the campaign."
-msgstr "Dodano do kampanii kont kontrolerów: %d."
+msgid "%d service(s) not analysed"
+msgstr "Nieprzeanalizowane usługi: %d"
 
 msgid "Security 360°"
 msgstr "Bezpieczeństwo 360°"
@@ -33888,142 +34064,634 @@ msgstr ""
 "Źródła bez danych dla tego zasobu (moduł nieużywany, nic nie zaimportowano, "
 "brak uprawnień) nie są wyświetlane."
 
-#: src/ShareAccess.php:160
-msgid "Anyone with the link"
-msgstr "Każdy, kto ma link"
-
-#: src/ShareAccess.php:161
-msgid "External guest"
-msgstr "Gość zewnętrzny"
-
-#: src/ShareAccess.php:173
-msgid "Windows file share"
-msgstr "Udział plików Windows"
-
-#: src/ShareAccess.php:232
-msgid "Public link (anyone)"
-msgstr "Link publiczny (każdy)"
-
-#: src/ShareAccess.php:234
-msgid "A sharing link works for anyone who has it, without signing in."
-msgstr "Link udostępniania działa dla każdego, kto go ma, bez logowania."
-
-#: src/ShareAccess.php:237
-msgid "External guest has access"
-msgstr "Gość zewnętrzny ma dostęp"
-
-#: src/ShareAccess.php:240
-msgid ""
-"A person from another organization (guest account) has access: check it is "
-"still needed."
-msgstr ""
-"Osoba z innej organizacji (konto gościa) ma dostęp: sprawdź, czy jest nadal "
-"potrzebny."
-
-#: src/ShareAccess.php:286
-msgid ""
-"No site column found: the file needs a column such as Site, Team or OneDrive."
-msgstr ""
-"Nie znaleziono kolumny witryny: plik musi mieć kolumnę taką jak Site, Team "
-"lub OneDrive."
-
-#: src/ShareAccess.php:300
-msgid ""
-"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
-"User.Read.All and GroupMember.Read.All application permissions with admin "
-"consent."
-msgstr ""
-"Microsoft Graph odmówił dostępu: nadaj uprawnienia aplikacji Sites.Read.All, "
-"Files.Read.All, User.Read.All i GroupMember.Read.All ze zgodą administratora."
-
-#: src/ShareAccess.php:305
-msgid ""
-"Too many sites or accounts to read in one click: nothing was replaced. "
-"Import a CSV export instead."
-msgstr ""
-"Zbyt wiele witryn lub kont do odczytu jednym kliknięciem: nic nie "
-"zastąpiono. Zaimportuj zamiast tego eksport CSV."
-
-#: templates/share_access.html.twig
-msgid "Read SharePoint, OneDrive and Teams rights"
-msgstr "Odczytaj uprawnienia SharePoint, OneDrive i Teams"
-
-#: templates/share_access.html.twig
-msgid ""
-"GLPI reads the sharing rights through Microsoft Graph when you click, with "
-"the application set up for the MFA coverage, and never changes anything in "
-"Microsoft 365. SharePoint: the rights of each site document library and of "
-"its top-level items shared separately. OneDrive: the top-level items each "
-"person has shared. Teams: owners, members, guests and public teams. The same "
-"gaps and the same review as the file shares apply: public links, external "
-"guests, rights given to everyone."
-msgstr ""
-"GLPI odczytuje uprawnienia udostępniania przez Microsoft Graph po "
-"kliknięciu, za pomocą aplikacji skonfigurowanej dla pokrycia MFA, i nigdy "
-"niczego nie zmienia w Microsoft 365. SharePoint: uprawnienia biblioteki "
-"dokumentów każdej witryny i jej elementów najwyższego poziomu udostępnionych "
-"osobno. OneDrive: elementy najwyższego poziomu udostępnione przez każdą "
-"osobę. Teams: właściciele, członkowie, goście i zespoły publiczne. "
-"Obowiązują te same odstępstwa i ten sam przegląd co dla udziałów plików: "
-"linki publiczne, goście zewnętrzni, uprawnienia dla wszystkich."
-
-#: templates/share_access.html.twig
-msgid ""
-"Application permissions to grant, with admin consent (read only): Sites.Read."
-"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
-msgstr ""
-"Uprawnienia aplikacji do nadania, ze zgodą administratora (tylko odczyt): "
-"Sites.Read.All, Files.Read.All, User.Read.All i GroupMember.Read.All."
-
-#: templates/share_access.html.twig
-msgid "Microsoft Graph connected"
-msgstr "Microsoft Graph połączony"
-
-#: templates/share_access.html.twig
-msgid "Microsoft Graph settings"
-msgstr "Ustawienia Microsoft Graph"
-
-#: templates/share_access.html.twig
 #, php-format
-msgid "Read %s now"
-msgstr "Odczytaj %s teraz"
-
-#: templates/share_access.html.twig
 msgid ""
-"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
-"the client secret on the MFA coverage page, or import a CSV export below."
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
 msgstr ""
-"Microsoft Graph nie jest jeszcze skonfigurowany. Wprowadź dzierżawę, "
-"identyfikator aplikacji i klucz tajny klienta na stronie pokrycia MFA albo "
-"zaimportuj poniżej eksport CSV."
+"Zaimportowano odpowiedzi z pliku dostawcy: %1$d, dołączone dokumenty: %2$d."
 
-#: templates/share_access.html.twig
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
+msgstr ""
+"Dokument „%s” nie odpowiada żadnemu pytaniu z pliku: nie został dodany."
+
 msgid ""
-"Fallback: import a CSV file with one line per right and columns such as "
-"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
-"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
-"organization, users)."
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
 msgstr ""
-"Rozwiązanie zastępcze: zaimportuj plik CSV z jednym wierszem na uprawnienie "
-"i kolumnami takimi jak Source (SharePoint, OneDrive lub Teams), Site, "
-"SiteUrl, Item, Identity, Type (User, Group, Guest), Roles (read, write, "
-"owner) i LinkScope (anonymous, organization, users)."
+"Pokazuje odpowiedzi znalezione w pliku kwestionariusza zwróconym przez "
+"dostawcę, pytanie po pytaniu, obok bieżących odpowiedzi, wraz z punktami do "
+"sprawdzenia (nieznane pytanie, odpowiedź spoza listy, brakujące pytanie)."
 
-#: templates/share_access_detail.html.twig
-msgid "Owner in Microsoft 365"
-msgstr "Właściciel w Microsoft 365"
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+"Sprawdź odpowiedzi, dodaj dokumenty przesłane przez dostawcę, a następnie "
+"zapisz: przed tym potwierdzeniem nic nie jest zapisywane. Następnie "
+"przejrzyj ocenę i oznacz ją jako zakończoną."
 
-#: templates/share_access_detail.html.twig
-msgid "Sharing link"
-msgstr "Link udostępniania"
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
+msgstr "ISO/IEC 27001, zabezpieczenia od A.5.19 do A.5.22"
 
-#: templates/share_access_detail.html.twig
-msgid "Team membership"
-msgstr "Członkostwo w zespole"
+msgid "Supplier file"
+msgstr "Plik dostawcy"
 
-#: templates/share_access_detail.html.twig
-msgid "Direct permission"
-msgstr "Uprawnienie bezpośrednie"
+msgid "Guidance"
+msgstr "Wskazówki"
+
+msgid "Allowed answers"
+msgstr "Dopuszczalne odpowiedzi"
+
+msgid "Supplier answer"
+msgstr "Odpowiedź dostawcy"
+
+msgid "Evidence file name"
+msgstr "Nazwa pliku dowodu"
+
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr "Wyeksportowano plik kwestionariusza dla dostawcy: %1$s (odcisk %2$s)"
+
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr "Plik kwestionariusza zwrócony przez dostawcę dla oceny „%s”"
+
+#, php-format
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+"Zaimportowano plik dostawcy: %1$s (SHA-256 %2$s), odpowiedzi: %3$d, "
+"dokumenty: %4$d"
+
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr "Plik jest za duży (maksymalnie %d MB)."
+
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"Plik nie jest plikiem tekstowym CSV: zapisz arkusz jako CSV przed importem."
+
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+"Ten plik nie jest kwestionariuszem wyeksportowanym z tej wtyczki: jego "
+"pierwszy wiersz został zmieniony lub usunięty."
+
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+"Ten plik wyeksportowano dla innej oceny: zaimportuj go w ocenie, z której "
+"pochodzi."
+
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+"Pytania w tym pliku nie odpowiadają pytaniom oceny: wyeksportuj "
+"kwestionariusz ponownie."
+
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+"Brakuje wiersza nagłówka lub niektórych kolumn: zachowaj kolumny "
+"wyeksportowanego pliku."
+
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr "Wiersz %1$d: nieznany kod pytania „%2$s”, wiersz pominięty."
+
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr ""
+"Wiersz %1$d: pytanie %2$s występuje dwa razy, zachowano tylko pierwszy "
+"wiersz."
+
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr "Wiersz %1$d: odpowiedzi „%2$s” nie ma na liście, wiersz pominięty."
+
+#, php-format
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+"Wiersz %1$d: maksymalnie %2$d pytań na plik, kolejne wiersze pominięto."
+
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr "W pliku brakuje pytania %s: jego odpowiedź się nie zmienia."
+
+#, php-format
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+"Zmienia się %d pytanie. Sprawdź odpowiedzi i zapisz je: zostaną oznaczone "
+"jako pochodzące z pliku dostawcy."
+msgstr[1] ""
+"Zmieniają się %d pytania. Sprawdź odpowiedzi i zapisz je: zostaną oznaczone "
+"jako pochodzące z pliku dostawcy."
+msgstr[2] ""
+"Zmienia się %d pytań. Sprawdź odpowiedzi i zapisz je: zostaną oznaczone jako "
+"pochodzące z pliku dostawcy."
+
+msgid "Answer in the file"
+msgstr "Odpowiedź w pliku"
+
+msgid "Back to the evaluation"
+msgstr "Powrót do oceny"
+
+msgid "Comment in the file"
+msgstr "Komentarz w pliku"
+
+msgid "Current answer"
+msgstr "Bieżąca odpowiedź"
+
+msgid "Documents sent by the supplier"
+msgstr "Dokumenty przesłane przez dostawcę"
+
+#, php-format
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+"Każdy dokument jest przypisywany do pytań, których kolumna „Nazwa pliku "
+"dowodu” podaje jego nazwę. Jest sprawdzany jak każdy dowód (typy dozwolone "
+"przez GLPI, rozmiar, rzeczywista zawartość). Oczekiwane: %s"
+
+msgid "Review the supplier file"
+msgstr "Sprawdź plik dostawcy"
+
+msgid "Save these answers"
+msgstr "Zapisz te odpowiedzi"
+
+msgid "The file brings no new answer and no new comment."
+msgstr "Plik nie zawiera nowych odpowiedzi ani nowych komentarzy."
+
+msgid "unchanged"
+msgstr "bez zmian"
+
+msgid "Answer by file, outside GLPI"
+msgstr "Odpowiedź w pliku, poza GLPI"
+
+#, php-format
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"Maksymalnie %1$d MB i %2$d pytań. Zapisz arkusz jako CSV przed importem."
+
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+"Plik CSV (separator „;”, UTF-8), jeden wiersz na pytanie. Pierwszy wiersz "
+"identyfikuje ocenę i jej pytania: nie może być zmieniany. Wyślij go wybranym "
+"sposobem (e-mail, platforma wymiany)."
+
+msgid "Download the questionnaire to fill in"
+msgstr "Pobierz kwestionariusz do wypełnienia"
+
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+"Każdy eksport i import jest zapisywany na karcie Historia (kto, kiedy, jaki "
+"plik); zwrócony plik jest przechowywany na karcie Dokumenty ryzyka dostawcy."
+
+msgid "Import the returned file"
+msgstr "Zaimportuj zwrócony plik"
+
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr "Kwestionariusz wypełniony przez dostawcę (CSV)"
+
+msgid "Review the answers"
+msgstr "Sprawdź odpowiedzi"
+
+msgid "Send the questionnaire"
+msgstr "Wyślij kwestionariusz"
+
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr "Ta ocena jest zakończona: otwórz ją ponownie, aby zaimportować plik."
+
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+"Gdy dostawca nie ma dostępu do GLPI, wyślij mu kwestionariusz jako plik: "
+"dostawca wypełnia w dowolnym arkuszu kolumny „Odpowiedź dostawcy”, "
+"„Komentarz” oraz, dla każdego dostarczonego dokumentu, „Nazwa pliku dowodu”. "
+"Następnie zaimportuj tutaj zwrócony plik: odpowiedzi są wyświetlane do "
+"przeglądu i nic nie jest zapisywane przed Twoim potwierdzeniem."
+
+msgid "You are not allowed to change this evaluation."
+msgstr "Nie masz uprawnień do zmiany tej oceny."
+
+msgid "Control coverage by policies"
+msgstr "Pokrycie zabezpieczeń przez polityki"
+
+msgid "Not covered by any text"
+msgstr "Nieobjęte żadnym dokumentem"
+
+msgid "Covered only by a text not approved"
+msgstr "Objęte tylko niezatwierdzonym dokumentem"
+
+msgid "Covered only by a text to review"
+msgstr "Objęte tylko dokumentem do przeglądu"
+
+msgid "Covered by an approved text"
+msgstr "Objęte zatwierdzonym dokumentem"
+
+msgid "Covered controls"
+msgstr "Objęte zabezpieczenia"
+
+msgid "Reference texts"
+msgstr "Dokumenty referencyjne"
+
+msgid "Text status"
+msgstr "Status dokumentu"
+
+msgid ""
+"Shows, for each applicable control of the Statement of Applicability, the "
+"texts of the policy library that cover it, and lists the controls covered by "
+"no text, or only by a text not approved yet or whose review date has passed."
+msgstr ""
+"Pokazuje dla każdego mającego zastosowanie zabezpieczenia deklaracji "
+"stosowania dokumenty biblioteki polityk, które je obejmują, oraz wymienia "
+"zabezpieczenia nieobjęte żadnym dokumentem albo objęte tylko dokumentem "
+"jeszcze niezatwierdzonym lub z przekroczoną datą przeglądu."
+
+msgid ""
+"Open each policy, then its \"Covered controls\" tab, and link the whole text "
+"or one of its sections to the controls it deals with (several at once, or by "
+"typing codes such as A.5.15-A.5.18). Then write, approve or review the "
+"missing texts. Export the report in PDF or CSV for the auditor. Nothing is "
+"changed automatically."
+msgstr ""
+"Otwórz każdą politykę, a następnie jej kartę „Objęte zabezpieczenia”, i "
+"powiąż cały dokument lub jedną z jego sekcji z zabezpieczeniami, których "
+"dotyczy (kilka naraz lub wpisując kody, np. A.5.15-A.5.18). Następnie "
+"napisz, zatwierdź lub przejrzyj brakujące dokumenty. Wyeksportuj raport do "
+"PDF lub CSV dla audytora. Nic nie jest zmieniane automatycznie."
+
+msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
+msgstr "ISO/IEC 27001, punkt 5.2 i zabezpieczenie A.5.1"
+
+msgid "Gaps only"
+msgstr "Tylko luki"
+
+msgid "All applicable controls"
+msgstr "Wszystkie mające zastosowanie zabezpieczenia"
+
+msgid "%d link added."
+msgid_plural "%d links added."
+msgstr[0] "Dodano %d powiązanie."
+msgstr[1] "Dodano %d powiązania."
+msgstr[2] "Dodano %d powiązań."
+
+msgid "Codes not found in the Statement of Applicability: %s"
+msgstr "Kody nieznalezione w deklaracji stosowania: %s"
+
+msgid ""
+"Applicable controls not covered by an approved text of the policy library "
+"whose review is up to date"
+msgstr ""
+"Mające zastosowanie zabezpieczenia nieobjęte zatwierdzonym i aktualnie "
+"przejrzanym dokumentem biblioteki polityk"
+
+msgid ""
+"Open the coverage report of the controls by the policies, link the text that "
+"deals with the control (or write it), then have it approved or reviewed."
+msgstr ""
+"Otwórz raport pokrycia zabezpieczeń przez polityki, powiąż dokument "
+"dotyczący zabezpieczenia (lub go napisz), a następnie przekaż go do "
+"zatwierdzenia lub przeglądu."
+
+msgid "Controls covered by an approved text: %1$d out of %2$d"
+msgstr "Zabezpieczenia objęte zatwierdzonym dokumentem: %1$d z %2$d"
+
+msgid "Policy library"
+msgstr "Biblioteka polityk"
+
+msgid ""
+"No text of the policy library is linked to a control yet. Open a policy, "
+"then its \"Covered controls\" tab, to link it to the controls it deals with."
+msgstr ""
+"Żaden dokument biblioteki polityk nie jest jeszcze powiązany z "
+"zabezpieczeniem. Otwórz politykę, a następnie jej kartę „Objęte "
+"zabezpieczenia”, aby powiązać ją z zabezpieczeniami, których dotyczy."
+
+msgid ""
+"Every applicable control is covered by an approved text whose review is up "
+"to date."
+msgstr ""
+"Każde mające zastosowanie zabezpieczenie jest objęte zatwierdzonym "
+"dokumentem z aktualnym przeglądem."
+
+msgid "No applicable control in the Statement of Applicability you can read."
+msgstr ""
+"Brak mających zastosowanie zabezpieczeń w deklaracji stosowania, którą "
+"możesz odczytać."
+
+msgid "Texts"
+msgstr "Dokumenty"
+
+msgid "Controls covered by this text"
+msgstr "Zabezpieczenia objęte tym dokumentem"
+
+msgid "%d linked control"
+msgid_plural "%d linked controls"
+msgstr[0] "%d powiązane zabezpieczenie"
+msgstr[1] "%d powiązane zabezpieczenia"
+msgstr[2] "%d powiązanych zabezpieczeń"
+
+msgid "Controls not covered by any text"
+msgstr "Zabezpieczenia nieobjęte żadnym dokumentem"
+
+msgid ""
+"Link this policy, or one of its sections, to the Annex A controls it deals "
+"with. Each applicable control of the Statement of Applicability should be "
+"covered by at least one approved text: the coverage report lists the "
+"controls without one, for the auditor (clause 5.2, control A.5.1). Only the "
+"controls of your entities are shown."
+msgstr ""
+"Powiąż tę politykę lub jedną z jej sekcji z zabezpieczeniami z Załącznika A, "
+"których dotyczy. Każde mające zastosowanie zabezpieczenie deklaracji "
+"stosowania powinno być objęte co najmniej jednym zatwierdzonym dokumentem: "
+"raport pokrycia wymienia te, które go nie mają, dla audytora (punkt 5.2, "
+"zabezpieczenie A.5.1). Wyświetlane są tylko zabezpieczenia Twoich jednostek."
+
+msgid "Link controls"
+msgstr "Powiąż zabezpieczenia"
+
+msgid ""
+"For example \"4.2 Access control\". Leave empty when the whole text covers "
+"the controls."
+msgstr ""
+"Na przykład „4.2 Kontrola dostępu”. Pozostaw puste, jeśli cały dokument "
+"obejmuje zabezpieczenia."
+
+msgid "Choose one or several controls in the list."
+msgstr "Wybierz jedno lub kilka zabezpieczeń z listy."
+
+msgid "Or type control codes"
+msgstr "Lub wpisz kody zabezpieczeń"
+
+msgid ""
+"Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) "
+"or a whole theme (A.8 for all technological controls)."
+msgstr ""
+"Szybkie wprowadzanie, oddzielone przecinkami: zabezpieczenie (A.5.1), zakres "
+"(A.5.15-A.5.18) lub cały temat (A.8 dla wszystkich zabezpieczeń "
+"technologicznych)."
+
+msgid "This text is not linked to any control yet."
+msgstr "Ten dokument nie jest jeszcze powiązany z żadnym zabezpieczeniem."
+
+msgid "Whole text"
+msgstr "Cały dokument"
+
+msgid "Remove the link"
+msgstr "Usuń powiązanie"
+
+msgid "Texts that cover this control"
+msgstr "Dokumenty obejmujące to zabezpieczenie"
+
+msgid ""
+"The policies, or sections of policies, that deal with this control. An "
+"auditor expects each applicable control to be covered by at least one "
+"approved text whose review is up to date. Only the texts you are allowed to "
+"read are shown."
+msgstr ""
+"Polityki lub sekcje polityk dotyczące tego zabezpieczenia. Audytor oczekuje, "
+"że każde mające zastosowanie zabezpieczenie będzie objęte co najmniej jednym "
+"zatwierdzonym dokumentem z aktualnym przeglądem. Wyświetlane są tylko "
+"dokumenty, które możesz odczytać."
+
+msgid "No text of the policy library covers this control yet."
+msgstr ""
+"Żaden dokument biblioteki polityk nie obejmuje jeszcze tego zabezpieczenia."
+
+msgid "Text"
+msgstr "Dokument"
+
+msgid "Link texts"
+msgstr "Powiąż dokumenty"
+
+msgid "Policies"
+msgstr "Polityki"
+
+msgid "Leave empty when the whole text covers the control."
+msgstr "Pozostaw puste, jeśli cały dokument obejmuje zabezpieczenie."
+
+msgid ""
+"A control is covered when at least one approved text of the policy library, "
+"whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 "
+"and control A.5.1). Only the items the person who exported this report can "
+"read are counted."
+msgstr ""
+"Zabezpieczenie jest objęte, gdy dotyczy go co najmniej jeden zatwierdzony "
+"dokument biblioteki polityk z nieprzekroczoną datą przeglądu (ISO/IEC 27001, "
+"punkt 5.2 i zabezpieczenie A.5.1). Liczone są tylko elementy, które może "
+"odczytać osoba eksportująca ten raport."
+
+msgid ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+msgstr ""
+"Raport zarchiwizowany jako dowód wymagań 10.1 i 10.2 (karta Dokumenty). "
+"Pakiet dowodów go uwzględnia."
+
+msgid "The report could not be archived."
+msgstr "Nie udało się zarchiwizować raportu."
+
+msgid ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+msgstr ""
+"Pokazuje zaległości niezgodności, innych ustaleń i działań korygujących oraz "
+"działań podjętych w przeglądach zarządzania: co pozostaje otwarte według "
+"wagi, pochodzenia, jednostki i właściciela, od jak dawna, co jest opóźnione, "
+"średni czas zamknięcia w okresie, trend miesięczny oraz czy zweryfikowano "
+"skuteczność zamkniętych działań."
+
+msgid ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+msgstr ""
+"Wybierz okres i filtry, monituj właścicieli opóźnionych pozycji, a następnie "
+"wyeksportuj raport do PDF lub CSV dla audytora albo zarchiwizuj go jako "
+"dowód wymagań 10.1 i 10.2: pakiet dowodów go wtedy uwzględni. Nic nie jest "
+"zmieniane automatycznie."
+
+msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+msgstr "ISO/IEC 27001, punkty 9.1, 10.1 i 10.2"
+
+msgid "Mean time to close gaps (days, 12 months)"
+msgstr "Średni czas zamknięcia niezgodności (dni, 12 miesięcy)"
+
+msgid "Gap backlog"
+msgstr "Zaległości niezgodności"
+
+msgid "Other finding or improvement action"
+msgstr "Inne ustalenie lub działanie doskonalące"
+
+msgid "Other source"
+msgstr "Inne źródło"
+
+msgid "30 days or less"
+msgstr "30 dni lub mniej"
+
+msgid "31 to 90 days"
+msgstr "31 do 90 dni"
+
+msgid "91 to 180 days"
+msgstr "91 do 180 dni"
+
+msgid "More than 180 days"
+msgstr "Ponad 180 dni"
+
+msgid "Opened on"
+msgstr "Otwarto"
+
+msgid "Age (days)"
+msgstr "Wiek (dni)"
+
+msgid "Days overdue"
+msgstr "Dni opóźnienia"
+
+msgid "Effectiveness verified"
+msgstr "Skuteczność zweryfikowana"
+
+#, php-format
+msgid "Gap backlog report - %1$s (%2$s to %3$s)"
+msgstr "Raport zaległości niezgodności - %1$s (%2$s do %3$s)"
+
+#, php-format
+msgid "Effectiveness verified: %d%%"
+msgstr "Skuteczność zweryfikowana: %d%%"
+
+#, php-format
+msgid "Last 12 months, computed on %s"
+msgstr "Ostatnie 12 miesięcy, obliczono %s"
+
+#, php-format
+msgid "Mean time to close: %d days"
+msgstr "Średni czas zamknięcia: %d dni"
+
+msgid "Mean time to close: not measured"
+msgstr "Średni czas zamknięcia: nie zmierzono"
+
+#, php-format
+msgid "Open gaps: %d"
+msgstr "Otwarte niezgodności: %d"
+
+#, php-format
+msgid "%1$d closed in the period, median: %2$s"
+msgstr "%1$d zamkniętych w okresie, mediana: %2$s"
+
+msgid "Age of open gaps"
+msgstr "Wiek otwartych niezgodności"
+
+#, php-format
+msgid "Archive as evidence (%s)"
+msgstr "Zarchiwizuj jako dowód (%s)"
+
+msgid "Backlog at month end"
+msgstr "Zaległości na koniec miesiąca"
+
+msgid "By entity"
+msgstr "Według jednostki"
+
+msgid "By origin"
+msgstr "Według pochodzenia"
+
+msgid "By owner"
+msgstr "Według właściciela"
+
+msgid "By severity"
+msgstr "Według wagi"
+
+#, php-format
+msgid "Closed in the period: %1$d verified, %2$d to verify"
+msgstr "Zamknięte w okresie: %1$d zweryfikowanych, %2$d do weryfikacji"
+
+msgid "Due date passed and not closed"
+msgstr "Termin minął, niezamknięte"
+
+msgid "From (month)"
+msgstr "Od (miesiąc)"
+
+msgid "Mean time to close"
+msgstr "Średni czas zamknięcia"
+
+msgid "Month"
+msgstr "Miesiąc"
+
+#, php-format
+msgid "No due date: %d"
+msgstr "Bez terminu: %d"
+
+msgid "No open gap with these filters."
+msgstr "Brak otwartych niezgodności dla tych filtrów."
+
+msgid "Nothing open."
+msgstr "Brak otwartych."
+
+#, php-format
+msgid "Only the first %d gaps are listed: the CSV export contains all of them."
+msgstr ""
+"Wyświetlono tylko pierwsze %d niezgodności: eksport CSV zawiera wszystkie."
+
+msgid "Open gaps"
+msgstr "Otwarte niezgodności"
+
+msgid "Open gaps, most overdue first"
+msgstr "Otwarte niezgodności, najbardziej opóźnione najpierw"
+
+msgid "To (month)"
+msgstr "Do (miesiąc)"
+
+msgid "By type"
+msgstr "Według typu"
+
+msgid "Closed in the period"
+msgstr "Zamknięte w okresie"
+
+msgid "ISMS requirements"
+msgstr "Wymagania SZBI"
+
+msgid ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+msgstr ""
+"Średni czas zamknięcia: dni między otwarciem a zamknięciem niezgodności "
+"zamkniętych w okresie. Skuteczność zweryfikowana: zamknięte niezgodności i "
+"ustalenia, których zamknięcie zweryfikowano."
+
+msgid "Opened in the period"
+msgstr "Otwarte w okresie"
 
 msgid "SBOM and VEX"
 msgstr "SBOM i VEX"
@@ -34278,283 +34946,6 @@ msgstr "Znane podatności w komponentach: %d"
 msgid "%d not affected or fixed"
 msgstr "Niepodatne lub naprawione: %d"
 
-#, php-format
-msgid ""
-"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
-msgstr ""
-"Zaimportowano odpowiedzi z pliku dostawcy: %1$d, dołączone dokumenty: %2$d."
-
-#, php-format
-msgid "The document \"%s\" matches no question of the file: it was not added."
-msgstr ""
-"Dokument „%s” nie odpowiada żadnemu pytaniu z pliku: nie został dodany."
-
-msgid ""
-"Shows the answers found in the questionnaire file returned by the supplier, "
-"question by question, next to the current answers, with the points to check "
-"(unknown question, answer outside the list, missing question)."
-msgstr ""
-"Pokazuje odpowiedzi znalezione w pliku kwestionariusza zwróconym przez "
-"dostawcę, pytanie po pytaniu, obok bieżących odpowiedzi, wraz z punktami do "
-"sprawdzenia (nieznane pytanie, odpowiedź spoza listy, brakujące pytanie)."
-
-msgid ""
-"Check the answers, add the documents sent by the supplier, then save: "
-"nothing is recorded before this confirmation. Then review the evaluation and "
-"mark it as completed."
-msgstr ""
-"Sprawdź odpowiedzi, dodaj dokumenty przesłane przez dostawcę, a następnie "
-"zapisz: przed tym potwierdzeniem nic nie jest zapisywane. Następnie "
-"przejrzyj ocenę i oznacz ją jako zakończoną."
-
-msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
-msgstr "ISO/IEC 27001, zabezpieczenia od A.5.19 do A.5.22"
-
-msgid "Supplier file"
-msgstr "Plik dostawcy"
-
-msgid "Guidance"
-msgstr "Wskazówki"
-
-msgid "Allowed answers"
-msgstr "Dopuszczalne odpowiedzi"
-
-msgid "Supplier answer"
-msgstr "Odpowiedź dostawcy"
-
-msgid "Evidence file name"
-msgstr "Nazwa pliku dowodu"
-
-#, php-format
-msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
-msgstr "Wyeksportowano plik kwestionariusza dla dostawcy: %1$s (odcisk %2$s)"
-
-#, php-format
-msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
-msgstr "Plik kwestionariusza zwrócony przez dostawcę dla oceny „%s”"
-
-#, php-format
-msgid ""
-"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
-msgstr ""
-"Zaimportowano plik dostawcy: %1$s (SHA-256 %2$s), odpowiedzi: %3$d, "
-"dokumenty: %4$d"
-
-#, php-format
-msgid "The file is too large (at most %d MB)."
-msgstr "Plik jest za duży (maksymalnie %d MB)."
-
-msgid ""
-"The file is not a CSV text file: save the spreadsheet as CSV before "
-"importing it."
-msgstr ""
-"Plik nie jest plikiem tekstowym CSV: zapisz arkusz jako CSV przed importem."
-
-msgid ""
-"This file is not a questionnaire exported from this plugin: its first line "
-"was changed or removed."
-msgstr ""
-"Ten plik nie jest kwestionariuszem wyeksportowanym z tej wtyczki: jego "
-"pierwszy wiersz został zmieniony lub usunięty."
-
-msgid ""
-"This file was exported for another evaluation: import it in the evaluation "
-"it comes from."
-msgstr ""
-"Ten plik wyeksportowano dla innej oceny: zaimportuj go w ocenie, z której "
-"pochodzi."
-
-msgid ""
-"The questions of this file do not match those of the evaluation: export the "
-"questionnaire again."
-msgstr ""
-"Pytania w tym pliku nie odpowiadają pytaniom oceny: wyeksportuj "
-"kwestionariusz ponownie."
-
-msgid ""
-"The header line or some columns are missing: keep the columns of the "
-"exported file."
-msgstr ""
-"Brakuje wiersza nagłówka lub niektórych kolumn: zachowaj kolumny "
-"wyeksportowanego pliku."
-
-#, php-format
-msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
-msgstr "Wiersz %1$d: nieznany kod pytania „%2$s”, wiersz pominięty."
-
-#, php-format
-msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
-msgstr ""
-"Wiersz %1$d: pytanie %2$s występuje dwa razy, zachowano tylko pierwszy "
-"wiersz."
-
-#, php-format
-msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
-msgstr "Wiersz %1$d: odpowiedzi „%2$s” nie ma na liście, wiersz pominięty."
-
-#, php-format
-msgid ""
-"Line %1$d: at most %2$d questions per file, the following lines were ignored."
-msgstr ""
-"Wiersz %1$d: maksymalnie %2$d pytań na plik, kolejne wiersze pominięto."
-
-#, php-format
-msgid "Question %s is missing from the file: its answer does not change."
-msgstr "W pliku brakuje pytania %s: jego odpowiedź się nie zmienia."
-
-#, php-format
-msgid ""
-"%d question changes. Check the answers, then save them: they will be marked "
-"as coming from the supplier file."
-msgid_plural ""
-"%d questions change. Check the answers, then save them: they will be marked "
-"as coming from the supplier file."
-msgstr[0] ""
-"Zmienia się %d pytanie. Sprawdź odpowiedzi i zapisz je: zostaną oznaczone "
-"jako pochodzące z pliku dostawcy."
-msgstr[1] ""
-"Zmieniają się %d pytania. Sprawdź odpowiedzi i zapisz je: zostaną oznaczone "
-"jako pochodzące z pliku dostawcy."
-msgstr[2] ""
-"Zmienia się %d pytań. Sprawdź odpowiedzi i zapisz je: zostaną oznaczone jako "
-"pochodzące z pliku dostawcy."
-
-msgid "Answer in the file"
-msgstr "Odpowiedź w pliku"
-
-msgid "Back to the evaluation"
-msgstr "Powrót do oceny"
-
-msgid "Comment in the file"
-msgstr "Komentarz w pliku"
-
-msgid "Current answer"
-msgstr "Bieżąca odpowiedź"
-
-msgid "Documents sent by the supplier"
-msgstr "Dokumenty przesłane przez dostawcę"
-
-#, php-format
-msgid ""
-"Each document is attached to the questions whose column \"Evidence file "
-"name\" gives its name. It is checked like any evidence (types allowed by "
-"GLPI, size, real content). Expected: %s"
-msgstr ""
-"Każdy dokument jest przypisywany do pytań, których kolumna „Nazwa pliku "
-"dowodu” podaje jego nazwę. Jest sprawdzany jak każdy dowód (typy dozwolone "
-"przez GLPI, rozmiar, rzeczywista zawartość). Oczekiwane: %s"
-
-msgid "Review the supplier file"
-msgstr "Sprawdź plik dostawcy"
-
-msgid "Save these answers"
-msgstr "Zapisz te odpowiedzi"
-
-msgid "The file brings no new answer and no new comment."
-msgstr "Plik nie zawiera nowych odpowiedzi ani nowych komentarzy."
-
-msgid "unchanged"
-msgstr "bez zmian"
-
-msgid "Answer by file, outside GLPI"
-msgstr "Odpowiedź w pliku, poza GLPI"
-
-#, php-format
-msgid ""
-"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
-"importing it."
-msgstr ""
-"Maksymalnie %1$d MB i %2$d pytań. Zapisz arkusz jako CSV przed importem."
-
-msgid ""
-"CSV file (separator \";\", UTF-8), one line per question. Its first line "
-"identifies the evaluation and its questions: it must stay unchanged. Send it "
-"by the means of your choice (email, exchange platform)."
-msgstr ""
-"Plik CSV (separator „;”, UTF-8), jeden wiersz na pytanie. Pierwszy wiersz "
-"identyfikuje ocenę i jej pytania: nie może być zmieniany. Wyślij go wybranym "
-"sposobem (e-mail, platforma wymiany)."
-
-msgid "Download the questionnaire to fill in"
-msgstr "Pobierz kwestionariusz do wypełnienia"
-
-msgid ""
-"Each export and import is recorded in the Historical tab (who, when, which "
-"file); the returned file is kept in the Documents tab of the supplier risk."
-msgstr ""
-"Każdy eksport i import jest zapisywany na karcie Historia (kto, kiedy, jaki "
-"plik); zwrócony plik jest przechowywany na karcie Dokumenty ryzyka dostawcy."
-
-msgid "Import the returned file"
-msgstr "Zaimportuj zwrócony plik"
-
-msgid "Questionnaire filled in by the supplier (CSV)"
-msgstr "Kwestionariusz wypełniony przez dostawcę (CSV)"
-
-msgid "Review the answers"
-msgstr "Sprawdź odpowiedzi"
-
-msgid "Send the questionnaire"
-msgstr "Wyślij kwestionariusz"
-
-msgid "This evaluation is completed: reopen it to import a file."
-msgstr "Ta ocena jest zakończona: otwórz ją ponownie, aby zaimportować plik."
-
-msgid ""
-"When the supplier has no access to GLPI, send the questionnaire as a file: "
-"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
-"each document provided, \"Evidence file name\", in any spreadsheet. You then "
-"import the returned file here: the answers are shown for review and nothing "
-"is saved before your confirmation."
-msgstr ""
-"Gdy dostawca nie ma dostępu do GLPI, wyślij mu kwestionariusz jako plik: "
-"dostawca wypełnia w dowolnym arkuszu kolumny „Odpowiedź dostawcy”, "
-"„Komentarz” oraz, dla każdego dostarczonego dokumentu, „Nazwa pliku dowodu”. "
-"Następnie zaimportuj tutaj zwrócony plik: odpowiedzi są wyświetlane do "
-"przeglądu i nic nie jest zapisywane przed Twoim potwierdzeniem."
-
-msgid "You are not allowed to change this evaluation."
-msgstr "Nie masz uprawnień do zmiany tej oceny."
-
-msgid "Docker inventory: risky configuration"
-msgstr "Inwentarz Docker: ryzykowna konfiguracja"
-
-msgid "View the risky configuration"
-msgstr "Zobacz ryzykowną konfigurację"
-
-msgid "No service analysed yet"
-msgstr "Nie przeanalizowano jeszcze żadnej usługi"
-
-msgid "Without critical or high gap: not measured"
-msgstr "Bez odchyleń krytycznych i wysokich: nie zmierzono"
-
-msgid "Without critical or high gap: %d%%"
-msgstr "Bez odchyleń krytycznych i wysokich: %d%%"
-
-msgid "Without any open gap: %d%%"
-msgstr "Bez żadnych otwartych odchyleń: %d%%"
-
-msgid "%d service(s) analysed"
-msgstr "Przeanalizowane usługi: %d"
-
-msgid "%d with a critical gap"
-msgstr "Z odchyleniem krytycznym: %d"
-
-msgid "%d with a high gap"
-msgstr "Z odchyleniem wysokim: %d"
-
-msgid "%d expired exception(s)"
-msgstr "Wygasłe wyjątki: %d"
-
-msgid "%1$d exception(s) ending within %2$d days"
-msgstr "Wyjątki kończące się w ciągu %2$d dni: %1$d"
-
-msgid "Next exception end: %s"
-msgstr "Najbliższy koniec wyjątku: %s"
-
-msgid "%d service(s) not analysed"
-msgstr "Nieprzeanalizowane usługi: %d"
-
 #: templates/product_sbom_list.html.twig
 msgid ""
 "SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
@@ -34570,186 +34961,3 @@ msgstr "Nie zaimportowano jeszcze żadnego SBOM."
 #: templates/product_sbom_list.html.twig
 msgid "Components"
 msgstr "Komponenty"
-
-msgid ""
-"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
-"The evidence pack includes it."
-msgstr ""
-"Raport zarchiwizowany jako dowód wymagań 10.1 i 10.2 (karta Dokumenty). "
-"Pakiet dowodów go uwzględnia."
-
-msgid "The report could not be archived."
-msgstr "Nie udało się zarchiwizować raportu."
-
-msgid ""
-"Shows the backlog of non-conformities, other findings and corrective "
-"actions, and of the actions decided in management reviews: what is still "
-"open by severity, origin, entity and owner, how old it is, what is overdue, "
-"the mean time to close over a period, the monthly trend and whether the "
-"effectiveness of closed actions was verified."
-msgstr ""
-"Pokazuje zaległości niezgodności, innych ustaleń i działań korygujących oraz "
-"działań podjętych w przeglądach zarządzania: co pozostaje otwarte według "
-"wagi, pochodzenia, jednostki i właściciela, od jak dawna, co jest opóźnione, "
-"średni czas zamknięcia w okresie, trend miesięczny oraz czy zweryfikowano "
-"skuteczność zamkniętych działań."
-
-msgid ""
-"Choose the period and the filters, follow up the overdue items with their "
-"owners, then export the report in PDF or CSV for the auditor, or archive it "
-"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
-"it. Nothing is changed automatically."
-msgstr ""
-"Wybierz okres i filtry, monituj właścicieli opóźnionych pozycji, a następnie "
-"wyeksportuj raport do PDF lub CSV dla audytora albo zarchiwizuj go jako "
-"dowód wymagań 10.1 i 10.2: pakiet dowodów go wtedy uwzględni. Nic nie jest "
-"zmieniane automatycznie."
-
-msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
-msgstr "ISO/IEC 27001, punkty 9.1, 10.1 i 10.2"
-
-msgid "Mean time to close gaps (days, 12 months)"
-msgstr "Średni czas zamknięcia niezgodności (dni, 12 miesięcy)"
-
-msgid "Gap backlog"
-msgstr "Zaległości niezgodności"
-
-msgid "Other finding or improvement action"
-msgstr "Inne ustalenie lub działanie doskonalące"
-
-msgid "Other source"
-msgstr "Inne źródło"
-
-msgid "30 days or less"
-msgstr "30 dni lub mniej"
-
-msgid "31 to 90 days"
-msgstr "31 do 90 dni"
-
-msgid "91 to 180 days"
-msgstr "91 do 180 dni"
-
-msgid "More than 180 days"
-msgstr "Ponad 180 dni"
-
-msgid "Opened on"
-msgstr "Otwarto"
-
-msgid "Age (days)"
-msgstr "Wiek (dni)"
-
-msgid "Days overdue"
-msgstr "Dni opóźnienia"
-
-msgid "Effectiveness verified"
-msgstr "Skuteczność zweryfikowana"
-
-#, php-format
-msgid "Gap backlog report - %1$s (%2$s to %3$s)"
-msgstr "Raport zaległości niezgodności - %1$s (%2$s do %3$s)"
-
-#, php-format
-msgid "Effectiveness verified: %d%%"
-msgstr "Skuteczność zweryfikowana: %d%%"
-
-#, php-format
-msgid "Last 12 months, computed on %s"
-msgstr "Ostatnie 12 miesięcy, obliczono %s"
-
-#, php-format
-msgid "Mean time to close: %d days"
-msgstr "Średni czas zamknięcia: %d dni"
-
-msgid "Mean time to close: not measured"
-msgstr "Średni czas zamknięcia: nie zmierzono"
-
-#, php-format
-msgid "Open gaps: %d"
-msgstr "Otwarte niezgodności: %d"
-
-#, php-format
-msgid "%1$d closed in the period, median: %2$s"
-msgstr "%1$d zamkniętych w okresie, mediana: %2$s"
-
-msgid "Age of open gaps"
-msgstr "Wiek otwartych niezgodności"
-
-#, php-format
-msgid "Archive as evidence (%s)"
-msgstr "Zarchiwizuj jako dowód (%s)"
-
-msgid "Backlog at month end"
-msgstr "Zaległości na koniec miesiąca"
-
-msgid "By entity"
-msgstr "Według jednostki"
-
-msgid "By origin"
-msgstr "Według pochodzenia"
-
-msgid "By owner"
-msgstr "Według właściciela"
-
-msgid "By severity"
-msgstr "Według wagi"
-
-#, php-format
-msgid "Closed in the period: %1$d verified, %2$d to verify"
-msgstr "Zamknięte w okresie: %1$d zweryfikowanych, %2$d do weryfikacji"
-
-msgid "Due date passed and not closed"
-msgstr "Termin minął, niezamknięte"
-
-msgid "From (month)"
-msgstr "Od (miesiąc)"
-
-msgid "Mean time to close"
-msgstr "Średni czas zamknięcia"
-
-msgid "Month"
-msgstr "Miesiąc"
-
-#, php-format
-msgid "No due date: %d"
-msgstr "Bez terminu: %d"
-
-msgid "No open gap with these filters."
-msgstr "Brak otwartych niezgodności dla tych filtrów."
-
-msgid "Nothing open."
-msgstr "Brak otwartych."
-
-#, php-format
-msgid "Only the first %d gaps are listed: the CSV export contains all of them."
-msgstr ""
-"Wyświetlono tylko pierwsze %d niezgodności: eksport CSV zawiera wszystkie."
-
-msgid "Open gaps"
-msgstr "Otwarte niezgodności"
-
-msgid "Open gaps, most overdue first"
-msgstr "Otwarte niezgodności, najbardziej opóźnione najpierw"
-
-msgid "To (month)"
-msgstr "Do (miesiąc)"
-
-msgid "By type"
-msgstr "Według typu"
-
-msgid "Closed in the period"
-msgstr "Zamknięte w okresie"
-
-msgid "ISMS requirements"
-msgstr "Wymagania SZBI"
-
-msgid ""
-"Mean time to close: days between the opening and the closure of the gaps "
-"closed in the period. Effectiveness verified: closed non-conformities and "
-"findings whose closure was verified."
-msgstr ""
-"Średni czas zamknięcia: dni między otwarciem a zamknięciem niezgodności "
-"zamkniętych w okresie. Skuteczność zweryfikowana: zamknięte niezgodności i "
-"ustalenia, których zamknięcie zweryfikowano."
-
-msgid "Opened in the period"
-msgstr "Otwarte w okresie"

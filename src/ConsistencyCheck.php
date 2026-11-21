@@ -180,6 +180,18 @@ class ConsistencyCheck extends CommonGLPI
                     'grcmanager'
                 ),
             ],
+            'control_without_approved_policy'      => [
+                'label' => __(
+                    'Applicable controls not covered by an approved text of the policy library whose review is up '
+                        . 'to date',
+                    'grcmanager'
+                ),
+                'fix'   => __(
+                    'Open the coverage report of the controls by the policies, link the text that deals with the '
+                        . 'control (or write it), then have it approved or reviewed.',
+                    'grcmanager'
+                ),
+            ],
             'risk_without_owner'                   => [
                 'label' => __('Open risks without an owner', 'grcmanager'),
                 'fix'   => __(
@@ -587,6 +599,7 @@ class ConsistencyCheck extends CommonGLPI
         return match ($key) {
             'policy_review_overdue'                => self::policyReview($today, $number),
             'policy_without_owner'                 => self::policyOwner(),
+            'control_without_approved_policy'      => PolicyCoverage::consistencyGaps($today),
             'risk_without_owner', 'risk_review_overdue', 'risk_without_decision', 'risk_accepted_without_approval'
                                                    => self::riskRule($cache, $key, $today, $number, $level),
             'control_exclusion_weak_justification' => self::weakExclusions($cache, $number),
