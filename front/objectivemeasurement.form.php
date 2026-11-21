@@ -25,11 +25,16 @@ $redirectUrl = \GlpiPlugin\Grcmanager\Objective::getFormURLWithID($objectiveId);
 
 $item = new \GlpiPlugin\Grcmanager\ObjectiveMeasurement();
 
+// Issue #536, lot 3 : une mesure suit l'objectif, qu'il faut pouvoir modifier (entité comprise).
+$objective = new \GlpiPlugin\Grcmanager\Objective();
 if (isset($_POST['add'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, CREATE);
+    $objective->check($objectiveId, UPDATE);
     $item->add($_POST);
 } elseif (isset($_POST['purge'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, PURGE);
+    $item->check((int) ($_POST['id'] ?? 0), PURGE);
+    $objective->check((int) $item->fields['plugin_grcmanager_objectives_id'], UPDATE);
     $item->delete($_POST, true);
 }
 

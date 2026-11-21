@@ -133,7 +133,10 @@
                         {% endif %}
                      </td>
                      <td>{{ trace.reference ?: '-' }}</td>
-                     <td>{{ trace.comment ? trace.comment|nl2br : '-' }}</td>
+                     <td>
+                        {% if trace.from_communication|default(false) %}<span class="badge bg-purple-subtle text-purple-emphasis mb-1"><i class="ti ti-speakerphone me-1"></i>{{ __('From a crisis communication', 'grcmanager') }}</span><br>{% endif %}
+                        {{ trace.comment ? trace.comment|nl2br : '-' }}
+                     </td>
                      <td>{{ trace.author }}</td>
                      {% if can_record %}
                         <td class="text-end">

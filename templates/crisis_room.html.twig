@@ -199,6 +199,20 @@
                {% endfor %}
             </ul>
          {% endif %}
+         {# Issue #616, lot 2 : communications de crise tracées sur l'incident, reprises dans le rapport. #}
+         {% if communications is defined %}
+            <h3 class="mt-4" id="grc-crisis-communications"><i class="ti ti-speakerphone me-1"></i>{{ __('Crisis communications', 'grcmanager') }}</h3>
+            {% if communications is empty %}
+               <p class="text-muted">{{ __('No communication recorded yet.', 'grcmanager') }}</p>
+            {% else %}
+               <ul class="list-unstyled">
+                  {% for c in communications %}
+                     <li class="mb-2"><span class="text-muted text-nowrap">{{ c.date }}</span> - <strong>{{ c.subject }}</strong> <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ c.template }}</span><div class="small text-muted">{{ c.recipients|join(', ') }}</div></li>
+                  {% endfor %}
+               </ul>
+            {% endif %}
+            {% if communications_url is defined and communications_url %}<a href="{{ communications_url }}"><i class="ti ti-pencil me-1"></i>{{ __('Prepare a message', 'grcmanager') }}</a>{% endif %}
+         {% endif %}
          {% if review %}{% include '@grcmanager/_crisis_review.html.twig' %}{% endif %}
       </div>
       <div class="col-lg-4">
@@ -250,6 +264,33 @@
                {% endif %}
             </div>
          </div>
+         {# Issue #771, lot 3 : contacts officiels à prévenir (autorités, CSIRT, assureur...). #}
+         {% if official_contacts.url|default('') %}
+            <div class="card mt-3">
+               <div class="card-body">
+                  <h4><i class="ti ti-address-book me-1"></i>{{ __('Official contacts to inform', 'grcmanager') }}</h4>
+                  {% if official_contacts.contacts is empty %}
+                     <p class="text-secondary small mb-2">{{ __('No official contact is set for this type of incident.', 'grcmanager') }}</p>
+                  {% else %}
+                     <ul class="list-unstyled mb-2">
+                        {% for contact in official_contacts.contacts %}
+                           <li class="mb-2">
+                              <a href="{{ contact.url }}"><strong>{{ contact.name }}</strong></a>
+                              <span class="small text-secondary">{{ contact.category }}</span>
+                              {% if contact.notice %}
+                                 <div><span class="badge bg-{{ contact.notice.color }}-subtle text-{{ contact.notice.color }}-emphasis"><i class="{{ contact.notice.icon }} me-1"></i>{{ contact.notice.label }}</span>
+                                 {% if contact.notice.deadline %}<span class="small text-secondary ms-1"><i class="ti ti-hourglass me-1"></i>{{ __('Deadline: %s', 'grcmanager')|format(contact.notice.deadline|formatted_datetime) }}</span>{% endif %}</div>
+                              {% endif %}
+                              {% if contact.details %}<div class="small text-secondary" style="white-space: pre-line">{{ contact.details }}</div>{% endif %}
+                           </li>
+                        {% endfor %}
+                     </ul>
+                  {% endif %}
+                  <a href="{{ official_contacts.url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-phone-outgoing me-1"></i>{{ __('Record a contact', 'grcmanager') }}</a>
+                  {% if drill %}<div class="form-hint">{{ __('During an exercise, record the calls you would make: the report then shows whether the deadlines would have been met.', 'grcmanager') }}</div>{% endif %}
+               </div>
+            </div>
+         {% endif %}
       </div>
    </div>
 </div>

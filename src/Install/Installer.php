@@ -1563,18 +1563,24 @@ final class Installer
         CompetenceTables::migrate($migration);
         // Issue #616 : communication de crise, et modèles fournis (une seule fois, bibliothèque vide).
         CrisisCommunicationTables::install($keySign, $charset, $collation);
+        CrisisCommunicationTables::migrate($migration);
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
         // Issue #604 : campagnes de simulation d'hameçonnage et résultats importés (7.3, A.6.3).
         PhishingTables::install($keySign, $charset, $collation);
+        PhishingTables::migrate($migration);
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         SecureDevelopmentTables::install($keySign, $charset, $collation);
+        SecureDevelopmentTables::upgrade($migration);
         RecyfTables::install($keySign, $charset, $collation);
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         OfficialContactTables::install($keySign, $charset, $collation);
+        OfficialContactTables::migrate($migration);
         // Issue #868 : dossiers de preuves exportables pour l'auditeur (archive ZIP par périmètre).
         EvidencePackTables::install($keySign, $charset, $collation);
         // Issue #847 : sauvegarde déclarée des clés de récupération (aucune clé stockée).
         DiskEncryptionTables::install($keySign, $charset, $collation);
+        // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
+        HardwareEndOfLifeTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -3588,6 +3594,18 @@ final class Installer
             ]
         );
 
+        // Issue #604, lot 2 : suppression des résultats individuels d'hameçonnage au-delà de la durée
+        // de conservation réglée (sans effet tant qu'aucune durée n'est réglée ; taux gardés).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\PhishingCampaign::class,
+            'phishingretention',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Supprime les resultats individuels d hameconnage au-dela de la duree de conservation',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
         CronTask::Register(
             'GlpiPlugin\\Grcmanager\\AccessReview',
@@ -4931,6 +4949,14 @@ final class Installer
             ]);
             $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
         }
+        // Issue #771, lot 3 : catégories d'incident pour lesquelles prévenir le contact (JSON, vide :
+        // tous les incidents), pour proposer les contacts selon le type de l'incident.
+        if (!$DB->fieldExists(self::CONTEXT_ITEMS_TABLE, 'contact_incident_categories')) {
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_incident_categories', 'text', [
+                'after' => 'on_data_breach',
+            ]);
+            $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
+        }
         if (!$DB->tableExists(self::CONTEXT_ITEMS_LINKS_TABLE)) {
             $DB->doQuery("CREATE TABLE `" . self::CONTEXT_ITEMS_LINKS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -5986,9 +6012,24 @@ final class Installer
             self::RISK_TREATMENT_ACTIONS_TABLE => 0,
             self::AUDITS_TABLE                 => 0,
             self::NONCONFORMITIES_TABLE        => 0,
+            // Lot 3 : les registres opérationnels (risques fournisseurs, dérogations, flux réseau,
+            // études EBIOS) restent dans l'entité racine seule, comme les risques ; les registres de
+            // pilotage (formations, revues de direction, objectifs, obligations) gardent leur
+            // visibilité d'avant dans les sous-entités (récursifs).
+            self::SUPPLIER_RISKS_TABLE         => 0,
+            self::WAIVERS_TABLE                => 0,
+            self::NETWORK_FLOWS_TABLE          => 0,
+            self::EBIOS_STUDIES_TABLE          => 0,
+            self::TRAININGS_TABLE              => 1,
+            self::MANAGEMENT_REVIEWS_TABLE     => 1,
+            self::OBJECTIVES_TABLE             => 1,
+            self::COMPLIANCE_OBLIGATIONS_TABLE => 1,
         ];
         $legacyFindings = !$DB->fieldExists(self::NONCONFORMITIES_TABLE, 'entities_id');
         foreach ($tables as $table => $recursive) {
+            if (!$DB->tableExists($table)) {
+                continue;
+            }
             if (!$DB->fieldExists($table, 'entities_id')) {
                 $migration->addField($table, 'entities_id', 'fkey', ['after' => 'id', 'value' => 0]);
             }
@@ -6440,6 +6481,7 @@ final class Installer
         OfficialContactTables::uninstall($migration);
         EvidencePackTables::uninstall($migration);
         DiskEncryptionTables::uninstall($migration);
+        HardwareEndOfLifeTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

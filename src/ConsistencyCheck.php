@@ -390,6 +390,14 @@ class ConsistencyCheck extends CommonGLPI
                     'grcmanager'
                 ),
             ],
+            'hardware_end_of_life_reached'         => [
+                'label' => __('Hardware whose model has reached the manufacturer end of life', 'grcmanager'),
+                'fix'   => __(
+                    'Plan the replacement of the hardware, or record a waiver with compensating measures until '
+                        . 'then.',
+                    'grcmanager'
+                ),
+            ],
             'software_license_gap'                 => [
                 'label' => __(
                     'Software without a license, installed beyond the licensed seats, or under an expired license',
@@ -604,6 +612,7 @@ class ConsistencyCheck extends CommonGLPI
             'access_review_overdue'                => self::accessReviews($today, $number),
             'asset_end_of_life'                    => self::endOfLifeAssets($today),
             'hardware_warranty_expired'            => self::expiredWarranties($today),
+            'hardware_end_of_life_reached'         => self::hardwareEndOfLife($today),
             'software_license_gap'                 => self::softwareLicenseGaps($today),
             'operating_procedure_uncovered'        => OperatingProcedure::consistencyGaps($today),
             default                               => null,
@@ -1055,7 +1064,11 @@ class ConsistencyCheck extends CommonGLPI
             Waiver::class,
             $DB->request([
                 'FROM'  => Waiver::getTable(),
-                'WHERE' => ['is_deleted' => 0, 'status' => 'approved'],
+                // Issue #536, lot 3 : dérogations des entités de la session.
+                'WHERE' => array_merge(
+                    ['is_deleted' => 0, 'status' => 'approved'],
+                    EntityPerimeter::criteria(Waiver::getTable())
+                ),
                 'ORDER' => 'date_end',
             ]),
             static fn (array $w): bool => true,
@@ -1204,7 +1217,11 @@ class ConsistencyCheck extends CommonGLPI
             SupplierRisk::class,
             $DB->request([
                 'FROM'  => SupplierRisk::getTable(),
-                'WHERE' => ['NOT' => ['status' => 'closed']],
+                // Issue #536, lot 3 : risques fournisseurs des entités de la session.
+                'WHERE' => array_merge(
+                    ['NOT' => ['status' => 'closed']],
+                    EntityPerimeter::criteria(SupplierRisk::getTable())
+                ),
                 'ORDER' => 'title',
             ]),
             static fn (array $r): bool => true,
@@ -1284,7 +1301,12 @@ class ConsistencyCheck extends CommonGLPI
 
         return self::collect(
             ComplianceObligation::class,
-            $DB->request(['FROM' => ComplianceObligation::getTable(), 'ORDER' => 'title']),
+            // Issue #536, lot 3 : obligations des entités de la session.
+            $DB->request([
+                'FROM'  => ComplianceObligation::getTable(),
+                'WHERE' => EntityPerimeter::criteria(ComplianceObligation::getTable()),
+                'ORDER' => 'title',
+            ]),
             static fn (array $o): bool => true,
             static fn (array $o): ?string => ConsistencyRules::isPastDue($o['review_date'], $today, $grace)
                 ? self::reviewDetail($o['review_date'], 'overdue')
@@ -1357,6 +1379,30 @@ class ConsistencyCheck extends CommonGLPI
     private static function expiredWarranties(string $today): ?array
     {
         $findings = HardwareWarranty::consistencyGaps($today);
+        if ($findings === null) {
+            return null;
+        }
+        $gaps = [];
+        foreach ($findings as $finding) {
+            if (!is_a($finding['itemtype'], CommonDBTM::class, true)) {
+                continue;
+            }
+            $gaps[] = self::gap($finding['itemtype'], $finding['items_id'], $finding['name'], $finding['detail']);
+        }
+
+        return ['total' => count($findings), 'gaps' => $gaps];
+    }
+
+    /**
+     * Issue #782, lot 2 : matériels visibles dont le modèle a atteint la fin de vie constructeur
+     * (A.7.13). Non évaluable sans le droit des registres sensibles et la lecture des informations
+     * financières.
+     *
+     * @return array{total: int, gaps: list<array<string, mixed>>}|null
+     */
+    private static function hardwareEndOfLife(string $today): ?array
+    {
+        $findings = HardwareWarranty::endOfLifeGaps($today);
         if ($findings === null) {
             return null;
         }

@@ -1,0 +1,59 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #771, lot 3 : tableau des contacts officiels, partagé par le registre en PDF et le plan
+   de continuité (PCA / PRA). Variables : contacts (OfficialContact::present()), perimeter (affiche
+   l'entité de chaque contact). #}
+{% if contacts is empty %}
+  <p>{{ __('No item recorded.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th style="width: 17%;">{{ __('Name') }}</th>
+        <th style="width: 22%;">{{ __('Contact details', 'grcmanager') }}</th>
+        <th style="width: 20%;">{{ __('When to contact', 'grcmanager') }}</th>
+        <th style="width: 11%;">{{ __('Time limit', 'grcmanager') }}</th>
+        <th style="width: 15%;">{{ __('Authorised internal contact', 'grcmanager') }}</th>
+        <th style="width: 15%;">{{ __('Last verification', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for contact in contacts %}
+        <tr>
+          <td>
+            <strong>{{ contact.name }}</strong><br>{{ contact.category }}
+            {% if contact.on_incident %}<br>{{ __('Incident', 'grcmanager') }}{% if contact.incident_types|default([]) is not empty %} ({{ contact.incident_types|join(', ') }}){% endif %}{% endif %}
+            {% if contact.on_breach %}<br>{{ __('Data breach', 'grcmanager') }}{% endif %}
+            {% if perimeter %}<br>{{ contact.entity }}{% endif %}
+          </td>
+          <td>{{ contact.details|nl2br }}</td>
+          <td>
+            {{ contact.when|nl2br }}
+            {% for obligation in contact.obligations %}<br>{{ __('Obligation: %s', 'grcmanager')|format(obligation.name) }}{% endfor %}
+          </td>
+          <td>
+            {{ contact.delay }}
+            {% if contact.delay_hours > 0 %}{% if contact.delay %}<br>{% endif %}{{ _n('%d hour', '%d hours', contact.delay_hours, 'grcmanager')|format(contact.delay_hours) }}{% endif %}
+          </td>
+          <td>{{ contact.internal }}{% if contact.internal_group %}<br>{{ contact.internal_group }}{% endif %}</td>
+          <td>
+            {% if contact.verified %}{{ contact.verified|formatted_date }}{% else %}{{ __('Never verified', 'grcmanager') }}{% endif %}
+            {% if contact.status != 'ok' %}<br>({{ __('to verify', 'grcmanager') }}){% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

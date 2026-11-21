@@ -101,6 +101,36 @@ final class CrisisCommunicationTables
         }
     }
 
+    /**
+     * Issue #616, lot 2 : suppléant d'un destinataire (autre ligne de la même liste de diffusion) et
+     * revue annuelle de la liste de diffusion de chaque modèle. Colonnes ajoutées si absentes.
+     */
+    public static function migrate(Migration $migration): void
+    {
+        global $DB;
+
+        if ($DB->tableExists(self::RECIPIENTS) && !$DB->fieldExists(self::RECIPIENTS, 'deputy_of')) {
+            $migration->addField(self::RECIPIENTS, 'deputy_of', 'fkey', [
+                'comment' => 'Ligne du destinataire principal dont celui-ci est le suppleant, 0 sinon',
+                'after'   => 'items_id',
+            ]);
+            $migration->addKey(self::RECIPIENTS, 'deputy_of');
+            $migration->migrationOneTable(self::RECIPIENTS);
+        }
+        if ($DB->tableExists(self::TEMPLATES) && !$DB->fieldExists(self::TEMPLATES, 'last_review_date')) {
+            $migration->addField(self::TEMPLATES, 'last_review_date', 'date', [
+                'comment' => 'Derniere revue de la liste de diffusion',
+                'after'   => 'is_active',
+            ]);
+            $migration->addField(self::TEMPLATES, 'users_id_lastreviewer', 'fkey', [
+                'after' => 'last_review_date',
+            ]);
+            $migration->addKey(self::TEMPLATES, 'last_review_date');
+            $migration->addKey(self::TEMPLATES, 'users_id_lastreviewer');
+            $migration->migrationOneTable(self::TEMPLATES);
+        }
+    }
+
     public static function uninstall(Migration $migration): void
     {
         foreach ([self::RECIPIENTS, self::COMMUNICATIONS, self::TEMPLATES] as $table) {

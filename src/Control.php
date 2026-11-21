@@ -1708,12 +1708,14 @@ class Control extends ControlBase
             'crisis_scenarios'        => CrisisScenario::evidence($code),
             // Issue #775 : registre des procédures d'exploitation, preuve de la mesure A.5.37.
             'operating_procedures'    => OperatingProcedure::evidence($code),
-            // Issue #777 : développement sécurisé, preuve des mesures A.8.25, A.8.28, A.8.29 et A.8.31.
+            // Issue #777 : développement sécurisé, preuve des mesures A.8.25 à A.8.31.
             'secure_development'      => SecureDevelopment::evidence($code),
             // Issue #779 : conformité des licences logicielles, preuve de la mesure A.5.32.
             'software_licenses'       => SoftwareLicenseCompliance::evidence($code),
             // Issue #847 : chiffrement des disques du parc, preuve des mesures A.8.24 et A.8.1.
             'disk_encryption'         => DiskEncryption::evidence($code),
+            // Issue #854 : retard des correctifs de sécurité, preuve des mesures A.8.8 et A.8.19.
+            'patch_compliance'        => PatchCompliance::evidence($code),
             // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation (mesure A.6.3).
             'phishing'                => PhishingCampaign::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',

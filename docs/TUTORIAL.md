@@ -449,6 +449,10 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    de preuves ne sont visibles que de Filiale Nord (et de l'entité racine en vue arborescente). Les
    listes de l'équipe, des preuves et de l'accès auditeur ne proposent que les comptes qui ont un
    profil dans Filiale Nord. Les actions de traitement d'un risque suivent l'entité du risque.
+6. Les autres registres aussi : un risque fournisseur, une formation, une revue de direction, un
+   objectif, une obligation, une dérogation, un flux réseau ou une étude EBIOS créé dans Filiale
+   Nord reste dans Filiale Nord. Après une mise à jour, ouvrez chaque liste à l'entité racine,
+   cochez les éléments d'une filiale, puis **Actions > Modifier > Entité** pour les y ranger.
 
 ### Étape 20 : Décrire le contexte de l'organisation (articles 4.1 et 4.2)
 
@@ -553,6 +557,21 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
     nécessaire (décision tracée) ». Rien n'est envoyé depuis le plugin.
 11. La fiche du contact a un onglet **Prises de contact tracées** : l'historique de vos relations
     avec cette autorité ou ce groupe d'intérêt, à montrer à l'auditeur.
+12. Si un contact ne concerne que certains incidents (le CERT sectoriel pour les logiciels
+    malveillants, par exemple), choisissez ces types dans **Seulement pour ces types d'incident** :
+    il n'est alors proposé que sur les incidents de ce type. Laissé vide, il est proposé sur tous
+    les incidents. Un incident de type « Violation de données » propose aussi les contacts à
+    prévenir pour une violation de données personnelles.
+13. Dans l'onglet **Communication de crise** d'un incident, un modèle dont la liste de diffusion
+    contient un contact officiel propose la case **Tracer aussi une prise de contact avec les
+    contacts officiels cochés** : en enregistrant le message envoyé, la prise de contact est tracée
+    en même temps (badge « Depuis une communication de crise » dans l'onglet Contacts officiels).
+14. Après chaque revue du registre, cliquez sur **Archiver sur les mesures A.5.5 et A.5.6** : le
+    PDF daté est joint aux deux mesures de la SoA (onglet Documents), et les derniers registres
+    archivés sont listés en tête du registre.
+15. Les contacts officiels figurent aussi à la fin du **plan de continuité (PDF)** des processus
+    métier, et dans la salle de crise d'un exercice ou d'une crise réelle (cadre « Contacts officiels
+    à prévenir », repris dans le rapport de l'exercice).
 
 ### Étape 23 : Vérifier les licences logicielles (mesure A.5.32)
 
@@ -664,6 +683,10 @@ natifs de lecture des logiciels et des licences.
    affiche « Revue le … par … » et le journal d'audit garde chaque revue. Si elle a changé, préparez
    une nouvelle version.
 9. Le contrôle de cohérence signale les domaines attendus sans procédure approuvée (règle A.5.37).
+10. Sur la fiche d'une procédure, le cadre **Historique des revues** liste toutes les revues
+    enregistrées, la plus récente d'abord : date, personne qui l'a faite et prochaine revue prévue.
+    Le PDF du registre reprend cet historique, procédure par procédure : l'auditeur voit que la
+    revue est faite chaque année, pas seulement la dernière.
 
 ### Étape 26 : Suivre la fin de garantie du matériel (mesures A.7.13 et A.8.9)
 
@@ -693,6 +716,19 @@ type de matériel.
 6. Sur la fiche des mesures A.7.13 et A.8.9 de la SoA, le cadre « Fin de garantie du matériel »
    montre les compteurs ; les contrôles de cohérence du SMSI listent chaque matériel dont la
    garantie est expirée (règle « Matériels dont la garantie est expirée »).
+7. **Fin de vie constructeur** (facultatif) : quand un constructeur annonce la date après laquelle
+   un modèle n'a plus de réparations, de pièces ni de firmware, ouvrez la configuration du plugin,
+   cadre **Fin de vie constructeur des modèles de matériel** (lien « Saisir les dates de fin de
+   vie » de la carte). Les modèles en service dans vos entités y sont listés : saisissez par
+   exemple 30/06/2025 pour le modèle fictif « Modèle-Essai 100 », puis **Sauvegarder**. Rien n'est
+   écrit dans les modèles de GLPI ; une date vidée est effacée, et chaque saisie est tracée dans
+   le journal d'audit.
+8. La carte affiche alors les compteurs « Fin de vie constructeur atteinte », « proche » (même
+   seuil), « pris en charge » et « pas de date », et la colonne **Fin de vie constructeur** ; le
+   filtre **À traiter** inclut les matériels dont la fin de vie est atteinte ou proche, même sous
+   garantie. L'export ajoute la date et l'état, la preuve des mesures les compte, et le contrôle de
+   cohérence liste chaque matériel concerné (règle « Matériel dont le modèle a atteint la fin de
+   vie constructeur »).
 
 ### Étape 27 : Évaluer la sécurité physique des sites (mesures A.7.1 à A.7.14)
 
@@ -724,6 +760,9 @@ type de matériel.
    avec le score et l'échéance. Sur la fiche d'une mesure A.7.x de la SoA, le cadre « Sécurité
    physique des sites » donne l'état de la mesure sur chaque site. Le lieu de GLPI a aussi un onglet
    « Sécurité physique » avec l'historique de ses évaluations.
+8. Pour l'auditeur, cliquez sur **Rapport (PDF)** en haut de la fiche de l'évaluation : résumé
+   (évaluateur, statut, politique, score), grille A.7.1 à A.7.14 avec constats, preuves et actions,
+   puis les zones et leurs contrôles d'accès. Le rapport est calculé à la demande avec vos droits.
 ### Étape 28 : Préparer la communication de crise (mesure A.5.26, article 7.4)
 
 1. Dans l'en-tête de la liste des incidents de sécurité, cliquez sur **Modèles de messages de
@@ -760,6 +799,22 @@ type de matériel.
    de crise » indique le nombre de modèles actifs, les modèles sans destinataire, les situations sans
    modèle et les communications tracées depuis 12 mois. Pendant un exercice de crise, utilisez les
    mêmes modèles depuis l'incident d'exercice.
+9. **Suppléants** : en ajoutant un destinataire à la liste de diffusion, choisissez dans « Rôle dans
+   la liste » le destinataire principal dont il est le suppléant (par exemple l'adjoint de la
+   directrice fictive). Le suppléant s'affiche sous son principal ; un principal sans suppléant
+   porte le badge « Sans suppléant » (un groupe n'en a pas besoin). Dans l'onglet de l'incident, le
+   suppléant n'est coché d'office que si son principal est masqué ou sans adresse. Retirer un
+   principal fait de ses suppléants des destinataires principaux.
+10. **Groupes** : les adresses électroniques des membres actifs d'un groupe sont reprises par
+   « Copier les adresses électroniques » et par l'export `.eml` ; les membres sans adresse sont
+   comptés.
+11. **Revue annuelle** : une fois par an, relisez la liste de diffusion de chaque modèle puis
+   cliquez sur **Marquer la liste comme revue aujourd'hui** (droit de modifier les modèles). Le
+   cadre de la mesure A.5.26 compte les listes non revues depuis 12 mois et les destinataires
+   principaux sans suppléant.
+12. **Exercices** : les communications tracées sur l'incident d'un exercice (ou d'une cellule de
+   crise) apparaissent dans la salle de crise, avec un lien « Préparer un message », et dans le
+   rapport PDF de l'exercice.
 
 ### Étape 29 : Rapprocher les systèmes d'exploitation des CVE (mesure A.8.8)
 
@@ -772,19 +827,23 @@ version du noyau). Un système n'est rapproché d'une CVE qu'après votre valida
    apparaissent avec un badge **Système d'exploitation**, par exemple « Microsoft Windows 11
    Professionnel 23H2 » ou « Debian GNU/Linux 12 (bookworm) ». Pour Windows 10 et 11, la version
    de fonctionnalités (23H2) fait partie du nom, comme dans la base NVD.
-2. Pour Windows 10 et 11, Windows Server 2016 à 2025, Debian, Ubuntu et Red Hat Enterprise Linux,
-   la colonne « Produit surveillé » affiche une **Correspondance proposée**, par exemple
+2. Pour Windows 10 et 11, Windows Server 2016 à 2025, Debian, Ubuntu, Red Hat Enterprise Linux,
+   Rocky Linux, AlmaLinux, Oracle Linux, Fedora et macOS, la colonne « Produit surveillé » affiche une **Correspondance proposée**, par exemple
    `cpe:2.3:o:microsoft:windows_11_23h2`. Vérifiez-la, puis cliquez sur **Accepter la
    proposition**. Pour un autre système, cliquez sur **Chercher le CPE** comme pour un logiciel.
 3. Ouvrez **Vulnérabilités du parc** : les CVE du système portent le badge « Système
    d'exploitation ». Le tableau, l'onglet « Vulnérabilités » de l'ordinateur et l'onglet CVE d'un
    incident de sécurité nomment seulement les actifs de vos entités.
 4. Les versions sont comparées comme dans NVD : numéro de build pour Windows (version du noyau),
-   version majeure pour Debian et RHEL, « 22.04 » pour Ubuntu. Si l'inventaire ne donne pas la
+   version majeure pour Debian, RHEL, Oracle Linux et Fedora, « 22.04 » pour Ubuntu, « 9.3 » pour
+   Rocky Linux et AlmaLinux, version complète pour macOS. Si l'inventaire ne donne pas la
    révision du build Windows (« 10.0.22631 » au lieu de « 10.0.22631.4317 »), l'ordinateur reste
    « version non vérifiable » : il n'est ni déclaré vulnérable ni déclaré corrigé.
 5. Les tickets de mise à jour lient les ordinateurs concernés de l'entité du ticket, y compris
    ceux qui le deviennent après l'ouverture du ticket.
+6. La page **Machines les plus exposées** (Sécurité technique) compte aussi les
+   vulnérabilités du système d'exploitation et des firmwares de chaque machine : un serveur à jour
+   de ses logiciels mais sous un système vulnérable y remonte.
 
 ### Étape 30 : Décrire les scénarios de crise sécurité du PCA (mesure A.5.29)
 
@@ -874,9 +933,17 @@ GRC Manager du profil, attribué au Super-Admin à l'installation).
    (OWASP ASVS, OWASP Top 10, OWASP SAMM, recommandations de l'ANSSI ou autre) et son niveau, puis
    cochez **Revue de code obligatoire**, **Analyse statique (SAST)**, **Analyse dynamique (DAST)**
    et **Analyse des dépendances**. Indiquez les outils et leur fréquence.
-2. Répondez à **Environnements séparés** (oui ou non). Décrivez comment les accès, les données et
-   la configuration sont séparés ; si la réponse est non, la justification est obligatoire (risque
-   accepté, mesure compensatoire). Enregistrez : l'application entre dans le registre.
+2. Répondez à **Environnements séparés** (oui ou non). Si oui, cochez ce qui est réellement séparé
+   entre développement, test et production : **accès**, **données** (pas de données de production
+   hors production, ou anonymisées) et **configuration** ; une case manquante signale une séparation
+   partielle. Si la réponse est non, la justification est obligatoire (risque accepté, mesure
+   compensatoire).
+   Décrivez ensuite les **exigences de sécurité** de l'application (A.8.26) et les **principes
+   d'architecture sécurisée** appliqués (A.8.27), ou mettez un lien vers le cahier des charges et le
+   document d'architecture. Si le développement est confié à un prestataire (A.8.30), cochez-le,
+   choisissez le fournisseur de GLPI, cochez **Clauses de sécurité au contrat** et décrivez le suivi
+   du prestataire (revue des livraisons, recette, droit d'audit). Enregistrez : l'application entre
+   dans le registre.
 3. Créez le changement de la nouvelle version et liez-y l'application (onglet **Éléments** du
    changement). Un onglet **Validation sécurité de mise en production** apparaît.
 4. Avant la mise en production, cochez la **liste de contrôle** : tests passés (dont tests de
@@ -892,10 +959,11 @@ GRC Manager du profil, attribué au Super-Admin à l'installation).
    sans validation sécurité** des 12 derniers mois (changement résolu ou clos lié à une application
    du registre, sans validation, refusé, ou validé après la mise en production). Seules vos entités
    apparaissent ; les mises en production demandent le droit de voir tous les changements.
-7. Sur la fiche des mesures A.8.25, A.8.28, A.8.29 et A.8.31 de la SoA, le cadre **Développement
-   sécurisé** montre les indicateurs utiles à chaque mesure. Ces preuves servent à lever les
-   constats d'audit sur le cycle de développement, le codage sécurisé, les tests de sécurité et la
-   séparation des environnements.
+7. Sur la fiche des mesures A.8.25 à A.8.31 de la SoA, le cadre **Développement sécurisé** montre
+   les indicateurs utiles à chaque mesure : exigences décrites (A.8.26), principes d'architecture
+   (A.8.27), applications externalisées sans prestataire ou sans clauses (A.8.30), séparation
+   partielle (A.8.31). Ces preuves servent à lever les constats d'audit sur le cycle de
+   développement, le codage sécurisé, les tests de sécurité et la séparation des environnements.
 
 ### Étape 32 : Préparer l'audit avec le plan d'audit de l'organisme
 
@@ -1014,6 +1082,32 @@ plugin et le droit natif de lecture des ordinateurs.
    chiffré » (A.8.1) s'enregistre comme test d'efficacité. Le tableau de bord propose la carte
    « Ordinateurs à chiffrer qui le sont (%) » et les indicateurs de risque la source « Portables
    avec un disque non chiffré (%) ».
+
+### Étape 36 : Suivre le retard des correctifs de sécurité (mesures A.8.8 et A.8.19)
+
+L'agent d'inventaire de GLPI remonte le système de chaque ordinateur, sa version et, selon la
+plateforme, les mises à jour installées (articles KB de Windows) ou les paquets installés avec leur
+date. Le plugin lit ces données ; il ne lance aucune mise à jour et ne modifie rien dans GLPI. Il
+faut le droit du plugin et le droit natif de lecture des ordinateurs.
+
+1. Ouvrez Sécurité technique > **Correctifs de sécurité**. L'encadré « À quoi sert cette page ? »
+   rappelle ce qui est attendu.
+2. Dans **Délais cibles par criticité**, réglez le nombre de jours admis depuis le dernier correctif
+   pour les ordinateurs critiques, importants et standard (15, 30 et 60 jours par défaut). La
+   criticité vient de la classification C/I/D de l'ordinateur ; un ordinateur publié sur Internet par
+   un flux réseau déclaré est critique. Il faut le droit de modifier le plugin.
+3. Les compteurs donnent le taux d'ordinateurs dans les délais, le nombre en retard et d'état
+   inconnu (aucune mise à jour datée : pas d'agent, ou un système dont l'agent ne remonte pas les
+   mises à jour), les serveurs critiques et les ordinateurs publiés sur Internet en retard.
+4. La liste commence par les retards, les ordinateurs exposés sur Internet et critiques d'abord.
+   Pour chacun : système et version, date du dernier correctif connu et son origine, délai cible,
+   jours de retard, CVE connues du système et fin de support, date du dernier inventaire (badge
+   « Inventaire ancien » au-delà de 30 jours). Appliquez les correctifs, puis attendez le prochain
+   inventaire.
+5. Sur la fiche des mesures A.8.8 et A.8.19, le cadre « Correctifs de sécurité » montre le taux, les
+   retards et la date du calcul. Le tableau de bord propose la carte « Ordinateurs aux correctifs
+   dans les délais (%) » et les indicateurs de risque la source « Serveurs critiques avec
+   correctifs en retard ».
 
 ## 🇬🇧 English
 
@@ -1526,6 +1620,20 @@ To give a subsidiary its own Statement of Applicability:
     on time", "Contacted late" or "Not required (decision recorded)". Nothing is sent by the plugin.
 11. The contact's record has a **Recorded contacts** tab: the history of your relations with this
     authority or special interest group, to show to the auditor.
+12. When a contact only matters for some incidents (the sector CERT for malware, for example),
+    choose these types in **Only for these types of incident**: it is then listed only on incidents
+    of this type. Left empty, it is listed on every incident. An incident of the "Data breach" type
+    also lists the contacts to inform for a personal data breach.
+13. In the **Crisis communication** tab of an incident, a template whose distribution list holds an
+    official contact offers the box **Also record it as a contact with the ticked official
+    contacts**: recording the message you sent also records the contact (badge "From a crisis
+    communication" in the Official contacts tab).
+14. After each review of the register, click **Archive on controls A.5.5 and A.5.6**: the dated PDF
+    is attached to both controls of the SoA (Documents tab), and the latest archived registers are
+    listed at the top of the register.
+15. The official contacts also appear at the end of the **business continuity plan (PDF)** of the
+    business processes, and in the crisis room of an exercise or of a real crisis ("Official
+    contacts to inform" box, included in the exercise report).
 
 ### Step 23: Check software licenses (control A.5.32)
 
@@ -1628,6 +1736,10 @@ rights to read software and licenses.
    review moves one year later (or to the date you set). The register shows "Reviewed on ... by ..."
    and the audit log keeps every review. If it changed, prepare a new version.
 9. The consistency check lists the expected domains without an approved procedure (rule A.5.37).
+10. On a procedure, the **Review history** frame lists every recorded review, the most recent first:
+    date, person who did it and next review planned. The PDF of the register repeats this history,
+    procedure by procedure: the auditor sees that the review is done every year, not only the last
+    one.
 
 ### Step 26: Follow the hardware warranty (controls A.7.13 and A.8.9)
 
@@ -1656,6 +1768,18 @@ hardware.
 6. On controls A.7.13 and A.8.9 of the SoA, the "Hardware warranty" box shows the counters; the
    ISMS consistency checks list each piece of hardware whose warranty has expired (rule "Hardware
    whose warranty has expired").
+7. **Manufacturer end of life** (optional): when a manufacturer announces the date after which a
+   model no longer gets repairs, spare parts or firmware, open the plugin configuration, box
+   **Manufacturer end of life of hardware models** (link "Enter the end of life dates" of the
+   card). The models in service in your entities are listed: enter for instance 2025-06-30 for the
+   fictitious model "Test-Model 100", then **Save**. Nothing is written in the GLPI models; an
+   emptied date is deleted, and each change is recorded in the audit log.
+8. The card then shows the counters "Manufacturer end of life reached", "soon" (same threshold),
+   "supported" and "no date", and the **Manufacturer end of life** column; the **To be handled**
+   filter includes the hardware whose end of life is reached or near, even under warranty. The
+   export adds the date and the state, the evidence of the controls counts them, and the
+   consistency check lists each affected piece of hardware (rule "Hardware whose model has reached
+   the manufacturer end of life").
 
 ### Step 27: Assess the physical security of the sites (controls A.7.1 to A.7.14)
 
@@ -1686,6 +1810,9 @@ hardware.
    with the score and the due date. On an A.7.x control of the SoA, the "Physical security of the
    sites" box gives the state of the control on each site. The GLPI location also has a "Physical
    security" tab with the history of its assessments.
+8. For the auditor, click **Report (PDF)** at the top of the assessment form: summary (assessor,
+   status, policy, score), A.7.1 to A.7.14 checklist with findings, evidence and actions, then the
+   zones and their access controls. The report is computed on demand with your rights.
 ### Step 28: Prepare crisis communication (control A.5.26, clause 7.4)
 
 1. In the header of the security incident list, click **Crisis message templates**. Five templates
@@ -1721,6 +1848,20 @@ hardware.
    number of active templates, the templates without recipients, the situations without a template
    and the communications recorded within 12 months. During a crisis exercise, use the same
    templates from the exercise incident.
+9. **Deputies**: when adding a recipient to the distribution list, choose in "Role in the list" the
+   main recipient it stands in for (for instance the deputy of the fictitious director). The deputy
+   is shown under its main recipient; a main recipient without a deputy has the "No deputy" badge
+   (a group does not need one). In the incident tab, a deputy is ticked by default only when its
+   main recipient is hidden or has no address. Removing a main recipient turns its deputies into
+   main recipients.
+10. **Groups**: the email addresses of the active members of a group are included by "Copy the
+   email addresses" and by the `.eml` export; members without an address are counted.
+11. **Annual review**: once a year, read the distribution list of each template again, then click
+   **Mark the list as reviewed today** (right to update the templates). The box of control A.5.26
+   counts the lists not reviewed within 12 months and the main recipients without a deputy.
+12. **Exercises**: the communications recorded on the incident of an exercise (or of a crisis team)
+   are shown in the crisis room, with a "Prepare a message" link, and in the PDF report of the
+   exercise.
 
 ### Step 29: Match operating systems with CVEs (control A.8.8)
 
@@ -1835,9 +1976,16 @@ Super-Admin at installation).
    10, OWASP SAMM, ANSSI recommendations or other) and its level, then tick **Mandatory code
    review**, **Static analysis (SAST)**, **Dynamic analysis (DAST)** and **Dependency analysis**.
    Give the tools and their frequency.
-2. Answer **Separated environments** (yes or no). Describe how access, data and configuration are
-   separated; when the answer is no, the justification is mandatory (accepted risk, compensating
-   measure). Save: the application enters the register.
+2. Answer **Separated environments** (yes or no). When yes, tick what is actually separated
+   between development, test and production: **access**, **data** (no production data outside
+   production, or anonymised) and **configuration**; a missing box shows a partial separation. When
+   the answer is no, the justification is mandatory (accepted risk, compensating measure).
+   Then describe the **security requirements** of the application (A.8.26) and the **secure
+   architecture principles** applied (A.8.27), or link the specification and the architecture
+   document. When the development is entrusted to a supplier (A.8.30), tick it, choose the supplier
+   of GLPI, tick **Security clauses in the contract** and describe the supervision of the supplier
+   (review of deliveries, acceptance tests, right to audit). Save: the application enters the
+   register.
 3. Create the change of the new version and link the application to it (**Items** tab of the
    change). A **Security release validation** tab appears.
 4. Before the release, tick the **checklist**: tests passed (including security tests), code review
@@ -1852,9 +2000,11 @@ Super-Admin at installation).
    security validation** of the last 12 months (solved or closed change linked to an application of
    the register, without validation, rejected, or approved after the release). Only your entities
    are shown; the releases require the right to see all changes.
-7. On controls A.8.25, A.8.28, A.8.29 and A.8.31 of the SoA, the **Secure development** box shows
-   the indicators useful to each control. This evidence helps lift the audit findings on the
-   development life cycle, secure coding, security testing and separation of environments.
+7. On controls A.8.25 to A.8.31 of the SoA, the **Secure development** box shows the indicators
+   useful to each control: documented requirements (A.8.26), architecture principles (A.8.27),
+   outsourced applications without supplier or clauses (A.8.30), partial separation (A.8.31). This
+   evidence helps lift the audit findings on the development life cycle, secure coding, security
+   testing and separation of environments.
 ### Step 32: Use phishing simulations as evidence of awareness (clause 7.3, control A.6.3)
 
 1. Before the first simulation, inform the staff that phishing simulations take place (purpose:
@@ -1888,6 +2038,18 @@ Super-Admin at installation).
 9. On control **A.6.3** and on ISMS requirement **7.3**, the "Phishing simulations" box shows the
    number of campaigns within 12 months, the rates of the last campaign and the change in clicks
    since the previous one.
+10. **Rates by group and by entity**: the **Results** tab also shows the rates by GLPI group of the
+    matched people (a person in several groups counts in each). Without the right on sensitive
+    registers, the groups of fewer than 5 people are combined into "Other groups", hidden too if
+    they remain too small. When your campaigns cover several entities, the list of campaigns shows
+    the last campaign of each entity. These rates are anonymous and stay after the results per
+    person are deleted. On the dashboard, add the card "Phishing simulations: rates by campaign (%)"
+    to follow the clicks, the data entered and the reports from one campaign to the next.
+11. **Retention period**: in the configuration of the plugin, set **Phishing simulations: retention
+    of the results per person** (in months from the date of the campaign; 0 = until you delete them
+    by hand). It needs the right to update the sensitive registers. The daily automatic action
+    "phishingretention" then deletes the expired results per person and keeps the rates; the
+    **Results** tab shows the planned date. Write the same period in your GDPR register.
 
 ### Step 33: Prepare the audit with the audit plan of the certification body
 
@@ -2001,3 +2163,27 @@ native right to read computers.
    "Computers with an unencrypted disk" (A.8.24) or "Laptops with an unencrypted disk" (A.8.1) is
    recorded as an effectiveness test. The dashboard offers the card "Computers that must be
    encrypted and are (%)" and risk indicators the source "Laptops with an unencrypted disk (%)".
+
+### Step 37: Follow the security patch delay (controls A.8.8 and A.8.19)
+
+The GLPI inventory agent reports the operating system of each computer, its version and, depending
+on the platform, the installed updates (Windows KB articles) or the installed packages with their
+date. The plugin reads this data; it starts no update and changes nothing in GLPI. You need the
+plugin right and the native right to read computers.
+
+1. Open Technical security > **Security patches**. The "What is this page for?" box recalls what is
+   expected.
+2. In **Target delays by criticality**, set the number of days allowed since the last patch for
+   critical, important and standard computers (15, 30 and 60 days by default). The criticality comes
+   from the C/I/A classification of the computer; a computer that a declared network flow publishes
+   on the Internet is critical. This requires the right to update the plugin.
+3. The counters give the rate of computers on time, the number late and of unknown state (no dated
+   update: no agent, or a system whose agent does not report updates), and the critical servers and
+   computers published on the Internet that are late.
+4. The list starts with the late computers, those exposed on the Internet and critical first. For
+   each one: system and version, date and origin of the last known patch, target delay, days late,
+   known CVEs of the system and end of support, date of the last inventory ("Old inventory" badge
+   beyond 30 days). Apply the patches, then wait for the next inventory.
+5. On controls A.8.8 and A.8.19, the "Security patches" box shows the rate, the late computers and
+   the date of the computation. The dashboard offers the card "Computers with security patches on
+   time (%)" and risk indicators the source "Critical servers with overdue patches".

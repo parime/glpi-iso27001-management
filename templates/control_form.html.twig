@@ -505,6 +505,10 @@
             <span class="badge {{ hardware_warranty.soon > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1"><i class="ti ti-hourglass-high me-1"></i>{{ __('%1$d ending within %2$d days', 'grcmanager')|format(hardware_warranty.soon, hardware_warranty.warning_days) }}</span>
             <span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-shield-check me-1"></i>{{ __('%d under warranty', 'grcmanager')|format(hardware_warranty.covered) }}</span>
             <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-help-circle me-1"></i>{{ __('%d without warranty information', 'grcmanager')|format(hardware_warranty.unknown) }}</span>
+            {% if hardware_warranty.eol_reached > 0 or hardware_warranty.eol_soon > 0 %}
+               <span class="badge {{ hardware_warranty.eol_reached > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1"><i class="ti ti-calendar-x me-1"></i>{{ __('%d past the manufacturer end of life', 'grcmanager')|format(hardware_warranty.eol_reached) }}</span>
+               <span class="badge {{ hardware_warranty.eol_soon > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1"><i class="ti ti-calendar-due me-1"></i>{{ __('%1$d reaching it within %2$d days', 'grcmanager')|format(hardware_warranty.eol_soon, hardware_warranty.warning_days) }}</span>
+            {% endif %}
             <a href="{{ hardware_warranty.url }}" class="me-2">{{ __('View the details', 'grcmanager') }}</a>
             <a href="{{ hardware_warranty.export_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export (CSV)', 'grcmanager') }}</a>
          </div>
@@ -591,7 +595,7 @@
       {% endset %}
       {{ fields.htmlField('', operating_procedures_html, __('Register of operating procedures', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
-   {# Issue #777 : développement sécurisé (A.8.25, A.8.28, A.8.29, A.8.31), dans les entités de la personne. #}
+   {# Issue #777 : développement sécurisé (A.8.25 à A.8.31), dans les entités de la personne. #}
    {% if secure_development is defined and secure_development is not null %}
       {% set secure_development_html %}
          <div id="grc-secure-development-evidence">
@@ -634,6 +638,22 @@
          </div>
       {% endset %}
       {{ fields.htmlField('', disk_encryption_html, __('Disk encryption', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
+   {# Issue #854 : retard des correctifs de sécurité (A.8.8, A.8.19), dans les entités de la personne. #}
+   {% if patch_compliance is defined and patch_compliance is not null %}
+      {% set patch_compliance_html %}
+         <div id="grc-patch-compliance-evidence">
+            {% set patch_color = patch_compliance.rate is null ? 'secondary' : (patch_compliance.rate >= 95 ? 'success' : (patch_compliance.rate >= 80 ? 'warning' : 'danger')) %}
+            <span class="badge bg-{{ patch_color }}-subtle text-{{ patch_color }}-emphasis me-1"><i class="ti ti-refresh-alert me-1"></i>{{ patch_compliance.rate is null ? __('Patches on time: not measured', 'grcmanager') : __('Patches on time: %d%%', 'grcmanager')|format(patch_compliance.rate) }}</span>
+            <span class="badge {{ patch_compliance.late > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-clock-exclamation me-1"></i>{{ __('%d computer(s) late', 'grcmanager')|format(patch_compliance.late) }}</span>
+            {% if patch_compliance.late_critical_servers > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-server me-1"></i>{{ __('%d critical server(s) late', 'grcmanager')|format(patch_compliance.late_critical_servers) }}</span>{% endif %}
+            {% if patch_compliance.unknown > 0 %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-help-circle me-1"></i>{{ __('%d of unknown state', 'grcmanager')|format(patch_compliance.unknown) }}</span>{% endif %}
+            <span class="small text-muted me-2">{{ __('Computed on %s', 'grcmanager')|format(patch_compliance.date) }}</span>
+            <a href="{{ patch_compliance.url }}">{{ __('View the details', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', patch_compliance_html, __('Security patches', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
    {# Issue #604 : simulations d'hameçonnage (A.6.3), taux agrégés et tendance. #}

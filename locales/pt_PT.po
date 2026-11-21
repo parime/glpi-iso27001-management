@@ -17494,6 +17494,9 @@ msgstr "Você não pode alterar o plano de tratamento deste risco."
 msgid "You cannot create an audit in this entity."
 msgstr "Você não pode criar uma auditoria nesta entidade."
 
+msgid "You cannot create this item in this entity."
+msgstr "Você não pode criar este item nesta entidade."
+
 msgid "You cannot create a non-conformity in this entity."
 msgstr "Você não pode criar uma não conformidade nesta entidade."
 
@@ -28032,3 +28035,732 @@ msgid "Blocked control"
 msgid_plural "Blocked controls"
 msgstr[0] "Controle bloqueado"
 msgstr[1] "Controles bloqueados"
+
+msgid "Review of the distribution list recorded."
+msgstr "Revisão da lista de distribuição registrada."
+
+msgid "Review overdue (more than 12 months)"
+msgstr "Revisão atrasada (mais de 12 meses)"
+
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr "Última revisão em %1$s por %2$s, a próxima antes de %3$s."
+
+msgid ""
+"Check once a year that each recipient, deputy and address is still right."
+msgstr ""
+"Verifique uma vez por ano se cada destinatário, suplente e endereço continua "
+"correto."
+
+msgid "Mark the list as reviewed today"
+msgstr "Marcar a lista como revisada hoje"
+
+msgid "Role in the list"
+msgstr "Papel na lista"
+
+msgid "Main recipient"
+msgstr "Destinatário principal"
+
+#, php-format
+msgid "Deputy of %s"
+msgstr "Suplente de %s"
+
+msgid "Deputy"
+msgstr "Suplente"
+
+msgid "No deputy"
+msgstr "Sem suplente"
+
+msgid ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+msgstr ""
+"Os endereços dos membros são incluídos ao copiar ou exportar os endereços."
+
+msgid "Distribution list last reviewed on"
+msgstr "Lista de distribuição revisada em"
+
+msgid "Crisis communications"
+msgstr "Comunicações de crise"
+
+#, php-format
+msgid ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgid_plural ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+msgstr[0] ""
+"%d destinatário principal não tem suplente: se não puder ser contatado "
+"durante uma crise, ninguém mais está previsto."
+msgstr[1] ""
+"%d destinatários principais não têm suplente: se não puderem ser contatados "
+"durante uma crise, ninguém mais está previsto."
+
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] "%d membro sem e-mail"
+msgstr[1] "%d membros sem e-mail"
+
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] "%d lista de distribuição não revisada há 12 meses"
+msgstr[1] "%d listas de distribuição não revisadas há 12 meses"
+
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] "%d destinatário principal sem suplente"
+msgstr[1] "%d destinatários principais sem suplente"
+
+msgid ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, operating system and firmware, to know where to start updating."
+msgstr ""
+"As máquinas mais expostas às vulnerabilidades conhecidas de seus softwares "
+"monitorados, de seu sistema operacional e de seu firmware, para saber por "
+"onde começar as atualizações."
+
+msgid "Hardware whose model has reached the manufacturer end of life"
+msgstr "Hardware cujo modelo atingiu o fim de vida do fabricante"
+
+msgid ""
+"Plan the replacement of the hardware, or record a waiver with compensating "
+"measures until then."
+msgstr ""
+"Planejar a substituição do hardware, ou registrar uma exceção com medidas "
+"compensatórias até lá."
+
+msgid "Manufacturer end of life reached"
+msgstr "Fim de vida do fabricante atingido"
+
+msgid ""
+"The manufacturer no longer supports this model: plan its replacement, or "
+"record the compensating measures."
+msgstr ""
+"O fabricante não oferece mais suporte a este modelo: planejar sua "
+"substituição, ou registrar as medidas compensatórias."
+
+msgid "Manufacturer end of life soon"
+msgstr "Fim de vida do fabricante próximo"
+
+msgid ""
+"Plan the replacement before the manufacturer stops supporting this model."
+msgstr ""
+"Planejar a substituição antes que o fabricante deixe de oferecer suporte a "
+"este modelo."
+
+msgid "Supported by the manufacturer"
+msgstr "Com suporte do fabricante"
+
+msgid "The end of life date entered for this model is still ahead."
+msgstr "A data de fim de vida informada para este modelo ainda não chegou."
+
+msgid "No end of life date"
+msgstr "Sem data de fim de vida"
+
+msgid ""
+"No manufacturer end of life date entered for this model (optional, in the "
+"configuration)."
+msgstr ""
+"Nenhuma data de fim de vida do fabricante informada para este modelo "
+"(opcional, na configuração)."
+
+#, php-format
+msgid "Manufacturer end of life on %s."
+msgstr "Fim de vida do fabricante em %s."
+
+msgid "Manufacturer end of life date"
+msgstr "Data de fim de vida do fabricante"
+
+msgid "Manufacturer end of life"
+msgstr "Fim de vida do fabricante"
+
+#, php-format
+msgid "%1$d reaching it within %2$d days"
+msgstr "%1$d o atingem em até %2$d dias"
+
+#, php-format
+msgid "%d past the manufacturer end of life"
+msgstr "%d após o fim de vida do fabricante"
+
+#, php-format
+msgid ""
+"%1$d models: the %2$d first ones are shown (dated models first, then the "
+"most common ones)."
+msgstr ""
+"%1$d modelos: os %2$d primeiros são exibidos (primeiro os modelos com data, "
+"depois os mais comuns)."
+
+msgid "Hardware in service"
+msgstr "Hardware em serviço"
+
+msgid "Manufacturer end of life of hardware models"
+msgstr "Fim de vida do fabricante dos modelos de hardware"
+
+msgid ""
+"No hardware model in your entities: give a model to the computers, monitors "
+"or network devices in GLPI first."
+msgstr ""
+"Nenhum modelo de hardware nas suas entidades: atribua primeiro um modelo aos "
+"computadores, monitores ou dispositivos de rede no GLPI."
+
+msgid ""
+"Some manufacturers announce the date after which a model no longer receives "
+"repairs, spare parts or firmware updates. Enter it here when you know it "
+"(optional, leave empty otherwise): the \"Hardware warranty\" card of the "
+"park vulnerabilities page then shows the hardware of this model whose end of "
+"life is reached or near, with the same threshold as the end of support (ISO "
+"27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
+msgstr ""
+"Alguns fabricantes anunciam a data após a qual um modelo deixa de receber "
+"reparos, peças de reposição ou atualizações de firmware. Informe-a aqui "
+"quando a conhecer (opcional, deixe vazio caso contrário): o cartão "
+"\"Garantia do hardware\" da página de vulnerabilidades do parque mostra "
+"então o hardware deste modelo cujo fim de vida foi atingido ou está próximo, "
+"com o mesmo limite do fim de suporte (ISO 27001 A.7.13 e A.8.9). Nada é "
+"alterado nos modelos do GLPI."
+
+msgid "What is this for?"
+msgstr "Para que serve?"
+
+msgid ""
+"\"To be handled\": warranty expired or ending soon, or manufacturer end of "
+"life reached or soon."
+msgstr ""
+"\"A tratar\": garantia expirada ou terminando em breve, ou fim de vida do "
+"fabricante atingido ou próximo."
+
+msgid "Enter the end of life dates"
+msgstr "Informar as datas de fim de vida"
+
+msgid ""
+"No hardware has an expired warranty, a warranty ending soon or a model at "
+"its manufacturer end of life."
+msgstr ""
+"Nenhum hardware tem garantia expirada, garantia terminando em breve ou "
+"modelo em fim de vida do fabricante."
+
+msgid "Optional date entered by hand for each hardware model."
+msgstr "Data opcional informada manualmente para cada modelo de hardware."
+
+msgid "To be handled"
+msgstr "A tratar"
+
+#, php-format
+msgid "%d end of life date not saved: enter a valid date for a hardware model."
+msgid_plural ""
+"%d end of life dates not saved: enter a valid date for a hardware model."
+msgstr[0] ""
+"%d data de fim de vida não salva: informar uma data válida para um modelo de "
+"hardware."
+msgstr[1] ""
+"%d datas de fim de vida não salvas: informar uma data válida para um modelo "
+"de hardware."
+
+#, php-format
+msgid "Manufacturer end of life on %1$s (in %2$d day)."
+msgid_plural "Manufacturer end of life on %1$s (in %2$d days)."
+msgstr[0] "Fim de vida do fabricante em %1$s (em %2$d dia)."
+msgstr[1] "Fim de vida do fabricante em %1$s (em %2$d dias)."
+
+msgid ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+msgstr ""
+"Registrar também como contato com os contatos oficiais marcados (aba "
+"“Contatos oficiais”)"
+
+msgid "Archive on controls A.5.5 and A.5.6"
+msgstr "Arquivar nos controles A.5.5 e A.5.6"
+
+msgid "Archived registers:"
+msgstr "Registros arquivados:"
+
+msgid ""
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
+msgstr ""
+"Autoridades, CSIRT, polícia, seguradora e grupos de interesse do registro de "
+"contatos oficiais, com a pessoa autorizada a contatá-los."
+
+#, php-format
+msgid "Crisis communication: \"%s\""
+msgstr "Comunicação de crise: “%s”"
+
+msgid ""
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
+msgstr ""
+"Durante um exercício, registre as chamadas que você faria: o relatório "
+"mostra então se os prazos teriam sido cumpridos."
+
+msgid "From a crisis communication"
+msgstr "De uma comunicação de crise"
+
+msgid "No official contact is set for this type of incident."
+msgstr "Nenhum contato oficial definido para este tipo de incidente."
+
+msgid "Official contacts to inform"
+msgstr "Contatos oficiais a avisar"
+
+msgid "Official contacts to inform during a crisis"
+msgstr "Contatos oficiais a avisar durante uma crise"
+
+msgid "Only for these types of incident"
+msgstr "Somente para estes tipos de incidente"
+
+msgid ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+msgstr ""
+"Opcional: deixe vazio para mostrar este contato em todos os incidentes de "
+"segurança. Um incidente do tipo “Violação de dados” também mostra os "
+"contatos a avisar em caso de violação de dados pessoais."
+
+#, php-format
+msgid "Register of official contacts - %s"
+msgstr "Registro de contatos oficiais - %s"
+
+msgid ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+msgstr ""
+"Salva o registro como documento PDF datado nos controles A.5.5 e A.5.6 da "
+"declaração de aplicabilidade."
+
+msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
+msgstr "O registro foi arquivado como evidência nos controles A.5.5 e A.5.6."
+
+msgid ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+msgstr ""
+"Registre cada contato oficial, marque os eventos (e, se necessário, os tipos "
+"de incidente) em que ele deve ser avisado, verifique os dados pelo menos uma "
+"vez por ano, guarde uma cópia impressa do registro (PDF) para uso durante "
+"uma crise e arquive-o nos controles A.5.5 e A.5.6 após cada revisão."
+
+#, php-format
+msgid "%d official contact recorded as contacted."
+msgid_plural "%d official contacts recorded as contacted."
+msgstr[0] "%d contato oficial registrado como avisado."
+msgstr[1] "%d contatos oficiais registrados como avisados."
+
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25 to A.8.31."
+msgstr ""
+"Preencha esta ficha para cada aplicação desenvolvida ou mantida "
+"internamente: ela aparece no registro de aplicações (página Desenvolvimento "
+"seguro) e como evidência dos controles A.8.25 a A.8.31."
+
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+"As aplicações desenvolvidas ou mantidas internamente, com suas práticas de "
+"desenvolvimento seguro (referencial, revisão de código, análises SAST, DAST "
+"e de dependências, requisitos de segurança, princípios de arquitetura, "
+"desenvolvimento terceirizado, separação de ambientes), e as entradas em "
+"produção dos últimos 12 meses com sua validação de segurança."
+
+msgid "%d without documented security requirements"
+msgstr "%d sem requisitos de segurança documentados"
+
+msgid "%d without secure architecture principles"
+msgstr "%d sem princípios de arquitetura segura"
+
+msgid "%d outsourced without supplier or security clauses"
+msgstr "%d terceirizada(s) sem fornecedor ou cláusulas de segurança"
+
+msgid "%d with access, data or configuration not separated"
+msgstr "%d com acessos, dados ou configuração não separados"
+
+msgid "Architecture"
+msgstr "Arquitetura"
+
+msgid "Architecture: %d"
+msgstr "Arquitetura: %d"
+
+msgid "Requirements: %d"
+msgstr "Requisitos: %d"
+
+msgid "Development entrusted to a supplier"
+msgstr "Desenvolvimento confiado a um fornecedor"
+
+msgid ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+msgstr ""
+"Por exemplo: revisão de código de cada entrega, testes de aceitação, direito "
+"de auditoria, depósito do código-fonte."
+
+msgid "No architecture principles"
+msgstr "Sem princípios de arquitetura"
+
+msgid "No security requirements"
+msgstr "Sem requisitos de segurança"
+
+msgid "Not separated: %s"
+msgstr "Não separado: %s"
+
+msgid "Outsourced development (A.8.30)"
+msgstr "Desenvolvimento terceirizado (A.8.30)"
+
+msgid "Outsourced without supplier or security clauses"
+msgstr "Terceirizado sem fornecedor ou cláusulas de segurança"
+
+msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
+msgstr "Terceirizadas: %1$d, sem fornecedor ou cláusulas: %2$d"
+
+msgid ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+msgstr ""
+"Princípios aplicados ao projeto: menor privilégio, defesa em profundidade, "
+"segurança por padrão, ou um link para o documento de arquitetura."
+
+msgid "Requirements and architecture (A.8.26, A.8.27)"
+msgstr "Requisitos e arquitetura (A.8.26, A.8.27)"
+
+msgid ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+msgstr ""
+"Requisitos identificados antes do desenvolvimento: autenticação, proteção de "
+"dados, registro, obrigações legais, ou um link para a especificação."
+
+msgid "Secure architecture principles"
+msgstr "Princípios de arquitetura segura"
+
+msgid "Security clauses in the contract"
+msgstr "Cláusulas de segurança no contrato"
+
+msgid "Security requirements of the application"
+msgstr "Requisitos de segurança da aplicação"
+
+msgid "Separate access (accounts, rights)"
+msgstr "Acessos separados (contas, direitos)"
+
+msgid "Separate configuration (secrets, settings)"
+msgstr "Configuração separada (segredos, parâmetros)"
+
+msgid "Separate data (no production data outside production, or anonymised)"
+msgstr ""
+"Dados separados (sem dados de produção fora da produção, ou anonimizados)"
+
+msgid "Supervised"
+msgstr "Supervisionado"
+
+msgid "Supervision of the supplier"
+msgstr "Supervisão do fornecedor"
+
+msgid ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+msgstr ""
+"Fornecedor do GLPI (Gestão > Fornecedores). Ignorado se o desenvolvimento "
+"não for terceirizado."
+
+msgid ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+msgstr ""
+"Se os ambientes são separados, marque o que está realmente separado entre "
+"desenvolvimento, teste e produção:"
+
+msgid "Without supplier or clauses"
+msgstr "Sem fornecedor ou cláusulas"
+
+msgid "%d outsourced application"
+msgid_plural "%d outsourced applications"
+msgstr[0] "%d aplicação terceirizada"
+msgstr[1] "%d aplicações terceirizadas"
+
+msgid "Phishing simulations: rates by campaign (%)"
+msgstr "Simulações de phishing: taxas por campanha (%)"
+
+msgid ""
+"Record each campaign (date, tool, scenario, targeted population), then "
+"import the results file of the tool in the Results tab. Offer a remedial "
+"training to the people who clicked. Inform the staff beforehand that "
+"simulations take place, and delete the results per person once the follow-up "
+"is done, or set a retention period in the configuration of the plugin. The "
+"rates by group and by entity stay anonymous."
+msgstr ""
+"Registe cada campanha (data, ferramenta, cenário, população visada) e depois "
+"importe o ficheiro de resultados da ferramenta no separador Resultados. "
+"Proponha uma formação de recuperação às pessoas que clicaram. Informe o "
+"pessoal antecipadamente de que se realizam simulações e elimine os "
+"resultados por pessoa depois do acompanhamento, ou defina um prazo de "
+"conservação na configuração do plugin. As taxas por grupo e por entidade "
+"permanecem anónimas."
+
+msgid ""
+"Phishing simulations: delete the individual results past the retention period"
+msgstr ""
+"Simulações de phishing: eliminar os resultados individuais após o prazo de "
+"conservação"
+
+msgid "%d phishing campaign(s): individual results deleted, rates kept."
+msgstr ""
+"%d campanha(s) de phishing: resultados individuais eliminados, taxas "
+"mantidas."
+
+msgid "Other groups (fewer than %d people each)"
+msgstr "Outros grupos (menos de %d pessoas cada)"
+
+msgid "No group"
+msgstr "Sem grupo"
+
+msgid "Campaigns"
+msgstr "Campanhas"
+
+msgid "Last campaign"
+msgstr "Última campanha"
+
+msgid ""
+"Between 0 and %d months. Default: 0 (no automatic deletion). Changing it "
+"needs the right to update the sensitive registers."
+msgstr ""
+"Entre 0 e %d meses. Por omissão: 0 (sem eliminação automática). Alterá-lo "
+"exige o direito de modificação dos registos sensíveis."
+
+msgid "Phishing simulations: retention of the results per person"
+msgstr "Simulações de phishing: conservação dos resultados por pessoa"
+
+msgid "Retention period (months)"
+msgstr "Prazo de conservação (meses)"
+
+msgid "See the phishing simulations"
+msgstr "Ver as simulações de phishing"
+
+msgid ""
+"The results per person of a phishing simulation are personal data. After "
+"this number of months from the date of the campaign, a daily automatic "
+"action deletes them: only the anonymous rates remain (by campaign and by "
+"group). 0 keeps them until they are deleted by hand from the campaign. Write "
+"this period in your record of processing activities and in the information "
+"given to employees."
+msgstr ""
+"Os resultados por pessoa de uma simulação de phishing são dados pessoais. "
+"Após este número de meses a contar da data da campanha, uma ação automática "
+"diária elimina-os: ficam apenas as taxas anónimas (por campanha e por "
+"grupo). 0 mantém-nos até serem eliminados manualmente na campanha. Indique "
+"este prazo no seu registo das atividades de tratamento e na informação dada "
+"aos trabalhadores."
+
+msgid ""
+"Groups of the matched people in GLPI at the time of the import: a person in "
+"several groups counts in each. Without the right on sensitive registers, "
+"groups of fewer than %d people are combined. These rates are anonymous and "
+"are kept when the results per person are deleted."
+msgstr ""
+"Grupos no GLPI das pessoas associadas no momento da importação: uma pessoa "
+"de vários grupos conta em cada um. Sem o direito sobre os registos "
+"sensíveis, os grupos com menos de %d pessoas são agrupados. Estas taxas são "
+"anónimas e mantêm-se quando os resultados por pessoa são eliminados."
+
+msgid "Rates by group"
+msgstr "Taxas por grupo"
+
+msgid ""
+"The results per person will be deleted automatically on %s (retention period "
+"set in the configuration of the plugin). The rates are kept."
+msgstr ""
+"Os resultados por pessoa serão eliminados automaticamente em %s (prazo de "
+"conservação definido na configuração do plugin). As taxas mantêm-se."
+
+msgid "Last campaign by entity"
+msgstr "Última campanha por entidade"
+
+msgid ""
+"Rates of the last campaign with results of each entity. The rates by group "
+"are on the Results tab of each campaign."
+msgstr ""
+"Taxas da última campanha com resultados de cada entidade. As taxas por grupo "
+"estão no separador Resultados de cada campanha."
+
+msgid "Review history"
+msgstr "Histórico de revisões"
+
+msgid ""
+"Each review recorded with the \"Record the review\" button is kept here and "
+"in the security audit log; it cannot be changed afterwards."
+msgstr ""
+"Cada revisão registrada com o botão \"Registrar a revisão\" é mantida aqui e "
+"no registro de auditoria de segurança; ela não pode ser alterada depois."
+
+msgid "Physical security of the site: %s"
+msgstr "Segurança física do local: %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Lista de verificação, constatações, ações e zonas desta avaliação, para o "
+"auditor."
+
+msgid "Security patches"
+msgstr "Correções de segurança"
+
+msgid "Patches overdue"
+msgstr "Correções atrasadas"
+
+msgid "The last known patch is older than the target delay of the computer."
+msgstr "A última correção conhecida é mais antiga que o prazo-alvo do computador."
+
+msgid "No dated update in the inventory: no inventory agent, or a system whose agent does not report installed updates."
+msgstr "Nenhuma atualização datada no inventário: sem agente de inventário, ou um sistema cujo agente não informa as atualizações instaladas."
+
+msgid "The last known patch is within the target delay of the computer."
+msgstr "A última correção conhecida está dentro do prazo-alvo do computador."
+
+msgid "A high C, I or A level, or published on the Internet."
+msgstr "Um nível C, I ou D alto, ou publicado na Internet."
+
+msgid "Important"
+msgstr "Importante"
+
+msgid "A medium C, I or A level."
+msgstr "Um nível C, I ou D médio."
+
+msgid "Standard"
+msgstr "Padrão"
+
+msgid "Low or not classified."
+msgstr "Baixo ou não classificado."
+
+msgid "System update"
+msgstr "Atualização do sistema"
+
+msgid "Package installation"
+msgstr "Instalação de pacote"
+
+msgid "No dated update"
+msgstr "Nenhuma atualização datada"
+
+#, php-format
+msgid "Computers with security patches on time (%)"
+msgstr "Computadores com correções de segurança em dia (%)"
+
+msgid "Computers with security patches on time"
+msgstr "Computadores com correções de segurança em dia"
+
+msgid "Target delays saved."
+msgstr "Prazos-alvo salvos."
+
+msgid "Critical servers with overdue patches"
+msgstr "Servidores críticos com correções atrasadas"
+
+msgid "Shows, from the GLPI inventory (operating system, version, updates reported by the agent), the date of the last known security patch of each computer and whether it is within the target delay of its criticality. Computers published on the Internet and critical computers come first, with the known vulnerabilities of their system and their end of support."
+msgstr "Mostra, a partir do inventário do GLPI (sistema operacional, versão, atualizações informadas pelo agente), a data da última correção de segurança conhecida de cada computador e se ela está dentro do prazo-alvo da sua criticidade. Os computadores publicados na Internet e os críticos aparecem primeiro, com as vulnerabilidades conhecidas do seu sistema e o fim do suporte."
+
+msgid "Set the target delay of each criticality, classify the computers (C/I/A tab), patch the late computers, and install the inventory agent on those of unknown state. The page only reads the inventory: it starts no update. Record the result as an effectiveness test of the control to keep the evidence."
+msgstr "Defina o prazo-alvo de cada criticidade, classifique os computadores (aba C/I/D), corrija os computadores atrasados e instale o agente de inventário nos de estado desconhecido. A página apenas lê o inventário: não inicia nenhuma atualização. Registre o resultado como teste de eficácia do controle para guardar a evidência."
+
+msgid "ISO/IEC 27001, controls A.8.8 and A.8.19"
+msgstr "ISO/IEC 27001, controles A.8.8 e A.8.19"
+
+#, php-format
+msgid "Among the %d computers whose last patch is known"
+msgstr "Entre os %d computadores cuja última correção é conhecida"
+
+msgid "Computers published on the Internet with overdue patches"
+msgstr "Computadores publicados na Internet com correções atrasadas"
+
+msgid "Target delays by criticality"
+msgstr "Prazos-alvo por criticidade"
+
+msgid "The criticality of a computer comes from its C/I/A classification (tab of the computer form): the highest of the three levels counts. A computer that a network flow publishes on the Internet is critical. A computer is late when its last known patch is older than the delay of its criticality."
+msgstr "A criticidade de um computador vem da sua classificação C/I/D (aba do formulário do computador): conta o mais alto dos três níveis. Um computador que um fluxo de rede publica na Internet é crítico. Um computador está atrasado quando sua última correção conhecida é mais antiga que o prazo da sua criticidade."
+
+msgid "Target delay (days)"
+msgstr "Prazo-alvo (dias)"
+
+msgid "Computers"
+msgstr "Computadores"
+
+msgid "Patch status by computer"
+msgstr "Situação das correções por computador"
+
+msgid "No computer in your entities."
+msgstr "Nenhum computador nas suas entidades."
+
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, overdue ones first."
+msgstr "%1$d computadores: os %2$d primeiros são mostrados, os atrasados primeiro."
+
+msgid "Last known patch"
+msgstr "Última correção conhecida"
+
+msgid "Vulnerabilities and end of support"
+msgstr "Vulnerabilidades e fim do suporte"
+
+msgid "Server"
+msgstr "Servidor"
+
+msgid "Published on the Internet"
+msgstr "Publicado na Internet"
+
+msgid "Not inventoried"
+msgstr "Não inventariado"
+
+#, php-format
+msgid "Target: %d days"
+msgstr "Alvo: %d dias"
+
+#, php-format
+msgid "%d days late"
+msgstr "%d dias de atraso"
+
+#, php-format
+msgid "%d known CVE(s) of the system"
+msgstr "%d CVE conhecida(s) do sistema"
+
+#, php-format
+msgid "%d exploited"
+msgstr "%d explorada(s)"
+
+#, php-format
+msgid "Inventory older than %d days: the data may be out of date."
+msgstr "Inventário com mais de %d dias: os dados podem estar desatualizados."
+
+msgid "Old inventory"
+msgstr "Inventário antigo"
+
+msgid "Read only: the plugin reads the GLPI inventory, never starts an update and changes nothing in GLPI."
+msgstr "Somente leitura: o plugin lê o inventário do GLPI, nunca inicia uma atualização e não altera nada no GLPI."
+
+msgid "Network flows"
+msgstr "Fluxos de rede"
+
+msgid "Patches on time: not measured"
+msgstr "Correções em dia: não medido"
+
+#, php-format
+msgid "Patches on time: %d%%"
+msgstr "Correções em dia: %d%%"
+
+#, php-format
+msgid "%d computer(s) late"
+msgstr "%d computador(es) atrasado(s)"
+
+#, php-format
+msgid "%d critical server(s) late"
+msgstr "%d servidor(es) crítico(s) atrasado(s)"
+
+#, php-format
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] "há %d dia"
+msgstr[1] "há %d dias"

@@ -36,7 +36,9 @@ Html::header(
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('phishingcampaign');
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/phishing_trend.html.twig', [
-    'rows' => PhishingCampaign::trendRows(),
+    'rows'         => PhishingCampaign::trendRows(),
+    'entities'     => PhishingCampaign::entityRows(),
+    'entity_label' => Entity::getTypeName(1),
 ]);
 
 $params = QueryBuilder::manageParams(PhishingCampaign::class, $_GET);

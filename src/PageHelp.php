@@ -452,6 +452,25 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.8.24 and A.8.1', 'grcmanager'),
             ],
+            // Issue #854 : retard des correctifs de sécurité des systèmes.
+            'patchcompliance' => [
+                'purpose'   => __(
+                    'Shows, from the GLPI inventory (operating system, version, updates reported by the agent), '
+                        . 'the date of the last known security patch of each computer and whether it is within the '
+                        . 'target delay of its criticality. Computers published on the Internet and critical '
+                        . 'computers come first, with the known vulnerabilities of their system and their end of '
+                        . 'support.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Set the target delay of each criticality, classify the computers (C/I/A tab), patch the '
+                        . 'late computers, and install the inventory agent on those of unknown state. The page only '
+                        . 'reads the inventory: it starts no update. Record the result as an effectiveness test of '
+                        . 'the control to keep the evidence.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.8 and A.8.19', 'grcmanager'),
+            ],
             'contextitem' => [
                 'purpose'   => __(
                     'The context of the organization: the internal and external issues that affect information '
@@ -504,7 +523,8 @@ class PageHelp
             'securedevelopment' => [
                 'purpose'   => __(
                     'The applications developed or maintained in-house, with their secure development practices '
-                        . '(framework, code review, SAST, DAST and dependency analyses, separated environments), and '
+                        . '(framework, code review, SAST, DAST and dependency analyses, security requirements, '
+                        . 'architecture principles, outsourced development, separated environments), and '
                         . 'the releases of the last 12 months with their security validation.',
                     'grcmanager'
                 ),
@@ -525,9 +545,10 @@ class PageHelp
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Record each official contact, tick the events for which it must be informed, verify the '
-                        . 'details at least once a year, and keep a printed copy of the register (PDF) for use '
-                        . 'during a crisis.',
+                    'Record each official contact, tick the events (and, if needed, the types of incident) for '
+                        . 'which it must be informed, verify the details at least once a year, keep a printed copy '
+                        . 'of the register (PDF) for use during a crisis, and archive it on controls A.5.5 and '
+                        . 'A.5.6 after each review.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.5.5 and A.5.6', 'grcmanager'),
@@ -662,7 +683,8 @@ class PageHelp
                     'Record each campaign (date, tool, scenario, targeted population), then import the results '
                         . 'file of the tool in the Results tab. Offer a remedial training to the people who '
                         . 'clicked. Inform the staff beforehand that simulations take place, and delete the '
-                        . 'results per person once the follow-up is done.',
+                        . 'results per person once the follow-up is done, or set a retention period in the '
+                        . 'configuration of the plugin. The rates by group and by entity stay anonymous.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, clause 7.3 and control A.6.3', 'grcmanager'),
@@ -1060,8 +1082,8 @@ class PageHelp
             ],
             'parkmachines' => [
                 'purpose'  => __(
-                    'The machines most exposed to the known vulnerabilities of their watched software, to know '
-                        . 'where to start updating.',
+                    'The machines most exposed to the known vulnerabilities of their watched software, operating '
+                        . 'system and firmware, to know where to start updating.',
                     'grcmanager'
                 ),
                 'expected' => __(

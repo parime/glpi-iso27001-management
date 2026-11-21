@@ -217,7 +217,8 @@ class Competence extends CompetenceBase
         }
         // Une session donne la compétence par sa formation principale : c'est elle qui est liée.
         $training = new Training();
-        if (!$training->getFromDB($trainingId)) {
+        // Issue #536, lot 3 : seulement une formation lisible (entités de la session).
+        if (!$training->getFromDB($trainingId) || (EntityPerimeter::hasSession() && !$training->canViewItem())) {
             return;
         }
         $mainId = (int) ($training->fields['plugin_grcmanager_trainings_id'] ?? 0);

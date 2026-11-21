@@ -35,6 +35,18 @@
             </div></div></div>
          {% endfor %}
       </div>
+      {# Lot 2 : fin de vie déclarée par le constructeur, saisie par modèle dans la configuration. #}
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+         <span class="fw-bold small"><i class="ti ti-calendar-x me-1"></i>{{ __('Manufacturer end of life', 'grcmanager') }}</span>
+         {% for code in ['eol_reached', 'eol_soon', 'eol_future', 'eol_none'] %}
+            {% set info = hw.eol_statuses[code] %}
+            <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis" title="{{ info.help }}"><i class="{{ info.icon }} me-1"></i>{{ hw.eol_counts[code] }} {{ info.label }}</span>
+         {% endfor %}
+         <span class="text-muted small">
+            {{ __('Optional date entered by hand for each hardware model.', 'grcmanager') }}
+            {% if hw.can_config %}<a href="{{ hw.config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Enter the end of life dates', 'grcmanager') }}</a>{% endif %}
+         </span>
+      </div>
    </div>
    {% if hw.total_assets == 0 %}
       <div class="card-body text-muted pt-0">
@@ -69,10 +81,10 @@
       <div class="card-body pb-0">
          <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
             <div class="btn-group" role="group">
-               <a class="btn btn-sm {{ hw.all ? 'btn-outline-primary' : 'btn-primary' }}" href="{{ action }}#grc-hardware-warranty">{{ __('Expired or ending soon', 'grcmanager') }}</a>
+               <a class="btn btn-sm {{ hw.all ? 'btn-outline-primary' : 'btn-primary' }}" href="{{ action }}#grc-hardware-warranty">{{ __('To be handled', 'grcmanager') }}</a>
                <a class="btn btn-sm {{ hw.all ? 'btn-primary' : 'btn-outline-primary' }}" href="{{ action }}?warranty=all#grc-hardware-warranty">{{ __('All hardware', 'grcmanager') }}</a>
             </div>
-            <span class="text-muted small">{{ __('"Warranty ends soon": within %d days, the same threshold as the end of support.', 'grcmanager')|format(hw.warning_days) }}</span>
+            <span class="text-muted small">{{ __('"To be handled": warranty expired or ending soon, or manufacturer end of life reached or soon.', 'grcmanager') }} {{ __('"Warranty ends soon": within %d days, the same threshold as the end of support.', 'grcmanager')|format(hw.warning_days) }}</span>
          </div>
          {% if hw.total_rows > hw.rows|length %}
             <p class="small">{{ __('%1$d pieces of hardware: the %2$d most urgent ones are shown, all of them are in the export.', 'grcmanager')|format(hw.total_rows, hw.rows|length) }}</p>
@@ -80,7 +92,7 @@
       </div>
       {% if hw.rows is empty %}
          <div class="card-body text-muted pt-0">
-            <i class="ti ti-circle-check me-1 text-success"></i>{{ __('No hardware has an expired warranty or a warranty ending soon.', 'grcmanager') }}
+            <i class="ti ti-circle-check me-1 text-success"></i>{{ __('No hardware has an expired warranty, a warranty ending soon or a model at its manufacturer end of life.', 'grcmanager') }}
          </div>
       {% else %}
          <div class="table-responsive">
@@ -90,6 +102,7 @@
                   <th>{{ __('Asset', 'grcmanager') }}</th>
                   <th>{{ __('Entity', 'grcmanager') }}</th>
                   <th>{{ __('Warranty end date', 'grcmanager') }}</th>
+                  <th>{{ __('Manufacturer end of life', 'grcmanager') }}</th>
                </tr></thead>
                <tbody>
                {% for row in hw.rows %}
@@ -101,6 +114,14 @@
                      </td>
                      <td>{{ row.entity }}</td>
                      <td class="small">{{ row.detail }}</td>
+                     <td class="small">
+                        {% if row.eol_code == 'eol_none' %}
+                           <span class="text-muted">{{ row.eol.label }}</span>
+                        {% else %}
+                           <span class="badge bg-{{ row.eol.color }}-subtle text-{{ row.eol.color }}-emphasis mb-1" title="{{ row.eol.help }}"><i class="{{ row.eol.icon }} me-1"></i>{{ row.eol.label }}</span>
+                           <div>{{ row.eol_detail }}</div>
+                        {% endif %}
+                     </td>
                   </tr>
                {% endfor %}
                </tbody>

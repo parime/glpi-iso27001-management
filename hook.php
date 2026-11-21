@@ -272,12 +272,26 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::competenceCoverageRate',
         ],
+        // Issue #604, lot 2 : taux des simulations d'hameçonnage d'une campagne à l'autre.
+        'grcmanager_phishing_trend' => [
+            'widgettype' => ['lines', 'areas', 'bars'],
+            'label' => __('Phishing simulations: rates by campaign (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::phishingTrend',
+        ],
         // Issue #847 : ordinateurs qui doivent être chiffrés et le sont (%).
         'grcmanager_disk_encryption_rate' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Computers that must be encrypted and are (%)', 'grcmanager'),
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::diskEncryptionRate',
+        ],
+        // Issue #854 : ordinateurs dont les correctifs sont dans les délais (%).
+        'grcmanager_patch_compliance_rate' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Computers with security patches on time (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::patchComplianceRate',
         ],
         'grcmanager_training_retake_participants' => [
             'widgettype' => ['bigNumber'],
