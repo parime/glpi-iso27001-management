@@ -656,6 +656,14 @@
       {{ fields.htmlField('', patch_compliance_html, __('Security patches', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #781 : conformité de configuration (A.8.9), une ligne par source (OpenSCAP d'abord). #}
+   {% if configuration_compliance is defined and configuration_compliance is not null %}
+      {% set configuration_compliance_html %}
+         {% include '@grcmanager/_configuration_evidence.html.twig' with {'sources': configuration_compliance.sources} only %}
+      {% endset %}
+      {{ fields.htmlField('', configuration_compliance_html, __('Configuration compliance', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #604 : simulations d'hameçonnage (A.6.3), taux agrégés et tendance. #}
    {% if phishing is defined and phishing is not null %}
       {% set phishing_html %}

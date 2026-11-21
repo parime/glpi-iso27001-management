@@ -150,6 +150,8 @@ class Menu extends CommonGLPI
                 DiskEncryption::class,
                 // Issue #854 : retard des correctifs de sécurité (A.8.8, A.8.19).
                 PatchCompliance::class,
+                // Issue #781 : conformité de configuration, résultats OpenSCAP importés (A.8.9).
+                ConfigurationCompliance::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];

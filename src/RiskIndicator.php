@@ -83,6 +83,11 @@ class RiskIndicator extends RiskIndicatorBase
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => ['computer' => READ], 'global' => false,
         ],
+        // Issue #781 : ordinateurs analysés par OpenSCAP avec une règle de gravité haute en échec.
+        'config_high_failures'      => [
+            'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => ['computer' => READ], 'global' => false,
+        ],
         'critical_vulnerabilities'  => [
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE, 'rights' => ['software' => READ], 'global' => false,
         ],
@@ -144,6 +149,10 @@ class RiskIndicator extends RiskIndicatorBase
             'antivirus_gaps'            => __('Computers without an up-to-date antivirus (%)', 'grcmanager'),
             'unencrypted_laptops'       => __('Laptops with an unencrypted disk (%)', 'grcmanager'),
             'late_patch_critical_servers' => __('Critical servers with overdue patches', 'grcmanager'),
+            'config_high_failures'      => __(
+                'Scanned computers with a high severity configuration rule failed (%)',
+                'grcmanager'
+            ),
             'critical_vulnerabilities'  => __('Open critical vulnerabilities in the fleet', 'grcmanager'),
             'risks_above_tolerance'     => __('Open risks above tolerance', 'grcmanager'),
             'overdue_treatment_actions' => __('Overdue risk treatment actions', 'grcmanager'),
@@ -529,6 +538,7 @@ class RiskIndicator extends RiskIndicatorBase
             'antivirus_gaps'            => ComplianceAudit::gapRate('antivirus', $perimeter),
             'unencrypted_laptops'       => ComplianceAudit::gapRate('laptop_encryption', $perimeter),
             'late_patch_critical_servers' => PatchCompliance::lateCriticalServers($perimeter),
+            'config_high_failures'      => ConfigurationCompliance::highFailureRate($perimeter),
             'critical_vulnerabilities'  => (float) count(array_filter(
                 ParkVulnerability::getVulnerabilityRows(
                     false,

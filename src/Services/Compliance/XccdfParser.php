@@ -222,7 +222,10 @@ final class XccdfParser
             } elseif ($name === 'Rule') {
                 $currentRule = self::text((string) $reader->getAttribute('id'));
                 $severity = strtolower((string) $reader->getAttribute('severity'));
-                if ($currentRule !== '' && in_array($severity, self::SEVERITIES, true) && count($ruleSeverities) < self::MAX_TITLES) {
+                if (
+                    $currentRule !== '' && in_array($severity, self::SEVERITIES, true)
+                    && count($ruleSeverities) < self::MAX_TITLES
+                ) {
                     $ruleSeverities[$currentRule] = $severity;
                 }
             } elseif ($name === 'Profile') {
