@@ -1778,29 +1778,23 @@ du développement sécurisé (33).
    dernière nomenclature de chaque produit, les vulnérabilités sans déclaration et celles qui
    affectent encore le produit.
 
-### Étape 59 : Cadrer la Déclaration d'Applicabilité par questions (6.1.3 c et d)
+### Étape 59 : Faire répondre un fournisseur par lien sécurisé
 
-L'auditeur demande pourquoi chaque mesure de l'Annexe A est retenue ou exclue. L'onglet
-**Cadrage de la SoA** de la rubrique **Conformité** vous aide à répondre sans partir d'une page
-blanche.
+Si vos fournisseurs peuvent joindre votre GLPI, ils peuvent répondre au questionnaire en ligne, sans
+compte GLPI (sinon, voir 55).
 
-1. Ouvrez **Conformité > Cadrage de la SoA**. La page porte sur la SoA de l'entité active.
-2. Répondez aux huit questions (télétravail, développement logiciel, sous-traitance du
-   développement, fournisseurs, cloud, locaux, serveurs sur site, données personnelles), puis
-   cliquez sur **Enregistrer les réponses**. Une question laissée « Sans réponse » met en attente
-   les mesures qu'elle concerne.
-3. Le tableau compare, pour chaque mesure, ce que dit la SoA aujourd'hui et la proposition, avec
-   la question qui la fonde. L'état **À relire** signale une différence, **Conforme à la SoA** une
-   proposition qui ne change rien.
-4. Acceptez ou refusez une proposition avec les boutons de sa ligne. Pour un lot, cochez les
-   mesures puis **Aperçu des propositions sélectionnées**, ou cliquez sur **Aperçu de toutes les
-   propositions à relire** : l'aperçu montre ce qui changera avant que vous confirmiez.
-5. Une justification déjà écrite n'est jamais remplacée ; complétez-la si besoin depuis la fiche de
-   la mesure (lien sur le code).
-6. Le **journal des décisions** garde qui a validé quoi et quand. **Export CSV pour l'auditeur**
-   réunit les réponses, la comparaison et le journal.
-
-Rien ne change dans la SoA sans votre décision explicite.
+1. Un administrateur du plugin active **Réponse du fournisseur par lien sécurisé** dans la
+   configuration du plugin. La fonction est désactivée par défaut.
+2. Dans l'onglet **Lien sécurisé** de l'évaluation, choisissez la durée de validité et le nombre
+   d'envois autorisés, puis cliquez sur **Créer un lien**. Copiez le lien affiché : il n'est montré
+   qu'une fois, GLPI n'en garde qu'une empreinte.
+3. Envoyez-le au fournisseur. Sa page ne montre que les questions de cette évaluation ; il choisit
+   ses réponses, ajoute des commentaires et ses documents, puis clique sur **Envoyer mes réponses**.
+4. Les réponses reçues apparaissent dans **Réponses à relire**. Cliquez sur **Vérifier les
+   réponses** : l'aperçu compare chaque réponse à la réponse actuelle. Enregistrez-les, ou
+   rejetez-les ; rien ne compte dans l'évaluation avant.
+5. Un lien se révoque à tout moment (bouton **Révoquer**). Le journal d'audit sécurité garde la
+   création, chaque ouverture, chaque envoi et chaque révocation.
 
 ## 🇬🇧 English
 
@@ -3467,25 +3461,20 @@ development (33).
    for the latest bill of materials of each product, the vulnerabilities without a statement and
    those that still affect the product.
 
-### Step 59: Scope the Statement of Applicability with a few questions (6.1.3 c and d)
+### Step 59: Have a supplier answer by secure link
 
-The auditor asks why each Annex A control is included or excluded. The **SoA scoping** tab of the
-**Compliance** section helps you answer without starting from a blank page.
+If your suppliers can reach your GLPI, they can answer the questionnaire online, without a GLPI
+account (otherwise, see 55).
 
-1. Open **Compliance > SoA scoping**. The page covers the Statement of Applicability of the active
-   entity.
-2. Answer the eight questions (remote work, software development, outsourced development,
-   suppliers, cloud, premises, on-site servers, personal data), then click **Save the answers**. A
-   question left "Not answered" puts the controls it concerns on hold.
-3. For each control, the table compares what the SoA says today with the proposal and the question
-   it relies on. **To review** flags a difference, **Matches the SoA** a proposal that changes
-   nothing.
-4. Accept or reject a proposal with the buttons of its row. For a batch, tick the controls then
-   **Preview the selected proposals**, or click **Preview all proposals to review**: the preview
-   shows what will change before you confirm.
-5. A justification already written is never replaced; complete it if needed from the control form
-   (link on the code).
-6. The **decision log** keeps who validated what and when. **Export CSV for the auditor** gathers
-   the answers, the comparison and the log.
-
-Nothing changes in the SoA without your explicit decision.
+1. An administrator of the plugin enables **Supplier answer by secure link** in the plugin
+   settings. The feature is disabled by default.
+2. In the **Secure link** tab of the evaluation, choose how long the link is valid and how many
+   sendings it allows, then click **Create a link**. Copy the link shown: it is displayed only once,
+   GLPI keeps only a fingerprint of it.
+3. Send it to the supplier. Its page shows only the questions of this evaluation; it chooses its
+   answers, adds comments and its documents, then clicks **Send my answers**.
+4. The answers received appear under **Answers to review**. Click **Review the answers**: the
+   preview compares each answer with the current one. Save them, or discard them; nothing counts in
+   the evaluation before.
+5. A link can be revoked at any time (**Revoke** button). The security audit log keeps the
+   creation, each opening, each sending and each revocation.
