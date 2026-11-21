@@ -1,0 +1,104 @@
+#
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Asset classification"
+msgstr "Classification de l'actif"
+
+msgid "Patch level"
+msgstr "Niveau de correctifs"
+
+msgid "Software end of support"
+msgstr "Fin de support des logiciels"
+
+msgid "Warranty and manufacturer end of life"
+msgstr "Garantie et fin de vie constructeur"
+
+msgid "Endpoint protection (EDR)"
+msgstr "Protection des postes (EDR)"
+
+msgid "Monitoring (Zabbix)"
+msgstr "Supervision (Zabbix)"
+
+msgid "Log collection"
+msgstr "Collecte des journaux"
+
+msgid "Not classified yet: its criticality cannot set the backup, logging and patch targets."
+msgstr "Pas encore classé : sa criticité ne peut pas fixer les objectifs de sauvegarde, de journaux et de correctifs."
+
+#, php-format
+msgid "RTO: %d h"
+msgstr "RTO : %d h"
+
+#, php-format
+msgid "RPO: %d h"
+msgstr "RPO : %d h"
+
+#, php-format
+msgid "Confidentiality %1$s, integrity %2$s, availability %3$s."
+msgstr "Confidentialité %1$s, intégrité %2$s, disponibilité %3$s."
+
+#, php-format
+msgid "Target delay: %d days"
+msgstr "Délai cible : %d jours"
+
+#, php-format
+msgid "Last known patch on %1$s, %2$d days past the target delay."
+msgstr "Dernier correctif connu le %1$s, %2$d jours au-delà du délai cible."
+
+#, php-format
+msgid "Last known patch on %s, within the target delay."
+msgstr "Dernier correctif connu le %s, dans le délai cible."
+
+#, php-format
+msgid "%d tracked products, all still supported or with an unknown date."
+msgstr "%d produits suivis, tous encore supportés ou de date inconnue."
+
+#, php-format
+msgid "%1$d products no longer supported, %2$d reaching end of support soon."
+msgstr "%1$d produits plus supportés, %2$d bientôt en fin de support."
+
+#, php-format
+msgid "Last seen by the console: %s"
+msgstr "Vu par la console pour la dernière fois : %s"
+
+#, php-format
+msgid "%d SentinelOne alerts waiting to be reviewed for this computer."
+msgstr "%d alertes SentinelOne attendent une vérification pour cet ordinateur."
+
+msgid "No SentinelOne agent matched this computer."
+msgstr "Aucun agent SentinelOne rapproché de cet ordinateur."
+
+msgid "SentinelOne agent active, no alert waiting."
+msgstr "Agent SentinelOne actif, aucune alerte en attente."
+
+msgid "SentinelOne agent inactive: the computer is no longer protected."
+msgstr "Agent SentinelOne inactif : l'ordinateur n'est plus protégé."
+
+#, php-format
+msgid "Availability over %1$d days: %2$s %%"
+msgstr "Disponibilité sur %1$d jours : %2$s %%"
+
+msgid "An outage exceeded the RTO of a business process."
+msgstr "Une interruption a dépassé le RTO d'un processus métier."
+
+#, php-format
+msgid "%1$s: %2$d open high problems, %3$d other open problems."
+msgstr "%1$s : %2$d problèmes hauts ouverts, %3$d autres problèmes ouverts."
+
+#, php-format
+msgid "Allowed age: %s"
+msgstr "Ancienneté admise : %s"
+
+#, php-format
+msgid "%1$s: last success on %2$s."
+msgstr "%1$s : dernière réussite le %2$s."
+
+#, php-format
+msgid "%1$s: last event on %2$s."
+msgstr "%1$s : dernier événement le %2$s."
+
+#, php-format
+msgid "Platforms: %s"
+msgstr "Plateformes : %s"
