@@ -34180,3 +34180,204 @@ msgstr "Appartenance à l'équipe"
 #: templates/share_access_detail.html.twig
 msgid "Direct permission"
 msgstr "Permission directe"
+
+msgid "SBOM and VEX"
+msgstr "SBOM et VEX"
+
+msgid "Affected"
+msgstr "Affecté"
+
+msgid "Under investigation"
+msgstr "En cours d'analyse"
+
+msgid "Fixed"
+msgstr "Corrigé"
+
+msgid "Not affected"
+msgstr "Non affecté"
+
+msgid "Component not present"
+msgstr "Composant absent"
+
+msgid "Vulnerable code not present"
+msgstr "Code vulnérable absent"
+
+msgid "Vulnerable code never executed"
+msgstr "Code vulnérable jamais exécuté"
+
+msgid "Vulnerable code out of reach of an attacker"
+msgstr "Code vulnérable hors de portée d'un attaquant"
+
+msgid "Protections already in place"
+msgstr "Protections déjà en place"
+
+msgid "Entered by hand"
+msgstr "Saisie à la main"
+
+msgid "SBOM file"
+msgstr "Fichier SBOM"
+
+msgid "Vulnerability watch"
+msgstr "Veille des vulnérabilités"
+
+msgid "The file is larger than %d MB."
+msgstr "Le fichier dépasse %d Mo."
+
+msgid "The file is not valid JSON, or it is nested too deeply."
+msgstr "Le fichier n'est pas un JSON valide, ou il est trop imbriqué."
+
+msgid "The file is neither a CycloneDX nor an SPDX 2 software bill of materials in JSON."
+msgstr "Le fichier n'est ni une nomenclature logicielle CycloneDX ni une nomenclature SPDX 2 en JSON."
+
+msgid "The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+msgstr "Le fichier ne contient aucune déclaration VEX (CycloneDX avec une analyse, ou OpenVEX)."
+
+msgid "The file lists more than %d components or vulnerabilities: split it by product."
+msgstr "Le fichier liste plus de %d composants ou vulnérabilités : découpez-le par produit."
+
+msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
+msgstr "Saisissez un identifiant de vulnérabilité, par exemple CVE-2024-12345."
+
+msgid "Choose a status."
+msgstr "Choisissez un statut."
+
+msgid "Unknown justification."
+msgstr "Justification inconnue."
+
+msgid "A \"not affected\" statement needs a justification or an explanation."
+msgstr "Une déclaration « non affecté » demande une justification ou une explication."
+
+msgid "Enter the product version described by the file."
+msgstr "Saisissez la version du produit décrite par le fichier."
+
+msgid "Keeps the software bill of materials (SBOM) of each version of a product you build or develop, compares its components with the vulnerabilities already known to the plugin, and records your VEX statements: affected, not affected (with the reason), fixed or under investigation. Customers and the Cyber Resilience Act expect these documents from a manufacturer."
+msgstr "Conserve la nomenclature logicielle (SBOM) de chaque version d'un produit que vous fabriquez ou développez, rapproche ses composants des vulnérabilités déjà connues du plugin et enregistre vos déclarations VEX : affecté, non affecté (avec la raison), corrigé ou en cours d'analyse. Les clients et le Cyber Resilience Act attendent ces documents d'un fabricant."
+
+msgid "Import the CycloneDX or SPDX file (JSON) produced by your build for each released version, then give a VEX status to each vulnerability found, or import the VEX document of your scanner. Nothing is sent outside GLPI."
+msgstr "Importez le fichier CycloneDX ou SPDX (JSON) produit par votre chaîne de construction pour chaque version publiée, puis donnez un statut VEX à chaque vulnérabilité trouvée, ou importez le document VEX de votre outil d'analyse. Rien n'est envoyé hors de GLPI."
+
+msgid "ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, Annex I part II"
+msgstr "ISO/IEC 27001, mesures A.5.21, A.8.8 et A.8.28 ; Cyber Resilience Act, annexe I partie II"
+
+msgid "Software bills of materials and VEX"
+msgstr "Nomenclatures logicielles et VEX"
+
+msgid "SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX statement(s)."
+msgstr "SBOM importé : %1$d composant(s), %2$d vulnérabilité(s) citée(s), %3$d déclaration(s) VEX."
+
+msgid "VEX document imported: %d statement(s)."
+msgstr "Document VEX importé : %d déclaration(s)."
+
+msgid "VEX statement saved."
+msgstr "Déclaration VEX enregistrée."
+
+msgid "SBOM deleted."
+msgstr "SBOM supprimé."
+
+msgid "VEX statement deleted."
+msgstr "Déclaration VEX supprimée."
+
+msgid "No VEX statement"
+msgstr "Aucune déclaration VEX"
+
+msgid "An SBOM lists the components (libraries, packages) of one version of this product. Import one file per released version; the vulnerabilities found stay here with your VEX statements."
+msgstr "Un SBOM liste les composants (bibliothèques, paquets) d'une version de ce produit. Importez un fichier par version publiée ; les vulnérabilités trouvées restent ici avec vos déclarations VEX."
+
+msgid "Import an SBOM"
+msgstr "Importer un SBOM"
+
+msgid "Product version"
+msgstr "Version du produit"
+
+msgid "CycloneDX or SPDX file (JSON)"
+msgstr "Fichier CycloneDX ou SPDX (JSON)"
+
+msgid "%1$d MB and %2$d components at most. Vulnerabilities and analyses written in a CycloneDX file are kept too."
+msgstr "%1$d Mo et %2$d composants au plus. Les vulnérabilités et analyses écrites dans un fichier CycloneDX sont gardées aussi."
+
+msgid "Import a VEX document"
+msgstr "Importer un document VEX"
+
+msgid "All versions"
+msgstr "Toutes les versions"
+
+msgid "CycloneDX VEX or OpenVEX file (JSON)"
+msgstr "Fichier CycloneDX VEX ou OpenVEX (JSON)"
+
+msgid "A new statement replaces the previous one for the same vulnerability, component and version."
+msgstr "Une nouvelle déclaration remplace la précédente pour la même vulnérabilité, le même composant et la même version."
+
+msgid "No SBOM imported for this product yet."
+msgstr "Aucun SBOM importé pour ce produit pour l'instant."
+
+msgid "%d component(s)"
+msgstr "%d composant(s)"
+
+msgid "%d affected"
+msgstr "%d affectée(s)"
+
+msgid "%d without VEX statement"
+msgstr "%d sans déclaration VEX"
+
+msgid "Delete this SBOM"
+msgstr "Supprimer ce SBOM"
+
+msgid "Known vulnerabilities of the components"
+msgstr "Vulnérabilités connues des composants"
+
+msgid "No known vulnerability: none in the file, and none known by the vulnerability watch for these components and versions."
+msgstr "Aucune vulnérabilité connue : aucune dans le fichier, et aucune connue de la veille des vulnérabilités pour ces composants et ces versions."
+
+msgid "Vulnerability"
+msgstr "Vulnérabilité"
+
+msgid "Found by"
+msgstr "Trouvée par"
+
+msgid "VEX status"
+msgstr "Statut VEX"
+
+msgid "Declare"
+msgstr "Déclarer"
+
+msgid "Known exploited vulnerability (CISA KEV)"
+msgstr "Vulnérabilité exploitée connue (CISA KEV)"
+
+msgid "Explanation"
+msgstr "Explication"
+
+msgid "Components (%d)"
+msgstr "Composants (%d)"
+
+msgid "Licenses"
+msgstr "Licences"
+
+msgid "Only the first %d components are shown."
+msgstr "Seuls les %d premiers composants sont affichés."
+
+msgid "Older SBOM: only the %d most recent are detailed."
+msgstr "SBOM plus ancien : seuls les %d plus récents sont détaillés."
+
+msgid "VEX statements"
+msgstr "Déclarations VEX"
+
+msgid "Component (purl or name)"
+msgstr "Composant (purl ou nom)"
+
+msgid "Whole product"
+msgstr "Produit entier"
+
+msgid "No VEX statement for this product."
+msgstr "Aucune déclaration VEX pour ce produit."
+
+msgid "%d product(s) with an SBOM"
+msgstr "%d produit(s) avec un SBOM"
+
+msgid "%d application(s) of the register without an SBOM"
+msgstr "%d application(s) du registre sans SBOM"
+
+msgid "%d known vulnerability(ies) in the components"
+msgstr "%d vulnérabilité(s) connue(s) dans les composants"
+
+msgid "%d not affected or fixed"
+msgstr "%d non affectée(s) ou corrigée(s)"
