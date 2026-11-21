@@ -277,6 +277,8 @@ class AccessReview extends AccessReviewBase
         global $DB;
 
         $DB->delete(self::LINES_TABLE, ['plugin_grcmanager_accessreviews_id' => $this->getID()]);
+        // Issue #843 : comptes des contrôleurs de gestion des serveurs figés dans la campagne.
+        AccessReviewBmcAccount::purgeCampaign($this->getID());
     }
 
     public static function getDefaultControlId(): int
@@ -658,6 +660,8 @@ class AccessReview extends AccessReviewBase
         $this->getFromDB($campaignId);
         // Issue #866 : suggestion « garder / retirer / à examiner » de chaque compte, figée au lancement.
         AccessReviewSuggestion::refresh($this, false);
+        // Issue #843 : comptes locaux des contrôleurs de gestion des serveurs des mêmes entités.
+        AccessReviewBmcAccount::snapshot($this);
         NotificationEvent::raiseEvent(self::REQUEST_EVENT, $this, ['entities_id' => $entityId]);
 
         return count($accounts);
