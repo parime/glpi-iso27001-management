@@ -53,8 +53,11 @@ final class NetworkFlowRulesTest extends TestCase
         self::assertSame(NetworkFlowRules::PREFILL_TEXT_LENGTH, mb_strlen((string) $long['name']));
 
         $payload = "<svg/onload=alert('x')>";
-        self::assertSame($payload, NetworkFlowRules::prefill(['source_label' => $payload])['source_label'] ?? null,
-            'Text is kept as typed: escaping is done by the Twig template.');
+        self::assertSame(
+            $payload,
+            NetworkFlowRules::prefill(['source_label' => $payload])['source_label'] ?? null,
+            'Text is kept as typed: escaping is done by the Twig template.'
+        );
     }
 
     public function testProtocolAndTypeFallBackToDefaults(): void

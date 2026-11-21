@@ -7,8 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.73.0] - 2026-11-21
-
 ### Added
 
 - **Matrice des flux : nouveau flux pré-rempli depuis l'adresse** (issue #909). Le bouton
@@ -18,6 +16,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   type proposé et visible) ; les autres paramètres sont ignorés, un flux existant n'est jamais
   modifié. Un encadré « Flux proposé » invite à vérifier, à ajouter la justification et le
   propriétaire : rien n'est enregistré avant « Ajouter ». Contrôle XSS sur des paramètres piégés.
+
+## [2.73.0] - 2026-11-21
+
+### Added
+
 - **Correctifs de sécurité des systèmes** (issue #854, mesures A.8.8 et A.8.19). Nouvelle page
   « Correctifs de sécurité » dans la rubrique Sécurité technique, en lecture seule de l'inventaire
   natif de GLPI (aucun nouveau connecteur) : pour chaque ordinateur, le système, sa version et son
