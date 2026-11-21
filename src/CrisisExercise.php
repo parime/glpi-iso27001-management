@@ -302,6 +302,32 @@ class CrisisExercise extends CrisisExerciseBase
         );
     }
 
+    /**
+     * Issue #771, lot 3 : contacts officiels à prévenir pour l'incident de l'exercice (ou de la
+     * crise réelle), avec l'échéance et la prise de contact tracée. Vide sans droit du contexte.
+     *
+     * @return array{contacts: list<array<string, mixed>>, url: string}
+     */
+    private static function officialContacts(?PluginGrcmanagerSecurityIncident $incident): array
+    {
+        if ($incident === null || !OfficialContact::canView() || !$incident->can($incident->getID(), READ)) {
+            return ['contacts' => [], 'url' => ''];
+        }
+        $rows = OfficialContact::concernedBy($incident);
+        $notices = OfficialContactNotification::noticesFor($incident, $rows);
+        $today = date('Y-m-d');
+        $contacts = [];
+        foreach ($rows as $row) {
+            $contacts[] = OfficialContact::present($row, $today) + ['notice' => $notices[(int) $row['id']] ?? null];
+        }
+
+        return [
+            'contacts' => $contacts,
+            'url'      => PluginGrcmanagerSecurityIncident::getFormURLWithID((int) $incident->getID())
+                . '&forcetab=' . rawurlencode(OfficialContact::class . '$1'),
+        ];
+    }
+
     public function getIncident(): ?PluginGrcmanagerSecurityIncident
     {
         $incident = new PluginGrcmanagerSecurityIncident();
@@ -598,6 +624,8 @@ class CrisisExercise extends CrisisExerciseBase
             ],
             'drill'        => $drill,
             'recovery'     => $this->recovery(),
+            // Issue #771, lot 3 : contacts officiels à prévenir et prises de contact tracées.
+            'official_contacts' => self::officialContacts($incident),
             'journal'      => $this->journal(Session::haveRight('followup', ITILFollowup::SEEPRIVATE)),
             // Issue #616, lot 2 : communications de crise tracées sur l'incident (droits de l'incident).
             'communications' => $incident !== null && $incident->canViewItem()

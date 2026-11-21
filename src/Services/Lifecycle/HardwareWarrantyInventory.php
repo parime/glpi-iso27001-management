@@ -34,8 +34,8 @@ use CommonDBTM;
  * NOTE : dépend du $DB et du $CFG_GLPI de GLPI, hors de l'analyse en PHP pur (phpstan.neon.dist).
  *
  * @phpstan-type Asset array{itemtype: string, items_id: int, item_name: string, entities_id: int,
- *     model: string, manufacturer: string, has_infocom: bool, warranty_date: string|null,
- *     warranty_duration: int}
+ *     model: string, model_itemtype: string, models_id: int, manufacturer: string, has_infocom: bool,
+ *     warranty_date: string|null, warranty_duration: int}
  */
 final class HardwareWarrantyInventory
 {
@@ -141,6 +141,7 @@ final class HardwareWarrantyInventory
         if ($model !== null && $DB->fieldExists($table, $model::getForeignKeyField())) {
             $modelTable = $model::getTable();
             $criteria['SELECT'][] = "{$modelTable}.name AS model_name";
+            $criteria['SELECT'][] = "{$table}." . $model::getForeignKeyField() . ' AS models_id';
             $criteria['LEFT JOIN'][$modelTable] = ['FKEY' => [
                 $table      => $model::getForeignKeyField(),
                 $modelTable => 'id',
@@ -163,6 +164,9 @@ final class HardwareWarrantyInventory
                 'item_name'         => (string) ($row['item_name'] ?? ''),
                 'entities_id'       => (int) $row['entities_id'],
                 'model'             => (string) ($row['model_name'] ?? ''),
+                // Lot 2 : modèle, pour sa fin de vie constructeur saisie dans le plugin.
+                'model_itemtype'    => (int) ($row['models_id'] ?? 0) > 0 ? (string) $model : '',
+                'models_id'         => (int) ($row['models_id'] ?? 0),
                 'manufacturer'      => (string) ($row['manufacturer_name'] ?? ''),
                 'has_infocom'       => $hasInfocom,
                 'warranty_date'     => $hasInfocom && $row['warranty_date'] !== null

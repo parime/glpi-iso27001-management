@@ -1567,15 +1567,20 @@ final class Installer
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
         // Issue #604 : campagnes de simulation d'hameçonnage et résultats importés (7.3, A.6.3).
         PhishingTables::install($keySign, $charset, $collation);
+        PhishingTables::migrate($migration);
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         SecureDevelopmentTables::install($keySign, $charset, $collation);
+        SecureDevelopmentTables::upgrade($migration);
         RecyfTables::install($keySign, $charset, $collation);
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         OfficialContactTables::install($keySign, $charset, $collation);
+        OfficialContactTables::migrate($migration);
         // Issue #868 : dossiers de preuves exportables pour l'auditeur (archive ZIP par périmètre).
         EvidencePackTables::install($keySign, $charset, $collation);
         // Issue #847 : sauvegarde déclarée des clés de récupération (aucune clé stockée).
         DiskEncryptionTables::install($keySign, $charset, $collation);
+        // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
+        HardwareEndOfLifeTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -3589,6 +3594,18 @@ final class Installer
             ]
         );
 
+        // Issue #604, lot 2 : suppression des résultats individuels d'hameçonnage au-delà de la durée
+        // de conservation réglée (sans effet tant qu'aucune durée n'est réglée ; taux gardés).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\PhishingCampaign::class,
+            'phishingretention',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Supprime les resultats individuels d hameconnage au-dela de la duree de conservation',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
         CronTask::Register(
             'GlpiPlugin\\Grcmanager\\AccessReview',
@@ -4929,6 +4946,14 @@ final class Installer
         if (!$DB->fieldExists(self::CONTEXT_ITEMS_TABLE, 'contact_delay_hours')) {
             $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_delay_hours', 'integer', [
                 'after' => 'contact_delay', 'value' => 0,
+            ]);
+            $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
+        }
+        // Issue #771, lot 3 : catégories d'incident pour lesquelles prévenir le contact (JSON, vide :
+        // tous les incidents), pour proposer les contacts selon le type de l'incident.
+        if (!$DB->fieldExists(self::CONTEXT_ITEMS_TABLE, 'contact_incident_categories')) {
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'contact_incident_categories', 'text', [
+                'after' => 'on_data_breach',
             ]);
             $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
         }
@@ -6441,6 +6466,7 @@ final class Installer
         OfficialContactTables::uninstall($migration);
         EvidencePackTables::uninstall($migration);
         DiskEncryptionTables::uninstall($migration);
+        HardwareEndOfLifeTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

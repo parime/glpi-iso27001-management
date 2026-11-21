@@ -41,6 +41,9 @@ use Session;
  * Droits : ceux de l'incident ou de la violation, jamais d'autres. Lire l'objet suffit pour voir
  * l'onglet et les communications faites ; tracer une communication exige de pouvoir le modifier.
  * La trace est conservée telle quelle (preuve) : elle ne se modifie pas.
+ *
+ * Issue #771, lot 3 : un message envoyé à un contact officiel peut être tracé en même temps comme
+ * prise de contact (onglet « Contacts officiels »), si la personne laisse la case cochée.
  */
 class CrisisCommunication extends CrisisCommunicationBase
 {
@@ -311,12 +314,16 @@ class CrisisCommunication extends CrisisCommunicationBase
             $byKey[$recipient['key']] = $recipient;
         }
         $labels = [];
+        $contactIds = [];
         foreach (Rules::selectedRecipients($input['recipients'] ?? [], array_keys($byKey)) as $key) {
             $recipient = $byKey[$key];
             $labels[] = $recipient['type_label'] . ' : ' . $recipient['name']
                 . ($recipient['deputy_of'] > 0 && $recipient['principal'] !== ''
                     ? ' (' . sprintf(__('Deputy of %s', 'grcmanager'), $recipient['principal']) . ')'
                     : '');
+            if ($recipient['type'] === Rules::RECIPIENT_CONTACT) {
+                $contactIds[] = (int) $recipient['items_id'];
+            }
         }
         $labels = array_merge($labels, Rules::otherRecipients((string) ($input['other_recipients'] ?? '')));
         if ($labels === []) {
@@ -344,6 +351,11 @@ class CrisisCommunication extends CrisisCommunicationBase
         }
         if ($item instanceof PluginGrcmanagerSecurityIncident) {
             self::writeJournal($item, $subject, $labels, $date);
+        }
+        // Issue #771, lot 3 : le message envoyé à un contact officiel est aussi sa prise de contact
+        // (case cochée par la personne, rien d'automatique sans elle).
+        if (!empty($input['record_official_contacts']) && $contactIds !== []) {
+            OfficialContactNotification::recordFromCommunication($item, $id, $contactIds, $date, $subject);
         }
 
         return $id;

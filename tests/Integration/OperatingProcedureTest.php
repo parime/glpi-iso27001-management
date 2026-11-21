@@ -321,6 +321,49 @@ final class OperatingProcedureTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(Rules::STATUS_UP_TO_DATE, $row['status']);
     }
 
+    /** Issue #775, lot 3 : historique de toutes les revues sur la fiche et dans le PDF du registre. */
+    public function testReviewHistoryListsEveryRecordedReview(): void
+    {
+        $this->useDomains(['backup']);
+        $procedure = $this->procedure([
+            'status' => 'approved', 'approval_date' => '2025-11-01', 'next_review_date' => '2026-01-01',
+        ]);
+        $this->assertSame([], OperatingProcedure::reviewHistory($procedure->getID()));
+
+        $this->assertTrue($procedure->update(['id' => $procedure->getID(), Policy::REVIEW_MARKER => 1]));
+        $procedure->getFromDB($procedure->getID());
+        $firstNext = (string) $procedure->fields['next_review_date'];
+        $wanted = date('Y-m-d', strtotime('+3 months'));
+        $this->assertTrue($procedure->update([
+            'id' => $procedure->getID(), 'next_review_date' => $wanted, Policy::REVIEW_MARKER => 1,
+        ]));
+        // Une simple modification n'est pas une revue.
+        $this->assertTrue($procedure->update(['id' => $procedure->getID(), 'description' => 'PHPUnit fictive']));
+
+        $history = OperatingProcedure::reviewHistory($procedure->getID());
+        $this->assertCount(2, $history);
+        $today = date('Y-m-d');
+        $this->assertSame($today, $history[0]['date']);
+        $this->assertSame($wanted, $history[0]['next_review'], "la plus récente d'abord");
+        $this->assertSame($firstNext, $history[1]['next_review']);
+        $this->assertNotSame('', $history[0]['reviewer']);
+
+        // Une revue refusée (brouillon) n'apparaît jamais.
+        $draft = $this->procedure();
+        $this->assertFalse($draft->update(['id' => $draft->getID(), Policy::REVIEW_MARKER => 1]));
+        $this->assertSame([], OperatingProcedure::reviewHistory($draft->getID()));
+
+        $procedure->getFromDB($procedure->getID());
+        ob_start();
+        $procedure->showForm($procedure->getID());
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('grc-procedure-review-history', $html);
+
+        $row = OperatingProcedure::present($procedure->fields, $today);
+        $this->assertCount(2, $row['reviews']);
+        $this->assertStringContainsString(\Html::convDate($firstNext), OperatingProcedure::reportHtml());
+    }
+
     /** Issue #775, lot 2 : contenu lisible (article de la base de connaissances ou document joint). */
     public function testContentComesFromKnowledgeBaseArticlesAndDocuments(): void
     {

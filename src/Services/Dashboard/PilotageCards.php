@@ -314,6 +314,18 @@ final class PilotageCards
         return \GlpiPlugin\Grcmanager\DiskEncryption::dashboardCard($params);
     }
 
+    /**
+     * Issue #604, lot 2 : taux de clic, de saisie et de signalement des simulations d'hameçonnage,
+     * d'une campagne à l'autre (taux agrégés, campagnes trop petites exclues).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function phishingTrend(array $params = []): array
+    {
+        return \GlpiPlugin\Grcmanager\PhishingCampaign::dashboardTrendCard($params);
+    }
+
     public static function accessReviewProgress(array $params = []): array
     {
         global $DB;

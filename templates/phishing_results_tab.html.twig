@@ -22,8 +22,23 @@
       {% if summary.imported %}
          <div class="mt-2 small text-secondary"><i class="ti ti-file-import me-1"></i>{{ __('Last import: %1$s (%2$s)', 'grcmanager')|format(summary.date_import, summary.import_file) }}</div>
       {% endif %}
+      {% if summary.purge_date %}
+         <div class="mt-1 small text-secondary"><i class="ti ti-clock-shield me-1"></i>{{ __('The results per person will be deleted automatically on %s (retention period set in the configuration of the plugin). The rates are kept.', 'grcmanager')|format(summary.purge_date) }}</div>
+      {% endif %}
    </div>
 </div>
+
+{% if summary.groups is not empty %}
+   {% include '@grcmanager/_phishing_groups.html.twig' with {
+      'rows': summary.groups,
+      'id': 'grc-phishing-groups',
+      'icon': 'ti ti-users-group',
+      'title': __('Rates by group', 'grcmanager'),
+      'first_column': group_label,
+      'with_campaigns': false,
+      'hint': __('Groups of the matched people in GLPI at the time of the import: a person in several groups counts in each. Without the right on sensitive registers, groups of fewer than %d people are combined. These rates are anonymous and are kept when the results per person are deleted.', 'grcmanager')|format(summary.min),
+   } only %}
+{% endif %}
 
 {% if not summary.can_detail %}
    <div class="alert alert-info"><i class="ti ti-lock me-1"></i>{{ __('The results per person are personal data: they are shown only with the right on sensitive registers. Each person sees their own results in their preferences.', 'grcmanager') }}</div>

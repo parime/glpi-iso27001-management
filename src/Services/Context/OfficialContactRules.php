@@ -90,6 +90,16 @@ final class OfficialContactRules
     public const REFUSED_BEFORE_START = 'before_start';
     public const REFUSED_REASON = 'reason';
 
+    // ------------------------------------------------------------------
+    // Lot 3 : contacts proposés selon la catégorie de l'incident
+    // ------------------------------------------------------------------
+
+    /** Catégorie « violation de données » d'un incident de sécurité. */
+    public const INCIDENT_CATEGORY_DATA_BREACH = 'data_breach';
+
+    /** Catégories d'un incident de sécurité (PluginGrcmanagerSecurityIncident::getCategories()). */
+    public const INCIDENT_CATEGORIES = ['data_breach', 'malware', 'unauthorized_access', 'availability', 'other'];
+
     public static function normalizeCategory(mixed $value): string
     {
         $value = is_scalar($value) ? (string) $value : '';
@@ -154,19 +164,62 @@ final class OfficialContactRules
     /**
      * Le contact est-il à prévenir pour ce type d'événement (incident de sécurité ou violation de données) ?
      *
+     * Lot 3 : pour un incident, $incidentCategory (catégorie de l'incident) restreint aux contacts
+     * de cette catégorie (aucune catégorie cochée sur le contact : tous les incidents). Un incident
+     * classé « violation de données » propose aussi les contacts à prévenir pour une violation.
+     *
      * @param array<string, mixed> $row
      */
-    public static function concerns(array $row, string $context): bool
+    public static function concerns(array $row, string $context, ?string $incidentCategory = null): bool
     {
         if (empty($row['is_official_contact'])) {
             return false;
         }
+        if ($context === self::CONTEXT_BREACH) {
+            return !empty($row['on_data_breach']);
+        }
+        if ($context !== self::CONTEXT_INCIDENT) {
+            return false;
+        }
+        if ($incidentCategory === self::INCIDENT_CATEGORY_DATA_BREACH && !empty($row['on_data_breach'])) {
+            return true;
+        }
+        if (empty($row['on_security_incident'])) {
+            return false;
+        }
+        $categories = self::normalizeIncidentCategories($row['contact_incident_categories'] ?? '');
 
-        return match ($context) {
-            self::CONTEXT_INCIDENT => !empty($row['on_security_incident']),
-            self::CONTEXT_BREACH   => !empty($row['on_data_breach']),
-            default                => false,
-        };
+        return $categories === [] || $incidentCategory === null || in_array($incidentCategory, $categories, true);
+    }
+
+    /**
+     * Lot 3 : catégories d'incident pour lesquelles prévenir le contact, depuis une liste (formulaire)
+     * ou le JSON enregistré. Catégories inconnues écartées, ordre de la liste des catégories.
+     *
+     * @return list<string>
+     */
+    public static function normalizeIncidentCategories(mixed $value): array
+    {
+        if (is_string($value)) {
+            $decoded = $value === '' ? [] : json_decode($value, true);
+            $value = is_array($decoded) ? $decoded : [];
+        }
+        if (!is_array($value)) {
+            return [];
+        }
+        $values = array_map(static fn ($v): string => is_scalar($v) ? (string) $v : '', $value);
+
+        return array_values(array_intersect(self::INCIDENT_CATEGORIES, $values));
+    }
+
+    /**
+     * Valeur enregistrée des catégories d'incident (JSON, chaîne vide si aucune).
+     */
+    public static function encodeIncidentCategories(mixed $value): string
+    {
+        $categories = self::normalizeIncidentCategories($value);
+
+        return $categories === [] ? '' : (string) json_encode($categories);
     }
 
     /**

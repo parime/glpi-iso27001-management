@@ -132,6 +132,16 @@ if ($mode === 'xss') {
         // Issue #775, lot 2 : dernière revue tracée (nom de la personne affiché).
         'last_review_date' => date('Y-m-d'), 'users_id_lastreviewer' => 2,
     ]);
+    // Issue #775, lot 3 : une revue au journal d'audit, pour que la fiche piégée affiche aussi son
+    // historique des revues (chaîne d'empreintes du journal respectée par AuditLog::record()).
+    \GlpiPlugin\Grcmanager\AuditLog::record(
+        'review',
+        'GlpiPlugin\\Grcmanager\\Policy',
+        $out['procedure'],
+        0,
+        'success',
+        ['last_review_date' => date('Y-m-d'), 'next_review_date' => date('Y-m-d', strtotime('+1 year'))]
+    );
     // Issue #775, lot 2 : article piégé de la base de connaissances, texte de la procédure (registre,
     // onglet natif « Base de connaissances » de la procédure).
     $DB->insert('glpi_knowbaseitems', [
@@ -235,6 +245,8 @@ if ($mode === 'xss') {
         'tool' => $canary, 'scenario' => $canary, 'target_population' => $canary, 'comment' => $canary,
         'nb_sent' => 6, 'nb_opened' => 3, 'nb_clicked' => 2, 'nb_unmatched' => 1, 'import_file' => $canary,
         'date_import' => date('Y-m-d H:i:s'),
+        // Issue #604, lot 2 : taux par groupe, avec le groupe piégé (nom affiché dans l'onglet).
+        'group_counts' => json_encode([$xssGroup => ['sent' => 6, 'opened' => 3, 'clicked' => 2]]),
     ]);
     $insert('phishingresults', [
         'plugin_grcmanager_phishingcampaigns_id' => $out['phishing'], 'users_id' => 0, 'identifier' => $canary,
@@ -358,6 +370,13 @@ if ($mode === 'xss') {
     ]);
     $DB->update('glpi_plugin_grcmanager_ismsrequirements', ['comment' => $canary], ['id' => ['>', 0]]);
     $DB->update('glpi_computers', ['name' => $canary], ['id' => (int) $ids['computer_A']]);
+    // Issue #782, lot 2 : modèle piégé dont la fin de vie constructeur est atteinte (carte de la fin
+    // de garantie, saisie des dates dans la configuration).
+    $xssModel = (int) (new ComputerModel())->add(['name' => mb_substr($canary, 0, 255)]);
+    $DB->update('glpi_computers', ['computermodels_id' => $xssModel], ['id' => (int) $ids['computer_A']]);
+    $DB->insert(\GlpiPlugin\Grcmanager\Install\HardwareEndOfLifeTables::MODELS, [
+        'itemtype' => ComputerModel::class, 'items_id' => $xssModel, 'end_of_life_date' => '2020-01-01',
+    ]);
     // Issue #847 : outil et algorithme de chiffrement piégés (page du chiffrement des disques).
     $DB->update('glpi_items_disks', [
         'encryption_status' => 2, 'encryption_tool' => mb_substr($canary, 0, 255),
@@ -496,10 +515,15 @@ if ($mode === 'xss') {
     // piegees : page du developpement securise, onglets de l'application et du changement.
     $DB->insert('glpi_appliances', ['name' => $canary, 'entities_id' => 0, 'comment' => $canary]);
     $out['appliance'] = (int) $DB->insertId();
+    // Lot 2 : exigences, architecture, prestataire piege et suivi du developpement externalise.
+    $DB->insert('glpi_suppliers', ['name' => $canary, 'entities_id' => 0, 'comment' => $canary]);
+    $out['supplier'] = (int) $DB->insertId();
     $insert('applicationsecurities', [
         'appliances_id' => $out['appliance'], 'repository_url' => $canary, 'framework' => 'other',
         'framework_detail' => $canary, 'tools' => $canary, 'environments_separated' => 'no',
         'separation_justification' => $canary, 'comment' => $canary,
+        'security_requirements' => $canary, 'architecture_principles' => $canary, 'outsourced' => 1,
+        'suppliers_id' => $out['supplier'], 'outsourcing_oversight' => $canary,
     ]);
     $DB->insert('glpi_changes', [
         'name' => $canary, 'content' => $canary, 'entities_id' => 0, 'status' => Change::SOLVED,

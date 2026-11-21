@@ -525,6 +525,7 @@ class PhysicalSecurityAssessment extends PhysicalSecurityAssessmentBase
             'due'         => $due,
             'due_labels'  => PhysicalSecurity::dueLabels(),
             'compare_url' => PhysicalSecurity::getPageURL(),
+            'pdf_url'     => self::pdfURL($this->getID()),
             'months'      => Rules::REASSESSMENT_MONTHS,
         ]);
 
@@ -606,5 +607,62 @@ class PhysicalSecurityAssessment extends PhysicalSecurityAssessmentBase
         $next = $this->fields['next_assessment_date'] ?? null;
 
         return empty($next) ? '' : (string) Html::convDate((string) $next);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Rapport PDF
+    // ---------------------------------------------------------------------------------------------
+
+    /** Lien du rapport PDF d'une évaluation. */
+    public static function pdfURL(int $assessmentId): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/physicalsecurityassessment.pdf.php?id='
+            . $assessmentId;
+    }
+
+    /**
+     * Rapport de l'évaluation d'un site pour l'auditeur (issue #778, lot 2) : en-tête, score, grille
+     * A.7.1 à A.7.14 avec constats, preuves et actions, puis les zones et leurs contrôles d'accès.
+     * Calculé à la demande avec les droits de la personne (l'appelant a fait check(READ)), rien
+     * n'est conservé.
+     */
+    public static function renderPdf(self $assessment): string
+    {
+        $rows = PhysicalSecurityCheck::present($assessment);
+        $policyId = (int) ($assessment->fields['plugin_grcmanager_policies_id'] ?? 0);
+        $policies = self::policyOptions();
+        $assessor = (int) ($assessment->fields['users_id'] ?? 0);
+        $statuses = self::getStatuses();
+        $status = Rules::normalizeStatus($assessment->fields['status'] ?? '');
+        $next = $assessment->fields['next_assessment_date'] ?? null;
+
+        return TemplateRenderer::getInstance()->render('@grcmanager/pdf/physical_security_report.html.twig', [
+            'report_title'       => sprintf(
+                __('Physical security of the site: %s', 'grcmanager'),
+                self::siteName((int) ($assessment->fields['locations_id'] ?? 0)) ?: $assessment->getName()
+            ),
+            'generated_at_label' => sprintf(
+                __('Generated on %s', 'grcmanager'),
+                Html::convDateTime(date('Y-m-d H:i:s'))
+            ),
+            'perimeter'          => EntityPerimeter::isMultiEntity()
+                ? Dropdown::getDropdownName('glpi_entities', (int) $assessment->fields['entities_id'])
+                : '',
+            'name'               => (string) ($assessment->fields['name'] ?? ''),
+            'assessment_date'    => empty($assessment->fields['assessment_date'])
+                ? '' : (string) Html::convDate((string) $assessment->fields['assessment_date']),
+            'assessor'           => $assessor > 0 ? getUserName($assessor) : '',
+            'status'             => $statuses[$status] ?? '',
+            'next_date'          => empty($next) ? '' : (string) Html::convDate((string) $next),
+            'policy'             => $policies[$policyId] ?? '',
+            'comment'            => (string) ($assessment->fields['comment'] ?? ''),
+            'summary'            => Rules::summary(array_column($rows, 'state')),
+            'states'             => PhysicalSecurity::stateBadges(),
+            'rows'               => $rows,
+            'zones'              => PhysicalSecurityZone::present($assessment->getID()),
+            'generated_by'       => getUserName((int) Session::getLoginUserID()),
+        ]);
     }
 }

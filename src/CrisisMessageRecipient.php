@@ -255,6 +255,7 @@ class CrisisMessageRecipient extends CrisisMessageRecipientBase
             $principal = $deputyOf > 0 ? ($described[$deputyOf] ?? null) : null;
             $recipients[] = $recipient + [
                 'id'                  => (int) $row['id'],
+                'items_id'            => (int) $row['items_id'],
                 'deputy_of'           => $deputyOf,
                 'principal'           => $principal['name'] ?? '',
                 'principal_available' => $deputyOf === 0

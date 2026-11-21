@@ -22,6 +22,21 @@ use GlpiPlugin\Grcmanager\OfficialContact;
 // (droit général du plugin) ; contacts des entités de la session seulement.
 Session::checkRight(ContextItem::$rightname, READ);
 
+if (isset($_POST['archive'])) {
+    // Issue #771, lot 3 : archiver crée un document lié aux mesures A.5.5 et A.5.6 : droit de
+    // modifier le contexte de l'organisation.
+    Session::checkRight(ContextItem::$rightname, UPDATE);
+    $documentsId = OfficialContact::archive();
+    Session::addMessageAfterRedirect(
+        htmlescape($documentsId > 0
+            ? __('The register has been archived as evidence on controls A.5.5 and A.5.6.', 'grcmanager')
+            : __('The register could not be archived.', 'grcmanager')),
+        false,
+        $documentsId > 0 ? INFO : ERROR
+    );
+    Html::redirect(OfficialContact::getRegisterURL());
+}
+
 Html::header(
     OfficialContact::getTypeName(Session::getPluralNumber()),
     OfficialContact::getRegisterURL(),
