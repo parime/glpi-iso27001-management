@@ -32699,3 +32699,4 @@ msgstr "Für diesen Computer ist kein Management-Controller (iLO, iDRAC, XClarit
 msgid "Secure Boot"
 msgstr "Secure Boot"
 
+
