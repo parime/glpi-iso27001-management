@@ -125,7 +125,7 @@ final class BackupCoverageTest extends GrcmanagerIntegrationTestCase
     private function csv(): string
     {
         return "host;last success;status;job\n"
-            . $this->host('srv-ok') . '.exemple.test;' . self::at(2) . ";Success;Serveurs\n"
+            . $this->host('srv-ok') . '.exemple.test;' . self::at(4) . ";Success;Serveurs\n"
             . $this->host('srv-ancien') . ';' . self::at(30) . ";Success;Serveurs\n"
             . $this->host('srv-echec') . ';' . self::at(10) . ";Failed;Serveurs\n"
             . $this->host('poste-paie') . ';' . self::at(6) . ";Success;Postes\n"
@@ -155,7 +155,7 @@ final class BackupCoverageTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(2, $result['unmatched'], 'Machine inconnue et ordinateur hors entités.');
 
         $ok = $this->row($this->pc['server_ok']);
-        $this->assertSame(Rules::STATUS_OK, $ok['status'], 'Nom court rapproché, 2 h pour 48 h admises.');
+        $this->assertSame(Rules::STATUS_OK, $ok['status'], 'Nom court rapproché, 4 h pour 48 h admises.');
         $this->assertSame(Rules::LIMIT_DEFAULT, $ok['limit_origin']);
         $this->assertSame('Serveurs', $ok['job']);
 
