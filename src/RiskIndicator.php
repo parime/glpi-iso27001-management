@@ -123,6 +123,11 @@ class RiskIndicator extends RiskIndicatorBase
             'unit' => '%', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => [PhishingCampaign::RIGHTNAME => READ], 'global' => false,
         ],
+        // Issue #835 : pire score PingCastle des domaines (0 le meilleur, 100 le pire).
+        'ad_security_score' => [
+            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => [AdSecurityAudit::RIGHTNAME => READ], 'global' => false,
+        ],
     ];
 
     /**
@@ -212,6 +217,7 @@ class RiskIndicator extends RiskIndicatorBase
             'overdue_control_tests'     => __('Overdue control effectiveness tests', 'grcmanager'),
             'overdue_periodic_reviews'  => __('Overdue periodic reviews', 'grcmanager'),
             'phishing_click_rate'       => __('Click rate of the last phishing simulation (%)', 'grcmanager'),
+            'ad_security_score'         => __('Active Directory security score (PingCastle, 0 is best)', 'grcmanager'),
         ];
     }
 
@@ -610,6 +616,7 @@ class RiskIndicator extends RiskIndicatorBase
             'overdue_control_tests'     => (float) PilotageCards::overdueControlTests()['number'],
             'overdue_periodic_reviews'  => (float) self::overduePeriodicReviews($perimeter),
             'phishing_click_rate'       => PhishingCampaign::lastClickRate($perimeter),
+            'ad_security_score'         => AdSecurityAudit::worstScore($perimeter),
             default                     => self::featureSourceValue($source, $perimeter),
         };
     }

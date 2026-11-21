@@ -21,17 +21,17 @@ final class FeatureRegistryTest extends GrcmanagerIntegrationTestCase
     {
         require_once dirname(__DIR__, 2) . '/hook.php';
         $keys = array_keys(FeatureRegistry::dashboardCards([
-            'grcmanager_disk_encryption_rate' => ['label' => 'x'],
+            'grcmanager_ad_security_score' => ['label' => 'x'],
             'grcmanager_patch_compliance_rate' => ['label' => 'y'],
         ], 'GRC Manager'));
         $this->assertSame(
-            ['grcmanager_disk_encryption_rate', 'grcmanager_mfa_admin_rate', 'grcmanager_patch_compliance_rate'],
+            ['grcmanager_ad_security_score', 'grcmanager_mfa_admin_rate', 'grcmanager_patch_compliance_rate'],
             array_slice($keys, 0, 3)
         );
         $catalog = array_keys(plugin_grcmanager_dashboard_cards());
         $position = array_search('grcmanager_mfa_admin_rate', $catalog, true);
         $this->assertNotFalse($position);
-        $this->assertSame('grcmanager_disk_encryption_rate', $catalog[$position - 1]);
+        $this->assertSame('grcmanager_ad_security_score', $catalog[$position - 1]);
     }
 
     public function testRiskIndicatorSourceKeepsItsPlaceAndComputes(): void

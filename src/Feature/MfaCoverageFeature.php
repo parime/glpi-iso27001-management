@@ -60,12 +60,12 @@ final class MfaCoverageFeature implements
     public static function dashboardCards(): array
     {
         return [
-            // Administrateurs protégés par MFA (%), à sa place historique après le chiffrement.
+            // Administrateurs protégés par MFA (%), à sa place historique (après le chiffrement et l'AD).
             'grcmanager_mfa_admin_rate' => [
                 'widgettype' => ['bigNumber'],
                 'label'      => __('Administrators protected by MFA (%)', 'grcmanager'),
                 'provider'   => SecuredDashboardCards::class . '::mfaAdminRate',
-                'after'      => 'grcmanager_disk_encryption_rate',
+                'after'      => 'grcmanager_ad_security_score',
             ],
         ];
     }

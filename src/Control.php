@@ -1725,6 +1725,9 @@ class Control extends ControlBase
             'phishing'                => PhishingCampaign::evidence($code),
             // Cadres des fonctionnalités découvertes (src/Feature/), après les cadres ci-dessus.
             'feature_evidence'        => FeatureRegistry::controlEvidence($code),
+            // Issue #835 : audit de sécurité de l'AD (PingCastle), preuve des mesures A.5.15 à A.5.18,
+            // A.8.2 et A.8.5.
+            'ad_security_audit'       => AdSecurityAudit::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
         ]);
 
