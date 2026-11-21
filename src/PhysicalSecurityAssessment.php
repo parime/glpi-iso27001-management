@@ -613,19 +613,21 @@ class PhysicalSecurityAssessment extends PhysicalSecurityAssessmentBase
     // Rapport PDF
     // ---------------------------------------------------------------------------------------------
 
+    /** Lien du rapport PDF d'une évaluation. */
+    public static function pdfURL(int $assessmentId): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/physicalsecurityassessment.pdf.php?id='
+            . $assessmentId;
+    }
+
     /**
      * Rapport de l'évaluation d'un site pour l'auditeur (issue #778, lot 2) : en-tête, score, grille
      * A.7.1 à A.7.14 avec constats, preuves et actions, puis les zones et leurs contrôles d'accès.
      * Calculé à la demande avec les droits de la personne (l'appelant a fait check(READ)), rien
      * n'est conservé.
      */
-    public static function pdfURL(int $assessmentId): string
-    {
-        global $CFG_GLPI;
-
-        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/physicalsecurityassessment.pdf.php?id=' . $assessmentId;
-    }
-
     public static function renderPdf(self $assessment): string
     {
         $rows = PhysicalSecurityCheck::present($assessment);
