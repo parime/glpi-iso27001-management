@@ -34856,3 +34856,316 @@ msgstr "Update the suggestions"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+#, php-format
+msgid "%1$d machine(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr "%1$d machine(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+
+msgid "Not saved: the address must start with https:// (for example https://veeam.example.test:9419) and contain no user name or password."
+msgstr "Not saved: the address must start with https:// (for example https://veeam.example.test:9419) and contain no user name or password."
+
+msgid "Veeam settings saved."
+msgstr "Veeam settings saved."
+
+#, php-format
+msgid "%1$d machine(s) read from Veeam: %2$d matched with a GLPI asset, %3$d not matched; %4$d job(s)."
+msgstr "%1$d machine(s) read from Veeam: %2$d matched with a GLPI asset, %3$d not matched; %4$d job(s)."
+
+msgid "Backup settings saved."
+msgstr "Backup settings saved."
+
+msgid "Backup coverage"
+msgstr "Backup coverage"
+
+msgid "Other backup tool"
+msgstr "Other backup tool"
+
+msgid "No backup"
+msgstr "No backup"
+
+msgid "No backup tool knows a successful backup of this asset (name or IP address)."
+msgstr "No backup tool knows a successful backup of this asset (name or IP address)."
+
+msgid "Backup too old"
+msgstr "Backup too old"
+
+msgid "The last successful backup is older than the maximum age allowed (RPO)."
+msgstr "The last successful backup is older than the maximum age allowed (RPO)."
+
+msgid "Last backup failed"
+msgstr "Last backup failed"
+
+msgid "The last attempt failed; the previous successful backup is still within the maximum age."
+msgstr "The last attempt failed; the previous successful backup is still within the maximum age."
+
+msgid "Recent backup"
+msgstr "Recent backup"
+
+msgid "The last successful backup is within the maximum age allowed."
+msgstr "The last successful backup is within the maximum age allowed."
+
+msgid "Success"
+msgstr "Success"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Restore tested"
+msgstr "Restore tested"
+
+msgid "Restore test failed"
+msgstr "Restore test failed"
+
+msgid "Restore test too old"
+msgstr "Restore test too old"
+
+msgid "Restore never tested"
+msgstr "Restore never tested"
+
+msgid "RPO of the asset"
+msgstr "RPO of the asset"
+
+msgid "RPO of a business process"
+msgstr "RPO of a business process"
+
+msgid "Default maximum age"
+msgstr "Default maximum age"
+
+msgid "Critical assets and servers"
+msgstr "Critical assets and servers"
+
+msgid "The file has no column for the machine name or IP address (for example host, hostname, vm, device, client or backup-id)."
+msgstr "The file has no column for the machine name or IP address (for example host, hostname, vm, device, client or backup-id)."
+
+msgid "The file has no column for the date of the backup (for example last_success, last backup, backup-time, end time or date)."
+msgstr "The file has no column for the date of the backup (for example last_success, last backup, backup-time, end time or date)."
+
+msgid "Veeam is not configured: enter the address of the server, the account and its password."
+msgstr "Veeam is not configured: enter the address of the server, the account and its password."
+
+msgid "Veeam refused the account: check the user name (DOMAIN\\user) and the password."
+msgstr "Veeam refused the account: check the user name (DOMAIN\\user) and the password."
+
+msgid "Access refused by Veeam: give the account at least the Veeam Backup Viewer role."
+msgstr "Access refused by Veeam: give the account at least the Veeam Backup Viewer role."
+
+msgid "Veeam asks to slow down: try again in a few minutes."
+msgstr "Veeam asks to slow down: try again in a few minutes."
+
+msgid "The Veeam server has an internal address: an administrator must allow internal addresses in the configuration page of the plugin."
+msgstr "The Veeam server has an internal address: an administrator must allow internal addresses in the configuration page of the plugin."
+
+msgid "The Veeam server could not be reached: check the address, the port (9419 by default), the network access and that its certificate is trusted by the GLPI server."
+msgstr "The Veeam server could not be reached: check the address, the port (9419 by default), the network access and that its certificate is trusted by the GLPI server."
+
+msgid "Veeam returned too many restore points to be read at once: nothing was replaced. Import a CSV export instead."
+msgstr "Veeam returned too many restore points to be read at once: nothing was replaced. Import a CSV export instead."
+
+msgid "Veeam returned an error: check the REST API revision chosen for your version."
+msgstr "Veeam returned an error: check the REST API revision chosen for your version."
+
+msgid "Veeam returned an unexpected answer."
+msgstr "Veeam returned an unexpected answer."
+
+msgid "Backups"
+msgstr "Backups"
+
+msgid "No backup tool read yet"
+msgstr "No backup tool read yet"
+
+msgid "Backup coverage: not measured"
+msgstr "Backup coverage: not measured"
+
+#, php-format
+msgid "Recent backups: %d%%"
+msgstr "Recent backups: %d%%"
+
+#, php-format
+msgid "%d critical asset(s) without a recent backup"
+msgstr "%d critical asset(s) without a recent backup"
+
+#, php-format
+msgid "%1$d asset(s) whose last backup failed, %2$d job(s) failed"
+msgstr "%1$d asset(s) whose last backup failed, %2$d job(s) failed"
+
+msgid "Restore tests"
+msgstr "Restore tests"
+
+#, php-format
+msgid "%d critical asset(s) without a recent restore test"
+msgstr "%d critical asset(s) without a recent restore test"
+
+msgid "Shows which important assets have a recent successful backup (Veeam Backup & Replication, Acronis, Commvault, Synology, Proxmox Backup Server), which have none or one older than their recovery point objective (RPO), whose last backup failed, and when their restore was last tested."
+msgstr "Shows which important assets have a recent successful backup (Veeam Backup & Replication, Acronis, Commvault, Synology, Proxmox Backup Server), which have none or one older than their recovery point objective (RPO), whose last backup failed, and when their restore was last tested."
+
+msgid "Choose the assets that must be backed up, read Veeam or import the list of machines of each backup tool, set the RPO of the assets or of their business processes, and record the restore tests in the recovery exercises. The page only reads: it never starts a backup. Record the result as an effectiveness test of the control to keep the evidence."
+msgstr "Choose the assets that must be backed up, read Veeam or import the list of machines of each backup tool, set the RPO of the assets or of their business processes, and record the restore tests in the recovery exercises. The page only reads: it never starts a backup. Record the result as an effectiveness test of the control to keep the evidence."
+
+msgid "ISO/IEC 27001, controls A.8.13 and A.5.30"
+msgstr "ISO/IEC 27001, controls A.8.13 and A.5.30"
+
+#, php-format
+msgid "Critical assets without a recent backup (%)"
+msgstr "Critical assets without a recent backup (%)"
+
+#, php-format
+msgid "%d job failed"
+msgid_plural "%d jobs failed"
+msgstr[0] "%d job failed"
+msgstr[1] "%d jobs failed"
+
+#, php-format
+msgid "%s ago"
+msgstr "%s ago"
+
+msgid "A server with an internal address requires an administrator to allow internal addresses in the configuration page of the plugin."
+msgstr "A server with an internal address requires an administrator to allow internal addresses in the configuration page of the plugin."
+
+msgid "Acronis Cyber Protect: Devices, export the list (columns Name, Last backup, Status)."
+msgstr "Acronis Cyber Protect: Devices, export the list (columns Name, Last backup, Status)."
+
+msgid "Address of the Veeam server"
+msgstr "Address of the Veeam server"
+
+msgid "Assets concerned with a recent backup"
+msgstr "Assets concerned with a recent backup"
+
+msgid "Assets that must be backed up"
+msgstr "Assets that must be backed up"
+
+msgid "Assets whose last backup failed"
+msgstr "Assets whose last backup failed"
+
+msgid "Backed up machines not found in GLPI"
+msgstr "Backed up machines not found in GLPI"
+
+msgid "Backup jobs"
+msgstr "Backup jobs"
+
+msgid "Backup tool"
+msgstr "Backup tool"
+
+msgid "Backup tools"
+msgstr "Backup tools"
+
+msgid "Business processes"
+msgstr "Business processes"
+
+msgid "Check that the REST API service runs (port 9419 by default) and that its certificate is trusted by the GLPI server."
+msgstr "Check that the REST API service runs (port 9419 by default) and that its certificate is trusted by the GLPI server."
+
+msgid "Check the name of the asset in GLPI, or add the asset to the inventory: an unknown machine may be an asset missing from the inventory."
+msgstr "Check the name of the asset in GLPI, or add the asset to the inventory: an unknown machine may be an asset missing from the inventory."
+
+msgid "Commvault: report of the clients with their last successful backup (Client, Last successful backup)."
+msgstr "Commvault: report of the clients with their last successful backup (Client, Last successful backup)."
+
+msgid "Critical assets without a recent backup"
+msgstr "Critical assets without a recent backup"
+
+msgid "Critical assets without a recent restore test"
+msgstr "Critical assets without a recent restore test"
+
+msgid "Default maximum age (hours)"
+msgstr "Default maximum age (hours)"
+
+msgid "Delete the saved password"
+msgstr "Delete the saved password"
+
+#, php-format
+msgid "Expected every %d month"
+msgid_plural "Expected every %d months"
+msgstr[0] "Expected every %d month"
+msgstr[1] "Expected every %d months"
+
+msgid "For the other tools, export the list of protected machines with the date of their last backup, then import the CSV file here. A new import of the same tool replaces the previous one in the current entity. Only machine names, addresses, jobs, dates and results are kept, never the content of a backup."
+msgstr "For the other tools, export the list of protected machines with the date of their last backup, then import the CSV file here. A new import of the same tool replaces the previous one in the current entity. Only machine names, addresses, jobs, dates and results are kept, never the content of a backup."
+
+msgid "In the Veeam console, Users and Roles: add a dedicated account with the Veeam Backup Viewer role (read only)."
+msgstr "In the Veeam console, Users and Roles: add a dedicated account with the Veeam Backup Viewer role (read only)."
+
+msgid "Job"
+msgstr "Job"
+
+msgid "Last attempt failed"
+msgstr "Last attempt failed"
+
+msgid "Last restore test"
+msgstr "Last restore test"
+
+msgid "Last run"
+msgstr "Last run"
+
+msgid "Last successful backup"
+msgstr "Last successful backup"
+
+msgid "Maximum age"
+msgstr "Maximum age"
+
+#, php-format
+msgid "Maximum age without RPO: %s"
+msgstr "Maximum age without RPO: %s"
+
+msgid "Most recent backup"
+msgstr "Most recent backup"
+
+msgid "No backup tool yet: read Veeam or import the list of machines of your backup tool to measure the coverage."
+msgstr "No backup tool yet: read Veeam or import the list of machines of your backup tool to measure the coverage."
+
+msgid "Objects"
+msgstr "Objects"
+
+msgid "Password saved"
+msgstr "Password saved"
+
+msgid "Password saved (leave empty to keep it)"
+msgstr "Password saved (leave empty to keep it)"
+
+msgid "Proxmox Backup Server: list of the snapshots of a datastore (backup-id, backup-time), for example \"proxmox-backup-client snapshot list --output-format json\" converted to CSV."
+msgstr "Proxmox Backup Server: list of the snapshots of a datastore (backup-id, backup-time), for example \"proxmox-backup-client snapshot list --output-format json\" converted to CSV."
+
+msgid "REST API revision"
+msgstr "REST API revision"
+
+msgid "Read Veeam Backup & Replication directly"
+msgstr "Read Veeam Backup & Replication directly"
+
+msgid "Read now from Veeam"
+msgstr "Read now from Veeam"
+
+msgid "Read-only account"
+msgstr "Read-only account"
+
+msgid "Read-only: the plugin reads the lists of backups, it never starts a backup or a restore and changes nothing in the backup tools nor in GLPI."
+msgstr "Read-only: the plugin reads the lists of backups, it never starts a backup or a restore and changes nothing in the backup tools nor in GLPI."
+
+msgid "Recognized columns: host (or hostname, vm, device, client, backup-id), ip, job, last success (or last backup, backup-time), date of the run (or end time) and result (or status). A file with one line per run is accepted: the most recent run of each machine counts."
+msgstr "Recognized columns: host (or hostname, vm, device, client, backup-id), ip, job, last success (or last backup, backup-time), date of the run (or end time) and result (or status). A file with one line per run is accepted: the most recent run of each machine counts."
+
+#, php-format
+msgid "Restore test expected every %d month"
+msgid_plural "Restore test expected every %d months"
+msgstr[0] "Restore test expected every %d month"
+msgstr[1] "Restore test expected every %d months"
+
+msgid "Restore test expected every (months)"
+msgstr "Restore test expected every (months)"
+
+msgid "Restore tests come from the recovery exercises of the business processes: record a test on the process (Recovery strategy tab), naming the asset tested, to prove that its backup can be restored."
+msgstr "Restore tests come from the recovery exercises of the business processes: record a test on the process (Recovery strategy tab), naming the asset tested, to prove that its backup can be restored."
+
+msgid "Synology Active Backup for Business: export of the devices or of the task log (Device, Last backup time, Status)."
+msgstr "Synology Active Backup for Business: export of the devices or of the task log (Device, Last backup time, Status)."
+
+msgid "The maximum age of the last successful backup is the smallest RPO among the asset (C/I/A classification tab) and the business processes that use it. Without any RPO, the default maximum age applies. An asset is critical when one axis of its classification is high, or when a network flow publishes it on the Internet."
+msgstr "The maximum age of the last successful backup is the smallest RPO among the asset (C/I/A classification tab) and the business processes that use it. Without any RPO, the default maximum age applies. An asset is critical when one axis of its classification is high, or when a network flow publishes it on the Internet."
+
+msgid "The password is encrypted with the GLPI key, never displayed again nor logged. Revision 1.1-rev2 works from Veeam 12.1; choose 1.2 or 1.3 for more recent versions."
+msgstr "The password is encrypted with the GLPI key, never displayed again nor logged. Revision 1.1-rev2 works from Veeam 12.1; choose 1.2 or 1.3 for more recent versions."
+
+#, php-format
+msgid "When you click the button, GLPI reads from the REST API of Veeam the restore points of the last %d days (so the last successful backup of each machine) and the last result of each job. The result replaces the Veeam import of the current entity. No backup is ever started, nothing is changed in Veeam and nothing runs automatically."
+msgstr "When you click the button, GLPI reads from the REST API of Veeam the restore points of the last %d days (so the last successful backup of each machine) and the last result of each job. The result replaces the Veeam import of the current entity. No backup is ever started, nothing is changed in Veeam and nothing runs automatically."
+
+msgid "Which assets must be backed up, and how often?"
+msgstr "Which assets must be backed up, and how often?"

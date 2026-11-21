@@ -30069,3 +30069,316 @@ msgstr ""
 
 msgid "Update the suggestions"
 msgstr "Atualizar as sugestões"
+
+#, php-format
+msgid "%1$d machine(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr "%1$d máquina(s) importada(s): %2$d associada(s) a um ativo do GLPI, %3$d não associada(s)."
+
+msgid "Not saved: the address must start with https:// (for example https://veeam.example.test:9419) and contain no user name or password."
+msgstr "Não salvo: o endereço deve começar por https:// (por exemplo https://veeam.example.test:9419) e não conter nome de usuário nem senha."
+
+msgid "Veeam settings saved."
+msgstr "Configurações do Veeam salvas."
+
+#, php-format
+msgid "%1$d machine(s) read from Veeam: %2$d matched with a GLPI asset, %3$d not matched; %4$d job(s)."
+msgstr "%1$d máquina(s) lida(s) do Veeam: %2$d associada(s) a um ativo do GLPI, %3$d não associada(s); %4$d tarefa(s)."
+
+msgid "Backup settings saved."
+msgstr "Configurações das cópias de segurança salvas."
+
+msgid "Backup coverage"
+msgstr "Cobertura das cópias de segurança"
+
+msgid "Other backup tool"
+msgstr "Outra ferramenta de cópia de segurança"
+
+msgid "No backup"
+msgstr "Sem cópia de segurança"
+
+msgid "No backup tool knows a successful backup of this asset (name or IP address)."
+msgstr "Nenhuma ferramenta de cópia de segurança conhece uma cópia bem-sucedida deste ativo (nome ou endereço IP)."
+
+msgid "Backup too old"
+msgstr "Cópia de segurança demasiado antiga"
+
+msgid "The last successful backup is older than the maximum age allowed (RPO)."
+msgstr "A última cópia bem-sucedida é mais antiga do que a idade máxima admitida (RPO)."
+
+msgid "Last backup failed"
+msgstr "Última cópia de segurança falhou"
+
+msgid "The last attempt failed; the previous successful backup is still within the maximum age."
+msgstr "A última tentativa falhou; a cópia bem-sucedida anterior ainda está dentro da idade máxima."
+
+msgid "Recent backup"
+msgstr "Cópia de segurança recente"
+
+msgid "The last successful backup is within the maximum age allowed."
+msgstr "A última cópia bem-sucedida está dentro da idade máxima admitida."
+
+msgid "Success"
+msgstr "Sucesso"
+
+msgid "Warning"
+msgstr "Aviso"
+
+msgid "Restore tested"
+msgstr "Restauro testado"
+
+msgid "Restore test failed"
+msgstr "Teste de restauro falhou"
+
+msgid "Restore test too old"
+msgstr "Teste de restauro demasiado antigo"
+
+msgid "Restore never tested"
+msgstr "Restauro nunca testado"
+
+msgid "RPO of the asset"
+msgstr "RPO do ativo"
+
+msgid "RPO of a business process"
+msgstr "RPO de um processo de negócio"
+
+msgid "Default maximum age"
+msgstr "Idade máxima padrão"
+
+msgid "Critical assets and servers"
+msgstr "Ativos críticos e servidores"
+
+msgid "The file has no column for the machine name or IP address (for example host, hostname, vm, device, client or backup-id)."
+msgstr "O arquivo não tem coluna para o nome da máquina ou o endereço IP (por exemplo host, hostname, vm, device, client ou backup-id)."
+
+msgid "The file has no column for the date of the backup (for example last_success, last backup, backup-time, end time or date)."
+msgstr "O arquivo não tem coluna para a data da cópia (por exemplo last_success, last backup, backup-time, end time ou date)."
+
+msgid "Veeam is not configured: enter the address of the server, the account and its password."
+msgstr "O Veeam não está configurado: introduza o endereço do servidor, a conta e a sua senha."
+
+msgid "Veeam refused the account: check the user name (DOMAIN\\user) and the password."
+msgstr "O Veeam recusou a conta: verifique o nome de usuário (DOMÍNIO\\usuário) e a senha."
+
+msgid "Access refused by Veeam: give the account at least the Veeam Backup Viewer role."
+msgstr "Acesso recusado pelo Veeam: atribua à conta pelo menos a função Veeam Backup Viewer."
+
+msgid "Veeam asks to slow down: try again in a few minutes."
+msgstr "O Veeam pede para ir mais devagar: tente novamente dentro de alguns minutos."
+
+msgid "The Veeam server has an internal address: an administrator must allow internal addresses in the configuration page of the plugin."
+msgstr "O servidor Veeam tem um endereço interno: um administrador deve permitir os endereços internos na página de configuração do plugin."
+
+msgid "The Veeam server could not be reached: check the address, the port (9419 by default), the network access and that its certificate is trusted by the GLPI server."
+msgstr "Não foi possível contatar o servidor Veeam: verifique o endereço, a porta (9419 por padrão), o acesso de rede e se o seu certificado é reconhecido pelo servidor GLPI."
+
+msgid "Veeam returned too many restore points to be read at once: nothing was replaced. Import a CSV export instead."
+msgstr "O Veeam devolveu demasiados pontos de restauro para uma só leitura: nada foi substituído. Importe em vez disso uma exportação CSV."
+
+msgid "Veeam returned an error: check the REST API revision chosen for your version."
+msgstr "O Veeam devolveu um erro: verifique a revisão da API REST escolhida para a sua versão."
+
+msgid "Veeam returned an unexpected answer."
+msgstr "O Veeam devolveu uma resposta inesperada."
+
+msgid "Backups"
+msgstr "Cópias de segurança"
+
+msgid "No backup tool read yet"
+msgstr "Nenhuma ferramenta de cópia de segurança lida até agora"
+
+msgid "Backup coverage: not measured"
+msgstr "Cobertura das cópias de segurança: não medida"
+
+#, php-format
+msgid "Recent backups: %d%%"
+msgstr "Cópias recentes: %d%%"
+
+#, php-format
+msgid "%d critical asset(s) without a recent backup"
+msgstr "%d ativo(s) crítico(s) sem cópia recente"
+
+#, php-format
+msgid "%1$d asset(s) whose last backup failed, %2$d job(s) failed"
+msgstr "%1$d ativo(s) cuja última cópia falhou, %2$d tarefa(s) falhada(s)"
+
+msgid "Restore tests"
+msgstr "Testes de restauro"
+
+#, php-format
+msgid "%d critical asset(s) without a recent restore test"
+msgstr "%d ativo(s) crítico(s) sem teste de restauro recente"
+
+msgid "Shows which important assets have a recent successful backup (Veeam Backup & Replication, Acronis, Commvault, Synology, Proxmox Backup Server), which have none or one older than their recovery point objective (RPO), whose last backup failed, and when their restore was last tested."
+msgstr "Mostra que ativos importantes têm uma cópia bem-sucedida recente (Veeam Backup & Replication, Acronis, Commvault, Synology, Proxmox Backup Server), quais não têm nenhuma ou têm uma mais antiga do que o seu objetivo de ponto de recuperação (RPO), quais têm a última cópia falhada, e quando o seu restauro foi testado pela última vez."
+
+msgid "Choose the assets that must be backed up, read Veeam or import the list of machines of each backup tool, set the RPO of the assets or of their business processes, and record the restore tests in the recovery exercises. The page only reads: it never starts a backup. Record the result as an effectiveness test of the control to keep the evidence."
+msgstr "Escolha os ativos que devem ter cópia de segurança, leia o Veeam ou importe a lista de máquinas de cada ferramenta de cópia de segurança, defina o RPO dos ativos ou dos seus processos de negócio e registre os testes de restauro nos exercícios de recuperação. A página apenas lê: nunca inicia uma cópia. Registre o resultado como teste de eficácia do controle para guardar a evidência."
+
+msgid "ISO/IEC 27001, controls A.8.13 and A.5.30"
+msgstr "ISO/IEC 27001, controles A.8.13 e A.5.30"
+
+#, php-format
+msgid "Critical assets without a recent backup (%)"
+msgstr "Ativos críticos sem cópia recente (%)"
+
+#, php-format
+msgid "%d job failed"
+msgid_plural "%d jobs failed"
+msgstr[0] "%d tarefa falhada"
+msgstr[1] "%d tarefas falhadas"
+
+#, php-format
+msgid "%s ago"
+msgstr "há %s"
+
+msgid "A server with an internal address requires an administrator to allow internal addresses in the configuration page of the plugin."
+msgstr "Um servidor com endereço interno requer que um administrador permita os endereços internos na página de configuração do plugin."
+
+msgid "Acronis Cyber Protect: Devices, export the list (columns Name, Last backup, Status)."
+msgstr "Acronis Cyber Protect: Dispositivos, exporte a lista (colunas Name, Last backup, Status)."
+
+msgid "Address of the Veeam server"
+msgstr "Endereço do servidor Veeam"
+
+msgid "Assets concerned with a recent backup"
+msgstr "Ativos abrangidos com cópia recente"
+
+msgid "Assets that must be backed up"
+msgstr "Ativos que devem ter cópia de segurança"
+
+msgid "Assets whose last backup failed"
+msgstr "Ativos cuja última cópia falhou"
+
+msgid "Backed up machines not found in GLPI"
+msgstr "Máquinas com cópia não encontradas no GLPI"
+
+msgid "Backup jobs"
+msgstr "Tarefas de cópia de segurança"
+
+msgid "Backup tool"
+msgstr "Ferramenta de cópia de segurança"
+
+msgid "Backup tools"
+msgstr "Ferramentas de cópia de segurança"
+
+msgid "Business processes"
+msgstr "Processos de negócio"
+
+msgid "Check that the REST API service runs (port 9419 by default) and that its certificate is trusted by the GLPI server."
+msgstr "Verifique se o serviço da API REST está em execução (porta 9419 por padrão) e se o seu certificado é reconhecido pelo servidor GLPI."
+
+msgid "Check the name of the asset in GLPI, or add the asset to the inventory: an unknown machine may be an asset missing from the inventory."
+msgstr "Verifique o nome do ativo no GLPI ou adicione o ativo ao inventário: uma máquina desconhecida pode ser um ativo em falta no inventário."
+
+msgid "Commvault: report of the clients with their last successful backup (Client, Last successful backup)."
+msgstr "Commvault: relatório dos clientes com a sua última cópia bem-sucedida (Client, Last successful backup)."
+
+msgid "Critical assets without a recent backup"
+msgstr "Ativos críticos sem cópia recente"
+
+msgid "Critical assets without a recent restore test"
+msgstr "Ativos críticos sem teste de restauro recente"
+
+msgid "Default maximum age (hours)"
+msgstr "Idade máxima padrão (horas)"
+
+msgid "Delete the saved password"
+msgstr "Excluir a senha salva"
+
+#, php-format
+msgid "Expected every %d month"
+msgid_plural "Expected every %d months"
+msgstr[0] "Esperado a cada %d mês"
+msgstr[1] "Esperado a cada %d meses"
+
+msgid "For the other tools, export the list of protected machines with the date of their last backup, then import the CSV file here. A new import of the same tool replaces the previous one in the current entity. Only machine names, addresses, jobs, dates and results are kept, never the content of a backup."
+msgstr "Para as outras ferramentas, exporte a lista das máquinas protegidas com a data da sua última cópia e depois importe aqui o arquivo CSV. Uma nova importação da mesma ferramenta substitui a anterior na entidade atual. Apenas são salvos nomes de máquinas, endereços, tarefas, datas e resultados, nunca o conteúdo de uma cópia."
+
+msgid "In the Veeam console, Users and Roles: add a dedicated account with the Veeam Backup Viewer role (read only)."
+msgstr "Na consola do Veeam, Users and Roles: adicione uma conta dedicada com a função Veeam Backup Viewer (apenas leitura)."
+
+msgid "Job"
+msgstr "Tarefa"
+
+msgid "Last attempt failed"
+msgstr "Última tentativa falhou"
+
+msgid "Last restore test"
+msgstr "Último teste de restauro"
+
+msgid "Last run"
+msgstr "Última execução"
+
+msgid "Last successful backup"
+msgstr "Última cópia bem-sucedida"
+
+msgid "Maximum age"
+msgstr "Idade máxima"
+
+#, php-format
+msgid "Maximum age without RPO: %s"
+msgstr "Idade máxima sem RPO: %s"
+
+msgid "Most recent backup"
+msgstr "Cópia mais recente"
+
+msgid "No backup tool yet: read Veeam or import the list of machines of your backup tool to measure the coverage."
+msgstr "Ainda não há ferramenta de cópia de segurança: leia o Veeam ou importe a lista de máquinas da sua ferramenta para medir a cobertura."
+
+msgid "Objects"
+msgstr "Objetos"
+
+msgid "Password saved"
+msgstr "Palavra-passe salva"
+
+msgid "Password saved (leave empty to keep it)"
+msgstr "Palavra-passe salva (deixar vazio para mantê-la)"
+
+msgid "Proxmox Backup Server: list of the snapshots of a datastore (backup-id, backup-time), for example \"proxmox-backup-client snapshot list --output-format json\" converted to CSV."
+msgstr "Proxmox Backup Server: lista de instantâneos de um datastore (backup-id, backup-time), por exemplo «proxmox-backup-client snapshot list --output-format json» convertido em CSV."
+
+msgid "REST API revision"
+msgstr "Revisão da API REST"
+
+msgid "Read Veeam Backup & Replication directly"
+msgstr "Ler diretamente o Veeam Backup & Replication"
+
+msgid "Read now from Veeam"
+msgstr "Ler agora do Veeam"
+
+msgid "Read-only account"
+msgstr "Conta somente leitura"
+
+msgid "Read-only: the plugin reads the lists of backups, it never starts a backup or a restore and changes nothing in the backup tools nor in GLPI."
+msgstr "Somente leitura: o plugin lê as listas de cópias, nunca inicia uma cópia nem um restauro e não altera nada nas ferramentas de cópia de segurança nem no GLPI."
+
+msgid "Recognized columns: host (or hostname, vm, device, client, backup-id), ip, job, last success (or last backup, backup-time), date of the run (or end time) and result (or status). A file with one line per run is accepted: the most recent run of each machine counts."
+msgstr "Colunas reconhecidas: host (ou hostname, vm, device, client, backup-id), ip, job, last success (ou last backup, backup-time), data da execução (ou end time) e result (ou status). É aceite um arquivo com uma linha por execução: conta a execução mais recente de cada máquina."
+
+#, php-format
+msgid "Restore test expected every %d month"
+msgid_plural "Restore test expected every %d months"
+msgstr[0] "Teste de restauro esperado a cada %d mês"
+msgstr[1] "Teste de restauro esperado a cada %d meses"
+
+msgid "Restore test expected every (months)"
+msgstr "Teste de restauro esperado a cada (meses)"
+
+msgid "Restore tests come from the recovery exercises of the business processes: record a test on the process (Recovery strategy tab), naming the asset tested, to prove that its backup can be restored."
+msgstr "Os testes de restauro vêm dos exercícios de recuperação dos processos de negócio: registre um teste no processo (separador Estratégia de recuperação), indicando o ativo testado, para provar que a sua cópia pode ser restaurada."
+
+msgid "Synology Active Backup for Business: export of the devices or of the task log (Device, Last backup time, Status)."
+msgstr "Synology Active Backup for Business: exportação dos dispositivos ou do registro de tarefas (Device, Last backup time, Status)."
+
+msgid "The maximum age of the last successful backup is the smallest RPO among the asset (C/I/A classification tab) and the business processes that use it. Without any RPO, the default maximum age applies. An asset is critical when one axis of its classification is high, or when a network flow publishes it on the Internet."
+msgstr "A idade máxima da última cópia bem-sucedida é o menor RPO entre o do ativo (separador de classificação C/I/D) e os dos processos de negócio que o utilizam. Sem nenhum RPO, aplica-se a idade máxima padrão. Um ativo é crítico quando um eixo da sua classificação é elevado, ou quando um fluxo de rede o publica na Internet."
+
+msgid "The password is encrypted with the GLPI key, never displayed again nor logged. Revision 1.1-rev2 works from Veeam 12.1; choose 1.2 or 1.3 for more recent versions."
+msgstr "A senha é cifrada com a chave do GLPI, nunca mais mostrada nem registada. A revisão 1.1-rev2 funciona a partir do Veeam 12.1; escolha 1.2 ou 1.3 para versões mais recentes."
+
+#, php-format
+msgid "When you click the button, GLPI reads from the REST API of Veeam the restore points of the last %d days (so the last successful backup of each machine) and the last result of each job. The result replaces the Veeam import of the current entity. No backup is ever started, nothing is changed in Veeam and nothing runs automatically."
+msgstr "Quando clica no botão, o GLPI lê na API REST do Veeam os pontos de restauro dos últimos %d dias (ou seja, a última cópia bem-sucedida de cada máquina) e o último resultado de cada tarefa. O resultado substitui a importação do Veeam da entidade atual. Nunca é iniciada nenhuma cópia, nada é alterado no Veeam e nada é executado automaticamente."
+
+msgid "Which assets must be backed up, and how often?"
+msgstr "Que ativos devem ter cópia de segurança, e com que frequência?"
