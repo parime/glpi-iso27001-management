@@ -486,20 +486,21 @@ class PageHelp
             // Issue #835 : audit de sécurité de l'Active Directory.
             'adsecurityaudit' => [
                 'purpose'   => __(
-                    'Keeps the results of the security audits of your Active Directory: the PingCastle reports '
-                        . 'that your team produces are imported here, with the global score, the score by category '
-                        . 'and the rules triggered. Each rule is linked to the ISO/IEC 27001 controls it concerns, '
-                        . 'and the history shows how the score changes from one report to the next.',
+                    'Keeps the results of the security audits of your Active Directory (PingCastle, Purple '
+                        . 'Knight) and of the configuration of your Entra ID and Microsoft 365 tenant (Maester, '
+                        . 'ScubaGear): the files that your team produces are imported here, with the score and '
+                        . 'the rules or checks that failed. Each one is linked to the ISO/IEC 27001 controls it '
+                        . 'concerns, and the history shows how the score changes from one report to the next.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Run PingCastle regularly (for example every quarter), import each report, then decide how '
+                    'Run these tools regularly (for example every quarter), import each report, then decide how '
                         . 'to treat the rules: propose an action or a ticket for those you fix, and follow the '
                         . 'rules resolved by the next report. Nothing is created automatically. The page is '
                         . 'reserved to the sensitive registers right.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5', 'grcmanager'),
+                'reference' => __('ISO/IEC 27001, controls A.5.15 to A.5.18, A.5.23, A.8.2 and A.8.5', 'grcmanager'),
             ],
             // Issue #854 : retard des correctifs de sécurité des systèmes.
             'patchcompliance' => [
