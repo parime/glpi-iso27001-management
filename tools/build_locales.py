@@ -123,15 +123,14 @@ def keys(path):
 
 
 def header(po, dest):
-    """Copie l'en-tête (première entrée msgid "") de po dans dest."""
+    """Copie l'en-tête de po (commentaires de tête et entrée msgid "") dans dest."""
     lines, started = [], False
     for raw in open(po, encoding='utf-8'):
         if raw.startswith('msgid ""'):
             started = True
-        if started:
-            if not raw.strip():
-                break
-            lines.append(raw)
+        if started and not raw.strip():
+            break
+        lines.append(raw)
     open(dest, 'w', encoding='utf-8', newline='\n').write(''.join(lines) + '\n')
 
 
