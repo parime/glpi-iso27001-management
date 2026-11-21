@@ -1,0 +1,323 @@
+{
+    "license": "CC0-1.0",
+    "placeholders": {
+        "organisation": "[organisation name]",
+        "ciso": "[information security manager]"
+    },
+    "common": {
+        "review": {
+            "title": "Approval, review and exceptions",
+            "body": "This policy is approved by the management of {organisation}. {ciso} keeps it up to date: it is reviewed at least every {review_months} months, and also after a major incident, a significant change in the organisation or its context, or a finding raised during an audit. Any exception is requested in writing, justified, limited in time and recorded."
+        }
+    },
+    "templates": {
+        "isms": {
+            "title": "Information security policy",
+            "summary": "Top-level policy: management commitment, security objectives, roles and the rules every topic-specific policy follows.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy states how {organisation} protects the confidentiality, integrity and availability of the information it holds, whatever its form and wherever it is processed. It applies to every employee, contractor and partner who uses the information or the systems of {organisation}, and it is the parent of every topic-specific security policy."
+                },
+                "commitments": {
+                    "title": "Management commitment and objectives",
+                    "body": "Management commits to provide the resources the information security management system needs, to set measurable security objectives each year, to meet legal, regulatory and contractual requirements, and to improve the system continually. Security is taken into account in projects from the start, in proportion to the risks."
+                },
+                "roles": {
+                    "title": "Roles and responsibilities",
+                    "body": "{ciso} leads the information security management system, follows the risks and reports to management. Each manager makes sure that the people in their team know and apply the rules. Each asset has an owner who decides on its protection. Conflicting duties are separated where an error or a fraud could otherwise go unnoticed."
+                },
+                "compliance": {
+                    "title": "Compliance with the rules",
+                    "body": "Everyone is informed of this policy when they arrive and when it changes. Compliance with the security rules is checked regularly. A deliberate breach of the rules may lead to measures under the internal regulations, in proportion to its seriousness."
+                }
+            }
+        },
+        "access_control": {
+            "title": "Access control policy",
+            "summary": "Who may access what: need to know, account lifecycle, authentication and privileged access.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy sets the rules for granting, changing and removing access to the information, applications, systems and premises of {organisation}. It covers user, service and administrator accounts, including those of contractors."
+                },
+                "principles": {
+                    "title": "Principles",
+                    "body": "Access is granted on a need-to-know basis and with the least privilege required by the job. Everything that is not explicitly allowed is denied. Rights are attached to roles rather than to individuals whenever possible, and each request is approved by the owner of the resource."
+                },
+                "lifecycle": {
+                    "title": "Account and rights lifecycle",
+                    "body": "Each account is personal and linked to a named person. Accounts are created on a recorded request, changed when a person changes job and disabled no later than the day they leave. Rights are reviewed at least every {review_months} months by the owners of the resources, and unused accounts are disabled."
+                },
+                "authentication": {
+                    "title": "Authentication",
+                    "body": "Passwords are long, unique to each service and never shared or written in clear text. Multi-factor authentication is required for remote access, for messaging, for cloud services and for every administrator account. Authentication secrets are delivered through a channel separate from the identifier."
+                },
+                "privileged": {
+                    "title": "Privileged access",
+                    "body": "Administrator rights are granted to a limited list of named people, through accounts separate from their everyday account, and are used only for administration tasks. Their use is logged. Access to sensitive information is restricted to the people and applications that need it."
+                }
+            }
+        },
+        "asset_management": {
+            "title": "Asset management policy",
+            "summary": "Inventory and owners, acceptable use, return of equipment and secure disposal of media.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy covers the information assets of {organisation}: information, software, equipment, services and storage media, whether owned, leased or provided by a supplier."
+                },
+                "inventory": {
+                    "title": "Inventory and owners",
+                    "body": "An inventory of the assets is kept up to date, preferably automatically. Each asset has an owner who knows its value, decides on its protection and checks that it is still needed. Assets not listed in the inventory are not connected to the network."
+                },
+                "acceptable_use": {
+                    "title": "Acceptable use",
+                    "body": "The equipment and services provided by {organisation} are used for professional purposes, within the limits set by the IT charter. Installing software, connecting personal devices or using unapproved online services is subject to prior agreement."
+                },
+                "return": {
+                    "title": "Return of assets",
+                    "body": "When a person leaves or changes job, the equipment, badges, keys and information media entrusted to them are returned and checked against the inventory. Professional information kept on personal devices is deleted."
+                },
+                "disposal": {
+                    "title": "Media and disposal",
+                    "body": "Removable media are used only when needed and are encrypted when they contain non-public information. Before reuse or disposal, equipment and media are securely erased or destroyed, and the operation is recorded."
+                }
+            }
+        },
+        "backup": {
+            "title": "Backup policy",
+            "summary": "What is backed up, how often, how copies are protected and how restoration is tested.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy makes sure that {organisation} can recover its information, software and system configurations after an error, a failure, a malicious act or a disaster."
+                },
+                "frequency": {
+                    "title": "Scope and frequency",
+                    "body": "The owners of each system set, with IT, what is backed up, how often and for how long, according to the maximum acceptable data loss of the business processes concerned. The backup plan lists each system, its frequency and its retention period."
+                },
+                "protection": {
+                    "title": "Protection of copies",
+                    "body": "At least one copy is kept off-site and one copy cannot be modified or deleted from the production network (offline or immutable). Copies are encrypted, and access to them is limited to the people in charge of backups."
+                },
+                "restore": {
+                    "title": "Restoration tests",
+                    "body": "Backup jobs are monitored and failures are handled without delay. A restoration test is carried out at least every {review_months} months on a sample of systems, and its result and duration are recorded."
+                }
+            }
+        },
+        "logging": {
+            "title": "Logging and monitoring policy",
+            "summary": "Which events are logged, how logs are protected and kept, and how they are watched.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy makes it possible to detect abnormal activity on the systems of {organisation}, to investigate incidents and to provide evidence when needed."
+                },
+                "events": {
+                    "title": "Events logged",
+                    "body": "Systems log at least authentications, failed access attempts, use of administrator rights, changes to security settings and alerts from protection tools. Each event shows the date and time, the account, the source and the action."
+                },
+                "protection": {
+                    "title": "Protection and retention",
+                    "body": "Logs are copied to a central point where the administrators of the systems concerned cannot alter them. They are kept for a period set according to legal obligations and investigation needs. System clocks are synchronised to a common time source."
+                },
+                "monitoring": {
+                    "title": "Monitoring",
+                    "body": "Logs and alerts are reviewed regularly, automatically where possible. Unusual behaviour is analysed and, if needed, handled as a security incident. Monitoring rules are adjusted after each significant incident."
+                }
+            }
+        },
+        "incident_management": {
+            "title": "Information security incident management policy",
+            "summary": "Reporting, assessment, response, evidence and lessons learned from security incidents.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy organises the handling of information security events and incidents at {organisation}, from the first report to the lessons learned."
+                },
+                "reporting": {
+                    "title": "Reporting",
+                    "body": "Anyone who notices a suspicious event, a weakness or a loss of equipment reports it without delay through the channel indicated by IT, even if they are unsure. No one tries to test a suspected weakness themselves."
+                },
+                "assessment": {
+                    "title": "Assessment",
+                    "body": "Each report is assessed to decide whether it is a security incident, and its severity is rated against a shared scale. {ciso} is informed of every significant incident and decides whether to escalate it to management."
+                },
+                "response": {
+                    "title": "Preparation and response",
+                    "body": "Roles, contacts and procedures for responding to incidents are written down and kept up to date. The response aims first to contain the incident, then to remove its cause and restore operations. Notifications required by law or by contracts are made within the required time."
+                },
+                "evidence": {
+                    "title": "Evidence",
+                    "body": "Information that may serve as evidence (logs, copies, messages) is collected and kept so that its integrity can be shown, with a record of who handled it and when."
+                },
+                "lessons": {
+                    "title": "Lessons learned",
+                    "body": "After each significant incident, a review identifies the causes and the improvements to make. The actions decided are followed until they are completed."
+                }
+            }
+        },
+        "supplier": {
+            "title": "Supplier security policy",
+            "summary": "Selection, contract clauses, ICT supply chain, monitoring of suppliers and cloud services.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy covers the suppliers and service providers that access the information or the systems of {organisation}, or that provide a service on which its activities depend, including cloud services."
+                },
+                "selection": {
+                    "title": "Selection and assessment",
+                    "body": "Before signing, suppliers are classified according to the sensitivity of the information and the importance of the service. The most critical ones are assessed (questionnaire, certifications, references) and the residual risks are accepted by the owner of the service."
+                },
+                "agreements": {
+                    "title": "Contract requirements",
+                    "body": "Contracts set out the security requirements that apply: confidentiality, protection of data, notification of incidents, right to audit, location of data, use of subcontractors and return or deletion of information at the end of the contract."
+                },
+                "supply_chain": {
+                    "title": "ICT supply chain",
+                    "body": "Suppliers of software, equipment and IT services pass on the security requirements to their own subcontractors. The origin and support period of the products used are known."
+                },
+                "monitoring": {
+                    "title": "Monitoring and changes",
+                    "body": "Critical suppliers are reviewed at least every {review_months} months: service quality, incidents, certifications and changes. A change of supplier, service or subcontractor is assessed before it is accepted."
+                },
+                "cloud": {
+                    "title": "Cloud services",
+                    "body": "The use of a cloud service is approved beforehand. The sharing of security responsibilities with the provider is documented, and an exit plan makes it possible to recover the data."
+                }
+            }
+        },
+        "teleworking": {
+            "title": "Teleworking and mobile working policy",
+            "summary": "Conditions for working away from the premises, equipment, connection and protection of information.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy applies to anyone who works for {organisation} outside its premises: at home, while travelling or at a client's site."
+                },
+                "conditions": {
+                    "title": "Conditions",
+                    "body": "Working away from the premises follows the rules of this policy and the agreement made with the manager. The most sensitive information or tasks may be excluded from remote work."
+                },
+                "equipment": {
+                    "title": "Equipment",
+                    "body": "Work is done on equipment provided or approved by {organisation}, with an encrypted disk, an up-to-date system and an active protection tool. Equipment is never left unattended in a public place or in a vehicle."
+                },
+                "connection": {
+                    "title": "Connection",
+                    "body": "Access to internal resources goes through the secure connection provided by IT, with multi-factor authentication. Public networks are used only through this connection."
+                },
+                "workplace": {
+                    "title": "Protection of information",
+                    "body": "Screens cannot be seen by third parties, the session is locked as soon as the person leaves the workstation and documents are not left lying around. Paper documents are taken back or destroyed securely. Loss or theft is reported immediately."
+                }
+            }
+        },
+        "secure_development": {
+            "title": "Secure development policy",
+            "summary": "Security in the development lifecycle: requirements, architecture, coding, testing and environments.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy applies to the applications developed, configured or customised by or for {organisation}, including scripts, integrations and outsourced developments."
+                },
+                "lifecycle": {
+                    "title": "Development lifecycle",
+                    "body": "Security is taken into account at each stage of a project, from the expression of needs to the withdrawal of the application. Developers are trained in secure development practices."
+                },
+                "requirements": {
+                    "title": "Requirements and architecture",
+                    "body": "Security requirements are set at the start of each project according to the information handled. Architecture follows proven principles: defence in depth, least privilege, secure default settings and validation of every input."
+                },
+                "coding": {
+                    "title": "Secure coding",
+                    "body": "Code follows the secure coding rules of the team, is reviewed before being merged and is analysed by automatic tools. Third-party components are known, kept up to date and checked for known vulnerabilities. No secret is stored in the source code."
+                },
+                "testing": {
+                    "title": "Security testing",
+                    "body": "Security tests are part of acceptance before going into production. Test data do not contain real personal or confidential data, unless they are anonymised and protected like production data."
+                },
+                "environments": {
+                    "title": "Environments and changes",
+                    "body": "Development, test and production environments are separated. Going into production follows the change management process, with approval and the possibility of going back."
+                },
+                "outsourced": {
+                    "title": "Outsourced development",
+                    "body": "When development is outsourced, the security requirements of this policy are written into the contract and their application is checked at acceptance."
+                }
+            }
+        },
+        "cryptography": {
+            "title": "Cryptography policy",
+            "summary": "When to encrypt, which algorithms to use and how keys are managed.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy sets out how {organisation} uses cryptography to protect the confidentiality, integrity and authenticity of its information, and how it manages the keys."
+                },
+                "usage": {
+                    "title": "When to encrypt",
+                    "body": "Encryption is used for laptops and removable media, for information sent over public networks, for backups and for confidential information stored with a third party. Legal restrictions on cryptography in the countries concerned are taken into account."
+                },
+                "algorithms": {
+                    "title": "Algorithms and protocols",
+                    "body": "Only algorithms, key lengths and protocols recognised as robust by the national security agencies are used. Obsolete ones are withdrawn according to a plan."
+                },
+                "keys": {
+                    "title": "Key management",
+                    "body": "Keys and certificates are generated, stored, distributed, renewed and revoked according to a written procedure. Access to private keys is limited to the people who need it, and their expiry dates are monitored."
+                }
+            }
+        },
+        "continuity": {
+            "title": "Business continuity policy (ICT readiness)",
+            "summary": "Impact analysis, recovery objectives, security during a disruption, redundancy and exercises.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy makes sure that {organisation} can continue or quickly resume its essential activities after a major disruption, while keeping its information protected."
+                },
+                "impact": {
+                    "title": "Impact analysis and objectives",
+                    "body": "Business impact analysis identifies the essential activities, the systems they depend on and, for each one, the maximum acceptable interruption time and data loss. Continuity and recovery plans are built on these objectives."
+                },
+                "security": {
+                    "title": "Security during a disruption",
+                    "body": "Continuity plans keep the necessary level of security in degraded mode: access control, logging and protection of information remain in place on backup sites and solutions."
+                },
+                "redundancy": {
+                    "title": "Redundancy",
+                    "body": "Systems whose interruption is not acceptable have enough redundancy (equipment, links, sites or suppliers) to meet the availability objectives."
+                },
+                "exercises": {
+                    "title": "Exercises",
+                    "body": "Plans are tested at least every {review_months} months by exercises whose scenarios vary. The results lead to improvements that are followed until completed."
+                }
+            }
+        },
+        "classification": {
+            "title": "Information classification policy",
+            "summary": "Classification levels, labelling, and handling and transfer rules for each level.",
+            "sections": {
+                "purpose": {
+                    "title": "Purpose and scope",
+                    "body": "This policy helps everyone at {organisation} know how sensitive a piece of information is and how to protect it accordingly."
+                },
+                "levels": {
+                    "title": "Classification levels",
+                    "body": "Information is classified at one of four levels: public, internal, confidential and restricted. The owner of the information chooses the level according to the harm its disclosure, alteration or loss would cause, and reviews it when the context changes."
+                },
+                "labelling": {
+                    "title": "Labelling",
+                    "body": "Documents, messages and media of confidential or restricted level show their level visibly. Unlabelled information is treated as internal."
+                },
+                "handling": {
+                    "title": "Handling and transfer",
+                    "body": "Each level has its own rules for storage, sharing, printing, sending and destruction. Confidential and restricted information is sent only to authorised recipients, by encrypted means, and its transfer to a third party is covered by an agreement."
+                }
+            }
+        }
+    }
+}
