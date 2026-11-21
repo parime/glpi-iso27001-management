@@ -673,6 +673,14 @@
       {{ fields.htmlField('', patch_compliance_html, __('Security patches', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #781 : conformité de configuration (A.8.9), une ligne par source (OpenSCAP d'abord). #}
+   {% if configuration_compliance is defined and configuration_compliance is not null %}
+      {% set configuration_compliance_html %}
+         {% include '@grcmanager/_configuration_evidence.html.twig' with {'sources': configuration_compliance.sources} only %}
+      {% endset %}
+      {{ fields.htmlField('', configuration_compliance_html, __('Configuration compliance', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #853 : couverture de la journalisation (A.8.15, A.8.16, A.8.17), dans les entités de la personne. #}
    {% if log_coverage is defined and log_coverage is not null %}
       {% set log_coverage_html %}

@@ -1,0 +1,46 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #781 : badges communs de la conformité de configuration (liste et détail d'un rapport). #}
+{% macro rate(row) %}
+   <span class="badge bg-{{ row.color }}-subtle text-{{ row.color }}-emphasis" title="{{ __('Rules passed out of the rules checked (not applicable rules excluded)', 'grcmanager') }}"><i class="ti ti-shield-check me-1"></i>{{ row.rate is null ? '-' : row.rate ~ ' %' }}</span>
+{% endmacro %}
+
+{% macro trend(delta) %}
+   {% if delta is null %}
+      <span class="text-muted small" title="{{ __('No previous scan with the same profile', 'grcmanager') }}">-</span>
+   {% elseif delta > 0 %}
+      <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-trending-up me-1"></i>+{{ delta }}</span>
+   {% elseif delta < 0 %}
+      <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-trending-down me-1"></i>{{ delta }}</span>
+   {% else %}
+      <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-minus me-1"></i>0</span>
+   {% endif %}
+{% endmacro %}
+
+{% macro failed(row) %}
+   {% set failed = row.fail_count + row.error_count %}
+   <span class="badge {{ failed > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }}"><i class="ti ti-x me-1"></i>{{ failed }}</span>
+   {% if row.high_fail_count > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis ms-1" title="{{ __('High severity', 'grcmanager') }}"><i class="ti ti-alert-triangle me-1"></i>{{ row.high_fail_count }}</span>{% endif %}
+{% endmacro %}
+
+{% macro profile(row) %}
+   {{ row.profile_title is empty ? (row.profile_id is empty ? __('No profile', 'grcmanager') : row.profile_id) : row.profile_title }}
+   {% if row.benchmark_title %}<div class="small text-muted">{{ row.benchmark_title }}</div>{% endif %}
+{% endmacro %}
+
+{% macro severity(severity, labels) %}
+   {% set color = severity == 'high' ? 'danger' : (severity == 'medium' ? 'warning' : (severity == 'low' ? 'info' : 'secondary')) %}
+   <span class="badge bg-{{ color }}-subtle text-{{ color }}-emphasis"><i class="ti {{ severity == 'high' ? 'ti-alert-triangle' : 'ti-point' }} me-1"></i>{{ labels[severity] ?? labels['unknown'] }}</span>
+{% endmacro %}
