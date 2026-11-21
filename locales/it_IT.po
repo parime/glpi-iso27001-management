@@ -33873,18 +33873,35 @@ msgid "%d account(s) of the controllers added to the campaign."
 msgstr "%d account dei controller aggiunti alla campagna."
 
 #, php-format
-msgid "%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
-msgstr "%1$d risposta/e importata/e dal file del fornitore, %2$d documento/i allegato/i."
+msgid ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr ""
+"%1$d risposta/e importata/e dal file del fornitore, %2$d documento/i "
+"allegato/i."
 
 #, php-format
 msgid "The document \"%s\" matches no question of the file: it was not added."
-msgstr "Il documento «%s» non corrisponde a nessuna domanda del file: non è stato aggiunto."
+msgstr ""
+"Il documento «%s» non corrisponde a nessuna domanda del file: non è stato "
+"aggiunto."
 
-msgid "Shows the answers found in the questionnaire file returned by the supplier, question by question, next to the current answers, with the points to check (unknown question, answer outside the list, missing question)."
-msgstr "Mostra le risposte trovate nel file del questionario restituito dal fornitore, domanda per domanda, accanto alle risposte attuali, con i punti da verificare (domanda sconosciuta, risposta fuori elenco, domanda mancante)."
+msgid ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+msgstr ""
+"Mostra le risposte trovate nel file del questionario restituito dal "
+"fornitore, domanda per domanda, accanto alle risposte attuali, con i punti "
+"da verificare (domanda sconosciuta, risposta fuori elenco, domanda mancante)."
 
-msgid "Check the answers, add the documents sent by the supplier, then save: nothing is recorded before this confirmation. Then review the evaluation and mark it as completed."
-msgstr "Verificare le risposte, aggiungere i documenti inviati dal fornitore, poi salvare: nulla viene registrato prima di questa conferma. Rileggere poi la valutazione e contrassegnarla come completata."
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+"Verificare le risposte, aggiungere i documenti inviati dal fornitore, poi "
+"salvare: nulla viene registrato prima di questa conferma. Rileggere poi la "
+"valutazione e contrassegnarla come completata."
 
 msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
 msgstr "ISO/IEC 27001, controlli da A.5.19 a A.5.22"
@@ -33910,27 +33927,50 @@ msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
 msgstr "File del questionario restituito dal fornitore per la valutazione «%s»"
 
 #, php-format
-msgid "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
-msgstr "File del fornitore importato: %1$s (SHA-256 %2$s), %3$d risposta/e, %4$d documento/i"
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+"File del fornitore importato: %1$s (SHA-256 %2$s), %3$d risposta/e, %4$d "
+"documento/i"
 
 #, php-format
 msgid "The file is too large (at most %d MB)."
 msgstr "Il file è troppo grande (al massimo %d MB)."
 
-msgid "The file is not a CSV text file: save the spreadsheet as CSV before importing it."
-msgstr "Il file non è un file di testo CSV: salvare il foglio di calcolo in formato CSV prima di importarlo."
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"Il file non è un file di testo CSV: salvare il foglio di calcolo in formato "
+"CSV prima di importarlo."
 
-msgid "This file is not a questionnaire exported from this plugin: its first line was changed or removed."
-msgstr "Questo file non è un questionario esportato da questo plugin: la sua prima riga è stata modificata o rimossa."
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+"Questo file non è un questionario esportato da questo plugin: la sua prima "
+"riga è stata modificata o rimossa."
 
-msgid "This file was exported for another evaluation: import it in the evaluation it comes from."
-msgstr "Questo file è stato esportato per un'altra valutazione: importarlo nella valutazione da cui proviene."
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+"Questo file è stato esportato per un'altra valutazione: importarlo nella "
+"valutazione da cui proviene."
 
-msgid "The questions of this file do not match those of the evaluation: export the questionnaire again."
-msgstr "Le domande di questo file non corrispondono a quelle della valutazione: esportare di nuovo il questionario."
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+"Le domande di questo file non corrispondono a quelle della valutazione: "
+"esportare di nuovo il questionario."
 
-msgid "The header line or some columns are missing: keep the columns of the exported file."
-msgstr "Mancano la riga di intestazione o alcune colonne: mantenere le colonne del file esportato."
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+"Mancano la riga di intestazione o alcune colonne: mantenere le colonne del "
+"file esportato."
 
 #, php-format
 msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
@@ -33938,25 +33978,38 @@ msgstr "Riga %1$d: codice domanda sconosciuto «%2$s», riga ignorata."
 
 #, php-format
 msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
-msgstr "Riga %1$d: la domanda %2$s compare due volte, viene mantenuta solo la prima riga."
+msgstr ""
+"Riga %1$d: la domanda %2$s compare due volte, viene mantenuta solo la prima "
+"riga."
 
 #, php-format
 msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
 msgstr "Riga %1$d: la risposta «%2$s» non è nell'elenco, riga ignorata."
 
 #, php-format
-msgid "Line %1$d: at most %2$d questions per file, the following lines were ignored."
-msgstr "Riga %1$d: al massimo %2$d domande per file, le righe seguenti sono state ignorate."
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+"Riga %1$d: al massimo %2$d domande per file, le righe seguenti sono state "
+"ignorate."
 
 #, php-format
 msgid "Question %s is missing from the file: its answer does not change."
 msgstr "La domanda %s manca nel file: la sua risposta non cambia."
 
 #, php-format
-msgid "%d question changes. Check the answers, then save them: they will be marked as coming from the supplier file."
-msgid_plural "%d questions change. Check the answers, then save them: they will be marked as coming from the supplier file."
-msgstr[0] "%d domanda cambia. Verificare le risposte, poi salvarle: saranno contrassegnate come provenienti dal file del fornitore."
-msgstr[1] "%d domande cambiano. Verificare le risposte, poi salvarle: saranno contrassegnate come provenienti dal file del fornitore."
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+"%d domanda cambia. Verificare le risposte, poi salvarle: saranno "
+"contrassegnate come provenienti dal file del fornitore."
+msgstr[1] ""
+"%d domande cambiano. Verificare le risposte, poi salvarle: saranno "
+"contrassegnate come provenienti dal file del fornitore."
 
 msgid "Answer in the file"
 msgstr "Risposta nel file"
@@ -33974,8 +34027,14 @@ msgid "Documents sent by the supplier"
 msgstr "Documenti inviati dal fornitore"
 
 #, php-format
-msgid "Each document is attached to the questions whose column \"Evidence file name\" gives its name. It is checked like any evidence (types allowed by GLPI, size, real content). Expected: %s"
-msgstr "Ogni documento viene collegato alle domande la cui colonna «Nome del file di evidenza» ne riporta il nome. Viene controllato come qualsiasi evidenza (tipi consentiti da GLPI, dimensione, contenuto reale). Attesi: %s"
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+"Ogni documento viene collegato alle domande la cui colonna «Nome del file di "
+"evidenza» ne riporta il nome. Viene controllato come qualsiasi evidenza "
+"(tipi consentiti da GLPI, dimensione, contenuto reale). Attesi: %s"
 
 msgid "Review the supplier file"
 msgstr "Verificare il file del fornitore"
@@ -33993,17 +34052,32 @@ msgid "Answer by file, outside GLPI"
 msgstr "Risposta tramite file, fuori da GLPI"
 
 #, php-format
-msgid "At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before importing it."
-msgstr "Al massimo %1$d MB e %2$d domande. Salvare il foglio di calcolo in formato CSV prima di importarlo."
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"Al massimo %1$d MB e %2$d domande. Salvare il foglio di calcolo in formato "
+"CSV prima di importarlo."
 
-msgid "CSV file (separator \";\", UTF-8), one line per question. Its first line identifies the evaluation and its questions: it must stay unchanged. Send it by the means of your choice (email, exchange platform)."
-msgstr "File CSV (separatore «;», UTF-8), una riga per domanda. La prima riga identifica la valutazione e le sue domande: deve rimanere invariata. Inviarlo con il mezzo preferito (e-mail, piattaforma di scambio)."
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+"File CSV (separatore «;», UTF-8), una riga per domanda. La prima riga "
+"identifica la valutazione e le sue domande: deve rimanere invariata. "
+"Inviarlo con il mezzo preferito (e-mail, piattaforma di scambio)."
 
 msgid "Download the questionnaire to fill in"
 msgstr "Scaricare il questionario da compilare"
 
-msgid "Each export and import is recorded in the Historical tab (who, when, which file); the returned file is kept in the Documents tab of the supplier risk."
-msgstr "Ogni esportazione e importazione è registrata nella scheda Cronologia (chi, quando, quale file); il file restituito è conservato nella scheda Documenti del rischio fornitore."
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+"Ogni esportazione e importazione è registrata nella scheda Cronologia (chi, "
+"quando, quale file); il file restituito è conservato nella scheda Documenti "
+"del rischio fornitore."
 
 msgid "Import the returned file"
 msgstr "Importare il file restituito"
@@ -34020,11 +34094,290 @@ msgstr "Inviare il questionario"
 msgid "This evaluation is completed: reopen it to import a file."
 msgstr "Questa valutazione è completata: riaprirla per importare un file."
 
-msgid "When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for each document provided, \"Evidence file name\", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation."
-msgstr "Quando il fornitore non ha accesso a GLPI, inviare il questionario come file: il fornitore compila le colonne «Risposta del fornitore», «Commento» e, per ogni documento fornito, «Nome del file di evidenza», in qualsiasi foglio di calcolo. Importare poi qui il file restituito: le risposte vengono mostrate per la revisione e nulla viene salvato prima della conferma."
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+"Quando il fornitore non ha accesso a GLPI, inviare il questionario come "
+"file: il fornitore compila le colonne «Risposta del fornitore», «Commento» "
+"e, per ogni documento fornito, «Nome del file di evidenza», in qualsiasi "
+"foglio di calcolo. Importare poi qui il file restituito: le risposte vengono "
+"mostrate per la revisione e nulla viene salvato prima della conferma."
 
 msgid "You are not allowed to change this evaluation."
 msgstr "Non si è autorizzati a modificare questa valutazione."
 
 msgid "Supplier answer"
 msgstr "Risposta del fornitore"
+
+msgid "Security 360°"
+msgstr "Sicurezza 360°"
+
+msgid "Good security posture"
+msgstr "Buon livello di sicurezza"
+
+msgid "Security posture to improve"
+msgstr "Livello di sicurezza da migliorare"
+
+msgid "Weak security posture"
+msgstr "Livello di sicurezza debole"
+
+msgid "Not enough data to assess"
+msgstr "Dati insufficienti per valutare"
+
+msgid "Known vulnerabilities"
+msgstr "Vulnerabilità note"
+
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr ""
+"Nessuna vulnerabilità nota nei prodotti sorvegliati installati su questo "
+"asset."
+
+#, php-format
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+"%1$d vulnerabilità note, di cui %2$d prioritarie (sfruttate attivamente o "
+"molto gravi)."
+
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d nel catalogo delle vulnerabilità sfruttate (KEV)"
+
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Volumi non cifrati: %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Strumenti: %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, anche se la regola di cifratura lo richiede."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, non richiesto dalla regola di cifratura."
+
+#, php-format
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+"Analisi del %1$s: %2$s delle regole superate, %3$d non superate di cui %4$d "
+"di gravità alta."
+
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s: l'ultima lettura non è riuscita."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s: nessuno scostamento trovato."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s: %2$d scostamenti trovati."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "Nessun incidente aperto (%d chiusi o risolti)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "%1$d incidenti aperti, di cui %2$d con priorità alta o superiore."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "%1$d rischi collegati: %2$d alti o critici, %3$d medi."
+
+msgid ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+msgstr ""
+"Questa scheda riunisce, per questo asset, ogni fonte di sicurezza nota al "
+"plugin: vulnerabilità, cifratura, configurazione, controller di gestione, "
+"incidenti, rischi. Ogni riga indica il suo stato e un link al dettaglio. "
+"Nulla viene modificato: correggete gli scostamenti dalle pagine di dettaglio."
+
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Punteggio: %s / 100"
+
+msgid ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+msgstr ""
+"Nessuna fonte ancora valutata per questo asset: importate o leggete i dati "
+"dei moduli di sicurezza per riempire questa vista."
+
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "%1$d fonti valutate: %2$d critiche, %3$d da sorvegliare."
+
+#, php-format
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+"Il punteggio è la media ponderata delle fonti (conforme 100, da sorvegliare "
+"50, critico 0); buono da %1$d, da migliorare da %2$d, debole sotto. Una sola "
+"fonte critica impedisce il livello buono."
+
+msgid "Points (weight)"
+msgstr "Punti (peso)"
+
+msgid ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+msgstr ""
+"Le fonti senza dati per questo asset (modulo non usato, nulla importato, "
+"nessun diritto) non sono mostrate."
+
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Chiunque abbia il link"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "Ospite esterno"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Condivisione file Windows"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Link pubblico (chiunque)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr ""
+"Un link di condivisione funziona per chiunque lo abbia, senza accedere."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "Un ospite esterno ha accesso"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"Una persona di un'altra organizzazione (account ospite) ha accesso: "
+"verificate che sia ancora necessario."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"Nessuna colonna del sito trovata: il file deve avere una colonna come Site, "
+"Team o OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Accesso negato da Microsoft Graph: concedete le autorizzazioni "
+"dell'applicazione Sites.Read.All, Files.Read.All, User.Read.All e "
+"GroupMember.Read.All con il consenso dell'amministratore."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+"Troppi siti o account da leggere con un clic: nulla è stato sostituito. "
+"Importate invece un'esportazione CSV."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "Leggere i diritti di SharePoint, OneDrive e Teams"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"GLPI legge i diritti di condivisione tramite Microsoft Graph quando fate "
+"clic, con l'applicazione configurata per la copertura MFA, e non modifica "
+"mai nulla in Microsoft 365. SharePoint: i diritti della raccolta documenti "
+"di ogni sito e dei suoi elementi di primo livello condivisi a parte. "
+"OneDrive: gli elementi di primo livello che ogni persona ha condiviso. "
+"Teams: proprietari, membri, ospiti e team pubblici. Si applicano gli stessi "
+"scostamenti e la stessa revisione delle condivisioni di file: link pubblici, "
+"ospiti esterni, diritti dati a tutti."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Autorizzazioni dell'applicazione da concedere, con il consenso "
+"dell'amministratore (sola lettura): Sites.Read.All, Files.Read.All, User."
+"Read.All e GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph connesso"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Impostazioni di Microsoft Graph"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "Leggere %s ora"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"Microsoft Graph non è ancora configurato. Inserite il tenant, l'ID "
+"dell'applicazione e il segreto client nella pagina della copertura MFA, "
+"oppure importate un'esportazione CSV qui sotto."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Alternativa: importate un file CSV con una riga per diritto e colonne come "
+"Source (SharePoint, OneDrive o Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) e LinkScope (anonymous, "
+"organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Proprietario in Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Link di condivisione"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Appartenenza al team"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Autorizzazione diretta"

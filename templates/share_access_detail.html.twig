@@ -26,7 +26,9 @@
    <div class="card mb-3">
       <div class="card-header">
          <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
-            <i class="ti ti-folder-share"></i><span id="grc-share-label">{{ share.label }}</span>
+            {% set src = sources[share.source] ?? sources['smb'] %}
+            <i class="{{ share.source == 'smb' ? 'ti ti-folder-share' : src.icon }}"></i><span id="grc-share-label">{{ share.label }}</span>
+            {% if share.source != 'smb' %}<span class="badge bg-{{ src.color }}-subtle text-{{ src.color }}-emphasis">{{ src.label }}</span>{% endif %}
             {{ sharem.score(share.score, scores[share.score_level]) }}
             {% if not share.is_present %}<span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-folder-off me-1"></i>{{ __('Absent from the last import', 'grcmanager') }}</span>{% endif %}
          </h3>
@@ -34,8 +36,9 @@
       <div class="card-body">
          <div class="row g-3">
             <div class="col-md-6 small">
-               {% if share.share_path %}<div><i class="ti ti-folder me-1"></i>{{ __('Local path', 'grcmanager') }} : {{ share.share_path }}</div>{% endif %}
-               {% if share.owner %}<div><i class="ti ti-user-cog me-1"></i>{{ __('NTFS owner', 'grcmanager') }} : {{ share.owner }}</div>{% endif %}
+               {% set m365 = share.source != 'smb' %}
+               {% if share.share_path %}<div><i class="ti {{ m365 ? 'ti-world-www' : 'ti-folder' }} me-1"></i>{{ m365 ? __('Address', 'grcmanager') : __('Local path', 'grcmanager') }} : {{ share.share_path }}</div>{% endif %}
+               {% if share.owner %}<div><i class="ti ti-user-cog me-1"></i>{{ m365 ? __('Owner in Microsoft 365', 'grcmanager') : __('NTFS owner', 'grcmanager') }} : {{ share.owner }}</div>{% endif %}
                <div><i class="ti ti-calendar me-1"></i>{{ __('Last import', 'grcmanager') }} : {{ share.imported }}</div>
                <div class="mt-2">{{ sharem.classification(share.classification, cid_levels) }}</div>
             </div>
@@ -152,7 +155,7 @@
                         {% if ace.is_deny %}<span class="badge bg-dark-subtle text-dark-emphasis me-1"><i class="ti ti-ban me-1"></i>{{ __('Denied', 'grcmanager') }}</span>{% endif %}
                         <span class="badge bg-{{ level.color }}-subtle text-{{ level.color }}-emphasis" title="{{ ace.rights }}"><i class="{{ level.icon }} me-1"></i>{{ level.label }}</span>
                         <div class="small text-muted">
-                           {{ ace.scope == 'share' ? __('Share permission', 'grcmanager') : __('NTFS permission', 'grcmanager') }}{% if ace.is_inherited %} · {{ __('inherited', 'grcmanager') }}{% endif %}
+                           {% if ace.scope == 'link' %}{{ __('Sharing link', 'grcmanager') }}{% elseif ace.scope == 'member' %}{{ __('Team membership', 'grcmanager') }}{% elseif share.source != 'smb' %}{{ __('Direct permission', 'grcmanager') }}{% else %}{{ ace.scope == 'share' ? __('Share permission', 'grcmanager') : __('NTFS permission', 'grcmanager') }}{% endif %}{% if ace.is_inherited %} · {{ __('inherited', 'grcmanager') }}{% endif %}
                         </div>
                      </td>
                      <td>

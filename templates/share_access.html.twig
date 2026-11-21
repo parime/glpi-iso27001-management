@@ -12,8 +12,9 @@
  # (at your option) any later version. See LICENSE for the full text.
  # -------------------------------------------------------------------------
  #}
-{# Issue #846 : droits d'accès aux partages de fichiers Windows (A.5.15, A.5.18, A.8.3), partages des
-   entités de la personne. Lecture seule : rien n'est modifié sur les serveurs de fichiers. #}
+{# Issue #846 : droits d'accès aux partages de fichiers Windows, et (lot 2) aux sites SharePoint, OneDrive
+   et équipes Teams (A.5.15, A.5.18, A.8.3), dans les entités de la personne. Lecture seule : rien n'est
+   modifié sur les serveurs de fichiers ni dans Microsoft 365. #}
 {% import '@grcmanager/share_access_macros.html.twig' as share %}
 
 <div id="grc-share-access">
@@ -75,7 +76,9 @@
                {% for row in rows %}
                   <tr{% if not row.is_present %} class="text-muted"{% endif %}>
                      <td>
-                        <a href="{{ row.url }}"><i class="ti ti-folder me-1"></i>{{ row.label }}</a>
+                        {% set src = sources[row.source] ?? sources['smb'] %}
+                        <a href="{{ row.url }}"><i class="{{ src.icon }} me-1"></i>{{ row.label }}</a>
+                        {% if row.source != 'smb' %}<span class="badge bg-{{ src.color }}-subtle text-{{ src.color }}-emphasis ms-1">{{ src.label }}</span>{% endif %}
                         {% if row.share_path %}<div class="small text-muted">{{ row.share_path }}</div>{% endif %}
                         {% if not row.is_present %}<span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-folder-off me-1"></i>{{ __('Absent from the last import', 'grcmanager') }}</span>{% endif %}
                      </td>
@@ -126,7 +129,8 @@
                {% for import in imports %}
                   <tr>
                      <td>{{ import.date }}</td>
-                     <td><i class="ti ti-server me-1"></i>{{ import.server }}</td>
+                     {% set src = sources[import.source] ?? sources['smb'] %}
+                     <td><i class="{{ src.icon }} me-1" title="{{ src.label }}"></i>{{ import.server }}{% if import.source != 'smb' %} <span class="badge bg-{{ src.color }}-subtle text-{{ src.color }}-emphasis">{{ src.label }}</span>{% endif %}</td>
                      <td class="text-end">{{ import.shares }}</td>
                      <td class="text-end">{{ import.aces }}</td>
                      <td class="text-end">{% if import.added > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-plus me-1"></i>{{ import.added }}</span>{% else %}0{% endif %}</td>
@@ -165,12 +169,14 @@
                   <thead><tr><th>{{ __('Server imported in this entity', 'grcmanager') }}</th><th></th></tr></thead>
                   <tbody>
                   {% for server in servers %}
+                     {% set src = sources[server.source] ?? sources['smb'] %}
                      <tr>
-                        <td><i class="ti ti-server me-1"></i>{{ server }}</td>
+                        <td><i class="{{ src.icon }} me-1"></i>{{ server.server }} <span class="badge bg-{{ src.color }}-subtle text-{{ src.color }}-emphasis">{{ src.label }}</span></td>
                         <td class="text-end">
                            <form method="post" action="{{ action }}" class="d-inline">
                               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-                              <input type="hidden" name="server" value="{{ server }}">
+                              <input type="hidden" name="server" value="{{ server.server }}">
+                              <input type="hidden" name="source" value="{{ server.source }}">
                               <button type="submit" class="btn btn-sm btn-outline-danger" name="clear_shares" value="1"><i class="ti ti-trash me-1"></i>{{ __('Delete the import', 'grcmanager') }}</button>
                            </form>
                         </td>
@@ -187,6 +193,53 @@
                </div>
                <div class="col-md-4">
                   <button type="submit" class="btn btn-primary" name="import_shares" value="1"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button>
+               </div>
+            </form>
+         {% else %}
+            <p class="small text-muted mb-0">{{ __('Only users who can modify the plugin data and the sensitive registers can import.', 'grcmanager') }}</p>
+         {% endif %}
+      </div>
+   </div>
+
+   {# Lot 2 : SharePoint, OneDrive et Teams, lus par Microsoft Graph sur clic ou importés en CSV. #}
+   <div class="card mb-3" id="grc-share-m365">
+      <div class="card-header">
+         <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
+            <i class="ti ti-cloud-search"></i>{{ __('Read SharePoint, OneDrive and Teams rights', 'grcmanager') }}
+            <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-eye me-1"></i>{{ __('Read only', 'grcmanager') }}</span>
+         </h3>
+      </div>
+      <div class="card-body">
+         <p class="small">{{ __('GLPI reads the sharing rights through Microsoft Graph when you click, with the application set up for the MFA coverage, and never changes anything in Microsoft 365. SharePoint: the rights of each site document library and of its top-level items shared separately. OneDrive: the top-level items each person has shared. Teams: owners, members, guests and public teams. The same gaps and the same review as the file shares apply: public links, external guests, rights given to everyone.', 'grcmanager') }}</p>
+         <p class="small text-muted">{{ __('Application permissions to grant, with admin consent (read only): Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All.', 'grcmanager') }}</p>
+         {% if graph.configured %}
+            <div class="mb-3 small"><span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-plug-connected me-1"></i>{{ __('Microsoft Graph connected', 'grcmanager') }}</span> {{ graph.tenant }} · <a href="{{ graph.settings_url }}"><i class="ti ti-settings me-1"></i>{{ __('Microsoft Graph settings', 'grcmanager') }}</a></div>
+            {% if can_manage %}
+               <div class="d-flex flex-wrap gap-2 mb-3">
+                  {% for source in graph.sources %}
+                     {% set src = sources[source] %}
+                     <form method="post" action="{{ action }}" class="d-inline">
+                        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="source" value="{{ source }}">
+                        <button type="submit" class="btn btn-sm btn-outline-primary" name="fetch_m365_graph" value="1"><i class="{{ src.icon }} me-1"></i>{{ __('Read %s now', 'grcmanager')|format(src.label) }}</button>
+                     </form>
+                  {% endfor %}
+               </div>
+            {% endif %}
+         {% else %}
+            <div class="alert alert-info small mb-3"><i class="ti ti-info-circle me-1"></i>{{ __('Microsoft Graph is not set up yet. Enter the tenant, the application ID and the client secret on the MFA coverage page, or import a CSV export below.', 'grcmanager') }} <a href="{{ graph.settings_url }}">{{ __('Microsoft Graph settings', 'grcmanager') }}</a></div>
+         {% endif %}
+         <p class="small mb-2">{{ __('Fallback: import a CSV file with one line per right and columns such as Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type (User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, organization, users).', 'grcmanager') }}</p>
+         <div class="mb-3"><a class="btn btn-sm btn-outline-secondary" href="{{ m365_example_url }}"><i class="ti ti-file-type-csv me-1"></i>{{ __('Download an example file', 'grcmanager') }}</a></div>
+         {% if can_manage %}
+            <form method="post" action="{{ action }}" enctype="multipart/form-data" class="row g-2 align-items-end">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="col-md-8">
+                  <label class="form-label" for="grc-share-m365-file">{{ __('CSV file', 'grcmanager') }}</label>
+                  <input type="file" class="form-control" id="grc-share-m365-file" name="share_file" accept=".csv,.txt,text/csv" required>
+               </div>
+               <div class="col-md-4">
+                  <button type="submit" class="btn btn-primary" name="import_m365_shares" value="1"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button>
                </div>
             </form>
          {% else %}

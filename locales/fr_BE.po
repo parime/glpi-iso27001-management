@@ -33913,18 +33913,36 @@ msgid "%d account(s) of the controllers added to the campaign."
 msgstr "%d compte(s) des contrôleurs ajouté(s) à la campagne."
 
 #, php-format
-msgid "%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
-msgstr "%1$d réponse(s) importée(s) depuis le fichier du fournisseur, %2$d document(s) rattaché(s)."
+msgid ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr ""
+"%1$d réponse(s) importée(s) depuis le fichier du fournisseur, %2$d "
+"document(s) rattaché(s)."
 
 #, php-format
 msgid "The document \"%s\" matches no question of the file: it was not added."
-msgstr "Le document « %s » ne correspond à aucune question du fichier : il n'a pas été ajouté."
+msgstr ""
+"Le document « %s » ne correspond à aucune question du fichier : il n'a pas "
+"été ajouté."
 
-msgid "Shows the answers found in the questionnaire file returned by the supplier, question by question, next to the current answers, with the points to check (unknown question, answer outside the list, missing question)."
-msgstr "Montre les réponses trouvées dans le fichier du questionnaire retourné par le fournisseur, question par question, à côté des réponses actuelles, avec les points à vérifier (question inconnue, réponse hors liste, question absente)."
+msgid ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+msgstr ""
+"Montre les réponses trouvées dans le fichier du questionnaire retourné par "
+"le fournisseur, question par question, à côté des réponses actuelles, avec "
+"les points à vérifier (question inconnue, réponse hors liste, question "
+"absente)."
 
-msgid "Check the answers, add the documents sent by the supplier, then save: nothing is recorded before this confirmation. Then review the evaluation and mark it as completed."
-msgstr "Vérifiez les réponses, ajoutez les documents envoyés par le fournisseur, puis enregistrez : rien n'est enregistré avant cette confirmation. Relisez ensuite l'évaluation et marquez-la comme terminée."
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+"Vérifiez les réponses, ajoutez les documents envoyés par le fournisseur, "
+"puis enregistrez : rien n'est enregistré avant cette confirmation. Relisez "
+"ensuite l'évaluation et marquez-la comme terminée."
 
 msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
 msgstr "ISO/IEC 27001, mesures A.5.19 à A.5.22"
@@ -33943,34 +33961,59 @@ msgstr "Nom de la pièce jointe"
 
 #, php-format
 msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
-msgstr "Fichier du questionnaire exporté pour le fournisseur : %1$s (empreinte %2$s)"
+msgstr ""
+"Fichier du questionnaire exporté pour le fournisseur : %1$s (empreinte %2$s)"
 
 #, php-format
 msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
-msgstr "Fichier du questionnaire retourné par le fournisseur pour l'évaluation « %s »"
+msgstr ""
+"Fichier du questionnaire retourné par le fournisseur pour l'évaluation « %s »"
 
 #, php-format
-msgid "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
-msgstr "Fichier du fournisseur importé : %1$s (SHA-256 %2$s), %3$d réponse(s), %4$d document(s)"
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+"Fichier du fournisseur importé : %1$s (SHA-256 %2$s), %3$d réponse(s), %4$d "
+"document(s)"
 
 #, php-format
 msgid "The file is too large (at most %d MB)."
 msgstr "Le fichier est trop volumineux (%d Mo au plus)."
 
-msgid "The file is not a CSV text file: save the spreadsheet as CSV before importing it."
-msgstr "Le fichier n'est pas un fichier texte CSV : enregistrez le classeur au format CSV avant de l'importer."
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"Le fichier n'est pas un fichier texte CSV : enregistrez le classeur au "
+"format CSV avant de l'importer."
 
-msgid "This file is not a questionnaire exported from this plugin: its first line was changed or removed."
-msgstr "Ce fichier n'est pas un questionnaire exporté depuis ce plugin : sa première ligne a été modifiée ou supprimée."
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+"Ce fichier n'est pas un questionnaire exporté depuis ce plugin : sa première "
+"ligne a été modifiée ou supprimée."
 
-msgid "This file was exported for another evaluation: import it in the evaluation it comes from."
-msgstr "Ce fichier a été exporté pour une autre évaluation : importez-le dans l'évaluation d'origine."
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+"Ce fichier a été exporté pour une autre évaluation : importez-le dans "
+"l'évaluation d'origine."
 
-msgid "The questions of this file do not match those of the evaluation: export the questionnaire again."
-msgstr "Les questions de ce fichier ne correspondent pas à celles de l'évaluation : exportez de nouveau le questionnaire."
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+"Les questions de ce fichier ne correspondent pas à celles de l'évaluation : "
+"exportez de nouveau le questionnaire."
 
-msgid "The header line or some columns are missing: keep the columns of the exported file."
-msgstr "La ligne d'en-tête ou des colonnes manquent : gardez les colonnes du fichier exporté."
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+"La ligne d'en-tête ou des colonnes manquent : gardez les colonnes du fichier "
+"exporté."
 
 #, php-format
 msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
@@ -33978,25 +34021,39 @@ msgstr "Ligne %1$d : code de question inconnu « %2$s », ligne ignorée."
 
 #, php-format
 msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
-msgstr "Ligne %1$d : la question %2$s apparaît deux fois, seule la première ligne est gardée."
+msgstr ""
+"Ligne %1$d : la question %2$s apparaît deux fois, seule la première ligne "
+"est gardée."
 
 #, php-format
 msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
-msgstr "Ligne %1$d : la réponse « %2$s » n'est pas dans la liste, ligne ignorée."
+msgstr ""
+"Ligne %1$d : la réponse « %2$s » n'est pas dans la liste, ligne ignorée."
 
 #, php-format
-msgid "Line %1$d: at most %2$d questions per file, the following lines were ignored."
-msgstr "Ligne %1$d : %2$d questions au plus par fichier, les lignes suivantes ont été ignorées."
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+"Ligne %1$d : %2$d questions au plus par fichier, les lignes suivantes ont "
+"été ignorées."
 
 #, php-format
 msgid "Question %s is missing from the file: its answer does not change."
 msgstr "La question %s est absente du fichier : sa réponse ne change pas."
 
 #, php-format
-msgid "%d question changes. Check the answers, then save them: they will be marked as coming from the supplier file."
-msgid_plural "%d questions change. Check the answers, then save them: they will be marked as coming from the supplier file."
-msgstr[0] "%d question change. Vérifiez les réponses, puis enregistrez-les : elles seront marquées comme venant du fichier du fournisseur."
-msgstr[1] "%d questions changent. Vérifiez les réponses, puis enregistrez-les : elles seront marquées comme venant du fichier du fournisseur."
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+"%d question change. Vérifiez les réponses, puis enregistrez-les : elles "
+"seront marquées comme venant du fichier du fournisseur."
+msgstr[1] ""
+"%d questions changent. Vérifiez les réponses, puis enregistrez-les : elles "
+"seront marquées comme venant du fichier du fournisseur."
 
 msgid "Answer in the file"
 msgstr "Réponse du fichier"
@@ -34014,8 +34071,14 @@ msgid "Documents sent by the supplier"
 msgstr "Documents envoyés par le fournisseur"
 
 #, php-format
-msgid "Each document is attached to the questions whose column \"Evidence file name\" gives its name. It is checked like any evidence (types allowed by GLPI, size, real content). Expected: %s"
-msgstr "Chaque document est rattaché aux questions dont la colonne « Nom de la pièce jointe » donne son nom. Il est contrôlé comme toute preuve (types autorisés par GLPI, taille, contenu réel). Attendus : %s"
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+"Chaque document est rattaché aux questions dont la colonne « Nom de la pièce "
+"jointe » donne son nom. Il est contrôlé comme toute preuve (types autorisés "
+"par GLPI, taille, contenu réel). Attendus : %s"
 
 msgid "Review the supplier file"
 msgstr "Vérifier le fichier du fournisseur"
@@ -34024,7 +34087,8 @@ msgid "Save these answers"
 msgstr "Enregistrer ces réponses"
 
 msgid "The file brings no new answer and no new comment."
-msgstr "Le fichier n'apporte aucune nouvelle réponse ni aucun nouveau commentaire."
+msgstr ""
+"Le fichier n'apporte aucune nouvelle réponse ni aucun nouveau commentaire."
 
 msgid "unchanged"
 msgstr "inchangé"
@@ -34033,17 +34097,32 @@ msgid "Answer by file, outside GLPI"
 msgstr "Réponse par fichier, hors de GLPI"
 
 #, php-format
-msgid "At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before importing it."
-msgstr "%1$d Mo et %2$d questions au plus. Enregistrez le classeur au format CSV avant de l'importer."
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"%1$d Mo et %2$d questions au plus. Enregistrez le classeur au format CSV "
+"avant de l'importer."
 
-msgid "CSV file (separator \";\", UTF-8), one line per question. Its first line identifies the evaluation and its questions: it must stay unchanged. Send it by the means of your choice (email, exchange platform)."
-msgstr "Fichier CSV (séparateur « ; », UTF-8), une ligne par question. Sa première ligne identifie l'évaluation et ses questions : elle doit rester inchangée. Envoyez-le par le moyen de votre choix (messagerie, plateforme d'échange)."
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+"Fichier CSV (séparateur « ; », UTF-8), une ligne par question. Sa première "
+"ligne identifie l'évaluation et ses questions : elle doit rester inchangée. "
+"Envoyez-le par le moyen de votre choix (messagerie, plateforme d'échange)."
 
 msgid "Download the questionnaire to fill in"
 msgstr "Télécharger le questionnaire à remplir"
 
-msgid "Each export and import is recorded in the Historical tab (who, when, which file); the returned file is kept in the Documents tab of the supplier risk."
-msgstr "Chaque export et chaque import sont tracés dans l'onglet Historique (qui, quand, quel fichier) ; le fichier retourné est gardé dans l'onglet Documents du risque fournisseur."
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+"Chaque export et chaque import sont tracés dans l'onglet Historique (qui, "
+"quand, quel fichier) ; le fichier retourné est gardé dans l'onglet Documents "
+"du risque fournisseur."
 
 msgid "Import the returned file"
 msgstr "Importer le fichier retourné"
@@ -34060,11 +34139,291 @@ msgstr "Envoyer le questionnaire"
 msgid "This evaluation is completed: reopen it to import a file."
 msgstr "Cette évaluation est terminée : rouvrez-la pour importer un fichier."
 
-msgid "When the supplier has no access to GLPI, send the questionnaire as a file: the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for each document provided, \"Evidence file name\", in any spreadsheet. You then import the returned file here: the answers are shown for review and nothing is saved before your confirmation."
-msgstr "Quand le fournisseur n'a pas accès à GLPI, envoyez-lui le questionnaire sous forme de fichier : il remplit les colonnes « Réponse du fournisseur », « Commentaire » et, pour chaque document fourni, « Nom de la pièce jointe », dans n'importe quel tableur. Vous importez ensuite ici le fichier retourné : les réponses sont présentées pour relecture et rien n'est enregistré avant votre confirmation."
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+"Quand le fournisseur n'a pas accès à GLPI, envoyez-lui le questionnaire sous "
+"forme de fichier : il remplit les colonnes « Réponse du fournisseur », "
+"« Commentaire » et, pour chaque document fourni, « Nom de la pièce jointe », "
+"dans n'importe quel tableur. Vous importez ensuite ici le fichier retourné : "
+"les réponses sont présentées pour relecture et rien n'est enregistré avant "
+"votre confirmation."
 
 msgid "You are not allowed to change this evaluation."
 msgstr "Vous n'avez pas le droit de modifier cette évaluation."
 
 msgid "Supplier answer"
 msgstr "Réponse du fournisseur"
+
+msgid "Security 360°"
+msgstr "Sécurité 360°"
+
+msgid "Good security posture"
+msgstr "Bon niveau de sécurité"
+
+msgid "Security posture to improve"
+msgstr "Niveau de sécurité à améliorer"
+
+msgid "Weak security posture"
+msgstr "Niveau de sécurité faible"
+
+msgid "Not enough data to assess"
+msgstr "Pas assez de données pour évaluer"
+
+msgid "Known vulnerabilities"
+msgstr "Vulnérabilités connues"
+
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr ""
+"Aucune vulnérabilité connue dans les produits surveillés installés sur cet "
+"actif."
+
+#, php-format
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+"%1$d vulnérabilités connues, dont %2$d prioritaires (exploitées activement "
+"ou très graves)."
+
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d dans le catalogue des vulnérabilités exploitées (KEV)"
+
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Volumes non chiffrés : %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Outils : %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, alors que la règle de chiffrement l'exige."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, non exigé par la règle de chiffrement."
+
+#, php-format
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+"Analyse du %1$s : %2$s des règles respectées, %3$d en échec dont %4$d de "
+"gravité haute."
+
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s : la dernière lecture a échoué."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s : aucun écart trouvé."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s : %2$d écarts trouvés."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "Aucun incident ouvert (%d clos ou résolus)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "%1$d incidents ouverts, dont %2$d de priorité haute ou plus."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "%1$d risques liés : %2$d élevés ou critiques, %3$d moyens."
+
+msgid ""
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
+msgstr ""
+"Cet onglet rassemble, pour cet actif, chaque source de sécurité connue du "
+"plugin : vulnérabilités, chiffrement, configuration, contrôleur de gestion, "
+"incidents, risques. Chaque ligne donne son état et un lien vers le détail. "
+"Rien n'est modifié : corrigez les écarts depuis les pages de détail."
+
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Score : %s / 100"
+
+msgid ""
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
+msgstr ""
+"Aucune source évaluée pour cet actif pour l'instant : importez ou lisez les "
+"données des modules de sécurité pour remplir cette vue."
+
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "%1$d sources évaluées : %2$d critiques, %3$d à surveiller."
+
+#, php-format
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+"Le score est la moyenne pondérée des sources (conforme 100, à surveiller 50, "
+"critique 0) ; bon à partir de %1$d, à améliorer à partir de %2$d, faible en "
+"dessous. Une seule source critique empêche le niveau bon."
+
+msgid "Points (weight)"
+msgstr "Points (poids)"
+
+msgid ""
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
+msgstr ""
+"Les sources sans donnée pour cet actif (module non utilisé, rien d'importé, "
+"pas le droit) ne sont pas affichées."
+
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Toute personne disposant du lien"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "Invité externe"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Partage de fichiers Windows"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Lien public (tout le monde)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr ""
+"Un lien de partage fonctionne pour toute personne qui l'a, sans connexion."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "Un invité externe a accès"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"Une personne d'une autre organisation (compte invité) a accès : vérifiez que "
+"c'est toujours nécessaire."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"Aucune colonne de site trouvée : le fichier doit avoir une colonne telle que "
+"Site, Team ou OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Accès refusé par Microsoft Graph : accordez les permissions d'application "
+"Sites.Read.All, Files.Read.All, User.Read.All et GroupMember.Read.All avec "
+"le consentement de l'administrateur."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+"Trop de sites ou de comptes à lire en un clic : rien n'a été remplacé. "
+"Importez plutôt un export CSV."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "Lire les droits SharePoint, OneDrive et Teams"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"GLPI lit les droits de partage par Microsoft Graph quand vous cliquez, avec "
+"l'application réglée pour la couverture MFA, et ne modifie jamais rien dans "
+"Microsoft 365. SharePoint : les droits de la bibliothèque de documents de "
+"chaque site et de ses éléments de premier niveau partagés à part. OneDrive : "
+"les éléments de premier niveau que chaque personne a partagés. Teams : "
+"propriétaires, membres, invités et équipes publiques. Les mêmes écarts et la "
+"même revue que pour les partages de fichiers s'appliquent : liens publics, "
+"invités externes, droits donnés à tout le monde."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Permissions d'application à accorder, avec le consentement de "
+"l'administrateur (lecture seule) : Sites.Read.All, Files.Read.All, User.Read."
+"All et GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph connecté"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Réglages de Microsoft Graph"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "Lire %s maintenant"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"Microsoft Graph n'est pas encore réglé. Saisissez le locataire, "
+"l'identifiant d'application et le secret client sur la page de couverture "
+"MFA, ou importez un export CSV ci-dessous."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Solution de repli : importez un fichier CSV avec une ligne par droit et des "
+"colonnes telles que Source (SharePoint, OneDrive ou Teams), Site, SiteUrl, "
+"Item, Identity, Type (User, Group, Guest), Roles (read, write, owner) et "
+"LinkScope (anonymous, organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Propriétaire dans Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Lien de partage"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Appartenance à l'équipe"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Permission directe"
