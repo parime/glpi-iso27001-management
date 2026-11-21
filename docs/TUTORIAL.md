@@ -284,7 +284,30 @@ badges colorés que le registre générique.
 
 ![Registre de risques fournisseurs avec badges colorés](screenshots/tutorial/33-supplierrisk-list-with-badges.png)
 
-### Étape 8 : Suivre une formation et la réalisation par participant
+### Étape 8 : Évaluer un fournisseur avec des questionnaires
+
+L'onglet **Questionnaires** d'un risque fournisseur liste ses évaluations : modèle utilisé, domaine
+(sécurité de l'information, données personnelles, intelligence artificielle...), statut, score et
+évolution depuis la précédente évaluation du même domaine.
+
+1. Depuis la liste des risques fournisseurs, le bouton **Modèles de questionnaire** ouvre la
+   bibliothèque des modèles. Le modèle **Questionnaire historique** reprend les douze questions
+   d'origine ; créez vos propres modèles (ou copiez-en un avec **Dupliquer ce modèle**).
+2. Dans l'onglet **Questions** d'un modèle, écrivez les questions par section, avec la réponse
+   attendue (« Non » pour une question comme « Avez-vous subi une violation de données ces
+   12 derniers mois ? »), la pondération (0 à 10) et, si besoin, **Pièce exigée**. Chaque
+   changement crée une nouvelle version du modèle ; les évaluations déjà démarrées gardent leurs
+   questions.
+3. Sur le risque fournisseur, choisissez un modèle et cliquez sur **Démarrer une évaluation**.
+4. Dans l'onglet **Questionnaire** de l'évaluation, choisissez la réponse du fournisseur pour chaque
+   question, ajoutez un commentaire et, pour une question qui l'exige, la pièce justificative
+   (certificat ISO 27001, rapport SOC 2, politique...). Elle rejoint l'onglet Documents du risque
+   fournisseur, lisible avec ses seuls droits.
+5. Cliquez sur **Enregistrer et marquer comme terminée** : l'évaluation est figée (elle se rouvre
+   au besoin). La dernière évaluation terminée du domaine sécurité donne le score affiché sur le
+   risque et sur le tableau de bord ; le niveau de risque reste celui saisi par l'équipe.
+
+### Étape 9 : Suivre une formation et la réalisation par participant
 
 Depuis **GRC & Conformité > Opérations > Formations**, la liste affiche les sessions déjà enregistrées.
 
@@ -315,11 +338,11 @@ réalisation (en attente/terminée/dispensé) et une date par participant.
 
 Faire passer un participant au statut « Terminée » avec sa date de réalisation, puis enregistrer :
 son suivi individuel est à jour, et la formation compte désormais dans le taux de réalisation
-affiché au tableau de bord (voir étape 10).
+affiché au tableau de bord (voir étape 11).
 
 ![Statut de réalisation d'un participant mis à jour](screenshots/tutorial/37-training-completion-recorded.png)
 
-### Étape 9 : Enregistrer une revue de direction
+### Étape 10 : Enregistrer une revue de direction
 
 Depuis **GRC & Conformité > Audits et amélioration > Revues de direction**, la liste affiche les revues déjà enregistrées.
 
@@ -334,7 +357,7 @@ positionné à « Terminée » sans indiquer de date de revue, celle-ci est auto
 
 ![Revue de direction enregistrée, date de revue auto-renseignée à la date du jour](screenshots/tutorial/40-managementreview-saved.png)
 
-### Étape 10 : Consulter le tableau de bord ISMS par défaut
+### Étape 11 : Consulter le tableau de bord ISMS par défaut
 
 Depuis la v1.0.0, l'installation du plugin crée automatiquement un tableau de bord natif GLPI
 « GRC Manager - Vue d'ensemble ISMS », visible par tout utilisateur disposant du droit natif
@@ -345,7 +368,7 @@ chiffres clés, une rangée d'indicateurs de progression, puis des répartitions
 
 ![Tableau de bord ISMS par défaut, créé automatiquement à l'installation](screenshots/tutorial/41-dashboard-default-isms.png)
 
-### Étape 11 : Suivre la version du plugin
+### Étape 12 : Suivre la version du plugin
 
 Depuis **Configuration > Plugins**, l'icône en forme de clé ouvre le même écran de configuration
 qu'à l'étape 3 (matrice de risque) : une carte en haut de l'écran compare désormais la version
@@ -359,7 +382,7 @@ cas d'écart et vert lorsque l'instance est à jour.
 > Les étapes 12 à 18 ont été capturées sur GLPI 12 avec la version 2.6.0 (données fictives). Depuis
 > la 2.0, les écrans du plugin sont regroupés dans le menu **GRC & Conformité**.
 
-### Étape 12 : Lancer une campagne de revue des accès
+### Étape 13 : Lancer une campagne de revue des accès
 
 Depuis **GRC & Conformité > Opérations > Revues des accès**, une campagne liste les comptes à revoir et les
 confie à leurs responsables (supérieur hiérarchique, responsable de groupe ou pilote). Chaque
@@ -389,7 +412,7 @@ raison, calculées à partir de ce que GLPI sait déjà, sans IA ni service ext�
 4. Pendant la campagne, **Mettre à jour les suggestions** recalcule les comptes encore à revoir ;
    les comptes déjà décidés gardent la suggestion que leur relecteur a vue.
 
-### Étape 13 : Dater la validité des preuves
+### Étape 14 : Dater la validité des preuves
 
 Sur une mesure, un risque fournisseur, un audit ou une politique, l'onglet **Validités des
 preuves** donne une date de fin de validité à chaque document rattaché (certificat, rapport,
@@ -398,7 +421,7 @@ preuve » est ouvert. **GRC & Conformité > Conformité > Preuves** les rassembl
 
 ![Liste des preuves datées](screenshots/tutorial/44-evidence-validity-list.png)
 
-### Étape 14 : Planifier les revues périodiques
+### Étape 15 : Planifier les revues périodiques
 
 **GRC & Conformité > Opérations > Revues périodiques** propose onze revues (droits d'accès, comptes à
 privilèges, matrice des flux, registre des risques, fournisseurs, politiques, SoA, obligations,
@@ -409,7 +432,7 @@ sur sa période passe « En retard ».
 
 ![Revues périodiques, une revue active avec sa dernière date de revue](screenshots/tutorial/45-periodic-reviews.png)
 
-### Étape 15 : Tenir la matrice des flux réseau
+### Étape 16 : Tenir la matrice des flux réseau
 
 **GRC & Conformité > Sécurité technique > Matrice des flux** recense les flux autorisés : source et destination (un
 actif GLPI ou un réseau, une zone, une adresse), protocole, ports, justification, propriétaire et
@@ -428,7 +451,7 @@ route Traefik, ingress) ouvre un nouveau flux déjà rempli : type, nom, source,
 destination, protocole et ports. Un encadré « Flux proposé » le signale ; vérifiez les valeurs,
 ajoutez la justification et le propriétaire, puis **Ajouter** : rien n'est enregistré avant.
 
-### Étape 16 : Vérifier l'hygiène des comptes
+### Étape 17 : Vérifier l'hygiène des comptes
 
 **GRC & Conformité > Opérations > Hygiène des comptes** liste les comptes actifs à vérifier : supprimés de
 l'annuaire, date de fin dépassée, sans connexion depuis N jours ou jamais utilisés, en double.
@@ -436,7 +459,7 @@ Cochez les comptes et ouvrez un ticket de revue ; aucun compte n'est désactivé
 
 ![Hygiène des comptes](screenshots/tutorial/48-account-hygiene.png)
 
-### Étape 17 : Escalader un ticket en incident de sécurité
+### Étape 18 : Escalader un ticket en incident de sécurité
 
 Sur un ticket classique (« j'ai cliqué sur un lien bizarre »), la section **Sécurité** du panneau
 de droite propose **Escalader en incident de sécurité** : l'incident reprend le titre, la
@@ -446,7 +469,7 @@ des tickets.
 
 ![Section Sécurité d'un ticket qualifié en incident](screenshots/tutorial/50-ticket-security-section.png)
 
-### Étape 18 : Suivre le calendrier de conformité
+### Étape 19 : Suivre le calendrier de conformité
 
 **GRC & Conformité > Tableau de bord > Calendrier de conformité** réunit les événements saisis (audit de
 certification ou de surveillance, test d'intrusion, exercice de crise…) et les échéances des autres
@@ -459,7 +482,7 @@ Chaque échéance apparaît aussi dans le **planning GLPI** de son responsable, 
 
 ![Échéances de conformité dans le planning GLPI](screenshots/tutorial/51-planning-compliance-events.png)
 
-### Étape 19 : Découper le SMSI par entité (périmètres)
+### Étape 20 : Découper le SMSI par entité (périmètres)
 
 Avec plusieurs entités GLPI (par exemple « Filiale Nord » et « Filiale Sud » sous l'entité racine),
 chaque risque appartient à une entité : un utilisateur limité à Filiale Nord ne voit que les risques
@@ -482,7 +505,7 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    Nord reste dans Filiale Nord. Après une mise à jour, ouvrez chaque liste à l'entité racine,
    cochez les éléments d'une filiale, puis **Actions > Modifier > Entité** pour les y ranger.
 
-### Étape 20 : Décrire le contexte de l'organisation (articles 4.1 et 4.2)
+### Étape 21 : Décrire le contexte de l'organisation (articles 4.1 et 4.2)
 
 1. Ouvrez Conformité > **Contexte de l'organisation**. L'encadré « À quoi sert cette page ? » rappelle
    ce qui est attendu.
@@ -501,7 +524,7 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    modifiées depuis la revue précédente, revues dépassées. Pour l'auditeur, exportez la liste
    (CSV ou PDF) avec le bouton d'export de GLPI.
 
-### Étape 21 : Décrire les compétences requises et suivre les écarts (article 7.2)
+### Étape 22 : Décrire les compétences requises et suivre les écarts (article 7.2)
 
 1. Ouvrez la rubrique Revue des accès > **Compétences**. Cliquez sur **Ajouter les fonctions par
    défaut manquantes** : RSSI, DPO, direction, administrateur, développeur, technicien et tout le
@@ -547,7 +570,7 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
     plugin et les utilisateurs sur toutes les entités la reçoivent. Rien n'est modifié
     automatiquement.
 
-### Étape 22 : Tenir le registre des contacts officiels (mesures A.5.5 et A.5.6)
+### Étape 23 : Tenir le registre des contacts officiels (mesures A.5.5 et A.5.6)
 
 1. Ouvrez Conformité > **Contacts officiels** (onglet à côté de « Contexte de l'organisation »).
    L'encadré « À quoi sert cette page ? » rappelle ce qui est attendu.
@@ -601,7 +624,7 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
     métier, et dans la salle de crise d'un exercice ou d'une crise réelle (cadre « Contacts officiels
     à prévenir », repris dans le rapport de l'exercice).
 
-### Étape 23 : Vérifier les licences logicielles (mesure A.5.32)
+### Étape 24 : Vérifier les licences logicielles (mesure A.5.32)
 
 Le plugin lit les logiciels et les licences déjà enregistrés dans GLPI (Parc > Logiciels, onglet
 Licences) ; il ne modifie rien. Il faut le droit « Registres sensibles » du plugin, et les droits
@@ -641,7 +664,7 @@ natifs de lecture des logiciels et des licences.
    montre les compteurs, les licences arrivant à échéance et la couverture des licences ; les
    contrôles de cohérence du SMSI (onglet du tableau de bord) listent chaque écart.
 
-### Étape 24 : Préparer l'audit de certification avec une date cible
+### Étape 25 : Préparer l'audit de certification avec une date cible
 
 1. Ouvrez Tableau de bord > **Préparation à la certification**. L'encadré « À quoi sert cette page ? »
    rappelle ce qui est attendu.
@@ -676,7 +699,7 @@ natifs de lecture des logiciels et des licences.
 8. Les réglages demandent le droit de modifier le plugin ; la page reste lisible avec le droit de
    lecture.
 
-### Étape 25 : Tenir le registre des procédures d'exploitation (mesure A.5.37)
+### Étape 26 : Tenir le registre des procédures d'exploitation (mesure A.5.37)
 
 1. Ouvrez Conformité > **Procédures d'exploitation** (onglet à côté de « Politiques de sécurité »).
    La page montre la couverture des domaines attendus : sauvegarde, restauration, supervision,
@@ -718,7 +741,7 @@ natifs de lecture des logiciels et des licences.
     Le PDF du registre reprend cet historique, procédure par procédure : l'auditeur voit que la
     revue est faite chaque année, pas seulement la dernière.
 
-### Étape 26 : Suivre la fin de garantie du matériel (mesures A.7.13 et A.8.9)
+### Étape 27 : Suivre la fin de garantie du matériel (mesures A.7.13 et A.8.9)
 
 Le plugin lit les informations financières déjà saisies dans GLPI (onglet « Gestion » d'un
 ordinateur, d'un moniteur, d'un matériel réseau...) : la **date de début de garantie** et la
@@ -760,7 +783,7 @@ type de matériel.
    cohérence liste chaque matériel concerné (règle « Matériel dont le modèle a atteint la fin de
    vie constructeur »).
 
-### Étape 27 : Évaluer la sécurité physique des sites (mesures A.7.1 à A.7.14)
+### Étape 28 : Évaluer la sécurité physique des sites (mesures A.7.1 à A.7.14)
 
 1. Les sites sont les **lieux de GLPI** (Configuration > Intitulés > Lieux) : créez par exemple
    « Siège fictif, 12 rue des Essais, Villefictive » et « Entrepôt fictif, 4 allée des Tests ». Aucun
@@ -794,7 +817,7 @@ type de matériel.
    (évaluateur, statut, politique, score), grille A.7.1 à A.7.14 avec constats, preuves et actions,
    puis les zones et leurs contrôles d'accès. Le rapport est calculé à la demande avec vos droits.
 
-### Étape 28 : Préparer la communication de crise (mesure A.5.26, article 7.4)
+### Étape 29 : Préparer la communication de crise (mesure A.5.26, article 7.4)
 
 1. Dans l'en-tête de la liste des incidents de sécurité, cliquez sur **Modèles de messages de
    crise**. Cinq modèles sont fournis : incident majeur (premier message interne et fin de crise),
@@ -807,7 +830,7 @@ type de matériel.
    variable sans valeur devient « [à compléter] ».
 3. Dans l'onglet **Liste de diffusion** du modèle, ajoutez les destinataires internes (utilisateurs
    et groupes GLPI) et externes. Les destinataires externes sont les **contacts officiels** de
-   l'étape 22 (assureur, autorité, prestataire...) : enregistrez d'abord un destinataire absent dans
+   l'étape 23 (assureur, autorité, prestataire...) : enregistrez d'abord un destinataire absent dans
    le registre des contacts officiels. Un contact sans coordonnées, un utilisateur sans adresse
    électronique ou un groupe sans membre est signalé « Aucune adresse enregistrée ».
 4. Pendant une crise, ouvrez l'incident (par exemple « Chiffrement du serveur de fichiers
@@ -847,7 +870,7 @@ type de matériel.
    crise) apparaissent dans la salle de crise, avec un lien « Préparer un message », et dans le
    rapport PDF de l'exercice.
 
-### Étape 29 : Rapprocher les systèmes d'exploitation des CVE (mesure A.8.8)
+### Étape 30 : Rapprocher les systèmes d'exploitation des CVE (mesure A.8.8)
 
 Les vulnérabilités du parc suivent les logiciels installés, les firmwares et les **systèmes
 d'exploitation** (onglet « Systèmes d'exploitation » d'un ordinateur dans GLPI : nom, version,
@@ -876,7 +899,7 @@ version du noyau). Un système n'est rapproché d'une CVE qu'après votre valida
    vulnérabilités du système d'exploitation et des firmwares de chaque machine : un serveur à jour
    de ses logiciels mais sous un système vulnérable y remonte.
 
-### Étape 30 : Décrire les scénarios de crise sécurité du PCA (mesure A.5.29)
+### Étape 31 : Décrire les scénarios de crise sécurité du PCA (mesure A.5.29)
 
 Le plan de continuité décrit la restauration technique de chaque processus (stratégie de reprise,
 RTO). Cette étape y ajoute la sécurité de l'information pendant la crise : comment continuer à
@@ -898,7 +921,7 @@ travailler sans baisser la sécurité quand la crise est elle-même une attaque.
    scénarios par défaut reprennent celles fournies (rançongiciel, fuite de données, compte
    compromis). Pour le déni de service et l'indisponibilité d'un prestataire, créez la procédure
    dans la bibliothèque, puis choisissez-la ici. La **communication de crise** renvoie aux modèles de
-   messages de l'étape 28.
+   messages de l'étape 29.
 6. **Exercice** : un exercice de crise terminé (page **Exercices de crise** de la même rubrique) du
    scénario d'exercice choisi compte comme exercice du scénario. Un exercice sur table tenu sans le plugin se note dans
    **Dernier exercice hors du plugin**, son compte rendu en document joint.
@@ -922,7 +945,7 @@ travailler sans baisser la sécurité quand la crise est elle-même une attaque.
      « violation de données » pour une situation de fuite de données, visibles depuis l'entité du
      scénario, avec leur délai et leur dernière vérification. Ils figurent aussi dans le PDF.
 
-### Étape 31 : Programmer et mesurer les tests de reprise (mesure A.5.30)
+### Étape 32 : Programmer et mesurer les tests de reprise (mesure A.5.30)
 
 L'auditeur demande la preuve que la reprise des TIC est testée régulièrement, et que les temps
 mesurés tiennent les objectifs. Il faut le droit **Continuité d'activité** du profil.
@@ -951,7 +974,7 @@ mesurés tiennent les objectifs. Il faut le droit **Continuité d'activité** du
    tests de reprise qui l'ont couvert. La liste des types se règle dans **Configuration > GRC
    Manager**, encadré **Types d'exercice de reprise**.
 
-### Étape 32 : Encadrer le développement sécurisé et les mises en production (mesures A.8.25 à A.8.31)
+### Étape 33 : Encadrer le développement sécurisé et les mises en production (mesures A.8.25 à A.8.31)
 
 Le plugin s'appuie sur les **applications** de GLPI (Parc > Applications) et sur les
 **changements** (Assistance > Changements) : il n'en crée pas d'autres. Il faut le droit général du
@@ -996,7 +1019,7 @@ GRC Manager du profil, attribué au Super-Admin à l'installation).
    partielle (A.8.31). Ces preuves servent à lever les constats d'audit sur le cycle de
    développement, le codage sécurisé, les tests de sécurité et la séparation des environnements.
 
-### Étape 33 : Prouver la sensibilisation par les simulations d'hameçonnage (article 7.3, mesure A.6.3)
+### Étape 34 : Prouver la sensibilisation par les simulations d'hameçonnage (article 7.3, mesure A.6.3)
 
 1. Avant la première simulation, informez le personnel que des simulations d'hameçonnage ont lieu
    (finalité : sensibiliser, pas sanctionner) et inscrivez ce traitement au registre RGPD : les
@@ -1048,7 +1071,7 @@ GRC Manager du profil, attribué au Super-Admin à l'installation).
     résultats par personne expirés et garde les taux ; l'onglet **Résultats** affiche la date prévue.
     Inscrivez la même durée dans votre registre RGPD.
 
-### Étape 34 : Préparer l'audit avec le plan d'audit de l'organisme
+### Étape 35 : Préparer l'audit avec le plan d'audit de l'organisme
 
 L'organisme de certification n'audite pas tous les processus chaque année : il les échantillonne
 sur son cycle de trois ans et l'annonce dans son plan d'audit. L'écran **Audits et amélioration >
@@ -1072,7 +1095,7 @@ logiques et physiques, fournisseurs). Un constat est rattaché à un processus q
 **Processus audité** reprend le nom du processus (le champ le propose), ou quand sa clause ou
 mesure fait partie des mesures du processus. Cocher demande le droit de modifier l'audit concerné.
 
-### Étape 35 : Répondre aux constats de l'organisme dans les délais
+### Étape 36 : Répondre aux constats de l'organisme dans les délais
 
 Après l'audit, l'organisme de certification fixe dans son rapport deux délais : l'envoi du **plan
 d'actions** (pour chaque non-conformité : correction, cause et action corrective), puis l'envoi des
@@ -1096,7 +1119,7 @@ ou une piste de progrès. Un délai est signalé comme proche 7 jours avant. La 
 certification** compte les plans d'actions et les preuves encore à envoyer, et ceux en retard.
 Rien n'est modifié automatiquement : statut, responsable et échéance restent ceux que vous saisissez.
 
-### Étape 36 : Voir ce qui bloque chaque mesure de la SoA
+### Étape 37 : Voir ce qui bloque chaque mesure de la SoA
 
 Avant un audit, il faut savoir pourquoi une mesure n'est pas encore conforme. Le plugin réunit en
 une seule liste ce que ses autres écrans signalent déjà, sans rien recalculer.
@@ -1115,7 +1138,7 @@ la mesure (par exemple A.8.16), ou quand elle a été ouverte par un test ineffi
 Une politique en brouillon bloque la mesure A.5.1. Seul ce que vous avez le droit de lire est
 affiché, et rien n'est modifié automatiquement.
 
-### Étape 37 : Remettre le dossier de preuves à l'auditeur (articles 7.5.3 et 9.2)
+### Étape 38 : Remettre le dossier de preuves à l'auditeur (articles 7.5.3 et 9.2)
 
 L'auditeur demande souvent, avant sa visite, l'ensemble des preuves du périmètre audité. La page
 **Conformité > Dossier de preuves** le prépare en une archive ZIP.
@@ -1135,7 +1158,7 @@ l'index sans être incluse. La limite de taille se règle sur la page (200 Mo pa
 est gardée comme document restreint : vous, et toute personne qui peut lire chacune de ses pièces,
 pouvez la télécharger. Rien n'est modifié dans les registres.
 
-### Étape 38 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
+### Étape 39 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
 
 L'agent d'inventaire de GLPI remonte, pour chaque volume d'un ordinateur, l'état du chiffrement,
 l'outil (BitLocker, FileVault, LUKS, VeraCrypt...) et l'algorithme. Le plugin lit ces données ; il
@@ -1166,7 +1189,7 @@ plugin et le droit natif de lecture des ordinateurs.
    « Ordinateurs à chiffrer qui le sont (%) » et les indicateurs de risque la source « Portables
    avec un disque non chiffré (%) ».
 
-### Étape 39 : Suivre le retard des correctifs de sécurité (mesures A.8.8 et A.8.19)
+### Étape 40 : Suivre le retard des correctifs de sécurité (mesures A.8.8 et A.8.19)
 
 L'agent d'inventaire de GLPI remonte le système de chaque ordinateur, sa version et, selon la
 plateforme, les mises à jour installées (articles KB de Windows) ou les paquets installés avec leur
@@ -1192,7 +1215,7 @@ faut le droit du plugin et le droit natif de lecture des ordinateurs.
    dans les délais (%) » et les indicateurs de risque la source « Serveurs critiques avec
    correctifs en retard ».
 
-### Étape 40 : Mesurer la couverture de l'authentification multifacteur (mesures A.8.5 et A.5.17)
+### Étape 41 : Mesurer la couverture de l'authentification multifacteur (mesures A.8.5 et A.5.17)
 
 L'auditeur demande quels comptes, et surtout quels administrateurs et accès distants, sont protégés
 par une authentification multifacteur (MFA). Le plugin lit la double authentification de GLPI et
@@ -1227,7 +1250,7 @@ jamais de secret. Il faut le droit du plugin et la lecture native des utilisateu
    « Administrateurs protégés par MFA (%) », les indicateurs de risque la source « Administrateurs
    sans MFA », et la page Hygiène des comptes rappelle leur nombre.
 
-### Étape 41 : Vérifier que les actifs importants envoient leurs journaux (mesures A.8.15, A.8.16 et A.8.17)
+### Étape 42 : Vérifier que les actifs importants envoient leurs journaux (mesures A.8.15, A.8.16 et A.8.17)
 
 Le plugin compare la liste des hôtes connus de vos plateformes de journaux aux ordinateurs et
 matériels réseau de GLPI. Il lit seulement : il ne lance rien sur les plateformes et ne modifie rien
@@ -1259,7 +1282,7 @@ dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateu
    insuffisante et la date du calcul. Les indicateurs de risque proposent la source « Actifs
    critiques sans journalisation (%) ».
 
-### Étape 42 : Mesurer la conformité de configuration avec OpenSCAP (mesure A.8.9)
+### Étape 43 : Mesurer la conformité de configuration avec OpenSCAP (mesure A.8.9)
 
 OpenSCAP vérifie une machine contre un guide de durcissement (profils CIS, ANSSI, DISA STIG… du
 projet SCAP Security Guide) et produit un fichier de résultats XCCDF ou ARF. Le plugin lit ce
@@ -1294,7 +1317,7 @@ Sécurité de l'import : le fichier est lu en flux (les gros rapports ARF passen
 de type de document ou d'entité est refusée et aucun accès réseau n'est fait pendant la lecture. Le
 fichier lui-même n'est pas conservé, seulement les compteurs et les règles en échec.
 
-### Étape 43 : Suivre l'audit de sécurité de l'Active Directory (mesures A.5.15 à A.5.18, A.8.2 et A.8.5)
+### Étape 44 : Suivre l'audit de sécurité de l'Active Directory (mesures A.5.15 à A.5.18, A.8.2 et A.8.5)
 
 L'Active Directory est la première cible des attaques : comptes privilégiés, délégations, comptes
 inactifs. Le plugin garde les résultats des audits que votre équipe réalise avec PingCastle ; il ne
@@ -1329,6 +1352,77 @@ sensibles : ces rapports décrivent les faiblesses du domaine.
    l'Active Directory » montre le score de chaque domaine et le nombre de règles qui concernent la
    mesure. Le tableau de bord propose la carte « Score de sécurité de l'Active Directory » et les
    indicateurs de risque la source du même nom.
+
+### Étape 45 : Contrôler les droits d'accès aux partages de fichiers Windows (mesures A.5.15, A.5.18 et A.8.3)
+
+L'auditeur demande la preuve que les accès aux dossiers partagés sont limités au besoin et revus.
+Le plugin ne se connecte à aucun serveur de fichiers et ne modifie aucun droit : un administrateur
+lance un script PowerShell en lecture seule, puis importe le fichier CSV qu'il produit. Il faut le
+droit du plugin et le droit des registres sensibles (en modification pour importer).
+
+1. Ouvrez Revue des accès > **Droits sur les partages de fichiers**. L'encadré « À quoi sert cette
+   page ? » rappelle ce qui est attendu.
+2. Dans **Importer les droits d'un serveur de fichiers**, cliquez sur **Télécharger le script
+   PowerShell** et copiez `Export-GrcShareAccess.ps1` sur le serveur de fichiers. Lancez-le avec un
+   compte qui peut lire les dossiers :
+
+   ```powershell
+   .\Export-GrcShareAccess.ps1 -Depth 2 -OutFile shares.csv
+   ```
+
+   Le script lit les partages (`Get-SmbShare`, partages d'administration exclus), leurs droits de
+   partage (`Get-SmbShareAccess`), les droits NTFS de la racine et ceux posés sur les sous-dossiers
+   jusqu'à `-Depth` niveaux (`Get-Acl`), l'héritage et le propriétaire. `-Share Compta,Projets`
+   limite la lecture à certains partages ; `-ResolvePrincipalType` demande à Active Directory si
+   chaque compte est un utilisateur ou un groupe. Un export d'un autre outil est accepté s'il a des
+   colonnes telles que `Server`, `Share`, `Folder`, `Identity`, `Rights`, `AccessType`,
+   `IsInherited` et `InheritanceProtected` ; **Télécharger un fichier d'exemple** en montre un.
+3. Importez le fichier. Les comptes sont rapprochés des utilisateurs (identifiant) et des groupes
+   (nom) de GLPI. Un nouvel import du même serveur montre les **droits ajoutés et retirés** depuis
+   le précédent ; l'historique est dans **Imports et évolution dans le temps**.
+4. La liste des partages commence par les plus exposés. Les écarts signalés sont : **tout le monde
+   peut modifier** (Tout le monde, Utilisateurs authentifiés, Utilisateurs du domaine ou Invités avec
+   un droit de modification), **compte supprimé** (SID non résolu ou compte à la corbeille de GLPI)
+   ou **désactivé** qui a encore des droits, **droit donné à une personne** plutôt qu'à un groupe,
+   **héritage cassé** sur un sous-dossier d'un partage sensible, **partage sans propriétaire**.
+5. Ouvrez un partage : classez-le (confidentialité, intégrité, disponibilité) et désignez son
+   **propriétaire**. Le score pondéré compte 3 par écart grave et 1 pour les autres, multiplié par 3
+   pour un partage classé élevé et par 2 pour moyen.
+6. Cliquez sur **Lancer une revue** : le propriétaire décide pour chaque droit (garder, modifier ou
+   retirer, avec un commentaire pour les deux derniers), puis **Clôturer la revue**. Les décisions
+   sont tracées avec leur auteur et leur date. L'administrateur applique les changements sur le
+   serveur ; l'import suivant montre les droits retirés.
+7. Sur la fiche des mesures A.5.15, A.5.18 et A.8.3, le cadre « Droits sur les partages de
+   fichiers » montre le nombre de partages, ceux qui ont un écart, les droits qui laissent tout le
+   monde modifier, ceux des comptes supprimés ou désactivés et les partages revus dans les douze
+   derniers mois.
+
+### Étape 46 : Mesurer la maturité de chaque mesure et fixer les cibles (articles 6.2, 9.3 et 10.1)
+
+Le score de maturité global résume le SMSI en un chiffre. Pour bâtir et défendre la feuille de
+route, on évalue en plus chaque mesure : « nous sommes au niveau 2 et visons le niveau 4 l'an
+prochain ». Ces niveaux sont facultatifs : ils ne changent ni l'état de mise en œuvre des mesures
+ni le score de maturité.
+
+1. Ouvrez Tableau de bord > **Maturité par mesure**, puis **Ajouter**. Donnez un nom (par exemple
+   « Évaluation 2026 »), la date de l'évaluation et le pilote. La campagne reprend les mesures
+   applicables de la SoA de l'entité ; les cibles, échéances, responsables et justifications de la
+   campagne précédente sont repris.
+2. Dans l'onglet **Niveaux par mesure**, choisissez pour chaque mesure le niveau actuel et le niveau
+   cible, de 0 (inexistant) à 5 (optimisé), l'échéance, le responsable et la justification, puis
+   cliquez sur **Enregistrer les niveaux**. Le niveau de la campagne précédente est rappelé sous le
+   niveau actuel.
+3. L'onglet **Écarts** classe les mesures dont la cible n'est pas atteinte, du plus grand écart au
+   plus petit puis par échéance (échéance dépassée en rouge). Filtrez par référentiel activé, thème
+   ou responsable ; le radar compare les niveaux moyens actuel et cible de chaque thème.
+   **Créer l'action** ouvre une piste d'amélioration pré-remplie (mesure, niveaux, échéance,
+   responsable) que vous relisez et enregistrez vous-même ; elle suit ensuite le circuit CAPA.
+4. L'onglet **Comparaison** met côte à côte les niveaux actuels de deux campagnes de la même
+   entité : mesures en progrès, en recul et inchangées.
+5. **Rapport (PDF)** produit la synthèse pour la revue de direction : niveaux moyens par thème,
+   écarts triés et comparaison avec la campagne précédente.
+6. Les libellés de l'échelle se renomment dans la configuration du plugin, cadre
+   **Échelle de maturité par mesure** (un champ vide garde le libellé par défaut, traduit).
 
 ## 🇬🇧 English
 
@@ -1578,7 +1672,29 @@ badges as the generic register.
 
 ![Supplier risk register with colored badges](screenshots/tutorial/33-supplierrisk-list-with-badges.png)
 
-### Step 8: Record a training session and a participant's completion
+### Step 8: Evaluate a supplier with questionnaires
+
+The **Questionnaires** tab of a supplier risk lists its evaluations: template used, domain
+(information security, personal data, artificial intelligence...), status, score and change since
+the previous evaluation of the same domain.
+
+1. From the supplier risk list, the **Questionnaire templates** button opens the template library.
+   The **Historical questionnaire** template keeps the twelve original questions; create your own
+   templates (or copy one with **Duplicate this template**).
+2. In the **Questions** tab of a template, write the questions by section, with the expected answer
+   ("No" for a question such as "Have you suffered a data breach in the last 12 months?"), the
+   weight (0 to 10) and, when needed, **Evidence required**. Each change creates a new version of
+   the template; evaluations already started keep their questions.
+3. On the supplier risk, choose a template and click **Start an evaluation**.
+4. In the **Questionnaire** tab of the evaluation, choose the supplier's answer to each question,
+   add a comment and, for a question that requires it, the evidence (ISO 27001 certificate, SOC 2
+   report, policy...). It is added to the Documents tab of the supplier risk, readable only with its
+   rights.
+5. Click **Save and mark as completed**: the evaluation is frozen (it can be reopened). The last
+   completed evaluation of the security domain gives the score shown on the risk and on the
+   dashboard; the risk level stays the one entered by the team.
+
+### Step 9: Record a training session and a participant's completion
 
 From **GRC & Conformité > Opérations > Formations**, the list shows the sessions already recorded.
 
@@ -1609,11 +1725,11 @@ Once saved, a per-participant tracking table appears below the form: a completio
 
 Switching a participant's status to "Terminée" (completed) with their completion date, then
 saving: that participant's individual tracking is up to date, and the training now counts towards
-the completion rate shown on the dashboard (see step 10).
+the completion rate shown on the dashboard (see step 11).
 
 ![Participant's completion status updated](screenshots/tutorial/37-training-completion-recorded.png)
 
-### Step 9: Record a management review
+### Step 10: Record a management review
 
 From **GRC & Conformité > Audits et amélioration > Revues de direction**, the list shows the reviews already recorded.
 
@@ -1628,7 +1744,7 @@ save.
 
 ![Saved management review, review date auto-stamped with today's date](screenshots/tutorial/40-managementreview-saved.png)
 
-### Step 10: Browse the default ISMS dashboard
+### Step 11: Browse the default ISMS dashboard
 
 Since v1.0.0, installing the plugin automatically creates a native GLPI dashboard, "GRC Manager -
 Vue d'ensemble ISMS", visible to any user with the native "Dashboards" right (the selector at the
@@ -1638,7 +1754,7 @@ organized as a row of key figures, a row of progress indicators, then breakdowns
 
 ![Default ISMS dashboard, created automatically at install time](screenshots/tutorial/41-dashboard-default-isms.png)
 
-### Step 11: Track the plugin's version
+### Step 12: Track the plugin's version
 
 From **Configuration > Plugins**, the wrench icon opens the same configuration screen as step 3
 (risk matrix): a card at the top of the screen now compares the installed version against the
@@ -1650,7 +1766,7 @@ green one once the instance is up to date.
 > Steps 12 to 18 were captured on GLPI 12 with version 2.6.0 (sample data, French interface).
 > Since 2.0, the plugin screens are grouped in the **GRC & Conformité** menu.
 
-### Step 12: Run an access review campaign
+### Step 13: Run an access review campaign
 
 From **GRC & Conformité > Opérations > Revues des accès** (access reviews), a campaign lists the accounts to
 review and assigns them to their reviewers (manager, group owner or campaign owner). Each reviewer
@@ -1680,7 +1796,7 @@ computed from what GLPI already knows, without AI or any external service:
 4. During the campaign, **Update the suggestions** recomputes the accounts still to review; accounts
    already decided keep the suggestion their reviewer saw.
 
-### Step 13: Date the validity of your evidence
+### Step 14: Date the validity of your evidence
 
 On a control, a supplier risk, an audit or a policy, the **Validités des preuves** tab gives an
 expiry date to each attached document (certificate, report, attestation). The owner is warned 30
@@ -1689,7 +1805,7 @@ lists them all.
 
 ![Dated evidence list](screenshots/tutorial/44-evidence-validity-list.png)
 
-### Step 14: Schedule periodic reviews
+### Step 15: Schedule periodic reviews
 
 **GRC & Conformité > Opérations > Revues périodiques** offers eleven reviews (access rights, privileged
 accounts, network flow matrix, risk register, suppliers, policies, SoA, obligations, restore and
@@ -1699,7 +1815,7 @@ the evidence the auditor expects. A review not done within its period turns "ove
 
 ![Periodic reviews, an active review with its last review date](screenshots/tutorial/45-periodic-reviews.png)
 
-### Step 15: Maintain the network flow matrix
+### Step 16: Maintain the network flow matrix
 
 **GRC & Conformité > Sécurité technique > Matrice des flux** records the allowed flows: source and destination (a GLPI
 asset or a network, zone or address), protocol, ports, justification, owner and end date.
@@ -1718,7 +1834,7 @@ port, Traefik route, ingress) opens a new flow already filled in: type, name, so
 application, protocol and ports. A "Proposed flow" box says so; check the values, add the
 justification and the owner, then **Add**: nothing is saved before.
 
-### Step 16: Check account hygiene
+### Step 17: Check account hygiene
 
 **GRC & Conformité > Opérations > Hygiène des comptes** lists the active accounts to check: deleted from the
 directory, end date passed, no login for N days or never used, duplicates. Tick the accounts and
@@ -1726,7 +1842,7 @@ open a review ticket; no account is ever disabled automatically.
 
 ![Account hygiene](screenshots/tutorial/48-account-hygiene.png)
 
-### Step 17: Escalate a ticket to a security incident
+### Step 18: Escalate a ticket to a security incident
 
 On a regular ticket ("I clicked a suspicious link"), the **Sécurité** section of the right panel
 offers **Escalader en incident de sécurité**: the incident takes over the title, description,
@@ -1735,7 +1851,7 @@ the incident. The action is also available as a massive action on the ticket lis
 
 ![Security section of a ticket qualified as an incident](screenshots/tutorial/50-ticket-security-section.png)
 
-### Step 18: Follow the compliance calendar
+### Step 19: Follow the compliance calendar
 
 **GRC & Conformité > Tableau de bord > Calendrier de conformité** brings together the events you enter
 (certification or surveillance audit, penetration test, crisis exercise…) and the deadlines of the
@@ -1748,7 +1864,7 @@ Each deadline also appears in its owner's **GLPI planning**, read only.
 
 ![Compliance deadlines in the GLPI planning](screenshots/tutorial/51-planning-compliance-events.png)
 
-### Step 19: Split the ISMS by entity (perimeters)
+### Step 20: Split the ISMS by entity (perimeters)
 
 With several GLPI entities (for instance "North subsidiary" and "South subsidiary" under the root
 entity), each risk belongs to an entity: a user limited to the North subsidiary only sees its risks.
@@ -1767,7 +1883,7 @@ To give a subsidiary its own Statement of Applicability:
    view). The team, evidence and auditor access lists only offer accounts with a profile in the North
    subsidiary. The treatment actions of a risk follow the entity of the risk.
 
-### Step 20: Describe the context of the organization (clauses 4.1 and 4.2)
+### Step 21: Describe the context of the organization (clauses 4.1 and 4.2)
 
 1. Open Compliance > **Context of the organization**. The "What is this page for?" box explains what
    is expected.
@@ -1786,7 +1902,7 @@ To give a subsidiary its own Statement of Applicability:
    since the previous review, overdue reviews. For the auditor, export the list (CSV or PDF) with the
    GLPI export button.
 
-### Step 21: Describe the required competences and follow the gaps (clause 7.2)
+### Step 22: Describe the required competences and follow the gaps (clause 7.2)
 
 1. Open the Access review section > **Competences**. Click **Add the missing default functions**:
    CISO, DPO, top management, administrator, developer, technician and all staff arrive with their
@@ -1831,7 +1947,7 @@ To give a subsidiary its own Statement of Applicability:
     Setup > Notifications; only those who can read the plugin and the users in all entities receive
     it. Nothing is changed automatically.
 
-### Step 22: Keep the register of official contacts (controls A.5.5 and A.5.6)
+### Step 23: Keep the register of official contacts (controls A.5.5 and A.5.6)
 
 1. Open Compliance > **Official contacts** (tab next to "Context of the organization"). The "What is
    this page for?" box explains what is expected.
@@ -1881,7 +1997,7 @@ To give a subsidiary its own Statement of Applicability:
     business processes, and in the crisis room of an exercise or of a real crisis ("Official
     contacts to inform" box, included in the exercise report).
 
-### Step 23: Check software licenses (control A.5.32)
+### Step 24: Check software licenses (control A.5.32)
 
 The plugin reads the software and licenses already recorded in GLPI (Assets > Software, Licenses
 tab); it changes nothing. You need the "Sensitive registers" right of the plugin, and the native
@@ -1920,7 +2036,7 @@ rights to read software and licenses.
    licenses expiring soon and the license coverage; the ISMS consistency checks (tab of the
    dashboard) list each gap.
 
-### Step 24: Prepare the certification audit with a target date
+### Step 25: Prepare the certification audit with a target date
 
 1. Open Dashboard > **Certification readiness**. The "What is this page for?" box explains what is
    expected.
@@ -1952,7 +2068,7 @@ rights to read software and licenses.
    over the cycle stays in the **multi-year audit programme**.
 8. The settings require the right to modify the plugin; the page stays readable with the read right.
 
-### Step 25: Keep the register of operating procedures (control A.5.37)
+### Step 26: Keep the register of operating procedures (control A.5.37)
 
 1. Open Compliance > **Operating procedures** (tab next to "Security policies"). The page shows the
    coverage of the expected domains: backup, restore, monitoring, logs, updates, deployment, access
@@ -1989,7 +2105,7 @@ rights to read software and licenses.
     procedure by procedure: the auditor sees that the review is done every year, not only the last
     one.
 
-### Step 26: Follow the hardware warranty (controls A.7.13 and A.8.9)
+### Step 27: Follow the hardware warranty (controls A.7.13 and A.8.9)
 
 The plugin reads the financial information already recorded in GLPI ("Management" tab of a
 computer, a monitor, a network device...): the **warranty start date** and the **warranty
@@ -2029,7 +2145,7 @@ hardware.
    consistency check lists each affected piece of hardware (rule "Hardware whose model has reached
    the manufacturer end of life").
 
-### Step 27: Assess the physical security of the sites (controls A.7.1 to A.7.14)
+### Step 28: Assess the physical security of the sites (controls A.7.1 to A.7.14)
 
 1. The sites are the **locations of GLPI** (Setup > Dropdowns > Locations): create for instance
    "Fictitious head office, 12 Test Street, Sampletown" and "Fictitious warehouse, 4 Demo Lane".
@@ -2062,7 +2178,7 @@ hardware.
    status, policy, score), A.7.1 to A.7.14 checklist with findings, evidence and actions, then the
    zones and their access controls. The report is computed on demand with your rights.
 
-### Step 28: Prepare crisis communication (control A.5.26, clause 7.4)
+### Step 29: Prepare crisis communication (control A.5.26, clause 7.4)
 
 1. In the header of the security incident list, click **Crisis message templates**. Five templates
    are provided: major incident (first internal message and end of crisis), data breach
@@ -2074,7 +2190,7 @@ hardware.
    are replaced with the values of the incident when the message is prepared; a variable without a
    value becomes "[to be completed]".
 3. In the **Distribution list** tab of the template, add the internal recipients (GLPI users and
-   groups) and the external ones. External recipients are the **official contacts** of step 22
+   groups) and the external ones. External recipients are the **official contacts** of step 23
    (insurer, authority, provider...): record a missing recipient in the register of official
    contacts first. A contact without details, a user without an email address or a group without
    members is flagged "No address recorded".
@@ -2112,7 +2228,7 @@ hardware.
    are shown in the crisis room, with a "Prepare a message" link, and in the PDF report of the
    exercise.
 
-### Step 29: Match operating systems with CVEs (control A.8.8)
+### Step 30: Match operating systems with CVEs (control A.8.8)
 
 Fleet vulnerabilities follow installed software, firmware and **operating systems** ("Operating
 systems" tab of a computer in GLPI: name, version, kernel version). An operating system is matched
@@ -2137,7 +2253,7 @@ plugin with update, and the right to read software.
 5. Update tickets link the affected computers of the ticket's entity, including those that become
    affected after the ticket was opened.
 
-### Step 30: Describe the security crisis scenarios of the continuity plan (control A.5.29)
+### Step 31: Describe the security crisis scenarios of the continuity plan (control A.5.29)
 
 The continuity plan describes the technical recovery of each process (recovery strategy, RTO). This
 step adds information security during the crisis: how to keep working without lowering security
@@ -2158,7 +2274,7 @@ when the crisis is itself an attack.
 5. The **response playbook** is a remediation playbook of the incident library: the default
    scenarios use the ones provided (ransomware, data leak, compromised account). For denial of
    service and supplier unavailability, create the playbook in the library, then choose it here.
-   **Crisis communication** points to the message templates of step 28.
+   **Crisis communication** points to the message templates of step 29.
 6. **Exercise**: a finished crisis exercise (**Crisis exercises** page of the same section) of the
    chosen exercise scenario counts as an exercise of the scenario. A tabletop exercise held without
    the plugin is recorded in **Last exercise outside the plugin**, with its report attached.
@@ -2183,7 +2299,7 @@ when the crisis is itself an attack.
      breach" for a data leak situation, visible from the entity of the scenario, with their time
      limit and their last verification. They are also in the PDF.
 
-### Step 31: Schedule and measure recovery tests (control A.5.30)
+### Step 32: Schedule and measure recovery tests (control A.5.30)
 
 The auditor asks for evidence that ICT recovery is tested regularly and that the measured times
 meet the objectives. The profile needs the **Business continuity** right.
@@ -2212,7 +2328,7 @@ meet the objectives. The profile needs the **Business continuity** right.
    that covered it. The list of types is set in **Setup > GRC Manager**, **Types of recovery
    exercise** box.
 
-### Step 32: Frame secure development and releases (controls A.8.25 to A.8.31)
+### Step 33: Frame secure development and releases (controls A.8.25 to A.8.31)
 
 The plugin relies on the **appliances** of GLPI (Assets > Appliances) and on the **changes**
 (Assistance > Changes): it creates no other object. You need the general right of the plugin; to
@@ -2255,7 +2371,7 @@ Super-Admin at installation).
    evidence helps lift the audit findings on the development life cycle, secure coding, security
    testing and separation of environments.
 
-### Step 33: Use phishing simulations as evidence of awareness (clause 7.3, control A.6.3)
+### Step 34: Use phishing simulations as evidence of awareness (clause 7.3, control A.6.3)
 
 1. Before the first simulation, inform the staff that phishing simulations take place (purpose:
    awareness, not sanction), and record this processing in the GDPR register: the results per
@@ -2301,7 +2417,7 @@ Super-Admin at installation).
     "phishingretention" then deletes the expired results per person and keeps the rates; the
     **Results** tab shows the planned date. Write the same period in your GDPR register.
 
-### Step 34: Prepare the audit with the audit plan of the certification body
+### Step 35: Prepare the audit with the audit plan of the certification body
 
 The certification body does not audit every process each year: it samples them over its three-year
 cycle and announces them in its audit plan. The screen **Audits and improvement > Audit plan of the
@@ -2324,7 +2440,7 @@ the process (the field suggests it), or when its clause or control is one of the
 process. Ticking requires the right to update the audit concerned. The audit list shows the
 **Audit type** column right after the title.
 
-### Step 35: Answer the findings of the certification body on time
+### Step 36: Answer the findings of the certification body on time
 
 After the audit, the certification body sets two deadlines in its report: sending the **action
 plan** (for each nonconformity: correction, root cause and corrective action), then sending the
@@ -2348,7 +2464,7 @@ opportunity for improvement. A deadline is shown as close 7 days before it. **Ce
 readiness** counts the action plans and evidence still to send, and those overdue. Nothing is
 changed automatically: status, owner and due date stay as you enter them.
 
-### Step 36: See what blocks each control of the SoA
+### Step 37: See what blocks each control of the SoA
 
 Before an audit, you need to know why a control is not compliant yet. The plugin gathers in a
 single list what its other screens already report, without computing anything again.
@@ -2367,7 +2483,7 @@ control (for example A.8.16), or when it was opened by an ineffective test of th
 policy blocks control A.5.1. Only what you are allowed to read is shown, and nothing is changed
 automatically.
 
-### Step 37: Hand the evidence pack to the auditor (clauses 7.5.3 and 9.2)
+### Step 38: Hand the evidence pack to the auditor (clauses 7.5.3 and 9.2)
 
 Before the visit, the auditor often asks for all the evidence of the audited perimeter. The
 **Compliance > Evidence pack** page prepares it as one ZIP archive.
@@ -2386,7 +2502,7 @@ included. The size limit is set on the page (200 MB by default). The archive is 
 restricted document: you, and anyone who can read every piece it contains, can download it.
 Nothing is changed in the registers.
 
-### Step 38: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
+### Step 39: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
 
 For each volume of a computer, the GLPI inventory agent reports the encryption state, the tool
 (BitLocker, FileVault, LUKS, VeraCrypt...) and the algorithm. The plugin reads this data; it changes
@@ -2415,7 +2531,7 @@ native right to read computers.
    recorded as an effectiveness test. The dashboard offers the card "Computers that must be
    encrypted and are (%)" and risk indicators the source "Laptops with an unencrypted disk (%)".
 
-### Step 39: Follow the security patch delay (controls A.8.8 and A.8.19)
+### Step 40: Follow the security patch delay (controls A.8.8 and A.8.19)
 
 The GLPI inventory agent reports the operating system of each computer, its version and, depending
 on the platform, the installed updates (Windows KB articles) or the installed packages with their
@@ -2439,7 +2555,7 @@ plugin right and the native right to read computers.
    the date of the computation. The dashboard offers the card "Computers with security patches on
    time (%)" and risk indicators the source "Critical servers with overdue patches".
 
-### Step 40: Measure the multi-factor authentication coverage (controls A.8.5 and A.5.17)
+### Step 41: Measure the multi-factor authentication coverage (controls A.8.5 and A.5.17)
 
 The auditor asks which accounts, and above all which administrators and remote access accounts,
 are protected by multi-factor authentication (MFA). The plugin reads GLPI two-factor authentication
@@ -2471,7 +2587,7 @@ secret. You need the plugin right and the native right to read users.
    "Administrators protected by MFA (%)", risk indicators the source "Administrators without MFA",
    and the Account hygiene page recalls their number.
 
-### Step 41: Check that important assets send their logs (controls A.8.15, A.8.16 and A.8.17)
+### Step 42: Check that important assets send their logs (controls A.8.15, A.8.16 and A.8.17)
 
 The plugin compares the list of hosts known to your log platforms with the computers and network
 devices of GLPI. It only reads: it runs nothing on the platforms and changes nothing in GLPI. You
@@ -2500,7 +2616,7 @@ need the plugin right and the native right to read computers.
    assets without logging, the platforms whose retention is not enough and the date of the
    computation. Risk indicators offer the source "Critical assets without logging (%)".
 
-### Step 42: Measure configuration compliance with OpenSCAP (control A.8.9)
+### Step 43: Measure configuration compliance with OpenSCAP (control A.8.9)
 
 OpenSCAP checks a machine against a hardening guide (CIS, ANSSI, DISA STIG... profiles of the SCAP
 Security Guide project) and writes an XCCDF or ARF results file. The plugin reads this file: it
@@ -2534,7 +2650,7 @@ Import security: the file is read as a stream (large ARF reports are accepted), 
 entity declaration is refused and no network access is made while reading. The file itself is not
 kept, only the counts and the failed rules.
 
-### Step 43: Follow the Active Directory security audit (controls A.5.15 to A.5.18, A.8.2 and A.8.5)
+### Step 44: Follow the Active Directory security audit (controls A.5.15 to A.5.18, A.8.2 and A.8.5)
 
 The Active Directory is the first target of attacks: privileged accounts, delegations, inactive
 accounts. The plugin keeps the results of the audits your team runs with PingCastle; it runs no
@@ -2567,3 +2683,70 @@ reports describe the weaknesses of the domain.
    shows the score of each domain and the number of rules that concern the control. The dashboard
    offers the card "Active Directory security score" and risk indicators the source of the same
    name.
+
+### Step 45: Check the access rights of the Windows file shares (controls A.5.15, A.5.18 and A.8.3)
+
+The auditor asks for evidence that access to shared folders is limited to what is needed and
+reviewed. The plugin never connects to a file server and never changes a right: an administrator
+runs a read-only PowerShell script, then imports the CSV file it produces. You need the plugin right
+and the right on the sensitive registers (with modification to import).
+
+1. Open Access review > **File share access rights**. The "What is this page for?" box recalls what
+   is expected.
+2. In **Import the rights of a file server**, click **Download the PowerShell script** and copy
+   `Export-GrcShareAccess.ps1` to the file server. Run it with an account that can read the folders:
+
+   ```powershell
+   .\Export-GrcShareAccess.ps1 -Depth 2 -OutFile shares.csv
+   ```
+
+   The script reads the shares (`Get-SmbShare`, administrative shares excluded), their share
+   permissions (`Get-SmbShareAccess`), the NTFS permissions of the root and those set on the
+   subfolders down to `-Depth` levels (`Get-Acl`), the inheritance and the owner.
+   `-Share Accounting,Projects` limits the reading to some shares; `-ResolvePrincipalType` asks
+   Active Directory whether each account is a user or a group. An export from another tool is
+   accepted if it has columns such as `Server`, `Share`, `Folder`, `Identity`, `Rights`,
+   `AccessType`, `IsInherited` and `InheritanceProtected`; **Download an example file** shows one.
+3. Import the file. Accounts are matched with the GLPI users (login) and groups (name). A new import
+   of the same server shows the **rights added and removed** since the previous one; the history is
+   in **Imports and changes over time**.
+4. The list of shares starts with the most exposed. The gaps reported are: **everyone can modify**
+   (Everyone, Authenticated Users, Domain Users or Guests with a modify right), **deleted** (unresolved
+   SID or account in the GLPI trash) or **disabled account** that still has rights, **right given to
+   a person** rather than to a group, **broken inheritance** on a subfolder of a sensitive share,
+   **share without an owner**.
+5. Open a share: classify it (confidentiality, integrity, availability) and designate its
+   **owner**. The weighted score adds 3 for each serious gap and 1 for the others, multiplied by 3
+   for a share classified high and by 2 for medium.
+6. Click **Start a review**: the owner decides for each right (keep, change or remove, with a comment
+   for the last two), then **Close the review**. Decisions are recorded with their author and date.
+   The administrator applies the changes on the server; the next import shows the removed rights.
+7. On controls A.5.15, A.5.18 and A.8.3, the "File share access rights" box shows the number of
+   shares, those with a gap, the rights that let everyone modify, those of deleted or disabled
+   accounts and the shares reviewed in the last twelve months.
+
+### Step 46: Rate the maturity of each control and set the targets (clauses 6.2, 9.3 and 10.1)
+
+The overall maturity score sums up the ISMS in one figure. To build and justify the roadmap, each
+control is also rated: "we are at level 2 and aim for level 4 next year". These levels are
+optional: they change neither the implementation status of the controls nor the maturity score.
+
+1. Open Dashboard > **Maturity by control**, then **Add**. Give a name (for example "2026
+   assessment"), the assessment date and the campaign lead. The campaign lists the applicable
+   controls of the SoA of the entity; the targets, target dates, owners and justifications of the
+   previous campaign are taken over.
+2. In the **Levels by control** tab, choose for each control the current level and the target
+   level, from 0 (non-existent) to 5 (optimised), the target date, the owner and the justification,
+   then click **Save the levels**. The level of the previous campaign is shown under the current
+   level.
+3. The **Gaps** tab ranks the controls whose target is not reached, from the largest gap to the
+   smallest, then by target date (a passed date in red). Filter by enabled framework, theme or
+   owner; the radar compares the average current and target levels of each theme. **Create the
+   action** opens a pre-filled opportunity for improvement (control, levels, target date, owner)
+   that you review and save yourself; it then follows the CAPA workflow.
+4. The **Comparison** tab puts side by side the current levels of two campaigns of the same entity:
+   controls improved, declined and unchanged.
+5. **Report (PDF)** produces the summary for the management review: average levels by theme, sorted
+   gaps and comparison with the previous campaign.
+6. The labels of the scale are renamed in the plugin configuration, box **Maturity scale by
+   control** (an empty field keeps the default label, translated).
