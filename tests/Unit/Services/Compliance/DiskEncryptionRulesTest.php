@@ -136,4 +136,12 @@ final class DiskEncryptionRulesTest extends TestCase
         $this->assertNull(R::normalizeBackupDate('<script>', '2026-12-01'));
         $this->assertNull(R::normalizeBackupDate(['2026-01-01'], '2026-12-01'));
     }
+
+    public function testRuleWithoutConfidentialityKeyIsReadWithoutWarning(): void
+    {
+        // Règle enregistrée avant le seuil de confidentialité : la clé est absente, et la valeur
+        // vide fait partie des seuils autorisés. La lecture ne doit déclencher aucun avertissement.
+        $rule = R::normalizeRule(['scope' => R::SCOPE_ALL, 'types' => []]);
+        $this->assertSame('', $rule['confidentiality']);
+    }
 }
