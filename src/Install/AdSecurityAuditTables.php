@@ -35,7 +35,7 @@ use Migration;
  * Tables créées si absentes (rejouable), supprimées à la désinstallation. Aucune autre table n'est
  * modifiée.
  */
-final class AdSecurityAuditTables
+final class AdSecurityAuditTables implements FeatureTables
 {
     public const AUDITS = 'glpi_plugin_grcmanager_adaudits';
 
@@ -123,5 +123,13 @@ final class AdSecurityAuditTables
     {
         $migration->dropTable(self::RULES);
         $migration->dropTable(self::AUDITS);
+    }
+
+    /**
+     * @return list<class-string>
+     */
+    public static function pluginClasses(): array
+    {
+        return [];
     }
 }
