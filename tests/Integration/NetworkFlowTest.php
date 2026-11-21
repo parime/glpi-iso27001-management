@@ -33,6 +33,49 @@ final class NetworkFlowTest extends GrcmanagerIntegrationTestCase
         $this->assertFalse((new \GlpiPlugin\Grcmanager\NetworkFlow())->add(['source_label' => 'A', 'ports' => '22']));
     }
 
+    /**
+     * Issue #909 : un nouveau flux s'ouvre pré-rempli avec les valeurs proposées (bouton « Proposer
+     * le flux » de l'inventaire Docker), échappées, sans rien enregistrer.
+     */
+    public function testNewFlowFormIsPrefilledFromTheQueryWithoutSaving(): void
+    {
+        $applianceId = (int) (new \Appliance())->add(['name' => 'PHPUnit application flux', 'entities_id' => 0]);
+        $this->assertGreaterThan(0, $applianceId);
+        $before = countElementsInTable(NetworkFlow::getTable());
+        $payload = "<svg/onload=alert('xss-prefill')>";
+
+        $prefill = NetworkFlow::prefillFromQuery([
+            'flow_type' => 'internet_publication', 'name' => 'PHPUnit web ' . $payload, 'source_label' => 'Internet',
+            'destination_itemtype' => 'Appliance', 'destination_items_id' => (string) $applianceId,
+            'destination_label' => 'app.example.test', 'protocol' => 'tcp', 'ports' => '8443, 443',
+            'justification' => 'ignored',
+        ]);
+        $this->assertSame('Appliance', $prefill['destination_itemtype'] ?? null);
+        $this->assertSame($applianceId, $prefill['destination_items_id'] ?? null);
+        $this->assertArrayNotHasKey('justification', $prefill);
+
+        ob_start();
+        (new NetworkFlow())->showForm(0, ['prefill' => $prefill]);
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('grc-networkflow-prefilled', $html);
+        $this->assertStringContainsString('app.example.test', $html);
+        $this->assertStringContainsString('8443,443', $html);
+        $this->assertStringContainsString('PHPUnit application flux', $html, 'Destination asset preselected.');
+        $this->assertStringNotContainsString($payload, $html, 'Proposed values are escaped.');
+        $this->assertSame($before, countElementsInTable(NetworkFlow::getTable()), 'Nothing saved before "Add".');
+
+        ob_start();
+        (new NetworkFlow())->showForm(0);
+        $this->assertStringNotContainsString('grc-networkflow-prefilled', (string) ob_get_clean());
+
+        $this->assertArrayNotHasKey('destination_itemtype', NetworkFlow::prefillFromQuery([
+            'destination_itemtype' => 'Appliance', 'destination_items_id' => '999999999',
+        ]), 'Unknown asset dropped.');
+        $this->assertArrayNotHasKey('destination_itemtype', NetworkFlow::prefillFromQuery([
+            'destination_itemtype' => 'User', 'destination_items_id' => '2',
+        ]), 'Item type not offered for a flow dropped.');
+    }
+
     public function testALinkedAssetMustExist(): void
     {
         $this->assertFalse((new \GlpiPlugin\Grcmanager\NetworkFlow())->add([

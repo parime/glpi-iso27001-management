@@ -20,6 +20,43 @@ final class NetworkFlowRulesTest extends TestCase
         self::assertNull(NetworkFlowRules::normalizePorts('2000-1000'));
     }
 
+    /** Issue #909 : pré-remplissage d'un nouveau flux depuis l'adresse, liste fermée et valeurs validées. */
+    public function testPrefillKeepsOnlyKnownAndValidValues(): void
+    {
+        self::assertSame([
+            'name'                 => 'Publish web',
+            'source_label'         => 'Internet',
+            'destination_label'    => 'app.example.test',
+            'flow_type'            => 'internet_publication',
+            'protocol'             => 'tcp_udp',
+            'ports'                => '443,80',
+            'destination_itemtype' => 'Appliance',
+            'destination_items_id' => 12,
+        ], NetworkFlowRules::prefill([
+            'name' => "  Publish\n web ", 'source_label' => 'Internet', 'destination_label' => 'app.example.test',
+            'flow_type' => 'INTERNET_PUBLICATION', 'protocol' => 'TCP/UDP', 'ports' => '443; 80 443',
+            'destination_itemtype' => 'Appliance', 'destination_items_id' => '12',
+            'justification' => 'Not in the list', 'is_active' => '0', 'entities_id' => '5', 'id' => '3',
+        ]));
+
+        self::assertSame([], NetworkFlowRules::prefill([
+            'flow_type' => 'unknown', 'protocol' => 'sctp', 'ports' => 'https', 'name' => "  \t ",
+            'destination_itemtype' => 'Computer<script>', 'destination_items_id' => '4',
+        ]), 'Unknown type and protocol, invalid ports, blank text and malformed item type are dropped.');
+        self::assertSame([], NetworkFlowRules::prefill([
+            'name' => ['array'], 'ports' => 'any', 'protocol' => '',
+            'destination_itemtype' => 'Computer', 'destination_items_id' => '-1',
+        ]), 'Arrays, "all ports" and negative identifiers are ignored.');
+        self::assertSame([], NetworkFlowRules::prefill(['name' => "\xC3\x28"]), 'Invalid UTF-8 is ignored.');
+
+        $long = NetworkFlowRules::prefill(['name' => str_repeat('é', 300)]);
+        self::assertSame(NetworkFlowRules::PREFILL_TEXT_LENGTH, mb_strlen((string) $long['name']));
+
+        $payload = "<svg/onload=alert('x')>";
+        self::assertSame($payload, NetworkFlowRules::prefill(['source_label' => $payload])['source_label'] ?? null,
+            'Text is kept as typed: escaping is done by the Twig template.');
+    }
+
     public function testProtocolAndTypeFallBackToDefaults(): void
     {
         self::assertSame('tcp_udp', NetworkFlowRules::normalizeProtocol('TCP/UDP'));

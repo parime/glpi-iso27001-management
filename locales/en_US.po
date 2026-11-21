@@ -33447,3 +33447,9 @@ msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d day ago"
 msgstr[1] "%d days ago"
+
+msgid "Proposed flow"
+msgstr "Proposed flow"
+
+msgid "These values were proposed by another page, for example the Docker inventory. Check them, add the justification and the owner, then click \"Add\": nothing is saved before."
+msgstr "These values were proposed by another page, for example the Docker inventory. Check them, add the justification and the owner, then click \"Add\": nothing is saved before."
