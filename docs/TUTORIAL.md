@@ -958,6 +958,25 @@ ou une piste de progrès. Un délai est signalé comme proche 7 jours avant. La 
 certification** compte les plans d'actions et les preuves encore à envoyer, et ceux en retard.
 Rien n'est modifié automatiquement : statut, responsable et échéance restent ceux que vous saisissez.
 
+### Étape 34 : Voir ce qui bloque chaque mesure de la SoA
+
+Avant un audit, il faut savoir pourquoi une mesure n'est pas encore conforme. Le plugin réunit en
+une seule liste ce que ses autres écrans signalent déjà, sans rien recalculer.
+
+1. Ouvrir une mesure de la **Déclaration d'applicabilité**, onglet **Ce qui bloque cette mesure** :
+   chaque blocage indique sa gravité, sa catégorie (contrôle technique, preuve, politique, test
+   d'efficacité, non-conformité, dérogation, SoA), le détail et la marche à suivre.
+2. Cliquer sur **Corriger** : l'écran concerné s'ouvre (onglet Documents de la mesure, onglet des
+   tests, fiche de la non-conformité, de la politique ou de la dérogation, contrôles techniques).
+3. Pour une vue d'ensemble, ouvrir **Mesures bloquées** dans la barre d'onglets de la rubrique
+   Conformité : les mesures bloquées de la SoA de l'entité active, triables par gravité, nombre de
+   blocages ou code de mesure.
+
+Une non-conformité est rattachée à une mesure quand son champ **Clause ou mesure** cite le code de
+la mesure (par exemple A.8.16), ou quand elle a été ouverte par un test inefficace de la mesure.
+Une politique en brouillon bloque la mesure A.5.1. Seul ce que vous avez le droit de lire est
+affiché, et rien n'est modifié automatiquement.
+### Étape 34 : Vérifier le chiffrement des disques du parc (mesures A.8.24 et A.8.1)
 ### Étape 34 : Remettre le dossier de preuves à l'auditeur (articles 7.5.3 et 9.2)
 
 L'auditeur demande souvent, avant sa visite, l'ensemble des preuves du périmètre audité. La page
@@ -1941,6 +1960,25 @@ opportunity for improvement. A deadline is shown as close 7 days before it. **Ce
 readiness** counts the action plans and evidence still to send, and those overdue. Nothing is
 changed automatically: status, owner and due date stay as you enter them.
 
+### Step 35: See what blocks each control of the SoA
+
+Before an audit, you need to know why a control is not compliant yet. The plugin gathers in a
+single list what its other screens already report, without computing anything again.
+
+1. Open a control of the **Statement of Applicability**, tab **What blocks this control**: each
+   blocker shows its severity, its category (technical check, evidence, policy, effectiveness test,
+   nonconformity, waiver, SoA), the details and what to do.
+2. Click **Fix**: the screen concerned opens (Documents tab of the control, tests tab, form of the
+   nonconformity, policy or waiver, automated technical checks).
+3. For an overview, open **Blocked controls** in the tab bar of the Compliance section: the blocked
+   controls of the SoA of the active entity, sortable by severity, number of blockers or control
+   code.
+
+A nonconformity is linked to a control when its **Clause or control** field quotes the code of the
+control (for example A.8.16), or when it was opened by an ineffective test of the control. A draft
+policy blocks control A.5.1. Only what you are allowed to read is shown, and nothing is changed
+automatically.
+### Step 35: Check the disk encryption of the fleet (controls A.8.24 and A.8.1)
 ### Step 35: Hand the evidence pack to the auditor (clauses 7.5.3 and 9.2)
 
 Before the visit, the auditor often asks for all the evidence of the audited perimeter. The
