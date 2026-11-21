@@ -49,6 +49,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
+        with:
+          fetch-depth: 0
+
+      # Tutoriel en fragments (docs/tutorial/{fr,en}/NNNN-*.md), assemble et numerote par
+      # tools/build_tutorial.py a la publication : une PR ajoute un fragment et ne touche pas a
+      # docs/TUTORIAL.md. Si une PR modifie quand meme TUTORIAL.md (publication, ou modification a la
+      # main par erreur), le fichier doit etre exactement le resultat de l'assemblage.
+      - name: Tutoriel - fragments valides, TUTORIAL.md jamais modifie a la main
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          python3 tools/build_tutorial.py --check
+          if [ -n "$BASE_SHA" ] && git diff --name-only "$BASE_SHA...HEAD" | grep -qx docs/TUTORIAL.md; then
+            python3 tools/build_tutorial.py --check-file
+          fi
 
       - name: Validate plugin.json is valid JSON
         run: python3 -c "import json; json.load(open('plugin.json'))"
@@ -63,6 +78,12 @@ jobs:
             fi
           done
           exit $missing
+
+      # Entrees de CHANGELOG en fragments (changes/unreleased/<issue>-<sujet>.md), rangees dans la
+      # section de la version par tools/build_changelog.py a la publication : une PR n'ecrit plus
+      # sous [Unreleased] de CHANGELOG.md. Ici : nom, rubriques (### Added, ### Fixed...) et contenu.
+      - name: CHANGELOG - fragments de changes/unreleased valides
+        run: python3 tools/build_changelog.py --check
 
   secrets-scan:
     name: Secret scanning (Gitleaks)

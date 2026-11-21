@@ -41,7 +41,7 @@ use Migration;
  * questionnaires déjà remplis en évaluations terminées, sans rien effacer (colonnes d'origine
  * conservées sur les risques fournisseurs).
  */
-final class SupplierQuestionnaireTables
+final class SupplierQuestionnaireTables implements FeatureTables
 {
     public const TEMPLATES = 'glpi_plugin_grcmanager_supplierquestionnairetemplates';
 
@@ -61,11 +61,18 @@ final class SupplierQuestionnaireTables
 
     private const RISKS = 'glpi_plugin_grcmanager_supplierrisks';
 
-    /** Classes propres à ces tables (historique, préférences d'affichage : nettoyés à la désinstallation). */
-    public const CLASSES = [
-        \GlpiPlugin\Grcmanager\SupplierQuestionnaireTemplate::class,
-        \GlpiPlugin\Grcmanager\SupplierEvaluation::class,
-    ];
+    /**
+     * Classes propres à ces tables (historique, préférences d'affichage : nettoyés à la désinstallation).
+     *
+     * @return list<class-string>
+     */
+    public static function pluginClasses(): array
+    {
+        return [
+            \GlpiPlugin\Grcmanager\SupplierQuestionnaireTemplate::class,
+            \GlpiPlugin\Grcmanager\SupplierEvaluation::class,
+        ];
+    }
 
     public static function install(string $keySign, string $charset, string $collation): void
     {
@@ -180,6 +187,14 @@ final class SupplierQuestionnaireTables
                 KEY `position` (`position`)
             ) {$suffix}");
         }
+    }
+
+    /**
+     * Mise à jour : reprise des questionnaires fixes de l'issue #127 (migrateLegacy()).
+     */
+    public static function migrate(Migration $migration): void
+    {
+        self::migrateLegacy();
     }
 
     /**

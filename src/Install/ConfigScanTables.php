@@ -26,7 +26,7 @@ use Migration;
  * règles en échec de chaque rapport. Seuls des compteurs et les règles en échec ou en erreur sont
  * gardés, jamais le fichier. Créées si absentes (rejouable), supprimées à la désinstallation.
  */
-final class ConfigScanTables
+final class ConfigScanTables implements FeatureTables
 {
     public const REPORTS = 'glpi_plugin_grcmanager_configscanreports';
 
@@ -93,5 +93,14 @@ final class ConfigScanTables
     {
         $migration->dropTable(self::FAILURES);
         $migration->dropTable(self::REPORTS);
+    }
+
+    public static function migrate(Migration $migration): void
+    {
+    }
+
+    public static function pluginClasses(): array
+    {
+        return [];
     }
 }

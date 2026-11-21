@@ -78,13 +78,6 @@ check "onglet Ma conformite securite"          "$(tab Preference 'GlpiPlugin%5CG
 check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
 check "onglet classification d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' "$(id computer_A)")"
 check "onglet questionnaire fournisseur"      "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$1' "$(id supplierrisk)")"
-# Issue #864 : modèles de questionnaire, évaluation et réponses piégés.
-for url in supplierquestionnairetemplate.php "supplierquestionnairetemplate.form.php?id=$(id questionnaire_A)" \
-  "supplierevaluation.form.php?id=$(id evaluation_A)"; do
-  check "front/$url" "$P/$url"
-done
-check "onglet questions d'un modele de questionnaire" "$(tab GlpiPlugin%5CGrcmanager%5CSupplierQuestionnaireTemplate 'GlpiPlugin%5CGrcmanager%5CSupplierQuestionnaireTemplate$1' "$(id questionnaire_A)")"
-check "onglet questionnaire d'une evaluation"     "$(tab GlpiPlugin%5CGrcmanager%5CSupplierEvaluation 'GlpiPlugin%5CGrcmanager%5CSupplierEvaluation$1' "$(id evaluation_A)")"
 check "onglet contrats fournisseur"           "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$2' "$(id supplierrisk)")"
 # Issue #866 : ligne de revue piégée, suggestion et raison comprises.
 check "onglet comptes a revoir d'une campagne" "$(tab GlpiPlugin%5CGrcmanager%5CAccessReview 'GlpiPlugin%5CGrcmanager%5CAccessReview$1' "$(id campaign_A)")"
@@ -110,12 +103,6 @@ check "preuve developpement securise (A.8.31)" "$P/control.form.php?id=$(xid con
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #847 : ordinateur, outil et algorithme de chiffrement pieges (chiffrement des disques).
 check "front/diskencryption.php"              "$P/diskencryption.php"
-# Issue #835 : domaine, regle et constat pieges (audit de securite de l'AD, preuve A.8.2).
-check "front/adsecurityaudit.php"             "$P/adsecurityaudit.php"
-check "preuve audit de l'AD (A.8.2)"          "$P/control.form.php?id=$(xid control_a82)"
-# Issue #852 : compte et methode importes pieges (couverture MFA, preuve A.8.5).
-check "front/mfacoverage.php"                 "$P/mfacoverage.php"
-check "preuve couverture MFA (A.8.5)"         "$P/control.form.php?id=$(xid control_a85)"
 # Issue #854 : ordinateur piege (correctifs de securite).
 check "front/patchcompliance.php"             "$P/patchcompliance.php"
 # Issue #781 : resultats OpenSCAP pieges (liste, non rapproche, detail, preuve A.8.9).
@@ -232,6 +219,16 @@ check "page d'un echantillon de test"         "$P/controltestsample.form.php?id=
 QC="%3Csvg%2Fonload%3Dalert(%27xss-canary%27)%3E"
 check "nouveau flux pre-rempli (adresse piegee)"   "$P/networkflow.form.php?flow_type=internal&name=$QC&source_label=$QC&destination_label=$QC&protocol=tcp&ports=443"
 check "onglet d'un nouveau flux pre-rempli"   "$(tab 'GlpiPlugin%5CGrcmanager%5CNetworkFlow' 'GlpiPlugin%5CGrcmanager%5CNetworkFlow$main' 0)&prefill%5Bname%5D=$QC&prefill%5Bsource_label%5D=$QC&prefill%5Bdestination_label%5D=$QC"
+
+# Fragments : une fonctionnalite ajoute ses controles dans un NOUVEAU fichier
+# tests/security/xss-check.d/<issue>-<sujet>.sh (voir docs/ARCHITECTURE.md, « Ajouter une fonctionnalite
+# sans conflit ») au lieu d'allonger ce script. Charges ici dans l'ordre des noms, avec les memes
+# fonctions et variables (P, id, xid, check, tab).
+for fragment in "$(dirname "${BASH_SOURCE[0]}")"/xss-check.d/*.sh; do
+  [ -e "$fragment" ] || continue
+  # shellcheck source=/dev/null
+  . "$fragment"
+done
 
 rm -f "$JAR"
 if [ "$RENDERED" -lt 10 ]; then

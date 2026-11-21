@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 08:55+0000\n"
+"POT-Creation-Date: 2026-11-21 09:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10075,11 +10075,11 @@ msgstr ""
 msgid "%1$s lost profile %2$s (entity %3$s)"
 msgstr ""
 
-#: src/Install/SupplierQuestionnaireTables.php:306
+#: src/Install/SupplierQuestionnaireTables.php:321
 msgid "Historical questionnaire"
 msgstr ""
 
-#: src/Install/SupplierQuestionnaireTables.php:312
+#: src/Install/SupplierQuestionnaireTables.php:327
 msgid ""
 "The twelve questions of the former security questionnaire, kept with the "
 "answers already given."
