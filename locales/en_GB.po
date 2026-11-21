@@ -31841,6 +31841,27 @@ msgid_plural "Blocked controls"
 msgstr[0] "Blocked control"
 msgstr[1] "Blocked controls"
 
+msgid "Child licenses counted once"
+msgstr "Child licenses counted once"
+
+msgid ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+msgstr ""
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
+
+msgid ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
+msgstr ""
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

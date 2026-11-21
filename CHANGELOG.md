@@ -9,16 +9,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
-- **Procédures d'exploitation : historique des revues** (issue #775, lot 3, dernier lot, mesure
-  A.5.37) :
-  - sur la fiche d'une procédure, cadre « Historique des revues » : toutes les revues enregistrées
-    avec le bouton « Enregistrer la revue », la plus récente d'abord (date, personne, prochaine
-    revue prévue) ;
-  - le PDF du registre ajoute une section « Historique des revues », procédure par procédure ;
-  - l'historique est lu dans le journal d'audit infalsifiable, qui garde déjà chaque revue : aucune
-    nouvelle table ni colonne, et une revue tracée ne se modifie plus. Seules la date, la personne
-    et la prochaine revue sont affichées, avec le droit de lire les politiques. Ce lot termine
-    l'issue #775.
+- **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
+  A.5.32). Les licences filles de GLPI (champ « Comme enfant de ») ne gonflent plus les postes
+  licenciés : quand une licence mère et ses filles valables comptent toutes pour une entité, la
+  famille vaut le plus grand du nombre de la mère et de la somme des filles (un contrat de 10 postes
+  réparti en filles de 4 et 6 vaut 10 postes, pas 20 ; une fille « mise à niveau » d'un poste ne
+  réduit pas la mère). Une mère expirée ne compte plus, ses filles valables si. Le surdéploiement
+  ainsi révélé porte le badge « Licences filles comptées une fois » ; les licences sont nommées
+  avec leur mère (« Contrat > Licence fille ») sur la page et dans l'export. Toujours en lecture
+  seule. Ce lot termine l'issue #779.
 
 - **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
   contacts officiels** (issue #776, lot 2, mesure A.5.29) :
@@ -123,6 +122,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     leur référence ou par le test qui les a ouvertes), politiques en brouillon (mesure A.5.1),
     contrôles techniques automatiques et couverture Wazuh et SentinelOne (A.8.7, A.8.16) ;
   - lecture seule, uniquement ce que la personne a le droit de lire (droits et entités).
+- **Procédures d'exploitation : historique des revues** (issue #775, lot 3, dernier lot, mesure
+  A.5.37) :
+  - sur la fiche d'une procédure, cadre « Historique des revues » : toutes les revues enregistrées
+    avec le bouton « Enregistrer la revue », la plus récente d'abord (date, personne, prochaine
+    revue prévue) ;
+  - le PDF du registre ajoute une section « Historique des revues », procédure par procédure ;
+  - l'historique est lu dans le journal d'audit infalsifiable, qui garde déjà chaque revue : aucune
+    nouvelle table ni colonne, et une revue tracée ne se modifie plus. Seules la date, la personne
+    et la prochaine revue sont affichées, avec le droit de lire les politiques. Ce lot termine
+    l'issue #775.
 
 ## [2.71.0] - 2026-11-20
 
