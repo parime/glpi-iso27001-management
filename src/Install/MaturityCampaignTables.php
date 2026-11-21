@@ -24,17 +24,13 @@ use Migration;
 /**
  * Issue #603 : tables de la maturité par mesure (campagnes datées, niveau actuel et niveau cible de
  * chaque mesure), créées si absentes à chaque installation ou mise à jour (rejouable), supprimées à
- * la désinstallation. Les libellés de l'échelle sont dans la configuration du plugin.
+ * la désinstallation. Les libellés de l'échelle sont dans la configuration du plugin. Découverte par
+ * l'installeur (FeatureTablesRegistry).
  */
-final class MaturityCampaignTables
+final class MaturityCampaignTables implements FeatureTables
 {
     public const CAMPAIGNS = 'glpi_plugin_grcmanager_maturitycampaigns';
     public const ASSESSMENTS = 'glpi_plugin_grcmanager_maturityassessments';
-
-    /** Classes propres à ces tables (historique, documents liés : nettoyés à la désinstallation). */
-    public const CLASSES = [
-        \GlpiPlugin\Grcmanager\MaturityCampaign::class,
-    ];
 
     public static function install(string $keySign, string $charset, string $collation): void
     {
@@ -82,10 +78,20 @@ final class MaturityCampaignTables
         }
     }
 
+    public static function migrate(Migration $migration): void
+    {
+    }
+
     public static function uninstall(Migration $migration): void
     {
         foreach ([self::ASSESSMENTS, self::CAMPAIGNS] as $table) {
             $migration->dropTable($table);
         }
+    }
+
+    /** Historique des campagnes (Log), purgé à la désinstallation. */
+    public static function pluginClasses(): array
+    {
+        return [\GlpiPlugin\Grcmanager\MaturityCampaign::class];
     }
 }

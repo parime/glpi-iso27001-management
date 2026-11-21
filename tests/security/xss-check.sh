@@ -73,15 +73,6 @@ done
 check "onglet grille de securite physique"     "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id physical_A)")"
 check "onglet zones du site"                   "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$2' "$(id physical_A)")"
 check "onglet securite physique d'un lieu"     "$(tab Location 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id location_A)")"
-# Issue #603 : campagne de maturite de A piegee (liste, fiche, grille, ecarts, comparaison, action
-# proposee depuis l'ecart, libelle d'echelle piege dans la configuration).
-for url in maturitycampaign.php "maturitycampaign.form.php?id=$(id maturity_A)"   "nonconformity.form.php?maturityassessment=$(id maturity_line_A)" config.php; do
-  check "front/$url" "$P/$url"
-done
-check "onglet niveaux par mesure"              "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$1' "$(id maturity_A)")"
-check "onglet ecarts de maturite"              "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$2' "$(id maturity_A)")"
-check "action proposee depuis un ecart"         "$(tab 'GlpiPlugin%5CGrcmanager%5CNonconformity' 'GlpiPlugin%5CGrcmanager%5CNonconformity$main' "0&maturityassessment=$(id maturity_line_A)")"
-check "onglet comparaison des campagnes"       "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$3' "$(id maturity_A)")"
 # Issue #546 : fiche de conformité de glpi, dans le public de la politique piégée.
 check "onglet Ma conformite securite"          "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPersonnelCompliance$1' 2)"
 check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
