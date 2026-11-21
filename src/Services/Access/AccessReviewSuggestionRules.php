@@ -96,7 +96,11 @@ final class AccessReviewSuggestionRules
         $flag = static fn (mixed $value, bool $default): bool => $value === null ? $default : (bool) (int) $value;
 
         return [
-            'inactive_days' => $days($settings['inactive_days'] ?? null, self::INACTIVE_DAYS, $defaults['inactive_days']),
+            'inactive_days' => $days(
+                $settings['inactive_days'] ?? null,
+                self::INACTIVE_DAYS,
+                $defaults['inactive_days']
+            ),
             'leaving_days'  => $days($settings['leaving_days'] ?? null, self::LEAVING_DAYS, $defaults['leaving_days']),
             'privileged'    => $flag($settings['privileged'] ?? null, $defaults['privileged']),
             'mfa'           => $flag($settings['mfa'] ?? null, $defaults['mfa']),

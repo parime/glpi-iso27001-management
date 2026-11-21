@@ -84,7 +84,8 @@ final class AccessReviewSuggestion
         $rawDate = (string) ($params['date'] ?? '');
         $date = preg_match('/^\d{4}-\d{2}-\d{2}$/', $rawDate) === 1 ? (string) Html::convDate($rawDate) : '';
         $days = (int) ($params['days'] ?? 0);
-        $profiles = implode(', ', array_map('strval', is_array($params['profiles'] ?? null) ? $params['profiles'] : []));
+        $profileNames = is_array($params['profiles'] ?? null) ? $params['profiles'] : [];
+        $profiles = implode(', ', array_map('strval', $profileNames));
 
         return match ($code) {
             Rules::R_DIRECTORY_DELETED => __('Deleted from the directory', 'grcmanager'),
@@ -96,7 +97,10 @@ final class AccessReviewSuggestion
                 $days,
                 $date
             ),
-            Rules::R_NEVER_USED        => sprintf(__('Never used (created more than %d days ago)', 'grcmanager'), $days),
+            Rules::R_NEVER_USED        => sprintf(
+                __('Never used (created more than %d days ago)', 'grcmanager'),
+                $days
+            ),
             Rules::R_GROUP_CHANGED     => sprintf(
                 __('Groups changed less than %d days ago, profiles not reviewed', 'grcmanager'),
                 $days
@@ -325,7 +329,8 @@ final class AccessReviewSuggestion
             $where['decision'] = AccessReviewLogic::DECISION_PENDING;
         }
         $lines = [];
-        foreach ($DB->request(['SELECT' => ['id', 'users_id'], 'FROM' => AccessReview::LINES_TABLE, 'WHERE' => $where]) as $row) {
+        $rows = $DB->request(['SELECT' => ['id', 'users_id'], 'FROM' => AccessReview::LINES_TABLE, 'WHERE' => $where]);
+        foreach ($rows as $row) {
             $lines[(int) $row['id']] = (int) $row['users_id'];
         }
         if ($lines === []) {

@@ -23,7 +23,8 @@ final class AccessReviewSuggestionRulesTest extends TestCase
 
     public function testAnAccountWithoutAnySignalIsSuggestedToKeep(): void
     {
-        $result = Rules::suggest(['last_login' => '2026-06-10 08:00:00', 'date_creation' => '2025-01-01'], [], self::NOW);
+        $facts = ['last_login' => '2026-06-10 08:00:00', 'date_creation' => '2025-01-01'];
+        $result = Rules::suggest($facts, [], self::NOW);
 
         $this->assertSame('keep', $result['suggestion']);
         $this->assertSame([['code' => 'no_signal', 'params' => ['date' => '2026-06-10']]], $result['reasons']);
@@ -46,16 +47,21 @@ final class AccessReviewSuggestionRulesTest extends TestCase
             self::NOW
         );
         $this->assertSame('examine', $result['suggestion']);
-        $this->assertSame(['code' => 'leaving', 'params' => ['date' => '2026-06-30', 'days' => 30]], $result['reasons'][0]);
+        $this->assertSame(
+            ['code' => 'leaving', 'params' => ['date' => '2026-06-30', 'days' => 30]],
+            $result['reasons'][0]
+        );
 
-        $this->assertSame(['no_signal'], $this->codes(['departure_date' => '2026-08-30', 'last_login' => '2026-06-14']));
+        $later = ['departure_date' => '2026-08-30', 'last_login' => '2026-06-14'];
+        $this->assertSame(['no_signal'], $this->codes($later));
         $this->assertSame(['no_signal'], $this->codes(['departure_date' => '2026-06-20'], ['leaving_days' => 0]));
     }
 
     public function testInactiveAndNeverUsedAccountsFollowTheConfiguredDays(): void
     {
         $this->assertSame(['inactive'], $this->codes(['last_login' => '2026-01-10 08:00:00']));
-        $this->assertSame(['no_signal'], $this->codes(['last_login' => '2026-01-10 08:00:00'], ['inactive_days' => 180]));
+        $january = ['last_login' => '2026-01-10 08:00:00'];
+        $this->assertSame(['no_signal'], $this->codes($january, ['inactive_days' => 180]));
         $this->assertSame(['no_signal'], $this->codes(['last_login' => '2026-01-10 08:00:00'], ['inactive_days' => 0]));
         $this->assertSame(['never_used'], $this->codes(['date_creation' => '2025-12-01 08:00:00']));
         $this->assertSame(['no_signal'], $this->codes(['date_creation' => '2026-06-01 08:00:00']), 'compte neuf');

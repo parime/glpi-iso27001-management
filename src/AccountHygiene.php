@@ -237,7 +237,10 @@ class AccountHygiene extends CommonGLPI
 
         return [
             $lastChange('Group', [Log::HISTORY_ADD_RELATION, Log::HISTORY_DEL_RELATION]),
-            $lastChange('Profile', [Log::HISTORY_ADD_SUBITEM, Log::HISTORY_UPDATE_SUBITEM, Log::HISTORY_DELETE_SUBITEM]),
+            $lastChange(
+                'Profile',
+                [Log::HISTORY_ADD_SUBITEM, Log::HISTORY_UPDATE_SUBITEM, Log::HISTORY_DELETE_SUBITEM]
+            ),
         ];
     }
 

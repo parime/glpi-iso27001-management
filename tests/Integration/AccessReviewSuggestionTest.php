@@ -79,7 +79,10 @@ final class AccessReviewSuggestionTest extends GrcmanagerIntegrationTestCase
     public function testLaunchFillsEachAccountWithASuggestionAndItsReason(): void
     {
         $campaign = $this->createCampaign();
-        $this->assertSame(\GlpiPlugin\Grcmanager\Services\Access\AccessReviewSuggestionRules::defaults(), AccessReviewSuggestion::settings($campaign->fields));
+        $this->assertSame(
+            \GlpiPlugin\Grcmanager\Services\Access\AccessReviewSuggestionRules::defaults(),
+            AccessReviewSuggestion::settings($campaign->fields)
+        );
 
         $this->assertSame(3, $campaign->launch());
 
@@ -113,7 +116,7 @@ final class AccessReviewSuggestionTest extends GrcmanagerIntegrationTestCase
         $this->assertNotSame('', AccessReview::decide($lineId, 'keep', '', $this->ids['chief']));
         $this->assertSame('pending', $this->linesByUser($campaign->getID())[$this->ids['leaver']]['decision']);
 
-        $this->assertSame('', AccessReview::decide($lineId, 'keep', 'Contrat prolongé de trois mois', $this->ids['chief']));
+        $this->assertSame('', AccessReview::decide($lineId, 'keep', 'Contrat prolongé', $this->ids['chief']));
         $line = $this->linesByUser($campaign->getID())[$this->ids['leaver']];
         $this->assertSame('keep', $line['decision']);
         $this->assertTrue($line['differs'], 'décision opposée à la suggestion, signalée');
@@ -132,12 +135,19 @@ final class AccessReviewSuggestionTest extends GrcmanagerIntegrationTestCase
             'suggestion_rules'       => ['inactive_days' => 45, 'leaving_days' => 15, 'privileged' => 1],
         ]);
         $this->assertSame(
-            ['inactive_days' => 90, 'leaving_days' => 15, 'privileged' => true, 'mfa' => false, 'group_change' => false],
+            [
+                'inactive_days' => 90,
+                'leaving_days'  => 15,
+                'privileged'    => true,
+                'mfa'           => false,
+                'group_change'  => false,
+            ],
             AccessReviewSuggestion::settings($campaign->fields),
             'durée inconnue ramenée à la valeur par défaut, cases décochées à faux'
         );
         $campaign->launch();
-        $this->assertSame(['privileged'], self::reasonCodes($this->linesByUser($campaign->getID())[$this->ids['admin']]));
+        $adminLine = $this->linesByUser($campaign->getID())[$this->ids['admin']];
+        $this->assertSame(['privileged'], self::reasonCodes($adminLine));
         $leaverLine = $this->linesByUser($campaign->getID())[$this->ids['leaver']]['id'];
         AccessReview::decide($leaverLine, 'remove', 'Parti', $this->ids['chief']);
 
@@ -159,13 +169,16 @@ final class AccessReviewSuggestionTest extends GrcmanagerIntegrationTestCase
 
         $lines = $this->linesByUser($campaign->getID());
         $this->assertSame('keep', $lines[$this->ids['admin']]['suggestion']);
-        $this->assertSame('remove', $lines[$this->ids['leaver']]['suggestion'], 'ligne décidée : suggestion vue gardée');
+        $this->assertSame('remove', $lines[$this->ids['leaver']]['suggestion'], 'ligne décidée : inchangée');
 
         // La campagne suivante reprend les règles.
         $campaign->close();
         $next = new AccessReview();
         $next->getFromDB($campaign->prepareNext());
-        $this->assertSame(AccessReviewSuggestion::settings($campaign->fields), AccessReviewSuggestion::settings($next->fields));
+        $this->assertSame(
+            AccessReviewSuggestion::settings($campaign->fields),
+            AccessReviewSuggestion::settings($next->fields)
+        );
     }
 
     public function testTheMigrationCanBeReplayed(): void
