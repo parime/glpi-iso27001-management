@@ -33343,6 +33343,270 @@ msgstr ""
 msgid "Secure Boot"
 msgstr "Inicialização segura"
 
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Qualquer pessoa com o link"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "Convidado externo"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Compartilhamento de arquivos Windows"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Link público (qualquer pessoa)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr ""
+"Um link de compartilhamento funciona para qualquer pessoa que o tenha, sem "
+"entrar."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "Um convidado externo tem acesso"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"Uma pessoa de outra organização (conta de convidado) tem acesso: verifique "
+"se ainda é necessário."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"Nenhuma coluna de site encontrada: o arquivo precisa de uma coluna como "
+"Site, Team ou OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Acesso recusado pelo Microsoft Graph: conceda as permissões de aplicativo "
+"Sites.Read.All, Files.Read.All, User.Read.All e GroupMember.Read.All com "
+"consentimento do administrador."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+"Sites ou contas demais para ler em um clique: nada foi substituído. Importe "
+"uma exportação CSV."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "Ler os direitos do SharePoint, OneDrive e Teams"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"O GLPI lê os direitos de compartilhamento pelo Microsoft Graph quando você "
+"clica, com o aplicativo configurado para a cobertura MFA, e nunca altera "
+"nada no Microsoft 365. SharePoint: os direitos da biblioteca de documentos "
+"de cada site e de seus itens de primeiro nível compartilhados à parte. "
+"OneDrive: os itens de primeiro nível que cada pessoa compartilhou. Teams: "
+"proprietários, membros, convidados e equipes públicas. Aplicam-se os mesmos "
+"desvios e a mesma revisão dos compartilhamentos de arquivos: links públicos, "
+"convidados externos, direitos dados a todos."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Permissões de aplicativo a conceder, com consentimento do administrador "
+"(somente leitura): Sites.Read.All, Files.Read.All, User.Read.All e "
+"GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph conectado"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Configurações do Microsoft Graph"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "Ler %s agora"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"O Microsoft Graph ainda não está configurado. Informe o locatário, o ID do "
+"aplicativo e o segredo do cliente na página de cobertura MFA, ou importe uma "
+"exportação CSV abaixo."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Alternativa: importe um arquivo CSV com uma linha por direito e colunas como "
+"Source (SharePoint, OneDrive ou Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) e LinkScope (anonymous, "
+"organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Proprietário no Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Link de compartilhamento"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Participação na equipe"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Permissão direta"
+
+msgid "Firmware with a priority vulnerability"
+msgstr "Firmware com uma vulnerabilidade prioritária"
+
+msgid ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+msgstr ""
+"O firmware do controlador ou a BIOS tem uma vulnerabilidade conhecida "
+"explorada, crítica ou com probabilidade de ser explorada (página "
+"«Vulnerabilidades do parque»): atualize-o primeiro."
+
+msgid "Firmware no longer supported"
+msgstr "Firmware sem suporte"
+
+msgid ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+msgstr ""
+"O firmware do controlador ou a BIOS chegou ao fim do suporte (endoflife."
+"date): sem mais correções de segurança."
+
+msgid "Firmware with known vulnerabilities"
+msgstr "Firmware com vulnerabilidades conhecidas"
+
+msgid ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+msgstr ""
+"O firmware do controlador ou a BIOS tem vulnerabilidades conhecidas (página "
+"«Vulnerabilidades do parque»)."
+
+msgid "Firmware support ending soon"
+msgstr "Fim do suporte do firmware próximo"
+
+msgid ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+msgstr "O fim do suporte do firmware ou da BIOS está próximo (endoflife.date)."
+
+msgid ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+msgstr ""
+"Associe este nome a um produto na página «Vulnerabilidades do parque» para o "
+"comparar com as vulnerabilidades conhecidas."
+
+msgid "Not watched"
+msgstr "Não vigiado"
+
+msgid "Priority CVEs: %d"
+msgstr "CVE prioritárias: %d"
+
+msgid "Known CVEs: %d"
+msgstr "CVE conhecidas: %d"
+
+msgid "No known CVE"
+msgstr "Nenhuma CVE conhecida"
+
+msgid ""
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
+msgstr ""
+"O firmware de cada controlador e a sua BIOS são comparados com as "
+"vulnerabilidades conhecidas do parque e com as datas de fim de suporte, como "
+"os outros firmwares: associe o seu nome a um produto uma vez, nas mesmas "
+"páginas."
+
+msgid "Enable the end of support check"
+msgstr "Ativar a verificação do fim de suporte"
+
+msgid "Server controller accounts"
+msgstr "Contas dos controladores de servidores"
+
+msgid "Factory account still enabled: replace it with a named account"
+msgstr "Conta de fábrica ainda ativa: substituí-la por uma conta nominativa"
+
+msgid "Disabled on the controller: delete it there"
+msgstr "Desativada no controlador: eliminá-la lá"
+
+msgid "Locked on the controller"
+msgstr "Bloqueada no controlador"
+
+msgid "Administrator role: full control of the server"
+msgstr "Função de administrador: controlo total do servidor"
+
+msgid ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+msgstr ""
+"Uma conta de um controlador de gestão de servidores (iLO, iDRAC, XClarity, "
+"IPMI) dá o controlo total do servidor, mesmo desligado, fora do GLPI e do "
+"diretório. Ao lançar a campanha, as contas lidas nos controladores das suas "
+"entidades são copiadas aqui com uma sugestão. Mantenha ou retire cada uma: o "
+"plugin não altera nada nos controladores, retire a conta lá."
+
+msgid ""
+"The accounts of the controllers are copied when the campaign is launched."
+msgstr "As contas dos controladores são copiadas ao lançar a campanha."
+
+msgid ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+msgstr ""
+"Nenhuma conta de controlador de gestão de servidores nesta campanha: nenhum "
+"controlador com contas lidas nas suas entidades no lançamento."
+
+msgid "Add the accounts of the controllers"
+msgstr "Adicionar as contas dos controladores"
+
+msgid "Suggestion"
+msgstr "Sugestão"
+
+msgid "%d decided"
+msgstr "%d decidida(s)"
+
+msgid "%d account(s) of the controllers added to the campaign."
+msgstr "%d conta(s) dos controladores adicionada(s) à campanha."
+
 #, php-format
 msgid "%1$s export of %2$s, imported on %3$s"
 msgstr "Exportação do %1$s de %2$s, importada em %3$s"
@@ -33531,125 +33795,1345 @@ msgstr[1] ""
 "%3$d passos). Detalhes na página da auditoria de segurança do Active "
 "Directory."
 
-msgid "Firmware with a priority vulnerability"
-msgstr "Firmware com uma vulnerabilidade prioritária"
+msgid "Docker inventory: risky configuration"
+msgstr "Inventário Docker: configuração de risco"
 
-msgid ""
-"The firmware of the controller or the BIOS has a known vulnerability that is "
-"exploited, critical or likely to be exploited (page \"Fleet "
-"vulnerabilities\"): update it first."
+msgid "View the risky configuration"
+msgstr "Ver a configuração de risco"
+
+msgid "No service analysed yet"
+msgstr "Nenhum serviço analisado ainda"
+
+msgid "Without critical or high gap: not measured"
+msgstr "Sem desvio crítico nem alto: não medido"
+
+msgid "Without critical or high gap: %d%%"
+msgstr "Sem desvio crítico nem alto: %d%%"
+
+msgid "Without any open gap: %d%%"
+msgstr "Sem nenhum desvio aberto: %d%%"
+
+msgid "%d service(s) analysed"
+msgstr "%d serviço(s) analisado(s)"
+
+msgid "%d with a critical gap"
+msgstr "%d com um desvio crítico"
+
+msgid "%d with a high gap"
+msgstr "%d com um desvio alto"
+
+msgid "%d expired exception(s)"
+msgstr "%d exceção(ões) expirada(s)"
+
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr "%1$d exceção(ões) que terminam nos próximos %2$d dias"
+
+msgid "Next exception end: %s"
+msgstr "Próximo fim de exceção: %s"
+
+msgid "%d service(s) not analysed"
+msgstr "%d serviço(s) não analisado(s)"
+
+msgid "Security 360°"
+msgstr "Segurança 360°"
+
+msgid "Good security posture"
+msgstr "Bom nível de segurança"
+
+msgid "Security posture to improve"
+msgstr "Nível de segurança a melhorar"
+
+msgid "Weak security posture"
+msgstr "Nível de segurança fraco"
+
+msgid "Not enough data to assess"
+msgstr "Dados insuficientes para avaliar"
+
+msgid "Known vulnerabilities"
+msgstr "Vulnerabilidades conhecidas"
+
+msgid "No known vulnerability in the watched products installed on this asset."
 msgstr ""
-"O firmware do controlador ou a BIOS tem uma vulnerabilidade conhecida "
-"explorada, crítica ou com probabilidade de ser explorada (página "
-"«Vulnerabilidades do parque»): atualize-o primeiro."
+"Nenhuma vulnerabilidade conhecida nos produtos vigiados instalados neste "
+"ativo."
 
-msgid "Firmware no longer supported"
-msgstr "Firmware sem suporte"
-
+#, php-format
 msgid ""
-"The firmware of the controller or the BIOS has reached its end of support "
-"(endoflife.date): no more security fixes."
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
 msgstr ""
-"O firmware do controlador ou a BIOS chegou ao fim do suporte (endoflife."
-"date): sem mais correções de segurança."
+"%1$d vulnerabilidades conhecidas, %2$d delas prioritárias (exploradas "
+"ativamente ou muito graves)."
 
-msgid "Firmware with known vulnerabilities"
-msgstr "Firmware com vulnerabilidades conhecidas"
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d no catálogo de vulnerabilidades exploradas (KEV)"
 
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Volumes não criptografados: %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Ferramentas: %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, embora a regra de criptografia o exija."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, não exigido pela regra de criptografia."
+
+#, php-format
 msgid ""
-"The firmware of the controller or the BIOS has known vulnerabilities (page "
-"\"Fleet vulnerabilities\")."
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
 msgstr ""
-"O firmware do controlador ou a BIOS tem vulnerabilidades conhecidas (página "
-"«Vulnerabilidades do parque»)."
+"Análise de %1$s: %2$s das regras aprovadas, %3$d reprovadas, %4$d delas de "
+"gravidade alta."
 
-msgid "Firmware support ending soon"
-msgstr "Fim do suporte do firmware próximo"
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s: a última leitura falhou."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s: nenhuma lacuna encontrada."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s: %2$d lacunas encontradas."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "Nenhum incidente aberto (%d fechados ou resolvidos)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "%1$d incidentes abertos, %2$d deles com prioridade alta ou superior."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "%1$d riscos vinculados: %2$d altos ou críticos, %3$d médios."
 
 msgid ""
-"The end of support of the firmware or the BIOS is near (endoflife.date)."
-msgstr "O fim do suporte do firmware ou da BIOS está próximo (endoflife.date)."
-
-msgid ""
-"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
-"it with the known vulnerabilities."
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
 msgstr ""
-"Associe este nome a um produto na página «Vulnerabilidades do parque» para o "
-"comparar com as vulnerabilidades conhecidas."
+"Esta aba reúne, para este ativo, cada fonte de segurança conhecida pelo "
+"plugin: vulnerabilidades, criptografia, configuração, controlador de gestão, "
+"incidentes, riscos. Cada linha indica seu estado e um link para o detalhe. "
+"Nada é alterado: corrija as lacunas nas páginas de detalhe."
 
-msgid "Not watched"
-msgstr "Não vigiado"
-
-msgid "Priority CVEs: %d"
-msgstr "CVE prioritárias: %d"
-
-msgid "Known CVEs: %d"
-msgstr "CVE conhecidas: %d"
-
-msgid "No known CVE"
-msgstr "Nenhuma CVE conhecida"
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Pontuação: %s / 100"
 
 msgid ""
-"The firmware of each controller and its BIOS are compared with the known "
-"vulnerabilities of the fleet and with the end of support dates, like the "
-"other firmwares: link their name to a product once, on the same pages."
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
 msgstr ""
-"O firmware de cada controlador e a sua BIOS são comparados com as "
-"vulnerabilidades conhecidas do parque e com as datas de fim de suporte, como "
-"os outros firmwares: associe o seu nome a um produto uma vez, nas mesmas "
-"páginas."
+"Nenhuma fonte avaliada para este ativo ainda: importe ou leia os dados dos "
+"módulos de segurança para preencher esta visão."
 
-msgid "Enable the end of support check"
-msgstr "Ativar a verificação do fim de suporte"
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "%1$d fontes avaliadas: %2$d críticas, %3$d a vigiar."
 
-msgid "Server controller accounts"
-msgstr "Contas dos controladores de servidores"
-
-msgid "Factory account still enabled: replace it with a named account"
-msgstr "Conta de fábrica ainda ativa: substituí-la por uma conta nominativa"
-
-msgid "Disabled on the controller: delete it there"
-msgstr "Desativada no controlador: eliminá-la lá"
-
-msgid "Locked on the controller"
-msgstr "Bloqueada no controlador"
-
-msgid "Administrator role: full control of the server"
-msgstr "Função de administrador: controlo total do servidor"
-
+#, php-format
 msgid ""
-"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
-"gives full control of the server, even switched off, outside GLPI and the "
-"directory. When the campaign is launched, the accounts read on the "
-"controllers of its entities are copied here with a suggestion. Keep or "
-"remove each one: the plugin changes nothing on the controllers, remove the "
-"account there."
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
 msgstr ""
-"Uma conta de um controlador de gestão de servidores (iLO, iDRAC, XClarity, "
-"IPMI) dá o controlo total do servidor, mesmo desligado, fora do GLPI e do "
-"diretório. Ao lançar a campanha, as contas lidas nos controladores das suas "
-"entidades são copiadas aqui com uma sugestão. Mantenha ou retire cada uma: o "
-"plugin não altera nada nos controladores, retire a conta lá."
+"A pontuação é a média ponderada das fontes (conforme 100, a vigiar 50, "
+"crítico 0); bom a partir de %1$d, a melhorar a partir de %2$d, fraco abaixo. "
+"Uma única fonte crítica impede o nível bom."
+
+msgid "Points (weight)"
+msgstr "Pontos (peso)"
 
 msgid ""
-"The accounts of the controllers are copied when the campaign is launched."
-msgstr "As contas dos controladores são copiadas ao lançar a campanha."
-
-msgid ""
-"No account of a server management controller in this campaign: no controller "
-"with accounts read in its entities when it was launched."
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
 msgstr ""
-"Nenhuma conta de controlador de gestão de servidores nesta campanha: nenhum "
-"controlador com contas lidas nas suas entidades no lançamento."
+"As fontes sem dados para este ativo (módulo não usado, nada importado, sem "
+"direito) não são exibidas."
 
-msgid "Add the accounts of the controllers"
-msgstr "Adicionar as contas dos controladores"
+#, php-format
+msgid ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr ""
+"%1$d resposta(s) importada(s) do arquivo do fornecedor, %2$d documento(s) "
+"anexado(s)."
 
-msgid "Suggestion"
-msgstr "Sugestão"
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
+msgstr ""
+"O documento \"%s\" não corresponde a nenhuma pergunta do arquivo: não foi "
+"adicionado."
 
-msgid "%d decided"
-msgstr "%d decidida(s)"
+msgid ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+msgstr ""
+"Mostra as respostas encontradas no arquivo do questionário devolvido pelo "
+"fornecedor, pergunta por pergunta, ao lado das respostas atuais, com os "
+"pontos a verificar (pergunta desconhecida, resposta fora da lista, pergunta "
+"ausente)."
 
-msgid "%d account(s) of the controllers added to the campaign."
-msgstr "%d conta(s) dos controladores adicionada(s) à campanha."
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+"Verifique as respostas, adicione os documentos enviados pelo fornecedor e "
+"salve: nada é registrado antes desta confirmação. Depois revise a avaliação "
+"e marque-a como concluída."
+
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
+msgstr "ISO/IEC 27001, controles A.5.19 a A.5.22"
+
+msgid "Supplier file"
+msgstr "Arquivo do fornecedor"
+
+msgid "Guidance"
+msgstr "Orientação"
+
+msgid "Allowed answers"
+msgstr "Respostas possíveis"
+
+msgid "Supplier answer"
+msgstr "Resposta do fornecedor"
+
+msgid "Evidence file name"
+msgstr "Nome do arquivo de evidência"
+
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr ""
+"Arquivo do questionário exportado para o fornecedor: %1$s (impressão %2$s)"
+
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr ""
+"Arquivo do questionário devolvido pelo fornecedor para a avaliação \"%s\""
+
+#, php-format
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+"Arquivo do fornecedor importado: %1$s (SHA-256 %2$s), %3$d resposta(s), %4$d "
+"documento(s)"
+
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr "O arquivo é grande demais (no máximo %d MB)."
+
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"O arquivo não é um arquivo de texto CSV: salve a planilha como CSV antes de "
+"importá-la."
+
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+"Este arquivo não é um questionário exportado deste plugin: sua primeira "
+"linha foi alterada ou removida."
+
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+"Este arquivo foi exportado para outra avaliação: importe-o na avaliação de "
+"origem."
+
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+"As perguntas deste arquivo não correspondem às da avaliação: exporte o "
+"questionário novamente."
+
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+"A linha de cabeçalho ou algumas colunas estão faltando: mantenha as colunas "
+"do arquivo exportado."
+
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr "Linha %1$d: código de pergunta desconhecido \"%2$s\", linha ignorada."
+
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr ""
+"Linha %1$d: a pergunta %2$s aparece duas vezes, apenas a primeira linha é "
+"mantida."
+
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr "Linha %1$d: a resposta \"%2$s\" não está na lista, linha ignorada."
+
+#, php-format
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+"Linha %1$d: no máximo %2$d perguntas por arquivo, as linhas seguintes foram "
+"ignoradas."
+
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr "A pergunta %s está ausente do arquivo: sua resposta não muda."
+
+#, php-format
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+"%d pergunta muda. Verifique as respostas e salve-as: elas serão marcadas "
+"como vindas do arquivo do fornecedor."
+msgstr[1] ""
+"%d perguntas mudam. Verifique as respostas e salve-as: elas serão marcadas "
+"como vindas do arquivo do fornecedor."
+
+msgid "Answer in the file"
+msgstr "Resposta no arquivo"
+
+msgid "Back to the evaluation"
+msgstr "Voltar à avaliação"
+
+msgid "Comment in the file"
+msgstr "Comentário no arquivo"
+
+msgid "Current answer"
+msgstr "Resposta atual"
+
+msgid "Documents sent by the supplier"
+msgstr "Documentos enviados pelo fornecedor"
+
+#, php-format
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+"Cada documento é vinculado às perguntas cuja coluna \"Nome do arquivo de "
+"evidência\" indica seu nome. Ele é verificado como qualquer evidência (tipos "
+"permitidos pelo GLPI, tamanho, conteúdo real). Esperados: %s"
+
+msgid "Review the supplier file"
+msgstr "Revisar o arquivo do fornecedor"
+
+msgid "Save these answers"
+msgstr "Salvar estas respostas"
+
+msgid "The file brings no new answer and no new comment."
+msgstr "O arquivo não traz nenhuma resposta nova nem comentário novo."
+
+msgid "unchanged"
+msgstr "inalterado"
+
+msgid "Answer by file, outside GLPI"
+msgstr "Resposta por arquivo, fora do GLPI"
+
+#, php-format
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"No máximo %1$d MB e %2$d perguntas. Salve a planilha como CSV antes de "
+"importá-la."
+
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+"Arquivo CSV (separador \";\", UTF-8), uma linha por pergunta. A primeira "
+"linha identifica a avaliação e suas perguntas: ela deve permanecer "
+"inalterada. Envie-o pelo meio de sua escolha (e-mail, plataforma de troca)."
+
+msgid "Download the questionnaire to fill in"
+msgstr "Baixar o questionário a preencher"
+
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+"Cada exportação e importação é registrada na aba Histórico (quem, quando, "
+"qual arquivo); o arquivo devolvido é mantido na aba Documentos do risco do "
+"fornecedor."
+
+msgid "Import the returned file"
+msgstr "Importar o arquivo devolvido"
+
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr "Questionário preenchido pelo fornecedor (CSV)"
+
+msgid "Review the answers"
+msgstr "Revisar as respostas"
+
+msgid "Send the questionnaire"
+msgstr "Enviar o questionário"
+
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr "Esta avaliação está concluída: reabra-a para importar um arquivo."
+
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+"Quando o fornecedor não tem acesso ao GLPI, envie o questionário como "
+"arquivo: o fornecedor preenche as colunas \"Resposta do fornecedor\", "
+"\"Comentário\" e, para cada documento fornecido, \"Nome do arquivo de "
+"evidência\", em qualquer planilha. Depois importe aqui o arquivo devolvido: "
+"as respostas são mostradas para revisão e nada é salvo antes da sua "
+"confirmação."
+
+msgid "You are not allowed to change this evaluation."
+msgstr "Você não tem permissão para alterar esta avaliação."
+
+msgid "Control coverage by policies"
+msgstr "Cobertura dos controles pelas políticas"
+
+msgid "Not covered by any text"
+msgstr "Não coberto por nenhum texto"
+
+msgid "Covered only by a text not approved"
+msgstr "Coberto apenas por um texto não aprovado"
+
+msgid "Covered only by a text to review"
+msgstr "Coberto apenas por um texto a revisar"
+
+msgid "Covered by an approved text"
+msgstr "Coberto por um texto aprovado"
+
+msgid "Covered controls"
+msgstr "Controles cobertos"
+
+msgid "Reference texts"
+msgstr "Textos de referência"
+
+msgid "Text status"
+msgstr "Situação do texto"
+
+msgid ""
+"Shows, for each applicable control of the Statement of Applicability, the "
+"texts of the policy library that cover it, and lists the controls covered by "
+"no text, or only by a text not approved yet or whose review date has passed."
+msgstr ""
+"Mostra, para cada controle aplicável da declaração de aplicabilidade, os "
+"textos da biblioteca de políticas que o cobrem, e lista os controles não "
+"cobertos por nenhum texto, ou apenas por um texto ainda não aprovado ou cuja "
+"data de revisão já passou."
+
+msgid ""
+"Open each policy, then its \"Covered controls\" tab, and link the whole text "
+"or one of its sections to the controls it deals with (several at once, or by "
+"typing codes such as A.5.15-A.5.18). Then write, approve or review the "
+"missing texts. Export the report in PDF or CSV for the auditor. Nothing is "
+"changed automatically."
+msgstr ""
+"Abra cada política, depois sua aba \"Controles cobertos\", e vincule o texto "
+"inteiro ou uma de suas seções aos controles que ele trata (vários de uma "
+"vez, ou digitando códigos como A.5.15-A.5.18). Depois redija, faça aprovar "
+"ou revise os textos que faltam. Exporte o relatório em PDF ou CSV para o "
+"auditor. Nada é alterado automaticamente."
+
+msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
+msgstr "ISO/IEC 27001, cláusula 5.2 e controle A.5.1"
+
+msgid "Gaps only"
+msgstr "Apenas as lacunas"
+
+msgid "All applicable controls"
+msgstr "Todos os controles aplicáveis"
+
+msgid "%d link added."
+msgid_plural "%d links added."
+msgstr[0] "%d vínculo adicionado."
+msgstr[1] "%d vínculos adicionados."
+
+msgid "Codes not found in the Statement of Applicability: %s"
+msgstr "Códigos não encontrados na declaração de aplicabilidade: %s"
+
+msgid ""
+"Applicable controls not covered by an approved text of the policy library "
+"whose review is up to date"
+msgstr ""
+"Controles aplicáveis não cobertos por um texto aprovado e com revisão em dia "
+"da biblioteca de políticas"
+
+msgid ""
+"Open the coverage report of the controls by the policies, link the text that "
+"deals with the control (or write it), then have it approved or reviewed."
+msgstr ""
+"Abra o relatório de cobertura dos controles pelas políticas, vincule o texto "
+"que trata o controle (ou redija-o) e depois faça-o aprovar ou revisar."
+
+msgid "Controls covered by an approved text: %1$d out of %2$d"
+msgstr "Controles cobertos por um texto aprovado: %1$d de %2$d"
+
+msgid "Policy library"
+msgstr "Biblioteca de políticas"
+
+msgid ""
+"No text of the policy library is linked to a control yet. Open a policy, "
+"then its \"Covered controls\" tab, to link it to the controls it deals with."
+msgstr ""
+"Nenhum texto da biblioteca de políticas está vinculado ainda a um controle. "
+"Abra uma política, depois sua aba \"Controles cobertos\", para vinculá-la "
+"aos controles que ela trata."
+
+msgid ""
+"Every applicable control is covered by an approved text whose review is up "
+"to date."
+msgstr ""
+"Cada controle aplicável é coberto por um texto aprovado com revisão em dia."
+
+msgid "No applicable control in the Statement of Applicability you can read."
+msgstr ""
+"Nenhum controle aplicável na declaração de aplicabilidade que você pode ler."
+
+msgid "Texts"
+msgstr "Textos"
+
+msgid "Controls covered by this text"
+msgstr "Controles cobertos por este texto"
+
+msgid "%d linked control"
+msgid_plural "%d linked controls"
+msgstr[0] "%d controle vinculado"
+msgstr[1] "%d controles vinculados"
+
+msgid "Controls not covered by any text"
+msgstr "Controles não cobertos por nenhum texto"
+
+msgid ""
+"Link this policy, or one of its sections, to the Annex A controls it deals "
+"with. Each applicable control of the Statement of Applicability should be "
+"covered by at least one approved text: the coverage report lists the "
+"controls without one, for the auditor (clause 5.2, control A.5.1). Only the "
+"controls of your entities are shown."
+msgstr ""
+"Vincule esta política, ou uma de suas seções, aos controles do Anexo A que "
+"ela trata. Cada controle aplicável da declaração de aplicabilidade deveria "
+"ser coberto por pelo menos um texto aprovado: o relatório de cobertura lista "
+"os que não têm, para o auditor (cláusula 5.2, controle A.5.1). Somente os "
+"controles de suas entidades são mostrados."
+
+msgid "Link controls"
+msgstr "Vincular controles"
+
+msgid ""
+"For example \"4.2 Access control\". Leave empty when the whole text covers "
+"the controls."
+msgstr ""
+"Por exemplo \"4.2 Controle de acesso\". Deixe vazio se o texto inteiro cobre "
+"os controles."
+
+msgid "Choose one or several controls in the list."
+msgstr "Escolha um ou vários controles na lista."
+
+msgid "Or type control codes"
+msgstr "Ou digite os códigos dos controles"
+
+msgid ""
+"Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) "
+"or a whole theme (A.8 for all technological controls)."
+msgstr ""
+"Entrada rápida, separada por vírgulas: um controle (A.5.1), um intervalo "
+"(A.5.15-A.5.18) ou um tema inteiro (A.8 para todos os controles "
+"tecnológicos)."
+
+msgid "This text is not linked to any control yet."
+msgstr "Este texto ainda não está vinculado a nenhum controle."
+
+msgid "Whole text"
+msgstr "Texto inteiro"
+
+msgid "Remove the link"
+msgstr "Remover o vínculo"
+
+msgid "Texts that cover this control"
+msgstr "Textos que cobrem este controle"
+
+msgid ""
+"The policies, or sections of policies, that deal with this control. An "
+"auditor expects each applicable control to be covered by at least one "
+"approved text whose review is up to date. Only the texts you are allowed to "
+"read are shown."
+msgstr ""
+"As políticas, ou seções de políticas, que tratam este controle. Um auditor "
+"espera que cada controle aplicável seja coberto por pelo menos um texto "
+"aprovado com revisão em dia. Somente os textos que você tem direito de ler "
+"são mostrados."
+
+msgid "No text of the policy library covers this control yet."
+msgstr "Nenhum texto da biblioteca de políticas cobre ainda este controle."
+
+msgid "Text"
+msgstr "Texto"
+
+msgid "Link texts"
+msgstr "Vincular textos"
+
+msgid "Policies"
+msgstr "Políticas"
+
+msgid "Leave empty when the whole text covers the control."
+msgstr "Deixe vazio se o texto inteiro cobre o controle."
+
+msgid ""
+"A control is covered when at least one approved text of the policy library, "
+"whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 "
+"and control A.5.1). Only the items the person who exported this report can "
+"read are counted."
+msgstr ""
+"Um controle é coberto quando pelo menos um texto aprovado da biblioteca de "
+"políticas, cuja data de revisão não passou, o trata (ISO/IEC 27001, cláusula "
+"5.2 e controle A.5.1). Somente os itens que a pessoa que exportou este "
+"relatório pode ler são contados."
+
+msgid ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+msgstr ""
+"Relatório arquivado como evidência dos requisitos 10.1 e 10.2 (separador "
+"Documentos). O pacote de evidências inclui-o."
+
+msgid "The report could not be archived."
+msgstr "Não foi possível arquivar o relatório."
+
+msgid ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+msgstr ""
+"Mostra o estoque de não conformidades, outras constatações e ações "
+"corretivas, e das ações decididas nas análises críticas pela direção: o que "
+"continua aberto por gravidade, origem, entidade e responsável, há quanto "
+"tempo, o que está atrasado, o prazo médio de encerramento num período, a "
+"tendência mensal e se a eficácia das ações encerradas foi verificada."
+
+msgid ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+msgstr ""
+"Escolha o período e os filtros, acompanhe os itens atrasados com os seus "
+"responsáveis e exporte o relatório em PDF ou CSV para o auditor, ou arquive-"
+"o como evidência dos requisitos 10.1 e 10.2: o pacote de evidências passa a "
+"incluí-lo. Nada é alterado automaticamente."
+
+msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+msgstr "ISO/IEC 27001, cláusulas 9.1, 10.1 e 10.2"
+
+msgid "Mean time to close gaps (days, 12 months)"
+msgstr "Prazo médio de encerramento dos desvios (dias, 12 meses)"
+
+msgid "Gap backlog"
+msgstr "Estoque de desvios"
+
+msgid "Other finding or improvement action"
+msgstr "Outra constatação ou ação de melhoria"
+
+msgid "Other source"
+msgstr "Outra fonte"
+
+msgid "30 days or less"
+msgstr "30 dias ou menos"
+
+msgid "31 to 90 days"
+msgstr "31 a 90 dias"
+
+msgid "91 to 180 days"
+msgstr "91 a 180 dias"
+
+msgid "More than 180 days"
+msgstr "Mais de 180 dias"
+
+msgid "Opened on"
+msgstr "Aberto em"
+
+msgid "Age (days)"
+msgstr "Idade (dias)"
+
+msgid "Days overdue"
+msgstr "Dias de atraso"
+
+msgid "Effectiveness verified"
+msgstr "Eficácia verificada"
+
+#, php-format
+msgid "Gap backlog report - %1$s (%2$s to %3$s)"
+msgstr "Relatório do estoque de desvios - %1$s (%2$s a %3$s)"
+
+#, php-format
+msgid "Effectiveness verified: %d%%"
+msgstr "Eficácia verificada: %d%%"
+
+#, php-format
+msgid "Last 12 months, computed on %s"
+msgstr "Últimos 12 meses, calculado em %s"
+
+#, php-format
+msgid "Mean time to close: %d days"
+msgstr "Prazo médio de encerramento: %d dias"
+
+msgid "Mean time to close: not measured"
+msgstr "Prazo médio de encerramento: não medido"
+
+#, php-format
+msgid "Open gaps: %d"
+msgstr "Desvios abertos: %d"
+
+#, php-format
+msgid "%1$d closed in the period, median: %2$s"
+msgstr "%1$d encerrados no período, mediana: %2$s"
+
+msgid "Age of open gaps"
+msgstr "Idade dos desvios abertos"
+
+#, php-format
+msgid "Archive as evidence (%s)"
+msgstr "Arquivar como evidência (%s)"
+
+msgid "Backlog at month end"
+msgstr "Estoque no fim do mês"
+
+msgid "By entity"
+msgstr "Por entidade"
+
+msgid "By origin"
+msgstr "Por origem"
+
+msgid "By owner"
+msgstr "Por responsável"
+
+msgid "By severity"
+msgstr "Por gravidade"
+
+#, php-format
+msgid "Closed in the period: %1$d verified, %2$d to verify"
+msgstr "Encerrados no período: %1$d verificados, %2$d por verificar"
+
+msgid "Due date passed and not closed"
+msgstr "Prazo ultrapassado e não encerrado"
+
+msgid "From (month)"
+msgstr "De (mês)"
+
+msgid "Mean time to close"
+msgstr "Prazo médio de encerramento"
+
+msgid "Month"
+msgstr "Mês"
+
+#, php-format
+msgid "No due date: %d"
+msgstr "Sem prazo: %d"
+
+msgid "No open gap with these filters."
+msgstr "Nenhum desvio aberto com estes filtros."
+
+msgid "Nothing open."
+msgstr "Nada em aberto."
+
+#, php-format
+msgid "Only the first %d gaps are listed: the CSV export contains all of them."
+msgstr ""
+"Só são listados os primeiros %d desvios: a exportação CSV contém todos."
+
+msgid "Open gaps"
+msgstr "Desvios abertos"
+
+msgid "Open gaps, most overdue first"
+msgstr "Desvios abertos, os mais atrasados primeiro"
+
+msgid "To (month)"
+msgstr "Até (mês)"
+
+msgid "By type"
+msgstr "Por tipo"
+
+msgid "Closed in the period"
+msgstr "Encerrados no período"
+
+msgid "ISMS requirements"
+msgstr "Requisitos do SGSI"
+
+msgid ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+msgstr ""
+"Prazo médio de encerramento: dias entre a abertura e o encerramento dos "
+"desvios encerrados no período. Eficácia verificada: não conformidades e "
+"constatações encerradas cujo encerramento foi verificado."
+
+msgid "Opened in the period"
+msgstr "Abertos no período"
+
+msgid "SBOM and VEX"
+msgstr "SBOM e VEX"
+
+msgid "Affected"
+msgstr "Afetado"
+
+msgid "Under investigation"
+msgstr "Em análise"
+
+msgid "Fixed"
+msgstr "Corrigido"
+
+msgid "Not affected"
+msgstr "Não afetado"
+
+msgid "Component not present"
+msgstr "Componente não presente"
+
+msgid "Vulnerable code not present"
+msgstr "Código vulnerável não presente"
+
+msgid "Vulnerable code never executed"
+msgstr "Código vulnerável nunca executado"
+
+msgid "Vulnerable code out of reach of an attacker"
+msgstr "Código vulnerável fora do alcance de um atacante"
+
+msgid "Protections already in place"
+msgstr "Proteções já implementadas"
+
+msgid "Entered by hand"
+msgstr "Inserido manualmente"
+
+msgid "SBOM file"
+msgstr "Arquivo SBOM"
+
+msgid "Vulnerability watch"
+msgstr "Monitoramento de vulnerabilidades"
+
+msgid "The file is larger than %d MB."
+msgstr "O arquivo excede %d MB."
+
+msgid "The file is not valid JSON, or it is nested too deeply."
+msgstr "O arquivo não é um JSON válido ou está aninhado demais."
+
+msgid ""
+"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
+"JSON."
+msgstr ""
+"O arquivo não é uma lista de materiais de software CycloneDX nem SPDX 2 em "
+"JSON."
+
+msgid ""
+"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+msgstr ""
+"O arquivo não contém nenhuma declaração VEX (CycloneDX com uma análise, ou "
+"OpenVEX)."
+
+msgid ""
+"The file lists more than %d components or vulnerabilities: split it by "
+"product."
+msgstr ""
+"O arquivo lista mais de %d componentes ou vulnerabilidades: divida-o por "
+"produto."
+
+msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
+msgstr ""
+"Informe um identificador de vulnerabilidade, por exemplo CVE-2024-12345."
+
+msgid "Choose a status."
+msgstr "Escolha um status."
+
+msgid "Unknown justification."
+msgstr "Justificativa desconhecida."
+
+msgid "A \"not affected\" statement needs a justification or an explanation."
+msgstr ""
+"Uma declaração \"não afetado\" exige uma justificativa ou uma explicação."
+
+msgid "Enter the product version described by the file."
+msgstr "Informe a versão do produto descrita pelo arquivo."
+
+msgid ""
+"Keeps the software bill of materials (SBOM) of each version of a product you "
+"build or develop, compares its components with the vulnerabilities already "
+"known to the plugin, and records your VEX statements: affected, not affected "
+"(with the reason), fixed or under investigation. Customers and the Cyber "
+"Resilience Act expect these documents from a manufacturer."
+msgstr ""
+"Mantém a lista de materiais de software (SBOM) de cada versão de um produto "
+"que você fabrica ou desenvolve, compara seus componentes com as "
+"vulnerabilidades já conhecidas pelo plugin e registra suas declarações VEX: "
+"afetado, não afetado (com o motivo), corrigido ou em análise. Os clientes e "
+"o Cyber Resilience Act esperam esses documentos de um fabricante."
+
+msgid ""
+"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
+"released version, then give a VEX status to each vulnerability found, or "
+"import the VEX document of your scanner. Nothing is sent outside GLPI."
+msgstr ""
+"Importe o arquivo CycloneDX ou SPDX (JSON) gerado pela sua compilação para "
+"cada versão publicada e depois atribua um status VEX a cada vulnerabilidade "
+"encontrada, ou importe o documento VEX do seu scanner. Nada é enviado para "
+"fora do GLPI."
+
+msgid ""
+"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
+"Annex I part II"
+msgstr ""
+"ISO/IEC 27001, controles A.5.21, A.8.8 e A.8.28; Cyber Resilience Act, anexo "
+"I parte II"
+
+msgid "Software bills of materials and VEX"
+msgstr "Listas de materiais de software e VEX"
+
+msgid ""
+"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
+"statement(s)."
+msgstr ""
+"SBOM importado: %1$d componente(s), %2$d vulnerabilidade(s) citada(s), %3$d "
+"declaração(ões) VEX."
+
+msgid "VEX document imported: %d statement(s)."
+msgstr "Documento VEX importado: %d declaração(ões)."
+
+msgid "VEX statement saved."
+msgstr "Declaração VEX salva."
+
+msgid "SBOM deleted."
+msgstr "SBOM excluído."
+
+msgid "VEX statement deleted."
+msgstr "Declaração VEX excluída."
+
+msgid "No VEX statement"
+msgstr "Nenhuma declaração VEX"
+
+msgid ""
+"An SBOM lists the components (libraries, packages) of one version of this "
+"product. Import one file per released version; the vulnerabilities found "
+"stay here with your VEX statements."
+msgstr ""
+"Uma SBOM lista os componentes (bibliotecas, pacotes) de uma versão deste "
+"produto. Importe um arquivo por versão publicada; as vulnerabilidades "
+"encontradas ficam aqui com suas declarações VEX."
+
+msgid "Import an SBOM"
+msgstr "Importar uma SBOM"
+
+msgid "Product version"
+msgstr "Versão do produto"
+
+msgid "CycloneDX or SPDX file (JSON)"
+msgstr "Arquivo CycloneDX ou SPDX (JSON)"
+
+msgid ""
+"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
+"a CycloneDX file are kept too."
+msgstr ""
+"No máximo %1$d MB e %2$d componentes. As vulnerabilidades e análises "
+"escritas em um arquivo CycloneDX também são mantidas."
+
+msgid "Import a VEX document"
+msgstr "Importar um documento VEX"
+
+msgid "All versions"
+msgstr "Todas as versões"
+
+msgid "CycloneDX VEX or OpenVEX file (JSON)"
+msgstr "Arquivo CycloneDX VEX ou OpenVEX (JSON)"
+
+msgid ""
+"A new statement replaces the previous one for the same vulnerability, "
+"component and version."
+msgstr ""
+"Uma nova declaração substitui a anterior para a mesma vulnerabilidade, "
+"componente e versão."
+
+msgid "No SBOM imported for this product yet."
+msgstr "Nenhuma SBOM importada para este produto ainda."
+
+msgid "%d component(s)"
+msgstr "%d componente(s)"
+
+msgid "%d affected"
+msgstr "%d afetada(s)"
+
+msgid "%d without VEX statement"
+msgstr "%d sem declaração VEX"
+
+msgid "Delete this SBOM"
+msgstr "Excluir esta SBOM"
+
+msgid "Known vulnerabilities of the components"
+msgstr "Vulnerabilidades conhecidas dos componentes"
+
+msgid ""
+"No known vulnerability: none in the file, and none known by the "
+"vulnerability watch for these components and versions."
+msgstr ""
+"Nenhuma vulnerabilidade conhecida: nenhuma no arquivo e nenhuma conhecida "
+"pelo monitoramento de vulnerabilidades para esses componentes e versões."
+
+msgid "Vulnerability"
+msgstr "Vulnerabilidade"
+
+msgid "Found by"
+msgstr "Encontrada por"
+
+msgid "VEX status"
+msgstr "Status VEX"
+
+msgid "Declare"
+msgstr "Declarar"
+
+msgid "Known exploited vulnerability (CISA KEV)"
+msgstr "Vulnerabilidade explorada conhecida (CISA KEV)"
+
+msgid "Explanation"
+msgstr "Explicação"
+
+msgid "Components (%d)"
+msgstr "Componentes (%d)"
+
+msgid "Licenses"
+msgstr "Licenças"
+
+msgid "Only the first %d components are shown."
+msgstr "Somente os primeiros %d componentes são exibidos."
+
+msgid "Older SBOM: only the %d most recent are detailed."
+msgstr "SBOM mais antiga: somente as %d mais recentes são detalhadas."
+
+msgid "VEX statements"
+msgstr "Declarações VEX"
+
+msgid "Component (purl or name)"
+msgstr "Componente (purl ou nome)"
+
+msgid "Whole product"
+msgstr "Produto inteiro"
+
+msgid "No VEX statement for this product."
+msgstr "Nenhuma declaração VEX para este produto."
+
+msgid "%d product(s) with an SBOM"
+msgstr "%d produto(s) com uma SBOM"
+
+msgid "%d application(s) of the register without an SBOM"
+msgstr "%d aplicação(ões) do registro sem SBOM"
+
+msgid "%d known vulnerability(ies) in the components"
+msgstr "%d vulnerabilidade(s) conhecida(s) nos componentes"
+
+msgid "%d not affected or fixed"
+msgstr "%d não afetada(s) ou corrigida(s)"
+
+#: templates/product_sbom_list.html.twig
+msgid ""
+"SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
+"tab of each application."
+msgstr ""
+"Os arquivos SBOM são importados e as declarações VEX inseridas na aba \"SBOM "
+"e VEX\" de cada aplicação."
+
+#: templates/product_sbom_list.html.twig
+msgid "No SBOM imported yet."
+msgstr "Nenhum SBOM importado ainda."
+
+#: templates/product_sbom_list.html.twig
+msgid "Components"
+msgstr "Componentes"
+
+msgid "Secure link"
+msgstr "Ligação segura"
+
+#, php-format
+msgid "Secure link %1$d created for the supplier, valid %2$d day(s)"
+msgstr "Ligação segura %1$d criada para o fornecedor, válida %2$d dia(s)"
+
+#, php-format
+msgid "Secure link %d revoked"
+msgstr "Ligação segura %d revogada"
+
+#, php-format
+msgid "Files of type .%s are not accepted."
+msgstr "Os ficheiros do tipo .%s não são aceites."
+
+#, php-format
+msgid ""
+"Supplier answers received by secure link %1$d: %2$d answer(s), %3$d "
+"document(s), to be reviewed"
+msgstr ""
+"Respostas do fornecedor recebidas pela ligação segura %1$d: %2$d "
+"resposta(s), %3$d documento(s), a rever"
+
+#, php-format
+msgid "Answers received by secure link on %s"
+msgstr "Respostas recebidas por ligação segura em %s"
+
+#, php-format
+msgid ""
+"Supplier answers received by secure link reviewed and saved: %1$d answer(s), "
+"%2$d document(s)"
+msgstr ""
+"Respostas do fornecedor recebidas por ligação segura revistas e guardadas: "
+"%1$d resposta(s), %2$d documento(s)"
+
+#, php-format
+msgid "Supplier answers received by secure link discarded (draft %d)"
+msgstr ""
+"Respostas do fornecedor recebidas por ligação segura rejeitadas (rascunho %d)"
+
+msgid ""
+"Shows the answers sent by the supplier through the secure link, question by "
+"question, next to the current answers, with the documents received. They are "
+"not part of the evaluation yet."
+msgstr ""
+"Mostra as respostas enviadas pelo fornecedor pela ligação segura, pergunta a "
+"pergunta, ao lado das respostas atuais, com os documentos recebidos. Ainda "
+"não fazem parte da avaliação."
+
+msgid ""
+"Check the answers, then save them (the documents are checked again like any "
+"evidence) or discard them. Then review the evaluation and mark it as "
+"completed."
+msgstr ""
+"Verifique as respostas e guarde-as (os documentos são novamente verificados "
+"como qualquer evidência) ou rejeite-as. Depois reveja a avaliação e marque-a "
+"como concluída."
+
+#, php-format
+msgid "Question %s: choose an answer from the list."
+msgstr "Pergunta %s: escolha uma resposta da lista."
+
+msgid "Too many documents in one sending."
+msgstr "Demasiados documentos num só envio."
+
+#, php-format
+msgid "Question %1$s: %2$s"
+msgstr "Pergunta %1$s: %2$s"
+
+msgid "Nothing was sent: answer at least one question."
+msgstr "Nada foi enviado: responda a pelo menos uma pergunta."
+
+msgid "Secure link created: copy it now, it will not be shown again."
+msgstr "Ligação segura criada: copie-a agora, não voltará a ser mostrada."
+
+msgid "The link was revoked: it no longer opens the questionnaire."
+msgstr "A ligação foi revogada: já não abre o questionário."
+
+msgid "The answers received were discarded."
+msgstr "As respostas recebidas foram rejeitadas."
+
+#, php-format
+msgid "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
+msgstr ""
+"%1$d resposta(s) guardada(s) a partir da ligação segura, %2$d documento(s) "
+"anexado(s)."
+
+msgid ""
+"Your customer asks you to answer this security questionnaire. Choose an "
+"answer for each question, add a comment if useful and attach the documents "
+"asked for. Your answers are sent to your customer, who reviews them before "
+"they are recorded."
+msgstr ""
+"O seu cliente pede-lhe que responda a este questionário de segurança. "
+"Escolha uma resposta para cada pergunta, adicione um comentário se for útil "
+"e anexe os documentos pedidos. As suas respostas são enviadas ao seu "
+"cliente, que as revê antes de as registar."
+
+#, php-format
+msgid "Link valid until %s"
+msgstr "Ligação válida até %s"
+
+#, php-format
+msgid "Sendings left: %d"
+msgstr "Envios restantes: %d"
+
+msgid "Nothing was sent yet"
+msgstr "Ainda nada foi enviado"
+
+msgid "Correct these points, select the documents again, then send."
+msgstr ""
+"Corrija estes pontos, selecione novamente os documentos e depois envie."
+
+msgid "Document expected"
+msgstr "Documento esperado"
+
+msgid "Document (optional)"
+msgstr "Documento (opcional)"
+
+#, php-format
+msgid ""
+"Documents: at most %d MB each, in the formats accepted by your customer "
+"(PDF, office documents, images...)."
+msgstr ""
+"Documentos: no máximo %d MB cada, nos formatos aceites pelo seu cliente "
+"(PDF, documentos de escritório, imagens...)."
+
+msgid "Send my answers"
+msgstr "Enviar as minhas respostas"
+
+msgid ""
+"Thank you: your answers were sent. Your customer will review them; you can "
+"close this page."
+msgstr ""
+"Obrigado: as suas respostas foram enviadas. O seu cliente vai revê-las; pode "
+"fechar esta página."
+
+msgid "Too many requests: wait a few minutes, then try again."
+msgstr "Demasiados pedidos: aguarde alguns minutos e tente novamente."
+
+msgid ""
+"This link can no longer be used: it has expired, was revoked or was already "
+"used. Ask your contact for a new link."
+msgstr ""
+"Esta ligação já não pode ser usada: expirou, foi revogada ou já foi "
+"utilizada. Peça uma nova ligação ao seu contacto."
+
+msgid ""
+"This link is not valid. Check that you copied it in full, or ask your "
+"contact for a new link."
+msgstr ""
+"Esta ligação não é válida. Verifique se a copiou por completo ou peça uma "
+"nova ligação ao seu contacto."
+
+msgid "Supplier answer by secure link"
+msgstr "Resposta do fornecedor por ligação segura"
+
+msgid ""
+"Lets a supplier answer its security questionnaire on a page served by GLPI, "
+"without a GLPI account, from a personal link created on the evaluation (tab "
+"\"Secure link\"). Enable it only if this GLPI can be reached by your "
+"suppliers. The link opens only the questions of one evaluation, expires, can "
+"be used a limited number of times and can be revoked; the answers wait for a "
+"review in GLPI. The answer by file works without this setting."
+msgstr ""
+"Permite a um fornecedor responder ao seu questionário de segurança numa "
+"página servida pelo GLPI, sem conta GLPI, a partir de uma ligação pessoal "
+"criada na avaliação (separador «Ligação segura»). Ative apenas se este GLPI "
+"for acessível pelos seus fornecedores. A ligação só abre as perguntas de uma "
+"avaliação, expira, pode ser usada um número limitado de vezes e pode ser "
+"revogada; as respostas aguardam uma revisão no GLPI. A resposta por ficheiro "
+"funciona sem esta definição."
+
+msgid "Allow suppliers to answer by secure link"
+msgstr "Permitir que os fornecedores respondam por ligação segura"
+
+msgid "All sendings used"
+msgstr "Envios esgotados"
+
+msgid "Evaluation completed"
+msgstr "Avaliação concluída"
+
+msgid "Answer by secure link, without a GLPI account"
+msgstr "Resposta por ligação segura, sem conta GLPI"
+
+msgid ""
+"Send the supplier a personal link to a page served by GLPI, where it answers "
+"the questions of this evaluation and attaches its documents, without a GLPI "
+"account. The page shows only these questions. The link expires, can be used "
+"a limited number of times and can be revoked at any time. The answers "
+"received stay pending until you review and save them."
+msgstr ""
+"Envie ao fornecedor uma ligação pessoal para uma página servida pelo GLPI, "
+"onde responde às perguntas desta avaliação e anexa os seus documentos, sem "
+"conta GLPI. A página mostra apenas estas perguntas. A ligação expira, pode "
+"ser usada um número limitado de vezes e revogada a qualquer momento. As "
+"respostas recebidas ficam pendentes até que as reveja e guarde."
+
+msgid "Answers to review"
+msgstr "Respostas a rever"
+
+msgid "Received on"
+msgstr "Recebidas em"
+
+msgid "Answers"
+msgstr "Respostas"
+
+msgid "Link to send to the supplier"
+msgstr "Ligação a enviar ao fornecedor"
+
+msgid ""
+"Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). "
+"Send it by the means of your choice."
+msgstr ""
+"Copie-a agora: só é mostrada uma vez (o GLPI guarda apenas uma impressão "
+"digital). Envie-a pelo meio da sua escolha."
+
+msgid ""
+"The secure link is disabled. An administrator of the plugin can enable it in "
+"the plugin settings; the answer by file stays available."
+msgstr ""
+"A ligação segura está desativada. Um administrador do plugin pode ativá-la "
+"nas definições do plugin; a resposta por ficheiro continua disponível."
+
+msgid "Open the settings"
+msgstr "Abrir as definições"
+
+msgid "Valid for (days)"
+msgstr "Válida durante (dias)"
+
+msgid "Sendings allowed"
+msgstr "Envios permitidos"
+
+msgid "Create a link"
+msgstr "Criar uma ligação"
+
+msgid ""
+"This evaluation is completed: its links no longer open the questionnaire."
+msgstr ""
+"Esta avaliação está concluída: as suas ligações já não abrem o questionário."
+
+msgid "Expires"
+msgstr "Expira"
+
+msgid "Sendings"
+msgstr "Envios"
+
+msgid "Openings"
+msgstr "Aberturas"
+
+msgid "Created by"
+msgstr "Criado por"
+
+msgid ""
+"The creation of a link, each opening, each sending and each revocation are "
+"recorded in the security audit log; the Historical tab shows the sendings "
+"received and reviewed."
+msgstr ""
+"A criação de uma ligação, cada abertura, cada envio e cada revogação são "
+"registados no registo de auditoria de segurança; o separador Histórico "
+"mostra os envios recebidos e revistos."
+
+msgid "Discard these answers"
+msgstr "Rejeitar estas respostas"
+
+msgid ""
+"They are checked again like any evidence when you save, then attached to "
+"their question."
+msgstr ""
+"São novamente verificados como qualquer evidência ao guardar e depois "
+"anexados à sua pergunta."

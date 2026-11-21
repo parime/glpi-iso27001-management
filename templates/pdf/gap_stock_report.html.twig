@@ -1,0 +1,90 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #870 : rapport du stock d'écarts en PDF pour le dossier de l'auditeur (clauses 10.1 et
+   10.2) : synthèse, répartition, âge, tendance et écarts ouverts. Reçoit GapStockReport::report(). #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .grc-late { padding: 1px 4px; border-radius: 3px; font-size: 8px; font-weight: bold; background: #fbe0e0; color: #a61e1e; }
+  .grc-muted { color: #6c757d; font-size: 8px; }
+</style>
+{% set s = summary %}
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Period', 'grcmanager') }}</td><td>{{ period_label }}</td></tr>
+  <tr><td>{{ __('Open gaps', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ s.open.total }}</td></tr>
+  <tr><td>{{ __('Overdue', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ s.open.overdue }}</td></tr>
+  <tr><td>{{ __('Opened in the period', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ s.opened_in_period }}</td></tr>
+  <tr><td>{{ __('Closed in the period', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ s.closed_in_period }}</td></tr>
+  <tr><td>{{ __('Mean time to close', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ s.mean_closure is null ? '-' : __('%d days', 'grcmanager')|format(s.mean_closure) }}</td></tr>
+  <tr><td>{{ __('Effectiveness verified', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ s.verified_rate is null ? '-' : s.verified_rate ~ ' %' }} ({{ __('Closed in the period: %1$d verified, %2$d to verify', 'grcmanager')|format(s.verified, s.to_verify) }})</td></tr>
+  <tr><td>{{ __('ISMS requirements', 'grcmanager') }}</td><td>{{ clauses }}</td></tr>
+</table>
+
+{% for axis in [
+   {'title': __('By severity', 'grcmanager'), 'values': s.open.by_severity, 'labels': labels.severities},
+   {'title': __('By origin', 'grcmanager'), 'values': s.open.by_origin, 'labels': labels.origins},
+   {'title': __('By type', 'grcmanager'), 'values': s.open.by_kind, 'labels': labels.kinds},
+   {'title': __('By entity', 'grcmanager'), 'values': s.open.by_entity, 'labels': labels.entities},
+   {'title': __('By owner', 'grcmanager'), 'values': s.open.by_owner, 'labels': labels.owners},
+] %}
+<h2>{{ axis.title }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th></th><th>{{ __('Open', 'grcmanager') }}</th><th>{{ __('Overdue', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+  {% for key, v in axis.values %}
+    <tr><td>{{ axis.labels[key]|default(key) }}</td><td>{{ v.open }}</td><td>{{ v.overdue }}</td></tr>
+  {% else %}
+    <tr><td colspan="3">{{ __('Nothing open.', 'grcmanager') }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+
+<h2>{{ __('Age of open gaps', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  {% for key, label in labels.ages %}<tr><td>{{ label }}</td><td>{{ s.open.by_age[key] }}</td></tr>{% endfor %}
+</table>
+
+<h2>{{ __('Monthly trend', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Month', 'grcmanager') }}</th><th>{{ __('Opened', 'grcmanager') }}</th><th>{{ __('Closed', 'grcmanager') }}</th><th>{{ __('Backlog at month end', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+  {% for p in s.trend %}<tr><td>{{ p.month }}</td><td>{{ p.opened }}</td><td>{{ p.closed }}</td><td>{{ p.stock }}</td></tr>{% endfor %}
+  </tbody>
+</table>
+
+<h2>{{ __('Open gaps, most overdue first', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr>
+    <th>{{ __('Title', 'grcmanager') }}</th><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Origin', 'grcmanager') }}</th>
+    <th>{{ __('Severity', 'grcmanager') }}</th><th>{{ __('Entity') }}</th><th>{{ __('Owner', 'grcmanager') }}</th>
+    <th>{{ __('Status') }}</th><th>{{ __('Age (days)', 'grcmanager') }}</th><th>{{ __('Due date', 'grcmanager') }}</th>
+  </tr></thead>
+  <tbody>
+  {% for r in open_rows %}
+    <tr>
+      <td>{{ r.title ?: ('#' ~ r.id) }}</td><td>{{ r.kind_label }}</td><td>{{ r.origin_label }}</td>
+      <td>{{ r.severity_label }}</td><td>{{ r.entity }}</td><td>{{ r.owner ?: '-' }}</td><td>{{ r.status }}</td>
+      <td>{{ r.age }}</td>
+      <td>{{ r.due_label ?: '-' }}{% if r.overdue_days > 0 %} <span class="grc-late">{{ __('%d days late', 'grcmanager')|format(r.overdue_days) }}</span>{% endif %}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="9">{{ __('No open gap with these filters.', 'grcmanager') }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% if open_truncated %}<p class="grc-muted">{{ __('Only the first %d gaps are listed: the CSV export contains all of them.', 'grcmanager')|format(constant('GlpiPlugin\\Grcmanager\\GapStockReport::MAX_ROWS')) }}</p>{% endif %}
+<p class="grc-muted">{{ __('Mean time to close: days between the opening and the closure of the gaps closed in the period. Effectiveness verified: closed non-conformities and findings whose closure was verified.', 'grcmanager') }}</p>

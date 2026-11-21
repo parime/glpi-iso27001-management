@@ -1,0 +1,80 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #879 : couverture des mesures applicables de la SoA par les textes approuvés de la
+   bibliothèque des politiques. Lecture seule. #}
+<div class="container-fluid my-2" id="grc-policy-coverage">
+   <div class="card mb-3">
+      <div class="card-body d-flex flex-wrap align-items-center gap-2">
+         {% set gaps = summary.total - summary.counts['covered'] %}
+         <span class="badge {{ gaps > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} fs-4" id="grc-coverage-rate" data-gaps="{{ gaps }}" data-total="{{ summary.total }}">
+            <i class="ti {{ gaps > 0 ? 'ti-file-alert' : 'ti-circle-check' }} me-1"></i>{{ __('Controls covered by an approved text: %1$d out of %2$d', 'grcmanager')|format(summary.counts['covered'], summary.total) }}{% if summary.rate is not null %} ({{ summary.rate }} %){% endif %}
+         </span>
+         {% for key, s in statuses %}
+            <span class="badge {{ s.class }}" data-status="{{ key }}"><i class="ti {{ s.icon }} me-1"></i>{{ s.label }} : {{ summary.counts[key] ?? 0 }}</span>
+         {% endfor %}
+         <span class="ms-auto d-flex flex-wrap gap-2">
+            <a class="btn btn-sm btn-ghost-secondary" href="{{ policies_url }}"><i class="ti ti-books me-1"></i>{{ __('Policy library', 'grcmanager') }}</a>
+            {% if consistency_url %}
+               <a class="btn btn-sm btn-ghost-secondary" href="{{ consistency_url }}"><i class="ti ti-list-check me-1"></i>{{ __('Consistency checks', 'grcmanager') }}</a>
+            {% endif %}
+            <a class="btn btn-sm btn-outline-secondary" href="{{ csv_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export CSV', 'grcmanager') }}</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{{ pdf_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export PDF', 'grcmanager') }}</a>
+         </span>
+      </div>
+   </div>
+
+   <div class="btn-group mb-3" role="group">
+      {% for key, label in filters %}
+         <a href="{{ action }}?filter={{ key }}" class="btn btn-sm {{ filter == key ? 'btn-primary' : 'btn-outline-primary' }}">{{ label }}</a>
+      {% endfor %}
+   </div>
+
+   {% if not linked %}
+      <div class="alert alert-warning"><i class="ti ti-info-circle me-1"></i>{{ __('No text of the policy library is linked to a control yet. Open a policy, then its "Covered controls" tab, to link it to the controls it deals with.', 'grcmanager') }}</div>
+   {% endif %}
+
+   {% if rows is empty %}
+      <div class="alert alert-success"><i class="ti ti-circle-check me-1"></i>{{ summary.total > 0 ? __('Every applicable control is covered by an approved text whose review is up to date.', 'grcmanager') : __('No applicable control in the Statement of Applicability you can read.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="card">
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table mb-0">
+               <thead>
+                  <tr>
+                     <th>{{ __('Control', 'grcmanager') }}</th>
+                     <th>{{ __('Coverage', 'grcmanager') }}</th>
+                     <th>{{ __('Texts', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row in rows %}
+                     <tr class="grc-coverage-row" data-code="{{ row.code }}" data-status="{{ row.status }}">
+                        <td><a href="{{ row.url }}"><span class="badge bg-blue-subtle text-blue-emphasis me-1">{{ row.code }}</span>{{ row.title }}</a></td>
+                        <td><span class="badge {{ row.style.class }}"><i class="ti {{ row.style.icon }} me-1"></i>{{ row.style.label }}</span></td>
+                        <td>
+                           {% for text in row.texts %}
+                              <div><a href="{{ text.url }}">{{ text.title }}</a>{% if text.section != '' %} <span class="text-muted">({{ text.section }})</span>{% endif %} <span class="badge {{ text.style.class }}">{{ text.style.label }}</span></div>
+                           {% else %}
+                              <span class="text-muted">-</span>
+                           {% endfor %}
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+</div>

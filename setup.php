@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.79.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.80.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -62,6 +62,13 @@ function plugin_init_grcmanager(): void
         '#^/front/compliancecalendar\.ics\.php$#',
         \Glpi\Http\Firewall::STRATEGY_NO_CHECK
     );
+    // Issue #865, lot 2 : questionnaire du fournisseur par lien sécurisé, sans compte GLPI ; la page
+    // s'autorise par le jeton du lien (SupplierEvaluationLink) et la fonction est désactivée par défaut.
+    \Glpi\Http\Firewall::addPluginStrategyForLegacyScripts(
+        'grcmanager',
+        '#^/front/supplierportal\.php$#',
+        \Glpi\Http\Firewall::STRATEGY_NO_CHECK
+    );
 
     // GLPI's own legacy `inc/{name}.class.php` autoloader (src/autoload/legacy-autoloader.php,
     // glpi_autoload()) only fires for a classname that itself STARTS WITH "Plugin" (or the PSR-4
@@ -82,6 +89,9 @@ function plugin_init_grcmanager(): void
     // found" (confirmed the hard way, first attempt at this fix).
     require_once __DIR__ . '/inc/rulesecurityincident.class.php';
     require_once __DIR__ . '/inc/rulesecurityincidentcollection.class.php';
+
+    // Issue #951 : tables raccourcies des gabarits d'incident, inconnues de getItemTypeForTable().
+    \GlpiPlugin\Grcmanager\Compat\ShortTableItemtypes::register();
 
     // Menu « GRC & Conformité » : un secteur de premier niveau dédié. Une clé de catégorie inconnue
     // des secteurs natifs fait créer par Html::generateMenuSession() (cœur de GLPI) une nouvelle
@@ -227,6 +237,8 @@ function plugin_init_grcmanager(): void
     // Issue #777 : onglet « Développement sécurisé » des applications, et « Validation sécurité de
     // mise en production » des changements liés à une application.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ApplicationSecurity::class, ['addtabon' => [Appliance::class]]);
+    // Issue #869 : onglet « SBOM et VEX » des applications (nomenclatures et déclarations VEX).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ProductSbom::class, ['addtabon' => [Appliance::class]]);
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ReleaseValidation::class, ['addtabon' => [Change::class]]);
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
@@ -276,6 +288,11 @@ function plugin_init_grcmanager(): void
     // Issue #843 : onglet « Contrôleur de gestion » sur les ordinateurs (iLO, iDRAC, XClarity, IPMI),
     // lecture seule.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ServerManagement::class, ['addtabon' => ['Computer']]);
+    // Issue #837 : onglet « Sécurité 360° » des ordinateurs et matériels réseau (sources du registre
+    // src/Feature/, lecture seule).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\AssetSecurity360::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\AssetSecurity360::ITEMTYPES,
+    ]);
     // Issue #843, lot 2 : onglet « Comptes des contrôleurs de serveurs » des campagnes de revue des accès.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\AccessReviewBmcAccount::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\AccessReview::class],
@@ -365,6 +382,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\TrainingQuiz::class, ['addtabon' => [Preference::class]]);
     // Issue #535 : « Politiques à lire », dans les préférences de chaque utilisateur.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PolicyAcknowledgement::class, ['addtabon' => [Preference::class]]);
+    // Issue #879 : onglets « Mesures couvertes » d'une politique et « Textes de référence » d'une mesure.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PolicyCoverage::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\Policy::class, \GlpiPlugin\Grcmanager\Control::class],
+    ]);
     // Issue #546 : fiche de conformité sécurité, sur chaque utilisateur et dans ses préférences.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PersonnelCompliance::class, [
         'addtabon' => [User::class, Preference::class],

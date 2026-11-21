@@ -37072,6 +37072,266 @@ msgstr ""
 msgid "Secure Boot"
 msgstr "Secure Boot"
 
+#: src/ShareAccess.php:160
+msgid "Anyone with the link"
+msgstr "Anyone with the link"
+
+#: src/ShareAccess.php:161
+msgid "External guest"
+msgstr "External guest"
+
+#: src/ShareAccess.php:173
+msgid "Windows file share"
+msgstr "Windows file share"
+
+#: src/ShareAccess.php:232
+msgid "Public link (anyone)"
+msgstr "Public link (anyone)"
+
+#: src/ShareAccess.php:234
+msgid "A sharing link works for anyone who has it, without signing in."
+msgstr "A sharing link works for anyone who has it, without signing in."
+
+#: src/ShareAccess.php:237
+msgid "External guest has access"
+msgstr "External guest has access"
+
+#: src/ShareAccess.php:240
+msgid ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+msgstr ""
+"A person from another organization (guest account) has access: check it is "
+"still needed."
+
+#: src/ShareAccess.php:286
+msgid ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+msgstr ""
+"No site column found: the file needs a column such as Site, Team or OneDrive."
+
+#: src/ShareAccess.php:300
+msgid ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+msgstr ""
+"Access refused by Microsoft Graph: grant the Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All application permissions with admin "
+"consent."
+
+#: src/ShareAccess.php:305
+msgid ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+msgstr ""
+"Too many sites or accounts to read in one click: nothing was replaced. "
+"Import a CSV export instead."
+
+#: templates/share_access.html.twig
+msgid "Read SharePoint, OneDrive and Teams rights"
+msgstr "Read SharePoint, OneDrive and Teams rights"
+
+#: templates/share_access.html.twig
+msgid ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+msgstr ""
+"GLPI reads the sharing rights through Microsoft Graph when you click, with "
+"the application set up for the MFA coverage, and never changes anything in "
+"Microsoft 365. SharePoint: the rights of each site document library and of "
+"its top-level items shared separately. OneDrive: the top-level items each "
+"person has shared. Teams: owners, members, guests and public teams. The same "
+"gaps and the same review as the file shares apply: public links, external "
+"guests, rights given to everyone."
+
+#: templates/share_access.html.twig
+msgid ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Application permissions to grant, with admin consent (read only): Sites.Read."
+"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph connected"
+msgstr "Microsoft Graph connected"
+
+#: templates/share_access.html.twig
+msgid "Microsoft Graph settings"
+msgstr "Microsoft Graph settings"
+
+#: templates/share_access.html.twig
+#, php-format
+msgid "Read %s now"
+msgstr "Read %s now"
+
+#: templates/share_access.html.twig
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+msgstr ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret on the MFA coverage page, or import a CSV export below."
+
+#: templates/share_access.html.twig
+msgid ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+msgstr ""
+"Fallback: import a CSV file with one line per right and columns such as "
+"Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type "
+"(User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, "
+"organization, users)."
+
+#: templates/share_access_detail.html.twig
+msgid "Owner in Microsoft 365"
+msgstr "Owner in Microsoft 365"
+
+#: templates/share_access_detail.html.twig
+msgid "Sharing link"
+msgstr "Sharing link"
+
+#: templates/share_access_detail.html.twig
+msgid "Team membership"
+msgstr "Team membership"
+
+#: templates/share_access_detail.html.twig
+msgid "Direct permission"
+msgstr "Direct permission"
+
+msgid "Firmware with a priority vulnerability"
+msgstr "Firmware with a priority vulnerability"
+
+msgid ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+msgstr ""
+"The firmware of the controller or the BIOS has a known vulnerability that is "
+"exploited, critical or likely to be exploited (page \"Fleet "
+"vulnerabilities\"): update it first."
+
+msgid "Firmware no longer supported"
+msgstr "Firmware no longer supported"
+
+msgid ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+msgstr ""
+"The firmware of the controller or the BIOS has reached its end of support "
+"(endoflife.date): no more security fixes."
+
+msgid "Firmware with known vulnerabilities"
+msgstr "Firmware with known vulnerabilities"
+
+msgid ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+msgstr ""
+"The firmware of the controller or the BIOS has known vulnerabilities (page "
+"\"Fleet vulnerabilities\")."
+
+msgid "Firmware support ending soon"
+msgstr "Firmware support ending soon"
+
+msgid ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+msgstr ""
+"The end of support of the firmware or the BIOS is near (endoflife.date)."
+
+msgid ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+msgstr ""
+"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
+"it with the known vulnerabilities."
+
+msgid "Not watched"
+msgstr "Not watched"
+
+msgid "Priority CVEs: %d"
+msgstr "Priority CVEs: %d"
+
+msgid "Known CVEs: %d"
+msgstr "Known CVEs: %d"
+
+msgid "No known CVE"
+msgstr "No known CVE"
+
+msgid ""
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
+msgstr ""
+"The firmware of each controller and its BIOS are compared with the known "
+"vulnerabilities of the fleet and with the end of support dates, like the "
+"other firmwares: link their name to a product once, on the same pages."
+
+msgid "Enable the end of support check"
+msgstr "Enable the end of support check"
+
+msgid "Server controller accounts"
+msgstr "Server controller accounts"
+
+msgid "Factory account still enabled: replace it with a named account"
+msgstr "Factory account still enabled: replace it with a named account"
+
+msgid "Disabled on the controller: delete it there"
+msgstr "Disabled on the controller: delete it there"
+
+msgid "Locked on the controller"
+msgstr "Locked on the controller"
+
+msgid "Administrator role: full control of the server"
+msgstr "Administrator role: full control of the server"
+
+msgid ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+msgstr ""
+"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
+"gives full control of the server, even switched off, outside GLPI and the "
+"directory. When the campaign is launched, the accounts read on the "
+"controllers of its entities are copied here with a suggestion. Keep or "
+"remove each one: the plugin changes nothing on the controllers, remove the "
+"account there."
+
+msgid ""
+"The accounts of the controllers are copied when the campaign is launched."
+msgstr ""
+"The accounts of the controllers are copied when the campaign is launched."
+
+msgid ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+msgstr ""
+"No account of a server management controller in this campaign: no controller "
+"with accounts read in its entities when it was launched."
+
+msgid "Add the accounts of the controllers"
+msgstr "Add the accounts of the controllers"
+
+msgid "Suggestion"
+msgstr "Suggestion"
+
+msgid "%d decided"
+msgstr "%d decided"
+
+msgid "%d account(s) of the controllers added to the campaign."
+msgstr "%d account(s) of the controllers added to the campaign."
+
 #, php-format
 msgid "%1$s export of %2$s, imported on %3$s"
 msgstr "%1$s export of %2$s, imported on %3$s"
@@ -37256,130 +37516,1323 @@ msgstr[1] ""
 "%1$s: %2$d accounts have a path to the Domain Admins group (shortest path: "
 "%3$d steps). Details on the Active Directory security audit page."
 
-msgid "Firmware with a priority vulnerability"
-msgstr "Firmware with a priority vulnerability"
+msgid "Docker inventory: risky configuration"
+msgstr "Docker inventory: risky configuration"
+
+msgid "View the risky configuration"
+msgstr "View the risky configuration"
+
+msgid "No service analysed yet"
+msgstr "No service analysed yet"
+
+msgid "Without critical or high gap: not measured"
+msgstr "Without critical or high gap: not measured"
+
+msgid "Without critical or high gap: %d%%"
+msgstr "Without critical or high gap: %d%%"
+
+msgid "Without any open gap: %d%%"
+msgstr "Without any open gap: %d%%"
+
+msgid "%d service(s) analysed"
+msgstr "%d service(s) analysed"
+
+msgid "%d with a critical gap"
+msgstr "%d with a critical gap"
+
+msgid "%d with a high gap"
+msgstr "%d with a high gap"
+
+msgid "%d expired exception(s)"
+msgstr "%d expired exception(s)"
+
+msgid "%1$d exception(s) ending within %2$d days"
+msgstr "%1$d exception(s) ending within %2$d days"
+
+msgid "Next exception end: %s"
+msgstr "Next exception end: %s"
+
+msgid "%d service(s) not analysed"
+msgstr "%d service(s) not analysed"
+
+msgid "Security 360°"
+msgstr "Security 360°"
+
+msgid "Good security posture"
+msgstr "Good security posture"
+
+msgid "Security posture to improve"
+msgstr "Security posture to improve"
+
+msgid "Weak security posture"
+msgstr "Weak security posture"
+
+msgid "Not enough data to assess"
+msgstr "Not enough data to assess"
+
+msgid "Known vulnerabilities"
+msgstr "Known vulnerabilities"
+
+msgid "No known vulnerability in the watched products installed on this asset."
+msgstr ""
+"No known vulnerability in the watched products installed on this asset."
+
+#, php-format
+msgid ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+msgstr ""
+"%1$d known vulnerabilities, %2$d of them priority (actively exploited or "
+"very severe)."
+
+#, php-format
+msgid "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+msgstr "%d listed in the catalogue of exploited vulnerabilities (KEV)"
+
+#, php-format
+msgid "Volumes not encrypted: %s"
+msgstr "Volumes not encrypted: %s"
+
+#, php-format
+msgid "Tools: %s"
+msgstr "Tools: %s"
+
+#, php-format
+msgid "%s, although the encryption rule requires it."
+msgstr "%s, although the encryption rule requires it."
+
+#, php-format
+msgid "%s, not required by the encryption rule."
+msgstr "%s, not required by the encryption rule."
+
+#, php-format
+msgid ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+msgstr ""
+"Scan of %1$s: %2$s of rules passed, %3$d failed including %4$d of high "
+"severity."
+
+#, php-format
+msgid "%s: last reading failed."
+msgstr "%s: last reading failed."
+
+#, php-format
+msgid "%s: no gap found."
+msgstr "%s: no gap found."
+
+#, php-format
+msgid "%1$s: %2$d gaps found."
+msgstr "%1$s: %2$d gaps found."
+
+#, php-format
+msgid "No open incident (%d closed or solved)."
+msgstr "No open incident (%d closed or solved)."
+
+#, php-format
+msgid "%1$d open incidents, %2$d of them with high priority or more."
+msgstr "%1$d open incidents, %2$d of them with high priority or more."
+
+#, php-format
+msgid "%1$d linked risks: %2$d high or critical, %3$d medium."
+msgstr "%1$d linked risks: %2$d high or critical, %3$d medium."
 
 msgid ""
-"The firmware of the controller or the BIOS has a known vulnerability that is "
-"exploited, critical or likely to be exploited (page \"Fleet "
-"vulnerabilities\"): update it first."
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
 msgstr ""
-"The firmware of the controller or the BIOS has a known vulnerability that is "
-"exploited, critical or likely to be exploited (page \"Fleet "
-"vulnerabilities\"): update it first."
+"This tab brings together, for this asset, every security source known to the "
+"plugin: vulnerabilities, encryption, configuration, management controller, "
+"incidents, risks. Each line gives its state and a link to the detail. "
+"Nothing is changed: fix the gaps from the detail pages."
 
-msgid "Firmware no longer supported"
-msgstr "Firmware no longer supported"
+#, php-format
+msgid "Score: %s / 100"
+msgstr "Score: %s / 100"
 
 msgid ""
-"The firmware of the controller or the BIOS has reached its end of support "
-"(endoflife.date): no more security fixes."
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
 msgstr ""
-"The firmware of the controller or the BIOS has reached its end of support "
-"(endoflife.date): no more security fixes."
+"No source assessed for this asset yet: import or read the data of the "
+"security modules to fill this view."
 
-msgid "Firmware with known vulnerabilities"
-msgstr "Firmware with known vulnerabilities"
+#, php-format
+msgid "%1$d sources assessed: %2$d critical, %3$d to watch."
+msgstr "%1$d sources assessed: %2$d critical, %3$d to watch."
+
+#, php-format
+msgid ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+msgstr ""
+"The score is the weighted average of the sources (compliant 100, to watch "
+"50, critical 0); good from %1$d, to improve from %2$d, weak below. A single "
+"critical source prevents the good level."
+
+msgid "Points (weight)"
+msgstr "Points (weight)"
 
 msgid ""
-"The firmware of the controller or the BIOS has known vulnerabilities (page "
-"\"Fleet vulnerabilities\")."
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
 msgstr ""
-"The firmware of the controller or the BIOS has known vulnerabilities (page "
-"\"Fleet vulnerabilities\")."
+"Sources without data for this asset (module not used, nothing imported, no "
+"right) are not shown."
 
-msgid "Firmware support ending soon"
-msgstr "Firmware support ending soon"
+#, php-format
+msgid ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
+msgstr "The document \"%s\" matches no question of the file: it was not added."
 
 msgid ""
-"The end of support of the firmware or the BIOS is near (endoflife.date)."
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
 msgstr ""
-"The end of support of the firmware or the BIOS is near (endoflife.date)."
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
 
 msgid ""
-"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
-"it with the known vulnerabilities."
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
 msgstr ""
-"Link this name to a product on the page \"Fleet vulnerabilities\" to compare "
-"it with the known vulnerabilities."
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
 
-msgid "Not watched"
-msgstr "Not watched"
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
+msgstr "ISO/IEC 27001, controls A.5.19 to A.5.22"
 
-msgid "Priority CVEs: %d"
-msgstr "Priority CVEs: %d"
+msgid "Supplier file"
+msgstr "Supplier file"
 
-msgid "Known CVEs: %d"
-msgstr "Known CVEs: %d"
+msgid "Guidance"
+msgstr "Guidance"
 
-msgid "No known CVE"
-msgstr "No known CVE"
+msgid "Allowed answers"
+msgstr "Allowed answers"
+
+msgid "Supplier answer"
+msgstr "Supplier answer"
+
+msgid "Evidence file name"
+msgstr "Evidence file name"
+
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr "Questionnaire file returned by the supplier for the evaluation \"%s\""
+
+#, php-format
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr "The file is too large (at most %d MB)."
 
 msgid ""
-"The firmware of each controller and its BIOS are compared with the known "
-"vulnerabilities of the fleet and with the end of support dates, like the "
-"other firmwares: link their name to a product once, on the same pages."
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
 msgstr ""
-"The firmware of each controller and its BIOS are compared with the known "
-"vulnerabilities of the fleet and with the end of support dates, like the "
-"other firmwares: link their name to a product once, on the same pages."
-
-msgid "Enable the end of support check"
-msgstr "Enable the end of support check"
-
-msgid "Server controller accounts"
-msgstr "Server controller accounts"
-
-msgid "Factory account still enabled: replace it with a named account"
-msgstr "Factory account still enabled: replace it with a named account"
-
-msgid "Disabled on the controller: delete it there"
-msgstr "Disabled on the controller: delete it there"
-
-msgid "Locked on the controller"
-msgstr "Locked on the controller"
-
-msgid "Administrator role: full control of the server"
-msgstr "Administrator role: full control of the server"
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
 
 msgid ""
-"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
-"gives full control of the server, even switched off, outside GLPI and the "
-"directory. When the campaign is launched, the accounts read on the "
-"controllers of its entities are copied here with a suggestion. Keep or "
-"remove each one: the plugin changes nothing on the controllers, remove the "
-"account there."
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
 msgstr ""
-"An account of a server management controller (iLO, iDRAC, XClarity, IPMI) "
-"gives full control of the server, even switched off, outside GLPI and the "
-"directory. When the campaign is launched, the accounts read on the "
-"controllers of its entities are copied here with a suggestion. Keep or "
-"remove each one: the plugin changes nothing on the controllers, remove the "
-"account there."
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
 
 msgid ""
-"The accounts of the controllers are copied when the campaign is launched."
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
 msgstr ""
-"The accounts of the controllers are copied when the campaign is launched."
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
 
 msgid ""
-"No account of a server management controller in this campaign: no controller "
-"with accounts read in its entities when it was launched."
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
 msgstr ""
-"No account of a server management controller in this campaign: no controller "
-"with accounts read in its entities when it was launched."
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
 
-msgid "Add the accounts of the controllers"
-msgstr "Add the accounts of the controllers"
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
 
-msgid "Suggestion"
-msgstr "Suggestion"
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr "Line %1$d: unknown question code \"%2$s\", line ignored."
 
-msgid "%d decided"
-msgstr "%d decided"
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr "Line %1$d: question %2$s appears twice, only the first line is kept."
 
-msgid "%d account(s) of the controllers added to the campaign."
-msgstr "%d account(s) of the controllers added to the campaign."
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+
+#, php-format
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr "Question %s is missing from the file: its answer does not change."
+
+#, php-format
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[1] ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+
+msgid "Answer in the file"
+msgstr "Answer in the file"
+
+msgid "Back to the evaluation"
+msgstr "Back to the evaluation"
+
+msgid "Comment in the file"
+msgstr "Comment in the file"
+
+msgid "Current answer"
+msgstr "Current answer"
+
+msgid "Documents sent by the supplier"
+msgstr "Documents sent by the supplier"
+
+#, php-format
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+
+msgid "Review the supplier file"
+msgstr "Review the supplier file"
+
+msgid "Save these answers"
+msgstr "Save these answers"
+
+msgid "The file brings no new answer and no new comment."
+msgstr "The file brings no new answer and no new comment."
+
+msgid "unchanged"
+msgstr "unchanged"
+
+msgid "Answer by file, outside GLPI"
+msgstr "Answer by file, outside GLPI"
+
+#, php-format
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+
+msgid "Download the questionnaire to fill in"
+msgstr "Download the questionnaire to fill in"
+
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+
+msgid "Import the returned file"
+msgstr "Import the returned file"
+
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr "Questionnaire filled in by the supplier (CSV)"
+
+msgid "Review the answers"
+msgstr "Review the answers"
+
+msgid "Send the questionnaire"
+msgstr "Send the questionnaire"
+
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr "This evaluation is completed: reopen it to import a file."
+
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Supplier answer\", \"Comment\" and, for "
+"each document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+
+msgid "You are not allowed to change this evaluation."
+msgstr "You are not allowed to change this evaluation."
+
+msgid "Control coverage by policies"
+msgstr "Control coverage by policies"
+
+msgid "Not covered by any text"
+msgstr "Not covered by any text"
+
+msgid "Covered only by a text not approved"
+msgstr "Covered only by a text not approved"
+
+msgid "Covered only by a text to review"
+msgstr "Covered only by a text to review"
+
+msgid "Covered by an approved text"
+msgstr "Covered by an approved text"
+
+msgid "Covered controls"
+msgstr "Covered controls"
+
+msgid "Reference texts"
+msgstr "Reference texts"
+
+msgid "Text status"
+msgstr "Text status"
+
+msgid ""
+"Shows, for each applicable control of the Statement of Applicability, the "
+"texts of the policy library that cover it, and lists the controls covered by "
+"no text, or only by a text not approved yet or whose review date has passed."
+msgstr ""
+"Shows, for each applicable control of the Statement of Applicability, the "
+"texts of the policy library that cover it, and lists the controls covered by "
+"no text, or only by a text not approved yet or whose review date has passed."
+
+msgid ""
+"Open each policy, then its \"Covered controls\" tab, and link the whole text "
+"or one of its sections to the controls it deals with (several at once, or by "
+"typing codes such as A.5.15-A.5.18). Then write, approve or review the "
+"missing texts. Export the report in PDF or CSV for the auditor. Nothing is "
+"changed automatically."
+msgstr ""
+"Open each policy, then its \"Covered controls\" tab, and link the whole text "
+"or one of its sections to the controls it deals with (several at once, or by "
+"typing codes such as A.5.15-A.5.18). Then write, approve or review the "
+"missing texts. Export the report in PDF or CSV for the auditor. Nothing is "
+"changed automatically."
+
+msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
+msgstr "ISO/IEC 27001, clause 5.2 and control A.5.1"
+
+msgid "Gaps only"
+msgstr "Gaps only"
+
+msgid "All applicable controls"
+msgstr "All applicable controls"
+
+msgid "%d link added."
+msgid_plural "%d links added."
+msgstr[0] "%d link added."
+msgstr[1] "%d links added."
+
+msgid "Codes not found in the Statement of Applicability: %s"
+msgstr "Codes not found in the Statement of Applicability: %s"
+
+msgid ""
+"Applicable controls not covered by an approved text of the policy library "
+"whose review is up to date"
+msgstr ""
+"Applicable controls not covered by an approved text of the policy library "
+"whose review is up to date"
+
+msgid ""
+"Open the coverage report of the controls by the policies, link the text that "
+"deals with the control (or write it), then have it approved or reviewed."
+msgstr ""
+"Open the coverage report of the controls by the policies, link the text that "
+"deals with the control (or write it), then have it approved or reviewed."
+
+msgid "Controls covered by an approved text: %1$d out of %2$d"
+msgstr "Controls covered by an approved text: %1$d out of %2$d"
+
+msgid "Policy library"
+msgstr "Policy library"
+
+msgid ""
+"No text of the policy library is linked to a control yet. Open a policy, "
+"then its \"Covered controls\" tab, to link it to the controls it deals with."
+msgstr ""
+"No text of the policy library is linked to a control yet. Open a policy, "
+"then its \"Covered controls\" tab, to link it to the controls it deals with."
+
+msgid ""
+"Every applicable control is covered by an approved text whose review is up "
+"to date."
+msgstr ""
+"Every applicable control is covered by an approved text whose review is up "
+"to date."
+
+msgid "No applicable control in the Statement of Applicability you can read."
+msgstr "No applicable control in the Statement of Applicability you can read."
+
+msgid "Texts"
+msgstr "Texts"
+
+msgid "Controls covered by this text"
+msgstr "Controls covered by this text"
+
+msgid "%d linked control"
+msgid_plural "%d linked controls"
+msgstr[0] "%d linked control"
+msgstr[1] "%d linked controls"
+
+msgid "Controls not covered by any text"
+msgstr "Controls not covered by any text"
+
+msgid ""
+"Link this policy, or one of its sections, to the Annex A controls it deals "
+"with. Each applicable control of the Statement of Applicability should be "
+"covered by at least one approved text: the coverage report lists the "
+"controls without one, for the auditor (clause 5.2, control A.5.1). Only the "
+"controls of your entities are shown."
+msgstr ""
+"Link this policy, or one of its sections, to the Annex A controls it deals "
+"with. Each applicable control of the Statement of Applicability should be "
+"covered by at least one approved text: the coverage report lists the "
+"controls without one, for the auditor (clause 5.2, control A.5.1). Only the "
+"controls of your entities are shown."
+
+msgid "Link controls"
+msgstr "Link controls"
+
+msgid ""
+"For example \"4.2 Access control\". Leave empty when the whole text covers "
+"the controls."
+msgstr ""
+"For example \"4.2 Access control\". Leave empty when the whole text covers "
+"the controls."
+
+msgid "Choose one or several controls in the list."
+msgstr "Choose one or several controls in the list."
+
+msgid "Or type control codes"
+msgstr "Or type control codes"
+
+msgid ""
+"Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) "
+"or a whole theme (A.8 for all technological controls)."
+msgstr ""
+"Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) "
+"or a whole theme (A.8 for all technological controls)."
+
+msgid "This text is not linked to any control yet."
+msgstr "This text is not linked to any control yet."
+
+msgid "Whole text"
+msgstr "Whole text"
+
+msgid "Remove the link"
+msgstr "Remove the link"
+
+msgid "Texts that cover this control"
+msgstr "Texts that cover this control"
+
+msgid ""
+"The policies, or sections of policies, that deal with this control. An "
+"auditor expects each applicable control to be covered by at least one "
+"approved text whose review is up to date. Only the texts you are allowed to "
+"read are shown."
+msgstr ""
+"The policies, or sections of policies, that deal with this control. An "
+"auditor expects each applicable control to be covered by at least one "
+"approved text whose review is up to date. Only the texts you are allowed to "
+"read are shown."
+
+msgid "No text of the policy library covers this control yet."
+msgstr "No text of the policy library covers this control yet."
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Link texts"
+msgstr "Link texts"
+
+msgid "Policies"
+msgstr "Policies"
+
+msgid "Leave empty when the whole text covers the control."
+msgstr "Leave empty when the whole text covers the control."
+
+msgid ""
+"A control is covered when at least one approved text of the policy library, "
+"whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 "
+"and control A.5.1). Only the items the person who exported this report can "
+"read are counted."
+msgstr ""
+"A control is covered when at least one approved text of the policy library, "
+"whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 "
+"and control A.5.1). Only the items the person who exported this report can "
+"read are counted."
+
+msgid ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+msgstr ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+
+msgid "The report could not be archived."
+msgstr "The report could not be archived."
+
+msgid ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+msgstr ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+
+msgid ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+msgstr ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+
+msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+msgstr "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+
+msgid "Mean time to close gaps (days, 12 months)"
+msgstr "Mean time to close gaps (days, 12 months)"
+
+msgid "Gap backlog"
+msgstr "Gap backlog"
+
+msgid "Other finding or improvement action"
+msgstr "Other finding or improvement action"
+
+msgid "Other source"
+msgstr "Other source"
+
+msgid "30 days or less"
+msgstr "30 days or less"
+
+msgid "31 to 90 days"
+msgstr "31 to 90 days"
+
+msgid "91 to 180 days"
+msgstr "91 to 180 days"
+
+msgid "More than 180 days"
+msgstr "More than 180 days"
+
+msgid "Opened on"
+msgstr "Opened on"
+
+msgid "Age (days)"
+msgstr "Age (days)"
+
+msgid "Days overdue"
+msgstr "Days overdue"
+
+msgid "Effectiveness verified"
+msgstr "Effectiveness verified"
+
+#, php-format
+msgid "Gap backlog report - %1$s (%2$s to %3$s)"
+msgstr "Gap backlog report - %1$s (%2$s to %3$s)"
+
+#, php-format
+msgid "Effectiveness verified: %d%%"
+msgstr "Effectiveness verified: %d%%"
+
+#, php-format
+msgid "Last 12 months, computed on %s"
+msgstr "Last 12 months, computed on %s"
+
+#, php-format
+msgid "Mean time to close: %d days"
+msgstr "Mean time to close: %d days"
+
+msgid "Mean time to close: not measured"
+msgstr "Mean time to close: not measured"
+
+#, php-format
+msgid "Open gaps: %d"
+msgstr "Open gaps: %d"
+
+#, php-format
+msgid "%1$d closed in the period, median: %2$s"
+msgstr "%1$d closed in the period, median: %2$s"
+
+msgid "Age of open gaps"
+msgstr "Age of open gaps"
+
+#, php-format
+msgid "Archive as evidence (%s)"
+msgstr "Archive as evidence (%s)"
+
+msgid "Backlog at month end"
+msgstr "Backlog at month end"
+
+msgid "By entity"
+msgstr "By entity"
+
+msgid "By origin"
+msgstr "By origin"
+
+msgid "By owner"
+msgstr "By owner"
+
+msgid "By severity"
+msgstr "By severity"
+
+#, php-format
+msgid "Closed in the period: %1$d verified, %2$d to verify"
+msgstr "Closed in the period: %1$d verified, %2$d to verify"
+
+msgid "Due date passed and not closed"
+msgstr "Due date passed and not closed"
+
+msgid "From (month)"
+msgstr "From (month)"
+
+msgid "Mean time to close"
+msgstr "Mean time to close"
+
+msgid "Month"
+msgstr "Month"
+
+#, php-format
+msgid "No due date: %d"
+msgstr "No due date: %d"
+
+msgid "No open gap with these filters."
+msgstr "No open gap with these filters."
+
+msgid "Nothing open."
+msgstr "Nothing open."
+
+#, php-format
+msgid "Only the first %d gaps are listed: the CSV export contains all of them."
+msgstr ""
+"Only the first %d gaps are listed: the CSV export contains all of them."
+
+msgid "Open gaps"
+msgstr "Open gaps"
+
+msgid "Open gaps, most overdue first"
+msgstr "Open gaps, most overdue first"
+
+msgid "To (month)"
+msgstr "To (month)"
+
+msgid "By type"
+msgstr "By type"
+
+msgid "Closed in the period"
+msgstr "Closed in the period"
+
+msgid "ISMS requirements"
+msgstr "ISMS requirements"
+
+msgid ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+msgstr ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+
+msgid "Opened in the period"
+msgstr "Opened in the period"
+
+msgid "SBOM and VEX"
+msgstr "SBOM and VEX"
+
+msgid "Affected"
+msgstr "Affected"
+
+msgid "Under investigation"
+msgstr "Under investigation"
+
+msgid "Fixed"
+msgstr "Fixed"
+
+msgid "Not affected"
+msgstr "Not affected"
+
+msgid "Component not present"
+msgstr "Component not present"
+
+msgid "Vulnerable code not present"
+msgstr "Vulnerable code not present"
+
+msgid "Vulnerable code never executed"
+msgstr "Vulnerable code never executed"
+
+msgid "Vulnerable code out of reach of an attacker"
+msgstr "Vulnerable code out of reach of an attacker"
+
+msgid "Protections already in place"
+msgstr "Protections already in place"
+
+msgid "Entered by hand"
+msgstr "Entered by hand"
+
+msgid "SBOM file"
+msgstr "SBOM file"
+
+msgid "Vulnerability watch"
+msgstr "Vulnerability watch"
+
+msgid "The file is larger than %d MB."
+msgstr "The file is larger than %d MB."
+
+msgid "The file is not valid JSON, or it is nested too deeply."
+msgstr "The file is not valid JSON, or it is nested too deeply."
+
+msgid ""
+"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
+"JSON."
+msgstr ""
+"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
+"JSON."
+
+msgid ""
+"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+msgstr ""
+"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+
+msgid ""
+"The file lists more than %d components or vulnerabilities: split it by "
+"product."
+msgstr ""
+"The file lists more than %d components or vulnerabilities: split it by "
+"product."
+
+msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
+msgstr "Enter a vulnerability identifier, such as CVE-2024-12345."
+
+msgid "Choose a status."
+msgstr "Choose a status."
+
+msgid "Unknown justification."
+msgstr "Unknown justification."
+
+msgid "A \"not affected\" statement needs a justification or an explanation."
+msgstr "A \"not affected\" statement needs a justification or an explanation."
+
+msgid "Enter the product version described by the file."
+msgstr "Enter the product version described by the file."
+
+msgid ""
+"Keeps the software bill of materials (SBOM) of each version of a product you "
+"build or develop, compares its components with the vulnerabilities already "
+"known to the plugin, and records your VEX statements: affected, not affected "
+"(with the reason), fixed or under investigation. Customers and the Cyber "
+"Resilience Act expect these documents from a manufacturer."
+msgstr ""
+"Keeps the software bill of materials (SBOM) of each version of a product you "
+"build or develop, compares its components with the vulnerabilities already "
+"known to the plugin, and records your VEX statements: affected, not affected "
+"(with the reason), fixed or under investigation. Customers and the Cyber "
+"Resilience Act expect these documents from a manufacturer."
+
+msgid ""
+"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
+"released version, then give a VEX status to each vulnerability found, or "
+"import the VEX document of your scanner. Nothing is sent outside GLPI."
+msgstr ""
+"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
+"released version, then give a VEX status to each vulnerability found, or "
+"import the VEX document of your scanner. Nothing is sent outside GLPI."
+
+msgid ""
+"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
+"Annex I part II"
+msgstr ""
+"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
+"Annex I part II"
+
+msgid "Software bills of materials and VEX"
+msgstr "Software bills of materials and VEX"
+
+msgid ""
+"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
+"statement(s)."
+msgstr ""
+"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
+"statement(s)."
+
+msgid "VEX document imported: %d statement(s)."
+msgstr "VEX document imported: %d statement(s)."
+
+msgid "VEX statement saved."
+msgstr "VEX statement saved."
+
+msgid "SBOM deleted."
+msgstr "SBOM deleted."
+
+msgid "VEX statement deleted."
+msgstr "VEX statement deleted."
+
+msgid "No VEX statement"
+msgstr "No VEX statement"
+
+msgid ""
+"An SBOM lists the components (libraries, packages) of one version of this "
+"product. Import one file per released version; the vulnerabilities found "
+"stay here with your VEX statements."
+msgstr ""
+"An SBOM lists the components (libraries, packages) of one version of this "
+"product. Import one file per released version; the vulnerabilities found "
+"stay here with your VEX statements."
+
+msgid "Import an SBOM"
+msgstr "Import an SBOM"
+
+msgid "Product version"
+msgstr "Product version"
+
+msgid "CycloneDX or SPDX file (JSON)"
+msgstr "CycloneDX or SPDX file (JSON)"
+
+msgid ""
+"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
+"a CycloneDX file are kept too."
+msgstr ""
+"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
+"a CycloneDX file are kept too."
+
+msgid "Import a VEX document"
+msgstr "Import a VEX document"
+
+msgid "All versions"
+msgstr "All versions"
+
+msgid "CycloneDX VEX or OpenVEX file (JSON)"
+msgstr "CycloneDX VEX or OpenVEX file (JSON)"
+
+msgid ""
+"A new statement replaces the previous one for the same vulnerability, "
+"component and version."
+msgstr ""
+"A new statement replaces the previous one for the same vulnerability, "
+"component and version."
+
+msgid "No SBOM imported for this product yet."
+msgstr "No SBOM imported for this product yet."
+
+msgid "%d component(s)"
+msgstr "%d component(s)"
+
+msgid "%d affected"
+msgstr "%d affected"
+
+msgid "%d without VEX statement"
+msgstr "%d without VEX statement"
+
+msgid "Delete this SBOM"
+msgstr "Delete this SBOM"
+
+msgid "Known vulnerabilities of the components"
+msgstr "Known vulnerabilities of the components"
+
+msgid ""
+"No known vulnerability: none in the file, and none known by the "
+"vulnerability watch for these components and versions."
+msgstr ""
+"No known vulnerability: none in the file, and none known by the "
+"vulnerability watch for these components and versions."
+
+msgid "Vulnerability"
+msgstr "Vulnerability"
+
+msgid "Found by"
+msgstr "Found by"
+
+msgid "VEX status"
+msgstr "VEX status"
+
+msgid "Declare"
+msgstr "Declare"
+
+msgid "Known exploited vulnerability (CISA KEV)"
+msgstr "Known exploited vulnerability (CISA KEV)"
+
+msgid "Explanation"
+msgstr "Explanation"
+
+msgid "Components (%d)"
+msgstr "Components (%d)"
+
+msgid "Licenses"
+msgstr "Licenses"
+
+msgid "Only the first %d components are shown."
+msgstr "Only the first %d components are shown."
+
+msgid "Older SBOM: only the %d most recent are detailed."
+msgstr "Older SBOM: only the %d most recent are detailed."
+
+msgid "VEX statements"
+msgstr "VEX statements"
+
+msgid "Component (purl or name)"
+msgstr "Component (purl or name)"
+
+msgid "Whole product"
+msgstr "Whole product"
+
+msgid "No VEX statement for this product."
+msgstr "No VEX statement for this product."
+
+msgid "%d product(s) with an SBOM"
+msgstr "%d product(s) with an SBOM"
+
+msgid "%d application(s) of the register without an SBOM"
+msgstr "%d application(s) of the register without an SBOM"
+
+msgid "%d known vulnerability(ies) in the components"
+msgstr "%d known vulnerability(ies) in the components"
+
+msgid "%d not affected or fixed"
+msgstr "%d not affected or fixed"
+
+#: templates/product_sbom_list.html.twig
+msgid ""
+"SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
+"tab of each application."
+msgstr ""
+"SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
+"tab of each application."
+
+#: templates/product_sbom_list.html.twig
+msgid "No SBOM imported yet."
+msgstr "No SBOM imported yet."
+
+#: templates/product_sbom_list.html.twig
+msgid "Components"
+msgstr "Components"
+
+msgid "Secure link"
+msgstr "Secure link"
+
+#, php-format
+msgid "Secure link %1$d created for the supplier, valid %2$d day(s)"
+msgstr "Secure link %1$d created for the supplier, valid %2$d day(s)"
+
+#, php-format
+msgid "Secure link %d revoked"
+msgstr "Secure link %d revoked"
+
+#, php-format
+msgid "Files of type .%s are not accepted."
+msgstr "Files of type .%s are not accepted."
+
+#, php-format
+msgid ""
+"Supplier answers received by secure link %1$d: %2$d answer(s), %3$d "
+"document(s), to be reviewed"
+msgstr ""
+"Supplier answers received by secure link %1$d: %2$d answer(s), %3$d "
+"document(s), to be reviewed"
+
+#, php-format
+msgid "Answers received by secure link on %s"
+msgstr "Answers received by secure link on %s"
+
+#, php-format
+msgid ""
+"Supplier answers received by secure link reviewed and saved: %1$d answer(s), "
+"%2$d document(s)"
+msgstr ""
+"Supplier answers received by secure link reviewed and saved: %1$d answer(s), "
+"%2$d document(s)"
+
+#, php-format
+msgid "Supplier answers received by secure link discarded (draft %d)"
+msgstr "Supplier answers received by secure link discarded (draft %d)"
+
+msgid ""
+"Shows the answers sent by the supplier through the secure link, question by "
+"question, next to the current answers, with the documents received. They are "
+"not part of the evaluation yet."
+msgstr ""
+"Shows the answers sent by the supplier through the secure link, question by "
+"question, next to the current answers, with the documents received. They are "
+"not part of the evaluation yet."
+
+msgid ""
+"Check the answers, then save them (the documents are checked again like any "
+"evidence) or discard them. Then review the evaluation and mark it as "
+"completed."
+msgstr ""
+"Check the answers, then save them (the documents are checked again like any "
+"evidence) or discard them. Then review the evaluation and mark it as "
+"completed."
+
+#, php-format
+msgid "Question %s: choose an answer from the list."
+msgstr "Question %s: choose an answer from the list."
+
+msgid "Too many documents in one sending."
+msgstr "Too many documents in one sending."
+
+#, php-format
+msgid "Question %1$s: %2$s"
+msgstr "Question %1$s: %2$s"
+
+msgid "Nothing was sent: answer at least one question."
+msgstr "Nothing was sent: answer at least one question."
+
+msgid "Secure link created: copy it now, it will not be shown again."
+msgstr "Secure link created: copy it now, it will not be shown again."
+
+msgid "The link was revoked: it no longer opens the questionnaire."
+msgstr "The link was revoked: it no longer opens the questionnaire."
+
+msgid "The answers received were discarded."
+msgstr "The answers received were discarded."
+
+#, php-format
+msgid "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
+msgstr "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
+
+msgid ""
+"Your customer asks you to answer this security questionnaire. Choose an "
+"answer for each question, add a comment if useful and attach the documents "
+"asked for. Your answers are sent to your customer, who reviews them before "
+"they are recorded."
+msgstr ""
+"Your customer asks you to answer this security questionnaire. Choose an "
+"answer for each question, add a comment if useful and attach the documents "
+"asked for. Your answers are sent to your customer, who reviews them before "
+"they are recorded."
+
+#, php-format
+msgid "Link valid until %s"
+msgstr "Link valid until %s"
+
+#, php-format
+msgid "Sendings left: %d"
+msgstr "Sendings left: %d"
+
+msgid "Nothing was sent yet"
+msgstr "Nothing was sent yet"
+
+msgid "Correct these points, select the documents again, then send."
+msgstr "Correct these points, select the documents again, then send."
+
+msgid "Document expected"
+msgstr "Document expected"
+
+msgid "Document (optional)"
+msgstr "Document (optional)"
+
+#, php-format
+msgid ""
+"Documents: at most %d MB each, in the formats accepted by your customer "
+"(PDF, office documents, images...)."
+msgstr ""
+"Documents: at most %d MB each, in the formats accepted by your customer "
+"(PDF, office documents, images...)."
+
+msgid "Send my answers"
+msgstr "Send my answers"
+
+msgid ""
+"Thank you: your answers were sent. Your customer will review them; you can "
+"close this page."
+msgstr ""
+"Thank you: your answers were sent. Your customer will review them; you can "
+"close this page."
+
+msgid "Too many requests: wait a few minutes, then try again."
+msgstr "Too many requests: wait a few minutes, then try again."
+
+msgid ""
+"This link can no longer be used: it has expired, was revoked or was already "
+"used. Ask your contact for a new link."
+msgstr ""
+"This link can no longer be used: it has expired, was revoked or was already "
+"used. Ask your contact for a new link."
+
+msgid ""
+"This link is not valid. Check that you copied it in full, or ask your "
+"contact for a new link."
+msgstr ""
+"This link is not valid. Check that you copied it in full, or ask your "
+"contact for a new link."
+
+msgid "Supplier answer by secure link"
+msgstr "Supplier answer by secure link"
+
+msgid ""
+"Lets a supplier answer its security questionnaire on a page served by GLPI, "
+"without a GLPI account, from a personal link created on the evaluation (tab "
+"\"Secure link\"). Enable it only if this GLPI can be reached by your "
+"suppliers. The link opens only the questions of one evaluation, expires, can "
+"be used a limited number of times and can be revoked; the answers wait for a "
+"review in GLPI. The answer by file works without this setting."
+msgstr ""
+"Lets a supplier answer its security questionnaire on a page served by GLPI, "
+"without a GLPI account, from a personal link created on the evaluation (tab "
+"\"Secure link\"). Enable it only if this GLPI can be reached by your "
+"suppliers. The link opens only the questions of one evaluation, expires, can "
+"be used a limited number of times and can be revoked; the answers wait for a "
+"review in GLPI. The answer by file works without this setting."
+
+msgid "Allow suppliers to answer by secure link"
+msgstr "Allow suppliers to answer by secure link"
+
+msgid "All sendings used"
+msgstr "All sendings used"
+
+msgid "Evaluation completed"
+msgstr "Evaluation completed"
+
+msgid "Answer by secure link, without a GLPI account"
+msgstr "Answer by secure link, without a GLPI account"
+
+msgid ""
+"Send the supplier a personal link to a page served by GLPI, where it answers "
+"the questions of this evaluation and attaches its documents, without a GLPI "
+"account. The page shows only these questions. The link expires, can be used "
+"a limited number of times and can be revoked at any time. The answers "
+"received stay pending until you review and save them."
+msgstr ""
+"Send the supplier a personal link to a page served by GLPI, where it answers "
+"the questions of this evaluation and attaches its documents, without a GLPI "
+"account. The page shows only these questions. The link expires, can be used "
+"a limited number of times and can be revoked at any time. The answers "
+"received stay pending until you review and save them."
+
+msgid "Answers to review"
+msgstr "Answers to review"
+
+msgid "Received on"
+msgstr "Received on"
+
+msgid "Answers"
+msgstr "Answers"
+
+msgid "Link to send to the supplier"
+msgstr "Link to send to the supplier"
+
+msgid ""
+"Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). "
+"Send it by the means of your choice."
+msgstr ""
+"Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). "
+"Send it by the means of your choice."
+
+msgid ""
+"The secure link is disabled. An administrator of the plugin can enable it in "
+"the plugin settings; the answer by file stays available."
+msgstr ""
+"The secure link is disabled. An administrator of the plugin can enable it in "
+"the plugin settings; the answer by file stays available."
+
+msgid "Open the settings"
+msgstr "Open the settings"
+
+msgid "Valid for (days)"
+msgstr "Valid for (days)"
+
+msgid "Sendings allowed"
+msgstr "Sendings allowed"
+
+msgid "Create a link"
+msgstr "Create a link"
+
+msgid ""
+"This evaluation is completed: its links no longer open the questionnaire."
+msgstr ""
+"This evaluation is completed: its links no longer open the questionnaire."
+
+msgid "Expires"
+msgstr "Expires"
+
+msgid "Sendings"
+msgstr "Sendings"
+
+msgid "Openings"
+msgstr "Openings"
+
+msgid "Created by"
+msgstr "Created by"
+
+msgid ""
+"The creation of a link, each opening, each sending and each revocation are "
+"recorded in the security audit log; the Historical tab shows the sendings "
+"received and reviewed."
+msgstr ""
+"The creation of a link, each opening, each sending and each revocation are "
+"recorded in the security audit log; the Historical tab shows the sendings "
+"received and reviewed."
+
+msgid "Discard these answers"
+msgstr "Discard these answers"
+
+msgid ""
+"They are checked again like any evidence when you save, then attached to "
+"their question."
+msgstr ""
+"They are checked again like any evidence when you save, then attached to "
+"their question."
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"

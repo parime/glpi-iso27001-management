@@ -100,6 +100,32 @@ final class DockerInventoryEvidenceProvider
     }
 
     /**
+     * Issue #916 : configuration à risque des services (A.8.9), par Evidence::hardening() du plugin
+     * (0.12.0 et suivantes). Null sans le plugin, avec une version qui n'a pas cette méthode, sans
+     * droit de lecture ou en cas d'erreur.
+     *
+     * @return array<string, mixed>|null
+     */
+    public static function fetchHardening(): ?array
+    {
+        $callable = [DockerInventoryEvidence::API_CLASS, DockerHardeningEvidence::API_METHOD];
+        if (!self::isAvailable() || !is_callable($callable)) {
+            return null;
+        }
+        try {
+            $result = call_user_func($callable, self::FETCH_ROWS);
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        return DockerHardeningEvidence::summary(
+            $result,
+            self::allowedEntities(),
+            (string) ($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s'))
+        );
+    }
+
+    /**
      * @return array<string, mixed>|null
      */
     private static function call(string $section, string $now): ?array

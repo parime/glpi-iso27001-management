@@ -28,6 +28,7 @@ use GlpiPlugin\Grcmanager\Services\Audit\BodyResponseRules;
 use GlpiPlugin\Grcmanager\Services\Audit\CertificationAuditRules;
 use GlpiPlugin\Grcmanager\Services\Capa\CapaRequirementService;
 use GlpiPlugin\Grcmanager\Services\Capa\CveCapaRules;
+use GlpiPlugin\Grcmanager\Services\Capa\GapStockRules;
 use GlpiPlugin\Grcmanager\Services\Capa\OverdueCapaService;
 use GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService;
@@ -343,6 +344,18 @@ class Nonconformity extends NonconformityBase
 
         if ($status === 'verified' && empty($verificationDate)) {
             $input['closure_verification_date'] = date('Y-m-d');
+        }
+
+        // Issue #870 : date de clôture (délai moyen du rapport du stock d'écarts), jamais le statut.
+        $stamp = GapStockRules::closureStamp(
+            (string) ($this->fields['status'] ?? ''),
+            $status,
+            isset($this->fields['date_closed']) ? (string) $this->fields['date_closed'] : null,
+            self::CLOSED_STATUSES,
+            date('Y-m-d H:i:s')
+        );
+        if ($stamp['set']) {
+            $input['date_closed'] = $stamp['value'];
         }
 
         return $input;

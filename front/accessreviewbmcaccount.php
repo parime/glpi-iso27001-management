@@ -22,7 +22,7 @@ use GlpiPlugin\Grcmanager\AccessReviewBmcAccount;
 // des accès. Voir : revue des accès et lecture des ordinateurs ; agir : mise à jour de CETTE
 // campagne (vérifiée sur la campagne, donc sur son entité). Jeton CSRF vérifié par GLPI.
 if (!AccessReviewBmcAccount::canView()) {
-    Html::displayRightError();
+    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 
 if (isset($_POST['snapshot'])) {

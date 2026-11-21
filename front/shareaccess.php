@@ -28,13 +28,15 @@ Session::checkRight(ShareAccess::RIGHTNAME, READ);
 Session::checkRight(Installer::SENSITIVE_RIGHT, READ);
 
 // Fichier d'exemple fictif et script PowerShell de collecte (lecture seule), à télécharger.
+// Lot 2 : exemple fictif de l'export CSV des droits SharePoint, OneDrive et Teams.
 if (isset($_GET['example']) || isset($_GET['script'])) {
     $script = isset($_GET['script']);
+    $file = $script ? 'Export-GrcShareAccess.ps1'
+        : (($_GET['example'] ?? '') === 'm365' ? 'm365-share-access-example.csv' : 'share-access-example.csv');
     header($script ? 'Content-Type: text/plain; charset=UTF-8' : 'Content-Type: text/csv; charset=UTF-8');
-    header('Content-Disposition: attachment; filename="'
-        . ($script ? 'Export-GrcShareAccess.ps1' : 'share-access-example.csv') . '"');
+    header('Content-Disposition: attachment; filename="' . $file . '"');
     header('X-Content-Type-Options: nosniff');
-    readfile(dirname(__DIR__) . '/resources/' . ($script ? 'Export-GrcShareAccess.ps1' : 'share-access-example.csv'));
+    readfile(dirname(__DIR__) . '/resources/' . $file);
 
     return;
 }
@@ -46,8 +48,52 @@ $manage = static function (): void {
     Session::checkRight(Installer::SENSITIVE_RIGHT, UPDATE);
 };
 
-if (isset($_POST['import_shares'])) {
+$importMessages = static function (array $result): void {
+    foreach ($result['errors'] as $code) {
+        Session::addMessageAfterRedirect(htmlescape(ShareAccess::importErrorMessage($code)), false, ERROR);
+    }
+    if ($result['errors'] !== []) {
+        return;
+    }
+    Session::addMessageAfterRedirect(htmlescape(sprintf(
+        __(
+            '%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed since the '
+                . 'previous import.',
+            'grcmanager'
+        ),
+        $result['shares'],
+        $result['aces'],
+        $result['added'],
+        $result['removed']
+    )), false, $result['shares'] > 0 ? INFO : WARNING);
+    if ($result['truncated']) {
+        Session::addMessageAfterRedirect(
+            htmlescape(__('The file is too long: only its first lines were imported.', 'grcmanager')),
+            false,
+            WARNING
+        );
+    }
+};
+
+// Lot 2 : lecture de SharePoint, OneDrive ou Teams par Microsoft Graph, sur clic, en lecture seule.
+if (isset($_POST['fetch_m365_graph'])) {
     $manage();
+    $result = ShareAccess::importFromGraph((string) ($_POST['source'] ?? ''));
+    if ($result['graph_error'] !== '') {
+        Session::addMessageAfterRedirect(
+            htmlescape(ShareAccess::graphErrorMessage($result['graph_error'])),
+            false,
+            ERROR
+        );
+    } else {
+        $importMessages($result);
+    }
+    Html::redirect(ShareAccess::getSearchURL() . '#grc-share-m365');
+}
+
+if (isset($_POST['import_shares']) || isset($_POST['import_m365_shares'])) {
+    $manage();
+    $m365 = isset($_POST['import_m365_shares']);
     $file = $_FILES['share_file'] ?? null;
     $error = is_array($file)
         ? EvidenceUploadRules::uploadError(
@@ -63,37 +109,15 @@ if (isset($_POST['import_shares'])) {
             ERROR
         );
     } else {
-        $result = ShareAccess::import((string) file_get_contents($file['tmp_name']));
-        foreach ($result['errors'] as $code) {
-            Session::addMessageAfterRedirect(htmlescape(ShareAccess::importErrorMessage($code)), false, ERROR);
-        }
-        if ($result['errors'] === []) {
-            Session::addMessageAfterRedirect(htmlescape(sprintf(
-                __(
-                    '%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed since the '
-                        . 'previous import.',
-                    'grcmanager'
-                ),
-                $result['shares'],
-                $result['aces'],
-                $result['added'],
-                $result['removed']
-            )), false, $result['shares'] > 0 ? INFO : WARNING);
-            if ($result['truncated']) {
-                Session::addMessageAfterRedirect(
-                    htmlescape(__('The file is too long: only its first lines were imported.', 'grcmanager')),
-                    false,
-                    WARNING
-                );
-            }
-        }
+        $raw = (string) file_get_contents($file['tmp_name']);
+        $importMessages($m365 ? ShareAccess::importM365Csv($raw) : ShareAccess::import($raw));
     }
-    Html::redirect(ShareAccess::getSearchURL() . '#grc-share-import');
+    Html::redirect(ShareAccess::getSearchURL() . ($m365 ? '#grc-share-m365' : '#grc-share-import'));
 }
 
 if (isset($_POST['clear_shares'])) {
     $manage();
-    ShareAccess::clear((string) ($_POST['server'] ?? ''));
+    ShareAccess::clear((string) ($_POST['server'] ?? ''), (string) ($_POST['source'] ?? ShareAccess::SOURCE_SMB));
     Session::addMessageAfterRedirect(htmlescape(__('Import deleted.', 'grcmanager')));
     Html::redirect(ShareAccess::getSearchURL() . '#grc-share-import');
 }

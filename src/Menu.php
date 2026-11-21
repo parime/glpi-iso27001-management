@@ -101,6 +101,8 @@ class Menu extends CommonGLPI
                 ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class,
                 // Issue #620 : registre des violations de données personnelles.
                 DataBreach::class, Policy::class,
+                // Issue #879 : mesures couvertes par les textes de la bibliothèque des politiques.
+                PolicyCoverage::class,
                 // Issue #775 : registre des procédures d'exploitation et couverture (A.5.37).
                 OperatingProcedure::class,
                 // Issue #778 : sécurité physique des sites (A.7.1 à A.7.14), comparaison entre sites.
@@ -119,6 +121,8 @@ class Menu extends CommonGLPI
                 // Issue #773 : programme d'audit pluriannuel (ISO 19011).
                 AuditProgramme::class,
                 Nonconformity::class,
+                // Issue #870 : rapport du stock d'écarts (clauses 10.1 et 10.2).
+                GapStockReport::class,
                 // Issue #772 : constats des audits de certification et état de leur levée.
                 CertificationFinding::class,
                 // Issue #772, lot 2 : plan d'audit de l'organisme (échantillonnage sur le cycle).

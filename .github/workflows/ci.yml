@@ -435,6 +435,21 @@ jobs:
           xss=$(setup xss "$ids")
           bash tests/security/xss-check.sh http://localhost:8080 "$ids" "$xss"
 
+      # Issue #978 : dans un vrai navigateur, aucune erreur JavaScript (« Maximum call stack size
+      # exceeded »...) ni boite de dialogue (charge XSS executee) sur l'accueil et les pages du plugin.
+      # Python 3.12 : le Python du runner est trop recent pour les roues de greenlet (Playwright).
+      - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0 (SHA pinned)
+        with:
+          python-version: '3.12'
+      - name: Erreurs JavaScript dans le navigateur (accueil et pages du plugin)
+        # Non bloquant tant que Playwright ne gere pas Ubuntu 26.04, voir #980.
+        continue-on-error: true
+        run: |
+          python -m pip install --quiet playwright==1.57.0
+          # Sans --with-deps : Playwright ne sait pas encore installer de paquets sur Ubuntu 26.04.
+          python -m playwright install chromium
+          python tests/security/js-errors.py http://localhost:8080 front
+
       - name: Logs GLPI (en cas d'echec)
         if: failure()
         run: docker logs glpi --tail 200

@@ -1,0 +1,128 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #865, lot 2 : onglet « Lien sécurisé » d'une évaluation : liens envoyés au fournisseur
+   (création, état, révocation) et réponses reçues à relire avant enregistrement. #}
+{% set status_badges = {
+   'active':  ['bg-green-subtle text-green-emphasis', 'ti-link', __('Active', 'grcmanager')],
+   'expired': ['bg-secondary-subtle text-secondary-emphasis', 'ti-clock-off', __('Expired', 'grcmanager')],
+   'revoked': ['bg-red-subtle text-red-emphasis', 'ti-link-off', __('Revoked', 'grcmanager')],
+   'used':    ['bg-blue-subtle text-blue-emphasis', 'ti-checks', __('All sendings used', 'grcmanager')],
+   'closed':  ['bg-secondary-subtle text-secondary-emphasis', 'ti-lock', __('Evaluation completed', 'grcmanager')],
+} %}
+<div class="card" id="grc-evaluation-link">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-link me-1"></i>{{ __('Answer by secure link, without a GLPI account', 'grcmanager') }}</h3>
+      {% if enabled %}
+         <span class="badge bg-success-subtle text-success-emphasis ms-2"><i class="ti ti-plug-connected me-1"></i>{{ __('Enabled', 'grcmanager') }}</span>
+      {% else %}
+         <span class="badge bg-secondary-subtle text-secondary-emphasis ms-2"><i class="ti ti-plug-off me-1"></i>{{ __('Disabled', 'grcmanager') }}</span>
+      {% endif %}
+   </div>
+   <div class="card-body">
+      <div class="alert alert-info">
+         <h4 class="alert-title"><i class="ti ti-help-circle me-1"></i>{{ __('What is this tab for?', 'grcmanager') }}</h4>
+         <div class="text-secondary">{{ __('Send the supplier a personal link to a page served by GLPI, where it answers the questions of this evaluation and attaches its documents, without a GLPI account. The page shows only these questions. The link expires, can be used a limited number of times and can be revoked at any time. The answers received stay pending until you review and save them.', 'grcmanager') }}</div>
+      </div>
+
+      {% if drafts is not empty %}
+         <h4><span class="badge bg-orange-subtle text-orange-emphasis me-1"><i class="ti ti-inbox"></i></span>{{ __('Answers to review', 'grcmanager') }}</h4>
+         <div class="table-responsive mb-3">
+            <table class="table table-sm table-vcenter card-table" id="grc-link-drafts">
+               <thead><tr><th>{{ __('Received on', 'grcmanager') }}</th><th>{{ __('Answers', 'grcmanager') }}</th><th>{{ __('Documents', 'grcmanager') }}</th><th></th></tr></thead>
+               <tbody>
+               {% for draft in drafts %}
+                  <tr>
+                     <td>{{ draft.date_creation|formatted_datetime }}</td>
+                     <td>{{ draft.answers }}</td>
+                     <td>{{ draft.files }}</td>
+                     <td class="text-end">
+                        {% if can_manage %}
+                           <a class="btn btn-sm btn-primary" href="{{ action }}?id={{ evaluation_id }}&amp;draft={{ draft.id }}"><i class="ti ti-eye-check me-1"></i>{{ __('Review the answers', 'grcmanager') }}</a>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+
+      {% if new_url %}
+         <div class="alert alert-success" id="grc-link-new">
+            <h4 class="alert-title"><i class="ti ti-copy me-1"></i>{{ __('Link to send to the supplier', 'grcmanager') }}</h4>
+            <input type="text" class="form-control font-monospace" readonly value="{{ new_url }}" id="grc-link-url" aria-label="{{ __('Link to send to the supplier', 'grcmanager') }}">
+            <div class="form-hint">{{ __('Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). Send it by the means of your choice.', 'grcmanager') }}</div>
+         </div>
+      {% endif %}
+
+      {% if not enabled %}
+         <p class="text-muted" id="grc-link-disabled"><i class="ti ti-plug-off me-1"></i>{{ __('The secure link is disabled. An administrator of the plugin can enable it in the plugin settings; the answer by file stays available.', 'grcmanager') }}
+            {% if config_url %}<a href="{{ config_url }}">{{ __('Open the settings', 'grcmanager') }}</a>{% endif %}</p>
+      {% elseif can_manage %}
+         <form method="post" action="{{ action }}" class="row g-2 align-items-end mb-3" id="grc-link-create-form">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="id" value="{{ evaluation_id }}">
+            <div class="col-auto">
+               <label class="form-label" for="grc-link-days">{{ __('Valid for (days)', 'grcmanager') }}</label>
+               <input type="number" class="form-control" id="grc-link-days" name="days" min="1" max="{{ max_days }}" value="{{ default_days }}">
+            </div>
+            <div class="col-auto">
+               <label class="form-label" for="grc-link-uses">{{ __('Sendings allowed', 'grcmanager') }}</label>
+               <input type="number" class="form-control" id="grc-link-uses" name="max_uses" min="1" max="{{ max_uses }}" value="1">
+            </div>
+            <div class="col-auto">
+               <button type="submit" name="create_link" value="1" class="btn btn-primary"><i class="ti ti-link-plus me-1"></i>{{ __('Create a link', 'grcmanager') }}</button>
+            </div>
+         </form>
+      {% elseif completed %}
+         <p class="text-muted"><i class="ti ti-lock me-1"></i>{{ __('This evaluation is completed: its links no longer open the questionnaire.', 'grcmanager') }}</p>
+      {% endif %}
+
+      {% if links is not empty %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table" id="grc-links">
+               <thead><tr>
+                  <th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Created', 'grcmanager') }}</th><th>{{ __('Expires', 'grcmanager') }}</th>
+                  <th>{{ __('Sendings', 'grcmanager') }}</th><th>{{ __('Openings', 'grcmanager') }}</th><th>{{ __('Created by', 'grcmanager') }}</th><th></th>
+               </tr></thead>
+               <tbody>
+               {% for link in links %}
+                  {% set badge = status_badges[link.status] %}
+                  <tr>
+                     <td><span class="badge {{ badge[0] }}"><i class="ti {{ badge[1] }} me-1"></i>{{ badge[2] }}</span></td>
+                     <td>{{ link.date_creation|formatted_datetime }}</td>
+                     <td>{{ link.date_expiration|formatted_datetime }}</td>
+                     <td>{{ link.uses }} / {{ link.max_uses }}</td>
+                     <td>{{ link.access_count }}{% if link.date_last_access %} <span class="text-muted small">({{ link.date_last_access|formatted_datetime }})</span>{% endif %}</td>
+                     <td>{{ link.author }}</td>
+                     <td class="text-end">
+                        {% if can_manage and link.status == 'active' %}
+                           <form method="post" action="{{ action }}" class="d-inline">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="id" value="{{ evaluation_id }}">
+                              <input type="hidden" name="link_id" value="{{ link.id }}">
+                              <button type="submit" name="revoke_link" value="1" class="btn btn-sm btn-outline-danger"><i class="ti ti-link-off me-1"></i>{{ __('Revoke', 'grcmanager') }}</button>
+                           </form>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+      <p class="text-muted small mt-3 mb-0"><i class="ti ti-history me-1"></i>{{ __('The creation of a link, each opening, each sending and each revocation are recorded in the security audit log; the Historical tab shows the sendings received and reviewed.', 'grcmanager') }}</p>
+   </div>
+</div>
