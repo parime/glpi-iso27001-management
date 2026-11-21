@@ -32181,6 +32181,16 @@ msgstr ""
 "Rates of the last campaign with results of each entity. The rates by group "
 "are on the Results tab of each campaign."
 
+msgid "Review history"
+msgstr "Review history"
+
+msgid ""
+"Each review recorded with the \"Record the review\" button is kept here and "
+"in the security audit log; it cannot be changed afterwards."
+msgstr ""
+"Each review recorded with the \"Record the review\" button is kept here and "
+"in the security audit log; it cannot be changed afterwards."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

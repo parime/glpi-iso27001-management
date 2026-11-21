@@ -37,6 +37,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     sensibles. Une action automatique quotidienne supprime les résultats expirés et garde les taux ;
     la date prévue est affichée sur la campagne ;
   - nouvelle colonne `group_counts` des campagnes (migration), remplie au prochain import.
+- **Procédures d'exploitation : historique des revues** (issue #775, lot 3, dernier lot, mesure
+  A.5.37) :
+  - sur la fiche d'une procédure, cadre « Historique des revues » : toutes les revues enregistrées
+    avec le bouton « Enregistrer la revue », la plus récente d'abord (date, personne, prochaine
+    revue prévue) ;
+  - le PDF du registre ajoute une section « Historique des revues », procédure par procédure ;
+  - l'historique est lu dans le journal d'audit infalsifiable, qui garde déjà chaque revue : aucune
+    nouvelle table ni colonne, et une revue tracée ne se modifie plus. Seules la date, la personne
+    et la prochaine revue sont affichées, avec le droit de lire les politiques. Ce lot termine
+    l'issue #775.
 - **Sécurité physique des sites : rapport PDF de l'évaluation** (issue #778, lot 2, mesures A.7.1
   à A.7.14) : bouton « Rapport (PDF) » sur la fiche d'une évaluation, avec le résumé (évaluateur,
   statut, échéance, politique, score et décompte des états), la grille avec constats, preuves,

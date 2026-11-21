@@ -28366,3 +28366,13 @@ msgid ""
 msgstr ""
 "Taxas da última campanha com resultados de cada entidade. As taxas por grupo "
 "estão no separador Resultados de cada campanha."
+
+msgid "Review history"
+msgstr "Histórico de revisões"
+
+msgid ""
+"Each review recorded with the \"Record the review\" button is kept here and "
+"in the security audit log; it cannot be changed afterwards."
+msgstr ""
+"Cada revisão registrada com o botão \"Registrar a revisão\" é mantida aqui e "
+"no registro de auditoria de segurança; ela não pode ser alterada depois."

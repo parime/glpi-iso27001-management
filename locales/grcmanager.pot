@@ -32468,6 +32468,18 @@ msgid ""
 "are on the Results tab of each campaign."
 msgstr ""
 
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/policy_form.html.twig
+msgid "Review history"
+msgstr ""
+
+#: templates/policy_form.html.twig
+msgid ""
+"Each review recorded with the \"Record the review\" button is kept here and "
+"in the security audit log; it cannot be changed afterwards."
+msgstr ""
+
 #: src/PhysicalSecurityAssessment.php:641
 #, php-format
 msgid "Physical security of the site: %s"
@@ -32477,3 +32489,4 @@ msgstr ""
 msgid ""
 "Checklist, findings, actions and zones of this assessment, for the auditor."
 msgstr ""
+

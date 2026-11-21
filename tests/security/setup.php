@@ -132,6 +132,16 @@ if ($mode === 'xss') {
         // Issue #775, lot 2 : dernière revue tracée (nom de la personne affiché).
         'last_review_date' => date('Y-m-d'), 'users_id_lastreviewer' => 2,
     ]);
+    // Issue #775, lot 3 : une revue au journal d'audit, pour que la fiche piégée affiche aussi son
+    // historique des revues (chaîne d'empreintes du journal respectée par AuditLog::record()).
+    \GlpiPlugin\Grcmanager\AuditLog::record(
+        'review',
+        'GlpiPlugin\\Grcmanager\\Policy',
+        $out['procedure'],
+        0,
+        'success',
+        ['last_review_date' => date('Y-m-d'), 'next_review_date' => date('Y-m-d', strtotime('+1 year'))]
+    );
     // Issue #775, lot 2 : article piégé de la base de connaissances, texte de la procédure (registre,
     // onglet natif « Base de connaissances » de la procédure).
     $DB->insert('glpi_knowbaseitems', [
