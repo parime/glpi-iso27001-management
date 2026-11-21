@@ -32930,6 +32930,968 @@ msgstr ""
 "inventory. Check them, add the justification and the owner, then click "
 "\"Add\": nothing is saved before."
 
+msgid ""
+"Not saved: the tenant must be a domain name or an ID, and the application ID "
+"an ID such as 00000000-0000-0000-0000-000000000000."
+msgstr ""
+"Not saved: the tenant must be a domain name or an ID, and the application ID "
+"an ID such as 00000000-0000-0000-0000-000000000000."
+
+msgid "Microsoft Graph settings saved."
+msgstr "Microsoft Graph settings saved."
+
+msgid ""
+"Enter the tenant, the application (client) ID and the client secret first."
+msgstr ""
+"Enter the tenant, the application (client) ID and the client secret first."
+
+msgid ""
+"Microsoft Entra ID refused the tenant, the application ID or the client "
+"secret."
+msgstr ""
+"Microsoft Entra ID refused the tenant, the application ID or the client "
+"secret."
+
+msgid ""
+"Access refused by Microsoft Graph: grant the AuditLog.Read.All application "
+"permission with admin consent (the report requires an Entra ID P1 or P2 "
+"licence)."
+msgstr ""
+"Access refused by Microsoft Graph: grant the AuditLog.Read.All application "
+"permission with admin consent (the report requires an Entra ID P1 or P2 "
+"licence)."
+
+msgid "Microsoft Graph asks to slow down: try again in a few minutes."
+msgstr "Microsoft Graph asks to slow down: try again in a few minutes."
+
+msgid ""
+"Too many accounts to read in one click: import the CSV export of the report "
+"instead."
+msgstr ""
+"Too many accounts to read in one click: import the CSV export of the report "
+"instead."
+
+msgid ""
+"Microsoft Graph could not be reached: check the network access or the GLPI "
+"proxy."
+msgstr ""
+"Microsoft Graph could not be reached: check the network access or the GLPI "
+"proxy."
+
+msgid "Microsoft Graph returned an unexpected answer."
+msgstr "Microsoft Graph returned an unexpected answer."
+
+msgid ""
+"API permissions > Add a permission > Microsoft Graph > Application "
+"permissions: AuditLog.Read.All, then Grant admin consent. The report "
+"requires an Entra ID P1 or P2 licence."
+msgstr ""
+"API permissions > Add a permission > Microsoft Graph > Application "
+"permissions: AuditLog.Read.All, then Grant admin consent. The report "
+"requires an Entra ID P1 or P2 licence."
+
+msgid "Application (client) ID"
+msgstr "Application (client) ID"
+
+msgid ""
+"Certificates & secrets > New client secret, then copy here the tenant ID, "
+"the application (client) ID and the secret value."
+msgstr ""
+"Certificates & secrets > New client secret, then copy here the tenant ID, "
+"the application (client) ID and the secret value."
+
+msgid "Client secret"
+msgstr "Client secret"
+
+msgid "Configured"
+msgstr "Configured"
+
+msgid "Not configured"
+msgstr "Not configured"
+
+msgid "Delete the saved secret"
+msgstr "Delete the saved secret"
+
+msgid ""
+"In the Entra admin center, App registrations > New registration: create an "
+"application (for example \"GLPI GRC - MFA report\")."
+msgstr ""
+"In the Entra admin center, App registrations > New registration: create an "
+"application (for example \"GLPI GRC - MFA report\")."
+
+msgid ""
+"Instead of downloading the CSV export, GLPI can read the same report (user "
+"registration details) from Microsoft Graph when you click the button. The "
+"result replaces the Microsoft Entra ID import of the current entity. Nothing "
+"is ever written in Entra ID and nothing runs automatically."
+msgstr ""
+"Instead of downloading the CSV export, GLPI can read the same report (user "
+"registration details) from Microsoft Graph when you click the button. The "
+"result replaces the Microsoft Entra ID import of the current entity. Nothing "
+"is ever written in Entra ID and nothing runs automatically."
+
+msgid "Only users who can modify the plugin data can set up this reading."
+msgstr "Only users who can modify the plugin data can set up this reading."
+
+msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
+msgstr "Read Microsoft Entra ID directly (Microsoft Graph)"
+
+msgid "Read now from Microsoft Graph"
+msgstr "Read now from Microsoft Graph"
+
+msgid "Secret saved"
+msgstr "Secret saved"
+
+msgid "Secret saved (leave empty to keep it)"
+msgstr "Secret saved (leave empty to keep it)"
+
+msgid "Tenant (directory) ID or domain"
+msgstr "Tenant (directory) ID or domain"
+
+msgid ""
+"The secret is encrypted with the GLPI key, never displayed again nor logged."
+msgstr ""
+"The secret is encrypted with the GLPI key, never displayed again nor logged."
+
+#, php-format
+msgid ""
+"%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr ""
+"%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+
+msgid "Logging settings saved."
+msgstr "Logging settings saved."
+
+msgid "Log platform declaration saved."
+msgstr "Log platform declaration saved."
+
+msgid "Logging coverage"
+msgstr "Logging coverage"
+
+msgid "Syslog server"
+msgstr "Syslog server"
+
+msgid "Other log platform"
+msgstr "Other log platform"
+
+msgid "No logs received"
+msgstr "No logs received"
+
+msgid "No log platform knows this asset (name or IP address)."
+msgstr "No log platform knows this asset (name or IP address)."
+
+msgid "Logs stopped"
+msgstr "Logs stopped"
+
+msgid "The last event received is older than the threshold."
+msgstr "The last event received is older than the threshold."
+
+msgid "Logs received"
+msgstr "Logs received"
+
+msgid "A log platform received an event from this asset recently."
+msgstr "A log platform received an event from this asset recently."
+
+msgid "Critical assets, servers and network devices"
+msgstr "Critical assets, servers and network devices"
+
+msgid "Critical assets only"
+msgstr "Critical assets only"
+
+msgid "All computers and network devices"
+msgstr "All computers and network devices"
+
+msgid "Long enough"
+msgstr "Long enough"
+
+msgid "Too short"
+msgstr "Too short"
+
+msgid ""
+"The file has no column for the host name or IP address (for example host, "
+"hostname, source, agent.name or ip)."
+msgstr ""
+"The file has no column for the host name or IP address (for example host, "
+"hostname, source, agent.name or ip)."
+
+msgid "You do not have the right to import."
+msgstr "You do not have the right to import."
+
+msgid ""
+"Shows which important assets send their logs to a log platform (Wazuh, "
+"Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
+"nothing for several days, and whether each platform keeps the logs long "
+"enough and synchronizes the clocks."
+msgstr ""
+"Shows which important assets send their logs to a log platform (Wazuh, "
+"Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
+"nothing for several days, and whether each platform keeps the logs long "
+"enough and synchronizes the clocks."
+
+msgid ""
+"Choose the assets that must send their logs, import the list of hosts of "
+"each log platform (or let the Wazuh plugin be read), connect the assets "
+"listed as gaps, and declare the retention and the time server of each "
+"platform. The page only reads: it runs nothing on the platforms. Record the "
+"result as an effectiveness test of the control to keep the evidence."
+msgstr ""
+"Choose the assets that must send their logs, import the list of hosts of "
+"each log platform (or let the Wazuh plugin be read), connect the assets "
+"listed as gaps, and declare the retention and the time server of each "
+"platform. The page only reads: it runs nothing on the platforms. Record the "
+"result as an effectiveness test of the control to keep the evidence."
+
+msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
+msgstr "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
+
+#, php-format
+msgid "Critical assets without logging (%)"
+msgstr "Critical assets without logging (%)"
+
+#, php-format
+msgid "%d asset(s) whose logs stopped"
+msgstr "%d asset(s) whose logs stopped"
+
+#, php-format
+msgid "%d critical asset(s) without logging"
+msgstr "%d critical asset(s) without logging"
+
+#, php-format
+msgid "%d platform(s) with a retention too short or not declared"
+msgstr "%d platform(s) with a retention too short or not declared"
+
+#, php-format
+msgid "%d platform(s) without declared clock synchronization"
+msgstr "%d platform(s) without declared clock synchronization"
+
+#, php-format
+msgid "Logging coverage: %d%%"
+msgstr "Logging coverage: %d%%"
+
+msgid "Logging coverage: not measured"
+msgstr "Logging coverage: not measured"
+
+#, php-format
+msgid "%1$d assets: the first %2$d are shown, gaps first."
+msgstr "%1$d assets: the first %2$d are shown, gaps first."
+
+#, php-format
+msgid "%d days kept"
+msgstr "%d days kept"
+
+#, php-format
+msgid "%d days required"
+msgstr "%d days required"
+
+msgid ""
+"An asset is critical when one axis of its C/I/A classification is high (tab "
+"of the asset form), or when a network flow publishes it on the Internet. "
+"Servers are recognized from the computer type or the operating system name."
+msgstr ""
+"An asset is critical when one axis of its C/I/A classification is high (tab "
+"of the asset form), or when a network flow publishes it on the Internet. "
+"Servers are recognized from the computer type or the operating system name."
+
+msgid "Assets concerned whose logs are received"
+msgstr "Assets concerned whose logs are received"
+
+msgid "Assets that must send their logs"
+msgstr "Assets that must send their logs"
+
+msgid ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown host may be an asset missing from the inventory."
+msgstr ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown host may be an asset missing from the inventory."
+
+msgid "Clock synchronization not declared"
+msgstr "Clock synchronization not declared"
+
+msgid "Clocks synchronized"
+msgstr "Clocks synchronized"
+
+msgid "Comment (where the setting can be checked)"
+msgstr "Comment (where the setting can be checked)"
+
+msgid "Critical assets without logging"
+msgstr "Critical assets without logging"
+
+msgid "Declare another platform"
+msgstr "Declare another platform"
+
+msgid ""
+"Declare, for each platform, how long the logs are kept and whether the "
+"clocks are synchronized. The retention required is the longest between the "
+"policy and the obligation chosen. These are declarations: keep the "
+"screenshot of the setting as evidence."
+msgstr ""
+"Declare, for each platform, how long the logs are kept and whether the "
+"clocks are synchronized. The retention required is the longest between the "
+"policy and the obligation chosen. These are declarations: keep the "
+"screenshot of the setting as evidence."
+
+msgid ""
+"Export the list of hosts that send logs from your log platform, then import "
+"the CSV file here. A new import of the same platform replaces the previous "
+"one in the current entity. Only host names, addresses and the date of the "
+"last event are kept, never the content of a log."
+msgstr ""
+"Export the list of hosts that send logs from your log platform, then import "
+"the CSV file here. A new import of the same platform replaces the previous "
+"one in the current entity. Only host names, addresses and the date of the "
+"last event are kept, never the content of a log."
+
+msgid ""
+"For example a law, a regulation or a contract listed in the register of "
+"obligations."
+msgstr ""
+"For example a law, a regulation or a contract listed in the register of "
+"obligations."
+
+msgid ""
+"Graylog, Elastic or OpenSearch: a table of the sources with the most recent "
+"timestamp (columns source or host.name, and last timestamp), exported as CSV."
+msgstr ""
+"Graylog, Elastic or OpenSearch: a table of the sources with the most recent "
+"timestamp (columns source or host.name, and last timestamp), exported as CSV."
+
+msgid "Hosts"
+msgstr "Hosts"
+
+msgid "Hosts that send logs but are not found in GLPI"
+msgstr "Hosts that send logs but are not found in GLPI"
+
+msgid "Last event received"
+msgstr "Last event received"
+
+msgid "Log platform"
+msgstr "Log platform"
+
+msgid "Log sources"
+msgstr "Log sources"
+
+msgid "Logs stopped after (days without event)"
+msgstr "Logs stopped after (days without event)"
+
+msgid "No asset concerned in your entities."
+msgstr "No asset concerned in your entities."
+
+#, php-format
+msgid "No event for more than %d days: logs stopped"
+msgstr "No event for more than %d days: logs stopped"
+
+msgid ""
+"No log source yet: import the list of hosts of your log platform to measure "
+"the coverage."
+msgstr ""
+"No log source yet: import the list of hosts of your log platform to measure "
+"the coverage."
+
+msgid "No platform declared."
+msgstr "No platform declared."
+
+msgid "Obligation that imposes a retention"
+msgstr "Obligation that imposes a retention"
+
+msgid "Platforms whose retention is too short or not declared"
+msgstr "Platforms whose retention is too short or not declared"
+
+msgid "Platforms without declared clock synchronization"
+msgstr "Platforms without declared clock synchronization"
+
+msgid "Read directly"
+msgstr "Read directly"
+
+msgid ""
+"Read-only: the plugin reads the lists of hosts, it never runs anything on "
+"the log platforms and changes nothing in GLPI."
+msgstr ""
+"Read-only: the plugin reads the lists of hosts, it never runs anything on "
+"the log platforms and changes nothing in GLPI."
+
+msgid ""
+"Recognized columns: host (or hostname, source, agent.name), ip, and last "
+"event (or lastTime, last_seen, lastKeepAlive)."
+msgstr ""
+"Recognized columns: host (or hostname, source, agent.name), ip, and last "
+"event (or lastTime, last_seen, lastKeepAlive)."
+
+msgid "Register of obligations"
+msgstr "Register of obligations"
+
+msgid "Retention and clock synchronization"
+msgstr "Retention and clock synchronization"
+
+msgid "Retention declared (days)"
+msgstr "Retention declared (days)"
+
+msgid "Retention not declared"
+msgstr "Retention not declared"
+
+msgid "Retention required by the obligation (days)"
+msgstr "Retention required by the obligation (days)"
+
+msgid "Retention required by the policy (days)"
+msgstr "Retention required by the policy (days)"
+
+#, php-format
+msgid "Retention required by the policy: %d days"
+msgstr "Retention required by the policy: %d days"
+
+msgid ""
+"Splunk: run the search \"| metadata type=hosts index=*\" and export the "
+"result (columns host, lastTime)."
+msgstr ""
+"Splunk: run the search \"| metadata type=hosts index=*\" and export the "
+"result (columns host, lastTime)."
+
+msgid ""
+"The Wazuh plugin is active: its active agents are read directly, read-only."
+msgstr ""
+"The Wazuh plugin is active: its active agents are read directly, read-only."
+
+msgid "The clocks of the sources and of the platform are synchronized"
+msgstr "The clocks of the sources and of the platform are synchronized"
+
+msgid "Time server (NTP)"
+msgstr "Time server (NTP)"
+
+msgid ""
+"Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, "
+"one host per line."
+msgstr ""
+"Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, "
+"one host per line."
+
+msgid "Which assets must send their logs?"
+msgstr "Which assets must send their logs?"
+
+#, php-format
+msgid "%d asset concerned"
+msgid_plural "%d assets concerned"
+msgstr[0] "%d asset concerned"
+msgstr[1] "%d assets concerned"
+
+#, php-format
+msgid "%d critical asset"
+msgid_plural "%d critical assets"
+msgstr[0] "%d critical asset"
+msgstr[1] "%d critical assets"
+
+#, php-format
+msgid "%d log platform"
+msgid_plural "%d log platforms"
+msgstr[0] "%d log platform"
+msgstr[1] "%d log platforms"
+
+#, php-format
+msgid "Report imported: %d rule(s) triggered."
+msgstr "Report imported: %d rule(s) triggered."
+
+msgid ""
+"The report contains passwords or secrets (for example in group policies): "
+"they were not kept, and are removed from the archived copy. Change them as "
+"soon as possible."
+msgstr ""
+"The report contains passwords or secrets (for example in group policies): "
+"they were not kept, and are removed from the archived copy. Change them as "
+"soon as possible."
+
+msgid ""
+"The report could not be archived as a document (XML files may not be allowed "
+"in the document types of GLPI)."
+msgstr ""
+"The report could not be archived as a document (XML files may not be allowed "
+"in the document types of GLPI)."
+
+#, php-format
+msgid "Only the first %d rules were read."
+msgstr "Only the first %d rules were read."
+
+#, php-format
+msgid "Ticket %d created."
+msgstr "Ticket %d created."
+
+msgid "Active Directory security score (PingCastle, 0 is best)"
+msgstr "Active Directory security score (PingCastle, 0 is best)"
+
+msgid "Active Directory security audit"
+msgstr "Active Directory security audit"
+
+msgid "Stale objects"
+msgstr "Stale objects"
+
+msgid "Privileged accounts"
+msgstr "Privileged accounts"
+
+msgid "Trust relationships"
+msgstr "Trust relationships"
+
+msgid "Anomalies"
+msgstr "Anomalies"
+
+msgid "Good"
+msgstr "Good"
+
+msgid "Worrying"
+msgstr "Worrying"
+
+msgid "Information"
+msgstr "Information"
+
+msgid "The file is too large (20 MB at most)."
+msgstr "The file is too large (20 MB at most)."
+
+msgid ""
+"The file declares a DOCTYPE or entities: it is refused for security reasons. "
+"A PingCastle report never contains any."
+msgstr ""
+"The file declares a DOCTYPE or entities: it is refused for security reasons. "
+"A PingCastle report never contains any."
+
+msgid ""
+"This is not a PingCastle health check report: import the ad_hc_[domain].xml "
+"file."
+msgstr ""
+"This is not a PingCastle health check report: import the ad_hc_[domain].xml "
+"file."
+
+msgid "The report gives no domain name."
+msgstr "The report gives no domain name."
+
+msgid "This report has already been imported."
+msgstr "This report has already been imported."
+
+msgid "You do not have the right to import a report."
+msgstr "You do not have the right to import a report."
+
+#, php-format
+msgid "PingCastle report - %1$s (%2$s)"
+msgstr "PingCastle report - %1$s (%2$s)"
+
+#, php-format
+msgid "Active Directory %1$s: %2$s"
+msgstr "Active Directory %1$s: %2$s"
+
+#, php-format
+msgid "Domain: %s"
+msgstr "Domain: %s"
+
+#, php-format
+msgid "Report: %1$s of %2$s (score %3$d/100)"
+msgstr "Report: %1$s of %2$s (score %3$d/100)"
+
+#, php-format
+msgid "Rule: %s"
+msgstr "Rule: %s"
+
+#, php-format
+msgid "Category: %s"
+msgstr "Category: %s"
+
+#, php-format
+msgid "Points: %d"
+msgstr "Points: %d"
+
+#, php-format
+msgid "ISO/IEC 27001 controls: %s"
+msgstr "ISO/IEC 27001 controls: %s"
+
+#, php-format
+msgid ""
+"Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) "
+"triggered"
+msgstr ""
+"Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) "
+"triggered"
+
+msgid ""
+"Keeps the results of the security audits of your Active Directory: the "
+"PingCastle reports that your team produces are imported here, with the "
+"global score, the score by category and the rules triggered. Each rule is "
+"linked to the ISO/IEC 27001 controls it concerns, and the history shows how "
+"the score changes from one report to the next."
+msgstr ""
+"Keeps the results of the security audits of your Active Directory: the "
+"PingCastle reports that your team produces are imported here, with the "
+"global score, the score by category and the rules triggered. Each rule is "
+"linked to the ISO/IEC 27001 controls it concerns, and the history shows how "
+"the score changes from one report to the next."
+
+msgid ""
+"Run PingCastle regularly (for example every quarter), import each report, "
+"then decide how to treat the rules: propose an action or a ticket for those "
+"you fix, and follow the rules resolved by the next report. Nothing is "
+"created automatically. The page is reserved to the sensitive registers right."
+msgstr ""
+"Run PingCastle regularly (for example every quarter), import each report, "
+"then decide how to treat the rules: propose an action or a ticket for those "
+"you fix, and follow the rules resolved by the next report. Nothing is "
+"created automatically. The page is reserved to the sensitive registers right."
+
+msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
+msgstr "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
+
+#, php-format
+msgid "%d new rule"
+msgid_plural "%d new rules"
+msgstr[0] "%d new rule"
+msgstr[1] "%d new rules"
+
+#, php-format
+msgid "%d rule resolved"
+msgid_plural "%d rules resolved"
+msgstr[0] "%d rule resolved"
+msgstr[1] "%d rules resolved"
+
+#, php-format
+msgid "%d rule triggered"
+msgid_plural "%d rules triggered"
+msgstr[0] "%d rule triggered"
+msgstr[1] "%d rules triggered"
+
+msgid "Archive the report as a restricted document (passwords removed)"
+msgstr "Archive the report as a restricted document (passwords removed)"
+
+msgid "Archived report (restricted)"
+msgstr "Archived report (restricted)"
+
+msgid "Change since the previous report"
+msgstr "Change since the previous report"
+
+#, php-format
+msgid "Compared with the report of %s"
+msgstr "Compared with the report of %s"
+
+msgid "Delete the import and its archived report"
+msgstr "Delete the import and its archived report"
+
+msgid "Download a fictitious example report"
+msgstr "Download a fictitious example report"
+
+msgid ""
+"Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an "
+"action or a ticket for the rules you decide to treat: nothing is created "
+"before you click, and the action form is reviewed before it is saved."
+msgstr ""
+"Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an "
+"action or a ticket for the rules you decide to treat: nothing is created "
+"before you click, and the action form is reviewed before it is saved."
+
+msgid ""
+"First report for this domain: the next import will show the rules that "
+"appeared or were resolved."
+msgstr ""
+"First report for this domain: the next import will show the rules that "
+"appeared or were resolved."
+
+msgid ""
+"GLPI never runs PingCastle and never queries the directory: it reads the "
+"report that your team produced. The report is stored in the current entity."
+msgstr ""
+"GLPI never runs PingCastle and never queries the directory: it reads the "
+"report that your team produced. The report is stored in the current entity."
+
+msgid "Import a PingCastle report"
+msgstr "Import a PingCastle report"
+
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+
+msgid "Imported on"
+msgstr "Imported on"
+
+msgid "Imported reports"
+msgstr "Imported reports"
+
+#, php-format
+msgid "Maturity level: %d"
+msgstr "Maturity level: %d"
+
+msgid ""
+"No report imported yet. Run PingCastle on your domain, then import the "
+"ad_hc_[domain].xml file below."
+msgstr ""
+"No report imported yet. Run PingCastle on your domain, then import the "
+"ad_hc_[domain].xml file below."
+
+msgid "No rule triggered in this report."
+msgstr "No rule triggered in this report."
+
+msgid ""
+"On a computer of the domain, run PingCastle and choose the health check (or "
+"run it with the --healthcheck option)."
+msgstr ""
+"On a computer of the domain, run PingCastle and choose the health check (or "
+"run it with the --healthcheck option)."
+
+msgid ""
+"Only the scores and the triggered rules (identifier, category, points, "
+"finding) are kept: never the list of accounts, nor any password found. A new "
+"report of the same domain shows the change of score and the rules that "
+"appeared or were resolved."
+msgstr ""
+"Only the scores and the triggered rules (identifier, category, points, "
+"finding) are kept: never the list of accounts, nor any password found. A new "
+"report of the same domain shows the change of score and the rules that "
+"appeared or were resolved."
+
+msgid "Only users who can modify the sensitive registers can import a report."
+msgstr "Only users who can modify the sensitive registers can import a report."
+
+msgid "Open a ticket"
+msgstr "Open a ticket"
+
+msgid "Passwords found in the report: not kept"
+msgstr "Passwords found in the report: not kept"
+
+#, php-format
+msgid "PingCastle XML report (%d MB at most)"
+msgstr "PingCastle XML report (%d MB at most)"
+
+msgid ""
+"PingCastle is free for internal use; a service provider auditing a customer "
+"needs a licence. Check the terms of use of the tool."
+msgstr ""
+"PingCastle is free for internal use; a service provider auditing a customer "
+"needs a licence. Check the terms of use of the tool."
+
+#, php-format
+msgid "PingCastle report of %1$s, %2$s"
+msgstr "PingCastle report of %1$s, %2$s"
+
+msgid "Points"
+msgstr "Points"
+
+msgid "Propose an action"
+msgstr "Propose an action"
+
+msgid "Report date"
+msgstr "Report date"
+
+#, php-format
+msgid "Report of %s"
+msgstr "Report of %s"
+
+msgid "Rules"
+msgstr "Rules"
+
+msgid "Rules resolved since the previous report"
+msgstr "Rules resolved since the previous report"
+
+msgid "Rules triggered"
+msgstr "Rules triggered"
+
+msgid ""
+"These reports describe the weaknesses of the domain: the page and the "
+"archived reports are reserved to the sensitive registers right, in the "
+"entity of each import."
+msgstr ""
+"These reports describe the weaknesses of the domain: the page and the "
+"archived reports are reserved to the sensitive registers right, in the "
+"entity of each import."
+
+#, php-format
+msgid "Ticket %d"
+msgstr "Ticket %d"
+
+msgid ""
+"Weakness reported by the Active Directory security audit (\"Active Directory "
+"security audit\" screen). Fix it, then import the next report to check that "
+"the rule is resolved. Nothing was changed automatically."
+msgstr ""
+"Weakness reported by the Active Directory security audit (\"Active Directory "
+"security audit\" screen). Fix it, then import the next report to check that "
+"the rule is resolved. Nothing was changed automatically."
+
+#, php-format
+msgid "%d rule concerns this control"
+msgid_plural "%d rules concern this control"
+msgstr[0] "%d rule concerns this control"
+msgstr[1] "%d rules concern this control"
+
+#, php-format
+msgid "Score: %d/100"
+msgstr "Score: %d/100"
+
+#, php-format
+msgid ""
+"Action proposed from the Active Directory security audit (rule %s): review "
+"and adapt each field, set an owner and a due date, then click \"Add\". "
+"Nothing is created before, and the rule is linked to this action once it is "
+"saved."
+msgstr ""
+"Action proposed from the Active Directory security audit (rule %s): review "
+"and adapt each field, set an owner and a due date, then click \"Add\". "
+"Nothing is created before, and the rule is linked to this action once it is "
+"saved."
+
+msgctxt "ad rule"
+msgid "New"
+msgstr "New"
+
+#, php-format
+msgid "Suggestions updated for %d account(s) still to review."
+msgstr "Suggestions updated for %d account(s) still to review."
+
+msgid "Rule disabled"
+msgstr "Rule disabled"
+
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d day"
+msgstr[1] "%d days"
+
+msgid ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+msgstr ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+
+msgid "Suggested: remove"
+msgstr "Suggested: remove"
+
+msgid "Suggested: examine"
+msgstr "Suggested: examine"
+
+msgid "Examine"
+msgstr "Examine"
+
+msgid "Suggested: keep"
+msgstr "Suggested: keep"
+
+msgid "Keep"
+msgstr "Keep"
+
+#, php-format
+msgid "Account end date passed (%s)"
+msgstr "Account end date passed (%s)"
+
+#, php-format
+msgid "Departure recorded on %s"
+msgstr "Departure recorded on %s"
+
+#, php-format
+msgid "Leaving on %1$s (within %2$d days)"
+msgstr "Leaving on %1$s (within %2$d days)"
+
+#, php-format
+msgid "No login for more than %1$d days (last on %2$s)"
+msgstr "No login for more than %1$d days (last on %2$s)"
+
+#, php-format
+msgid "Privileged profile: %s"
+msgstr "Privileged profile: %s"
+
+#, php-format
+msgid "Privileged profile without known MFA: %s"
+msgstr "Privileged profile without known MFA: %s"
+
+#, php-format
+msgid "No warning sign (last login on %s)"
+msgstr "No warning sign (last login on %s)"
+
+msgid "No warning sign"
+msgstr "No warning sign"
+
+msgid ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+msgstr ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+
+msgid ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+msgstr ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+
+msgid "Examine group changes without profile review"
+msgstr "Examine group changes without profile review"
+
+msgid "Examine privileged profiles"
+msgstr "Examine privileged profiles"
+
+msgid "Examine: leaving soon, inactive, groups changed, privileged profile"
+msgstr "Examine: leaving soon, inactive, groups changed, privileged profile"
+
+msgid ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+msgstr ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+
+msgid "Inactive account: no login for"
+msgstr "Inactive account: no login for"
+
+msgid "Keep: no warning sign"
+msgstr "Keep: no warning sign"
+
+msgid "Leaving soon: end date or departure within"
+msgstr "Leaving soon: end date or departure within"
+
+msgid "Mention privileged accounts without known MFA"
+msgstr "Mention privileged accounts without known MFA"
+
+msgid "Profiles that can change the GLPI configuration or profiles."
+msgstr "Profiles that can change the GLPI configuration or profiles."
+
+msgid "Remove: deleted from the directory, end date or departure passed"
+msgstr "Remove: deleted from the directory, end date or departure passed"
+
+msgid "Suggestion rules"
+msgstr "Suggestion rules"
+
+msgid ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+msgstr ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+
+msgid "Decision differs from the suggestion"
+msgstr "Decision differs from the suggestion"
+
+msgid "Suggestion and reason"
+msgstr "Suggestion and reason"
+
+msgid "Suggestions"
+msgstr "Suggestions"
+
+msgid "Comment (required to keep, change or remove)"
+msgstr "Comment (required to keep, change or remove)"
+
+msgid "No suggestion yet"
+msgstr "No suggestion yet"
+
+msgid "Suggested by the rules"
+msgstr "Suggested by the rules"
+
+msgid ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+msgstr ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+
+msgid ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+msgstr ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+
+msgid "Update the suggestions"
+msgstr "Update the suggestions"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -33934,582 +34896,3 @@ msgstr ""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-msgid "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
-msgstr "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
-
-msgid "Microsoft Graph settings saved."
-msgstr "Microsoft Graph settings saved."
-
-msgid "Enter the tenant, the application (client) ID and the client secret first."
-msgstr "Enter the tenant, the application (client) ID and the client secret first."
-
-msgid "Microsoft Entra ID refused the tenant, the application ID or the client secret."
-msgstr "Microsoft Entra ID refused the tenant, the application ID or the client secret."
-
-msgid "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
-msgstr "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
-
-msgid "Microsoft Graph asks to slow down: try again in a few minutes."
-msgstr "Microsoft Graph asks to slow down: try again in a few minutes."
-
-msgid "Too many accounts to read in one click: import the CSV export of the report instead."
-msgstr "Too many accounts to read in one click: import the CSV export of the report instead."
-
-msgid "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
-msgstr "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
-
-msgid "Microsoft Graph returned an unexpected answer."
-msgstr "Microsoft Graph returned an unexpected answer."
-
-msgid "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
-msgstr "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
-
-msgid "Application (client) ID"
-msgstr "Application (client) ID"
-
-msgid "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
-msgstr "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
-
-msgid "Client secret"
-msgstr "Client secret"
-
-msgid "Configured"
-msgstr "Configured"
-
-msgid "Not configured"
-msgstr "Not configured"
-
-msgid "Delete the saved secret"
-msgstr "Delete the saved secret"
-
-msgid "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
-msgstr "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
-
-msgid "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
-msgstr "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
-
-msgid "Only users who can modify the plugin data can set up this reading."
-msgstr "Only users who can modify the plugin data can set up this reading."
-
-msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
-msgstr "Read Microsoft Entra ID directly (Microsoft Graph)"
-
-msgid "Read now from Microsoft Graph"
-msgstr "Read now from Microsoft Graph"
-
-msgid "Secret saved"
-msgstr "Secret saved"
-
-msgid "Secret saved (leave empty to keep it)"
-msgstr "Secret saved (leave empty to keep it)"
-
-msgid "Tenant (directory) ID or domain"
-msgstr "Tenant (directory) ID or domain"
-
-msgid "The secret is encrypted with the GLPI key, never displayed again nor logged."
-msgstr "The secret is encrypted with the GLPI key, never displayed again nor logged."
-
-#, php-format
-msgid "%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
-msgstr "%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
-
-msgid "Logging settings saved."
-msgstr "Logging settings saved."
-
-msgid "Log platform declaration saved."
-msgstr "Log platform declaration saved."
-
-msgid "Logging coverage"
-msgstr "Logging coverage"
-
-msgid "Syslog server"
-msgstr "Syslog server"
-
-msgid "Other log platform"
-msgstr "Other log platform"
-
-msgid "No logs received"
-msgstr "No logs received"
-
-msgid "No log platform knows this asset (name or IP address)."
-msgstr "No log platform knows this asset (name or IP address)."
-
-msgid "Logs stopped"
-msgstr "Logs stopped"
-
-msgid "The last event received is older than the threshold."
-msgstr "The last event received is older than the threshold."
-
-msgid "Logs received"
-msgstr "Logs received"
-
-msgid "A log platform received an event from this asset recently."
-msgstr "A log platform received an event from this asset recently."
-
-msgid "Critical assets, servers and network devices"
-msgstr "Critical assets, servers and network devices"
-
-msgid "Critical assets only"
-msgstr "Critical assets only"
-
-msgid "All computers and network devices"
-msgstr "All computers and network devices"
-
-msgid "Long enough"
-msgstr "Long enough"
-
-msgid "Too short"
-msgstr "Too short"
-
-msgid "The file has no column for the host name or IP address (for example host, hostname, source, agent.name or ip)."
-msgstr "The file has no column for the host name or IP address (for example host, hostname, source, agent.name or ip)."
-
-msgid "You do not have the right to import."
-msgstr "You do not have the right to import."
-
-msgid "Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or nothing for several days, and whether each platform keeps the logs long enough and synchronizes the clocks."
-msgstr "Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or nothing for several days, and whether each platform keeps the logs long enough and synchronizes the clocks."
-
-msgid "Choose the assets that must send their logs, import the list of hosts of each log platform (or let the Wazuh plugin be read), connect the assets listed as gaps, and declare the retention and the time server of each platform. The page only reads: it runs nothing on the platforms. Record the result as an effectiveness test of the control to keep the evidence."
-msgstr "Choose the assets that must send their logs, import the list of hosts of each log platform (or let the Wazuh plugin be read), connect the assets listed as gaps, and declare the retention and the time server of each platform. The page only reads: it runs nothing on the platforms. Record the result as an effectiveness test of the control to keep the evidence."
-
-msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
-msgstr "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
-
-#, php-format
-msgid "Critical assets without logging (%)"
-msgstr "Critical assets without logging (%)"
-
-#, php-format
-msgid "%d asset(s) whose logs stopped"
-msgstr "%d asset(s) whose logs stopped"
-
-#, php-format
-msgid "%d critical asset(s) without logging"
-msgstr "%d critical asset(s) without logging"
-
-#, php-format
-msgid "%d platform(s) with a retention too short or not declared"
-msgstr "%d platform(s) with a retention too short or not declared"
-
-#, php-format
-msgid "%d platform(s) without declared clock synchronization"
-msgstr "%d platform(s) without declared clock synchronization"
-
-#, php-format
-msgid "Logging coverage: %d%%"
-msgstr "Logging coverage: %d%%"
-
-msgid "Logging coverage: not measured"
-msgstr "Logging coverage: not measured"
-
-#, php-format
-msgid "%1$d assets: the first %2$d are shown, gaps first."
-msgstr "%1$d assets: the first %2$d are shown, gaps first."
-
-#, php-format
-msgid "%d days kept"
-msgstr "%d days kept"
-
-#, php-format
-msgid "%d days required"
-msgstr "%d days required"
-
-msgid "An asset is critical when one axis of its C/I/A classification is high (tab of the asset form), or when a network flow publishes it on the Internet. Servers are recognized from the computer type or the operating system name."
-msgstr "An asset is critical when one axis of its C/I/A classification is high (tab of the asset form), or when a network flow publishes it on the Internet. Servers are recognized from the computer type or the operating system name."
-
-msgid "Assets concerned whose logs are received"
-msgstr "Assets concerned whose logs are received"
-
-msgid "Assets that must send their logs"
-msgstr "Assets that must send their logs"
-
-msgid "Check the name of the asset in GLPI, or add the asset to the inventory: an unknown host may be an asset missing from the inventory."
-msgstr "Check the name of the asset in GLPI, or add the asset to the inventory: an unknown host may be an asset missing from the inventory."
-
-msgid "Clock synchronization not declared"
-msgstr "Clock synchronization not declared"
-
-msgid "Clocks synchronized"
-msgstr "Clocks synchronized"
-
-msgid "Comment (where the setting can be checked)"
-msgstr "Comment (where the setting can be checked)"
-
-msgid "Critical assets without logging"
-msgstr "Critical assets without logging"
-
-msgid "Declare another platform"
-msgstr "Declare another platform"
-
-msgid "Declare, for each platform, how long the logs are kept and whether the clocks are synchronized. The retention required is the longest between the policy and the obligation chosen. These are declarations: keep the screenshot of the setting as evidence."
-msgstr "Declare, for each platform, how long the logs are kept and whether the clocks are synchronized. The retention required is the longest between the policy and the obligation chosen. These are declarations: keep the screenshot of the setting as evidence."
-
-msgid "Export the list of hosts that send logs from your log platform, then import the CSV file here. A new import of the same platform replaces the previous one in the current entity. Only host names, addresses and the date of the last event are kept, never the content of a log."
-msgstr "Export the list of hosts that send logs from your log platform, then import the CSV file here. A new import of the same platform replaces the previous one in the current entity. Only host names, addresses and the date of the last event are kept, never the content of a log."
-
-msgid "For example a law, a regulation or a contract listed in the register of obligations."
-msgstr "For example a law, a regulation or a contract listed in the register of obligations."
-
-msgid "Graylog, Elastic or OpenSearch: a table of the sources with the most recent timestamp (columns source or host.name, and last timestamp), exported as CSV."
-msgstr "Graylog, Elastic or OpenSearch: a table of the sources with the most recent timestamp (columns source or host.name, and last timestamp), exported as CSV."
-
-msgid "Hosts"
-msgstr "Hosts"
-
-msgid "Hosts that send logs but are not found in GLPI"
-msgstr "Hosts that send logs but are not found in GLPI"
-
-msgid "Last event received"
-msgstr "Last event received"
-
-msgid "Log platform"
-msgstr "Log platform"
-
-msgid "Log sources"
-msgstr "Log sources"
-
-msgid "Logs stopped after (days without event)"
-msgstr "Logs stopped after (days without event)"
-
-msgid "No asset concerned in your entities."
-msgstr "No asset concerned in your entities."
-
-#, php-format
-msgid "No event for more than %d days: logs stopped"
-msgstr "No event for more than %d days: logs stopped"
-
-msgid "No log source yet: import the list of hosts of your log platform to measure the coverage."
-msgstr "No log source yet: import the list of hosts of your log platform to measure the coverage."
-
-msgid "No platform declared."
-msgstr "No platform declared."
-
-msgid "Obligation that imposes a retention"
-msgstr "Obligation that imposes a retention"
-
-msgid "Platforms whose retention is too short or not declared"
-msgstr "Platforms whose retention is too short or not declared"
-
-msgid "Platforms without declared clock synchronization"
-msgstr "Platforms without declared clock synchronization"
-
-msgid "Read directly"
-msgstr "Read directly"
-
-msgid "Read-only: the plugin reads the lists of hosts, it never runs anything on the log platforms and changes nothing in GLPI."
-msgstr "Read-only: the plugin reads the lists of hosts, it never runs anything on the log platforms and changes nothing in GLPI."
-
-msgid "Recognized columns: host (or hostname, source, agent.name), ip, and last event (or lastTime, last_seen, lastKeepAlive)."
-msgstr "Recognized columns: host (or hostname, source, agent.name), ip, and last event (or lastTime, last_seen, lastKeepAlive)."
-
-msgid "Register of obligations"
-msgstr "Register of obligations"
-
-msgid "Retention and clock synchronization"
-msgstr "Retention and clock synchronization"
-
-msgid "Retention declared (days)"
-msgstr "Retention declared (days)"
-
-msgid "Retention not declared"
-msgstr "Retention not declared"
-
-msgid "Retention required by the obligation (days)"
-msgstr "Retention required by the obligation (days)"
-
-msgid "Retention required by the policy (days)"
-msgstr "Retention required by the policy (days)"
-
-#, php-format
-msgid "Retention required by the policy: %d days"
-msgstr "Retention required by the policy: %d days"
-
-msgid "Splunk: run the search \"| metadata type=hosts index=*\" and export the result (columns host, lastTime)."
-msgstr "Splunk: run the search \"| metadata type=hosts index=*\" and export the result (columns host, lastTime)."
-
-msgid "The Wazuh plugin is active: its active agents are read directly, read-only."
-msgstr "The Wazuh plugin is active: its active agents are read directly, read-only."
-
-msgid "The clocks of the sources and of the platform are synchronized"
-msgstr "The clocks of the sources and of the platform are synchronized"
-
-msgid "Time server (NTP)"
-msgstr "Time server (NTP)"
-
-msgid "Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, one host per line."
-msgstr "Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, one host per line."
-
-msgid "Which assets must send their logs?"
-msgstr "Which assets must send their logs?"
-
-#, php-format
-msgid "%d asset concerned"
-msgid_plural "%d assets concerned"
-msgstr[0] "%d asset concerned"
-msgstr[1] "%d assets concerned"
-
-#, php-format
-msgid "%d critical asset"
-msgid_plural "%d critical assets"
-msgstr[0] "%d critical asset"
-msgstr[1] "%d critical assets"
-
-#, php-format
-msgid "%d log platform"
-msgid_plural "%d log platforms"
-msgstr[0] "%d log platform"
-msgstr[1] "%d log platforms"
-
-#, php-format
-msgid "Report imported: %d rule(s) triggered."
-msgstr "Report imported: %d rule(s) triggered."
-
-msgid "The report contains passwords or secrets (for example in group policies): they were not kept, and are removed from the archived copy. Change them as soon as possible."
-msgstr "The report contains passwords or secrets (for example in group policies): they were not kept, and are removed from the archived copy. Change them as soon as possible."
-
-msgid "The report could not be archived as a document (XML files may not be allowed in the document types of GLPI)."
-msgstr "The report could not be archived as a document (XML files may not be allowed in the document types of GLPI)."
-
-#, php-format
-msgid "Only the first %d rules were read."
-msgstr "Only the first %d rules were read."
-
-#, php-format
-msgid "Ticket %d created."
-msgstr "Ticket %d created."
-
-msgid "Active Directory security score (PingCastle, 0 is best)"
-msgstr "Active Directory security score (PingCastle, 0 is best)"
-
-msgid "Active Directory security audit"
-msgstr "Active Directory security audit"
-
-msgid "Stale objects"
-msgstr "Stale objects"
-
-msgid "Privileged accounts"
-msgstr "Privileged accounts"
-
-msgid "Trust relationships"
-msgstr "Trust relationships"
-
-msgid "Anomalies"
-msgstr "Anomalies"
-
-msgid "Good"
-msgstr "Good"
-
-msgid "Worrying"
-msgstr "Worrying"
-
-msgid "Information"
-msgstr "Information"
-
-msgid "The file is too large (20 MB at most)."
-msgstr "The file is too large (20 MB at most)."
-
-msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
-msgstr "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
-
-msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
-msgstr "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
-
-msgid "The report gives no domain name."
-msgstr "The report gives no domain name."
-
-msgid "This report has already been imported."
-msgstr "This report has already been imported."
-
-msgid "You do not have the right to import a report."
-msgstr "You do not have the right to import a report."
-
-#, php-format
-msgid "PingCastle report - %1$s (%2$s)"
-msgstr "PingCastle report - %1$s (%2$s)"
-
-#, php-format
-msgid "Active Directory %1$s: %2$s"
-msgstr "Active Directory %1$s: %2$s"
-
-#, php-format
-msgid "Domain: %s"
-msgstr "Domain: %s"
-
-#, php-format
-msgid "Report: %1$s of %2$s (score %3$d/100)"
-msgstr "Report: %1$s of %2$s (score %3$d/100)"
-
-#, php-format
-msgid "Rule: %s"
-msgstr "Rule: %s"
-
-#, php-format
-msgid "Category: %s"
-msgstr "Category: %s"
-
-#, php-format
-msgid "Points: %d"
-msgstr "Points: %d"
-
-#, php-format
-msgid "ISO/IEC 27001 controls: %s"
-msgstr "ISO/IEC 27001 controls: %s"
-
-#, php-format
-msgid "Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) triggered"
-msgstr "Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) triggered"
-
-msgid "Keeps the results of the security audits of your Active Directory: the PingCastle reports that your team produces are imported here, with the global score, the score by category and the rules triggered. Each rule is linked to the ISO/IEC 27001 controls it concerns, and the history shows how the score changes from one report to the next."
-msgstr "Keeps the results of the security audits of your Active Directory: the PingCastle reports that your team produces are imported here, with the global score, the score by category and the rules triggered. Each rule is linked to the ISO/IEC 27001 controls it concerns, and the history shows how the score changes from one report to the next."
-
-msgid "Run PingCastle regularly (for example every quarter), import each report, then decide how to treat the rules: propose an action or a ticket for those you fix, and follow the rules resolved by the next report. Nothing is created automatically. The page is reserved to the sensitive registers right."
-msgstr "Run PingCastle regularly (for example every quarter), import each report, then decide how to treat the rules: propose an action or a ticket for those you fix, and follow the rules resolved by the next report. Nothing is created automatically. The page is reserved to the sensitive registers right."
-
-msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
-msgstr "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
-
-#, php-format
-msgid "%d new rule"
-msgid_plural "%d new rules"
-msgstr[0] "%d new rule"
-msgstr[1] "%d new rules"
-
-#, php-format
-msgid "%d rule resolved"
-msgid_plural "%d rules resolved"
-msgstr[0] "%d rule resolved"
-msgstr[1] "%d rules resolved"
-
-#, php-format
-msgid "%d rule triggered"
-msgid_plural "%d rules triggered"
-msgstr[0] "%d rule triggered"
-msgstr[1] "%d rules triggered"
-
-msgid "Archive the report as a restricted document (passwords removed)"
-msgstr "Archive the report as a restricted document (passwords removed)"
-
-msgid "Archived report (restricted)"
-msgstr "Archived report (restricted)"
-
-msgid "Change since the previous report"
-msgstr "Change since the previous report"
-
-#, php-format
-msgid "Compared with the report of %s"
-msgstr "Compared with the report of %s"
-
-msgid "Delete the import and its archived report"
-msgstr "Delete the import and its archived report"
-
-msgid "Download a fictitious example report"
-msgstr "Download a fictitious example report"
-
-msgid "Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an action or a ticket for the rules you decide to treat: nothing is created before you click, and the action form is reviewed before it is saved."
-msgstr "Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an action or a ticket for the rules you decide to treat: nothing is created before you click, and the action form is reviewed before it is saved."
-
-msgid "First report for this domain: the next import will show the rules that appeared or were resolved."
-msgstr "First report for this domain: the next import will show the rules that appeared or were resolved."
-
-msgid "GLPI never runs PingCastle and never queries the directory: it reads the report that your team produced. The report is stored in the current entity."
-msgstr "GLPI never runs PingCastle and never queries the directory: it reads the report that your team produced. The report is stored in the current entity."
-
-msgid "Import a PingCastle report"
-msgstr "Import a PingCastle report"
-
-msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
-msgstr "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
-
-msgid "Imported on"
-msgstr "Imported on"
-
-msgid "Imported reports"
-msgstr "Imported reports"
-
-#, php-format
-msgid "Maturity level: %d"
-msgstr "Maturity level: %d"
-
-msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
-msgstr "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
-
-msgid "No rule triggered in this report."
-msgstr "No rule triggered in this report."
-
-msgid "On a computer of the domain, run PingCastle and choose the health check (or run it with the --healthcheck option)."
-msgstr "On a computer of the domain, run PingCastle and choose the health check (or run it with the --healthcheck option)."
-
-msgid "Only the scores and the triggered rules (identifier, category, points, finding) are kept: never the list of accounts, nor any password found. A new report of the same domain shows the change of score and the rules that appeared or were resolved."
-msgstr "Only the scores and the triggered rules (identifier, category, points, finding) are kept: never the list of accounts, nor any password found. A new report of the same domain shows the change of score and the rules that appeared or were resolved."
-
-msgid "Only users who can modify the sensitive registers can import a report."
-msgstr "Only users who can modify the sensitive registers can import a report."
-
-msgid "Open a ticket"
-msgstr "Open a ticket"
-
-msgid "Passwords found in the report: not kept"
-msgstr "Passwords found in the report: not kept"
-
-#, php-format
-msgid "PingCastle XML report (%d MB at most)"
-msgstr "PingCastle XML report (%d MB at most)"
-
-msgid "PingCastle is free for internal use; a service provider auditing a customer needs a licence. Check the terms of use of the tool."
-msgstr "PingCastle is free for internal use; a service provider auditing a customer needs a licence. Check the terms of use of the tool."
-
-#, php-format
-msgid "PingCastle report of %1$s, %2$s"
-msgstr "PingCastle report of %1$s, %2$s"
-
-msgid "Points"
-msgstr "Points"
-
-msgid "Propose an action"
-msgstr "Propose an action"
-
-msgid "Report date"
-msgstr "Report date"
-
-#, php-format
-msgid "Report of %s"
-msgstr "Report of %s"
-
-msgid "Rules"
-msgstr "Rules"
-
-msgid "Rules resolved since the previous report"
-msgstr "Rules resolved since the previous report"
-
-msgid "Rules triggered"
-msgstr "Rules triggered"
-
-msgid "These reports describe the weaknesses of the domain: the page and the archived reports are reserved to the sensitive registers right, in the entity of each import."
-msgstr "These reports describe the weaknesses of the domain: the page and the archived reports are reserved to the sensitive registers right, in the entity of each import."
-
-#, php-format
-msgid "Ticket %d"
-msgstr "Ticket %d"
-
-msgid "Weakness reported by the Active Directory security audit (\"Active Directory security audit\" screen). Fix it, then import the next report to check that the rule is resolved. Nothing was changed automatically."
-msgstr "Weakness reported by the Active Directory security audit (\"Active Directory security audit\" screen). Fix it, then import the next report to check that the rule is resolved. Nothing was changed automatically."
-
-#, php-format
-msgid "%d rule concerns this control"
-msgid_plural "%d rules concern this control"
-msgstr[0] "%d rule concerns this control"
-msgstr[1] "%d rules concern this control"
-
-#, php-format
-msgid "Score: %d/100"
-msgstr "Score: %d/100"
-
-#, php-format
-msgid "Action proposed from the Active Directory security audit (rule %s): review and adapt each field, set an owner and a due date, then click \"Add\". Nothing is created before, and the rule is linked to this action once it is saved."
-msgstr "Action proposed from the Active Directory security audit (rule %s): review and adapt each field, set an owner and a due date, then click \"Add\". Nothing is created before, and the rule is linked to this action once it is saved."
-
-msgctxt "ad rule"
-msgid "New"
-msgstr "New"
