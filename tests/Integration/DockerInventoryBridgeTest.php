@@ -2,6 +2,7 @@
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
+use GlpiPlugin\Grcmanager\ConfigurationCompliance;
 use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\Services\Control\DockerInventoryEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\DockerInventoryEvidenceProvider;
@@ -55,7 +56,7 @@ final class DockerInventoryBridgeTest extends GrcmanagerIntegrationTestCase
             $this->markTestSkipped('Le plugin Inventaire Docker est actif sur cette instance.');
         }
         $this->assertNull(DockerInventoryEvidenceProvider::fetchHardening());
-        $keys = array_column(\GlpiPlugin\Grcmanager\ConfigurationCompliance::evidenceSources(), 'key');
+        $keys = array_column(ConfigurationCompliance::evidenceSources(), 'key');
         $this->assertNotContains('docker_hardening', $keys);
         $this->assertStringNotContainsString('data-config-source="docker_hardening"', $this->render('A.8.9'));
     }
@@ -67,9 +68,9 @@ final class DockerInventoryBridgeTest extends GrcmanagerIntegrationTestCase
     public function testHardeningSourceFollowsThePluginApi(): void
     {
         if (!self::dockerUsable()) {
-            $this->markTestSkipped('Le plugin Inventaire Docker n'est pas actif sur cette instance.');
+            $this->markTestSkipped('Le plugin Inventaire Docker n\'est pas actif sur cette instance.');
         }
-        $keys = array_column(\GlpiPlugin\Grcmanager\ConfigurationCompliance::evidenceSources(), 'key');
+        $keys = array_column(ConfigurationCompliance::evidenceSources(), 'key');
         if (!method_exists(DockerInventoryEvidence::API_CLASS, 'hardening')) {
             $this->assertNull(DockerInventoryEvidenceProvider::fetchHardening());
             $this->assertNotContains('docker_hardening', $keys);
