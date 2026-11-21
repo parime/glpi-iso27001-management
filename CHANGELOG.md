@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.74.0] - 2026-11-21
+
 ### Added
 
 - **Revue des accès pré-remplie par des règles** (issue #866, mesures A.5.18 et A.8.2). Au
