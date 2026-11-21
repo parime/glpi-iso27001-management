@@ -506,7 +506,7 @@ class EbiosStudy extends EbiosStudyBase
     /**
      * Valeurs métier avec leurs événements redoutés et leurs biens supports.
      *
-     * @return array<string, mixed>|false
+     * @return array<string, mixed>
      */
     private static function workshopOneData(int $studyId): array
     {
