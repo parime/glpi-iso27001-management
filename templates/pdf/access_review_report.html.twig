@@ -25,6 +25,8 @@
   <tr><td>{{ __('Launched on', 'grcmanager') }}</td><td>{{ dates.launch }}</td></tr>
   <tr><td>{{ __('Closed on', 'grcmanager') }}</td><td>{{ dates.close }}</td></tr>
   <tr><td>{{ __('Accounts reviewed', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ progress.done }} / {{ progress.total }} ({{ progress.percent }} %)</td></tr>
+  {# Issue #866 : suggestions des règles (propositions, la décision reste celle du relecteur) #}
+  <tr><td>{{ __('Suggestions', 'grcmanager') }}</td><td>{% for key, info in suggestion_infos %}{{ info.short }} {{ suggestions[key]|default(0) }}{{ not loop.last ? ' ; ' : '' }}{% endfor %}</td></tr>
 </table>
 
 <h2>{{ __('Decisions per account', 'grcmanager') }}</h2>
@@ -34,6 +36,7 @@
       <th>{{ __('Account', 'grcmanager') }}</th>
       <th>{{ __('Profiles and groups at launch', 'grcmanager') }}</th>
       <th>{{ __('Owner', 'grcmanager') }}</th>
+      <th>{{ __('Suggestion and reason', 'grcmanager') }}</th>
       <th>{{ __('Decision', 'grcmanager') }}</th>
       <th>{{ __('Comment', 'grcmanager') }}</th>
       <th>{{ __('Ticket', 'grcmanager') }}</th>
@@ -49,8 +52,13 @@
         </td>
         <td>{{ line.reviewer_name }}</td>
         <td>
+          {{ line.suggestion_label }}
+          {% for reason in line.suggestion_reasons_list %}<br><small>{{ reason.label }}</small>{% endfor %}
+        </td>
+        <td>
           {{ line.decision == 'pending' ? __('Not reviewed', 'grcmanager') : decisions[line.decision] }}
           {% if line.decided_by_name %}<br><small>{{ line.decided_by_name }}, {{ line.date_decision }}</small>{% endif %}
+          {% if line.differs %}<br><em>{{ __('Decision differs from the suggestion', 'grcmanager') }}</em>{% endif %}
         </td>
         <td>{{ line.comment }}</td>
         <td>{{ line.tickets_id > 0 ? '#' ~ line.tickets_id : '' }}</td>

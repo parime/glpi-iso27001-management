@@ -882,6 +882,11 @@ contains "liste des KRI : KRI de A" "KRI securite A" oui    "$kris"
 contains "liste des KRI : KRI de B" "KRI securite B" $SEE_B "$kris"
 expect "campagne de revue, entite A"   200    "$(code "$P/accessreview.form.php?id=$(id campaign_A)")"
 expect "campagne de revue, entite B"   $DENY  "$(code "$P/accessreview.form.php?id=$(id campaign_B)")"
+# Issue #866 : recalcul des suggestions, droit de modification sur la campagne exigé.
+expect "recalculer les suggestions de la campagne B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"   "$(code -d "refresh_suggestions=1&id=$(id campaign_B)&_glpi_csrf_token=$(csrf)" "$P/accessreview.form.php")"
+if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
+  expect "recalculer les suggestions de la campagne A en lecture seule" 403     "$(code -d "refresh_suggestions=1&id=$(id campaign_A)&_glpi_csrf_token=$(csrf)" "$P/accessreview.form.php")"
+fi
 
 control_tab=$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CAccessReview$2' "$(id control)")
 contains "onglet revues d'acces d'un controle : campagne A" "Campagne securite A" oui     "$control_tab"
