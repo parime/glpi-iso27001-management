@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 06:22+0000\n"
+"POT-Creation-Date: 2026-11-21 06:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -732,17 +732,27 @@ msgstr[1] ""
 msgid "Every decision already has its action."
 msgstr ""
 
-#: front/mfacoverage.php:55
+#: front/mfacoverage.php:56 front/mfacoverage.php:111
 #, php-format
 msgid ""
 "%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
 msgstr ""
 
-#: front/mfacoverage.php:68
+#: front/mfacoverage.php:69
 msgid "Import deleted."
 msgstr ""
 
-#: front/mfacoverage.php:88
+#: front/mfacoverage.php:85
+msgid ""
+"Not saved: the tenant must be a domain name or an ID, and the application ID "
+"an ID such as 00000000-0000-0000-0000-000000000000."
+msgstr ""
+
+#: front/mfacoverage.php:95
+msgid "Microsoft Graph settings saved."
+msgstr ""
+
+#: front/mfacoverage.php:136
 msgid "Remote access groups saved."
 msgstr ""
 
@@ -1529,7 +1539,7 @@ msgstr ""
 msgid "Computers that must be encrypted and are (%)"
 msgstr ""
 
-#: hook.php:292 src/MfaCoverage.php:770
+#: hook.php:292 src/MfaCoverage.php:858
 msgid "Administrators protected by MFA (%)"
 msgstr ""
 
@@ -4703,7 +4713,7 @@ msgstr ""
 msgid "Audit plan of the certification body"
 msgstr ""
 
-#: src/Compat/Http.php:298
+#: src/Compat/Http.php:300
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
@@ -10065,84 +10075,122 @@ msgstr ""
 msgid "GRC & Compliance"
 msgstr ""
 
-#: src/MfaCoverage.php:63 templates/account_hygiene.html.twig
+#: src/MfaCoverage.php:67 templates/account_hygiene.html.twig
 #: templates/control_form.html.twig
 msgid "MFA coverage"
 msgstr ""
 
-#: src/MfaCoverage.php:118
+#: src/MfaCoverage.php:122
 msgid "Microsoft Entra ID"
 msgstr ""
 
-#: src/MfaCoverage.php:119
+#: src/MfaCoverage.php:123
 msgid "Okta"
 msgstr ""
 
-#: src/MfaCoverage.php:120
+#: src/MfaCoverage.php:124
 msgid "Google Workspace"
 msgstr ""
 
-#: src/MfaCoverage.php:121
+#: src/MfaCoverage.php:125
 msgid "On-premises MFA solution"
 msgstr ""
 
-#: src/MfaCoverage.php:122
+#: src/MfaCoverage.php:126
 msgid "Other identity provider"
 msgstr ""
 
-#: src/MfaCoverage.php:133 templates/mfa_coverage.html.twig
+#: src/MfaCoverage.php:137 templates/mfa_coverage.html.twig
 msgid "MFA"
 msgstr ""
 
-#: src/MfaCoverage.php:138
+#: src/MfaCoverage.php:142
 msgid "Weak method only"
 msgstr ""
 
-#: src/MfaCoverage.php:143
+#: src/MfaCoverage.php:147
 msgid "No MFA"
 msgstr ""
 
-#: src/MfaCoverage.php:157
+#: src/MfaCoverage.php:161
 msgid "Administrator without MFA"
 msgstr ""
 
-#: src/MfaCoverage.php:161
+#: src/MfaCoverage.php:165
 msgid "Remote access without MFA"
 msgstr ""
 
-#: src/MfaCoverage.php:165
+#: src/MfaCoverage.php:169
 msgid "SMS, call or email only"
 msgstr ""
 
-#: src/MfaCoverage.php:169
+#: src/MfaCoverage.php:173
 msgid "Excluded without justification"
 msgstr ""
 
-#: src/MfaCoverage.php:179
+#: src/MfaCoverage.php:183
 msgid ""
 "No account column found: the file needs a header with a column such as "
 "login, userPrincipalName or email."
 msgstr ""
 
-#: src/MfaCoverage.php:184
+#: src/MfaCoverage.php:188
 msgid ""
 "No method column found: the file needs a column such as methodsRegistered, "
 "methods or isMfaRegistered."
 msgstr ""
 
-#: src/MfaCoverage.php:188
+#: src/MfaCoverage.php:192
 msgid "The file could not be read."
 msgstr ""
 
-#: src/MfaCoverage.php:384
+#: src/MfaCoverage.php:203
+msgid ""
+"Enter the tenant, the application (client) ID and the client secret first."
+msgstr ""
+
+#: src/MfaCoverage.php:207
+msgid ""
+"Microsoft Entra ID refused the tenant, the application ID or the client "
+"secret."
+msgstr ""
+
+#: src/MfaCoverage.php:211
+msgid ""
+"Access refused by Microsoft Graph: grant the AuditLog.Read.All application "
+"permission with admin consent (the report requires an Entra ID P1 or P2 "
+"licence)."
+msgstr ""
+
+#: src/MfaCoverage.php:216
+msgid "Microsoft Graph asks to slow down: try again in a few minutes."
+msgstr ""
+
+#: src/MfaCoverage.php:220
+msgid ""
+"Too many accounts to read in one click: import the CSV export of the report "
+"instead."
+msgstr ""
+
+#: src/MfaCoverage.php:224
+msgid ""
+"Microsoft Graph could not be reached: check the network access or the GLPI "
+"proxy."
+msgstr ""
+
+#: src/MfaCoverage.php:227
+msgid "Microsoft Graph returned an unexpected answer."
+msgstr ""
+
+#: src/MfaCoverage.php:423
 msgid "GLPI two-factor authentication"
 msgstr ""
 
-#: src/MfaCoverage.php:420
+#: src/MfaCoverage.php:459
 msgid "GLPI authenticator app"
 msgstr ""
 
-#: src/MfaCoverage.php:789
+#: src/MfaCoverage.php:877
 #, php-format
 msgid "MFA: %1$d%% of the accounts, %2$d administrator(s) without MFA"
 msgstr ""
@@ -21231,7 +21279,7 @@ msgstr ""
 msgid "Open the automatic action"
 msgstr ""
 
-#: templates/config_sentinelone.html.twig
+#: templates/config_sentinelone.html.twig templates/mfa_coverage.html.twig
 msgid "Read only"
 msgstr ""
 
@@ -26006,6 +26054,13 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/mfa_coverage.html.twig
+msgid ""
+"API permissions > Add a permission > Microsoft Graph > Application "
+"permissions: AuditLog.Read.All, then Grant admin consent. The report "
+"requires an Entra ID P1 or P2 licence."
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
 msgid "Access reviews"
 msgstr ""
 
@@ -26043,12 +26098,34 @@ msgid "Administrators protected by MFA"
 msgstr ""
 
 #: templates/mfa_coverage.html.twig
+msgid "Application (client) ID"
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid ""
+"Certificates & secrets > New client secret, then copy here the tenant ID, "
+"the application (client) ID and the secret value."
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
 msgid ""
 "Choose the remote access groups below, or import a remote_access column."
 msgstr ""
 
 #: templates/mfa_coverage.html.twig
+msgid "Client secret"
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid "Configured"
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
 msgid "Delete the import"
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid "Delete the saved secret"
 msgstr ""
 
 #: templates/mfa_coverage.html.twig
@@ -26092,6 +26169,20 @@ msgid "Imported accounts not matched with a GLPI account"
 msgstr ""
 
 #: templates/mfa_coverage.html.twig
+msgid ""
+"In the Entra admin center, App registrations > New registration: create an "
+"application (for example \"GLPI GRC - MFA report\")."
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid ""
+"Instead of downloading the CSV export, GLPI can read the same report (user "
+"registration details) from Microsoft Graph when you click the button. The "
+"result replaces the Microsoft Entra ID import of the current entity. Nothing "
+"is ever written in Entra ID and nothing runs automatically."
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
 msgid "Matched"
 msgstr ""
 
@@ -26130,9 +26221,25 @@ msgid "None declared"
 msgstr ""
 
 #: templates/mfa_coverage.html.twig
+msgid "Not configured"
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
 msgid ""
 "Okta, Google Workspace or an on-premises solution: a CSV file with a header, "
 "one account per line."
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid "Only users who can modify the plugin data can set up this reading."
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid "Read now from Microsoft Graph"
 msgstr ""
 
 #: templates/mfa_coverage.html.twig
@@ -26156,6 +26263,23 @@ msgstr ""
 
 #: templates/mfa_coverage.html.twig
 msgid "SMS, phone call and email codes are reported as weak methods."
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid "Secret saved"
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid "Secret saved (leave empty to keep it)"
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid "Tenant (directory) ID or domain"
+msgstr ""
+
+#: templates/mfa_coverage.html.twig
+msgid ""
+"The secret is encrypted with the GLPI key, never displayed again nor logged."
 msgstr ""
 
 #: templates/mfa_coverage.html.twig

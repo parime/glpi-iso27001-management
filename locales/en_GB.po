@@ -33835,3 +33835,78 @@ msgstr[1] "%d days ago"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
+msgstr "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
+
+msgid "Microsoft Graph settings saved."
+msgstr "Microsoft Graph settings saved."
+
+msgid "Enter the tenant, the application (client) ID and the client secret first."
+msgstr "Enter the tenant, the application (client) ID and the client secret first."
+
+msgid "Microsoft Entra ID refused the tenant, the application ID or the client secret."
+msgstr "Microsoft Entra ID refused the tenant, the application ID or the client secret."
+
+msgid "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
+msgstr "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
+
+msgid "Microsoft Graph asks to slow down: try again in a few minutes."
+msgstr "Microsoft Graph asks to slow down: try again in a few minutes."
+
+msgid "Too many accounts to read in one click: import the CSV export of the report instead."
+msgstr "Too many accounts to read in one click: import the CSV export of the report instead."
+
+msgid "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
+msgstr "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
+
+msgid "Microsoft Graph returned an unexpected answer."
+msgstr "Microsoft Graph returned an unexpected answer."
+
+msgid "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
+msgstr "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
+
+msgid "Application (client) ID"
+msgstr "Application (client) ID"
+
+msgid "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
+msgstr "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
+
+msgid "Client secret"
+msgstr "Client secret"
+
+msgid "Configured"
+msgstr "Configured"
+
+msgid "Not configured"
+msgstr "Not configured"
+
+msgid "Delete the saved secret"
+msgstr "Delete the saved secret"
+
+msgid "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
+msgstr "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
+
+msgid "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
+msgstr "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
+
+msgid "Only users who can modify the plugin data can set up this reading."
+msgstr "Only users who can modify the plugin data can set up this reading."
+
+msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
+msgstr "Read Microsoft Entra ID directly (Microsoft Graph)"
+
+msgid "Read now from Microsoft Graph"
+msgstr "Read now from Microsoft Graph"
+
+msgid "Secret saved"
+msgstr "Secret saved"
+
+msgid "Secret saved (leave empty to keep it)"
+msgstr "Secret saved (leave empty to keep it)"
+
+msgid "Tenant (directory) ID or domain"
+msgstr "Tenant (directory) ID or domain"
+
+msgid "The secret is encrypted with the GLPI key, never displayed again nor logged."
+msgstr "The secret is encrypted with the GLPI key, never displayed again nor logged."

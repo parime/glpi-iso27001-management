@@ -1112,6 +1112,12 @@ jamais de secret. Il faut le droit du plugin et la lecture native des utilisateu
    `methods` (ou `mfa` oui/non), et au choix `admin`, `remote_access`, `excluded`,
    `exclusion_reason`. Les comptes sont rapprochés par identifiant, adresse e-mail ou partie de
    l'UPN avant le @ ; ceux qui ne correspondent à aucun compte GLPI sont listés à part.
+   Pour Entra ID, vous pouvez aussi remplir **Lire directement Microsoft Entra ID (Microsoft
+   Graph)** : inscrivez une application dans le centre d'administration Entra, donnez-lui la
+   permission d'application AuditLog.Read.All avec le consentement de l'administrateur, créez un
+   secret client, puis saisissez le locataire, l'identifiant d'application et le secret.
+   **Lire maintenant dans Microsoft Graph** remplace l'import Entra ID de l'entité ; rien n'est
+   écrit dans Entra ID.
 4. Dans **Quels comptes ont un accès distant ?**, choisissez les groupes GLPI des utilisateurs du
    VPN ou du bureau à distance.
 5. La liste commence par les **écarts** : administrateur sans MFA, accès distant sans MFA, SMS,
@@ -2204,7 +2210,11 @@ secret. You need the plugin right and the native right to read users.
    one line per account with the columns `login` or `email`, `methods` (or `mfa` yes/no), and
    optionally `admin`, `remote_access`, `excluded`, `exclusion_reason`. Accounts are matched on the
    login, the email address or the part of the UPN before the @; those that match no GLPI account
-   are listed separately.
+   are listed separately. For Entra ID, you can also fill in **Read Microsoft Entra ID directly
+   (Microsoft Graph)**: register an application in the Entra admin center, grant it the
+   AuditLog.Read.All application permission with admin consent, create a client secret, then
+   enter the tenant, the application ID and the secret. **Read now from Microsoft Graph** replaces
+   the Entra ID import of the entity; nothing is written in Entra ID.
 4. In **Which accounts have remote access?**, choose the GLPI groups of the VPN or remote desktop
    users.
 5. The list starts with the **gaps**: administrator without MFA, remote access without MFA, SMS,

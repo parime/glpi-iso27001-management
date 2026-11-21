@@ -102,6 +102,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     d'inscription d'Entra ID, Okta, Google Workspace, solution sur site), rapproché des comptes
     GLPI par identifiant, e-mail ou partie locale de l'UPN ; comptes non rapprochés listés ; un
     nouvel import remplace le précédent du même fournisseur ;
+  - pour Microsoft Entra ID, lecture directe du même rapport par **Microsoft Graph**, sur clic et
+    en lecture seule (application du locataire avec la permission AuditLog.Read.All) : le secret
+    est chiffré par GLPI et jamais réaffiché ; une lecture refusée ou incomplète ne remplace pas
+    l'import précédent ; aucune tâche automatique ;
   - taux de MFA global, des administrateurs (profils qui modifient la configuration ou les profils,
     ou rôle déclaré par le fournisseur) et des comptes à accès distant (groupes GLPI choisis ou
     colonne de l'import) ;

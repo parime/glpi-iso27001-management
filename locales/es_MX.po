@@ -29256,3 +29256,78 @@ msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] "hace %d día"
 msgstr[1] "hace %d días"
+
+msgid "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
+msgstr "No guardado: el inquilino debe ser un nombre de dominio o un identificador, y el identificador de aplicación un identificador como 00000000-0000-0000-0000-000000000000."
+
+msgid "Microsoft Graph settings saved."
+msgstr "Ajustes de Microsoft Graph guardados."
+
+msgid "Enter the tenant, the application (client) ID and the client secret first."
+msgstr "Introduzca primero el inquilino, el identificador de aplicación (cliente) y el secreto de cliente."
+
+msgid "Microsoft Entra ID refused the tenant, the application ID or the client secret."
+msgstr "Microsoft Entra ID ha rechazado el inquilino, el identificador de aplicación o el secreto de cliente."
+
+msgid "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
+msgstr "Acceso denegado por Microsoft Graph: conceda el permiso de aplicación AuditLog.Read.All con el consentimiento del administrador (el informe requiere una licencia Entra ID P1 o P2)."
+
+msgid "Microsoft Graph asks to slow down: try again in a few minutes."
+msgstr "Microsoft Graph pide reducir el ritmo: vuelva a intentarlo dentro de unos minutos."
+
+msgid "Too many accounts to read in one click: import the CSV export of the report instead."
+msgstr "Demasiadas cuentas para leerlas con un clic: importe en su lugar la exportación CSV del informe."
+
+msgid "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
+msgstr "No se ha podido contactar con Microsoft Graph: compruebe el acceso a la red o el proxy de GLPI."
+
+msgid "Microsoft Graph returned an unexpected answer."
+msgstr "Microsoft Graph ha devuelto una respuesta inesperada."
+
+msgid "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
+msgstr "Permisos de API > Agregar un permiso > Microsoft Graph > Permisos de aplicación: AuditLog.Read.All y, después, Conceder consentimiento de administrador. El informe requiere una licencia Entra ID P1 o P2."
+
+msgid "Application (client) ID"
+msgstr "Identificador de aplicación (cliente)"
+
+msgid "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
+msgstr "Certificados y secretos > Nuevo secreto de cliente y, después, copie aquí el identificador del inquilino, el identificador de aplicación (cliente) y el valor del secreto."
+
+msgid "Client secret"
+msgstr "Secreto de cliente"
+
+msgid "Configured"
+msgstr "Configurado"
+
+msgid "Not configured"
+msgstr "No configurado"
+
+msgid "Delete the saved secret"
+msgstr "Eliminar el secreto guardado"
+
+msgid "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
+msgstr "En el centro de administración de Entra, Registros de aplicaciones > Nuevo registro: cree una aplicación (por ejemplo «GLPI GRC - informe MFA»)."
+
+msgid "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
+msgstr "En lugar de descargar la exportación CSV, GLPI puede leer el mismo informe (detalles de registro de usuarios) en Microsoft Graph al hacer clic en el botón. El resultado sustituye la importación de Microsoft Entra ID de la entidad activa. Nunca se escribe nada en Entra ID y nada se ejecuta automáticamente."
+
+msgid "Only users who can modify the plugin data can set up this reading."
+msgstr "Solo los usuarios que pueden modificar los datos del plugin pueden configurar esta lectura."
+
+msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
+msgstr "Leer directamente Microsoft Entra ID (Microsoft Graph)"
+
+msgid "Read now from Microsoft Graph"
+msgstr "Leer ahora desde Microsoft Graph"
+
+msgid "Secret saved"
+msgstr "Secreto guardado"
+
+msgid "Secret saved (leave empty to keep it)"
+msgstr "Secreto guardado (dejar vacío para conservarlo)"
+
+msgid "Tenant (directory) ID or domain"
+msgstr "Identificador del inquilino (directorio) o dominio"
+
+msgid "The secret is encrypted with the GLPI key, never displayed again nor logged."
+msgstr "El secreto se cifra con la clave de GLPI y nunca se vuelve a mostrar ni se registra."
