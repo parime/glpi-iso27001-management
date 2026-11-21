@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Power supplies"
+msgstr "Netzteile"
+
+msgid "Disks"
+msgstr "Laufwerke"
+
+msgid "Fans"
+msgstr "Lüfter"
+
+msgid "Temperatures"
+msgstr "Temperaturen"
+
+msgid "Server health"
+msgstr "Serverzustand"
+
+msgid "%d critical"
+msgstr "%d kritisch"
+
+msgid "%d warning"
+msgstr "%d Warnung(en)"
+
+msgid "No health detail read yet: click \"Read now\" on the controller page, or enable the scheduled reading. Controllers imported by CSV have no health detail."
+msgstr "Noch keine Zustandsdetails gelesen: Klicken Sie auf der Seite der Controller auf „Jetzt lesen“ oder aktivieren Sie das geplante Lesen. Per CSV importierte Controller haben keine Zustandsdetails."
+
+msgid "Recent events of the controller log"
+msgstr "Letzte Ereignisse des Controller-Protokolls"
+
+msgid "No event in the log read on the controller."
+msgstr "Kein Ereignis im auf dem Controller gelesenen Protokoll."
+
+msgid "Server management controllers: reads inventory, gaps, accounts and health by Redfish (read only)"
+msgstr "Server-Management-Controller: liest Inventar, Abweichungen, Konten und Zustand über Redfish (nur lesend)"
+
+msgid "Scheduled reading: the automatic action \"bmcread\" reads every Redfish controller once a day (same read-only requests as \"Read now\", health and event log included). It is disabled after installation."
+msgstr "Geplantes Lesen: Die automatische Aktion „bmcread“ liest jeden Redfish-Controller einmal täglich (dieselben rein lesenden Anfragen wie „Jetzt lesen“, Zustand und Ereignisprotokoll inklusive). Sie ist nach der Installation deaktiviert."
+
+msgid "Set the automatic action"
+msgstr "Automatische Aktion einstellen"
+
+msgid "%d component(s) in critical state"
+msgstr "%d Komponente(n) in kritischem Zustand"
+
+msgid "%d component(s) with a warning"
+msgstr "%d Komponente(n) mit Warnung"
+
+msgid "%1$d alert(s) in the controller log over the last %2$d days"
+msgstr "%1$d Warnung(en) im Controller-Protokoll in den letzten %2$d Tagen"
+
+msgid "A component or a recent event of the server is critical."
+msgstr "Eine Komponente oder ein aktuelles Ereignis des Servers ist kritisch."
+
+msgid "A component or a recent event of the server needs attention."
+msgstr "Eine Komponente oder ein aktuelles Ereignis des Servers erfordert Aufmerksamkeit."
+
+msgid "Power supplies, disks, fans and temperatures read as healthy."
+msgstr "Netzteile, Laufwerke, Lüfter und Temperaturen als fehlerfrei gelesen."

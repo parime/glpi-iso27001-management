@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Power supplies"
+msgstr "Power supplies"
+
+msgid "Disks"
+msgstr "Disks"
+
+msgid "Fans"
+msgstr "Fans"
+
+msgid "Temperatures"
+msgstr "Temperatures"
+
+msgid "Server health"
+msgstr "Server health"
+
+msgid "%d critical"
+msgstr "%d critical"
+
+msgid "%d warning"
+msgstr "%d warning"
+
+msgid "No health detail read yet: click \"Read now\" on the controller page, or enable the scheduled reading. Controllers imported by CSV have no health detail."
+msgstr "No health detail read yet: click \"Read now\" on the controller page, or enable the scheduled reading. Controllers imported by CSV have no health detail."
+
+msgid "Recent events of the controller log"
+msgstr "Recent events of the controller log"
+
+msgid "No event in the log read on the controller."
+msgstr "No event in the log read on the controller."
+
+msgid "Server management controllers: reads inventory, gaps, accounts and health by Redfish (read only)"
+msgstr "Server management controllers: reads inventory, gaps, accounts and health by Redfish (read only)"
+
+msgid "Scheduled reading: the automatic action \"bmcread\" reads every Redfish controller once a day (same read-only requests as \"Read now\", health and event log included). It is disabled after installation."
+msgstr "Scheduled reading: the automatic action \"bmcread\" reads every Redfish controller once a day (same read-only requests as \"Read now\", health and event log included). It is disabled after installation."
+
+msgid "Set the automatic action"
+msgstr "Set the automatic action"
+
+msgid "%d component(s) in critical state"
+msgstr "%d component(s) in critical state"
+
+msgid "%d component(s) with a warning"
+msgstr "%d component(s) with a warning"
+
+msgid "%1$d alert(s) in the controller log over the last %2$d days"
+msgstr "%1$d alert(s) in the controller log over the last %2$d days"
+
+msgid "A component or a recent event of the server is critical."
+msgstr "A component or a recent event of the server is critical."
+
+msgid "A component or a recent event of the server needs attention."
+msgstr "A component or a recent event of the server needs attention."
+
+msgid "Power supplies, disks, fans and temperatures read as healthy."
+msgstr "Power supplies, disks, fans and temperatures read as healthy."

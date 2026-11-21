@@ -51,6 +51,7 @@
                   {% endfor %}
                </div>
             {% endif %}
+            {% include '@grcmanager/_server_health.html.twig' with {health: row.health_detail, controller_id: row.id} only %}
             <div class="mt-2"><a href="{{ page_url }}#grc-bmc-{{ row.id }}">{{ __('View the details', 'grcmanager') }}</a></div>
          </div>
       </div>

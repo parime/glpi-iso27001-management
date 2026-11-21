@@ -1,0 +1,62 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #843, lot 3 : santé détaillée du serveur et journal récent de son contrôleur (lecture seule). #}
+<div class="mt-3" id="grc-bmc-health-{{ controller_id }}">
+   <h4 class="mb-2"><i class="ti ti-heart-rate-monitor me-1"></i>{{ __('Server health', 'grcmanager') }}
+      {% if health.critical > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis ms-1"><i class="ti ti-circle-x me-1"></i>{{ __('%d critical', 'grcmanager')|format(health.critical) }}</span>{% endif %}
+      {% if health.warning > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d warning', 'grcmanager')|format(health.warning) }}</span>{% endif %}
+      {% if health.date_read %}<span class="small text-muted fw-normal ms-2">{{ __('Read on %s', 'grcmanager')|format(health.date_read) }}</span>{% endif %}
+   </h4>
+   {% if not health.has_data %}
+      <div class="small text-muted">{{ __('No health detail read yet: click "Read now" on the controller page, or enable the scheduled reading. Controllers imported by CSV have no health detail.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="row g-2">
+         {% for section in health.sections %}
+            <div class="col-md-6 col-xl-3">
+               <div class="border rounded p-2 h-100">
+                  <div class="fw-bold small mb-1"><i class="{{ section.icon }} me-1"></i>{{ section.label }}</div>
+                  <ul class="list-unstyled small mb-0">
+                     {% for item in section.items %}
+                        <li class="d-flex justify-content-between gap-2">
+                           <span>{{ item.name }}{% if item.reading %} <span class="text-muted">{{ item.reading }}</span>{% endif %}</span>
+                           <span class="badge bg-{{ item.health.color }}-subtle text-{{ item.health.color }}-emphasis" title="{{ item.health.label }}"><i class="{{ item.health.icon }}"></i></span>
+                        </li>
+                     {% endfor %}
+                  </ul>
+               </div>
+            </div>
+         {% endfor %}
+      </div>
+      <div class="fw-bold small mt-3 mb-1"><i class="ti ti-list-details me-1"></i>{{ __('Recent events of the controller log', 'grcmanager') }}</div>
+      {% if health.events is empty %}
+         <div class="small text-muted">{{ __('No event in the log read on the controller.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-striped small mb-0">
+               <thead><tr><th>{{ __('Date') }}</th><th>{{ __('Severity', 'grcmanager') }}</th><th>{{ __('Message', 'grcmanager') }}</th></tr></thead>
+               <tbody>
+                  {% for event in health.events %}
+                     <tr>
+                        <td class="text-nowrap">{{ event.date ?: '-' }}</td>
+                        <td><span class="badge bg-{{ event.severity.color }}-subtle text-{{ event.severity.color }}-emphasis"><i class="{{ event.severity.icon }} me-1"></i>{{ event.severity.label }}</span></td>
+                        <td>{{ event.message }}{% if event.code %} <span class="text-muted">({{ event.code }})</span>{% endif %}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   {% endif %}
+</div>
