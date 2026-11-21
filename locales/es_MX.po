@@ -28034,3 +28034,86 @@ msgstr "límite %d MB"
 #, php-format
 msgid "%s MB"
 msgstr "%s MB"
+
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr "%d brecha(s) de competencia notificada(s)."
+
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr "- %1$s: %2$s, nivel esperado %3$s (formación por planificar: %4$s)"
+
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+"- %1$s: %2$s, nivel esperado %3$s (ninguna formación la otorga todavía: "
+"vincule una o declare una prueba)"
+
+msgid "Activity of the responsibility matrix"
+msgstr "Actividad de la matriz de responsabilidades"
+
+msgid "Competence gaps without planned training"
+msgstr "Brechas de competencia sin formación planificada"
+
+msgid "Follows the responsibility matrix"
+msgstr "Sigue la matriz de responsabilidades"
+
+msgid "New gaps without planned training"
+msgstr "Nuevas brechas sin formación planificada"
+
+msgid "Number of gaps without planned training"
+msgstr "Número de brechas sin formación planificada"
+
+msgid "Number of new gaps"
+msgstr "Número de nuevas brechas"
+
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr "Otras brechas no indicadas aquí: %d"
+
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr "Matriz de responsabilidades: %1$s (%2$s)"
+
+msgid "Role in the activity"
+msgstr "Rol en la actividad"
+
+msgid "This activity is not available in the entity of the function."
+msgstr "Esta actividad no está disponible en la entidad de la función."
+
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+"Avisa al responsable de las brechas de competencia sin formación planificada"
+
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+"Opcional: las personas y grupos que tienen el rol elegido en esta actividad "
+"ocupan la función y siguen la matriz cuando cambia."
+
+msgid ""
+"Sent by the GRC Manager automatic task when a person who holds an ISMS "
+"function has a competence gap with no planned training."
+msgstr ""
+"Enviada por la tarea automática de GRC Manager cuando una persona que ocupa "
+"una función del SGSI tiene una brecha de competencia sin formación "
+"planificada."
+
+msgid ""
+"Plan a session of the proposed training from the Competences page, or "
+"declare the proof the person already has. Nothing is changed automatically."
+msgstr ""
+"Planifique una sesión de la formación propuesta desde la página "
+"«Competencias», o declare la prueba que la persona ya tiene. No se modifica "
+"nada automáticamente."
+
+msgid "View the competences"
+msgstr "Ver las competencias"
+
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] "Alerta de brecha de competencia"
+msgstr[1] "Alertas de brechas de competencia"

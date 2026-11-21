@@ -31906,6 +31906,81 @@ msgstr ""
 msgid "The waiver \"%1$s\" ended on %2$s."
 msgstr ""
 
+#: src/CompetenceGapAlert.php:62
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/CompetenceGapAlert.php:99
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+
+#: src/CompetenceGapAlert.php:110
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr ""
+
+#: src/IsmsFunction.php:412
+msgid "This activity is not available in the entity of the function."
+msgstr ""
+
+#: src/IsmsFunction.php:474
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:43
+msgid "Competence gaps without planned training"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:103
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:111
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:121
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:144
+msgid "New gaps without planned training"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:145
+msgid "Number of new gaps"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:146
+msgid "Number of gaps without planned training"
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Activity of the responsibility matrix"
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Follows the responsibility matrix"
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Role in the activity"
+msgstr ""
+
 
 #: src/SoftwareLicenseCompliance.php:148
 msgid ""
@@ -31924,3 +31999,4 @@ msgstr ""
 #: templates/software_license_compliance.html.twig
 msgid "Child licenses counted once"
 msgstr ""
+

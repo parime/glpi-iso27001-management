@@ -1140,6 +1140,11 @@ ARCHIVE=403; case $ROLE in limited|admin) ARCHIVE=302 ;; general) ARCHIVE= ;; es
 [ "$ROLE" = reader ] || [ "$ROLE" = none ] && expect "front/ismsfunction.php : fonctions par defaut" 403 \
   "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.php")"
 expect "front/ismsfunction.php : archiver sans jeton CSRF" 403 "$(code -d "archive=1" "$P/ismsfunction.php")"
+# Lot 3 : titulaires repris d'une activité de la matrice des responsabilités. L'activité de B n'est
+# jamais acceptée pour la fonction de A (entité), et elle n'est proposée qu'à qui voit B.
+code -d "update=1&id=$(id ismsfunction_A)&_add_responsibilityactivities_id=$(id responsibility_B)&_add_raci_role=responsible&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.form.php" >/dev/null
+contains "fonction de A : activite de B refusee comme titulaire" "Activite securite B" non \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/ismsfunction.form.php?id=$(id ismsfunction_A)")"
 # Lot 2 : session proposée pour les écarts (formulaire de formation servi par ajax/common.tabs.php) ;
 # seules les personnes visibles en écart sont présélectionnées, rien n'est enregistré.
 contains "session proposee pour les ecarts de A : collaborateur de A" "Collaborateur securite A" $SEE_STAFF   "$(tab 'GlpiPlugin%5CGrcmanager%5CTraining' 'GlpiPlugin%5CGrcmanager%5CTraining$main' "0&competence_gaps_of=$(id competence_training_A)")"
