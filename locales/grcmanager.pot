@@ -32462,8 +32462,21 @@ msgid ""
 "are on the Results tab of each campaign."
 msgstr ""
 
+
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/policy_form.html.twig
+msgid "Review history"
+msgstr ""
+
+#: templates/policy_form.html.twig
+msgid ""
+"Each review recorded with the \"Record the review\" button is kept here and "
+"in the security audit log; it cannot be changed afterwards."
+msgstr ""
+
 #: src/PageHelp.php:1063
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
 "software, operating system and firmware, to know where to start updating."
 msgstr ""
+

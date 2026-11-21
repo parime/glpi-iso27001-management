@@ -74,6 +74,36 @@
             {% endif %}
          </div>
       </div>
+      {# Issue #775, lot 3 : historique de toutes les revues, lu dans le journal d'audit. #}
+      {% if review_history is not empty %}
+         <div class="form-field row col-12 mb-2" id="grc-procedure-review-history">
+            <label class="col-form-label col-xxl-2 text-xxl-end">
+               <i class="ti ti-history me-1"></i>{{ __('Review history', 'grcmanager') }}
+               <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1">{{ review_history|length }}</span>
+            </label>
+            <div class="col-xxl-10 field-container">
+               <table class="table table-sm table-borderless mb-0 w-auto">
+                  <thead>
+                     <tr>
+                        <th>{{ __('Date') }}</th>
+                        <th>{{ __('Reviewer', 'grcmanager') }}</th>
+                        <th>{{ __('Next review', 'grcmanager') }}</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for review in review_history %}
+                        <tr>
+                           <td><i class="ti ti-calendar-check text-success me-1"></i>{{ review.date|formatted_date }}</td>
+                           <td>{{ review.reviewer ?: '-' }}</td>
+                           <td>{{ review.next_review ? review.next_review|formatted_date : '-' }}</td>
+                        </tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+               {{ hints.hint(__('Each review recorded with the "Record the review" button is kept here and in the security audit log; it cannot be changed afterwards.', 'grcmanager')) }}
+            </div>
+         </div>
+      {% endif %}
    {% endif %}
    {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true, 'readonly': content_locked}) }}
    {{ fields.checkboxField('is_it_charter', item.fields['is_it_charter'] ?? 0, __('IT charter', 'grcmanager'), {
