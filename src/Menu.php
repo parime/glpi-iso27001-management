@@ -150,6 +150,8 @@ class Menu extends CommonGLPI
                 SoftwareLicenseCompliance::class,
                 // Issue #847 : chiffrement des disques du parc (A.8.24, A.8.1).
                 DiskEncryption::class,
+                // Issue #854 : retard des correctifs de sécurité (A.8.8, A.8.19).
+                PatchCompliance::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];

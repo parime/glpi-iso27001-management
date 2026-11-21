@@ -28641,8 +28641,11 @@ msgstr ""
 "Lista kontrolna, ustalenia, działania i strefy tej oceny, dla audytora."
 
 #, php-format
-msgid "%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
-msgstr "Zaimportowano kont: %1$d; dopasowano do konta GLPI: %2$d, niedopasowanych: %3$d."
+msgid ""
+"%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
+msgstr ""
+"Zaimportowano kont: %1$d; dopasowano do konta GLPI: %2$d, niedopasowanych: "
+"%3$d."
 
 msgid "Import deleted."
 msgstr "Import usunięty."
@@ -28693,11 +28696,19 @@ msgstr "Tylko SMS, połączenie lub e-mail"
 msgid "Excluded without justification"
 msgstr "Wyłączone bez uzasadnienia"
 
-msgid "No account column found: the file needs a header with a column such as login, userPrincipalName or email."
-msgstr "Nie znaleziono kolumny konta: plik musi mieć nagłówek z kolumną taką jak login, userPrincipalName lub email."
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"login, userPrincipalName or email."
+msgstr ""
+"Nie znaleziono kolumny konta: plik musi mieć nagłówek z kolumną taką jak "
+"login, userPrincipalName lub email."
 
-msgid "No method column found: the file needs a column such as methodsRegistered, methods or isMfaRegistered."
-msgstr "Nie znaleziono kolumny metod: plik musi mieć kolumnę taką jak methodsRegistered, methods lub isMfaRegistered."
+msgid ""
+"No method column found: the file needs a column such as methodsRegistered, "
+"methods or isMfaRegistered."
+msgstr ""
+"Nie znaleziono kolumny metod: plik musi mieć kolumnę taką jak "
+"methodsRegistered, methods lub isMfaRegistered."
 
 msgid "The file could not be read."
 msgstr "Nie udało się odczytać pliku."
@@ -28712,11 +28723,31 @@ msgstr "Aplikacja uwierzytelniająca (GLPI)"
 msgid "MFA: %1$d%% of the accounts, %2$d administrator(s) without MFA"
 msgstr "MFA: %1$d%% kont, administratorów bez MFA: %2$d"
 
-msgid "Shows which active accounts are protected by multi-factor authentication: GLPI two-factor authentication, and the methods registered with your identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises solution) imported from a CSV export. Rates are given for all accounts, administrators and remote access accounts."
-msgstr "Pokazuje, które aktywne konta są chronione uwierzytelnianiem wieloskładnikowym: uwierzytelnianiem dwuskładnikowym GLPI oraz metodami zarejestrowanymi u dostawcy tożsamości (Microsoft Entra ID, Okta, Google Workspace, rozwiązanie lokalne) zaimportowanymi z eksportu CSV. Wskaźniki podano dla wszystkich kont, administratorów i kont z dostępem zdalnym."
+msgid ""
+"Shows which active accounts are protected by multi-factor authentication: "
+"GLPI two-factor authentication, and the methods registered with your "
+"identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises "
+"solution) imported from a CSV export. Rates are given for all accounts, "
+"administrators and remote access accounts."
+msgstr ""
+"Pokazuje, które aktywne konta są chronione uwierzytelnianiem "
+"wieloskładnikowym: uwierzytelnianiem dwuskładnikowym GLPI oraz metodami "
+"zarejestrowanymi u dostawcy tożsamości (Microsoft Entra ID, Okta, Google "
+"Workspace, rozwiązanie lokalne) zaimportowanymi z eksportu CSV. Wskaźniki "
+"podano dla wszystkich kont, administratorów i kont z dostępem zdalnym."
 
-msgid "Import the export of your identity provider, choose the remote access groups, then follow up the gaps: administrator or remote access without MFA, SMS or call only, account excluded without justification. Nothing is changed automatically. Record the result as an effectiveness test of the control to keep the evidence."
-msgstr "Zaimportuj eksport od dostawcy tożsamości, wybierz grupy dostępu zdalnego, a następnie zajmij się lukami: administrator lub dostęp zdalny bez MFA, tylko SMS lub połączenie, konto wyłączone bez uzasadnienia. Nic nie jest zmieniane automatycznie. Zapisz wynik jako test skuteczności zabezpieczenia, aby zachować dowód."
+msgid ""
+"Import the export of your identity provider, choose the remote access "
+"groups, then follow up the gaps: administrator or remote access without MFA, "
+"SMS or call only, account excluded without justification. Nothing is changed "
+"automatically. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+msgstr ""
+"Zaimportuj eksport od dostawcy tożsamości, wybierz grupy dostępu zdalnego, a "
+"następnie zajmij się lukami: administrator lub dostęp zdalny bez MFA, tylko "
+"SMS lub połączenie, konto wyłączone bez uzasadnienia. Nic nie jest zmieniane "
+"automatycznie. Zapisz wynik jako test skuteczności zabezpieczenia, aby "
+"zachować dowód."
 
 msgid "ISO/IEC 27001, controls A.8.5 and A.5.17"
 msgstr "ISO/IEC 27001, zabezpieczenia A.8.5 i A.5.17"
@@ -28756,8 +28787,12 @@ msgstr "Konta i metody uwierzytelniania"
 msgid "Accounts protected by MFA"
 msgstr "Konta chronione przez MFA"
 
-msgid "Accounts that sign in through your identity provider are covered by the methods you import below."
-msgstr "Konta logujące się przez dostawcę tożsamości są objęte metodami importowanymi poniżej."
+msgid ""
+"Accounts that sign in through your identity provider are covered by the "
+"methods you import below."
+msgstr ""
+"Konta logujące się przez dostawcę tożsamości są objęte metodami "
+"importowanymi poniżej."
 
 msgid "Accounts with a gap"
 msgstr "Konta z luką"
@@ -28765,14 +28800,22 @@ msgstr "Konta z luką"
 msgid "Administrator"
 msgstr "Administrator"
 
-msgid "Administrators are the accounts whose profile can change the GLPI configuration or the profiles, or that the identity provider reports as administrators. Nothing is changed in GLPI from this page."
-msgstr "Administratorzy to konta, których profil może zmieniać konfigurację lub profile GLPI, albo które dostawca tożsamości zgłasza jako administratorów. Ta strona niczego nie zmienia w GLPI."
+msgid ""
+"Administrators are the accounts whose profile can change the GLPI "
+"configuration or the profiles, or that the identity provider reports as "
+"administrators. Nothing is changed in GLPI from this page."
+msgstr ""
+"Administratorzy to konta, których profil może zmieniać konfigurację lub "
+"profile GLPI, albo które dostawca tożsamości zgłasza jako administratorów. "
+"Ta strona niczego nie zmienia w GLPI."
 
 msgid "Administrators protected by MFA"
 msgstr "Administratorzy chronieni przez MFA"
 
-msgid "Choose the remote access groups below, or import a remote_access column."
-msgstr "Wybierz poniżej grupy dostępu zdalnego lub zaimportuj kolumnę remote_access."
+msgid ""
+"Choose the remote access groups below, or import a remote_access column."
+msgstr ""
+"Wybierz poniżej grupy dostępu zdalnego lub zaimportuj kolumnę remote_access."
 
 msgid "Delete the import"
 msgstr "Usuń import"
@@ -28784,14 +28827,29 @@ msgstr "Wyłączone z uzasadnieniem: %d"
 msgid "Exempted from GLPI two-factor enforcement"
 msgstr "Zwolnione z wymuszonego uwierzytelniania dwuskładnikowego GLPI"
 
-msgid "Export the authentication methods registered per user from your identity provider, then import the CSV file here. A new import of the same provider replaces the previous one in the current entity. Only method names are kept, never a secret."
-msgstr "Wyeksportuj od dostawcy tożsamości metody uwierzytelniania zarejestrowane dla każdego użytkownika, a następnie zaimportuj tutaj plik CSV. Nowy import od tego samego dostawcy zastępuje poprzedni w bieżącej jednostce. Zachowywane są tylko nazwy metod, nigdy sekret."
+msgid ""
+"Export the authentication methods registered per user from your identity "
+"provider, then import the CSV file here. A new import of the same provider "
+"replaces the previous one in the current entity. Only method names are kept, "
+"never a secret."
+msgstr ""
+"Wyeksportuj od dostawcy tożsamości metody uwierzytelniania zarejestrowane "
+"dla każdego użytkownika, a następnie zaimportuj tutaj plik CSV. Nowy import "
+"od tego samego dostawcy zastępuje poprzedni w bieżącej jednostce. "
+"Zachowywane są tylko nazwy metod, nigdy sekret."
 
 msgid "GLPI two-factor authentication is enforced for every account."
-msgstr "Uwierzytelnianie dwuskładnikowe GLPI jest wymuszone dla wszystkich kont."
+msgstr ""
+"Uwierzytelnianie dwuskładnikowe GLPI jest wymuszone dla wszystkich kont."
 
-msgid "GLPI two-factor authentication is not enforced for every account: it can be enforced by profile, group or entity, or for everyone in the general configuration (Security tab)."
-msgstr "Uwierzytelnianie dwuskładnikowe GLPI nie jest wymuszone dla wszystkich kont: można je wymusić według profilu, grupy lub jednostki albo dla wszystkich w konfiguracji ogólnej (karta Bezpieczeństwo)."
+msgid ""
+"GLPI two-factor authentication is not enforced for every account: it can be "
+"enforced by profile, group or entity, or for everyone in the general "
+"configuration (Security tab)."
+msgstr ""
+"Uwierzytelnianie dwuskładnikowe GLPI nie jest wymuszone dla wszystkich kont: "
+"można je wymusić według profilu, grupy lub jednostki albo dla wszystkich w "
+"konfiguracji ogólnej (karta Bezpieczeństwo)."
 
 msgid "Identity provider"
 msgstr "Dostawca tożsamości"
@@ -28815,23 +28873,43 @@ msgstr "Metody"
 msgid "Methods registered with your identity provider"
 msgstr "Metody zarejestrowane u dostawcy tożsamości"
 
-msgid "Microsoft Entra ID: Protection > Authentication methods > User registration details, download (columns userPrincipalName, methodsRegistered, isMfaRegistered, isAdmin)."
-msgstr "Microsoft Entra ID: Ochrona > Metody uwierzytelniania > Szczegóły rejestracji użytkowników, pobierz (kolumny userPrincipalName, methodsRegistered, isMfaRegistered, isAdmin)."
+msgid ""
+"Microsoft Entra ID: Protection > Authentication methods > User registration "
+"details, download (columns userPrincipalName, methodsRegistered, "
+"isMfaRegistered, isAdmin)."
+msgstr ""
+"Microsoft Entra ID: Ochrona > Metody uwierzytelniania > Szczegóły "
+"rejestracji użytkowników, pobierz (kolumny userPrincipalName, "
+"methodsRegistered, isMfaRegistered, isAdmin)."
 
 msgid "No active account in your entities."
 msgstr "Brak aktywnych kont w Twoich jednostkach."
 
-msgid "No group chosen: only the accounts marked remote_access in an import count as remote access accounts."
-msgstr "Nie wybrano grupy: tylko konta oznaczone remote_access w imporcie liczą się jako konta z dostępem zdalnym."
+msgid ""
+"No group chosen: only the accounts marked remote_access in an import count "
+"as remote access accounts."
+msgstr ""
+"Nie wybrano grupy: tylko konta oznaczone remote_access w imporcie liczą się "
+"jako konta z dostępem zdalnym."
 
 msgid "None declared"
 msgstr "Brak zadeklarowanych"
 
-msgid "Okta, Google Workspace or an on-premises solution: a CSV file with a header, one account per line."
-msgstr "Okta, Google Workspace lub rozwiązanie lokalne: plik CSV z nagłówkiem, jedno konto w wierszu."
+msgid ""
+"Okta, Google Workspace or an on-premises solution: a CSV file with a header, "
+"one account per line."
+msgstr ""
+"Okta, Google Workspace lub rozwiązanie lokalne: plik CSV z nagłówkiem, jedno "
+"konto w wierszu."
 
-msgid "Recognized columns: login or email; methods (separated by commas or semicolons) or mfa (yes/no); optional admin, remote_access, excluded and exclusion_reason (yes/no and text)."
-msgstr "Rozpoznawane kolumny: login lub email; methods (oddzielone przecinkami lub średnikami) albo mfa (tak/nie); opcjonalnie admin, remote_access, excluded i exclusion_reason (tak/nie i tekst)."
+msgid ""
+"Recognized columns: login or email; methods (separated by commas or "
+"semicolons) or mfa (yes/no); optional admin, remote_access, excluded and "
+"exclusion_reason (yes/no and text)."
+msgstr ""
+"Rozpoznawane kolumny: login lub email; methods (oddzielone przecinkami lub "
+"średnikami) albo mfa (tak/nie); opcjonalnie admin, remote_access, excluded i "
+"exclusion_reason (tak/nie i tekst)."
 
 msgid "Remote access"
 msgstr "Dostęp zdalny"
@@ -28843,10 +28921,18 @@ msgid "Remote access groups (VPN, remote desktop...)"
 msgstr "Grupy dostępu zdalnego (VPN, pulpit zdalny...)"
 
 msgid "SMS, phone call and email codes are reported as weak methods."
-msgstr "Kody przez SMS, połączenie telefoniczne i e-mail są zgłaszane jako słabe metody."
+msgstr ""
+"Kody przez SMS, połączenie telefoniczne i e-mail są zgłaszane jako słabe "
+"metody."
 
-msgid "They are matched on the login, the email address, or the part of the user principal name before the @. Check them: an account unknown in GLPI may be a service account or a former employee."
-msgstr "Dopasowanie odbywa się po loginie, adresie e-mail lub części głównej nazwy użytkownika przed @. Sprawdź je: konto nieznane w GLPI może być kontem usługi lub byłym pracownikiem."
+msgid ""
+"They are matched on the login, the email address, or the part of the user "
+"principal name before the @. Check them: an account unknown in GLPI may be a "
+"service account or a former employee."
+msgstr ""
+"Dopasowanie odbywa się po loginie, adresie e-mail lub części głównej nazwy "
+"użytkownika przed @. Sprawdź je: konto nieznane w GLPI może być kontem "
+"usługi lub byłym pracownikiem."
 
 msgid "Which accounts have remote access?"
 msgstr "Które konta mają dostęp zdalny?"
@@ -28865,3 +28951,195 @@ msgid_plural "%d accounts"
 msgstr[0] "%d konto"
 msgstr[1] "%d kont"
 msgstr[2] "%d kont"
+
+msgid "Security patches"
+msgstr "Poprawki bezpieczeństwa"
+
+msgid "Patches overdue"
+msgstr "Poprawki zaległe"
+
+msgid "The last known patch is older than the target delay of the computer."
+msgstr "Ostatnia znana poprawka jest starsza niż docelowy termin komputera."
+
+msgid ""
+"No dated update in the inventory: no inventory agent, or a system whose "
+"agent does not report installed updates."
+msgstr ""
+"Brak datowanej aktualizacji w inwentarzu: brak agenta inwentaryzacji lub "
+"system, którego agent nie zgłasza zainstalowanych aktualizacji."
+
+msgid "The last known patch is within the target delay of the computer."
+msgstr "Ostatnia znana poprawka mieści się w docelowym terminie komputera."
+
+msgid "A high C, I or A level, or published on the Internet."
+msgstr "Wysoki poziom P, I lub D albo publikacja w Internecie."
+
+msgid "Important"
+msgstr "Ważny"
+
+msgid "A medium C, I or A level."
+msgstr "Średni poziom P, I lub D."
+
+msgid "Standard"
+msgstr "Standardowy"
+
+msgid "Low or not classified."
+msgstr "Niski lub niesklasyfikowany."
+
+msgid "System update"
+msgstr "Aktualizacja systemu"
+
+msgid "Package installation"
+msgstr "Instalacja pakietu"
+
+msgid "No dated update"
+msgstr "Brak datowanej aktualizacji"
+
+#, php-format
+msgid "Computers with security patches on time (%)"
+msgstr "Komputery z poprawkami bezpieczeństwa na czas (%)"
+
+msgid "Computers with security patches on time"
+msgstr "Komputery z poprawkami bezpieczeństwa na czas"
+
+msgid "Target delays saved."
+msgstr "Docelowe terminy zapisane."
+
+msgid "Critical servers with overdue patches"
+msgstr "Krytyczne serwery z zaległymi poprawkami"
+
+msgid ""
+"Shows, from the GLPI inventory (operating system, version, updates reported "
+"by the agent), the date of the last known security patch of each computer "
+"and whether it is within the target delay of its criticality. Computers "
+"published on the Internet and critical computers come first, with the known "
+"vulnerabilities of their system and their end of support."
+msgstr ""
+"Pokazuje, na podstawie inwentarza GLPI (system operacyjny, wersja, "
+"aktualizacje zgłaszane przez agenta), datę ostatniej znanej poprawki "
+"bezpieczeństwa każdego komputera i czy mieści się ona w docelowym terminie "
+"jego krytyczności. Komputery opublikowane w Internecie i krytyczne są na "
+"początku, ze znanymi podatnościami ich systemu i końcem wsparcia."
+
+msgid ""
+"Set the target delay of each criticality, classify the computers (C/I/A "
+"tab), patch the late computers, and install the inventory agent on those of "
+"unknown state. The page only reads the inventory: it starts no update. "
+"Record the result as an effectiveness test of the control to keep the "
+"evidence."
+msgstr ""
+"Ustaw docelowy termin dla każdej krytyczności, sklasyfikuj komputery (karta "
+"P/I/D), zaktualizuj spóźnione komputery i zainstaluj agenta inwentaryzacji "
+"na tych o nieznanym stanie. Strona tylko odczytuje inwentarz: nie uruchamia "
+"żadnej aktualizacji. Zapisz wynik jako test skuteczności zabezpieczenia, aby "
+"zachować dowód."
+
+msgid "ISO/IEC 27001, controls A.8.8 and A.8.19"
+msgstr "ISO/IEC 27001, zabezpieczenia A.8.8 i A.8.19"
+
+#, php-format
+msgid "Among the %d computers whose last patch is known"
+msgstr "Spośród %d komputerów ze znaną ostatnią poprawką"
+
+msgid "Computers published on the Internet with overdue patches"
+msgstr "Komputery opublikowane w Internecie z zaległymi poprawkami"
+
+msgid "Target delays by criticality"
+msgstr "Docelowe terminy według krytyczności"
+
+msgid ""
+"The criticality of a computer comes from its C/I/A classification (tab of "
+"the computer form): the highest of the three levels counts. A computer that "
+"a network flow publishes on the Internet is critical. A computer is late "
+"when its last known patch is older than the delay of its criticality."
+msgstr ""
+"Krytyczność komputera wynika z jego klasyfikacji P/I/D (karta formularza "
+"komputera): liczy się najwyższy z trzech poziomów. Komputer, który przepływ "
+"sieciowy publikuje w Internecie, jest krytyczny. Komputer jest spóźniony, "
+"gdy jego ostatnia znana poprawka jest starsza niż termin jego krytyczności."
+
+msgid "Target delay (days)"
+msgstr "Docelowy termin (dni)"
+
+msgid "Computers"
+msgstr "Komputery"
+
+msgid "Patch status by computer"
+msgstr "Stan poprawek według komputera"
+
+msgid "No computer in your entities."
+msgstr "Brak komputerów w Twoich jednostkach."
+
+#, php-format
+msgid "%1$d computers: the first %2$d are shown, overdue ones first."
+msgstr "%1$d komputerów: wyświetlono pierwsze %2$d, najpierw spóźnione."
+
+msgid "Last known patch"
+msgstr "Ostatnia znana poprawka"
+
+msgid "Vulnerabilities and end of support"
+msgstr "Podatności i koniec wsparcia"
+
+msgid "Server"
+msgstr "Serwer"
+
+msgid "Published on the Internet"
+msgstr "Opublikowany w Internecie"
+
+msgid "Not inventoried"
+msgstr "Nieinwentaryzowany"
+
+#, php-format
+msgid "Target: %d days"
+msgstr "Cel: %d dni"
+
+#, php-format
+msgid "%d days late"
+msgstr "%d dni opóźnienia"
+
+#, php-format
+msgid "%d known CVE(s) of the system"
+msgstr "%d znanych CVE systemu"
+
+#, php-format
+msgid "%d exploited"
+msgstr "%d wykorzystywanych"
+
+#, php-format
+msgid "Inventory older than %d days: the data may be out of date."
+msgstr "Inwentarz starszy niż %d dni: dane mogą być nieaktualne."
+
+msgid "Old inventory"
+msgstr "Stary inwentarz"
+
+msgid ""
+"Read only: the plugin reads the GLPI inventory, never starts an update and "
+"changes nothing in GLPI."
+msgstr ""
+"Tylko odczyt: wtyczka odczytuje inwentarz GLPI, nigdy nie uruchamia "
+"aktualizacji i niczego nie zmienia w GLPI."
+
+msgid "Network flows"
+msgstr "Przepływy sieciowe"
+
+msgid "Patches on time: not measured"
+msgstr "Poprawki na czas: nie zmierzono"
+
+#, php-format
+msgid "Patches on time: %d%%"
+msgstr "Poprawki na czas: %d%%"
+
+#, php-format
+msgid "%d computer(s) late"
+msgstr "%d komputer(ów) spóźnionych"
+
+#, php-format
+msgid "%d critical server(s) late"
+msgstr "%d krytycznych serwerów spóźnionych"
+
+#, php-format
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] "%d dzień temu"
+msgstr[1] "%d dni temu"
+msgstr[2] "%d dni temu"

@@ -9,22 +9,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
-- **Couverture de l'authentification multifacteur (MFA) par compte** (issue #852, mesures A.8.5
-  et A.5.17) : page « Couverture MFA » (rubrique Revue des accès) :
-  - double authentification native de GLPI lue sur chaque compte (activée ou non, le secret n'est
-    jamais lu), avec le rappel de son application imposée ou non ;
-  - import CSV générique des méthodes enregistrées chez le fournisseur d'identité (rapport
-    d'inscription d'Entra ID, Okta, Google Workspace, solution sur site), rapproché des comptes
-    GLPI par identifiant, e-mail ou partie locale de l'UPN ; comptes non rapprochés listés ; un
-    nouvel import remplace le précédent du même fournisseur ;
-  - taux de MFA global, des administrateurs (profils qui modifient la configuration ou les profils,
-    ou rôle déclaré par le fournisseur) et des comptes à accès distant (groupes GLPI choisis ou
-    colonne de l'import) ;
-  - écarts signalés : administrateur sans MFA, accès distant sans MFA, SMS, appel ou e-mail seul,
-    compte exclu sans justification ; rien n'est modifié automatiquement ;
-  - preuve sur les mesures **A.8.5** et **A.5.17**, KRI « Administrateurs sans MFA », carte du
-    tableau de bord, constat dans la préparation à la certification et rappel sur la page
-    d'hygiène des comptes.
+- **Correctifs de sécurité des systèmes** (issue #854, mesures A.8.8 et A.8.19). Nouvelle page
+  « Correctifs de sécurité » dans la rubrique Sécurité technique, en lecture seule de l'inventaire
+  natif de GLPI (aucun nouveau connecteur) : pour chaque ordinateur, le système, sa version et son
+  noyau, la date du dernier correctif connu (mise à jour remontée par l'agent : article KB de
+  Windows, catégorie « mise à jour » ; hors Windows, dernière installation de paquet) et son âge.
+  Délais cibles réglables par criticité (critique, important, standard), déduite de la
+  classification C/I/D ; un ordinateur publié sur Internet par un flux réseau déclaré est critique.
+  Les ordinateurs en retard passent en tête, les exposés sur Internet et les critiques d'abord ;
+  inventaire ancien signalé, état inconnu sans mise à jour datée. Chaque ligne reprend les CVE
+  connues de la version du système (#780, KEV compris) et la fin de support (#704). Preuve sur les
+  mesures A.8.8 et A.8.19, KRI « serveurs critiques avec correctifs en retard », carte du tableau
+  de bord « ordinateurs aux correctifs dans les délais (%) ». Le plugin ne lance aucune mise à jour
+  et ne modifie rien dans GLPI.
 - **Périmètres multiples, lot 3 : les autres registres par entité GLPI** (issue #536, dernier lot).
   Après les risques, la SoA, les audits et les non-conformités, huit registres appartiennent à une
   entité : **risques fournisseurs**, **formations**, **revues de direction**, **objectifs**,
@@ -97,6 +94,22 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   documents cités, actions CAPA et état précédent, puis les zones et leurs contrôles d'accès avec
   les signalements. Même droit et même entité que la fiche, calculé à la demande, rien n'est
   conservé. Ligne « Sécurité physique » dans les README. Ce lot termine l'issue #778.
+- **Couverture de l'authentification multifacteur (MFA) par compte** (issue #852, mesures A.8.5
+  et A.5.17) : page « Couverture MFA » (rubrique Revue des accès) :
+  - double authentification native de GLPI lue sur chaque compte (activée ou non, le secret n'est
+    jamais lu), avec le rappel de son application imposée ou non ;
+  - import CSV générique des méthodes enregistrées chez le fournisseur d'identité (rapport
+    d'inscription d'Entra ID, Okta, Google Workspace, solution sur site), rapproché des comptes
+    GLPI par identifiant, e-mail ou partie locale de l'UPN ; comptes non rapprochés listés ; un
+    nouvel import remplace le précédent du même fournisseur ;
+  - taux de MFA global, des administrateurs (profils qui modifient la configuration ou les profils,
+    ou rôle déclaré par le fournisseur) et des comptes à accès distant (groupes GLPI choisis ou
+    colonne de l'import) ;
+  - écarts signalés : administrateur sans MFA, accès distant sans MFA, SMS, appel ou e-mail seul,
+    compte exclu sans justification ; rien n'est modifié automatiquement ;
+  - preuve sur les mesures **A.8.5** et **A.5.17**, KRI « Administrateurs sans MFA », carte du
+    tableau de bord, constat dans la préparation à la certification et rappel sur la page
+    d'hygiène des comptes.
 
 ## [2.72.0] - 2026-11-21
 

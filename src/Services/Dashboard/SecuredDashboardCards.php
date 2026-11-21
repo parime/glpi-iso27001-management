@@ -125,6 +125,11 @@ final class SecuredDashboardCards
             // utilisateurs).
             return \GlpiPlugin\Grcmanager\MfaCoverage::canView();
         }
+        if ($name === 'patchComplianceRate') {
+            // Issue #854 : correctifs de sécurité, sous les droits de leur page (droit du plugin et
+            // lecture des ordinateurs).
+            return \GlpiPlugin\Grcmanager\PatchCompliance::canView();
+        }
         if (str_starts_with($name, 'vulnerabilityRemediation')) {
             // Issue #601 : délais de correction des vulnérabilités du parc, sous les droits de leur
             // page (registre sensible et lecture des logiciels).

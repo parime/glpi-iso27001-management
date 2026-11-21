@@ -337,6 +337,18 @@ final class PilotageCards
         return \GlpiPlugin\Grcmanager\PhishingCampaign::dashboardTrendCard($params);
     }
 
+    /**
+     * Issue #854 : ordinateurs dont les correctifs de sécurité sont dans les délais (%), page
+     * « Correctifs de sécurité ».
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function patchComplianceRate(array $params = []): array
+    {
+        return \GlpiPlugin\Grcmanager\PatchCompliance::dashboardCard($params);
+    }
+
     public static function accessReviewProgress(array $params = []): array
     {
         global $DB;

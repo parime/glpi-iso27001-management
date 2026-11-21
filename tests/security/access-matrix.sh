@@ -128,7 +128,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/endoflife.export.php front/hardwarewarranty.export.php
   front/softwarelicensecompliance.php front/softwarelicensecompliance.export.php
-  front/diskencryption.php front/mfacoverage.php
+  front/diskencryption.php front/mfacoverage.php front/patchcompliance.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
@@ -617,6 +617,11 @@ if [ "$ROLE" = reader ]; then
   contains "chiffrement des disques : ordinateur de A" "PC securite A" oui "$(body "$P/diskencryption.php")"
   contains "chiffrement des disques : rien de B" "PC securite B" non "$(body "$P/diskencryption.php")"
   expect "front/diskencryption.php : modifier la regle de chiffrement" 403     "$(code -d "save_encryption_rule=1&encryption_scope=laptops&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
+  # Issue #854 : correctifs de securite de l'entite A seulement ; delais cibles en lecture seule.
+  contains "correctifs de securite : ordinateur de A" "PC securite A" oui "$(body "$P/patchcompliance.php")"
+  contains "correctifs de securite : rien de B" "PC securite B" non "$(body "$P/patchcompliance.php")"
+  expect "front/patchcompliance.php : modifier les delais cibles" 403 \
+    "$(code -d "save_patch_targets=1&patch_targets%5Bcritical%5D=3&_glpi_csrf_token=$(csrf)" "$P/patchcompliance.php")"
   expect "front/diskencryption.php : declarer une cle en lecture seule" 403     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
   expect "front/softwarelicensecompliance.php : modifier l'horizon d'echeance" 403 \
     "$(code -d "save_license_watch=1&license_expiring_days=1&_glpi_csrf_token=$(csrf)" "$P/softwarelicensecompliance.php")"
@@ -930,6 +935,11 @@ if [ "$ROLE" = limited ]; then
   # Issue #847 : sauvegarde de cle declaree pour un ordinateur de A, refusee pour celui de B.
   expect "front/diskencryption.php : declarer la cle d'un ordinateur de A" 302     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1&backup_date=2026-01-15&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
   expect "front/diskencryption.php : declarer la cle d'un ordinateur de B" 403     "$(code -d "declare_key=1&computers_id=$(id computer_B)&is_backed_up=1&_glpi_csrf_token=$(csrf)" "$P/diskencryption.php")"
+  # Issue #854 : delais cibles modifiables par le gestionnaire, jamais sans jeton CSRF.
+  expect "front/patchcompliance.php : delais cibles" 302 \
+    "$(code -d "save_patch_targets=1&patch_targets%5Bcritical%5D=15&_glpi_csrf_token=$(csrf)" "$P/patchcompliance.php")"
+  expect "front/patchcompliance.php : delais cibles sans jeton CSRF" 403 \
+    "$(code -d "save_patch_targets=1&patch_targets%5Bcritical%5D=3" "$P/patchcompliance.php")"
   expect "front/diskencryption.php : declarer une cle sans jeton CSRF" 403     "$(code -d "declare_key=1&computers_id=$(id computer_A)&is_backed_up=1" "$P/diskencryption.php")"
   # Issue #706 : gestionnaire avec la configuration du plugin et les registres sensibles en
   # modification : l'ecran de changement de taille lui est ouvert, comme la page de configuration.

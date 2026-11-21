@@ -293,6 +293,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::mfaAdminRate',
         ],
+        // Issue #854 : ordinateurs dont les correctifs sont dans les délais (%).
+        'grcmanager_patch_compliance_rate' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Computers with security patches on time (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::patchComplianceRate',
+        ],
         'grcmanager_training_retake_participants' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Participants to retake', 'grcmanager'),
