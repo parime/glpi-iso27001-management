@@ -1,0 +1,129 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #836 : onglet « Supervision Zabbix » d'un ordinateur, d'un matériel réseau ou d'un processus
+   métier (actifs dont il dépend), lecture seule. #}
+<div id="grc-zabbix-tab" class="p-2">
+   {% if not readings %}
+      <div class="alert alert-info d-flex align-items-start gap-2">
+         <i class="ti ti-info-circle fs-2"></i>
+         <div>{{ __('Nothing has been read from Zabbix yet.', 'grcmanager') }} <a href="{{ page_url }}">{{ __('Zabbix monitoring', 'grcmanager') }}</a></div>
+      </div>
+   {% endif %}
+
+   {% if is_process %}
+      <h4><i class="ti ti-server-2 me-1"></i>{{ __('Assets this process depends on', 'grcmanager') }}</h4>
+   {% endif %}
+   {% if assets is empty %}
+      <p class="text-muted">{{ is_process ? __('No computer or network device in the dependencies of this process.', 'grcmanager') : __('This asset is not concerned by the monitoring settings and no Zabbix host matches it.', 'grcmanager') }}</p>
+   {% else %}
+      <div class="table-responsive mb-3">
+         <table class="table table-vcenter table-sm">
+            <thead><tr>
+               {% if is_process %}<th>{{ __('Asset', 'grcmanager') }}</th>{% endif %}
+               <th>{{ __('Monitoring', 'grcmanager') }}</th>
+               <th>{{ __('Availability over %d days', 'grcmanager')|format(period_days) }}</th>
+               <th>{{ __('Open problems', 'grcmanager') }}</th>
+               <th>{{ __('Longest outage and RTO', 'grcmanager') }}</th>
+               <th>{{ __('Saturation', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+            {% for row in assets %}
+               {% set st = statuses[row.status] %}
+               <tr>
+                  {% if is_process %}<td><a href="{{ row.url }}">{{ row.name }}</a>{% if row.critical %} <span class="badge bg-red-subtle text-red-emphasis"><i class="ti ti-flame me-1"></i>{{ __('Critical', 'grcmanager') }}</span>{% endif %}</td>{% endif %}
+                  <td>
+                     <span class="badge bg-{{ st.color }}-subtle text-{{ st.color }}-emphasis"><i class="{{ st.icon }} me-1"></i>{{ st.label }}</span>
+                     {% if row.hosts is not empty %}<div class="small text-muted mt-1">{{ __('Zabbix host: %s', 'grcmanager')|format(row.hosts|join(', ')) }}</div>{% endif %}
+                  </td>
+                  <td>
+                     {% if row.availability is null %}-{% else %}
+                        {% set av_color = row.availability >= 99.9 ? 'success' : (row.availability >= 99 ? 'warning' : 'danger') %}
+                        <span class="badge bg-{{ av_color }}-subtle text-{{ av_color }}-emphasis">{{ row.availability|number_format(2) }} %</span>
+                     {% endif %}
+                  </td>
+                  <td>
+                     {% if row.open_high > 0 %}<span class="badge bg-red-subtle text-red-emphasis me-1"><i class="ti ti-alert-octagon me-1"></i>{{ __('High: %d', 'grcmanager')|format(row.open_high) }}</span>{% endif %}
+                     {% if row.open_other > 0 %}<span class="badge bg-orange-subtle text-orange-emphasis">{{ __('Other: %d', 'grcmanager')|format(row.open_other) }}</span>{% endif %}
+                     {% if row.open_high == 0 and row.open_other == 0 %}-{% endif %}
+                  </td>
+                  <td class="small">
+                     {{ row.longest_label ?: '-' }}
+                     {% for process in row.processes %}
+                        <div><a href="{{ process.url }}">{{ process.name }}</a>{% if process.rto %} <span class="text-muted">· RTO {{ process.rto }}</span>{% endif %}{% if process.exceeded %} <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-clock-exclamation me-1"></i>{{ __('Outage longer than the RTO', 'grcmanager') }}</span>{% endif %}</div>
+                     {% endfor %}
+                  </td>
+                  <td>
+                     {% for kind, count in row.capacity %}
+                        <span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="{{ capacities[kind].icon }} me-1"></i>{{ capacities[kind].label }} : {{ count }}</span>
+                     {% else %}-{% endfor %}
+                  </td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   {% endif %}
+
+   {% if is_process %}
+      <h4><i class="ti ti-chart-line me-1"></i>{{ __('Availability of the services (Zabbix SLA)', 'grcmanager') }}</h4>
+      {% if services is empty %}
+         <p class="text-muted">{{ __('No Zabbix service is linked to this process: link one on the Zabbix monitoring page.', 'grcmanager') }} <a href="{{ page_url }}#grc-zabbix-services">{{ __('Zabbix monitoring', 'grcmanager') }}</a></p>
+      {% else %}
+         <ul class="list-unstyled mb-3">
+         {% for service in services %}
+            {% set sli_color = service.status == 'below' ? 'danger' : (service.status == 'ok' ? 'success' : 'secondary') %}
+            <li class="mb-1">
+               {{ service.service }} <span class="small text-muted">({{ service.sla }})</span>
+               <span class="badge bg-{{ sli_color }}-subtle text-{{ sli_color }}-emphasis ms-1">{{ service.sli is null ? '-' : service.sli|number_format(2) ~ ' %' }}</span>
+               {% if service.slo is not null %}<span class="small text-muted">· SLO {{ service.slo|number_format(2) }} %</span>{% endif %}
+               {% if service.downtime_label %}<span class="small text-muted">· {{ __('Downtime: %s', 'grcmanager')|format(service.downtime_label) }}</span>{% endif %}
+            </li>
+         {% endfor %}
+         </ul>
+      {% endif %}
+   {% endif %}
+
+   <h4><i class="ti ti-alert-triangle me-1"></i>{{ __('Problems over the last %d days', 'grcmanager')|format(period_days) }}</h4>
+   {% if problems is empty %}
+      <p class="text-muted">{{ __('No problem over the period.', 'grcmanager') }}</p>
+   {% else %}
+      <div class="table-responsive">
+         <table class="table table-vcenter table-sm">
+            <thead><tr>
+               <th>{{ __('Severity', 'grcmanager') }}</th>
+               <th>{{ __('Problem', 'grcmanager') }}</th>
+               <th>{{ __('Started', 'grcmanager') }}</th>
+               <th>{{ __('Duration', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+            {% for problem in problems %}
+               {% set info = severities[problem.severity] %}
+               <tr>
+                  <td><span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ info.label }}</span></td>
+                  <td>
+                     {{ problem.name }}
+                     {% if problem.is_open %}<span class="badge bg-danger-subtle text-danger-emphasis ms-1">{{ __('Open', 'grcmanager') }}</span>{% else %}<span class="badge bg-success-subtle text-success-emphasis ms-1">{{ __('Resolved', 'grcmanager') }}</span>{% endif %}
+                     {% if is_process %}<div class="small text-muted">{{ problem.host }}</div>{% endif %}
+                  </td>
+                  <td class="small">{{ problem.date_label }}</td>
+                  <td class="small">{{ problem.duration_label ?: '-' }}</td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   {% endif %}
+   <a class="btn btn-sm btn-outline-primary" href="{{ page_url }}"><i class="ti ti-activity-heartbeat me-1"></i>{{ __('Zabbix monitoring', 'grcmanager') }}</a>
+</div>

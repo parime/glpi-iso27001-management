@@ -32052,3 +32052,529 @@ msgstr ""
 
 msgid "No previous campaign in this entity."
 msgstr "Aucune campagne précédente dans cette entité."
+
+msgid ""
+"Not saved: the address must start with https:// (or http:// when internal "
+"addresses are allowed), without user name, password or parameters."
+msgstr ""
+"Non enregistré : l'adresse doit commencer par https:// (ou http:// si les "
+"adresses internes sont autorisées), sans nom d'utilisateur, mot de passe ni "
+"paramètres."
+
+msgid "Zabbix settings saved."
+msgstr "Réglages de Zabbix enregistrés."
+
+msgid "Settings saved."
+msgstr "Réglages enregistrés."
+
+#, php-format
+msgid "Zabbix read: %1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr "Lecture de Zabbix : %1$d hôte(s), %2$d problème(s), %3$d service(s)."
+
+msgid "Zabbix readings deleted."
+msgstr "Lectures de Zabbix supprimées."
+
+msgid "Business process saved."
+msgstr "Processus métier enregistré."
+
+msgid "The business process could not be saved."
+msgstr "Le processus métier n'a pas pu être enregistré."
+
+msgid "Infrastructure monitoring"
+msgstr "Supervision de l'infrastructure"
+
+msgid ""
+"Reads your Zabbix monitoring server, in read only: hosts, problems and "
+"availability of the services. Hosts are matched with the computers and "
+"network devices of GLPI to show the assets that nobody monitors, the "
+"measured availability compared with the recovery time objectives of the "
+"business processes, and the saturations of disk, memory or processor."
+msgstr ""
+"Lit votre serveur de supervision Zabbix, en lecture seule : hôtes, problèmes "
+"et disponibilité des services. Les hôtes sont rapprochés des ordinateurs et "
+"matériels réseau de GLPI pour montrer les actifs que personne ne supervise, "
+"la disponibilité mesurée comparée aux durées maximales de reprise (RTO) des "
+"processus métier, et les saturations de disque, de mémoire ou de processeur."
+
+msgid ""
+"Enter the address of the Zabbix server and the API token of a read-only "
+"Zabbix user, read now, then follow up the critical assets not monitored, the "
+"open high-severity problems and the services below their objective. A high-"
+"severity problem can be turned into a security incident or a ticket with one "
+"click; nothing is created automatically and nothing is changed in Zabbix."
+msgstr ""
+"Saisissez l'adresse du serveur Zabbix et le jeton d'API d'un utilisateur "
+"Zabbix en lecture seule, lancez la lecture, puis suivez les actifs critiques "
+"non supervisés, les problèmes ouverts de gravité haute et les services sous "
+"leur objectif. Un problème de gravité haute peut devenir un incident de "
+"sécurité ou un ticket en un clic ; rien n'est créé automatiquement et rien "
+"n'est modifié dans Zabbix."
+
+msgid "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
+msgstr "ISO/IEC 27001, mesures A.8.16, A.8.6 et A.5.30"
+
+#, php-format
+msgid "Service availability this month, lowest (%) (Zabbix)"
+msgstr "Disponibilité des services du mois, la plus faible (%) (Zabbix)"
+
+msgid "Open high-severity problems (Zabbix)"
+msgstr "Problèmes ouverts de gravité haute (Zabbix)"
+
+msgid "Critical assets not monitored (Zabbix)"
+msgstr "Actifs critiques non supervisés (Zabbix)"
+
+msgid "Zabbix monitoring"
+msgstr "Supervision Zabbix"
+
+msgid "Warning"
+msgstr "Avertissement"
+
+msgid "Average"
+msgstr "Moyenne"
+
+msgid "Disaster"
+msgstr "Désastre"
+
+msgid "Monitored"
+msgstr "Supervisé"
+
+msgid "Monitored, unreachable"
+msgstr "Supervisé, injoignable"
+
+msgid "Monitoring disabled in Zabbix"
+msgstr "Supervision désactivée dans Zabbix"
+
+msgid "Not monitored"
+msgstr "Non supervisé"
+
+msgid "Disk space"
+msgstr "Espace disque"
+
+msgid "Memory"
+msgstr "Mémoire"
+
+msgid "Processor"
+msgstr "Processeur"
+
+msgid "Enter the address of the Zabbix server and an API token first."
+msgstr "Saisissez d'abord l'adresse du serveur Zabbix et un jeton d'API."
+
+msgid ""
+"Zabbix refused the API token: check that it is valid, not expired, and that "
+"its user is enabled."
+msgstr ""
+"Zabbix a refusé le jeton d'API : vérifiez qu'il est valide, non expiré, et "
+"que son utilisateur est actif."
+
+msgid ""
+"Zabbix refused access: give the user of the token read access to the host "
+"groups and services."
+msgstr ""
+"Zabbix a refusé l'accès : donnez à l'utilisateur du jeton la lecture des "
+"groupes d'hôtes et des services."
+
+msgid ""
+"The Zabbix server has an internal address, refused by default: allow "
+"internal addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+"Le serveur Zabbix a une adresse interne, refusée par défaut : autorisez les "
+"adresses internes dans la page de configuration du plugin (Connexions "
+"sortantes)."
+
+msgid ""
+"The Zabbix server could not be reached: check the address, the network "
+"access or the GLPI proxy."
+msgstr ""
+"Le serveur Zabbix n'a pas pu être joint : vérifiez l'adresse, l'accès réseau "
+"ou le proxy de GLPI."
+
+msgid "This version of Zabbix is too old: version 5.4 or later is required."
+msgstr ""
+"Cette version de Zabbix est trop ancienne : la version 5.4 ou suivante est "
+"nécessaire."
+
+msgid "Refused: the connector only reads from Zabbix."
+msgstr "Refusé : le connecteur ne fait que lire dans Zabbix."
+
+msgid "You are not allowed to do this."
+msgstr "Vous n'avez pas le droit de faire cela."
+
+msgid "Zabbix returned an unexpected answer."
+msgstr "Zabbix a renvoyé une réponse inattendue."
+
+#, php-format
+msgid "Problem reported by Zabbix: %s"
+msgstr "Problème signalé par Zabbix : %s"
+
+#, php-format
+msgid "Host: %s"
+msgstr "Hôte : %s"
+
+#, php-format
+msgid "Severity: %s"
+msgstr "Gravité : %s"
+
+#, php-format
+msgid "Started on: %s"
+msgstr "Début : %s"
+
+#, php-format
+msgid "Zabbix event: %s"
+msgstr "Événement Zabbix : %s"
+
+msgid "Zabbix: reads hosts, problems and service availability (read only)"
+msgstr ""
+"Zabbix : lit les hôtes, les problèmes et la disponibilité des services "
+"(lecture seule)"
+
+#, php-format
+msgid "Assets with a saturation: %d"
+msgstr "Actifs saturés : %d"
+
+#, php-format
+msgid "Critical assets not monitored: %d"
+msgstr "Actifs critiques non supervisés : %d"
+
+#, php-format
+msgid "Disk, memory or processor problems: %d"
+msgstr "Problèmes de disque, mémoire ou processeur : %d"
+
+#, php-format
+msgid "High-severity problems resolved: %d"
+msgstr "Problèmes de gravité haute résolus : %d"
+
+#, php-format
+msgid "Lowest service availability: %s %%"
+msgstr "Disponibilité de service la plus faible : %s %%"
+
+#, php-format
+msgid "Monitored assets: %d%%"
+msgstr "Actifs supervisés : %d %%"
+
+msgid "Monitored assets: not measured"
+msgstr "Actifs supervisés : non mesuré"
+
+#, php-format
+msgid "Open high-severity problems: %d"
+msgstr "Problèmes ouverts de gravité haute : %d"
+
+#, php-format
+msgid "Outages longer than the RTO: %d"
+msgstr "Arrêts plus longs que le RTO : %d"
+
+#, php-format
+msgid "Over %1$d days, read from Zabbix on %2$s"
+msgstr "Sur %1$d jours, lu dans Zabbix le %2$s"
+
+#, php-format
+msgid "Services below their objective: %d"
+msgstr "Services sous leur objectif : %d"
+
+msgid "Assets this process depends on"
+msgstr "Actifs dont dépend ce processus"
+
+msgid "Availability of the services (Zabbix SLA)"
+msgstr "Disponibilité des services (SLA Zabbix)"
+
+#, php-format
+msgid "Availability over %d days"
+msgstr "Disponibilité sur %d jours"
+
+#, php-format
+msgid "Downtime: %s"
+msgstr "Arrêt : %s"
+
+#, php-format
+msgid "High: %d"
+msgstr "Haute : %d"
+
+msgid "Longest outage and RTO"
+msgstr "Plus long arrêt et RTO"
+
+msgid ""
+"No Zabbix service is linked to this process: link one on the Zabbix "
+"monitoring page."
+msgstr ""
+"Aucun service Zabbix n'est rattaché à ce processus : rattachez-en un sur la "
+"page de supervision Zabbix."
+
+msgid "No computer or network device in the dependencies of this process."
+msgstr ""
+"Aucun ordinateur ni matériel réseau dans les dépendances de ce processus."
+
+msgid "No problem over the period."
+msgstr "Aucun problème sur la période."
+
+msgid "Nothing has been read from Zabbix yet."
+msgstr "Rien n'a encore été lu dans Zabbix."
+
+msgid "Open problems"
+msgstr "Problèmes ouverts"
+
+#, php-format
+msgid "Other: %d"
+msgstr "Autres : %d"
+
+msgid "Outage longer than the RTO"
+msgstr "Arrêt plus long que le RTO"
+
+#, php-format
+msgid "Problems over the last %d days"
+msgstr "Problèmes des %d derniers jours"
+
+msgid "Saturation"
+msgstr "Saturation"
+
+msgid "Started"
+msgstr "Début"
+
+msgid ""
+"This asset is not concerned by the monitoring settings and no Zabbix host "
+"matches it."
+msgstr ""
+"Cet actif n'est pas concerné par les réglages de la supervision et aucun "
+"hôte Zabbix ne lui correspond."
+
+#, php-format
+msgid "Zabbix host: %s"
+msgstr "Hôte Zabbix : %s"
+
+#, php-format
+msgid "%1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr "%1$d hôte(s), %2$d problème(s), %3$d service(s)."
+
+#, php-format
+msgid "%1$d problem(s) over %2$d days"
+msgstr "%1$d problème(s) sur %2$d jours"
+
+#, php-format
+msgid "%1$d service(s), %2$d below their objective"
+msgstr "%1$d service(s), %2$d sous leur objectif"
+
+msgid ""
+"A Zabbix server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+msgstr ""
+"Un serveur Zabbix sur une adresse interne (réseau privé) est refusé par "
+"défaut : un administrateur peut autoriser les adresses internes dans la "
+"configuration du plugin."
+
+msgid "Acknowledged in Zabbix"
+msgstr "Acquitté dans Zabbix"
+
+msgid "Address of the Zabbix interface"
+msgstr "Adresse de l'interface Zabbix"
+
+msgid "Assets and their monitoring"
+msgstr "Actifs et leur supervision"
+
+#, php-format
+msgid "Assets concerned: %d"
+msgstr "Actifs concernés : %d"
+
+msgid "Assets monitored by Zabbix"
+msgstr "Actifs supervisés par Zabbix"
+
+msgid "Assets with a saturation"
+msgstr "Actifs saturés"
+
+msgid ""
+"Availability measured by Zabbix over the current period of each SLA, "
+"compared with its objective (SLO). Link a service to the business process it "
+"supports to compare it with the continuity needs."
+msgstr ""
+"Disponibilité mesurée par Zabbix sur la période en cours de chaque SLA, "
+"comparée à son objectif (SLO). Rattachez un service au processus métier "
+"qu'il porte pour le comparer aux besoins de continuité."
+
+msgid "Below the objective"
+msgstr "Sous l'objectif"
+
+msgid "Business processes"
+msgstr "Processus métier"
+
+msgid ""
+"Check them: the asset may be missing from the inventory, or named "
+"differently in GLPI and in Zabbix."
+msgstr ""
+"Vérifiez-les : l'actif peut manquer à l'inventaire, ou porter un nom "
+"différent dans GLPI et dans Zabbix."
+
+#, php-format
+msgid ""
+"Concerned assets: %s. A Zabbix host is matched with an asset by its serial "
+"number, its name, its short name (without the domain) or its IP address. The "
+"availability is the share of time without a high-severity problem over the "
+"period."
+msgstr ""
+"Actifs concernés : %s. Un hôte Zabbix est rapproché d'un actif par son "
+"numéro de série, son nom, son nom court (sans le domaine) ou son adresse IP. "
+"La disponibilité est la part du temps sans problème de gravité haute sur la "
+"période."
+
+msgid "Connection to Zabbix (read only)"
+msgstr "Connexion à Zabbix (lecture seule)"
+
+msgid ""
+"Critical assets are those with a high confidentiality, integrity or "
+"availability level (C/I/A classification tab), or published on the Internet "
+"(network flow matrix)."
+msgstr ""
+"Les actifs critiques sont ceux dont le niveau de confidentialité, "
+"d'intégrité ou de disponibilité est élevé (onglet de classification C/I/D), "
+"ou publiés sur Internet (matrice des flux)."
+
+msgid "Critical assets not monitored"
+msgstr "Actifs critiques non supervisés"
+
+msgid "Current period"
+msgstr "Période en cours"
+
+msgid "Delete the readings"
+msgstr "Supprimer les lectures"
+
+#, php-format
+msgid "Disk, memory or processor, over %d days"
+msgstr "Disque, mémoire ou processeur, sur %d jours"
+
+msgid "Downtime"
+msgstr "Arrêt"
+
+msgid "Entity of the readings"
+msgstr "Entité des lectures"
+
+msgid "How to prepare Zabbix:"
+msgstr "Préparer Zabbix :"
+
+msgid "IP addresses"
+msgstr "Adresses IP"
+
+#, php-format
+msgid "Last reading: %s"
+msgstr "Dernière lecture : %s"
+
+msgid "Lowest service availability"
+msgstr "Disponibilité de service la plus faible"
+
+msgid "No computer or network device concerned in your entities."
+msgstr "Aucun ordinateur ni matériel réseau concerné dans vos entités."
+
+msgid "No problem on your assets over the period."
+msgstr "Aucun problème sur vos actifs pendant la période."
+
+msgid "No reading yet."
+msgstr "Aucune lecture pour l'instant."
+
+msgid "No service level (SLA) read"
+msgstr "Aucun niveau de service (SLA) lu"
+
+msgid ""
+"No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
+msgstr ""
+"Aucun niveau de service lu : les SLA existent à partir de Zabbix 6.0 "
+"(Services > SLA)."
+
+msgid ""
+"Nothing has been read from Zabbix yet: enter the connection below, then "
+"click \"Read now\". Until then, every asset concerned is shown as not "
+"monitored."
+msgstr ""
+"Rien n'a encore été lu dans Zabbix : saisissez la connexion ci-dessous, puis "
+"cliquez sur « Lire maintenant ». D'ici là, chaque actif concerné apparaît "
+"comme non supervisé."
+
+msgid "Objective (SLO)"
+msgstr "Objectif (SLO)"
+
+msgid "Only the most recent items were read"
+msgstr "Seuls les éléments les plus récents ont été lus"
+
+msgid "Open high-severity problems"
+msgstr "Problèmes ouverts de gravité haute"
+
+msgid "Period of the problems (days)"
+msgstr "Période des problèmes (jours)"
+
+msgid "Previous period"
+msgstr "Période précédente"
+
+msgid ""
+"Problems of severity Warning or higher, open ones first. A high-severity "
+"problem can be turned into a security incident or a ticket: it is only "
+"created when you click, never automatically."
+msgstr ""
+"Problèmes de gravité Avertissement ou plus, ouverts d'abord. Un problème de "
+"gravité haute peut devenir un incident de sécurité ou un ticket : il n'est "
+"créé que lorsque vous cliquez, jamais automatiquement."
+
+msgid "Propose as security incident"
+msgstr "Proposer comme incident de sécurité"
+
+msgid "Read automatically every day (automatic action \"zabbix\")"
+msgstr "Lire automatiquement chaque jour (action automatique « zabbix »)"
+
+msgid "Read now"
+msgstr "Lire maintenant"
+
+msgid "Read only: nothing is ever changed in Zabbix from GLPI."
+msgstr "Lecture seule : rien n'est jamais modifié dans Zabbix depuis GLPI."
+
+msgid "Technical name"
+msgstr "Nom technique"
+
+msgid ""
+"The last reading failed: the page shows the previous successful reading."
+msgstr ""
+"La dernière lecture a échoué : la page montre la lecture réussie précédente."
+
+msgid ""
+"The readings are visible in this entity and its sub-entities; hosts not "
+"matched with an asset are only listed in this entity."
+msgstr ""
+"Les lectures sont visibles dans cette entité et ses sous-entités ; les hôtes "
+"non rapprochés d'un actif ne sont listés que dans cette entité."
+
+msgid ""
+"The token is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+msgstr ""
+"Le jeton est chiffré avec la clé de GLPI, jamais réaffiché ni journalisé. "
+"Seule l'adresse de ce serveur est appelée, et seulement pour lire."
+
+msgid ""
+"Users > API tokens: create a token for this user, then copy it here with the "
+"address of the Zabbix interface."
+msgstr ""
+"Utilisateurs > Jetons d'API : créez un jeton pour cet utilisateur, puis "
+"copiez-le ici avec l'adresse de l'interface Zabbix."
+
+msgid ""
+"Users > User roles: create a role of type User with API access limited to "
+"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
+"getsli."
+msgstr ""
+"Utilisateurs > Rôles utilisateur : créez un rôle de type Utilisateur dont "
+"l'accès à l'API est limité aux méthodes host.get, problem.get, event.get, "
+"service.get, sla.get et sla.getsli."
+
+msgid ""
+"Users > Users: create a user with this role, in a user group with read "
+"permission on the host groups to monitor (and on the services)."
+msgstr ""
+"Utilisateurs > Utilisateurs : créez un utilisateur avec ce rôle, dans un "
+"groupe d'utilisateurs qui a la lecture des groupes d'hôtes à superviser (et "
+"des services)."
+
+msgid "Which assets must be monitored?"
+msgstr "Quels actifs doivent être supervisés ?"
+
+msgid "Zabbix host"
+msgstr "Hôte Zabbix"
+
+msgid "Zabbix hosts not matched with a GLPI asset"
+msgstr "Hôtes Zabbix non rapprochés d'un actif GLPI"
+
+#, php-format
+msgid "out of %d critical assets"
+msgstr "sur %d actifs critiques"

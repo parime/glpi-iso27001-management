@@ -35973,8 +35973,6 @@ msgctxt "integrity"
 msgid "I"
 msgstr ""
 
-
-
 #: front/adsecurityaudit.php:98
 msgid "The file is very long: only its first checks were read."
 msgstr ""
@@ -36203,5 +36201,586 @@ msgid ""
 "authentication methods, roles). The MFA coverage account by account comes "
 "from the MFA coverage page, which reads Entra ID through Microsoft Graph or "
 "a CSV import."
+msgstr ""
+
+#: front/zabbixmonitoring.php:47
+msgid ""
+"Not saved: the address must start with https:// (or http:// when internal "
+"addresses are allowed), without user name, password or parameters."
+msgstr ""
+
+#: front/zabbixmonitoring.php:56
+msgid "Zabbix settings saved."
+msgstr ""
+
+#: front/zabbixmonitoring.php:73
+msgid "Settings saved."
+msgstr ""
+
+#: front/zabbixmonitoring.php:84
+#, php-format
+msgid "Zabbix read: %1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr ""
+
+#: front/zabbixmonitoring.php:96
+msgid "Zabbix readings deleted."
+msgstr ""
+
+#: front/zabbixmonitoring.php:132
+msgid "Business process saved."
+msgstr ""
+
+#: front/zabbixmonitoring.php:133
+msgid "The business process could not be saved."
+msgstr ""
+
+#: inc/securityincident.class.php:176
+msgid "Infrastructure monitoring"
+msgstr ""
+
+#: src/Feature/ZabbixMonitoringFeature.php:40
+msgid ""
+"Reads your Zabbix monitoring server, in read only: hosts, problems and "
+"availability of the services. Hosts are matched with the computers and "
+"network devices of GLPI to show the assets that nobody monitors, the "
+"measured availability compared with the recovery time objectives of the "
+"business processes, and the saturations of disk, memory or processor."
+msgstr ""
+
+#: src/Feature/ZabbixMonitoringFeature.php:47
+msgid ""
+"Enter the address of the Zabbix server and the API token of a read-only "
+"Zabbix user, read now, then follow up the critical assets not monitored, the "
+"open high-severity problems and the services below their objective. A high-"
+"severity problem can be turned into a security incident or a ticket with one "
+"click; nothing is created automatically and nothing is changed in Zabbix."
+msgstr ""
+
+#: src/Feature/ZabbixMonitoringFeature.php:54
+msgid "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
+msgstr ""
+
+#: src/Feature/ZabbixMonitoringFeature.php:64
+msgid "Service availability this month, lowest (%) (Zabbix)"
+msgstr ""
+
+#: src/Feature/ZabbixMonitoringFeature.php:74
+msgid "Open high-severity problems (Zabbix)"
+msgstr ""
+
+#: src/Feature/ZabbixMonitoringFeature.php:84
+msgid "Critical assets not monitored (Zabbix)"
+msgstr ""
+
+#: src/Feature/ZabbixMonitoringFeature.php:97 src/ZabbixMonitoring.php:81
+#: templates/zabbix_item_tab.html.twig
+msgid "Zabbix monitoring"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:139
+msgid "Warning"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:140
+msgid "Average"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:142
+msgid "Disaster"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:153 templates/zabbix_monitoring.html.twig
+msgid "Monitored"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:158
+msgid "Monitored, unreachable"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:163 templates/zabbix_monitoring.html.twig
+msgid "Monitoring disabled in Zabbix"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:168
+msgid "Not monitored"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:193
+msgid "Disk space"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:194
+msgid "Memory"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:195
+msgid "Processor"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:206
+msgid "Enter the address of the Zabbix server and an API token first."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:210
+msgid ""
+"Zabbix refused the API token: check that it is valid, not expired, and that "
+"its user is enabled."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:214
+msgid ""
+"Zabbix refused access: give the user of the token read access to the host "
+"groups and services."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:218
+msgid ""
+"The Zabbix server has an internal address, refused by default: allow "
+"internal addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:223
+msgid ""
+"The Zabbix server could not be reached: check the address, the network "
+"access or the GLPI proxy."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:227
+msgid "This version of Zabbix is too old: version 5.4 or later is required."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:230
+msgid "Refused: the connector only reads from Zabbix."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:231
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:232
+msgid "Zabbix returned an unexpected answer."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1058
+#, php-format
+msgid "Problem reported by Zabbix: %s"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1059
+#, php-format
+msgid "Host: %s"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1060
+#, php-format
+msgid "Severity: %s"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1061
+#, php-format
+msgid "Started on: %s"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1062
+#, php-format
+msgid "Zabbix event: %s"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1215
+msgid "Zabbix: reads hosts, problems and service availability (read only)"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+#, php-format
+msgid "Assets with a saturation: %d"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+#, php-format
+msgid "Critical assets not monitored: %d"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+#, php-format
+msgid "Disk, memory or processor problems: %d"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+#, php-format
+msgid "High-severity problems resolved: %d"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+#, php-format
+msgid "Lowest service availability: %s %%"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+#, php-format
+msgid "Monitored assets: %d%%"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+msgid "Monitored assets: not measured"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+#, php-format
+msgid "Open high-severity problems: %d"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+#, php-format
+msgid "Outages longer than the RTO: %d"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+#, php-format
+msgid "Over %1$d days, read from Zabbix on %2$s"
+msgstr ""
+
+#: templates/_zabbix_monitoring_evidence.html.twig
+#, php-format
+msgid "Services below their objective: %d"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid "Assets this process depends on"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Availability of the services (Zabbix SLA)"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+#, php-format
+msgid "Availability over %d days"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+#, php-format
+msgid "Downtime: %s"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "High: %d"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Longest outage and RTO"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid ""
+"No Zabbix service is linked to this process: link one on the Zabbix "
+"monitoring page."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid "No computer or network device in the dependencies of this process."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid "No problem over the period."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid "Nothing has been read from Zabbix yet."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Open problems"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Other: %d"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Outage longer than the RTO"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Problems over the last %d days"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Saturation"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Started"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid ""
+"This asset is not concerned by the monitoring settings and no Zabbix host "
+"matches it."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Zabbix host: %s"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "%1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "%1$d problem(s) over %2$d days"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "%1$d service(s), %2$d below their objective"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"A Zabbix server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Acknowledged in Zabbix"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Address of the Zabbix interface"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Assets and their monitoring"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Assets concerned: %d"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Assets monitored by Zabbix"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Assets with a saturation"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Availability measured by Zabbix over the current period of each SLA, "
+"compared with its objective (SLO). Link a service to the business process it "
+"supports to compare it with the continuity needs."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Below the objective"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Business processes"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Check them: the asset may be missing from the inventory, or named "
+"differently in GLPI and in Zabbix."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid ""
+"Concerned assets: %s. A Zabbix host is matched with an asset by its serial "
+"number, its name, its short name (without the domain) or its IP address. The "
+"availability is the share of time without a high-severity problem over the "
+"period."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Connection to Zabbix (read only)"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Critical assets are those with a high confidentiality, integrity or "
+"availability level (C/I/A classification tab), or published on the Internet "
+"(network flow matrix)."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Critical assets not monitored"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Current period"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Delete the readings"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Disk, memory or processor, over %d days"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Downtime"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Entity of the readings"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "How to prepare Zabbix:"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "IP addresses"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Last reading: %s"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Lowest service availability"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "No computer or network device concerned in your entities."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "No problem on your assets over the period."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "No reading yet."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "No service level (SLA) read"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Nothing has been read from Zabbix yet: enter the connection below, then "
+"click \"Read now\". Until then, every asset concerned is shown as not "
+"monitored."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Objective (SLO)"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Only the most recent items were read"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Open high-severity problems"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Period of the problems (days)"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Previous period"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Problems of severity Warning or higher, open ones first. A high-severity "
+"problem can be turned into a security incident or a ticket: it is only "
+"created when you click, never automatically."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Propose as security incident"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Read automatically every day (automatic action \"zabbix\")"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Read now"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Read only: nothing is ever changed in Zabbix from GLPI."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Technical name"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"The last reading failed: the page shows the previous successful reading."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"The readings are visible in this entity and its sub-entities; hosts not "
+"matched with an asset are only listed in this entity."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"The token is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Users > API tokens: create a token for this user, then copy it here with the "
+"address of the Zabbix interface."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Users > User roles: create a role of type User with API access limited to "
+"the methods host.get, problem.get, event.get, service.get, sla.get and "
+"sla.getsli."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Users > Users: create a user with this role, in a user group with read "
+"permission on the host groups to monitor (and on the services)."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Which assets must be monitored?"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Zabbix host"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Zabbix hosts not matched with a GLPI asset"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "out of %d critical assets"
 msgstr ""
 
