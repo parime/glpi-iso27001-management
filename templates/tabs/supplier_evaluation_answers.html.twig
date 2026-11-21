@@ -1,0 +1,133 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #864 : onglet « Questionnaire » d'une évaluation fournisseur : questions par section, réponse,
+   commentaire et pièce justificative de chacune, score pondéré ; terminer ou rouvrir l'évaluation. #}
+<div class="card" id="grc-evaluation-answers">
+   <div class="card-header d-flex flex-wrap align-items-center gap-2">
+      <h3 class="card-title mb-0"><i class="ti ti-checklist me-1"></i>{{ __('Questionnaire', 'grcmanager') }}</h3>
+      {% if summary.score is not null %}
+         <span class="badge {{ levels[summary.level][1] }}"><i class="ti ti-gauge me-1"></i>{{ __('Score: %1$d%% - %2$s', 'grcmanager')|format(summary.score, levels[summary.level][0]) }}</span>
+      {% endif %}
+      <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-list-check me-1"></i>{{ __('%1$d of %2$d questions answered', 'grcmanager')|format(summary.answered, summary.total) }}</span>
+      {% if summary.missing_evidence > 0 %}
+         <span class="badge bg-red-subtle text-red-emphasis"><i class="ti ti-paperclip me-1"></i>{{ _n('%d evidence missing', '%d evidence missing', summary.missing_evidence, 'grcmanager')|format(summary.missing_evidence) }}</span>
+      {% endif %}
+      <div class="ms-auto d-flex gap-2">
+         {% if completed and can_reopen %}
+            <form method="post" action="{{ action }}" class="d-inline">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="id" value="{{ evaluation_id }}">
+               <button type="submit" name="reopen" value="1" class="btn btn-sm btn-outline-secondary" id="grc-evaluation-reopen"><i class="ti ti-lock-open me-1"></i>{{ __('Reopen the evaluation', 'grcmanager') }}</button>
+            </form>
+         {% endif %}
+      </div>
+   </div>
+   <div class="card-body">
+      <p class="text-muted small">
+         <i class="ti ti-info-circle me-1"></i>{{ __('For each question, choose the answer given by the supplier and add a comment if needed. The expected answer earns 1 point, "partial" half a point, the other answer 0, multiplied by the weight of the question. A question marked "Evidence required" waits for a document (certificate, report, policy...): it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) and added to the Documents tab of the supplier risk.', 'grcmanager')|format(max_size) }}
+      </p>
+      {% if sections is empty %}
+         <div class="alert alert-info mb-0"><i class="ti ti-info-circle me-2"></i>{{ __('This evaluation has no question: its template had none when it was created.', 'grcmanager') }}</div>
+      {% else %}
+      <form method="post" action="{{ action }}" enctype="multipart/form-data" id="grc-evaluation-answers-form">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="plugin_grcmanager_supplierevaluations_id" value="{{ evaluation_id }}">
+         {% for section, rows in sections %}
+            <h4 class="mt-3 mb-2"><i class="ti ti-folder me-1"></i>{{ section ?: __('General', 'grcmanager') }}</h4>
+            <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table grc-evaluation-section">
+               <thead>
+                  <tr>
+                     <th class="w-50">{{ __('Question', 'grcmanager') }}</th>
+                     <th>{{ __('Answer', 'grcmanager') }}</th>
+                     <th>{{ __('Comment', 'grcmanager') }}</th>
+                     <th>{{ __('Evidence', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for row in rows %}
+                  <tr id="grc-answer-{{ row.id }}" class="grc-answer-row">
+                     <td>
+                        <div><span class="text-muted me-1">{{ row.code }}</span>{{ row.question }}</div>
+                        <div class="d-flex flex-wrap gap-1 mt-1">
+                           <span class="badge bg-blue-subtle text-blue-emphasis" title="{{ __('Expected answer', 'grcmanager') }}"><i class="ti ti-target me-1"></i>{{ __('Expected: %s', 'grcmanager')|format(expected[row.expected_answer] ?? row.expected_answer) }}</span>
+                           {% if row.weight == 0 %}
+                              <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-info-circle me-1"></i>{{ __('For information, not scored', 'grcmanager') }}</span>
+                           {% else %}
+                              <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-scale me-1"></i>{{ __('Weight %d', 'grcmanager')|format(row.weight) }}</span>
+                           {% endif %}
+                           {% if row.requires_evidence %}
+                              <span class="badge {{ row.missing_evidence ? 'bg-red-subtle text-red-emphasis' : 'bg-purple-subtle text-purple-emphasis' }} grc-evidence-required"><i class="ti ti-paperclip me-1"></i>{{ row.missing_evidence ? __('Evidence missing', 'grcmanager') : __('Evidence required', 'grcmanager') }}</span>
+                           {% endif %}
+                           {% if row.answer and row.answer != 'na' and row.points is not null and row.points < 1 %}
+                              <span class="badge bg-orange-subtle text-orange-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Gap', 'grcmanager') }}</span>
+                           {% endif %}
+                        </div>
+                        {% if row.guidance %}<div class="form-hint mt-1">{{ row.guidance|nl2br }}</div>{% endif %}
+                     </td>
+                     <td class="text-nowrap">
+                        <div class="btn-group btn-group-sm" role="group">
+                           {% for value, choice in choices %}
+                              <input type="radio" class="btn-check" name="answers[{{ row.id }}]" id="a-{{ row.id }}-{{ value }}" value="{{ value }}"
+                                 {{ row.answer == value ? 'checked' : '' }} {{ can_edit ? '' : 'disabled' }}>
+                              <label class="btn btn-outline-secondary" for="a-{{ row.id }}-{{ value }}">{{ choice }}</label>
+                           {% endfor %}
+                        </div>
+                     </td>
+                     <td>
+                        {% if can_edit %}
+                           <textarea class="form-control form-control-sm" name="comments[{{ row.id }}]" rows="2" aria-label="{{ __('Comment', 'grcmanager') }}">{{ row.answer_comment }}</textarea>
+                        {% elseif row.answer_comment %}
+                           <div class="small">{{ row.answer_comment|nl2br }}</div>
+                        {% else %}
+                           <span class="text-muted small">-</span>
+                        {% endif %}
+                     </td>
+                     <td>
+                        {% set doc = documents[row.id] ?? null %}
+                        {% if doc %}
+                           <div class="text-nowrap small"><i class="ti ti-paperclip me-1"></i><a href="{{ doc.url }}">{{ doc.name }}</a></div>
+                           {% if can_edit %}
+                              <label class="form-check form-check-inline small mb-1">
+                                 <input type="checkbox" class="form-check-input" name="detach[{{ row.id }}]" value="1">
+                                 <span class="form-check-label">{{ __('Detach', 'grcmanager') }}</span>
+                              </label>
+                           {% endif %}
+                        {% elseif row.documents_id > 0 %}
+                           <span class="text-muted small"><i class="ti ti-lock me-1"></i>{{ __('Document not readable with your rights', 'grcmanager') }}</span>
+                        {% endif %}
+                        {% if can_upload %}
+                           <input type="file" class="form-control form-control-sm" name="evidence[{{ row.id }}]" aria-label="{{ __('Evidence', 'grcmanager') }}">
+                        {% elseif not doc and row.documents_id == 0 %}
+                           <span class="text-muted small">-</span>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+            </div>
+         {% endfor %}
+         {% if can_edit %}
+            <div class="d-flex flex-wrap gap-2 mt-3">
+               <button type="submit" name="save_answers" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save answers', 'grcmanager') }}</button>
+               <button type="submit" name="save_answers" value="complete" class="btn btn-success" id="grc-evaluation-complete"
+                  title="{{ __('Questions without an answer do not count in the score. A completed evaluation can no longer be changed, unless it is reopened.', 'grcmanager') }}"><i class="ti ti-circle-check me-1"></i>{{ __('Save and mark as completed', 'grcmanager') }}</button>
+            </div>
+         {% endif %}
+      </form>
+      {% endif %}
+   </div>
+</div>
