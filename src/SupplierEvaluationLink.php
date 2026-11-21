@@ -163,7 +163,7 @@ class SupplierEvaluationLink extends CommonGLPI
             'new_url'       => $token !== null ? self::publicURL($token) : null,
             'action'        => self::getActionURL(),
             'config_url'    => Session::haveRight(Installer::RIGHT_NAME, UPDATE)
-                ? \Plugin::getWebDir('grcmanager') . '/front/config.php#grc-supplier-portal-config' : '',
+                ? dirname(self::getActionURL()) . '/config.php#grc-supplier-portal-config' : '',
             'default_days'  => Rules::DEFAULT_DAYS,
             'max_days'      => Rules::MAX_DAYS,
             'max_uses'      => Rules::MAX_USES,

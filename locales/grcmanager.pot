@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 17:32+0000\n"
+"POT-Creation-Date: 2026-11-21 17:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1600,38 +1600,38 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
-#: front/supplierevaluationlink.php:55
+#: front/supplierevaluationlink.php:56
 msgid "Secure link created: copy it now, it will not be shown again."
 msgstr ""
 
-#: front/supplierevaluationlink.php:61
+#: front/supplierevaluationlink.php:64
 msgid "The link was revoked: it no longer opens the questionnaire."
 msgstr ""
 
-#: front/supplierevaluationlink.php:76
+#: front/supplierevaluationlink.php:80
 msgid "The answers received were discarded."
 msgstr ""
 
-#: front/supplierevaluationlink.php:86
+#: front/supplierevaluationlink.php:90
 #, php-format
 msgid "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
 msgstr ""
 
-#: front/supplierportal.php:105
+#: front/supplierportal.php:108
 #, php-format
 msgid "Question %s: choose an answer from the list."
 msgstr ""
 
-#: front/supplierportal.php:119
+#: front/supplierportal.php:124
 msgid "Too many documents in one sending."
 msgstr ""
 
-#: front/supplierportal.php:122
+#: front/supplierportal.php:127
 #, php-format
 msgid "Question %1$s: %2$s"
 msgstr ""
 
-#: front/supplierportal.php:129
+#: front/supplierportal.php:134
 msgid "Nothing was sent: answer at least one question."
 msgstr ""
 
@@ -4009,7 +4009,7 @@ msgstr ""
 msgid "Periodic review recorded"
 msgstr ""
 
-#: src/AuditLog.php:234 templates/audit_log.html.twig
+#: src/AuditLog.php:249 templates/audit_log.html.twig
 #: templates/audit_programme.html.twig
 #: templates/document_accesses_tab.html.twig templates/pdf/action_log.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
@@ -4022,11 +4022,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: src/AuditLog.php:234
+#: src/AuditLog.php:249
 msgid "Real user (impersonation)"
 msgstr ""
 
-#: src/AuditLog.php:234 src/NotificationTargetPersonnelCompliance.php:95
+#: src/AuditLog.php:249 src/NotificationTargetPersonnelCompliance.php:95
 #: src/PersonnelCompliance.php:747 src/ShareAccess.php:157
 #: templates/_ad_attack_paths.html.twig templates/account_hygiene.html.twig
 #: templates/account_hygiene_ticket.html.twig templates/audit_log.html.twig
@@ -4035,7 +4035,7 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: src/AuditLog.php:235 templates/audit_log.html.twig
+#: src/AuditLog.php:250 templates/audit_log.html.twig
 #: templates/maturity_campaign_gaps_tab.html.twig
 #: templates/pdf/maturity_campaign_report.html.twig
 #: templates/pdf/physical_security_report.html.twig
@@ -4044,19 +4044,19 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: src/AuditLog.php:235 src/PolicyAcknowledgement.php:130
+#: src/AuditLog.php:250 src/PolicyAcknowledgement.php:130
 #: templates/audit_log.html.twig templates/configuration_compliance.html.twig
 #: templates/configuration_compliance_report.html.twig
 #: templates/configuration_compliance_ticket.html.twig
 msgid "Profile"
 msgstr ""
 
-#: src/AuditLog.php:236 templates/configuration_compliance.html.twig
+#: src/AuditLog.php:251 templates/configuration_compliance.html.twig
 #: templates/my_space.html.twig templates/risk_import.html.twig
 msgid "Details"
 msgstr ""
 
-#: src/AuditLog.php:236 templates/_official_contact_rows.html.twig
+#: src/AuditLog.php:251 templates/_official_contact_rows.html.twig
 #: templates/audit_log.html.twig templates/crisis_room.html.twig
 #: templates/pdf/_official_contacts_table.html.twig
 #: templates/pdf/action_log.html.twig
@@ -4066,7 +4066,7 @@ msgstr ""
 msgid "Incident"
 msgstr ""
 
-#: src/AuditLog.php:236 src/ControlTest.php:1057
+#: src/AuditLog.php:251 src/ControlTest.php:1057
 #: src/NotificationTargetControl.php:148
 #: templates/audit_checklist_tab.html.twig templates/audit_coverage.html.twig
 #: templates/audit_log.html.twig templates/backup_coverage.html.twig
@@ -5687,7 +5687,7 @@ msgstr ""
 msgid "Corrective action plan for the certification body"
 msgstr ""
 
-#: src/CertificationSampling.php:52 templates/certification_findings.html.twig
+#: src/CertificationSampling.php:51 templates/certification_findings.html.twig
 #: templates/certification_sampling_tab.html.twig
 msgid "Audit plan of the certification body"
 msgstr ""
@@ -7947,7 +7947,7 @@ msgstr ""
 msgid "You are not allowed to add a document to this control."
 msgstr ""
 
-#: src/ControlTest.php:585 src/SupplierEvaluationLink.php:329
+#: src/ControlTest.php:585 src/SupplierEvaluationLink.php:331
 msgid "The file name is not valid."
 msgstr ""
 
@@ -7958,7 +7958,7 @@ msgid ""
 "types)."
 msgstr ""
 
-#: src/ControlTest.php:609 src/SupplierEvaluationLink.php:351
+#: src/ControlTest.php:609 src/SupplierEvaluationLink.php:357
 #, php-format
 msgid "The content of the file (%1$s) does not match its extension (.%2$s)."
 msgstr ""
@@ -10653,7 +10653,7 @@ msgid ""
 msgstr ""
 
 #: src/Feature/SupplierAnswerFileFeature.php:42
-#: src/Feature/SupplierPortalFeature.php:41
+#: src/Feature/SupplierPortalFeature.php:42
 msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
 msgstr ""
 
@@ -10664,7 +10664,7 @@ msgid ""
 "not part of the evaluation yet."
 msgstr ""
 
-#: src/Feature/SupplierPortalFeature.php:37
+#: src/Feature/SupplierPortalFeature.php:38
 msgid ""
 "Check the answers, then save them (the documents are checked again like any "
 "evidence) or discard them. Then review the evaluation and mark it as "
@@ -19005,7 +19005,7 @@ msgid ""
 "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:292 src/SupplierEvaluationLink.php:335
+#: src/SupplierEvaluationFile.php:292 src/SupplierEvaluationLink.php:338
 #, php-format
 msgid "The file is too large (at most %d MB)."
 msgstr ""
@@ -19070,41 +19070,41 @@ msgstr ""
 msgid "Secure link"
 msgstr ""
 
-#: src/SupplierEvaluationLink.php:217
+#: src/SupplierEvaluationLink.php:219
 #, php-format
 msgid "Secure link %1$d created for the supplier, valid %2$d day(s)"
 msgstr ""
 
-#: src/SupplierEvaluationLink.php:241
+#: src/SupplierEvaluationLink.php:243
 #, php-format
 msgid "Secure link %d revoked"
 msgstr ""
 
-#: src/SupplierEvaluationLink.php:339
+#: src/SupplierEvaluationLink.php:343
 #, php-format
 msgid "Files of type .%s are not accepted."
 msgstr ""
 
-#: src/SupplierEvaluationLink.php:411
+#: src/SupplierEvaluationLink.php:421
 #, php-format
 msgid ""
 "Supplier answers received by secure link %1$d: %2$d answer(s), %3$d "
 "document(s), to be reviewed"
 msgstr ""
 
-#: src/SupplierEvaluationLink.php:489
+#: src/SupplierEvaluationLink.php:503
 #, php-format
 msgid "Answers received by secure link on %s"
 msgstr ""
 
-#: src/SupplierEvaluationLink.php:524
+#: src/SupplierEvaluationLink.php:539
 #, php-format
 msgid ""
 "Supplier answers received by secure link reviewed and saved: %1$d answer(s), "
 "%2$d document(s)"
 msgstr ""
 
-#: src/SupplierEvaluationLink.php:557
+#: src/SupplierEvaluationLink.php:575
 #, php-format
 msgid "Supplier answers received by secure link discarded (draft %d)"
 msgstr ""

@@ -31,7 +31,7 @@ if (isset($_POST['update_portal_config'])) {
     Session::checkRight(Installer::RIGHT_NAME, UPDATE);
     SupplierEvaluationLink::setEnabled(!empty($_POST['supplier_portal_enabled']));
     Session::addMessageAfterRedirect(htmlescape(__('Settings saved.', 'grcmanager')));
-    Html::redirect(Plugin::getWebDir('grcmanager') . '/front/config.php#grc-supplier-portal-config');
+    Html::redirect(dirname(SupplierEvaluationLink::getActionURL()) . '/config.php#grc-supplier-portal-config');
 }
 
 Session::checkRight(SupplierEvaluation::$rightname, READ);
