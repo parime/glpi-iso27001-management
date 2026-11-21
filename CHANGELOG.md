@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.74.0] - 2026-11-21
+
 ### Added
 
 - **Matrice des flux : nouveau flux pré-rempli depuis l'adresse** (issue #909). Le bouton
