@@ -18718,10 +18718,10 @@ msgstr ""
 #: src/PageHelp.php:694
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
+"software, operating system and firmware, to know where to start updating."
 msgstr ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
+"software, operating system and firmware, to know where to start updating."
 
 #: src/PageHelp.php:699
 msgid ""
@@ -31416,6 +31416,14 @@ msgstr ""
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "This exercise has never been run to the end in the crisis room."
 
+msgid "Physical security of the site: %s"
+msgstr "Physical security of the site: %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+
 msgid "Child licenses counted once"
 msgstr "Child licenses counted once"
 
@@ -31854,101 +31862,6 @@ msgid "Blocked control"
 msgid_plural "Blocked controls"
 msgstr[0] "Blocked control"
 msgstr[1] "Blocked controls"
-
-msgid "Review of the distribution list recorded."
-msgstr "Review of the distribution list recorded."
-
-msgid "Review overdue (more than 12 months)"
-msgstr "Review overdue (more than 12 months)"
-
-#, php-format
-msgid "Last review on %1$s by %2$s, next one before %3$s."
-msgstr "Last review on %1$s by %2$s, next one before %3$s."
-
-msgid ""
-"Check once a year that each recipient, deputy and address is still right."
-msgstr ""
-"Check once a year that each recipient, deputy and address is still right."
-
-msgid "Mark the list as reviewed today"
-msgstr "Mark the list as reviewed today"
-
-msgid "Role in the list"
-msgstr "Role in the list"
-
-msgid "Main recipient"
-msgstr "Main recipient"
-
-#, php-format
-msgid "Deputy of %s"
-msgstr "Deputy of %s"
-
-msgid "Deputy"
-msgstr "Deputy"
-
-msgid "No deputy"
-msgstr "No deputy"
-
-msgid ""
-"The addresses of the members are included when you copy or export the "
-"addresses."
-msgstr ""
-"The addresses of the members are included when you copy or export the "
-"addresses."
-
-msgid "Distribution list last reviewed on"
-msgstr "Distribution list last reviewed on"
-
-msgid "Crisis communications"
-msgstr "Crisis communications"
-
-#, php-format
-msgid ""
-"%d main recipient has no deputy: if they cannot be reached during a crisis, "
-"nobody else is planned."
-msgid_plural ""
-"%d main recipients have no deputy: if they cannot be reached during a "
-"crisis, nobody else is planned."
-msgstr[0] ""
-"%d main recipient has no deputy: if they cannot be reached during a crisis, "
-"nobody else is planned."
-msgstr[1] ""
-"%d main recipients have no deputy: if they cannot be reached during a "
-"crisis, nobody else is planned."
-
-#, php-format
-msgid "%d member without email"
-msgid_plural "%d members without email"
-msgstr[0] "%d member without email"
-msgstr[1] "%d members without email"
-
-#, php-format
-msgid "%d distribution list not reviewed within 12 months"
-msgid_plural "%d distribution lists not reviewed within 12 months"
-msgstr[0] "%d distribution list not reviewed within 12 months"
-msgstr[1] "%d distribution lists not reviewed within 12 months"
-
-#, php-format
-msgid "%d main recipient without deputy"
-msgid_plural "%d main recipients without deputy"
-msgstr[0] "%d main recipient without deputy"
-msgstr[1] "%d main recipients without deputy"
-
-#: src/PageHelp.php:694
-msgid ""
-"The machines most exposed to the known vulnerabilities of their watched "
-"software, operating system and firmware, to know where to start updating."
-msgstr ""
-"The machines most exposed to the known vulnerabilities of their watched "
-"software, operating system and firmware, to know where to start updating."
-
-msgid "Physical security of the site: %s"
-msgstr "Physical security of the site: %s"
-
-msgid ""
-"Checklist, findings, actions and zones of this assessment, for the auditor."
-msgstr ""
-"Checklist, findings, actions and zones of this assessment, for the auditor."
 
 msgid ""
 "Fill in this sheet for each application developed or maintained in-house: it "
@@ -32610,6 +32523,105 @@ msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d day ago"
 msgstr[1] "%d days ago"
+
+msgid "Proposed flow"
+msgstr "Proposed flow"
+
+msgid ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
+msgstr ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
+
+#: src/PageHelp.php:694
+msgid ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, to know where to start updating."
+msgstr ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, to know where to start updating."
+
+msgid "Review of the distribution list recorded."
+msgstr "Review of the distribution list recorded."
+
+msgid "Review overdue (more than 12 months)"
+msgstr "Review overdue (more than 12 months)"
+
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr "Last review on %1$s by %2$s, next one before %3$s."
+
+msgid ""
+"Check once a year that each recipient, deputy and address is still right."
+msgstr ""
+"Check once a year that each recipient, deputy and address is still right."
+
+msgid "Mark the list as reviewed today"
+msgstr "Mark the list as reviewed today"
+
+msgid "Role in the list"
+msgstr "Role in the list"
+
+msgid "Main recipient"
+msgstr "Main recipient"
+
+#, php-format
+msgid "Deputy of %s"
+msgstr "Deputy of %s"
+
+msgid "Deputy"
+msgstr "Deputy"
+
+msgid "No deputy"
+msgstr "No deputy"
+
+msgid ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+msgstr ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+
+msgid "Distribution list last reviewed on"
+msgstr "Distribution list last reviewed on"
+
+msgid "Crisis communications"
+msgstr "Crisis communications"
+
+#, php-format
+msgid ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgid_plural ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+msgstr[0] ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgstr[1] ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] "%d member without email"
+msgstr[1] "%d members without email"
+
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] "%d distribution list not reviewed within 12 months"
+msgstr[1] "%d distribution lists not reviewed within 12 months"
+
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] "%d main recipient without deputy"
+msgstr[1] "%d main recipients without deputy"
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"

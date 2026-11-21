@@ -7,6 +7,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Matrice des flux : nouveau flux pré-rempli depuis l'adresse** (issue #909). Le bouton
+  « Proposer le flux » de l'inventaire Docker ouvre le formulaire d'un nouveau flux avec ses valeurs
+  proposées : type, nom, source, actif et libellé de destination, protocole et ports. Liste fermée de
+  champs, validés comme à l'enregistrement (type et protocole connus, ports normalisés, actif d'un
+  type proposé et visible) ; les autres paramètres sont ignorés, un flux existant n'est jamais
+  modifié. Un encadré « Flux proposé » invite à vérifier, à ajouter la justification et le
+  propriétaire : rien n'est enregistré avant « Ajouter ». Contrôle XSS sur des paramètres piégés.
+
 ## [2.73.0] - 2026-11-21
 
 ### Added
