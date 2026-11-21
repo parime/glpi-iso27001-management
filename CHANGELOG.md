@@ -7,6 +7,38 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.74.0] - 2026-11-21
+
+### Added
+
+- **Matrice des flux : nouveau flux pré-rempli depuis l'adresse** (issue #909). Le bouton
+  « Proposer le flux » de l'inventaire Docker ouvre le formulaire d'un nouveau flux avec ses valeurs
+  proposées : type, nom, source, actif et libellé de destination, protocole et ports. Liste fermée de
+  champs, validés comme à l'enregistrement (type et protocole connus, ports normalisés, actif d'un
+  type proposé et visible) ; les autres paramètres sont ignorés, un flux existant n'est jamais
+  modifié. Un encadré « Flux proposé » invite à vérifier, à ajouter la justification et le
+  propriétaire : rien n'est enregistré avant « Ajouter ». Contrôle XSS sur des paramètres piégés.
+- **Couverture de l'authentification multifacteur (MFA) par compte** (issue #852, mesures A.8.5
+  et A.5.17) : page « Couverture MFA » (rubrique Revue des accès) :
+  - double authentification native de GLPI lue sur chaque compte (activée ou non, le secret n'est
+    jamais lu), avec le rappel de son application imposée ou non ;
+  - import CSV générique des méthodes enregistrées chez le fournisseur d'identité (rapport
+    d'inscription d'Entra ID, Okta, Google Workspace, solution sur site), rapproché des comptes
+    GLPI par identifiant, e-mail ou partie locale de l'UPN ; comptes non rapprochés listés ; un
+    nouvel import remplace le précédent du même fournisseur ;
+  - pour Microsoft Entra ID, lecture directe du même rapport par **Microsoft Graph**, sur clic et
+    en lecture seule (application du locataire avec la permission AuditLog.Read.All) : le secret
+    est chiffré par GLPI et jamais réaffiché ; une lecture refusée ou incomplète ne remplace pas
+    l'import précédent ; aucune tâche automatique ;
+  - taux de MFA global, des administrateurs (profils qui modifient la configuration ou les profils,
+    ou rôle déclaré par le fournisseur) et des comptes à accès distant (groupes GLPI choisis ou
+    colonne de l'import) ;
+  - écarts signalés : administrateur sans MFA, accès distant sans MFA, SMS, appel ou e-mail seul,
+    compte exclu sans justification ; rien n'est modifié automatiquement ;
+  - preuve sur les mesures **A.8.5** et **A.5.17**, KRI « Administrateurs sans MFA », carte du
+    tableau de bord, constat dans la préparation à la certification et rappel sur la page
+    d'hygiène des comptes.
+
 ## [2.73.0] - 2026-11-21
 
 ### Added

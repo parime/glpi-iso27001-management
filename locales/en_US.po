@@ -18718,10 +18718,10 @@ msgstr ""
 #: src/PageHelp.php:694
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
+"software, operating system and firmware, to know where to start updating."
 msgstr ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
+"software, operating system and firmware, to know where to start updating."
 
 #: src/PageHelp.php:699
 msgid ""
@@ -31416,6 +31416,14 @@ msgstr ""
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "This exercise has never been run to the end in the crisis room."
 
+msgid "Physical security of the site: %s"
+msgstr "Physical security of the site: %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+
 msgid "Child licenses counted once"
 msgstr "Child licenses counted once"
 
@@ -31854,101 +31862,6 @@ msgid "Blocked control"
 msgid_plural "Blocked controls"
 msgstr[0] "Blocked control"
 msgstr[1] "Blocked controls"
-
-msgid "Review of the distribution list recorded."
-msgstr "Review of the distribution list recorded."
-
-msgid "Review overdue (more than 12 months)"
-msgstr "Review overdue (more than 12 months)"
-
-#, php-format
-msgid "Last review on %1$s by %2$s, next one before %3$s."
-msgstr "Last review on %1$s by %2$s, next one before %3$s."
-
-msgid ""
-"Check once a year that each recipient, deputy and address is still right."
-msgstr ""
-"Check once a year that each recipient, deputy and address is still right."
-
-msgid "Mark the list as reviewed today"
-msgstr "Mark the list as reviewed today"
-
-msgid "Role in the list"
-msgstr "Role in the list"
-
-msgid "Main recipient"
-msgstr "Main recipient"
-
-#, php-format
-msgid "Deputy of %s"
-msgstr "Deputy of %s"
-
-msgid "Deputy"
-msgstr "Deputy"
-
-msgid "No deputy"
-msgstr "No deputy"
-
-msgid ""
-"The addresses of the members are included when you copy or export the "
-"addresses."
-msgstr ""
-"The addresses of the members are included when you copy or export the "
-"addresses."
-
-msgid "Distribution list last reviewed on"
-msgstr "Distribution list last reviewed on"
-
-msgid "Crisis communications"
-msgstr "Crisis communications"
-
-#, php-format
-msgid ""
-"%d main recipient has no deputy: if they cannot be reached during a crisis, "
-"nobody else is planned."
-msgid_plural ""
-"%d main recipients have no deputy: if they cannot be reached during a "
-"crisis, nobody else is planned."
-msgstr[0] ""
-"%d main recipient has no deputy: if they cannot be reached during a crisis, "
-"nobody else is planned."
-msgstr[1] ""
-"%d main recipients have no deputy: if they cannot be reached during a "
-"crisis, nobody else is planned."
-
-#, php-format
-msgid "%d member without email"
-msgid_plural "%d members without email"
-msgstr[0] "%d member without email"
-msgstr[1] "%d members without email"
-
-#, php-format
-msgid "%d distribution list not reviewed within 12 months"
-msgid_plural "%d distribution lists not reviewed within 12 months"
-msgstr[0] "%d distribution list not reviewed within 12 months"
-msgstr[1] "%d distribution lists not reviewed within 12 months"
-
-#, php-format
-msgid "%d main recipient without deputy"
-msgid_plural "%d main recipients without deputy"
-msgstr[0] "%d main recipient without deputy"
-msgstr[1] "%d main recipients without deputy"
-
-#: src/PageHelp.php:694
-msgid ""
-"The machines most exposed to the known vulnerabilities of their watched "
-"software, operating system and firmware, to know where to start updating."
-msgstr ""
-"The machines most exposed to the known vulnerabilities of their watched "
-"software, operating system and firmware, to know where to start updating."
-
-msgid "Physical security of the site: %s"
-msgstr "Physical security of the site: %s"
-
-msgid ""
-"Checklist, findings, actions and zones of this assessment, for the auditor."
-msgstr ""
-"Checklist, findings, actions and zones of this assessment, for the auditor."
 
 msgid ""
 "Fill in this sheet for each application developed or maintained in-house: it "
@@ -32420,6 +32333,313 @@ msgid_plural "Manufacturer end of life on %1$s (in %2$d days)."
 msgstr[0] "Manufacturer end of life on %1$s (in %2$d day)."
 msgstr[1] "Manufacturer end of life on %1$s (in %2$d days)."
 
+#, php-format
+msgid ""
+"%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
+msgstr ""
+"%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
+
+msgid "Import deleted."
+msgstr "Import deleted."
+
+msgid "Remote access groups saved."
+msgstr "Remote access groups saved."
+
+#, php-format
+msgid "Administrators protected by MFA (%)"
+msgstr "Administrators protected by MFA (%)"
+
+msgid "MFA coverage"
+msgstr "MFA coverage"
+
+msgid "Microsoft Entra ID"
+msgstr "Microsoft Entra ID"
+
+msgid "Okta"
+msgstr "Okta"
+
+msgid "Google Workspace"
+msgstr "Google Workspace"
+
+msgid "On-premises MFA solution"
+msgstr "On-premises MFA solution"
+
+msgid "Other identity provider"
+msgstr "Other identity provider"
+
+msgid "MFA"
+msgstr "MFA"
+
+msgid "Weak method only"
+msgstr "Weak method only"
+
+msgid "No MFA"
+msgstr "No MFA"
+
+msgid "Administrator without MFA"
+msgstr "Administrator without MFA"
+
+msgid "Remote access without MFA"
+msgstr "Remote access without MFA"
+
+msgid "SMS, call or email only"
+msgstr "SMS, call or email only"
+
+msgid "Excluded without justification"
+msgstr "Excluded without justification"
+
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"login, userPrincipalName or email."
+msgstr ""
+"No account column found: the file needs a header with a column such as "
+"login, userPrincipalName or email."
+
+msgid ""
+"No method column found: the file needs a column such as methodsRegistered, "
+"methods or isMfaRegistered."
+msgstr ""
+"No method column found: the file needs a column such as methodsRegistered, "
+"methods or isMfaRegistered."
+
+msgid "The file could not be read."
+msgstr "The file could not be read."
+
+msgid "GLPI two-factor authentication"
+msgstr "GLPI two-factor authentication"
+
+msgid "GLPI authenticator app"
+msgstr "GLPI authenticator app"
+
+#, php-format
+msgid "MFA: %1$d%% of the accounts, %2$d administrator(s) without MFA"
+msgstr "MFA: %1$d%% of the accounts, %2$d administrator(s) without MFA"
+
+msgid ""
+"Shows which active accounts are protected by multi-factor authentication: "
+"GLPI two-factor authentication, and the methods registered with your "
+"identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises "
+"solution) imported from a CSV export. Rates are given for all accounts, "
+"administrators and remote access accounts."
+msgstr ""
+"Shows which active accounts are protected by multi-factor authentication: "
+"GLPI two-factor authentication, and the methods registered with your "
+"identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises "
+"solution) imported from a CSV export. Rates are given for all accounts, "
+"administrators and remote access accounts."
+
+msgid ""
+"Import the export of your identity provider, choose the remote access "
+"groups, then follow up the gaps: administrator or remote access without MFA, "
+"SMS or call only, account excluded without justification. Nothing is changed "
+"automatically. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+msgstr ""
+"Import the export of your identity provider, choose the remote access "
+"groups, then follow up the gaps: administrator or remote access without MFA, "
+"SMS or call only, account excluded without justification. Nothing is changed "
+"automatically. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+
+msgid "ISO/IEC 27001, controls A.8.5 and A.5.17"
+msgstr "ISO/IEC 27001, controls A.8.5 and A.5.17"
+
+msgid "Administrators without MFA"
+msgstr "Administrators without MFA"
+
+#, php-format
+msgid "Administrators without MFA: %d"
+msgstr "Administrators without MFA: %d"
+
+#, php-format
+msgid "Administrators: %d%%"
+msgstr "Administrators: %d%%"
+
+#, php-format
+msgid "MFA rate: %d%%"
+msgstr "MFA rate: %d%%"
+
+msgid "MFA rate: not measured"
+msgstr "MFA rate: not measured"
+
+#, php-format
+msgid "Remote access: %d%%"
+msgstr "Remote access: %d%%"
+
+#, php-format
+msgid "%1$d accounts: the first %2$d are shown, gaps first."
+msgstr "%1$d accounts: the first %2$d are shown, gaps first."
+
+msgid "Access reviews"
+msgstr "Access reviews"
+
+msgid "Accounts and authentication methods"
+msgstr "Accounts and authentication methods"
+
+msgid "Accounts protected by MFA"
+msgstr "Accounts protected by MFA"
+
+msgid ""
+"Accounts that sign in through your identity provider are covered by the "
+"methods you import below."
+msgstr ""
+"Accounts that sign in through your identity provider are covered by the "
+"methods you import below."
+
+msgid "Accounts with a gap"
+msgstr "Accounts with a gap"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid ""
+"Administrators are the accounts whose profile can change the GLPI "
+"configuration or the profiles, or that the identity provider reports as "
+"administrators. Nothing is changed in GLPI from this page."
+msgstr ""
+"Administrators are the accounts whose profile can change the GLPI "
+"configuration or the profiles, or that the identity provider reports as "
+"administrators. Nothing is changed in GLPI from this page."
+
+msgid "Administrators protected by MFA"
+msgstr "Administrators protected by MFA"
+
+msgid ""
+"Choose the remote access groups below, or import a remote_access column."
+msgstr ""
+"Choose the remote access groups below, or import a remote_access column."
+
+msgid "Delete the import"
+msgstr "Delete the import"
+
+#, php-format
+msgid "Excluded with a justification: %d"
+msgstr "Excluded with a justification: %d"
+
+msgid "Exempted from GLPI two-factor enforcement"
+msgstr "Exempted from GLPI two-factor enforcement"
+
+msgid ""
+"Export the authentication methods registered per user from your identity "
+"provider, then import the CSV file here. A new import of the same provider "
+"replaces the previous one in the current entity. Only method names are kept, "
+"never a secret."
+msgstr ""
+"Export the authentication methods registered per user from your identity "
+"provider, then import the CSV file here. A new import of the same provider "
+"replaces the previous one in the current entity. Only method names are kept, "
+"never a secret."
+
+msgid "GLPI two-factor authentication is enforced for every account."
+msgstr "GLPI two-factor authentication is enforced for every account."
+
+msgid ""
+"GLPI two-factor authentication is not enforced for every account: it can be "
+"enforced by profile, group or entity, or for everyone in the general "
+"configuration (Security tab)."
+msgstr ""
+"GLPI two-factor authentication is not enforced for every account: it can be "
+"enforced by profile, group or entity, or for everyone in the general "
+"configuration (Security tab)."
+
+msgid "Identity provider"
+msgstr "Identity provider"
+
+msgid "Imported accounts"
+msgstr "Imported accounts"
+
+msgid "Imported accounts not matched with a GLPI account"
+msgstr "Imported accounts not matched with a GLPI account"
+
+msgid "Matched"
+msgstr "Matched"
+
+#, php-format
+msgid "Members of these groups have remote access: %s."
+msgstr "Members of these groups have remote access: %s."
+
+msgid "Methods"
+msgstr "Methods"
+
+msgid "Methods registered with your identity provider"
+msgstr "Methods registered with your identity provider"
+
+msgid ""
+"Microsoft Entra ID: Protection > Authentication methods > User registration "
+"details, download (columns userPrincipalName, methodsRegistered, "
+"isMfaRegistered, isAdmin)."
+msgstr ""
+"Microsoft Entra ID: Protection > Authentication methods > User registration "
+"details, download (columns userPrincipalName, methodsRegistered, "
+"isMfaRegistered, isAdmin)."
+
+msgid "No active account in your entities."
+msgstr "No active account in your entities."
+
+msgid ""
+"No group chosen: only the accounts marked remote_access in an import count "
+"as remote access accounts."
+msgstr ""
+"No group chosen: only the accounts marked remote_access in an import count "
+"as remote access accounts."
+
+msgid "None declared"
+msgstr "None declared"
+
+msgid ""
+"Okta, Google Workspace or an on-premises solution: a CSV file with a header, "
+"one account per line."
+msgstr ""
+"Okta, Google Workspace or an on-premises solution: a CSV file with a header, "
+"one account per line."
+
+msgid ""
+"Recognized columns: login or email; methods (separated by commas or "
+"semicolons) or mfa (yes/no); optional admin, remote_access, excluded and "
+"exclusion_reason (yes/no and text)."
+msgstr ""
+"Recognized columns: login or email; methods (separated by commas or "
+"semicolons) or mfa (yes/no); optional admin, remote_access, excluded and "
+"exclusion_reason (yes/no and text)."
+
+msgid "Remote access"
+msgstr "Remote access"
+
+msgid "Remote access accounts protected by MFA"
+msgstr "Remote access accounts protected by MFA"
+
+msgid "Remote access groups (VPN, remote desktop...)"
+msgstr "Remote access groups (VPN, remote desktop...)"
+
+msgid "SMS, phone call and email codes are reported as weak methods."
+msgstr "SMS, phone call and email codes are reported as weak methods."
+
+msgid ""
+"They are matched on the login, the email address, or the part of the user "
+"principal name before the @. Check them: an account unknown in GLPI may be a "
+"service account or a former employee."
+msgstr ""
+"They are matched on the login, the email address, or the part of the user "
+"principal name before the @. Check them: an account unknown in GLPI may be a "
+"service account or a former employee."
+
+msgid "Which accounts have remote access?"
+msgstr "Which accounts have remote access?"
+
+#, php-format
+msgid "weak method only: %d"
+msgstr "weak method only: %d"
+
+#, php-format
+msgid "without MFA: %d"
+msgstr "without MFA: %d"
+
+#, php-format
+msgid "%d account"
+msgid_plural "%d accounts"
+msgstr[0] "%d account"
+msgstr[1] "%d accounts"
+
 msgid "Security patches"
 msgstr "Security patches"
 
@@ -32610,6 +32830,105 @@ msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d day ago"
 msgstr[1] "%d days ago"
+
+#: src/PageHelp.php:694
+msgid ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, to know where to start updating."
+msgstr ""
+"The machines most exposed to the known vulnerabilities of their watched "
+"software, to know where to start updating."
+
+msgid "Review of the distribution list recorded."
+msgstr "Review of the distribution list recorded."
+
+msgid "Review overdue (more than 12 months)"
+msgstr "Review overdue (more than 12 months)"
+
+#, php-format
+msgid "Last review on %1$s by %2$s, next one before %3$s."
+msgstr "Last review on %1$s by %2$s, next one before %3$s."
+
+msgid ""
+"Check once a year that each recipient, deputy and address is still right."
+msgstr ""
+"Check once a year that each recipient, deputy and address is still right."
+
+msgid "Mark the list as reviewed today"
+msgstr "Mark the list as reviewed today"
+
+msgid "Role in the list"
+msgstr "Role in the list"
+
+msgid "Main recipient"
+msgstr "Main recipient"
+
+#, php-format
+msgid "Deputy of %s"
+msgstr "Deputy of %s"
+
+msgid "Deputy"
+msgstr "Deputy"
+
+msgid "No deputy"
+msgstr "No deputy"
+
+msgid ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+msgstr ""
+"The addresses of the members are included when you copy or export the "
+"addresses."
+
+msgid "Distribution list last reviewed on"
+msgstr "Distribution list last reviewed on"
+
+msgid "Crisis communications"
+msgstr "Crisis communications"
+
+#, php-format
+msgid ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgid_plural ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+msgstr[0] ""
+"%d main recipient has no deputy: if they cannot be reached during a crisis, "
+"nobody else is planned."
+msgstr[1] ""
+"%d main recipients have no deputy: if they cannot be reached during a "
+"crisis, nobody else is planned."
+
+#, php-format
+msgid "%d member without email"
+msgid_plural "%d members without email"
+msgstr[0] "%d member without email"
+msgstr[1] "%d members without email"
+
+#, php-format
+msgid "%d distribution list not reviewed within 12 months"
+msgid_plural "%d distribution lists not reviewed within 12 months"
+msgstr[0] "%d distribution list not reviewed within 12 months"
+msgstr[1] "%d distribution lists not reviewed within 12 months"
+
+#, php-format
+msgid "%d main recipient without deputy"
+msgid_plural "%d main recipients without deputy"
+msgstr[0] "%d main recipient without deputy"
+msgstr[1] "%d main recipients without deputy"
+
+msgid "Proposed flow"
+msgstr "Proposed flow"
+
+msgid ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
+msgstr ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
@@ -33615,3 +33934,78 @@ msgstr[1] "%d days ago"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
+msgstr "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
+
+msgid "Microsoft Graph settings saved."
+msgstr "Microsoft Graph settings saved."
+
+msgid "Enter the tenant, the application (client) ID and the client secret first."
+msgstr "Enter the tenant, the application (client) ID and the client secret first."
+
+msgid "Microsoft Entra ID refused the tenant, the application ID or the client secret."
+msgstr "Microsoft Entra ID refused the tenant, the application ID or the client secret."
+
+msgid "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
+msgstr "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
+
+msgid "Microsoft Graph asks to slow down: try again in a few minutes."
+msgstr "Microsoft Graph asks to slow down: try again in a few minutes."
+
+msgid "Too many accounts to read in one click: import the CSV export of the report instead."
+msgstr "Too many accounts to read in one click: import the CSV export of the report instead."
+
+msgid "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
+msgstr "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
+
+msgid "Microsoft Graph returned an unexpected answer."
+msgstr "Microsoft Graph returned an unexpected answer."
+
+msgid "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
+msgstr "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
+
+msgid "Application (client) ID"
+msgstr "Application (client) ID"
+
+msgid "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
+msgstr "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
+
+msgid "Client secret"
+msgstr "Client secret"
+
+msgid "Configured"
+msgstr "Configured"
+
+msgid "Not configured"
+msgstr "Not configured"
+
+msgid "Delete the saved secret"
+msgstr "Delete the saved secret"
+
+msgid "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
+msgstr "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
+
+msgid "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
+msgstr "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
+
+msgid "Only users who can modify the plugin data can set up this reading."
+msgstr "Only users who can modify the plugin data can set up this reading."
+
+msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
+msgstr "Read Microsoft Entra ID directly (Microsoft Graph)"
+
+msgid "Read now from Microsoft Graph"
+msgstr "Read now from Microsoft Graph"
+
+msgid "Secret saved"
+msgstr "Secret saved"
+
+msgid "Secret saved (leave empty to keep it)"
+msgstr "Secret saved (leave empty to keep it)"
+
+msgid "Tenant (directory) ID or domain"
+msgstr "Tenant (directory) ID or domain"
+
+msgid "The secret is encrypted with the GLPI key, never displayed again nor logged."
+msgstr "The secret is encrypted with the GLPI key, never displayed again nor logged."

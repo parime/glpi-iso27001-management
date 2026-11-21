@@ -128,6 +128,8 @@ class Menu extends CommonGLPI
                 AccountHygiene::class,
                 // Issue #546 : fiche de conformité sécurité de chaque collaborateur.
                 PersonnelCompliance::class,
+                // Issue #852 : couverture de l'authentification multifacteur par compte (A.8.5).
+                MfaCoverage::class,
                 PeriodicReview::class,
                 Training::class,
                 // Issue #604 : simulations d'hameçonnage (preuve de sensibilisation, 7.3 et A.6.3).

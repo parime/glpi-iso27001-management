@@ -51,7 +51,18 @@ if (isset($_POST['add'])) {
         \GlpiPlugin\Grcmanager\NetworkFlow::class
     );
 
-    $item->display(['id' => (int) ($_GET['id'] ?? 0)]);
+    $id = (int) ($_GET['id'] ?? 0);
+    $options = ['id' => $id];
+    if ($id <= 0) {
+        // Issue #909 : un nouveau flux peut être pré-rempli depuis l'adresse (bouton « Proposer le
+        // flux » de l'inventaire Docker). Liste fermée de champs, revalidés dans showForm() ; rien
+        // n'est enregistré avant « Ajouter ».
+        $prefill = \GlpiPlugin\Grcmanager\NetworkFlow::prefillFromQuery($_GET);
+        if ($prefill !== []) {
+            $options['prefill'] = $prefill;
+        }
+    }
+    $item->display($options);
 
     Html::footer();
 }

@@ -101,6 +101,9 @@ check "preuve developpement securise (A.8.31)" "$P/control.form.php?id=$(xid con
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #847 : ordinateur, outil et algorithme de chiffrement pieges (chiffrement des disques).
 check "front/diskencryption.php"              "$P/diskencryption.php"
+# Issue #852 : compte et methode importes pieges (couverture MFA, preuve A.8.5).
+check "front/mfacoverage.php"                 "$P/mfacoverage.php"
+check "preuve couverture MFA (A.8.5)"         "$P/control.form.php?id=$(xid control_a85)"
 # Issue #854 : ordinateur piege (correctifs de securite).
 check "front/patchcompliance.php"             "$P/patchcompliance.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).
@@ -204,6 +207,12 @@ check "salle de crise et bilan d'un exercice" "$P/crisisexercise.form.php?id=$(x
 check "onglet tests d'efficacite d'un controle" "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"
 # Issue #607 : echantillon piege (question, nom fige et commentaire d'un element).
 check "page d'un echantillon de test"         "$P/controltestsample.form.php?id=$(xid sample)"
+
+# Issue #909 : nouveau flux pre-rempli depuis l'adresse (bouton « Proposer le flux » de l'inventaire
+# Docker) avec des parametres pieges : page du formulaire et onglet principal qui recoit les valeurs.
+QC="%3Csvg%2Fonload%3Dalert(%27xss-canary%27)%3E"
+check "nouveau flux pre-rempli (adresse piegee)"   "$P/networkflow.form.php?flow_type=internal&name=$QC&source_label=$QC&destination_label=$QC&protocol=tcp&ports=443"
+check "onglet d'un nouveau flux pre-rempli"   "$(tab 'GlpiPlugin%5CGrcmanager%5CNetworkFlow' 'GlpiPlugin%5CGrcmanager%5CNetworkFlow$main' 0)&prefill%5Bname%5D=$QC&prefill%5Bsource_label%5D=$QC&prefill%5Bdestination_label%5D=$QC"
 
 rm -f "$JAR"
 if [ "$RENDERED" -lt 10 ]; then
