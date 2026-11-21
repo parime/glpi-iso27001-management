@@ -664,7 +664,8 @@ class PageHelp
                     'Record each campaign (date, tool, scenario, targeted population), then import the results '
                         . 'file of the tool in the Results tab. Offer a remedial training to the people who '
                         . 'clicked. Inform the staff beforehand that simulations take place, and delete the '
-                        . 'results per person once the follow-up is done.',
+                        . 'results per person once the follow-up is done, or set a retention period in the '
+                        . 'configuration of the plugin. The rates by group and by entity stay anonymous.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, clause 7.3 and control A.6.3', 'grcmanager'),

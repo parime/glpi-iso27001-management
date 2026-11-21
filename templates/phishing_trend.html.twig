@@ -62,5 +62,18 @@
       </div>
       <div class="card-footer small text-secondary">{{ __('Rates out of the emails received. To follow the click rate with thresholds and an alert, create a risk indicator (KRI) with the source "Click rate of the last phishing simulation".', 'grcmanager') }}</div>
    </div>
+   {% if entities|length > 1 %}
+      <div class="mt-3">
+         {% include '@grcmanager/_phishing_groups.html.twig' with {
+            'rows': entities|map(row => row|merge({'name': row.entity})),
+            'id': 'grc-phishing-entities',
+            'icon': 'ti ti-building',
+            'title': __('Last campaign by entity', 'grcmanager'),
+            'first_column': entity_label,
+            'with_campaigns': true,
+            'hint': __('Rates of the last campaign with results of each entity. The rates by group are on the Results tab of each campaign.', 'grcmanager'),
+         } only %}
+      </div>
+   {% endif %}
 </div>
 {% endif %}
