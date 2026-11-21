@@ -96,7 +96,7 @@ if (isset($_POST['save_log_settings'])) {
 if (isset($_POST['declare_log_platform'])) {
     Session::checkRight(LogCoverage::RIGHTNAME, UPDATE);
     if (!LogCoverage::declarePlatform($_POST)) {
-        throw new GlpixceptionHttpAccessDeniedHttpException();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     Session::addMessageAfterRedirect(htmlescape(__('Log platform declaration saved.', 'grcmanager')));
     Html::redirect(LogCoverage::getSearchURL() . '#grc-log-retention');

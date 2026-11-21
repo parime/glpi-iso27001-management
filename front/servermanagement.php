@@ -32,7 +32,7 @@ $back = static function (string $anchor, string $query = ''): void {
 // Contrôleur demandé hors des entités de la session (ou inexistant) : refus, sans rien révéler.
 $visible = static function (int $id): void {
     if (ServerManagement::controller($id) === null) {
-        throw new GlpixceptionHttpAccessDeniedHttpException();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
 };
 

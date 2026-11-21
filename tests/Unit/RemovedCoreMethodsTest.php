@@ -37,7 +37,8 @@ final class RemovedCoreMethodsTest extends TestCase
                 $code = (string) file_get_contents($file->getPathname());
                 foreach (self::REMOVED as $call => $replacement) {
                     if (str_contains($code, $call)) {
-                        $found[] = substr($file->getPathname(), strlen($root) + 1) . ' : ' . $call . ') -> ' . $replacement;
+                        $relative = substr($file->getPathname(), strlen($root) + 1);
+                        $found[] = $relative . ' : ' . $call . ') -> ' . $replacement;
                     }
                 }
             }

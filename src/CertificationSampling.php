@@ -355,7 +355,7 @@ class CertificationSampling extends CommonGLPI
         $audit = new Audit();
         $audit->check($auditId, UPDATE);
         if (!CertificationAuditRules::isExternal((string) ($audit->fields['audit_type'] ?? ''))) {
-            throw new GlpixceptionHttpAccessDeniedHttpException();
+            throw new \Glpi\Exception\Http\AccessDeniedHttpException();
         }
 
         return $audit;

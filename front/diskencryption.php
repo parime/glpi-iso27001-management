@@ -56,7 +56,7 @@ if (isset($_POST['declare_key'])) {
             $_POST['backup_date'] ?? ''
         )
     ) {
-        throw new GlpixceptionHttpAccessDeniedHttpException();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     Session::addMessageAfterRedirect(htmlescape(__('Recovery key declaration saved.', 'grcmanager')));
     Html::redirect(DiskEncryption::getSearchURL() . '#grc-encryption-list');

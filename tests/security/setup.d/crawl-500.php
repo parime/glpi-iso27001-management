@@ -6,8 +6,9 @@
 
 // Un événement du journal d'audit sur un type qui n'est pas un objet GLPI (AdAttackPath, sans
 // getTypeName()) : front/auditlog.php doit rester lisible (200) au lieu d'une erreur 500.
-if (countElementsInTable('glpi_plugin_grcmanager_auditlogs', ['itemtype' => \GlpiPlugin\Grcmanager\AdAttackPath::class]) === 0) {
-    \GlpiPlugin\Grcmanager\AuditLog::record('import', \GlpiPlugin\Grcmanager\AdAttackPath::class, 1, 0, 'success', [
+$attackPathType = \GlpiPlugin\Grcmanager\AdAttackPath::class;
+if (countElementsInTable('glpi_plugin_grcmanager_auditlogs', ['itemtype' => $attackPathType]) === 0) {
+    \GlpiPlugin\Grcmanager\AuditLog::record('import', $attackPathType, 1, 0, 'success', [
         'domain' => 'exemple.test',
     ]);
 }
