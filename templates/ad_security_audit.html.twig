@@ -37,7 +37,7 @@
       <div class="alert alert-info d-flex align-items-start gap-2" id="grc-ad-empty">
          <i class="ti ti-info-circle fs-2"></i>
          <div>
-            {{ __('No report imported yet. Run PingCastle on your domain, then import the ad_hc_<domain>.xml file below.', 'grcmanager') }}
+            {{ __('No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below.', 'grcmanager') }}
             <a href="{{ example_url }}">{{ __('Download a fictitious example report', 'grcmanager') }}</a>
          </div>
       </div>
@@ -234,7 +234,7 @@
          <p class="small">{{ __('GLPI never runs PingCastle and never queries the directory: it reads the report that your team produced. The report is stored in the current entity.', 'grcmanager') }}</p>
          <ol class="small text-muted">
             <li>{{ __('On a computer of the domain, run PingCastle and choose the health check (or run it with the --healthcheck option).', 'grcmanager') }}</li>
-            <li>{{ __('Import the ad_hc_<domain>.xml file it produces (not the HTML file).', 'grcmanager') }}</li>
+            <li>{{ __('Import the ad_hc_[domain].xml file it produces (not the HTML file).', 'grcmanager') }}</li>
             <li>{{ __('Only the scores and the triggered rules (identifier, category, points, finding) are kept: never the list of accounts, nor any password found. A new report of the same domain shows the change of score and the rules that appeared or were resolved.', 'grcmanager') }}</li>
             <li>{{ __('PingCastle is free for internal use; a service provider auditing a customer needs a licence. Check the terms of use of the tool.', 'grcmanager') }}</li>
          </ol>

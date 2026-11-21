@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 07:37+0000\n"
+"POT-Creation-Date: 2026-11-21 07:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2691,7 +2691,7 @@ msgstr ""
 
 #: src/AdSecurityAudit.php:172
 msgid ""
-"This is not a PingCastle health check report: import the ad_hc_<domain>.xml "
+"This is not a PingCastle health check report: import the ad_hc_[domain].xml "
 "file."
 msgstr ""
 
@@ -18201,7 +18201,7 @@ msgid "Import a PingCastle report"
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
-msgid "Import the ad_hc_<domain>.xml file it produces (not the HTML file)."
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
@@ -18225,7 +18225,7 @@ msgstr ""
 #: templates/ad_security_audit.html.twig
 msgid ""
 "No report imported yet. Run PingCastle on your domain, then import the "
-"ad_hc_<domain>.xml file below."
+"ad_hc_[domain].xml file below."
 msgstr ""
 
 #: templates/ad_security_audit.html.twig

@@ -169,7 +169,7 @@ class AdSecurityAudit extends CommonGLPI
                 'grcmanager'
             ),
             PingCastleReport::ERROR_NOT_PINGCASTLE => __(
-                'This is not a PingCastle health check report: import the ad_hc_<domain>.xml file.',
+                'This is not a PingCastle health check report: import the ad_hc_[domain].xml file.',
                 'grcmanager'
             ),
             'no_domain'                            => __('The report gives no domain name.', 'grcmanager'),

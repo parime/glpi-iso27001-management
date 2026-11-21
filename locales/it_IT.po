@@ -29025,8 +29025,8 @@ msgstr "Il file è troppo grande (al massimo 20 MB)."
 msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
 msgstr "Il file dichiara un DOCTYPE o delle entità: è rifiutato per motivi di sicurezza. Un rapporto PingCastle non ne contiene mai."
 
-msgid "This is not a PingCastle health check report: import the ad_hc_<domain>.xml file."
-msgstr "Non è un rapporto di controllo dello stato di PingCastle: importate il file ad_hc_<dominio>.xml."
+msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
+msgstr "Non è un rapporto di controllo dello stato di PingCastle: importate il file ad_hc_[dominio].xml."
 
 msgid "The report gives no domain name."
 msgstr "Il rapporto non indica alcun nome di dominio."
@@ -29137,8 +29137,8 @@ msgstr "GLPI non esegue mai PingCastle e non interroga mai la directory: legge i
 msgid "Import a PingCastle report"
 msgstr "Importare un rapporto PingCastle"
 
-msgid "Import the ad_hc_<domain>.xml file it produces (not the HTML file)."
-msgstr "Importate il file ad_hc_<dominio>.xml che produce (non il file HTML)."
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Importate il file ad_hc_[dominio].xml che produce (non il file HTML)."
 
 msgid "Imported on"
 msgstr "Importato il"
@@ -29150,8 +29150,8 @@ msgstr "Rapporti importati"
 msgid "Maturity level: %d"
 msgstr "Livello di maturità: %d"
 
-msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_<domain>.xml file below."
-msgstr "Nessun rapporto ancora importato. Eseguite PingCastle sul vostro dominio, poi importate qui sotto il file ad_hc_<dominio>.xml."
+msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
+msgstr "Nessun rapporto ancora importato. Eseguite PingCastle sul vostro dominio, poi importate qui sotto il file ad_hc_[dominio].xml."
 
 msgid "No rule triggered in this report."
 msgstr "Nessuna regola attivata in questo rapporto."

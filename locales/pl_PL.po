@@ -28946,8 +28946,8 @@ msgstr "Plik jest za duży (maksymalnie 20 MB)."
 msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
 msgstr "Plik deklaruje DOCTYPE lub encje: zostaje odrzucony ze względów bezpieczeństwa. Raport PingCastle nigdy ich nie zawiera."
 
-msgid "This is not a PingCastle health check report: import the ad_hc_<domain>.xml file."
-msgstr "To nie jest raport kontroli kondycji PingCastle: zaimportuj plik ad_hc_<domena>.xml."
+msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
+msgstr "To nie jest raport kontroli kondycji PingCastle: zaimportuj plik ad_hc_[domena].xml."
 
 msgid "The report gives no domain name."
 msgstr "Raport nie podaje nazwy domeny."
@@ -29061,8 +29061,8 @@ msgstr "GLPI nigdy nie uruchamia PingCastle i nigdy nie odpytuje katalogu: odczy
 msgid "Import a PingCastle report"
 msgstr "Importuj raport PingCastle"
 
-msgid "Import the ad_hc_<domain>.xml file it produces (not the HTML file)."
-msgstr "Zaimportuj utworzony plik ad_hc_<domena>.xml (nie plik HTML)."
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Zaimportuj utworzony plik ad_hc_[domena].xml (nie plik HTML)."
 
 msgid "Imported on"
 msgstr "Zaimportowano"
@@ -29074,8 +29074,8 @@ msgstr "Zaimportowane raporty"
 msgid "Maturity level: %d"
 msgstr "Poziom dojrzałości: %d"
 
-msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_<domain>.xml file below."
-msgstr "Nie zaimportowano jeszcze żadnego raportu. Uruchom PingCastle w swojej domenie, a następnie zaimportuj poniżej plik ad_hc_<domena>.xml."
+msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
+msgstr "Nie zaimportowano jeszcze żadnego raportu. Uruchom PingCastle w swojej domenie, a następnie zaimportuj poniżej plik ad_hc_[domena].xml."
 
 msgid "No rule triggered in this report."
 msgstr "Brak wyzwolonych reguł w tym raporcie."

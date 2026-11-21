@@ -33682,8 +33682,8 @@ msgstr "The file is too large (20 MB at most)."
 msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
 msgstr "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
 
-msgid "This is not a PingCastle health check report: import the ad_hc_<domain>.xml file."
-msgstr "This is not a PingCastle health check report: import the ad_hc_<domain>.xml file."
+msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
+msgstr "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
 
 msgid "The report gives no domain name."
 msgstr "The report gives no domain name."
@@ -33794,8 +33794,8 @@ msgstr "GLPI never runs PingCastle and never queries the directory: it reads the
 msgid "Import a PingCastle report"
 msgstr "Import a PingCastle report"
 
-msgid "Import the ad_hc_<domain>.xml file it produces (not the HTML file)."
-msgstr "Import the ad_hc_<domain>.xml file it produces (not the HTML file)."
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
 
 msgid "Imported on"
 msgstr "Imported on"
@@ -33807,8 +33807,8 @@ msgstr "Imported reports"
 msgid "Maturity level: %d"
 msgstr "Maturity level: %d"
 
-msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_<domain>.xml file below."
-msgstr "No report imported yet. Run PingCastle on your domain, then import the ad_hc_<domain>.xml file below."
+msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
+msgstr "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
 
 msgid "No rule triggered in this report."
 msgstr "No rule triggered in this report."

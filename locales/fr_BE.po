@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
-"Language: fr_FR\n"
+"Language: fr_BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29054,8 +29054,8 @@ msgstr "Le fichier est trop volumineux (20 Mo au plus)."
 msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
 msgstr "Le fichier déclare un DOCTYPE ou des entités : il est refusé par sécurité. Un rapport PingCastle n'en contient jamais."
 
-msgid "This is not a PingCastle health check report: import the ad_hc_<domain>.xml file."
-msgstr "Ce n'est pas un rapport de contrôle de santé PingCastle : importez le fichier ad_hc_<domaine>.xml."
+msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
+msgstr "Ce n'est pas un rapport de contrôle de santé PingCastle : importez le fichier ad_hc_[domaine].xml."
 
 msgid "The report gives no domain name."
 msgstr "Le rapport ne donne aucun nom de domaine."
@@ -29166,8 +29166,8 @@ msgstr "GLPI ne lance jamais PingCastle et n'interroge jamais l'annuaire : il li
 msgid "Import a PingCastle report"
 msgstr "Importer un rapport PingCastle"
 
-msgid "Import the ad_hc_<domain>.xml file it produces (not the HTML file)."
-msgstr "Importez le fichier ad_hc_<domaine>.xml qu'il produit (pas le fichier HTML)."
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Importez le fichier ad_hc_[domaine].xml qu'il produit (pas le fichier HTML)."
 
 msgid "Imported on"
 msgstr "Importé le"
@@ -29179,8 +29179,8 @@ msgstr "Rapports importés"
 msgid "Maturity level: %d"
 msgstr "Niveau de maturité : %d"
 
-msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_<domain>.xml file below."
-msgstr "Aucun rapport importé pour l'instant. Lancez PingCastle sur votre domaine, puis importez le fichier ad_hc_<domaine>.xml ci-dessous."
+msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
+msgstr "Aucun rapport importé pour l'instant. Lancez PingCastle sur votre domaine, puis importez le fichier ad_hc_[domaine].xml ci-dessous."
 
 msgid "No rule triggered in this report."
 msgstr "Aucune règle déclenchée dans ce rapport."

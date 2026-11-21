@@ -28825,8 +28825,8 @@ msgstr "O arquivo é grande demais (no máximo 20 MB)."
 msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
 msgstr "O arquivo declara um DOCTYPE ou entidades: é recusado por segurança. Um relatório do PingCastle nunca os contém."
 
-msgid "This is not a PingCastle health check report: import the ad_hc_<domain>.xml file."
-msgstr "Este não é um relatório de verificação de integridade do PingCastle: importe o arquivo ad_hc_<domínio>.xml."
+msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
+msgstr "Este não é um relatório de verificação de integridade do PingCastle: importe o arquivo ad_hc_[domínio].xml."
 
 msgid "The report gives no domain name."
 msgstr "O relatório não indica nenhum nome de domínio."
@@ -28937,8 +28937,8 @@ msgstr "O GLPI nunca executa o PingCastle nem consulta o diretório: ele lê o r
 msgid "Import a PingCastle report"
 msgstr "Importar um relatório do PingCastle"
 
-msgid "Import the ad_hc_<domain>.xml file it produces (not the HTML file)."
-msgstr "Importe o arquivo ad_hc_<domínio>.xml que ele produz (não o arquivo HTML)."
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Importe o arquivo ad_hc_[domínio].xml que ele produz (não o arquivo HTML)."
 
 msgid "Imported on"
 msgstr "Importado em"
@@ -28950,8 +28950,8 @@ msgstr "Relatórios importados"
 msgid "Maturity level: %d"
 msgstr "Nível de maturidade: %d"
 
-msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_<domain>.xml file below."
-msgstr "Nenhum relatório importado ainda. Execute o PingCastle no seu domínio e importe abaixo o arquivo ad_hc_<domínio>.xml."
+msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
+msgstr "Nenhum relatório importado ainda. Execute o PingCastle no seu domínio e importe abaixo o arquivo ad_hc_[domínio].xml."
 
 msgid "No rule triggered in this report."
 msgstr "Nenhuma regra acionada neste relatório."

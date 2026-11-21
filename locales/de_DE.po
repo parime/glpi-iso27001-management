@@ -29292,8 +29292,8 @@ msgstr "Die Datei ist zu groß (höchstens 20 MB)."
 msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
 msgstr "Die Datei deklariert einen DOCTYPE oder Entitäten: Sie wird aus Sicherheitsgründen abgelehnt. Ein PingCastle-Bericht enthält nie welche."
 
-msgid "This is not a PingCastle health check report: import the ad_hc_<domain>.xml file."
-msgstr "Dies ist kein PingCastle-Health-Check-Bericht: Importieren Sie die Datei ad_hc_<Domäne>.xml."
+msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
+msgstr "Dies ist kein PingCastle-Health-Check-Bericht: Importieren Sie die Datei ad_hc_[Domäne].xml."
 
 msgid "The report gives no domain name."
 msgstr "Der Bericht nennt keinen Domänennamen."
@@ -29404,8 +29404,8 @@ msgstr "GLPI führt PingCastle nie aus und fragt das Verzeichnis nie ab: Es lies
 msgid "Import a PingCastle report"
 msgstr "PingCastle-Bericht importieren"
 
-msgid "Import the ad_hc_<domain>.xml file it produces (not the HTML file)."
-msgstr "Importieren Sie die erzeugte Datei ad_hc_<Domäne>.xml (nicht die HTML-Datei)."
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Importieren Sie die erzeugte Datei ad_hc_[Domäne].xml (nicht die HTML-Datei)."
 
 msgid "Imported on"
 msgstr "Importiert am"
@@ -29417,8 +29417,8 @@ msgstr "Importierte Berichte"
 msgid "Maturity level: %d"
 msgstr "Reifegrad: %d"
 
-msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_<domain>.xml file below."
-msgstr "Noch kein Bericht importiert. Führen Sie PingCastle in Ihrer Domäne aus und importieren Sie dann unten die Datei ad_hc_<Domäne>.xml."
+msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
+msgstr "Noch kein Bericht importiert. Führen Sie PingCastle in Ihrer Domäne aus und importieren Sie dann unten die Datei ad_hc_[Domäne].xml."
 
 msgid "No rule triggered in this report."
 msgstr "Keine ausgelöste Regel in diesem Bericht."
