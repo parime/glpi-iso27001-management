@@ -17,7 +17,7 @@
 {% import '@grcmanager/_hint.html.twig' as hints %}
 <div class="container-fluid" id="grc-application-security">
    <p class="text-muted">
-      <i class="ti ti-info-circle me-1"></i>{{ __('Fill in this sheet for each application developed or maintained in-house: it then appears in the register of applications (secure development page) and as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31.', 'grcmanager') }}
+      <i class="ti ti-info-circle me-1"></i>{{ __('Fill in this sheet for each application developed or maintained in-house: it then appears in the register of applications (secure development page) and as evidence for controls A.8.25 to A.8.31.', 'grcmanager') }}
       <a href="{{ register_url }}">{{ __('Open the register', 'grcmanager') }}</a>
    </p>
 
@@ -34,6 +34,18 @@
          {% endif %}
          {% if unjustified %}
             <span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-message-exclamation me-1"></i>{{ __('No justification', 'grcmanager') }}</span>
+         {% endif %}
+         {% for key in separation_gaps %}
+            <span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-arrows-split me-1"></i>{{ __('Not separated: %s', 'grcmanager')|format(separation_details[key]) }}</span>
+         {% endfor %}
+         {% if no_requirements %}
+            <span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-list-check me-1"></i>{{ __('No security requirements', 'grcmanager') }}</span>
+         {% endif %}
+         {% if no_architecture %}
+            <span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-building me-1"></i>{{ __('No architecture principles', 'grcmanager') }}</span>
+         {% endif %}
+         {% if outsourcing_gap %}
+            <span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-file-alert me-1"></i>{{ __('Outsourced without supplier or security clauses', 'grcmanager') }}</span>
          {% endif %}
       </div>
       {% if not can_edit %}
@@ -56,6 +68,26 @@
             <dd class="col-sm-8">{{ separations[profile.environments_separated]|default('-') }}</dd>
             <dt class="col-sm-4">{{ __('Justification', 'grcmanager') }}</dt>
             <dd class="col-sm-8">{{ profile.separation_justification|default('-')|nl2br }}</dd>
+            {% if profile.environments_separated == 'yes' %}
+               {% for key, label in separation_details %}
+                  <dt class="col-sm-4">{{ label }}</dt>
+                  <dd class="col-sm-8">{{ profile[key] ? __('Yes', 'grcmanager') : __('No', 'grcmanager') }}</dd>
+               {% endfor %}
+            {% endif %}
+            <dt class="col-sm-4">{{ __('Security requirements of the application', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ profile.security_requirements|default('-')|nl2br }}</dd>
+            <dt class="col-sm-4">{{ __('Secure architecture principles', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ profile.architecture_principles|default('-')|nl2br }}</dd>
+            <dt class="col-sm-4">{{ __('Outsourced development', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ profile.outsourced ? __('Yes', 'grcmanager') : __('No', 'grcmanager') }}</dd>
+            {% if profile.outsourced %}
+               <dt class="col-sm-4">{{ __('Supplier') }}</dt>
+               <dd class="col-sm-8">{{ supplier_name ?: '-' }}</dd>
+               <dt class="col-sm-4">{{ __('Security clauses in the contract', 'grcmanager') }}</dt>
+               <dd class="col-sm-8">{{ profile.outsourcing_clauses ? __('Yes', 'grcmanager') : __('No', 'grcmanager') }}</dd>
+               <dt class="col-sm-4">{{ __('Supervision of the supplier', 'grcmanager') }}</dt>
+               <dd class="col-sm-8">{{ profile.outsourcing_oversight|default('-')|nl2br }}</dd>
+            {% endif %}
          </dl>
       {% endif %}
    {% elseif not can_edit %}
@@ -102,6 +134,54 @@
             {{ fields.textareaField('separation_justification', profile.separation_justification|default(''), __('Justification', 'grcmanager'), {
                'rows': 3,
                'add_field_html': hints.hint(__('How access, data and configuration are separated, or why they are not (mandatory when the answer is no).', 'grcmanager')),
+            }) }}
+         </div>
+         <div class="row mb-3" id="grc-appsec-separation-details">
+            <div class="col-12 text-muted small mb-1"><i class="ti ti-arrows-split me-1"></i>{{ __('When the environments are separated, tick what is actually separated between development, test and production:', 'grcmanager') }}</div>
+            {% for key, label in separation_details %}
+               <div class="col-md-4">
+                  <label class="form-check">
+                     <input type="checkbox" class="form-check-input" name="{{ key }}" value="1" {{ profile[key]|default(0) ? 'checked' : '' }}>
+                     <span class="form-check-label">{{ label }}</span>
+                  </label>
+               </div>
+            {% endfor %}
+         </div>
+         <h4 class="mt-2"><i class="ti ti-list-check me-1"></i>{{ __('Requirements and architecture (A.8.26, A.8.27)', 'grcmanager') }}</h4>
+         <div class="row">
+            {{ fields.textareaField('security_requirements', profile.security_requirements|default(''), __('Security requirements of the application', 'grcmanager'), {
+               'rows': 3,
+               'add_field_html': hints.hint(__('Requirements identified before development: authentication, data protection, logging, legal obligations, or a link to the specification.', 'grcmanager')),
+            }) }}
+            {{ fields.textareaField('architecture_principles', profile.architecture_principles|default(''), __('Secure architecture principles', 'grcmanager'), {
+               'rows': 3,
+               'add_field_html': hints.hint(__('Principles applied to the design: least privilege, defence in depth, secure defaults, or a link to the architecture document.', 'grcmanager')),
+            }) }}
+         </div>
+         <h4 class="mt-2"><i class="ti ti-building-store me-1"></i>{{ __('Outsourced development (A.8.30)', 'grcmanager') }}</h4>
+         <div class="row">
+            <div class="col-md-4 mb-2">
+               <label class="form-check">
+                  <input type="checkbox" class="form-check-input" name="outsourced" value="1" {{ profile.outsourced|default(0) ? 'checked' : '' }}>
+                  <span class="form-check-label">{{ __('Development entrusted to a supplier', 'grcmanager') }}</span>
+               </label>
+            </div>
+            <div class="col-md-4 mb-2">
+               <label class="form-check">
+                  <input type="checkbox" class="form-check-input" name="outsourcing_clauses" value="1" {{ profile.outsourcing_clauses|default(0) ? 'checked' : '' }}>
+                  <span class="form-check-label">{{ __('Security clauses in the contract', 'grcmanager') }}</span>
+               </label>
+            </div>
+         </div>
+         <div class="row">
+            {{ fields.dropdownField('Supplier', 'suppliers_id', profile.suppliers_id|default(0), __('Supplier'), {
+               'entity': entities_id,
+               'rand': 'grcappsecsupplier',
+               'add_field_html': hints.hint(__('Supplier of GLPI (Management > Suppliers). Ignored when the development is not outsourced.', 'grcmanager')),
+            }) }}
+            {{ fields.textareaField('outsourcing_oversight', profile.outsourcing_oversight|default(''), __('Supervision of the supplier', 'grcmanager'), {
+               'rows': 2,
+               'add_field_html': hints.hint(__('For example: code review of each delivery, acceptance tests, right to audit, escrow of the source code.', 'grcmanager')),
             }) }}
             {{ fields.textareaField('comment', profile.comment|default(''), __('Comment', 'grcmanager'), {'full_width': true, 'rows': 2}) }}
          </div>

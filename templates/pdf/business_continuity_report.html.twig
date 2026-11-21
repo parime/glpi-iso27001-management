@@ -289,3 +289,10 @@
     {% endif %}
   </div>
 {% endfor %}
+
+{# Issue #771, lot 3 : contacts officiels à prévenir pendant la crise (A.5.5, A.5.6). #}
+{% if show_contacts|default(false) %}
+  <h2>{{ __('Official contacts to inform during a crisis', 'grcmanager') }} (A.5.5, A.5.6)</h2>
+  <p class="grc-muted">{{ __('Authorities, CSIRT, police, insurer and special interest groups from the register of official contacts, with the person allowed to contact them.', 'grcmanager') }}</p>
+  {% include '@grcmanager/pdf/_official_contacts_table.html.twig' with {'contacts': contacts, 'perimeter': perimeter} only %}
+{% endif %}

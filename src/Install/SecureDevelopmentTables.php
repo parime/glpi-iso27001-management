@@ -97,6 +97,47 @@ final class SecureDevelopmentTables
         }
     }
 
+    /**
+     * Lot 2 de #777 : détail de la séparation des environnements, exigences de sécurité (A.8.26),
+     * principes d'architecture (A.8.27) et développement externalisé (A.8.30), ajoutés aux fiches
+     * existantes sans toucher à leurs données (rejouable).
+     */
+    public static function upgrade(Migration $migration): void
+    {
+        global $DB;
+
+        $table = self::APPLICATIONS;
+        if (!$DB->tableExists($table) || $DB->fieldExists($table, 'separation_access')) {
+            return;
+        }
+        $after = 'environments_separated';
+        foreach (['separation_access', 'separation_data', 'separation_config'] as $field) {
+            $migration->addField($table, $field, 'bool', ['value' => 0, 'after' => $after]);
+            $after = $field;
+        }
+        $migration->addField($table, 'security_requirements', 'text', [
+            'comment' => 'Exigences de securite de l application (A.8.26)',
+            'after'   => 'separation_justification',
+        ]);
+        $migration->addField($table, 'architecture_principles', 'text', [
+            'comment' => 'Principes d architecture securisee (A.8.27)',
+            'after'   => 'security_requirements',
+        ]);
+        $migration->addField($table, 'outsourced', 'bool', ['value' => 0, 'after' => 'architecture_principles']);
+        $migration->addField($table, 'suppliers_id', 'fkey', ['after' => 'outsourced']);
+        $migration->addField($table, 'outsourcing_clauses', 'bool', [
+            'value'   => 0,
+            'comment' => 'Clauses de securite au contrat du prestataire',
+            'after'   => 'suppliers_id',
+        ]);
+        $migration->addField($table, 'outsourcing_oversight', 'text', [
+            'comment' => 'Suivi du prestataire : revue, recette, droit d audit',
+            'after'   => 'outsourcing_clauses',
+        ]);
+        $migration->addKey($table, 'suppliers_id');
+        $migration->migrationOneTable($table);
+    }
+
     public static function uninstall(Migration $migration): void
     {
         foreach ([self::APPLICATIONS, self::RELEASES] as $table) {

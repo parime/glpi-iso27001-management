@@ -28266,3 +28266,227 @@ msgid "Blocked control"
 msgid_plural "Blocked controls"
 msgstr[0] "Mesure bloquée"
 msgstr[1] "Mesures bloquées"
+
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25 to A.8.31."
+msgstr ""
+"Remplissez cette fiche pour chaque application développée ou maintenue en "
+"interne : elle apparaît alors dans le registre des applications (page "
+"Développement sécurisé) et comme preuve des mesures A.8.25 à A.8.31."
+
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+"Les applications développées ou maintenues en interne, avec leurs pratiques "
+"de développement sécurisé (référentiel, revue de code, analyses SAST, DAST "
+"et des dépendances, exigences de sécurité, principes d'architecture, "
+"développement externalisé, séparation des environnements), et les mises en "
+"production des 12 derniers mois avec leur validation sécurité."
+
+msgid "%d without documented security requirements"
+msgstr "%d sans exigences de sécurité décrites"
+
+msgid "%d without secure architecture principles"
+msgstr "%d sans principes d'architecture sécurisée"
+
+msgid "%d outsourced without supplier or security clauses"
+msgstr "%d externalisée(s) sans prestataire ou sans clauses de sécurité"
+
+msgid "%d with access, data or configuration not separated"
+msgstr "%d avec accès, données ou configuration non séparés"
+
+msgid "Architecture"
+msgstr "Architecture"
+
+msgid "Architecture: %d"
+msgstr "Architecture : %d"
+
+msgid "Requirements: %d"
+msgstr "Exigences : %d"
+
+msgid "Development entrusted to a supplier"
+msgstr "Développement confié à un prestataire"
+
+msgid ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+msgstr ""
+"Par exemple : revue de code de chaque livraison, tests de recette, droit "
+"d'audit, séquestre du code source."
+
+msgid "No architecture principles"
+msgstr "Aucun principe d'architecture"
+
+msgid "No security requirements"
+msgstr "Aucune exigence de sécurité"
+
+msgid "Not separated: %s"
+msgstr "Non séparé : %s"
+
+msgid "Outsourced development (A.8.30)"
+msgstr "Développement externalisé (A.8.30)"
+
+msgid "Outsourced without supplier or security clauses"
+msgstr "Externalisé sans prestataire ou sans clauses de sécurité"
+
+msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
+msgstr "Externalisées : %1$d, sans prestataire ou clauses : %2$d"
+
+msgid ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+msgstr ""
+"Principes appliqués à la conception : moindre privilège, défense en "
+"profondeur, sécurité par défaut, ou lien vers le document d'architecture."
+
+msgid "Requirements and architecture (A.8.26, A.8.27)"
+msgstr "Exigences et architecture (A.8.26, A.8.27)"
+
+msgid ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+msgstr ""
+"Exigences identifiées avant le développement : authentification, protection "
+"des données, journalisation, obligations légales, ou lien vers le cahier des "
+"charges."
+
+msgid "Secure architecture principles"
+msgstr "Principes d'architecture sécurisée"
+
+msgid "Security clauses in the contract"
+msgstr "Clauses de sécurité au contrat"
+
+msgid "Security requirements of the application"
+msgstr "Exigences de sécurité de l'application"
+
+msgid "Separate access (accounts, rights)"
+msgstr "Accès séparés (comptes, droits)"
+
+msgid "Separate configuration (secrets, settings)"
+msgstr "Configuration séparée (secrets, paramètres)"
+
+msgid "Separate data (no production data outside production, or anonymised)"
+msgstr ""
+"Données séparées (pas de données de production hors production, ou "
+"anonymisées)"
+
+msgid "Supervised"
+msgstr "Encadré"
+
+msgid "Supervision of the supplier"
+msgstr "Suivi du prestataire"
+
+msgid ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+msgstr ""
+"Fournisseur de GLPI (Gestion > Fournisseurs). Ignoré si le développement "
+"n'est pas externalisé."
+
+msgid ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+msgstr ""
+"Si les environnements sont séparés, cochez ce qui l'est réellement entre "
+"développement, test et production :"
+
+msgid "Without supplier or clauses"
+msgstr "Sans prestataire ou clauses"
+
+msgid "%d outsourced application"
+msgid_plural "%d outsourced applications"
+msgstr[0] "%d application externalisée"
+msgstr[1] "%d applications externalisées"
+
+msgid ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+msgstr ""
+"Tracer aussi une prise de contact avec les contacts officiels cochés (onglet "
+"« Contacts officiels »)"
+
+msgid "Archive on controls A.5.5 and A.5.6"
+msgstr "Archiver sur les mesures A.5.5 et A.5.6"
+
+msgid "Archived registers:"
+msgstr "Registres archivés :"
+
+msgid ""
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
+msgstr ""
+"Autorités, CSIRT, forces de l'ordre, assureur et groupes d'intérêt du "
+"registre des contacts officiels, avec la personne habilitée à les contacter."
+
+#, php-format
+msgid "Crisis communication: \"%s\""
+msgstr "Communication de crise : « %s »"
+
+msgid ""
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
+msgstr ""
+"Pendant un exercice, tracez les appels que vous passeriez : le rapport "
+"montre alors si les délais auraient été tenus."
+
+msgid "From a crisis communication"
+msgstr "Depuis une communication de crise"
+
+msgid "No official contact is set for this type of incident."
+msgstr "Aucun contact officiel n'est prévu pour ce type d'incident."
+
+msgid "Official contacts to inform"
+msgstr "Contacts officiels à prévenir"
+
+msgid "Official contacts to inform during a crisis"
+msgstr "Contacts officiels à prévenir pendant une crise"
+
+msgid "Only for these types of incident"
+msgstr "Seulement pour ces types d'incident"
+
+msgid ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+msgstr ""
+"Facultatif : laissez vide pour afficher ce contact sur tous les incidents de "
+"sécurité. Un incident de type « Violation de données » affiche aussi les "
+"contacts à prévenir pour une violation de données personnelles."
+
+#, php-format
+msgid "Register of official contacts - %s"
+msgstr "Registre des contacts officiels - %s"
+
+msgid ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+msgstr ""
+"Enregistre le registre en document PDF daté sur les mesures A.5.5 et A.5.6 "
+"de la déclaration d'applicabilité."
+
+msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
+msgstr "Le registre a été archivé comme preuve sur les mesures A.5.5 et A.5.6."
+
+msgid ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+msgstr ""
+"Enregistrez chaque contact officiel, cochez les événements (et au besoin les "
+"types d'incident) pour lesquels le prévenir, vérifiez ses coordonnées au "
+"moins une fois par an, gardez une copie imprimée du registre (PDF) pour "
+"l'utiliser pendant une crise, et archivez-le sur les mesures A.5.5 et A.5.6 "
+"après chaque revue."
+
+#, php-format
+msgid "%d official contact recorded as contacted."
+msgid_plural "%d official contacts recorded as contacted."
+msgstr[0] "%d contact officiel tracé comme prévenu."
+msgstr[1] "%d contacts officiels tracés comme prévenus."
