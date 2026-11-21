@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 11:01+0000\n"
+"POT-Creation-Date: 2026-11-21 11:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -973,7 +973,7 @@ msgstr ""
 msgid "The register has been archived as evidence on control A.5.37."
 msgstr ""
 
-#: front/parkmachines.php:26 src/Menu.php:192
+#: front/parkmachines.php:26 src/Menu.php:194
 msgid "Most exposed machines"
 msgstr ""
 
@@ -1463,6 +1463,30 @@ msgstr ""
 msgid "Ticket qualified as security incident no. %d."
 msgstr ""
 
+#: front/servermanagement.php:58
+msgid "Controller saved. Click \"Read now\" to read it."
+msgstr ""
+
+#: front/servermanagement.php:71
+#, php-format
+msgid "Controller read: %d local account(s)."
+msgstr ""
+
+#: front/servermanagement.php:72
+msgid ""
+"Controller read. Its local accounts could not be read with this account."
+msgstr ""
+
+#: front/servermanagement.php:82
+msgid "Controller deleted."
+msgstr ""
+
+#: front/servermanagement.php:113
+#, php-format
+msgid ""
+"%1$d controller(s) imported, %2$d updated, %3$d ignored (read by Redfish)."
+msgstr ""
+
 #: front/shareaccess.php:73
 #, php-format
 msgid ""
@@ -1509,7 +1533,7 @@ msgid ""
 "check the others."
 msgstr ""
 
-#: front/softwarewatch.php:69 src/Menu.php:185
+#: front/softwarewatch.php:69 src/Menu.php:187
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
@@ -2130,7 +2154,7 @@ msgstr ""
 #: templates/log_coverage.html.twig templates/park_vulnerabilities.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/crisis_scenarios_report.html.twig
-#: templates/risk_heatmap.html.twig
+#: templates/risk_heatmap.html.twig templates/server_management.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
 #: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
 msgid "Critical"
@@ -3053,6 +3077,7 @@ msgstr ""
 
 #: src/AdSecurityAudit.php:231 src/ControlTest.php:652
 #: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
+#: src/ServerManagement.php:298
 msgid "The file is empty."
 msgstr ""
 
@@ -3778,7 +3803,7 @@ msgstr ""
 #: templates/configuration_compliance.html.twig templates/control_csv.html.twig
 #: templates/edr_import.html.twig templates/log_coverage.html.twig
 #: templates/mfa_coverage.html.twig templates/phishing_import.html.twig
-#: templates/share_access.html.twig
+#: templates/server_management.html.twig templates/share_access.html.twig
 msgid "Import"
 msgstr ""
 
@@ -4111,6 +4136,7 @@ msgid "Success"
 msgstr ""
 
 #: src/BackupCoverage.php:184 src/ZabbixMonitoring.php:139
+#: templates/server_management.html.twig
 msgid "Warning"
 msgstr ""
 
@@ -4121,7 +4147,7 @@ msgstr ""
 
 #: src/BackupCoverage.php:188 src/ConfigurationCompliance.php:156
 #: src/DiskEncryption.php:143 src/PatchCompliance.php:155
-#: templates/disk_encryption.html.twig
+#: src/ServerManagement.php:944 templates/disk_encryption.html.twig
 msgid "Unknown"
 msgstr ""
 
@@ -4242,6 +4268,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/BackupCoverage.php:915 templates/_mfa_coverage_evidence.html.twig
+#: templates/_server_management_evidence.html.twig
 #: templates/control_form.html.twig
 #, php-format
 msgid "Computed on %s"
@@ -4254,8 +4281,10 @@ msgstr ""
 #: src/BackupCoverage.php:926 src/BackupCoverage.php:985
 #: src/ConfigurationCompliance.php:701
 #: templates/_mfa_coverage_evidence.html.twig
+#: templates/_server_management_evidence.html.twig
 #: templates/_zabbix_monitoring_evidence.html.twig
 #: templates/ad_security_audit.html.twig templates/control_form.html.twig
+#: templates/server_management_item_tab.html.twig
 msgid "View the details"
 msgstr ""
 
@@ -5494,7 +5523,7 @@ msgstr ""
 msgid "Audit plan of the certification body"
 msgstr ""
 
-#: src/Compat/Http.php:300
+#: src/Compat/Http.php:304
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
@@ -10310,6 +10339,37 @@ msgstr ""
 msgid "MFA coverage"
 msgstr ""
 
+#: src/Feature/ServerManagementFeature.php:40
+msgid ""
+"Lists the remote management controllers of the servers (HPE iLO, Dell iDRAC, "
+"Lenovo XClarity Controller, Supermicro IPMI): they give full control of a "
+"server, even switched off, and are often forgotten. The page shows their "
+"firmware, their risky settings, their exposure outside the administration "
+"networks and their local accounts, and the physical servers without a known "
+"controller."
+msgstr ""
+
+#: src/Feature/ServerManagementFeature.php:48
+msgid ""
+"Declare each controller with a local read-only account and click \"Read "
+"now\" (Redfish, read only), or import a CSV file for controllers with IPMI "
+"only. Then fix the gaps on the controllers yourself and review their "
+"accounts: the plugin never changes anything on the servers."
+msgstr ""
+
+#: src/Feature/ServerManagementFeature.php:54
+msgid "ISO/IEC 27001, controls A.8.2, A.8.9 and A.8.22"
+msgstr ""
+
+#: src/Feature/ServerManagementFeature.php:64
+msgid "Server management controllers with a serious gap"
+msgstr ""
+
+#: src/Feature/ServerManagementFeature.php:76 src/ServerManagement.php:77
+#: templates/server_management_item_tab.html.twig
+msgid "Server management controllers"
+msgstr ""
+
 #: src/Feature/ZabbixMonitoringFeature.php:40
 msgid ""
 "Reads your Zabbix monitoring server, in read only: hosts, problems and "
@@ -11159,7 +11219,8 @@ msgstr ""
 #: templates/pdf/competence_report.html.twig
 #: templates/pdf/network_flow_report.html.twig
 #: templates/personnel_compliance_list.html.twig
-#: templates/share_access.html.twig templates/share_access_detail.html.twig
+#: templates/server_management.html.twig templates/share_access.html.twig
+#: templates/share_access_detail.html.twig
 msgid "Gaps"
 msgstr ""
 
@@ -15197,7 +15258,8 @@ msgid_plural "Record of processing activities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ProcessingActivity.php:103
+#: src/ProcessingActivity.php:103 templates/server_management.html.twig
+#: templates/server_management_item_tab.html.twig
 msgid "Controller"
 msgstr ""
 
@@ -16902,6 +16964,7 @@ msgstr ""
 #: src/SecurityIncidentEdrImport.php:74 src/ShareAccess.php:152
 #: templates/edr_import.html.twig templates/mfa_coverage.html.twig
 #: templates/pdf/access_review_report.html.twig
+#: templates/server_management.html.twig
 #: templates/share_access_detail.html.twig
 #: templates/tabs/_access_review_rows.html.twig
 msgid "Account"
@@ -17282,6 +17345,227 @@ msgstr ""
 
 #: src/SentinelOneAlert.php:783 templates/supplier_security_watch.html.twig
 msgid "Alert"
+msgstr ""
+
+#: src/ServerManagement.php:132
+msgid "Last reading failed"
+msgstr ""
+
+#: src/ServerManagement.php:133
+msgid "The values shown come from the previous successful reading."
+msgstr ""
+
+#: src/ServerManagement.php:137 templates/server_management_item_tab.html.twig
+msgid "Never read"
+msgstr ""
+
+#: src/ServerManagement.php:138
+msgid "Click \"Read now\" to read the controller."
+msgstr ""
+
+#: src/ServerManagement.php:142
+msgid "IPMI over the network enabled"
+msgstr ""
+
+#: src/ServerManagement.php:144
+msgid ""
+"IPMI over LAN has known weaknesses (password hashes can be retrieved): "
+"disable it if it is not used."
+msgstr ""
+
+#: src/ServerManagement.php:151 templates/server_management.html.twig
+msgid "Default account still enabled"
+msgstr ""
+
+#: src/ServerManagement.php:153
+msgid ""
+"A factory account (root, Administrator, ADMIN, USERID) is enabled: check "
+"that its password was changed, or disable it."
+msgstr ""
+
+#: src/ServerManagement.php:160 templates/server_management.html.twig
+msgid "Outside the administration networks"
+msgstr ""
+
+#: src/ServerManagement.php:162
+msgid ""
+"The address of the controller is not in an administration network declared "
+"in the network flow matrix: segregation gap."
+msgstr ""
+
+#: src/ServerManagement.php:169
+msgid "Telnet enabled"
+msgstr ""
+
+#: src/ServerManagement.php:170
+msgid "Telnet sends the password in clear text: disable it."
+msgstr ""
+
+#: src/ServerManagement.php:174
+msgid "Old protocols (SSLv3, TLS 1.0 or 1.1)"
+msgstr ""
+
+#: src/ServerManagement.php:175
+msgid "Reported by the import: keep only TLS 1.2 and later."
+msgstr ""
+
+#: src/ServerManagement.php:179
+msgid "Certificate expired"
+msgstr ""
+
+#: src/ServerManagement.php:180
+msgid "The HTTPS certificate of the controller has expired."
+msgstr ""
+
+#: src/ServerManagement.php:184
+msgid "Hardware health critical"
+msgstr ""
+
+#: src/ServerManagement.php:185
+msgid "The controller reports a critical hardware state."
+msgstr ""
+
+#: src/ServerManagement.php:189
+msgid "SNMP v1 or v2c enabled"
+msgstr ""
+
+#: src/ServerManagement.php:190
+msgid "SNMP v1 and v2c use a community sent in clear text: prefer SNMPv3."
+msgstr ""
+
+#: src/ServerManagement.php:194
+msgid "Secure Boot disabled"
+msgstr ""
+
+#: src/ServerManagement.php:195
+msgid "Secure Boot of the server is disabled."
+msgstr ""
+
+#: src/ServerManagement.php:199
+msgid "Self-signed certificate"
+msgstr ""
+
+#: src/ServerManagement.php:200
+msgid "Replace it with a certificate of your certification authority."
+msgstr ""
+
+#: src/ServerManagement.php:204
+msgid "Certificate not verified"
+msgstr ""
+
+#: src/ServerManagement.php:206
+msgid ""
+"The controller is read with the option accepting a self-signed certificate: "
+"its identity is not verified."
+msgstr ""
+
+#: src/ServerManagement.php:213
+msgid "Hardware health degraded"
+msgstr ""
+
+#: src/ServerManagement.php:214
+msgid "The controller reports a warning on the hardware."
+msgstr ""
+
+#: src/ServerManagement.php:218
+msgid "Certificate expiring soon"
+msgstr ""
+
+#: src/ServerManagement.php:219
+#, php-format
+msgid "The HTTPS certificate expires within %d days."
+msgstr ""
+
+#: src/ServerManagement.php:223
+msgid "No matching server in GLPI"
+msgstr ""
+
+#: src/ServerManagement.php:225
+msgid ""
+"No computer of GLPI has this serial number: choose the server by hand on the "
+"controller."
+msgstr ""
+
+#: src/ServerManagement.php:255
+msgid ""
+"Enter the address, the account and the password of the controller first."
+msgstr ""
+
+#: src/ServerManagement.php:259
+msgid "The controller refused the account or the password."
+msgstr ""
+
+#: src/ServerManagement.php:263
+msgid "The controller refused access: give the account the read-only role."
+msgstr ""
+
+#: src/ServerManagement.php:267
+msgid ""
+"The controller has an internal address, refused by default: allow internal "
+"addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+
+#: src/ServerManagement.php:272
+msgid ""
+"The certificate of the controller is not trusted (self-signed or expired): "
+"install a certificate of your certification authority, or tick \"Accept a "
+"self-signed certificate\" for this controller."
+msgstr ""
+
+#: src/ServerManagement.php:278
+msgid ""
+"The controller could not be reached: check the address, the network access "
+"or the GLPI proxy."
+msgstr ""
+
+#: src/ServerManagement.php:282
+msgid ""
+"No Redfish service at this address: for a controller with IPMI only, use the "
+"CSV import."
+msgstr ""
+
+#: src/ServerManagement.php:286
+msgid ""
+"The address must be a https:// address of the controller, without path or "
+"parameters."
+msgstr ""
+
+#: src/ServerManagement.php:289
+msgid "Enter a name."
+msgstr ""
+
+#: src/ServerManagement.php:290
+msgid "Enter the password again: the address or the account changed."
+msgstr ""
+
+#: src/ServerManagement.php:291
+msgid "The server chosen cannot be used."
+msgstr ""
+
+#: src/ServerManagement.php:293
+msgid ""
+"This controller comes from the CSV import: import the file again to update "
+"it."
+msgstr ""
+
+#: src/ServerManagement.php:296
+msgid "Controller not found."
+msgstr ""
+
+#: src/ServerManagement.php:297 src/ZabbixMonitoring.php:231
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: src/ServerManagement.php:299
+msgid "The file has no \"name\" column."
+msgstr ""
+
+#: src/ServerManagement.php:300
+msgid "The controller returned an unexpected answer."
+msgstr ""
+
+#: src/ServerManagement.php:1068
+msgid "Management controller"
 msgstr ""
 
 #: src/Services/Continuity/CrisisScenarioDefaults.php:78
@@ -18688,10 +18972,6 @@ msgstr ""
 msgid "Refused: the connector only reads from Zabbix."
 msgstr ""
 
-#: src/ZabbixMonitoring.php:231
-msgid "You are not allowed to do this."
-msgstr ""
-
 #: src/ZabbixMonitoring.php:232
 msgid "Zabbix returned an unexpected answer."
 msgstr ""
@@ -19425,6 +19705,46 @@ msgstr ""
 
 #: templates/_responsibility_summary.html.twig
 msgid "Open the responsibility matrix"
+msgstr ""
+
+#: templates/_server_management_evidence.html.twig
+#, php-format
+msgid "%d administrator account(s)"
+msgstr ""
+
+#: templates/_server_management_evidence.html.twig
+#, php-format
+msgid "%d controller(s)"
+msgstr ""
+
+#: templates/_server_management_evidence.html.twig
+#, php-format
+msgid "%d outside the administration networks"
+msgstr ""
+
+#: templates/_server_management_evidence.html.twig
+#, php-format
+msgid "%d physical server(s) without a known controller"
+msgstr ""
+
+#: templates/_server_management_evidence.html.twig
+#, php-format
+msgid "%d risky setting(s)"
+msgstr ""
+
+#: templates/_server_management_evidence.html.twig
+#, php-format
+msgid "%d with a default account enabled"
+msgstr ""
+
+#: templates/_server_management_evidence.html.twig
+#, php-format
+msgid "%d with a serious gap"
+msgstr ""
+
+#: templates/_server_management_evidence.html.twig
+#: templates/server_management.html.twig
+msgid "No administration network declared"
 msgstr ""
 
 #: templates/_zabbix_monitoring_evidence.html.twig
@@ -20662,7 +20982,7 @@ msgstr ""
 #: templates/log_coverage.html.twig templates/mfa_coverage.html.twig
 #: templates/network_flow_import.html.twig
 #: templates/phishing_results_tab.html.twig templates/risk_import.html.twig
-#: templates/share_access.html.twig
+#: templates/server_management.html.twig templates/share_access.html.twig
 msgid "CSV file"
 msgstr ""
 
@@ -20823,6 +21143,7 @@ msgstr ""
 #: templates/pdf/evidence_pack_index.html.twig
 #: templates/pdf/physical_security_report.html.twig
 #: templates/physical_security_checklist_tab.html.twig
+#: templates/server_management.html.twig
 msgid "State"
 msgstr ""
 
@@ -21265,6 +21586,7 @@ msgstr ""
 #: templates/audit_team_tab.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/responsibility_activity_form.html.twig
+#: templates/server_management.html.twig
 #: templates/tabs/business_process_items.html.twig
 #: templates/tabs/business_process_links.html.twig
 #: templates/tabs/incident_team.html.twig
@@ -21553,7 +21875,7 @@ msgstr ""
 msgid "Password saved"
 msgstr ""
 
-#: templates/backup_coverage.html.twig
+#: templates/backup_coverage.html.twig templates/server_management.html.twig
 msgid "Password saved (leave empty to keep it)"
 msgstr ""
 
@@ -23326,7 +23648,8 @@ msgstr ""
 msgid "Other types (one per line)"
 msgstr ""
 
-#: templates/config_form.html.twig templates/zabbix_monitoring.html.twig
+#: templates/config_form.html.twig templates/server_management.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Outgoing connections"
 msgstr ""
 
@@ -23609,13 +23932,14 @@ msgstr ""
 #: templates/custom_framework_list.html.twig
 #: templates/endoflife_config.html.twig
 #: templates/responsibility_matrix.html.twig
+#: templates/server_management.html.twig
 msgid "Disabled"
 msgstr ""
 
 #: templates/config_sentinelone.html.twig
 #: templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig
-#: templates/endoflife_config.html.twig
+#: templates/endoflife_config.html.twig templates/server_management.html.twig
 msgid "Enabled"
 msgstr ""
 
@@ -30743,8 +31067,8 @@ msgid ""
 "changes nothing in GLPI."
 msgstr ""
 
-#: templates/patch_compliance.html.twig templates/share_access.html.twig
-#: templates/zabbix_monitoring.html.twig
+#: templates/patch_compliance.html.twig templates/server_management.html.twig
+#: templates/share_access.html.twig templates/zabbix_monitoring.html.twig
 msgid "Server"
 msgstr ""
 
@@ -31647,6 +31971,7 @@ msgstr ""
 
 #: templates/pdf/network_flow_report.html.twig
 #: templates/pdf/processing_register_report.html.twig
+#: templates/server_management_item_tab.html.twig
 msgid "Address"
 msgstr ""
 
@@ -32777,6 +33102,7 @@ msgid "Previous campaigns"
 msgstr ""
 
 #: templates/policy_acknowledgement_tab.html.twig
+#: templates/server_management_item_tab.html.twig
 #, php-format
 msgid "Read on %s"
 msgstr ""
@@ -34537,6 +34863,303 @@ msgstr ""
 #: templates/secure_development_page.html.twig
 #, php-format
 msgid "out of %d release(s)"
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "%1$d controllers: the first %2$d are shown, serious gaps first."
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "%d administration network(s) declared"
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "%d administrator account(s) in all"
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "%d read at least once"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"A controller is matched with a computer of GLPI by the serial number of the "
+"server, or by the server chosen by hand. Gaps are only reported: nothing is "
+"changed on the controller. Hover a gap to see what to do."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Accept a self-signed certificate for this controller"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Account (read only)"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"Accounts read on each controller, to review in the privileged access review: "
+"an account of a controller gives full control of the server, even switched "
+"off."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Address of the controller"
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "BIOS: %s"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "By serial number"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "CSV import"
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "Certificate until %s"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Chosen by hand"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"Computers of GLPI seen as servers (type or operating system) and not virtual "
+"(model or manufacturer), for which no controller is declared. A controller "
+"nobody knows is never updated nor reviewed."
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "Controller: %s"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Controllers"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Controllers and their gaps"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"Controllers usually have an internal address, which the plugin refuses by "
+"default. To read them, allow internal addresses in the plugin configuration "
+"page."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Controllers with a serious gap"
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "Coverage: %d%%"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Declare a controller read by Redfish"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Default account"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Delete this controller and its accounts read?"
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "Edit the controller %s"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"Encrypted by GLPI and never shown again. If you change the address or the "
+"account, enter it again."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Every physical server has a known controller."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Firmware and BIOS"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"For controllers with IPMI only, or an export of a manufacturer tool. One "
+"line per controller; a controller already imported with the same name is "
+"updated. Columns (header line, separator ; or ,):"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "For example: iLO of srv-db-01"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Health"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Healthy"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "IPMI over the network, default account, exposure..."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Import controllers without Redfish (CSV)"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Last reading"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Leave empty to match the server by its serial number."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Local accounts of the controllers"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Locked"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "No account read yet."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"No administration network is declared in the network flow matrix: the "
+"exposure of the controllers cannot be checked. Write the address range in "
+"the source or the destination of a flow whose name says it is an "
+"administration zone (for example \"MGMT 10.0.99.0/24\" or \"OOB iLO "
+"192.0.2.0/24\")."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"No controller yet: declare one below, or import a CSV file for controllers "
+"with IPMI only."
+msgstr ""
+
+#: templates/server_management.html.twig
+#: templates/server_management_item_tab.html.twig
+msgid "No gap found"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "No physical server in GLPI"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"Off by default. When ticked, the identity of the controller is not verified: "
+"prefer a certificate of your certification authority."
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid ""
+"Only \"name\" is required. Yes/no columns accept yes, no, oui, non, 1, 0 "
+"(empty: unknown). Accounts: user:role separated by \";\" inside the cell, "
+"for example \"root:Administrator;audit:ReadOnly\", \":disabled\" for a "
+"disabled account. Maximum size: %s."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Open the network flow matrix"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Physical servers without a known controller"
+msgstr ""
+
+#: templates/server_management.html.twig templates/zabbix_monitoring.html.twig
+msgid "Read now"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"Read only: the plugin only sends Redfish read requests (GET). It never "
+"restarts a server, never updates a firmware and never changes a setting. Use "
+"a local account of the controller with the read-only role."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Self-signed accepted"
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid "Serial number: %s"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Server in GLPI"
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid "Server in GLPI (optional)"
+msgstr ""
+
+#: templates/server_management.html.twig
+#, php-format
+msgid ""
+"The controller is saved in the entity %s. Create on the controller a local "
+"account with the read-only role (ReadOnly): the plugin only reads."
+msgstr ""
+
+#: templates/server_management.html.twig
+msgid ""
+"https:// only, with the name or the IP address of the controller and an "
+"optional port."
+msgstr ""
+
+#: templates/server_management_item_tab.html.twig
+msgid "BIOS"
+msgstr ""
+
+#: templates/server_management_item_tab.html.twig
+msgid "Firmware of the controller"
+msgstr ""
+
+#: templates/server_management_item_tab.html.twig
+msgid "IPMI over the network"
+msgstr ""
+
+#: templates/server_management_item_tab.html.twig
+msgid "Local accounts"
+msgstr ""
+
+#: templates/server_management_item_tab.html.twig
+msgid ""
+"No management controller (iLO, iDRAC, XClarity, IPMI) is known for this "
+"computer. A controller is matched by the serial number of the server, or "
+"chosen by hand on the controller."
+msgstr ""
+
+#: templates/server_management_item_tab.html.twig
+msgid "Secure Boot"
 msgstr ""
 
 #: templates/share_access.html.twig
@@ -37280,10 +37903,6 @@ msgstr ""
 
 #: templates/zabbix_monitoring.html.twig
 msgid "Read automatically every day (automatic action \"zabbix\")"
-msgstr ""
-
-#: templates/zabbix_monitoring.html.twig
-msgid "Read now"
 msgstr ""
 
 #: templates/zabbix_monitoring.html.twig

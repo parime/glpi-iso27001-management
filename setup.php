@@ -273,6 +273,9 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
     ]);
+    // Issue #843 : onglet « Contrôleur de gestion » sur les ordinateurs (iLO, iDRAC, XClarity, IPMI),
+    // lecture seule.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ServerManagement::class, ['addtabon' => ['Computer']]);
     // Issue #620 : onglet « Violation de données personnelles » de l'incident qualifié de violation.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\DataBreach::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
