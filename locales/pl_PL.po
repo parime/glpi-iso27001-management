@@ -34318,26 +34318,46 @@ msgid "Files of type .%s are not accepted."
 msgstr "Pliki typu .%s nie są akceptowane."
 
 #, php-format
-msgid "Supplier answers received by secure link %1$d: %2$d answer(s), %3$d document(s), to be reviewed"
-msgstr "Odpowiedzi dostawcy otrzymane przez bezpieczny link %1$d: odpowiedzi %2$d, dokumenty %3$d, do przejrzenia"
+msgid ""
+"Supplier answers received by secure link %1$d: %2$d answer(s), %3$d "
+"document(s), to be reviewed"
+msgstr ""
+"Odpowiedzi dostawcy otrzymane przez bezpieczny link %1$d: odpowiedzi %2$d, "
+"dokumenty %3$d, do przejrzenia"
 
 #, php-format
 msgid "Answers received by secure link on %s"
 msgstr "Odpowiedzi otrzymane przez bezpieczny link %s"
 
 #, php-format
-msgid "Supplier answers received by secure link reviewed and saved: %1$d answer(s), %2$d document(s)"
-msgstr "Odpowiedzi dostawcy z bezpiecznego linku przejrzane i zapisane: odpowiedzi %1$d, dokumenty %2$d"
+msgid ""
+"Supplier answers received by secure link reviewed and saved: %1$d answer(s), "
+"%2$d document(s)"
+msgstr ""
+"Odpowiedzi dostawcy z bezpiecznego linku przejrzane i zapisane: odpowiedzi "
+"%1$d, dokumenty %2$d"
 
 #, php-format
 msgid "Supplier answers received by secure link discarded (draft %d)"
 msgstr "Odpowiedzi dostawcy z bezpiecznego linku odrzucone (wersja robocza %d)"
 
-msgid "Shows the answers sent by the supplier through the secure link, question by question, next to the current answers, with the documents received. They are not part of the evaluation yet."
-msgstr "Pokazuje odpowiedzi wysłane przez dostawcę przez bezpieczny link, pytanie po pytaniu, obok obecnych odpowiedzi, wraz z otrzymanymi dokumentami. Nie są jeszcze częścią oceny."
+msgid ""
+"Shows the answers sent by the supplier through the secure link, question by "
+"question, next to the current answers, with the documents received. They are "
+"not part of the evaluation yet."
+msgstr ""
+"Pokazuje odpowiedzi wysłane przez dostawcę przez bezpieczny link, pytanie po "
+"pytaniu, obok obecnych odpowiedzi, wraz z otrzymanymi dokumentami. Nie są "
+"jeszcze częścią oceny."
 
-msgid "Check the answers, then save them (the documents are checked again like any evidence) or discard them. Then review the evaluation and mark it as completed."
-msgstr "Sprawdź odpowiedzi, a następnie je zapisz (dokumenty są ponownie sprawdzane jak każdy dowód) lub odrzuć. Potem przejrzyj ocenę i oznacz ją jako zakończoną."
+msgid ""
+"Check the answers, then save them (the documents are checked again like any "
+"evidence) or discard them. Then review the evaluation and mark it as "
+"completed."
+msgstr ""
+"Sprawdź odpowiedzi, a następnie je zapisz (dokumenty są ponownie sprawdzane "
+"jak każdy dowód) lub odrzuć. Potem przejrzyj ocenę i oznacz ją jako "
+"zakończoną."
 
 #, php-format
 msgid "Question %s: choose an answer from the list."
@@ -34354,7 +34374,9 @@ msgid "Nothing was sent: answer at least one question."
 msgstr "Nic nie zostało wysłane: odpowiedz na co najmniej jedno pytanie."
 
 msgid "Secure link created: copy it now, it will not be shown again."
-msgstr "Utworzono bezpieczny link: skopiuj go teraz, nie zostanie ponownie wyświetlony."
+msgstr ""
+"Utworzono bezpieczny link: skopiuj go teraz, nie zostanie ponownie "
+"wyświetlony."
 
 msgid "The link was revoked: it no longer opens the questionnaire."
 msgstr "Link został unieważniony: nie otwiera już kwestionariusza."
@@ -34364,10 +34386,19 @@ msgstr "Otrzymane odpowiedzi zostały odrzucone."
 
 #, php-format
 msgid "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
-msgstr "Zapisano odpowiedzi z bezpiecznego linku: %1$d, dołączono dokumenty: %2$d."
+msgstr ""
+"Zapisano odpowiedzi z bezpiecznego linku: %1$d, dołączono dokumenty: %2$d."
 
-msgid "Your customer asks you to answer this security questionnaire. Choose an answer for each question, add a comment if useful and attach the documents asked for. Your answers are sent to your customer, who reviews them before they are recorded."
-msgstr "Twój klient prosi o odpowiedź na ten kwestionariusz bezpieczeństwa. Wybierz odpowiedź na każde pytanie, w razie potrzeby dodaj komentarz i dołącz wymagane dokumenty. Odpowiedzi trafiają do klienta, który przegląda je przed zapisaniem."
+msgid ""
+"Your customer asks you to answer this security questionnaire. Choose an "
+"answer for each question, add a comment if useful and attach the documents "
+"asked for. Your answers are sent to your customer, who reviews them before "
+"they are recorded."
+msgstr ""
+"Twój klient prosi o odpowiedź na ten kwestionariusz bezpieczeństwa. Wybierz "
+"odpowiedź na każde pytanie, w razie potrzeby dodaj komentarz i dołącz "
+"wymagane dokumenty. Odpowiedzi trafiają do klienta, który przegląda je przed "
+"zapisaniem."
 
 #, php-format
 msgid "Link valid until %s"
@@ -34390,29 +34421,57 @@ msgid "Document (optional)"
 msgstr "Dokument (opcjonalnie)"
 
 #, php-format
-msgid "Documents: at most %d MB each, in the formats accepted by your customer (PDF, office documents, images...)."
-msgstr "Dokumenty: maksymalnie %d MB każdy, w formatach akceptowanych przez klienta (PDF, dokumenty biurowe, obrazy...)."
+msgid ""
+"Documents: at most %d MB each, in the formats accepted by your customer "
+"(PDF, office documents, images...)."
+msgstr ""
+"Dokumenty: maksymalnie %d MB każdy, w formatach akceptowanych przez klienta "
+"(PDF, dokumenty biurowe, obrazy...)."
 
 msgid "Send my answers"
 msgstr "Wyślij moje odpowiedzi"
 
-msgid "Thank you: your answers were sent. Your customer will review them; you can close this page."
-msgstr "Dziękujemy: odpowiedzi zostały wysłane. Klient je przejrzy; możesz zamknąć tę stronę."
+msgid ""
+"Thank you: your answers were sent. Your customer will review them; you can "
+"close this page."
+msgstr ""
+"Dziękujemy: odpowiedzi zostały wysłane. Klient je przejrzy; możesz zamknąć "
+"tę stronę."
 
 msgid "Too many requests: wait a few minutes, then try again."
 msgstr "Zbyt wiele żądań: odczekaj kilka minut i spróbuj ponownie."
 
-msgid "This link can no longer be used: it has expired, was revoked or was already used. Ask your contact for a new link."
-msgstr "Tego linku nie można już użyć: wygasł, został unieważniony lub już wykorzystany. Poproś swojego rozmówcę o nowy link."
+msgid ""
+"This link can no longer be used: it has expired, was revoked or was already "
+"used. Ask your contact for a new link."
+msgstr ""
+"Tego linku nie można już użyć: wygasł, został unieważniony lub już "
+"wykorzystany. Poproś swojego rozmówcę o nowy link."
 
-msgid "This link is not valid. Check that you copied it in full, or ask your contact for a new link."
-msgstr "Ten link jest nieprawidłowy. Sprawdź, czy skopiowano go w całości, lub poproś rozmówcę o nowy link."
+msgid ""
+"This link is not valid. Check that you copied it in full, or ask your "
+"contact for a new link."
+msgstr ""
+"Ten link jest nieprawidłowy. Sprawdź, czy skopiowano go w całości, lub "
+"poproś rozmówcę o nowy link."
 
 msgid "Supplier answer by secure link"
 msgstr "Odpowiedź dostawcy przez bezpieczny link"
 
-msgid "Lets a supplier answer its security questionnaire on a page served by GLPI, without a GLPI account, from a personal link created on the evaluation (tab \"Secure link\"). Enable it only if this GLPI can be reached by your suppliers. The link opens only the questions of one evaluation, expires, can be used a limited number of times and can be revoked; the answers wait for a review in GLPI. The answer by file works without this setting."
-msgstr "Pozwala dostawcy odpowiedzieć na kwestionariusz bezpieczeństwa na stronie udostępnianej przez GLPI, bez konta GLPI, przez osobisty link utworzony w ocenie (karta „Bezpieczny link”). Włącz tylko, jeśli dostawcy mają dostęp do tego GLPI. Link otwiera tylko pytania jednej oceny, wygasa, można go użyć ograniczoną liczbę razy i unieważnić; odpowiedzi czekają na przegląd w GLPI. Odpowiedź przez plik działa bez tego ustawienia."
+msgid ""
+"Lets a supplier answer its security questionnaire on a page served by GLPI, "
+"without a GLPI account, from a personal link created on the evaluation (tab "
+"\"Secure link\"). Enable it only if this GLPI can be reached by your "
+"suppliers. The link opens only the questions of one evaluation, expires, can "
+"be used a limited number of times and can be revoked; the answers wait for a "
+"review in GLPI. The answer by file works without this setting."
+msgstr ""
+"Pozwala dostawcy odpowiedzieć na kwestionariusz bezpieczeństwa na stronie "
+"udostępnianej przez GLPI, bez konta GLPI, przez osobisty link utworzony w "
+"ocenie (karta „Bezpieczny link”). Włącz tylko, jeśli dostawcy mają dostęp do "
+"tego GLPI. Link otwiera tylko pytania jednej oceny, wygasa, można go użyć "
+"ograniczoną liczbę razy i unieważnić; odpowiedzi czekają na przegląd w GLPI. "
+"Odpowiedź przez plik działa bez tego ustawienia."
 
 msgid "Allow suppliers to answer by secure link"
 msgstr "Pozwól dostawcom odpowiadać przez bezpieczny link"
@@ -34426,8 +34485,18 @@ msgstr "Ocena zakończona"
 msgid "Answer by secure link, without a GLPI account"
 msgstr "Odpowiedź przez bezpieczny link, bez konta GLPI"
 
-msgid "Send the supplier a personal link to a page served by GLPI, where it answers the questions of this evaluation and attaches its documents, without a GLPI account. The page shows only these questions. The link expires, can be used a limited number of times and can be revoked at any time. The answers received stay pending until you review and save them."
-msgstr "Wyślij dostawcy osobisty link do strony udostępnianej przez GLPI, na której odpowiada na pytania tej oceny i dołącza dokumenty, bez konta GLPI. Strona pokazuje tylko te pytania. Link wygasa, można go użyć ograniczoną liczbę razy i unieważnić w każdej chwili. Otrzymane odpowiedzi czekają, aż je przejrzysz i zapiszesz."
+msgid ""
+"Send the supplier a personal link to a page served by GLPI, where it answers "
+"the questions of this evaluation and attaches its documents, without a GLPI "
+"account. The page shows only these questions. The link expires, can be used "
+"a limited number of times and can be revoked at any time. The answers "
+"received stay pending until you review and save them."
+msgstr ""
+"Wyślij dostawcy osobisty link do strony udostępnianej przez GLPI, na której "
+"odpowiada na pytania tej oceny i dołącza dokumenty, bez konta GLPI. Strona "
+"pokazuje tylko te pytania. Link wygasa, można go użyć ograniczoną liczbę "
+"razy i unieważnić w każdej chwili. Otrzymane odpowiedzi czekają, aż je "
+"przejrzysz i zapiszesz."
 
 msgid "Answers to review"
 msgstr "Odpowiedzi do przejrzenia"
@@ -34441,11 +34510,19 @@ msgstr "Odpowiedzi"
 msgid "Link to send to the supplier"
 msgstr "Link do wysłania dostawcy"
 
-msgid "Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). Send it by the means of your choice."
-msgstr "Skopiuj go teraz: jest wyświetlany tylko raz (GLPI przechowuje tylko jego skrót). Wyślij go wybranym sposobem."
+msgid ""
+"Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). "
+"Send it by the means of your choice."
+msgstr ""
+"Skopiuj go teraz: jest wyświetlany tylko raz (GLPI przechowuje tylko jego "
+"skrót). Wyślij go wybranym sposobem."
 
-msgid "The secure link is disabled. An administrator of the plugin can enable it in the plugin settings; the answer by file stays available."
-msgstr "Bezpieczny link jest wyłączony. Administrator wtyczki może go włączyć w ustawieniach wtyczki; odpowiedź przez plik pozostaje dostępna."
+msgid ""
+"The secure link is disabled. An administrator of the plugin can enable it in "
+"the plugin settings; the answer by file stays available."
+msgstr ""
+"Bezpieczny link jest wyłączony. Administrator wtyczki może go włączyć w "
+"ustawieniach wtyczki; odpowiedź przez plik pozostaje dostępna."
 
 msgid "Open the settings"
 msgstr "Otwórz ustawienia"
@@ -34459,7 +34536,8 @@ msgstr "Dozwolone wysłania"
 msgid "Create a link"
 msgstr "Utwórz link"
 
-msgid "This evaluation is completed: its links no longer open the questionnaire."
+msgid ""
+"This evaluation is completed: its links no longer open the questionnaire."
 msgstr "Ta ocena jest zakończona: jej linki nie otwierają już kwestionariusza."
 
 msgid "Expires"
@@ -34474,11 +34552,204 @@ msgstr "Otwarcia"
 msgid "Created by"
 msgstr "Utworzone przez"
 
-msgid "The creation of a link, each opening, each sending and each revocation are recorded in the security audit log; the Historical tab shows the sendings received and reviewed."
-msgstr "Utworzenie linku, każde otwarcie, każde wysłanie i każde unieważnienie są zapisywane w dzienniku audytu bezpieczeństwa; karta Historia pokazuje otrzymane i przejrzane wysłania."
+msgid ""
+"The creation of a link, each opening, each sending and each revocation are "
+"recorded in the security audit log; the Historical tab shows the sendings "
+"received and reviewed."
+msgstr ""
+"Utworzenie linku, każde otwarcie, każde wysłanie i każde unieważnienie są "
+"zapisywane w dzienniku audytu bezpieczeństwa; karta Historia pokazuje "
+"otrzymane i przejrzane wysłania."
 
 msgid "Discard these answers"
 msgstr "Odrzuć te odpowiedzi"
 
-msgid "They are checked again like any evidence when you save, then attached to their question."
-msgstr "Przy zapisie są ponownie sprawdzane jak każdy dowód, a następnie dołączane do pytania."
+msgid ""
+"They are checked again like any evidence when you save, then attached to "
+"their question."
+msgstr ""
+"Przy zapisie są ponownie sprawdzane jak każdy dowód, a następnie dołączane "
+"do pytania."
+
+msgid ""
+"Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
+"The evidence pack includes it."
+msgstr ""
+"Raport zarchiwizowany jako dowód wymagań 10.1 i 10.2 (karta Dokumenty). "
+"Pakiet dowodów go uwzględnia."
+
+msgid "The report could not be archived."
+msgstr "Nie udało się zarchiwizować raportu."
+
+msgid ""
+"Shows the backlog of non-conformities, other findings and corrective "
+"actions, and of the actions decided in management reviews: what is still "
+"open by severity, origin, entity and owner, how old it is, what is overdue, "
+"the mean time to close over a period, the monthly trend and whether the "
+"effectiveness of closed actions was verified."
+msgstr ""
+"Pokazuje zaległości niezgodności, innych ustaleń i działań korygujących oraz "
+"działań podjętych w przeglądach zarządzania: co pozostaje otwarte według "
+"wagi, pochodzenia, jednostki i właściciela, od jak dawna, co jest opóźnione, "
+"średni czas zamknięcia w okresie, trend miesięczny oraz czy zweryfikowano "
+"skuteczność zamkniętych działań."
+
+msgid ""
+"Choose the period and the filters, follow up the overdue items with their "
+"owners, then export the report in PDF or CSV for the auditor, or archive it "
+"as evidence of requirements 10.1 and 10.2: the evidence pack then includes "
+"it. Nothing is changed automatically."
+msgstr ""
+"Wybierz okres i filtry, monituj właścicieli opóźnionych pozycji, a następnie "
+"wyeksportuj raport do PDF lub CSV dla audytora albo zarchiwizuj go jako "
+"dowód wymagań 10.1 i 10.2: pakiet dowodów go wtedy uwzględni. Nic nie jest "
+"zmieniane automatycznie."
+
+msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+msgstr "ISO/IEC 27001, punkty 9.1, 10.1 i 10.2"
+
+msgid "Mean time to close gaps (days, 12 months)"
+msgstr "Średni czas zamknięcia niezgodności (dni, 12 miesięcy)"
+
+msgid "Gap backlog"
+msgstr "Zaległości niezgodności"
+
+msgid "Other finding or improvement action"
+msgstr "Inne ustalenie lub działanie doskonalące"
+
+msgid "Other source"
+msgstr "Inne źródło"
+
+msgid "30 days or less"
+msgstr "30 dni lub mniej"
+
+msgid "31 to 90 days"
+msgstr "31 do 90 dni"
+
+msgid "91 to 180 days"
+msgstr "91 do 180 dni"
+
+msgid "More than 180 days"
+msgstr "Ponad 180 dni"
+
+msgid "Opened on"
+msgstr "Otwarto"
+
+msgid "Age (days)"
+msgstr "Wiek (dni)"
+
+msgid "Days overdue"
+msgstr "Dni opóźnienia"
+
+msgid "Effectiveness verified"
+msgstr "Skuteczność zweryfikowana"
+
+#, php-format
+msgid "Gap backlog report - %1$s (%2$s to %3$s)"
+msgstr "Raport zaległości niezgodności - %1$s (%2$s do %3$s)"
+
+#, php-format
+msgid "Effectiveness verified: %d%%"
+msgstr "Skuteczność zweryfikowana: %d%%"
+
+#, php-format
+msgid "Last 12 months, computed on %s"
+msgstr "Ostatnie 12 miesięcy, obliczono %s"
+
+#, php-format
+msgid "Mean time to close: %d days"
+msgstr "Średni czas zamknięcia: %d dni"
+
+msgid "Mean time to close: not measured"
+msgstr "Średni czas zamknięcia: nie zmierzono"
+
+#, php-format
+msgid "Open gaps: %d"
+msgstr "Otwarte niezgodności: %d"
+
+#, php-format
+msgid "%1$d closed in the period, median: %2$s"
+msgstr "%1$d zamkniętych w okresie, mediana: %2$s"
+
+msgid "Age of open gaps"
+msgstr "Wiek otwartych niezgodności"
+
+#, php-format
+msgid "Archive as evidence (%s)"
+msgstr "Zarchiwizuj jako dowód (%s)"
+
+msgid "Backlog at month end"
+msgstr "Zaległości na koniec miesiąca"
+
+msgid "By entity"
+msgstr "Według jednostki"
+
+msgid "By origin"
+msgstr "Według pochodzenia"
+
+msgid "By owner"
+msgstr "Według właściciela"
+
+msgid "By severity"
+msgstr "Według wagi"
+
+#, php-format
+msgid "Closed in the period: %1$d verified, %2$d to verify"
+msgstr "Zamknięte w okresie: %1$d zweryfikowanych, %2$d do weryfikacji"
+
+msgid "Due date passed and not closed"
+msgstr "Termin minął, niezamknięte"
+
+msgid "From (month)"
+msgstr "Od (miesiąc)"
+
+msgid "Mean time to close"
+msgstr "Średni czas zamknięcia"
+
+msgid "Month"
+msgstr "Miesiąc"
+
+#, php-format
+msgid "No due date: %d"
+msgstr "Bez terminu: %d"
+
+msgid "No open gap with these filters."
+msgstr "Brak otwartych niezgodności dla tych filtrów."
+
+msgid "Nothing open."
+msgstr "Brak otwartych."
+
+#, php-format
+msgid "Only the first %d gaps are listed: the CSV export contains all of them."
+msgstr ""
+"Wyświetlono tylko pierwsze %d niezgodności: eksport CSV zawiera wszystkie."
+
+msgid "Open gaps"
+msgstr "Otwarte niezgodności"
+
+msgid "Open gaps, most overdue first"
+msgstr "Otwarte niezgodności, najbardziej opóźnione najpierw"
+
+msgid "To (month)"
+msgstr "Do (miesiąc)"
+
+msgid "By type"
+msgstr "Według typu"
+
+msgid "Closed in the period"
+msgstr "Zamknięte w okresie"
+
+msgid "ISMS requirements"
+msgstr "Wymagania SZBI"
+
+msgid ""
+"Mean time to close: days between the opening and the closure of the gaps "
+"closed in the period. Effectiveness verified: closed non-conformities and "
+"findings whose closure was verified."
+msgstr ""
+"Średni czas zamknięcia: dni między otwarciem a zamknięciem niezgodności "
+"zamkniętych w okresie. Skuteczność zweryfikowana: zamknięte niezgodności i "
+"ustalenia, których zamknięcie zweryfikowano."
+
+msgid "Opened in the period"
+msgstr "Otwarte w okresie"

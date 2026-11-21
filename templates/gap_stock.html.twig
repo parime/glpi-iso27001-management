@@ -1,0 +1,192 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #870 : rapport du stock d'écarts (clauses 10.1 et 10.2), entités de la personne. Lecture
+   seule ; exports CSV et PDF, archivage du PDF comme preuve. Reçoit GapStockReport::report(). #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% set s = summary %}
+{% macro kpi(id, icon, color, value, title, help) %}
+   <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+      <div class="d-flex align-items-center">
+         <span class="badge bg-{{ color }}-subtle text-{{ color }}-emphasis me-2 fs-3"><i class="{{ icon }}"></i></span>
+         <div>
+            <div class="fw-bold fs-3" id="{{ id }}">{{ value }}</div>
+            <div class="small">{{ title }}</div>
+         </div>
+      </div>
+      {% if help %}<div class="small text-muted mt-1">{{ help }}</div>{% endif %}
+   </div></div></div>
+{% endmacro %}
+{% macro axis(title, icon, values, labels) %}
+   <div class="col-md-6 col-xl-3"><div class="card h-100">
+      <div class="card-header"><h3 class="card-title"><i class="{{ icon }} me-1"></i>{{ title }}</h3></div>
+      <table class="table table-sm card-table mb-0">
+         <thead><tr><th></th><th class="text-end">{{ __('Open', 'grcmanager') }}</th><th class="text-end">{{ __('Overdue', 'grcmanager') }}</th></tr></thead>
+         <tbody>
+         {% for key, v in values %}
+            <tr>
+               <td>{{ labels[key]|default(key) }}</td>
+               <td class="text-end">{{ v.open }}</td>
+               <td class="text-end">{% if v.overdue > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis">{{ v.overdue }}</span>{% else %}0{% endif %}</td>
+            </tr>
+         {% else %}
+            <tr><td colspan="3" class="text-muted">{{ __('Nothing open.', 'grcmanager') }}</td></tr>
+         {% endfor %}
+         </tbody>
+      </table>
+   </div></div>
+{% endmacro %}
+
+<div id="grc-gap-stock">
+   <form method="get" action="{{ url }}" class="card mb-3" id="grc-gap-stock-filters">
+      <div class="card-body row g-2 align-items-end">
+         <div class="col-6 col-md-2">
+            <label class="form-label" for="grc-gap-from">{{ __('From (month)', 'grcmanager') }}</label>
+            <input type="month" class="form-control" id="grc-gap-from" name="from" value="{{ filters.from }}">
+         </div>
+         <div class="col-6 col-md-2">
+            <label class="form-label" for="grc-gap-to">{{ __('To (month)', 'grcmanager') }}</label>
+            <input type="month" class="form-control" id="grc-gap-to" name="to" value="{{ filters.to }}">
+         </div>
+         <div class="col-6 col-md-2">
+            <label class="form-label" for="grc-gap-kind">{{ __('Type', 'grcmanager') }}</label>
+            <select class="form-select" id="grc-gap-kind" name="kind">
+               <option value="">{{ __('All', 'grcmanager') }}</option>
+               {% for key, label in labels.kinds %}<option value="{{ key }}" {{ filters.kind == key ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+            </select>
+         </div>
+         <div class="col-6 col-md-2">
+            <label class="form-label" for="grc-gap-severity">{{ __('Severity', 'grcmanager') }}</label>
+            <select class="form-select" id="grc-gap-severity" name="severity">
+               <option value="">{{ __('All', 'grcmanager') }}</option>
+               {% for key, label in labels.severities %}{% if key != '' %}<option value="{{ key }}" {{ filters.severity == key ? 'selected' : '' }}>{{ label }}</option>{% endif %}{% endfor %}
+            </select>
+         </div>
+         <div class="col-6 col-md-2">
+            <label class="form-label" for="grc-gap-origin">{{ __('Origin', 'grcmanager') }}</label>
+            <select class="form-select" id="grc-gap-origin" name="origin">
+               <option value="">{{ __('All', 'grcmanager') }}</option>
+               {% for key, label in labels.origins %}<option value="{{ key }}" {{ filters.origin == key ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+            </select>
+         </div>
+         {% if entity_options is not empty %}
+         <div class="col-6 col-md-2">
+            <label class="form-label" for="grc-gap-entity">{{ __('Entity') }}</label>
+            <select class="form-select" id="grc-gap-entity" name="entities_id">
+               <option value="0">{{ __('All', 'grcmanager') }}</option>
+               {% for id, label in entity_options %}<option value="{{ id }}" {{ filters.entities_id == id ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+            </select>
+         </div>
+         {% endif %}
+         <div class="col-12 col-md-3">
+            {{ fields.dropdownField('User', 'users_id', filters.users_id, __('Owner', 'grcmanager'), {'right': 'all', 'display_emptychoice': true, 'is_horizontal': false, 'full_width': true}) }}
+         </div>
+         <div class="col-12 col-md-auto">
+            <button type="submit" class="btn btn-primary"><i class="ti ti-filter me-1"></i>{{ __('Apply', 'grcmanager') }}</button>
+            <a class="btn btn-outline-secondary" href="{{ url }}">{{ __('Reset', 'grcmanager') }}</a>
+         </div>
+      </div>
+   </form>
+
+   <div class="d-flex flex-wrap gap-2 mb-3">
+      <a class="btn btn-outline-primary" id="grc-gap-export-csv" href="{{ url }}?{{ export_query }}{{ export_query ? '&' : '' }}export=csv"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export CSV', 'grcmanager') }}</a>
+      <a class="btn btn-outline-primary" id="grc-gap-export-pdf" href="{{ url }}?{{ export_query }}{{ export_query ? '&' : '' }}export=pdf"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export PDF', 'grcmanager') }}</a>
+      {% if can_archive %}
+         <form method="post" action="{{ url }}" class="d-inline">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            {% for key in ['from', 'to', 'kind', 'severity', 'origin', 'users_id', 'entities_id'] %}<input type="hidden" name="{{ key }}" value="{{ filters[key] }}">{% endfor %}
+            <button type="submit" name="archive_gap_stock" value="1" class="btn btn-outline-success"><i class="ti ti-archive me-1"></i>{{ __('Archive as evidence (%s)', 'grcmanager')|format(clauses) }}</button>
+         </form>
+      {% endif %}
+      <span class="small text-muted align-self-center">{{ period_label }}</span>
+   </div>
+
+   <div class="row row-cards mb-3">
+      {{ _self.kpi('grc-gap-open', 'ti ti-alert-hexagon', s.open.total > 0 ? 'warning' : 'success', s.open.total, __('Open gaps', 'grcmanager'), __('No due date: %d', 'grcmanager')|format(s.open.no_due)) }}
+      {{ _self.kpi('grc-gap-overdue', 'ti ti-calendar-due', s.open.overdue > 0 ? 'danger' : 'success', s.open.overdue, __('Overdue', 'grcmanager'), __('Due date passed and not closed', 'grcmanager')) }}
+      {{ _self.kpi('grc-gap-mean', 'ti ti-clock-check', 'info', s.mean_closure is null ? '-' : __('%d days', 'grcmanager')|format(s.mean_closure), __('Mean time to close', 'grcmanager'), __('%1$d closed in the period, median: %2$s', 'grcmanager')|format(s.closed_in_period, s.median_closure is null ? '-' : __('%d days', 'grcmanager')|format(s.median_closure))) }}
+      {% set vcolor = s.verified_rate is null ? 'secondary' : (s.verified_rate >= 90 ? 'success' : (s.verified_rate >= 60 ? 'warning' : 'danger')) %}
+      {{ _self.kpi('grc-gap-verified', 'ti ti-rosette-discount-check', vcolor, s.verified_rate is null ? '-' : s.verified_rate ~ ' %', __('Effectiveness verified', 'grcmanager'), __('Closed in the period: %1$d verified, %2$d to verify', 'grcmanager')|format(s.verified, s.to_verify)) }}
+   </div>
+
+   <div class="row row-cards mb-3">
+      {{ _self.axis(__('By severity', 'grcmanager'), 'ti ti-flame', s.open.by_severity, labels.severities) }}
+      {{ _self.axis(__('By origin', 'grcmanager'), 'ti ti-route', s.open.by_origin, labels.origins) }}
+      {{ _self.axis(__('By entity', 'grcmanager'), 'ti ti-stack', s.open.by_entity, labels.entities) }}
+      {{ _self.axis(__('By owner', 'grcmanager'), 'ti ti-user', s.open.by_owner, labels.owners) }}
+   </div>
+
+   <div class="row row-cards mb-3">
+      <div class="col-md-4"><div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-hourglass me-1"></i>{{ __('Age of open gaps', 'grcmanager') }}</h3></div>
+         <table class="table table-sm card-table mb-0" id="grc-gap-ages">
+            {% for key, label in labels.ages %}
+               {% set acolor = key == '180+' ? 'danger' : (key == '91-180' ? 'warning' : 'secondary') %}
+               <tr><td>{{ label }}</td><td class="text-end"><span class="badge bg-{{ acolor }}-subtle text-{{ acolor }}-emphasis">{{ s.open.by_age[key] }}</span></td></tr>
+            {% endfor %}
+         </table>
+      </div></div>
+      <div class="col-md-8"><div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-line me-1"></i>{{ __('Monthly trend', 'grcmanager') }}</h3></div>
+         <div class="table-responsive">
+            <table class="table table-sm card-table mb-0" id="grc-gap-trend">
+               <thead><tr><th>{{ __('Month', 'grcmanager') }}</th><th class="text-end">{{ __('Opened', 'grcmanager') }}</th><th class="text-end">{{ __('Closed', 'grcmanager') }}</th><th class="text-end">{{ __('Backlog at month end', 'grcmanager') }}</th><th class="w-50"></th></tr></thead>
+               <tbody>
+               {% for p in s.trend %}
+                  <tr>
+                     <td>{{ p.month }}</td>
+                     <td class="text-end">{{ p.opened }}</td>
+                     <td class="text-end">{{ p.closed }}</td>
+                     <td class="text-end fw-bold">{{ p.stock }}</td>
+                     <td><div class="progress progress-sm" title="{{ p.stock }}"><div class="progress-bar bg-warning" style="width: {{ (100 * p.stock / max_stock)|round }}%"></div></div></td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div></div>
+   </div>
+
+   <div class="card">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-list-details me-1"></i>{{ __('Open gaps, most overdue first', 'grcmanager') }}</h3></div>
+      <div class="table-responsive">
+         <table class="table table-sm table-hover card-table mb-0" id="grc-gap-open-list">
+            <thead><tr>
+               <th>{{ __('Title', 'grcmanager') }}</th><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Origin', 'grcmanager') }}</th>
+               <th>{{ __('Severity', 'grcmanager') }}</th><th>{{ __('Entity') }}</th><th>{{ __('Owner', 'grcmanager') }}</th>
+               <th>{{ __('Status') }}</th><th class="text-end">{{ __('Age (days)', 'grcmanager') }}</th><th>{{ __('Due date', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+            {% for r in open_rows %}
+               {% set scolor = r.severity == 'critical' ? 'danger' : (r.severity == 'major' ? 'warning' : 'secondary') %}
+               <tr>
+                  <td><a href="{{ r.url }}">{{ r.title ?: ('#' ~ r.id) }}</a></td>
+                  <td>{{ r.kind_label }}</td>
+                  <td>{{ r.origin_label }}</td>
+                  <td>{% if r.severity %}<span class="badge bg-{{ scolor }}-subtle text-{{ scolor }}-emphasis">{{ r.severity_label }}</span>{% else %}-{% endif %}</td>
+                  <td>{{ r.entity }}</td>
+                  <td>{{ r.owner ?: '-' }}</td>
+                  <td>{{ r.status }}</td>
+                  <td class="text-end">{{ r.age }}</td>
+                  <td>{% if r.overdue_days > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-alarm me-1"></i>{{ r.due_label }} · {{ __('%d days late', 'grcmanager')|format(r.overdue_days) }}</span>{% elseif r.due_label %}{{ r.due_label }}{% else %}<span class="badge bg-warning-subtle text-warning-emphasis">{{ __('No due date', 'grcmanager') }}</span>{% endif %}</td>
+               </tr>
+            {% else %}
+               <tr><td colspan="9" class="text-muted">{{ __('No open gap with these filters.', 'grcmanager') }}</td></tr>
+            {% endfor %}
+            </tbody>
+         </table>
+      </div>
+      {% if open_truncated %}<div class="card-footer small text-muted">{{ __('Only the first %d gaps are listed: the CSV export contains all of them.', 'grcmanager')|format(constant('GlpiPlugin\\Grcmanager\\GapStockReport::MAX_ROWS')) }}</div>{% endif %}
+   </div>
+</div>

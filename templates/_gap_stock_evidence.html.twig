@@ -1,0 +1,24 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #870 : cadre de preuve du stock d'écarts (exigences 10.1 et 10.2), dans les entités de la
+   personne. Reçoit « evidence » (GapStockReport::evidence()), affiché par la fiche de l'exigence. #}
+<div id="grc-gap-stock-evidence">
+   <span class="badge {{ evidence.open > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alert-hexagon me-1"></i>{{ __('Open gaps: %d', 'grcmanager')|format(evidence.open) }}</span>
+   <span class="badge {{ evidence.overdue > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-calendar-due me-1"></i>{{ __('Overdue: %d', 'grcmanager')|format(evidence.overdue) }}</span>
+   <span class="badge bg-info-subtle text-info-emphasis me-1"><i class="ti ti-clock-check me-1"></i>{{ evidence.mean_closure is null ? __('Mean time to close: not measured', 'grcmanager') : __('Mean time to close: %d days', 'grcmanager')|format(evidence.mean_closure) }}</span>
+   {% if evidence.verified_rate is not null %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-rosette-discount-check me-1"></i>{{ __('Effectiveness verified: %d%%', 'grcmanager')|format(evidence.verified_rate) }}</span>{% endif %}
+   <span class="small text-muted me-2">{{ __('Last 12 months, computed on %s', 'grcmanager')|format(evidence.date) }}</span>
+   <a href="{{ evidence.url }}">{{ __('View the details', 'grcmanager') }}</a>
+</div>
