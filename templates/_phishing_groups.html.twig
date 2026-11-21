@@ -1,0 +1,59 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #604, lot 2 : taux d'une campagne par service (groupe GLPI) ou par entité, jamais nominatifs.
+   Paramètres : rows (name, counts, rates, hidden, campaigns?, date_label?), title, icon, id, hint,
+   with_campaigns (colonnes du nombre de campagnes et de la date de la dernière). #}
+<div class="card mb-3" id="{{ id }}">
+   <div class="card-header"><h3 class="card-title"><i class="{{ icon }} me-2"></i>{{ title }}</h3></div>
+   <div class="table-responsive">
+      <table class="table table-sm table-vcenter card-table">
+         <thead>
+            <tr>
+               <th>{{ first_column }}</th>
+               {% if with_campaigns %}
+                  <th class="text-end">{{ __('Campaigns', 'grcmanager') }}</th>
+                  <th>{{ __('Last campaign', 'grcmanager') }}</th>
+               {% endif %}
+               <th class="text-end">{{ __('Emails received', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Link clicked', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Data entered', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Reported', 'grcmanager') }}</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for row in rows %}
+               <tr>
+                  <td>{{ row.name }}</td>
+                  {% if with_campaigns %}
+                     <td class="text-end">{{ row.campaigns }}</td>
+                     <td>{{ row.date_label }}</td>
+                  {% endif %}
+                  {% if row.hidden %}
+                     <td colspan="4" class="text-secondary small"><i class="ti ti-eye-off me-1"></i>{{ __('Too few people to show anonymous rates', 'grcmanager') }}</td>
+                  {% else %}
+                     <td class="text-end">{{ row.counts.sent }}</td>
+                     <td class="text-end">{{ row.rates.clicked is not null ? row.rates.clicked ~ ' %' : '-' }}</td>
+                     <td class="text-end">{{ row.rates.submitted is not null ? row.rates.submitted ~ ' %' : '-' }}</td>
+                     <td class="text-end">{{ row.rates.reported is not null ? row.rates.reported ~ ' %' : '-' }}</td>
+                  {% endif %}
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+   {% if hint %}
+      <div class="card-footer small text-secondary">{{ hint }}</div>
+   {% endif %}
+</div>

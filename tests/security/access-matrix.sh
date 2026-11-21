@@ -109,8 +109,11 @@ phishing_matrix() {
     "$(code -d "anonymize=1&id=$(id phishing_B)&_glpi_csrf_token=$(csrf)" "$P/phishingcampaign.form.php")"
   case $ROLE in none|reader|general)
     expect "supprimer les resultats par personne de A" 403 \
-      "$(code -d "anonymize=1&id=$(id phishing_A)&_glpi_csrf_token=$(csrf)" "$P/phishingcampaign.form.php")" ;;
+      "$(code -d "anonymize=1&id=$(id phishing_A)&_glpi_csrf_token=$(csrf)" "$P/phishingcampaign.form.php")"
+    # Issue #604, lot 2 : la duree de conservation exige la configuration ET les registres sensibles.
+    expect "front/config.php : duree de conservation des resultats d'hameconnage" 403       "$(code -d "update_phishing_retention=1&phishing_retention_months=1&_glpi_csrf_token=$(csrf)" "$P/config.php")" ;;
   esac
+  contains "onglet Resultats de la campagne de A : taux par groupe" "grc-phishing-groups" $see "$tab_a"
   return 0
 }
 
