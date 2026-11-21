@@ -743,6 +743,9 @@ type de matériel.
    avec le score et l'échéance. Sur la fiche d'une mesure A.7.x de la SoA, le cadre « Sécurité
    physique des sites » donne l'état de la mesure sur chaque site. Le lieu de GLPI a aussi un onglet
    « Sécurité physique » avec l'historique de ses évaluations.
+8. Pour l'auditeur, cliquez sur **Rapport (PDF)** en haut de la fiche de l'évaluation : résumé
+   (évaluateur, statut, politique, score), grille A.7.1 à A.7.14 avec constats, preuves et actions,
+   puis les zones et leurs contrôles d'accès. Le rapport est calculé à la demande avec vos droits.
 ### Étape 28 : Préparer la communication de crise (mesure A.5.26, article 7.4)
 
 1. Dans l'en-tête de la liste des incidents de sécurité, cliquez sur **Modèles de messages de
@@ -1732,6 +1735,9 @@ hardware.
    with the score and the due date. On an A.7.x control of the SoA, the "Physical security of the
    sites" box gives the state of the control on each site. The GLPI location also has a "Physical
    security" tab with the history of its assessments.
+8. For the auditor, click **Report (PDF)** at the top of the assessment form: summary (assessor,
+   status, policy, score), A.7.1 to A.7.14 checklist with findings, evidence and actions, then the
+   zones and their access controls. The report is computed on demand with your rights.
 ### Step 28: Prepare crisis communication (control A.5.26, clause 7.4)
 
 1. In the header of the security incident list, click **Crisis message templates**. Five templates

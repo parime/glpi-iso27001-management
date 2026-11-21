@@ -47,6 +47,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     nouvelle table ni colonne, et une revue tracée ne se modifie plus. Seules la date, la personne
     et la prochaine revue sont affichées, avec le droit de lire les politiques. Ce lot termine
     l'issue #775.
+- **Sécurité physique des sites : rapport PDF de l'évaluation** (issue #778, lot 2, mesures A.7.1
+  à A.7.14) : bouton « Rapport (PDF) » sur la fiche d'une évaluation, avec le résumé (évaluateur,
+  statut, échéance, politique, score et décompte des états), la grille avec constats, preuves,
+  documents cités, actions CAPA et état précédent, puis les zones et leurs contrôles d'accès avec
+  les signalements. Même droit et même entité que la fiche, calculé à la demande, rien n'est
+  conservé. Ligne « Sécurité physique » dans les README. Ce lot termine l'issue #778.
 
 ## [2.72.0] - 2026-11-21
 
