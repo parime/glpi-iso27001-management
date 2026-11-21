@@ -1,7 +1,7 @@
 ### Faire répondre un fournisseur par fichier
 
 Quand le fournisseur n'a pas accès à GLPI, envoyez-lui le questionnaire d'une évaluation sous forme
-de fichier (voir {{step:0075-evaluate-supplier-questionnaires.md}}).
+de fichier (voir {{step:0075-evaluate-supplier-questionnaires}}).
 
 1. Dans l'onglet **Fichier fournisseur** de l'évaluation, cliquez sur **Télécharger le
    questionnaire à remplir**. Le fichier CSV contient une ligne par question ; sa première ligne

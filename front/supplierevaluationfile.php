@@ -37,16 +37,23 @@ if ($id <= 0 || !$evaluation->getFromDB($id)) {
     Html::redirect(SupplierRisk::getSearchURL());
 }
 
-$forget = static function () use ($key): void {
-    $pending = $_SESSION[$key] ?? null;
-    $path = is_array($pending) ? (string) ($pending['path'] ?? '') : '';
-    $real = realpath($path) ?: '';
+// Fichier en attente : seul un jeton aléatoire créé ici est gardé en session (clé à part), le chemin
+// est reconstruit sous GLPI_TMP_DIR ; rien du chemin ne vient de la requête.
+$pendingFile = static function () use ($key): string {
+    $token = $_SESSION[$key . '_file'] ?? '';
+
+    return is_string($token) && preg_match('/^[0-9a-f]{24}$/', $token) === 1
+        ? GLPI_TMP_DIR . '/grcmanager-supplier-' . $token . '.csv'
+        : '';
+};
+$forget = static function () use ($key, $pendingFile): void {
+    $real = realpath($pendingFile()) ?: '';
     if ($real !== '' && str_starts_with($real, (realpath(GLPI_TMP_DIR) ?: '/nonexistent') . DIRECTORY_SEPARATOR)) {
         // Chemin créé par le serveur (nom aléatoire gardé en session) et vérifié sous GLPI_TMP_DIR.
         // nosemgrep: php.lang.security.unlink-use.unlink-use
         @unlink($real);
     }
-    unset($_SESSION[$key]);
+    unset($_SESSION[$key], $_SESSION[$key . '_file']);
 };
 
 if (isset($_GET['export'])) {
@@ -89,17 +96,19 @@ if (isset($_POST['upload'])) {
         );
         Html::redirect($back);
     }
-    $stored = GLPI_TMP_DIR . '/grcmanager-supplier-' . bin2hex(random_bytes(12)) . '.csv';
+    $token = bin2hex(random_bytes(12));
+    $stored = GLPI_TMP_DIR . '/grcmanager-supplier-' . $token . '.csv';
     if (!move_uploaded_file($file['tmp_name'], $stored)) {
         Session::addMessageAfterRedirect(htmlescape(__('The file could not be received.', 'grcmanager')), false, ERROR);
         Html::redirect($back);
     }
     $name = EvidenceUploadRules::safeName(basename((string) ($file['name'] ?? ''))) ?? 'questionnaire.csv';
-    $_SESSION[$key] = ['evaluation' => $id, 'path' => $stored, 'name' => $name];
+    $_SESSION[$key] = ['evaluation' => $id, 'name' => $name];
+    $_SESSION[$key . '_file'] = $token;
 }
 
 $pending = $_SESSION[$key] ?? null;
-$pendingPath = is_array($pending) ? (string) ($pending['path'] ?? '') : '';
+$pendingPath = $pendingFile();
 $valid = is_array($pending) && (int) ($pending['evaluation'] ?? 0) === $id && $pendingPath !== ''
     && str_starts_with(realpath($pendingPath) ?: '', (realpath(GLPI_TMP_DIR) ?: '/nonexistent') . DIRECTORY_SEPARATOR)
     && is_readable($pendingPath);

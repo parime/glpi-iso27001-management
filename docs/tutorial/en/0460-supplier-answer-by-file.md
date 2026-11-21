@@ -1,7 +1,7 @@
 ### Have a supplier answer by file
 
 When the supplier has no access to GLPI, send the questionnaire of an evaluation as a file (see
-{{step:0075-evaluate-supplier-questionnaires.md}}).
+{{step:0075-evaluate-supplier-questionnaires}}).
 
 1. In the **Supplier file** tab of the evaluation, click **Download the questionnaire to fill
    in**. The CSV file has one line per question; its first line identifies the evaluation and its
