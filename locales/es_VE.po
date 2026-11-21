@@ -28107,3 +28107,139 @@ msgid "Competence gap alert"
 msgid_plural "Competence gap alerts"
 msgstr[0] "Alerta de brecha de competencia"
 msgstr[1] "Alertas de brechas de competencia"
+
+msgid "Blockers"
+msgstr "Bloqueos"
+
+msgid "Technical check"
+msgstr "Control técnico"
+
+msgid "Effectiveness test overdue"
+msgstr "Prueba de eficacia atrasada"
+
+#, php-format
+msgid "Last test: %s"
+msgstr "Última prueba: %s"
+
+#, php-format
+msgid "Next test was due on %s"
+msgstr "La próxima prueba vencía el %s"
+
+#, php-format
+msgid "Tested on %s"
+msgstr "Probado el %s"
+
+msgid "Test the control again and record the result."
+msgstr "Vuelva a probar el control y registre el resultado."
+
+msgid "Fix the weakness found by the test, then test the control again."
+msgstr ""
+"Corrija la debilidad detectada por la prueba y vuelva a probar el control."
+
+#, php-format
+msgid "Open, due on %s"
+msgstr "Abierta, vence el %s"
+
+msgid "Carry out the corrective action, then close the nonconformity."
+msgstr "Realice la acción correctiva y luego cierre la no conformidad."
+
+msgid "Have the policy approved by management."
+msgstr "Haga aprobar la política por la dirección."
+
+#, php-format
+msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
+msgstr "Brechas: %1$d de %2$d (%3$d %% conforme)"
+
+msgid "Fix the items listed by the automated check."
+msgstr "Corrija los elementos listados por el control automático."
+
+#, php-format
+msgid "%s coverage"
+msgstr "Cobertura de %s"
+
+#, php-format
+msgid "Computers without an active agent: %1$d out of %2$d"
+msgstr "Equipos sin agente activo: %1$d de %2$d"
+
+msgid "Install or reactivate the agent on the computers not covered."
+msgstr "Instale o reactive el agente en los equipos no cubiertos."
+
+msgid "What blocks this control"
+msgstr "Qué bloquea este control"
+
+msgid ""
+"For each control of the Statement of Applicability, this page lists what "
+"prevents it from being compliant: failing automated check, missing or "
+"expired evidence, policy not approved, effectiveness test overdue or "
+"ineffective, open nonconformity, expired waiver."
+msgstr ""
+"Para cada control de la declaración de aplicabilidad, esta página lista lo "
+"que impide su conformidad: control automático fallido, evidencia ausente o "
+"caducada, política no aprobada, prueba de eficacia atrasada o ineficaz, no "
+"conformidad abierta, excepción caducada."
+
+msgid ""
+"Sort by severity and start with the most blocked controls. Click a control "
+"to see its blockers, then click a blocker to open the screen where it is "
+"fixed. The page is computed again each time and only shows what you are "
+"allowed to read. Nothing is changed automatically."
+msgstr ""
+"Ordene por gravedad y empiece por los controles más bloqueados. Haga clic en "
+"un control para ver sus bloqueos y luego en un bloqueo para abrir la "
+"pantalla donde corregirlo. La página se recalcula cada vez y solo muestra lo "
+"que puede leer. Nada se modifica automáticamente."
+
+msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
+msgstr "ISO/IEC 27001:2022, cláusula 9.1 y control A.5.36."
+
+msgid "Fix"
+msgstr "Corregir"
+
+#, php-format
+msgid "%d more"
+msgstr "%d más"
+
+#, php-format
+msgid "Blocked controls: %1$d out of %2$d"
+msgstr "Controles bloqueados: %1$d de %2$d"
+
+msgid ""
+"No control of the Statement of Applicability is blocked among the checks you "
+"can read."
+msgstr ""
+"Ningún control de la declaración de aplicabilidad está bloqueado según las "
+"verificaciones que puede leer."
+
+msgid "Sort"
+msgstr "Ordenar"
+
+msgid "What blocks it"
+msgstr "Qué lo bloquea"
+
+msgid "All blocked controls"
+msgstr "Todos los controles bloqueados"
+
+msgid ""
+"Everything that prevents this control from being compliant, in a single "
+"list: failing automated check, missing or expired evidence, policy not "
+"approved, effectiveness test overdue or ineffective, open nonconformity, "
+"expired waiver. Click a line to open the screen where it is fixed. Only what "
+"you are allowed to read is shown, and nothing is changed automatically."
+msgstr ""
+"Todo lo que impide la conformidad de este control, en una sola lista: "
+"control automático fallido, evidencia ausente o caducada, política no "
+"aprobada, prueba de eficacia atrasada o ineficaz, no conformidad abierta, "
+"excepción caducada. Haga clic en una línea para abrir la pantalla donde "
+"corregirla. Solo se muestra lo que puede leer y nada se modifica "
+"automáticamente."
+
+msgid "No blocker found among the checks you can read."
+msgstr "No se encontró ningún bloqueo entre las verificaciones que puede leer."
+
+msgid "Nothing blocks this control"
+msgstr "Nada bloquea este control"
+
+msgid "Blocked control"
+msgid_plural "Blocked controls"
+msgstr[0] "Control bloqueado"
+msgstr[1] "Controles bloqueados"

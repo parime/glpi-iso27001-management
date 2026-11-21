@@ -27998,3 +27998,142 @@ msgid_plural "Competence gap alerts"
 msgstr[0] "Alert o luce kompetencyjnej"
 msgstr[1] "Alerty o lukach kompetencyjnych"
 msgstr[2] "Alertów o lukach kompetencyjnych"
+
+msgid "Blockers"
+msgstr "Blokady"
+
+msgid "Technical check"
+msgstr "Kontrola techniczna"
+
+msgid "Effectiveness test overdue"
+msgstr "Test skuteczności po terminie"
+
+#, php-format
+msgid "Last test: %s"
+msgstr "Ostatni test: %s"
+
+#, php-format
+msgid "Next test was due on %s"
+msgstr "Następny test był zaplanowany na %s"
+
+#, php-format
+msgid "Tested on %s"
+msgstr "Przetestowano %s"
+
+msgid "Test the control again and record the result."
+msgstr "Przetestuj ponownie zabezpieczenie i zapisz wynik."
+
+msgid "Fix the weakness found by the test, then test the control again."
+msgstr ""
+"Usuń słabość wykrytą w teście, a następnie ponownie przetestuj "
+"zabezpieczenie."
+
+#, php-format
+msgid "Open, due on %s"
+msgstr "Otwarta, termin %s"
+
+msgid "Carry out the corrective action, then close the nonconformity."
+msgstr "Wykonaj działanie korygujące, a następnie zamknij niezgodność."
+
+msgid "Have the policy approved by management."
+msgstr "Uzyskaj zatwierdzenie polityki przez kierownictwo."
+
+#, php-format
+msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
+msgstr "Luki: %1$d z %2$d (%3$d%% zgodności)"
+
+msgid "Fix the items listed by the automated check."
+msgstr "Popraw elementy wskazane przez automatyczną kontrolę."
+
+#, php-format
+msgid "%s coverage"
+msgstr "Pokrycie %s"
+
+#, php-format
+msgid "Computers without an active agent: %1$d out of %2$d"
+msgstr "Komputery bez aktywnego agenta: %1$d z %2$d"
+
+msgid "Install or reactivate the agent on the computers not covered."
+msgstr "Zainstaluj lub ponownie aktywuj agenta na niepokrytych komputerach."
+
+msgid "What blocks this control"
+msgstr "Co blokuje to zabezpieczenie"
+
+msgid ""
+"For each control of the Statement of Applicability, this page lists what "
+"prevents it from being compliant: failing automated check, missing or "
+"expired evidence, policy not approved, effectiveness test overdue or "
+"ineffective, open nonconformity, expired waiver."
+msgstr ""
+"Dla każdego zabezpieczenia deklaracji stosowania ta strona wymienia, co "
+"uniemożliwia jego zgodność: nieudana kontrola automatyczna, brakujący lub "
+"wygasły dowód, niezatwierdzona polityka, zaległy lub nieskuteczny test "
+"skuteczności, otwarta niezgodność, wygasłe odstępstwo."
+
+msgid ""
+"Sort by severity and start with the most blocked controls. Click a control "
+"to see its blockers, then click a blocker to open the screen where it is "
+"fixed. The page is computed again each time and only shows what you are "
+"allowed to read. Nothing is changed automatically."
+msgstr ""
+"Posortuj według wagi i zacznij od najbardziej zablokowanych zabezpieczeń. "
+"Kliknij zabezpieczenie, aby zobaczyć jego blokady, a następnie blokadę, aby "
+"otworzyć ekran, w którym można ją usunąć. Strona jest przeliczana za każdym "
+"razem i pokazuje tylko to, co możesz czytać. Nic nie jest zmieniane "
+"automatycznie."
+
+msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
+msgstr "ISO/IEC 27001:2022, punkt 9.1 i zabezpieczenie A.5.36."
+
+msgid "Fix"
+msgstr "Popraw"
+
+#, php-format
+msgid "%d more"
+msgstr "jeszcze %d"
+
+#, php-format
+msgid "Blocked controls: %1$d out of %2$d"
+msgstr "Zablokowane zabezpieczenia: %1$d z %2$d"
+
+msgid ""
+"No control of the Statement of Applicability is blocked among the checks you "
+"can read."
+msgstr ""
+"Żadne zabezpieczenie deklaracji stosowania nie jest zablokowane w "
+"kontrolach, które możesz czytać."
+
+msgid "Sort"
+msgstr "Sortuj"
+
+msgid "What blocks it"
+msgstr "Co je blokuje"
+
+msgid "All blocked controls"
+msgstr "Wszystkie zablokowane zabezpieczenia"
+
+msgid ""
+"Everything that prevents this control from being compliant, in a single "
+"list: failing automated check, missing or expired evidence, policy not "
+"approved, effectiveness test overdue or ineffective, open nonconformity, "
+"expired waiver. Click a line to open the screen where it is fixed. Only what "
+"you are allowed to read is shown, and nothing is changed automatically."
+msgstr ""
+"Wszystko, co uniemożliwia zgodność tego zabezpieczenia, na jednej liście: "
+"nieudana kontrola automatyczna, brakujący lub wygasły dowód, niezatwierdzona "
+"polityka, zaległy lub nieskuteczny test skuteczności, otwarta niezgodność, "
+"wygasłe odstępstwo. Kliknij wiersz, aby otworzyć ekran, w którym można to "
+"poprawić. Wyświetlane jest tylko to, co możesz czytać, i nic nie jest "
+"zmieniane automatycznie."
+
+msgid "No blocker found among the checks you can read."
+msgstr "Nie znaleziono blokad w kontrolach, które możesz czytać."
+
+msgid "Nothing blocks this control"
+msgstr "Nic nie blokuje tego zabezpieczenia"
+
+msgid "Blocked control"
+msgid_plural "Blocked controls"
+msgstr[0] "Zablokowane zabezpieczenie"
+msgstr[1] "Zablokowane zabezpieczenia"
+msgstr[2] "Zablokowanych zabezpieczeń"
