@@ -29,6 +29,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   (domaine `exemple.test`) téléchargeable depuis la page. Tests unitaires avec des fichiers piégés,
   tests d'intégration, matrice d'accès et contrôle XSS.
 
+## [2.76.0] - 2026-11-21
+
 ## [2.75.0] - 2026-11-21
 
 ### Added
