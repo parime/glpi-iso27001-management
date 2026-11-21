@@ -18,6 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
 
 /**
  * Encadré « À quoi sert cette page ? » en tête de chaque écran du menu GRC & Conformité : ce
@@ -30,6 +31,17 @@ class PageHelp
      * @return array<string, array{purpose: string, expected: string, reference?: string}>
      */
     public static function texts(): array
+    {
+        return self::coreTexts() + FeatureRegistry::pageHelp();
+    }
+
+    /**
+     * Aides des pages plus anciennes ; une nouvelle fonctionnalité donne la sienne dans
+     * src/Feature/<Fonctionnalité>Feature.php (PageHelpProvider).
+     *
+     * @return array<string, array{purpose: string, expected: string, reference?: string}>
+     */
+    private static function coreTexts(): array
     {
         return [
             'dashboard' => [
@@ -55,6 +67,25 @@ class PageHelp
                         . 'first.',
                     'grcmanager'
                 ),
+            ],
+            // Issue #603 : maturité par mesure (campagnes datées, niveau actuel et niveau cible).
+            'maturitycampaign' => [
+                'purpose'   => __(
+                    'Rates each applicable control of the Statement of Applicability on a scale from 0 (non-existent) '
+                        . 'to 5 (optimised): the level reached today and the level aimed for, with a target date. The '
+                        . 'gaps between the two make up the security roadmap, and two dated campaigns show the '
+                        . 'progress. These optional levels change neither the implementation status of the controls '
+                        . 'nor the maturity score.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Create a campaign (for example once a year), fill in the current and target levels of each '
+                        . 'control with a justification and an owner, then open the "Gaps" tab: create an action for '
+                        . 'the largest gaps and download the report for the management review. The next campaign takes '
+                        . 'over the targets of this one.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clauses 6.2, 9.3 and 10.1', 'grcmanager'),
             ],
             // Issue #867 : mesures bloquées de la SoA.
             'controlblocker'   => [
@@ -820,43 +851,7 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
-            // Issue #836 : supervision lue dans Zabbix.
-            'zabbixmonitoring' => [
-                'purpose'   => __(
-                    'Reads your Zabbix monitoring server, in read only: hosts, problems and availability of the '
-                        . 'services. Hosts are matched with the computers and network devices of GLPI to show the '
-                        . 'assets that nobody monitors, the measured availability compared with the recovery time '
-                        . 'objectives of the business processes, and the saturations of disk, memory or processor.',
-                    'grcmanager'
-                ),
-                'expected'  => __(
-                    'Enter the address of the Zabbix server and the API token of a read-only Zabbix user, read now, '
-                        . 'then follow up the critical assets not monitored, the open high-severity problems and the '
-                        . 'services below their objective. A high-severity problem can be turned into a security '
-                        . 'incident or a ticket with one click; nothing is created automatically and nothing is '
-                        . 'changed in Zabbix.',
-                    'grcmanager'
-                ),
-                'reference' => __('ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30', 'grcmanager'),
-            ],
             // Issue #852 : couverture MFA par compte.
-            'mfacoverage' => [
-                'purpose'   => __(
-                    'Shows which active accounts are protected by multi-factor authentication: GLPI two-factor '
-                        . 'authentication, and the methods registered with your identity provider (Microsoft Entra '
-                        . 'ID, Okta, Google Workspace, on-premises solution) imported from a CSV export. Rates are '
-                        . 'given for all accounts, administrators and remote access accounts.',
-                    'grcmanager'
-                ),
-                'expected'  => __(
-                    'Import the export of your identity provider, choose the remote access groups, then follow up '
-                        . 'the gaps: administrator or remote access without MFA, SMS or call only, account excluded '
-                        . 'without justification. Nothing is changed automatically. Record the result as an '
-                        . 'effectiveness test of the control to keep the evidence.',
-                    'grcmanager'
-                ),
-                'reference' => __('ISO/IEC 27001, controls A.8.5 and A.5.17', 'grcmanager'),
-            ],
             'personnelcompliance' => [
                 'purpose'   => __(
                     'Security compliance of each person: screening, confidentiality agreement, mandatory trainings, '

@@ -2,6 +2,7 @@
 # Issue #836 : supervision Zabbix, hote et probleme lus de l'entite A seulement ; connexion,
 # lecture et effacement en lecture seule.
 # Fragment charge par tests/security/access-matrix.sh (memes fonctions et variables).
+readable front/zabbixmonitoring.php
 if [ "$ROLE" = reader ]; then
   contains "supervision Zabbix : hote de A" "Hote Zabbix securite A" oui "$(body "$P/zabbixmonitoring.php")"
   contains "supervision Zabbix : probleme de A" "Probleme Zabbix securite A" oui "$(body "$P/zabbixmonitoring.php")"

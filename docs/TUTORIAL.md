@@ -1397,7 +1397,34 @@ droit du plugin et le droit des registres sensibles (en modification pour import
    monde modifier, ceux des comptes supprimés ou désactivés et les partages revus dans les douze
    derniers mois.
 
-### Étape 46 : Lire la supervision Zabbix (mesures A.8.16, A.8.6 et A.5.30)
+### Étape 46 : Mesurer la maturité de chaque mesure et fixer les cibles (articles 6.2, 9.3 et 10.1)
+
+Le score de maturité global résume le SMSI en un chiffre. Pour bâtir et défendre la feuille de
+route, on évalue en plus chaque mesure : « nous sommes au niveau 2 et visons le niveau 4 l'an
+prochain ». Ces niveaux sont facultatifs : ils ne changent ni l'état de mise en œuvre des mesures
+ni le score de maturité.
+
+1. Ouvrez Tableau de bord > **Maturité par mesure**, puis **Ajouter**. Donnez un nom (par exemple
+   « Évaluation 2026 »), la date de l'évaluation et le pilote. La campagne reprend les mesures
+   applicables de la SoA de l'entité ; les cibles, échéances, responsables et justifications de la
+   campagne précédente sont repris.
+2. Dans l'onglet **Niveaux par mesure**, choisissez pour chaque mesure le niveau actuel et le niveau
+   cible, de 0 (inexistant) à 5 (optimisé), l'échéance, le responsable et la justification, puis
+   cliquez sur **Enregistrer les niveaux**. Le niveau de la campagne précédente est rappelé sous le
+   niveau actuel.
+3. L'onglet **Écarts** classe les mesures dont la cible n'est pas atteinte, du plus grand écart au
+   plus petit puis par échéance (échéance dépassée en rouge). Filtrez par référentiel activé, thème
+   ou responsable ; le radar compare les niveaux moyens actuel et cible de chaque thème.
+   **Créer l'action** ouvre une piste d'amélioration pré-remplie (mesure, niveaux, échéance,
+   responsable) que vous relisez et enregistrez vous-même ; elle suit ensuite le circuit CAPA.
+4. L'onglet **Comparaison** met côte à côte les niveaux actuels de deux campagnes de la même
+   entité : mesures en progrès, en recul et inchangées.
+5. **Rapport (PDF)** produit la synthèse pour la revue de direction : niveaux moyens par thème,
+   écarts triés et comparaison avec la campagne précédente.
+6. Les libellés de l'échelle se renomment dans la configuration du plugin, cadre
+   **Échelle de maturité par mesure** (un champ vide garde le libellé par défaut, traduit).
+
+### Étape 47 : Lire la supervision Zabbix (mesures A.8.16, A.8.6 et A.5.30)
 
 L'auditeur demande comment les serveurs et services sont surveillés, s'ils sont disponibles comme
 prévu et si leur capacité est suivie. Le plugin lit votre serveur **Zabbix en lecture seule** et
@@ -2735,7 +2762,33 @@ and the right on the sensitive registers (with modification to import).
    shares, those with a gap, the rights that let everyone modify, those of deleted or disabled
    accounts and the shares reviewed in the last twelve months.
 
-### Step 46: Read the Zabbix monitoring (controls A.8.16, A.8.6 and A.5.30)
+### Step 46: Rate the maturity of each control and set the targets (clauses 6.2, 9.3 and 10.1)
+
+The overall maturity score sums up the ISMS in one figure. To build and justify the roadmap, each
+control is also rated: "we are at level 2 and aim for level 4 next year". These levels are
+optional: they change neither the implementation status of the controls nor the maturity score.
+
+1. Open Dashboard > **Maturity by control**, then **Add**. Give a name (for example "2026
+   assessment"), the assessment date and the campaign lead. The campaign lists the applicable
+   controls of the SoA of the entity; the targets, target dates, owners and justifications of the
+   previous campaign are taken over.
+2. In the **Levels by control** tab, choose for each control the current level and the target
+   level, from 0 (non-existent) to 5 (optimised), the target date, the owner and the justification,
+   then click **Save the levels**. The level of the previous campaign is shown under the current
+   level.
+3. The **Gaps** tab ranks the controls whose target is not reached, from the largest gap to the
+   smallest, then by target date (a passed date in red). Filter by enabled framework, theme or
+   owner; the radar compares the average current and target levels of each theme. **Create the
+   action** opens a pre-filled opportunity for improvement (control, levels, target date, owner)
+   that you review and save yourself; it then follows the CAPA workflow.
+4. The **Comparison** tab puts side by side the current levels of two campaigns of the same entity:
+   controls improved, declined and unchanged.
+5. **Report (PDF)** produces the summary for the management review: average levels by theme, sorted
+   gaps and comparison with the previous campaign.
+6. The labels of the scale are renamed in the plugin configuration, box **Maturity scale by
+   control** (an empty field keeps the default label, translated).
+
+### Step 47: Read the Zabbix monitoring (controls A.8.16, A.8.6 and A.5.30)
 
 The auditor asks how servers and services are monitored, whether they are as available as planned
 and whether their capacity is followed up. The plugin reads your **Zabbix server in read only** and

@@ -22,6 +22,7 @@ use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\ControlBase;
+use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\CatalogLanguage;
@@ -1714,10 +1715,6 @@ class Control extends ControlBase
             'software_licenses'       => SoftwareLicenseCompliance::evidence($code),
             // Issue #847 : chiffrement des disques du parc, preuve des mesures A.8.24 et A.8.1.
             'disk_encryption'         => DiskEncryption::evidence($code),
-            // Issue #852 : couverture MFA par compte, preuve des mesures A.8.5 et A.5.17.
-            'mfa_coverage'            => MfaCoverage::evidence($code),
-            // Issue #836 : supervision Zabbix, preuve des mesures A.8.16, A.8.6 et A.5.30.
-            'zabbix'                  => ZabbixMonitoring::evidence($code),
             // Issue #854 : retard des correctifs de sécurité, preuve des mesures A.8.8 et A.8.19.
             'patch_compliance'        => PatchCompliance::evidence($code),
             // Issue #781 : conformité de configuration (OpenSCAP, puis d'autres sources), mesure A.8.9.
@@ -1728,6 +1725,8 @@ class Control extends ControlBase
             'share_access'            => ShareAccess::evidence($code),
             // Issue #604 : simulations d'hameçonnage, preuve de sensibilisation (mesure A.6.3).
             'phishing'                => PhishingCampaign::evidence($code),
+            // Cadres des fonctionnalités découvertes (src/Feature/), après les cadres ci-dessus.
+            'feature_evidence'        => FeatureRegistry::controlEvidence($code),
             // Issue #835 : audit de sécurité de l'AD (PingCastle), preuve des mesures A.5.15 à A.5.18,
             // A.8.2 et A.8.5.
             'ad_security_audit'       => AdSecurityAudit::evidence($code),

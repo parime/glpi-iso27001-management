@@ -31498,6 +31498,316 @@ msgid_plural "%d questions"
 msgstr[0] "%d question"
 msgstr[1] "%d questions"
 
+#, php-format
+msgid "%d control updated."
+msgid_plural "%d controls updated."
+msgstr[0] "%d mesure mise à jour."
+msgstr[1] "%d mesures mises à jour."
+
+#, php-format
+msgid "Maturity campaign: %s"
+msgstr "Campagne de maturité : %s"
+
+#, php-format
+msgid "Current level: %1$d (%2$s). Target level: %3$d (%4$s)."
+msgstr "Niveau actuel : %1$d (%2$s). Niveau cible : %3$d (%4$s)."
+
+#, php-format
+msgid "Target date: %s"
+msgstr "Échéance : %s"
+
+#, php-format
+msgid "Maturity gap %1$s: from level %2$d to level %3$d"
+msgstr "Écart de maturité %1$s : du niveau %2$d au niveau %3$d"
+
+msgid "Maturity campaign"
+msgid_plural "Maturity campaigns"
+msgstr[0] "Campagne de maturité"
+msgstr[1] "Campagnes de maturité"
+
+msgid "Maturity by control"
+msgstr "Maturité par mesure"
+
+msgid "Non-existent"
+msgstr "Inexistant"
+
+#, php-format
+msgid "Maturity assessment of %s"
+msgstr "Évaluation de maturité du %s"
+
+msgid "Levels by control"
+msgstr "Niveaux par mesure"
+
+msgid "Comparison"
+msgstr "Comparaison"
+
+msgid "Campaign lead"
+msgstr "Pilote de la campagne"
+
+#, php-format
+msgid "Maturity by control: %s"
+msgstr "Maturité par mesure : %s"
+
+msgid ""
+"Rates each applicable control of the Statement of Applicability on a scale "
+"from 0 (non-existent) to 5 (optimised): the level reached today and the "
+"level aimed for, with a target date. The gaps between the two make up the "
+"security roadmap, and two dated campaigns show the progress. These optional "
+"levels change neither the implementation status of the controls nor the "
+"maturity score."
+msgstr ""
+"Évalue chaque mesure applicable de la déclaration d'applicabilité sur une "
+"échelle de 0 (inexistant) à 5 (optimisé) : le niveau atteint aujourd'hui et "
+"le niveau visé, avec une échéance. Les écarts entre les deux forment la "
+"feuille de route de la sécurité, et deux campagnes datées montrent les "
+"progrès. Ces niveaux facultatifs ne changent ni l'état de mise en œuvre des "
+"mesures ni le score de maturité."
+
+msgid ""
+"Create a campaign (for example once a year), fill in the current and target "
+"levels of each control with a justification and an owner, then open the "
+"\"Gaps\" tab: create an action for the largest gaps and download the report "
+"for the management review. The next campaign takes over the targets of this "
+"one."
+msgstr ""
+"Créez une campagne (par exemple une fois par an), renseignez les niveaux "
+"actuel et cible de chaque mesure avec une justification et un responsable, "
+"puis ouvrez l'onglet « Écarts » : créez une action pour les plus grands "
+"écarts et téléchargez le rapport pour la revue de direction. La campagne "
+"suivante reprend les cibles de celle-ci."
+
+msgid "ISO/IEC 27001, clauses 6.2, 9.3 and 10.1"
+msgstr "ISO/IEC 27001, articles 6.2, 9.3 et 10.1"
+
+msgid "Maturity scale by control"
+msgstr "Échelle de maturité par mesure"
+
+msgid "Open the maturity campaigns"
+msgstr "Ouvrir les campagnes de maturité"
+
+msgid ""
+"Rename the levels of the scale used by the maturity campaigns to match your "
+"method. Leave a field empty to keep the default label, translated into the "
+"language of each user; a label you enter is shown as is in every language. "
+"Renaming a level changes no recorded level."
+msgstr ""
+"Renommez les niveaux de l'échelle utilisée par les campagnes de maturité "
+"pour suivre votre méthode. Laissez un champ vide pour garder le libellé par "
+"défaut, traduit dans la langue de chaque utilisateur ; un libellé saisi "
+"s'affiche tel quel dans toutes les langues. Renommer un niveau ne change "
+"aucun niveau enregistré."
+
+#, php-format
+msgid "%d control declined"
+msgid_plural "%d controls declined"
+msgstr[0] "%d mesure en recul"
+msgstr[1] "%d mesures en recul"
+
+#, php-format
+msgid "%d control improved"
+msgid_plural "%d controls improved"
+msgstr[0] "%d mesure en progrès"
+msgstr[1] "%d mesures en progrès"
+
+#, php-format
+msgid "%d control unchanged"
+msgid_plural "%d controls unchanged"
+msgstr[0] "%d mesure inchangée"
+msgstr[1] "%d mesures inchangées"
+
+msgid "Compare"
+msgstr "Comparer"
+
+msgid "Compare with"
+msgstr "Comparer avec"
+
+msgid "Comparison of two campaigns"
+msgstr "Comparaison de deux campagnes"
+
+msgid ""
+"Current levels of each campaign. A control assessed in only one of the two "
+"campaigns is not compared."
+msgstr ""
+"Niveaux actuels de chaque campagne. Une mesure évaluée dans une seule des "
+"deux campagnes n'est pas comparée."
+
+msgid "New campaign"
+msgstr "Nouvelle campagne"
+
+msgid ""
+"There is no other campaign in this entity yet. Create the next campaign (for "
+"example next year): it takes over the targets of this one, and both can then "
+"be compared here."
+msgstr ""
+"Il n'y a pas encore d'autre campagne dans cette entité. Créez la campagne "
+"suivante (par exemple l'an prochain) : elle reprend les cibles de celle-ci, "
+"et les deux pourront alors être comparées ici."
+
+#, php-format
+msgid "%d gap to close"
+msgid_plural "%d gaps to close"
+msgstr[0] "%d écart à combler"
+msgstr[1] "%d écarts à combler"
+
+#, php-format
+msgid "Average level: %1$s, target %2$s"
+msgstr "Niveau moyen : %1$s, cible %2$s"
+
+msgid ""
+"Average levels by theme, gaps sorted by size and comparison with the "
+"previous campaign, for the management review."
+msgstr ""
+"Niveaux moyens par thème, écarts triés par taille et comparaison avec la "
+"campagne précédente, pour la revue de direction."
+
+msgid "Average over the controls that have both a current and a target level."
+msgstr ""
+"Moyenne des mesures qui ont à la fois un niveau actuel et un niveau cible."
+
+msgid "Campaigns are compared in the order of this date."
+msgstr "Les campagnes sont comparées dans l'ordre de cette date."
+
+msgid "For example \"2026 assessment\". Left empty, the date is used."
+msgstr "Par exemple « Évaluation 2026 ». Laissé vide, la date est utilisée."
+
+msgid "No gap: every target is reached"
+msgstr "Aucun écart : toutes les cibles sont atteintes"
+
+msgid "Previous campaign"
+msgstr "Campagne précédente"
+
+msgid ""
+"The campaign lists the applicable controls of the Statement of Applicability "
+"of the entity. The targets, target dates, justifications and owners of the "
+"previous campaign are taken over; the current levels are left to assess."
+msgstr ""
+"La campagne reprend les mesures applicables de la déclaration "
+"d'applicabilité de l'entité. Les cibles, échéances, justifications et "
+"responsables de la campagne précédente sont repris ; les niveaux actuels "
+"restent à évaluer."
+
+msgid ""
+"The overall maturity score is computed separately from your data and does "
+"not use these levels."
+msgstr ""
+"Le score de maturité global est calculé à part, à partir de vos données, et "
+"n'utilise pas ces niveaux."
+
+msgid ""
+"A gap is the target level minus the current level. The largest gaps come "
+"first, then the nearest target dates: they are the priorities of the roadmap "
+"to present to management. \"Create the action\" opens a pre-filled "
+"opportunity for improvement that you review and save yourself."
+msgstr ""
+"Un écart est le niveau cible moins le niveau actuel. Les plus grands écarts "
+"viennent d'abord, puis les échéances les plus proches : ce sont les "
+"priorités de la feuille de route à présenter à la direction. « Créer "
+"l'action » ouvre une piste d'amélioration pré-remplie que vous relisez et "
+"enregistrez vous-même."
+
+msgid "All (ISO/IEC 27001 Annex A)"
+msgstr "Tous (Annexe A de l'ISO/IEC 27001)"
+
+msgid "Average level of the controls of each theme that have both levels."
+msgstr "Niveau moyen des mesures de chaque thème qui ont les deux niveaux."
+
+msgid "Current and target levels by theme"
+msgstr "Niveaux actuel et cible par thème"
+
+msgid "Gaps to close"
+msgstr "Écarts à combler"
+
+msgid "No gap matches these filters."
+msgstr "Aucun écart ne correspond à ces filtres."
+
+msgid ""
+"No gap: fill in the current and target levels in the \"Levels by control\" "
+"tab; the controls whose target is not reached are listed here."
+msgstr ""
+"Aucun écart : renseignez les niveaux actuel et cible dans l'onglet « Niveaux "
+"par mesure » ; les mesures dont la cible n'est pas atteinte sont listées ici."
+
+msgid "Target date"
+msgstr "Échéance"
+
+msgid "Target date passed"
+msgstr "Échéance dépassée"
+
+msgid "Target level"
+msgstr "Niveau cible"
+
+msgid "The chart appears once controls have both a current and a target level."
+msgstr ""
+"Le graphique apparaît dès que des mesures ont à la fois un niveau actuel et "
+"un niveau cible."
+
+msgid "Current level at the previous campaign"
+msgstr "Niveau actuel lors de la campagne précédente"
+
+msgid ""
+"For each control, choose the level reached today and the level aimed for, on "
+"the scale below, then click \"Save the levels\" at the bottom of the page. A "
+"level left on \"Not assessed\" is simply ignored. These levels change "
+"neither the implementation status of the control nor the maturity score."
+msgstr ""
+"Pour chaque mesure, choisissez le niveau atteint aujourd'hui et le niveau "
+"visé, sur l'échelle ci-dessous, puis cliquez sur « Enregistrer les niveaux » "
+"en bas de la page. Un niveau laissé sur « Non évalué » est simplement "
+"ignoré. Ces niveaux ne changent ni l'état de mise en œuvre de la mesure ni "
+"le score de maturité."
+
+msgid "Implementation status in the SoA"
+msgstr "État de mise en œuvre dans la SoA"
+
+msgid ""
+"No applicable control in the Statement of Applicability of this entity when "
+"the campaign was created. Declare the applicable controls in the SoA, then "
+"create a new campaign."
+msgstr ""
+"Aucune mesure applicable dans la déclaration d'applicabilité de cette entité "
+"à la création de la campagne. Déclarez les mesures applicables dans la SoA, "
+"puis créez une nouvelle campagne."
+
+msgid "No target"
+msgstr "Pas de cible"
+
+msgid "Open the Statement of Applicability"
+msgstr "Ouvrir la déclaration d'applicabilité"
+
+msgid "Reached"
+msgstr "Atteinte"
+
+msgid "Save the levels"
+msgstr "Enregistrer les niveaux"
+
+msgid ""
+"Targets, dates, owners and justifications come from the previous campaign: "
+"adjust them if needed."
+msgstr ""
+"Les cibles, échéances, responsables et justifications viennent de la "
+"campagne précédente : ajustez-les si besoin."
+
+#, php-format
+msgid ""
+"Action proposed from a maturity gap (%s): review and adapt each field, check "
+"the owner and the due date, then click \"Add\". Nothing is created before, "
+"and the gap is linked to this action once it is saved."
+msgstr ""
+"Action proposée depuis un écart de maturité (%s) : relisez et adaptez chaque "
+"champ, vérifiez le responsable et l'échéance, puis cliquez sur « Ajouter ». "
+"Rien n'est créé avant, et l'écart est lié à cette action une fois "
+"enregistrée."
+
+msgid ""
+"Levels from 0 (non-existent) to 5 (optimised). These optional levels change "
+"neither the implementation status of the controls nor the maturity score."
+msgstr ""
+"Niveaux de 0 (inexistant) à 5 (optimisé). Ces niveaux facultatifs ne "
+"changent ni l'état de mise en œuvre des mesures ni le score de maturité."
+
+msgid "No previous campaign in this entity."
+msgstr "Aucune campagne précédente dans cette entité."
+
 msgid ""
 "Not saved: the address must start with https:// (or http:// when internal "
 "addresses are allowed), without user name, password or parameters."
