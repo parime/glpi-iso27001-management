@@ -382,6 +382,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\TrainingQuiz::class, ['addtabon' => [Preference::class]]);
     // Issue #535 : « Politiques à lire », dans les préférences de chaque utilisateur.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PolicyAcknowledgement::class, ['addtabon' => [Preference::class]]);
+    // Issue #879 : onglets « Mesures couvertes » d'une politique et « Textes de référence » d'une mesure.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PolicyCoverage::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\Policy::class, \GlpiPlugin\Grcmanager\Control::class],
+    ]);
     // Issue #546 : fiche de conformité sécurité, sur chaque utilisateur et dans ses préférences.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PersonnelCompliance::class, [
         'addtabon' => [User::class, Preference::class],

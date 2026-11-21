@@ -71,6 +71,10 @@ final class ConsistencyRules
         'policy_without_owner'                 => [
             'area' => 'policies', 'clause' => '5.3', 'severity' => self::SEVERITY_LOW, 'threshold' => null,
         ],
+        // Issue #879 : mesure applicable sans texte approuvé et à jour de la bibliothèque des politiques.
+        'control_without_approved_policy'      => [
+            'area' => 'policies', 'clause' => 'A.5.1', 'severity' => self::SEVERITY_MEDIUM, 'threshold' => null,
+        ],
         'risk_without_owner'                   => [
             'area' => 'risk_assessment', 'clause' => '6.1.2 c)', 'severity' => self::SEVERITY_HIGH, 'threshold' => null,
         ],

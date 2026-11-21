@@ -34302,274 +34302,213 @@ msgstr ""
 msgid "You are not allowed to change this evaluation."
 msgstr "Nie masz uprawnień do zmiany tej oceny."
 
-msgid "Secure link"
-msgstr "Bezpieczny link"
+msgid "Control coverage by policies"
+msgstr "Pokrycie zabezpieczeń przez polityki"
 
-#, php-format
-msgid "Secure link %1$d created for the supplier, valid %2$d day(s)"
-msgstr "Utworzono bezpieczny link %1$d dla dostawcy, ważny %2$d dni"
+msgid "Not covered by any text"
+msgstr "Nieobjęte żadnym dokumentem"
 
-#, php-format
-msgid "Secure link %d revoked"
-msgstr "Bezpieczny link %d unieważniony"
+msgid "Covered only by a text not approved"
+msgstr "Objęte tylko niezatwierdzonym dokumentem"
 
-#, php-format
-msgid "Files of type .%s are not accepted."
-msgstr "Pliki typu .%s nie są akceptowane."
+msgid "Covered only by a text to review"
+msgstr "Objęte tylko dokumentem do przeglądu"
 
-#, php-format
-msgid ""
-"Supplier answers received by secure link %1$d: %2$d answer(s), %3$d "
-"document(s), to be reviewed"
-msgstr ""
-"Odpowiedzi dostawcy otrzymane przez bezpieczny link %1$d: odpowiedzi %2$d, "
-"dokumenty %3$d, do przejrzenia"
+msgid "Covered by an approved text"
+msgstr "Objęte zatwierdzonym dokumentem"
 
-#, php-format
-msgid "Answers received by secure link on %s"
-msgstr "Odpowiedzi otrzymane przez bezpieczny link %s"
+msgid "Covered controls"
+msgstr "Objęte zabezpieczenia"
 
-#, php-format
-msgid ""
-"Supplier answers received by secure link reviewed and saved: %1$d answer(s), "
-"%2$d document(s)"
-msgstr ""
-"Odpowiedzi dostawcy z bezpiecznego linku przejrzane i zapisane: odpowiedzi "
-"%1$d, dokumenty %2$d"
+msgid "Reference texts"
+msgstr "Dokumenty referencyjne"
 
-#, php-format
-msgid "Supplier answers received by secure link discarded (draft %d)"
-msgstr "Odpowiedzi dostawcy z bezpiecznego linku odrzucone (wersja robocza %d)"
+msgid "Text status"
+msgstr "Status dokumentu"
 
 msgid ""
-"Shows the answers sent by the supplier through the secure link, question by "
-"question, next to the current answers, with the documents received. They are "
-"not part of the evaluation yet."
+"Shows, for each applicable control of the Statement of Applicability, the "
+"texts of the policy library that cover it, and lists the controls covered by "
+"no text, or only by a text not approved yet or whose review date has passed."
 msgstr ""
-"Pokazuje odpowiedzi wysłane przez dostawcę przez bezpieczny link, pytanie po "
-"pytaniu, obok obecnych odpowiedzi, wraz z otrzymanymi dokumentami. Nie są "
-"jeszcze częścią oceny."
+"Pokazuje dla każdego mającego zastosowanie zabezpieczenia deklaracji "
+"stosowania dokumenty biblioteki polityk, które je obejmują, oraz wymienia "
+"zabezpieczenia nieobjęte żadnym dokumentem albo objęte tylko dokumentem "
+"jeszcze niezatwierdzonym lub z przekroczoną datą przeglądu."
 
 msgid ""
-"Check the answers, then save them (the documents are checked again like any "
-"evidence) or discard them. Then review the evaluation and mark it as "
-"completed."
+"Open each policy, then its \"Covered controls\" tab, and link the whole text "
+"or one of its sections to the controls it deals with (several at once, or by "
+"typing codes such as A.5.15-A.5.18). Then write, approve or review the "
+"missing texts. Export the report in PDF or CSV for the auditor. Nothing is "
+"changed automatically."
 msgstr ""
-"Sprawdź odpowiedzi, a następnie je zapisz (dokumenty są ponownie sprawdzane "
-"jak każdy dowód) lub odrzuć. Potem przejrzyj ocenę i oznacz ją jako "
-"zakończoną."
+"Otwórz każdą politykę, a następnie jej kartę „Objęte zabezpieczenia”, i "
+"powiąż cały dokument lub jedną z jego sekcji z zabezpieczeniami, których "
+"dotyczy (kilka naraz lub wpisując kody, np. A.5.15-A.5.18). Następnie "
+"napisz, zatwierdź lub przejrzyj brakujące dokumenty. Wyeksportuj raport do "
+"PDF lub CSV dla audytora. Nic nie jest zmieniane automatycznie."
 
-#, php-format
-msgid "Question %s: choose an answer from the list."
-msgstr "Pytanie %s: wybierz odpowiedź z listy."
+msgid "ISO/IEC 27001, clause 5.2 and control A.5.1"
+msgstr "ISO/IEC 27001, punkt 5.2 i zabezpieczenie A.5.1"
 
-msgid "Too many documents in one sending."
-msgstr "Zbyt wiele dokumentów w jednym wysłaniu."
+msgid "Gaps only"
+msgstr "Tylko luki"
 
-#, php-format
-msgid "Question %1$s: %2$s"
-msgstr "Pytanie %1$s: %2$s"
+msgid "All applicable controls"
+msgstr "Wszystkie mające zastosowanie zabezpieczenia"
 
-msgid "Nothing was sent: answer at least one question."
-msgstr "Nic nie zostało wysłane: odpowiedz na co najmniej jedno pytanie."
+msgid "%d link added."
+msgid_plural "%d links added."
+msgstr[0] "Dodano %d powiązanie."
+msgstr[1] "Dodano %d powiązania."
+msgstr[2] "Dodano %d powiązań."
 
-msgid "Secure link created: copy it now, it will not be shown again."
-msgstr ""
-"Utworzono bezpieczny link: skopiuj go teraz, nie zostanie ponownie "
-"wyświetlony."
-
-msgid "The link was revoked: it no longer opens the questionnaire."
-msgstr "Link został unieważniony: nie otwiera już kwestionariusza."
-
-msgid "The answers received were discarded."
-msgstr "Otrzymane odpowiedzi zostały odrzucone."
-
-#, php-format
-msgid "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
-msgstr ""
-"Zapisano odpowiedzi z bezpiecznego linku: %1$d, dołączono dokumenty: %2$d."
+msgid "Codes not found in the Statement of Applicability: %s"
+msgstr "Kody nieznalezione w deklaracji stosowania: %s"
 
 msgid ""
-"Your customer asks you to answer this security questionnaire. Choose an "
-"answer for each question, add a comment if useful and attach the documents "
-"asked for. Your answers are sent to your customer, who reviews them before "
-"they are recorded."
+"Applicable controls not covered by an approved text of the policy library "
+"whose review is up to date"
 msgstr ""
-"Twój klient prosi o odpowiedź na ten kwestionariusz bezpieczeństwa. Wybierz "
-"odpowiedź na każde pytanie, w razie potrzeby dodaj komentarz i dołącz "
-"wymagane dokumenty. Odpowiedzi trafiają do klienta, który przegląda je przed "
-"zapisaniem."
-
-#, php-format
-msgid "Link valid until %s"
-msgstr "Link ważny do %s"
-
-#, php-format
-msgid "Sendings left: %d"
-msgstr "Pozostałe wysłania: %d"
-
-msgid "Nothing was sent yet"
-msgstr "Nic jeszcze nie wysłano"
-
-msgid "Correct these points, select the documents again, then send."
-msgstr "Popraw te punkty, ponownie wybierz dokumenty, a następnie wyślij."
-
-msgid "Document expected"
-msgstr "Oczekiwany dokument"
-
-msgid "Document (optional)"
-msgstr "Dokument (opcjonalnie)"
-
-#, php-format
-msgid ""
-"Documents: at most %d MB each, in the formats accepted by your customer "
-"(PDF, office documents, images...)."
-msgstr ""
-"Dokumenty: maksymalnie %d MB każdy, w formatach akceptowanych przez klienta "
-"(PDF, dokumenty biurowe, obrazy...)."
-
-msgid "Send my answers"
-msgstr "Wyślij moje odpowiedzi"
+"Mające zastosowanie zabezpieczenia nieobjęte zatwierdzonym i aktualnie "
+"przejrzanym dokumentem biblioteki polityk"
 
 msgid ""
-"Thank you: your answers were sent. Your customer will review them; you can "
-"close this page."
+"Open the coverage report of the controls by the policies, link the text that "
+"deals with the control (or write it), then have it approved or reviewed."
 msgstr ""
-"Dziękujemy: odpowiedzi zostały wysłane. Klient je przejrzy; możesz zamknąć "
-"tę stronę."
+"Otwórz raport pokrycia zabezpieczeń przez polityki, powiąż dokument "
+"dotyczący zabezpieczenia (lub go napisz), a następnie przekaż go do "
+"zatwierdzenia lub przeglądu."
 
-msgid "Too many requests: wait a few minutes, then try again."
-msgstr "Zbyt wiele żądań: odczekaj kilka minut i spróbuj ponownie."
+msgid "Controls covered by an approved text: %1$d out of %2$d"
+msgstr "Zabezpieczenia objęte zatwierdzonym dokumentem: %1$d z %2$d"
+
+msgid "Policy library"
+msgstr "Biblioteka polityk"
 
 msgid ""
-"This link can no longer be used: it has expired, was revoked or was already "
-"used. Ask your contact for a new link."
+"No text of the policy library is linked to a control yet. Open a policy, "
+"then its \"Covered controls\" tab, to link it to the controls it deals with."
 msgstr ""
-"Tego linku nie można już użyć: wygasł, został unieważniony lub już "
-"wykorzystany. Poproś swojego rozmówcę o nowy link."
+"Żaden dokument biblioteki polityk nie jest jeszcze powiązany z "
+"zabezpieczeniem. Otwórz politykę, a następnie jej kartę „Objęte "
+"zabezpieczenia”, aby powiązać ją z zabezpieczeniami, których dotyczy."
 
 msgid ""
-"This link is not valid. Check that you copied it in full, or ask your "
-"contact for a new link."
+"Every applicable control is covered by an approved text whose review is up "
+"to date."
 msgstr ""
-"Ten link jest nieprawidłowy. Sprawdź, czy skopiowano go w całości, lub "
-"poproś rozmówcę o nowy link."
+"Każde mające zastosowanie zabezpieczenie jest objęte zatwierdzonym "
+"dokumentem z aktualnym przeglądem."
 
-msgid "Supplier answer by secure link"
-msgstr "Odpowiedź dostawcy przez bezpieczny link"
+msgid "No applicable control in the Statement of Applicability you can read."
+msgstr ""
+"Brak mających zastosowanie zabezpieczeń w deklaracji stosowania, którą "
+"możesz odczytać."
+
+msgid "Texts"
+msgstr "Dokumenty"
+
+msgid "Controls covered by this text"
+msgstr "Zabezpieczenia objęte tym dokumentem"
+
+msgid "%d linked control"
+msgid_plural "%d linked controls"
+msgstr[0] "%d powiązane zabezpieczenie"
+msgstr[1] "%d powiązane zabezpieczenia"
+msgstr[2] "%d powiązanych zabezpieczeń"
+
+msgid "Controls not covered by any text"
+msgstr "Zabezpieczenia nieobjęte żadnym dokumentem"
 
 msgid ""
-"Lets a supplier answer its security questionnaire on a page served by GLPI, "
-"without a GLPI account, from a personal link created on the evaluation (tab "
-"\"Secure link\"). Enable it only if this GLPI can be reached by your "
-"suppliers. The link opens only the questions of one evaluation, expires, can "
-"be used a limited number of times and can be revoked; the answers wait for a "
-"review in GLPI. The answer by file works without this setting."
+"Link this policy, or one of its sections, to the Annex A controls it deals "
+"with. Each applicable control of the Statement of Applicability should be "
+"covered by at least one approved text: the coverage report lists the "
+"controls without one, for the auditor (clause 5.2, control A.5.1). Only the "
+"controls of your entities are shown."
 msgstr ""
-"Pozwala dostawcy odpowiedzieć na kwestionariusz bezpieczeństwa na stronie "
-"udostępnianej przez GLPI, bez konta GLPI, przez osobisty link utworzony w "
-"ocenie (karta „Bezpieczny link”). Włącz tylko, jeśli dostawcy mają dostęp do "
-"tego GLPI. Link otwiera tylko pytania jednej oceny, wygasa, można go użyć "
-"ograniczoną liczbę razy i unieważnić; odpowiedzi czekają na przegląd w GLPI. "
-"Odpowiedź przez plik działa bez tego ustawienia."
+"Powiąż tę politykę lub jedną z jej sekcji z zabezpieczeniami z Załącznika A, "
+"których dotyczy. Każde mające zastosowanie zabezpieczenie deklaracji "
+"stosowania powinno być objęte co najmniej jednym zatwierdzonym dokumentem: "
+"raport pokrycia wymienia te, które go nie mają, dla audytora (punkt 5.2, "
+"zabezpieczenie A.5.1). Wyświetlane są tylko zabezpieczenia Twoich jednostek."
 
-msgid "Allow suppliers to answer by secure link"
-msgstr "Pozwól dostawcom odpowiadać przez bezpieczny link"
-
-msgid "All sendings used"
-msgstr "Wykorzystano wszystkie wysłania"
-
-msgid "Evaluation completed"
-msgstr "Ocena zakończona"
-
-msgid "Answer by secure link, without a GLPI account"
-msgstr "Odpowiedź przez bezpieczny link, bez konta GLPI"
+msgid "Link controls"
+msgstr "Powiąż zabezpieczenia"
 
 msgid ""
-"Send the supplier a personal link to a page served by GLPI, where it answers "
-"the questions of this evaluation and attaches its documents, without a GLPI "
-"account. The page shows only these questions. The link expires, can be used "
-"a limited number of times and can be revoked at any time. The answers "
-"received stay pending until you review and save them."
+"For example \"4.2 Access control\". Leave empty when the whole text covers "
+"the controls."
 msgstr ""
-"Wyślij dostawcy osobisty link do strony udostępnianej przez GLPI, na której "
-"odpowiada na pytania tej oceny i dołącza dokumenty, bez konta GLPI. Strona "
-"pokazuje tylko te pytania. Link wygasa, można go użyć ograniczoną liczbę "
-"razy i unieważnić w każdej chwili. Otrzymane odpowiedzi czekają, aż je "
-"przejrzysz i zapiszesz."
+"Na przykład „4.2 Kontrola dostępu”. Pozostaw puste, jeśli cały dokument "
+"obejmuje zabezpieczenia."
 
-msgid "Answers to review"
-msgstr "Odpowiedzi do przejrzenia"
+msgid "Choose one or several controls in the list."
+msgstr "Wybierz jedno lub kilka zabezpieczeń z listy."
 
-msgid "Received on"
-msgstr "Otrzymano"
-
-msgid "Answers"
-msgstr "Odpowiedzi"
-
-msgid "Link to send to the supplier"
-msgstr "Link do wysłania dostawcy"
+msgid "Or type control codes"
+msgstr "Lub wpisz kody zabezpieczeń"
 
 msgid ""
-"Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). "
-"Send it by the means of your choice."
+"Quick entry, separated by commas: a control (A.5.1), a range (A.5.15-A.5.18) "
+"or a whole theme (A.8 for all technological controls)."
 msgstr ""
-"Skopiuj go teraz: jest wyświetlany tylko raz (GLPI przechowuje tylko jego "
-"skrót). Wyślij go wybranym sposobem."
+"Szybkie wprowadzanie, oddzielone przecinkami: zabezpieczenie (A.5.1), zakres "
+"(A.5.15-A.5.18) lub cały temat (A.8 dla wszystkich zabezpieczeń "
+"technologicznych)."
+
+msgid "This text is not linked to any control yet."
+msgstr "Ten dokument nie jest jeszcze powiązany z żadnym zabezpieczeniem."
+
+msgid "Whole text"
+msgstr "Cały dokument"
+
+msgid "Remove the link"
+msgstr "Usuń powiązanie"
+
+msgid "Texts that cover this control"
+msgstr "Dokumenty obejmujące to zabezpieczenie"
 
 msgid ""
-"The secure link is disabled. An administrator of the plugin can enable it in "
-"the plugin settings; the answer by file stays available."
+"The policies, or sections of policies, that deal with this control. An "
+"auditor expects each applicable control to be covered by at least one "
+"approved text whose review is up to date. Only the texts you are allowed to "
+"read are shown."
 msgstr ""
-"Bezpieczny link jest wyłączony. Administrator wtyczki może go włączyć w "
-"ustawieniach wtyczki; odpowiedź przez plik pozostaje dostępna."
+"Polityki lub sekcje polityk dotyczące tego zabezpieczenia. Audytor oczekuje, "
+"że każde mające zastosowanie zabezpieczenie będzie objęte co najmniej jednym "
+"zatwierdzonym dokumentem z aktualnym przeglądem. Wyświetlane są tylko "
+"dokumenty, które możesz odczytać."
 
-msgid "Open the settings"
-msgstr "Otwórz ustawienia"
+msgid "No text of the policy library covers this control yet."
+msgstr ""
+"Żaden dokument biblioteki polityk nie obejmuje jeszcze tego zabezpieczenia."
 
-msgid "Valid for (days)"
-msgstr "Ważny przez (dni)"
+msgid "Text"
+msgstr "Dokument"
 
-msgid "Sendings allowed"
-msgstr "Dozwolone wysłania"
+msgid "Link texts"
+msgstr "Powiąż dokumenty"
 
-msgid "Create a link"
-msgstr "Utwórz link"
+msgid "Policies"
+msgstr "Polityki"
+
+msgid "Leave empty when the whole text covers the control."
+msgstr "Pozostaw puste, jeśli cały dokument obejmuje zabezpieczenie."
 
 msgid ""
-"This evaluation is completed: its links no longer open the questionnaire."
-msgstr "Ta ocena jest zakończona: jej linki nie otwierają już kwestionariusza."
-
-msgid "Expires"
-msgstr "Wygasa"
-
-msgid "Sendings"
-msgstr "Wysłania"
-
-msgid "Openings"
-msgstr "Otwarcia"
-
-msgid "Created by"
-msgstr "Utworzone przez"
-
-msgid ""
-"The creation of a link, each opening, each sending and each revocation are "
-"recorded in the security audit log; the Historical tab shows the sendings "
-"received and reviewed."
+"A control is covered when at least one approved text of the policy library, "
+"whose review date has not passed, deals with it (ISO/IEC 27001 clause 5.2 "
+"and control A.5.1). Only the items the person who exported this report can "
+"read are counted."
 msgstr ""
-"Utworzenie linku, każde otwarcie, każde wysłanie i każde unieważnienie są "
-"zapisywane w dzienniku audytu bezpieczeństwa; karta Historia pokazuje "
-"otrzymane i przejrzane wysłania."
-
-msgid "Discard these answers"
-msgstr "Odrzuć te odpowiedzi"
-
-msgid ""
-"They are checked again like any evidence when you save, then attached to "
-"their question."
-msgstr ""
-"Przy zapisie są ponownie sprawdzane jak każdy dowód, a następnie dołączane "
-"do pytania."
+"Zabezpieczenie jest objęte, gdy dotyczy go co najmniej jeden zatwierdzony "
+"dokument biblioteki polityk z nieprzekroczoną datą przeglądu (ISO/IEC 27001, "
+"punkt 5.2 i zabezpieczenie A.5.1). Liczone są tylko elementy, które może "
+"odczytać osoba eksportująca ten raport."
 
 msgid ""
 "Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). "
@@ -35022,3 +34961,272 @@ msgstr "Nie zaimportowano jeszcze żadnego SBOM."
 #: templates/product_sbom_list.html.twig
 msgid "Components"
 msgstr "Komponenty"
+
+msgid "Secure link"
+msgstr "Bezpieczny link"
+
+#, php-format
+msgid "Secure link %1$d created for the supplier, valid %2$d day(s)"
+msgstr "Utworzono bezpieczny link %1$d dla dostawcy, ważny %2$d dni"
+
+#, php-format
+msgid "Secure link %d revoked"
+msgstr "Bezpieczny link %d unieważniony"
+
+#, php-format
+msgid "Files of type .%s are not accepted."
+msgstr "Pliki typu .%s nie są akceptowane."
+
+#, php-format
+msgid ""
+"Supplier answers received by secure link %1$d: %2$d answer(s), %3$d "
+"document(s), to be reviewed"
+msgstr ""
+"Odpowiedzi dostawcy otrzymane przez bezpieczny link %1$d: odpowiedzi %2$d, "
+"dokumenty %3$d, do przejrzenia"
+
+#, php-format
+msgid "Answers received by secure link on %s"
+msgstr "Odpowiedzi otrzymane przez bezpieczny link %s"
+
+#, php-format
+msgid ""
+"Supplier answers received by secure link reviewed and saved: %1$d answer(s), "
+"%2$d document(s)"
+msgstr ""
+"Odpowiedzi dostawcy z bezpiecznego linku przejrzane i zapisane: odpowiedzi "
+"%1$d, dokumenty %2$d"
+
+#, php-format
+msgid "Supplier answers received by secure link discarded (draft %d)"
+msgstr "Odpowiedzi dostawcy z bezpiecznego linku odrzucone (wersja robocza %d)"
+
+msgid ""
+"Shows the answers sent by the supplier through the secure link, question by "
+"question, next to the current answers, with the documents received. They are "
+"not part of the evaluation yet."
+msgstr ""
+"Pokazuje odpowiedzi wysłane przez dostawcę przez bezpieczny link, pytanie po "
+"pytaniu, obok obecnych odpowiedzi, wraz z otrzymanymi dokumentami. Nie są "
+"jeszcze częścią oceny."
+
+msgid ""
+"Check the answers, then save them (the documents are checked again like any "
+"evidence) or discard them. Then review the evaluation and mark it as "
+"completed."
+msgstr ""
+"Sprawdź odpowiedzi, a następnie je zapisz (dokumenty są ponownie sprawdzane "
+"jak każdy dowód) lub odrzuć. Potem przejrzyj ocenę i oznacz ją jako "
+"zakończoną."
+
+#, php-format
+msgid "Question %s: choose an answer from the list."
+msgstr "Pytanie %s: wybierz odpowiedź z listy."
+
+msgid "Too many documents in one sending."
+msgstr "Zbyt wiele dokumentów w jednym wysłaniu."
+
+#, php-format
+msgid "Question %1$s: %2$s"
+msgstr "Pytanie %1$s: %2$s"
+
+msgid "Nothing was sent: answer at least one question."
+msgstr "Nic nie zostało wysłane: odpowiedz na co najmniej jedno pytanie."
+
+msgid "Secure link created: copy it now, it will not be shown again."
+msgstr ""
+"Utworzono bezpieczny link: skopiuj go teraz, nie zostanie ponownie "
+"wyświetlony."
+
+msgid "The link was revoked: it no longer opens the questionnaire."
+msgstr "Link został unieważniony: nie otwiera już kwestionariusza."
+
+msgid "The answers received were discarded."
+msgstr "Otrzymane odpowiedzi zostały odrzucone."
+
+#, php-format
+msgid "%1$d answer(s) saved from the secure link, %2$d document(s) attached."
+msgstr ""
+"Zapisano odpowiedzi z bezpiecznego linku: %1$d, dołączono dokumenty: %2$d."
+
+msgid ""
+"Your customer asks you to answer this security questionnaire. Choose an "
+"answer for each question, add a comment if useful and attach the documents "
+"asked for. Your answers are sent to your customer, who reviews them before "
+"they are recorded."
+msgstr ""
+"Twój klient prosi o odpowiedź na ten kwestionariusz bezpieczeństwa. Wybierz "
+"odpowiedź na każde pytanie, w razie potrzeby dodaj komentarz i dołącz "
+"wymagane dokumenty. Odpowiedzi trafiają do klienta, który przegląda je przed "
+"zapisaniem."
+
+#, php-format
+msgid "Link valid until %s"
+msgstr "Link ważny do %s"
+
+#, php-format
+msgid "Sendings left: %d"
+msgstr "Pozostałe wysłania: %d"
+
+msgid "Nothing was sent yet"
+msgstr "Nic jeszcze nie wysłano"
+
+msgid "Correct these points, select the documents again, then send."
+msgstr "Popraw te punkty, ponownie wybierz dokumenty, a następnie wyślij."
+
+msgid "Document expected"
+msgstr "Oczekiwany dokument"
+
+msgid "Document (optional)"
+msgstr "Dokument (opcjonalnie)"
+
+#, php-format
+msgid ""
+"Documents: at most %d MB each, in the formats accepted by your customer "
+"(PDF, office documents, images...)."
+msgstr ""
+"Dokumenty: maksymalnie %d MB każdy, w formatach akceptowanych przez klienta "
+"(PDF, dokumenty biurowe, obrazy...)."
+
+msgid "Send my answers"
+msgstr "Wyślij moje odpowiedzi"
+
+msgid ""
+"Thank you: your answers were sent. Your customer will review them; you can "
+"close this page."
+msgstr ""
+"Dziękujemy: odpowiedzi zostały wysłane. Klient je przejrzy; możesz zamknąć "
+"tę stronę."
+
+msgid "Too many requests: wait a few minutes, then try again."
+msgstr "Zbyt wiele żądań: odczekaj kilka minut i spróbuj ponownie."
+
+msgid ""
+"This link can no longer be used: it has expired, was revoked or was already "
+"used. Ask your contact for a new link."
+msgstr ""
+"Tego linku nie można już użyć: wygasł, został unieważniony lub już "
+"wykorzystany. Poproś swojego rozmówcę o nowy link."
+
+msgid ""
+"This link is not valid. Check that you copied it in full, or ask your "
+"contact for a new link."
+msgstr ""
+"Ten link jest nieprawidłowy. Sprawdź, czy skopiowano go w całości, lub "
+"poproś rozmówcę o nowy link."
+
+msgid "Supplier answer by secure link"
+msgstr "Odpowiedź dostawcy przez bezpieczny link"
+
+msgid ""
+"Lets a supplier answer its security questionnaire on a page served by GLPI, "
+"without a GLPI account, from a personal link created on the evaluation (tab "
+"\"Secure link\"). Enable it only if this GLPI can be reached by your "
+"suppliers. The link opens only the questions of one evaluation, expires, can "
+"be used a limited number of times and can be revoked; the answers wait for a "
+"review in GLPI. The answer by file works without this setting."
+msgstr ""
+"Pozwala dostawcy odpowiedzieć na kwestionariusz bezpieczeństwa na stronie "
+"udostępnianej przez GLPI, bez konta GLPI, przez osobisty link utworzony w "
+"ocenie (karta „Bezpieczny link”). Włącz tylko, jeśli dostawcy mają dostęp do "
+"tego GLPI. Link otwiera tylko pytania jednej oceny, wygasa, można go użyć "
+"ograniczoną liczbę razy i unieważnić; odpowiedzi czekają na przegląd w GLPI. "
+"Odpowiedź przez plik działa bez tego ustawienia."
+
+msgid "Allow suppliers to answer by secure link"
+msgstr "Pozwól dostawcom odpowiadać przez bezpieczny link"
+
+msgid "All sendings used"
+msgstr "Wykorzystano wszystkie wysłania"
+
+msgid "Evaluation completed"
+msgstr "Ocena zakończona"
+
+msgid "Answer by secure link, without a GLPI account"
+msgstr "Odpowiedź przez bezpieczny link, bez konta GLPI"
+
+msgid ""
+"Send the supplier a personal link to a page served by GLPI, where it answers "
+"the questions of this evaluation and attaches its documents, without a GLPI "
+"account. The page shows only these questions. The link expires, can be used "
+"a limited number of times and can be revoked at any time. The answers "
+"received stay pending until you review and save them."
+msgstr ""
+"Wyślij dostawcy osobisty link do strony udostępnianej przez GLPI, na której "
+"odpowiada na pytania tej oceny i dołącza dokumenty, bez konta GLPI. Strona "
+"pokazuje tylko te pytania. Link wygasa, można go użyć ograniczoną liczbę "
+"razy i unieważnić w każdej chwili. Otrzymane odpowiedzi czekają, aż je "
+"przejrzysz i zapiszesz."
+
+msgid "Answers to review"
+msgstr "Odpowiedzi do przejrzenia"
+
+msgid "Received on"
+msgstr "Otrzymano"
+
+msgid "Answers"
+msgstr "Odpowiedzi"
+
+msgid "Link to send to the supplier"
+msgstr "Link do wysłania dostawcy"
+
+msgid ""
+"Copy it now: it is shown only once (GLPI keeps only a fingerprint of it). "
+"Send it by the means of your choice."
+msgstr ""
+"Skopiuj go teraz: jest wyświetlany tylko raz (GLPI przechowuje tylko jego "
+"skrót). Wyślij go wybranym sposobem."
+
+msgid ""
+"The secure link is disabled. An administrator of the plugin can enable it in "
+"the plugin settings; the answer by file stays available."
+msgstr ""
+"Bezpieczny link jest wyłączony. Administrator wtyczki może go włączyć w "
+"ustawieniach wtyczki; odpowiedź przez plik pozostaje dostępna."
+
+msgid "Open the settings"
+msgstr "Otwórz ustawienia"
+
+msgid "Valid for (days)"
+msgstr "Ważny przez (dni)"
+
+msgid "Sendings allowed"
+msgstr "Dozwolone wysłania"
+
+msgid "Create a link"
+msgstr "Utwórz link"
+
+msgid ""
+"This evaluation is completed: its links no longer open the questionnaire."
+msgstr "Ta ocena jest zakończona: jej linki nie otwierają już kwestionariusza."
+
+msgid "Expires"
+msgstr "Wygasa"
+
+msgid "Sendings"
+msgstr "Wysłania"
+
+msgid "Openings"
+msgstr "Otwarcia"
+
+msgid "Created by"
+msgstr "Utworzone przez"
+
+msgid ""
+"The creation of a link, each opening, each sending and each revocation are "
+"recorded in the security audit log; the Historical tab shows the sendings "
+"received and reviewed."
+msgstr ""
+"Utworzenie linku, każde otwarcie, każde wysłanie i każde unieważnienie są "
+"zapisywane w dzienniku audytu bezpieczeństwa; karta Historia pokazuje "
+"otrzymane i przejrzane wysłania."
+
+msgid "Discard these answers"
+msgstr "Odrzuć te odpowiedzi"
+
+msgid ""
+"They are checked again like any evidence when you save, then attached to "
+"their question."
+msgstr ""
+"Przy zapisie są ponownie sprawdzane jak każdy dowód, a następnie dołączane "
+"do pytania."
