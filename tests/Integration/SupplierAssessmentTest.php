@@ -3,14 +3,13 @@
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use CommonITILObject;
-use GlpiPlugin\Grcmanager\SupplierAssessment;
 use GlpiPlugin\Grcmanager\SupplierRisk;
 use Supplier;
 use Ticket;
 
 /**
- * Issue #127 : questionnaire de sécurité d'un fournisseur et ticket de réévaluation à
- * l'échéance de la revue.
+ * Issue #127 : ticket de réévaluation à l'échéance de la revue (le questionnaire est testé par
+ * SupplierEvaluationTest, issue #864).
  */
 final class SupplierAssessmentTest extends GrcmanagerIntegrationTestCase
 {
@@ -28,29 +27,6 @@ final class SupplierAssessmentTest extends GrcmanagerIntegrationTestCase
         $risk->getFromDB($id);
 
         return $risk;
-    }
-
-    public function testTheQuestionnaireIsSavedWithItsScore(): void
-    {
-        $risk = $this->createRisk(date('Y-m-d', strtotime('+1 year')));
-        $level = $risk->fields['risk_level'];
-
-        $this->assertTrue(\GlpiPlugin\Grcmanager\SupplierAssessment::save($risk, [
-            'certification' => 'yes',
-            'encryption'    => 'partial',
-            'mfa'           => 'no',
-            'audits'        => 'na',
-            'unknown'       => 'yes',
-        ]));
-
-        $risk->getFromDB($risk->getID());
-        $this->assertSame(50, (int) $risk->fields['questionnaire_score']);
-        $answers = json_decode((string) $risk->fields['questionnaire_answers'], true);
-        $this->assertIsArray($answers);
-        $this->assertArrayNotHasKey('unknown', $answers);
-        $this->assertSame('partial', $answers['encryption']);
-        $this->assertSame((int) \Session::getLoginUserID(), (int) $risk->fields['questionnaire_users_id']);
-        $this->assertSame($level, $risk->fields['risk_level'], 'niveau de risque inchangé');
     }
 
     public function testAnOverdueReviewOpensASingleTicketUntilItIsSolved(): void

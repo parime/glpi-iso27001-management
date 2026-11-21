@@ -342,8 +342,8 @@ class PageHelp
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Create one risk per important supplier, have the security questionnaire filled in, follow its '
-                        . 'contracts and the "Security watch" tab.',
+                    'Create one risk per important supplier, evaluate it with one or more questionnaires '
+                        . '(Questionnaires tab), follow its contracts and the "Security watch" tab.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, Annex A 5.19 to 5.22', 'grcmanager'),
@@ -1047,6 +1047,25 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO/IEC 27001, control A.5.26 and clause 7.4', 'grcmanager'),
+            ],
+            // Issue #864 : modèles de questionnaire fournisseur.
+            'supplierquestionnairetemplate' => [
+                'purpose'   => __(
+                    'Supplier questionnaire templates: the questions asked to your suppliers, grouped by section, '
+                        . 'with their weight, the expected answer and the evidence to provide. One template per '
+                        . 'need: information security, personal data, artificial intelligence...',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Adapt the historical questionnaire or create your own templates, then start an evaluation from '
+                        . 'the Questionnaires tab of a supplier risk. A supplier can be evaluated with several '
+                        . 'templates; each evaluation keeps its score and its history.',
+                    'grcmanager'
+                ),
+                'reference' => __(
+                    'ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28',
+                    'grcmanager'
+                ),
             ],
             // Issue #537 : référentiels personnalisés importés depuis un fichier CSV.
             'customframework' => [
