@@ -83,6 +83,9 @@ function plugin_init_grcmanager(): void
     require_once __DIR__ . '/inc/rulesecurityincident.class.php';
     require_once __DIR__ . '/inc/rulesecurityincidentcollection.class.php';
 
+    // Issue #951 : tables raccourcies des gabarits d'incident, inconnues de getItemTypeForTable().
+    \GlpiPlugin\Grcmanager\Compat\ShortTableItemtypes::register();
+
     // Menu « GRC & Conformité » : un secteur de premier niveau dédié. Une clé de catégorie inconnue
     // des secteurs natifs fait créer par Html::generateMenuSession() (cœur de GLPI) une nouvelle
     // entrée de la barre latérale. \GlpiPlugin\Grcmanager\Menu (inc/menu.class.php), ancre sans table, est
