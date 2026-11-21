@@ -1583,8 +1583,6 @@ final class Installer
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
-        // Issue #835 : imports des rapports d'audit de sécurité de l'Active Directory (PingCastle).
-        AdSecurityAuditTables::install($keySign, $charset, $collation);
         $this->installEndOfLifeTables($keySign, $charset, $collation);
         $this->installManagementReviewDossierTables($keySign, $charset, $collation);
         // Issue #776 : scénarios de crise sécurité de l'information (ajoutés à la demande, par entité).
@@ -6499,7 +6497,6 @@ final class Installer
         OfficialContactTables::uninstall($migration);
         FeatureTablesRegistry::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
-        AdSecurityAuditTables::uninstall($migration);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);
         $migration->dropTable(self::ACN_REQUIREMENTS_LINKS_TABLE);

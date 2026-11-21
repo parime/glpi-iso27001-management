@@ -35835,6 +35835,245 @@ msgstr "Zabbix hosts not matched with a GLPI asset"
 msgid "out of %d critical assets"
 msgstr "out of %d critical assets"
 
+msgid "The file is very long: only its first checks were read."
+msgstr "The file is very long: only its first checks were read."
+
+msgid ""
+"Active Directory security score (PingCastle or Purple Knight, 0 is best)"
+msgstr ""
+"Active Directory security score (PingCastle or Purple Knight, 0 is best)"
+
+msgid "Account security"
+msgstr "Account security"
+
+msgid "Delegation of rights"
+msgstr "Delegation of rights"
+
+msgid "Directory infrastructure"
+msgstr "Directory infrastructure"
+
+msgid "Group policies"
+msgstr "Group policies"
+
+msgid "Kerberos"
+msgstr "Kerberos"
+
+msgid "Cloud identity (Entra ID)"
+msgstr "Cloud identity (Entra ID)"
+
+msgid "Microsoft 365 services"
+msgstr "Microsoft 365 services"
+
+msgid ""
+"The file declares a DOCTYPE or entities: it is refused for security reasons. "
+"A report of these tools never contains any."
+msgstr ""
+"The file declares a DOCTYPE or entities: it is refused for security reasons. "
+"A report of these tools never contains any."
+
+msgid ""
+"This file was not recognised: import the XML report of PingCastle, the CSV "
+"export of the Purple Knight security indicators, or the JSON results of "
+"Maester or ScubaGear."
+msgstr ""
+"This file was not recognised: import the XML report of PingCastle, the CSV "
+"export of the Purple Knight security indicators, or the JSON results of "
+"Maester or ScubaGear."
+
+msgid ""
+"This JSON file is neither Maester results (TestResults) nor ScubaGear "
+"results (ScubaResults)."
+msgstr ""
+"This JSON file is neither Maester results (TestResults) nor ScubaGear "
+"results (ScubaResults)."
+
+msgid ""
+"The report gives no domain or tenant name: fill in the domain field of the "
+"import form."
+msgstr ""
+"The report gives no domain or tenant name: fill in the domain field of the "
+"import form."
+
+#, php-format
+msgid ""
+"Entra ID and Microsoft 365 configuration (%1$s): %2$d of %3$d checks failed "
+"for %4$s (%5$s)"
+msgstr ""
+"Entra ID and Microsoft 365 configuration (%1$s): %2$d of %3$d checks failed "
+"for %4$s (%5$s)"
+
+msgid ""
+"Keeps the results of the security audits of your Active Directory "
+"(PingCastle, Purple Knight) and of the configuration of your Entra ID and "
+"Microsoft 365 tenant (Maester, ScubaGear): the files that your team produces "
+"are imported here, with the score and the rules or checks that failed. Each "
+"one is linked to the ISO/IEC 27001 controls it concerns, and the history "
+"shows how the score changes from one report to the next."
+msgstr ""
+"Keeps the results of the security audits of your Active Directory "
+"(PingCastle, Purple Knight) and of the configuration of your Entra ID and "
+"Microsoft 365 tenant (Maester, ScubaGear): the files that your team produces "
+"are imported here, with the score and the rules or checks that failed. Each "
+"one is linked to the ISO/IEC 27001 controls it concerns, and the history "
+"shows how the score changes from one report to the next."
+
+msgid ""
+"Run these tools regularly (for example every quarter), import each report, "
+"then decide how to treat the rules: propose an action or a ticket for those "
+"you fix, and follow the rules resolved by the next report. Nothing is "
+"created automatically. The page is reserved to the sensitive registers right."
+msgstr ""
+"Run these tools regularly (for example every quarter), import each report, "
+"then decide how to treat the rules: propose an action or a ticket for those "
+"you fix, and follow the rules resolved by the next report. Nothing is "
+"created automatically. The page is reserved to the sensitive registers right."
+
+msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.5.23, A.8.2 and A.8.5"
+msgstr "ISO/IEC 27001, controls A.5.15 to A.5.18, A.5.23, A.8.2 and A.8.5"
+
+#, php-format
+msgid "%1$s report of %2$s, %3$s"
+msgstr "%1$s report of %2$s, %3$s"
+
+msgid ""
+"After the scan, save the security indicators as CSV, then import that file. "
+"Indicators of exposure (IOE) and of compromise (IOC) that failed are kept."
+msgstr ""
+"After the scan, save the security indicators as CSV, then import that file. "
+"Indicators of exposure (IOE) and of compromise (IOC) that failed are kept."
+
+msgid ""
+"Archive the PingCastle report as a restricted document (passwords removed)"
+msgstr ""
+"Archive the PingCastle report as a restricted document (passwords removed)"
+
+msgid "Checks failed"
+msgstr "Checks failed"
+
+msgid "Domain (if the file gives none)"
+msgstr "Domain (if the file gives none)"
+
+msgid "Example"
+msgstr "Example"
+
+msgid ""
+"Free for internal use; a service provider auditing a customer needs a "
+"licence."
+msgstr ""
+"Free for internal use; a service provider auditing a customer needs a "
+"licence."
+
+msgid ""
+"GLPI never runs these tools and never queries the directory or the tenant: "
+"it reads the file that your team produced. The type of file is recognised "
+"automatically and the report is stored in the current entity."
+msgstr ""
+"GLPI never runs these tools and never queries the directory or the tenant: "
+"it reads the file that your team produced. The type of file is recognised "
+"automatically and the report is stored in the current entity."
+
+msgid "If the file has no domain column, fill in the domain below."
+msgstr "If the file has no domain column, fill in the domain below."
+
+msgid "Import a report"
+msgstr "Import a report"
+
+#, php-format
+msgid "MFA coverage: %d%%"
+msgstr "MFA coverage: %d%%"
+
+msgid ""
+"No report imported yet. Run PingCastle or Purple Knight on your domain, or "
+"Maester or ScubaGear on your Microsoft 365 tenant, then import the file it "
+"produces below."
+msgstr ""
+"No report imported yet. Run PingCastle or Purple Knight on your domain, or "
+"Maester or ScubaGear on your Microsoft 365 tenant, then import the file it "
+"produces below."
+
+msgid ""
+"Only the scores and the failed rules or checks (identifier, category, "
+"severity, finding) are kept: never the list of accounts, the raw "
+"configuration of the tenant, nor any password found. A new report of the "
+"same domain or tenant shows the change of score and what appeared or was "
+"resolved."
+msgstr ""
+"Only the scores and the failed rules or checks (identifier, category, "
+"severity, finding) are kept: never the list of accounts, the raw "
+"configuration of the tenant, nor any password found. A new report of the "
+"same domain or tenant shows the change of score and what appeared or was "
+"resolved."
+
+msgid "Open the MFA coverage"
+msgstr "Open the MFA coverage"
+
+#, php-format
+msgid "Purple Knight score: %d/100 (100 is best)"
+msgstr "Purple Knight score: %d/100 (100 is best)"
+
+#, php-format
+msgid "Report file: XML, CSV or JSON (%d MB at most)"
+msgstr "Report file: XML, CSV or JSON (%d MB at most)"
+
+msgid ""
+"Run Invoke-Maester, then import the TestResults-[date].json file of the test-"
+"results folder."
+msgstr ""
+"Run Invoke-Maester, then import the TestResults-[date].json file of the test-"
+"results folder."
+
+msgid ""
+"Run Invoke-SCuBA, then import the ScubaResults_[identifier].json file of the "
+"output folder."
+msgstr ""
+"Run Invoke-SCuBA, then import the ScubaResults_[identifier].json file of the "
+"output folder."
+
+msgid ""
+"Run the health check (--healthcheck option), then import the ad_hc_[domain]."
+"xml file (not the HTML file)."
+msgstr ""
+"Run the health check (--healthcheck option), then import the ad_hc_[domain]."
+"xml file (not the HTML file)."
+
+msgid "The MFA coverage of each account is followed on its own page:"
+msgstr "The MFA coverage of each account is followed on its own page:"
+
+msgid ""
+"The score of this page (0 is best) is 100 minus the score calculated from "
+"the indicators, weighted by their severity: it may differ slightly from the "
+"report of the tool."
+msgstr ""
+"The score of this page (0 is best) is 100 minus the score calculated from "
+"the indicators, weighted by their severity: it may differ slightly from the "
+"report of the tool."
+
+msgid "The score of this page (0 is best) is the share of checks that failed."
+msgstr "The score of this page (0 is best) is the share of checks that failed."
+
+msgid ""
+"This tool checks the configuration of the tenant (conditional access, "
+"authentication methods, roles). The MFA coverage account by account comes "
+"from the MFA coverage page, which reads Entra ID through Microsoft Graph or "
+"a CSV import."
+msgstr ""
+"This tool checks the configuration of the tenant (conditional access, "
+"authentication methods, roles). The MFA coverage account by account comes "
+"from the MFA coverage page, which reads Entra ID through Microsoft Graph or "
+"a CSV import."
+
+#, php-format
+msgid "%1$d check passed out of %2$d"
+msgid_plural "%1$d checks passed out of %2$d"
+msgstr[0] "%1$d check passed out of %2$d"
+msgstr[1] "%1$d checks passed out of %2$d"
+
+#, php-format
+msgid "%d administrator without MFA"
+msgid_plural "%d administrators without MFA"
+msgstr[0] "%d administrator without MFA"
+msgstr[1] "%d administrators without MFA"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

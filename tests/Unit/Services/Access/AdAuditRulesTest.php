@@ -101,4 +101,35 @@ final class AdAuditRulesTest extends TestCase
         $this->assertSame('', Rules::normalizeDomain('exemple..test'));
         $this->assertSame('', Rules::normalizeDomain(''));
     }
+
+    /**
+     * Lot 2 : Purple Knight, Maester et ScubaGear.
+     */
+    public function testOtherToolsCategoriesSeverityAndScores(): void
+    {
+        $this->assertSame(Rules::CATEGORY_DELEGATION, Rules::categoryFromLabel('AD Delegation'));
+        $this->assertSame(Rules::CATEGORY_KERBEROS, Rules::categoryFromLabel('Kerberos Security'));
+        $this->assertSame(Rules::CATEGORY_GPO, Rules::categoryFromLabel('Group Policy Security'));
+        $this->assertSame(Rules::CATEGORY_INFRASTRUCTURE, Rules::categoryFromLabel('AD Infrastructure Security'));
+        $this->assertSame(Rules::CATEGORY_ACCOUNTS, Rules::categoryFromLabel('Account Security'));
+        $this->assertSame(Rules::CATEGORY_IDENTITY, Rules::categoryFromLabel('Entra ID'));
+        $this->assertSame(Rules::CATEGORY_OTHER, Rules::categoryFromLabel(''));
+
+        $this->assertSame(40, Rules::pointsForSeverity('Critical'));
+        $this->assertSame(30, Rules::pointsForSeverity('high'));
+        $this->assertSame(10, Rules::pointsForSeverity('Warning'));
+        $this->assertSame(5, Rules::pointsForSeverity('Low'));
+        $this->assertSame(0, Rules::pointsForSeverity('Informational'));
+
+        $this->assertSame(25, Rules::riskFromSecurityScore(75));
+        $this->assertSame(0, Rules::riskFromSecurityScore(140));
+        $this->assertNull(Rules::failureRate(0, 0));
+        $this->assertSame(44, Rules::failureRate(4, 9));
+        $this->assertSame(['A.5.23', 'A.8.9'], Rules::controls(Rules::CATEGORY_CLOUD, 'MS.EXO.4.1v1'));
+        $this->assertSame(
+            ['A.5.15', 'A.5.17', 'A.8.2', 'A.8.5'],
+            Rules::controls(Rules::CATEGORY_IDENTITY, 'MS.AAD.7.1v1 privileged')
+        );
+        $this->assertSame([], array_intersect(Rules::AD_TOOLS, Rules::CLOUD_TOOLS));
+    }
 }

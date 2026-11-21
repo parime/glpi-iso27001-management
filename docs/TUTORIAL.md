@@ -1353,7 +1353,37 @@ sensibles : ces rapports décrivent les faiblesses du domaine.
    mesure. Le tableau de bord propose la carte « Score de sécurité de l'Active Directory » et les
    indicateurs de risque la source du même nom.
 
-### Étape 45 : Contrôler les droits d'accès aux partages de fichiers Windows (mesures A.5.15, A.5.18 et A.8.3)
+### Étape 45 : Ajouter Purple Knight, Maester et ScubaGear à l'audit de sécurité (mesures A.5.15 à A.5.18, A.5.23, A.8.2 et A.8.5)
+
+La page **Audit de sécurité de l'Active Directory** lit aussi les fichiers de trois autres outils
+gratuits. Le type de fichier est reconnu tout seul ; le plugin ne lance aucun outil et n'interroge
+ni l'annuaire ni le locataire Microsoft 365.
+
+1. **Purple Knight** (Active Directory, indicateurs d'exposition et de compromission) : après
+   l'analyse, enregistrez les indicateurs de sécurité au format CSV, puis importez ce fichier. Si
+   l'export n'a pas de colonne de domaine, saisissez le domaine dans le champ **Domaine (si le
+   fichier n'en donne pas)**. Le score de Purple Knight va de 0 à 100, 100 étant le meilleur : la
+   page le retourne (100 moins le score) pour garder la même lecture que PingCastle, 0 le meilleur.
+2. **Maester** (Entra ID et Microsoft 365) : lancez `Invoke-Maester`, puis importez le fichier
+   `TestResults-<date>.json` du dossier `test-results`. **ScubaGear** : lancez `Invoke-SCuBA`, puis
+   importez le fichier `ScubaResults_<identifiant>.json` du dossier de sortie. Le score de la page est
+   la part des contrôles en échec.
+3. Chaque carte porte le badge de l'outil. Le détail donne le nombre de contrôles réussis, puis la
+   liste des **contrôles en échec** avec leur gravité, leur catégorie (sécurité des comptes,
+   délégation, Kerberos, identité Entra ID, services Microsoft 365...) et les mesures de l'Annexe A
+   concernées (A.5.23 pour les services en nuage). Les boutons **Proposer une action** et
+   **Ouvrir un ticket** fonctionnent comme pour PingCastle.
+4. Seuls le score et les contrôles en échec sont gardés : jamais la liste des comptes, la
+   configuration brute du locataire (section `Raw` de ScubaGear), le compte qui a lancé Maester, ni un
+   texte qui ressemble à un mot de passe. Les fichiers trop gros, trop profonds ou mal formés sont
+   refusés. Seul le rapport PingCastle peut être archivé comme document restreint.
+5. Pour un locataire Entra ID, un encadré renvoie à la page **Couverture MFA** : Maester et
+   ScubaGear contrôlent la configuration (accès conditionnel, méthodes d'authentification, rôles),
+   tandis que la couverture MFA compte par compte vient de cette page (lecture par Microsoft Graph ou
+   import CSV). Le score de sécurité de l'AD du tableau de bord et des indicateurs de risque ne
+   retient que PingCastle et Purple Knight.
+
+### Étape 46 : Contrôler les droits d'accès aux partages de fichiers Windows (mesures A.5.15, A.5.18 et A.8.3)
 
 L'auditeur demande la preuve que les accès aux dossiers partagés sont limités au besoin et revus.
 Le plugin ne se connecte à aucun serveur de fichiers et ne modifie aucun droit : un administrateur
@@ -1397,7 +1427,7 @@ droit du plugin et le droit des registres sensibles (en modification pour import
    monde modifier, ceux des comptes supprimés ou désactivés et les partages revus dans les douze
    derniers mois.
 
-### Étape 46 : Mesurer la maturité de chaque mesure et fixer les cibles (articles 6.2, 9.3 et 10.1)
+### Étape 47 : Mesurer la maturité de chaque mesure et fixer les cibles (articles 6.2, 9.3 et 10.1)
 
 Le score de maturité global résume le SMSI en un chiffre. Pour bâtir et défendre la feuille de
 route, on évalue en plus chaque mesure : « nous sommes au niveau 2 et visons le niveau 4 l'an
@@ -1424,7 +1454,7 @@ ni le score de maturité.
 6. Les libellés de l'échelle se renomment dans la configuration du plugin, cadre
    **Échelle de maturité par mesure** (un champ vide garde le libellé par défaut, traduit).
 
-### Étape 47 : Lire la supervision Zabbix (mesures A.8.16, A.8.6 et A.5.30)
+### Étape 48 : Lire la supervision Zabbix (mesures A.8.16, A.8.6 et A.5.30)
 
 L'auditeur demande comment les serveurs et services sont surveillés, s'ils sont disponibles comme
 prévu et si leur capacité est suivie. Le plugin lit votre serveur **Zabbix en lecture seule** et
@@ -2721,7 +2751,36 @@ reports describe the weaknesses of the domain.
    offers the card "Active Directory security score" and risk indicators the source of the same
    name.
 
-### Step 45: Check the access rights of the Windows file shares (controls A.5.15, A.5.18 and A.8.3)
+### Step 45: Add Purple Knight, Maester and ScubaGear to the security audit (controls A.5.15 to A.5.18, A.5.23, A.8.2 and A.8.5)
+
+The **Active Directory security audit** page also reads the files of three other free tools. The
+type of file is recognised automatically; the plugin runs no tool and never queries the directory
+or the Microsoft 365 tenant.
+
+1. **Purple Knight** (Active Directory, indicators of exposure and of compromise): after the scan,
+   save the security indicators as CSV, then import that file. If the export has no domain column,
+   fill in the **Domain (if the file gives none)** field. The Purple Knight score goes from 0 to 100,
+   100 being the best: the page reverses it (100 minus the score) to keep the same reading as
+   PingCastle, 0 being the best.
+2. **Maester** (Entra ID and Microsoft 365): run `Invoke-Maester`, then import the
+   `TestResults-<date>.json` file of the `test-results` folder. **ScubaGear**: run `Invoke-SCuBA`,
+   then import the `ScubaResults_<identifier>.json` file of the output folder. The score of the page
+   is the share of checks that failed.
+3. Each card shows the badge of the tool. The details give the number of checks passed, then the
+   list of **checks failed** with their severity, their category (account security, delegation,
+   Kerberos, Entra ID identity, Microsoft 365 services...) and the Annex A controls concerned
+   (A.5.23 for cloud services). The **Propose an action** and **Open a ticket** buttons work as for
+   PingCastle.
+4. Only the score and the failed checks are kept: never the list of accounts, the raw configuration
+   of the tenant (`Raw` section of ScubaGear), the account that ran Maester, nor any text that looks
+   like a password. Files that are too large, too deep or malformed are refused. Only the PingCastle
+   report can be archived as a restricted document.
+5. For an Entra ID tenant, a box points to the **MFA coverage** page: Maester and ScubaGear check the
+   configuration (conditional access, authentication methods, roles), while the MFA coverage account
+   by account comes from that page (Microsoft Graph or CSV import). The Active Directory security
+   score of the dashboard and of the risk indicators only counts PingCastle and Purple Knight.
+
+### Step 46: Check the access rights of the Windows file shares (controls A.5.15, A.5.18 and A.8.3)
 
 The auditor asks for evidence that access to shared folders is limited to what is needed and
 reviewed. The plugin never connects to a file server and never changes a right: an administrator
@@ -2762,7 +2821,7 @@ and the right on the sensitive registers (with modification to import).
    shares, those with a gap, the rights that let everyone modify, those of deleted or disabled
    accounts and the shares reviewed in the last twelve months.
 
-### Step 46: Rate the maturity of each control and set the targets (clauses 6.2, 9.3 and 10.1)
+### Step 47: Rate the maturity of each control and set the targets (clauses 6.2, 9.3 and 10.1)
 
 The overall maturity score sums up the ISMS in one figure. To build and justify the roadmap, each
 control is also rated: "we are at level 2 and aim for level 4 next year". These levels are
@@ -2788,7 +2847,7 @@ optional: they change neither the implementation status of the controls nor the 
 6. The labels of the scale are renamed in the plugin configuration, box **Maturity scale by
    control** (an empty field keeps the default label, translated).
 
-### Step 47: Read the Zabbix monitoring (controls A.8.16, A.8.6 and A.5.30)
+### Step 48: Read the Zabbix monitoring (controls A.8.16, A.8.6 and A.5.30)
 
 The auditor asks how servers and services are monitored, whether they are as available as planned
 and whether their capacity is followed up. The plugin reads your **Zabbix server in read only** and
