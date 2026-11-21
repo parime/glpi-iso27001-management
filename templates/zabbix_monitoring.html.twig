@@ -36,7 +36,7 @@
    {% set c = summary.concerned %}
    {% set rate_color = c.rate is null ? 'secondary' : (c.rate >= 95 ? 'success' : (c.rate >= 80 ? 'warning' : 'danger')) %}
    <div class="row row-cards mb-3">
-      {{ _self.stat_card('grc-zabbix-rate', 'ti ti-activity-heartbeat', rate_color, c.rate is null ? '-' : c.rate ~ ' %', __('Assets monitored by Zabbix', 'grcmanager'), _n('%d asset concerned', '%d assets concerned', c.total, 'grcmanager')|format(c.total)) }}
+      {{ _self.stat_card('grc-zabbix-rate', 'ti ti-activity-heartbeat', rate_color, c.rate is null ? '-' : c.rate ~ ' %', __('Assets monitored by Zabbix', 'grcmanager'), __('Assets concerned: %d', 'grcmanager')|format(c.total)) }}
       {{ _self.stat_card('grc-zabbix-critical', 'ti ti-eye-off', summary.critical.uncovered > 0 ? 'danger' : 'success', summary.critical.uncovered, __('Critical assets not monitored', 'grcmanager'), __('out of %d critical assets', 'grcmanager')|format(summary.critical.total)) }}
       {{ _self.stat_card('grc-zabbix-open-high', 'ti ti-alert-octagon', summary.open_high > 0 ? 'danger' : 'success', summary.open_high, __('Open high-severity problems', 'grcmanager'), __('%1$d problem(s) over %2$d days', 'grcmanager')|format(summary.problems, summary.period_days)) }}
       {{ _self.stat_card('grc-zabbix-sli', 'ti ti-chart-line', summary.services_below > 0 ? 'danger' : (summary.lowest_sli is null ? 'secondary' : 'success'), summary.lowest_sli is null ? '-' : summary.lowest_sli|number_format(2) ~ ' %', __('Lowest service availability', 'grcmanager'), summary.services > 0 ? __('%1$d service(s), %2$d below their objective', 'grcmanager')|format(summary.services, summary.services_below) : __('No service level (SLA) read', 'grcmanager')) }}

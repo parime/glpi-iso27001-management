@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 06:51+0000\n"
+"POT-Creation-Date: 2026-11-21 08:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -364,7 +364,7 @@ msgid "Rule"
 msgstr ""
 
 #: front/consistencycheck.export.php:50 front/controlblocker.php:62
-#: inc/securityincident.class.php:804 src/CrisisMessageTemplate.php:103
+#: inc/securityincident.class.php:806 src/CrisisMessageTemplate.php:103
 #: src/Nonconformity.php:371 src/NotificationTargetNonconformity.php:92
 #: src/SecurityIncidentEdrImport.php:75
 #: templates/_control_blocker_list.html.twig templates/_crisis_review.html.twig
@@ -379,6 +379,7 @@ msgstr ""
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/tabs/item_security_incidents.html.twig
 #: templates/tabs/ticket_security_incidents.html.twig
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
 msgid "Severity"
 msgstr ""
 
@@ -829,7 +830,7 @@ msgstr ""
 msgid "The register has been archived as evidence on control A.5.37."
 msgstr ""
 
-#: front/parkmachines.php:26 src/Menu.php:177
+#: front/parkmachines.php:26 src/Menu.php:179
 msgid "Most exposed machines"
 msgstr ""
 
@@ -1303,7 +1304,7 @@ msgid "Not recognized, ignored: %s"
 msgstr ""
 
 #: front/securityincidentlinkeditem.form.php:41
-#: front/securityincidentticket.form.php:51
+#: front/securityincidentticket.form.php:51 front/zabbixmonitoring.php:106
 msgid "The security incident could not be created."
 msgstr ""
 
@@ -1319,7 +1320,7 @@ msgid_plural "%d remediation tasks added."
 msgstr[0] ""
 msgstr[1] ""
 
-#: front/securityincidentticket.form.php:33
+#: front/securityincidentticket.form.php:33 front/zabbixmonitoring.php:115
 msgid "The ticket could not be created."
 msgstr ""
 
@@ -1356,7 +1357,7 @@ msgid ""
 "check the others."
 msgstr ""
 
-#: front/softwarewatch.php:69 src/Menu.php:170
+#: front/softwarewatch.php:69 src/Menu.php:172
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
@@ -1375,6 +1376,37 @@ msgstr ""
 
 #: front/trainingquiz.form.php:51
 msgid "The copy could not be attached (file type not allowed?)."
+msgstr ""
+
+#: front/zabbixmonitoring.php:47
+msgid ""
+"Not saved: the address must start with https:// (or http:// when internal "
+"addresses are allowed), without user name, password or parameters."
+msgstr ""
+
+#: front/zabbixmonitoring.php:56
+msgid "Zabbix settings saved."
+msgstr ""
+
+#: front/zabbixmonitoring.php:73
+msgid "Settings saved."
+msgstr ""
+
+#: front/zabbixmonitoring.php:84
+#, php-format
+msgid "Zabbix read: %1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr ""
+
+#: front/zabbixmonitoring.php:96
+msgid "Zabbix readings deleted."
+msgstr ""
+
+#: front/zabbixmonitoring.php:127
+msgid "Business process saved."
+msgstr ""
+
+#: front/zabbixmonitoring.php:127
+msgid "The business process could not be saved."
 msgstr ""
 
 #: hook.php:43 src/Profile.php:44 templates/profile_rights.html.twig
@@ -1486,7 +1518,7 @@ msgstr ""
 msgid "Average supplier score"
 msgstr ""
 
-#: hook.php:201 src/RiskIndicator.php:162
+#: hook.php:201 src/RiskIndicator.php:178
 #: src/Services/Dashboard/PilotageCards.php:859
 msgid "Overdue periodic reviews"
 msgstr ""
@@ -1624,7 +1656,7 @@ msgstr ""
 msgid "Security incidents by severity"
 msgstr ""
 
-#: hook.php:422 src/ConsistencyCheck.php:259 src/RiskIndicator.php:155
+#: hook.php:422 src/ConsistencyCheck.php:259 src/RiskIndicator.php:171
 #: src/Services/Dashboard/DashboardCardService.php:876
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Overdue risk treatment actions"
@@ -1641,7 +1673,7 @@ msgstr ""
 msgid "Open risks above appetite"
 msgstr ""
 
-#: hook.php:441 src/RiskIndicator.php:154
+#: hook.php:441 src/RiskIndicator.php:170
 #: src/Services/Dashboard/DashboardCardService.php:988
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Open risks above tolerance"
@@ -1761,31 +1793,32 @@ msgstr ""
 #: templates/data_breach_form.html.twig
 #: templates/tabs/item_security_incidents.html.twig
 #: templates/tabs/ticket_security_incidents.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Security incident"
 msgid_plural "Security incidents"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/securityincident.class.php:92 inc/securityincident.class.php:1182
+#: inc/securityincident.class.php:92 inc/securityincident.class.php:1184
 #: templates/_official_contact_rows.html.twig
 #: templates/pdf/_official_contacts_table.html.twig
 msgid "Data breach"
 msgstr ""
 
-#: inc/securityincident.class.php:93 inc/securityincident.class.php:1183
+#: inc/securityincident.class.php:93 inc/securityincident.class.php:1185
 msgid "Malware"
 msgstr ""
 
-#: inc/securityincident.class.php:94 inc/securityincident.class.php:1184
+#: inc/securityincident.class.php:94 inc/securityincident.class.php:1186
 msgid "Unauthorized access"
 msgstr ""
 
-#: inc/securityincident.class.php:95 inc/securityincident.class.php:1188
+#: inc/securityincident.class.php:95 inc/securityincident.class.php:1190
 msgid "Unavailability / denial of service"
 msgstr ""
 
-#: inc/securityincident.class.php:96 inc/securityincident.class.php:177
-#: inc/securityincident.class.php:1190 src/CompetenceDeclaration.php:92
+#: inc/securityincident.class.php:96 inc/securityincident.class.php:179
+#: inc/securityincident.class.php:1192 src/CompetenceDeclaration.php:92
 #: src/ComplianceEvent.php:120 src/ComplianceEvent.php:211
 #: src/ContextItem.php:150 src/ContextItem.php:166 src/ContextItem.php:186
 #: src/CrisisMessageTemplate.php:65 src/EbiosStakeholder.php:51
@@ -1843,6 +1876,7 @@ msgstr ""
 #: inc/securityincident.class.php:172 templates/park_item_tab.html.twig
 #: templates/park_vulnerabilities.html.twig
 #: templates/pdf/access_review_report.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Ticket"
 msgstr ""
 
@@ -1854,40 +1888,44 @@ msgstr ""
 msgid "SIEM / log monitoring"
 msgstr ""
 
-#: inc/securityincident.class.php:175
+#: inc/securityincident.class.php:176
+msgid "Infrastructure monitoring"
+msgstr ""
+
+#: inc/securityincident.class.php:177
 msgid "Supplier or partner"
 msgstr ""
 
-#: inc/securityincident.class.php:176
+#: inc/securityincident.class.php:178
 msgid "Authority (CERT, regulator...)"
 msgstr ""
 
-#: inc/securityincident.class.php:224 src/SecurityIncidentAction.php:97
+#: inc/securityincident.class.php:226 src/SecurityIncidentAction.php:97
 msgid "Action log"
 msgstr ""
 
-#: inc/securityincident.class.php:230 src/SecurityIncidentIoc.php:184
+#: inc/securityincident.class.php:232 src/SecurityIncidentIoc.php:184
 msgid "IOC"
 msgstr ""
 
-#: inc/securityincident.class.php:242 src/SecurityIncidentTicket.php:117
+#: inc/securityincident.class.php:244 src/SecurityIncidentTicket.php:117
 #: templates/pdf/postmortem_report.html.twig
 msgid "Linked tickets"
 msgstr ""
 
-#: inc/securityincident.class.php:270 inc/securityincident.class.php:1201
+#: inc/securityincident.class.php:272 inc/securityincident.class.php:1203
 #: src/Nonconformity.php:106 src/Nonconformity.php:621
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "Minor"
 msgstr ""
 
-#: inc/securityincident.class.php:271 inc/securityincident.class.php:1202
+#: inc/securityincident.class.php:273 inc/securityincident.class.php:1204
 #: src/Nonconformity.php:107 src/Nonconformity.php:622
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "Major"
 msgstr ""
 
-#: inc/securityincident.class.php:272 inc/securityincident.class.php:1203
+#: inc/securityincident.class.php:274 inc/securityincident.class.php:1205
 #: src/BusinessImpact.php:75 src/Control.php:201 src/Nonconformity.php:108
 #: src/Nonconformity.php:623 src/PatchCompliance.php:180
 #: src/Traits/RiskAssessmentTrait.php:123
@@ -1899,49 +1937,51 @@ msgstr ""
 #: templates/pdf/crisis_scenarios_report.html.twig
 #: templates/risk_heatmap.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
 msgid "Critical"
 msgstr ""
 
-#: inc/securityincident.class.php:282 src/AssetClassification.php:119
+#: inc/securityincident.class.php:284 src/AssetClassification.php:119
 #: src/Control.php:557 templates/asset_classification_tab.html.twig
 msgid "Confidentiality"
 msgstr ""
 
-#: inc/securityincident.class.php:283 src/AssetClassification.php:127
+#: inc/securityincident.class.php:285 src/AssetClassification.php:127
 #: src/Control.php:558 templates/asset_classification_tab.html.twig
 msgid "Integrity"
 msgstr ""
 
-#: inc/securityincident.class.php:284 src/AssetClassification.php:135
+#: inc/securityincident.class.php:286 src/AssetClassification.php:135
 #: src/Control.php:559 src/ImpactAnalysis.php:226
 #: templates/asset_classification_tab.html.twig templates/impact_tab.html.twig
 #: templates/tabs/business_process_items.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Availability"
 msgstr ""
 
-#: inc/securityincident.class.php:753
+#: inc/securityincident.class.php:755
 msgid ""
 "The root cause and lessons learned are required to close a security incident."
 msgstr ""
 
-#: inc/securityincident.class.php:767
+#: inc/securityincident.class.php:769
 msgid ""
 "Mandatory remediation steps are still open: mark them done or not applicable "
 "before closing."
 msgstr ""
 
-#: inc/securityincident.class.php:794
+#: inc/securityincident.class.php:796
 #: templates/itil_classification_section.html.twig
 #: templates/playbook_form.html.twig
 msgid "Incident type"
 msgstr ""
 
-#: inc/securityincident.class.php:814
+#: inc/securityincident.class.php:816
 #: templates/itil_classification_section.html.twig
 msgid "CIA impact"
 msgstr ""
 
-#: inc/securityincident.class.php:822 src/CertificationResponse.php:246
+#: inc/securityincident.class.php:824 src/CertificationResponse.php:246
 #: src/Nonconformity.php:428 templates/itil_classification_section.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/pdf/certification_findings_report.html.twig
@@ -1950,54 +1990,54 @@ msgstr ""
 msgid "Root cause"
 msgstr ""
 
-#: inc/securityincident.class.php:830
+#: inc/securityincident.class.php:832
 #: templates/itil_classification_section.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Lessons learned"
 msgstr ""
 
-#: inc/securityincident.class.php:847
+#: inc/securityincident.class.php:849
 #: templates/itil_regulatory_section.html.twig
 msgid "Subject to NIS2"
 msgstr ""
 
-#: inc/securityincident.class.php:854 src/CrisisCommunication.php:190
+#: inc/securityincident.class.php:856 src/CrisisCommunication.php:190
 #: src/CrisisMessageTemplate.php:62 templates/itil_regulatory_section.html.twig
 msgid "Personal data breach"
 msgstr ""
 
-#: inc/securityincident.class.php:864 inc/securityincident.class.php:911
+#: inc/securityincident.class.php:866 inc/securityincident.class.php:913
 #, php-format
 msgid "%s: notified on"
 msgstr ""
 
-#: inc/securityincident.class.php:873
+#: inc/securityincident.class.php:875
 #: templates/itil_regulatory_section.html.twig
 msgid "Major ICT-related incident (DORA)"
 msgstr ""
 
-#: inc/securityincident.class.php:880
+#: inc/securityincident.class.php:882
 #: templates/itil_regulatory_section.html.twig
 msgid "DORA: classified as major on"
 msgstr ""
 
-#: inc/securityincident.class.php:887
+#: inc/securityincident.class.php:889
 #: templates/itil_regulatory_section.html.twig
 msgid "CRA reporting"
 msgstr ""
 
-#: inc/securityincident.class.php:895
+#: inc/securityincident.class.php:897
 #: templates/itil_regulatory_section.html.twig
 msgid "CRA: product concerned"
 msgstr ""
 
-#: inc/securityincident.class.php:902
+#: inc/securityincident.class.php:904
 #: templates/itil_regulatory_section.html.twig
 msgid "CRA: corrective measure available on"
 msgstr ""
 
-#: inc/securityincident.class.php:920 src/ComplianceEvent.php:117
+#: inc/securityincident.class.php:922 src/ComplianceEvent.php:117
 #: src/CrisisExercise.php:68 templates/crisis_scenario_form.html.twig
 #: templates/itil_deadline_banner.html.twig
 #: templates/pdf/business_continuity_report.html.twig
@@ -2005,7 +2045,7 @@ msgstr ""
 msgid "Crisis exercise"
 msgstr ""
 
-#: inc/securityincident.class.php:943
+#: inc/securityincident.class.php:945
 #: src/NotificationTargetAuditEvidenceRequest.php:154
 #: src/PersonnelCompliance.php:749 src/ProcessingActivity.php:548
 #: src/ProcessingActivity.php:991 src/RiskRegisterImport.php:601
@@ -2025,9 +2065,9 @@ msgstr ""
 msgid "Reference"
 msgstr ""
 
-#: inc/securityincident.class.php:951 src/NetworkFlow.php:275
+#: inc/securityincident.class.php:953 src/NetworkFlow.php:275
 #: src/NetworkFlow.php:459 src/NotificationTargetRiskIndicator.php:155
-#: src/RiskIndicator.php:761 templates/custom_framework_form.html.twig
+#: src/RiskIndicator.php:780 templates/custom_framework_form.html.twig
 #: templates/custom_framework_list.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/mfa_coverage.html.twig templates/network_flow_import.html.twig
@@ -2037,76 +2077,76 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
-#: inc/securityincident.class.php:959
+#: inc/securityincident.class.php:961
 #: templates/itil_classification_section.html.twig
 msgid "External identifier (EDR, SIEM...)"
 msgstr ""
 
-#: inc/securityincident.class.php:974
+#: inc/securityincident.class.php:976
 msgid "NIS2: early warning (24 h)"
 msgstr ""
 
-#: inc/securityincident.class.php:975
+#: inc/securityincident.class.php:977
 msgid "NIS2: incident notification (72 h)"
 msgstr ""
 
-#: inc/securityincident.class.php:976
+#: inc/securityincident.class.php:978
 msgid "NIS2: final report (1 month)"
 msgstr ""
 
-#: inc/securityincident.class.php:977
+#: inc/securityincident.class.php:979
 msgid "GDPR: notification to the supervisory authority (72 h)"
 msgstr ""
 
-#: inc/securityincident.class.php:980
+#: inc/securityincident.class.php:982
 msgid "DORA: initial notification (4 h after classification, 24 h at most)"
 msgstr ""
 
-#: inc/securityincident.class.php:983
+#: inc/securityincident.class.php:985
 msgid "DORA: intermediate report (72 h)"
 msgstr ""
 
-#: inc/securityincident.class.php:984
+#: inc/securityincident.class.php:986
 msgid "DORA: final report (1 month)"
 msgstr ""
 
-#: inc/securityincident.class.php:985
+#: inc/securityincident.class.php:987
 msgid "CRA: early warning (24 h)"
 msgstr ""
 
-#: inc/securityincident.class.php:986
+#: inc/securityincident.class.php:988
 msgid "CRA: notification (72 h)"
 msgstr ""
 
-#: inc/securityincident.class.php:987
+#: inc/securityincident.class.php:989
 msgid "CRA: final report"
 msgstr ""
 
-#: inc/securityincident.class.php:999
+#: inc/securityincident.class.php:1001
 msgid "Actively exploited vulnerability"
 msgstr ""
 
-#: inc/securityincident.class.php:1000
+#: inc/securityincident.class.php:1002
 msgid "Severe incident affecting the product"
 msgstr ""
 
-#: inc/securityincident.class.php:1035
+#: inc/securityincident.class.php:1037
 msgid ""
 "Reports NIS2 / GDPR / DORA / CRA notification deadlines that are near or "
 "past with a follow-up"
 msgstr ""
 
-#: inc/securityincident.class.php:1072
+#: inc/securityincident.class.php:1074
 #, php-format
 msgid "Deadline passed: “%1$s” was due no later than %2$s."
 msgstr ""
 
-#: inc/securityincident.class.php:1073
+#: inc/securityincident.class.php:1075
 #, php-format
 msgid "Deadline approaching: “%1$s” is due no later than %2$s."
 msgstr ""
 
-#: inc/securityincident.class.php:1085
+#: inc/securityincident.class.php:1087
 msgid ""
 "Nothing is sent to the authority automatically: make the notification, then "
 "enter its date in “Regulatory notifications” on the incident."
@@ -2221,7 +2261,7 @@ msgstr ""
 #: src/NotificationTargetRiskIndicator.php:148 src/Objective.php:168
 #: src/PersonnelCompliance.php:749 src/PhysicalSecurityAssessment.php:436
 #: src/Policy.php:178 src/ProcessingActivity.php:550
-#: src/ProcessingActivity.php:994 src/Risk.php:402 src/RiskIndicator.php:741
+#: src/ProcessingActivity.php:994 src/Risk.php:402 src/RiskIndicator.php:760
 #: src/RiskRegisterImport.php:614 src/SupplierRisk.php:243
 #: templates/_personnel_compliance.html.twig
 #: templates/access_review_form.html.twig
@@ -2720,7 +2760,7 @@ msgstr ""
 #: src/ConsistencyCheck.php:132 src/Control.php:200 src/DoraRegister.php:238
 #: src/DoraRegister.php:243 src/Traits/RiskAssessmentTrait.php:122
 #: src/Traits/RiskAssessmentTrait.php:138
-#: src/Traits/RiskAssessmentTrait.php:309
+#: src/Traits/RiskAssessmentTrait.php:309 src/ZabbixMonitoring.php:140
 #: templates/park_vulnerabilities.html.twig templates/risk_heatmap.html.twig
 msgid "High"
 msgstr ""
@@ -2740,7 +2780,7 @@ msgid "RPO (maximum data loss)"
 msgstr ""
 
 #: src/AssetClassification.php:189 src/Risk.php:836
-#: templates/asset_classification_tab.html.twig
+#: src/ZabbixMonitoring.php:136 templates/asset_classification_tab.html.twig
 msgid "Not classified"
 msgstr ""
 
@@ -3652,6 +3692,7 @@ msgstr ""
 #: templates/tabs/ebios_workshop1.html.twig
 #: templates/tabs/item_business_processes.html.twig
 #: templates/tabs/risk_business_processes.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Business process"
 msgid_plural "Business processes"
 msgstr[0] ""
@@ -4930,7 +4971,7 @@ msgstr ""
 msgid "Automated technical checks"
 msgstr ""
 
-#: src/ComplianceAudit.php:113
+#: src/ComplianceAudit.php:113 templates/zabbix_monitoring.html.twig
 msgid "Technical security"
 msgstr ""
 
@@ -5241,7 +5282,7 @@ msgstr ""
 #: src/ComplianceObligation.php:232 src/ContextItem.php:857
 #: src/ContextItem.php:933 src/NetworkFlow.php:286 src/Objective.php:200
 #: src/Policy.php:202 src/ProcessingActivity.php:571
-#: src/ProcessingActivity.php:997 src/Risk.php:393 src/RiskIndicator.php:768
+#: src/ProcessingActivity.php:997 src/Risk.php:393 src/RiskIndicator.php:787
 #: src/RiskRegisterImport.php:611 src/RiskRegisterImport.php:612
 #: src/SupplierRisk.php:234 templates/compliance_obligation_form.html.twig
 #: templates/context_item_form.html.twig templates/context_linked_tab.html.twig
@@ -5894,7 +5935,7 @@ msgstr ""
 #: src/NotificationTargetRisk.php:94
 #: src/NotificationTargetRiskIndicator.php:156
 #: src/NotificationTargetSupplierRisk.php:117 src/Playbook.php:214
-#: src/Policy.php:231 src/Risk.php:353 src/RiskIndicator.php:765
+#: src/Policy.php:231 src/Risk.php:353 src/RiskIndicator.php:784
 #: src/RiskRegisterImport.php:604 src/SupplierRisk.php:194
 #: templates/context_item_form.html.twig templates/pdf/context_report.html.twig
 #: templates/pdf/risk_register_report.html.twig templates/policy_form.html.twig
@@ -6716,7 +6757,8 @@ msgid "Open, due on %s"
 msgstr ""
 
 #: src/ControlBlocker.php:414 src/Nonconformity.php:138
-#: src/Nonconformity.php:634
+#: src/Nonconformity.php:634 templates/zabbix_item_tab.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Open"
 msgstr ""
 
@@ -9238,6 +9280,7 @@ msgstr ""
 
 #: src/EndOfLife.php:477 src/HardwareWarranty.php:437
 #: templates/park_hardware_warranty.html.twig
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
 msgid "Asset"
 msgstr ""
 
@@ -11044,24 +11087,24 @@ msgstr ""
 msgid "Previous status"
 msgstr ""
 
-#: src/NotificationTargetRiskIndicator.php:150 src/RiskIndicator.php:745
+#: src/NotificationTargetRiskIndicator.php:150 src/RiskIndicator.php:764
 #: templates/risk_indicator_form.html.twig
 #: templates/ticket/risk_indicator.html.twig
 msgid "Last value"
 msgstr ""
 
-#: src/NotificationTargetRiskIndicator.php:151 src/RiskIndicator.php:749
+#: src/NotificationTargetRiskIndicator.php:151 src/RiskIndicator.php:768
 msgid "Last measured on"
 msgstr ""
 
-#: src/NotificationTargetRiskIndicator.php:152 src/RiskIndicator.php:753
-#: src/RiskIndicator.php:905 templates/risk_indicator_form.html.twig
+#: src/NotificationTargetRiskIndicator.php:152 src/RiskIndicator.php:772
+#: src/RiskIndicator.php:924 templates/risk_indicator_form.html.twig
 #: templates/ticket/risk_indicator.html.twig
 msgid "Orange threshold"
 msgstr ""
 
-#: src/NotificationTargetRiskIndicator.php:153 src/RiskIndicator.php:757
-#: src/RiskIndicator.php:906 templates/risk_indicator_form.html.twig
+#: src/NotificationTargetRiskIndicator.php:153 src/RiskIndicator.php:776
+#: src/RiskIndicator.php:925 templates/risk_indicator_form.html.twig
 #: templates/ticket/risk_indicator.html.twig
 msgid "Red threshold"
 msgstr ""
@@ -11500,7 +11543,8 @@ msgstr[1] ""
 msgid "Restore"
 msgstr ""
 
-#: src/OperatingProcedure.php:115
+#: src/OperatingProcedure.php:115 templates/zabbix_item_tab.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Monitoring"
 msgstr ""
 
@@ -12397,6 +12441,28 @@ msgstr ""
 
 #: src/PageHelp.php:754
 msgid ""
+"Reads your Zabbix monitoring server, in read only: hosts, problems and "
+"availability of the services. Hosts are matched with the computers and "
+"network devices of GLPI to show the assets that nobody monitors, the "
+"measured availability compared with the recovery time objectives of the "
+"business processes, and the saturations of disk, memory or processor."
+msgstr ""
+
+#: src/PageHelp.php:761
+msgid ""
+"Enter the address of the Zabbix server and the API token of a read-only "
+"Zabbix user, read now, then follow up the critical assets not monitored, the "
+"open high-severity problems and the services below their objective. A high-"
+"severity problem can be turned into a security incident or a ticket with one "
+"click; nothing is created automatically and nothing is changed in Zabbix."
+msgstr ""
+
+#: src/PageHelp.php:768
+msgid "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
+msgstr ""
+
+#: src/PageHelp.php:773
+msgid ""
 "Shows which active accounts are protected by multi-factor authentication: "
 "GLPI two-factor authentication, and the methods registered with your "
 "identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises "
@@ -12404,7 +12470,7 @@ msgid ""
 "administrators and remote access accounts."
 msgstr ""
 
-#: src/PageHelp.php:761
+#: src/PageHelp.php:780
 msgid ""
 "Import the export of your identity provider, choose the remote access "
 "groups, then follow up the gaps: administrator or remote access without MFA, "
@@ -12413,120 +12479,120 @@ msgid ""
 "keep the evidence."
 msgstr ""
 
-#: src/PageHelp.php:767
+#: src/PageHelp.php:786
 msgid "ISO/IEC 27001, controls A.8.5 and A.5.17"
 msgstr ""
 
-#: src/PageHelp.php:771
+#: src/PageHelp.php:790
 msgid ""
 "Security compliance of each person: screening, confidentiality agreement, "
 "mandatory trainings, IT charter, security policies read, access review and "
 "account hygiene."
 msgstr ""
 
-#: src/PageHelp.php:776
+#: src/PageHelp.php:795
 msgid ""
 "Follow up the gaps with the person and their manager; nothing is changed "
 "automatically. The deadline for newcomers and the weight of each component "
 "are set in the plugin configuration."
 msgstr ""
 
-#: src/PageHelp.php:781
+#: src/PageHelp.php:800
 msgid "ISO 27001, Annex A 6.1, 6.2, 6.3, 6.5, 6.6 and 5.18"
 msgstr ""
 
-#: src/PageHelp.php:785
+#: src/PageHelp.php:804
 msgid ""
 "Periodic reviews (backups, logs, rights, continuity plan...) scheduled as "
 "recurring tickets."
 msgstr ""
 
-#: src/PageHelp.php:789
+#: src/PageHelp.php:808
 msgid ""
 "Enable the useful reviews and their frequency; a ticket is created at each "
 "due date for the person in charge."
 msgstr ""
 
-#: src/PageHelp.php:796
+#: src/PageHelp.php:815
 msgid ""
 "The matrix of authorised network flows: who talks to whom, on which port, "
 "and why."
 msgstr ""
 
-#: src/PageHelp.php:800
+#: src/PageHelp.php:819
 msgid ""
 "Describe each flow with its justification and owner, or import your firewall "
 "export, then review the matrix regularly."
 msgstr ""
 
-#: src/PageHelp.php:804
+#: src/PageHelp.php:823
 msgid "ISO 27001, Annex A 8.20 to 8.22"
 msgstr ""
 
-#: src/PageHelp.php:808
+#: src/PageHelp.php:827
 msgid ""
 "Work email addresses found in known data breaches (Have I Been Pwned), "
 "checked every day."
 msgstr ""
 
-#: src/PageHelp.php:812
+#: src/PageHelp.php:831
 msgid ""
 "For each new exposure, have the password changed (and enable multi-factor "
 "authentication) if passwords were exposed, then mark it as handled."
 msgstr ""
 
-#: src/PageHelp.php:816
+#: src/PageHelp.php:835
 msgid "ISO 27001, Annex A 5.7 and 5.17"
 msgstr ""
 
-#: src/PageHelp.php:820
+#: src/PageHelp.php:839
 msgid ""
 "The compliance calendar: all due dates (reviews, audits, renewals, "
 "obligations) in one place, also visible in the GLPI planning."
 msgstr ""
 
-#: src/PageHelp.php:825
+#: src/PageHelp.php:844
 msgid ""
 "Check it to anticipate due dates; subscribe your calendar with the iCal link."
 msgstr ""
 
-#: src/PageHelp.php:831
+#: src/PageHelp.php:850
 msgid ""
 "One-off compliance events to add to the calendar (regulator inspection, "
 "crisis exercise, contractual deadline...)."
 msgstr ""
 
-#: src/PageHelp.php:836
+#: src/PageHelp.php:855
 msgid ""
 "Add the event with its date and owner; it appears in the compliance calendar."
 msgstr ""
 
-#: src/PageHelp.php:842
+#: src/PageHelp.php:861
 msgid ""
 "The library of security policies, versioned, with their approval and review "
 "date."
 msgstr ""
 
-#: src/PageHelp.php:846
+#: src/PageHelp.php:865
 msgid ""
 "Upload each policy, have it approved, distribute it and review it when due."
 msgstr ""
 
-#: src/PageHelp.php:849
+#: src/PageHelp.php:868
 msgid "ISO 27001, 5.2; Annex A 5.1"
 msgstr ""
 
-#: src/PageHelp.php:853
+#: src/PageHelp.php:872
 msgid "Dated evidence (reports, attestations, certificates) and its validity."
 msgstr ""
 
-#: src/PageHelp.php:857
+#: src/PageHelp.php:876
 msgid ""
 "State how long each piece of evidence is valid; a renewal ticket is opened "
 "when it expires."
 msgstr ""
 
-#: src/PageHelp.php:864
+#: src/PageHelp.php:883
 msgid ""
 "Prepare the evidence pack the auditor asks for: one ZIP archive per "
 "perimeter, with the evidence of each control and each requirement, the "
@@ -12534,7 +12600,7 @@ msgid ""
 "SHA-256 fingerprint."
 msgstr ""
 
-#: src/PageHelp.php:870
+#: src/PageHelp.php:889
 msgid ""
 "Choose the perimeter and check its contents: renew expired evidence and "
 "attach what is missing first. Then generate the pack and download it from "
@@ -12542,62 +12608,62 @@ msgid ""
 "the index, not included. Nothing is changed in the registers."
 msgstr ""
 
-#: src/PageHelp.php:877
+#: src/PageHelp.php:896
 msgid ""
 "ISO/IEC 27001, clauses 7.5.3 (control of documented information) and 9.2 "
 "(internal audit)"
 msgstr ""
 
-#: src/PageHelp.php:883
+#: src/PageHelp.php:902
 msgid ""
 "The effectiveness tests of the Annex A controls: a control in place is "
 "checked to really work, with its method, result and evidence."
 msgstr ""
 
-#: src/PageHelp.php:888
+#: src/PageHelp.php:907
 msgid ""
 "Set a test plan on each control, record each test from the control's "
 "\"Effectiveness tests\" tab and carry out the tests that are due first. An "
 "ineffective control opens a non-conformity."
 msgstr ""
 
-#: src/PageHelp.php:893
+#: src/PageHelp.php:912
 msgid "ISO 27001, 9.1; ISO 27002, 5.35 and 5.36"
 msgstr ""
 
-#: src/PageHelp.php:897
+#: src/PageHelp.php:916
 msgid ""
 "The audit log of the security incidents: who consulted or changed what, "
 "when, with which profile and from which address, including impersonations."
 msgstr ""
 
-#: src/PageHelp.php:902
+#: src/PageHelp.php:921
 msgid ""
 "Filter the entries, export them for an audit or a court, and check the "
 "integrity regularly: each entry is sealed with the previous one."
 msgstr ""
 
-#: src/PageHelp.php:909
+#: src/PageHelp.php:928
 msgid ""
 "Import of a CSV export of the alerts from an EDR or XDR console: each alert "
 "becomes an incident with its indicators, MITRE ATT&CK techniques, hosts and "
 "accounts."
 msgstr ""
 
-#: src/PageHelp.php:914
+#: src/PageHelp.php:933
 msgid ""
 "Check the columns proposed, choose how to group the alerts, then import. An "
 "alert already imported is ignored; the original lines are kept unchanged on "
 "the incident."
 msgstr ""
 
-#: src/PageHelp.php:921
+#: src/PageHelp.php:940
 msgid ""
 "EBIOS Risk Manager studies: the risk assessment method of ANSSI, the French "
 "national cybersecurity agency, published under an open licence."
 msgstr ""
 
-#: src/PageHelp.php:926
+#: src/PageHelp.php:945
 msgid ""
 "Create one study per scope, then work through its workshops in order: "
 "business values and feared events, risk sources, stakeholders and strategic "
@@ -12605,20 +12671,20 @@ msgid ""
 "register."
 msgstr ""
 
-#: src/PageHelp.php:934
+#: src/PageHelp.php:953
 msgid ""
 "Remediation playbooks: the standard steps to follow for each type of "
 "incident (ransomware, phishing, compromised account...)."
 msgstr ""
 
-#: src/PageHelp.php:939
+#: src/PageHelp.php:958
 msgid ""
 "Adapt the five playbooks provided to your context; from an incident, apply "
 "one to get its plan of tasks. Mandatory steps must be done or marked not "
 "applicable before closing."
 msgstr ""
 
-#: src/PageHelp.php:947
+#: src/PageHelp.php:966
 msgid ""
 "Information security crisis scenarios of the continuity plan: ransomware, "
 "data leak, compromise of privileged accounts, unavailability of a critical "
@@ -12627,7 +12693,7 @@ msgid ""
 "follow."
 msgstr ""
 
-#: src/PageHelp.php:954
+#: src/PageHelp.php:973
 msgid ""
 "Add the default scenarios, then adapt each one: choose the impacted "
 "processes, check the secure degraded mode and the roles, link the response "
@@ -12635,18 +12701,18 @@ msgid ""
 "should be exercised at least once a year."
 msgstr ""
 
-#: src/PageHelp.php:959
+#: src/PageHelp.php:978
 msgid "ISO/IEC 27001, control A.5.29"
 msgstr ""
 
-#: src/PageHelp.php:964
+#: src/PageHelp.php:983
 msgid ""
 "Crisis message templates: the messages prepared in advance for each kind of "
 "crisis (major incident, personal data breach, unavailability, ransomware), "
 "with the people and organizations to inform for each one."
 msgstr ""
 
-#: src/PageHelp.php:970
+#: src/PageHelp.php:989
 msgid ""
 "Adapt the templates provided and fill in the distribution list of each one "
 "(users, groups and official contacts). During a crisis, open the Crisis "
@@ -12655,59 +12721,59 @@ msgid ""
 "email."
 msgstr ""
 
-#: src/PageHelp.php:976
+#: src/PageHelp.php:995
 msgid "ISO/IEC 27001, control A.5.26 and clause 7.4"
 msgstr ""
 
-#: src/PageHelp.php:981
+#: src/PageHelp.php:1000
 msgid ""
 "Custom frameworks: follow a framework that is not built in (group "
 "requirements, sector or contractual framework, customer security plan) by "
 "importing it from a spreadsheet."
 msgstr ""
 
-#: src/PageHelp.php:986
+#: src/PageHelp.php:1005
 msgid ""
 "Download the template, fill in one line per requirement with the Annex A "
 "controls that meet it, import it, then enable the framework. A new version "
 "of the file updates it without losing the statuses already entered."
 msgstr ""
 
-#: src/PageHelp.php:994
+#: src/PageHelp.php:1013
 msgid ""
 "Coverage rules: which assets must have which document (for example, every "
 "server must have its operations sheet)."
 msgstr ""
 
-#: src/PageHelp.php:999
+#: src/PageHelp.php:1018
 msgid ""
 "Create one rule per requirement; the result lists the covered assets and "
 "those to complete."
 msgstr ""
 
-#: src/PageHelp.php:1005
+#: src/PageHelp.php:1024
 msgid ""
 "Security exemptions: accepted exceptions to a policy or a control, limited "
 "in time and compensated."
 msgstr ""
 
-#: src/PageHelp.php:1010
+#: src/PageHelp.php:1029
 msgid ""
 "Justify each exemption, describe the compensating measures, have it approved "
 "and set its end date; it is reassessed when due."
 msgstr ""
 
-#: src/PageHelp.php:1014
+#: src/PageHelp.php:1033
 msgid "ISO 27001, 6.1.3; Annex A 5.36"
 msgstr ""
 
-#: src/PageHelp.php:1018
+#: src/PageHelp.php:1037
 msgid ""
 "Business processes: who owns them, how critical they are, how long they can "
 "be interrupted and which GLPI items they depend on."
 msgstr ""
 
-#: src/PageHelp.php:1023
+#: src/PageHelp.php:1042
 msgid ""
 "For each process, rate the impact of an interruption over time (business "
 "impact analysis), set its MTPD, RTO and RPO, and link the applications, "
@@ -12715,17 +12781,17 @@ msgid ""
 "Export the result for your continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:1028
+#: src/PageHelp.php:1047
 msgid "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
 msgstr ""
 
-#: src/PageHelp.php:1033
+#: src/PageHelp.php:1052
 msgid ""
 "Recovery test programme: when each business process was last tested, whether "
 "the test met its RTO and RPO, and which processes are not tested in time."
 msgstr ""
 
-#: src/PageHelp.php:1038
+#: src/PageHelp.php:1057
 msgid ""
 "Plan a test for each process reported as overdue or not tested this year, "
 "then record the measured recovery time and data loss in its \"Recovery "
@@ -12733,111 +12799,111 @@ msgid ""
 "continuity is tested regularly."
 msgstr ""
 
-#: src/PageHelp.php:1043
+#: src/PageHelp.php:1062
 msgid "ISO 22301, 8.5; ISO 27001, Annex A 5.30"
 msgstr ""
 
-#: src/PageHelp.php:1047
+#: src/PageHelp.php:1066
 msgid ""
 "Single points of failure: critical items that depend on a single source, "
 "according to GLPI's impact analysis."
 msgstr ""
 
-#: src/PageHelp.php:1052
+#: src/PageHelp.php:1071
 msgid ""
 "Create the matching risk or add redundancy; export the list for your "
 "business continuity plan."
 msgstr ""
 
-#: src/PageHelp.php:1055
+#: src/PageHelp.php:1074
 msgid "ISO 27001, Annex A 5.29, 5.30 and 8.14"
 msgstr ""
 
-#: src/PageHelp.php:1058
+#: src/PageHelp.php:1077
 msgid "The domino effect: how one incident or risk can lead to others."
 msgstr ""
 
-#: src/PageHelp.php:1060
+#: src/PageHelp.php:1079
 msgid ""
 "Link items from the \"Domino effect\" tab of a risk or an incident; this "
 "page shows the whole picture."
 msgstr ""
 
-#: src/PageHelp.php:1067
+#: src/PageHelp.php:1086
 msgid ""
 "Security incidents: qualification, affected assets, CVEs, costs, regulatory "
 "notifications (data protection authority, NIS2)."
 msgstr ""
 
-#: src/PageHelp.php:1072
+#: src/PageHelp.php:1091
 msgid ""
 "Declare the incident, qualify it, follow up the actions and meet the "
 "notification deadlines shown on the record."
 msgstr ""
 
-#: src/PageHelp.php:1076
+#: src/PageHelp.php:1095
 msgid "ISO 27001, Annex A 5.24 to 5.28"
 msgstr ""
 
-#: src/PageHelp.php:1080
+#: src/PageHelp.php:1099
 msgid ""
 "Known vulnerabilities (CVEs) of the software installed on your fleet, with "
 "their real-world exploitation (KEV, EPSS) and CERT-FR advisories."
 msgstr ""
 
-#: src/PageHelp.php:1085
+#: src/PageHelp.php:1104
 msgid ""
 "Handle exploited and priority vulnerabilities first; open one update ticket "
 "per software."
 msgstr ""
 
-#: src/PageHelp.php:1088 src/PageHelp.php:1112
+#: src/PageHelp.php:1107 src/PageHelp.php:1131
 msgid "ISO 27001, Annex A 8.8"
 msgstr ""
 
-#: src/PageHelp.php:1092
+#: src/PageHelp.php:1111
 msgid ""
 "Fleet software to match with a CPE reference so that its vulnerabilities are "
 "tracked."
 msgstr ""
 
-#: src/PageHelp.php:1096
+#: src/PageHelp.php:1115
 msgid ""
 "Start with the most exposed (browsers, remote access, VPN): search for the "
 "CPE, confirm it, or ignore software with no stakes."
 msgstr ""
 
-#: src/PageHelp.php:1103
+#: src/PageHelp.php:1122
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
 "software, operating system and firmware, to know where to start updating."
 msgstr ""
 
-#: src/PageHelp.php:1108
+#: src/PageHelp.php:1127
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
 "tab of each one details the CVEs and the update ticket."
 msgstr ""
 
-#: src/PageHelp.php:1116
+#: src/PageHelp.php:1135
 msgid ""
 "The correlation catalogue: reference products, their CPEs and the names "
 "under which they appear in the inventory."
 msgstr ""
 
-#: src/PageHelp.php:1121
+#: src/PageHelp.php:1140
 msgid ""
 "It is filled from \"Software to watch\"; correct an alias or a CPE here if "
 "needed."
 msgstr ""
 
-#: src/PageHelp.php:1127
+#: src/PageHelp.php:1146
 msgid ""
 "Mappings between Annex A and other frameworks, to reuse your work across "
 "several standards."
 msgstr ""
 
-#: src/PageHelp.php:1130
+#: src/PageHelp.php:1149
 msgid "Check the mappings before an audit against another framework."
 msgstr ""
 
@@ -15232,110 +15298,122 @@ msgstr ""
 msgid "ISO/IEC 27090 sections: %s"
 msgstr ""
 
-#: src/RiskIndicator.php:133
+#: src/RiskIndicator.php:146
 msgid "Risk indicator (KRI)"
 msgid_plural "Risk indicators (KRI)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/RiskIndicator.php:147
+#: src/RiskIndicator.php:160
 msgid "Manual entry"
 msgstr ""
 
-#: src/RiskIndicator.php:148
+#: src/RiskIndicator.php:161
 msgid "Computers with an unencrypted disk (%)"
 msgstr ""
 
-#: src/RiskIndicator.php:149
+#: src/RiskIndicator.php:162
 msgid "Computers without an up-to-date antivirus (%)"
 msgstr ""
 
-#: src/RiskIndicator.php:150
+#: src/RiskIndicator.php:163
 msgid "Laptops with an unencrypted disk (%)"
 msgstr ""
 
-#: src/RiskIndicator.php:151
+#: src/RiskIndicator.php:164
 msgid "Administrators without MFA"
 msgstr ""
 
-#: src/RiskIndicator.php:152 templates/patch_compliance.html.twig
+#: src/RiskIndicator.php:165 templates/patch_compliance.html.twig
 msgid "Critical servers with overdue patches"
 msgstr ""
 
-#: src/RiskIndicator.php:153
+#: src/RiskIndicator.php:166
+msgid "Service availability this month, lowest (%) (Zabbix)"
+msgstr ""
+
+#: src/RiskIndicator.php:167
+msgid "Open high-severity problems (Zabbix)"
+msgstr ""
+
+#: src/RiskIndicator.php:168
+msgid "Critical assets not monitored (Zabbix)"
+msgstr ""
+
+#: src/RiskIndicator.php:169
 msgid "Open critical vulnerabilities in the fleet"
 msgstr ""
 
-#: src/RiskIndicator.php:157
+#: src/RiskIndicator.php:173
 msgid "Actively exploited vulnerabilities in the fleet (CISA KEV)"
 msgstr ""
 
-#: src/RiskIndicator.php:160
+#: src/RiskIndicator.php:176
 msgid "Overdue corrective actions (non-conformities)"
 msgstr ""
 
-#: src/RiskIndicator.php:161
+#: src/RiskIndicator.php:177
 msgid "Overdue control effectiveness tests"
 msgstr ""
 
-#: src/RiskIndicator.php:163
+#: src/RiskIndicator.php:179
 msgid "Click rate of the last phishing simulation (%)"
 msgstr ""
 
-#: src/RiskIndicator.php:173
+#: src/RiskIndicator.php:189
 msgid "A high value is bad"
 msgstr ""
 
-#: src/RiskIndicator.php:174
+#: src/RiskIndicator.php:190
 msgid "A low value is bad"
 msgstr ""
 
-#: src/RiskIndicator.php:184
+#: src/RiskIndicator.php:200
 msgid "Green"
 msgstr ""
 
-#: src/RiskIndicator.php:185
+#: src/RiskIndicator.php:201
 msgid "Orange"
 msgstr ""
 
-#: src/RiskIndicator.php:186
+#: src/RiskIndicator.php:202
 msgid "Red"
 msgstr ""
 
-#: src/RiskIndicator.php:187 templates/tabs/business_process_recovery.html.twig
+#: src/RiskIndicator.php:203 templates/tabs/business_process_recovery.html.twig
 msgid "Not measured"
 msgstr ""
 
-#: src/RiskIndicator.php:364
+#: src/RiskIndicator.php:380
 msgid ""
 "You cannot use this automatic source: it measures data you cannot read in "
 "this entity and its sub-entities."
 msgstr ""
 
-#: src/RiskIndicator.php:405
+#: src/RiskIndicator.php:421
 msgid ""
 "The red threshold must be beyond the orange threshold, in the direction of "
 "the indicator."
 msgstr ""
 
-#: src/RiskIndicator.php:415
+#: src/RiskIndicator.php:431
 msgid "The indicator needs a name."
 msgstr ""
 
-#: src/RiskIndicator.php:613
+#: src/RiskIndicator.php:632
 msgid "Measure automatic risk indicators (KRI)"
 msgstr ""
 
-#: src/RiskIndicator.php:688
+#: src/RiskIndicator.php:707
 #, php-format
 msgid "Risk indicator in the red: %s"
 msgstr ""
 
-#: src/RiskIndicator.php:777 templates/risk_indicator_form.html.twig
+#: src/RiskIndicator.php:796 templates/risk_indicator_form.html.twig
 msgid "Unit"
 msgstr ""
 
-#: src/RiskIndicator.php:904 templates/maturity.html.twig
+#: src/RiskIndicator.php:923 templates/maturity.html.twig
 #: templates/objective_measurements.html.twig
 #: templates/pdf/soa_report.html.twig templates/risk_indicator_values.html.twig
 #: templates/tabs/ioc.html.twig
@@ -16538,6 +16616,7 @@ msgid "Declared"
 msgstr ""
 
 #: src/Services/Dashboard/SecurityIncidentCardProvider.php:468
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
 msgid "Resolved"
 msgstr ""
 
@@ -17161,6 +17240,140 @@ msgstr ""
 msgid "Re-assess the waiver \"%s\""
 msgstr ""
 
+#: src/ZabbixMonitoring.php:81 templates/control_form.html.twig
+#: templates/zabbix_item_tab.html.twig
+msgid "Zabbix monitoring"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:137
+msgid "Information"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:138
+msgid "Warning"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:139
+msgid "Average"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:141
+msgid "Disaster"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:152 templates/zabbix_monitoring.html.twig
+msgid "Monitored"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:157
+msgid "Monitored, unreachable"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:162 templates/zabbix_monitoring.html.twig
+msgid "Monitoring disabled in Zabbix"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:167
+msgid "Not monitored"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:180
+msgid "Critical assets, servers and network devices"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:181
+msgid "Critical assets only"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:182
+msgid "All computers and network devices"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:192
+msgid "Disk space"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:193
+msgid "Memory"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:194
+msgid "Processor"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:204
+msgid "Enter the address of the Zabbix server and an API token first."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:206
+msgid ""
+"Zabbix refused the API token: check that it is valid, not expired, and that "
+"its user is enabled."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:210
+msgid ""
+"Zabbix refused access: give the user of the token read access to the host "
+"groups and services."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:214
+msgid ""
+"The Zabbix server has an internal address, refused by default: allow "
+"internal addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:219
+msgid ""
+"The Zabbix server could not be reached: check the address, the network "
+"access or the GLPI proxy."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:222
+msgid "This version of Zabbix is too old: version 5.4 or later is required."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:223
+msgid "Refused: the connector only reads from Zabbix."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:224
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:225
+msgid "Zabbix returned an unexpected answer."
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1045
+#, php-format
+msgid "Problem reported by Zabbix: %s"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1046
+#, php-format
+msgid "Host: %s"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1047
+#, php-format
+msgid "Severity: %s"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1048
+#, php-format
+msgid "Started on: %s"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1049
+#, php-format
+msgid "Zabbix event: %s"
+msgstr ""
+
+#: src/ZabbixMonitoring.php:1201
+msgid "Zabbix: reads hosts, problems and service availability (read only)"
+msgstr ""
+
 #: templates/_audit_certification_fields.html.twig
 msgid ""
 "Deadline given in the audit report to send the evidence that the "
@@ -17501,6 +17714,7 @@ msgstr ""
 #: templates/periodic_reviews.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/software_license_compliance.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Save"
 msgstr ""
 
@@ -17867,6 +18081,7 @@ msgstr ""
 #: templates/account_hygiene.html.twig templates/park_vulnerabilities.html.twig
 #: templates/pdf/personnel_compliance_report.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
+#: templates/zabbix_monitoring.html.twig
 #, php-format
 msgid "%d days"
 msgstr ""
@@ -20993,7 +21208,7 @@ msgstr ""
 msgid "Other types (one per line)"
 msgstr ""
 
-#: templates/config_form.html.twig
+#: templates/config_form.html.twig templates/zabbix_monitoring.html.twig
 msgid "Outgoing connections"
 msgstr ""
 
@@ -21243,7 +21458,7 @@ msgstr ""
 msgid "%d without a matching GLPI computer"
 msgstr ""
 
-#: templates/config_sentinelone.html.twig
+#: templates/config_sentinelone.html.twig templates/zabbix_monitoring.html.twig
 msgid "API token"
 msgstr ""
 
@@ -21259,7 +21474,7 @@ msgstr ""
 msgid "Console address"
 msgstr ""
 
-#: templates/config_sentinelone.html.twig
+#: templates/config_sentinelone.html.twig templates/zabbix_monitoring.html.twig
 msgid "Delete the saved token"
 msgstr ""
 
@@ -21342,11 +21557,11 @@ msgid ""
 "key, never displayed again nor logged."
 msgstr ""
 
-#: templates/config_sentinelone.html.twig
+#: templates/config_sentinelone.html.twig templates/zabbix_monitoring.html.twig
 msgid "Token saved"
 msgstr ""
 
-#: templates/config_sentinelone.html.twig
+#: templates/config_sentinelone.html.twig templates/zabbix_monitoring.html.twig
 msgid "Token saved (leave empty to keep it)"
 msgstr ""
 
@@ -21530,7 +21745,7 @@ msgstr ""
 msgid "Decision of the ISMS"
 msgstr ""
 
-#: templates/context_item_form.html.twig
+#: templates/context_item_form.html.twig templates/zabbix_monitoring.html.twig
 msgid "Follow-up"
 msgstr ""
 
@@ -22054,6 +22269,11 @@ msgid "Administrators: %d%%"
 msgstr ""
 
 #: templates/control_form.html.twig
+#, php-format
+msgid "Assets with a saturation: %d"
+msgstr ""
+
+#: templates/control_form.html.twig
 msgid ""
 "Attributes delivered with the catalogue: they filter the SoA and feed the "
 "summary by attribute. You can adjust them."
@@ -22090,6 +22310,11 @@ msgid ""
 msgstr ""
 
 #: templates/control_form.html.twig
+#, php-format
+msgid "Critical assets not monitored: %d"
+msgstr ""
+
+#: templates/control_form.html.twig
 msgid "DORA requirements"
 msgstr ""
 
@@ -22097,6 +22322,11 @@ msgstr ""
 msgid ""
 "Deduced from the risks linked to this control and from the obligations of "
 "the register attached to them."
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "Disk, memory or processor problems: %d"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -22140,6 +22370,11 @@ msgid "HDS requirements"
 msgstr ""
 
 #: templates/control_form.html.twig
+#, php-format
+msgid "High-severity problems resolved: %d"
+msgstr ""
+
+#: templates/control_form.html.twig
 msgid "ISO 22301 requirements"
 msgstr ""
 
@@ -22176,6 +22411,11 @@ msgstr ""
 
 #: templates/control_form.html.twig
 #, php-format
+msgid "Lowest service availability: %s %%"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
 msgid "MFA rate: %d%%"
 msgstr ""
 
@@ -22197,6 +22437,15 @@ msgid "Measure %d"
 msgstr ""
 
 #: templates/control_form.html.twig
+#, php-format
+msgid "Monitored assets: %d%%"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Monitored assets: not measured"
+msgstr ""
+
+#: templates/control_form.html.twig
 msgid "More than 48 hours ago: the inventory may be out of date."
 msgstr ""
 
@@ -22208,6 +22457,11 @@ msgstr ""
 msgid "No site assessed yet"
 msgstr ""
 
+#: templates/control_form.html.twig
+#, php-format
+msgid "Open high-severity problems: %d"
+msgstr ""
+
 #: templates/control_form.html.twig templates/nonconformity_form.html.twig
 msgid "Origin"
 msgstr ""
@@ -22216,6 +22470,16 @@ msgstr ""
 msgid ""
 "Other compensating measures, in your own words (contract clause, provider "
 "certificate...)."
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "Outages longer than the RTO: %d"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "Over %1$d days, read from Zabbix on %2$s"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -22284,7 +22548,13 @@ msgstr ""
 
 #: templates/control_form.html.twig templates/network_flow_matrix.html.twig
 #: templates/park_vulnerabilities.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Service"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "Services below their objective: %d"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -23074,6 +23344,7 @@ msgstr ""
 
 #: templates/crisis_exercises.html.twig templates/crisis_room.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
 msgid "Duration"
 msgstr ""
 
@@ -24959,7 +25230,8 @@ msgstr ""
 msgid "Partly: complete by hand"
 msgstr ""
 
-#: templates/dora/register.html.twig
+#: templates/dora/register.html.twig templates/zabbix_item_tab.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Problem"
 msgstr ""
 
@@ -26173,7 +26445,7 @@ msgstr ""
 msgid "Client secret"
 msgstr ""
 
-#: templates/mfa_coverage.html.twig
+#: templates/mfa_coverage.html.twig templates/zabbix_monitoring.html.twig
 msgid "Configured"
 msgstr ""
 
@@ -26277,7 +26549,7 @@ msgstr ""
 msgid "None declared"
 msgstr ""
 
-#: templates/mfa_coverage.html.twig
+#: templates/mfa_coverage.html.twig templates/zabbix_monitoring.html.twig
 msgid "Not configured"
 msgstr ""
 
@@ -26287,7 +26559,7 @@ msgid ""
 "one account per line."
 msgstr ""
 
-#: templates/mfa_coverage.html.twig
+#: templates/mfa_coverage.html.twig templates/zabbix_monitoring.html.twig
 msgid "Only users who can modify the plugin data can set up this reading."
 msgstr ""
 
@@ -27743,7 +28015,7 @@ msgid ""
 "changes nothing in GLPI."
 msgstr ""
 
-#: templates/patch_compliance.html.twig
+#: templates/patch_compliance.html.twig templates/zabbix_monitoring.html.twig
 msgid "Server"
 msgstr ""
 
@@ -31239,6 +31511,7 @@ msgid "Automatic"
 msgstr ""
 
 #: templates/risk_indicator_values.html.twig
+#: templates/zabbix_monitoring.html.twig
 msgid "Create a ticket"
 msgstr ""
 
@@ -33418,7 +33691,7 @@ msgid ""
 "re-assessment ticket is opened. Nothing is extended or closed automatically."
 msgstr ""
 
-#: templates/waiver_form.html.twig
+#: templates/waiver_form.html.twig templates/zabbix_monitoring.html.twig
 msgid "Assets concerned"
 msgstr ""
 
@@ -33471,4 +33744,349 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid "Assets this process depends on"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Availability of the services (Zabbix SLA)"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+#, php-format
+msgid "Availability over %d days"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+#, php-format
+msgid "Downtime: %s"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "High: %d"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Longest outage and RTO"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid ""
+"No Zabbix service is linked to this process: link one on the Zabbix "
+"monitoring page."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid "No computer or network device in the dependencies of this process."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid "No problem over the period."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid "Nothing has been read from Zabbix yet."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Open problems"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Other: %d"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Outage longer than the RTO"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Problems over the last %d days"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Saturation"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+msgid "Started"
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig
+msgid ""
+"This asset is not concerned by the monitoring settings and no Zabbix host "
+"matches it."
+msgstr ""
+
+#: templates/zabbix_item_tab.html.twig templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Zabbix host: %s"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "%1$d assets: the first %2$d are shown, gaps first."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "%1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "%1$d problem(s) over %2$d days"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "%1$d service(s), %2$d below their objective"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"A Zabbix server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Acknowledged in Zabbix"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Address of the Zabbix interface"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Assets and their monitoring"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Assets concerned: %d"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Assets monitored by Zabbix"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Assets with a saturation"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Availability measured by Zabbix over the current period of each SLA, "
+"compared with its objective (SLO). Link a service to the business process it "
+"supports to compare it with the continuity needs."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Below the objective"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Business processes"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Check them: the asset may be missing from the inventory, or named "
+"differently in GLPI and in Zabbix."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid ""
+"Concerned assets: %s. A Zabbix host is matched with an asset by its serial "
+"number, its name, its short name (without the domain) or its IP address. The "
+"availability is the share of time without a high-severity problem over the "
+"period."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Connection to Zabbix (read only)"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Critical assets are those with a high confidentiality, integrity or "
+"availability level (C/I/A classification tab), or published on the Internet "
+"(network flow matrix)."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Critical assets not monitored"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Current period"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Delete the readings"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Disk, memory or processor, over %d days"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Downtime"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Entity of the readings"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "How to prepare Zabbix:"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "IP addresses"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "Last reading: %s"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Lowest service availability"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "No computer or network device concerned in your entities."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "No problem on your assets over the period."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "No reading yet."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "No service level (SLA) read"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Nothing has been read from Zabbix yet: enter the connection below, then "
+"click \"Read now\". Until then, every asset concerned is shown as not "
+"monitored."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Objective (SLO)"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Only the most recent items were read"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Open high-severity problems"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Period of the problems (days)"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Previous period"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Problems of severity Warning or higher, open ones first. A high-severity "
+"problem can be turned into a security incident or a ticket: it is only "
+"created when you click, never automatically."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Propose as security incident"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Read automatically every day (automatic action \"zabbix\")"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Read now"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Read only: nothing is ever changed in Zabbix from GLPI."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Technical name"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"The last reading failed: the page shows the previous successful reading."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"The readings are visible in this entity and its sub-entities; hosts not "
+"matched with an asset are only listed in this entity."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"The token is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Users > API tokens: create a token for this user, then copy it here with the "
+"address of the Zabbix interface."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Users > User roles: create a role of type User with API access limited to "
+"the methods host.get, problem.get, event.get, service.get, sla.get and "
+"sla.getsli."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid ""
+"Users > Users: create a user with this role, in a user group with read "
+"permission on the host groups to monitor (and on the services)."
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Which assets must be monitored?"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Zabbix host"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+msgid "Zabbix hosts not matched with a GLPI asset"
+msgstr ""
+
+#: templates/zabbix_monitoring.html.twig
+#, php-format
+msgid "out of %d critical assets"
 msgstr ""
