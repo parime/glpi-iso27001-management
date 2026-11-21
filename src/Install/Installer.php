@@ -397,6 +397,8 @@ final class Installer
         ...RecyfTables::CLASSES,
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         ...OfficialContactTables::CLASSES,
+        // Issue #868 : dossiers de preuves exportables pour l'auditeur.
+        ...EvidencePackTables::CLASSES,
         // Issue #808 : classes historisées oubliées, dont les journaux restaient après la
         // désinstallation (fiche de conformité des collaborateurs #546, fiches réflexes, actions
         // de la revue de direction), et deux cibles de notification absentes de la liste.
@@ -1569,6 +1571,8 @@ final class Installer
         RecyfTables::install($keySign, $charset, $collation);
         // Issue #771, lot 2 : prises de contact tracées avec les contacts officiels.
         OfficialContactTables::install($keySign, $charset, $collation);
+        // Issue #868 : dossiers de preuves exportables pour l'auditeur (archive ZIP par périmètre).
+        EvidencePackTables::install($keySign, $charset, $collation);
         // Issue #847 : sauvegarde déclarée des clés de récupération (aucune clé stockée).
         DiskEncryptionTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
@@ -6434,6 +6438,7 @@ final class Installer
         SecureDevelopmentTables::uninstall($migration);
         RecyfTables::uninstall($migration);
         OfficialContactTables::uninstall($migration);
+        EvidencePackTables::uninstall($migration);
         DiskEncryptionTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
