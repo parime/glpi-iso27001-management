@@ -179,11 +179,12 @@ final class MfaCoverageRules
     /**
      * Écarts d'un compte.
      *
-     * @param array{level: string, is_admin: bool, is_remote: bool, is_excluded: bool, reason: string} $account
+     * @param array<string, mixed> $account level, is_admin, is_remote, is_excluded, reason
      * @return list<string>
      */
     public static function gaps(array $account): array
     {
+        $account = self::shape($account);
         $excludedWithReason = $account['is_excluded'] && trim($account['reason']) !== '';
         if ($account['is_excluded'] && !$excludedWithReason) {
             return [self::GAP_EXCLUDED_NO_REASON];
@@ -211,13 +212,14 @@ final class MfaCoverageRules
      * Taux de MFA d'un ensemble de comptes. Les comptes exclus avec une justification sortent du
      * calcul ; un compte avec une méthode faible seule compte comme protégé mais reste un écart.
      *
-     * @param list<array{level: string, is_excluded: bool, reason: string}> $accounts
+     * @param list<array<string, mixed>> $accounts level, is_excluded, reason
      * @return array{total: int, protected: int, strong: int, weak: int, none: int, excluded: int, rate: ?int}
      */
     public static function summary(array $accounts): array
     {
         $out = ['total' => 0, 'protected' => 0, 'strong' => 0, 'weak' => 0, 'none' => 0, 'excluded' => 0];
         foreach ($accounts as $account) {
+            $account = self::shape($account);
             if ($account['is_excluded'] && trim($account['reason']) !== '') {
                 $out['excluded']++;
                 continue;
@@ -232,6 +234,21 @@ final class MfaCoverageRules
         $out['rate'] = $out['total'] > 0 ? (int) floor(100 * $out['protected'] / $out['total']) : null;
 
         return $out;
+    }
+
+    /**
+     * @param array<string, mixed> $account
+     * @return array{level: string, is_admin: bool, is_remote: bool, is_excluded: bool, reason: string}
+     */
+    private static function shape(array $account): array
+    {
+        return [
+            'level'       => (string) ($account['level'] ?? self::LEVEL_NONE),
+            'is_admin'    => (bool) ($account['is_admin'] ?? false),
+            'is_remote'   => (bool) ($account['is_remote'] ?? false),
+            'is_excluded' => (bool) ($account['is_excluded'] ?? false),
+            'reason'      => (string) ($account['reason'] ?? ''),
+        ];
     }
 
     /**
