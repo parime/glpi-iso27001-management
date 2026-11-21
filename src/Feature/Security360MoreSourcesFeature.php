@@ -289,9 +289,10 @@ final class Security360MoreSourcesFeature implements AssetSecuritySourcesProvide
         $warningDays = EndOfLifeStore::warningDays();
         $infocom = new Infocom();
         $hasInfocom = (bool) $infocom->getFromDBforDevice($item::class, (int) $item->getID());
+        $start = $hasInfocom ? $infocom->fields['warranty_date'] : null;
         $warranty = WarrantyRules::evaluate(
             $hasInfocom,
-            $hasInfocom && $infocom->fields['warranty_date'] !== null ? (string) $infocom->fields['warranty_date'] : null,
+            $start !== null ? (string) $start : null,
             $hasInfocom ? (int) $infocom->fields['warranty_duration'] : 0,
             $today,
             $warningDays
@@ -469,7 +470,9 @@ final class Security360MoreSourcesFeature implements AssetSecuritySourcesProvide
             BackupRules::STATUS_NONE    => (bool) $row['critical'] ? Rules::STATUS_CRITICAL : Rules::STATUS_WARNING,
             default                     => Rules::STATUS_CRITICAL,
         };
-        $facts = [sprintf(__('Allowed age: %s', 'grcmanager'), BackupCoverage::formatHours((int) $row['allowed_hours']))];
+        $facts = [
+            sprintf(__('Allowed age: %s', 'grcmanager'), BackupCoverage::formatHours((int) $row['allowed_hours'])),
+        ];
         $restore = (string) (BackupCoverage::restoreInfos()[$row['restore']]['label'] ?? '');
         if ($restore !== '') {
             $facts[] = $restore;
