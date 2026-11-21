@@ -88,7 +88,7 @@ class Run:
     def submit(self, scenario, button):
         try:
             with self.page.expect_navigation(wait_until='load'):
-                self.page.locator('form button[name="%s"]:visible' % button).first.click(timeout=15000)
+                self.page.locator('button[name="%s"]:visible' % button).first.click(timeout=15000)
         except Exception as exc:
             self.fail(scenario, 'bouton %s : %s' % (button, str(exc).splitlines()[0][:200]))
             return False
@@ -146,17 +146,28 @@ class Run:
                 return
             if not self.set(label, 'num', num):
                 continue
+            # Le cœur charge la liste des valeurs (champ nommé comme le champ du gabarit) dans
+            # #show_massiveaction_field (ajax/dropdownMassiveActionField.php).
+            selector = '#show_massiveaction_field select[name="%s"]' % field
             try:
                 self.page.wait_for_function(
-                    "() => { const v = document.querySelector('form [name=\"value\"]');"
-                    " return v && v.tagName === 'SELECT' && v.options.length > 1; }", timeout=10000)
+                    "(s) => { const v = document.querySelector(s); return v && v.options.length > 1; }",
+                    arg=selector, timeout=10000)
             except Exception:
-                got = self.field('value')
-                self.fail(label, 'liste des valeurs vide (%s)' % (got['options'] if got else 'absente'))
+                got = self.page.evaluate(
+                    "(s) => { const v = document.querySelector(s); return v ? v.options.length : null; }", selector)
+                self.fail(label, 'liste des valeurs vide (%s)' % ('absente' if got is None else '%d choix' % got))
                 continue
-            values = [v for v in self.field('value')['options'] if v not in ('', '0')]
-            self.set(label, 'value', values[-1])
-            self.submit(label, 'add')
+            self.page.evaluate(
+                "(s) => { const v = document.querySelector(s);"
+                " const o = Array.from(v.options).filter(o => o.value !== '' && o.value !== '0').pop();"
+                " v.value = o.value; window.jQuery(v).trigger('change'); }", selector)
+            if not self.submit(label, 'add') or not self.open(label, url):
+                continue
+            # Un champ déjà prédéfini disparaît de la liste des champs proposés.
+            got = self.field('num')
+            if got and str(num) in (got['options'] or []):
+                self.fail(label, 'champ non ajouté au gabarit')
 
 
 def main():
