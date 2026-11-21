@@ -62,7 +62,10 @@ final class RedfishClientTest extends TestCase
             '/redfish/v1/Managers/1/NetworkProtocol' => [
                 'IPMI' => ['ProtocolEnabled' => true, 'Port' => 623],
                 'SNMP' => ['ProtocolEnabled' => true, 'EnableSNMPv1' => false, 'EnableSNMPv2c' => true],
-                'HTTPS' => ['ProtocolEnabled' => true, 'Certificates' => ['@odata.id' => '/redfish/v1/Managers/1/NetworkProtocol/HTTPS/Certificates']],
+                'HTTPS' => [
+                    'ProtocolEnabled' => true,
+                    'Certificates' => ['@odata.id' => '/redfish/v1/Managers/1/NetworkProtocol/HTTPS/Certificates'],
+                ],
             ],
             '/redfish/v1/Managers/1/NetworkProtocol/HTTPS/Certificates' => [
                 'Members' => [['@odata.id' => '/redfish/v1/Managers/1/NetworkProtocol/HTTPS/Certificates/1']],
@@ -86,8 +89,12 @@ final class RedfishClientTest extends TestCase
                 // Lien vers un autre hôte : jamais suivi.
                 ['@odata.id' => 'https://piege.example.test/redfish/v1/AccountService/Accounts/4'],
             ]],
-            '/redfish/v1/AccountService/Accounts/1' => ['UserName' => 'Administrator', 'RoleId' => 'Administrator', 'Enabled' => true],
-            '/redfish/v1/AccountService/Accounts/2' => ['UserName' => 'audit-grc', 'RoleId' => 'ReadOnly', 'Enabled' => true],
+            '/redfish/v1/AccountService/Accounts/1' => [
+                'UserName' => 'Administrator', 'RoleId' => 'Administrator', 'Enabled' => true,
+            ],
+            '/redfish/v1/AccountService/Accounts/2' => [
+                'UserName' => 'audit-grc', 'RoleId' => 'ReadOnly', 'Enabled' => true,
+            ],
             '/redfish/v1/AccountService/Accounts/3' => ['UserName' => '', 'RoleId' => 'None', 'Enabled' => false],
         ];
     }
@@ -95,14 +102,27 @@ final class RedfishClientTest extends TestCase
     /**
      * @param array<string, array<mixed>|int> $resources chemin => réponse JSON, ou code HTTP
      */
-    private function client(array $resources, bool $verifyTls = true, int $transportStatus = 200, string $transportError = ''): RedfishClient
+    private function client(
+        array $resources,
+        bool $verifyTls = true,
+        int $transportStatus = 200,
+        string $transportError = ''
+    ): RedfishClient
     {
         return new RedfishClient(
             self::BASE,
             'audit-grc',
             self::PASSWORD,
             $verifyTls,
-            function (string $url, array $headers, bool $verify) use ($resources, $transportStatus, $transportError): array {
+            function (
+                string $url,
+                array $headers,
+                bool $verify
+            ) use (
+                $resources,
+                $transportStatus,
+                $transportError
+            ): array {
                 $this->calls[] = ['url' => $url, 'headers' => $headers, 'verify' => $verify];
                 if ($transportStatus !== 200) {
                     return ['status' => $transportStatus, 'body' => '', 'retry_after' => 0, 'error' => $transportError];
@@ -151,7 +171,8 @@ final class RedfishClientTest extends TestCase
         foreach ($this->calls as $call) {
             $this->assertStringStartsWith(self::BASE . '/redfish/v1', $call['url']);
             $this->assertStringNotContainsString(self::PASSWORD, $call['url']);
-            $this->assertSame('Basic ' . base64_encode('audit-grc:' . self::PASSWORD), $call['headers']['Authorization']);
+            $basic = 'Basic ' . base64_encode('audit-grc:' . self::PASSWORD);
+            $this->assertSame($basic, $call['headers']['Authorization']);
             $this->assertTrue($call['verify']);
         }
         $this->assertNotContains(
@@ -189,13 +210,15 @@ final class RedfishClientTest extends TestCase
     {
         $this->assertSame(RedfishClient::ERROR_UNAUTHORIZED, $this->client(['/redfish/v1/' => 401])->fetch()['error']);
         $this->assertSame(RedfishClient::ERROR_NOT_REDFISH, $this->client([])->fetch()['error']);
-        $this->assertSame(RedfishClient::ERROR_NOT_REDFISH, $this->client(['/redfish/v1/' => ['Hello' => 'world']])->fetch()['error']);
+        $notRedfish = $this->client(['/redfish/v1/' => ['Hello' => 'world']])->fetch();
+        $this->assertSame(RedfishClient::ERROR_NOT_REDFISH, $notRedfish['error']);
         $tls = $this->client([], true, 0, 'transport_error: SSL certificate problem: self-signed certificate')->fetch();
         $this->assertSame(RedfishClient::ERROR_TLS, $tls['error']);
         $this->assertFalse($tls['complete']);
         $internal = $this->client([], true, 0, 'internal_address')->fetch();
         $this->assertSame(RedfishClient::ERROR_INTERNAL, $internal['error']);
-        $this->assertSame(RedfishClient::ERROR_UNREACHABLE, $this->client([], true, 0, 'transport_error: timeout')->fetch()['error']);
+        $timeout = $this->client([], true, 0, 'transport_error: timeout')->fetch();
+        $this->assertSame(RedfishClient::ERROR_UNREACHABLE, $timeout['error']);
 
         $resources = self::fakeIlo();
         $resources['/redfish/v1/Systems/1'] = 500;
@@ -207,11 +230,18 @@ final class RedfishClientTest extends TestCase
     public function testRefusesPathsOutsideRedfishAndMissingConfiguration(): void
     {
         $client = $this->client(self::fakeIlo());
-        $this->assertSame(RedfishClient::ERROR_INVALID, $client->get('https://piege.example.test/redfish/v1/')['error']);
+        $outside = $client->get('https://piege.example.test/redfish/v1/');
+        $this->assertSame(RedfishClient::ERROR_INVALID, $outside['error']);
         $this->assertSame(RedfishClient::ERROR_INVALID, $client->get('/redfish/v1/../x')['error']);
         $this->assertSame([], $this->calls);
 
-        $empty = new RedfishClient('', '', '', true, static fn (): array => ['status' => 200, 'body' => '{}', 'retry_after' => 0]);
+        $empty = new RedfishClient(
+            '',
+            '',
+            '',
+            true,
+            static fn (): array => ['status' => 200, 'body' => '{}', 'retry_after' => 0]
+        );
         $this->assertSame(RedfishClient::ERROR_CONFIG, $empty->fetch()['error']);
     }
 
@@ -225,7 +255,9 @@ final class RedfishClientTest extends TestCase
             $this->assertNotContains($forbidden, $methods);
         }
         $source = (string) file_get_contents(dirname(__DIR__, 4) . '/src/Services/ServerManagement/RedfishClient.php');
-        $this->assertSame(1, preg_match_all("/Http::send\\(/", $source));
+        // Un seul appel réel, en GET ; « Http::send() » n'est cité ailleurs que dans les commentaires.
+        $this->assertSame(1, substr_count($source, "Http::send('"));
+        $this->assertSame(1, substr_count($source, "Http::send('GET'"));
         $this->assertSame(0, preg_match("/Http::send\\('(POST|PATCH|PUT|DELETE)'/", $source));
     }
 }

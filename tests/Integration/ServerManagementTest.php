@@ -249,13 +249,14 @@ final class ServerManagementTest extends GrcmanagerIntegrationTestCase
             'name' => 'iDRAC ' . $this->suffix, 'url' => 'https://10.2.0.5', 'username' => 'audit-grc',
             'password' => self::PASSWORD,
         ]);
-        $client = new RedfishClient('https://10.2.0.5', 'audit-grc', self::PASSWORD, true, static function (string $url): array {
+        $transport = static function (string $url): array {
             $resource = RedfishClientTest::fakeIlo()[substr($url, strlen('https://10.2.0.5'))] ?? 404;
 
             return is_int($resource)
                 ? ['status' => $resource, 'body' => '', 'retry_after' => 0, 'error' => 'http_status']
                 : ['status' => 200, 'body' => (string) json_encode($resource), 'retry_after' => 0, 'error' => ''];
-        });
+        };
+        $client = new RedfishClient('https://10.2.0.5', 'audit-grc', self::PASSWORD, true, $transport);
         $this->assertSame('', ServerManagement::read($saved['id'], $client)['error']);
         $this->assertContains(Rules::GAP_OUTSIDE_ADMIN_NETWORK, ServerManagement::pageData()['rows'][0]['gaps']);
     }

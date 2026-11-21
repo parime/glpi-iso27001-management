@@ -58,10 +58,12 @@ final class BmcRulesTest extends TestCase
     {
         $this->assertSame('/redfish/v1/Managers/1', Rules::safePath('/redfish/v1/Managers/1'));
         $this->assertSame('/redfish/v1/', Rules::safePath('/redfish/v1/'));
-        $this->assertSame('/redfish/v1/Managers/iDRAC.Embedded.1', Rules::safePath('/redfish/v1/Managers/iDRAC.Embedded.1'));
+        $idrac = '/redfish/v1/Managers/iDRAC.Embedded.1';
+        $this->assertSame($idrac, Rules::safePath($idrac));
         foreach (
             [
-                'https://autre.example.test/redfish/v1/Managers', '//autre.example.test/redfish/v1', '/redfish/v1/../../etc',
+                'https://autre.example.test/redfish/v1/Managers', '//autre.example.test/redfish/v1',
+                '/redfish/v1/../../etc',
                 '/redfish/v1/Managers?$expand=*', '/redfish/v1/Managers#x', '/api/v1', '/redfish/v1/%2e%2e/x', 12, null,
                 '/redfish/v1//Managers',
             ] as $refused
@@ -151,8 +153,10 @@ final class BmcRulesTest extends TestCase
         ];
         $disabledRoot = [['username' => 'root', 'enabled' => 0]];
         $this->assertSame([], Rules::gaps($clean, $disabledRoot, true, true, '2026-01-10'));
-        $this->assertSame([Rules::GAP_CERT_EXPIRED], Rules::gaps(['cert_expiry' => '2026-01-01'] + $clean, [], null, true, '2026-01-10'));
-        $this->assertSame([Rules::GAP_NOT_READ], Rules::gaps(['source' => Rules::SOURCE_REDFISH], [], null, false, '2026-01-10'));
+        $expired = Rules::gaps(['cert_expiry' => '2026-01-01'] + $clean, [], null, true, '2026-01-10');
+        $this->assertSame([Rules::GAP_CERT_EXPIRED], $expired);
+        $neverRead = Rules::gaps(['source' => Rules::SOURCE_REDFISH], [], null, false, '2026-01-10');
+        $this->assertSame([Rules::GAP_NOT_READ], $neverRead);
         $failed = Rules::gaps(['read_error' => 'unauthorized'] + $clean, [], null, true, '2026-01-10');
         $this->assertSame([Rules::GAP_READ_FAILED], $failed);
         $this->assertFalse(Rules::hasHighGap($failed));

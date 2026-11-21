@@ -30805,7 +30805,7 @@ msgid "Warning"
 msgstr "Ostrzeżenie"
 
 msgid "https:// only, with the name or the IP address of the controller and an optional port."
-msgstr "Tylko https://, z nazwą lub adresem IP kontrolera i opcjonalnym portem."
+msgstr "Tylko https:// z nazwą lub adresem IP kontrolera i opcjonalnym portem."
 
 msgid "BIOS"
 msgstr "BIOS"

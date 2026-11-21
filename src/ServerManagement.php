@@ -140,17 +140,29 @@ class ServerManagement extends CommonGLPI
             ],
             Rules::GAP_IPMI_LAN => [
                 __('IPMI over the network enabled', 'grcmanager'),
-                __('IPMI over LAN has known weaknesses (password hashes can be retrieved): disable it if it is not used.', 'grcmanager'),
+                __(
+                    'IPMI over LAN has known weaknesses (password hashes can be retrieved): disable it if it is not '
+                        . 'used.',
+                    'grcmanager'
+                ),
                 'ti ti-network',
             ],
             Rules::GAP_DEFAULT_ACCOUNT => [
                 __('Default account still enabled', 'grcmanager'),
-                __('A factory account (root, Administrator, ADMIN, USERID) is enabled: check that its password was changed, or disable it.', 'grcmanager'),
+                __(
+                    'A factory account (root, Administrator, ADMIN, USERID) is enabled: check that its password was '
+                        . 'changed, or disable it.',
+                    'grcmanager'
+                ),
                 'ti ti-user-exclamation',
             ],
             Rules::GAP_OUTSIDE_ADMIN_NETWORK => [
                 __('Outside the administration networks', 'grcmanager'),
-                __('The address of the controller is not in an administration network declared in the network flow matrix: segregation gap.', 'grcmanager'),
+                __(
+                    'The address of the controller is not in an administration network declared in the network flow '
+                        . 'matrix: segregation gap.',
+                    'grcmanager'
+                ),
                 'ti ti-route-off',
             ],
             Rules::GAP_TELNET => [
@@ -190,7 +202,11 @@ class ServerManagement extends CommonGLPI
             ],
             Rules::GAP_TLS_NOT_VERIFIED => [
                 __('Certificate not verified', 'grcmanager'),
-                __('The controller is read with the option accepting a self-signed certificate: its identity is not verified.', 'grcmanager'),
+                __(
+                    'The controller is read with the option accepting a self-signed certificate: its identity is '
+                        . 'not verified.',
+                    'grcmanager'
+                ),
                 'ti ti-lock-question',
             ],
             Rules::GAP_HEALTH_WARNING => [
@@ -205,11 +221,16 @@ class ServerManagement extends CommonGLPI
             ],
             Rules::GAP_NO_SERVER => [
                 __('No matching server in GLPI', 'grcmanager'),
-                __('No computer of GLPI has this serial number: choose the server by hand on the controller.', 'grcmanager'),
+                __(
+                    'No computer of GLPI has this serial number: choose the server by hand on the controller.',
+                    'grcmanager'
+                ),
                 'ti ti-link-off',
             ],
         ];
-        $colors = [Rules::SEVERITY_HIGH => 'danger', Rules::SEVERITY_MEDIUM => 'warning', Rules::SEVERITY_LOW => 'secondary'];
+        $colors = [
+            Rules::SEVERITY_HIGH => 'danger', Rules::SEVERITY_MEDIUM => 'warning', Rules::SEVERITY_LOW => 'secondary',
+        ];
         $infos = [];
         foreach (Rules::GAPS as $gap => $severity) {
             $infos[$gap] = [
@@ -230,9 +251,18 @@ class ServerManagement extends CommonGLPI
     public static function errorMessage(string $code): string
     {
         return match ($code) {
-            RedfishClient::ERROR_CONFIG       => __('Enter the address, the account and the password of the controller first.', 'grcmanager'),
-            RedfishClient::ERROR_UNAUTHORIZED => __('The controller refused the account or the password.', 'grcmanager'),
-            RedfishClient::ERROR_FORBIDDEN    => __('The controller refused access: give the account the read-only role.', 'grcmanager'),
+            RedfishClient::ERROR_CONFIG       => __(
+                'Enter the address, the account and the password of the controller first.',
+                'grcmanager'
+            ),
+            RedfishClient::ERROR_UNAUTHORIZED => __(
+                'The controller refused the account or the password.',
+                'grcmanager'
+            ),
+            RedfishClient::ERROR_FORBIDDEN    => __(
+                'The controller refused access: give the account the read-only role.',
+                'grcmanager'
+            ),
             RedfishClient::ERROR_INTERNAL     => __(
                 'The controller has an internal address, refused by default: allow internal addresses in the '
                     . 'plugin configuration page (Outgoing connections).',
@@ -240,7 +270,8 @@ class ServerManagement extends CommonGLPI
             ),
             RedfishClient::ERROR_TLS          => __(
                 'The certificate of the controller is not trusted (self-signed or expired): install a certificate '
-                    . 'of your certification authority, or tick "Accept a self-signed certificate" for this controller.',
+                    . 'of your certification authority, or tick "Accept a self-signed certificate" for this '
+                    . 'controller.',
                 'grcmanager'
             ),
             RedfishClient::ERROR_UNREACHABLE  => __(
@@ -251,11 +282,17 @@ class ServerManagement extends CommonGLPI
                 'No Redfish service at this address: for a controller with IPMI only, use the CSV import.',
                 'grcmanager'
             ),
-            'invalid_url'       => __('The address must be a https:// address of the controller, without path or parameters.', 'grcmanager'),
+            'invalid_url'       => __(
+                'The address must be a https:// address of the controller, without path or parameters.',
+                'grcmanager'
+            ),
             'missing_name'      => __('Enter a name.', 'grcmanager'),
             'password_required' => __('Enter the password again: the address or the account changed.', 'grcmanager'),
             'invalid_computer'  => __('The server chosen cannot be used.', 'grcmanager'),
-            'csv_source'        => __('This controller comes from the CSV import: import the file again to update it.', 'grcmanager'),
+            'csv_source'        => __(
+                'This controller comes from the CSV import: import the file again to update it.',
+                'grcmanager'
+            ),
             'not_found'         => __('Controller not found.', 'grcmanager'),
             'rights'            => __('You are not allowed to do this.', 'grcmanager'),
             'empty'             => __('The file is empty.', 'grcmanager'),
@@ -637,7 +674,9 @@ class ServerManagement extends CommonGLPI
         $manufacturerIds = [];
         foreach (
             $DB->request([
-                'SELECT' => ['id', 'name', 'serial', 'entities_id', 'computertypes_id', 'computermodels_id', 'manufacturers_id'],
+                'SELECT' => [
+                    'id', 'name', 'serial', 'entities_id', 'computertypes_id', 'computermodels_id', 'manufacturers_id',
+                ],
                 'FROM'   => $table,
                 'WHERE'  => $where,
             ]) as $row
@@ -651,7 +690,8 @@ class ServerManagement extends CommonGLPI
             unset($ids[0]);
             $out = [];
             if ($ids !== []) {
-                foreach ($DB->request(['SELECT' => ['id', 'name'], 'FROM' => $table, 'WHERE' => ['id' => array_keys($ids)]]) as $row) {
+                $request = ['SELECT' => ['id', 'name'], 'FROM' => $table, 'WHERE' => ['id' => array_keys($ids)]];
+                foreach ($DB->request($request) as $row) {
                     $out[(int) $row['id']] = (string) $row['name'];
                 }
             }
@@ -724,12 +764,16 @@ class ServerManagement extends CommonGLPI
                 'WHERE'  => ['is_active' => 1],
             ]) as $row
         ) {
-            $flows[] = ['source_label' => (string) $row['source_label'], 'destination_label' => (string) $row['destination_label']];
+            $flows[] = [
+                'source_label'      => (string) $row['source_label'],
+                'destination_label' => (string) $row['destination_label'],
+            ];
         }
         $networks = Rules::adminNetworks($flows);
 
         $rows = [];
-        foreach ($DB->request(['FROM' => Tables::CONTROLLERS, 'WHERE' => self::entityWhere($entities), 'ORDER' => 'name']) as $row) {
+        $request = ['FROM' => Tables::CONTROLLERS, 'WHERE' => self::entityWhere($entities), 'ORDER' => 'name'];
+        foreach ($DB->request($request) as $row) {
             $rows[(int) $row['id']] = $row;
         }
         $accounts = [];
@@ -933,9 +977,12 @@ class ServerManagement extends CommonGLPI
             'power_state'      => (string) $row['power_state'],
             'ipmi_lan'         => self::tristateLabel((int) $row['ipmi_lan']),
             'secure_boot'      => self::tristateLabel((int) $row['secure_boot']),
-            'cert_expiry'      => (string) ($row['cert_expiry'] ?? '') !== '' ? (string) Html::convDate((string) $row['cert_expiry']) : '',
-            'date_read'        => (string) ($row['date_read'] ?? '') !== '' ? (string) Html::convDateTime((string) $row['date_read']) : '',
-            'read_error'       => (string) $row['read_error'] !== '' ? self::errorMessage((string) $row['read_error']) : '',
+            'cert_expiry'      => (string) ($row['cert_expiry'] ?? '') !== ''
+                ? (string) Html::convDate((string) $row['cert_expiry']) : '',
+            'date_read'        => (string) ($row['date_read'] ?? '') !== ''
+                ? (string) Html::convDateTime((string) $row['date_read']) : '',
+            'read_error'       => (string) $row['read_error'] !== ''
+                ? self::errorMessage((string) $row['read_error']) : '',
             'accounts_read'    => (int) $row['accounts_read'] === 1,
             'computer'         => $computer === null ? null : [
                 'name' => (string) $computer['name'] !== '' ? (string) $computer['name'] : '#' . (int) $computer['id'],
@@ -1030,7 +1077,10 @@ class ServerManagement extends CommonGLPI
         if (!$item instanceof Computer || $item->isNewItem() || !self::canView() || !$item->canViewItem()) {
             return false;
         }
-        TemplateRenderer::getInstance()->display('@grcmanager/server_management_item_tab.html.twig', self::tabData($item));
+        TemplateRenderer::getInstance()->display(
+            '@grcmanager/server_management_item_tab.html.twig',
+            self::tabData($item)
+        );
 
         return true;
     }

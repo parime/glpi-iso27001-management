@@ -48,7 +48,7 @@ final class ServerManagementTables implements FeatureTables
                 `username` varchar(255) NOT NULL DEFAULT '' COMMENT 'Compte local en lecture seule',
                 `password` text COMMENT 'Chiffre par GLPIKey, jamais reaffiche',
                 `allow_self_signed` tinyint NOT NULL DEFAULT 0 COMMENT 'Certificat accepte sans verification',
-                `computers_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Serveur choisi a la main (0 : numero de serie)',
+                `computers_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Serveur choisi (0 : par serie)',
                 `ip_address` varchar(64) NOT NULL DEFAULT '' COMMENT 'Adresse IP au moment de la lecture',
                 `vendor` varchar(64) NOT NULL DEFAULT '',
                 `redfish_version` varchar(32) NOT NULL DEFAULT '',

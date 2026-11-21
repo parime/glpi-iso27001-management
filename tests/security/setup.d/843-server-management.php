@@ -13,7 +13,8 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ->current();
     if ($bmc === null) {
         $DB->insert('glpi_plugin_grcmanager_bmccontrollers', $bmcCriteria + [
-            'is_recursive' => 0, 'source' => 'redfish', 'url' => 'https://bmc-securite-' . strtolower($suffix) . '.example.test',
+            'is_recursive' => 0, 'source' => 'redfish',
+            'url' => 'https://bmc-securite-' . strtolower($suffix) . '.example.test',
             'username' => 'audit', 'computers_id' => (int) $ids['computer_' . $suffix], 'manager_model' => 'iLO 5',
             'firmware_version' => 'Firmware BMC securite ' . $suffix, 'ipmi_lan' => 1,
             'date_read' => date('Y-m-d H:i:s'), 'date_creation' => date('Y-m-d H:i:s'),

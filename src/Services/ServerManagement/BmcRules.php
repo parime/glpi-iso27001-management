@@ -256,7 +256,8 @@ final class BmcRules
             return self::UNKNOWN;
         }
         $text = mb_strtolower(trim((string) $value));
-        if (in_array($text, ['1', 'true', 'yes', 'y', 'oui', 'o', 'x', 'vrai', 'enabled', 'on', 'active', 'actif'], true)) {
+        $yes = ['1', 'true', 'yes', 'y', 'oui', 'o', 'x', 'vrai', 'enabled', 'on', 'active', 'actif'];
+        if (in_array($text, $yes, true)) {
             return 1;
         }
         if (in_array($text, ['0', 'false', 'no', 'n', 'non', 'faux', 'disabled', 'off', 'inactive', 'inactif'], true)) {
@@ -360,7 +361,13 @@ final class BmcRules
      * @param list<array{username: string, enabled: int}> $accounts
      * @return list<string>
      */
-    public static function gaps(array $controller, array $accounts, ?bool $inAdminNetwork, bool $hasServer, string $today): array
+    public static function gaps(
+        array $controller,
+        array $accounts,
+        ?bool $inAdminNetwork,
+        bool $hasServer,
+        string $today
+    ): array
     {
         $found = [];
         $read = (string) ($controller['date_read'] ?? '') !== '';
@@ -384,7 +391,8 @@ final class BmcRules
         if ((int) ($controller['secure_boot'] ?? self::UNKNOWN) === 0) {
             $found[self::GAP_SECURE_BOOT_OFF] = true;
         }
-        if ($read && (string) ($controller['source'] ?? '') === self::SOURCE_REDFISH && (int) ($controller['tls_verified'] ?? 1) === 0) {
+        $redfish = (string) ($controller['source'] ?? '') === self::SOURCE_REDFISH;
+        if ($read && $redfish && (int) ($controller['tls_verified'] ?? 1) === 0) {
             $found[self::GAP_TLS_NOT_VERIFIED] = true;
         }
         if ((int) ($controller['cert_self_signed'] ?? self::UNKNOWN) === 1) {
@@ -477,7 +485,8 @@ final class BmcRules
         $mapping = [];
         foreach (self::CSV_FIELDS as $field => $aliases) {
             foreach ($parsed['headers'] as $index => $header) {
-                if (!in_array($index, $mapping, true) && in_array(EdrCsvImport::normalizeHeader($header), $aliases, true)) {
+                $known = in_array(EdrCsvImport::normalizeHeader($header), $aliases, true);
+                if (!in_array($index, $mapping, true) && $known) {
                     $mapping[$field] = $index;
                     break;
                 }

@@ -176,7 +176,8 @@ final class RedfishClient
     private static function isBlocking(string $error): bool
     {
         return in_array($error, [
-            self::ERROR_UNAUTHORIZED, self::ERROR_UNREACHABLE, self::ERROR_INTERNAL, self::ERROR_TLS, self::ERROR_CONFIG,
+            self::ERROR_UNAUTHORIZED, self::ERROR_UNREACHABLE, self::ERROR_INTERNAL, self::ERROR_TLS,
+            self::ERROR_CONFIG,
         ], true);
     }
 
