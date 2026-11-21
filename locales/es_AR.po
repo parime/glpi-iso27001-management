@@ -29489,8 +29489,11 @@ msgstr ""
 "«Añadir»: no se guarda nada antes."
 
 #, php-format
-msgid "%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
-msgstr "%1$d host(s) importado(s): %2$d asociado(s) a un activo de GLPI, %3$d sin asociar."
+msgid ""
+"%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr ""
+"%1$d host(s) importado(s): %2$d asociado(s) a un activo de GLPI, %3$d sin "
+"asociar."
 
 msgid "Logging settings saved."
 msgstr "Ajustes del registro guardados."
@@ -29511,7 +29514,8 @@ msgid "No logs received"
 msgstr "Ningún registro recibido"
 
 msgid "No log platform knows this asset (name or IP address)."
-msgstr "Ninguna plataforma de registros conoce este activo (nombre o dirección IP)."
+msgstr ""
+"Ninguna plataforma de registros conoce este activo (nombre o dirección IP)."
 
 msgid "Logs stopped"
 msgstr "Registros interrumpidos"
@@ -29523,7 +29527,8 @@ msgid "Logs received"
 msgstr "Registros recibidos"
 
 msgid "A log platform received an event from this asset recently."
-msgstr "Una plataforma de registros recibió recientemente un evento de este activo."
+msgstr ""
+"Una plataforma de registros recibió recientemente un evento de este activo."
 
 msgid "Critical assets, servers and network devices"
 msgstr "Activos críticos, servidores y dispositivos de red"
@@ -29540,17 +29545,40 @@ msgstr "Suficiente"
 msgid "Too short"
 msgstr "Demasiado corta"
 
-msgid "The file has no column for the host name or IP address (for example host, hostname, source, agent.name or ip)."
-msgstr "El archivo no tiene columna para el nombre del host o la dirección IP (por ejemplo host, hostname, source, agent.name o ip)."
+msgid ""
+"The file has no column for the host name or IP address (for example host, "
+"hostname, source, agent.name or ip)."
+msgstr ""
+"El archivo no tiene columna para el nombre del host o la dirección IP (por "
+"ejemplo host, hostname, source, agent.name o ip)."
 
 msgid "You do not have the right to import."
 msgstr "No tiene derecho a importar."
 
-msgid "Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or nothing for several days, and whether each platform keeps the logs long enough and synchronizes the clocks."
-msgstr "Muestra qué activos importantes envían sus registros a una plataforma (Wazuh, Graylog, Elastic u OpenSearch, Splunk, syslog), cuáles no envían nada o nada desde hace varios días, y si cada plataforma conserva los registros el tiempo suficiente y sincroniza los relojes."
+msgid ""
+"Shows which important assets send their logs to a log platform (Wazuh, "
+"Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
+"nothing for several days, and whether each platform keeps the logs long "
+"enough and synchronizes the clocks."
+msgstr ""
+"Muestra qué activos importantes envían sus registros a una plataforma "
+"(Wazuh, Graylog, Elastic u OpenSearch, Splunk, syslog), cuáles no envían "
+"nada o nada desde hace varios días, y si cada plataforma conserva los "
+"registros el tiempo suficiente y sincroniza los relojes."
 
-msgid "Choose the assets that must send their logs, import the list of hosts of each log platform (or let the Wazuh plugin be read), connect the assets listed as gaps, and declare the retention and the time server of each platform. The page only reads: it runs nothing on the platforms. Record the result as an effectiveness test of the control to keep the evidence."
-msgstr "Elija los activos que deben enviar sus registros, importe la lista de hosts de cada plataforma (o deje que se lea el plugin Wazuh), conecte los activos listados como brechas y declare la conservación y el servidor de hora de cada plataforma. La página solo lee: no ejecuta nada en las plataformas. Registre el resultado como prueba de eficacia del control para conservar la evidencia."
+msgid ""
+"Choose the assets that must send their logs, import the list of hosts of "
+"each log platform (or let the Wazuh plugin be read), connect the assets "
+"listed as gaps, and declare the retention and the time server of each "
+"platform. The page only reads: it runs nothing on the platforms. Record the "
+"result as an effectiveness test of the control to keep the evidence."
+msgstr ""
+"Elija los activos que deben enviar sus registros, importe la lista de hosts "
+"de cada plataforma (o deje que se lea el plugin Wazuh), conecte los activos "
+"listados como brechas y declare la conservación y el servidor de hora de "
+"cada plataforma. La página solo lee: no ejecuta nada en las plataformas. "
+"Registre el resultado como prueba de eficacia del control para conservar la "
+"evidencia."
 
 msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
 msgstr "ISO/IEC 27001, controles A.8.15, A.8.16 y A.8.17"
@@ -29594,8 +29622,15 @@ msgstr "%d días conservados"
 msgid "%d days required"
 msgstr "%d días exigidos"
 
-msgid "An asset is critical when one axis of its C/I/A classification is high (tab of the asset form), or when a network flow publishes it on the Internet. Servers are recognized from the computer type or the operating system name."
-msgstr "Un activo es crítico cuando un eje de su clasificación C/I/D es alto (pestaña de la ficha del activo), o cuando un flujo de red lo publica en Internet. Los servidores se reconocen por el tipo de equipo o el nombre del sistema operativo."
+msgid ""
+"An asset is critical when one axis of its C/I/A classification is high (tab "
+"of the asset form), or when a network flow publishes it on the Internet. "
+"Servers are recognized from the computer type or the operating system name."
+msgstr ""
+"Un activo es crítico cuando un eje de su clasificación C/I/D es alto "
+"(pestaña de la ficha del activo), o cuando un flujo de red lo publica en "
+"Internet. Los servidores se reconocen por el tipo de equipo o el nombre del "
+"sistema operativo."
 
 msgid "Assets concerned whose logs are received"
 msgstr "Activos afectados cuyos registros se reciben"
@@ -29603,8 +29638,12 @@ msgstr "Activos afectados cuyos registros se reciben"
 msgid "Assets that must send their logs"
 msgstr "Activos que deben enviar sus registros"
 
-msgid "Check the name of the asset in GLPI, or add the asset to the inventory: an unknown host may be an asset missing from the inventory."
-msgstr "Compruebe el nombre del activo en GLPI o añada el activo al inventario: un host desconocido puede ser un activo ausente del inventario."
+msgid ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown host may be an asset missing from the inventory."
+msgstr ""
+"Compruebe el nombre del activo en GLPI o añada el activo al inventario: un "
+"host desconocido puede ser un activo ausente del inventario."
 
 msgid "Clock synchronization not declared"
 msgstr "Sincronización de relojes no declarada"
@@ -29621,17 +29660,43 @@ msgstr "Activos críticos sin registro"
 msgid "Declare another platform"
 msgstr "Declarar otra plataforma"
 
-msgid "Declare, for each platform, how long the logs are kept and whether the clocks are synchronized. The retention required is the longest between the policy and the obligation chosen. These are declarations: keep the screenshot of the setting as evidence."
-msgstr "Declare, para cada plataforma, cuánto tiempo se conservan los registros y si los relojes están sincronizados. La conservación exigida es la más larga entre la política y la obligación elegida. Son declaraciones: guarde la captura de pantalla del ajuste como evidencia."
+msgid ""
+"Declare, for each platform, how long the logs are kept and whether the "
+"clocks are synchronized. The retention required is the longest between the "
+"policy and the obligation chosen. These are declarations: keep the "
+"screenshot of the setting as evidence."
+msgstr ""
+"Declare, para cada plataforma, cuánto tiempo se conservan los registros y si "
+"los relojes están sincronizados. La conservación exigida es la más larga "
+"entre la política y la obligación elegida. Son declaraciones: guarde la "
+"captura de pantalla del ajuste como evidencia."
 
-msgid "Export the list of hosts that send logs from your log platform, then import the CSV file here. A new import of the same platform replaces the previous one in the current entity. Only host names, addresses and the date of the last event are kept, never the content of a log."
-msgstr "Exporte desde su plataforma de registros la lista de hosts que envían registros y luego importe aquí el archivo CSV. Una nueva importación de la misma plataforma sustituye a la anterior en la entidad actual. Solo se conservan los nombres de host, las direcciones y la fecha del último evento, nunca el contenido de un registro."
+msgid ""
+"Export the list of hosts that send logs from your log platform, then import "
+"the CSV file here. A new import of the same platform replaces the previous "
+"one in the current entity. Only host names, addresses and the date of the "
+"last event are kept, never the content of a log."
+msgstr ""
+"Exporte desde su plataforma de registros la lista de hosts que envían "
+"registros y luego importe aquí el archivo CSV. Una nueva importación de la "
+"misma plataforma sustituye a la anterior en la entidad actual. Solo se "
+"conservan los nombres de host, las direcciones y la fecha del último evento, "
+"nunca el contenido de un registro."
 
-msgid "For example a law, a regulation or a contract listed in the register of obligations."
-msgstr "Por ejemplo una ley, un reglamento o un contrato inscrito en el registro de obligaciones."
+msgid ""
+"For example a law, a regulation or a contract listed in the register of "
+"obligations."
+msgstr ""
+"Por ejemplo una ley, un reglamento o un contrato inscrito en el registro de "
+"obligaciones."
 
-msgid "Graylog, Elastic or OpenSearch: a table of the sources with the most recent timestamp (columns source or host.name, and last timestamp), exported as CSV."
-msgstr "Graylog, Elastic u OpenSearch: una tabla de las fuentes con la marca de tiempo más reciente (columnas source o host.name, y última marca de tiempo), exportada en CSV."
+msgid ""
+"Graylog, Elastic or OpenSearch: a table of the sources with the most recent "
+"timestamp (columns source or host.name, and last timestamp), exported as CSV."
+msgstr ""
+"Graylog, Elastic u OpenSearch: una tabla de las fuentes con la marca de "
+"tiempo más reciente (columnas source o host.name, y última marca de tiempo), "
+"exportada en CSV."
 
 msgid "Hosts"
 msgstr "Hosts"
@@ -29658,8 +29723,12 @@ msgstr "Ningún activo afectado en sus entidades."
 msgid "No event for more than %d days: logs stopped"
 msgstr "Ningún evento desde hace más de %d días: registros interrumpidos"
 
-msgid "No log source yet: import the list of hosts of your log platform to measure the coverage."
-msgstr "Todavía no hay fuentes de registros: importe la lista de hosts de su plataforma para medir la cobertura."
+msgid ""
+"No log source yet: import the list of hosts of your log platform to measure "
+"the coverage."
+msgstr ""
+"Todavía no hay fuentes de registros: importe la lista de hosts de su "
+"plataforma para medir la cobertura."
 
 msgid "No platform declared."
 msgstr "Ninguna plataforma declarada."
@@ -29676,11 +29745,19 @@ msgstr "Plataformas sin sincronización de relojes declarada"
 msgid "Read directly"
 msgstr "Leído directamente"
 
-msgid "Read-only: the plugin reads the lists of hosts, it never runs anything on the log platforms and changes nothing in GLPI."
-msgstr "Solo lectura: el plugin lee las listas de hosts, nunca ejecuta nada en las plataformas de registros y no modifica nada en GLPI."
+msgid ""
+"Read-only: the plugin reads the lists of hosts, it never runs anything on "
+"the log platforms and changes nothing in GLPI."
+msgstr ""
+"Solo lectura: el plugin lee las listas de hosts, nunca ejecuta nada en las "
+"plataformas de registros y no modifica nada en GLPI."
 
-msgid "Recognized columns: host (or hostname, source, agent.name), ip, and last event (or lastTime, last_seen, lastKeepAlive)."
-msgstr "Columnas reconocidas: host (o hostname, source, agent.name), ip y último evento (o lastTime, last_seen, lastKeepAlive)."
+msgid ""
+"Recognized columns: host (or hostname, source, agent.name), ip, and last "
+"event (or lastTime, last_seen, lastKeepAlive)."
+msgstr ""
+"Columnas reconocidas: host (o hostname, source, agent.name), ip y último "
+"evento (o lastTime, last_seen, lastKeepAlive)."
 
 msgid "Register of obligations"
 msgstr "Registro de obligaciones"
@@ -29704,11 +29781,18 @@ msgstr "Conservación exigida por la política (días)"
 msgid "Retention required by the policy: %d days"
 msgstr "Conservación exigida por la política: %d días"
 
-msgid "Splunk: run the search \"| metadata type=hosts index=*\" and export the result (columns host, lastTime)."
-msgstr "Splunk: ejecute la búsqueda \"| metadata type=hosts index=*\" y exporte el resultado (columnas host, lastTime)."
+msgid ""
+"Splunk: run the search \"| metadata type=hosts index=*\" and export the "
+"result (columns host, lastTime)."
+msgstr ""
+"Splunk: ejecute la búsqueda \"| metadata type=hosts index=*\" y exporte el "
+"resultado (columnas host, lastTime)."
 
-msgid "The Wazuh plugin is active: its active agents are read directly, read-only."
-msgstr "El plugin Wazuh está activo: sus agentes activos se leen directamente, en solo lectura."
+msgid ""
+"The Wazuh plugin is active: its active agents are read directly, read-only."
+msgstr ""
+"El plugin Wazuh está activo: sus agentes activos se leen directamente, en "
+"solo lectura."
 
 msgid "The clocks of the sources and of the platform are synchronized"
 msgstr "Los relojes de las fuentes y de la plataforma están sincronizados"
@@ -29716,8 +29800,12 @@ msgstr "Los relojes de las fuentes y de la plataforma están sincronizados"
 msgid "Time server (NTP)"
 msgstr "Servidor de hora (NTP)"
 
-msgid "Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, one host per line."
-msgstr "Wazuh sin el plugin de GLPI, o un servidor syslog: un archivo CSV con encabezado, un host por línea."
+msgid ""
+"Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, "
+"one host per line."
+msgstr ""
+"Wazuh sin el plugin de GLPI, o un servidor syslog: un archivo CSV con "
+"encabezado, un host por línea."
 
 msgid "Which assets must send their logs?"
 msgstr "¿Qué activos deben enviar sus registros?"
@@ -29739,6 +29827,484 @@ msgid "%d log platform"
 msgid_plural "%d log platforms"
 msgstr[0] "%d plataforma de registros"
 msgstr[1] "%d plataformas de registros"
+
+msgid "Choose an XML results file produced by OpenSCAP (XCCDF or ARF)."
+msgstr ""
+"Elija un archivo de resultados XML generado por OpenSCAP (XCCDF o ARF)."
+
+#, php-format
+msgid ""
+"%1$d scan result(s) imported: %2$d matched to a computer, %3$d not matched, "
+"%4$d already imported."
+msgstr ""
+"%1$d resultado(s) de análisis importado(s): %2$d asociado(s) a un equipo, "
+"%3$d sin asociar, %4$d ya importado(s)."
+
+msgid ""
+"The file holds more results or failed rules than the import keeps: only the "
+"first ones were kept."
+msgstr ""
+"El archivo contiene más resultados o reglas fallidas de los que conserva la "
+"importación: solo se conservaron los primeros."
+
+msgid "Choose a computer you can see."
+msgstr "Elija un equipo que pueda ver."
+
+msgid "Scan result matched to the computer."
+msgstr "Resultado de análisis asociado al equipo."
+
+msgid "Scan result deleted."
+msgstr "Resultado de análisis eliminado."
+
+msgid "Configuration compliance"
+msgstr "Conformidad de la configuración"
+
+msgid "Information"
+msgstr "Información"
+
+msgid "Error during the check"
+msgstr "Error durante la comprobación"
+
+msgid ""
+"The file contains a document type or entity declaration, refused for "
+"security reasons. OpenSCAP never writes one: export the results again with "
+"oscap."
+msgstr ""
+"El archivo contiene una declaración de tipo de documento o de entidad, "
+"rechazada por motivos de seguridad. OpenSCAP nunca la escribe: exporte de "
+"nuevo los resultados con oscap."
+
+msgid ""
+"No scan result was found in the file. Choose the results file (option --"
+"results or --results-arf of oscap), not the benchmark or the HTML report."
+msgstr ""
+"No se encontró ningún resultado de análisis en el archivo. Elija el archivo "
+"de resultados (opción --results o --results-arf de oscap), no la guía ni el "
+"informe HTML."
+
+msgid "The file is not valid XML, or it is truncated."
+msgstr "El archivo no es un XML válido o está truncado."
+
+#, php-format
+msgid "Configuration remediation: %1$s (%2$d rule(s) failed)"
+msgstr "Corrección de configuración: %1$s (%2$d regla(s) fallida(s))"
+
+msgid "OpenSCAP scans (XCCDF/ARF)"
+msgstr "Análisis OpenSCAP (XCCDF/ARF)"
+
+msgid "No scan imported yet"
+msgstr "Aún no se ha importado ningún análisis"
+
+msgid "Import results"
+msgstr "Importar resultados"
+
+msgid "Average compliance: not measured"
+msgstr "Conformidad media: no medida"
+
+#, php-format
+msgid "Average compliance: %d%%"
+msgstr "Conformidad media: %d %%"
+
+#, php-format
+msgid "%d machine(s) scanned"
+msgstr "%d máquina(s) analizada(s)"
+
+#, php-format
+msgid "%1$d below %2$d%%"
+msgstr "%1$d por debajo del %2$d %%"
+
+#, php-format
+msgid "%d with a high severity rule failed"
+msgstr "%d con una regla de gravedad alta fallida"
+
+#, php-format
+msgid "%d not matched to a computer"
+msgstr "%d sin asociar a un equipo"
+
+#, php-format
+msgid "Last scan on %s"
+msgstr "Último análisis el %s"
+
+msgid ""
+"Measures how well the configuration of the computers follows a hardening "
+"guide (CIS, ANSSI, DISA STIG...), from the results files of the OpenSCAP "
+"scanner: rate of rules passed per computer, change since the previous scan, "
+"most frequent failed rules and history."
+msgstr ""
+"Mide en qué medida la configuración de los equipos sigue una guía de "
+"bastionado (CIS, ANSSI, DISA STIG...), a partir de los archivos de "
+"resultados del escáner OpenSCAP: tasa de reglas superadas por equipo, "
+"evolución desde el análisis anterior, reglas fallidas más frecuentes e "
+"historial."
+
+msgid ""
+"Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), "
+"match the results that are not matched to a computer, then fix the failed "
+"rules, starting with the high severity ones. A remediation ticket can be "
+"proposed for a computer: it is created only when you click. Nothing is "
+"changed on the machines."
+msgstr ""
+"Analice las máquinas con OpenSCAP, importe el archivo de resultados (XCCDF o "
+"ARF), asocie los resultados que no están asociados a un equipo y corrija las "
+"reglas fallidas, empezando por las de gravedad alta. Se puede proponer un "
+"ticket de corrección para un equipo: solo se crea cuando hace clic. No se "
+"modifica nada en las máquinas."
+
+msgid "ISO/IEC 27001, control A.8.9"
+msgstr "ISO/IEC 27001, control A.8.9"
+
+msgid "Scanned computers with a high severity configuration rule failed (%)"
+msgstr ""
+"Equipos analizados con una regla de configuración de gravedad alta fallida "
+"(%)"
+
+msgid "High severity"
+msgstr "Gravedad alta"
+
+msgid "No previous scan with the same profile"
+msgstr "Ningún análisis anterior con el mismo perfil"
+
+msgid "No profile"
+msgstr "Sin perfil"
+
+msgid "Rules passed out of the rules checked (not applicable rules excluded)"
+msgstr ""
+"Reglas superadas entre las reglas comprobadas (reglas no aplicables "
+"excluidas)"
+
+#, php-format
+msgid "%1$d of %2$d computers shown, the least compliant first."
+msgstr "%1$d de %2$d equipos mostrados, los menos conformes primero."
+
+msgid "Average compliance of the last scans"
+msgstr "Conformidad media de los últimos análisis"
+
+#, php-format
+msgid "Below the %d%% target"
+msgstr "Por debajo del objetivo del %d %%"
+
+msgid ""
+"Creates a remediation ticket linked to the computer, with the failed rules. "
+"Nothing is created without this click."
+msgstr ""
+"Crea un ticket de corrección vinculado al equipo, con las reglas fallidas. "
+"No se crea nada sin este clic."
+
+msgid "Download an example file"
+msgstr "Descargar un archivo de ejemplo"
+
+msgid "Host name in the report"
+msgstr "Nombre de host en el informe"
+
+msgid "Import OpenSCAP results"
+msgstr "Importar resultados de OpenSCAP"
+
+msgid "Last scan of each computer"
+msgstr "Último análisis de cada equipo"
+
+msgid "Machines scanned"
+msgstr "Máquinas analizadas"
+
+msgid "Match"
+msgstr "Asociar"
+
+msgid "Match to a computer"
+msgstr "Asociar a un equipo"
+
+msgid "Most frequent failed rules"
+msgstr "Reglas fallidas más frecuentes"
+
+msgid ""
+"No computer you can see bears this name, or several do. Check the name of "
+"the computer in GLPI, or choose it here."
+msgstr ""
+"Ningún equipo visible lleva este nombre, o varios lo llevan. Compruebe el "
+"nombre del equipo en GLPI o elíjalo aquí."
+
+msgid "No failed rule in the last scans."
+msgstr "Ninguna regla fallida en los últimos análisis."
+
+msgid "No host name"
+msgstr "Sin nombre de host"
+
+msgid ""
+"No scan imported yet. Import an OpenSCAP results file to measure the "
+"configuration compliance."
+msgstr ""
+"Aún no se ha importado ningún análisis. Importe un archivo de resultados de "
+"OpenSCAP para medir la conformidad de la configuración."
+
+msgid "No scan result is matched to a computer yet: match them below."
+msgstr ""
+"Aún no hay ningún resultado de análisis asociado a un equipo: asócielos a "
+"continuación."
+
+msgid "Propose a ticket"
+msgstr "Proponer un ticket"
+
+msgid "Results file"
+msgstr "Archivo de resultados"
+
+msgid "Rules failed"
+msgstr "Reglas fallidas"
+
+msgid ""
+"Run the scan on the machine, then import the results file (XCCDF or ARF). "
+"One file can hold several machines. Each result is matched to the GLPI "
+"computer of the same name."
+msgstr ""
+"Ejecute el análisis en la máquina y luego importe el archivo de resultados "
+"(XCCDF o ARF). Un archivo puede contener varias máquinas. Cada resultado se "
+"asocia al equipo de GLPI del mismo nombre."
+
+msgid "Scan date"
+msgstr "Fecha del análisis"
+
+msgid "Scan results not matched to a computer"
+msgstr "Resultados de análisis sin asociar a un equipo"
+
+#, php-format
+msgid "Ticket %d"
+msgstr "Ticket %d"
+
+msgid "With a high severity rule failed"
+msgstr "Con una regla de gravedad alta fallida"
+
+#, php-format
+msgid ""
+"XML file, %d MB at most. The file itself is not kept: only the counts and "
+"the failed rules."
+msgstr ""
+"Archivo XML, %d MB como máximo. El archivo no se conserva: solo los "
+"recuentos y las reglas fallidas."
+
+#, php-format
+msgid "%d failed"
+msgstr "%d fallidas"
+
+#, php-format
+msgid "%d in error"
+msgstr "%d con error"
+
+#, php-format
+msgid "%d not applicable or not checked"
+msgstr "%d no aplicables o no comprobadas"
+
+#, php-format
+msgid "%d passed"
+msgstr "%d superadas"
+
+msgid "Back to the configuration compliance"
+msgstr "Volver a la conformidad de la configuración"
+
+msgid "Delete this scan result"
+msgstr "Eliminar este resultado de análisis"
+
+msgid "Delete this scan result?"
+msgstr "¿Eliminar este resultado de análisis?"
+
+msgid "Failed rules"
+msgstr "Reglas fallidas"
+
+msgid "No failed rule in this scan."
+msgstr "Ninguna regla fallida en este análisis."
+
+msgid "Not matched"
+msgstr "Sin asociar"
+
+msgid "Rules"
+msgstr "Reglas"
+
+msgid "Scan history of this machine"
+msgstr "Historial de análisis de esta máquina"
+
+msgid "Scanner"
+msgstr "Escáner"
+
+msgid "Score of the tool"
+msgstr "Puntuación de la herramienta"
+
+msgid ""
+"This scan has more failed rules than the import keeps: only the first ones "
+"are listed."
+msgstr ""
+"Este análisis tiene más reglas fallidas de las que conserva la importación: "
+"solo se muestran las primeras."
+
+#, php-format
+msgid "And %d more rule(s): see the scan in GRC."
+msgstr "Y %d regla(s) más: vea el análisis en GRC."
+
+#, php-format
+msgid ""
+"Configuration scan of %1$s on %2$s: %3$d rule(s) failed. ISO/IEC 27001, "
+"control A.8.9."
+msgstr ""
+"Análisis de configuración de %1$s el %2$s: %3$d regla(s) fallida(s). ISO/IEC "
+"27001, control A.8.9."
+
+#, php-format
+msgid "Suggestions updated for %d account(s) still to review."
+msgstr "Sugerencias actualizadas para %d cuenta(s) aún por revisar."
+
+msgid "Rule disabled"
+msgstr "Regla desactivada"
+
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d día"
+msgstr[1] "%d días"
+
+msgid ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+msgstr ""
+"Las reglas sugieren retirar esta cuenta: explique en el comentario por qué "
+"se mantiene."
+
+msgid "Suggested: remove"
+msgstr "Sugerencia: retirar"
+
+msgid "Suggested: examine"
+msgstr "Sugerencia: examinar"
+
+msgid "Examine"
+msgstr "Examinar"
+
+msgid "Suggested: keep"
+msgstr "Sugerencia: mantener"
+
+msgid "Keep"
+msgstr "Mantener"
+
+#, php-format
+msgid "Account end date passed (%s)"
+msgstr "Fecha de fin de la cuenta superada (%s)"
+
+#, php-format
+msgid "Departure recorded on %s"
+msgstr "Salida registrada el %s"
+
+#, php-format
+msgid "Leaving on %1$s (within %2$d days)"
+msgstr "Salida el %1$s (en los próximos %2$d días)"
+
+#, php-format
+msgid "No login for more than %1$d days (last on %2$s)"
+msgstr "Sin conexión desde hace más de %1$d días (última el %2$s)"
+
+#, php-format
+msgid "Privileged profile: %s"
+msgstr "Perfil con privilegios: %s"
+
+#, php-format
+msgid "Privileged profile without known MFA: %s"
+msgstr "Perfil con privilegios sin MFA conocida: %s"
+
+#, php-format
+msgid "No warning sign (last login on %s)"
+msgstr "Ninguna señal de alerta (última conexión el %s)"
+
+msgid "No warning sign"
+msgstr "Ninguna señal de alerta"
+
+msgid ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+msgstr ""
+"Inicie una campaña; los responsables deciden línea por línea, con la ayuda "
+"de una sugerencia (mantener, retirar o examinar) y su motivo. Retirar un "
+"derecho abre un ticket, nunca se aplica automáticamente."
+
+msgid ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+msgstr ""
+"Cada cuenta llega con una sugerencia (mantener, retirar o examinar) y su "
+"motivo. La sugerencia nunca decide: el revisor elige, y mantener una cuenta "
+"que las reglas sugieren retirar requiere un comentario."
+
+msgid "Examine group changes without profile review"
+msgstr "Examinar los cambios de grupo sin revisión de perfiles"
+
+msgid "Examine privileged profiles"
+msgstr "Examinar los perfiles con privilegios"
+
+msgid "Examine: leaving soon, inactive, groups changed, privileged profile"
+msgstr ""
+"Examinar: salida próxima, inactiva, grupos cambiados, perfil con privilegios"
+
+msgid ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+msgstr ""
+"Según la página Cobertura MFA: autenticación de dos factores de GLPI o "
+"informe importado."
+
+msgid "Inactive account: no login for"
+msgstr "Cuenta inactiva: sin conexión desde hace"
+
+msgid "Keep: no warning sign"
+msgstr "Mantener: ninguna señal de alerta"
+
+msgid "Leaving soon: end date or departure within"
+msgstr "Salida próxima: fecha de fin o salida en los próximos"
+
+msgid "Mention privileged accounts without known MFA"
+msgstr "Señalar las cuentas con privilegios sin MFA conocida"
+
+msgid "Profiles that can change the GLPI configuration or profiles."
+msgstr "Perfiles que pueden modificar la configuración o los perfiles de GLPI."
+
+msgid "Remove: deleted from the directory, end date or departure passed"
+msgstr "Retirar: eliminada del directorio, fecha de fin o salida pasadas"
+
+msgid "Suggestion rules"
+msgstr "Reglas de sugerencia"
+
+msgid ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+msgstr ""
+"Cada cuenta muestra una sugerencia y su motivo (salida, inactividad, perfil "
+"con privilegios...). Es solo una propuesta: usted decide."
+
+msgid "Decision differs from the suggestion"
+msgstr "Decisión distinta de la sugerencia"
+
+msgid "Suggestion and reason"
+msgstr "Sugerencia y motivo"
+
+msgid "Suggestions"
+msgstr "Sugerencias"
+
+msgid "Comment (required to keep, change or remove)"
+msgstr "Comentario (obligatorio para mantener, modificar o retirar)"
+
+msgid "No suggestion yet"
+msgstr "Aún sin sugerencia"
+
+msgid "Suggested by the rules"
+msgstr "Sugerido por las reglas"
+
+msgid ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+msgstr ""
+"Solo propuestas: cada revisor decide. Las reglas se ajustan en el formulario "
+"de la campaña."
+
+msgid ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+msgstr ""
+"Recalcula la sugerencia de las cuentas aún por revisar (las cuentas "
+"decididas conservan la que vio su revisor)."
+
+msgid "Update the suggestions"
+msgstr "Actualizar las sugerencias"
 
 msgid "Evaluation completed."
 msgstr "Evaluación finalizada."
@@ -30007,6 +30573,9 @@ msgstr "Esta plantilla todavía no tiene preguntas."
 msgid "Total weight: %d"
 msgstr "Ponderación total: %d"
 
+msgid "New question"
+msgstr "Nueva pregunta"
+
 #, php-format
 msgid "Answers saved, %d document added."
 msgid_plural "Answers saved, %d documents added."
@@ -30051,6 +30620,3 @@ msgid "%d question"
 msgid_plural "%d questions"
 msgstr[0] "%d pregunta"
 msgstr[1] "%d preguntas"
-
-msgid "New question"
-msgstr "Nueva pregunta"

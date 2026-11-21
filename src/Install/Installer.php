@@ -1308,6 +1308,8 @@ final class Installer
 
             $DB->doQuery($query);
         }
+        // Issue #866 : suggestion « garder / retirer / à examiner » de chaque ligne et ses règles.
+        AccessReviewSuggestionFields::install($migration);
 
         // Indicateur manquant identifié lors de l'audit complet du plugin (recherche des bonnes
         // pratiques KPI ISO 27001:2022) : `completion_status` (pending/completed/exempted) ne
@@ -1585,6 +1587,8 @@ final class Installer
         MfaCoverageTables::install($keySign, $charset, $collation);
         // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
         HardwareEndOfLifeTables::install($keySign, $charset, $collation);
+        // Issue #781 : rapports de conformité de configuration importés (OpenSCAP, XCCDF/ARF).
+        ConfigScanTables::install($keySign, $charset, $collation);
         // Issue #853 : couverture de la journalisation (hôtes émetteurs importés, conservation déclarée).
         LogCoverageTables::install($keySign, $charset, $collation);
         // Issue #864 : questionnaires fournisseurs configurables (modèles, questions, évaluations, réponses).
@@ -6493,6 +6497,7 @@ final class Installer
         DiskEncryptionTables::uninstall($migration);
         MfaCoverageTables::uninstall($migration);
         HardwareEndOfLifeTables::uninstall($migration);
+        ConfigScanTables::uninstall($migration);
         LogCoverageTables::uninstall($migration);
         SupplierQuestionnaireTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
