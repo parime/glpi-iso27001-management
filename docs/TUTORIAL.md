@@ -1149,6 +1149,43 @@ jamais de secret. Il faut le droit du plugin et la lecture native des utilisateu
    « Administrateurs protégés par MFA (%) », les indicateurs de risque la source « Administrateurs
    sans MFA », et la page Hygiène des comptes rappelle leur nombre.
 
+### Étape 38 : Lire la supervision Zabbix (mesures A.8.16, A.8.6 et A.5.30)
+
+L'auditeur demande comment les serveurs et services sont surveillés, s'ils sont disponibles comme
+prévu et si leur capacité est suivie. Le plugin lit votre serveur **Zabbix en lecture seule** et
+rapproche ses hôtes des ordinateurs et matériels réseau de GLPI ; il ne modifie jamais rien dans
+Zabbix. Il faut le droit du plugin et la lecture native des ordinateurs.
+
+1. Dans Zabbix, préparez un compte de lecture : Utilisateurs > Rôles utilisateur, un rôle de type
+   Utilisateur dont l'API est limitée à host.get, problem.get, event.get, service.get, sla.get et
+   sla.getsli ; Utilisateurs > Utilisateurs, un utilisateur de ce rôle dans un groupe qui a la
+   lecture des groupes d'hôtes à superviser ; Utilisateurs > Jetons d'API, un jeton pour lui.
+2. Ouvrez Sécurité technique > **Supervision Zabbix**. Dans **Connexion à Zabbix (lecture
+   seule)**, saisissez l'adresse de l'interface Zabbix (par exemple
+   `https://zabbix.exemple.test/zabbix`) et le jeton, choisissez l'entité des lectures puis
+   enregistrez. Le jeton est chiffré par GLPI et n'est jamais réaffiché. Un serveur sur une adresse
+   interne demande d'autoriser les adresses internes (Configuration du plugin > Connexions
+   sortantes).
+3. Cliquez sur **Lire maintenant**. Une lecture en échec ne remplace pas la précédente ; la case
+   « Lire automatiquement chaque jour » active la tâche automatique « zabbix », désactivée par
+   défaut.
+4. Dans **Quels actifs doivent être supervisés ?**, choisissez les actifs concernés (actifs
+   critiques, serveurs et matériels réseau, par défaut) et la période des problèmes.
+5. Les compteurs donnent le taux d'actifs supervisés, les **actifs critiques non supervisés**, les
+   problèmes ouverts de gravité haute, la disponibilité de service la plus faible et les actifs
+   saturés (disque, mémoire, processeur). La liste des actifs montre pour chacun sa supervision, sa
+   disponibilité mesurée, ses problèmes ouverts et son plus long arrêt comparé au RTO des processus
+   métier qui en dépendent.
+6. Dans **Problèmes des N derniers jours**, un problème de gravité haute peut être **proposé comme
+   incident de sécurité** ou devenir un **ticket** : il n'est créé que sur votre clic.
+7. Dans **Disponibilité des services (SLA Zabbix)**, rattachez chaque service au processus métier
+   qu'il porte. Les hôtes Zabbix non rapprochés d'un actif sont listés à part.
+8. Sur la fiche des mesures A.8.16, A.8.6 et A.5.30, le cadre « Supervision Zabbix » montre la
+   couverture, les saturations ou la disponibilité, avec la date de la lecture. Les ordinateurs,
+   matériels réseau et processus métier ont un onglet « Supervision Zabbix », et les indicateurs de
+   risque proposent trois sources : disponibilité des services du mois, problèmes ouverts de
+   gravité haute, actifs critiques non supervisés.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -2264,3 +2301,36 @@ secret. You need the plugin right and the native right to read users.
    administrators without MFA and the date of the computation. The dashboard offers the card
    "Administrators protected by MFA (%)", risk indicators the source "Administrators without MFA",
    and the Account hygiene page recalls their number.
+
+### Step 39: Read the Zabbix monitoring (controls A.8.16, A.8.6 and A.5.30)
+
+The auditor asks how servers and services are monitored, whether they are as available as planned
+and whether their capacity is followed up. The plugin reads your **Zabbix server in read only** and
+matches its hosts with the computers and network devices of GLPI; it never changes anything in
+Zabbix. You need the plugin right and the native read right on computers.
+
+1. In Zabbix, prepare a reading account: Users > User roles, a role of type User whose API is
+   limited to host.get, problem.get, event.get, service.get, sla.get and sla.getsli; Users > Users,
+   a user with this role in a group that can read the host groups to monitor; Users > API tokens, a
+   token for this user.
+2. Open Technical security > **Zabbix monitoring**. In **Connection to Zabbix (read only)**, enter
+   the address of the Zabbix interface (for example `https://zabbix.example.test/zabbix`) and the
+   token, choose the entity of the readings and save. The token is encrypted by GLPI and never
+   displayed again. A server on an internal address requires allowing internal addresses (plugin
+   configuration > Outgoing connections).
+3. Click **Read now**. A failed reading does not replace the previous one; the box "Read
+   automatically every day" enables the automatic action "zabbix", disabled by default.
+4. In **Which assets must be monitored?**, choose the concerned assets (critical assets, servers
+   and network devices, by default) and the period of the problems.
+5. The counters give the share of monitored assets, the **critical assets not monitored**, the open
+   high-severity problems, the lowest service availability and the saturated assets (disk, memory,
+   processor). The asset list shows for each one its monitoring, measured availability, open
+   problems and longest outage compared with the RTO of the business processes that depend on it.
+6. In **Problems over the last N days**, a high-severity problem can be **proposed as a security
+   incident** or turned into a **ticket**: it is only created when you click.
+7. In **Availability of the services (Zabbix SLA)**, link each service to the business process it
+   supports. Zabbix hosts not matched with an asset are listed separately.
+8. On controls A.8.16, A.8.6 and A.5.30, the "Zabbix monitoring" box shows the coverage, the
+   saturations or the availability, with the date of the reading. Computers, network devices and
+   business processes have a "Zabbix monitoring" tab, and risk indicators offer three sources:
+   service availability of the month, open high-severity problems, critical assets not monitored.

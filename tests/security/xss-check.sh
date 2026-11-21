@@ -101,6 +101,9 @@ check "preuve developpement securise (A.8.31)" "$P/control.form.php?id=$(xid con
 check "front/softwarelicensecompliance.php"   "$P/softwarelicensecompliance.php"
 # Issue #847 : ordinateur, outil et algorithme de chiffrement pieges (chiffrement des disques).
 check "front/diskencryption.php"              "$P/diskencryption.php"
+# Issue #836 : hote et probleme Zabbix pieges (supervision Zabbix, preuve A.8.16).
+check "front/zabbixmonitoring.php"            "$P/zabbixmonitoring.php"
+check "preuve supervision Zabbix (A.8.16)"    "$P/control.form.php?id=$(xid control_a816)"
 # Issue #852 : compte et methode importes pieges (couverture MFA, preuve A.8.5).
 check "front/mfacoverage.php"                 "$P/mfacoverage.php"
 check "preuve couverture MFA (A.8.5)"         "$P/control.form.php?id=$(xid control_a85)"
