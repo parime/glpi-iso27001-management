@@ -9,6 +9,22 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Vulnérabilités du parc : dérivés de RHEL, Fedora et macOS, et classement des machines par
+  leur système** (issue #780, lot 2, mesure A.8.8). Ce lot termine l'issue #780 :
+  - correspondances proposées par défaut, à valider dans « Logiciels à surveiller », pour
+    **Rocky Linux** (`cpe:2.3:o:rockylinux:rocky_linux`), **AlmaLinux**
+    (`cpe:2.3:o:almalinux:almalinux`), **Oracle Linux** (`cpe:2.3:o:oracle:linux`), **Fedora**
+    (`cpe:2.3:o:fedoraproject:fedora`) et **macOS** (`cpe:2.3:o:apple:macos`), produits relevés
+    dans le dictionnaire CPE de NVD ;
+  - versions comparées sous la forme de NVD : « 9.3 » pour Rocky Linux et AlmaLinux 9.3 (version
+    mineure inconnue : « version non vérifiable »), « 8 » pour Oracle Linux 8, « 40 » pour
+    Fedora 40, version complète pour macOS (« 14.4.1 ») ;
+  - la règle de fin de support (#704) reconnaît aussi leur nom complet inventorié par l'agent
+    GLPI (« Rocky Linux 9.3 (Blue Onyx) », « Oracle Linux Server 8.9 », « macOS 14.4.1 ») ;
+  - **Machines les plus exposées** : le classement compte désormais les vulnérabilités du système
+    d'exploitation et des firmwares (#705) de chaque machine, en plus de ses logiciels, avec les
+    mêmes règles d'entités et de droits. Aucun droit ajouté ni modifié, aucune table.
+
 - **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
   contacts officiels** (issue #776, lot 2, mesure A.5.29) :
   - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les

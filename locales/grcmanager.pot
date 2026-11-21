@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-20 23:10+0000\n"
+"POT-Creation-Date: 2026-11-21 01:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,14 +73,14 @@ msgstr ""
 #: front/risk.report.php:73 src/AccessReview.php:745 src/AcnRequirement.php:805
 #: src/Audit.php:653 src/CertificationFinding.php:423
 #: src/CertificationReadiness.php:1476 src/CertificationResponse.php:433
-#: src/CompetenceMatrix.php:852 src/ConsistencyCheck.php:1453
+#: src/CompetenceMatrix.php:899 src/ConsistencyCheck.php:1453
 #: src/ContextItem.php:879 src/ControlTest.php:994 src/CrisisExercise.php:642
 #: src/CrisisScenario.php:940 src/Dpia.php:443 src/EbiosStudy.php:313
 #: src/EvidencePack.php:658 src/ManagementReviewDossier.php:625
 #: src/OfficialContact.php:224 src/OperatingProcedure.php:402
 #: src/PersonnelCompliance.php:727 src/PolicyAcknowledgement.php:703
 #: src/PolicyVersion.php:765 src/RecyfRequirement.php:594
-#: src/ResponsibilityActivity.php:806 src/SecurityIncidentPostMortem.php:252
+#: src/ResponsibilityActivity.php:813 src/SecurityIncidentPostMortem.php:252
 #: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:725
 #: templates/evidence_pack.html.twig
 #: templates/management_review_dossier_tab.html.twig
@@ -670,7 +670,7 @@ msgstr ""
 msgid "The competence file could not be archived."
 msgstr ""
 
-#: front/ismsfunction.php:53 src/Competence.php:52 src/IsmsFunction.php:73
+#: front/ismsfunction.php:53 src/Competence.php:52 src/IsmsFunction.php:76
 #: templates/_competence_summary.html.twig
 msgid "Competences"
 msgstr ""
@@ -1458,7 +1458,7 @@ msgstr ""
 msgid "Personnel security compliance (%)"
 msgstr ""
 
-#: hook.php:271 src/CompetenceMatrix.php:893
+#: hook.php:271 src/CompetenceMatrix.php:940
 msgid "Coverage of the required competences (%)"
 msgstr ""
 
@@ -1704,7 +1704,7 @@ msgstr ""
 #: src/ComplianceEvent.php:120 src/ComplianceEvent.php:211
 #: src/ContextItem.php:146 src/ContextItem.php:162 src/ContextItem.php:182
 #: src/CrisisMessageTemplate.php:64 src/EbiosStakeholder.php:51
-#: src/IsmsFunction.php:139 src/NetworkFlow.php:91
+#: src/IsmsFunction.php:142 src/NetworkFlow.php:91
 #: src/ProcessingActivity.php:151 src/ProcessingActivity.php:168
 #: src/ProcessingActivity.php:201 src/SecurityIncidentAction.php:64
 #: src/Training.php:85 src/Training.php:654
@@ -4667,8 +4667,8 @@ msgstr ""
 msgid "This competence has been declared for people: it cannot be deleted."
 msgstr ""
 
-#: src/Competence.php:314 src/IsmsFunction.php:391
-#: src/ResponsibilityActivity.php:414
+#: src/Competence.php:314 src/IsmsFunction.php:478 src/IsmsFunction.php:485
+#: src/ResponsibilityActivity.php:421
 #, php-format
 msgid "Deleted item #%d"
 msgstr ""
@@ -4688,7 +4688,7 @@ msgstr ""
 msgid "Training certificate"
 msgstr ""
 
-#: src/CompetenceDeclaration.php:89 src/IsmsFunction.php:136
+#: src/CompetenceDeclaration.php:89 src/IsmsFunction.php:139
 msgid "Diploma"
 msgstr ""
 
@@ -4761,49 +4761,64 @@ msgstr[1] ""
 msgid "ISMS competences - %s"
 msgstr ""
 
+#: src/CompetenceGapAlert.php:62
+msgid "Competence gap alert"
+msgid_plural "Competence gap alerts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/CompetenceGapAlert.php:99
+msgid "Warns the owner of the competence gaps that have no planned training"
+msgstr ""
+
+#: src/CompetenceGapAlert.php:110
+#, php-format
+msgid "%d competence gap(s) reported."
+msgstr ""
+
 #: src/CompetenceMatrix.php:128
 msgid "My competences"
 msgstr ""
 
-#: src/CompetenceMatrix.php:431
+#: src/CompetenceMatrix.php:472
 msgid "Acquired"
 msgstr ""
 
-#: src/CompetenceMatrix.php:435
+#: src/CompetenceMatrix.php:476
 msgid "Level too low"
 msgstr ""
 
-#: src/CompetenceMatrix.php:439 templates/competence_sheet.html.twig
+#: src/CompetenceMatrix.php:480 templates/competence_sheet.html.twig
 #: templates/pdf/soa_report.html.twig
 msgid "Expired"
 msgstr ""
 
-#: src/CompetenceMatrix.php:443
+#: src/CompetenceMatrix.php:484
 msgid "Not acquired"
 msgstr ""
 
-#: src/CompetenceMatrix.php:453
+#: src/CompetenceMatrix.php:494
 msgid "Declare the diploma or certificate with its evidence."
 msgstr ""
 
-#: src/CompetenceMatrix.php:454
+#: src/CompetenceMatrix.php:495
 msgid "Declare the experience with its evidence (annual review, references)."
 msgstr ""
 
-#: src/CompetenceMatrix.php:455
+#: src/CompetenceMatrix.php:496
 msgid "Plan a training: no training of the plugin gives this competence yet."
 msgstr ""
 
-#: src/CompetenceMatrix.php:456
+#: src/CompetenceMatrix.php:497
 msgid "Declare the competence with its evidence."
 msgstr ""
 
-#: src/CompetenceMatrix.php:849 templates/pdf/competence_report.html.twig
+#: src/CompetenceMatrix.php:896 templates/pdf/competence_report.html.twig
 #, php-format
 msgid "Security job description: %s"
 msgstr ""
 
-#: src/CompetenceMatrix.php:850
+#: src/CompetenceMatrix.php:897
 msgid "Competences of the ISMS functions (ISO 27001, clause 7.2)"
 msgstr ""
 
@@ -9094,7 +9109,7 @@ msgstr ""
 msgid "Approved policy versions"
 msgstr ""
 
-#: src/EvidencePack.php:315 src/ResponsibilityActivity.php:804
+#: src/EvidencePack.php:315 src/ResponsibilityActivity.php:811
 msgid "ISMS responsibility matrix"
 msgstr ""
 
@@ -9331,90 +9346,99 @@ msgstr ""
 msgid "%1$s lost profile %2$s (entity %3$s)"
 msgstr ""
 
-#: src/IsmsFunction.php:57
+#: src/IsmsFunction.php:60
 msgid "ISMS function"
 msgid_plural "ISMS functions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/IsmsFunction.php:91
+#: src/IsmsFunction.php:94
 msgid "Chief information security officer (CISO)"
 msgstr ""
 
-#: src/IsmsFunction.php:92 templates/config_form.html.twig
+#: src/IsmsFunction.php:95 templates/config_form.html.twig
 #: templates/pdf/data_breach_register.html.twig
 #: templates/pdf/processing_register_report.html.twig
 msgid "Data protection officer (DPO)"
 msgstr ""
 
-#: src/IsmsFunction.php:93
+#: src/IsmsFunction.php:96
 msgid "Top management"
 msgstr ""
 
-#: src/IsmsFunction.php:94
+#: src/IsmsFunction.php:97
 msgid "System and network administrator"
 msgstr ""
 
-#: src/IsmsFunction.php:95
+#: src/IsmsFunction.php:98
 msgid "Developer"
 msgstr ""
 
-#: src/IsmsFunction.php:96
+#: src/IsmsFunction.php:99
 msgid "Support technician"
 msgstr ""
 
-#: src/IsmsFunction.php:97
+#: src/IsmsFunction.php:100
 msgid "All staff"
 msgstr ""
 
-#: src/IsmsFunction.php:125
+#: src/IsmsFunction.php:128
 msgctxt "competence level"
 msgid "Basic"
 msgstr ""
 
-#: src/IsmsFunction.php:126
+#: src/IsmsFunction.php:129
 msgctxt "competence level"
 msgid "Proficient"
 msgstr ""
 
-#: src/IsmsFunction.php:127
+#: src/IsmsFunction.php:130
 msgctxt "competence level"
 msgid "Expert"
 msgstr ""
 
-#: src/IsmsFunction.php:135 src/Training.php:69
+#: src/IsmsFunction.php:138 src/Training.php:69
 #: templates/competence_page.html.twig templates/my_trainings_tab.html.twig
 msgid "Training"
 msgid_plural "Trainings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/IsmsFunction.php:137
+#: src/IsmsFunction.php:140
 msgid "Professional certification"
 msgstr ""
 
-#: src/IsmsFunction.php:138
+#: src/IsmsFunction.php:141
 msgid "Experience"
 msgstr ""
 
-#: src/IsmsFunction.php:185
+#: src/IsmsFunction.php:188
 msgid "Give the function a name."
 msgstr ""
 
-#: src/IsmsFunction.php:335
+#: src/IsmsFunction.php:387
 msgid "This user or group does not belong to the entity of the function."
 msgstr ""
 
-#: src/IsmsFunction.php:359
+#: src/IsmsFunction.php:412
+msgid "This activity is not available in the entity of the function."
+msgstr ""
+
+#: src/IsmsFunction.php:437
 msgid "This competence is not available in the entity of the function."
 msgstr ""
 
-#: src/IsmsFunction.php:390
+#: src/IsmsFunction.php:474
+#, php-format
+msgid "Responsibility matrix: %1$s (%2$s)"
+msgstr ""
+
+#: src/IsmsFunction.php:484
 #, php-format
 msgid "Job title: %s"
 msgstr ""
 
-#: src/IsmsFunction.php:513 templates/isms_function_form.html.twig
+#: src/IsmsFunction.php:619 templates/isms_function_form.html.twig
 #: templates/pdf/competence_report.html.twig
 msgid "Mission"
 msgstr ""
@@ -10289,6 +10313,7 @@ msgstr ""
 
 #: src/NotificationTargetBreachExposure.php:46
 #: src/NotificationTargetBusinessProcess.php:57
+#: src/NotificationTargetCompetenceGapAlert.php:51
 #: src/NotificationTargetControl.php:54
 #: src/NotificationTargetIncidentAccessWatch.php:47
 #: src/NotificationTargetRiskIndicator.php:57
@@ -10325,6 +10350,44 @@ msgstr ""
 #: src/NotificationTargetRiskIndicator.php:159
 #: src/NotificationTargetVulnerabilityDigest.php:244
 msgid "Notification colour"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:43
+msgid "Competence gaps without planned training"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:50
+#: src/NotificationTargetReadinessAlert.php:44
+msgid "Owner of the certification readiness"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:103
+#, php-format
+msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:111
+#, php-format
+msgid ""
+"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
+"declare a proof)"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:121
+#, php-format
+msgid "Other gaps not listed here: %d"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:144
+msgid "New gaps without planned training"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:145
+msgid "Number of new gaps"
+msgstr ""
+
+#: src/NotificationTargetCompetenceGapAlert.php:146
+msgid "Number of gaps without planned training"
 msgstr ""
 
 #: src/NotificationTargetComplianceEvent.php:40
@@ -10532,10 +10595,6 @@ msgstr ""
 
 #: src/NotificationTargetReadinessAlert.php:37
 msgid "Certification step at risk"
-msgstr ""
-
-#: src/NotificationTargetReadinessAlert.php:44
-msgid "Owner of the certification readiness"
 msgstr ""
 
 #: src/NotificationTargetReadinessAlert.php:65
@@ -12284,7 +12343,7 @@ msgstr ""
 #: src/PageHelp.php:1047
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
+"software, operating system and firmware, to know where to start updating."
 msgstr ""
 
 #: src/PageHelp.php:1052
@@ -13959,44 +14018,44 @@ msgstr ""
 msgid "Give the activity a name."
 msgstr ""
 
-#: src/ResponsibilityActivity.php:350
+#: src/ResponsibilityActivity.php:357
 msgid "This user or group does not belong to the entity of the activity."
 msgstr ""
 
-#: src/ResponsibilityActivity.php:361
+#: src/ResponsibilityActivity.php:368
 #, php-format
 msgid "Only one person or group approves \"%s\": remove the current one first."
 msgstr ""
 
-#: src/ResponsibilityActivity.php:528
+#: src/ResponsibilityActivity.php:535
 msgid "Nobody approves this activity."
 msgstr ""
 
-#: src/ResponsibilityActivity.php:530
+#: src/ResponsibilityActivity.php:537
 msgid "Several people or groups approve this activity: keep only one."
 msgstr ""
 
-#: src/ResponsibilityActivity.php:532
+#: src/ResponsibilityActivity.php:539
 msgid "Nobody performs this activity."
 msgstr ""
 
-#: src/ResponsibilityActivity.php:543
+#: src/ResponsibilityActivity.php:550
 #, php-format
 msgid ""
 "Segregation of duties: %s both performs and approves this sensitive activity."
 msgstr ""
 
-#: src/ResponsibilityActivity.php:548
+#: src/ResponsibilityActivity.php:555
 #, php-format
 msgid "The group %s has no active member."
 msgstr ""
 
-#: src/ResponsibilityActivity.php:553
+#: src/ResponsibilityActivity.php:560
 #, php-format
 msgid "%s is disabled or no longer exists in GLPI."
 msgstr ""
 
-#: src/ResponsibilityActivity.php:723
+#: src/ResponsibilityActivity.php:730
 #: templates/responsibility_activity_form.html.twig
 msgid "Sensitive activity"
 msgstr ""
@@ -24691,6 +24750,10 @@ msgid "Activities of the responsibility matrix held by the holders:"
 msgstr ""
 
 #: templates/isms_function_form.html.twig
+msgid "Activity of the responsibility matrix"
+msgstr ""
+
+#: templates/isms_function_form.html.twig
 msgid "Add a competence"
 msgstr ""
 
@@ -24711,6 +24774,10 @@ msgstr ""
 
 #: templates/isms_function_form.html.twig
 msgid "Every active user with this job title holds the function."
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Follows the responsibility matrix"
 msgstr ""
 
 #: templates/isms_function_form.html.twig
@@ -24738,7 +24805,17 @@ msgid ""
 msgstr ""
 
 #: templates/isms_function_form.html.twig
+msgid ""
+"Optional: the people and groups who hold the chosen role in this activity "
+"hold the function, and follow the matrix when it changes."
+msgstr ""
+
+#: templates/isms_function_form.html.twig
 msgid "Reading the users of GLPI is needed to see the people."
+msgstr ""
+
+#: templates/isms_function_form.html.twig
+msgid "Role in the activity"
 msgstr ""
 
 #: templates/isms_function_form.html.twig
@@ -31911,81 +31988,3 @@ msgstr ""
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
 msgstr ""
-
-
-
-#: src/CompetenceGapAlert.php:62
-msgid "Competence gap alert"
-msgid_plural "Competence gap alerts"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/CompetenceGapAlert.php:99
-msgid "Warns the owner of the competence gaps that have no planned training"
-msgstr ""
-
-#: src/CompetenceGapAlert.php:110
-#, php-format
-msgid "%d competence gap(s) reported."
-msgstr ""
-
-#: src/IsmsFunction.php:412
-msgid "This activity is not available in the entity of the function."
-msgstr ""
-
-#: src/IsmsFunction.php:474
-#, php-format
-msgid "Responsibility matrix: %1$s (%2$s)"
-msgstr ""
-
-#: src/NotificationTargetCompetenceGapAlert.php:43
-msgid "Competence gaps without planned training"
-msgstr ""
-
-#: src/NotificationTargetCompetenceGapAlert.php:103
-#, php-format
-msgid "- %1$s: %2$s, expected level %3$s (training to plan: %4$s)"
-msgstr ""
-
-#: src/NotificationTargetCompetenceGapAlert.php:111
-#, php-format
-msgid ""
-"- %1$s: %2$s, expected level %3$s (no training gives it yet: link one, or "
-"declare a proof)"
-msgstr ""
-
-#: src/NotificationTargetCompetenceGapAlert.php:121
-#, php-format
-msgid "Other gaps not listed here: %d"
-msgstr ""
-
-#: src/NotificationTargetCompetenceGapAlert.php:144
-msgid "New gaps without planned training"
-msgstr ""
-
-#: src/NotificationTargetCompetenceGapAlert.php:145
-msgid "Number of new gaps"
-msgstr ""
-
-#: src/NotificationTargetCompetenceGapAlert.php:146
-msgid "Number of gaps without planned training"
-msgstr ""
-
-#: templates/isms_function_form.html.twig
-msgid "Activity of the responsibility matrix"
-msgstr ""
-
-#: templates/isms_function_form.html.twig
-msgid "Follows the responsibility matrix"
-msgstr ""
-
-#: templates/isms_function_form.html.twig
-msgid ""
-"Optional: the people and groups who hold the chosen role in this activity "
-"hold the function, and follow the matrix when it changes."
-msgstr ""
-
-#: templates/isms_function_form.html.twig
-msgid "Role in the activity"
-msgstr ""
-
