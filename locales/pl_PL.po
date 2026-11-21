@@ -28891,3 +28891,315 @@ msgstr "Proponowany przepływ"
 
 msgid "These values were proposed by another page, for example the Docker inventory. Check them, add the justification and the owner, then click \"Add\": nothing is saved before."
 msgstr "Te wartości zaproponowała inna strona, na przykład inwentarz Docker. Sprawdź je, dodaj uzasadnienie i właściciela, a następnie kliknij „Dodaj”: wcześniej nic nie jest zapisywane."
+
+msgid "Choose an XML results file produced by OpenSCAP (XCCDF or ARF)."
+msgstr "Wybierz plik wyników XML utworzony przez OpenSCAP (XCCDF lub ARF)."
+
+#, php-format
+msgid ""
+"%1$d scan result(s) imported: %2$d matched to a computer, %3$d not matched, "
+"%4$d already imported."
+msgstr ""
+"Zaimportowane wyniki skanowania: %1$d; dopasowane do komputera: %2$d, "
+"niedopasowane: %3$d, już zaimportowane: %4$d."
+
+msgid ""
+"The file holds more results or failed rules than the import keeps: only the "
+"first ones were kept."
+msgstr ""
+"Plik zawiera więcej wyników lub niespełnionych reguł, niż zachowuje import: "
+"zachowano tylko pierwsze."
+
+msgid "Choose a computer you can see."
+msgstr "Wybierz komputer, który widzisz."
+
+msgid "Scan result matched to the computer."
+msgstr "Wynik skanowania dopasowano do komputera."
+
+msgid "Scan result deleted."
+msgstr "Wynik skanowania usunięty."
+
+msgid "Configuration compliance"
+msgstr "Zgodność konfiguracji"
+
+msgid "Information"
+msgstr "Informacja"
+
+msgid "Error during the check"
+msgstr "Błąd podczas sprawdzania"
+
+msgid ""
+"The file contains a document type or entity declaration, refused for "
+"security reasons. OpenSCAP never writes one: export the results again with "
+"oscap."
+msgstr ""
+"Plik zawiera deklarację typu dokumentu lub encji, odrzuconą ze względów "
+"bezpieczeństwa. OpenSCAP nigdy jej nie zapisuje: wyeksportuj wyniki ponownie"
+" za pomocą oscap."
+
+msgid ""
+"No scan result was found in the file. Choose the results file (option "
+"--results or --results-arf of oscap), not the benchmark or the HTML report."
+msgstr ""
+"W pliku nie znaleziono wyników skanowania. Wybierz plik wyników (opcja "
+"--results lub --results-arf programu oscap), a nie benchmark ani raport "
+"HTML."
+
+msgid "The file is not valid XML, or it is truncated."
+msgstr "Plik nie jest prawidłowym XML lub jest obcięty."
+
+#, php-format
+msgid "Configuration remediation: %1$s (%2$d rule(s) failed)"
+msgstr "Naprawa konfiguracji: %1$s (niespełnione reguły: %2$d)"
+
+msgid "OpenSCAP scans (XCCDF/ARF)"
+msgstr "Skanowania OpenSCAP (XCCDF/ARF)"
+
+msgid "No scan imported yet"
+msgstr "Nie zaimportowano jeszcze żadnego skanowania"
+
+msgid "Import results"
+msgstr "Importuj wyniki"
+
+msgid "Average compliance: not measured"
+msgstr "Średnia zgodność: nie zmierzono"
+
+#, php-format
+msgid "Average compliance: %d%%"
+msgstr "Średnia zgodność: %d%%"
+
+#, php-format
+msgid "%d machine(s) scanned"
+msgstr "Przeskanowane maszyny: %d"
+
+#, php-format
+msgid "%1$d below %2$d%%"
+msgstr "%1$d poniżej %2$d%%"
+
+#, php-format
+msgid "%d with a high severity rule failed"
+msgstr "%d z niespełnioną regułą o wysokiej wadze"
+
+#, php-format
+msgid "%d not matched to a computer"
+msgstr "%d niedopasowane do komputera"
+
+#, php-format
+msgid "Last scan on %s"
+msgstr "Ostatnie skanowanie: %s"
+
+msgid ""
+"Measures how well the configuration of the computers follows a hardening "
+"guide (CIS, ANSSI, DISA STIG...), from the results files of the OpenSCAP "
+"scanner: rate of rules passed per computer, change since the previous scan, "
+"most frequent failed rules and history."
+msgstr ""
+"Mierzy, na ile konfiguracja komputerów jest zgodna z przewodnikiem "
+"utwardzania (CIS, ANSSI, DISA STIG...), na podstawie plików wyników skanera "
+"OpenSCAP: odsetek spełnionych reguł na komputer, zmiana od poprzedniego "
+"skanowania, najczęściej niespełniane reguły i historia."
+
+msgid ""
+"Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), "
+"match the results that are not matched to a computer, then fix the failed "
+"rules, starting with the high severity ones. A remediation ticket can be "
+"proposed for a computer: it is created only when you click. Nothing is "
+"changed on the machines."
+msgstr ""
+"Przeskanuj maszyny za pomocą OpenSCAP, zaimportuj plik wyników (XCCDF lub "
+"ARF), dopasuj wyniki niedopasowane do komputera, a następnie popraw "
+"niespełnione reguły, zaczynając od tych o wysokiej wadze. Dla komputera "
+"można zaproponować zgłoszenie naprawcze: jest tworzone dopiero po "
+"kliknięciu. Na maszynach nic nie jest zmieniane."
+
+msgid "ISO/IEC 27001, control A.8.9"
+msgstr "ISO/IEC 27001, zabezpieczenie A.8.9"
+
+msgid "Scanned computers with a high severity configuration rule failed (%)"
+msgstr ""
+"Przeskanowane komputery z niespełnioną regułą konfiguracji o wysokiej wadze "
+"(%)"
+
+msgid "High severity"
+msgstr "Wysoka waga"
+
+msgid "No previous scan with the same profile"
+msgstr "Brak poprzedniego skanowania z tym samym profilem"
+
+msgid "No profile"
+msgstr "Brak profilu"
+
+msgid "Rules passed out of the rules checked (not applicable rules excluded)"
+msgstr ""
+"Spełnione reguły spośród sprawdzonych (bez reguł nie mających zastosowania)"
+
+#, php-format
+msgid "%1$d of %2$d computers shown, the least compliant first."
+msgstr "Wyświetlono %1$d z %2$d komputerów, najmniej zgodne najpierw."
+
+msgid "Average compliance of the last scans"
+msgstr "Średnia zgodność ostatnich skanowań"
+
+#, php-format
+msgid "Below the %d%% target"
+msgstr "Poniżej celu %d%%"
+
+msgid ""
+"Creates a remediation ticket linked to the computer, with the failed rules. "
+"Nothing is created without this click."
+msgstr ""
+"Tworzy zgłoszenie naprawcze powiązane z komputerem, z niespełnionymi "
+"regułami. Bez tego kliknięcia nic nie jest tworzone."
+
+msgid "Download an example file"
+msgstr "Pobierz przykładowy plik"
+
+msgid "Host name in the report"
+msgstr "Nazwa hosta w raporcie"
+
+msgid "Import OpenSCAP results"
+msgstr "Importuj wyniki OpenSCAP"
+
+msgid "Last scan of each computer"
+msgstr "Ostatnie skanowanie każdego komputera"
+
+msgid "Machines scanned"
+msgstr "Przeskanowane maszyny"
+
+msgid "Match"
+msgstr "Dopasuj"
+
+msgid "Match to a computer"
+msgstr "Dopasuj do komputera"
+
+msgid "Most frequent failed rules"
+msgstr "Najczęściej niespełniane reguły"
+
+msgid ""
+"No computer you can see bears this name, or several do. Check the name of "
+"the computer in GLPI, or choose it here."
+msgstr ""
+"Żaden widoczny komputer nie ma tej nazwy albo ma ją kilka. Sprawdź nazwę "
+"komputera w GLPI lub wybierz go tutaj."
+
+msgid "No failed rule in the last scans."
+msgstr "Brak niespełnionych reguł w ostatnich skanowaniach."
+
+msgid "No host name"
+msgstr "Brak nazwy hosta"
+
+msgid ""
+"No scan imported yet. Import an OpenSCAP results file to measure the "
+"configuration compliance."
+msgstr ""
+"Nie zaimportowano jeszcze żadnego skanowania. Zaimportuj plik wyników "
+"OpenSCAP, aby zmierzyć zgodność konfiguracji."
+
+msgid "No scan result is matched to a computer yet: match them below."
+msgstr ""
+"Żaden wynik skanowania nie jest jeszcze dopasowany do komputera: dopasuj je "
+"poniżej."
+
+msgid "Propose a ticket"
+msgstr "Zaproponuj zgłoszenie"
+
+msgid "Results file"
+msgstr "Plik wyników"
+
+msgid "Rules failed"
+msgstr "Niespełnione reguły"
+
+msgid ""
+"Run the scan on the machine, then import the results file (XCCDF or ARF). "
+"One file can hold several machines. Each result is matched to the GLPI "
+"computer of the same name."
+msgstr ""
+"Uruchom skanowanie na maszynie, a następnie zaimportuj plik wyników (XCCDF "
+"lub ARF). Jeden plik może zawierać kilka maszyn. Każdy wynik jest "
+"dopasowywany do komputera GLPI o tej samej nazwie."
+
+msgid "Scan date"
+msgstr "Data skanowania"
+
+msgid "Scan results not matched to a computer"
+msgstr "Wyniki skanowania niedopasowane do komputera"
+
+#, php-format
+msgid "Ticket %d"
+msgstr "Zgłoszenie %d"
+
+msgid "With a high severity rule failed"
+msgstr "Z niespełnioną regułą o wysokiej wadze"
+
+#, php-format
+msgid ""
+"XML file, %d MB at most. The file itself is not kept: only the counts and "
+"the failed rules."
+msgstr ""
+"Plik XML, najwyżej %d MB. Sam plik nie jest przechowywany: tylko liczniki i "
+"niespełnione reguły."
+
+#, php-format
+msgid "%d failed"
+msgstr "Niespełnione: %d"
+
+#, php-format
+msgid "%d in error"
+msgstr "Z błędem: %d"
+
+#, php-format
+msgid "%d not applicable or not checked"
+msgstr "Nie dotyczy lub nie sprawdzono: %d"
+
+#, php-format
+msgid "%d passed"
+msgstr "Spełnione: %d"
+
+msgid "Back to the configuration compliance"
+msgstr "Powrót do zgodności konfiguracji"
+
+msgid "Delete this scan result"
+msgstr "Usuń ten wynik skanowania"
+
+msgid "Delete this scan result?"
+msgstr "Usunąć ten wynik skanowania?"
+
+msgid "Failed rules"
+msgstr "Niespełnione reguły"
+
+msgid "No failed rule in this scan."
+msgstr "Brak niespełnionych reguł w tym skanowaniu."
+
+msgid "Not matched"
+msgstr "Niedopasowany"
+
+msgid "Rules"
+msgstr "Reguły"
+
+msgid "Scan history of this machine"
+msgstr "Historia skanowań tej maszyny"
+
+msgid "Scanner"
+msgstr "Skaner"
+
+msgid "Score of the tool"
+msgstr "Wynik narzędzia"
+
+msgid ""
+"This scan has more failed rules than the import keeps: only the first ones "
+"are listed."
+msgstr ""
+"To skanowanie ma więcej niespełnionych reguł, niż zachowuje import: "
+"wyświetlono tylko pierwsze."
+
+#, php-format
+msgid "And %d more rule(s): see the scan in GRC."
+msgstr "Pozostałe reguły: %d; zobacz skanowanie w GRC."
+
+#, php-format
+msgid ""
+"Configuration scan of %1$s on %2$s: %3$d rule(s) failed. ISO/IEC 27001, "
+"control A.8.9."
+msgstr ""
+"Skanowanie konfiguracji %1$s z dnia %2$s: niespełnione reguły: %3$d. ISO/IEC"
+" 27001, zabezpieczenie A.8.9."
