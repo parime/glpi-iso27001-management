@@ -1491,6 +1491,50 @@ Zabbix. Il faut le droit du plugin et la lecture native des ordinateurs.
    risque proposent trois sources : disponibilité des services du mois, problèmes ouverts de
    gravité haute, actifs critiques non supervisés.
 
+### Étape 49 : Recenser et contrôler les cartes de gestion des serveurs (mesures A.8.2, A.8.9 et A.8.22)
+
+Les cartes de gestion à distance (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro
+IPMI) donnent le contrôle complet d'un serveur, même éteint. Le plugin les lit **en lecture seule**
+par Redfish : il n'envoie que des requêtes de lecture (GET), ne redémarre rien, ne met à jour aucun
+firmware et ne change aucun réglage. Il faut le droit du plugin et le droit natif de lecture des
+ordinateurs ; le droit de modifier le plugin pour déclarer, lire et importer.
+
+1. Sur chaque contrôleur, créez un compte local avec le rôle **lecture seule** (ReadOnly), réservé
+   au plugin.
+2. Les contrôleurs ont presque toujours une adresse interne : dans la configuration du plugin,
+   section **Connexions sortantes**, autorisez les adresses internes (la page le rappelle tant que ce
+   n'est pas fait).
+3. Ouvrez Sécurité technique > **Contrôleurs de gestion des serveurs**. Dans **Déclarer un
+   contrôleur lu par Redfish**, saisissez son nom, son adresse `https://`, le compte et son mot de
+   passe. Le mot de passe est chiffré par GLPI et n'est jamais réaffiché ; il faut le ressaisir si
+   l'adresse ou le compte changent. Laissez **Serveur dans GLPI** vide pour rapprocher le serveur
+   par son numéro de série.
+4. Un contrôleur au certificat auto-signé est refusé tant que vous ne cochez pas **Accepter un
+   certificat auto-signé pour ce contrôleur** : l'option est désactivée par défaut, vaut pour ce
+   seul contrôleur, et l'écart « Certificat non vérifié » reste signalé.
+5. Cliquez sur **Lire maintenant**. Le plugin lit le modèle, le firmware du contrôleur, le BIOS, le
+   numéro de série et la santé du serveur, les protocoles ouverts, le certificat HTTPS, le démarrage
+   sécurisé et les comptes locaux. Une lecture en échec ne remplace pas la précédente : la cause est
+   affichée à côté de la dernière lecture réussie.
+6. Pour un contrôleur sans Redfish (IPMI seul), importez un fichier CSV dans **Importer des
+   contrôleurs sans Redfish**, une ligne par contrôleur, par exemple :
+   `name;address;model;firmware;serial;ipmi_lan;weak_tls;accounts` puis
+   `bmc-srv03;192.0.2.30;X11;3.10;SM123456;oui;non;ADMIN:Administrator`.
+7. La liste **Contrôleurs et leurs écarts** commence par les écarts graves : IPMI sur le réseau,
+   compte par défaut actif, adresse hors des réseaux d'administration, Telnet, protocoles anciens,
+   certificat expiré. Survolez un écart pour savoir quoi faire, puis corrigez-le sur le contrôleur :
+   le plugin ne fait que le signaler.
+8. L'exposition se vérifie par rapport à la matrice des flux : écrivez la plage du réseau
+   d'administration dans la source ou la destination d'un flux dont le nom désigne une zone
+   d'administration, par exemple `MGMT 10.0.99.0/24`.
+9. **Comptes locaux des contrôleurs** liste les comptes et leur rôle, à reprendre dans la revue des
+   accès privilégiés. **Serveurs physiques sans contrôleur connu** liste les serveurs de GLPI (par
+   leur type ou leur système, hors machines virtuelles) dont personne ne suit la carte de gestion.
+10. Sur la fiche d'un ordinateur, l'onglet **Contrôleur de gestion** résume son contrôleur. Sur les
+    fiches des mesures A.8.2, A.8.9 et A.8.22, le cadre « Contrôleurs de gestion des serveurs »
+    donne les chiffres de la preuve, et les indicateurs de risque proposent la source « Contrôleurs
+    de gestion des serveurs avec un écart grave ».
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -2879,3 +2923,45 @@ Zabbix. You need the plugin right and the native read right on computers.
    saturations or the availability, with the date of the reading. Computers, network devices and
    business processes have a "Zabbix monitoring" tab, and risk indicators offer three sources:
    service availability of the month, open high-severity problems, critical assets not monitored.
+
+### Step 49: Inventory and check the server management controllers (controls A.8.2, A.8.9 and A.8.22)
+
+Remote management controllers (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro IPMI)
+give full control of a server, even switched off. The plugin reads them **in read only** through
+Redfish: it only sends read requests (GET), restarts nothing, updates no firmware and changes no
+setting. You need the plugin right and the native read right on computers; the right to update the
+plugin to declare, read and import.
+
+1. On each controller, create a local account with the **read-only** role (ReadOnly), dedicated to
+   the plugin.
+2. Controllers nearly always have an internal address: in the plugin configuration, section
+   **Outgoing connections**, allow internal addresses (the page reminds you until it is done).
+3. Open Technical security > **Server management controllers**. In **Declare a controller read by
+   Redfish**, enter its name, its `https://` address, the account and its password. The password is
+   encrypted by GLPI and never shown again; it must be entered again if the address or the account
+   changes. Leave **Server in GLPI** empty to match the server by its serial number.
+4. A controller with a self-signed certificate is refused until you tick **Accept a self-signed
+   certificate for this controller**: the option is off by default, applies to this controller only,
+   and the "Certificate not verified" gap stays reported.
+5. Click **Read now**. The plugin reads the model, the firmware of the controller, the BIOS, the
+   serial number and the health of the server, the open protocols, the HTTPS certificate, Secure
+   Boot and the local accounts. A failed reading does not replace the previous one: the cause is
+   shown next to the last successful reading.
+6. For a controller without Redfish (IPMI only), import a CSV file in **Import controllers without
+   Redfish**, one line per controller, for example:
+   `name;address;model;firmware;serial;ipmi_lan;weak_tls;accounts` then
+   `bmc-srv03;192.0.2.30;X11;3.10;SM123456;yes;no;ADMIN:Administrator`.
+7. The list **Controllers and their gaps** starts with the serious gaps: IPMI over the network,
+   default account enabled, address outside the administration networks, Telnet, old protocols,
+   expired certificate. Hover a gap to see what to do, then fix it on the controller: the plugin only
+   reports it.
+8. The exposure is checked against the network flow matrix: write the range of the administration
+   network in the source or the destination of a flow whose name says it is an administration zone,
+   for example `MGMT 10.0.99.0/24`.
+9. **Local accounts of the controllers** lists the accounts and their role, to take into the
+   privileged access review. **Physical servers without a known controller** lists the servers of
+   GLPI (by their type or operating system, virtual machines excluded) whose management controller
+   nobody follows.
+10. On a computer, the **Management controller** tab sums up its controller. On controls A.8.2,
+    A.8.9 and A.8.22, the "Server management controllers" frame gives the figures of the evidence,
+    and the key risk indicators offer the source "Server management controllers with a serious gap".
