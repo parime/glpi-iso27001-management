@@ -28709,3 +28709,12 @@ msgstr ""
 "Ogni riesame registrato con il pulsante «Registra il riesame» è conservato "
 "qui e nel registro di audit di sicurezza; non può più essere modificato in "
 "seguito."
+
+msgid "Physical security of the site: %s"
+msgstr "Sicurezza fisica del sito: %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Lista di controllo, rilievi, azioni e zone di questa valutazione, per "
+"l'auditor."

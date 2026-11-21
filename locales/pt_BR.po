@@ -28510,3 +28510,12 @@ msgid ""
 msgstr ""
 "Cada revisão registrada com o botão \"Registrar a revisão\" é mantida aqui e "
 "no registro de auditoria de segurança; ela não pode ser alterada depois."
+
+msgid "Physical security of the site: %s"
+msgstr "Segurança física do local: %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Lista de verificação, constatações, ações e zonas desta avaliação, para o "
+"auditor."

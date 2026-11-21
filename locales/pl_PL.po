@@ -28627,3 +28627,11 @@ msgid ""
 msgstr ""
 "Każdy przegląd zapisany przyciskiem „Zapisz przegląd” jest przechowywany "
 "tutaj i w dzienniku audytu bezpieczeństwa; nie można go później zmienić."
+
+msgid "Physical security of the site: %s"
+msgstr "Bezpieczeństwo fizyczne lokalizacji: %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Lista kontrolna, ustalenia, działania i strefy tej oceny, dla audytora."

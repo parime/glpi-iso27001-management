@@ -28739,3 +28739,11 @@ msgstr ""
 "Chaque revue enregistrée avec le bouton « Enregistrer la revue » est "
 "conservée ici et dans le journal d'audit de sécurité ; elle ne peut plus "
 "être modifiée ensuite."
+
+msgid "Physical security of the site: %s"
+msgstr "Sécurité physique du site : %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Grille, constats, actions et zones de cette évaluation, pour l'auditeur."

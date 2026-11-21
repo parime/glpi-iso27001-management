@@ -28976,3 +28976,12 @@ msgstr ""
 "Jede mit der Schaltfläche „Überprüfung erfassen“ erfasste Überprüfung wird "
 "hier und im Sicherheits-Auditprotokoll aufbewahrt; sie kann danach nicht "
 "mehr geändert werden."
+
+msgid "Physical security of the site: %s"
+msgstr "Physische Sicherheit des Standorts: %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Prüfliste, Feststellungen, Maßnahmen und Zonen dieser Bewertung, für den "
+"Auditor."
