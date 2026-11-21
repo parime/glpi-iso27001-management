@@ -29723,547 +29723,6 @@ msgstr ""
 "Verantwortlichen und klicken Sie dann auf „Hinzufügen“: Vorher wird nichts "
 "gespeichert."
 
-msgid ""
-"Not saved: the address must start with https:// (or http:// when internal "
-"addresses are allowed), without user name, password or parameters."
-msgstr ""
-"Nicht gespeichert: Die Adresse muss mit https:// beginnen (oder http:// bei "
-"erlaubten internen Adressen), ohne Benutzername, Passwort oder Parameter."
-
-msgid "Zabbix settings saved."
-msgstr "Zabbix-Einstellungen gespeichert."
-
-msgid "Settings saved."
-msgstr "Einstellungen gespeichert."
-
-#, php-format
-msgid "Zabbix read: %1$d host(s), %2$d problem(s), %3$d service(s)."
-msgstr "Zabbix gelesen: %1$d Host(s), %2$d Problem(e), %3$d Dienst(e)."
-
-msgid "Zabbix readings deleted."
-msgstr "Zabbix-Lesungen gelöscht."
-
-msgid "Business process saved."
-msgstr "Geschäftsprozess gespeichert."
-
-msgid "The business process could not be saved."
-msgstr "Der Geschäftsprozess konnte nicht gespeichert werden."
-
-msgid "Infrastructure monitoring"
-msgstr "Infrastrukturüberwachung"
-
-msgid ""
-"Reads your Zabbix monitoring server, in read only: hosts, problems and "
-"availability of the services. Hosts are matched with the computers and "
-"network devices of GLPI to show the assets that nobody monitors, the "
-"measured availability compared with the recovery time objectives of the "
-"business processes, and the saturations of disk, memory or processor."
-msgstr ""
-"Liest Ihren Zabbix-Überwachungsserver, nur lesend: Hosts, Probleme und "
-"Verfügbarkeit der Dienste. Die Hosts werden den Computern und "
-"Netzwerkgeräten von GLPI zugeordnet, um die Assets zu zeigen, die niemand "
-"überwacht, die gemessene Verfügbarkeit im Vergleich zu den "
-"Wiederanlaufzielen (RTO) der Geschäftsprozesse sowie Engpässe bei "
-"Festplatte, Arbeitsspeicher oder Prozessor."
-
-msgid ""
-"Enter the address of the Zabbix server and the API token of a read-only "
-"Zabbix user, read now, then follow up the critical assets not monitored, the "
-"open high-severity problems and the services below their objective. A high-"
-"severity problem can be turned into a security incident or a ticket with one "
-"click; nothing is created automatically and nothing is changed in Zabbix."
-msgstr ""
-"Geben Sie die Adresse des Zabbix-Servers und das API-Token eines "
-"schreibgeschützten Zabbix-Benutzers ein, lesen Sie jetzt, und verfolgen Sie "
-"dann die nicht überwachten kritischen Assets, die offenen Probleme hoher "
-"Schwere und die Dienste unter ihrem Ziel. Ein Problem hoher Schwere kann mit "
-"einem Klick zu einem Sicherheitsvorfall oder Ticket werden; nichts wird "
-"automatisch erstellt und nichts in Zabbix geändert."
-
-msgid "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
-msgstr "ISO/IEC 27001, Maßnahmen A.8.16, A.8.6 und A.5.30"
-
-#, php-format
-msgid "Service availability this month, lowest (%) (Zabbix)"
-msgstr "Dienstverfügbarkeit dieses Monats, niedrigste (%) (Zabbix)"
-
-msgid "Open high-severity problems (Zabbix)"
-msgstr "Offene Probleme hoher Schwere (Zabbix)"
-
-msgid "Critical assets not monitored (Zabbix)"
-msgstr "Nicht überwachte kritische Assets (Zabbix)"
-
-msgid "Zabbix monitoring"
-msgstr "Zabbix-Überwachung"
-
-msgid "Information"
-msgstr "Information"
-
-msgid "Warning"
-msgstr "Warnung"
-
-msgid "Average"
-msgstr "Mittel"
-
-msgid "Disaster"
-msgstr "Katastrophe"
-
-msgid "Monitored"
-msgstr "Überwacht"
-
-msgid "Monitored, unreachable"
-msgstr "Überwacht, nicht erreichbar"
-
-msgid "Monitoring disabled in Zabbix"
-msgstr "Überwachung in Zabbix deaktiviert"
-
-msgid "Not monitored"
-msgstr "Nicht überwacht"
-
-msgid "Critical assets, servers and network devices"
-msgstr "Kritische Assets, Server und Netzwerkgeräte"
-
-msgid "Critical assets only"
-msgstr "Nur kritische Assets"
-
-msgid "All computers and network devices"
-msgstr "Alle Computer und Netzwerkgeräte"
-
-msgid "Disk space"
-msgstr "Speicherplatz"
-
-msgid "Memory"
-msgstr "Arbeitsspeicher"
-
-msgid "Processor"
-msgstr "Prozessor"
-
-msgid "Enter the address of the Zabbix server and an API token first."
-msgstr "Geben Sie zuerst die Adresse des Zabbix-Servers und ein API-Token ein."
-
-msgid ""
-"Zabbix refused the API token: check that it is valid, not expired, and that "
-"its user is enabled."
-msgstr ""
-"Zabbix hat das API-Token abgelehnt: Prüfen Sie, ob es gültig und nicht "
-"abgelaufen ist und ob sein Benutzer aktiv ist."
-
-msgid ""
-"Zabbix refused access: give the user of the token read access to the host "
-"groups and services."
-msgstr ""
-"Zabbix hat den Zugriff verweigert: Geben Sie dem Benutzer des Tokens "
-"Lesezugriff auf die Hostgruppen und Dienste."
-
-msgid ""
-"The Zabbix server has an internal address, refused by default: allow "
-"internal addresses in the plugin configuration page (Outgoing connections)."
-msgstr ""
-"Der Zabbix-Server hat eine interne Adresse, die standardmäßig abgelehnt "
-"wird: Erlauben Sie interne Adressen auf der Konfigurationsseite des Plugins "
-"(Ausgehende Verbindungen)."
-
-msgid ""
-"The Zabbix server could not be reached: check the address, the network "
-"access or the GLPI proxy."
-msgstr ""
-"Der Zabbix-Server war nicht erreichbar: Prüfen Sie die Adresse, den "
-"Netzwerkzugang oder den GLPI-Proxy."
-
-msgid "This version of Zabbix is too old: version 5.4 or later is required."
-msgstr ""
-"Diese Zabbix-Version ist zu alt: Version 5.4 oder neuer ist erforderlich."
-
-msgid "Refused: the connector only reads from Zabbix."
-msgstr "Abgelehnt: Der Konnektor liest nur aus Zabbix."
-
-msgid "You are not allowed to do this."
-msgstr "Sie dürfen dies nicht tun."
-
-msgid "Zabbix returned an unexpected answer."
-msgstr "Zabbix hat eine unerwartete Antwort zurückgegeben."
-
-#, php-format
-msgid "Problem reported by Zabbix: %s"
-msgstr "Von Zabbix gemeldetes Problem: %s"
-
-#, php-format
-msgid "Host: %s"
-msgstr "Host: %s"
-
-#, php-format
-msgid "Severity: %s"
-msgstr "Schweregrad: %s"
-
-#, php-format
-msgid "Started on: %s"
-msgstr "Beginn: %s"
-
-#, php-format
-msgid "Zabbix event: %s"
-msgstr "Zabbix-Ereignis: %s"
-
-msgid "Zabbix: reads hosts, problems and service availability (read only)"
-msgstr "Zabbix: liest Hosts, Probleme und Dienstverfügbarkeit (nur lesend)"
-
-#, php-format
-msgid "Assets with a saturation: %d"
-msgstr "Assets mit Engpass: %d"
-
-#, php-format
-msgid "Critical assets not monitored: %d"
-msgstr "Nicht überwachte kritische Assets: %d"
-
-#, php-format
-msgid "Disk, memory or processor problems: %d"
-msgstr "Probleme mit Festplatte, Speicher oder Prozessor: %d"
-
-#, php-format
-msgid "High-severity problems resolved: %d"
-msgstr "Behobene Probleme hoher Schwere: %d"
-
-#, php-format
-msgid "Lowest service availability: %s %%"
-msgstr "Niedrigste Dienstverfügbarkeit: %s %%"
-
-#, php-format
-msgid "Monitored assets: %d%%"
-msgstr "Überwachte Assets: %d %%"
-
-msgid "Monitored assets: not measured"
-msgstr "Überwachte Assets: nicht gemessen"
-
-#, php-format
-msgid "Open high-severity problems: %d"
-msgstr "Offene Probleme hoher Schwere: %d"
-
-#, php-format
-msgid "Outages longer than the RTO: %d"
-msgstr "Ausfälle länger als die RTO: %d"
-
-#, php-format
-msgid "Over %1$d days, read from Zabbix on %2$s"
-msgstr "Über %1$d Tage, aus Zabbix gelesen am %2$s"
-
-#, php-format
-msgid "Services below their objective: %d"
-msgstr "Dienste unter ihrem Ziel: %d"
-
-msgid "Assets this process depends on"
-msgstr "Assets, von denen dieser Prozess abhängt"
-
-msgid "Availability of the services (Zabbix SLA)"
-msgstr "Verfügbarkeit der Dienste (Zabbix-SLA)"
-
-#, php-format
-msgid "Availability over %d days"
-msgstr "Verfügbarkeit über %d Tage"
-
-#, php-format
-msgid "Downtime: %s"
-msgstr "Ausfallzeit: %s"
-
-#, php-format
-msgid "High: %d"
-msgstr "Hoch: %d"
-
-msgid "Longest outage and RTO"
-msgstr "Längster Ausfall und RTO"
-
-msgid ""
-"No Zabbix service is linked to this process: link one on the Zabbix "
-"monitoring page."
-msgstr ""
-"Kein Zabbix-Dienst ist mit diesem Prozess verknüpft: Verknüpfen Sie einen "
-"auf der Seite Zabbix-Überwachung."
-
-msgid "No computer or network device in the dependencies of this process."
-msgstr ""
-"Kein Computer oder Netzwerkgerät in den Abhängigkeiten dieses Prozesses."
-
-msgid "No problem over the period."
-msgstr "Kein Problem im Zeitraum."
-
-msgid "Nothing has been read from Zabbix yet."
-msgstr "Aus Zabbix wurde noch nichts gelesen."
-
-msgid "Open problems"
-msgstr "Offene Probleme"
-
-#, php-format
-msgid "Other: %d"
-msgstr "Andere: %d"
-
-msgid "Outage longer than the RTO"
-msgstr "Ausfall länger als die RTO"
-
-#, php-format
-msgid "Problems over the last %d days"
-msgstr "Probleme der letzten %d Tage"
-
-msgid "Saturation"
-msgstr "Engpass"
-
-msgid "Started"
-msgstr "Beginn"
-
-msgid ""
-"This asset is not concerned by the monitoring settings and no Zabbix host "
-"matches it."
-msgstr ""
-"Dieses Asset ist von den Überwachungseinstellungen nicht betroffen und kein "
-"Zabbix-Host entspricht ihm."
-
-#, php-format
-msgid "Zabbix host: %s"
-msgstr "Zabbix-Host: %s"
-
-#, php-format
-msgid "%1$d assets: the first %2$d are shown, gaps first."
-msgstr "%1$d Assets: Die ersten %2$d werden angezeigt, Abweichungen zuerst."
-
-#, php-format
-msgid "%1$d host(s), %2$d problem(s), %3$d service(s)."
-msgstr "%1$d Host(s), %2$d Problem(e), %3$d Dienst(e)."
-
-#, php-format
-msgid "%1$d problem(s) over %2$d days"
-msgstr "%1$d Problem(e) über %2$d Tage"
-
-#, php-format
-msgid "%1$d service(s), %2$d below their objective"
-msgstr "%1$d Dienst(e), %2$d unter ihrem Ziel"
-
-msgid ""
-"A Zabbix server on an internal address (private network) is refused by "
-"default: an administrator can allow internal addresses in the plugin "
-"configuration."
-msgstr ""
-"Ein Zabbix-Server mit interner Adresse (privates Netz) wird standardmäßig "
-"abgelehnt: Ein Administrator kann interne Adressen in der Plugin-"
-"Konfiguration erlauben."
-
-msgid "Acknowledged in Zabbix"
-msgstr "In Zabbix bestätigt"
-
-msgid "Address of the Zabbix interface"
-msgstr "Adresse der Zabbix-Oberfläche"
-
-msgid "Assets and their monitoring"
-msgstr "Assets und ihre Überwachung"
-
-#, php-format
-msgid "Assets concerned: %d"
-msgstr "Betroffene Assets: %d"
-
-msgid "Assets monitored by Zabbix"
-msgstr "Von Zabbix überwachte Assets"
-
-msgid "Assets with a saturation"
-msgstr "Assets mit Engpass"
-
-msgid ""
-"Availability measured by Zabbix over the current period of each SLA, "
-"compared with its objective (SLO). Link a service to the business process it "
-"supports to compare it with the continuity needs."
-msgstr ""
-"Von Zabbix gemessene Verfügbarkeit im laufenden Zeitraum jedes SLA, "
-"verglichen mit seinem Ziel (SLO). Verknüpfen Sie einen Dienst mit dem "
-"Geschäftsprozess, den er unterstützt, um ihn mit den "
-"Kontinuitätsanforderungen zu vergleichen."
-
-msgid "Below the objective"
-msgstr "Unter dem Ziel"
-
-msgid "Business processes"
-msgstr "Geschäftsprozesse"
-
-msgid ""
-"Check them: the asset may be missing from the inventory, or named "
-"differently in GLPI and in Zabbix."
-msgstr ""
-"Prüfen Sie sie: Das Asset fehlt möglicherweise im Inventar oder hat in GLPI "
-"und Zabbix unterschiedliche Namen."
-
-#, php-format
-msgid ""
-"Concerned assets: %s. A Zabbix host is matched with an asset by its serial "
-"number, its name, its short name (without the domain) or its IP address. The "
-"availability is the share of time without a high-severity problem over the "
-"period."
-msgstr ""
-"Betroffene Assets: %s. Ein Zabbix-Host wird einem Asset über die "
-"Seriennummer, den Namen, den Kurznamen (ohne Domain) oder die IP-Adresse "
-"zugeordnet. Die Verfügbarkeit ist der Zeitanteil ohne Problem hoher Schwere "
-"im Zeitraum."
-
-msgid "Connection to Zabbix (read only)"
-msgstr "Verbindung zu Zabbix (nur lesend)"
-
-msgid ""
-"Critical assets are those with a high confidentiality, integrity or "
-"availability level (C/I/A classification tab), or published on the Internet "
-"(network flow matrix)."
-msgstr ""
-"Kritische Assets sind solche mit hoher Vertraulichkeit, Integrität oder "
-"Verfügbarkeit (Registerkarte C/I/A-Klassifizierung) oder die im Internet "
-"veröffentlicht sind (Netzwerkflussmatrix)."
-
-msgid "Critical assets not monitored"
-msgstr "Nicht überwachte kritische Assets"
-
-msgid "Current period"
-msgstr "Laufender Zeitraum"
-
-msgid "Delete the readings"
-msgstr "Lesungen löschen"
-
-#, php-format
-msgid "Disk, memory or processor, over %d days"
-msgstr "Festplatte, Speicher oder Prozessor, über %d Tage"
-
-msgid "Downtime"
-msgstr "Ausfallzeit"
-
-msgid "Entity of the readings"
-msgstr "Entität der Lesungen"
-
-msgid "How to prepare Zabbix:"
-msgstr "So bereiten Sie Zabbix vor:"
-
-msgid "IP addresses"
-msgstr "IP-Adressen"
-
-#, php-format
-msgid "Last reading: %s"
-msgstr "Letzte Lesung: %s"
-
-msgid "Lowest service availability"
-msgstr "Niedrigste Dienstverfügbarkeit"
-
-msgid "No computer or network device concerned in your entities."
-msgstr "Kein betroffener Computer oder Netzwerkgerät in Ihren Entitäten."
-
-msgid "No problem on your assets over the period."
-msgstr "Kein Problem an Ihren Assets im Zeitraum."
-
-msgid "No reading yet."
-msgstr "Noch keine Lesung."
-
-msgid "No service level (SLA) read"
-msgstr "Kein Service-Level (SLA) gelesen"
-
-msgid ""
-"No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
-msgstr ""
-"Kein Service-Level gelesen: SLAs gibt es ab Zabbix 6.0 (Dienste > SLA)."
-
-msgid ""
-"Nothing has been read from Zabbix yet: enter the connection below, then "
-"click \"Read now\". Until then, every asset concerned is shown as not "
-"monitored."
-msgstr ""
-"Aus Zabbix wurde noch nichts gelesen: Geben Sie unten die Verbindung ein und "
-"klicken Sie dann auf „Jetzt lesen“. Bis dahin wird jedes betroffene Asset "
-"als nicht überwacht angezeigt."
-
-msgid "Objective (SLO)"
-msgstr "Ziel (SLO)"
-
-msgid "Only the most recent items were read"
-msgstr "Nur die neuesten Elemente wurden gelesen"
-
-msgid "Open high-severity problems"
-msgstr "Offene Probleme hoher Schwere"
-
-msgid "Period of the problems (days)"
-msgstr "Zeitraum der Probleme (Tage)"
-
-msgid "Previous period"
-msgstr "Vorheriger Zeitraum"
-
-msgid ""
-"Problems of severity Warning or higher, open ones first. A high-severity "
-"problem can be turned into a security incident or a ticket: it is only "
-"created when you click, never automatically."
-msgstr ""
-"Probleme ab Schweregrad Warnung, offene zuerst. Ein Problem hoher Schwere "
-"kann zu einem Sicherheitsvorfall oder Ticket werden: Es wird nur bei Ihrem "
-"Klick erstellt, nie automatisch."
-
-msgid "Propose as security incident"
-msgstr "Als Sicherheitsvorfall vorschlagen"
-
-msgid "Read automatically every day (automatic action \"zabbix\")"
-msgstr "Jeden Tag automatisch lesen (automatische Aktion „zabbix“)"
-
-msgid "Read now"
-msgstr "Jetzt lesen"
-
-msgid "Read only: nothing is ever changed in Zabbix from GLPI."
-msgstr "Nur lesend: In Zabbix wird von GLPI aus nie etwas geändert."
-
-msgid "Technical name"
-msgstr "Technischer Name"
-
-msgid ""
-"The last reading failed: the page shows the previous successful reading."
-msgstr ""
-"Die letzte Lesung ist fehlgeschlagen: Die Seite zeigt die vorherige "
-"erfolgreiche Lesung."
-
-msgid ""
-"The readings are visible in this entity and its sub-entities; hosts not "
-"matched with an asset are only listed in this entity."
-msgstr ""
-"Die Lesungen sind in dieser Entität und ihren Unterentitäten sichtbar; nicht "
-"zugeordnete Hosts werden nur in dieser Entität aufgeführt."
-
-msgid ""
-"The token is encrypted with the GLPI key, never displayed again nor logged. "
-"Only the address of this server is called, and only to read."
-msgstr ""
-"Das Token wird mit dem GLPI-Schlüssel verschlüsselt, nie wieder angezeigt "
-"und nie protokolliert. Nur die Adresse dieses Servers wird aufgerufen, und "
-"nur zum Lesen."
-
-msgid ""
-"Users > API tokens: create a token for this user, then copy it here with the "
-"address of the Zabbix interface."
-msgstr ""
-"Benutzer > API-Token: Erstellen Sie ein Token für diesen Benutzer und "
-"kopieren Sie es dann zusammen mit der Adresse der Zabbix-Oberfläche hierher."
-
-msgid ""
-"Users > User roles: create a role of type User with API access limited to "
-"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
-"getsli."
-msgstr ""
-"Benutzer > Benutzerrollen: Erstellen Sie eine Rolle vom Typ Benutzer, deren "
-"API-Zugriff auf die Methoden host.get, problem.get, event.get, service.get, "
-"sla.get und sla.getsli beschränkt ist."
-
-msgid ""
-"Users > Users: create a user with this role, in a user group with read "
-"permission on the host groups to monitor (and on the services)."
-msgstr ""
-"Benutzer > Benutzer: Erstellen Sie einen Benutzer mit dieser Rolle in einer "
-"Benutzergruppe mit Leserecht auf die zu überwachenden Hostgruppen (und die "
-"Dienste)."
-
-msgid "Which assets must be monitored?"
-msgstr "Welche Assets müssen überwacht werden?"
-
-msgid "Zabbix host"
-msgstr "Zabbix-Host"
-
-msgid "Zabbix hosts not matched with a GLPI asset"
-msgstr "Zabbix-Hosts ohne zugeordnetes GLPI-Asset"
-
-#, php-format
-msgid "out of %d critical assets"
-msgstr "von %d kritischen Assets"
-
 #, php-format
 msgid ""
 "%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
@@ -30304,6 +29763,15 @@ msgstr "Logs empfangen"
 msgid "A log platform received an event from this asset recently."
 msgstr ""
 "Eine Log-Plattform hat kürzlich ein Ereignis von diesem Asset empfangen."
+
+msgid "Critical assets, servers and network devices"
+msgstr "Kritische Assets, Server und Netzwerkgeräte"
+
+msgid "Critical assets only"
+msgstr "Nur kritische Assets"
+
+msgid "All computers and network devices"
+msgstr "Alle Computer und Netzwerkgeräte"
 
 msgid "Long enough"
 msgstr "Ausreichend"
@@ -30375,6 +29843,10 @@ msgstr "Abdeckung der Protokollierung: %d %%"
 
 msgid "Logging coverage: not measured"
 msgstr "Abdeckung der Protokollierung: nicht gemessen"
+
+#, php-format
+msgid "%1$d assets: the first %2$d are shown, gaps first."
+msgstr "%1$d Assets: die ersten %2$d werden angezeigt, Abweichungen zuerst."
 
 #, php-format
 msgid "%d days kept"
@@ -30621,6 +30093,9 @@ msgstr "Scan-Ergebnis gelöscht."
 
 msgid "Configuration compliance"
 msgstr "Konfigurationskonformität"
+
+msgid "Information"
+msgstr "Information"
 
 msgid "Error during the check"
 msgstr "Fehler bei der Prüfung"
@@ -31415,6 +30890,420 @@ msgctxt "ad rule"
 msgid "New"
 msgstr "Neu"
 
+#, php-format
+msgid ""
+"%1$d share(s) and %2$d right(s) imported: %3$d new right(s), %4$d removed "
+"since the previous import."
+msgstr ""
+"%1$d Freigabe(n) und %2$d Berechtigung(en) importiert: %3$d neue, %4$d seit "
+"dem vorherigen Import entfernt."
+
+msgid "The file is too long: only its first lines were imported."
+msgstr "Die Datei ist zu lang: Nur die ersten Zeilen wurden importiert."
+
+msgid "Share saved."
+msgstr "Freigabe gespeichert."
+
+msgid "Review started: the owner can now decide for each right."
+msgstr ""
+"Überprüfung gestartet: Der Verantwortliche kann jetzt über jede Berechtigung "
+"entscheiden."
+
+msgid "Review closed."
+msgstr "Überprüfung abgeschlossen."
+
+msgid ""
+"Shows who can access the Windows file shares: share and NTFS permissions "
+"imported from each file server, accounts matched with the GLPI users and "
+"groups, and the gaps an auditor looks for (everyone can modify, rights given "
+"to a person, deleted or disabled accounts, broken inheritance, share without "
+"an owner)."
+msgstr ""
+"Zeigt, wer auf die Windows-Dateifreigaben zugreifen kann: Freigabe- und NTFS-"
+"Berechtigungen aus jedem Dateiserver importiert, Konten den GLPI-Benutzern "
+"und -Gruppen zugeordnet, und die Abweichungen, nach denen ein Auditor sucht "
+"(jeder darf ändern, Berechtigungen an Personen, gelöschte oder deaktivierte "
+"Konten, unterbrochene Vererbung, Freigabe ohne Verantwortlichen)."
+
+msgid ""
+"Run the PowerShell script provided on each file server (it only reads), "
+"import the CSV file, classify the sensitive shares and designate an owner "
+"for each one. The owner then reviews the rights of the share; the "
+"administrator applies the changes on the server and the next import shows "
+"the rights added and removed."
+msgstr ""
+"Führen Sie das mitgelieferte PowerShell-Skript auf jedem Dateiserver aus (es "
+"liest nur), importieren Sie die CSV-Datei, klassifizieren Sie die sensiblen "
+"Freigaben und benennen Sie für jede einen Verantwortlichen. Dieser überprüft "
+"dann die Berechtigungen der Freigabe; der Administrator setzt die Änderungen "
+"auf dem Server um, und der nächste Import zeigt die hinzugefügten und "
+"entfernten Berechtigungen."
+
+msgid "ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3"
+msgstr "ISO/IEC 27001, Maßnahmen A.5.15, A.5.18 und A.8.3"
+
+msgid "File share access rights"
+msgstr "Berechtigungen auf Dateifreigaben"
+
+msgid "Full control"
+msgstr "Vollzugriff"
+
+msgid "Modify"
+msgstr "Ändern"
+
+msgid "Read"
+msgstr "Lesen"
+
+msgid "Special permissions"
+msgstr "Spezielle Berechtigungen"
+
+msgid "Everyone (broad group)"
+msgstr "Jeder (breite Gruppe)"
+
+msgid "System account"
+msgstr "Systemkonto"
+
+msgid "Deleted account"
+msgstr "Gelöschtes Konto"
+
+msgid "Everyone can modify"
+msgstr "Jeder darf ändern"
+
+msgid ""
+"Everyone, Authenticated Users, Domain Users or Guests can modify or have "
+"full control."
+msgstr ""
+"Jeder, Authentifizierte Benutzer, Domänen-Benutzer oder Gäste dürfen ändern "
+"oder haben Vollzugriff."
+
+msgid "Deleted account still has rights"
+msgstr "Gelöschtes Konto mit Berechtigungen"
+
+msgid ""
+"The account no longer exists in the directory (unresolved SID) or is in the "
+"GLPI trash."
+msgstr ""
+"Das Konto existiert nicht mehr im Verzeichnis (nicht aufgelöste SID) oder "
+"liegt im GLPI-Papierkorb."
+
+msgid "Disabled account still has rights"
+msgstr "Deaktiviertes Konto mit Berechtigungen"
+
+msgid "The matching GLPI account is disabled: the person has probably left."
+msgstr ""
+"Das zugehörige GLPI-Konto ist deaktiviert: Die Person ist wahrscheinlich "
+"ausgeschieden."
+
+msgid "Right given to a person"
+msgstr "Berechtigung an eine Person"
+
+msgid ""
+"Rights should be given to groups, not to named people: they are easier to "
+"review."
+msgstr ""
+"Berechtigungen sollten an Gruppen statt an namentliche Personen vergeben "
+"werden: Sie sind leichter zu überprüfen."
+
+msgid "Inheritance broken"
+msgstr "Vererbung unterbrochen"
+
+msgid ""
+"A subfolder of a sensitive share does not inherit the rights of its parent "
+"folder."
+msgstr ""
+"Ein Unterordner einer sensiblen Freigabe erbt die Berechtigungen seines "
+"übergeordneten Ordners nicht."
+
+msgid ""
+"No GLPI user is designated as the owner who reviews the rights of this share."
+msgstr ""
+"Kein GLPI-Benutzer ist als Verantwortlicher benannt, der die Berechtigungen "
+"dieser Freigabe überprüft."
+
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"Identity, IdentityReference or Sid."
+msgstr ""
+"Keine Kontospalte gefunden: Die Datei braucht eine Kopfzeile mit einer "
+"Spalte wie Identity, IdentityReference oder Sid."
+
+msgid ""
+"No rights column found: the file needs a column such as Rights, "
+"FileSystemRights or AccessRight."
+msgstr ""
+"Keine Berechtigungsspalte gefunden: Die Datei braucht eine Spalte wie "
+"Rights, FileSystemRights oder AccessRight."
+
+msgid ""
+"No share column found: the file needs a column such as Share, or Folder with "
+"a \\\\server\\share path."
+msgstr ""
+"Keine Freigabespalte gefunden: Die Datei braucht eine Spalte wie Share oder "
+"Folder mit einem Pfad \\\\server\\freigabe."
+
+msgid "Designate the owner of the share first: they review its rights."
+msgstr ""
+"Benennen Sie zuerst den Verantwortlichen der Freigabe: Er überprüft ihre "
+"Berechtigungen."
+
+msgid "Explain what must be changed or removed in the comment."
+msgstr "Erläutern Sie im Kommentar, was geändert oder entfernt werden muss."
+
+msgid "Some rights have no decision yet."
+msgstr "Für einige Berechtigungen fehlt noch eine Entscheidung."
+
+msgid "You cannot do this on this share."
+msgstr "Sie können dies für diese Freigabe nicht tun."
+
+#, php-format
+msgid "%1$d of %2$d share(s) reviewed in the last 12 months"
+msgstr "%1$d von %2$d Freigabe(n) in den letzten 12 Monaten überprüft"
+
+#, php-format
+msgid "%d file share(s) imported"
+msgstr "%d Dateifreigabe(n) importiert"
+
+#, php-format
+msgid "%d right(s) letting everyone modify"
+msgstr "%d Berechtigung(en), mit denen jeder ändern darf"
+
+#, php-format
+msgid "%d right(s) of deleted or disabled accounts"
+msgstr "%d Berechtigung(en) gelöschter oder deaktivierter Konten"
+
+#, php-format
+msgid "%d share(s) with a gap"
+msgstr "%d Freigabe(n) mit Abweichung"
+
+#, php-format
+msgid "%1$d shares: the first %2$d are shown, the most exposed first."
+msgstr ""
+"%1$d Freigaben: Die ersten %2$d werden angezeigt, die am stärksten "
+"exponierten zuerst."
+
+#, php-format
+msgid "%d right(s) imported"
+msgstr "%d Berechtigung(en) importiert"
+
+#, php-format
+msgid "%d with a high weighted score"
+msgstr "%d mit hoher gewichteter Bewertung"
+
+msgid "Absent from the last import"
+msgstr "Im letzten Import nicht enthalten"
+
+msgid "Download the PowerShell script"
+msgstr "PowerShell-Skript herunterladen"
+
+msgid "Download the script and copy it to the file server."
+msgstr "Laden Sie das Skript herunter und kopieren Sie es auf den Dateiserver."
+
+msgid ""
+"GLPI never connects to your file servers and never changes a right. An "
+"administrator runs the PowerShell script on the file server, with an account "
+"that can read the folders, then imports the CSV file here. A new import of "
+"the same server replaces the previous one in the current entity and shows "
+"the rights added and removed since then; the classification, the owner and "
+"the review decisions are kept."
+msgstr ""
+"GLPI verbindet sich nie mit Ihren Dateiservern und ändert nie eine "
+"Berechtigung. Ein Administrator führt das PowerShell-Skript auf dem "
+"Dateiserver mit einem Konto aus, das die Ordner lesen kann, und importiert "
+"dann hier die CSV-Datei. Ein neuer Import desselben Servers ersetzt den "
+"vorherigen in der aktuellen Entität und zeigt die seitdem hinzugefügten und "
+"entfernten Berechtigungen; Klassifizierung, Verantwortlicher und "
+"Überprüfungsentscheidungen bleiben erhalten."
+
+msgid "Import the rights of a file server"
+msgstr "Berechtigungen eines Dateiservers importieren"
+
+msgid ""
+"Import the shares.csv file below. Files produced by other tools are accepted "
+"if they have a header with columns such as Server, Share, Folder, Identity, "
+"Rights, AccessType, IsInherited and InheritanceProtected."
+msgstr ""
+"Importieren Sie unten die Datei shares.csv. Dateien anderer Werkzeuge werden "
+"akzeptiert, wenn sie eine Kopfzeile mit Spalten wie Server, Share, Folder, "
+"Identity, Rights, AccessType, IsInherited und InheritanceProtected haben."
+
+msgid "Imported by"
+msgstr "Importiert von"
+
+msgid "Imports and changes over time"
+msgstr "Importe und Änderungen im Zeitverlauf"
+
+msgid ""
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
+"OutFile shares.csv (Depth: how many folder levels under each share are read)."
+msgstr ""
+"Führen Sie in PowerShell zum Beispiel aus: ./Export-GrcShareAccess.ps1 -"
+"Depth 2 -OutFile shares.csv (Depth: wie viele Ordnerebenen unter jeder "
+"Freigabe gelesen werden)."
+
+msgid "New rights"
+msgstr "Neue Berechtigungen"
+
+msgid ""
+"No share imported yet. Run the PowerShell script below on a file server, "
+"then import the CSV file it produces."
+msgstr ""
+"Noch keine Freigabe importiert. Führen Sie das PowerShell-Skript unten auf "
+"einem Dateiserver aus und importieren Sie dann die erzeugte CSV-Datei."
+
+msgid ""
+"Only users who can modify the plugin data and the sensitive registers can "
+"import."
+msgstr ""
+"Nur Benutzer, die die Plugin-Daten und die sensiblen Register ändern dürfen, "
+"können importieren."
+
+msgid "Removed rights"
+msgstr "Entfernte Berechtigungen"
+
+msgid "Rights"
+msgstr "Berechtigungen"
+
+msgid "Server imported in this entity"
+msgstr "In dieser Entität importierter Server"
+
+msgid "Share"
+msgstr "Freigabe"
+
+msgid "Shares"
+msgstr "Freigaben"
+
+msgid "Shares and their gaps"
+msgstr "Freigaben und ihre Abweichungen"
+
+msgid "Shares reviewed in the last 12 months"
+msgstr "In den letzten 12 Monaten überprüfte Freigaben"
+
+msgid "Shares with a gap"
+msgstr "Freigaben mit Abweichung"
+
+msgid "Shares without an owner"
+msgstr "Freigaben ohne Verantwortlichen"
+
+msgid "The owner reviews the rights of the share."
+msgstr "Der Verantwortliche überprüft die Berechtigungen der Freigabe."
+
+msgid ""
+"The score adds 3 for each serious gap and 1 for the others, then multiplies "
+"by 3 for a share classified high and by 2 for medium. Nothing is changed on "
+"the file servers from this page."
+msgstr ""
+"Die Bewertung zählt 3 für jede schwere Abweichung und 1 für die anderen und "
+"multipliziert dann mit 3 bei einer hoch klassifizierten Freigabe und mit 2 "
+"bei mittel. Auf den Dateiservern wird von dieser Seite aus nichts geändert."
+
+msgid "Weighted score"
+msgstr "Gewichtete Bewertung"
+
+msgid "All shares"
+msgstr "Alle Freigaben"
+
+msgid "Classification and owner"
+msgstr "Klassifizierung und Verantwortlicher"
+
+msgid "Close the review"
+msgstr "Überprüfung abschließen"
+
+msgid ""
+"During a review, the owner decides for each right: keep it, change it or "
+"remove it. Decisions are recorded with their author and date; GLPI changes "
+"nothing on the server: the administrator applies the changes, and the next "
+"import shows the removed rights."
+msgstr ""
+"Während einer Überprüfung entscheidet der Verantwortliche für jede "
+"Berechtigung: behalten, ändern oder entfernen. Die Entscheidungen werden mit "
+"Urheber und Datum festgehalten; GLPI ändert nichts auf dem Server: Der "
+"Administrator setzt die Änderungen um, und der nächste Import zeigt die "
+"entfernten Berechtigungen."
+
+msgid "Folder"
+msgstr "Ordner"
+
+msgid ""
+"Gaps weigh more on a share classified high, and broken inheritance is "
+"reported only on a share whose confidentiality or integrity is medium or "
+"high."
+msgstr ""
+"Abweichungen wiegen bei einer hoch klassifizierten Freigabe schwerer, und "
+"unterbrochene Vererbung wird nur bei einer Freigabe mit mittlerer oder hoher "
+"Vertraulichkeit oder Integrität gemeldet."
+
+#, php-format
+msgid "Last review: %s"
+msgstr "Letzte Überprüfung: %s"
+
+#, php-format
+msgid "Level %d"
+msgstr "Ebene %d"
+
+msgid "Local path"
+msgstr "Lokaler Pfad"
+
+msgid "NTFS owner"
+msgstr "NTFS-Besitzer"
+
+msgid "NTFS permission"
+msgstr "NTFS-Berechtigung"
+
+msgid "New"
+msgstr "Neu"
+
+msgid "No right in the last import of this share."
+msgstr "Keine Berechtigung im letzten Import dieser Freigabe."
+
+msgid "Owner who reviews the rights"
+msgstr "Verantwortlicher, der die Berechtigungen überprüft"
+
+#, php-format
+msgid "Owner: %s"
+msgstr "Besitzer: %s"
+
+msgid "Review of the rights"
+msgstr "Überprüfung der Berechtigungen"
+
+msgid "Right"
+msgstr "Berechtigung"
+
+msgid "Rights removed since the previous import"
+msgstr "Seit dem vorherigen Import entfernte Berechtigungen"
+
+msgid "Share permission"
+msgstr "Freigabeberechtigung"
+
+msgid "Start a review"
+msgstr "Überprüfung starten"
+
+msgid "inherited"
+msgstr "geerbt"
+
+msgctxt "availability"
+msgid "A"
+msgstr "A"
+
+msgctxt "confidentiality"
+msgid "C"
+msgstr "C"
+
+msgctxt "integrity"
+msgid "I"
+msgstr "I"
+
+#, php-format
+msgid "%d right added at the last import"
+msgid_plural "%d rights added at the last import"
+msgstr[0] "%d Berechtigung beim letzten Import hinzugefügt"
+msgstr[1] "%d Berechtigungen beim letzten Import hinzugefügt"
+
+#, php-format
+msgid "%d right still to review."
+msgid_plural "%d rights still to review."
+msgstr[0] "%d Berechtigung noch zu überprüfen."
+msgstr[1] "%d Berechtigungen noch zu überprüfen."
+
 msgid "Evaluation completed."
 msgstr "Bewertung abgeschlossen."
 
@@ -31446,20 +31335,49 @@ msgstr "Fragebogenvorlagen"
 msgid "Historical questionnaire"
 msgstr "Historischer Fragebogen"
 
-msgid "The twelve questions of the former security questionnaire, kept with the answers already given."
-msgstr "Die zwölf Fragen des früheren Sicherheitsfragebogens, mit den bereits gegebenen Antworten beibehalten."
+msgid ""
+"The twelve questions of the former security questionnaire, kept with the "
+"answers already given."
+msgstr ""
+"Die zwölf Fragen des früheren Sicherheitsfragebogens, mit den bereits "
+"gegebenen Antworten beibehalten."
 
-msgid "Create one risk per important supplier, evaluate it with one or more questionnaires (Questionnaires tab), follow its contracts and the \"Security watch\" tab."
-msgstr "Legen Sie ein Risiko pro wichtigem Lieferanten an, bewerten Sie ihn mit einem oder mehreren Fragebögen (Registerkarte Fragebögen), verfolgen Sie seine Verträge und die Registerkarte „Sicherheitsbeobachtung“."
+msgid ""
+"Create one risk per important supplier, evaluate it with one or more "
+"questionnaires (Questionnaires tab), follow its contracts and the \"Security "
+"watch\" tab."
+msgstr ""
+"Legen Sie ein Risiko pro wichtigem Lieferanten an, bewerten Sie ihn mit "
+"einem oder mehreren Fragebögen (Registerkarte Fragebögen), verfolgen Sie "
+"seine Verträge und die Registerkarte „Sicherheitsbeobachtung“."
 
-msgid "Supplier questionnaire templates: the questions asked to your suppliers, grouped by section, with their weight, the expected answer and the evidence to provide. One template per need: information security, personal data, artificial intelligence..."
-msgstr "Lieferanten-Fragebogenvorlagen: die Fragen an Ihre Lieferanten, nach Abschnitten gruppiert, mit ihrer Gewichtung, der erwarteten Antwort und dem vorzulegenden Nachweis. Eine Vorlage pro Bedarf: Informationssicherheit, personenbezogene Daten, künstliche Intelligenz..."
+msgid ""
+"Supplier questionnaire templates: the questions asked to your suppliers, "
+"grouped by section, with their weight, the expected answer and the evidence "
+"to provide. One template per need: information security, personal data, "
+"artificial intelligence..."
+msgstr ""
+"Lieferanten-Fragebogenvorlagen: die Fragen an Ihre Lieferanten, nach "
+"Abschnitten gruppiert, mit ihrer Gewichtung, der erwarteten Antwort und dem "
+"vorzulegenden Nachweis. Eine Vorlage pro Bedarf: Informationssicherheit, "
+"personenbezogene Daten, künstliche Intelligenz..."
 
-msgid "Adapt the historical questionnaire or create your own templates, then start an evaluation from the Questionnaires tab of a supplier risk. A supplier can be evaluated with several templates; each evaluation keeps its score and its history."
-msgstr "Passen Sie den historischen Fragebogen an oder erstellen Sie eigene Vorlagen und starten Sie dann eine Bewertung über die Registerkarte Fragebögen eines Lieferantenrisikos. Ein Lieferant kann mit mehreren Vorlagen bewertet werden; jede Bewertung behält ihre Punktzahl und ihren Verlauf."
+msgid ""
+"Adapt the historical questionnaire or create your own templates, then start "
+"an evaluation from the Questionnaires tab of a supplier risk. A supplier can "
+"be evaluated with several templates; each evaluation keeps its score and its "
+"history."
+msgstr ""
+"Passen Sie den historischen Fragebogen an oder erstellen Sie eigene Vorlagen "
+"und starten Sie dann eine Bewertung über die Registerkarte Fragebögen eines "
+"Lieferantenrisikos. Ein Lieferant kann mit mehreren Vorlagen bewertet "
+"werden; jede Bewertung behält ihre Punktzahl und ihren Verlauf."
 
-msgid "ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
-msgstr "ISO/IEC 27001, Maßnahmen A.5.19 bis A.5.21; NIS2 Art. 21 Abs. 2 Buchst. d; DORA Art. 28"
+msgid ""
+"ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
+msgstr ""
+"ISO/IEC 27001, Maßnahmen A.5.19 bis A.5.21; NIS2 Art. 21 Abs. 2 Buchst. d; "
+"DORA Art. 28"
 
 msgid "Questionnaires"
 msgstr "Fragebögen"
@@ -31467,15 +31385,20 @@ msgstr "Fragebögen"
 msgid "Choose the supplier risk to evaluate."
 msgstr "Wählen Sie das zu bewertende Lieferantenrisiko."
 
-msgid "Choose an active questionnaire template available in the entity of the supplier risk."
-msgstr "Wählen Sie eine aktive Fragebogenvorlage, die in der Entität des Lieferantenrisikos verfügbar ist."
+msgid ""
+"Choose an active questionnaire template available in the entity of the "
+"supplier risk."
+msgstr ""
+"Wählen Sie eine aktive Fragebogenvorlage, die in der Entität des "
+"Lieferantenrisikos verfügbar ist."
 
 #, php-format
 msgid "%1$s - %2$s"
 msgstr "%1$s - %2$s"
 
 msgid "This evaluation is completed: reopen it to change it."
-msgstr "Diese Bewertung ist abgeschlossen: Öffnen Sie sie wieder, um sie zu ändern."
+msgstr ""
+"Diese Bewertung ist abgeschlossen: Öffnen Sie sie wieder, um sie zu ändern."
 
 msgid "Questionnaire"
 msgstr "Fragebogen"
@@ -31524,17 +31447,29 @@ msgstr "%1$d von %2$d Fragen beantwortet"
 msgid "%1$s (version %2$d)"
 msgstr "%1$s (Version %2$d)"
 
-msgid "Answer the questions in the \"Questionnaire\" tab, then mark the evaluation as completed."
-msgstr "Beantworten Sie die Fragen in der Registerkarte „Fragebogen“ und markieren Sie die Bewertung dann als abgeschlossen."
+msgid ""
+"Answer the questions in the \"Questionnaire\" tab, then mark the evaluation "
+"as completed."
+msgstr ""
+"Beantworten Sie die Fragen in der Registerkarte „Fragebogen“ und markieren "
+"Sie die Bewertung dann als abgeschlossen."
 
 msgid "Evaluation"
 msgstr "Bewertung"
 
-msgid "Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by the weight of the question; \"not applicable\" and unanswered questions are not counted."
-msgstr "Erwartete Antwort = 1 Punkt, teilweise = 0,5, andere Antwort = 0, multipliziert mit der Gewichtung der Frage; „nicht zutreffend“ und unbeantwortete Fragen werden nicht gezählt."
+msgid ""
+"Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by "
+"the weight of the question; \"not applicable\" and unanswered questions are "
+"not counted."
+msgstr ""
+"Erwartete Antwort = 1 Punkt, teilweise = 0,5, andere Antwort = 0, "
+"multipliziert mit der Gewichtung der Frage; „nicht zutreffend“ und "
+"unbeantwortete Fragen werden nicht gezählt."
 
 msgid "For example \"Security 2026\" or \"Personal data - contract renewal\"."
-msgstr "Zum Beispiel „Sicherheit 2026“ oder „Personenbezogene Daten - Vertragsverlängerung“."
+msgstr ""
+"Zum Beispiel „Sicherheit 2026“ oder „Personenbezogene Daten - "
+"Vertragsverlängerung“."
 
 msgid "Questionnaire template"
 msgstr "Fragebogenvorlage"
@@ -31543,23 +31478,42 @@ msgstr "Fragebogenvorlage"
 msgid "Score: %1$d%% - %2$s"
 msgstr "Punktzahl: %1$d %% - %2$s"
 
-msgid "This evaluation is completed: its answers can no longer be changed. Reopen it from the \"Questionnaire\" tab to change them."
-msgstr "Diese Bewertung ist abgeschlossen: Ihre Antworten können nicht mehr geändert werden. Öffnen Sie sie über die Registerkarte „Fragebogen“ wieder, um sie zu ändern."
+msgid ""
+"This evaluation is completed: its answers can no longer be changed. Reopen "
+"it from the \"Questionnaire\" tab to change them."
+msgstr ""
+"Diese Bewertung ist abgeschlossen: Ihre Antworten können nicht mehr geändert "
+"werden. Öffnen Sie sie über die Registerkarte „Fragebogen“ wieder, um sie zu "
+"ändern."
 
 msgid "Add the template, then write its questions in the \"Questions\" tab."
-msgstr "Fügen Sie die Vorlage hinzu und schreiben Sie dann ihre Fragen in der Registerkarte „Fragen“."
+msgstr ""
+"Fügen Sie die Vorlage hinzu und schreiben Sie dann ihre Fragen in der "
+"Registerkarte „Fragen“."
 
-msgid "Fingerprint of the questions, used to recognize a questionnaire file returned by a supplier."
-msgstr "Fingerabdruck der Fragen, mit dem eine von einem Lieferanten zurückgesandte Fragebogendatei erkannt wird."
+msgid ""
+"Fingerprint of the questions, used to recognize a questionnaire file "
+"returned by a supplier."
+msgstr ""
+"Fingerabdruck der Fragen, mit dem eine von einem Lieferanten zurückgesandte "
+"Fragebogendatei erkannt wird."
 
-msgid "For example \"Hosting provider security\", \"Personal data processor (GDPR art. 28)\" or \"AI service provider\"."
-msgstr "Zum Beispiel „Sicherheit des Hosting-Anbieters“, „Auftragsverarbeiter (DSGVO Art. 28)“ oder „Anbieter von KI-Diensten“."
+msgid ""
+"For example \"Hosting provider security\", \"Personal data processor (GDPR "
+"art. 28)\" or \"AI service provider\"."
+msgstr ""
+"Zum Beispiel „Sicherheit des Hosting-Anbieters“, „Auftragsverarbeiter (DSGVO "
+"Art. 28)“ oder „Anbieter von KI-Diensten“."
 
 msgid "Inactive: not offered for new evaluations"
 msgstr "Inaktiv: wird für neue Bewertungen nicht angeboten"
 
-msgid "Increases each time the questions change. An evaluation keeps the questions of the version it was started with."
-msgstr "Erhöht sich bei jeder Änderung der Fragen. Eine Bewertung behält die Fragen der Version, mit der sie gestartet wurde."
+msgid ""
+"Increases each time the questions change. An evaluation keeps the questions "
+"of the version it was started with."
+msgstr ""
+"Erhöht sich bei jeder Änderung der Fragen. Eine Bewertung behält die Fragen "
+"der Version, mit der sie gestartet wurde."
 
 msgid "Only active templates are offered when an evaluation is started."
 msgstr "Beim Starten einer Bewertung werden nur aktive Vorlagen angeboten."
@@ -31567,11 +31521,20 @@ msgstr "Beim Starten einer Bewertung werden nur aktive Vorlagen angeboten."
 msgid "Taken over"
 msgstr "Übernommen"
 
-msgid "The last completed evaluation of the \"Information security\" domain gives the score shown on the supplier risk and on the dashboard."
-msgstr "Die letzte abgeschlossene Bewertung des Bereichs „Informationssicherheit“ liefert die Punktzahl, die beim Lieferantenrisiko und im Dashboard angezeigt wird."
+msgid ""
+"The last completed evaluation of the \"Information security\" domain gives "
+"the score shown on the supplier risk and on the dashboard."
+msgstr ""
+"Die letzte abgeschlossene Bewertung des Bereichs „Informationssicherheit“ "
+"liefert die Punktzahl, die beim Lieferantenrisiko und im Dashboard angezeigt "
+"wird."
 
-msgid "The twelve questions of the former security questionnaire. It can be deactivated but not deleted."
-msgstr "Die zwölf Fragen des früheren Sicherheitsfragebogens. Sie kann deaktiviert, aber nicht gelöscht werden."
+msgid ""
+"The twelve questions of the former security questionnaire. It can be "
+"deactivated but not deleted."
+msgstr ""
+"Die zwölf Fragen des früheren Sicherheitsfragebogens. Sie kann deaktiviert, "
+"aber nicht gelöscht werden."
 
 msgid "Detach"
 msgstr "Lösen"
@@ -31593,8 +31556,21 @@ msgid "Expected: %s"
 msgstr "Erwartet: %s"
 
 #, php-format
-msgid "For each question, choose the answer given by the supplier and add a comment if needed. The expected answer earns 1 point, \"partial\" half a point, the other answer 0, multiplied by the weight of the question. A question marked \"Evidence required\" waits for a document (certificate, report, policy...): it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) and added to the Documents tab of the supplier risk."
-msgstr "Wählen Sie für jede Frage die Antwort des Lieferanten und fügen Sie bei Bedarf einen Kommentar hinzu. Die erwartete Antwort bringt 1 Punkt, „teilweise“ einen halben Punkt, die andere Antwort 0, multipliziert mit der Gewichtung der Frage. Eine als „Nachweis erforderlich“ markierte Frage erwartet ein Dokument (Zertifikat, Bericht, Richtlinie...): Es wird wie jeder Nachweis geprüft (von GLPI erlaubte Typen, maximale Größe %d MiB) und der Registerkarte Dokumente des Lieferantenrisikos hinzugefügt."
+msgid ""
+"For each question, choose the answer given by the supplier and add a comment "
+"if needed. The expected answer earns 1 point, \"partial\" half a point, the "
+"other answer 0, multiplied by the weight of the question. A question marked "
+"\"Evidence required\" waits for a document (certificate, report, policy...): "
+"it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) "
+"and added to the Documents tab of the supplier risk."
+msgstr ""
+"Wählen Sie für jede Frage die Antwort des Lieferanten und fügen Sie bei "
+"Bedarf einen Kommentar hinzu. Die erwartete Antwort bringt 1 Punkt, "
+"„teilweise“ einen halben Punkt, die andere Antwort 0, multipliziert mit der "
+"Gewichtung der Frage. Eine als „Nachweis erforderlich“ markierte Frage "
+"erwartet ein Dokument (Zertifikat, Bericht, Richtlinie...): Es wird wie "
+"jeder Nachweis geprüft (von GLPI erlaubte Typen, maximale Größe %d MiB) und "
+"der Registerkarte Dokumente des Lieferantenrisikos hinzugefügt."
 
 msgid "For information, not scored"
 msgstr "Zur Information, nicht bewertet"
@@ -31602,8 +31578,13 @@ msgstr "Zur Information, nicht bewertet"
 msgid "General"
 msgstr "Allgemein"
 
-msgid "Questions without an answer do not count in the score. A completed evaluation can no longer be changed, unless it is reopened."
-msgstr "Fragen ohne Antwort zählen nicht zur Punktzahl. Eine abgeschlossene Bewertung kann nicht mehr geändert werden, es sei denn, sie wird wieder geöffnet."
+msgid ""
+"Questions without an answer do not count in the score. A completed "
+"evaluation can no longer be changed, unless it is reopened."
+msgstr ""
+"Fragen ohne Antwort zählen nicht zur Punktzahl. Eine abgeschlossene "
+"Bewertung kann nicht mehr geändert werden, es sei denn, sie wird wieder "
+"geöffnet."
 
 msgid "Reopen the evaluation"
 msgstr "Bewertung wieder öffnen"
@@ -31614,8 +31595,11 @@ msgstr "Speichern und als abgeschlossen markieren"
 msgid "Save answers"
 msgstr "Antworten speichern"
 
-msgid "This evaluation has no question: its template had none when it was created."
-msgstr "Diese Bewertung hat keine Fragen: Ihre Vorlage hatte bei der Erstellung keine."
+msgid ""
+"This evaluation has no question: its template had none when it was created."
+msgstr ""
+"Diese Bewertung hat keine Fragen: Ihre Vorlage hatte bei der Erstellung "
+"keine."
 
 #, php-format
 msgid "Weight %d"
@@ -31628,11 +31612,26 @@ msgstr "%1$s: %2$s Punkte"
 msgid "Change between the last two completed evaluations"
 msgstr "Veränderung zwischen den letzten beiden abgeschlossenen Bewertungen"
 
-msgid "Evaluate the supplier with one or more questionnaires (security, personal data, artificial intelligence...). Each question has a weight and an expected answer; the score informs the assessment and never changes the risk level entered. Evidence requested for a question is added to the Documents tab of this supplier risk."
-msgstr "Bewerten Sie den Lieferanten mit einem oder mehreren Fragebögen (Sicherheit, personenbezogene Daten, künstliche Intelligenz...). Jede Frage hat eine Gewichtung und eine erwartete Antwort; die Punktzahl unterstützt die Beurteilung und ändert nie die eingegebene Risikostufe. Der für eine Frage angeforderte Nachweis wird der Registerkarte Dokumente dieses Lieferantenrisikos hinzugefügt."
+msgid ""
+"Evaluate the supplier with one or more questionnaires (security, personal "
+"data, artificial intelligence...). Each question has a weight and an "
+"expected answer; the score informs the assessment and never changes the risk "
+"level entered. Evidence requested for a question is added to the Documents "
+"tab of this supplier risk."
+msgstr ""
+"Bewerten Sie den Lieferanten mit einem oder mehreren Fragebögen (Sicherheit, "
+"personenbezogene Daten, künstliche Intelligenz...). Jede Frage hat eine "
+"Gewichtung und eine erwartete Antwort; die Punktzahl unterstützt die "
+"Beurteilung und ändert nie die eingegebene Risikostufe. Der für eine Frage "
+"angeforderte Nachweis wird der Registerkarte Dokumente dieses "
+"Lieferantenrisikos hinzugefügt."
 
-msgid "No active questionnaire template is available in the entity of this supplier risk."
-msgstr "In der Entität dieses Lieferantenrisikos ist keine aktive Fragebogenvorlage verfügbar."
+msgid ""
+"No active questionnaire template is available in the entity of this supplier "
+"risk."
+msgstr ""
+"In der Entität dieses Lieferantenrisikos ist keine aktive Fragebogenvorlage "
+"verfügbar."
 
 msgid "No evaluation yet for this supplier."
 msgstr "Noch keine Bewertung für diesen Lieferanten."
@@ -31654,8 +31653,23 @@ msgid "Code"
 msgstr "Code"
 
 #, php-format
-msgid "Group the questions by section. The expected answer is the compliant one (\"No\" for a question such as \"Have you suffered a data breach in the last 12 months?\"). The weight, from 0 to %d, gives the importance of the question in the score; 0 makes it a question for information only. Tick \"Evidence required\" when the supplier must provide a document. Changing the questions creates a new version of the template; evaluations already started keep their questions."
-msgstr "Gruppieren Sie die Fragen nach Abschnitten. Die erwartete Antwort ist die konforme („Nein“ bei einer Frage wie „Hatten Sie in den letzten 12 Monaten eine Datenschutzverletzung?“). Die Gewichtung von 0 bis %d gibt die Bedeutung der Frage für die Punktzahl an; 0 macht sie zu einer reinen Informationsfrage. Kreuzen Sie „Nachweis erforderlich“ an, wenn der Lieferant ein Dokument vorlegen muss. Eine Änderung der Fragen erzeugt eine neue Version der Vorlage; bereits gestartete Bewertungen behalten ihre Fragen."
+msgid ""
+"Group the questions by section. The expected answer is the compliant one "
+"(\"No\" for a question such as \"Have you suffered a data breach in the last "
+"12 months?\"). The weight, from 0 to %d, gives the importance of the "
+"question in the score; 0 makes it a question for information only. Tick "
+"\"Evidence required\" when the supplier must provide a document. Changing "
+"the questions creates a new version of the template; evaluations already "
+"started keep their questions."
+msgstr ""
+"Gruppieren Sie die Fragen nach Abschnitten. Die erwartete Antwort ist die "
+"konforme („Nein“ bei einer Frage wie „Hatten Sie in den letzten 12 Monaten "
+"eine Datenschutzverletzung?“). Die Gewichtung von 0 bis %d gibt die "
+"Bedeutung der Frage für die Punktzahl an; 0 macht sie zu einer reinen "
+"Informationsfrage. Kreuzen Sie „Nachweis erforderlich“ an, wenn der "
+"Lieferant ein Dokument vorlegen muss. Eine Änderung der Fragen erzeugt eine "
+"neue Version der Vorlage; bereits gestartete Bewertungen behalten ihre "
+"Fragen."
 
 msgid "Help for the answer (optional)"
 msgstr "Hilfe zur Antwort (optional)"
@@ -31729,3 +31743,528 @@ msgid "%d question"
 msgid_plural "%d questions"
 msgstr[0] "%d Frage"
 msgstr[1] "%d Fragen"
+
+msgid ""
+"Not saved: the address must start with https:// (or http:// when internal "
+"addresses are allowed), without user name, password or parameters."
+msgstr ""
+"Nicht gespeichert: Die Adresse muss mit https:// beginnen (oder http:// bei "
+"erlaubten internen Adressen), ohne Benutzername, Passwort oder Parameter."
+
+msgid "Zabbix settings saved."
+msgstr "Zabbix-Einstellungen gespeichert."
+
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#, php-format
+msgid "Zabbix read: %1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr "Zabbix gelesen: %1$d Host(s), %2$d Problem(e), %3$d Dienst(e)."
+
+msgid "Zabbix readings deleted."
+msgstr "Zabbix-Lesungen gelöscht."
+
+msgid "Business process saved."
+msgstr "Geschäftsprozess gespeichert."
+
+msgid "The business process could not be saved."
+msgstr "Der Geschäftsprozess konnte nicht gespeichert werden."
+
+msgid "Infrastructure monitoring"
+msgstr "Infrastrukturüberwachung"
+
+msgid ""
+"Reads your Zabbix monitoring server, in read only: hosts, problems and "
+"availability of the services. Hosts are matched with the computers and "
+"network devices of GLPI to show the assets that nobody monitors, the "
+"measured availability compared with the recovery time objectives of the "
+"business processes, and the saturations of disk, memory or processor."
+msgstr ""
+"Liest Ihren Zabbix-Überwachungsserver, nur lesend: Hosts, Probleme und "
+"Verfügbarkeit der Dienste. Die Hosts werden den Computern und "
+"Netzwerkgeräten von GLPI zugeordnet, um die Assets zu zeigen, die niemand "
+"überwacht, die gemessene Verfügbarkeit im Vergleich zu den "
+"Wiederanlaufzielen (RTO) der Geschäftsprozesse sowie Engpässe bei "
+"Festplatte, Arbeitsspeicher oder Prozessor."
+
+msgid ""
+"Enter the address of the Zabbix server and the API token of a read-only "
+"Zabbix user, read now, then follow up the critical assets not monitored, the "
+"open high-severity problems and the services below their objective. A high-"
+"severity problem can be turned into a security incident or a ticket with one "
+"click; nothing is created automatically and nothing is changed in Zabbix."
+msgstr ""
+"Geben Sie die Adresse des Zabbix-Servers und das API-Token eines "
+"schreibgeschützten Zabbix-Benutzers ein, lesen Sie jetzt, und verfolgen Sie "
+"dann die nicht überwachten kritischen Assets, die offenen Probleme hoher "
+"Schwere und die Dienste unter ihrem Ziel. Ein Problem hoher Schwere kann mit "
+"einem Klick zu einem Sicherheitsvorfall oder Ticket werden; nichts wird "
+"automatisch erstellt und nichts in Zabbix geändert."
+
+msgid "ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30"
+msgstr "ISO/IEC 27001, Maßnahmen A.8.16, A.8.6 und A.5.30"
+
+#, php-format
+msgid "Service availability this month, lowest (%) (Zabbix)"
+msgstr "Dienstverfügbarkeit dieses Monats, niedrigste (%) (Zabbix)"
+
+msgid "Open high-severity problems (Zabbix)"
+msgstr "Offene Probleme hoher Schwere (Zabbix)"
+
+msgid "Critical assets not monitored (Zabbix)"
+msgstr "Nicht überwachte kritische Assets (Zabbix)"
+
+msgid "Zabbix monitoring"
+msgstr "Zabbix-Überwachung"
+
+msgid "Warning"
+msgstr "Warnung"
+
+msgid "Average"
+msgstr "Mittel"
+
+msgid "Disaster"
+msgstr "Katastrophe"
+
+msgid "Monitored"
+msgstr "Überwacht"
+
+msgid "Monitored, unreachable"
+msgstr "Überwacht, nicht erreichbar"
+
+msgid "Monitoring disabled in Zabbix"
+msgstr "Überwachung in Zabbix deaktiviert"
+
+msgid "Not monitored"
+msgstr "Nicht überwacht"
+
+msgid "Disk space"
+msgstr "Speicherplatz"
+
+msgid "Memory"
+msgstr "Arbeitsspeicher"
+
+msgid "Processor"
+msgstr "Prozessor"
+
+msgid "Enter the address of the Zabbix server and an API token first."
+msgstr "Geben Sie zuerst die Adresse des Zabbix-Servers und ein API-Token ein."
+
+msgid ""
+"Zabbix refused the API token: check that it is valid, not expired, and that "
+"its user is enabled."
+msgstr ""
+"Zabbix hat das API-Token abgelehnt: Prüfen Sie, ob es gültig und nicht "
+"abgelaufen ist und ob sein Benutzer aktiv ist."
+
+msgid ""
+"Zabbix refused access: give the user of the token read access to the host "
+"groups and services."
+msgstr ""
+"Zabbix hat den Zugriff verweigert: Geben Sie dem Benutzer des Tokens "
+"Lesezugriff auf die Hostgruppen und Dienste."
+
+msgid ""
+"The Zabbix server has an internal address, refused by default: allow "
+"internal addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+"Der Zabbix-Server hat eine interne Adresse, die standardmäßig abgelehnt "
+"wird: Erlauben Sie interne Adressen auf der Konfigurationsseite des Plugins "
+"(Ausgehende Verbindungen)."
+
+msgid ""
+"The Zabbix server could not be reached: check the address, the network "
+"access or the GLPI proxy."
+msgstr ""
+"Der Zabbix-Server war nicht erreichbar: Prüfen Sie die Adresse, den "
+"Netzwerkzugang oder den GLPI-Proxy."
+
+msgid "This version of Zabbix is too old: version 5.4 or later is required."
+msgstr ""
+"Diese Zabbix-Version ist zu alt: Version 5.4 oder neuer ist erforderlich."
+
+msgid "Refused: the connector only reads from Zabbix."
+msgstr "Abgelehnt: Der Konnektor liest nur aus Zabbix."
+
+msgid "You are not allowed to do this."
+msgstr "Sie dürfen dies nicht tun."
+
+msgid "Zabbix returned an unexpected answer."
+msgstr "Zabbix hat eine unerwartete Antwort zurückgegeben."
+
+#, php-format
+msgid "Problem reported by Zabbix: %s"
+msgstr "Von Zabbix gemeldetes Problem: %s"
+
+#, php-format
+msgid "Host: %s"
+msgstr "Host: %s"
+
+#, php-format
+msgid "Severity: %s"
+msgstr "Schweregrad: %s"
+
+#, php-format
+msgid "Started on: %s"
+msgstr "Beginn: %s"
+
+#, php-format
+msgid "Zabbix event: %s"
+msgstr "Zabbix-Ereignis: %s"
+
+msgid "Zabbix: reads hosts, problems and service availability (read only)"
+msgstr "Zabbix: liest Hosts, Probleme und Dienstverfügbarkeit (nur lesend)"
+
+#, php-format
+msgid "Assets with a saturation: %d"
+msgstr "Assets mit Engpass: %d"
+
+#, php-format
+msgid "Critical assets not monitored: %d"
+msgstr "Nicht überwachte kritische Assets: %d"
+
+#, php-format
+msgid "Disk, memory or processor problems: %d"
+msgstr "Probleme mit Festplatte, Speicher oder Prozessor: %d"
+
+#, php-format
+msgid "High-severity problems resolved: %d"
+msgstr "Behobene Probleme hoher Schwere: %d"
+
+#, php-format
+msgid "Lowest service availability: %s %%"
+msgstr "Niedrigste Dienstverfügbarkeit: %s %%"
+
+#, php-format
+msgid "Monitored assets: %d%%"
+msgstr "Überwachte Assets: %d %%"
+
+msgid "Monitored assets: not measured"
+msgstr "Überwachte Assets: nicht gemessen"
+
+#, php-format
+msgid "Open high-severity problems: %d"
+msgstr "Offene Probleme hoher Schwere: %d"
+
+#, php-format
+msgid "Outages longer than the RTO: %d"
+msgstr "Ausfälle länger als die RTO: %d"
+
+#, php-format
+msgid "Over %1$d days, read from Zabbix on %2$s"
+msgstr "Über %1$d Tage, aus Zabbix gelesen am %2$s"
+
+#, php-format
+msgid "Services below their objective: %d"
+msgstr "Dienste unter ihrem Ziel: %d"
+
+msgid "Assets this process depends on"
+msgstr "Assets, von denen dieser Prozess abhängt"
+
+msgid "Availability of the services (Zabbix SLA)"
+msgstr "Verfügbarkeit der Dienste (Zabbix-SLA)"
+
+#, php-format
+msgid "Availability over %d days"
+msgstr "Verfügbarkeit über %d Tage"
+
+#, php-format
+msgid "Downtime: %s"
+msgstr "Ausfallzeit: %s"
+
+#, php-format
+msgid "High: %d"
+msgstr "Hoch: %d"
+
+msgid "Longest outage and RTO"
+msgstr "Längster Ausfall und RTO"
+
+msgid ""
+"No Zabbix service is linked to this process: link one on the Zabbix "
+"monitoring page."
+msgstr ""
+"Kein Zabbix-Dienst ist mit diesem Prozess verknüpft: Verknüpfen Sie einen "
+"auf der Seite Zabbix-Überwachung."
+
+msgid "No computer or network device in the dependencies of this process."
+msgstr ""
+"Kein Computer oder Netzwerkgerät in den Abhängigkeiten dieses Prozesses."
+
+msgid "No problem over the period."
+msgstr "Kein Problem im Zeitraum."
+
+msgid "Nothing has been read from Zabbix yet."
+msgstr "Aus Zabbix wurde noch nichts gelesen."
+
+msgid "Open problems"
+msgstr "Offene Probleme"
+
+#, php-format
+msgid "Other: %d"
+msgstr "Andere: %d"
+
+msgid "Outage longer than the RTO"
+msgstr "Ausfall länger als die RTO"
+
+#, php-format
+msgid "Problems over the last %d days"
+msgstr "Probleme der letzten %d Tage"
+
+msgid "Saturation"
+msgstr "Engpass"
+
+msgid "Started"
+msgstr "Beginn"
+
+msgid ""
+"This asset is not concerned by the monitoring settings and no Zabbix host "
+"matches it."
+msgstr ""
+"Dieses Asset ist von den Überwachungseinstellungen nicht betroffen und kein "
+"Zabbix-Host entspricht ihm."
+
+#, php-format
+msgid "Zabbix host: %s"
+msgstr "Zabbix-Host: %s"
+
+#, php-format
+msgid "%1$d host(s), %2$d problem(s), %3$d service(s)."
+msgstr "%1$d Host(s), %2$d Problem(e), %3$d Dienst(e)."
+
+#, php-format
+msgid "%1$d problem(s) over %2$d days"
+msgstr "%1$d Problem(e) über %2$d Tage"
+
+#, php-format
+msgid "%1$d service(s), %2$d below their objective"
+msgstr "%1$d Dienst(e), %2$d unter ihrem Ziel"
+
+msgid ""
+"A Zabbix server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+msgstr ""
+"Ein Zabbix-Server mit interner Adresse (privates Netz) wird standardmäßig "
+"abgelehnt: Ein Administrator kann interne Adressen in der Plugin-"
+"Konfiguration erlauben."
+
+msgid "Acknowledged in Zabbix"
+msgstr "In Zabbix bestätigt"
+
+msgid "Address of the Zabbix interface"
+msgstr "Adresse der Zabbix-Oberfläche"
+
+msgid "Assets and their monitoring"
+msgstr "Assets und ihre Überwachung"
+
+#, php-format
+msgid "Assets concerned: %d"
+msgstr "Betroffene Assets: %d"
+
+msgid "Assets monitored by Zabbix"
+msgstr "Von Zabbix überwachte Assets"
+
+msgid "Assets with a saturation"
+msgstr "Assets mit Engpass"
+
+msgid ""
+"Availability measured by Zabbix over the current period of each SLA, "
+"compared with its objective (SLO). Link a service to the business process it "
+"supports to compare it with the continuity needs."
+msgstr ""
+"Von Zabbix gemessene Verfügbarkeit im laufenden Zeitraum jedes SLA, "
+"verglichen mit seinem Ziel (SLO). Verknüpfen Sie einen Dienst mit dem "
+"Geschäftsprozess, den er unterstützt, um ihn mit den "
+"Kontinuitätsanforderungen zu vergleichen."
+
+msgid "Below the objective"
+msgstr "Unter dem Ziel"
+
+msgid "Business processes"
+msgstr "Geschäftsprozesse"
+
+msgid ""
+"Check them: the asset may be missing from the inventory, or named "
+"differently in GLPI and in Zabbix."
+msgstr ""
+"Prüfen Sie sie: Das Asset fehlt möglicherweise im Inventar oder hat in GLPI "
+"und Zabbix unterschiedliche Namen."
+
+#, php-format
+msgid ""
+"Concerned assets: %s. A Zabbix host is matched with an asset by its serial "
+"number, its name, its short name (without the domain) or its IP address. The "
+"availability is the share of time without a high-severity problem over the "
+"period."
+msgstr ""
+"Betroffene Assets: %s. Ein Zabbix-Host wird einem Asset über die "
+"Seriennummer, den Namen, den Kurznamen (ohne Domain) oder die IP-Adresse "
+"zugeordnet. Die Verfügbarkeit ist der Zeitanteil ohne Problem hoher Schwere "
+"im Zeitraum."
+
+msgid "Connection to Zabbix (read only)"
+msgstr "Verbindung zu Zabbix (nur lesend)"
+
+msgid ""
+"Critical assets are those with a high confidentiality, integrity or "
+"availability level (C/I/A classification tab), or published on the Internet "
+"(network flow matrix)."
+msgstr ""
+"Kritische Assets sind solche mit hoher Vertraulichkeit, Integrität oder "
+"Verfügbarkeit (Registerkarte C/I/A-Klassifizierung) oder die im Internet "
+"veröffentlicht sind (Netzwerkflussmatrix)."
+
+msgid "Critical assets not monitored"
+msgstr "Nicht überwachte kritische Assets"
+
+msgid "Current period"
+msgstr "Laufender Zeitraum"
+
+msgid "Delete the readings"
+msgstr "Lesungen löschen"
+
+#, php-format
+msgid "Disk, memory or processor, over %d days"
+msgstr "Festplatte, Speicher oder Prozessor, über %d Tage"
+
+msgid "Downtime"
+msgstr "Ausfallzeit"
+
+msgid "Entity of the readings"
+msgstr "Entität der Lesungen"
+
+msgid "How to prepare Zabbix:"
+msgstr "So bereiten Sie Zabbix vor:"
+
+msgid "IP addresses"
+msgstr "IP-Adressen"
+
+#, php-format
+msgid "Last reading: %s"
+msgstr "Letzte Lesung: %s"
+
+msgid "Lowest service availability"
+msgstr "Niedrigste Dienstverfügbarkeit"
+
+msgid "No computer or network device concerned in your entities."
+msgstr "Kein betroffener Computer oder Netzwerkgerät in Ihren Entitäten."
+
+msgid "No problem on your assets over the period."
+msgstr "Kein Problem an Ihren Assets im Zeitraum."
+
+msgid "No reading yet."
+msgstr "Noch keine Lesung."
+
+msgid "No service level (SLA) read"
+msgstr "Kein Service-Level (SLA) gelesen"
+
+msgid ""
+"No service level read: SLAs are available from Zabbix 6.0 (Services > SLA)."
+msgstr ""
+"Kein Service-Level gelesen: SLAs gibt es ab Zabbix 6.0 (Dienste > SLA)."
+
+msgid ""
+"Nothing has been read from Zabbix yet: enter the connection below, then "
+"click \"Read now\". Until then, every asset concerned is shown as not "
+"monitored."
+msgstr ""
+"Aus Zabbix wurde noch nichts gelesen: Geben Sie unten die Verbindung ein und "
+"klicken Sie dann auf „Jetzt lesen“. Bis dahin wird jedes betroffene Asset "
+"als nicht überwacht angezeigt."
+
+msgid "Objective (SLO)"
+msgstr "Ziel (SLO)"
+
+msgid "Only the most recent items were read"
+msgstr "Nur die neuesten Elemente wurden gelesen"
+
+msgid "Open high-severity problems"
+msgstr "Offene Probleme hoher Schwere"
+
+msgid "Period of the problems (days)"
+msgstr "Zeitraum der Probleme (Tage)"
+
+msgid "Previous period"
+msgstr "Vorheriger Zeitraum"
+
+msgid ""
+"Problems of severity Warning or higher, open ones first. A high-severity "
+"problem can be turned into a security incident or a ticket: it is only "
+"created when you click, never automatically."
+msgstr ""
+"Probleme ab Schweregrad Warnung, offene zuerst. Ein Problem hoher Schwere "
+"kann zu einem Sicherheitsvorfall oder Ticket werden: Es wird nur bei Ihrem "
+"Klick erstellt, nie automatisch."
+
+msgid "Propose as security incident"
+msgstr "Als Sicherheitsvorfall vorschlagen"
+
+msgid "Read automatically every day (automatic action \"zabbix\")"
+msgstr "Jeden Tag automatisch lesen (automatische Aktion „zabbix“)"
+
+msgid "Read now"
+msgstr "Jetzt lesen"
+
+msgid "Read only: nothing is ever changed in Zabbix from GLPI."
+msgstr "Nur lesend: In Zabbix wird von GLPI aus nie etwas geändert."
+
+msgid "Technical name"
+msgstr "Technischer Name"
+
+msgid ""
+"The last reading failed: the page shows the previous successful reading."
+msgstr ""
+"Die letzte Lesung ist fehlgeschlagen: Die Seite zeigt die vorherige "
+"erfolgreiche Lesung."
+
+msgid ""
+"The readings are visible in this entity and its sub-entities; hosts not "
+"matched with an asset are only listed in this entity."
+msgstr ""
+"Die Lesungen sind in dieser Entität und ihren Unterentitäten sichtbar; nicht "
+"zugeordnete Hosts werden nur in dieser Entität aufgeführt."
+
+msgid ""
+"The token is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+msgstr ""
+"Das Token wird mit dem GLPI-Schlüssel verschlüsselt, nie wieder angezeigt "
+"und nie protokolliert. Nur die Adresse dieses Servers wird aufgerufen, und "
+"nur zum Lesen."
+
+msgid ""
+"Users > API tokens: create a token for this user, then copy it here with the "
+"address of the Zabbix interface."
+msgstr ""
+"Benutzer > API-Token: Erstellen Sie ein Token für diesen Benutzer und "
+"kopieren Sie es dann zusammen mit der Adresse der Zabbix-Oberfläche hierher."
+
+msgid ""
+"Users > User roles: create a role of type User with API access limited to "
+"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
+"getsli."
+msgstr ""
+"Benutzer > Benutzerrollen: Erstellen Sie eine Rolle vom Typ Benutzer, deren "
+"API-Zugriff auf die Methoden host.get, problem.get, event.get, service.get, "
+"sla.get und sla.getsli beschränkt ist."
+
+msgid ""
+"Users > Users: create a user with this role, in a user group with read "
+"permission on the host groups to monitor (and on the services)."
+msgstr ""
+"Benutzer > Benutzer: Erstellen Sie einen Benutzer mit dieser Rolle in einer "
+"Benutzergruppe mit Leserecht auf die zu überwachenden Hostgruppen (und die "
+"Dienste)."
+
+msgid "Which assets must be monitored?"
+msgstr "Welche Assets müssen überwacht werden?"
+
+msgid "Zabbix host"
+msgstr "Zabbix-Host"
+
+msgid "Zabbix hosts not matched with a GLPI asset"
+msgstr "Zabbix-Hosts ohne zugeordnetes GLPI-Asset"
+
+#, php-format
+msgid "out of %d critical assets"
+msgstr "von %d kritischen Assets"

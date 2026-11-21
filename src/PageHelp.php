@@ -489,6 +489,24 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.8.8 and A.8.19', 'grcmanager'),
             ],
+            // Issue #846 : droits d'accès aux partages de fichiers Windows.
+            'shareaccess' => [
+                'purpose'   => __(
+                    'Shows who can access the Windows file shares: share and NTFS permissions imported from each '
+                        . 'file server, accounts matched with the GLPI users and groups, and the gaps an auditor '
+                        . 'looks for (everyone can modify, rights given to a person, deleted or disabled accounts, '
+                        . 'broken inheritance, share without an owner).',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Run the PowerShell script provided on each file server (it only reads), import the CSV file, '
+                        . 'classify the sensitive shares and designate an owner for each one. The owner then reviews '
+                        . 'the rights of the share; the administrator applies the changes on the server and the next '
+                        . 'import shows the rights added and removed.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.5.15, A.5.18 and A.8.3', 'grcmanager'),
+            ],
             // Issue #781 : conformité de configuration d'après les résultats OpenSCAP.
             'configcompliance' => [
                 'purpose'   => __(
