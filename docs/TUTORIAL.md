@@ -1294,7 +1294,7 @@ Sécurité de l'import : le fichier est lu en flux (les gros rapports ARF passen
 de type de document ou d'entité est refusée et aucun accès réseau n'est fait pendant la lecture. Le
 fichier lui-même n'est pas conservé, seulement les compteurs et les règles en échec.
 
-### Étape 40 : Suivre l'audit de sécurité de l'Active Directory (mesures A.5.15 à A.5.18, A.8.2 et A.8.5)
+### Étape 43 : Suivre l'audit de sécurité de l'Active Directory (mesures A.5.15 à A.5.18, A.8.2 et A.8.5)
 
 L'Active Directory est la première cible des attaques : comptes privilégiés, délégations, comptes
 inactifs. Le plugin garde les résultats des audits que votre équipe réalise avec PingCastle ; il ne
@@ -2534,7 +2534,7 @@ Import security: the file is read as a stream (large ARF reports are accepted), 
 entity declaration is refused and no network access is made while reading. The file itself is not
 kept, only the counts and the failed rules.
 
-### Step 41: Follow the Active Directory security audit (controls A.5.15 to A.5.18, A.8.2 and A.8.5)
+### Step 43: Follow the Active Directory security audit (controls A.5.15 to A.5.18, A.8.2 and A.8.5)
 
 The Active Directory is the first target of attacks: privileged accounts, delegations, inactive
 accounts. The plugin keeps the results of the audits your team runs with PingCastle; it runs no
