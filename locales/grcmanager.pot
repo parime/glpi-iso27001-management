@@ -39145,6 +39145,333 @@ msgid "out of %d critical assets"
 msgstr ""
 
 
+#: front/productsbom.form.php:76
+#, php-format
+msgid ""
+"SBOM imported: %1$d component(s), %2$d vulnerability(ies) cited, %3$d VEX "
+"statement(s)."
+msgstr ""
+
+#: front/productsbom.form.php:97
+#, php-format
+msgid "VEX document imported: %d statement(s)."
+msgstr ""
+
+#: front/productsbom.form.php:111
+msgid "VEX statement saved."
+msgstr ""
+
+#: front/productsbom.form.php:120
+msgid "SBOM deleted."
+msgstr ""
+
+#: front/productsbom.form.php:128
+msgid "VEX statement deleted."
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:35
+msgid ""
+"Keeps the software bill of materials (SBOM) of each version of a product you "
+"build or develop, compares its components with the vulnerabilities already "
+"known to the plugin, and records your VEX statements: affected, not affected "
+"(with the reason), fixed or under investigation. Customers and the Cyber "
+"Resilience Act expect these documents from a manufacturer."
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:43
+msgid ""
+"Import the CycloneDX or SPDX file (JSON) produced by your build for each "
+"released version, then give a VEX status to each vulnerability found, or "
+"import the VEX document of your scanner. Nothing is sent outside GLPI."
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:49
+msgid ""
+"ISO/IEC 27001, controls A.5.21, A.8.8 and A.8.28; Cyber Resilience Act, "
+"Annex I part II"
+msgstr ""
+
+#: src/Feature/ProductSbomFeature.php:58
+msgid "Software bills of materials and VEX"
+msgstr ""
+
+#: src/ProductSbom.php:62
+msgid "SBOM and VEX"
+msgstr ""
+
+#: src/ProductSbom.php:170
+msgid "Affected"
+msgstr ""
+
+#: src/ProductSbom.php:171
+msgid "Under investigation"
+msgstr ""
+
+#: src/ProductSbom.php:172
+msgid "Fixed"
+msgstr ""
+
+#: src/ProductSbom.php:173
+msgid "Not affected"
+msgstr ""
+
+#: src/ProductSbom.php:192
+msgid "Component not present"
+msgstr ""
+
+#: src/ProductSbom.php:193
+msgid "Vulnerable code not present"
+msgstr ""
+
+#: src/ProductSbom.php:194
+msgid "Vulnerable code never executed"
+msgstr ""
+
+#: src/ProductSbom.php:196
+msgid "Vulnerable code out of reach of an attacker"
+msgstr ""
+
+#: src/ProductSbom.php:199
+msgid "Protections already in place"
+msgstr ""
+
+#: src/ProductSbom.php:207
+msgid "Entered by hand"
+msgstr ""
+
+#: src/ProductSbom.php:210
+msgid "SBOM file"
+msgstr ""
+
+#: src/ProductSbom.php:211
+msgid "Vulnerability watch"
+msgstr ""
+
+#: src/ProductSbom.php:226
+#, php-format
+msgid "The file is larger than %d MB."
+msgstr ""
+
+#: src/ProductSbom.php:229
+msgid "The file is not valid JSON, or it is nested too deeply."
+msgstr ""
+
+#: src/ProductSbom.php:231
+msgid ""
+"The file is neither a CycloneDX nor an SPDX 2 software bill of materials in "
+"JSON."
+msgstr ""
+
+#: src/ProductSbom.php:235
+msgid ""
+"The file contains no VEX statement (CycloneDX with an analysis, or OpenVEX)."
+msgstr ""
+
+#: src/ProductSbom.php:239
+#, php-format
+msgid ""
+"The file lists more than %d components or vulnerabilities: split it by "
+"product."
+msgstr ""
+
+#: src/ProductSbom.php:243
+msgid "Enter a vulnerability identifier, such as CVE-2024-12345."
+msgstr ""
+
+#: src/ProductSbom.php:246
+msgid "Choose a status."
+msgstr ""
+
+#: src/ProductSbom.php:247
+msgid "Unknown justification."
+msgstr ""
+
+#: src/ProductSbom.php:249
+msgid "A \"not affected\" statement needs a justification or an explanation."
+msgstr ""
+
+#: src/ProductSbom.php:252
+msgid "Enter the product version described by the file."
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "%d affected"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d application(s) of the register without an SBOM"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d known vulnerability(ies) in the components"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d not affected or fixed"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#, php-format
+msgid "%d product(s) with an SBOM"
+msgstr ""
+
+#: templates/_product_sbom_evidence.html.twig
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "%d without VEX statement"
+msgstr ""
+
+#: templates/product_sbom_list.html.twig
+msgid "Components"
+msgstr ""
+
+#: templates/product_sbom_list.html.twig
+msgid "No SBOM imported yet."
+msgstr ""
+
+#: templates/product_sbom_list.html.twig templates/product_sbom_tab.html.twig
+msgid "Product version"
+msgstr ""
+
+#: templates/product_sbom_list.html.twig
+msgid ""
+"SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" "
+"tab of each application."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid ""
+"%1$d MB and %2$d components at most. Vulnerabilities and analyses written in "
+"a CycloneDX file are kept too."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "%d component(s)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid ""
+"A new statement replaces the previous one for the same vulnerability, "
+"component and version."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "All versions"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid ""
+"An SBOM lists the components (libraries, packages) of one version of this "
+"product. Import one file per released version; the vulnerabilities found "
+"stay here with your VEX statements."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Component (purl or name)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "Components (%d)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "CycloneDX VEX or OpenVEX file (JSON)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "CycloneDX or SPDX file (JSON)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Declare"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Delete this SBOM"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Explanation"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Found by"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Import a VEX document"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Import an SBOM"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Known exploited vulnerability (CISA KEV)"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Known vulnerabilities of the components"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Licenses"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "No SBOM imported for this product yet."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "No VEX statement"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "No VEX statement for this product."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid ""
+"No known vulnerability: none in the file, and none known by the "
+"vulnerability watch for these components and versions."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "Older SBOM: only the %d most recent are detailed."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+#, php-format
+msgid "Only the first %d components are shown."
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "VEX statements"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "VEX status"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Vulnerability"
+msgstr ""
+
+#: templates/product_sbom_tab.html.twig
+msgid "Whole product"
+msgstr ""
+
+
+
 #: front/supplierevaluationlink.php:56
 msgid "Secure link created: copy it now, it will not be shown again."
 msgstr ""
@@ -39424,3 +39751,4 @@ msgstr ""
 #: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Valid for (days)"
 msgstr ""
+

@@ -90,6 +90,9 @@ function plugin_init_grcmanager(): void
     require_once __DIR__ . '/inc/rulesecurityincident.class.php';
     require_once __DIR__ . '/inc/rulesecurityincidentcollection.class.php';
 
+    // Issue #951 : tables raccourcies des gabarits d'incident, inconnues de getItemTypeForTable().
+    \GlpiPlugin\Grcmanager\Compat\ShortTableItemtypes::register();
+
     // Menu « GRC & Conformité » : un secteur de premier niveau dédié. Une clé de catégorie inconnue
     // des secteurs natifs fait créer par Html::generateMenuSession() (cœur de GLPI) une nouvelle
     // entrée de la barre latérale. \GlpiPlugin\Grcmanager\Menu (inc/menu.class.php), ancre sans table, est
@@ -234,6 +237,8 @@ function plugin_init_grcmanager(): void
     // Issue #777 : onglet « Développement sécurisé » des applications, et « Validation sécurité de
     // mise en production » des changements liés à une application.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ApplicationSecurity::class, ['addtabon' => [Appliance::class]]);
+    // Issue #869 : onglet « SBOM et VEX » des applications (nomenclatures et déclarations VEX).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ProductSbom::class, ['addtabon' => [Appliance::class]]);
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ReleaseValidation::class, ['addtabon' => [Change::class]]);
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent

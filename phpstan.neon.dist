@@ -23,6 +23,8 @@ parameters:
         - src/Services/Privacy
         - src/Services/Workspace
         - src/Services/Dora
+        # Issue #869 : lecture des nomenclatures (SBOM) et règles VEX, PHP pur.
+        - src/Services/Sbom
         - src/Services/Consistency
         - src/Services/Perimeter
         - src/Services/Acn
