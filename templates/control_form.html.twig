@@ -673,6 +673,31 @@
       {{ fields.htmlField('', patch_compliance_html, __('Security patches', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #836 : supervision lue dans Zabbix (A.8.16, A.8.6, A.5.30), dans les entités de la personne. #}
+   {% if zabbix is defined and zabbix is not null %}
+      {% set zabbix_html %}
+         <div id="grc-zabbix-evidence">
+            {% if zabbix.code == 'A.8.16' %}
+               {% set zbx_color = zabbix.rate is null ? 'secondary' : (zabbix.rate >= 95 ? 'success' : (zabbix.rate >= 80 ? 'warning' : 'danger')) %}
+               <span class="badge bg-{{ zbx_color }}-subtle text-{{ zbx_color }}-emphasis me-1"><i class="ti ti-activity-heartbeat me-1"></i>{{ zabbix.rate is null ? __('Monitored assets: not measured', 'grcmanager') : __('Monitored assets: %d%%', 'grcmanager')|format(zabbix.rate) }}</span>
+               <span class="badge {{ zabbix.critical_uncovered > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-eye-off me-1"></i>{{ __('Critical assets not monitored: %d', 'grcmanager')|format(zabbix.critical_uncovered) }}</span>
+               <span class="badge {{ zabbix.open_high > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alert-octagon me-1"></i>{{ __('Open high-severity problems: %d', 'grcmanager')|format(zabbix.open_high) }}</span>
+               <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-circle-check me-1"></i>{{ __('High-severity problems resolved: %d', 'grcmanager')|format(zabbix.resolved_high) }}</span>
+            {% elseif zabbix.code == 'A.8.6' %}
+               <span class="badge {{ zabbix.capacity_assets > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-gauge me-1"></i>{{ __('Assets with a saturation: %d', 'grcmanager')|format(zabbix.capacity_assets) }}</span>
+               <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-database me-1"></i>{{ __('Disk, memory or processor problems: %d', 'grcmanager')|format(zabbix.capacity) }}</span>
+            {% else %}
+               {% if zabbix.lowest_sli is not null %}<span class="badge {{ zabbix.services_below > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-chart-line me-1"></i>{{ __('Lowest service availability: %s %%', 'grcmanager')|format(zabbix.lowest_sli|number_format(2)) }}</span>{% endif %}
+               <span class="badge {{ zabbix.services_below > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-target-arrow me-1"></i>{{ __('Services below their objective: %d', 'grcmanager')|format(zabbix.services_below) }}</span>
+               <span class="badge {{ zabbix.rto_gaps > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-clock-exclamation me-1"></i>{{ __('Outages longer than the RTO: %d', 'grcmanager')|format(zabbix.rto_gaps) }}</span>
+            {% endif %}
+            <span class="small text-muted me-2">{{ __('Over %1$d days, read from Zabbix on %2$s', 'grcmanager')|format(zabbix.period_days, zabbix.date) }}</span>
+            <a href="{{ zabbix.url }}">{{ __('View the details', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', zabbix_html, __('Zabbix monitoring', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #604 : simulations d'hameçonnage (A.6.3), taux agrégés et tendance. #}
    {% if phishing is defined and phishing is not null %}
       {% set phishing_html %}

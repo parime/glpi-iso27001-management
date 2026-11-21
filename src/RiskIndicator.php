@@ -88,6 +88,19 @@ class RiskIndicator extends RiskIndicatorBase
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
             'rights' => ['computer' => READ], 'global' => false,
         ],
+        // Issue #836 : supervision lue dans Zabbix.
+        'zabbix_month_availability' => [
+            'unit' => '%', 'direction' => KriRules::LOWER_IS_WORSE,
+            'rights' => ['computer' => READ], 'global' => false,
+        ],
+        'zabbix_open_high_problems' => [
+            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => ['computer' => READ], 'global' => false,
+        ],
+        'zabbix_unmonitored_critical' => [
+            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => ['computer' => READ], 'global' => false,
+        ],
         'critical_vulnerabilities'  => [
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE, 'rights' => ['software' => READ], 'global' => false,
         ],
@@ -150,6 +163,9 @@ class RiskIndicator extends RiskIndicatorBase
             'unencrypted_laptops'       => __('Laptops with an unencrypted disk (%)', 'grcmanager'),
             'admins_without_mfa'        => __('Administrators without MFA', 'grcmanager'),
             'late_patch_critical_servers' => __('Critical servers with overdue patches', 'grcmanager'),
+            'zabbix_month_availability' => __('Service availability this month, lowest (%) (Zabbix)', 'grcmanager'),
+            'zabbix_open_high_problems' => __('Open high-severity problems (Zabbix)', 'grcmanager'),
+            'zabbix_unmonitored_critical' => __('Critical assets not monitored (Zabbix)', 'grcmanager'),
             'critical_vulnerabilities'  => __('Open critical vulnerabilities in the fleet', 'grcmanager'),
             'risks_above_tolerance'     => __('Open risks above tolerance', 'grcmanager'),
             'overdue_treatment_actions' => __('Overdue risk treatment actions', 'grcmanager'),
@@ -536,6 +552,9 @@ class RiskIndicator extends RiskIndicatorBase
             'unencrypted_laptops'       => ComplianceAudit::gapRate('laptop_encryption', $perimeter),
             'admins_without_mfa'        => MfaCoverage::adminsWithoutMfa($perimeter),
             'late_patch_critical_servers' => PatchCompliance::lateCriticalServers($perimeter),
+            'zabbix_month_availability' => ZabbixMonitoring::lowestServiceAvailability($perimeter),
+            'zabbix_open_high_problems' => ZabbixMonitoring::openHighProblems($perimeter),
+            'zabbix_unmonitored_critical' => ZabbixMonitoring::unmonitoredCriticalAssets($perimeter),
             'critical_vulnerabilities'  => (float) count(array_filter(
                 ParkVulnerability::getVulnerabilityRows(
                     false,

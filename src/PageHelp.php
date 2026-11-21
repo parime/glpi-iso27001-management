@@ -748,6 +748,25 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #836 : supervision lue dans Zabbix.
+            'zabbixmonitoring' => [
+                'purpose'   => __(
+                    'Reads your Zabbix monitoring server, in read only: hosts, problems and availability of the '
+                        . 'services. Hosts are matched with the computers and network devices of GLPI to show the '
+                        . 'assets that nobody monitors, the measured availability compared with the recovery time '
+                        . 'objectives of the business processes, and the saturations of disk, memory or processor.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Enter the address of the Zabbix server and the API token of a read-only Zabbix user, read now, '
+                        . 'then follow up the critical assets not monitored, the open high-severity problems and the '
+                        . 'services below their objective. A high-severity problem can be turned into a security '
+                        . 'incident or a ticket with one click; nothing is created automatically and nothing is '
+                        . 'changed in Zabbix.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, controls A.8.16, A.8.6 and A.5.30', 'grcmanager'),
+            ],
             // Issue #852 : couverture MFA par compte.
             'mfacoverage' => [
                 'purpose'   => __(

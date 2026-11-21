@@ -1581,6 +1581,8 @@ final class Installer
         DiskEncryptionTables::install($keySign, $charset, $collation);
         // Issue #852 : méthodes d'authentification importées par compte (aucun secret stocké).
         MfaCoverageTables::install($keySign, $charset, $collation);
+        // Issue #836 : dernière lecture de Zabbix (hôtes, problèmes, disponibilité des services).
+        ZabbixTables::install($keySign, $charset, $collation);
         // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
         HardwareEndOfLifeTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
@@ -3670,6 +3672,19 @@ final class Installer
             HOUR_TIMESTAMP,
             [
                 'comment' => 'Lit les nouvelles menaces, alertes et vulnerabilites de SentinelOne (lecture seule)',
+                'mode'    => CronTask::MODE_EXTERNAL,
+                'state'   => CronTask::STATE_DISABLE,
+            ]
+        );
+
+        // Issue #836 : lecture de Zabbix (lecture seule), DÉSACTIVÉE à l'installation : elle est
+        // activée depuis la page « Supervision Zabbix ». Un réglage existant est gardé.
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\ZabbixMonitoring::class,
+            'zabbix',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Lit les hotes, problemes et disponibilites de Zabbix (lecture seule)',
                 'mode'    => CronTask::MODE_EXTERNAL,
                 'state'   => CronTask::STATE_DISABLE,
             ]
@@ -6484,6 +6499,7 @@ final class Installer
         EvidencePackTables::uninstall($migration);
         DiskEncryptionTables::uninstall($migration);
         MfaCoverageTables::uninstall($migration);
+        ZabbixTables::uninstall($migration);
         HardwareEndOfLifeTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);

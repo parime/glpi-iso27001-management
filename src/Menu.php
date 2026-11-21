@@ -152,6 +152,8 @@ class Menu extends CommonGLPI
                 DiskEncryption::class,
                 // Issue #854 : retard des correctifs de sécurité (A.8.8, A.8.19).
                 PatchCompliance::class,
+                // Issue #836 : supervision lue dans Zabbix (A.8.16, A.8.6, A.5.30).
+                ZabbixMonitoring::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];
