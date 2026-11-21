@@ -449,6 +449,10 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    de preuves ne sont visibles que de Filiale Nord (et de l'entité racine en vue arborescente). Les
    listes de l'équipe, des preuves et de l'accès auditeur ne proposent que les comptes qui ont un
    profil dans Filiale Nord. Les actions de traitement d'un risque suivent l'entité du risque.
+6. Les autres registres aussi : un risque fournisseur, une formation, une revue de direction, un
+   objectif, une obligation, une dérogation, un flux réseau ou une étude EBIOS créé dans Filiale
+   Nord reste dans Filiale Nord. Après une mise à jour, ouvrez chaque liste à l'entité racine,
+   cochez les éléments d'une filiale, puis **Actions > Modifier > Entité** pour les y ranger.
 
 ### Étape 20 : Décrire le contexte de l'organisation (articles 4.1 et 4.2)
 

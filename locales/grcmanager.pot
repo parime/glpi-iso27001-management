@@ -32627,3 +32627,7 @@ msgstr ""
 msgid "To be handled"
 msgstr ""
 
+#: src/EntityPerimeter.php:138
+msgid "You cannot create this item in this entity."
+msgstr ""
+

@@ -19,6 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonDBTM;
 use Dropdown;
+use Entity;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
@@ -35,6 +36,9 @@ use Session;
  *   criteria() : les entités actives de la session, sous-entités et objets récursifs compris.
  *   Hors session (tâches planifiées, console), aucune restriction : les destinataires des
  *   notifications sont déjà choisis par entité.
+ * - Lot 3 : risques fournisseurs, formations, revues de direction, objectifs, obligations,
+ *   dérogations, flux réseau et études EBIOS (prepareAdd(), guardUpdate(), searchOptions()) ;
+ *   leurs éléments rattachés suivent les droits de leur parent.
  * - Lot 2 : actions de traitement (entité de leur risque), audits et non-conformités. Les
  *   personnes désignées sur un audit (équipe, demandes de preuves, accès auditeur) doivent avoir un
  *   profil dans son entité (userReachesEntity()).
@@ -115,6 +119,77 @@ final class EntityPerimeter
     public static function activeEntity(): int
     {
         return self::hasSession() ? (int) Session::getActiveEntity() : 0;
+    }
+
+    /**
+     * Lot 3 : entité d'un nouvel élément d'un registre (par défaut l'entité active), sans ses
+     * sous-entités sauf choix contraire. False, avec un message, si la session n'a pas accès à
+     * l'entité demandée.
+     *
+     * @param array<string, mixed> $input
+     * @return array<string, mixed>|false
+     */
+    public static function prepareAdd(array $input): array|false
+    {
+        $input['entities_id']  = (int) ($input['entities_id'] ?? self::activeEntity());
+        $input['is_recursive'] = (int) (bool) ($input['is_recursive'] ?? 0);
+        if (self::hasSession() && !Session::haveAccessToEntity($input['entities_id'])) {
+            Session::addMessageAfterRedirect(
+                __('You cannot create this item in this entity.', 'grcmanager'),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        return $input;
+    }
+
+    /**
+     * Lot 3 : un élément ne part que vers une entité de la session (modification en masse).
+     *
+     * @param array<string, mixed> $input
+     * @return array<string, mixed>
+     */
+    public static function guardUpdate(array $input): array
+    {
+        if (
+            isset($input['entities_id'])
+            && self::hasSession()
+            && !Session::haveAccessToEntity((int) $input['entities_id'])
+        ) {
+            unset($input['entities_id']);
+        }
+
+        return $input;
+    }
+
+    /**
+     * Lot 3 : colonnes « Entité » (modifiable en masse, pour ranger les éléments migrés) et
+     * « Sous-entités » de la recherche d'un registre, aux numéros 80 et 86 comme les audits.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function searchOptions(string $table): array
+    {
+        return [
+            [
+                'id'            => 80,
+                'table'         => 'glpi_entities',
+                'field'         => 'completename',
+                'name'          => Entity::getTypeName(1),
+                'datatype'      => 'dropdown',
+                'massiveaction' => true,
+            ],
+            [
+                'id'       => 86,
+                'table'    => $table,
+                'field'    => 'is_recursive',
+                'name'     => __('Child entities'),
+                'datatype' => 'bool',
+            ],
+        ];
     }
 
     /**

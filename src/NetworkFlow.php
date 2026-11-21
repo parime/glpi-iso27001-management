@@ -151,6 +151,13 @@ class NetworkFlow extends NetworkFlowBase
      */
     public function prepareInputForAdd($input)
     {
+        // Issue #536, lot 3 : entité du nouvel élément (par défaut l'entité active), refusée hors
+        // des entités de la session.
+        $input = EntityPerimeter::prepareAdd($input);
+        if ($input === false) {
+            return false;
+        }
+
         return $this->normalizeInput($input);
     }
 
@@ -160,6 +167,9 @@ class NetworkFlow extends NetworkFlowBase
      */
     public function prepareInputForUpdate($input)
     {
+        // Issue #536, lot 3 : changement d'entité vers une entité de la session seulement.
+        $input = EntityPerimeter::guardUpdate($input);
+
         return $this->normalizeInput($input);
     }
 
@@ -244,6 +254,16 @@ class NetworkFlow extends NetworkFlowBase
         return true;
     }
 
+    /**
+     * Issue #536, lot 3 : critère des entités de la session pour les écrans de synthèse.
+     *
+     * @return list<array<mixed>>
+     */
+    private static function entityCriteria(): array
+    {
+        return EntityPerimeter::criteria(self::getTable());
+    }
+
     public function rawSearchOptions()
     {
         $tab = [['id' => 'common', 'name' => self::getTypeName(1)]];
@@ -278,6 +298,11 @@ class NetworkFlow extends NetworkFlowBase
             'datatype' => 'text'];
         $tab[] = ['id' => 13, 'table' => $table, 'field' => 'id', 'name' => __('ID'), 'datatype' => 'itemlink',
             'itemtype' => self::class];
+
+        // Issue #536, lot 3 : entité de l'élément et visibilité dans les sous-entités.
+        foreach (EntityPerimeter::searchOptions(self::getTable()) as $option) {
+            $tab[] = $option;
+        }
 
         return $tab;
     }
@@ -444,7 +469,12 @@ class NetworkFlow extends NetworkFlowBase
         $active = 0;
         $byCheck = [];
         $today = date('Y-m-d');
-        foreach ($DB->request(['FROM' => self::getTable(), 'WHERE' => ['is_active' => 1]]) as $row) {
+        // Issue #536, lot 3 : flux des entités de la session.
+        $activeFlows = [
+            'FROM'  => self::getTable(),
+            'WHERE' => array_merge(['is_active' => 1], self::entityCriteria()),
+        ];
+        foreach ($DB->request($activeFlows) as $row) {
             $active++;
             foreach (NetworkFlowRules::checks($row, $today, self::internalNetworks()) as $check) {
                 $byCheck[$check] ??= [
@@ -540,7 +570,9 @@ class NetworkFlow extends NetworkFlowBase
         $byCheck = [];
         $active = 0;
         $inactive = 0;
-        foreach ($DB->request(['FROM' => self::getTable(), 'ORDER' => ['flow_type', 'name']]) as $row) {
+        // Issue #536, lot 3 : flux des entités de la session.
+        $allFlows = ['FROM' => self::getTable(), 'WHERE' => self::entityCriteria(), 'ORDER' => ['flow_type', 'name']];
+        foreach ($DB->request($allFlows) as $row) {
             if (!(int) $row['is_active']) {
                 $inactive++;
                 continue;
@@ -620,7 +652,12 @@ class NetworkFlow extends NetworkFlowBase
         $today = date('Y-m-d');
         $flows = [];
         $rows = [];
-        foreach ($DB->request(['FROM' => self::getTable(), 'WHERE' => ['is_active' => 1]]) as $row) {
+        // Issue #536, lot 3 : flux des entités de la session.
+        $activeFlows = [
+            'FROM'  => self::getTable(),
+            'WHERE' => array_merge(['is_active' => 1], self::entityCriteria()),
+        ];
+        foreach ($DB->request($activeFlows) as $row) {
             $checks = NetworkFlowRules::checks($row, $today, self::internalNetworks());
             $flows[(int) $row['id']] = [
                 'id'          => (int) $row['id'],

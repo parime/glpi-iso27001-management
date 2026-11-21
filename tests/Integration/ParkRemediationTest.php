@@ -272,9 +272,11 @@ final class ParkRemediationTest extends GrcmanagerIntegrationTestCase
 
         $waiver = new Waiver();
         $waiverId = (int) $waiver->add([
-            'name'     => 'Dérogation fictive serveur métier',
-            'date_end' => '2026-12-31',
-            'cve_ids'  => self::CRITICAL . ', ' . strtolower(self::HIGH) . ' et du texte <b>libre</b>',
+            'name'        => 'Dérogation fictive serveur métier',
+            // Issue #536, lot 3 : la dérogation appartient à l'entité du parc testé.
+            'entities_id' => $this->entityId,
+            'date_end'    => '2026-12-31',
+            'cve_ids'     => self::CRITICAL . ', ' . strtolower(self::HIGH) . ' et du texte <b>libre</b>',
         ]);
         $this->assertGreaterThan(0, $waiverId);
         $this->assertSame([self::CRITICAL, self::HIGH], ParkRemediation::getWaiverCves($waiverId));

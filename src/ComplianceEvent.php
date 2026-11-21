@@ -476,7 +476,12 @@ class ComplianceEvent extends ComplianceEventBase
             return [];
         }
         $list = [];
-        foreach ($DB->request(['FROM' => ManagementReview::getTable()]) as $row) {
+        // Issue #536, lot 3 : revues des entités de la session.
+        $reviews = [
+            'FROM'  => ManagementReview::getTable(),
+            'WHERE' => EntityPerimeter::criteria(ManagementReview::getTable()),
+        ];
+        foreach ($DB->request($reviews) as $row) {
             $id = (int) $row['id'];
             $who = 0;
             if ($usersId !== null) {
@@ -600,7 +605,12 @@ class ComplianceEvent extends ComplianceEventBase
             return [];
         }
         $list = [];
-        foreach ($DB->request(['FROM' => ComplianceObligation::getTable()]) as $row) {
+        // Issue #536, lot 3 : obligations des entités de la session.
+        $obligations = [
+            'FROM'  => ComplianceObligation::getTable(),
+            'WHERE' => EntityPerimeter::criteria(ComplianceObligation::getTable()),
+        ];
+        foreach ($DB->request($obligations) as $row) {
             $id = (int) $row['id'];
             $list[] = self::deadline(
                 'obligation',

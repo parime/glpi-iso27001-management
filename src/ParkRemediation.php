@@ -448,12 +448,13 @@ final class ParkRemediation
                 'SELECT'     => ["$links.cve_id", "$waivers.id", "$waivers.name", "$waivers.date_end"],
                 'FROM'       => $links,
                 'INNER JOIN' => [$waivers => ['FKEY' => [$links => 'plugin_grcmanager_waivers_id', $waivers => 'id']]],
-                'WHERE'      => [
+                'WHERE'      => array_merge([
                     "$links.cve_id"       => $cveIds,
                     "$waivers.status"     => WaiverRules::STATUS_APPROVED,
                     "$waivers.is_deleted" => 0,
                     'NOT'                 => ["$waivers.date_end" => null],
-                ],
+                    // Issue #536, lot 3 : dérogations des entités de la session.
+                ], EntityPerimeter::criteria($waivers)),
             ]) as $row
         ) {
             $cveId = (string) $row['cve_id'];
