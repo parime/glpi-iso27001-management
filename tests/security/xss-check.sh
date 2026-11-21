@@ -78,6 +78,13 @@ check "onglet Ma conformite securite"          "$(tab Preference 'GlpiPlugin%5CG
 check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
 check "onglet classification d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' "$(id computer_A)")"
 check "onglet questionnaire fournisseur"      "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$1' "$(id supplierrisk)")"
+# Issue #864 : modèles de questionnaire, évaluation et réponses piégés.
+for url in supplierquestionnairetemplate.php "supplierquestionnairetemplate.form.php?id=$(id questionnaire_A)" \
+  "supplierevaluation.form.php?id=$(id evaluation_A)"; do
+  check "front/$url" "$P/$url"
+done
+check "onglet questions d'un modele de questionnaire" "$(tab GlpiPlugin%5CGrcmanager%5CSupplierQuestionnaireTemplate 'GlpiPlugin%5CGrcmanager%5CSupplierQuestionnaireTemplate$1' "$(id questionnaire_A)")"
+check "onglet questionnaire d'une evaluation"     "$(tab GlpiPlugin%5CGrcmanager%5CSupplierEvaluation 'GlpiPlugin%5CGrcmanager%5CSupplierEvaluation$1' "$(id evaluation_A)")"
 check "onglet contrats fournisseur"           "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$2' "$(id supplierrisk)")"
 check "onglet revues d'acces d'un controle"   "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CAccessReview$2' "$(id control)")"
 check "onglet incidents d'un ordinateur"     "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")"

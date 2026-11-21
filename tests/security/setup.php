@@ -560,6 +560,20 @@ if ($mode === 'xss') {
     $out['control_a85'] = (int) ($DB->request([
         'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.5'], 'LIMIT' => 1,
     ])->current()['id'] ?? 0);
+    // Issue #864 : modèle de questionnaire fournisseur, question, évaluation et réponse piégés (liste
+    // des modèles, fiche et onglet Questions du modèle, fiche et onglet Questionnaire de l'évaluation,
+    // onglet Questionnaires du risque fournisseur).
+    $update('supplierquestionnairetemplates', ['name' => $canary, 'comment' => $canary], (int) $ids['questionnaire_A']);
+    $DB->update('glpi_plugin_grcmanager_supplierquestionnairequestions', [
+        'section' => $canary, 'question' => $canary, 'guidance' => $canary,
+    ], ['plugin_grcmanager_supplierquestionnairetemplates_id' => (int) $ids['questionnaire_A']]);
+    $update('supplierevaluations', [
+        'name' => $canary, 'template_name' => $canary, 'comment' => $canary,
+    ], (int) $ids['evaluation_A']);
+    $update('supplierevaluationanswers', [
+        'code' => $canary, 'section' => $canary, 'question' => $canary, 'guidance' => $canary,
+        'answer_comment' => $canary, 'answer' => 'partial',
+    ], (int) $ids['evaluation_answer_A']);
     echo json_encode($out), "\n";
     exit(0);
 }
@@ -1557,6 +1571,40 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
             'date_import' => date('Y-m-d H:i:s'),
         ]);
     }
+}
+// Issue #864 : un modèle de questionnaire fournisseur et une évaluation dans chaque entité (A sur le
+// risque fournisseur de A, B sur celui de B). Un profil limité à A n'ouvre ni le modèle ni
+// l'évaluation de B ; le modèle de B n'est jamais proposé sur le risque de A.
+foreach (['A' => [$a, 'supplierrisk'], 'B' => [$b, 'supplierrisk_B']] as $suffix => [$entity, $riskKey]) {
+    $questionnaire = new \GlpiPlugin\Grcmanager\SupplierQuestionnaireTemplate();
+    if (!$questionnaire->getFromDBByCrit(['name' => 'Modele questionnaire securite ' . $suffix])) {
+        $add($questionnaire, [
+            'name' => 'Modele questionnaire securite ' . $suffix, 'domain' => 'security', 'entities_id' => $entity,
+            'is_recursive' => 0, 'is_active' => 1,
+        ]);
+        \GlpiPlugin\Grcmanager\SupplierQuestionnaireQuestion::saveQuestions($questionnaire, [], [[
+            'section' => 'Section securite ' . $suffix, 'question' => 'Question securite ' . $suffix,
+            'weight' => 2, 'requires_evidence' => 1,
+        ]]);
+    }
+    $ids['questionnaire_' . $suffix] = (int) $questionnaire->getID();
+    $evaluationRow = $DB->request([
+        'SELECT' => ['id'], 'FROM' => 'glpi_plugin_grcmanager_supplierevaluations',
+        'WHERE'  => ['plugin_grcmanager_supplierrisks_id' => $ids[$riskKey], 'name' => 'Evaluation securite ' . $suffix],
+    ])->current();
+    $ids['evaluation_' . $suffix] = $evaluationRow !== null ? (int) $evaluationRow['id'] : $add(
+        new \GlpiPlugin\Grcmanager\SupplierEvaluation(),
+        [
+            'plugin_grcmanager_supplierrisks_id'                  => $ids[$riskKey],
+            'plugin_grcmanager_supplierquestionnairetemplates_id' => $ids['questionnaire_' . $suffix],
+            'name'                                                => 'Evaluation securite ' . $suffix,
+        ]
+    );
+    $ids['evaluation_answer_' . $suffix] = (int) ($DB->request([
+        'SELECT' => ['id'], 'FROM' => 'glpi_plugin_grcmanager_supplierevaluationanswers',
+        'WHERE'  => ['plugin_grcmanager_supplierevaluations_id' => $ids['evaluation_' . $suffix]],
+        'LIMIT'  => 1,
+    ])->current()['id'] ?? 0);
 }
 // Issue #778 : mesure A.7.1 de la SoA du siège (preuve des évaluations de la sécurité physique).
 $ids['control_a71'] = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode(0)['A.7.1'] ?? 0;
