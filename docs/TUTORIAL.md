@@ -389,6 +389,26 @@ rapport PDF est joint à la campagne et à la mesure de l'Annexe A concernée.
 
 ![Campagnes de revue des accès](screenshots/tutorial/43-access-review-list.png)
 
+**Revue pré-remplie par des règles.** Au lancement, chaque compte arrive avec une suggestion et sa
+raison, calculées à partir de ce que GLPI sait déjà, sans IA ni service extérieur :
+
+- **Retirer** (badge rouge) : compte supprimé de l'annuaire, date de fin du compte dépassée, ou
+  départ enregistré dans assetsign dont la date est passée ;
+- **À examiner** (badge orange) : départ ou fin du compte dans les prochains jours, aucune connexion
+  depuis N jours ou compte jamais utilisé, groupes changés sans revue des profils, profil à
+  privilèges (la raison précise quand aucune MFA n'est connue, d'après la page **Couverture MFA**) ;
+- **Garder** (badge vert) : aucun signal d'alerte.
+
+1. Sur le formulaire de la campagne, réglez l'encadré **Règles de suggestion** : durée
+   d'inactivité, horizon du départ proche, profils à privilèges, MFA, changements de groupes.
+2. Lancez la campagne. L'onglet **Comptes à revoir** compte les suggestions et ajoute la colonne
+   **Suggestion et raison** ; le bouton proposé par les règles porte une ampoule.
+3. Le relecteur décide toujours lui-même. Garder un compte que les règles proposent de retirer
+   demande un commentaire (par exemple un contrat prolongé) ; une décision opposée à la suggestion
+   est signalée dans l'onglet et dans le rapport PDF.
+4. Pendant la campagne, **Mettre à jour les suggestions** recalcule les comptes encore à revoir ;
+   les comptes déjà décidés gardent la suggestion que leur relecteur a vue.
+
 ### Étape 13 : Dater la validité des preuves
 
 Sur une mesure, un risque fournisseur, un audit ou une politique, l'onglet **Validités des
@@ -1204,6 +1224,41 @@ dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateu
    insuffisante et la date du calcul. Les indicateurs de risque proposent la source « Actifs
    critiques sans journalisation (%) ».
 
+### Étape 39 : Mesurer la conformité de configuration avec OpenSCAP (mesure A.8.9)
+
+OpenSCAP vérifie une machine contre un guide de durcissement (profils CIS, ANSSI, DISA STIG… du
+projet SCAP Security Guide) et produit un fichier de résultats XCCDF ou ARF. Le plugin lit ce
+fichier : il ne lance aucune analyse et ne modifie rien sur les machines. Il faut le droit du plugin
+et le droit natif de lecture des ordinateurs ; importer demande le droit de modifier le plugin.
+
+1. Sur la machine, lancez l'analyse avec un fichier de résultats, par exemple
+   `oscap xccdf eval --profile <profil> --results-arf resultats-arf.xml <ssg-datastream.xml>`.
+   L'option `--results` (XCCDF seul) convient aussi. Le rapport HTML ne s'importe pas.
+2. Ouvrez Sécurité technique > **Conformité de configuration**. L'encadré « À quoi sert cette
+   page ? » rappelle ce qui est attendu. Dans **Importer des résultats OpenSCAP**, choisissez le
+   fichier et cliquez sur **Importer**. Un fichier peut contenir plusieurs machines ; un fichier déjà
+   importé n'est pas compté deux fois. Un fichier d'exemple fictif est téléchargeable.
+3. Chaque résultat est rapproché de l'ordinateur GLPI du même nom (nom d'hôte, nom complet ou nom
+   court), parmi ceux que vous voyez. Les résultats sans ordinateur, ou avec plusieurs homonymes,
+   sont listés dans **Résultats d'analyse non rapprochés d'un ordinateur** : choisissez l'ordinateur
+   et cliquez sur **Rattacher**.
+4. Les compteurs donnent la conformité moyenne, le nombre de machines analysées, celles sous
+   l'objectif de 80 % et celles avec une règle de gravité haute en échec. Le taux d'une analyse est
+   la part des règles conformes parmi les règles vérifiées (les règles non applicables ne comptent
+   pas). La liste montre la dernière analyse de chaque ordinateur, les moins conformes d'abord, avec
+   l'évolution depuis l'analyse précédente du même profil.
+5. **Détails** ouvre une analyse : règles en échec par gravité et historique de la machine. Le
+   bouton **Proposer un ticket** crée, sur votre clic seulement, un ticket de remédiation lié à
+   l'ordinateur avec les règles en échec. Les règles en échec les plus fréquentes du parc sont en bas
+   de page.
+6. Sur la fiche de la mesure A.8.9, le cadre « Conformité de configuration » montre ces chiffres et
+   la date de la dernière analyse. Les indicateurs de risque proposent la source « Ordinateurs
+   analysés avec une règle de configuration de gravité haute en échec (%) ».
+
+Sécurité de l'import : le fichier est lu en flux (les gros rapports ARF passent), toute déclaration
+de type de document ou d'entité est refusée et aucun accès réseau n'est fait pendant la lecture. Le
+fichier lui-même n'est pas conservé, seulement les compteurs et les règles en échec.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -1555,6 +1610,26 @@ becomes a ticket; the plugin never removes a right itself. At closure, a PDF rep
 the campaign and to the related Annex A control.
 
 ![Access review campaigns](screenshots/tutorial/43-access-review-list.png)
+
+**Review pre-filled by rules.** At launch, each account comes with a suggestion and its reason,
+computed from what GLPI already knows, without AI or any external service:
+
+- **Remove** (red badge): account deleted from the directory, account end date passed, or a
+  departure recorded in assetsign whose date has passed;
+- **Examine** (orange badge): departure or end date within the next days, no login for N days or
+  never used, groups changed without a profile review, privileged profile (the reason says so when
+  no MFA is known, according to the **MFA coverage** page);
+- **Keep** (green badge): no warning sign.
+
+1. On the campaign form, set the **Suggestion rules** box: inactivity period, horizon of an upcoming
+   departure, privileged profiles, MFA, group changes.
+2. Launch the campaign. The **Accounts to review** tab counts the suggestions and adds the
+   **Suggestion and reason** column; the button the rules suggest carries a light bulb.
+3. The reviewer always decides. Keeping an account the rules suggest removing requires a comment
+   (for example an extended contract); a decision opposite to the suggestion is flagged in the tab
+   and in the PDF report.
+4. During the campaign, **Update the suggestions** recomputes the accounts still to review; accounts
+   already decided keep the suggestion their reviewer saw.
 
 ### Step 13: Date the validity of your evidence
 
@@ -2370,3 +2445,37 @@ need the plugin right and the native right to read computers.
 6. On controls A.8.15, A.8.16 and A.8.17, the "Logging coverage" box shows the rate, the critical
    assets without logging, the platforms whose retention is not enough and the date of the
    computation. Risk indicators offer the source "Critical assets without logging (%)".
+
+### Step 40: Measure configuration compliance with OpenSCAP (control A.8.9)
+
+OpenSCAP checks a machine against a hardening guide (CIS, ANSSI, DISA STIG... profiles of the SCAP
+Security Guide project) and writes an XCCDF or ARF results file. The plugin reads this file: it
+starts no scan and changes nothing on the machines. You need the plugin right and the native right
+to read computers; importing requires the right to update the plugin.
+
+1. On the machine, run the scan with a results file, for example
+   `oscap xccdf eval --profile <profile> --results-arf results-arf.xml <ssg-datastream.xml>`.
+   The `--results` option (XCCDF only) works too. The HTML report cannot be imported.
+2. Open Technical security > **Configuration compliance**. The "What is this page for?" box recalls
+   what is expected. In **Import OpenSCAP results**, choose the file and click **Import**. One file
+   can hold several machines; a file already imported is not counted twice. A fictitious example
+   file can be downloaded.
+3. Each result is matched to the GLPI computer of the same name (host name, full name or short
+   name), among those you can see. Results without a computer, or with several computers of that
+   name, are listed in **Scan results not matched to a computer**: choose the computer and click
+   **Match**.
+4. The counters give the average compliance, the number of machines scanned, those below the 80 %
+   target and those with a high severity rule failed. The rate of a scan is the share of rules
+   passed among the rules checked (not applicable rules do not count). The list shows the last scan
+   of each computer, the least compliant first, with the change since the previous scan of the same
+   profile.
+5. **Details** opens a scan: failed rules by severity and history of the machine. The **Propose a
+   ticket** button creates, only when you click, a remediation ticket linked to the computer with
+   the failed rules. The most frequent failed rules of the fleet are at the bottom of the page.
+6. On control A.8.9, the "Configuration compliance" box shows these figures and the date of the
+   last scan. Risk indicators offer the source "Scanned computers with a high severity configuration
+   rule failed (%)".
+
+Import security: the file is read as a stream (large ARF reports are accepted), any document type or
+entity declaration is refused and no network access is made while reading. The file itself is not
+kept, only the counts and the failed rules.

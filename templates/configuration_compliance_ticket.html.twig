@@ -1,0 +1,23 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #781 : contenu du ticket de remédiation d'une analyse OpenSCAP (créé sur un clic). #}
+<p>{{ __('Configuration scan of %1$s on %2$s: %3$d rule(s) failed. ISO/IEC 27001, control A.8.9.', 'grcmanager')|format(report.hostname, scan_date, report.fail_count + report.error_count) }}</p>
+<p>{{ __('Profile', 'grcmanager') }} : {{ report.profile_title is empty ? report.profile_id : report.profile_title }}</p>
+<ul>
+{% for rule in rules %}
+   <li>[{{ severities[rule.severity] ?? severities['unknown'] }}] {{ rule.title is empty ? rule.rule_id : rule.title }} ({{ results[rule.result] ?? rule.result }})</li>
+{% endfor %}
+</ul>
+{% if more > 0 %}<p>{{ __('And %d more rule(s): see the scan in GRC.', 'grcmanager')|format(more) }}</p>{% endif %}

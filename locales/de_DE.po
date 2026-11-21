@@ -29724,8 +29724,11 @@ msgstr ""
 "gespeichert."
 
 #, php-format
-msgid "%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
-msgstr "%1$d Host(s) importiert: %2$d einem GLPI-Asset zugeordnet, %3$d nicht zugeordnet."
+msgid ""
+"%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr ""
+"%1$d Host(s) importiert: %2$d einem GLPI-Asset zugeordnet, %3$d nicht "
+"zugeordnet."
 
 msgid "Logging settings saved."
 msgstr "Protokollierungseinstellungen gespeichert."
@@ -29758,7 +29761,8 @@ msgid "Logs received"
 msgstr "Logs empfangen"
 
 msgid "A log platform received an event from this asset recently."
-msgstr "Eine Log-Plattform hat kürzlich ein Ereignis von diesem Asset empfangen."
+msgstr ""
+"Eine Log-Plattform hat kürzlich ein Ereignis von diesem Asset empfangen."
 
 msgid "Critical assets, servers and network devices"
 msgstr "Kritische Assets, Server und Netzwerkgeräte"
@@ -29775,17 +29779,40 @@ msgstr "Ausreichend"
 msgid "Too short"
 msgstr "Zu kurz"
 
-msgid "The file has no column for the host name or IP address (for example host, hostname, source, agent.name or ip)."
-msgstr "Die Datei hat keine Spalte für den Hostnamen oder die IP-Adresse (zum Beispiel host, hostname, source, agent.name oder ip)."
+msgid ""
+"The file has no column for the host name or IP address (for example host, "
+"hostname, source, agent.name or ip)."
+msgstr ""
+"Die Datei hat keine Spalte für den Hostnamen oder die IP-Adresse (zum "
+"Beispiel host, hostname, source, agent.name oder ip)."
 
 msgid "You do not have the right to import."
 msgstr "Sie haben nicht das Recht zu importieren."
 
-msgid "Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or nothing for several days, and whether each platform keeps the logs long enough and synchronizes the clocks."
-msgstr "Zeigt, welche wichtigen Assets ihre Logs an eine Log-Plattform senden (Wazuh, Graylog, Elastic oder OpenSearch, Splunk, Syslog), welche nichts oder seit mehreren Tagen nichts mehr senden, und ob jede Plattform die Logs lange genug aufbewahrt und die Uhren synchronisiert."
+msgid ""
+"Shows which important assets send their logs to a log platform (Wazuh, "
+"Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or "
+"nothing for several days, and whether each platform keeps the logs long "
+"enough and synchronizes the clocks."
+msgstr ""
+"Zeigt, welche wichtigen Assets ihre Logs an eine Log-Plattform senden "
+"(Wazuh, Graylog, Elastic oder OpenSearch, Splunk, Syslog), welche nichts "
+"oder seit mehreren Tagen nichts mehr senden, und ob jede Plattform die Logs "
+"lange genug aufbewahrt und die Uhren synchronisiert."
 
-msgid "Choose the assets that must send their logs, import the list of hosts of each log platform (or let the Wazuh plugin be read), connect the assets listed as gaps, and declare the retention and the time server of each platform. The page only reads: it runs nothing on the platforms. Record the result as an effectiveness test of the control to keep the evidence."
-msgstr "Wählen Sie die Assets, die ihre Logs senden müssen, importieren Sie die Hostliste jeder Log-Plattform (oder lassen Sie das Wazuh-Plugin lesen), binden Sie die als Abweichung aufgeführten Assets an und geben Sie die Aufbewahrung und den Zeitserver jeder Plattform an. Die Seite liest nur: Sie startet nichts auf den Plattformen. Erfassen Sie das Ergebnis als Wirksamkeitstest der Maßnahme, um den Nachweis aufzubewahren."
+msgid ""
+"Choose the assets that must send their logs, import the list of hosts of "
+"each log platform (or let the Wazuh plugin be read), connect the assets "
+"listed as gaps, and declare the retention and the time server of each "
+"platform. The page only reads: it runs nothing on the platforms. Record the "
+"result as an effectiveness test of the control to keep the evidence."
+msgstr ""
+"Wählen Sie die Assets, die ihre Logs senden müssen, importieren Sie die "
+"Hostliste jeder Log-Plattform (oder lassen Sie das Wazuh-Plugin lesen), "
+"binden Sie die als Abweichung aufgeführten Assets an und geben Sie die "
+"Aufbewahrung und den Zeitserver jeder Plattform an. Die Seite liest nur: Sie "
+"startet nichts auf den Plattformen. Erfassen Sie das Ergebnis als "
+"Wirksamkeitstest der Maßnahme, um den Nachweis aufzubewahren."
 
 msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
 msgstr "ISO/IEC 27001, Maßnahmen A.8.15, A.8.16 und A.8.17"
@@ -29829,8 +29856,15 @@ msgstr "%d Tage aufbewahrt"
 msgid "%d days required"
 msgstr "%d Tage erforderlich"
 
-msgid "An asset is critical when one axis of its C/I/A classification is high (tab of the asset form), or when a network flow publishes it on the Internet. Servers are recognized from the computer type or the operating system name."
-msgstr "Ein Asset ist kritisch, wenn eine Achse seiner V/I/V-Klassifizierung hoch ist (Registerkarte im Asset-Formular) oder wenn ein Netzwerkfluss es im Internet veröffentlicht. Server werden am Computertyp oder am Namen des Betriebssystems erkannt."
+msgid ""
+"An asset is critical when one axis of its C/I/A classification is high (tab "
+"of the asset form), or when a network flow publishes it on the Internet. "
+"Servers are recognized from the computer type or the operating system name."
+msgstr ""
+"Ein Asset ist kritisch, wenn eine Achse seiner V/I/V-Klassifizierung hoch "
+"ist (Registerkarte im Asset-Formular) oder wenn ein Netzwerkfluss es im "
+"Internet veröffentlicht. Server werden am Computertyp oder am Namen des "
+"Betriebssystems erkannt."
 
 msgid "Assets concerned whose logs are received"
 msgstr "Betroffene Assets, deren Logs empfangen werden"
@@ -29838,8 +29872,13 @@ msgstr "Betroffene Assets, deren Logs empfangen werden"
 msgid "Assets that must send their logs"
 msgstr "Assets, die ihre Logs senden müssen"
 
-msgid "Check the name of the asset in GLPI, or add the asset to the inventory: an unknown host may be an asset missing from the inventory."
-msgstr "Prüfen Sie den Namen des Assets in GLPI oder fügen Sie das Asset dem Inventar hinzu: Ein unbekannter Host kann ein im Inventar fehlendes Asset sein."
+msgid ""
+"Check the name of the asset in GLPI, or add the asset to the inventory: an "
+"unknown host may be an asset missing from the inventory."
+msgstr ""
+"Prüfen Sie den Namen des Assets in GLPI oder fügen Sie das Asset dem "
+"Inventar hinzu: Ein unbekannter Host kann ein im Inventar fehlendes Asset "
+"sein."
 
 msgid "Clock synchronization not declared"
 msgstr "Uhrensynchronisation nicht angegeben"
@@ -29856,17 +29895,43 @@ msgstr "Kritische Assets ohne Protokollierung"
 msgid "Declare another platform"
 msgstr "Weitere Plattform angeben"
 
-msgid "Declare, for each platform, how long the logs are kept and whether the clocks are synchronized. The retention required is the longest between the policy and the obligation chosen. These are declarations: keep the screenshot of the setting as evidence."
-msgstr "Geben Sie für jede Plattform an, wie lange die Logs aufbewahrt werden und ob die Uhren synchronisiert sind. Die erforderliche Aufbewahrung ist die längere aus Richtlinie und gewählter Verpflichtung. Es handelt sich um Angaben: Bewahren Sie den Screenshot der Einstellung als Nachweis auf."
+msgid ""
+"Declare, for each platform, how long the logs are kept and whether the "
+"clocks are synchronized. The retention required is the longest between the "
+"policy and the obligation chosen. These are declarations: keep the "
+"screenshot of the setting as evidence."
+msgstr ""
+"Geben Sie für jede Plattform an, wie lange die Logs aufbewahrt werden und ob "
+"die Uhren synchronisiert sind. Die erforderliche Aufbewahrung ist die "
+"längere aus Richtlinie und gewählter Verpflichtung. Es handelt sich um "
+"Angaben: Bewahren Sie den Screenshot der Einstellung als Nachweis auf."
 
-msgid "Export the list of hosts that send logs from your log platform, then import the CSV file here. A new import of the same platform replaces the previous one in the current entity. Only host names, addresses and the date of the last event are kept, never the content of a log."
-msgstr "Exportieren Sie aus Ihrer Log-Plattform die Liste der Hosts, die Logs senden, und importieren Sie die CSV-Datei hier. Ein neuer Import derselben Plattform ersetzt den vorherigen in der aktuellen Einheit. Nur Hostnamen, Adressen und das Datum des letzten Ereignisses werden gespeichert, niemals der Inhalt eines Logs."
+msgid ""
+"Export the list of hosts that send logs from your log platform, then import "
+"the CSV file here. A new import of the same platform replaces the previous "
+"one in the current entity. Only host names, addresses and the date of the "
+"last event are kept, never the content of a log."
+msgstr ""
+"Exportieren Sie aus Ihrer Log-Plattform die Liste der Hosts, die Logs "
+"senden, und importieren Sie die CSV-Datei hier. Ein neuer Import derselben "
+"Plattform ersetzt den vorherigen in der aktuellen Einheit. Nur Hostnamen, "
+"Adressen und das Datum des letzten Ereignisses werden gespeichert, niemals "
+"der Inhalt eines Logs."
 
-msgid "For example a law, a regulation or a contract listed in the register of obligations."
-msgstr "Zum Beispiel ein Gesetz, eine Verordnung oder ein Vertrag aus dem Verpflichtungsregister."
+msgid ""
+"For example a law, a regulation or a contract listed in the register of "
+"obligations."
+msgstr ""
+"Zum Beispiel ein Gesetz, eine Verordnung oder ein Vertrag aus dem "
+"Verpflichtungsregister."
 
-msgid "Graylog, Elastic or OpenSearch: a table of the sources with the most recent timestamp (columns source or host.name, and last timestamp), exported as CSV."
-msgstr "Graylog, Elastic oder OpenSearch: eine Tabelle der Quellen mit dem neuesten Zeitstempel (Spalten source oder host.name und letzter Zeitstempel), als CSV exportiert."
+msgid ""
+"Graylog, Elastic or OpenSearch: a table of the sources with the most recent "
+"timestamp (columns source or host.name, and last timestamp), exported as CSV."
+msgstr ""
+"Graylog, Elastic oder OpenSearch: eine Tabelle der Quellen mit dem neuesten "
+"Zeitstempel (Spalten source oder host.name und letzter Zeitstempel), als CSV "
+"exportiert."
 
 msgid "Hosts"
 msgstr "Hosts"
@@ -29893,8 +29958,12 @@ msgstr "Kein betroffenes Asset in Ihren Einheiten."
 msgid "No event for more than %d days: logs stopped"
 msgstr "Kein Ereignis seit mehr als %d Tagen: Logs unterbrochen"
 
-msgid "No log source yet: import the list of hosts of your log platform to measure the coverage."
-msgstr "Noch keine Log-Quelle: Importieren Sie die Hostliste Ihrer Log-Plattform, um die Abdeckung zu messen."
+msgid ""
+"No log source yet: import the list of hosts of your log platform to measure "
+"the coverage."
+msgstr ""
+"Noch keine Log-Quelle: Importieren Sie die Hostliste Ihrer Log-Plattform, um "
+"die Abdeckung zu messen."
 
 msgid "No platform declared."
 msgstr "Keine Plattform angegeben."
@@ -29911,11 +29980,19 @@ msgstr "Plattformen ohne angegebene Uhrensynchronisation"
 msgid "Read directly"
 msgstr "Direkt gelesen"
 
-msgid "Read-only: the plugin reads the lists of hosts, it never runs anything on the log platforms and changes nothing in GLPI."
-msgstr "Nur Lesen: Das Plugin liest die Hostlisten, startet nie etwas auf den Log-Plattformen und ändert nichts in GLPI."
+msgid ""
+"Read-only: the plugin reads the lists of hosts, it never runs anything on "
+"the log platforms and changes nothing in GLPI."
+msgstr ""
+"Nur Lesen: Das Plugin liest die Hostlisten, startet nie etwas auf den Log-"
+"Plattformen und ändert nichts in GLPI."
 
-msgid "Recognized columns: host (or hostname, source, agent.name), ip, and last event (or lastTime, last_seen, lastKeepAlive)."
-msgstr "Erkannte Spalten: host (oder hostname, source, agent.name), ip und letztes Ereignis (oder lastTime, last_seen, lastKeepAlive)."
+msgid ""
+"Recognized columns: host (or hostname, source, agent.name), ip, and last "
+"event (or lastTime, last_seen, lastKeepAlive)."
+msgstr ""
+"Erkannte Spalten: host (oder hostname, source, agent.name), ip und letztes "
+"Ereignis (oder lastTime, last_seen, lastKeepAlive)."
 
 msgid "Register of obligations"
 msgstr "Verpflichtungsregister"
@@ -29939,11 +30016,18 @@ msgstr "Von der Richtlinie geforderte Aufbewahrung (Tage)"
 msgid "Retention required by the policy: %d days"
 msgstr "Von der Richtlinie geforderte Aufbewahrung: %d Tage"
 
-msgid "Splunk: run the search \"| metadata type=hosts index=*\" and export the result (columns host, lastTime)."
-msgstr "Splunk: Führen Sie die Suche \"| metadata type=hosts index=*\" aus und exportieren Sie das Ergebnis (Spalten host, lastTime)."
+msgid ""
+"Splunk: run the search \"| metadata type=hosts index=*\" and export the "
+"result (columns host, lastTime)."
+msgstr ""
+"Splunk: Führen Sie die Suche \"| metadata type=hosts index=*\" aus und "
+"exportieren Sie das Ergebnis (Spalten host, lastTime)."
 
-msgid "The Wazuh plugin is active: its active agents are read directly, read-only."
-msgstr "Das Wazuh-Plugin ist aktiv: Seine aktiven Agenten werden direkt und nur lesend ausgelesen."
+msgid ""
+"The Wazuh plugin is active: its active agents are read directly, read-only."
+msgstr ""
+"Das Wazuh-Plugin ist aktiv: Seine aktiven Agenten werden direkt und nur "
+"lesend ausgelesen."
 
 msgid "The clocks of the sources and of the platform are synchronized"
 msgstr "Die Uhren der Quellen und der Plattform sind synchronisiert"
@@ -29951,8 +30035,12 @@ msgstr "Die Uhren der Quellen und der Plattform sind synchronisiert"
 msgid "Time server (NTP)"
 msgstr "Zeitserver (NTP)"
 
-msgid "Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, one host per line."
-msgstr "Wazuh ohne das GLPI-Plugin oder ein Syslog-Server: eine CSV-Datei mit Kopfzeile, ein Host pro Zeile."
+msgid ""
+"Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, "
+"one host per line."
+msgstr ""
+"Wazuh ohne das GLPI-Plugin oder ein Syslog-Server: eine CSV-Datei mit "
+"Kopfzeile, ein Host pro Zeile."
 
 msgid "Which assets must send their logs?"
 msgstr "Welche Assets müssen ihre Logs senden?"
@@ -30006,20 +30094,49 @@ msgstr "Fragebogenvorlagen"
 msgid "Historical questionnaire"
 msgstr "Historischer Fragebogen"
 
-msgid "The twelve questions of the former security questionnaire, kept with the answers already given."
-msgstr "Die zwölf Fragen des früheren Sicherheitsfragebogens, mit den bereits gegebenen Antworten beibehalten."
+msgid ""
+"The twelve questions of the former security questionnaire, kept with the "
+"answers already given."
+msgstr ""
+"Die zwölf Fragen des früheren Sicherheitsfragebogens, mit den bereits "
+"gegebenen Antworten beibehalten."
 
-msgid "Create one risk per important supplier, evaluate it with one or more questionnaires (Questionnaires tab), follow its contracts and the \"Security watch\" tab."
-msgstr "Legen Sie ein Risiko pro wichtigem Lieferanten an, bewerten Sie ihn mit einem oder mehreren Fragebögen (Registerkarte Fragebögen), verfolgen Sie seine Verträge und die Registerkarte „Sicherheitsbeobachtung“."
+msgid ""
+"Create one risk per important supplier, evaluate it with one or more "
+"questionnaires (Questionnaires tab), follow its contracts and the \"Security "
+"watch\" tab."
+msgstr ""
+"Legen Sie ein Risiko pro wichtigem Lieferanten an, bewerten Sie ihn mit "
+"einem oder mehreren Fragebögen (Registerkarte Fragebögen), verfolgen Sie "
+"seine Verträge und die Registerkarte „Sicherheitsbeobachtung“."
 
-msgid "Supplier questionnaire templates: the questions asked to your suppliers, grouped by section, with their weight, the expected answer and the evidence to provide. One template per need: information security, personal data, artificial intelligence..."
-msgstr "Lieferanten-Fragebogenvorlagen: die Fragen an Ihre Lieferanten, nach Abschnitten gruppiert, mit ihrer Gewichtung, der erwarteten Antwort und dem vorzulegenden Nachweis. Eine Vorlage pro Bedarf: Informationssicherheit, personenbezogene Daten, künstliche Intelligenz..."
+msgid ""
+"Supplier questionnaire templates: the questions asked to your suppliers, "
+"grouped by section, with their weight, the expected answer and the evidence "
+"to provide. One template per need: information security, personal data, "
+"artificial intelligence..."
+msgstr ""
+"Lieferanten-Fragebogenvorlagen: die Fragen an Ihre Lieferanten, nach "
+"Abschnitten gruppiert, mit ihrer Gewichtung, der erwarteten Antwort und dem "
+"vorzulegenden Nachweis. Eine Vorlage pro Bedarf: Informationssicherheit, "
+"personenbezogene Daten, künstliche Intelligenz..."
 
-msgid "Adapt the historical questionnaire or create your own templates, then start an evaluation from the Questionnaires tab of a supplier risk. A supplier can be evaluated with several templates; each evaluation keeps its score and its history."
-msgstr "Passen Sie den historischen Fragebogen an oder erstellen Sie eigene Vorlagen und starten Sie dann eine Bewertung über die Registerkarte Fragebögen eines Lieferantenrisikos. Ein Lieferant kann mit mehreren Vorlagen bewertet werden; jede Bewertung behält ihre Punktzahl und ihren Verlauf."
+msgid ""
+"Adapt the historical questionnaire or create your own templates, then start "
+"an evaluation from the Questionnaires tab of a supplier risk. A supplier can "
+"be evaluated with several templates; each evaluation keeps its score and its "
+"history."
+msgstr ""
+"Passen Sie den historischen Fragebogen an oder erstellen Sie eigene Vorlagen "
+"und starten Sie dann eine Bewertung über die Registerkarte Fragebögen eines "
+"Lieferantenrisikos. Ein Lieferant kann mit mehreren Vorlagen bewertet "
+"werden; jede Bewertung behält ihre Punktzahl und ihren Verlauf."
 
-msgid "ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
-msgstr "ISO/IEC 27001, Maßnahmen A.5.19 bis A.5.21; NIS2 Art. 21 Abs. 2 Buchst. d; DORA Art. 28"
+msgid ""
+"ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
+msgstr ""
+"ISO/IEC 27001, Maßnahmen A.5.19 bis A.5.21; NIS2 Art. 21 Abs. 2 Buchst. d; "
+"DORA Art. 28"
 
 msgid "Questionnaires"
 msgstr "Fragebögen"
@@ -30027,15 +30144,20 @@ msgstr "Fragebögen"
 msgid "Choose the supplier risk to evaluate."
 msgstr "Wählen Sie das zu bewertende Lieferantenrisiko."
 
-msgid "Choose an active questionnaire template available in the entity of the supplier risk."
-msgstr "Wählen Sie eine aktive Fragebogenvorlage, die in der Entität des Lieferantenrisikos verfügbar ist."
+msgid ""
+"Choose an active questionnaire template available in the entity of the "
+"supplier risk."
+msgstr ""
+"Wählen Sie eine aktive Fragebogenvorlage, die in der Entität des "
+"Lieferantenrisikos verfügbar ist."
 
 #, php-format
 msgid "%1$s - %2$s"
 msgstr "%1$s - %2$s"
 
 msgid "This evaluation is completed: reopen it to change it."
-msgstr "Diese Bewertung ist abgeschlossen: Öffnen Sie sie wieder, um sie zu ändern."
+msgstr ""
+"Diese Bewertung ist abgeschlossen: Öffnen Sie sie wieder, um sie zu ändern."
 
 msgid "Questionnaire"
 msgstr "Fragebogen"
@@ -30084,17 +30206,29 @@ msgstr "%1$d von %2$d Fragen beantwortet"
 msgid "%1$s (version %2$d)"
 msgstr "%1$s (Version %2$d)"
 
-msgid "Answer the questions in the \"Questionnaire\" tab, then mark the evaluation as completed."
-msgstr "Beantworten Sie die Fragen in der Registerkarte „Fragebogen“ und markieren Sie die Bewertung dann als abgeschlossen."
+msgid ""
+"Answer the questions in the \"Questionnaire\" tab, then mark the evaluation "
+"as completed."
+msgstr ""
+"Beantworten Sie die Fragen in der Registerkarte „Fragebogen“ und markieren "
+"Sie die Bewertung dann als abgeschlossen."
 
 msgid "Evaluation"
 msgstr "Bewertung"
 
-msgid "Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by the weight of the question; \"not applicable\" and unanswered questions are not counted."
-msgstr "Erwartete Antwort = 1 Punkt, teilweise = 0,5, andere Antwort = 0, multipliziert mit der Gewichtung der Frage; „nicht zutreffend“ und unbeantwortete Fragen werden nicht gezählt."
+msgid ""
+"Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by "
+"the weight of the question; \"not applicable\" and unanswered questions are "
+"not counted."
+msgstr ""
+"Erwartete Antwort = 1 Punkt, teilweise = 0,5, andere Antwort = 0, "
+"multipliziert mit der Gewichtung der Frage; „nicht zutreffend“ und "
+"unbeantwortete Fragen werden nicht gezählt."
 
 msgid "For example \"Security 2026\" or \"Personal data - contract renewal\"."
-msgstr "Zum Beispiel „Sicherheit 2026“ oder „Personenbezogene Daten - Vertragsverlängerung“."
+msgstr ""
+"Zum Beispiel „Sicherheit 2026“ oder „Personenbezogene Daten - "
+"Vertragsverlängerung“."
 
 msgid "Questionnaire template"
 msgstr "Fragebogenvorlage"
@@ -30103,23 +30237,42 @@ msgstr "Fragebogenvorlage"
 msgid "Score: %1$d%% - %2$s"
 msgstr "Punktzahl: %1$d %% - %2$s"
 
-msgid "This evaluation is completed: its answers can no longer be changed. Reopen it from the \"Questionnaire\" tab to change them."
-msgstr "Diese Bewertung ist abgeschlossen: Ihre Antworten können nicht mehr geändert werden. Öffnen Sie sie über die Registerkarte „Fragebogen“ wieder, um sie zu ändern."
+msgid ""
+"This evaluation is completed: its answers can no longer be changed. Reopen "
+"it from the \"Questionnaire\" tab to change them."
+msgstr ""
+"Diese Bewertung ist abgeschlossen: Ihre Antworten können nicht mehr geändert "
+"werden. Öffnen Sie sie über die Registerkarte „Fragebogen“ wieder, um sie zu "
+"ändern."
 
 msgid "Add the template, then write its questions in the \"Questions\" tab."
-msgstr "Fügen Sie die Vorlage hinzu und schreiben Sie dann ihre Fragen in der Registerkarte „Fragen“."
+msgstr ""
+"Fügen Sie die Vorlage hinzu und schreiben Sie dann ihre Fragen in der "
+"Registerkarte „Fragen“."
 
-msgid "Fingerprint of the questions, used to recognize a questionnaire file returned by a supplier."
-msgstr "Fingerabdruck der Fragen, mit dem eine von einem Lieferanten zurückgesandte Fragebogendatei erkannt wird."
+msgid ""
+"Fingerprint of the questions, used to recognize a questionnaire file "
+"returned by a supplier."
+msgstr ""
+"Fingerabdruck der Fragen, mit dem eine von einem Lieferanten zurückgesandte "
+"Fragebogendatei erkannt wird."
 
-msgid "For example \"Hosting provider security\", \"Personal data processor (GDPR art. 28)\" or \"AI service provider\"."
-msgstr "Zum Beispiel „Sicherheit des Hosting-Anbieters“, „Auftragsverarbeiter (DSGVO Art. 28)“ oder „Anbieter von KI-Diensten“."
+msgid ""
+"For example \"Hosting provider security\", \"Personal data processor (GDPR "
+"art. 28)\" or \"AI service provider\"."
+msgstr ""
+"Zum Beispiel „Sicherheit des Hosting-Anbieters“, „Auftragsverarbeiter (DSGVO "
+"Art. 28)“ oder „Anbieter von KI-Diensten“."
 
 msgid "Inactive: not offered for new evaluations"
 msgstr "Inaktiv: wird für neue Bewertungen nicht angeboten"
 
-msgid "Increases each time the questions change. An evaluation keeps the questions of the version it was started with."
-msgstr "Erhöht sich bei jeder Änderung der Fragen. Eine Bewertung behält die Fragen der Version, mit der sie gestartet wurde."
+msgid ""
+"Increases each time the questions change. An evaluation keeps the questions "
+"of the version it was started with."
+msgstr ""
+"Erhöht sich bei jeder Änderung der Fragen. Eine Bewertung behält die Fragen "
+"der Version, mit der sie gestartet wurde."
 
 msgid "Only active templates are offered when an evaluation is started."
 msgstr "Beim Starten einer Bewertung werden nur aktive Vorlagen angeboten."
@@ -30127,11 +30280,20 @@ msgstr "Beim Starten einer Bewertung werden nur aktive Vorlagen angeboten."
 msgid "Taken over"
 msgstr "Übernommen"
 
-msgid "The last completed evaluation of the \"Information security\" domain gives the score shown on the supplier risk and on the dashboard."
-msgstr "Die letzte abgeschlossene Bewertung des Bereichs „Informationssicherheit“ liefert die Punktzahl, die beim Lieferantenrisiko und im Dashboard angezeigt wird."
+msgid ""
+"The last completed evaluation of the \"Information security\" domain gives "
+"the score shown on the supplier risk and on the dashboard."
+msgstr ""
+"Die letzte abgeschlossene Bewertung des Bereichs „Informationssicherheit“ "
+"liefert die Punktzahl, die beim Lieferantenrisiko und im Dashboard angezeigt "
+"wird."
 
-msgid "The twelve questions of the former security questionnaire. It can be deactivated but not deleted."
-msgstr "Die zwölf Fragen des früheren Sicherheitsfragebogens. Sie kann deaktiviert, aber nicht gelöscht werden."
+msgid ""
+"The twelve questions of the former security questionnaire. It can be "
+"deactivated but not deleted."
+msgstr ""
+"Die zwölf Fragen des früheren Sicherheitsfragebogens. Sie kann deaktiviert, "
+"aber nicht gelöscht werden."
 
 msgid "Detach"
 msgstr "Lösen"
@@ -30153,8 +30315,21 @@ msgid "Expected: %s"
 msgstr "Erwartet: %s"
 
 #, php-format
-msgid "For each question, choose the answer given by the supplier and add a comment if needed. The expected answer earns 1 point, \"partial\" half a point, the other answer 0, multiplied by the weight of the question. A question marked \"Evidence required\" waits for a document (certificate, report, policy...): it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) and added to the Documents tab of the supplier risk."
-msgstr "Wählen Sie für jede Frage die Antwort des Lieferanten und fügen Sie bei Bedarf einen Kommentar hinzu. Die erwartete Antwort bringt 1 Punkt, „teilweise“ einen halben Punkt, die andere Antwort 0, multipliziert mit der Gewichtung der Frage. Eine als „Nachweis erforderlich“ markierte Frage erwartet ein Dokument (Zertifikat, Bericht, Richtlinie...): Es wird wie jeder Nachweis geprüft (von GLPI erlaubte Typen, maximale Größe %d MiB) und der Registerkarte Dokumente des Lieferantenrisikos hinzugefügt."
+msgid ""
+"For each question, choose the answer given by the supplier and add a comment "
+"if needed. The expected answer earns 1 point, \"partial\" half a point, the "
+"other answer 0, multiplied by the weight of the question. A question marked "
+"\"Evidence required\" waits for a document (certificate, report, policy...): "
+"it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) "
+"and added to the Documents tab of the supplier risk."
+msgstr ""
+"Wählen Sie für jede Frage die Antwort des Lieferanten und fügen Sie bei "
+"Bedarf einen Kommentar hinzu. Die erwartete Antwort bringt 1 Punkt, "
+"„teilweise“ einen halben Punkt, die andere Antwort 0, multipliziert mit der "
+"Gewichtung der Frage. Eine als „Nachweis erforderlich“ markierte Frage "
+"erwartet ein Dokument (Zertifikat, Bericht, Richtlinie...): Es wird wie "
+"jeder Nachweis geprüft (von GLPI erlaubte Typen, maximale Größe %d MiB) und "
+"der Registerkarte Dokumente des Lieferantenrisikos hinzugefügt."
 
 msgid "For information, not scored"
 msgstr "Zur Information, nicht bewertet"
@@ -30162,8 +30337,13 @@ msgstr "Zur Information, nicht bewertet"
 msgid "General"
 msgstr "Allgemein"
 
-msgid "Questions without an answer do not count in the score. A completed evaluation can no longer be changed, unless it is reopened."
-msgstr "Fragen ohne Antwort zählen nicht zur Punktzahl. Eine abgeschlossene Bewertung kann nicht mehr geändert werden, es sei denn, sie wird wieder geöffnet."
+msgid ""
+"Questions without an answer do not count in the score. A completed "
+"evaluation can no longer be changed, unless it is reopened."
+msgstr ""
+"Fragen ohne Antwort zählen nicht zur Punktzahl. Eine abgeschlossene "
+"Bewertung kann nicht mehr geändert werden, es sei denn, sie wird wieder "
+"geöffnet."
 
 msgid "Reopen the evaluation"
 msgstr "Bewertung wieder öffnen"
@@ -30174,8 +30354,11 @@ msgstr "Speichern und als abgeschlossen markieren"
 msgid "Save answers"
 msgstr "Antworten speichern"
 
-msgid "This evaluation has no question: its template had none when it was created."
-msgstr "Diese Bewertung hat keine Fragen: Ihre Vorlage hatte bei der Erstellung keine."
+msgid ""
+"This evaluation has no question: its template had none when it was created."
+msgstr ""
+"Diese Bewertung hat keine Fragen: Ihre Vorlage hatte bei der Erstellung "
+"keine."
 
 #, php-format
 msgid "Weight %d"
@@ -30188,11 +30371,26 @@ msgstr "%1$s: %2$s Punkte"
 msgid "Change between the last two completed evaluations"
 msgstr "Veränderung zwischen den letzten beiden abgeschlossenen Bewertungen"
 
-msgid "Evaluate the supplier with one or more questionnaires (security, personal data, artificial intelligence...). Each question has a weight and an expected answer; the score informs the assessment and never changes the risk level entered. Evidence requested for a question is added to the Documents tab of this supplier risk."
-msgstr "Bewerten Sie den Lieferanten mit einem oder mehreren Fragebögen (Sicherheit, personenbezogene Daten, künstliche Intelligenz...). Jede Frage hat eine Gewichtung und eine erwartete Antwort; die Punktzahl unterstützt die Beurteilung und ändert nie die eingegebene Risikostufe. Der für eine Frage angeforderte Nachweis wird der Registerkarte Dokumente dieses Lieferantenrisikos hinzugefügt."
+msgid ""
+"Evaluate the supplier with one or more questionnaires (security, personal "
+"data, artificial intelligence...). Each question has a weight and an "
+"expected answer; the score informs the assessment and never changes the risk "
+"level entered. Evidence requested for a question is added to the Documents "
+"tab of this supplier risk."
+msgstr ""
+"Bewerten Sie den Lieferanten mit einem oder mehreren Fragebögen (Sicherheit, "
+"personenbezogene Daten, künstliche Intelligenz...). Jede Frage hat eine "
+"Gewichtung und eine erwartete Antwort; die Punktzahl unterstützt die "
+"Beurteilung und ändert nie die eingegebene Risikostufe. Der für eine Frage "
+"angeforderte Nachweis wird der Registerkarte Dokumente dieses "
+"Lieferantenrisikos hinzugefügt."
 
-msgid "No active questionnaire template is available in the entity of this supplier risk."
-msgstr "In der Entität dieses Lieferantenrisikos ist keine aktive Fragebogenvorlage verfügbar."
+msgid ""
+"No active questionnaire template is available in the entity of this supplier "
+"risk."
+msgstr ""
+"In der Entität dieses Lieferantenrisikos ist keine aktive Fragebogenvorlage "
+"verfügbar."
 
 msgid "No evaluation yet for this supplier."
 msgstr "Noch keine Bewertung für diesen Lieferanten."
@@ -30214,8 +30412,23 @@ msgid "Code"
 msgstr "Code"
 
 #, php-format
-msgid "Group the questions by section. The expected answer is the compliant one (\"No\" for a question such as \"Have you suffered a data breach in the last 12 months?\"). The weight, from 0 to %d, gives the importance of the question in the score; 0 makes it a question for information only. Tick \"Evidence required\" when the supplier must provide a document. Changing the questions creates a new version of the template; evaluations already started keep their questions."
-msgstr "Gruppieren Sie die Fragen nach Abschnitten. Die erwartete Antwort ist die konforme („Nein“ bei einer Frage wie „Hatten Sie in den letzten 12 Monaten eine Datenschutzverletzung?“). Die Gewichtung von 0 bis %d gibt die Bedeutung der Frage für die Punktzahl an; 0 macht sie zu einer reinen Informationsfrage. Kreuzen Sie „Nachweis erforderlich“ an, wenn der Lieferant ein Dokument vorlegen muss. Eine Änderung der Fragen erzeugt eine neue Version der Vorlage; bereits gestartete Bewertungen behalten ihre Fragen."
+msgid ""
+"Group the questions by section. The expected answer is the compliant one "
+"(\"No\" for a question such as \"Have you suffered a data breach in the last "
+"12 months?\"). The weight, from 0 to %d, gives the importance of the "
+"question in the score; 0 makes it a question for information only. Tick "
+"\"Evidence required\" when the supplier must provide a document. Changing "
+"the questions creates a new version of the template; evaluations already "
+"started keep their questions."
+msgstr ""
+"Gruppieren Sie die Fragen nach Abschnitten. Die erwartete Antwort ist die "
+"konforme („Nein“ bei einer Frage wie „Hatten Sie in den letzten 12 Monaten "
+"eine Datenschutzverletzung?“). Die Gewichtung von 0 bis %d gibt die "
+"Bedeutung der Frage für die Punktzahl an; 0 macht sie zu einer reinen "
+"Informationsfrage. Kreuzen Sie „Nachweis erforderlich“ an, wenn der "
+"Lieferant ein Dokument vorlegen muss. Eine Änderung der Fragen erzeugt eine "
+"neue Version der Vorlage; bereits gestartete Bewertungen behalten ihre "
+"Fragen."
 
 msgid "Help for the answer (optional)"
 msgstr "Hilfe zur Antwort (optional)"
@@ -30289,3 +30502,484 @@ msgstr[1] "%d Fragen"
 
 msgid "New question"
 msgstr "Neue Frage"
+
+msgid "Choose an XML results file produced by OpenSCAP (XCCDF or ARF)."
+msgstr ""
+"Wählen Sie eine von OpenSCAP erzeugte XML-Ergebnisdatei (XCCDF oder ARF)."
+
+#, php-format
+msgid ""
+"%1$d scan result(s) imported: %2$d matched to a computer, %3$d not matched, "
+"%4$d already imported."
+msgstr ""
+"%1$d Scan-Ergebnis(se) importiert: %2$d einem Computer zugeordnet, %3$d "
+"nicht zugeordnet, %4$d bereits importiert."
+
+msgid ""
+"The file holds more results or failed rules than the import keeps: only the "
+"first ones were kept."
+msgstr ""
+"Die Datei enthält mehr Ergebnisse oder fehlgeschlagene Regeln, als der "
+"Import behält: nur die ersten wurden übernommen."
+
+msgid "Choose a computer you can see."
+msgstr "Wählen Sie einen Computer, den Sie sehen können."
+
+msgid "Scan result matched to the computer."
+msgstr "Scan-Ergebnis dem Computer zugeordnet."
+
+msgid "Scan result deleted."
+msgstr "Scan-Ergebnis gelöscht."
+
+msgid "Configuration compliance"
+msgstr "Konfigurationskonformität"
+
+msgid "Information"
+msgstr "Information"
+
+msgid "Error during the check"
+msgstr "Fehler bei der Prüfung"
+
+msgid ""
+"The file contains a document type or entity declaration, refused for "
+"security reasons. OpenSCAP never writes one: export the results again with "
+"oscap."
+msgstr ""
+"Die Datei enthält eine Dokumenttyp- oder Entitätsdeklaration, die aus "
+"Sicherheitsgründen abgelehnt wird. OpenSCAP schreibt nie eine: exportieren "
+"Sie die Ergebnisse erneut mit oscap."
+
+msgid ""
+"No scan result was found in the file. Choose the results file (option --"
+"results or --results-arf of oscap), not the benchmark or the HTML report."
+msgstr ""
+"In der Datei wurde kein Scan-Ergebnis gefunden. Wählen Sie die Ergebnisdatei "
+"(Option --results oder --results-arf von oscap), nicht den Benchmark oder "
+"den HTML-Bericht."
+
+msgid "The file is not valid XML, or it is truncated."
+msgstr "Die Datei ist kein gültiges XML oder sie ist abgeschnitten."
+
+#, php-format
+msgid "Configuration remediation: %1$s (%2$d rule(s) failed)"
+msgstr "Konfigurationsbehebung: %1$s (%2$d Regel(n) fehlgeschlagen)"
+
+msgid "OpenSCAP scans (XCCDF/ARF)"
+msgstr "OpenSCAP-Scans (XCCDF/ARF)"
+
+msgid "No scan imported yet"
+msgstr "Noch kein Scan importiert"
+
+msgid "Import results"
+msgstr "Ergebnisse importieren"
+
+msgid "Average compliance: not measured"
+msgstr "Durchschnittliche Konformität: nicht gemessen"
+
+#, php-format
+msgid "Average compliance: %d%%"
+msgstr "Durchschnittliche Konformität: %d %%"
+
+#, php-format
+msgid "%d machine(s) scanned"
+msgstr "%d Maschine(n) gescannt"
+
+#, php-format
+msgid "%1$d below %2$d%%"
+msgstr "%1$d unter %2$d %%"
+
+#, php-format
+msgid "%d with a high severity rule failed"
+msgstr "%d mit fehlgeschlagener Regel hoher Schwere"
+
+#, php-format
+msgid "%d not matched to a computer"
+msgstr "%d keinem Computer zugeordnet"
+
+#, php-format
+msgid "Last scan on %s"
+msgstr "Letzter Scan am %s"
+
+msgid ""
+"Measures how well the configuration of the computers follows a hardening "
+"guide (CIS, ANSSI, DISA STIG...), from the results files of the OpenSCAP "
+"scanner: rate of rules passed per computer, change since the previous scan, "
+"most frequent failed rules and history."
+msgstr ""
+"Misst, wie gut die Konfiguration der Computer einem Härtungsleitfaden (CIS, "
+"ANSSI, DISA STIG...) folgt, anhand der Ergebnisdateien des Scanners "
+"OpenSCAP: Anteil bestandener Regeln pro Computer, Veränderung seit dem "
+"vorigen Scan, häufigste fehlgeschlagene Regeln und Verlauf."
+
+msgid ""
+"Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), "
+"match the results that are not matched to a computer, then fix the failed "
+"rules, starting with the high severity ones. A remediation ticket can be "
+"proposed for a computer: it is created only when you click. Nothing is "
+"changed on the machines."
+msgstr ""
+"Scannen Sie die Maschinen mit OpenSCAP, importieren Sie die Ergebnisdatei "
+"(XCCDF oder ARF), ordnen Sie nicht zugeordnete Ergebnisse einem Computer zu "
+"und beheben Sie dann die fehlgeschlagenen Regeln, beginnend mit denen hoher "
+"Schwere. Für einen Computer kann ein Behebungsticket vorgeschlagen werden: "
+"Es wird erst bei Ihrem Klick erstellt. Auf den Maschinen wird nichts "
+"geändert."
+
+msgid "ISO/IEC 27001, control A.8.9"
+msgstr "ISO/IEC 27001, Maßnahme A.8.9"
+
+msgid "Scanned computers with a high severity configuration rule failed (%)"
+msgstr ""
+"Gescannte Computer mit fehlgeschlagener Konfigurationsregel hoher Schwere (%)"
+
+msgid "High severity"
+msgstr "Hohe Schwere"
+
+msgid "No previous scan with the same profile"
+msgstr "Kein vorheriger Scan mit demselben Profil"
+
+msgid "No profile"
+msgstr "Kein Profil"
+
+msgid "Rules passed out of the rules checked (not applicable rules excluded)"
+msgstr ""
+"Bestandene Regeln unter den geprüften Regeln (nicht anwendbare Regeln "
+"ausgenommen)"
+
+#, php-format
+msgid "%1$d of %2$d computers shown, the least compliant first."
+msgstr "%1$d von %2$d Computern angezeigt, die am wenigsten konformen zuerst."
+
+msgid "Average compliance of the last scans"
+msgstr "Durchschnittliche Konformität der letzten Scans"
+
+#, php-format
+msgid "Below the %d%% target"
+msgstr "Unter dem Ziel von %d %%"
+
+msgid ""
+"Creates a remediation ticket linked to the computer, with the failed rules. "
+"Nothing is created without this click."
+msgstr ""
+"Erstellt ein mit dem Computer verknüpftes Behebungsticket mit den "
+"fehlgeschlagenen Regeln. Ohne diesen Klick wird nichts erstellt."
+
+msgid "Download an example file"
+msgstr "Beispieldatei herunterladen"
+
+msgid "Host name in the report"
+msgstr "Hostname im Bericht"
+
+msgid "Import OpenSCAP results"
+msgstr "OpenSCAP-Ergebnisse importieren"
+
+msgid "Last scan of each computer"
+msgstr "Letzter Scan jedes Computers"
+
+msgid "Machines scanned"
+msgstr "Gescannte Maschinen"
+
+msgid "Match"
+msgstr "Zuordnen"
+
+msgid "Match to a computer"
+msgstr "Einem Computer zuordnen"
+
+msgid "Most frequent failed rules"
+msgstr "Häufigste fehlgeschlagene Regeln"
+
+msgid ""
+"No computer you can see bears this name, or several do. Check the name of "
+"the computer in GLPI, or choose it here."
+msgstr ""
+"Kein für Sie sichtbarer Computer trägt diesen Namen, oder mehrere tun es. "
+"Prüfen Sie den Namen des Computers in GLPI oder wählen Sie ihn hier."
+
+msgid "No failed rule in the last scans."
+msgstr "Keine fehlgeschlagene Regel in den letzten Scans."
+
+msgid "No host name"
+msgstr "Kein Hostname"
+
+msgid ""
+"No scan imported yet. Import an OpenSCAP results file to measure the "
+"configuration compliance."
+msgstr ""
+"Noch kein Scan importiert. Importieren Sie eine OpenSCAP-Ergebnisdatei, um "
+"die Konfigurationskonformität zu messen."
+
+msgid "No scan result is matched to a computer yet: match them below."
+msgstr ""
+"Noch kein Scan-Ergebnis ist einem Computer zugeordnet: ordnen Sie sie unten "
+"zu."
+
+msgid "Propose a ticket"
+msgstr "Ticket vorschlagen"
+
+msgid "Results file"
+msgstr "Ergebnisdatei"
+
+msgid "Rules failed"
+msgstr "Fehlgeschlagene Regeln"
+
+msgid ""
+"Run the scan on the machine, then import the results file (XCCDF or ARF). "
+"One file can hold several machines. Each result is matched to the GLPI "
+"computer of the same name."
+msgstr ""
+"Führen Sie den Scan auf der Maschine aus und importieren Sie dann die "
+"Ergebnisdatei (XCCDF oder ARF). Eine Datei kann mehrere Maschinen enthalten. "
+"Jedes Ergebnis wird dem GLPI-Computer gleichen Namens zugeordnet."
+
+msgid "Scan date"
+msgstr "Scan-Datum"
+
+msgid "Scan results not matched to a computer"
+msgstr "Keinem Computer zugeordnete Scan-Ergebnisse"
+
+#, php-format
+msgid "Ticket %d"
+msgstr "Ticket %d"
+
+msgid "With a high severity rule failed"
+msgstr "Mit fehlgeschlagener Regel hoher Schwere"
+
+#, php-format
+msgid ""
+"XML file, %d MB at most. The file itself is not kept: only the counts and "
+"the failed rules."
+msgstr ""
+"XML-Datei, höchstens %d MB. Die Datei selbst wird nicht aufbewahrt: nur die "
+"Zähler und die fehlgeschlagenen Regeln."
+
+#, php-format
+msgid "%d failed"
+msgstr "%d fehlgeschlagen"
+
+#, php-format
+msgid "%d in error"
+msgstr "%d mit Fehler"
+
+#, php-format
+msgid "%d not applicable or not checked"
+msgstr "%d nicht anwendbar oder nicht geprüft"
+
+#, php-format
+msgid "%d passed"
+msgstr "%d bestanden"
+
+msgid "Back to the configuration compliance"
+msgstr "Zurück zur Konfigurationskonformität"
+
+msgid "Delete this scan result"
+msgstr "Dieses Scan-Ergebnis löschen"
+
+msgid "Delete this scan result?"
+msgstr "Dieses Scan-Ergebnis löschen?"
+
+msgid "Failed rules"
+msgstr "Fehlgeschlagene Regeln"
+
+msgid "No failed rule in this scan."
+msgstr "Keine fehlgeschlagene Regel in diesem Scan."
+
+msgid "Not matched"
+msgstr "Nicht zugeordnet"
+
+msgid "Rules"
+msgstr "Regeln"
+
+msgid "Scan history of this machine"
+msgstr "Scan-Verlauf dieser Maschine"
+
+msgid "Scanner"
+msgstr "Scanner"
+
+msgid "Score of the tool"
+msgstr "Punktzahl des Werkzeugs"
+
+msgid ""
+"This scan has more failed rules than the import keeps: only the first ones "
+"are listed."
+msgstr ""
+"Dieser Scan hat mehr fehlgeschlagene Regeln, als der Import behält: nur die "
+"ersten werden aufgeführt."
+
+#, php-format
+msgid "And %d more rule(s): see the scan in GRC."
+msgstr "Und %d weitere Regel(n): siehe den Scan in GRC."
+
+#, php-format
+msgid ""
+"Configuration scan of %1$s on %2$s: %3$d rule(s) failed. ISO/IEC 27001, "
+"control A.8.9."
+msgstr ""
+"Konfigurationsscan von %1$s am %2$s: %3$d Regel(n) fehlgeschlagen. ISO/IEC "
+"27001, Maßnahme A.8.9."
+
+#, php-format
+msgid "Suggestions updated for %d account(s) still to review."
+msgstr "Vorschläge für %d noch zu prüfende(s) Konto/Konten aktualisiert."
+
+msgid "Rule disabled"
+msgstr "Regel deaktiviert"
+
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d Tag"
+msgstr[1] "%d Tage"
+
+msgid ""
+"The rules suggest removing this account: explain in the comment why it is "
+"kept."
+msgstr ""
+"Die Regeln schlagen vor, dieses Konto zu entfernen: Erklären Sie im "
+"Kommentar, warum es behalten wird."
+
+msgid "Suggested: remove"
+msgstr "Vorschlag: entfernen"
+
+msgid "Suggested: examine"
+msgstr "Vorschlag: prüfen"
+
+msgid "Examine"
+msgstr "Prüfen"
+
+msgid "Suggested: keep"
+msgstr "Vorschlag: behalten"
+
+msgid "Keep"
+msgstr "Behalten"
+
+#, php-format
+msgid "Account end date passed (%s)"
+msgstr "Enddatum des Kontos überschritten (%s)"
+
+#, php-format
+msgid "Departure recorded on %s"
+msgstr "Austritt erfasst zum %s"
+
+#, php-format
+msgid "Leaving on %1$s (within %2$d days)"
+msgstr "Austritt am %1$s (innerhalb von %2$d Tagen)"
+
+#, php-format
+msgid "No login for more than %1$d days (last on %2$s)"
+msgstr "Seit mehr als %1$d Tagen keine Anmeldung (zuletzt am %2$s)"
+
+#, php-format
+msgid "Privileged profile: %s"
+msgstr "Privilegiertes Profil: %s"
+
+#, php-format
+msgid "Privileged profile without known MFA: %s"
+msgstr "Privilegiertes Profil ohne bekannte MFA: %s"
+
+#, php-format
+msgid "No warning sign (last login on %s)"
+msgstr "Kein Warnsignal (letzte Anmeldung am %s)"
+
+msgid "No warning sign"
+msgstr "Kein Warnsignal"
+
+msgid ""
+"Start a campaign; managers decide line by line, helped by a suggestion "
+"(keep, remove or examine) and its reason. Removing a right opens a ticket, "
+"it is never applied automatically."
+msgstr ""
+"Starten Sie eine Kampagne; die Verantwortlichen entscheiden Zeile für Zeile, "
+"unterstützt durch einen Vorschlag (behalten, entfernen oder prüfen) und "
+"dessen Grund. Das Entfernen eines Rechts eröffnet ein Ticket, es wird nie "
+"automatisch angewendet."
+
+msgid ""
+"Each account arrives with a suggestion (keep, remove or examine) and its "
+"reason. The suggestion never decides: the reviewer chooses, and keeping an "
+"account the rules suggest removing requires a comment."
+msgstr ""
+"Jedes Konto erhält einen Vorschlag (behalten, entfernen oder prüfen) mit "
+"seinem Grund. Der Vorschlag entscheidet nie: Der Prüfer wählt, und ein Konto "
+"zu behalten, dessen Entfernung die Regeln vorschlagen, erfordert einen "
+"Kommentar."
+
+msgid "Examine group changes without profile review"
+msgstr "Gruppenänderungen ohne Profilprüfung prüfen"
+
+msgid "Examine privileged profiles"
+msgstr "Privilegierte Profile prüfen"
+
+msgid "Examine: leaving soon, inactive, groups changed, privileged profile"
+msgstr ""
+"Prüfen: baldiger Austritt, inaktiv, Gruppen geändert, privilegiertes Profil"
+
+msgid ""
+"From the MFA coverage page: GLPI two-factor authentication or imported "
+"report."
+msgstr ""
+"Laut der Seite MFA-Abdeckung: Zwei-Faktor-Authentifizierung von GLPI oder "
+"importierter Bericht."
+
+msgid "Inactive account: no login for"
+msgstr "Inaktives Konto: keine Anmeldung seit"
+
+msgid "Keep: no warning sign"
+msgstr "Behalten: kein Warnsignal"
+
+msgid "Leaving soon: end date or departure within"
+msgstr "Baldiger Austritt: Enddatum oder Austritt innerhalb von"
+
+msgid "Mention privileged accounts without known MFA"
+msgstr "Privilegierte Konten ohne bekannte MFA erwähnen"
+
+msgid "Profiles that can change the GLPI configuration or profiles."
+msgstr ""
+"Profile, die die Konfiguration oder die Profile von GLPI ändern können."
+
+msgid "Remove: deleted from the directory, end date or departure passed"
+msgstr ""
+"Entfernen: aus dem Verzeichnis gelöscht, Enddatum oder Austritt überschritten"
+
+msgid "Suggestion rules"
+msgstr "Vorschlagsregeln"
+
+msgid ""
+"Each account shows a suggestion and its reason (departure, inactivity, "
+"privileged profile...). It is only a proposal: you decide."
+msgstr ""
+"Jedes Konto zeigt einen Vorschlag und seinen Grund (Austritt, Inaktivität, "
+"privilegiertes Profil...). Es ist nur ein Vorschlag: Sie entscheiden."
+
+msgid "Decision differs from the suggestion"
+msgstr "Entscheidung weicht vom Vorschlag ab"
+
+msgid "Suggestion and reason"
+msgstr "Vorschlag und Grund"
+
+msgid "Suggestions"
+msgstr "Vorschläge"
+
+msgid "Comment (required to keep, change or remove)"
+msgstr "Kommentar (Pflicht zum Behalten, Ändern oder Entfernen)"
+
+msgid "No suggestion yet"
+msgstr "Noch kein Vorschlag"
+
+msgid "Suggested by the rules"
+msgstr "Von den Regeln vorgeschlagen"
+
+msgid ""
+"Proposals only: each reviewer decides. Set the rules on the campaign form."
+msgstr ""
+"Nur Vorschläge: Jeder Prüfer entscheidet. Die Regeln werden im Formular der "
+"Kampagne eingestellt."
+
+msgid ""
+"Recompute the suggestion of the accounts still to review (decided accounts "
+"keep the one their reviewer saw)."
+msgstr ""
+"Berechnet den Vorschlag der noch zu prüfenden Konten neu (entschiedene "
+"Konten behalten den, den ihr Prüfer gesehen hat)."
+
+msgid "Update the suggestions"
+msgstr "Vorschläge aktualisieren"
