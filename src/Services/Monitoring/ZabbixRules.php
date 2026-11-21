@@ -44,7 +44,9 @@ final class ZabbixRules
     public const STATUS_UNAVAILABLE = 'unavailable';
     public const STATUS_DISABLED = 'disabled';
     public const STATUS_MISSING = 'missing';
-    public const STATUSES = [self::STATUS_MISSING, self::STATUS_DISABLED, self::STATUS_UNAVAILABLE, self::STATUS_MONITORED];
+    public const STATUSES = [
+        self::STATUS_MISSING, self::STATUS_DISABLED, self::STATUS_UNAVAILABLE, self::STATUS_MONITORED,
+    ];
 
     /** Actifs concernés par la supervision (mêmes choix que la couverture de la journalisation). */
     public const SCOPE_CRITICAL = 'critical';
@@ -173,7 +175,8 @@ final class ZabbixRules
             }
         }
         $name = mb_strtolower($name);
-        if (preg_match('/disk space|free space|filesystem|file system|inode|disque|espace libre|storage/u', $name) === 1) {
+        $storage = '/disk space|free space|filesystem|file system|inode|disque|espace libre|storage/u';
+        if (preg_match($storage, $name) === 1) {
             return self::CAPACITY_STORAGE;
         }
         if (preg_match('/memory|swap|m[ée]moire/u', $name) === 1) {

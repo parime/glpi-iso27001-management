@@ -72,7 +72,13 @@ final class ZabbixMonitoringTest extends GrcmanagerIntegrationTestCase
         $_SESSION['glpiactive_entity'] = $this->entity;
 
         global $DB;
-        $add = function (string $key, string $name, int $entity, string $serial = '', string $availability = '') use ($DB): void {
+        $add = function (
+            string $key,
+            string $name,
+            int $entity,
+            string $serial = '',
+            string $availability = ''
+        ) use ($DB): void {
             $id = (int) (new Computer())->add(['name' => $name, 'entities_id' => $entity, 'serial' => $serial]);
             $this->assertGreaterThan(0, $id);
             if ($availability !== '') {
@@ -153,7 +159,9 @@ final class ZabbixMonitoringTest extends GrcmanagerIntegrationTestCase
             ],
             'event.get#ids'   => [['eventid' => '70003', 'clock' => (string) ($now - 80000)]],
             'problem.get'     => [['eventid' => '70001'], ['eventid' => '70004']],
-            'sla.get'         => [['slaid' => '3', 'name' => 'Portal SLA', 'period' => '2', 'slo' => '99.9', 'status' => '1']],
+            'sla.get'         => [
+                ['slaid' => '3', 'name' => 'Portal SLA', 'period' => '2', 'slo' => '99.9', 'status' => '1'],
+            ],
             'sla.getsli'      => [
                 'periods'    => [['period_from' => $now - 86400 * 20, 'period_to' => $now]],
                 'serviceids' => [11],
@@ -165,7 +173,15 @@ final class ZabbixMonitoringTest extends GrcmanagerIntegrationTestCase
         return new ZabbixClient(
             (string) Rules::normalizeApiUrl(self::URL),
             self::TOKEN,
-            static function (string $method, string $url, array $headers, ?string $body) use ($answers, $status): array {
+            static function (
+                string $method,
+                string $url,
+                array $headers,
+                ?string $body
+            ) use (
+                $answers,
+                $status
+            ): array {
                 if ($status !== 200) {
                     return ['status' => $status, 'body' => '', 'retry_after' => 0];
                 }
@@ -178,7 +194,9 @@ final class ZabbixMonitoringTest extends GrcmanagerIntegrationTestCase
 
                 return [
                     'status'      => 200,
-                    'body'        => (string) json_encode(['jsonrpc' => '2.0', 'result' => $answer, 'id' => $request['id'] ?? 1]),
+                    'body'        => (string) json_encode(
+                        ['jsonrpc' => '2.0', 'result' => $answer, 'id' => $request['id'] ?? 1]
+                    ),
                     'retry_after' => 0,
                 ];
             }
@@ -219,8 +237,16 @@ final class ZabbixMonitoringTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(Rules::STATUS_MISSING, $this->asset('db')['status']);
 
         $keys = array_column(ZabbixMonitoring::pageData()['rows'], 'key');
-        $this->assertNotContains(Computer::class . ':' . $this->computers['pc'], $keys, 'Poste ordinaire non concerné.');
-        $this->assertNotContains(Computer::class . ':' . $this->computers['hidden'], $keys, 'Actif de l\'entité cachée.');
+        $this->assertNotContains(
+            Computer::class . ':' . $this->computers['pc'],
+            $keys,
+            'Poste ordinaire non concerné.'
+        );
+        $this->assertNotContains(
+            Computer::class . ':' . $this->computers['hidden'],
+            $keys,
+            'Actif de l\'entité cachée.'
+        );
 
         $summary = ZabbixMonitoring::summary();
         $this->assertSame(2, $summary['concerned']['total']);
@@ -290,7 +316,8 @@ final class ZabbixMonitoringTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue($tab['is_process']);
         $this->assertCount(1, $tab['assets']);
         $this->assertCount(1, $tab['services']);
-        $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render('@grcmanager/zabbix_item_tab.html.twig', $tab);
+        $html = \Glpi\Application\View\TemplateRenderer::getInstance()
+            ->render('@grcmanager/zabbix_item_tab.html.twig', $tab);
         $this->assertStringContainsString('grc-zabbix-tab', $html);
         $this->assertStringContainsString('Customer portal', $html);
     }

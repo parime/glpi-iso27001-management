@@ -60,7 +60,10 @@ final class ZabbixRulesTest extends TestCase
 
     public function testSettingsAreBounded(): void
     {
-        $this->assertSame(['scope' => Rules::SCOPE_CRITICAL_SERVERS, 'period_days' => 30], Rules::normalizeSettings(null));
+        $this->assertSame(
+            ['scope' => Rules::SCOPE_CRITICAL_SERVERS, 'period_days' => 30],
+            Rules::normalizeSettings(null)
+        );
         $this->assertSame(
             ['scope' => Rules::SCOPE_ALL, 'period_days' => 90],
             Rules::normalizeSettings(['scope' => 'all', 'period_days' => '400'])
@@ -83,14 +86,18 @@ final class ZabbixRulesTest extends TestCase
 
     public function testCapacityFromTagsThenFromTheName(): void
     {
-        $this->assertSame(Rules::CAPACITY_STORAGE, Rules::capacityKind('Anything', [['tag' => 'component', 'value' => 'storage']]));
-        $this->assertSame(Rules::CAPACITY_MEMORY, Rules::capacityKind('Anything', [['tag' => 'Component', 'value' => 'memory']]));
-        $this->assertSame(Rules::CAPACITY_CPU, Rules::capacityKind('Anything', [['tag' => 'component', 'value' => 'cpu']]));
+        $tag = static fn (string $value): array => [['tag' => 'component', 'value' => $value]];
+        $this->assertSame(Rules::CAPACITY_STORAGE, Rules::capacityKind('Anything', $tag('storage')));
+        $this->assertSame(
+            Rules::CAPACITY_MEMORY,
+            Rules::capacityKind('Anything', [['tag' => 'Component', 'value' => 'memory']])
+        );
+        $this->assertSame(Rules::CAPACITY_CPU, Rules::capacityKind('Anything', $tag('cpu')));
         $this->assertSame(Rules::CAPACITY_STORAGE, Rules::capacityKind('/var: Disk space is critically low'));
         $this->assertSame(Rules::CAPACITY_MEMORY, Rules::capacityKind('High memory utilization'));
         $this->assertSame(Rules::CAPACITY_CPU, Rules::capacityKind('High CPU utilization'));
         $this->assertSame(Rules::CAPACITY_CPU, Rules::capacityKind('Load average is too high'));
-        $this->assertNull(Rules::capacityKind('Unavailable by ICMP ping', [['tag' => 'component', 'value' => 'network']]));
+        $this->assertNull(Rules::capacityKind('Unavailable by ICMP ping', $tag('network')));
     }
 
     public function testDurationAndAvailabilityMergeOverlaps(): void
@@ -149,12 +156,16 @@ final class ZabbixRulesTest extends TestCase
     public function testMatchBySerialNameShortNameThenIp(): void
     {
         $bySerial = ['sn-1234' => 'Computer:1'];
-        $byName = ['srv-web01' => 'Computer:2', 'srv-web01.example.test' => 'Computer:2', 'fw01' => 'NetworkEquipment:3'];
+        $byName = [
+            'srv-web01' => 'Computer:2', 'srv-web01.example.test' => 'Computer:2', 'fw01' => 'NetworkEquipment:3',
+        ];
         $byIp = ['192.0.2.10' => 'Computer:4'];
+        $match = static fn (array $names, array $ips = [], array $dns = []): ?string
+            => Rules::match('', $names, $ips, $dns, $bySerial, $byName, $byIp);
         $this->assertSame('Computer:1', Rules::match('SN-1234', ['srv-web01'], [], [], $bySerial, $byName, $byIp));
-        $this->assertSame('Computer:2', Rules::match('', ['SRV-WEB01.example.test'], [], [], $bySerial, $byName, $byIp));
-        $this->assertSame('Computer:2', Rules::match('', ['Web server', 'srv-web01.other.test'], [], [], $bySerial, $byName, $byIp));
-        $this->assertSame('NetworkEquipment:3', Rules::match('', ['x'], [], ['fw01.example.test'], $bySerial, $byName, $byIp));
+        $this->assertSame('Computer:2', $match(['SRV-WEB01.example.test']));
+        $this->assertSame('Computer:2', $match(['Web server', 'srv-web01.other.test']));
+        $this->assertSame('NetworkEquipment:3', $match(['x'], [], ['fw01.example.test']));
         $this->assertSame('Computer:4', Rules::match('', ['unknown'], ['192.0.2.10'], [], $bySerial, $byName, $byIp));
         $this->assertNull(Rules::match('', ['unknown'], ['198.51.100.1'], [], $bySerial, $byName, $byIp));
         $this->assertSame('srv-web01', Rules::normalizeHost('SRV-WEB01.example.test'));

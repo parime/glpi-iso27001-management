@@ -95,7 +95,8 @@ class ZabbixMonitoring extends CommonGLPI
 
     public static function canView(): bool
     {
-        return (bool) Session::haveRight(self::RIGHTNAME, READ) && (bool) Session::haveRight(Computer::$rightname, READ);
+        return (bool) Session::haveRight(self::RIGHTNAME, READ)
+            && (bool) Session::haveRight(Computer::$rightname, READ);
     }
 
     /**
@@ -201,7 +202,10 @@ class ZabbixMonitoring extends CommonGLPI
     public static function errorMessage(string $code): string
     {
         return match ($code) {
-            ZabbixClient::ERROR_CONFIG       => __('Enter the address of the Zabbix server and an API token first.', 'grcmanager'),
+            ZabbixClient::ERROR_CONFIG       => __(
+                'Enter the address of the Zabbix server and an API token first.',
+                'grcmanager'
+            ),
             ZabbixClient::ERROR_UNAUTHORIZED => __(
                 'Zabbix refused the API token: check that it is valid, not expired, and that its user is enabled.',
                 'grcmanager'
@@ -219,7 +223,10 @@ class ZabbixMonitoring extends CommonGLPI
                 'The Zabbix server could not be reached: check the address, the network access or the GLPI proxy.',
                 'grcmanager'
             ),
-            ZabbixClient::ERROR_VERSION      => __('This version of Zabbix is too old: version 5.4 or later is required.', 'grcmanager'),
+            ZabbixClient::ERROR_VERSION      => __(
+                'This version of Zabbix is too old: version 5.4 or later is required.',
+                'grcmanager'
+            ),
             ZabbixClient::ERROR_METHOD       => __('Refused: the connector only reads from Zabbix.', 'grcmanager'),
             'rights'                         => __('You are not allowed to do this.', 'grcmanager'),
             default                          => __('Zabbix returned an unexpected answer.', 'grcmanager'),
@@ -357,7 +364,8 @@ class ZabbixMonitoring extends CommonGLPI
                 'is_open'         => $problem['is_open'] ? 1 : 0,
                 'is_acknowledged' => $problem['acknowledged'] ? 1 : 0,
                 'capacity'        => $problem['capacity'],
-                'plugin_grcmanager_securityincidents_id' => (int) ($link['plugin_grcmanager_securityincidents_id'] ?? 0),
+                'plugin_grcmanager_securityincidents_id'
+                    => (int) ($link['plugin_grcmanager_securityincidents_id'] ?? 0),
                 'tickets_id'      => (int) ($link['tickets_id'] ?? 0),
                 'date_import'     => $now,
             ]);
@@ -677,7 +685,11 @@ class ZabbixMonitoring extends CommonGLPI
         foreach ($hosts as $hostId => $host) {
             if ($host['key'] !== null) {
                 $byAsset[$host['key']][] = $hostId;
-            } elseif ($session ? Session::haveAccessToEntity($host['entities_id']) : in_array($host['entities_id'], $entities, true)) {
+            } elseif (
+                $session
+                    ? Session::haveAccessToEntity($host['entities_id'])
+                    : in_array($host['entities_id'], $entities, true)
+            ) {
                 // Hôte non rapproché : seulement dans l'entité même des lectures, pas dans ses sous-entités.
                 $unmatched[] = $host;
             }
@@ -822,7 +834,8 @@ class ZabbixMonitoring extends CommonGLPI
                 'key'          => $key,
                 'itemtype'     => $itemtype,
                 'id'           => (int) $asset['id'],
-                'name'         => $name !== '' ? $name : sprintf('%s %d', $itemtype::getTypeName(1), (int) $asset['id']),
+                'name'         => $name !== ''
+                    ? $name : sprintf('%s %d', $itemtype::getTypeName(1), (int) $asset['id']),
                 'url'          => $session ? $itemtype::getFormURLWithID((int) $asset['id']) : '',
                 'kind'         => $asset['kind'],
                 'type'         => $asset['kind'] === 'network' ? NetworkEquipment::getTypeName(1) : $asset['type'],
@@ -1072,7 +1085,8 @@ class ZabbixMonitoring extends CommonGLPI
         $incidentId = (int) $incident->add([
             'name'        => mb_substr(sprintf('Zabbix: %s (%s)', $problem['name'], $problem['host']), 0, 250),
             'content'     => self::problemText($problem),
-            'date'        => $problem['date'] !== '' ? $problem['date'] : ($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s')),
+            'date'        => $problem['date'] !== ''
+                ? $problem['date'] : ($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s')),
             'severity'    => Rules::incidentSeverity($problem['severity']),
             'category'    => 'availability',
             'source'      => 'monitoring',
@@ -1269,7 +1283,8 @@ class ZabbixMonitoring extends CommonGLPI
     private static function decorateProblem(array $problem): array
     {
         $problem['date_label'] = $problem['date'] !== '' ? (string) Html::convDateTime($problem['date']) : '';
-        $problem['recovery_label'] = $problem['recovery'] !== '' ? (string) Html::convDateTime($problem['recovery']) : '';
+        $problem['recovery_label'] = $problem['recovery'] !== ''
+            ? (string) Html::convDateTime($problem['recovery']) : '';
         $problem['duration_label'] = self::durationLabel($problem['duration']);
 
         return $problem;
@@ -1326,7 +1341,8 @@ class ZabbixMonitoring extends CommonGLPI
             $assetUrls[$asset['key']] = ['name' => $asset['name'], 'url' => $asset['url']];
         }
         $settings = ZabbixConfig::settings();
-        $from = (int) strtotime($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s')) - $settings['period_days'] * 86400;
+        $from = (int) strtotime($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s'))
+            - $settings['period_days'] * 86400;
         // Un problème par événement (plusieurs hôtes : la première ligne), ouverts puis gravité.
         $problems = [];
         foreach ($data['problems'] as $problem) {
@@ -1456,10 +1472,16 @@ class ZabbixMonitoring extends CommonGLPI
     {
         $data = self::data();
         $keys = array_fill_keys(self::keysFor($item), true);
-        $assets = array_values(array_filter($data['assets'], static fn (array $row): bool => isset($keys[$row['key']])));
+        $assets = array_values(array_filter(
+            $data['assets'],
+            static fn (array $row): bool => isset($keys[$row['key']])
+        ));
         $problems = [];
         foreach ($data['problems'] as $problem) {
-            if ($problem['asset_key'] !== null && isset($keys[$problem['asset_key']]) && !isset($problems[$problem['eventid']])) {
+            if (
+                $problem['asset_key'] !== null && isset($keys[$problem['asset_key']])
+                && !isset($problems[$problem['eventid']])
+            ) {
                 $problems[$problem['eventid']] = self::decorateProblem($problem);
             }
         }

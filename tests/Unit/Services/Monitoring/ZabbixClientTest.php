@@ -80,7 +80,10 @@ final class ZabbixClientTest extends TestCase
                     'interfaces' => [['ip' => '192.0.2.10', 'dns' => 'srv-web01.example.test', 'available' => '1']],
                     'inventory' => ['serialno_a' => 'SN-1234'],
                 ],
-                ['hostid' => '10502', 'host' => 'fw01', 'name' => 'fw01', 'status' => '1', 'interfaces' => [], 'inventory' => []],
+                [
+                    'hostid' => '10502', 'host' => 'fw01', 'name' => 'fw01', 'status' => '1',
+                    'interfaces' => [], 'inventory' => [],
+                ],
                 ['hostid' => 'x', 'host' => 'bad'],
             ],
             'event.get'     => [
@@ -97,7 +100,9 @@ final class ZabbixClientTest extends TestCase
             ],
             'event.get#ids' => [['eventid' => '9002', 'clock' => (string) (self::NOW - 3600)]],
             'problem.get'   => [['eventid' => '9003']],
-            'sla.get'       => [['slaid' => '1', 'name' => 'Customer portal', 'period' => '2', 'slo' => '99.9', 'status' => '1']],
+            'sla.get'       => [
+                ['slaid' => '1', 'name' => 'Customer portal', 'period' => '2', 'slo' => '99.9', 'status' => '1'],
+            ],
             'sla.getsli'    => [
                 'periods'    => [
                     ['period_from' => self::NOW - 60 * 86400, 'period_to' => self::NOW - 30 * 86400],
@@ -130,7 +135,10 @@ final class ZabbixClientTest extends TestCase
             $this->assertSame(self::URL, $call['url']);
             $this->assertSame('POST', $call['method']);
             $this->assertTrue(ZabbixClient::isReadMethod((string) $call['body']['method']));
-            $this->assertMatchesRegularExpression('/(\.get|\.getsli|apiinfo\.version)$/', (string) $call['body']['method']);
+            $this->assertMatchesRegularExpression(
+                '/(\.get|\.getsli|apiinfo\.version)$/',
+                (string) $call['body']['method']
+            );
             // Zabbix 7 : jeton dans l'en-tête, jamais dans le corps.
             $this->assertArrayNotHasKey('auth', $call['body']);
             if ($call['body']['method'] === 'apiinfo.version') {
@@ -160,7 +168,10 @@ final class ZabbixClientTest extends TestCase
     public function testWriteMethodsAreRefusedBeforeSending(): void
     {
         $client = $this->client(self::server());
-        foreach (['host.update', 'host.create', 'problem.acknowledge', 'event.acknowledge', 'user.login', 'host.delete'] as $method) {
+        $writes = [
+            'host.update', 'host.create', 'problem.acknowledge', 'event.acknowledge', 'user.login', 'host.delete',
+        ];
+        foreach ($writes as $method) {
             $this->assertSame(ZabbixClient::ERROR_METHOD, $client->call($method, [])['error']);
         }
         $this->assertSame([], $this->calls);
@@ -168,10 +179,13 @@ final class ZabbixClientTest extends TestCase
 
     public function testTooOldVersionAndRefusedTokenStopTheReading(): void
     {
-        $this->assertSame(ZabbixClient::ERROR_VERSION, $this->client(self::server(), '5.0.30')->fetch(30, self::NOW)['error']);
+        $tooOld = $this->client(self::server(), '5.0.30')->fetch(30, self::NOW);
+        $this->assertSame(ZabbixClient::ERROR_VERSION, $tooOld['error']);
 
         $refused = self::server();
-        $refused['host.get'] = ['__error' => ['code' => -32602, 'message' => 'Invalid params.', 'data' => 'Not authorized.']];
+        $refused['host.get'] = [
+            '__error' => ['code' => -32602, 'message' => 'Invalid params.', 'data' => 'Not authorized.'],
+        ];
         $result = $this->client($refused)->fetch(30, self::NOW);
         $this->assertSame(ZabbixClient::ERROR_UNAUTHORIZED, $result['error']);
         $this->assertFalse($result['complete']);
@@ -180,13 +194,16 @@ final class ZabbixClientTest extends TestCase
         $down['problem.get'] = ['__status' => 0];
         $this->assertSame(ZabbixClient::ERROR_UNREACHABLE, $this->client($down)->fetch(30, self::NOW)['error']);
 
-        $this->assertSame(ZabbixClient::ERROR_CONFIG, $this->client(self::server(), '7.0.0', '')->fetch(30, self::NOW)['error']);
+        $noToken = $this->client(self::server(), '7.0.0', '')->fetch(30, self::NOW);
+        $this->assertSame(ZabbixClient::ERROR_CONFIG, $noToken['error']);
     }
 
     public function testSlaAbsentFromAnOldZabbixIsNotAnError(): void
     {
         $old = self::server();
-        $old['sla.get'] = ['__error' => ['code' => -32601, 'message' => 'Method not found.', 'data' => 'Incorrect method "sla.get".']];
+        $old['sla.get'] = [
+            '__error' => ['code' => -32601, 'message' => 'Method not found.', 'data' => 'Incorrect method "sla.get".'],
+        ];
         $result = $this->client($old, '5.4.12')->fetch(30, self::NOW);
 
         $this->assertSame('', $result['error']);

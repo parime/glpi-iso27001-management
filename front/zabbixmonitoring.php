@@ -103,7 +103,11 @@ if (isset($_POST['zabbix_incident'])) {
     if ($incidentId > 0) {
         Html::redirect(PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentId));
     }
-    Session::addMessageAfterRedirect(htmlescape(__('The security incident could not be created.', 'grcmanager')), false, ERROR);
+    Session::addMessageAfterRedirect(
+        htmlescape(__('The security incident could not be created.', 'grcmanager')),
+        false,
+        ERROR
+    );
     $back('grc-zabbix-problems');
 }
 
@@ -124,7 +128,9 @@ if (isset($_POST['link_zabbix_service'])) {
         (int) ($_POST['zabbix_process'] ?? 0)
     );
     Session::addMessageAfterRedirect(
-        htmlescape($ok ? __('Business process saved.', 'grcmanager') : __('The business process could not be saved.', 'grcmanager')),
+        htmlescape($ok
+            ? __('Business process saved.', 'grcmanager')
+            : __('The business process could not be saved.', 'grcmanager')),
         false,
         $ok ? INFO : ERROR
     );

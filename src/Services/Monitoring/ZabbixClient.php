@@ -176,7 +176,8 @@ final class ZabbixClient
         if ($code === -32601 || str_contains($text, 'incorrect method') || str_contains($text, 'method not found')) {
             return self::ERROR_NOT_FOUND;
         }
-        if (preg_match('/not authori[sz]ed|session terminated|re-login|api token expired|invalid token/', $text) === 1) {
+        $refused = '/not authori[sz]ed|session terminated|re-login|api token expired|invalid token/';
+        if (preg_match($refused, $text) === 1) {
             return self::ERROR_UNAUTHORIZED;
         }
         if (str_contains($text, 'no permissions')) {
@@ -367,7 +368,10 @@ final class ZabbixClient
             return ['slas' => [], 'supported' => false, 'error' => ''];
         }
         if ($slas['error'] !== '' || !is_array($slas['result'])) {
-            return ['slas' => [], 'supported' => false, 'error' => $slas['error'] !== '' ? $slas['error'] : self::ERROR_INVALID];
+            return [
+                'slas' => [], 'supported' => false,
+                'error' => $slas['error'] !== '' ? $slas['error'] : self::ERROR_INVALID,
+            ];
         }
         $out = [];
         $serviceIds = [];
@@ -498,7 +502,8 @@ final class ZabbixClient
             $name = mb_substr(trim((string) ($event['name'] ?? '')), 0, 255);
             $recovery = (string) ($event['r_eventid'] ?? '0');
             $stillOpen = isset($isOpen[$id]);
-            $recoveredAt = !$stillOpen && $recovery !== '0' && isset($recoveries[$recovery]) ? $recoveries[$recovery] : null;
+            $recoveredAt = !$stillOpen && $recovery !== '0' && isset($recoveries[$recovery])
+                ? $recoveries[$recovery] : null;
             foreach (is_array($event['hosts'] ?? null) ? $event['hosts'] : [] as $host) {
                 $hostId = is_array($host) ? (string) ($host['hostid'] ?? '') : '';
                 if ($hostId === '') {
@@ -533,7 +538,10 @@ final class ZabbixClient
         $rows = [];
         foreach ($slas as $sla) {
             $data = is_array($sla['sli'] ?? null) ? $sla['sli'] : [];
-            $periods = array_values(array_filter(is_array($data['periods'] ?? null) ? $data['periods'] : [], 'is_array'));
+            $periods = array_values(array_filter(
+                is_array($data['periods'] ?? null) ? $data['periods'] : [],
+                'is_array'
+            ));
             $serviceIds = array_values(is_array($data['serviceids'] ?? null) ? $data['serviceids'] : []);
             $values = array_values(is_array($data['sli'] ?? null) ? $data['sli'] : []);
             // Périodes de la plus ancienne à la plus récente : la dernière est la période en cours.
@@ -542,7 +550,8 @@ final class ZabbixClient
             foreach ($serviceIds as $index => $serviceId) {
                 $serviceId = (string) $serviceId;
                 $current = $last >= 0 && is_array($values[$last][$index] ?? null) ? $values[$last][$index] : null;
-                $previous = $last >= 1 && is_array($values[$last - 1][$index] ?? null) ? $values[$last - 1][$index] : null;
+                $previous = $last >= 1 && is_array($values[$last - 1][$index] ?? null)
+                    ? $values[$last - 1][$index] : null;
                 $rows[] = [
                     'slaid'        => (string) ($sla['slaid'] ?? ''),
                     'sla_name'     => mb_substr((string) ($sla['name'] ?? ''), 0, 255),
