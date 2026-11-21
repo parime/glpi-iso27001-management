@@ -786,6 +786,12 @@ class CertificationReadiness extends CommonGLPI
             $facts[] = $encryption;
             $links[] = self::link(DiskEncryption::getTypeName(), DiskEncryption::getSearchURL(), 'ti-lock');
         }
+        // Issue #852 : couverture MFA (A.8.5), sans effet sur l'état.
+        $mfa = MfaCoverage::readinessFact();
+        if ($mfa !== null) {
+            $facts[] = $mfa;
+            $links[] = self::link(MfaCoverage::getTypeName(), MfaCoverage::getSearchURL(), 'ti-shield-check');
+        }
 
         return [
             'status' => Rules::soa($state, $pending),

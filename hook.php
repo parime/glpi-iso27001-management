@@ -293,6 +293,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::adSecurityScore',
         ],
+        // Issue #852 : administrateurs protégés par MFA (%).
+        'grcmanager_mfa_admin_rate' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Administrators protected by MFA (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::mfaAdminRate',
+        ],
         // Issue #854 : ordinateurs dont les correctifs sont dans les délais (%).
         'grcmanager_patch_compliance_rate' => [
             'widgettype' => ['bigNumber'],

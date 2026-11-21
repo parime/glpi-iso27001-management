@@ -32333,6 +32333,313 @@ msgid_plural "Manufacturer end of life on %1$s (in %2$d days)."
 msgstr[0] "Manufacturer end of life on %1$s (in %2$d day)."
 msgstr[1] "Manufacturer end of life on %1$s (in %2$d days)."
 
+#, php-format
+msgid ""
+"%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
+msgstr ""
+"%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."
+
+msgid "Import deleted."
+msgstr "Import deleted."
+
+msgid "Remote access groups saved."
+msgstr "Remote access groups saved."
+
+#, php-format
+msgid "Administrators protected by MFA (%)"
+msgstr "Administrators protected by MFA (%)"
+
+msgid "MFA coverage"
+msgstr "MFA coverage"
+
+msgid "Microsoft Entra ID"
+msgstr "Microsoft Entra ID"
+
+msgid "Okta"
+msgstr "Okta"
+
+msgid "Google Workspace"
+msgstr "Google Workspace"
+
+msgid "On-premises MFA solution"
+msgstr "On-premises MFA solution"
+
+msgid "Other identity provider"
+msgstr "Other identity provider"
+
+msgid "MFA"
+msgstr "MFA"
+
+msgid "Weak method only"
+msgstr "Weak method only"
+
+msgid "No MFA"
+msgstr "No MFA"
+
+msgid "Administrator without MFA"
+msgstr "Administrator without MFA"
+
+msgid "Remote access without MFA"
+msgstr "Remote access without MFA"
+
+msgid "SMS, call or email only"
+msgstr "SMS, call or email only"
+
+msgid "Excluded without justification"
+msgstr "Excluded without justification"
+
+msgid ""
+"No account column found: the file needs a header with a column such as "
+"login, userPrincipalName or email."
+msgstr ""
+"No account column found: the file needs a header with a column such as "
+"login, userPrincipalName or email."
+
+msgid ""
+"No method column found: the file needs a column such as methodsRegistered, "
+"methods or isMfaRegistered."
+msgstr ""
+"No method column found: the file needs a column such as methodsRegistered, "
+"methods or isMfaRegistered."
+
+msgid "The file could not be read."
+msgstr "The file could not be read."
+
+msgid "GLPI two-factor authentication"
+msgstr "GLPI two-factor authentication"
+
+msgid "GLPI authenticator app"
+msgstr "GLPI authenticator app"
+
+#, php-format
+msgid "MFA: %1$d%% of the accounts, %2$d administrator(s) without MFA"
+msgstr "MFA: %1$d%% of the accounts, %2$d administrator(s) without MFA"
+
+msgid ""
+"Shows which active accounts are protected by multi-factor authentication: "
+"GLPI two-factor authentication, and the methods registered with your "
+"identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises "
+"solution) imported from a CSV export. Rates are given for all accounts, "
+"administrators and remote access accounts."
+msgstr ""
+"Shows which active accounts are protected by multi-factor authentication: "
+"GLPI two-factor authentication, and the methods registered with your "
+"identity provider (Microsoft Entra ID, Okta, Google Workspace, on-premises "
+"solution) imported from a CSV export. Rates are given for all accounts, "
+"administrators and remote access accounts."
+
+msgid ""
+"Import the export of your identity provider, choose the remote access "
+"groups, then follow up the gaps: administrator or remote access without MFA, "
+"SMS or call only, account excluded without justification. Nothing is changed "
+"automatically. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+msgstr ""
+"Import the export of your identity provider, choose the remote access "
+"groups, then follow up the gaps: administrator or remote access without MFA, "
+"SMS or call only, account excluded without justification. Nothing is changed "
+"automatically. Record the result as an effectiveness test of the control to "
+"keep the evidence."
+
+msgid "ISO/IEC 27001, controls A.8.5 and A.5.17"
+msgstr "ISO/IEC 27001, controls A.8.5 and A.5.17"
+
+msgid "Administrators without MFA"
+msgstr "Administrators without MFA"
+
+#, php-format
+msgid "Administrators without MFA: %d"
+msgstr "Administrators without MFA: %d"
+
+#, php-format
+msgid "Administrators: %d%%"
+msgstr "Administrators: %d%%"
+
+#, php-format
+msgid "MFA rate: %d%%"
+msgstr "MFA rate: %d%%"
+
+msgid "MFA rate: not measured"
+msgstr "MFA rate: not measured"
+
+#, php-format
+msgid "Remote access: %d%%"
+msgstr "Remote access: %d%%"
+
+#, php-format
+msgid "%1$d accounts: the first %2$d are shown, gaps first."
+msgstr "%1$d accounts: the first %2$d are shown, gaps first."
+
+msgid "Access reviews"
+msgstr "Access reviews"
+
+msgid "Accounts and authentication methods"
+msgstr "Accounts and authentication methods"
+
+msgid "Accounts protected by MFA"
+msgstr "Accounts protected by MFA"
+
+msgid ""
+"Accounts that sign in through your identity provider are covered by the "
+"methods you import below."
+msgstr ""
+"Accounts that sign in through your identity provider are covered by the "
+"methods you import below."
+
+msgid "Accounts with a gap"
+msgstr "Accounts with a gap"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid ""
+"Administrators are the accounts whose profile can change the GLPI "
+"configuration or the profiles, or that the identity provider reports as "
+"administrators. Nothing is changed in GLPI from this page."
+msgstr ""
+"Administrators are the accounts whose profile can change the GLPI "
+"configuration or the profiles, or that the identity provider reports as "
+"administrators. Nothing is changed in GLPI from this page."
+
+msgid "Administrators protected by MFA"
+msgstr "Administrators protected by MFA"
+
+msgid ""
+"Choose the remote access groups below, or import a remote_access column."
+msgstr ""
+"Choose the remote access groups below, or import a remote_access column."
+
+msgid "Delete the import"
+msgstr "Delete the import"
+
+#, php-format
+msgid "Excluded with a justification: %d"
+msgstr "Excluded with a justification: %d"
+
+msgid "Exempted from GLPI two-factor enforcement"
+msgstr "Exempted from GLPI two-factor enforcement"
+
+msgid ""
+"Export the authentication methods registered per user from your identity "
+"provider, then import the CSV file here. A new import of the same provider "
+"replaces the previous one in the current entity. Only method names are kept, "
+"never a secret."
+msgstr ""
+"Export the authentication methods registered per user from your identity "
+"provider, then import the CSV file here. A new import of the same provider "
+"replaces the previous one in the current entity. Only method names are kept, "
+"never a secret."
+
+msgid "GLPI two-factor authentication is enforced for every account."
+msgstr "GLPI two-factor authentication is enforced for every account."
+
+msgid ""
+"GLPI two-factor authentication is not enforced for every account: it can be "
+"enforced by profile, group or entity, or for everyone in the general "
+"configuration (Security tab)."
+msgstr ""
+"GLPI two-factor authentication is not enforced for every account: it can be "
+"enforced by profile, group or entity, or for everyone in the general "
+"configuration (Security tab)."
+
+msgid "Identity provider"
+msgstr "Identity provider"
+
+msgid "Imported accounts"
+msgstr "Imported accounts"
+
+msgid "Imported accounts not matched with a GLPI account"
+msgstr "Imported accounts not matched with a GLPI account"
+
+msgid "Matched"
+msgstr "Matched"
+
+#, php-format
+msgid "Members of these groups have remote access: %s."
+msgstr "Members of these groups have remote access: %s."
+
+msgid "Methods"
+msgstr "Methods"
+
+msgid "Methods registered with your identity provider"
+msgstr "Methods registered with your identity provider"
+
+msgid ""
+"Microsoft Entra ID: Protection > Authentication methods > User registration "
+"details, download (columns userPrincipalName, methodsRegistered, "
+"isMfaRegistered, isAdmin)."
+msgstr ""
+"Microsoft Entra ID: Protection > Authentication methods > User registration "
+"details, download (columns userPrincipalName, methodsRegistered, "
+"isMfaRegistered, isAdmin)."
+
+msgid "No active account in your entities."
+msgstr "No active account in your entities."
+
+msgid ""
+"No group chosen: only the accounts marked remote_access in an import count "
+"as remote access accounts."
+msgstr ""
+"No group chosen: only the accounts marked remote_access in an import count "
+"as remote access accounts."
+
+msgid "None declared"
+msgstr "None declared"
+
+msgid ""
+"Okta, Google Workspace or an on-premises solution: a CSV file with a header, "
+"one account per line."
+msgstr ""
+"Okta, Google Workspace or an on-premises solution: a CSV file with a header, "
+"one account per line."
+
+msgid ""
+"Recognized columns: login or email; methods (separated by commas or "
+"semicolons) or mfa (yes/no); optional admin, remote_access, excluded and "
+"exclusion_reason (yes/no and text)."
+msgstr ""
+"Recognized columns: login or email; methods (separated by commas or "
+"semicolons) or mfa (yes/no); optional admin, remote_access, excluded and "
+"exclusion_reason (yes/no and text)."
+
+msgid "Remote access"
+msgstr "Remote access"
+
+msgid "Remote access accounts protected by MFA"
+msgstr "Remote access accounts protected by MFA"
+
+msgid "Remote access groups (VPN, remote desktop...)"
+msgstr "Remote access groups (VPN, remote desktop...)"
+
+msgid "SMS, phone call and email codes are reported as weak methods."
+msgstr "SMS, phone call and email codes are reported as weak methods."
+
+msgid ""
+"They are matched on the login, the email address, or the part of the user "
+"principal name before the @. Check them: an account unknown in GLPI may be a "
+"service account or a former employee."
+msgstr ""
+"They are matched on the login, the email address, or the part of the user "
+"principal name before the @. Check them: an account unknown in GLPI may be a "
+"service account or a former employee."
+
+msgid "Which accounts have remote access?"
+msgstr "Which accounts have remote access?"
+
+#, php-format
+msgid "weak method only: %d"
+msgstr "weak method only: %d"
+
+#, php-format
+msgid "without MFA: %d"
+msgstr "without MFA: %d"
+
+#, php-format
+msgid "%d account"
+msgid_plural "%d accounts"
+msgstr[0] "%d account"
+msgstr[1] "%d accounts"
+
 msgid "Security patches"
 msgstr "Security patches"
 
@@ -32524,18 +32831,6 @@ msgid_plural "%d days ago"
 msgstr[0] "%d day ago"
 msgstr[1] "%d days ago"
 
-msgid "Proposed flow"
-msgstr "Proposed flow"
-
-msgid ""
-"These values were proposed by another page, for example the Docker "
-"inventory. Check them, add the justification and the owner, then click "
-"\"Add\": nothing is saved before."
-msgstr ""
-"These values were proposed by another page, for example the Docker "
-"inventory. Check them, add the justification and the owner, then click "
-"\"Add\": nothing is saved before."
-
 #: src/PageHelp.php:694
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
@@ -32622,6 +32917,18 @@ msgid "%d main recipient without deputy"
 msgid_plural "%d main recipients without deputy"
 msgstr[0] "%d main recipient without deputy"
 msgstr[1] "%d main recipients without deputy"
+
+msgid "Proposed flow"
+msgstr "Proposed flow"
+
+msgid ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
+msgstr ""
+"These values were proposed by another page, for example the Docker "
+"inventory. Check them, add the justification and the owner, then click "
+"\"Add\": nothing is saved before."
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
@@ -33628,6 +33935,333 @@ msgstr[1] "%d main recipients without deputy"
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
 
+msgid "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
+msgstr "Not saved: the tenant must be a domain name or an ID, and the application ID an ID such as 00000000-0000-0000-0000-000000000000."
+
+msgid "Microsoft Graph settings saved."
+msgstr "Microsoft Graph settings saved."
+
+msgid "Enter the tenant, the application (client) ID and the client secret first."
+msgstr "Enter the tenant, the application (client) ID and the client secret first."
+
+msgid "Microsoft Entra ID refused the tenant, the application ID or the client secret."
+msgstr "Microsoft Entra ID refused the tenant, the application ID or the client secret."
+
+msgid "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
+msgstr "Access refused by Microsoft Graph: grant the AuditLog.Read.All application permission with admin consent (the report requires an Entra ID P1 or P2 licence)."
+
+msgid "Microsoft Graph asks to slow down: try again in a few minutes."
+msgstr "Microsoft Graph asks to slow down: try again in a few minutes."
+
+msgid "Too many accounts to read in one click: import the CSV export of the report instead."
+msgstr "Too many accounts to read in one click: import the CSV export of the report instead."
+
+msgid "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
+msgstr "Microsoft Graph could not be reached: check the network access or the GLPI proxy."
+
+msgid "Microsoft Graph returned an unexpected answer."
+msgstr "Microsoft Graph returned an unexpected answer."
+
+msgid "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
+msgstr "API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence."
+
+msgid "Application (client) ID"
+msgstr "Application (client) ID"
+
+msgid "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
+msgstr "Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value."
+
+msgid "Client secret"
+msgstr "Client secret"
+
+msgid "Configured"
+msgstr "Configured"
+
+msgid "Not configured"
+msgstr "Not configured"
+
+msgid "Delete the saved secret"
+msgstr "Delete the saved secret"
+
+msgid "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
+msgstr "In the Entra admin center, App registrations > New registration: create an application (for example \"GLPI GRC - MFA report\")."
+
+msgid "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
+msgstr "Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically."
+
+msgid "Only users who can modify the plugin data can set up this reading."
+msgstr "Only users who can modify the plugin data can set up this reading."
+
+msgid "Read Microsoft Entra ID directly (Microsoft Graph)"
+msgstr "Read Microsoft Entra ID directly (Microsoft Graph)"
+
+msgid "Read now from Microsoft Graph"
+msgstr "Read now from Microsoft Graph"
+
+msgid "Secret saved"
+msgstr "Secret saved"
+
+msgid "Secret saved (leave empty to keep it)"
+msgstr "Secret saved (leave empty to keep it)"
+
+msgid "Tenant (directory) ID or domain"
+msgstr "Tenant (directory) ID or domain"
+
+msgid "The secret is encrypted with the GLPI key, never displayed again nor logged."
+msgstr "The secret is encrypted with the GLPI key, never displayed again nor logged."
+
+#, php-format
+msgid "%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+msgstr "%1$d host(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
+
+msgid "Logging settings saved."
+msgstr "Logging settings saved."
+
+msgid "Log platform declaration saved."
+msgstr "Log platform declaration saved."
+
+msgid "Logging coverage"
+msgstr "Logging coverage"
+
+msgid "Syslog server"
+msgstr "Syslog server"
+
+msgid "Other log platform"
+msgstr "Other log platform"
+
+msgid "No logs received"
+msgstr "No logs received"
+
+msgid "No log platform knows this asset (name or IP address)."
+msgstr "No log platform knows this asset (name or IP address)."
+
+msgid "Logs stopped"
+msgstr "Logs stopped"
+
+msgid "The last event received is older than the threshold."
+msgstr "The last event received is older than the threshold."
+
+msgid "Logs received"
+msgstr "Logs received"
+
+msgid "A log platform received an event from this asset recently."
+msgstr "A log platform received an event from this asset recently."
+
+msgid "Critical assets, servers and network devices"
+msgstr "Critical assets, servers and network devices"
+
+msgid "Critical assets only"
+msgstr "Critical assets only"
+
+msgid "All computers and network devices"
+msgstr "All computers and network devices"
+
+msgid "Long enough"
+msgstr "Long enough"
+
+msgid "Too short"
+msgstr "Too short"
+
+msgid "The file has no column for the host name or IP address (for example host, hostname, source, agent.name or ip)."
+msgstr "The file has no column for the host name or IP address (for example host, hostname, source, agent.name or ip)."
+
+msgid "You do not have the right to import."
+msgstr "You do not have the right to import."
+
+msgid "Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or nothing for several days, and whether each platform keeps the logs long enough and synchronizes the clocks."
+msgstr "Shows which important assets send their logs to a log platform (Wazuh, Graylog, Elastic or OpenSearch, Splunk, syslog), which send nothing or nothing for several days, and whether each platform keeps the logs long enough and synchronizes the clocks."
+
+msgid "Choose the assets that must send their logs, import the list of hosts of each log platform (or let the Wazuh plugin be read), connect the assets listed as gaps, and declare the retention and the time server of each platform. The page only reads: it runs nothing on the platforms. Record the result as an effectiveness test of the control to keep the evidence."
+msgstr "Choose the assets that must send their logs, import the list of hosts of each log platform (or let the Wazuh plugin be read), connect the assets listed as gaps, and declare the retention and the time server of each platform. The page only reads: it runs nothing on the platforms. Record the result as an effectiveness test of the control to keep the evidence."
+
+msgid "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
+msgstr "ISO/IEC 27001, controls A.8.15, A.8.16 and A.8.17"
+
+#, php-format
+msgid "Critical assets without logging (%)"
+msgstr "Critical assets without logging (%)"
+
+#, php-format
+msgid "%d asset(s) whose logs stopped"
+msgstr "%d asset(s) whose logs stopped"
+
+#, php-format
+msgid "%d critical asset(s) without logging"
+msgstr "%d critical asset(s) without logging"
+
+#, php-format
+msgid "%d platform(s) with a retention too short or not declared"
+msgstr "%d platform(s) with a retention too short or not declared"
+
+#, php-format
+msgid "%d platform(s) without declared clock synchronization"
+msgstr "%d platform(s) without declared clock synchronization"
+
+#, php-format
+msgid "Logging coverage: %d%%"
+msgstr "Logging coverage: %d%%"
+
+msgid "Logging coverage: not measured"
+msgstr "Logging coverage: not measured"
+
+#, php-format
+msgid "%1$d assets: the first %2$d are shown, gaps first."
+msgstr "%1$d assets: the first %2$d are shown, gaps first."
+
+#, php-format
+msgid "%d days kept"
+msgstr "%d days kept"
+
+#, php-format
+msgid "%d days required"
+msgstr "%d days required"
+
+msgid "An asset is critical when one axis of its C/I/A classification is high (tab of the asset form), or when a network flow publishes it on the Internet. Servers are recognized from the computer type or the operating system name."
+msgstr "An asset is critical when one axis of its C/I/A classification is high (tab of the asset form), or when a network flow publishes it on the Internet. Servers are recognized from the computer type or the operating system name."
+
+msgid "Assets concerned whose logs are received"
+msgstr "Assets concerned whose logs are received"
+
+msgid "Assets that must send their logs"
+msgstr "Assets that must send their logs"
+
+msgid "Check the name of the asset in GLPI, or add the asset to the inventory: an unknown host may be an asset missing from the inventory."
+msgstr "Check the name of the asset in GLPI, or add the asset to the inventory: an unknown host may be an asset missing from the inventory."
+
+msgid "Clock synchronization not declared"
+msgstr "Clock synchronization not declared"
+
+msgid "Clocks synchronized"
+msgstr "Clocks synchronized"
+
+msgid "Comment (where the setting can be checked)"
+msgstr "Comment (where the setting can be checked)"
+
+msgid "Critical assets without logging"
+msgstr "Critical assets without logging"
+
+msgid "Declare another platform"
+msgstr "Declare another platform"
+
+msgid "Declare, for each platform, how long the logs are kept and whether the clocks are synchronized. The retention required is the longest between the policy and the obligation chosen. These are declarations: keep the screenshot of the setting as evidence."
+msgstr "Declare, for each platform, how long the logs are kept and whether the clocks are synchronized. The retention required is the longest between the policy and the obligation chosen. These are declarations: keep the screenshot of the setting as evidence."
+
+msgid "Export the list of hosts that send logs from your log platform, then import the CSV file here. A new import of the same platform replaces the previous one in the current entity. Only host names, addresses and the date of the last event are kept, never the content of a log."
+msgstr "Export the list of hosts that send logs from your log platform, then import the CSV file here. A new import of the same platform replaces the previous one in the current entity. Only host names, addresses and the date of the last event are kept, never the content of a log."
+
+msgid "For example a law, a regulation or a contract listed in the register of obligations."
+msgstr "For example a law, a regulation or a contract listed in the register of obligations."
+
+msgid "Graylog, Elastic or OpenSearch: a table of the sources with the most recent timestamp (columns source or host.name, and last timestamp), exported as CSV."
+msgstr "Graylog, Elastic or OpenSearch: a table of the sources with the most recent timestamp (columns source or host.name, and last timestamp), exported as CSV."
+
+msgid "Hosts"
+msgstr "Hosts"
+
+msgid "Hosts that send logs but are not found in GLPI"
+msgstr "Hosts that send logs but are not found in GLPI"
+
+msgid "Last event received"
+msgstr "Last event received"
+
+msgid "Log platform"
+msgstr "Log platform"
+
+msgid "Log sources"
+msgstr "Log sources"
+
+msgid "Logs stopped after (days without event)"
+msgstr "Logs stopped after (days without event)"
+
+msgid "No asset concerned in your entities."
+msgstr "No asset concerned in your entities."
+
+#, php-format
+msgid "No event for more than %d days: logs stopped"
+msgstr "No event for more than %d days: logs stopped"
+
+msgid "No log source yet: import the list of hosts of your log platform to measure the coverage."
+msgstr "No log source yet: import the list of hosts of your log platform to measure the coverage."
+
+msgid "No platform declared."
+msgstr "No platform declared."
+
+msgid "Obligation that imposes a retention"
+msgstr "Obligation that imposes a retention"
+
+msgid "Platforms whose retention is too short or not declared"
+msgstr "Platforms whose retention is too short or not declared"
+
+msgid "Platforms without declared clock synchronization"
+msgstr "Platforms without declared clock synchronization"
+
+msgid "Read directly"
+msgstr "Read directly"
+
+msgid "Read-only: the plugin reads the lists of hosts, it never runs anything on the log platforms and changes nothing in GLPI."
+msgstr "Read-only: the plugin reads the lists of hosts, it never runs anything on the log platforms and changes nothing in GLPI."
+
+msgid "Recognized columns: host (or hostname, source, agent.name), ip, and last event (or lastTime, last_seen, lastKeepAlive)."
+msgstr "Recognized columns: host (or hostname, source, agent.name), ip, and last event (or lastTime, last_seen, lastKeepAlive)."
+
+msgid "Register of obligations"
+msgstr "Register of obligations"
+
+msgid "Retention and clock synchronization"
+msgstr "Retention and clock synchronization"
+
+msgid "Retention declared (days)"
+msgstr "Retention declared (days)"
+
+msgid "Retention not declared"
+msgstr "Retention not declared"
+
+msgid "Retention required by the obligation (days)"
+msgstr "Retention required by the obligation (days)"
+
+msgid "Retention required by the policy (days)"
+msgstr "Retention required by the policy (days)"
+
+#, php-format
+msgid "Retention required by the policy: %d days"
+msgstr "Retention required by the policy: %d days"
+
+msgid "Splunk: run the search \"| metadata type=hosts index=*\" and export the result (columns host, lastTime)."
+msgstr "Splunk: run the search \"| metadata type=hosts index=*\" and export the result (columns host, lastTime)."
+
+msgid "The Wazuh plugin is active: its active agents are read directly, read-only."
+msgstr "The Wazuh plugin is active: its active agents are read directly, read-only."
+
+msgid "The clocks of the sources and of the platform are synchronized"
+msgstr "The clocks of the sources and of the platform are synchronized"
+
+msgid "Time server (NTP)"
+msgstr "Time server (NTP)"
+
+msgid "Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, one host per line."
+msgstr "Wazuh without the GLPI plugin, or a syslog server: a CSV file with a header, one host per line."
+
+msgid "Which assets must send their logs?"
+msgstr "Which assets must send their logs?"
+
+#, php-format
+msgid "%d asset concerned"
+msgid_plural "%d assets concerned"
+msgstr[0] "%d asset concerned"
+msgstr[1] "%d assets concerned"
+
+#, php-format
+msgid "%d critical asset"
+msgid_plural "%d critical assets"
+msgstr[0] "%d critical asset"
+msgstr[1] "%d critical assets"
+
+#, php-format
+msgid "%d log platform"
+msgid_plural "%d log platforms"
+msgstr[0] "%d log platform"
+msgstr[1] "%d log platforms"
+
 #, php-format
 msgid "Report imported: %d rule(s) triggered."
 msgstr "Report imported: %d rule(s) triggered."
@@ -33641,9 +34275,6 @@ msgstr "The report could not be archived as a document (XML files may not be all
 #, php-format
 msgid "Only the first %d rules were read."
 msgstr "Only the first %d rules were read."
-
-msgid "Import deleted."
-msgstr "Import deleted."
 
 #, php-format
 msgid "Ticket %d created."
@@ -33693,9 +34324,6 @@ msgstr "This report has already been imported."
 
 msgid "You do not have the right to import a report."
 msgstr "You do not have the right to import a report."
-
-msgid "The file could not be read."
-msgstr "The file could not be read."
 
 #, php-format
 msgid "PingCastle report - %1$s (%2$s)"
@@ -33759,9 +34387,6 @@ msgid "%d rule triggered"
 msgid_plural "%d rules triggered"
 msgstr[0] "%d rule triggered"
 msgstr[1] "%d rules triggered"
-
-msgid "Access reviews"
-msgstr "Access reviews"
 
 msgid "Archive the report as a restricted document (passwords removed)"
 msgstr "Archive the report as a restricted document (passwords removed)"

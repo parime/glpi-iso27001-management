@@ -104,8 +104,13 @@ check "front/diskencryption.php"              "$P/diskencryption.php"
 # Issue #835 : domaine, regle et constat pieges (audit de securite de l'AD, preuve A.8.2).
 check "front/adsecurityaudit.php"             "$P/adsecurityaudit.php"
 check "preuve audit de l'AD (A.8.2)"          "$P/control.form.php?id=$(xid control_a82)"
+# Issue #852 : compte et methode importes pieges (couverture MFA, preuve A.8.5).
+check "front/mfacoverage.php"                 "$P/mfacoverage.php"
+check "preuve couverture MFA (A.8.5)"         "$P/control.form.php?id=$(xid control_a85)"
 # Issue #854 : ordinateur piege (correctifs de securite).
 check "front/patchcompliance.php"             "$P/patchcompliance.php"
+# Issue #853 : hote emetteur, serveur de temps et commentaire pieges (couverture de la journalisation).
+check "front/logcoverage.php"                 "$P/logcoverage.php"
 # Issue #782 : ordinateur piege (carte de fin de garantie du materiel, tous les materiels).
 check "front/parkvulnerability.php?warranty=all" "$P/parkvulnerability.php?warranty=all"
 # Issue #604 : campagne de simulation d'hameconnage piegee (liste et tendance, fiche, onglet Resultats,
