@@ -26,9 +26,9 @@ use Migration;
  * locaux, lus par Redfish en lecture seule ou importés en CSV. Le mot de passe du compte de lecture
  * est chiffré par la clé de GLPI (GLPIKey) et jamais réaffiché. Une lecture en échec ne remplace
  * pas la précédente (seule l'erreur est notée). Créées si absentes (rejouable), supprimées à la
- * désinstallation.
+ * désinstallation, découvertes par l'installeur (FeatureTablesRegistry).
  */
-final class ServerManagementTables
+final class ServerManagementTables implements FeatureTables
 {
     public const CONTROLLERS = 'glpi_plugin_grcmanager_bmccontrollers';
     public const ACCOUNTS = 'glpi_plugin_grcmanager_bmcaccounts';

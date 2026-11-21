@@ -79,6 +79,12 @@ jobs:
           done
           exit $missing
 
+      # Entrees de CHANGELOG en fragments (changes/unreleased/<issue>-<sujet>.md), rangees dans la
+      # section de la version par tools/build_changelog.py a la publication : une PR n'ecrit plus
+      # sous [Unreleased] de CHANGELOG.md. Ici : nom, rubriques (### Added, ### Fixed...) et contenu.
+      - name: CHANGELOG - fragments de changes/unreleased valides
+        run: python3 tools/build_changelog.py --check
+
   secrets-scan:
     name: Secret scanning (Gitleaks)
     runs-on: ubuntu-latest

@@ -29,11 +29,20 @@ Session::checkRight(Computer::$rightname, READ);
 $back = static function (string $anchor, string $query = ''): void {
     Html::redirect(ServerManagement::getSearchURL() . $query . '#' . $anchor);
 };
+// Contrôleur demandé hors des entités de la session (ou inexistant) : refus, sans rien révéler.
+$visible = static function (int $id): void {
+    if (ServerManagement::controller($id) === null) {
+        Html::displayRightError();
+    }
+};
 
 // Déclaration ou modification d'un contrôleur (le mot de passe n'est jamais réaffiché).
 if (isset($_POST['save_bmc'])) {
     Session::checkRight(ServerManagement::RIGHTNAME, UPDATE);
     $id = (int) ($_POST['bmc_id'] ?? 0);
+    if ($id > 0) {
+        $visible($id);
+    }
     $saved = ServerManagement::saveController([
         'name'              => $_POST['bmc_name'] ?? '',
         'url'               => $_POST['bmc_url'] ?? '',
@@ -53,6 +62,7 @@ if (isset($_POST['save_bmc'])) {
 if (isset($_POST['read_bmc'])) {
     Session::checkRight(ServerManagement::RIGHTNAME, UPDATE);
     $id = (int) $_POST['read_bmc'];
+    $visible($id);
     $result = ServerManagement::read($id);
     if ($result['error'] !== '') {
         Session::addMessageAfterRedirect(htmlescape(ServerManagement::errorMessage($result['error'])), false, ERROR);
@@ -66,6 +76,7 @@ if (isset($_POST['read_bmc'])) {
 
 if (isset($_POST['delete_bmc'])) {
     Session::checkRight(ServerManagement::RIGHTNAME, UPDATE);
+    $visible((int) $_POST['delete_bmc']);
     $ok = ServerManagement::deleteController((int) $_POST['delete_bmc']);
     Session::addMessageAfterRedirect(
         htmlescape($ok ? __('Controller deleted.', 'grcmanager') : ServerManagement::errorMessage('not_found')),
