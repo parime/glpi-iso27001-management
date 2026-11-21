@@ -16,8 +16,13 @@ BASE=$1 ROLE=$2 LOGIN=$3 PASSWORD=$4 IDS=$5
 JAR=$(mktemp)
 FAIL=0
 id() { jq -r ".$1" <<< "$IDS"; }
-code() { curl -s -o /dev/null -w '%{http_code}' -c "$JAR" -b "$JAR" "$@"; }
-body() { curl -s -c "$JAR" -b "$JAR" -H 'X-Requested-With: XMLHttpRequest' "$@"; }
+# GLPI 12 ne lit plus le jeton CSRF : il refuse un envoi venu d'un autre site d'apres l'en-tete
+# Sec-Fetch-Site du navigateur, et laisse passer une requete qui n'en a pas (curl). Un envoi sans
+# jeton est donc presente comme venu d'un autre site : GLPI 12 le refuse sur l'en-tete, GLPI 11 sur
+# l'absence de jeton (il ignore l'en-tete). Issue #980.
+site() { case "$*" in *_glpi_csrf_token*) echo same-origin ;; *) echo cross-site ;; esac; }
+code() { curl -s -o /dev/null -w '%{http_code}' -c "$JAR" -b "$JAR" -H "Sec-Fetch-Site: $(site "$@")" "$@"; }
+body() { curl -s -c "$JAR" -b "$JAR" -H 'X-Requested-With: XMLHttpRequest' -H "Sec-Fetch-Site: $(site "$@")" "$@"; }
 csrf() { curl -s -c "$JAR" -b "$JAR" "$BASE/front/central.php" | grep -o 'glpi:csrf_token" content="[^"]*"' | sed 's/.*content="//;s/"//'; }
 expect() { # libelle, attendu, obtenu
   if [ "$2" = "$3" ]; then echo "OK  $1 ($3)"; else echo "::error::$ROLE - $1 : attendu $2, obtenu $3"; FAIL=1; fi
