@@ -144,7 +144,8 @@ final class PhishingRulesTest extends TestCase
         $this->assertNull(Rules::retentionLimit(0, '2026-06-15'));
         $this->assertSame('2025-06-15', Rules::retentionLimit(12, '2026-06-15'));
         $imported = '2026-04-01 10:00:00';
-        $this->assertSame('2026-03-01', Rules::referenceDate(['campaign_date' => '2026-03-01', 'date_import' => $imported]));
+        $both = ['campaign_date' => '2026-03-01', 'date_import' => $imported];
+        $this->assertSame('2026-03-01', Rules::referenceDate($both));
         $this->assertSame('2026-04-01', Rules::referenceDate(['campaign_date' => null, 'date_import' => $imported]));
         $this->assertNull(Rules::referenceDate([]));
         $this->assertSame('2026-09-01', Rules::purgeDate(['campaign_date' => '2026-03-01'], 6));
