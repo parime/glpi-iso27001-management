@@ -473,10 +473,15 @@ if ($mode === 'xss') {
     // piegees : page du developpement securise, onglets de l'application et du changement.
     $DB->insert('glpi_appliances', ['name' => $canary, 'entities_id' => 0, 'comment' => $canary]);
     $out['appliance'] = (int) $DB->insertId();
+    // Lot 2 : exigences, architecture, prestataire piege et suivi du developpement externalise.
+    $DB->insert('glpi_suppliers', ['name' => $canary, 'entities_id' => 0, 'comment' => $canary]);
+    $out['supplier'] = (int) $DB->insertId();
     $insert('applicationsecurities', [
         'appliances_id' => $out['appliance'], 'repository_url' => $canary, 'framework' => 'other',
         'framework_detail' => $canary, 'tools' => $canary, 'environments_separated' => 'no',
         'separation_justification' => $canary, 'comment' => $canary,
+        'security_requirements' => $canary, 'architecture_principles' => $canary, 'outsourced' => 1,
+        'suppliers_id' => $out['supplier'], 'outsourcing_oversight' => $canary,
     ]);
     $DB->insert('glpi_changes', [
         'name' => $canary, 'content' => $canary, 'entities_id' => 0, 'status' => Change::SOLVED,

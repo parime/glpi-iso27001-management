@@ -11619,14 +11619,6 @@ msgstr ""
 msgid "ISO/IEC 27001, control A.5.37"
 msgstr ""
 
-#: src/PageHelp.php:490
-msgid ""
-"The applications developed or maintained in-house, with their secure "
-"development practices (framework, code review, SAST, DAST and dependency "
-"analyses, separated environments), and the releases of the last 12 months "
-"with their security validation."
-msgstr ""
-
 #: src/PageHelp.php:496
 msgid ""
 "Fill in the \"Secure development\" tab of each application, link the changes "
@@ -17434,13 +17426,6 @@ msgstr ""
 
 #: templates/application_security_tab.html.twig
 msgid "Environments not separated"
-msgstr ""
-
-#: templates/application_security_tab.html.twig
-msgid ""
-"Fill in this sheet for each application developed or maintained in-house: it "
-"then appears in the register of applications (secure development page) and "
-"as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
 msgstr ""
 
 #: templates/application_security_tab.html.twig
@@ -32225,6 +32210,162 @@ msgstr ""
 msgid "Official contacts to inform during a crisis"
 msgstr ""
 
+#: src/ApplicationSecurity.php:122
+msgid "Separate access (accounts, rights)"
+msgstr ""
+
+#: src/ApplicationSecurity.php:124
+msgid "Separate data (no production data outside production, or anonymised)"
+msgstr ""
+
+#: src/ApplicationSecurity.php:127
+msgid "Separate configuration (secrets, settings)"
+msgstr ""
+
+#: src/PageHelp.php:490
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+
+#: src/SecureDevelopment.php:357
+#, php-format
+msgid "%d without documented security requirements"
+msgstr ""
+
+#: src/SecureDevelopment.php:363
+#, php-format
+msgid "%d without secure architecture principles"
+msgstr ""
+
+#: src/SecureDevelopment.php:370
+#, php-format
+msgid "%d outsourced application"
+msgid_plural "%d outsourced applications"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SecureDevelopment.php:377
+#, php-format
+msgid "%d outsourced without supplier or security clauses"
+msgstr ""
+
+#: src/SecureDevelopment.php:418 templates/secure_development_page.html.twig
+#, php-format
+msgid "%d with access, data or configuration not separated"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Development entrusted to a supplier"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25 to A.8.31."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "No architecture principles"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "No security requirements"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+#, php-format
+msgid "Not separated: %s"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Outsourced development (A.8.30)"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Outsourced without supplier or security clauses"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Requirements and architecture (A.8.26, A.8.27)"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Secure architecture principles"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Security clauses in the contract"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Security requirements of the application"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid "Supervision of the supplier"
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+msgstr ""
+
+#: templates/application_security_tab.html.twig
+msgid ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Architecture"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "Architecture: %d"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+#, php-format
+msgid "Requirements: %d"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Supervised"
+msgstr ""
+
+#: templates/secure_development_page.html.twig
+msgid "Without supplier or clauses"
+msgstr ""
 
 
 #: hook.php:278 src/PhishingCampaign.php:481
@@ -32326,3 +32467,4 @@ msgid ""
 "Rates of the last campaign with results of each entity. The rates by group "
 "are on the Results tab of each campaign."
 msgstr ""
+

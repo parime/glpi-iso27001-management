@@ -28448,3 +28448,140 @@ msgid "%d official contact recorded as contacted."
 msgid_plural "%d official contacts recorded as contacted."
 msgstr[0] "%d contact officiel tracé comme prévenu."
 msgstr[1] "%d contacts officiels tracés comme prévenus."
+
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25 to A.8.31."
+msgstr ""
+"Remplissez cette fiche pour chaque application développée ou maintenue en "
+"interne : elle apparaît alors dans le registre des applications (page "
+"Développement sécurisé) et comme preuve des mesures A.8.25 à A.8.31."
+
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+"Les applications développées ou maintenues en interne, avec leurs pratiques "
+"de développement sécurisé (référentiel, revue de code, analyses SAST, DAST "
+"et des dépendances, exigences de sécurité, principes d'architecture, "
+"développement externalisé, séparation des environnements), et les mises en "
+"production des 12 derniers mois avec leur validation sécurité."
+
+msgid "%d without documented security requirements"
+msgstr "%d sans exigences de sécurité décrites"
+
+msgid "%d without secure architecture principles"
+msgstr "%d sans principes d'architecture sécurisée"
+
+msgid "%d outsourced without supplier or security clauses"
+msgstr "%d externalisée(s) sans prestataire ou sans clauses de sécurité"
+
+msgid "%d with access, data or configuration not separated"
+msgstr "%d avec accès, données ou configuration non séparés"
+
+msgid "Architecture"
+msgstr "Architecture"
+
+msgid "Architecture: %d"
+msgstr "Architecture : %d"
+
+msgid "Requirements: %d"
+msgstr "Exigences : %d"
+
+msgid "Development entrusted to a supplier"
+msgstr "Développement confié à un prestataire"
+
+msgid ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+msgstr ""
+"Par exemple : revue de code de chaque livraison, tests de recette, droit "
+"d'audit, séquestre du code source."
+
+msgid "No architecture principles"
+msgstr "Aucun principe d'architecture"
+
+msgid "No security requirements"
+msgstr "Aucune exigence de sécurité"
+
+msgid "Not separated: %s"
+msgstr "Non séparé : %s"
+
+msgid "Outsourced development (A.8.30)"
+msgstr "Développement externalisé (A.8.30)"
+
+msgid "Outsourced without supplier or security clauses"
+msgstr "Externalisé sans prestataire ou sans clauses de sécurité"
+
+msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
+msgstr "Externalisées : %1$d, sans prestataire ou clauses : %2$d"
+
+msgid ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+msgstr ""
+"Principes appliqués à la conception : moindre privilège, défense en "
+"profondeur, sécurité par défaut, ou lien vers le document d'architecture."
+
+msgid "Requirements and architecture (A.8.26, A.8.27)"
+msgstr "Exigences et architecture (A.8.26, A.8.27)"
+
+msgid ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+msgstr ""
+"Exigences identifiées avant le développement : authentification, protection "
+"des données, journalisation, obligations légales, ou lien vers le cahier des "
+"charges."
+
+msgid "Secure architecture principles"
+msgstr "Principes d'architecture sécurisée"
+
+msgid "Security clauses in the contract"
+msgstr "Clauses de sécurité au contrat"
+
+msgid "Security requirements of the application"
+msgstr "Exigences de sécurité de l'application"
+
+msgid "Separate access (accounts, rights)"
+msgstr "Accès séparés (comptes, droits)"
+
+msgid "Separate configuration (secrets, settings)"
+msgstr "Configuration séparée (secrets, paramètres)"
+
+msgid "Separate data (no production data outside production, or anonymised)"
+msgstr ""
+"Données séparées (pas de données de production hors production, ou "
+"anonymisées)"
+
+msgid "Supervised"
+msgstr "Encadré"
+
+msgid "Supervision of the supplier"
+msgstr "Suivi du prestataire"
+
+msgid ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+msgstr ""
+"Fournisseur de GLPI (Gestion > Fournisseurs). Ignoré si le développement "
+"n'est pas externalisé."
+
+msgid ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+msgstr ""
+"Si les environnements sont séparés, cochez ce qui l'est réellement entre "
+"développement, test et production :"
+
+msgid "Without supplier or clauses"
+msgstr "Sans prestataire ou clauses"
+
+msgid "%d outsourced application"
+msgid_plural "%d outsourced applications"
+msgstr[0] "%d application externalisée"
+msgstr[1] "%d applications externalisées"

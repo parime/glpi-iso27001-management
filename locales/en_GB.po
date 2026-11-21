@@ -32039,6 +32039,140 @@ msgid_plural "%d official contacts recorded as contacted."
 msgstr[0] "%d official contact recorded as contacted."
 msgstr[1] "%d official contacts recorded as contacted."
 
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25 to A.8.31."
+msgstr ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25 to A.8.31."
+
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
+
+msgid "%d without documented security requirements"
+msgstr "%d without documented security requirements"
+
+msgid "%d without secure architecture principles"
+msgstr "%d without secure architecture principles"
+
+msgid "%d outsourced without supplier or security clauses"
+msgstr "%d outsourced without supplier or security clauses"
+
+msgid "%d with access, data or configuration not separated"
+msgstr "%d with access, data or configuration not separated"
+
+msgid "Architecture"
+msgstr "Architecture"
+
+msgid "Architecture: %d"
+msgstr "Architecture: %d"
+
+msgid "Requirements: %d"
+msgstr "Requirements: %d"
+
+msgid "Development entrusted to a supplier"
+msgstr "Development entrusted to a supplier"
+
+msgid ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+msgstr ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+
+msgid "No architecture principles"
+msgstr "No architecture principles"
+
+msgid "No security requirements"
+msgstr "No security requirements"
+
+msgid "Not separated: %s"
+msgstr "Not separated: %s"
+
+msgid "Outsourced development (A.8.30)"
+msgstr "Outsourced development (A.8.30)"
+
+msgid "Outsourced without supplier or security clauses"
+msgstr "Outsourced without supplier or security clauses"
+
+msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
+msgstr "Outsourced: %1$d, without supplier or clauses: %2$d"
+
+msgid ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+msgstr ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+
+msgid "Requirements and architecture (A.8.26, A.8.27)"
+msgstr "Requirements and architecture (A.8.26, A.8.27)"
+
+msgid ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+msgstr ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+
+msgid "Secure architecture principles"
+msgstr "Secure architecture principles"
+
+msgid "Security clauses in the contract"
+msgstr "Security clauses in the contract"
+
+msgid "Security requirements of the application"
+msgstr "Security requirements of the application"
+
+msgid "Separate access (accounts, rights)"
+msgstr "Separate access (accounts, rights)"
+
+msgid "Separate configuration (secrets, settings)"
+msgstr "Separate configuration (secrets, settings)"
+
+msgid "Separate data (no production data outside production, or anonymised)"
+msgstr "Separate data (no production data outside production, or anonymised)"
+
+msgid "Supervised"
+msgstr "Supervised"
+
+msgid "Supervision of the supplier"
+msgstr "Supervision of the supplier"
+
+msgid ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+msgstr ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+
+msgid ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+msgstr ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+
+msgid "Without supplier or clauses"
+msgstr "Without supplier or clauses"
+
+msgid "%d outsourced application"
+msgid_plural "%d outsourced applications"
+msgstr[0] "%d outsourced application"
+msgstr[1] "%d outsourced applications"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

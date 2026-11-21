@@ -27,6 +27,7 @@
             <div class="text-muted">{{ __('Applications without separation of environments', 'grcmanager') }}</div>
             <div class="h1 mb-0 {{ i.without_separation > 0 ? 'text-danger' : 'text-success' }}" id="grc-sd-without-separation">{{ i.without_separation }}</div>
             {% if i.separation_unjustified > 0 %}<div class="small text-danger">{{ __('%d without justification', 'grcmanager')|format(i.separation_unjustified) }}</div>{% endif %}
+            {% if i.separation_incomplete > 0 %}<div class="small text-warning" id="grc-sd-separation-incomplete">{{ __('%d with access, data or configuration not separated', 'grcmanager')|format(i.separation_incomplete) }}</div>{% endif %}
          </div></div>
       </div>
       <div class="col-sm-6 col-lg-3">
@@ -47,7 +48,10 @@
                {{ __('Framework: %d', 'grcmanager')|format(i.without_framework) }} ·
                {{ __('Code review: %d', 'grcmanager')|format(i.without_review) }}<br>
                SAST : {{ i.without_sast }} · DAST : {{ i.without_dast }} ·
-               {{ __('Dependencies: %d', 'grcmanager')|format(i.without_dependency_scan) }}
+               {{ __('Dependencies: %d', 'grcmanager')|format(i.without_dependency_scan) }}<br>
+               {{ __('Requirements: %d', 'grcmanager')|format(i.without_requirements) }} ·
+               {{ __('Architecture: %d', 'grcmanager')|format(i.without_architecture) }}<br>
+               <span id="grc-sd-outsourcing">{{ __('Outsourced: %1$d, without supplier or clauses: %2$d', 'grcmanager')|format(i.outsourced, i.outsourced_without_clauses) }}</span>
             </div>
          </div></div>
       </div>
@@ -74,6 +78,9 @@
                      <th>{{ __('Framework', 'grcmanager') }}</th>
                      {% for key in ['code_review_required', 'sast', 'dast', 'dependency_scan'] %}<th class="text-center">{{ practices[key] }}</th>{% endfor %}
                      <th>{{ __('Separated environments', 'grcmanager') }}</th>
+                     <th class="text-center">{{ __('Requirements', 'grcmanager') }}</th>
+                     <th class="text-center">{{ __('Architecture', 'grcmanager') }}</th>
+                     <th>{{ __('Outsourced development', 'grcmanager') }}</th>
                   </tr>
                </thead>
                <tbody>
@@ -91,6 +98,15 @@
                            {% if app.separation == 'yes' %}<span class="badge bg-success-subtle text-success-emphasis">{{ __('Yes', 'grcmanager') }}</span>
                            {% elseif app.separation == 'no' %}<span class="badge bg-danger-subtle text-danger-emphasis">{{ __('No', 'grcmanager') }}</span>{% if app.unjustified %} <span class="badge bg-danger-subtle text-danger-emphasis">{{ __('No justification', 'grcmanager') }}</span>{% endif %}
                            {% else %}<span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Not specified', 'grcmanager') }}</span>{% endif %}
+                           {% if app.separation_gaps > 0 %} <span class="badge bg-warning-subtle text-warning-emphasis">{{ __('Partial', 'grcmanager') }}</span>{% endif %}
+                        </td>
+                        {% for done in [app.requirements, app.architecture] %}
+                           <td class="text-center">{% if done %}<i class="ti ti-circle-check text-success" title="{{ __('Yes', 'grcmanager') }}"></i>{% else %}<i class="ti ti-circle-x text-warning" title="{{ __('No', 'grcmanager') }}"></i>{% endif %}</td>
+                        {% endfor %}
+                        <td>
+                           {% if not app.outsourced %}<span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('No', 'grcmanager') }}</span>
+                           {% elseif app.outsourcing_gap %}<span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-file-alert me-1"></i>{{ __('Without supplier or clauses', 'grcmanager') }}</span>
+                           {% else %}<span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-file-check me-1"></i>{{ __('Supervised', 'grcmanager') }}</span>{% endif %}
                         </td>
                      </tr>
                   {% endfor %}
