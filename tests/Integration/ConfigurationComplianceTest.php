@@ -79,7 +79,7 @@ final class ConfigurationComplianceTest extends GrcmanagerIntegrationTestCase
         parent::tearDown();
     }
 
-    private function result(string $host, string $date, string $sshResult, string $auditResult): string
+    private function scanResult(string $host, string $date, string $sshResult, string $auditResult): string
     {
         return '<TestResult id="xccdf_demo_testresult_' . $host . '" start-time="' . $date . '"'
             . ' test-system="cpe:/a:redhat:openscap:1.3.10">'
@@ -123,9 +123,9 @@ final class ConfigurationComplianceTest extends GrcmanagerIntegrationTestCase
     public function testImportMatchesVisibleComputersOnly(): void
     {
         $stats = ConfigurationCompliance::importFile($this->file([
-            $this->result($this->host('web'), '2026-01-10T08:00:00Z', 'fail', 'pass'),
-            $this->result($this->host('hidden'), '2026-01-10T08:00:00Z', 'fail', 'fail'),
-            $this->result($this->host('unknown'), '2026-01-10T08:00:00Z', 'pass', 'pass'),
+            $this->scanResult($this->host('web'), '2026-01-10T08:00:00Z', 'fail', 'pass'),
+            $this->scanResult($this->host('hidden'), '2026-01-10T08:00:00Z', 'fail', 'fail'),
+            $this->scanResult($this->host('unknown'), '2026-01-10T08:00:00Z', 'pass', 'pass'),
         ]), 'results.xml');
 
         $this->assertSame('', $stats['error']);
@@ -148,7 +148,7 @@ final class ConfigurationComplianceTest extends GrcmanagerIntegrationTestCase
 
         // Même fichier importé une seconde fois : rien n'est doublé.
         $again = ConfigurationCompliance::importFile($this->file([
-            $this->result($this->host('web'), '2026-01-10T08:00:00Z', 'fail', 'pass'),
+            $this->scanResult($this->host('web'), '2026-01-10T08:00:00Z', 'fail', 'pass'),
         ]), 'results.xml');
         $this->assertSame(0, $again['reports']);
         $this->assertSame(1, $again['duplicates']);
@@ -157,11 +157,11 @@ final class ConfigurationComplianceTest extends GrcmanagerIntegrationTestCase
     public function testTrendHistoryTicketManualMatchAndDeletion(): void
     {
         ConfigurationCompliance::importFile($this->file([
-            $this->result($this->host('web'), '2026-01-10T08:00:00Z', 'fail', 'fail'),
-            $this->result('phpunitdemo-alias-' . $this->suffix, '2026-01-10T08:00:00Z', 'fail', 'pass'),
+            $this->scanResult($this->host('web'), '2026-01-10T08:00:00Z', 'fail', 'fail'),
+            $this->scanResult('phpunitdemo-alias-' . $this->suffix, '2026-01-10T08:00:00Z', 'fail', 'pass'),
         ]), 'january.xml');
         ConfigurationCompliance::importFile($this->file([
-            $this->result($this->host('web'), '2026-02-10T08:00:00Z', 'fail', 'pass'),
+            $this->scanResult($this->host('web'), '2026-02-10T08:00:00Z', 'fail', 'pass'),
         ]), 'february.xml');
 
         $row = ConfigurationCompliance::pageData()['rows'][0];
@@ -214,8 +214,8 @@ final class ConfigurationComplianceTest extends GrcmanagerIntegrationTestCase
         $this->assertNull(ConfigurationCompliance::evidence('A.5.1'));
 
         ConfigurationCompliance::importFile($this->file([
-            $this->result($this->host('web'), '2026-01-10T08:00:00Z', 'fail', 'pass'),
-            $this->result($this->host('db'), '2026-01-10T08:00:00Z', 'pass', 'pass'),
+            $this->scanResult($this->host('web'), '2026-01-10T08:00:00Z', 'fail', 'pass'),
+            $this->scanResult($this->host('db'), '2026-01-10T08:00:00Z', 'pass', 'pass'),
         ]), 'results.xml');
         $evidence = ConfigurationCompliance::evidence('A.8.9');
         $this->assertNotNull($evidence);
