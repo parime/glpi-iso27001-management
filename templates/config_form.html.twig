@@ -423,6 +423,37 @@
 </div>
 
 {# Issue #664 : liens d'abonnement au calendrier de conformité, portés par un jeton dédié qui expire. #}
+{# Issue #603 : libellés de l'échelle de maturité par mesure (0 à 5). Un champ vide garde le libellé
+   par défaut, traduit dans la langue de chaque utilisateur ; le libellé est échappé à l'affichage. #}
+<div class="card mb-3" id="grc-maturity-scale-config">
+  <div class="card-body">
+    <h4><i class="ti ti-stairs-up me-1"></i>{{ __('Maturity scale by control', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Rename the levels of the scale used by the maturity campaigns to match your method. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes no recorded level.', 'grcmanager') }}
+      <a href="{{ maturity_campaigns_url }}"><i class="ti ti-external-link me-1"></i>{{ __('Open the maturity campaigns', 'grcmanager') }}</a>
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="row g-2">
+        {% for level, default in maturity_scale_defaults %}
+          <div class="col-md-4">
+            <label class="form-label" for="grc-maturity-label-{{ level }}">
+              <span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ level }}</span>
+              {{ __('Default label: %s', 'grcmanager')|format(default) }}
+            </label>
+            <input type="text" class="form-control" id="grc-maturity-label-{{ level }}" name="maturity_labels[{{ level }}]"
+                   value="{{ maturity_scale_custom[level]|default('') }}" placeholder="{{ default }}"
+                   maxlength="{{ maturity_label_max_length }}" {{ can_edit_config ? '' : 'disabled' }}>
+          </div>
+        {% endfor %}
+      </div>
+      {% if can_edit_config %}
+        <button type="submit" name="update_maturity_scale_labels" class="btn btn-primary mt-2"><i class="ti ti-device-floppy me-1"></i>{{ _x('button', 'Save') }}</button>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
 <div class="card mb-3" id="grc-calendar-token-config">
   <div class="card-body">
     <h4><i class="ti ti-calendar-share me-1"></i>{{ __('Calendar subscription links', 'grcmanager') }}</h4>

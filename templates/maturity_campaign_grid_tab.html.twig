@@ -1,0 +1,140 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #603 : onglet « Niveaux par mesure » d'une campagne : niveau actuel, niveau cible, échéance,
+   responsable et justification de chaque mesure applicable, enregistrés d'un coup. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% set level_classes = {0: 'bg-red-subtle text-red-emphasis', 1: 'bg-red-subtle text-red-emphasis', 2: 'bg-orange-subtle text-orange-emphasis', 3: 'bg-yellow-subtle text-yellow-emphasis', 4: 'bg-lime-subtle text-lime-emphasis', 5: 'bg-green-subtle text-green-emphasis'} %}
+
+<div class="card" id="grc-maturity-grid">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-list-numbers me-2"></i>{{ __('Levels by control', 'grcmanager') }}</h3>
+      <div class="card-actions d-flex flex-wrap gap-1 align-items-center">
+         <span class="badge bg-blue-subtle text-blue-emphasis" id="grc-maturity-progress"><i class="ti ti-chart-pie me-1"></i>{{ __('%1$d of %2$d controls assessed', 'grcmanager')|format(summary.assessed, summary.total) }}</span>
+         {% if summary.gaps > 0 %}
+            <span class="badge bg-orange-subtle text-orange-emphasis"><i class="ti ti-arrows-diff me-1"></i>{{ _n('%d gap to close', '%d gaps to close', summary.gaps, 'grcmanager')|format(summary.gaps) }}</span>
+         {% endif %}
+      </div>
+   </div>
+   <div class="card-body">
+      <p class="text-muted small mb-2">
+         <i class="ti ti-info-circle me-1"></i>{{ __('For each control, choose the level reached today and the level aimed for, on the scale below, then click "Save the levels" at the bottom of the page. A level left on "Not assessed" is simply ignored. These levels change neither the implementation status of the control nor the maturity score.', 'grcmanager') }}
+      </p>
+      <div class="d-flex flex-wrap gap-1 mb-3" id="grc-maturity-scale">
+         {% for level, label in labels %}
+            <span class="badge {{ level_classes[level] }}">{{ level }} - {{ label }}</span>
+         {% endfor %}
+      </div>
+      {% if rows is empty %}
+         <div class="alert alert-info mb-0" id="grc-maturity-empty"><i class="ti ti-info-circle me-1"></i>{{ __('No applicable control in the Statement of Applicability of this entity when the campaign was created. Declare the applicable controls in the SoA, then create a new campaign.', 'grcmanager') }} <a href="{{ soa_url }}">{{ __('Open the Statement of Applicability', 'grcmanager') }}</a></div>
+      {% else %}
+      <form method="post" action="{{ action }}">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="plugin_grcmanager_maturitycampaigns_id" value="{{ campaign_id }}">
+         <div class="table-responsive">
+         <table class="table table-sm table-vcenter card-table" id="grc-maturity-lines">
+            <thead>
+               <tr>
+                  <th>{{ __('Control', 'grcmanager') }}</th>
+                  <th>{{ __('Current level', 'grcmanager') }}</th>
+                  <th>{{ __('Target level', 'grcmanager') }}</th>
+                  <th>{{ __('Gap', 'grcmanager') }}</th>
+                  <th>{{ __('Target date', 'grcmanager') }}</th>
+                  <th>{{ __('Owner', 'grcmanager') }}</th>
+                  <th>{{ __('Justification', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+            {% for row in rows %}
+               <tr id="grc-maturity-line-{{ row.id }}" class="grc-maturity-row">
+                  <td style="min-width: 14rem;">
+                     <div class="fw-bold text-nowrap">{{ row.code }}</div>
+                     <div class="small">{{ row.title }}</div>
+                     <div class="small text-muted">
+                        {% if row.theme_label %}<span class="badge bg-azure-subtle text-azure-emphasis me-1">{{ row.theme_label }}</span>{% endif %}
+                        {% if row.status_label %}<span title="{{ __('Implementation status in the SoA', 'grcmanager') }}"><i class="ti ti-progress me-1"></i>{{ row.status_label }}</span>{% endif %}
+                     </div>
+                  </td>
+                  {% for field in ['current_level', 'target_level'] %}
+                     {% set value = field == 'current_level' ? row.current : row.target %}
+                     {% set field_label = field == 'current_level' ? __('Current level', 'grcmanager') : __('Target level', 'grcmanager') %}
+                     <td>
+                        {% if can_edit %}
+                           <select class="form-select form-select-sm grc-maturity-{{ field }}" name="levels[{{ row.id }}][{{ field }}]" aria-label="{{ field_label }} {{ row.code }}">
+                              <option value="">{{ field == 'current_level' ? __('Not assessed', 'grcmanager') : __('No target', 'grcmanager') }}</option>
+                              {% for level, label in labels %}
+                                 <option value="{{ level }}"{% if value is not null and value == level %} selected{% endif %}>{{ level }} - {{ label }}</option>
+                              {% endfor %}
+                           </select>
+                        {% elseif value is not null %}
+                           <span class="badge {{ level_classes[value] }}">{{ value }} - {{ labels[value] }}</span>
+                        {% else %}
+                           <span class="text-muted small">-</span>
+                        {% endif %}
+                        {% if field == 'current_level' and row.previous is not null %}
+                           <div class="text-muted small mt-1" title="{{ __('Current level at the previous campaign', 'grcmanager') }}"><i class="ti ti-history me-1"></i>{{ row.previous }} - {{ row.previous_label }}</div>
+                        {% endif %}
+                     </td>
+                  {% endfor %}
+                  <td>
+                     {% if row.gap is not null %}
+                        <span class="badge {{ row.gap_class }}">{{ row.gap > 0 ? '+' ~ row.gap : __('Reached', 'grcmanager') }}</span>
+                     {% else %}
+                        <span class="text-muted small">-</span>
+                     {% endif %}
+                  </td>
+                  <td>
+                     {% if can_edit %}
+                        <input type="date" class="form-control form-control-sm" name="levels[{{ row.id }}][target_date]" value="{{ row.target_date }}" aria-label="{{ __('Target date', 'grcmanager') }} {{ row.code }}">
+                     {% else %}
+                        <span class="small">{{ row.target_date_label ?: '-' }}</span>
+                     {% endif %}
+                  </td>
+                  <td style="min-width: 11rem;">
+                     {% if can_edit %}
+                        {{ fields.dropdownField('User', 'levels[' ~ row.id ~ '][users_id]', row.users_id, '', {
+                           'no_label': true,
+                           'right': 'all',
+                           'entity': entity,
+                           'rand': 'grcmatowner' ~ row.id,
+                           'width': '100%',
+                           'field_class': 'col-12',
+                           'mb': '',
+                        }) }}
+                     {% else %}
+                        <span class="small">{{ row.owner ?: '-' }}</span>
+                     {% endif %}
+                  </td>
+                  <td style="min-width: 14rem;">
+                     {% if can_edit %}
+                        <textarea class="form-control form-control-sm" rows="1" name="levels[{{ row.id }}][justification]" aria-label="{{ __('Justification', 'grcmanager') }} {{ row.code }}">{{ row.justification }}</textarea>
+                     {% else %}
+                        <span class="small">{{ row.justification ? row.justification|nl2br : '-' }}</span>
+                     {% endif %}
+                  </td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+         </div>
+         {% if can_edit %}
+            <div class="d-flex flex-wrap gap-2 align-items-center mt-3">
+               <button type="submit" name="save_levels" value="1" class="btn btn-primary" id="grc-maturity-save"><i class="ti ti-device-floppy me-1"></i>{{ __('Save the levels', 'grcmanager') }}</button>
+               {% if has_previous %}<span class="form-hint">{{ __('Targets, dates, owners and justifications come from the previous campaign: adjust them if needed.', 'grcmanager') }}</span>{% endif %}
+            </div>
+         {% endif %}
+      </form>
+      {% endif %}
+   </div>
+</div>

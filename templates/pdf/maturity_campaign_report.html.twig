@@ -1,0 +1,116 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #603 : rapport d'une campagne de maturité par mesure pour la revue de direction (synthèse,
+   niveaux moyens par thème, écarts triés, comparaison avec la campagne précédente). #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .grc-level { padding: 1px 4px; border-radius: 3px; font-size: 8px; font-weight: bold; background: #eef1f4; color: #495057; }
+  .grc-gap { padding: 1px 4px; border-radius: 3px; font-size: 8px; font-weight: bold; background: #fdebd3; color: #a35200; }
+  .grc-gap-major { background: #fbe0e0; color: #a61e1e; }
+  .grc-up { color: #2b8a3e; font-weight: bold; }
+  .grc-down { color: #a61e1e; font-weight: bold; }
+  .grc-muted { color: #6c757d; font-size: 8px; }
+</style>
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  {% if perimeter %}<tr><td>{{ __('Entity') }}</td><td>{{ perimeter }}</td></tr>{% endif %}
+  <tr><td>{{ __('Assessment date', 'grcmanager') }}</td><td>{{ campaign_date ?: '-' }}</td></tr>
+  <tr><td>{{ __('Campaign lead', 'grcmanager') }}</td><td>{{ lead ?: '-' }}</td></tr>
+  <tr><td>{{ __('%1$d of %2$d controls assessed', 'grcmanager')|format(summary.assessed, summary.total) }}</td><td></td></tr>
+  <tr><td>{{ __('Gaps to close', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.gaps }}</td></tr>
+  {% if summary.average_current is not null %}
+    <tr><td>{{ __('Current level', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.average_current|number_format(1, ',') }}</td></tr>
+    <tr><td>{{ __('Target level', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.average_target|number_format(1, ',') }}</td></tr>
+  {% endif %}
+  <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td>{{ generated_by }}</td></tr>
+</table>
+{% if comment %}<p>{{ comment|nl2br }}</p>{% endif %}
+<p class="grc-muted">{{ __('Levels from 0 (non-existent) to 5 (optimised). These optional levels change neither the implementation status of the controls nor the maturity score.', 'grcmanager') }}</p>
+
+<h2>{{ __('Current and target levels by theme', 'grcmanager') }}</h2>
+{% if radar is empty %}
+  <p>{{ __('The chart appears once controls have both a current and a target level.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead><tr><th>{{ __('Theme', 'grcmanager') }}</th><th>{{ __('Current level', 'grcmanager') }}</th><th>{{ __('Target level', 'grcmanager') }}</th></tr></thead>
+    <tbody>
+      {% for theme in radar %}
+        <tr><td>{{ theme.label }}</td><td>{{ theme.current|number_format(1, ',') }}</td><td>{{ theme.target|number_format(1, ',') }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+<h2>{{ __('Gaps to close', 'grcmanager') }}</h2>
+{% if rows is empty %}
+  <p>{{ __('No gap: every target is reached', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th>{{ __('Control', 'grcmanager') }}</th>
+        <th>{{ __('Current level', 'grcmanager') }}</th>
+        <th>{{ __('Target level', 'grcmanager') }}</th>
+        <th>{{ __('Gap', 'grcmanager') }}</th>
+        <th>{{ __('Target date', 'grcmanager') }}</th>
+        <th>{{ __('Owner', 'grcmanager') }}</th>
+        <th>{{ __('Justification', 'grcmanager') }}</th>
+        <th>{{ __('Action', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          <td><strong>{{ row.code }}</strong> {{ row.title }}</td>
+          <td><span class="grc-level">{{ row.current }} - {{ row.current_label }}</span></td>
+          <td><span class="grc-level">{{ row.target }} - {{ row.target_label }}</span></td>
+          <td><span class="grc-gap{{ row.gap >= 3 ? ' grc-gap-major' : '' }}">+{{ row.gap }}</span></td>
+          <td>{{ row.target_date_label ?: '-' }}</td>
+          <td>{{ row.owner ?: '-' }}</td>
+          <td>{{ row.justification|nl2br }}</td>
+          <td>{% if row.finding_id %}{{ row.finding_title }}{% if row.finding_status %}<br><span class="grc-muted">{{ row.finding_status }}</span>{% endif %}{% else %}<span class="grc-muted">{{ __('No action yet', 'grcmanager') }}</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+<h2>{{ __('Comparison of two campaigns', 'grcmanager') }}</h2>
+{% if comparison is null %}
+  <p>{{ __('No previous campaign in this entity.', 'grcmanager') }}</p>
+{% else %}
+  <p>{{ comparison.before_date }} ({{ comparison.before_name }}) - {{ comparison.after_date }} ({{ comparison.after_name }})</p>
+  <p>
+    <span class="grc-up">{{ _n('%d control improved', '%d controls improved', comparison.improved, 'grcmanager')|format(comparison.improved) }}</span>,
+    <span class="grc-down">{{ _n('%d control declined', '%d controls declined', comparison.declined, 'grcmanager')|format(comparison.declined) }}</span>,
+    {{ _n('%d control unchanged', '%d controls unchanged', comparison.unchanged, 'grcmanager')|format(comparison.unchanged) }}
+  </p>
+  <table class="grcmanager-pdf-table">
+    <thead><tr><th>{{ __('Control', 'grcmanager') }}</th><th>{{ comparison.before_date }}</th><th>{{ comparison.after_date }}</th><th>{{ __('Change', 'grcmanager') }}</th></tr></thead>
+    <tbody>
+      {% for line in comparison.lines %}
+        {% if line.delta is not null and line.delta != 0 %}
+          <tr>
+            <td><strong>{{ line.code }}</strong> {{ line.title }}</td>
+            <td>{{ line.before }} - {{ line.before_label }}</td>
+            <td>{{ line.after }} - {{ line.after_label }}</td>
+            <td class="{{ line.delta > 0 ? 'grc-up' : 'grc-down' }}">{{ line.delta > 0 ? '+' ~ line.delta : line.delta }}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
