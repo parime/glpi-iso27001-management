@@ -6,7 +6,6 @@
 contains "front/maturitycampaign.php : campagne de A" "Campagne maturite securite A" oui   "$(curl -s -c "$JAR" -b "$JAR" "$P/maturitycampaign.php")"
 expect "fiche de la campagne de maturite de B" "$DENY" "$(code "$P/maturitycampaign.form.php?id=$(id maturity_B)")"
 expect "fiche de la campagne de maturite de A" 200 "$(code "$P/maturitycampaign.form.php?id=$(id maturity_A)")"
-expect "front/maturitycampaign.pdf.php : rapport de B" "$DENY" "$(code "$P/maturitycampaign.pdf.php?id=$(id maturity_B)")"
 expect "front/maturitycampaign.pdf.php : rapport de A" 200 "$(code "$P/maturitycampaign.pdf.php?id=$(id maturity_A)")"
 contains "onglet niveaux de la campagne de B" "grc-maturity-grid" $SEE_B   "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$1' "$(id maturity_B)")"
 contains "onglet ecarts de la campagne de B" "Ecart maturite securite B" $SEE_B   "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$2' "$(id maturity_B)")"

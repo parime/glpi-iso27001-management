@@ -1229,6 +1229,8 @@ expect "fiche de l'evaluation de A" 200 "$(code "$P/physicalsecurityassessment.f
 # Lot 2 : rapport PDF de l'evaluation, meme droit et meme entite que la fiche.
 expect "front/physicalsecurityassessment.pdf.php : rapport de B" "$DENY" "$(code "$P/physicalsecurityassessment.pdf.php?id=$(id physical_B)")"
 expect "front/physicalsecurityassessment.pdf.php : rapport de A" 200 "$(code "$P/physicalsecurityassessment.pdf.php?id=$(id physical_A)")"
+# Issue #603 : rapport PDF d'une campagne de maturite (autres cas dans access-matrix.d/603-*).
+expect "front/maturitycampaign.pdf.php : rapport de B" "$DENY" "$(code "$P/maturitycampaign.pdf.php?id=$(id maturity_B)")"
 contains "onglet grille de l'evaluation de B" "grc-physical-checklist" $SEE_B \
   "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id physical_B)")"
 contains "onglet zones de l'evaluation de B" "Salle serveurs securite B" $SEE_B \
