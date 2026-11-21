@@ -553,6 +553,21 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
     nécessaire (décision tracée) ». Rien n'est envoyé depuis le plugin.
 11. La fiche du contact a un onglet **Prises de contact tracées** : l'historique de vos relations
     avec cette autorité ou ce groupe d'intérêt, à montrer à l'auditeur.
+12. Si un contact ne concerne que certains incidents (le CERT sectoriel pour les logiciels
+    malveillants, par exemple), choisissez ces types dans **Seulement pour ces types d'incident** :
+    il n'est alors proposé que sur les incidents de ce type. Laissé vide, il est proposé sur tous
+    les incidents. Un incident de type « Violation de données » propose aussi les contacts à
+    prévenir pour une violation de données personnelles.
+13. Dans l'onglet **Communication de crise** d'un incident, un modèle dont la liste de diffusion
+    contient un contact officiel propose la case **Tracer aussi une prise de contact avec les
+    contacts officiels cochés** : en enregistrant le message envoyé, la prise de contact est tracée
+    en même temps (badge « Depuis une communication de crise » dans l'onglet Contacts officiels).
+14. Après chaque revue du registre, cliquez sur **Archiver sur les mesures A.5.5 et A.5.6** : le
+    PDF daté est joint aux deux mesures de la SoA (onglet Documents), et les derniers registres
+    archivés sont listés en tête du registre.
+15. Les contacts officiels figurent aussi à la fin du **plan de continuité (PDF)** des processus
+    métier, et dans la salle de crise d'un exercice ou d'une crise réelle (cadre « Contacts officiels
+    à prévenir », repris dans le rapport de l'exercice).
 
 ### Étape 23 : Vérifier les licences logicielles (mesure A.5.32)
 
@@ -1526,6 +1541,20 @@ To give a subsidiary its own Statement of Applicability:
     on time", "Contacted late" or "Not required (decision recorded)". Nothing is sent by the plugin.
 11. The contact's record has a **Recorded contacts** tab: the history of your relations with this
     authority or special interest group, to show to the auditor.
+12. When a contact only matters for some incidents (the sector CERT for malware, for example),
+    choose these types in **Only for these types of incident**: it is then listed only on incidents
+    of this type. Left empty, it is listed on every incident. An incident of the "Data breach" type
+    also lists the contacts to inform for a personal data breach.
+13. In the **Crisis communication** tab of an incident, a template whose distribution list holds an
+    official contact offers the box **Also record it as a contact with the ticked official
+    contacts**: recording the message you sent also records the contact (badge "From a crisis
+    communication" in the Official contacts tab).
+14. After each review of the register, click **Archive on controls A.5.5 and A.5.6**: the dated PDF
+    is attached to both controls of the SoA (Documents tab), and the latest archived registers are
+    listed at the top of the register.
+15. The official contacts also appear at the end of the **business continuity plan (PDF)** of the
+    business processes, and in the crisis room of an exercise or of a real crisis ("Official
+    contacts to inform" box, included in the exercise report).
 
 ### Step 23: Check software licenses (control A.5.32)
 

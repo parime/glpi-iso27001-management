@@ -9,6 +9,25 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Simulations d'hameçonnage : taux par groupe et par entité, carte du tableau de bord et durée de
+  conservation** (issue #604, lot 2, dernier lot, exigence 7.3 et mesure A.6.3) :
+  - onglet **Résultats** : taux de clic, de saisie et de signalement par groupe GLPI des personnes
+    rapprochées. Sans le droit des registres sensibles, les groupes de moins de 5 personnes sont
+    regroupés, et masqués s'ils restent trop petits. Ces compteurs sont anonymes et gardés quand les
+    résultats par personne sont supprimés ;
+  - liste des campagnes : dernière campagne de chaque entité, avec le même masquage ;
+  - nouvelle carte du tableau de bord « Simulations d'hameçonnage : taux par campagne (%) », sous le
+    droit de la page, taux agrégés seulement ;
+  - **durée de conservation** des résultats par personne dans la configuration du plugin (en mois,
+    0 = jusqu'à suppression manuelle), réglable avec le droit de modification des registres
+    sensibles. Une action automatique quotidienne supprime les résultats expirés et garde les taux ;
+    la date prévue est affichée sur la campagne ;
+  - nouvelle colonne `group_counts` des campagnes (migration), remplie au prochain import.
+
+## [2.72.0] - 2026-11-21
+
+### Added
+
 - **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
   A.5.32). Les licences filles de GLPI (champ « Comme enfant de ») ne gonflent plus les postes
   licenciés : quand une licence mère et ses filles valables comptent toutes pour une entité, la
@@ -122,20 +141,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     leur référence ou par le test qui les a ouvertes), politiques en brouillon (mesure A.5.1),
     contrôles techniques automatiques et couverture Wazuh et SentinelOne (A.8.7, A.8.16) ;
   - lecture seule, uniquement ce que la personne a le droit de lire (droits et entités).
-- **Simulations d'hameçonnage : taux par groupe et par entité, carte du tableau de bord et durée de
-  conservation** (issue #604, lot 2, dernier lot, exigence 7.3 et mesure A.6.3) :
-  - onglet **Résultats** : taux de clic, de saisie et de signalement par groupe GLPI des personnes
-    rapprochées. Sans le droit des registres sensibles, les groupes de moins de 5 personnes sont
-    regroupés, et masqués s'ils restent trop petits. Ces compteurs sont anonymes et gardés quand les
-    résultats par personne sont supprimés ;
-  - liste des campagnes : dernière campagne de chaque entité, avec le même masquage ;
-  - nouvelle carte du tableau de bord « Simulations d'hameçonnage : taux par campagne (%) », sous le
-    droit de la page, taux agrégés seulement ;
-  - **durée de conservation** des résultats par personne dans la configuration du plugin (en mois,
-    0 = jusqu'à suppression manuelle), réglable avec le droit de modification des registres
-    sensibles. Une action automatique quotidienne supprime les résultats expirés et garde les taux ;
-    la date prévue est affichée sur la campagne ;
-  - nouvelle colonne `group_counts` des campagnes (migration), remplie au prochain import.
+- **Contacts officiels, dernier lot** (issue #771, lot 3, mesures A.5.5 et A.5.6) :
+  - **contacts proposés selon le type d'incident** : nouvelle liste « Seulement pour ces types
+    d'incident » sur la fiche du contact (vide : tous les incidents) ; un incident de type
+    « Violation de données » propose aussi les contacts à prévenir pour une violation. Types
+    affichés dans le registre et son PDF ;
+  - **communication de crise reprise comme prise de contact** (#616, #800) : en traçant un message
+    envoyé à un contact officiel, la case « Tracer aussi une prise de contact » (cochée par défaut,
+    décochable) crée la prise de contact « prévenu » à la date du message, mêmes contrôles qu'une
+    saisie (droit de modifier l'incident, entité du contact, date) ; badge « Depuis une
+    communication de crise » dans l'onglet ; nouvelle colonne
+    `plugin_grcmanager_crisiscommunications_id` des prises de contact ;
+  - **archivage daté du registre** : bouton « Archiver sur les mesures A.5.5 et A.5.6 » (droit de
+    modifier le contexte), PDF joint aux deux mesures de la SoA de l'entité active, derniers
+    registres archivés listés en tête du registre ;
+  - **plan de continuité** : le PDF du PCA / PRA se termine par les contacts officiels à prévenir
+    (ceux de l'entité du processus pour le plan d'un seul processus) ;
+  - **salle de crise** : cadre « Contacts officiels à prévenir » avec l'échéance et la situation de
+    chacun, lien vers l'onglet pour tracer l'appel, repris dans le rapport PDF de l'exercice ;
+  - nouvelle colonne `contact_incident_categories` des parties intéressées ; tests unitaires et
+    d'intégration, matrice d'accès, traductions, tutoriel (étape 22, FR et EN). Ce lot termine
+    l'issue #771.
 
 ## [2.71.0] - 2026-11-20
 
