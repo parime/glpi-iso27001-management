@@ -27,7 +27,7 @@ use Migration;
  * la date vit dans cette table du plugin. Créée si absente (rejouable), supprimée à la
  * désinstallation.
  */
-final class HardwareEndOfLifeTables
+final class HardwareEndOfLifeTables implements FeatureTables
 {
     public const MODELS = 'glpi_plugin_grcmanager_hardwaremodeleols';
 
@@ -53,5 +53,14 @@ final class HardwareEndOfLifeTables
     public static function uninstall(Migration $migration): void
     {
         $migration->dropTable(self::MODELS);
+    }
+
+    public static function migrate(Migration $migration): void
+    {
+    }
+
+    public static function pluginClasses(): array
+    {
+        return [];
     }
 }
