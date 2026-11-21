@@ -1589,6 +1589,8 @@ final class Installer
         ConfigScanTables::install($keySign, $charset, $collation);
         // Issue #853 : couverture de la journalisation (hôtes émetteurs importés, conservation déclarée).
         LogCoverageTables::install($keySign, $charset, $collation);
+        // Issue #843 : contrôleurs de gestion des serveurs (Redfish en lecture seule, import CSV).
+        ServerManagementTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -6495,6 +6497,7 @@ final class Installer
         HardwareEndOfLifeTables::uninstall($migration);
         ConfigScanTables::uninstall($migration);
         LogCoverageTables::uninstall($migration);
+        ServerManagementTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         AdSecurityAuditTables::uninstall($migration);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);

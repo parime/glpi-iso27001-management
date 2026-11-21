@@ -698,6 +698,14 @@
       {{ fields.htmlField('', log_coverage_html, __('Logging coverage', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #843 : contrôleurs de gestion des serveurs (A.8.2, A.8.9, A.8.22), dans les entités de la personne. #}
+   {% if server_management is defined and server_management is not null %}
+      {% set server_management_html %}
+         {% include '@grcmanager/_server_management_evidence.html.twig' with {'evidence': server_management} only %}
+      {% endset %}
+      {{ fields.htmlField('', server_management_html, __('Server management controllers', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Issue #604 : simulations d'hameçonnage (A.6.3), taux agrégés et tendance. #}
    {% if phishing is defined and phishing is not null %}
       {% set phishing_html %}

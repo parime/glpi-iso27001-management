@@ -184,6 +184,9 @@ final class Http
      * constante ERROR_*). Les codes 4xx et 5xx sont renvoyés tels quels (une API peut répondre 404
      * « rien » ou 429 « trop de requêtes »), avec $error = ERROR_STATUS. $body : corps envoyé tel
      * quel (formulaire d'obtention d'un jeton OAuth, #852), avec l'en-tête Content-Type fourni.
+     * $verifyTls = false (#843) : certificat du serveur accepté sans vérification (contrôleur de
+     * gestion d'un serveur au certificat auto-signé), seulement sur option explicite de
+     * l'administrateur pour cette adresse ; tous les autres contrôles restent appliqués.
      *
      * @param array<string, string> $headers
      * @return array{status: int, body: string, retry_after: int}
@@ -194,7 +197,8 @@ final class Http
         array $headers = [],
         ?string &$error = null,
         int $timeout = self::DEFAULT_TIMEOUT,
-        ?string $body = null
+        ?string $body = null,
+        bool $verifyTls = true
     ): array {
         $error = null;
         $failed = ['status' => 0, 'body' => '', 'retry_after' => 0];
@@ -232,8 +236,8 @@ final class Http
 
         try {
             $response = $glpi12
-                ? self::sendWithGlpi12($method, $url, $host, $pin, $sent, $timeout, $body)
-                : self::sendWithGlpi11($method, $url, $host, $pin, $sent, $timeout, $body);
+                ? self::sendWithGlpi12($method, $url, $host, $pin, $sent, $timeout, $body, $verifyTls)
+                : self::sendWithGlpi11($method, $url, $host, $pin, $sent, $timeout, $body, $verifyTls);
         } catch (\Throwable $e) {
             $error = self::ERROR_TRANSPORT . ': ' . $e->getMessage();
 
@@ -316,7 +320,8 @@ final class Http
         ?string $pin,
         array $headers,
         int $timeout,
-        ?string $body = null
+        ?string $body = null,
+        bool $verifyTls = true
     ): array {
         if (!class_exists(\Glpi\Toolbox\HttpClient::class)) {
             throw new \LogicException('Glpi\Toolbox\HttpClient is not available.');
@@ -332,6 +337,10 @@ final class Http
         }
         if ($pin !== null) {
             $options['resolve'] = [$host => $pin];
+        }
+        if (!$verifyTls) {
+            $options['verify_peer'] = false;
+            $options['verify_host'] = false;
         }
         try {
             $response = (new \Glpi\Toolbox\HttpClient(self::CONTEXT))->request($method, $url, $options);
@@ -363,13 +372,15 @@ final class Http
         ?string $pin,
         array $headers,
         int $timeout,
-        ?string $body = null
+        ?string $body = null,
+        bool $verifyTls = true
     ): array {
         $options = [
             'headers'         => $headers,
             'timeout'         => $timeout,
             'allow_redirects' => false,
             'http_errors'     => false,
+            'verify'          => $verifyTls,
         ];
         if ($body !== null) {
             $options['body'] = $body;

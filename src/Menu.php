@@ -158,6 +158,8 @@ class Menu extends CommonGLPI
                 ConfigurationCompliance::class,
                 // Issue #853 : couverture de la journalisation (A.8.15, A.8.16, A.8.17).
                 LogCoverage::class,
+                // Issue #843 : contrôleurs de gestion des serveurs (A.8.2, A.8.9, A.8.22).
+                ServerManagement::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];
