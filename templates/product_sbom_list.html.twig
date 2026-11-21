@@ -1,0 +1,53 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #869 : liste des nomenclatures logicielles (SBOM) importées, par produit et par version. #}
+<div class="container-fluid" id="grc-product-sbom-list">
+   <p class="text-muted">
+      <i class="ti ti-info-circle me-1"></i>{{ __('SBOM files are imported and VEX statements entered in the "SBOM and VEX" tab of each application.', 'grcmanager') }}
+      <a href="{{ register_url }}">{{ __('Open the register', 'grcmanager') }}</a>
+   </p>
+   {% if sboms is empty %}
+      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('No SBOM imported yet.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="card">
+         <div class="table-responsive">
+            <table class="table table-sm table-hover card-table mb-0">
+               <thead>
+                  <tr>
+                     <th>{{ __('Product', 'grcmanager') }}</th>
+                     <th>{{ __('Product version', 'grcmanager') }}</th>
+                     <th>{{ __('Format', 'grcmanager') }}</th>
+                     <th>{{ __('Components', 'grcmanager') }}</th>
+                     <th>{{ __('File', 'grcmanager') }}</th>
+                     <th>{{ __('Imported on', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for sbom in sboms %}
+                     <tr>
+                        <td><a href="{{ sbom.appliance_url }}"><i class="ti ti-apps me-1"></i>{{ sbom.appliance_name }}</a></td>
+                        <td>{{ sbom.product_version }}</td>
+                        <td><span class="badge bg-azure-subtle text-azure-emphasis">{{ formats[sbom.format]|default(sbom.format) }} {{ sbom.spec_version }}</span></td>
+                        <td><span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-box me-1"></i>{{ sbom.components }}</span></td>
+                        <td>{{ sbom.file_name }}</td>
+                        <td>{{ sbom.date }}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+</div>
