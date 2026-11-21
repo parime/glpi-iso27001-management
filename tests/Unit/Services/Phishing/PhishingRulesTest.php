@@ -135,4 +135,66 @@ final class PhishingRulesTest extends TestCase
         $this->assertSame(-20.0, $trend[1]['click_delta']);
         $this->assertNull($trend[2]['click_delta']);
     }
+
+    public function testRetentionIsBoundedAndGivesThePurgeDate(): void
+    {
+        $this->assertSame(0, Rules::normalizeRetention('abc'));
+        $this->assertSame(0, Rules::normalizeRetention(-3));
+        $this->assertSame(Rules::MAX_RETENTION_MONTHS, Rules::normalizeRetention(999));
+        $this->assertNull(Rules::retentionLimit(0, '2026-06-15'));
+        $this->assertSame('2025-06-15', Rules::retentionLimit(12, '2026-06-15'));
+        $this->assertSame('2026-03-01', Rules::referenceDate(['campaign_date' => '2026-03-01', 'date_import' => '2026-04-01 10:00:00']));
+        $this->assertSame('2026-04-01', Rules::referenceDate(['campaign_date' => null, 'date_import' => '2026-04-01 10:00:00']));
+        $this->assertNull(Rules::referenceDate([]));
+        $this->assertSame('2026-09-01', Rules::purgeDate(['campaign_date' => '2026-03-01'], 6));
+        $this->assertNull(Rules::purgeDate(['campaign_date' => '2026-03-01'], 0));
+    }
+
+    public function testGroupCountsAreAnonymousAndSmallGroupsAreCombined(): void
+    {
+        $step = static fn (bool $clicked): array => [
+            'sent' => true, 'opened' => $clicked, 'clicked' => $clicked, 'submitted' => false, 'reported' => !$clicked,
+        ];
+        $byUser = [];
+        for ($i = 1; $i <= 9; $i++) {
+            $byUser[$i] = $step($i <= 3);
+        }
+        // 1 à 6 : groupe 10 ; 7 et 8 : groupe 20 ; 8 aussi dans 30 ; 9 : sans groupe.
+        $groups = [1 => [10], 2 => [10], 3 => [10], 4 => [10], 5 => [10], 6 => [10], 7 => [20], 8 => [20, 30]];
+        $counts = Rules::groupCounts($byUser, $groups);
+        $this->assertSame([0, 10, 20, 30], array_keys($counts));
+        $this->assertSame(6, $counts[10]['sent']);
+        $this->assertSame(3, $counts[10]['clicked']);
+        $this->assertSame(1, $counts[0]['sent']);
+        $this->assertSame($counts, Rules::decodeGroupCounts((string) json_encode($counts, JSON_FORCE_OBJECT)));
+        $this->assertSame([], Rules::decodeGroupCounts('not json'));
+
+        $all = Rules::groupRows($counts, true);
+        $this->assertCount(4, $all);
+        $this->assertFalse($all[0]['hidden']);
+
+        $anonymous = Rules::groupRows($counts, false);
+        $this->assertSame([10, Rules::OTHER_GROUPS], array_column($anonymous, 'groups_id'));
+        $this->assertSame(50.0, $anonymous[0]['rates']['clicked']);
+        $this->assertSame(4, $anonymous[1]['counts']['sent']);
+        $this->assertTrue($anonymous[1]['hidden'], 'Moins de 5 personnes, même regroupées : taux masqués.');
+        $this->assertNull($anonymous[1]['rates']['clicked']);
+    }
+
+    public function testEntityRowsKeepTheLastMeasuredCampaign(): void
+    {
+        $counts = static fn (int $sent, int $clicked): array => [
+            'sent' => $sent, 'opened' => 0, 'clicked' => $clicked, 'submitted' => 0, 'reported' => 0,
+        ];
+        $rows = Rules::entityRows([
+            ['id' => 2, 'entities_id' => 1, 'date' => '2026-05-01', 'counts' => $counts(10, 1)],
+            ['id' => 1, 'entities_id' => 1, 'date' => '2026-01-01', 'counts' => $counts(10, 4)],
+            ['id' => 3, 'entities_id' => 1, 'date' => '2026-09-01', 'counts' => $counts(0, 0)],
+            ['id' => 4, 'entities_id' => 2, 'date' => '2026-02-01', 'counts' => $counts(20, 5)],
+        ]);
+        $this->assertSame(2, $rows[1]['campaigns']);
+        $this->assertSame('2026-05-01', $rows[1]['last_date']);
+        $this->assertSame(10.0, $rows[1]['rates']['clicked']);
+        $this->assertSame(25.0, $rows[2]['rates']['clicked']);
+    }
 }

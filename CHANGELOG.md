@@ -9,6 +9,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Simulations d'hameçonnage : taux par groupe et par entité, carte du tableau de bord et durée de
+  conservation** (issue #604, lot 2, dernier lot, exigence 7.3 et mesure A.6.3) :
+  - onglet **Résultats** : taux de clic, de saisie et de signalement par groupe GLPI des personnes
+    rapprochées. Sans le droit des registres sensibles, les groupes de moins de 5 personnes sont
+    regroupés, et masqués s'ils restent trop petits. Ces compteurs sont anonymes et gardés quand les
+    résultats par personne sont supprimés ;
+  - liste des campagnes : dernière campagne de chaque entité, avec le même masquage ;
+  - nouvelle carte du tableau de bord « Simulations d'hameçonnage : taux par campagne (%) », sous le
+    droit de la page, taux agrégés seulement ;
+  - **durée de conservation** des résultats par personne dans la configuration du plugin (en mois,
+    0 = jusqu'à suppression manuelle), réglable avec le droit de modification des registres
+    sensibles. Une action automatique quotidienne supprime les résultats expirés et garde les taux ;
+    la date prévue est affichée sur la campagne ;
+  - nouvelle colonne `group_counts` des campagnes (migration), remplie au prochain import.
 - **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
   contacts officiels** (issue #776, lot 2, mesure A.5.29) :
   - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les
