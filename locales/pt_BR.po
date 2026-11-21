@@ -32193,3 +32193,4 @@ msgstr "Nenhum controlador de gerenciamento (iLO, iDRAC, XClarity, IPMI) é conh
 
 msgid "Secure Boot"
 msgstr "Inicialização segura"
+

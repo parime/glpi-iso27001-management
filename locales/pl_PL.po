@@ -32320,3 +32320,4 @@ msgstr "Dla tego komputera nie jest znany żaden kontroler zarządzania (iLO, iD
 
 msgid "Secure Boot"
 msgstr "Bezpieczny rozruch"
+

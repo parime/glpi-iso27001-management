@@ -36952,3 +36952,4 @@ msgstr "No management controller (iLO, iDRAC, XClarity, IPMI) is known for this 
 
 msgid "Secure Boot"
 msgstr "Secure Boot"
+

@@ -32398,3 +32398,4 @@ msgstr "Nessun controller di gestione (iLO, iDRAC, XClarity, IPMI) è noto per q
 
 msgid "Secure Boot"
 msgstr "Avvio protetto"
+

@@ -32441,3 +32441,4 @@ msgstr "No se conoce ningún controlador de gestión (iLO, iDRAC, XClarity, IPMI
 
 msgid "Secure Boot"
 msgstr "Arranque seguro"
+
