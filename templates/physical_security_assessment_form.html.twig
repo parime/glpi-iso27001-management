@@ -30,7 +30,8 @@
                <span class="badge bg-orange-subtle text-orange-emphasis fs-5"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d finding', '%d findings', summary.findings, 'grcmanager')|format(summary.findings) }}</span>
             {% endif %}
             <span class="badge {{ due_labels[due][1] }} fs-5" id="grc-physical-due"><i class="ti ti-calendar-repeat me-1"></i>{{ due_labels[due][0] }}</span>
-            <a href="{{ compare_url }}" class="ms-auto"><i class="ti ti-columns me-1"></i>{{ __('Compare the sites', 'grcmanager') }}</a>
+            <a href="{{ pdf_url }}" class="ms-auto" id="grc-physical-pdf" title="{{ __('Checklist, findings, actions and zones of this assessment, for the auditor.', 'grcmanager') }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Report (PDF)', 'grcmanager') }}</a>
+            <a href="{{ compare_url }}"><i class="ti ti-columns me-1"></i>{{ __('Compare the sites', 'grcmanager') }}</a>
          </div>
       </div>
    {% endif %}

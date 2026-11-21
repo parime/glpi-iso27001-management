@@ -132,6 +132,16 @@ if ($mode === 'xss') {
         // Issue #775, lot 2 : dernière revue tracée (nom de la personne affiché).
         'last_review_date' => date('Y-m-d'), 'users_id_lastreviewer' => 2,
     ]);
+    // Issue #775, lot 3 : une revue au journal d'audit, pour que la fiche piégée affiche aussi son
+    // historique des revues (chaîne d'empreintes du journal respectée par AuditLog::record()).
+    \GlpiPlugin\Grcmanager\AuditLog::record(
+        'review',
+        'GlpiPlugin\\Grcmanager\\Policy',
+        $out['procedure'],
+        0,
+        'success',
+        ['last_review_date' => date('Y-m-d'), 'next_review_date' => date('Y-m-d', strtotime('+1 year'))]
+    );
     // Issue #775, lot 2 : article piégé de la base de connaissances, texte de la procédure (registre,
     // onglet natif « Base de connaissances » de la procédure).
     $DB->insert('glpi_knowbaseitems', [
@@ -235,6 +245,8 @@ if ($mode === 'xss') {
         'tool' => $canary, 'scenario' => $canary, 'target_population' => $canary, 'comment' => $canary,
         'nb_sent' => 6, 'nb_opened' => 3, 'nb_clicked' => 2, 'nb_unmatched' => 1, 'import_file' => $canary,
         'date_import' => date('Y-m-d H:i:s'),
+        // Issue #604, lot 2 : taux par groupe, avec le groupe piégé (nom affiché dans l'onglet).
+        'group_counts' => json_encode([$xssGroup => ['sent' => 6, 'opened' => 3, 'clicked' => 2]]),
     ]);
     $insert('phishingresults', [
         'plugin_grcmanager_phishingcampaigns_id' => $out['phishing'], 'users_id' => 0, 'identifier' => $canary,
@@ -333,6 +345,13 @@ if ($mode === 'xss') {
     ]);
     $DB->update('glpi_plugin_grcmanager_ismsrequirements', ['comment' => $canary], ['id' => ['>', 0]]);
     $DB->update('glpi_computers', ['name' => $canary], ['id' => (int) $ids['computer_A']]);
+    // Issue #782, lot 2 : modèle piégé dont la fin de vie constructeur est atteinte (carte de la fin
+    // de garantie, saisie des dates dans la configuration).
+    $xssModel = (int) (new ComputerModel())->add(['name' => mb_substr($canary, 0, 255)]);
+    $DB->update('glpi_computers', ['computermodels_id' => $xssModel], ['id' => (int) $ids['computer_A']]);
+    $DB->insert(\GlpiPlugin\Grcmanager\Install\HardwareEndOfLifeTables::MODELS, [
+        'itemtype' => ComputerModel::class, 'items_id' => $xssModel, 'end_of_life_date' => '2020-01-01',
+    ]);
     // Issue #847 : outil et algorithme de chiffrement piégés (page du chiffrement des disques).
     $DB->update('glpi_items_disks', [
         'encryption_status' => 2, 'encryption_tool' => mb_substr($canary, 0, 255),
@@ -829,12 +848,13 @@ foreach (['A', 'B'] as $suffix) {
         'itemtype' => Computer::class, 'items_id' => $ids['computer_A'],
     ]);
 }
+// Issue #536, lot 3 : risque fournisseur et formation dans l'entité A, comme les profils testés.
 $ids['supplierrisk'] = $add(new \GlpiPlugin\Grcmanager\SupplierRisk(), [
-    'title' => 'Risque fournisseur securite', 'suppliers_id' => $supplier,
+    'title' => 'Risque fournisseur securite', 'suppliers_id' => $supplier, 'entities_id' => $a,
 ]);
 $ids['training'] = $add(
     new \GlpiPlugin\Grcmanager\Training(),
-    ['title' => 'Formation securite', 'participants' => [2]]
+    ['title' => 'Formation securite', 'participants' => [2], 'entities_id' => $a]
 );
 // Issue #139 : copie de quiz de glpi, lisible par lui seul (ni formateur ni groupe RSSI ici).
 $ids['quiz'] = \GlpiPlugin\Grcmanager\TrainingQuiz::getParticipationId($ids['training'], 2);
@@ -1233,6 +1253,30 @@ $DB->insert(\GlpiPlugin\Grcmanager\AuditorAccess::TABLE, [
     'date_creation'               => date('Y-m-d H:i:s'),
 ]);
 
+// Issue #536, lot 3 : un élément de chaque registre du lot 3 dans l'entité B, jamais montré aux
+// profils limités à A (fiche, liste).
+$lot3 = [
+    'supplierrisk_B' => [new \GlpiPlugin\Grcmanager\SupplierRisk(), [
+        'title' => 'Risque fournisseur securite B', 'suppliers_id' => $supplier,
+    ]],
+    'training_B'     => [new \GlpiPlugin\Grcmanager\Training(), ['title' => 'Formation securite B']],
+    'mreview_B'      => [new \GlpiPlugin\Grcmanager\ManagementReview(), ['title' => 'Revue securite B']],
+    'objective_B'    => [new \GlpiPlugin\Grcmanager\Objective(), ['title' => 'Objectif registre securite B']],
+    'obligation_B'   => [new \GlpiPlugin\Grcmanager\ComplianceObligation(), [
+        'title' => 'Obligation securite B', 'type' => 'contractual',
+    ]],
+    'waiver_B'       => [new \GlpiPlugin\Grcmanager\Waiver(), [
+        'name' => 'Derogation securite B', 'date_end' => date('Y-m-d', strtotime('+30 days')),
+    ]],
+    'flow_B'         => [new \GlpiPlugin\Grcmanager\NetworkFlow(), [
+        'name' => 'Flux securite B', 'source_label' => '10.0.0.0/24', 'destination_label' => '10.0.1.0/24',
+    ]],
+    'ebios_B'        => [new \GlpiPlugin\Grcmanager\EbiosStudy(), ['name' => 'Etude securite B']],
+];
+foreach ($lot3 as $key => [$item, $input]) {
+    $ids[$key] = $add($item, $input + ['entities_id' => $b]);
+}
+
 // Issue #540 : référentiel DORA activé, pour que le registre et ses onglets soient testés.
 \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('dora', true);
 // Issue #703 : registre NIS2 Italia - ACN, entité A importante et entité B essentielle.
@@ -1273,6 +1317,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
 // Issue #542 : revue de direction fictive, pour le dossier préparatoire et ses actions.
 $ids['mreview'] = $add(new \GlpiPlugin\Grcmanager\ManagementReview(), [
     'title'       => 'Revue de direction securite',
+    'entities_id' => $a,
     'status'      => 'planned',
     'review_date' => date('Y-m-d'),
     'decisions'   => 'Decision securite',
@@ -1305,7 +1350,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     // Issue #774 (lot 2) : une formation donne la compétence au niveau exigé ; la session proposée
     // pour les écarts ne présélectionne que les personnes visibles.
     $ids['competence_training_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Training(), [
-        'title' => 'Formation competence securite ' . $suffix,
+        'title' => 'Formation competence securite ' . $suffix, 'entities_id' => $entity,
     ]);
     (new \GlpiPlugin\Grcmanager\Competence())->update([
         'id' => $competenceId, '_add_trainings_id' => $ids['competence_training_' . $suffix],

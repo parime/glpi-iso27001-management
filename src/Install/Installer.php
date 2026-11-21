@@ -1566,6 +1566,7 @@ final class Installer
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::seedDefaults();
         // Issue #604 : campagnes de simulation d'hameçonnage et résultats importés (7.3, A.6.3).
         PhishingTables::install($keySign, $charset, $collation);
+        PhishingTables::migrate($migration);
         // Issue #777 : développement sécurisé (fiche des applications, validation des mises en production).
         SecureDevelopmentTables::install($keySign, $charset, $collation);
         SecureDevelopmentTables::upgrade($migration);
@@ -1579,6 +1580,8 @@ final class Installer
         DiskEncryptionTables::install($keySign, $charset, $collation);
         // Issue #852 : méthodes d'authentification importées par compte (aucun secret stocké).
         MfaCoverageTables::install($keySign, $charset, $collation);
+        // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
+        HardwareEndOfLifeTables::install($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -3589,6 +3592,18 @@ final class Installer
                 'comment' => 'Previent les responsables des ecarts de conformite securite de leurs collaborateurs',
                 'mode'    => CronTask::MODE_EXTERNAL,
                 'state'   => CronTask::STATE_DISABLE,
+            ]
+        );
+
+        // Issue #604, lot 2 : suppression des résultats individuels d'hameçonnage au-delà de la durée
+        // de conservation réglée (sans effet tant qu'aucune durée n'est réglée ; taux gardés).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\PhishingCampaign::class,
+            'phishingretention',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Supprime les resultats individuels d hameconnage au-dela de la duree de conservation',
+                'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
 
@@ -5998,9 +6013,24 @@ final class Installer
             self::RISK_TREATMENT_ACTIONS_TABLE => 0,
             self::AUDITS_TABLE                 => 0,
             self::NONCONFORMITIES_TABLE        => 0,
+            // Lot 3 : les registres opérationnels (risques fournisseurs, dérogations, flux réseau,
+            // études EBIOS) restent dans l'entité racine seule, comme les risques ; les registres de
+            // pilotage (formations, revues de direction, objectifs, obligations) gardent leur
+            // visibilité d'avant dans les sous-entités (récursifs).
+            self::SUPPLIER_RISKS_TABLE         => 0,
+            self::WAIVERS_TABLE                => 0,
+            self::NETWORK_FLOWS_TABLE          => 0,
+            self::EBIOS_STUDIES_TABLE          => 0,
+            self::TRAININGS_TABLE              => 1,
+            self::MANAGEMENT_REVIEWS_TABLE     => 1,
+            self::OBJECTIVES_TABLE             => 1,
+            self::COMPLIANCE_OBLIGATIONS_TABLE => 1,
         ];
         $legacyFindings = !$DB->fieldExists(self::NONCONFORMITIES_TABLE, 'entities_id');
         foreach ($tables as $table => $recursive) {
+            if (!$DB->tableExists($table)) {
+                continue;
+            }
             if (!$DB->fieldExists($table, 'entities_id')) {
                 $migration->addField($table, 'entities_id', 'fkey', ['after' => 'id', 'value' => 0]);
             }
@@ -6453,6 +6483,7 @@ final class Installer
         EvidencePackTables::uninstall($migration);
         DiskEncryptionTables::uninstall($migration);
         MfaCoverageTables::uninstall($migration);
+        HardwareEndOfLifeTables::uninstall($migration);
         $migration->dropTable(self::AUDITS_PROCESSES_TABLE);
         $migration->dropTable(self::AUDIT_INDEPENDENCE_WAIVERS_TABLE);
         $migration->dropTable(self::AUDIT_REPORT_DELIVERIES_TABLE);

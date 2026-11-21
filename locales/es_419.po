@@ -6398,10 +6398,11 @@ msgstr "Equipos más expuestos"
 
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
+"software, operating system and firmware, to know where to start updating."
 msgstr ""
 "Los equipos más expuestos a las vulnerabilidades conocidas de su software "
-"vigilado, para saber por dónde empezar las actualizaciones."
+"vigilado, su sistema operativo y su firmware, para saber por dónde empezar "
+"las actualizaciones."
 
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
@@ -17632,6 +17633,9 @@ msgstr "No puede modificar el plan de tratamiento de este riesgo."
 msgid "You cannot create an audit in this entity."
 msgstr "No puede crear una auditoría en esta entidad."
 
+msgid "You cannot create this item in this entity."
+msgstr "No puede crear este elemento en esta entidad."
+
 msgid "You cannot create a non-conformity in this entity."
 msgstr "No puede crear una no conformidad en esta entidad."
 
@@ -25233,6 +25237,16 @@ msgstr "Rechazar el paso a producción"
 msgid "Awaiting the decision of the CIO or the CISO."
 msgstr "A la espera de la decisión de la Dirección de TI o del CISO."
 
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
+msgstr ""
+"Complete esta ficha para cada aplicación desarrollada o mantenida "
+"internamente: aparecerá entonces en el registro de aplicaciones (página "
+"Desarrollo seguro) y como evidencia de los controles A.8.25, A.8.28, A.8.29 "
+"y A.8.31."
+
 msgid "All secure development practices are in place"
 msgstr "Todas las prácticas de desarrollo seguro están implantadas"
 
@@ -25506,6 +25520,17 @@ msgid "Approve or reject the release of a change (security validation)"
 msgstr ""
 "Aprobar o rechazar el paso a producción de un cambio (validación de "
 "seguridad)"
+
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+"Las aplicaciones desarrolladas o mantenidas internamente, con sus prácticas "
+"de desarrollo seguro (marco, revisión de código, análisis SAST, DAST y de "
+"dependencias, entornos separados), y los pasos a producción de los últimos "
+"12 meses con su validación de seguridad."
 
 msgid ""
 "Fill in the \"Secure development\" tab of each application, link the changes "
@@ -27782,297 +27807,26 @@ msgid "This exercise has never been run to the end in the crisis room."
 msgstr ""
 "Este ejercicio nunca se ha llevado hasta el final en la sala de crisis."
 
-msgid ""
-"Fill in this sheet for each application developed or maintained in-house: it "
-"then appears in the register of applications (secure development page) and "
-"as evidence for controls A.8.25 to A.8.31."
-msgstr ""
-"Complete esta ficha para cada aplicación desarrollada o mantenida "
-"internamente: aparecerá en el registro de aplicaciones (página Desarrollo "
-"seguro) y como evidencia de los controles A.8.25 a A.8.31."
+msgid "Child licenses counted once"
+msgstr "Licencias hijas contadas una vez"
 
 msgid ""
-"The applications developed or maintained in-house, with their secure "
-"development practices (framework, code review, SAST, DAST and dependency "
-"analyses, security requirements, architecture principles, outsourced "
-"development, separated environments), and the releases of the last 12 months "
-"with their security validation."
+"Child licenses share the seats of their parent license: each family is "
+"counted once."
 msgstr ""
-"Las aplicaciones desarrolladas o mantenidas internamente, con sus prácticas "
-"de desarrollo seguro (marco de referencia, revisión de código, análisis "
-"SAST, DAST y de dependencias, requisitos de seguridad, principios de "
-"arquitectura, desarrollo externalizado, separación de entornos), y los pasos "
-"a producción de los últimos 12 meses con su validación de seguridad."
-
-msgid "%d without documented security requirements"
-msgstr "%d sin requisitos de seguridad documentados"
-
-msgid "%d without secure architecture principles"
-msgstr "%d sin principios de arquitectura segura"
-
-msgid "%d outsourced without supplier or security clauses"
-msgstr "%d externalizada(s) sin proveedor o sin cláusulas de seguridad"
-
-msgid "%d with access, data or configuration not separated"
-msgstr "%d con accesos, datos o configuración no separados"
-
-msgid "Architecture"
-msgstr "Arquitectura"
-
-msgid "Architecture: %d"
-msgstr "Arquitectura: %d"
-
-msgid "Requirements: %d"
-msgstr "Requisitos: %d"
-
-msgid "Development entrusted to a supplier"
-msgstr "Desarrollo confiado a un proveedor"
+"Las licencias hijas comparten los puestos de su licencia madre: cada familia "
+"se cuenta una vez."
 
 msgid ""
-"For example: code review of each delivery, acceptance tests, right to audit, "
-"escrow of the source code."
+"More assets have the software than the valid licenses allow. An unlimited "
+"license (number 0 or less) covers everything. A parent license and its child "
+"licenses count for the larger of the parent number and the sum of the "
+"children."
 msgstr ""
-"Por ejemplo: revisión de código de cada entrega, pruebas de aceptación, "
-"derecho de auditoría, depósito del código fuente."
-
-msgid "No architecture principles"
-msgstr "Sin principios de arquitectura"
-
-msgid "No security requirements"
-msgstr "Sin requisitos de seguridad"
-
-msgid "Not separated: %s"
-msgstr "No separado: %s"
-
-msgid "Outsourced development (A.8.30)"
-msgstr "Desarrollo externalizado (A.8.30)"
-
-msgid "Outsourced without supplier or security clauses"
-msgstr "Externalizado sin proveedor o sin cláusulas de seguridad"
-
-msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
-msgstr "Externalizadas: %1$d, sin proveedor o cláusulas: %2$d"
-
-msgid ""
-"Principles applied to the design: least privilege, defence in depth, secure "
-"defaults, or a link to the architecture document."
-msgstr ""
-"Principios aplicados al diseño: mínimo privilegio, defensa en profundidad, "
-"seguridad por defecto, o un enlace al documento de arquitectura."
-
-msgid "Requirements and architecture (A.8.26, A.8.27)"
-msgstr "Requisitos y arquitectura (A.8.26, A.8.27)"
-
-msgid ""
-"Requirements identified before development: authentication, data protection, "
-"logging, legal obligations, or a link to the specification."
-msgstr ""
-"Requisitos identificados antes del desarrollo: autenticación, protección de "
-"datos, registro, obligaciones legales, o un enlace al pliego de condiciones."
-
-msgid "Secure architecture principles"
-msgstr "Principios de arquitectura segura"
-
-msgid "Security clauses in the contract"
-msgstr "Cláusulas de seguridad en el contrato"
-
-msgid "Security requirements of the application"
-msgstr "Requisitos de seguridad de la aplicación"
-
-msgid "Separate access (accounts, rights)"
-msgstr "Accesos separados (cuentas, derechos)"
-
-msgid "Separate configuration (secrets, settings)"
-msgstr "Configuración separada (secretos, parámetros)"
-
-msgid "Separate data (no production data outside production, or anonymised)"
-msgstr ""
-"Datos separados (sin datos de producción fuera de producción, o anonimizados)"
-
-msgid "Supervised"
-msgstr "Supervisado"
-
-msgid "Supervision of the supplier"
-msgstr "Supervisión del proveedor"
-
-msgid ""
-"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
-"not outsourced."
-msgstr ""
-"Proveedor de GLPI (Gestión > Proveedores). Se ignora si el desarrollo no "
-"está externalizado."
-
-msgid ""
-"When the environments are separated, tick what is actually separated between "
-"development, test and production:"
-msgstr ""
-"Si los entornos están separados, marque lo que realmente está separado entre "
-"desarrollo, pruebas y producción:"
-
-msgid "Without supplier or clauses"
-msgstr "Sin proveedor o cláusulas"
-
-msgid "%d outsourced application"
-msgid_plural "%d outsourced applications"
-msgstr[0] "%d aplicación externalizada"
-msgstr[1] "%d aplicaciones externalizadas"
-
-msgid ""
-"Fill in this sheet for each application developed or maintained in-house: it "
-"then appears in the register of applications (secure development page) and "
-"as evidence for controls A.8.25, A.8.28, A.8.29 and A.8.31."
-msgstr ""
-"Complete esta ficha para cada aplicación desarrollada o mantenida "
-"internamente: aparecerá entonces en el registro de aplicaciones (página "
-"Desarrollo seguro) y como evidencia de los controles A.8.25, A.8.28, A.8.29 "
-"y A.8.31."
-
-msgid ""
-"The applications developed or maintained in-house, with their secure "
-"development practices (framework, code review, SAST, DAST and dependency "
-"analyses, separated environments), and the releases of the last 12 months "
-"with their security validation."
-msgstr ""
-"Las aplicaciones desarrolladas o mantenidas internamente, con sus prácticas "
-"de desarrollo seguro (marco, revisión de código, análisis SAST, DAST y de "
-"dependencias, entornos separados), y los pasos a producción de los últimos "
-"12 meses con su validación de seguridad."
-
-msgid "Blockers"
-msgstr "Bloqueos"
-
-msgid "Technical check"
-msgstr "Control técnico"
-
-msgid "Effectiveness test overdue"
-msgstr "Prueba de eficacia atrasada"
-
-#, php-format
-msgid "Last test: %s"
-msgstr "Última prueba: %s"
-
-#, php-format
-msgid "Next test was due on %s"
-msgstr "La próxima prueba vencía el %s"
-
-#, php-format
-msgid "Tested on %s"
-msgstr "Probado el %s"
-
-msgid "Test the control again and record the result."
-msgstr "Vuelva a probar el control y registre el resultado."
-
-msgid "Fix the weakness found by the test, then test the control again."
-msgstr ""
-"Corrija la debilidad detectada por la prueba y vuelva a probar el control."
-
-#, php-format
-msgid "Open, due on %s"
-msgstr "Abierta, vence el %s"
-
-msgid "Carry out the corrective action, then close the nonconformity."
-msgstr "Realice la acción correctiva y luego cierre la no conformidad."
-
-msgid "Have the policy approved by management."
-msgstr "Haga aprobar la política por la dirección."
-
-#, php-format
-msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
-msgstr "Brechas: %1$d de %2$d (%3$d %% conforme)"
-
-msgid "Fix the items listed by the automated check."
-msgstr "Corrija los elementos listados por el control automático."
-
-#, php-format
-msgid "%s coverage"
-msgstr "Cobertura de %s"
-
-#, php-format
-msgid "Computers without an active agent: %1$d out of %2$d"
-msgstr "Equipos sin agente activo: %1$d de %2$d"
-
-msgid "Install or reactivate the agent on the computers not covered."
-msgstr "Instale o reactive el agente en los equipos no cubiertos."
-
-msgid "What blocks this control"
-msgstr "Qué bloquea este control"
-
-msgid ""
-"For each control of the Statement of Applicability, this page lists what "
-"prevents it from being compliant: failing automated check, missing or "
-"expired evidence, policy not approved, effectiveness test overdue or "
-"ineffective, open nonconformity, expired waiver."
-msgstr ""
-"Para cada control de la declaración de aplicabilidad, esta página lista lo "
-"que impide su conformidad: control automático fallido, evidencia ausente o "
-"caducada, política no aprobada, prueba de eficacia atrasada o ineficaz, no "
-"conformidad abierta, excepción caducada."
-
-msgid ""
-"Sort by severity and start with the most blocked controls. Click a control "
-"to see its blockers, then click a blocker to open the screen where it is "
-"fixed. The page is computed again each time and only shows what you are "
-"allowed to read. Nothing is changed automatically."
-msgstr ""
-"Ordene por gravedad y empiece por los controles más bloqueados. Haga clic en "
-"un control para ver sus bloqueos y luego en un bloqueo para abrir la "
-"pantalla donde corregirlo. La página se recalcula cada vez y solo muestra lo "
-"que puede leer. Nada se modifica automáticamente."
-
-msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
-msgstr "ISO/IEC 27001:2022, cláusula 9.1 y control A.5.36."
-
-msgid "Fix"
-msgstr "Corregir"
-
-#, php-format
-msgid "%d more"
-msgstr "%d más"
-
-#, php-format
-msgid "Blocked controls: %1$d out of %2$d"
-msgstr "Controles bloqueados: %1$d de %2$d"
-
-msgid ""
-"No control of the Statement of Applicability is blocked among the checks you "
-"can read."
-msgstr ""
-"Ningún control de la declaración de aplicabilidad está bloqueado según las "
-"verificaciones que puede leer."
-
-msgid "Sort"
-msgstr "Ordenar"
-
-msgid "What blocks it"
-msgstr "Qué lo bloquea"
-
-msgid "All blocked controls"
-msgstr "Todos los controles bloqueados"
-
-msgid ""
-"Everything that prevents this control from being compliant, in a single "
-"list: failing automated check, missing or expired evidence, policy not "
-"approved, effectiveness test overdue or ineffective, open nonconformity, "
-"expired waiver. Click a line to open the screen where it is fixed. Only what "
-"you are allowed to read is shown, and nothing is changed automatically."
-msgstr ""
-"Todo lo que impide la conformidad de este control, en una sola lista: "
-"control automático fallido, evidencia ausente o caducada, política no "
-"aprobada, prueba de eficacia atrasada o ineficaz, no conformidad abierta, "
-"excepción caducada. Haga clic en una línea para abrir la pantalla donde "
-"corregirla. Solo se muestra lo que puede leer y nada se modifica "
-"automáticamente."
-
-msgid "No blocker found among the checks you can read."
-msgstr "No se encontró ningún bloqueo entre las verificaciones que puede leer."
-
-msgid "Nothing blocks this control"
-msgstr "Nada bloquea este control"
-
-msgid "Blocked control"
-msgid_plural "Blocked controls"
-msgstr[0] "Control bloqueado"
-msgstr[1] "Controles bloqueados"
+"Más activos tienen el software de lo que permiten las licencias válidas. Una "
+"licencia ilimitada (número 0 o menor) lo cubre todo. Una licencia madre y "
+"sus licencias hijas cuentan por el mayor entre el número de la madre y la "
+"suma de las hijas."
 
 msgid "Evidence pack settings saved."
 msgstr "Ajustes del dossier de evidencias guardados."
@@ -28368,26 +28122,285 @@ msgid_plural "Competence gap alerts"
 msgstr[0] "Alerta de brecha de competencia"
 msgstr[1] "Alertas de brechas de competencia"
 
-msgid "Child licenses counted once"
-msgstr "Licencias hijas contadas una vez"
+msgid "Blockers"
+msgstr "Bloqueos"
+
+msgid "Technical check"
+msgstr "Control técnico"
+
+msgid "Effectiveness test overdue"
+msgstr "Prueba de eficacia atrasada"
+
+#, php-format
+msgid "Last test: %s"
+msgstr "Última prueba: %s"
+
+#, php-format
+msgid "Next test was due on %s"
+msgstr "La próxima prueba vencía el %s"
+
+#, php-format
+msgid "Tested on %s"
+msgstr "Probado el %s"
+
+msgid "Test the control again and record the result."
+msgstr "Vuelva a probar el control y registre el resultado."
+
+msgid "Fix the weakness found by the test, then test the control again."
+msgstr ""
+"Corrija la debilidad detectada por la prueba y vuelva a probar el control."
+
+#, php-format
+msgid "Open, due on %s"
+msgstr "Abierta, vence el %s"
+
+msgid "Carry out the corrective action, then close the nonconformity."
+msgstr "Realice la acción correctiva y luego cierre la no conformidad."
+
+msgid "Have the policy approved by management."
+msgstr "Haga aprobar la política por la dirección."
+
+#, php-format
+msgid "Gaps: %1$d out of %2$d (%3$d%% compliant)"
+msgstr "Brechas: %1$d de %2$d (%3$d %% conforme)"
+
+msgid "Fix the items listed by the automated check."
+msgstr "Corrija los elementos listados por el control automático."
+
+#, php-format
+msgid "%s coverage"
+msgstr "Cobertura de %s"
+
+#, php-format
+msgid "Computers without an active agent: %1$d out of %2$d"
+msgstr "Equipos sin agente activo: %1$d de %2$d"
+
+msgid "Install or reactivate the agent on the computers not covered."
+msgstr "Instale o reactive el agente en los equipos no cubiertos."
+
+msgid "What blocks this control"
+msgstr "Qué bloquea este control"
 
 msgid ""
-"Child licenses share the seats of their parent license: each family is "
-"counted once."
+"For each control of the Statement of Applicability, this page lists what "
+"prevents it from being compliant: failing automated check, missing or "
+"expired evidence, policy not approved, effectiveness test overdue or "
+"ineffective, open nonconformity, expired waiver."
 msgstr ""
-"Las licencias hijas comparten los puestos de su licencia madre: cada familia "
-"se cuenta una vez."
+"Para cada control de la declaración de aplicabilidad, esta página lista lo "
+"que impide su conformidad: control automático fallido, evidencia ausente o "
+"caducada, política no aprobada, prueba de eficacia atrasada o ineficaz, no "
+"conformidad abierta, excepción caducada."
 
 msgid ""
-"More assets have the software than the valid licenses allow. An unlimited "
-"license (number 0 or less) covers everything. A parent license and its child "
-"licenses count for the larger of the parent number and the sum of the "
-"children."
+"Sort by severity and start with the most blocked controls. Click a control "
+"to see its blockers, then click a blocker to open the screen where it is "
+"fixed. The page is computed again each time and only shows what you are "
+"allowed to read. Nothing is changed automatically."
 msgstr ""
-"Más activos tienen el software de lo que permiten las licencias válidas. Una "
-"licencia ilimitada (número 0 o menor) lo cubre todo. Una licencia madre y "
-"sus licencias hijas cuentan por el mayor entre el número de la madre y la "
-"suma de las hijas."
+"Ordene por gravedad y empiece por los controles más bloqueados. Haga clic en "
+"un control para ver sus bloqueos y luego en un bloqueo para abrir la "
+"pantalla donde corregirlo. La página se recalcula cada vez y solo muestra lo "
+"que puede leer. Nada se modifica automáticamente."
+
+msgid "ISO/IEC 27001:2022 clause 9.1 and control A.5.36."
+msgstr "ISO/IEC 27001:2022, cláusula 9.1 y control A.5.36."
+
+msgid "Fix"
+msgstr "Corregir"
+
+#, php-format
+msgid "%d more"
+msgstr "%d más"
+
+#, php-format
+msgid "Blocked controls: %1$d out of %2$d"
+msgstr "Controles bloqueados: %1$d de %2$d"
+
+msgid ""
+"No control of the Statement of Applicability is blocked among the checks you "
+"can read."
+msgstr ""
+"Ningún control de la declaración de aplicabilidad está bloqueado según las "
+"verificaciones que puede leer."
+
+msgid "Sort"
+msgstr "Ordenar"
+
+msgid "What blocks it"
+msgstr "Qué lo bloquea"
+
+msgid "All blocked controls"
+msgstr "Todos los controles bloqueados"
+
+msgid ""
+"Everything that prevents this control from being compliant, in a single "
+"list: failing automated check, missing or expired evidence, policy not "
+"approved, effectiveness test overdue or ineffective, open nonconformity, "
+"expired waiver. Click a line to open the screen where it is fixed. Only what "
+"you are allowed to read is shown, and nothing is changed automatically."
+msgstr ""
+"Todo lo que impide la conformidad de este control, en una sola lista: "
+"control automático fallido, evidencia ausente o caducada, política no "
+"aprobada, prueba de eficacia atrasada o ineficaz, no conformidad abierta, "
+"excepción caducada. Haga clic en una línea para abrir la pantalla donde "
+"corregirla. Solo se muestra lo que puede leer y nada se modifica "
+"automáticamente."
+
+msgid "No blocker found among the checks you can read."
+msgstr "No se encontró ningún bloqueo entre las verificaciones que puede leer."
+
+msgid "Nothing blocks this control"
+msgstr "Nada bloquea este control"
+
+msgid "Blocked control"
+msgid_plural "Blocked controls"
+msgstr[0] "Control bloqueado"
+msgstr[1] "Controles bloqueados"
+
+msgid "Hardware whose model has reached the manufacturer end of life"
+msgstr "Hardware cuyo modelo ha llegado al fin de vida del fabricante"
+
+msgid ""
+"Plan the replacement of the hardware, or record a waiver with compensating "
+"measures until then."
+msgstr ""
+"Planificar la sustitución del hardware, o registrar una excepción con "
+"medidas compensatorias hasta entonces."
+
+msgid "Manufacturer end of life reached"
+msgstr "Fin de vida del fabricante alcanzado"
+
+msgid ""
+"The manufacturer no longer supports this model: plan its replacement, or "
+"record the compensating measures."
+msgstr ""
+"El fabricante ya no da soporte a este modelo: planificar su sustitución, o "
+"registrar las medidas compensatorias."
+
+msgid "Manufacturer end of life soon"
+msgstr "Fin de vida del fabricante próximo"
+
+msgid ""
+"Plan the replacement before the manufacturer stops supporting this model."
+msgstr ""
+"Planificar la sustitución antes de que el fabricante deje de dar soporte a "
+"este modelo."
+
+msgid "Supported by the manufacturer"
+msgstr "Con soporte del fabricante"
+
+msgid "The end of life date entered for this model is still ahead."
+msgstr ""
+"La fecha de fin de vida introducida para este modelo aún no ha llegado."
+
+msgid "No end of life date"
+msgstr "Sin fecha de fin de vida"
+
+msgid ""
+"No manufacturer end of life date entered for this model (optional, in the "
+"configuration)."
+msgstr ""
+"No se ha introducido ninguna fecha de fin de vida del fabricante para este "
+"modelo (opcional, en la configuración)."
+
+#, php-format
+msgid "Manufacturer end of life on %s."
+msgstr "Fin de vida del fabricante el %s."
+
+msgid "Manufacturer end of life date"
+msgstr "Fecha de fin de vida del fabricante"
+
+msgid "Manufacturer end of life"
+msgstr "Fin de vida del fabricante"
+
+#, php-format
+msgid "%1$d reaching it within %2$d days"
+msgstr "%1$d lo alcanzan en %2$d días"
+
+#, php-format
+msgid "%d past the manufacturer end of life"
+msgstr "%d tras el fin de vida del fabricante"
+
+#, php-format
+msgid ""
+"%1$d models: the %2$d first ones are shown (dated models first, then the "
+"most common ones)."
+msgstr ""
+"%1$d modelos: se muestran los %2$d primeros (primero los modelos con fecha, "
+"luego los más comunes)."
+
+msgid "Hardware in service"
+msgstr "Hardware en servicio"
+
+msgid "Manufacturer end of life of hardware models"
+msgstr "Fin de vida del fabricante de los modelos de hardware"
+
+msgid ""
+"No hardware model in your entities: give a model to the computers, monitors "
+"or network devices in GLPI first."
+msgstr ""
+"No hay ningún modelo de hardware en sus entidades: asigne primero un modelo "
+"a los ordenadores, monitores o dispositivos de red en GLPI."
+
+msgid ""
+"Some manufacturers announce the date after which a model no longer receives "
+"repairs, spare parts or firmware updates. Enter it here when you know it "
+"(optional, leave empty otherwise): the \"Hardware warranty\" card of the "
+"park vulnerabilities page then shows the hardware of this model whose end of "
+"life is reached or near, with the same threshold as the end of support (ISO "
+"27001 A.7.13 and A.8.9). Nothing is changed in the GLPI models."
+msgstr ""
+"Algunos fabricantes anuncian la fecha a partir de la cual un modelo ya no "
+"recibe reparaciones, piezas de repuesto ni actualizaciones de firmware. "
+"Introdúzcala aquí cuando la conozca (opcional, déjela vacía si no): la "
+"tarjeta «Garantía del hardware» de la página de vulnerabilidades del parque "
+"muestra entonces el hardware de este modelo cuyo fin de vida se ha alcanzado "
+"o está cerca, con el mismo umbral que el fin de soporte (ISO 27001 A.7.13 y "
+"A.8.9). No se modifica nada en los modelos de GLPI."
+
+msgid "What is this for?"
+msgstr "¿Para qué sirve?"
+
+msgid ""
+"\"To be handled\": warranty expired or ending soon, or manufacturer end of "
+"life reached or soon."
+msgstr ""
+"«Por tratar»: garantía vencida o a punto de terminar, o fin de vida del "
+"fabricante alcanzado o próximo."
+
+msgid "Enter the end of life dates"
+msgstr "Introducir las fechas de fin de vida"
+
+msgid ""
+"No hardware has an expired warranty, a warranty ending soon or a model at "
+"its manufacturer end of life."
+msgstr ""
+"Ningún hardware tiene la garantía vencida, una garantía a punto de terminar "
+"ni un modelo en fin de vida del fabricante."
+
+msgid "Optional date entered by hand for each hardware model."
+msgstr "Fecha opcional introducida a mano para cada modelo de hardware."
+
+msgid "To be handled"
+msgstr "Por tratar"
+
+#, php-format
+msgid "%d end of life date not saved: enter a valid date for a hardware model."
+msgid_plural ""
+"%d end of life dates not saved: enter a valid date for a hardware model."
+msgstr[0] ""
+"%d fecha de fin de vida no guardada: introducir una fecha válida para un "
+"modelo de hardware."
+msgstr[1] ""
+"%d fechas de fin de vida no guardadas: introducir una fecha válida para un "
+"modelo de hardware."
+
+#, php-format
+msgid "Manufacturer end of life on %1$s (in %2$d day)."
+msgid_plural "Manufacturer end of life on %1$s (in %2$d days)."
+msgstr[0] "Fin de vida del fabricante el %1$s (en %2$d día)."
+msgstr[1] "Fin de vida del fabricante el %1$s (en %2$d días)."
 
 msgid ""
 "Also record it as a contact with the ticked official contacts (\"Official "
@@ -28476,6 +28489,267 @@ msgid "%d official contact recorded as contacted."
 msgid_plural "%d official contacts recorded as contacted."
 msgstr[0] "%d contacto oficial registrado como avisado."
 msgstr[1] "%d contactos oficiales registrados como avisados."
+
+msgid ""
+"Fill in this sheet for each application developed or maintained in-house: it "
+"then appears in the register of applications (secure development page) and "
+"as evidence for controls A.8.25 to A.8.31."
+msgstr ""
+"Complete esta ficha para cada aplicación desarrollada o mantenida "
+"internamente: aparecerá en el registro de aplicaciones (página Desarrollo "
+"seguro) y como evidencia de los controles A.8.25 a A.8.31."
+
+msgid ""
+"The applications developed or maintained in-house, with their secure "
+"development practices (framework, code review, SAST, DAST and dependency "
+"analyses, security requirements, architecture principles, outsourced "
+"development, separated environments), and the releases of the last 12 months "
+"with their security validation."
+msgstr ""
+"Las aplicaciones desarrolladas o mantenidas internamente, con sus prácticas "
+"de desarrollo seguro (marco de referencia, revisión de código, análisis "
+"SAST, DAST y de dependencias, requisitos de seguridad, principios de "
+"arquitectura, desarrollo externalizado, separación de entornos), y los pasos "
+"a producción de los últimos 12 meses con su validación de seguridad."
+
+msgid "%d without documented security requirements"
+msgstr "%d sin requisitos de seguridad documentados"
+
+msgid "%d without secure architecture principles"
+msgstr "%d sin principios de arquitectura segura"
+
+msgid "%d outsourced without supplier or security clauses"
+msgstr "%d externalizada(s) sin proveedor o sin cláusulas de seguridad"
+
+msgid "%d with access, data or configuration not separated"
+msgstr "%d con accesos, datos o configuración no separados"
+
+msgid "Architecture"
+msgstr "Arquitectura"
+
+msgid "Architecture: %d"
+msgstr "Arquitectura: %d"
+
+msgid "Requirements: %d"
+msgstr "Requisitos: %d"
+
+msgid "Development entrusted to a supplier"
+msgstr "Desarrollo confiado a un proveedor"
+
+msgid ""
+"For example: code review of each delivery, acceptance tests, right to audit, "
+"escrow of the source code."
+msgstr ""
+"Por ejemplo: revisión de código de cada entrega, pruebas de aceptación, "
+"derecho de auditoría, depósito del código fuente."
+
+msgid "No architecture principles"
+msgstr "Sin principios de arquitectura"
+
+msgid "No security requirements"
+msgstr "Sin requisitos de seguridad"
+
+msgid "Not separated: %s"
+msgstr "No separado: %s"
+
+msgid "Outsourced development (A.8.30)"
+msgstr "Desarrollo externalizado (A.8.30)"
+
+msgid "Outsourced without supplier or security clauses"
+msgstr "Externalizado sin proveedor o sin cláusulas de seguridad"
+
+msgid "Outsourced: %1$d, without supplier or clauses: %2$d"
+msgstr "Externalizadas: %1$d, sin proveedor o cláusulas: %2$d"
+
+msgid ""
+"Principles applied to the design: least privilege, defence in depth, secure "
+"defaults, or a link to the architecture document."
+msgstr ""
+"Principios aplicados al diseño: mínimo privilegio, defensa en profundidad, "
+"seguridad por defecto, o un enlace al documento de arquitectura."
+
+msgid "Requirements and architecture (A.8.26, A.8.27)"
+msgstr "Requisitos y arquitectura (A.8.26, A.8.27)"
+
+msgid ""
+"Requirements identified before development: authentication, data protection, "
+"logging, legal obligations, or a link to the specification."
+msgstr ""
+"Requisitos identificados antes del desarrollo: autenticación, protección de "
+"datos, registro, obligaciones legales, o un enlace al pliego de condiciones."
+
+msgid "Secure architecture principles"
+msgstr "Principios de arquitectura segura"
+
+msgid "Security clauses in the contract"
+msgstr "Cláusulas de seguridad en el contrato"
+
+msgid "Security requirements of the application"
+msgstr "Requisitos de seguridad de la aplicación"
+
+msgid "Separate access (accounts, rights)"
+msgstr "Accesos separados (cuentas, derechos)"
+
+msgid "Separate configuration (secrets, settings)"
+msgstr "Configuración separada (secretos, parámetros)"
+
+msgid "Separate data (no production data outside production, or anonymised)"
+msgstr ""
+"Datos separados (sin datos de producción fuera de producción, o anonimizados)"
+
+msgid "Supervised"
+msgstr "Supervisado"
+
+msgid "Supervision of the supplier"
+msgstr "Supervisión del proveedor"
+
+msgid ""
+"Supplier of GLPI (Management > Suppliers). Ignored when the development is "
+"not outsourced."
+msgstr ""
+"Proveedor de GLPI (Gestión > Proveedores). Se ignora si el desarrollo no "
+"está externalizado."
+
+msgid ""
+"When the environments are separated, tick what is actually separated between "
+"development, test and production:"
+msgstr ""
+"Si los entornos están separados, marque lo que realmente está separado entre "
+"desarrollo, pruebas y producción:"
+
+msgid "Without supplier or clauses"
+msgstr "Sin proveedor o cláusulas"
+
+msgid "%d outsourced application"
+msgid_plural "%d outsourced applications"
+msgstr[0] "%d aplicación externalizada"
+msgstr[1] "%d aplicaciones externalizadas"
+
+msgid "Phishing simulations: rates by campaign (%)"
+msgstr "Simulaciones de phishing: tasas por campaña (%)"
+
+msgid ""
+"Record each campaign (date, tool, scenario, targeted population), then "
+"import the results file of the tool in the Results tab. Offer a remedial "
+"training to the people who clicked. Inform the staff beforehand that "
+"simulations take place, and delete the results per person once the follow-up "
+"is done, or set a retention period in the configuration of the plugin. The "
+"rates by group and by entity stay anonymous."
+msgstr ""
+"Registre cada campaña (fecha, herramienta, escenario, población objetivo) y "
+"luego importe el archivo de resultados de la herramienta en la pestaña "
+"Resultados. Proponga una formación de refuerzo a las personas que hicieron "
+"clic. Informe al personal de antemano de que se realizan simulaciones y "
+"elimine los resultados por persona una vez hecho el seguimiento, o configure "
+"un plazo de conservación en la configuración del plugin. Las tasas por grupo "
+"y por entidad siguen siendo anónimas."
+
+msgid ""
+"Phishing simulations: delete the individual results past the retention period"
+msgstr ""
+"Simulaciones de phishing: eliminar los resultados individuales tras el plazo "
+"de conservación"
+
+msgid "%d phishing campaign(s): individual results deleted, rates kept."
+msgstr ""
+"%d campaña(s) de phishing: resultados individuales eliminados, tasas "
+"conservadas."
+
+msgid "Other groups (fewer than %d people each)"
+msgstr "Otros grupos (menos de %d personas cada uno)"
+
+msgid "No group"
+msgstr "Sin grupo"
+
+msgid "Campaigns"
+msgstr "Campañas"
+
+msgid "Last campaign"
+msgstr "Última campaña"
+
+msgid ""
+"Between 0 and %d months. Default: 0 (no automatic deletion). Changing it "
+"needs the right to update the sensitive registers."
+msgstr ""
+"Entre 0 y %d meses. Por defecto: 0 (sin eliminación automática). Modificarlo "
+"requiere el derecho de modificación de los registros sensibles."
+
+msgid "Phishing simulations: retention of the results per person"
+msgstr "Simulaciones de phishing: conservación de los resultados por persona"
+
+msgid "Retention period (months)"
+msgstr "Plazo de conservación (meses)"
+
+msgid "See the phishing simulations"
+msgstr "Ver las simulaciones de phishing"
+
+msgid ""
+"The results per person of a phishing simulation are personal data. After "
+"this number of months from the date of the campaign, a daily automatic "
+"action deletes them: only the anonymous rates remain (by campaign and by "
+"group). 0 keeps them until they are deleted by hand from the campaign. Write "
+"this period in your record of processing activities and in the information "
+"given to employees."
+msgstr ""
+"Los resultados por persona de una simulación de phishing son datos "
+"personales. Pasado este número de meses desde la fecha de la campaña, una "
+"acción automática diaria los elimina: solo quedan las tasas anónimas (por "
+"campaña y por grupo). 0 los conserva hasta que se eliminan a mano desde la "
+"campaña. Indique este plazo en su registro de actividades de tratamiento y "
+"en la información dada a los empleados."
+
+msgid ""
+"Groups of the matched people in GLPI at the time of the import: a person in "
+"several groups counts in each. Without the right on sensitive registers, "
+"groups of fewer than %d people are combined. These rates are anonymous and "
+"are kept when the results per person are deleted."
+msgstr ""
+"Grupos en GLPI de las personas asociadas en el momento de la importación: "
+"una persona de varios grupos cuenta en cada uno. Sin el derecho sobre los "
+"registros sensibles, los grupos de menos de %d personas se agrupan. Estas "
+"tasas son anónimas y se conservan cuando se eliminan los resultados por "
+"persona."
+
+msgid "Rates by group"
+msgstr "Tasas por grupo"
+
+msgid ""
+"The results per person will be deleted automatically on %s (retention period "
+"set in the configuration of the plugin). The rates are kept."
+msgstr ""
+"Los resultados por persona se eliminarán automáticamente el %s (plazo de "
+"conservación configurado en la configuración del plugin). Las tasas se "
+"conservan."
+
+msgid "Last campaign by entity"
+msgstr "Última campaña por entidad"
+
+msgid ""
+"Rates of the last campaign with results of each entity. The rates by group "
+"are on the Results tab of each campaign."
+msgstr ""
+"Tasas de la última campaña con resultados de cada entidad. Las tasas por "
+"grupo están en la pestaña Resultados de cada campaña."
+
+msgid "Review history"
+msgstr "Historial de revisiones"
+
+msgid ""
+"Each review recorded with the \"Record the review\" button is kept here and "
+"in the security audit log; it cannot be changed afterwards."
+msgstr ""
+"Cada revisión registrada con el botón «Registrar la revisión» se conserva "
+"aquí y en el registro de auditoría de seguridad; ya no se puede modificar "
+"después."
+
+msgid "Physical security of the site: %s"
+msgstr "Seguridad física del sitio: %s"
+
+msgid ""
+"Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr ""
+"Lista de verificación, hallazgos, acciones y zonas de esta evaluación, para "
+"el auditor."
 
 #, php-format
 msgid "%1$d account(s) imported: %2$d matched with a GLPI account, %3$d not matched."

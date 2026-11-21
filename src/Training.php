@@ -125,10 +125,17 @@ class Training extends TrainingBase
      * real ID exists, not here (mirrors Audit::syncLinkedControls() timing exactly).
      *
      * @param array<string, mixed> $input
-     * @return array<string, mixed>
+     * @return array<string, mixed>|false
      */
     public function prepareInputForAdd($input)
     {
+        // Issue #536, lot 3 : entité du nouvel élément (par défaut l'entité active), refusée hors
+        // des entités de la session.
+        $input = EntityPerimeter::prepareAdd($input);
+        if ($input === false) {
+            return false;
+        }
+
         return $this->normalizeInput($input);
     }
 
@@ -138,6 +145,9 @@ class Training extends TrainingBase
      */
     public function prepareInputForUpdate($input)
     {
+        // Issue #536, lot 3 : changement d'entité vers une entité de la session seulement.
+        $input = EntityPerimeter::guardUpdate($input);
+
         return $this->normalizeInput($input);
     }
 
@@ -211,7 +221,11 @@ class Training extends TrainingBase
             $DB->request([
                 'SELECT' => ['id', 'title'],
                 'FROM'   => self::getTable(),
-                'WHERE'  => ['plugin_grcmanager_trainings_id' => 0, ['NOT' => ['id' => $excludeId]]],
+                // Issue #536, lot 3 : formations des entités de la session.
+                'WHERE'  => array_merge(
+                    ['plugin_grcmanager_trainings_id' => 0, ['NOT' => ['id' => $excludeId]]],
+                    EntityPerimeter::criteria(self::getTable())
+                ),
                 'ORDER'  => 'title',
             ]) as $row
         ) {
@@ -234,7 +248,11 @@ class Training extends TrainingBase
         foreach (
             $DB->request([
                 'FROM'  => self::getTable(),
-                'WHERE' => ['plugin_grcmanager_trainings_id' => $mainId],
+                // Issue #536, lot 3 : sessions des entités de la session.
+                'WHERE' => array_merge(
+                    ['plugin_grcmanager_trainings_id' => $mainId],
+                    EntityPerimeter::criteria(self::getTable())
+                ),
                 'ORDER' => ['date_delivered', 'id'],
             ]) as $row
         ) {
@@ -606,6 +624,11 @@ class Training extends TrainingBase
             'name'     => __('Location or link', 'grcmanager'),
             'datatype' => 'string',
         ];
+
+        // Issue #536, lot 3 : entité de l'élément et visibilité dans les sous-entités.
+        foreach (EntityPerimeter::searchOptions(self::getTable()) as $option) {
+            $tab[] = $option;
+        }
 
         return $tab;
     }

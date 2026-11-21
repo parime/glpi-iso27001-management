@@ -110,6 +110,11 @@ final class SecuredDashboardCards
             // du plugin et des utilisateurs).
             return \GlpiPlugin\Grcmanager\CompetenceMatrix::canView();
         }
+        if ($name === 'phishingTrend') {
+            // Issue #604, lot 2 : taux agrégés des campagnes, sous le droit de leur page (droit du
+            // plugin, entités de la session) ; jamais de nom.
+            return \GlpiPlugin\Grcmanager\PhishingCampaign::canView();
+        }
         if ($name === 'diskEncryptionRate') {
             // Issue #847 : chiffrement des disques, sous les droits de sa page (droit du plugin et
             // lecture des ordinateurs).

@@ -109,8 +109,11 @@ phishing_matrix() {
     "$(code -d "anonymize=1&id=$(id phishing_B)&_glpi_csrf_token=$(csrf)" "$P/phishingcampaign.form.php")"
   case $ROLE in none|reader|general)
     expect "supprimer les resultats par personne de A" 403 \
-      "$(code -d "anonymize=1&id=$(id phishing_A)&_glpi_csrf_token=$(csrf)" "$P/phishingcampaign.form.php")" ;;
+      "$(code -d "anonymize=1&id=$(id phishing_A)&_glpi_csrf_token=$(csrf)" "$P/phishingcampaign.form.php")"
+    # Issue #604, lot 2 : la duree de conservation exige la configuration ET les registres sensibles.
+    expect "front/config.php : duree de conservation des resultats d'hameconnage" 403       "$(code -d "update_phishing_retention=1&phishing_retention_months=1&_glpi_csrf_token=$(csrf)" "$P/config.php")" ;;
   esac
+  contains "onglet Resultats de la campagne de A : taux par groupe" "grc-phishing-groups" $see "$tab_a"
   return 0
 }
 
@@ -481,6 +484,9 @@ if [ "$ROLE" = none ]; then
   # Issue #378 : le niveau d'alerte des KRI se regle avec le droit de modifier la configuration.
   expect "front/config.php : niveau d'alerte des KRI" 403 \
     "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #782, lot 2 : la fin de vie constructeur des modeles se saisit avec le droit de modifier la configuration.
+  expect "front/config.php : fin de vie constructeur d'un modele" 403 \
+    "$(code -d "update_hardware_eol=1&hardware_eol%5BComputerModel%3A1%5D=2020-01-01&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
   expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
     "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
@@ -649,6 +655,9 @@ if [ "$ROLE" = reader ]; then
   # Issue #378 : le niveau d'alerte des KRI se regle avec le droit de modifier la configuration.
   expect "front/config.php : niveau d'alerte des KRI" 403 \
     "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #782, lot 2 : la fin de vie constructeur des modeles se saisit avec le droit de modifier la configuration.
+  expect "front/config.php : fin de vie constructeur d'un modele" 403 \
+    "$(code -d "update_hardware_eol=1&hardware_eol%5BComputerModel%3A1%5D=2020-01-01&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
   expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
     "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
@@ -1169,6 +1178,9 @@ contains "front/physicalsecurity.php : site de A" "Site securite A" oui "$physic
 contains "front/physicalsecurity.php : site de B" "Site securite B" $SEE_B "$physical"
 expect "fiche de l'evaluation de B" "$DENY" "$(code "$P/physicalsecurityassessment.form.php?id=$(id physical_B)")"
 expect "fiche de l'evaluation de A" 200 "$(code "$P/physicalsecurityassessment.form.php?id=$(id physical_A)")"
+# Lot 2 : rapport PDF de l'evaluation, meme droit et meme entite que la fiche.
+expect "front/physicalsecurityassessment.pdf.php : rapport de B" "$DENY" "$(code "$P/physicalsecurityassessment.pdf.php?id=$(id physical_B)")"
+expect "front/physicalsecurityassessment.pdf.php : rapport de A" 200 "$(code "$P/physicalsecurityassessment.pdf.php?id=$(id physical_A)")"
 contains "onglet grille de l'evaluation de B" "grc-physical-checklist" $SEE_B \
   "$(tab GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment 'GlpiPlugin%5CGrcmanager%5CPhysicalSecurityAssessment$1' "$(id physical_B)")"
 contains "onglet zones de l'evaluation de B" "Salle serveurs securite B" $SEE_B \
@@ -1517,6 +1529,24 @@ expect "decision de mise en production d'un changement de A (droit dedie)" $SD_D
 if [ "$ROLE" != admin ]; then
   expect "rouvrir la decision d'un changement de A" "$([ "$SD_DECIDE" = 404 ] && echo 404 || echo 403)" \
     "$(code -d "reopen=1&changes_id=$(id change_A)&_glpi_csrf_token=$(csrf)" "$P/releasevalidation.form.php")"
+fi
+
+# Issue #536, lot 3 : risques fournisseurs, formations, revues de direction, objectifs,
+# obligations, derogations, flux reseau et etudes EBIOS appartiennent a une entite. Un profil
+# limite a A n'ouvre ni ne liste jamais ceux de B ; le super-admin, a la racine, les voit.
+for spec in "supplierrisk:supplierrisk_B:Risque fournisseur securite B" "training:training_B:Formation securite B" \
+  "managementreview:mreview_B:Revue securite B" "objective:objective_B:Objectif registre securite B" \
+  "complianceobligation:obligation_B:Obligation securite B" "waiver:waiver_B:Derogation securite B" \
+  "networkflow:flow_B:Flux securite B" "ebiosstudy:ebios_B:Etude securite B"; do
+  page=${spec%%:*}; rest=${spec#*:}; key=${rest%%:*}; label=${rest#*:}
+  expect "$page de l'entite B" $DENY "$(code "$P/$page.form.php?id=$(id "$key")")"
+  contains "liste $page : element de B" "$label" $SEE_B "$(curl -s -c "$JAR" -b "$JAR" "$P/$page.php")"
+done
+if [ "$ROLE" != admin ]; then
+  expect "modifier un risque fournisseur de B" 403 \
+    "$(code -d "update=1&id=$(id supplierrisk_B)&title=Risque%20fournisseur%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/supplierrisk.form.php")"
+  expect "creer une formation dans l'entite B" 403 \
+    "$(code -d "add=1&title=Formation%20creee%20securite&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/training.form.php")"
 fi
 
 rm -f "$JAR"

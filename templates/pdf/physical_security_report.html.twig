@@ -1,0 +1,106 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #778, lot 2 : rapport de l'évaluation de la sécurité physique d'un site pour l'auditeur
+   (mesures A.7.1 à A.7.14, constats, preuves, actions, zones et contrôles d'accès). #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .grc-state { padding: 1px 4px; border-radius: 3px; font-size: 8px; font-weight: bold; }
+  .grc-state-compliant { background: #d3f9d8; color: #2b8a3e; }
+  .grc-state-partial { background: #fdebd3; color: #a35200; }
+  .grc-state-noncompliant { background: #fbe0e0; color: #a61e1e; }
+  .grc-state-not_assessed, .grc-state-not_applicable { background: #eef1f4; color: #495057; }
+  .grc-muted { color: #6c757d; font-size: 8px; }
+  .grc-warning { color: #a61e1e; font-size: 8px; }
+</style>
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  {% if name %}<tr><td>{{ __('Name') }}</td><td>{{ name }}</td></tr>{% endif %}
+  <tr><td>{{ __('Assessment date', 'grcmanager') }}</td><td>{{ assessment_date ?: '-' }}</td></tr>
+  <tr><td>{{ __('Assessor', 'grcmanager') }}</td><td>{{ assessor ?: '-' }}</td></tr>
+  <tr><td>{{ __('Status', 'grcmanager') }}</td><td>{{ status }}</td></tr>
+  <tr><td>{{ __('Next assessment', 'grcmanager') }}</td><td>{{ next_date ?: '-' }}</td></tr>
+  <tr><td>{{ __('Physical and environmental security policy', 'grcmanager') }}</td><td>{{ policy ?: '-' }}</td></tr>
+  <tr><td>{{ __('Score', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.score is null ? '-' : summary.score ~ ' %' }}</td></tr>
+  <tr><td>{{ __('%1$d of %2$d controls assessed', 'grcmanager')|format(summary.assessed, summary.total) }}</td><td></td></tr>
+  {% for state, badge in states %}
+    <tr><td>{{ badge[0] }}</td><td class="grcmanager-pdf-summary-number">{{ summary.counts[state]|default(0) }}</td></tr>
+  {% endfor %}
+  <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td>{{ generated_by }}</td></tr>
+</table>
+{% if comment %}<p>{{ comment|nl2br }}</p>{% endif %}
+
+<h2>{{ __('Physical security checklist', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Control', 'grcmanager') }}</th>
+      <th>{{ __('State', 'grcmanager') }}</th>
+      <th>{{ __('Finding', 'grcmanager') }}</th>
+      <th>{{ __('Evidence', 'grcmanager') }}</th>
+      <th>{{ __('Action', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in rows %}
+      <tr>
+        <td><strong>{{ row.code }}</strong> {{ row.title }}</td>
+        <td>
+          <span class="grc-state grc-state-{{ row.state }}">{{ row.state_label }}</span>
+          {% if row.previous %}<br><span class="grc-muted">{{ __('State at the previous assessment of the site', 'grcmanager') }} : {{ row.previous[0] }}</span>{% endif %}
+        </td>
+        <td>{{ row.finding|nl2br }}</td>
+        <td>
+          {{ row.evidence|nl2br }}
+          {% for document in row.documents %}<br><span class="grc-muted">{{ document.name }}</span>{% endfor %}
+        </td>
+        <td>
+          {% if row.finding_id %}{{ row.finding_title }}{% if row.finding_status %}<br><span class="grc-muted">{{ row.finding_status }}</span>{% endif %}{% else %}<span class="grc-muted">{{ __('No action yet', 'grcmanager') }}</span>{% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>{{ __('Zones of the site and access controls', 'grcmanager') }}</h2>
+{% if zones is empty %}
+  <p>{{ __('No zone recorded for this site yet.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th>{{ __('Zone', 'grcmanager') }}</th>
+        <th>{{ __('Type of zone', 'grcmanager') }}</th>
+        <th>{{ __('Access controls', 'grcmanager') }}</th>
+        <th>{{ __('Authorized people', 'grcmanager') }}</th>
+        <th>{{ __('Access instructions', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for zone in zones %}
+        <tr>
+          <td>{{ zone.name }}{% if zone.comment %}<br><span class="grc-muted">{{ zone.comment|nl2br }}</span>{% endif %}</td>
+          <td>{{ zone.type_label }}</td>
+          <td>{{ zone.means_labels|join(', ') ?: '-' }}</td>
+          <td>{{ zone.authorized_people|nl2br }}</td>
+          <td>
+            {{ zone.instructions_posted ? __('Posted', 'grcmanager') : __('Not posted', 'grcmanager') }}
+            {% for warning in zone.warnings %}<br><span class="grc-warning">{{ warning }}</span>{% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

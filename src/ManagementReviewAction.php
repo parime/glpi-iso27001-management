@@ -180,7 +180,11 @@ class ManagementReviewAction extends ManagementReviewActionBase
             $DB->request([
                 'SELECT' => ['id', 'review_date'],
                 'FROM'   => ManagementReview::getTable(),
-                'WHERE'  => ['NOT' => ['id' => (int) $review->getID()]],
+                // Issue #536, lot 3 : revues précédentes du même périmètre (entité de la revue).
+                'WHERE'  => [
+                    'NOT'         => ['id' => (int) $review->getID()],
+                    'entities_id' => (int) ($review->fields['entities_id'] ?? 0),
+                ],
             ]) as $row
         ) {
             $date = Rules::validDate((string) ($row['review_date'] ?? ''));

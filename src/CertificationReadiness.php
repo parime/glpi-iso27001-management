@@ -987,6 +987,8 @@ class CertificationReadiness extends CommonGLPI
         $latest = $DB->request([
             'SELECT' => ['id'],
             'FROM'   => ManagementReview::getTable(),
+            // Issue #536, lot 3 : dernière revue des entités de la session.
+            'WHERE'  => self::entityCriteria(ManagementReview::class),
             'ORDER'  => ['review_date DESC', 'id DESC'],
             'LIMIT'  => 1,
         ])->current();

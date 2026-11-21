@@ -98,3 +98,33 @@
     </tbody>
   </table>
 {% endif %}
+
+{# Issue #775, lot 3 : historique de toutes les revues tracées, procédure par procédure. #}
+<h2>{{ __('Review history', 'grcmanager') }}</h2>
+{% set reviewed = procedures|filter(p => p.reviews is not empty) %}
+{% if reviewed is empty %}
+  <p>{{ __('No review recorded', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th style="width: 40%;">{{ __('Title', 'grcmanager') }}</th>
+        <th style="width: 20%;">{{ __('Date') }}</th>
+        <th style="width: 20%;">{{ __('Reviewer', 'grcmanager') }}</th>
+        <th style="width: 20%;">{{ __('Next review', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for procedure in reviewed %}
+        {% for review in procedure.reviews %}
+          <tr>
+            <td>{{ procedure.title }} ({{ procedure.version }})</td>
+            <td>{{ review.date|formatted_date }}</td>
+            <td>{{ review.reviewer ?: '-' }}</td>
+            <td>{{ review.next_review ? review.next_review|formatted_date : '-' }}</td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

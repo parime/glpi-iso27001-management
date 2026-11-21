@@ -634,10 +634,12 @@ class AuditProgramme extends CommonGLPI
     public static function setQualifyingTrainingIds(array $trainingIds): void
     {
         $existing = array_keys(Training::getMainTrainings());
-        $ids = array_values(array_filter(
-            array_intersect(array_unique(array_map('intval', $trainingIds)), $existing),
+        // Issue #536, lot 3 : les formations hors des entités de la session restent qualifiantes.
+        $hidden = array_diff(self::qualifyingTrainingIds(), $existing);
+        $ids = array_values(array_unique(array_filter(
+            array_merge(array_intersect(array_unique(array_map('intval', $trainingIds)), $existing), $hidden),
             static fn (int $id): bool => $id > 0
-        ));
+        )));
         Config::setConfigurationValues(self::CONFIG_CONTEXT, [self::QUALIFYING_TRAININGS_KEY => json_encode($ids)]);
     }
 
