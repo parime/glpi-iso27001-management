@@ -7,8 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.74.0] - 2026-11-21
-
 ### Added
 
 - **Revue des accès pré-remplie par des règles** (issue #866, mesures A.5.18 et A.8.2). Au
@@ -28,6 +26,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   demande un commentaire. « Mettre à jour les suggestions » recalcule les comptes encore à revoir.
   Mise à jour : champs ajoutés aux campagnes et à leurs lignes (migration rejouable) ; les lignes
   des campagnes déjà lancées affichent « Pas encore de suggestion » jusqu'au recalcul.
+
+## [2.74.0] - 2026-11-21
+
+### Added
 
 - **Matrice des flux : nouveau flux pré-rempli depuis l'adresse** (issue #909). Le bouton
   « Proposer le flux » de l'inventaire Docker ouvre le formulaire d'un nouveau flux avec ses valeurs
