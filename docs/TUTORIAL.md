@@ -1259,6 +1259,42 @@ Sécurité de l'import : le fichier est lu en flux (les gros rapports ARF passen
 de type de document ou d'entité est refusée et aucun accès réseau n'est fait pendant la lecture. Le
 fichier lui-même n'est pas conservé, seulement les compteurs et les règles en échec.
 
+### Étape 40 : Suivre l'audit de sécurité de l'Active Directory (mesures A.5.15 à A.5.18, A.8.2 et A.8.5)
+
+L'Active Directory est la première cible des attaques : comptes privilégiés, délégations, comptes
+inactifs. Le plugin garde les résultats des audits que votre équipe réalise avec PingCastle ; il ne
+lance aucun outil et n'interroge jamais l'annuaire. La page est réservée au droit des registres
+sensibles : ces rapports décrivent les faiblesses du domaine.
+
+1. Sur un poste du domaine, lancez PingCastle et choisissez le contrôle de santé (option
+   `--healthcheck`). Il produit un fichier `ad_hc_<domaine>.xml` (et un fichier HTML, inutile ici).
+   PingCastle est gratuit pour un usage interne ; un prestataire qui audite un client a besoin d'une
+   licence.
+2. Ouvrez Sécurité technique > **Audit de sécurité de l'Active Directory**. L'encadré « À quoi sert
+   cette page ? » rappelle ce qui est attendu. Pour essayer, téléchargez le rapport d'exemple fictif
+   (domaine `exemple.test`).
+3. Dans **Importer un rapport PingCastle**, choisissez le fichier XML et laissez cochée la case
+   d'archivage : le rapport, débarrassé de ses mots de passe, est gardé comme document restreint.
+   Il faut le droit de modifier les registres sensibles. Un fichier qui déclare un DOCTYPE ou des
+   entités est refusé, et le même fichier n'est importé qu'une fois.
+4. La carte de chaque domaine donne le dernier score (de 0, le meilleur, à 100) avec un badge vert,
+   orange ou rouge, et son évolution depuis le rapport précédent. Le détail montre le score de
+   chaque catégorie (objets obsolètes, comptes privilégiés, relations d'approbation, anomalies).
+5. La liste des **règles déclenchées** donne, pour chacune, la gravité, les points, le constat de
+   PingCastle et les mesures de l'Annexe A concernées. Seuls ces éléments sont gardés : jamais la
+   liste des comptes, ni un mot de passe trouvé dans les stratégies de groupe (un badge rouge signale
+   leur présence : changez-les).
+6. Pour une règle que vous traitez, cliquez sur **Proposer une action** : la fiche de non-conformité
+   s'ouvre pré-remplie (domaine, règle, mesures, constat). Relisez-la, désignez un responsable et une
+   échéance, puis enregistrez. Ou cliquez sur **Ouvrir un ticket**. Rien n'est créé sans votre clic,
+   et ces liens suivent la règle dans les rapports suivants.
+7. Importez un nouveau rapport après les corrections : la page montre les règles apparues (badge
+   « Nouvelle ») et les règles résolues depuis le rapport précédent.
+8. Sur la fiche des mesures A.5.15, A.5.17, A.5.18, A.8.2 et A.8.5, le cadre « Audit de sécurité de
+   l'Active Directory » montre le score de chaque domaine et le nombre de règles qui concernent la
+   mesure. Le tableau de bord propose la carte « Score de sécurité de l'Active Directory » et les
+   indicateurs de risque la source du même nom.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -2479,3 +2515,37 @@ to read computers; importing requires the right to update the plugin.
 Import security: the file is read as a stream (large ARF reports are accepted), any document type or
 entity declaration is refused and no network access is made while reading. The file itself is not
 kept, only the counts and the failed rules.
+
+### Step 41: Follow the Active Directory security audit (controls A.5.15 to A.5.18, A.8.2 and A.8.5)
+
+The Active Directory is the first target of attacks: privileged accounts, delegations, inactive
+accounts. The plugin keeps the results of the audits your team runs with PingCastle; it runs no
+tool and never queries the directory. The page is reserved to the sensitive registers right: these
+reports describe the weaknesses of the domain.
+
+1. On a computer of the domain, run PingCastle and choose the health check (`--healthcheck`
+   option). It produces an `ad_hc_<domain>.xml` file (and an HTML file, not needed here). PingCastle
+   is free for internal use; a service provider auditing a customer needs a licence.
+2. Open Technical security > **Active Directory security audit**. The "What is this page for?" box
+   recalls what is expected. To try it, download the fictitious example report (domain
+   `exemple.test`).
+3. In **Import a PingCastle report**, choose the XML file and leave the archive box ticked: the
+   report, stripped of its passwords, is kept as a restricted document. This requires the right to
+   update the sensitive registers. A file that declares a DOCTYPE or entities is refused, and the
+   same file is imported only once.
+4. The card of each domain gives the last score (from 0, the best, to 100) with a green, orange or
+   red badge, and its change since the previous report. The details show the score of each category
+   (stale objects, privileged accounts, trust relationships, anomalies).
+5. The list of **rules triggered** gives, for each one, the severity, the points, the PingCastle
+   finding and the Annex A controls it concerns. Only these items are kept: never the list of
+   accounts, nor a password found in the group policies (a red badge reports them: change them).
+6. For a rule you treat, click **Propose an action**: the non-conformity form opens pre-filled
+   (domain, rule, controls, finding). Review it, set an owner and a due date, then save. Or click
+   **Open a ticket**. Nothing is created without your click, and these links follow the rule in the
+   next reports.
+7. Import a new report after the fixes: the page shows the rules that appeared ("New" badge) and the
+   rules resolved since the previous report.
+8. On controls A.5.15, A.5.17, A.5.18, A.8.2 and A.8.5, the "Active Directory security audit" box
+   shows the score of each domain and the number of rules that concern the control. The dashboard
+   offers the card "Active Directory security score" and risk indicators the source of the same
+   name.

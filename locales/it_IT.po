@@ -30300,20 +30300,49 @@ msgstr "Modelli di questionario"
 msgid "Historical questionnaire"
 msgstr "Questionario storico"
 
-msgid "The twelve questions of the former security questionnaire, kept with the answers already given."
-msgstr "Le dodici domande del precedente questionario di sicurezza, conservate con le risposte già date."
+msgid ""
+"The twelve questions of the former security questionnaire, kept with the "
+"answers already given."
+msgstr ""
+"Le dodici domande del precedente questionario di sicurezza, conservate con "
+"le risposte già date."
 
-msgid "Create one risk per important supplier, evaluate it with one or more questionnaires (Questionnaires tab), follow its contracts and the \"Security watch\" tab."
-msgstr "Create un rischio per ogni fornitore importante, valutatelo con uno o più questionari (scheda Questionari), seguite i suoi contratti e la scheda «Monitoraggio di sicurezza»."
+msgid ""
+"Create one risk per important supplier, evaluate it with one or more "
+"questionnaires (Questionnaires tab), follow its contracts and the \"Security "
+"watch\" tab."
+msgstr ""
+"Create un rischio per ogni fornitore importante, valutatelo con uno o più "
+"questionari (scheda Questionari), seguite i suoi contratti e la scheda "
+"«Monitoraggio di sicurezza»."
 
-msgid "Supplier questionnaire templates: the questions asked to your suppliers, grouped by section, with their weight, the expected answer and the evidence to provide. One template per need: information security, personal data, artificial intelligence..."
-msgstr "Modelli di questionario fornitore: le domande poste ai vostri fornitori, raggruppate per sezione, con il loro peso, la risposta attesa e l'evidenza da fornire. Un modello per esigenza: sicurezza delle informazioni, dati personali, intelligenza artificiale..."
+msgid ""
+"Supplier questionnaire templates: the questions asked to your suppliers, "
+"grouped by section, with their weight, the expected answer and the evidence "
+"to provide. One template per need: information security, personal data, "
+"artificial intelligence..."
+msgstr ""
+"Modelli di questionario fornitore: le domande poste ai vostri fornitori, "
+"raggruppate per sezione, con il loro peso, la risposta attesa e l'evidenza "
+"da fornire. Un modello per esigenza: sicurezza delle informazioni, dati "
+"personali, intelligenza artificiale..."
 
-msgid "Adapt the historical questionnaire or create your own templates, then start an evaluation from the Questionnaires tab of a supplier risk. A supplier can be evaluated with several templates; each evaluation keeps its score and its history."
-msgstr "Adattate il questionario storico o create i vostri modelli, poi avviate una valutazione dalla scheda Questionari di un rischio fornitore. Un fornitore può essere valutato con più modelli; ogni valutazione conserva il proprio punteggio e la propria cronologia."
+msgid ""
+"Adapt the historical questionnaire or create your own templates, then start "
+"an evaluation from the Questionnaires tab of a supplier risk. A supplier can "
+"be evaluated with several templates; each evaluation keeps its score and its "
+"history."
+msgstr ""
+"Adattate il questionario storico o create i vostri modelli, poi avviate una "
+"valutazione dalla scheda Questionari di un rischio fornitore. Un fornitore "
+"può essere valutato con più modelli; ogni valutazione conserva il proprio "
+"punteggio e la propria cronologia."
 
-msgid "ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
-msgstr "ISO/IEC 27001, controlli da A.5.19 a A.5.21; NIS2 art. 21, par. 2, lett. d); DORA art. 28"
+msgid ""
+"ISO/IEC 27001, controls A.5.19 to A.5.21; NIS2 art. 21(2)(d); DORA art. 28"
+msgstr ""
+"ISO/IEC 27001, controlli da A.5.19 a A.5.21; NIS2 art. 21, par. 2, lett. d); "
+"DORA art. 28"
 
 msgid "Questionnaires"
 msgstr "Questionari"
@@ -30321,8 +30350,12 @@ msgstr "Questionari"
 msgid "Choose the supplier risk to evaluate."
 msgstr "Scegliete il rischio fornitore da valutare."
 
-msgid "Choose an active questionnaire template available in the entity of the supplier risk."
-msgstr "Scegliete un modello di questionario attivo disponibile nell'entità del rischio fornitore."
+msgid ""
+"Choose an active questionnaire template available in the entity of the "
+"supplier risk."
+msgstr ""
+"Scegliete un modello di questionario attivo disponibile nell'entità del "
+"rischio fornitore."
 
 #, php-format
 msgid "%1$s - %2$s"
@@ -30341,7 +30374,8 @@ msgid "This question cannot receive a document."
 msgstr "Questa domanda non può ricevere un documento."
 
 msgid "You are not allowed to add a document to this supplier risk."
-msgstr "Non siete autorizzati ad aggiungere un documento a questo rischio fornitore."
+msgstr ""
+"Non siete autorizzati ad aggiungere un documento a questo rischio fornitore."
 
 #, php-format
 msgid "Evidence for question %1$s of the evaluation \"%2$s\""
@@ -30378,17 +30412,28 @@ msgstr "%1$d di %2$d domande con risposta"
 msgid "%1$s (version %2$d)"
 msgstr "%1$s (versione %2$d)"
 
-msgid "Answer the questions in the \"Questionnaire\" tab, then mark the evaluation as completed."
-msgstr "Rispondete alle domande nella scheda «Questionario», poi contrassegnate la valutazione come completata."
+msgid ""
+"Answer the questions in the \"Questionnaire\" tab, then mark the evaluation "
+"as completed."
+msgstr ""
+"Rispondete alle domande nella scheda «Questionario», poi contrassegnate la "
+"valutazione come completata."
 
 msgid "Evaluation"
 msgstr "Valutazione"
 
-msgid "Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by the weight of the question; \"not applicable\" and unanswered questions are not counted."
-msgstr "Risposta attesa = 1 punto, parziale = 0,5, altra risposta = 0, moltiplicato per il peso della domanda; «non applicabile» e le domande senza risposta non sono conteggiate."
+msgid ""
+"Expected answer = 1 point, partial = 0.5, other answer = 0, multiplied by "
+"the weight of the question; \"not applicable\" and unanswered questions are "
+"not counted."
+msgstr ""
+"Risposta attesa = 1 punto, parziale = 0,5, altra risposta = 0, moltiplicato "
+"per il peso della domanda; «non applicabile» e le domande senza risposta non "
+"sono conteggiate."
 
 msgid "For example \"Security 2026\" or \"Personal data - contract renewal\"."
-msgstr "Ad esempio «Sicurezza 2026» o «Dati personali - rinnovo del contratto»."
+msgstr ""
+"Ad esempio «Sicurezza 2026» o «Dati personali - rinnovo del contratto»."
 
 msgid "Questionnaire template"
 msgstr "Modello di questionario"
@@ -30397,23 +30442,40 @@ msgstr "Modello di questionario"
 msgid "Score: %1$d%% - %2$s"
 msgstr "Punteggio: %1$d%% - %2$s"
 
-msgid "This evaluation is completed: its answers can no longer be changed. Reopen it from the \"Questionnaire\" tab to change them."
-msgstr "Questa valutazione è completata: le sue risposte non possono più essere modificate. Riapritela dalla scheda «Questionario» per cambiarle."
+msgid ""
+"This evaluation is completed: its answers can no longer be changed. Reopen "
+"it from the \"Questionnaire\" tab to change them."
+msgstr ""
+"Questa valutazione è completata: le sue risposte non possono più essere "
+"modificate. Riapritela dalla scheda «Questionario» per cambiarle."
 
 msgid "Add the template, then write its questions in the \"Questions\" tab."
-msgstr "Aggiungete il modello, poi scrivete le sue domande nella scheda «Domande»."
+msgstr ""
+"Aggiungete il modello, poi scrivete le sue domande nella scheda «Domande»."
 
-msgid "Fingerprint of the questions, used to recognize a questionnaire file returned by a supplier."
-msgstr "Impronta delle domande, usata per riconoscere un file di questionario restituito da un fornitore."
+msgid ""
+"Fingerprint of the questions, used to recognize a questionnaire file "
+"returned by a supplier."
+msgstr ""
+"Impronta delle domande, usata per riconoscere un file di questionario "
+"restituito da un fornitore."
 
-msgid "For example \"Hosting provider security\", \"Personal data processor (GDPR art. 28)\" or \"AI service provider\"."
-msgstr "Ad esempio «Sicurezza del provider di hosting», «Responsabile del trattamento (GDPR art. 28)» o «Fornitore di servizi di IA»."
+msgid ""
+"For example \"Hosting provider security\", \"Personal data processor (GDPR "
+"art. 28)\" or \"AI service provider\"."
+msgstr ""
+"Ad esempio «Sicurezza del provider di hosting», «Responsabile del "
+"trattamento (GDPR art. 28)» o «Fornitore di servizi di IA»."
 
 msgid "Inactive: not offered for new evaluations"
 msgstr "Inattivo: non proposto per nuove valutazioni"
 
-msgid "Increases each time the questions change. An evaluation keeps the questions of the version it was started with."
-msgstr "Aumenta a ogni modifica delle domande. Una valutazione conserva le domande della versione con cui è stata avviata."
+msgid ""
+"Increases each time the questions change. An evaluation keeps the questions "
+"of the version it was started with."
+msgstr ""
+"Aumenta a ogni modifica delle domande. Una valutazione conserva le domande "
+"della versione con cui è stata avviata."
 
 msgid "Only active templates are offered when an evaluation is started."
 msgstr "All'avvio di una valutazione sono proposti solo i modelli attivi."
@@ -30421,11 +30483,19 @@ msgstr "All'avvio di una valutazione sono proposti solo i modelli attivi."
 msgid "Taken over"
 msgstr "Ripreso"
 
-msgid "The last completed evaluation of the \"Information security\" domain gives the score shown on the supplier risk and on the dashboard."
-msgstr "L'ultima valutazione completata del dominio «Sicurezza delle informazioni» fornisce il punteggio mostrato sul rischio fornitore e sulla dashboard."
+msgid ""
+"The last completed evaluation of the \"Information security\" domain gives "
+"the score shown on the supplier risk and on the dashboard."
+msgstr ""
+"L'ultima valutazione completata del dominio «Sicurezza delle informazioni» "
+"fornisce il punteggio mostrato sul rischio fornitore e sulla dashboard."
 
-msgid "The twelve questions of the former security questionnaire. It can be deactivated but not deleted."
-msgstr "Le dodici domande del precedente questionario di sicurezza. Può essere disattivato ma non eliminato."
+msgid ""
+"The twelve questions of the former security questionnaire. It can be "
+"deactivated but not deleted."
+msgstr ""
+"Le dodici domande del precedente questionario di sicurezza. Può essere "
+"disattivato ma non eliminato."
 
 msgid "Detach"
 msgstr "Rimuovi"
@@ -30447,8 +30517,21 @@ msgid "Expected: %s"
 msgstr "Attesa: %s"
 
 #, php-format
-msgid "For each question, choose the answer given by the supplier and add a comment if needed. The expected answer earns 1 point, \"partial\" half a point, the other answer 0, multiplied by the weight of the question. A question marked \"Evidence required\" waits for a document (certificate, report, policy...): it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) and added to the Documents tab of the supplier risk."
-msgstr "Per ogni domanda, scegliete la risposta data dal fornitore e aggiungete un commento se necessario. La risposta attesa vale 1 punto, «parziale» mezzo punto, l'altra risposta 0, moltiplicato per il peso della domanda. Una domanda contrassegnata «Evidenza richiesta» attende un documento (certificato, rapporto, politica...): è controllato come ogni evidenza (tipi consentiti da GLPI, dimensione massima %d MiB) e aggiunto alla scheda Documenti del rischio fornitore."
+msgid ""
+"For each question, choose the answer given by the supplier and add a comment "
+"if needed. The expected answer earns 1 point, \"partial\" half a point, the "
+"other answer 0, multiplied by the weight of the question. A question marked "
+"\"Evidence required\" waits for a document (certificate, report, policy...): "
+"it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) "
+"and added to the Documents tab of the supplier risk."
+msgstr ""
+"Per ogni domanda, scegliete la risposta data dal fornitore e aggiungete un "
+"commento se necessario. La risposta attesa vale 1 punto, «parziale» mezzo "
+"punto, l'altra risposta 0, moltiplicato per il peso della domanda. Una "
+"domanda contrassegnata «Evidenza richiesta» attende un documento "
+"(certificato, rapporto, politica...): è controllato come ogni evidenza (tipi "
+"consentiti da GLPI, dimensione massima %d MiB) e aggiunto alla scheda "
+"Documenti del rischio fornitore."
 
 msgid "For information, not scored"
 msgstr "Informativa, non valutata"
@@ -30456,8 +30539,12 @@ msgstr "Informativa, non valutata"
 msgid "General"
 msgstr "Generale"
 
-msgid "Questions without an answer do not count in the score. A completed evaluation can no longer be changed, unless it is reopened."
-msgstr "Le domande senza risposta non contano nel punteggio. Una valutazione completata non può più essere modificata, a meno di riaprirla."
+msgid ""
+"Questions without an answer do not count in the score. A completed "
+"evaluation can no longer be changed, unless it is reopened."
+msgstr ""
+"Le domande senza risposta non contano nel punteggio. Una valutazione "
+"completata non può più essere modificata, a meno di riaprirla."
 
 msgid "Reopen the evaluation"
 msgstr "Riapri la valutazione"
@@ -30468,8 +30555,11 @@ msgstr "Salva e contrassegna come completata"
 msgid "Save answers"
 msgstr "Salva le risposte"
 
-msgid "This evaluation has no question: its template had none when it was created."
-msgstr "Questa valutazione non ha domande: il suo modello non ne aveva al momento della creazione."
+msgid ""
+"This evaluation has no question: its template had none when it was created."
+msgstr ""
+"Questa valutazione non ha domande: il suo modello non ne aveva al momento "
+"della creazione."
 
 #, php-format
 msgid "Weight %d"
@@ -30482,11 +30572,25 @@ msgstr "%1$s: %2$s punti"
 msgid "Change between the last two completed evaluations"
 msgstr "Variazione tra le ultime due valutazioni completate"
 
-msgid "Evaluate the supplier with one or more questionnaires (security, personal data, artificial intelligence...). Each question has a weight and an expected answer; the score informs the assessment and never changes the risk level entered. Evidence requested for a question is added to the Documents tab of this supplier risk."
-msgstr "Valutate il fornitore con uno o più questionari (sicurezza, dati personali, intelligenza artificiale...). Ogni domanda ha un peso e una risposta attesa; il punteggio orienta la valutazione e non modifica mai il livello di rischio inserito. L'evidenza richiesta per una domanda è aggiunta alla scheda Documenti di questo rischio fornitore."
+msgid ""
+"Evaluate the supplier with one or more questionnaires (security, personal "
+"data, artificial intelligence...). Each question has a weight and an "
+"expected answer; the score informs the assessment and never changes the risk "
+"level entered. Evidence requested for a question is added to the Documents "
+"tab of this supplier risk."
+msgstr ""
+"Valutate il fornitore con uno o più questionari (sicurezza, dati personali, "
+"intelligenza artificiale...). Ogni domanda ha un peso e una risposta attesa; "
+"il punteggio orienta la valutazione e non modifica mai il livello di rischio "
+"inserito. L'evidenza richiesta per una domanda è aggiunta alla scheda "
+"Documenti di questo rischio fornitore."
 
-msgid "No active questionnaire template is available in the entity of this supplier risk."
-msgstr "Nessun modello di questionario attivo è disponibile nell'entità di questo rischio fornitore."
+msgid ""
+"No active questionnaire template is available in the entity of this supplier "
+"risk."
+msgstr ""
+"Nessun modello di questionario attivo è disponibile nell'entità di questo "
+"rischio fornitore."
 
 msgid "No evaluation yet for this supplier."
 msgstr "Ancora nessuna valutazione per questo fornitore."
@@ -30508,8 +30612,22 @@ msgid "Code"
 msgstr "Codice"
 
 #, php-format
-msgid "Group the questions by section. The expected answer is the compliant one (\"No\" for a question such as \"Have you suffered a data breach in the last 12 months?\"). The weight, from 0 to %d, gives the importance of the question in the score; 0 makes it a question for information only. Tick \"Evidence required\" when the supplier must provide a document. Changing the questions creates a new version of the template; evaluations already started keep their questions."
-msgstr "Raggruppate le domande per sezione. La risposta attesa è quella conforme («No» per una domanda come «Avete subito una violazione dei dati negli ultimi 12 mesi?»). Il peso, da 0 a %d, indica l'importanza della domanda nel punteggio; 0 la rende una domanda solo informativa. Spuntate «Evidenza richiesta» quando il fornitore deve fornire un documento. Modificare le domande crea una nuova versione del modello; le valutazioni già avviate conservano le loro domande."
+msgid ""
+"Group the questions by section. The expected answer is the compliant one "
+"(\"No\" for a question such as \"Have you suffered a data breach in the last "
+"12 months?\"). The weight, from 0 to %d, gives the importance of the "
+"question in the score; 0 makes it a question for information only. Tick "
+"\"Evidence required\" when the supplier must provide a document. Changing "
+"the questions creates a new version of the template; evaluations already "
+"started keep their questions."
+msgstr ""
+"Raggruppate le domande per sezione. La risposta attesa è quella conforme "
+"(«No» per una domanda come «Avete subito una violazione dei dati negli "
+"ultimi 12 mesi?»). Il peso, da 0 a %d, indica l'importanza della domanda nel "
+"punteggio; 0 la rende una domanda solo informativa. Spuntate «Evidenza "
+"richiesta» quando il fornitore deve fornire un documento. Modificare le "
+"domande crea una nuova versione del modello; le valutazioni già avviate "
+"conservano le loro domande."
 
 msgid "Help for the answer (optional)"
 msgstr "Aiuto per la risposta (facoltativo)"
@@ -30583,3 +30701,347 @@ msgid "%d question"
 msgid_plural "%d questions"
 msgstr[0] "%d domanda"
 msgstr[1] "%d domande"
+
+#, php-format
+msgid "Report imported: %d rule(s) triggered."
+msgstr "Rapporto importato: %d regola/e attivata/e."
+
+msgid ""
+"The report contains passwords or secrets (for example in group policies): "
+"they were not kept, and are removed from the archived copy. Change them as "
+"soon as possible."
+msgstr ""
+"Il rapporto contiene password o segreti (ad esempio nei criteri di gruppo): "
+"non sono stati conservati e sono rimossi dalla copia archiviata. Cambiateli "
+"al più presto."
+
+msgid ""
+"The report could not be archived as a document (XML files may not be allowed "
+"in the document types of GLPI)."
+msgstr ""
+"Non è stato possibile archiviare il rapporto come documento (i file XML "
+"potrebbero non essere consentiti nei tipi di documento di GLPI)."
+
+#, php-format
+msgid "Only the first %d rules were read."
+msgstr "Sono state lette solo le prime %d regole."
+
+#, php-format
+msgid "Ticket %d created."
+msgstr "Ticket %d creato."
+
+msgid "Active Directory security score (PingCastle, 0 is best)"
+msgstr ""
+"Punteggio di sicurezza di Active Directory (PingCastle, 0 è il migliore)"
+
+msgid "Active Directory security audit"
+msgstr "Audit di sicurezza di Active Directory"
+
+msgid "Stale objects"
+msgstr "Oggetti obsoleti"
+
+msgid "Privileged accounts"
+msgstr "Account privilegiati"
+
+msgid "Trust relationships"
+msgstr "Relazioni di trust"
+
+msgid "Anomalies"
+msgstr "Anomalie"
+
+msgid "Good"
+msgstr "Buono"
+
+msgid "Worrying"
+msgstr "Preoccupante"
+
+msgid "The file is too large (20 MB at most)."
+msgstr "Il file è troppo grande (al massimo 20 MB)."
+
+msgid ""
+"The file declares a DOCTYPE or entities: it is refused for security reasons. "
+"A PingCastle report never contains any."
+msgstr ""
+"Il file dichiara un DOCTYPE o delle entità: è rifiutato per motivi di "
+"sicurezza. Un rapporto PingCastle non ne contiene mai."
+
+msgid ""
+"This is not a PingCastle health check report: import the ad_hc_[domain].xml "
+"file."
+msgstr ""
+"Non è un rapporto di controllo dello stato di PingCastle: importate il file "
+"ad_hc_[dominio].xml."
+
+msgid "The report gives no domain name."
+msgstr "Il rapporto non indica alcun nome di dominio."
+
+msgid "This report has already been imported."
+msgstr "Questo rapporto è già stato importato."
+
+msgid "You do not have the right to import a report."
+msgstr "Non avete il diritto di importare un rapporto."
+
+#, php-format
+msgid "PingCastle report - %1$s (%2$s)"
+msgstr "Rapporto PingCastle - %1$s (%2$s)"
+
+#, php-format
+msgid "Active Directory %1$s: %2$s"
+msgstr "Active Directory %1$s: %2$s"
+
+#, php-format
+msgid "Domain: %s"
+msgstr "Dominio: %s"
+
+#, php-format
+msgid "Report: %1$s of %2$s (score %3$d/100)"
+msgstr "Rapporto: %1$s del %2$s (punteggio %3$d/100)"
+
+#, php-format
+msgid "Rule: %s"
+msgstr "Regola: %s"
+
+#, php-format
+msgid "Category: %s"
+msgstr "Categoria: %s"
+
+#, php-format
+msgid "Points: %d"
+msgstr "Punti: %d"
+
+#, php-format
+msgid "ISO/IEC 27001 controls: %s"
+msgstr "Controlli ISO/IEC 27001: %s"
+
+#, php-format
+msgid ""
+"Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) "
+"triggered"
+msgstr ""
+"Audit di Active Directory: punteggio %1$d/100 per %2$s (%3$s), %4$d regola/e "
+"attivata/e"
+
+msgid ""
+"Keeps the results of the security audits of your Active Directory: the "
+"PingCastle reports that your team produces are imported here, with the "
+"global score, the score by category and the rules triggered. Each rule is "
+"linked to the ISO/IEC 27001 controls it concerns, and the history shows how "
+"the score changes from one report to the next."
+msgstr ""
+"Conserva i risultati degli audit di sicurezza del vostro Active Directory: i "
+"rapporti PingCastle prodotti dal vostro team sono importati qui, con il "
+"punteggio globale, il punteggio per categoria e le regole attivate. Ogni "
+"regola è collegata ai controlli ISO/IEC 27001 interessati e la cronologia "
+"mostra l'evoluzione del punteggio da un rapporto all'altro."
+
+msgid ""
+"Run PingCastle regularly (for example every quarter), import each report, "
+"then decide how to treat the rules: propose an action or a ticket for those "
+"you fix, and follow the rules resolved by the next report. Nothing is "
+"created automatically. The page is reserved to the sensitive registers right."
+msgstr ""
+"Eseguite PingCastle regolarmente (ad esempio ogni trimestre), importate ogni "
+"rapporto, poi decidete come trattare le regole: proponete un'azione o un "
+"ticket per quelle che correggete e seguite le regole risolte dal rapporto "
+"successivo. Nulla viene creato automaticamente. La pagina è riservata al "
+"diritto dei registri sensibili."
+
+msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
+msgstr "ISO/IEC 27001, controlli da A.5.15 a A.5.18, A.8.2 e A.8.5"
+
+#, php-format
+msgid "%d new rule"
+msgid_plural "%d new rules"
+msgstr[0] "%d nuova regola"
+msgstr[1] "%d nuove regole"
+
+#, php-format
+msgid "%d rule resolved"
+msgid_plural "%d rules resolved"
+msgstr[0] "%d regola risolta"
+msgstr[1] "%d regole risolte"
+
+#, php-format
+msgid "%d rule triggered"
+msgid_plural "%d rules triggered"
+msgstr[0] "%d regola attivata"
+msgstr[1] "%d regole attivate"
+
+msgid "Archive the report as a restricted document (passwords removed)"
+msgstr "Archiviare il rapporto come documento riservato (password rimosse)"
+
+msgid "Archived report (restricted)"
+msgstr "Rapporto archiviato (riservato)"
+
+msgid "Change since the previous report"
+msgstr "Variazione rispetto al rapporto precedente"
+
+#, php-format
+msgid "Compared with the report of %s"
+msgstr "Rispetto al rapporto del %s"
+
+msgid "Delete the import and its archived report"
+msgstr "Eliminare l'importazione e il suo rapporto archiviato"
+
+msgid "Download a fictitious example report"
+msgstr "Scaricare un rapporto di esempio fittizio"
+
+msgid ""
+"Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an "
+"action or a ticket for the rules you decide to treat: nothing is created "
+"before you click, and the action form is reviewed before it is saved."
+msgstr ""
+"Ogni regola è collegata ai controlli ISO/IEC 27001 interessati. Proponete "
+"un'azione o un ticket per le regole che decidete di trattare: nulla viene "
+"creato prima del vostro clic e la scheda dell'azione viene riletta prima del "
+"salvataggio."
+
+msgid ""
+"First report for this domain: the next import will show the rules that "
+"appeared or were resolved."
+msgstr ""
+"Primo rapporto per questo dominio: la prossima importazione mostrerà le "
+"regole comparse o risolte."
+
+msgid ""
+"GLPI never runs PingCastle and never queries the directory: it reads the "
+"report that your team produced. The report is stored in the current entity."
+msgstr ""
+"GLPI non esegue mai PingCastle e non interroga mai la directory: legge il "
+"rapporto prodotto dal vostro team. Il rapporto è memorizzato nell'entità "
+"corrente."
+
+msgid "Import a PingCastle report"
+msgstr "Importare un rapporto PingCastle"
+
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Importate il file ad_hc_[dominio].xml che produce (non il file HTML)."
+
+msgid "Imported on"
+msgstr "Importato il"
+
+msgid "Imported reports"
+msgstr "Rapporti importati"
+
+#, php-format
+msgid "Maturity level: %d"
+msgstr "Livello di maturità: %d"
+
+msgid ""
+"No report imported yet. Run PingCastle on your domain, then import the "
+"ad_hc_[domain].xml file below."
+msgstr ""
+"Nessun rapporto ancora importato. Eseguite PingCastle sul vostro dominio, "
+"poi importate qui sotto il file ad_hc_[dominio].xml."
+
+msgid "No rule triggered in this report."
+msgstr "Nessuna regola attivata in questo rapporto."
+
+msgid ""
+"On a computer of the domain, run PingCastle and choose the health check (or "
+"run it with the --healthcheck option)."
+msgstr ""
+"Su un computer del dominio, eseguite PingCastle e scegliete il controllo "
+"dello stato (o eseguitelo con l'opzione --healthcheck)."
+
+msgid ""
+"Only the scores and the triggered rules (identifier, category, points, "
+"finding) are kept: never the list of accounts, nor any password found. A new "
+"report of the same domain shows the change of score and the rules that "
+"appeared or were resolved."
+msgstr ""
+"Sono conservati solo i punteggi e le regole attivate (identificativo, "
+"categoria, punti, rilievo): mai l'elenco degli account, né alcuna password "
+"trovata. Un nuovo rapporto dello stesso dominio mostra la variazione del "
+"punteggio e le regole comparse o risolte."
+
+msgid "Only users who can modify the sensitive registers can import a report."
+msgstr ""
+"Solo gli utenti che possono modificare i registri sensibili possono "
+"importare un rapporto."
+
+msgid "Open a ticket"
+msgstr "Aprire un ticket"
+
+msgid "Passwords found in the report: not kept"
+msgstr "Password trovate nel rapporto: non conservate"
+
+#, php-format
+msgid "PingCastle XML report (%d MB at most)"
+msgstr "Rapporto XML di PingCastle (al massimo %d MB)"
+
+msgid ""
+"PingCastle is free for internal use; a service provider auditing a customer "
+"needs a licence. Check the terms of use of the tool."
+msgstr ""
+"PingCastle è gratuito per uso interno; un fornitore che sottopone a audit un "
+"cliente necessita di una licenza. Verificate le condizioni d'uso dello "
+"strumento."
+
+#, php-format
+msgid "PingCastle report of %1$s, %2$s"
+msgstr "Rapporto PingCastle di %1$s, %2$s"
+
+msgid "Points"
+msgstr "Punti"
+
+msgid "Propose an action"
+msgstr "Proporre un'azione"
+
+msgid "Report date"
+msgstr "Data del rapporto"
+
+#, php-format
+msgid "Report of %s"
+msgstr "Rapporto del %s"
+
+msgid "Rules resolved since the previous report"
+msgstr "Regole risolte rispetto al rapporto precedente"
+
+msgid "Rules triggered"
+msgstr "Regole attivate"
+
+msgid ""
+"These reports describe the weaknesses of the domain: the page and the "
+"archived reports are reserved to the sensitive registers right, in the "
+"entity of each import."
+msgstr ""
+"Questi rapporti descrivono le debolezze del dominio: la pagina e i rapporti "
+"archiviati sono riservati al diritto dei registri sensibili, nell'entità di "
+"ogni importazione."
+
+msgid ""
+"Weakness reported by the Active Directory security audit (\"Active Directory "
+"security audit\" screen). Fix it, then import the next report to check that "
+"the rule is resolved. Nothing was changed automatically."
+msgstr ""
+"Debolezza segnalata dall'audit di sicurezza di Active Directory (schermata "
+"«Audit di sicurezza di Active Directory»). Correggetela, poi importate il "
+"rapporto successivo per verificare che la regola sia risolta. Nulla è stato "
+"modificato automaticamente."
+
+#, php-format
+msgid "%d rule concerns this control"
+msgid_plural "%d rules concern this control"
+msgstr[0] "%d regola riguarda questo controllo"
+msgstr[1] "%d regole riguardano questo controllo"
+
+#, php-format
+msgid "Score: %d/100"
+msgstr "Punteggio: %d/100"
+
+#, php-format
+msgid ""
+"Action proposed from the Active Directory security audit (rule %s): review "
+"and adapt each field, set an owner and a due date, then click \"Add\". "
+"Nothing is created before, and the rule is linked to this action once it is "
+"saved."
+msgstr ""
+"Azione proposta dall'audit di sicurezza di Active Directory (regola %s): "
+"rileggete e adattate ogni campo, designate un responsabile e una scadenza, "
+"poi fate clic su «Aggiungi». Nulla viene creato prima e la regola è "
+"collegata a questa azione una volta salvata."
+
+msgctxt "ad rule"
+msgid "New"
+msgstr "Nuova"
