@@ -54,6 +54,9 @@ class OfficialContactNotification extends OfficialContactNotificationBase
 
     public const CONTACT_FK = 'plugin_grcmanager_contextitems_id';
 
+    /** Lot 3 : communication de crise d'où vient la prise de contact (0 : saisie à la main). */
+    public const COMMUNICATION_FK = 'plugin_grcmanager_crisiscommunications_id';
+
     /** @var list<class-string<CommonDBTM>> */
     public const ITEM_TYPES = [PluginGrcmanagerSecurityIncident::class, DataBreach::class];
 
@@ -213,6 +216,7 @@ class OfficialContactNotification extends OfficialContactNotificationBase
                 'reference'      => (string) $row['reference'],
                 'comment'        => (string) ($row['comment'] ?? ''),
                 'author'         => getUserName((int) $row['users_id']),
+                'from_communication' => (int) ($row[self::COMMUNICATION_FK] ?? 0) > 0,
             ];
         }
 
@@ -304,6 +308,91 @@ class OfficialContactNotification extends OfficialContactNotificationBase
         self::trace(ContextItem::class, $contactId, $message);
 
         return $id;
+    }
+
+    /**
+     * Issue #771, lot 3 : prises de contact tracées depuis une communication de crise envoyée à des
+     * contacts officiels (décision « prévenu », date et objet du message). Mêmes contrôles qu'une
+     * saisie : droit de modifier l'objet, contact lisible depuis son entité, date valide ; une
+     * communication ne trace qu'une fois chaque contact. Renvoie le nombre de traces créées.
+     *
+     * @param list<int> $contactIds
+     */
+    public static function recordFromCommunication(
+        CommonDBTM $item,
+        int $communicationId,
+        array $contactIds,
+        string $date,
+        string $subject,
+        ?string $now = null
+    ): int {
+        if (
+            $communicationId <= 0
+            || !in_array($item::class, self::ITEM_TYPES, true)
+            || $item->isNewItem()
+            || !$item->can($item->getID(), UPDATE)
+        ) {
+            return 0;
+        }
+        $contactIds = array_values(array_unique(array_filter(array_map('intval', $contactIds))));
+        if ($contactIds === []) {
+            return 0;
+        }
+        $now ??= date('Y-m-d H:i:s');
+        $date = Rules::normalizeDateTime(substr($date, 0, 19));
+        if (Rules::traceRefusal(Rules::DECISION_NOTIFIED, $date, '', self::startOf($item), $now) !== null) {
+            return 0;
+        }
+        $comment = sprintf(__('Crisis communication: "%s"', 'grcmanager'), $subject);
+        $label = self::decisionLabels()[Rules::DECISION_NOTIFIED];
+        $created = 0;
+        foreach (self::reachableContacts($item, ['id' => $contactIds]) as $contact) {
+            $contactId = (int) $contact['id'];
+            $existing = [self::CONTACT_FK => $contactId, self::COMMUNICATION_FK => $communicationId];
+            if (countElementsInTable(self::getTable(), $existing) > 0) {
+                continue;
+            }
+            $id = (int) (new self())->add([
+                'entities_id'          => (int) $item->fields['entities_id'],
+                'itemtype'             => $item::class,
+                'items_id'             => (int) $item->getID(),
+                self::CONTACT_FK       => $contactId,
+                'decision'             => Rules::DECISION_NOTIFIED,
+                'date_notified'        => $date,
+                'reference'            => '',
+                'comment'              => $comment,
+                'users_id'             => (int) Session::getLoginUserID(),
+                self::COMMUNICATION_FK => $communicationId,
+            ]);
+            if ($id <= 0) {
+                continue;
+            }
+            $created++;
+            $message = sprintf(
+                __('Official contact %1$s: %2$s on %3$s', 'grcmanager'),
+                (string) $contact['name'],
+                $label,
+                Html::convDateTime((string) $date)
+            );
+            self::trace($item::class, (int) $item->getID(), $message);
+            self::trace(ContextItem::class, $contactId, $message);
+        }
+
+        return $created;
+    }
+
+    /**
+     * Prises de contact tracées depuis cette communication de crise.
+     */
+    public static function countForCommunication(int $communicationId): int
+    {
+        global $DB;
+
+        if ($communicationId <= 0 || !$DB->fieldExists(self::getTable(), self::COMMUNICATION_FK)) {
+            return 0;
+        }
+
+        return countElementsInTable(self::getTable(), [self::COMMUNICATION_FK => $communicationId]);
     }
 
     /**

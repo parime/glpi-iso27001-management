@@ -541,6 +541,10 @@ class BusinessProcess extends BusinessProcessBase
                 getUserName((int) Session::getLoginUserID())
             ),
             'sheets'             => $sheets,
+            // Issue #771, lot 3 : qui appeler pendant la crise (contacts officiels lisibles).
+            'show_contacts'      => OfficialContact::canView(),
+            'contacts'           => OfficialContact::forContinuityPlan($only),
+            'perimeter'          => EntityPerimeter::isMultiEntity(),
             'show_summary'       => $only === null,
             'show_risks'         => $showRisks,
             'categories'         => BusinessImpact::getCategoryLabels(),
