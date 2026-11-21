@@ -23,7 +23,7 @@ use GlpiPlugin\Grcmanager\SecureDevelopment;
 // applications ; applications limitées aux entités de la session (ProductSbom::allSboms()).
 Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, READ);
 if (!ProductSbom::canView()) {
-    throw new GlpixceptionHttpAccessDeniedHttpException();
+    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 
 Html::header(
