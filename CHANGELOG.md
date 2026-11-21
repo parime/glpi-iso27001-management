@@ -1,0 +1,4221 @@
+# Changelog
+
+Toutes les évolutions notables de ce projet sont documentées dans ce fichier.
+
+Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce projet adhère au
+[Semantic Versioning](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
+
+## [Unreleased]
+
+## [2.80.0] - 2026-11-21
+
+### Added
+
+- **Vue Sécurité 360° de chaque actif** (issue #837, partie 1). Un onglet **Sécurité 360°** sur les
+  ordinateurs et les matériels réseau résume, pour l'actif, chaque source de sécurité disponible avec
+  un badge d'état (critique, à surveiller, conforme, information), un court résumé et un lien vers le
+  détail : vulnérabilités connues, chiffrement des disques, conformité de configuration (OpenSCAP),
+  contrôleur de gestion, incidents de sécurité et risques liés. Un score sur 100 et un niveau global
+  (bon, à améliorer, faible) sont expliqués sur la page : moyenne pondérée des sources évaluées, et
+  une seule source critique empêche le niveau « bon ». Les sources sans données (module non utilisé,
+  rien d'importé, pas le droit) restent masquées. Les sources viennent d'un registre extensible
+  (`AssetSecuritySourcesProvider` dans `src/Feature/`) : un module ajoute la sienne sans toucher à
+  l'onglet. Lecture seule, calculé seulement à l'ouverture de l'onglet.
+
+- **Droits d'accès à SharePoint, OneDrive et Teams** (issue #846, lot 2, mesures A.5.15, A.5.18 et
+  A.8.3). Sur la page « Droits sur les partages de fichiers », un cadre **Lire les droits SharePoint,
+  OneDrive et Teams** lit les droits par Microsoft Graph, sur clic et en lecture seule, avec
+  l'application et le secret chiffré déjà réglés pour la couverture MFA (#852) : droits des
+  bibliothèques de documents des sites et de leurs éléments partagés à part, éléments partagés des
+  OneDrive, propriétaires, membres, invités et visibilité des équipes Teams. Permissions
+  d'application à accorder : Sites.Read.All, Files.Read.All, User.Read.All et GroupMember.Read.All.
+  Import CSV en solution de repli (fichier d'exemple fourni). Mêmes écarts, même score et même
+  revue par le propriétaire que les partages Windows, avec deux écarts en plus : **lien public**
+  (n'importe qui ayant le lien, sans connexion) et **invité externe**. Un lien « personnes de
+  l'organisation » et une équipe publique comptent comme « tout le monde ». Une lecture incomplète
+  ou refusée ne remplace rien.
+
+- **Réponse du fournisseur hors ligne, par fichier** (partie de l'issue #865, mesures A.5.19 à
+  A.5.22). Un nouvel onglet **Fichier fournisseur** d'une évaluation télécharge le questionnaire à
+  remplir (CSV « ; » en UTF-8, une ligne par question, colonnes réponse, commentaire et nom de la
+  pièce jointe), que le RSSI envoie par le moyen de son choix. Le fichier retourné est réimporté
+  avec contrôle : repère de l'évaluation et empreinte de ses questions (un fichier d'une autre
+  évaluation ou d'autres questions est refusé), réponses rattachées par code, écarts signalés
+  (question inconnue ou absente, réponse hors liste, doublon), aperçu des changements, et rien
+  n'est enregistré sans confirmation. Les pièces envoyées par le fournisseur sont déposées au même
+  moment et rattachées aux questions par leur nom, avec les contrôles habituels des preuves. Les
+  réponses importées portent l'origine « fichier », le fichier reçu rejoint les documents du risque
+  fournisseur et chaque export ou import est tracé dans l'historique (qui, quand, quel fichier,
+  empreinte). Fichiers piégés écartés : classeur ou binaire renommé, formules neutralisées à
+  l'export, caractères de contrôle et chemins retirés, taille et nombre de lignes limités.
+
+- **Nomenclature logicielle (SBOM) et déclarations VEX des produits fabriqués** (issue #869, mesures
+  A.5.21, A.8.8 et A.8.28, Cyber Resilience Act annexe I partie II). Un onglet **SBOM et VEX** sur les
+  applications importe, pour chaque version publiée, une nomenclature CycloneDX ou SPDX 2 en JSON,
+  avec une lecture bornée : 10 Mo, profondeur du JSON, 10 000 composants et 5 000 vulnérabilités au
+  plus, champs nettoyés, fichier refusé plutôt que lu en partie. Les composants (nom, version,
+  fournisseur, licences, purl, CPE) sont rapprochés des vulnérabilités citées par le fichier et de
+  celles que la veille des vulnérabilités du parc connaît déjà pour le même produit et la même version
+  (alias d'un produit surveillé ou CPE du composant), sans aucun appel extérieur, avec la note CVSS et
+  le marquage KEV. Chaque vulnérabilité reçoit un statut VEX (affecté, en cours d'analyse, corrigé,
+  non affecté avec une justification ou une explication), saisi dans l'onglet ou importé d'un
+  document CycloneDX VEX ou OpenVEX ; la déclaration la plus précise s'applique. Les fiches des mesures
+  A.5.21, A.8.8 et A.8.28 montrent les produits avec un SBOM, les applications du registre du
+  développement sécurisé sans SBOM et les vulnérabilités sans déclaration ou encore affectées.
+
+- **Rapport du stock d'écarts** (issue #870, clauses 9.1, 10.1 et 10.2). Nouvel onglet
+  **Stock des écarts** de la rubrique Audits : non-conformités, autres constats et actions
+  correctives du registre des CAPA, et actions décidées en revue de direction. Stock ouvert par
+  gravité, origine (audit interne, audit de certification, incident de sécurité, revue de
+  direction, autre), type, entité et responsable ; âge des écarts ouverts et retard sur
+  l'échéance ; délai moyen et médian de clôture sur la période choisie ; tendance mensuelle
+  (ouverts, clôturés, stock en fin de mois) ; part des clôtures dont l'efficacité a été vérifiée.
+  Filtres par période, type, gravité, origine, entité et responsable ; export CSV et PDF pour le
+  dossier de l'auditeur ; archivage du PDF comme preuve des exigences 10.1 et 10.2 (onglet
+  Documents), repris par le dossier de preuves de l'auditeur. Cadre de preuve sur la fiche des
+  exigences 10.1 et 10.2, carte « Délai moyen de clôture des écarts » du tableau de bord. La date
+  de clôture d'une non-conformité est désormais enregistrée (reprise de la date de vérification,
+  sinon de la dernière modification, pour les constats déjà clos). Lecture seule : aucun statut,
+  aucune échéance ni aucun responsable n'est modifié.
+
+- **Mesures de la SoA couvertes par les textes de la bibliothèque des politiques** (issue #879,
+  clause 5.2 et mesure A.5.1). Onglet **Mesures couvertes** d'une politique : la politique entière,
+  ou une de ses sections nommée librement, se relie à plusieurs mesures d'un coup, par la liste ou
+  en saisissant des codes (`A.5.1`, plage `A.5.15-A.5.18`, thème `A.8`) ; un lien déjà présent
+  n'est pas doublé et un code inconnu est signalé. Onglet **Textes de référence** d'une mesure :
+  les textes qui la couvrent, leur état (approuvé, revue dépassée, non approuvé) et la liaison de
+  plusieurs politiques. Sous-page **Couverture des mesures par les politiques** de la rubrique
+  Conformité : taux de couverture et mesures applicables non couvertes, couvertes seulement par un
+  texte non approuvé ou à réviser, exportables en CSV et en PDF. Nouvelle règle des contrôles de
+  cohérence (A.5.1), évaluée dès qu'un texte est relié, reprise dans « Ce qui bloque cette
+  mesure ». Relier demande le droit de modifier les politiques ; seules les mesures des entités de
+  la session sont montrées. Lecture seule pour les statuts.
+
+- **Configuration à risque de l'inventaire Docker sur la mesure A.8.9** (issue #916). Dans le cadre
+  « Conformité de configuration » de la mesure, une ligne **Inventaire Docker : configuration à
+  risque** apparaît quand le plugin Inventaire Docker 0.12.0 ou suivant est actif et que
+  l'utilisateur peut lire ses services : taux de services **sans écart critique ni haut** mis en
+  avant, taux sans aucun écart, nombre de services analysés et non analysés, services dont l'écart
+  le plus grave est critique ou haut, exceptions **expirées** et exceptions qui finissent dans les
+  30 jours (avec la date de la plus proche), et lien vers la sous-page « Configuration à risque ».
+  Les exceptions ne sont comptées que sur les services des entités actives. Rien ne s'affiche sans
+  le plugin ou avec une version plus ancienne. Lecture seule.
+
+### Fixed
+
+- **Pages en erreur 500 sous GLPI 12.** Le journal d'audit ne tombe plus quand il contient un
+  événement d'un type qui n'est pas un objet GLPI (import de chemins d'attaque Active Directory) :
+  le nom court du type est affiché. Les pages qui refusaient l'accès avec une méthode retirée de
+  GLPI 12 (comptes des contrôleurs dans la revue des accès, programme d'audit, conformité des
+  configurations, chiffrement des disques, couverture des journaux, gestion des serveurs, blocages
+  d'une mesure, échantillonnage de l'audit de certification) renvoient de nouveau un refus 403.
+  Un test vérifie qu'aucun appel à ces méthodes retirées ne revient.
+
+- **Gabarits et champs des incidents de sécurité sur GLPI 11 et 12** (issue #951, suite de #796).
+  - La liste des gabarits (bouton « Modèle » des incidents de sécurité) affichait « An unexpected
+    error occurred » dès qu'un gabarit existait : GLPI ne retrouvait pas la classe à partir du nom
+    raccourci des tables des gabarits. La liste s'affiche de nouveau et ouvre chaque gabarit.
+  - Les listes Urgence et Impact d'un incident étaient vides et son statut restait bloqué sur
+    « Nouveau », même pour un super-admin, dans le formulaire de l'incident comme dans les champs
+    prédéfinis d'un gabarit. Un incident suit maintenant les mêmes réglages que les tickets :
+    masques d'urgence et d'impact et matrice de priorité de la configuration, cycle de vie des
+    tickets du profil.
+  - Après l'ajout d'un champ masqué, obligatoire, prédéfini ou en lecture seule, on revient au
+    gabarit au lieu d'arriver sur la fiche technique du champ.
+
+- **Erreurs JavaScript surveillées dans un vrai navigateur** (issue #978). Un nouveau contrôle de la
+  CI (`tests/security/js-errors.py`, Playwright) ouvre en super-admin l'accueil de GLPI et chaque page
+  du plugin, après le jeu de données piégé du test XSS, et échoue si une page lève une erreur
+  JavaScript non interceptée (par exemple « Maximum call stack size exceeded ») ou ouvre une boîte de
+  dialogue (charge XSS exécutée). Une erreur qui ne revient pas à une seconde visite de la page est
+  signalée en avertissement seulement. L'erreur relevée une fois avant publication n'a pas été
+  reproduite sur la version de développement : ni boucle, ni requête relancée sans fin sur l'accueil
+  et les pages du plugin.
+
+## [2.79.0] - 2026-11-21
+
+### Added
+
+- **Chemins d'attaque vers Domain Admins** (issue #835, lot 3, mesures A.5.15, A.5.18 et A.8.2). La
+  page Audit de sécurité de l'Active Directory importe, en lecture seule, l'export JSON du graphe de
+  BloodHound CE ou d'Adalanche (format Cytoscape) : nombre de comptes ayant un chemin vers le groupe
+  Domain Admins (utilisateurs, ordinateurs, plus court chemin), comptes les plus exposés (nom, type,
+  nombre de sauts et de routes) et évolution d'un export au suivant (écart, nouveaux comptes). Lecture
+  sûre : taille, profondeur du JSON, nombre de nœuds et de liens bornés, noms nettoyés, aucune autre
+  propriété du graphe gardée. Sur clic, le risque est créé dans le registre (une fois par domaine,
+  repris par les exports suivants). Preuve sur les fiches des mesures A.5.15, A.5.18 et A.8.2, source
+  de KRI « comptes ayant un chemin d'attaque vers Domain Admins », exemples fictifs téléchargeables.
+  Un graphe importé par erreur dans le formulaire des rapports est renvoyé vers la bonne partie.
+
+- **Contrôleurs de gestion des serveurs, lot 2** (issue #843, mesures A.5.18, A.8.2 et A.8.8). Le
+  firmware de chaque contrôleur (iLO, iDRAC, XClarity, IPMI) et le BIOS du serveur sont comparés aux
+  vulnérabilités du parc et aux fins de support d'endoflife.date, comme les autres firmwares : mêmes
+  alias et même veille, aucun nouvel appel extérieur. Quatre écarts s'ajoutent sur la page des
+  contrôleurs (vulnérabilité prioritaire, vulnérabilités connues, firmware plus supporté, fin de
+  support proche), et les firmwares des contrôleurs apparaissent sur les pages des vulnérabilités du
+  parc et des fins de support, rattachés à leur serveur. Les comptes locaux des contrôleurs sont
+  figés au lancement d'une campagne de revue des accès, dans un onglet **Comptes des contrôleurs de
+  serveurs**, avec une suggestion (compte constructeur ou désactivé : retirer ; administrateur ou
+  verrouillé : examiner) ; le gestionnaire de la campagne garde ou retire chaque compte, rien n'est
+  changé sur les contrôleurs.
+
+### Fixed
+
+- **Audit de sécurité de l'Active Directory** : supprimer un import ou proposer un ticket pour une
+  règle hors de vos entités affiche de nouveau le refus d'accès au lieu d'une erreur sous GLPI 12.
+
+## [2.78.0] - 2026-11-21
+
+### Added
+
+- **Maturité par mesure : niveau actuel, niveau cible et écarts** (issue #603, articles 6.2, 9.3 et
+  10.1). Nouvelle sous-page « Maturité par mesure » de la rubrique Tableau de bord : une campagne
+  datée évalue chaque mesure applicable de la SoA de l'entité de 0 (inexistant) à 5 (optimisé), avec
+  niveau actuel, niveau cible, échéance, responsable et justification. Niveaux facultatifs : ni
+  l'état de mise en œuvre ni le score de maturité global ne changent. Une nouvelle campagne reprend
+  les cibles de la précédente ; les campagnes sont conservées et deux campagnes de la même entité se
+  comparent mesure par mesure (progrès, recul, inchangé). Onglet « Écarts » : écarts triés par
+  taille puis échéance, filtres par référentiel activé, thème et responsable, radar actuel/cible par
+  thème, « Créer l'action » (piste d'amélioration pré-remplie, relue et enregistrée par
+  l'utilisateur, liée à l'écart). Rapport PDF pour la revue de direction. Libellés de l'échelle
+  modifiables dans la configuration du plugin. Tables créées par l'installateur (rejouable),
+  supprimées à la désinstallation ; droits du plugin et entité de la campagne ; matrice d'accès et
+  contrôle XSS.
+
+- **Audit de sécurité de l'Active Directory, lot 2 : Purple Knight, Maester et ScubaGear** (issue
+  #835, mesures A.5.15 à A.5.18, A.5.23, A.8.2 et A.8.5). La même page importe aussi l'export CSV des
+  indicateurs de sécurité de Purple Knight (indicateurs d'exposition et de compromission de l'AD) et
+  les résultats JSON de Maester (`TestResults-<date>.json`) et de ScubaGear
+  (`ScubaResults_<identifiant>.json`) pour la configuration d'Entra ID et de Microsoft 365 ; le type
+  de fichier est reconnu tout seul. Les scores gardent la lecture de PingCastle (0 le meilleur) : le
+  score de Purple Knight est retourné, celui de Maester et de ScubaGear est la part des contrôles en
+  échec ; le nombre de contrôles évalués et réussis est affiché. Seuls les contrôles en échec sont
+  gardés, avec leur gravité, une catégorie (sécurité des comptes, délégation, infrastructure,
+  stratégies de groupe, Kerberos, identité Entra ID, services Microsoft 365) et les mesures de
+  l'Annexe A concernées, A.5.23 comprise ; action ou ticket sur clic, historique et comparaison
+  comme pour PingCastle. Champ « Domaine » pour un export sans colonne de domaine. Le score de
+  sécurité de l'AD (KRI, carte du tableau de bord) ne retient que PingCastle et Purple Knight ; la
+  préparation à la certification ajoute le constat Entra ID. Pour un locataire Entra ID, la page
+  renvoie à la couverture MFA par compte (issue #852) au lieu de la recalculer. Lecture sûre : taille
+  limitée, JSON borné en profondeur et en nombre de contrôles, balises retirées, texte ressemblant à
+  un mot de passe écarté ; ni la section `Raw` de ScubaGear, ni le compte, la machine ou le détail
+  des résultats de Maester ne sont lus. Exemples fictifs pour chaque outil, tests unitaires avec
+  fichiers piégés, tests d'intégration, matrice d'accès et contrôle XSS.
+
+- **Connecteur Zabbix en lecture seule** (issue #836, mesures A.8.16, A.8.6 et A.5.30) : page
+  « Supervision Zabbix » (rubrique Sécurité technique) :
+  - lecture de l'API JSON-RPC du serveur Zabbix configuré (5.4 et suivants), sur clic ou par la
+    tâche automatique « zabbix » désactivée par défaut ; liste fermée de méthodes de lecture
+    (host.get, problem.get, event.get, sla.get, sla.getsli, service.get), seule l'adresse du serveur
+    configuré est appelée ; jeton d'API chiffré par GLPI, jamais réaffiché ni journalisé ; une
+    lecture en échec ne remplace pas la précédente ;
+  - hôtes rapprochés des ordinateurs et matériels réseau (numéro de série, nom, nom court, adresse
+    IP) : taux d'actifs supervisés, actifs critiques non supervisés, hôtes non rapprochés ;
+  - disponibilité mesurée par actif (temps sans problème de gravité haute) et plus long arrêt
+    comparé au RTO des processus métier dépendants ; disponibilité des services (SLA Zabbix)
+    comparée au SLO, chaque service rattaché à un processus métier ;
+  - problèmes de la période et problèmes ouverts (gravité, durée, acquittement), saturations de
+    disque, mémoire ou processeur (A.8.6) ; un problème de gravité haute peut devenir un incident de
+    sécurité (nouvelle origine « Supervision de l'infrastructure ») ou un ticket, sur clic seulement ;
+  - onglet « Supervision Zabbix » sur les ordinateurs, matériels réseau et processus métier ; preuve
+    sur les mesures A.8.16, A.8.6 et A.5.30 ; trois sources d'indicateurs de risque (disponibilité
+    des services du mois, problèmes ouverts de gravité haute, actifs critiques non supervisés) ;
+  - tables rejouables supprimées à la désinstallation ; tests contre un faux serveur Zabbix,
+    matrice d'accès et contrôle XSS ; tutoriel (étape « Lire la supervision Zabbix »).
+
+- **Couverture des sauvegardes** (issue #838, mesures A.8.13 et A.5.30). Nouvelle page « Couverture
+  des sauvegardes » dans la rubrique Sécurité technique, en lecture seule : machines sauvegardées lues
+  dans **Veeam Backup & Replication** par son API REST (sur clic, compte « Veeam Backup Viewer » :
+  points de restauration des 31 derniers jours et dernier résultat de chaque travail ; aucune
+  sauvegarde lancée, rien de modifié), ou importées par CSV depuis Acronis, Commvault, Synology
+  Active Backup, Proxmox Backup Server ou un autre outil (une ligne par machine ou par exécution).
+  Rapprochement avec les ordinateurs et matériels réseau comme la couverture de la journalisation
+  (nom, nom court, adresse IP) : actifs sans sauvegarde, sauvegarde plus ancienne que le RPO de
+  l'actif ou de ses processus métier (48 heures par défaut, réglable), dernière tentative en échec,
+  travaux Veeam en échec, machines inconnues de GLPI. Dernier test de restauration de chaque actif
+  repris des exercices de reprise (#733), avec une fréquence attendue réglable (12 mois). Preuve sur
+  les mesures A.8.13 et A.5.30 (liste de sources de #781), KRI « actifs critiques sans sauvegarde
+  récente (%) ». Le mot de passe Veeam est chiffré par GLPI, jamais réaffiché ni journalisé ; une
+  lecture refusée ou incomplète ne remplace rien. Mise à jour : deux tables ajoutées (rejouable),
+  supprimées à la désinstallation.
+
+- **Contrôleurs de gestion des serveurs, lot 1 : Redfish en lecture seule et import CSV** (issue
+  #843, mesures A.8.2, A.8.9 et A.8.22). Nouvelle page « Contrôleurs de gestion des serveurs » dans
+  la rubrique Sécurité technique (droit du plugin et lecture des ordinateurs, entités de la session).
+  Chaque contrôleur (HPE iLO, Dell iDRAC, Lenovo XClarity Controller, Supermicro) est déclaré avec
+  son adresse https et un compte local en lecture seule ; le mot de passe est chiffré par GLPI,
+  jamais réaffiché, et doit être ressaisi si l'adresse ou le compte changent. Lecture Redfish sur
+  clic, uniquement par des requêtes GET (aucune session, aucune action, aucun réglage modifié),
+  limitée à l'adresse configurée (liens renvoyés suivis seulement sous `/redfish/v1`) ; certificat
+  auto-signé accepté seulement si l'option, désactivée par défaut, est cochée pour ce contrôleur.
+  Une lecture en échec ne remplace pas la précédente. Inventaire (modèle, firmware du contrôleur,
+  BIOS, numéro de série, santé), rapprochement avec l'ordinateur de GLPI par le numéro de série ou
+  choisi à la main, onglet « Contrôleur de gestion » sur l'ordinateur, serveurs physiques sans
+  contrôleur connu. Écarts signalés seulement : IPMI sur le réseau, Telnet, SNMP v1/v2c, protocoles
+  TLS anciens (import), certificat auto-signé, expiré ou proche de l'expiration, démarrage sécurisé
+  désactivé, compte par défaut actif, adresse hors des réseaux d'administration déclarés dans la
+  matrice des flux, santé dégradée. Comptes locaux et leur rôle listés pour la revue des accès
+  privilégiés. Import CSV des contrôleurs sans Redfish (IPMI seul). Preuve sur les fiches des mesures
+  A.8.2, A.8.9 et A.8.22, source de KRI « Contrôleurs de gestion des serveurs avec un écart grave ».
+  `Http::send()` accepte une option explicite qui désactive la vérification du certificat, utilisée
+  seulement pour ces contrôleurs. Tests contre un faux Redfish, tests d'intégration, matrice d'accès
+  et contrôle XSS.
+
+- **Droits d'accès aux partages de fichiers Windows (SMB et NTFS)** (issue #846, lot 1, mesures
+  A.5.15, A.5.18 et A.8.3). Nouvelle page « Droits sur les partages de fichiers » dans la rubrique
+  Revue des accès, en lecture seule : import du fichier CSV produit par le script PowerShell fourni
+  (`Export-GrcShareAccess.ps1`, téléchargeable depuis la page : `Get-SmbShare`,
+  `Get-SmbShareAccess`, `Get-Acl` jusqu'à une profondeur réglable, héritage, propriétaire), ou par
+  un outil tiers (colonnes reconnues par leurs noms usuels). Le plugin ne se connecte à aucun
+  serveur et ne modifie aucun droit. Comptes rapprochés des utilisateurs et groupes GLPI ; comptes
+  larges et comptes système reconnus par leur SID, quelle que soit la langue de Windows. Écarts
+  signalés : tout le monde peut modifier, compte supprimé (SID non résolu) ou désactivé qui a
+  encore des droits, droit nominatif, héritage cassé sur un partage sensible, partage sans
+  propriétaire. Classification C/I/D par partage et score pondéré, suivi d'un import à l'autre
+  (droits ajoutés et retirés, historique des imports), revue des droits par le propriétaire désigné
+  (garder, modifier, retirer, décision tracée ; rien n'est appliqué sur le serveur). Preuve sur les
+  fiches des mesures A.5.15, A.5.18 et A.8.3. Données réservées au droit des registres sensibles.
+  Point d'extension `ShareAccess::accessesForUser()` pour la revue des accès. Trois nouvelles
+  tables, créées à l'installation et à la mise à jour si absentes (rejouable), supprimées à la
+  désinstallation. Matrice d'accès et contrôle XSS étendus.
+
+- **Questionnaires fournisseurs configurables** (issue #864, mesures A.5.19 à A.5.21, NIS2
+  art. 21 §2 d), DORA art. 28). Les douze questions fixes du questionnaire de sécurité deviennent
+  des modèles éditables :
+  - bibliothèque « Modèles de questionnaire » ouverte depuis la liste des risques fournisseurs
+    (aucune nouvelle entrée de menu) : nom, domaine (sécurité de l'information, données
+    personnelles, intelligence artificielle, continuité d'activité, autre), entité et
+    sous-entités comme les risques fournisseurs, copie d'un modèle ;
+  - onglet « Questions » du modèle : sections, texte, aide, réponse attendue (« oui » ou « non »),
+    pondération de 0 à 10 (0 : question informative), pièce justificative exigée, ordre ; chaque
+    changement crée une nouvelle version, et une empreinte des questions est calculée pour
+    reconnaître plus tard un fichier retourné par un fournisseur (#865) ;
+  - plusieurs évaluations par risque fournisseur (onglet « Questionnaires »), chacune avec son
+    modèle, son score pondéré (réponse attendue 1 point, partiel 0,5, autre réponse 0, multiplié
+    par la pondération ; « sans objet » et l'absence de réponse ne comptent pas), son évaluateur, sa
+    date, son historique et l'évolution entre les deux dernières évaluations d'un même domaine ;
+    les questions sont copiées dans l'évaluation, qui ne change pas si le modèle change ensuite ;
+  - pièce justificative envoyée question par question : Document GLPI joint au risque fournisseur
+    (onglet Documents), dans son entité, lisible avec ses seuls droits, avec les contrôles des
+    preuves (types autorisés par GLPI, taille maximale, type réel du contenu) ; badges « pièce
+    manquante » et « écart » ;
+  - une évaluation terminée ne se modifie plus sauf à la rouvrir ; la dernière évaluation terminée
+    du domaine sécurité alimente le score affiché sur le risque et la carte du tableau de bord. Le
+    niveau de risque n'est jamais modifié.
+
+  Reprise sans perte : les douze questions d'origine forment le modèle « Questionnaire
+  historique » (désactivable, non supprimable) et chaque questionnaire déjà rempli devient une
+  évaluation terminée avec ses réponses, son score, sa date et son auteur d'origine (colonnes
+  d'origine conservées). Quatre nouvelles tables, créées à l'installation et à la mise à jour si
+  absentes (rejouable), supprimées à la désinstallation. Matrice d'accès et contrôle XSS étendus.
+
+## [2.77.0] - 2026-11-21
+
+### Added
+
+- **Audit de sécurité de l'Active Directory, lot 1 : PingCastle** (issue #835, mesures A.5.15 à
+  A.5.18, A.8.2 et A.8.5). Nouvelle page « Audit de sécurité de l'Active Directory » dans la
+  rubrique Sécurité technique, réservée au droit des registres sensibles et limitée aux entités de
+  la session. Le plugin ne lance aucun outil et n'interroge pas l'annuaire : il importe le rapport
+  XML de PingCastle (`ad_hc_<domaine>.xml`) que l'équipe a produit, dans l'entité active. Score
+  global, scores par catégorie (objets obsolètes, comptes privilégiés, relations d'approbation,
+  anomalies), niveau de maturité et règles déclenchées (identifiant, catégorie, points, constat),
+  avec une gravité selon les points. Historique par domaine : évolution du score, règles apparues
+  et résolues d'un rapport au suivant ; un même fichier n'est importé qu'une fois. Chaque règle est
+  rattachée aux mesures de l'Annexe A concernées et, sur clic seulement, proposée comme action (fiche
+  de non-conformité pré-remplie, relue avant l'enregistrement) ou comme ticket ; ces liens suivent
+  la règle dans les rapports suivants. Preuve sur les fiches des mesures A.5.15, A.5.17, A.5.18,
+  A.8.2 et A.8.5, source de KRI « Score de sécurité de l'Active Directory », carte du tableau de
+  bord et constat de la préparation à la certification. Lecture sûre : taille limitée à 20 Mo,
+  fichier avec DOCTYPE ou entités refusé (XXE), aucun accès réseau ; ni la liste des comptes ni les
+  mots de passe trouvés (GPP) ne sont repris, leur présence est seulement signalée. Le rapport,
+  nettoyé de ses mots de passe, peut être archivé comme document restreint. Rapport d'exemple fictif
+  (domaine `exemple.test`) téléchargeable depuis la page. Tests unitaires avec des fichiers piégés,
+  tests d'intégration, matrice d'accès et contrôle XSS.
+
+## [2.76.0] - 2026-11-21
+
+### Added
+
+- **Revue des accès pré-remplie par des règles** (issue #866, mesures A.5.18 et A.8.2). Au
+  lancement d'une campagne, chaque compte arrive avec une suggestion et sa raison, calculées sans IA
+  à partir des données déjà présentes dans GLPI :
+  - **retirer** : compte supprimé de l'annuaire, date de fin du compte dépassée, départ enregistré
+    dans assetsign (s'il est actif) dont la date est passée ;
+  - **à examiner** : départ ou fin du compte dans les N jours, aucune connexion depuis N jours ou
+    compte jamais utilisé, groupes changés sans revue des profils, profil à privilèges (la raison
+    précise quand aucune MFA n'est connue, d'après la couverture MFA de #852) ;
+  - **garder** : aucun signal d'alerte.
+
+  Les règles se règlent sur le formulaire de la campagne (durées, règles activées) et passent à la
+  campagne suivante. L'onglet « Comptes à revoir », « Mes revues d'accès » et le rapport PDF
+  affichent la suggestion, ses raisons et les décisions opposées à la suggestion. La décision reste
+  humaine : rien n'est présélectionné, et garder un compte que les règles proposent de retirer
+  demande un commentaire. « Mettre à jour les suggestions » recalcule les comptes encore à revoir.
+  Mise à jour : champs ajoutés aux campagnes et à leurs lignes (migration rejouable) ; les lignes
+  des campagnes déjà lancées affichent « Pas encore de suggestion » jusqu'au recalcul.
+
+- **Conformité de configuration : import des résultats OpenSCAP** (issue #781, mesure A.8.9).
+  Nouvelle page « Conformité de configuration » dans la rubrique Sécurité technique : import d'un
+  fichier de résultats XCCDF (1.1 ou 1.2) ou ARF produit par `oscap` (profils CIS, ANSSI, DISA
+  STIG…), plusieurs machines par fichier, doublons ignorés. Chaque résultat est rapproché de
+  l'ordinateur GLPI du même nom parmi ceux que la personne voit ; les autres sont listés et
+  rattachables à la main. Taux de règles conformes par ordinateur et par profil, évolution depuis
+  l'analyse précédente, règles en échec par gravité, historique de chaque machine et règles en
+  échec les plus fréquentes du parc. Ticket de remédiation lié à l'ordinateur proposé, créé
+  seulement sur un clic. Preuve sur la mesure A.8.9 (conçue par sources : d'autres, comme la
+  configuration à risque de l'inventaire Docker, s'y ajouteront), indicateur de risque « ordinateurs
+  analysés avec une règle de gravité haute en échec ». Lecture XML durcie : en flux (gros rapports
+  ARF acceptés), déclarations de type de document et d'entités refusées (ni XXE ni expansion),
+  aucun accès réseau, taille et volumes bornés ; le fichier n'est pas conservé. Tests avec fichiers
+  piégés, matrice d'accès et contrôle XSS.
+
+## [2.75.0] - 2026-11-21
+
+### Added
+
+- **Couverture de la journalisation** (issue #853, mesures A.8.15, A.8.16 et A.8.17). Nouvelle page
+  « Couverture de la journalisation » dans la rubrique Sécurité technique, en lecture seule : hôtes
+  émetteurs lus dans le plugin Wazuh quand il est actif (agents actifs), ou importés par CSV depuis
+  Splunk, Graylog, Elastic / OpenSearch, un serveur syslog ou Wazuh (nom, adresse, dernier
+  événement ; jamais le contenu d'un journal). Rapprochement avec les ordinateurs et matériels réseau
+  (nom, nom court sans domaine, adresse IP) : actifs concernés qui n'envoient rien, ou plus rien
+  depuis N jours (réglable, 7 par défaut), hôtes émetteurs inconnus de GLPI. Actifs concernés
+  réglables : actifs critiques (classification C/I/D élevée ou publiés sur Internet), serveurs et
+  matériels réseau (par défaut), ou tous. Conservation et serveur de temps déclarés par plateforme,
+  comparés à la politique (180 jours par défaut) et à l'obligation choisie dans le registre des
+  obligations. Preuve sur les fiches des mesures A.8.15, A.8.16 et A.8.17, source d'indicateur de
+  risque « Actifs critiques sans journalisation (%) ». Deux nouvelles tables, créées à
+  l'installation et à la mise à jour si absentes (rejouable), supprimées à la désinstallation.
+  Matrice d'accès et contrôle XSS étendus.
+
+## [2.74.0] - 2026-11-21
+
+### Added
+
+- **Matrice des flux : nouveau flux pré-rempli depuis l'adresse** (issue #909). Le bouton
+  « Proposer le flux » de l'inventaire Docker ouvre le formulaire d'un nouveau flux avec ses valeurs
+  proposées : type, nom, source, actif et libellé de destination, protocole et ports. Liste fermée de
+  champs, validés comme à l'enregistrement (type et protocole connus, ports normalisés, actif d'un
+  type proposé et visible) ; les autres paramètres sont ignorés, un flux existant n'est jamais
+  modifié. Un encadré « Flux proposé » invite à vérifier, à ajouter la justification et le
+  propriétaire : rien n'est enregistré avant « Ajouter ». Contrôle XSS sur des paramètres piégés.
+- **Couverture de l'authentification multifacteur (MFA) par compte** (issue #852, mesures A.8.5
+  et A.5.17) : page « Couverture MFA » (rubrique Revue des accès) :
+  - double authentification native de GLPI lue sur chaque compte (activée ou non, le secret n'est
+    jamais lu), avec le rappel de son application imposée ou non ;
+  - import CSV générique des méthodes enregistrées chez le fournisseur d'identité (rapport
+    d'inscription d'Entra ID, Okta, Google Workspace, solution sur site), rapproché des comptes
+    GLPI par identifiant, e-mail ou partie locale de l'UPN ; comptes non rapprochés listés ; un
+    nouvel import remplace le précédent du même fournisseur ;
+  - pour Microsoft Entra ID, lecture directe du même rapport par **Microsoft Graph**, sur clic et
+    en lecture seule (application du locataire avec la permission AuditLog.Read.All) : le secret
+    est chiffré par GLPI et jamais réaffiché ; une lecture refusée ou incomplète ne remplace pas
+    l'import précédent ; aucune tâche automatique ;
+  - taux de MFA global, des administrateurs (profils qui modifient la configuration ou les profils,
+    ou rôle déclaré par le fournisseur) et des comptes à accès distant (groupes GLPI choisis ou
+    colonne de l'import) ;
+  - écarts signalés : administrateur sans MFA, accès distant sans MFA, SMS, appel ou e-mail seul,
+    compte exclu sans justification ; rien n'est modifié automatiquement ;
+  - preuve sur les mesures **A.8.5** et **A.5.17**, KRI « Administrateurs sans MFA », carte du
+    tableau de bord, constat dans la préparation à la certification et rappel sur la page
+    d'hygiène des comptes.
+
+## [2.73.0] - 2026-11-21
+
+### Added
+
+- **Correctifs de sécurité des systèmes** (issue #854, mesures A.8.8 et A.8.19). Nouvelle page
+  « Correctifs de sécurité » dans la rubrique Sécurité technique, en lecture seule de l'inventaire
+  natif de GLPI (aucun nouveau connecteur) : pour chaque ordinateur, le système, sa version et son
+  noyau, la date du dernier correctif connu (mise à jour remontée par l'agent : article KB de
+  Windows, catégorie « mise à jour » ; hors Windows, dernière installation de paquet) et son âge.
+  Délais cibles réglables par criticité (critique, important, standard), déduite de la
+  classification C/I/D ; un ordinateur publié sur Internet par un flux réseau déclaré est critique.
+  Les ordinateurs en retard passent en tête, les exposés sur Internet et les critiques d'abord ;
+  inventaire ancien signalé, état inconnu sans mise à jour datée. Chaque ligne reprend les CVE
+  connues de la version du système (#780, KEV compris) et la fin de support (#704). Preuve sur les
+  mesures A.8.8 et A.8.19, KRI « serveurs critiques avec correctifs en retard », carte du tableau
+  de bord « ordinateurs aux correctifs dans les délais (%) ». Le plugin ne lance aucune mise à jour
+  et ne modifie rien dans GLPI.
+- **Périmètres multiples, lot 3 : les autres registres par entité GLPI** (issue #536, dernier lot).
+  Après les risques, la SoA, les audits et les non-conformités, huit registres appartiennent à une
+  entité : **risques fournisseurs**, **formations**, **revues de direction**, **objectifs**,
+  **obligations**, **dérogations**, **flux réseau** et **études EBIOS RM**. Un utilisateur ne voit et
+  ne modifie que ceux des entités de son profil, partout :
+  - listes, fiches, recherches, exports et API ;
+  - cartes du tableau de bord et de pilotage ;
+  - contrôles de cohérence, calendrier de conformité, préparation à la certification ;
+  - matrice et rapport des flux réseau, dérogations des vulnérabilités du parc.
+
+  Un nouvel élément prend l'entité active ; le serveur refuse une autre entité que celles de la
+  session, y compris par modification en masse. Les colonnes « Entité » et « Sous-entités » sont
+  dans chaque recherche. Les éléments rattachés suivent leur parent :
+  - mesures d'un objectif, actions d'une revue, éléments d'une étude EBIOS ;
+  - le risque créé depuis un scénario opérationnel EBIOS va dans l'entité de l'étude ;
+  - le dossier préparatoire d'une revue de direction porte sur l'entité de la revue et reprend
+    les actions des revues précédentes de cette entité ; son document y est rangé.
+
+  Une revue ne peut citer que des objectifs lisibles, et les liens vers les autres sont conservés.
+  Les formations qualifiantes des auditeurs choisies hors de la session le restent aussi.
+  **À la mise à jour**, les données existantes vont dans l'entité racine :
+  - les formations, revues, objectifs et obligations restent visibles des sous-entités, comme avant ;
+  - les risques fournisseurs, dérogations, flux et études EBIOS ne le sont plus, comme les risques.
+
+  Rangez-les ensuite par une modification en masse (colonne « Entité »). Aucun statut, responsable
+  ou droit ne change. Restent communs : les référentiels, le catalogue de l'Annexe A, les exigences
+  des articles 4 à 10 et les politiques. Ce lot termine l'issue #536.
+
+- **Développement sécurisé, lot 2 : séparation détaillée, exigences, architecture et développement
+  externalisé** (issue #777, mesures A.8.26, A.8.27, A.8.30 et A.8.31) :
+  - fiche « Développement sécurisé » d'une application : **accès**, **données** et
+    **configuration** séparés entre développement, test et production (au lieu d'un simple oui ou
+    non), **exigences de sécurité** de l'application, **principes d'architecture sécurisée**, et
+    **développement externalisé** avec le fournisseur de GLPI, les clauses de sécurité du contrat et
+    le suivi du prestataire ;
+  - registre : colonnes exigences, architecture et développement externalisé, séparation partielle
+    signalée ; nouveaux indicateurs (séparation partielle, exigences et principes absents,
+    applications externalisées sans prestataire ou sans clauses) ;
+  - preuves sur les mesures **A.8.26**, **A.8.27** et **A.8.30**, et séparation partielle sur A.8.31 ;
+  - colonnes ajoutées à la table existante par l'installateur (rejouable), sans toucher aux fiches
+    déjà remplies ; prestataire vérifié (fournisseur existant) et ignoré si le développement n'est
+    pas externalisé. Ce lot termine l'issue #777.
+- **Simulations d'hameçonnage : taux par groupe et par entité, carte du tableau de bord et durée de
+  conservation** (issue #604, lot 2, dernier lot, exigence 7.3 et mesure A.6.3) :
+  - onglet **Résultats** : taux de clic, de saisie et de signalement par groupe GLPI des personnes
+    rapprochées. Sans le droit des registres sensibles, les groupes de moins de 5 personnes sont
+    regroupés, et masqués s'ils restent trop petits. Ces compteurs sont anonymes et gardés quand les
+    résultats par personne sont supprimés ;
+  - liste des campagnes : dernière campagne de chaque entité, avec le même masquage ;
+  - nouvelle carte du tableau de bord « Simulations d'hameçonnage : taux par campagne (%) », sous le
+    droit de la page, taux agrégés seulement ;
+  - **durée de conservation** des résultats par personne dans la configuration du plugin (en mois,
+    0 = jusqu'à suppression manuelle), réglable avec le droit de modification des registres
+    sensibles. Une action automatique quotidienne supprime les résultats expirés et garde les taux ;
+    la date prévue est affichée sur la campagne ;
+  - nouvelle colonne `group_counts` des campagnes (migration), remplie au prochain import.
+- **Procédures d'exploitation : historique des revues** (issue #775, lot 3, dernier lot, mesure
+  A.5.37) :
+  - sur la fiche d'une procédure, cadre « Historique des revues » : toutes les revues enregistrées
+    avec le bouton « Enregistrer la revue », la plus récente d'abord (date, personne, prochaine
+    revue prévue) ;
+  - le PDF du registre ajoute une section « Historique des revues », procédure par procédure ;
+  - l'historique est lu dans le journal d'audit infalsifiable, qui garde déjà chaque revue : aucune
+    nouvelle table ni colonne, et une revue tracée ne se modifie plus. Seules la date, la personne
+    et la prochaine revue sont affichées, avec le droit de lire les politiques. Ce lot termine
+    l'issue #775.
+- **Sécurité physique des sites : rapport PDF de l'évaluation** (issue #778, lot 2, mesures A.7.1
+  à A.7.14) : bouton « Rapport (PDF) » sur la fiche d'une évaluation, avec le résumé (évaluateur,
+  statut, échéance, politique, score et décompte des états), la grille avec constats, preuves,
+  documents cités, actions CAPA et état précédent, puis les zones et leurs contrôles d'accès avec
+  les signalements. Même droit et même entité que la fiche, calculé à la demande, rien n'est
+  conservé. Ligne « Sécurité physique » dans les README. Ce lot termine l'issue #778.
+- **Communication de crise : suppléants, groupes, revue annuelle et exercices** (issue #616,
+  lot 2, dernier lot, mesure A.5.26, article 7.4) :
+  - chaque destinataire de la liste de diffusion d'un modèle peut avoir un **suppléant** (choix
+    « Rôle dans la liste » à l'ajout). Le suppléant s'affiche sous son principal, un principal sans
+    suppléant est signalé (un groupe n'en a pas besoin) ; dans l'onglet de l'incident, le suppléant
+    n'est coché d'office que si son principal est masqué ou sans adresse, et la trace le nomme
+    « Suppléant de ... ». Retirer un principal fait de ses suppléants des principaux. Nouvelle
+    colonne `deputy_of` (migration dans l'installeur) ;
+  - les **adresses des membres actifs d'un groupe** sont reprises par « Copier les adresses
+    électroniques » et l'export `.eml` (avec le droit de lire les utilisateurs), les membres sans
+    adresse sont comptés ;
+  - **revue annuelle de la liste de diffusion** : bouton « Marquer la liste comme revue
+    aujourd'hui » (droit de modifier les modèles), date et auteur de la revue, badge « Revue en
+    retard » après 12 mois, critère de recherche. Le cadre de la mesure A.5.26 et de l'exigence 7.4
+    compte les listes non revues et les principaux sans suppléant. Nouvelles colonnes
+    `last_review_date` et `users_id_lastreviewer` ;
+  - les **communications tracées pendant un exercice** (ou une cellule de crise) apparaissent dans
+    la salle de crise, avec un lien vers l'onglet de l'incident, et dans le rapport PDF de
+    l'exercice (le rapport ne reprenait pas les suivis privés du journal).
+  Rien n'est envoyé automatiquement. Ce lot termine l'issue #616.
+
+## [2.72.0] - 2026-11-21
+
+### Added
+
+- **Vulnérabilités du parc : dérivés de RHEL, Fedora et macOS, et classement des machines par
+  leur système** (issue #780, lot 2, mesure A.8.8). Ce lot termine l'issue #780 :
+  - correspondances proposées par défaut, à valider dans « Logiciels à surveiller », pour
+    **Rocky Linux** (`cpe:2.3:o:rockylinux:rocky_linux`), **AlmaLinux**
+    (`cpe:2.3:o:almalinux:almalinux`), **Oracle Linux** (`cpe:2.3:o:oracle:linux`), **Fedora**
+    (`cpe:2.3:o:fedoraproject:fedora`) et **macOS** (`cpe:2.3:o:apple:macos`), produits relevés
+    dans le dictionnaire CPE de NVD ;
+  - versions comparées sous la forme de NVD : « 9.3 » pour Rocky Linux et AlmaLinux 9.3 (version
+    mineure inconnue : « version non vérifiable »), « 8 » pour Oracle Linux 8, « 40 » pour
+    Fedora 40, version complète pour macOS (« 14.4.1 ») ;
+  - la règle de fin de support (#704) reconnaît aussi leur nom complet inventorié par l'agent
+    GLPI (« Rocky Linux 9.3 (Blue Onyx) », « Oracle Linux Server 8.9 », « macOS 14.4.1 ») ;
+  - **Machines les plus exposées** : le classement compte désormais les vulnérabilités du système
+    d'exploitation et des firmwares (#705) de chaque machine, en plus de ses logiciels, avec les
+    mêmes règles d'entités et de droits. Aucun droit ajouté ni modifié, aucune table.
+
+- **Licences logicielles : hiérarchie des licences** (issue #779, lot 3, dernier lot, mesure
+  A.5.32). Les licences filles de GLPI (champ « Comme enfant de ») ne gonflent plus les postes
+  licenciés : quand une licence mère et ses filles valables comptent toutes pour une entité, la
+  famille vaut le plus grand du nombre de la mère et de la somme des filles (un contrat de 10 postes
+  réparti en filles de 4 et 6 vaut 10 postes, pas 20 ; une fille « mise à niveau » d'un poste ne
+  réduit pas la mère). Une mère expirée ne compte plus, ses filles valables si. Le surdéploiement
+  ainsi révélé porte le badge « Licences filles comptées une fois » ; les licences sont nommées
+  avec leur mère (« Contrat > Licence fille ») sur la page et dans l'export. Toujours en lecture
+  seule. Ce lot termine l'issue #779.
+
+- **Scénarios de crise sécurité du PCA : préparation, exercices, reprise, communication et
+  contacts officiels** (issue #776, lot 2, mesure A.5.29) :
+  - nouvel onglet **Préparation** de chaque scénario, en lecture seule, qui relie sans les
+    dupliquer : les exercices de crise terminés du scénario et le bilan du dernier (objectifs,
+    constats, plan d'amélioration, validation : #732) avec leur type d'exercice (#733), les communications, prises de contact
+    officielles et temps de reprise tracés pendant cet exercice, le dernier test de reprise de
+    chaque processus impacté comparé à son RTO (#733), les modèles de messages de la situation et
+    leur liste de diffusion (#616, #800), les contacts officiels à prévenir visibles depuis
+    l'entité du scénario (#771). Bouton « Lancer cet exercice » vers la salle de crise ;
+  - deux nouveaux manques : **bilan du dernier exercice non validé** et **processus critique
+    jamais testé en reprise**, comptés dans la couverture, sur la mesure A.5.29 (avec le nombre de
+    scénarios exercés au bilan validé) et dans le PDF ;
+  - registre : état du bilan du dernier exercice et processus sans test de reprise signalés ;
+  - PDF : dernier test de reprise de chaque processus, état du bilan, modèles de messages et
+    contacts officiels à prévenir de chaque scénario ;
+  - chaque objet garde ses droits (exercices avec la lecture des incidents, modèles et contacts
+    avec le leur) ; aucune nouvelle table ni colonne ; rien n'est modifié automatiquement. Ce lot
+    termine l'issue #776.
+
+- **Audits de certification : réponse aux constats de l'organisme dans les délais** (issue #772,
+  lot 3). Après l'audit, l'organisme attend un plan d'actions puis les preuves de levée, chacun
+  dans un délai fixé par son rapport :
+  - fiche d'un audit de certification : **Rapport de l'organisme reçu le**, **Plan d'actions à
+    envoyer à l'organisme avant le**, **Preuves à envoyer à l'organisme avant le** (aussi dans la
+    recherche) ;
+  - fiche d'un constat d'audit de certification : **Correction** (avant la cause et l'action
+    corrective) et bloc **Réponse à l'organisme** : date d'envoi du plan d'actions, **décision de
+    l'organisme** (en attente, accepté, à compléter) et son retour, date d'envoi des preuves ;
+  - nouvel onglet **Réponse à l'organisme** de l'audit : délais et jours restants en badges, état
+    du plan d'actions et des preuves de chaque constat (à envoyer, bientôt dû, en retard, envoyé,
+    accepté, à compléter), éléments manquants avant l'envoi (correction, cause, action,
+    responsable, échéance) ;
+  - export PDF **Plan d'actions correctives pour l'organisme** (référence, constat, correction,
+    cause, action, responsable, échéance, preuves, état de levée), à envoyer à l'organisme ;
+  - « Préparation à la certification » : plans d'actions et preuves encore à envoyer, dont ceux en
+    retard ;
+  - une réponse est attendue pour une non-conformité, facultative pour un point sensible ou une
+    piste de progrès. Aucun statut, responsable ni échéance n'est modifié automatiquement ;
+  - colonnes `body_report_date`, `body_response_due_date`, `body_evidence_due_date` des audits et
+    `correction`, `body_response_date`, `body_decision`, `body_feedback`, `body_evidence_date` des
+    non-conformités (migration rejouable, supprimées avec les tables à la désinstallation).
+- **Chiffrement des disques du parc** (issue #847, mesures A.8.24 et A.8.1). Nouvelle page Sécurité
+  technique > « Chiffrement des disques », d'après les volumes remontés par l'agent d'inventaire de
+  GLPI (état, outil BitLocker, FileVault, LUKS, VeraCrypt..., algorithme) :
+  - taux d'ordinateurs entièrement chiffrés, partiellement chiffrés, non chiffrés ou d'état inconnu,
+    par entité, type d'ordinateur et lieu, et taux des portables et tablettes ;
+  - **règle réglable** « doit être chiffré » : tous les ordinateurs (par défaut, comme avant), les
+    portables et tablettes, ou les types choisis, plus un seuil de confidentialité de la
+    classification C/I/D ; droit de modifier le plugin, jeton CSRF, journal d'audit ;
+  - liste des écarts avec le dernier inventaire, l'outil et l'algorithme ; algorithme faible (DES,
+    RC4...) compté comme écart, algorithme ou mode ancien (diffuseur BitLocker, CBC) signalé ;
+  - **clé de récupération** : le plugin ne lit ni ne stocke jamais de clé, l'administrateur déclare
+    seulement qu'elle est sauvegardée (case et date) ;
+  - le contrôle technique « Postes avec un disque non chiffré » est étendu (règle, algorithme)
+    et un contrôle « Portables avec un disque non chiffré » (A.8.1) s'y ajoute, enregistrable comme
+    test d'efficacité ; preuve sur les fiches des mesures A.8.24 et A.8.1 ; carte du tableau de bord
+    « Ordinateurs à chiffrer qui le sont (%) » ; source de KRI « Portables avec un disque non chiffré
+    (%) » ; constat dans l'étape SoA de la préparation à la certification.
+  - Lecture seule des données de GLPI, entités de la session ; nouvelle table des déclarations,
+    supprimée à la désinstallation. Traductions (7 langues et variantes), tests unitaires et
+    d'intégration, matrice d'accès et contrôle XSS.
+- **Dossier de preuves exportable pour l'auditeur** (issue #868, clauses 7.5.3 et 9.2). Nouvelle
+  page **Conformité > Dossier de preuves** : choix du périmètre (entité), aperçu du contenu, puis
+  génération d'une archive ZIP qui contient :
+  - les preuves rattachées à chaque mesure de la SoA du périmètre et à chaque sous-article du SMSI
+    (clauses 4 à 10), et les rapports déjà archivés par le plugin (versions approuvées de la SoA et
+    des politiques, matrice des responsabilités, compétences, audits, revues de direction, revues
+    des accès) ;
+  - un **index PDF** mesure par mesure et sous-article par sous-article : chaque preuve avec sa date,
+    son état et son **empreinte SHA-256**, et un fichier `SHA256SUMS.txt` ;
+  - seules les pièces que la personne peut lire sont incluses (droits de GLPI, documents
+    restreints) ; une **preuve expirée** est signalée dans l'index sans être incluse ; une pièce qui
+    ferait dépasser la **limite de taille réglable** (200 Mo par défaut) est signalée aussi ;
+  - l'archive est construite en flux sur un fichier temporaire, puis **archivée comme document
+    restreint** : lisible par son auteur et par qui peut lire chacune de ses pièces ;
+    régénérable à tout moment, avec l'historique des dossiers et leur empreinte. Rien n'est modifié
+    dans les registres.
+- **Compétences (7.2) : titulaires repris de la matrice des responsabilités et alerte des écarts
+  sans formation planifiée** (issue #774, lot 3, dernier lot) :
+  - une fonction du SMSI peut être tenue par un **rôle dans une activité de la matrice des
+    responsabilités** (#612), par exemple « Réalise » pour « Sauvegardes » : les personnes et les
+    groupes qui tiennent ce rôle tiennent la fonction, sans copie, et la fonction suit la matrice
+    quand elle change (badge « Suit la matrice des responsabilités ») ; seules les activités
+    visibles depuis l'entité de la fonction sont proposées et acceptées ;
+  - nouvelle tâche automatique hebdomadaire **competencegaps** et notification modifiable
+    **Écarts de compétence sans formation planifiée**, envoyée au responsable de la préparation à
+    la certification et au groupe RSSI : chaque nouvel écart, avec la formation à planifier ou, à
+    défaut, la preuve à déclarer. Un écart n'est signalé qu'une fois. Seul un compte qui lit le
+    plugin et les utilisateurs sur toutes les entités la reçoit ;
+  - aucune inscription, session, affectation ni aucun droit n'est modifié automatiquement.
+- **Ce qui bloque chaque mesure de la SoA** (issue #867, article 9.1 et mesure A.5.36). Une seule
+  liste de tout ce qui empêche une mesure d'être conforme, chaque ligne avec un lien vers l'écran à
+  corriger et la marche à suivre :
+  - nouvel onglet **Ce qui bloque cette mesure** sur la fiche de chaque mesure ;
+  - nouvelle vue **Mesures bloquées** (rubrique Conformité) : mesures bloquées de la SoA de
+    l'entité active, triables par gravité, nombre de blocages ou code de mesure ;
+  - sources reprises sans rien recalculer : contrôles de cohérence (preuve manquante ou expirée,
+    justification d'exclusion faible, mesure sans risque, dérogation expirée, politique non revue
+    ou sans propriétaire, non-conformité close sans action), dernier test d'efficacité inefficace
+    ou partiel et test en retard sur le plan, non-conformités ouvertes qui citent la mesure (par
+    leur référence ou par le test qui les a ouvertes), politiques en brouillon (mesure A.5.1),
+    contrôles techniques automatiques et couverture Wazuh et SentinelOne (A.8.7, A.8.16) ;
+  - lecture seule, uniquement ce que la personne a le droit de lire (droits et entités).
+- **Contacts officiels, dernier lot** (issue #771, lot 3, mesures A.5.5 et A.5.6) :
+  - **contacts proposés selon le type d'incident** : nouvelle liste « Seulement pour ces types
+    d'incident » sur la fiche du contact (vide : tous les incidents) ; un incident de type
+    « Violation de données » propose aussi les contacts à prévenir pour une violation. Types
+    affichés dans le registre et son PDF ;
+  - **communication de crise reprise comme prise de contact** (#616, #800) : en traçant un message
+    envoyé à un contact officiel, la case « Tracer aussi une prise de contact » (cochée par défaut,
+    décochable) crée la prise de contact « prévenu » à la date du message, mêmes contrôles qu'une
+    saisie (droit de modifier l'incident, entité du contact, date) ; badge « Depuis une
+    communication de crise » dans l'onglet ; nouvelle colonne
+    `plugin_grcmanager_crisiscommunications_id` des prises de contact ;
+  - **archivage daté du registre** : bouton « Archiver sur les mesures A.5.5 et A.5.6 » (droit de
+    modifier le contexte), PDF joint aux deux mesures de la SoA de l'entité active, derniers
+    registres archivés listés en tête du registre ;
+  - **plan de continuité** : le PDF du PCA / PRA se termine par les contacts officiels à prévenir
+    (ceux de l'entité du processus pour le plan d'un seul processus) ;
+  - **salle de crise** : cadre « Contacts officiels à prévenir » avec l'échéance et la situation de
+    chacun, lien vers l'onglet pour tracer l'appel, repris dans le rapport PDF de l'exercice ;
+  - nouvelle colonne `contact_incident_categories` des parties intéressées ; tests unitaires et
+    d'intégration, matrice d'accès, traductions, tutoriel (étape 22, FR et EN). Ce lot termine
+    l'issue #771.
+
+## [2.71.0] - 2026-11-20
+
+### Added
+
+- **Audit interne selon l'ISO 19011 : indépendance par les mesures auditées et planification depuis
+  le programme** (issue #773, lot 3, ISO 27001 9.2) :
+  - le contrôle d'indépendance porte aussi sur les processus dont la matrice des responsabilités
+    porte une mesure de l'Annexe A auditée (ligne « mesure » de la grille de l'audit ou mesure liée
+    à la fiche), même s'ils ne sont pas choisis dans l'onglet. Le conflit indique les mesures
+    concernées, dans l'onglet « Programme et indépendance » et dans le rapport PDF, et bloque le
+    démarrage et la clôture jusqu'à sa justification, comme les autres ;
+  - page du programme pluriannuel : bouton **Planifier** dans chaque case sans audit à venir (année
+    en cours ou suivante). Il crée un audit interne « Prévu » pour ce processus et cette année, dans
+    l'entité du processus (droit de créer un audit exigé), et ouvre sa fiche ;
+  - aucune nouvelle table ni colonne ; aucun statut ni droit n'est modifié automatiquement. Ce lot
+    termine l'issue #773.
+
+- **Préparation à la certification : délais réglables** (issue #761, lot 2). Les réglages de l'écran
+  « Préparation à la certification » gagnent :
+  - le **délai d'alerte** (« Alerte (jours) », 14 par défaut, de 1 à 90) : une étape non faite dont
+    l'échéance conseillée tombe dans ce délai est « à risque », sur l'écran, dans le PDF, dans le
+    calendrier de conformité et dans la notification au responsable ;
+  - les **délais conseillés par étape** (bouton « Délais conseillés par étape ») : nombre de jours
+    avant la date cible pour chacune des 14 étapes (de 0 à 365, valeurs par défaut rappelées, badge
+    « Ajusté » sur celles modifiées), par exemple pour caler l'audit interne et la revue de
+    direction avant un audit de certification proche ;
+  - un avertissement quand un délai contredit l'ordre logique (revue de direction conseillée avant
+    l'audit interne dont elle exploite les résultats, traitement du risque avant son appréciation...).
+    Rien n'est corrigé automatiquement.
+  - Droits inchangés (réglages : droit de modifier le plugin, jeton CSRF) ; valeurs nettoyées et
+    bornées à l'enregistrement ; réglages stockés dans le contexte `plugin:grcmanager`, retiré à la
+    désinstallation. Traductions (7 langues et variantes), tests unitaires et d'intégration.
+- **Exercices de reprise : type d'exercice, RPO mesuré, programme de tests et historique par
+  élément** (issue #733, ISO 27001 A.5.30, ISO 22301 8.5). Ce que l'auditeur regarde pour la
+  préparation des TIC à la continuité :
+  - **type d'exercice** (sur table, fonctionnel, test technique de restauration, grandeur nature),
+    choisi au lancement d'un exercice de crise, modifiable dans la salle de crise jusqu'à la
+    validation du bilan, repris par les tests de reprise saisis pendant l'exercice ; liste réglable
+    dans la configuration du plugin (types par défaut cochés, types propres un par ligne) ;
+  - **perte de données mesurée** (RPO mesuré) à côté du temps de reprise, comparée au RPO du
+    processus et, si un **élément testé** est désigné parmi ses dépendances, aux objectifs de cet
+    élément ; un dernier test au-delà du RPO est signalé dans la BIA et la stratégie de reprise ;
+  - **programme de tests** : fréquence propre à chaque processus (sinon celle de la revue
+    périodique), prochaine échéance et **couverture sur quatre ans** (badge selon le résultat du
+    dernier test de l'année) dans l'onglet « Stratégie de reprise », et vue **Programme des tests de
+    reprise** depuis la liste des processus métier (en retard, non testés cette année, hors
+    objectifs) ;
+  - la tâche `businessprocessreminder` signale aussi les processus jamais testés, une période après
+    leur création (notification uniquement, aucune modification ; à la mise à jour, l'état actuel
+    est tenu pour rappelé) ;
+  - **historique sur l'élément** : l'onglet « Processus métier » d'un serveur, d'une application...
+    liste les tests de reprise qui l'ont couvert et leur résultat ;
+  - colonnes `exercise_type`, `measured_rpo_minutes`, `itemtype`, `items_id` des tests de reprise,
+    `recovery_test_months` des processus et `exercise_type` des exercices (supprimées avec leurs
+    tables à la désinstallation), réglage `recovery_exercise_types`. Un élément ou un exercice
+    illisible n'est jamais nommé ; traductions dans les 7 langues ; tutoriel, étape 30 bis.
+
+## [2.70.0] - 2026-11-20
+
+## [2.69.0] - 2026-11-20
+
+### Added
+
+- **Audit interne selon l'ISO 19011 : objectifs, critères et points de contrôle** (issue #773, lot 2,
+  ISO 27001 9.2.2). Ce que l'auditeur de certification regarde pour chaque audit interne, d'un coup
+  d'oeil :
+  - fiche de l'audit : nouveaux champs **Objectifs de l'audit** et **Critères d'audit** (articles de
+    la norme, politiques, procédures), à côté du périmètre, aussi dans la recherche ;
+  - onglet « Programme et indépendance » : encadré **Points de contrôle de l'audit** (objectifs,
+    périmètre et critères définis, processus choisis, auditeurs désignés, qualifiés, indépendants ou
+    conflit justifié, rapport remis à la direction), en badges colorés, avec la compétence de chaque
+    auditeur, celui de la fiche compris ;
+  - page du programme pluriannuel : tableau des points de contrôle de chaque audit du cycle et
+    alerte sur les audits incomplets ;
+  - rapport PDF de l'audit interne : objectifs, critères, processus audités, points de contrôle,
+    compétence des auditeurs, conflits d'indépendance et leur justification, remise à la direction ;
+  - colonnes `objectives` et `criteria` de `glpi_plugin_grcmanager_audits` (supprimées avec la table
+    à la désinstallation). Aucun statut ni droit n'est modifié automatiquement.
+  - Reste à faire : destinataire de la remise choisi dans un groupe « direction », indépendance
+    étendue aux propriétaires des processus métier et des mesures, planification d'un audit depuis
+    une case de la matrice du programme.
+- **Contacts officiels : prises de contact tracées depuis les incidents et les violations** (issue
+  #771, lot 2, mesures A.5.5 et A.5.6). L'auditeur demande la preuve qu'une autorité a été prévenue
+  dans le délai, ou pourquoi elle ne l'a pas été :
+  - fiche d'un contact officiel : nouveau « Délai en heures » (72 pour une violation de données, 24
+    pour une alerte précoce), facultatif, à côté du délai en texte libre ;
+  - onglet « Contacts officiels » d'un incident ou d'une violation : échéance de chaque contact
+    (détection de l'incident ou prise de connaissance de la violation, plus le délai), situation en
+    badge (prévenu dans le délai, prévenu en retard, non nécessaire avec décision tracée, à prévenir,
+    échéance dépassée sans rien de tracé) et formulaire « Tracer une prise de contact » : contact,
+    décision (contacté ou non nécessaire, motif obligatoire), date et heure, référence du dossier
+    (numéro, accusé de réception), commentaire. Rien n'est envoyé : la personne trace ce qu'elle a
+    fait. La trace s'inscrit dans l'historique de l'incident et du contact ;
+  - fiche du contact : onglet « Prises de contact tracées », historique des relations avec
+    l'autorité ou le groupe d'intérêt (seuls les incidents et violations lisibles sont détaillés) ;
+  - obligations de conformité liées au contact (liens de la partie intéressée) affichées dans le
+    registre, l'onglet et le PDF ;
+  - preuve des mesures A.5.5 et A.5.6 : nombre de prises de contact tracées depuis 12 mois ;
+  - relance de vérification d'un contact : nouvelles cibles « Interlocuteur interne habilité » et
+    « Groupe interne habilité » (ajoutées d'office aux nouvelles installations ; sur une instance
+    existante, les ajouter dans la notification « Contact officiel à vérifier »). Un destinataire
+    sans droit de lire le contexte de l'organisation dans l'entité du contact ne reçoit rien ;
+  - droits : tracer ou retirer une prise de contact exige de pouvoir modifier l'incident ou la
+    violation, et seuls les contacts de son entité ou d'une entité parente (fiche récursive) sont
+    proposés ;
+  - nouvelle table `glpi_plugin_grcmanager_officialcontactnotifications` et colonne
+    `contact_delay_hours`, supprimées à la désinstallation ; traces oubliées à la purge de
+    l'incident, de la violation ou du contact.
+  - Reste à faire (lot 3) : archivage daté du registre en PDF sur les mesures A.5.5 et A.5.6,
+    contacts affichés depuis le plan de continuité et les exercices de crise, contacts proposés selon
+    le type d'incident, reprise d'une communication de crise (#616) comme prise de contact.
+- **Compétences (ISO 27001, article 7.2), lot 2** (issue #774). Suite du lot 1 (2.65.0), pour
+  montrer à l'auditeur que chaque écart est traité :
+  - un écart pour lequel la personne est déjà inscrite (en attente) à une formation, ou l'une de ses
+    sessions, qui donne la compétence au niveau exigé apparaît « Formation prévue », sur la page
+    « Compétences », la fiche de chacun (« Mes compétences ») et le dossier PDF ; une formation de
+    niveau inférieur ne compte pas ;
+  - nouvelle carte « Formations à planifier » : pour chaque formation qui comble un écart, les
+    personnes concernées pas encore inscrites ; « Préparer une session » ouvre une nouvelle session
+    de la formation avec ces personnes présélectionnées (rien n'est enregistré avant « Ajouter ») ;
+  - préparation à la certification : nouvelle étape « Définir et vérifier les compétences » (7.2),
+    faite quand chaque fonction a ses compétences exigées et ses titulaires, que chaque écart a une
+    formation planifiée et que le dossier est archivé ; l'étape « Former et sensibiliser » ne porte
+    plus que sur 7.3 ;
+  - carte du tableau de bord « Couverture des compétences exigées (%) » ;
+  - droits : ceux de la matrice des compétences (droit du plugin et lecture des utilisateurs, entités
+    de la session) ; la session proposée ne présélectionne que les personnes visibles. Aucune
+    inscription, aucun statut ni aucun droit n'est modifié automatiquement.
+- **Référentiel Cyber France (ReCyF) de l'ANSSI pour NIS2** (issue #599, demande liée #789). Catalogue
+  des 20 objectifs et 152 mesures de la version de travail 2.5 du 17 mars 2026, numérotés comme le
+  document de l'ANSSI (« 10.B.3-EI/EE », « 2.A.2-EE ») ; chaque mesure est résumée avec les mots du
+  projet (français et anglais), le texte de l'ANSSI n'est pas recopié et reste la seule référence :
+  - classification NIS2 de chaque entité GLPI (importante ou essentielle) dans la configuration du
+    plugin, visible quand le référentiel NIS2 est activé ; les sous-entités suivent leur parente ;
+    changer ou retirer la classification ne supprime rien ;
+  - registre ReCyF par entité, sur le modèle du registre NIS2 Italia (#703) : une fiche par mesure
+    (applicabilité, justification, état, responsable, échéance, notes, documents en preuve,
+    historique), 76 mesures pour une entité importante et 152 pour une entité essentielle, synthèse
+    par objectif, exports CSV et PDF ; ouvert depuis la page Référentiels, la configuration et
+    l'évaluation, sans nouvelle entrée de menu ;
+  - carte « NIS2 France » sur la page Référentiels : objectifs, mesures et résumés, renvois
+    indicatifs vers les articles 20 et 21 de NIS2 ;
+  - **Tableau de bord > Évaluation par référentiel** : NIS2 est évalué sur les mesures du registre
+    ReCyF accessible (badge « Mesures du ReCyF (ANSSI) »), même quand ISO 27001 est désactivé ; sans
+    registre, l'écran explique comment classer l'entité au lieu de proposer l'import d'un référentiel
+    personnalisé ;
+  - droits : droit général du plugin, référentiel NIS2 activé et entité de la fiche ; le catalogue
+    est fixe (ni création ni suppression depuis l'interface).
+
+## [2.68.0] - 2026-11-20
+
+### Added
+
+- **Plan d'audit de l'organisme de certification** (issue #772, lot 2). Nouvel écran « Plan d'audit
+  de l'organisme » dans la rubrique Audits et amélioration :
+  - programme d'échantillonnage de l'organisme sur le cycle de certification de trois ans : matrice
+    processus x années, une colonne par audit de certification de l'année ; les cases se cochent à
+    la main et sont rattachées à cet audit ;
+  - les processus sont ceux du programme d'audit interne (#773, activités de la matrice des
+    responsabilités) : aucune nouvelle liste ni table, un processus échantillonné est un processus
+    visé par l'audit ; le programme interne ne compte toujours que les audits internes ;
+  - pour l'audit de l'année, et dans le nouvel onglet « Plan d'audit de l'organisme » de chaque audit
+    de certification : processus échantillonnés, constats des audits de certification précédents
+    sur chacun (même libellé de processus, ou clause ou mesure parmi celles du processus) avec leur
+    état de levée, mesures de l'Annexe A et registres du plugin qui y répondent ;
+  - « Constats des audits précédents » se filtre sur un processus (écran et export PDF) ; le champ
+    « Processus audité » d'un constat propose les processus du programme ;
+  - droits : lire les audits pour voir, modifier l'audit concerné pour cocher (entité de l'audit,
+    processus de son entité), jeton CSRF sur chaque enregistrement.
+
+- **Scénarios de crise sécurité de l'information du PCA** (issue #776, lot 1, mesure A.5.29). Constat
+  d'audit : le PCA et le PRA décrivaient la restauration technique, sans scénario de crise intégrant
+  la sécurité. Nouvel écran « Scénarios de crise sécurité » dans la rubrique Opérations, à côté des
+  processus métier :
+  - catalogue par défaut ajouté à la demande dans l'entité active, modifiable : attaque par
+    rançongiciel, fuite de données, compromission de comptes à privilèges, indisponibilité d'un
+    prestataire critique, attaque par déni de service ;
+  - pour chaque scénario : processus métier impactés (ceux de l'entité du scénario), mode dégradé
+    sécurisé (accès limités, validation des actions, communication contrôlée), rôles de la
+    direction, du RSSI et de la DSI, guide de réponse (procédure de remédiation existante : les
+    scénarios par défaut reprennent celles du rançongiciel, de la fuite de données et du compte
+    compromis), scénario d'exercice de crise et situation des modèles de messages de crise (#616) ;
+    rien n'est dupliqué ;
+  - couverture : processus critiques (RTO de 24 heures ou moins) sans scénario actif, scénarios
+    jamais exercés ou pas exercés depuis plus d'un an (exercice de crise terminé du plugin, ou
+    exercice sur table daté sur le scénario), manques de chaque scénario ;
+  - onglet « Scénarios de crise sécurité » sur chaque processus métier, scénarios en PDF, preuve sur
+    la mesure A.5.29 de la SoA ;
+  - droits : droit « Continuité d'activité » et entité du scénario ; procédures, exercices et modèles
+    ne sont nommés qu'avec leurs propres droits.
+  - Reste à faire (lot 2) : procédures de remédiation fournies pour le déni de service et
+    l'indisponibilité d'un prestataire, scénarios repris dans le PCA en PDF de chaque processus,
+    archivage daté du PDF sur la mesure, lien avec les exercices de reprise (#733).
+
+- **Simulations d'hameçonnage, preuve de sensibilisation** (issue #604, lot 1, clause 7.3 et mesure
+  A.6.3). Sous-page « Simulations d'hameçonnage » de la rubrique des formations (pas d'entrée de
+  menu en plus). Le plugin n'envoie rien : la campagne est faite avec un outil externe.
+  - Campagne : nom, date, outil (texte libre : GoPhish, outil d'un prestataire...), scénario,
+    population ciblée, entité.
+  - Import CSV des résultats par personne (reçu, ouvert, lien cliqué, données saisies, signalé),
+    colonnes oui / non ou colonne « statut » d'un export GoPhish, avec correspondance des colonnes.
+    Lecture de l'import EDR réutilisée (encodage UTF-8 ou Windows-1252, séparateur). Fichier CSV
+    texte de 5 Mo au plus, aucune valeur évaluée, identifiant commençant comme une formule
+    neutralisé. Un nouvel import remplace les résultats.
+  - Rapprochement par adresse électronique (ou identifiant de connexion) avec les utilisateurs
+    actifs qui ont un profil dans l'entité de la campagne ; lignes non rapprochées listées (adresse
+    inconnue, ambiguë ou hors de l'entité), seule l'adresse de ces lignes est gardée.
+  - Taux par campagne (ouverture, clic, saisie, signalement, rapportés aux messages reçus) et
+    tendance d'une campagne à l'autre (écart du taux de clic) ; nouvelle source d'indicateur de
+    risque « Taux de clic de la dernière simulation d'hameçonnage » pour suivre la tendance avec
+    des seuils.
+  - Formation de rattrapage proposée aux personnes qui ont cliqué ou saisi des données : formulaire
+    de formation pré-rempli, rien n'est enregistré ni envoyé avant « Ajouter ».
+  - Encadré « Simulations d'hameçonnage » sur la mesure A.6.3 et l'exigence 7.3.
+  - Données personnelles : le détail par personne et les lignes non rapprochées exigent le droit
+    des registres sensibles (lecture ; modification pour importer ou supprimer) ; sans lui, taux
+    agrégés seulement, masqués sous 5 personnes. Chacun voit ses propres résultats dans ses
+    préférences (« Mes simulations d'hameçonnage »). « Supprimer les résultats par personne »
+    garde les taux. Entités respectées ; pas d'onglet Documents (un export nominatif y échapperait
+    au droit des registres sensibles).
+- **Développement sécurisé et validation des mises en production** (issue #777, lot 1, mesures
+  A.8.25 à A.8.31). Aucun objet en double : le registre est celui des applications de GLPI
+  (`Appliance`), la mise en production est un changement de GLPI (`Change`).
+  - Onglet « Développement sécurisé » d'une application : responsable (par défaut le responsable
+    technique de l'application), dépôt de code (adresse http, https, ssh ou git@ seulement),
+    référentiel suivi (OWASP ASVS, OWASP Top 10, OWASP SAMM, recommandations de l'ANSSI, autre) et
+    son niveau, revue de code obligatoire, analyses SAST, DAST et des dépendances, outils et
+    fréquence, environnements séparés (oui ou non) avec une justification, obligatoire si non.
+  - Onglet « Validation sécurité de mise en production » d'un changement lié à une application :
+    liste de contrôle (tests passés, revue faite, vulnérabilités traitées, preuves), puis décision
+    de la DSI ou du RSSI. La validation exige une liste complète, le refus un motif. L'auteur et la
+    date viennent de la session, la décision est inscrite dans l'historique du changement et fige
+    la liste ; elle peut être rouverte. La validation native du changement (GLPI) est rappelée.
+  - Page « Développement sécurisé », sous-page de la rubrique Conformité (aucune entrée de menu en
+    plus), avec l'encadré d'aide : registre des applications et de leurs pratiques, indicateurs
+    « applications sans séparation des environnements » et « mises en production sans validation
+    sécurité » (changements résolus ou clos des 12 derniers mois : sans liste, sans décision,
+    refusés ou validés après coup).
+  - Preuves sur les fiches des mesures A.8.25, A.8.28, A.8.29 et A.8.31 de la SoA.
+  - Droits : droit général du plugin (lecture pour les onglets et la page, création ou
+    modification pour la fiche et la liste), élément visible par la personne (droit natif et
+    entité) ; nouveau droit **Décider des mises en production**, attribuable dans l'onglet
+    GRC Manager des profils (Super-Admin à l'installation). Les mises en production demandent le
+    droit de voir tous les changements. Les onglets vérifient eux-mêmes leurs droits.
+  - Tables créées par l'installateur (rejouable) et supprimées à la désinstallation ; la fiche et
+    la liste disparaissent avec l'application ou le changement supprimé définitivement.
+### Fixed
+
+- **Désinstallation : journaux de la fiche de conformité des collaborateurs** (issue #808). L'historique
+  des fiches de conformité sécurité (#546) restait dans `glpi_logs` après la désinstallation, comme
+  celui des fiches réflexes et des actions de la revue de direction : ces classes (et deux cibles de
+  notification) manquaient à la liste des types nettoyés. Le jeu de données de la CI crée désormais une fiche de conformité, et un test
+  d'intégration vérifie que toute classe historisée du plugin figure dans cette liste.
+
+- **Audits de certification** (issue #772, lot 1) : la colonne « Type d'audit » est affichée par
+  défaut dans la liste des audits, juste après le titre (y compris sur une instance existante dont
+  les colonnes par défaut n'ont pas été modifiées) ; le constat « Opportunity for improvement »
+  s'appelle « Piste de progrès » en français, comme dans les rapports des organismes.
+
+## [2.67.0] - 2026-11-20
+
+### Fixed
+
+- **Gabarits d'incident de sécurité** (issue #796) : l'aperçu d'un gabarit affichait « Une erreur
+  inattendue s'est produite », et le statut, la priorité ou l'impact prédéfinis ne pouvaient pas être
+  réglés. Le cœur de GLPI (11 et 12) lit les champs prédéfinis avec une méthode qui ne connaît que
+  les tickets, changements et problèmes, et levait « Unknown ITIL type ». Le plugin fournit
+  désormais sa propre lecture des champs prédéfinis.
+
+### Added
+
+- **Évaluation par référentiel sur les mesures propres de chaque référentiel** (issue #789, lot 1).
+  Tableau de bord, onglet « Évaluation par référentiel » :
+  - un référentiel personnalisé (par exemple un référentiel national importé en CSV) est évalué sur
+    ses exigences et leur auto-évaluation, et non plus sur les mesures de l'Annexe A qu'elles citent
+    (correction : un référentiel importé sans correspondance n'avait aucune mesure applicable) ;
+  - le registre NIS2 Italia - ACN de l'entité active (ou de sa parente) est évalué sur ses points,
+    avec les preuves liées ;
+  - NIS2 (UE), ANSSI, NIST CSF, CIS Controls, AI Act et les autres catalogues intégrés sont évalués
+    sur leurs propres exigences, dont le statut vient, à titre de correspondance, des mesures de
+    l'Annexe A reliées, seulement si ISO 27001 est activé ; ISO 27001 désactivé, l'écran indique que
+    le référentiel n'est pas évalué au lieu d'afficher des mesures ISO ;
+  - liste « Référentiel à détailler », choix retenu pour la session ; colonne « Évalué sur ».
+  Droits et entités inchangés (droit de lecture du plugin, registre NIS2 Italia accessible seul).
+
+- **Vulnérabilités du parc : les systèmes d'exploitation sont rapprochés des CVE** (issue #780,
+  lot 1). Une grande partie des CVE critiques touche Windows, Windows Server et les distributions
+  Linux, qui échappaient au suivi : seuls les logiciels installés et les firmwares (#705) étaient
+  rapprochés.
+  - Troisième source du rapprochement : le système d'exploitation de chaque actif
+    (`Item_OperatingSystem` : nom, version et version du noyau). Il n'est relié à un produit que
+    par un alias déclaré, jamais par ressemblance de nom. Pour Windows 10 et 11, la version de
+    fonctionnalités (« 23H2 ») fait partie du nom rapproché, comme dans NVD.
+  - Correspondances proposées par défaut dans « Logiciels à surveiller » pour Windows 10 et 11,
+    Windows Server 2016 à 2025, Debian, Ubuntu et Red Hat Enterprise Linux (CPE
+    `cpe:2.3:o:...`) : l'administrateur les vérifie, puis clique sur « Accepter la proposition ».
+    La famille du système est reconnue par la règle de la fin de support (#704), qui reconnaît
+    désormais aussi le nom complet inventorié par l'agent GLPI (« Debian GNU/Linux 12
+    (bookworm) », « Ubuntu 22.04.4 LTS »).
+  - Comparaison des versions sous la forme employée par NVD : numéro de build pour Windows,
+    « 12.0 » pour Debian 12, « 9.0 » pour RHEL 9, « 22.04 » pour Ubuntu. Un build Windows sans
+    révision (« 10.0.22631 ») reste « version non vérifiable » et n'est pas interrogé auprès de
+    NVD : il n'est jamais déclaré vulnérable ni corrigé par supposition.
+  - La source « Système d'exploitation » est affichée dans l'onglet CVE d'un incident, dans
+    « Vulnérabilités du parc », dans « Logiciels à surveiller » et dans l'onglet
+    « Vulnérabilités » de l'actif. Les tickets de mise à jour lient les actifs concernés, dans
+    l'entité du ticket (règle de #702).
+  - Entités et droits inchangés : un utilisateur ne voit et ne compte que les actifs de ses
+    entités, d'un type qu'il peut lire dans l'onglet CVE. Aucun droit ajouté ni modifié.
+
+- **Fin de garantie du matériel** (issue #782, lot 1, A.7.13 et A.8.9), en complément de la fin de
+  support des logiciels (#704). Calcul à la demande depuis les informations financières natives de
+  GLPI (`glpi_infocoms` : date de début et durée de garantie en mois, durée « à vie » comprise),
+  comme la date de fin affichée par GLPI. Rien n'est conservé ni modifié dans GLPI.
+  - Carte « Fin de garantie du matériel » sur la page des vulnérabilités du parc, sous la carte
+    « Fin de support » (aucune page ni entrée de menu en plus) : garantie expirée, fin proche
+    (même seuil que la fin de support, réglable dans la configuration, actif même sans
+    endoflife.date), sous garantie ou inconnue (jamais comptée comme sous garantie) ; tableau par
+    type de matériel et par entité, liste des matériels à traiter avec lien vers leur fiche.
+  - Matériels suivis : ordinateurs, moniteurs, matériels réseau, périphériques, téléphones,
+    imprimantes, baies, châssis, PDU, équipements passifs et actifs personnalisés de GLPI 11 qui
+    portent des informations financières ; hors corbeille et gabarits.
+  - Export CSV (un matériel par ligne, fabricant, modèle, dates), protégé contre l'injection de
+    formules.
+  - Preuve sur les mesures A.7.13 et A.8.9, règle « Matériels dont la garantie est expirée » du
+    contrôle de cohérence (A.7.13, gravité faible).
+  - Droits : droit des registres sensibles du plugin, lecture native des informations financières
+    et de chaque type de matériel ; entités actives respectées (#536).
+  - Reste à faire (lot 2) : date de fin de vie déclarée par le constructeur, par modèle.
+- **Communication de crise : modèles de messages et listes de diffusion** (issue #616, lot 1, mesure
+  A.5.26, article 7.4). **Le plugin n'envoie aucun courriel** : il prépare le message, la personne
+  l'envoie elle-même puis trace la communication.
+  - Bibliothèque « Modèles de messages de crise » (lien dans l'en-tête des incidents, à côté des
+    procédures de remédiation) : situation (incident majeur, violation de données, indisponibilité,
+    rançongiciel, autre), étape, public, objet et texte avec variables entre accolades (`{reference}`,
+    `{title}`, `{detection_date}`, `{affected_systems}`, `{next_update}`...). Cinq modèles fournis,
+    traduits, modifiables.
+  - Liste de diffusion de chaque modèle : utilisateurs et groupes GLPI, et contacts officiels du
+    contexte de l'organisation (#771), sans second annuaire. Destinataire sans adresse signalé.
+  - Onglet « Communication de crise » des incidents de sécurité et des violations de données : le
+    modèle de la situation est proposé en premier, rempli depuis l'incident (variables échappées à
+    l'affichage) ; boutons copier le message, copier les adresses, exporter en brouillon `.eml` ;
+    « Tracer comme envoyé » conserve la date, l'auteur, les destinataires, l'objet et le texte, écrit
+    une ligne dans le journal de crise (suivi privé, sans notification) et la chronologie du rapport
+    post-incident la reprend.
+  - Preuve sur la mesure A.5.26 et sur l'exigence 7.4 : modèles actifs, modèles sans destinataire,
+    situations sans modèle, communications tracées depuis 12 mois.
+  - Droits : bibliothèque et listes avec le droit général du plugin ; onglet avec ceux de l'incident
+    ou de la violation (lire pour voir, modifier pour tracer) ; contacts officiels seulement avec le
+    droit du contexte et dans l'entité de l'incident ou une entité parente.
+  - Reste à faire (lot 2) : suppléant de chaque contact principal, revue annuelle de l'annuaire,
+    adresses des membres d'un groupe, communications dans le rapport d'exercice de crise.
+- **Sécurité physique des sites : grille d'évaluation, zones et actions** (issue #778, lot 1,
+  mesures A.7.1 à A.7.14). Les sites sont les lieux de GLPI ; aucun second référentiel.
+  - Évaluation d'un site : date, évaluateur, statut, politique de sécurité physique liée (document
+    de la bibliothèque des politiques), échéance de réévaluation fixée à 12 mois une fois
+    l'évaluation terminée.
+  - Onglet « Grille de sécurité physique » : une ligne par mesure A.7.1 à A.7.14 avec l'état
+    (conforme, partiellement conforme, non conforme, non applicable, non évaluée), le constat, les
+    preuves examinées et les documents de l'évaluation (photos, procès-verbaux) ; une mesure exclue
+    de la SoA est « non applicable » d'office ; l'état de l'évaluation précédente du site est
+    rappelé.
+  - « Créer l'action » sur une ligne partielle ou non conforme : non-conformité pré-remplie (site,
+    mesure, constat), relue et enregistrée par l'utilisateur, puis suivie par le workflow CAPA ; la
+    ligne et la non-conformité se citent mutuellement.
+  - Onglet « Zones du site » : zones publique, contrôlée, sensible et local technique, contrôles
+    d'accès, personnes autorisées, consignes affichées ; une zone sensible ou un local technique sans
+    contrôle d'accès ou sans consignes est signalé. La réévaluation reprend les zones.
+  - Rappel de réévaluation annuelle : tâche automatique `reassessmentreminder` (notification à
+    l'évaluateur 30 jours avant l'échéance puis au plus une fois par mois), échéance dans le
+    calendrier de conformité.
+  - Page « Sécurité physique » (sous-page Conformité, aucune entrée de menu en plus) : dernière
+    évaluation de chaque site côte à côte, mesure par mesure, avec score et échéance ; liste de
+    toutes les évaluations ; onglet « Sécurité physique » des lieux de GLPI.
+  - Preuve sur les mesures A.7.1 à A.7.14 : état de la mesure sur chaque site, sur la fiche de la
+    mesure.
+  - Droits : droit général du plugin et entité de l'évaluation ; lignes et zones modifiables avec le
+    droit de modifier l'évaluation ; pièces jointes lues avec le droit de lire l'évaluation.
+
+## [2.66.0] - 2026-11-20
+
+### Added
+
+- **Procédures d'exploitation documentées** (issue #775, lot 1, A.5.37). Pas d'objet à part : une
+  procédure est un document de la bibliothèque des politiques de catégorie « Procédure
+  d'exploitation », avec son domaine. Elle garde la version, le responsable, la date d'approbation,
+  le circuit d'approbation, la prochaine revue et son rappel, les documents joints et la prise de
+  connaissance par les groupes ou profils qui l'exécutent.
+  - Nouveaux champs « Catégorie » et « Domaine de la procédure » sur la fiche et dans la liste des
+    politiques ; les documents existants restent des politiques.
+  - Page « Procédures d'exploitation », sous-page de la rubrique Conformité (aucune entrée de menu en
+    plus) : couverture de chaque domaine attendu (à jour, revue à faire, non approuvée, aucune
+    procédure), lien d'ajout d'une procédure déjà classée, liste avec version, statut, dates,
+    responsable et taux de prise de connaissance.
+  - Domaines attendus réglables dans la configuration (sauvegarde, restauration, supervision,
+    journaux, mises à jour, déploiement, gestion des accès, gestion des incidents, changements,
+    maintenance par défaut, plus des domaines libres).
+  - Preuve sur la mesure A.5.37 : couverture affichée sur sa fiche, registre en PDF à la demande ou
+    archivé sur la mesure, et procès-verbaux d'approbation et rapports de prise de connaissance d'une
+    procédure archivés sur A.5.37 (ceux d'une politique restent sur A.5.1).
+  - Droits : ceux de la bibliothèque des politiques (droit général du plugin) ; archiver exige le
+    droit de modifier.
+- **Préparation à la certification : date cible, échéances, cycle de maintien et seuils réglables**
+  (issue #761, lot 1, suite de #619).
+  - Date cible de l'audit saisie sur l'écran, ou reprise du prochain audit de certification planifié :
+    audit dont le type est initial, surveillance ou renouvellement (#772), ou événement du calendrier
+    de conformité de même nature. Aucune double saisie.
+  - Échéance conseillée pour chaque étape non faite, en remontant depuis la date cible (audit interne
+    et revue de direction avant l'audit), avec l'état « dans les temps », « risque de retard » (14
+    jours) ou « échéance dépassée » ; visible sur l'écran, dans le PDF et dans le calendrier de
+    conformité (et le planning du responsable).
+  - Alerte au responsable de la préparation (à défaut, le responsable de l'audit cible) : tâche
+    automatique quotidienne `certificationreadiness` et notification modifiable « Étape de la
+    certification à risque », une seule fois par étape et par état, sans aucune modification
+    automatique. Le responsable doit pouvoir lire le plugin sur toutes les entités.
+  - Cycle de maintien après la certification (date saisie, ou dernier audit initial ou de
+    renouvellement terminé) : deux audits de surveillance annuels et renouvellement à trois ans ; la
+    date cible suit le prochain, et les étapes à refaire chaque année (risques, SoA, audit interne,
+    revue de direction) sont mises en avant. Le découpage des audits internes reste dans le programme
+    d'audit pluriannuel (#773), sans réglage en double.
+  - Seuils réglables à la place des valeurs fixes : couverture du programme d'audit (100 % par
+    défaut) et part des participants formés (80 % par défaut).
+  - Droits : la page reste en lecture avec le droit général du plugin ; les réglages demandent le
+    droit de le modifier. Entités : seuls les audits des entités de la session servent de date cible.
+- **Conformité des licences logicielles** (issue #779, lot 1, mesure A.5.32). Le plugin lit, sans
+  rien modifier, les logiciels, les installations, les licences, leurs affectations et les fabricants
+  natifs de GLPI.
+  - Trois constats : logiciel commercial installé sans aucune licence (éditeurs surveillés, liste par
+    défaut modifiable, avec une liste d'outils gratuits ignorés), plus d'installations que de postes
+    licenciés (une licence illimitée, nombre inférieur ou égal à 0, couvre tout ; une licence expirée
+    ne compte plus), licence expirée encore utilisée (actifs encore affectés, ou logiciel installé sans
+    autre licence valable).
+  - Entités (#536) : une licence compte pour une entité si elle lui appartient, ou si elle est
+    récursive depuis une entité parente ; une licence récursive est aussi contrôlée sur l'ensemble de
+    ses sous-entités. Seuls les actifs et les licences des entités de la personne sont lus.
+  - Page « Licences logicielles », sous-page de la rubrique Sécurité technique (aucune entrée de menu
+    en plus), regroupée par entité, avec export CSV protégé contre l'injection de formules.
+  - Preuve affichée sur la mesure A.5.32 de la SoA ; nouvelle règle du contrôle de cohérence.
+  - Droits : droit des registres sensibles du plugin, plus les droits natifs de lecture des logiciels
+    et des licences ; les listes d'éditeurs se modifient avec le droit de configuration du plugin.
+  - Aucun ticket ni aucune donnée de GLPI n'est créé ou modifié automatiquement.
+- **Licences logicielles : échéances, dépassement autorisé et taux de couverture** (issue #779,
+  lot 2, mesure A.5.32).
+  - Nouvelle alerte « Licence arrivant à échéance » : une licence utilisée (actifs affectés ou
+    logiciel installé dans son périmètre) expire dans les 60 prochains jours, et aucun renouvellement
+    (autre licence valable au-delà) n'est encore saisi dans GLPI. C'est un rappel : il n'entre ni
+    dans le contrôle de cohérence, ni dans le total des écarts de la preuve. L'horizon se règle avec
+    les listes d'éditeurs (0 pour désactiver, 365 jours au plus).
+  - Un surdéploiement sur une licence qui autorise le dépassement (case native de GLPI) reste
+    signalé, avec la mention « Dépassement autorisé » à régulariser auprès de l'éditeur, et une
+    colonne dédiée dans l'export.
+  - Taux de couverture : part des logiciels commerciaux surveillés installés (par entité) qui ont une
+    licence valable, sur la page et dans la preuve de la mesure A.5.32.
+  - Toujours en lecture seule : rien n'est modifié dans GLPI.
+
+## [2.65.0] - 2026-11-20
+
+### Added
+
+- **Registre des contacts officiels** (issue #771, lot 1, A.5.5 et A.5.6). Une partie intéressée du
+  contexte de l'organisation peut être cochée « Contact officiel » (pas de second registre) :
+  catégorie (autorité de contrôle, CSIRT, forces de l'ordre, autorité locale, régulateur sectoriel,
+  groupe d'intérêt, assureur, hébergeur), coordonnées, interlocuteur interne habilité (personne et
+  groupe), quand le contacter, délai, date de dernière vérification.
+  - Page « Contacts officiels », sous-page de la rubrique Conformité (aucune entrée de menu en plus),
+    avec export PDF à imprimer pour l'avoir hors ligne pendant une crise.
+  - Bouton « Enregistrer la vérification » (date du jour et auteur, gardés dans l'historique) ; un
+    contact non vérifié depuis 12 mois est signalé, et la tâche automatique `contactverification`
+    relance son propriétaire au plus une fois par mois (nouvelle notification « Contact officiel à
+    vérifier »).
+  - Onglet « Contacts officiels » sur les incidents de sécurité et les violations de données : les
+    contacts à prévenir, de l'entité de l'objet ou d'une entité parente.
+  - Preuve affichée sur les mesures A.5.5 (autorités) et A.5.6 (groupes d'intérêt) de la SoA.
+  - Droits : ceux du contexte de l'organisation (droit général du plugin) et ses entités ; l'onglet
+    exige en plus de pouvoir lire l'incident ou la violation.
+
+- **Compétences (ISO 27001, article 7.2), lot 1** (issue #774). Nouvelle sous-page « Compétences »
+  de la rubrique « Revue des accès » (pas de nouvelle entrée de menu).
+  - Fonctions du SMSI (RSSI, DPO, direction, administrateur, développeur, technicien, tout le
+    personnel, proposées par défaut sur demande) avec leur mission et leurs compétences requises :
+    niveau attendu (notions, maîtrise, expertise) et façon de l'acquérir (formation, diplôme,
+    certification, expérience). Les titulaires sont des utilisateurs, des groupes ou des titres de
+    GLPI (ceux créés par le plugin Configuration GLPI Auto servent tels quels).
+  - Catalogue des compétences, liées aux formations du plugin : une formation réussie (ou l'une de
+    ses sessions) donne la compétence à un niveau, et sa période de renouvellement en limite la
+    validité. Compétences déclarées avec leur preuve (certificat, attestation, diplôme, entretien
+    annuel, expérience), référence obligatoire, fichier dans l'onglet Documents, lisible seulement
+    avec les droits de la déclaration.
+  - Matrice personnes x compétences (acquis / attendu), écarts (non acquise, niveau insuffisant,
+    expirée) et action proposée (formation à planifier, preuve à déclarer) ; rien n'est modifié
+    automatiquement. La fiche d'une fonction rappelle aussi les activités de la matrice des
+    responsabilités tenues par ses titulaires.
+  - Fiche de poste « sécurité » de chaque fonction en PDF, et dossier complet (fiches et écarts)
+    archivé comme preuve, joint à l'exigence 7.2, dont la fiche résume l'état des compétences.
+  - Onglet « Mes compétences » dans les préférences de chacun, et « Compétences » sur la fiche d'un
+    utilisateur.
+  - Droits : chacun voit sa propre fiche ; les fonctions et le catalogue suivent le droit du plugin
+    et l'entité ; les personnes, les déclarations et le dossier exigent aussi la lecture des
+    utilisateurs, pour les comptes des entités de la session ; archiver exige de modifier le plugin.
+- **Audit interne conforme à l'ISO 19011** (issue #773, ISO 27001 9.2, lot 1).
+  - Programme d'audit pluriannuel : sous-page de la rubrique « Audits et amélioration » (aucune
+    entrée de menu en plus) avec la matrice processus (activités de la matrice des
+    responsabilités) x années du cycle de certification de 3 ans, la couverture calculée depuis les
+    audits internes et les alertes : processus sans audit sur le cycle, audit en retard, exigences du
+    SMSI qu'aucune grille d'audit du cycle ne couvre, audits sans processus.
+  - Onglet « Programme et indépendance » de l'audit interne : processus audités ; contrôle
+    d'indépendance (un auditeur qui réalise ou approuve un processus audité, en son nom ou par un
+    groupe, est en conflit) ; l'audit ne peut être ni démarré ni terminé, ni changer d'auditeur en
+    cours, tant qu'un conflit n'a pas de justification, tracée avec son auteur et sa date et dans
+    l'historique.
+  - Compétence des auditeurs dans l'onglet « Équipe » : formations qualifiantes choisies sur la page
+    du programme, qualification à jour, à renouveler ou absente.
+  - Date de remise du rapport à la direction et destinataire, repris dans le dossier de revue de
+    direction (9.3.2 d 3).
+  - Droits et entités de l'audit (lecture pour voir, modification pour enregistrer) ; processus de
+    l'entité de l'audit ; tables supprimées à la désinstallation.
+- **Audits de certification et constats de l'organisme** (issue #772, lot 1). Un audit a désormais
+  un type : interne (article 9.2, valeur de tous les audits existants, migration sans perte) ou
+  audit de certification initial, de surveillance 1 ou 2, de renouvellement, avec l'organisme (un
+  fournisseur GLPI), l'auditeur responsable et le référentiel avec son édition.
+  - Constats saisis avec le vocabulaire de l'organisme (non-conformité majeure ou mineure, point
+    sensible, piste d'amélioration), sa référence (ex. GVE-36), le processus audité, la clause ou
+    la mesure et le site (lieu GLPI). Même workflow CAPA ; l'action corrective reste facultative
+    pour un point sensible ou une piste d'amélioration, comme pour une observation.
+  - Écran « Constats des audits précédents » (rubrique « Audits et amélioration ») : état de levée
+    de chaque constat, preuves jointes, filtre par audit ou sur les constats non levés, export PDF
+    à remettre à l'auditeur.
+  - « Préparation à la certification » : nombre de constats précédents non levés dans l'étape
+    « Traiter les non-conformités ».
+  - Droit du plugin (celui des audits) et entités de la session ; vue en lecture seule.
+
+## [2.64.0] - 2026-11-20
+
+### Added
+
+- **Fiche de conformité sécurité de chaque collaborateur** (issue #546, A.6.1, A.6.2, A.6.3, A.6.5,
+  A.6.6, A.5.18). Onglet « Conformité sécurité » sur l'utilisateur GLPI (et « Ma conformité
+  sécurité » dans les préférences de chacun) qui rassemble ce que le plugin suit déjà : formations
+  obligatoires (renouvellement compris), charte signée dans assetsign (ligne « non suivie » sans ce
+  plugin), politiques de sécurité lues, revue des accès (12 mois) et hygiène du compte, plus la
+  vérification préalable à l'embauche et l'engagement de confidentialité (statut et dates
+  seulement, la pièce reste chez les RH).
+  - Règle « dans les N jours suivant l'arrivée » (date de début du compte, à défaut sa création) ou
+    la demande, N réglable dans la configuration du plugin (30 jours par défaut) ; poids de chaque
+    composante réglable (0 retire la composante), score et détail du calcul affichés.
+  - Liste globale, sous-page de la rubrique « Revue des accès » (aucune entrée de menu en plus),
+    filtrable par entité, groupe, état et composante en écart, avec agrégation par groupe ; export
+    CSV et PDF pour l'auditeur, de la liste ou d'une seule fiche.
+  - Carte « Conformité sécurité du personnel (%) » pour le tableau de bord.
+  - Un écart peut être notifié au responsable hiérarchique (bouton de la fiche, ou tâche planifiée
+    hebdomadaire, désactivée à l'installation) ; rien n'est jamais modifié automatiquement.
+  - Droits : chacun voit sa propre fiche ; la liste et la fiche d'un autre exigent la lecture du
+    plugin et des utilisateurs, dans les entités de la session (le responsable hiérarchique voit
+    aussi la fiche de ses collaborateurs) ; la saisie exige de modifier le plugin.
+
+## [2.63.0] - 2026-11-20
+
+### Added
+
+- **Préparation à la certification ISO 27001** (issue #619) : nouvel onglet « Préparation à la
+  certification » de la rubrique « Tableau de bord » (pas de nouvelle entrée de menu).
+  - Treize étapes ordonnées selon le cycle planifier, faire, vérifier, agir : périmètre (4.3),
+    contexte et parties intéressées (4.1, 4.2), politique (5.2), rôles (5.3), appréciation et
+    traitement des risques, déclaration d'applicabilité approuvée, objectifs (6.2), formations et
+    sensibilisation (7.2, 7.3), exercices de continuité ou de crise, audit interne et couverture du
+    programme d'audit (9.2), revue de direction et son dossier (9.3), non-conformités (10.2).
+  - Pour chaque étape : ce qui est attendu (avec nos mots), un état « fait », « partiel » ou « à
+    faire » calculé à partir des données du plugin (par exemple « Risques ouverts : 12, sans
+    propriétaire : 3 »), le statut déclaré des exigences du SMSI concernées et le lien direct vers
+    l'écran à compléter, ou vers les contrôles de cohérence à corriger.
+  - Score global sur 100, barre de progression, « prochaine étape » mise en avant, export PDF
+    « état de préparation » et carte de tableau de bord « Avancement vers la certification ».
+  - Les calculs reprennent ceux des modules existants (contrôles de cohérence, synthèse du
+    contexte, matrice des responsabilités, couverture d'audit, dossier de revue de direction,
+    approbation de la SoA, taux de réalisation des formations). Lecture seule : rien n'est modifié.
+  - Droits : une étape n'est évaluée que si le profil peut lire le module concerné, dans les entités
+    de la session ; sinon elle apparaît « hors de vos droits » et ne compte pas dans le score.
+
+## [2.62.0] - 2026-11-20
+
+## [2.61.0] - 2026-11-20
+
+### Added
+
+- **Échantillon tiré au hasard dans GLPI pour un test d'efficacité** (issue #607). Dans l'onglet
+  « Tests d'efficacité » d'une mesure, sans nouvelle entrée de menu.
+  - Population : utilisateurs, ordinateurs, tickets ou changements des entités actives de la
+    personne (ou d'une seule, avec ses sous-entités), sur une période couverte et quelques critères
+    (catégorie, clos seulement, comptes actifs seulement). Seuls les éléments qu'elle peut lire sont
+    tirés ; les tickets et les changements exigent le droit de tous les voir.
+  - Taille proposée selon la fréquence du contrôle (1 pour un contrôle annuel, 25 pour un contrôle
+    quotidien...) ou saisie. Tirage reproductible : chaque élément est classé par l'empreinte
+    SHA-256 de « graine:identifiant ». Population, critères, période, taille, méthode, graine, date
+    et auteur sont conservés ; la liste des éléments tirés est figée avec leur nom au tirage.
+  - Résultat par élément (conforme, non conforme, non applicable) et commentaire ; résultat du test
+    proposé à partir des écarts, modifiable avec une justification. Le test enregistré fige
+    l'échantillon ; le supprimer le rouvre.
+  - Fiche PDF de chaque test pour l'auditeur, avec l'échantillon élément par élément.
+- **Relecture des tests d'efficacité** (issue #607), activable dans la configuration du plugin : un
+  test efficace n'apporte l'état « Vérifié » de la SoA qu'une fois validé par une autre personne
+  (ni le testeur ni celle qui l'a enregistré) ; renvoyer un test exige un commentaire. Un test
+  partiel ou inefficace retire « Vérifié » sans attendre. Nouvelle colonne « Relecture » dans la
+  liste des tests. Rien n'est jamais modifié dans les éléments tirés.
+- **Exercices de crise : bilan après exercice, plan d'amélioration et validation du rapport**
+  (issue #732 ; ISO 27001 A.5.29 et A.5.30).
+  - Objectifs de l'exercice saisis au lancement (un par ligne) ou pendant l'exercice, évalués à la
+    clôture « atteint », « partiellement atteint » ou « non atteint », avec un commentaire.
+  - Constats (écarts relevés pendant ou après l'exercice) avec leur gravité. Depuis un constat, et
+    seulement sur clic, création d'une non-conformité (rattachée à l'incident de l'exercice) ou
+    d'une action de traitement d'un risque existant, avec responsable et échéance ; le bilan
+    affiche leur avancement et signale celles en retard. Statut, priorité et affectation de ces
+    actions ne sont jamais modifiés par le bilan.
+  - Validation du bilan par un responsable : nouveau droit « Valider les bilans d'exercice » sur
+    la continuité d'activité (onglet GRC Manager des profils, donné au seul Super-Admin). La
+    validation exige un exercice terminé et chaque objectif évalué ; elle retient la date et la
+    personne et archive le rapport validé. Un bilan validé n'est plus modifiable sans repasser en
+    brouillon, avec un motif obligatoire conservé dans l'historique des validations.
+  - Le rapport PDF reprend objectifs, constats, actions d'amélioration et validation ; la liste
+    des exercices signale les bilans validés.
+
+## [2.60.0] - 2026-11-19
+
+## [2.59.0] - 2026-11-19
+
+## [2.58.0] - 2026-11-19
+
+### Added
+
+- **Matrice des responsabilités du SMSI et séparation des tâches** (issue #612, ISO 27001
+  article 5.3 et mesure A.5.3). Sous-page « Matrice des responsabilités » de la rubrique
+  Conformité, sans nouvelle entrée de menu.
+  - Activités du SMSI en lignes, utilisateurs et groupes GLPI en colonnes : pour chaque activité,
+    qui réalise, approuve, est consulté ou informé ; une seule personne ou un seul groupe approuve.
+    Les utilisateurs et groupes proposés et acceptés sont ceux de l'entité de l'activité.
+  - Dix-sept activités proposées par défaut (appréciation des risques, revue des accès, comptes à
+    privilèges, changements, sauvegardes, journaux, incidents, audit interne...), traduites dans la
+    langue de chaque personne, renommables, avec les mesures de l'Annexe A concernées. Elles ne sont
+    ajoutées qu'à la création de la table : une mise à jour ne modifie ni ne recrée rien ; un bouton
+    ajoute seulement celles qui manquent.
+  - Alertes : activité sans approbateur ou sans personne qui la réalise, même personne (directement
+    ou par un groupe) qui réalise et approuve une activité sensible, groupe sans membre actif,
+    utilisateur désactivé ou supprimé. Les alertes ne modifient jamais les affectations, les droits
+    ni les statuts.
+  - Export PDF daté, et archivage comme preuve : le PDF est joint à l'exigence 5.3 et à la mesure
+    A.5.3 de la SoA de l'entité, lisible seulement avec le droit du plugin dans cette entité.
+  - Synthèse sur l'exigence 5.3 du SMSI ; historique des ajouts et retraits d'affectations.
+- **Dossier préparatoire de la revue de direction** (issue #542, ISO 27001 clause 9.3.2). Nouvel
+  onglet « Dossier préparatoire » sur la fiche d'une revue de direction, sans nouvelle entrée de
+  menu.
+  - Un PDF avec une section par entrée de 9.3.2 : actions des revues précédentes, contexte et
+    parties intéressées, non-conformités et actions correctives, KRI et incidents de sécurité,
+    audits internes terminés, objectifs et leur dernière mesure, risques (niveaux, appétence, plan
+    de traitement), SoA (mise en œuvre, dernière version approuvée), score de maturité et écarts de
+    cohérence. Tendances mensuelles quand elles sont enregistrées.
+  - Période paramétrable, proposée depuis la revue précédente (ou les douze derniers mois) jusqu'à
+    la date de la revue. Chiffres tirés des fournisseurs du tableau de bord, avec les droits et les
+    entités de la personne qui génère : une section dont elle ne peut pas lire le registre est
+    signalée « non incluse », jamais remplie.
+  - Le PDF est joint automatiquement à la revue (onglet Documents, lisible par qui peut lire la
+    revue), avec sa période, son auteur et son empreinte SHA-256 affichés dans l'onglet.
+  - Actions décidées en revue : une action par ligne du champ « Décisions et actions » (sans
+    doublon, sur demande), ou saisie à la main ; responsable, échéance et statut suivis, retards
+    signalés. Le dossier de la revue suivante reprend leur avancement (9.3.2 a). Rien n'est
+    affecté, planifié ni clôturé automatiquement.
+  - La fiche de la revue s'affiche désormais avec ses onglets (dossier préparatoire, documents).
+- **Grille d'audit interne par exigence et couverture du programme d'audit** (issue #606,
+  ISO 27001, clause 9.2). Nouvel onglet « Grille d'audit » sur chaque audit interne.
+  - Lignes générées depuis les exigences du SMSI (articles 4 à 10), les mesures applicables de la
+    SoA de l'entité de l'audit (celles du périmètre de l'audit présélectionnées) ou les exigences
+    d'un référentiel personnalisé activé, ou ajoutées à la main (point libre).
+  - Pour chaque ligne : question posée, audité (utilisateur GLPI), preuves examinées (texte et
+    documents de l'onglet Documents de l'audit), résultat (conforme, non-conformité mineure ou
+    majeure, observation, piste d'amélioration, non audité) et commentaire ; avancement et
+    compteurs par résultat.
+  - « Créer le constat » sur une non-conformité, une observation ou une piste d'amélioration ouvre
+    une non-conformité pré-remplie (audit, type, gravité, exigence, question, preuves) que
+    l'utilisateur relit et enregistre lui-même ; la ligne y est alors liée, et la fiche du constat
+    renvoie vers sa ligne de grille. Une ligne peut aussi être liée à un constat existant de l'audit.
+    Rien n'est créé ni modifié automatiquement.
+  - Modèles de grille réutilisables (exigences et questions, jamais les réponses) : enregistrer la
+    grille comme modèle, ajouter les lignes d'un modèle à un autre audit, supprimer un modèle.
+  - Page « Couverture du programme d'audit » (bouton de la liste des audits et de l'onglet) : pour
+    chaque exigence du SMSI et chaque mesure applicable, date et résultat du dernier audit, celles
+    jamais auditées sur la période (1 à 10 ans, 3 par défaut) en tête.
+  - Grille incluse dans le rapport PDF de l'audit (archivé à la clôture), et rapport téléchargeable
+    à tout moment depuis l'onglet.
+  - Mêmes règles d'accès que les documents de l'audit : équipe de l'audit et groupe RSSI ; la
+    modifier exige en plus le droit de modifier l'audit. La grille est figée une fois l'audit
+    terminé ou annulé. Pas de nouvelle entrée de menu ; désinstallation complète. Traductions dans
+    les 7 langues, tests unitaires, d'intégration et matrice d'accès.
+
+## [2.57.0] - 2026-11-19
+
+### Added
+
+- **Contexte de l'organisation, deuxième lot : revue tracée, registre pour l'auditeur, vue inverse**
+  (issue #608 ; ISO 27001, articles 4.1 et 4.2).
+  - Bouton « Enregistrer la revue » sur chaque enjeu ou partie intéressée : date du jour et nom de
+    la personne, prochaine revue fixée un an plus tard ; chaque revue reste dans l'historique de la
+    fiche. Date et auteur de la dernière revue jamais saisissables à la main (colonnes ajoutées par
+    migration). Colonnes « Dernière revue » et « Dernière revue par » dans la liste.
+  - Registre pour l'auditeur en PDF ou CSV (boutons de la page, lien depuis les exigences 4.1 et
+    4.2 et la revue de direction) : synthèse, réponse sur le changement climatique, enjeux puis
+    parties intéressées, attentes, exigences retenues, risques, obligations et mesures liés,
+    dernière et prochaine revue. Entités de la session seulement ; un élément lié n'est nommé que
+    s'il est lisible (risques : droit des registres sensibles). Cellules CSV neutralisées contre
+    les formules.
+  - Onglet « Contexte de l'organisation » sur les risques, les obligations et les mesures : enjeux
+    et parties qui les citent, avec « Ajouter un enjeu » ou « Ajouter une partie intéressée » déjà
+    relié(e) à l'élément.
+
+## [2.56.0] - 2026-11-19
+
+### Added
+
+- **Référentiel facultatif « NIS2 Italia – ACN »** (issue #703, demandé par un utilisateur italien).
+  Mesures de sécurité de base de la déterminazione ACN n. 379907/2025 (D.Lgs. 138/2024) :
+  allegato 1 pour les entités importantes (37 mesures, 87 points), allegato 2 pour les entités
+  essentielles (43 mesures, 116 points), codes du Framework nazionale aligné sur le NIST CSF 2.0
+  (par exemple « DE.CM-01, punto 2 »). Désactivé par défaut (configuration, Référentiels).
+  - Catégorie importante ou essentielle réglée par entité GLPI dans la configuration du plugin ; une
+    sous-entité sans catégorie suit sa parente. Changer ou retirer la catégorie ne supprime rien.
+  - Une fiche par point : applicabilité (justification si non applicable), état de mise en œuvre,
+    responsable, échéance, notes, approbation des organes de direction quand le point l'exige,
+    politiques liées avec leur état d'approbation, documents et preuves (onglet Documents).
+  - Renvois vers NIS2 (UE, indicatif), le NIST CSF 2.0 et l'Annexe A ISO 27001 (correspondance du
+    NIST), facultatifs : la SoA n'est pas nécessaire pour suivre le registre.
+  - Registre avec tableau de bord (taux, échéances dépassées, approbations à enregistrer, par
+    fonction), exports CSV et PDF ; carte sur la page Référentiels. Aucune nouvelle entrée de menu.
+  - Intitulés et résumés en italien, anglais et français rédigés par le projet, avec la référence
+    exacte vers les allegati publiés par l'ACN. Droits d'entité standards (#536) ; désinstallation
+    complète.
+- **Connecteur SentinelOne en lecture seule** (issue #707, demande d'un utilisateur).
+  - Carte « Connecteur SentinelOne » dans la configuration du plugin : adresse de la console
+    (HTTPS), jeton d'API chiffré avec la clé de GLPI (jamais réaffiché ni journalisé), entité des
+    alertes sans ordinateur reconnu, bouton « Tester la connexion » (avertissement si le jeton ne
+    voit rien), bouton « Lire maintenant », bilan de la dernière lecture et agents non rapprochés.
+  - Tâche automatique « sentinelone » (chaque heure), désactivée par défaut et activée avec le
+    connecteur : agents, nouvelles menaces et alertes depuis la dernière lecture (pagination par
+    curseur), vulnérabilités applicatives si la licence les fournit. Les erreurs 401, 403, 404 et
+    429 ne bloquent rien ; la lecture reprend au passage suivant.
+  - Les menaces et alertes sont proposées dans l'écran d'import EDR : un incident n'est créé que
+    pour les alertes cochées, avec le même traitement qu'une ligne de fichier CSV (indicateurs,
+    techniques MITRE ATT&CK, ordinateur rattaché par numéro de série ou nom exact). Aucun doublon,
+    y compris avec un import CSV ; cloisonnement par entité.
+  - Vulnérabilités applicatives sur la page des vulnérabilités du parc (source indiquée), couverture
+    des agents sur les mesures A.8.16 et A.8.7.
+  - Lecture seule stricte : seules des requêtes GET sur une liste fermée de chemins ; aucune action
+    n'est envoyée à SentinelOne. Droits minimaux du jeton (rôle Viewer) dans le README.
+- **Fin de support des logiciels, systèmes et firmwares** (issue #704 ; ISO 27001 A.8.8 et A.8.9),
+  d'après l'API publique d'endoflife.date.
+  - Source désactivée par défaut, activée dans la configuration du plugin (section « Fin de support
+    (endoflife.date) »), avec un seuil de « fin proche » réglable (90 jours par défaut). Lecture
+    seule, par le client sortant durci du plugin (`Compat\Http::send()`) ; seul l'identifiant public
+    du produit est envoyé. Réponses validées (structure et dates) avant d'être gardées en cache.
+  - Cache en base, rafraîchi une fois par jour par la tâche automatique `endoflifesync` et par le
+    bouton « Mettre à jour maintenant » ; jamais à l'affichage d'une page, hors ligne avec le dernier
+    cache. Une limite de requêtes (429) ou une panne arrête seulement les appels de la mise à jour en
+    cours : les données déjà connues restent utilisées et la tâche ne passe pas en erreur.
+  - Logiciels installés (tous les types de `software_types`), systèmes d'exploitation et firmwares
+    des matériels (`Item_DeviceFirmware`, #705) rapprochés d'un produit : automatiquement quand le
+    nom entier correspond à une forme connue (« Debian GNU/Linux », « Mozilla Firefox (x64 fr) »,
+    « Microsoft Windows 11 Professionnel »...), sinon par une correspondance manuelle saisie dans
+    la configuration, qui peut aussi écarter un nom. Les noms non rapprochés sont listés, jamais
+    devinés. Le cycle est retrouvé depuis la version installée (« 12.5 », « 22H2 », nom de code).
+  - Page « Vulnérabilités du parc » : carte « Fin de support » avec les états plus supporté, fin
+    proche, supporté et support inconnu, par nom et version, avec les actifs concernés, dans les
+    entités de la personne (#536), et export CSV d'un élément par ligne.
+  - Preuves des mesures A.8.8 et A.8.9 (fiche de la mesure) et nouvelle règle du contrôle de
+    cohérence « Actifs avec un logiciel, un système ou un firmware qui n'est plus supporté ».
+  - Aucun ticket ni statut n'est créé ou modifié automatiquement, aucune entrée de menu n'est
+    ajoutée.
+- **Matrice des risques : libellés des niveaux personnalisables, EBIOS RM, AIPD et rapport PDF en
+  5 x 5** (issue #706, second lot).
+  - Dans la configuration, « Libellés des niveaux » renomme chaque niveau de probabilité et d'impact
+    de la taille actuelle (par exemple selon la politique de gestion des risques). Un champ vide
+    garde le libellé par défaut, traduit ; un libellé saisi s'affiche tel quel dans toutes les
+    langues. Saisie, listes, filtres, carte de chaleur, grille de la configuration, écran de
+    correspondance, import et exports CSV et PDF reprennent ces libellés.
+  - Seules les clés connues sont enregistrées (60 caractères au plus) ; renommer un niveau ne
+    modifie aucun risque. Le libellé d'une valeur hors de la taille actuelle (« très rare » en
+    4 x 4) est conservé pour un passage ultérieur en 5 x 5. Le journal d'audit du plugin garde
+    l'ancien et le nouveau libellé. Réservé au droit de modifier la configuration du plugin.
+  - Import CSV : avec des libellés personnalisés, le libellé par défaut reste reconnu. Export CSV :
+    les colonnes de niveau de risque affichent les libellés des niveaux, plus ceux de l'impact.
+  - EBIOS RM et AIPD gardent leurs échelles à quatre niveaux. En 5 x 5, un scénario opérationnel
+    ou une AIPD versés au registre prennent les valeurs 5 x 5 de la correspondance proposée par
+    défaut (V1 devient « très rare », G1 « négligeable ») : avec les grilles par défaut, le niveau
+    de risque reste celui de la 4 x 4, sauf sur une case. La grille de l'atelier 4 et l'écart
+    signalé à l'atelier 5 suivent la même correspondance.
+  - Rapport PDF du registre : colonnes probabilité et impact, et taille de la matrice dans le
+    résumé.
+
+## [2.55.0] - 2026-11-18
+
+### Added
+
+- **Contexte de l'organisation : enjeux et parties intéressées** (issue #608, premier lot ; ISO 27001,
+  articles 4.1 et 4.2). Nouvelle page dans la rubrique Conformité (`front/contextitem.php`), avec
+  l'encadré « À quoi sert cette page ? ».
+  - Enjeux internes ou externes (catégorie, effet sur le SMSI) et parties intéressées (type, besoins
+    et attentes, exigences retenues), chacun avec une décision (retenu ou non, justifiée), un
+    propriétaire et une date de revue. Une partie peut être un fournisseur ou un groupe de GLPI.
+  - Liens vers les risques, les obligations et les mesures de la SoA existants, sans recopie : seuls
+    les éléments que la personne peut lire sont proposés ou modifiés.
+  - Question du changement climatique (amendement de 2024) : l'exigence 4.1 ne peut pas passer à
+    « Conforme » sans réponse justifiée. Une première fiche fait passer 4.1 ou 4.2 de « Non
+    commencé » à « En cours » ; les fiches de ces exigences et de la revue de direction affichent
+    une synthèse du contexte.
+  - Rappel au propriétaire 30 jours avant la date de revue (tâche `reviewreminder`, notification
+    « Revue du contexte à échéance »). Export CSV ou PDF par la liste de GLPI.
+  - Droit général du plugin et entité de la fiche ; désinstallation complète (tables, tâche,
+    notification).
+- **Vulnérabilités du parc : les firmwares sont rapprochés des CVE** (issue #705). La version
+  d'un commutateur, d'un routeur ou d'un pare-feu inventorié par SNMP est rangée par GLPI dans un
+  composant firmware, pas dans les logiciels : ces matériels échappaient au suivi.
+  - Seconde source du rapprochement : les firmwares (`Item_DeviceFirmware`, désignation et
+    version) des matériels réseau, imprimantes, téléphones, périphériques et ordinateurs (BIOS,
+    UEFI).
+  - Même règle que les logiciels : une désignation de firmware n'est reliée à un produit que par
+    un alias déclaré, jamais par ressemblance de nom. La page « Logiciels à surveiller » propose
+    aussi les firmwares, signalés par un badge.
+  - Version du firmware ramenée à sa forme publiée (préfixe « v » et numéro de build retirés).
+    Une version avec un train en lettres (« 15.2(7)E3 ») n'est reconnue que face à la même
+    version exacte ; face à une plage, elle reste « version non vérifiable ».
+  - La source (logiciel ou firmware) est affichée dans l'onglet CVE d'un incident, dans
+    « Vulnérabilités du parc » et dans l'onglet « Vulnérabilités » de l'actif. Les tickets de mise
+    à jour lient aussi les matériels concernés par un firmware.
+  - Entités et droits inchangés : un utilisateur ne voit et ne compte que les matériels de ses
+    entités, d'un type qu'il peut lire dans l'onglet CVE, comme pour les logiciels.
+
+- **Déclaration d'applicabilité : motifs de sélection et mesures compensatoires des exclusions**
+  (issue #609, ISO 27001 6.1.3 d).
+  - Motifs de sélection à cocher sur chaque mesure, plusieurs possibles : appréciation des risques,
+    obligation légale ou réglementaire, exigence contractuelle, partie intéressée, bonne pratique.
+    Tant qu'ils ne sont pas renseignés, le formulaire coche ceux déduits des risques liés et des
+    obligations du registre rattachées à ces risques ; un risque nouvellement lié coche
+    l'appréciation des risques. Les cases restent modifiables.
+  - Pour une mesure non applicable ou partiellement applicable : catégorie d'exclusion (activité
+    absente, prestataire certifié, hors périmètre), mesures compensatoires liées à d'autres mesures
+    de la même SoA (jamais d'une autre entité), description libre et risque résiduel. La
+    justification reste obligatoire ; le détail est vidé quand la mesure redevient applicable.
+  - Synthèse par thème (applicables, exclues, mises en œuvre, en cours, planifiées) en tête de la
+    liste et dans le PDF ; colonnes ajoutées au PDF, à l'export CSV (en lecture seule à l'import)
+    et à la recherche.
+  - Migration sans perte : colonnes ajoutées vides, justifications et statuts intacts. L'empreinte
+    d'une SoA déjà approuvée ne change pas : les nouveaux champs entrent dans la version suivante.
+  - La SoA propre à une entité reprend ces champs et relie les mesures compensatoires à ses propres
+    mesures. Mêmes droits que la SoA.
+- **Processus métier : export de la carte des dépendances en image** (issue #701). Bouton
+  « Exporter la carte » au-dessus du graphe de l'onglet « Carte des dépendances », pour présenter
+  la carte à la direction ou l'insérer dans un document.
+  - Trois formats : PNG, JPEG et SVG (vectoriel, net à toutes les tailles).
+  - L'image reprend le graphe tel qu'il est affiché (mêmes nœuds, même disposition, y compris
+    après déplacement des nœuds), avec un titre (nom du processus), la date d'export et la légende.
+  - Elle ne contient que ce que la personne voit à l'écran : l'image est produite dans le
+    navigateur depuis la carte déjà filtrée par les droits et les entités. Comme à l'écran, les
+    éléments et processus qu'elle ne peut pas lire ne sont jamais nommés, seulement comptés.
+  - Aucune nouvelle page ni aucun droit : sans le droit de la continuité ou pour un processus d'une
+    autre entité, ni carte ni bouton.
+  - Nom du fichier : « carte-des-dépendances-<processus>-<date> », sans caractère interdit par
+    Windows.
+- **Matrice des risques 5 x 5 au choix** (issue #706, premier lot). La matrice reste en 4 x 4 par
+  défaut : aucune installation ne change sans action de l'administrateur.
+  - Dans la configuration, « Taille de la matrice » passe en 5 x 5 (très rare, rare, possible,
+    probable, quasi certaine ; négligeable, faible, moyen, élevé, critique) ou revient en 4 x 4.
+  - Écran de correspondance en deux étapes (`front/riskscale.php`) : nombre de risques par valeur
+    actuelle, nouvelle valeur proposée (celle qui change le moins de niveaux de risque) et
+    modifiable, puis effet sur les niveaux initiaux et résiduels et confirmation. Rien n'est
+    écrit avant « Appliquer ».
+  - Conversion des risques et des risques fournisseurs dans une transaction ; l'historique de
+    chaque risque garde l'ancienne et la nouvelle valeur, avec un message de conversion, et le
+    journal d'audit du plugin garde la correspondance appliquée. Ni notification, ni signature
+    d'acceptation au nom de l'administrateur.
+  - Saisie, calcul du score et du niveau, risque résiduel, carte de chaleur, import et export CSV
+    du registre suivent la taille choisie. Le niveau de risque garde ses quatre valeurs : appétence,
+    indicateurs, contrôles de cohérence et notifications sont inchangés.
+  - Une probabilité ou un impact hors de l'échelle configurée (formulaire forgé, valeur de l'autre
+    taille) n'est pas enregistré : la valeur actuelle est gardée.
+  - Réservé au droit de modifier la configuration du plugin et les registres sensibles. Les
+    échelles EBIOS RM et AIPD ne changent pas.
+
+### Fixed
+
+- Traductions : boutons et colonnes restés en français dans les autres langues (« Enregistrer », « Nom », « Statut »,
+  « Ajouter », « Supprimer », « Commentaire ») : ces 45 libellés appelaient la traduction sans le domaine du plugin et
+  passent par les libellés du cœur de GLPI, traduits dans toutes les langues (#582, signalé par @dmontebello).
+- **Tickets de vulnérabilité du parc : les nouvelles machines vulnérables sont liées au ticket
+  ouvert** (issue #702, signalée par dmontebello). Le suivi « Plus de machines touchées » était
+  ajouté, mais seules les machines présentes à la création restaient dans les éléments du ticket.
+  - La tâche planifiée lie désormais au ticket ouvert les machines qui ne le sont pas encore, sans
+    doublon, et le suivi indique combien ont été liées.
+  - Plafond de 50 éléments liés par ticket, liens ajoutés à la main compris : quand il est atteint,
+    le suivi le signale et renvoie à la page Vulnérabilités du parc.
+  - Une machine qui n'est plus vulnérable n'est jamais déliée : l'historique et les liens ajoutés à
+    la main sont conservés.
+  - Seules les machines de l'entité du ticket lui sont liées (entité de la machine relue), à la
+    création comme lors des mises à jour, comme le formulaire d'éléments de GLPI. Avant, la tâche
+    planifiée pouvait lier au ticket des machines d'autres entités.
+  - Ticket résolu ou clos : comportement inchangé, il n'est plus modifié ; si le logiciel reste
+    vulnérable au-dessus des seuils, un nouveau ticket est créé.
+
+### Changed
+
+- CI : contrôles de sécurité communs glpi-plugin-security v1.9.0 (charte commune et contrôle des menus bloquants par défaut).
+
+## [2.54.0] - 2026-11-17
+
+### Added
+
+- **Documentation par rôle** (issue #665) : section « Par où commencer ? » en tête des README et
+  parcours courts par rôle (administrateur du plugin, RSSI, propriétaire de mesure ou de risque,
+  auditeur, direction) dans `docs/ROLES.md` et `docs/ROLES.en.md`, avec les menus et onglets
+  actuels (SoA par entité, contrôles de cohérence, preuves de l'inventaire Docker, lien de
+  calendrier à jeton dédié) ; pages ajoutées au wiki.
+- **Périmètres multiples, second lot : actions de traitement, audits et non-conformités par entité
+  GLPI** (issue #536, demande de skreu dans #547).
+  - Une **action de traitement** appartient à l'entité de son risque ; elle le suit quand il change
+    d'entité. L'ajouter ou la modifier exige le droit de modifier ce risque, entité comprise.
+  - Un **audit interne** appartient à une entité (par défaut l'entité active) ; ses mesures auditées
+    sont celles de la SoA que suit cette entité. Une **non-conformité** prend l'entité de son audit
+    (sinon celle de l'incident de sécurité à son origine) ; quand l'audit change d'entité, ses
+    constats le suivent. Colonnes « Entité » et « Sous-entités » dans les recherches, modifiables en
+    masse vers une entité de la session.
+  - **Équipe, demandes de preuves, accès auditeur** : la personne ajoutée à l'équipe, désignée pour
+    fournir une preuve ou invitée comme auditeur doit avoir un profil dans l'entité de l'audit (les
+    listes déroulantes ne proposent qu'elles). Un auditeur limité à une entité ne voit rien d'une
+    autre, même avec un accès donné avant la mise à jour : espace auditeur, « Mes demandes de
+    preuves » et téléchargement des pièces suivent les entités de sa session.
+  - **Filtrage partout** : listes, fiches, recherches et leurs exports CSV et PDF, listes déroulantes,
+    API, notifications (destinataires choisis dans l'entité de l'élément), cartes du tableau de bord
+    (non-conformités ouvertes, actions correctives et actions de traitement en retard, audits par
+    statut, risques sans plan de traitement), rapport PDF du programme d'audit, contrôles de
+    cohérence (#614), maturité, calendrier de conformité, rapport post-incident et Mon espace GRC.
+  - **Vue Périmètres** : nouvelle colonne des non-conformités ouvertes par entité enfant, par gravité
+    (les observations ne comptent pas).
+  - **À la mise à jour** : chaque action de traitement prend l'entité de son risque ; un audit va dans
+    l'entité racine ; une non-conformité prend l'entité de son audit ou de son incident quand elle est
+    sans ambiguïté, sinon l'entité racine. Migration rejouable, aucune donnée perdue, un administrateur
+    de la racine voit tout. Ni statut, ni gravité, ni responsable, ni droit ne changent. Rangez ensuite
+    audits et non-conformités par une modification en masse (colonne « Entité »).
+- **Attributs des mesures de l'Annexe A** (issue #610) : les cinq attributs de l'ISO/IEC 27002:2022
+  (type de mesure, propriétés de sécurité, concepts de cybersécurité, capacités opérationnelles,
+  domaines de sécurité) sont livrés pour les 93 mesures, valeurs seulement, sans texte de la norme.
+  Ils sont ajoutés à la mise à jour sans toucher à l'applicabilité, aux états ni aux justifications,
+  et restent modifiables sur la fiche de la mesure. La SoA gagne un filtre et une colonne par
+  attribut, une « Synthèse par attribut » repliable (mesures applicables, mises en œuvre, taux,
+  lien vers la liste filtrée) et trois cartes de tableau de bord (par fonction, par type, par
+  propriété) ; la carte « Mise en œuvre par fonction » est ajoutée aux vues Direction et SMSI. Les
+  exports CSV et PDF de la SoA reprennent les attributs. Tout suit la SoA de l'entité active (#536).
+
+### Changed
+
+- CI : contrôles de sécurité communs v1.8.2 (scripts communs bien pris à la version appelée).
+- **CI** : contrôles des points d'entrée, de la matrice d'accès et des exigences marketplace repris
+  par les contrôles communs (glpi-plugin-security v1.8.0, issue parime/glpi-plugin-security#11) ;
+  les copies de `.github/scripts/` sont retirées. Les fichiers de réglage restent dans ce dépôt.
+- **Traductions** (charte commune, sections 2 et 2 bis, issues #657 et #662) : `locales/grcmanager.pot`
+  est versionné (4 104 chaînes, généré par `vendor/bin/extract-locales`), source unique que lira
+  Hosted Weblate. Le job « Locale completeness » échoue désormais si ce `.pot` ne correspond plus au
+  code, ou si un fichier `.po` est invalide (formats `%s`, `%d` différents de la source), en plus du
+  contrôle existant : chaque langue traduit chaque chaîne du `.pot`.
+- **Licence** (charte commune, section 1, issues #655, #660 et #661) : identifiant SPDX exact
+  `GPL-3.0-or-later` dans `plugin_version_grcmanager()` (au lieu de `GPLv3`), comme `composer.json`
+  et `CITATION.cff`. Le bloc de licence de `tools/HEADER` est ajouté en tête des 336 fichiers PHP et
+  Twig qui ne l'avaient pas encore (`src/Compat/Base/`, services, gabarits). Commentaires seulement :
+  aucun changement de comportement ni de rendu. Le contrôle « Charte commune » passe en bloquant
+  (`charter-mode: error`).
+
+## [2.53.0] - 2026-11-16
+
+### Added
+
+- **Périmètres multiples, premier lot : registre des risques et SoA par entité GLPI** (issue #536,
+  demande de skreu dans #547). Les risques, les mesures de la Déclaration d'Applicabilité et les
+  versions approuvées de la SoA appartiennent désormais à une entité GLPI, avec l'option « sous-entités ».
+  Les droits d'entité standards de GLPI s'appliquent partout : listes, recherches, fiches, listes
+  déroulantes, API, notifications, cartes du tableau de bord, exports CSV et PDF, contrôles de
+  cohérence (#614), Mon espace GRC. Un profil limité à une filiale ne voit ni ne modifie jamais un
+  risque, une mesure, une version de SoA ou un export d'une autre filiale ; une création forcée dans
+  une autre entité est refusée.
+  - **Une SoA par entité** : la SoA commune (93 mesures de l'Annexe A) reste dans l'entité racine,
+    lisible des sous-entités. Depuis la liste des mesures, une entité peut **créer sa propre SoA** :
+    ses 93 mesures reprennent l'applicabilité et la justification de la SoA qu'elle suivait, chaque
+    mesure reste à revoir et à mettre en œuvre. L'entité et ses sous-entités suivent alors cette SoA
+    (export, rapport PDF, approbation par la direction, numérotation des versions, empreinte,
+    évaluation par référentiel, score de maturité). Une entité sans SoA propre lit celle de son
+    parent sans pouvoir la modifier ni la soumettre à approbation.
+  - **Vue « Périmètres »** du tableau de bord, dans une entité qui a des sous-entités : pour l'entité
+    et chacune de ses entités enfants (sous-entités comprises), SoA suivie, taux de mise en œuvre,
+    dernière version approuvée et risques ouverts par niveau.
+  - Fiche du risque : entité et sous-entités dans l'en-tête, comme les objets de GLPI ; colonnes
+    « Entité » et « Sous-entités » dans la recherche, modifiables en masse vers une entité de la
+    session. Un risque proposé depuis un processus métier, un traitement (AIPD) ou l'analyse d'impact
+    naît dans l'entité de cet objet.
+
+### Changed
+
+- **Migration** (issue #536) : les risques, les mesures et les versions de la SoA existants sont
+  rattachés à l'entité racine. La SoA et ses versions restent visibles des sous-entités, comme avant ;
+  les risques sont dans la seule entité racine. Un administrateur de la racine voit tout ; pour
+  ouvrir un risque à une filiale, déplacez-le dans son entité (modification en masse, colonne
+  « Entité ») ou cochez « Sous-entités ». La migration peut être rejouée sans effet.
+- Un profil limité à une sous-entité qui suit la SoA de la racine la lit sans la modifier : donnez-lui
+  sa propre SoA, ou des droits sur l'entité racine.
+- Les audits, non-conformités et actions de traitement suivent dans un second lot (#536).
+
+## [2.52.0] - 2026-11-16
+
+### Added
+
+- **Preuves de l'inventaire Docker** ([parime/glpi-docker-inventory#10](https://github.com/parime/glpi-docker-inventory/issues/10),
+  conception #179) : nouvelle source de preuves facultative, active seulement si le plugin
+  Inventaire Docker (version avec son API de lecture) est installé et activé. Sur la fiche des
+  mesures : A.5.9 (services, stacks et nœuds inventoriés, dernier import réussi de chaque connexion,
+  signalé s'il date de plus de 48 heures), A.8.8 (écarts de version correctif, mineure et majeure ;
+  vulnérabilités des images Harbor par gravité), A.8.9 (image, tag, empreinte, réplicas et ports
+  des services ; part des images venant d'un registre maîtrisé) et A.8.32 (changements de version
+  des 90 derniers jours). Les images déployées avec des vulnérabilités critiques ou hautes
+  rejoignent la page des vulnérabilités du parc. Lecture seule par l'API du plugin : on ne voit que
+  ce que l'on voit dans l'inventaire Docker (droit de lecture des services, entités actives),
+  chaque ligne étant revérifiée ; aucun ticket, statut ni droit modifié. Sans le plugin, rien ne
+  change et aucune erreur n'apparaît.
+
+### Changed
+
+- CI : contrôles de sécurité communs v1.7.1 (exceptions de menus de la charte, correction du jeu de données du contrôle de désinstallation).
+
+## [2.51.0] - 2026-11-15
+
+### Security
+
+- **Appels HTTP sortants : point de passage unique et durci** (issue #658) : NVD, CISA KEV, EPSS,
+  flux du CERT-FR, Have I Been Pwned et vérification de la dernière version passent tous par
+  `Compat\Http::send()`. Client HTTP du cœur avec le contexte du plugin en GLPI 12 (un administrateur
+  peut autoriser un réseau privé en ajoutant `GlpiPlugin\Grcmanager\Menu` à
+  `GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS`),
+  `Toolbox::getGuzzleClient()` en GLPI 11 ; délai d'expiration total ; redirections jamais suivies
+  (une réponse 3xx est un échec) ; http et https seulement ; adresses internes refusées (boucle locale,
+  réseaux privés, lien local dont 169.254.169.254, IPv4 dans IPv6, écritures numériques), sauf
+  autorisation d'un administrateur de GLPI dans la page de configuration (carte « Connexions
+  sortantes ») ; connexion épinglée sur l'adresse contrôlée ; jetons GLPI (session, application,
+  cookie) jamais transmis.
+
+### Changed
+
+- Couche de compatibilité renommée `src/Compatibility` en `src/Compat` (charte commune, issue #658).
+  L'ancien espace de noms `GlpiPlugin\Grcmanager\Compatibility\` reste utilisable le temps d'une
+  version (alias). Les classes ITIL des incidents de sécurité restent dans `inc/` (voir TECH_DEBT.md).
+
+- **Menus et réglages : charte commune, exception « outil métier complet »** (issue #656) : le
+  secteur « GRC & Conformité » est déclaré dans `.glpi-security-exceptions`
+  (`menus-secteur-metier`) ; l'entrée Assistance > Incidents de sécurité est gardée et justifiée
+  (objet ITIL, à côté des tickets, problèmes et changements). Le groupe Direction de l'appétence au
+  risque se choisit désormais dans la page de configuration du plugin (carte « Appétence et
+  tolérance au risque ») ; la page de l'appétence l'affiche avec un lien vers ce réglage. Plus aucun
+  réglage hors de la page de configuration.
+
+## [2.50.0] - 2026-11-15
+
+### Added
+
+- **Contrôles de cohérence du SMSI avant un audit** (issue #614) : nouvelle page « Contrôles de
+  cohérence » dans la rubrique Tableau de bord (aucune nouvelle entrée de menu). 22 règles regroupées
+  par domaine du SMSI (politiques 5.2/7.5, appréciation des risques 6.1.2/8.2, traitement des risques
+  et SoA 6.1.3/8.3, preuves et surveillance 9.1, audit interne 9.2, revue de direction 9.3,
+  non-conformités 10.2, fonctionnement de l'Annexe A), chacune avec sa gravité (haute, moyenne,
+  basse), sa clause, un « comment corriger » et le lien vers chaque fiche à corriger : risque ouvert
+  sans propriétaire, revue de risque dépassée ou absente, risque élevé sans décision de traitement,
+  risque élevé accepté sans acceptation signée, mesure exclue mal justifiée, mesure applicable liée à
+  aucun risque, SoA non approuvée dans sa version actuelle, action de traitement en retard, dérogation
+  validée échue, mesure mise en œuvre sans preuve valide ni test depuis 12 mois, preuve expirée encore
+  rattachée, pas d'audit interne ni de revue de direction depuis 12 mois, non-conformité close sans
+  action corrective ou en retard, risque fournisseur à revoir, processus métier sans RTO, AIPD requise
+  non faite, obligation de conformité à revoir, campagne de revue des accès en retard. Score de
+  cohérence pondéré par la gravité, écarts par gravité, filtres (domaine, gravité, règle), évolution
+  par règle et tendance mensuelle (résumé du mois enregistré par personne et entité, sans aucun
+  élément), export CSV et rapport PDF de préparation à l'audit, carte « Écarts de cohérence du SMSI »
+  sur le tableau de bord « Vue d'ensemble ISMS ». Règles activables une par une et seuils modifiables
+  (tolérance en jours, période en mois, longueur minimale d'une justification, niveau de risque) dans
+  la configuration du plugin. Calcul à la demande, sans tâche planifiée, en lecture seule : rien n'est
+  corrigé ni changé de statut. Une règle n'est évaluée que si la personne peut lire les éléments
+  concernés (registres sensibles, continuité et RGPD compris), dans ses entités, et chaque élément
+  listé est vérifié un par un.
+
+### Changed
+
+- CI : le contrôle « Sécurité commune » ne tourne plus sur chaque push de branche de travail, seulement sur les PR et les branches principales (moins d'exécutions en double et de notifications d'échec).
+- Traductions collaboratives sur Hosted Weblate : section « Traductions » des README avec le badge
+  d'avancement et le lien pour contribuer.
+- Documentation : lien vers la charte commune des plugins ([CHARTE.md](https://github.com/parime/glpi-plugin-template/blob/main/CHARTE.md))
+  dans `AGENTS.md` et les README ; contrôles de sécurité communs v1.7.0 (charte commune et
+  menus, en avertissement).
+
+### Security
+
+- **Lien d'abonnement au calendrier protégé** (issue #664) : le lien iCal ne porte plus le jeton
+  personnel GLPI (qui ouvre aussi l'API) mais un jeton dédié au calendrier : aléatoire (32 octets),
+  conservé seulement sous forme d'empreinte SHA-256, comparé en temps constant, en lecture seule sur
+  le seul flux du calendrier, avec les droits et les entités de son propriétaire. Il expire (durée
+  réglable dans la configuration du plugin, 365 jours par défaut pour qu'un agenda abonné tienne un
+  an sans intervention) et chacun le crée, le régénère ou le révoque depuis le calendrier ; le lien
+  complet n'est montré qu'une fois. **Les anciens liens (jeton personnel) sont refusés** : chaque
+  utilisateur abonné doit créer un nouveau lien depuis « Calendrier de conformité », bouton
+  « S'abonner ».
+
+## [2.49.0] - 2026-11-15
+
+### Added
+
+- **Approbation des politiques de sécurité par la direction** (issue #611, ISO 27001 A.5.1) : circuit
+  à activer dans la configuration (désactivé par défaut, rien ne change sans cela). Approbateurs
+  désignés par défaut (personnes, groupes) et règle de validation (tous, ou un nombre minimal
+  d'approbations), remplaçables politique par politique dans le nouvel onglet « Approbation ». La
+  demande fige la version : PDF daté de la politique (contenu, documents joints et leurs empreintes)
+  conservé dans les documents GLPI, empreinte SHA-256 du fichier et du contenu ; les approbateurs sont
+  prévenus. Chacun approuve ou refuse (commentaire obligatoire) depuis « Mon espace GRC » ou la page
+  d'approbation, sans droit sur le plugin ; un refus refuse la version, la politique reste en
+  brouillon. La politique ne passe « Approuvée » qu'une fois la règle atteinte, à la date de la
+  dernière approbation ; le statut « Approuvée » et la date ne se saisissent plus à la main. Le
+  contenu (titre, version, description) est figé pendant l'approbation et après : retirer la demande,
+  ou préparer une nouvelle version explicitement (retour en brouillon, la version approuvée reste
+  dans l'historique). Historique des versions et des décisions exportable en PDF, procès-verbal
+  archivé comme preuve sur la politique et sur la mesure A.5.1 (document réservé), modifications du
+  contenu détectées par l'empreinte. Deux notifications modifiables (demande aux approbateurs,
+  décision au rédacteur et au responsable). La campagne de prise de connaissance ne part qu'à
+  l'approbation de la nouvelle version. Les politiques déjà approuvées restent approuvées, marquées
+  « approuvées avant le circuit », sans empreinte. Actions tracées dans le journal du module.
+
+### Fixed
+
+- Approbation de la SoA : quand plusieurs approbateurs étaient choisis, seul le dernier était
+  enregistré (la liste multiple n'était pas envoyée comme un tableau). Tous les approbateurs
+  choisis reçoivent désormais la demande (issue #648).
+
+## [2.48.0] - 2026-11-15
+
+## [2.47.0] - 2026-11-15
+
+### Added
+
+- **Délais de correction des vulnérabilités du parc** (issue #601, ISO 27001 A.8.8, NIS2) : politique
+  désactivée par défaut, réglée dans la configuration (section NVD) avec un délai par niveau, proposé
+  et modifiable : exploitée activement (CISA KEV) 7 jours, critique 15, élevée 30, moyenne 90 (ou
+  score inconnu), faible 180 ; délai réduit (50 % par défaut) quand une machine touchée porte une
+  classification C/I/D élevée. Date de première détection conservée pour chaque couple CVE et logiciel,
+  même quand NVD est interrogé de nouveau ; une CVE dont le niveau s'aggrave (entrée au catalogue KEV)
+  suit le délai du nouveau niveau à partir de ce jour, sans jamais reculer l'échéance connue ; une
+  vulnérabilité qui disparaît du parc est corrigée ce jour-là, et si elle réapparaît dans les 30 jours
+  la correction est annulée (disparition passagère), au-delà le délai repart (nouvelle exposition, la
+  première détection reste). États « dans les délais », « échéance proche », « en retard »,
+  « corrigée ». Une dérogation validée peut couvrir des CVE (nouveau champ du formulaire, et lien
+  « Demander une dérogation » sur une vulnérabilité en retard) : tant qu'elle court, l'échéance devient
+  sa date de fin ; échue, la vulnérabilité redevient en retard. Indicateurs sur la page des
+  vulnérabilités du parc (part dans les délais, part corrigée dans les délais sur 90 jours et tendance
+  par rapport aux 90 jours précédents, retards et leur ancienneté, délai moyen de correction, tableau
+  par niveau, filtre « En retard »), cinq cartes de tableau de bord (dont la tendance mensuelle,
+  ajoutées au tableau de bord « Vue d'ensemble du SMSI ») sous les droits de la page, section du
+  rapport par e-mail (balise `##vulndigest.remediation##` ajoutée aux modèles existants) et échéance de
+  chaque ligne, échéance dans le ticket de mise à jour. Rien n'est modifié automatiquement : ni la
+  priorité ni le statut des tickets, ni les dérogations.
+
+## [2.46.0] - 2026-11-14
+
+### Added
+
+- **Import CSV d'un registre des risques existant** (issue #602, ISO 27001 6.1.2 et 8.2) : bouton
+  « Import / export CSV » sur la liste des risques, réservé au droit « Registres sensibles ». Modèle
+  téléchargeable (trois risques fictifs) ; fichier UTF-8 ou Windows-1252, séparateur « ; » ou « , »,
+  en-têtes et valeurs en français ou en anglais, notes chiffrées sur une échelle de 1 à 3, 4, 5 ou 10
+  ramenées aux 4 niveaux de la matrice. Analyse à blanc avant tout enregistrement : risques à ajouter,
+  à mettre à jour (ancienne et nouvelle valeur), inchangés, et lignes rejetées avec leur numéro et leur
+  motif (référence manquante ou en double, valeur inconnue, propriétaire ou actif introuvable ou
+  ambigu, mesure de l'Annexe A inconnue, date invalide, clôture sans plan de traitement, droit
+  manquant). Propriétaires rapprochés par identifiant, adresse e-mail ou nom, actifs par nom ou numéro
+  d'inventaire, dans les entités de la session ; rien n'est créé hors des risques. Réimport sans
+  doublon grâce à la nouvelle **référence externe** du risque (migration, champ du formulaire, colonne
+  de recherche) ; une cellule vide ou une colonne absente garde la valeur enregistrée, le statut ne
+  change que si le fichier le donne (signalé dans l'aperçu), le niveau reste calculé par la matrice.
+  Import tracé dans le journal du module et le journal des événements de GLPI.
+- **Export CSV du registre des risques** au format de l'import (aller-retour avec le tableur), niveaux
+  calculés en fin de ligne, cellules neutralisées contre les formules, export tracé.
+- **Délais de notification DORA et CRA des incidents de sécurité** (issue #600), à côté de NIS2 et du
+  RGPD. Case « Incident TIC majeur (DORA) », visible quand le référentiel DORA est activé, avec la date
+  de classification : notification initiale 4 h après la classification et 24 h au plus après la
+  détection (4 h depuis une classification plus tardive), rapport intermédiaire 72 h après la
+  notification initiale, rapport final un mois après le rapport intermédiaire (règlement délégué (UE)
+  2025/301, article 5). « Signalement CRA » (vulnérabilité activement exploitée ou incident grave, avec
+  le produit concerné), visible quand la nouvelle option de la configuration du module est activée :
+  alerte précoce 24 h, notification 72 h, rapport final 14 jours après la mesure corrective
+  (vulnérabilité, « en attente » tant qu'elle n'est pas datée) ou un mois après la notification
+  (incident) (règlement (UE) 2024/2847, article 14, applicable depuis le 11 septembre 2026 ; « non
+  applicable » pour un incident détecté avant). Mêmes badges, bandeaux, alertes « proche » et
+  « en retard » de la tâche planifiée et dates « notifié le » que NIS2 ; échéances dans le tableau
+  de bord, dans « Mon espace GRC » (incidents dont la personne est chargée) et dans le rapport
+  post-incident, qui liste toutes les notifications, tenues ou non. Nouvelles colonnes de recherche.
+  Rien n'est envoyé à une autorité ni changé sur l'incident ; sans case cochée, rien ne change.
+
+## [2.45.0] - 2026-11-14
+
+### Added
+
+- **Registre des violations de données personnelles** (issue #620, RGPD article 33.5) : page
+  « Registre des violations » (rubrique Conformité) réservée au droit « Protection des données
+  personnelles ». Chaque violation est documentée, notifiée ou non : prise de connaissance et début,
+  faits, nature (confidentialité, intégrité, disponibilité), traitements concernés (registre des
+  traitements), catégories et nombre approximatif de personnes et d'enregistrements, conséquences
+  probables, risque, mesures prises et envisagées, avis du DPO. Délai de 72 h calculé depuis la prise de
+  connaissance (article 33.1), avec badge et heures restantes. Décision de notification motivée : une
+  violation non notifiée exige sa justification, une notification au-delà de 72 h exige les motifs du
+  retard, une notification ne peut précéder la prise de connaissance ; information des personnes
+  (article 34) : informées (date, moyen) ou non, avec justification. Points d'attention non bloquants
+  (nature, nombres, risque non évalué, non notifiée malgré un risque, risque élevé sans décision
+  d'information). Export PDF ou CSV pour l'autorité de contrôle (exports tracés, cellules neutralisées).
+  Pièces jointes réservées aux lecteurs du registre (registre des documents restreints).
+- **Lien avec les incidents de sécurité** : onglet « Violation de données personnelles » sur l'incident
+  qualifié de violation, avec la fiche du registre ou le bouton « Inscrire cette violation au registre »
+  (formulaire prérempli : titre, date d'ouverture, nature, traitements liés, notification déjà saisie ;
+  rien n'est enregistré sans validation, l'incident n'est jamais modifié). Même lien dans la section
+  « Notifications réglementaires » et sur l'étape « Inscrire la violation au registre » du plan de
+  remédiation. Une décision motivée de ne pas notifier, inscrite au registre, retire l'échéance RGPD des
+  bandeaux, des alertes et du tableau de bord (statut « Non notifiée (décision consignée) »).
+
+## [2.44.0] - 2026-11-14
+
+### Added
+
+- **Registre d'informations DORA des prestataires TIC** (issue #540, DORA article 28, paragraphe 3 ;
+  règlement d'exécution (UE) 2024/2956) : visible seulement si le référentiel DORA est activé.
+  Registre construit depuis les objets de GLPI, sans les dupliquer : contrats (numéro, dates, durée,
+  préavis, coûts des douze derniers mois), fournisseurs (nom, pays, numéro d'immatriculation s'il
+  est un LEI) et processus métier du plugin (nom, RTO, RPO, date et impact de la BIA). Seuls les
+  champs propres à DORA se saisissent, dans un nouvel onglet « Registre DORA » du contrat (type
+  d'accord, types de services S01 à S19, préavis, droit applicable, pays de fourniture, lieux de
+  stockage et de traitement, sensibilité des données, dépendance, substituabilité, réinternalisation,
+  plan de sortie, prestataires de remplacement, fonctions soutenues avec les processus qui dépendent
+  du fournisseur proposés, chaîne de sous-traitance avec rangs calculés), du fournisseur (code LEI,
+  EUID ou national, type de personne, pays du siège, entreprise mère ultime) et du processus métier
+  (« Fonction DORA » : critique ou importante, avec une suggestion tirée de la BIA, activité agréée,
+  raisons, date d'évaluation). Page « Registre DORA » (rubrique Conformité) : entité financière qui
+  tient le registre (LEI vérifié, type, autorité compétente, total du bilan), taux de complétude et
+  champs obligatoires manquants ou invalides avant l'export (y compris ceux exigés quand une
+  fonction critique ou importante est soutenue), chacun avec un lien vers la fiche à compléter,
+  liste des accords et contrats de prestataires TIC pas encore au registre. Export à la demande et
+  tracé : un CSV par modèle B_01.01 à B_99.01 (codes officiels des colonnes, UTF-8, virgule) ou tous
+  dans une archive, comme les tableaux d'un paquet xBRL-CSV ; succursales, accords intragroupe,
+  définitions de B_99.01, codes de la taxonomie de l'EBA et fichiers du paquet restent à compléter
+  par l'outil de déclaration (voir le README). Aucun contrat, fournisseur ou processus n'est modifié ;
+  modifications historisées sur la fiche concernée. Traductions (fr, de, es, it, pl, pt_BR).
+
+### Changed
+
+- Fichiers de citation et d'attribution : `CITATION.cff`, `NOTICE`, `AGENTS.md` (consignes de licence
+  pour les assistants de code) et section « Réutilisation et citation » des README.
+
+## [2.43.0] - 2026-11-14
+
+### Added
+
+- **Demandes de preuves d'un audit et accès de l'auditeur en lecture** (issue #538, clause 9.2) :
+  sur un audit, nouvel onglet « Demandes de preuves » qui remplace le suivi par courriel de la liste
+  de pièces remise par l'auditeur. Chaque demande vise une mesure (celles du périmètre de l'audit
+  sont proposées) ou une exigence libre, est confiée à une personne avec une échéance, et suit le
+  cycle « à fournir », « soumise », « à compléter » (avec un motif obligatoire) et « acceptée ».
+  La liste se saisit une à une ou s'importe d'un fichier CSV (colonnes en français ou en anglais,
+  lignes invalides signalées avec leur numéro). Avancement en pourcentage dans l'onglet et dans le
+  rapport d'audit archivé. La personne désignée, même sans aucun droit sur le plugin, fournit les
+  pièces depuis la nouvelle page « Mes demandes de preuves » (lien dans « Mon espace GRC ») : dépôt
+  d'un fichier (types et taille de GLPI, type réel vérifié), qui devient un document de l'audit
+  réservé à son équipe, ou preuve existante de la mesure qu'elle peut lire, puis soumission.
+  Notifications multilingues à la demande, à la soumission et au renvoi « à compléter » ; relance
+  une semaine avant l'échéance puis chaque semaine de retard (tâche « auditevidencereminder ») ou à
+  la demande, sans jamais changer un statut, une échéance ou une attribution. Accès en lecture d'un
+  auditeur interne ou externe à un seul audit, jusqu'à une date de fin (un an au plus), révocable :
+  son « Espace auditeur » (interface standard ou simplifiée, aucun droit sur le plugin requis)
+  montre les mesures, l'avancement, les seules demandes déjà soumises avec leurs seules pièces
+  soumises, et les constats ; jamais les pièces en préparation, les documents de travail ni les
+  notes de l'audit. Chaque téléchargement est historisé dans l'onglet « Accès aux documents » et la
+  dernière visite de l'auditeur est affichée.
+
+## [2.42.0] - 2026-11-14
+
+### Added
+
+- **Prise de connaissance des politiques de sécurité** (issue #535, A.5.1 et A.6.3) : sur une
+  politique, nouvel onglet « Prise de connaissance » pour définir son public cible (groupes, profils,
+  entités avec ou sans sous-entités, réunis) et un délai de réponse (30 jours par défaut). Une fois
+  la politique approuvée, le responsable lance la campagne de la version en cours : le public est
+  figé (comptes actifs) et prévenu par une notification multilingue « Politique de sécurité à
+  lire ». Chacun lit le document de la politique (téléchargement réservé à son public, historisé)
+  et confirme depuis l'onglet « Politiques à lire » de ses préférences ou depuis « Mon espace
+  GRC », sans aucun droit sur le plugin. Taux de prise de connaissance de la politique et par
+  entité, retardataires, liste des retardataires en CSV et rapport en PDF ; les retardataires sont
+  relancés une fois par semaine par une notification (tâche « policyacknowledgementreminder ») ou à
+  la demande, sans autre conséquence. Une nouvelle version d'une politique déjà diffusée relance
+  automatiquement une campagne, la précédente restant en historique. À la clôture, le rapport (taux
+  et retardataires) est archivé comme preuve sur la mesure A.5.1 et sur la politique, lisible par
+  qui lit les politiques. La charte informatique reste signée par les campagnes d'assetsign.
+
+## [2.41.0] - 2026-11-13
+
+### Added
+
+- **Vulnérabilités du parc : liens vers l'inventaire** (issue #580) : le nom du logiciel ouvre sa fiche
+  dans l'inventaire (un lien par logiciel quand plusieurs sont regroupés sous le même produit), et
+  chaque version vulnérable ouvre directement la liste des ordinateurs qui l'ont installée. Seuls les
+  logiciels visibles par l'utilisateur (droit de lecture, entités actives) sont liés.
+- **Référentiels personnalisés** (issue #537) : import d'un référentiel absent du plugin (exigences
+  de sécurité d'un groupe, référentiel sectoriel ou contractuel, plan d'assurance sécurité d'un
+  client) depuis un fichier CSV (code, thème, intitulé, description, mesures de l'Annexe A ; UTF-8
+  avec ou sans BOM, séparateur « ; » ou « , », fichier Excel accepté). Modèle téléchargeable ;
+  analyse avant tout enregistrement avec le rapport des lignes rejetées (numéro de ligne et raison :
+  code ou intitulé absent, code en double, mesure de l'Annexe A inconnue) et l'aperçu des
+  changements. Activable comme les référentiels intégrés (désactivé à l'import) : carte
+  Référentiels, badges sur les mesures, taux dans les tableaux de bord et l'évaluation par
+  référentiel, calculés sur les mesures de l'Annexe A citées. Auto-évaluation de chaque exigence
+  (statut et commentaire). Réimport d'une nouvelle version rapproché par code : exigences ajoutées,
+  modifiées, rétablies, et celles absentes du fichier marquées retirées, jamais supprimées ; statuts
+  et commentaires conservés.
+- **Référentiels en italien** (issue #582) : NIS2 en italien (intitulés officiels des articles 20,
+  21 et 23 et mesures de l'article 21 §2 d'après la version italienne consolidée de la directive
+  (UE) 2022/2555 sur EUR-Lex, articles 20 et 23 résumés par ce projet), intitulés officiels
+  italiens des articles de DORA, intitulés, rôles et obligations de l'AI Act en italien.
+
+### Changed
+
+- **Modèles de notification multilingues** (issue #582) : les 23 modèles du plugin n'avaient
+  qu'une traduction par défaut, en français, reçue par tous les destinataires. Ils ont maintenant
+  une traduction par défaut en anglais, comme les modèles de GLPI, et une traduction en français
+  (fr_FR, fr_BE, fr_CA), italien, allemand, espagnol, polonais et portugais du Brésil : chaque
+  destinataire reçoit le modèle de sa langue. À la mise à jour, une traduction française d'origine
+  est remplacée par l'anglais et les langues manquantes sont ajoutées ; une traduction modifiée par
+  l'administrateur n'est jamais changée (et aucune traduction française n'est ajoutée par-dessus un
+  texte par défaut modifié). Les noms des modèles, qui n'existent qu'en une langue dans GLPI,
+  suivent la langue par défaut de l'instance ; un nom modifié est conservé.
+- **Langue des référentiels** (issue #582) : chaque texte s'affiche dans la langue de
+  l'utilisateur si le référentiel l'a, sinon en anglais, sinon en français (avant : français pour
+  une langue fr_*, anglais sinon). Un utilisateur italien lit NIS2 en italien et les autres
+  référentiels en anglais.
+- Les messages des tâches automatiques dans le journal des actions automatiques (rappels, revues,
+  CVE rafraîchies, score de maturité) sont traduits au lieu d'être écrits en français.
+
+### Fixed
+
+- L'en-tête « Intitulé » de la table de l'Annexe A (page Référentiels et rapport PDF de la SoA)
+  restait en français dans toutes les langues (issue #582).
+
+## [2.40.0] - 2026-11-08
+
+### Added
+
+- **AI Act** (règlement (UE) 2024/1689, issue #379) : référentiel optionnel, désactivé par défaut,
+  établi sur la version consolidée du 27/07/2026 qui intègre le règlement (UE) 2026/1744 (omnibus
+  numérique : article 4 assoupli, obligations des systèmes à haut risque de l'annexe III reportées
+  au 2/12/2027, nouvelles interdictions au 2/12/2026). Seize articles regroupés par rôle (toute
+  organisation, déployeurs, fournisseurs), intitulé officiel, obligation résumée et date
+  d'application ; carte Référentiels avec la source EUR-Lex, badges « AI Act Art. n » sur les
+  mesures, taux dans les tableaux de bord et l'évaluation par référentiel.
+- **HDS v2.0** (Hébergeur de données de santé, issue #379) : référentiel optionnel, désactivé par
+  défaut. Les 31 exigences du référentiel de certification de l'ANS (arrêté du 26/04/2024) par
+  chapitre (SMSI, contrat avec le client, souveraineté des données), résumées par ce projet et
+  reliées à l'Annexe A ISO 27001 ; le projet de v2.1 (exigence 23 détaillée en 23-1 à 23-3) est
+  signalé. Carte Référentiels, badges « HDS EXI n » sur les mesures, taux dans les tableaux de bord
+  et l'évaluation par référentiel.
+- **Mon espace GRC** (issue #539) : une page personnelle, en lecture seule, avec tout ce qui attend
+  l'utilisateur connecté, triée par échéance, les retards surlignés en rouge et un lien vers chaque
+  élément : risques à revoir et actions de traitement, tests d'efficacité des mesures, preuves à
+  renouveler, non-conformités, revues périodiques, lignes de revue des accès à décider, politiques à
+  revoir, formations à suivre ou à renouveler, risques fournisseurs et obligations à revoir,
+  versions de la SoA à approuver, demandes RGPD, audits, objectifs et événements du calendrier. Les
+  tâches ouvertes sont toujours listées, les échéances périodiques 30 jours avant leur date. Entrée
+  du menu avec le nombre d'éléments en attente, et deux cartes de tableau de bord. Chaque source
+  respecte les droits de l'utilisateur (registres sensibles compris) ; une session suffit pour les
+  revues d'accès, les formations et les approbations de la SoA, comme leurs pages personnelles.
+
+## [2.39.0] - 2026-11-08
+
+### Added
+
+- **Pont Wazuh, alertes sur les risques** (issue #368) : sur la fiche d'un risque, les dix alertes
+  Wazuh les plus récentes (30 jours) des ordinateurs liés au risque, avec leur niveau et la règle
+  déclenchée. Lecture seule, limitée aux ordinateurs visibles de l'utilisateur, section absente
+  sans le plugin Wazuh.
+
+## [2.38.0] - 2026-11-08
+
+### Added
+
+- **Pont Wazuh, vulnérabilités** (issue #368) : dans « Vulnérabilités du parc », une CVE déjà
+  trouvée par la veille des logiciels affiche aussi le nombre d'ordinateurs où les agents Wazuh la
+  voient, et une carte « Détectées par Wazuh seulement » liste les autres (paquets, ordinateurs,
+  score, signaux KEV et EPSS déjà connus), une ligne par CVE. Lecture seule, carte absente sans le
+  plugin Wazuh.
+
+## [2.37.0] - 2026-11-08
+
+### Added
+
+- **Pont optionnel avec le plugin Wazuh, premier lot** (issue #368) : sur les mesures A.8.16
+  (surveillance) et A.8.7 (protection contre les logiciels malveillants), nombre d'agents Wazuh
+  actifs et part des ordinateurs couverts par un agent actif, lus en direct. Nouvelle carte de
+  tableau de bord « Ordinateurs couverts par Wazuh (%) », proposée seulement quand le plugin Wazuh
+  est actif. Lecture seule, tolérante aux variations de schéma du plugin (bêta) : si une table ou
+  une colonne manque, rien n'est affiché.
+
+## [2.36.0] - 2026-11-08
+
+### Added
+
+- **Évaluation par référentiel** (issue #379), dans Tableau de bord : pour chaque référentiel
+  activé, nombre de mesures applicables, taux de mise en œuvre, taux de preuve (au moins un
+  document non expiré rattaché à la mesure) et score des mesures à la fois mises en œuvre et
+  prouvées. Les écarts de chaque référentiel mènent à la mesure à compléter. Lecture seule.
+
+## [2.35.0] - 2026-11-08
+
+### Added
+
+- **SOC 2 (Trust Services Criteria 2017)** (issue #379) : référentiel optionnel, désactivé par
+  défaut. Critères communs CC1 à CC9 et critères complémentaires (A1, C1, PI1, vie privée P1 à P8)
+  résumés par le projet sans le texte de l'AICPA. Carte dans Référentiels avec liens vers les
+  modules qui produisent les preuves, badges « SOC 2 » sur les mesures et taux dans les tableaux de
+  bord.
+
+## [2.34.0] - 2026-11-08
+
+### Added
+
+- **Cartes de paiement PCI DSS v4.0.1** (issue #379) : référentiel optionnel, désactivé par défaut.
+  Les douze exigences principales résumées par le projet sans le texte du standard et rassemblées
+  en six objectifs. Carte dans Référentiels avec liens vers les modules qui y répondent (flux
+  réseau, hygiène des comptes, vulnérabilités, revues des accès, politiques, formations,
+  fournisseurs, risques, incidents), badges « PCI DSS » sur les mesures et taux dans les tableaux
+  de bord.
+
+### Changed
+
+- ISO 22301 : l'analyse d'impact (8.2), le contexte (4.1) et l'amélioration (10.1) renvoient aussi
+  vers l'analyse d'impact d'une panne (points de défaillance uniques), les processus métier et les
+  non-conformités.
+
+## [2.33.0] - 2026-11-07
+
+### Added
+
+- **Management de l'IA ISO/IEC 42001:2023** (issue #379) : référentiel optionnel, désactivé par
+  défaut. Les neuf groupes de mesures de l'Annexe A (A.2 à A.10), résumés par le projet sans le
+  texte de la norme et rassemblés en trois thèmes. Carte dans Référentiels avec liens vers les
+  modules qui y répondent (catalogue des risques types d'IA, AIPD, registre, incidents,
+  fournisseurs), badges « ISO 42001 » sur les mesures et taux de conformité dans les tableaux de
+  bord.
+
+### Changed
+
+- Les cartes ISO 27701, ISO 22301 et ISO 42001 de la page Référentiels partagent un même gabarit
+  Twig et un même constructeur.
+
+## [2.32.0] - 2026-11-07
+
+### Added
+
+- **Continuité d'activité ISO 22301:2019** (issue #379) : référentiel optionnel, désactivé par
+  défaut. Quinze exigences principales des articles 4 à 10 résumées par le projet, sans le texte de
+  la norme. Carte dans Référentiels avec liens vers les modules qui y répondent (risques, exercices
+  de crise, incidents, fournisseurs, audits, revue de direction), badges « ISO 22301 » sur les
+  mesures et taux de conformité dans les tableaux de bord.
+
+## [2.31.0] - 2026-11-07
+
+### Added
+
+- **Vie privée ISO/IEC 27701:2025** (issue #379) : référentiel optionnel, désactivé par défaut.
+  Objectifs de l'Annexe A par rôle (A.1 responsable de traitement, A.2 sous-traitant, A.3 sécurité
+  commune) résumés par le projet, sans le texte de la norme. Carte dans Référentiels avec liens vers
+  les modules RGPD qui y répondent (registre, AIPD, demandes des personnes, incidents, fournisseurs),
+  badges « ISO 27701 » sur les mesures et taux de conformité dans les tableaux de bord.
+
+### Fixed
+
+- Référentiel DORA : la documentation annonçait les articles 5 à 30, le catalogue va jusqu'à
+  l'article 45 (partage d'informations).
+
+## [2.30.0] - 2026-11-06
+
+### Added
+
+- **Référentiel DORA** (règlement (UE) 2022/2554, issue #379) : optionnel, désactivé par défaut (y
+  compris sur les installations existantes) et activable dans la configuration des référentiels.
+  Exigences de 19 articles clés (5 à 45) résumées par le projet et reliées à l'Annexe A, carte dans
+  Référentiels avec la source EUR-Lex, badges « DORA » sur les mesures concernées et taux de
+  conformité DORA dans les tableaux de bord.
+
+## [2.29.0] - 2026-11-06
+
+### Added
+
+- **Nouvelles sources des indicateurs de risque (KRI)** (issue #378) : vulnérabilités exploitées du parc
+  (CISA KEV), actions correctives en retard, tests d'efficacité des mesures en retard et revues
+  périodiques en retard. Chacune demande le droit de lecture du registre mesuré ; la mesure reprend le
+  calcul déjà affiché sur l'écran correspondant.
+
+## [2.28.0] - 2026-11-06
+
+### Added
+
+- **Risque résiduel** (issue #378) : probabilité et impact après traitement sur chaque risque, niveau
+  résiduel calculé avec la même matrice. Une fois évalué, c'est le risque résiduel qui est comparé à
+  l'appétence et à la tolérance (fiche, page Appétence, indicateur « risques au-delà de la tolérance »,
+  signature de la direction) ; sinon le risque initial, comme avant. La fiche indique lequel est retenu.
+  Colonnes de recherche « Probabilité / Impact / Niveau de risque résiduel ».
+
+## [2.27.0] - 2026-11-06
+
+### Added
+
+- **Acceptation des risques par la direction** (issue #378) : un groupe « Direction » se choisit sur la
+  page Appétence au risque. Au-delà de la tolérance d'une catégorie, seul un de ses membres peut
+  accepter un risque ; les autres doivent choisir un traitement. Les acceptations et les appétences
+  approuvées par un membre de la direction portent la mention « Direction ». Un risque réévalué au-delà
+  de la tolérance après une acceptation hors direction est signalé « à faire signer par la direction ».
+  Sans groupe Direction, rien ne change.
+
+## [2.26.0] - 2026-11-06
+
+### Added
+
+- **Rapport des vulnérabilités du parc par e-mail** (issue #485), à fréquence réglable (tous les jours,
+  toutes les semaines, tous les mois ; désactivé par défaut) : vulnérabilités exploitées (CISA KEV),
+  probablement exploitées (EPSS), critiques et élevées, machines exposées, nouveautés depuis le
+  rapport précédent. L'objet donne l'urgence d'un coup d'œil, par exemple « [URGENT] 2
+  vulnérabilités exploitées activement, 14 machines exposées ». Envoyé au groupe RSSI, seulement aux
+  destinataires qui peuvent lire les vulnérabilités de tout le parc. Bouton « Envoyer le rapport
+  maintenant » dans la configuration.
+
+### Fixed
+
+- **GLPI 12** : un refus d'accès sur le lien entre une fiche du registre des traitements et un incident
+  donnait une erreur 500 ; il répond de nouveau 403.
+
+## [2.25.0] - 2026-11-06
+
+### Added
+
+- **Tests d'efficacité des contrôles, troisième étape** (issue #380) :
+  - **preuve envoyée depuis le formulaire du test** : le fichier devient un document du contrôle,
+    avec les droits de l'onglet Documents (modifier le contrôle et créer un document) et dans
+    l'entité active. Les types et la taille maximale sont ceux de GLPI, et le type réel du contenu
+    doit correspondre à l'extension (un faux PDF, une page web ou un script sont refusés). Le
+    document n'est lisible que par qui lit le contrôle, et il est retiré à la désinstallation ;
+  - **carte « Tests d'efficacité en retard »** pour les tableaux de bord (et la vue ISMS), visible
+    seulement avec le droit de lire les contrôles ;
+  - **tests alimentés par les contrôles techniques automatiques** (#162) : l'onglet des tests
+    d'A.8.7, A.8.24, A.5.9, A.8.32 et A.5.18 affiche le résultat actuel du contrôle technique
+    correspondant et l'enregistre comme test technique en un clic, recalculé à l'enregistrement
+    (aucun écart : efficace ; au moins 80 % de conformité : partiellement efficace ; sinon
+    inefficace, ce qui ouvre une non-conformité). Toutes les entités doivent être sélectionnées.
+- **Processus métier : rappels, indicateurs et carte des dépendances** (issue #377, quatrième et
+  dernière étape) :
+  - rappel d'une BIA à revoir (date de la dernière BIA plus la fréquence de la revue périodique
+    « Revue de l'analyse d'impact sur l'activité », annuelle par défaut) et du prochain test de
+    reprise (date du dernier test plus la fréquence de la revue « Test du plan de continuité et de
+    reprise », annuelle par défaut) : tâche planifiée quotidienne
+    `businessprocessreminder`, deux notifications modifiables (« GRC Manager - Analyse d'impact
+    (BIA) à revoir », « GRC Manager - Test de reprise à refaire »), un rappel quand l'échéance
+    approche (30 jours) puis un quand elle est dépassée, une seule fois par échéance. Destinataires :
+    le responsable du processus et le groupe RSSI, seulement s'ils ont le droit de la continuité
+    dans l'entité du processus. Même mécanisme et même charte que le rappel des tests d'efficacité ;
+  - deux cartes du tableau de bord, ajoutées à la vue d'ensemble ISMS : processus sans BIA ou à BIA
+    échue, processus dont le dernier test de reprise dépasse le RTO. Elles ne comptent que les
+    processus des entités de la personne et restent vides sans le droit de la continuité ;
+  - onglet « Carte des dépendances » du processus : graphe des processus amont et aval et des
+    éléments dont il dépend (directement ou par l'analyse d'impact de GLPI), avec ceux qui ne
+    tiennent pas ses objectifs. Un processus ou un élément illisible n'y figure pas : il est
+    seulement compté.
+  - Mise à jour : deux colonnes ajoutées aux processus ; les échéances déjà proches ou dépassées
+    sont tenues pour rappelées, sans rafale de messages. Notifications, tâche et colonnes retirées à
+    la désinstallation.
+- **Score de conformité CIS Controls v8** (issue #143) : la carte « Mesures mises en œuvre par
+  référentiel » affiche le taux de mise en œuvre des mesures applicables de l'Annexe A liées à un
+  contrôle CIS, calculé comme ceux de NIS2 et de l'ANSSI. La correspondance entre les 18 contrôles
+  CIS et l'Annexe A est indicative, établie par ce projet (la correspondance publiée par le CIS ne
+  peut pas être embarquée) ; elle est affichée sur la fiche de chaque mesure et dans la carte CIS
+  de la page Référentiels. Rien n'apparaît quand le référentiel CIS est désactivé.
+- **Processus métier : objectifs de reprise des applications, bases et fournisseurs, stratégie de
+  reprise et lien avec les exercices de crise** (issue #377, troisième étape) :
+  - l'onglet « Classification C/I/D » (disponibilité, RTO, RPO) existe désormais aussi sur les
+    applications, les instances de bases de données et les fournisseurs. L'onglet « Dépendances »
+    d'un processus les contrôle comme les actifs : élément plus lent que le processus, qui peut
+    perdre plus de données, ou sans RTO. Une classification disparaît avec l'élément supprimé
+    définitivement ;
+  - onglet « Stratégie de reprise » du processus : mode dégradé, solution de secours, procédure de
+    reprise, et tests de reprise (date, temps mesuré, exercice de crise éventuel). Le dernier temps
+    mesuré est comparé au RTO : un écart est signalé dans la BIA, l'onglet et le plan de
+    continuité. Une stratégie non décrite ou jamais testée est signalée dans l'onglet ;
+  - salle de crise : section « Processus métier testés », pour enregistrer le temps de reprise
+    mesuré d'un processus pendant l'exercice (ou la cellule de crise) et voir l'écart avec son RTO ;
+  - plan de continuité en PDF : stratégie de reprise, dernier test et historique des tests, colonne
+    « Dernier test de reprise » dans la synthèse ; export CSV : temps mesuré au dernier test.
+  - Droits : la classification garde le droit général du SMSI, et son onglet revérifie aussi la
+    lecture de l'élément (droit et entité). Enregistrer un test exige de pouvoir modifier le
+    processus (droit de la continuité et entité) ; le rattacher à un exercice exige de pouvoir lire
+    l'incident de l'exercice. Un processus ou un exercice illisible n'est jamais nommé.
+  - Mise à jour : trois colonnes ajoutées aux processus et une table pour les tests, données
+    existantes conservées ; retirées à la désinstallation.
+- **Indicateurs de risque (KRI) : alerte, courbe et carte de tendance** (issue #378, deuxième
+  étape) :
+  - notifications modifiables « GRC Manager - Indicateur de risque en alerte » et « ... revenu au
+    vert », au responsable du KRI et au groupe RSSI (celui de Configuration GLPI Auto s'il est
+    installé), une seule fois par changement d'état, que le relevé soit manuel ou fait par la
+    tâche planifiée. Réglage Configuration > « Alertes des indicateurs de risque (KRI) » : au
+    rouge (défaut) ou dès l'orange. À la mise à jour, un KRI déjà au rouge ne prévient pas ;
+  - un destinataire ne reçoit rien s'il ne peut pas lire le KRI et, pour une source automatique,
+    les données mesurées dans l'entité et toutes ses sous-entités ;
+  - couleur des e-mails reprise de la charte de Configuration GLPI Auto, comme pour le rappel des
+    tests d'efficacité (mécanisme commun, `NotificationSupport`) ;
+  - courbe de tendance sur la fiche du KRI (180 derniers relevés, seuils orange et rouge) ;
+  - carte « Indicateurs de risque (KRI) au rouge et à l'orange par mois » sur douze mois, ajoutée
+    aux tableaux de bord « Direction » et « Vue d'ensemble ISMS ».
+- **Processus métier : dépendances entre processus, risques liés et plan de continuité en PDF**
+  (issue #377, deuxième étape) :
+  - onglet « Processus liés » : processus dont dépend un processus (la paie a besoin de la gestion
+    des temps), directement ou non, avec un signalement de ceux qui reprennent plus lentement
+    (RTO), peuvent perdre plus de données (RPO) ou n'ont pas de RTO ; processus qui en dépendent et
+    objectifs qu'ils lui imposent (le plus court RTO et le plus court RPO). Un lien qui fermerait
+    une boucle est refusé ;
+  - onglet « Risques » du processus et onglet « Processus métier » du risque : lien avec le
+    registre des risques. Depuis l'onglet « Dépendances », un actif qui ne tient pas les objectifs
+    du processus peut donner lieu à un risque proposé, lié à l'actif et au processus, à apprécier
+    dans le registre ;
+  - plan de continuité (PCA / PRA) en PDF, pour tous les processus lisibles (liste) ou pour un
+    seul (onglet « Analyse d'impact ») : synthèse, objectifs, grille de la BIA, contrôles de
+    cohérence, éléments et processus dont il dépend, risques liés. Chaque export est tracé
+    (journal d'audit, Administration > Journaux).
+  - Droits : celui de la continuité, avec l'entité du processus ; les risques ne sont montrés,
+    liés ou proposés qu'avec le droit des registres sensibles (et celui de créer un risque). Un
+    processus ou un élément que la personne ne peut pas lire n'est jamais nommé, ni à l'écran ni
+    dans le PDF : il est seulement compté.
+  - Mise à jour : deux tables ajoutées, aucune donnée existante modifiée ; retirées à la
+    désinstallation.
+- **Traitements concernés par un incident** (issue #375) : sur la fiche d'un incident de sécurité, un
+  onglet relie les traitements du registre dont les données personnelles sont touchées, pour
+  apprécier la notification RGPD. Il faut pouvoir modifier l'incident et lire la fiche ; une
+  personne qui ne lit pas l'incident ne voit pas l'onglet. Le lien se fait depuis l'incident, jamais
+  dans une liste d'incidents sur la fiche, pour ne pas montrer d'incident cloisonné à un DPO.
+- **Rappel des tests d'efficacité** (issue #380, deuxième étape) : une tâche planifiée quotidienne
+  (`controltestreminder`) prévient le responsable du plan de test d'un test en retard ou à réaliser
+  dans les 30 jours, une fois par échéance, par la notification modifiable « GRC Manager - Test
+  d'efficacité à réaliser ». Le groupe RSSI est prévenu selon un réglage (jamais, tests en retard
+  seulement, ou tous les rappels) ; c'est celui de la configuration du plugin, que Configuration GLPI
+  Auto peut fournir, et la couleur de sa charte des notifications est reprise quand il la publie.
+  Seul un utilisateur qui peut lire la mesure reçoit le rappel.
+- **État « Vérifié » échu** : la même tâche le retire d'une mesure dont le test suivant est en
+  retard (elle redevient « mise en œuvre »), avec une trace dans le journal d'audit. Ce retrait ne
+  marque pas la SoA comme revue.
+- **SoA** : colonnes « Dernier test » et « Prochain test » dans la liste des mesures.
+
+### Changed
+
+- **Export PDF du registre des traitements** : la ligne « Contrôles » (écarts internes, par exemple
+  « Pas de finalité ») n'y figure plus, car ce document peut être remis à l'autorité de contrôle.
+  Elle reste à l'écran et dans l'export CSV.
+
+### Fixed
+
+- **Installation depuis la marketplace de GLPI** (issue #479) : les pages du plugin ne chargent plus
+  `inc/includes.php` par un chemin relatif, qui ne fonctionnait que dans le dossier `plugins/`. Installé
+  dans le dossier `marketplace`, le plugin ne s'ouvrait plus (GLPI 11.0.12). GLPI 11 charge lui-même
+  son environnement avant d'appeler une page de plugin.
+- **Désinstallation** : le journal des analyses d'impact (AIPD) et les préférences des éléments EBIOS
+  sont retirés ; une ligne du journal de l'AIPD restait depuis la 2.23.0. Le contrôle commun des
+  restes crée désormais une AIPD avant de désinstaller, pour détecter une régression.
+
+- **Liens orphelins du registre des traitements** : un élément ou un incident supprimé
+  définitivement n'est plus cité par le registre.
+
+## [2.24.0] - 2026-11-04
+
+### Added
+
+- **Demandes d'exercice des droits (RGPD)** (issue #375), dans la rubrique Conformité : droit exercé,
+  délai de réponse calculé (un mois, trois avec une prolongation justifiée, article 12.3), état de
+  l'échéance, réponse ou refus motivé, preuves en documents joints. Échéances au calendrier de
+  conformité et ticket de suivi à la demande, qui ne reprennent ni l'identité du demandeur ni le titre.
+
+## [2.23.0] - 2026-11-04
+
+### Added
+
+- **Analyse d'impact (AIPD, RGPD article 35)** (issue #375), onglet de chaque fiche du registre des
+  traitements : critères de déclenchement des lignes directrices européennes WP248, nécessité et
+  proportionnalité, trois risques cotés avant et après mesures, avis du DPO, approbation signée puis
+  figée. Un risque résiduel élevé rappelle l'obligation de consulter l'autorité de contrôle (article
+  36). Rapport PDF. Le statut de la fiche et le registre des risques ne changent que sur demande.
+
+### Changed
+
+- **Incidents de sécurité** : la fiche affichait deux champs « Catégorie ». La classification du plugin
+  s'appelle désormais « Type d'incident » ; « Catégorie » reste la catégorie de GLPI, paramétrable par
+  l'administrateur, y compris celles de Configuration GLPI Auto.
+
+## [2.22.0] - 2026-11-04
+
+### Added
+
+- **Études EBIOS Risk Manager** (issue #376, première partie), méthode de l'ANSSI sous licence
+  ouverte, dans la rubrique Risques : atelier 1 (valeurs métier reliées aux processus, événements
+  redoutés et gravité G1 à G4, biens supports choisis parmi les éléments de GLPI) et atelier 2
+  (couples source de risque / objectif visé, pertinence calculée à titre indicatif, décision et
+  justification). Registre sensible : même droit que les risques.
+- **EBIOS Risk Manager, ateliers 3 et 4** : parties prenantes de l'écosystème, éventuellement reliées
+  à un fournisseur de GLPI, avec leur niveau de menace et leur zone (veille, contrôle, danger) ;
+  scénarios stratégiques (source de risque, chemin d'attaque, événement redouté) ; scénarios
+  opérationnels avec leur vraisemblance V1 à V4, leur niveau de risque et une grille gravité x
+  vraisemblance.
+- **EBIOS Risk Manager, atelier 5 et rapport** : décision de traitement de chaque scénario, du risque
+  le plus fort au plus faible, et ajout au registre des risques, à la demande et une seule fois. Le
+  risque créé n'est jamais modifié depuis l'étude : un écart éventuel est simplement signalé. Le
+  niveau de risque des scénarios suit la matrice administrable du registre. Rapport PDF de l'étude,
+  complet ou par atelier, avec la mention de la méthode de l'ANSSI.
+
+### Fixed
+
+- **EBIOS Risk Manager** : un événement redouté ou un bien support ne peut plus être rattaché à une
+  valeur métier d'une autre étude.
+
+## [2.21.1] - 2026-11-04
+
+### Fixed
+
+- **KRI** : avec les règles de SLA de Configuration GLPI Auto, le ticket d'un indicateur au rouge
+  partait au groupe de la règle et plus au groupe RSSI. Le groupe RSSI reste désormais assigné, en
+  plus de celui de la règle.
+- **GLPI 12** : un accès refusé ou un élément introuvable donnait une erreur 500 sur plusieurs pages
+  (IOC, techniques, journal des actions, remédiation, exercices de crise, tests de contrôles...),
+  car GLPI 12 a retiré les fonctions utilisées. Ces pages répondent de nouveau 403 ou 404.
+- **Export du registre des traitements** : « Oui - pays » au lieu de « Oui pays » pour les transferts
+  hors UE.
+- **Traductions** : « riesame » harmonisé en italien (terme des normes ISO), « w strefie czerwonej »
+  pour un indicateur au rouge en polonais.
+- **Journal d'audit** : les filtres sont conservés après « Vérifier l'intégrité ».
+- **Traductions** : entrée polonaise refusée par `msgfmt -c` (un « % » littéral marqué comme format).
+
+## [2.21.0] - 2026-11-04
+
+### Added
+
+- **Contact du DPO** (issue #375) : réglage dans la configuration du plugin, repris sur l'export PDF
+  du registre des traitements (article 30).
+
+- **Tableau de bord des incidents de sécurité** (issues #143 et #372) : nouvelle vue sur la page
+  Tableau de bord (et tableau de bord natif « GRC Manager - Incidents de sécurité »), proposée à
+  qui peut lire les incidents :
+  - incidents critiques en cours, tendance sur 12 mois (déclarés et résolus), répartition par
+    catégorie d'incident, liste des notifications NIS2 / RGPD à suivre (la plus urgente d'abord) ;
+  - les répartitions par statut, sévérité, catégorie, entité et catégorie GLPI mènent à la
+    recherche, qui applique elle-même ses droits et retrouve le nombre affiché. La sévérité et la
+    catégorie acceptent le critère « est » dans la recherche.
+
+- **Registre des activités de traitement RGPD** (issue #375, première étape, article 30) : menu
+  Conformité > Registre des traitements.
+  - une fiche par traitement : finalité, base légale, catégories de personnes et de données,
+    données sensibles, destinataires, transferts hors UE (pays, garanties), durées de conservation,
+    mesures de sécurité, rôle de l'organisme (responsable, responsable conjoint, sous-traitant) ;
+  - liens vers les applications, logiciels, bases de données, fournisseurs et actifs GLPI, et vers
+    les mesures de la SoA ; onglet « Registre des traitements » sur ces éléments ;
+  - écarts calculés (base légale, conservation, transfert sans garantie, données sensibles sans
+    décision d'AIPD, revue de plus d'un an...), sans rien modifier ;
+  - export PDF pour l'autorité de contrôle et export CSV, tracés dans les journaux ;
+  - revue périodique annuelle « registre des traitements » (ticket récurrent natif) ;
+  - droit dédié « Protection des données personnelles » dans l'onglet GRC Manager des profils, au
+    seul Super-Admin à l'installation ; fiches rattachées à une entité ; un élément lié n'est nommé,
+    ajouté ou retiré que par qui peut le lire ; modifications dans le journal d'audit ; cellules du
+    CSV protégées contre l'injection de formules.
+  - restent à venir : AIPD (article 35), demandes d'exercice des droits, contact du DPO sur l'export.
+
+- **Appétence et tolérance au risque, indicateurs de risque (KRI)** (issue #378, première étape) :
+  - écran **« Appétence et tolérance au risque »** (rubrique Risques) : par catégorie de risque, le
+    niveau accepté sans action, le niveau au-delà duquel le risque n'est plus supportable, l'énoncé
+    validé et son approbateur ; les risques ouverts qui dépassent sont listés, hors tolérance en
+    tête. Rien ne change tant qu'une catégorie n'a pas d'appétence ;
+  - sur la fiche du risque, sa position par rapport à l'appétence et ses KRI. Accepter un risque
+    au-dessus de l'appétence devient une acceptation formelle : justification obligatoire, personne
+    et date conservées (recherche et journal d'audit) ;
+  - écran **« Indicateurs de risque (KRI) »** : seuils orange et rouge, sens de l'indicateur, entité,
+    historique des valeurs et tendance. Valeur saisie à la main ou relevée chaque jour par une tâche
+    planifiée (ordinateurs avec un disque non chiffré, sans antivirus à jour, vulnérabilités critiques
+    du parc, risques hors tolérance, actions de traitement en retard) ;
+  - un KRI au rouge propose un ticket, attribué au groupe RSSI et rangé dans la catégorie « Sécurité
+    SI » de Configuration GLPI Auto si elle accepte les demandes ;
+  - revue périodique **« Revue des indicateurs de risque (KRI) »**, trimestrielle par défaut ;
+  - quatre cartes pour les tableaux de bord « Vue d'ensemble ISMS » et « Direction ».
+  - Droits : ceux des registres sensibles, entité vérifiée pour chaque KRI. La valeur d'une source
+    automatique n'est visible que de qui lit les données mesurées et accède à l'entité et à toutes
+    ses sous-entités, y compris dans les listes et les cartes.
+
+- **Processus métier et analyse d'impact sur l'activité (BIA)** (issue #377, première étape) :
+  nouvel écran Opérations > Processus métier (ISO 22301 8.2.2, ISO 27001 A.5.29 et A.5.30) :
+  - registre des processus par entité : responsable, service, criticité (l'intitulé « Criticité
+    métier » du cœur de GLPI, celui des informations financières des actifs), durée maximale
+    d'interruption admissible (DMIA), RTO, RPO, date de la dernière BIA ;
+  - onglet « Analyse d'impact (BIA) » : impact financier, juridique, d'image et opérationnel
+    d'une interruption à 4 h, 1 jour, 3 jours, 1 semaine et 1 mois, de négligeable à critique ;
+    contrôles de cohérence (RTO au-delà de la DMIA, DMIA au-delà de la première durée jugée
+    grave, impact qui baisse avec le temps…) ;
+  - onglet « Dépendances » : applications et instances de bases de données du cœur, actifs,
+    logiciels, fournisseurs dont dépend le processus, complétés par ce dont ils dépendent selon
+    l'analyse d'impact native de GLPI ; un élément dont le RTO (classification C/I/D) est plus
+    long que celui du processus, ou non défini, est signalé ;
+  - onglet « Processus métier » sur ces éléments GLPI ;
+  - export CSV pour le PCA / PRA, tracé dans le journal d'audit ;
+  - revue périodique « Revue de l'analyse d'impact sur l'activité » (annuelle) ajoutée au
+    catalogue des revues ;
+  - nouveau droit « Continuité d'activité » dans l'onglet GRC Manager des profils, initialisé à
+    la mise à jour avec la valeur du droit des registres sensibles de chaque profil.
+
+- **Onglet « Incidents de sécurité » sur les éléments liés** (issue #372) : ordinateurs, matériels
+  réseau, logiciels, utilisateurs, fournisseurs, problèmes et changements (le ticket garde son
+  onglet « Incident de sécurité » et sa qualification) :
+  - liste des incidents liés à l'élément (référence, date, statut, sévérité) : par ses éléments,
+    et pour un utilisateur ou un fournisseur aussi comme acteur ;
+  - seuls les incidents que l'utilisateur peut lire (entité, cloisonnement de l'équipe
+    d'intervention) sont listés et comptés, sur cet onglet comme sur celui du ticket : le
+    compteur ne trahit plus un incident invisible ;
+  - bouton « Déclarer un incident », pour qui peut créer un incident et lire l'élément : l'incident
+    est créé dans l'entité de l'élément (sinon dans l'entité active), lié à l'élément, puis ouvert
+    pour être complété. Depuis un problème ou un changement, il en reprend le titre, la
+    description, la catégorie et les éléments, comme la qualification d'un ticket ; un
+    utilisateur est lié comme élément, jamais comme acteur (ce qui lui ouvrirait l'incident) ;
+  - sur l'incident, un onglet « Autres éléments liés » montre les utilisateurs, fournisseurs,
+    problèmes et changements liés, que l'onglet « Éléments » de GLPI n'affiche pas.
+
+- **Tests d'efficacité des contrôles** (issue #380, première étape) : un contrôle de l'Annexe A
+  « mis en œuvre » se prouve désormais par des tests.
+  - onglet **« Tests d'efficacité »** sur la fiche du contrôle : plan de test (fréquence, méthode,
+    responsable) et registre des tests (date, méthode : inspection documentaire, échantillonnage,
+    test technique ou entretien ; résultat : efficace, partiellement efficace, inefficace ;
+    testeur, constat, preuve, prochaine échéance) ;
+  - la prochaine échéance est celle saisie avec le test, sinon la date du test plus la fréquence
+    du plan ; elle apparaît dans le **calendrier de conformité** et le planning du responsable ;
+  - un test **inefficace ouvre une non-conformité** (majeure, à traiter dans le registre CAPA) ;
+  - l'état « Vérifié » de la SoA suit le dernier test : un test efficace fait passer un contrôle
+    mis en œuvre à « Vérifié », un test partiel ou inefficace lui retire cet état ;
+  - nouvelle sous-page **Conformité > Tests d'efficacité** : registre de tous les tests, avec en
+    tête les tests en retard ou à réaliser dans les 30 jours.
+
+  Sécurité : mêmes droits que le contrôle (lecture pour voir les tests, modification pour le plan
+  et l'enregistrement, suppression en plus pour retirer un test). La preuve est un document joint
+  au contrôle et lisible par l'utilisateur (entité du document), jamais un document quelconque
+  désigné par son identifiant ; sans le droit de créer une non-conformité, le test est enregistré
+  sans en ouvrir. Un test enregistré ne se modifie pas. Création et suppression tracées dans le
+  journal d'audit. Désinstallation : table supprimée, réglages de liste et recherches nettoyés.
+
+- **Incidents de sécurité rangés dans les catégories de Configuration GLPI Auto** (issue #372) :
+  si ce plugin est actif, ses catégories de tickets « Sécurité SI » sont réutilisées, repérées par
+  identifiant (jamais par nom), au lieu d'en créer d'autres :
+  - le ticket ouvert depuis un incident (« Créer un ticket lié ») prend la catégorie de l'incident,
+    sinon la sous-catégorie qui correspond à sa classification (malware : « Malware / Ransomware »,
+    accès non autorisé : « Compte compromis / Accès non autorisé », fuite : « Fuite de données »,
+    sinon la branche) ;
+  - un ticket qualifié en incident lui transmet sa catégorie, et sa classification quand la
+    sous-catégorie est sans ambiguïté (« Malware / Ransomware », « Antivirus & Endpoint »,
+    « Compte compromis / Accès non autorisé », « Fuite de données »). Avec une version de
+    Configuration GLPI Auto antérieure à la scission de « Compte compromis / Fuite de données »,
+    cette catégorie reste ambiguë et la classification est laissée à choisir ;
+  - une catégorie n'est utilisée que si elle est visible dans l'entité du ticket ; sinon, repli sur
+    la branche, puis aucune catégorie.
+
+  Sans Configuration GLPI Auto, rien ne change et GRC Manager ne crée aucune catégorie.
+
+- **Fiche de l'incident de sécurité** (issue #372, fin) :
+  - en-tête de pastilles complété par des compteurs (journal des actions, IOC, éléments liés,
+    tickets liés), chacun menant à son onglet ;
+  - bandeaux d'échéance NIS2 / RGPD triés du plus urgent au moins urgent (bleu, orange quand
+    moins d'un quart du délai reste, rouge une fois dépassé), avec un lien vers la section
+    « Notifications réglementaires » où se saisit la date de notification ;
+  - section de classification découpée en bandeaux (icône et titre) : Qualification, Impact C/I/D,
+    Retour d'expérience ;
+  - bouton **« Créer un ticket lié »** dans l'onglet « Tickets liés » : ticket créé dans l'entité
+    de l'incident et relié à lui, tracé dans le journal d'audit.
+
+  Sécurité : le bouton exige le droit de créer un ticket dans l'entité de l'incident et celui de
+  modifier l'incident. Le ticket ne reprend que la référence et le titre de l'incident, jamais sa
+  description : un ticket est lu bien plus largement qu'un incident de sécurité.
+- **Import pfSense : redirections NAT et tunnels IPsec** (issue #144, étape 4) :
+  - une règle de filtrage créée par une redirection de ports sur l'interface côté Internet est une
+    publication sur Internet, même quand sa source est restreinte à quelques adresses ;
+  - une redirection « Pass » (sans règle de filtrage) donne son propre flux, vers sa cible et son
+    port interne ; les redirections désactivées sont ignorées ;
+  - chaque phase 2 IPsec active (mode tunnel, phase 1 active) donne un flux inter-sites du réseau
+    local vers le réseau distant, à passer en « tunnel vers un partenaire » si besoin : le contrôle
+    de chevauchement avec les réseaux internes s'applique alors ;
+  - un réseau distant qui chevauche un réseau du pare-feu est signalé dès l'import ;
+  - les règles de l'interface IPsec (enc0) sont des flux inter-sites, plus des accès à Internet.
+
+  Sécurité : de la section IPsec, seuls les réseaux, le mode et la description des phases 2 sont
+  lus, et seuls l'identifiant et l'état des phases 1 (jamais la clé ni les certificats). Un test
+  vérifie qu'aucune clé n'apparaît dans les flux importés.
+
+- **Import Stormshield : côté Internet situé sans l'export des objets** (issue #144) :
+  - chaque côté d'une règle est situé d'après les objets prédéfinis (`Internet`,
+    `Network_internals`, `Network_<interface>`, `Firewall_<interface>`), l'interface de la règle,
+    un filtrage par pays ou par réputation (réservé aux adresses publiques) et une adresse IPv4
+    écrite dans le nom de l'objet ;
+  - l'interface côté Internet se choisit à l'import ; par défaut, celle des publications, sinon
+    `out` ;
+  - une règle qui entre par cette interface est une publication, une règle vers Internet un accès
+    sortant ; une règle entre deux interfaces internes n'est plus prise pour un accès à Internet ;
+  - une règle dont un objet n'a pas pu être situé est importée comme flux interne et listée, à
+    vérifier, au lieu d'être classée en silence. Les noms des objets propres à la configuration ne
+    sont jamais interprétés.
+
+- **Référentiels de conformité activables un par un** (issue #403) : dans Configuration > Plugins >
+  GRC Manager, une case par référentiel (ISO/IEC 27001, NIS2, ANSSI, NIST CSF 2.0, CIS Controls v8,
+  ISO/IEC 27090). Un référentiel décoché n'est plus affiché ni compté :
+  - page « Référentiels » : sa carte disparaît (la colonne NIST du tableau de l'Annexe A aussi) ;
+    sans aucun référentiel actif, la page quitte le menu et son adresse est refusée ;
+  - fiche d'une mesure : plus de correspondances NIS2, ANSSI ou NIST ;
+  - carte « Mesures mises en œuvre par référentiel » et scores des contrôles techniques
+    automatiques (ISO 27001, NIS2 ; le RGPD reste) ;
+  - ISO 27001 : exigences du SMSI (articles 4 à 10) retirées du menu et refusées par leur adresse,
+    composante écartée du score de maturité ; la liste des mesures (SoA) reste, les autres
+    référentiels s'appuient dessus ;
+  - ISO/IEC 27090 : plus de badges ni de sections citées dans le catalogue de risques types.
+
+  Tout reste actif par défaut, y compris après mise à jour. Désactiver ne supprime rien : les
+  données reviennent à la réactivation. Les délais de notification NIS2 et RGPD des incidents de
+  sécurité ne dépendent pas de ce réglage (obligation légale).
+
+  Sécurité : réglage réservé au droit de modification de la configuration du plugin, formulaire
+  protégé par le jeton CSRF, valeurs limitées à la liste connue, changement tracé dans le journal
+  d'audit.
+
+### Fixed
+
+- **La recherche des incidents suit la règle d'ouverture** (issue #143) : un simple rédacteur ne voit
+  plus de ligne pour un incident qu'il ne peut pas ouvrir, et le groupe sécurité s'applique aussi à
+  la recherche.
+- **Menu** (issue #375) : si une rubrique n'est pas visible, sa première sous-page autorisée prend sa
+  place. Un droit propre à une sous-page (RGPD pour un DPO, continuité) suffit à la trouver, sans
+  donner le droit général. Chaque sous-page garde ses propres droits.
+- **Cartes de tableau de bord** (issue #143) :
+  - les cartes des incidents comptent seulement les incidents que l'utilisateur peut ouvrir : sans
+    « Voir tout », ceux où il est acteur ou membre de l'équipe d'intervention. Les cartes total, par
+    entité et par catégorie GLPI ne vérifiaient aucun droit du plugin ; elles les vérifient ;
+  - la carte des revues périodiques en retard respecte les entités actives ;
+  - une carte n'est plus proposée à qui n'a pas le droit de la voir, ni quand son module ou tous ses
+    référentiels sont désactivés ; sur la page Tableau de bord du plugin, elle disparaît ;
+  - le lien de la carte « Ouverts » menait à une recherche vide ;
+  - sur la page Tableau de bord du plugin, les cartes ne se superposent plus, ni au-delà de la
+    24e rangée, ni à la largeur d'un téléphone ;
+  - délais moyens et tactiques MITRE calculés par une seule requête d'agrégat.
+
+## [2.20.0] - 2026-11-03
+
+### Added
+
+- **Import Stormshield dans la matrice des flux** (issue #144, phase 3) : l'export CSV de la
+  politique de filtrage (Politique de sécurité > Filtrage - NAT > Exporter) est reconnu
+  automatiquement dans la page d'import. Seules les règles de filtrage actives « passer » sont
+  reprises (séparateurs, NAT et règles désactivées ignorés) ; une publication prend sa cible
+  interne comme destination ; un passage par un tunnel IPsec donne un flux entre sites ; les
+  services courants (http, https, ssh, ntp, smtp…) deviennent des ports ; une règle utilisant un
+  service propre à la configuration est signalée au lieu d'être importée avec de faux ports ;
+  règles identiques fusionnées ; commentaires automatiques (« Created on… ») non repris comme nom.
+
+- **Vue matrice zone × zone de la matrice des flux** (issue #144, phase 3) : lignes = zones
+  sources, colonnes = zones destinations, chaque case compte les flux actifs et prend la couleur
+  du pire écart de ses flux ; un clic liste les flux de la case. Regroupement par site (début du
+  nom de zone) pour la matrice entre sites. Réservée au droit « Registres sensibles », comme le
+  reste de la matrice des flux ; un actif non visible de l'utilisateur ne révèle pas son nom.
+- **Nouveaux contrôles de la matrice des flux** (issue #144, phase 3), d'après une vraie politique
+  de pare-feu :
+  - « Tous les ports ouverts entre zones » : flux interne, inter-sites, partenaire ou de
+    sauvegarde sans port précis (à corriger) ;
+  - « Accès complet à une zone d'administration » : la même chose vers une zone de gestion
+    (MGMT, bastion, iLO, IPMI, hyperviseurs…), bloquant ;
+  - « Règle temporaire toujours active » : nom ou commentaire en « tmp », « provisoire »,
+    « debug », « installation » (à corriger) ;
+  - « Tous les ports ouverts vers Internet » : accès sortant sans port précis, par où tout
+    protocole peut sortir (à corriger).
+  Ils apparaissent dans la liste, la fiche, la synthèse, l'import, la vue matrice et le rapport PDF.
+- **Alertes d'accès** au module des incidents (issue #371) : une tâche automatique quotidienne
+  (« accesswatch ») compare les droits des profils sur les incidents et les utilisateurs qui
+  détiennent ces profils ; chaque écart (droit accordé, étendu, réduit ou retiré, profil attribué
+  ou retiré) est inscrit dans le journal d'audit et signalé au groupe RSSI et à l'administrateur
+  GLPI. La désactivation du module déclenche une alerte immédiate. Rien n'est modifié
+  automatiquement.
+- **Groupe sécurité** optionnel du module des incidents (issue #371), dans la configuration du
+  plugin : s'il est défini, seuls ses membres utilisent le module, quels que soient les droits de
+  leur profil. Un administrateur GLPI n'est jamais bloqué, mais ses consultations hors du groupe
+  sont signalées dans le journal d'audit, comme toute modification des réglages du module.
+- **Équipe d'intervention** des incidents de sécurité (issue #371) : onglet où les pilotes de
+  l'incident (droit « Voir tout », rédacteur, technicien ou groupe assigné) ajoutent des
+  intervenants (agissent sur l'incident) et des observateurs (lecture seule). Avec le droit « Voir
+  (auteur) », un membre voit l'incident ; le retirer lui coupe l'accès. Ajouts, retraits et
+  changements de rôle sont tracés dans le journal d'audit.
+- **Registre des preuves** des incidents de sécurité (issue #371) : onglet « Intégrité et preuves ».
+  Chaque document joint à l'incident y est inscrit avec son empreinte SHA-256 de référence, sa
+  taille, son auteur et sa date (scellement gravé dans le journal d'audit). Un document retiré ou
+  dont le fichier est remplacé reste au registre avec son empreinte d'origine. Bouton « Vérifier
+  maintenant » (fichier modifié ou absent signalé, vérification tracée) et aide pour vérifier une
+  copie hors de GLPI (`sha256sum`, `Get-FileHash`).
+- **Journal d'audit infalsifiable** des incidents de sécurité (issue #371) : consultation, création,
+  modification, corbeille, restauration, suppression, éléments ajoutés ou retirés (IOC, techniques,
+  actions, tâches, documents, suivis...), exports, imports et vérifications sont tracés, avec
+  l'utilisateur, l'utilisateur réel en cas de « Prendre l'identité », le profil et l'adresse IP.
+  Chaque entrée est chaînée à la précédente par SHA-256 ; écran « Journal d'audit » (lien dans
+  l'en-tête des incidents, droit des registres sensibles) avec filtres, bouton « Vérifier
+  l'intégrité » et export CSV tracé. Le journal est conservé à la désinstallation du plugin.
+- **Plan de remédiation en PDF** (issue #370) : tâches par phase avec cases à cocher, comptes
+  rendus, réalisations signées, zones de signature et empreinte SHA-256 du contenu, consignée dans
+  l'historique de l'incident à chaque impression.
+- **Mes tâches de remédiation** (issue #370) : deux cartes de tableau de bord (nombre et liste des
+  tâches ouvertes qui me sont assignées, chacune menant à son incident).
+
+- **Import CSV d'EDR / XDR** (issue #370) : lien « Import EDR / XDR » dans l'en-tête des incidents.
+  Séparateur et encodage détectés, colonnes usuelles reconnues automatiquement (y compris les
+  en-têtes aplatis), aperçu ; un incident par alerte, par hôte, par ligne ou un seul, ou ajout à un
+  incident existant ; fuseau des dates. Crée les IOC et les techniques MITRE ATT&CK, lie les
+  ordinateurs (nom court ou FQDN) et les comptes (DOMAINE\login, login@domaine), préremplit le
+  titre, la gravité maximale, la date la plus ancienne, la catégorie et le lien console. Lignes
+  brutes conservées sans modification, ré-import sans doublon, limites 30 Mo / 20 000 lignes,
+  fichier d'exemple.
+
+### Fixed
+
+- Traduction polonaise : un texte d'aide des formations empêchait la compilation stricte du
+  catalogue (format PHP invalide).
+- Liste des flux : la colonne « Contrôles » ne signalait pas les réseaux partenaires en conflit
+  avec un réseau interne (champs source et destination non chargés).
+- **Cloisonnement des incidents de sécurité** (issue #371) : avec le seul droit « Voir (auteur) »,
+  la liste et la recherche montraient tous les incidents de l'entité (GLPI ne filtre lui-même que
+  ses tickets, changements et problèmes) ; elles ne montrent plus que ceux où l'on est acteur,
+  rédacteur ou membre de l'équipe. Modifier un incident exige désormais aussi de pouvoir le voir,
+  la corbeille et la suppression sont réservées aux pilotes, et une tentative d'ouvrir un incident
+  non visible est tracée dans le journal d'audit.
+- Une procédure de remédiation ne peut plus être appliquée deux fois au même incident (tâches en
+  double).
+
+## [2.19.0] - 2026-11-02
+
+### Added
+
+- **Procédures de remédiation** pour les incidents de sécurité (issue #370) : bibliothèque de
+  procédures (lien « Procédures de remédiation » dans l'en-tête des incidents) avec leurs étapes
+  ordonnées par phase (confinement, analyse, notification, éradication, remise en service, après
+  l'incident), obligatoires ou non. Cinq procédures fournies et modifiables : rançongiciel,
+  hameçonnage, compte compromis, logiciel malveillant, fuite de données. Onglet « Remédiation » de
+  l'incident : application d'une procédure (celles de sa catégorie proposées en premier), avancement
+  (« 6/14 »), statut, compte rendu et assignation de chaque tâche, réalisation horodatée et signée,
+  tâches propres à l'incident, tout changement inscrit dans l'historique. **La clôture est refusée**
+  tant qu'une étape obligatoire n'est ni faite ni « non applicable ».
+- **Journal des actions d'investigation** sur les incidents de sécurité (issue #370) : onglet
+  « Journal des actions » où l'équipe consigne chaque manipulation (date, cible, outil, commande
+  exacte, constat, résultat, détection et tâche de remédiation liées), chronologie filtrable par
+  résultat, synthèse (nombre, période, résultats, intervenants). PDF « Journal des actions et
+  remédiation » avec les phases de réponse et l'empreinte SHA-256 du contenu, consignée dans
+  l'historique de l'incident à chaque impression.
+
+- **Phases de réponse NIST** sur les incidents de sécurité (issue #370) : section « Phases de
+  réponse » où l'on date la prise en compte, le confinement, l'éradication et la remise en service
+  (bouton « Maintenant »), la détection et la clôture reprenant les dates de l'incident. Frise des
+  phases en tête de l'incident avec le délai depuis la détection, alerte si une phase est datée
+  avant la précédente, recherche sur les quatre dates, et deux cartes de tableau de bord : délai
+  moyen de confinement et de clôture.
+- **Indicateurs de compromission (IOC)** sur les incidents de sécurité (issue #369) : nouvel
+  onglet « IOC » où l'on colle les adresses IP, domaines, URL, empreintes (MD5, SHA-1, SHA-256),
+  e-mails ou noms de fichiers relevés, une valeur par ligne. Le type est détecté automatiquement,
+  les valeurs désamorcées (`hxxp`, `[.]`, `[at]`) sont acceptées et les doublons fusionnés (la date
+  de dernière observation est mise à jour). Verdict (à qualifier, malveillant, suspect, faux
+  positif), liens de recherche VirusTotal / AbuseIPDB / urlscan (simples liens, aucun envoi
+  automatique), incidents où le même IOC a déjà été vu (dans le périmètre visible), copie de la
+  liste en clair ou désamorcée.
+- **MITRE ATT&CK** sur les incidents de sécurité (issue #369) : onglet « MITRE ATT&CK » avec la
+  chaîne d'attaque (les 15 tactiques, en couleur celles observées) et les techniques classées par
+  tactique, liens vers attack.mitre.org et commentaire par technique. Choix dans une liste avec
+  recherche (identifiant ou mot-clé) ou saisie libre normalisée (`t1003/001`, `TA0006`, nom
+  exact). Référentiel officiel MITRE ATT&CK Enterprise embarqué (aucun accès réseau). Deux cartes
+  de tableau de bord : incidents par tactique et techniques les plus fréquentes.
+
+### Fixed
+
+- PDF du plugin (rapport post-incident, revue des accès, audit, SoA...) : le pied de page affichait
+  « 1 / 0 » ; il affiche désormais le numéro de page.
+
+## [2.18.0] - 2026-11-02
+
+### Added
+
+- **Incidents de sécurité** (issue #372) : référence lisible `SEC-AAAA-NNNN` (attribuée à la
+  création, les incidents existants sont numérotés à la mise à jour), champs **Source** (EDR,
+  SIEM, utilisateur, ticket, partenaire, autorité) et **Identifiant externe**, et en-tête de pastilles
+  (référence, gravité, catégorie, source) au-dessus des échéances ; recherche sur les trois champs.
+- **Incidents de sécurité** (issue #372, première partie) : les échéances NIS2 / RGPD non encore
+  notifiées s'affichent en tête du panneau de l'incident (en rouge si dépassées, avec le temps
+  restant sinon), au lieu d'être seulement dans la section « Notifications réglementaires ».
+- **Polonais (pl_PL)** : interface, rapports et notifications (1 801 chaînes).
+- **Variantes régionales des traductions** : en_US, es_MX et les espagnols d'Amérique latine,
+  fr_CA, fr_BE, pt_PT. GLPI ne se replie pas d'une variante vers sa langue de base : un
+  utilisateur réglé en es_MX voyait le plugin en anglais. Copies tenues à jour par
+  `tools/sync-locale-variants.sh`, vérifiées en CI.
+
+- **Import pfSense de la matrice des flux, sur une vraie sauvegarde**, issue #144 (phase 3) :
+  - zones nommées d'après les interfaces (« SITE_A_SRV_BDD (192.168.127.0/24) » au lieu de
+    « Réseau OPT14 ») ;
+  - interface côté Internet déduite de la passerelle par défaut et modifiable à l'import (lien
+    Internet sur `lan` derrière un routeur, par exemple) ;
+  - « tout sauf les réseaux privés » reconnu comme un accès à Internet ;
+  - règles identiques fusionnées, avec leur nombre.
+- Sécurité : seules les sections interfaces, passerelles, alias (sans leur champ `detail`) et
+  règles sont lues ; une sauvegarde complète contenant des secrets (clés IPsec, mots de passe,
+  clés privées…) est signalée avec la marche à suivre, sans qu'aucune valeur ne soit reprise ni le
+  fichier conservé.
+
+- **Surveillance des fuites de données (Have I Been Pwned)**, issue #183 :
+  - action automatique quotidienne : recherche par domaine vérifié, sinon adresse par adresse sur
+    les domaines configurés, en respectant la limite de débit et en reprenant là où elle s'est
+    arrêtée ;
+  - liste « Fuites de données » (rubrique Sécurité technique) et onglet sur la fiche utilisateur,
+    avec un statut (nouvelle, traitée, sans objet) et un commentaire ;
+  - notification au groupe RSSI avec le seul nombre de nouvelles expositions et le lien ;
+  - réglages dans la configuration : domaines, clé d'API chiffrée, bouton de test.
+- Sécurité : réservé au droit « Registres sensibles » ; adresse non stockée quand elle appartient à
+  un utilisateur GLPI ; adresses personnelles jamais envoyées ; tests ajoutés à la matrice d'accès.
+
+### Changed
+
+- **Plus de tiret cadratin** (issue #363) : dans les textes affichés, les traductions et la
+  documentation, il est remplacé par « : » entre deux mots, et par « - » comme séparateur ou valeur
+  vide. À la mise à jour, les notifications d'incident de sécurité qui gardent leur nom d'origine
+  sont renommées ; un nom modifié par l'administrateur est conservé.
+
+## [2.17.0] - 2026-10-28
+
+### Added
+
+- **Sécurité des systèmes d'IA, ISO/IEC 27090:2026** :
+  - page Référentiels : sections 5.2 à 7.8 de la norme (gouvernance de l'IA, chaîne
+    d'approvisionnement, empoisonnement, évasion, inférence, exfiltration, inversion, sorties
+    sensibles, injection de prompt, journalisation, filtrage, limitation d'usage…), chacune
+    reliée aux mesures de l'Annexe A ISO 27001 ;
+  - catalogue de risques : groupe « Systèmes d'IA » avec 7 risques types à importer dans le
+    registre (données saisies dans des services d'IA publics, assistant détourné par injection de
+    prompt, système qui révèle des données, modèle ou service tiers compromis, données ou modèle
+    altérés, vol d'un modèle maison, systèmes d'IA non inventoriés), avec leurs sections
+    ISO/IEC 27090 et leurs mesures de l'Annexe A.
+  Texte de la norme protégé : seuls les numéros de section sont repris, résumés et
+  correspondances sont rédigés par ce projet. Traduit dans les 6 langues.
+- Quatre nouvelles langues : allemand (`de_DE`), espagnol (`es_ES`), italien (`it_IT`) et
+  portugais du Brésil (`pt_BR`), en plus du français et de l'anglais.
+
+### Changed
+
+- Chaînes source en anglais (convention GLPI, remarque de la revue de la marketplace, #293) :
+  les 1 712 textes de l'interface sont écrits en anglais dans le code, le français est une
+  traduction (`locales/fr_FR.po`). Aucun changement à l'écran en français : les accords et les
+  synonymes sont conservés par des contextes de traduction.
+- Plus aucun HTML écrit en PHP (#199) : les modèles de notification créés à l'installation
+  (non-conformités, preuves, formations, politiques, actions de traitement, revues, incidents de
+  sécurité, approbation de la SoA, revue des accès) passent par un gabarit Twig. Le contenu est
+  le même, à l'encodage près des apostrophes et guillemets (`&#039;`, `&quot;`).
+- Classes dans `src/` (convention GLPI, #293) : 60 classes changent de nom, par exemple
+  `PluginGrcmanagerRisk` devient `GlpiPlugin\Grcmanager\Risk`. Rien ne change à l'écran.
+  - La mise à jour renomme les types stockés en base : notifications et modèles, préférences
+    d'affichage, tâches planifiées, documents liés, historique, journal des événements,
+    recherches enregistrées. Les tables gardent leur nom et aucune donnée n'est perdue (une
+    ligne présente sous les deux noms ne garde que sa version au nouveau nom).
+  - L'ancien nom reste utilisable comme alias (scripts, autres plugins), pour une durée
+    limitée : passez au nouveau nom.
+  - L'incident de sécurité et ses classes ITIL (acteurs, tâches, coûts, gabarits, règles,
+    notifications) gardent leur nom historique : GLPI en dérive les balises des modèles
+    d'e-mail, les modèles personnalisés continuent donc de fonctionner.
+
+### Fixed
+
+- Libellés « Event » / « Events » affichés en anglais dans l'interface française : traduits
+  « Événement » / « Événements ».
+- Aide de la page des politiques de sécurité : texte non traduit en anglais.
+
+## [2.16.0] - 2026-10-27
+
+### Added
+
+- Contrôles techniques automatiques : statuts d'ordinateur exclus des contrôles (#305). Un poste
+  « Réformé » ou « En stock » n'apparaît plus en écart (antivirus, chiffrement, inventaire) ni dans
+  les scores. Réglage sur la page des contrôles, réservé au droit de modification du plugin ; aucun
+  statut exclu par défaut.
+
+### Fixed
+
+- Audit de conformité technique, contrôle « Postes avec un disque non chiffré » : tous les postes
+  Windows chiffrés avec BitLocker étaient signalés (#308). L'agent inventorie aussi les volumes sans
+  lettre (partition EFI, récupération, « Réservé au système ») que BitLocker ne chiffre jamais. Seuls
+  comptent désormais les lecteurs à lettre sous Windows et les points de montage hors `/boot` et
+  pseudo-systèmes sous Linux et macOS ; les partages réseau, supports optiques et partitions FAT
+  (clés USB, EFI) sont ignorés.
+- Sans le dossier `vendor/` (archive incomplète, clone sans `composer install --no-dev`), le plugin
+  refuse de s'installer avec un message clair au lieu de provoquer une erreur fatale sur chaque page de
+  GLPI (note de la revue de sécurité de la marketplace).
+
+## [2.15.0] - 2026-10-27
+
+### Security
+
+- **Registres sensibles** : le registre des risques et les risques fournisseurs, les plans de
+  traitement, l'analyse d'impact, l'effet domino, les vulnérabilités du parc et la matrice des flux
+  ont leur propre droit, « Registres sensibles », distinct du droit général du SMSI (onglet GRC
+  Manager des profils). À la mise à jour, il reprend la valeur du droit général pour chaque profil :
+  rien ne change avant que l'administrateur ne le restreigne. Sans ce droit, aucune donnée de ces
+  registres n'apparaît ailleurs : titres des risques liés (fiches Contrôle et Obligation, colonne de
+  recherche), cartes du tableau de bord, vulnérabilités dans la veille CERT-FR d'un fournisseur ; un
+  formulaire forgé ne modifie pas les liens vers les risques.
+- **Historique** des modifications des risques, risques fournisseurs et actions de traitement
+  (onglet Historique), et **trace des exports** PDF du registre des risques et de la matrice des
+  flux dans le journal des événements de GLPI (Administration > Journaux).
+- **E-mails sans détail** par défaut pour les risques, risques fournisseurs et actions de
+  traitement : « Risque n° X » et le lien vers la fiche, sans titre, catégorie, niveau, fournisseur
+  ni description. Réglable dans la configuration du plugin (« Registres sensibles »).
+- La veille CERT-FR d'un risque fournisseur vérifie le droit de lire la fiche.
+
+## [2.14.0] - 2026-10-27
+
+### Added
+
+- **Plusieurs sessions par formation** (issue #139) : une session est rattachée à sa formation
+  principale, avec son **formateur** et son **lieu ou lien**, ses participants, ses notes et ses
+  documents. Onglet **Sessions** de la formation : liste des sessions, taux de réussite de chacune
+  et de la formation toutes sessions, bouton « Ajouter une session » (formulaire prérempli, rien
+  n'est enregistré avant « Ajouter »). Une session de rattrapage est rattachée à la même formation.
+  Formateur et lieu sont aussi des colonnes de la liste des formations.
+- **Copie de quiz de chaque participant** (issue #139) : onglet **Copies de quiz** de la session pour
+  joindre ou retirer la copie corrigée. Elle ne se lit que par le participant, le formateur de la
+  session et le groupe RSSI (registre des documents restreints), même avec le droit Documents de
+  GLPI ; chaque téléchargement est historisé. Onglet **Mes formations** dans les préférences : le
+  participant y voit ses formations, ses notes et ses copies, sans droit sur le plugin. La copie
+  disparaît avec le participant ou la session.
+- **Documents d'audit réservés à l'équipe de l'audit** (issue #140) : les documents joints à un
+  audit interne ou à l'un de ses constats (et le rapport PDF archivé) ne se lisent que par
+  l'auditeur et le responsable de l'audit, les membres de l'onglet **Équipe** (auditeurs, ou audités
+  en lecture seule) et le **groupe RSSI** choisi dans la configuration, même avec le droit
+  Documents de GLPI. Les documents déjà joints passent au même régime à la mise à jour.
+- **Historique des téléchargements** des documents restreints : onglet **Accès aux documents** de
+  l'audit (date, utilisateur, document). Seul un téléchargement abouti est enregistré.
+- **Notes de travail** sur l'audit (onglet Notes de GLPI : datées, auteur conservé) ; droits
+  « Lire les notes » et « Modifier les notes » dans l'onglet GRC Manager des profils, donnés au
+  Super-Admin à la mise à jour.
+- Champ **Responsable de l'audit** sur la fiche.
+
+### Changed
+
+- **Analyse statique de tout le plugin** (issue #146) : PHPStan niveau 5 sur `inc/`, `front/` et
+  `src/` avec les sources de GLPI, dans la CI (jusqu'ici seuls les services en PHP pur de `src/`
+  étaient analysés). Aucun bogue réel trouvé ; les signalements existants sont dans une base de
+  référence, tout nouveau fait échouer la CI. Code mort retiré, commentaire de menu obsolète
+  réécrit, chemins de menu du tutoriel mis à jour.
+
+### Fixed
+
+- La désinstallation retire aussi les réglages du plugin (`glpi_configs`, contexte
+  `plugin:grcmanager`) et les notifications en attente d'envoi sur ses objets.
+
+## [2.13.0] - 2026-10-27
+
+### Changed
+
+- **Menu regroupé en six rubriques** au lieu de vingt-deux entrées : Tableau de bord, Risques,
+  Conformité, Audits et amélioration, Opérations, Sécurité technique. Les pages d'une rubrique
+  sont réunies par une barre d'onglets commune et le fil d'Ariane « Rubrique > Page » ; aucune page
+  n'est supprimée. Les vulnérabilités du parc (qui exigent aussi la lecture des logiciels) sont une
+  sous-page de « Sécurité technique », dont la page d'accueil (contrôles techniques automatiques)
+  ne demande que le droit du plugin. Voir « Organisation du menu » dans le README.
+
+### Added
+
+- **Onglet « GRC Manager » dans les profils GLPI** (Administration > Profils) : matrice des droits
+  du plugin (gouvernance de la sécurité, incidents de sécurité, règles d'affectation des incidents).
+  Jusqu'ici seul le Super-Admin recevait ces droits à l'installation, sans moyen de les donner à un
+  autre profil depuis l'interface. Visible avec le droit « Profils » du cœur, profils en interface
+  standard uniquement.
+- **Machines les plus exposées** (issue #181), rubrique Vulnérabilités du parc : classement des
+  machines par score d'exposition (vulnérabilité la plus grave, 10 si activement exploitée, pour
+  70 % ; vulnérabilités prioritaires pour 30 %), avec le nombre de vulnérabilités exploitées (KEV),
+  prioritaires et au total, le CVSS et l'EPSS maximum. Lien direct vers l'onglet Vulnérabilités de
+  chaque machine. Seulement les machines des entités de l'utilisateur, d'un type qu'il peut lire.
+- **Abonnement au calendrier de conformité** (issue #142) : bouton « S'abonner » qui donne un lien
+  personnel à coller dans Outlook, Thunderbird ou Google Agenda (toutes les échéances, ou les
+  siennes). Le flux est lu sans session, avec le jeton personnel de l'utilisateur (comme le flux du
+  planning de GLPI), et ne contient que ce qu'il voit ; régénérer son jeton révoque le lien.
+- **Hygiène des comptes : changement de service** (issue #184) : nouveau contrôle « Groupes
+  modifiés, profils non revus ». Les groupes du compte (dont ceux synchronisés depuis l'annuaire)
+  ont changé pendant la période choisie et ses habilitations GLPI n'ont pas été revues depuis :
+  ses anciens droits sont peut-être restés. D'après l'historique de GLPI ; les groupes posés le
+  jour de la création du compte ne comptent pas. Un compte désactivé dans Active Directory est déjà
+  signalé « Supprimé de l'annuaire » quand le filtre de synchronisation LDAP de GLPI exclut les
+  comptes désactivés.
+- **Charte informatique** (issue #283) : case « Charte informatique » sur une politique de
+  sécurité. Sa fiche montre les signatures (dernière campagne de charte d'assetsign de chaque
+  entité, signées / total) et signale les entités dont la dernière campagne précède la version
+  approuvée (« à faire signer »). Avec assetsign ≥ la version qui le prend en charge, la version
+  approuvée la plus récente figure dans les campagnes de charte. Rien n'est lancé automatiquement.
+
+### Security
+
+- **Dérogations : séparation des tâches**. Le demandeur d'une dérogation (enregistré à sa
+  création) ne peut plus l'approuver lui-même, comme pour la SoA. Il est affiché sur la fiche
+  (« Demandée par »). Les dérogations existantes n'ont pas de demandeur connu.
+- **Revues périodiques** : seul un ticket créé par l'action automatique des tickets récurrents
+  devient le ticket d'une revue. Un ticket saisi à la main avec le même gabarit ne peut plus dater
+  la revue.
+
+## [2.12.0] - 2026-10-26
+
+### Changed
+
+- **Menu GRC & Conformité réorganisé** : 22 entrées au lieu de 28, dans l'ordre du cycle du SMSI
+  (pilotage, risques, conformité, contrôle et amélioration, opérations, direction). Les écrans
+  d'un même travail forment une rubrique : une seule entrée de menu, et une barre d'onglets
+  commune en tête de chaque page de la rubrique (fil d'Ariane « Rubrique > Page ») :
+  - **Tableau de bord** : avec le score de maturité ;
+  - **Analyse d'impact** : points de défaillance uniques et effet domino ;
+  - **Contrôles Annexe A** : la SoA et les référentiels (correspondances NIS2, NIST, CIS) ;
+  - **Preuves** : validités des preuves et couverture des preuves ;
+  - **Revues des accès** : campagnes et hygiène des comptes ;
+  - **Vulnérabilités du parc** : logiciels à surveiller et catalogue de produits (corrélation CVE).
+- « Audit de conformité technique » devient **Contrôles techniques automatiques**, pour ne plus le
+  confondre avec les audits internes (programme d'audits, ISO 27001 9.2).
+
+### Security
+
+- **Revue de sécurité de la marketplace GLPI (2.11.0, issue #280)** : les 31 points corrigés.
+  - **Rapports générés** (post-incident, cellule de crise réelle, revue des accès, audit interne) :
+    lisibles par les seules personnes qui peuvent lire leur objet source, jamais avec le seul droit
+    Documents d'une entité. Ils ne sont plus récursifs, plus liés aux mesures globales de la SoA
+    (A.5.18, A.5.26, A.5.27, A.5.29), et n'apparaissent plus dans Gestion > Documents. Les rapports
+    existants sont corrigés à la mise à jour. Le rapport post-incident n'inclut les suivis et tâches
+    privés que pour qui peut les voir, jamais dans le PDF archivé, et l'archiver exige le droit de
+    modifier l'incident.
+  - **Incidents de sécurité** : ajouter, retirer ou rafraîchir une référence CVE exige de pouvoir
+    modifier l'incident ; un risque lié n'est affiché ou accepté que pour qui lit le registre ; les
+    onglets ticket ↔ incident ne listent que ce que l'utilisateur peut lire ; identifiant CVE refusé
+    échappé dans le message.
+  - **Inventaire et vulnérabilités** : les actifs potentiellement vulnérables (onglet CVE, plan
+    d'action pré-rempli) et le ticket de mise à jour créé à la demande se limitent aux actifs et aux
+    entités de l'utilisateur, hors corbeille et gabarits.
+  - **Onglets sur les actifs** (impact d'une panne, classification C/I/D, vulnérabilités, risques,
+    dérogations), onglet Effet domino et onglet Incidents de sécurité des tickets : contenu refusé
+    sans le droit du plugin, même demandé directement.
+  - **Dérogations** : un lien n'est accepté (et un actif présélectionné) que vers un actif lisible ;
+    les liens vers des actifs invisibles pour l'utilisateur sont conservés.
+  - **Revues périodiques** : activation réservée à qui a accès à l'entité racine (où sont créés le
+    gabarit et le ticket récurrent), responsable validé comme dans la liste du formulaire.
+  - **Audit de conformité, règles de couverture** : liste des changements réservée au droit « voir
+    tous les changements » ; noms des actifs non couverts réservés au droit de lecture du type.
+  - **Tableaux de bord** : une carte affichée sans le droit ne porte plus aucune donnée (séries des
+    courbes et libellés compris).
+  - **Liens externes** (références NVD, avis du CERT-FR) : seules les URL http(s), et https sur le
+    site du CERT-FR, sont gardées et affichées.
+  - Désinstallation : suivis, solutions, liens de documents, notes, historique, recherches et
+    règles du plugin retirés des tables du cœur, rapports générés supprimés. Installation : plus de
+    `die()` sur une erreur SQL. Descripteur : lien de la version 1.0.0 corrigé.
+
+### Fixed
+
+- **Notifications** : les rappels de preuve, d'événement de conformité et de dérogation partaient
+  à l'administrateur global au lieu du responsable (identifiant de cible du cœur réutilisé) ; le
+  rappel de renouvellement de formation n'atteignait aucun participant. Les notifications
+  installées sont corrigées à la mise à jour.
+- Import CSV de la SoA tracé dans l'historique de chaque mesure ; validation du statut et de la
+  date des participants d'une formation ; export iCal protégé contre les retours à la ligne ; ticket
+  de revue d'un fournisseur créé dans l'entité du fournisseur ; entrée de menu Maturité masquée sans
+  droit ; formulaires des mesures d'objectif alignés sur les droits ajouter / supprimer.
+
+## [2.11.0] - 2026-10-26
+
+### Added
+
+- **Matrice des flux : import d'une sauvegarde pfSense** (issue #144) : l'écran d'import accepte
+  aussi le fichier config.xml d'un pare-feu pfSense. Les règles actives qui autorisent un flux
+  deviennent des flux (alias d'hôtes, de réseaux et de ports résolus, type déduit de l'interface),
+  après simulation et sans doublon. Justification et propriétaire restent à renseigner.
+- **Matrice des flux : réseau partenaire en conflit** (issue #144) : un tunnel vers un partenaire
+  dont l'adresse ou la plage (ex. « 10.10.20.0/24 » dans la source ou la destination) chevauche un
+  réseau IP déclaré dans GLPI est signalé comme écart bloquant : les deux côtés ne pourraient pas
+  se joindre sans traduction d'adresses (NAT).
+- **Formations : rapport PDF de session** (issue #139) : bouton « Rapport PDF de la session » sur
+  la fiche d'une formation. Le rapport reprend la session (format, date, public, seuil), la feuille
+  d'émargement avec une colonne de signature, la note et le résultat de chaque participant, et le
+  taux de réussite.
+
+### Changed
+
+- **Écrans en Twig** (issue #199) : les badges de la matrice des flux (type, écarts, actif lié) sont
+  rendus par un gabarit Twig, ainsi que tous les badges de statut, de niveau et de type des listes
+  et fiches (risques, mesures, non-conformités, audits, politiques, formations, incidents…), via un
+  gabarit commun, l'onglet « Risques » des actifs et le contenu des tickets de revue des accès et de
+  revue périodique, les raccourcis et avertissements au-dessus des listes, ainsi que les liens
+  des listes et les contenus des tickets et suivis générés. Le HTML écrit en PHP passe de 241 à
+  46 chaînes, toutes dans les modèles de notifications créés à l'installation.
+
+## [2.10.0] - 2026-10-26
+
+### Added
+
+- **Menu GRC & Conformité > Tableau de bord** (issue #247) : première entrée du menu, comme
+  Parc > Tableau de bord et Assistance > Tableau de bord. Elle affiche le tableau de bord
+  « GRC Manager - Vue d'ensemble ISMS » avec les outils natifs de GLPI (choix du tableau de bord,
+  ajout et déplacement des cartes, partage, plein écran). Cliquer sur le titre du menu y mène
+  aussi. Si le tableau de bord n'est pas partagé avec le profil, la page explique comment le
+  partager.
+- **Tableau de bord « GRC Manager - Direction »** (issue #143) : une vue simplifiée pour le comité
+  de direction, à choisir dans la liste des tableaux de bord : score de maturité, risques et
+  non-conformités ouverts, actions en retard, délais NIS2 / RGPD, conformité par référentiel,
+  tendance mensuelle, échéances, preuves à renouveler, fournisseurs critiques non évalués, revues
+  périodiques en retard.
+- Nouvelles cartes (issue #143) :
+  - **Mesures mises en œuvre par référentiel** : ajout du **NIST CSF 2.0**, d'après la
+    correspondance officielle publiée par le NIST (les CIS Controls ne sont pas inclus : aucune
+    correspondance officielle librement disponible) ;
+  - **Risques et non-conformités par mois** : courbe des 12 derniers mois pour la revue de
+    direction. Chaque mois est enregistré avec le score de maturité (tâche automatique mensuelle).
+    La courbe commence donc au mois de la mise à jour ;
+  - **Fournisseurs critiques non évalués** : fournisseurs ayant un risque élevé ou critique ouvert
+    et dont le questionnaire de sécurité n'a jamais été rempli ;
+  - **Responsables en retard (accès)** : réviseurs qui ont encore des comptes à revoir dans une
+    campagne de revue des accès dont l'échéance est dépassée ;
+  - **Participants à repasser** : personnes dont la dernière évaluation d'une formation est
+    échouée (une réussite à une session plus récente de la même formation les retire) ;
+  - **Réussite par session de formation (%)** : taux de réussite des 8 dernières sessions évaluées.
+- **Formations : notes et seuil de réussite** (issue #139) :
+  - nouveaux champs « Note maximale du quiz » et « Seuil de réussite (%) ». Avec les deux, on
+    saisit la note de chaque participant (ex. 32 / 40, virgule acceptée), affichée « 32/40
+    (80 %) ». Le résultat (réussie / à repasser) est calculé depuis la note ; une note hors barème
+    est ignorée ;
+  - taux de réussite de la session affiché sur la fiche (« 8 sur 10 (80 %) ») ;
+  - bouton **« Préparer une session de rattrapage »** : formulaire de nouvelle session pré-rempli
+    avec les participants à repasser. Rien n'est enregistré avant « Ajouter » ;
+  - onglets **Documents** (feuille d'émargement, support, quiz de la session) et **Historique** sur
+    la fiche d'une formation.
+- **Audits internes : constats, documents et rapport archivé** (issue #140) :
+  - la fiche d'un audit a maintenant des onglets **Constats** (non-conformités et observations de
+    l'audit, avec « Ajouter un constat » qui rattache directement le constat à l'audit),
+    **Documents** (plan d'audit, preuves collectées, rapport signé) et **Historique** ;
+  - onglets **Documents** et **Historique** aussi sur la fiche d'une non-conformité ;
+  - quand l'audit passe au statut « Terminé », le **rapport d'audit PDF** (périmètre, mesures
+    auditées, constats, conclusion) est archivé automatiquement dans son onglet Documents.
+- **Calendrier de conformité : rappel avant un événement** (issue #142) : le responsable d'un
+  événement planifié (audit externe, pentest, certification, exercice…) reçoit une notification
+  15 jours avant son début (tâche automatique quotidienne « complianceeventreminder »,
+  notification « GRC Manager - Événement de conformité à venir »). Un seul rappel par événement,
+  renvoyé si l'événement est déplacé ; rien n'est modifié automatiquement.
+- **Matrice des flux : rapport PDF** (issue #144) : bouton « Rapport PDF » en tête de la liste. Le
+  rapport, pour l'auditeur, reprend les flux actifs par type avec leurs écarts (sans
+  justification, administration exposée…), le nombre de flux désactivés et le plan d'adressage
+  (réseaux IP déclarés dans GLPI).
+
+### Fixed
+
+- Carte « Score fournisseurs moyen » : les fournisseurs dont le questionnaire n'a jamais été rempli
+  comptaient pour 0 dans la moyenne.
+
+## [2.9.0] - 2026-10-25
+
+### Added
+
+- **Cartes de pilotage du tableau de bord** (issue #143) : six nouvelles cartes, ajoutées au tableau
+  de bord « GRC Manager - Vue d'ensemble ISMS » et disponibles dans l'éditeur de tableaux de bord
+  de GLPI : mesures mises en œuvre par référentiel (ISO/IEC 27001, NIS2, guide d'hygiène de
+  l'ANSSI, d'après les correspondances indicatives du plugin), échéances de conformité à 90 jours,
+  avancement de la revue des accès en cours, délais NIS2 / RGPD proches ou dépassés, score moyen
+  des questionnaires fournisseurs, revues périodiques en retard. Chaque carte ouvre la liste
+  correspondante et respecte les droits du profil.
+
+### Changed
+
+- **Écrans en Twig** (issue #199, exigence du Marketplace GLPI) : tous les formulaires, onglets et
+  écrans du plugin sont rendus par des gabarits Twig (risques, mesures de l'Annexe A, exigences du
+  SMSI, risques fournisseurs, audits, revues de direction, objectifs et mesures, formations,
+  politiques, obligations, revue des accès, hygiène des comptes, validités des preuves, calendrier
+  de conformité, revues périodiques, matrice des flux et son import, catalogue de produits). Le HTML
+  écrit en PHP passe de 1226 à 241 chaînes.
+- **Aides des formulaires visibles** sous chaque champ, et non plus derrière un « ? » à survoler.
+
+### Fixed
+
+- Après « Ajouter », la fiche de l'élément créé s'ouvre au lieu d'un formulaire vide (audits,
+  obligations, mesures, revues de direction, objectifs, politiques, risques, risques fournisseurs,
+  formations, catalogue de produits).
+- Catalogue de produits : supprimer un produit efface ses CPE et alias ; un identifiant orphelin ne
+  provoque plus d'erreur 500 à la saisie.
+- Une nouvelle formation est cochée « Obligatoire » par défaut.
+- Fiche d'une exigence du SMSI : le libellé « Module lié » n'affiche plus de HTML en texte.
+
+## [2.8.0] - 2026-10-25
+
+### Added
+
+- **Audit de conformité technique** (issue #162) : menu GRC & Conformité > « Audit de conformité
+  technique ». Un score par référentiel (ISO/IEC 27001, NIS2, RGPD), calculé à partir de cinq
+  contrôles sur les données de GLPI : postes sans antivirus actif et à jour, disques non chiffrés,
+  postes non inventoriés depuis 30 jours, changements clos sans validation approuvée (1 ou 2
+  exigées), comptes à vérifier. Chaque contrôle liste ses écarts avec leurs références (mesure,
+  article) ; « Créer le ticket de mise en conformité » ouvre un seul ticket par contrôle, avec les
+  éléments liés, réutilisé tant qu'il est ouvert. Rien n'est modifié automatiquement ; un contrôle
+  dont la personne ne peut pas lire les éléments n'est pas évalué.
+- **Cellule de crise sur un incident réel** (issue #185) : onglet « Cellule de crise » sur chaque
+  incident de sécurité. « Activer la cellule de crise » ouvre la salle de crise avec le plan de
+  réponse choisi (étapes chronométrées) et ajoute :
+  - la **reprise des éléments touchés** et de ce qui en dépend (analyse d'impact de GLPI), face à
+    leur RTO : échéance, bouton « Rétabli », temps de reprise mesuré, « RTO dépassé » ;
+  - le **journal de crise** chronologique (enregistré dans les suivis de l'incident) ;
+  - la fermeture produit le rapport PDF (étapes, reprise, journal sans les suivis privés),
+    archivé sur l'incident et comme preuve sur les mesures A.5.26 et A.5.29.
+- **Exercices de crise** (issue #168) : menu GRC & Conformité > « Exercices de crise ». Trois
+  scénarios prêts à l'emploi (rançongiciel, fuite de données personnelles, panne majeure) :
+  - « Lancer l'exercice » crée un incident de sécurité fictif « [EXERCICE] » avec une tâche par étape ;
+  - la salle de crise affiche le chronomètre, le délai visé de chaque étape et le bouton « Fait » ;
+    une tâche passée à « Fait » depuis l'incident compte aussi ;
+  - « Terminer l'exercice » produit le rapport PDF (temps de réaction, étapes dans le délai,
+    participants, enseignements), archivé sur l'incident et comme preuve sur les mesures A.5.29 et
+    A.5.30 de la SoA ;
+  - les incidents d'exercice sont exclus du tableau de bord et du score de maturité, et filtrables
+    dans la liste des incidents (critère « Exercice de crise »).
+- **Rapport post-incident** (issue #169) : onglet « Rapport post-incident » sur chaque incident
+  de sécurité, et bouton « Générer le rapport PDF » :
+  - chronologie (déclaration, changements de statut, suivis, tâches, solution), éléments touchés,
+    CVE, tickets liés, coût total ;
+  - notifications réglementaires NIS2 / RGPD : tenues, en retard ou non notifiées ;
+  - cause racine, enseignements tirés et actions décidées (plans d'action rattachés) ;
+  - le PDF est archivé dans les documents de l'incident et comme preuve sur la mesure A.5.27 de la
+    SoA. Un incident non clos produit un rapport marqué provisoire.
+- **Score de maturité cyber** (issue #166), menu GRC & Conformité > Score de maturité, et carte
+  du tableau de bord :
+  - score de 0 à 100 et niveau de 1 (Initial) à 5 (Optimisé) ;
+  - **calcul entièrement détaillé** : mesures de l'Annexe A mises en œuvre (40 %), exigences du
+    SMSI conformes (25 %), preuves valides (15 %), audit interne dans les 12 derniers mois (10 %),
+    formations réalisées (10 %) ; une mesure « en cours » compte pour moitié ; une composante sans
+    données est écartée et son poids réparti sur les autres ;
+  - pénalités : 2 points par action corrective en retard et par incident de sécurité non résolu,
+    au plus 10 par catégorie ;
+  - radar de mise en œuvre de l'Annexe A par thème, et évolution mensuelle (tâche planifiée
+    quotidienne qui enregistre le score du mois) pour la revue de direction.
+
+## [2.7.0] - 2026-10-25
+
+### Added
+
+- **Encadré « À quoi sert cette page ? »** en tête des 30 écrans du menu GRC & Conformité : à quoi
+  sert l'écran, ce qui est attendu de l'utilisateur, et la référence ISO 27001 (numéro de chapitre
+  ou de mesure). Repliable ; le choix est retenu par le navigateur, page par page.
+- **Objectifs de reprise et plan de continuité** (issue #177, phase 2) :
+  - onglet **Classification C/I/D** d'un actif : **RTO** (durée maximale d'interruption) et **RPO**
+    (perte de données maximale), de 1 heure à 1 semaine. L'onglet passe en Twig ;
+  - onglet **« Impact d'une panne »** :
+    - **graphe** de l'actif et de ce qui en dépend, coloré par disponibilité et libellé avec le RTO ;
+    - colonne RTO dans la liste des éléments touchés ;
+    - alerte **« Objectifs de reprise incohérents »** quand un élément doit reprendre plus vite que
+      ce dont il dépend (« l'application doit reprendre en 4 heures, mais dépend du stockage dont
+      l'objectif est 24 heures ») ;
+  - page « Points de défaillance uniques » : bouton **« Exporter pour le plan de continuité
+    (CSV) »**. L'export liste les actifs classés en disponibilité ou dotés d'objectifs, avec leur
+    disponibilité, RTO, RPO, leurs dépendances, le nombre d'éléments touchés, les points de
+    défaillance unique et les risques liés.
+- **Effet domino** (issue #171) : liens « cause → conséquence » entre risques, risques
+  fournisseurs et incidents de sécurité (« Hameçonnage réussi » → « Compromission de compte » →
+  « Fuite de données ») :
+  - onglet **« Effet domino »** sur chacun : graphe des causes et conséquences sur 4 niveaux,
+    liste des liens directs (retrait possible), et ajout « peut entraîner… » ou « peut être
+    provoqué par… ». Un lien qui fermerait une boucle est refusé, tout comme un doublon ;
+  - page **GRC & Conformité > Effet domino** : le graphe d'ensemble. Cliquer sur un élément
+    l'ouvre ; un élément que la personne ne peut pas voir est compté sans être nommé ;
+  - graphe Cytoscape, déjà fourni par GLPI pour son analyse d'impact (aucune bibliothèque
+    ajoutée). C'est une représentation : aucune probabilité combinée n'est calculée.
+- **Veille de sécurité des fournisseurs et avis du CERT-FR** (issue #167, phase 3 de #160) :
+  - la tâche des vulnérabilités du parc lit aussi les **avis et alertes du CERT-FR** (flux RSS
+    publics, toutes les 6 heures, conservés 180 jours), sous le même réglage « Activer
+    l'enrichissement NVD » ;
+  - onglet **« Veille sécurité »** sur chaque risque fournisseur : les avis des 90 derniers jours
+    qui citent le fournisseur (raison sociale sans mentions juridiques ; « Dell Technologies
+    France » est cherché comme « dell »), et les vulnérabilités de ses logiciels dans le parc
+    (CVE, prioritaires, exploitées, machines). Le nombre d'avis des 30 derniers jours s'affiche
+    sur l'onglet ;
+  - **notification** au propriétaire du risque fournisseur pour chaque nouvel avis qui cite son
+    fournisseur, une seule fois par avis (« Nouvel avis de sécurité concernant le fournisseur »,
+    installée par défaut). Rien n'est modifié dans le registre ;
+  - écran « Vulnérabilités du parc » : badge **CERT-FR** sur un logiciel cité par un avis des 30
+    derniers jours (son nom, ou « les produits » de son éditeur), avec le lien vers l'avis.
+- **Plan d'action (CAPA) proposé à partir d'une CVE** (issue #163) : sur l'onglet CVE d'un
+  incident de sécurité, « Proposer un plan d'action » ouvre une non-conformité pré-remplie :
+  - action corrective numérotée : correctif de l'éditeur et avis de sécurité (liens NVD), mise à
+    jour des actifs de l'inventaire qui portent la vulnérabilité, échéance CISA si elle est
+    activement exploitée, contrôle d'efficacité ;
+  - action préventive : surveillance du logiciel et cycle de correctifs ;
+  - sévérité selon le CVSS et le catalogue KEV. L'échéance est de 7, 30 ou 90 jours, ou celle de
+    la CISA si elle est plus proche ;
+  - rien n'est créé avant que l'utilisateur relise et clique sur « Ajouter ». La fiche garde
+    l'origine (incident et CVE), et l'onglet CVE affiche ensuite « Plan d'action n° … ».
+- **Exploitation des CVE des incidents de sécurité** (issue #172) :
+  - l'onglet CVE d'un incident affiche le badge **KEV**, avec l'échéance CISA, et le score **EPSS**
+    (probabilité d'exploitation dans les 30 jours). Le score est en rouge au-delà de 50 % ;
+  - la tâche quotidienne des vulnérabilités met à jour l'EPSS des CVE rattachées aux incidents, en
+    plus de celles du parc ;
+  - un **suivi privé** est ajouté à l'incident ouvert dans deux cas : quand une de ses CVE figure au
+    catalogue KEV, et quand son EPSS franchit 50 % puis à chaque hausse de 20 points. La priorité
+    de l'incident n'est jamais modifiée : le suivi invite l'équipe à la revoir.
+- **Tickets des vulnérabilités du parc** (issue #160, phase 2) :
+  - **un ticket par logiciel à mettre à jour** (« Mettre à jour Mozilla Firefox : 12 vulnérabilité(s),
+    3 machine(s) »). Il détaille les vulnérabilités les plus graves (CVE, CVSS, EPSS, KEV et
+    échéance CISA) et compte les autres. Les machines touchées y sont liées (50 au plus). L'urgence
+    est très haute pour une vulnérabilité exploitée ou un CVSS ≥ 9 ;
+  - création automatique par la tâche planifiée, **désactivée par défaut**. Elle se règle dans la
+    configuration du plugin : vulnérabilité exploitée (KEV), CVSS minimal, EPSS minimal. Chaque
+    passage crée 10 tickets au plus, les plus graves d'abord ;
+  - un suivi est ajouté au ticket ouvert quand plus de machines sont touchées, quand une
+    vulnérabilité devient activement exploitée, ou quand plus aucune machine n'est vulnérable. Le
+    ticket n'est jamais fermé, et son statut ou sa priorité ne sont jamais modifiés. Une fois le
+    ticket résolu ou clos, une nouvelle vulnérabilité ouvre un nouveau ticket ;
+  - bouton **ticket** sur chaque ligne de l'écran « Vulnérabilités du parc », pour une création à la
+    demande sans doublon ;
+  - onglet **« Vulnérabilités »** sur les ordinateurs et les autres éléments qui portent des
+    logiciels. Il liste les CVE connues des logiciels surveillés installés, avec le lien vers le
+    ticket.
+- **Vulnérabilités du parc** (issue #160, phase 1), menu GRC & Conformité > Vulnérabilités du parc :
+  - écran **« Logiciels à surveiller »** : les logiciels installés, les plus exposés (navigateurs,
+    accès distant, VPN, bureautique, lecteurs PDF) et les plus répandus d'abord. « Chercher le CPE »
+    propose les correspondances du dictionnaire NVD ; « Confirmer » alimente le catalogue de
+    corrélation existant (produit, CPE, alias) sans ressaisie. Un logiciel sans enjeu s'ignore ;
+  - pour chaque version installée d'un logiciel surveillé, NVD renvoie exactement les CVE qui la
+    touchent (recherche par version). Une tâche planifiée horaire en vérifie quelques-unes à chaque
+    passage, dans la limite publique de NVD, puis met à jour le catalogue CISA KEV (vulnérabilités
+    activement exploitées) et les scores FIRST EPSS (probabilité d'exploitation) ;
+  - écran **« Vulnérabilités du parc »** : CVE, logiciel, versions touchées, nombre de machines,
+    CVSS, EPSS, badges KEV et rançongiciel. Les vulnérabilités exploitées et prioritaires (KEV,
+    CVSS ≥ 9 ou EPSS ≥ 50 %) passent en premier. Une version au numéro illisible dans l'inventaire
+    est comptée « à vérifier à la main », jamais déclarée saine ;
+  - tout appel sortant dépend du réglage « Activer l'enrichissement NVD » (désactivé par défaut).
+    Rien n'est modifié dans le parc ; les tickets automatiques sont la phase 2.
+- **Catalogue de risques types d'infrastructure** (issue #178), bouton « Catalogue de risques types »
+  au-dessus du registre des risques : douze risques qui se repèrent sur un schéma réseau (service
+  d'administration exposé sur Internet, cartes iLO/iDRAC/IPMI joignables, réseaux qui se chevauchent
+  avec un partenaire relié par VPN, réseau invités mal isolé, réseau à plat, points de défaillance
+  unique : alimentation, hyperviseur, lien opérateur, annuaire -, sauvegardes sur le même site,
+  schéma non tenu à jour, journaux non consultés). Chacun a sa description, ses menaces, ses mesures
+  de l'Annexe A et des questions pour savoir s'il s'applique. Les risques cochés sont créés dans le
+  registre au statut « Identifié », liés à leurs mesures, à évaluer ; un risque déjà importé n'est
+  pas recréé.
+- **Registre des dérogations de sécurité** (issue #170), menu GRC & Conformité > Dérogations : une
+  exception temporaire à une politique ou à une mesure de l'Annexe A (un serveur qui ne peut pas
+  encore être mis à jour, par exemple), avec justification, mesures compensatoires, responsable qui
+  accepte le risque, dates de début et de fin (obligatoire) et actifs concernés. Statut demandée,
+  validée (qui et quand sont enregistrés), refusée ou close ; état « en cours », « bientôt échue »
+  ou « échue » d'après la date de fin. Le responsable est prévenu 15 jours avant la fin ; à
+  l'échéance, un ticket de réévaluation est ouvert, lié aux actifs. Rien n'est prolongé ni clos
+  automatiquement ; une nouvelle date de fin ouvre un nouveau cycle. Onglet « Dérogations » sur les
+  actifs, les mesures et les politiques, avec « Nouvelle dérogation pour cet élément » ; documents
+  joints (validation signée, analyse de risque).
+- **Couverture des preuves** (issue #164), menu GRC & Conformité > Couverture des preuves : une
+  règle relie un type d'actif (avec un sous-type facultatif, par exemple les seuls pare-feu parmi
+  les matériels réseau) à une catégorie de document GLPI requise et à la mesure de l'Annexe A ou à
+  l'exigence du SMSI qu'elle prouve. Onglet « Taux de couverture » : pourcentage d'actifs qui ont un
+  document de cette catégorie, et liste des actifs non couverts, chacun avec un lien vers son
+  onglet Documents. Les mesures et les exigences affichent leurs règles et leur jauge dans un onglet
+  « Couverture des preuves ». Les actifs comptés sont ceux des entités actives.
+- **Analyse d'impact d'une panne** (issue #177, phase 1), à partir de l'analyse d'impact native de
+  GLPI : onglet « Impact d'une panne » sur chaque actif, qui liste tout ce qui en dépend
+  (directement ou non), la disponibilité classée de chaque élément et les risques du registre
+  concernés. Un élément à disponibilité haute qui ne dépend que d'une seule source signale un
+  **point de défaillance unique** ; le bouton « Créer le risque correspondant » l'ajoute au
+  registre, lié à l'actif, sans jamais le faire automatiquement. Page GRC & Conformité > Points de
+  défaillance uniques pour toute l'instance.
+
+### Changed
+
+- La fiche d'un risque s'affiche avec une barre d'onglets, comme celle d'un risque fournisseur
+  (nécessaire à l'onglet « Effet domino »).
+- Le formulaire des non-conformités passe en Twig (champs inchangés). Après « Ajouter », la fiche
+  créée s'ouvre directement.
+
+- Les boutons au-dessus du registre des risques sont rendus en Twig (exigence du Marketplace GLPI).
+
+### Fixed
+
+- L'en-tête des fiches de risque, de risque fournisseur, de non-conformité et d'audit affichait
+  « N/A » au lieu de leur titre.
+- Dérogations (#170) : les listes « Mesure de l'Annexe A » et « Politique » ne se chargeaient pas
+  (ces registres n'ont pas de champ « nom ») ; elles proposent désormais les mesures et politiques.
+
+## [2.6.0] - 2026-10-24
+
+### Added
+
+- **Calendrier de conformité** (issue #142), menu GRC & Conformité > Calendrier de conformité :
+  événements datés saisis (audit de certification ou de surveillance, test d'intrusion, exercice de
+  crise, renouvellement de certificat…, avec prestataire, périmètre, responsable, documents) et
+  échéances des autres registres, sans recopie : audits internes, revues de direction, campagnes de
+  revue des accès, prochain ticket des revues périodiques, revues des politiques et des obligations,
+  fin de validité des preuves. Vue par mois (toutes les échéances ou les miennes), export iCal, et
+  affichage dans le planning GLPI de chaque responsable (lecture seule). Rien n'est modifié par le
+  calendrier.
+- **Escalader un ticket en incident de sécurité depuis le ticket** (issue #165) : section
+  « Sécurité » dans le panneau principal de chaque ticket, avec le bouton « Escalader en incident de
+  sécurité » (confirmation demandée) ou, une fois qualifié, le lien vers l'incident. Aussi en action
+  groupée « Qualifier en incident de sécurité » sur la liste des tickets. Même action que l'onglet du
+  ticket (#128) : le ticket garde son statut et son attribution, un ticket déjà qualifié n'en crée
+  pas un second.
+- **Hygiène des comptes** (issue #184), menu GRC & Conformité > Hygiène des comptes (A.5.16, A.5.18,
+  A.8.2) : comptes GLPI actifs à vérifier dans les entités visibles : supprimés de l'annuaire
+  (synchronisation LDAP native), date de fin dépassée, sans connexion depuis N jours (30 à 365) ou
+  jamais utilisés, adresse e-mail ou prénom et nom en double. Un ticket de revue s'ouvre pour les
+  comptes cochés ; aucun compte n'est désactivé automatiquement. Exige aussi le droit natif de
+  lecture des utilisateurs. La revue périodique « comptes à privilèges » (#141) renvoie vers cet écran.
+- **Matrice des flux réseau** (issue #144), menu GRC & Conformité > Matrice des flux (A.8.20 à A.8.22).
+  - Un flux relie une source et une destination (un actif GLPI et/ou un réseau, une zone, une adresse),
+    avec un type (interne, publication sur Internet, sortant, tunnel entre sites ou vers un partenaire,
+    administration, sauvegarde), un protocole, des ports, une justification, un propriétaire et une date
+    de fin éventuelle ; historique des modifications.
+  - Contrôles automatiques affichés sur la fiche, dans la liste et en synthèse : sans justification,
+    sans propriétaire, expiré ou expirant sous 30 jours, service d'administration (SSH, RDP, SMB, bases de
+    données…) ou tous les ports publiés sur Internet. Le plugin ne modifie jamais un flux.
+  - Import CSV (séparateur « ; » ou « , », en-têtes français ou anglais) avec simulation préalable, lignes
+    invalides signalées par leur numéro, aucun doublon en cas de réimport.
+  - La revue périodique « matrice des flux » (#141) renvoie vers cet écran.
+
+- **Revues périodiques du SMSI** (issue #141), menu GRC & Conformité > Revues périodiques.
+  - Onze revues proposées : droits d'accès, comptes à privilèges, matrice des flux, registre des
+    risques, risques fournisseurs, politiques, SoA, obligations légales, test de restauration des
+    sauvegardes, test du PCA/PRA, journaux de sécurité ; chacune avec une fréquence par défaut et
+    les exigences qu'elle couvre.
+  - Activer une revue crée un gabarit et un ticket récurrent natifs de GLPI (Assistance > Tickets
+    récurrents) : titre, check-list, exigences concernées et lien vers l'écran du plugin, attribué
+    au technicien ou au groupe choisi.
+  - Le ticket résolu date la revue (« Dernière revue ») ; une revue active sans revue sur la
+    dernière période est signalée « En retard ». Le plugin ne modifie jamais le ticket.
+  - Activer une revue exige le droit de modification du plugin et les droits natifs de créer des
+    tickets récurrents et des gabarits.
+
+## [2.5.0] - 2026-10-24
+
+### Added
+
+- **Date de validité des preuves et alerte avant expiration** (issue #145).
+  - Onglet « Validités des preuves » sur les mesures de l'Annexe A, les risques fournisseurs, les
+    audits et les politiques : pour chaque document rattaché, une date de fin de validité et un
+    responsable du renouvellement.
+  - Tâche planifiée quotidienne « evidencereminder » : notification au responsable 30 jours avant
+    l'échéance, puis un ticket « Renouveler la preuve » à l'expiration (un seul de chaque). Une
+    nouvelle date réarme le rappel. Le statut de l'élément ne change jamais.
+  - Liste des preuves datées et carte de tableau de bord « Preuves expirées ou à renouveler ».
+  - Une validité suit l'entité de son document : la lire ou la modifier exige le droit sur
+    l'élément et la lecture du document, jamais le seul droit global du plugin.
+- **Taux de signature de la charte informatique (assetsign)** sur les mesures A.5.10 et A.6.3,
+  par entité (« Entité racine : 45 / 50 (90 %) »), depuis la campagne de charte la plus récente.
+  Badge vert dès 90 %, orange dès 60 %, rouge en dessous. Lecture seule de chiffres agrégés,
+  sans dépendance de code ; absent si assetsign n'est pas actif ou ne gère pas encore les
+  campagnes de charte (assetsign 2.12.0 et suivantes).
+
+### Fixed
+
+- **Liste « Validités des preuves »** : le bouton « Ajouter » de GLPI menait à une page introuvable ;
+  il n'est plus proposé et la liste indique où saisir une date de validité (onglet de l'élément).
+
+## [2.4.1] - 2026-10-22
+
+### Security
+
+- **Audit de sécurité (contrôle d'accès)**, aligné sur les revues de la marketplace GLPI des plugins
+  jumeaux :
+  - incidents de sécurité : s'assigner un incident exige le droit de modification (un simple
+    lecteur pouvait s'assigner un incident, puis le résoudre) ;
+  - revues d'accès : l'onglet d'un contrôle ne liste plus que les campagnes des entités de
+    l'utilisateur, et une décision n'est acceptée que du responsable désigné ou d'un gestionnaire
+    de la campagne elle-même (son entité) ;
+  - fournisseurs : l'onglet « Contrats du fournisseur » exige le droit de lecture sur les contrats
+    et ne liste que ceux des entités de l'utilisateur ;
+  - risques : la liste des actifs à lier, les actifs liés affichés et la classification C/I/D ne
+    concernent plus que les actifs visibles par l'utilisateur ; enregistrer un risque ne supprime
+    plus les liens vers des actifs qu'il ne voit pas ;
+  - classification C/I/D : impossible pour un actif hors du périmètre de l'utilisateur ;
+  - Déclaration d'applicabilité : le demandeur ne peut plus se désigner approbateur de sa propre
+    demande (séparation des tâches) ;
+  - tableaux de bord : chaque carte vérifie le droit de lecture de l'objet compté, et les cartes
+    d'incidents ne comptent que ceux des entités de l'utilisateur, hors corbeille ;
+  - export CSV de la SoA : neutralisation des cellules interprétables comme formules.
+- La vérification de la dernière version sur GitHub ne contacte plus api.github.com que si l'action
+  automatique native « checkupdate » de GLPI est activée (désactivée par défaut), avec un délai total.
+- CI : actions GitHub et image Gitleaks épinglées par empreinte, Semgrep à nouveau bloquant (le job
+  ne pouvait jamais échouer), règles Semgrep propres au projet, contrôle d'autorisation obligatoire
+  sur chaque point d'entrée, `dependency-review` sur les PR, et test de contrôle d'accès de bout en
+  bout couvrant les 48 pages (profil sans droit, lecteur, gestionnaire limité à une entité, puis
+  super-admin), dont la CI vérifie la couverture, et test XSS de bout en bout (charge piégée dans
+  chaque champ texte libre, restituée échappée sur 25 pages). L'archive de release n'embarque plus les
+  tests ni la configuration de développement.
+
+## [2.4.0] - 2026-10-19
+
+### Added
+
+- **Revue périodique des accès : campagne de validation par les responsables** (issue #126).
+  - **Campagne** (menu « Revues des accès ») : entité, fréquence (trimestrielle, semestrielle,
+    annuelle), échéance, pilote et mesure de la SoA (A.5.18 « Droits d'accès » par défaut).
+  - **Lancement** : chaque compte actif de l'entité est figé avec ses profils et groupes GLPI.
+    Il est confié à son responsable hiérarchique, sinon au responsable d'un de ses groupes, sinon
+    au pilote. Les responsables sont prévenus par notification.
+  - **« Mes revues d'accès »** : chaque responsable, même sans droit sur le plugin, valide ou
+    demande une modification ou un retrait, ligne par ligne, avec un commentaire obligatoire pour
+    une demande.
+  - **Ticket, jamais de changement de droit** : une demande de modification ou de retrait crée un
+    ticket pour l'équipe support. La ligne est alors figée. Le plugin ne modifie aucun droit,
+    compte ni statut.
+  - **Relances** : la tâche quotidienne « accessreviewreminder » relance au plus une fois par
+    semaine les responsables qui ont encore des comptes à revoir après l'échéance.
+  - **Clôture** : un rapport PDF (comptes, profils, décisions, tickets, comptes non revus) est
+    archivé comme Document sur la campagne et sur la mesure de la SoA. La campagne suivante se
+    prépare en un clic d'après la fréquence.
+  - **Mesures de la SoA** : la fiche d'une mesure a désormais des onglets « Revues des accès » et
+    « Documents », et affiche son code dans l'en-tête.
+
+- **Évaluation des fournisseurs : questionnaire de sécurité, contrats et ticket de réévaluation**
+  (issue #127).
+  - **Onglet « Questionnaire de sécurité »** sur le risque fournisseur : douze questions
+    (certification, politique, localisation et chiffrement des données, MFA, sous-traitants,
+    notification d'incident, sauvegardes, audits, vulnérabilités, réversibilité, clauses) avec
+    oui / partiel / non / sans objet. Le score (en %) et son niveau sont indicatifs : le niveau de
+    risque saisi par l'équipe n'est pas modifié. La date et l'auteur sont conservés.
+  - **Onglet « Contrats du fournisseur »** : contrats GLPI du fournisseur avec leurs dates de
+    début et de fin, et un badge « Échu ».
+  - **Onglets Documents et Historique** : les preuves (questionnaire signé, certificats) se
+    joignent au risque fournisseur. Le formulaire affiche désormais sa barre d'onglets.
+  - **Ticket de réévaluation** : à l'échéance de la date de revue, la tâche « reviewreminder »
+    ouvre un ticket « Réévaluer le fournisseur X » pour le propriétaire du risque, lié sur le
+    formulaire. Un seul ticket tant qu'il n'est pas résolu ; le statut du risque n'est pas modifié.
+
+- **Incidents de sécurité : qualification d'un ticket et délais de notification réglementaires**
+  (issue #128).
+  - **Qualifier un ticket** : l'onglet « Incident de sécurité » d'un ticket crée l'incident en
+    reprenant titre, description, date, demandeur et éléments liés, puis relie les deux (onglet
+    « Tickets liés » sur l'incident). Le ticket garde son statut et son attribution, et reçoit un
+    suivi privé avec le lien. Un ticket n'est qualifié qu'une fois.
+  - **Notifications réglementaires** : nouvelle section sur l'incident, avec les cases « Soumis à
+    NIS2 » et « Violation de données personnelles ». Les échéances sont calculées depuis l'ouverture
+    de l'incident : NIS2 alerte précoce 24 h, notification 72 h, rapport final 1 mois ; RGPD 72 h.
+    Chacune a son statut (à faire, bientôt, dépassé, fait) et la date où l'équipe a notifié.
+  - **Tâche planifiée horaire « regulatorydeadlines »** : un suivi privé est ajouté sur l'incident
+    quand une échéance approche puis quand elle est dépassée, une seule fois par niveau. Ce suivi
+    prévient les acteurs par les notifications GLPI habituelles. Rien n'est envoyé à une autorité.
+
+### Fixed
+
+- **Incidents de sécurité, onglet « Coûts » (GLPI 12)** : l'onglet échouait (erreur 500) faute des colonnes
+  `date_creation`, `date_mod`, `users_id` et `users_id_lastupdater` que GLPI 12 lit sur les coûts ITIL.
+  Elles sont ajoutées à la mise à jour.
+- **Listes Risques et Audits internes** : avertissements PHP « Undefined variable $CFG_GLPI » et liens
+  d'en-tête cassés, la configuration GLPI n'étant pas déclarée globale dans ces pages.
+- **Approbation de la SoA** : après une demande ou une réponse, retour garanti sur la page d'approbation
+  (la redirection reposait sur `$_SERVER['PHP_SELF']`, qui vaut `/index.php` derrière le routeur GLPI).
+
+## [2.3.0] - 2026-10-11
+
+### Added
+
+- **Référentiel NIS2** (directive (UE) 2022/2555 : articles 20, 21 §2, 23 §4), relié aux contrôles
+  de l'Annexe A ISO 27001 (issue #110).
+- **Guide d'hygiène informatique de l'ANSSI** (42 mesures, Licence Ouverte), relié aux contrôles de
+  l'Annexe A (issue #111).
+- **Exigences du SMSI, articles 4 à 10** : 30 sous-articles suivis (statut, responsable, preuves,
+  liens vers les modules du plugin), taux de complétude, repris dans le PDF de la SoA (issue #113).
+- **Approbation de la Déclaration d'Applicabilité par la direction** : versions figées (PDF et
+  empreinte SHA-256), approbateurs désignés, historique, nouvelle approbation exigée après toute
+  modification de la SoA (issue #112).
+- **Preuves assetsign** : les remises et restitutions signées du plugin assetsign servent de preuves
+  sur les contrôles A.5.9 à A.5.11 et figurent dans le PDF de la SoA (issue #109).
+
+### Changed
+
+- CI : vérification sur GLPI 11.0.11 et 12.0.0 finale, suite d'intégration sur GLPI 11 et 12,
+  PHPStan aussi contre les sources de GLPI 12.
+
+### Fixed
+
+- **GLPI 12** : les pages Audits et Risques provoquaient une erreur 500 (`Plugin::getWebDir()`
+  supprimée en GLPI 12), de même que les pages de classification et d'approbation de la SoA quand
+  l'élément est introuvable (`Html::displayNotFoundError()`). La CI analyse désormais aussi le
+  plugin avec PHPStan contre les sources de GLPI 12.
+
+## [2.2.0] - 2026-10-04
+
+### Added
+
+- **Compatibilité GLPI 12** (en plus de GLPI 11, depuis un seul et même paquet). Incompatibilités
+  réelles corrigées, identifiées en faisant tourner les suites de tests sur un vrai GLPI 12.0.0-rc2 :
+  - GLPI 12 type de nombreuses propriétés de ses classes de base (`CommonGLPI::$rightname`,
+    `CommonDBRelation::$itemtype_1`…, `CommonITILObject::$userlinkclass`…), GLPI 11 non : et PHP
+    impose à une sous-classe de reprendre exactement le type du parent, donc aucune déclaration
+    unique ne fonctionne sur les deux. Les 29 classes concernées (20 pour `$rightname`, plus le
+    module Incidents de sécurité : relations d'acteurs, coûts, gabarits, collection de règles)
+    héritent désormais d'une classe intermédiaire (`src/Compatibility/Base/`) déclarée selon la
+    version installée (propriétés typées en 12, non typées en 11) ; chaque classe fournit ses
+    valeurs via des constantes (`RIGHTNAME`, `ITEMTYPE_1`…).
+    Une classe et non un trait : sur PHP 8.2 à 8.4, un trait ne peut pas
+    redéclarer une propriété héritée avec une autre valeur (erreur fatale, ou en PHP 8.2 valeur
+    partagée en silence avec la classe de GLPI). Nouveau job CI `php-compat` qui charge chaque
+    classe concernée sur le vrai cœur GLPI, sous PHP 8.2 à 8.5 × GLPI 11 et PHP 8.3 à 8.5 × GLPI 12.
+  - `$DB->request('table')` (forme chaîne supprimée en GLPI 12) → forme tableau, dans
+    `RiskMatrixConfig`, `SecurityIncidentModuleConfig` et `NvdConfig` - sans ce correctif,
+    GLPI 12 désactivait silencieusement le plugin au démarrage.
+  - `Toolbox::getURLContent()` supprimé en GLPI 12 → `Compatibility\Http` (vérification de version
+    GitHub, enrichissement CVE NVD).
+
+  Résultat : tests unitaires (228) et d'intégration (19) au vert sur GLPI 11.0.9 **et** GLPI
+  12.0.0-rc2, plus un test fonctionnel du module Incidents de sécurité (création avec acteurs,
+  élément lié, coût, tâche, formulaire, onglets, suppression) réussi sur les deux. Nouveau job CI
+  `Installation reelle sur GLPI 12` (cycle d'installation complet + suite d'intégration).
+
+- **`.github/dependabot.yml`** - ce dépôt était le seul des trois plugins jumeaux à n'avoir aucune
+  configuration Dependabot (ni mises à jour automatiques de version, ni alertes de sécurité sur les
+  dépendances) ; trouvé lors d'un audit de dépendances. Deux écosystèmes couverts (`composer`,
+  `github-actions`), même convention (labels, delai de refroidissement de 7 jours, revue/assignation
+  à `parime`) que `Configuration-glpi-auto`/`assetsign-glpi`.
+
+### Changed
+
+- **`phpstan/phpstan` mis à jour (2.2.9 → 2.2.16)**, seule dépendance réellement obsolète repérée par
+  cet audit (`composer outdated`) sur ce que verrouille `composer.lock`. `phpunit/phpunit` a aussi une
+  version majeure disponible (10.5.64 → 13.x) mais volontairement **non appliquée** : PHPUnit 13 exige
+  PHP ≥ 8.4.1, alors que ce plugin déclare officiellement PHP ≥ 8.2 : un changement de politique de
+  version minimale du tooling de dev, pas une simple mise à jour de routine, laissé à une décision
+  explicite plutôt qu'appliqué silencieusement.
+
+### Fixed
+
+- **Lier un actif à un incident de sécurité fatalait** (`CommonITILObject::
+  getRuleCollectionClassInstance()` réclame une classe `Rule{Type}Collection` pour tout objet ITIL,
+  y compris ceux définis par un plugin). `RulePluginGrcmanagerSecurityIncident`/
+  `RulePluginGrcmanagerSecurityIncidentCollection` existaient déjà avec un contenu correct
+  (`inc/rulesecurityincident*.class.php`), mais n'étaient jamais chargées : l'autoloader natif de
+  GLPI pour les classes `inc/{nom}.class.php` (`glpi_autoload()`) n'agit que sur un nom de classe
+  qui commence littéralement par `Plugin` - or la convention `'Rule' . static::getType() .
+  'Collection'` place systématiquement `Plugin...` au milieu du nom, jamais au début, pour n'importe
+  quel objet ITIL défini par un plugin tiers. `require_once` explicite ajouté dans
+  `plugin_init_grcmanager()` (pas au premier niveau de `setup.php`, qui doit rester chargeable sans
+  noyau GLPI pour `SetupMenuRedefinitionTest`).
+- **`tests/integration-bootstrap.php` ne rendait jamais `$kernel` réellement global** - `global
+  $kernel` (code historique de GLPI, ex. les chemins dépendant de `getMainRequest()` déclenchés
+  par certains hooks `CommonDBTM::add()`) n'y trouvait rien, plantant avec "Call to a member
+  function getMainRequest() on null" sur tout test créant un `User`. Même correctif déjà nécessaire
+  sur le plugin jumeau Configuration-glpi-auto, appliqué ici aussi (`$GLOBALS['kernel'] = $kernel;`
+  avant `$kernel->boot()`).
+- **L'onglet "Risques" (issue #25) et l'onglet "Classification C/I/D" (issue #26) n'apparaissaient
+  jamais sur un actif personnalisé créé par un autre plugin** (`Vehicule`/`Serveur`/`Local`... via
+  Configuration-glpi-auto) alors que le lien registre-de-risques/actif restait fonctionnel depuis
+  le formulaire du risque lui-même (issue #88). `setup.php` construisait la liste `addtabon` de ces
+  deux onglets à partir de `LinkableItemtypes::DEFAULT_ITEMTYPES` (liste fixe des seuls itemtypes
+  natifs de GLPI), au lieu du résultat dynamique de `PluginGrcmanagerRisk::getLinkableItemtypes()`
+  (qui, lui, interroge directement la table SQL `glpi_assets_assetdefinitions`, disponible dès la
+  connexion DB). Les deux appels à `Plugin::registerClass()` utilisent désormais
+  `PluginGrcmanagerRisk::getLinkableItemtypes()` - même contournement, déjà éprouvé en production,
+  que `Config::getAllManageableItemtypes()` du plugin jumeau assetsign-glpi.
+
+- **La fiche d'une Politique de sécurité affichait « N/A » comme titre de page**, au lieu du vrai
+  titre de la politique : trouvé en peuplant une instance de test avec de vraies politiques.
+  `front/policy.form.php` est le seul contrôleur de ce plugin à appeler `displayFullPageForItem()`
+  (nécessaire pour que l'onglet natif « Documents » s'affiche, cf. le commentaire déjà présent dans
+  ce fichier) ; ce chemin construit l'en-tête de page à partir de `getNameField()`, jamais surchargé
+  sur `PluginGrcmanagerPolicy` alors que sa colonne d'affichage principale est `title`, pas `name`
+  (cette table n'a même pas de colonne `name`). Chaque classe sœur (Risque, Audit...) utilise un
+  simple `Html::header()`, qui ne consulte jamais de champ nom : aucune n'avait besoin de ce
+  correctif.
+
+## [2.1.0] - 2026-09-12
+
+### Added
+
+- **Taux de réussite des formations évaluées.** Deuxième indicateur manquant identifié lors de
+  l'audit complet du plugin (recherche des bonnes pratiques KPI ISO 27001:2022), après le délai
+  de réponse aux incidents (v2.0.0). Nouvelle colonne `assessment_result` (sans évaluation/
+  réussie/échouée) sur le suivi individuel de formation, indépendante du statut de réalisation
+  existant (pending/completed/exempted) : une formation peut être suivie sans évaluation formelle
+  (quiz, test pratique...), auquel cas elle reste hors périmètre de ce nouvel indicateur plutôt que
+  comptée comme réussie ou échouée par défaut. Nouvelle carte de tableau de bord correspondante,
+  calculée uniquement sur les participants effectivement évalués. Aucune ligne existante n'est
+  affectée (valeur par défaut `not_applicable`).
+
+## [2.0.0] - 2026-09-11
+
+### Changed
+
+- **PHP 8.2 minimum requis** (était 8.1) : hérité du module Incidents de sécurité absorbé
+  ci-dessous, qui l'exigeait déjà dans son plugin d'origine. Changement cassant pour toute
+  installation encore sur PHP 8.1.
+
+### Added
+
+- **Absorption du module "Incidents de sécurité" (objet ITIL complet)** depuis le plugin jumeau
+  glpi-security-incidents (ROADMAP.md "Version 2.0"). L'ancien registre léger de conformité ISO
+  (`PluginGrcmanagerSecurityIncident`, issue #29 : catégorie/sévérité/impact C/I/D/cause racine/
+  enseignements tirés/lien vers un risque) est remplacé par l'objet ITIL complet porté depuis ce
+  plugin jumeau (acteurs, workflow, tâches, notifications, suivi CVE, modèles d'incident) - **les
+  deux fusionnés en un seul enregistrement**, plus de double saisie entre le suivi opérationnel et
+  la conformité :
+  - Nouvelle entrée de menu "Incidents de sécurité" dans le secteur natif Assistance (`helpdesk`),
+    aux côtés de Tickets/Problèmes/Changements : ce plugin peut désormais enregistrer des classes
+    dans plusieurs secteurs de menu à la fois.
+  - Les champs de classification ISO 27001 (catégorie/sévérité/impact C/I/D/cause racine/
+    enseignements tirés/risque lié) s'affichent dans un accordéon dédié "Classification ISO 27001",
+    aux côtés de l'accordéon "Analyse" (impact/contrôles/plan de retour arrière) également absorbé
+    - les deux directement dans le panneau principal de champs, via `Hooks::POST_ITIL_INFO_SECTION`.
+  - La clôture d'un incident (statut "Clos") exige toujours une cause racine et des enseignements
+    tirés documentés (clause A.5.27), exactement comme le faisait l'ancien registre.
+  - Suivi CVE (association en masse, format validé), modèles d'incident, et 4 cartes de tableau de
+    bord natives (total, ouverts, répartition par entité/catégorie) en plus des cartes existantes
+    (par statut/sévérité, mises à jour pour le nouveau vocabulaire de statuts ITIL).
+  - Chaque partie (module principal, CVE, modèles, tableau de bord) reste activable/désactivable
+    indépendamment via l'écran de configuration ajouté précédemment.
+  - **Migration automatique et transparente** : toute donnée existante dans l'ancien registre léger
+    est migrée vers le nouvel objet fusionné à la mise à jour du plugin (mapping des statuts,
+    conversion du responsable en acteur assigné), sans action manuelle requise.
+  - Droits dédiés (`plugin_grcmanager_securityincident`, `rule_grcmanager_securityincident`)
+    conservés distincts du droit plat du reste du plugin, pour la granularité de visibilité réelle
+    qu'un objet ITIL nécessite (voir/mes-incidents vs. voir-tout).
+  - Vérifié en conditions réelles sur l'instance GLPI partagée : migration d'un incident réel,
+    affichage des deux accordéons avec les données migrées, blocage/déblocage de la clôture selon
+    la documentation, activation/désactivation de chaque interrupteur, création d'un nouvel
+    incident, enregistrement des notifications (infrastructure confirmée ; aucun envoi réel testé,
+    les notifications étant globalement désactivées sur cette instance), cartes de tableau de bord
+    exécutées avec succès via un script Kernel réel.
+
+- **Écran de configuration du module Incidents de sécurité.** Nouvel écran dans Configuration >
+  Plugins > GRC Manager permettant d'activer/désactiver séparément le module principal, le suivi
+  CVE, les modèles d'incident et les cartes de tableau de bord (`SecurityIncidentModuleConfig`,
+  `glpi_plugin_grcmanager_securityincidentconfig`). Tous les indicateurs sont activés par défaut.
+
+- **Carte de tableau de bord "délai moyen de réponse aux incidents"** (issue A.5.24-27 ISO/IEC
+  27001:2022) : moyenne, en heures, du temps écoulé entre la création et la résolution des
+  incidents de sécurité effectivement résolus. Complète les cartes déjà existantes (par statut/
+  sévérité/entité/catégorie, qui comptent) avec un indicateur qui mesure un temps : un indicateur
+  ISO 27001 classique qui n'avait pas d'équivalent parmi les cartes portées depuis le plugin
+  absorbé.
+
+- **Première suite de tests d'intégration** (`tests/Integration/`, `phpunit-integration.xml.dist`,
+  `composer test:integration`) : ce plugin n'en avait aucune jusqu'ici (seulement `tests/Unit`,
+  sans base de données). Portée depuis le plugin absorbé glpi-security-incidents : boot réel du
+  Kernel GLPI, transaction par test. Couvre le cycle de vie complet de l'objet ITIL fusionné (CRUD,
+  liaison d'actif, champs de classification ISO 27001, blocage/déblocage de la clôture, lien vers
+  un risque, CVE, notifications, droits Super-Admin). La logique de mapping de la migration
+  légère->fusionnée (`LegacySecurityIncidentMigrator`, y compris la conversion du vocabulaire de
+  statuts) est en plus couverte séparément par la suite `unit` existante (rapide, sans DB).
+
+### Documentation
+
+- **Références obsolètes à glpi-vulnerability-manager et glpi-security-incidents mises à jour.**
+  Les deux plugins jumeaux sont désormais archivés (le premier retiré au profit du suivi CVE de
+  glpi-security-incidents à l'époque, le second absorbé dans ce même plugin ci-dessus). `README.md`/
+  `README.en.md`, `ROADMAP.md`, `grcmanager.xml` et `docs/design/DEVELOPMENT_PLAN.md` reflètent
+  désormais que le suivi des incidents de sécurité et des CVE est natif à ce plugin, plus besoin
+  d'un dépôt distinct ni archivé.
+
+## [1.1.5] - 2026-09-10
+
+### Fixed
+
+- **Le titre d'un contrôle Annexe A (liste SoA) n'était pas cliquable** - seule une colonne "ID"
+  séparée, peu lisible (juste un numéro), permettait de rouvrir la fiche du contrôle. La colonne
+  qu'un utilisateur lit et clique naturellement (`code`, ex. "A.5.1 - Politiques de sécurité de
+  l'information") restait du texte brut malgré son affichage personnalisé
+  (`getSpecificValueToDisplay()`). Retour utilisateur direct sur cette liste précise.
+
+  Corrigé en reprenant la même convention que `CommonITILObject::rawSearchOptions()` pour sa
+  propre colonne "Titre" (`'additionalfields' => ['id']`, nécessaire même pour la toute première
+  colonne : confirmé en lisant le code de `Ticket`) : le lien entoure maintenant le texte formaté
+  existant plutôt que d'être une colonne séparée à part.
+
+  Vérifié en direct sur l'instance de test : la liste des 93 contrôles Annexe A affiche bien
+  chaque "A.x.y - Titre" comme un lien cliquable vers la fiche correspondante.
+
+### Changed
+
+- **Dépôt renommé** de `glpi-grc-manager` vers `glpi-iso27001-management` - nom jugé plus parlant
+  (le plugin est un ISMS ISO 27001 : risques, contrôles/SoA, audits, non-conformités). GitHub
+  redirige automatiquement l'ancien nom. Le namespace PHP (`GlpiPlugin\Grcmanager`), les noms de
+  table (`glpi_plugin_grcmanager_*`) et la clé du plugin restent inchangés : casser ça imposerait
+  une migration de données à toute installation existante pour un simple changement de nom de
+  dépôt.
+
+### Added
+
+- Test unitaire pour `plugin_grcmanager_redefine_menus()` (`setup.php`), le hook qui corrige le
+  doublon de libellé du sous-menu "GRC & Conformité" (v1.1.4) : c'est une fonction pure (aucune
+  dépendance GLPI dans son propre corps), testable directement sans instance GLPI réelle, qui
+  n'avait pourtant aucun test malgré ça. Ne couvre que la logique de transformation du tableau de
+  menu elle-même ; l'effet réel sur le rendu GLPI (breadcrumb, absence de doublon visuel) reste
+  hors de portée d'un test unitaire et nécessiterait un test au niveau navigateur/GLPI réel.
+
+## [1.1.4] - 2026-09-04
+
+### Fixed
+
+- **Le sous-menu "GRC & Conformité" répétait deux fois le même libellé** (retour utilisateur direct
+  sur la v1.1.3) : `PluginGrcmanagerMenu`, l'ancre qui porte le titre/icône du sector (voir son
+  propre docblock), restait aussi visible comme premier élément cliquable du sous-menu qu'elle
+  ouvre - GLPI core (`Html::generateMenuSession()`) ajoute systématiquement chaque classe de
+  `MENU_TOADD` comme une ligne de sous-menu, sans distinction entre "porte le titre du sector" et
+  "écran réel". Corrigé en ajoutant un hook `Hooks::REDEFINE_MENUS` (`plugin_grcmanager_redefine_menus()`
+  dans `setup.php`) : GLPI core l'appelle juste après avoir construit le menu complet, ce qui permet
+  de retirer la ligne de l'ancre du sous-menu une fois que le titre/icône du sector sont déjà
+  fixés, sans toucher à l'ordre ni aux 11 écrans réels.
+
+## [1.1.3] - 2026-09-03
+
+### Fixed
+
+- **Fil d'Ariane des 11 écrans du plugin toujours "Outils" après le nouveau menu "GRC &
+  Conformité" (v1.1.2)** : chaque contrôleur `front/*.php`/`front/*.form.php` appelait
+  `Html::header(..., 'tools', ...)` avec le sector natif codé en dur, jamais mis à jour lors du
+  déplacement de ces classes vers le nouveau sector `'grcmanager'` dans `setup.php`. GLPI core
+  (`Html::header()`, `page_header.html.twig`) construit le fil d'Ariane et met en évidence la
+  section active de la barre latérale directement à partir de ce paramètre `$sector`, indépendamment
+  du sector réellement enregistré dans `MENU_TOADD` : la navigation elle-même fonctionnait (bonne
+  URL, bon contenu), mais la barre latérale revenait visuellement sur "Outils" à chaque clic sur un
+  sous-menu, donnant l'impression trompeuse d'être renvoyé au mauvais endroit. Les 21 appels
+  concernés (tous sauf `front/config.php`, hors périmètre du nouveau menu) pointent désormais vers
+  `'grcmanager'`.
+- **Le premier élément du sous-menu "GRC & Conformité" (l'ancre `PluginGrcmanagerMenu`) renvoyait à
+  l'accueil au lieu du tableau de bord ISMS.** Son lien utilisait
+  `/front/central.php?dashboard=...` sans le paramètre `embed` : `Glpi\Controller\CentralController`
+  (GLPI core) n'honore `dashboard` que combiné à `embed` (rendu anonyme sans menu/en-tête) - sans
+  lui, le paramètre est silencieusement ignoré et la page affiche le dernier tableau de bord
+  "Central" utilisé. Corrigé en pointant vers le registre des risques
+  (`PluginGrcmanagerRisk::getSearchURL()`), un vrai écran du plugin plutôt qu'un lien qui n'aboutit
+  jamais où il annonce mener.
+
+## [1.1.2] - 2026-09-03
+
+### Changed
+
+- **Menu de premier niveau dédié "GRC & Conformité"** : les 11 écrans du plugin (Risques, Risques
+  fournisseurs, Contrôles Annexe A, Obligations légales/réglementaires/contractuelles, Audits
+  internes, Non-conformités, Incidents de sécurité, Formations, Revues de direction, Politiques de
+  sécurité, Objectifs ISMS) étaient jusqu'ici tous enregistrés à plat dans le menu natif GLPI
+  "Outils", devenu encombré. Ils apparaissent maintenant sous leur propre entrée de menu de premier
+  niveau "GRC & Conformité" (icône bouclier), au même niveau que Parc/Assistance/Gestion/Outils/
+  Administration/Configuration. Nouvelle classe ancre `PluginGrcmanagerMenu`
+  (`inc/menu.class.php`), sans table ni donnée propre, dont le seul rôle est de porter le titre et
+  l'icône de ce nouveau sector (voir son docblock pour le mécanisme GLPI core exact) ; son propre
+  lien de menu pointe vers le tableau de bord ISMS déjà existant. Ce changement concerne uniquement
+  la navigation : la fiche Profil (Administration > Profils) n'est pas affectée, ce plugin
+  n'exposant qu'un droit unique et opaque (`plugin_grcmanager`), jamais rendu dans la matrice de
+  droits de GLPI.
+
+## [1.1.1] - 2026-09-03
+
+### Fixed
+
+- **Plan de traitement d'un risque : erreur fatale en laissant l'échéance vide** (issue #31) :
+  `PluginGrcmanagerRiskTreatmentAction::validateAndNormalize()` ne normalisait pas `due_date` avant
+  l'insertion. Le champ `<input type="date">` du mini-formulaire d'ajout d'action
+  (`PluginGrcmanagerRisk::showTreatmentPlan()`) soumet une chaîne vide `''` (et non une absence de
+  champ) quand aucune date n'est saisie ; `due_date` étant une colonne `DATE` nullable, cette chaîne
+  vide atteignait MySQL telle quelle et le mode strict la rejetait ("Incorrect date value: '' for
+  column `due_date`"), provoquant une page d'erreur fatale au lieu d'enregistrer l'action sans
+  échéance. `''` est maintenant convertie en `null` avant l'ajout/la mise à jour.
+
+## [1.1.0] - 2026-09-03
+
+### Added
+
+- **Registre des incidents de sécurité de l'information** (issue #29, ISO/IEC 27001:2022 Annexe A
+  A.5.24-27) : les contrôles A.5.24-27 (planification/réponse/apprentissage des incidents)
+  n'existaient jusqu'ici que comme lignes à cocher dans la SoA - GLPI dispose nativement de
+  Ticket/Problem, mais rien ne les qualifiait comme "incident de sécurité de l'information" au sens
+  ISO ni ne les reliait au registre de risques de ce plugin. Nouveau registre indépendant
+  (`PluginGrcmanagerSecurityIncident`, table `glpi_plugin_grcmanager_securityincidents`) : intitulé,
+  date de l'incident, catégorie (violation de données/logiciel malveillant/accès non autorisé/
+  indisponibilité/autre), sévérité (mineure/majeure/critique, même échelle que
+  `PluginGrcmanagerNonconformity`), axes confidentialité/intégrité/disponibilité affectés (cases à
+  cocher, liste séparée par des virgules en base, même convention que `PluginGrcmanagerAudit.
+  risk_categories`), statut (ouvert/en investigation/contenu/clôturé), cause racine et enseignements
+  tirés. Référence légère optionnelle vers un Ticket ou Problem GLPI déjà existant
+  (`linked_itemtype`/`linked_items_id`, lien construit via `CommonDBTM::getLinkURL()` natif, jamais
+  une duplication du contenu du ticket), et lien optionnel zéro-ou-un vers une entrée du registre de
+  risques (`plugin_grcmanager_risks_id`, même convention que le lien obligation <-> risque de
+  l'issue #30) pour boucler la clause A.5.27 ("tirer des enseignements des incidents"). La cause
+  racine et les enseignements tirés ne sont obligatoires qu'à la clôture de l'incident, jamais pour
+  l'ouvrir ou le mettre en investigation (même convention "obligatoire seulement à la clôture" que
+  l'action corrective de `PluginGrcmanagerNonconformity`, issue #27). Nouvel écran sous Outils
+  (liste filtrable, formulaire), 2 nouvelles cartes de tableau de bord (incidents par statut, par
+  sévérité) ajoutées au tableau de bord ISMS seedé à l'installation. Logique pure (normalisation
+  catégorie/sévérité/statut, liste C/I/D, liens optionnels, validation de clôture) extraite dans
+  `GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentRules`, testée unitairement. Réutilise le
+  droit plat existant `plugin_grcmanager`, aucune preuve d'un besoin de droit dédié par
+  fonctionnalité dans ce plugin.
+- **Bibliothèque de politiques de sécurité versionnées** (issue #28, ISO/IEC 27001:2022
+  A.5.1/A.5.1.1/A.5.1.2) : le contrôle A.5.1 de la SoA n'existait jusqu'ici que comme ligne à
+  cocher, sans aucun outil derrière. Nouveau registre natif (`PluginGrcmanagerPolicy`, table
+  `glpi_plugin_grcmanager_policies`) pour gérer les politiques de sécurité (charte informatique,
+  politique de mots de passe, PCA...) avec un vrai cycle de vie : statut brouillon/approuvée/
+  archivée, version libre (ex. « 1.2 »), date d'approbation (obligatoire pour passer au statut
+  approuvée, validation serveur réelle), prochaine date de revue et propriétaire. Le ou les
+  documents réels (PDF, Word...) sont attachés via le mécanisme natif GLPI Document/Document_Item
+  (onglet « Documents » standard, `PluginGrcmanagerPolicy::defineTabs()` +
+  `$CFG_GLPI['document_types']`), jamais un système de stockage propre à ce plugin. Rappels de
+  revue automatiques sur `next_review_date` (tâche Cron quotidienne
+  `PluginGrcmanagerPolicy::cronReviewreminder()`, notification GLPI native), même mécanisme que les
+  rappels de revue déjà en place sur le registre de risques (`ReviewReminderService`), avec sa
+  propre fenêtre de 30 jours extraite en logique pure testable (`PolicyReviewReminderWindow`).
+  Nouvel écran sous Outils, liste filtrable par statut avec badge coloré, 2 nouvelles cartes de
+  tableau de bord (« Politiques en attente de revue », « Politiques de sécurité par statut »),
+  ajoutées au tableau de bord ISMS seedé à l'installation. Aucun lien direct posé entre la ligne
+  A.5.1 de la SoA et ce registre (voir TECH_DEBT.md pour le raisonnement).
+
+- **Registre des obligations légales, réglementaires et contractuelles** (issue #30, ISO 27001
+  clause 4.2 « parties intéressées et leurs exigences », Annexe A A.5.31-36) : les contrôles
+  A.5.31-36 n'existaient jusqu'ici que comme lignes à cocher dans la Déclaration d'Applicabilité
+  (`PluginGrcmanagerControl`) - nouveau registre indépendant (`PluginGrcmanagerComplianceObligation`,
+  table `glpi_plugin_grcmanager_complianceobligations`) pour centraliser ce qui, en pratique, finit
+  souvent en tableur Excel isolé : intitulé, type (légale/réglementaire/contractuelle), référence/
+  source (ex. « RGPD », « Contrat client Acme SA »), statut de conformité (conforme/partiellement
+  conforme/non conforme/non évaluée), propriétaire, date de revue et description/notes. Lien
+  optionnel zéro-ou-un vers une entrée du registre de risques quand le non-respect de l'obligation
+  constitue un risque identifié (`plugin_grcmanager_risks_id`, colonne directe - pas une table de
+  liaison many-to-many, cardinalité plus simple que le lien risque <-> actifs CMDB de l'issue #25).
+  Nouvel écran sous Outils (liste filtrable, formulaire), 4 nouvelles cartes de tableau de bord
+  (obligations non conformes, en attente de revue, par type, par statut de conformité) ajoutées au
+  tableau de bord ISMS seedé du Sprint 7, et même mécanisme de rappel de revue (Cron quotidien +
+  notification GLPI native) que le registre de risques - `ReviewReminderService` généralisé pour
+  accepter un itemtype sans colonne `status` (l'obligation n'a pas d'état "clôturé", seulement un
+  statut de conformité, qui ne dispense jamais de la revue périodique). Logique pure (normalisation
+  type/statut, lien zéro-ou-un, fenêtre de rappel de revue) extraite dans
+  `GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules`, testée unitairement.
+- **Objectifs ISMS et suivi de KPI dans le temps** (issue #32, ISO 27001 clause 6.2) : le tableau
+  de bord ISMS (15 cartes) montrait l'état actuel du système de management, une photo instantanée,
+  mais rien ne permettait de fixer des objectifs de sécurité mesurables (ex. « réduire de 20% les
+  non-conformités récurrentes d'ici fin d'année ») ni de suivre leur progression dans le temps -
+  une trajectoire. Nouvelle classe `PluginGrcmanagerObjective` (table
+  `glpi_plugin_grcmanager_objectives`) : titre, description, propriétaire (vrai `User` GLPI),
+  échéance, statut (non démarré/sur la bonne voie/à risque/atteint/manqué), et une cible en DEUX
+  champs indépendants tous deux optionnels - `target_value` (numérique) pour un objectif chiffré et
+  `target_description` (texte libre) pour un objectif purement qualitatif ("obtenir la
+  certification ISO 27001") : plutôt que de forcer chaque objectif dans une case numérique
+  artificielle. Nouvelle classe `PluginGrcmanagerObjectiveMeasurement` (table
+  `glpi_plugin_grcmanager_objectivemeasurements`) : historique manuel de mesures dans le temps
+  ("à cette date, nous en sommes à X"), volontairement PAS auto-calculé depuis d'autres données du
+  plugin pour cette première version (même philosophie "version minimale et testée" que le reste de
+  ce plugin, voir `TECH_DEBT.md`) ; une mesure sur un objectif chiffré exige une valeur numérique,
+  une mesure sur un objectif purement qualitatif accepte une valeur vide mais exige alors un
+  commentaire (`GlpiPlugin\Grcmanager\Services\Objective\ObjectiveMeasurementValidator`, testé
+  unitairement). Nouvel écran sous Outils (liste + formulaire), avec sur la fiche de chaque
+  objectif un mini-formulaire d'ajout de mesure et l'historique chronologique complet en simple
+  tableau (pas de graphique : une trajectoire honnête sans nouvelle dépendance de rendu). Lien léger
+  many-to-many vers les revues de direction (`PluginGrcmanagerManagementReview`, nouveau champ
+  "Objectifs ISMS abordés", même convention de lien direct `$DB` que le lien contrôle <-> risque) :
+  la clause 9.3 ISO 27001 liste explicitement "l'étendue de l'atteinte des objectifs de sécurité de
+  l'information" parmi les données d'entrée attendues d'une revue de direction. Nouvelle carte de
+  tableau de bord "Objectifs ISMS par statut" (`DashboardCardService::objectivesByStatus()`),
+  reprise dans le tableau de bord seedé à l'installation (`DefaultDashboardService`, 16e carte).
+  Réutilise le droit plat existant `plugin_grcmanager`, aucune preuve d'un besoin de droit dédié par
+- **Plan d'action de traitement des risques** (issue #31, ISO 27001 clause 8.3/6.1.3) : un risque
+  "à mitiger"/"à transférer" n'avait jusqu'ici que sa décision (`treatment`) et une justification en
+  texte libre, rien ne suivait les actions concrètes menant réellement à sa clôture, contrairement
+  au CAPA structuré des non-conformités. Nouvelle table enfant one-to-many
+  `PluginGrcmanagerRiskTreatmentAction` (`glpi_plugin_grcmanager_risktreatmentactions`, un risque
+  peut avoir zéro, une ou plusieurs actions, chacune avec sa propre description, son responsable
+  (vrai `User` GLPI), son échéance et son statut planifiée/en cours/réalisée) plutôt qu'un simple
+  ensemble de champs plats façon CAPA d'une non-conformité : contrairement à une non-conformité (une
+  action corrective ET une action préventive, fixes), un plan de traitement de risque compte
+  naturellement plusieurs actions indépendantes ("corriger le système" ET "ajouter une supervision"
+  ET "former les équipes"), chacune suivie jusqu'à sa propre clôture - voir le docblock de
+  `PluginGrcmanagerRiskTreatmentAction` pour le raisonnement complet et l'alternative "champs plats"
+  écartée. Uniquement pertinent quand `treatment` vaut "mitiger" ou "transférer"
+  (`TreatmentPlanRules::isTreatmentPlanRelevant()`, testée unitairement) : "accepter" n'a par
+  définition aucun plan de traitement, "éviter" élimine la source du risque sans action à suivre
+  dans la durée. Mini-formulaire d'ajout et liste des actions (mise à jour de statut, suppression)
+  affichés directement sur la fiche du risque concerné (`PluginGrcmanagerRisk::showTreatmentPlan()`,
+  hors du `<form>` principal comme `PluginGrcmanagerObjective::showMeasurementHistory()`, voir la
+  Pull Request pour le détail de cette contrainte HTML). Un risque à mitiger/transférer ne peut plus
+  être clôturé sans au moins une action de traitement enregistrée (validation serveur réelle,
+  message d'erreur, même mécanisme que l'action corrective obligatoire à la clôture d'une
+  non-conformité). "En retard" reste une condition dérivée (échéance dépassée et statut différent de
+  "réalisée"), jamais un statut choisi dans un menu déroulant, même convention que le CAPA en retard,
+  les revues de risque, le renouvellement de formation et la revue de politique. Tâche Cron
+  quotidienne dédiée (`cronOverduetreatmentaction()`, notification GLPI native vers le responsable
+  de l'action) et 2 nouvelles cartes de tableau de bord ("Actions de traitement de risque en
+  retard", "Risques à mitiger/transférer sans plan de traitement"), ajoutées au tableau de bord ISMS
+  seedé à l'installation.
+- **Classification Confidentialité/Intégrité/Disponibilité (C/I/D) des actifs** (issue #26,
+  ISO/IEC 27001:2022 A.5.9/A.5.12/A.8.2) : nouveau registre natif, indépendant du lien registre de
+  risques <-> actifs de l'issue #25 (`PluginGrcmanagerAssetClassification`, table
+  `glpi_plugin_grcmanager_assetclassifications`, clé composite unique itemtype/items_id) : une
+  classification est une propriété de l'actif lui-même (ex. « base RH = confidentialité élevée »),
+  pas d'un risque particulier qui le mentionne. Réutilise exactement la même liste d'itemtypes
+  classifiables que l'issue #25 (`LinkableItemtypes`/`PluginGrcmanagerRisk::getLinkableItemtypes()`),
+  jamais une seconde liste divergente. Nouvel onglet "Classification C/I/D" en lecture + édition sur
+  la fiche de chaque actif liable (même mécanisme `Plugin::registerClass()`/`addtabon` que l'onglet
+  "Risques" de l'issue #25), formulaire à 3 menus déroulants Faible/Moyen/Élevé par axe, chaque axe
+  pouvant être renseigné indépendamment (classification partielle valide, pas de tout-ou-rien). Le
+  formulaire du registre de risques (`PluginGrcmanagerRisk::showForm()`) affiche désormais, en
+  lecture seule, la classification existante de chaque actif déjà lié directement dans le libellé du
+  multi-select, ainsi qu'une suggestion non-bloquante à côté du champ Impact quand au moins un actif
+  lié porte une classification élevée (n'altère jamais la valeur choisie par l'utilisateur). Décision
+  volontaire de ne PAS dépendre du plugin communautaire "Fields" recommandé dans l'issue d'origine :
+  une implémentation native est testable et ne suppose pas la présence d'un plugin tiers sur une
+  instance donnée (le plugin "Fields" reste mentionné en note d'interopérabilité future dans la PR).
+
+- **Distinction non-conformité / observation-remarque dans les audits** (issue #27, vocabulaire ISO
+  19011) : nouveau champ `finding_type` sur `PluginGrcmanagerNonconformity`, indépendant de
+  `severity`. Une observation/remarque suit le même workflow CAPA qu'une non-conformité mais sans
+  action corrective/préventive obligatoire pour être clôturée/vérifiée (elle peut toujours en
+  recevoir une volontairement). Liste filtrable par type de constat avec badge coloré, formulaire
+  mis à jour, migration idempotente (`Migration::addField()`) avec valeur par défaut
+  `nonconformity` pour ne reclasser aucun constat d'audit existant. La carte de tableau de bord
+  « Non-conformités ouvertes » ne compte désormais plus que les vraies non-conformités. Résout la
+  dette documentée dans TECH_DEBT.md Sprint 4.
+- **Lien registre de risques <-> actifs GLPI/CMDB** (issue #25) : un risque peut désormais être
+  lié à zéro, un ou plusieurs actifs réels de la CMDB (Computer, Monitor, NetworkEquipment,
+  Peripheral, Phone, Printer, Software, ainsi que tout actif personnalisé actif) via une nouvelle
+  table de liaison polymorphe `glpi_plugin_grcmanager_risks_items` (itemtype/items_id, sur le même
+  modèle que les tables de liaison polymorphes du cœur GLPI, ex. `glpi_documents_items`) -
+  volontairement PAS une colonne `itemtype`/`items_id` directe sur `glpi_plugin_grcmanager_risks`
+  elle-même, qui aurait imposé à tort une cardinalité 1-vers-1. Un multi-select par itemtype liable
+  dans le formulaire du risque (`PluginGrcmanagerRisk::showForm()`), et un nouvel onglet "Risques"
+  en lecture seule sur la fiche de chaque actif liable (`getTabNameForItem()`/
+  `displayTabContentForItem()`, `Plugin::registerClass()`/`addtabon` dans `setup.php`) pour
+  répondre au besoin inverse ("quels risques pèsent sur cet actif ?"). Gérée par de simples
+  méthodes statiques en accès direct `$DB` (`getLinkedAssets()`/`syncLinkedAssets()`/
+  `getRisksLinkedToItem()`), pas une vraie classe `CommonDBRelation`, même simplification déjà
+  assumée pour tous les autres liens de ce plugin depuis le Sprint 3 (voir TECH_DEBT.md).
+
+## [1.0.1] - 2026-08-26
+
+### Added
+
+- **Fiche marketplace** (`grcmanager.xml`) et logo : le plugin n'avait encore ni catalogue
+  marketplace ni aucun visuel alors que la v1.0.0 est stable et publiée. Ajout de la fiche
+  complète (description, tags, captures d'écran), d'un logo placeholder (thème ISO 27001) et
+  d'une automatisation dans `release.yml` qui ouvre désormais une PR de mise à jour du catalogue
+  à chaque release, pour éviter la dérive silencieuse déjà rencontrée sur les plugins jumeaux
+  (assetsign-glpi#105).
+
+### Fixed
+
+- Badges README (statut "alpha: sprint 7") restés obsolètes depuis le passage en v1.0.0 stable.
+
+## [1.0.0] - 2026-08-25
+
+Les 8 sprints du plan de développement sont terminés. Testé en charge à l'échelle d'un ISMS
+réel sur une instance secondaire (350 risques, 93 contrôles SoA, 40 audits, 80 non-conformités,
+60 risques fournisseurs, 30 formations) : toutes les listes chargent en 40 à 200ms, toutes les
+requêtes des cartes de tableau de bord en moins d'une milliseconde côté base. CI/CD complète
+verte, pipeline de release relu de bout en bout. Recommandation non bloquante documentée dans
+TECH_DEBT.md : le tutoriel (27 captures d'écran) ne couvre que les Sprints 1 à 4, à compléter
+pour les Sprints 5 à 7 (risques fournisseurs, formations, revues de direction, tableau de bord
+par défaut, suivi de version GitHub).
+
+### Fixed
+
+- **`README.md`/`README.en.md` affichaient encore un statut "Sprint 1 terminé"** alors que les
+  Sprints 1 à 7 sont terminés (badge de statut et section "État du projet"/"Project status" mis à
+  jour en conséquence). Constat fait lors de la revue de préparation v1.0.0 (Sprint 8).
+- **`plugin.json` : champ `note` obsolète**, encore rédigé au passé du Sprint 6 alors que le
+  Sprint 7 (tableaux de bord, consolidation) est terminé depuis. Mis à jour pour refléter l'état
+  réel du projet, sans toucher aux champs `version`/`state`/`screenshots` (réservés à la
+  publication de la v1.0.0).
+
+- **Colonne Titre non cliquable sur les listes Risques, Risques fournisseurs, Audits, Non-
+  conformités, Formations et Revues de direction** : seule la colonne ID (petite cible) ouvrait
+  la fiche, le titre affiché s'affichait en texte brut. Constat direct du porteur du plugin sur un
+  écran comparable. Colonne Titre passée en `datatype => 'itemlink'` (`itemtype => self::class`)
+  sur les 6 classes concernées, vérifié en conditions réelles (HTML rendu avec un vrai lien vers
+  la fiche).
+
+- Fil d'Ariane incorrect sur tous les écrans du plugin : `Html::header()` déclarait la catégorie
+  `'admin'` (Administration) sur 11 fichiers alors que le plugin est enregistré sous `'tools'`
+  (Outils) dans `Hooks::MENU_TOADD`, même bug que sur `glpi-vulnerability-manager`, confirmé en
+  direct sur les deux dépôts. Corrigé partout (y compris les 4 nouveaux écrans du Sprint 6 ci-dessus,
+  qui n'existaient pas encore lors du premier correctif) pour que le fil d'Ariane et le menu actif
+  reflètent l'emplacement réel.
+
+### Added
+
+- **Sprint 7 (tableaux de bord, consolidation)** : les 15 cartes posées aux Sprints 1 à 6 ont été
+  vérifiées une à une contre une instance GLPI 11 réelle avec de vraies données (schéma, valeurs
+  d'énumération et sortie de chaque `DashboardCardService::*` comparés directement) : aucune
+  n'était cassée, aucune carte redondante ou manquante identifiée. Nouveau tableau de bord natif
+  GLPI seedé à l'installation (`GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService`),
+  reprenant les 15 cartes déjà posées, pour qu'une installation fraîche affiche d'emblée une vue
+  d'ensemble ISMS plutôt qu'un sélecteur « Ajouter une carte » vide. Visible par tout utilisateur
+  disposant du droit natif « dashboard », exactement comme les tableaux de bord natifs Central/
+  Parc/Assistance ; retiré proprement à la désinstallation.
+- **Suivi de la dernière version publiée sur GitHub** sur l'écran Configuration, à côté de la
+  version installée (`GlpiPlugin\Grcmanager\Services\GithubVersionChecker`, mise en cache 24h) :
+  même mécanisme que les plugins jumeaux glpi-vulnerability-manager, assetsign-glpi et
+  Configuration-glpi-auto.
+- Lien vers le tutoriel utilisateur bilingue (`docs/TUTORIAL.md`) ajouté dans la section
+  Documentation de `README.md`/`README.en.md`, jusque-là non référencé depuis la page d'accueil du
+  dépôt.
+
+- **Suivi des formations de sensibilisation à la sécurité (clauses 7.2 "compétence" et 7.3
+  "sensibilisation" ISO/IEC 27001:2022)** : nouvel itemtype `PluginGrcmanagerTraining`, une ligne
+  par session/campagne de formation (titre, format présentiel/e-learning/autre, public cible en
+  texte libre, date de réalisation, caractère obligatoire, période de renouvellement optionnelle en
+  mois). Suivi individuel de réalisation par participant (vrai `User` natif de GLPI, jamais un
+  concept propre à ce plugin) sur la table de liaison
+  `glpi_plugin_grcmanager_trainings_users` : statut (en attente/terminée/dispensé) et date de
+  réalisation par participant, pas seulement un décompte agrégé. Nouvelle tâche Cron quotidienne
+  (`PluginGrcmanagerTraining::cronRenewaldue()`) qui notifie individuellement chaque participant en
+  retard de renouvellement (`GlpiPlugin\Grcmanager\Services\Training\TrainingRenewalService`,
+  `inc/notificationtargettraining.class.php`, résolution explicite de plusieurs destinataires par
+  formation, pas un simple propriétaire unique). Liste filtrable avec badges colorés traduits et
+  lien cliquable (`front/training.php`), formulaire dédié (`front/training.form.php`).
+- **Enregistrement des revues de direction (clause 9.3 ISO/IEC 27001:2022)** : nouvel itemtype
+  `PluginGrcmanagerManagementReview` (titre, statut planifiée/terminée avec auto-renseignement de la
+  date de revue dès le passage au statut "Terminée", participants liés via
+  `glpi_plugin_grcmanager_managementreviews_users`, ordre du jour et décisions/actions en texte
+  libre, volontairement non rattachées au mécanisme CAPA existant, voir `TECH_DEBT.md` Sprint 6).
+  Liste filtrable avec badges colorés traduits et lien cliquable
+  (`front/managementreview.php`), formulaire dédié (`front/managementreview.form.php`).
+- **3 nouvelles cartes de tableau de bord** (`DashboardCardService`, même signature
+  accumulateur-safe que les cartes précédentes) : taux de réalisation des formations, participants
+  en retard de renouvellement de formation, revues de direction par statut.
+- Nouvelles chaînes traduites dans `locales/fr_FR.po`/`locales/en_GB.po`.
+
+## [0.5.0] - 2026-08-24
+
+### Added
+
+- **Risques fournisseurs/tiers** : nouveau registre dédié, `PluginGrcmanagerSupplierRisk`, avec
+  exactement les mêmes mécanismes d'acceptation/traitement que le registre générique
+  (`PluginGrcmanagerRisk`) : catégorie/probabilité/impact/niveau de risque calculé, traitement
+  (accepter/mitiger/transférer/éviter), propriétaire, justification, date de revue, statut. Chaque
+  risque fournisseur est rattaché à un vrai `Supplier` natif de GLPI (`suppliers_id`, jamais un
+  concept fournisseur propre à ce plugin), rattachement obligatoire (validation serveur réelle,
+  vérifiée en direct). Le calcul de notation (`computed_score`/`risk_level` à partir de
+  `probability`/`impact` via la matrice administrable existante) est désormais partagé avec le
+  registre générique via un nouveau trait `GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait`
+  (`src/Traits/RiskAssessmentTrait.php`), qui regroupe aussi les énumérations et le rendu des
+  badges colorés traduits, pour que les deux registres ne puissent jamais diverger sur leur
+  notation ; `PluginGrcmanagerRisk` a été refactoré pour utiliser ce même trait, sans changement de
+  comportement. Même mécanisme de rappel de revue que le Sprint 2
+  (`GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService`, généralisée pour piloter les deux
+  tâches Cron `PluginGrcmanagerRisk::cronReviewreminder()` et
+  `PluginGrcmanagerSupplierRisk::cronReviewreminder()` à partir de la même implémentation), nouvelle
+  notification GLPI native dédiée (`inc/notificationtargetsupplierrisk.class.php`). Liste filtrable
+  par catégorie/probabilité/impact/niveau/traitement/statut et par le Fournisseur lié (vrai filtre
+  GLPI natif, jointure réelle sur `glpi_suppliers`), badges colorés traduits, lien cliquable, vue
+  « Mes risques fournisseurs » (`front/supplierrisk.php`), formulaire dédié
+  (`front/supplierrisk.form.php`). 2 nouvelles cartes de tableau de bord : risques fournisseurs par
+  niveau, nombre de fournisseurs ayant au moins un risque élevé/critique encore ouvert
+  (`DashboardCardService`, même signature accumulateur-safe que les cartes précédentes). Nouvelles
+  chaînes traduites dans `locales/fr_FR.po`/`locales/en_GB.po`.
+- **Audits internes et CAPA (clauses 9.2 et 10.2 ISO/IEC 27001:2022)** : deux nouveaux itemtypes.
+  `PluginGrcmanagerAudit` porte le programme d'audit interne (titre, périmètre libre, catégories de
+  risque couvertes, contrôles Annexe A couverts via un lien many-to-many
+  `glpi_plugin_grcmanager_audits_controls`, auditeur, statut planifié/en cours/terminé/annulé, date
+  planifiée/réalisée avec auto-renseignement de la date réalisée dès le passage au statut
+  « Terminé », conclusion). `PluginGrcmanagerNonconformity` porte le cycle constat -> action
+  corrective/préventive -> clôture que la clause 10.2 impose : rattachement à un audit, sévérité
+  (mineure/majeure/critique), cause racine, action corrective, action préventive, responsable,
+  échéance, statut ouverte/en traitement/clôturée/vérifiée, date de vérification de clôture
+  (auto-renseignée à la date du jour dès le passage au statut « Vérifiée »). Validation serveur
+  réelle : impossible de clôturer ou vérifier une non-conformité sans action corrective renseignée
+  (vérifiée en direct). Nouvelle tâche Cron quotidienne
+  (`PluginGrcmanagerNonconformity::cronOverduecapa()`) qui notifie le responsable de chaque action
+  corrective/préventive dont l'échéance est dépassée et qui n'est ni clôturée ni vérifiée
+  (`OverdueCapaService`, `inc/notificationtargetnonconformity.class.php`), même mécanisme de
+  notification GLPI native que les rappels de revue de risque du Sprint 2. Listes filtrables avec
+  badges colorés traduits et lien cliquable (`front/audit.php`, `front/nonconformity.php`),
+  formulaires dédiés, vue « Mes actions correctives/préventives ». 3 nouvelles cartes de tableau de
+  bord : non-conformités ouvertes, actions correctives/préventives en retard, audits internes par
+  statut (`DashboardCardService`, même signature accumulateur-safe que les cartes précédentes).
+  Nouvelles chaînes traduites dans `locales/fr_FR.po`/`locales/en_GB.po`.
+- **Déclaration d'applicabilité (SoA, clause 6.1.3 ISO/IEC 27001:2022)** : nouvel itemtype
+  `PluginGrcmanagerControl` portant les 93 mesures réelles de l'Annexe A (37 organisationnelles,
+  8 humaines, 14 physiques, 34 technologiques), seedées de façon idempotente à l'installation
+  (`Installer::seedControls()`, comptées en direct sur une instance GLPI 11 réelle : 93/93). Pour
+  chaque mesure : applicabilité (applicable/non applicable/partiellement applicable), justification
+  obligatoire dès que la mesure n'est pas pleinement applicable (validation serveur réelle,
+  vérifiée en direct), statut de mise en œuvre (non démarré/en cours/mis en œuvre/vérifié), lien
+  many-to-many vers le registre de risques (`glpi_plugin_grcmanager_controls_risks`). Liste
+  filtrable par thème/applicabilité/statut avec badges colorés traduits et lien cliquable
+  (`front/control.php`), formulaire dédié (`front/control.form.php`). 3 nouvelles cartes de
+  tableau de bord : contrôles SoA revus, par applicabilité, par état de mise en œuvre
+  (`DashboardCardService`, même signature accumulateur-safe que les cartes du registre de
+  risques). 93 nouvelles chaînes traduites (thèmes, statuts, et l'intitulé officiel de chacune des
+  93 mesures) dans `locales/fr_FR.po`/`locales/en_GB.po`.
+- **Matrice de risque administrable** (`front/config.php`, onglet unique pour l'instant) : la
+  grille probabilité x impact utilisée par `RiskScoringService` pour calculer `risk_level` n'est
+  plus codée en dur, elle est éditable depuis l'interface GLPI (5x4 menus déroulants colorés) et
+  stockée dans `glpi_plugin_grcmanager_riskmatrixconfig`, sur le modèle du plugin jumeau
+  glpi-vulnerability-manager. Les valeurs par défaut reproduisent exactement la matrice fixe du
+  Sprint 1 : aucun changement pour les installations existantes tant qu'un administrateur ne
+  modifie pas la grille (voir `RiskMatrixDefaults`).
+- **Filtres de liste réellement fonctionnels** sur catégorie, probabilité, impact, niveau de
+  risque, traitement et statut (`PluginGrcmanagerRisk::getSpecificValueToSelect()`) : le Sprint 1
+  affichait des badges traduits mais ne permettait de filtrer qu'en tapant la valeur brute non
+  traduite dans une case de texte ; ces six colonnes affichent maintenant un vrai menu déroulant
+  traduit dans le formulaire de recherche.
+- **Vue « Mes risques »** sur la liste (`front/risk.php`) : lien direct vers les risques dont
+  l'utilisateur connecté est propriétaire.
+- **Rappels de date de revue** : nouvelle tâche Cron GLPI (`PluginGrcmanagerRisk::cronReviewreminder()`,
+  quotidienne) qui identifie les risques dont la date de revue est dépassée ou approche (30 jours)
+  et déclenche une notification GLPI native (`review_due`) au propriétaire du risque
+  (`ReviewReminderService`, `inc/notificationtargetrisk.class.php`), en plus de la carte de
+  tableau de bord « Risques en attente de revue » déjà livrée au Sprint 1.
+
+### Fixed
+
+- `front/risk.php` transmettait un tableau de paramètres vide à `Search::showList()`, ignorant
+  silencieusement tout critère de recherche présent dans l'URL (tri, pagination, filtres), corrigé
+  en fusionnant `$_GET` via `Glpi\Search\Input\QueryBuilder::manageParams()`, le même mécanisme que
+  `Search::show()` utilise pour les écrans natifs de GLPI.
+
+## [0.1.0] - 2026-08-24
+
+### Added
+
+- **Squelette de plugin GLPI 11 installable** : `setup.php` (version, compatibilité GLPI 11.0.0 à
+  11.99.99, PHP 8.1 minimum), `hook.php`, droit GLPI dédié `plugin_grcmanager` (attribué en full
+  au profil Super-Admin à l'installation), désinstallation propre.
+- **Registre de risques génériques** (`PluginGrcmanagerRisk`, clause 6.1.2/8.2 ISO 27001) :
+  titre, description, catégorie (humain/processus/physique/tiers/technique), probabilité, impact,
+  niveau de risque calculé automatiquement (`RiskScoringService`, matrice probabilité x impact
+  4x4), décision de traitement (accepter/mitiger/transférer/éviter), propriétaire, justification,
+  date de revue, statut. Liste avec badges colorés traduits et lien cliquable vers le formulaire
+  dès le premier commit (leçon déjà apprise sur le plugin jumeau glpi-vulnerability-manager,
+  appliquée ici sans attendre une correction après coup).
+- **Entrée de menu** sous Outils, et **4 cartes de tableau de bord** (`Hooks::DASHBOARD_CARDS`,
+  signature accumulateur-safe `?array $cards = null` dès le premier commit, même leçon apprise sur
+  le plugin jumeau) : risques ouverts, risques par niveau, risques par catégorie, risques en
+  attente de revue.
+- **CI complète** : syntaxe PHP, PHPStan, PHP_CodeSniffer, PHPUnit, Semgrep, Gitleaks (CLI, scan de
+  plage de commits), Trivy, installation réelle sur GLPI 11.0.8 (Docker), hygiène du dépôt.
+- **Workflows d'auto-tag et de release** (déclenchement, construction d'archive, validation
+  d'installation réelle, publication GitHub Release) : préparés mais non exécutés pour de vrai à
+  ce stade (Sprint 1, pas de v1.0).
+- Documentation bilingue (FR/EN) : README, plan de développement par sprints, roadmap publique.
