@@ -32612,9 +32612,6 @@ msgstr "Actifs critiques non supervisés (Zabbix)"
 msgid "Zabbix monitoring"
 msgstr "Supervision Zabbix"
 
-msgid "Warning"
-msgstr "Avertissement"
-
 msgid "Average"
 msgstr "Moyenne"
 
@@ -32876,9 +32873,6 @@ msgstr ""
 
 msgid "Below the objective"
 msgstr "Sous l'objectif"
-
-msgid "Business processes"
-msgstr "Processus métier"
 
 msgid ""
 "Check them: the asset may be missing from the inventory, or named "
