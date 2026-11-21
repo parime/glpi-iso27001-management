@@ -481,7 +481,9 @@ final class PhishingRules
      * ancienne à la plus récente pour chaque entité.
      *
      * @param list<array{entities_id: int, date: ?string, id: int, counts: array<string, int>}> $campaigns
-     * @return array<int, array{campaigns: int, last_date: ?string, counts: array<string, int>, rates: array<string, ?float>}>
+     * @return array<int, array{
+     *     campaigns: int, last_date: ?string, counts: array<string, int>, rates: array<string, ?float>
+     * }>
      */
     public static function entityRows(array $campaigns): array
     {

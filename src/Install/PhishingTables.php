@@ -60,7 +60,7 @@ final class PhishingTables
                 `nb_submitted` int NOT NULL DEFAULT 0,
                 `nb_reported` int NOT NULL DEFAULT 0,
                 `nb_unmatched` int NOT NULL DEFAULT 0 COMMENT 'Lignes sans utilisateur GLPI',
-                `group_counts` text COMMENT 'JSON - compteurs anonymes par groupe (service), gardes apres anonymisation',
+                `group_counts` text COMMENT 'JSON - compteurs anonymes par groupe, gardes apres anonymisation',
                 `import_file` varchar(255) NOT NULL DEFAULT '' COMMENT 'Nom du dernier fichier importe',
                 `date_import` timestamp NULL DEFAULT NULL,
                 `date_anonymized` timestamp NULL DEFAULT NULL
@@ -106,7 +106,7 @@ final class PhishingTables
         if ($DB->tableExists(self::CAMPAIGNS) && !$DB->fieldExists(self::CAMPAIGNS, 'group_counts', false)) {
             $migration->addField(self::CAMPAIGNS, 'group_counts', 'text', [
                 'after'   => 'nb_unmatched',
-                'comment' => 'JSON - compteurs anonymes par groupe (service), gardes apres anonymisation',
+                'comment' => 'JSON - compteurs anonymes par groupe, gardes apres anonymisation',
             ]);
             $migration->migrationOneTable(self::CAMPAIGNS);
         }

@@ -416,7 +416,10 @@ class PhishingCampaign extends PhishingCampaignBase
     public static function cronInfo(string $name): array
     {
         return $name === 'phishingretention'
-            ? ['description' => __('Phishing simulations: delete the individual results past the retention period', 'grcmanager')]
+            ? ['description' => __(
+                'Phishing simulations: delete the individual results past the retention period',
+                'grcmanager'
+            )]
             : [];
     }
 
@@ -461,7 +464,7 @@ class PhishingCampaign extends PhishingCampaignBase
         ));
         $rows = array_slice($rows, -12);
         $labels = array_map(
-            static fn (array $row): string => $row['date_label'] !== '' ? (string) $row['date_label'] : (string) $row['name'],
+            static fn (array $row): string => (string) ($row['date_label'] !== '' ? $row['date_label'] : $row['name']),
             $rows
         );
         $serie = static fn (string $step): array => array_map(

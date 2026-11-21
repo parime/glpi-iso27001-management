@@ -399,8 +399,10 @@ final class PhishingCampaignTest extends GrcmanagerIntegrationTestCase
             $old->getFromDB($old->getID());
             $this->assertNotNull($old->fields['date_anonymized']);
             $this->assertSame(1, (int) $old->fields['nb_clicked'], 'Taux gardés.');
-            $this->assertSame(0, countElementsInTable(PhishingTables::RESULTS, [PhishingCampaign::FK => $old->getID()]));
-            $this->assertSame(1, countElementsInTable(PhishingTables::RESULTS, [PhishingCampaign::FK => $recent->getID()]));
+            $results = static fn (PhishingCampaign $c): int
+                => countElementsInTable(PhishingTables::RESULTS, [PhishingCampaign::FK => $c->getID()]);
+            $this->assertSame(0, $results($old));
+            $this->assertSame(1, $results($recent));
             $this->assertNotContains($old->getID(), PhishingCampaign::expiredCampaignIds(12, date('Y-m-d')));
             $this->assertSame([], PhishingCampaign::cronInfo('other'));
         } finally {
@@ -422,7 +424,10 @@ final class PhishingCampaignTest extends GrcmanagerIntegrationTestCase
         }
         $entities = array_column(PhishingCampaign::entityRows(), 'rates', 'entity');
         $names = array_keys($entities);
-        $this->assertNotEmpty(array_filter($names, static fn (string $name): bool => str_contains($name, 'Hameconnage tableau A')));
+        $this->assertNotEmpty(array_filter(
+            $names,
+            static fn (string $name): bool => str_contains($name, 'Hameconnage tableau A')
+        ));
         foreach ($entities as $name => $rates) {
             if (str_contains($name, 'Hameconnage tableau')) {
                 $this->assertSame(20.0, $rates['clicked']);
