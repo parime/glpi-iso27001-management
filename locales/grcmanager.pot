@@ -32469,7 +32469,18 @@ msgid ""
 msgstr ""
 
 
+#: templates/pdf/operating_procedures_report.html.twig
+#: templates/policy_form.html.twig
+msgid "Review history"
+msgstr ""
+
+#: templates/policy_form.html.twig
+msgid ""
+"Each review recorded with the \"Record the review\" button is kept here and "
+"in the security audit log; it cannot be changed afterwards."
+msgstr ""
+
+
 #: src/EntityPerimeter.php:138
 msgid "You cannot create this item in this entity."
 msgstr ""
-

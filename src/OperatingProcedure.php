@@ -261,7 +261,52 @@ class OperatingProcedure extends CommonGLPI
             'last_review'   => (string) ($row['last_review_date'] ?? ''),
             'last_reviewer' => (int) ($row['users_id_lastreviewer'] ?? 0) > 0
                 ? (string) getUserName((int) $row['users_id_lastreviewer']) : '',
+            // Issue #775, lot 3 : historique complet des revues (PDF du registre).
+            'reviews'       => self::reviewHistory($policyId),
         ] + self::content($policyId);
+    }
+
+    /**
+     * Issue #775, lot 3 : historique de toutes les revues tracées d'une procédure, la plus récente
+     * d'abord. Il est lu dans le journal d'audit (action « review »), qui garde chaque revue sans
+     * jamais la modifier : pas de table à part. Seules les dates et les noms des personnes qui ont
+     * fait la revue sont rendus, jamais le reste de l'entrée du journal.
+     *
+     * @return list<array{date: string, reviewer: string, next_review: string}>
+     */
+    public static function reviewHistory(int $policyId): array
+    {
+        global $DB;
+
+        if ($policyId <= 0 || !$DB->tableExists(AuditLog::getTable())) {
+            return [];
+        }
+        $names = [];
+        $history = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['date', 'users_id', 'details'],
+                'FROM'   => AuditLog::getTable(),
+                'WHERE'  => [
+                    'action'   => 'review',
+                    'itemtype' => Policy::class,
+                    'items_id' => $policyId,
+                    'result'   => 'success',
+                ],
+                'ORDER'  => ['id DESC'],
+            ]) as $entry
+        ) {
+            $details = json_decode((string) $entry['details'], true);
+            $details = is_array($details) ? $details : [];
+            $userId = (int) $entry['users_id'];
+            $history[] = [
+                'date'        => (string) ($details['last_review_date'] ?? substr((string) $entry['date'], 0, 10)),
+                'reviewer'    => $userId > 0 ? ($names[$userId] ??= (string) getUserName($userId)) : '',
+                'next_review' => (string) ($details['next_review_date'] ?? ''),
+            ];
+        }
+
+        return $history;
     }
 
     /**
