@@ -28388,3 +28388,91 @@ msgstr ""
 "licencia ilimitada (número 0 o menor) lo cubre todo. Una licencia madre y "
 "sus licencias hijas cuentan por el mayor entre el número de la madre y la "
 "suma de las hijas."
+
+msgid ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+msgstr ""
+"Registrarlo también como contacto con los contactos oficiales marcados "
+"(pestaña «Contactos oficiales»)"
+
+msgid "Archive on controls A.5.5 and A.5.6"
+msgstr "Archivar en los controles A.5.5 y A.5.6"
+
+msgid "Archived registers:"
+msgstr "Registros archivados:"
+
+msgid ""
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
+msgstr ""
+"Autoridades, CSIRT, policía, aseguradora y grupos de interés del registro de "
+"contactos oficiales, con la persona autorizada a contactarlos."
+
+#, php-format
+msgid "Crisis communication: \"%s\""
+msgstr "Comunicación de crisis: «%s»"
+
+msgid ""
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
+msgstr ""
+"Durante un ejercicio, registre las llamadas que haría: el informe muestra "
+"entonces si se habrían cumplido los plazos."
+
+msgid "From a crisis communication"
+msgstr "Desde una comunicación de crisis"
+
+msgid "No official contact is set for this type of incident."
+msgstr "No hay ningún contacto oficial definido para este tipo de incidente."
+
+msgid "Official contacts to inform"
+msgstr "Contactos oficiales a avisar"
+
+msgid "Official contacts to inform during a crisis"
+msgstr "Contactos oficiales a avisar durante una crisis"
+
+msgid "Only for these types of incident"
+msgstr "Solo para estos tipos de incidente"
+
+msgid ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+msgstr ""
+"Opcional: déjelo vacío para mostrar este contacto en todos los incidentes de "
+"seguridad. Un incidente del tipo «Violación de datos» muestra también los "
+"contactos a avisar en caso de violación de datos personales."
+
+#, php-format
+msgid "Register of official contacts - %s"
+msgstr "Registro de contactos oficiales - %s"
+
+msgid ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+msgstr ""
+"Guarda el registro como documento PDF fechado en los controles A.5.5 y A.5.6 "
+"de la declaración de aplicabilidad."
+
+msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
+msgstr ""
+"El registro se ha archivado como evidencia en los controles A.5.5 y A.5.6."
+
+msgid ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+msgstr ""
+"Registre cada contacto oficial, marque los eventos (y, si es necesario, los "
+"tipos de incidente) en los que se le debe avisar, verifique sus datos al "
+"menos una vez al año, conserve una copia impresa del registro (PDF) para "
+"usarla durante una crisis y archívelo en los controles A.5.5 y A.5.6 después "
+"de cada revisión."
+
+#, php-format
+msgid "%d official contact recorded as contacted."
+msgid_plural "%d official contacts recorded as contacted."
+msgstr[0] "%d contacto oficial registrado como avisado."
+msgstr[1] "%d contactos oficiales registrados como avisados."

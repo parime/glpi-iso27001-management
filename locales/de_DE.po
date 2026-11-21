@@ -28629,3 +28629,91 @@ msgstr ""
 "unbegrenzte Lizenz (Anzahl 0 oder weniger) deckt alles ab. Eine "
 "übergeordnete Lizenz und ihre Unterlizenzen zählen mit dem größeren Wert aus "
 "der Anzahl der übergeordneten Lizenz und der Summe der Unterlizenzen."
+
+msgid ""
+"Also record it as a contact with the ticked official contacts (\"Official "
+"contacts\" tab)"
+msgstr ""
+"Auch als Kontaktaufnahme mit den angekreuzten offiziellen Kontakten erfassen "
+"(Registerkarte „Offizielle Kontakte“)"
+
+msgid "Archive on controls A.5.5 and A.5.6"
+msgstr "Bei den Maßnahmen A.5.5 und A.5.6 archivieren"
+
+msgid "Archived registers:"
+msgstr "Archivierte Register:"
+
+msgid ""
+"Authorities, CSIRT, police, insurer and special interest groups from the "
+"register of official contacts, with the person allowed to contact them."
+msgstr ""
+"Behörden, CSIRT, Polizei, Versicherer und Interessengruppen aus dem Register "
+"der offiziellen Kontakte, mit der Person, die sie kontaktieren darf."
+
+#, php-format
+msgid "Crisis communication: \"%s\""
+msgstr "Krisenkommunikation: „%s“"
+
+msgid ""
+"During an exercise, record the calls you would make: the report then shows "
+"whether the deadlines would have been met."
+msgstr ""
+"Erfassen Sie während einer Übung die Anrufe, die Sie tätigen würden: Der "
+"Bericht zeigt dann, ob die Fristen eingehalten worden wären."
+
+msgid "From a crisis communication"
+msgstr "Aus einer Krisenkommunikation"
+
+msgid "No official contact is set for this type of incident."
+msgstr "Für diese Art von Vorfall ist kein offizieller Kontakt festgelegt."
+
+msgid "Official contacts to inform"
+msgstr "Zu benachrichtigende offizielle Kontakte"
+
+msgid "Official contacts to inform during a crisis"
+msgstr "In einer Krise zu benachrichtigende offizielle Kontakte"
+
+msgid "Only for these types of incident"
+msgstr "Nur für diese Vorfallsarten"
+
+msgid ""
+"Optional: leave empty to show this contact for every security incident. An "
+"incident of the \"Data breach\" type also shows the contacts to inform for a "
+"personal data breach."
+msgstr ""
+"Optional: Leer lassen, um diesen Kontakt bei jedem Sicherheitsvorfall "
+"anzuzeigen. Ein Vorfall der Art „Datenpanne“ zeigt auch die bei einer "
+"Verletzung personenbezogener Daten zu benachrichtigenden Kontakte."
+
+#, php-format
+msgid "Register of official contacts - %s"
+msgstr "Register der offiziellen Kontakte - %s"
+
+msgid ""
+"Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 "
+"of the Statement of Applicability."
+msgstr ""
+"Speichert das Register als datiertes PDF-Dokument bei den Maßnahmen A.5.5 "
+"und A.5.6 der Erklärung zur Anwendbarkeit."
+
+msgid "The register has been archived as evidence on controls A.5.5 and A.5.6."
+msgstr ""
+"Das Register wurde als Nachweis bei den Maßnahmen A.5.5 und A.5.6 archiviert."
+
+msgid ""
+"Record each official contact, tick the events (and, if needed, the types of "
+"incident) for which it must be informed, verify the details at least once a "
+"year, keep a printed copy of the register (PDF) for use during a crisis, and "
+"archive it on controls A.5.5 and A.5.6 after each review."
+msgstr ""
+"Erfassen Sie jeden offiziellen Kontakt, kreuzen Sie die Ereignisse (und bei "
+"Bedarf die Vorfallsarten) an, bei denen er zu benachrichtigen ist, prüfen "
+"Sie die Angaben mindestens einmal jährlich, bewahren Sie einen Ausdruck des "
+"Registers (PDF) für den Krisenfall auf und archivieren Sie es nach jeder "
+"Überprüfung bei den Maßnahmen A.5.5 und A.5.6."
+
+#, php-format
+msgid "%d official contact recorded as contacted."
+msgid_plural "%d official contacts recorded as contacted."
+msgstr[0] "%d offizieller Kontakt als benachrichtigt erfasst."
+msgstr[1] "%d offizielle Kontakte als benachrichtigt erfasst."

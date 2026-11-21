@@ -20,6 +20,13 @@
       <span class="badge {{ summary.to_verify > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} fs-5"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d to verify', 'grcmanager')|format(summary.to_verify) }}</span>
    </div>
    <a href="{{ export_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Print the register (PDF)', 'grcmanager') }}</a>
+   {# Lot 3 : PDF daté joint aux mesures A.5.5 et A.5.6 de la déclaration d'applicabilité. #}
+   {% if can_archive %}
+      <form method="post" action="{{ register_url }}" class="d-inline">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <button type="submit" name="archive" value="1" class="btn btn-outline-secondary btn-sm" title="{{ __('Saves the register as a dated PDF document on the controls A.5.5 and A.5.6 of the Statement of Applicability.', 'grcmanager') }}"><i class="ti ti-archive me-1"></i>{{ __('Archive on controls A.5.5 and A.5.6', 'grcmanager') }}</button>
+      </form>
+   {% endif %}
    {% if can_create %}
       <a href="{{ add_url }}" class="btn btn-primary btn-sm"><i class="ti ti-plus me-1"></i>{{ __('Add an official contact', 'grcmanager') }}</a>
    {% endif %}
@@ -29,6 +36,15 @@
    <div class="alert alert-warning d-flex align-items-center">
       <i class="ti ti-phone-check me-2"></i>
       <div>{{ __('Some contacts have not been verified for 12 months. Open each one, check its details with the organization concerned, then click "Record the verification".', 'grcmanager') }}</div>
+   </div>
+{% endif %}
+
+{% if archives is not empty %}
+   <div class="small text-secondary mb-3">
+      <i class="ti ti-archive me-1"></i>{{ __('Archived registers:', 'grcmanager') }}
+      {% for archive in archives %}
+         <a href="{{ archive.url }}" class="badge bg-secondary-subtle text-secondary-emphasis text-decoration-none ms-1"><i class="ti ti-file-type-pdf me-1"></i>{{ archive.date|formatted_datetime }}</a>
+      {% endfor %}
    </div>
 {% endif %}
 
