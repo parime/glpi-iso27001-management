@@ -946,7 +946,9 @@ class BackupCoverage extends CommonGLPI
             ];
         }
         $backups['badges'][] = [
-            'color' => $ok($summary['critical']['uncovered'] > 0),
+            'color' => $summary['critical']['total'] === 0
+                ? 'secondary'
+                : $ok($summary['critical']['uncovered'] > 0),
             'icon'  => 'ti ti-alert-octagon',
             'text'  => sprintf(
                 __('%d critical asset(s) without a recent backup', 'grcmanager'),
