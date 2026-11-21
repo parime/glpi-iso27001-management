@@ -59,6 +59,10 @@ final class UninstallCleanupListTest extends GrcmanagerIntegrationTestCase
             }
         }
 
-        $this->assertSame([], $missing, 'Classes à ajouter à Installer::SRC_ONLY_CLASSES (ou à pluginClasses() de la classe *Tables de la fonctionnalité)');
+        $this->assertSame(
+            [],
+            $missing,
+            'Classes à ajouter à Installer::SRC_ONLY_CLASSES (ou à pluginClasses() de la classe *Tables de la fonctionnalité)'
+        );
     }
 }
