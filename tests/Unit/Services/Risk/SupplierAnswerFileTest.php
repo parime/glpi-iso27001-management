@@ -175,7 +175,6 @@ final class SupplierAnswerFileTest extends TestCase
             AnswerFile::WARNING_UNKNOWN_CODE,
             AnswerFile::WARNING_BAD_ANSWER,
             AnswerFile::WARNING_DUPLICATE_CODE,
-            AnswerFile::WARNING_MISSING_QUESTION,
         ], $warnings);
         self::assertCount(1, $parsed['changes']);
         self::assertSame('yes', $parsed['changes'][0]['answer']);
@@ -189,6 +188,8 @@ final class SupplierAnswerFileTest extends TestCase
 
         // Réponse hors liste (formule) : ligne ignorée.
         self::assertSame(AnswerFile::WARNING_BAD_ANSWER, $parsed['warnings'][0]['warning']);
+        // Q02 absente du fichier : signalée, sa réponse ne change pas.
+        self::assertSame(AnswerFile::WARNING_MISSING_QUESTION, $parsed['warnings'][1]['warning']);
 
         $parsed = AnswerFile::parse(self::returned([
             self::row('Q01', 'yes', "'=cmd|' /C calc'!A0\x07<b>x</b>", '../../etc/passwd'),

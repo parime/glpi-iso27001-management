@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-21 14:09+0000\n"
+"POT-Creation-Date: 2026-11-21 15:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -435,8 +435,9 @@ msgstr ""
 
 #: front/configcompliance.php:43 front/phishingimport.php:71
 #: front/phishingimport.php:98 front/securityincidentedrimport.php:66
-#: front/securityincidentedrimport.php:85 src/ConfigurationCompliance.php:189
-#: src/ControlTest.php:653
+#: front/securityincidentedrimport.php:85 front/supplierevaluationfile.php:81
+#: front/supplierevaluationfile.php:94 front/supplierevaluationfile.php:133
+#: src/ConfigurationCompliance.php:189 src/ControlTest.php:653
 msgid "The file could not be received."
 msgstr ""
 
@@ -1560,6 +1561,17 @@ msgstr[1] ""
 
 #: front/supplierevaluation.form.php:123
 msgid "Answers saved."
+msgstr ""
+
+#: front/supplierevaluationfile.php:151
+#, php-format
+msgid ""
+"%1$d answer(s) imported from the supplier file, %2$d document(s) attached."
+msgstr ""
+
+#: front/supplierevaluationfile.php:157
+#, php-format
+msgid "The document \"%s\" matches no question of the file: it was not added."
 msgstr ""
 
 #: front/supplierquestionnairetemplate.form.php:48
@@ -3108,7 +3120,7 @@ msgstr ""
 
 #: src/AdSecurityAudit.php:231 src/ControlTest.php:652
 #: src/CustomFramework.php:316 src/RiskRegisterImport.php:497
-#: src/ServerManagement.php:335
+#: src/ServerManagement.php:335 src/SupplierEvaluationFile.php:303
 msgid "The file is empty."
 msgstr ""
 
@@ -4178,7 +4190,7 @@ msgstr ""
 
 #: src/BackupCoverage.php:188 src/ConfigurationCompliance.php:156
 #: src/DiskEncryption.php:143 src/PatchCompliance.php:155
-#: src/ServerManagement.php:1041 templates/disk_encryption.html.twig
+#: src/ServerManagement.php:1044 templates/disk_encryption.html.twig
 msgid "Unknown"
 msgstr ""
 
@@ -10404,6 +10416,24 @@ msgstr ""
 msgid "Server management controllers"
 msgstr ""
 
+#: src/Feature/SupplierAnswerFileFeature.php:32
+msgid ""
+"Shows the answers found in the questionnaire file returned by the supplier, "
+"question by question, next to the current answers, with the points to check "
+"(unknown question, answer outside the list, missing question)."
+msgstr ""
+
+#: src/Feature/SupplierAnswerFileFeature.php:38
+msgid ""
+"Check the answers, add the documents sent by the supplier, then save: "
+"nothing is recorded before this confirmation. Then review the evaluation and "
+"mark it as completed."
+msgstr ""
+
+#: src/Feature/SupplierAnswerFileFeature.php:42
+msgid "ISO/IEC 27001, controls A.5.19 to A.5.22"
+msgstr ""
+
 #: src/Feature/ZabbixMonitoringFeature.php:40
 msgid ""
 "Reads your Zabbix monitoring server, in read only: hosts, problems and "
@@ -10946,8 +10976,8 @@ msgstr ""
 #: src/IsmsRequirement.php:309 src/NotificationTargetAccessReview.php:107
 #: src/NotificationTargetAuditEvidenceRequest.php:162
 #: src/NotificationTargetPolicyVersion.php:141
-#: src/NotificationTargetSoaVersion.php:106 templates/_crisis_review.html.twig
-#: templates/access_review_form.html.twig
+#: src/NotificationTargetSoaVersion.php:106 src/SupplierEvaluationFile.php:117
+#: templates/_crisis_review.html.twig templates/access_review_form.html.twig
 #: templates/application_security_tab.html.twig
 #: templates/audit_checklist_tab.html.twig
 #: templates/audit_programme_tab.html.twig
@@ -14798,7 +14828,7 @@ msgstr ""
 msgid "Overall status"
 msgstr ""
 
-#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:462
+#: src/PersonnelCompliance.php:748 src/SupplierEvaluation.php:463
 #: templates/ad_security_audit.html.twig
 #: templates/framework_assessment.html.twig
 #: templates/my_trainings_tab.html.twig
@@ -15293,7 +15323,7 @@ msgid_plural "Record of processing activities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ProcessingActivity.php:103 src/ServerManagement.php:1093
+#: src/ProcessingActivity.php:103 src/ServerManagement.php:1096
 #: templates/server_management.html.twig
 #: templates/server_management_item_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
@@ -17638,11 +17668,11 @@ msgstr ""
 msgid "The controller returned an unexpected answer."
 msgstr ""
 
-#: src/ServerManagement.php:1093 templates/server_management_item_tab.html.twig
+#: src/ServerManagement.php:1096 templates/server_management_item_tab.html.twig
 msgid "BIOS"
 msgstr ""
 
-#: src/ServerManagement.php:1176
+#: src/ServerManagement.php:1179
 msgid "Management controller"
 msgstr ""
 
@@ -18570,36 +18600,36 @@ msgstr ""
 msgid "Insufficient level"
 msgstr ""
 
-#: src/SupplierEvaluation.php:166
+#: src/SupplierEvaluation.php:167
 msgid "Choose the supplier risk to evaluate."
 msgstr ""
 
-#: src/SupplierEvaluation.php:181
+#: src/SupplierEvaluation.php:182
 msgid ""
 "Choose an active questionnaire template available in the entity of the "
 "supplier risk."
 msgstr ""
 
-#: src/SupplierEvaluation.php:202
+#: src/SupplierEvaluation.php:203
 #, php-format
 msgid "%1$s - %2$s"
 msgstr ""
 
-#: src/SupplierEvaluation.php:235
+#: src/SupplierEvaluation.php:236
 msgid "This evaluation is completed: reopen it to change it."
 msgstr ""
 
-#: src/SupplierEvaluation.php:406
+#: src/SupplierEvaluation.php:407
 #: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Questionnaire"
 msgstr ""
 
-#: src/SupplierEvaluation.php:466 templates/supplier_evaluation_form.html.twig
+#: src/SupplierEvaluation.php:467 templates/supplier_evaluation_form.html.twig
 #: templates/tabs/supplier_questionnaire.html.twig
 msgid "Evaluation date"
 msgstr ""
 
-#: src/SupplierEvaluation.php:470 templates/audit_checklist_tab.html.twig
+#: src/SupplierEvaluation.php:471 templates/audit_checklist_tab.html.twig
 #: templates/dora/register.html.twig
 msgid "Template"
 msgstr ""
@@ -18629,6 +18659,138 @@ msgstr ""
 msgid "Evidence added to question %s"
 msgstr ""
 
+#: src/SupplierEvaluationFile.php:49
+msgid "Supplier file"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:109
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Code"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:110
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Section"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:111 src/SupplierQuestionnaireTemplate.php:107
+#: templates/supplier_evaluation_import.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Question"
+msgid_plural "Questions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/SupplierEvaluationFile.php:112
+msgid "Guidance"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:113
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Expected answer"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:114
+#: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Evidence required"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:115
+msgid "Allowed answers"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:116 templates/control_list_header.html.twig
+#: templates/data_subject_request_form.html.twig
+#: templates/policy_approval_tab.html.twig
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Answer"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:118
+#: templates/supplier_evaluation_import.html.twig
+msgid "Evidence file name"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:140
+#, php-format
+msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:252
+#, php-format
+msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:264
+#, php-format
+msgid ""
+"Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:280
+#, php-format
+msgid "The file is too large (at most %d MB)."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:284
+msgid ""
+"The file is not a CSV text file: save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:288
+msgid ""
+"This file is not a questionnaire exported from this plugin: its first line "
+"was changed or removed."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:292
+msgid ""
+"This file was exported for another evaluation: import it in the evaluation "
+"it comes from."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:296
+msgid ""
+"The questions of this file do not match those of the evaluation: export the "
+"questionnaire again."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:300
+msgid ""
+"The header line or some columns are missing: keep the columns of the "
+"exported file."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:314
+#, php-format
+msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:319
+#, php-format
+msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:324
+#, php-format
+msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:329
+#, php-format
+msgid ""
+"Line %1$d: at most %2$d questions per file, the following lines were ignored."
+msgstr ""
+
+#: src/SupplierEvaluationFile.php:334
+#, php-format
+msgid "Question %s is missing from the file: its answer does not change."
+msgstr ""
+
 #: src/SupplierQuestionnaireTemplate.php:52
 msgid "Supplier questionnaire template"
 msgid_plural "Supplier questionnaire templates"
@@ -18650,14 +18812,6 @@ msgstr ""
 #: src/SupplierQuestionnaireTemplate.php:69
 msgid "Business continuity"
 msgstr ""
-
-#: src/SupplierQuestionnaireTemplate.php:107
-#: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Question"
-msgid_plural "Questions"
-msgstr[0] ""
-msgstr[1] ""
 
 #: src/SupplierQuestionnaireTemplate.php:224
 #, php-format
@@ -19770,6 +19924,7 @@ msgstr[1] ""
 
 #: templates/_responsibility_summary.html.twig
 #: templates/responsibility_matrix.html.twig
+#: templates/supplier_evaluation_import.html.twig
 #, php-format
 msgid "%d point to check"
 msgid_plural "%d points to check"
@@ -22605,6 +22760,7 @@ msgstr ""
 #: templates/control_blockers_tab.html.twig
 #: templates/tabs/access_review_bmc_accounts.html.twig
 #: templates/tabs/crisis_scenario_readiness.html.twig
+#: templates/tabs/supplier_evaluation_file.html.twig
 msgid "What is this tab for?"
 msgstr ""
 
@@ -25418,13 +25574,6 @@ msgstr ""
 msgid "%d partially"
 msgstr ""
 
-#: templates/control_list_header.html.twig
-#: templates/data_subject_request_form.html.twig
-#: templates/policy_approval_tab.html.twig
-#: templates/tabs/supplier_evaluation_answers.html.twig
-msgid "Answer"
-msgstr ""
-
 #: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
 msgid "Applicable controls"
 msgstr ""
@@ -26824,6 +26973,7 @@ msgstr ""
 
 #: templates/custom_framework_list.html.twig templates/risk_import.html.twig
 #: templates/risk_scale_change.html.twig
+#: templates/supplier_evaluation_import.html.twig
 msgid "Cancel"
 msgstr ""
 
@@ -35858,6 +36008,61 @@ msgid ""
 "it from the \"Questionnaire\" tab to change them."
 msgstr ""
 
+#: templates/supplier_evaluation_import.html.twig
+#, php-format
+msgid ""
+"%d question changes. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgid_plural ""
+"%d questions change. Check the answers, then save them: they will be marked "
+"as coming from the supplier file."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Answer in the file"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Back to the evaluation"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Comment in the file"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Current answer"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Documents sent by the supplier"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+#, php-format
+msgid ""
+"Each document is attached to the questions whose column \"Evidence file "
+"name\" gives its name. It is checked like any evidence (types allowed by "
+"GLPI, size, real content). Expected: %s"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Review the supplier file"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "Save these answers"
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "The file brings no new answer and no new comment."
+msgstr ""
+
+#: templates/supplier_evaluation_import.html.twig
+msgid "unchanged"
+msgstr ""
+
 #: templates/supplier_questionnaire_template_form.html.twig
 #, php-format
 msgid "%d evaluation"
@@ -37356,16 +37561,6 @@ msgid "Evidence missing"
 msgstr ""
 
 #: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Evidence required"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_answers.html.twig
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Expected answer"
-msgstr ""
-
-#: templates/tabs/supplier_evaluation_answers.html.twig
 #, php-format
 msgid "Expected: %s"
 msgstr ""
@@ -37417,6 +37612,67 @@ msgstr ""
 msgid "Weight %d"
 msgstr ""
 
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Answer by file, outside GLPI"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+#, php-format
+msgid ""
+"At most %1$d MB and %2$d questions. Save the spreadsheet as CSV before "
+"importing it."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid ""
+"CSV file (separator \";\", UTF-8), one line per question. Its first line "
+"identifies the evaluation and its questions: it must stay unchanged. Send it "
+"by the means of your choice (email, exchange platform)."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Download the questionnaire to fill in"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid ""
+"Each export and import is recorded in the Historical tab (who, when, which "
+"file); the returned file is kept in the Documents tab of the supplier risk."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Import the returned file"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Questionnaire filled in by the supplier (CSV)"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Review the answers"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "Send the questionnaire"
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "This evaluation is completed: reopen it to import a file."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid ""
+"When the supplier has no access to GLPI, send the questionnaire as a file: "
+"the supplier fills in the columns \"Answer\", \"Comment\" and, for each "
+"document provided, \"Evidence file name\", in any spreadsheet. You then "
+"import the returned file here: the answers are shown for review and nothing "
+"is saved before your confirmation."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_file.html.twig
+msgid "You are not allowed to change this evaluation."
+msgstr ""
+
 #: templates/tabs/supplier_questionnaire.html.twig
 #, php-format
 msgid "%1$s: %2$s points"
@@ -37463,10 +37719,6 @@ msgid "Template: %1$s (version %2$d)"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Code"
-msgstr ""
-
-#: templates/tabs/supplier_questionnaire_questions.html.twig
 #, php-format
 msgid ""
 "Group the questions by section. The expected answer is the compliant one "
@@ -37500,10 +37752,6 @@ msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Save questions"
-msgstr ""
-
-#: templates/tabs/supplier_questionnaire_questions.html.twig
-msgid "Section"
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
