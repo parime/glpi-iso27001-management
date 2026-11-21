@@ -938,7 +938,10 @@ class ServerManagement extends CommonGLPI
                 'version'    => $item['version'],
                 'cves'       => count($list),
                 'priority'   => count(array_filter($list, static fn (array $cve): bool => (bool) $cve['priority'])),
-                'top_cves'   => array_map(static fn (array $c): string => (string) $c['cve_id'], array_slice($list, 0, 3)),
+                'top_cves'   => array_map(
+                    static fn (array $c): string => (string) $c['cve_id'],
+                    array_slice($list, 0, 3)
+                ),
                 'watched'    => $cves[$key]['watched'] ?? false,
                 'eol_status' => $evaluation !== null && $evaluation['product'] !== ''
                     ? $evaluation['status'] : CycleMatcher::STATUS_UNKNOWN,

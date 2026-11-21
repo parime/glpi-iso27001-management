@@ -10,11 +10,12 @@ foreach (['A', 'B'] as $suffix) {
         'plugin_grcmanager_accessreviews_id'  => (int) $ids['campaign_' . $suffix],
         'plugin_grcmanager_bmccontrollers_id' => (int) $ids['bmc_' . $suffix],
     ];
-    $row = $DB->request(['SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_accessreviews_bmcaccounts', 'WHERE' => $line])
-        ->current();
+    $table = 'glpi_plugin_grcmanager_accessreviews_bmcaccounts';
+    $row = $DB->request(['SELECT' => 'id', 'FROM' => $table, 'WHERE' => $line])->current();
     if ($row === null) {
-        $DB->insert('glpi_plugin_grcmanager_accessreviews_bmcaccounts', $line + [
-            'controller_name' => 'Controleur BMC securite ' . $suffix, 'computers_id' => (int) $ids['computer_' . $suffix],
+        $DB->insert($table, $line + [
+            'controller_name' => 'Controleur BMC securite ' . $suffix,
+            'computers_id' => (int) $ids['computer_' . $suffix],
             'username' => 'Revue BMC securite ' . $suffix, 'role' => 'Administrator', 'is_enabled' => 1,
             'suggestion' => 'examine', 'reasons' => json_encode(['bmc_admin']), 'decision' => 'pending',
             'date_creation' => date('Y-m-d H:i:s'),

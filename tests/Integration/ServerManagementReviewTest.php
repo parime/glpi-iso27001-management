@@ -134,7 +134,10 @@ final class ServerManagementReviewTest extends GrcmanagerIntegrationTestCase
             ParkVulnerabilitySync::installCounts([$name]),
             static fn (array $c): bool => $c['software'] === $name
         ));
-        $this->assertSame([['software' => $name, 'version' => '2.72', 'installs' => 1, 'source' => 'firmware']], $counts);
+        $this->assertSame(
+            [['software' => $name, 'version' => '2.72', 'installs' => 1, 'source' => 'firmware']],
+            $counts
+        );
 
         // Alias déclaré et résultat de la veille : CVE connue sur ce firmware.
         $canonical = ParkVulnerability::confirm($name, 'cpe:2.3:o:phpunitdemo:ilo' . $this->suffix . '_firmware');
