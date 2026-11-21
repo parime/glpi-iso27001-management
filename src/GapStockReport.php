@@ -99,7 +99,7 @@ class GapStockReport extends CommonGLPI
         return [
             Rules::KIND_NONCONFORMITY => Nonconformity::getTypeName(1),
             Rules::KIND_FINDING       => __('Other finding or improvement action', 'grcmanager'),
-            Rules::KIND_REVIEW_ACTION => __('Management review action', 'grcmanager'),
+            Rules::KIND_REVIEW_ACTION => ManagementReviewAction::getTypeName(1),
         ];
     }
 

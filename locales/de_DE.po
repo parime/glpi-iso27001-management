@@ -34739,3 +34739,157 @@ msgstr ""
 
 msgid "You are not allowed to change this evaluation."
 msgstr "Sie dürfen diese Bewertung nicht ändern."
+
+msgid "Report archived as evidence of requirements 10.1 and 10.2 (Documents tab). The evidence pack includes it."
+msgstr "Bericht als Nachweis der Anforderungen 10.1 und 10.2 archiviert (Registerkarte Dokumente). Das Nachweispaket übernimmt ihn."
+
+msgid "The report could not be archived."
+msgstr "Der Bericht konnte nicht archiviert werden."
+
+msgid "Shows the backlog of non-conformities, other findings and corrective actions, and of the actions decided in management reviews: what is still open by severity, origin, entity and owner, how old it is, what is overdue, the mean time to close over a period, the monthly trend and whether the effectiveness of closed actions was verified."
+msgstr "Zeigt den Bestand an Nichtkonformitäten, sonstigen Feststellungen und Korrekturmaßnahmen sowie der in Managementbewertungen beschlossenen Maßnahmen: was nach Schweregrad, Herkunft, Einheit und Verantwortlichem noch offen ist, wie alt es ist, was überfällig ist, die mittlere Schließdauer über einen Zeitraum, den monatlichen Verlauf und ob die Wirksamkeit abgeschlossener Maßnahmen geprüft wurde."
+
+msgid "Choose the period and the filters, follow up the overdue items with their owners, then export the report in PDF or CSV for the auditor, or archive it as evidence of requirements 10.1 and 10.2: the evidence pack then includes it. Nothing is changed automatically."
+msgstr "Wählen Sie den Zeitraum und die Filter, verfolgen Sie überfällige Punkte mit ihren Verantwortlichen und exportieren Sie den Bericht als PDF oder CSV für den Auditor oder archivieren Sie ihn als Nachweis der Anforderungen 10.1 und 10.2: das Nachweispaket übernimmt ihn dann. Nichts wird automatisch geändert."
+
+msgid "ISO/IEC 27001, clauses 9.1, 10.1 and 10.2"
+msgstr "ISO/IEC 27001, Abschnitte 9.1, 10.1 und 10.2"
+
+msgid "Mean time to close gaps (days, 12 months)"
+msgstr "Mittlere Schließdauer der Abweichungen (Tage, 12 Monate)"
+
+msgid "Gap backlog"
+msgstr "Bestand der Abweichungen"
+
+msgid "Other finding or improvement action"
+msgstr "Sonstige Feststellung oder Verbesserungsmaßnahme"
+
+msgid "Other source"
+msgstr "Andere Quelle"
+
+msgid "30 days or less"
+msgstr "30 Tage oder weniger"
+
+msgid "31 to 90 days"
+msgstr "31 bis 90 Tage"
+
+msgid "91 to 180 days"
+msgstr "91 bis 180 Tage"
+
+msgid "More than 180 days"
+msgstr "Mehr als 180 Tage"
+
+msgid "Opened on"
+msgstr "Eröffnet am"
+
+msgid "Age (days)"
+msgstr "Alter (Tage)"
+
+msgid "Days overdue"
+msgstr "Tage überfällig"
+
+msgid "Effectiveness verified"
+msgstr "Wirksamkeit geprüft"
+
+#, php-format
+msgid "Gap backlog report - %1$s (%2$s to %3$s)"
+msgstr "Bericht zum Abweichungsbestand - %1$s (%2$s bis %3$s)"
+
+#, php-format
+msgid "Effectiveness verified: %d%%"
+msgstr "Wirksamkeit geprüft: %d %%"
+
+#, php-format
+msgid "Last 12 months, computed on %s"
+msgstr "Letzte 12 Monate, berechnet am %s"
+
+#, php-format
+msgid "Mean time to close: %d days"
+msgstr "Mittlere Schließdauer: %d Tage"
+
+msgid "Mean time to close: not measured"
+msgstr "Mittlere Schließdauer: nicht gemessen"
+
+#, php-format
+msgid "Open gaps: %d"
+msgstr "Offene Abweichungen: %d"
+
+#, php-format
+msgid "%1$d closed in the period, median: %2$s"
+msgstr "%1$d im Zeitraum geschlossen, Median: %2$s"
+
+msgid "Age of open gaps"
+msgstr "Alter der offenen Abweichungen"
+
+#, php-format
+msgid "Archive as evidence (%s)"
+msgstr "Als Nachweis archivieren (%s)"
+
+msgid "Backlog at month end"
+msgstr "Bestand am Monatsende"
+
+msgid "By entity"
+msgstr "Nach Einheit"
+
+msgid "By origin"
+msgstr "Nach Herkunft"
+
+msgid "By owner"
+msgstr "Nach Verantwortlichem"
+
+msgid "By severity"
+msgstr "Nach Schweregrad"
+
+#, php-format
+msgid "Closed in the period: %1$d verified, %2$d to verify"
+msgstr "Im Zeitraum geschlossen: %1$d geprüft, %2$d zu prüfen"
+
+msgid "Due date passed and not closed"
+msgstr "Fälligkeit überschritten, nicht geschlossen"
+
+msgid "From (month)"
+msgstr "Von (Monat)"
+
+msgid "Mean time to close"
+msgstr "Mittlere Schließdauer"
+
+msgid "Month"
+msgstr "Monat"
+
+#, php-format
+msgid "No due date: %d"
+msgstr "Ohne Fälligkeit: %d"
+
+msgid "No open gap with these filters."
+msgstr "Keine offene Abweichung mit diesen Filtern."
+
+msgid "Nothing open."
+msgstr "Nichts offen."
+
+#, php-format
+msgid "Only the first %d gaps are listed: the CSV export contains all of them."
+msgstr "Nur die ersten %d Abweichungen werden aufgeführt: der CSV-Export enthält alle."
+
+msgid "Open gaps"
+msgstr "Offene Abweichungen"
+
+msgid "Open gaps, most overdue first"
+msgstr "Offene Abweichungen, die am stärksten überfälligen zuerst"
+
+msgid "To (month)"
+msgstr "Bis (Monat)"
+
+msgid "By type"
+msgstr "Nach Typ"
+
+msgid "Closed in the period"
+msgstr "Im Zeitraum geschlossen"
+
+msgid "ISMS requirements"
+msgstr "ISMS-Anforderungen"
+
+msgid "Mean time to close: days between the opening and the closure of the gaps closed in the period. Effectiveness verified: closed non-conformities and findings whose closure was verified."
+msgstr "Mittlere Schließdauer: Tage zwischen Eröffnung und Schließung der im Zeitraum geschlossenen Abweichungen. Wirksamkeit geprüft: geschlossene Nichtkonformitäten und Feststellungen, deren Schließung geprüft wurde."
+
+msgid "Opened in the period"
+msgstr "Im Zeitraum eröffnet"
