@@ -87,11 +87,14 @@ final class M365ShareRulesTest extends TestCase
             'grantedToIdentitiesV2' => [
                 ['user' => ['id' => 'u1', 'displayName' => 'Interne', 'email' => 'interne@exemple.test']],
                 ['user' => ['id' => 'u2', 'displayName' => 'Partenaire', 'email' => 'p@partenaire.test']],
-                ['siteUser' => ['displayName' => 'Invite', 'loginName' => 'i:0#.f|membership|x_autre.test#ext#@exemple']],
+                ['siteUser' => [
+                    'displayName' => 'Invite', 'loginName' => 'i:0#.f|membership|x_autre.test#ext#@exemple',
+                ]],
             ],
         ], self::CONTEXT, self::DOMAINS);
         $this->assertSame(['user', Rules::KIND_EXTERNAL, Rules::KIND_EXTERNAL], array_column($rows, 'type'));
-        $this->assertSame([Rules::GAP_EXTERNAL_GUEST], Rules::aceGaps(['kind' => Rules::KIND_EXTERNAL, 'level' => 'modify']));
+        $gaps = Rules::aceGaps(['kind' => Rules::KIND_EXTERNAL, 'level' => 'modify']);
+        $this->assertSame([Rules::GAP_EXTERNAL_GUEST], $gaps);
     }
 
     public function testDirectPermissionsAndEveryoneGroups(): void
@@ -105,7 +108,8 @@ final class M365ShareRulesTest extends TestCase
         $this->assertSame(Rules::SCOPE_SHARE, $group[0]['scope']);
         $everyone = M365ShareRules::permissionRows(
             ['roles' => ['read'], 'grantedToV2' => ['siteUser' => [
-                'displayName' => 'Everyone except external users', 'loginName' => 'c:0-.f|rolemanager|spo-grid-all-users/x',
+                'displayName' => 'Everyone except external users',
+                'loginName'   => 'c:0-.f|rolemanager|spo-grid-all-users/x',
             ]]],
             self::CONTEXT,
             self::DOMAINS
@@ -129,17 +133,24 @@ final class M365ShareRulesTest extends TestCase
             [
                 ['id' => 'o1', 'userPrincipalName' => 'chef@exemple.test', 'userType' => 'Member'],
                 ['id' => 'm1', 'userPrincipalName' => 'membre@exemple.test', 'userType' => 'Member'],
-                ['id' => 'g1', 'userPrincipalName' => 'c_partenaire.test#EXT#@exemple.onmicrosoft.com', 'mail' => 'c@partenaire.test', 'userType' => 'Guest'],
+                [
+                    'id' => 'g1', 'userPrincipalName' => 'c_partenaire.test#EXT#@exemple.onmicrosoft.com',
+                    'mail' => 'c@partenaire.test', 'userType' => 'Guest',
+                ],
             ],
             self::DOMAINS
         );
         $this->assertCount(4, $rows);
-        $this->assertSame([Rules::LEVEL_FULL, Rules::LEVEL_MODIFY, Rules::LEVEL_MODIFY, Rules::LEVEL_MODIFY], array_column($rows, 'level'));
+        $this->assertSame(
+            [Rules::LEVEL_FULL, Rules::LEVEL_MODIFY, Rules::LEVEL_MODIFY, Rules::LEVEL_MODIFY],
+            array_column($rows, 'level')
+        );
         $this->assertSame(['user', 'user', Rules::KIND_EXTERNAL, Rules::KIND_BROAD], array_column($rows, 'type'));
         $this->assertSame('chef@exemple.test', $rows[0]['owner']);
         // Un membre nommé d'une équipe n'est pas un « droit nominatif ».
-        $this->assertSame([], Rules::aceGaps(['kind' => Rules::KIND_USER, 'level' => 'modify', 'scope' => Rules::SCOPE_MEMBER]));
-        $this->assertSame([Rules::GAP_DIRECT_USER], Rules::aceGaps(['kind' => Rules::KIND_USER, 'level' => 'modify', 'scope' => Rules::SCOPE_LINK]));
+        $member = ['kind' => Rules::KIND_USER, 'level' => 'modify', 'scope' => Rules::SCOPE_MEMBER];
+        $this->assertSame([], Rules::aceGaps($member));
+        $this->assertSame([Rules::GAP_DIRECT_USER], Rules::aceGaps(['scope' => Rules::SCOPE_LINK] + $member));
     }
 
     public function testParseCsv(): void
@@ -153,7 +164,10 @@ final class M365ShareRulesTest extends TestCase
             array_column($parsed['rows'], 'source')
         );
         $this->assertSame(
-            ['group', Rules::KIND_BROAD, Rules::KIND_ANONYMOUS, Rules::KIND_EXTERNAL, Rules::KIND_BROAD, 'user', Rules::KIND_EXTERNAL],
+            [
+                'group', Rules::KIND_BROAD, Rules::KIND_ANONYMOUS, Rules::KIND_EXTERNAL, Rules::KIND_BROAD, 'user',
+                Rules::KIND_EXTERNAL,
+            ],
             array_column($parsed['rows'], 'type')
         );
         $this->assertSame([0, 0, 1, 1, 1, 0, 0], array_column($parsed['rows'], 'depth'));
@@ -182,7 +196,10 @@ final class M365ShareRulesTest extends TestCase
                     if (str_ends_with($path, $suffix)) {
                         return is_int($answer)
                             ? ['status' => $answer, 'body' => '', 'retry_after' => 0]
-                            : ['status' => 200, 'body' => (string) json_encode(['value' => $answer]), 'retry_after' => 0];
+                            : [
+                                'status' => 200, 'retry_after' => 0,
+                                'body' => (string) json_encode(['value' => $answer]),
+                            ];
                     }
                 }
 
@@ -199,18 +216,24 @@ final class M365ShareRulesTest extends TestCase
             '/sites'        => [
                 ['id' => 's1', 'displayName' => 'Finance', 'webUrl' => 'https://exemple.sharepoint.com/sites/finance'],
                 ['id' => 's2', 'displayName' => 'Paul', 'webUrl' => 'https://exemple-my.sharepoint.com/personal/paul'],
-                ['id' => 's3', 'displayName' => 'Sans bibliotheque', 'webUrl' => 'https://exemple.sharepoint.com/sites/vide'],
+                ['id' => 's3', 'displayName' => 'Vide', 'webUrl' => 'https://exemple.sharepoint.com/sites/vide'],
             ],
             '/sites/s1/drive/root/permissions' => [
-                ['roles' => ['write'], 'grantedToV2' => ['siteGroup' => ['id' => '5', 'displayName' => 'Finance Members']]],
+                ['roles' => ['write'], 'grantedToV2' => ['siteGroup' => ['id' => '5', 'displayName' => 'Members']]],
             ],
             '/sites/s1/drive/root/children' => [
-                ['id' => 'i1', 'name' => 'Budget', 'webUrl' => 'https://exemple.sharepoint.com/sites/finance/Budget', 'shared' => [], 'parentReference' => ['driveId' => 'd1']],
+                [
+                    'id' => 'i1', 'name' => 'Budget', 'webUrl' => 'https://exemple.sharepoint.com/sites/finance/Budget',
+                    'shared' => [], 'parentReference' => ['driveId' => 'd1'],
+                ],
                 ['id' => 'i2', 'name' => 'Prive', 'parentReference' => ['driveId' => 'd1']],
             ],
             '/drives/d1/items/i1/permissions' => [
                 ['roles' => ['read'], 'link' => ['scope' => 'anonymous', 'type' => 'view']],
-                ['roles' => ['write'], 'inheritedFrom' => ['id' => 'root'], 'grantedToV2' => ['siteGroup' => ['displayName' => 'Finance Members']]],
+                [
+                    'roles' => ['write'], 'inheritedFrom' => ['id' => 'root'],
+                    'grantedToV2' => ['siteGroup' => ['displayName' => 'Members']],
+                ],
             ],
             '/sites/s3/drive/root/permissions' => 404,
         ], $gets);
@@ -228,7 +251,9 @@ final class M365ShareRulesTest extends TestCase
         $client = self::client([
             '/groups'          => [['id' => 't1', 'displayName' => 'Atlas', 'visibility' => 'Private']],
             '/groups/t1/owners' => [['id' => 'o1', 'userPrincipalName' => 'chef@exemple.test']],
-            '/groups/t1/members' => [['id' => 'g1', 'userPrincipalName' => 'x#EXT#@exemple.onmicrosoft.com', 'userType' => 'Guest']],
+            '/groups/t1/members' => [
+                ['id' => 'g1', 'userPrincipalName' => 'x#EXT#@exemple.onmicrosoft.com', 'userType' => 'Guest'],
+            ],
         ]);
         $read = (new M365ShareReader($client, 'exemple.onmicrosoft.com'))->read(M365ShareRules::SOURCE_TEAMS);
         $this->assertSame(['user', Rules::KIND_EXTERNAL], array_column($read['rows'], 'type'));
@@ -245,7 +270,8 @@ final class M365ShareRulesTest extends TestCase
     public function testCollectionStaysOnGraph(): void
     {
         $client = self::client([]);
-        $this->assertSame(EntraGraphClient::ERROR_INVALID, $client->fetchCollection('https://ailleurs.test/v1.0/sites')['error']);
+        $result = $client->fetchCollection('https://ailleurs.test/v1.0/sites');
+        $this->assertSame(EntraGraphClient::ERROR_INVALID, $result['error']);
         $this->assertSame(0, $client->requests());
     }
 }

@@ -170,7 +170,11 @@ class ShareAccess extends CommonGLPI
     public static function sourceInfos(): array
     {
         return [
-            self::SOURCE_SMB                  => self::info(__('Windows file share', 'grcmanager'), 'secondary', 'ti ti-server'),
+            self::SOURCE_SMB                  => self::info(
+                __('Windows file share', 'grcmanager'),
+                'secondary',
+                'ti ti-server'
+            ),
             M365ShareRules::SOURCE_SHAREPOINT => self::info('SharePoint', 'teal', 'ti ti-world-www'),
             M365ShareRules::SOURCE_ONEDRIVE   => self::info('OneDrive', 'azure', 'ti ti-cloud'),
             M365ShareRules::SOURCE_TEAMS      => self::info('Teams', 'indigo', 'ti ti-messages'),

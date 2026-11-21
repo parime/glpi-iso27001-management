@@ -146,7 +146,8 @@ final class M365ShareReader
                 'is_protected' => false,
                 'owner'        => mb_substr($upn, 0, 255),
             ];
-            $driveRows = $this->driveRows(self::V1 . 'users/' . rawurlencode($id) . '/drive/root', $context, $upn, false);
+            $root = self::V1 . 'users/' . rawurlencode($id) . '/drive/root';
+            $driveRows = $this->driveRows($root, $context, $upn, false);
             if ($driveRows === null) {
                 break;
             }
@@ -180,7 +181,10 @@ final class M365ShareReader
             if ($owners === null || $members === null) {
                 break;
             }
-            $rows = array_merge($rows, M365ShareRules::teamRows($this->server, $team, $owners, $members, $this->domains));
+            $rows = array_merge(
+                $rows,
+                M365ShareRules::teamRows($this->server, $team, $owners, $members, $this->domains)
+            );
         }
 
         return $rows;
@@ -213,7 +217,8 @@ final class M365ShareReader
         $shared = 0;
         foreach ($children as $item) {
             $itemId = self::text($item['id'] ?? '');
-            $driveId = self::text(is_array($item['parentReference'] ?? null) ? ($item['parentReference']['driveId'] ?? '') : '');
+            $parent = is_array($item['parentReference'] ?? null) ? $item['parentReference'] : [];
+            $driveId = self::text($parent['driveId'] ?? '');
             if (!isset($item['shared']) || $itemId === '' || $driveId === '' || ++$shared > self::MAX_SHARED_ITEMS) {
                 continue;
             }

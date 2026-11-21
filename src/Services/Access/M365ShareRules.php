@@ -245,7 +245,8 @@ final class M365ShareRules
             }
         }
         // Invitation pas encore acceptée : seule l'adresse invitée est connue.
-        $invited = self::text(is_array($permission['invitation'] ?? null) ? ($permission['invitation']['email'] ?? '') : '');
+        $invitation = is_array($permission['invitation'] ?? null) ? $permission['invitation'] : [];
+        $invited = self::text($invitation['email'] ?? '');
         if ($rows === [] && $invited !== '') {
             $type = self::isExternal($invited, '', $domains) ? Rules::KIND_EXTERNAL : 'user';
             $rows[] = self::row($base, mb_substr($invited, 0, 255), '', $type);
@@ -340,13 +341,15 @@ final class M365ShareRules
         $mapping = [];
         foreach (self::FIELDS as $field => $aliases) {
             foreach ($parsed['headers'] as $index => $header) {
-                if (!in_array($index, $mapping, true) && in_array(EdrCsvImport::normalizeHeader($header), $aliases, true)) {
+                $normalized = EdrCsvImport::normalizeHeader($header);
+                if (!in_array($index, $mapping, true) && in_array($normalized, $aliases, true)) {
                     $mapping[$field] = $index;
                     break;
                 }
             }
         }
-        foreach (['site' => 'missing_site', 'identity' => 'missing_identity', 'rights' => 'missing_rights'] as $f => $e) {
+        $required = ['site' => 'missing_site', 'identity' => 'missing_identity', 'rights' => 'missing_rights'];
+        foreach ($required as $f => $e) {
             if (!isset($mapping[$f])) {
                 return ['rows' => [], 'errors' => [$e], 'truncated' => false];
             }
@@ -425,12 +428,15 @@ final class M365ShareRules
     {
         $key = (string) preg_replace('/[^a-z]/', '', mb_strtolower($cell));
 
+        $external = ['guest', 'external', 'externaluser', 'invite', 'invit', 'externe'];
+        $broad = ['everyone', 'organization', 'toutlemonde', 'organisation'];
+
         return match (true) {
-            in_array($key, ['guest', 'external', 'externaluser', 'invite', 'invit', 'externe'], true) => Rules::KIND_EXTERNAL,
-            in_array($key, ['anonymous', 'anyone', 'anonyme'], true)                                  => Rules::KIND_ANONYMOUS,
-            in_array($key, ['everyone', 'organization', 'toutlemonde', 'organisation'], true)         => Rules::KIND_BROAD,
-            str_contains($key, 'group') || str_contains($key, 'groupe')                               => 'group',
-            default                                                                                    => 'user',
+            in_array($key, $external, true)                          => Rules::KIND_EXTERNAL,
+            in_array($key, ['anonymous', 'anyone', 'anonyme'], true) => Rules::KIND_ANONYMOUS,
+            in_array($key, $broad, true)                             => Rules::KIND_BROAD,
+            str_contains($key, 'group')                              => 'group',
+            default                                                  => 'user',
         };
     }
 

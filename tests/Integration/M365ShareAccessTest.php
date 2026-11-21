@@ -110,7 +110,8 @@ final class M365ShareAccessTest extends GrcmanagerIntegrationTestCase
         // Même revue que les partages : lancée par le gestionnaire, décisions en attente.
         $this->assertSame('no_owner', ShareAccess::startReview((int) $finance['id']));
         global $DB;
-        $DB->update(ShareAccessTables::SHARES, ['users_id_owner' => (int) \Session::getLoginUserID()], ['id' => $finance['id']]);
+        $owner = ['users_id_owner' => (int) \Session::getLoginUserID()];
+        $DB->update(ShareAccessTables::SHARES, $owner, ['id' => $finance['id']]);
         ShareAccess::reset();
         $this->assertSame('', ShareAccess::startReview((int) $finance['id']));
         $pending = array_filter(
@@ -150,15 +151,22 @@ final class M365ShareAccessTest extends GrcmanagerIntegrationTestCase
                 return ['status' => 200, 'body' => '{"access_token":"jeton-fictif"}', 'retry_after' => 0];
             }
             $path = (string) parse_url($url, PHP_URL_PATH);
+            $team = ['id' => 't1', 'displayName' => 'Equipe demo', 'visibility' => 'Public'];
+            $owner = ['id' => 'o1', 'userPrincipalName' => 'chef@exemple.test'];
             $value = match (true) {
-                str_ends_with($path, '/groups')          => [['id' => 't1', 'displayName' => 'Equipe demo', 'visibility' => 'Public']],
-                str_ends_with($path, '/groups/t1/owners') => [['id' => 'o1', 'userPrincipalName' => 'chef@exemple.test']],
+                str_ends_with($path, '/groups')           => [$team],
+                str_ends_with($path, '/groups/t1/owners') => [$owner],
                 default                                   => [],
             };
 
             return ['status' => 200, 'body' => (string) json_encode(['value' => $value]), 'retry_after' => 0];
         };
-        $client = new EntraGraphClient('exemple.onmicrosoft.com', '11111111-2222-3333-4444-555555555555', 'secret-fictif', $transport);
+        $client = new EntraGraphClient(
+            'exemple.onmicrosoft.com',
+            '11111111-2222-3333-4444-555555555555',
+            'secret-fictif',
+            $transport
+        );
         $result = ShareAccess::importFromGraph('teams', $client);
         $this->assertSame('', $result['graph_error']);
         $this->assertSame(1, $result['shares']);
@@ -171,7 +179,7 @@ final class M365ShareAccessTest extends GrcmanagerIntegrationTestCase
             $team = $share['source'] === 'teams' && $share['name'] === 'Equipe demo' ? $share : $team;
         }
         $this->assertNotNull($team);
-        $this->assertSame(1, $team['gaps'][Rules::GAP_BROAD_WRITE] ?? 0, 'Équipe publique : tout le monde peut écrire.');
+        $this->assertSame(1, $team['gaps'][Rules::GAP_BROAD_WRITE] ?? 0, 'Équipe publique : écriture pour tous.');
 
         // Erreur de Graph : rien n'est remplacé.
         $denied = new EntraGraphClient(
