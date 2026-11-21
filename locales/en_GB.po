@@ -39173,3 +39173,15 @@ msgstr "%d service(s) not analysed"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+#: templates/product_sbom_list.html.twig
+msgid "SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" tab of each application."
+msgstr "SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" tab of each application."
+
+#: templates/product_sbom_list.html.twig
+msgid "No SBOM imported yet."
+msgstr "No SBOM imported yet."
+
+#: templates/product_sbom_list.html.twig
+msgid "Components"
+msgstr "Components"

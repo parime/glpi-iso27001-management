@@ -34719,3 +34719,15 @@ msgstr "Próximo fin de excepción: %s"
 
 msgid "%d service(s) not analysed"
 msgstr "%d servicio(s) sin analizar"
+
+#: templates/product_sbom_list.html.twig
+msgid "SBOM files are imported and VEX statements entered in the \"SBOM and VEX\" tab of each application."
+msgstr "Los archivos SBOM se importan y las declaraciones VEX se introducen en la pestaña «SBOM y VEX» de cada aplicación."
+
+#: templates/product_sbom_list.html.twig
+msgid "No SBOM imported yet."
+msgstr "Todavía no se ha importado ningún SBOM."
+
+#: templates/product_sbom_list.html.twig
+msgid "Components"
+msgstr "Componentes"
