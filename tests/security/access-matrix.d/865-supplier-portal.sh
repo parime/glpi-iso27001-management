@@ -62,8 +62,10 @@ if [ "$ROLE" = admin ]; then
     "$(pcode -F "_glpi_csrf_token=$(ptoken "$token_a")" -F "t=$token_a" -F "answer[$answer_a]=yes" \
       -F "evidence[$answer_a]=@$trap_file;filename=../../index.html" "$S")"
   printf '%%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%%%EOF\n' > "$trap_file"
+  # --form-string : avec -F, une valeur qui commence par « < » est lue comme un nom de fichier
+  # (curl s'arrête alors en erreur 26 sans rien envoyer).
   sent=$(pbody -w '\n%{http_code}' -F "_glpi_csrf_token=$(ptoken "$token_a")" -F "t=$token_a" \
-    -F "answer[$answer_a]=yes" -F "comment[$answer_a]=<script>alert(865)</script>" \
+    -F "answer[$answer_a]=yes" --form-string "comment[$answer_a]=<script>alert(865)</script>" \
     -F "evidence[$answer_a]=@$trap_file;filename=certificat.pdf" "$S")
   expect "portail : envoi des reponses" 200 "$(tail -n 1 <<< "$sent")"
   contains "portail : accuse de reception" "grc-portal-sent" oui "$sent"
