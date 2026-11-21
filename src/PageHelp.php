@@ -489,6 +489,23 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, controls A.8.8 and A.8.19', 'grcmanager'),
             ],
+            // Issue #781 : conformité de configuration d'après les résultats OpenSCAP.
+            'configcompliance' => [
+                'purpose'   => __(
+                    'Measures how well the configuration of the computers follows a hardening guide (CIS, ANSSI, '
+                        . 'DISA STIG...), from the results files of the OpenSCAP scanner: rate of rules passed per '
+                        . 'computer, change since the previous scan, most frequent failed rules and history.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), match the results '
+                        . 'that are not matched to a computer, then fix the failed rules, starting with the high '
+                        . 'severity ones. A remediation ticket can be proposed for a computer: it is created only '
+                        . 'when you click. Nothing is changed on the machines.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, control A.8.9', 'grcmanager'),
+            ],
             // Issue #853 : couverture de la journalisation.
             'logcoverage' => [
                 'purpose'   => __(

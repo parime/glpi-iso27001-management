@@ -154,6 +154,8 @@ class Menu extends CommonGLPI
                 PatchCompliance::class,
                 // Issue #835 : audit de sécurité de l'Active Directory (rapports PingCastle).
                 AdSecurityAudit::class,
+                // Issue #781 : conformité de configuration, résultats OpenSCAP importés (A.8.9).
+                ConfigurationCompliance::class,
                 // Issue #853 : couverture de la journalisation (A.8.15, A.8.16, A.8.17).
                 LogCoverage::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,

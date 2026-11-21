@@ -29713,359 +29713,316 @@ msgstr[0] "%d platforma logów"
 msgstr[1] "%d platformy logów"
 msgstr[2] "%d platform logów"
 
+msgid "Choose an XML results file produced by OpenSCAP (XCCDF or ARF)."
+msgstr "Wybierz plik wyników XML utworzony przez OpenSCAP (XCCDF lub ARF)."
+
 #, php-format
-msgid "Report imported: %d rule(s) triggered."
-msgstr "Raport zaimportowany: wyzwolone reguły: %d."
+msgid ""
+"%1$d scan result(s) imported: %2$d matched to a computer, %3$d not matched, "
+"%4$d already imported."
+msgstr ""
+"Zaimportowane wyniki skanowania: %1$d; dopasowane do komputera: %2$d, "
+"niedopasowane: %3$d, już zaimportowane: %4$d."
 
 msgid ""
-"The report contains passwords or secrets (for example in group policies): "
-"they were not kept, and are removed from the archived copy. Change them as "
-"soon as possible."
+"The file holds more results or failed rules than the import keeps: only the "
+"first ones were kept."
 msgstr ""
-"Raport zawiera hasła lub sekrety (na przykład w zasadach grupy): nie zostały "
-"zachowane i są usunięte z archiwalnej kopii. Zmień je jak najszybciej."
+"Plik zawiera więcej wyników lub niespełnionych reguł, niż zachowuje import: "
+"zachowano tylko pierwsze."
 
-msgid ""
-"The report could not be archived as a document (XML files may not be allowed "
-"in the document types of GLPI)."
-msgstr ""
-"Nie udało się zarchiwizować raportu jako dokumentu (pliki XML mogą nie być "
-"dozwolone w typach dokumentów GLPI)."
+msgid "Choose a computer you can see."
+msgstr "Wybierz komputer, który widzisz."
 
-#, php-format
-msgid "Only the first %d rules were read."
-msgstr "Odczytano tylko pierwsze reguły (%d)."
+msgid "Scan result matched to the computer."
+msgstr "Wynik skanowania dopasowano do komputera."
 
-#, php-format
-msgid "Ticket %d created."
-msgstr "Utworzono zgłoszenie %d."
+msgid "Scan result deleted."
+msgstr "Wynik skanowania usunięty."
 
-msgid "Active Directory security score (PingCastle, 0 is best)"
-msgstr "Wynik bezpieczeństwa Active Directory (PingCastle, 0 to najlepszy)"
-
-msgid "Active Directory security audit"
-msgstr "Audyt bezpieczeństwa Active Directory"
-
-msgid "Stale objects"
-msgstr "Nieaktualne obiekty"
-
-msgid "Privileged accounts"
-msgstr "Konta uprzywilejowane"
-
-msgid "Trust relationships"
-msgstr "Relacje zaufania"
-
-msgid "Anomalies"
-msgstr "Anomalie"
-
-msgid "Good"
-msgstr "Dobry"
-
-msgid "Worrying"
-msgstr "Niepokojący"
+msgid "Configuration compliance"
+msgstr "Zgodność konfiguracji"
 
 msgid "Information"
 msgstr "Informacja"
 
-msgid "The file is too large (20 MB at most)."
-msgstr "Plik jest za duży (maksymalnie 20 MB)."
+msgid "Error during the check"
+msgstr "Błąd podczas sprawdzania"
 
 msgid ""
-"The file declares a DOCTYPE or entities: it is refused for security reasons. "
-"A PingCastle report never contains any."
+"The file contains a document type or entity declaration, refused for "
+"security reasons. OpenSCAP never writes one: export the results again with "
+"oscap."
 msgstr ""
-"Plik deklaruje DOCTYPE lub encje: zostaje odrzucony ze względów "
-"bezpieczeństwa. Raport PingCastle nigdy ich nie zawiera."
+"Plik zawiera deklarację typu dokumentu lub encji, odrzuconą ze względów "
+"bezpieczeństwa. OpenSCAP nigdy jej nie zapisuje: wyeksportuj wyniki ponownie "
+"za pomocą oscap."
 
 msgid ""
-"This is not a PingCastle health check report: import the ad_hc_[domain].xml "
-"file."
+"No scan result was found in the file. Choose the results file (option --"
+"results or --results-arf of oscap), not the benchmark or the HTML report."
 msgstr ""
-"To nie jest raport kontroli kondycji PingCastle: zaimportuj plik "
-"ad_hc_[domena].xml."
+"W pliku nie znaleziono wyników skanowania. Wybierz plik wyników (opcja --"
+"results lub --results-arf programu oscap), a nie benchmark ani raport HTML."
 
-msgid "The report gives no domain name."
-msgstr "Raport nie podaje nazwy domeny."
-
-msgid "This report has already been imported."
-msgstr "Ten raport został już zaimportowany."
-
-msgid "You do not have the right to import a report."
-msgstr "Nie masz uprawnień do importu raportu."
+msgid "The file is not valid XML, or it is truncated."
+msgstr "Plik nie jest prawidłowym XML lub jest obcięty."
 
 #, php-format
-msgid "PingCastle report - %1$s (%2$s)"
-msgstr "Raport PingCastle - %1$s (%2$s)"
+msgid "Configuration remediation: %1$s (%2$d rule(s) failed)"
+msgstr "Naprawa konfiguracji: %1$s (niespełnione reguły: %2$d)"
+
+msgid "OpenSCAP scans (XCCDF/ARF)"
+msgstr "Skanowania OpenSCAP (XCCDF/ARF)"
+
+msgid "No scan imported yet"
+msgstr "Nie zaimportowano jeszcze żadnego skanowania"
+
+msgid "Import results"
+msgstr "Importuj wyniki"
+
+msgid "Average compliance: not measured"
+msgstr "Średnia zgodność: nie zmierzono"
 
 #, php-format
-msgid "Active Directory %1$s: %2$s"
-msgstr "Active Directory %1$s: %2$s"
+msgid "Average compliance: %d%%"
+msgstr "Średnia zgodność: %d%%"
 
 #, php-format
-msgid "Domain: %s"
-msgstr "Domena: %s"
+msgid "%d machine(s) scanned"
+msgstr "Przeskanowane maszyny: %d"
 
 #, php-format
-msgid "Report: %1$s of %2$s (score %3$d/100)"
-msgstr "Raport: %1$s z %2$s (wynik %3$d/100)"
+msgid "%1$d below %2$d%%"
+msgstr "%1$d poniżej %2$d%%"
 
 #, php-format
-msgid "Rule: %s"
-msgstr "Reguła: %s"
+msgid "%d with a high severity rule failed"
+msgstr "%d z niespełnioną regułą o wysokiej wadze"
 
 #, php-format
-msgid "Category: %s"
-msgstr "Kategoria: %s"
+msgid "%d not matched to a computer"
+msgstr "%d niedopasowane do komputera"
 
 #, php-format
-msgid "Points: %d"
-msgstr "Punkty: %d"
-
-#, php-format
-msgid "ISO/IEC 27001 controls: %s"
-msgstr "Zabezpieczenia ISO/IEC 27001: %s"
-
-#, php-format
-msgid ""
-"Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) "
-"triggered"
-msgstr ""
-"Audyt Active Directory: wynik %1$d/100 dla %2$s (%3$s), wyzwolone reguły: "
-"%4$d"
+msgid "Last scan on %s"
+msgstr "Ostatnie skanowanie: %s"
 
 msgid ""
-"Keeps the results of the security audits of your Active Directory: the "
-"PingCastle reports that your team produces are imported here, with the "
-"global score, the score by category and the rules triggered. Each rule is "
-"linked to the ISO/IEC 27001 controls it concerns, and the history shows how "
-"the score changes from one report to the next."
+"Measures how well the configuration of the computers follows a hardening "
+"guide (CIS, ANSSI, DISA STIG...), from the results files of the OpenSCAP "
+"scanner: rate of rules passed per computer, change since the previous scan, "
+"most frequent failed rules and history."
 msgstr ""
-"Przechowuje wyniki audytów bezpieczeństwa Twojego Active Directory: raporty "
-"PingCastle przygotowane przez zespół są tu importowane, z wynikiem ogólnym, "
-"wynikiem dla każdej kategorii i wyzwolonymi regułami. Każda reguła jest "
-"powiązana z zabezpieczeniami ISO/IEC 27001, których dotyczy, a historia "
-"pokazuje zmianę wyniku od raportu do raportu."
+"Mierzy, na ile konfiguracja komputerów jest zgodna z przewodnikiem "
+"utwardzania (CIS, ANSSI, DISA STIG...), na podstawie plików wyników skanera "
+"OpenSCAP: odsetek spełnionych reguł na komputer, zmiana od poprzedniego "
+"skanowania, najczęściej niespełniane reguły i historia."
 
 msgid ""
-"Run PingCastle regularly (for example every quarter), import each report, "
-"then decide how to treat the rules: propose an action or a ticket for those "
-"you fix, and follow the rules resolved by the next report. Nothing is "
-"created automatically. The page is reserved to the sensitive registers right."
+"Scan the machines with OpenSCAP, import the results file (XCCDF or ARF), "
+"match the results that are not matched to a computer, then fix the failed "
+"rules, starting with the high severity ones. A remediation ticket can be "
+"proposed for a computer: it is created only when you click. Nothing is "
+"changed on the machines."
 msgstr ""
-"Uruchamiaj PingCastle regularnie (na przykład co kwartał), importuj każdy "
-"raport, a następnie zdecyduj, jak potraktować reguły: zaproponuj działanie "
-"lub zgłoszenie dla tych, które naprawiasz, i śledź reguły rozwiązane w "
-"kolejnym raporcie. Nic nie jest tworzone automatycznie. Strona jest "
-"zastrzeżona dla uprawnienia do rejestrów wrażliwych."
+"Przeskanuj maszyny za pomocą OpenSCAP, zaimportuj plik wyników (XCCDF lub "
+"ARF), dopasuj wyniki niedopasowane do komputera, a następnie popraw "
+"niespełnione reguły, zaczynając od tych o wysokiej wadze. Dla komputera "
+"można zaproponować zgłoszenie naprawcze: jest tworzone dopiero po "
+"kliknięciu. Na maszynach nic nie jest zmieniane."
 
-msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
-msgstr "ISO/IEC 27001, zabezpieczenia od A.5.15 do A.5.18, A.8.2 i A.8.5"
+msgid "ISO/IEC 27001, control A.8.9"
+msgstr "ISO/IEC 27001, zabezpieczenie A.8.9"
+
+msgid "Scanned computers with a high severity configuration rule failed (%)"
+msgstr ""
+"Przeskanowane komputery z niespełnioną regułą konfiguracji o wysokiej wadze "
+"(%)"
+
+msgid "High severity"
+msgstr "Wysoka waga"
+
+msgid "No previous scan with the same profile"
+msgstr "Brak poprzedniego skanowania z tym samym profilem"
+
+msgid "No profile"
+msgstr "Brak profilu"
+
+msgid "Rules passed out of the rules checked (not applicable rules excluded)"
+msgstr ""
+"Spełnione reguły spośród sprawdzonych (bez reguł nie mających zastosowania)"
 
 #, php-format
-msgid "%d new rule"
-msgid_plural "%d new rules"
-msgstr[0] "%d nowa reguła"
-msgstr[1] "%d nowe reguły"
-msgstr[2] "%d nowych reguł"
+msgid "%1$d of %2$d computers shown, the least compliant first."
+msgstr "Wyświetlono %1$d z %2$d komputerów, najmniej zgodne najpierw."
+
+msgid "Average compliance of the last scans"
+msgstr "Średnia zgodność ostatnich skanowań"
 
 #, php-format
-msgid "%d rule resolved"
-msgid_plural "%d rules resolved"
-msgstr[0] "%d reguła rozwiązana"
-msgstr[1] "%d reguły rozwiązane"
-msgstr[2] "%d reguł rozwiązanych"
-
-#, php-format
-msgid "%d rule triggered"
-msgid_plural "%d rules triggered"
-msgstr[0] "%d reguła wyzwolona"
-msgstr[1] "%d reguły wyzwolone"
-msgstr[2] "%d reguł wyzwolonych"
-
-msgid "Archive the report as a restricted document (passwords removed)"
-msgstr "Zarchiwizuj raport jako dokument zastrzeżony (hasła usunięte)"
-
-msgid "Archived report (restricted)"
-msgstr "Zarchiwizowany raport (zastrzeżony)"
-
-msgid "Change since the previous report"
-msgstr "Zmiana od poprzedniego raportu"
-
-#, php-format
-msgid "Compared with the report of %s"
-msgstr "W porównaniu z raportem z %s"
-
-msgid "Delete the import and its archived report"
-msgstr "Usuń import i jego zarchiwizowany raport"
-
-msgid "Download a fictitious example report"
-msgstr "Pobierz fikcyjny przykładowy raport"
+msgid "Below the %d%% target"
+msgstr "Poniżej celu %d%%"
 
 msgid ""
-"Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an "
-"action or a ticket for the rules you decide to treat: nothing is created "
-"before you click, and the action form is reviewed before it is saved."
+"Creates a remediation ticket linked to the computer, with the failed rules. "
+"Nothing is created without this click."
 msgstr ""
-"Każda reguła jest powiązana z zabezpieczeniami ISO/IEC 27001, których "
-"dotyczy. Zaproponuj działanie lub zgłoszenie dla reguł, które postanowisz "
-"obsłużyć: nic nie jest tworzone przed Twoim kliknięciem, a formularz "
-"działania jest sprawdzany przed zapisaniem."
+"Tworzy zgłoszenie naprawcze powiązane z komputerem, z niespełnionymi "
+"regułami. Bez tego kliknięcia nic nie jest tworzone."
+
+msgid "Download an example file"
+msgstr "Pobierz przykładowy plik"
+
+msgid "Host name in the report"
+msgstr "Nazwa hosta w raporcie"
+
+msgid "Import OpenSCAP results"
+msgstr "Importuj wyniki OpenSCAP"
+
+msgid "Last scan of each computer"
+msgstr "Ostatnie skanowanie każdego komputera"
+
+msgid "Machines scanned"
+msgstr "Przeskanowane maszyny"
+
+msgid "Match"
+msgstr "Dopasuj"
+
+msgid "Match to a computer"
+msgstr "Dopasuj do komputera"
+
+msgid "Most frequent failed rules"
+msgstr "Najczęściej niespełniane reguły"
 
 msgid ""
-"First report for this domain: the next import will show the rules that "
-"appeared or were resolved."
+"No computer you can see bears this name, or several do. Check the name of "
+"the computer in GLPI, or choose it here."
 msgstr ""
-"Pierwszy raport dla tej domeny: następny import pokaże reguły nowe lub "
-"rozwiązane."
+"Żaden widoczny komputer nie ma tej nazwy albo ma ją kilka. Sprawdź nazwę "
+"komputera w GLPI lub wybierz go tutaj."
+
+msgid "No failed rule in the last scans."
+msgstr "Brak niespełnionych reguł w ostatnich skanowaniach."
+
+msgid "No host name"
+msgstr "Brak nazwy hosta"
 
 msgid ""
-"GLPI never runs PingCastle and never queries the directory: it reads the "
-"report that your team produced. The report is stored in the current entity."
+"No scan imported yet. Import an OpenSCAP results file to measure the "
+"configuration compliance."
 msgstr ""
-"GLPI nigdy nie uruchamia PingCastle i nigdy nie odpytuje katalogu: odczytuje "
-"raport przygotowany przez Twój zespół. Raport jest zapisywany w bieżącym "
-"podmiocie."
+"Nie zaimportowano jeszcze żadnego skanowania. Zaimportuj plik wyników "
+"OpenSCAP, aby zmierzyć zgodność konfiguracji."
 
-msgid "Import a PingCastle report"
-msgstr "Importuj raport PingCastle"
+msgid "No scan result is matched to a computer yet: match them below."
+msgstr ""
+"Żaden wynik skanowania nie jest jeszcze dopasowany do komputera: dopasuj je "
+"poniżej."
 
-msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
-msgstr "Zaimportuj utworzony plik ad_hc_[domena].xml (nie plik HTML)."
+msgid "Propose a ticket"
+msgstr "Zaproponuj zgłoszenie"
 
-msgid "Imported on"
-msgstr "Zaimportowano"
+msgid "Results file"
+msgstr "Plik wyników"
 
-msgid "Imported reports"
-msgstr "Zaimportowane raporty"
-
-#, php-format
-msgid "Maturity level: %d"
-msgstr "Poziom dojrzałości: %d"
+msgid "Rules failed"
+msgstr "Niespełnione reguły"
 
 msgid ""
-"No report imported yet. Run PingCastle on your domain, then import the "
-"ad_hc_[domain].xml file below."
+"Run the scan on the machine, then import the results file (XCCDF or ARF). "
+"One file can hold several machines. Each result is matched to the GLPI "
+"computer of the same name."
 msgstr ""
-"Nie zaimportowano jeszcze żadnego raportu. Uruchom PingCastle w swojej "
-"domenie, a następnie zaimportuj poniżej plik ad_hc_[domena].xml."
+"Uruchom skanowanie na maszynie, a następnie zaimportuj plik wyników (XCCDF "
+"lub ARF). Jeden plik może zawierać kilka maszyn. Każdy wynik jest "
+"dopasowywany do komputera GLPI o tej samej nazwie."
 
-msgid "No rule triggered in this report."
-msgstr "Brak wyzwolonych reguł w tym raporcie."
+msgid "Scan date"
+msgstr "Data skanowania"
 
-msgid ""
-"On a computer of the domain, run PingCastle and choose the health check (or "
-"run it with the --healthcheck option)."
-msgstr ""
-"Na komputerze w domenie uruchom PingCastle i wybierz kontrolę kondycji (lub "
-"uruchom go z opcją --healthcheck)."
-
-msgid ""
-"Only the scores and the triggered rules (identifier, category, points, "
-"finding) are kept: never the list of accounts, nor any password found. A new "
-"report of the same domain shows the change of score and the rules that "
-"appeared or were resolved."
-msgstr ""
-"Zachowywane są tylko wyniki i wyzwolone reguły (identyfikator, kategoria, "
-"punkty, ustalenie): nigdy lista kont ani żadne znalezione hasło. Nowy raport "
-"tej samej domeny pokazuje zmianę wyniku oraz reguły nowe lub rozwiązane."
-
-msgid "Only users who can modify the sensitive registers can import a report."
-msgstr ""
-"Tylko użytkownicy, którzy mogą modyfikować rejestry wrażliwe, mogą "
-"importować raport."
-
-msgid "Open a ticket"
-msgstr "Otwórz zgłoszenie"
-
-msgid "Passwords found in the report: not kept"
-msgstr "Hasła znalezione w raporcie: nie zachowano"
-
-#, php-format
-msgid "PingCastle XML report (%d MB at most)"
-msgstr "Raport XML PingCastle (maksymalnie %d MB)"
-
-msgid ""
-"PingCastle is free for internal use; a service provider auditing a customer "
-"needs a licence. Check the terms of use of the tool."
-msgstr ""
-"PingCastle jest bezpłatny do użytku wewnętrznego; usługodawca audytujący "
-"klienta potrzebuje licencji. Sprawdź warunki korzystania z narzędzia."
-
-#, php-format
-msgid "PingCastle report of %1$s, %2$s"
-msgstr "Raport PingCastle dla %1$s, %2$s"
-
-msgid "Points"
-msgstr "Punkty"
-
-msgid "Propose an action"
-msgstr "Zaproponuj działanie"
-
-msgid "Report date"
-msgstr "Data raportu"
-
-#, php-format
-msgid "Report of %s"
-msgstr "Raport z %s"
-
-msgid "Rules"
-msgstr "Reguły"
-
-msgid "Rules resolved since the previous report"
-msgstr "Reguły rozwiązane od poprzedniego raportu"
-
-msgid "Rules triggered"
-msgstr "Wyzwolone reguły"
-
-msgid ""
-"These reports describe the weaknesses of the domain: the page and the "
-"archived reports are reserved to the sensitive registers right, in the "
-"entity of each import."
-msgstr ""
-"Te raporty opisują słabości domeny: strona i zarchiwizowane raporty są "
-"zastrzeżone dla uprawnienia do rejestrów wrażliwych, w podmiocie każdego "
-"importu."
+msgid "Scan results not matched to a computer"
+msgstr "Wyniki skanowania niedopasowane do komputera"
 
 #, php-format
 msgid "Ticket %d"
 msgstr "Zgłoszenie %d"
 
-msgid ""
-"Weakness reported by the Active Directory security audit (\"Active Directory "
-"security audit\" screen). Fix it, then import the next report to check that "
-"the rule is resolved. Nothing was changed automatically."
-msgstr ""
-"Słabość zgłoszona przez audyt bezpieczeństwa Active Directory (ekran „Audyt "
-"bezpieczeństwa Active Directory”). Napraw ją, a następnie zaimportuj kolejny "
-"raport, aby sprawdzić, czy reguła została rozwiązana. Nic nie zostało "
-"zmienione automatycznie."
-
-#, php-format
-msgid "%d rule concerns this control"
-msgid_plural "%d rules concern this control"
-msgstr[0] "%d reguła dotyczy tego zabezpieczenia"
-msgstr[1] "%d reguły dotyczą tego zabezpieczenia"
-msgstr[2] "%d reguł dotyczy tego zabezpieczenia"
-
-#, php-format
-msgid "Score: %d/100"
-msgstr "Wynik: %d/100"
+msgid "With a high severity rule failed"
+msgstr "Z niespełnioną regułą o wysokiej wadze"
 
 #, php-format
 msgid ""
-"Action proposed from the Active Directory security audit (rule %s): review "
-"and adapt each field, set an owner and a due date, then click \"Add\". "
-"Nothing is created before, and the rule is linked to this action once it is "
-"saved."
+"XML file, %d MB at most. The file itself is not kept: only the counts and "
+"the failed rules."
 msgstr ""
-"Działanie zaproponowane z audytu bezpieczeństwa Active Directory (reguła "
-"%s): sprawdź i dostosuj każde pole, wyznacz osobę odpowiedzialną i termin, a "
-"następnie kliknij „Dodaj”. Wcześniej nic nie jest tworzone, a reguła zostaje "
-"powiązana z tym działaniem po zapisaniu."
+"Plik XML, najwyżej %d MB. Sam plik nie jest przechowywany: tylko liczniki i "
+"niespełnione reguły."
 
-msgctxt "ad rule"
-msgid "New"
-msgstr "Nowa"
+#, php-format
+msgid "%d failed"
+msgstr "Niespełnione: %d"
+
+#, php-format
+msgid "%d in error"
+msgstr "Z błędem: %d"
+
+#, php-format
+msgid "%d not applicable or not checked"
+msgstr "Nie dotyczy lub nie sprawdzono: %d"
+
+#, php-format
+msgid "%d passed"
+msgstr "Spełnione: %d"
+
+msgid "Back to the configuration compliance"
+msgstr "Powrót do zgodności konfiguracji"
+
+msgid "Delete this scan result"
+msgstr "Usuń ten wynik skanowania"
+
+msgid "Delete this scan result?"
+msgstr "Usunąć ten wynik skanowania?"
+
+msgid "Failed rules"
+msgstr "Niespełnione reguły"
+
+msgid "No failed rule in this scan."
+msgstr "Brak niespełnionych reguł w tym skanowaniu."
+
+msgid "Not matched"
+msgstr "Niedopasowany"
+
+msgid "Rules"
+msgstr "Reguły"
+
+msgid "Scan history of this machine"
+msgstr "Historia skanowań tej maszyny"
+
+msgid "Scanner"
+msgstr "Skaner"
+
+msgid "Score of the tool"
+msgstr "Wynik narzędzia"
+
+msgid ""
+"This scan has more failed rules than the import keeps: only the first ones "
+"are listed."
+msgstr ""
+"To skanowanie ma więcej niespełnionych reguł, niż zachowuje import: "
+"wyświetlono tylko pierwsze."
+
+#, php-format
+msgid "And %d more rule(s): see the scan in GRC."
+msgstr "Pozostałe reguły: %d; zobacz skanowanie w GRC."
+
+#, php-format
+msgid ""
+"Configuration scan of %1$s on %2$s: %3$d rule(s) failed. ISO/IEC 27001, "
+"control A.8.9."
+msgstr ""
+"Skanowanie konfiguracji %1$s z dnia %2$s: niespełnione reguły: %3$d. ISO/IEC "
+"27001, zabezpieczenie A.8.9."
 
 #, php-format
 msgid "Suggestions updated for %d account(s) still to review."
@@ -30231,3 +30188,249 @@ msgstr ""
 
 msgid "Update the suggestions"
 msgstr "Zaktualizuj sugestie"
+
+#, php-format
+msgid "Report imported: %d rule(s) triggered."
+msgstr "Raport zaimportowany: wyzwolone reguły: %d."
+
+msgid "The report contains passwords or secrets (for example in group policies): they were not kept, and are removed from the archived copy. Change them as soon as possible."
+msgstr "Raport zawiera hasła lub sekrety (na przykład w zasadach grupy): nie zostały zachowane i są usunięte z archiwalnej kopii. Zmień je jak najszybciej."
+
+msgid "The report could not be archived as a document (XML files may not be allowed in the document types of GLPI)."
+msgstr "Nie udało się zarchiwizować raportu jako dokumentu (pliki XML mogą nie być dozwolone w typach dokumentów GLPI)."
+
+#, php-format
+msgid "Only the first %d rules were read."
+msgstr "Odczytano tylko pierwsze reguły (%d)."
+
+#, php-format
+msgid "Ticket %d created."
+msgstr "Utworzono zgłoszenie %d."
+
+msgid "Active Directory security score (PingCastle, 0 is best)"
+msgstr "Wynik bezpieczeństwa Active Directory (PingCastle, 0 to najlepszy)"
+
+msgid "Active Directory security audit"
+msgstr "Audyt bezpieczeństwa Active Directory"
+
+msgid "Stale objects"
+msgstr "Nieaktualne obiekty"
+
+msgid "Privileged accounts"
+msgstr "Konta uprzywilejowane"
+
+msgid "Trust relationships"
+msgstr "Relacje zaufania"
+
+msgid "Anomalies"
+msgstr "Anomalie"
+
+msgid "Good"
+msgstr "Dobry"
+
+msgid "Worrying"
+msgstr "Niepokojący"
+
+msgid "The file is too large (20 MB at most)."
+msgstr "Plik jest za duży (maksymalnie 20 MB)."
+
+msgid "The file declares a DOCTYPE or entities: it is refused for security reasons. A PingCastle report never contains any."
+msgstr "Plik deklaruje DOCTYPE lub encje: zostaje odrzucony ze względów bezpieczeństwa. Raport PingCastle nigdy ich nie zawiera."
+
+msgid "This is not a PingCastle health check report: import the ad_hc_[domain].xml file."
+msgstr "To nie jest raport kontroli kondycji PingCastle: zaimportuj plik ad_hc_[domena].xml."
+
+msgid "The report gives no domain name."
+msgstr "Raport nie podaje nazwy domeny."
+
+msgid "This report has already been imported."
+msgstr "Ten raport został już zaimportowany."
+
+msgid "You do not have the right to import a report."
+msgstr "Nie masz uprawnień do importu raportu."
+
+#, php-format
+msgid "PingCastle report - %1$s (%2$s)"
+msgstr "Raport PingCastle - %1$s (%2$s)"
+
+#, php-format
+msgid "Active Directory %1$s: %2$s"
+msgstr "Active Directory %1$s: %2$s"
+
+#, php-format
+msgid "Domain: %s"
+msgstr "Domena: %s"
+
+#, php-format
+msgid "Report: %1$s of %2$s (score %3$d/100)"
+msgstr "Raport: %1$s z %2$s (wynik %3$d/100)"
+
+#, php-format
+msgid "Rule: %s"
+msgstr "Reguła: %s"
+
+#, php-format
+msgid "Category: %s"
+msgstr "Kategoria: %s"
+
+#, php-format
+msgid "Points: %d"
+msgstr "Punkty: %d"
+
+#, php-format
+msgid "ISO/IEC 27001 controls: %s"
+msgstr "Zabezpieczenia ISO/IEC 27001: %s"
+
+#, php-format
+msgid "Active Directory audit: score %1$d/100 for %2$s (%3$s), %4$d rule(s) triggered"
+msgstr "Audyt Active Directory: wynik %1$d/100 dla %2$s (%3$s), wyzwolone reguły: %4$d"
+
+msgid "Keeps the results of the security audits of your Active Directory: the PingCastle reports that your team produces are imported here, with the global score, the score by category and the rules triggered. Each rule is linked to the ISO/IEC 27001 controls it concerns, and the history shows how the score changes from one report to the next."
+msgstr "Przechowuje wyniki audytów bezpieczeństwa Twojego Active Directory: raporty PingCastle przygotowane przez zespół są tu importowane, z wynikiem ogólnym, wynikiem dla każdej kategorii i wyzwolonymi regułami. Każda reguła jest powiązana z zabezpieczeniami ISO/IEC 27001, których dotyczy, a historia pokazuje zmianę wyniku od raportu do raportu."
+
+msgid "Run PingCastle regularly (for example every quarter), import each report, then decide how to treat the rules: propose an action or a ticket for those you fix, and follow the rules resolved by the next report. Nothing is created automatically. The page is reserved to the sensitive registers right."
+msgstr "Uruchamiaj PingCastle regularnie (na przykład co kwartał), importuj każdy raport, a następnie zdecyduj, jak potraktować reguły: zaproponuj działanie lub zgłoszenie dla tych, które naprawiasz, i śledź reguły rozwiązane w kolejnym raporcie. Nic nie jest tworzone automatycznie. Strona jest zastrzeżona dla uprawnienia do rejestrów wrażliwych."
+
+msgid "ISO/IEC 27001, controls A.5.15 to A.5.18, A.8.2 and A.8.5"
+msgstr "ISO/IEC 27001, zabezpieczenia od A.5.15 do A.5.18, A.8.2 i A.8.5"
+
+#, php-format
+msgid "%d new rule"
+msgid_plural "%d new rules"
+msgstr[0] "%d nowa reguła"
+msgstr[1] "%d nowe reguły"
+msgstr[2] "%d nowych reguł"
+
+#, php-format
+msgid "%d rule resolved"
+msgid_plural "%d rules resolved"
+msgstr[0] "%d reguła rozwiązana"
+msgstr[1] "%d reguły rozwiązane"
+msgstr[2] "%d reguł rozwiązanych"
+
+#, php-format
+msgid "%d rule triggered"
+msgid_plural "%d rules triggered"
+msgstr[0] "%d reguła wyzwolona"
+msgstr[1] "%d reguły wyzwolone"
+msgstr[2] "%d reguł wyzwolonych"
+
+msgid "Archive the report as a restricted document (passwords removed)"
+msgstr "Zarchiwizuj raport jako dokument zastrzeżony (hasła usunięte)"
+
+msgid "Archived report (restricted)"
+msgstr "Zarchiwizowany raport (zastrzeżony)"
+
+msgid "Change since the previous report"
+msgstr "Zmiana od poprzedniego raportu"
+
+#, php-format
+msgid "Compared with the report of %s"
+msgstr "W porównaniu z raportem z %s"
+
+msgid "Delete the import and its archived report"
+msgstr "Usuń import i jego zarchiwizowany raport"
+
+msgid "Download a fictitious example report"
+msgstr "Pobierz fikcyjny przykładowy raport"
+
+msgid "Each rule is linked to the ISO/IEC 27001 controls it concerns. Propose an action or a ticket for the rules you decide to treat: nothing is created before you click, and the action form is reviewed before it is saved."
+msgstr "Każda reguła jest powiązana z zabezpieczeniami ISO/IEC 27001, których dotyczy. Zaproponuj działanie lub zgłoszenie dla reguł, które postanowisz obsłużyć: nic nie jest tworzone przed Twoim kliknięciem, a formularz działania jest sprawdzany przed zapisaniem."
+
+msgid "First report for this domain: the next import will show the rules that appeared or were resolved."
+msgstr "Pierwszy raport dla tej domeny: następny import pokaże reguły nowe lub rozwiązane."
+
+msgid "GLPI never runs PingCastle and never queries the directory: it reads the report that your team produced. The report is stored in the current entity."
+msgstr "GLPI nigdy nie uruchamia PingCastle i nigdy nie odpytuje katalogu: odczytuje raport przygotowany przez Twój zespół. Raport jest zapisywany w bieżącym podmiocie."
+
+msgid "Import a PingCastle report"
+msgstr "Importuj raport PingCastle"
+
+msgid "Import the ad_hc_[domain].xml file it produces (not the HTML file)."
+msgstr "Zaimportuj utworzony plik ad_hc_[domena].xml (nie plik HTML)."
+
+msgid "Imported on"
+msgstr "Zaimportowano"
+
+msgid "Imported reports"
+msgstr "Zaimportowane raporty"
+
+#, php-format
+msgid "Maturity level: %d"
+msgstr "Poziom dojrzałości: %d"
+
+msgid "No report imported yet. Run PingCastle on your domain, then import the ad_hc_[domain].xml file below."
+msgstr "Nie zaimportowano jeszcze żadnego raportu. Uruchom PingCastle w swojej domenie, a następnie zaimportuj poniżej plik ad_hc_[domena].xml."
+
+msgid "No rule triggered in this report."
+msgstr "Brak wyzwolonych reguł w tym raporcie."
+
+msgid "On a computer of the domain, run PingCastle and choose the health check (or run it with the --healthcheck option)."
+msgstr "Na komputerze w domenie uruchom PingCastle i wybierz kontrolę kondycji (lub uruchom go z opcją --healthcheck)."
+
+msgid "Only the scores and the triggered rules (identifier, category, points, finding) are kept: never the list of accounts, nor any password found. A new report of the same domain shows the change of score and the rules that appeared or were resolved."
+msgstr "Zachowywane są tylko wyniki i wyzwolone reguły (identyfikator, kategoria, punkty, ustalenie): nigdy lista kont ani żadne znalezione hasło. Nowy raport tej samej domeny pokazuje zmianę wyniku oraz reguły nowe lub rozwiązane."
+
+msgid "Only users who can modify the sensitive registers can import a report."
+msgstr "Tylko użytkownicy, którzy mogą modyfikować rejestry wrażliwe, mogą importować raport."
+
+msgid "Open a ticket"
+msgstr "Otwórz zgłoszenie"
+
+msgid "Passwords found in the report: not kept"
+msgstr "Hasła znalezione w raporcie: nie zachowano"
+
+#, php-format
+msgid "PingCastle XML report (%d MB at most)"
+msgstr "Raport XML PingCastle (maksymalnie %d MB)"
+
+msgid "PingCastle is free for internal use; a service provider auditing a customer needs a licence. Check the terms of use of the tool."
+msgstr "PingCastle jest bezpłatny do użytku wewnętrznego; usługodawca audytujący klienta potrzebuje licencji. Sprawdź warunki korzystania z narzędzia."
+
+#, php-format
+msgid "PingCastle report of %1$s, %2$s"
+msgstr "Raport PingCastle dla %1$s, %2$s"
+
+msgid "Points"
+msgstr "Punkty"
+
+msgid "Propose an action"
+msgstr "Zaproponuj działanie"
+
+msgid "Report date"
+msgstr "Data raportu"
+
+#, php-format
+msgid "Report of %s"
+msgstr "Raport z %s"
+
+msgid "Rules resolved since the previous report"
+msgstr "Reguły rozwiązane od poprzedniego raportu"
+
+msgid "Rules triggered"
+msgstr "Wyzwolone reguły"
+
+msgid "These reports describe the weaknesses of the domain: the page and the archived reports are reserved to the sensitive registers right, in the entity of each import."
+msgstr "Te raporty opisują słabości domeny: strona i zarchiwizowane raporty są zastrzeżone dla uprawnienia do rejestrów wrażliwych, w podmiocie każdego importu."
+
+msgid "Weakness reported by the Active Directory security audit (\"Active Directory security audit\" screen). Fix it, then import the next report to check that the rule is resolved. Nothing was changed automatically."
+msgstr "Słabość zgłoszona przez audyt bezpieczeństwa Active Directory (ekran „Audyt bezpieczeństwa Active Directory”). Napraw ją, a następnie zaimportuj kolejny raport, aby sprawdzić, czy reguła została rozwiązana. Nic nie zostało zmienione automatycznie."
+
+#, php-format
+msgid "%d rule concerns this control"
+msgid_plural "%d rules concern this control"
+msgstr[0] "%d reguła dotyczy tego zabezpieczenia"
+msgstr[1] "%d reguły dotyczą tego zabezpieczenia"
+msgstr[2] "%d reguł dotyczy tego zabezpieczenia"
+
+#, php-format
+msgid "Score: %d/100"
+msgstr "Wynik: %d/100"
+
+#, php-format
+msgid "Action proposed from the Active Directory security audit (rule %s): review and adapt each field, set an owner and a due date, then click \"Add\". Nothing is created before, and the rule is linked to this action once it is saved."
+msgstr "Działanie zaproponowane z audytu bezpieczeństwa Active Directory (reguła %s): sprawdź i dostosuj każde pole, wyznacz osobę odpowiedzialną i termin, a następnie kliknij „Dodaj”. Wcześniej nic nie jest tworzone, a reguła zostaje powiązana z tym działaniem po zapisaniu."
+
+msgctxt "ad rule"
+msgid "New"
+msgstr "Nowa"

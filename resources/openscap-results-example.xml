@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Exemple fictif de résultats XCCDF 1.2 (commande oscap xccdf eval avec un fichier de résultats). Données inventées. -->
+<Benchmark xmlns="http://checklists.nist.gov/xccdf/1.2" id="xccdf_org.example.content_benchmark_DEMO" resolved="1" xml:lang="en-US">
+  <status>accepted</status>
+  <title>Example hardening guide for Linux servers</title>
+  <version>0.1</version>
+  <Profile id="xccdf_org.example.content_profile_server">
+    <title>Example server baseline</title>
+    <select idref="xccdf_org.example.content_rule_ssh_root_login" selected="true"/>
+  </Profile>
+  <Group id="xccdf_org.example.content_group_services">
+    <title>Services</title>
+    <Rule id="xccdf_org.example.content_rule_ssh_root_login" selected="true" severity="high">
+      <title>Disable SSH root login</title>
+    </Rule>
+    <Rule id="xccdf_org.example.content_rule_password_min_length" selected="true" severity="medium">
+      <title>Set a minimum password length</title>
+    </Rule>
+    <Rule id="xccdf_org.example.content_rule_audit_enabled" selected="true" severity="medium">
+      <title>Enable the audit service</title>
+    </Rule>
+    <Rule id="xccdf_org.example.content_rule_banner" selected="true" severity="low">
+      <title>Display a login banner</title>
+    </Rule>
+  </Group>
+  <TestResult id="xccdf_org.open-scap_testresult_xccdf_org.example.content_profile_server" start-time="2026-03-02T09:00:00+01:00" end-time="2026-03-02T09:02:10+01:00" version="0.1" test-system="cpe:/a:redhat:openscap:1.3.10">
+    <benchmark href="#xccdf_org.example.content_benchmark_DEMO" id="xccdf_org.example.content_benchmark_DEMO"/>
+    <title>OSCAP Scan Result</title>
+    <profile idref="xccdf_org.example.content_profile_server"/>
+    <target>srv-demo-01</target>
+    <target-address>192.0.2.10</target-address>
+    <target-facts>
+      <fact name="urn:xccdf:fact:asset:identifier:fqdn" type="string">srv-demo-01.example.org</fact>
+      <fact name="urn:xccdf:fact:asset:identifier:host_name" type="string">srv-demo-01</fact>
+    </target-facts>
+    <rule-result idref="xccdf_org.example.content_rule_ssh_root_login" role="full" time="2026-03-02T09:00:05+01:00" severity="high" weight="1.000000">
+      <result>fail</result>
+    </rule-result>
+    <rule-result idref="xccdf_org.example.content_rule_password_min_length" role="full" time="2026-03-02T09:00:06+01:00" severity="medium" weight="1.000000">
+      <result>pass</result>
+    </rule-result>
+    <rule-result idref="xccdf_org.example.content_rule_audit_enabled" role="full" time="2026-03-02T09:00:07+01:00" severity="medium" weight="1.000000">
+      <result>error</result>
+    </rule-result>
+    <rule-result idref="xccdf_org.example.content_rule_banner" role="full" time="2026-03-02T09:00:08+01:00" severity="low" weight="1.000000">
+      <result>notapplicable</result>
+    </rule-result>
+    <score system="urn:xccdf:scoring:default" maximum="100.000000">40.000000</score>
+  </TestResult>
+</Benchmark>

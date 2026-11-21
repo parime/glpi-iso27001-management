@@ -573,6 +573,30 @@ if ($mode === 'xss') {
     $out['control_a82'] = (int) ($DB->request([
         'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.2'], 'LIMIT' => 1,
     ])->current()['id'] ?? 0);
+    // Issue #781 : résultat OpenSCAP piégé (nom d'hôte, profil, référentiel, outil, fichier, règle en
+    // échec) rattaché à l'ordinateur de A, et un second non rapproché ; preuve de la mesure A.8.9.
+    $scanFields = [
+        'hostname' => mb_substr($canary, 0, 255), 'fqdn' => $canary, 'address' => $canary,
+        'benchmark_id' => $canary, 'benchmark_title' => $canary, 'profile_id' => $canary,
+        'profile_title' => $canary, 'scanner' => $canary, 'file_name' => $canary,
+        'scan_date' => date('Y-m-d H:i:s'), 'pass_count' => 1, 'fail_count' => 1, 'high_fail_count' => 1,
+    ];
+    $entityA = (int) ($DB->request([
+        'SELECT' => 'entities_id', 'FROM' => 'glpi_computers', 'WHERE' => ['id' => (int) $ids['computer_A']],
+    ])->current()['entities_id'] ?? 0);
+    foreach (['configscan' => (int) $ids['computer_A'], 'configscan_unmatched' => 0] as $key => $computerId) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, $scanFields + [
+            'entities_id' => $computerId > 0 ? $entityA : 0, 'computers_id' => $computerId,
+        ]);
+        $out[$key] = (int) $DB->insertId();
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::FAILURES, [
+            \GlpiPlugin\Grcmanager\Install\ConfigScanTables::FK => $out[$key], 'rule_id' => $canary,
+            'title' => $canary, 'severity' => 'high', 'result' => 'fail',
+        ]);
+    }
+    $out['control_a89'] = (int) ($DB->request([
+        'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.9'], 'LIMIT' => 1,
+    ])->current()['id'] ?? 0);
     $out['control_a831'] = (int) ($DB->request([
         'SELECT' => 'id', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['code' => 'A.8.31'], 'LIMIT' => 1,
     ])->current()['id'] ?? 0);
@@ -816,6 +840,25 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
+    // Issue #781 : résultat OpenSCAP fictif de l'ordinateur de l'entité (conformité de configuration).
+    $scan = [
+        'computers_id' => $ids['computer_' . $suffix], 'hostname' => 'pc-securite-' . strtolower($suffix),
+    ];
+    if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, $scan) === 0) {
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, $scan + [
+            'entities_id' => $entity, 'profile_id' => 'xccdf_demo_profile', 'profile_title' => 'Profil securite',
+            'scan_date' => date('Y-m-d H:i:s'), 'pass_count' => 3, 'fail_count' => 1, 'high_fail_count' => 1,
+            'file_name' => 'resultats-securite.xml',
+        ]);
+        $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::FAILURES, [
+            \GlpiPlugin\Grcmanager\Install\ConfigScanTables::FK => (int) $DB->insertId(),
+            'rule_id' => 'xccdf_demo_rule_ssh', 'title' => 'Regle securite ' . $suffix, 'severity' => 'high',
+        ]);
+    }
+    $ids['configscan_' . $suffix] = (int) ($DB->request([
+        'SELECT' => 'id', 'FROM' => \GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, 'WHERE' => $scan,
+        'LIMIT' => 1,
+    ])->current()['id'] ?? 0);
     // Issue #847 : volume système non chiffré (page du chiffrement des disques, entité seulement).
     $diskCriteria = ['itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix]];
     if (countElementsInTable('glpi_items_disks', $diskCriteria) === 0) {

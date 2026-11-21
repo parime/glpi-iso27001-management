@@ -1201,7 +1201,42 @@ dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateu
    insuffisante et la date du calcul. Les indicateurs de risque proposent la source « Actifs
    critiques sans journalisation (%) ».
 
-### Étape 39 : Suivre l'audit de sécurité de l'Active Directory (mesures A.5.15 à A.5.18, A.8.2 et A.8.5)
+### Étape 39 : Mesurer la conformité de configuration avec OpenSCAP (mesure A.8.9)
+
+OpenSCAP vérifie une machine contre un guide de durcissement (profils CIS, ANSSI, DISA STIG… du
+projet SCAP Security Guide) et produit un fichier de résultats XCCDF ou ARF. Le plugin lit ce
+fichier : il ne lance aucune analyse et ne modifie rien sur les machines. Il faut le droit du plugin
+et le droit natif de lecture des ordinateurs ; importer demande le droit de modifier le plugin.
+
+1. Sur la machine, lancez l'analyse avec un fichier de résultats, par exemple
+   `oscap xccdf eval --profile <profil> --results-arf resultats-arf.xml <ssg-datastream.xml>`.
+   L'option `--results` (XCCDF seul) convient aussi. Le rapport HTML ne s'importe pas.
+2. Ouvrez Sécurité technique > **Conformité de configuration**. L'encadré « À quoi sert cette
+   page ? » rappelle ce qui est attendu. Dans **Importer des résultats OpenSCAP**, choisissez le
+   fichier et cliquez sur **Importer**. Un fichier peut contenir plusieurs machines ; un fichier déjà
+   importé n'est pas compté deux fois. Un fichier d'exemple fictif est téléchargeable.
+3. Chaque résultat est rapproché de l'ordinateur GLPI du même nom (nom d'hôte, nom complet ou nom
+   court), parmi ceux que vous voyez. Les résultats sans ordinateur, ou avec plusieurs homonymes,
+   sont listés dans **Résultats d'analyse non rapprochés d'un ordinateur** : choisissez l'ordinateur
+   et cliquez sur **Rattacher**.
+4. Les compteurs donnent la conformité moyenne, le nombre de machines analysées, celles sous
+   l'objectif de 80 % et celles avec une règle de gravité haute en échec. Le taux d'une analyse est
+   la part des règles conformes parmi les règles vérifiées (les règles non applicables ne comptent
+   pas). La liste montre la dernière analyse de chaque ordinateur, les moins conformes d'abord, avec
+   l'évolution depuis l'analyse précédente du même profil.
+5. **Détails** ouvre une analyse : règles en échec par gravité et historique de la machine. Le
+   bouton **Proposer un ticket** crée, sur votre clic seulement, un ticket de remédiation lié à
+   l'ordinateur avec les règles en échec. Les règles en échec les plus fréquentes du parc sont en bas
+   de page.
+6. Sur la fiche de la mesure A.8.9, le cadre « Conformité de configuration » montre ces chiffres et
+   la date de la dernière analyse. Les indicateurs de risque proposent la source « Ordinateurs
+   analysés avec une règle de configuration de gravité haute en échec (%) ».
+
+Sécurité de l'import : le fichier est lu en flux (les gros rapports ARF passent), toute déclaration
+de type de document ou d'entité est refusée et aucun accès réseau n'est fait pendant la lecture. Le
+fichier lui-même n'est pas conservé, seulement les compteurs et les règles en échec.
+
+### Étape 40 : Suivre l'audit de sécurité de l'Active Directory (mesures A.5.15 à A.5.18, A.8.2 et A.8.5)
 
 L'Active Directory est la première cible des attaques : comptes privilégiés, délégations, comptes
 inactifs. Le plugin garde les résultats des audits que votre équipe réalise avec PingCastle ; il ne
@@ -2402,7 +2437,41 @@ need the plugin right and the native right to read computers.
    assets without logging, the platforms whose retention is not enough and the date of the
    computation. Risk indicators offer the source "Critical assets without logging (%)".
 
-### Step 40: Follow the Active Directory security audit (controls A.5.15 to A.5.18, A.8.2 and A.8.5)
+### Step 40: Measure configuration compliance with OpenSCAP (control A.8.9)
+
+OpenSCAP checks a machine against a hardening guide (CIS, ANSSI, DISA STIG... profiles of the SCAP
+Security Guide project) and writes an XCCDF or ARF results file. The plugin reads this file: it
+starts no scan and changes nothing on the machines. You need the plugin right and the native right
+to read computers; importing requires the right to update the plugin.
+
+1. On the machine, run the scan with a results file, for example
+   `oscap xccdf eval --profile <profile> --results-arf results-arf.xml <ssg-datastream.xml>`.
+   The `--results` option (XCCDF only) works too. The HTML report cannot be imported.
+2. Open Technical security > **Configuration compliance**. The "What is this page for?" box recalls
+   what is expected. In **Import OpenSCAP results**, choose the file and click **Import**. One file
+   can hold several machines; a file already imported is not counted twice. A fictitious example
+   file can be downloaded.
+3. Each result is matched to the GLPI computer of the same name (host name, full name or short
+   name), among those you can see. Results without a computer, or with several computers of that
+   name, are listed in **Scan results not matched to a computer**: choose the computer and click
+   **Match**.
+4. The counters give the average compliance, the number of machines scanned, those below the 80 %
+   target and those with a high severity rule failed. The rate of a scan is the share of rules
+   passed among the rules checked (not applicable rules do not count). The list shows the last scan
+   of each computer, the least compliant first, with the change since the previous scan of the same
+   profile.
+5. **Details** opens a scan: failed rules by severity and history of the machine. The **Propose a
+   ticket** button creates, only when you click, a remediation ticket linked to the computer with
+   the failed rules. The most frequent failed rules of the fleet are at the bottom of the page.
+6. On control A.8.9, the "Configuration compliance" box shows these figures and the date of the
+   last scan. Risk indicators offer the source "Scanned computers with a high severity configuration
+   rule failed (%)".
+
+Import security: the file is read as a stream (large ARF reports are accepted), any document type or
+entity declaration is refused and no network access is made while reading. The file itself is not
+kept, only the counts and the failed rules.
+
+### Step 41: Follow the Active Directory security audit (controls A.5.15 to A.5.18, A.8.2 and A.8.5)
 
 The Active Directory is the first target of attacks: privileged accounts, delegations, inactive
 accounts. The plugin keeps the results of the audits your team runs with PingCastle; it runs no
