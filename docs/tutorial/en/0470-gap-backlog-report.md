@@ -14,7 +14,7 @@ section gathers non-conformities, other findings and the actions decided in mana
    and follow up with its owner.
 6. Filter if needed (period, type, severity, origin, entity, owner), then click **Export PDF** or
    **Export CSV** for the auditor's file.
-7. **Archive as evidence** attaches the PDF to requirements 10.1 and 10.2: it appears on their
-   record and in the auditor's evidence pack.
+7. **Archive as evidence (10.1, 10.2)** attaches the PDF to requirements 10.1 and 10.2: it
+   appears on their record and in the auditor's evidence pack.
 
 Nothing is changed from this page: statuses and due dates are changed on each record.

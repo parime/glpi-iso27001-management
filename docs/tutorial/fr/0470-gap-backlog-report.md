@@ -14,8 +14,8 @@ décidées en revue de direction.
 5. La liste du bas cite les écarts ouverts, les plus en retard d'abord ; cliquez sur un titre pour
    ouvrir la fiche et relancer son responsable.
 6. Filtrez si besoin (période, type, gravité, origine, entité, responsable), puis cliquez sur
-   **Exporter en PDF** ou **Exporter en CSV** pour le dossier de l'auditeur.
-7. **Archiver comme preuve** joint le PDF aux exigences 10.1 et 10.2 : il apparaît sur leur fiche
-   et dans le dossier de preuves de l'auditeur.
+   **Export PDF** ou **Export CSV** pour le dossier de l'auditeur.
+7. **Archiver comme preuve (10.1, 10.2)** joint le PDF aux exigences 10.1 et 10.2 : il
+   apparaît sur leur fiche et dans le dossier de preuves de l'auditeur.
 
 Rien n'est modifié depuis cette page : les statuts et les échéances se changent sur chaque fiche.
