@@ -135,9 +135,9 @@
                               {% if not fw.watched %}
                                  <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('Link this name to a product on the page "Fleet vulnerabilities" to compare it with the known vulnerabilities.', 'grcmanager') }}"><i class="ti ti-eye-off me-1"></i>{{ __('Not watched', 'grcmanager') }}</span>
                               {% elseif fw.priority > 0 %}
-                                 <span class="badge bg-danger-subtle text-danger-emphasis" title="{{ fw.top_cves|join(', ') }}"><i class="ti ti-bug me-1"></i>{{ _n('%d priority CVE', '%d priority CVEs', fw.priority, 'grcmanager')|format(fw.priority) }}</span>
+                                 <span class="badge bg-danger-subtle text-danger-emphasis" title="{{ fw.top_cves|join(', ') }}"><i class="ti ti-bug me-1"></i>{{ __('Priority CVEs: %d', 'grcmanager')|format(fw.priority) }}</span>
                               {% elseif fw.cves > 0 %}
-                                 <span class="badge bg-warning-subtle text-warning-emphasis" title="{{ fw.top_cves|join(', ') }}"><i class="ti ti-bug me-1"></i>{{ _n('%d known CVE', '%d known CVEs', fw.cves, 'grcmanager')|format(fw.cves) }}</span>
+                                 <span class="badge bg-warning-subtle text-warning-emphasis" title="{{ fw.top_cves|join(', ') }}"><i class="ti ti-bug me-1"></i>{{ __('Known CVEs: %d', 'grcmanager')|format(fw.cves) }}</span>
                               {% else %}
                                  <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-shield-check me-1"></i>{{ __('No known CVE', 'grcmanager') }}</span>
                               {% endif %}

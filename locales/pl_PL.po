@@ -33296,3 +33296,84 @@ msgstr "Dla tego komputera nie jest znany żaden kontroler zarządzania (iLO, iD
 
 msgid "Secure Boot"
 msgstr "Bezpieczny rozruch"
+
+msgid "Firmware with a priority vulnerability"
+msgstr "Firmware z podatnością priorytetową"
+
+msgid "The firmware of the controller or the BIOS has a known vulnerability that is exploited, critical or likely to be exploited (page \"Fleet vulnerabilities\"): update it first."
+msgstr "Firmware kontrolera lub BIOS ma znaną podatność wykorzystywaną, krytyczną lub prawdopodobnie wykorzystywaną (strona „Podatności floty”): zaktualizuj go w pierwszej kolejności."
+
+msgid "Firmware no longer supported"
+msgstr "Firmware bez wsparcia"
+
+msgid "The firmware of the controller or the BIOS has reached its end of support (endoflife.date): no more security fixes."
+msgstr "Firmware kontrolera lub BIOS osiągnął koniec wsparcia (endoflife.date): brak dalszych poprawek bezpieczeństwa."
+
+msgid "Firmware with known vulnerabilities"
+msgstr "Firmware ze znanymi podatnościami"
+
+msgid "The firmware of the controller or the BIOS has known vulnerabilities (page \"Fleet vulnerabilities\")."
+msgstr "Firmware kontrolera lub BIOS ma znane podatności (strona „Podatności floty”)."
+
+msgid "Firmware support ending soon"
+msgstr "Koniec wsparcia firmware wkrótce"
+
+msgid "The end of support of the firmware or the BIOS is near (endoflife.date)."
+msgstr "Koniec wsparcia firmware lub BIOS jest bliski (endoflife.date)."
+
+msgid "Link this name to a product on the page \"Fleet vulnerabilities\" to compare it with the known vulnerabilities."
+msgstr "Powiąż tę nazwę z produktem na stronie „Podatności floty”, aby porównać ją ze znanymi podatnościami."
+
+msgid "Not watched"
+msgstr "Nieobserwowany"
+
+msgid "Priority CVEs: %d"
+msgstr "Priorytetowe CVE: %d"
+
+msgid "Known CVEs: %d"
+msgstr "Znane CVE: %d"
+
+msgid "No known CVE"
+msgstr "Brak znanych CVE"
+
+msgid "The firmware of each controller and its BIOS are compared with the known vulnerabilities of the fleet and with the end of support dates, like the other firmwares: link their name to a product once, on the same pages."
+msgstr "Firmware każdego kontrolera i jego BIOS są porównywane ze znanymi podatnościami floty i datami końca wsparcia, jak inne firmware: powiąż ich nazwę z produktem raz, na tych samych stronach."
+
+msgid "Enable the end of support check"
+msgstr "Włącz sprawdzanie końca wsparcia"
+
+msgid "Server controller accounts"
+msgstr "Konta kontrolerów serwerów"
+
+msgid "Factory account still enabled: replace it with a named account"
+msgstr "Konto fabryczne nadal aktywne: zastąp je kontem imiennym"
+
+msgid "Disabled on the controller: delete it there"
+msgstr "Wyłączone na kontrolerze: usuń je tam"
+
+msgid "Locked on the controller"
+msgstr "Zablokowane na kontrolerze"
+
+msgid "Administrator role: full control of the server"
+msgstr "Rola administratora: pełna kontrola nad serwerem"
+
+msgid "An account of a server management controller (iLO, iDRAC, XClarity, IPMI) gives full control of the server, even switched off, outside GLPI and the directory. When the campaign is launched, the accounts read on the controllers of its entities are copied here with a suggestion. Keep or remove each one: the plugin changes nothing on the controllers, remove the account there."
+msgstr "Konto kontrolera zarządzania serwerem (iLO, iDRAC, XClarity, IPMI) daje pełną kontrolę nad serwerem, nawet wyłączonym, poza GLPI i katalogiem. Przy uruchomieniu kampanii konta odczytane na kontrolerach jej jednostek są tu kopiowane z sugestią. Zachowaj lub usuń każde: wtyczka niczego nie zmienia na kontrolerach, usuń konto na miejscu."
+
+msgid "The accounts of the controllers are copied when the campaign is launched."
+msgstr "Konta kontrolerów są kopiowane przy uruchomieniu kampanii."
+
+msgid "No account of a server management controller in this campaign: no controller with accounts read in its entities when it was launched."
+msgstr "Brak kont kontrolerów zarządzania serwerami w tej kampanii: przy jej uruchomieniu żaden kontroler w jej jednostkach nie miał odczytanych kont."
+
+msgid "Add the accounts of the controllers"
+msgstr "Dodaj konta kontrolerów"
+
+msgid "Suggestion"
+msgstr "Sugestia"
+
+msgid "%d decided"
+msgstr "Zdecydowano: %d"
+
+msgid "%d account(s) of the controllers added to the campaign."
+msgstr "Dodano do kampanii kont kontrolerów: %d."
