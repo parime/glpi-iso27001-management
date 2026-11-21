@@ -6398,10 +6398,11 @@ msgstr "Equipos más expuestos"
 
 msgid ""
 "The machines most exposed to the known vulnerabilities of their watched "
-"software, to know where to start updating."
+"software, operating system and firmware, to know where to start updating."
 msgstr ""
 "Los equipos más expuestos a las vulnerabilidades conocidas de su software "
-"vigilado, para saber por dónde empezar las actualizaciones."
+"vigilado, su sistema operativo y su firmware, para saber por dónde empezar "
+"las actualizaciones."
 
 msgid ""
 "Handle the machines at the top of the list first; the \"Vulnerabilities\" "
