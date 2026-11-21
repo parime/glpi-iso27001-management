@@ -72,8 +72,8 @@ final class M365ShareReader
                 }
             }
         }
-        if ($this->error !== '') {
-            return ['rows' => [], 'error' => $this->error];
+        if ($this->error() !== '') {
+            return ['rows' => [], 'error' => $this->error()];
         }
         $rows = match ($source) {
             M365ShareRules::SOURCE_SHAREPOINT => $this->sharePoint(),
@@ -81,7 +81,13 @@ final class M365ShareReader
             default                           => $this->teams(),
         };
 
-        return $this->error !== '' ? ['rows' => [], 'error' => $this->error] : ['rows' => $rows, 'error' => ''];
+        return $this->error() !== '' ? ['rows' => [], 'error' => $this->error()] : ['rows' => $rows, 'error' => ''];
+    }
+
+    /** Erreur de la lecture en cours (posée par collection()). */
+    private function error(): string
+    {
+        return $this->error;
     }
 
     /**

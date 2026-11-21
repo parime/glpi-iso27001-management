@@ -905,7 +905,7 @@ class ShareAccess extends CommonGLPI
                 $known[mb_strtolower((string) $row['name'])] = $row;
             }
             $seenShares = [];
-            foreach ($server['shares'] ?? [] as $shareKey => $shareRows) {
+            foreach ($server['shares'] as $shareKey => $shareRows) {
                 $root = self::rootOwner($shareRows);
                 $sharePath = '';
                 foreach ($shareRows as $row) {
