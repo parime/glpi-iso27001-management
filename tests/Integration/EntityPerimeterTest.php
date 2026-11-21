@@ -108,7 +108,7 @@ final class EntityPerimeterTest extends GrcmanagerIntegrationTestCase
         $entities = [0, $this->north, $this->south];
         $_SESSION['glpiactive_entity'] = 0;
         $_SESSION['glpiactiveentities'] = $entities;
-        $_SESSION['glpiactiveentities_string'] = implode("','", $entities);
+        $_SESSION['glpiactiveentities_string'] = self::entitiesString($entities);
         $_SESSION['glpiparententities'] = [];
         EntityPerimeter::reset();
     }
