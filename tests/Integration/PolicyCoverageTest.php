@@ -43,7 +43,9 @@ final class PolicyCoverageTest extends GrcmanagerIntegrationTestCase
             'next_review_date' => date('Y-m-d', strtotime('-1 day')),
         ]);
         $overdue = (int) $DB->insertId();
-        $DB->insert(Policy::getTable(), ['title' => 'Politique fictive brouillon 879', 'status' => 'draft', 'users_id' => 2]);
+        $DB->insert(Policy::getTable(), [
+            'title' => 'Politique fictive brouillon 879', 'status' => 'draft', 'users_id' => 2,
+        ]);
         $draft = (int) $DB->insertId();
 
         return ['approved' => $approved, 'overdue' => $overdue, 'draft' => $draft] + [
@@ -60,7 +62,8 @@ final class PolicyCoverageTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(['A.99.1'], $resolved['unknown']);
 
         $this->assertSame(3, PolicyCoverage::addLinks([$ids['approved']], $resolved['ids'], '4.2 Access'));
-        $this->assertSame(0, PolicyCoverage::addLinks([$ids['approved']], $resolved['ids'], '4.2 Access'), 'pas de doublon');
+        $again = PolicyCoverage::addLinks([$ids['approved']], $resolved['ids'], '4.2 Access');
+        $this->assertSame(0, $again, 'pas de doublon');
         $this->assertSame(1, PolicyCoverage::addLinks([$ids['approved']], [$ids['a51']], ''), 'texte entier en plus');
 
         $links = PolicyCoverage::policyLinks($ids['approved']);

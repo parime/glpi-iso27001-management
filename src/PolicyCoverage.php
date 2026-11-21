@@ -195,7 +195,9 @@ class PolicyCoverage extends CommonGLPI
         $controls = [];
         foreach ($DB->request(['FROM' => Control::getTable(), 'WHERE' => $where]) as $row) {
             if ($item->can((int) $row['id'], READ)) {
-                $controls[(int) $row['id']] = ['control' => $row, 'texts' => [], 'applicable' => false, 'status' => null];
+                $controls[(int) $row['id']] = [
+                    'control' => $row, 'texts' => [], 'applicable' => false, 'status' => null,
+                ];
             }
         }
         if ($controls === []) {
@@ -459,7 +461,8 @@ class PolicyCoverage extends CommonGLPI
 
         $item = new Policy();
         $choices = [];
-        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => Policy::getTable(), 'ORDER' => 'title']) as $row) {
+        $query = ['SELECT' => ['id', 'title'], 'FROM' => Policy::getTable(), 'ORDER' => 'title'];
+        foreach ($DB->request($query) as $row) {
             if ($item->can((int) $row['id'], UPDATE)) {
                 $choices[(int) $row['id']] = (string) $row['title'];
             }
@@ -550,7 +553,11 @@ class PolicyCoverage extends CommonGLPI
         if (!self::canEditLinks()) {
             return false;
         }
-        $row = $DB->request(['FROM' => PolicyCoverageTables::LINKS, 'WHERE' => ['id' => $linkId], 'LIMIT' => 1])->current();
+        $row = $DB->request([
+            'FROM'  => PolicyCoverageTables::LINKS,
+            'WHERE' => ['id' => $linkId],
+            'LIMIT' => 1,
+        ])->current();
         if (!is_array($row)) {
             return false;
         }
@@ -598,7 +605,11 @@ class PolicyCoverage extends CommonGLPI
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
-        if (!self::canView() || !($item instanceof Policy || $item instanceof Control) || !$item->can($item->getID(), READ)) {
+        if (
+            !self::canView()
+            || !($item instanceof Policy || $item instanceof Control)
+            || !$item->can($item->getID(), READ)
+        ) {
             return false;
         }
         $common = [

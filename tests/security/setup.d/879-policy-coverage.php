@@ -13,6 +13,8 @@ foreach (['A' => 'control', 'B' => 'control_B'] as $suffix => $controlKey) {
         'section'                       => 'Section couverture 879 ' . $suffix,
     ];
     if (countElementsInTable('glpi_plugin_grcmanager_policies_controls', $link) === 0) {
-        $DB->insert('glpi_plugin_grcmanager_policies_controls', $link + ['users_id' => 2, 'date_creation' => date('Y-m-d H:i:s')]);
+        $DB->insert('glpi_plugin_grcmanager_policies_controls', $link + [
+            'users_id' => 2, 'date_creation' => date('Y-m-d H:i:s'),
+        ]);
     }
 }

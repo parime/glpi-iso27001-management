@@ -188,7 +188,9 @@ final class PolicyCoverageRules
             }));
         }
         if (preg_match('/^A\.\d+$/', $token) === 1) {
-            return array_values(array_filter($available, static fn (string $c): bool => str_starts_with($c, $token . '.')));
+            $prefix = $token . '.';
+
+            return array_values(array_filter($available, static fn (string $c): bool => str_starts_with($c, $prefix)));
         }
 
         return in_array($token, $available, true) ? [$token] : [];
