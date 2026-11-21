@@ -38,6 +38,25 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   évaluation terminée avec ses réponses, son score, sa date et son auteur d'origine (colonnes
   d'origine conservées). Quatre nouvelles tables, créées à l'installation et à la mise à jour si
   absentes (rejouable), supprimées à la désinstallation. Matrice d'accès et contrôle XSS étendus.
+- **Audit de sécurité de l'Active Directory, lot 1 : PingCastle** (issue #835, mesures A.5.15 à
+  A.5.18, A.8.2 et A.8.5). Nouvelle page « Audit de sécurité de l'Active Directory » dans la
+  rubrique Sécurité technique, réservée au droit des registres sensibles et limitée aux entités de
+  la session. Le plugin ne lance aucun outil et n'interroge pas l'annuaire : il importe le rapport
+  XML de PingCastle (`ad_hc_<domaine>.xml`) que l'équipe a produit, dans l'entité active. Score
+  global, scores par catégorie (objets obsolètes, comptes privilégiés, relations d'approbation,
+  anomalies), niveau de maturité et règles déclenchées (identifiant, catégorie, points, constat),
+  avec une gravité selon les points. Historique par domaine : évolution du score, règles apparues
+  et résolues d'un rapport au suivant ; un même fichier n'est importé qu'une fois. Chaque règle est
+  rattachée aux mesures de l'Annexe A concernées et, sur clic seulement, proposée comme action (fiche
+  de non-conformité pré-remplie, relue avant l'enregistrement) ou comme ticket ; ces liens suivent
+  la règle dans les rapports suivants. Preuve sur les fiches des mesures A.5.15, A.5.17, A.5.18,
+  A.8.2 et A.8.5, source de KRI « Score de sécurité de l'Active Directory », carte du tableau de
+  bord et constat de la préparation à la certification. Lecture sûre : taille limitée à 20 Mo,
+  fichier avec DOCTYPE ou entités refusé (XXE), aucun accès réseau ; ni la liste des comptes ni les
+  mots de passe trouvés (GPP) ne sont repris, leur présence est seulement signalée. Le rapport,
+  nettoyé de ses mots de passe, peut être archivé comme document restreint. Rapport d'exemple fictif
+  (domaine `exemple.test`) téléchargeable depuis la page. Tests unitaires avec des fichiers piégés,
+  tests d'intégration, matrice d'accès et contrôle XSS.
 
 ## [2.76.0] - 2026-11-21
 
