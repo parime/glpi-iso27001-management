@@ -7,6 +7,7 @@ Lancés par la CI (job d'installation réelle) dans une instance GLPI jetable :
 | `setup.php` | crée le jeu de données (deux entités A et B, profils limités) et affiche les identifiants en JSON ; `setup.php xss '<json>'` crée les données piégées |
 | `access-matrix.sh` | matrice de contrôle d'accès, une fois par profil (`none`, `reader`, `limited`, `general`, `admin`) |
 | `xss-check.sh` | vérifie qu'aucune page ne restitue la charge piégée sans échappement |
+| `js-errors.py` | ouvre l'accueil et chaque page de `front/` dans Chromium (Playwright) : aucune erreur JavaScript ni boîte de dialogue |
 | `not-covered.txt` | pages de `front/` volontairement non testées, avec la raison |
 
 ## Ajouter les tests d'une fonctionnalité : un nouveau fichier par script

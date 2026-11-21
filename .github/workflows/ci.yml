@@ -435,6 +435,15 @@ jobs:
           xss=$(setup xss "$ids")
           bash tests/security/xss-check.sh http://localhost:8080 "$ids" "$xss"
 
+      # Issue #978 : dans un vrai navigateur, aucune erreur JavaScript (« Maximum call stack size
+      # exceeded »...) ni boite de dialogue (charge XSS executee) sur l'accueil et les pages du plugin.
+      - name: Erreurs JavaScript dans le navigateur (accueil et pages du plugin)
+        run: |
+          python3 -m venv /tmp/pw
+          /tmp/pw/bin/pip install --quiet playwright==1.49.1
+          /tmp/pw/bin/python -m playwright install --with-deps chromium > /dev/null
+          /tmp/pw/bin/python tests/security/js-errors.py http://localhost:8080 front
+
       - name: Logs GLPI (en cas d'echec)
         if: failure()
         run: docker logs glpi --tail 200
