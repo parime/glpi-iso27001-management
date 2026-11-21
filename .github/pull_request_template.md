@@ -26,8 +26,8 @@
 
 ## Traductions ajoutées
 
-- [ ] FR
-- [ ] EN
+- [ ] Fragments `locales/unreleased/<issue>-<sujet>.<langue>.po` pour les sept langues de base
+      (pas de modification de `locales/*.po`, du `.pot` ni des `.mo`)
 - [ ] N/A (aucune nouvelle chaîne)
 
 ## Migration nécessaire

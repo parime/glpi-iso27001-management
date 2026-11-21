@@ -43,11 +43,12 @@ pour l'état d'avancement avant de proposer du code.
 Une PR n'est acceptée que si elle inclut, quand applicable :
 
 - code + tests (unitaires, installation réelle sur GLPI selon le périmètre) ;
-- traductions FR/EN pour toute nouvelle chaîne utilisateur ;
-- `locales/grcmanager.pot` régénéré si une chaîne change : `vendor/bin/extract-locales`, puis
-  `git checkout -- locales/en_GB.po` (l'outil réécrit ce fichier) ; la CI échoue si le `.pot`
-  versionné ne correspond plus au code. Lancer l'outil avec le gettext de GNU (Debian, Ubuntu,
-  comme la CI) : celui d'Alpine (musl) perd une partie des chaînes ;
+- traductions des sept langues de base pour toute nouvelle chaîne utilisateur, dans des
+  fragments `locales/unreleased/<issue>-<sujet>.<langue>.po` (voir
+  [locales/unreleased/README.md](locales/unreleased/README.md)), jamais dans `locales/*.po`, le
+  `.pot` ni les `.mo` (non versionnés) : la publication les range et régénère le `.pot`. La CI
+  vérifie que chaque chaîne du code est dans le `.pot` ou un fragment
+  (`python3 tools/build_locales.py --check`, GNU gettext de Debian ou Ubuntu comme la CI) ;
 - migration idempotente dans `src/Install/Installer.php` si le modèle de données change ;
 - entrée de CHANGELOG dans un fragment `changes/unreleased/<issue>-<sujet>.md` (rangé dans
   [CHANGELOG.md](CHANGELOG.md) à la publication) ;
@@ -109,7 +110,12 @@ for the current progress before proposing code.
 A PR is only accepted if it includes, where applicable:
 
 - code + tests (unit, real GLPI installation depending on scope);
-- FR/EN translations for any new user-facing string;
+- translations in the seven base languages for any new user-facing string, in fragments
+  `locales/unreleased/<issue>-<topic>.<language>.po` (see
+  [locales/unreleased/README.md](locales/unreleased/README.md)), never in `locales/*.po`, the
+  `.pot` or the `.mo` (not versioned): the release merges them and regenerates the `.pot`; CI
+  checks that every string of the code is in the `.pot` or a fragment
+  (`python3 tools/build_locales.py --check`);
 - an idempotent migration in `src/Install/Installer.php` if the data model changes;
 - a CHANGELOG entry in a fragment `changes/unreleased/<issue>-<topic>.md` (moved into
   [CHANGELOG.md](CHANGELOG.md) at release);

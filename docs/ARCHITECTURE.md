@@ -19,11 +19,11 @@ découverts et assemblés automatiquement, sans modifier les listes centrales.
 | ses tests de bout en bout | `tests/security/setup.d/`, `setup-xss.d/`, `access-matrix.d/`, `xss-check.d/` : `<issue>-<sujet>.php` ou `.sh` | `tests/security/setup.php`, `access-matrix.sh`, `xss-check.sh` |
 | son entrée de CHANGELOG | `changes/unreleased/<issue>-<sujet>.md` | `CHANGELOG.md` |
 | une étape du tutoriel | `docs/tutorial/fr/NNNN-mots.md` et `docs/tutorial/en/NNNN-mots.md` | `docs/TUTORIAL.md` |
+| ses traductions | `locales/unreleased/<issue>-<sujet>.<langue>.po`, une par langue de base | `locales/*.po`, `locales/grcmanager.pot`, `locales/*.mo` (non versionnés) |
 
 Restent des listes partagées, à toucher le moins possible et seulement en ajoutant des lignes :
 `setup.php` (enregistrement des classes, droits), `src/Menu.php` (une page s'ajoute en onglet d'une
-rubrique existante), `grcmanager.xml`, `README.md` / `README.en.md`, `phpstan.neon.dist`, `locales/`
-(résolus automatiquement). Les fichiers propres à la fonctionnalité (sa classe, sa page `front/`,
+rubrique existante), `grcmanager.xml`, `README.md` / `README.en.md`, `phpstan.neon.dist`. Les fichiers propres à la fonctionnalité (sa classe, sa page `front/`,
 ses gabarits, ses tests unitaires et d'intégration) sont nouveaux et ne gênent personne.
 
 #### Tables : `src/Install/<Fonctionnalité>Tables.php`
@@ -84,6 +84,18 @@ Rubriques : `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`, `D
 `python3 tools/build_changelog.py --stdout` montre le résultat ; la CI vérifie le format. À la
 publication, `release_bump.py` range les fragments dans la section de la version et les supprime.
 
+#### Traductions : `locales/unreleased/<issue>-<sujet>.<langue>.po`
+
+Un fichier par langue de base (`de_DE`, `en_GB`, `es_ES`, `fr_FR`, `it_IT`, `pl_PL`, `pt_BR`),
+avec les mêmes `msgid` et seulement les entrées de la PR (modèle :
+[locales/unreleased/README.md](../locales/unreleased/README.md)). Les variantes régionales suivent
+leur langue de base. `python3 tools/build_locales.py --check` vérifie les fragments ; la CI vérifie
+en plus que chaque chaîne du code est dans le `.pot` versionné ou dans un fragment. Les `.mo` ne
+sont pas versionnés : `python3 tools/build_locales.py` les compile (`.po` + fragments) pour la CI,
+le déploiement et l'archive publiée. À la publication, `release_bump.py` appelle
+`build_locales.py --release` : fragments rangés dans les `.po` (`msgcat`) puis supprimés, `.pot`
+régénéré, variantes resynchronisées, `.mo` compilés.
+
 #### Tutoriel : `docs/tutorial/{fr,en}/NNNN-mots.md`
 
 - Une étape = un fichier par langue, **du même nom** dans `docs/tutorial/fr/` et
@@ -125,11 +137,11 @@ without changing the central lists.
 | its end-to-end tests | `tests/security/setup.d/`, `setup-xss.d/`, `access-matrix.d/`, `xss-check.d/`: `<issue>-<topic>.php` or `.sh` | `tests/security/setup.php`, `access-matrix.sh`, `xss-check.sh` |
 | its CHANGELOG entry | `changes/unreleased/<issue>-<topic>.md` | `CHANGELOG.md` |
 | a tutorial step | `docs/tutorial/fr/NNNN-words.md` and `docs/tutorial/en/NNNN-words.md` | `docs/TUTORIAL.md` |
+| its translations | `locales/unreleased/<issue>-<topic>.<language>.po`, one per base language | `locales/*.po`, `locales/grcmanager.pot`, `locales/*.mo` (not versioned) |
 
 Shared lists remain, to be touched as little as possible and only by adding lines: `setup.php`
 (class registration, rights), `src/Menu.php` (a page is added as a tab of an existing section),
-`grcmanager.xml`, `README.md` / `README.en.md`, `phpstan.neon.dist`, `locales/` (resolved
-automatically). The feature's own files (its class, its `front/` page, its templates, its unit and
+`grcmanager.xml`, `README.md` / `README.en.md`, `phpstan.neon.dist`. The feature's own files (its class, its `front/` page, its templates, its unit and
 integration tests) are new and bother nobody.
 
 - **Tables**: `FeatureTablesRegistry` discovers the classes implementing `FeatureTables`
@@ -147,6 +159,12 @@ integration tests) are new and bother nobody.
 - **CHANGELOG**: sections `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`,
   `Documentation`; `python3 tools/build_changelog.py --stdout` shows the result; at release,
   `release_bump.py` moves the fragments into the version section and deletes them.
+- **Translations**: one fragment per base language with the same `msgid`s, only the PR's
+  entries; regional variants follow their base language. `python3 tools/build_locales.py --check`
+  checks them; CI also checks every string of the code is in the versioned `.pot` or a fragment.
+  The `.mo` are not versioned: `python3 tools/build_locales.py` compiles them (CI, deploy, release
+  archive). At release, `build_locales.py --release` merges the fragments into the `.po`, deletes
+  them, regenerates the `.pot`, resyncs the variants and compiles the `.mo`.
 - **Tutorial**: one file per language with the same name, starting with four digits (by tens)
   that set the order, first line `### <title>` without a number; `{{step:<file name>}}` refers to
   another step; images relative to `docs/`. `docs/TUTORIAL.md` is generated by
