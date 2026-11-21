@@ -27,7 +27,7 @@ use Migration;
  * contient qu'un oui ou non, une date et l'auteur de la déclaration. Créée si absente (rejouable),
  * supprimée à la désinstallation.
  */
-final class DiskEncryptionTables
+final class DiskEncryptionTables implements FeatureTables
 {
     public const KEYS = 'glpi_plugin_grcmanager_diskencryptionkeys';
 
@@ -53,5 +53,14 @@ final class DiskEncryptionTables
     public static function uninstall(Migration $migration): void
     {
         $migration->dropTable(self::KEYS);
+    }
+
+    public static function migrate(Migration $migration): void
+    {
+    }
+
+    public static function pluginClasses(): array
+    {
+        return [];
     }
 }

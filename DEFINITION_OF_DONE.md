@@ -27,7 +27,8 @@ ci-dessous sont remplis. Aucune étape n'est sautée : Analyse → Conception �
 
 ## Documentation
 
-- [ ] `CHANGELOG.md` mis à jour.
+- [ ] Entrée de CHANGELOG dans `changes/unreleased/<issue>-<sujet>.md` ; étape du tutoriel dans
+      `docs/tutorial/{fr,en}/` si l'interface change (voir docs/ARCHITECTURE.md).
 - [ ] Traductions FR/EN pour toute nouvelle chaîne utilisateur (`locales/fr_FR.po`, `locales/en_GB.po`).
 - [ ] Documentation utilisateur/développeur/architecture mise à jour si le comportement ou la
       structure change.
