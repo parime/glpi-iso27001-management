@@ -27975,3 +27975,9 @@ msgstr "Die offiziellen Stellen sind nur mit dem Recht des Organisationskontexts
 
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "Diese Übung wurde im Krisenraum noch nie bis zum Ende durchgeführt."
+
+msgid "Physical security of the site: %s"
+msgstr "Physische Sicherheit des Standorts: %s"
+
+msgid "Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr "Prüfliste, Feststellungen, Maßnahmen und Zonen dieser Bewertung, für den Auditor."

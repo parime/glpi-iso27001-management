@@ -27539,3 +27539,9 @@ msgstr "Os contatos oficiais só são visíveis com o direito do contexto da org
 
 msgid "This exercise has never been run to the end in the crisis room."
 msgstr "Este exercício nunca foi conduzido até o fim na sala de crise."
+
+msgid "Physical security of the site: %s"
+msgstr "Segurança física do local: %s"
+
+msgid "Checklist, findings, actions and zones of this assessment, for the auditor."
+msgstr "Lista de verificação, constatações, ações e zonas desta avaliação, para o auditor."
