@@ -18,7 +18,12 @@ final class FeatureRegistryTest extends TestCase
 {
     public function testDiscoversTheFeaturesByInterface(): void
     {
-        foreach ([DashboardCardsProvider::class, RiskIndicatorSourcesProvider::class, ControlEvidenceProvider::class] as $i) {
+        $interfaces = [
+            DashboardCardsProvider::class,
+            RiskIndicatorSourcesProvider::class,
+            ControlEvidenceProvider::class,
+        ];
+        foreach ($interfaces as $i) {
             $found = FeatureRegistry::implementing($i);
             $this->assertContains(MfaCoverageFeature::class, $found, $i);
             $sorted = $found;
