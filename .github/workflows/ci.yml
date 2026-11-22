@@ -429,6 +429,10 @@ jobs:
       - name: Erreurs JavaScript dans le navigateur (accueil et pages du plugin)
         run: bash .github/scripts/security-e2e.sh js
 
+      # Issue #1002 : purge du jeu de donnees des tests de securite, puis nouvelle creation.
+      - name: Purge du jeu de donnees de test
+        run: bash .github/scripts/security-e2e.sh purge
+
       - name: Logs GLPI (en cas d'echec)
         if: failure()
         run: docker logs glpi --tail 200
@@ -562,6 +566,9 @@ jobs:
 
       - name: Erreurs JavaScript dans le navigateur sur GLPI 12
         run: bash .github/scripts/security-e2e.sh js
+
+      - name: Purge du jeu de donnees de test sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh purge
 
       - name: Logs GLPI (en cas d'echec)
         if: failure()

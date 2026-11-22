@@ -674,12 +674,84 @@ $userId = static function (string $login, int $entity, int $profile) use ($DB): 
     }
     return $id;
 };
-$add = static function (CommonDBTM $item, array $input): int {
+// Issue #1002 : le script est relancé sur une instance déjà utilisée (CI, parcours de publication).
+// $add retrouve d'abord un objet existant par ses champs d'identification (nom, titre, code, type,
+// entité, clés étrangères), puis ne le crée que s'il n'existe pas. Un objet déjà rendu pendant cette
+// exécution n'est jamais rendu deux fois : deux appels identiques donnent deux objets, comme sur une
+// base vide (la n-ième occurrence reprend le n-ième objet existant, dans l'ordre de création).
+$reused = [];
+$existing = static function (string $table, array $input) use ($DB, &$reused): int {
+    $criteria = [];
+    foreach ($input as $field => $value) {
+        if (!is_scalar($value) || str_starts_with((string) $field, '_') || !$DB->fieldExists($table, $field)) {
+            continue;
+        }
+        if (in_array($field, ['name', 'title', 'code', 'reference', 'kind', 'itemtype', 'entities_id'], true) || str_ends_with($field, '_id') || str_contains($field, '_id_')) {
+            $criteria[$field] = $value;
+        }
+    }
+    if ($criteria === []) {
+        return 0;
+    }
+    if ($DB->fieldExists($table, 'is_deleted')) {
+        $criteria['is_deleted'] = 0;
+    }
+    if (!empty($reused[$table])) {
+        $criteria[] = ['NOT' => ['id' => $reused[$table]]];
+    }
+    $row = $DB->request([
+        'SELECT' => ['id'], 'FROM' => $table, 'WHERE' => $criteria, 'ORDER' => 'id', 'LIMIT' => 1,
+    ])->current();
+    if ($row === null) {
+        return 0;
+    }
+    $reused[$table][] = (int) $row['id'];
+    return (int) $row['id'];
+};
+$add = static function (CommonDBTM $item, array $input) use ($existing, &$reused): int {
+    $id = $existing($item::getTable(), $input);
+    if ($id > 0 && $item->getFromDB($id)) {
+        // Remet les champs attendus par les tests (modifiés par un scénario d'édition, ou objet créé
+        // automatiquement par GLPI, comme les informations financières d'un ordinateur). Une date
+        // déjà renseignée est gardée : elle est souvent calculée à partir d'aujourd'hui.
+        $changes = [];
+        foreach ($input as $field => $value) {
+            if (
+                is_scalar($value) && array_key_exists($field, $item->fields)
+                && (string) $item->fields[$field] !== (string) $value
+                && !(str_contains((string) $field, 'date') && (string) $item->fields[$field] !== '')
+            ) {
+                $changes[$field] = $value;
+            }
+        }
+        if ($changes !== []) {
+            $item->update(['id' => $id] + $changes + array_filter(
+                $input,
+                static fn ($v, $k) => str_starts_with((string) $k, '_') && is_scalar($v),
+                ARRAY_FILTER_USE_BOTH
+            ));
+        }
+        return $id;
+    }
     $id = (int) $item->add($input);
     if ($id <= 0) {
-        fwrite(STDERR, 'Creation impossible : ' . $item::class . ' ' . json_encode($input) . "\n");
+        fwrite(STDERR, 'Creation impossible : ' . $item::class . ' ' . json_encode($input) . "
+");
         exit(1);
     }
+    $reused[$item::getTable()][] = $id;
+    return $id;
+};
+// Même principe pour une ligne insérée directement (tables de liens, lignes que l'application
+// refuserait) : la ligne existante est reprise, jamais insérée en double.
+$insertOnce = static function (string $table, array $row) use ($DB, $existing, &$reused): int {
+    $id = $existing($table, $row);
+    if ($id > 0) {
+        return $id;
+    }
+    $DB->insert($table, $row);
+    $id = (int) $DB->insertId();
+    $reused[$table][] = $id;
     return $id;
 };
 
@@ -782,7 +854,7 @@ $DB->update('glpi_plugin_grcmanager_controls', ['justification' => 'Justificatio
 $DB->update('glpi_plugin_grcmanager_controls', ['justification' => 'Justification securite B'], ['id' => $controlB]);
 // Version approuvée de la SoA de B (historique de l'approbation, jamais montré à A).
 if (countElementsInTable('glpi_plugin_grcmanager_soaversions', ['entities_id' => $b]) === 0) {
-    $DB->insert('glpi_plugin_grcmanager_soaversions', [
+    $insertOnce('glpi_plugin_grcmanager_soaversions', [
         'entities_id' => $b, 'is_recursive' => 1, 'version' => 1, 'status' => 'approved',
         'comment' => 'Version securite B', 'users_id' => 2, 'date_creation' => date('Y-m-d H:i:s'),
         'date_answered' => date('Y-m-d H:i:s'),
@@ -790,7 +862,7 @@ if (countElementsInTable('glpi_plugin_grcmanager_soaversions', ['entities_id' =>
 }
 
 $supplier = $add(new Supplier(), [
-    'name' => 'Fournisseur securite ' . uniqid(), 'entities_id' => 0, 'is_recursive' => 1,
+    'name' => 'Fournisseur securite', 'entities_id' => 0, 'is_recursive' => 1,
 ]);
 $ids = [
     'a' => $a, 'b' => $b, 'manager' => $manager, 'reader' => $reader, 'control' => $controlId,
@@ -819,7 +891,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     // Issue #540 : contrat de l'entité au registre DORA (référence propre à l'entité).
     $ids['contract_' . $suffix] = $contract;
     if (countElementsInTable('glpi_plugin_grcmanager_doraarrangements', ['contracts_id' => $contract]) === 0) {
-        $DB->insert('glpi_plugin_grcmanager_doraarrangements', [
+        $insertOnce('glpi_plugin_grcmanager_doraarrangements', [
             'contracts_id' => $contract, 'reference' => 'DORA-securite-' . $suffix, 'service_types' => 'S19',
         ]);
     }
@@ -829,13 +901,13 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'computers_id' => $ids['computer_' . $suffix], 'hostname' => 'pc-securite-' . strtolower($suffix),
     ];
     if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, $scan) === 0) {
-        $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, $scan + [
+        $report = $insertOnce(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::REPORTS, $scan + [
             'entities_id' => $entity, 'profile_id' => 'xccdf_demo_profile', 'profile_title' => 'Profil securite',
             'scan_date' => date('Y-m-d H:i:s'), 'pass_count' => 3, 'fail_count' => 1, 'high_fail_count' => 1,
             'file_name' => 'resultats-securite.xml',
         ]);
-        $DB->insert(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::FAILURES, [
-            \GlpiPlugin\Grcmanager\Install\ConfigScanTables::FK => (int) $DB->insertId(),
+        $insertOnce(\GlpiPlugin\Grcmanager\Install\ConfigScanTables::FAILURES, [
+            \GlpiPlugin\Grcmanager\Install\ConfigScanTables::FK => $report,
             'rule_id' => 'xccdf_demo_rule_ssh', 'title' => 'Regle securite ' . $suffix, 'severity' => 'high',
         ]);
     }
@@ -846,7 +918,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     // Issue #847 : volume système non chiffré (page du chiffrement des disques, entité seulement).
     $diskCriteria = ['itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix]];
     if (countElementsInTable('glpi_items_disks', $diskCriteria) === 0) {
-        $DB->insert('glpi_items_disks', [
+        $insertOnce('glpi_items_disks', [
             'itemtype' => Computer::class, 'items_id' => $ids['computer_' . $suffix], 'name' => 'Disque securite',
             'mountpoint' => 'C:', 'encryption_status' => 0, 'is_deleted' => 0,
         ]);
@@ -854,11 +926,11 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     // Issue #853 : hôte émetteur inconnu de GLPI et conservation déclarée (entité seulement).
     $logHost = ['entities_id' => $entity, 'platform' => 'graylog', 'host' => 'Hote journaux securite ' . $suffix];
     if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, $logHost) === 0) {
-        $DB->insert(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, $logHost + ['ip' => '192.0.2.99']);
+        $insertOnce(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::HOSTS, $logHost + ['ip' => '192.0.2.99']);
     }
     $logPlatform = ['entities_id' => $entity, 'platform' => 'graylog'];
     if (countElementsInTable(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, $logPlatform) === 0) {
-        $DB->insert(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, $logPlatform + [
+        $insertOnce(\GlpiPlugin\Grcmanager\Install\LogCoverageTables::PLATFORMS, $logPlatform + [
             'retention_days' => 30, 'comment' => 'Conservation securite ' . $suffix,
         ]);
     }
@@ -970,7 +1042,7 @@ foreach (['context_A', 'context_B'] as $contextKey) {
         'itemtype' => \GlpiPlugin\Grcmanager\Risk::class, 'items_id' => (int) $ids['risk'],
     ];
     if (countElementsInTable('glpi_plugin_grcmanager_contextitems_items', $contextLink) === 0) {
-        $DB->insert(
+        $insertOnce(
             'glpi_plugin_grcmanager_contextitems_items',
             $contextLink + ['date_creation' => date('Y-m-d H:i:s')]
         );
@@ -980,7 +1052,7 @@ foreach (['context_A', 'context_B'] as $contextKey) {
 // risque lié.
 $linkWhere = ['plugin_grcmanager_controls_id' => $controlId, 'plugin_grcmanager_risks_id' => (int) $ids['risk']];
 if (countElementsInTable('glpi_plugin_grcmanager_controls_risks', $linkWhere) === 0) {
-    $DB->insert('glpi_plugin_grcmanager_controls_risks', $linkWhere + ['date_creation' => date('Y-m-d H:i:s')]);
+    $insertOnce('glpi_plugin_grcmanager_controls_risks', $linkWhere + ['date_creation' => date('Y-m-d H:i:s')]);
 }
 // Issue #140 : audit avec équipe, document restreint, note, groupe RSSI et accès historisé, pour
 // que le contrôle des restes après désinstallation porte aussi sur ces données.
@@ -1016,7 +1088,7 @@ $add(new Notepad(), [
 // Issue #183 : exposition à une fuite (registre sensible), créée comme le fait la tâche planifiée.
 $exposure = ['users_id' => 2, 'email' => '', 'breach_name' => 'SecurityTestBreach'];
 if (countElementsInTable(\GlpiPlugin\Grcmanager\BreachExposure::getTable(), $exposure) === 0) {
-    $DB->insert(\GlpiPlugin\Grcmanager\BreachExposure::getTable(), $exposure + [
+    $insertOnce(\GlpiPlugin\Grcmanager\BreachExposure::getTable(), $exposure + [
         'breach_title' => 'Fuite securite',
         'data_classes' => json_encode(['Email addresses', 'Passwords']),
         'status'       => \GlpiPlugin\Grcmanager\BreachExposure::STATUS_NEW,
@@ -1028,23 +1100,23 @@ foreach (['A', 'B'] as $suffix) {
     $ids['process_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\BusinessProcess(), [
         'name' => 'Processus securite ' . $suffix, 'entities_id' => $ids[strtolower($suffix)], 'rto_hours' => 4,
     ]);
-    $DB->insert('glpi_plugin_grcmanager_businessprocesses_items', [
+    $insertOnce('glpi_plugin_grcmanager_businessprocesses_items', [
         'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
         'itemtype' => 'Computer', 'items_id' => $ids['computer_' . $suffix], 'comment' => 'Serveur ' . $suffix,
     ]);
 }
-$DB->insert('glpi_plugin_grcmanager_businessprocesses_items', [
+$insertOnce('glpi_plugin_grcmanager_businessprocesses_items', [
     'plugin_grcmanager_businessprocesses_id' => $ids['process_A'],
     'itemtype' => 'Computer', 'items_id' => $ids['computer_B'], 'comment' => 'Serveur B',
 ]);
 // Issue #377, deuxième étape : le processus de A dépend de celui de B (jamais nommé pour un profil
 // limité à A), et le risque est lié aux deux processus.
-$DB->insert('glpi_plugin_grcmanager_businessprocesses_businessprocesses', [
+$insertOnce('glpi_plugin_grcmanager_businessprocesses_businessprocesses', [
     'plugin_grcmanager_businessprocesses_id' => $ids['process_A'],
     'plugin_grcmanager_businessprocesses_id_upstream' => $ids['process_B'], 'comment' => 'Amont B',
 ]);
 foreach (['A', 'B'] as $suffix) {
-    $DB->insert('glpi_plugin_grcmanager_businessprocesses_risks', [
+    $insertOnce('glpi_plugin_grcmanager_businessprocesses_risks', [
         'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
         'plugin_grcmanager_risks_id' => (int) $ids['risk'],
     ]);
@@ -1057,7 +1129,7 @@ foreach (['A', 'B'] as $suffix) {
         'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
         'measured_minutes' => 300, 'comment' => 'Test de reprise ' . $suffix,
     ]);
-    $DB->insert('glpi_plugin_grcmanager_businessprocesses_items', [
+    $insertOnce('glpi_plugin_grcmanager_businessprocesses_items', [
         'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
         'itemtype' => 'Appliance', 'items_id' => $ids['appliance_' . $suffix], 'comment' => 'Application ' . $suffix,
     ]);
@@ -1158,21 +1230,28 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
 // Issue #380, troisième étape : preuve envoyée depuis le formulaire d'un test, par le même chemin
 // (type réel vérifié, document de la mesure au registre des documents restreints), puis rangée dans
 // l'entité A : seuls ceux qui lisent la mesure la lisent, pas un simple droit Documents dans A.
-$evidenceFile = tempnam(sys_get_temp_dir(), 'grc');
-file_put_contents($evidenceFile, "%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF\n");
-$evidenceControl = new \GlpiPlugin\Grcmanager\Control();
-$evidenceControl->getFromDB($controlId);
-$ids['evidence_upload'] = \GlpiPlugin\Grcmanager\ControlTest::storeEvidenceFile(
-    $evidenceControl,
-    $evidenceFile,
-    'Preuve envoyee securite.pdf'
-);
-unlink($evidenceFile);
-if ($ids['evidence_upload'] <= 0) {
-    fwrite(STDERR, "Envoi de la preuve impossible\n");
-    exit(1);
+// Issue #1002 : preuve déjà envoyée par une exécution précédente.
+$ids['evidence_upload'] = (int) ($DB->request([
+    'SELECT' => ['id'], 'FROM' => 'glpi_documents', 'ORDER' => 'id', 'LIMIT' => 1,
+    'WHERE'  => ['filename' => 'Preuve envoyee securite.pdf', 'entities_id' => $a, 'is_deleted' => 0],
+])->current()['id'] ?? 0);
+if ($ids['evidence_upload'] === 0) {
+    $evidenceFile = tempnam(sys_get_temp_dir(), 'grc');
+    file_put_contents($evidenceFile, "%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF\n");
+    $evidenceControl = new \GlpiPlugin\Grcmanager\Control();
+    $evidenceControl->getFromDB($controlId);
+    $ids['evidence_upload'] = \GlpiPlugin\Grcmanager\ControlTest::storeEvidenceFile(
+        $evidenceControl,
+        $evidenceFile,
+        'Preuve envoyee securite.pdf'
+    );
+    unlink($evidenceFile);
+    if ($ids['evidence_upload'] <= 0) {
+        fwrite(STDERR, "Envoi de la preuve impossible\n");
+        exit(1);
+    }
+    $DB->update('glpi_documents', ['entities_id' => $a], ['id' => $ids['evidence_upload']]);
 }
-$DB->update('glpi_documents', ['entities_id' => $a], ['id' => $ids['evidence_upload']]);
 
 // Issue #537 : référentiel personnalisé (fiche consultée par les profils de la matrice d'accès).
 $customFramework = new \GlpiPlugin\Grcmanager\CustomFramework();
@@ -1192,9 +1271,11 @@ if (!$ackPolicy->getFromDBByCrit(['title' => 'Politique lecture securite'])) {
     $add($ackPolicy, [
         'title' => 'Politique lecture securite', 'version' => '1.0', 'status' => 'approved',
         'approval_date' => date('Y-m-d'), 'description' => 'Texte de la politique fictive',
+        // Issue #1002 : approuvée d'office même si une instance a activé le circuit d'approbation.
+        '_policy_approval' => true,
     ]);
     $ackGroup = $add(new Group(), ['name' => 'Lecteurs politique securite', 'entities_id' => 0, 'is_recursive' => 1]);
-    $DB->insert('glpi_groups_users', ['groups_id' => $ackGroup, 'users_id' => 2]);
+    $insertOnce('glpi_groups_users', ['groups_id' => $ackGroup, 'users_id' => 2]);
     \GlpiPlugin\Grcmanager\PolicyAcknowledgement::addAudience($ackPolicy->getID(), 'Group', $ackGroup);
     $add(new Document_Item(), [
         'documents_id' => $ids['document_A'],
@@ -1244,7 +1325,7 @@ foreach (['submitted' => 'REQ securite soumise', 'draft' => 'REQ securite brouil
         'users_id'                      => 2,
         'due_date'                      => date('Y-m-d', strtotime('+10 days')),
     ]);
-    $DB->insert(\GlpiPlugin\Grcmanager\AuditEvidenceRequest::PIECES_TABLE, [
+    $ids['evpiece_' . $key] = $insertOnce(\GlpiPlugin\Grcmanager\AuditEvidenceRequest::PIECES_TABLE, [
         'plugin_grcmanager_auditevidencerequests_id' => $ids['evreq_' . $key],
         'documents_id'                               => $evidenceDocument('Piece securite ' . $key),
         'origin'                                     => 'upload',
@@ -1252,9 +1333,14 @@ foreach (['submitted' => 'REQ securite soumise', 'draft' => 'REQ securite brouil
         'is_submitted'                               => 0,
         'date_creation'                              => date('Y-m-d H:i:s'),
     ]);
-    $ids['evpiece_' . $key] = (int) $DB->insertId();
 }
-if (\GlpiPlugin\Grcmanager\AuditEvidenceRequest::submit($ids['evreq_submitted'], 2) !== '') {
+// Issue #1002 : demande déjà soumise par une exécution précédente.
+$submittedRequest = new \GlpiPlugin\Grcmanager\AuditEvidenceRequest();
+$submittedRequest->getFromDB($ids['evreq_submitted']);
+if (
+    ($submittedRequest->fields['status'] ?? '') !== \GlpiPlugin\Grcmanager\Services\Audit\EvidenceRequestRules::STATUS_SUBMITTED
+    && \GlpiPlugin\Grcmanager\AuditEvidenceRequest::submit($ids['evreq_submitted'], 2) !== ''
+) {
     fwrite(STDERR, "Soumission de la demande de preuve impossible\n");
     exit(1);
 }
@@ -1266,25 +1352,22 @@ if (\GlpiPlugin\Grcmanager\AuditorAccess::grant($ids['audit'], $noRight, $access
 // Issue #606 : ligne de la grille de « Audit securite » (glpi en est l'auditeur, seul de l'équipe
 // parmi les profils testés) et modèle de grille de l'entité racine, hors de portée des profils
 // limités à A.
-$DB->insert(\GlpiPlugin\Grcmanager\AuditChecklist::TABLE, [
+$ids['checklist_line'] = $insertOnce(\GlpiPlugin\Grcmanager\AuditChecklist::TABLE, [
     'plugin_grcmanager_audits_id' => $ids['audit'], 'ref_type' => 'free', 'code' => 'S-1',
     'label' => 'Point securite grille', 'question' => 'Question securite grille', 'result' => 'not_audited',
     'rank' => 1, 'date_creation' => date('Y-m-d H:i:s'),
 ]);
-$ids['checklist_line'] = (int) $DB->insertId();
-$DB->insert(\GlpiPlugin\Grcmanager\AuditChecklistTemplate::TABLE, [
-    'entities_id' => 0, 'is_recursive' => 1, 'name' => 'Modele securite ' . uniqid(),
+$ids['checklist_template'] = $insertOnce(\GlpiPlugin\Grcmanager\AuditChecklistTemplate::TABLE, [
+    'entities_id' => 0, 'is_recursive' => 1, 'name' => 'Modele securite',
     'date_creation' => date('Y-m-d H:i:s'),
 ]);
-$ids['checklist_template'] = (int) $DB->insertId();
 // Issue #607 : test d'efficacité de la mesure de A, en attente de relecture, enregistré par le
 // gestionnaire de A : il ne peut pas le relire lui-même ; le super-admin le peut.
-$DB->insert('glpi_plugin_grcmanager_controltests', [
+$ids['review_test'] = $insertOnce('glpi_plugin_grcmanager_controltests', [
     'plugin_grcmanager_controls_id' => $controlId, 'test_date' => date('Y-m-d'), 'method' => 'inspection',
     'result' => 'effective', 'users_id' => $manager, 'users_id_recorder' => $manager,
     'review_status' => 'pending', 'comment' => 'Test securite relecture', 'date_creation' => date('Y-m-d H:i:s'),
 ]);
-$ids['review_test'] = (int) $DB->insertId();
 
 // Issue #536, lot 2 : audit, constat et action de traitement de l'entité B, jamais montrés aux
 // profils limités à A, même confiés au gestionnaire de A. Une demande de preuve de l'audit de B
@@ -1329,7 +1412,7 @@ $ids['action_B'] = $add(new \GlpiPlugin\Grcmanager\RiskTreatmentAction(), [
     'users_id'                   => $manager,
     'due_date'                   => $overdue,
 ]);
-$DB->insert(\GlpiPlugin\Grcmanager\AuditEvidenceRequest::getTable(), [
+$ids['evreq_B'] = $insertOnce(\GlpiPlugin\Grcmanager\AuditEvidenceRequest::getTable(), [
     'plugin_grcmanager_audits_id' => $ids['audit_B'],
     'reference'                   => 'REQ securite B',
     'users_id'                    => $manager,
@@ -1337,8 +1420,7 @@ $DB->insert(\GlpiPlugin\Grcmanager\AuditEvidenceRequest::getTable(), [
     'status'                      => 'requested',
     'date_creation'               => date('Y-m-d H:i:s'),
 ]);
-$ids['evreq_B'] = (int) $DB->insertId();
-$DB->insert(\GlpiPlugin\Grcmanager\AuditorAccess::TABLE, [
+$insertOnce(\GlpiPlugin\Grcmanager\AuditorAccess::TABLE, [
     'plugin_grcmanager_audits_id' => $ids['audit_B'],
     'users_id'                    => $noRight,
     'date_begin'                  => date('Y-m-d'),
@@ -1397,13 +1479,12 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'name' => '[EXERCICE] Exercice securite ' . $suffix, 'content' => 'Exercice fictif',
         'entities_id' => $entity, 'is_exercise' => 1,
     ]);
-    $DB->insert(\GlpiPlugin\Grcmanager\CrisisExercise::getTable(), [
+    $ids['exercise_' . $suffix] = $insertOnce(\GlpiPlugin\Grcmanager\CrisisExercise::getTable(), [
         'entities_id' => $entity, 'plugin_grcmanager_securityincidents_id' => $drill, 'scenario' => 'outage',
         'users_id' => 2, 'started_at' => date('Y-m-d H:i:s', strtotime('-2 hours')),
         'ended_at' => date('Y-m-d H:i:s', strtotime('-1 hour')),
     ]);
-    $ids['exercise_' . $suffix] = (int) $DB->insertId();
-    $DB->insert(\GlpiPlugin\Grcmanager\CrisisExerciseReview::OBJECTIVES_TABLE, [
+    $insertOnce(\GlpiPlugin\Grcmanager\CrisisExerciseReview::OBJECTIVES_TABLE, [
         'plugin_grcmanager_crisisexercises_id' => $ids['exercise_' . $suffix],
         'name' => 'Objectif securite ' . $suffix, 'outcome' => 'met',
     ]);
@@ -1473,13 +1554,21 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     ])->current()['id'];
     $physical = new \GlpiPlugin\Grcmanager\PhysicalSecurityAssessment();
     $physical->getFromDB($ids['physical_' . $suffix]);
-    \GlpiPlugin\Grcmanager\PhysicalSecurityZone::addZone($physical, [
-        'name' => 'Salle serveurs securite ' . $suffix, 'zone_type' => 'technical', 'access_means' => ['badge'],
-    ]);
+    $zoneCriteria = [
+        'plugin_grcmanager_physicalsecurityassessments_id' => $ids['physical_' . $suffix],
+        'name'                                             => 'Salle serveurs securite ' . $suffix,
+    ];
+    if (countElementsInTable('glpi_plugin_grcmanager_physicalsecurityzones', $zoneCriteria) === 0) {
+        \GlpiPlugin\Grcmanager\PhysicalSecurityZone::addZone($physical, [
+            'name' => 'Salle serveurs securite ' . $suffix, 'zone_type' => 'technical', 'access_means' => ['badge'],
+        ]);
+    }
     $ids['physical_zone_' . $suffix] = (int) $DB->request([
         'SELECT' => ['id'],
         'FROM'   => 'glpi_plugin_grcmanager_physicalsecurityzones',
-        'WHERE'  => ['plugin_grcmanager_physicalsecurityassessments_id' => $ids['physical_' . $suffix]],
+        'WHERE'  => $zoneCriteria,
+        'ORDER'  => 'id',
+        'LIMIT'  => 1,
     ])->current()['id'];
 }
 $ids['competencedeclaration_B'] = $add(new \GlpiPlugin\Grcmanager\CompetenceDeclaration(), [
@@ -1530,7 +1619,7 @@ foreach (['A', 'B'] as $suffix) {
         'itemtype' => PluginGrcmanagerSecurityIncident::class, 'items_id' => $ids['incident_' . $suffix],
     ];
     if (countElementsInTable('glpi_plugin_grcmanager_crisiscommunications', $crisisCriteria) === 0) {
-        $DB->insert('glpi_plugin_grcmanager_crisiscommunications', $crisisCriteria + [
+        $insertOnce('glpi_plugin_grcmanager_crisiscommunications', $crisisCriteria + [
             'entities_id'                                 => $suffix === 'A' ? $a : $b,
             'plugin_grcmanager_crisismessagetemplates_id' => $ids['crisis_template'],
             'template_name'                               => 'Modele crise securite',
@@ -1552,7 +1641,7 @@ foreach (['A', 'B'] as $suffix) {
         'plugin_grcmanager_contextitems_id' => $ids['context_A'],
     ];
     if (countElementsInTable('glpi_plugin_grcmanager_officialcontactnotifications', $traceCriteria) === 0) {
-        $DB->insert('glpi_plugin_grcmanager_officialcontactnotifications', $traceCriteria + [
+        $insertOnce('glpi_plugin_grcmanager_officialcontactnotifications', $traceCriteria + [
             'entities_id'   => $suffix === 'A' ? $a : $b,
             'decision'      => 'notified',
             'date_notified' => date('Y-m-d H:i:s'),
@@ -1566,9 +1655,9 @@ foreach (['A', 'B'] as $suffix) {
 // importés. Dans A : le collaborateur de A et iso-sans-droit ont cliqué (ce dernier voit les siens dans
 // ses préférences), et quatre adresses fictives restent non rapprochées (6 personnes : assez pour des
 // taux anonymes). Dans B : le collaborateur de B a cliqué.
-$phishingMail = static function (int $usersId, string $email) use ($DB): void {
+$phishingMail = static function (int $usersId, string $email) use ($insertOnce): void {
     if (countElementsInTable('glpi_useremails', ['users_id' => $usersId, 'email' => $email]) === 0) {
-        $DB->insert('glpi_useremails', ['users_id' => $usersId, 'email' => $email, 'is_default' => 1]);
+        $insertOnce('glpi_useremails', ['users_id' => $usersId, 'email' => $email, 'is_default' => 1]);
     }
 };
 $phishingMail($ids['collab_A'], 'collaborateur.a@example.org');
