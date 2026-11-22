@@ -1,0 +1,65 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+{# Issue #618 : journal des décisions prises par un suppléant pendant l'absence du titulaire. #}
+<div class="container-fluid my-2">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-user-share me-2"></i>{{ __('Delegated decisions', 'grcmanager') }}</h3>
+      <div class="card-actions d-flex flex-wrap gap-2">
+        {% for key, info in types %}
+          {% if key in enabled %}
+            <span class="badge bg-success-subtle text-success-emphasis"><i class="ti {{ info.icon }} me-1"></i>{{ info.label }}</span>
+          {% else %}
+            <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('Not delegable', 'grcmanager') }}"><i class="ti ti-ban me-1"></i>{{ info.label }}</span>
+          {% endif %}
+        {% endfor %}
+        <a class="btn btn-sm btn-outline-secondary" href="{{ config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Delegable decisions', 'grcmanager') }}</a>
+      </div>
+    </div>
+    <div class="card-body">
+      {% if rows is empty %}
+        <div class="alert alert-info mb-0" id="grc-delegation-empty">
+          <i class="ti ti-info-circle me-1"></i>{{ __('No decision has been taken by a substitute yet.', 'grcmanager') }}
+        </div>
+      {% else %}
+        <table class="table table-sm table-hover" id="grc-delegation-journal">
+          <thead>
+            <tr>
+              <th>{{ __('Date') }}</th>
+              <th>{{ __('Decision type', 'grcmanager') }}</th>
+              <th>{{ __('Item') }}</th>
+              <th>{{ __('Decision', 'grcmanager') }}</th>
+              <th>{{ __('Taken by', 'grcmanager') }}</th>
+              <th>{{ __('On behalf of', 'grcmanager') }}</th>
+              <th>{{ __('Declared absence', 'grcmanager') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for row in rows %}
+            <tr>
+              <td class="text-nowrap">{{ row.date }}</td>
+              <td class="text-nowrap"><i class="ti {{ row.icon }} me-1"></i>{{ row.type }}</td>
+              <td>{{ row.item }}</td>
+              <td><span class="badge bg-blue-subtle text-blue-emphasis">{{ row.decision }}</span></td>
+              <td>{{ row.substitute }}</td>
+              <td>{{ row.holder }}</td>
+              <td class="text-muted small">{{ row.period }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </div>
+  </div>
+</div>

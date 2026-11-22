@@ -25,7 +25,8 @@ use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
 // politique. Historique et PDF : lecture des politiques (ou approbateur désigné de la version).
 $usersId   = (int) Session::getLoginUserID();
 $canRead   = Session::haveRight(Policy::$rightname, READ);
-$myPending = PolicyVersion::pendingForUser($usersId);
+// Issue #618 : avec les versions qui attendent un approbateur absent que l'utilisateur remplace.
+$myPending = array_merge(PolicyVersion::pendingForUser($usersId), PolicyVersion::pendingOnBehalf($usersId));
 $selfUrl   = PolicyVersion::getPageURL();
 
 /** Politique du formulaire, modifiable par l'utilisateur, sinon accès refusé. */
@@ -79,12 +80,17 @@ if (isset($_GET['export'])) {
 }
 
 if (isset($_POST['answer'])) {
+    $versionId = (int) ($_POST['versions_id'] ?? 0);
     $approve = ($_POST['decision'] ?? '') === 'approve';
     $comment = trim((string) ($_POST['comment'] ?? ''));
     if (!$approve && $comment === '') {
         $message = __('Please give the reason for the rejection.', 'grcmanager');
         Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
-    } elseif (PolicyVersion::answer((int) ($_POST['versions_id'] ?? 0), $usersId, $approve, $comment)) {
+    } elseif (
+        (int) ($_POST['on_behalf_of'] ?? 0) > 0
+            ? PolicyVersion::answer($versionId, (int) $_POST['on_behalf_of'], $approve, $comment, $usersId)
+            : PolicyVersion::answer($versionId, $usersId, $approve, $comment)
+    ) {
         Session::addMessageAfterRedirect(htmlescape($approve
             ? __('Approval recorded.', 'grcmanager')
             : __('Rejection recorded.', 'grcmanager')));
@@ -94,7 +100,8 @@ if (isset($_POST['answer'])) {
     }
     // Un approbateur sans droit sur les politiques qui n'a plus rien à approuver retourne à son
     // espace, ouvert à toute session (cette page lui serait refusée).
-    Html::redirect($canRead || PolicyVersion::pendingForUser($usersId) !== []
+    $stillPending = PolicyVersion::pendingForUser($usersId) !== [] || PolicyVersion::pendingOnBehalf($usersId) !== [];
+    Html::redirect($canRead || $stillPending
         ? $selfUrl
         : \GlpiPlugin\Grcmanager\MySpace::getSearchURL());
 }
@@ -173,6 +180,9 @@ foreach ($myPending as $row) {
         'rule'         => PolicyVersion::ruleLabel((int) $row['quorum']),
         'pdf_url'      => (int) $row['documents_id'] > 0 ? $selfUrl . '?pdf=' . (int) $row['id'] : null,
         'pdf_sha256'   => (string) $row['pdf_sha256'],
+        'on_behalf_of'   => (int) ($row['on_behalf_of'] ?? 0),
+        'on_behalf_name' => (string) ($row['on_behalf_name'] ?? ''),
+        'absent_until'   => (string) ($row['absent_until'] ?? ''),
     ];
 }
 

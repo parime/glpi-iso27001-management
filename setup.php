@@ -246,6 +246,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ProductSbom::class, ['addtabon' => [Appliance::class]]);
     // Issue #858 : onglet « Sécurité du code » des applications (alertes GitHub et GitLab, lecture seule).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CodeSecurity::class, ['addtabon' => [Appliance::class]]);
+    // Issue #622 : onglet « Usage autorisé » des applications, et « Applications autorisées » des préférences.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ApprovedApplication::class, [
+        'addtabon' => [Appliance::class, Preference::class],
+    ]);
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ReleaseValidation::class, ['addtabon' => [Change::class]]);
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
@@ -409,6 +413,10 @@ function plugin_init_grcmanager(): void
     // risque les signalements qui l'ont créé ou lui ont été rattachés (lecture du registre).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ReportedRisk::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\Risk::class, Preference::class],
+    ]);
+    // Issue #871 : trajectoire projetée du risque, d'après les échéances de son plan de traitement.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\RiskTrajectory::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\Risk::class],
     ]);
     // Issue #604 : « Mes simulations d'hameçonnage » dans les préférences (ses propres résultats).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PhishingResult::class, ['addtabon' => [Preference::class]]);

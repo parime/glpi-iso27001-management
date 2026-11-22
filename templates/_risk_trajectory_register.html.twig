@@ -1,0 +1,64 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #871 : carte « Trajectoire du registre » de la cartographie des risques (6.1.3 et 8.3) :
+   somme des scores des risques traités, prévue et réelle, puis l'état du plan de chaque risque. #}
+<div class="card mt-4" id="grc-risk-trajectory-register">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-chart-line me-2"></i>{{ __('Projected trajectory of the register', 'grcmanager') }}</h3>
+   </div>
+   <div class="card-body">
+      <p class="text-secondary small"><i class="ti ti-info-circle me-1"></i>{{ __('Total score of the risks being reduced or transferred (not closed): planned according to the due dates of their treatment plans, and actual according to the actions completed. Open a risk to see its own trajectory.', 'grcmanager') }}</p>
+      {% if trajectory.rows is empty %}
+         <p class="text-secondary mb-0">{{ __('No risk is being reduced or transferred yet.', 'grcmanager') }}</p>
+      {% else %}
+         <div class="d-flex flex-wrap gap-2 mb-3">
+            <span class="badge bg-red-subtle text-red-emphasis"><i class="ti ti-clock-exclamation me-1"></i>{{ __('Behind schedule', 'grcmanager') }}<strong class="ms-1">{{ trajectory.counts.late }}</strong></span>
+            <span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('On schedule', 'grcmanager') }}<strong class="ms-1">{{ trajectory.counts.on_track }}</strong></span>
+            <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-rocket me-1"></i>{{ __('Ahead of schedule', 'grcmanager') }}<strong class="ms-1">{{ trajectory.counts.ahead }}</strong></span>
+            <span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-checks me-1"></i>{{ __('Plan completed', 'grcmanager') }}<strong class="ms-1">{{ trajectory.counts.done }}</strong></span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-help me-1"></i>{{ __('Trajectory incomplete', 'grcmanager') }}<strong class="ms-1">{{ trajectory.counts.incomplete }}</strong></span>
+         </div>
+         {% if trajectory.chart %}
+            {% include '@grcmanager/_risk_trajectory_chart.html.twig' with {chart_id: 'grc-risk-trajectory-register-chart', chart: trajectory.chart, height: 280} %}
+         {% endif %}
+         <div class="table-responsive mt-3">
+            <table class="table table-sm table-vcenter card-table" id="grc-risk-trajectory-register-list">
+               <thead>
+                  <tr>
+                     <th>{{ _n('Risk', 'Risks', 1, 'grcmanager') }}</th>
+                     <th>{{ __('Current level', 'grcmanager') }}</th>
+                     <th>{{ __('Target level after treatment', 'grcmanager') }}</th>
+                     <th>{{ __('Progress of the plan', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Actions completed', 'grcmanager') }}</th>
+                     <th>{{ __('Last due date of the plan', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row in trajectory.rows %}
+                     <tr>
+                        <td><a href="{{ row.url }}">{{ row.name }}</a></td>
+                        <td>{% if row.current_level %}{% include '@grcmanager/_badge.html.twig' with row.current_level only %}{% endif %}</td>
+                        <td>{% if row.target_level %}{% include '@grcmanager/_badge.html.twig' with row.target_level only %}{% else %}<span class="text-secondary small">{{ __('To be assessed', 'grcmanager') }}</span>{% endif %}</td>
+                        <td><span class="badge {{ row.state.class }}" title="{{ row.state.help }}"><i class="ti {{ row.state.icon }} me-1"></i>{{ row.state.label }}</span></td>
+                        <td class="text-end">{{ row.done }} / {{ row.total }}</td>
+                        <td class="text-nowrap">{{ row.planned_end ?: '-' }}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+</div>

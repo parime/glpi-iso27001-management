@@ -36,7 +36,8 @@
 
 {% for version in my_pending %}
   <div class="card mb-3 border-primary">
-    <div class="card-header"><h3 class="card-title"><i class="ti ti-signature me-2"></i>{{ __('Version %d is awaiting your approval', 'grcmanager')|format(version.version) }}</h3></div>
+    <div class="card-header"><h3 class="card-title"><i class="ti ti-signature me-2"></i>{{ __('Version %d is awaiting your approval', 'grcmanager')|format(version.version) }}</h3>
+      {% if version.on_behalf_of %}<div class="ms-auto">{{ include('@grcmanager/_delegation_on_behalf.html.twig', {name: version.on_behalf_name, until: version.absent_until}) }}</div>{% endif %}</div>
     <div class="card-body">
       <p>{{ __('Requested by %s.', 'grcmanager')|format(version.requested_by) }} {{ version.comment }}</p>
       {% if version.pdf_url %}
@@ -46,8 +47,9 @@
         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
         <input type="hidden" name="answer" value="1">
         <input type="hidden" name="versions_id" value="{{ version.id }}">
-        <label class="form-label" for="grcmanager-answer-comment-{{ version.id }}">{{ __('Comment (required to reject)', 'grcmanager') }}</label>
-        <textarea class="form-control mb-2" name="comment" id="grcmanager-answer-comment-{{ version.id }}" rows="2"></textarea>
+        {% if version.on_behalf_of %}<input type="hidden" name="on_behalf_of" value="{{ version.on_behalf_of }}">{% endif %}
+        <label class="form-label" for="grcmanager-answer-comment-{{ version.id }}-{{ version.on_behalf_of }}">{{ __('Comment (required to reject)', 'grcmanager') }}</label>
+        <textarea class="form-control mb-2" name="comment" id="grcmanager-answer-comment-{{ version.id }}-{{ version.on_behalf_of }}" rows="2"></textarea>
         <button type="submit" name="decision" value="approve" class="btn btn-success"><i class="ti ti-check me-1"></i>{{ __('I approve this version', 'grcmanager') }}</button>
         <button type="submit" name="decision" value="reject" class="btn btn-outline-danger"><i class="ti ti-x me-1"></i>{{ __('Reject', 'grcmanager') }}</button>
       </form>
