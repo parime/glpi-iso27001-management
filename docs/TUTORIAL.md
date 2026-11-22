@@ -1899,6 +1899,102 @@ configurée.
    automatique** sur la page des contrôleurs). Elle est désactivée après l'installation ; une lecture
    en échec garde la précédente.
 
+### Étape 65 : Repérer les protocoles TLS anciens des contrôleurs de serveurs (mesures A.8.9 et A.8.24)
+
+Chaque lecture Redfish d'un contrôleur (50) cherche
+aussi les versions de TLS acceptées par son interface HTTPS. Rien n'est modifié : uniquement des
+requêtes de lecture (GET) vers l'adresse configurée.
+
+1. Cliquez sur **Lire maintenant** sur la page **Contrôleurs de gestion des serveurs**.
+2. L'écart **Protocoles anciens (SSLv3, TLS 1.0 ou 1.1)** apparaît si le contrôleur en accepte
+   encore un. Selon le constructeur, le réglage vient du service de sécurité de l'iLO (HPE), de
+   l'attribut `WebServer.1.TLSProtocol` de l'iDRAC (Dell), de la rubrique Oem du XClarity
+   Controller (Lenovo) ou d'un autre contrôleur, ou de la politique de sécurité Redfish standard.
+3. Le compte de lecture doit pouvoir lire ces réglages. S'il ne le peut pas, ou si le firmware ne les
+   publie pas, la valeur reste **inconnue** : renseignez alors la colonne `weak_tls` de l'import CSV.
+4. Corrigez sur le contrôleur lui-même (TLS 1.2 et plus seulement), puis relisez-le : l'écart
+   disparaît.
+
+### Étape 66 : Reporter les suggestions de la revue des accès sur les décisions
+
+Les suggestions de la revue des accès (voir étape 13) peuvent
+être reportées sur les décisions en un clic, puis vérifiées une à une avant d'être enregistrées.
+
+1. Ouvrez l'onglet **Comptes à revoir** de la campagne, ou **Mes revues d'accès** si vous êtes
+   relecteur. Au-dessus du tableau, le bouton **Reporter les suggestions** indique combien de
+   comptes encore à revoir ont une suggestion « garder » ou « retirer ».
+2. Cliquez sur le bouton : « Accès validés » ou « À retirer » est coché sur ces comptes, et chacun
+   porte le badge orange **Pré-rempli d'après la suggestion, pas encore enregistré**. Pour un
+   retrait, le commentaire reprend les raisons des règles ; adaptez-le, il devient le contenu du
+   ticket. Les comptes « à examiner » et les décisions déjà prises ne changent pas.
+3. Relisez chaque ligne, changez ce qui doit l'être, puis cliquez sur **Enregistrer les
+   décisions**. Rien n'est enregistré avant : quitter la page abandonne le pré-remplissage.
+
+**Signaux de la conformité du personnel.** La case **Examiner les écarts de conformité du
+personnel** des règles de suggestion (cochée par défaut) fait passer « à examiner » un compte dont
+la fiche de conformité montre, délai dépassé, une formation obligatoire non suivie ou expirée, une
+charte informatique envoyée mais non signée, ou une politique de sécurité non lue. Les délais et les
+poids sont ceux de la page **Conformité du personnel** ; une composante de poids nul n'y compte pas.
+Un tel écart ne propose jamais de retirer le compte : c'est au relecteur de juger.
+
+### Étape 67 : Vérifier la sécurité de la messagerie et des domaines (mesures A.5.14 et A.8.21)
+
+Un domaine mal protégé permet d'envoyer des e-mails qui semblent venir de l'organisation
+(usurpation, hameçonnage). L'onglet **Sécurité de la messagerie et des domaines** de la rubrique
+**Sécurité technique** montre, domaine par domaine, les protections publiées dans le DNS. Le plugin
+lit seulement des enregistrements DNS publics : il n'envoie aucun e-mail et ne se connecte à aucun
+serveur de messagerie. Tant qu'aucun domaine n'est saisi, il ne fait aucune requête.
+
+1. Dans **Ajouter un domaine**, saisissez le nom (la partie après le @ des adresses, par exemple
+   `example.org`), les **sélecteurs DKIM** donnés par votre service de messagerie (`selector1`,
+   `selector2` pour Microsoft 365, `google` pour Google Workspace) et les **dates d'échéance** du
+   domaine (espace client du bureau d'enregistrement) et, si vos serveurs de messagerie sont chez
+   vous, de leur certificat. Ajoutez aussi les domaines que l'organisation possède sans s'en servir :
+   ils doivent annoncer qu'ils n'envoient rien.
+2. Cliquez sur **Vérifier maintenant** (ou **Vérifier tous les domaines**). Chaque colonne prend une
+   couleur : vert pour une protection en place, orange pour une protection à renforcer, rouge pour
+   un écart à corriger, gris pour ce qui n'est pas encore lu ou pas saisi.
+3. Le cadre **Que faire ?** liste les écarts, les plus graves d'abord, avec un conseil en clair :
+   DMARC absent ou en « none » (les e-mails usurpés sont toujours remis), SPF qui autorise tout le
+   monde (`+all`), domaine non signé par DNSSEC, clé DKIM introuvable, domaine ou certificat qui
+   expire dans moins de 30 jours. Les corrections se font chez votre hébergeur DNS : le plugin ne
+   modifie rien.
+4. Les fiches des mesures **A.5.14** et **A.8.21** reprennent la synthèse en preuve ; la source de
+   KRI **Domaines de messagerie sans politique DMARC appliquée (%)** permet de suivre la progression.
+
+Si la colonne DNSSEC reste « Inconnu », le serveur DNS du serveur GLPI ne relaie pas les
+enregistrements DNSSEC (c'est le cas dans Docker) : saisissez l'adresse IP d'un autre serveur DNS de
+l'organisation ou du fournisseur dans le cadre **Serveur DNS utilisé pour DNSSEC**, puis vérifiez de
+nouveau.
+
+### Étape 68 : Suivre la disponibilité des services exposés et leurs certificats avec Uptime Kuma (mesures A.8.16, A.5.30 et A.8.24)
+
+Uptime Kuma vérifie à intervalles réguliers que vos sites et services répondent, et relève la date
+d'expiration de leurs certificats TLS. Le plugin le lit **en lecture seule** : rien n'est modifié dans
+Uptime Kuma et aucun certificat n'est renouvelé.
+
+1. Dans Uptime Kuma, menu **Settings > API Keys**, créez une clé (elle ne donne accès qu'à la page
+   `/metrics`, en lecture). Vous pouvez aussi, ou à la place, lister des pages de statut publiques.
+2. Dans GLPI, ouvrez **Sécurité technique > Services exposés (Uptime Kuma)**, cadre **Connexion à
+   Uptime Kuma** : saisissez l'adresse (par exemple `https://status.example.test`), la clé d'API et,
+   si besoin, les pages de statut (fin de leur adresse, par exemple `clients`), puis **Enregistrer** et
+   **Lire maintenant**. Un serveur sur une adresse interne doit être autorisé dans la configuration du
+   plugin (**Connexions sortantes**).
+3. Le tableau **Services surveillés** montre chaque sonde : son état, sa disponibilité sur la période,
+   l'actif GLPI reconnu (ordinateur, matériel réseau ou application, par le nom d'hôte surveillé) et la
+   plus longue panne, comparée au RTO des processus métier qui dépendent de l'actif. Choisissez un
+   processus métier dans la liste de la ligne pour une sonde sans actif.
+4. Pour une panne longue, cliquez sur **Proposer comme incident de sécurité** : l'incident est créé,
+   rattaché à l'actif ; le badge **Annoncer aux utilisateurs** ouvre ensuite sa communication de crise.
+   Rien n'est créé sans votre clic.
+5. Le cadre **Certificats TLS** classe les certificats expirés, non valides ou proches de l'échéance
+   (seuil réglable dans **Seuils**). Pour être prévenu, créez un indicateur de risque « Certificats
+   TLS à renouveler (Uptime Kuma) » avec un seuil d'alerte.
+6. Le cadre **Actifs publiés sur Internet sans sonde** liste les actifs de la matrice des flux que
+   personne ne surveille.
+7. Pour des relevés réguliers (la disponibilité en est plus précise), cochez **Lire automatiquement
+   toutes les heures** : la tâche automatique `uptimekuma` est désactivée après l'installation.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -3677,3 +3773,96 @@ Nothing is sent to the server: only read requests (GET) to the configured addres
    component or an event of the last seven days is, to watch for a warning.
 4. For a daily reading, enable the automatic action `bmcread` (link **Set the automatic action** on
    the controllers page). It is disabled after installation; a failed reading keeps the previous one.
+
+### Step 65: Spot old TLS protocols on the server controllers (controls A.8.9 and A.8.24)
+
+Each Redfish reading of a controller (50) also looks
+for the TLS versions accepted by its HTTPS interface. Nothing is changed: only read requests (GET) to
+the configured address.
+
+1. Click **Read now** on the **Server management controllers** page.
+2. The **Old protocols (SSLv3, TLS 1.0 or 1.1)** gap shows when the controller still accepts one.
+   Depending on the vendor, the setting comes from the iLO security service (HPE), the
+   `WebServer.1.TLSProtocol` attribute of the iDRAC (Dell), the Oem section of the XClarity
+   Controller (Lenovo) or of another controller, or the standard Redfish security policy.
+3. The reading account must be allowed to read these settings. If it is not, or if the firmware does
+   not publish them, the value stays **unknown**: then fill in the `weak_tls` column of the CSV
+   import.
+4. Fix it on the controller itself (TLS 1.2 and later only), then read it again: the gap goes away.
+
+### Step 66: Carry the access review suggestions over to the decisions
+
+The access review suggestions (see step 13) can be carried
+over to the decisions in one click, then checked one by one before being saved.
+
+1. Open the campaign's **Accounts to review** tab, or **My access reviews** if you are a reviewer.
+   Above the table, the **Pre-fill with the suggestions** button shows how many accounts still to
+   review have a "keep" or "remove" suggestion.
+2. Click the button: "Access approved" or "To remove" is ticked on these accounts, and each one
+   carries the orange badge **Pre-filled from the suggestion, not saved yet**. For a removal, the
+   comment takes the reasons given by the rules; adapt it, it becomes the ticket content. Accounts
+   "to examine" and decisions already taken do not change.
+3. Read each line again, change what needs changing, then click **Save decisions**. Nothing is
+   saved before: leaving the page drops the pre-filling.
+
+**Staff compliance signals.** The **Examine staff compliance gaps** box of the suggestion rules
+(ticked by default) makes an account "to examine" when its staff compliance record shows, once the
+deadline has passed, a mandatory training not completed or expired, an IT charter sent but not
+signed, or a security policy not acknowledged. Deadlines and weights are those of the **Staff
+compliance** page; a component with a zero weight does not count. Such a gap never suggests removing
+the account: the reviewer judges.
+
+### Step 67: Check the security of e-mail and domains (controls A.5.14 and A.8.21)
+
+A poorly protected domain lets anyone send e-mails that seem to come from the organisation
+(spoofing, phishing). The **Mail and domain security** tab of the **Technical security** section
+shows, domain by domain, the protections published in the DNS. The plugin only reads public DNS
+records: it sends no e-mail and connects to no mail server. As long as no domain is entered, it makes
+no query.
+
+1. In **Add a domain**, enter the name (the part after the @ of the addresses, for example
+   `example.org`), the **DKIM selectors** given by your e-mail service (`selector1`, `selector2` for
+   Microsoft 365, `google` for Google Workspace) and the **expiry dates** of the domain (customer area
+   of the registrar) and, if your mail servers are on your premises, of their certificate. Also add
+   the domains the organisation owns without using them: they must announce that they send nothing.
+2. Click **Check now** (or **Check all domains**). Each column takes a colour: green for a protection
+   in place, orange for a protection to improve, red for a gap to fix, grey for what is not read or
+   not entered yet.
+3. The **What to do** frame lists the gaps, the most serious first, with plain advice: DMARC missing
+   or set to "none" (fake e-mails are still delivered), SPF that allows everyone (`+all`), domain not
+   signed with DNSSEC, DKIM key not found, domain or certificate expiring within 30 days. The fixes
+   are made with your DNS host: the plugin changes nothing.
+4. The forms of controls **A.5.14** and **A.8.21** show the summary as evidence; the KRI source
+   **Mail domains without an enforced DMARC policy (%)** lets you follow the progress.
+
+If the DNSSEC column stays "Unknown", the DNS server of the GLPI server does not relay the DNSSEC
+records (this is the case inside Docker): enter the IP address of another DNS server of the
+organisation or of the provider in the **DNS server used for DNSSEC** frame, then check again.
+
+### Step 68: Follow the availability of the exposed services and their certificates with Uptime Kuma (controls A.8.16, A.5.30 and A.8.24)
+
+Uptime Kuma regularly checks that your websites and services answer, and reads the expiry date of their
+TLS certificates. The plugin reads it **in read only**: nothing is changed in Uptime Kuma and no
+certificate is renewed.
+
+1. In Uptime Kuma, menu **Settings > API Keys**, create a key (it only gives access to the `/metrics`
+   page, to read). You can also, or instead, list public status pages.
+2. In GLPI, open **Technical security > Exposed services (Uptime Kuma)**, frame **Connection to Uptime
+   Kuma (read only)**: enter the address (for example `https://status.example.test`), the API key and,
+   if needed, the status pages (end of their address, for example `customers`), then **Save** and
+   **Read now**. A server on an internal address must be allowed in the plugin configuration
+   (**Outgoing connections**).
+3. The **Monitored services** table shows each monitor: its status, its availability over the period,
+   the GLPI asset recognised (computer, network device or appliance, by the monitored host name) and the
+   longest outage, compared with the RTO of the business processes that depend on the asset. Choose a
+   business process in the list of the row for a monitor without an asset.
+4. For a long outage, click **Propose as security incident**: the incident is created and linked to the
+   asset; the **Announce to the users** badge then opens its crisis communication. Nothing is created
+   without your click.
+5. The **TLS certificates** frame ranks the certificates expired, not valid or expiring soon (threshold
+   set in **Thresholds**). To be warned, create a risk indicator "TLS certificates to renew (Uptime
+   Kuma)" with an alert threshold.
+6. The **Assets published on the Internet without a monitor** frame lists the assets of the network flow
+   matrix that nobody watches.
+7. For regular readings (the availability is then more precise), tick **Read automatically every
+   hour**: the automatic action `uptimekuma` is disabled after the installation.
