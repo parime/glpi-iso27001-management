@@ -31,6 +31,14 @@ if (isset($_GET['example'])) {
     return;
 }
 
+// Issue #1041 : lecture de SentinelOne à la demande, sortie de la configuration. Même droit
+// qu'avant (modifier la configuration du plugin) ; les identifiants restent dans l'onglet Connecteurs.
+if (isset($_POST['s1_fetch_now'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+    SentinelOneAlert::fetchNow();
+    Html::redirect(SecurityIncidentEdrImport::getImportURL() . '#grc-sentinelone-review');
+}
+
 // Issue #707 : alertes SentinelOne proposées par la tâche automatique. Elles ne deviennent des
 // incidents que sur ce choix explicite ; « écarter » les retire de la liste. Rien n'est envoyé à
 // SentinelOne. Seules les propositions des entités actives de l'utilisateur sont traitées.
@@ -155,10 +163,8 @@ if (isset($_POST['import']) && $valid) {
     ];
 }
 
-\GlpiPlugin\Grcmanager\Menu::header(
-    PluginGrcmanagerSecurityIncident::class,
-    SecurityIncidentEdrImport::getTypeName(1)
-);
+\GlpiPlugin\Grcmanager\Menu::header(SecurityIncidentEdrImport::class, SecurityIncidentEdrImport::getTypeName(1));
+\GlpiPlugin\Grcmanager\Menu::showSection(SecurityIncidentEdrImport::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('securityincidentedrimport');
 TemplateRenderer::getInstance()->display('@grcmanager/edr_import.html.twig', $params + [
     'step'        => $step,

@@ -4,7 +4,7 @@ Le plan de continuité décrit la restauration technique de chaque processus (st
 RTO). Cette étape y ajoute la sécurité de l'information pendant la crise : comment continuer à
 travailler sans baisser la sécurité quand la crise est elle-même une attaque.
 
-1. Menu **GRC & Conformité > Opérations**, onglet **Scénarios de crise sécurité** (à côté des
+1. Menu **Assistance > Crise et continuité**, onglet **Scénarios de crise sécurité** (à côté des
    processus métier). Il faut le droit **Continuité d'activité** du profil.
 2. Cliquez sur **Ajouter les scénarios par défaut** : cinq scénarios sont ajoutés dans l'entité
    active, prêts à adapter : attaque par rançongiciel, fuite de données, compromission de comptes à
