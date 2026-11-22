@@ -88,6 +88,8 @@ class Menu extends CommonGLPI
                 EbiosStudy::class,
                 // Issue #872 : risques signalés par les collaborateurs, à trier.
                 ReportedRisk::class,
+                // Issue #622 : applications et services en ligne approuvés (A.5.23).
+                ApprovedApplication::class,
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             Control::class => [
