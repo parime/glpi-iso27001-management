@@ -28,18 +28,13 @@ if (isset($_POST['save_patch_targets'])) {
     \GlpiPlugin\Grcmanager\Config\Block\PatchTargetsBlock::handle(true);
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    PatchCompliance::class,
     PatchCompliance::getTypeName(),
-    PatchCompliance::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    PatchCompliance::class
+    PatchCompliance::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    PatchCompliance::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(PatchCompliance::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('patchcompliance');
 

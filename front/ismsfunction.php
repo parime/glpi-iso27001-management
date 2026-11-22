@@ -49,15 +49,13 @@ if (isset($_POST['archive'])) {
     Html::redirect(IsmsFunction::getSearchURL());
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    IsmsFunction::class,
     __('Competences', 'grcmanager'),
-    IsmsFunction::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    IsmsFunction::class
+    IsmsFunction::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\AccessReview::class, IsmsFunction::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(IsmsFunction::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('ismsfunction');
 CompetenceMatrix::showPage();

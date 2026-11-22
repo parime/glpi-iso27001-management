@@ -30,12 +30,9 @@ if (isset($_POST['update'])) {
 } else {
     Session::checkRight(\GlpiPlugin\Grcmanager\BreachExposure::$rightname, READ);
 
-    Html::header(
-        \GlpiPlugin\Grcmanager\BreachExposure::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-        \GlpiPlugin\Grcmanager\BreachExposure::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        \GlpiPlugin\Grcmanager\BreachExposure::class,
+        \GlpiPlugin\Grcmanager\BreachExposure::getTypeName(1)
     );
 
     $item->display(['id' => (int) ($_GET['id'] ?? 0)]);

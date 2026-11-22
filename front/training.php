@@ -20,18 +20,12 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\Training::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\Training::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\Training::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Training::class,
+    \GlpiPlugin\Grcmanager\Training::getTypeName(2)
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\Training::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Training::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('training');
 

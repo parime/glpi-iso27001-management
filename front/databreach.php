@@ -23,15 +23,13 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 // Issue #620 : registre des violations de données personnelles (RGPD, article 33.5). Droit dédié.
 Session::checkRight(DataBreach::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    DataBreach::class,
     __('Breach register', 'grcmanager'),
-    DataBreach::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    DataBreach::class
+    DataBreach::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, DataBreach::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(DataBreach::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('databreach');
 

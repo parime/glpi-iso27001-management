@@ -25,14 +25,12 @@ global $CFG_GLPI;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\Risk::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Risk::class,
+    \GlpiPlugin\Grcmanager\Risk::getTypeName(2)
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\Risk::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Risk::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('risk');
 

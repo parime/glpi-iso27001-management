@@ -70,8 +70,8 @@ if (isset($_POST['plan_audit'])) {
 
 $start = AuditProgramme::cycleStart($_GET['start'] ?? null);
 
-Html::header(AuditProgramme::getTypeName(), $_SERVER['PHP_SELF'], 'grcmanager', Audit::class);
-\GlpiPlugin\Grcmanager\Menu::showSection(Audit::class, AuditProgramme::class);
+\GlpiPlugin\Grcmanager\Menu::header(AuditProgramme::class, AuditProgramme::getTypeName());
+\GlpiPlugin\Grcmanager\Menu::showSection(AuditProgramme::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('auditprogramme');
 

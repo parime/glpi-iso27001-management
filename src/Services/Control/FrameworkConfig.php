@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Control;
 
 use Config;
+use GlpiPlugin\Grcmanager\Config\FrameworkFamilies;
 use Glpi\Exception\Http\AccessDeniedHttpException;
 
 /**
@@ -72,9 +73,23 @@ final class FrameworkConfig
     }
 
     /**
+     * Référentiels actifs : une déclinaison nationale (ReCyF, ACN) ne l'est que si NIS2 l'est
+     * (issue #1053, regroupements déclarés dans src/Config/Block, voir FrameworkFamilies).
+     *
      * @return list<string>
      */
     public static function enabled(): array
+    {
+        return FrameworkSelection::effective(self::storedEnabled(), FrameworkFamilies::parents());
+    }
+
+    /**
+     * Issue #1053 : référentiels cochés tels qu'enregistrés, déclinaisons comprises même quand leur
+     * parent est désactivé (formulaire de configuration, enregistrement d'un seul référentiel).
+     *
+     * @return list<string>
+     */
+    public static function storedEnabled(): array
     {
         return FrameworkSelection::enabled(self::disabled(), self::keys());
     }
@@ -102,7 +117,7 @@ final class FrameworkConfig
      */
     public static function setEnabled(string $framework, bool $enabled): void
     {
-        $current = self::enabled();
+        $current = self::storedEnabled();
         $current = $enabled
             ? array_values(array_unique(array_merge($current, [$framework])))
             : array_values(array_diff($current, [$framework]));
@@ -118,7 +133,13 @@ final class FrameworkConfig
 
     public static function isEnabled(string $framework): bool
     {
-        return !in_array($framework, self::disabled(), true);
+        if (in_array($framework, self::disabled(), true)) {
+            return false;
+        }
+        // Issue #1053 : une déclinaison suit son parent (NIS2).
+        $parent = FrameworkFamilies::parents()[$framework] ?? null;
+
+        return $parent === null || self::isEnabled($parent);
     }
 
     /**
@@ -220,6 +241,12 @@ final class FrameworkConfig
             FrameworkSelection::ETSI_319401  => __(
                 'Trust service providers (ETSI EN 319 401): general policy requirements, their references on the '
                     . 'controls and ETSI score. Disabled by default.',
+                'grcmanager'
+            ),
+            // Issue #1053 : déclinaison France de NIS2, avec son registre par entité.
+            FrameworkSelection::RECYF        => __(
+                'French NIS2 framework of ANSSI (ReCyF): a register with one record per measure, per GLPI entity set '
+                    . 'as important or essential below; NIS2 is then assessed on these measures. Requires NIS2.',
                 'grcmanager'
             ),
             FrameworkSelection::SCF          => __(

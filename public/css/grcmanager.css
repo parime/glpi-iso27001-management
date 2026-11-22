@@ -253,3 +253,9 @@
 .border-cyan-subtle {
     border-color: var(--tblr-cyan-border-subtle, var(--grcmanager-cyan-border-subtle)) !important;
 }
+
+/* Issue #1037 : focus visible au clavier dans la barre d'onglets d'une rubrique. */
+.grcmanager-section-nav .nav-link:focus-visible {
+    outline: 2px solid var(--tblr-primary, #206bc4);
+    outline-offset: 2px;
+}

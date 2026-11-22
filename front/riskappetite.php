@@ -43,18 +43,12 @@ if (isset($_POST['save_appetite'])) {
     Html::back();
 }
 
-Html::header(
-    \GlpiPlugin\Grcmanager\RiskAppetite::getTypeName(),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\RiskAppetite::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\RiskAppetite::class,
+    \GlpiPlugin\Grcmanager\RiskAppetite::getTypeName()
 );
 // Rubrique « Risques » : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\RiskAppetite::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\RiskAppetite::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('riskappetite');
 

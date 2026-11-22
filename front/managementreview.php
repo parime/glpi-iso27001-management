@@ -20,18 +20,12 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\ManagementReview::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\ManagementReview::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Audit::class,
-    \GlpiPlugin\Grcmanager\ManagementReview::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\ManagementReview::class,
+    \GlpiPlugin\Grcmanager\ManagementReview::getTypeName(2)
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Audit::class,
-    \GlpiPlugin\Grcmanager\ManagementReview::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\ManagementReview::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('managementreview');
 

@@ -59,13 +59,7 @@ if (isset($_POST['add'])) {
         $item->check($id, READ);
     }
 
-    Html::header(
-        ContextItem::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Control::class,
-        ContextItem::class
-    );
+    \GlpiPlugin\Grcmanager\Menu::header(ContextItem::class, ContextItem::getTypeName(1));
 
     // Création depuis les boutons de la liste : enjeu, partie intéressée ou question climatique ;
     // depuis l'onglet d'un risque, d'une obligation ou d'une mesure, cet élément est présélectionné

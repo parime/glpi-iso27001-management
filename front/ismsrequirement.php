@@ -25,18 +25,12 @@ Session::checkRight(\GlpiPlugin\Grcmanager\IsmsRequirement::$rightname, READ);
     \GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection::ISO27001
 );
 
-Html::header(
-    \GlpiPlugin\Grcmanager\IsmsRequirement::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\IsmsRequirement::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\IsmsRequirement::class,
+    \GlpiPlugin\Grcmanager\IsmsRequirement::getTypeName(2)
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\IsmsRequirement::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\IsmsRequirement::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('ismsrequirement');
 

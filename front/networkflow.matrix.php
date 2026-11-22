@@ -29,17 +29,12 @@ $destination = isset($_GET['dst']) ? (string) $_GET['dst'] : null;
 $data = \GlpiPlugin\Grcmanager\NetworkFlow::matrixData($group, $source, $destination);
 
 $title = __('Zone matrix', 'grcmanager');
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\NetworkFlow::class,
     $title,
-    \GlpiPlugin\Grcmanager\NetworkFlow::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\NetworkFlow::class
+    \GlpiPlugin\Grcmanager\NetworkFlow::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\NetworkFlow::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\NetworkFlow::class);
 TemplateRenderer::getInstance()->display('@grcmanager/network_flow_matrix.html.twig', $data + [
     'title'          => $title,
     'group'          => $group,

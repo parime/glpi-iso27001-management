@@ -16,7 +16,6 @@
  */
 
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\CustomFramework;
 use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCsv;
 use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkSync;
@@ -207,8 +206,8 @@ foreach (CustomFramework::getList() as $row) {
 }
 
 $title = CustomFramework::getTypeName(Session::getPluralNumber());
-Html::header($title, CustomFramework::getSearchURL(), 'grcmanager', Control::class, CustomFramework::class);
-\GlpiPlugin\Grcmanager\Menu::showSection(Control::class, CustomFramework::class);
+\GlpiPlugin\Grcmanager\Menu::header(CustomFramework::class, $title, CustomFramework::getSearchURL());
+\GlpiPlugin\Grcmanager\Menu::showSection(CustomFramework::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('customframework');
 TemplateRenderer::getInstance()->display('@grcmanager/custom_framework_list.html.twig', [
     'frameworks'    => $frameworks,

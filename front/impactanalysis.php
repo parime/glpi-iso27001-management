@@ -63,19 +63,14 @@ if (($_GET['export'] ?? '') === 'continuity') {
     exit;
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\ImpactAnalysis::class,
     \GlpiPlugin\Grcmanager\ImpactAnalysis::getTypeName(),
-    \GlpiPlugin\Grcmanager\ImpactAnalysis::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\ImpactAnalysis::class
+    \GlpiPlugin\Grcmanager\ImpactAnalysis::getSearchURL()
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\ImpactAnalysis::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\ImpactAnalysis::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('impactanalysis');
 
 TemplateRenderer::getInstance()->display('@grcmanager/impact_spof.html.twig', [

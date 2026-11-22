@@ -46,18 +46,13 @@ if (($_GET['format'] ?? '') === 'pdf') {
     exit;
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    CertificationReadiness::class,
     CertificationReadiness::getTypeName(),
-    CertificationReadiness::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Dashboard::class,
-    CertificationReadiness::class
+    CertificationReadiness::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Dashboard::class,
-    CertificationReadiness::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(CertificationReadiness::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('certificationreadiness');
 TemplateRenderer::getInstance()->display('@grcmanager/certification_readiness.html.twig', $report + [

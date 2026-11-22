@@ -22,15 +22,13 @@ use GlpiPlugin\Grcmanager\PhysicalSecurityAssessment;
 // Droit général du plugin ; seules les évaluations des entités de la session sont lues.
 Session::checkRight(PhysicalSecurityAssessment::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    PhysicalSecurity::class,
     PhysicalSecurity::getTypeName(),
-    PhysicalSecurity::getPageURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    PhysicalSecurity::class
+    PhysicalSecurity::getPageURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, PhysicalSecurity::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(PhysicalSecurity::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('physicalsecurity');
 PhysicalSecurity::showPage();

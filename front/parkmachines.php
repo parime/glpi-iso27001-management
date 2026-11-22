@@ -22,18 +22,13 @@ use Glpi\Application\View\TemplateRenderer;
 Session::checkRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, READ);
 Session::checkRight(Software::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Menu::MACHINE_RANKING,
     __('Most exposed machines', 'grcmanager'),
-    \GlpiPlugin\Grcmanager\ParkVulnerability::getRankingURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\Menu::MACHINE_RANKING
+    \GlpiPlugin\Grcmanager\ParkVulnerability::getRankingURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\Menu::MACHINE_RANKING
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Menu::MACHINE_RANKING);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('parkmachines');
 

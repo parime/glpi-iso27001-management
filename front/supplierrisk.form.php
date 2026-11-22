@@ -48,11 +48,7 @@ if (isset($_POST['add'])) {
     \GlpiPlugin\Grcmanager\SupplierRisk::displayFullPageForItem(
         $_GET['id'] ?? 0,
         [
-            'central'  => [
-                'grcmanager',
-                \GlpiPlugin\Grcmanager\Risk::class,
-                \GlpiPlugin\Grcmanager\SupplierRisk::class,
-            ],
+            'central'  => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\SupplierRisk::class),
             'helpdesk' => [],
         ]
     );

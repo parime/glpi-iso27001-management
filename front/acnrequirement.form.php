@@ -32,12 +32,9 @@ if (isset($_POST['update'])) {
     // Fiche d'une entité non accessible, ou référentiel désactivé : refusée comme le reste du cœur.
     $item->check($id, READ);
 
-    Html::header(
-        AcnRequirement::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Control::class,
-        \GlpiPlugin\Grcmanager\Referentials::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        \GlpiPlugin\Grcmanager\Referentials::class,
+        AcnRequirement::getTypeName(1)
     );
     $item->display(['id' => $id]);
     Html::footer();

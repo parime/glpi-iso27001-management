@@ -55,14 +55,12 @@ if (isset($_POST['save_audit_sampling'])) {
 
 $start = AuditProgramme::cycleStart($_GET['start'] ?? null);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    CertificationSampling::class,
     CertificationSampling::getTypeName(),
-    CertificationSampling::getSearchURL(),
-    'grcmanager',
-    Audit::class,
-    CertificationSampling::class
+    CertificationSampling::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(Audit::class, CertificationSampling::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(CertificationSampling::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('certificationsampling');
 

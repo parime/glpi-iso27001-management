@@ -35,11 +35,7 @@ if (isset($_POST['update'])) {
     \GlpiPlugin\Grcmanager\IsmsRequirement::displayFullPageForItem(
         $_GET['id'] ?? 0,
         [
-            'central'  => [
-                'grcmanager',
-                \GlpiPlugin\Grcmanager\Control::class,
-                \GlpiPlugin\Grcmanager\IsmsRequirement::class,
-            ],
+            'central'  => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\IsmsRequirement::class),
             'helpdesk' => [],
         ]
     );

@@ -74,12 +74,10 @@ foreach ($result['rows'] ?? [] as $row) {
     ];
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\NetworkFlow::class,
     $title,
-    \GlpiPlugin\Grcmanager\NetworkFlow::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\NetworkFlow::class
+    \GlpiPlugin\Grcmanager\NetworkFlow::getSearchURL()
 );
 TemplateRenderer::getInstance()->display('@grcmanager/network_flow_import.html.twig', [
     'title'    => $title,

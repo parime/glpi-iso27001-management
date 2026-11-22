@@ -20,17 +20,12 @@
 // depuis le bouton de la liste des processus métier, sans entrée de menu.
 Session::checkRight(\GlpiPlugin\Grcmanager\BusinessProcess::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\BusinessProcess::class,
     __('Recovery test programme', 'grcmanager'),
-    \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\BusinessProcess::class
+    \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\BusinessProcess::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\BusinessProcess::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('recoveryprogramme');
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/business_process_programme.html.twig', [
     'programme'     => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::programme(date('Y-m-d')),

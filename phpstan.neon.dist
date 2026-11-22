@@ -29,6 +29,8 @@ parameters:
         - src/Services/Perimeter
         - src/Services/Acn
         - src/Services/Lifecycle
+        # Issue #1046 : avancement de la liste de démarrage de la configuration, PHP pur.
+        - src/Services/Setup
         - src/Services/Exercise/ExerciseReview.php
         - src/Services/Review
         # Issue #546 : règles de la fiche de conformité d'un collaborateur, PHP pur.
