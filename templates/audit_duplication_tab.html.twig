@@ -89,7 +89,7 @@
                <div class="col-md-6">
                   <label class="form-check border rounded p-2 ps-5 h-100 mb-0">
                      <input class="form-check-input" type="checkbox" name="parts[]" value="people" checked>
-                     <span class="fw-bold"><i class="ti ti-users-group me-1"></i>{{ __('People', 'grcmanager') }}</span>
+                     <span class="fw-bold"><i class="ti ti-users-group me-1"></i>{{ __('People involved', 'grcmanager') }}</span>
                      <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1 grc-dup-count-people">{{ __('%d person(s)', 'grcmanager')|format(counts.people) }}</span>
                      <div class="small text-muted">{{ __('Auditor, audit owner, team, people asked for evidence and auditees of the checklist. Someone who left (account disabled or without a profile in the entity) is not copied.', 'grcmanager') }}</div>
                   </label>
@@ -97,7 +97,7 @@
                <div class="col-md-6">
                   <label class="form-check border rounded p-2 ps-5 h-100 mb-0">
                      <input class="form-check-input" type="checkbox" name="parts[]" value="evidence" checked>
-                     <span class="fw-bold"><i class="ti ti-file-search me-1"></i>{{ __('Evidence requests', 'grcmanager') }}</span>
+                     <span class="fw-bold"><i class="ti ti-file-search me-1"></i>{{ _n('Evidence request', 'Evidence requests', 2, 'grcmanager') }}</span>
                      <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1 grc-dup-count-evidence">{{ counts.evidence }}</span>
                      <div class="small text-muted">{{ __('Same references and descriptions, status "Requested", without the files sent last time. Nobody is notified: send the requests when you are ready.', 'grcmanager') }}</div>
                   </label>
