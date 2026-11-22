@@ -39,7 +39,12 @@ fonctions :
 - `access-matrix.sh` : `$ROLE`, `$P` (URL de `front/`), `id <clé>`, `code`, `body`, `csrf`,
   `expect <libellé> <attendu> <obtenu>`, `contains <libellé> <texte> oui|non <contenu>`,
   `tab <itemtype> <onglet> <id>`, `readable <pages...>` (refusées sans droit, ouvertes au lecteur
-  et au super-admin, comme la liste `READABLE`), `$SEE_B` et `$DENY`.
+  et au super-admin, comme la liste `READABLE`), `$SEE_B`, `$DENY` et `$IS_ADMIN`. Les fragments
+  sont chargés pour **chaque** profil (`none`, `reader`, `general`, `limited`, `admin`), même ceux
+  dont la partie commune s'arrête plus tôt (issue #1079). Le journal donne le nombre de cas
+  exécutés par profil (`INFO profil reader : N cas executes, dont M dans les fragments`), et la
+  matrice échoue si un fragment nomme le profil courant (`reader)`, `limited|admin)`,
+  `[ "$ROLE" = none ]`) sans y exécuter aucun cas.
 - `xss-check.sh` : `$P`, `id`, `xid`, `check <libellé> <url>`, `tab`.
 
 Le contrôle commun de couverture (glpi-plugin-security v1.9.1 et suivantes) trouve le chemin d'une
