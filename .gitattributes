@@ -15,3 +15,11 @@
 /.glpi-security-exceptions export-ignore
 
 /changes export-ignore
+
+# Fins de ligne LF dans tous les clones, Windows compris : sync-locale-variants.sh compare les .po
+# avec sed et un ancrage de fin de ligne, et les scripts .sh tournent sous Linux (docker, CI). En
+# CRLF, le précheck local échouait sur les variantes régionales et la publication sur « set -e ».
+*.sh  text eol=lf
+*.po  text eol=lf
+*.pot text eol=lf
+*.py  text eol=lf
