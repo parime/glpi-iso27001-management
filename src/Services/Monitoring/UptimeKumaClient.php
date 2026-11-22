@@ -322,11 +322,19 @@ final class UptimeKumaClient
             $id = Rules::labelValue($labels['monitor_id'] ?? '');
             $key = Rules::monitorKey($id, $name);
             $monitor = $monitors[$key] ?? self::blank($id, $name);
-            $monitor['type'] = mb_substr(Rules::labelValue($labels['monitor_type'] ?? ''), 0, 32);
-            $monitor['url'] = self::cleanUrl(Rules::labelValue($labels['monitor_url'] ?? ''));
-            $monitor['hostname'] = mb_substr(Rules::labelValue($labels['monitor_hostname'] ?? ''), 0, 255);
-            $monitor['port'] = preg_match('/^\d{1,5}$/', Rules::labelValue($labels['monitor_port'] ?? '')) === 1
-                ? Rules::labelValue($labels['monitor_port'] ?? '') : '';
+            // Chaque métrique répète les étiquettes de la sonde : une étiquette absente ne vide rien.
+            $port = Rules::labelValue($labels['monitor_port'] ?? '');
+            $read = [
+                'type'     => mb_substr(Rules::labelValue($labels['monitor_type'] ?? ''), 0, 32),
+                'url'      => self::cleanUrl(Rules::labelValue($labels['monitor_url'] ?? '')),
+                'hostname' => mb_substr(Rules::labelValue($labels['monitor_hostname'] ?? ''), 0, 255),
+                'port'     => preg_match('/^\d{1,5}$/', $port) === 1 ? $port : '',
+            ];
+            foreach ($read as $field => $text) {
+                if ($text !== '') {
+                    $monitor[$field] = $text;
+                }
+            }
             $value = $row['value'];
             match ($row['metric']) {
                 'monitor_status'              => $monitor['status'] = Rules::normalizeStatus((int) $value),

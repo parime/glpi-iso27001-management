@@ -653,6 +653,11 @@ class UptimeKumaMonitoring extends CommonGLPI
             $monitors[(string) $row['monitor_key']] = $row + ['asset_key' => $key, 'host' => $host];
         }
         $readings = $monitors !== [];
+        // Relevés et liens : entités des sondes visibles (ces tables ne portent pas d'is_recursive).
+        $monitorEntities = array_values(array_unique(array_map(
+            static fn (array $row): int => (int) $row['entities_id'],
+            $monitors
+        )));
 
         // Liens faits dans GLPI (processus choisi, incident proposé).
         $links = [];
@@ -660,8 +665,10 @@ class UptimeKumaMonitoring extends CommonGLPI
             foreach (
                 $DB->request([
                     'FROM'  => UptimeKumaTables::LINKS,
-                    'WHERE' => ['monitor_key' => array_map('strval', array_keys($monitors))]
-                        + self::readingsWhere(UptimeKumaTables::LINKS, $entities),
+                    'WHERE' => [
+                        'monitor_key' => array_map('strval', array_keys($monitors)),
+                        'entities_id' => $monitorEntities,
+                    ],
                 ]) as $row
             ) {
                 $links[(string) $row['monitor_key']] = $row;
@@ -679,7 +686,8 @@ class UptimeKumaMonitoring extends CommonGLPI
                     'WHERE'  => [
                         'monitor_key' => array_map('strval', array_keys($monitors)),
                         'date_sample' => ['>=', date('Y-m-d H:i:s', $from - Rules::MAX_SAMPLE_GAP)],
-                    ] + self::readingsWhere(UptimeKumaTables::SAMPLES, $entities),
+                        'entities_id' => $monitorEntities,
+                    ],
                 ]) as $row
             ) {
                 $time = (int) strtotime((string) $row['date_sample']);
