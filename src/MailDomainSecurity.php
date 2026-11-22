@@ -774,6 +774,10 @@ class MailDomainSecurity extends CommonGLPI
             'alert_days' => Rules::ALERT_DAYS,
             'max_check'  => self::MAX_CHECK_ALL,
             'dns_server' => self::dnsServer(),
+            // Issue #1042 : le serveur DNS se règle dans l'onglet Connecteurs de la configuration.
+            'connector_url' => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                \GlpiPlugin\Grcmanager\Config\Block\MailDnsConnectorBlock::ANCHOR
+            ),
         ];
     }
 
