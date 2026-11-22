@@ -71,6 +71,9 @@ interface MenuSection
      * - `right` : droit requis en plus de celui de l'écran, `'plugin_grcmanager_gdpr'` (lecture) ou
      *   `['plugin_grcmanager_gdpr', UPDATE]` ; sans ce droit, l'onglet n'est pas affiché ;
      * - `group` : libellé du groupe d'onglets de la sous-page (facultatif) ;
+     * - `tab_group` (issue #1039) : libellé d'un onglet replié ; les sous-pages qui le partagent
+     *   n'occupent qu'un onglet de la barre (et comptent pour un dans la limite), une seconde barre
+     *   montre les pages du groupe ouvert ; `tab_group_icon` : son icône (facultatif) ;
      * - `from` : rubrique d'origine d'une sous-page déplacée ; elle y est retirée, sans modifier le
      *   fichier de la rubrique d'origine ;
      * - pour une page sans classe propre (clé libre) : `title`, `page` (adresse depuis la racine de

@@ -30,6 +30,12 @@ $back = \GlpiPlugin\Grcmanager\ParkVulnerability::getWatchURL() . '?'
     . http_build_query(['filter' => $filter, 'search' => $search]);
 $name = trim((string) ($_POST['software'] ?? ''));
 
+// Issue #1039 : fin de support (endoflife.date) : lecture manuelle et correspondances entre un nom de
+// GLPI et un produit, sorties de la configuration (droit de modifier la configuration, comme avant).
+if (\GlpiPlugin\Grcmanager\EndOfLife::handleWorkPost($_POST)) {
+    Html::redirect(\GlpiPlugin\Grcmanager\EndOfLife::getLinksURL());
+}
+
 if (isset($_POST['confirm'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, UPDATE);
     $cpe = trim((string) ($_POST['cpe_manual'] ?? '')) ?: (string) ($_POST['cpe'] ?? '');
@@ -89,6 +95,11 @@ TemplateRenderer::getInstance()->display('@grcmanager/software_watch.html.twig',
     'suggest_error' => $suggestError,
     'enabled'       => ParkVulnerabilitySync::isEnabled(),
     'can_update'    => Session::haveRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, UPDATE),
+    // Issue #1039 : fin de support (endoflife.date), sortie de la configuration.
+    'endoflife'      => \GlpiPlugin\Grcmanager\EndOfLife::configData(),
+    'eol_config_url' => \GlpiPlugin\Grcmanager\EndOfLife::getConfigURL(),
+    'can_edit_eol'   => (bool) Session::haveRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE),
+    'csrf_token'     => Session::getNewCSRFToken(),
 ]);
 
 Html::footer();

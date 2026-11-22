@@ -38,8 +38,9 @@ use Session;
  *   « Fin de support » ; états expirée, fin proche (seuil commun de la fin de support) et sous
  *   garantie, par type de matériel et par entité ; export CSV.
  * - Preuves des mesures A.7.13 (maintenance du matériel) et A.8.9, règle du contrôle de cohérence.
- * - Lot 2 : fin de vie déclarée par le constructeur, saisie à la main par modèle dans la
- *   configuration (onglet de la fin de support), atteinte ou proche avec le même seuil commun ;
+ * - Lot 2 : fin de vie déclarée par le constructeur, saisie à la main par modèle (issue #1039 :
+ *   onglet des fiches de modèles et saisie groupée de HardwareModelEol), atteinte ou proche avec le
+ *   même seuil commun ;
  *   règle du contrôle de cohérence.
  * - Calculé à la demande avec les droits et les entités de la personne : rien n'est conservé et
  *   aucune donnée de GLPI n'est modifiée.
@@ -85,13 +86,12 @@ class HardwareWarranty extends CommonGLPI
     }
 
     /**
-     * Saisie de la fin de vie constructeur des modèles (lot 2), dans l'onglet « Fin de support » de
-     * la configuration du plugin.
+     * Saisie de la fin de vie constructeur des modèles (lot 2). Issue #1039 : sortie de la
+     * configuration, elle est dans Parc > Sécurité du parc (et l'onglet des fiches de modèles).
      */
     public static function getConfigURL(bool $full = true): string
     {
-        // Issue #1036 : onglet de la configuration qui porte ce bloc.
-        return \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl('grc-hardware-eol-config', $full);
+        return HardwareModelEol::getSearchURL($full);
     }
 
     /**
@@ -185,7 +185,7 @@ class HardwareWarranty extends CommonGLPI
                 'color' => 'secondary',
                 'icon'  => 'ti ti-calendar-question',
                 'help'  => __(
-                    'No manufacturer end of life date entered for this model (optional, in the configuration).',
+                    'No manufacturer end of life date entered for this model (optional, on the form of the model).',
                     'grcmanager'
                 ),
             ],
@@ -415,7 +415,7 @@ class HardwareWarranty extends CommonGLPI
             'eol_statuses' => self::endOfLifeInfos(),
             'eol_counts'   => WarrantyRules::endOfLifeCounts($assets),
             'config_url'   => self::getConfigURL(),
-            'can_config'   => (bool) Session::haveRight(Install\Installer::RIGHT_NAME, UPDATE),
+            'can_config'   => HardwareModelEol::canView(),
             'total_assets' => count($assets),
             'groups'       => $groups,
             'rows'         => array_map([self::class, 'present'], array_slice($listed, 0, self::MAX_ROWS)),
@@ -601,6 +601,11 @@ class HardwareWarranty extends CommonGLPI
         foreach (array_keys($models) as $key) {
             $models[$key]['date'] = $dates[$key] ?? '';
             $models[$key]['field'] = $key;
+            // Issue #1039 : lien vers la fiche du modèle (onglet « Fin de vie constructeur »).
+            $modelType = (string) $models[$key]['itemtype'];
+            $models[$key]['url'] = is_a($modelType, CommonDBTM::class, true) && $modelType::canView()
+                ? $modelType::getFormURLWithID((int) $models[$key]['id'])
+                : '';
         }
         // Modèles datés d'abord, puis les plus répandus.
         uasort($models, static fn (array $a, array $b): int => [

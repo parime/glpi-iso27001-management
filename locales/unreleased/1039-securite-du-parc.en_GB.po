@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Asset security"
+msgstr "Asset security"
+
+msgid "Overview"
+msgstr "Overview"
+
+msgid "Other screens"
+msgstr "Other screens"
+
+msgid "This is now done in Assets > Asset security > %s."
+msgstr "This is now done in Assets > Asset security > %s."
+
+msgid "No screen of this section is available with your profile."
+msgstr "No screen of this section is available with your profile."
+
+msgid "Known flaws of the installed software, the most exposed machines and leaked accounts."
+msgstr "Known flaws of the installed software, the most exposed machines and leaked accounts."
+
+msgid "End of life and patches"
+msgstr "End of life and patches"
+
+msgid "Software and hardware that no longer receive fixes, late patches and licences."
+msgstr "Software and hardware that no longer receive fixes, late patches and licences."
+
+msgid "Hardening"
+msgstr "Hardening"
+
+msgid "Automated checks of the inventory, secure configuration, disk encryption and Active Directory."
+msgstr "Automated checks of the inventory, secure configuration, disk encryption and Active Directory."
+
+msgid "Logs, supervision, exposed services and server management controllers."
+msgstr "Logs, supervision, exposed services and server management controllers."
+
+msgid "Backups and network"
+msgstr "Backups and network"
+
+msgid "Backup coverage, mail and domain security, network flows."
+msgstr "Backup coverage, mail and domain security, network flows."
+
+msgid "Sites and development"
+msgstr "Sites and development"
+
+msgid "Physical security of the sites, secure development and code security."
+msgstr "Physical security of the sites, secure development and code security."
+
+msgid "Hardware end of life"
+msgstr "Hardware end of life"
+
+msgid "End of life dates saved."
+msgstr "End of life dates saved."
+
+msgid "Same threshold as the end of support of software, set in the plugin configuration."
+msgstr "Same threshold as the end of support of software, set in the plugin configuration."
+
+msgid "\"End of life soon\": within %d days."
+msgstr "\"End of life soon\": within %d days."
+
+msgid "Enter the date announced by the manufacturer when you know it (optional, leave empty otherwise). You can also enter it on the form of each model, tab \"Manufacturer end of life\"."
+msgstr "Enter the date announced by the manufacturer when you know it (optional, leave empty otherwise). You can also enter it on the form of each model, tab \"Manufacturer end of life\"."
+
+msgid "See the hardware concerned"
+msgstr "See the hardware concerned"
+
+msgid "The date after which the manufacturer no longer provides repairs, spare parts or firmware updates for this model (optional). The hardware of this model is then shown as \"end of life reached\" or \"soon\" in Assets > Asset security (ISO 27001 A.7.13 and A.8.9)."
+msgstr "The date after which the manufacturer no longer provides repairs, spare parts or firmware updates for this model (optional). The hardware of this model is then shown as \"end of life reached\" or \"soon\" in Assets > Asset security (ISO 27001 A.7.13 and A.8.9)."
+
+msgid "Hardware of this model in your entities"
+msgstr "Hardware of this model in your entities"
+
+msgid "All the models"
+msgstr "All the models"
+
+msgid "No manufacturer end of life date entered for this model (optional, on the form of the model)."
+msgstr "No manufacturer end of life date entered for this model (optional, on the form of the model)."
+
+msgid "Links and reading"
+msgstr "Links and reading"
+
+msgid "The end of support dates have not been read yet: they arrive with the next daily task, or with the button \"Update now\" of the page \"Software to watch\"."
+msgstr "The end of support dates have not been read yet: they arrive with the next daily task, or with the button \"Update now\" of the page \"Software to watch\"."
+
+msgid "It also applies to the manufacturer end of life of hardware models."
+msgstr "It also applies to the manufacturer end of life of hardware models."
+
+msgid "Everything about the security of your assets in one place: vulnerabilities, end of life, patches, hardening, monitoring, backups, sites and development. Each card opens a screen; only the screens your profile can open are shown."
+msgstr "Everything about the security of your assets in one place: vulnerabilities, end of life, patches, hardening, monitoring, backups, sites and development. Each card opens a screen; only the screens your profile can open are shown."
+
+msgid "Start with the vulnerabilities and the end of life of software and hardware, then check that the expected protections (encryption, patches, logs, backups) cover the whole fleet."
+msgstr "Start with the vulnerabilities and the end of life of software and hardware, then check that the expected protections (encryption, patches, logs, backups) cover the whole fleet."
+
+msgid "Some manufacturers announce the date after which a model no longer receives repairs, spare parts or firmware updates. Enter it here for all the models in service, or on the form of each model (tab \"Manufacturer end of life\")."
+msgstr "Some manufacturers announce the date after which a model no longer receives repairs, spare parts or firmware updates. Enter it here for all the models in service, or on the form of each model (tab \"Manufacturer end of life\")."
+
+msgid "Enter the known dates, then follow the hardware whose end of life is reached or near in the \"Hardware warranty\" card of the fleet vulnerabilities. Nothing is changed in the GLPI models."
+msgstr "Enter the known dates, then follow the hardware whose end of life is reached or near in the \"Hardware warranty\" card of the fleet vulnerabilities. Nothing is changed in the GLPI models."
+
+msgid "ISO/IEC 27001, controls A.7.13 and A.8.9"
+msgstr "ISO/IEC 27001, controls A.7.13 and A.8.9"

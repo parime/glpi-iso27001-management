@@ -273,6 +273,11 @@ function plugin_init_grcmanager(): void
     // Issue #843 : onglet « Contrôleur de gestion » sur les ordinateurs (iLO, iDRAC, XClarity, IPMI),
     // lecture seule.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ServerManagement::class, ['addtabon' => ['Computer']]);
+    // Issue #1039 : onglet « Fin de vie constructeur » des fiches de modèles de matériel (ComputerModel,
+    // MonitorModel, NetworkEquipmentModel…), sorti de la page de configuration.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\HardwareModelEol::class, [
+        'addtabon' => array_keys(\GlpiPlugin\Grcmanager\HardwareModelEol::modelItemtypes()),
+    ]);
     // Issue #837 : onglet « Sécurité 360° » des ordinateurs et matériels réseau (sources du registre
     // src/Feature/, lecture seule).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\AssetSecurity360::class, [

@@ -19,6 +19,9 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Config;
 
+use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
+use GlpiPlugin\Grcmanager\Feature\MovedConfigAnchorsProvider;
+
 /**
  * Page de configuration du plugin en onglets (issue #1036) : onglets src/Config/Tab/*Tab.php et
  * blocs src/Config/Block/*Block.php, découverts comme les fonctionnalités de src/Feature/. Un lot
@@ -148,9 +151,15 @@ final class ConfigTabs
     /** Adresse d'un bloc d'après son identifiant HTML (onglet ouvert, puis le bloc). */
     public static function anchorUrl(string $anchor, bool $full = true): string
     {
+        global $CFG_GLPI;
+
+        // Issue #1039 : bloc sorti de la configuration vers un écran d'exploitation.
+        $moved = self::movedAnchors()[$anchor] ?? '';
+        if ($moved !== '') {
+            return ($full ? (string) ($CFG_GLPI['root_doc'] ?? '') : '') . $moved;
+        }
         $tab = self::tabOfAnchor($anchor);
         if ($tab === '') {
-            global $CFG_GLPI;
 
             return ($full ? (string) ($CFG_GLPI['root_doc'] ?? '') : '') . '/plugins/grcmanager/front/config.php';
         }
@@ -172,8 +181,27 @@ final class ConfigTabs
                 $map[$anchor] = self::url($class::tab());
             }
         }
+        foreach (array_keys(self::movedAnchors()) as $anchor) {
+            $map[$anchor] = self::anchorUrl($anchor);
+        }
 
         return $map;
+    }
+
+    /**
+     * Issue #1039 : anciens identifiants de blocs sortis de la configuration et adresse (depuis la
+     * racine de GLPI) de l'écran qui les accueille (src/Feature/, MovedConfigAnchorsProvider).
+     *
+     * @return array<string, string>
+     */
+    public static function movedAnchors(): array
+    {
+        $moved = [];
+        foreach (FeatureRegistry::implementing(MovedConfigAnchorsProvider::class) as $feature) {
+            $moved += $feature::movedConfigAnchors();
+        }
+
+        return $moved;
     }
 
     /**

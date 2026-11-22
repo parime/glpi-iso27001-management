@@ -49,9 +49,10 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
         // Issue #540 : le registre DORA n'apparaît qu'avec son référentiel, optionnel (annulé avec la transaction).
         \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('dora', true);
         \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::reset();
-        $entries = $PLUGIN_HOOKS['menu_toadd']['grcmanager']['grcmanager'];
+        $entries = array_merge(...array_values($PLUGIN_HOOKS['menu_toadd']['grcmanager']));
         $this->assertSame(count($entries), count(array_unique($entries)), 'Aucune entrée en double.');
         foreach (\GlpiPlugin\Grcmanager\Menu::sections() as $parent => $children) {
+            // Issue #1039 : une rubrique peut être dans un secteur de GLPI (Parc > Sécurité du parc).
             $this->assertContains($parent, $entries, "$parent : la rubrique a son entrée.");
             $options = $parent::getMenuContent()['options'] ?? [];
             foreach ($children as $child) {

@@ -251,11 +251,64 @@ class Menu extends CommonGLPI
                 'active' => $key === $active,
                 // Groupe d'onglets facultatif de la sous-page (option « group » de sa rubrique).
                 'group'  => (string) ($declared[$key]['group'] ?? ''),
+                // Issue #1039 : onglet replié de la sous-page (option « tab_group »).
+                'tab_group'      => (string) ($declared[$key]['tab_group'] ?? ''),
+                'tab_group_icon' => (string) ($declared[$key]['tab_group_icon'] ?? ''),
             ];
         }
+        [$tabs, $subTabs] = self::foldTabGroups($tabs);
         TemplateRenderer::getInstance()->display(
             '@grcmanager/_section_nav.html.twig',
-            ['tabs' => $tabs]
+            ['tabs' => $tabs, 'sub_tabs' => $subTabs]
         );
+    }
+
+    /**
+     * Issue #1039 : une rubrique de plus de 7 écrans (Parc > Sécurité du parc) range ses sous-pages
+     * en onglets repliés (option « tab_group ») : la barre montre un onglet par groupe, qui mène à la
+     * première page du groupe que le profil peut ouvrir, et une seconde barre montre les pages du
+     * groupe ouvert. Les sous-pages sans « tab_group » gardent leur onglet.
+     *
+     * @param list<array<string, mixed>> $tabs
+     * @return array{0: list<array<string, mixed>>, 1: list<array<string, mixed>>}
+     */
+    public static function foldTabGroups(array $tabs): array
+    {
+        $folded = [];
+        $members = [];
+        foreach ($tabs as $tab) {
+            $group = (string) ($tab['tab_group'] ?? '');
+            if ($group === '') {
+                $folded[] = $tab;
+                continue;
+            }
+            if (!isset($members[$group])) {
+                $members[$group] = [];
+                $folded[] = [
+                    'label'  => $group,
+                    'icon'   => (string) ($tab['tab_group_icon'] ?? '') ?: (string) ($tab['icon'] ?? ''),
+                    'url'    => (string) $tab['url'],
+                    'active' => false,
+                    'group'  => (string) ($tab['group'] ?? ''),
+                    'folder' => $group,
+                ];
+            }
+            $members[$group][] = $tab;
+        }
+        $subTabs = [];
+        foreach ($folded as $index => $tab) {
+            $group = (string) ($tab['folder'] ?? '');
+            if ($group === '') {
+                continue;
+            }
+            foreach ($members[$group] as $member) {
+                if (!empty($member['active'])) {
+                    $folded[$index]['active'] = true;
+                    $subTabs = count($members[$group]) > 1 ? $members[$group] : [];
+                }
+            }
+        }
+
+        return [$folded, $subTabs];
     }
 }

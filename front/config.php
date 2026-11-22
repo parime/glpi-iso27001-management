@@ -606,55 +606,26 @@ if (
                 ['changes' => $changes]
             );
         }
-    } elseif (isset($_POST['refresh_endoflife'])) {
-        // Quelques produits seulement : le reste suit avec la tâche automatique quotidienne.
-        $report = \GlpiPlugin\Grcmanager\EndOfLife::refresh(30);
-        Session::addMessageAfterRedirect(
-            htmlescape(\GlpiPlugin\Grcmanager\EndOfLife::refreshMessage($report)),
-            false,
-            $report['status'] === 'partial' ? WARNING : INFO
-        );
-    } elseif (isset($_POST['add_endoflife_mapping'])) {
-        $saved = EndOfLifeStore::saveMapping(
-            (string) ($_POST['endoflife_kind'] ?? ''),
-            (string) ($_POST['endoflife_name'] ?? ''),
-            (string) ($_POST['endoflife_product'] ?? '')
-        );
-        if (!$saved) {
-            Session::addMessageAfterRedirect(htmlescape(__(
-                'Link not saved: give the exact name shown in GLPI and an endoflife.date product identifier '
-                    . '(lower case letters, digits and dashes, for instance "debian").',
-                'grcmanager'
-            )), false, ERROR);
-        }
-    } else {
-        EndOfLifeStore::deleteMapping((int) $_POST['delete_endoflife_mapping']);
+        Html::redirect(\GlpiPlugin\Grcmanager\EndOfLife::getConfigURL());
     }
 
-    Html::redirect(\GlpiPlugin\Grcmanager\EndOfLife::getConfigURL());
+    // Issue #1039 : lecture manuelle et correspondances, sorties de la configuration vers « Logiciels
+    // à surveiller » ; l'ancien envoi reste accepté pendant une version, puis mène à cette page.
+    \GlpiPlugin\Grcmanager\EndOfLife::handleWorkPost($_POST);
+    \GlpiPlugin\Grcmanager\AssetSecurity::movedNotice(__('Software to watch', 'grcmanager'));
+    Html::redirect(\GlpiPlugin\Grcmanager\EndOfLife::getLinksURL());
 }
 
-// Issue #782, lot 2 : fin de vie déclarée par le constructeur, saisie à la main par modèle de
-// matériel (facultatif). Rien n'est écrit dans les modèles de GLPI.
+// Issue #782, lot 2 : fin de vie déclarée par le constructeur des modèles. Issue #1039 : saisie sortie
+// de la configuration (Parc > Sécurité du parc, onglet des fiches de modèles) ; l'ancien envoi reste
+// accepté pendant une version, avec le même droit, puis mène à la nouvelle page.
 if (isset($_POST['update_hardware_eol'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
-    $refused = \GlpiPlugin\Grcmanager\HardwareWarranty::saveModelDates(
-        is_array($_POST['hardware_eol'] ?? null) ? $_POST['hardware_eol'] : []
-    );
-    if ($refused > 0) {
-        Session::addMessageAfterRedirect(htmlescape(sprintf(
-            _n(
-                '%d end of life date not saved: enter a valid date for a hardware model.',
-                '%d end of life dates not saved: enter a valid date for a hardware model.',
-                $refused,
-                'grcmanager'
-            ),
-            $refused
-        )), false, ERROR);
-    }
+    \GlpiPlugin\Grcmanager\HardwareModelEol::handleSave($_POST);
+    \GlpiPlugin\Grcmanager\AssetSecurity::movedNotice(\GlpiPlugin\Grcmanager\HardwareModelEol::getTypeName());
 
-    Html::redirect(\GlpiPlugin\Grcmanager\HardwareWarranty::getConfigURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\HardwareModelEol::getSearchURL());
 }
 
 if (isset($_POST['update_nvd_config'])) {
@@ -682,27 +653,13 @@ if (isset($_POST['update_nvd_config'])) {
 }
 
 // Issue #485 : envoi immédiat du rapport des vulnérabilités, pour l'essayer sans attendre la tâche.
+// Issue #1039 : le bouton est sur « Vulnérabilités du parc » ; l'ancien envoi reste accepté pendant une
+// version, puis mène à cette page.
 if (isset($_POST['send_vulnerability_digest'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
-    if (!\GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync::isEnabled()) {
-        Session::addMessageAfterRedirect(htmlescape(__(
-            'Enable the NVD enrichment first: without it, the report would wrongly say that nothing is exposed.',
-            'grcmanager'
-        )), false, ERROR);
-    } elseif (\GlpiPlugin\Grcmanager\VulnerabilityDigest::send() > 0) {
-        Session::addMessageAfterRedirect(htmlescape(__(
-            'The report has been queued for sending to its recipients.',
-            'grcmanager'
-        )));
-    } else {
-        Session::addMessageAfterRedirect(htmlescape(__(
-            'The report could not be sent: check that notifications are enabled in GLPI and that the '
-                . 'notification "GRC Manager - Fleet vulnerability report" is active.',
-            'grcmanager'
-        )), false, ERROR);
-    }
-
-    Html::back();
+    \GlpiPlugin\Grcmanager\VulnerabilityDigest::sendNow();
+    \GlpiPlugin\Grcmanager\AssetSecurity::movedNotice(\GlpiPlugin\Grcmanager\ParkVulnerability::getTypeName());
+    Html::redirect(\GlpiPlugin\Grcmanager\ParkVulnerability::getSearchURL());
 }
 
 // Issue #1036 : les blocs ajoutés ensuite traitent eux-mêmes leur formulaire (ConfigBlock::handle()).
