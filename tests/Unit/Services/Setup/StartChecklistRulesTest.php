@@ -55,18 +55,21 @@ final class StartChecklistRulesTest extends TestCase
     {
         $grid = ['rare' => ['low' => 'low']];
 
-        $this->assertFalse(StartChecklistRules::isMatrixValidated('', $grid, $grid, 4, 4, ['probability' => [], 'impact' => []]));
+        $noLabels = ['probability' => [], 'impact' => []];
+        $this->assertFalse(StartChecklistRules::isMatrixValidated('', $grid, $grid, 4, 4, $noLabels));
         $this->assertTrue(StartChecklistRules::isMatrixValidated('2026-01-15 10:00:00', $grid, $grid, 4, 4, []));
         $this->assertTrue(StartChecklistRules::isMatrixValidated('', ['rare' => ['low' => 'high']], $grid, 4, 4, []));
         $this->assertTrue(StartChecklistRules::isMatrixValidated('', $grid, $grid, 5, 4, []));
-        $this->assertTrue(StartChecklistRules::isMatrixValidated('', $grid, $grid, 4, 4, ['probability' => ['rare' => 'Seldom']]));
+        $labels = ['probability' => ['rare' => 'Seldom']];
+        $this->assertTrue(StartChecklistRules::isMatrixValidated('', $grid, $grid, 4, 4, $labels));
     }
 
     public function testAConnectorCountsOnlyAfterASuccessfulRead(): void
     {
         $this->assertFalse(StartChecklistRules::hasSuccessfulRead([]));
         $this->assertFalse(StartChecklistRules::hasSuccessfulRead([['date' => '', 'error' => '']]));
-        $this->assertFalse(StartChecklistRules::hasSuccessfulRead([['date' => '2026-01-15 10:00:00', 'error' => 'timeout']]));
+        $failed = ['date' => '2026-01-15 10:00:00', 'error' => 'timeout'];
+        $this->assertFalse(StartChecklistRules::hasSuccessfulRead([$failed]));
         $this->assertTrue(StartChecklistRules::hasSuccessfulRead([
             ['date' => '2026-01-15 10:00:00', 'error' => 'timeout'],
             ['date' => '2026-01-16 10:00:00', 'error' => ''],
@@ -79,7 +82,8 @@ final class StartChecklistRulesTest extends TestCase
 
         $this->assertFalse(StartChecklistRules::isSoaScoped([], $questions));
         $this->assertFalse(StartChecklistRules::isSoaScoped(['remote_work' => 'yes'], $questions));
-        $this->assertTrue(StartChecklistRules::isSoaScoped(['remote_work' => 'yes', 'software_development' => 'no'], $questions));
+        $answers = ['remote_work' => 'yes', 'software_development' => 'no'];
+        $this->assertTrue(StartChecklistRules::isSoaScoped($answers, $questions));
         $this->assertFalse(StartChecklistRules::isSoaScoped([], []), 'No questionnaire: nothing to tick.');
     }
 }

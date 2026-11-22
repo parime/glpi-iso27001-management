@@ -15,6 +15,14 @@
 {# Issue #1046 : liste de démarrage de l'administrateur. Ouverte tant qu'une étape reste à faire,
    repliée sur une ligne une fois tout fait. Lecture seule. #}
 {% set sc = start_checklist %}
+{% set step_help = {
+  'frameworks': __('Tick the frameworks your organisation follows and save the choice: the other ones disappear from the screens.', 'grcmanager'),
+  'risk_matrix': __('Check the probability x impact grid, its size and its labels, then save it, even unchanged.', 'grcmanager'),
+  'profiles': __('After installation, only the Super-Admin profile can use the plugin. Open a profile, then its GRC Manager tab, to give the rights to the people who work on the ISMS.', 'grcmanager'),
+  'ciso_group': __('The members of this group can see every audit and its documents.', 'grcmanager'),
+  'connector': __('Enter the address and the key of a tool you use (SentinelOne, Zabbix, Uptime Kuma, GitHub or GitLab, endoflife.date): the step is done after a first successful read.', 'grcmanager'),
+  'soa_scope': __('Answer every question of the "%s" screen, in the GRC menu: the answers suggest which controls apply.', 'grcmanager'),
+} %}
 <details class="card mb-3" id="grc-start-checklist" {{ sc.complete ? '' : 'open' }}>
   <summary class="card-header d-flex flex-wrap align-items-center gap-2" style="cursor: pointer;">
     <i class="ti ti-rocket me-1"></i>
@@ -38,7 +46,7 @@
         <li class="list-group-item d-flex flex-wrap align-items-start gap-2" data-step="{{ step.key }}">
           <div class="flex-grow-1">
             <div class="fw-bold"><i class="ti {{ step.icon }} me-1"></i>{{ step.label }}</div>
-            <div class="form-hint">{{ step.help }}</div>
+            <div class="form-hint">{{ step.menu is not empty ? step_help[step.key]|format(step.menu) : step_help[step.key] }}</div>
           </div>
           {% if step.done %}
             <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ __('Done', 'grcmanager') }}</span>

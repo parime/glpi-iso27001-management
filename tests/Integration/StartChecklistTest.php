@@ -80,7 +80,11 @@ final class StartChecklistTest extends GrcmanagerIntegrationTestCase
         }
         SoaScoping::saveAnswers(SoaScoping::entity(), $answers);
         $profile = (int) (new \Profile())->add(['name' => 'Test ISMS contributor', 'interface' => 'central']);
-        $DB->updateOrInsert('glpi_profilerights', ['rights' => READ], ['profiles_id' => $profile, 'name' => Installer::RIGHT_NAME]);
+        $DB->updateOrInsert(
+            'glpi_profilerights',
+            ['rights' => READ],
+            ['profiles_id' => $profile, 'name' => Installer::RIGHT_NAME]
+        );
         RiskMatrixConfig::save(RiskMatrixConfig::load());
 
         $state = StartChecklist::state();
@@ -107,7 +111,10 @@ final class StartChecklistTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString(' open', $html, 'Open while a step remains.');
         preg_match_all('/href="([^"]+)"/', $html, $links);
         foreach ($links[1] as $link) {
-            $this->assertMatchesRegularExpression('#/front/(config\.php\?tab=|profile\.php)#', html_entity_decode($link));
+            $this->assertMatchesRegularExpression(
+                '#/front/(config\.php\?tab=|profile\.php)#',
+                html_entity_decode($link)
+            );
         }
         $this->assertCount(5, $links[1], 'Five steps link to a setting; the SoA scoping names its menu.');
     }
