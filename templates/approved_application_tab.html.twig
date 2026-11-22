@@ -1,0 +1,168 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #622 : fiche « usage autorisé » d'une application (onglet de l'application). #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+<div class="container-fluid" id="grc-approved-application">
+   <p class="text-muted">
+      <i class="ti ti-info-circle me-1"></i>{{ __('Say whether this application or online service may be used, for what and with which data. Approved applications are listed for every user in their preferences ("Authorised applications" tab).', 'grcmanager') }}
+      <a href="{{ register_url }}">{{ __('Open the register', 'grcmanager') }}</a>
+   </p>
+
+   {% if has_sheet %}
+      {% set badge = status_badges[sheet.status]|default(status_badges['evaluation']) %}
+      {% set review = review_badges[review_state] %}
+      <div class="mb-3" id="grc-approved-application-summary">
+         <span class="badge {{ badge.class }} me-1"><i class="ti {{ badge.icon }} me-1"></i>{{ badge.label }}</span>
+         <span class="badge {{ review.class }} me-1"><i class="ti {{ review.icon }} me-1"></i>{{ review.label }}{% if next_review %} ({{ next_review }}){% endif %}</span>
+         {% if ended %}
+            <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-player-stop me-1"></i>{{ __('Use ended', 'grcmanager') }}</span>
+         {% endif %}
+         {% for gap in gaps %}
+            <span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-alert-triangle me-1"></i>{{ gap_labels[gap] }}</span>
+         {% endfor %}
+         {% if level_exceeded %}
+            <span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-lock-exclamation me-1"></i>{{ __('The confidentiality of this application (%s) is higher than the allowed data level', 'grcmanager')|format(class_levels[classification]|default(classification)) }}</span>
+         {% endif %}
+         {% if ticket_url %}
+            <a href="{{ ticket_url }}" class="badge bg-blue-subtle text-blue-emphasis me-1"><i class="ti ti-ticket me-1"></i>{{ __('Reassessment ticket #%d', 'grcmanager')|format(ticket_id) }}</a>
+         {% endif %}
+      </div>
+      {% if waivers is not empty %}
+         <div class="mb-3">
+            <span class="text-muted me-1"><i class="ti ti-file-alert me-1"></i>{{ __('Waivers granted:', 'grcmanager') }}</span>
+            {% for waiver in waivers %}
+               <a href="{{ waiver.url }}" class="me-1">{{ waiver.name }}</a><span class="badge {{ waiver.state.class }} me-2">{{ waiver.state.label }}</span>
+            {% endfor %}
+         </div>
+      {% endif %}
+      {% if not can_edit %}
+         <dl class="row">
+            <dt class="col-sm-4">{{ __('Status', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ badge.label }}</dd>
+            <dt class="col-sm-4">{{ __('Hosting', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ hostings[sheet.hosting]|default('-') }}</dd>
+            <dt class="col-sm-4">{{ __('Supplier') }}</dt>
+            <dd class="col-sm-8">{{ supplier_name ?: '-' }}</dd>
+            <dt class="col-sm-4">{{ __('Software', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ software_name ?: '-' }}</dd>
+            <dt class="col-sm-4">{{ __('Application owner', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ owner_name ?: '-' }}</dd>
+            <dt class="col-sm-4">{{ __('User departments', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ sheet.user_services|default('-')|nl2br }}</dd>
+            <dt class="col-sm-4">{{ __('Start of use', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ sheet.date_start ? sheet.date_start|formatted_date : '-' }}</dd>
+            <dt class="col-sm-4">{{ __('End of use', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ sheet.date_end ? sheet.date_end|formatted_date : '-' }}</dd>
+            <dt class="col-sm-4">{{ __('Allowed uses', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ sheet.allowed_uses|default('-')|nl2br }}</dd>
+            {% if sheet.status == 'restricted' %}
+               <dt class="col-sm-4">{{ __('Restrictions', 'grcmanager') }}</dt>
+               <dd class="col-sm-8">{{ sheet.restrictions|default('-')|nl2br }}</dd>
+            {% endif %}
+            <dt class="col-sm-4">{{ __('Most sensitive data allowed', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ levels[sheet.max_data_level]|default('-') }}</dd>
+            <dt class="col-sm-4">{{ __('Review every (months)', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ sheet.review_months > 0 ? sheet.review_months : __('No periodic review', 'grcmanager') }}</dd>
+            <dt class="col-sm-4">{{ __('Last review', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ sheet.last_review_date ? sheet.last_review_date|formatted_date : '-' }}</dd>
+            <dt class="col-sm-4">{{ __('Comment', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">{{ sheet.comment|default('-')|nl2br }}</dd>
+         </dl>
+      {% endif %}
+   {% elseif not can_edit %}
+      <p class="text-muted">{{ __('No decision has been recorded yet for the use of this application.', 'grcmanager') }}</p>
+   {% endif %}
+
+   {% if can_edit %}
+      <form method="post" action="{{ action }}">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="appliances_id" value="{{ appliances_id }}">
+         <h4><i class="ti ti-gavel me-1"></i>{{ __('Decision', 'grcmanager') }}</h4>
+         <div class="row">
+            {{ fields.dropdownArrayField('status', sheet.status|default('evaluation'), statuses, __('Status', 'grcmanager'), {
+               'rand': 'grcappokstatus',
+               'add_field_html': hints.hint(__('Under evaluation while the security team studies it; refused applications are shown to users as not to be used.', 'grcmanager')),
+            }) }}
+            {{ fields.dropdownArrayField('hosting', sheet.hosting|default(''), {'': __('Not specified', 'grcmanager')}|merge(hostings), __('Hosting', 'grcmanager'), {'rand': 'grcappokhosting'}) }}
+            {{ fields.dropdownField('Supplier', 'suppliers_id', sheet.suppliers_id|default(0), __('Supplier'), {
+               'entity': entities_id,
+               'rand': 'grcappoksupplier',
+               'add_field_html': hints.hint(__('Supplier of GLPI (Management > Suppliers): its overall risk is assessed in the supplier risk register.', 'grcmanager')),
+            }) }}
+            {{ fields.dropdownField('Software', 'softwares_id', sheet.softwares_id|default(0), __('Software', 'grcmanager'), {
+               'entity': entities_id,
+               'rand': 'grcappoksoftware',
+               'add_field_html': hints.hint(__('Software of the GLPI inventory that corresponds to this application: used to find where it is installed.', 'grcmanager')),
+            }) }}
+            {{ fields.dropdownField('User', 'users_id_owner', sheet.users_id_owner|default(0), __('Application owner', 'grcmanager'), {
+               'right': 'all',
+               'entity': entities_id,
+               'rand': 'grcappokowner',
+               'add_field_html': hints.hint(__('Receives the reassessment ticket. Empty: the technical owner of the application.', 'grcmanager')),
+            }) }}
+            {{ fields.textareaField('user_services', sheet.user_services|default(''), __('User departments', 'grcmanager'), {
+               'rows': 2,
+               'add_field_html': hints.hint(__('Departments or teams that use it, for example: Sales, Human resources.', 'grcmanager')),
+            }) }}
+            {{ fields.dateField('date_start', sheet.date_start|default(null), __('Start of use', 'grcmanager')) }}
+            {{ fields.dateField('date_end', sheet.date_end|default(null), __('End of use', 'grcmanager'), {
+               'add_field_html': hints.hint(__('Leave empty while the application is in use.', 'grcmanager')),
+            }) }}
+         </div>
+         <h4 class="mt-2"><i class="ti ti-list-check me-1"></i>{{ __('What is allowed', 'grcmanager') }}</h4>
+         <div class="row">
+            {{ fields.textareaField('allowed_uses', sheet.allowed_uses|default(''), __('Allowed uses', 'grcmanager'), {
+               'rows': 3,
+               'add_field_html': hints.hint(__('For example: sharing files with customers and partners, team chat. Shown to users.', 'grcmanager')),
+            }) }}
+            {{ fields.textareaField('restrictions', sheet.restrictions|default(''), __('Restrictions', 'grcmanager'), {
+               'rows': 3,
+               'add_field_html': hints.hint(__('Only for "Approved with restrictions": what is not allowed, for example no customer personal data, links limited to 30 days. Shown to users.', 'grcmanager')),
+            }) }}
+            {{ fields.dropdownArrayField('max_data_level', sheet.max_data_level|default(''), {'': __('Not specified', 'grcmanager')}|merge(levels), __('Most sensitive data allowed', 'grcmanager'), {
+               'rand': 'grcappoklevel',
+               'add_field_html': hints.hint(__('Same scale as the confidentiality of the C/I/D classification of the plugin.', 'grcmanager')),
+            }) }}
+            {{ fields.dropdownArrayField('waivers', null, waiver_choices, __('Waivers granted', 'grcmanager'), {
+               'multiple': true,
+               'values': waiver_values,
+               'rand': 'grcappokwaivers',
+               'add_field_html': hints.hint(__('Exceptions accepted for this application, from the waiver register.', 'grcmanager')),
+            }) }}
+         </div>
+         <h4 class="mt-2"><i class="ti ti-calendar-repeat me-1"></i>{{ __('Periodic review', 'grcmanager') }}</h4>
+         <div class="row">
+            {{ fields.numberField('review_months', sheet.review_months|default(default_months), __('Review every (months)', 'grcmanager'), {
+               'min': 0,
+               'max': max_months,
+               'add_field_html': hints.hint(__('0: no periodic review. When the review is due, a reassessment ticket is opened for the owner.', 'grcmanager')),
+            }) }}
+            {{ fields.dateField('last_review_date', sheet.last_review_date|default(null), __('Last review', 'grcmanager')) }}
+            <div class="col-md-6 mb-2">
+               <label class="form-check">
+                  <input type="checkbox" class="form-check-input" name="reviewed_today" value="1">
+                  <span class="form-check-label">{{ __('Review done today', 'grcmanager') }}</span>
+               </label>
+            </div>
+            {{ fields.textareaField('comment', sheet.comment|default(''), __('Comment', 'grcmanager'), {'full_width': true, 'rows': 2}) }}
+         </div>
+         <button type="submit" name="save" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
+         {% if has_sheet and sheet.date_mod %}
+            <span class="text-muted small ms-2">{{ __('Last update: %s', 'grcmanager')|format(sheet.date_mod|formatted_datetime) }}</span>
+         {% endif %}
+      </form>
+   {% endif %}
+</div>

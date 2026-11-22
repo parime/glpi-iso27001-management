@@ -1,0 +1,179 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #622 : registre des applications et services en ligne approuvés, indicateurs et rapprochement
+   avec l'inventaire logiciel (lecture seule). #}
+{% set i = indicators %}
+<div class="container-fluid" id="grc-approved-applications">
+   {% if not can_see %}
+      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Requires the right to read the applications of GLPI.', 'grcmanager') }}</div>
+   {% else %}
+   <div class="row row-cards mb-3">
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted"><i class="ti ti-apps me-1"></i>{{ __('Applications in the register', 'grcmanager') }}</div>
+            <div class="h1 mb-0">{{ i.total }}</div>
+            <div class="small text-muted">{{ __('%d online service(s)', 'grcmanager')|format(i.online) }}</div>
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted"><i class="ti ti-circle-check me-1"></i>{{ __('Decisions', 'grcmanager') }}</div>
+            <div class="mt-1" id="grc-aa-decisions">
+               {% for key in ['approved', 'restricted', 'evaluation', 'refused'] %}
+                  {% set b = status_badges[key] %}
+                  <span class="badge {{ b.class }} me-1 mb-1"><i class="ti {{ b.icon }} me-1"></i>{{ b.label }} : {{ i[key] }}</span>
+               {% endfor %}
+            </div>
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted"><i class="ti ti-calendar-repeat me-1"></i>{{ __('Reviews overdue', 'grcmanager') }}</div>
+            <div class="h1 mb-0 {{ i.review_overdue > 0 ? 'text-danger' : 'text-success' }}" id="grc-aa-overdue">{{ i.review_overdue }}</div>
+            {% if i.review_soon > 0 %}<div class="small text-warning">{{ __('%d due within 30 days', 'grcmanager')|format(i.review_soon) }}</div>{% endif %}
+         </div></div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+         <div class="card card-sm"><div class="card-body">
+            <div class="text-muted"><i class="ti ti-alert-triangle me-1"></i>{{ __('Approved applications to complete', 'grcmanager') }}</div>
+            <div class="h1 mb-0 {{ i.with_gaps > 0 ? 'text-warning' : 'text-success' }}" id="grc-aa-gaps">{{ i.with_gaps }}</div>
+            <div class="small text-muted">{{ __('Owner, allowed uses or data level missing', 'grcmanager') }}</div>
+         </div></div>
+      </div>
+   </div>
+
+   <div class="card mb-3">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-cloud-check me-1"></i>{{ __('Register of approved applications and online services', 'grcmanager') }}</h3>
+         <div class="card-actions"><a href="{{ appliances_url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-plus me-1"></i>{{ __('Add an application', 'grcmanager') }}</a></div>
+      </div>
+      {% if rows is empty %}
+         <div class="card-body text-muted">{{ __('No application in the register yet. Open an appliance of GLPI (Assets > Appliances) and fill in its "Approved use" tab.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table table-striped" id="grc-aa-register">
+               <thead>
+                  <tr>
+                     <th>{{ __('Application', 'grcmanager') }}</th>
+                     <th>{{ __('Status', 'grcmanager') }}</th>
+                     <th>{{ __('Hosting', 'grcmanager') }}</th>
+                     <th>{{ __('Supplier') }}</th>
+                     <th>{{ __('Application owner', 'grcmanager') }}</th>
+                     <th>{{ __('Allowed uses', 'grcmanager') }}</th>
+                     <th>{{ __('Most sensitive data allowed', 'grcmanager') }}</th>
+                     <th>{{ __('Next review', 'grcmanager') }}</th>
+                     <th>{{ __('Points to check', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row in rows %}
+                     {% set b = status_badges[row.status] %}
+                     {% set r = review_badges[row.review_state] %}
+                     <tr>
+                        <td><a href="{{ row.url }}">{{ row.name }}</a>{% if row.entity %}<div class="small text-muted">{{ row.entity }}</div>{% endif %}</td>
+                        <td><span class="badge {{ b.class }}"><i class="ti {{ b.icon }} me-1"></i>{{ b.label }}</span>{% if row.ended %} <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Use ended', 'grcmanager') }}</span>{% endif %}</td>
+                        <td>
+                           {% if row.hosting == 'online' %}<i class="ti ti-cloud me-1"></i>{% elseif row.hosting == 'onpremise' %}<i class="ti ti-server me-1"></i>{% endif %}{{ hostings[row.hosting]|default('-') }}
+                        </td>
+                        <td>{{ row.supplier ?: '-' }}</td>
+                        <td>{{ row.owner ?: '-' }}</td>
+                        <td>{{ row.allowed_uses|default('-')|u.truncate(120, '…')|nl2br }}{% if row.restrictions %}<div class="small text-warning-emphasis"><i class="ti ti-alert-circle me-1"></i>{{ row.restrictions|u.truncate(120, '…') }}</div>{% endif %}</td>
+                        <td>{{ levels[row.level]|default('-') }}</td>
+                        <td><span class="badge {{ r.class }}"><i class="ti {{ r.icon }} me-1"></i>{{ row.next_review ?: r.label }}</span></td>
+                        <td>
+                           {% for gap in row.gaps %}<span class="badge bg-warning-subtle text-warning-emphasis me-1 mb-1">{{ gap_labels[gap] }}</span>{% endfor %}
+                           {% if row.level_exceeded %}<span class="badge bg-danger-subtle text-danger-emphasis me-1 mb-1"><i class="ti ti-lock-exclamation me-1"></i>{{ __('Classification above the allowed level', 'grcmanager') }}</span>{% endif %}
+                           {% if row.waivers > 0 %}<span class="badge bg-purple-subtle text-purple-emphasis me-1 mb-1"><i class="ti ti-file-alert me-1"></i>{{ _n('%d waiver', '%d waivers', row.waivers, 'grcmanager')|format(row.waivers) }}</span>{% endif %}
+                           {% if row.gaps is empty and not row.level_exceeded and row.waivers == 0 %}<span class="text-muted">-</span>{% endif %}
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   <div class="card mb-3" id="grc-aa-inventory">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-radar me-1"></i>{{ __('Comparison with the software inventory', 'grcmanager') }}</h3>
+      </div>
+      {% if not inventory.available %}
+         <div class="card-body text-muted">{{ __('Requires the right to read the software of GLPI.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="card-body">
+            <p class="text-muted mb-2"><i class="ti ti-info-circle me-1"></i>{{ __('Software found by the GLPI inventory, matched with the register through the linked software or the name of the application. Nothing is uninstalled or changed: open a ticket if action is needed.', 'grcmanager') }}</p>
+            <h4><i class="ti ti-ban me-1"></i>{{ __('Installed software that is refused or not yet approved', 'grcmanager') }}</h4>
+            {% if inventory.not_approved is empty %}
+               <p><span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('None found', 'grcmanager') }}</span></p>
+            {% else %}
+               <div class="table-responsive mb-3">
+                  <table class="table table-sm table-vcenter" id="grc-aa-not-approved">
+                     <thead><tr>
+                        <th>{{ __('Software', 'grcmanager') }}</th>
+                        <th>{{ __('Installations', 'grcmanager') }}</th>
+                        <th>{{ __('Application', 'grcmanager') }}</th>
+                        <th>{{ __('Status', 'grcmanager') }}</th>
+                     </tr></thead>
+                     <tbody>
+                        {% for line in inventory.not_approved %}
+                           {% set b = status_badges[line.status] %}
+                           <tr>
+                              <td><a href="{{ line.url }}">{{ line.name }}</a></td>
+                              <td>{{ line.installs }}</td>
+                              <td><a href="{{ line.app_url }}">{{ line.application }}</a>{% if line.by_name %} <span class="small text-muted">({{ __('matched by name', 'grcmanager') }})</span>{% endif %}</td>
+                              <td><span class="badge {{ b.class }}"><i class="ti {{ b.icon }} me-1"></i>{{ b.label }}</span></td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+            {% endif %}
+
+            <h4 class="mt-3"><i class="ti ti-question-mark me-1"></i>{{ __('Installed software not in the register', 'grcmanager') }}</h4>
+            {% import 'components/form/fields_macros.html.twig' as fields %}
+            <form method="get" action="{{ page_url }}" class="row align-items-end mb-2">
+               {{ fields.dropdownField('SoftwareCategory', 'softwarecategories_id', category_id, __('Software category', 'grcmanager'), {
+                  'rand': 'grcaacategory',
+                  'field_class': 'col-md-6',
+               }) }}
+               <div class="col-auto mb-2"><button type="submit" class="btn btn-sm btn-outline-secondary"><i class="ti ti-filter me-1"></i>{{ __('Filter', 'grcmanager') }}</button></div>
+            </form>
+            {% if inventory.unlisted is empty %}
+               <p><span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('None found', 'grcmanager') }}</span></p>
+            {% else %}
+               <p class="small text-muted">{{ __('%1$d software not in the register; the %2$d most installed are shown. Choose a software category (for example online services) to narrow the list.', 'grcmanager')|format(inventory.unlisted_total, unlisted_limit) }}</p>
+               <div class="table-responsive">
+                  <table class="table table-sm table-vcenter" id="grc-aa-unlisted">
+                     <thead><tr>
+                        <th>{{ __('Software', 'grcmanager') }}</th>
+                        <th>{{ __('Installations', 'grcmanager') }}</th>
+                     </tr></thead>
+                     <tbody>
+                        {% for line in inventory.unlisted %}
+                           <tr>
+                              <td><a href="{{ line.url }}">{{ line.name }}</a> <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Not in the register', 'grcmanager') }}</span></td>
+                              <td>{{ line.installs }}</td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+            {% endif %}
+         </div>
+      {% endif %}
+   </div>
+   {% endif %}
+</div>

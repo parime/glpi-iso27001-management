@@ -1,0 +1,72 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #622 : liste des applications autorisées, en lecture seule pour tous les utilisateurs
+   (onglet des préférences), même sans droit sur le plugin. #}
+<div class="container-fluid" id="grc-authorised-applications">
+   <div class="alert alert-info">
+      <i class="ti ti-info-circle me-1"></i>{{ __('Applications and online services you may use for your work, with what they may be used for and the most sensitive data you may put in them. For any other application, ask the IT department before using it.', 'grcmanager') }}
+   </div>
+
+   <div class="card mb-3">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-cloud-check me-1"></i>{{ __('Authorised applications', 'grcmanager') }}</h3></div>
+      {% if allowed is empty %}
+         <div class="card-body text-muted">{{ __('No application has been published yet.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table" id="grc-aa-allowed">
+               <thead><tr>
+                  <th>{{ __('Application', 'grcmanager') }}</th>
+                  <th>{{ __('Allowed uses', 'grcmanager') }}</th>
+                  <th>{{ __('Most sensitive data allowed', 'grcmanager') }}</th>
+                  <th>{{ __('Hosting', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+                  {% for app in allowed %}
+                     {% set b = status_badges[app.status] %}
+                     <tr>
+                        <td><strong>{{ app.name }}</strong>{% if app.supplier %}<div class="small text-muted">{{ app.supplier }}</div>{% endif %}<div><span class="badge {{ b.class }}"><i class="ti {{ b.icon }} me-1"></i>{{ b.label }}</span></div></td>
+                        <td>
+                           {{ app.allowed_uses|default('-')|nl2br }}
+                           {% if app.restrictions %}<div class="mt-1 text-warning-emphasis"><i class="ti ti-alert-circle me-1"></i><strong>{{ __('Restrictions', 'grcmanager') }} :</strong> {{ app.restrictions|nl2br }}</div>{% endif %}
+                        </td>
+                        <td>{{ levels[app.level]|default('-') }}</td>
+                        <td>{{ hostings[app.hosting]|default('-') }}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   {% if refused is not empty %}
+      <div class="card mb-3">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-ban me-1"></i>{{ __('Applications not to use', 'grcmanager') }}</h3></div>
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table" id="grc-aa-refused">
+               <tbody>
+                  {% for app in refused %}
+                     <tr>
+                        <td><strong>{{ app.name }}</strong>{% if app.supplier %} <span class="small text-muted">{{ app.supplier }}</span>{% endif %}</td>
+                        <td><span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-ban me-1"></i>{{ status_badges['refused'].label }}</span></td>
+                        <td class="text-muted">{{ app.allowed_uses|nl2br }}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+</div>

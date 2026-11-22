@@ -246,6 +246,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ProductSbom::class, ['addtabon' => [Appliance::class]]);
     // Issue #858 : onglet « Sécurité du code » des applications (alertes GitHub et GitLab, lecture seule).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CodeSecurity::class, ['addtabon' => [Appliance::class]]);
+    // Issue #622 : onglet « Usage autorisé » des applications, et « Applications autorisées » des préférences.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ApprovedApplication::class, [
+        'addtabon' => [Appliance::class, Preference::class],
+    ]);
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ReleaseValidation::class, ['addtabon' => [Change::class]]);
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
