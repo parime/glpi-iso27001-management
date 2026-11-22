@@ -40,15 +40,20 @@ $result = AuditDuplication::duplicate($source, [
 ]);
 if ($result['id'] <= 0) {
     Html::back();
+    return;
 }
 
-Session::addMessageAfterRedirect(__('The audit of the next cycle has been prepared: check its dates and people.', 'grcmanager'));
+Session::addMessageAfterRedirect(
+    __('The audit of the next cycle has been prepared: check its dates and people.', 'grcmanager')
+);
 if ($result['dropped'] > 0) {
     Session::addMessageAfterRedirect(
         sprintf(
             _n(
-                '%d person was not copied (account disabled or without a profile in the entity of the audit): choose someone else.',
-                '%d people were not copied (account disabled or without a profile in the entity of the audit): choose someone else.',
+                '%d person was not copied (account disabled or without a profile in the entity of the audit): '
+                    . 'choose someone else.',
+                '%d people were not copied (account disabled or without a profile in the entity of the audit): '
+                    . 'choose someone else.',
                 $result['dropped'],
                 'grcmanager'
             ),

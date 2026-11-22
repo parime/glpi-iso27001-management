@@ -136,7 +136,13 @@ final class AuditDuplicationTest extends GrcmanagerIntegrationTestCase
         ], ['id' => $id]);
         $audit->getFromDB($id);
 
-        return ['audit' => $audit, 'controlId' => $controlId, 'processId' => $processId, 'assignee' => $assignee, 'gone' => $gone];
+        return [
+            'audit'     => $audit,
+            'controlId' => $controlId,
+            'processId' => $processId,
+            'assignee'  => $assignee,
+            'gone'      => $gone,
+        ];
     }
 
     public function testNextCycleCopiesThePreparationAndStartsFromScratch(): void
@@ -250,7 +256,8 @@ final class AuditDuplicationTest extends GrcmanagerIntegrationTestCase
         $copy->getFromDB($result['id']);
         $this->assertSame('internal', $copy->fields['audit_type']);
 
-        $this->assertSame(0, AuditDuplication::duplicate($source, ['title' => '', 'planned_date' => '2027-01-10'])['id']);
+        $noTitle = AuditDuplication::duplicate($source, ['title' => '', 'planned_date' => '2027-01-10']);
+        $this->assertSame(0, $noTitle['id']);
         $this->assertSame(0, AuditDuplication::duplicate($source, ['title' => 'X', 'planned_date' => 'demain'])['id']);
     }
 
