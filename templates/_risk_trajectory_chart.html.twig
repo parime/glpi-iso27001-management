@@ -1,0 +1,57 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #871 : graphique de la trajectoire (prévue en escalier, réelle jusqu'à aujourd'hui), avec
+   echarts fourni par GLPI, comme la tendance mensuelle de la vérification de cohérence.
+   Variables : chart_id, chart (voir RiskTrajectory::chartData()), height. #}
+<div id="{{ chart_id }}" class="grc-risk-trajectory-chart" style="height: {{ height|default(260) }}px;"
+     data-chart="{{ chart|json_encode }}"></div>
+<script>
+   (function () {
+      const node = document.getElementById('{{ chart_id }}');
+      if (!node) {
+         return;
+      }
+      const draw = function () {
+         const data = JSON.parse(node.dataset.chart);
+         window.echarts.init(node).setOption({
+            grid: {left: 50, right: 30, top: 30, bottom: 60},
+            legend: {bottom: 0, data: [data.planned_label, data.actual_label]},
+            tooltip: {trigger: 'axis'},
+            xAxis: {type: 'time'},
+            yAxis: {type: 'value', min: 0, name: data.score_label, nameLocation: 'end', nameTextStyle: {align: 'left'}},
+            series: [
+               {
+                  name: data.planned_label, type: 'line', step: 'end', symbolSize: 6,
+                  lineStyle: {type: 'dashed', width: 2}, itemStyle: {color: '#206bc4'}, data: data.planned,
+                  markLine: {symbol: 'none', silent: true, lineStyle: {color: '#667382'},
+                     label: {formatter: data.today_label}, data: [{xAxis: data.today}]}
+               },
+               {
+                  name: data.actual_label, type: 'line', step: 'end', symbolSize: 6,
+                  lineStyle: {width: 3}, itemStyle: {color: '#d63939'}, areaStyle: {opacity: 0.08}, data: data.actual
+               }
+            ]
+         });
+      };
+      if (typeof window.echarts === 'undefined') {
+         const script = document.createElement('script');
+         script.src = '{{ config('root_doc') }}/lib/echarts.min.js';
+         script.onload = draw;
+         document.head.appendChild(script);
+      } else {
+         draw();
+      }
+   })();
+</script>
