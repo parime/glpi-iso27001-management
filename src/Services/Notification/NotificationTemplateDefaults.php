@@ -542,8 +542,7 @@ final class NotificationTemplateDefaults
             // Issue #877 : récapitulatif de ce qui attend la personne (« Mon espace GRC »), adressé à elle seule.
             'personal_digest' => [
                 PersonalDigest::class, PersonalDigest::EVENT, 'Your GRC summary',
-                'Sent by the "personaldigest" automatic task to each person, at the frequency they chose in My GRC '
-                    . 'space.',
+                '',
                 [NotificationTargetPersonalDigest::TARGET_PERSON],
                 'Votre récapitulatif GRC', '',
             ],
@@ -1118,9 +1117,7 @@ final class NotificationTemplateDefaults
                     . $head('##digestitem.type##', '##digestitem.name##') . " ##digestitem.detail##\n"
                     . "##digestitem.url##\n\n##ENDFOREACHdigestitems##"
                     . "##personaldigest.more##\n\n"
-                    . $t('This summary lists what is waiting for you in GRC Manager, the most urgent first. It only '
-                        . 'shows what you are allowed to see. Nothing is changed automatically.') . "\n\n"
-                    . $t('To receive it every day, every week or not at all, open My GRC space.') . "\n"
+                    . "##personaldigest.explanation##\n\n##personaldigest.howtochange##\n"
                     . $line('My GRC space', '##personaldigest.url##'));
         }
 

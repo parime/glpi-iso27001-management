@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "%d more items in My GRC space."
+msgstr "Kolejne elementy (%d) w Moja przestrzeń GRC."
+
+msgid "(%s)"
+msgstr "(%s)"
+
+msgid "Choose how often you want to receive your summary."
+msgstr "Wybierz, jak często chcesz otrzymywać podsumowanie."
+
+msgid "Delay"
+msgstr "Opóźnienie"
+
+msgid "GRC summary by email"
+msgstr "Podsumowanie GRC e-mailem"
+
+msgid "How to change the frequency"
+msgstr "Jak zmienić częstotliwość"
+
+msgid "Instead of waiting for separate notifications, you can receive one email that lists everything shown on this page. It is only sent when something is waiting for you, it only lists what you are allowed to see, and it is written in your language."
+msgstr "Zamiast osobnych powiadomień możesz otrzymywać jeden e-mail z wszystkim, co pokazuje ta strona. Jest wysyłany tylko wtedy, gdy coś na Ciebie czeka, pokazuje tylko to, co możesz zobaczyć, i jest napisany w Twoim języku."
+
+msgid "Items not listed"
+msgstr "Elementy niewymienione"
+
+msgid "Last summary sent: %s"
+msgstr "Ostatnie wysłane podsumowanie: %s"
+
+msgid "My GRC space page URL"
+msgstr "Adres strony Moja przestrzeń GRC"
+
+msgid "No summary"
+msgstr "Bez podsumowania"
+
+msgid "No summary (only the usual notifications, as they happen)"
+msgstr "Bez podsumowania (tylko zwykłe powiadomienia, na bieżąco)"
+
+msgid "No summary has been sent to you yet."
+msgstr "Nie wysłano Ci jeszcze żadnego podsumowania."
+
+msgid "Nothing is waiting for you: no email has been sent."
+msgstr "Nic na Ciebie nie czeka: nie wysłano żadnego e-maila."
+
+msgid "Overdue items"
+msgstr "Elementy po terminie"
+
+msgid "Person to whom the summary is addressed"
+msgstr "Osoba, do której jest skierowane podsumowanie"
+
+msgid "Receive my summary"
+msgstr "Otrzymuj moje podsumowanie"
+
+msgid "Send me my summary now"
+msgstr "Wyślij mi teraz podsumowanie"
+
+msgid "Summaries are not sent on this GLPI yet: ask your GLPI administrator to enable the \"personaldigest\" automatic task and email notifications. Your choice is kept in the meantime."
+msgstr "Podsumowania nie są jeszcze wysyłane w tym GLPI: poproś administratora GLPI o włączenie akcji automatycznej „personaldigest” i powiadomień e-mail. Twój wybór zostanie zachowany do tego czasu."
+
+msgid "Summary by email"
+msgstr "Podsumowanie e-mailem"
+
+msgid "Summary by email of what is waiting for each person"
+msgstr "Podsumowanie e-mailem tego, co czeka na każdą osobę"
+
+msgid "This summary lists what is waiting for you in GRC Manager, the most urgent first. It only shows what you are allowed to see. Nothing is changed automatically."
+msgstr "To podsumowanie zawiera to, co czeka na Ciebie w GRC Manager, od najpilniejszych. Pokazuje tylko to, co możesz zobaczyć. Nic nie jest zmieniane automatycznie."
+
+msgid "To receive it every day, every week or not at all, open My GRC space."
+msgstr "Aby otrzymywać je codziennie, co tydzień lub wcale, otwórz Moja przestrzeń GRC."
+
+msgid "What this summary contains"
+msgstr "Co zawiera to podsumowanie"
+
+msgid "Your GRC summary"
+msgstr "Twoje podsumowanie GRC"
+
+msgid "Your choice has been saved."
+msgstr "Twój wybór został zapisany."
+
+msgid "Your daily GRC summary"
+msgstr "Twoje dzienne podsumowanie GRC"
+
+msgid "Your summary could not be sent: check that you have an email address, or ask your GLPI administrator."
+msgstr "Nie udało się wysłać podsumowania: sprawdź, czy masz adres e-mail, lub zapytaj administratora GLPI."
+
+msgid "Your summary has been sent to your email address."
+msgstr "Podsumowanie zostało wysłane na Twój adres e-mail."
+
+msgid "Your weekly GRC summary"
+msgstr "Twoje tygodniowe podsumowanie GRC"
+
+msgid "%d item is waiting for you"
+msgid_plural "%d items are waiting for you"
+msgstr[0] "%d element czeka na Ciebie"
+msgstr[1] "%d elementy czekają na Ciebie"
+msgstr[2] "%d elementów czeka na Ciebie"

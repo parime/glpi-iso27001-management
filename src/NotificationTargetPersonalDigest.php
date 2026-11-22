@@ -138,6 +138,15 @@ class NotificationTargetPersonalDigest extends NotificationTarget
             $total - Rules::MAX_LISTED
         ) : '';
         $this->data['##personaldigest.url##'] = Rules::absoluteUrl(MySpace::getSearchURL(), $rootDoc, $urlBase);
+        $this->data['##personaldigest.explanation##'] = __(
+            'This summary lists what is waiting for you in GRC Manager, the most urgent first. It only shows what '
+                . 'you are allowed to see. Nothing is changed automatically.',
+            'grcmanager'
+        );
+        $this->data['##personaldigest.howtochange##'] = __(
+            'To receive it every day, every week or not at all, open My GRC space.',
+            'grcmanager'
+        );
 
         $sources = MySpace::getSources();
         $lines = [];
@@ -179,6 +188,8 @@ class NotificationTargetPersonalDigest extends NotificationTarget
             'personaldigest.overdue'  => __('Overdue items', 'grcmanager'),
             'personaldigest.more'     => __('Items not listed', 'grcmanager'),
             'personaldigest.url'      => __('My GRC space page URL', 'grcmanager'),
+            'personaldigest.explanation' => __('What this summary contains', 'grcmanager'),
+            'personaldigest.howtochange' => __('How to change the frequency', 'grcmanager'),
             'digestitem.type'         => __('Type', 'grcmanager'),
             'digestitem.name'         => __('Item', 'grcmanager'),
             'digestitem.detail'       => __('Details', 'grcmanager'),

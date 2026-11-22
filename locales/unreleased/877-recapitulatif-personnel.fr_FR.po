@@ -1,0 +1,99 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "%d more items in My GRC space."
+msgstr "%d autres éléments dans Mon espace GRC."
+
+msgid "(%s)"
+msgstr "(%s)"
+
+msgid "Choose how often you want to receive your summary."
+msgstr "Choisissez à quelle fréquence recevoir votre récapitulatif."
+
+msgid "Delay"
+msgstr "Retard"
+
+msgid "GRC summary by email"
+msgstr "Récapitulatif GRC par e-mail"
+
+msgid "How to change the frequency"
+msgstr "Comment changer la fréquence"
+
+msgid "Instead of waiting for separate notifications, you can receive one email that lists everything shown on this page. It is only sent when something is waiting for you, it only lists what you are allowed to see, and it is written in your language."
+msgstr "Plutôt que des notifications séparées, vous pouvez recevoir un seul e-mail qui reprend tout ce qu'affiche cette page. Il n'est envoyé que si quelque chose vous attend, ne montre que ce que vous avez le droit de voir, et il est écrit dans votre langue."
+
+msgid "Items not listed"
+msgstr "Éléments non listés"
+
+msgid "Last summary sent: %s"
+msgstr "Dernier récapitulatif envoyé : %s"
+
+msgid "My GRC space page URL"
+msgstr "Adresse de la page Mon espace GRC"
+
+msgid "No summary"
+msgstr "Pas de récapitulatif"
+
+msgid "No summary (only the usual notifications, as they happen)"
+msgstr "Pas de récapitulatif (seulement les notifications habituelles, au fil de l'eau)"
+
+msgid "No summary has been sent to you yet."
+msgstr "Aucun récapitulatif ne vous a encore été envoyé."
+
+msgid "Nothing is waiting for you: no email has been sent."
+msgstr "Rien ne vous attend : aucun e-mail n'a été envoyé."
+
+msgid "Overdue items"
+msgstr "Éléments en retard"
+
+msgid "Person to whom the summary is addressed"
+msgstr "Personne à qui le récapitulatif est destiné"
+
+msgid "Receive my summary"
+msgstr "Recevoir mon récapitulatif"
+
+msgid "Send me my summary now"
+msgstr "M'envoyer mon récapitulatif maintenant"
+
+msgid "Summaries are not sent on this GLPI yet: ask your GLPI administrator to enable the \"personaldigest\" automatic task and email notifications. Your choice is kept in the meantime."
+msgstr "Les récapitulatifs ne sont pas encore envoyés sur ce GLPI : demandez à votre administrateur GLPI d'activer la tâche automatique « personaldigest » et les notifications par e-mail. Votre choix est conservé en attendant."
+
+msgid "Summary by email"
+msgstr "Récapitulatif par e-mail"
+
+msgid "Summary by email of what is waiting for each person"
+msgstr "Récapitulatif par e-mail de ce qui attend chaque personne"
+
+msgid "This summary lists what is waiting for you in GRC Manager, the most urgent first. It only shows what you are allowed to see. Nothing is changed automatically."
+msgstr "Ce récapitulatif liste ce qui vous attend dans GRC Manager, le plus urgent d'abord. Il ne montre que ce que vous avez le droit de voir. Rien n'est modifié automatiquement."
+
+msgid "To receive it every day, every week or not at all, open My GRC space."
+msgstr "Pour le recevoir chaque jour, chaque semaine ou plus du tout, ouvrez Mon espace GRC."
+
+msgid "What this summary contains"
+msgstr "Ce que contient ce récapitulatif"
+
+msgid "Your GRC summary"
+msgstr "Votre récapitulatif GRC"
+
+msgid "Your choice has been saved."
+msgstr "Votre choix a été enregistré."
+
+msgid "Your daily GRC summary"
+msgstr "Votre récapitulatif GRC du jour"
+
+msgid "Your summary could not be sent: check that you have an email address, or ask your GLPI administrator."
+msgstr "Votre récapitulatif n'a pas pu être envoyé : vérifiez que vous avez une adresse e-mail, ou demandez à votre administrateur GLPI."
+
+msgid "Your summary has been sent to your email address."
+msgstr "Votre récapitulatif a été envoyé à votre adresse e-mail."
+
+msgid "Your weekly GRC summary"
+msgstr "Votre récapitulatif GRC de la semaine"
+
+msgid "%d item is waiting for you"
+msgid_plural "%d items are waiting for you"
+msgstr[0] "%d élément vous attend"
+msgstr[1] "%d éléments vous attendent"
