@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\AuditLog;
-use GlpiPlugin\Grcmanager\Services\Monitoring\ZabbixConfig;
 use GlpiPlugin\Grcmanager\ZabbixMonitoring;
 
 // Issue #836 : supervision lue dans Zabbix (A.8.16, A.8.6, A.5.30). Droit du plugin et lecture native
@@ -28,51 +26,9 @@ $back = static function (string $anchor): void {
     Html::redirect(ZabbixMonitoring::getSearchURL() . '#' . $anchor);
 };
 
-// Connexion : adresse, jeton (chiffré, jamais réaffiché), entité des lectures, tâche automatique.
-if (isset($_POST['save_zabbix'])) {
-    Session::checkRight(ZabbixMonitoring::RIGHTNAME, UPDATE);
-    $entity = (int) ($_POST['zabbix_entities_id'] ?? ZabbixConfig::entity());
-    if (!Session::haveAccessToEntity($entity)) {
-        $entity = (int) Session::getActiveEntity();
-    }
-    $saved = ZabbixConfig::save(
-        (string) ($_POST['zabbix_url'] ?? ''),
-        (string) ($_POST['zabbix_api_token'] ?? ''),
-        !empty($_POST['zabbix_clear_token']),
-        $entity,
-        !empty($_POST['zabbix_enabled'])
-    );
-    if (!$saved['saved']) {
-        Session::addMessageAfterRedirect(htmlescape(__(
-            'Not saved: the address must start with https:// (or http:// when internal addresses are allowed), '
-                . 'without user name, password or parameters.',
-            'grcmanager'
-        )), false, ERROR);
-    } else {
-        if ($saved['changes'] !== []) {
-            AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $saved['changes']]);
-        }
-        ZabbixMonitoring::syncCronState(ZabbixConfig::isEnabled());
-        Session::addMessageAfterRedirect(htmlescape(__('Zabbix settings saved.', 'grcmanager')));
-    }
-    $back('grc-zabbix-connection');
-}
-
-// Actifs concernés et période des problèmes.
-if (isset($_POST['save_zabbix_settings'])) {
-    Session::checkRight(ZabbixMonitoring::RIGHTNAME, UPDATE);
-    $before = ZabbixConfig::settings();
-    $after = ZabbixConfig::saveSettings([
-        'scope'       => $_POST['zabbix_scope'] ?? '',
-        'period_days' => $_POST['zabbix_period_days'] ?? '',
-    ]);
-    if ($after !== $before) {
-        AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => ['zabbix_settings' => $after]]);
-    }
-    ZabbixMonitoring::reset();
-    Session::addMessageAfterRedirect(htmlescape(__('Settings saved.', 'grcmanager')));
-    $back('grc-zabbix-settings');
-}
+// Issue #1042 : la connexion et les actifs à superviser se règlent dans la configuration (onglet
+// Connecteurs). L'ancien envoi de cette page reste accepté pendant une version et y mène.
+\GlpiPlugin\Grcmanager\Config\Block\ZabbixConnectorBlock::handleLegacyPost();
 
 if (isset($_POST['read_zabbix'])) {
     Session::checkRight(ZabbixMonitoring::RIGHTNAME, UPDATE);

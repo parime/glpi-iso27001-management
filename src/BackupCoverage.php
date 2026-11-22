@@ -564,6 +564,15 @@ class BackupCoverage extends CommonGLPI
     }
 
     /**
+     * Date de la dernière lecture de Veeam dans les entités de la session (vide si aucune), montrée
+     * dans le bloc du connecteur de la configuration (issue #1042).
+     */
+    public static function lastVeeamRead(): string
+    {
+        return (string) (self::data()['sources']['veeam']['date_import'] ?? '');
+    }
+
+    /**
      * Travaux de sauvegarde lus dans Veeam (entités de la session), en échec d'abord.
      *
      * @return list<array<string, mixed>>
