@@ -51,6 +51,7 @@ final class ServerHealthTest extends GrcmanagerIntegrationTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        require_once dirname(__DIR__) . '/Unit/Services/ServerManagement/RedfishClientTest.php';
         require_once dirname(__DIR__) . '/Unit/Services/ServerManagement/RedfishHealthReaderTest.php';
         ServerManagement::reset();
         $this->savedSession = [

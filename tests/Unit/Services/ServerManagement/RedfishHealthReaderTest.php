@@ -24,8 +24,6 @@ use GlpiPlugin\Grcmanager\Services\ServerManagement\RedfishClient;
 use GlpiPlugin\Grcmanager\Services\ServerManagement\RedfishHealthReader as Reader;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/RedfishClientTest.php';
-
 /**
  * Issue #843, lot 3 : santé détaillée et journal lus dans le faux iLO (en mémoire, aucun appel réseau).
  */
@@ -35,6 +33,11 @@ final class RedfishHealthReaderTest extends TestCase
 
     /** @var list<string> */
     private array $urls = [];
+
+    public static function setUpBeforeClass(): void
+    {
+        require_once __DIR__ . '/RedfishClientTest.php';
+    }
 
     /**
      * Faux iLO du lot 1, avec un châssis (deux ventilateurs dont un emplacement vide, une température
