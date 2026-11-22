@@ -339,6 +339,10 @@ class DiskEncryption extends CommonGLPI
             'thresholds'      => self::confidentialityLabels(),
             'type_names'      => array_map(static fn (int $id): string => self::typeName($id), $rule['types']),
             'can_manage'      => self::canManage(),
+            // Issue #1044 : la règle se modifie dans l'onglet Parc de la configuration du plugin.
+            'settings_url'    => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                \GlpiPlugin\Grcmanager\Config\Block\DiskEncryptionBlock::ANCHOR
+            ),
             'action'          => self::getSearchURL(),
             'audit_url'       => ComplianceAudit::getSearchURL(),
             'computer_url'    => Computer::getSearchURL(),

@@ -1021,6 +1021,10 @@ class LogCoverage extends CommonGLPI
             'scopes'           => self::scopeLabels(),
             'wazuh_available'  => WazuhEvidenceProvider::isAvailable(),
             'can_manage'       => self::canManage(),
+            // Issue #1044 : les réglages se modifient dans l'onglet Parc de la configuration du plugin.
+            'settings_url'     => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                \GlpiPlugin\Grcmanager\Config\Block\LogCoverageBlock::ANCHOR
+            ),
             'active_entity'    => (int) Session::getActiveEntity(),
             'action'           => self::getSearchURL(),
             'obligations'      => self::obligationChoices(),

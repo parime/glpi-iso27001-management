@@ -394,6 +394,13 @@ class SoftwareLicenseCompliance extends CommonGLPI
             'export_url'    => self::getExportURL(),
             'action'        => self::getSearchURL(),
             'can_config'    => self::canConfigure(),
+            // Issue #1044 : les listes se modifient dans l'onglet Parc de la configuration du plugin,
+            // ouverte à qui lit la configuration du plugin.
+            'settings_url'  => Session::haveRight(Install\Installer::RIGHT_NAME, READ)
+                ? \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                    \GlpiPlugin\Grcmanager\Config\Block\LicenseWatchBlock::ANCHOR
+                )
+                : '',
             'publishers'    => implode("\n", $settings['publishers']),
             'ignored'       => implode("\n", $settings['ignored']),
             'publisher_list' => $settings['publishers'],

@@ -15,7 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Services\License\LicenseInventory;
 use GlpiPlugin\Grcmanager\SoftwareLicenseCompliance;
 
 // Issue #779 : conformité des licences logicielles (A.5.32). Droit des registres sensibles du plugin
@@ -24,34 +23,10 @@ Session::checkRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, READ);
 Session::checkRight(Software::$rightname, READ);
 Session::checkRight(SoftwareLicense::$rightname, READ);
 
-// Éditeurs surveillés, logiciels ignorés et horizon d'alerte avant l'échéance des licences : réglage
-// du plugin (jeton CSRF vérifié par GLPI).
+// Issue #1044 : ce réglage est dans l'onglet Parc de la configuration du plugin. L'ancien envoi
+// reste accepté pendant une version : enregistré, puis renvoi sur l'onglet avec un message.
 if (isset($_POST['save_license_watch']) || isset($_POST['reset_license_watch'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
-    $before = LicenseInventory::settings();
-    if (isset($_POST['reset_license_watch'])) {
-        LicenseInventory::reset();
-    } else {
-        LicenseInventory::save(
-            (string) ($_POST['license_publishers'] ?? ''),
-            (string) ($_POST['license_ignored'] ?? ''),
-            isset($_POST['license_expiring_days'])
-                ? (int) $_POST['license_expiring_days']
-                : \GlpiPlugin\Grcmanager\Services\License\LicenseComplianceRules::DEFAULT_EXPIRING_DAYS
-        );
-    }
-    if (LicenseInventory::settings() !== $before) {
-        \GlpiPlugin\Grcmanager\AuditLog::record(
-            'config_change',
-            'Config',
-            0,
-            0,
-            'success',
-            ['changes' => ['license_watch' => LicenseInventory::settings()]]
-        );
-    }
-    Session::addMessageAfterRedirect(htmlescape(__('Watched publishers saved.', 'grcmanager')));
-    Html::redirect(SoftwareLicenseCompliance::getSearchURL() . '#grc-license-watch');
+    \GlpiPlugin\Grcmanager\Config\Block\LicenseWatchBlock::handle(true);
 }
 
 Html::header(
