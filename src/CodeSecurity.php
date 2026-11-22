@@ -668,6 +668,8 @@ class CodeSecurity extends CommonGLPI
             ? (string) Html::convDate((string) $alert['date_detected']) : '';
         $alert['due_label'] = (string) Html::convDate((string) $alert['due']);
         $alert['application_url'] = Appliance::getFormURLWithID((int) $alert['appliances_id']);
+        // Lien vers l'alerte : seulement une adresse web (vérifiée aussi à la lecture).
+        $alert['url'] = Rules::webUrl((string) $alert['url']);
         $detail = (string) $alert['detail'];
         $alert['detail_label'] = match ($detail) {
             'push_protection_bypassed' => __('Push protection was bypassed', 'grcmanager'),
