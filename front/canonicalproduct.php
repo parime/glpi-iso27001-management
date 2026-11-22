@@ -33,7 +33,7 @@ Session::checkRight(\GlpiPlugin\Grcmanager\CanonicalProduct::$rightname, READ);
 // docblock for the full rationale.
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\CanonicalProduct::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\CanonicalProduct::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\CanonicalProduct::class]

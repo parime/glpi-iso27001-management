@@ -43,7 +43,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\ComplianceEvent::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\ComplianceEvent::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\ComplianceEvent::class]

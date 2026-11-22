@@ -35,7 +35,7 @@ Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, READ);
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\NetworkFlow::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\NetworkFlow::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\NetworkFlow::class]

@@ -57,7 +57,7 @@ if (($_GET['export'] ?? '') === 'csv') {
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\BusinessProcess::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\BusinessProcess::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\BusinessProcess::class]

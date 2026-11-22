@@ -1,0 +1,25 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1093 : même enveloppe que SearchEngine::show() autour de Search::showList(), voir Services/Ui/SearchPage.php #}
+<div class="search_page row" data-testid="search-page">
+  {{ include('layout/parts/saved_searches.html.twig', {itemtype: itemtype}) }}
+  <div class="col search-container" data-glpi-search-container data-testid="search-container" tabindex="-1">
+    {% do call('Glpi\\Search\\Output\\HTMLSearchOutput::showPreSearchDisplay', [itemtype]) %}
+    {% if user_pref('show_search_form') %}
+      {% do call('Glpi\\Search\\Input\\QueryBuilder::showGenericSearch', [itemtype, params]) %}
+    {% endif %}
+    {% do call('Search::showList', [itemtype, params, forcedisplay]) %}
+  </div>
+</div>

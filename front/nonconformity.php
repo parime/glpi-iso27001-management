@@ -49,7 +49,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
 // Same URL-driven search fix as front/risk.php/front/control.php/front/audit.php.
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Nonconformity::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\Nonconformity::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Nonconformity::class]

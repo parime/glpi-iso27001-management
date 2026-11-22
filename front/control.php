@@ -60,7 +60,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/control_list_header.html.t
 // see that file's own docblock for the full rationale.
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Control::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\Control::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Control::class]
