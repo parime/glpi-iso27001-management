@@ -53,7 +53,10 @@ if (isset($_POST['add'])) {
 } elseif (isset($_POST['submit_approval'])) {
     $item->check($planId, UPDATE);
     if (ContinuityPlanVersion::submit($item, (string) ($_POST['comment'] ?? '')) > 0) {
-        Session::addMessageAfterRedirect(htmlescape(__('The plan has been frozen and sent for approval.', 'grcmanager')));
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'The plan has been frozen and sent for approval.',
+            'grcmanager'
+        )));
     }
     Html::back();
 } elseif (isset($_POST['withdraw_approval'])) {
@@ -100,7 +103,10 @@ if (isset($_POST['add'])) {
     }
     $ncId = ContinuityPlanTesting::createNonconformity($item, (int) ($_POST['tests_id'] ?? 0));
     if ($ncId > 0) {
-        Session::addMessageAfterRedirect(htmlescape(__('Nonconformity created from the gaps of the test.', 'grcmanager')));
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Nonconformity created from the gaps of the test.',
+            'grcmanager'
+        )));
     }
     Html::back();
 } else {

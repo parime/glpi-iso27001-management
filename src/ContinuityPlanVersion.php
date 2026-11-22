@@ -67,10 +67,19 @@ final class ContinuityPlanVersion extends CommonGLPI
     public static function versionStatusLabels(): array
     {
         return [
-            PolicyApprovalRules::VERSION_PENDING   => [__('Awaiting approval', 'grcmanager'), 'bg-blue-subtle text-blue-emphasis'],
-            PolicyApprovalRules::VERSION_APPROVED  => [__('Approved', 'grcmanager'), 'bg-green-subtle text-green-emphasis'],
+            PolicyApprovalRules::VERSION_PENDING   => [__(
+                'Awaiting approval',
+                'grcmanager'
+            ), 'bg-blue-subtle text-blue-emphasis'],
+            PolicyApprovalRules::VERSION_APPROVED  => [__(
+                'Approved',
+                'grcmanager'
+            ), 'bg-green-subtle text-green-emphasis'],
             PolicyApprovalRules::VERSION_REJECTED  => [__('Rejected', 'grcmanager'), 'bg-red-subtle text-red-emphasis'],
-            PolicyApprovalRules::VERSION_WITHDRAWN => [__('Withdrawn', 'grcmanager'), 'bg-secondary-subtle text-secondary-emphasis'],
+            PolicyApprovalRules::VERSION_WITHDRAWN => [__(
+                'Withdrawn',
+                'grcmanager'
+            ), 'bg-secondary-subtle text-secondary-emphasis'],
         ];
     }
 
@@ -253,13 +262,20 @@ final class ContinuityPlanVersion extends CommonGLPI
         }
         $version = (string) $plan->fields['version'];
         if (PolicyApprovalRules::needsNewVersion($version, self::approvedLabels($planId))) {
-            return $error(__('This version number has already been approved: give the plan a new version number.', 'grcmanager'));
+            return $error(__(
+                'This version number has already been approved: give the plan a new version number.',
+                'grcmanager'
+            ));
         }
         $circuit = self::approversFor($plan);
         $users = PolicyVersion::resolveUsers($circuit['approvers']);
         $quorum = PolicyApprovalRules::sanitizeQuorum($circuit['quorum'], false);
         if (!PolicyApprovalRules::isReachable($quorum, count($users))) {
-            return $error(__('No active approver: designate one on the plan, or set the default approvers of policies in the configuration.', 'grcmanager'));
+            return $error(__(
+                'No active approver: designate one on the plan, or set the default approvers of policies in '
+                    . 'the configuration.',
+                'grcmanager'
+            ));
         }
         $snapshot = $plan->snapshot();
         $now = date('Y-m-d H:i:s');
@@ -330,7 +346,11 @@ final class ContinuityPlanVersion extends CommonGLPI
         if ($status === PolicyApprovalRules::VERSION_PENDING) {
             return true;
         }
-        $DB->update(ContinuityPlanTables::VERSIONS, ['status' => $status, 'date_answered' => $now], ['id' => $versionId]);
+        $DB->update(
+            ContinuityPlanTables::VERSIONS,
+            ['status' => $status, 'date_answered' => $now],
+            ['id' => $versionId]
+        );
         $plan = new ContinuityPlan();
         if ($plan->getFromDB($planId)) {
             if ($status === PolicyApprovalRules::VERSION_APPROVED) {
@@ -421,7 +441,8 @@ final class ContinuityPlanVersion extends CommonGLPI
         $answers = self::answerLabels();
         $rows = [];
         foreach (self::getVersions($planId) as $row) {
-            $status = $labels[(string) $row['status']] ?? [(string) $row['status'], 'bg-secondary-subtle text-secondary-emphasis'];
+            $status = $labels[(string) $row['status']]
+                ?? [(string) $row['status'], 'bg-secondary-subtle text-secondary-emphasis'];
             $rows[] = [
                 'id'           => (int) $row['id'],
                 'version'      => (string) $row['version'],
@@ -430,13 +451,15 @@ final class ContinuityPlanVersion extends CommonGLPI
                 'status_class' => $status[1],
                 'requested_at' => Html::convDateTime((string) $row['date_creation']),
                 'requested_by' => (int) $row['users_id'] > 0 ? (string) getUserName((int) $row['users_id']) : '',
-                'answered_at'  => empty($row['date_answered']) ? '' : Html::convDateTime((string) $row['date_answered']),
+                'answered_at'  => empty($row['date_answered'])
+                    ? '' : Html::convDateTime((string) $row['date_answered']),
                 'comment'      => (string) $row['comment'],
                 'fingerprint'  => (string) $row['fingerprint'],
                 'pdf_url'      => ContinuityPlan::getExportURL($planId, (int) $row['id']),
                 'approvers'    => array_map(static fn (array $approver): array => $approver + [
                     'status_label'  => $answers[$approver['status']] ?? $approver['status'],
-                    'answered_text' => $approver['date_answered'] === '' ? '' : Html::convDateTime($approver['date_answered']),
+                    'answered_text' => $approver['date_answered'] === ''
+                        ? '' : Html::convDateTime($approver['date_answered']),
                 ], self::getApprovers((int) $row['id'])),
             ];
         }
@@ -488,7 +511,9 @@ final class ContinuityPlanVersion extends CommonGLPI
             'approvers'       => PolicyVersion::describe($circuit['approvers']),
             'approver_count'  => count(PolicyVersion::resolveUsers($circuit['approvers'])),
             'uses_default'    => $circuit['uses_default'],
-            'rule'            => PolicyVersion::ruleLabel(PolicyApprovalRules::sanitizeQuorum($circuit['quorum'], false)),
+            'rule'            => PolicyVersion::ruleLabel(
+                PolicyApprovalRules::sanitizeQuorum($circuit['quorum'], false)
+            ),
             'can_submit'      => $canUpdate && $status === Rules::STATUS_DRAFT && $pending === null,
             'can_withdraw'    => $canUpdate && $pending !== null,
             'can_new_version' => $canUpdate && $status === Rules::STATUS_APPROVED && $pending === null,

@@ -157,7 +157,8 @@ class CrisisContinuity extends CommonGLPI
     private static function planCard(string $today): ?array
     {
         $card = self::classCard(ContinuityPlan::class, __(
-            'Business continuity and recovery plans (BCP, BRP) and IT continuity and recovery plans (ITCP, DRP): approval, review and tests.',
+            'Business continuity and recovery plans (BCP, BRP) and IT continuity and recovery plans (ITCP, DRP): '
+                . 'approval, review and tests.',
             'grcmanager'
         ));
         if ($card === null) {

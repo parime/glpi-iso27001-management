@@ -224,7 +224,10 @@ final class ContinuityPlanTesting extends CommonGLPI
         global $DB;
 
         $row = self::row($plan, $testId);
-        if ($row === null || (string) $row['itemtype'] !== '' || trim((string) $row['gaps']) === '' || !Nonconformity::canCreate()) {
+        if (
+            $row === null || (string) $row['itemtype'] !== '' || trim((string) $row['gaps']) === ''
+            || !Nonconformity::canCreate()
+        ) {
             return 0;
         }
         $title = mb_substr(sprintf(

@@ -187,9 +187,18 @@ class ContinuityPlan extends ContinuityPlanBase
     public static function statusLabels(): array
     {
         return [
-            Rules::STATUS_DRAFT    => [__('Draft', 'grcmanager'), 'bg-secondary-subtle text-secondary-emphasis', 'ti-pencil'],
-            Rules::STATUS_PENDING  => [__('Awaiting approval', 'grcmanager'), 'bg-blue-subtle text-blue-emphasis', 'ti-hourglass'],
-            Rules::STATUS_APPROVED => [__('Approved', 'grcmanager'), 'bg-green-subtle text-green-emphasis', 'ti-circle-check'],
+            Rules::STATUS_DRAFT    => [__(
+                'Draft',
+                'grcmanager'
+            ), 'bg-secondary-subtle text-secondary-emphasis', 'ti-pencil'],
+            Rules::STATUS_PENDING  => [__(
+                'Awaiting approval',
+                'grcmanager'
+            ), 'bg-blue-subtle text-blue-emphasis', 'ti-hourglass'],
+            Rules::STATUS_APPROVED => [__(
+                'Approved',
+                'grcmanager'
+            ), 'bg-green-subtle text-green-emphasis', 'ti-circle-check'],
         ];
     }
 
@@ -227,7 +236,11 @@ class ContinuityPlan extends ContinuityPlanBase
             'activation_criteria'  => [
                 'label' => __('Activation criteria', 'grcmanager'),
                 'icon'  => 'ti ti-bolt',
-                'hint'  => __('Situations that trigger the plan, for example an unavailability longer than the RTO of a critical process.', 'grcmanager'),
+                'hint'  => __(
+                    'Situations that trigger the plan, for example an unavailability longer than the RTO of '
+                        . 'a critical process.',
+                    'grcmanager'
+                ),
             ],
             'activation_authority' => [
                 'label' => __('Who activates the plan', 'grcmanager'),
@@ -237,17 +250,29 @@ class ContinuityPlan extends ContinuityPlanBase
             'objectives'           => [
                 'label' => __('Recovery objectives', 'grcmanager'),
                 'icon'  => 'ti ti-target-arrow',
-                'hint'  => __('The RTO and RPO of the covered processes come from their business impact analysis; add here the objectives of services that are not processes.', 'grcmanager'),
+                'hint'  => __(
+                    'The RTO and RPO of the covered processes come from their business impact analysis; add '
+                        . 'here the objectives of services that are not processes.',
+                    'grcmanager'
+                ),
             ],
             'roles'                => [
                 'label' => __('Roles and contacts', 'grcmanager'),
                 'icon'  => 'ti ti-users-group',
-                'hint'  => __('Who does what during the crisis, with internal and external contacts (suppliers, insurer, authorities).', 'grcmanager'),
+                'hint'  => __(
+                    'Who does what during the crisis, with internal and external contacts (suppliers, '
+                        . 'insurer, authorities).',
+                    'grcmanager'
+                ),
             ],
             'procedures'           => [
                 'label' => __('Steps of the plan', 'grcmanager'),
                 'icon'  => 'ti ti-list-numbers',
-                'hint'  => __('Numbered steps from activation to return to normal. Cite the response playbooks to follow.', 'grcmanager'),
+                'hint'  => __(
+                    'Numbered steps from activation to return to normal. Cite the response playbooks to '
+                        . 'follow.',
+                    'grcmanager'
+                ),
             ],
             'fallback'             => [
                 'label' => __('Fallback solutions', 'grcmanager'),
@@ -257,12 +282,20 @@ class ContinuityPlan extends ContinuityPlanBase
             'dependencies'         => [
                 'label' => __('Dependencies and recovery order', 'grcmanager'),
                 'icon'  => 'ti ti-sitemap',
-                'hint'  => __('Applications, infrastructure and suppliers needed, in the order in which they are restored.', 'grcmanager'),
+                'hint'  => __(
+                    'Applications, infrastructure and suppliers needed, in the order in which they are '
+                        . 'restored.',
+                    'grcmanager'
+                ),
             ],
             'communication'        => [
                 'label' => __('Communication', 'grcmanager'),
                 'icon'  => 'ti ti-speakerphone',
-                'hint'  => __('Who informs staff, customers, partners and authorities, and with which crisis message templates.', 'grcmanager'),
+                'hint'  => __(
+                    'Who informs staff, customers, partners and authorities, and with which crisis message '
+                        . 'templates.',
+                    'grcmanager'
+                ),
             ],
         ];
     }
@@ -285,7 +318,9 @@ class ContinuityPlan extends ContinuityPlanBase
                 $values[self::REVIEW_MONTHS_KEY] ?? Rules::DEFAULT_REVIEW_MONTHS,
                 false
             ),
-            'reminder_days' => Rules::sanitizeReminderDays($values[self::REMINDER_DAYS_KEY] ?? Rules::DEFAULT_REMINDER_DAYS),
+            'reminder_days' => Rules::sanitizeReminderDays(
+                $values[self::REMINDER_DAYS_KEY] ?? Rules::DEFAULT_REMINDER_DAYS
+            ),
             'prefill'       => ($values[self::PREFILL_KEY] ?? '1') !== '0',
         ];
     }
@@ -336,7 +371,8 @@ class ContinuityPlan extends ContinuityPlanBase
                 if ($changed !== [] || $this->linksChanged($input)) {
                     Session::addMessageAfterRedirect(
                         htmlescape(__(
-                            'This plan is awaiting approval or approved: its content is frozen. Prepare a new version in the Versions and approval tab to change it.',
+                            'This plan is awaiting approval or approved: its content is frozen. Prepare a new '
+                                . 'version in the Versions and approval tab to change it.',
                             'grcmanager'
                         )),
                         false,
@@ -360,7 +396,10 @@ class ContinuityPlan extends ContinuityPlanBase
         if (array_key_exists('name', $input)) {
             $input['name'] = trim((string) $input['name']);
             if ($input['name'] === '') {
-                Session::addMessageAfterRedirect(htmlescape(__('The plan name is required.', 'grcmanager')), false, ERROR);
+                Session::addMessageAfterRedirect(htmlescape(__(
+                    'The plan name is required.',
+                    'grcmanager'
+                )), false, ERROR);
 
                 return false;
             }
@@ -469,7 +508,8 @@ class ContinuityPlan extends ContinuityPlanBase
         if ($this->isNewItem()) {
             return $ids;
         }
-        foreach ($DB->request(['FROM' => ContinuityPlanTables::ITEMS, 'WHERE' => [self::FK => (int) $this->getID()]]) as $row) {
+        $request = $DB->request(['FROM' => ContinuityPlanTables::ITEMS, 'WHERE' => [self::FK => (int) $this->getID()]]);
+        foreach ($request as $row) {
             $ids[(string) $row['itemtype']][] = (int) $row['items_id'];
         }
 
@@ -629,7 +669,8 @@ class ContinuityPlan extends ContinuityPlanBase
     /**
      * Scénarios de crise et fournisseurs couverts, lisibles.
      *
-     * @return array{scenarios: list<array{name: string, url: string}>, suppliers: list<array{name: string, url: string}>}
+     * @return array{scenarios: list<array{name: string, url: string}>,
+     *     suppliers: list<array{name: string, url: string}>}
      */
     public function coveredOthers(): array
     {
@@ -642,7 +683,10 @@ class ContinuityPlan extends ContinuityPlanBase
             $item = new $itemtype();
             foreach ($linked[$itemtype] ?? [] as $itemsId) {
                 if ($item->getFromDB($itemsId) && $item->canViewItem()) {
-                    $result[$key][] = ['name' => (string) $item->fields['name'], 'url' => $itemtype::getFormURLWithID($itemsId)];
+                    $result[$key][] = [
+                        'name' => (string) $item->fields['name'],
+                        'url'  => $itemtype::getFormURLWithID($itemsId),
+                    ];
                 }
             }
             usort($result[$key], static fn (array $a, array $b): int => strcasecmp($a['name'], $b['name']));
@@ -709,7 +753,8 @@ class ContinuityPlan extends ContinuityPlanBase
         ) {
             $processCount[(int) $link[self::FK]] = ($processCount[(int) $link[self::FK]] ?? 0) + 1;
         }
-        foreach ($DB->request(['FROM' => ContinuityPlanTables::TESTS, 'WHERE' => [self::FK => array_keys($rows)]]) as $test) {
+        $request = $DB->request(['FROM' => ContinuityPlanTables::TESTS, 'WHERE' => [self::FK => array_keys($rows)]]);
+        foreach ($request as $test) {
             $testsByPlan[(int) $test[self::FK]][] = $test;
         }
         $settings = self::settings();
@@ -1033,7 +1078,10 @@ class ContinuityPlan extends ContinuityPlanBase
                 'WHERE' => ['itemtype' => BusinessProcess::class, 'items_id' => (int) $process->getID()],
             ]) as $link
         ) {
-            if (!$plan->getFromDB((int) $link[self::FK]) || !$plan->canViewItem() || !empty($plan->fields['is_deleted'])) {
+            if (
+                !$plan->getFromDB((int) $link[self::FK]) || !$plan->canViewItem()
+                || !empty($plan->fields['is_deleted'])
+            ) {
                 continue;
             }
             $status = $statuses[(string) $plan->fields['status']] ?? $statuses[Rules::STATUS_DRAFT];

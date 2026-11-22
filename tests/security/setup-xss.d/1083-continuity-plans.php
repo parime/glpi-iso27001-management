@@ -23,7 +23,9 @@ $insert('continuityplantests', [
 ]);
 $xssVersion = $insert('continuityplanversions', [
     'plugin_grcmanager_continuityplans_id' => $out['continuityplan'], 'version' => '0.9', 'status' => 'rejected',
-    'snapshot' => (string) json_encode(['name' => $canary, 'type_label' => $canary, 'version' => '0.9', 'scope' => $canary]),
+    'snapshot' => (string) json_encode([
+        'name' => $canary, 'type_label' => $canary, 'version' => '0.9', 'scope' => $canary,
+    ]),
     'fingerprint' => str_repeat('a', 64), 'users_id' => 2, 'comment' => $canary,
     'date_creation' => date('Y-m-d H:i:s'), 'date_answered' => date('Y-m-d H:i:s'),
 ]);

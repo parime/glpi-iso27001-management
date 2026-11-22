@@ -87,7 +87,9 @@ final class ContinuityPlanRulesTest extends TestCase
         $this->assertFalse(Rules::isContentLocked(Rules::STATUS_DRAFT));
         $this->assertTrue(Rules::isContentLocked(Rules::STATUS_PENDING));
         $this->assertTrue(Rules::isContentLocked(Rules::STATUS_APPROVED));
-        $current = ['name' => 'Recovery of the data centre', 'procedures' => "1. Restore\r\n2. Check", 'comment' => 'x'];
+        $current = [
+            'name' => 'Recovery of the data centre', 'procedures' => "1. Restore\r\n2. Check", 'comment' => 'x',
+        ];
         $this->assertSame([], Rules::changedContentFields($current, [
             'name' => 'Recovery of the data centre ', 'procedures' => "1. Restore\n2. Check", 'comment' => 'changed',
         ]), 'Espaces, fins de ligne et commentaire ne comptent pas.');
@@ -96,8 +98,12 @@ final class ContinuityPlanRulesTest extends TestCase
 
     public function testFingerprintIsCanonical(): void
     {
-        $a = ['name' => 'Plan', 'processes' => [['name' => 'Payroll', 'rto' => '4 h'], ['name' => 'Orders', 'rto' => '1 h']]];
-        $b = ['processes' => [['rto' => '1 h', 'name' => 'Orders'], ['name' => 'Payroll', 'rto' => '4 h']], 'name' => 'Plan '];
+        $a = ['name' => 'Plan', 'processes' => [
+            ['name' => 'Payroll', 'rto' => '4 h'], ['name' => 'Orders', 'rto' => '1 h'],
+        ]];
+        $b = ['processes' => [
+            ['rto' => '1 h', 'name' => 'Orders'], ['name' => 'Payroll', 'rto' => '4 h'],
+        ], 'name' => 'Plan '];
         $this->assertSame(Rules::fingerprint($a), Rules::fingerprint($b));
         $this->assertSame(64, strlen(Rules::fingerprint($a)));
         $this->assertNotSame(Rules::fingerprint($a), Rules::fingerprint(['name' => 'Other plan'] + $a));
@@ -127,7 +133,10 @@ final class ContinuityPlanRulesTest extends TestCase
         );
         $this->assertSame(
             [Rules::GAP_TEST_OVERDUE, Rules::GAP_LAST_TEST_FAILED],
-            Rules::gaps($complete, ['test_status' => CrisisScenarioRules::EXERCISE_OVERDUE, 'last_result' => 'failed'] + $ok)
+            Rules::gaps(
+                $complete,
+                ['test_status' => CrisisScenarioRules::EXERCISE_OVERDUE, 'last_result' => 'failed'] + $ok
+            )
         );
     }
 

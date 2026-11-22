@@ -66,7 +66,10 @@ final class ContinuityPlanBlock extends ConfigBlock
         }
         Session::checkRight(Installer::RIGHT_NAME, UPDATE);
         ContinuityPlan::saveSettings($_POST);
-        Session::addMessageAfterRedirect(htmlescape(__('Settings of the continuity and recovery plans saved.', 'grcmanager')));
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Settings of the continuity and recovery plans saved.',
+            'grcmanager'
+        )));
         Html::back(); // never : redirige vers l'onglet
     }
 }

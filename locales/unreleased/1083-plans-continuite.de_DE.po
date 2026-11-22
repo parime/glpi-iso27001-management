@@ -1,9 +1,7 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8
-"
-"Plural-Forms: nplurals=2; plural=(n != 1);
-"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Frozen version %1$s, submitted on %2$s. SHA-256 fingerprint of the content: %3$s"
 msgstr "Eingefrorene Version %1$s, eingereicht am %2$s. SHA-256-Fingerabdruck des Inhalts: %3$s"

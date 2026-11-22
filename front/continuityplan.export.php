@@ -26,7 +26,11 @@ $item = new ContinuityPlan();
 $item->check((int) ($_GET['id'] ?? 0), READ);
 
 $pdf = PdfRenderer::renderHtmlToPdf($item->pdfHtml((int) ($_GET['version'] ?? 0)));
-$name = preg_replace('/[^A-Za-z0-9_-]+/', '-', (string) $item->fields['plan_type'] . '-' . (string) $item->fields['version']);
+$name = preg_replace(
+    '/[^A-Za-z0-9_-]+/',
+    '-',
+    (string) $item->fields['plan_type'] . '-' . (string) $item->fields['version']
+);
 header('Content-Type: application/pdf');
 header('Content-Disposition: attachment; filename="plan-' . trim((string) $name, '-') . '-' . date('Y-m-d') . '.pdf"');
 header('Content-Length: ' . strlen($pdf));

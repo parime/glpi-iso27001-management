@@ -42,16 +42,40 @@ final class ContinuityPlanDefaults
                 ? __('Systems, applications and data covered; hosting sites; entities served.', 'grcmanager')
                 : __('Activities, teams and sites covered; entities concerned.', 'grcmanager'),
             'activation_criteria'  => $recovery
-                ? __('Loss of a site, a system or a supplier expected to last longer than the RTO of a covered process.', 'grcmanager')
-                : __('Disruption that threatens a critical activity: unavailability, cyberattack, loss of staff or premises.', 'grcmanager'),
-            'activation_authority' => __('Crisis manager (and deputy), after an assessment with the CISO and the IT department.', 'grcmanager'),
+                ? __(
+                    'Loss of a site, a system or a supplier expected to last longer than the RTO of a '
+                        . 'covered process.',
+                    'grcmanager'
+                )
+                : __(
+                    'Disruption that threatens a critical activity: unavailability, cyberattack, loss of '
+                        . 'staff or premises.',
+                    'grcmanager'
+                ),
+            'activation_authority' => __(
+                'Crisis manager (and deputy), after an assessment with the CISO and the IT department.',
+                'grcmanager'
+            ),
             'procedures'           => $it
-                ? __("1. Assess the incident and activate the plan.\n2. Isolate the affected systems.\n3. Restore in the recovery order, from verified backups.\n4. Check integrity and security before reopening.\n5. Return to normal and hold the lessons learned review.", 'grcmanager')
-                : __("1. Activate the plan and gather the crisis team.\n2. Switch the critical activities to degraded mode.\n3. Inform staff, customers and partners.\n4. Follow the recovery and check the objectives.\n5. Return to normal and hold the lessons learned review.", 'grcmanager'),
+                ? __(
+                    "1. Assess the incident and activate the plan.\n2. Isolate the affected systems.\n3. "
+                        . "Restore in the recovery order, from verified backups.\n4. Check integrity and security "
+                        . "before reopening.\n5. Return to normal and hold the lessons learned review.",
+                    'grcmanager'
+                )
+                : __(
+                    "1. Activate the plan and gather the crisis team.\n2. Switch the critical activities to "
+                        . "degraded mode.\n3. Inform staff, customers and partners.\n4. Follow the recovery and "
+                        . "check the objectives.\n5. Return to normal and hold the lessons learned review.",
+                    'grcmanager'
+                ),
             'fallback'             => $it
                 ? __('Backup site or cloud environment, spare equipment, degraded mode for users.', 'grcmanager')
                 : __('Alternative premises, remote work, manual procedures, temporary staff.', 'grcmanager'),
-            'communication'        => __('Who informs whom, through which channel, with which crisis message template.', 'grcmanager'),
+            'communication'        => __(
+                'Who informs whom, through which channel, with which crisis message template.',
+                'grcmanager'
+            ),
         ];
     }
 }
