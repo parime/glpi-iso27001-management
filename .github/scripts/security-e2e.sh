@@ -2,11 +2,12 @@
 # Tests de securite de bout en bout, communs aux jobs GLPI 11 et GLPI 12 (issue #980) : avant, la
 # matrice d'acces et le test XSS ne tournaient que sur GLPI 11.
 #
-# Usage : security-e2e.sh matrix|xss|js [url GLPI]
+# Usage : security-e2e.sh matrix|xss|js|edit [url GLPI]
 #   matrix : matrice de controle d'acces (profils limites a une entite, puis super-admin)
 #   xss    : charge piegee dans chaque champ texte libre, aucune page ne la restitue sans echappement
 #   js     : erreurs JavaScript et boites de dialogue dans Chromium (tests/security/js-errors.py), dans
 #            l'image Playwright officielle : Playwright n'installe pas Chromium sur le runner Ubuntu 26.04
+#   edit   : scenarios d'edition dans Chromium (tests/security/edit-scenarios.py), sur le jeu de donnees
 # Variable : GLPI_CONTAINER (conteneur GLPI, par defaut « glpi »).
 set -euo pipefail
 STEP=$1 BASE=${2:-http://localhost:8080} C=${GLPI_CONTAINER:-glpi}
@@ -60,5 +61,6 @@ case $STEP in
     bash tests/security/xss-check.sh "$BASE" "$ids" "$xss"
     ;;
   js) browser tests/security/js-errors.py "$BROWSER_BASE" front ;;
-  *) echo "usage : $0 matrix|xss|js [url]" >&2; exit 2 ;;
+  edit) browser tests/security/edit-scenarios.py "$BROWSER_BASE" "$(setup)" ;;
+  *) echo "usage : $0 matrix|xss|js|edit [url]" >&2; exit 2 ;;
 esac
