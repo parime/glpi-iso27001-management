@@ -64,7 +64,9 @@ final class SettingsPostKeysTest extends TestCase
             return [];
         }
         $found = [];
-        $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($root, \FilesystemIterator::SKIP_DOTS));
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($root, \FilesystemIterator::SKIP_DOTS)
+        );
         foreach ($iterator as $file) {
             if ($file instanceof \SplFileInfo && $file->getExtension() === $extension) {
                 $found[] = str_replace('\\', '/', substr($file->getPathname(), strlen(self::ROOT) + 1));
@@ -149,7 +151,13 @@ final class SettingsPostKeysTest extends TestCase
     {
         $keys = self::settingsKeys();
         $offenders = [];
-        foreach (array_merge(self::files('front', 'php'), self::files('src', 'php'), self::files('ajax', 'php'), ['hook.php', 'setup.php']) as $path) {
+        $paths = array_merge(
+            self::files('front', 'php'),
+            self::files('src', 'php'),
+            self::files('ajax', 'php'),
+            ['hook.php', 'setup.php']
+        );
+        foreach ($paths as $path) {
             if (self::isSettingsFile($path) || !is_file(self::ROOT . '/' . $path)) {
                 continue;
             }
@@ -189,7 +197,11 @@ final class SettingsPostKeysTest extends TestCase
                 }
             }
         }
-        $this->assertSame([], array_values(array_unique($offenders)), 'Formulaire de réglage dans un écran d\'exploitation.');
+        $this->assertSame(
+            [],
+            array_values(array_unique($offenders)),
+            'Formulaire de réglage dans un écran d\'exploitation.'
+        );
     }
 
     public function testOperationPagesDoNotHandleTheirOwnSettings(): void
@@ -209,6 +221,10 @@ final class SettingsPostKeysTest extends TestCase
                 }
             }
         }
-        $this->assertSame([], $offenders, 'Page d\'exploitation qui enregistre un réglage : le ranger dans un bloc de la configuration.');
+        $this->assertSame(
+            [],
+            $offenders,
+            'Page d\'exploitation qui enregistre un réglage : le ranger dans un bloc de la configuration.'
+        );
     }
 }
