@@ -13,6 +13,14 @@
 use GlpiPlugin\Grcmanager\Menu;
 use GlpiPlugin\Grcmanager\Navigation\Sections;
 
+// Issue #1038 : le registre ReCyF est une sous-page de « Réglementations » quand sa déclinaison est
+// cochée (setup.d/1053-recyf-declinaison.php, lu après ce fragment) : cochée dès ici, pour que la
+// liste des pages soit la même au premier passage et quand le jeu de données est relancé.
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('nis2', true);
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('recyf', true);
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::reset();
+Sections::reset();
+
 $menuPages = [];
 $profile = $_SESSION['glpiactiveprofile'];
 // Droits du profil « sans droit » de la matrice (iso-sans-droit), tels quels ; à défaut, ceux du
