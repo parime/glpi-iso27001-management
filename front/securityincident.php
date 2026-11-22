@@ -29,6 +29,8 @@ Session::checkRightsOr(PluginGrcmanagerSecurityIncident::$rightname, [
     PluginGrcmanagerSecurityIncident::class,
     PluginGrcmanagerSecurityIncident::getTypeName(2)
 );
+// Issue #1041 : onglets de la rubrique (playbooks, import des alertes EDR, journal d'audit).
+\GlpiPlugin\Grcmanager\Menu::showSection(PluginGrcmanagerSecurityIncident::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('securityincident');
 

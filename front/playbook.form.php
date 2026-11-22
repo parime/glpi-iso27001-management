@@ -37,7 +37,7 @@ if (isset($_POST['add'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Playbook::$rightname, READ);
 
     \GlpiPlugin\Grcmanager\Menu::header(
-        PluginGrcmanagerSecurityIncident::class,
+        \GlpiPlugin\Grcmanager\Playbook::class,
         \GlpiPlugin\Grcmanager\Playbook::getTypeName(1)
     );
 

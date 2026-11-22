@@ -113,48 +113,13 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     }
 
     /**
-     * @return array<string, string>
-     */
-    /**
-     * Issue #370 : lien vers la bibliothèque des procédures de remédiation dans l'en-tête des
-     * incidents, à côté des gabarits.
+     * Issue #1041 : les outils de l'incident (playbooks, import des alertes EDR, journal d'audit) ne
+     * sont plus des liens d'en-tête mais les onglets de la rubrique « Assistance > Incidents de
+     * sécurité » (Navigation\Section\SecurityIncidentSection).
      */
     public static function getMenuContent()
     {
-        $menu = parent::getMenuContent();
-        if (is_array($menu) && \GlpiPlugin\Grcmanager\Playbook::canView()) {
-            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
-                '@grcmanager/menu_link_label.html.twig',
-                ['icon' => 'ti ti-list-check', 'label' => __('Remediation playbooks', 'grcmanager')]
-            ));
-            $menu['links'][$label] = \GlpiPlugin\Grcmanager\Playbook::getSearchURL(false);
-        }
-        // Issue #616 : modèles de messages de crise et leurs listes de diffusion.
-        if (is_array($menu) && \GlpiPlugin\Grcmanager\CrisisMessageTemplate::canView()) {
-            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
-                '@grcmanager/menu_link_label.html.twig',
-                ['icon' => 'ti ti-speakerphone', 'label' => __('Crisis message templates', 'grcmanager')]
-            ));
-            $menu['links'][$label] = \GlpiPlugin\Grcmanager\CrisisMessageTemplate::getSearchURL(false);
-        }
-        // Issue #371 : journal d'audit des incidents (registres sensibles).
-        if (is_array($menu) && \GlpiPlugin\Grcmanager\AuditLog::canView()) {
-            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
-                '@grcmanager/menu_link_label.html.twig',
-                ['icon' => 'ti ti-file-certificate', 'label' => __('Audit log', 'grcmanager')]
-            ));
-            $menu['links'][$label] = '/plugins/grcmanager/front/auditlog.php';
-        }
-        // Issue #370 : import d'un export CSV d'EDR / XDR.
-        if (is_array($menu) && \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::canImport()) {
-            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
-                '@grcmanager/menu_link_label.html.twig',
-                ['icon' => 'ti ti-file-import', 'label' => __('Import EDR / XDR', 'grcmanager')]
-            ));
-            $menu['links'][$label] = '/plugins/grcmanager/front/securityincidentedrimport.php';
-        }
-
-        return $menu;
+        return \GlpiPlugin\Grcmanager\Menu::withSubPages(self::class, parent::getMenuContent());
     }
 
     /**
