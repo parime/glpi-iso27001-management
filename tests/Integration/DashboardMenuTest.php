@@ -52,6 +52,9 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
         $entries = $PLUGIN_HOOKS['menu_toadd']['grcmanager']['grcmanager'];
         $this->assertSame(count($entries), count(array_unique($entries)), 'Aucune entrée en double.');
         foreach (\GlpiPlugin\Grcmanager\Menu::sections() as $parent => $children) {
+            // Issue #1041 : une rubrique d'un secteur du cœur (Assistance...) a son entrée dans ce secteur.
+            $sector = \GlpiPlugin\Grcmanager\Navigation\Sections::locate($parent)['sector'] ?? 'grcmanager';
+            $entries = $PLUGIN_HOOKS['menu_toadd']['grcmanager'][$sector] ?? [];
             $this->assertContains($parent, $entries, "$parent : la rubrique a son entrée.");
             $options = $parent::getMenuContent()['options'] ?? [];
             foreach ($children as $child) {

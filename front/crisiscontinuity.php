@@ -19,7 +19,6 @@ use Glpi\Application\View\TemplateRenderer;
 use Glpi\Exception\Http\AccessDeniedHttpException;
 use GlpiPlugin\Grcmanager\CrisisContinuity;
 use GlpiPlugin\Grcmanager\Menu;
-use GlpiPlugin\Grcmanager\PageHelp;
 
 // Issue #1041 : page d'accueil de « Assistance > Crise et continuité ». Ouverte à qui peut voir au
 // moins un écran de la rubrique ; chaque carte n'apparaît qu'avec le droit de son écran.
@@ -30,7 +29,7 @@ if (!CrisisContinuity::canView()) {
 
 Menu::header(CrisisContinuity::class, CrisisContinuity::getTypeName());
 Menu::showSection(CrisisContinuity::class);
-PageHelp::show('crisiscontinuity');
+\GlpiPlugin\Grcmanager\PageHelp::show('crisiscontinuity');
 TemplateRenderer::getInstance()->display('@grcmanager/crisis_continuity.html.twig', [
     'groups' => CrisisContinuity::hubData(date('Y-m-d')),
 ]);
