@@ -82,9 +82,10 @@ final class MailDnsConnectorBlock extends ConfigBlock
         Session::checkRight(MailDomainSecurity::RIGHTNAME, UPDATE);
         if (isset($_POST['save_dns_server'])) {
             if (MailDomainSecurity::setDnsServer((string) ($_POST['dns_server'] ?? '')) === null) {
-                Session::addMessageAfterRedirect(htmlescape(
-                    __('Not saved: enter the IP address of a DNS server, for example 192.0.2.53, or leave empty.', 'grcmanager')
-                ), false, ERROR);
+                Session::addMessageAfterRedirect(htmlescape(__(
+                    'Not saved: enter the IP address of a DNS server, for example 192.0.2.53, or leave empty.',
+                    'grcmanager'
+                )), false, ERROR);
             } else {
                 Session::addMessageAfterRedirect(htmlescape(__('DNS server saved.', 'grcmanager')));
             }
@@ -110,7 +111,9 @@ final class MailDnsConnectorBlock extends ConfigBlock
     private static function test(): void
     {
         if ((new SystemDnsReader(MailDomainSecurity::dnsServer()))->hasDs(self::TEST_ZONE) === true) {
-            Session::addMessageAfterRedirect(htmlescape(__('The DNS server answers the DNSSEC questions.', 'grcmanager')));
+            Session::addMessageAfterRedirect(htmlescape(
+                __('The DNS server answers the DNSSEC questions.', 'grcmanager')
+            ));
 
             return;
         }

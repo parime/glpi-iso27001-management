@@ -169,7 +169,11 @@ final class ZabbixConnectorBlock extends ConfigBlock
     {
         $result = ZabbixConfig::client()->test();
         if ($result['error'] !== '') {
-            Session::addMessageAfterRedirect(htmlescape(ZabbixMonitoring::errorMessage($result['error'])), false, ERROR);
+            Session::addMessageAfterRedirect(
+                htmlescape(ZabbixMonitoring::errorMessage($result['error'])),
+                false,
+                ERROR
+            );
 
             return;
         }

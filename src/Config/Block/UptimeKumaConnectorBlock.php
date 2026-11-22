@@ -163,7 +163,9 @@ final class UptimeKumaConnectorBlock extends ConfigBlock
             'outage_minutes' => $_POST['uptimekuma_outage_minutes'] ?? '',
         ]);
         if ($after !== $before) {
-            AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => ['uptimekuma_settings' => $after]]);
+            AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+                'changes' => ['uptimekuma_settings' => $after],
+            ]);
         }
         UptimeKumaMonitoring::reset();
         Session::addMessageAfterRedirect(htmlescape(__('Settings saved.', 'grcmanager')));

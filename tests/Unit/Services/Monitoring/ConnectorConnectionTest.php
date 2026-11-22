@@ -49,7 +49,9 @@ final class ConnectorConnectionTest extends TestCase
 
                 return [
                     'status'      => 200,
-                    'body'        => (string) json_encode(['jsonrpc' => '2.0', 'result' => $result, 'id' => $request['id'] ?? 1]),
+                    'body'        => (string) json_encode(
+                        ['jsonrpc' => '2.0', 'result' => $result, 'id' => $request['id'] ?? 1]
+                    ),
                     'retry_after' => 0,
                 ];
             }
@@ -114,7 +116,9 @@ final class ConnectorConnectionTest extends TestCase
 
     public function testUptimeKumaTestReportsARefusedKeyAndAMissingConfiguration(): void
     {
-        $this->assertSame(UptimeKumaClient::ERROR_UNAUTHORIZED, $this->kuma('cle-fictive', ['/metrics' => 401])->test([])['error']);
+        $refused = $this->kuma('cle-fictive', ['/metrics' => 401])->test([]);
+        $this->assertSame(UptimeKumaClient::ERROR_UNAUTHORIZED, $refused['error']);
+        $this->calls = [];
         $this->assertSame(UptimeKumaClient::ERROR_CONFIG, $this->kuma('', [])->test([])['error']);
         $this->assertSame([], $this->calls);
     }
@@ -131,7 +135,8 @@ final class ConnectorConnectionTest extends TestCase
 
                 return [
                     'status'      => $tokenStatus,
-                    'body'        => $tokenStatus === 200 ? (string) json_encode(['access_token' => 'jeton-fictif']) : '',
+                    'body'        => $tokenStatus === 200
+                        ? (string) json_encode(['access_token' => 'jeton-fictif']) : '',
                     'retry_after' => 0,
                 ];
             }
