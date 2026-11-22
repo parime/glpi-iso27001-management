@@ -16,7 +16,7 @@
  */
 
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\CustomFramework;
+use GlpiPlugin\Grcmanager\Config\Block\CustomFrameworkImportBlock;
 use GlpiPlugin\Grcmanager\FrameworkAssessment;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 
@@ -49,7 +49,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/framework_assessment.html.
     'selected'       => $selected,
     'page_url'       => FrameworkAssessment::getSearchURL(),
     'config_url'     => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php',
-    'custom_url'     => CustomFramework::getSearchURL(),
+    'custom_url'     => CustomFrameworkImportBlock::url(),
     'bases'          => [
         'own'    => FrameworkAssessment::BASIS_OWN,
         'mapped' => FrameworkAssessment::BASIS_MAPPED,
@@ -67,5 +67,9 @@ TemplateRenderer::getInstance()->display('@grcmanager/framework_assessment.html.
         'can_configure' => (bool) Session::haveRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE),
     ],
     'iso_key'        => FrameworkSelection::ISO27001,
+    // Issue #1047 : lien vers la création et l'import des référentiels personnalisés (configuration),
+    // seulement pour qui peut en créer ou en modifier un.
+    'settings_link'  => Session::haveRightsOr(\GlpiPlugin\Grcmanager\CustomFramework::RIGHTNAME, [CREATE, UPDATE])
+        ? \GlpiPlugin\Grcmanager\Config\SettingsLink::data(CustomFrameworkImportBlock::ANCHOR) : null,
 ]);
 Html::footer();
