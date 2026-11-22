@@ -1,0 +1,317 @@
+#
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#, php-format
+msgid "%1$d monitor(s), %2$d down, %3$d certificate(s) to renew."
+msgstr "%1$d Monitor(e), %2$d ausgefallen, %3$d zu erneuernde(s) Zertifikat(e)."
+
+#, php-format
+msgid "%1$d monitor(s), %2$d status page(s)."
+msgstr "%1$d Monitor(e), %2$d Statusseite(n)."
+
+#, php-format
+msgid "%1$d monitor(s), over %2$d days"
+msgstr "%1$d Monitor(e), über %2$d Tage"
+
+#, php-format
+msgid "%1$d monitors: the first %2$d are shown, services down first."
+msgstr "%1$d Monitore: die ersten %2$d werden angezeigt, ausgefallene Dienste zuerst."
+
+#, php-format
+msgid "%1$s: %2$s %% available"
+msgstr "%1$s: %2$s %% verfügbar"
+
+#, php-format
+msgid "%1$s: certificate expires in %2$d days"
+msgstr "%1$s: Zertifikat läuft in %2$d Tagen ab"
+
+#, php-format
+msgid "%d minutes"
+msgstr "%d Minuten"
+
+#, php-format
+msgid "%d ms on average"
+msgstr "durchschnittlich %d ms"
+
+#, php-format
+msgid "24 hours (Uptime Kuma): %s %%"
+msgstr "24 Stunden (Uptime Kuma): %s %%"
+
+msgid "API key"
+msgstr "API-Schlüssel"
+
+msgid "Address of Uptime Kuma"
+msgstr "Adresse von Uptime Kuma"
+
+msgid "An Uptime Kuma server on an internal address (private network) is refused by default: an administrator can allow internal addresses in the plugin configuration."
+msgstr "Ein Uptime-Kuma-Server mit interner Adresse (privates Netz) wird standardmäßig abgelehnt: Ein Administrator kann interne Adressen in der Plugin-Konfiguration erlauben."
+
+msgid "Announce to the users"
+msgstr "Den Benutzern mitteilen"
+
+msgid "Assets published on the Internet without a monitor (Uptime Kuma)"
+msgstr "Im Internet veröffentlichte Assets ohne Monitor (Uptime Kuma)"
+
+msgid "Assets published on the Internet without a monitor"
+msgstr "Im Internet veröffentlichte Assets ohne Monitor"
+
+msgid "Assets that receive an \"Internet publication\" flow in the network flow matrix, but that no Uptime Kuma monitor watches: an outage would only be noticed by the users."
+msgstr "Assets, die in der Flussmatrix einen Fluss „Veröffentlichung im Internet“ erhalten, aber von keinem Uptime-Kuma-Monitor überwacht werden: Ein Ausfall würde nur von den Benutzern bemerkt."
+
+#, php-format
+msgid "Availability of the exposed services (%) (Uptime Kuma)"
+msgstr "Verfügbarkeit der exponierten Dienste (%) (Uptime Kuma)"
+
+msgid "Availability of the exposed services"
+msgstr "Verfügbarkeit der exponierten Dienste"
+
+#, php-format
+msgid "Availability of the exposed services: %s %%"
+msgstr "Verfügbarkeit der exponierten Dienste: %s %%"
+
+msgid "Availability: not measured"
+msgstr "Verfügbarkeit: nicht gemessen"
+
+#, php-format
+msgid "Business process concerned: %s"
+msgstr "Betroffener Geschäftsprozess: %s"
+
+msgid "Business process that depends on this service"
+msgstr "Geschäftsprozess, der von diesem Dienst abhängt"
+
+msgid "Connection to Uptime Kuma (read only)"
+msgstr "Verbindung zu Uptime Kuma (nur Lesen)"
+
+msgid "Days remaining"
+msgstr "Verbleibende Tage"
+
+#, php-format
+msgid "Down since %s"
+msgstr "Ausgefallen seit %s"
+
+msgid "Down"
+msgstr "Ausgefallen"
+
+#, php-format
+msgid "Each monitor of Uptime Kuma is matched with a GLPI asset (computer, network device or appliance) by the monitored host name or by its name. The availability is computed from the status readings of the last %1$d days (each reading of GLPI, and the history of the status pages). An outage of %2$d minutes or more can be turned into a security incident: it is only created when you click."
+msgstr "Jeder Monitor von Uptime Kuma wird über den überwachten Hostnamen oder seinen Namen einem GLPI-Asset (Computer, Netzwerkgerät oder Anwendung) zugeordnet. Die Verfügbarkeit wird aus den Statusmessungen der letzten %1$d Tage berechnet (jede Lesung durch GLPI und der Verlauf der Statusseiten). Ein Ausfall von %2$d Minuten oder mehr kann zu einem Sicherheitsvorfall werden: Er wird nur auf Ihren Klick erstellt."
+
+msgid "Enter the address of Uptime Kuma with an API key (or the public status pages to read), read now, then follow up the services down, the certificates that expire soon and the exposed assets without a monitor. A long outage can be turned into a security incident with one click, then announced to the users with the crisis communication; nothing is created automatically and nothing is changed in Uptime Kuma."
+msgstr "Geben Sie die Adresse von Uptime Kuma mit einem API-Schlüssel ein (oder die zu lesenden öffentlichen Statusseiten), lesen Sie jetzt, und verfolgen Sie dann die ausgefallenen Dienste, die bald ablaufenden Zertifikate und die exponierten Assets ohne Monitor. Ein langer Ausfall kann mit einem Klick zu einem Sicherheitsvorfall werden und dann über die Krisenkommunikation den Benutzern mitgeteilt werden; nichts wird automatisch erstellt und nichts in Uptime Kuma geändert."
+
+msgid "Enter the address of Uptime Kuma, then an API key or at least one status page."
+msgstr "Geben Sie die Adresse von Uptime Kuma ein, dann einen API-Schlüssel oder mindestens eine Statusseite."
+
+msgid "Every asset published on the Internet has a monitor."
+msgstr "Jedes im Internet veröffentlichte Asset hat einen Monitor."
+
+#, php-format
+msgid "Expired or not valid: %d"
+msgstr "Abgelaufen oder ungültig: %d"
+
+#, php-format
+msgid "Expired, not valid or expiring within %d days"
+msgstr "Abgelaufen, ungültig oder in weniger als %d Tagen ablaufend"
+
+msgid "Expires around"
+msgstr "Läuft ab um den"
+
+#, php-format
+msgid "Expiring within %1$d days: %2$d"
+msgstr "Ablauf in weniger als %1$d Tagen: %2$d"
+
+#, php-format
+msgid "Expiry dates read by Uptime Kuma on the HTTPS monitors. A certificate is flagged %d days before it expires; GLPI never renews a certificate. To be warned, create a risk indicator \"TLS certificates to renew (Uptime Kuma)\" with an alert threshold."
+msgstr "Von Uptime Kuma auf den HTTPS-Monitoren gelesene Ablaufdaten. Ein Zertifikat wird %d Tage vor seinem Ablauf markiert; GLPI erneuert nie ein Zertifikat. Um gewarnt zu werden, legen Sie einen Risikoindikator „Zu erneuernde TLS-Zertifikate (Uptime Kuma)“ mit einer Alarmschwelle an."
+
+msgid "Exposed assets without a monitor"
+msgstr "Exponierte Assets ohne Monitor"
+
+#, php-format
+msgid "Exposed assets without a monitor: %d"
+msgstr "Exponierte Assets ohne Monitor: %d"
+
+msgid "Exposed services (Uptime Kuma)"
+msgstr "Exponierte Dienste (Uptime Kuma)"
+
+msgid "GLPI asset"
+msgstr "GLPI-Asset"
+
+msgid "How to prepare Uptime Kuma (one of the two, or both):"
+msgstr "Uptime Kuma vorbereiten (eines von beiden oder beides):"
+
+msgid "ISO/IEC 27001, controls A.8.16, A.5.30 and A.8.24"
+msgstr "ISO/IEC 27001, Maßnahmen A.8.16, A.5.30 und A.8.24"
+
+msgid "Identifiers separated by commas."
+msgstr "Durch Kommas getrennte Kennungen."
+
+msgid "Key saved"
+msgstr "Schlüssel gespeichert"
+
+msgid "Long outage, from (minutes)"
+msgstr "Langer Ausfall ab (Minuten)"
+
+#, php-format
+msgid "Long outages: %d"
+msgstr "Lange Ausfälle: %d"
+
+#, php-format
+msgid "Longest outage over the period: %s"
+msgstr "Längster Ausfall im Zeitraum: %s"
+
+#, php-format
+msgid "Monitored address: %s"
+msgstr "Überwachte Adresse: %s"
+
+msgid "Monitored services"
+msgstr "Überwachte Dienste"
+
+#, php-format
+msgid "Monitored services: %d"
+msgstr "Überwachte Dienste: %d"
+
+msgid "No asset found"
+msgstr "Kein Asset gefunden"
+
+msgid "No certificate read"
+msgstr "Kein Zertifikat gelesen"
+
+msgid "No certificate read: certificates are read on the HTTPS monitors, and on a status page only when \"Show Certificate Expiry\" is enabled on it."
+msgstr "Kein Zertifikat gelesen: Zertifikate werden auf den HTTPS-Monitoren gelesen, auf einer Statusseite nur, wenn dort „Show Certificate Expiry“ aktiviert ist."
+
+msgid "No monitor read in your entities."
+msgstr "Kein Monitor in Ihren Entitäten gelesen."
+
+msgid "Not valid"
+msgstr "Ungültig"
+
+msgid "Nothing has been read from Uptime Kuma yet: enter the connection below, then click \"Read now\"."
+msgstr "Aus Uptime Kuma wurde noch nichts gelesen: Geben Sie unten die Verbindung ein und klicken Sie dann auf „Jetzt lesen“."
+
+msgid "Only the first monitors were read"
+msgstr "Nur die ersten Monitore wurden gelesen"
+
+msgid "Or list public status pages: their identifier is the end of their address (for example \"customers\" for https://status.example.test/status/customers). Only the monitors shown on these pages are read, with their recent history."
+msgstr "Oder listen Sie öffentliche Statusseiten auf: Ihre Kennung ist das Ende ihrer Adresse (zum Beispiel „customers“ für https://status.example.test/status/customers). Nur die auf diesen Seiten angezeigten Monitore werden gelesen, mit ihrem jüngsten Verlauf."
+
+#, php-format
+msgid "Outage reported by Uptime Kuma: %s"
+msgstr "Von Uptime Kuma gemeldeter Ausfall: %s"
+
+#, php-format
+msgid "Outage started on: %s"
+msgstr "Beginn des Ausfalls: %s"
+
+msgid "Outages longer than the RTO"
+msgstr "Ausfälle länger als die RTO"
+
+#, php-format
+msgid "Over %1$d days, read from Uptime Kuma on %2$s"
+msgstr "Über %1$d Tage, aus Uptime Kuma gelesen am %2$s"
+
+msgid "Period of the availability (days)"
+msgstr "Zeitraum der Verfügbarkeit (Tage)"
+
+msgid "Public status pages (optional)"
+msgstr "Öffentliche Statusseiten (optional)"
+
+msgid "Published on the Internet (network flow matrix)"
+msgstr "Im Internet veröffentlicht (Flussmatrix)"
+
+msgid "Read automatically every hour (automatic action \"uptimekuma\"): the availability is more precise with regular readings"
+msgstr "Jede Stunde automatisch lesen (automatische Aktion „uptimekuma“): Die Verfügbarkeit ist mit regelmäßigen Messungen genauer"
+
+msgid "Read only: nothing is ever changed in Uptime Kuma from GLPI, and no certificate is renewed."
+msgstr "Nur Lesen: Aus GLPI wird in Uptime Kuma nie etwas geändert, und kein Zertifikat wird erneuert."
+
+msgid "Reads your Uptime Kuma server, in read only: whether the websites and services seen by your users and customers answer, how long their outages last, and when their TLS certificates expire. Each monitor is matched with a GLPI asset, its outages are compared with the recovery time objectives of the business processes, and the assets published on the Internet without any monitor are listed."
+msgstr "Liest Ihren Uptime-Kuma-Server, nur lesend: ob die Websites und Dienste, die Ihre Benutzer und Kunden sehen, antworten, wie lange ihre Ausfälle dauern und wann ihre TLS-Zertifikate ablaufen. Jeder Monitor wird einem GLPI-Asset zugeordnet, seine Ausfälle werden mit den Wiederherstellungszeitzielen (RTO) der Geschäftsprozesse verglichen, und die im Internet veröffentlichten Assets ohne Monitor werden aufgelistet."
+
+msgid "Recovery time objective of the business processes"
+msgstr "Wiederherstellungszeitziel (RTO) der Geschäftsprozesse"
+
+msgid "Refused: the connector only reads from Uptime Kuma."
+msgstr "Abgelehnt: Der Konnektor liest nur aus Uptime Kuma."
+
+msgid "Response time"
+msgstr "Antwortzeit"
+
+msgid "Risk indicators"
+msgstr "Risikoindikatoren"
+
+msgid "Services down now"
+msgstr "Derzeit ausgefallene Dienste"
+
+#, php-format
+msgid "Services down now: %d"
+msgstr "Derzeit ausgefallene Dienste: %d"
+
+msgid "Settings > API Keys: create a key (it only gives access to the /metrics page, in read only) and copy it here. All the monitors are then read, with their certificates."
+msgstr "Settings > API Keys: Erstellen Sie einen Schlüssel (er gibt nur Zugriff auf die Seite /metrics, nur lesend) und kopieren Sie ihn hierher. Dann werden alle Monitore mit ihren Zertifikaten gelesen."
+
+#, php-format
+msgid "TLS certificates read: %d"
+msgstr "Gelesene TLS-Zertifikate: %d"
+
+msgid "TLS certificates to renew (Uptime Kuma)"
+msgstr "Zu erneuernde TLS-Zertifikate (Uptime Kuma)"
+
+msgid "TLS certificates to renew"
+msgstr "Zu erneuernde TLS-Zertifikate"
+
+msgid "TLS certificates"
+msgstr "TLS-Zertifikate"
+
+msgid "The key is encrypted with the GLPI key, never displayed again nor logged. Only the address of this server is called, and only to read."
+msgstr "Der Schlüssel wird mit dem GLPI-Schlüssel verschlüsselt, nie wieder angezeigt und nicht protokolliert. Nur die Adresse dieses Servers wird aufgerufen, und nur zum Lesen."
+
+msgid "The readings are visible in this entity and its sub-entities; monitors not matched with an asset are only listed in this entity."
+msgstr "Die Lesungen sind in dieser Entität und ihren Unterentitäten sichtbar; keinem Asset zugeordnete Monitore werden nur in dieser Entität aufgelistet."
+
+#, php-format
+msgid "The status page \"%s\" does not exist in Uptime Kuma: check its identifier (end of its address)."
+msgstr "Die Statusseite „%s“ existiert in Uptime Kuma nicht: Prüfen Sie ihre Kennung (Ende ihrer Adresse)."
+
+msgid "Thresholds"
+msgstr "Schwellenwerte"
+
+msgid "Under maintenance"
+msgstr "In Wartung"
+
+msgid "Up"
+msgstr "In Betrieb"
+
+msgid "Uptime Kuma could not be reached: check the address, the network access or the GLPI proxy."
+msgstr "Uptime Kuma war nicht erreichbar: Prüfen Sie die Adresse, den Netzwerkzugang oder den GLPI-Proxy."
+
+msgid "Uptime Kuma has an internal address, refused by default: allow internal addresses in the plugin configuration page (Outgoing connections)."
+msgstr "Uptime Kuma hat eine interne Adresse, die standardmäßig abgelehnt wird: Erlauben Sie interne Adressen auf der Konfigurationsseite des Plugins (Ausgehende Verbindungen)."
+
+#, php-format
+msgid "Uptime Kuma read: %1$d monitor(s), %2$d new status reading(s)."
+msgstr "Uptime Kuma gelesen: %1$d Monitor(e), %2$d neue Statusmessung(en)."
+
+msgid "Uptime Kuma readings deleted."
+msgstr "Lesungen von Uptime Kuma gelöscht."
+
+msgid "Uptime Kuma refused the API key: check that it is active and not expired (Settings > API Keys)."
+msgstr "Uptime Kuma hat den API-Schlüssel abgelehnt: Prüfen Sie, ob er aktiv und nicht abgelaufen ist (Settings > API Keys)."
+
+msgid "Uptime Kuma returned an unexpected answer."
+msgstr "Uptime Kuma hat eine unerwartete Antwort geliefert."
+
+msgid "Uptime Kuma settings saved."
+msgstr "Einstellungen von Uptime Kuma gespeichert."
+
+msgid "Uptime Kuma: reads monitors, availability and TLS certificates (read only)"
+msgstr "Uptime Kuma: liest Monitore, Verfügbarkeit und TLS-Zertifikate (nur Lesen)"
+
+msgid "Warn before a certificate expires (days)"
+msgstr "Vor dem Ablauf eines Zertifikats warnen (Tage)"
+
+#, php-format
+msgid "including %d critical"
+msgstr "davon %d kritisch"
