@@ -1,6 +1,6 @@
 ### Create a risk in the supplier/third-party register
 
-From **GRC & Conformité > Risques > Risques fournisseurs**, the list shows the supplier risks already recorded on
+From **Management > Supplier security > Supplier risks**, the list shows the supplier risks already recorded on
 this instance.
 
 ![Supplier risk register](screenshots/tutorial/28-supplierrisk-list.png)

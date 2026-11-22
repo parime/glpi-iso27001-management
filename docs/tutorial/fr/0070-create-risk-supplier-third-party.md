@@ -1,6 +1,6 @@
 ### Créer un risque dans le registre fournisseurs/tiers
 
-Depuis **GRC & Conformité > Risques > Risques fournisseurs**, la liste affiche les risques fournisseurs déjà
+Depuis **Gestion > Sécurité des fournisseurs > Risques fournisseurs**, la liste affiche les risques fournisseurs déjà
 enregistrés sur cette instance.
 
 ![Registre de risques fournisseurs](screenshots/tutorial/28-supplierrisk-list.png)

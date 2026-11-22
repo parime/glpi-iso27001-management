@@ -24,14 +24,13 @@ use GlpiPlugin\Grcmanager\Navigation\AbstractSection;
 use GlpiPlugin\Grcmanager\ReportedRisk;
 use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\RiskAppetite;
-use GlpiPlugin\Grcmanager\SupplierRisk;
 use GlpiPlugin\Grcmanager\Waiver;
 
 /**
  * Issue #1038 : le registre des risques et ce qui sert à le tenir (signalements, carte, catalogue,
  * import, appétence, dérogations). Les études et les indicateurs sont dans « Analyses de risques »
- * (RiskAnalysisSection). Les risques fournisseurs partent dans Gestion (lot 3, #1040) : ils restent
- * déclarés ici pour que ce lot les déplace avec l'option « from ».
+ * (RiskAnalysisSection). Les risques fournisseurs sont dans « Gestion > Sécurité des fournisseurs »
+ * (SupplierSecuritySection, issue #1040).
  */
 final class RiskSection extends AbstractSection
 {
@@ -78,7 +77,6 @@ final class RiskSection extends AbstractSection
         return [
             // Issue #872 : risques signalés par les collaborateurs, à trier.
             ReportedRisk::class => ['group' => $register],
-            SupplierRisk::class => ['group' => $register],
             self::HEATMAP => [
                 'title'     => __('Risk heatmap', 'grcmanager'),
                 'page'      => '/plugins/grcmanager/front/riskheatmap.php',
