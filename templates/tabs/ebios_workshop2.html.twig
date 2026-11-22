@@ -70,7 +70,7 @@
         <th>{{ __('Activity', 'grcmanager') }}</th>
         <th>{{ __('Relevance', 'grcmanager') }}</th>
         <th>{{ __('Decision and justification', 'grcmanager') }}</th>
-        {% if can_edit %}<th></th>{% endif %}
+        {% if can_edit %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
       </tr>
     </thead>
     <tbody>

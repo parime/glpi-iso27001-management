@@ -125,7 +125,7 @@
                         <td style="min-width: 160px;">
                            {% if os.rate is null %}-{% else %}
                               <div class="d-flex align-items-center gap-2">
-                                 <div class="progress progress-sm flex-fill"><div class="progress-bar bg-green" style="width: {{ os.rate }}%" role="progressbar" aria-valuenow="{{ os.rate }}" aria-valuemin="0" aria-valuemax="100"></div></div>
+                                 <div class="progress progress-sm flex-fill"><div class="progress-bar bg-green" style="width: {{ os.rate }}%" role="progressbar" aria-label="{{ __('Implementation rate', 'grcmanager') }}" aria-valuenow="{{ os.rate }}" aria-valuemin="0" aria-valuemax="100"></div></div>
                                  <span>{{ os.rate }} %</span>
                               </div>
                            {% endif %}

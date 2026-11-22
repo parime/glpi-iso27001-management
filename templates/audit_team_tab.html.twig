@@ -34,7 +34,7 @@
       <th>{{ __('Member', 'grcmanager') }}</th>
       <th>{{ __('Role', 'grcmanager') }}</th>
       {% if internal %}<th>{{ __('Auditor competence', 'grcmanager') }}</th>{% endif %}
-      {% if can_edit %}<th></th>{% endif %}
+      {% if can_edit %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
     </tr>
   </thead>
   <tbody>

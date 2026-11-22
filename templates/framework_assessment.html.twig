@@ -24,7 +24,7 @@
    {% else %}
       <div class="d-flex align-items-center gap-2">
          <div class="progress progress-sm flex-fill" style="min-width: 80px;">
-            <div class="progress-bar bg-{{ color }}" style="width: {{ value }}%" role="progressbar"
+            <div class="progress-bar bg-{{ color }}" style="width: {{ value }}%" role="progressbar" aria-label="{{ __('Implementation rate', 'grcmanager') }}"
                  aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="100"></div>
          </div>
          <span class="text-nowrap">{{ value|number_format(1, ',') }} %</span>

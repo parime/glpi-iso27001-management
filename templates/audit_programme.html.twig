@@ -170,7 +170,7 @@
                      <td>{{ a.date_text }}</td>
                      {% for key, labels in check_labels %}
                         {% set st = check_states[a.checks[key]] %}
-                        <td class="text-center"><span class="badge {{ st.badge }}" title="{{ labels[1] }} : {{ st.label }}" aria-label="{{ labels[1] }} : {{ st.label }}"><i class="ti {{ st.icon }}"></i></span></td>
+                        <td class="text-center"><span class="badge {{ st.badge }}" role="img" title="{{ labels[1] }} : {{ st.label }}" aria-label="{{ labels[1] }} : {{ st.label }}"><i class="ti {{ st.icon }}" aria-hidden="true"></i></span></td>
                      {% endfor %}
                   </tr>
                {% endfor %}
