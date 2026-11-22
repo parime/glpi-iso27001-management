@@ -60,7 +60,9 @@ final class SubtleColorClassesTest extends TestCase
             if (!is_dir($path)) {
                 continue;
             }
-            $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS));
+            $iterator = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS)
+            );
             foreach ($iterator as $file) {
                 if ($file instanceof \SplFileInfo && preg_match('/\.(twig|php|js)$/', $file->getFilename()) === 1) {
                     $files[$file->getPathname()] = (string) file_get_contents($file->getPathname());
@@ -83,7 +85,10 @@ final class SubtleColorClassesTest extends TestCase
     public function testStylesheetIsLoadedByTheAddCssHook(): void
     {
         $setup = (string) file_get_contents(self::ROOT . '/setup.php');
-        self::assertStringContainsString("\$PLUGIN_HOOKS[Hooks::ADD_CSS]['grcmanager'] = ['css/grcmanager.css'];", $setup);
+        self::assertStringContainsString(
+            "\$PLUGIN_HOOKS[Hooks::ADD_CSS]['grcmanager'] = ['css/grcmanager.css'];",
+            $setup
+        );
         self::assertFileExists(self::ROOT . '/public/css/grcmanager.css');
     }
 
@@ -95,8 +100,13 @@ final class SubtleColorClassesTest extends TestCase
         $light = substr($css, 0, $darkStart);
         $dark = substr($css, $darkStart);
         foreach (self::TABLER_NAMED_COLORS as $color) {
-            foreach (['bg-' . $color . '-subtle', 'text-' . $color . '-emphasis', 'border-' . $color . '-subtle'] as $class) {
-                self::assertContains($class, self::pluginStylesheetClasses(), $class . ' is missing from public/css/grcmanager.css.');
+            $classes = ['bg-' . $color . '-subtle', 'text-' . $color . '-emphasis', 'border-' . $color . '-subtle'];
+            foreach ($classes as $class) {
+                self::assertContains(
+                    $class,
+                    self::pluginStylesheetClasses(),
+                    $class . ' is missing from public/css/grcmanager.css.'
+                );
             }
             foreach (['bg-subtle', 'text-emphasis', 'border-subtle'] as $suffix) {
                 $variable = '--grcmanager-' . $color . '-' . $suffix . ':';
@@ -118,7 +128,11 @@ final class SubtleColorClassesTest extends TestCase
             }
         }
 
-        self::assertSame([], $missing, 'Classes used by the code but defined neither by Tabler nor by public/css/grcmanager.css.');
+        self::assertSame(
+            [],
+            $missing,
+            'Classes used by the code but defined neither by Tabler nor by public/css/grcmanager.css.'
+        );
     }
 
     public function testEveryColorNameFeedingADynamicClassIsDefined(): void
@@ -126,10 +140,12 @@ final class SubtleColorClassesTest extends TestCase
         $colors = [];
         foreach (self::sourceFiles() as $path => $contents) {
             // Twig: bg-{{ expr }}-subtle / text-{{ expr }}-emphasis -> quoted literals inside expr.
-            preg_match_all('/(?:bg|text|border)-\{\{((?:(?!\}\}|\{\{).)*)\}\}-(?:subtle|emphasis)/s', $contents, $matches);
+            $dynamicClass = '/(?:bg|text|border)-\{\{((?:(?!\}\}|\{\{).)*)\}\}-(?:subtle|emphasis)/s';
+            preg_match_all($dynamicClass, $contents, $matches);
             foreach ($matches[1] as $expression) {
                 // Operands of a comparison (line.decision == 'remove') are not colors.
-                $expression = (string) preg_replace("/(?:==|!=|\bin)\s*'[a-z]+'|'[a-z]+'\s*(?:==|!=)/", '', $expression);
+                $comparison = '/(?:==|!=|\bin)\s*\'[a-z]+\'|\'[a-z]+\'\s*(?:==|!=)/';
+                $expression = (string) preg_replace($comparison, '', $expression);
                 preg_match_all("/'([a-z]+)'/", $expression, $literals);
                 foreach ($literals[1] as $literal) {
                     $colors[$literal][] = basename($path);
@@ -150,6 +166,10 @@ final class SubtleColorClassesTest extends TestCase
         }
 
         self::assertNotSame([], $colors, 'The scan must find the color names used by the badges.');
-        self::assertSame([], $missing, 'Color names used in bg-X-subtle / text-X-emphasis classes without a definition.');
+        self::assertSame(
+            [],
+            $missing,
+            'Color names used in bg-X-subtle / text-X-emphasis classes without a definition.'
+        );
     }
 }
