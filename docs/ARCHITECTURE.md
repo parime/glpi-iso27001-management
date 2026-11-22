@@ -16,6 +16,7 @@ découverts et assemblés automatiquement, sans modifier les listes centrales.
 | une carte du tableau de bord | le même fichier, `DashboardCardsProvider` | `hook.php` (`plugin_grcmanager_dashboard_cards`) |
 | une source de KRI | le même fichier, `RiskIndicatorSourcesProvider` | `src/RiskIndicator.php` (`SOURCES`, `getSources()`, `computeSourceValue()`) |
 | une preuve sur la fiche d'une mesure | le même fichier, `ControlEvidenceProvider`, et son gabarit `templates/_<sujet>_evidence.html.twig` | `src/Control.php`, `templates/control_form.html.twig` |
+| un réglage dans la page de configuration | `src/Config/Block/<Réglage>Block.php` (étend `ConfigBlock`) et son gabarit `templates/config/blocks/_<réglage>.html.twig` ; un onglet : `src/Config/Tab/<Onglet>Tab.php` | `front/config.php`, `templates/config_form.html.twig` |
 | ses tests de bout en bout | `tests/security/setup.d/`, `setup-xss.d/`, `access-matrix.d/`, `xss-check.d/` : `<issue>-<sujet>.php` ou `.sh` | `tests/security/setup.php`, `access-matrix.sh`, `xss-check.sh` |
 | son entrée de CHANGELOG | `changes/unreleased/<issue>-<sujet>.md` | `CHANGELOG.md` |
 | une étape du tutoriel | `docs/tutorial/fr/NNNN-mots.md` et `docs/tutorial/en/NNNN-mots.md` | `docs/TUTORIAL.md` |
@@ -63,6 +64,50 @@ Un seul fichier par fonctionnalité, qui implémente les interfaces dont elle a 
   reçoit `evidence` ; le cadre s'affiche après les cadres existants.
 - Clé facultative `after` (cartes, sources de KRI) : clé que l'entrée suit dans la liste ; sinon,
   elle va à la fin. Les listes existantes gardent leur ordre.
+
+#### Réglage : `src/Config/Block/<Réglage>Block.php`
+
+La page de configuration du plugin (Configuration > Plugins > GRC Manager) est faite d'onglets
+(`general`, `frameworks`, `risks`, `controls`, `people`, `incidents`, `connectors`, `assets`),
+chacun dans `src/Config/Tab/<Onglet>Tab.php` (`key()`, `label()`, `icon()`, `order()`), et de blocs
+de réglages découverts par `ConfigTabs` (ordre alphabétique des fichiers). Un bloc étend
+`ConfigBlock` :
+
+```php
+final class ZabbixBlock extends ConfigBlock
+{
+    public static function tab(): string { return 'connectors'; }
+    public static function order(): int { return 40; }            // de 10 en 10 dans l'onglet
+    public static function after(): string { return 'SentinelOne'; } // facultatif : suit ce bloc
+    public static function template(): string { return '@grcmanager/config/blocks/_zabbix.html.twig'; }
+    public static function anchors(): array { return ['grc-zabbix-config']; } // id du cadre
+    public static function canView(): bool { return (bool) Session::haveRight(Installer::RIGHT_NAME, READ); }
+    public static function data(): array { return ['zabbix' => ZabbixMonitoring::configData()]; }
+    public static function handle(): bool
+    {
+        if (!isset($_POST['save_zabbix_settings'])) {
+            return false;
+        }
+        Session::checkRight(Installer::RIGHT_NAME, UPDATE);
+        // ... enregistrer, journal d'audit ...
+        Html::back(); // revient sur l'onglet (?tab=connectors)
+        return true;
+    }
+}
+```
+
+- La clé du bloc (citée par `after()`) est le nom de la classe sans « Block ».
+- `data()` n'est appelé que si l'onglet du bloc est ouvert. Le gabarit reçoit aussi `csrf_token`,
+  `can_edit_config` et `can_edit_sensitive` ; il n'affiche ses boutons qu'avec le droit de
+  modifier. Le formulaire envoie vers `front/config.php`, dont `ConfigTabs::handlePost()`
+  appelle `handle()` de chaque bloc.
+- Un onglet n'est montré que si au moins un de ses blocs l'est (`canView()`). L'onglet ouvert est
+  dans l'adresse : `front/config.php?tab=<clé>`. `ConfigTabs::anchorUrl('<id>')` donne l'adresse
+  d'un bloc ; un ancien lien `config.php#<id>` ouvre son onglet (identifiants de `anchors()`).
+- Réglage déplacé depuis une page d'exploitation : pendant une version, l'ancien POST de la page
+  reste accepté et redirige vers `ConfigTabs::anchorUrl('<id>')` avec un message.
+- Un test unitaire (`tests/Unit/Config/ConfigTabsTest.php`) vérifie que chaque bloc a un onglet
+  connu et un gabarit, et que chaque lien `config.php#<id>` du code mène à un bloc.
 
 #### Tests de bout en bout : `tests/security/*.d/`
 
@@ -134,6 +179,7 @@ without changing the central lists.
 | a dashboard card | the same file, `DashboardCardsProvider` | `hook.php` (`plugin_grcmanager_dashboard_cards`) |
 | a KRI source | the same file, `RiskIndicatorSourcesProvider` | `src/RiskIndicator.php` (`SOURCES`, `getSources()`, `computeSourceValue()`) |
 | evidence on a control form | the same file, `ControlEvidenceProvider`, and its template `templates/_<topic>_evidence.html.twig` | `src/Control.php`, `templates/control_form.html.twig` |
+| a setting in the configuration page | `src/Config/Block/<Setting>Block.php` (extends `ConfigBlock`) and its template `templates/config/blocks/_<setting>.html.twig`; a tab: `src/Config/Tab/<Tab>Tab.php` | `front/config.php`, `templates/config_form.html.twig` |
 | its end-to-end tests | `tests/security/setup.d/`, `setup-xss.d/`, `access-matrix.d/`, `xss-check.d/`: `<issue>-<topic>.php` or `.sh` | `tests/security/setup.php`, `access-matrix.sh`, `xss-check.sh` |
 | its CHANGELOG entry | `changes/unreleased/<issue>-<topic>.md` | `CHANGELOG.md` |
 | a tutorial step | `docs/tutorial/fr/NNNN-words.md` and `docs/tutorial/en/NNNN-words.md` | `docs/TUTORIAL.md` |
@@ -153,6 +199,18 @@ integration tests) are new and bother nobody.
   (`label`, `unit`, `direction`, `rights`, `global`, `compute`), `ControlEvidenceProvider` (the
   template receives `evidence`, the box is shown after the existing ones). Optional `after` key
   (cards, KRI sources): the key the entry follows in the list, otherwise at the end.
+- **Configuration setting** `src/Config/Block/<Setting>Block.php` (extends `ConfigBlock`):
+  `tab()` (`general`, `frameworks`, `risks`, `controls`, `people`, `incidents`, `connectors`,
+  `assets`; a tab is `src/Config/Tab/<Tab>Tab.php`), `order()`, optional `after()` (key of the
+  block it follows: class name without "Block"), `template()`
+  (`templates/config/blocks/_<setting>.html.twig`), `anchors()` (HTML ids: old
+  `config.php#<id>` links open its tab), `canView()`, `data()` (only computed when its tab is
+  open; the template also receives `csrf_token`, `can_edit_config`, `can_edit_sensitive`) and
+  `handle()` (POST to `front/config.php`: return false when not concerned, otherwise check the
+  rights, save and `Html::back()`). A tab is shown when at least one of its blocks is; the open
+  tab is in the URL (`front/config.php?tab=<key>`), `ConfigTabs::anchorUrl('<id>')` gives a
+  block's URL. A setting moved from an operations page keeps accepting its old POST for one
+  version, redirecting to that URL with a message.
 - **End-to-end tests**: see `tests/security/README.md`. A `setup.d/` fragment does not recreate
   what already exists. The common coverage check (glpi-plugin-security v1.9.1) finds a page path
   in `access-matrix.d/`.
