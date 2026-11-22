@@ -22,15 +22,13 @@ use GlpiPlugin\Grcmanager\ApprovedApplication;
 // avec leurs droits natifs et les entités de la session. Lecture seule : rien n'est modifié ici.
 Session::checkRight(ApprovedApplication::RIGHTNAME, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ApprovedApplication::class,
     ApprovedApplication::getTypeName(Session::getPluralNumber()),
-    ApprovedApplication::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    ApprovedApplication::class
+    ApprovedApplication::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Risk::class, ApprovedApplication::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(ApprovedApplication::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('approvedapplication');
 ApprovedApplication::showPage(max(0, (int) ($_GET['softwarecategories_id'] ?? 0)));

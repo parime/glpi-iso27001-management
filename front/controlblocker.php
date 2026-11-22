@@ -40,14 +40,12 @@ foreach ($rows as $row) {
     }
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ControlBlocker::class,
     ControlBlocker::getTypeName(Session::getPluralNumber()),
-    ControlBlocker::getSearchURL(),
-    'grcmanager',
-    Control::class,
-    ControlBlocker::class
+    ControlBlocker::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(Control::class, ControlBlocker::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(ControlBlocker::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('controlblocker');
 TemplateRenderer::getInstance()->display('@grcmanager/control_blockers.html.twig', [

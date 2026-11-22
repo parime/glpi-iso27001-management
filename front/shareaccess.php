@@ -167,18 +167,13 @@ if ($shareId > 0 && ShareAccess::getShare($shareId) === null) {
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ShareAccess::class,
     ShareAccess::getTypeName(),
-    ShareAccess::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    ShareAccess::class
+    ShareAccess::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    ShareAccess::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(ShareAccess::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('shareaccess');
 

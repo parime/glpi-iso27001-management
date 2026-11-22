@@ -25,7 +25,6 @@ use GlpiPlugin\Grcmanager\Config\MovedSettings;
 use GlpiPlugin\Grcmanager\Config\Tab\ConnectorsTab;
 use GlpiPlugin\Grcmanager\MfaCoverage;
 use GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig;
-use GlpiPlugin\Grcmanager\ShareAccess;
 use Session;
 use User;
 
@@ -77,8 +76,6 @@ final class EntraGraphConnectorBlock extends ConfigBlock
                 'has_secret' => EntraGraphConfig::hasSecret(),
                 'configured' => EntraGraphConfig::isConfigured(),
                 'last_read'  => (string) ($imports['entra']['date'] ?? ''),
-                'mfa_url'    => MfaCoverage::getSearchURL() . '#grc-mfa-graph',
-                'share_url'  => ShareAccess::canView() ? ShareAccess::getSearchURL() . '#grc-share-m365' : '',
             ],
         ];
     }

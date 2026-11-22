@@ -11,9 +11,6 @@ msgstr "Verbindung zu %s erfolgreich."
 msgid "Microsoft Entra ID and Microsoft Graph"
 msgstr "Microsoft Entra ID und Microsoft Graph"
 
-msgid "SharePoint, OneDrive and Teams rights"
-msgstr "Rechte in SharePoint, OneDrive und Teams"
-
 msgid "The same application reads the MFA methods of the accounts and the sharing rights of SharePoint, OneDrive and Teams, when you click the button on these pages. Nothing is ever written in Entra ID or Microsoft 365 and nothing runs automatically."
 msgstr "Dieselbe Anwendung liest die MFA-Methoden der Konten und die Freigaberechte von SharePoint, OneDrive und Teams, wenn Sie auf die Schaltfläche dieser Seiten klicken. In Entra ID oder Microsoft 365 wird nie etwas geschrieben, und nichts läuft automatisch."
 

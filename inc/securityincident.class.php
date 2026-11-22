@@ -304,7 +304,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
     public static function getSectorizedDetails(): array
     {
-        return ['helpdesk', self::class];
+        return \GlpiPlugin\Grcmanager\Menu::sectorPath(self::class);
     }
 
     /**

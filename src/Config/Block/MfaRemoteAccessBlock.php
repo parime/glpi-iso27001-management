@@ -75,7 +75,6 @@ final class MfaRemoteAccessBlock extends ConfigBlock
                     static fn (int $id): string => (string) Dropdown::getDropdownName(Group::getTable(), $id),
                     $groups
                 ),
-                'mfa_url' => MfaCoverage::getSearchURL(),
             ],
         ];
     }

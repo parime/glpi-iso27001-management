@@ -203,8 +203,8 @@ if (isset($_POST['analyse'])) {
 }
 
 $title = __('Import or export the risk register', 'grcmanager');
-Html::header($title, $pageUrl, 'grcmanager', Risk::class);
-\GlpiPlugin\Grcmanager\Menu::showSection(Risk::class, Risk::class);
+\GlpiPlugin\Grcmanager\Menu::header(Risk::class, $title, $pageUrl);
+\GlpiPlugin\Grcmanager\Menu::showSection(Risk::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('riskimport');
 TemplateRenderer::getInstance()->display('@grcmanager/risk_import.html.twig', [
     'analysis'     => $analysis,

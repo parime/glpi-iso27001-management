@@ -24,7 +24,6 @@
       {% else %}
         {{ __('Members of these groups have remote access: %s.', 'grcmanager')|format(r.names|join(', ')) }}
       {% endif %}
-      <a href="{{ r.mfa_url }}" class="ms-1"><i class="ti ti-arrow-right me-1"></i>{{ __('MFA coverage', 'grcmanager') }}</a>
     </p>
     {% if can_edit_config %}
       <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">

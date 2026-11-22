@@ -43,12 +43,9 @@ if (isset($_POST['add'])) {
 } else {
     Session::checkRight(\GlpiPlugin\Grcmanager\Waiver::$rightname, READ);
 
-    Html::header(
-        \GlpiPlugin\Grcmanager\Waiver::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Risk::class,
-        \GlpiPlugin\Grcmanager\Waiver::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        \GlpiPlugin\Grcmanager\Waiver::class,
+        \GlpiPlugin\Grcmanager\Waiver::getTypeName(1)
     );
 
     $item->display([

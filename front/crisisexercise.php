@@ -52,18 +52,13 @@ foreach (\GlpiPlugin\Grcmanager\CrisisExercise::getScenarios() as $key => $scena
     $scenarios[] = $scenario + ['key' => $key, 'steps' => $steps];
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\CrisisExercise::class,
     \GlpiPlugin\Grcmanager\CrisisExercise::getTypeName(Session::getPluralNumber()),
-    \GlpiPlugin\Grcmanager\CrisisExercise::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\CrisisExercise::class
+    \GlpiPlugin\Grcmanager\CrisisExercise::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\CrisisExercise::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\CrisisExercise::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('crisisexercise');
 TemplateRenderer::getInstance()->display('@grcmanager/crisis_exercises.html.twig', [

@@ -355,7 +355,7 @@ class AuditorAccess extends CommonGLPI
 
             return;
         }
-        Html::header($title, $url, 'grcmanager', MySpace::class);
+        \GlpiPlugin\Grcmanager\Menu::header(MySpace::class, $title, $url);
     }
 
     public static function footer(): void

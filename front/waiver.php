@@ -21,15 +21,12 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 // Issue #170 : registre des dérogations de sécurité.
 Session::checkRight(\GlpiPlugin\Grcmanager\Waiver::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\Waiver::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\Waiver::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Waiver::class,
+    \GlpiPlugin\Grcmanager\Waiver::getTypeName(Session::getPluralNumber())
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\Waiver::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Waiver::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('waiver');
 

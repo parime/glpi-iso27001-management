@@ -50,11 +50,7 @@ if (isset($_POST['add'])) {
     \GlpiPlugin\Grcmanager\Training::displayFullPageForItem(
         (int) ($_GET['id'] ?? 0),
         [
-            'central'  => [
-                'grcmanager',
-                \GlpiPlugin\Grcmanager\AccessReview::class,
-                \GlpiPlugin\Grcmanager\Training::class,
-            ],
+            'central'  => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\Training::class),
             'helpdesk' => [],
         ],
         [

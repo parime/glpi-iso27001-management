@@ -21,18 +21,12 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\SupplierRisk::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\SupplierRisk::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\SupplierRisk::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\SupplierRisk::class,
+    \GlpiPlugin\Grcmanager\SupplierRisk::getTypeName(2)
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\SupplierRisk::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\SupplierRisk::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('supplierrisk');
 

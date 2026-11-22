@@ -15,7 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\SoaScoping;
 use GlpiPlugin\Grcmanager\Services\Control\SoaScopingRules;
 
@@ -85,8 +84,8 @@ if (SoaScoping::canDecide() && isset($_POST['preview_pending'])) {
     $previewIds = array_map('intval', (array) ($_POST['controls'] ?? []));
 }
 
-Html::header(SoaScoping::getTypeName(), SoaScoping::getSearchURL(), 'grcmanager', Control::class, SoaScoping::class);
-\GlpiPlugin\Grcmanager\Menu::showSection(Control::class, SoaScoping::class);
+\GlpiPlugin\Grcmanager\Menu::header(SoaScoping::class, SoaScoping::getTypeName(), SoaScoping::getSearchURL());
+\GlpiPlugin\Grcmanager\Menu::showSection(SoaScoping::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('soascoping');
 SoaScoping::showPage($entityId, $previewIds);

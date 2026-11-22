@@ -1,0 +1,121 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1053 : une famille de référentiels, repliable, avec le nombre de référentiels actifs
+   (FrameworkFamilyBlock::data()). Le formulaire renvoie en champs cachés les référentiels cochés
+   des autres familles : enregistrer une famille ne change rien aux autres. Un regroupement avec
+   parent (NIS2) montre ses déclinaisons nationales quand le parent est coché. #}
+{% macro framework_switch(it, prefix, can_edit, controls) %}
+   {% set input_id = prefix ~ '-' ~ it.key %}
+   <div class="form-check form-switch mb-2">
+      <input class="form-check-input" type="checkbox" role="switch" id="{{ input_id }}"
+             {% if it.editable %}name="frameworks[]"{% endif %} value="{{ it.key }}"
+             {{ it.checked ? 'checked' }} {{ can_edit and it.editable ? '' : 'disabled' }}
+             {% if controls %}aria-controls="{{ controls }}" aria-expanded="{{ it.checked ? 'true' : 'false' }}" data-grc-toggles="{{ controls }}"{% endif %}>
+      <label class="form-check-label" for="{{ input_id }}">{{ it.label }}</label>
+      {% if it.checked and not it.active %}
+         <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1"><i class="ti ti-plug-off me-1"></i>{{ __('Inactive: requires %s', 'grcmanager')|format(it.parent_label) }}</span>
+      {% endif %}
+      {% if not it.editable %}
+         <div class="form-hint"><i class="ti ti-info-circle me-1"></i>{{ __('Enable %s first, in the European regulations family.', 'grcmanager')|format(it.parent_label) }}</div>
+      {% endif %}
+      {% if it.help %}<div class="form-hint">{{ it.help }}</div>{% endif %}
+   </div>
+{% endmacro %}
+{% set f = family %}
+<details class="card mb-2 grc-framework-family" data-grc-family="{{ f.id }}">
+   <summary class="card-header d-flex flex-wrap align-items-center gap-2" style="cursor: pointer;">
+      <i class="ti {{ f.icon }}" aria-hidden="true"></i>
+      <span class="fw-bold">{{ f.label }}</span>
+      <span class="badge {{ f.count.active > 0 ? 'bg-green-subtle text-green-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} ms-auto">
+         <i class="ti ti-circle-check me-1" aria-hidden="true"></i>{{ __('%1$d of %2$d active', 'grcmanager')|format(f.count.active, f.count.total) }}
+      </span>
+   </summary>
+   <div class="card-body">
+      <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+         {% for key in f.hidden %}
+            <input type="hidden" name="frameworks[]" value="{{ key }}">
+         {% endfor %}
+         {% for it in f.items %}
+            {% if it.type == 'single' %}
+               {{ _self.framework_switch(it, f.id, can_edit_config, '') }}
+            {% else %}
+               <fieldset class="border rounded p-2 mb-3">
+                  <legend class="float-none w-auto px-1 mb-1 fs-4 fw-bold">{{ it.title }}</legend>
+                  {% if it.hint %}<div class="form-hint mb-2">{{ it.hint }}</div>{% endif %}
+                  {% if it.parent %}
+                     {% set children_id = f.id ~ '-' ~ it.group ~ '-children' %}
+                     {{ _self.framework_switch(it.parent, f.id, can_edit_config, children_id) }}
+                     <div class="ms-4 ps-2 border-start" id="{{ children_id }}" {{ it.parent.checked ? '' : 'hidden' }}>
+                        {% if it.children_label %}<div class="fw-bold small mb-1"><i class="ti ti-flag me-1" aria-hidden="true"></i>{{ it.children_label }}</div>{% endif %}
+                        {% for child in it.children %}
+                           {{ _self.framework_switch(child, f.id, can_edit_config, '') }}
+                        {% endfor %}
+                     </div>
+                  {% else %}
+                     {% for child in it.children %}
+                        {{ _self.framework_switch(child, f.id, can_edit_config, '') }}
+                     {% endfor %}
+                  {% endif %}
+               </fieldset>
+            {% endif %}
+         {% endfor %}
+         {% if f.items is empty %}
+            <p class="text-muted">{{ __('No framework in this family yet.', 'grcmanager') }}</p>
+         {% endif %}
+         {% if f.link %}
+            <div class="form-hint mb-2"><i class="ti {{ f.link.icon }} me-1"></i><a href="{{ f.link.url }}">{{ f.link.label }}</a></div>
+         {% endif %}
+         {% if can_edit_config %}
+            <div class="d-flex gap-2 mt-2">
+               <button type="submit" name="update_frameworks" class="btn btn-primary">{{ __('Save') }}</button>
+            </div>
+         {% endif %}
+      </form>
+   </div>
+</details>
+<script>
+(function () {
+   var family = document.querySelector('details[data-grc-family="{{ f.id|e('js') }}"]');
+   if (!family) {
+      return;
+   }
+   // Famille ouverte gardée le temps de la session du navigateur (retour après enregistrement).
+   var storageKey = 'grcmanager-framework-family-' + family.getAttribute('data-grc-family');
+   try {
+      if (window.sessionStorage.getItem(storageKey) === 'open') {
+         family.open = true;
+      }
+   } catch (e) {}
+   family.addEventListener('toggle', function () {
+      try {
+         if (family.open) {
+            window.sessionStorage.setItem(storageKey, 'open');
+         } else {
+            window.sessionStorage.removeItem(storageKey);
+         }
+      } catch (e) {}
+   });
+   family.querySelectorAll('[data-grc-toggles]').forEach(function (input) {
+      input.addEventListener('change', function () {
+         var target = document.getElementById(input.getAttribute('data-grc-toggles'));
+         if (target) {
+            target.hidden = !input.checked;
+         }
+         input.setAttribute('aria-expanded', input.checked ? 'true' : 'false');
+      });
+   });
+})();
+</script>

@@ -39,17 +39,12 @@ if (($_GET['export'] ?? '') === 'csv') {
     exit;
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\BusinessProcess::class,
     \GlpiPlugin\Grcmanager\BusinessProcess::getTypeName(Session::getPluralNumber()),
-    \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\BusinessProcess::class
+    \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\BusinessProcess::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\BusinessProcess::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('businessprocess');
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/business_process_list_header.html.twig', [
     'new_url'    => \GlpiPlugin\Grcmanager\BusinessProcess::canCreate()

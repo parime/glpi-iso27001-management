@@ -80,7 +80,6 @@ final class CodeHostingConnectorBlock extends ConfigBlock
                 'enabled'       => CodeSecurityConfig::isEnabled(),
                 'allow_private' => Http::allowsPrivateNetworks(),
                 'last_read'     => $lastRead['date'] !== '' ? (string) Html::convDateTime($lastRead['date']) : '',
-                'page_url'      => CodeSecurity::getSearchURL(),
             ],
         ];
     }

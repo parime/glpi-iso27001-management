@@ -92,7 +92,7 @@ if (isset($_POST['add'])) {
             'denied'
         );
     }
-    $menus = ['helpdesk', PluginGrcmanagerSecurityIncident::class];
+    $menus = \GlpiPlugin\Grcmanager\Menu::sectorPath(PluginGrcmanagerSecurityIncident::class);
     PluginGrcmanagerSecurityIncident::displayFullPageForItem((int) ($_REQUEST['id'] ?? 0), $menus, $_REQUEST);
     Html::footer();
 }

@@ -34,10 +34,6 @@
       {% else %}
         {{ __('No reading yet.', 'grcmanager') }}
       {% endif %}
-      <a href="{{ g.mfa_url }}" class="ms-1"><i class="ti ti-arrow-right me-1"></i>{{ __('MFA coverage', 'grcmanager') }}</a>
-      {% if g.share_url %}
-        <a href="{{ g.share_url }}" class="ms-2"><i class="ti ti-arrow-right me-1"></i>{{ __('SharePoint, OneDrive and Teams rights', 'grcmanager') }}</a>
-      {% endif %}
     </p>
     <p class="small">{{ __('The same application reads the MFA methods of the accounts and the sharing rights of SharePoint, OneDrive and Teams, when you click the button on these pages. Nothing is ever written in Entra ID or Microsoft 365 and nothing runs automatically.', 'grcmanager') }}</p>
     <ol class="small text-muted">

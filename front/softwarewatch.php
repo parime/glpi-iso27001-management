@@ -65,19 +65,14 @@ if ($suggestFor !== '' && ParkVulnerabilitySync::isEnabled()) {
     $suggestions = $found ?? [];
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Menu::SOFTWARE_WATCH,
     __('Software to watch', 'grcmanager'),
-    \GlpiPlugin\Grcmanager\ParkVulnerability::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\Menu::SOFTWARE_WATCH
+    \GlpiPlugin\Grcmanager\ParkVulnerability::getSearchURL()
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\Menu::SOFTWARE_WATCH
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Menu::SOFTWARE_WATCH);
 \GlpiPlugin\Grcmanager\PageHelp::show('softwarewatch');
 
 TemplateRenderer::getInstance()->display('@grcmanager/software_watch.html.twig', [

@@ -43,12 +43,9 @@ if (isset($_POST['add'])) {
 } else {
     Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, READ);
 
-    Html::header(
-        \GlpiPlugin\Grcmanager\NetworkFlow::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-        \GlpiPlugin\Grcmanager\NetworkFlow::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        \GlpiPlugin\Grcmanager\NetworkFlow::class,
+        \GlpiPlugin\Grcmanager\NetworkFlow::getTypeName(1)
     );
 
     $id = (int) ($_GET['id'] ?? 0);

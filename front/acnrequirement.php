@@ -31,12 +31,10 @@ if (!AcnRequirement::isFrameworkEnabled()) {
 $registers = AcnRequirement::availableRegisters();
 $entityId = AcnRequirement::selectedRegister($registers, $_GET['entities_id'] ?? null);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Referentials::class,
     AcnRequirement::getTypeName(Session::getPluralNumber()),
-    AcnRequirement::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\Referentials::class
+    AcnRequirement::getSearchURL()
 );
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/acn_register.html.twig', [

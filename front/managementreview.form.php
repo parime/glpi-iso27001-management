@@ -48,11 +48,7 @@ if (isset($_POST['add'])) {
     \GlpiPlugin\Grcmanager\ManagementReview::displayFullPageForItem(
         (int) ($_GET['id'] ?? 0),
         [
-            'central'  => [
-                'grcmanager',
-                \GlpiPlugin\Grcmanager\Audit::class,
-                \GlpiPlugin\Grcmanager\ManagementReview::class,
-            ],
+            'central'  => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\ManagementReview::class),
             'helpdesk' => [],
         ]
     );
