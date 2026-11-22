@@ -113,12 +113,32 @@ class Menu extends CommonGLPI
         }
         // Issue #1037 : une page que le profil ne peut pas ouvrir n'est jamais affichée, même si son
         // entrée de menu ne vérifie pas elle-même le droit.
-        if (method_exists($child, 'canView') && !(bool) $child::canView()) {
+        if (!self::profileCanOpen($child)) {
             return null;
         }
         $menu = $child::getMenuContent();
 
         return is_array($menu) && $menu !== [] ? $menu : null;
+    }
+
+    /**
+     * Le profil peut-il ouvrir la page de $class ? Décidé par son canView() quand la classe déclare
+     * un droit ou son propre canView() ; sinon (page sans droit propre, comme les référentiels),
+     * son entrée de menu décide seule.
+     */
+    private static function profileCanOpen(string $class): bool
+    {
+        if (!method_exists($class, 'canView')) {
+            return true;
+        }
+        $declaring = (new \ReflectionMethod($class, 'canView'))->getDeclaringClass()->getName();
+        $own = str_starts_with($declaring, __NAMESPACE__ . '\\') || str_starts_with($declaring, 'PluginGrcmanager');
+        $rightname = property_exists($class, 'rightname') ? (string) $class::$rightname : '';
+        if (!$own && $rightname === '') {
+            return true;
+        }
+
+        return (bool) $class::canView();
     }
 
     /**
@@ -133,7 +153,7 @@ class Menu extends CommonGLPI
     public static function withSubPages(string $parent, $menu)
     {
         // Issue #1037 : parent interdit au profil (droit vérifié ici, l'entrée ne le fait pas toujours).
-        if (method_exists($parent, 'canView') && !(bool) $parent::canView()) {
+        if (!self::profileCanOpen($parent)) {
             $menu = false;
         }
         $parentVisible = is_array($menu) && $menu !== [];

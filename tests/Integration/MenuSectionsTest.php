@@ -200,12 +200,17 @@ final class MenuSectionsTest extends GrcmanagerIntegrationTestCase
             }
             foreach ($this->sections() as $section) {
                 $parent = $section::parent();
+                if (Sections::pages($parent) === []) {
+                    // Rubrique sans sous-page : son entrée de menu (GLPI) décide seule.
+                    continue;
+                }
                 $menu = $parent::getMenuContent();
                 if (!(bool) $parent::canView() && is_array($menu)) {
                     $this->assertNotEmpty($menu['parent_hidden'] ?? null, "$parent : rubrique interdite cachée.");
                 }
                 foreach (array_keys(Sections::pages($parent)) as $key) {
-                    if (class_exists($key) && !(bool) $key::canView()) {
+                    if (class_exists($key) && property_exists($key, 'rightname') && (string) $key::$rightname !== ''
+                        && !(bool) $key::canView()) {
                         $this->assertNull(Menu::pageMenu($key), "$key : page interdite absente du menu.");
                     }
                 }
