@@ -70,9 +70,24 @@ final class ReportedRiskTables implements FeatureTables
     {
     }
 
+    /**
+     * Supprime la table, puis la notification « Votre signalement de risque a été examiné » et son
+     * modèle, par les classes du cœur (leurs nettoyages suppriment cibles, liens et traductions).
+     */
     public static function uninstall(Migration $migration): void
     {
+        global $DB;
+
         $migration->dropTable(self::REPORTS);
+        $itemtype = \GlpiPlugin\Grcmanager\ReportedRisk::class;
+        $notification = new \Notification();
+        foreach ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => ['itemtype' => $itemtype]]) as $row) {
+            $notification->delete(['id' => $row['id']], true);
+        }
+        $template = new \NotificationTemplate();
+        foreach ($DB->request(['FROM' => 'glpi_notificationtemplates', 'WHERE' => ['itemtype' => $itemtype]]) as $row) {
+            $template->delete(['id' => $row['id']], true);
+        }
     }
 
     public static function pluginClasses(): array

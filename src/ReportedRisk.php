@@ -486,9 +486,9 @@ class ReportedRisk extends ReportedRiskBase
             'users_id_decision'          => (int) Session::getLoginUserID(),
             'date_decision'              => date('Y-m-d H:i:s'),
         ]);
-        if ($report->getFromDB($id)) {
-            NotificationEvent::raiseEvent(self::DECIDED_EVENT, $report);
-        }
+        // Fiche relue : la notification cite la décision enregistrée.
+        $report->getFromDB($id);
+        NotificationEvent::raiseEvent(self::DECIDED_EVENT, $report);
 
         return ['error' => null, 'risks_id' => $riskId];
     }
