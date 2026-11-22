@@ -79,7 +79,7 @@ if (isset($_POST['add'])) {
     }
 
     \GlpiPlugin\Grcmanager\Menu::header(
-        \GlpiPlugin\Grcmanager\SupplierRisk::class,
+        SupplierQuestionnaireTemplate::class,
         SupplierQuestionnaireTemplate::getTypeName(1)
     );
 

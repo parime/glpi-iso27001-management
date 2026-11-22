@@ -83,6 +83,15 @@ class SupplierRisk extends SupplierRiskBase
     }
 
     /**
+     * Issue #1040 : entrée « Gestion > Sécurité des fournisseurs » (SupplierSecuritySection), avec
+     * ses sous-pages et sa page d'accueil.
+     */
+    public static function getMenuContent()
+    {
+        return Menu::withSubPages(self::class, parent::getMenuContent());
+    }
+
+    /**
      * The one validation this class adds on top of RiskAssessmentTrait's shared scoring: a
      * supplier risk without a linked Supplier would defeat the whole point of a dedicated
      * register (it would just be a generic risk with a "third_party" category, already possible
@@ -317,6 +326,10 @@ class SupplierRisk extends SupplierRiskBase
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
+        // Issue #1040 : « Évaluer ce fournisseur » depuis l'onglet Sécurité de sa fiche GLPI.
+        if ($this->isNewID($ID) && (int) ($options['suppliers_id'] ?? 0) > 0) {
+            $this->fields['suppliers_id'] = (int) $options['suppliers_id'];
+        }
         $reviewTicket = (int) ($this->fields['review_tickets_id'] ?? 0);
 
         TemplateRenderer::getInstance()->display('@grcmanager/supplier_risk_form.html.twig', [
