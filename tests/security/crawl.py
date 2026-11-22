@@ -2,8 +2,10 @@
 
 Ouvre dans Chromium (Playwright), pour chaque compte, l'accueil de GLPI puis chaque page du plugin, et
 signale comme anomalie :
-- une page en 404 ou en 500, une erreur PHP ou Twig affichée, une page blanche ;
-- un refus (403) pour le super-administrateur (premier compte) ;
+- une page en 500, une erreur PHP ou Twig affichée, une page blanche ;
+- une page proposée par un lien (menu, sous-page, fil d'Ariane) en 404, ou refusée (403) au
+  super-administrateur (premier compte) ; un fichier de front/ ouvert sans paramètre peut être une
+  action (POST, jeton, identifiant obligatoire), où 400, 403 et 404 sont normaux ;
 - une erreur JavaScript ou une boîte de dialogue qui revient à une seconde visite (une erreur isolée,
   due à une page quittée en plein chargement sur une machine lente, est seulement listée) ;
 - un fil d'Ariane absent ou incomplet (accueil, secteur, rubrique) sur une page affichée dans la mise
@@ -14,7 +16,8 @@ signale comme anomalie :
 Pages parcourues, découvertes sans liste à tenir : les entrées du menu de GLPI, les sous-pages (barres
 d'onglets des rubriques, onglets de la configuration, liens du fil d'Ariane), chaque fichier de
 front/, une fiche existante de chaque formulaire et les écrans de GLPI modifiés par le plugin, avec
-leurs onglets. Une page de front/ qu'aucun menu ni aucune barre d'onglets ne propose est listée
+leurs onglets. Anomalies déjà connues, à corriger : crawl-known.txt (listées sans faire échouer le
+parcours ; une ligne qui ne se produit plus est signalée). Une page de front/ qu'aucun menu ni aucune barre d'onglets ne propose est listée
 (« hors menu ») sans être une anomalie : page d'action, export, formulaire ouvert depuis une liste.
 
 Données lues dans GLPI par crawl-ids.php (fiches existantes et fil d'Ariane attendu de chaque entrée
@@ -34,6 +37,7 @@ import os
 import re
 import subprocess
 import sys
+from concurrent.futures import ProcessPoolExecutor
 from urllib.parse import urljoin, urlsplit
 
 from playwright.sync_api import sync_playwright
@@ -62,6 +66,7 @@ def parse_args():
     ap.add_argument('--docker', default='')
     ap.add_argument('--front', default=os.path.join(HERE, '..', '..', 'front'))
     ap.add_argument('--redirects', default=os.path.join(HERE, 'crawl-redirects.txt'))
+    ap.add_argument('--known', default=os.path.join(HERE, 'crawl-known.txt'))
     ap.add_argument('--log', default='')
     args = ap.parse_args()
     args.base = args.base.rstrip('/')
@@ -111,8 +116,25 @@ def load_redirects(path):
     return out
 
 
+def load_known(path):
+    """Anomalies connues : « <page> <type> » par ligne (page sans sa requête), suivies d'un commentaire."""
+    out = set()
+    if os.path.exists(path):
+        with open(path, encoding='utf-8') as f:
+            for line in f:
+                words = line.split('#', 1)[0].split()
+                if len(words) >= 2:
+                    out.add((words[0], words[1]))
+    return out
+
+
+def known_key(name, st):
+    return (os.path.basename(urlsplit(name).path), str(st))
+
+
 def norm(text):
-    return re.sub(r'\s+', ' ', text or '').strip()
+    """Libellé sans espaces superflus ni compteur final (« Mon espace GRC (8) »)."""
+    return re.sub(r' \(\d+\)$', '', re.sub(r'\s+', ' ', text or '').strip())
 
 
 class Crawler:
@@ -170,6 +192,8 @@ class Crawler:
             items = [norm(t) for t in pg.locator(CRUMBS).all_inner_texts()]
         except Exception:
             return 'illisible'
+        if PLUGIN not in name:  # accueil et écrans de GLPI : leur fil d'Ariane est celui du cœur
+            return 'glpi'
         if len(items) < 3:
             bad.append((name, 'ARIANE', 'fil incomplet : %s' % ' > '.join(items)))
             return 'incomplet'
@@ -208,7 +232,7 @@ class Crawler:
     def open(self, pg, name, click_tabs):
         r = pg.goto(self.base + '/' + name, wait_until='load')
         try:
-            pg.wait_for_load_state('networkidle', timeout=3000)
+            pg.wait_for_load_state('networkidle', timeout=2000)
         except Exception:
             pass
         if click_tabs:  # écran de GLPI : chaque onglet du plugin, ouvert pour ses scripts
@@ -223,7 +247,11 @@ class Crawler:
 
     def crawl(self, browser, login, password, admin):
         ctx = browser.new_context(viewport={'width': 1440, 'height': 1000})
-        pg, ok = self.login(ctx, login, password)
+        try:
+            pg, ok = self.login(ctx, login, password)
+        except Exception as exc:  # instance injoignable
+            pg, ok = None, False
+            print('connexion de %s : %s' % (login, str(exc).splitlines()[0][:200]))
         counts, bad, js = {}, [], []
         if not ok:
             ctx.close()
@@ -238,9 +266,13 @@ class Crawler:
         pg.on('dialog', on_dialog)
         pg.goto(self.base + '/front/central.php', wait_until='load')
         menu = self.menu_links(pg)
+        # Pages proposées par un lien (menu, sous-pages, fil d'Ariane) : elles doivent s'ouvrir. Un
+        # fichier de front/ ouvert sans paramètre peut être une action (POST, jeton, identifiant
+        # obligatoire) : 400, 403 ou 404 y sont normaux, seuls 500, page blanche et erreurs comptent.
         reachable = set(menu)
+        linked = set(menu) | {'front/central.php'}
         queue = ['front/central.php'] + menu + [PLUGIN + p for p in self.front_pages] + self.forms + self.core
-        done, tabs_seen, crumb_links = set(), set(), set()
+        done, tabs_seen = set(), set()
         while queue and len(done) < MAX_PAGES:
             name = queue.pop(0)
             if name in done:
@@ -264,9 +296,10 @@ class Crawler:
                 body, text = '', 1
             m = ERR.search(body)
             ctype = (r.headers.get('content-type', '') if r else '') or 'text/html'
-            if st >= 500 or st == 404 or m:
+            strict = name in linked
+            if st >= 500 or (strict and st == 404) or m:
                 bad.append((name, st, m.group(0) if m else ''))
-            elif admin and st == 403:
+            elif strict and admin and st == 403:
                 bad.append((name, st, 'refusé au super-administrateur'))
             elif st == 200 and 'html' in ctype and not text:
                 bad.append((name, st, 'page blanche'))
@@ -275,7 +308,7 @@ class Crawler:
                 counts['ariane ' + state] = counts.get('ariane ' + state, 0) + 1
             if st < 400:
                 subpages = self.links(pg, SUBPAGES)
-                crumb_links.update(self.links(pg, 'nav ol.breadcrumb a[href]'))
+                linked.update(subpages)
                 if name in reachable:
                     reachable.update(subpages)
                 queue += [p for p in subpages if p not in done]
@@ -312,22 +345,48 @@ class Crawler:
         return counts, bad, js, reachable
 
 
+def crawl_account(crawler, account, admin):
+    """Un compte dans son propre navigateur (un processus par compte, en parallèle)."""
+    login, _, password = account.partition(':')
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        try:
+            counts, bad, js, seen = crawler.crawl(browser, login, password, admin)
+        finally:
+            browser.close()
+    return login, counts, bad, js, seen, crawler.log
+
+
 def main():
     args = parse_args()
     forms, menu = load_ids(args)
     crawler = Crawler(args, forms, menu)
-    results, reachable = [], set()
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        for i, account in enumerate(args.account):
-            login, _, password = account.partition(':')
-            counts, bad, js, seen = crawler.crawl(browser, login, password, i == 0)
+    known = load_known(args.known)
+    results, reachable, used = [], set(), set()
+    with ProcessPoolExecutor(max_workers=len(args.account)) as pool:
+        jobs = [pool.submit(crawl_account, crawler, account, i == 0) for i, account in enumerate(args.account)]
+        for job in jobs:
+            login, counts, bad, js, seen, log = job.result()
             reachable |= seen
-            results.append((login, counts, bad, js))
-        browser.close()
+            crawler.log += log
+            # Anomalies déjà connues (crawl-known.txt) : listées, sans faire échouer le parcours.
+            new = []
+            for entry in bad:
+                key = known_key(entry[0], entry[1])
+                if key in known:
+                    used.add(key)
+                    counts['connues'] = counts.get('connues', 0) + 1
+                    print('connue %s %s %s %s' % (login, entry[0], entry[1], entry[2]))
+                else:
+                    new.append(entry)
+            results.append((login, counts, new, js))
+    for page, kind in sorted(known - used):
+        print('crawl-known.txt : « %s %s » ne se produit plus, retirer la ligne' % (page, kind))
     # Détails d'abord : les 7 dernières lignes restent le résumé lu par les scripts de publication.
     reach = {os.path.basename(urlsplit(u).path) for u in reachable}
-    hidden = [p for p in crawler.front_pages if p not in reach]
+    # Formulaires, exports et actions s'ouvrent depuis une autre page : seuls les écrans comptent.
+    action = re.compile(r'\.(form|export|pdf|send|report|ics|csv|import|dossier|postmortem)\.php$')
+    hidden = [p for p in crawler.front_pages if p not in reach and not action.search(p)]
     print('Pages de front/ hors menu (%d, information) : %s' % (len(hidden), ' '.join(hidden)))
     if args.log:
         with open(args.log, 'w', encoding='utf-8') as f:

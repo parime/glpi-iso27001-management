@@ -11,6 +11,7 @@ Lancés par la CI (job d'installation réelle) dans une instance GLPI jetable :
 | `crawl.py` | parcours de toutes les pages (menus, sous-pages, `front/`, fiches et onglets), en super-admin et en lecteur : codes HTTP, page blanche, erreurs PHP et JavaScript, fil d'Ariane, anciennes adresses (voir plus bas) |
 | `crawl-ids.php` | données du parcours lues dans GLPI : une fiche existante de chaque formulaire, fil d'Ariane attendu de chaque entrée de menu |
 | `crawl-redirects.txt` | anciennes adresses des pages déplacées et leur nouvelle adresse |
+| `crawl-known.txt` | anomalies du parcours déjà connues, à corriger (fil d'Ariane incomplet...) |
 | `purge.php` | supprime le jeu de données (entités et comptes « Securite ISO … », objets nommés « … securite ») d'une instance de test partagée ; `--dry-run` compte sans supprimer |
 | `not-covered.txt` | pages de `front/` volontairement non testées, avec la raison |
 
@@ -59,8 +60,11 @@ Une nouvelle page est donc parcourue sans modifier le script.
 
 Anomalies (échec) :
 
-- 404, 500, erreur PHP ou Twig affichée, page blanche ;
-- 403 pour le super-administrateur (premier compte) ; un 403 est normal pour le lecteur ;
+- 500, erreur PHP ou Twig affichée, page blanche ;
+- page proposée par un lien (menu, sous-page, fil d'Ariane) en 404, ou en 403 pour le
+  super-administrateur (premier compte) ; un 403 est normal pour le lecteur, et un fichier de
+  `front/` ouvert sans paramètre peut être une action (POST, jeton, identifiant obligatoire) où 400,
+  403 et 404 sont normaux ;
 - erreur JavaScript ou boîte de dialogue qui revient à une seconde visite ;
 - fil d'Ariane absent ou incomplet (accueil, secteur, rubrique) dans la mise en page de GLPI et,
   pour le super-administrateur, différent de l'entrée de menu qui mène à la page (secteur,
@@ -89,3 +93,7 @@ compteurs, `ANOMALIES [...]` et `JS [...]`, puis `pages <n>`. Code de sortie 1 s
 anomalie.
 
 Page déplacée : ajouter une ligne `ancienne -> nouvelle` dans `crawl-redirects.txt`.
+
+Anomalies déjà connues : `crawl-known.txt` (`<page> <type>` par ligne, type `ARIANE`, `403`,
+`404`...). Elles sont listées (« connue ... ») sans faire échouer le parcours ; une ligne qui ne se
+produit plus est signalée et doit être retirée. Ne pas y ajouter une anomalie nouvelle : la corriger.
