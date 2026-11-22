@@ -52,6 +52,10 @@
       'helper': __('From the MFA coverage page: GLPI two-factor authentication or imported report.', 'grcmanager'),
    }) }}
    {{ fields.checkboxField('suggestion_rules[group_change]', suggestion_rules.group_change ? 1 : 0, __('Examine group changes without profile review', 'grcmanager')) }}
+   {# Issue #932 : écarts de la fiche de conformité du collaborateur #}
+   {{ fields.checkboxField('suggestion_rules[compliance]', suggestion_rules.compliance ? 1 : 0, __('Examine staff compliance gaps', 'grcmanager'), {
+      'helper': __('From the staff compliance page: mandatory training overdue or expired, IT charter not signed, security policy not acknowledged, once the deadline has passed.', 'grcmanager'),
+   }) }}
    {% if is_new %}
       <div class="col-12 mb-3 text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Once saved, open the "Accounts to review" tab to launch the campaign. Reviewers are notified; the plugin never changes any right.', 'grcmanager') }}</div>
    {% endif %}

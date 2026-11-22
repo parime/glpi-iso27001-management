@@ -1,0 +1,39 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "%d decision(s) pre-filled: check each one, then click \"Save decisions\". Nothing is saved until then."
+msgstr "%d decisión(es) prerrellenada(s): revise cada una y luego haga clic en «Guardar las decisiones». No se guarda nada antes."
+
+msgid "Suggested by the rules:"
+msgstr "Propuesto por las reglas:"
+
+msgid "Pre-fill with the suggestions"
+msgstr "Trasladar las sugerencias"
+
+msgid "Ticks \"Access approved\" or \"To remove\" on the accounts still to review that have a suggestion. Accounts to examine are left for you to decide."
+msgstr "Marca «Accesos aprobados» o «Por retirar» en las cuentas aún por revisar que tienen una sugerencia. Las cuentas por examinar las decide usted."
+
+msgid "Pre-filled from the suggestion, not saved yet"
+msgstr "Prerrellenado según la sugerencia, aún no guardado"
+
+msgid "Examine staff compliance gaps"
+msgstr "Examinar las brechas de cumplimiento del personal"
+
+msgid "From the staff compliance page: mandatory training overdue or expired, IT charter not signed, security policy not acknowledged, once the deadline has passed."
+msgstr "Desde la página de cumplimiento del personal: formación obligatoria atrasada o caducada, carta informática no firmada, política de seguridad no leída, una vez vencido el plazo."
+
+msgid "Staff compliance: mandatory training not completed in time (%s)"
+msgstr "Cumplimiento del personal: formación obligatoria no realizada a tiempo (%s)"
+
+msgid "Staff compliance: mandatory training expired (%s)"
+msgstr "Cumplimiento del personal: formación obligatoria caducada (%s)"
+
+msgid "Staff compliance: IT charter sent but not signed (%s)"
+msgstr "Cumplimiento del personal: carta informática enviada pero no firmada (%s)"
+
+msgid "Staff compliance: security policies not acknowledged (%s)"
+msgstr "Cumplimiento del personal: políticas de seguridad no leídas (%s)"
+
+msgid "Staff compliance gap"
+msgstr "Brecha de cumplimiento del personal"

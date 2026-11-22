@@ -141,6 +141,7 @@ final class AccessReviewSuggestionTest extends GrcmanagerIntegrationTestCase
                 'privileged'    => true,
                 'mfa'           => false,
                 'group_change'  => false,
+                'compliance'    => false,
             ],
             AccessReviewSuggestion::settings($campaign->fields),
             'durée inconnue ramenée à la valeur par défaut, cases décochées à faux'
@@ -178,6 +179,96 @@ final class AccessReviewSuggestionTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(
             AccessReviewSuggestion::settings($campaign->fields),
             AccessReviewSuggestion::settings($next->fields)
+        );
+    }
+
+    /**
+     * Issue #932 : formation obligatoire assignée il y a 100 jours, jamais suivie (écart de la fiche
+     * de conformité) : le compte sans autre signal passe « à examiner », jamais « à retirer ».
+     */
+    public function testAStaffComplianceGapMakesTheAccountToExamine(): void
+    {
+        global $DB;
+
+        $campaign = $this->createCampaign();
+        $longAgo = date('Y-m-d H:i:s', strtotime('-400 days'));
+        $DB->update(
+            'glpi_users',
+            ['begin_date' => $longAgo, 'date_creation' => $longAgo],
+            ['id' => $this->ids['steady']]
+        );
+        $training = (int) (new \GlpiPlugin\Grcmanager\Training())->add([
+            'title'        => 'PHPUnit mandatory awareness',
+            'is_mandatory' => 1,
+            'participants' => [$this->ids['steady']],
+        ]);
+        $this->assertGreaterThan(0, $training);
+        $DB->update(
+            'glpi_plugin_grcmanager_trainings_users',
+            ['date_creation' => date('Y-m-d H:i:s', strtotime('-100 days'))],
+            ['plugin_grcmanager_trainings_id' => $training, 'users_id' => $this->ids['steady']]
+        );
+
+        $campaign->launch();
+        $steady = $this->linesByUser($campaign->getID())[$this->ids['steady']];
+        $this->assertSame('examine', $steady['suggestion']);
+        $this->assertSame(['compliance_gap'], self::reasonCodes($steady));
+        $this->assertStringContainsString('PHPUnit mandatory awareness', $steady['suggestion_reasons_text']);
+        $this->assertSame('', $steady['suggested_decision']);
+
+        // Règle décochée sur la campagne : plus de signal, le compte redevient « à garder ».
+        $campaign->update([
+            'id'                     => $campaign->getID(),
+            '_suggestion_rules_form' => 1,
+            'suggestion_rules'       => ['inactive_days' => 90, 'leaving_days' => 30, 'privileged' => 1],
+        ]);
+        $campaign->getFromDB($campaign->getID());
+        AccessReviewSuggestion::refresh($campaign);
+        $this->assertSame('keep', $this->linesByUser($campaign->getID())[$this->ids['steady']]['suggestion']);
+    }
+
+    /**
+     * Issue #932 : le bouton « Reporter les suggestions » ne vise que les comptes encore à revoir qui
+     * ont une suggestion garder ou retirer ; il ne fait que cocher le formulaire (rien n'est enregistré).
+     */
+    public function testThePrefillButtonTargetsPendingLinesWithASuggestedDecision(): void
+    {
+        $campaign = $this->createCampaign();
+        $campaign->launch();
+        $lines = $this->linesByUser($campaign->getID());
+        AccessReview::decide($lines[$this->ids['steady']]['id'], 'keep', '', $this->ids['chief']);
+        $lines = array_values($this->linesByUser($campaign->getID()));
+
+        $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
+            '@grcmanager/tabs/_access_review_rows.html.twig',
+            [
+                'lines'         => $lines,
+                'decisions'     => AccessReview::getDecisionLabels(),
+                'sources'       => [],
+                'can_decide'    => true,
+                'show_reviewer' => false,
+            ]
+        );
+        $this->assertStringContainsString('data-grc-ar-prefill', $html);
+        // Seul le compte expiré (à retirer, encore à revoir) est concerné.
+        $this->assertMatchesRegularExpression('/data-grc-ar-prefill[^>]*>.*?<span[^>]*>1<\/span>/s', $html);
+        $this->assertStringContainsString('data-suggested="remove"', $html);
+
+        $readOnly = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
+            '@grcmanager/tabs/_access_review_rows.html.twig',
+            [
+                'lines'         => $lines,
+                'decisions'     => AccessReview::getDecisionLabels(),
+                'sources'       => [],
+                'can_decide'    => false,
+                'show_reviewer' => true,
+            ]
+        );
+        $this->assertStringNotContainsString('data-grc-ar-prefill', $readOnly);
+        $this->assertSame(
+            'pending',
+            $this->linesByUser($campaign->getID())[$this->ids['leaver']]['decision'],
+            "l'affichage n'enregistre rien"
         );
     }
 

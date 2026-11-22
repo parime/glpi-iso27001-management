@@ -107,10 +107,69 @@ final class AccessReviewSuggestionRulesTest extends TestCase
         $this->assertSame(Rules::defaults(), Rules::normalize(null));
         $this->assertSame(Rules::defaults(), Rules::normalize('not json'));
         $this->assertSame(
-            ['inactive_days' => 90, 'leaving_days' => 0, 'privileged' => false, 'mfa' => true, 'group_change' => true],
+            [
+                'inactive_days' => 90,
+                'leaving_days'  => 0,
+                'privileged'    => false,
+                'mfa'           => true,
+                'group_change'  => true,
+                'compliance'    => true,
+            ],
             Rules::normalize(['inactive_days' => 45, 'leaving_days' => '0', 'privileged' => '0'])
         );
         $this->assertSame(180, Rules::normalize('{"inactive_days":180}')['inactive_days']);
+    }
+
+    public function testOnlyRealStaffComplianceGapsAreKept(): void
+    {
+        $components = [
+            [
+                'key' => 'training', 'status' => 'late', 'code' => 'renewal_overdue',
+                'params' => ['titles' => ['Phishing']],
+            ],
+            [
+                'key' => 'charter', 'status' => 'late', 'code' => 'pending',
+                'params' => ['campaign' => 'IT charter 2026'],
+            ],
+            ['key' => 'policies', 'status' => 'pending', 'code' => 'pending', 'params' => ['titles' => ['Passwords']]],
+            // Aucune campagne ni donnée RH saisie : pas un manquement de la personne.
+            ['key' => 'charter', 'status' => 'late', 'code' => 'none', 'params' => []],
+            ['key' => 'training', 'status' => 'late', 'code' => 'none', 'params' => []],
+            ['key' => 'nda', 'status' => 'late', 'code' => 'missing', 'params' => []],
+            ['key' => 'screening', 'status' => 'late', 'code' => 'missing', 'params' => []],
+            ['key' => 'access_review', 'status' => 'late', 'code' => 'never', 'params' => []],
+        ];
+
+        $this->assertSame(
+            [
+                ['component' => 'training', 'detail' => 'renewal_overdue', 'titles' => ['Phishing']],
+                ['component' => 'charter', 'detail' => 'pending', 'titles' => ['IT charter 2026']],
+            ],
+            Rules::complianceGaps($components)
+        );
+    }
+
+    public function testAStaffComplianceGapIsToExamineUnlessTheRuleIsOff(): void
+    {
+        $facts = [
+            'last_login'      => '2026-06-14 09:00:00',
+            'compliance_gaps' => [
+                ['component' => 'training', 'detail' => 'pending', 'titles' => ['Security basics']],
+                ['component' => 'nda', 'detail' => 'missing', 'titles' => []],
+            ],
+        ];
+        $result = Rules::suggest($facts, [], self::NOW);
+
+        $this->assertSame('examine', $result['suggestion'], 'jamais « retirer » pour un écart de conformité');
+        $this->assertSame(
+            [[
+                'code'   => 'compliance_gap',
+                'params' => ['component' => 'training', 'detail' => 'pending', 'titles' => ['Security basics']],
+            ]],
+            $result['reasons'],
+            'seuls les signaux connus sont retenus'
+        );
+        $this->assertSame(['no_signal'], $this->codes($facts, ['compliance' => '0']));
     }
 
     public function testKeepingAnAccountSuggestedForRemovalNeedsAComment(): void

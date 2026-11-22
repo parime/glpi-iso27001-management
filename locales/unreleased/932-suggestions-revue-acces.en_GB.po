@@ -1,0 +1,39 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "%d decision(s) pre-filled: check each one, then click \"Save decisions\". Nothing is saved until then."
+msgstr "%d decision(s) pre-filled: check each one, then click \"Save decisions\". Nothing is saved until then."
+
+msgid "Suggested by the rules:"
+msgstr "Suggested by the rules:"
+
+msgid "Pre-fill with the suggestions"
+msgstr "Pre-fill with the suggestions"
+
+msgid "Ticks \"Access approved\" or \"To remove\" on the accounts still to review that have a suggestion. Accounts to examine are left for you to decide."
+msgstr "Ticks \"Access approved\" or \"To remove\" on the accounts still to review that have a suggestion. Accounts to examine are left for you to decide."
+
+msgid "Pre-filled from the suggestion, not saved yet"
+msgstr "Pre-filled from the suggestion, not saved yet"
+
+msgid "Examine staff compliance gaps"
+msgstr "Examine staff compliance gaps"
+
+msgid "From the staff compliance page: mandatory training overdue or expired, IT charter not signed, security policy not acknowledged, once the deadline has passed."
+msgstr "From the staff compliance page: mandatory training overdue or expired, IT charter not signed, security policy not acknowledged, once the deadline has passed."
+
+msgid "Staff compliance: mandatory training not completed in time (%s)"
+msgstr "Staff compliance: mandatory training not completed in time (%s)"
+
+msgid "Staff compliance: mandatory training expired (%s)"
+msgstr "Staff compliance: mandatory training expired (%s)"
+
+msgid "Staff compliance: IT charter sent but not signed (%s)"
+msgstr "Staff compliance: IT charter sent but not signed (%s)"
+
+msgid "Staff compliance: security policies not acknowledged (%s)"
+msgstr "Staff compliance: security policies not acknowledged (%s)"
+
+msgid "Staff compliance gap"
+msgstr "Staff compliance gap"
