@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager;
 
-use CommonDBTM;
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Compat\Base\DelegationBase;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Delegation\DelegationConfig;
 use GlpiPlugin\Grcmanager\Services\Delegation\DelegationRules;
@@ -39,10 +39,8 @@ use Session;
  * quoi, avec la période d'absence en vigueur) et dans le journal d'audit ; la décision elle-même
  * garde le suppléant pour l'afficher « par X pour le compte de Y » (historique, PDF, notifications).
  */
-class Delegation extends CommonDBTM
+class Delegation extends DelegationBase
 {
-    public static $rightname = Installer::RIGHT_NAME;
-
     public const TABLE = 'glpi_plugin_grcmanager_delegateddecisions';
     private const SUBSTITUTES_TABLE = 'glpi_validatorsubstitutes';
 
