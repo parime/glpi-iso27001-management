@@ -10,7 +10,8 @@ native right to read computers.
 2. In **Which computers must be encrypted?**, choose the computers concerned: all of them (default),
    laptops and tablets only (computer type reported by the agent: Laptop, Notebook, Tablet...), or
    the selected types. You can add any computer classified with a medium or high confidentiality
-   (C/I/A classification, tab of the computer form). This requires the right to update the plugin.
+   (C/I/A classification, tab of the computer form). This rule is set once in Setup > Plugins > GRC Manager, **Fleet** tab (**Change in the
+   configuration** button of the page); it requires the right to update the plugin.
 3. The counters give the rate of computers concerned that are fully encrypted, the rate of laptops,
    the weak (DES, RC4...) and older (BitLocker with diffuser, CBC mode) algorithms, then the number
    of computers fully encrypted, partially encrypted, not encrypted or of unknown state (no volume
