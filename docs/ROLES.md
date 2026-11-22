@@ -198,3 +198,5 @@ Objectif : décider en quelques clics, sans devoir connaître le plugin.
    lecture du SMSI.
 5. **Revue de direction** : le RSSI la prépare ; la direction valide les décisions et actions
    enregistrées dans **Audits et amélioration > Revues de direction**.
+
+<!-- Essai de CI (PR documentation seule), à ne pas fusionner. -->
