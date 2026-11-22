@@ -38,7 +38,8 @@ final class SystemDnsReader implements DnsReader
         $texts = [];
         foreach ($this->records($name, DNS_TXT) as $record) {
             if (isset($record['entries']) && is_array($record['entries'])) {
-                $texts[] = implode('', array_map(static fn (mixed $part): string => (string) $part, $record['entries']));
+                $parts = array_map(static fn (mixed $part): string => (string) $part, $record['entries']);
+                $texts[] = implode('', $parts);
             } elseif (isset($record['txt'])) {
                 $texts[] = (string) $record['txt'];
             }
