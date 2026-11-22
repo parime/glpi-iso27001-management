@@ -13,6 +13,14 @@
 use GlpiPlugin\Grcmanager\Menu;
 use GlpiPlugin\Grcmanager\Navigation\Sections;
 
+// Issue #1038 : le registre ReCyF est une sous-page de « Réglementations » quand sa déclinaison est
+// cochée (setup.d/1053-recyf-declinaison.php, lu après ce fragment) : cochée dès ici, pour que la
+// liste des pages soit la même au premier passage et quand le jeu de données est relancé.
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('nis2', true);
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('recyf', true);
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::reset();
+Sections::reset();
+
 $menuPages = [];
 $profile = $_SESSION['glpiactiveprofile'];
 // Droits du profil « sans droit » de la matrice (iso-sans-droit), tels quels ; à défaut, ceux du
@@ -61,6 +69,17 @@ foreach (Sections::all() as $section) {
         'sub'    => false,
         'none'   => $visibleWithoutRights($parent, true),
     ];
+    // Issue #1038 : rubrique avec page d'accueil, son entrée mène à front/section.php ; la page propre
+    // de la classe parente reste servie, avec le fil d'Ariane de la rubrique.
+    if (isset($parentMenu['section_page'])) {
+        $menuPages[] = [
+            'key'    => $parent . '#page',
+            'url'    => (string) $parentMenu['section_page'],
+            'parent' => (string) $parentMenu['page'],
+            'sub'    => false,
+            'none'   => $visibleWithoutRights($parent, true),
+        ];
+    }
     foreach (array_keys(Sections::pages($parent)) as $key) {
         $menu = Menu::pageMenu($key);
         if ($menu === null || !isset($menu['page'])) {

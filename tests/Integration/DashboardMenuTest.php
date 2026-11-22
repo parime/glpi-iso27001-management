@@ -48,6 +48,10 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
 
         // Issue #540 : le registre DORA n'apparaît qu'avec son référentiel, optionnel (annulé avec la transaction).
         \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('dora', true);
+        // Issue #1038 : registres ReCyF et ACN, sous-pages de « Réglementations » avec NIS2 et leur déclinaison.
+        foreach (['nis2', 'recyf', 'acn_it'] as $framework) {
+            \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled($framework, true);
+        }
         \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::reset();
         $entries = $PLUGIN_HOOKS['menu_toadd']['grcmanager']['grcmanager'];
         $this->assertSame(count($entries), count(array_unique($entries)), 'Aucune entrée en double.');
@@ -89,13 +93,21 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
                 'Sans aucun droit du plugin : aucune entrée.'
             );
 
+            // Issue #1038 : le registre RGPD a sa propre rubrique « Vie privée (RGPD) ».
             $_SESSION['glpiactiveprofile'][$gdpr] = READ;
-            $menu = \GlpiPlugin\Grcmanager\Control::getMenuContent();
-            $url = \GlpiPlugin\Grcmanager\ProcessingActivity::getSearchURL(false);
-            $this->assertSame($url, $menu['page'], 'La sous-page autorisée prend la place de la rubrique.');
+            $this->assertFalse(
+                \GlpiPlugin\Grcmanager\Control::getMenuContent(),
+                'Le droit RGPD seul ne montre pas la SoA.'
+            );
+            $menu = \GlpiPlugin\Grcmanager\ProcessingActivity::getMenuContent();
+            $this->assertIsArray($menu);
+            $this->assertSame(
+                \GlpiPlugin\Grcmanager\ProcessingActivity::getSearchURL(false),
+                $menu['section_page'],
+                'Le registre des traitements garde son onglet.'
+            );
             $this->assertSame(
                 [
-                    \GlpiPlugin\Grcmanager\ProcessingActivity::class,
                     \GlpiPlugin\Grcmanager\DataSubjectRequest::class,
                     // Issue #620 : registre des violations, même droit RGPD.
                     \GlpiPlugin\Grcmanager\DataBreach::class,
@@ -108,9 +120,8 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
             $_SESSION['glpiactiveprofile'][$control] = READ;
             $menu = \GlpiPlugin\Grcmanager\Control::getMenuContent();
             $this->assertArrayNotHasKey('parent_hidden', $menu);
-            $this->assertArrayNotHasKey(
-                \GlpiPlugin\Grcmanager\ProcessingActivity::class,
-                $menu['options'] ?? [],
+            $this->assertFalse(
+                \GlpiPlugin\Grcmanager\ProcessingActivity::getMenuContent(),
                 'Le droit général ne donne pas accès au registre RGPD.'
             );
         } finally {

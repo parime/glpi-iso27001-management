@@ -23,7 +23,6 @@ use GlpiPlugin\Grcmanager\CertificationReadiness;
 use GlpiPlugin\Grcmanager\ComplianceEvent;
 use GlpiPlugin\Grcmanager\ConsistencyCheck;
 use GlpiPlugin\Grcmanager\Dashboard;
-use GlpiPlugin\Grcmanager\FrameworkAssessment;
 use GlpiPlugin\Grcmanager\Maturity;
 use GlpiPlugin\Grcmanager\MaturityCampaign;
 use GlpiPlugin\Grcmanager\Navigation\AbstractSection;
@@ -50,7 +49,6 @@ final class DashboardSection extends AbstractSection
             Maturity::class,
             // Issue #603 : maturité par mesure (niveau actuel, niveau cible et écarts).
             MaturityCampaign::class,
-            FrameworkAssessment::class,
             ComplianceEvent::class,
             // Issue #614 : contrôles de cohérence du SMSI avant un audit.
             ConsistencyCheck::class,

@@ -91,4 +91,28 @@ interface MenuSection
      * toute nouvelle rubrique ; le test refuse une exemption inutile.
      */
     public static function overLimit(): string;
+
+    /**
+     * Issue #1038 : nom de la rubrique dans le menu, compréhensible sans connaître la norme. Vide :
+     * le titre de l'entrée de la classe parente. Sinon, ce titre devient celui de l'entrée de menu
+     * et le titre de la page parente reste le nom de son onglet dans la barre de la rubrique.
+     */
+    public static function title(): string;
+
+    /**
+     * Issue #1038 : la rubrique a une page d'accueil (front/section.php) : l'entrée de menu et le fil
+     * d'Ariane y mènent ; elle montre ce qui attend l'utilisateur, puis les écrans en cartes groupées.
+     */
+    public static function hub(): bool;
+
+    /** Issue #1038 : à quoi sert la rubrique, en une phrase (encadré de sa page d'accueil). */
+    public static function description(): string;
+
+    /**
+     * Issue #1038 : sortes d'éléments de « Mon espace » (clés de MySpace::getSources()) montrées
+     * dans « À faire » sur la page d'accueil de la rubrique.
+     *
+     * @return list<string>
+     */
+    public static function todoSources(): array;
 }

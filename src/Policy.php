@@ -73,6 +73,12 @@ class Policy extends PolicyBase
         return 'glpi_plugin_grcmanager_policies';
     }
 
+    /** Issue #1038 : entrée de la rubrique « Politiques et procédures » (src/Navigation/Section/). */
+    public static function getMenuContent()
+    {
+        return Menu::withSubPages(self::class, parent::getMenuContent());
+    }
+
     public static function getTypeName($nb = 0)
     {
         return _n('Security policy', 'Security policies', $nb, 'grcmanager');

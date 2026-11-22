@@ -2,11 +2,14 @@
 # Format : « <contrôle> <identifiant> : <justification> », une par ligne ; « # » : commentaire.
 # Charte commune : parime/glpi-plugin-template, CHARTE.md, section 9 (menus et réglages).
 
-# Issue #656 : outil métier complet. Le secteur « GRC & Conformité » regroupe les écrans d'usage
-# (Tableau de bord, Mon espace, Risques, Mesures, Audits, Revues d'accès, Audits de conformité),
+# Issue #656 : outil métier complet. Le secteur « GRC & Conformité » regroupe les écrans d'usage,
 # chacun pour des publics différents ; tous les réglages restent dans la page de configuration du
 # plugin (front/config.php, ouverte depuis Configuration > Plugins).
-menus-secteur-metier : application GRC complète (risques, mesures, audits, revues d'accès, conformité)
+# Issue #1038 : 13 rubriques aux noms parlants (Tableau de bord, Mon espace, Risques, Analyses de
+# risques, Mesures de sécurité, Politiques et procédures, Audits et preuves, Amélioration continue,
+# Réglementations, Vie privée, Accès et comptes, Personnel et sensibilisation, Organisation du SMSI),
+# 7 sous-pages au plus chacune, plus « Sécurité technique » jusqu'à son départ dans Parc (#1039).
+menus-secteur-metier : plugin GRC conséquent : environ 11 rubriques aux noms parlants dans son secteur propre, décision du mainteneur du 22/11 (#1035)
 
 # Entrée Assistance > Incidents de sécurité (PluginGrcmanagerSecurityIncident, affichée seulement si
 # le module est activé) : c'est un objet ITIL (CommonITILObject : acteurs, tâches, gabarits, SLA,

@@ -195,6 +195,10 @@ final class FrameworkConfigTest extends GrcmanagerIntegrationTestCase
         FrameworkConfig::save([]);
 
         $this->assertSame([], FrameworkConfig::enabled());
-        $this->assertFalse(Referentials::getMenuContent());
+        // Issue #1038 : la rubrique « Réglementations » reste (import d'un référentiel personnalisé,
+        // évaluation), sans la page des correspondances.
+        $menu = Referentials::getMenuContent();
+        $this->assertTrue(!is_array($menu) || !empty($menu['parent_hidden']), 'Page des référentiels masquée.');
+        $this->assertArrayNotHasKey('section_page', is_array($menu) ? $menu : []);
     }
 }
