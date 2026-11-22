@@ -99,10 +99,10 @@ class RecyfRequirement extends RecyfRequirementBase
         return 'code';
     }
 
-    /** Le registre suit le référentiel NIS2. */
+    /** Issue #1053 : déclinaison France de NIS2, active seulement avec NIS2 (FrameworkConfig). */
     public static function isFrameworkEnabled(): bool
     {
-        return FrameworkConfig::isEnabled(FrameworkSelection::NIS2);
+        return FrameworkConfig::isEnabled(FrameworkSelection::RECYF);
     }
 
     public static function canView(): bool

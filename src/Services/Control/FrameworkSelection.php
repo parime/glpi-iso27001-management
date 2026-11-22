@@ -49,6 +49,11 @@ final class FrameworkSelection
     public const SCF = 'scf';
     /** Issue #703 : misure di sicurezza di base NIS2 italiennes (déterminazione ACN). */
     public const ACN_IT = 'acn_it';
+    /**
+     * Issue #1053 : ReCyF (ANSSI), déclinaison France de NIS2. Avant, son registre suivait NIS2 sans
+     * réglage propre ; il est désormais coché sous NIS2 (et dans le bloc ANSSI).
+     */
+    public const RECYF = 'recyf';
 
     /**
      * Issue #379 : référentiels sectoriels, désactivés tant que personne ne les a activés (une
@@ -56,7 +61,7 @@ final class FrameworkSelection
      */
     public const OPTIONAL = [
         self::DORA, self::ISO27701, self::ISO22301, self::ISO42001, self::PCI_DSS, self::SOC2, self::AI_ACT,
-        self::HDS, self::ACN_IT, self::MSS, self::ETSI_319401, self::SCF,
+        self::HDS, self::ACN_IT, self::MSS, self::ETSI_319401, self::SCF, self::RECYF,
     ];
 
     /**
@@ -83,6 +88,7 @@ final class FrameworkSelection
         self::MSS          => 'MonServiceSécurisé (ANSSI)',
         self::ETSI_319401  => 'ETSI EN 319 401 V3.2.1',
         self::SCF          => 'Secure Controls Framework (SCF)',
+        self::RECYF        => 'ReCyF (NIS2 France)',
     ];
 
     /**
@@ -130,6 +136,23 @@ final class FrameworkSelection
     public static function enabled(array $disabled, ?array $keys = null): array
     {
         return array_values(array_diff(self::keys($keys), $disabled));
+    }
+
+    /**
+     * Issue #1053 : référentiels réellement actifs. Une déclinaison (ReCyF, ACN) n'est active que si
+     * son référentiel parent (NIS2) l'est aussi ; son propre réglage est gardé tel quel, et revient
+     * quand le parent est réactivé.
+     *
+     * @param list<string> $enabled réglage enregistré
+     * @param array<string, string> $parents déclinaison => parent
+     * @return list<string>
+     */
+    public static function effective(array $enabled, array $parents): array
+    {
+        return array_values(array_filter(
+            $enabled,
+            static fn (string $key): bool => !isset($parents[$key]) || in_array($parents[$key], $enabled, true)
+        ));
     }
 
     /**

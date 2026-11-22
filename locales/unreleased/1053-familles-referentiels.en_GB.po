@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ISO standards"
+msgstr "ISO standards"
+
+msgid "European regulations"
+msgstr "European regulations"
+
+msgid "National guides"
+msgstr "National guides"
+
+msgid "Sector frameworks"
+msgstr "Sector frameworks"
+
+msgid "Control catalogs"
+msgstr "Control catalogs"
+
+msgid "European directive (EU) 2022/2555: the common obligations. A national implementation adds its own measures, register and score, shown under NIS2; it is active only while NIS2 is."
+msgstr "European directive (EU) 2022/2555: the common obligations. A national implementation adds its own measures, register and score, shown under NIS2; it is active only while NIS2 is."
+
+msgid "National implementation"
+msgstr "National implementation"
+
+msgid "France (ReCyF)"
+msgstr "France (ReCyF)"
+
+msgid "Italy (ACN)"
+msgstr "Italy (ACN)"
+
+msgid "Complementary publications of the French cybersecurity agency, each with its own measures and score. ReCyF is also the French implementation of NIS2: ticking it here or under NIS2 is the same setting."
+msgstr "Complementary publications of the French cybersecurity agency, each with its own measures and score. ReCyF is also the French implementation of NIS2: ticking it here or under NIS2 is the same setting."
+
+msgid "IT hygiene guide"
+msgstr "IT hygiene guide"
+
+msgid "French NIS2 framework of ANSSI (ReCyF): a register with one record per measure, per GLPI entity set as important or essential below; NIS2 is then assessed on these measures. Requires NIS2."
+msgstr "French NIS2 framework of ANSSI (ReCyF): a register with one record per measure, per GLPI entity set as important or essential below; NIS2 is then assessed on these measures. Requires NIS2."
+
+msgid "Frameworks are grouped by family: open a family to tick its frameworks, then save it."
+msgstr "Frameworks are grouped by family: open a family to tick its frameworks, then save it."
+
+msgid "Inactive: requires %s"
+msgstr "Inactive: requires %s"
+
+msgid "Enable %s first, in the European regulations family."
+msgstr "Enable %s first, in the European regulations family."
+
+msgid "%1$d of %2$d active"
+msgstr "%1$d of %2$d active"
+
+msgid "No framework in this family yet."
+msgstr "No framework in this family yet."
+
+msgid "In France, NIS2 can be assessed on the measures of ReCyF, the framework of ANSSI: tick France (ReCyF) under NIS2 in the configuration, then classify your entity as important or essential."
+msgstr "In France, NIS2 can be assessed on the measures of ReCyF, the framework of ANSSI: tick France (ReCyF) under NIS2 in the configuration, then classify your entity as important or essential."

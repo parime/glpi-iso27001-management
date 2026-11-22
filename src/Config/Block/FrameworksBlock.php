@@ -21,7 +21,10 @@ namespace GlpiPlugin\Grcmanager\Config\Block;
 
 use GlpiPlugin\Grcmanager\Config\ConfigBlock;
 
-/** Issue #403 : référentiels de conformité actifs. */
+/**
+ * Issue #403 : référentiels de conformité actifs. Issue #1053 : présentation de l'onglet ; les
+ * référentiels sont cochés dans leur famille (Frameworks<Famille>Block, FrameworkFamilyBlock).
+ */
 final class FrameworksBlock extends ConfigBlock
 {
     public static function tab(): string
@@ -42,15 +45,5 @@ final class FrameworksBlock extends ConfigBlock
     public static function anchors(): array
     {
         return ['grc-frameworks-config'];
-    }
-
-    public static function data(): array
-    {
-        return [
-            'frameworks'            => \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::frameworks(),
-            'custom_frameworks_url' => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),
-            'frameworks_help'       => \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::helpTexts(),
-            'frameworks_enabled'    => \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::enabled(),
-        ];
     }
 }
