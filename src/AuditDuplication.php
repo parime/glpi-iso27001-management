@@ -45,7 +45,10 @@ use User;
  */
 class AuditDuplication extends CommonGLPI
 {
-    public static $rightname = 'plugin_grcmanager';
+    public static function canView(): bool
+    {
+        return Audit::canView();
+    }
 
     public static function getTypeName($nb = 0)
     {
