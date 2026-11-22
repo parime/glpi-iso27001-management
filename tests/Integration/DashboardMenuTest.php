@@ -92,7 +92,10 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
 
             // Issue #1038 : le registre RGPD a sa propre rubrique « Vie privée (RGPD) ».
             $_SESSION['glpiactiveprofile'][$gdpr] = READ;
-            $this->assertFalse(\GlpiPlugin\Grcmanager\Control::getMenuContent(), 'Le droit RGPD seul ne montre pas la SoA.');
+            $this->assertFalse(
+                \GlpiPlugin\Grcmanager\Control::getMenuContent(),
+                'Le droit RGPD seul ne montre pas la SoA.'
+            );
             $menu = \GlpiPlugin\Grcmanager\ProcessingActivity::getMenuContent();
             $this->assertIsArray($menu);
             $this->assertSame(

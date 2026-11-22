@@ -58,7 +58,8 @@ final class IsmsOrganisationSection extends AbstractSection
     {
         return __(
             'How the management system is organised: the requirements of clauses 4 to 10, the context, the '
-                . 'responsibilities, the decisions delegated during an absence, the official contacts and the obligations.',
+                . 'responsibilities, the decisions delegated during an absence, the official contacts and the '
+                . 'obligations.',
             'grcmanager'
         );
     }

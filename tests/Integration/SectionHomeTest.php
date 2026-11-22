@@ -125,7 +125,10 @@ final class SectionHomeTest extends GrcmanagerIntegrationTestCase
             Menu::sectorPath(Delegation::class),
             'Décisions déléguées : Organisation du SMSI, plus le secteur « Outils ».'
         );
-        $this->assertSame(IsmsOrganisationSection::class, Sections::sectionOf(\GlpiPlugin\Grcmanager\ContextItem::class));
+        $this->assertSame(
+            IsmsOrganisationSection::class,
+            Sections::sectionOf(\GlpiPlugin\Grcmanager\ContextItem::class)
+        );
 
         foreach (['nis2', 'recyf', 'acn_it'] as $framework) {
             FrameworkConfig::setEnabled($framework, true);

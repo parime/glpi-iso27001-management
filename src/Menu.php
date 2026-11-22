@@ -276,7 +276,8 @@ class Menu extends CommonGLPI
                 'label'  => (string) ($key === $parent ? ($page['section_label'] ?? $page['title']) : $page['title']),
                 'icon'   => (string) ($page['icon'] ?? ''),
                 // Page parente d'une rubrique avec page d'accueil : son adresse propre (#1038).
-                'url'    => $CFG_GLPI['root_doc'] . ($key === $parent ? ($page['section_page'] ?? $page['page']) : $page['page']),
+                'url'    => $CFG_GLPI['root_doc']
+                    . ($key === $parent ? ($page['section_page'] ?? $page['page']) : $page['page']),
                 'active' => $key === $active,
                 // Groupe d'onglets facultatif de la sous-page (option « group » de sa rubrique).
                 'group'  => (string) ($declared[$key]['group'] ?? ''),
