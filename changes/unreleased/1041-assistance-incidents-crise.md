@@ -11,10 +11,10 @@
     sécurité, Exercices de crise, Programme des tests de reprise, Modèles de messages de crise.
     Les exercices, processus et scénarios quittent la rubrique « Opérations » du menu GRC ; les
     modèles de messages, l'en-tête des incidents. Fil d'Ariane « Assistance > … ».
-  - SentinelOne : « Récupérer maintenant », le résultat de la dernière lecture et les agents sans
-    ordinateur GLPI passent de la configuration à la page Import des alertes EDR, avec les
+  - SentinelOne : le bouton « Lire maintenant », le résultat de la dernière lecture et les agents
+    sans ordinateur GLPI passent de la configuration à la page Import des alertes EDR, avec les
     alertes à examiner. L'onglet Connecteurs garde l'adresse, le jeton, l'entité, le test de
-    connexion et la date de la dernière lecture. Un ancien envoi « Récupérer maintenant » depuis
+    connexion et la date de la dernière lecture. Un ancien envoi « Lire maintenant » depuis
     la configuration reste accepté pendant une version et ouvre la nouvelle page.
   - Les adresses des pages et les droits ne changent pas. Le menu étant gardé dans la session,
     la nouvelle organisation apparaît à la connexion suivante.

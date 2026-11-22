@@ -12,7 +12,7 @@ des tickets, des problèmes et des changements :
    crise, programme des tests de reprise, avec les tests en retard ou en échec) et **Communiquer**
    (modèles de messages de crise). Chaque carte n'apparaît qu'avec le droit de son écran.
 3. Connecteur SentinelOne : l'adresse de la console, le jeton et **Tester la connexion** restent dans
-   **Configuration > Plugins > GRC Manager**, onglet **Connecteurs**. Le bouton **Récupérer
+   **Configuration > Plugins > GRC Manager**, onglet **Connecteurs**. Le bouton **Lire
    maintenant**, le résultat de la dernière lecture et les agents sans ordinateur GLPI sont sur la
    page **Import des alertes EDR**, au-dessus des alertes à examiner.
 
