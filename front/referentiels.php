@@ -31,6 +31,9 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Etsi319401CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\MonServiceSecuriseCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ScfCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\AccessReview;
@@ -327,6 +330,19 @@ foreach (HdsCatalogDefaults::REQUIREMENTS as $code => $requirement) {
     $hdsItems[HdsCatalogDefaults::label($code)] = $requirement;
 }
 
+// Issue #878 : MonServiceSécurisé, un thème par ligne, objet résumé suivi des identifiants de ses mesures.
+$mssItems = [];
+foreach (MonServiceSecuriseCatalogDefaults::THEMES as $code => $theme) {
+    $language = CatalogLanguage::resolve($theme);
+    $mssItems[$code] = [
+        'category' => $theme['category'],
+        $language  => CatalogLanguage::pick($theme, '', $language) . ' '
+            . sprintf(__('Measures: %s', 'grcmanager'), implode(', ', $theme['measures'])),
+        'annex_a'  => $theme['annex_a'],
+        'modules'  => $theme['modules'],
+    ];
+}
+
 // Issue #537 : référentiels personnalisés actifs, mêmes cartes que les catalogues intégrés (thème du
 // fichier en groupe, intitulé, correspondance Annexe A).
 $customFrameworks = [];
@@ -442,6 +458,33 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
         'smsi'
     ) : [],
     'hds_source'      => HdsCatalogDefaults::SOURCE_URL,
+    // Issue #878 : catalogues facultatifs MonServiceSécurisé, ETSI EN 319 401 et SCF.
+    'mss'             => $isEnabled(FrameworkSelection::MSS) ? $isoGroups(
+        MonServiceSecuriseCatalogDefaults::CATEGORIES,
+        $mssItems,
+        'category',
+        false,
+        'gouvernance'
+    ) : [],
+    'mss_source'      => MonServiceSecuriseCatalogDefaults::SOURCE_URL,
+    'mss_count'       => MonServiceSecuriseCatalogDefaults::measureCount(),
+    'etsi_319401'     => $isEnabled(FrameworkSelection::ETSI_319401) ? $isoGroups(
+        Etsi319401CatalogDefaults::CLAUSES,
+        Etsi319401CatalogDefaults::REQUIREMENTS,
+        'clause',
+        true,
+        '5'
+    ) : [],
+    'etsi_319401_source' => Etsi319401CatalogDefaults::SOURCE_URL,
+    'scf'             => $isEnabled(FrameworkSelection::SCF) ? $isoGroups(
+        ScfCatalogDefaults::GROUPS,
+        ScfCatalogDefaults::DOMAINS,
+        'group',
+        false,
+        'domains'
+    ) : [],
+    'scf_source'      => ScfCatalogDefaults::SOURCE_URL,
+    'scf_license'     => ScfCatalogDefaults::LICENSE_URL,
     // Issue #703 : NIS2 Italia - ACN, catalogue des mesures et lien vers le registre de l'entité.
     'acn'             => $isEnabled(FrameworkSelection::ACN_IT)
         ? \GlpiPlugin\Grcmanager\AcnRequirement::referentialCard() : null,

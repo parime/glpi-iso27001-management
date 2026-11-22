@@ -27,6 +27,9 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Etsi319401CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\MonServiceSecuriseCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ScfCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
@@ -106,6 +109,22 @@ final class FrameworkCatalogMeasures
             FrameworkSelection::HDS          => self::fromEntries(
                 HdsCatalogDefaults::REQUIREMENTS,
                 static fn (string $code): string => HdsCatalogDefaults::label($code),
+                $language
+            ),
+            // Issue #878 : un thème MonServiceSécurisé, un paragraphe ETSI, un domaine SCF par ligne.
+            FrameworkSelection::MSS          => self::fromEntries(
+                MonServiceSecuriseCatalogDefaults::THEMES,
+                static fn (string $code): string => $code,
+                $language
+            ),
+            FrameworkSelection::ETSI_319401  => self::fromEntries(
+                Etsi319401CatalogDefaults::REQUIREMENTS,
+                static fn (string $code): string => $code,
+                $language
+            ),
+            FrameworkSelection::SCF          => self::fromEntries(
+                ScfCatalogDefaults::DOMAINS,
+                static fn (string $code): string => $code,
                 $language
             ),
             default                          => [],

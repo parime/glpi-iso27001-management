@@ -62,6 +62,7 @@ final class PilotageCardsTest extends TestCase
                 'CIS Controls v8' => null, 'DORA' => null, 'ISO 27701' => null,
                 'ISO 22301' => null, 'ISO 42001' => null, 'PCI DSS' => null,
                 'SOC 2' => null, 'AI Act' => null, 'HDS' => null,
+                'MonServiceSécurisé' => null, 'ETSI EN 319 401' => null, 'SCF' => null,
             ],
             PilotageCards::frameworkRates([])
         );

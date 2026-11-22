@@ -43,6 +43,9 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Etsi319401CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\MonServiceSecuriseCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ScfCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\SoaSelectionRules;
@@ -1563,6 +1566,9 @@ class Control extends ControlBase
         $showSoc2 = FrameworkConfig::isEnabled(FrameworkSelection::SOC2);
         $showAiAct = FrameworkConfig::isEnabled(FrameworkSelection::AI_ACT);
         $showHds = FrameworkConfig::isEnabled(FrameworkSelection::HDS);
+        $showMss = FrameworkConfig::isEnabled(FrameworkSelection::MSS);
+        $showEtsi = FrameworkConfig::isEnabled(FrameworkSelection::ETSI_319401);
+        $showScf = FrameworkConfig::isEnabled(FrameworkSelection::SCF);
         $showNist = FrameworkConfig::isEnabled(FrameworkSelection::NIST_CSF);
         // Issue #537 : exigences des référentiels personnalisés actifs qui citent cette mesure.
         $customFrameworks = [];
@@ -1685,6 +1691,9 @@ class Control extends ControlBase
             'soc2'                    => $showSoc2 ? Soc2CatalogDefaults::criteriaForControl($code) : [],
             'ai_act'                  => $showAiAct ? AiActCatalogDefaults::articlesForControl($code) : [],
             'hds'                     => $showHds ? HdsCatalogDefaults::requirementsForControl($code) : [],
+            'mss'                     => $showMss ? MonServiceSecuriseCatalogDefaults::themesForControl($code) : [],
+            'etsi_319401'             => $showEtsi ? Etsi319401CatalogDefaults::requirementsForControl($code) : [],
+            'scf'                     => $showScf ? ScfCatalogDefaults::domainsForControl($code) : [],
             'custom_frameworks'       => $customFrameworks,
             'anssi'                   => $anssi,
             'cis'                     => $cis,

@@ -59,5 +59,7 @@
     <i class="ti ti-license me-1"></i>
     {{ footer }}
     {% if source %}<a href="{{ source }}" target="_blank" rel="noopener noreferrer">{{ source_label|default('iso.org') }}</a>{% endif %}
+    {# Issue #878 : licence du référentiel, quand elle demande un lien (Apache 2.0, CC BY-ND 4.0). #}
+    {% if license_url|default('') %}- <a href="{{ license_url }}" target="_blank" rel="noopener noreferrer">{{ license_label }}</a>{% endif %}
   </div>
 </div>

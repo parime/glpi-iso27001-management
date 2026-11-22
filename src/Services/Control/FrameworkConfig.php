@@ -211,6 +211,22 @@ final class FrameworkConfig
                     . 'requirement, per GLPI entity set as important or essential below. Disabled by default.',
                 'grcmanager'
             ),
+            // Issue #878 : catalogues facultatifs reliés à l'Annexe A.
+            FrameworkSelection::MSS          => __(
+                'MonServiceSécurisé (ANSSI): the 135 measures of the security accreditation service, grouped by '
+                    . 'theme, their references on the controls and MonServiceSécurisé score. Disabled by default.',
+                'grcmanager'
+            ),
+            FrameworkSelection::ETSI_319401  => __(
+                'Trust service providers (ETSI EN 319 401): general policy requirements, their references on the '
+                    . 'controls and ETSI score. Disabled by default.',
+                'grcmanager'
+            ),
+            FrameworkSelection::SCF          => __(
+                'Secure Controls Framework: the 34 SCF domains, their references on the controls and SCF score. '
+                    . 'Disabled by default.',
+                'grcmanager'
+            ),
         ] + array_map(
             static fn (string $label): string => __(
                 'Custom framework imported from a file: its requirements, their references on the controls and its '

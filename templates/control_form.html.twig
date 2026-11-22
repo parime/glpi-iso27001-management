@@ -184,6 +184,28 @@
       {% endset %}
       {{ fields.htmlField('', hds_html, __('HDS requirements', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #878 : MonServiceSécurisé, ETSI EN 319 401 et SCF, correspondances indicatives de ce projet. #}
+   {% if mss is not empty %}
+      {% set mss_html %}
+         {% for c in mss %}<span class="badge bg-blue-lt me-1">MSS {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', mss_html, __('MonServiceSécurisé themes', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+   {% if etsi_319401 is not empty %}
+      {% set etsi_html %}
+         {% for c in etsi_319401 %}<span class="badge bg-orange-lt me-1">EN 319 401 {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', etsi_html, __('ETSI EN 319 401 clauses', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+   {% if scf is not empty %}
+      {% set scf_html %}
+         {% for c in scf %}<span class="badge bg-yellow-lt me-1">SCF {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', scf_html, __('SCF domains', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
    {# Issue #537 : exigences des référentiels personnalisés actifs qui citent cette mesure. #}
    {% for custom in custom_frameworks %}
       {% set custom_html %}
