@@ -271,8 +271,9 @@ final class CodeSecurityRules
         string $today,
         array $days
     ): array {
-        $todayTs = (int) strtotime(substr($today, 0, 10));
-        $detectedTs = strtotime(substr($detected, 0, 10));
+        // Jours calendaires comptés en UTC : pas d'écart d'un jour au changement d'heure.
+        $todayTs = (int) strtotime(substr($today, 0, 10) . ' 00:00:00 UTC');
+        $detectedTs = strtotime(substr($detected, 0, 10) . ' 00:00:00 UTC');
         $detectedTs = $detectedTs === false ? $todayTs : min($todayTs, (int) $detectedTs);
         $age = (int) floor(($todayTs - $detectedTs) / 86400);
         $deadline = self::deadline($category, $severity, $days);
@@ -283,7 +284,7 @@ final class CodeSecurityRules
             'age'       => $age,
             'bucket'    => self::ageBucket($age),
             'deadline'  => $deadline,
-            'due'       => date('Y-m-d', $dueTs),
+            'due'       => gmdate('Y-m-d', $dueTs),
             'days_left' => $left,
             'overdue'   => $left < 0,
             'priority'  => self::isPriority($category, $validity),

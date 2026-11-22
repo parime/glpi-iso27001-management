@@ -115,7 +115,7 @@ final class CodeSecurityClient
 
     public static function isGithubReadPath(string $path): bool
     {
-        return preg_match(self::GITHUB_PATH, $path) === 1;
+        return preg_match(self::GITHUB_PATH, $path) === 1 && !str_contains($path, '..');
     }
 
     /**
@@ -275,7 +275,10 @@ final class CodeSecurityClient
     private function fetchGitlab(string $project): array
     {
         $out = ['complete' => false, 'error' => '', 'scans' => [], 'truncated' => false, 'alerts' => []];
-        if (preg_match('#^[A-Za-z0-9_.\-]{1,100}(/[A-Za-z0-9_.\-]{1,100}){1,9}$#', $project) !== 1) {
+        if (
+            preg_match('#^[A-Za-z0-9_.\-]{1,100}(/[A-Za-z0-9_.\-]{1,100}){1,9}$#', $project) !== 1
+            || str_contains($project, '..')
+        ) {
             return ['error' => self::ERROR_REFUSED] + $out;
         }
         $body = (string) json_encode(['query' => self::GITLAB_QUERY, 'variables' => ['fullPath' => $project]]);
