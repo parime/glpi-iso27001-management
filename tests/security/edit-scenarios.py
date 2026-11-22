@@ -85,10 +85,11 @@ class Run:
             self.fail(scenario, 'champ %s : %s (valeur %s)' % (name, result, value))
         return result == 'ok'
 
-    def submit(self, scenario, button):
+    def submit(self, scenario, button, scope=''):
         try:
             with self.page.expect_navigation(wait_until='load'):
-                self.page.locator('button[name="%s"]:visible' % button).first.click(timeout=15000)
+                # Bouton ou <input type="submit"> ; celui d'un ticket est hors du formulaire (attribut form).
+                self.page.locator('%s [name="%s"][type="submit"]:visible' % (scope, button)).first.click(timeout=15000)
         except Exception as exc:
             self.fail(scenario, 'bouton %s : %s' % (button, str(exc).splitlines()[0][:200]))
             return False
@@ -162,7 +163,7 @@ class Run:
                 "(s) => { const v = document.querySelector(s);"
                 " const o = Array.from(v.options).filter(o => o.value !== '' && o.value !== '0').pop();"
                 " v.value = o.value; window.jQuery(v).trigger('change'); }", selector)
-            if not self.submit(label, 'add') or not self.open(label, url):
+            if not self.submit(label, 'add', 'form:has(#show_massiveaction_field)') or not self.open(label, url):
                 continue
             # Un champ déjà prédéfini disparaît de la liste des champs proposés.
             got = self.field('num')
