@@ -2,18 +2,6 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-msgid "These settings are now in Setup > Plugins > GRC Manager, %s tab."
-msgstr "These settings are now in Setup > Plugins > GRC Manager, %s tab."
-
-msgid "See the results"
-msgstr "See the results"
-
-msgid "Set up the connection"
-msgstr "Set up the connection"
-
-msgid "Change the settings"
-msgstr "Change the settings"
-
 msgid "Connection to Microsoft Graph succeeded."
 msgstr "Connection to Microsoft Graph succeeded."
 
