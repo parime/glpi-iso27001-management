@@ -68,7 +68,7 @@ final class FrameworksCustomBlock extends FrameworkFamilyBlock
         return array_merge($orphans, array_keys(CustomFrameworkCatalog::labels()));
     }
 
-    public static function footerLink(): ?array
+    public static function footerLink(): array
     {
         return [
             'label' => __('Import a custom framework', 'grcmanager'),
