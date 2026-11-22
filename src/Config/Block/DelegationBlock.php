@@ -20,10 +20,10 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
 use GlpiPlugin\Grcmanager\Config\ConfigBlock;
+use GlpiPlugin\Grcmanager\Config\MovedSettings;
 use GlpiPlugin\Grcmanager\Delegation;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Delegation\DelegationConfig;
-use Html;
 use Session;
 
 /** Issue #618 : décisions délégables à un suppléant pendant une absence. */
@@ -70,7 +70,8 @@ final class DelegationBlock extends ConfigBlock
         Session::checkRight('config', UPDATE);
         DelegationConfig::save((array) ($_POST['delegation_types'] ?? []));
         Session::addMessageAfterRedirect(htmlescape(__('Settings saved.', 'grcmanager')));
-        Html::redirect(Delegation::configURL());
+        // Html::redirect() termine la requête : méthode séparée, pour garder « return true » (GLPI 11 et 12).
+        MovedSettings::redirect('grc-delegation-config');
 
         return true;
     }
