@@ -31,7 +31,7 @@ use GlpiPlugin\Grcmanager\Policy;
 
 /**
  * Issue #1038 : les audits et les preuves. Non-conformités, écarts, objectifs et revues de direction
- * sont dans « Amélioration continue » (ImprovementSection).
+ * sont dans « Non-conformités et amélioration » (ImprovementSection).
  */
 final class AuditSection extends AbstractSection
 {

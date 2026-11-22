@@ -1,6 +1,6 @@
 ### Créer un audit et une non-conformité, jusqu'à la clôture CAPA
 
-Depuis **GRC & Conformité > Audits et amélioration**, la liste est vide tant qu'aucun audit n'existe.
+Depuis **GRC & Conformité > Audits et preuves**, la liste est vide tant qu'aucun audit n'existe.
 
 ![Liste des audits internes vide](screenshots/tutorial/17-audit-list-empty.png)
 
@@ -92,7 +92,7 @@ pour une non-conformité interne (cause, action corrective, responsable, échéa
 l'onglet **Documents**, vérification) ; l'action corrective n'est obligatoire que pour une
 non-conformité.
 
-L'écran **Audits et amélioration > Constats des audits précédents** liste les constats de chaque
+L'écran **Audits et preuves > Constats des audits précédents** liste les constats de chaque
 audit de certification avec leur état de levée (non levé, action en cours, action réalisée à
 vérifier, levé) et leurs preuves. Il se filtre par audit ou sur les seuls constats non levés, et
 s'exporte en PDF : c'est le document à remettre à l'auditeur à la réunion d'ouverture de l'audit

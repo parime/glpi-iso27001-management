@@ -1,6 +1,6 @@
 ### Record a management review
 
-From **GRC & Conformité > Audits et amélioration > Revues de direction**, the list shows the reviews already recorded.
+From **GRC & Compliance > Nonconformities and improvement > Management reviews**, the list shows the reviews already recorded.
 
 ![Management review list](screenshots/tutorial/38-managementreview-list.png)
 
