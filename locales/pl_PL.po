@@ -37648,3 +37648,269 @@ msgstr "Zgodność personelu: polityki bezpieczeństwa nieprzeczytane (%s)"
 
 msgid "Staff compliance gap"
 msgstr "Luka zgodności personelu"
+
+msgid "Added to the risk register"
+msgstr "Dodano do rejestru ryzyk"
+
+msgid ""
+"An incident is happening right now (virus, intrusion, data leak)? Do not "
+"wait: contact the help desk immediately."
+msgstr ""
+"Incydent trwa właśnie teraz (wirus, włamanie, wyciek danych)? Nie czekaj: "
+"natychmiast skontaktuj się z pomocą techniczną."
+
+msgid "Answer from the person in charge of risks"
+msgstr "Odpowiedź osoby odpowiedzialnej za ryzyka"
+
+msgid "Answer from the person in charge of risks:"
+msgstr "Odpowiedź osoby odpowiedzialnej za ryzyka:"
+
+msgid "Choose a risk"
+msgstr "Wybierz ryzyko"
+
+msgid "Choose the existing risk to link this report to."
+msgstr "Wybierz istniejące ryzyko, do którego dołączyć to zgłoszenie."
+
+msgid ""
+"Creates a new risk with this title and description, to be completed (owner, "
+"likelihood, impact)."
+msgstr ""
+"Tworzy nowe ryzyko z tym tytułem i opisem, do uzupełnienia (właściciel, "
+"prawdopodobieństwo, wpływ)."
+
+msgid "Decided by %1$s on %2$s"
+msgstr "Zdecydował(a) %1$s dnia %2$s"
+
+msgid "Decision recorded. The author has been informed."
+msgstr "Decyzja zapisana. Autor został poinformowany."
+
+msgid "Describe the situation"
+msgstr "Opisz sytuację"
+
+msgid "Describe what you noticed."
+msgstr "Opisz, co zauważyłeś."
+
+msgid "Examined on %s"
+msgstr "Rozpatrzono %s"
+
+msgid "Example: the server room door does not lock"
+msgstr "Przykład: drzwi serwerowni się nie zamykają"
+
+msgid "Existing risk"
+msgstr "Istniejące ryzyko"
+
+msgid ""
+"For each new report, add it to the register (a risk is created, to be "
+"completed), link it to an existing risk, or reject it with a reason. The "
+"author is informed of the decision; the report stays visible on the risk as "
+"a trace for the auditor."
+msgstr ""
+"Każde nowe zgłoszenie dodaj do rejestru (tworzone jest ryzyko do "
+"uzupełnienia), dołącz do istniejącego ryzyka lub odrzuć z podaniem powodu. "
+"Autor jest informowany o decyzji; zgłoszenie pozostaje widoczne przy ryzyku "
+"jako ślad dla audytora."
+
+msgid ""
+"Give a short title and describe the situation, then send. You only see your "
+"own reports here, with the answer of the person in charge of risks once it "
+"is examined."
+msgstr ""
+"Podaj krótki tytuł, opisz sytuację i wyślij. Widzisz tu tylko własne "
+"zgłoszenia wraz z odpowiedzią osoby odpowiedzialnej za ryzyka po ich "
+"rozpatrzeniu."
+
+msgid "Give the reason for the rejection: the author will read it."
+msgstr "Podaj powód odrzucenia: autor go przeczyta."
+
+msgid "Give your report a short title."
+msgstr "Nadaj zgłoszeniu krótki tytuł."
+
+msgid "How serious does it seem to you?"
+msgstr "Jak poważne Ci się to wydaje?"
+
+msgid "I don't know"
+msgstr "Nie wiem"
+
+msgid "ISO/IEC 27001, clause 6.1.2 and control A.6.8"
+msgstr "ISO/IEC 27001, punkt 6.1.2 i zabezpieczenie A.6.8"
+
+msgid ""
+"Lets anyone in the organisation point out a risk or a dangerous situation "
+"they noticed, without needing access to the risk register."
+msgstr ""
+"Pozwala każdej osobie w organizacji zgłosić zauważone ryzyko lub "
+"niebezpieczną sytuację bez dostępu do rejestru ryzyk."
+
+msgid "Link to an existing risk"
+msgstr "Dołącz do istniejącego ryzyka"
+
+msgid "Linked to an existing risk"
+msgstr "Dołączono do istniejącego ryzyka"
+
+msgid "Message to the author (optional)"
+msgstr "Wiadomość do autora (opcjonalnie)"
+
+msgid "Minor: an annoyance"
+msgstr "Niewielkie: utrudnienie"
+
+msgid "My risk reports"
+msgstr "Moje zgłoszenia ryzyk"
+
+msgid "My risk reports page URL"
+msgstr "Adres strony „Moje zgłoszenia ryzyk”"
+
+msgid "No open risk in this entity."
+msgstr "Brak otwartych ryzyk w tej jednostce."
+
+msgid "No report in this list."
+msgstr "Brak zgłoszeń na tej liście."
+
+msgid "No report is linked to this risk."
+msgstr "Żadne zgłoszenie nie jest dołączone do tego ryzyka."
+
+msgid ""
+"Not a risk for the organisation, or out of scope. The author reads your "
+"reason."
+msgstr ""
+"To nie jest ryzyko dla organizacji lub wykracza poza zakres. Autor przeczyta "
+"Twój powód."
+
+msgid "Not kept"
+msgstr "Nie przyjęto"
+
+msgid "Open the reported risks"
+msgstr "Otwórz zgłoszone ryzyka"
+
+msgid "Person who reported the risk"
+msgstr "Osoba, która zgłosiła ryzyko"
+
+msgid "Read only: triaging requires the right to create and update risks."
+msgstr ""
+"Tylko odczyt: rozpatrywanie wymaga prawa tworzenia i modyfikowania ryzyk."
+
+msgid "Reason for the rejection"
+msgstr "Powód odrzucenia"
+
+msgid "Received, waiting to be examined"
+msgstr "Otrzymano, oczekuje na rozpatrzenie"
+
+msgid "Report a risk"
+msgstr "Zgłoś ryzyko"
+
+msgid "Reported by"
+msgstr "Zgłoszone przez"
+
+msgid "Reported by %1$s on %2$s (staff report #%3$d)."
+msgstr "Zgłoszone przez %1$s dnia %2$s (zgłoszenie nr %3$d)."
+
+msgid "Reports from staff that created this risk or were linked to it."
+msgstr ""
+"Zgłoszenia pracowników, z których powstało to ryzyko lub które do niego "
+"dołączono."
+
+msgid ""
+"Risk created from the report. Complete its owner, likelihood and impact."
+msgstr ""
+"Utworzono ryzyko ze zgłoszenia. Uzupełnij właściciela, prawdopodobieństwo i "
+"wpływ."
+
+msgid "Send my report"
+msgstr "Wyślij zgłoszenie"
+
+msgid "Serious: could cause major damage"
+msgstr "Poważne: może spowodować duże szkody"
+
+msgid "Seriousness as felt by the author"
+msgstr "Powaga odczuwana przez autora"
+
+msgid "Significant: could disrupt work or expose information"
+msgstr "Istotne: może zakłócić pracę lub ujawnić informacje"
+
+msgid "Taken into account: added to the risk register"
+msgstr "Uwzględniono: dodano do rejestru ryzyk"
+
+msgid "Taken into account: this risk was already known and is being followed"
+msgstr "Uwzględniono: to ryzyko było już znane i jest monitorowane"
+
+msgid "Thank you for your report: every report helps protect the organisation."
+msgstr "Dziękujemy za zgłoszenie: każde zgłoszenie pomaga chronić organizację."
+
+msgid ""
+"Thank you, your report has been sent to the person in charge of risks. You "
+"will be told what is decided."
+msgstr ""
+"Dziękujemy, Twoje zgłoszenie zostało przekazane osobie odpowiedzialnej za "
+"ryzyka. Otrzymasz informację o decyzji."
+
+msgid "The description is too long."
+msgstr "Opis jest za długi."
+
+msgid "The message is too long."
+msgstr "Wiadomość jest za długa."
+
+msgid ""
+"The risk is already in the register: the report is kept as a trace on it, "
+"the risk is not changed."
+msgstr ""
+"Ryzyko jest już w rejestrze: zgłoszenie zostaje przy nim jako ślad, ryzyko "
+"nie jest zmieniane."
+
+msgid "The title is too long (255 characters at most)."
+msgstr "Tytuł jest za długi (maksymalnie 255 znaków)."
+
+msgid "This report has already been triaged."
+msgstr "To zgłoszenie zostało już rozpatrzone."
+
+msgid "To triage"
+msgstr "Do rozpatrzenia"
+
+msgid ""
+"Triage of the risks reported by staff: each report is examined by a person "
+"before anything reaches the risk register."
+msgstr ""
+"Rozpatrywanie ryzyk zgłoszonych przez pracowników: każde zgłoszenie jest "
+"sprawdzane przez osobę, zanim cokolwiek trafi do rejestru ryzyk."
+
+msgid "What did you notice? (short title)"
+msgstr "Co zauważyłeś? (krótki tytuł)"
+
+msgid ""
+"Where, since when, what could happen, who is concerned. Do not write any "
+"password."
+msgstr ""
+"Gdzie, od kiedy, co może się stać, kogo dotyczy. Nie wpisuj żadnych haseł."
+
+msgid "You cannot do this on this report."
+msgstr "Nie możesz tego zrobić w tym zgłoszeniu."
+
+msgid "You have not reported any risk yet."
+msgstr "Nie zgłosiłeś jeszcze żadnego ryzyka."
+
+msgid ""
+"You noticed something that could harm the organisation or its information: a "
+"door left open, a suspicious email, a password written down, a fragile "
+"process, a supplier at risk? Describe it below. The person in charge of "
+"risks examines every report and tells you what is decided."
+msgstr ""
+"Zauważyłeś coś, co może zaszkodzić organizacji lub jej informacjom: "
+"pozostawione otwarte drzwi, podejrzany e-mail, zapisane hasło, słaby proces, "
+"zagrożonego dostawcę? Opisz to poniżej. Osoba odpowiedzialna za ryzyka "
+"rozpatruje każde zgłoszenie i informuje Cię o decyzji."
+
+msgid "Your risk report has been examined"
+msgstr "Twoje zgłoszenie ryzyka zostało rozpatrzone"
+
+msgid "%d report"
+msgid_plural "%d reports"
+msgstr[0] "%d zgłoszenie"
+msgstr[1] "%d zgłoszenia"
+msgstr[2] "%d zgłoszeń"
+
+msgid "Reported risk"
+msgid_plural "Reported risks"
+msgstr[0] "Zgłoszone ryzyko"
+msgstr[1] "Zgłoszone ryzyka"
+msgstr[2] "Zgłoszonych ryzyk"
+
+msgid "Rejected with a reason"
+msgstr "Odrzucono z podaniem powodu"

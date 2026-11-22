@@ -663,8 +663,7 @@ msgstr "No function linked yet."
 #: templates/my_evidence_requests.html.twig
 #: templates/tabs/playbook_steps.html.twig
 #: templates/tabs/incident_playbook.html.twig
-#: templates/tabs/action_log.html.twig
-#: templates/tabs/ebios_workshop4.html.twig
+#: templates/tabs/action_log.html.twig templates/tabs/ebios_workshop4.html.twig
 #: templates/tabs/business_process_items.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/ebios_workshop2.html.twig
@@ -1557,8 +1556,7 @@ msgstr "Save decisions"
 msgid "Perimeter: %s"
 msgstr "Perimeter: %s"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Met"
 msgstr "Met"
 
@@ -1575,19 +1573,16 @@ msgstr "Overdue"
 msgid "Not notified"
 msgstr "Not notified"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 #: templates/itil_regulatory_section.html.twig src/DataBreach.php:161
 msgid "Not notified (decision recorded)"
 msgstr "Not notified (decision recorded)"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Waiting for the corrective measure"
 msgstr "Waiting for the corrective measure"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 #: templates/itil_regulatory_section.html.twig src/Control.php:125
 #: src/Control.php:833 src/CustomRequirement.php:66
 #: src/SecurityIncidentPlaybookTask.php:70
@@ -1639,8 +1634,7 @@ msgstr "Solved / closed on"
 msgid "Time to resolution"
 msgstr "Time to resolution"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Total cost"
 msgstr "Total cost"
 
@@ -1657,8 +1651,7 @@ msgstr "Total cost"
 msgid "Description"
 msgstr "Description"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Timeline"
 msgstr "Timeline"
 
@@ -1696,8 +1689,7 @@ msgstr "Detail"
 msgid "Scope"
 msgstr "Scope"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Affected items"
 msgstr "Affected items"
 
@@ -1750,8 +1742,7 @@ msgstr "Notified on"
 msgid "Outcome"
 msgstr "Outcome"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/nonconformity_form.html.twig inc/securityincident.class.php:811
 #: src/Nonconformity.php:373
@@ -1775,8 +1766,7 @@ msgctxt "plural"
 msgid "Not filled in."
 msgstr "Not filled in."
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Decided actions"
 msgstr "Decided actions"
 
@@ -2179,8 +2169,7 @@ msgstr "No frozen version: approval date entered manually."
 
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/pdf/policy_version.html.twig templates/soa_approval.html.twig
-#: templates/policy_approval_tab.html.twig src/Waiver.php:86
-#: src/Waiver.php:114
+#: templates/policy_approval_tab.html.twig src/Waiver.php:86 src/Waiver.php:114
 msgid "Requested"
 msgstr "Requested"
 
@@ -2199,8 +2188,7 @@ msgstr "Approval rule"
 #: templates/tabs/risk_business_processes.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/tabs/mitre_attack.html.twig
-#: templates/access_review_form.html.twig
+#: templates/tabs/mitre_attack.html.twig templates/access_review_form.html.twig
 #: templates/custom_framework_form.html.twig
 #: templates/risk_indicator_values.html.twig src/IsmsRequirement.php:288
 #: src/NotificationTargetAccessReview.php:107
@@ -2242,8 +2230,7 @@ msgstr "Audits"
 #: templates/objective_form.html.twig templates/risk_import.html.twig
 #: templates/policy_form.html.twig templates/risk_asset_tab.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/audit_form.html.twig
-#: templates/data_subject_request_form.html.twig
+#: templates/audit_form.html.twig templates/data_subject_request_form.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/audit_findings_tab.html.twig templates/risk_form.html.twig
 #: templates/supplier_security_watch.html.twig
@@ -2256,8 +2243,7 @@ msgstr "Audits"
 #: src/NotificationTargetNonconformity.php:91
 #: src/NotificationTargetPolicy.php:130
 #: src/NotificationTargetPolicyVersion.php:137
-#: src/NotificationTargetRisk.php:93
-#: src/NotificationTargetSupplierRisk.php:115
+#: src/NotificationTargetRisk.php:93 src/NotificationTargetSupplierRisk.php:115
 #: src/NotificationTargetTraining.php:125 src/Objective.php:149
 #: src/Policy.php:135 src/Risk.php:345 src/RiskRegisterImport.php:588
 #: src/SupplierRisk.php:160 src/Training.php:528
@@ -2265,8 +2251,7 @@ msgid "Title"
 msgstr "Title"
 
 #: templates/pdf/audit_report.html.twig
-#: templates/pdf/internal_audit_report.html.twig
-#: templates/audit_form.html.twig
+#: templates/pdf/internal_audit_report.html.twig templates/audit_form.html.twig
 #: templates/audit_evidence_requests_tab.html.twig src/Audit.php:209
 #: src/AuditTeam.php:54 src/AuditTeam.php:198
 msgid "Auditor"
@@ -2325,8 +2310,7 @@ msgstr "Severity"
 #: templates/business_process_form.html.twig
 #: templates/periodic_reviews.html.twig src/BusinessProcess.php:544
 #: src/BusinessProcess.php:616 src/ComplianceEvent.php:228
-#: src/EbiosStudy.php:594 src/IsmsRequirement.php:279
-#: src/Nonconformity.php:332
+#: src/EbiosStudy.php:594 src/IsmsRequirement.php:279 src/Nonconformity.php:332
 msgid "Owner"
 msgstr "Owner"
 
@@ -2513,8 +2497,7 @@ msgstr "ISMS requirements (clauses 4 to 10)"
 msgid "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
 msgstr "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
 
-#: templates/pdf/soa_report.html.twig
-#: templates/isms_requirement_form.html.twig
+#: templates/pdf/soa_report.html.twig templates/isms_requirement_form.html.twig
 #: templates/custom_framework_form.html.twig src/IsmsRequirement.php:254
 msgid "Requirement"
 msgstr "Requirement"
@@ -2665,8 +2648,7 @@ msgstr ""
 "Consistency checks: objectives of the process, plus items and processes it "
 "depends on that do not meet them."
 
-#: templates/pdf/business_continuity_report.html.twig
-#: src/BusinessImpact.php:44
+#: templates/pdf/business_continuity_report.html.twig src/BusinessImpact.php:44
 msgid "Business impact analysis"
 msgstr "Business impact analysis"
 
@@ -2953,8 +2935,7 @@ msgstr "Protocol and ports"
 #: templates/supplier_risk_form.html.twig templates/objective_form.html.twig
 #: templates/processing_activity_form.html.twig
 #: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
-#: templates/risk_form.html.twig
-#: templates/compliance_obligation_form.html.twig
+#: templates/risk_form.html.twig templates/compliance_obligation_form.html.twig
 #: templates/network_flow_form.html.twig src/ComplianceObligation.php:213
 #: src/NetworkFlow.php:266 src/Objective.php:190 src/Policy.php:176
 #: src/ProcessingActivity.php:571 src/ProcessingActivity.php:997
@@ -3935,8 +3916,7 @@ msgstr "Nothing is waiting for you at the moment."
 msgid "Details"
 msgstr "Details"
 
-#: templates/my_space.html.twig
-#: templates/audit_evidence_requests_tab.html.twig
+#: templates/my_space.html.twig templates/audit_evidence_requests_tab.html.twig
 #: src/Services/Workspace/MySpaceProvider.php:138
 #, php-format
 msgid "%d day(s) late"
@@ -3948,8 +3928,7 @@ msgstr "%d day(s) late"
 msgid "Due soon"
 msgstr "Due soon"
 
-#: templates/my_space.html.twig
-#: templates/audit_evidence_requests_tab.html.twig
+#: templates/my_space.html.twig templates/audit_evidence_requests_tab.html.twig
 #: src/Services/Workspace/MySpaceProvider.php:136
 msgid "No due date"
 msgstr "No due date"
@@ -4105,8 +4084,7 @@ msgstr ""
 "once a week; nothing else happens to them."
 
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/park_vulnerabilities.html.twig
-#: templates/account_hygiene.html.twig
+#: templates/park_vulnerabilities.html.twig templates/account_hygiene.html.twig
 #, php-format
 msgid "%d days"
 msgstr "%d days"
@@ -4179,8 +4157,7 @@ msgstr "Read on %s"
 msgid "Latecomers (CSV)"
 msgstr "Latecomers (CSV)"
 
-#: templates/policy_acknowledgement_tab.html.twig
-#: templates/tabs/dpia.html.twig
+#: templates/policy_acknowledgement_tab.html.twig templates/tabs/dpia.html.twig
 msgid "Report (PDF)"
 msgstr "Report (PDF)"
 
@@ -4454,8 +4431,7 @@ msgstr "Exploited"
 msgid "Published"
 msgstr "Published"
 
-#: templates/park_vulnerabilities.html.twig
-#: templates/park_cve_ticket.html.twig
+#: templates/park_vulnerabilities.html.twig templates/park_cve_ticket.html.twig
 msgid "Remediation deadline"
 msgstr "Remediation deadline"
 
@@ -5357,8 +5333,7 @@ msgstr ""
 "Per category of data if needed (e.g. \"5 years after the employee leaves, "
 "then archived\")."
 
-#: templates/processing_activity_form.html.twig
-#: src/ProcessingActivity.php:1007
+#: templates/processing_activity_form.html.twig src/ProcessingActivity.php:1007
 msgid "Security measures"
 msgstr "Security measures"
 
@@ -5401,8 +5376,7 @@ msgstr "Last review"
 msgid "The register is reviewed at least once a year (Periodic reviews)."
 msgstr "The register is reviewed at least once a year (Periodic reviews)."
 
-#: templates/processing_activity_form.html.twig
-#: src/ProcessingActivity.php:1008
+#: templates/processing_activity_form.html.twig src/ProcessingActivity.php:1008
 msgid "Applications, assets and suppliers"
 msgstr "Applications, assets and suppliers"
 
@@ -5742,16 +5716,14 @@ msgstr "Back to the risk list"
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:92
 #: src/AssetClassification.php:183 src/ConsistencyCheck.php:142
 #: src/DoraRegister.php:236 src/DoraRegister.php:241
-#: src/Traits/RiskAssessmentTrait.php:84
-#: src/Traits/RiskAssessmentTrait.php:223
+#: src/Traits/RiskAssessmentTrait.php:84 src/Traits/RiskAssessmentTrait.php:223
 msgid "Low"
 msgstr "Low"
 
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:93
 #: src/AssetClassification.php:184 src/ConsistencyCheck.php:137
 #: src/DoraRegister.php:237 src/DoraRegister.php:242
-#: src/Traits/RiskAssessmentTrait.php:85
-#: src/Traits/RiskAssessmentTrait.php:224
+#: src/Traits/RiskAssessmentTrait.php:85 src/Traits/RiskAssessmentTrait.php:224
 msgid "Medium"
 msgstr "Medium"
 
@@ -8892,8 +8864,7 @@ msgstr ""
 "This asset has not been classified yet (confidentiality/integrity/"
 "availability)."
 
-#: templates/asset_classification_tab.html.twig
-#: src/AssetClassification.php:143
+#: templates/asset_classification_tab.html.twig src/AssetClassification.php:143
 msgid "RTO (maximum downtime)"
 msgstr "RTO (maximum downtime)"
 
@@ -8901,8 +8872,7 @@ msgstr "RTO (maximum downtime)"
 msgid "Time beyond which an outage of this asset becomes unacceptable."
 msgstr "Time beyond which an outage of this asset becomes unacceptable."
 
-#: templates/asset_classification_tab.html.twig
-#: src/AssetClassification.php:151
+#: templates/asset_classification_tab.html.twig src/AssetClassification.php:151
 msgid "RPO (maximum data loss)"
 msgstr "RPO (maximum data loss)"
 
@@ -9364,8 +9334,7 @@ msgid_plural "%d days late"
 msgstr[0] "%d day late"
 msgstr[1] "%d days late"
 
-#: templates/data_subject_request_form.html.twig
-#: src/DataSubjectRequest.php:360
+#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:360
 msgid "Right exercised"
 msgstr "Right exercised"
 
@@ -9391,8 +9360,7 @@ msgstr "Requester"
 msgid "Only what is needed to answer: this field stays on this request."
 msgstr "Only what is needed to answer: this field stays on this request."
 
-#: templates/data_subject_request_form.html.twig
-#: src/DataSubjectRequest.php:369
+#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:369
 msgid "Date of receipt"
 msgstr "Date of receipt"
 
@@ -9432,8 +9400,7 @@ msgstr ""
 msgid "Reason for the extension"
 msgstr "Reason for the extension"
 
-#: templates/data_subject_request_form.html.twig
-#: src/DataSubjectRequest.php:378
+#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:378
 msgid "Date of the answer"
 msgstr "Date of the answer"
 
@@ -16886,8 +16853,7 @@ msgstr "From orange"
 msgid "Planned"
 msgstr "Planned"
 
-#: src/ManagementReview.php:81 src/ManagementReview.php:378
-#: src/Training.php:96
+#: src/ManagementReview.php:81 src/ManagementReview.php:378 src/Training.php:96
 msgctxt "feminine"
 msgid "Completed"
 msgstr "Completed"
@@ -41247,6 +41213,268 @@ msgstr "Staff compliance: security policies not acknowledged (%s)"
 
 msgid "Staff compliance gap"
 msgstr "Staff compliance gap"
+
+msgid "Added to the risk register"
+msgstr "Added to the risk register"
+
+msgid ""
+"An incident is happening right now (virus, intrusion, data leak)? Do not "
+"wait: contact the help desk immediately."
+msgstr ""
+"An incident is happening right now (virus, intrusion, data leak)? Do not "
+"wait: contact the help desk immediately."
+
+msgid "Answer from the person in charge of risks"
+msgstr "Answer from the person in charge of risks"
+
+msgid "Answer from the person in charge of risks:"
+msgstr "Answer from the person in charge of risks:"
+
+msgid "Choose a risk"
+msgstr "Choose a risk"
+
+msgid "Choose the existing risk to link this report to."
+msgstr "Choose the existing risk to link this report to."
+
+msgid ""
+"Creates a new risk with this title and description, to be completed (owner, "
+"likelihood, impact)."
+msgstr ""
+"Creates a new risk with this title and description, to be completed (owner, "
+"likelihood, impact)."
+
+msgid "Decided by %1$s on %2$s"
+msgstr "Decided by %1$s on %2$s"
+
+msgid "Decision recorded. The author has been informed."
+msgstr "Decision recorded. The author has been informed."
+
+msgid "Describe the situation"
+msgstr "Describe the situation"
+
+msgid "Describe what you noticed."
+msgstr "Describe what you noticed."
+
+msgid "Examined on %s"
+msgstr "Examined on %s"
+
+msgid "Example: the server room door does not lock"
+msgstr "Example: the server room door does not lock"
+
+msgid "Existing risk"
+msgstr "Existing risk"
+
+msgid ""
+"For each new report, add it to the register (a risk is created, to be "
+"completed), link it to an existing risk, or reject it with a reason. The "
+"author is informed of the decision; the report stays visible on the risk as "
+"a trace for the auditor."
+msgstr ""
+"For each new report, add it to the register (a risk is created, to be "
+"completed), link it to an existing risk, or reject it with a reason. The "
+"author is informed of the decision; the report stays visible on the risk as "
+"a trace for the auditor."
+
+msgid ""
+"Give a short title and describe the situation, then send. You only see your "
+"own reports here, with the answer of the person in charge of risks once it "
+"is examined."
+msgstr ""
+"Give a short title and describe the situation, then send. You only see your "
+"own reports here, with the answer of the person in charge of risks once it "
+"is examined."
+
+msgid "Give the reason for the rejection: the author will read it."
+msgstr "Give the reason for the rejection: the author will read it."
+
+msgid "Give your report a short title."
+msgstr "Give your report a short title."
+
+msgid "How serious does it seem to you?"
+msgstr "How serious does it seem to you?"
+
+msgid "I don't know"
+msgstr "I don't know"
+
+msgid "ISO/IEC 27001, clause 6.1.2 and control A.6.8"
+msgstr "ISO/IEC 27001, clause 6.1.2 and control A.6.8"
+
+msgid ""
+"Lets anyone in the organisation point out a risk or a dangerous situation "
+"they noticed, without needing access to the risk register."
+msgstr ""
+"Lets anyone in the organisation point out a risk or a dangerous situation "
+"they noticed, without needing access to the risk register."
+
+msgid "Link to an existing risk"
+msgstr "Link to an existing risk"
+
+msgid "Linked to an existing risk"
+msgstr "Linked to an existing risk"
+
+msgid "Message to the author (optional)"
+msgstr "Message to the author (optional)"
+
+msgid "Minor: an annoyance"
+msgstr "Minor: an annoyance"
+
+msgid "My risk reports"
+msgstr "My risk reports"
+
+msgid "My risk reports page URL"
+msgstr "My risk reports page URL"
+
+msgid "No open risk in this entity."
+msgstr "No open risk in this entity."
+
+msgid "No report in this list."
+msgstr "No report in this list."
+
+msgid "No report is linked to this risk."
+msgstr "No report is linked to this risk."
+
+msgid ""
+"Not a risk for the organisation, or out of scope. The author reads your "
+"reason."
+msgstr ""
+"Not a risk for the organisation, or out of scope. The author reads your "
+"reason."
+
+msgid "Not kept"
+msgstr "Not kept"
+
+msgid "Open the reported risks"
+msgstr "Open the reported risks"
+
+msgid "Person who reported the risk"
+msgstr "Person who reported the risk"
+
+msgid "Read only: triaging requires the right to create and update risks."
+msgstr "Read only: triaging requires the right to create and update risks."
+
+msgid "Reason for the rejection"
+msgstr "Reason for the rejection"
+
+msgid "Received, waiting to be examined"
+msgstr "Received, waiting to be examined"
+
+msgid "Report a risk"
+msgstr "Report a risk"
+
+msgid "Reported by"
+msgstr "Reported by"
+
+msgid "Reported by %1$s on %2$s (staff report #%3$d)."
+msgstr "Reported by %1$s on %2$s (staff report #%3$d)."
+
+msgid "Reports from staff that created this risk or were linked to it."
+msgstr "Reports from staff that created this risk or were linked to it."
+
+msgid ""
+"Risk created from the report. Complete its owner, likelihood and impact."
+msgstr ""
+"Risk created from the report. Complete its owner, likelihood and impact."
+
+msgid "Send my report"
+msgstr "Send my report"
+
+msgid "Serious: could cause major damage"
+msgstr "Serious: could cause major damage"
+
+msgid "Seriousness as felt by the author"
+msgstr "Seriousness as felt by the author"
+
+msgid "Significant: could disrupt work or expose information"
+msgstr "Significant: could disrupt work or expose information"
+
+msgid "Taken into account: added to the risk register"
+msgstr "Taken into account: added to the risk register"
+
+msgid "Taken into account: this risk was already known and is being followed"
+msgstr "Taken into account: this risk was already known and is being followed"
+
+msgid "Thank you for your report: every report helps protect the organisation."
+msgstr ""
+"Thank you for your report: every report helps protect the organisation."
+
+msgid ""
+"Thank you, your report has been sent to the person in charge of risks. You "
+"will be told what is decided."
+msgstr ""
+"Thank you, your report has been sent to the person in charge of risks. You "
+"will be told what is decided."
+
+msgid "The description is too long."
+msgstr "The description is too long."
+
+msgid "The message is too long."
+msgstr "The message is too long."
+
+msgid ""
+"The risk is already in the register: the report is kept as a trace on it, "
+"the risk is not changed."
+msgstr ""
+"The risk is already in the register: the report is kept as a trace on it, "
+"the risk is not changed."
+
+msgid "The title is too long (255 characters at most)."
+msgstr "The title is too long (255 characters at most)."
+
+msgid "This report has already been triaged."
+msgstr "This report has already been triaged."
+
+msgid "To triage"
+msgstr "To triage"
+
+msgid ""
+"Triage of the risks reported by staff: each report is examined by a person "
+"before anything reaches the risk register."
+msgstr ""
+"Triage of the risks reported by staff: each report is examined by a person "
+"before anything reaches the risk register."
+
+msgid "What did you notice? (short title)"
+msgstr "What did you notice? (short title)"
+
+msgid ""
+"Where, since when, what could happen, who is concerned. Do not write any "
+"password."
+msgstr ""
+"Where, since when, what could happen, who is concerned. Do not write any "
+"password."
+
+msgid "You cannot do this on this report."
+msgstr "You cannot do this on this report."
+
+msgid "You have not reported any risk yet."
+msgstr "You have not reported any risk yet."
+
+msgid ""
+"You noticed something that could harm the organisation or its information: a "
+"door left open, a suspicious email, a password written down, a fragile "
+"process, a supplier at risk? Describe it below. The person in charge of "
+"risks examines every report and tells you what is decided."
+msgstr ""
+"You noticed something that could harm the organisation or its information: a "
+"door left open, a suspicious email, a password written down, a fragile "
+"process, a supplier at risk? Describe it below. The person in charge of "
+"risks examines every report and tells you what is decided."
+
+msgid "Your risk report has been examined"
+msgstr "Your risk report has been examined"
+
+msgid "%d report"
+msgid_plural "%d reports"
+msgstr[0] "%d report"
+msgstr[1] "%d reports"
+
+msgid "Reported risk"
+msgid_plural "Reported risks"
+msgstr[0] "Reported risk"
+msgstr[1] "Reported risks"
+
+msgid "Rejected with a reason"
+msgstr "Rejected with a reason"
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"

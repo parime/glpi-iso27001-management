@@ -7,6 +7,38 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.84.0] - 2026-11-22
+
+### Added
+
+- **Signalement d'un risque par tout collaborateur, puis tri** (#872, 6.1.2, A.6.8) : la page
+  « Signaler un risque » est ouverte à toute personne connectée, sans aucun droit sur le plugin
+  (entrée « GRC Manager » de l'interface simplifiée, onglet « Mes signalements de risques » des
+  préférences, bouton dans « Mon espace GRC » et « Mes demandes de preuves »). La personne décrit
+  ce qu'elle a remarqué et la gravité ressentie, puis ne voit que ses propres signalements avec la
+  réponse reçue, jamais le registre des risques. Le responsable des risques trie chaque
+  signalement dans la nouvelle sous-page « Risques signalés » de la rubrique des risques :
+  l'accepter dans le registre (un risque « identifié » est créé, à compléter), le rattacher à un
+  risque existant sans le modifier, ou le rejeter avec un motif. La décision est définitive, datée
+  et attribuée ; l'auteur en est prévenu par une notification, et chaque risque garde dans un
+  onglet les signalements qui l'ont créé ou lui ont été rattachés.
+
+### Fixed
+
+- **Fins de ligne des scripts et des traductions** : `.sh`, `.po`, `.pot` et `.py` sont toujours
+  extraits en LF, y compris sous Windows ; le contrôle des variantes régionales du précheck local
+  et la publication ne dépendent plus du réglage `core.autocrlf` du poste.
+
+- **Badges orange, bleus, verts... sans fond** (issue #1026). GLPI et Tabler ne définissent les
+  classes `bg-X-subtle` et `text-X-emphasis` que pour les couleurs de thème (primary, success,
+  warning, danger...) : les badges GRC de couleur nommée (orange pour une gravité haute ou une
+  échéance proche, mais aussi blue, azure, green, red, purple, yellow, teal, lime, indigo, cyan)
+  s'affichaient sans fond, sauf si le plugin Docker Inventory était actif. GRC charge désormais sa
+  propre feuille de style (`public/css/grcmanager.css`, hook `ADD_CSS`) qui définit ces classes pour
+  les douze couleurs nommées de Tabler, en thème clair et en thème sombre (contraste du texte d'au
+  moins 7,5:1). L'orange reprend la teinte de Docker Inventory. Un test unitaire échoue si le code
+  utilise une classe de ce type que ni Tabler ni cette feuille ne définissent.
+
 ## [2.83.0] - 2026-11-22
 
 ### Added
