@@ -1,0 +1,241 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #858 : sécurité du code des applications du registre, lue dans GitHub et GitLab (A.8.28, A.8.29),
+   applications des entités de la personne. Lecture seule : rien n'est modifié chez GitHub ni GitLab ; les jetons
+   ne sont jamais réaffichés et la valeur d'un secret exposé n'est jamais lue. #}
+{% import '@grcmanager/_code_security_macros.html.twig' as cs %}
+{% macro stat_card(id, icon, color, value, title, help) %}
+   <div class="col-sm-6 col-lg"><div class="card card-sm h-100"><div class="card-body">
+      <div class="d-flex align-items-center">
+         <span class="badge bg-{{ color }}-subtle text-{{ color }}-emphasis me-2 fs-3"><i class="{{ icon }}"></i></span>
+         <div>
+            <div class="fw-bold fs-3" id="{{ id }}">{{ value }}</div>
+            <div class="small">{{ title }}</div>
+         </div>
+      </div>
+      {% if help %}<div class="small text-muted mt-1">{{ help }}</div>{% endif %}
+   </div></div></div>
+{% endmacro %}
+
+<div id="grc-code-security">
+   <div class="row row-cards mb-3">
+      {{ _self.stat_card('grc-cs-secrets', 'ti ti-key', summary.secrets_priority > 0 ? 'danger' : 'success', summary.secrets_priority, __('Exposed secrets not revoked', 'grcmanager'), __('To revoke first, then remove from the code', 'grcmanager')) }}
+      {{ _self.stat_card('grc-cs-open', 'ti ti-bug', summary.open > 0 ? (summary.severities.critical + summary.severities.high > 0 ? 'danger' : 'warning') : 'success', summary.open, __('Open alerts', 'grcmanager'), __('including %1$d critical and %2$d high', 'grcmanager')|format(summary.severities.critical, summary.severities.high)) }}
+      {{ _self.stat_card('grc-cs-overdue', 'ti ti-alarm', summary.overdue > 0 ? 'danger' : 'success', summary.overdue, __('Alerts past their deadline', 'grcmanager'), __('Compared with the remediation deadlines of the policy', 'grcmanager')) }}
+      {{ _self.stat_card('grc-cs-scans', 'ti ti-scan', summary.missing_any > 0 ? 'warning' : (summary.repositories_read > 0 ? 'success' : 'secondary'), summary.missing_any, __('Repositories with an analysis not enabled', 'grcmanager'), __('%d repository(ies) read', 'grcmanager')|format(summary.repositories_read)) }}
+      {{ _self.stat_card('grc-cs-oldest', 'ti ti-hourglass', summary.oldest > 90 ? 'danger' : (summary.oldest > 30 ? 'warning' : 'success'), summary.open > 0 ? __('%d days', 'grcmanager')|format(summary.oldest) : '-', __('Oldest open alert', 'grcmanager'), '') }}
+   </div>
+
+   {% if not readings %}
+      <div class="alert alert-info d-flex align-items-start gap-2 mb-3" id="grc-cs-empty">
+         <i class="ti ti-info-circle fs-2"></i>
+         <div>
+            {{ __('Nothing has been read yet. 1. Enter the code repository of each application in its "Secure development" tab. 2. Enter a read-only token below. 3. Click "Read now".', 'grcmanager') }}
+            <a href="{{ register_url }}">{{ __('Register of applications', 'grcmanager') }}</a>
+         </div>
+      </div>
+   {% elseif last_read.error_label %}
+      <div class="alert alert-warning d-flex align-items-start gap-2 mb-3">
+         <i class="ti ti-alert-triangle fs-2"></i>
+         <div>{{ __('Some repositories could not be read: their previous alerts are kept.', 'grcmanager') }} {{ last_read.error_label }}</div>
+      </div>
+   {% endif %}
+
+   {# Applications et leurs dépôts. #}
+   <div class="card mb-3" id="grc-cs-repositories">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-git-branch me-2"></i>{{ __('Applications and their repositories', 'grcmanager') }}</h3>
+         <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ repositories|length }}</span></div>
+      </div>
+      <div class="card-body small pb-0 text-muted">
+         {{ __('Applications of the secure development register whose code repository is on GitHub or GitLab. For each one: the open alerts by family, and the analyses that are not enabled (or not readable with the token), which is itself a gap for control A.8.29.', 'grcmanager') }}
+         {% if without_repository > 0 %}
+            <span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-git-branch-deleted me-1"></i>{{ __('%d application(s) of the register without a code repository', 'grcmanager')|format(without_repository) }}</span>
+         {% endif %}
+      </div>
+      {% if repositories is empty %}
+         <div class="card-body text-muted">{{ __('No repository read in your entities.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Application', 'grcmanager') }}</th>
+                  <th>{{ __('Repository', 'grcmanager') }}</th>
+                  {% for key, info in categories %}<th title="{{ info.help }}"><i class="{{ info.icon }} me-1"></i>{{ info.label }}</th>{% endfor %}
+                  <th>{{ __('Past the deadline', 'grcmanager') }}</th>
+                  <th>{{ __('Last reading', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for repo in repositories %}
+                  <tr>
+                     <td><a href="{{ repo.application_url }}">{{ repo.name }}</a></td>
+                     <td>{{ cs.repository(repo, providers) }}</td>
+                     {% for key, info in categories %}
+                        <td>{{ cs.scan(repo, key, severities) }}</td>
+                     {% endfor %}
+                     <td>
+                        {% if repo.date_read %}
+                           <span class="badge {{ repo.overdue > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }}"><i class="ti ti-alarm me-1"></i>{{ repo.overdue }}</span>
+                        {% else %}<span class="text-muted">-</span>{% endif %}
+                     </td>
+                     <td class="small">
+                        {{ repo.date_read_label ?: '-' }}
+                        {% if repo.truncated %}<div><span class="badge bg-warning-subtle text-warning-emphasis">{{ __('Only the first 100 alerts of a family were read', 'grcmanager') }}</span></div>{% endif %}
+                        {% if repo.error_label %}<div class="text-danger"><i class="ti ti-alert-triangle me-1"></i>{{ repo.error_label }}</div>{% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   {# Alertes ouvertes : secrets prioritaires, alertes en retard, gravité, ancienneté. #}
+   <div class="card mb-3" id="grc-cs-alerts">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-bug me-2"></i>{{ __('Open alerts', 'grcmanager') }}</h3>
+         <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ total_alerts }}</span></div>
+      </div>
+      <div class="card-body small pb-0">
+         <span class="text-muted me-1">{{ __('By age:', 'grcmanager') }}</span>
+         {% for key, label in ages %}
+            {% set age_color = key == 'old' ? 'danger' : (key == 'months' ? 'warning' : 'secondary') %}
+            <span class="badge bg-{{ age_color }}-subtle text-{{ age_color }}-emphasis me-1"><i class="ti ti-hourglass me-1"></i>{{ label }} <span class="fw-bold ms-1">{{ summary.ages[key] }}</span></span>
+         {% endfor %}
+         {% if total_alerts > alerts|length %}
+            <div class="mt-1">{{ __('%1$d alerts: the first %2$d are shown, priorities first.', 'grcmanager')|format(total_alerts, alerts|length) }}</div>
+         {% endif %}
+      </div>
+      {% if alerts is empty %}
+         <div class="card-body text-muted">{{ __('No open alert in your entities.', 'grcmanager') }}</div>
+      {% else %}
+         {{ cs.alerts_table(alerts, categories, severities, true) }}
+      {% endif %}
+   </div>
+
+   {# Délais de la politique de correction. #}
+   <div class="card mb-3" id="grc-cs-policy">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-calendar-time me-2"></i>{{ __('Remediation deadlines', 'grcmanager') }}</h3>
+      </div>
+      <div class="card-body small">
+         <p class="text-muted mb-2">{{ __('The deadlines are those of the vulnerability remediation policy of the plugin, counted from the day the alert was opened. An exposed secret must be revoked at once: it takes the shortest deadline (actively exploited vulnerabilities).', 'grcmanager') }}</p>
+         <span class="badge bg-red-subtle text-red-emphasis me-1"><i class="ti ti-key me-1"></i>{{ __('Exposed secret: %d days', 'grcmanager')|format(policy_days.kev) }}</span>
+         {% for key, info in severities %}
+            <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-1">{{ __('%1$s: %2$d days', 'grcmanager')|format(info.label, policy_days[key]) }}</span>
+         {% endfor %}
+         {% if can_manage %}<a class="ms-2" href="{{ policy_url }}">{{ __('Change the deadlines', 'grcmanager') }}</a>{% endif %}
+      </div>
+   </div>
+
+   {# Connexion à GitHub et GitLab (lecture seule). #}
+   <div class="card mb-3" id="grc-cs-connection">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-plug-connected me-2"></i>{{ __('Connection to GitHub and GitLab (read only)', 'grcmanager') }}</h3>
+         <div class="card-actions">
+            {% if connection.configured %}
+               <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-plug-connected me-1"></i>{{ __('Configured', 'grcmanager') }}</span>
+            {% else %}
+               <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-plug-x me-1"></i>{{ __('Not configured', 'grcmanager') }}</span>
+            {% endif %}
+         </div>
+      </div>
+      <div class="card-body">
+         <p class="small mb-2">
+            {% if last_read.date_label %}
+               <span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-clock me-1"></i>{{ __('Last reading: %s', 'grcmanager')|format(last_read.date_label) }}</span>
+               {{ __('%1$d repository(ies) read, %2$d alert(s), %3$d failure(s).', 'grcmanager')|format(last_read.repositories, last_read.alerts, last_read.failed) }}
+            {% else %}
+               {{ __('No reading yet.', 'grcmanager') }}
+            {% endif %}
+         </p>
+         <p class="small text-muted mb-1">{{ __('How to prepare the tokens (one of the two, or both):', 'grcmanager') }}</p>
+         <ol class="small text-muted">
+            <li>{{ __('GitHub: create a fine-grained personal access token limited to the repositories concerned, with the read-only permissions "Dependabot alerts", "Secret scanning alerts" and "Code scanning alerts".', 'grcmanager') }}</li>
+            <li>{{ __('GitLab: create a project or group access token with the "read_api" scope and at least the Developer role (the vulnerability report requires GitLab Ultimate).', 'grcmanager') }}</li>
+         </ol>
+         {% if not connection.allow_private %}
+            <div class="alert alert-info small py-2">
+               <i class="ti ti-info-circle me-1"></i>{{ __('A server on an internal address (private network) is refused by default: an administrator can allow internal addresses in the plugin configuration.', 'grcmanager') }}
+               <a href="{{ config_url }}">{{ __('Outgoing connections', 'grcmanager') }}</a>
+            </div>
+         {% endif %}
+         {% if can_manage %}
+            <form method="post" action="{{ action }}" class="row g-2 align-items-end">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="col-12"><h4 class="mb-0"><i class="ti ti-brand-github me-1"></i>GitHub</h4></div>
+               <div class="col-md-6">
+                  <label class="form-label" for="grc-cs-github-token">{{ __('Read-only token', 'grcmanager') }}</label>
+                  <input type="password" class="form-control" id="grc-cs-github-token" name="codesecurity_github_token" value="" autocomplete="new-password" placeholder="{{ connection.has_github ? __('Token saved (leave empty to keep it)', 'grcmanager') : '' }}">
+                  {% if connection.has_github %}
+                     <span class="badge bg-success-subtle text-success-emphasis mt-1"><i class="ti ti-lock me-1"></i>{{ __('Token saved', 'grcmanager') }}</span>
+                     <span class="form-check form-check-inline ms-2">
+                        <input type="checkbox" class="form-check-input" id="grc-cs-github-clear" name="codesecurity_github_clear" value="1">
+                        <label class="form-check-label" for="grc-cs-github-clear">{{ __('Delete the saved token', 'grcmanager') }}</label>
+                     </span>
+                  {% endif %}
+               </div>
+               <div class="col-md-6">
+                  <label class="form-label" for="grc-cs-github-url">{{ __('GitHub Enterprise Server address (optional)', 'grcmanager') }}</label>
+                  <input type="url" class="form-control" id="grc-cs-github-url" name="codesecurity_github_url" value="{{ connection.github_url }}" maxlength="255" placeholder="https://github.example.test" autocomplete="off">
+                  <div class="form-hint">{{ __('Leave empty for github.com.', 'grcmanager') }}</div>
+               </div>
+               <div class="col-12"><h4 class="mb-0 mt-2"><i class="ti ti-brand-gitlab me-1"></i>GitLab</h4></div>
+               <div class="col-md-6">
+                  <label class="form-label" for="grc-cs-gitlab-token">{{ __('Read-only token', 'grcmanager') }}</label>
+                  <input type="password" class="form-control" id="grc-cs-gitlab-token" name="codesecurity_gitlab_token" value="" autocomplete="new-password" placeholder="{{ connection.has_gitlab ? __('Token saved (leave empty to keep it)', 'grcmanager') : '' }}">
+                  {% if connection.has_gitlab %}
+                     <span class="badge bg-success-subtle text-success-emphasis mt-1"><i class="ti ti-lock me-1"></i>{{ __('Token saved', 'grcmanager') }}</span>
+                     <span class="form-check form-check-inline ms-2">
+                        <input type="checkbox" class="form-check-input" id="grc-cs-gitlab-clear" name="codesecurity_gitlab_clear" value="1">
+                        <label class="form-check-label" for="grc-cs-gitlab-clear">{{ __('Delete the saved token', 'grcmanager') }}</label>
+                     </span>
+                  {% endif %}
+               </div>
+               <div class="col-md-6">
+                  <label class="form-label" for="grc-cs-gitlab-url">{{ __('GitLab server address (optional)', 'grcmanager') }}</label>
+                  <input type="url" class="form-control" id="grc-cs-gitlab-url" name="codesecurity_gitlab_url" value="{{ connection.gitlab_url }}" maxlength="255" placeholder="https://gitlab.example.test" autocomplete="off">
+                  <div class="form-hint">{{ __('Leave empty for gitlab.com.', 'grcmanager') }}</div>
+               </div>
+               <div class="col-12 form-hint">{{ __('The tokens are encrypted with the GLPI key, never displayed again nor logged. Only the security alerts are read; the value of an exposed secret is never requested.', 'grcmanager') }}</div>
+               <div class="col-12">
+                  <div class="form-check form-switch">
+                     <input type="checkbox" class="form-check-input" role="switch" id="grc-cs-enabled" name="codesecurity_enabled" value="1" {{ connection.enabled ? 'checked' }}>
+                     <label class="form-check-label" for="grc-cs-enabled">{{ __('Read automatically every day (automatic action "codesecurity")', 'grcmanager') }}</label>
+                  </div>
+               </div>
+               <div class="col-12 d-flex flex-wrap gap-2">
+                  <button type="submit" class="btn btn-outline-primary" name="save_codesecurity" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+                  {% if connection.configured %}
+                     <button type="submit" class="btn btn-primary" name="read_codesecurity" value="1"><i class="ti ti-refresh me-1"></i>{{ __('Read now', 'grcmanager') }}</button>
+                  {% endif %}
+                  {% if repositories is not empty %}
+                     <button type="submit" class="btn btn-outline-danger ms-auto" name="clear_codesecurity" value="1"><i class="ti ti-trash me-1"></i>{{ __('Delete the readings', 'grcmanager') }}</button>
+                  {% endif %}
+               </div>
+            </form>
+         {% else %}
+            <p class="small text-muted mb-0">{{ __('Only users who can modify the plugin data can set up this reading.', 'grcmanager') }}</p>
+         {% endif %}
+      </div>
+   </div>
+
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+      <span class="text-muted small me-auto"><i class="ti ti-lock me-1"></i>{{ __('Read only: nothing is ever changed in GitHub or GitLab from GLPI, and no alert is closed.', 'grcmanager') }}</span>
+      <a class="btn btn-sm btn-outline-secondary" href="{{ kri_url }}"><i class="ti ti-chart-line me-1"></i>{{ __('Risk indicators', 'grcmanager') }}</a>
+      <a class="btn btn-sm btn-outline-primary" href="{{ register_url }}"><i class="ti ti-code me-1"></i>{{ __('Register of applications', 'grcmanager') }}</a>
+   </div>
+</div>

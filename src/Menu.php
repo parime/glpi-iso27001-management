@@ -113,6 +113,8 @@ class Menu extends CommonGLPI
                 PhysicalSecurity::class,
                 // Issue #777 : développement sécurisé (registre des applications, mises en production).
                 SecureDevelopment::class,
+                // Issue #858 : sécurité du code lue dans GitHub et GitLab (A.8.28, A.8.29).
+                CodeSecurity::class,
                 Evidence::class,
                 // Issue #868 : dossier de preuves exportable pour l'auditeur (archive ZIP par périmètre).
                 EvidencePack::class,

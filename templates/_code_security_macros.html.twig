@@ -1,0 +1,100 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #858 : éléments communs à la page « Sécurité du code » et à l'onglet de l'application. #}
+
+{# Dépôt lu : fournisseur et chemin, ou dépôt non reconnu, ou fournisseur sans jeton. #}
+{% macro repository(repo, providers) %}
+   {% if repo.status == 'unsupported' %}
+      <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('Only repositories hosted on GitHub or on the GitLab server of the connection are read.', 'grcmanager') }}"><i class="ti ti-help-hexagon me-1"></i>{{ __('Repository not recognised', 'grcmanager') }}</span>
+   {% else %}
+      {% set provider = providers[repo.provider]|default(null) %}
+      {% if provider %}<span class="badge bg-{{ provider.color }}-subtle text-{{ provider.color }}-emphasis me-1"><i class="{{ provider.icon }} me-1"></i>{{ provider.label }}</span>{% endif %}
+      <span class="small text-break">{{ repo.repository }}</span>
+      {% if repo.status == 'not_configured' %}
+         <div><span class="badge bg-warning-subtle text-warning-emphasis mt-1"><i class="ti ti-plug-x me-1"></i>{{ __('No token for this service', 'grcmanager') }}</span></div>
+      {% endif %}
+   {% endif %}
+{% endmacro %}
+
+{# Une famille d'alertes d'un dépôt : nombre et pire gravité, ou analyse non activée. #}
+{% macro scan(repo, key, severities) %}
+   {% set state = repo[key ~ '_scan'] %}
+   {% if not repo.date_read or state == '' %}
+      <span class="text-muted">-</span>
+   {% elseif state == 'unavailable' and repo.counts[key] == 0 %}
+      <span class="badge bg-warning-subtle text-warning-emphasis" title="{{ __('Not enabled on the repository, or not readable with the token', 'grcmanager') }}"><i class="ti ti-eye-off me-1"></i>{{ __('Not enabled', 'grcmanager') }}</span>
+   {% elseif repo.counts[key] == 0 %}
+      <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('No alert', 'grcmanager') }}</span>
+   {% else %}
+      {% set info = severities[repo.worst[key]]|default(severities.medium) %}
+      <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis" title="{{ __('Worst severity: %s', 'grcmanager')|format(info.label) }}"><i class="ti ti-alert-triangle me-1"></i>{{ repo.counts[key] }}</span>
+   {% endif %}
+{% endmacro %}
+
+{# Tableau des alertes ouvertes. #}
+{% macro alerts_table(alerts, categories, severities, show_application) %}
+   <div class="table-responsive">
+      <table class="table table-sm table-vcenter card-table">
+         <thead><tr>
+            {% if show_application %}<th>{{ __('Application', 'grcmanager') }}</th>{% endif %}
+            <th>{{ __('Type', 'grcmanager') }}</th>
+            <th>{{ __('Severity', 'grcmanager') }}</th>
+            <th>{{ __('Alert', 'grcmanager') }}</th>
+            <th>{{ __('Open since', 'grcmanager') }}</th>
+            <th>{{ __('Deadline', 'grcmanager') }}</th>
+            <th></th>
+         </tr></thead>
+         <tbody>
+         {% for alert in alerts %}
+            {% set category = categories[alert.category]|default(null) %}
+            {% set severity = severities[alert.severity]|default(severities.medium) %}
+            <tr>
+               {% if show_application %}<td><a href="{{ alert.application_url }}">{{ alert.application }}</a></td>{% endif %}
+               <td>
+                  {% if category %}<span class="badge bg-{{ category.color }}-subtle text-{{ category.color }}-emphasis" title="{{ category.help }}"><i class="{{ category.icon }} me-1"></i>{{ category.label }}</span>{% endif %}
+                  {% if alert.priority %}
+                     <div><span class="badge bg-red text-white mt-1" title="{{ __('Nothing says that this secret has been revoked: revoke it at the provider, then remove it from the code and its history.', 'grcmanager') }}"><i class="ti ti-urgent me-1"></i>{{ __('Not revoked: priority', 'grcmanager') }}</span></div>
+                  {% elseif alert.category == 'secret' %}
+                     <div><span class="badge bg-success-subtle text-success-emphasis mt-1"><i class="ti ti-key-off me-1"></i>{{ __('Revoked at the provider', 'grcmanager') }}</span></div>
+                  {% endif %}
+               </td>
+               <td><span class="badge bg-{{ severity.color }}-subtle text-{{ severity.color }}-emphasis">{{ severity.label }}</span></td>
+               <td>
+                  <span class="text-break">{{ alert.title }}</span>
+                  {% if alert.reference %}<span class="badge bg-secondary-subtle text-secondary-emphasis ms-1">{{ alert.reference }}</span>{% endif %}
+                  {% if alert.detail_label %}<div class="small text-muted text-break">{{ alert.detail_label }}</div>{% endif %}
+               </td>
+               <td class="small">
+                  {{ __('%d days', 'grcmanager')|format(alert.age) }}
+                  {% if alert.detected_label %}<div class="text-muted">{{ alert.detected_label }}</div>{% endif %}
+               </td>
+               <td>
+                  {% if alert.overdue %}
+                     <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-alarm me-1"></i>{{ __('%d day(s) overdue', 'grcmanager')|format(-alert.days_left) }}</span>
+                  {% elseif alert.days_left <= 7 %}
+                     <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-clock-exclamation me-1"></i>{{ __('Due on %s', 'grcmanager')|format(alert.due_label) }}</span>
+                  {% else %}
+                     <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-calendar me-1"></i>{{ __('Due on %s', 'grcmanager')|format(alert.due_label) }}</span>
+                  {% endif %}
+               </td>
+               <td>
+                  {% if alert.url %}<a class="btn btn-sm btn-outline-secondary" href="{{ alert.url }}" target="_blank" rel="noopener noreferrer" title="{{ __('Open the alert at GitHub or GitLab', 'grcmanager') }}"><i class="ti ti-external-link"></i></a>{% endif %}
+               </td>
+            </tr>
+         {% endfor %}
+         </tbody>
+      </table>
+   </div>
+{% endmacro %}
