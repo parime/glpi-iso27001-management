@@ -1796,7 +1796,31 @@ compte GLPI (sinon, voir 55).
 5. Un lien se révoque à tout moment (bouton **Révoquer**). Le journal d'audit sécurité garde la
    création, chaque ouverture, chaque envoi et chaque révocation.
 
-### Étape 60 : Cadrer la Déclaration d'Applicabilité par questions (6.1.3 c et d)
+### Étape 60 : Renouveler une preuve sur un rythme récurrent
+
+Certaines preuves ne valent pas jusqu'à une date fixe mais doivent être produites encore et encore :
+revue hebdomadaire des journaux, rapport mensuel de sauvegarde, revue trimestrielle des accès
+(clause 7.5, mesure A.5.36). L'auditeur vérifie que la dernière n'est pas plus ancienne que le
+rythme attendu.
+
+1. Ouvrez la mesure (ou la politique, le risque fournisseur, l'audit), onglet **Validités des
+   preuves**.
+2. Sur la ligne du document, dans **Renouvellement récurrent**, réglez **Intervalle** sur N **jours**,
+   **semaines**, **mois**, **ans**, **mois, dernier jour ouvré** ou **trimestres, dernier jour ouvré**.
+3. Saisissez **Dernière collecte le**, ou laissez vide : la dernière modification du document est
+   retenue (déposer un nouveau fichier dans le document vaut collecte). Enregistrez.
+4. La **prochaine échéance** est calculée et affichée avec un badge : **À jour**, **Renouvellement
+   proche** (jusqu'à une semaine avant) ou **Non renouvelée à temps**. Les jours ouvrés excluent les
+   week-ends et les périodes de fermeture déclarées dans GLPI (intitulés des calendriers).
+5. Le responsable du renouvellement est prévenu une fois par échéance par la notification
+   **Preuve à renouveler**. La carte du tableau de bord **Preuves récurrentes non renouvelées à
+   temps**, les contrôles de cohérence et le dossier de preuves pour l'auditeur signalent les
+   retards.
+
+Rien n'est modifié automatiquement : ajoutez la dernière preuve, puis mettez à jour sa date de
+collecte.
+
+### Étape 61 : Cadrer la Déclaration d'Applicabilité par questions (6.1.3 c et d)
 
 L'auditeur demande pourquoi chaque mesure de l'Annexe A est retenue ou exclue. L'onglet
 **Cadrage de la SoA** de la rubrique **Conformité** vous aide à répondre sans partir d'une page
@@ -1819,6 +1843,27 @@ blanche.
    réunit les réponses, la comparaison et le journal.
 
 Rien ne change dans la SoA sans votre décision explicite.
+
+### Étape 62 : Partir d'un modèle de politique
+
+Une organisation qui démarre son SMSI n'a souvent aucune politique écrite. Le plugin propose douze
+modèles rédigés par le projet (politique de sécurité de l'information, contrôle d'accès,
+sauvegarde, incidents, fournisseurs, télétravail, cryptographie...), sous licence CC0 1.0 :
+
+1. Ouvrez **Conformité > Modèles de politiques**. Choisissez la langue des textes (français ou
+   anglais). Chaque carte montre le résumé du modèle, les mesures de l'Annexe A qu'il couvre et,
+   en dépliant **Sections**, le plan du texte.
+2. Dans **Valeurs insérées dans le texte**, indiquez le nom de l'organisation, le responsable de la
+   sécurité de l'information (il devient propriétaire des politiques créées) et la périodicité de
+   revue en mois. Une valeur laissée vide devient un repère entre crochets à compléter.
+3. Cochez les modèles utiles, puis cliquez sur **Créer les politiques cochées en brouillon**.
+   Chaque modèle devient une nouvelle politique en brouillon, reliée section par section aux
+   mesures de la SoA (onglet **Mesures couvertes**, voir 57).
+4. Adaptez le texte à vos pratiques réelles, puis faites approuver la politique comme les autres.
+
+Rien n'est approuvé automatiquement et aucune politique existante n'est remplacée : importer deux
+fois le même modèle crée deux brouillons distincts. La carte d'un modèle déjà importé indique les
+politiques créées.
 
 ## 🇬🇧 English
 
@@ -3503,7 +3548,27 @@ account (otherwise, see 55).
 5. A link can be revoked at any time (**Revoke** button). The security audit log keeps the
    creation, each opening, each sending and each revocation.
 
-### Step 60: Scope the Statement of Applicability with a few questions (6.1.3 c and d)
+### Step 60: Renew evidence on a recurring rhythm
+
+Some evidence is not valid until a fixed date but must be produced again and again: a weekly log
+review, a monthly backup report, a quarterly access review (clause 7.5, control A.5.36). The auditor
+checks that the latest one is not older than the expected rhythm.
+
+1. Open the control (or the policy, the supplier risk, the audit), **Evidence validities** tab.
+2. On the line of the document, in **Recurring renewal**, set **Interval** to N **days**, **weeks**,
+   **months**, **years**, **months, last business day** or **quarters, last business day**.
+3. Enter **Last collected on**, or leave it empty: the last change of the document is used (adding a
+   new file to the document counts as a collection). Save.
+4. The **next due date** is computed and shown with a badge: **Up to date**, **Renewal due soon** (up
+   to a week before) or **Not renewed in time**. Business days exclude weekends and the close times
+   declared in GLPI (dropdowns of the calendars).
+5. The renewal owner is notified once per due date by the **Evidence to renew** notification. The
+   dashboard card **Recurring evidence not renewed in time**, the consistency checks and the
+   evidence pack for the auditor flag the late ones.
+
+Nothing is changed automatically: add the latest evidence, then update its collection date.
+
+### Step 61: Scope the Statement of Applicability with a few questions (6.1.3 c and d)
 
 The auditor asks why each Annex A control is included or excluded. The **SoA scoping** tab of the
 **Compliance** section helps you answer without starting from a blank page.
@@ -3525,3 +3590,24 @@ The auditor asks why each Annex A control is included or excluded. The **SoA sco
    the answers, the comparison and the log.
 
 Nothing changes in the SoA without your explicit decision.
+
+### Step 62: Start from a policy template
+
+An organisation that starts its ISMS often has no written policy. The plugin offers twelve
+templates written by the project (information security policy, access control, backup, incidents,
+suppliers, teleworking, cryptography...), under the CC0 1.0 licence:
+
+1. Open **Compliance > Policy templates**. Choose the language of the texts (French or English).
+   Each card shows the summary of the template, the Annex A controls it covers and, when you
+   expand **Sections**, the outline of the text.
+2. In **Values inserted into the text**, enter the name of the organisation, the information
+   security manager (who becomes the owner of the policies created) and the review period in
+   months. A value left empty becomes a reminder in square brackets, to be completed.
+3. Tick the templates you need, then click **Create the ticked policies as drafts**. Each template
+   becomes a new draft policy, linked section by section to the controls of the Statement of
+   Applicability ("Covered controls" tab, see 57).
+4. Adapt the text to your actual practice, then have the policy approved like the others.
+
+Nothing is approved automatically and no existing policy is replaced: importing the same template
+twice creates two separate drafts. The card of a template already imported lists the policies
+created.
