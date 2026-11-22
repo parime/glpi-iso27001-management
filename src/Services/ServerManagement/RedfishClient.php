@@ -54,7 +54,7 @@ final class RedfishClient
 
     public const MAX_ACCOUNTS = 64;
     public const MAX_CERTIFICATES = 5;
-    public const MAX_REQUESTS = 120;
+    public const MAX_REQUESTS = 180;
     public const MAX_BODY = 2 * 1024 * 1024;
 
     public const TIMEOUT = 20;
