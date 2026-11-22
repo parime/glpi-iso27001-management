@@ -100,7 +100,7 @@ final class Security360MoreSourcesTest extends GrcmanagerIntegrationTestCase
     public function testSourcesStayDiscreetWithoutData(): void
     {
         $this->assertNull(Sources::backups($this->server), 'Aucun outil de sauvegarde importé.');
-        $this->assertNull(Sources::warranty($this->server), 'Ni informations financières ni fin de vie.');
+        $this->assertNull(Sources::warranty($this->server), 'Ni garantie renseignée ni fin de vie.');
         $keys = array_column(AssetSecurity360::tabData($this->server)['sources'] ?? [], 'key');
         $this->assertNotContains('backups', $keys);
         $this->assertNotContains('warranty', $keys);
@@ -120,10 +120,16 @@ final class Security360MoreSourcesTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(Rules::STATUS_WARNING, $backups['status']);
         $this->assertSame(BackupCoverage::getSearchURL(), $backups['url']);
 
-        $this->assertGreaterThan(0, (int) (new \Infocom())->add([
-            'itemtype' => \Computer::class, 'items_id' => $this->server->getID(), 'entities_id' => $this->entity,
-            'warranty_date' => date('Y-m-d', strtotime('-3 years')), 'warranty_duration' => 12,
-        ]));
+        // GLPI peut créer les informations financières avec l'ordinateur (réglage de l'instance).
+        $infocom = new \Infocom();
+        $warrantyFields = ['warranty_date' => date('Y-m-d', strtotime('-3 years')), 'warranty_duration' => 12];
+        if ($infocom->getFromDBforDevice(\Computer::class, $this->server->getID())) {
+            $this->assertTrue($infocom->update(['id' => $infocom->getID()] + $warrantyFields));
+        } else {
+            $this->assertGreaterThan(0, (int) $infocom->add([
+                'itemtype' => \Computer::class, 'items_id' => $this->server->getID(), 'entities_id' => $this->entity,
+            ] + $warrantyFields));
+        }
         $warranty = Sources::warranty($this->server);
         $this->assertNotNull($warranty);
         $this->assertSame(Rules::STATUS_WARNING, $warranty['status'], 'Garantie expirée.');

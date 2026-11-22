@@ -276,7 +276,7 @@ final class Security360MoreSourcesFeature implements AssetSecuritySourcesProvide
 
     /**
      * Garantie (informations financières de GLPI) et fin de vie constructeur du modèle ; absente sans
-     * informations financières ni date de fin de vie.
+     * garantie renseignée ni date de fin de vie.
      *
      * @return array<string, mixed>|null
      */
@@ -304,7 +304,8 @@ final class Security360MoreSourcesFeature implements AssetSecuritySourcesProvide
             $today,
             $warningDays
         );
-        if (!$hasInfocom && $eol['status'] === WarrantyRules::EOL_NONE) {
+        // Informations financières vides (créées automatiquement par GLPI) : rien à dire.
+        if ($warranty['status'] === WarrantyRules::STATUS_UNKNOWN && $eol['status'] === WarrantyRules::EOL_NONE) {
             return null;
         }
         $status = match (true) {
