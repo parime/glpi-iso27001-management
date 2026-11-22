@@ -8,6 +8,9 @@ Lancés par la CI (job d'installation réelle) dans une instance GLPI jetable :
 | `access-matrix.sh` | matrice de contrôle d'accès, une fois par profil (`none`, `reader`, `limited`, `general`, `admin`) |
 | `xss-check.sh` | vérifie qu'aucune page ne restitue la charge piégée sans échappement |
 | `js-errors.py` | ouvre l'accueil et chaque page de `front/` dans Chromium (Playwright) : aucune erreur JavaScript ni boîte de dialogue |
+| `crawl.py` | parcours de toutes les pages (menus, sous-pages, `front/`, fiches et onglets), en super-admin et en lecteur : codes HTTP, page blanche, erreurs PHP et JavaScript, fil d'Ariane, anciennes adresses (voir plus bas) |
+| `crawl-ids.php` | données du parcours lues dans GLPI : une fiche existante de chaque formulaire, fil d'Ariane attendu de chaque entrée de menu |
+| `crawl-redirects.txt` | anciennes adresses des pages déplacées et leur nouvelle adresse |
 | `purge.php` | supprime le jeu de données (entités et comptes « Securite ISO … », objets nommés « … securite ») d'une instance de test partagée ; `--dry-run` compte sans supprimer |
 | `not-covered.txt` | pages de `front/` volontairement non testées, avec la raison |
 
@@ -44,3 +47,45 @@ fonctions :
 Le contrôle commun de couverture (glpi-plugin-security v1.9.1 et suivantes) trouve le chemin d'une
 page dans `access-matrix.d/` : une page testée dans un fragment n'a pas à figurer dans la liste
 `READABLE` d'`access-matrix.sh` (appeler `readable front/<page>.php` dans le fragment).
+
+## Parcours de toutes les pages (`crawl.py`)
+
+Lancé par la CI sur chaque PR, en GLPI 11 et 12 (étape « Parcours de toutes les pages »), et avant
+chaque publication. Pour chaque compte, il ouvre dans Chromium l'accueil de GLPI et chaque page du
+plugin, découvertes sans liste à tenir : entrées du menu de GLPI, barres d'onglets des rubriques,
+onglets de la configuration, liens du fil d'Ariane, chaque fichier de `front/`, une fiche existante
+de chaque formulaire et les écrans de GLPI modifiés par le plugin, avec les onglets du plugin.
+Une nouvelle page est donc parcourue sans modifier le script.
+
+Anomalies (échec) :
+
+- 404, 500, erreur PHP ou Twig affichée, page blanche ;
+- 403 pour le super-administrateur (premier compte) ; un 403 est normal pour le lecteur ;
+- erreur JavaScript ou boîte de dialogue qui revient à une seconde visite ;
+- fil d'Ariane absent ou incomplet (accueil, secteur, rubrique) dans la mise en page de GLPI et,
+  pour le super-administrateur, différent de l'entrée de menu qui mène à la page (secteur,
+  rubrique et sous-page, tirés du menu que construisent les déclarations de rubriques) ;
+- onglet du plugin en erreur ;
+- ancienne adresse de `crawl-redirects.txt` qui ne mène plus à sa nouvelle adresse.
+
+Les pages de `front/` qu'aucun menu ni aucune barre d'onglets ne propose sont listées « hors menu »,
+pour information (pages d'action, exports, formulaires ouverts depuis une liste).
+
+Lancement local, sur une instance où le plugin est déployé (Python 3 et Playwright :
+`pip install playwright && python -m playwright install chromium`) :
+
+```sh
+# Le script lance lui-même setup.php et crawl-ids.php dans le conteneur GLPI :
+python3 tests/security/crawl.py http://localhost:8080 --docker <conteneur GLPI>
+# Sans accès à Docker : données de crawl-ids.php passées à la main
+docker exec -u www-data <conteneur> php /var/www/glpi/plugins/grcmanager/tests/security/crawl-ids.php > ids.json
+python3 tests/security/crawl.py http://localhost:8080 --ids @ids.json   --account glpi:glpi --account 'iso-lecteur:Secrev#2026' --log crawl-js.log
+```
+
+Comptes par défaut : `glpi:glpi` (super-administrateur, toujours en premier) et `iso-lecteur`
+(jeu de données `setup.php`). `--log` écrit le message et la pile de chaque erreur JavaScript.
+La sortie se termine par 7 lignes, lues par les scripts de publication : pour chaque compte, ses
+compteurs, `ANOMALIES [...]` et `JS [...]`, puis `pages <n>`. Code de sortie 1 s'il y a une
+anomalie.
+
+Page déplacée : ajouter une ligne `ancienne -> nouvelle` dans `crawl-redirects.txt`.

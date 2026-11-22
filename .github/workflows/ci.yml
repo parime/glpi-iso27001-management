@@ -429,6 +429,12 @@ jobs:
       - name: Erreurs JavaScript dans le navigateur (accueil et pages du plugin)
         run: bash .github/scripts/security-e2e.sh js
 
+      # Issue #1050 : parcours de toutes les pages (menus, sous-pages, front/, fiches et onglets), en
+      # super-admin et en lecteur : ni 404, ni 500, ni page blanche, ni 403 a tort, ni erreur PHP ou
+      # JavaScript ; fil d'Ariane present et conforme au menu ; anciennes adresses redirigees.
+      - name: Parcours de toutes les pages (codes HTTP, fil d'Ariane, redirections)
+        run: bash .github/scripts/security-e2e.sh crawl
+
       # Issue #1002 : purge du jeu de donnees des tests de securite, puis nouvelle creation.
       - name: Purge du jeu de donnees de test
         run: bash .github/scripts/security-e2e.sh purge
@@ -566,6 +572,9 @@ jobs:
 
       - name: Erreurs JavaScript dans le navigateur sur GLPI 12
         run: bash .github/scripts/security-e2e.sh js
+
+      - name: Parcours de toutes les pages sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh crawl
 
       - name: Purge du jeu de donnees de test sur GLPI 12
         run: bash .github/scripts/security-e2e.sh purge

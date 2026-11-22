@@ -2,12 +2,15 @@
 # Tests de securite de bout en bout, communs aux jobs GLPI 11 et GLPI 12 (issue #980) : avant, la
 # matrice d'acces et le test XSS ne tournaient que sur GLPI 11.
 #
-# Usage : security-e2e.sh matrix|xss|js|edit|purge [url GLPI]
+# Usage : security-e2e.sh matrix|xss|js|edit|crawl|purge [url GLPI]
 #   matrix : matrice de controle d'acces (profils limites a une entite, puis super-admin)
 #   xss    : charge piegee dans chaque champ texte libre, aucune page ne la restitue sans echappement
 #   js     : erreurs JavaScript et boites de dialogue dans Chromium (tests/security/js-errors.py), dans
 #            l'image Playwright officielle : Playwright n'installe pas Chromium sur le runner Ubuntu 26.04
 #   edit   : scenarios d'edition dans Chromium (tests/security/edit-scenarios.py), sur le jeu de donnees
+#   crawl  : parcours de toutes les pages (tests/security/crawl.py, issue #1050) en super-admin et en
+#            lecteur : codes HTTP, page blanche, erreurs PHP et JavaScript, fil d'Ariane, onglets,
+#            anciennes adresses
 #   purge  : purge du jeu de donnees (tests/security/purge.php), puis nouvelle creation
 # Variable : GLPI_CONTAINER (conteneur GLPI, par defaut « glpi »).
 set -euo pipefail
@@ -77,6 +80,11 @@ case $STEP in
     ;;
   js) browser tests/security/js-errors.py "$BROWSER_BASE" front ;;
   edit) browser tests/security/edit-scenarios.py "$BROWSER_BASE" "$(setup)" ;;
+  crawl)
+    setup > /dev/null
+    ids=$(docker exec -u www-data "$C" php /var/www/glpi/plugins/grcmanager/tests/security/crawl-ids.php | tail -1)
+    browser tests/security/crawl.py "$BROWSER_BASE" --ids "$ids"       --account glpi:glpi --account 'iso-lecteur:Secrev#2026'
+    ;;
   purge)
     # Issue #1002 : la purge retire le jeu de donnees (entites, comptes, profils), puis setup.php le
     # recree sans erreur.
@@ -87,5 +95,5 @@ case $STEP in
     setup > /dev/null || { echo "::error::setup.php echoue apres la purge"; exit 1; }
     echo "OK  jeu de donnees purge puis recree"
     ;;
-  *) echo "usage : $0 matrix|xss|js|edit|purge [url]" >&2; exit 2 ;;
+  *) echo "usage : $0 matrix|xss|js|edit|crawl|purge [url]" >&2; exit 2 ;;
 esac

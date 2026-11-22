@@ -1,0 +1,8 @@
+# Anciennes adresses des pages déplacées (issue #1050), vérifiées par crawl.py : chaque ancienne
+# adresse doit mener, après redirection, à sa nouvelle adresse (début du chemin, requête comprise).
+# Une page déplacée garde une redirection depuis son ancienne adresse (issue #1035).
+#
+# Format, une ligne par page, adresses depuis la racine de GLPI :
+#   plugins/grcmanager/front/<ancienne>.php -> plugins/grcmanager/front/<nouvelle>.php?tab=<onglet>
+#
+# Aucune entrée pour l'instant.
