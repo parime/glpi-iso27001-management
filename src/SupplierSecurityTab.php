@@ -53,7 +53,7 @@ class SupplierSecurityTab extends CommonGLPI
         if (!$item instanceof Supplier || $item->isNewItem() || !self::canView()) {
             return '';
         }
-        $count = (bool) ($_SESSION['glpishow_count_on_tabs'] ?? false) ? count(self::risks($item->getID())) : 0;
+        $count = (bool) ($_SESSION['glpishow_count_on_tabs'] ?? false) ? count(self::risks($item->getID())) + count(Risk::getRisksLinkedToSupplier($item->getID())) : 0;
 
         return self::createTabEntry(self::getTypeName(), $count, $item::class, self::getIcon());
     }
@@ -126,6 +126,14 @@ class SupplierSecurityTab extends CommonGLPI
             'create_url'     => SupplierRisk::canCreate()
                 ? SupplierRisk::getFormURL() . '?suppliers_id=' . $suppliersId : '',
             'register_url'   => SupplierRisk::getSearchURL(),
+            // Issue #1095 : risques du registre général liés à ce fournisseur (fiche du risque,
+            // rubrique « Fournisseurs liés »), dans une section séparée.
+            'general_risks'  => array_map(static fn (array $risk): array => [
+                'title'      => (string) $risk['title'],
+                'url'        => Risk::getFormURLWithID($risk['id']),
+                'risk_level' => (string) $risk['risk_level'],
+            ], Risk::getRisksLinkedToSupplier($suppliersId)),
+            'risk_register_url' => Risk::getSearchURL(),
         ];
     }
 

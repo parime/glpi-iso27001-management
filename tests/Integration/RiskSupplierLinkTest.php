@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Risk;
+use GlpiPlugin\Grcmanager\SupplierSecurityTab;
 use Supplier;
 
 /**
@@ -73,6 +74,20 @@ final class RiskSupplierLinkTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue($risk->update(['id' => $riskId, 'linked_items_Supplier' => [$other]]));
         $this->assertSame(['Supplier:' . $other], $this->linkedKeys($riskId));
         $this->assertSame([], Risk::getRisksLinkedToSupplier($supplierId));
+    }
+
+    public function testSecurityTabListsGeneralRisksSeparately(): void
+    {
+        $supplierId = $this->supplier('PHPUnit centre de données fictif 1095');
+        $riskId = (int) (new Risk())->add([
+            'title' => 'PHPUnit coupure du centre de données 1095', 'entities_id' => 0,
+            'linked_items_Supplier' => [$supplierId],
+        ]);
+
+        $data = SupplierSecurityTab::tabData($supplierId, '2026-01-15');
+        $this->assertSame([], $data['risks'], 'Aucun risque fournisseur : section séparée.');
+        $this->assertSame(['PHPUnit coupure du centre de données 1095'], array_column($data['general_risks'], 'title'));
+        $this->assertSame(Risk::getFormURLWithID($riskId), $data['general_risks'][0]['url']);
     }
 
     public function testLinkKeptAndHiddenWithoutSupplierRight(): void

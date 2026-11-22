@@ -7,3 +7,12 @@ msgstr "Linked suppliers"
 
 msgid "The risk also appears in the Security tab of each linked supplier. For a risk assessed with a questionnaire, use the supplier risk register instead."
 msgstr "The risk also appears in the Security tab of each linked supplier. For a risk assessed with a questionnaire, use the supplier risk register instead."
+
+msgid "General risks linked to this supplier"
+msgstr "General risks linked to this supplier"
+
+msgid "Risks of the risk register that concern this supplier. To link one, open the risk and choose this supplier under \"Linked suppliers\"."
+msgstr "Risks of the risk register that concern this supplier. To link one, open the risk and choose this supplier under \"Linked suppliers\"."
+
+msgid "No risk of the risk register is linked to this supplier in your entities."
+msgstr "No risk of the risk register is linked to this supplier in your entities."

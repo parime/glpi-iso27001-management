@@ -7,3 +7,12 @@ msgstr "Fornecedores vinculados"
 
 msgid "The risk also appears in the Security tab of each linked supplier. For a risk assessed with a questionnaire, use the supplier risk register instead."
 msgstr "O risco também aparece na aba Segurança de cada fornecedor vinculado. Para um risco avaliado por questionário, use o registro de riscos de fornecedores."
+
+msgid "General risks linked to this supplier"
+msgstr "Riscos gerais vinculados a este fornecedor"
+
+msgid "Risks of the risk register that concern this supplier. To link one, open the risk and choose this supplier under \"Linked suppliers\"."
+msgstr "Riscos do registro de riscos que dizem respeito a este fornecedor. Para vincular um, abra o risco e escolha este fornecedor em “Fornecedores vinculados”."
+
+msgid "No risk of the risk register is linked to this supplier in your entities."
+msgstr "Nenhum risco do registro de riscos está vinculado a este fornecedor nas suas entidades."
