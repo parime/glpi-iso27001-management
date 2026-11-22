@@ -251,25 +251,16 @@ if (
             Session::addMessageAfterRedirect(htmlescape($message));
         }
     } else {
-        // Lecture demandée par un administrateur : même passage que la tâche automatique.
-        $steps = SentinelOneAlert::synchronize(SentinelOneConfig::client());
-        $errors = array_filter(
-            array_column($steps, 'error'),
-            static fn (string $error): bool => $error !== '' && $error !== SentinelOneAlert::SKIPPED
-        );
-        Session::addMessageAfterRedirect(htmlescape(sprintf(
-            __(
-                'SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d '
-                    . 'application vulnerabilities.',
-                'grcmanager'
-            ),
-            $steps['threats']['new'] + $steps['alerts']['new'],
-            $steps['agents']['items'],
-            $steps['vulnerabilities']['items']
-        )), false, $errors === [] ? INFO : WARNING);
-        foreach (array_unique($errors) as $error) {
-            Session::addMessageAfterRedirect(htmlescape(SentinelOneAlert::errorLabel($error)), false, WARNING);
-        }
+        // Issue #1041 : « Récupérer maintenant » est passé sur la page d'import des alertes EDR
+        // (Assistance > Incidents de sécurité). Ancien envoi accepté pendant une version : la lecture
+        // est faite, puis la page d'exploitation s'ouvre avec un message.
+        SentinelOneAlert::fetchNow();
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Reading SentinelOne now and reviewing its alerts is done in Assistance > Security '
+                . 'incidents > EDR alerts import.',
+            'grcmanager'
+        )));
+        Html::redirect(\GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::getImportURL() . '#grc-sentinelone-review');
     }
 
     Html::back();
