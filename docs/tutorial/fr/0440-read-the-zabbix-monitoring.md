@@ -9,13 +9,15 @@ Zabbix. Il faut le droit du plugin et la lecture native des ordinateurs.
    Utilisateur dont l'API est limitée à host.get, problem.get, event.get, service.get, sla.get et
    sla.getsli ; Utilisateurs > Utilisateurs, un utilisateur de ce rôle dans un groupe qui a la
    lecture des groupes d'hôtes à superviser ; Utilisateurs > Jetons d'API, un jeton pour lui.
-2. Ouvrez Sécurité technique > **Supervision Zabbix**. Dans **Connexion à Zabbix (lecture
+2. Ouvrez Configuration > Plugins > GRC Manager, onglet **Connecteurs** (ou le bouton **Régler la
+   connexion** de Sécurité technique > **Supervision Zabbix**). Dans **Connexion à Zabbix (lecture
    seule)**, saisissez l'adresse de l'interface Zabbix (par exemple
    `https://zabbix.exemple.test/zabbix`) et le jeton, choisissez l'entité des lectures puis
-   enregistrez. Le jeton est chiffré par GLPI et n'est jamais réaffiché. Un serveur sur une adresse
+   enregistrez ; **Tester la connexion** vérifie l'adresse et le jeton sans rien lire. Le jeton est
+   chiffré par GLPI et n'est jamais réaffiché. Un serveur sur une adresse
    interne demande d'autoriser les adresses internes (Configuration du plugin > Connexions
    sortantes).
-3. Cliquez sur **Lire maintenant**. Une lecture en échec ne remplace pas la précédente ; la case
+3. Sur la page **Supervision Zabbix**, cliquez sur **Lire maintenant**. Une lecture en échec ne remplace pas la précédente ; la case
    « Lire automatiquement chaque jour » active la tâche automatique « zabbix », désactivée par
    défaut.
 4. Dans **Quels actifs doivent être supervisés ?**, choisissez les actifs concernés (actifs
