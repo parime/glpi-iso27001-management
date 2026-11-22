@@ -40,7 +40,6 @@ $result = AuditDuplication::duplicate($source, [
 ]);
 if ($result['id'] <= 0) {
     Html::back();
-    return;
 }
 
 Session::addMessageAfterRedirect(
