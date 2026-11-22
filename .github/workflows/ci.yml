@@ -50,7 +50,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
         with:
           repository: parime/glpi-plugin-security
-          ref: ci/ci-rapide
+          ref: v1.11.0 # meme version que security.yml
           path: .glpi-plugin-security
       - name: Controles lourds necessaires (fichiers modifies)
         id: heavy
