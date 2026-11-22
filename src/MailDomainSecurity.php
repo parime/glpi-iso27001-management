@@ -626,11 +626,13 @@ class MailDomainSecurity extends CommonGLPI
             $rec = (string) ($dmarc['record'] ?? '');
             $state = (string) ($dmarc['status'] ?? '');
             $policy = (string) ($dmarc['policy'] ?? '');
+            $reject = __('Reject (reject)', 'grcmanager');
+            $quarantine = __('Quarantine (quarantine)', 'grcmanager');
             $badges['dmarc'] = match (true) {
                 $state === 'missing'     => $badge('danger', 'ti ti-x', __('Missing', 'grcmanager')),
                 $state !== 'ok'          => $badge('danger', 'ti ti-alert-octagon', __('Invalid', 'grcmanager'), $rec),
-                $policy === 'reject'     => $badge('success', 'ti ti-shield-check', __('Reject', 'grcmanager'), $rec),
-                $policy === 'quarantine' => $badge('success', 'ti ti-shield', __('Quarantine', 'grcmanager'), $rec),
+                $policy === 'reject'     => $badge('success', 'ti ti-shield-check', $reject, $rec),
+                $policy === 'quarantine' => $badge('success', 'ti ti-shield', $quarantine, $rec),
                 default                  => $badge('warning', 'ti ti-eye', __('Monitoring (none)', 'grcmanager'), $rec),
             };
             $dkim = is_array($result['dkim'] ?? null) ? $result['dkim'] : [];
@@ -654,8 +656,8 @@ class MailDomainSecurity extends CommonGLPI
                     : $badge($hasMx ? 'warning' : 'secondary', 'ti ti-minus', __('Not published', 'grcmanager'));
             }
             $badges['dnssec'] = match ($result['dnssec'] ?? null) {
-                true    => $badge('success', 'ti ti-shield-lock', __('Signed', 'grcmanager')),
-                false   => $badge('warning', 'ti ti-shield-x', __('Not signed', 'grcmanager')),
+                true    => $badge('success', 'ti ti-shield-lock', __('Zone signed', 'grcmanager')),
+                false   => $badge('warning', 'ti ti-shield-x', __('Zone not signed', 'grcmanager')),
                 default => $badge('secondary', 'ti ti-help-circle', __('Unknown', 'grcmanager')),
             };
         }

@@ -374,8 +374,11 @@ msgstr "Neutro"
 msgid "Invalid"
 msgstr "Inválido"
 
-msgid "Quarantine"
-msgstr "Quarentena"
+msgid "Reject (reject)"
+msgstr "Rejeição (reject)"
+
+msgid "Quarantine (quarantine)"
+msgstr "Quarentena (quarantine)"
 
 msgid "Monitoring (none)"
 msgstr "Observação (none)"
@@ -389,8 +392,11 @@ msgstr "%1$d de %2$d chaves encontradas"
 msgid "Not published"
 msgstr "Não publicado"
 
-msgid "Not signed"
-msgstr "Não assinado"
+msgid "Zone signed"
+msgstr "Zona assinada"
+
+msgid "Zone not signed"
+msgstr "Zona não assinada"
 
 msgid "Expired on %s"
 msgstr "Expirado em %s"
