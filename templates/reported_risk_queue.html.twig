@@ -1,0 +1,111 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #872 : file de tri des risques signalés par les collaborateurs. Pour chaque signalement
+   nouveau : l'accepter dans le registre (un risque est créé), le rattacher à un risque existant ou
+   le rejeter avec un motif. Les signalements triés gardent la décision, son auteur et sa date. #}
+<div class="container-fluid my-2">
+   <div class="card mb-3">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-message-report me-2"></i>{{ __('Reported risks', 'grcmanager') }}</h3>
+         <div class="card-actions">
+            <a class="btn btn-sm btn-outline-primary" href="{{ mine_url }}"><i class="ti ti-plus me-1"></i>{{ __('Report a risk', 'grcmanager') }}</a>
+         </div>
+      </div>
+      <div class="card-body">
+         <div class="d-flex flex-wrap gap-2" id="grc-reportedrisk-filters">
+            {% for f in filters %}
+               <a href="{{ action }}?status={{ f.key }}" class="badge {{ f.class }} text-decoration-none fs-5{% if filter == f.key %} border border-2{% endif %}"><i class="ti {{ f.icon }} me-1"></i>{{ f.label }} : {{ f.count }}</a>
+            {% endfor %}
+            <a href="{{ action }}?status=all" class="badge bg-secondary-subtle text-secondary-emphasis text-decoration-none fs-5{% if filter == 'all' %} border border-2{% endif %}"><i class="ti ti-list me-1"></i>{{ __('All', 'grcmanager') }} : {{ total }}</a>
+         </div>
+         {% if not can_triage %}
+            <p class="text-muted small mt-3 mb-0"><i class="ti ti-lock me-1"></i>{{ __('Read only: triaging requires the right to create and update risks.', 'grcmanager') }}</p>
+         {% endif %}
+      </div>
+   </div>
+
+   {% if rows is empty %}
+      <div class="alert alert-success" id="grc-reportedrisk-queue-empty"><i class="ti ti-circle-check me-1"></i>{{ __('No report in this list.', 'grcmanager') }}</div>
+   {% endif %}
+   {% for row in rows %}
+      <div class="card mb-3 grc-reportedrisk-row" id="grc-reportedrisk-{{ row.id }}">
+         <div class="card-header">
+            <div>
+               <h3 class="card-title mb-1"><i class="ti ti-alert-triangle me-2"></i>{{ row.name }}</h3>
+               <div class="text-muted small">
+                  <i class="ti ti-user me-1"></i>{{ row.author }} · <i class="ti ti-calendar me-1"></i>{{ row.date_text }} · <i class="ti ti-building me-1"></i>{{ row.entity }}
+               </div>
+            </div>
+            <div class="card-actions d-flex flex-wrap gap-1">
+               <span class="badge {{ row.severity_class }}" title="{{ __('Seriousness as felt by the author', 'grcmanager') }}"><i class="ti ti-gauge me-1"></i>{{ row.severity_label }}</span>
+               <span class="badge {{ row.status_class }}"><i class="ti {{ row.status_icon }} me-1"></i>{{ row.status_label }}</span>
+            </div>
+         </div>
+         <div class="card-body">
+            <p>{{ row.description|nl2br }}</p>
+            {% if not row.is_new %}
+               <div class="border-top pt-2 small">
+                  <i class="ti ti-gavel me-1"></i>{{ __('Decided by %1$s on %2$s', 'grcmanager')|format(row.decider, row.decision_text) }}
+                  {% if row.risk %} · <i class="ti ti-shield-exclamation me-1"></i><a href="{{ row.risk.url }}">{{ row.risk.name }}</a>{% endif %}
+                  {% if row.comment %}<div class="mt-1"><i class="ti ti-message-circle me-1"></i>{{ row.comment|nl2br }}</div>{% endif %}
+               </div>
+            {% elseif can_triage %}
+               <div class="row g-3 border-top pt-3">
+                  <form method="post" action="{{ action }}" class="col-lg-4">
+                     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                     <input type="hidden" name="id" value="{{ row.id }}">
+                     <h4><i class="ti ti-circle-check text-success me-1"></i>{{ __('Add to the risk register', 'grcmanager') }}</h4>
+                     <p class="text-muted small">{{ __('Creates a new risk with this title and description, to be completed (owner, likelihood, impact).', 'grcmanager') }}</p>
+                     <label class="form-label" for="grc-rr-cat-{{ row.id }}">{{ __('Category', 'grcmanager') }}</label>
+                     <select class="form-select mb-2" id="grc-rr-cat-{{ row.id }}" name="category">
+                        {% for key, label in categories %}<option value="{{ key }}"{% if key == 'process' %} selected{% endif %}>{{ label }}</option>{% endfor %}
+                     </select>
+                     <label class="form-label" for="grc-rr-acc-{{ row.id }}">{{ __('Message to the author (optional)', 'grcmanager') }}</label>
+                     <textarea class="form-control mb-2" id="grc-rr-acc-{{ row.id }}" name="decision_comment" rows="2"></textarea>
+                     <button type="submit" name="decide" value="accepted" class="btn btn-success"><i class="ti ti-circle-check me-1"></i>{{ __('Accept', 'grcmanager') }}</button>
+                  </form>
+                  <form method="post" action="{{ action }}" class="col-lg-4">
+                     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                     <input type="hidden" name="id" value="{{ row.id }}">
+                     <h4><i class="ti ti-git-merge text-info me-1"></i>{{ __('Link to an existing risk', 'grcmanager') }}</h4>
+                     <p class="text-muted small">{{ __('The risk is already in the register: the report is kept as a trace on it, the risk is not changed.', 'grcmanager') }}</p>
+                     {% if row.targets is empty %}
+                        <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('No open risk in this entity.', 'grcmanager') }}</p>
+                     {% else %}
+                        <label class="form-label" for="grc-rr-risk-{{ row.id }}">{{ __('Existing risk', 'grcmanager') }}</label>
+                        <select class="form-select mb-2" id="grc-rr-risk-{{ row.id }}" name="plugin_grcmanager_risks_id" required>
+                           <option value="">{{ __('Choose a risk', 'grcmanager') }}</option>
+                           {% for id, title in row.targets %}<option value="{{ id }}">{{ title }}</option>{% endfor %}
+                        </select>
+                        <label class="form-label" for="grc-rr-mrg-{{ row.id }}">{{ __('Message to the author (optional)', 'grcmanager') }}</label>
+                        <textarea class="form-control mb-2" id="grc-rr-mrg-{{ row.id }}" name="decision_comment" rows="2"></textarea>
+                        <button type="submit" name="decide" value="merged" class="btn btn-info"><i class="ti ti-git-merge me-1"></i>{{ __('Link', 'grcmanager') }}</button>
+                     {% endif %}
+                  </form>
+                  <form method="post" action="{{ action }}" class="col-lg-4">
+                     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                     <input type="hidden" name="id" value="{{ row.id }}">
+                     <h4><i class="ti ti-circle-x text-danger me-1"></i>{{ __('Reject', 'grcmanager') }}</h4>
+                     <p class="text-muted small">{{ __('Not a risk for the organisation, or out of scope. The author reads your reason.', 'grcmanager') }}</p>
+                     <label class="form-label required" for="grc-rr-rej-{{ row.id }}">{{ __('Reason for the rejection', 'grcmanager') }}</label>
+                     <textarea class="form-control mb-2" id="grc-rr-rej-{{ row.id }}" name="decision_comment" rows="2" required></textarea>
+                     <button type="submit" name="decide" value="rejected" class="btn btn-outline-danger"><i class="ti ti-circle-x me-1"></i>{{ __('Reject', 'grcmanager') }}</button>
+                  </form>
+               </div>
+            {% endif %}
+         </div>
+      </div>
+   {% endfor %}
+</div>

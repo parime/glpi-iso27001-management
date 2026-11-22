@@ -1,0 +1,90 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #872 : « Mes signalements de risques ». Formulaire de signalement ouvert à toute personne
+   connectée, puis ses propres signalements avec la décision du tri. Ni le registre des risques ni le
+   risque retenu ne sont montrés. #}
+<div class="container-fluid my-2">
+   <div class="card mb-3" id="grc-reportedrisk-form">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-message-report me-2"></i>{{ __('Report a risk', 'grcmanager') }}</h3>
+         {% if evidence_url %}
+            <div class="card-actions">
+               <a class="btn btn-sm btn-outline-secondary" href="{{ evidence_url }}"><i class="ti ti-file-upload me-1"></i>{{ __('My evidence requests', 'grcmanager') }}</a>
+            </div>
+         {% endif %}
+      </div>
+      <div class="card-body">
+         <p class="text-muted">
+            <i class="ti ti-info-circle me-1"></i>{{ __('You noticed something that could harm the organisation or its information: a door left open, a suspicious email, a password written down, a fragile process, a supplier at risk? Describe it below. The person in charge of risks examines every report and tells you what is decided.', 'grcmanager') }}
+         </p>
+         <div class="alert alert-warning small">
+            <i class="ti ti-alert-triangle me-1"></i>{{ __('An incident is happening right now (virus, intrusion, data leak)? Do not wait: contact the help desk immediately.', 'grcmanager') }}
+         </div>
+         <form method="post" action="{{ action }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <div class="mb-3">
+               <label class="form-label required" for="grc-reportedrisk-name">{{ __('What did you notice? (short title)', 'grcmanager') }}</label>
+               <input type="text" class="form-control" id="grc-reportedrisk-name" name="name" maxlength="{{ name_max }}" required
+                  placeholder="{{ __('Example: the server room door does not lock', 'grcmanager') }}">
+            </div>
+            <div class="mb-3">
+               <label class="form-label required" for="grc-reportedrisk-description">{{ __('Describe the situation', 'grcmanager') }}</label>
+               <textarea class="form-control" id="grc-reportedrisk-description" name="description" rows="5" required
+                  placeholder="{{ __('Where, since when, what could happen, who is concerned. Do not write any password.', 'grcmanager') }}"></textarea>
+            </div>
+            <fieldset class="mb-3">
+               <legend class="form-label">{{ __('How serious does it seem to you?', 'grcmanager') }}</legend>
+               {% for key, severity in severities %}
+                  <label class="form-check">
+                     <input class="form-check-input" type="radio" name="severity" value="{{ key }}"{% if key == '' %} checked{% endif %}>
+                     <span class="form-check-label"><span class="badge {{ severity.class }}">{{ severity.label }}</span></span>
+                  </label>
+               {% endfor %}
+            </fieldset>
+            <button type="submit" name="report" value="1" class="btn btn-primary"><i class="ti ti-send me-1"></i>{{ __('Send my report', 'grcmanager') }}</button>
+         </form>
+      </div>
+   </div>
+
+   <div class="card" id="grc-reportedrisk-mine">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-history me-2"></i>{{ __('My risk reports', 'grcmanager') }}</h3>
+         <div class="card-actions">
+            <span class="badge bg-blue-lt"><i class="ti ti-list me-1"></i>{{ _n('%d report', '%d reports', rows|length, 'grcmanager')|format(rows|length) }}</span>
+         </div>
+      </div>
+      <div class="card-body">
+         {% if rows is empty %}
+            <p class="text-muted mb-0" id="grc-reportedrisk-mine-empty"><i class="ti ti-mood-empty me-1"></i>{{ __('You have not reported any risk yet.', 'grcmanager') }}</p>
+         {% else %}
+            <ul class="list-group">
+            {% for row in rows %}
+               <li class="list-group-item grc-reportedrisk-mine-row" id="grc-reportedrisk-{{ row.id }}">
+                  <div class="d-flex flex-wrap align-items-center gap-2">
+                     <strong class="flex-grow-1">{{ row.name }}</strong>
+                     <span class="badge {{ row.status_class }}"><i class="ti {{ row.status_icon }} me-1"></i>{{ row.status_label }}</span>
+                  </div>
+                  <div class="text-muted small"><i class="ti ti-calendar me-1"></i>{{ __('Sent on %s', 'grcmanager')|format(row.date_text) }}{% if row.decision_text %} · <i class="ti ti-gavel me-1"></i>{{ __('Examined on %s', 'grcmanager')|format(row.decision_text) }}{% endif %}</div>
+                  <p class="mb-1 mt-2">{{ row.description|nl2br }}</p>
+                  {% if row.comment %}
+                     <div class="alert {{ row.status == 'rejected' ? 'alert-danger' : 'alert-info' }} mb-0 mt-2"><i class="ti ti-message-circle me-1"></i><strong>{{ __('Answer from the person in charge of risks:', 'grcmanager') }}</strong> {{ row.comment|nl2br }}</div>
+                  {% endif %}
+               </li>
+            {% endfor %}
+            </ul>
+         {% endif %}
+      </div>
+   </div>
+</div>

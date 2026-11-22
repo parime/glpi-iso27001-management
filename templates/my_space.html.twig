@@ -19,7 +19,8 @@
    <div class="card">
       <div class="card-header">
          <h3 class="card-title"><i class="ti ti-user-check me-2"></i>{{ __('My GRC space', 'grcmanager') }}</h3>
-         <div class="card-actions d-flex gap-2">
+         <div class="card-actions d-flex flex-wrap gap-2">
+            {% if report_url is defined and report_url %}<a class="btn btn-sm btn-outline-secondary" href="{{ report_url }}"><i class="ti ti-message-report me-1"></i>{{ __('Report a risk', 'grcmanager') }}</a>{% endif %}
             <span class="badge bg-blue-lt" title="{{ __('Items waiting for you', 'grcmanager') }}"><i class="ti ti-list-check me-1"></i>{{ __('%d to do', 'grcmanager')|format(summary.total) }}</span>
             <span class="badge {{ summary.overdue > 0 ? 'bg-red-lt' : 'bg-secondary-lt' }}"><i class="ti ti-alarm me-1"></i>{{ __('%d overdue', 'grcmanager')|format(summary.overdue) }}</span>
             <span class="badge {{ summary.soon > 0 ? 'bg-orange-lt' : 'bg-secondary-lt' }}"><i class="ti ti-clock me-1"></i>{{ __('%1$d due within %2$d days', 'grcmanager')|format(summary.soon, horizon_days) }}</span>

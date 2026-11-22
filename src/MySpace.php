@@ -178,6 +178,8 @@ class MySpace extends CommonGLPI
             'rows'         => $rows,
             'summary'      => MySpaceRules::summary($items),
             'horizon_days' => MySpaceRules::HORIZON_DAYS,
+            // Issue #872 : signaler un risque, ouvert à toute personne.
+            'report_url'   => ReportedRisk::getMineURL(),
         ]);
     }
 }

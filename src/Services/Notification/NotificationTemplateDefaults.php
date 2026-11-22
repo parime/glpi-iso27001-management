@@ -63,6 +63,8 @@ use GlpiPlugin\Grcmanager\RiskIndicator;
 use GlpiPlugin\Grcmanager\RiskTreatmentAction;
 use GlpiPlugin\Grcmanager\SoaVersion;
 use GlpiPlugin\Grcmanager\SupplierRisk;
+use GlpiPlugin\Grcmanager\NotificationTargetReportedRisk;
+use GlpiPlugin\Grcmanager\ReportedRisk;
 use GlpiPlugin\Grcmanager\Training;
 use GlpiPlugin\Grcmanager\VulnerabilityDigest;
 use GlpiPlugin\Grcmanager\Waiver;
@@ -526,6 +528,14 @@ final class NotificationTemplateDefaults
                 [NotificationTargetAuditEvidenceRequest::TARGET_ASSIGNEE],
                 'Preuve d\'audit à compléter',
                 'Envoyée à la personne qui a fourni une preuve d\'audit lorsque l\'audit demande de la compléter.',
+            ],
+            // Issue #872 : décision du tri d'un risque signalé, adressée à la personne qui l'a signalé.
+            'reported_risk_decided' => [
+                ReportedRisk::class, ReportedRisk::DECIDED_EVENT, 'Your risk report has been examined',
+                'Sent to the person who reported a risk when the person in charge of risks accepts, links or '
+                    . 'rejects the report.',
+                [NotificationTargetReportedRisk::TARGET_AUTHOR],
+                'Votre signalement de risque a été examiné', '',
             ],
         ];
 
@@ -1081,6 +1091,15 @@ final class NotificationTemplateDefaults
                     $t('Review the documents in the "Evidence requests" tab of the audit, then accept them or ask '
                         . 'for them to be completed.'),
                 ], '##evidencerequest.auditurl##', $t('Review the evidence'), $head);
+
+            case 'reported_risk_decided':
+                $title = $head('##reportedrisk.action##', '##reportedrisk.name##');
+
+                return self::plain($title, $title . "\n\n"
+                    . $line('Decision', '##reportedrisk.status##') . "\n"
+                    . $line('Answer from the person in charge of risks', '##reportedrisk.comment##') . "\n\n"
+                    . $t('Thank you for your report: every report helps protect the organisation.') . "\n\n"
+                    . $line('View my risk reports', '##reportedrisk.mineurl##'));
         }
 
         throw new \InvalidArgumentException('Unknown notification template: ' . $key);

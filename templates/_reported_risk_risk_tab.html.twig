@@ -1,0 +1,43 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #872 : onglet « Risques signalés » d'un risque : les signalements des collaborateurs à
+   l'origine du risque ou qui lui ont été rattachés (trace pour l'auditeur, 6.1.2 et A.6.8). #}
+<div class="card">
+   <div class="card-body">
+      <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Reports from staff that created this risk or were linked to it.', 'grcmanager') }} <a href="{{ queue_url }}">{{ __('Open the reported risks', 'grcmanager') }}</a></p>
+      {% if rows is empty %}
+         <p class="text-muted mb-0">{{ __('No report is linked to this risk.', 'grcmanager') }}</p>
+      {% else %}
+         <table class="table table-sm table-vcenter" id="grc-reportedrisk-risk-tab">
+            <thead>
+               <tr>
+                  <th>{{ __('Report', 'grcmanager') }}</th>
+                  <th>{{ __('Reported by', 'grcmanager') }}</th>
+                  <th>{{ __('Decision', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+            {% for row in rows %}
+               <tr>
+                  <td><strong>{{ row.name }}</strong><div class="text-muted small">{{ row.description|nl2br }}</div></td>
+                  <td class="text-nowrap">{{ row.author }}<div class="text-muted small">{{ row.date_text }}</div></td>
+                  <td class="text-nowrap"><span class="badge {{ row.status_class }}"><i class="ti {{ row.status_icon }} me-1"></i>{{ row.status_label }}</span><div class="text-muted small">{{ row.decider }} {{ row.decision_text }}</div></td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+      {% endif %}
+   </div>
+</div>
