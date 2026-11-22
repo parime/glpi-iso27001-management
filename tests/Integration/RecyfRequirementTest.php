@@ -21,6 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\EntityPerimeter;
 use GlpiPlugin\Grcmanager\FrameworkAssessment;
+use GlpiPlugin\Grcmanager\Install\FrameworkFamiliesTables;
 use GlpiPlugin\Grcmanager\RecyfRequirement;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
@@ -53,10 +54,10 @@ final class RecyfRequirementTest extends GrcmanagerIntegrationTestCase
         foreach ($keys as $key) {
             $this->savedSession[$key] = $_SESSION[$key] ?? null;
         }
-        $this->savedFrameworks = FrameworkConfig::enabled();
-        FrameworkConfig::save(
-            array_values(array_unique(array_merge($this->savedFrameworks, [FrameworkSelection::NIS2])))
-        );
+        // Issue #1053 : ReCyF est la déclinaison France de NIS2, cochée en plus de NIS2.
+        $this->savedFrameworks = FrameworkConfig::storedEnabled();
+        $frameworks = array_merge($this->savedFrameworks, [FrameworkSelection::NIS2, FrameworkSelection::RECYF]);
+        FrameworkConfig::save(array_values(array_unique($frameworks)));
 
         // Catégories de l'instance écartées (annulé avec la transaction) : registres de ce test seulement.
         global $DB;
@@ -204,11 +205,46 @@ final class RecyfRequirementTest extends GrcmanagerIntegrationTestCase
         $this->assertCount(20, $card['objectives']);
     }
 
+    /**
+     * Issue #1053 : mise à jour d'une instance d'avant les déclinaisons, où le registre ReCyF suivait
+     * NIS2 : NIS2 actif, ReCyF jamais présenté comme réglage, une entité classée avec ses fiches. La
+     * reprise coche la déclinaison France et le registre reste visible.
+     */
+    public function testUpdateFromBeforeImplementationsKeepsTheReCyfRegister(): void
+    {
+        RecyfRequirement::setCategory($this->france, 'important');
+        $known = array_values(array_diff(array_keys(FrameworkSelection::FRAMEWORKS), [FrameworkSelection::RECYF]));
+        \Config::setConfigurationValues(FrameworkConfig::CONFIG_CONTEXT, [
+            FrameworkConfig::CONFIG_KEY => (string) json_encode([FrameworkSelection::DORA]),
+            FrameworkConfig::KNOWN_KEY  => (string) json_encode($known),
+        ]);
+        \Config::deleteConfigurationValues(FrameworkConfig::CONFIG_CONTEXT, [FrameworkFamiliesTables::MIGRATED_KEY]);
+        FrameworkConfig::reset();
+        $this->assertFalse(FrameworkConfig::isEnabled(FrameworkSelection::RECYF), "état d'avant la reprise");
+
+        FrameworkFamiliesTables::migrate(new \Migration('0.0.0'));
+
+        $this->assertTrue(FrameworkConfig::isEnabled(FrameworkSelection::NIS2));
+        $this->assertTrue(FrameworkConfig::isEnabled(FrameworkSelection::RECYF));
+        $this->assertFalse(FrameworkConfig::isEnabled(FrameworkSelection::DORA), 'autres réglages inchangés');
+        $this->limitTo($this->france);
+        $this->assertTrue(RecyfRequirement::canView());
+        $this->assertNotSame([], RecyfRequirement::registerRows($this->france));
+    }
+
     public function testDisabledNis2HidesTheRegister(): void
     {
-        FrameworkConfig::save(array_values(array_diff(FrameworkConfig::enabled(), [FrameworkSelection::NIS2])));
+        FrameworkConfig::save(array_values(array_diff(FrameworkConfig::storedEnabled(), [FrameworkSelection::NIS2])));
         $this->assertFalse(RecyfRequirement::canView());
         $this->assertFalse(RecyfRequirement::canUpdate());
+    }
+
+    /** Issue #1053 : NIS2 actif sans la déclinaison France, le registre ReCyF reste masqué. */
+    public function testNis2WithoutTheFrenchImplementationHidesTheRegister(): void
+    {
+        FrameworkConfig::save(array_values(array_diff(FrameworkConfig::storedEnabled(), [FrameworkSelection::RECYF])));
+        $this->assertTrue(FrameworkConfig::isEnabled(FrameworkSelection::NIS2));
+        $this->assertFalse(RecyfRequirement::canView());
     }
 
     /**
@@ -218,7 +254,7 @@ final class RecyfRequirementTest extends GrcmanagerIntegrationTestCase
      */
     public function testNis2IsAssessedOnTheReCyfRegisterWithoutAnnexA(): void
     {
-        FrameworkConfig::save([FrameworkSelection::NIS2]);
+        FrameworkConfig::save([FrameworkSelection::NIS2, FrameworkSelection::RECYF]);
         RecyfRequirement::setCategory($this->france, 'important');
         $done = $this->measureId($this->france, '4.1');
         $this->assertTrue((new RecyfRequirement())->update(['id' => $done, 'implementation_status' => 'implemented']));
