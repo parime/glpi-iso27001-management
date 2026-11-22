@@ -42,3 +42,12 @@ case $ROLE in
     done
     ;;
 esac
+# Issue #1047 (signale par #1040) : sans droit du plugin, la fiche du fournisseur commun s'ouvre, pour
+# que le controle de ses onglets (partie « sans droit » d'access-matrix.sh) verifie vraiment quelque
+# chose : l'onglet du plugin est demande sur une fiche visible, pas sur un fournisseur hors de portee.
+if [ "$ROLE" = none ]; then
+  expect "fiche du fournisseur commun : ouverte sans droit du plugin" 200 \
+    "$(code "$BASE/front/supplier.form.php?id=$(id supplier)")"
+  contains "fiche du fournisseur commun : son nom est affiche" "Fournisseur securite" oui \
+    "$(curl -s -c "$JAR" -b "$JAR" "$BASE/front/supplier.form.php?id=$(id supplier)")"
+fi
