@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.83.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.84.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -201,6 +201,11 @@ function plugin_init_grcmanager(): void
     // dedicated menu entry only if a later sprint makes this screen something used daily rather
     // than an occasional admin setting.
     $PLUGIN_HOOKS[Hooks::CONFIG_PAGE]['grcmanager'] = 'front/config.php';
+
+    // Issue #1026 : classes bg-X-subtle / text-X-emphasis des couleurs nommées de Tabler (orange,
+    // blue, green...), absentes de GLPI et de Tabler. Chargée sur toutes les pages, car les badges
+    // GRC apparaissent aussi dans les onglets des fiches du cœur (tickets, actifs...).
+    $PLUGIN_HOOKS[Hooks::ADD_CSS]['grcmanager'] = ['css/grcmanager.css'];
 
     // Issue #25 (lien registre de risques <-> actifs GLPI/CMDB) : onglet "Risques" en lecture
     // seule sur la fiche de chaque actif potentiellement lié (voir
@@ -399,6 +404,11 @@ function plugin_init_grcmanager(): void
     // Issue #778 : onglet « Sécurité physique » des lieux de GLPI (évaluations du site).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PhysicalSecurityAssessment::class, [
         'addtabon' => [Location::class],
+    ]);
+    // Issue #872 : « Mes signalements de risques » dans les préférences (toute session), et sur chaque
+    // risque les signalements qui l'ont créé ou lui ont été rattachés (lecture du registre).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ReportedRisk::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\Risk::class, Preference::class],
     ]);
     // Issue #604 : « Mes simulations d'hameçonnage » dans les préférences (ses propres résultats).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PhishingResult::class, ['addtabon' => [Preference::class]]);

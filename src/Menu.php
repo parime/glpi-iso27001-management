@@ -86,6 +86,8 @@ class Menu extends CommonGLPI
                 RiskAppetite::class, RiskIndicator::class,
                 // Issue #376 : études EBIOS Risk Manager.
                 EbiosStudy::class,
+                // Issue #872 : risques signalés par les collaborateurs, à trier.
+                ReportedRisk::class,
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             Control::class => [

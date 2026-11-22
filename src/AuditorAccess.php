@@ -370,7 +370,8 @@ class AuditorAccess extends CommonGLPI
 
     /**
      * Entrée « GRC Manager » du menu de l'interface simplifiée : l'espace auditeur pour qui a un
-     * accès en vigueur, sinon ses demandes de preuves en attente ; aucune entrée sinon.
+     * accès en vigueur, sinon ses demandes de preuves en attente, sinon le signalement d'un risque
+     * (issue #872, ouvert à toute personne).
      */
     public static function helpdeskMenuEntry(): ?string
     {
@@ -382,7 +383,12 @@ class AuditorAccess extends CommonGLPI
             return '/front/auditorspace.php';
         }
 
-        return AuditEvidenceRequest::countWaiting($usersId) > 0 ? '/front/auditevidencerequest.mine.php' : null;
+        if (AuditEvidenceRequest::countWaiting($usersId) > 0) {
+            return '/front/auditevidencerequest.mine.php';
+        }
+
+        // Issue #872 : sinon, toute personne peut signaler un risque.
+        return '/front/reportedrisk.mine.php';
     }
 
     public static function showSpace(Audit $audit, int $usersId): void

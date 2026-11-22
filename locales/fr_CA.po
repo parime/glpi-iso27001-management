@@ -37846,3 +37846,271 @@ msgstr "Conformité du personnel : politiques de sécurité non lues (%s)"
 
 msgid "Staff compliance gap"
 msgstr "Écart de conformité du personnel"
+
+msgid "Added to the risk register"
+msgstr "Ajouté au registre des risques"
+
+msgid ""
+"An incident is happening right now (virus, intrusion, data leak)? Do not "
+"wait: contact the help desk immediately."
+msgstr ""
+"Un incident est en cours (virus, intrusion, fuite de données) ? N'attendez "
+"pas : contactez immédiatement le support."
+
+msgid "Answer from the person in charge of risks"
+msgstr "Réponse du responsable des risques"
+
+msgid "Answer from the person in charge of risks:"
+msgstr "Réponse du responsable des risques :"
+
+msgid "Choose a risk"
+msgstr "Choisir un risque"
+
+msgid "Choose the existing risk to link this report to."
+msgstr "Choisissez le risque existant auquel rattacher ce signalement."
+
+msgid ""
+"Creates a new risk with this title and description, to be completed (owner, "
+"likelihood, impact)."
+msgstr ""
+"Crée un nouveau risque avec ce titre et cette description, à compléter "
+"(propriétaire, vraisemblance, impact)."
+
+msgid "Decided by %1$s on %2$s"
+msgstr "Décidé par %1$s le %2$s"
+
+msgid "Decision recorded. The author has been informed."
+msgstr "Décision enregistrée. L'auteur a été prévenu."
+
+msgid "Describe the situation"
+msgstr "Décrivez la situation"
+
+msgid "Describe what you noticed."
+msgstr "Décrivez ce que vous avez remarqué."
+
+msgid "Examined on %s"
+msgstr "Examiné le %s"
+
+msgid "Example: the server room door does not lock"
+msgstr "Exemple : la porte de la salle serveurs ne ferme plus à clé"
+
+msgid "Existing risk"
+msgstr "Risque existant"
+
+msgid ""
+"For each new report, add it to the register (a risk is created, to be "
+"completed), link it to an existing risk, or reject it with a reason. The "
+"author is informed of the decision; the report stays visible on the risk as "
+"a trace for the auditor."
+msgstr ""
+"Pour chaque nouveau signalement, ajoutez-le au registre (un risque est créé, "
+"à compléter), rattachez-le à un risque existant ou rejetez-le avec un motif. "
+"L'auteur est prévenu de la décision ; le signalement reste visible sur le "
+"risque, comme trace pour l'auditeur."
+
+msgid ""
+"Give a short title and describe the situation, then send. You only see your "
+"own reports here, with the answer of the person in charge of risks once it "
+"is examined."
+msgstr ""
+"Donnez un titre court, décrivez la situation, puis envoyez. Vous ne voyez "
+"ici que vos propres signalements, avec la réponse du responsable des risques "
+"une fois examinés."
+
+msgid "Give the reason for the rejection: the author will read it."
+msgstr "Indiquez le motif du rejet : l'auteur le lira."
+
+msgid "Give your report a short title."
+msgstr "Donnez un titre court à votre signalement."
+
+msgid "How serious does it seem to you?"
+msgstr "Quelle gravité cela vous semble-t-il avoir ?"
+
+msgid "I don't know"
+msgstr "Je ne sais pas"
+
+msgid "ISO/IEC 27001, clause 6.1.2 and control A.6.8"
+msgstr "ISO/IEC 27001, article 6.1.2 et mesure A.6.8"
+
+msgid ""
+"Lets anyone in the organisation point out a risk or a dangerous situation "
+"they noticed, without needing access to the risk register."
+msgstr ""
+"Permet à toute personne de l'organisation de signaler un risque ou une "
+"situation dangereuse qu'elle a remarqué, sans accès au registre des risques."
+
+msgid "Link to an existing risk"
+msgstr "Rattacher à un risque existant"
+
+msgid "Linked to an existing risk"
+msgstr "Rattaché à un risque existant"
+
+msgid "Message to the author (optional)"
+msgstr "Message à l'auteur (facultatif)"
+
+msgid "Minor: an annoyance"
+msgstr "Faible : une gêne"
+
+msgid "My risk reports"
+msgstr "Mes signalements de risques"
+
+msgid "My risk reports page URL"
+msgstr "URL de la page « Mes signalements de risques »"
+
+msgid "No open risk in this entity."
+msgstr "Aucun risque ouvert dans cette entité."
+
+msgid "No report in this list."
+msgstr "Aucun signalement dans cette liste."
+
+msgid "No report is linked to this risk."
+msgstr "Aucun signalement n'est rattaché à ce risque."
+
+msgid ""
+"Not a risk for the organisation, or out of scope. The author reads your "
+"reason."
+msgstr ""
+"Pas un risque pour l'organisation, ou hors périmètre. L'auteur lit votre "
+"motif."
+
+msgid "Not kept"
+msgstr "Non retenu"
+
+msgid "Open the reported risks"
+msgstr "Ouvrir les risques signalés"
+
+msgid "Person who reported the risk"
+msgstr "Personne qui a signalé le risque"
+
+msgid "Read only: triaging requires the right to create and update risks."
+msgstr ""
+"Lecture seule : trier exige le droit de créer et de modifier les risques."
+
+msgid "Reason for the rejection"
+msgstr "Motif du rejet"
+
+msgid "Received, waiting to be examined"
+msgstr "Reçu, en attente d'examen"
+
+msgid "Report a risk"
+msgstr "Signaler un risque"
+
+msgid "Reported by"
+msgstr "Signalé par"
+
+msgid "Reported by %1$s on %2$s (staff report #%3$d)."
+msgstr "Signalé par %1$s le %2$s (signalement n° %3$d)."
+
+msgid "Reports from staff that created this risk or were linked to it."
+msgstr ""
+"Signalements des collaborateurs à l'origine de ce risque ou qui lui ont été "
+"rattachés."
+
+msgid ""
+"Risk created from the report. Complete its owner, likelihood and impact."
+msgstr ""
+"Risque créé à partir du signalement. Complétez son propriétaire, sa "
+"vraisemblance et son impact."
+
+msgid "Send my report"
+msgstr "Envoyer mon signalement"
+
+msgid "Serious: could cause major damage"
+msgstr "Grave : pourrait causer des dommages importants"
+
+msgid "Seriousness as felt by the author"
+msgstr "Gravité ressentie par l'auteur"
+
+msgid "Significant: could disrupt work or expose information"
+msgstr "Notable : pourrait perturber le travail ou exposer des informations"
+
+msgid "Taken into account: added to the risk register"
+msgstr "Pris en compte : ajouté au registre des risques"
+
+msgid "Taken into account: this risk was already known and is being followed"
+msgstr "Pris en compte : ce risque était déjà connu et il est suivi"
+
+msgid "Thank you for your report: every report helps protect the organisation."
+msgstr ""
+"Merci pour votre signalement : chaque signalement aide à protéger "
+"l'organisation."
+
+msgid ""
+"Thank you, your report has been sent to the person in charge of risks. You "
+"will be told what is decided."
+msgstr ""
+"Merci, votre signalement a été transmis au responsable des risques. Vous "
+"serez prévenu de la décision."
+
+msgid "The description is too long."
+msgstr "La description est trop longue."
+
+msgid "The message is too long."
+msgstr "Le message est trop long."
+
+msgid ""
+"The risk is already in the register: the report is kept as a trace on it, "
+"the risk is not changed."
+msgstr ""
+"Le risque est déjà au registre : le signalement y est gardé comme trace, le "
+"risque n'est pas modifié."
+
+msgid "The title is too long (255 characters at most)."
+msgstr "Le titre est trop long (255 caractères au plus)."
+
+msgid "This report has already been triaged."
+msgstr "Ce signalement a déjà été trié."
+
+msgid "To triage"
+msgstr "À trier"
+
+msgid ""
+"Triage of the risks reported by staff: each report is examined by a person "
+"before anything reaches the risk register."
+msgstr ""
+"Tri des risques signalés par les collaborateurs : chaque signalement est "
+"examiné par une personne avant que rien n'entre au registre des risques."
+
+msgid "What did you notice? (short title)"
+msgstr "Qu'avez-vous remarqué ? (titre court)"
+
+msgid ""
+"Where, since when, what could happen, who is concerned. Do not write any "
+"password."
+msgstr ""
+"Où, depuis quand, ce qui pourrait arriver, qui est concerné. N'écrivez aucun "
+"mot de passe."
+
+msgid "You cannot do this on this report."
+msgstr "Vous ne pouvez pas faire cela sur ce signalement."
+
+msgid "You have not reported any risk yet."
+msgstr "Vous n'avez encore signalé aucun risque."
+
+msgid ""
+"You noticed something that could harm the organisation or its information: a "
+"door left open, a suspicious email, a password written down, a fragile "
+"process, a supplier at risk? Describe it below. The person in charge of "
+"risks examines every report and tells you what is decided."
+msgstr ""
+"Vous avez remarqué quelque chose qui pourrait nuire à l'organisation ou à "
+"ses informations : une porte restée ouverte, un courriel suspect, un mot de "
+"passe noté, un processus fragile, un fournisseur en difficulté ? Décrivez-le "
+"ci-dessous. Le responsable des risques examine chaque signalement et vous "
+"informe de la décision."
+
+msgid "Your risk report has been examined"
+msgstr "Votre signalement de risque a été examiné"
+
+msgid "%d report"
+msgid_plural "%d reports"
+msgstr[0] "%d signalement"
+msgstr[1] "%d signalements"
+
+msgid "Reported risk"
+msgid_plural "Reported risks"
+msgstr[0] "Risque signalé"
+msgstr[1] "Risques signalés"
+
+msgid "Rejected with a reason"
+msgstr "Rejeté avec un motif"
