@@ -41,6 +41,9 @@ use Session;
  */
 class Delegation extends DelegationBase
 {
+    /** Droit lu par la classe parente (Compat\Base\DelegationBase) : lecture du plugin. */
+    public const RIGHTNAME = 'plugin_grcmanager';
+
     public const TABLE = 'glpi_plugin_grcmanager_delegateddecisions';
     private const SUBSTITUTES_TABLE = 'glpi_validatorsubstitutes';
 

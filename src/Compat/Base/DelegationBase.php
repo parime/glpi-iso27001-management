@@ -31,11 +31,11 @@ use GlpiPlugin\Grcmanager\Compat\GlpiVersion;
 if (GlpiVersion::isAtLeast12()) {
     abstract class DelegationBase extends CommonDBTM
     {
-        public static string $rightname = 'plugin_grcmanager';
+        public static string $rightname = \GlpiPlugin\Grcmanager\Delegation::RIGHTNAME;
     }
 } else {
     abstract class DelegationBase extends CommonDBTM
     {
-        public static $rightname = 'plugin_grcmanager';
+        public static $rightname = \GlpiPlugin\Grcmanager\Delegation::RIGHTNAME;
     }
 }
