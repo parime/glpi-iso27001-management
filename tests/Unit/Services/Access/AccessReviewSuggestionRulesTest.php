@@ -123,8 +123,14 @@ final class AccessReviewSuggestionRulesTest extends TestCase
     public function testOnlyRealStaffComplianceGapsAreKept(): void
     {
         $components = [
-            ['key' => 'training', 'status' => 'late', 'code' => 'renewal_overdue', 'params' => ['titles' => ['Phishing']]],
-            ['key' => 'charter', 'status' => 'late', 'code' => 'pending', 'params' => ['campaign' => 'IT charter 2026']],
+            [
+                'key' => 'training', 'status' => 'late', 'code' => 'renewal_overdue',
+                'params' => ['titles' => ['Phishing']],
+            ],
+            [
+                'key' => 'charter', 'status' => 'late', 'code' => 'pending',
+                'params' => ['campaign' => 'IT charter 2026'],
+            ],
             ['key' => 'policies', 'status' => 'pending', 'code' => 'pending', 'params' => ['titles' => ['Passwords']]],
             // Aucune campagne ni donnée RH saisie : pas un manquement de la personne.
             ['key' => 'charter', 'status' => 'late', 'code' => 'none', 'params' => []],
