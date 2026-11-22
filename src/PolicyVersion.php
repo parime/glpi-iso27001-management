@@ -27,6 +27,7 @@ use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalRules;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
 use Group;
+use GlpiPlugin\Grcmanager\Services\Delegation\DelegationRules;
 use Html;
 use NotificationEvent;
 use Session;
@@ -209,7 +210,12 @@ class PolicyVersion extends PolicyVersionBase
         ) {
             $approvers[] = [
                 'users_id'      => (int) $row['users_id'],
-                'name'          => getUserName((int) $row['users_id']),
+                // Issue #618 : réponse d'un suppléant, « X pour le compte de Y » (historique, PDF,
+                // notifications).
+                'users_id_substitute' => (int) ($row['users_id_substitute'] ?? 0),
+                'name'          => (int) ($row['users_id_substitute'] ?? 0) > 0
+                    ? Delegation::onBehalfLabel((int) $row['users_id_substitute'], (int) $row['users_id'])
+                    : getUserName((int) $row['users_id']),
                 'status'        => (string) $row['status'],
                 'date_answered' => $row['date_answered'],
                 'comment'       => (string) ($row['comment'] ?? ''),
@@ -256,6 +262,51 @@ class PolicyVersion extends PolicyVersionBase
         }
 
         return $versions;
+    }
+
+    /**
+     * Issue #618 : versions en attente de la réponse d'un titulaire absent que $substituteId remplace
+     * pour ce type de décision, sauf celles qu'il approuve lui-même (il ne vote pas deux fois).
+     * Chaque ligne porte le titulaire (on_behalf_of, on_behalf_name, absent_until).
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function pendingOnBehalf(int $substituteId): array
+    {
+        $versions = [];
+        foreach (Delegation::holdersFor($substituteId, DelegationRules::TYPE_POLICY_APPROVAL) as $holderId => $period) {
+            foreach (self::pendingForUser($holderId) as $row) {
+                if (self::canAnswerOnBehalf((int) $row['id'], $holderId, $substituteId)) {
+                    $versions[] = $row + [
+                        'on_behalf_of'   => $holderId,
+                        'on_behalf_name' => getUserName($holderId),
+                        'absent_until'   => (string) Html::convDateTime($period['end']),
+                    ];
+                }
+            }
+        }
+
+        return $versions;
+    }
+
+    /**
+     * Le suppléant peut-il répondre à cette version pour le compte du titulaire ? Délégation en
+     * cours pour ce type, titulaire en attente, suppléant hors des approbateurs de la version.
+     */
+    public static function canAnswerOnBehalf(int $versionId, int $holderId, int $substituteId): bool
+    {
+        if (!Delegation::isSubstituteOf($substituteId, $holderId, DelegationRules::TYPE_POLICY_APPROVAL)) {
+            return false;
+        }
+        $approvers = self::getApprovers($versionId);
+        $pending = array_filter($approvers, static fn (array $a): bool => $a['status'] === PolicyApprovalRules::ANSWER_PENDING);
+
+        return DelegationRules::canAnswerApproval(
+            $substituteId,
+            $holderId,
+            array_map('intval', array_column($approvers, 'users_id')),
+            array_map('intval', array_column($pending, 'users_id'))
+        );
     }
 
     /** $usersId est-il approbateur désigné de cette version (quelle que soit sa réponse) ? */
@@ -604,8 +655,13 @@ class PolicyVersion extends PolicyVersionBase
      * Réponse d'un approbateur désigné, tant que la version est en attente. Un refus exige un
      * commentaire (vérifié aussi ici).
      */
-    public static function answer(int $versionId, int $usersId, bool $approve, string $comment): bool
-    {
+    public static function answer(
+        int $versionId,
+        int $usersId,
+        bool $approve,
+        string $comment,
+        int $substituteId = 0
+    ): bool {
         global $DB;
 
         $comment = trim($comment);
@@ -617,11 +673,16 @@ class PolicyVersion extends PolicyVersionBase
         ) {
             return false;
         }
+        // Issue #618 : réponse d'un suppléant pour le compte du titulaire absent $usersId.
+        if ($substituteId > 0 && !self::canAnswerOnBehalf($versionId, $usersId, $substituteId)) {
+            return false;
+        }
         $now = date('Y-m-d H:i:s');
         $DB->update(self::APPROVERS_TABLE, [
             'status'        => $approve ? PolicyApprovalRules::ANSWER_APPROVED : PolicyApprovalRules::ANSWER_REJECTED,
             'comment'       => $comment,
             'date_answered' => $now,
+            'users_id_substitute' => max(0, $substituteId),
         ], [
             'plugin_grcmanager_policyversions_id' => $versionId,
             'users_id'                            => $usersId,
@@ -635,6 +696,24 @@ class PolicyVersion extends PolicyVersionBase
             'version' => (string) $version->fields['version'],
             'answer'  => $approve ? PolicyApprovalRules::ANSWER_APPROVED : PolicyApprovalRules::ANSWER_REJECTED,
         ]);
+        if ($substituteId > 0) {
+            $policy = new Policy();
+            $policy->getFromDB($policyId);
+            Delegation::record(
+                DelegationRules::TYPE_POLICY_APPROVAL,
+                Policy::class,
+                $policyId,
+                (int) ($policy->fields['entities_id'] ?? 0),
+                sprintf(
+                    __('%1$s, version %2$s', 'grcmanager'),
+                    (string) ($policy->fields['title'] ?? ''),
+                    (string) $version->fields['version']
+                ),
+                $approve ? PolicyApprovalRules::ANSWER_APPROVED : PolicyApprovalRules::ANSWER_REJECTED,
+                $usersId,
+                $substituteId
+            );
+        }
 
         $status = PolicyApprovalRules::versionStatus(
             array_column(self::getApprovers($versionId), 'status'),
@@ -962,7 +1041,11 @@ class PolicyVersion extends PolicyVersionBase
      */
     public static function canReadPdf(int $versionId, int $usersId): bool
     {
-        return self::canView() || self::isApprover($versionId, $usersId);
+        // Issue #618 : le suppléant d'un approbateur absent lit la version qu'il peut approuver
+        // pour son compte, tant que la délégation dure et que la version attend la réponse.
+        return self::canView()
+            || self::isApprover($versionId, $usersId)
+            || in_array($versionId, array_map('intval', array_column(self::pendingOnBehalf($usersId), 'id')), true);
     }
 
     /**
