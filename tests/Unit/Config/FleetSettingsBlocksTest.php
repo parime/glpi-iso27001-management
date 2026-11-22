@@ -30,10 +30,18 @@ final class FleetSettingsBlocksTest extends TestCase
     public function testTheFourBlocksAreInTheFleetTabAfterTheExistingOnes(): void
     {
         $keys = array_map(static fn (string $block): string => $block::key(), ConfigTabs::blocksOf('assets'));
-        $this->assertSame(
-            ['FleetVulnerabilities', 'HardwareEol', 'DiskEncryption', 'PatchTargets', 'LicenseWatch', 'LogCoverage'],
-            $keys
-        );
+        // D'autres lots ajoutent leurs blocs à l'onglet Parc (ex. BackupSettings, #1042) : on vérifie
+        // la présence et l'ordre relatif des blocs de ce lot, après les blocs existants, pas la liste exacte.
+        $mine = ['DiskEncryption', 'PatchTargets', 'LicenseWatch', 'LogCoverage'];
+        $positions = [];
+        foreach (array_merge(['FleetVulnerabilities', 'HardwareEol'], $mine) as $key) {
+            $position = array_search($key, $keys, true);
+            $this->assertNotFalse($position, $key . " absent de l'onglet Parc");
+            $positions[] = $position;
+        }
+        $sorted = $positions;
+        sort($sorted);
+        $this->assertSame($sorted, $positions, 'ordre attendu : ' . implode(', ', $keys));
     }
 
     public function testOldAnchorsOpenTheFleetTab(): void
