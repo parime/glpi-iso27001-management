@@ -33,6 +33,6 @@ Session::checkRight(DataSubjectRequest::$rightname, READ);
 
 $params = QueryBuilder::manageParams(DataSubjectRequest::class, $_GET);
 
-Search::showList(DataSubjectRequest::class, $params);
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(DataSubjectRequest::class, $params);
 
 Html::footer();

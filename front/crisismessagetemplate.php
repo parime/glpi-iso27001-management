@@ -36,7 +36,7 @@ if (\GlpiPlugin\Grcmanager\CrisisMessageTemplate::canCreate()) {
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\CrisisMessageTemplate::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\CrisisMessageTemplate::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\CrisisMessageTemplate::class]

@@ -32,7 +32,7 @@ Session::checkRight(\GlpiPlugin\Grcmanager\Waiver::$rightname, READ);
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Waiver::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\Waiver::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Waiver::class]

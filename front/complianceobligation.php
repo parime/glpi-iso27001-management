@@ -34,7 +34,7 @@ Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceObligation::$rightname, REA
 // through QueryBuilder::manageParams() itself, unlike Search::show().
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\ComplianceObligation::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\ComplianceObligation::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\ComplianceObligation::class]
