@@ -544,7 +544,11 @@ class ApprovedApplication extends ApprovedApplicationBase
         foreach ($sheets as $sheet) {
             $appliancesId = (int) $sheet['appliances_id'];
             $next = Rules::nextReview($sheet, $today);
-            $owner = (int) $sheet['users_id_owner'] > 0 ? (int) $sheet['users_id_owner'] : (int) $sheet['users_id_tech'];
+            $owner = (int) $sheet['users_id_owner'] > 0
+                ? (int) $sheet['users_id_owner']
+                : (int) $sheet['users_id_tech'];
+            $end = isset($sheet['date_end']) ? (string) $sheet['date_end'] : null;
+            $waivers = Rules::decodeIds(isset($sheet['waivers']) ? (string) $sheet['waivers'] : null);
             $confidentiality = (string) ($classifications[$appliancesId]['confidentiality'] ?? '');
             $rows[] = [
                 'name'           => (string) $sheet['appliance_name'],
@@ -561,9 +565,9 @@ class ApprovedApplication extends ApprovedApplicationBase
                 'level_exceeded' => Rules::levelExceeded((string) $sheet['max_data_level'], $confidentiality),
                 'next_review'    => $next !== null ? (string) Html::convDate($next) : '',
                 'review_state'   => Rules::reviewState($next, $today),
-                'ended'          => Rules::hasEnded(isset($sheet['date_end']) ? (string) $sheet['date_end'] : null, $today),
+                'ended'          => Rules::hasEnded($end, $today),
                 'gaps'           => Rules::gaps($sheet),
-                'waivers'        => count(Rules::decodeIds(isset($sheet['waivers']) ? (string) $sheet['waivers'] : null)),
+                'waivers'        => count($waivers),
             ];
         }
 
@@ -599,7 +603,9 @@ class ApprovedApplication extends ApprovedApplicationBase
             ],
             'WHERE'      => [
                 'glpi_appliances.is_deleted' => 0,
-                $sheets . '.status'          => [Rules::STATUS_APPROVED, Rules::STATUS_RESTRICTED, Rules::STATUS_REFUSED],
+                $sheets . '.status'          => [
+                    Rules::STATUS_APPROVED, Rules::STATUS_RESTRICTED, Rules::STATUS_REFUSED,
+                ],
             ] + getEntitiesRestrictCriteria('glpi_appliances', '', '', true),
             'ORDER'      => 'glpi_appliances.name',
         ]);
@@ -851,7 +857,11 @@ class ApprovedApplication extends ApprovedApplicationBase
             $existing = new Ticket();
             if (
                 $ticketsId > 0 && $existing->getFromDB($ticketsId)
-                && !in_array((int) $existing->fields['status'], [CommonITILObject::SOLVED, CommonITILObject::CLOSED], true)
+                && !in_array(
+                    (int) $existing->fields['status'],
+                    [CommonITILObject::SOLVED, CommonITILObject::CLOSED],
+                    true
+                )
             ) {
                 continue;
             }

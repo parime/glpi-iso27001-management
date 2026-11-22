@@ -1,0 +1,254 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "%1$d application(s) to review, %2$d ticket(s) opened."
+msgstr "%1$d application(s) à revoir, %2$d ticket(s) ouvert(s)."
+
+msgid "%1$d software not in the register; the %2$d most installed are shown. Choose a software category (for example online services) to narrow the list."
+msgstr "%1$d logiciels hors registre ; les %2$d plus installés sont affichés. Choisissez une catégorie de logiciels (par exemple les services en ligne) pour réduire la liste."
+
+msgid "%d due within 30 days"
+msgstr "%d à faire dans les 30 jours"
+
+msgid "%d online service(s)"
+msgstr "%d service(s) en ligne"
+
+msgid "0: no periodic review. When the review is due, a reassessment ticket is opened for the owner."
+msgstr "0 : aucune revue périodique. À l'échéance de la revue, un ticket de réévaluation est ouvert pour le responsable."
+
+msgid "Allowed data level not set"
+msgstr "Niveau de données autorisé non renseigné"
+
+msgid "Allowed uses"
+msgstr "Cas d'usage autorisés"
+
+msgid "Allowed uses not described"
+msgstr "Cas d'usage autorisés non décrits"
+
+msgid "Application owner"
+msgstr "Responsable de l'application"
+
+msgid "Applications and online services you may use for your work, with what they may be used for and the most sensitive data you may put in them. For any other application, ask the IT department before using it."
+msgstr "Applications et services en ligne que vous pouvez utiliser pour votre travail, ce pour quoi ils peuvent servir et les données les plus sensibles que vous pouvez y mettre. Pour toute autre application, demandez au service informatique avant de l'utiliser."
+
+msgid "Applications in the register: %d"
+msgstr "Applications au registre : %d"
+
+msgid "Applications not to use"
+msgstr "Applications à ne pas utiliser"
+
+msgid "Approved applications and online services"
+msgstr "Applications et services en ligne approuvés"
+
+msgid "Approved applications to complete"
+msgstr "Applications approuvées à compléter"
+
+msgid "Approved use"
+msgstr "Usage autorisé"
+
+msgid "Approved use sheet saved."
+msgstr "Fiche d'usage autorisé enregistrée."
+
+msgid "Approved with restrictions"
+msgstr "Approuvée avec restrictions"
+
+msgid "Approved: %d"
+msgstr "Approuvées : %d"
+
+msgid "Authorised applications"
+msgstr "Applications autorisées"
+
+msgid "Check that the allowed uses, the data level and the supplier are still right, then record the review in the \"Approved use\" tab of the application."
+msgstr "Vérifiez que les cas d'usage autorisés, le niveau de données et le fournisseur sont toujours justes, puis enregistrez la revue dans l'onglet « Usage autorisé » de l'application."
+
+msgid "Classification above the allowed level"
+msgstr "Classification supérieure au niveau autorisé"
+
+msgid "Comparison with the software inventory"
+msgstr "Rapprochement avec l'inventaire logiciel"
+
+msgid "Complete the approved applications (owner, allowed uses, data level), review them when due (a reassessment ticket is opened for the owner), and check the installed software that is refused or missing from the register. Nothing is uninstalled or changed automatically."
+msgstr "Complétez les applications approuvées (responsable, cas d'usage autorisés, niveau de données), revoyez-les à l'échéance (un ticket de réévaluation est ouvert pour le responsable) et vérifiez les logiciels installés refusés ou absents du registre. Rien n'est désinstallé ni modifié automatiquement."
+
+msgid "Departments or teams that use it, for example: Sales, Human resources."
+msgstr "Services ou équipes qui l'utilisent, par exemple : Commercial, Ressources humaines."
+
+msgid "End of use"
+msgstr "Fin d'usage"
+
+msgid "Exceptions accepted for this application, from the waiver register."
+msgstr "Exceptions acceptées pour cette application, issues du registre des dérogations."
+
+msgid "For example: sharing files with customers and partners, team chat. Shown to users."
+msgstr "Par exemple : partage de fichiers avec les clients et partenaires, messagerie d'équipe. Affiché aux utilisateurs."
+
+msgid "High: confidential data allowed"
+msgstr "Élevé : données confidentielles autorisées"
+
+msgid "Hosting"
+msgstr "Hébergement"
+
+msgid "ISO/IEC 27001, control A.5.23"
+msgstr "ISO/IEC 27001, mesure A.5.23"
+
+msgid "Installed software not in the register"
+msgstr "Logiciels installés absents du registre"
+
+msgid "Installed software that is refused or not yet approved"
+msgstr "Logiciels installés refusés ou pas encore approuvés"
+
+msgid "Leave empty while the application is in use."
+msgstr "Laissez vide tant que l'application est utilisée."
+
+msgid "Lists the applications and online services that may be used, what for and with which data: approved, approved with restrictions, under evaluation or refused. Each decision is recorded in the \"Approved use\" tab of an appliance of GLPI, next to its secure development sheet. Users see the approved ones in their preferences, without any right on the plugin."
+msgstr "Liste les applications et services en ligne qui peuvent être utilisés, pour quoi faire et avec quelles données : approuvés, approuvés avec restrictions, en évaluation ou refusés. Chaque décision est enregistrée dans l'onglet « Usage autorisé » d'une application de GLPI, à côté de sa fiche de développement sécurisé. Les utilisateurs voient les applications approuvées dans leurs préférences, sans aucun droit sur le plugin."
+
+msgid "Low: public or internal data only"
+msgstr "Faible : données publiques ou internes seulement"
+
+msgid "Medium: up to restricted data (customers, staff)"
+msgstr "Moyen : jusqu'aux données restreintes (clients, personnel)"
+
+msgid "Most sensitive data allowed"
+msgstr "Données les plus sensibles autorisées"
+
+msgid "No application has been published yet."
+msgstr "Aucune application n'a encore été publiée."
+
+msgid "No application in the register yet. Open an appliance of GLPI (Assets > Appliances) and fill in its \"Approved use\" tab."
+msgstr "Aucune application au registre pour l'instant. Ouvrez une application de GLPI (Parc > Applications) et remplissez son onglet « Usage autorisé »."
+
+msgid "No decision has been recorded yet for the use of this application."
+msgstr "Aucune décision n'a encore été enregistrée pour l'usage de cette application."
+
+msgid "No periodic review"
+msgstr "Pas de revue périodique"
+
+msgid "None found"
+msgstr "Aucun trouvé"
+
+msgid "On premises (our own servers)"
+msgstr "Sur site (nos propres serveurs)"
+
+msgid "Online (cloud service, SaaS)"
+msgstr "En ligne (service en nuage, SaaS)"
+
+msgid "Only for \"Approved with restrictions\": what is not allowed, for example no customer personal data, links limited to 30 days. Shown to users."
+msgstr "Seulement pour « Approuvée avec restrictions » : ce qui n'est pas permis, par exemple aucune donnée personnelle de client, liens limités à 30 jours. Affiché aux utilisateurs."
+
+msgid "Open the application"
+msgstr "Ouvrir l'application"
+
+msgid "Opens a reassessment ticket for each approved application whose review is due"
+msgstr "Ouvre un ticket de réévaluation pour chaque application approuvée dont la revue est échue"
+
+msgid "Owner, allowed uses or data level missing"
+msgstr "Responsable, cas d'usage ou niveau de données manquant"
+
+msgid "Reassess the approved application %s"
+msgstr "Réévaluer l'application approuvée %s"
+
+msgid "Reassessment ticket #%d"
+msgstr "Ticket de réévaluation n° %d"
+
+msgid "Receives the reassessment ticket. Empty: the technical owner of the application."
+msgstr "Reçoit le ticket de réévaluation. Vide : le responsable technique de l'application."
+
+msgid "Refused: %d"
+msgstr "Refusées : %d"
+
+msgid "Register of approved applications and online services"
+msgstr "Registre des applications et services en ligne approuvés"
+
+msgid "Requires the right to read the software of GLPI."
+msgstr "Nécessite le droit de lecture des logiciels de GLPI."
+
+msgid "Restrictions"
+msgstr "Restrictions"
+
+msgid "Restrictions not described"
+msgstr "Restrictions non décrites"
+
+msgid "Review done today"
+msgstr "Revue faite aujourd'hui"
+
+msgid "Review due soon"
+msgstr "Revue bientôt due"
+
+msgid "Review every (months)"
+msgstr "Revue tous les (mois)"
+
+msgid "Review up to date"
+msgstr "Revue à jour"
+
+msgid "Reviews overdue"
+msgstr "Revues en retard"
+
+msgid "Same scale as the confidentiality of the C/I/D classification of the plugin."
+msgstr "Même échelle que la confidentialité de la classification C/I/D du plugin."
+
+msgid "Say whether this application or online service may be used, for what and with which data. Approved applications are listed for every user in their preferences (\"Authorised applications\" tab)."
+msgstr "Indiquez si cette application ou ce service en ligne peut être utilisé, pour quoi faire et avec quelles données. Les applications approuvées sont listées pour chaque utilisateur dans ses préférences (onglet « Applications autorisées »)."
+
+msgid "Software category"
+msgstr "Catégorie de logiciels"
+
+msgid "Software found by the GLPI inventory, matched with the register through the linked software or the name of the application. Nothing is uninstalled or changed: open a ticket if action is needed."
+msgstr "Logiciels trouvés par l'inventaire de GLPI, rapprochés du registre par le logiciel lié ou le nom de l'application. Rien n'est désinstallé ni modifié : ouvrez un ticket s'il faut agir."
+
+msgid "Software of the GLPI inventory that corresponds to this application: used to find where it is installed."
+msgstr "Logiciel de l'inventaire de GLPI qui correspond à cette application : sert à trouver où elle est installée."
+
+msgid "Start of use"
+msgstr "Début d'usage"
+
+msgid "Supplier of GLPI (Management > Suppliers): its overall risk is assessed in the supplier risk register."
+msgstr "Fournisseur de GLPI (Gestion > Fournisseurs) : son risque global est évalué dans le registre des risques fournisseurs."
+
+msgid "The approved use sheet could not be saved."
+msgstr "La fiche d'usage autorisé n'a pas pu être enregistrée."
+
+msgid "The confidentiality of this application (%s) is higher than the allowed data level"
+msgstr "La confidentialité de cette application (%s) dépasse le niveau de données autorisé"
+
+msgid "The periodic review of the application \"%1$s\" was due on %2$s."
+msgstr "La revue périodique de l'application « %1$s » était prévue le %2$s."
+
+msgid "To complete: %d"
+msgstr "À compléter : %d"
+
+msgid "Under evaluation"
+msgstr "En évaluation"
+
+msgid "Under evaluation while the security team studies it; refused applications are shown to users as not to be used."
+msgstr "En évaluation tant que l'équipe sécurité l'étudie ; les applications refusées sont montrées aux utilisateurs comme à ne pas utiliser."
+
+msgid "Use ended"
+msgstr "Usage terminé"
+
+msgid "User departments"
+msgstr "Services utilisateurs"
+
+msgid "Waivers granted"
+msgstr "Dérogations accordées"
+
+msgid "Waivers granted:"
+msgstr "Dérogations accordées :"
+
+msgid "What is allowed"
+msgstr "Ce qui est permis"
+
+msgid "matched by name"
+msgstr "rapproché par le nom"
+
+msgid "Approved application"
+msgid_plural "Approved applications"
+msgstr[0] "Application approuvée"
+msgstr[1] "Applications approuvées"
+
+msgid "%d waiver"
+msgid_plural "%d waivers"
+msgstr[0] "%d dérogation"
+msgstr[1] "%d dérogations"
