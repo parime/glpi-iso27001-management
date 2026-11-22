@@ -32,7 +32,9 @@ if (isset($_POST['update_delegation_config'])) {
 
 Session::checkRight(Installer::RIGHT_NAME, READ);
 
-Html::header(Delegation::getTypeName(2), Delegation::getSearchURL(), 'tools', \GlpiPlugin\Grcmanager\Risk::class);
+// Issue #1038 : sous-page de la rubrique Organisation du SMSI, plus dans le secteur « Outils ».
+\GlpiPlugin\Grcmanager\Menu::header(Delegation::class, Delegation::getTypeName(2));
+\GlpiPlugin\Grcmanager\Menu::showSection(Delegation::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('delegation');
 Delegation::showJournal();
 Html::footer();

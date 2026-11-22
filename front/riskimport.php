@@ -203,8 +203,9 @@ if (isset($_POST['analyse'])) {
 }
 
 $title = __('Import or export the risk register', 'grcmanager');
-\GlpiPlugin\Grcmanager\Menu::header(Risk::class, $title, $pageUrl);
-\GlpiPlugin\Grcmanager\Menu::showSection(Risk::class);
+// Issue #1038 : sous-page de la rubrique Risques, plus dans le secteur « Outils ».
+\GlpiPlugin\Grcmanager\Menu::header(\GlpiPlugin\Grcmanager\Navigation\Section\RiskSection::IMPORT, $title, $pageUrl);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Navigation\Section\RiskSection::IMPORT);
 \GlpiPlugin\Grcmanager\PageHelp::show('riskimport');
 TemplateRenderer::getInstance()->display('@grcmanager/risk_import.html.twig', [
     'analysis'     => $analysis,

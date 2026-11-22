@@ -171,6 +171,37 @@ class Menu extends CommonGLPI
             $menu['parent_hidden'] = true;
         }
 
+        return self::withSectionHome($parent, $menu);
+    }
+
+    /**
+     * Issue #1038 : nom parlant de la rubrique (title()) et page d'accueil (hub()) : l'entrée de
+     * menu, donc le fil d'Ariane, mène à front/section.php ; l'adresse propre de la page parente
+     * reste celle de son onglet (section_page).
+     *
+     * @param array<string, mixed>|false $menu
+     * @return array<string, mixed>|false
+     */
+    private static function withSectionHome(string $parent, $menu)
+    {
+        $section = Sections::sectionOf($parent);
+        if ($section === null || !is_array($menu) || $menu === []) {
+            return $menu;
+        }
+        if ($section::title() !== '') {
+            if (empty($menu['parent_hidden'])) {
+                $menu['section_label'] = $menu['section_label'] ?? $menu['title'];
+            }
+            $menu['title'] = $section::title();
+        }
+        if ($section::hub()) {
+            if (empty($menu['parent_hidden'])) {
+                // Parent visible seulement : sinon l'entrée n'est que sa première sous-page, déjà listée.
+                $menu['section_page'] = $menu['page'];
+            }
+            $menu['page'] = Sections::hubUrl($section);
+        }
+
         return $menu;
     }
 
@@ -247,7 +278,9 @@ class Menu extends CommonGLPI
                 // Le parent peut porter, dans sa barre, un nom de page distinct du nom de la rubrique.
                 'label'  => (string) ($key === $parent ? ($page['section_label'] ?? $page['title']) : $page['title']),
                 'icon'   => (string) ($page['icon'] ?? ''),
-                'url'    => $CFG_GLPI['root_doc'] . $page['page'],
+                // Page parente d'une rubrique avec page d'accueil : son adresse propre (#1038).
+                'url'    => $CFG_GLPI['root_doc']
+                    . ($key === $parent ? ($page['section_page'] ?? $page['page']) : $page['page']),
                 'active' => $key === $active,
                 // Groupe d'onglets facultatif de la sous-page (option « group » de sa rubrique).
                 'group'  => (string) ($declared[$key]['group'] ?? ''),

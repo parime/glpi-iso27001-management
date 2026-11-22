@@ -33,7 +33,7 @@ if (isset($_POST['update'])) {
     $item->check($id, READ);
 
     \GlpiPlugin\Grcmanager\Menu::header(
-        \GlpiPlugin\Grcmanager\Referentials::class,
+        \GlpiPlugin\Grcmanager\Navigation\Section\RegulationSection::ACN,
         AcnRequirement::getTypeName(1)
     );
     $item->display(['id' => $id]);

@@ -32,10 +32,11 @@ $registers = AcnRequirement::availableRegisters();
 $entityId = AcnRequirement::selectedRegister($registers, $_GET['entities_id'] ?? null);
 
 \GlpiPlugin\Grcmanager\Menu::header(
-    \GlpiPlugin\Grcmanager\Referentials::class,
+    \GlpiPlugin\Grcmanager\Navigation\Section\RegulationSection::ACN,
     AcnRequirement::getTypeName(Session::getPluralNumber()),
     AcnRequirement::getSearchURL()
 );
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Navigation\Section\RegulationSection::ACN);
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/acn_register.html.twig', [
     'registers'      => $registers,

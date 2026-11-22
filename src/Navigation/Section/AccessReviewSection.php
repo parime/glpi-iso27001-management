@@ -21,21 +21,20 @@ namespace GlpiPlugin\Grcmanager\Navigation\Section;
 
 use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\AccountHygiene;
-use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\BusinessProcess;
 use GlpiPlugin\Grcmanager\CrisisExercise;
 use GlpiPlugin\Grcmanager\CrisisScenario;
-use GlpiPlugin\Grcmanager\IsmsFunction;
 use GlpiPlugin\Grcmanager\MfaCoverage;
 use GlpiPlugin\Grcmanager\Navigation\AbstractSection;
 use GlpiPlugin\Grcmanager\PeriodicReview;
-use GlpiPlugin\Grcmanager\PersonnelCompliance;
-use GlpiPlugin\Grcmanager\PhishingCampaign;
+use GlpiPlugin\Grcmanager\ProcessingActivity;
 use GlpiPlugin\Grcmanager\ShareAccess;
-use GlpiPlugin\Grcmanager\Training;
 
 /**
- * Opérations récurrentes : accès, revues, personnes, continuité.
+ * Issue #1038 : qui a accès à quoi (revues des accès, hygiène des comptes, MFA, partages). Le
+ * personnel et la sensibilisation sont dans PeopleSection. Les écrans de crise et de continuité
+ * partent dans Assistance (lot 4, #1041) : ils restent déclarés ici pour que ce lot les déplace avec
+ * l'option « from ».
  */
 final class AccessReviewSection extends AbstractSection
 {
@@ -46,31 +45,42 @@ final class AccessReviewSection extends AbstractSection
 
     public static function after(): string
     {
-        return Audit::class;
+        return ProcessingActivity::class;
     }
 
-    /** Plus de 7 sous-pages en attendant son découpage (lot 1 : menu GRC en rubriques parlantes). */
-    public static function overLimit(): string
+    public static function title(): string
     {
-        return '#1038';
+        return __('Access and accounts', 'grcmanager');
+    }
+
+    public static function hub(): bool
+    {
+        return true;
+    }
+
+    public static function description(): string
+    {
+        return __(
+            'Who has access to what: access reviews, periodic reviews, account hygiene, multi-factor '
+                . 'authentication and file share permissions.',
+            'grcmanager'
+        );
+    }
+
+    public static function todoSources(): array
+    {
+        return ['access_review', 'periodic_review'];
     }
 
     public static function pages(): array
     {
         return [
+            PeriodicReview::class,
             AccountHygiene::class,
-            // Issue #546 : fiche de conformité sécurité de chaque collaborateur.
-            PersonnelCompliance::class,
             // Issue #852 : couverture de l'authentification multifacteur par compte (A.8.5).
             MfaCoverage::class,
             // Issue #846 : droits d'accès aux partages de fichiers Windows (A.5.15, A.5.18, A.8.3).
             ShareAccess::class,
-            PeriodicReview::class,
-            Training::class,
-            // Issue #604 : simulations d'hameçonnage (preuve de sensibilisation, 7.3 et A.6.3).
-            PhishingCampaign::class,
-            // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
-            IsmsFunction::class,
             CrisisExercise::class,
             // Issue #377 : processus métier et analyses d'impact sur l'activité (BIA).
             BusinessProcess::class,

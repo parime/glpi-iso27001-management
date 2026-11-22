@@ -74,6 +74,12 @@ class ProcessingActivity extends ProcessingActivityBase
         return 'glpi_plugin_grcmanager_processingactivities';
     }
 
+    /** Issue #1038 : entrée de la rubrique « Vie privée (RGPD) » (src/Navigation/Section/). */
+    public static function getMenuContent()
+    {
+        return Menu::withSubPages(self::class, parent::getMenuContent());
+    }
+
     public static function getTypeName($nb = 0)
     {
         return _n('Processing activity', 'Record of processing activities', $nb, 'grcmanager');

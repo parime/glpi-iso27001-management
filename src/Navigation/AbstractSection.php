@@ -59,4 +59,24 @@ abstract class AbstractSection implements MenuSection
     {
         return '';
     }
+
+    public static function title(): string
+    {
+        return '';
+    }
+
+    public static function hub(): bool
+    {
+        return false;
+    }
+
+    public static function description(): string
+    {
+        return '';
+    }
+
+    public static function todoSources(): array
+    {
+        return [];
+    }
 }
