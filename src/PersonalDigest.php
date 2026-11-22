@@ -25,7 +25,6 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Install\PersonalDigestTables;
 use GlpiPlugin\Grcmanager\Services\Workspace\MySpaceProvider;
 use GlpiPlugin\Grcmanager\Services\Workspace\PersonalDigestRules as Rules;
-use GlpiPlugin\Grcmanager\Services\Workspace\UserSessionScope;
 use Html;
 use Notification;
 use NotificationEvent;
@@ -88,7 +87,8 @@ class PersonalDigest extends CommonDBTM
     {
         global $DB;
 
-        foreach ($DB->request(['FROM' => self::getTable(), 'WHERE' => ['users_id' => $usersId], 'LIMIT' => 1]) as $row) {
+        $criteria = ['FROM' => self::getTable(), 'WHERE' => ['users_id' => $usersId], 'LIMIT' => 1];
+        foreach ($DB->request($criteria) as $row) {
             return $row;
         }
 

@@ -51,7 +51,11 @@ if (isset($_POST['send_personal_digest'])) {
         );
     } else {
         Session::addMessageAfterRedirect(
-            __('Your summary could not be sent: check that you have an email address, or ask your GLPI administrator.', 'grcmanager'),
+            __(
+                'Your summary could not be sent: check that you have an email address, or ask your GLPI '
+                    . 'administrator.',
+                'grcmanager'
+            ),
             false,
             ERROR
         );

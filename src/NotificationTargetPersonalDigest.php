@@ -123,7 +123,8 @@ class NotificationTargetPersonalDigest extends NotificationTarget
             $total
         );
         if ($overdue > 0) {
-            $headline = sprintf(__('%1$s, %2$s', 'grcmanager'), $headline, sprintf(__('%d overdue', 'grcmanager'), $overdue));
+            $late = sprintf(__('%d overdue', 'grcmanager'), $overdue);
+            $headline = sprintf(__('%1$s, %2$s', 'grcmanager'), $headline, $late);
         }
         $rootDoc = (string) ($CFG_GLPI['root_doc'] ?? '');
         $urlBase = (string) ($CFG_GLPI['url_base'] ?? '');
@@ -154,7 +155,9 @@ class NotificationTargetPersonalDigest extends NotificationTarget
             $lines[] = [
                 '##digestitem.type##'   => $sources[$item['source']][0] ?? $item['source'],
                 '##digestitem.name##'   => $item['name'] !== '' ? $item['name'] : '#' . $item['id'],
-                '##digestitem.detail##' => $item['detail'] !== '' ? sprintf(__('(%s)', 'grcmanager'), $item['detail']) : '',
+                '##digestitem.detail##' => $item['detail'] !== ''
+                    ? sprintf(__('(%s)', 'grcmanager'), $item['detail'])
+                    : '',
                 '##digestitem.due##'    => $item['due'] !== null
                     ? (string) Html::convDate($item['due'])
                     : __('No due date', 'grcmanager'),

@@ -75,7 +75,8 @@ final class PersonalDigestRulesTest extends TestCase
             'https://glpi.example.org/glpi/plugins/grcmanager/front/risk.form.php?id=4',
             Rules::absoluteUrl('/plugins/grcmanager/front/risk.form.php?id=4', '', 'https://glpi.example.org/glpi')
         );
-        $this->assertSame('https://other.example.org/x', Rules::absoluteUrl('https://other.example.org/x', '', 'https://a'));
+        $other = 'https://other.example.org/x';
+        $this->assertSame($other, Rules::absoluteUrl($other, '', 'https://a'));
         $this->assertSame('', Rules::absoluteUrl('', '/glpi', 'https://a'));
     }
 }

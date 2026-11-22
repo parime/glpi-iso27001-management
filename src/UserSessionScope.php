@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace GlpiPlugin\Grcmanager\Services\Workspace;
+namespace GlpiPlugin\Grcmanager;
 
 use Profile;
 use Session;
