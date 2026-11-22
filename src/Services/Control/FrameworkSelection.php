@@ -43,6 +43,10 @@ final class FrameworkSelection
     public const SOC2 = 'soc2';
     public const AI_ACT = 'ai_act';
     public const HDS = 'hds';
+    /** Issue #878 : MonServiceSécurisé (ANSSI), ETSI EN 319 401 et Secure Controls Framework. */
+    public const MSS = 'mss';
+    public const ETSI_319401 = 'etsi_319401';
+    public const SCF = 'scf';
     /** Issue #703 : misure di sicurezza di base NIS2 italiennes (déterminazione ACN). */
     public const ACN_IT = 'acn_it';
 
@@ -52,7 +56,7 @@ final class FrameworkSelection
      */
     public const OPTIONAL = [
         self::DORA, self::ISO27701, self::ISO22301, self::ISO42001, self::PCI_DSS, self::SOC2, self::AI_ACT,
-        self::HDS, self::ACN_IT,
+        self::HDS, self::ACN_IT, self::MSS, self::ETSI_319401, self::SCF,
     ];
 
     /**
@@ -76,6 +80,9 @@ final class FrameworkSelection
         self::AI_ACT       => 'AI Act (UE 2024/1689)',
         self::HDS          => 'HDS v2.0',
         self::ACN_IT       => 'NIS2 Italia – ACN',
+        self::MSS          => 'MonServiceSécurisé (ANSSI)',
+        self::ETSI_319401  => 'ETSI EN 319 401 V3.2.1',
+        self::SCF          => 'Secure Controls Framework (SCF)',
     ];
 
     /**

@@ -180,6 +180,7 @@ final class SecuredDashboardCards
             FrameworkSelection::DORA, FrameworkSelection::ISO27701, FrameworkSelection::ISO22301,
             FrameworkSelection::ISO42001, FrameworkSelection::PCI_DSS, FrameworkSelection::SOC2,
             FrameworkSelection::AI_ACT, FrameworkSelection::HDS,
+            FrameworkSelection::MSS, FrameworkSelection::ETSI_319401, FrameworkSelection::SCF,
         ],
     ];
 
