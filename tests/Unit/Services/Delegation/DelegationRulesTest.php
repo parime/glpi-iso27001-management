@@ -36,14 +36,19 @@ final class DelegationRulesTest extends TestCase
         $this->assertFalse(Rules::isWithinPeriod(null, null, self::NOW), 'GLPI : illimité ; ici : rien');
         $this->assertFalse(Rules::isWithinPeriod('2026-08-01 00:00:00', null, self::NOW));
         $this->assertFalse(Rules::isWithinPeriod(null, '2026-08-15 00:00:00', self::NOW));
-        $this->assertFalse(Rules::isWithinPeriod('2026-08-15 00:00:00', '2026-08-01 00:00:00', self::NOW), 'fin avant début');
+        $this->assertFalse(
+            Rules::isWithinPeriod('2026-08-15 00:00:00', '2026-08-01 00:00:00', self::NOW),
+            'fin avant début'
+        );
     }
 
     public function testTheDelegationStopsByItselfAtTheEndOfThePeriod(): void
     {
         $this->assertTrue(Rules::isWithinPeriod('2026-08-01 00:00:00', '2026-08-15 23:59:59', self::NOW));
-        $this->assertFalse(Rules::isWithinPeriod('2026-08-01 00:00:00', '2026-08-07 09:59:59', self::NOW), 'terminée');
-        $this->assertFalse(Rules::isWithinPeriod('2026-08-07 10:00:01', '2026-08-15 00:00:00', self::NOW), 'pas commencée');
+        $ended = Rules::isWithinPeriod('2026-08-01 00:00:00', '2026-08-07 09:59:59', self::NOW);
+        $this->assertFalse($ended, 'terminée');
+        $notStarted = Rules::isWithinPeriod('2026-08-07 10:00:01', '2026-08-15 00:00:00', self::NOW);
+        $this->assertFalse($notStarted, 'pas commencée');
         $this->assertTrue(Rules::isWithinPeriod('2026-08-01', '2026-08-07', self::NOW), 'une date seule couvre la journée');
         $this->assertFalse(Rules::isWithinPeriod('2026-08-01', '2026-08-06', self::NOW));
     }
