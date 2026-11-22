@@ -371,7 +371,11 @@ class AuditDuplication extends CommonGLPI
             'counts'        => self::counts($audit),
             'can_checklist' => AuditChecklist::canViewFor($audit),
             'external'      => $external,
-            'title'         => Rules::defaultTitle((string) $audit->fields['title'], $audit->fields['planned_date'] ?? null, $plannedDate),
+            'title'         => Rules::defaultTitle(
+                (string) $audit->fields['title'],
+                $audit->fields['planned_date'] ?? null,
+                $plannedDate
+            ),
             'planned_date'  => $plannedDate,
             'next_type'     => Rules::nextAuditType($type),
             'external_types' => array_intersect_key($auditTypes, array_flip(CertificationAuditRules::externalTypes())),

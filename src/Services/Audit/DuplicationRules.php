@@ -170,7 +170,9 @@ final class DuplicationRules
         $input[self::SOURCE_FIELD] = (int) ($source['id'] ?? 0);
         if (array_key_exists('audit_type', $source)) {
             $wanted = (string) ($choices['audit_type'] ?? '');
-            $type = CertificationAuditRules::normalizeAuditType($wanted !== '' ? $wanted : (string) $source['audit_type']);
+            $type = CertificationAuditRules::normalizeAuditType(
+                $wanted !== '' ? $wanted : (string) $source['audit_type']
+            );
             $input['audit_type'] = $type;
             if (CertificationAuditRules::isExternal($type)) {
                 foreach (['suppliers_id', 'lead_auditor'] as $field) {
