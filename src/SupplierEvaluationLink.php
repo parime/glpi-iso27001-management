@@ -124,7 +124,8 @@ class SupplierEvaluationLink extends CommonGLPI
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
-        if (!$item instanceof SupplierEvaluation || $item->isNewItem() || !SupplierEvaluation::canView()) {
+        // Portail fournisseur désactivé : pas d'onglet (charte, section 9 : rien d'inactif affiché).
+        if (!self::isEnabled() || !$item instanceof SupplierEvaluation || $item->isNewItem() || !SupplierEvaluation::canView()) {
             return '';
         }
         $count = !empty($_SESSION['glpishow_count_on_tabs']) ? count(self::drafts($item->getID())) : 0;

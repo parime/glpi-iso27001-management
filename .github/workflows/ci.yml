@@ -4,8 +4,7 @@ on:
   push:
     branches: [main, dev]
   pull_request:
-    # ESSAI ci/ci-rapide : a retirer avant fusion (PR d'essai documentation basee sur cette branche).
-    branches: [main, dev, ci/ci-rapide]
+    branches: [main, dev]
   # Permet a release.yml de forcer l'execution de la CI sur une branche creee via GITHUB_TOKEN
   # (ex: la PR de mise a jour automatique du catalogue marketplace) -- un push/PR effectue avec
   # le GITHUB_TOKEN par defaut ne declenche pas ces triggers (garde-fou anti-boucle GitHub
