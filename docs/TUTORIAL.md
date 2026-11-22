@@ -1881,6 +1881,24 @@ sont utilisés : chaque source n'apparaît qu'une fois ses données importées.
 
 Le score global tient compte de toutes les sources évaluées ; aucune n'est modifiée depuis l'onglet.
 
+### Étape 64 : Suivre la santé des serveurs et le journal de leur contrôleur (mesures A.7.13 et A.8.16)
+
+Une fois les contrôleurs lus (50), chaque lecture
+Redfish reprend aussi la santé détaillée du serveur et les derniers événements du journal du
+contrôleur. Rien n'est envoyé au serveur : uniquement des requêtes de lecture (GET) vers l'adresse
+configurée.
+
+1. Cliquez sur **Lire maintenant** sur la page **Contrôleurs de gestion des serveurs**.
+2. Ouvrez l'ordinateur, onglet **Contrôleur de gestion**, cadre **Santé du serveur** : alimentations,
+   disques (une panne annoncée compte comme un avertissement), ventilateurs et températures, les
+   composants dégradés d'abord, puis les événements récents du journal (IML, SEL ou Lifecycle selon
+   le constructeur). Les emplacements vides ne sont pas listés.
+3. La vue **Sécurité 360°** de l'ordinateur ajoute la source **Santé du serveur** : critique si un
+   composant ou un événement des sept derniers jours l'est, à surveiller pour un avertissement.
+4. Pour une lecture chaque jour, activez la tâche automatique `bmcread` (lien **Régler l'action
+   automatique** sur la page des contrôleurs). Elle est désactivée après l'installation ; une lecture
+   en échec garde la précédente.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -3643,3 +3661,19 @@ source only appears once its data has been imported.
    log collection tools, the asset shows its status and the link to the module page.
 
 The overall score takes every evaluated source into account; nothing is changed from the tab.
+
+### Step 64: Follow the health of the servers and the log of their controller (controls A.7.13 and A.8.16)
+
+Once the controllers are read (50), each Redfish
+reading also takes the detailed health of the server and the latest events of the controller log.
+Nothing is sent to the server: only read requests (GET) to the configured address.
+
+1. Click **Read now** on the **Server management controllers** page.
+2. Open the computer, **Management controller** tab, **Server health** box: power supplies, disks (a
+   predicted failure counts as a warning), fans and temperatures, degraded components first, then the
+   recent events of the log (IML, SEL or Lifecycle depending on the vendor). Empty slots are not
+   listed.
+3. The **Security 360°** view of the computer adds the **Server health** source: critical if a
+   component or an event of the last seven days is, to watch for a warning.
+4. For a daily reading, enable the automatic action `bmcread` (link **Set the automatic action** on
+   the controllers page). It is disabled after installation; a failed reading keeps the previous one.
