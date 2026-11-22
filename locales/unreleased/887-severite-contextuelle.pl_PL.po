@@ -1,0 +1,71 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+msgid "A vulnerability found only on test or development machines can be fixed one step later, if the option is enabled in the remediation deadlines."
+msgstr "Podatność występująca tylko na maszynach testowych lub deweloperskich może zostać usunięta o jeden stopień później, jeśli opcja jest włączona w terminach usuwania."
+
+msgid "Adjust the level to the context of the machines"
+msgstr "Dostosuj poziom do kontekstu maszyn"
+
+msgid "All affected machines are in test or development and none is reachable from the Internet: the level is one step less urgent."
+msgstr "Wszystkie dotknięte maszyny są w środowisku testowym lub deweloperskim i żadna nie jest dostępna z Internetu: poziom jest o jeden stopień mniej pilny."
+
+msgid "At least one affected machine is reachable from the Internet: the level, and therefore the deadline, is one step more urgent."
+msgstr "Co najmniej jedna dotknięta maszyna jest dostępna z Internetu: poziom, a więc i termin, jest o jeden stopień pilniejszy."
+
+msgid "By default, an asset targeted by an active Internet publication flow of the network flow matrix counts as reachable from the Internet: its vulnerabilities become one step more urgent."
+msgstr "Domyślnie zasób będący celem aktywnego przepływu publikacji do Internetu w macierzy przepływów jest uznawany za dostępny z Internetu: jego podatności stają się o jeden stopień pilniejsze."
+
+msgid "Deduced from the network flow matrix"
+msgstr "Wywnioskowana z macierzy przepływów"
+
+msgid "Development"
+msgstr "Rozwój"
+
+msgid "Environment"
+msgstr "Środowisko"
+
+msgid "Exposure to the Internet"
+msgstr "Dostępność z Internetu"
+
+msgid "Internal network only"
+msgstr "Tylko sieć wewnętrzna"
+
+msgid "Lowered: test or development machines only"
+msgstr "Obniżony: tylko maszyny testowe lub deweloperskie"
+
+msgid "Not applicable or accepted risk: write the justification in a waiver. Once approved, the waiver replaces the deadline until its end date."
+msgstr "Nie dotyczy lub ryzyko zaakceptowane: wpisz uzasadnienie w odstępstwie. Po zatwierdzeniu odstępstwo zastępuje termin do daty jego zakończenia."
+
+msgid "Not reachable from the Internet"
+msgstr "Niedostępny z Internetu"
+
+msgid "Not specified (counted as production)"
+msgstr "Nie podano (liczy się jako produkcja)"
+
+msgid "One step more urgent when an affected machine is reachable from the Internet (declared in its C/I/A classification tab, or targeted by an Internet publication flow of the network flow matrix); one step less urgent when all affected machines are in test or development. Actively exploited vulnerabilities (KEV) never move, and a deadline already known is never pushed back."
+msgstr "O jeden stopień pilniejszy, gdy dotknięta maszyna jest dostępna z Internetu (zadeklarowane w jej zakładce klasyfikacji P/I/D lub cel przepływu publikacji do Internetu w macierzy przepływów); o jeden stopień mniej pilny, gdy wszystkie dotknięte maszyny są w środowisku testowym lub deweloperskim. Aktywnie wykorzystywane podatności (KEV) nigdy się nie zmieniają, a znany już termin nigdy nie jest przesuwany."
+
+msgid "Production"
+msgstr "Produkcja"
+
+msgid "Raised: exposed to the Internet"
+msgstr "Podwyższony: dostępny z Internetu"
+
+msgid "Reachable from the Internet"
+msgstr "Dostępny z Internetu"
+
+msgid "Set aside with a justification"
+msgstr "Odłóż z uzasadnieniem"
+
+msgid "Test or acceptance"
+msgstr "Test lub odbiór"
+
+msgid "(%d Internet publication flow in the network flow matrix)"
+msgid_plural "(%d Internet publication flows in the network flow matrix)"
+msgstr[0] "(%d przepływ publikacji do Internetu w macierzy przepływów)"
+msgstr[1] "(%d przepływy publikacji do Internetu w macierzy przepływów)"
+msgstr[2] "(%d przepływów publikacji do Internetu w macierzy przepływów)"
