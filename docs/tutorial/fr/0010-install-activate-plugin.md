@@ -7,8 +7,9 @@ fois l'installation et l'activation terminées.
 
 ![Liste des plugins avec GLPI GRC Manager activé](screenshots/tutorial/01-plugin-list.png)
 
-Le plugin ajoute son propre menu **GRC & Conformité**, en six rubriques (Tableau de bord, Risques,
-Conformité, Audits et amélioration, Opérations, Sécurité technique) ; les écrans d'une même rubrique
-sont réunis par une barre d'onglets. Les incidents de sécurité sont dans le menu **Assistance**.
+Le plugin ajoute son propre menu **GRC & Conformité**, en rubriques aux noms parlants (Tableau de
+bord, Mon espace GRC, Risques, Mesures de sécurité (SoA), Politiques et procédures, Audits et preuves,
+Non-conformités et amélioration, Réglementations, Vie privée (RGPD), etc.) ; les écrans d'une même
+rubrique sont réunis par une barre d'onglets. Les incidents de sécurité sont dans le menu **Assistance**.
 
 ![Menu du plugin](screenshots/tutorial/02-menu-outils.png)

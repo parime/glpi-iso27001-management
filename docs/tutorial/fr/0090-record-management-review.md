@@ -1,6 +1,6 @@
 ### Enregistrer une revue de direction
 
-Depuis **GRC & Conformité > Audits et amélioration > Revues de direction**, la liste affiche les revues déjà enregistrées.
+Depuis **GRC & Conformité > Non-conformités et amélioration > Revues de direction**, la liste affiche les revues déjà enregistrées.
 
 ![Liste des revues de direction](screenshots/tutorial/38-managementreview-list.png)
 

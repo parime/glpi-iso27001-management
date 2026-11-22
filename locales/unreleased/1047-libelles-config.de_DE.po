@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Nonconformities and improvement"
+msgstr "Nichtkonformitäten und Verbesserung"
+
+msgid "Create or import a custom framework"
+msgstr "Eigenes Rahmenwerk anlegen oder importieren"
+
+msgid "What is this block for?"
+msgstr "Wozu dient dieser Block?"
+
+msgid "Defining a framework is a setting: it is done here. Its assessment stays in GRC & Compliance > Regulations."
+msgstr "Ein Rahmenwerk festzulegen ist eine Einstellung: Das geschieht hier. Seine Bewertung bleibt unter GRC & Compliance > Vorschriften."
+
+msgid "No custom framework yet."
+msgstr "Noch kein eigenes Rahmenwerk."
