@@ -1,0 +1,36 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #842 : cadre de preuve des services exposés lus dans Uptime Kuma (mesures A.8.16, A.5.30 et A.8.24),
+   dans les entités de la personne. Reçoit « evidence » (UptimeKumaMonitoring::evidence()), affiché par
+   control_form.html.twig. #}
+<div id="grc-kuma-evidence">
+   {% if evidence.code == 'A.8.16' %}
+      <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-heart-rate-monitor me-1"></i>{{ __('Monitored services: %d', 'grcmanager')|format(evidence.monitors) }}</span>
+      <span class="badge {{ evidence.down_now > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-circle-x me-1"></i>{{ __('Services down now: %d', 'grcmanager')|format(evidence.down_now) }}</span>
+      <span class="badge {{ evidence.exposed_without > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-world-off me-1"></i>{{ __('Exposed assets without a monitor: %d', 'grcmanager')|format(evidence.exposed_without) }}</span>
+   {% elseif evidence.code == 'A.8.24' %}
+      <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-certificate me-1"></i>{{ __('TLS certificates read: %d', 'grcmanager')|format(evidence.certs_total) }}</span>
+      <span class="badge {{ evidence.certs.expired + evidence.certs.invalid > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-lock-x me-1"></i>{{ __('Expired or not valid: %d', 'grcmanager')|format(evidence.certs.expired + evidence.certs.invalid) }}</span>
+      <span class="badge {{ evidence.certs.expiring > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-clock-exclamation me-1"></i>{{ __('Expiring within %1$d days: %2$d', 'grcmanager')|format(evidence.cert_days, evidence.certs.expiring) }}</span>
+   {% else %}
+      {% set av = evidence.availability %}
+      {% set av_color = av is null ? 'secondary' : (av >= 99.9 ? 'success' : (av >= 99 ? 'warning' : 'danger')) %}
+      <span class="badge bg-{{ av_color }}-subtle text-{{ av_color }}-emphasis me-1"><i class="ti ti-world-check me-1"></i>{{ av is null ? __('Availability: not measured', 'grcmanager') : __('Availability of the exposed services: %s %%', 'grcmanager')|format(av|number_format(2)) }}</span>
+      <span class="badge {{ evidence.rto_gaps > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-clock-exclamation me-1"></i>{{ __('Outages longer than the RTO: %d', 'grcmanager')|format(evidence.rto_gaps) }}</span>
+      <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('Long outages: %d', 'grcmanager')|format(evidence.long_outages) }}</span>
+   {% endif %}
+   <span class="small text-muted me-2">{{ __('Over %1$d days, read from Uptime Kuma on %2$s', 'grcmanager')|format(evidence.period_days, evidence.date) }}</span>
+   <a href="{{ evidence.url }}">{{ __('View the details', 'grcmanager') }}</a>
+</div>
