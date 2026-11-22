@@ -95,7 +95,8 @@ final class SubtleColorClassesTest extends TestCase
     public function testStylesheetCoversEveryNamedTablerColorInLightAndDarkThemes(): void
     {
         $css = (string) file_get_contents(self::ROOT . '/public/css/grcmanager.css');
-        $darkStart = strpos($css, '[data-bs-theme="dark"]');
+        // The rule itself (start of a line, followed by "{"), not a mention in the header comment.
+        $darkStart = strpos($css, "\n[data-bs-theme=\"dark\"] {");
         self::assertNotFalse($darkStart, 'The stylesheet must define a dark theme variant.');
         $light = substr($css, 0, $darkStart);
         $dark = substr($css, $darkStart);
