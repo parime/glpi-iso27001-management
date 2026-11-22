@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "%1$d of %2$d"
+msgstr "%1$d su %2$d"
+
+msgid "A trajectory is drawn for risks whose treatment is to reduce or to transfer, which have a treatment plan."
+msgstr "Una traiettoria viene tracciata per i rischi da ridurre o trasferire, che hanno un piano di trattamento."
+
+msgid "Actions completed"
+msgstr "Azioni completate"
+
+msgid "Actions due"
+msgstr "Azioni previste"
+
+msgid "Actions were completed before their due date: the risk is lower than planned today."
+msgstr "Alcune azioni sono state completate prima della scadenza: oggi il rischio è più basso del previsto."
+
+msgid "Actual (actions completed)"
+msgstr "Reale (azioni completate)"
+
+msgid "Add the actions of the treatment plan, with a due date, on the risk form."
+msgstr "Aggiungere le azioni del piano di trattamento, con una scadenza, nella scheda del rischio."
+
+msgid "Ahead of schedule"
+msgstr "In anticipo"
+
+msgid "Behind schedule"
+msgstr "In ritardo"
+
+msgid "Every action of the treatment plan is completed: reassess the risk to confirm the residual level."
+msgstr "Tutte le azioni del piano di trattamento sono completate: rivalutare il rischio per confermare il livello residuo."
+
+msgid "Expected level afterwards"
+msgstr "Livello atteso dopo"
+
+msgid "Fill in the residual probability and impact (the level aimed for after treatment) on the risk form."
+msgstr "Indicare la probabilità e l'impatto residui (il livello obiettivo dopo il trattamento) nella scheda del rischio."
+
+msgid "It shows how the level of this risk should go down as the treatment plan is carried out, and compares it with what has actually been done. The curve starts from the current level and reaches the target level once every action is completed; each action counts for an equal share. Useful to show an auditor that the treatment plan is followed (ISO/IEC 27001, clauses 6.1.3 and 8.3)."
+msgstr "Mostra come il livello di questo rischio deve scendere man mano che il piano di trattamento viene attuato, e lo confronta con ciò che è stato realmente fatto. La curva parte dal livello attuale e raggiunge il livello obiettivo quando tutte le azioni sono completate; ogni azione conta per una quota uguale. Utile per mostrare a un auditor che il piano di trattamento è seguito (ISO/IEC 27001, clausole 6.1.3 e 8.3)."
+
+msgid "Last due date of the plan"
+msgstr "Ultima scadenza del piano"
+
+msgid "Milestones of the plan"
+msgstr "Tappe del piano"
+
+msgid "No reduction planned"
+msgstr "Nessuna riduzione prevista"
+
+msgid "No risk is being reduced or transferred yet."
+msgstr "Nessun rischio è ancora da ridurre o trasferire."
+
+msgid "No treatment action"
+msgstr "Nessuna azione di trattamento"
+
+msgid "On schedule"
+msgstr "Nei tempi"
+
+msgid "Plan completed"
+msgstr "Piano completato"
+
+msgid "Planned (treatment plan due dates)"
+msgstr "Previsto (scadenze del piano di trattamento)"
+
+msgid "Progress of the plan"
+msgstr "Avanzamento del piano"
+
+msgid "Projected trajectory"
+msgstr "Traiettoria prevista"
+
+msgid "Projected trajectory of the register"
+msgstr "Traiettoria prevista del registro"
+
+msgid "Risk score (probability x impact)"
+msgstr "Punteggio del rischio (probabilità x impatto)"
+
+msgid "Some actions are past their due date: the risk is higher than planned today."
+msgstr "Alcune azioni hanno superato la scadenza: oggi il rischio è più alto del previsto."
+
+msgid "Target level after treatment"
+msgstr "Livello obiettivo dopo il trattamento"
+
+msgid "Target level missing"
+msgstr "Livello obiettivo mancante"
+
+msgid "The actions due so far are completed."
+msgstr "Le azioni scadute finora sono completate."
+
+msgid "The expected level between two milestones is an estimate from the score; the level actually reached is the one you reassess on the risk form."
+msgstr "Il livello atteso tra due tappe è una stima ricavata dal punteggio; il livello realmente raggiunto è quello che rivalutate nella scheda del rischio."
+
+msgid "The target level is not lower than the current level: there is no trajectory to draw."
+msgstr "Il livello obiettivo non è più basso del livello attuale: non c'è traiettoria da tracciare."
+
+msgid "To come"
+msgstr "In arrivo"
+
+msgid "Today"
+msgstr "Oggi"
+
+msgid "Total score of the risks being reduced or transferred (not closed): planned according to the due dates of their treatment plans, and actual according to the actions completed. Open a risk to see its own trajectory."
+msgstr "Punteggio totale dei rischi da ridurre o trasferire (non chiusi): previsto secondo le scadenze dei loro piani di trattamento, e reale secondo le azioni completate. Aprire un rischio per vederne la traiettoria."
+
+msgid "Trajectory incomplete"
+msgstr "Traiettoria incompleta"
+
+msgid "Trajectory of the whole register"
+msgstr "Traiettoria dell'intero registro"
+
+msgid "score %s"
+msgstr "punteggio %s"
+
+msgid "%d action has no due date: the planned curve does not reach the target level. Give it a due date."
+msgid_plural "%d actions have no due date: the planned curve does not reach the target level. Give them a due date."
+msgstr[0] "%d azione non ha scadenza: la curva prevista non raggiunge il livello obiettivo. Assegnatele una scadenza."
+msgstr[1] "%d azioni non hanno scadenza: la curva prevista non raggiunge il livello obiettivo. Assegnate loro una scadenza."
