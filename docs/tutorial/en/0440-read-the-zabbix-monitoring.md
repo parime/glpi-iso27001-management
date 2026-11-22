@@ -9,12 +9,14 @@ Zabbix. You need the plugin right and the native read right on computers.
    limited to host.get, problem.get, event.get, service.get, sla.get and sla.getsli; Users > Users,
    a user with this role in a group that can read the host groups to monitor; Users > API tokens, a
    token for this user.
-2. Open Technical security > **Zabbix monitoring**. In **Connection to Zabbix (read only)**, enter
+2. Open Setup > Plugins > GRC Manager, **Connectors** tab (or the **Set up the connection** button of
+   Technical security > **Zabbix monitoring**). In **Connection to Zabbix (read only)**, enter
    the address of the Zabbix interface (for example `https://zabbix.example.test/zabbix`) and the
-   token, choose the entity of the readings and save. The token is encrypted by GLPI and never
+   token, choose the entity of the readings and save; **Test the connection** checks the address and
+   the token without reading anything. The token is encrypted by GLPI and never
    displayed again. A server on an internal address requires allowing internal addresses (plugin
    configuration > Outgoing connections).
-3. Click **Read now**. A failed reading does not replace the previous one; the box "Read
+3. On the **Zabbix monitoring** page, click **Read now**. A failed reading does not replace the previous one; the box "Read
    automatically every day" enables the automatic action "zabbix", disabled by default.
 4. In **Which assets must be monitored?**, choose the concerned assets (critical assets, servers
    and network devices, by default) and the period of the problems.

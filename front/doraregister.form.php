@@ -54,10 +54,13 @@ $readable = static function (string $class, int $id): CommonDBTM {
 };
 $saved = static fn () => Session::addMessageAfterRedirect(__('The DORA register has been updated.', 'grcmanager'));
 
+// Issue #1045 : l'entité qui tient le registre se règle dans la configuration du plugin (onglet
+// Référentiels) ; l'ancien envoi reste accepté pendant une version et mène à ce bloc.
 if (isset($_POST['save_settings'])) {
     DoraRegister::saveSettings($_POST);
-    $saved();
-    Html::back();
+    \GlpiPlugin\Grcmanager\Config\SettingsLink::redirectMoved(
+        \GlpiPlugin\Grcmanager\Config\Block\DoraRegisterBlock::ANCHOR
+    );
 }
 
 if (isset($_POST['save_provider'])) {

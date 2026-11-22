@@ -117,62 +117,27 @@
    <div class="row g-3">
       {# ---------------------------------------------------------------- Entité #}
       <div class="col-12 col-xxl-5">
+         {# Issue #1045 : l'entité qui tient le registre se règle dans la configuration du plugin
+            (onglet Référentiels) ; ici, un résumé, ce qui manque et le lien « Régler ». #}
+         {% set entity_issues = completeness.issues|filter(i => i.scope == 'entity') %}
          <div class="card h-100" id="grc-dora-settings">
             <div class="card-header"><h3 class="card-title"><i class="ti ti-building-bank me-2"></i>{{ __('Financial entity maintaining the register', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_01.01 / B_01.02</span></h3></div>
             <div class="card-body">
-               <form method="post" action="{{ action }}" class="row g-3">
-                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-                  <fieldset class="row g-3 m-0 p-0" {{ can_edit ? '' : 'disabled' }}>
-                  <div class="col-12 col-md-6">
-                     {{ m.label('grc-dora-lei', __('LEI of the financial entity', 'grcmanager'), 'B_01.01.0010', completeness.issues|filter(i => i.scope == 'entity'), true) }}
-                     <input type="text" class="form-control text-uppercase {{ lei_valid ? '' : 'is-invalid' }}" name="lei" id="grc-dora-lei" maxlength="20" value="{{ settings.lei }}">
-                     {% if not lei_valid %}<div class="invalid-feedback">{{ __('This is not a valid LEI (20 characters with a check digit).', 'grcmanager') }}</div>{% endif %}
-                  </div>
-                  <div class="col-12 col-md-6">
-                     {{ m.label('grc-dora-name', __('Legal name of the financial entity', 'grcmanager'), 'B_01.01.0020', completeness.issues|filter(i => i.scope == 'entity'), true) }}
-                     <input type="text" class="form-control" name="name" id="grc-dora-name" maxlength="255" value="{{ settings.name }}">
-                  </div>
-                  <div class="col-12 col-md-6">
-                     {{ m.label('grc-dora-type', __('Type of financial entity', 'grcmanager'), 'B_01.01.0040', completeness.issues|filter(i => i.scope == 'entity'), true) }}
-                     {{ m.select('type', entity_types, settings.type, 'grc-dora-type') }}
-                  </div>
-                  <div class="col-12 col-md-3">
-                     {{ m.label('grc-dora-country', __('Country', 'grcmanager'), 'B_01.01.0030', completeness.issues|filter(i => i.scope == 'entity'), true) }}
-                     <input type="text" class="form-control text-uppercase" name="country" id="grc-dora-country" maxlength="2" value="{{ settings.country }}" placeholder="FR">
-                  </div>
-                  <div class="col-12 col-md-3">
-                     <label class="form-label" for="grc-dora-currency">{{ __('Currency', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_01.02.0100</span></label>
-                     <input type="text" class="form-control text-uppercase" name="currency" id="grc-dora-currency" maxlength="3" value="{{ settings.currency }}">
-                     <div class="form-hint">{{ __('Default currency of the amounts.', 'grcmanager') }}</div>
-                  </div>
-                  <div class="col-12 col-md-6">
-                     {{ m.label('grc-dora-authority', __('Competent authority', 'grcmanager'), 'B_01.01.0050', completeness.issues|filter(i => i.scope == 'entity'), true) }}
-                     <input type="text" class="form-control" name="authority" id="grc-dora-authority" maxlength="255" value="{{ settings.authority }}">
-                     <div class="form-hint">{{ __('The supervisor to which the register is reported.', 'grcmanager') }}</div>
-                  </div>
-                  <div class="col-12 col-md-6">
-                     {{ m.label('grc-dora-assets', __('Value of total assets', 'grcmanager'), 'B_01.02.0110', completeness.issues|filter(i => i.scope == 'entity'), false) }}
-                     <input type="text" class="form-control" name="total_assets" id="grc-dora-assets" value="{{ settings.total_assets }}" inputmode="decimal">
-                     <div class="form-hint">{{ __('From the last annual financial statements, in units.', 'grcmanager') }}</div>
-                  </div>
-                  <div class="col-12 col-md-6">
-                     {{ m.label('grc-dora-hierarchy', __('Position in the group', 'grcmanager'), 'B_01.02.0050', completeness.issues|filter(i => i.scope == 'entity'), true) }}
-                     {{ m.select('hierarchy', hierarchies, settings.hierarchy, 'grc-dora-hierarchy') }}
-                  </div>
-                  <div class="col-12 col-md-6">
-                     {{ m.label('grc-dora-parent-lei', __('LEI of the direct parent undertaking', 'grcmanager'), 'B_01.02.0060', completeness.issues|filter(i => i.scope == 'entity'), false) }}
-                     <input type="text" class="form-control text-uppercase" name="parent_lei" id="grc-dora-parent-lei" maxlength="20" value="{{ settings.parent_lei }}">
-                  </div>
-                  <div class="col-12 col-md-6">
-                     <label class="form-label" for="grc-dora-integration">{{ __('Date of integration in the register', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_01.02.0080</span></label>
-                     <input type="date" class="form-control" name="integration_date" id="grc-dora-integration" value="{{ settings.integration_date }}">
-                     <div class="form-hint">{{ __('Empty: the date the first contract was added.', 'grcmanager') }}</div>
-                  </div>
-                  </fieldset>
-                  {% if can_edit %}
-                     <div class="col-12"><button type="submit" name="save_settings" value="1" class="btn btn-primary" id="grc-dora-settings-save"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button></div>
-                  {% endif %}
-               </form>
+               <dl class="row mb-2" id="grc-dora-entity-summary">
+                  <dt class="col-5">{{ __('Legal name of the financial entity', 'grcmanager') }}</dt>
+                  <dd class="col-7">{{ settings.name ?: __('Not filled in', 'grcmanager') }}</dd>
+                  <dt class="col-5">{{ __('LEI of the financial entity', 'grcmanager') }}</dt>
+                  <dd class="col-7">{{ settings.lei ?: __('Not filled in', 'grcmanager') }}{% if not lei_valid %} <span class="badge bg-red-lt">{{ __('Invalid format', 'grcmanager') }}</span>{% endif %}</dd>
+                  <dt class="col-5">{{ __('Country', 'grcmanager') }}</dt>
+                  <dd class="col-7">{{ settings.country ?: __('Not filled in', 'grcmanager') }}</dd>
+                  <dt class="col-5">{{ __('Competent authority', 'grcmanager') }}</dt>
+                  <dd class="col-7">{{ settings.authority ?: __('Not filled in', 'grcmanager') }}</dd>
+               </dl>
+               {{ m.issues(entity_issues, __('Missing for the register', 'grcmanager')) }}
+               <div class="d-flex flex-wrap align-items-center gap-2">
+                  <a class="btn btn-outline-secondary" href="{{ settings_link.url }}" id="grc-dora-settings-link"><i class="ti ti-settings me-1"></i>{{ __('Adjust', 'grcmanager') }}</a>
+                  <span class="text-muted small">{{ __('These settings are in %s.', 'grcmanager')|format(settings_link.path) }}</span>
+               </div>
             </div>
          </div>
       </div>

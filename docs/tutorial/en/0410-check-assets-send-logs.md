@@ -10,7 +10,8 @@ need the plugin right and the native right to read computers.
    assets, servers and network devices), the number of days without event after which the logs are
    considered stopped (7 by default) and the retention required by your policy (180 days by
    default). An asset is critical when one axis of its C/I/A classification is high or when a
-   network flow publishes it on the Internet.
+   network flow publishes it on the Internet. These settings are made in Setup > Plugins > GRC
+   Manager, **Fleet** tab (**Change in the configuration** button of the page).
 3. In **Log sources**, import the list of hosts of each platform: for example, in Splunk, the search
    `| metadata type=hosts index=*` exported as CSV (columns `host`, `lastTime`); in Graylog, Elastic
    or OpenSearch, a table of the sources with their last timestamp. When the Wazuh plugin is active,

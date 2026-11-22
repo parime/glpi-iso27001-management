@@ -1,0 +1,76 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1045 : entité financière qui tient le registre d'informations DORA (issue #540), venue
+   de front/doraregister.php. Montré seulement si DORA est activé ; modifiable avec le droit de
+   modifier le plugin. #}
+{% import '@grcmanager/dora/_macros.html.twig' as m %}
+<div class="card mb-3" id="grc-dora-settings">
+   <div class="card-header"><h3 class="card-title"><i class="ti ti-building-bank me-2"></i>{{ __('Financial entity maintaining the register', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_01.01 / B_01.02</span></h3></div>
+   <div class="card-body">
+      <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php" class="row g-3">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+         <fieldset class="row g-3 m-0 p-0" {{ dora_can_edit ? '' : 'disabled' }}>
+         <div class="col-12 col-md-6">
+            {{ m.label('grc-dora-lei', __('LEI of the financial entity', 'grcmanager'), 'B_01.01.0010', dora_entity_issues, true) }}
+            <input type="text" class="form-control text-uppercase {{ dora_lei_valid ? '' : 'is-invalid' }}" name="lei" id="grc-dora-lei" maxlength="20" value="{{ dora_settings.lei }}">
+            {% if not dora_lei_valid %}<div class="invalid-feedback">{{ __('This is not a valid LEI (20 characters with a check digit).', 'grcmanager') }}</div>{% endif %}
+         </div>
+         <div class="col-12 col-md-6">
+            {{ m.label('grc-dora-name', __('Legal name of the financial entity', 'grcmanager'), 'B_01.01.0020', dora_entity_issues, true) }}
+            <input type="text" class="form-control" name="name" id="grc-dora-name" maxlength="255" value="{{ dora_settings.name }}">
+         </div>
+         <div class="col-12 col-md-6">
+            {{ m.label('grc-dora-type', __('Type of financial entity', 'grcmanager'), 'B_01.01.0040', dora_entity_issues, true) }}
+            {{ m.select('type', dora_entity_types, dora_settings.type, 'grc-dora-type') }}
+         </div>
+         <div class="col-12 col-md-3">
+            {{ m.label('grc-dora-country', __('Country', 'grcmanager'), 'B_01.01.0030', dora_entity_issues, true) }}
+            <input type="text" class="form-control text-uppercase" name="country" id="grc-dora-country" maxlength="2" value="{{ dora_settings.country }}" placeholder="FR">
+         </div>
+         <div class="col-12 col-md-3">
+            <label class="form-label" for="grc-dora-currency">{{ __('Currency', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_01.02.0100</span></label>
+            <input type="text" class="form-control text-uppercase" name="currency" id="grc-dora-currency" maxlength="3" value="{{ dora_settings.currency }}">
+            <div class="form-hint">{{ __('Default currency of the amounts.', 'grcmanager') }}</div>
+         </div>
+         <div class="col-12 col-md-6">
+            {{ m.label('grc-dora-authority', __('Competent authority', 'grcmanager'), 'B_01.01.0050', dora_entity_issues, true) }}
+            <input type="text" class="form-control" name="authority" id="grc-dora-authority" maxlength="255" value="{{ dora_settings.authority }}">
+            <div class="form-hint">{{ __('The supervisor to which the register is reported.', 'grcmanager') }}</div>
+         </div>
+         <div class="col-12 col-md-6">
+            {{ m.label('grc-dora-assets', __('Value of total assets', 'grcmanager'), 'B_01.02.0110', dora_entity_issues, false) }}
+            <input type="text" class="form-control" name="total_assets" id="grc-dora-assets" value="{{ dora_settings.total_assets }}" inputmode="decimal">
+            <div class="form-hint">{{ __('From the last annual financial statements, in units.', 'grcmanager') }}</div>
+         </div>
+         <div class="col-12 col-md-6">
+            {{ m.label('grc-dora-hierarchy', __('Position in the group', 'grcmanager'), 'B_01.02.0050', dora_entity_issues, true) }}
+            {{ m.select('hierarchy', dora_hierarchies, dora_settings.hierarchy, 'grc-dora-hierarchy') }}
+         </div>
+         <div class="col-12 col-md-6">
+            {{ m.label('grc-dora-parent-lei', __('LEI of the direct parent undertaking', 'grcmanager'), 'B_01.02.0060', dora_entity_issues, false) }}
+            <input type="text" class="form-control text-uppercase" name="parent_lei" id="grc-dora-parent-lei" maxlength="20" value="{{ dora_settings.parent_lei }}">
+         </div>
+         <div class="col-12 col-md-6">
+            <label class="form-label" for="grc-dora-integration">{{ __('Date of integration in the register', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_01.02.0080</span></label>
+            <input type="date" class="form-control" name="integration_date" id="grc-dora-integration" value="{{ dora_settings.integration_date }}">
+            <div class="form-hint">{{ __('Empty: the date the first contract was added.', 'grcmanager') }}</div>
+         </div>
+         </fieldset>
+         {% if dora_can_edit %}
+            <div class="col-12"><button type="submit" name="update_dora_entity" value="1" class="btn btn-primary" id="grc-dora-settings-save"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button></div>
+         {% endif %}
+      </form>
+   </div>
+</div>
